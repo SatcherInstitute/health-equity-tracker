@@ -1,0 +1,12 @@
+.vscode
+.venv
+__pycache__
+data_ingestion/__pycache__
+.terraform/plugins
+apply_terraform
+jenniebrown.tfvars
+push_images
+venv
+*.tfstate
+*.tfstate.backup
+*.zip
