@@ -37,7 +37,8 @@ jobs:
           VALIDATE_PYTHON_FLAKE8: true
           VALIDATE_TERRAFORM: true
 
-      # Perform type checking with mypy.
+      # Perform type checking with mypy. This needs to be updated when new
+      # directories containing Python code are added.
       - name: Run mypy
         run: |
           pip install mypy
