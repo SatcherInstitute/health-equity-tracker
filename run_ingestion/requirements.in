@@ -1,0 +1,4 @@
+-r ../python/ingestion/requirements.in
+
+flask
+gunicorn

@@ -43,4 +43,8 @@ jobs:
         run: |
           pip install mypy
           pip install -r data_server/requirements.txt
-          mypy data_server/
+          pip install -r run_ingestion/requirements.txt
+          pip install -r run_gcs_to_bq/requirements.txt
+          mypy --config-file=.github/linters/mypy.ini data_server/
+          mypy --config-file=.github/linters/mypy.ini run_ingestion/ python/ingestion/
+          mypy --config-file=.github/linters/mypy.ini run_gcs_to_bq/ python/ingestion/
