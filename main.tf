@@ -221,7 +221,7 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
 /* [END] Cloud Run Setup */
 
 
-/* TODO: replace scheduler setup with Airflow */
+/* TODO(issue #49): replace scheduler setup with Airflow */
 /* [BEGIN] Cloud Scheduler Setup */
 
 # Create a Pub/Sub topic to trigger data_ingestion_to_gcs.
@@ -294,7 +294,7 @@ resource "google_cloud_scheduler_job" "population_by_race_scheduler" {
     topic_name = google_pubsub_topic.upload_to_gcs.id
     data = base64encode(jsonencode({
       "id" : "POPULATION_BY_RACE",
-      # TODO: figure out how to detect the latest year for this data.
+      # TODO(issue #26): figure out how to detect the latest year for this data.
       "url" : "https://api.census.gov/data/2018/acs/acs5/profile",
       "gcs_bucket" : google_storage_bucket.gcs_data_ingestion_landing_bucket.name,
       "filename" : "population_by_race.json"
