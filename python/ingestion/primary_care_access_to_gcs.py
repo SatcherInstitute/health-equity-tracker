@@ -3,10 +3,10 @@ from .constants import STATE_NAMES
 
 
 _FILEPATH = '{}-{}.xlsx'
-_URL1 = """https://www.countyhealthrankings.org/sites/default/files/media/document/
-    2020 County Health Rankings {} Data - v1.xlsx"""
-_URL2 = """https://www.countyhealthrankings.org/sites/default/files/media/document/
-    2020 County Health Rankings {} Data - v1_0.xlsx"""
+_URL1 = ("https://www.countyhealthrankings.org/sites/default/files/media/"
+         "document/2020 County Health Rankings {} Data - v1.xlsx")
+_URL2 = ("https://www.countyhealthrankings.org/sites/default/files/media/"
+         "document/2020 County Health Rankings {} Data - v1_0.xlsx")
 
 
 def upload_primary_care_access(gcs_bucket, fileprefix):
