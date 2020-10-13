@@ -4,7 +4,7 @@ from .gcs_to_bq_util import append_dataframe_to_bq
 # This is implicitly depended on by pandas.read_excel
 import xlrd  # noqa: F401
 from google.cloud import storage
-from .constants import _STATE_NAMES
+from .constants import STATE_NAMES
 
 _FILEPATH = '{}-{}.xlsx'
 
@@ -20,7 +20,7 @@ def write_primary_care_access_to_bq(dataset, table_name, gcs_bucket,
     bucket = client.get_bucket(gcs_bucket)
 
     data = []
-    for state_name in _STATE_NAMES:
+    for state_name in STATE_NAMES:
         filename = _FILEPATH.format(fileprefix, state_name)
         blob = bucket.blob(filename)
         local_path = '/tmp/{}'.format(filename)
@@ -31,7 +31,9 @@ def write_primary_care_access_to_bq(dataset, table_name, gcs_bucket,
         for row_index, row in frame.iterrows():
             # These fields may not be set for every county.
             # If they're not set, we'll use -1 as the numerical value
+            # Number of physicians in the county
             num_physicians = row[108] if not math.isnan(row[108]) else -1
+            # Primary Care Physicians per 100,000 population
             physicians_rate = row[109] if not math.isnan(row[108]) else -1
             row = [row[0], row[1], row[2], num_physicians, physicians_rate]
             data.append(row)

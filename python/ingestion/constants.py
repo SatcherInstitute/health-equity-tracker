@@ -1,5 +1,5 @@
 # Used in Primary Care Access URL and filenames
-_STATE_NAMES = [
+STATE_NAMES = [
     "Alabama",
     "Alaska",
     "Arizona",
