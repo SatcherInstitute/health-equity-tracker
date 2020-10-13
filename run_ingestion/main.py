@@ -27,7 +27,7 @@ def ingest_data():
         util.ingest_data_to_gcs(event)
         return ('', 204)
     except Exception as e:
-        logging.error(e)
+        logging.exception(e)
         return ('', 400)
 
 

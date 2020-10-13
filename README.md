@@ -132,6 +132,10 @@ After your Docker container successfully builds and is running locally you can s
 2. Using IAM, grant the appropriate permissions to the service account
 3. Inside the `launch.json` file, set the `configuration->service->serviceAccountName` attribute to the service account email you just created.
 
+## Developing locally with BigQuery
+
+To upload to BigQuery from your local development environment, use [these setup directions](https://cloud.google.com/bigquery/docs/quickstarts/quickstart-client-libraries) with an experimental Cloud project. This may be useful when iterating quickly if your Cloud Run ingestion job isn’t able to upload to BigQuery for some reason such as JSON parsing errors.
+
 ## Deploying your own instance with terraform
 
 Before deploying, make sure you have installed Terraform and a Docker client (e.g. Docker Desktop). See [One time setup](#one-time-setup) above.

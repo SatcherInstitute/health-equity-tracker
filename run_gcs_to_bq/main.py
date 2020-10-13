@@ -25,7 +25,7 @@ def ingest_bucket_to_bq():
         util.ingest_bucket_to_bq(event)
         return ('', 204)
     except Exception as e:
-        logging.error(e)
+        logging.exception(e)
         return ('', 400)
 
 
