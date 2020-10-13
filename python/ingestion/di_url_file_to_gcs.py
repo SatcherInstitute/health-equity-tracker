@@ -13,13 +13,16 @@ def local_file_path(filename):
 
 
 def url_file_to_gcs(url, url_params, gcs_bucket, dest_filename):
-    """Attempts to download a file from a url and upload as a blob to the given GCS bucket.
+    """Attempts to download a file from a url and upload as a
+      blob to the given GCS bucket.
 
       url: The URL of the file to download.
       url_params: URL parameters to be passed to requests.get().
       gcs_bucket: Name of the GCS bucket to upload to (without gs://).
-      dest_filename: What to name the downloaded file in GCS. Include the file extension."""
-    download_first_url_to_gcs([url], url_params, gcs_bucket, dest_filename)
+      dest_filename: What to name the downloaded file in GCS.
+        Include the file extension."""
+    download_first_url_to_gcs(
+        [url], gcs_bucket, dest_filename, url_params)
 
 
 def get_first_response(url_list, url_params):
@@ -33,15 +36,17 @@ def get_first_response(url_list, url_params):
     return None
 
 
-def download_first_url_to_gcs(url_list, url_params, gcs_bucket, dest_filename):
+def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename,
+                              url_params={}):
     """Iterates over the list of potential URLs that may point to the data
        source until one of the URLs succeeds in downloading. If no URL suceeds,
        the method will return an error.
 
       url_list: List of URLs where the file may be found.
-      url_params: URL parameters to be passed to requests.get().
       gcs_bucket: Name of the GCS bucket to upload to (without gs://).
-      dest_filename: What to name the downloaded file in GCS. Include the file extension."""
+      dest_filename: What to name the downloaded file in GCS.
+        Include the file extension.
+      url_params: URL parameters to be passed to requests.get()."""
 
     # Establish connection to valid GCS bucket
     try:
@@ -55,7 +60,8 @@ def download_first_url_to_gcs(url_list, url_params, gcs_bucket, dest_filename):
     file_from_url = get_first_response(url_list, url_params)
     if file_from_url is None:
         logging.error(
-            "No file could be found for intended destination: %s", dest_filename)
+            "No file could be found for intended destination: %s",
+            dest_filename)
         return
 
     # Download URL locally, upload to bucket and remove local file

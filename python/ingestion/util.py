@@ -4,7 +4,7 @@ import logging
 import os
 import ingestion.census as census
 import ingestion.census_to_bq as census_to_bq
-from ingestion.primary_care_access import upload_primary_care_access
+from ingestion.primary_care_access_to_gcs import upload_primary_care_access
 from ingestion.pubsub_publisher import notify_topic
 from ingestion.di_url_file_to_gcs import url_file_to_gcs
 from ingestion.county_adjacency import write_adjacencies_to_bq
