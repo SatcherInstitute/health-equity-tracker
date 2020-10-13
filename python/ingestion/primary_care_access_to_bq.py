@@ -3,7 +3,7 @@ import logging
 from pandas import DataFrame, read_excel
 from .gcs_to_bq_util import append_dataframe_to_bq
 # This is implicitly depended on by pandas.read_excel
-import xlrd # noqa: F401
+import xlrd  # noqa: F401
 from google.cloud import storage
 
 _STATE_NAMES = [
