@@ -45,10 +45,10 @@ Install Docker Desktop ([Get Docker](https://docs.docker.com/get-docker/))
 
 ## Testing Pub/Sub triggers
 
-To test a Cloud Function or Cloud Run service triggered by a Pub/Sub topic, run
+To test a Cloud Run service triggered by a Pub/Sub topic, run
 `gcloud pubsub topics publish projects/<project-id>/topics/<your_topic_name> --message "your_message" --attribute=KEY1=VAL1,KEY2=VAL2`
 
-- `your_topic_name` is the name of the topic the function specified as a trigger.
+- `your_topic_name` is the name of the topic that triggers the service.
 - `your_message` is the json message that will be serialized and passed to the `'data'` property of the event. Eg: `"{'id':'<workflow_id>',...}"`
 - `attribute` is the list of attributes passed to the event.
 
@@ -67,8 +67,6 @@ Most python code should go in the `/python` directory, which contains packages t
 2. For each service that depends on `/python/<new_package>`, follow instructions at [Adding an internal dependency](#adding-an-internal-dependency)
 
 To work with the code locally, run `pip install ./python/<package>` from the root project directory. If your IDE complains about imports after changing code in `/python`, re-run `pip install ./python/<package>`.
-
-Note: the `/python` directory has three root-level files that aren't necessary: `main.py`, `requirements.in`, and `requirements.txt`. These exist purely so the whole `/python` directory can be deployed as a cloud function, in case people are relying on that for development/quick iteration. Due to limitations with cloud functions, these files have to exist directly in the root folder. We should eventually remove these.
 
 ## Adding a new root-level python directory
 Note: generally this should only be done for a new service. Otherwise, please add python code to the `python/` directory.
@@ -179,11 +177,6 @@ Before deploying, make sure you have installed Terraform and a Docker client (e.
 
 ### Terraform deployment notes
 
-Currently the setup deploys both a cloud funtion and a cloud run instance for each pipeline. These are duplicates of each other. Eventually, we will delete the cloud fuctions, but for now you can just comment out the setup for whichever one you don't want to use in `prototype.tf`
+Terraform doesn't automatically diff the contents of cloud run services, so simply calling `terraform apply` after making code changes won't upload your new changes. This is why Steps 4 and 5 are needed above. Here is an alternative:
 
-Terraform doesn't automatically diff the contents of the functions/cloud run service, so simply calling `terraform apply` after making code changes won't upload your new changes. This is why Steps 4 and 5 are needed above. Here are several alternatives:
-
-- Use [`terraform taint`](https://www.terraform.io/docs/commands/taint.html) to mark a resource as requiring redeploy. Eg `terraform taint google_cloud_run_service.ingestion_service`
-  - For Cloud Run, you can then set the `run_ingestion_image_path` variable in your tfvars file to `gcr.io/<project-id>/<your-ingestion-image-name>` and `run_gcs_to_bq_image_path` to `gcr.io/<project-id>/<your-gcs-to-bq-image-name>`. Then replace Step 5 above with just `terraform apply`. Step 4 is still required.
-  - For Cloud Functions, no extra work is needed, just run `terraform taint` and then `terraform apply`
-- For Cloud Functions, call `terraform destroy` every time before `terraform apply`. This is slow but a good way to start from a clean slate. Note that this doesn't remove old container images so it doesn't help for Cloud Run services.
+Use [`terraform taint`](https://www.terraform.io/docs/commands/taint.html) to mark a resource as requiring redeploy. Eg `terraform taint google_cloud_run_service.ingestion_service`. You can then set the `ingestion_image_name` variable in your tfvars file to `<your-ingestion-image-name>` and `gcs_to_bq_image_name` to `<your-gcs-to-bq-image-name>`. Then replace Step 5 above with just `terraform apply`. Step 4 is still required.
