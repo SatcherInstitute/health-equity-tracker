@@ -5,7 +5,6 @@ import os
 
 import pandas
 from google.cloud import bigquery, storage
-from pandas import DataFrame
 
 
 def append_dataframe_to_bq(

@@ -1,4 +1,3 @@
-import pandas
 from .gcs_to_bq_util import load_csv_as_dataframe, append_dataframe_to_bq
 
 

@@ -119,7 +119,6 @@ def write_household_income_to_bq(dataset, table_name, gcs_bucket, file_prefix):
        gcs_bucket: The name of the GCS bucket to pull from
        file_prefix: File name prefix used to identify which GCS blobs to fetch"""
     client = storage.Client()
-    bucket = client.get_bucket(gcs_bucket)
     saipe_blobs = client.list_blobs(gcs_bucket, prefix=file_prefix)
 
     frames = []

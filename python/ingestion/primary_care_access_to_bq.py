@@ -1,11 +1,10 @@
 import json
 import logging
 from pandas import DataFrame, read_excel
-from .gcs_to_bq_util import load_values_as_dataframe, append_dataframe_to_bq
-import os
-import time
-import xlrd
-from google.cloud import bigquery, storage
+from .gcs_to_bq_util import append_dataframe_to_bq
+# This is implicitly depended on by pandas.read_excel
+import xlrd # noqa: F401
+from google.cloud import storage
 
 _STATE_NAMES = [
     "Alabama",

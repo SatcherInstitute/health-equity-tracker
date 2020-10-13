@@ -34,8 +34,9 @@ def get_first_response(url_list, url_params):
 
 
 def download_first_url_to_gcs(url_list, url_params, gcs_bucket, dest_filename):
-    """Iterates over the list of potential URLs that may point to the data source until one of the URLs succeeds in downloading.
-      If no URL suceeds, the method will return an error.
+    """Iterates over the list of potential URLs that may point to the data
+       source until one of the URLs succeeds in downloading. If no URL suceeds,
+       the method will return an error.
 
       url_list: List of URLs where the file may be found.
       url_params: URL parameters to be passed to requests.get().

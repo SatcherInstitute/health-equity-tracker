@@ -1,9 +1,4 @@
 from .di_url_file_to_gcs import download_first_url_to_gcs
-import logging
-import os
-from google.cloud import storage
-import google.cloud.exceptions
-import requests
 
 _STATE_NAMES = [
     "Alabama",
@@ -59,8 +54,10 @@ _STATE_NAMES = [
 ]
 
 _FILEPATH = '{}-{}.xlsx'
-_URL1 = 'https://www.countyhealthrankings.org/sites/default/files/media/document/2020 County Health Rankings {} Data - v1_0.xlsx'
-_URL2 = 'https://www.countyhealthrankings.org/sites/default/files/media/document/2020 County Health Rankings {} Data - v1.xlsx'
+_URL1 = ('https://www.countyhealthrankings.org/sites/default/files/media/document/2020 ' +
+        'County Health Rankings {} Data - v1_0.xlsx')
+_URL2 = ('https://www.countyhealthrankings.org/sites/default/files/media/document/2020 ' +
+        'County Health Rankings {} Data - v1.xlsx')
 
 
 def upload_primary_care_access(gcs_bucket, fileprefix):
