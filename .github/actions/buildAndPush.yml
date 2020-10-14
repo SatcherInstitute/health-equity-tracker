@@ -1,0 +1,25 @@
+name: 'Build and Push'
+description: 'Build a docker image and push the image to GCR'
+inputs:
+  dockerfile:
+    description: 'Relative path to dockerfile'
+    required: true
+  image-path:
+    description: 'Location to where image should be pushed'
+    required: true
+outputs:
+  full-image-path:
+    description: 'Image location with digest'
+    value: ${{ steps.get-full-image-path.outputs.path }}
+runs:
+  using: "composite"
+  steps:
+    - run: docker build -t ${{ inputs.image-path }} -f ${{ inputs.dockerfile }} .
+      shell: bash
+    - run: docker push ${{ inputs.image-path }}
+      shell: bash
+    - run: export TEMP_IMAGE_PATH=$(gcloud container images describe ${{ inputs.image-path }} --format="value(image_summary.fully_qualified_digest)")
+      shell: bash
+    - id: get-full-image-path
+      run: echo "::set-output name=full-image-path::$TEMP_IMAGE_PATH"
+      shell: bash
