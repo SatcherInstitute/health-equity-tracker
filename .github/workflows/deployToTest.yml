@@ -7,10 +7,10 @@ on:
 
 jobs:
   deploy:
-    if: github.repository == 'SatcherInstitue/health-equity-tracker'
+    if: github.repository == 'SatcherInstitute/health-equity-tracker'
     name: Build Images and Deploy to Test Environment
     runs-on: ubuntu-latest
-
+    
     steps: 
       - name: Check Out Code
         uses: actions/checkout@v2
