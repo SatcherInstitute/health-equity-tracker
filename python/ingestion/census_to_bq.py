@@ -4,8 +4,7 @@ import logging
 import pandas
 from google.cloud import storage
 
-from .gcs_to_bq_util import (append_dataframe_to_bq, load_values_as_dataframe,
-                             load_values_blob_as_dataframe)
+from ingestion import gcs_to_bq_util
 
 
 def write_state_names_to_bq(dataset, table_name, gcs_bucket, filename):
@@ -16,13 +15,13 @@ def write_state_names_to_bq(dataset, table_name, gcs_bucket, filename):
        gcs_bucket: The name of the gcs bucket to read the data from
        filename: The name of the file in the gcs bucket to read from"""
     try:
-        frame = load_values_as_dataframe(gcs_bucket, filename)
+        frame = gcs_to_bq_util.load_values_as_dataframe(gcs_bucket, filename)
         frame = frame.rename(columns={
             'state': 'state_fips_code',
             'NAME': 'state_name'
         })
         column_types = {'state_fips_code': 'STRING', 'state_name': 'STRING'}
-        append_dataframe_to_bq(frame, dataset, table_name,
+        gcs_to_bq_util.append_dataframe_to_bq(frame, dataset, table_name,
                                column_types=column_types)
     except json.JSONDecodeError as err:
         msg = 'Unable to write to BigQuery due to improperly formatted data: {}'
@@ -37,7 +36,7 @@ def write_county_names_to_bq(dataset, table_name, gcs_bucket, filename):
        gcs_bucket: The name of the gcs bucket to read the data from
        filename: The name of the file in the gcs bucket to read from"""
     try:
-        frame = load_values_as_dataframe(gcs_bucket, filename)
+        frame = gcs_to_bq_util.load_values_as_dataframe(gcs_bucket, filename)
         frame = frame.rename(columns={
             'NAME': 'county_name',
             'state': 'state_fips_code',
@@ -48,7 +47,7 @@ def write_county_names_to_bq(dataset, table_name, gcs_bucket, filename):
             'state_fips_code': 'STRING',
             'county_fips_code': 'STRING'
         }
-        append_dataframe_to_bq(frame, dataset, table_name,
+        gcs_to_bq_util.append_dataframe_to_bq(frame, dataset, table_name,
                                column_types=column_types)
     except json.JSONDecodeError as err:
         msg = 'Unable to write to BigQuery due to improperly formatted data: {}'
@@ -82,7 +81,7 @@ def write_population_by_race_to_bq(dataset, table_name, gcs_bucket, filename):
        gcs_bucket: The name of the gcs bucket to read the data from
        filename: The name of the file in the gcs bucket to read from"""
     try:
-        frame = load_values_as_dataframe(gcs_bucket, filename)
+        frame = gcs_to_bq_util.load_values_as_dataframe(gcs_bucket, filename)
 
         columns = get_population_by_race_columns()
         for col in columns:
@@ -104,7 +103,7 @@ def write_population_by_race_to_bq(dataset, table_name, gcs_bucket, filename):
         column_types['state_fips_code'] = 'STRING'
         column_types['county_fips_code'] = 'STRING'
 
-        append_dataframe_to_bq(frame, dataset, table_name,
+        gcs_to_bq_util.append_dataframe_to_bq(frame, dataset, table_name,
                                column_types=column_types)
     except json.JSONDecodeError as err:
         msg = 'Unable to write to BigQuery due to improperly formatted data: {}'
@@ -123,11 +122,11 @@ def write_household_income_to_bq(dataset, table_name, gcs_bucket, file_prefix):
 
     frames = []
     for blob in saipe_blobs:
-        frame = load_values_blob_as_dataframe(blob)
+        frame = gcs_to_bq_util.load_values_blob_as_dataframe(blob)
         frames.append(frame)
 
     concat = pandas.concat(frames, ignore_index=True)
     # The SAIPE API includes the query predicate columns, which are duplicates of their
     # ALL_CAPS counterparts. Toss 'em.
     concat.drop(columns=['state', 'county', 'time'], inplace=True)
-    append_dataframe_to_bq(concat, dataset, table_name)
+    gcs_to_bq_util.append_dataframe_to_bq(concat, dataset, table_name)

@@ -1,12 +1,13 @@
+.terraform/plugins
 .vscode
 .venv
 __pycache__
-data_ingestion/__pycache__
-.terraform/plugins
 apply_terraform
-jenniebrown.tfvars
+jenniebrown*
 push_images
 venv
+*.egg-info
 *.tfstate
 *.tfstate.backup
+*.tfvars
 *.zip

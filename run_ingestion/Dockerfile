@@ -15,7 +15,7 @@ COPY ./python ./python
 # Install production dependencies.
 RUN pip install -r run_ingestion/requirements.txt
 # Install shared packages
-RUN pip install ./python/ingestion
+RUN pip install ./python
 
 # Run the web service on container startup. Here we use the gunicorn
 # webserver, with one worker process and 8 threads.
