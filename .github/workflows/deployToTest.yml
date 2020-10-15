@@ -1,0 +1,40 @@
+name: Deploy to Test
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    name: Build Images and Deploy to Test Environment
+    runs-on: ubuntu-latest
+
+    steps: 
+      - name: Check Out Code
+        uses: actions/checkout@v2
+      - name: Set Up gcloud
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: '290.0.1'
+          service_account_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          project_id: ${{ secrets.TEST_PROJECT_ID }}
+      - name: Set Up Docker to Use gcloud Credentials
+        run: gcloud auth configure-docker -q
+      - name: Build and Push Data Serving Image
+        id: serving
+        uses: SatcherInstitute/health-equity-tracker/buildAndPush@master
+        with:
+          dockerfile: 'data_server/Dockerfile'
+          image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/data-serving'
+      - name: Build and Push Data Ingestion Image
+        id: ingestion
+        uses: SatcherInstitute/health-equity-tracker/buildAndPush@master
+        with:
+          dockerfile: 'run_ingestion/Dockerfile'
+          image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/data-ingestion'  
+      - name: Build and Push GCS to BQ Image
+        id: gcstobq
+        uses: SatcherInstitute/health-equity-tracker/buildAndPush@master
+        with:
+          dockerfile: 'run_gcs_to_bq/Dockerfile'
+          image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/gcs-to-bq'
