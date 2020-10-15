@@ -7,8 +7,8 @@ app = Flask(__name__)
 
 @app.route('/', methods=['POST'])
 def ingest_data():
-    """Main function for data ingestion. Receives Pub/Sub trigger and triages to the
-       appropriate data ingestion workflow.
+    """Main function for data ingestion. Receives Pub/Sub trigger and triages
+       to the appropriate data ingestion workflow.
 
        Returns 400 for a bad request or 204 for success."""
     envelope = request.get_json()
@@ -27,7 +27,7 @@ def ingest_data():
         util.ingest_data_to_gcs(event)
         return ('', 204)
     except Exception as e:
-        logging.error(e)
+        logging.exception(e)
         return ('', 400)
 
 
