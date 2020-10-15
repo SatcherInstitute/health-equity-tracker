@@ -131,7 +131,7 @@ After your Docker container successfully builds and is running locally you can s
 1. Open a terminal
 2. Send curl requests in the following format:
 
-   ` ` ` DATA=$(printf '{"id":<INGESTION_ID>, "url":<INGESTION_URL>, "gcs_bucket":<BUCKET_NAME>, "filename":<FILE_NAME>}' |base64) && curl --header "Content-Type: application/json" -d '{"message":{"data":"'$DATA'"}}' http://localhost:8080 ` ` `
+` `  ` DATA=$(printf '{"id":<INGESTION_ID>, "url":<INGESTION_URL>, "gcs_bucket":<BUCKET_NAME>, "filename":<FILE_NAME>}' |base64) && curl --header "Content-Type: application/json" -d '{"message":{"data":"'$DATA'"}}' http://localhost:8080 `  ` `
 
 ### Accessing Google Cloud Services
 
@@ -148,11 +148,13 @@ After your Docker container successfully builds and is running locally you can s
 
 ### Getting Started
 
-1. Build the Docker containers:
+From inside the `airflow/dev/` directory:
+
+1. Build the Docker containers
 
     make build
 
-1. Stand up the multi-container environemnt:
+1. Stand up the multi-container environemnt
 
    make run
 

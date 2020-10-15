@@ -38,7 +38,7 @@ services:
         ports:
             - "8793:8793"
         volumes:
-            - ./dags:/opt/airflow/dags
+            - ../dags:/opt/airflow/dags
             - ./airflow-logs:/opt/airflow/logs
         command: scheduler
         healthcheck:
@@ -56,7 +56,7 @@ services:
         env_file:
             - .env
         volumes:
-            - ./dags:/opt/airflow/dags
+            - ../dags:/opt/airflow/dags
             - ./scripts:/opt/airflow/scripts
             - ./airflow-logs:/opt/airflow/logs
         ports:

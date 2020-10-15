@@ -1,10 +1,10 @@
 .PHONY: run build
 
 build_ingest_gcs:
-	docker build -t het/ingest_to_gcs -f ./run_ingestion/Dockerfile .
+	docker build -t het/ingest_to_gcs -f ../../run_ingestion/Dockerfile ../..
 
 build_gcs_to_bq:
-	docker build -t het/gcs_to_bq -f ./run_gcs_to_bq/Dockerfile .
+	docker build -t het/gcs_to_bq -f ../../run_gcs_to_bq/Dockerfile ../..
 
 build: build_ingest_gcs build_gcs_to_bq
 
