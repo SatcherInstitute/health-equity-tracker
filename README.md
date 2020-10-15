@@ -134,6 +134,27 @@ After your Docker container successfully builds and is running locally you can s
 2. Using IAM, grant the appropriate permissions to the service account
 3. Inside the `launch.json` file, set the `configuration->service->serviceAccountName` attribute to the service account email you just created.
 
+## Launch the data ingestion pipeline on your local machine 
+### Set up
+* Install [Docker](https://www.docker.com/)
+* Install [Docker Compose](https://docs.docker.com/compose/install/)
+
+### Getting Started
+1. Build the Docker containers:
+
+    make build
+1. Stand up the multi-container environemnt:
+
+   make run
+1. At the UI link below, you should see the list of DAGs pulled from the `dags/` folder. 
+1. To run them manually, select the desired DAG, toggle to `On` and click `Trigger Dag`.
+
+More info on [Apache Airflow](https://airflow.apache.org/docs/stable/) in general.
+
+### Airflow UI link
+
+- [localhost:8080](http://localhost:8080/)
+
 ## Deploying your own instance with terraform
 
 Before deploying, make sure you have installed Terraform and a Docker client (e.g. Docker Desktop). See [One time setup](#one-time-setup) above.
