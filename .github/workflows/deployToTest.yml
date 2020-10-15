@@ -22,19 +22,19 @@ jobs:
         run: gcloud auth configure-docker -q
       - name: Build and Push Data Serving Image
         id: serving
-        uses: SatcherInstitute/health-equity-tracker/buildAndPush@master
+        uses: ./.github/actions/buildAndPush
         with:
           dockerfile: 'data_server/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/data-serving'
       - name: Build and Push Data Ingestion Image
         id: ingestion
-        uses: SatcherInstitute/health-equity-tracker/buildAndPush@master
+        uses: ./.github/actions/buildAndPush
         with:
           dockerfile: 'run_ingestion/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/data-ingestion'  
       - name: Build and Push GCS to BQ Image
         id: gcstobq
-        uses: SatcherInstitute/health-equity-tracker/buildAndPush@master
+        uses: ./.github/actions/buildAndPush
         with:
           dockerfile: 'run_gcs_to_bq/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/gcs-to-bq'
