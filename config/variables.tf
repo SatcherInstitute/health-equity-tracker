@@ -37,37 +37,6 @@ variable "notify_data_ingested_topic" {
   type        = string
 }
 
-# Cloud Scheduler vars
-variable "household_income_scheduler_name" {
-  description = "Name of the Cloud Scheduler job for downloading household income data"
-  type        = string
-}
-
-variable "state_names_scheduler_name" {
-  description = "Name of the Cloud Scheduler job for downloading state name data"
-  type        = string
-}
-
-variable "county_names_scheduler_name" {
-  description = "Name of the Cloud Scheduler job for downloading county name data"
-  type        = string
-}
-
-variable "county_adjacency_scheduler_name" {
-  description = "Name of the Cloud Scheduler job for downloading county adjacency data"
-  type        = string
-}
-
-variable "population_by_race_scheduler_name" {
-  description = "Name of the Cloud Scheduler job for downloading population by race data"
-  type        = string
-}
-
-variable "primary_care_access_scheduler_name" {
-  description   = "Name of the Cloud Scheduler job for downloading primary care access data"
-  type          = string
-}
-
 # Ingestion Cloud Run Service vars
 variable "run_ingestion_service_name" {
   description = "Name of the Cloud Run service for data ingestion"
