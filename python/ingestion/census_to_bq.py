@@ -22,7 +22,7 @@ def write_state_names_to_bq(dataset, table_name, gcs_bucket, filename):
         })
         column_types = {'state_fips_code': 'STRING', 'state_name': 'STRING'}
         gcs_to_bq_util.append_dataframe_to_bq(frame, dataset, table_name,
-                               column_types=column_types)
+                                              column_types=column_types)
     except json.JSONDecodeError as err:
         msg = 'Unable to write to BigQuery due to improperly formatted data: {}'
         logging.error(msg.format(err))
@@ -48,7 +48,7 @@ def write_county_names_to_bq(dataset, table_name, gcs_bucket, filename):
             'county_fips_code': 'STRING'
         }
         gcs_to_bq_util.append_dataframe_to_bq(frame, dataset, table_name,
-                               column_types=column_types)
+                                              column_types=column_types)
     except json.JSONDecodeError as err:
         msg = 'Unable to write to BigQuery due to improperly formatted data: {}'
         logging.error(msg.format(err))
@@ -104,14 +104,15 @@ def write_population_by_race_to_bq(dataset, table_name, gcs_bucket, filename):
         column_types['county_fips_code'] = 'STRING'
 
         gcs_to_bq_util.append_dataframe_to_bq(frame, dataset, table_name,
-                               column_types=column_types)
+                                              column_types=column_types)
     except json.JSONDecodeError as err:
         msg = 'Unable to write to BigQuery due to improperly formatted data: {}'
         logging.error(msg.format(err))
 
 
 def write_household_income_to_bq(dataset, table_name, gcs_bucket, file_prefix):
-    """Fetches all SAIPE blobs from a GCS bucket and uploads to a single BQ table. Also does some preprocessing.
+    """Fetches all SAIPE blobs from a GCS bucket and uploads to a single BQ table.
+       Also does some preprocessing.
 
        dataset: The BigQuery dataset to write to
        table_name: The name of the BigQuery table to write to
