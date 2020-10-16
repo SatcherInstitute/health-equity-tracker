@@ -7,6 +7,7 @@ on:
 
 jobs:
   deploy:
+    if: github.repository == 'SatcherInstitute/health-equity-tracker'
     name: Build Images and Deploy to Test Environment
     runs-on: ubuntu-latest
 
