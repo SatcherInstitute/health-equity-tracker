@@ -1,5 +1,10 @@
 /* [BEGIN] Cloud Run Setup */
 
+# Create a Pub/Sub topic to trigger the ingestion service.
+resource "google_pubsub_topic" "upload_to_gcs" {
+  name = var.upload_to_gcs_topic_name
+}
+
 # Create a Pub/Sub topic to trigger the GCS-to-BQ service.
 resource "google_pubsub_topic" "notify_data_ingested" {
   name = var.notify_data_ingested_topic
