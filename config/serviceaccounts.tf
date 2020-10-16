@@ -65,9 +65,9 @@ resource "google_project_iam_custom_role" "gcs_to_bq_runner_role" {
   title       = "GCS-to-BQ Runner"
   description = "Allows reading data from GCS bucket and writing and reading BQ datasets."
   permissions = ["storage.objects.get", "storage.objects.list", "storage.buckets.get",
-                 "bigquery.datasets.get", "bigquery.tables.create", "bigquery.tables.delete",
-                 "bigquery.tables.get", "bigquery.tables.list", "bigquery.tables.update",
-                 "bigquery.tables.updateData", "bigquery.jobs.create"]
+    "bigquery.datasets.get", "bigquery.tables.create", "bigquery.tables.delete",
+    "bigquery.tables.get", "bigquery.tables.list", "bigquery.tables.update",
+  "bigquery.tables.updateData", "bigquery.jobs.create"]
 }
 
 resource "google_project_iam_member" "gcs_to_bq_runner_binding" {

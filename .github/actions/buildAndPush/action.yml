@@ -9,7 +9,7 @@ inputs:
     required: true
 outputs:
   image-digest:
-    description: 'Digest of image  pushed to GCR'
+    description: 'Digest of image pushed to GCR'
     value: ${{ steps.get-image-digest.outputs.path }}
 runs:
   using: "composite"
