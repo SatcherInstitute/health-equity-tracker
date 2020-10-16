@@ -2,14 +2,10 @@ import base64
 import json
 import logging
 import os
-from ingestion import census
-from ingestion import census_to_bq
-from ingestion import county_adjacency
-from ingestion import primary_care_access_to_gcs
-from ingestion import primary_care_access_to_bq
-from ingestion import cdc_to_bq
-from ingestion import pubsub_publisher
-from ingestion import di_url_file_to_gcs
+
+from ingestion import (cdc_to_bq, census, census_to_bq, county_adjacency,
+                       di_url_file_to_gcs, primary_care_access_to_bq,
+                       primary_care_access_to_gcs, pubsub_publisher)
 
 # Data source name literals. These correspond to a specific data ingestion
 # workflow.
