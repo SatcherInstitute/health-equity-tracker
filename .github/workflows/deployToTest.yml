@@ -52,7 +52,11 @@ jobs:
         run: terraform fmt -check
       - name: Terraform Refresh
         working-directory: ./config
-        run: terraform refresh
+        run: terraform refresh -var-file=test/test.tfvars \
+          -var 'gcp_credentials=${{ secrets.TEST_DEPLOYER_SA_KEY }}' \
+          -var 'project_id=${{ secrets.TEST_PROJECT_ID }}' \
+          -var 'ingestion_image_digest=${{ steps.ingestion.outputs.image-digest }}' \
+          -var 'gcs_to_bq_image_digest=${{ steps.gcstobq.outputs.image-digest }}'
       - name: Terraform Plan
         working-directory: ./config
         run: |
