@@ -1,9 +1,10 @@
 """Data ingestion DAG"""
 import requests
-from airflow.models import Variable
-from airflow import DAG
-from airflow.utils.dates import days_ago
-from airflow.operators.python_operator import PythonOperator
+# Ingore the Airflow module, it is installed in both our dev and prod environments
+from airflow.models import Variable  # type: ignore
+from airflow import DAG  # type: ignore
+from airflow.utils.dates import days_ago  # type: ignore
+from airflow.operators.python_operator import PythonOperator  # type: ignore
 
 default_args = {
     'start_date': days_ago(0),
