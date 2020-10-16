@@ -3,12 +3,15 @@
 The backend codebase for [Health Equity Tracker](https://healthequitytracker.org/).
 
 ## Contributing
+
 To contribute to this project:
+
 1. [Fork the repository on github](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo)
 2. On your development machine, clone your forked repo and add the official repo as a remote.
     - Tip: by convention, the official repo is added with the name `upstream`. This can be done with the command `git remote add upstream git@github.com:SatcherInstitute/<repo>.git`
 
 When you're ready to make changes:
+
 1. Pull the latest changes from the official repo.
     - Tip: If your official remote is named `upstream`, run `git pull upstream master`
 2. Create a local branch, make changes, and commit to your local branch. Repeat until changes are ready for review.
@@ -19,6 +22,7 @@ When you're ready to make changes:
 6. When ready to submit, use the "Squash and merge" option. This maintains linear history and ensures your entire PR is merged as a single commit, while being simple to use in most cases. If there are conflicts, pull the latest changes from master, merge them into your PR, and try again.
 
 Note that there are a few downsides to "Squash and merge"
+
 - The official repo will not show commits from collaborators if the PR is a collaborative branch.
 - Working off the same branch or a dependent branch duplicates commits on the dependent branch and can cause repeated merge conflicts. To work around this, if you have a PR `my_branch_1` and you want to start work on a new PR that is dependent on `my_branch_1`, you can do the following:
   1. Create a new local branch `my_branch_2` based on `my_branch_1`. Continue to develop on `my_branch_2`.
@@ -36,6 +40,17 @@ Install Terraform ([Getting started](https://learn.hashicorp.com/tutorials/terra
 Install Docker Desktop ([Get Docker](https://docs.docker.com/get-docker/))
 
 `gcloud config set project <project-id>`
+
+## Testing
+
+Unit tests can be run using pytest. Running pytest will recursively look for and execute test files.
+
+```bash
+pip install pytest
+pytest
+```
+
+To test from the packaged version of the ingestion library, run `pip install -e python/` before testing.
 
 ### Python environment setup
 
@@ -69,6 +84,7 @@ Most python code should go in the `/python` directory, which contains packages t
 To work with the code locally, run `pip install ./python/<package>` from the root project directory. If your IDE complains about imports after changing code in `/python`, re-run `pip install ./python/<package>`.
 
 ## Adding a new root-level python directory
+
 Note: generally this should only be done for a new service. Otherwise, please add python code to the `python/` directory.
 
 When adding a new python root-level python directory, be sure to update `.github/workflows/linter.yml` to ensure the directory is linted and type-checked.
