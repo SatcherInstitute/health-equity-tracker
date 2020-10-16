@@ -44,7 +44,6 @@ jobs:
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/gcs-to-bq'
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
-        working-directory: ./config
       - name: Terraform Init
         working-directory: ./config
         run: terraform init
