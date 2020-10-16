@@ -1,13 +1,15 @@
 name: Deploy to Test
 
 on:
-  push:
-      branches: [master]
+  # TODO: Uncomment after manual testing.
+  # push:
+  #    branches: [master]
   workflow_dispatch:
 
 jobs:
   deploy:
-    if: github.repository == 'SatcherInstitute/health-equity-tracker'
+    # TODO: Uncomment after manual testing.
+    #if: github.repository == 'SatcherInstitute/health-equity-tracker'    
     name: Build Images and Deploy to Test Environment
     runs-on: ubuntu-latest
 
