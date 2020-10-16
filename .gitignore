@@ -4,9 +4,11 @@ __pycache__
 data_ingestion/__pycache__
 .terraform/plugins
 apply_terraform
-jenniebrown.tfvars
+*.tfvars
 push_images
 venv
 *.tfstate
 *.tfstate.backup
 *.zip
+.DS_Store
+airflow-logs

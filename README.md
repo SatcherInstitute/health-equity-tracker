@@ -48,10 +48,6 @@ Install Docker Desktop ([Get Docker](https://docs.docker.com/get-docker/))
 To test a Cloud Run service triggered by a Pub/Sub topic, run
 `gcloud pubsub topics publish projects/<project-id>/topics/<your_topic_name> --message "your_message" --attribute=KEY1=VAL1,KEY2=VAL2`
 
-- `your_topic_name` is the name of the topic that triggers the service.
-- `your_message` is the json message that will be serialized and passed to the `'data'` property of the event. Eg: `"{'id':'<workflow_id>',...}"`
-- `attribute` is the list of attributes passed to the event.
-
 See [Documentation](https://cloud.google.com/sdk/gcloud/reference/pubsub/topics/publish) for details.
 
 ## Shared python code
@@ -124,13 +120,43 @@ After your Docker container successfully builds and is running locally you can s
 1. Open a terminal
 2. Send curl requests in the following format:
 
-   ```DATA=$(printf '{"id":<INGESTION_ID>,"url":<INGESTION_URL>,"gcs_bucket":<BUCKET_NAME>,"filename":<FILE_NAME>}' |base64) && curl --header "Content-Type: application/json" -d '{"message":{"data":"'$DATA'"}}' http://localhost:8080```
+   ```bash
+   DATA=$(printf '{"id":<INGESTION_ID>,"url":<INGESTION_URL>,"gcs_bucket":<BUCKET_NAME>,"filename":<FILE_NAME>}' |base64) && curl --header "Content-Type: application/json" -d '{"message":{"data":"'$DATA'"}}' http://localhost:8080
+   ```
 
 ### Accessing Google Cloud Services
 
 1. [Create a service account in Pantheon](https://cloud.google.com/docs/authentication/getting-started)
 2. Using IAM, grant the appropriate permissions to the service account
 3. Inside the `launch.json` file, set the `configuration->service->serviceAccountName` attribute to the service account email you just created.
+
+## Launch the data ingestion pipeline on your local machine
+
+### Set up
+
+* Install [Docker](https://www.docker.com/)
+* Install [Docker Compose](https://docs.docker.com/compose/install/)
+
+### Getting Started
+
+From inside the `airflow/dev/` directory:
+
+1. Build the Docker containers
+
+    make build
+
+1. Stand up the multi-container environemnt
+
+   make run
+
+1. At the UI link below, you should see the list of DAGs pulled from the `dags/` folder.
+1. To run them manually, select the desired DAG, toggle to `On` and click `Trigger Dag` .
+
+More info on [Apache Airflow](https://airflow.apache.org/docs/stable/) in general.
+
+### Airflow UI link
+
+* [localhost:8080](http://localhost:8080/)
 
 ## Developing locally with BigQuery
 
@@ -177,6 +203,7 @@ Before deploying, make sure you have installed Terraform and a Docker client (e.
    ```
 
    Alternatively, if you aren't familiar with bash or are on Windows, you can run the above `gcloud container images describe` commands manually and copy/paste the output into your tfvars file for the `ingestion_image_name` and `gcs_to_bq_image_name` variables.
+
 6. To redeploy, e.g. after making changes to a Cloud Run service, repeat steps 4-5. Make sure you run the commands from your base project dir.
 
 ### Terraform deployment notes
