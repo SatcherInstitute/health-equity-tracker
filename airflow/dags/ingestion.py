@@ -15,7 +15,7 @@ data_ingestion_dag = DAG(
     description='The data ingestion pipeline.')
 
 
-def ingest_data_to_gcs(url: str, data: object):
+def ingest_data_to_gcs(url: str, data: dict):
     resp = requests.post(url, data)
     if resp.status_code != 200:
         raise Exception('Failed response code: {}'.format(resp.status_code))
