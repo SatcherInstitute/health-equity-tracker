@@ -21,5 +21,5 @@ runs:
     - run: export TEMP_IMAGE_DIGEST=$(gcloud container images describe ${{ inputs.image-path }} --format="value(image_summary.digest)")
       shell: bash
     - id: get-image-digest
-      run: echo "::set-output name=image-digest::$TEMP_IMAGE_DIGEST"
+      run: echo "::set-output name=image-digest::$(gcloud container images describe ${{ inputs.image-path }} --format='value(image_summary.digest)')"
       shell: bash
