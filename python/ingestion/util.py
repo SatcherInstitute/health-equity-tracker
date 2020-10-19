@@ -5,7 +5,8 @@ import os
 
 from ingestion import (cdc_to_bq, census, census_to_bq, county_adjacency,
                        di_url_file_to_gcs, primary_care_access_to_bq,
-                       primary_care_access_to_gcs, pubsub_publisher)
+                       primary_care_access_to_gcs, pubsub_publisher,
+                       gcs_to_bq_util)
 
 # Data source name literals. These correspond to a specific data ingestion
 # workflow.
@@ -103,8 +104,8 @@ def ingest_bucket_to_bq(event):
     dataset = os.environ['DATASET_NAME']
 
     if workflow_id == _URGENT_CARE_FACILITIES:
-        # TODO implement
-        pass
+        frame = gcs_to_bq_util.load_csv_as_dataframe(gcs_bucket, filename)
+        gcs_to_bq_util.append_dataframe_to_bq(frame, dataset, "urgent_care_facilities")
     elif workflow_id == _STATE_NAMES:
         census_to_bq.write_state_names_to_bq(
             dataset, 'state_names', gcs_bucket, filename)
