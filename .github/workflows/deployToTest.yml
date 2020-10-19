@@ -1,12 +1,15 @@
 name: Deploy to Test
 
 on:
-  push:
-      branches: [master]
+  # TODO: Uncomment after manual testing.
+  # push:
+  #    branches: [master]
   workflow_dispatch:
 
 jobs:
   deploy:
+    # TODO: Uncomment after manual testing.
+    #if: github.repository == 'SatcherInstitute/health-equity-tracker'    
     name: Build Images and Deploy to Test Environment
     runs-on: ubuntu-latest
 
@@ -39,3 +42,35 @@ jobs:
         with:
           dockerfile: 'run_gcs_to_bq/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/gcs-to-bq'
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+      - name: Terraform Init
+        working-directory: ./config
+        run: terraform init
+      - name: Terraform Format
+        working-directory: ./config
+        run: terraform fmt -check
+      - name: Terraform Refresh
+        working-directory: ./config
+        run: terraform refresh -var-file=test/test.tfvars \
+          -var 'gcp_credentials=${{ secrets.TEST_DEPLOYER_SA_KEY }}' \
+          -var 'project_id=${{ secrets.TEST_PROJECT_ID }}' \
+          -var 'ingestion_image_digest=${{ steps.ingestion.outputs.image-digest }}' \
+          -var 'gcs_to_bq_image_digest=${{ steps.gcstobq.outputs.image-digest }}'
+      - name: Terraform Plan
+        working-directory: ./config
+        run: |
+          terraform plan -var-file=test/test.tfvars \
+          -var 'gcp_credentials=${{ secrets.TEST_DEPLOYER_SA_KEY }}' \
+          -var 'project_id=${{ secrets.TEST_PROJECT_ID }}' \
+          -var 'ingestion_image_digest=${{ steps.ingestion.outputs.image-digest }}' \
+          -var 'gcs_to_bq_image_digest=${{ steps.gcstobq.outputs.image-digest }}'
+      - name: Terraform Apply
+        #if: github.ref == 'refs/heads/$default-branch' && github.event_name == 'push'
+        working-directory: ./config
+        run: |
+          terraform apply -auto-approve -var-file=test/test.tfvars \
+          -var 'gcp_credentials=${{ secrets.TEST_DEPLOYER_SA_KEY }}' \
+          -var 'project_id=${{ secrets.TEST_PROJECT_ID }}' \
+          -var 'ingestion_image_digest=${{ steps.ingestion.outputs.image-digest }}' \
+          -var 'gcs_to_bq_image_digest=${{ steps.gcstobq.outputs.image-digest }}'
