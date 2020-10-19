@@ -50,7 +50,7 @@ pip install pytest
 pytest
 ```
 
-To test from the packaged version of the ingestion library, run `pip install -e python/` before testing.
+To test from the packaged version of the ingestion library, run `pip install -e python/ingestion` before testing.
 
 ### Python environment setup
 
