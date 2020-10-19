@@ -1,6 +1,6 @@
 import logging
 import os
-import ingestion.util as util
+from ingestion import util
 from flask import Flask, request
 app = Flask(__name__)
 

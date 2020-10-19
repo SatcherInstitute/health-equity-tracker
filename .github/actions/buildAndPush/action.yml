@@ -10,7 +10,7 @@ inputs:
 outputs:
   image-digest:
     description: 'Digest of image pushed to GCR'
-    value: ${{ steps.get-image-digest.outputs.path }}
+    value: ${{ steps.get-image-digest.outputs.image-digest }}
 runs:
   using: "composite"
   steps:

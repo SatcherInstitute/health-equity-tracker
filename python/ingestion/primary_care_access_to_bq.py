@@ -1,10 +1,8 @@
 import math
 from pandas import DataFrame, read_excel
-from .gcs_to_bq_util import append_dataframe_to_bq
-# This is implicitly depended on by pandas.read_excel
-import xlrd  # noqa: F401
+from ingestion import gcs_to_bq_util
 from google.cloud import storage
-from .constants import STATE_NAMES
+from ingestion import constants
 
 _FILEPATH = '{}-{}.xlsx'
 
@@ -20,7 +18,7 @@ def write_primary_care_access_to_bq(dataset, table_name, gcs_bucket,
     bucket = client.get_bucket(gcs_bucket)
 
     data = []
-    for state_name in STATE_NAMES:
+    for state_name in constants.STATE_NAMES:
         filename = _FILEPATH.format(fileprefix, state_name)
         blob = bucket.blob(filename)
         local_path = '/tmp/{}'.format(filename)
@@ -28,7 +26,7 @@ def write_primary_care_access_to_bq(dataset, table_name, gcs_bucket,
 
         frame = read_excel(
             io=local_path, sheet_name='Ranked Measure Data', skiprows=[0, 2])
-        for row_index, row in frame.iterrows():
+        for _, row in frame.iterrows():
             # These fields may not be set for every county.
             # If they're not set, we'll use -1 as the numerical value
             # Number of physicians in the county
@@ -53,5 +51,5 @@ def write_primary_care_access_to_bq(dataset, table_name, gcs_bucket,
         'num_primary_care_physicians': 'FLOAT64',
         'primary_care_physicians_rate': 'FLOAT64',
     }
-    append_dataframe_to_bq(
+    gcs_to_bq_util.append_dataframe_to_bq(
         new_dataframe, dataset, table_name, column_types=column_types)
