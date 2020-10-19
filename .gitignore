@@ -3,7 +3,6 @@
 .venv
 __pycache__
 apply_terraform
-jenniebrown*
 push_images
 venv
 *.egg-info

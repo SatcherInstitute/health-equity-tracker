@@ -73,7 +73,7 @@ class GcsToBqTest(unittest.TestCase):
 
             gcs_to_bq_util.append_dataframe_to_bq(
                 test_frame.copy(deep=True), "test-dataset", "table",
-                col_modes=['REPEATED', 'REQUIRED'])
+                col_modes={'label1': 'REPEATED', 'label2': 'REQUIRED'})
 
             mock_instance.load_table_from_json.assert_called()
             call_args = mock_instance.load_table_from_json.call_args
