@@ -46,7 +46,7 @@ jobs:
         uses: hashicorp/setup-terraform@v1
       - name: Terraform Init
         working-directory: ./config
-        run: terraform init
+        run: terraform init --backend-config="bucket=${{ secrets.TEST_TF_STATE_BUCKET }}"
       - name: Terraform Format
         working-directory: ./config
         run: terraform fmt -check
