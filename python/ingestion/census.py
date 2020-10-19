@@ -1,4 +1,4 @@
-from .di_url_file_to_gcs import url_file_to_gcs
+from ingestion import di_url_file_to_gcs
 
 
 def get_census_params_by_county(columns):
@@ -44,20 +44,20 @@ def upload_household_income(url, gcs_bucket, filename):
         url_params = get_census_params_by_county(
             get_household_income_columns().keys())
         url_params['time'] = year
-        url_file_to_gcs(
+        di_url_file_to_gcs.url_file_to_gcs(
             url, url_params, gcs_bucket, '{}_{}.json'.format(filename, year))
 
 
 def upload_state_names(url, gcs_bucket, filename):
     """Uploads state names and FIPS codes from census to GCS bucket."""
     url_params = {'get': 'NAME', 'for': 'state:*'}
-    url_file_to_gcs(url, url_params, gcs_bucket, filename)
+    di_url_file_to_gcs.url_file_to_gcs(url, url_params, gcs_bucket, filename)
 
 
 def upload_county_names(url, gcs_bucket, filename):
     """Uploads county names and FIPS codes from census to GCS bucket."""
     url_params = get_census_params_by_county(['NAME'])
-    url_file_to_gcs(url, url_params, gcs_bucket, filename)
+    di_url_file_to_gcs.url_file_to_gcs(url, url_params, gcs_bucket, filename)
 
 
 def get_population_by_race_columns():
@@ -82,4 +82,4 @@ def upload_population_by_race(url, gcs_bucket, filename):
     """Uploads population by county and race from census to GCS bucket."""
     url_params = get_census_params_by_county(
         get_population_by_race_columns().keys())
-    url_file_to_gcs(url, url_params, gcs_bucket, filename)
+    di_url_file_to_gcs.url_file_to_gcs(url, url_params, gcs_bucket, filename)

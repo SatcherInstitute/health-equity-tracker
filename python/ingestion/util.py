@@ -2,15 +2,10 @@ import base64
 import json
 import logging
 import os
-import ingestion.census as census
-import ingestion.census_to_bq as census_to_bq
-from ingestion.primary_care_access_to_gcs import upload_primary_care_access
-from ingestion.pubsub_publisher import notify_topic
-from ingestion.di_url_file_to_gcs import url_file_to_gcs
-from ingestion.county_adjacency import write_adjacencies_to_bq
-from ingestion.primary_care_access_to_bq import write_primary_care_access_to_bq
-from ingestion.cdc_to_bq import write_covid_deaths_to_bq
 
+from ingestion import (cdc_to_bq, census, census_to_bq, county_adjacency,
+                       di_url_file_to_gcs, primary_care_access_to_bq,
+                       primary_care_access_to_gcs, pubsub_publisher)
 
 # Data source name literals. These correspond to a specific data ingestion
 # workflow.
@@ -68,15 +63,17 @@ def ingest_data_to_gcs(event):
     elif (workflow_id == _URGENT_CARE_FACILITIES
           or workflow_id == _COUNTY_ADJACENCY
           or workflow_id == _CDC_COVID_DEATHS):
-        url_file_to_gcs(url, None, gcs_bucket, filename)
+        di_url_file_to_gcs.url_file_to_gcs(url, None, gcs_bucket, filename)
     elif workflow_id == _PRIMARY_CARE_ACCESS:
-        upload_primary_care_access(gcs_bucket, fileprefix)
+        primary_care_access_to_gcs.upload_primary_care_access(
+            gcs_bucket, fileprefix)
     else:
-        raise RuntimeError("ID: %s, is not a valid id", workflow_id)
+        raise RuntimeError("ID: {}, is not a valid id".format(workflow_id))
 
     logging.info(
-        "Successfully uploaded data to GCS for workflow {}".format(workflow_id))
-    notify_topic(project_id, notify_data_ingested_topic, **event_dict)
+        "Successfully uploaded data to GCS for workflow %s", workflow_id)
+    pubsub_publisher.notify_topic(
+        project_id, notify_data_ingested_topic, **event_dict)
 
 
 def ingest_bucket_to_bq(event):
@@ -115,21 +112,23 @@ def ingest_bucket_to_bq(event):
         census_to_bq.write_county_names_to_bq(
             dataset, 'county_names', gcs_bucket, filename)
     elif workflow_id == _COUNTY_ADJACENCY:
-        write_adjacencies_to_bq(
+        county_adjacency.write_adjacencies_to_bq(
             dataset, 'county_adjacency', gcs_bucket, filename)
     elif workflow_id == _POPULATION_BY_RACE:
         census_to_bq.write_population_by_race_to_bq(
             dataset, 'population_by_race', gcs_bucket, filename)
     elif workflow_id == _PRIMARY_CARE_ACCESS:
-        write_primary_care_access_to_bq(
+        primary_care_access_to_bq.write_primary_care_access_to_bq(
             dataset, 'primary_care_access', gcs_bucket, fileprefix)
     elif workflow_id == _CDC_COVID_DEATHS:
-        write_covid_deaths_to_bq(dataset, 'covid_deaths', gcs_bucket, filename)
+        cdc_to_bq.write_covid_deaths_to_bq(
+            dataset, 'covid_deaths', gcs_bucket, filename)
     elif workflow_id == _HOUSEHOLD_INCOME:
         census_to_bq.write_household_income_to_bq(
-            dataset, 'SAIPE_household_income_poverty_estimates', gcs_bucket, filename)
+            dataset, 'SAIPE_household_income_poverty_estimates', gcs_bucket,
+            filename)
     else:
-        raise RuntimeError("ID: %s, is not a valid id", workflow_id)
+        raise RuntimeError("ID: {}, is not a valid id".format(workflow_id))
 
     logging.info(
-        "Successfully uploaded to BigQuery for workflow {}".format(workflow_id))
+        "Successfully uploaded to BigQuery for workflow %s", workflow_id)
