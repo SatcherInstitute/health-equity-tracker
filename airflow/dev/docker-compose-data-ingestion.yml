@@ -1,0 +1,69 @@
+version: '3.7'
+services:
+    ingest_to_gcs:
+        image: het/ingest_to_gcs:latest
+        depends_on:
+            - scheduler
+            - webserver
+        environment:
+            - PORT=8080
+
+    gcs_to_bq:
+        image: het/gcs_to_bq:latest
+        depends_on:
+            - scheduler
+            - webserver
+        environment:
+            - PORT=8080
+
+    postgres:
+        image: postgres:9.6
+        environment:
+            - POSTGRES_USER=airflow
+            - POSTGRES_PASSWORD=airflow
+            - POSTGRES_DB=airflow
+        logging:
+            options:
+                max-size: 10m
+                max-file: "3"
+
+    scheduler:
+        image: apache/airflow
+        restart: always
+        depends_on:
+            - postgres
+            - webserver
+        env_file:
+            - .env
+        ports:
+            - "8793:8793"
+        volumes:
+            - ../dags:/opt/airflow/dags
+            - ./airflow-logs:/opt/airflow/logs
+        command: scheduler
+        healthcheck:
+            test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
+            interval: 30s
+            timeout: 30s
+            retries: 3
+
+    webserver:
+        image: apache/airflow
+        hostname: webserver
+        restart: always
+        depends_on:
+            - postgres
+        env_file:
+            - .env
+        volumes:
+            - ../dags:/opt/airflow/dags
+            - ./scripts:/opt/airflow/scripts
+            - ./airflow-logs:/opt/airflow/logs
+        ports:
+            - "8080:8080"
+        entrypoint: ./scripts/airflow-entrypoint.sh
+        healthcheck:
+            test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
+            interval: 30s
+            timeout: 30s
+            retries: 32

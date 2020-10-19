@@ -4,6 +4,11 @@ variable "project_id" {
   type        = string
 }
 
+variable "gcp_credentials" {
+  description = "Credentials for calling GCP services"
+  type        = string
+}
+
 variable "compute_region" {
   description = "Region for Compute Resources"
   type        = string
@@ -37,45 +42,19 @@ variable "notify_data_ingested_topic" {
   type        = string
 }
 
-# Cloud Scheduler vars
-variable "household_income_scheduler_name" {
-  description = "Name of the Cloud Scheduler job for downloading household income data"
-  type        = string
-}
-
-variable "state_names_scheduler_name" {
-  description = "Name of the Cloud Scheduler job for downloading state name data"
-  type        = string
-}
-
-variable "county_names_scheduler_name" {
-  description = "Name of the Cloud Scheduler job for downloading county name data"
-  type        = string
-}
-
-variable "county_adjacency_scheduler_name" {
-  description = "Name of the Cloud Scheduler job for downloading county adjacency data"
-  type        = string
-}
-
-variable "population_by_race_scheduler_name" {
-  description = "Name of the Cloud Scheduler job for downloading population by race data"
-  type        = string
-}
-
-variable "primary_care_access_scheduler_name" {
-  description   = "Name of the Cloud Scheduler job for downloading primary care access data"
-  type          = string
-}
-
 # Ingestion Cloud Run Service vars
-variable "run_ingestion_service_name" {
+variable "ingestion_service_name" {
   description = "Name of the Cloud Run service for data ingestion"
   type        = string
 }
 
 variable "ingestion_image_name" {
   description = "Name of container image for the Cloud Run ingestion service"
+  type        = string
+}
+
+variable "ingestion_image_digest" {
+  description = "Digest of container image for the Cloud Run ingestion service"
   type        = string
 }
 
@@ -100,13 +79,18 @@ variable "ingestion_runner_role_id" {
 }
 
 # GCS to BQ Cloud Run Service Vars
-variable "run_gcs_to_bq_service_name" {
+variable "gcs_to_bq_service_name" {
   description = "Name of the Cloud Run service for loading GCS data into BigQuery"
   type        = string
 }
 
 variable "gcs_to_bq_image_name" {
   description = "Name of container image for the Cloud Run GCS-to-BQ service"
+  type        = string
+}
+
+variable "gcs_to_bq_image_digest" {
+  description = "Digest of container image for the Cloud Run GCS-to-BQ service"
   type        = string
 }
 

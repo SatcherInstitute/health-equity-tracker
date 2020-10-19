@@ -10,3 +10,5 @@ venv
 *.tfstate.backup
 *.tfvars
 *.zip
+.DS_Store
+airflow-logs
