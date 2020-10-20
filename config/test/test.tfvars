@@ -1,5 +1,5 @@
 gcs_landing_bucket = "msm-test-landing-bucket"
-bq_dataset_name = "test_external_sources"
+bq_dataset_name = "test_data_sources"
 upload_to_gcs_topic_name = "upload-to-gcs-topic"
 notify_data_ingested_topic = "notify-data-ingested-topic"
 ingestion_service_name = "data-ingestion-service"
