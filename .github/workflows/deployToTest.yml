@@ -46,7 +46,7 @@ jobs:
         uses: hashicorp/setup-terraform@v1
       - name: Save credentials
         working-directory: ./config
-        run: echo "${{ secrets.TEST_DEPLOYER_SA_KEY }}" > temp.json      
+        run: echo "${{ secrets.TEST_SA_JSON_CREDS }}" > temp.json      
       - name: Terraform Init
         working-directory: ./config
         run: | 
