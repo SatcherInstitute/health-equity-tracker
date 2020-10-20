@@ -55,9 +55,9 @@ jobs:
         run: | 
           terraform init -backend-config="bucket=${{ secrets.TEST_TF_STATE_BUCKET }}" \
           -backend-config="credentials=creds.json"
-      #- name: Terraform Format
-      #  working-directory: ./config
-      #  run: terraform fmt -check
+      - name: Terraform Format
+        working-directory: ./config
+        run: terraform fmt -check
       - name: Terraform Apply
         #if: github.ref == 'refs/heads/$default-branch' && github.event_name == 'push'
         working-directory: ./config
