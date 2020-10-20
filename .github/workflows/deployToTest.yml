@@ -46,9 +46,9 @@ jobs:
         uses: hashicorp/setup-terraform@v1
       - name: Save credentials
         working-directory: ./config
-        run: | 
-          echo "${{ secrets.TEST_DEPLOYER_SA_KEY }}" > temp.json
-          export GOOGLE_APPLICATION_CREDENTIALS="temp.json"        
+        run: echo "${{ secrets.TEST_DEPLOYER_SA_KEY }}" > temp.json
+      - working-directory: ./config
+        run: export GOOGLE_BACKEND_CREDENTIALS="temp.json"        
       - name: Terraform Init
         working-directory: ./config
         run: terraform init -backend-config="bucket=${{ secrets.TEST_TF_STATE_BUCKET }}" 
