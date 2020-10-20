@@ -46,12 +46,15 @@ jobs:
         uses: hashicorp/setup-terraform@v1
       - name: Save credentials
         working-directory: ./config
-        run: echo "${{ secrets.TEST_DEPLOYER_SA_KEY }}" > creds.json
+        run: |
+          cat > creds.json << EOF 
+          ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          EOF
       - name: Terraform Init
         working-directory: ./config
         run: | 
           terraform init -backend-config="bucket=${{ secrets.TEST_TF_STATE_BUCKET }}" \
-          -backend-config="${{ secrets.TEST_DEPLOYER_SA_KEY }}"
+          -backend-config="creds.json"
       - name: Terraform Format
         working-directory: ./config
         run: terraform fmt -check
