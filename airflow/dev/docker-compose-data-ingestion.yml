@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.8'
 services:
     ingest_to_gcs:
         image: het/ingest_to_gcs:latest
