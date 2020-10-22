@@ -92,12 +92,13 @@ When adding a new python root-level python directory, be sure to update `.github
 1. Add the dependency to the appropriate `requirements.in` file.
    - If the dependency is used by `/python/<package>`, add it to the `/python/<package>/requirements.in` file.
    - If the dependency is used directly by a service, add it to the `<service_directory>/requirements.in` file.
+
 1. For each service that needs the dependency (for deps in `/python/<package>` this means every service that depends on `/python/<package>`):
    - Run `cd <service_directory>`, then `pip-compile requirements.in` where `<service_directory>` is the root-level directory for the service. This will generate a `requirements.txt` file.
    - Run `pip install -r requirements.txt` to ensure your local environment has the dependencies, or run `pip install <new_dep>` directly. Note, you'll first need to have followed the python environment setup described above [Python environment setup](#python-environment-setup).
 
 1. Update the requirements.txt for unit tests  
-`pip-compile python/<package>/requirements.in -o python/tests/requirements.txt`
+`pip-compile python/tests/requirements.in -o python/tests/requirements.txt`
 
 ### Adding an internal dependency
 
