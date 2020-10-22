@@ -14,3 +14,8 @@ notify_data_ingested_subscription_name = "notify-data-ingested-sub"
 gcs_to_bq_invoker_identity_id = "gcs-to-bq-invoker"
 gcs_to_bq_runner_identity_id = "gcs-to-bq-runner"
 gcs_to_bq_runner_role_id = "test_gcs_to_bq_runner"
+data_server_service_name = "data-server-service"
+data_server_image_name = "data-serving"
+data_server_runner_identity_id = "data-server-runner"
+data_server_runner_role_id = "test_data_server_runner"
+
