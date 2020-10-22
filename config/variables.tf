@@ -114,7 +114,7 @@ variable "gcs_to_bq_runner_role_id" {
   type        = string
 }
 
-# Data Serving Cloud Run Service Vars
+# Data Server Cloud Run Service Vars
 variable "data_server_service_name" {
   description = "Name of the Cloud Run service for serving data to client frontends"
   type        = string

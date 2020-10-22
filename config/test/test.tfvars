@@ -18,4 +18,3 @@ data_server_service_name = "data-server-service"
 data_server_image_name = "data-serving"
 data_server_runner_identity_id = "data-server-runner"
 data_server_runner_role_id = "test_data_server_runner"
-
