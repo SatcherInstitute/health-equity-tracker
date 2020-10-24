@@ -29,7 +29,7 @@ jobs:
         uses: ./.github/actions/buildAndPush
         with:
           dockerfile: 'data_server/Dockerfile'
-          image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/data-serving'
+          image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/data-server'
       - name: Build and Push Data Ingestion Image
         id: ingestion
         uses: ./.github/actions/buildAndPush
@@ -66,4 +66,5 @@ jobs:
           -var 'gcp_credentials=${{ secrets.TEST_DEPLOYER_SA_KEY }}' \
           -var 'project_id=${{ secrets.TEST_PROJECT_ID }}' \
           -var 'ingestion_image_digest=${{ steps.ingestion.outputs.image-digest }}' \
-          -var 'gcs_to_bq_image_digest=${{ steps.gcstobq.outputs.image-digest }}'
+          -var 'gcs_to_bq_image_digest=${{ steps.gcstobq.outputs.image-digest }}' \
+          -var 'data_server_image_digest=${{ steps.serving.outputs.image-digest }}'

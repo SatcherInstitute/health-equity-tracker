@@ -109,4 +109,26 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
   autogenerate_revision_name = true
 }
 
+# Cloud Run service that serves data to client frontends.
+resource "google_cloud_run_service" "data_server_service" {
+  name     = var.data_server_service_name
+  location = var.compute_region
+  project  = var.project_id
+
+  template {
+    spec {
+      containers {
+        image = format("gcr.io/%s/%s@%s", var.project_id, var.data_server_image_name, var.data_server_image_digest)
+      }
+      service_account_name = google_service_account.data_server_runner_identity.email
+    }
+  }
+
+  traffic {
+    percent         = 100
+    latest_revision = true
+  }
+  autogenerate_revision_name = true
+}
+
 /* [END] Cloud Run Setup */
