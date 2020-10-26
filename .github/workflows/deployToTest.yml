@@ -68,3 +68,16 @@ jobs:
           -var 'ingestion_image_digest=${{ steps.ingestion.outputs.image-digest }}' \
           -var 'gcs_to_bq_image_digest=${{ steps.gcstobq.outputs.image-digest }}' \
           -var 'data_server_image_digest=${{ steps.serving.outputs.image-digest }}'
+      - name: Airflow Environment Variables
+        id: airflow-environment-variables
+        run: |
+          gcloud composer environments update data-ingestion-environment \
+          --update-env-variables=INGEST_TO_GCS_SERVICE_ENDPOINT=${{ secrets.INGEST_GCS_SERVICE_ENDPOINT }}, \
+          GCS_TO_BQ_SERVICE_ENDPOINT=${{ secrets.INGEST_BQ_SERVICE_ENDPOINT }}
+      - name: Upload Airflow DAG
+        id: upload-dags
+        working-directory: ./airflow/dags
+        run: |
+          gcloud composer environments storage dags import \
+          --environment data-ingestion-environment \
+          --source ingestion.py
