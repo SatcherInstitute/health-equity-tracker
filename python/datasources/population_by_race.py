@@ -4,6 +4,7 @@ import logging
 from ingestion import census, di_url_file_to_gcs, gcs_to_bq_util
 from datasources.data_source import DataSource
 
+
 # Population by race for counties in the United States from US Census data.
 class PopulationByRace(DataSource):
 
@@ -11,13 +12,11 @@ class PopulationByRace(DataSource):
     def get_id():
         return 'POPULATION_BY_RACE'
 
-
     def upload_to_gcs(self, url, gcs_bucket, filename):
         """Uploads population by county and race from census to GCS bucket."""
         url_params = census.get_census_params_by_county(
             self.get_population_by_race_external_columns().keys())
         di_url_file_to_gcs.url_file_to_gcs(url, url_params, gcs_bucket, filename)
-
 
     def write_to_bq(self, dataset, table_name, gcs_bucket, filename):
         """Writes population by race to BigQuery from the provided GCS bucket
@@ -34,9 +33,9 @@ class PopulationByRace(DataSource):
                 frame = frame.astype({col: 'int64'})
 
             frame['pop_other'] = (frame['DP05_0079E']
-                                + frame['DP05_0081E']
-                                + frame['DP05_0082E']
-                                + frame['DP05_0083E'])
+                                    + frame['DP05_0081E']
+                                    + frame['DP05_0082E']
+                                    + frame['DP05_0083E'])
 
             frame = frame.rename(columns=columns)
             frame = frame.rename(columns={
@@ -55,7 +54,6 @@ class PopulationByRace(DataSource):
             logging.error(
                 'Unable to write to BigQuery due to improperly formatted data: %s', err)
 
-
     @staticmethod
     def get_population_by_race_external_columns():
         """Returns population by race column names of ACS fields and their
@@ -73,7 +71,6 @@ class PopulationByRace(DataSource):
             'DP05_0082E': 'Population (Some other race alone, Non-Hispanic)',
             'DP05_0083E': 'Population (Two or more races, Non-Hispanic)'
         }
-
 
     @staticmethod
     def get_population_by_race_columns():

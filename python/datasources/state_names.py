@@ -4,6 +4,7 @@ import logging
 from ingestion import di_url_file_to_gcs, gcs_to_bq_util
 from datasources.data_source import DataSource
 
+
 # Names of the states in the United States from US Census data.
 class StateNames(DataSource):
 
@@ -11,12 +12,10 @@ class StateNames(DataSource):
     def get_id():
         return 'STATE_NAMES'
 
-
     def upload_to_gcs(self, url, gcs_bucket, filename):
         """Uploads state names and FIPS codes from census to GCS bucket."""
         url_params = {'get': 'NAME', 'for': 'state:*'}
         di_url_file_to_gcs.url_file_to_gcs(url, url_params, gcs_bucket, filename)
-
 
     def write_to_bq(self, dataset, table_name, gcs_bucket, filename):
         """Writes state names to BigQuery from the provided GCS bucket

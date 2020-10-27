@@ -5,6 +5,7 @@ from google.cloud import storage
 from ingestion import constants, di_url_file_to_gcs, gcs_to_bq_util
 from datasources.data_source import DataSource
 
+
 # Ratio of population to primary care physicians.
 class PrimaryCareAccess(DataSource):
 
@@ -17,7 +18,6 @@ class PrimaryCareAccess(DataSource):
     @staticmethod
     def get_id():
         return 'PRIMARY_CARE_ACCESS'
-
 
     def upload_to_gcs(self, url, gcs_bucket, filename):
         """Uploads one file containing primary care access info for each state."""
