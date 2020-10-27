@@ -7,15 +7,16 @@ from datasources.primary_care_access import PrimaryCareAccess
 from datasources.state_names import StateNames
 from datasources.urgent_care_facilities import UrgentCareFacilities
 
+
 # Map of data source ID to the class that implements the ingestion methods for that
 # data source.
 DATA_SOURCES_DICT = {
-    CDCCovidDeaths.get_id() : CDCCovidDeaths(),
-    CountyAdjacency.get_id() : CountyAdjacency(),
-    CountyNames.get_id() : CountyNames(),
-    HouseholdIncome.get_id() : HouseholdIncome(),
-    PopulationByRace.get_id() : PopulationByRace(),
-    PrimaryCareAccess.get_id() : PrimaryCareAccess(),
-    StateNames.get_id() : StateNames(),
-    UrgentCareFacilities.get_id() : UrgentCareFacilities()
+    CDCCovidDeaths.get_id(): CDCCovidDeaths(),
+    CountyAdjacency.get_id(): CountyAdjacency(),
+    CountyNames.get_id(): CountyNames(),
+    HouseholdIncome.get_id(): HouseholdIncome(),
+    PopulationByRace.get_id(): PopulationByRace(),
+    PrimaryCareAccess.get_id(): PrimaryCareAccess(),
+    StateNames.get_id(): StateNames(),
+    UrgentCareFacilities.get_id(): UrgentCareFacilities()
 }

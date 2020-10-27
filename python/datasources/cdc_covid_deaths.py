@@ -1,5 +1,6 @@
 from datasources.data_source import DataSource
 
+
 # Covid-19 deaths in the United States. Data from the CDC.
 class CDCCovidDeaths(DataSource):
 

@@ -4,6 +4,7 @@ from google.cloud import storage
 from ingestion import census, di_url_file_to_gcs, gcs_to_bq_util
 from datasources.data_source import DataSource
 
+
 # Median household income per county from the US Department of Agriculture.
 class HouseholdIncome(DataSource):
 
@@ -45,7 +46,6 @@ class HouseholdIncome(DataSource):
             url_params['time'] = year
             di_url_file_to_gcs.url_file_to_gcs(
                 url, url_params, gcs_bucket, '{}_{}.json'.format(filename, year))
-
 
     def write_to_bq(self, dataset, table_name, gcs_bucket, filename):
         """Fetches all SAIPE blobs from a GCS bucket and uploads to a single BQ table.

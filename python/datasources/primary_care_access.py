@@ -11,9 +11,9 @@ class PrimaryCareAccess(DataSource):
 
     _FILEPATH = '{}-{}.xlsx'
     _URL1 = ("https://www.countyhealthrankings.org/sites/default/files/media/"
-            "document/2020 County Health Rankings {} Data - v1.xlsx")
+             "document/2020 County Health Rankings {} Data - v1.xlsx")
     _URL2 = ("https://www.countyhealthrankings.org/sites/default/files/media/"
-            "document/2020 County Health Rankings {} Data - v1_0.xlsx")
+             "document/2020 County Health Rankings {} Data - v1_0.xlsx")
 
     @staticmethod
     def get_id():

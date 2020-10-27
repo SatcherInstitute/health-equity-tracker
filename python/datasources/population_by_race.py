@@ -33,9 +33,9 @@ class PopulationByRace(DataSource):
                 frame = frame.astype({col: 'int64'})
 
             frame['pop_other'] = (frame['DP05_0079E']
-                                    + frame['DP05_0081E']
-                                    + frame['DP05_0082E']
-                                    + frame['DP05_0083E'])
+                                  + frame['DP05_0081E']
+                                  + frame['DP05_0082E']
+                                  + frame['DP05_0083E'])
 
             frame = frame.rename(columns=columns)
             frame = frame.rename(columns={
@@ -49,7 +49,7 @@ class PopulationByRace(DataSource):
             column_types['county_fips_code'] = 'STRING'
 
             gcs_to_bq_util.append_dataframe_to_bq(frame, dataset, table_name,
-                                                column_types=column_types)
+                                                  column_types=column_types)
         except json.JSONDecodeError as err:
             logging.error(
                 'Unable to write to BigQuery due to improperly formatted data: %s', err)

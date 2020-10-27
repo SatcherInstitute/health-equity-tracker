@@ -4,6 +4,7 @@ import logging
 from ingestion import census, di_url_file_to_gcs, gcs_to_bq_util
 from datasources.data_source import DataSource
 
+
 # Names of the counties in the United States from US Census data.
 class CountyNames(DataSource):
 
@@ -11,12 +12,10 @@ class CountyNames(DataSource):
     def get_id():
         return 'COUNTY_NAMES'
 
-
     def upload_to_gcs(self, url, gcs_bucket, filename):
         """Uploads county names and FIPS codes from census to GCS bucket."""
         url_params = census.get_census_params_by_county(['NAME'])
         di_url_file_to_gcs.url_file_to_gcs(url, url_params, gcs_bucket, filename)
-
 
     def write_to_bq(self, dataset, table_name, gcs_bucket, filename):
         """Writes county names to BigQuery from the provided GCS bucket
@@ -38,7 +37,7 @@ class CountyNames(DataSource):
                 'county_fips_code': 'STRING'
             }
             gcs_to_bq_util.append_dataframe_to_bq(frame, dataset, table_name,
-                                                column_types=column_types)
+                                                  column_types=column_types)
         except json.JSONDecodeError as err:
             logging.error(
                 'Unable to write to BigQuery due to improperly formatted data: %s', err)

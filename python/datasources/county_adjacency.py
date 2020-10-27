@@ -1,13 +1,13 @@
 from ingestion import gcs_to_bq_util
 from datasources.data_source import DataSource
 
+
 # Adjacent counties for each county in the United States from US Census data
 class CountyAdjacency(DataSource):
 
     @staticmethod
     def get_id():
         return 'COUNTY_ADJACENCY'
-
 
     def write_to_bq(self, dataset, table_name, gcs_bucket, filename):
         """Writes county adjacencies to BigQuery from the provided GCS bucket
