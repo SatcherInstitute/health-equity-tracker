@@ -3,10 +3,9 @@ from pandas import DataFrame, read_excel
 from google.cloud import storage
 
 from ingestion import constants, di_url_file_to_gcs, gcs_to_bq_util
+from datasources.data_source import DataSource
 
-from datasources import data_source
-from data_source import DataSource
-
+# Ratio of population to primary care physicians.
 class PrimaryCareAccess(DataSource):
 
     _FILEPATH = '{}-{}.xlsx'

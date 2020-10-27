@@ -2,10 +2,9 @@ import json
 import logging
 
 from ingestion import census, di_url_file_to_gcs, gcs_to_bq_util
+from datasources.data_source import DataSource
 
-from datasources import data_source
-from data_source import DataSource
-
+# Population by race for counties in the United States from US Census data.
 class PopulationByRace(DataSource):
 
     @staticmethod
@@ -53,8 +52,8 @@ class PopulationByRace(DataSource):
             gcs_to_bq_util.append_dataframe_to_bq(frame, dataset, table_name,
                                                 column_types=column_types)
         except json.JSONDecodeError as err:
-            msg = 'Unable to write to BigQuery due to improperly formatted data: {}'
-            logging.error(msg.format(err))
+            logging.error(
+                'Unable to write to BigQuery due to improperly formatted data: %s', err)
 
 
     @staticmethod
@@ -78,7 +77,7 @@ class PopulationByRace(DataSource):
 
     @staticmethod
     def get_population_by_race_columns():
-        """Returns population by race column names of ACS fields and the BigQuery 
+        """Returns population by race column names of ACS fields and the BigQuery
         column names to convert them to."""
         return {
             'DP05_0070E': 'pop_total',

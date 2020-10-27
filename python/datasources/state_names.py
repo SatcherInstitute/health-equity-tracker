@@ -2,10 +2,9 @@ import json
 import logging
 
 from ingestion import di_url_file_to_gcs, gcs_to_bq_util
+from datasources.data_source import DataSource
 
-from datasources import data_source
-from data_source import DataSource
-
+# Names of the states in the United States from US Census data.
 class StateNames(DataSource):
 
     @staticmethod
@@ -18,7 +17,7 @@ class StateNames(DataSource):
         url_params = {'get': 'NAME', 'for': 'state:*'}
         di_url_file_to_gcs.url_file_to_gcs(url, url_params, gcs_bucket, filename)
 
-    
+
     def write_to_bq(self, dataset, table_name, gcs_bucket, filename):
         """Writes state names to BigQuery from the provided GCS bucket
 
@@ -36,5 +35,5 @@ class StateNames(DataSource):
             gcs_to_bq_util.append_dataframe_to_bq(frame, dataset, table_name,
                                                 column_types=column_types)
         except json.JSONDecodeError as err:
-            msg = 'Unable to write to BigQuery due to improperly formatted data: {}'
-            logging.error(msg.format(err))
+            logging.error(
+                'Unable to write to BigQuery due to improperly formatted data: %s', err)

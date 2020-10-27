@@ -1,11 +1,10 @@
 import json
-import logging 
+import logging
 
 from ingestion import census, di_url_file_to_gcs, gcs_to_bq_util
+from datasources.data_source import DataSource
 
-from datasources import data_source
-from data_source import DataSource
-
+# Names of the counties in the United States from US Census data.
 class CountyNames(DataSource):
 
     @staticmethod
@@ -41,5 +40,5 @@ class CountyNames(DataSource):
             gcs_to_bq_util.append_dataframe_to_bq(frame, dataset, table_name,
                                                 column_types=column_types)
         except json.JSONDecodeError as err:
-            msg = 'Unable to write to BigQuery due to improperly formatted data: {}'
-            logging.error(msg.format(err))
+            logging.error(
+                'Unable to write to BigQuery due to improperly formatted data: %s', err)
