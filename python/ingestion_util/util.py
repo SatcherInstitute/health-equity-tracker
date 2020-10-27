@@ -3,21 +3,11 @@ import json
 import logging
 import os
 
+from datasources import DATA_SOURCE_DICT
 from ingestion import (cdc_to_bq, census, census_to_bq, county_adjacency,
                        di_url_file_to_gcs, primary_care_access_to_bq,
                        primary_care_access_to_gcs, pubsub_publisher,
                        gcs_to_bq_util)
-
-# Data source name literals. These correspond to a specific data ingestion
-# workflow.
-_HOUSEHOLD_INCOME = 'HOUSEHOLD_INCOME'
-_URGENT_CARE_FACILITIES = 'URGENT_CARE_FACILITIES'
-_STATE_NAMES = 'STATE_NAMES'
-_COUNTY_NAMES = 'COUNTY_NAMES'
-_COUNTY_ADJACENCY = 'COUNTY_ADJACENCY'
-_POPULATION_BY_RACE = 'POPULATION_BY_RACE'
-_PRIMARY_CARE_ACCESS = 'PRIMARY_CARE_ACCESS'
-_CDC_COVID_DEATHS = 'CDC_COVID_DEATHS'
 
 
 def ingest_data_to_gcs(event):
@@ -40,7 +30,8 @@ def ingest_data_to_gcs(event):
     # TODO add per-data-source validation that the event has the right fields.
     url = event_dict.get('url')
     filename = event_dict.get('filename')
-    fileprefix = event_dict.get('fileprefix')
+    if filename is None:
+        filename = event_dict.get('fileprefix')
 
     logging.info("Data ingestion recieved message: %s", workflow_id)
 
@@ -53,23 +44,11 @@ def ingest_data_to_gcs(event):
     project_id = os.environ['PROJECT_ID']
     notify_data_ingested_topic = os.environ['NOTIFY_DATA_INGESTED_TOPIC']
 
-    if workflow_id == _HOUSEHOLD_INCOME:
-        census.upload_household_income(url, gcs_bucket, filename)
-    elif workflow_id == _STATE_NAMES:
-        census.upload_state_names(url, gcs_bucket, filename)
-    elif workflow_id == _COUNTY_NAMES:
-        census.upload_county_names(url, gcs_bucket, filename)
-    elif workflow_id == _POPULATION_BY_RACE:
-        census.upload_population_by_race(url, gcs_bucket, filename)
-    elif (workflow_id == _URGENT_CARE_FACILITIES
-          or workflow_id == _COUNTY_ADJACENCY
-          or workflow_id == _CDC_COVID_DEATHS):
-        di_url_file_to_gcs.url_file_to_gcs(url, None, gcs_bucket, filename)
-    elif workflow_id == _PRIMARY_CARE_ACCESS:
-        primary_care_access_to_gcs.upload_primary_care_access(
-            gcs_bucket, fileprefix)
-    else:
+    if workflow_id not in DATA_SOURCE_DICT.keys():
         raise RuntimeError("ID: {}, is not a valid id".format(workflow_id))
+
+    data_source = DATA_SOURCE_DICT[workflow_id]
+    data_source.upload_to_gcs(data_source, url, gcs_bucket, filename)
 
     logging.info(
         "Successfully uploaded data to GCS for workflow %s", workflow_id)
@@ -96,40 +75,19 @@ def ingest_bucket_to_bq(event):
     # Not all of these will be populated depending on message type.
     # TODO add per-data-source validation that the event has the right fields.
     filename = attributes.get('filename')
-    fileprefix = attributes.get('fileprefix')
+    if filename is None:
+        filename = attributes.get('fileprefix')
 
     if 'DATASET_NAME' not in os.environ:
         raise RuntimeError("Environment variable DATASET_NAME missing.")
 
     dataset = os.environ['DATASET_NAME']
 
-    if workflow_id == _URGENT_CARE_FACILITIES:
-        frame = gcs_to_bq_util.load_csv_as_dataframe(gcs_bucket, filename)
-        gcs_to_bq_util.append_dataframe_to_bq(frame, dataset, "urgent_care_facilities")
-    elif workflow_id == _STATE_NAMES:
-        census_to_bq.write_state_names_to_bq(
-            dataset, 'state_names', gcs_bucket, filename)
-    elif workflow_id == _COUNTY_NAMES:
-        census_to_bq.write_county_names_to_bq(
-            dataset, 'county_names', gcs_bucket, filename)
-    elif workflow_id == _COUNTY_ADJACENCY:
-        county_adjacency.write_adjacencies_to_bq(
-            dataset, 'county_adjacency', gcs_bucket, filename)
-    elif workflow_id == _POPULATION_BY_RACE:
-        census_to_bq.write_population_by_race_to_bq(
-            dataset, 'population_by_race', gcs_bucket, filename)
-    elif workflow_id == _PRIMARY_CARE_ACCESS:
-        primary_care_access_to_bq.write_primary_care_access_to_bq(
-            dataset, 'primary_care_access', gcs_bucket, fileprefix)
-    elif workflow_id == _CDC_COVID_DEATHS:
-        cdc_to_bq.write_covid_deaths_to_bq(
-            dataset, 'covid_deaths', gcs_bucket, filename)
-    elif workflow_id == _HOUSEHOLD_INCOME:
-        census_to_bq.write_household_income_to_bq(
-            dataset, 'SAIPE_household_income_poverty_estimates', gcs_bucket,
-            filename)
-    else:
+    if workflow_id not in DATA_SOURCE_DICT.keys():
         raise RuntimeError("ID: {}, is not a valid id".format(workflow_id))
+
+    data_source = DATA_SOURCE_DICT[workflow_id]
+    data_source.write_to_bq(data_source, dataset, gcs_bucket, filename)
 
     logging.info(
         "Successfully uploaded to BigQuery for workflow %s", workflow_id)
