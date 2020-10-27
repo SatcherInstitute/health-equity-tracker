@@ -13,6 +13,12 @@ class HouseholdIncome(DataSource):
         return 'HOUSEHOLD_INCOME'
 
     @staticmethod
+    def get_table_name():
+        """Returns the BigQuery table name where the data source's data will
+        stored. """
+        return 'SAIPE_household_income_poverty_estimates'
+
+    @staticmethod
     def get_household_income_columns():
         """Returns column names of SAIPE fields and their descriptions."""
         return {
@@ -47,7 +53,7 @@ class HouseholdIncome(DataSource):
             di_url_file_to_gcs.url_file_to_gcs(
                 url, url_params, gcs_bucket, '{}_{}.json'.format(filename, year))
 
-    def write_to_bq(self, dataset, table_name, gcs_bucket, filename):
+    def write_to_bq(self, dataset, gcs_bucket, filename):
         """Fetches all SAIPE blobs from a GCS bucket and uploads to a single BQ table.
         Also does some preprocessing.
 
@@ -67,4 +73,4 @@ class HouseholdIncome(DataSource):
         # The SAIPE API includes the query predicate columns, which are duplicates of their
         # ALL_CAPS counterparts. Toss 'em.
         concat.drop(columns=['state', 'county', 'time'], inplace=True)
-        gcs_to_bq_util.append_dataframe_to_bq(concat, dataset, table_name)
+        gcs_to_bq_util.append_dataframe_to_bq(concat, dataset, self.get_table_name())

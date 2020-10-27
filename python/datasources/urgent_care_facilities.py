@@ -8,3 +8,9 @@ class UrgentCareFacilities(DataSource):
     @staticmethod
     def get_id():
         return 'URGENT_CARE_FACILITIES'
+
+    @staticmethod
+    def get_table_name():
+        """Returns the BigQuery table name where the data source's data will
+        stored. """
+        return 'urgent_care_facilities'

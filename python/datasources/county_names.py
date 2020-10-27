@@ -12,12 +12,18 @@ class CountyNames(DataSource):
     def get_id():
         return 'COUNTY_NAMES'
 
+    @staticmethod
+    def get_table_name():
+        """Returns the BigQuery table name where the data source's data will
+        stored. """
+        return 'county_names'
+
     def upload_to_gcs(self, url, gcs_bucket, filename):
         """Uploads county names and FIPS codes from census to GCS bucket."""
         url_params = census.get_census_params_by_county(['NAME'])
         di_url_file_to_gcs.url_file_to_gcs(url, url_params, gcs_bucket, filename)
 
-    def write_to_bq(self, dataset, table_name, gcs_bucket, filename):
+    def write_to_bq(self, dataset, gcs_bucket, filename):
         """Writes county names to BigQuery from the provided GCS bucket
 
         dataset: The BigQuery dataset to write to
@@ -36,7 +42,7 @@ class CountyNames(DataSource):
                 'state_fips_code': 'STRING',
                 'county_fips_code': 'STRING'
             }
-            gcs_to_bq_util.append_dataframe_to_bq(frame, dataset, table_name,
+            gcs_to_bq_util.append_dataframe_to_bq(frame, dataset, self.get_table_name(),
                                                   column_types=column_types)
         except json.JSONDecodeError as err:
             logging.error(

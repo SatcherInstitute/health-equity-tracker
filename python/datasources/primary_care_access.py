@@ -19,6 +19,12 @@ class PrimaryCareAccess(DataSource):
     def get_id():
         return 'PRIMARY_CARE_ACCESS'
 
+    @staticmethod
+    def get_table_name():
+        """Returns the BigQuery table name where the data source's data will
+        stored. """
+        return 'primary_care_access'
+
     def upload_to_gcs(self, url, gcs_bucket, filename):
         """Uploads one file containing primary care access info for each state."""
 
@@ -29,7 +35,7 @@ class PrimaryCareAccess(DataSource):
                 self._FILEPATH.format(filename, state)
             )
 
-    def write_to_bq(self, dataset, table_name, gcs_bucket, filename):
+    def write_to_bq(self, dataset, gcs_bucket, filename):
         """Writes primary care access stats to BigQuery from bucket
             dataset: The BigQuery dataset to write to
             table_name: The name of the biquery table to write to
@@ -73,4 +79,4 @@ class PrimaryCareAccess(DataSource):
             'primary_care_physicians_rate': 'FLOAT64',
         }
         gcs_to_bq_util.append_dataframe_to_bq(
-            new_dataframe, dataset, table_name, column_types=column_types)
+            new_dataframe, dataset, self.get_table_name(), column_types=column_types)

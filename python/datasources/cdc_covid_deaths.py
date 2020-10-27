@@ -7,3 +7,9 @@ class CDCCovidDeaths(DataSource):
     @staticmethod
     def get_id():
         return 'CDC_COVID_DEATHS'
+
+    @staticmethod
+    def get_table_name():
+        """Returns the BigQuery table name where the data source's data will
+        stored. """
+        return 'covid_deaths'
