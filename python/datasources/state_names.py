@@ -10,6 +10,7 @@ class StateNames(DataSource):
 
     @staticmethod
     def get_id():
+        """Returns the data source's unique id. """
         return 'STATE_NAMES'
 
     @staticmethod

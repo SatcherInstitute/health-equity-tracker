@@ -6,6 +6,11 @@ from ingestion import di_url_file_to_gcs, gcs_to_bq_util
 # This also includes default implementations for each of the ingestion methods.
 class DataSource(ABC):
     @staticmethod
+    def get_id():
+        """Returns the data source's unique id. """
+        pass
+
+    @staticmethod
     def get_table_name():
         """Returns the BigQuery table name where the data source's data will
         stored. """

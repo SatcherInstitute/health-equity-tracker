@@ -10,6 +10,7 @@ class PopulationByRace(DataSource):
 
     @staticmethod
     def get_id():
+        """Returns the data source's unique id. """
         return 'POPULATION_BY_RACE'
 
     @staticmethod

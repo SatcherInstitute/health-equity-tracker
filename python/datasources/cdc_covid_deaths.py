@@ -6,6 +6,7 @@ class CDCCovidDeaths(DataSource):
 
     @staticmethod
     def get_id():
+        """Returns the data source's unique id. """
         return 'CDC_COVID_DEATHS'
 
     @staticmethod

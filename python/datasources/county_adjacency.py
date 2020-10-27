@@ -7,6 +7,7 @@ class CountyAdjacency(DataSource):
 
     @staticmethod
     def get_id():
+        """Returns the data source's unique id. """
         return 'COUNTY_ADJACENCY'
 
     @staticmethod
