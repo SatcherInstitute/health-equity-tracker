@@ -5,8 +5,8 @@ import google.cloud.exceptions
 import pytest
 from flask.testing import FlaskClient
 
-from main import app, cache
 from data_server.dataset_cache import DatasetCache
+from main import app, cache
 
 os.environ['GCS_BUCKET'] = 'test'
 os.environ['METADATA_FILENAME'] = 'test_data.ndjson'
