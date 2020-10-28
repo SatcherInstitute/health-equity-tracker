@@ -2,6 +2,7 @@ import logging
 import os
 
 from flask import Flask, Response
+from werkzeug.datastructures import Headers
 
 from data_server.dataset_cache import DatasetCache
 
@@ -14,7 +15,7 @@ def get_program_name():
     return 'Running data server.'
 
 
-@app.route('/getMetadata', methods=['GET'])
+@app.route('/metadata', methods=['GET'])
 def get_metadata():
     """Downloads and returns metadata about available download files."""
     try:
@@ -27,10 +28,11 @@ def get_metadata():
     def generate_response(data: bytes):
         for row in data.splitlines():
             yield row + b'\n'
+    headers = Headers()
+    headers.add('Content-Disposition', 'attachment',
+                filename=os.environ.get('METADATA_FILENAME'))
     return Response(generate_response(metadata), mimetype='application/json',
-                    headers={'Content-Disposition':
-                             'attachment;filename={}'.format(
-                                 os.environ.get('METADATA_FILENAME'))})
+                    headers=headers)
 
 
 if __name__ == "__main__":

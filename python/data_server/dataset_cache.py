@@ -6,7 +6,12 @@ from data_server import gcs_utils
 
 
 class DatasetCache():
+    """DatasetCache manages and stores datasets accessed through GCS.
+    DatasetCache is a thin, thread-safe wrapper around cachetools.TTLCache."""
+
     def __init__(self, max_cache_size=8, cache_ttl=2 * 3600):
+        """max_cache_size: Max number of cache elements. Default 8.
+        cache_ttl: TTL per object in seconds. Default 2 hours."""
         self.cache = cachetools.TTLCache(maxsize=max_cache_size, ttl=cache_ttl)
         self.cache_lock = threading.Lock()
 
@@ -36,7 +41,7 @@ class DatasetCache():
         blob_str = gcs_utils.download_blob_as_bytes(gcs_bucket, table_id)
 
         # If this has been updated since we last checked, it's still okay to
-        # overwrite.
+        # overwrite since it will only affect freshness.
         with self.cache_lock:
             self.cache[table_id] = blob_str
             return blob_str

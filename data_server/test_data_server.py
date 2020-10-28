@@ -24,7 +24,6 @@ test_data = b"""
 def get_test_data(gcs_bucket: str, filename: str):
     """Returns the contents of filename as a bytes object. Meant to be used to
     patch gcs_utils.download_blob_as_bytes."""
-    print('In get_test_data')
     return test_data
 
 
@@ -50,11 +49,11 @@ def testGetProgramName(client: FlaskClient):
 @mock.patch('data_server.gcs_utils.download_blob_as_bytes',
             side_effect=get_test_data)
 def testGetMetadata(mock_func: mock.MagicMock, client: FlaskClient):
-    response = client.get('/getMetadata')
+    response = client.get('/metadata')
     mock_func.assert_called_once_with('test', 'test_data.ndjson')
     assert response.status_code == 200
     assert (response.headers.get('Content-Disposition') ==
-            'attachment;filename=test_data.ndjson')
+            'attachment; filename=test_data.ndjson')
     assert response.data == test_data
 
 
@@ -62,12 +61,12 @@ def testGetMetadata(mock_func: mock.MagicMock, client: FlaskClient):
             side_effect=get_test_data)
 def testGetMetadata_FromCache(mock_func: mock.MagicMock, client: FlaskClient):
     # Make the first request, which will incur an API call.
-    response = client.get('/getMetadata')
+    response = client.get('/metadata')
     mock_func.assert_called_once_with('test', 'test_data.ndjson')
     assert response.status_code == 200
 
     # Make the second request, which should not incur an API call.
-    response = client.get('/getMetadata')
+    response = client.get('/metadata')
     assert response.status_code == 200
     mock_func.assert_called_once()
 
@@ -77,6 +76,6 @@ def testGetMetadata_InternalError(mock_func: mock.MagicMock,
                                   client: FlaskClient):
     mock_func.side_effect = google.cloud.exceptions.NotFound('File not found')
 
-    response = client.get('/getMetadata')
+    response = client.get('/metadata')
     assert response.status_code == 500
     assert b'Internal server error: 404 File not found' in response.data
