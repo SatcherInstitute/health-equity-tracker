@@ -1,6 +1,6 @@
 from setuptools import setup
 
-setup(name='ingestion',
-      package_dir={'ingestion': ''},
-      packages=['ingestion'],
+setup(name='ingestionutil',
+      package_dir={'ingestion_util': ''},
+      packages=['ingestionutil'],
       )
