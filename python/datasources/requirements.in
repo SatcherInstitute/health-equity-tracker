@@ -1,1 +1,1 @@
--r ../ingestion_util/requirements.in
+-r ../ingestion/requirements.in
