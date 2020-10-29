@@ -9,9 +9,13 @@ ENV PYTHONUNBUFFERED True
 ENV APP_HOME /app
 WORKDIR $APP_HOME
 COPY ./data_server ./data_server
+COPY ./python/data_server ./python/data_server
 
 # Install production dependencies.
+RUN python -m pip install --upgrade pip
 RUN pip install -r data_server/requirements.txt
+# Install shared packages.
+RUN pip install ./python/data_server
 
 # Run the web service on container startup. Here we use the gunicorn
 # webserver, with one worker process and 8 threads.

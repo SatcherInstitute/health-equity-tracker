@@ -1,2 +1,4 @@
+-r ../python/data_server/requirements.in
+
 flask
 gunicorn

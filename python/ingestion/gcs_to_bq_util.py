@@ -15,12 +15,12 @@ def append_dataframe_to_bq(
        frame: pandas.DataFrame representing the data to append.
        dataset: The BigQuery dataset to write to.
        table_name: The BigQuery table to write to.
-       column_types: Optional dict of column name to BigQuery data type. If present,
-                     the column names must match the columns in the DataFrame.
-                     Otherwise, table schema is inferred.
+       column_types: Optional dict of column name to BigQuery data type. If
+                     present, the column names must match the columns in the
+                     DataFrame. Otherwise, table schema is inferred.
        col_modes: Optional dict of modes for each field. Possible values include
-                  NULLABLE, REQUIRED, and REPEATED. Must also specify column_types to
-                  specify col_modes."""
+                  NULLABLE, REQUIRED, and REPEATED. Must also specify
+                  column_types to specify col_modes."""
     job_config = bigquery.LoadJobConfig(
         # Always append, so we can keep the history.
         write_disposition=bigquery.WriteDisposition.WRITE_APPEND
@@ -37,8 +37,8 @@ def append_dataframe_to_bq(
     client = bigquery.Client()
     table_id = client.dataset(dataset).table(table_name)
     # Repeated fields are not supported with bigquery.Client.load_table_from_dataframe()
-    # (See https://github.com/googleapis/python-bigquery/issues/19). We have to use
-    # load_table_from_json as a workaround.
+    # (See https://github.com/googleapis/python-bigquery/issues/19). We have to
+    # use load_table_from_json as a workaround.
     result = frame.to_json(orient='records')
     json_data = json.loads(result)
     load_job = client.load_table_from_json(

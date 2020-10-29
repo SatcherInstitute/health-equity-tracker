@@ -1,5 +1,6 @@
 Dockerfile
 README.md
+test*
 *.pyc
 *.pyo
 *.pyd
