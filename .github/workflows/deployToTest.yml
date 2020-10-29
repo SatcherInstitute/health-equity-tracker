@@ -1,15 +1,13 @@
 name: Deploy to Test
 
 on:
-  # TODO: Uncomment after manual testing.
-  # push:
-  #    branches: [master]
+  push:
+      branches: [master]
   workflow_dispatch:
 
 jobs:
   deploy:
-    # TODO: Uncomment after manual testing.
-    #if: github.repository == 'SatcherInstitute/health-equity-tracker'    
+    if: github.repository == 'SatcherInstitute/health-equity-tracker'    
     name: Build Images and Deploy to Test Environment
     runs-on: ubuntu-latest
 
@@ -59,7 +57,7 @@ jobs:
         working-directory: ./config
         run: terraform fmt -check
       - name: Terraform Apply
-        #if: github.ref == 'refs/heads/$default-branch' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/$default-branch' && github.event_name == 'push'
         working-directory: ./config
         run: |
           terraform apply -auto-approve -var-file=test/test.tfvars \
@@ -70,12 +68,14 @@ jobs:
           -var 'data_server_image_digest=${{ steps.serving.outputs.image-digest }}'
       - name: Airflow Environment Variables
         id: airflow-environment-variables
+        if: github.ref == 'refs/heads/$default-branch' && github.event_name == 'push'
         run: |
           gcloud composer environments update data-ingestion-environment \
           --update-env-variables=INGEST_TO_GCS_SERVICE_ENDPOINT=${{ secrets.INGEST_GCS_SERVICE_ENDPOINT }}, \
           GCS_TO_BQ_SERVICE_ENDPOINT=${{ secrets.INGEST_BQ_SERVICE_ENDPOINT }}
       - name: Upload Airflow DAG
         id: upload-dags
+        if: github.ref == 'refs/heads/$default-branch' && github.event_name == 'push'
         working-directory: ./airflow/dags
         run: |
           gcloud composer environments storage dags import \
