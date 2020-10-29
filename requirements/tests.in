@@ -1,0 +1,4 @@
+-r ../python/tests/requirements.in
+
+flask
+pytest
