@@ -61,7 +61,7 @@ def ingest(event):
         raise RuntimeError("ID: {}, is not a valid id".format(workflow_id))
 
     data_source = DATA_SOURCES_DICT[workflow_id]
-    data_source.write_to_bq(data_source, dataset, gcs_bucket, filename)
+    data_source.write_to_bq(dataset, gcs_bucket, filename)
 
     logging.info(
         "Successfully uploaded to BigQuery for workflow %s", workflow_id)

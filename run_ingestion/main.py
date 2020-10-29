@@ -72,7 +72,7 @@ def ingest_data_to_gcs(event):
         raise RuntimeError("ID: {}, is not a valid id".format(workflow_id))
 
     data_source = DATA_SOURCES_DICT[workflow_id]
-    data_source.upload_to_gcs(data_source, url, gcs_bucket, filename)
+    data_source.upload_to_gcs(url, gcs_bucket, filename)
 
     logging.info(
         "Successfully uploaded data to GCS for workflow %s", workflow_id)

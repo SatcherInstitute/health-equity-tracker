@@ -1,7 +1,7 @@
 import json
 import logging
 
-from ingestion import census, di_url_file_to_gcs, gcs_to_bq_util
+from ingestion import census, url_file_to_gcs, gcs_to_bq_util
 from datasources.data_source import DataSource
 
 
@@ -23,7 +23,7 @@ class PopulationByRace(DataSource):
         """Uploads population by county and race from census to GCS bucket."""
         url_params = census.get_census_params_by_county(
             self.get_population_by_race_external_columns().keys())
-        di_url_file_to_gcs.url_file_to_gcs(url, url_params, gcs_bucket, filename)
+        url_file_to_gcs.url_file_to_gcs(url, url_params, gcs_bucket, filename)
 
     def write_to_bq(self, dataset, gcs_bucket, filename):
         """Writes population by race to BigQuery from the provided GCS bucket

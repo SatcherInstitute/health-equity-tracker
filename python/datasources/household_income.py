@@ -1,7 +1,7 @@
 import pandas
 from google.cloud import storage
 
-from ingestion import census, di_url_file_to_gcs, gcs_to_bq_util
+from ingestion import census, url_file_to_gcs, gcs_to_bq_util
 from datasources.data_source import DataSource
 
 
@@ -51,7 +51,7 @@ class HouseholdIncome(DataSource):
             url_params = census.get_census_params_by_county(
                 self.get_household_income_columns().keys())
             url_params['time'] = year
-            di_url_file_to_gcs.url_file_to_gcs(
+            url_file_to_gcs.url_file_to_gcs(
                 url, url_params, gcs_bucket, '{}_{}.json'.format(filename, year))
 
     def write_to_bq(self, dataset, gcs_bucket, filename):
