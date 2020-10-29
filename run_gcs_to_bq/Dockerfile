@@ -13,6 +13,7 @@ COPY ./run_gcs_to_bq ./run_gcs_to_bq
 COPY ./python ./python
 
 # Install production dependencies.
+RUN python -m pip install --upgrade pip
 RUN pip install -r run_gcs_to_bq/requirements.txt
 # Install shared packages
 RUN pip install ./python/ingestion

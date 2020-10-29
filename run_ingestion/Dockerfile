@@ -13,6 +13,7 @@ COPY ./run_ingestion ./run_ingestion
 COPY ./python ./python
 
 # Install production dependencies.
+RUN python -m pip install --upgrade pip
 RUN pip install -r run_ingestion/requirements.txt
 # Install shared packages
 RUN pip install ./python/ingestion
