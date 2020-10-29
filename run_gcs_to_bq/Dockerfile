@@ -17,6 +17,7 @@ RUN python -m pip install --upgrade pip
 RUN pip install -r run_gcs_to_bq/requirements.txt
 # Install shared packages
 RUN pip install ./python/ingestion
+RUN pip install ./python/datasources
 
 # Run the web service on container startup. Here we use the gunicorn
 # webserver, with one worker process and 8 threads.

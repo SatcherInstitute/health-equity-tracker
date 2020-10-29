@@ -1,5 +1,5 @@
 from abc import ABC
-from ingestion import di_url_file_to_gcs, gcs_to_bq_util
+from ingestion import url_file_to_gcs, gcs_to_bq_util
 
 
 # Abstract base class for all data sources ingested by the Health Equity Tracker.
@@ -24,7 +24,7 @@ class DataSource(ABC):
         gcs_bucket: Name of the GCS bucket to upload to (without gs://).
         filename: What to name the downloaded file in GCS.
             Include the file extension."""
-        di_url_file_to_gcs.url_file_to_gcs(url, None, gcs_bucket, filename)
+        url_file_to_gcs.url_file_to_gcs(url, None, gcs_bucket, filename)
 
     def write_to_bq(self, dataset, gcs_bucket, filename):
         """Writes source data from GCS bucket to BigQuery

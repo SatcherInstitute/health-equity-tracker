@@ -2,7 +2,7 @@ import math
 from pandas import DataFrame, read_excel
 from google.cloud import storage
 
-from ingestion import constants, di_url_file_to_gcs, gcs_to_bq_util
+from ingestion import constants, url_file_to_gcs, gcs_to_bq_util
 from datasources.data_source import DataSource
 
 
@@ -30,7 +30,7 @@ class PrimaryCareAccess(DataSource):
         """Uploads one file containing primary care access info for each state."""
 
         for state in constants.STATE_NAMES:
-            di_url_file_to_gcs.download_first_url_to_gcs(
+            url_file_to_gcs.download_first_url_to_gcs(
                 [self._URL1.format(state), self._URL2.format(state)],
                 gcs_bucket,
                 self._FILEPATH.format(filename, state)
