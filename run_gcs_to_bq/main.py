@@ -23,14 +23,14 @@ def ingest_bucket_to_bq():
     logging.info(f"Received message: {event}")
 
     try:
-        ingest(event)
+        do_ingestion(event)
         return ('', 204)
     except Exception as e:
         logging.exception(e)
         return ('', 400)
 
 
-def ingest(event):
+def do_ingestion(event):
     """Main entry point for moving data from buckets to bigquery. Triggered by
        notify-data-ingested topic.
 
