@@ -34,6 +34,7 @@ def ingest_data():
         logging.exception(e)
         return ('', 400)
 
+
 def ingest_data_to_gcs(event):
     """Main entry point for data ingestion. Receives Pub/Sub trigger and triages
        to the appropriate data ingestion workflow.
@@ -78,6 +79,7 @@ def ingest_data_to_gcs(event):
         "Successfully uploaded data to GCS for workflow %s", workflow_id)
     pubsub_publisher.notify_topic(
         project_id, notify_data_ingested_topic, **event_dict)
+
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
