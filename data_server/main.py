@@ -16,6 +16,15 @@ cache = DatasetCache()
 def get_program_name():
     return 'Running data server.'
 
+@app.route('/fake_metadata', methods=['GET'])
+def get_fake_metadata():
+    headers = Headers()
+    headers.add('Content-Disposition', 'attachment',
+                filename=os.environ.get('METADATA_FILENAME'))     
+    headers.add('Access-Control-Allow-Origin', '*')
+    headers.add('Vary', 'Origin ')
+    return Response('{"stuff": "muff"}', mimetype='application/json', headers=headers)
+
 
 @app.route('/metadata', methods=['GET'])
 def get_metadata():
@@ -35,7 +44,9 @@ def get_metadata():
         yield next_row.rstrip(b',') + b']'
     headers = Headers()
     headers.add('Content-Disposition', 'attachment',
-                filename=os.environ.get('METADATA_FILENAME'))
+                filename=os.environ.get('METADATA_FILENAME'))     
+    headers.add('Access-Control-Allow-Origin', '*')
+    headers.add('Vary', 'Origin ')
     return Response(generate_response(metadata), mimetype='application/json',
                     headers=headers)
 
