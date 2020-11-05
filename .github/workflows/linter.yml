@@ -6,6 +6,7 @@ name: Lint Code Base
 on:
   pull_request:
     branches: [master]
+  workflow_dispatch:
 
 jobs:
   build:
