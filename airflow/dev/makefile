@@ -11,6 +11,10 @@ build: build_ingest_gcs build_gcs_to_bq
 run:
 	docker-compose -f docker-compose-data-ingestion.yml up -d
 
+reload_ingest_gcs: build_ingest_gcs run
+
+reload_gcs_to_bq: build_gcs_to_bq run
+
 kill:
 	@echo "Killing docker-airflow containers"
 	docker kill $(shell docker ps -q)

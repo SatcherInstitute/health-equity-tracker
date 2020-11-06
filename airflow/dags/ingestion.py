@@ -1,5 +1,6 @@
-"""Data ingestion DAG"""
+'''Data ingestion DAG'''
 import requests
+import copy
 # Ingore the Airflow module, it is installed in both our dev and prod environments
 from airflow.models import Variable  # type: ignore
 from airflow import DAG  # type: ignore
@@ -13,19 +14,47 @@ default_args = {
 data_ingestion_dag = DAG(
     'data_ingestion_dag',
     default_args=default_args,
+    # TODO(https://github.com/SatcherInstitute/health-equity-tracker/issues/30)
+    # schedule_interval='@daily',  # Run once a day at midnight
     description='The data ingestion pipeline.')
 
 
-def ingest_data_to_gcs(url: str, data: dict):
-    resp = requests.post(url, data)
-    if resp.status_code != 200:
-        raise Exception('Failed response code: {}'.format(resp.status_code))
+def create_gcs_ingest_operator(task_id: str, payload: dict) -> PythonOperator:
+    return create_request_operator(task_id, Variable.get('INGEST_TO_GCS_SERVICE_ENDPOINT'), payload)
 
 
-ingest_to_gcs_data_task = PythonOperator(
-    task_id='ingest_to_gcs',
-    python_callable=ingest_data_to_gcs,
-    op_kwargs={'url': Variable.get("INGEST_TO_GCS_SERVICE_ENDPOINT"), 'data': {
-        'hello': 'world'}},
-    dag=data_ingestion_dag,
-)
+def create_bq_ingest_operator(task_id: str, payload: dict) -> PythonOperator:
+    return create_request_operator(task_id, Variable.get('GCS_TO_BQ_SERVICE_ENDPOINT'), payload)
+
+
+def create_request_operator(task_id: str, url: str, payload: dict) -> PythonOperator:
+    return PythonOperator(
+        task_id=task_id,
+        python_callable=service_request,
+        op_kwargs={'url': url, 'data': payload},
+        dag=data_ingestion_dag,
+    )
+
+
+def service_request(url: str, data: dict):
+    try:
+        resp = requests.post(url, json=data)
+        resp.raise_for_status()
+    except requests.exceptions.HTTPError as err:
+        raise Exception('Failed response code: {}'.format(err))
+
+
+# CDC Covid Deaths
+cdc_covid_deaths_bq_payload = {'message': {'is_airflow_run': True,
+                                           'filename': 'cdc_deaths',
+                                           'gcs_bucket': Variable.get('GCS_LANDING_BUCKET'),
+                                           'id': 'CDC_COVID_DEATHS'}}
+cdc_covid_deaths_gcs_payload = copy.deepcopy(cdc_covid_deaths_bq_payload)
+cdc_covid_deaths_gcs_payload['message']['url'] = 'https://data.cdc.gov/api/views/k8wy-p9cg/rows.csv?accessType=DOWNLOAD'
+cdc_covid_deaths_gcs_operator = create_gcs_ingest_operator(
+    'cdc_covid_deaths_to_gcs', cdc_covid_deaths_gcs_payload)
+cdc_covid_deaths_bq_operator = create_bq_ingest_operator(
+    'cdc_covid_deaths_to_bq', cdc_covid_deaths_bq_payload)
+
+# Ingestion DAG
+cdc_covid_deaths_gcs_operator >> cdc_covid_deaths_bq_operator
