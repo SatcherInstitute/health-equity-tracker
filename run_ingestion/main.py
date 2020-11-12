@@ -41,10 +41,18 @@ def ingest_data_to_gcs(event):
 
        event: Dict containing the Pub/Sub method. The payload will be a base-64
               encoded string in the 'data' field."""
-    if 'data' not in event:
-        raise RuntimeError("PubSub message missing 'data' field")
-    data = base64.b64decode(event['data']).decode('utf-8')
-    event_dict = json.loads(data)
+    is_airflow_run = event['is_airflow_run']
+    if is_airflow_run:
+        event_dict = event
+    else:
+        if 'NOTIFY_DATA_INGESTED_TOPIC' not in os.environ:
+            raise RuntimeError(
+                "Environment variable NOTIFY_DATA_INGESTED_TOPIC missing.")
+        notify_data_ingested_topic = os.environ['NOTIFY_DATA_INGESTED_TOPIC']
+        if 'data' not in event:
+            raise RuntimeError("PubSub message missing 'data' field")
+        data = base64.b64decode(event['data']).decode('utf-8')
+        event_dict = json.loads(data)
 
     if 'id' not in event_dict or 'gcs_bucket' not in event_dict:
         raise RuntimeError("PubSub data missing 'id' or 'gcs_bucket' field")
@@ -62,13 +70,8 @@ def ingest_data_to_gcs(event):
 
     if 'PROJECT_ID' not in os.environ:
         raise RuntimeError("Environment variable PROJECT_ID missing.")
-    if 'NOTIFY_DATA_INGESTED_TOPIC' not in os.environ:
-        raise RuntimeError(
-            "Environment variable NOTIFY_DATA_INGESTED_TOPIC missing.")
 
     project_id = os.environ['PROJECT_ID']
-    notify_data_ingested_topic = os.environ['NOTIFY_DATA_INGESTED_TOPIC']
-
     if workflow_id not in DATA_SOURCES_DICT.keys():
         raise RuntimeError("ID: {}, is not a valid id".format(workflow_id))
 
@@ -77,8 +80,9 @@ def ingest_data_to_gcs(event):
 
     logging.info(
         "Successfully uploaded data to GCS for workflow %s", workflow_id)
-    pubsub_publisher.notify_topic(
-        project_id, notify_data_ingested_topic, **event_dict)
+    if not is_airflow_run:
+        pubsub_publisher.notify_topic(
+            project_id, notify_data_ingested_topic, **event_dict)
 
 
 if __name__ == "__main__":
