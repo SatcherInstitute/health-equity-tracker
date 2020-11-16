@@ -9,7 +9,9 @@ app = Flask(__name__)
 
 @app.route('/', methods=['POST'])
 def export_dataset_tables():
-    """Exports the tables in the given dataset to GCS"""
+    """Exports the tables in the given dataset to GCS.
+    
+       Request form must include the dataset name."""
     dataset_name = request.form['dataset_name']
     project_id = os.environ.get('PROJECT_ID')
     export_bucket = os.environ.get('EXPORT_BUCKET')
