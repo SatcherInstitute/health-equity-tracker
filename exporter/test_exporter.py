@@ -9,8 +9,8 @@ from google.cloud import bigquery
 
 from main import app
 
-test_tables = [bigquery.Table("my-project.my-dataset.t1"), 
-               bigquery.Table("my-project.my-dataset.t2"), 
+test_tables = [bigquery.Table("my-project.my-dataset.t1"),
+               bigquery.Table("my-project.my-dataset.t2"),
                bigquery.Table("my-project.my-dataset.t3")]
 
 os.environ['PROJECT_ID'] = 'my-project'

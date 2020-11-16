@@ -10,7 +10,7 @@ app = Flask(__name__)
 @app.route('/', methods=['POST'])
 def export_dataset_tables():
     """Exports the tables in the given dataset to GCS.
-    
+
        Request form must include the dataset name."""
     dataset_name = request.form['dataset_name']
     project_id = os.environ.get('PROJECT_ID')
@@ -22,11 +22,11 @@ def export_dataset_tables():
     tables = list(bq_client.list_tables(dataset))
 
     # If there are no tables in the dataset, return an error so the pipeline will alert
-    # and a human can look into any potential issues. 
+    # and a human can look into any potential issues.
     if not tables:
         return ('Dataset has no tables.', 500)
 
-    for table in tables: 
+    for table in tables:
         dest_uri = "gs://{}/{}.json".format(export_bucket, table.table_id)
         table_ref = dataset.table(table.table_id)
         try:
@@ -37,7 +37,7 @@ def export_dataset_tables():
             logging.error(err)
             return ('Error exporting table, {}: {}'.format(table.table_id, err), 500)
 
-    return ('', 204)    
+    return ('', 204)
 
 
 if __name__ == "__main__":
