@@ -34,3 +34,7 @@ jobs:
     - name: Test data_server service with pytest
       working-directory: ./data_server
       run: pytest
+
+    - name: Test exporter service with pytest
+      working-directory: ./exporter
+      run: pytest
