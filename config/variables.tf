@@ -4,6 +4,11 @@ variable "project_id" {
   type        = string
 }
 
+variable "manual_uploads_project_id" {
+  description = "The project ID for manual data uploads"
+  type        = string
+}
+
 variable "gcp_credentials" {
   description = "Credentials for calling GCP services"
   type        = string
@@ -31,8 +36,18 @@ variable "export_bucket" {
   type        = string
 }
 
+variable "gcs_manual_bucket" {
+  description = "Name of the GCS bucket for manual data uploads"
+  type        = string
+}
+
 variable "bq_dataset_name" {
   description = "BigQuery Main Dataset"
+  type        = string
+}
+
+variable "bq_manual_dataset_name" {
+  description = "BigQuery dataset for manual uploads"
   type        = string
 }
 
