@@ -27,7 +27,7 @@ def export_dataset_tables():
         return ('Dataset has no tables.', 500)
 
     for table in tables:
-        dest_uri = "gs://{}/{}.json".format(export_bucket, table.table_id)
+        dest_uri = "gs://{}/{}-{}.json".format(export_bucket, dataset_name, table.table_id)
         table_ref = dataset.table(table.table_id)
         try:
             extract_job = bq_client.extract_table(table_ref, dest_uri, location='US')

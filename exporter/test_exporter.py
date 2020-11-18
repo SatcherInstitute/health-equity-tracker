@@ -33,6 +33,7 @@ def testExportDatasetTables(client: FlaskClient):
 
         dataset_name = {'dataset_name': 'my-dataset'}
         response = client.post('/', data=dataset_name)
+
         assert response.status_code == 204
         assert mock_bq_instance.extract_table.call_count == 3
 
@@ -50,6 +51,7 @@ def testExportDatasetTables_NoTables(client: FlaskClient):
 
         dataset_name = {'dataset_name': 'my-dataset'}
         response = client.post('/', data=dataset_name)
+
         assert response.status_code == 500
 
 
@@ -64,4 +66,5 @@ def testExportDatasetTables_ExtractJobFailure(client: FlaskClient):
 
         dataset_name = {'dataset_name': 'my-dataset'}
         response = client.post('/', data=dataset_name)
+
         assert response.status_code == 500
