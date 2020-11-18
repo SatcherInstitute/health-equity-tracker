@@ -7,6 +7,12 @@ services:
             - webserver
         environment:
             - PORT=8080
+            # Ensure that the executing shell sets a PROJECT_ID value. (export PROJECT_ID=exampe-project-id)
+            - PROJECT_ID=${PROJECT_ID}
+            - GOOGLE_APPLICATION_CREDENTIALS=/root/keys/keyfile.json
+        volumes:
+            # Ensure that the executing shell sets a GCP_KEY_PATH value. (export GCP_KEY_PATH=/absolute/path/to/service/account/key.json)
+            - ${GCP_KEY_PATH}:/root/keys/keyfile.json:ro
 
     gcs_to_bq:
         image: het/gcs_to_bq:latest
@@ -15,6 +21,11 @@ services:
             - webserver
         environment:
             - PORT=8080
+            - DATASET_NAME=test_data_sources
+            - GOOGLE_APPLICATION_CREDENTIALS=/root/keys/keyfile.json
+        volumes:
+            # Ensure that the executing shell sets a GCP_KEY_PATH value. (export GCP_KEY_PATH=/absolute/path/to/service/account/key.json)
+            - ${GCP_KEY_PATH}:/root/keys/keyfile.json:ro
 
     postgres:
         image: postgres:9.6
