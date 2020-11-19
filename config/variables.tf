@@ -4,6 +4,11 @@ variable "project_id" {
   type        = string
 }
 
+variable "gcp_credentials" {	
+  description = "Credentials for calling GCP services"	
+  type        = string	
+}
+
 variable "compute_region" {
   description = "Region for Compute Resources"
   type        = string
