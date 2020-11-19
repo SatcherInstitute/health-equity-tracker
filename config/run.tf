@@ -162,5 +162,4 @@ resource "google_cloud_run_service" "exporter_service" {
   }
   autogenerate_revision_name = true
 }
-
 /* [END] Cloud Run Setup */
