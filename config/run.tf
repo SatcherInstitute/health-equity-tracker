@@ -119,6 +119,11 @@ resource "google_cloud_run_service" "data_server_service" {
     spec {
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.data_server_image_name, var.data_server_image_digest)
+        env {
+          # GCS bucket from where the data tables are read.
+          name  = "GCS_BUCKET"
+          value = var.export_bucket
+        }
       }
       service_account_name = google_service_account.data_server_runner_identity.email
     }
