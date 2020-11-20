@@ -97,3 +97,26 @@ resource "google_project_iam_member" "data_server_runner_binding" {
   role    = google_project_iam_custom_role.data_server_runner_role.id
   member  = format("serviceAccount:%s", google_service_account.data_server_runner_identity.email)
 }
+
+# Service account whose identity is used when running the exporter service.
+resource "google_service_account" "exporter_runner_identity" {
+  # The account id that is used to generate the service account email. Must be 6-30 characters long and
+  # match the regex [a-z]([-a-z0-9]*[a-z0-9]).
+  account_id = var.exporter_runner_identity_id
+}
+
+# Give the exporter runner service account permissions it needs (e.g. GCS bucket and BQ access). Add to the permissions list
+# here if the exporter runner needs access to other GCP resources.
+resource "google_project_iam_custom_role" "exporter_runner_role" {
+  role_id     = var.exporter_runner_role_id
+  title       = "Exporter Runner"
+  description = "Allows reading from BQ and writing to GCS buckets."
+  permissions = ["storage.objects.create", "storage.objects.delete", "storage.objects.get", "storage.objects.list",
+  "storage.objects.update", "storage.buckets.get", "bigquery.jobs.create", "bigquery.tables.export"]
+}
+
+resource "google_project_iam_member" "exporter_runner_binding" {
+  project = var.project_id
+  role    = google_project_iam_custom_role.exporter_runner_role.id
+  member  = format("serviceAccount:%s", google_service_account.exporter_runner_identity.email)
+}

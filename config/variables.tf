@@ -26,6 +26,11 @@ variable "gcs_landing_bucket" {
   type        = string
 }
 
+variable "export_bucket" {
+  description = "Name of the bucket where exported BQ tables are stored"
+  type        = string
+}
+
 variable "bq_dataset_name" {
   description = "BigQuery Main Dataset"
   type        = string
@@ -137,5 +142,31 @@ variable "data_server_runner_identity_id" {
 
 variable "data_server_runner_role_id" {
   description = "Id of custom role given to the data server runner service account"
+  type        = string
+}
+
+# Exporter Cloud Run Service Vars
+variable "exporter_service_name" {
+  description = "Name of the Cloud Run service for exporting tables from BQ to GCS"
+  type        = string
+}
+
+variable "exporter_image_name" {
+  description = "Name of container image for the Cloud Run exporter service"
+  type        = string
+}
+
+variable "exporter_image_digest" {
+  description = "Digest of container image for the Cloud Run exporter service"
+  type        = string
+}
+
+variable "exporter_runner_identity_id" {
+  description = "Account id of the service account used when running the exporter service"
+  type        = string
+}
+
+variable "exporter_runner_role_id" {
+  description = "Id of custom role given to the exporter runner service account"
   type        = string
 }

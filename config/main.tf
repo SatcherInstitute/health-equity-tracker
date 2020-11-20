@@ -16,6 +16,10 @@ resource "google_storage_bucket" "gcs_data_ingestion_landing_bucket" {
   # https://www.terraform.io/docs/providers/google/r/storage_bucket.html#force_destroy
 }
 
+resource "google_storage_bucket" "gcs_export_bucket" {
+  name     = var.export_bucket
+  location = var.gcs_region
+}
 /* [END] GCS Resources */
 
 

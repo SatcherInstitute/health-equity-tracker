@@ -119,6 +119,11 @@ resource "google_cloud_run_service" "data_server_service" {
     spec {
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.data_server_image_name, var.data_server_image_digest)
+        env {
+          # GCS bucket from where the data tables are read.
+          name  = "GCS_BUCKET"
+          value = var.export_bucket
+        }
       }
       service_account_name = google_service_account.data_server_runner_identity.email
     }
@@ -131,4 +136,35 @@ resource "google_cloud_run_service" "data_server_service" {
   autogenerate_revision_name = true
 }
 
+# Cloud Run service for loading GCS buckets into Bigquery.
+resource "google_cloud_run_service" "exporter_service" {
+  name     = var.exporter_service_name
+  location = var.compute_region
+  project  = var.project_id
+
+  template {
+    spec {
+      containers {
+        image = format("gcr.io/%s/%s@%s", var.project_id, var.exporter_image_name, var.exporter_image_digest)
+        env {
+          # GCP project that contains the dataset we are exporting from.
+          name  = "PROJECT_ID"
+          value = var.project_id
+        }
+        env {
+          # GCS bucket to where the tables are exported.
+          name  = "EXPORT_BUCKET"
+          value = var.export_bucket
+        }
+      }
+      service_account_name = google_service_account.exporter_runner_identity.email
+    }
+  }
+
+  traffic {
+    percent         = 100
+    latest_revision = true
+  }
+  autogenerate_revision_name = true
+}
 /* [END] Cloud Run Setup */

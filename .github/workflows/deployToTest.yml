@@ -40,6 +40,12 @@ jobs:
         with:
           dockerfile: 'run_gcs_to_bq/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/gcs-to-bq'
+      - name: Build and Push Exporter Image
+        id: exporter
+        uses: ./.github/actions/buildAndPush
+        with:
+          dockerfile: 'exporter/Dockerfile'
+          image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/exporter'
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
       - name: Save credentials
@@ -65,7 +71,8 @@ jobs:
           -var 'project_id=${{ secrets.TEST_PROJECT_ID }}' \
           -var 'ingestion_image_digest=${{ steps.ingestion.outputs.image-digest }}' \
           -var 'gcs_to_bq_image_digest=${{ steps.gcstobq.outputs.image-digest }}' \
-          -var 'data_server_image_digest=${{ steps.serving.outputs.image-digest }}'
+          -var 'data_server_image_digest=${{ steps.serving.outputs.image-digest }}' \
+          -var 'exporter_image_digest=${{ steps.exporter.outputs.image-digest }}'
       - name: Airflow Environment Variables
         id: airflow-environment-variables
         if: github.ref == 'refs/heads/$default-branch' && github.event_name == 'push'
