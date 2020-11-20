@@ -60,7 +60,7 @@ jobs:
           terraform init -backend-config="bucket=${{ secrets.TEST_TF_STATE_BUCKET }}" \
           -backend-config="credentials=creds.json"
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/$default-branch' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         working-directory: ./config
         run: |
           terraform apply -auto-approve -var-file=test/test.tfvars \
@@ -72,14 +72,14 @@ jobs:
           -var 'exporter_image_digest=${{ steps.exporter.outputs.image-digest }}'
       - name: Airflow Environment Variables
         id: airflow-environment-variables
-        if: github.ref == 'refs/heads/$default-branch' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: |
           gcloud composer environments update data-ingestion-environment \
           --update-env-variables=INGEST_TO_GCS_SERVICE_ENDPOINT=${{ secrets.INGEST_GCS_SERVICE_ENDPOINT }}, \
           GCS_TO_BQ_SERVICE_ENDPOINT=${{ secrets.INGEST_BQ_SERVICE_ENDPOINT }}
       - name: Upload Airflow DAG
         id: upload-dags
-        if: github.ref == 'refs/heads/$default-branch' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         working-directory: ./airflow/dags
         run: |
           gcloud composer environments storage dags import \
