@@ -67,7 +67,7 @@ def testGetMetadata(mock_func: mock.MagicMock, client: FlaskClient):
     try:
         json.loads(response.data)
     except json.decoder.JSONDecodeError as err:
-        pytest.fail(err)
+        pytest.fail(err.msg)
 
 
 @mock.patch('data_server.gcs_utils.download_blob_as_bytes',
@@ -107,7 +107,7 @@ def testGetDataset_DataExists(mock_func: mock.MagicMock, client: FlaskClient):
     try:
         json.loads(response.data)
     except json.decoder.JSONDecodeError as err:
-        pytest.fail(err)
+        pytest.fail(err.msg)
 
 
 @mock.patch('data_server.gcs_utils.download_blob_as_bytes',
