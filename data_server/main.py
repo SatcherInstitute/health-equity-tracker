@@ -28,8 +28,11 @@ def get_metadata():
         return 'Internal server error: {}'.format(err), 500
 
     def generate_response(data: bytes):
+        next_row = b'['
         for row in data.splitlines():
-            yield row + b'\n'
+            yield next_row
+            next_row = row + b','
+        yield next_row.rstrip(b',') + b']'
     headers = Headers()
     headers.add('Content-Disposition', 'attachment',
                 filename=os.environ.get('METADATA_FILENAME'))
@@ -51,8 +54,11 @@ def get_dataset():
         return 'Dataset {} not found'.format(dataset_name), 404
 
     def generate_response(data: bytes):
+        next_row = b'['
         for row in dataset.splitlines():
-            yield row + b'\n'
+            yield next_row
+            next_row = row + b','
+        yield next_row.rstrip(b',') + b']'
     headers = Headers()
     headers.add('Content-Disposition', 'attachment', filename=dataset_name)
     headers.add('Access-Control-Allow-Origin', '*')
