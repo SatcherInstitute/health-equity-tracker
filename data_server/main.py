@@ -55,6 +55,8 @@ def get_dataset():
             yield row + b'\n'
     headers = Headers()
     headers.add('Content-Disposition', 'attachment', filename=dataset_name)
+    headers.add('Access-Control-Allow-Origin', '*')
+    headers.add('Vary', 'Origin')
     return Response(generate_response(dataset), mimetype='application/json',
                     headers=headers)
 
