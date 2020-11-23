@@ -79,3 +79,34 @@ def testGetMetadata_InternalError(mock_func: mock.MagicMock,
     response = client.get('/metadata')
     assert response.status_code == 500
     assert b'Internal server error: 404 File not found' in response.data
+
+
+@mock.patch('data_server.gcs_utils.download_blob_as_bytes',
+            side_effect=get_test_data)
+def testGetDataset_DataExists(mock_func: mock.MagicMock, client: FlaskClient):
+    response = client.get('/dataset?name=test_dataset')
+    mock_func.assert_called_once_with('test', 'test_dataset')
+    assert response.status_code == 200
+    assert (response.headers.get('Content-Disposition') ==
+           'attachment; filename=test_dataset')
+    assert response.data == test_data
+
+
+@mock.patch('data_server.gcs_utils.download_blob_as_bytes',
+            side_effect=google.cloud.exceptions.NotFound('File not found'))
+def testGetDataset_DatasetNotFound(mock_func: mock.MagicMock,
+                                   client: FlaskClient):
+    response = client.get('/dataset?name=not_found')
+    mock_func.assert_called_once_with('test', 'not_found')
+    assert response.status_code == 404
+    assert b'Dataset not_found not found' in response.data
+
+
+def testGetDataset_UrlParamMissing(client: FlaskClient):
+    response = client.get('/dataset')
+    assert response.status_code == 400
+    assert b'Request missing required url param \'name\'' in response.data
+
+    response = client.get('/dataset?random_param=stuff')
+    assert response.status_code == 400
+    assert b'Request missing required url param \'name\'' in response.data

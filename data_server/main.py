@@ -1,10 +1,12 @@
 import logging
 import os
 
-from flask import Flask, Response
+from flask import Flask, Response, request
+import google.cloud.exceptions
 from werkzeug.datastructures import Headers
 
 from data_server.dataset_cache import DatasetCache
+import data_server.gcs_utils as gcs_utils
 
 app = Flask(__name__)
 cache = DatasetCache()
@@ -32,6 +34,28 @@ def get_metadata():
     headers.add('Content-Disposition', 'attachment',
                 filename=os.environ.get('METADATA_FILENAME'))
     return Response(generate_response(metadata), mimetype='application/json',
+                    headers=headers)
+
+
+@app.route('/dataset', methods=['GET'])
+def get_dataset():
+    """Downloads and returns the requested dataset if it exists."""
+    dataset_name = request.args.get('name')
+    if dataset_name is None:
+        return 'Request missing required url param \'name\'', 400
+
+    try:
+        dataset = gcs_utils.download_blob_as_bytes(
+            os.environ.get('GCS_BUCKET'), dataset_name)
+    except google.cloud.exceptions.NotFound:
+        return 'Dataset {} not found'.format(dataset_name), 404
+
+    def generate_response(data: bytes):
+        for row in dataset.splitlines():
+            yield row + b'\n'
+    headers = Headers()
+    headers.add('Content-Disposition', 'attachment', filename=dataset_name)
+    return Response(generate_response(dataset), mimetype='application/json',
                     headers=headers)
 
 
