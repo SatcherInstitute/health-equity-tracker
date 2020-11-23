@@ -62,7 +62,7 @@ def get_dataset():
     headers = Headers()
     headers.add('Content-Disposition', 'attachment', filename=dataset_name)
     headers.add('Access-Control-Allow-Origin', '*')
-    headers.add('Vary', 'Origin')
+    headers.add('Vary', 'Accept-Encoding, Origin')
     return Response(generate_response(dataset), mimetype='application/json',
                     headers=headers)
 
