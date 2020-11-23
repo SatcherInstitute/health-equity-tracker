@@ -78,8 +78,8 @@ jobs:
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: |
           gcloud composer environments update data-ingestion-environment \
-          --update-env-variables=INGEST_TO_GCS_SERVICE_ENDPOINT=${{ secrets.TEST_INGEST_GCS_SERVICE_ENDPOINT }}, \
-          GCS_TO_BQ_SERVICE_ENDPOINT=${{ secrets.TEST_INGEST_BQ_SERVICE_ENDPOINT }} \
+          --update-env-variables=INGEST_TO_GCS_SERVICE_ENDPOINT=${{ secrets.TEST_INGEST_GCS_SERVICE_ENDPOINT }} \
+          --update-env-variables=GCS_TO_BQ_SERVICE_ENDPOINT=${{ secrets.TEST_INGEST_BQ_SERVICE_ENDPOINT }} \
           --location=us-central1
       - name: Upload Airflow DAG
         id: upload-dags
