@@ -29,6 +29,21 @@ services:
             # Ensure that the executing shell sets a GCP_KEY_PATH value. (export GCP_KEY_PATH=/absolute/path/to/service/account/key.json)
             - ${GCP_KEY_PATH}:/root/keys/keyfile.json:ro
 
+    exporter:
+        image: het/exporter:latest
+        depends_on:
+            - scheduler
+            - webserver
+        environment:
+            - PORT=8080
+            - PROJECT_ID=${PROJECT_ID}
+            # Ensure that the executing shell sets an EXPORT_BUCKET value. (export EXPORT_BUCKET=my-test-bucket)
+            - EXPORT_BUCKET=${EXPORT_BUCKET}
+            - GOOGLE_APPLICATION_CREDENTIALS=/root/keys/keyfile.json
+        volumes:
+            # Ensure that the executing shell sets a GCP_KEY_PATH value. (export GCP_KEY_PATH=/absolute/path/to/service/account/key.json)
+            - ${GCP_KEY_PATH}:/root/keys/keyfile.json:ro
+
     postgres:
         image: postgres:9.6
         environment:
