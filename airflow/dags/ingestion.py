@@ -26,8 +26,10 @@ def create_gcs_ingest_operator(task_id: str, payload: dict) -> PythonOperator:
 def create_bq_ingest_operator(task_id: str, payload: dict) -> PythonOperator:
     return create_request_operator(task_id, Variable.get('GCS_TO_BQ_SERVICE_ENDPOINT'), payload)
 
+
 def create_exporter_operator(task_id: str, payload: dict) -> PythonOperator:
     return create_request_operator(task_id, Variable.get('EXPORTER_SERVICE_ENDPOINT'), payload)
+
 
 def create_request_operator(task_id: str, url: str, payload: dict) -> PythonOperator:
     return PythonOperator(
