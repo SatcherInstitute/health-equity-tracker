@@ -20,6 +20,13 @@ resource "google_storage_bucket" "gcs_export_bucket" {
   name     = var.export_bucket
   location = var.gcs_region
 }
+
+# Landing zone for manual data ingestion
+resource "google_storage_bucket" "gcs_manual_ingestion_landing_bucket" {
+  name     = var.gcs_manual_bucket
+  location = var.gcs_region
+}
+
 /* [END] GCS Resources */
 
 
@@ -28,6 +35,12 @@ resource "google_storage_bucket" "gcs_export_bucket" {
 # Create a BigQuery dataset
 resource "google_bigquery_dataset" "bq_dataset" {
   dataset_id = var.bq_dataset_name
+  location   = "US"
+}
+
+# Create a BigQuery dataset manually uploaded data
+resource "google_bigquery_dataset" "bq_manual_dataset" {
+  dataset_id = var.bq_manual_dataset_name
   location   = "US"
 }
 

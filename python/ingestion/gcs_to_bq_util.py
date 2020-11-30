@@ -8,7 +8,7 @@ from google.cloud import bigquery, storage
 
 
 def append_dataframe_to_bq(
-        frame, dataset, table_name, column_types=None, col_modes=None):
+        frame, dataset, table_name, column_types=None, col_modes=None, project=None):
     """Appends the provided DataFrame to the table specified by
        `dataset.table_name`. Automatically adds an ingestion time column.
 
@@ -34,7 +34,7 @@ def append_dataframe_to_bq(
     frame['ingestion_time'] = datetime.now(
         timezone.utc).strftime("%Y-%m-%d %H:%M:%S.%f %Z")
 
-    client = bigquery.Client()
+    client = bigquery.Client(project)
     table_id = client.dataset(dataset).table(table_name)
     # Repeated fields are not supported with bigquery.Client.load_table_from_dataframe()
     # (See https://github.com/googleapis/python-bigquery/issues/19). We have to
@@ -119,3 +119,14 @@ def load_csv_as_dataframe(gcs_bucket, filename, dtype=None):
 
 def local_file_path(filename):
     return '/tmp/{}'.format(filename)
+
+
+def list_bucket_files(bucket_name: str) -> list:
+    """Returns a list of file names contained in the provided bucket.
+
+       bucket_name: The name of the gcs bucket containing files"""
+    gcs_client = storage.Client()
+    bucket = gcs_client.get_bucket(bucket_name)
+    blobs = bucket.list_blobs()
+
+    return list(map(lambda blob: blob.name, blobs))

@@ -30,18 +30,39 @@ class DataSource(ABC):
         """Writes source data from GCS bucket to BigQuery
 
         dataset: The BigQuery dataset to write to
-        table_name: The name of the biquery table to write to
         gcs_bucket: The name of the gcs bucket to read the data from
         filename: The name of the file in the gcs bucket to read from"""
+        self.write_to_bq_table(dataset, gcs_bucket,
+                               filename, self.get_table_name())
+
+    def write_to_bq_table(self, dataset: str, gcs_bucket: str, filename: str, table_name: str, project=None):
+        """Writes source data from GCS bucket to BigQuery
+
+        dataset: The BigQuery dataset to write to
+        gcs_bucket: The name of the gcs bucket to read the data from
+        filename: The name of the file in the gcs bucket to read from
+        table_name: The name of the BigQuery table to write to"""
         frame = gcs_to_bq_util.load_csv_as_dataframe(gcs_bucket, filename)
 
         # Replace spaces and dashes with underscores in column name and make all characters
         # in column names lower case.
-        frame.rename(columns=lambda col: col.replace(' ', '_'), inplace=True)
-        frame.rename(columns=lambda col: col.replace(
-            '-', '_').lower(), inplace=True)
+        frame.rename(columns=lambda col: (
+            col
+            .lower()
+            .strip()
+            .replace(' ', '_')
+            .replace('-', '_')
+            .replace(':', '_')
+            .replace('&', '_')
+            .replace("\n", '_')
+            .replace("\t", '_')
+            .replace('(', '_')
+            .replace(')', '_')
+            .replace('=', 'eq')
+        ), inplace=True)
 
-        gcs_to_bq_util.append_dataframe_to_bq(frame, dataset, self.get_table_name())
+        gcs_to_bq_util.append_dataframe_to_bq(
+            frame, dataset, table_name, project=project)
 
     def export_to_gcs(self):
         # TODO: Implement
