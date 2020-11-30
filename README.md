@@ -108,54 +108,20 @@ If a service adds a dependency on `/python/<some_package>`:
 - Follow step 2 of [Adding an external dependency](#adding-an-external-dependency) to generate the relevant `requirements.txt` files.
 - Add the line `RUN pip install ./python/<some_package>` to `<service_directory>/Dockerfile`
 
-## Cloud Run local testing with an emulator
-
-The [Cloud Code](https://cloud.google.com/code) plugin for
-[VS Code](https://code.visualstudio.com/) and [JetBrains IDEs](https://www.jetbrains.com/)
-lets you locally run and debug your container image in a Cloud Run
-emulator within your IDE. The emulator allows you configure an environment that is
-representative of your service running on Cloud Run.
-
-### Installation
-
-1. Install Cloud Run for [VS Code](https://cloud.google.com/code/docs/vscode/install) or a [JetBrains IDE](https://cloud.google.com/code/docs/intellij/install).
-2. Follow the instructions for locally developing and debugging within your IDE.
-   - **VS Code**: Locally [developing](https://cloud.google.com/code/docs/vscode/developing-a-cloud-run-app) and [debugging](https://cloud.google.com/code/docs/vscode/debugging-a-cloud-run-app)
-   - **IntelliJ**: Locally [developing](https://cloud.google.com/code/docs/intellij/developing-a-cloud-run-app) and [debugging](https://cloud.google.com/code/docs/intellij/debugging-a-cloud-run-app)
-
-### Running the emulator
-
-1. After installing the VS Code plugin, a `Cloud Code` entry should be added to the bottom toolbar of your editor.
-2. Clicking on this and selecting the `Run on Cloud Run emulator` option will begin the process of setting up the configuration for your Cloud Run service.
-3. Give your service a name
-4. Set the service container image url with the following format: `gcr.io/<PROJECT_ID>/<NAME>`
-5. Make sure the builder is set to `Docker` and the correct Dockerfile path is selected, `prototype/run_ingestion/Dockerfile`
-6. Ensure the `Automatically re-build and re-run on changes` checkbox is selected for hot reloading.
-7. Click run
-
-### Sending requests
-
-After your Docker container successfully builds and is running locally you can start sending requests.
-
-1. Open a terminal
-2. Send curl requests in the following format:
-
-   ```bash
-   DATA=$(printf '{"id":<INGESTION_ID>,"url":<INGESTION_URL>,"gcs_bucket":<BUCKET_NAME>,"filename":<FILE_NAME>}' |base64) && curl --header "Content-Type: application/json" -d '{"message":{"data":"'$DATA'"}}' http://localhost:8080
-   ```
-
-### Accessing Google Cloud Services
-
-1. [Create a service account in Pantheon](https://cloud.google.com/docs/authentication/getting-started)
-2. Using IAM, grant the appropriate permissions to the service account
-3. Inside the `launch.json` file, set the `configuration->service->serviceAccountName` attribute to the service account email you just created.
-
 ## Launch the data ingestion pipeline on your local machine
 
 ### Set up
 
 - Install [Docker](https://www.docker.com/)
 - Install [Docker Compose](https://docs.docker.com/compose/install/)
+- Set environment variables
+   - PROJECT_ID
+   - GCP_KEY_PATH (See [documentation](https://cloud.google.com/iam/docs/creating-managing-service-account-keys#creating_service_account_keys) on creating and downloading keys.)
+   - DATASET_NAME
+   - GCS_LANDING_BUCKET
+   - GCS_MANUAL_UPLOADS_BUCKET
+   - MANUAL_UPLOADS_DATASET
+   - MANUAL_UPLOADS_PROJECT
 
 ### Getting Started
 
@@ -169,7 +135,7 @@ From inside the `airflow/dev/` directory:
 
    make run
 
-1. At the UI link below, you should see the list of DAGs pulled from the `dags/` folder.
+1. At the UI link below, you should see the list of DAGs pulled from the `dags/` folder. These files will automatically update the Airflow webserver when changed.
 1. To run them manually, select the desired DAG, toggle to `On` and click `Trigger Dag` .
 
 More info on [Apache Airflow](https://airflow.apache.org/docs/stable/) in general.

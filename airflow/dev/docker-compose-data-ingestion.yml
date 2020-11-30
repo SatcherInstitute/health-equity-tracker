@@ -21,7 +21,9 @@ services:
             - webserver
         environment:
             - PORT=8080
-            - DATASET_NAME=test_data_sources
+            - DATASET_NAME=${DATASET_NAME}
+            - MANUAL_UPLOADS_DATASET=${MANUAL_UPLOADS_DATASET}
+            - MANUAL_UPLOADS_PROJECT=${MANUAL_UPLOADS_PROJECT}
             - GOOGLE_APPLICATION_CREDENTIALS=/root/keys/keyfile.json
         volumes:
             # Ensure that the executing shell sets a GCP_KEY_PATH value. (export GCP_KEY_PATH=/absolute/path/to/service/account/key.json)
