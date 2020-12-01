@@ -1,0 +1,79 @@
+name: Deploy to Test
+
+on:
+  push:
+      branches: [master]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Build Images and Deploy to Dev Environment
+    runs-on: ubuntu-latest
+
+    steps: 
+      - name: Check Out Code
+        uses: actions/checkout@v2
+      - name: Set Up gcloud
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: '290.0.1'
+          service_account_key: ${{ secrets.DEV_DEPLOYER_SA_KEY }}
+          project_id: ${{ secrets.DEV_PROJECT_ID }}
+      - name: Set Up Docker to Use gcloud Credentials
+        run: gcloud auth configure-docker -q
+      - name: Build and Push Data Serving Image
+        id: serving
+        uses: ./.github/actions/buildAndPush
+        with:
+          dockerfile: 'data_server/Dockerfile'
+          image-path: 'gcr.io/${{ secrets.DEV_PROJECT_ID }}/data-server-service'
+      - name: Build and Push Data Ingestion Image
+        id: ingestion
+        uses: ./.github/actions/buildAndPush
+        with:
+          dockerfile: 'run_ingestion/Dockerfile'
+          image-path: 'gcr.io/${{ secrets.DEV_PROJECT_ID }}/ingestion-service'  
+      - name: Build and Push GCS to BQ Image
+        id: gcstobq
+        uses: ./.github/actions/buildAndPush
+        with:
+          dockerfile: 'run_gcs_to_bq/Dockerfile'
+          image-path: 'gcr.io/${{ secrets.DEV_PROJECT_ID }}/gcs-to-bq-service'
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+      - name: Save credentials
+        working-directory: ./config
+        run: |
+          cat > creds.json << EOF 
+          ${{ secrets.DEV_DEPLOYER_SA_KEY }}
+          EOF
+      - name: Terraform Init
+        working-directory: ./config
+        run: | 
+          terraform init -backend-config="bucket=${{ secrets.DEV_TF_STATE_BUCKET }}" \
+          -backend-config="credentials=creds.json"
+      - name: Terraform Format
+        working-directory: ./config
+        run: terraform fmt -check
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/$default-branch' && github.event_name == 'push'
+        working-directory: ./config
+        run: |
+          terraform apply -auto-approve -var-file=test/test.tfvars \
+          -var 'gcp_credentials=${{ secrets.DEV_DEPLOYER_SA_KEY }}' \
+          -var 'project_id=${{ secrets.DEV_PROJECT_ID }}' \
+          -var 'ingestion_image_digest=${{ steps.ingestion.outputs.image-digest }}' \
+          -var 'gcs_to_bq_image_digest=${{ steps.gcstobq.outputs.image-digest }}' \
+          -var 'data_server_image_digest=${{ steps.serving.outputs.image-digest }}'
+      - name: Build and Push Integration Tests
+        id: integrationtest
+        uses: ./.github/actions/buildAndPush
+        with:
+          dockerfile: 'integration_tests/Dockerfile'
+          image-path: 'gcr.io/${{ secrets.DEV_PROJECT_ID }}/integration-test'
+      - name: Deploy Integration Tests
+        uses: google-github-actions/deploy-cloudrun@main
+        with:
+          image: gcr.io/${{ secrets.DEV_PROJECT_ID }}/integration-test@${{ steps.integrationtest.outputs.image-digest }}
+          service: integration-test
+          region: us-central1
