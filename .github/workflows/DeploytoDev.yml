@@ -51,7 +51,8 @@ jobs:
         working-directory: ./config
         run: | 
           terraform init -backend-config="bucket=${{ secrets.DEV_TF_STATE_BUCKET }}" \
-          -backend-config="credentials=creds.json"
+          -backend-config="credentials=creds.json" \
+          -reconfigure
       - name: Terraform Format
         working-directory: ./config
         run: terraform fmt -check
