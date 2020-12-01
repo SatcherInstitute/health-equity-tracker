@@ -122,6 +122,7 @@ If a service adds a dependency on `/python/<some_package>`:
    - GCS_MANUAL_UPLOADS_BUCKET
    - MANUAL_UPLOADS_DATASET
    - MANUAL_UPLOADS_PROJECT
+   - EXPORT_BUCKET
 
 ### Getting Started
 

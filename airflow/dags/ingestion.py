@@ -27,6 +27,10 @@ def create_bq_ingest_operator(task_id: str, payload: dict) -> PythonOperator:
     return create_request_operator(task_id, Variable.get('GCS_TO_BQ_SERVICE_ENDPOINT'), payload)
 
 
+def create_exporter_operator(task_id: str, payload: dict) -> PythonOperator:
+    return create_request_operator(task_id, Variable.get('EXPORTER_SERVICE_ENDPOINT'), payload)
+
+
 def create_request_operator(task_id: str, url: str, payload: dict) -> PythonOperator:
     return PythonOperator(
         task_id=task_id,
@@ -55,6 +59,10 @@ cdc_covid_deaths_gcs_operator = create_gcs_ingest_operator(
     'cdc_covid_deaths_to_gcs', cdc_covid_deaths_gcs_payload)
 cdc_covid_deaths_bq_operator = create_bq_ingest_operator(
     'cdc_covid_deaths_to_bq', cdc_covid_deaths_bq_payload)
+# TODO: Update when we split out sources into their own datasets.
+cdc_covid_deaths_exporter_payload = {'dataset_name': 'test_data_sources'}
+cdc_covid_deaths_exporter_operator = create_exporter_operator(
+    'cdc_covid_deaths_exporter', cdc_covid_deaths_exporter_payload)
 
 # Ingestion DAG
-cdc_covid_deaths_gcs_operator >> cdc_covid_deaths_bq_operator
+cdc_covid_deaths_gcs_operator >> cdc_covid_deaths_bq_operator >> cdc_covid_deaths_exporter_operator
