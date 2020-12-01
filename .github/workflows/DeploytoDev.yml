@@ -2,7 +2,7 @@ name: Deploy to Dev
 
 on:
   push:
-      branches: [master]
+      branches: [master, e2e-test]
   workflow_dispatch:
 
 jobs:
@@ -14,7 +14,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v2
       - name: Set Up gcloud
-        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@master
         with:
           version: '290.0.1'
           service_account_key: ${{ secrets.DEV_DEPLOYER_SA_KEY }}
@@ -56,7 +56,6 @@ jobs:
         working-directory: ./config
         run: terraform fmt -check
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/$default-branch' && github.event_name == 'push'
         working-directory: ./config
         run: |
           terraform apply -auto-approve -var-file=test/test.tfvars \
