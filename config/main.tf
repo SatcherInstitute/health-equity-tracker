@@ -38,9 +38,15 @@ resource "google_bigquery_dataset" "bq_dataset" {
   location   = "US"
 }
 
-# Create a BigQuery dataset manually uploaded data
+# Create a BigQuery dataset for manually uploaded data
 resource "google_bigquery_dataset" "bq_manual_dataset" {
   dataset_id = var.bq_manual_dataset_name
+  location   = "US"
+}
+
+# Create a BigQuery dataset for cdc covid deaths
+resource "google_bigquery_dataset" "bq_cdc_covid_deaths_dataset" {
+  dataset_id = var.bq_cdc_covid_deaths_dataset_name
   location   = "US"
 }
 
