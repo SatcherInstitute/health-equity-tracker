@@ -81,6 +81,7 @@ jobs:
           --update-env-variables=INGEST_TO_GCS_SERVICE_ENDPOINT=${{ secrets.TEST_INGEST_GCS_SERVICE_ENDPOINT }} \
           --update-env-variables=GCS_TO_BQ_SERVICE_ENDPOINT=${{ secrets.TEST_INGEST_BQ_SERVICE_ENDPOINT }} \
           --update-env-variables=EXPORTER_SERVICE_ENDPOINT=${{ secrets.TEST_EXPORTER_SERVICE_ENDPOINT }} \
+          --update-env-variables=GCS_LANDING_BUCKET=msm-test-landing-bucket
           --location=us-central1
       - name: Upload Airflow DAG
         id: upload-dags
