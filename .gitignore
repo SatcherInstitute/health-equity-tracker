@@ -9,6 +9,7 @@ venv
 *.tfstate
 *.tfstate.backup
 *.tfvars
+!config/test/jennie.tfvars
 *.zip
 .DS_Store
 airflow-logs

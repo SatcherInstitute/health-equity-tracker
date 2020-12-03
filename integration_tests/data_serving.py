@@ -31,6 +31,5 @@ def runTests():
     print('Test completed with no errors')
 
 
-
 if '__name__' == 'main':
     runTests()
