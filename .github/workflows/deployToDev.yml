@@ -68,14 +68,15 @@ jobs:
           -var 'ingestion_image_digest=${{ steps.ingestion.outputs.image-digest }}' \
           -var 'gcs_to_bq_image_digest=${{ steps.gcstobq.outputs.image-digest }}' \
           -var 'data_server_image_digest=${{ steps.serving.outputs.image-digest }}'
+          export DATA_SERVER_URL=$(terraform output data_server_url)
+          echo "::set-output name=data_server_url::$DATA_SERVER_URL"
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
       - name: Run E2E Tests
         run: |
-          echo steps.terraform.outputs.data_server_url
-          python integration_tests/data_serving.python
-#        env:
-#          SERVICE_URL: ${{ steps.terraform.outputs.data_server_url }}
+          python integration_tests/data_serving.py
+        env:
+          SERVICE_URL: ${{ steps.terraform.outputs.data_server_url }}
         
