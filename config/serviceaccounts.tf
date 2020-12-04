@@ -121,8 +121,8 @@ resource "google_project_iam_member" "exporter_runner_binding" {
   member  = format("serviceAccount:%s", google_service_account.exporter_runner_identity.email)
 }
 
-# Give the Default Compute Service Account (used by Cloud Composer) the run.invoker role on the project so that the it can make 
-# requests to the ingestion pipeline services.
+# Give the Default Compute Service Account (used by Cloud Composer) the run.invoker role on the project so that it 
+# can make requests to the ingestion pipeline services.
 resource "google_project_iam_member" "default_compute_invoker_binding" {
     project = var.project_id
     role = "roles/run.invoker"
