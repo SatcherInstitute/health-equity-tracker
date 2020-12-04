@@ -82,6 +82,16 @@ jobs:
           --update-env-variables=AIRFLOW_VAR_GCS_TO_BQ_SERVICE_ENDPOINT=${{ secrets.TEST_INGEST_BQ_SERVICE_ENDPOINT }} \
           --update-env-variables=AIRFLOW_VAR_EXPORTER_SERVICE_ENDPOINT=${{ secrets.TEST_EXPORTER_SERVICE_ENDPOINT }} \
           --update-env-variables=AIRFLOW_VAR_GCS_LANDING_BUCKET=msm-test-landing-bucket \
+          --update-env-variables=AIRFLOW_VAR_GCS_MANUAL_UPLOADS_BUCKET=msm-test-manual-data-bucket \
+          --location=us-central1
+      - name: Upload Airflow utility file
+        id: upload-dags
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        working-directory: ./airflow/dags
+        run: |
+          gcloud composer environments storage dags import \
+          --environment data-ingestion-environment \
+          --source util.py \
           --location=us-central1
       - name: Upload Airflow DAG
         id: upload-dags
@@ -91,4 +101,13 @@ jobs:
           gcloud composer environments storage dags import \
           --environment data-ingestion-environment \
           --source ingestion.py \
+          --location=us-central1
+      - name: Upload Airflow manual DAG
+        id: upload-dags
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        working-directory: ./airflow/dags
+        run: |
+          gcloud composer environments storage dags import \
+          --environment data-ingestion-environment \
+          --source manual_ingestion.py \
           --location=us-central1
