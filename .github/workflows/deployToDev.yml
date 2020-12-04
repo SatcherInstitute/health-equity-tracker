@@ -42,6 +42,8 @@ jobs:
           image-path: 'gcr.io/${{ secrets.DEV_PROJECT_ID }}/gcs-to-bq-service-automated'
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_wrapper: false
       - name: Save credentials
         working-directory: ./config
         run: |
@@ -68,15 +70,15 @@ jobs:
           -var 'ingestion_image_digest=${{ steps.ingestion.outputs.image-digest }}' \
           -var 'gcs_to_bq_image_digest=${{ steps.gcstobq.outputs.image-digest }}' \
           -var 'data_server_image_digest=${{ steps.serving.outputs.image-digest }}'
-          export DATA_SERVER_URL=$(terraform output data_server_url)
-          echo "::set-output name=data_server_url::$DATA_SERVER_URL"
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
       - name: Run E2E Tests
         run: |
-          python integration_tests/data_serving.py
+          pip install -r integration_tests/requirements.txt
+          echo ${{ steps.terraform.outputs.data_server_url }}
+          python integration_tests/data_serving.py || code=$?; if [[ $code -ne 0 ]]; then exit $code; fi
         env:
           SERVICE_URL: ${{ steps.terraform.outputs.data_server_url }}
         
