@@ -57,10 +57,11 @@ def do_ingestion(event):
     if filename is None:
         filename = attributes.get('fileprefix')
 
-    if 'DATASET_NAME' not in os.environ:
-        raise RuntimeError("Environment variable DATASET_NAME missing.")
-
-    dataset = os.environ['DATASET_NAME']
+    dataset = attributes.get('dataset')
+    if dataset is None:
+        if 'DATASET_NAME' not in os.environ:
+            raise RuntimeError("Environment variable DATASET_NAME missing.")
+        dataset = os.environ['DATASET_NAME']
 
     if workflow_id not in DATA_SOURCES_DICT.keys():
         raise RuntimeError("ID: {}, is not a valid id".format(workflow_id))
