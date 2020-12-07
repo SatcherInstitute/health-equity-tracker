@@ -4,6 +4,11 @@ variable "project_id" {
   type        = string
 }
 
+variable "project_number" {
+  description = "Google Project Number"
+  type        = string
+}
+
 variable "manual_uploads_project_id" {
   description = "The project ID for manual data uploads"
   type        = string
