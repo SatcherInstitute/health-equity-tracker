@@ -2,14 +2,11 @@
 .vscode
 .venv
 __pycache__
-apply_terraform
-push_images
 venv
 *.egg-info
 *.tfstate
 *.tfstate.backup
 *.tfvars
-!config/test/jennie.tfvars
 *.zip
 .DS_Store
 airflow-logs
