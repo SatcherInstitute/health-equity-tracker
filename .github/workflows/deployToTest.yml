@@ -48,6 +48,9 @@ jobs:
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/exporter'
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
+        # Disable wrapper to enable access to terraform output.
+        with:
+          terraform_wrapper: false
       - name: Save credentials
         working-directory: ./config
         run: |
@@ -74,6 +77,8 @@ jobs:
           -var 'gcs_to_bq_image_digest=${{ steps.gcstobq.outputs.image-digest }}' \
           -var 'data_server_image_digest=${{ steps.serving.outputs.image-digest }}' \
           -var 'exporter_image_digest=${{ steps.exporter.outputs.image-digest }}'
+          data_server_url=$(terraform output data_server_url)
+          echo "::set-output name=data_server_url::$data_server_url"
       - name: Airflow Environment Variables
         id: airflow-environment-variables
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
@@ -112,3 +117,13 @@ jobs:
           --environment data-ingestion-environment \
           --source manual_ingestion.py \
           --location=us-central1
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Run E2E Tests
+        run: |
+          pip install -r e2e_tests/requirements.txt
+          python e2e_tests/data_serving.py || code=$?; if [[ $code -ne 0 ]]; then exit $code; fi
+        env:
+          SERVICE_URL: ${{ steps.terraform.outputs.data_server_url }}
