@@ -2,8 +2,6 @@
 .vscode
 .venv
 __pycache__
-apply_terraform
-push_images
 venv
 *.egg-info
 *.tfstate

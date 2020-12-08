@@ -32,14 +32,14 @@ def testExportDatasetTables(client: FlaskClient):
         mock_bq_instance.list_tables.return_value = test_tables
 
         dataset_name = {'dataset_name': 'my-dataset'}
-        response = client.post('/', data=dataset_name)
+        response = client.post('/', json=dataset_name)
 
         assert response.status_code == 204
         assert mock_bq_instance.extract_table.call_count == 3
 
 
 def testExportDatasetTables_InvalidInput(client: FlaskClient):
-    response = client.post('/', data='')
+    response = client.post('/', json={})
     assert response.status_code == 400
 
 
@@ -50,7 +50,7 @@ def testExportDatasetTables_NoTables(client: FlaskClient):
         mock_bq_instance.list_tables.return_value = iter(())
 
         dataset_name = {'dataset_name': 'my-dataset'}
-        response = client.post('/', data=dataset_name)
+        response = client.post('/', json=dataset_name)
 
         assert response.status_code == 500
 
@@ -65,6 +65,6 @@ def testExportDatasetTables_ExtractJobFailure(client: FlaskClient):
         mock_extract_job.result.side_effect = google.cloud.exceptions.InternalServerError('Internal')
 
         dataset_name = {'dataset_name': 'my-dataset'}
-        response = client.post('/', data=dataset_name)
+        response = client.post('/', json=dataset_name)
 
         assert response.status_code == 500

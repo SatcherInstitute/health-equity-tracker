@@ -12,7 +12,12 @@ def export_dataset_tables():
     """Exports the tables in the given dataset to GCS.
 
        Request form must include the dataset name."""
-    dataset_name = request.form['dataset_name']
+    data = request.get_json()
+
+    if data.get('dataset_name') is None:
+        return ('Request must include dataset name.', 400)
+
+    dataset_name = data['dataset_name']
     project_id = os.environ.get('PROJECT_ID')
     export_bucket = os.environ.get('EXPORT_BUCKET')
     dataset_id = "{}.{}".format(project_id, dataset_name)
