@@ -72,7 +72,6 @@ jobs:
           terraform apply -auto-approve -var-file=test/test.tfvars \
           -var 'gcp_credentials=${{ secrets.TEST_DEPLOYER_SA_KEY }}' \
           -var 'project_id=${{ secrets.TEST_PROJECT_ID }}' \
-          -var 'project_number=${{ secrets.TEST_PROJECT_NUMBER }}' \
           -var 'ingestion_image_digest=${{ steps.ingestion.outputs.image-digest }}' \
           -var 'gcs_to_bq_image_digest=${{ steps.gcstobq.outputs.image-digest }}' \
           -var 'data_server_image_digest=${{ steps.serving.outputs.image-digest }}' \

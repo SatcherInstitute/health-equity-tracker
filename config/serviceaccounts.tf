@@ -112,19 +112,12 @@ resource "google_project_iam_custom_role" "exporter_runner_role" {
   title       = "Exporter Runner"
   description = "Allows reading from BQ and writing to GCS buckets."
   permissions = ["storage.objects.create", "storage.objects.delete", "storage.objects.get", "storage.objects.list",
-  "storage.objects.update", "storage.buckets.get", "bigquery.jobs.create", "bigquery.tables.export"]
+  "storage.objects.update", "storage.buckets.get", "bigquery.jobs.create", "bigquery.tables.export", 
+  "bigquery.datasets.get"]
 }
 
 resource "google_project_iam_member" "exporter_runner_binding" {
   project = var.project_id
   role    = google_project_iam_custom_role.exporter_runner_role.id
   member  = format("serviceAccount:%s", google_service_account.exporter_runner_identity.email)
-}
-
-# Give the Default Compute Service Account (used by Cloud Composer) the run.invoker role on the project so that it 
-# can make requests to the ingestion pipeline services.
-resource "google_project_iam_member" "default_compute_invoker_binding" {
-    project = var.project_id
-    role = "roles/run.invoker"
-    member = format("serviceAccount:%s-compute@developer.gserviceaccount.com", var.project_number)
 }
