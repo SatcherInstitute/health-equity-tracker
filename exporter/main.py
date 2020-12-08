@@ -14,9 +14,9 @@ def export_dataset_tables():
        Request form must include the dataset name."""
     data = request.get_json()
 
-    if data.get('dataset_name') == None:
+    if data.get('dataset_name') is None:
         return ('Request must include dataset name.', 400)
-    
+
     dataset_name = data['dataset_name']
     project_id = os.environ.get('PROJECT_ID')
     export_bucket = os.environ.get('EXPORT_BUCKET')

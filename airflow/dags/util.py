@@ -21,9 +21,9 @@ def create_exporter_operator(task_id: str, payload: dict, dag: DAG) -> PythonOpe
 def service_request(url: str, data: dict):
     # Set up metadata server request
     # See https://cloud.google.com/compute/docs/instances/verifying-instance-identity#request_signature
-    metadata_server_token_url = 'http://metadata/computeMetadata/v1/instance/service-accounts/default/identity?audience='
+    token_url = 'http://metadata/computeMetadata/v1/instance/service-accounts/default/identity?audience='
 
-    token_request_url = metadata_server_token_url + url
+    token_request_url = token_url + url
     token_request_headers = {'Metadata-Flavor': 'Google'}
 
     # Fetch the token for the default compute service account
