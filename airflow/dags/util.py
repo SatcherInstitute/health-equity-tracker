@@ -19,7 +19,7 @@ def create_exporter_operator(task_id: str, payload: dict, dag: DAG) -> PythonOpe
 
 
 def service_request(url: str, data: dict):
- # Set up metadata server request
+    # Set up metadata server request
     # See https://cloud.google.com/compute/docs/instances/verifying-instance-identity#request_signature
     metadata_server_token_url = 'http://metadata/computeMetadata/v1/instance/service-accounts/default/identity?audience='
 
@@ -38,8 +38,6 @@ def service_request(url: str, data: dict):
         resp.raise_for_status()
     except requests.exceptions.HTTPError as err:
         raise Exception('Failed response code: {}'.format(err))
-
-
 
 
 def create_request_operator(task_id: str, url: str, payload: dict, dag: DAG) -> PythonOperator:
