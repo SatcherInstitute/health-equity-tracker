@@ -90,7 +90,6 @@ jobs:
           --update-env-variables=AIRFLOW_VAR_GCS_MANUAL_UPLOADS_BUCKET=msm-test-manual-data-bucket \
           --location=us-central1
       - name: Upload Airflow utility file
-        id: upload-dags
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         working-directory: ./airflow/dags
         run: |
@@ -99,7 +98,6 @@ jobs:
           --source util.py \
           --location=us-central1
       - name: Upload Airflow DAG
-        id: upload-dags
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         working-directory: ./airflow/dags
         run: |
@@ -108,7 +106,6 @@ jobs:
           --source ingestion.py \
           --location=us-central1
       - name: Upload Airflow manual DAG
-        id: upload-dags
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         working-directory: ./airflow/dags
         run: |
