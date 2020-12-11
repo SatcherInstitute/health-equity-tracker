@@ -145,7 +145,7 @@ resource "google_cloud_run_service" "data_server_service" {
   autogenerate_revision_name = true
 }
 
-# Cloud Run service for loading GCS buckets into Bigquery.
+# Cloud Run service for exporting BQ tables to a GCS bucket.
 resource "google_cloud_run_service" "exporter_service" {
   name     = var.exporter_service_name
   location = var.compute_region
@@ -167,6 +167,33 @@ resource "google_cloud_run_service" "exporter_service" {
         }
       }
       service_account_name = google_service_account.exporter_runner_identity.email
+    }
+  }
+
+  traffic {
+    percent         = 100
+    latest_revision = true
+  }
+  autogenerate_revision_name = true
+}
+
+# Cloud Run service for running aggregation queries on BQ datasets.
+resource "google_cloud_run_service" "aggregator_service" {
+  name     = var.aggregator_service_name
+  location = var.compute_region
+  project  = var.project_id
+
+  template {
+    spec {
+      containers {
+        image = format("gcr.io/%s/%s@%s", var.project_id, var.aggregator_image_name, var.aggregator_image_digest)
+        env {
+          # GCP project that contains the dataset we are querying.
+          name  = "PROJECT_ID"
+          value = var.project_id
+        }
+      }
+      service_account_name = google_service_account.aggregator_runner_identity.email
     }
   }
 
