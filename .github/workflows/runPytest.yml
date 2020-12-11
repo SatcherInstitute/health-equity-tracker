@@ -38,3 +38,7 @@ jobs:
     - name: Test exporter service with pytest
       working-directory: ./exporter
       run: pytest
+
+    - name: Test aggregator service with pytest
+      working-directory: ./aggregator
+      run: pytest
