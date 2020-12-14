@@ -9,9 +9,9 @@ from google.cloud import bigquery
 
 from main import app
 
-test_routines = [bigquery.Routine("my-project.my-dataset.r1"),
+test_routines = [bigquery.Routine("my-project.my-dataset.AGG_r1"),
                  bigquery.Routine("my-project.my-dataset.r2"),
-                 bigquery.Routine("my-project.my-dataset.r3")]
+                 bigquery.Routine("my-project.my-dataset.AGG_r3")]
 
 os.environ['PROJECT_ID'] = 'my-project'
 
@@ -34,7 +34,7 @@ def testRunAggregationQueries(client: FlaskClient):
         response = client.post('/', json=dataset_name)
 
         assert response.status_code == 204
-        assert mock_bq_instance.query.call_count == 3
+        assert mock_bq_instance.query.call_count == 2
 
 
 def testRunAggregationQueries_InvalidInput(client: FlaskClient):

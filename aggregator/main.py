@@ -7,6 +7,10 @@ from google.cloud import bigquery
 app = Flask(__name__)
 
 
+# Prefix for aggregation routines
+AGGREGATOR_PREFIX = "AGG_"
+
+
 @app.route('/', methods=['POST'])
 def run_aggregation_queries():
     """Runs aggregation queries for the given data source and persists
@@ -31,6 +35,10 @@ def run_aggregation_queries():
 
     for routine in routines:
         routine_ref = routine.reference
+        # Only run aggregation routines
+        if not routine_ref.routine_id.startswith(AGGREGATOR_PREFIX):
+            continue
+
         query = "CALL `{}`();".format(routine_ref)
         try:
             query_job = bq_client.query(query)
