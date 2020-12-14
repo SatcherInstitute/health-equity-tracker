@@ -28,6 +28,8 @@ services:
         volumes:
             # Ensure that the executing shell sets a GCP_KEY_PATH value. (export GCP_KEY_PATH=/absolute/path/to/service/account/key.json)
             - ${GCP_KEY_PATH}:/root/keys/keyfile.json:ro
+        ports:
+            - "8008:8080" #exposes port 8008 on the executing machine for manual triggering
 
     exporter:
         image: het/exporter:latest
