@@ -70,7 +70,7 @@ jobs:
         run: |
           terraform apply -auto-approve -var-file=test/test.tfvars \
           -var 'gcp_credentials=${{ secrets.TEST_DEPLOYER_SA_KEY }}' \
-          -var 'project_id=${{ secrets.TEST_PROJECT_ID }}' \
+          -var 'project_id=${{ secrets.TEST_PROJECT_ID }}'
           data_server_url=$(terraform output data_server_url)
           echo "::set-output name=data_server_url::$data_server_url"
           ingestion_url=$(terraform output ingestion_url)
