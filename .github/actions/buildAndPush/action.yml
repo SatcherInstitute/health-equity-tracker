@@ -7,17 +7,10 @@ inputs:
   image-path:
     description: 'Location to where image should be pushed'
     required: true
-outputs:
-  image-digest:
-    description: 'Digest of image pushed to GCR'
-    value: ${{ steps.get-image-digest.outputs.image-digest }}
 runs:
   using: "composite"
   steps:
     - run: docker build -t ${{ inputs.image-path }} -f ${{ inputs.dockerfile }} .
       shell: bash
     - run: docker push ${{ inputs.image-path }}
-      shell: bash
-    - id: get-image-digest
-      run: echo "::set-output name=image-digest::$(gcloud container images describe ${{ inputs.image-path }} --format='value(image_summary.digest)')"
       shell: bash
