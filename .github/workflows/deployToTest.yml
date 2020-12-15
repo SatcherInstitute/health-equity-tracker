@@ -83,15 +83,23 @@ jobs:
           -var 'aggregator_image_digest=${{ steps.aggregator.outputs.image-digest }}'
           data_server_url=$(terraform output data_server_url)
           echo "::set-output name=data_server_url::$data_server_url"
+          ingestion_url=$(terraform output ingestion_url)
+          echo "::set-output name=ingestion_url::$ingestion_url"
+          gcs_to_bq_url=$(terraform output gcs_to_bq_url)
+          echo "::set-output name=gcs_to_bq_url::$gcs_to_bq_url"
+          exporter_url=$(terraform output exporter_url)
+          echo "::set-output name=exporter_url::$exporter_url"
+          aggregator_url=$(terraform output aggregator_url)
+          echo "::set-output name=aggregator_url::$aggregator_url"
       - name: Airflow Environment Variables
         id: airflow-environment-variables
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         continue-on-error: true
         run: |
           gcloud composer environments update data-ingestion-environment \
-          --update-env-variables=AIRFLOW_VAR_INGEST_TO_GCS_SERVICE_ENDPOINT=${{ secrets.TEST_INGEST_GCS_SERVICE_ENDPOINT }} \
-          --update-env-variables=AIRFLOW_VAR_GCS_TO_BQ_SERVICE_ENDPOINT=${{ secrets.TEST_INGEST_BQ_SERVICE_ENDPOINT }} \
-          --update-env-variables=AIRFLOW_VAR_EXPORTER_SERVICE_ENDPOINT=${{ secrets.TEST_EXPORTER_SERVICE_ENDPOINT }} \
+          --update-env-variables=AIRFLOW_VAR_INGEST_TO_GCS_SERVICE_ENDPOINT=${{ steps.terraform.outputs.ingestion_url }} \
+          --update-env-variables=AIRFLOW_VAR_GCS_TO_BQ_SERVICE_ENDPOINT=${{ steps.terraform.outputs.gcs_to_bq_url }} \
+          --update-env-variables=AIRFLOW_VAR_EXPORTER_SERVICE_ENDPOINT=${{ steps.terraform.outputs.exporter_url }} \
           --update-env-variables=AIRFLOW_VAR_GCS_LANDING_BUCKET=msm-test-landing-bucket \
           --update-env-variables=AIRFLOW_VAR_GCS_MANUAL_UPLOADS_BUCKET=msm-test-manual-data-bucket \
           --location=us-central1
