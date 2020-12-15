@@ -15,9 +15,9 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v2
       - name: Set Up gcloud
-        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@master
         with:
-          version: '290.0.1'
+          export_default_credentials: true
           service_account_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - name: Set Up Docker to Use gcloud Credentials
