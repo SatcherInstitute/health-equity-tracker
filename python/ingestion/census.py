@@ -8,3 +8,10 @@ def get_census_params_by_county(columns):
         'for': 'county:*',
         'in': 'state:*'
     }
+
+def get_census_params(variable_ids, county_level=False):
+    keys = variable_ids.copy()
+    keys.append("NAME")
+    params = {"get": ",".join(keys)}
+    params["for"] = "county:*" if county_level else "state:*"
+    return params

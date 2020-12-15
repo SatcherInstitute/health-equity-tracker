@@ -1,0 +1,11 @@
+
+RACE_OR_HISPANIC_COL = "race_and_ethnicity"
+HISPANIC_COL = "hispanic_or_latino"
+RACE_COL = "race"
+AGE_COL = "age"
+SEX_COL = "sex"
+STATE_FIPS_COL = "state_fips"
+STATE_NAME_COL = "state_name"
+COUNTY_FIPS_COL = "county_fips"
+COUNTY_NAME_COL = "county_name"
+POPULATION_COL = "population"
