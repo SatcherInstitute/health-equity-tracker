@@ -35,7 +35,7 @@ resource "google_cloud_run_service" "ingestion_service" {
   template {
     spec {
       containers {
-        image = format("gcr.io/%s/%s@%s", var.project_id, var.ingestion_image_name, var.ingestion_image_digest)
+        image = format("gcr.io/%s/%s:latest", var.project_id, var.ingestion_image_name)
         env {
           name  = "PROJECT_ID"
           value = var.project_id
@@ -85,7 +85,7 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
   template {
     spec {
       containers {
-        image = format("gcr.io/%s/%s@%s", var.project_id, var.gcs_to_bq_image_name, var.gcs_to_bq_image_digest)
+        image = format("gcr.io/%s/%s:latest", var.project_id, var.gcs_to_bq_image_name)
         env {
           # Name of BQ dataset that we will add the tables to. This currently points to the main BQ dataset.
           name  = "DATASET_NAME"
@@ -127,7 +127,7 @@ resource "google_cloud_run_service" "data_server_service" {
   template {
     spec {
       containers {
-        image = format("gcr.io/%s/%s@%s", var.project_id, var.data_server_image_name, var.data_server_image_digest)
+        image = format("gcr.io/%s/%s:latest", var.project_id, var.data_server_image_name)
         env {
           # GCS bucket from where the data tables are read.
           name  = "GCS_BUCKET"
@@ -154,7 +154,7 @@ resource "google_cloud_run_service" "exporter_service" {
   template {
     spec {
       containers {
-        image = format("gcr.io/%s/%s@%s", var.project_id, var.exporter_image_name, var.exporter_image_digest)
+        image = format("gcr.io/%s/%s:latest", var.project_id, var.exporter_image_name)
         env {
           # GCP project that contains the dataset we are exporting from.
           name  = "PROJECT_ID"
@@ -186,7 +186,7 @@ resource "google_cloud_run_service" "aggregator_service" {
   template {
     spec {
       containers {
-        image = format("gcr.io/%s/%s@%s", var.project_id, var.aggregator_image_name, var.aggregator_image_digest)
+        image = format("gcr.io/%s/%s:latest", var.project_id, var.aggregator_image_name)
         env {
           # GCP project that contains the dataset we are querying.
           name  = "PROJECT_ID"
