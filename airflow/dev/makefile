@@ -20,6 +20,8 @@ reload_gcs_to_bq: build_gcs_to_bq run
 
 reload_exporter: build_exporter run
 
+reload: build_ingest_gcs build_gcs_to_bq build_exporter run
+
 kill:
 	@echo "Killing docker-airflow containers"
 	docker kill $(shell docker ps -q)

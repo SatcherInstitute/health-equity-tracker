@@ -31,7 +31,7 @@ def append_dataframe_to_bq(
         job_config.schema = get_schema(frame, column_types, col_modes)
 
     # Add an upload timestamp. Formatting to a string helps BQ autodetection.
-    frame['ingestion_time'] = datetime.now(
+    frame['ingestion_ts'] = datetime.now(
         timezone.utc).strftime("%Y-%m-%d %H:%M:%S.%f %Z")
 
     client = bigquery.Client(project)
@@ -60,7 +60,7 @@ def get_schema(frame, column_types, col_modes):
         raise Exception('Column types did not match frame columns')
 
     columns = column_types.copy()
-    columns['ingestion_time'] = 'TIMESTAMP'
+    columns['ingestion_ts'] = 'TIMESTAMP'
 
     def create_field(col):
         return bigquery.SchemaField(
@@ -95,7 +95,7 @@ def load_values_blob_as_dataframe(blob):
     return frame
 
 
-def load_csv_as_dataframe(gcs_bucket, filename, dtype=None):
+def load_csv_as_dataframe(gcs_bucket, filename, dtype=None, chunksize=None):
     """Loads csv data from the provided gcs_bucket and filename to a DataFrame.
        Expects the data to be in csv format, with the first row as the column
        names.
@@ -111,7 +111,7 @@ def load_csv_as_dataframe(gcs_bucket, filename, dtype=None):
     blob = bucket.blob(filename)
     local_path = local_file_path(filename)
     blob.download_to_filename(local_path)
-    frame = pandas.read_csv(local_path, dtype=dtype)
+    frame = pandas.read_csv(local_path, dtype=dtype, chunksize=chunksize)
 
     os.remove(local_path)
     return frame
