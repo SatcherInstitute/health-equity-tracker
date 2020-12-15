@@ -209,4 +209,21 @@ output "data_server_url" {
   value = google_cloud_run_service.data_server_service.status.0.url
 }
 
+# Output the URLs of the pipeline services for use in Airflow.
+output "ingestion_url" {
+    value = google_cloud_run_service.ingestion_service.status.0.url
+}
+
+output "gcs_to_bq_url" {
+    value = google_cloud_run_service.gcs_to_bq_service.status.0.url
+}
+
+output "exporter_url" {
+    value = google_cloud_run_service.exporter_service.status.0.url
+}
+
+output "aggregator_url" {
+    value = google_cloud_run_service.aggregator_service.status.0.url
+}
+
 /* [END] Cloud Run Setup */
