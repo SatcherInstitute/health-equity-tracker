@@ -46,6 +46,12 @@ jobs:
         with:
           dockerfile: 'exporter/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/exporter'
+      - name: Build and Push Aggregator Image
+        id: aggregator
+        uses: ./.github/actions/buildAndPush
+        with:
+          dockerfile: 'aggregator/Dockerfile'
+          image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/aggregator'
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         # Disable wrapper to enable access to terraform output.
@@ -73,7 +79,8 @@ jobs:
           -var 'ingestion_image_digest=${{ steps.ingestion.outputs.image-digest }}' \
           -var 'gcs_to_bq_image_digest=${{ steps.gcstobq.outputs.image-digest }}' \
           -var 'data_server_image_digest=${{ steps.serving.outputs.image-digest }}' \
-          -var 'exporter_image_digest=${{ steps.exporter.outputs.image-digest }}'
+          -var 'exporter_image_digest=${{ steps.exporter.outputs.image-digest }}' \
+          -var 'aggregator_image_digest=${{ steps.aggregator.outputs.image-digest }}'
           data_server_url=$(terraform output data_server_url)
           echo "::set-output name=data_server_url::$data_server_url"
       - name: Airflow Environment Variables
