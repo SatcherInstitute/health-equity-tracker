@@ -49,12 +49,14 @@ def export_dataset_tables():
 
     return ('', 204)
 
+
 def export_table(bq_client, table_ref, dest_uri, dest_fmt):
     """ Run the extract job to export the give table to the given destination and wait for completion"""
     job_config = bigquery.ExtractJobConfig(destination_format=dest_fmt)
     extract_job = bq_client.extract_table(table_ref, dest_uri, location='US', job_config=job_config)
     extract_job.result()
     logging.info("Exported %s to %s", table_ref.table_id, dest_uri)
+
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
