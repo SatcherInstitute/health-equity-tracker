@@ -4,25 +4,22 @@ import pandas
 from ingestion import census
 from datasources.standardized_columns import STATE_FIPS_COL, COUNTY_FIPS_COL, STATE_NAME_COL, COUNTY_NAME_COL
 
-# TODO consider using the groups metadata rather than variables metadata. Both work, just seems cleaner.
 
-# ------- ACS download utils -------- #
 
-def fetchAcsVariables(variable_ids, county_level):
-    resp2 = requests.get(
-        "https://api.census.gov/data/2018/acs/acs5",
+def fetchAcsVariables(base_acs_url, variable_ids, county_level):
+    resp2 = requests.get(base_acs_url,
         params=census.get_census_params(variable_ids, county_level))
     json_result = resp2.json()
     json_string = json.dumps(json_result)
     return json_string
 
-def fetchAcsMetadata():
-    resp = requests.get("https://api.census.gov/data/2018/acs/acs5/variables.json")
+def fetchAcsMetadata(base_acs_url):
+    resp = requests.get(base_acs_url + "/variables.json")
     return resp.json()
 
-def fetchAcsGroup(group_concept, var_map, num_breakdowns, county_level):
+def fetchAcsGroup(base_acs_url, group_concept, var_map, num_breakdowns, county_level):
     group_vars = getVarsForGroup(group_concept, var_map, num_breakdowns)
-    json_string = fetchAcsVariables(list(group_vars.keys()), county_level)
+    json_string = fetchAcsVariables(base_acs_url, list(group_vars.keys()), county_level)
     return json_string
 
 
@@ -60,21 +57,11 @@ def getVarsForGroup(group_concept, var_map, num_breakdowns):
             # be requested separately.
             num_parts = 2 + num_breakdowns
             if len(parts) == num_parts:
-                group_vars[group] = parts[2:num_parts]
+                attributes = parts[2:num_parts]
+                attributes = [a[:-1] if a.endswith(":") else a for a in attributes]
+                group_vars[group] = attributes
     return group_vars
 
-def acsJsonToDataFrame(acs_json_string):
-    frame = pandas.read_json(acs_json_string, orient='values')
-    frame.rename(columns=frame.iloc[0], inplace=True)
-    frame.drop([0], inplace=True)
-
-    colTypes = {}
-    for col in frame.columns:
-        if col != "NAME" and col != "state" and col != "county":
-            colTypes[col] = "int64"
-    frame = frame.astype(colTypes)
-
-    return frame
 
 # Examples:
 # One dimension:

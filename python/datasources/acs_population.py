@@ -7,20 +7,31 @@ from datasources.standardized_columns import *
 
 from ingestion import census, url_file_to_gcs, gcs_to_bq_util
 from datasources.data_source import DataSource
-from acs_utils import fetchAcsMetadata, parseAcsMetadata, fetchAcsVariables, acsJsonToDataFrame, fetchAcsGroup, getVarsForGroup, standardizeFrame
+from datasources.acs_utils import fetchAcsMetadata, parseAcsMetadata, fetchAcsVariables, fetchAcsGroup, getVarsForGroup, standardizeFrame
 
 
+# TODO move to standardized columns file
+# TODO add Asian/Pacific Islander combined, and Indigenous combined
+RACE_AIAN = "American Indian and Alaska Native"
+RACE_AIAN_NH = "American Indian and Alaska Native (Non-Hispanic)"
+RACE_ASIAN = "Asian"
+RACE_ASIAN_NH = "Asian (Non-Hispanic)"
+RACE_BLACK = "Black or African American"
+RACE_BLACK_NH = "Black or African American (Non-Hispanic)"
+RACE_HISP = "Hispanic or Latino"
+RACE_NHPI = "Native Hawaiian and Pacific Islander"
+RACE_NHPI_NH = "Native Hawaiian and Pacific Islander (Non-Hispanic)"
+RACE_NH = "Not Hispanic or Latino"
+RACE_OTHER = "Some other race"
+RACE_OTHER_NH = "Some other race (Non-Hispanic)"
+RACE_TOTAL = "Total"
+RACE_MULTI = "Two or more races"
+RACE_MULTI_NH = "Two or more races (Non-Hispanic)"
+RACE_WHITE = "White"
+RACE_WHITE_NH = "White (Non-Hispanic)"
 
 
 GROUPS = {
-  # Note: B01003, B02001, and B03003 are not strictly necessary since you can
-  # derive any of them by summing across values in
-  # "HISPANIC OR LATINO ORIGIN BY RACE", but it is often clearer to use these
-  # directly.
-  "B01003": "TOTAL POPULATION", # Total
-  "B02001": "RACE", # By race alone
-  "B03003": "HISPANIC OR LATINO ORIGIN", # By hispanic/latino alone
-
   # Hispanic/latino separate. When doing it this way, we don't get sex/age
   # breakdowns. This is the best way to get cannonical race/ethnicity categories
   "B03002": "HISPANIC OR LATINO ORIGIN BY RACE",
@@ -42,133 +53,116 @@ GROUPS = {
 SEX_BY_AGE_CONCEPTS_TO_RACE = {
   # All of these include Hispanic/Latino except B01001H.
   # Therefore, these are not standardized categories.
-  "SEX BY AGE": "Total",
-  "SEX BY AGE (WHITE ALONE)": "White alone",
-  "SEX BY AGE (BLACK OR AFRICAN AMERICAN ALONE)": "Black or African American alone",
-  "SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)": "American Indian and Alaska Native alone",
-  "SEX BY AGE (ASIAN ALONE)": "Asian alone",
-  "SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)": "Native Hawaiian and Other Pacific Islander alone",
-  "SEX BY AGE (SOME OTHER RACE ALONE)": "Some other race alone",
-  "SEX BY AGE (TWO OR MORE RACES)": "Two or more races",
-  "SEX BY AGE (WHITE ALONE, NOT HISPANIC OR LATINO)": "White alone (Non-Hispanic)",
-  "SEX BY AGE (HISPANIC OR LATINO)": "Hispanic or Latino"
+  "SEX BY AGE": RACE_TOTAL,
+  "SEX BY AGE (WHITE ALONE)": RACE_WHITE,
+  "SEX BY AGE (BLACK OR AFRICAN AMERICAN ALONE)": RACE_BLACK,
+  "SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)": RACE_AIAN,
+  "SEX BY AGE (ASIAN ALONE)": RACE_ASIAN,
+  "SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)": RACE_NHPI,
+  "SEX BY AGE (SOME OTHER RACE ALONE)": RACE_OTHER,
+  "SEX BY AGE (TWO OR MORE RACES)": RACE_MULTI,
+  "SEX BY AGE (WHITE ALONE, NOT HISPANIC OR LATINO)": RACE_WHITE_NH,
+  "SEX BY AGE (HISPANIC OR LATINO)": RACE_HISP
 }
 
 
-# TODO pass in via scheduler payload
-# TODO switch to 2019
-BASE_ACS_URL = "https://api.census.gov/data/2018/acs/acs5"
+RENAME_RACE = {
+    "American Indian and Alaska Native alone": RACE_AIAN,
+    "Asian alone": RACE_ASIAN,
+    "Black or African American alone": RACE_BLACK,
+    "Native Hawaiian and Other Pacific Islander alone": RACE_NHPI,
+    "Some other race alone": RACE_OTHER,
+    "Two or more races": RACE_MULTI,
+    "White alone": RACE_WHITE
+}
 
 
 
 
-#TODO some column value renaming: shorten race and age brackets
 
-county_level = False
 
-BASE_GROUP_BY_COLS = [STATE_FIPS_COL, COUNTY_FIPS_COL, COUNTY_NAME_COL] if county_level else [STATE_FIPS_COL, STATE_NAME_COL]
-BASE_SORT_COLS = [STATE_FIPS_COL, COUNTY_FIPS_COL] if county_level else [STATE_FIPS_COL]
+def renameAgeBracket(bracket):
+    parts = bracket.split()
+    if len(parts) == 3 and parts[0] == "Under":
+        return "0-" + str(int(parts[1]) - 1)
+    elif len(parts) == 4 and parts[1] == "to" and parts[3] == "years":
+        return parts[0] + "-" + parts[2]
+    elif len(parts) == 4 and parts[1] == "and" and parts[3] == "years":
+        return parts[0] + "-" + parts[2]
+    elif len(parts) == 2 and parts[1] == "years":
+        return parts[0] + "-" + parts[0]
+    elif len(parts) == 4 and " ".join(parts[1:]) == "years and over":
+        return parts[0] + "+"
+    else:
+        return bracket
 
+
+def renameRaceValue(race):
+    renamed_race = RENAME_RACE.get(race)
+    if renamed_race:
+        return renamed_race
+    return race
 
 
 def getStandardizedRace(row):
     if (row[HISPANIC_COL] == 'Hispanic or Latino'):
         return row[HISPANIC_COL]
     else:
-        return row[RACE_COL] + " (Non-Hispanic)"
-
-# Standardized format using mutually exclusive groups by excluding Hispanic or
-# Latino from other racial groups. Summing across all
-# RACE_OR_HISPANIC_COL values equals the total population.
-def standardizeRace(df):
-    standardized_race = df.copy()
-    standardized_race[RACE_OR_HISPANIC_COL] = standardized_race.apply(getStandardizedRace, axis=1)
-    standardized_race = standardized_race.drop([HISPANIC_COL, RACE_COL], axis=1)
-    group_by_cols = BASE_GROUP_BY_COLS.copy()
-    group_by_cols.append(RACE_OR_HISPANIC_COL)
-    standardized_race = standardized_race.groupby(group_by_cols).sum().reset_index()
-    return standardized_race
+        return renameRaceValue(row[RACE_COL]) + " (Non-Hispanic)"
 
 
-def sortRaceFrame(df):
-    sort_cols = BASE_SORT_COLS.copy()
-    sort_cols.append(RACE_OR_HISPANIC_COL)
-    return df.sort_values(sort_cols)
+def get_filename(concept):
+    return concept.replace(" ", "_") + ".json"
 
-
-# Alternative format using non-mutually-exclusive groups, by including Hispanic
-# or Latino in its own group and also in other racial groups in cases where they
-# overlap. Totals are also included because summing over the column will give
-# a larger number than the actual total.
-def standardizeRaceNotMutuallyExclusive(df, total_frame):
-    by_hispanic = df.copy()
-    group_by_cols = BASE_GROUP_BY_COLS.copy()
-    group_by_cols.append(HISPANIC_COL)
-    by_hispanic = by_hispanic.groupby(group_by_cols).sum().reset_index()
-    by_hispanic = by_hispanic.rename(columns={HISPANIC_COL: RACE_OR_HISPANIC_COL})
-
-    by_race = df.copy()
-    group_by_cols = BASE_GROUP_BY_COLS.copy()
-    group_by_cols.append(RACE_COL)
-    by_race = by_race.groupby(group_by_cols).sum().reset_index()
-    by_race = by_race.rename(columns={RACE_COL: RACE_OR_HISPANIC_COL})
-
-    combined = pandas.concat([by_hispanic, by_race, total_frame])
-    return sortRaceFrame(combined)
-
-
-def getAllRacesFrame(race_and_hispanic_frame, total_frame):
-    all_races = standardizeRaceNotMutuallyExclusive(race_and_hispanic_frame, total_frame)
-    standardized_race = standardizeRace(race_and_hispanic_frame)
-    standardized_race = standardized_race.copy()
-    # both variants of standardized race include a "Hispanic or Latino" group, so
-    # remove from one before concatenating.
-    standardized_race = standardized_race[standardized_race[RACE_OR_HISPANIC_COL] != "Hispanic or Latino"]
-    all_races = pandas.concat([all_races, standardized_race])
-    return sortRaceFrame(all_races)
-
-
-def getSexByAgeByRace(var_map, sex_by_age_json):
-    frames = []
-    for concept, race in SEX_BY_AGE_CONCEPTS_TO_RACE.items():
-        json_string = sex_by_age_json[concept]
-        frame = acsJsonToDataFrame(json_string)
-        group_vars = getVarsForGroup(concept, var_map, 2)
-        sex_by_age = standardizeFrame(frame, group_vars, [SEX_COL, AGE_COL], county_level, POPULATION_COL)
-
-        # TODO reorder columns
-        sex_by_age[RACE_OR_HISPANIC_COL] = race
-        frames.append(sex_by_age)
-    return pandas.concat(frames)
-
+def update_col_types(frame):
+    colTypes = {}
+    for col in frame.columns:
+        if col != "NAME" and col != "state" and col != "county":
+            colTypes[col] = "int64"
+        else:
+            colTypes["state"] = "string"
+    frame = frame.astype(colTypes)
+    return frame
 
 
 # American Community Survey populationdata in the United States from the US Census.
-class ACSPopulation(DataSource):
+class ACSPopulationBase(DataSource):
+
+    def __init__(self, county_level):
+        self.base_acs_url = "https://api.census.gov/data/2019/acs/acs5"
+        self.county_level = county_level
+        self.base_group_by_cols = [STATE_FIPS_COL, COUNTY_FIPS_COL, COUNTY_NAME_COL] if county_level else [STATE_FIPS_COL, STATE_NAME_COL]
+        self.base_sort_by_cols = [STATE_FIPS_COL, COUNTY_FIPS_COL] if county_level else [STATE_FIPS_COL]
 
     @staticmethod
     def get_id():
         """Returns the data source's unique id. """
-        return 'ACS_POPULATION'
+        # Children implement this.
+        pass
 
     @staticmethod
     def get_table_name():
         """Returns the BigQuery table name where the data source's data will
         stored. """
-        # TODO what if there are multiple tables?
-        return 'acs_population'
+        # Writes multiple tables, so this is not applicable.
+        pass
 
     def upload_to_gcs(self, url, gcs_bucket, filename):
         """Uploads population data from census to GCS bucket."""
-
-        metadata = fetchAcsMetadata()
+        metadata = fetchAcsMetadata(self.base_acs_url)
         var_map = parseAcsMetadata(metadata, GROUPS)
 
-        concept = "HISPANIC OR LATINO ORIGIN BY RACE"
-        group_vars = getVarsForGroup(concept, var_map, 2)
-        cols = list(group_vars.keys())
-        url_params = census.get_census_params(cols, county_level)
-        url_file_to_gcs.url_file_to_gcs(BASE_ACS_URL, url_params, gcs_bucket, concept.replace(" ", "_") + ".json")
+        concepts = list(SEX_BY_AGE_CONCEPTS_TO_RACE.keys())
+        concepts.append("HISPANIC OR LATINO ORIGIN BY RACE")
+
+        for concept in concepts:
+            group_vars = getVarsForGroup(concept, var_map, 2)
+            cols = list(group_vars.keys())
+            url_params = census.get_census_params(cols, self.county_level)
+            url_file_to_gcs.url_file_to_gcs(self.base_acs_url, url_params, gcs_bucket, get_filename(concept))
+        # Total population
+        url_params = census.get_census_params(['B01003_001E'], self.county_level)
+        url_file_to_gcs.url_file_to_gcs(self.base_acs_url, url_params, gcs_bucket, 'B01003_001E.json')
 
     def write_to_bq(self, dataset, gcs_bucket, filename):
         """Writes population data to BigQuery from the provided GCS bucket
@@ -177,49 +171,171 @@ class ACSPopulation(DataSource):
         table_name: The name of the biquery table to write to
         gcs_bucket: The name of the gcs bucket to read the data from
         filename: The name of the file in the gcs bucket to read from"""
-
-        concept = "HISPANIC OR LATINO ORIGIN BY RACE"
-        frame = gcs_to_bq_util.load_values_as_dataframe(
-            gcs_bucket, concept.replace(" ", "_") + ".json")
-
-        colTypes = {}
-        for col in frame.columns:
-            if col != "NAME" and col != "state" and col != "county":
-                colTypes[col] = "int64"
-        frame = frame.astype(colTypes)
-
-        gcs_to_bq_util.append_dataframe_to_bq(frame, dataset, 'acs_population_race_and_ethnicity_state')
-    
-    def write_local_files_debug(self):
-        metadata = fetchAcsMetadata()
+        # TODO change this to have it read metadata from GCS bucket
+        metadata = fetchAcsMetadata(self.base_acs_url)
         var_map = parseAcsMetadata(metadata, GROUPS)
 
-        by_hisp_and_race_json = fetchAcsGroup("HISPANIC OR LATINO ORIGIN BY RACE", var_map, 2, county_level)
-        total_json = fetchAcsVariables(['B01003_001E'], county_level)
-        sex_by_age_json = {}
-        for concept in SEX_BY_AGE_CONCEPTS_TO_RACE:
-            json_string = fetchAcsGroup(concept, var_map, 2, county_level)
-            sex_by_age_json[concept] = json_string
+        concept = "HISPANIC OR LATINO ORIGIN BY RACE"
+        race_and_hispanic_frame = gcs_to_bq_util.load_values_as_dataframe(
+            gcs_bucket, get_filename(concept))
+        race_and_hispanic_frame = update_col_types(race_and_hispanic_frame)
 
         race_and_hispanic_frame = standardizeFrame(
-            acsJsonToDataFrame(by_hisp_and_race_json),
+            race_and_hispanic_frame,
             getVarsForGroup("HISPANIC OR LATINO ORIGIN BY RACE", var_map, 2),
             [HISPANIC_COL, RACE_COL],
-            county_level,
+            self.county_level,
             POPULATION_COL)
 
+        total_frame = gcs_to_bq_util.load_values_as_dataframe(
+            gcs_bucket, 'B01003_001E.json')
+        total_frame = update_col_types(total_frame)
         total_frame = standardizeFrame(
-            acsJsonToDataFrame(total_json),
+            total_frame,
             {'B01003_001E': ['Total']},
             [RACE_OR_HISPANIC_COL],
-            county_level,
+            self.county_level,
+            POPULATION_COL)
+
+        sex_by_age_frames = {}
+        for concept in SEX_BY_AGE_CONCEPTS_TO_RACE:
+            sex_by_age_frame = gcs_to_bq_util.load_values_as_dataframe(
+                gcs_bucket, get_filename(concept))
+            sex_by_age_frame = update_col_types(sex_by_age_frame)
+            sex_by_age_frames[concept] = sex_by_age_frame
+
+        frames = {
+            'acs_population_race_and_ethnicity_state': self.standardizeRace(race_and_hispanic_frame),
+            'acs_population_race_and_ethnicity_state_nonstand': self.getAllRacesFrame(race_and_hispanic_frame, total_frame),
+            'sex_by_age_by_race_state': self.get_sex_by_age_and_race(var_map, sex_by_age_frames)
+        }
+
+        for table_name, df in frames.items():
+            # All breakdown columns are strings
+            column_types = { c: 'STRING' for c in df.columns }
+            column_types[POPULATION_COL] = 'INT64'
+            gcs_to_bq_util.append_dataframe_to_bq(df, dataset, table_name, column_types=column_types)
+    
+    def write_local_files_debug(self):
+        metadata = fetchAcsMetadata(self.base_acs_url)
+        var_map = parseAcsMetadata(metadata, GROUPS)
+
+        by_hisp_and_race_json = fetchAcsGroup(self.base_acs_url, "HISPANIC OR LATINO ORIGIN BY RACE", var_map, 2, self.county_level)
+        total_json = fetchAcsVariables(self.base_acs_url, ['B01003_001E'], self.county_level)
+        sex_by_age_frames = {}
+        for concept in SEX_BY_AGE_CONCEPTS_TO_RACE:
+            json_string = fetchAcsGroup(self.base_acs_url, concept, var_map, 2, self.county_level)
+            frame = gcs_to_bq_util.values_json_to_dataframe(json_string)
+            sex_by_age_frames[concept] = update_col_types(frame)
+
+        race_and_hispanic_frame = gcs_to_bq_util.values_json_to_dataframe(by_hisp_and_race_json)
+        race_and_hispanic_frame = update_col_types(race_and_hispanic_frame)
+        race_and_hispanic_frame = standardizeFrame(
+            race_and_hispanic_frame,
+            getVarsForGroup("HISPANIC OR LATINO ORIGIN BY RACE", var_map, 2),
+            [HISPANIC_COL, RACE_COL],
+            self.county_level,
+            POPULATION_COL)
+
+        total_frame = gcs_to_bq_util.values_json_to_dataframe(total_json)
+        total_frame = update_col_types(total_frame)
+        total_frame = standardizeFrame(
+            total_frame,
+            {'B01003_001E': ['Total']},
+            [RACE_OR_HISPANIC_COL],
+            self.county_level,
             POPULATION_COL)
 
         frames = {
-            'race_stand': standardizeRace(race_and_hispanic_frame),
-            'race_nonstand': getAllRacesFrame(race_and_hispanic_frame, total_frame),
-            'sex_by_age_by_race': getSexByAgeByRace(var_map, sex_by_age_json)
+            'race_nonstand': self.getAllRacesFrame(race_and_hispanic_frame, total_frame),
+            'sex_by_age_by_race': self.get_sex_by_age_and_race(var_map, sex_by_age_frames)
         }
         for key, df in frames.items():
             df.to_csv("table_" + key + ".csv", index=False)
             df.to_json("table_" + key + ".json", orient="records")
+
+    
+    # Standardized format using mutually exclusive groups by excluding Hispanic or
+    # Latino from other racial groups. Summing across all
+    # RACE_OR_HISPANIC_COL values equals the total population.
+    def standardizeRace(self, df):
+        standardized_race = df.copy()
+        standardized_race[RACE_OR_HISPANIC_COL] = standardized_race.apply(getStandardizedRace, axis=1)
+        standardized_race = standardized_race.drop([HISPANIC_COL, RACE_COL], axis=1)
+        group_by_cols = self.base_group_by_cols.copy()
+        group_by_cols.append(RACE_OR_HISPANIC_COL)
+        standardized_race = standardized_race.groupby(group_by_cols).sum().reset_index()
+        return standardized_race
+
+
+    def sortRaceFrame(self, df):
+        sort_cols = self.base_sort_by_cols.copy()
+        sort_cols.append(RACE_OR_HISPANIC_COL)
+        return df.sort_values(sort_cols)
+
+
+    # Alternative format using non-mutually-exclusive groups, by including Hispanic
+    # or Latino in its own group and also in other racial groups in cases where they
+    # overlap. Totals are also included because summing over the column will give
+    # a larger number than the actual total.
+    def standardizeRaceNotMutuallyExclusive(self, df, total_frame):
+        by_hispanic = df.copy()
+        group_by_cols = self.base_group_by_cols.copy()
+        group_by_cols.append(HISPANIC_COL)
+        by_hispanic = by_hispanic.groupby(group_by_cols).sum().reset_index()
+        by_hispanic = by_hispanic.rename(columns={HISPANIC_COL: RACE_OR_HISPANIC_COL})
+
+        by_race = df.copy()
+        by_race[RACE_COL] = by_race[RACE_COL].apply(renameRaceValue)
+        group_by_cols = self.base_group_by_cols.copy()
+        group_by_cols.append(RACE_COL)
+        by_race = by_race.groupby(group_by_cols).sum().reset_index()
+        by_race = by_race.rename(columns={RACE_COL: RACE_OR_HISPANIC_COL})
+
+        combined = pandas.concat([by_hispanic, by_race, total_frame])
+        return self.sortRaceFrame(combined)
+
+
+    def getAllRacesFrame(self, race_and_hispanic_frame, total_frame):
+        all_races = self.standardizeRaceNotMutuallyExclusive(race_and_hispanic_frame, total_frame)
+        standardized_race = self.standardizeRace(race_and_hispanic_frame)
+        standardized_race = standardized_race.copy()
+        # both variants of standardized race include a "Hispanic or Latino" group, so
+        # remove from one before concatenating.
+        standardized_race = standardized_race[standardized_race[RACE_OR_HISPANIC_COL] != "Hispanic or Latino"]
+        all_races = pandas.concat([all_races, standardized_race])
+        return self.sortRaceFrame(all_races)
+    
+    def get_sex_by_age_and_race(self, var_map, sex_by_age_frames):
+        frames = []
+        for concept, race in SEX_BY_AGE_CONCEPTS_TO_RACE.items():
+            frame = sex_by_age_frames[concept]
+            group_vars = getVarsForGroup(concept, var_map, 2)
+            sex_by_age = standardizeFrame(frame, group_vars, [SEX_COL, AGE_COL], self.county_level, POPULATION_COL)
+
+            # TODO reorder columns so population is last
+            sex_by_age[RACE_OR_HISPANIC_COL] = race
+            frames.append(sex_by_age)
+        result = pandas.concat(frames)
+        result[AGE_COL] = result[AGE_COL].apply(renameAgeBracket)
+        return result
+
+
+class ACSStatePopulation(ACSPopulationBase):
+    def __init__(self):
+        super().__init__(False)
+
+    @staticmethod
+    def get_id():
+        """Returns the data source's unique id. """
+        return 'ACS_POPULATION_STATE'
+
+
+class ACSCountyPopulation(ACSPopulationBase):
+    def __init__(self):
+        super().__init__(True)
+
+    @staticmethod
+    def get_id():
+        """Returns the data source's unique id. """
+        return 'ACS_POPULATION_COUNTY'
