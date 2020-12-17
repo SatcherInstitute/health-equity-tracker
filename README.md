@@ -132,7 +132,7 @@ From inside the `airflow/dev/` directory:
 
     `make build`
 
-1. Stand up the multi-container environemnt
+1. Stand up the multi-container environment
 
    `make run`
 
