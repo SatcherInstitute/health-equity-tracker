@@ -10,7 +10,7 @@ from google.cloud import bigquery
 from main import app
 
 test_tables = [bigquery.Table("my-project.my-dataset.t1"),
-               bigquery.Table("my-project.my-dataset.t2"),
+               bigquery.Table("my-project.my-dataset.t2_std"),
                bigquery.Table("my-project.my-dataset.t3")]
 
 os.environ['PROJECT_ID'] = 'my-project'
@@ -35,7 +35,7 @@ def testExportDatasetTables(client: FlaskClient):
         response = client.post('/', json=dataset_name)
 
         assert response.status_code == 204
-        assert mock_bq_instance.extract_table.call_count == 3
+        assert mock_bq_instance.extract_table.call_count == 4
 
 
 def testExportDatasetTables_InvalidInput(client: FlaskClient):

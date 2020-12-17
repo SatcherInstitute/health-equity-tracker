@@ -35,14 +35,27 @@ def export_dataset_tables():
         dest_uri = "gs://{}/{}-{}.json".format(export_bucket, dataset_name, table.table_id)
         table_ref = dataset.table(table.table_id)
         try:
-            extract_job = bq_client.extract_table(table_ref, dest_uri, location='US')
-            extract_job.result()
-            logging.info("Exported %s to %s", table.table_id, dest_uri)
+            export_table(bq_client, table_ref, dest_uri, 'NEWLINE_DELIMITED_JSON')
+
+            std_table_suffix = "_std"
+            if not table.table_id.endswith(std_table_suffix):
+                continue
+
+            dest_uri = "gs://{}/{}-{}.csv".format(export_bucket, dataset_name, table.table_id)
+            export_table(bq_client, table_ref, dest_uri, 'CSV')
         except Exception as err:
             logging.error(err)
-            return ('Error exporting table, {}: {}'.format(table.table_id, err), 500)
+            return ('Error exporting table, {}, to {}: {}'.format(table.table_id, dest_uri, err), 500)
 
     return ('', 204)
+
+
+def export_table(bq_client, table_ref, dest_uri, dest_fmt):
+    """ Run the extract job to export the give table to the given destination and wait for completion"""
+    job_config = bigquery.ExtractJobConfig(destination_format=dest_fmt)
+    extract_job = bq_client.extract_table(table_ref, dest_uri, location='US', job_config=job_config)
+    extract_job.result()
+    logging.info("Exported %s to %s", table_ref.table_id, dest_uri)
 
 
 if __name__ == "__main__":
