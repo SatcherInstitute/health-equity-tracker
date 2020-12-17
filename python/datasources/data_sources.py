@@ -10,8 +10,8 @@ from datasources.state_names import StateNames
 from datasources.urgent_care_facilities import UrgentCareFacilities
 
 
-# Map of data source ID to the class that implements the ingestion methods for that
-# data source.
+# Map of data source ID to the class that implements the ingestion methods for
+# that data source.
 DATA_SOURCES_DICT = {
     AmericanCommunitySurvey.get_id(): AmericanCommunitySurvey(),
     CDCCovidDeaths.get_id(): CDCCovidDeaths(),
