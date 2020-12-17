@@ -56,6 +56,11 @@ variable "bq_cdc_covid_deaths_dataset_name" {
   type        = string
 }
 
+variable "bq_covid_tracking_project_dataset_name" {
+  description = "Bigquery dataset for Covid Tracking Project race data"
+  type        = string
+}
+
 # Pub/Sub topics
 variable "upload_to_gcs_topic_name" {
   description = "Name of the Pub/Sub topic used to trigger uploading files to GCS"
