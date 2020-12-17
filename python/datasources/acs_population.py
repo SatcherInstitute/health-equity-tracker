@@ -114,6 +114,7 @@ def get_standardized_race(row):
 def get_filename(concept):
     return concept.replace(" ", "_") + ".json"
 
+
 def update_col_types(frame):
     colTypes = {}
     for col in frame.columns:
@@ -129,6 +130,7 @@ def update_col_types(frame):
 class ACSPopulationBase(DataSource):
 
     def __init__(self, county_level):
+        # TODO pass this in from message data.
         self.base_acs_url = "https://api.census.gov/data/2019/acs/acs5"
         self.county_level = county_level
         self.base_group_by_cols = [STATE_FIPS_COL, COUNTY_FIPS_COL, COUNTY_NAME_COL] if county_level else [STATE_FIPS_COL, STATE_NAME_COL]
@@ -150,7 +152,7 @@ class ACSPopulationBase(DataSource):
     def upload_to_gcs(self, url, gcs_bucket, filename):
         """Uploads population data from census to GCS bucket."""
         metadata = fetch_acs_metadata(self.base_acs_url)
-        var_map = parse_acs_metadata(metadata, GROUPS)
+        var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
 
         concepts = list(SEX_BY_AGE_CONCEPTS_TO_RACE.keys())
         concepts.append("HISPANIC OR LATINO ORIGIN BY RACE")
@@ -175,7 +177,7 @@ class ACSPopulationBase(DataSource):
         filename: The name of the file in the gcs bucket to read from"""
         # TODO change this to have it read metadata from GCS bucket
         metadata = fetch_acs_metadata(self.base_acs_url)
-        var_map = parse_acs_metadata(metadata, GROUPS)
+        var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
 
         concept = "HISPANIC OR LATINO ORIGIN BY RACE"
         race_and_hispanic_frame = gcs_to_bq_util.load_values_as_dataframe(
@@ -222,8 +224,11 @@ class ACSPopulationBase(DataSource):
                 df, dataset, table_name, column_types=column_types)
     
     def write_local_files_debug(self):
+        """Downloads and writes the tables to the local file system as csv and
+           json files. This is only for debugging/convenience, and should not
+           be used in production."""
         metadata = fetch_acs_metadata(self.base_acs_url)
-        var_map = parse_acs_metadata(metadata, GROUPS)
+        var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
 
         by_hisp_and_race_json = fetch_acs_group(
             self.base_acs_url, "HISPANIC OR LATINO ORIGIN BY RACE", var_map, 2,
@@ -264,11 +269,16 @@ class ACSPopulationBase(DataSource):
         for key, df in frames.items():
             df.to_csv("table_" + key + ".csv", index=False)
             df.to_json("table_" + key + ".json", orient="records")
-    
-    # Standardized format using mutually exclusive groups by excluding Hispanic or
-    # Latino from other racial groups. Summing across all
-    # RACE_OR_HISPANIC_COL values equals the total population.
+
+    def sort_race_frame(self, df):
+        sort_cols = self.base_sort_by_cols.copy()
+        sort_cols.append(RACE_OR_HISPANIC_COL)
+        return df.sort_values(sort_cols)
+
     def standardize_race(self, df):
+        """Standardized format using mutually exclusive groups by excluding
+           Hispanic or Latino from other racial groups. Summing across all
+           RACE_OR_HISPANIC_COL values equals the total population."""
         standardized_race = df.copy()
         standardized_race[RACE_OR_HISPANIC_COL] = standardized_race.apply(
             get_standardized_race, axis=1)
@@ -278,18 +288,10 @@ class ACSPopulationBase(DataSource):
         standardized_race = standardized_race.groupby(group_by_cols).sum().reset_index()
         return standardized_race
 
-
-    def sort_race_frame(self, df):
-        sort_cols = self.base_sort_by_cols.copy()
-        sort_cols.append(RACE_OR_HISPANIC_COL)
-        return df.sort_values(sort_cols)
-
-
-    # Alternative format using non-mutually-exclusive groups, by including Hispanic
-    # or Latino in its own group and also in other racial groups in cases where they
-    # overlap. Totals are also included because summing over the column will give
-    # a larger number than the actual total.
-    def standardize_race_all_categories(self, df, total_frame):
+    def standardize_race_include_hispanic(self, df, total_frame):
+        """Alternative format where race categories includ Hispanic/Latino.
+           Totals are also included because summing over the column will give a
+           larger number than the actual total."""
         by_hispanic = df.copy()
         group_by_cols = self.base_group_by_cols.copy()
         group_by_cols.append(HISPANIC_COL)
@@ -306,9 +308,10 @@ class ACSPopulationBase(DataSource):
         combined = pandas.concat([by_hispanic, by_race, total_frame])
         return self.sort_race_frame(combined)
 
-
     def get_all_races_frame(self, race_and_hispanic_frame, total_frame):
-        all_races = self.standardize_race_all_categories(race_and_hispanic_frame, total_frame)
+        """Includes all race categories, both including and not including
+           Hispanic/Latino."""
+        all_races = self.standardize_race_include_hispanic(race_and_hispanic_frame, total_frame)
         standardized_race = self.standardize_race(race_and_hispanic_frame)
         standardized_race = standardized_race.copy()
         # both variants of standardized race include a "Hispanic or Latino" group, so
