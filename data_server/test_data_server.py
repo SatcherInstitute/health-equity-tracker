@@ -29,8 +29,7 @@ test_data_json = (
     b'{"label1":"value6","label2":["value7a","value2b"],"label3":"value18"}]')
 
 test_data_csv = (
-    b'label1,label2,label3\nvalueA,valueB,valueC\nvalueD,valueE,valueF\n'
-)
+    b'label1,label2,label3\nvalueA,valueB,valueC\nvalueD,valueE,valueF\n')
 
 
 def get_test_data(gcs_bucket: str, filename: str):

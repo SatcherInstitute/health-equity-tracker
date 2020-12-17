@@ -68,7 +68,7 @@ def get_dataset():
         return Response(dataset, mimetype='text/csv', headers=headers)
     
     return Response(generate_response(dataset), mimetype='application/json',
-                        headers=headers)
+                    headers=headers)
         
 
 if __name__ == "__main__":
