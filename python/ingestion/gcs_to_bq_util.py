@@ -7,6 +7,84 @@ import pandas
 from google.cloud import bigquery, storage
 
 
+def __convert_frame_to_json(frame):
+    """Returns the serialized version of the given dataframe in json."""
+    # Repeated fields are not supported with bigquery.Client.load_table_from_dataframe()
+    # (See https://github.com/googleapis/python-bigquery/issues/19). We have to
+    # use load_table_from_json as a workaround.
+    result = frame.to_json(orient='records')
+    json_data = json.loads(result)
+    return json_data
+
+
+def __create_bq_load_job_config(frame, column_types, col_modes):
+    """
+    Creates a job to write the given data frame into BigQuery.
+
+    Paramenters:
+        frame: A pandas.DataFrame representing the data for the job.
+        column_types: Optional dict of column name to BigQuery data type.
+        col_modes: Optional dict of modes for each field.
+
+    Returns:
+        job_config: The BigQuery write job to append the given frame to a table.
+    """
+    job_config = bigquery.LoadJobConfig(
+        # Always append, so we can keep the history.
+        write_disposition=bigquery.WriteDisposition.WRITE_APPEND
+    )
+    if column_types is None:
+        job_config.autodetect = True
+    else:
+        job_config.schema = get_schema(frame, column_types, col_modes)
+
+    return job_config
+
+
+def __add_ingestion_ts(frame, column_types):
+    """Adds a timestamp for when the given DataFrame was ingested."""
+    # Formatting to a string helps BQ autodetection.
+    frame['ingestion_ts'] = datetime.now(
+        timezone.utc).strftime("%Y-%m-%d %H:%M:%S.%f %Z")
+    if column_types is not None:
+        column_types['ingestion_ts'] = 'TIMESTAMP'
+
+
+def __append_dataframe_to_bq(frame, dataset, table_name, column_types, col_modes, project, json_data):
+    job_config = __create_bq_load_job_config(frame, column_types, col_modes)
+
+    client = bigquery.Client(project)
+    table_id = client.dataset(dataset).table(table_name)
+
+    load_job = client.load_table_from_json(
+        json_data,	table_id, job_config=job_config)
+    load_job.result()  # Wait for table load to complete.
+
+
+def append_dataframe_to_bq_as_str_values(frame, dataset, table_name, column_types=None, col_modes=None, project=None):
+    """Appends the provided DataFrame to the table specified by
+       `dataset.table_name`. Automatically adds an ingestion time column and coverts
+       all other values to a string.
+
+       frame: pandas.DataFrame representing the data to append.
+       dataset: The BigQuery dataset to write to.
+       table_name: The BigQuery table to write to.
+       column_types: Optional dict of column name to BigQuery data type. If
+                     present, the column names must match the columns in the
+                     DataFrame. Otherwise, table schema is inferred.
+       col_modes: Optional dict of modes for each field. Possible values include
+                  NULLABLE, REQUIRED, and REPEATED. Must also specify
+                  column_types to specify col_modes."""
+    __add_ingestion_ts(frame, column_types)
+    json_data = __convert_frame_to_json(frame)
+    for sub in json_data:
+        for key in sub:
+            sub[key] = str(sub[key])
+
+    __append_dataframe_to_bq(frame, dataset, table_name,
+                             column_types, col_modes, project, json_data)
+
+
 def append_dataframe_to_bq(
         frame, dataset, table_name, column_types=None, col_modes=None, project=None):
     """Appends the provided DataFrame to the table specified by
@@ -21,29 +99,10 @@ def append_dataframe_to_bq(
        col_modes: Optional dict of modes for each field. Possible values include
                   NULLABLE, REQUIRED, and REPEATED. Must also specify
                   column_types to specify col_modes."""
-    job_config = bigquery.LoadJobConfig(
-        # Always append, so we can keep the history.
-        write_disposition=bigquery.WriteDisposition.WRITE_APPEND
-    )
-    if column_types is None:
-        job_config.autodetect = True
-    else:
-        job_config.schema = get_schema(frame, column_types, col_modes)
-
-    # Add an upload timestamp. Formatting to a string helps BQ autodetection.
-    frame['ingestion_ts'] = datetime.now(
-        timezone.utc).strftime("%Y-%m-%d %H:%M:%S.%f %Z")
-
-    client = bigquery.Client(project)
-    table_id = client.dataset(dataset).table(table_name)
-    # Repeated fields are not supported with bigquery.Client.load_table_from_dataframe()
-    # (See https://github.com/googleapis/python-bigquery/issues/19). We have to
-    # use load_table_from_json as a workaround.
-    result = frame.to_json(orient='records')
-    json_data = json.loads(result)
-    load_job = client.load_table_from_json(
-        json_data,	table_id, job_config=job_config)
-    load_job.result()  # Wait for table load to complete.
+    __add_ingestion_ts(frame, column_types)
+    json_data = __convert_frame_to_json(frame)
+    __append_dataframe_to_bq(frame, dataset, table_name,
+                             column_types, col_modes, project, json_data)
 
 
 def get_schema(frame, column_types, col_modes):
@@ -59,14 +118,11 @@ def get_schema(frame, column_types, col_modes):
             or set(input_cols) != set(frame.columns)):
         raise Exception('Column types did not match frame columns')
 
-    columns = column_types.copy()
-    columns['ingestion_ts'] = 'TIMESTAMP'
-
     def create_field(col):
         return bigquery.SchemaField(
-            col, columns[col],
+            col, column_types[col],
             mode=(col_modes[col] if col in col_modes else 'NULLABLE'))
-    return list(map(create_field, columns.keys()))
+    return list(map(create_field, column_types.keys()))
 
 
 def load_values_as_dataframe(gcs_bucket, filename):
