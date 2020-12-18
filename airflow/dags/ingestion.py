@@ -7,6 +7,8 @@ import util
 
 _CDC_COVID_DEATHS_DOWNLOAD_URL = 'https://data.cdc.gov/api/views/k8wy-p9cg/rows.csv?accessType=DOWNLOAD'
 _CDC_DATASET_NAME = 'cdc_covid_deaths'
+_CDC_GCS_FILENAME = 'cdc_deaths'
+_CDC_WORKFLOW_ID = 'CDC_COVID_DEATHS'
 
 default_args = {
     'start_date': days_ago(0),
@@ -22,11 +24,11 @@ data_ingestion_dag = DAG(
 
 # CDC Covid Deaths
 cdc_covid_deaths_gcs_payload = util.generate_gcs_payload(
-    'cdc_deaths', 'CDC_COVID_DEATHS', _CDC_COVID_DEATHS_DOWNLOAD_URL)
+    _CDC_GCS_FILENAME, _CDC_WORKFLOW_ID, _CDC_COVID_DEATHS_DOWNLOAD_URL)
 cdc_covid_deaths_gcs_operator = util.create_gcs_ingest_operator(
     'cdc_covid_deaths_to_gcs', cdc_covid_deaths_gcs_payload, data_ingestion_dag)
 cdc_covid_deaths_bq_payload = util.generate_bq_payload(
-    'cdc_deaths', 'CDC_COVID_DEATHS', _CDC_DATASET_NAME)
+    _CDC_GCS_FILENAME, _CDC_WORKFLOW_ID, _CDC_DATASET_NAME)
 cdc_covid_deaths_bq_operator = util.create_bq_ingest_operator(
     'cdc_covid_deaths_to_bq', cdc_covid_deaths_bq_payload, data_ingestion_dag)
 cdc_covid_deaths_exporter_payload = {'dataset_name': _CDC_DATASET_NAME}
