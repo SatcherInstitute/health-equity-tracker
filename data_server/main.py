@@ -63,6 +63,10 @@ def get_dataset():
     headers.add('Content-Disposition', 'attachment', filename=dataset_name)
     headers.add('Access-Control-Allow-Origin', '*')
     headers.add('Vary', 'Accept-Encoding, Origin')
+
+    if dataset_name.endswith('.csv'):
+        return Response(dataset, mimetype='text/csv', headers=headers)
+
     return Response(generate_response(dataset), mimetype='application/json',
                     headers=headers)
 

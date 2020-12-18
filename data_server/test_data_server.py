@@ -28,11 +28,20 @@ test_data_json = (
     b'{"label1":"value5","label2":["value6a","value2b"],"label3":"value15"},'
     b'{"label1":"value6","label2":["value7a","value2b"],"label3":"value18"}]')
 
+test_data_csv = (
+    b'label1,label2,label3\nvalueA,valueB,valueC\nvalueD,valueE,valueF\n')
+
 
 def get_test_data(gcs_bucket: str, filename: str):
     """Returns the contents of filename as a bytes object. Meant to be used to
     patch gcs_utils.download_blob_as_bytes."""
     return test_data
+
+
+def get_test_data_csv(gcs_bucket: str, filename: str):
+    """Returns the contents of filename.csv as a bytes object. Meant to be used to
+    patch gcs_utils.download_blob_as_bytes."""
+    return test_data_csv
 
 
 @pytest.fixture(autouse=True)
@@ -128,3 +137,16 @@ def testGetDataset_UrlParamMissing(client: FlaskClient):
     response = client.get('/dataset?random_param=stuff')
     assert response.status_code == 400
     assert b'Request missing required url param \'name\'' in response.data
+
+
+@mock.patch('data_server.gcs_utils.download_blob_as_bytes',
+            side_effect=get_test_data_csv)
+def testGetDataset_csvType(mock_func: mock.MagicMock, client: FlaskClient):
+    response = client.get('/dataset?name=test_dataset.csv')
+    mock_func.assert_called_once_with('test', 'test_dataset.csv')
+    assert response.status_code == 200
+    assert response.mimetype == 'text/csv'
+    assert (response.headers.get('Content-Disposition') ==
+           'attachment; filename=test_dataset.csv')
+    # Make sure that the response hasn't changed
+    assert response.data == test_data_csv
