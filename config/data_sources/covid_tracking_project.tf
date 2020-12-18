@@ -2,6 +2,6 @@
 
 # Create a BigQuery dataset for Covid Tracking Project race data
 resource "google_bigquery_dataset" "bq_covid_tracking_project" {
-  dataset_id = var.bq_covid_tracking_project_dataset_name
+  dataset_id = "covid_tracking_project"
   location   = "US"
 }
