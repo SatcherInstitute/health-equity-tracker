@@ -5,6 +5,10 @@ provider "google" {
   credentials = var.gcp_credentials
 }
 
+# Import data sources config
+module "data_sources" {
+  source = "./data_sources"
+}
 
 /* [BEGIN] GCS Resources */
 

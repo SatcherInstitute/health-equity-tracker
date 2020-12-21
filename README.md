@@ -115,14 +115,14 @@ If a service adds a dependency on `/python/<some_package>`:
 - Install [Docker](https://www.docker.com/)
 - Install [Docker Compose](https://docs.docker.com/compose/install/)
 - Set environment variables
-   - PROJECT_ID
-   - GCP_KEY_PATH (See [documentation](https://cloud.google.com/iam/docs/creating-managing-service-account-keys#creating_service_account_keys) on creating and downloading keys.)
-   - DATASET_NAME
-   - GCS_LANDING_BUCKET
-   - GCS_MANUAL_UPLOADS_BUCKET
-   - MANUAL_UPLOADS_DATASET
-   - MANUAL_UPLOADS_PROJECT
-   - EXPORT_BUCKET
+  - PROJECT_ID
+  - GCP_KEY_PATH (See [documentation](https://cloud.google.com/iam/docs/creating-managing-service-account-keys#creating_service_account_keys) on creating and downloading keys.)
+  - DATASET_NAME
+  - GCS_LANDING_BUCKET
+  - GCS_MANUAL_UPLOADS_BUCKET
+  - MANUAL_UPLOADS_DATASET
+  - MANUAL_UPLOADS_PROJECT
+  - EXPORT_BUCKET
 
 ### Getting Started
 
@@ -130,14 +130,17 @@ From inside the `airflow/dev/` directory:
 
 1. Build the Docker containers
 
-    make build
+    `make build`
 
-1. Stand up the multi-container environemnt
+1. Stand up the multi-container environment
 
-   make run
+   `make run`
 
 1. At the UI link below, you should see the list of DAGs pulled from the `dags/` folder. These files will automatically update the Airflow webserver when changed.
 1. To run them manually, select the desired DAG, toggle to `On` and click `Trigger Dag` .
+1. When finished, turn down the containers
+
+   `make kill`
 
 More info on [Apache Airflow](https://airflow.apache.org/docs/stable/) in general.
 
