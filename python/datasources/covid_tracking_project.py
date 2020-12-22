@@ -1,7 +1,8 @@
 import logging
 
 from datasources.data_source import DataSource
-
+import ingestion.gcs_to_bq_util as gcs_to_bq_util
+import ingestion.standardized_columns as col_std
 
 # Covid Tracking Project race data by state from covidtracking.com/race
 class CovidTrackingProject(DataSource):
@@ -14,5 +15,32 @@ class CovidTrackingProject(DataSource):
     def get_table_name():
         return 'covid_tracking_project'
 
-    def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        logging.info("Covid Tracking Project write_to_bq not implemented yet")
+    @staticmethod
+    def get_standard_columns():
+        return {
+            'aian': col_std.Race.AIAN,
+            'asian': col_std.Race.ASIAN,
+            'black': col_std.Race.BLACK,
+            'nhpi': col_std.Race.NHPI,
+            'white': col_std.Race.WHITE,
+            'multiracial': col_std.Race.MULTI,
+            'other': col_std.Race.OTHER,
+            'unknown': col_std.Race.UNKNOWN,
+            'ethnicity_hispanic': col_std.Race.HISP,
+            'ethnicity_nonhispanic': col_std.Race.NH,
+            'ethnicity_unknown': col_std.Race.ETHNICITY_UNKNOWN,
+            'total': col_std.Race.TOTAL
+        }
+
+    def write_to_bq(self, dataset, gcs_bucket, filename):
+        df = gcs_to_bq_util.load_csv_as_dataframe(gcs_bucket, filename)
+
+        # Massage the data into the standard format.
+        df.drop(columns=['cases_latinx', 'deaths_latinx', 'hosp_latinx', 'tests_latinx'])
+        df.melt(id_vars=['date', 'state'])
+        df[['variable_type', 'race_and_ethnicity']] = df.variable.str.split("_", 1, expand=True)
+        df.drop('variable', axis=1, inplace=True)
+        df = df.pivot(index=['date', 'state', 'race_and_ethnicity'],
+                      columns='variable_type', values='value').reset_index()
+        df.rename(columns={'state': 'state_postal_abbreviation'})
+        df.rename(columns=lambda col: col.lower().strip())

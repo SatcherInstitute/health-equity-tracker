@@ -173,6 +173,10 @@ def load_csv_as_dataframe(gcs_bucket, filename, dtype=None, chunksize=None):
     blob.download_to_filename(local_path)
     frame = pandas.read_csv(local_path, dtype=dtype, chunksize=chunksize)
 
+    # Warning: os.remove() will remove the directory entry but will not release
+    # the file's storage until the file is no longer being used by |frame|.
+    # Double warning: This will cause an exception on Windows. See
+    # https://docs.python.org/3/library/os.html#os.remove for details.
     os.remove(local_path)
     return frame
 
