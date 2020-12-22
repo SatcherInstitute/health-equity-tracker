@@ -97,7 +97,7 @@ jobs:
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         working-directory: ./airflow/dags
         run: |
-          for filename in ./; do
+          for filename in ./*; do
             gcloud composer environments storage dags import \
             --environment data-ingestion-environment \
             --source $filename \
