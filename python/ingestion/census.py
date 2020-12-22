@@ -1,8 +1,8 @@
 
 import requests
 import json
-import pandas
-from ingestion.standardized_columns import STATE_FIPS_COL, COUNTY_FIPS_COL, STATE_NAME_COL, COUNTY_NAME_COL
+from ingestion.standardized_columns import (STATE_FIPS_COL, COUNTY_FIPS_COL,
+                                            STATE_NAME_COL, COUNTY_NAME_COL)
 
 
 def get_census_params_by_county(columns):
@@ -38,7 +38,7 @@ def fetch_acs_variables(base_acs_url, variable_ids, county_level):
         NAME.
     county_level: Whether to request at the county level, or the state level."""
     resp2 = requests.get(base_acs_url,
-        params=get_census_params(variable_ids, county_level))
+                         params=get_census_params(variable_ids, county_level))
     json_result = resp2.json()
     json_string = json.dumps(json_result)
     return json_string
@@ -104,9 +104,9 @@ def get_vars_for_group(group_concept, var_map, num_breakdowns):
             # TODO switch to use explicit prefix to handle median, etc
             parts = metadata['label'].split("!!")
             # If length is greater than (2 + num_breakdowns), it means it's a
-            # sub-category, which we don't need to include. If the length is less than
-            # (2 + num_breakdowns), it means it's a combination of others, which should
-            # be requested separately.
+            # sub-category, which we don't need to include. If the length is
+            # less than (2 + num_breakdowns), it means it's a combination of
+            # others, which should be requested separately.
             num_parts = 2 + num_breakdowns
             if len(parts) == num_parts:
                 attributes = parts[2:num_parts]
