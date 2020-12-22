@@ -206,4 +206,5 @@ You can then set the `ingestion_image_name` variable in your tfvars file to `<yo
 ## Test and Production Environments
 
 ### A note on Airflow DAGS
+
 All files in the airflows/dags directory will be uploaded to the test airflow environment. Please only put DAG files in this directory. 
