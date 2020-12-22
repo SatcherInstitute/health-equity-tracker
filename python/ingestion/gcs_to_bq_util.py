@@ -82,6 +82,13 @@ def load_values_as_dataframe(gcs_bucket, filename):
     return load_values_blob_as_dataframe(blob)
 
 
+def values_json_to_dataframe(json_string):
+    frame = pandas.read_json(json_string, orient='values')
+    frame.rename(columns=frame.iloc[0], inplace=True)
+    frame.drop([0], inplace=True)
+    return frame
+
+
 def load_values_blob_as_dataframe(blob):
     """Loads data from the provided GCS blob to a DataFrame.
        Expects the data to be in the pandas 'values' format: a list of rows,
@@ -89,10 +96,7 @@ def load_values_blob_as_dataframe(blob):
 
        blob: google.cloud.storage.blob.Blob object"""
     json_string = blob.download_as_string()
-    frame = pandas.read_json(json_string, orient='values')
-    frame.rename(columns=frame.iloc[0], inplace=True)
-    frame.drop([0], inplace=True)
-    return frame
+    return values_json_to_dataframe(json_string)
 
 
 def load_csv_as_dataframe(gcs_bucket, filename, dtype=None, chunksize=None):
