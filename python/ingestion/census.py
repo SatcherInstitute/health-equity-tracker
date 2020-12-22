@@ -163,4 +163,4 @@ def standardize_frame(frame, var_to_labels_map, breakdowns, county_level, measur
     if county_level:
         df[COUNTY_FIPS_COL] = df[STATE_FIPS_COL] + df[COUNTY_FIPS_COL]
 
-    return df
+    return df.reset_index(drop=True)
