@@ -65,10 +65,6 @@ RENAME_RACE = {
 }
 
 
-BASE_TABLE_NAME_BY_RACE = "population_by_race_std"
-BASE_TABLE_NAME_BY_SEX_AGE_RACE = "population_by_sex_age_race_std"
-
-
 def rename_age_bracket(bracket):
     """Converts ACS age bracket label to standardized bracket format of "a-b",
        where a is the lower end of the bracket and b is the upper end,
@@ -223,11 +219,10 @@ class ACSPopulationBase(DataSource):
             sex_by_age_frame = update_col_types(sex_by_age_frame)
             sex_by_age_frames[concept] = sex_by_age_frame
 
-        geo_suffix = "_county" if self.county_level else "_state"
         frames = {
-            BASE_TABLE_NAME_BY_RACE + geo_suffix: self.get_all_races_frame(
+            self.get_table_name_by_race(): self.get_all_races_frame(
                 race_and_hispanic_frame, total_frame),
-            BASE_TABLE_NAME_BY_SEX_AGE_RACE + geo_suffix: self.get_sex_by_age_and_race(
+            self.get_table_name_by_sex_age_race(): self.get_sex_by_age_and_race(
                 var_map, sex_by_age_frames)
         }
 
@@ -276,14 +271,23 @@ class ACSPopulationBase(DataSource):
             POPULATION_COL)
 
         frames = {
-            BASE_TABLE_NAME_BY_RACE: self.get_all_races_frame(
+            self.get_table_name_by_race(): self.get_all_races_frame(
                 race_and_hispanic_frame, total_frame),
-            BASE_TABLE_NAME_BY_SEX_AGE_RACE: self.get_sex_by_age_and_race(
+            self.get_table_name_by_sex_age_race(): self.get_sex_by_age_and_race(
                 var_map, sex_by_age_frames)
         }
         for key, df in frames.items():
             df.to_csv("table_" + key + ".csv", index=False)
             df.to_json("table_" + key + ".json", orient="records")
+
+    def get_table_geo_suffix(self):
+        return "_county" if self.county_level else "_state"
+
+    def get_table_name_by_race(self):
+        return "population_by_race" + self.get_table_geo_suffix() + "_std"
+
+    def get_table_name_by_sex_age_race(self):
+        return "population_by_sex_age_race" + self.get_table_geo_suffix() + "_std"
 
     def sort_race_frame(self, df):
         sort_cols = self.base_sort_by_cols.copy()
