@@ -78,6 +78,11 @@ variable "ingestion_image_name" {
   type        = string
 }
 
+variable "ingestion_image_digest" {
+  description = "Digest of container image for the Cloud Run ingestion service"
+  type        = string
+}
+
 variable "ingestion_subscription_name" {
   description = "Name of push subscription that invokes the ingestion service"
   type        = string
@@ -106,6 +111,11 @@ variable "gcs_to_bq_service_name" {
 
 variable "gcs_to_bq_image_name" {
   description = "Name of container image for the Cloud Run GCS-to-BQ service"
+  type        = string
+}
+
+variable "gcs_to_bq_image_digest" {
+  description = "Digest of container image for the Cloud Run GCS-to-BQ service"
   type        = string
 }
 
@@ -140,6 +150,11 @@ variable "data_server_image_name" {
   type        = string
 }
 
+variable "data_server_image_digest" {
+  description = "Digest of container image for the Cloud Run data server service"
+  type        = string
+}
+
 variable "data_server_runner_identity_id" {
   description = "Account id of the service account used when running the data server service"
   type        = string
@@ -161,6 +176,11 @@ variable "exporter_image_name" {
   type        = string
 }
 
+variable "exporter_image_digest" {
+  description = "Digest of container image for the Cloud Run exporter service"
+  type        = string
+}
+
 variable "exporter_runner_identity_id" {
   description = "Account id of the service account used when running the exporter service"
   type        = string
@@ -179,6 +199,11 @@ variable "aggregator_service_name" {
 
 variable "aggregator_image_name" {
   description = "Name of container image for the Cloud Run aggregator service"
+  type        = string
+}
+
+variable "aggregator_image_digest" {
+  description = "Digest of container image for the Cloud Run aggregator service"
   type        = string
 }
 
