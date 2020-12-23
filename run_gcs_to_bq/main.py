@@ -51,12 +51,6 @@ def do_ingestion(event):
     workflow_id = attributes['id']
     gcs_bucket = attributes['gcs_bucket']
 
-    # Not all of these will be populated depending on message type.
-    # TODO add per-data-source validation that the event has the right fields.
-    filename = attributes.get('filename')
-    if filename is None:
-        filename = attributes.get('fileprefix')
-
     dataset = attributes.get('dataset')
     if dataset is None:
         if 'DATASET_NAME' not in os.environ:
@@ -67,7 +61,7 @@ def do_ingestion(event):
         raise RuntimeError("ID: {}, is not a valid id".format(workflow_id))
 
     data_source = DATA_SOURCES_DICT[workflow_id]
-    data_source.write_to_bq(dataset, gcs_bucket, filename)
+    data_source.write_to_bq(dataset, gcs_bucket, **attributes)
 
     logging.info(
         "Successfully uploaded to BigQuery for workflow %s", workflow_id)

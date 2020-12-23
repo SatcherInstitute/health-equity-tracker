@@ -364,11 +364,11 @@ class ACSPopulation(DataSource):
         """Returns the data source's unique id. """
         return 'ACS_POPULATION'
 
-    def upload_to_gcs(self, url, gcs_bucket, filename):
+    def upload_to_gcs(self, gcs_bucket, **attrs):
         for ingester in self._create_ingesters():
             ingester.upload_to_gcs(gcs_bucket)
 
-    def write_to_bq(self, dataset, gcs_bucket, filename):
+    def write_to_bq(self, dataset, gcs_bucket, **attrs):
         for ingester in self._create_ingesters():
             ingester.write_to_bq(dataset, gcs_bucket)
 
