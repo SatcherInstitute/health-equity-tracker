@@ -56,7 +56,7 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         # Disable wrapper to enable access to terraform output.
         with:
-          terraform_wrapper: false
+          terraform_wrapper: true
       - name: Save credentials
         working-directory: ./config
         run: |
