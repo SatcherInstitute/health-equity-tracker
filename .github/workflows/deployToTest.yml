@@ -23,26 +23,31 @@ jobs:
       - name: Set Up Docker to Use gcloud Credentials
         run: gcloud auth configure-docker -q
       - name: Build and Push Data Serving Image
+        id: serving
         uses: ./.github/actions/buildAndPush
         with:
           dockerfile: 'data_server/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/data-server'
       - name: Build and Push Data Ingestion Image
+        id: ingestion
         uses: ./.github/actions/buildAndPush
         with:
           dockerfile: 'run_ingestion/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/data-ingestion'  
       - name: Build and Push GCS to BQ Image
+        id: gcstobq
         uses: ./.github/actions/buildAndPush
         with:
           dockerfile: 'run_gcs_to_bq/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/gcs-to-bq'
       - name: Build and Push Exporter Image
+        id: exporter
         uses: ./.github/actions/buildAndPush
         with:
           dockerfile: 'exporter/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/exporter'
       - name: Build and Push Aggregator Image
+        id: aggregator
         uses: ./.github/actions/buildAndPush
         with:
           dockerfile: 'aggregator/Dockerfile'
@@ -70,7 +75,12 @@ jobs:
         run: |
           terraform apply -auto-approve -var-file=test/test.tfvars \
           -var 'gcp_credentials=${{ secrets.TEST_DEPLOYER_SA_KEY }}' \
-          -var 'project_id=${{ secrets.TEST_PROJECT_ID }}'
+          -var 'project_id=${{ secrets.TEST_PROJECT_ID }}' \
+          -var 'ingestion_image_digest=${{ steps.ingestion.outputs.image-digest }}' \	
+          -var 'gcs_to_bq_image_digest=${{ steps.gcstobq.outputs.image-digest }}' \	
+          -var 'data_server_image_digest=${{ steps.serving.outputs.image-digest }}' \	
+          -var 'exporter_image_digest=${{ steps.exporter.outputs.image-digest }}' \	
+          -var 'aggregator_image_digest=${{ steps.aggregator.outputs.image-digest }}'
           data_server_url=$(terraform output data_server_url)
           echo "::set-output name=data_server_url::$data_server_url"
           ingestion_url=$(terraform output ingestion_url)
