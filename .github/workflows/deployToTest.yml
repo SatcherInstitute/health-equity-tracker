@@ -103,30 +103,16 @@ jobs:
           --update-env-variables=AIRFLOW_VAR_GCS_LANDING_BUCKET=msm-test-landing-bucket \
           --update-env-variables=AIRFLOW_VAR_GCS_MANUAL_UPLOADS_BUCKET=msm-test-manual-data-bucket \
           --location=us-central1
-      - name: Upload Airflow utility file
+      - name: Upload Airflow DAGs and utility file
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         working-directory: ./airflow/dags
         run: |
-          gcloud composer environments storage dags import \
-          --environment data-ingestion-environment \
-          --source util.py \
-          --location=us-central1
-      - name: Upload Airflow DAG
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-        working-directory: ./airflow/dags
-        run: |
-          gcloud composer environments storage dags import \
-          --environment data-ingestion-environment \
-          --source ingestion.py \
-          --location=us-central1
-      - name: Upload Airflow manual DAG
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-        working-directory: ./airflow/dags
-        run: |
-          gcloud composer environments storage dags import \
-          --environment data-ingestion-environment \
-          --source manual_ingestion.py \
-          --location=us-central1
+          for filename in ./*; do
+            gcloud composer environments storage dags import \
+            --environment data-ingestion-environment \
+            --source $filename \
+            --location=us-central1
+          done
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
