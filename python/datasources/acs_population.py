@@ -13,6 +13,10 @@ from ingestion.census import (get_census_params, fetch_acs_metadata,
                               standardize_frame)
 
 
+# TODO pass this in from message data.
+BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
+
+
 HISPANIC_BY_RACE_CONCEPT = "HISPANIC OR LATINO ORIGIN BY RACE"
 TOTAL_POP_VARIABLE_ID = "B01003_001E"
 TOTAL_POP_FILE_NAME = "B01003_001E.json"
@@ -129,39 +133,29 @@ def update_col_types(frame):
     return frame
 
 
-class ACSPopulationBase(DataSource):
+class ACSPopulationIngester():
     """American Community Survey population data in the United States from the
        US Census."""
 
-    def __init__(self, county_level):
-        # TODO pass this in from message data.
-        self.base_acs_url = "https://api.census.gov/data/2019/acs/acs5"
-        """The base ACS url to use for API calls."""
+    def __init__(self, county_level, base_acs_url):
+        # The base ACS url to use for API calls.
+        self.base_acs_url = base_acs_url
 
+        # Whether the data is at the county level. If false, it is at the state
+        # level
         self.county_level = county_level
-        """Whether the data is at the county level. If false, it is at the
-           state level"""
 
-        self.base_group_by_cols = [STATE_FIPS_COL, COUNTY_FIPS_COL, COUNTY_NAME_COL] if county_level else [STATE_FIPS_COL, STATE_NAME_COL]
-        """The base columns that are always used to group by."""
+        # The base columns that are always used to group by.
+        self.base_group_by_cols = (
+            [STATE_FIPS_COL, COUNTY_FIPS_COL, COUNTY_NAME_COL] if county_level
+            else [STATE_FIPS_COL, STATE_NAME_COL])
 
-        self.base_sort_by_cols = [STATE_FIPS_COL, COUNTY_FIPS_COL] if county_level else [STATE_FIPS_COL]
-        """The base columns that are always used to sort by"""
+        # The base columns that are always used to sort by
+        self.base_sort_by_cols = (
+            [STATE_FIPS_COL, COUNTY_FIPS_COL] if county_level
+            else [STATE_FIPS_COL])
 
-    @staticmethod
-    def get_id():
-        """Returns the data source's unique id. """
-        # Children implement this.
-        pass
-
-    @staticmethod
-    def get_table_name():
-        """Returns the BigQuery table name where the data source's data will
-        stored. """
-        # Writes multiple tables, so this is not applicable.
-        pass
-
-    def upload_to_gcs(self, url, gcs_bucket, filename):
+    def upload_to_gcs(self, gcs_bucket):
         """Uploads population data from census to GCS bucket."""
         metadata = fetch_acs_metadata(self.base_acs_url)
         var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
@@ -180,13 +174,11 @@ class ACSPopulationBase(DataSource):
         url_file_to_gcs.url_file_to_gcs(
             self.base_acs_url, url_params, gcs_bucket, TOTAL_POP_FILE_NAME)
 
-    def write_to_bq(self, dataset, gcs_bucket, filename):
+    def write_to_bq(self, dataset, gcs_bucket):
         """Writes population data to BigQuery from the provided GCS bucket
 
         dataset: The BigQuery dataset to write to
-        table_name: The name of the biquery table to write to
-        gcs_bucket: The name of the gcs bucket to read the data from
-        filename: The name of the file in the gcs bucket to read from"""
+        gcs_bucket: The name of the gcs bucket to read the data from"""
         # TODO change this to have it read metadata from GCS bucket
         metadata = fetch_acs_metadata(self.base_acs_url)
         var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
@@ -360,21 +352,28 @@ class ACSPopulationBase(DataSource):
         return result
 
 
-class ACSStatePopulation(ACSPopulationBase):
-    def __init__(self):
-        super().__init__(False)
+class ACSPopulation(DataSource):
+
+    @staticmethod
+    def get_table_name():
+        # Writes multiple tables, so this is not applicable.
+        pass
 
     @staticmethod
     def get_id():
         """Returns the data source's unique id. """
-        return 'ACS_POPULATION_STATE'
+        return 'ACS_POPULATION'
 
+    def upload_to_gcs(self, url, gcs_bucket, filename):
+        for ingester in self._create_ingesters():
+            ingester.upload_to_gcs(gcs_bucket)
 
-class ACSCountyPopulation(ACSPopulationBase):
-    def __init__(self):
-        super().__init__(True)
+    def write_to_bq(self, dataset, gcs_bucket, filename):
+        for ingester in self._create_ingesters():
+            ingester.write_to_bq(dataset, gcs_bucket)
 
-    @staticmethod
-    def get_id():
-        """Returns the data source's unique id. """
-        return 'ACS_POPULATION_COUNTY'
+    def _create_ingesters(self):
+        return [
+            ACSPopulationIngester(False, BASE_ACS_URL),
+            ACSPopulationIngester(True, BASE_ACS_URL)
+        ]

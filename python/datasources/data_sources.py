@@ -8,7 +8,7 @@ from datasources.manual_uploads import ManualUploads
 from datasources.primary_care_access import PrimaryCareAccess
 from datasources.state_names import StateNames
 from datasources.urgent_care_facilities import UrgentCareFacilities
-from datasources.acs_population import ACSStatePopulation, ACSCountyPopulation
+from datasources.acs_population import ACSPopulation
 
 
 # Map of data source ID to the class that implements the ingestion methods for
@@ -24,6 +24,5 @@ DATA_SOURCES_DICT = {
     PrimaryCareAccess.get_id(): PrimaryCareAccess(),
     StateNames.get_id(): StateNames(),
     UrgentCareFacilities.get_id(): UrgentCareFacilities(),
-    ACSStatePopulation.get_id(): ACSStatePopulation(),
-    ACSCountyPopulation.get_id(): ACSCountyPopulation(),
+    ACSPopulation.get_id(): ACSPopulation(),
 }
