@@ -49,7 +49,7 @@ def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
                  DATA_SOURCES_DICT.
     dataset: Name of the BQ dataset to write the data to.
     filename: Name of gcs file to get the data from.
-    gcs_bucket: GCS bucket to write to. Defaults to the GCS_LANDING_BUCKET env
+    gcs_bucket: GCS bucket to read from. Defaults to the GCS_LANDING_BUCKET env
                 var."""
     message = get_required_attrs(workflow_id, gcs_bucket=gcs_bucket)
     message['dataset'] = dataset

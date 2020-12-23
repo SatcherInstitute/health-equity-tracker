@@ -33,7 +33,7 @@ class DataSource(ABC):
                                         gcs_bucket,
                                         self.get_attr(attrs, 'filename'))
 
-    def write_to_bq(self, dataset, gcs_bucket, attrs):
+    def write_to_bq(self, dataset, gcs_bucket, **attrs):
         """Writes source data from GCS bucket to BigQuery
 
         dataset: The BigQuery dataset to write to
