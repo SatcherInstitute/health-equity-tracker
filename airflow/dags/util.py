@@ -42,7 +42,7 @@ def generate_gcs_payload(workflow_id: str, filename: str = None,
 
 
 def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
-                        gcs_bucket: str = None) -> dict:
+                        gcs_bucket: str = None, url: str = None) -> dict:
     """Creates the payload object required for the BQ ingestion operator.
 
     workflow_id: ID of the datasource workflow. Should match ID defined in
@@ -50,11 +50,16 @@ def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
     dataset: Name of the BQ dataset to write the data to.
     filename: Name of gcs file to get the data from.
     gcs_bucket: GCS bucket to read from. Defaults to the GCS_LANDING_BUCKET env
-                var."""
+                var.
+    url: The URL used for ingestion. This should be deprecated in favor of
+         writing any metadata to GCS during the GCS step. It's temporarily
+         necessary since ACS directly requests metadata during BQ upload."""
     message = get_required_attrs(workflow_id, gcs_bucket=gcs_bucket)
     message['dataset'] = dataset
     if filename is not None:
         message['filename'] = filename
+    if url is not None:
+        message['url'] = url
     return {'message': message}
 
 
