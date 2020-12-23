@@ -24,11 +24,11 @@ data_ingestion_dag = DAG(
 
 # CDC Covid Deaths
 cdc_covid_deaths_gcs_payload = util.generate_gcs_payload(
-    _CDC_GCS_FILENAME, _CDC_WORKFLOW_ID, _CDC_COVID_DEATHS_DOWNLOAD_URL)
+    _CDC_WORKFLOW_ID, filename=_CDC_GCS_FILENAME, url=_CDC_COVID_DEATHS_DOWNLOAD_URL)
 cdc_covid_deaths_gcs_operator = util.create_gcs_ingest_operator(
     'cdc_covid_deaths_to_gcs', cdc_covid_deaths_gcs_payload, data_ingestion_dag)
 cdc_covid_deaths_bq_payload = util.generate_bq_payload(
-    _CDC_GCS_FILENAME, _CDC_WORKFLOW_ID, _CDC_DATASET_NAME)
+    _CDC_WORKFLOW_ID, _CDC_DATASET_NAME, filename=_CDC_GCS_FILENAME)
 cdc_covid_deaths_bq_operator = util.create_bq_ingest_operator(
     'cdc_covid_deaths_to_bq', cdc_covid_deaths_bq_payload, data_ingestion_dag)
 cdc_covid_deaths_exporter_payload = {'dataset_name': _CDC_DATASET_NAME}

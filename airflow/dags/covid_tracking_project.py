@@ -20,7 +20,7 @@ data_ingestion_dag = DAG(
 
 # Covid Tracking Project
 ctp_gcs_payload = util.generate_gcs_payload(
-    _CTP_GCS_FILENAME, _CTP_WORKFLOW_ID, _CTP_DOWNLOAD_URL)
+    _CTP_WORKFLOW_ID, filename=_CTP_GCS_FILENAME, url=_CTP_DOWNLOAD_URL)
 ctp_gcs_operator = util.create_gcs_ingest_operator(
     'covid_tracking_project_to_gcs', ctp_gcs_payload, data_ingestion_dag)
 

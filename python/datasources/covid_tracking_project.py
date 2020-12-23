@@ -14,5 +14,5 @@ class CovidTrackingProject(DataSource):
     def get_table_name():
         return 'covid_tracking_project'
 
-    def write_to_bq(self, dataset, gcs_bucket, filename):
+    def write_to_bq(self, dataset, gcs_bucket, **attrs):
         logging.info("Covid Tracking Project write_to_bq not implemented yet")

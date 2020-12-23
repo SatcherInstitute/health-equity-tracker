@@ -16,24 +16,33 @@ class DataSource(ABC):
         stored. """
         pass
 
-    def upload_to_gcs(self, url, gcs_bucket, filename):
+    def get_attr(self, attributes, key):
+        attr = attributes.get(key)
+        if attr is None:
+            raise RuntimeError("Attribute: {} not found on payload".format(key))
+        return attr
+
+    def upload_to_gcs(self, gcs_bucket, **attrs):
         """Attempts to download a file from a url and upload as a
         blob to the given GCS bucket.
 
-        url: The URL of the file to download.
         gcs_bucket: Name of the GCS bucket to upload to (without gs://).
-        filename: What to name the downloaded file in GCS.
-            Include the file extension."""
-        url_file_to_gcs.url_file_to_gcs(url, None, gcs_bucket, filename)
+        attrs: Additional message attributes such as url and filename that are
+               needed for this data source."""
+        url_file_to_gcs.url_file_to_gcs(self.get_attr(attrs, 'url'), None,
+                                        gcs_bucket,
+                                        self.get_attr(attrs, 'filename'))
 
-    def write_to_bq(self, dataset, gcs_bucket, filename):
+    def write_to_bq(self, dataset, gcs_bucket, **attrs):
         """Writes source data from GCS bucket to BigQuery
 
         dataset: The BigQuery dataset to write to
         gcs_bucket: The name of the gcs bucket to read the data from
-        filename: The name of the file in the gcs bucket to read from"""
+        attrs: Additional message attributes such as url and filename that are
+               needed for this data source."""
         self.write_to_bq_table(dataset, gcs_bucket,
-                               filename, self.get_table_name())
+                               self.get_attr(attrs, 'filename'),
+                               self.get_table_name())
 
     def write_to_bq_table(self, dataset: str, gcs_bucket: str, filename: str, table_name: str, project=None):
         """Writes source data from GCS bucket to BigQuery

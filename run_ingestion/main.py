@@ -59,13 +59,6 @@ def ingest_data_to_gcs(event):
     workflow_id = event_dict['id']
     gcs_bucket = event_dict['gcs_bucket']
 
-    # Not all of these will be populated depending on message type.
-    # TODO add per-data-source validation that the event has the right fields.
-    url = event_dict.get('url')
-    filename = event_dict.get('filename')
-    if filename is None:
-        filename = event_dict.get('fileprefix')
-
     logging.info("Data ingestion recieved message: %s", workflow_id)
 
     if 'PROJECT_ID' not in os.environ:
@@ -76,7 +69,7 @@ def ingest_data_to_gcs(event):
         raise RuntimeError("ID: {}, is not a valid id".format(workflow_id))
 
     data_source = DATA_SOURCES_DICT[workflow_id]
-    data_source.upload_to_gcs(url, gcs_bucket, filename)
+    data_source.upload_to_gcs(gcs_bucket, **event_dict)
 
     logging.info(
         "Successfully uploaded data to GCS for workflow %s", workflow_id)

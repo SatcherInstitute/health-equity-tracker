@@ -7,42 +7,55 @@ from airflow.models import Variable  # type: ignore
 from airflow.operators.python_operator import PythonOperator  # type: ignore
 
 
-def generate_gcs_payload(filename: str, workflow_id: str, url: str,
-                         gcs_bucket: str = None) -> dict:
-    """Creates the payload object required for the GCS ingestion operator.
+def get_required_attrs(workflow_id: str, gcs_bucket: str = None) -> dict:
+    """Creates message with required arguments for both GCS and BQ operators
 
-    filename: Name of gcs file to store the data in.
     workflow_id: ID of the datasource workflow. Should match ID defined in
                  DATA_SOURCES_DICT.
+    gcs_bucket: GCS bucket to write to. Defaults to the GCS_LANDING_BUCKET env
+                var."""
+    if gcs_bucket is None:
+        gcs_bucket = Variable.get('GCS_LANDING_BUCKET')
+    return {
+        'is_airflow_run': True,
+        'id': workflow_id,
+        'gcs_bucket': gcs_bucket,
+    }
+
+
+def generate_gcs_payload(workflow_id: str, filename: str = None,
+                         url: str = None, gcs_bucket: str = None) -> dict:
+    """Creates the payload object required for the GCS ingestion operator.
+
+    workflow_id: ID of the datasource workflow. Should match ID defined in
+                 DATA_SOURCES_DICT.
+    filename: Name of gcs file to store the data in.
     url: URL where the data lives.
     gcs_bucket: GCS bucket to write to. Defaults to the GCS_LANDING_BUCKET env
                 var."""
-    if gcs_bucket is None:
-        gcs_bucket = Variable.get('GCS_LANDING_BUCKET')
-    return {'message': {'is_airflow_run': True,
-                        'filename': filename,
-                        'gcs_bucket': gcs_bucket,
-                        'id': workflow_id,
-                        'url': url}}
+    message = get_required_attrs(workflow_id, gcs_bucket=gcs_bucket)
+    if filename is not None:
+        message['filename'] = filename
+    if url is not None:
+        message['url'] = url
+    return {'message': message}
 
 
-def generate_bq_payload(filename: str, workflow_id: str, dataset: str,
+def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
                         gcs_bucket: str = None) -> dict:
     """Creates the payload object required for the BQ ingestion operator.
 
-    filename: Name of gcs file to get the data from.
     workflow_id: ID of the datasource workflow. Should match ID defined in
                  DATA_SOURCES_DICT.
     dataset: Name of the BQ dataset to write the data to.
-    gcs_bucket: GCS bucket to write to. Defaults to the GCS_LANDING_BUCKET env
+    filename: Name of gcs file to get the data from.
+    gcs_bucket: GCS bucket to read from. Defaults to the GCS_LANDING_BUCKET env
                 var."""
-    if gcs_bucket is None:
-        gcs_bucket = Variable.get('GCS_LANDING_BUCKET')
-    return {'message': {'is_airflow_run': True,
-                        'filename': filename,
-                        'gcs_bucket': gcs_bucket,
-                        'id': workflow_id,
-                        'dataset': dataset}}
+    message = get_required_attrs(workflow_id, gcs_bucket=gcs_bucket)
+    message['dataset'] = dataset
+    if filename is not None:
+        message['filename'] = filename
+    return {'message': message}
 
 
 def create_gcs_ingest_operator(task_id: str, payload: dict, dag: DAG) -> PythonOperator:
