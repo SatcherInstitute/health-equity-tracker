@@ -13,6 +13,10 @@ from ingestion.census import (get_census_params, fetch_acs_metadata,
                               standardize_frame)
 
 
+# TODO pass this in from message data.
+BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
+
+
 HISPANIC_BY_RACE_CONCEPT = "HISPANIC OR LATINO ORIGIN BY RACE"
 TOTAL_POP_VARIABLE_ID = "B01003_001E"
 TOTAL_POP_FILE_NAME = "B01003_001E.json"
@@ -134,22 +138,22 @@ class ACSPopulationIngester():
        US Census."""
 
     def __init__(self, county_level, base_acs_url):
+        # The base ACS url to use for API calls.
         self.base_acs_url = base_acs_url
-        """The base ACS url to use for API calls."""
 
+        # Whether the data is at the county level. If false, it is at the state
+        # level
         self.county_level = county_level
-        """Whether the data is at the county level. If false, it is at the
-           state level"""
 
+        # The base columns that are always used to group by.
         self.base_group_by_cols = (
             [STATE_FIPS_COL, COUNTY_FIPS_COL, COUNTY_NAME_COL] if county_level
             else [STATE_FIPS_COL, STATE_NAME_COL])
-        """The base columns that are always used to group by."""
 
+        # The base columns that are always used to sort by
         self.base_sort_by_cols = (
             [STATE_FIPS_COL, COUNTY_FIPS_COL] if county_level
             else [STATE_FIPS_COL])
-        """The base columns that are always used to sort by"""
 
     def upload_to_gcs(self, gcs_bucket):
         """Uploads population data from census to GCS bucket."""
@@ -346,10 +350,6 @@ class ACSPopulationIngester():
         result = pandas.concat(frames)
         result[AGE_COL] = result[AGE_COL].apply(rename_age_bracket)
         return result
-
-
-# TODO pass this in from message data.
-BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
 
 
 class ACSPopulation(DataSource):
