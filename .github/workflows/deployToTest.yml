@@ -91,6 +91,8 @@ jobs:
           echo "::set-output name=exporter_url::$exporter_url"
           aggregator_url=$(terraform output aggregator_url)
           echo "::set-output name=aggregator_url::$aggregator_url"
+        env:
+          TF_LOG: DEBUG
       - name: Airflow Environment Variables
         id: airflow-environment-variables
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
