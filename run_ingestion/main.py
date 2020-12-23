@@ -54,10 +54,11 @@ def ingest_data_to_gcs(event):
         data = base64.b64decode(event['data']).decode('utf-8')
         event_dict = json.loads(data)
 
-    if 'id' not in event_dict or 'gcs_bucket' not in event_dict:
+    attrs = event_dict.copy()
+    if 'id' not in attrs or 'gcs_bucket' not in attrs:
         raise RuntimeError("PubSub data missing 'id' or 'gcs_bucket' field")
-    workflow_id = event_dict['id']
-    gcs_bucket = event_dict['gcs_bucket']
+    workflow_id = attrs.pop('id')
+    gcs_bucket = attrs.pop('gcs_bucket')
 
     logging.info("Data ingestion recieved message: %s", workflow_id)
 
@@ -69,7 +70,7 @@ def ingest_data_to_gcs(event):
         raise RuntimeError("ID: {}, is not a valid id".format(workflow_id))
 
     data_source = DATA_SOURCES_DICT[workflow_id]
-    data_source.upload_to_gcs(gcs_bucket, **event_dict)
+    data_source.upload_to_gcs(gcs_bucket, **attrs)
 
     logging.info(
         "Successfully uploaded data to GCS for workflow %s", workflow_id)
