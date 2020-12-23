@@ -48,10 +48,10 @@ def do_ingestion(event):
         raise RuntimeError(
             "PubSub data missing 'id' or 'gcs_bucket' field")
 
-    workflow_id = attrs['id']
-    gcs_bucket = attrs['gcs_bucket']
+    workflow_id = attrs.pop('id')
+    gcs_bucket = attrs.pop('gcs_bucket')
 
-    dataset = attrs.get('dataset')
+    dataset = attrs.pop('dataset', None)
     if dataset is None:
         if 'DATASET_NAME' not in os.environ:
             raise RuntimeError("Environment variable DATASET_NAME missing.")
