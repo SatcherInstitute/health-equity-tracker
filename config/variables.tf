@@ -72,11 +72,6 @@ variable "ingestion_image_digest" {
   type        = string
 }
 
-variable "ingestion_invoker_identity_id" {
-  description = "Account id of the service account used to trigger data ingestion"
-  type        = string
-}
-
 variable "ingestion_runner_identity_id" {
   description = "Account id of the service account used when running the data ingestion service"
   type        = string
@@ -100,11 +95,6 @@ variable "gcs_to_bq_image_name" {
 
 variable "gcs_to_bq_image_digest" {
   description = "Digest of container image for the Cloud Run GCS-to-BQ service"
-  type        = string
-}
-
-variable "gcs_to_bq_invoker_identity_id" {
-  description = "Account id of the service account used to trigger loading from GCS to BQ"
   type        = string
 }
 
