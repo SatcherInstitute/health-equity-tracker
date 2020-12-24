@@ -45,10 +45,6 @@ def ingest_data_to_gcs(event):
     if is_airflow_run:
         event_dict = event
     else:
-        if 'NOTIFY_DATA_INGESTED_TOPIC' not in os.environ:
-            raise RuntimeError(
-                "Environment variable NOTIFY_DATA_INGESTED_TOPIC missing.")
-        notify_data_ingested_topic = os.environ['NOTIFY_DATA_INGESTED_TOPIC']
         if 'data' not in event:
             raise RuntimeError("PubSub message missing 'data' field")
         data = base64.b64decode(event['data']).decode('utf-8')
@@ -61,10 +57,6 @@ def ingest_data_to_gcs(event):
 
     logging.info("Data ingestion recieved message: %s", workflow_id)
 
-    if 'PROJECT_ID' not in os.environ:
-        raise RuntimeError("Environment variable PROJECT_ID missing.")
-
-    project_id = os.environ['PROJECT_ID']
     if workflow_id not in DATA_SOURCES_DICT.keys():
         raise RuntimeError("ID: {}, is not a valid id".format(workflow_id))
 
@@ -73,9 +65,6 @@ def ingest_data_to_gcs(event):
 
     logging.info(
         "Successfully uploaded data to GCS for workflow %s", workflow_id)
-    if not is_airflow_run:
-        pubsub_publisher.notify_topic(
-            project_id, notify_data_ingested_topic, **event_dict)
 
 
 if __name__ == "__main__":
