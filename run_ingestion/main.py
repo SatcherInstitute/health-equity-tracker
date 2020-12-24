@@ -4,7 +4,6 @@ import logging
 import os
 
 from datasources.data_sources import DATA_SOURCES_DICT
-from ingestion import pubsub_publisher
 from flask import Flask, request
 app = Flask(__name__)
 
