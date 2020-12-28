@@ -111,13 +111,6 @@ def get_standardized_race(row):
         return rename_race_value(row[RACE_COL]) + " (Non-Hispanic)"
 
 
-def get_filename(concept):
-    """Returns the name of a file for the given ACS concept
-
-       concept: The ACS concept description, eg 'SEX BY AGE'"""
-    return concept.replace(" ", "_") + ".json"
-
-
 def update_col_types(frame):
     """Returns a new DataFrame with the column types replaced with int64 for
        population columns and string for other columns.
@@ -168,7 +161,8 @@ class ACSPopulationIngester():
             cols = list(group_vars.keys())
             url_params = get_census_params(cols, self.county_level)
             url_file_to_gcs.url_file_to_gcs(
-                self.base_acs_url, url_params, gcs_bucket, get_filename(concept))
+                self.base_acs_url, url_params, gcs_bucket,
+                self.get_filename(concept))
 
         url_params = get_census_params([TOTAL_POP_VARIABLE_ID], self.county_level)
         url_file_to_gcs.url_file_to_gcs(
@@ -184,7 +178,7 @@ class ACSPopulationIngester():
         var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
 
         race_and_hispanic_frame = gcs_to_bq_util.load_values_as_dataframe(
-            gcs_bucket, get_filename(HISPANIC_BY_RACE_CONCEPT))
+            gcs_bucket, self.get_filename(HISPANIC_BY_RACE_CONCEPT))
         race_and_hispanic_frame = update_col_types(race_and_hispanic_frame)
 
         race_and_hispanic_frame = standardize_frame(
@@ -207,7 +201,7 @@ class ACSPopulationIngester():
         sex_by_age_frames = {}
         for concept in SEX_BY_AGE_CONCEPTS_TO_RACE:
             sex_by_age_frame = gcs_to_bq_util.load_values_as_dataframe(
-                gcs_bucket, get_filename(concept))
+                gcs_bucket, self.get_filename(concept))
             sex_by_age_frame = update_col_types(sex_by_age_frame)
             sex_by_age_frames[concept] = sex_by_age_frame
 
@@ -280,6 +274,12 @@ class ACSPopulationIngester():
 
     def get_table_name_by_sex_age_race(self):
         return "population_by_sex_age_race" + self.get_table_geo_suffix() + "_std"
+
+    def get_filename(self, concept):
+        """Returns the name of a file for the given ACS concept
+
+        concept: The ACS concept description, eg 'SEX BY AGE'"""
+        return concept.replace(" ", "_") + self.get_table_geo_suffix() + ".json"
 
     def sort_race_frame(self, df):
         sort_cols = self.base_sort_by_cols.copy()
