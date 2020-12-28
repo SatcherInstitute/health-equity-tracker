@@ -54,25 +54,31 @@ class DataSource(ABC):
         chunked_frame = gcs_to_bq_util.load_csv_as_dataframe(
             gcs_bucket, filename, chunksize=1000)
 
-        # Replace spaces and dashes with underscores in column name and make all characters
-        # in column names lower case.
         for chunk in chunked_frame:
-            chunk.rename(columns=lambda col: (
-                col
-                .lower()
-                .strip()
-                .replace(' ', '_')
-                .replace('-', '_')
-                .replace(':', '_')
-                .replace('&', '_')
-                .replace("\n", '_')
-                .replace("\t", '_')
-                .replace('(', '_')
-                .replace(')', '_')
-                .replace('=', 'eq')
-            ), inplace=True)
+            self.clean_frame_column_names(chunk)
             gcs_to_bq_util.append_dataframe_to_bq(
                 chunk, dataset, table_name, project=project)
+
+    def clean_frame_column_names(self, frame):
+        """ Replaces unfitting BigQuery characters and
+        makes all coumn names lower case.
+
+        frame: The pandas dataframe with unclean columns
+        """
+        frame.rename(columns=lambda col: (
+            col
+            .lower()
+            .strip()
+            .replace(' ', '_')
+            .replace('-', '_')
+            .replace(':', '_')
+            .replace('&', '_')
+            .replace("\n", '_')
+            .replace("\t", '_')
+            .replace('(', '_')
+            .replace(')', '_')
+            .replace('=', 'eq')
+        ), inplace=True)
 
     def export_to_gcs(self):
         # TODO: Implement
