@@ -19,7 +19,6 @@ BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
 
 HISPANIC_BY_RACE_CONCEPT = "HISPANIC OR LATINO ORIGIN BY RACE"
 TOTAL_POP_VARIABLE_ID = "B01003_001E"
-TOTAL_POP_FILE_NAME = "B01003_001E.json"
 
 
 GROUPS = {
@@ -166,7 +165,8 @@ class ACSPopulationIngester():
 
         url_params = get_census_params([TOTAL_POP_VARIABLE_ID], self.county_level)
         url_file_to_gcs.url_file_to_gcs(
-            self.base_acs_url, url_params, gcs_bucket, TOTAL_POP_FILE_NAME)
+            self.base_acs_url, url_params, gcs_bucket,
+            self.add_filename_suffix(TOTAL_POP_VARIABLE_ID))
 
     def write_to_bq(self, dataset, gcs_bucket):
         """Writes population data to BigQuery from the provided GCS bucket
@@ -189,7 +189,7 @@ class ACSPopulationIngester():
             POPULATION_COL)
 
         total_frame = gcs_to_bq_util.load_values_as_dataframe(
-            gcs_bucket, TOTAL_POP_FILE_NAME)
+            gcs_bucket, self.add_filename_suffix(TOTAL_POP_VARIABLE_ID))
         total_frame = update_col_types(total_frame)
         total_frame = standardize_frame(
             total_frame,
@@ -279,7 +279,13 @@ class ACSPopulationIngester():
         """Returns the name of a file for the given ACS concept
 
         concept: The ACS concept description, eg 'SEX BY AGE'"""
-        return concept.replace(" ", "_") + self.get_table_geo_suffix() + ".json"
+        return self.add_filename_suffix(concept.replace(" ", "_"))
+
+    def add_filename_suffix(self, root_name):
+        """Adds geography and file type suffix to the root name.
+
+        root_name: The root file name."""
+        return root_name + self.get_table_geo_suffix() + ".json"
 
     def sort_race_frame(self, df):
         sort_cols = self.base_sort_by_cols.copy()
