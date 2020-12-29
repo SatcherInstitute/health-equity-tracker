@@ -133,10 +133,6 @@ resource "google_cloud_run_service" "data_server_service" {
           name  = "GCS_BUCKET"
           value = var.export_bucket
         }
-        env {
-          name = "METADATA_FILENAME"
-          value = "fake_metadata.json"
-        }
       }
       service_account_name = google_service_account.data_server_runner_identity.email
     }
