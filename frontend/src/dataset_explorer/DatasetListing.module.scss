@@ -1,0 +1,59 @@
+@import "../styles/variables";
+
+.FlexRow {
+  display: flex;
+  flex-direction: row;
+  padding: 3px;
+}
+
+.FlexCol {
+  display: flex;
+  flex-direction: column;
+  padding: 3px;
+}
+
+.Description {
+  text-align: left;
+  line-height: 20px;
+}
+
+.DatasetListing {
+  padding: 20px;
+  padding-bottom: 10px;
+}
+
+.DatasetTitle {
+  font-size: 20px;
+}
+
+.Footer {
+  height: 29px;
+  margin-bottom: 0px;
+  margin-top: 10px;
+
+  Button {
+    min-width: 10px;
+  }
+}
+
+.CardFooterRight {
+  float: right;
+}
+
+.CardFooterLeft {
+  float: left;
+}
+
+.DataSubtitle {
+  font-size: 15px;
+}
+
+.MetadataTable {
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  td {
+    padding-right: 15px;
+  }
+}

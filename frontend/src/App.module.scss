@@ -1,0 +1,34 @@
+@import "styles/variables";
+
+.App {
+  text-align: center;
+  position: relative;
+  min-height: 100%;
+}
+
+.Content {
+  padding-bottom: $footer-size;
+  height: 100%;
+}
+
+.NavButton {
+  color: $white;
+  a:link,
+  a:visited {
+    color: $white;
+    text-decoration: none;
+  }
+}
+
+.HomeLogo {
+  flex-grow: 1;
+  text-align: left;
+  font-family: "Montserrat" !important;
+  text-transform: uppercase;
+  color: $white;
+  a:link,
+  a:visited {
+    color: $white;
+    text-decoration: none;
+  }
+}
