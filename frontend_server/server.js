@@ -9,32 +9,25 @@ const HOST = '0.0.0.0';
 
 const app = express();
 
-// Make sure to install auth middleware before setting up routes so it applies
+// auth middleware must be installed before setting up routes so it applies
 // to the whole site.
 app.use(basicAuth({
-  // Temporary values until we can use Github Secrets. Also needs to only be
-  // set up for the test site based on an environment variable.
+  // Temporary values until we can use Github Secrets. Also needs to be set up
+  // so that it's disabled for production but enabled for the test site.
   users: { 'MSM': 'testsite' },
   challenge: true,
   realm: 'Test Site',
 }));
 
-
+// Serve static files from the build directory.
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.post('/log_data', (req, res) => {
-  console.log('Logged some data');
-  res.status(200).json('success');;
-});
-
-app.get('/override_react_router', (req, res) => {
-  res.send('This is a page that overrides react router');
-});
-
+// Route all other paths to index.html. The "*" must be used otherwise
+// client-side routing wil fail due to missing exact matches. For more info, see
+// https://create-react-app.dev/docs/deployment/#serving-apps-with-client-side-routing
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
-console.log(process.env.MY_ENVIRONMENT_VARIABLE);
