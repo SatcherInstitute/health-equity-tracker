@@ -1,0 +1,81 @@
+{
+  "name": "app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
+    "@material-ui/styles": "^4.10.0",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "@types/jest": "^24.9.1",
+    "@types/node": "^12.19.1",
+    "@types/react": "^16.9.53",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.6",
+    "@types/react-select": "^3.0.22",
+    "@types/react-table": "^7.0.24",
+    "data-forge": "^1.8.12",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.5.0",
+    "node-sass": "^4.14.1",
+    "normalize.css": "^8.0.1",
+    "prettier": "^2.1.2",
+    "react": "^16.14.0",
+    "react-animate-height": "^2.0.23",
+    "react-dom": "^16.14.0",
+    "react-material-ui-carousel": "^2.1.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.3",
+    "react-select": "^3.1.0",
+    "react-table": "^7.6.0",
+    "react-tooltip": "^4.2.11",
+    "react-vega": "^7.4.2",
+    "typeface-hind": "^1.1.13",
+    "typeface-montserrat": "^1.1.13",
+    "typescript": "^3.9.7",
+    "vega": "^5.17.0",
+    "vega-lite": "^4.17.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "engines": {
+    "node": ">=12.19.0",
+    "npm": ">=6.14.8"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json}": [
+      "eslint --fix",
+      "git add"
+    ],
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write"
+    ]
+  }
+}

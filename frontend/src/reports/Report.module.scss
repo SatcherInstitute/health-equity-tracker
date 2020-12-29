@@ -1,0 +1,24 @@
+.PaddedGrid {
+  padding: 20px;
+  text-align: left;
+}
+
+.ToggleBlock {
+  padding-left: 15px;
+
+  .ToggleLabel {
+    display: block;
+    text-transform: uppercase;
+    color: #80868b;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+
+.ReportToolbar {
+  text-align: right;
+}

@@ -1,0 +1,49 @@
+@import "../styles/variables";
+
+.DatasetExplorer {
+  display: flex;
+  flex-direction: row;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin: auto;
+  width: 90%;
+  max-width: $max-width;
+  text-align: center;
+}
+
+.FilterContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.FilterTitle {
+  padding: 5px;
+  font-size: large;
+}
+
+.Filter {
+  text-align: left;
+  flex-grow: 1;
+  padding: 5px;
+}
+
+.DatasetListItem {
+  padding: 5px;
+  width: 100%;
+}
+
+.DatasetList {
+  width: 100%;
+}
+
+.Dataset {
+  padding-bottom: 3px;
+  padding-top: 3px;
+  display: flex;
+  flex-direction: row;
+}
+
+.Table {
+  padding: 5px;
+}

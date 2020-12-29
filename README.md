@@ -1,6 +1,6 @@
 # MSM Health Equity Tracker Backend
 
-The backend codebase for [Health Equity Tracker](https://healthequitytracker.org/).
+Codebase for [Health Equity Tracker](https://healthequitytracker.org/).
 
 ## Contributing
 
@@ -208,3 +208,73 @@ You can then set the `ingestion_image_name` variable in your tfvars file to `<yo
 ### A note on Airflow DAGS
 
 All files in the airflows/dags directory will be uploaded to the test airflow environment. Please only put DAG files in this directory. 
+
+## frontend
+
+### Developer Instructions 
+
+Code in the `frontend/` directory was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). In that directory you can run various `npm` scripts, which are described below.
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+_Note: The following instructions assume running all commands from the `frontend/` directory._
+
+#### Install
+
+Change directories to the `frontend/` directory, then install dependencies using NPM.  
+
+_Note: you will need a compatible verison of Node.JS and NPM installed locally. See the "engines" field in `frontend/package.json` for the required / minimum versions of each. It's recommended to use [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm) if you need to have multiple versions of Node.JS / NPM installed on your machine._
+
+```bash
+cd frontend && npm install
+```
+
+##### Trouble-shooting
+
+If you encounter errors during install that mention `gyp`, that refers to a Node.js native addon build tool that is required for some modules. Follow the instructions on the [gyp github repo](https://github.com/nodejs/node-gyp#installation) for installation and setting up required dependencies (eg Python and certain build tools like XCode Command Line Tools for OS X).
+
+#### Develop
+
+To run the app in development mode, start a local web server, and watch for changes do:
+
+```bash
+npm start
+```
+
+The site should now be visible at `localhost:3000`. Any changes to source code will cause a live reload of the site.
+
+#### Tests
+
+To run unit tests do:
+
+```bash
+npm test
+```
+
+This will run tests in watch mode, so you may have the tests running while developing.
+
+#### Build
+
+To create a "production" build do:
+
+```bash
+npm run build
+```
+
+This should output bundled files in the `frontend/build/` directory. These are the files that are used for hosting the app in production environments.
+
+#### Ejecting Create React App
+
+_Note: this is a one-way operation. Once you `eject`, you can’t go back!_
+
+If you aren’t satisfied with the Create React App build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## License
+
+[MIT](./LICENSE)
