@@ -1,4 +1,5 @@
 import { createMuiTheme } from "@material-ui/core/styles";
+import "typeface-dm-sans";
 
 const MaterialTheme = createMuiTheme({
   palette: {
@@ -13,7 +14,17 @@ const MaterialTheme = createMuiTheme({
       dark: "#167B6F",
     },
   },
+  Typography: {
+    fontFamily: "DM Sans",
+  },
   overrides: {
+    MuiCssBaseline: {
+      "@global": {
+        body: {
+          fontFamily: "DM Sans",
+        },
+      },
+    },
     MuiButton: {
       root: {
         textTransform: "unset",

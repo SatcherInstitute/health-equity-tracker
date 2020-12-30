@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import UsaChloroplethMap from "../charts/UsaChloroplethMap";
+import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { Fips } from "../utils/madlib/Fips";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
@@ -19,7 +19,7 @@ import Menu from "@material-ui/core/Menu";
 import { Grid } from "@material-ui/core";
 import { Breakdowns, BreakdownVar } from "../data/Breakdowns";
 
-interface MapCardProps {
+export interface MapCardProps {
   key?: string;
   fips: Fips;
   metricConfig: MetricConfig;
@@ -229,7 +229,7 @@ function MapCardWithKey(props: MapCardProps) {
             {!queryResponse.isError() && (
               <CardContent>
                 {props.metricConfig && (
-                  <UsaChloroplethMap
+                  <ChoroplethMap
                     signalListeners={signalListeners}
                     metric={props.metricConfig}
                     legendTitle={props.metricConfig.fullCardTitleName}

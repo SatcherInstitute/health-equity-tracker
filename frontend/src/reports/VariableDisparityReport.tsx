@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 import { Grid } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
+import ToggleButton from "@material-ui/lab/ToggleButton";
+import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import { BreakdownVar, BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/Breakdowns";
 import { BarChartCard } from "../cards/BarChartCard";
 import { MapCard } from "../cards/MapCard";
+import PopulationCard from "../cards/PopulationCard";
 import TableCard from "../cards/TableCard";
 import { DropdownVarId } from "../utils/madlib/MadLibs";
-import ToggleButton from "@material-ui/lab/ToggleButton";
-import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
-import Alert from "@material-ui/lab/Alert";
 import { Fips } from "../utils/madlib/Fips";
 import {
   METRIC_CONFIG,
   VariableConfig,
   MetricConfig,
+  POPULATION_VARIABLE_CONFIG,
 } from "../data/MetricConfig";
-import PopulationCard from "../cards/PopulationCard";
 import styles from "./Report.module.scss";
-import { POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
 
 const SUPPORTED_BREAKDOWNS: BreakdownVar[] = [
   "race_and_ethnicity",
