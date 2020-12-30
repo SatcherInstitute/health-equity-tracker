@@ -17,7 +17,6 @@ import { getDependentDatasets, MetricId } from "../data/variableProviders";
 import { MetricQuery } from "../data/MetricQuery";
 import { MetricConfig, VariableConfig } from "../data/MetricConfig";
 import { POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
-
 import CardWrapper from "./CardWrapper";
 
 const VALID_METRIC_TYPES = ["pct_share", "per100k"];
@@ -74,7 +73,6 @@ function BarChartCardWithKey(props: BarChartCardProps) {
   // TODO - we want to bold the breakdown name in the card title
   return (
     <CardWrapper
-      key={metricConfig + props.breakdownVar}
       datasetIds={getDependentDatasets(metrics)}
       queries={[query]}
       titleText={`${metricConfig.fullCardTitleName} by ${
