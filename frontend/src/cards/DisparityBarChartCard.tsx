@@ -28,13 +28,25 @@ function getInitalMetricConfig(variableConfig: VariableConfig) {
     : variableConfig.metrics["per100k"];
 }
 
-function DisparityBarChartCard(props: {
-  key: string;
+interface DisparityBarChartCardProps {
+  key?: string;
   breakdownVar: BreakdownVar;
   variableConfig: VariableConfig;
   nonstandardizedRace: boolean /* TODO- ideally wouldn't go here, could be calculated based on dataset */;
   fips: Fips;
-}) {
+}
+
+// This wrapper ensures the proper key is set to create a new instance when required rather than relying on the card caller.
+function DisparityBarChartCard(props: DisparityBarChartCardProps) {
+  return (
+    <DisparityBarChartCardWithKey
+      key={props.variableConfig.variableId + props.breakdownVar}
+      {...props}
+    />
+  );
+}
+
+function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   const [metricConfig, setMetricConfig] = useState<MetricConfig>(
     getInitalMetricConfig(props.variableConfig)
   );
@@ -62,6 +74,7 @@ function DisparityBarChartCard(props: {
   // TODO - we want to bold the breakdown name in the card title
   return (
     <CardWrapper
+      key={metricConfig + props.breakdownVar}
       datasetIds={getDependentDatasets(metrics)}
       queries={[query]}
       titleText={`${metricConfig.fullCardTitleName} by ${
