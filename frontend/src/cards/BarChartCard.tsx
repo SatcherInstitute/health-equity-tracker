@@ -21,12 +21,6 @@ import CardWrapper from "./CardWrapper";
 
 const VALID_METRIC_TYPES = ["pct_share", "per100k"];
 
-function getInitalMetricConfig(variableConfig: VariableConfig) {
-  return variableConfig.metrics["pct_share"]
-    ? variableConfig.metrics["pct_share"]
-    : variableConfig.metrics["per100k"];
-}
-
 interface BarChartCardProps {
   key?: string;
   breakdownVar: BreakdownVar;
@@ -47,7 +41,8 @@ export function BarChartCard(props: BarChartCardProps) {
 
 function BarChartCardWithKey(props: BarChartCardProps) {
   const [metricConfig, setMetricConfig] = useState<MetricConfig>(
-    getInitalMetricConfig(props.variableConfig)
+    props.variableConfig.metrics["pct_share"] ||
+      props.variableConfig.metrics["per100k"]
   );
 
   const datasetStore = useDatasetStore();
