@@ -19,14 +19,27 @@ import Menu from "@material-ui/core/Menu";
 import { Grid } from "@material-ui/core";
 import { Breakdowns, BreakdownVar } from "../data/Breakdowns";
 
-function MapCard(props: {
+interface MapCardProps {
+  key?: string;
   fips: Fips;
   metricConfig: MetricConfig;
   nonstandardizedRace: boolean /* TODO- ideally wouldn't go here, could be calculated based on dataset */;
   updateFipsCallback: (fips: Fips) => void;
   enableFilter?: boolean;
   currentBreakdown: BreakdownVar | "all";
-}) {
+}
+
+// This wrapper ensures the proper key is set to create a new instance when required (when the props change and the state needs to be reset) rather than relying on the card caller.
+export function MapCard(props: MapCardProps) {
+  return (
+    <MapCardWithKey
+      key={props.currentBreakdown + props.metricConfig.metricId}
+      {...props}
+    />
+  );
+}
+
+function MapCardWithKey(props: MapCardProps) {
   const signalListeners: any = {
     click: (...args: any) => {
       const clickedData = args[1];
@@ -234,5 +247,3 @@ function MapCard(props: {
     </CardWrapper>
   );
 }
-
-export default MapCard;
