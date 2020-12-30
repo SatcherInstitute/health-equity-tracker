@@ -12,10 +12,11 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/styles";
 import MaterialTheme from "../styles/MaterialTheme";
 
-export const StoryWrapper = (storyFn: any) => {
-  initGlobals(new Logger(false), new DataFetcher());
-  startMetadataLoad();
+initGlobals(new Logger(false), new DataFetcher());
+startMetadataLoad();
 
+// TODO Refactor so these aren't making real API calls
+export const StoryWrapper = (storyFn: any) => {
   return (
     <ThemeProvider theme={MaterialTheme}>
       <CssBaseline />

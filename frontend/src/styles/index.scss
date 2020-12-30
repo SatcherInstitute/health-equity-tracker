@@ -20,14 +20,7 @@ html {
 
 body {
   margin: 0;
-  font-family: $font-stack;
-  font-size: $font-size;
-  line-height: $line-height;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
-}
-
-code {
-  font-family: $font-stack-code;
 }
