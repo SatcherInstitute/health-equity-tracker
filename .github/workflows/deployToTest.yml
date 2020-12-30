@@ -52,6 +52,12 @@ jobs:
         with:
           dockerfile: 'aggregator/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/aggregator'
+      - name: Build and Push Frontend Image
+        id: frontend
+        uses: ./.github/actions/buildAndPush
+        with:
+          dockerfile: 'frontend_server/Dockerfile'
+          image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/frontend'
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         # Disable wrapper to enable access to terraform output.
