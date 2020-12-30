@@ -22,7 +22,6 @@ export function TableChart(props: {
   breakdownVar: BreakdownVar;
   metrics: MetricConfig[];
 }) {
-  console.log(props.data);
   return (
     <>
       {props.data.length <= 0 || props.metrics.length <= 0 ? (
