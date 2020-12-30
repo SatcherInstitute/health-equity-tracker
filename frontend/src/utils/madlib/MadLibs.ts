@@ -11,7 +11,7 @@ export type PhraseSelector = Record<string, string>;
 
 export type PhraseSegment = string | PhraseSelector;
 
-export type MadLibId = "disparity" | "comparegeos" | "comparevars" | "dump";
+export type MadLibId = "disparity" | "comparegeos" | "comparevars";
 
 export interface MadLib {
   readonly id: MadLibId;
@@ -97,12 +97,6 @@ const MADLIB_LIST: MadLib[] = [
     phrase: ["Show ", DROPDOWN_VAR, " and ", DROPDOWN_VAR, " in ", FIPS_MAP],
     defaultSelections: { 1: "diabetes", 3: "covid", 5: USA_FIPS }, // 13 is Georgia
     activeSelections: { 1: "diabetes", 3: "covid", 5: USA_FIPS }, // 13 is Georgia
-  },
-  {
-    id: "dump",
-    phrase: ["Show me additional chart options"],
-    defaultSelections: {},
-    activeSelections: {},
   },
 ];
 

@@ -163,13 +163,15 @@ function getSpec(
   };
 }
 
-function SimpleHorizontalBarChart(props: {
+export interface SimpleHorizontalBarChartProps {
   data: Row[];
   metric: MetricConfig;
   breakdownVar: BreakdownVar;
   showLegend: boolean;
   hideActions?: boolean;
-}) {
+}
+
+export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   const [ref, width] = useResponsiveWidth(
     100 /* default width during intialization */
   );
@@ -190,5 +192,3 @@ function SimpleHorizontalBarChart(props: {
     </div>
   );
 }
-
-export default SimpleHorizontalBarChart;

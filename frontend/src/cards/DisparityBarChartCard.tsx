@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import DisparityBarChart from "../charts/DisparityBarChart";
+import { DisparityBarChart } from "../charts/DisparityBarChart";
 import styles from "./Card.module.scss";
 import { Alert } from "@material-ui/lab";
 import { CardContent } from "@material-ui/core";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
-import SimpleHorizontalBarChart from "../charts/SimpleHorizontalBarChart";
+import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
 import { Fips } from "../utils/madlib/Fips";
 import useDatasetStore from "../data/useDatasetStore";
 import {
@@ -28,13 +28,15 @@ function getInitalMetricConfig(variableConfig: VariableConfig) {
     : variableConfig.metrics["per100k"];
 }
 
-function DisparityBarChartCard(props: {
+export interface DisparityBarChartCardProps {
   key: string;
   breakdownVar: BreakdownVar;
   variableConfig: VariableConfig;
   nonstandardizedRace: boolean /* TODO- ideally wouldn't go here, could be calculated based on dataset */;
   fips: Fips;
-}) {
+}
+
+export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
   const [metricConfig, setMetricConfig] = useState<MetricConfig>(
     getInitalMetricConfig(props.variableConfig)
   );
@@ -140,4 +142,3 @@ function DisparityBarChartCard(props: {
     </CardWrapper>
   );
 }
-export default DisparityBarChartCard;

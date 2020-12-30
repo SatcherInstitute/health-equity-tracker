@@ -33,7 +33,12 @@ function getSpec(
   };
 }
 
-function StackedBarChart(props: { data: Row[]; measure: string }) {
+export interface StackedBarChartProps {
+  data: Row[];
+  measure: string;
+}
+
+export function StackedBarChart(props: StackedBarChartProps) {
   // TODO stop hard coding values for this chart.
   return (
     <Vega
@@ -46,5 +51,3 @@ function StackedBarChart(props: { data: Row[]; measure: string }) {
     />
   );
 }
-
-export default StackedBarChart;

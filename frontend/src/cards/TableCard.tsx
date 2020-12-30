@@ -1,5 +1,5 @@
 import React from "react";
-import TableChart from "../charts/TableChart";
+import { TableChart } from "../charts/TableChart";
 import { Alert } from "@material-ui/lab";
 import CardWrapper from "./CardWrapper";
 import useDatasetStore from "../data/useDatasetStore";
@@ -13,13 +13,14 @@ import {
 } from "../data/Breakdowns";
 import { CardContent } from "@material-ui/core";
 import { MetricConfig } from "../data/MetricConfig";
-
-function TableCard(props: {
+export interface TableCardProps {
   fips: Fips;
   breakdownVar: BreakdownVar;
   metrics: MetricConfig[];
   nonstandardizedRace: boolean /* TODO- ideally wouldn't go here, could be calculated based on dataset */;
-}) {
+}
+
+export function TableCard(props: TableCardProps) {
   const datasetStore = useDatasetStore();
 
   // TODO need to handle race categories standard vs non-standard for covid vs
@@ -73,5 +74,3 @@ function TableCard(props: {
     </CardWrapper>
   );
 }
-
-export default TableCard;

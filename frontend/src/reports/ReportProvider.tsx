@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Grid } from "@material-ui/core";
-import ChartDumpReport from "./ChartDumpReport";
-import VariableDisparityReport from "./VariableDisparityReport";
+import { VariableDisparityReport } from "./VariableDisparityReport";
 import TwoVariableReport from "./TwoVariableReport";
 import {
   MadLib,
@@ -101,8 +100,6 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             }
           />
         );
-      case "dump":
-        return <ChartDumpReport />;
       default:
         return <p>Report not found</p>;
     }
