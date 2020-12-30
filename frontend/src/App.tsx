@@ -40,6 +40,7 @@ import Logger from "./utils/Logger";
 import { initGlobals } from "./utils/globals";
 import DataFetcher from "./data/DataFetcher";
 import ReactTooltip from "react-tooltip";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 const MOBILE_BREAKPOINT = 600;
 
@@ -135,6 +136,7 @@ function App() {
   return (
     <ThemeProvider theme={MaterialTheme}>
       <ReactTooltip />
+      <CssBaseline />
       <DatasetProvider value={datasetStore}>
         <div className={styles.App}>
           <div className={styles.Content}>

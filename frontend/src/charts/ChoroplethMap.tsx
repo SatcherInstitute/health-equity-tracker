@@ -19,7 +19,7 @@ const VAR_DATASET = "VAR_DATASET";
 const VAR_STATE_FIPS = "state_fips";
 const VAR_COUNTY_FIPS = "COUNTY_FIPS";
 
-function UsaChloroplethMap(props: {
+export interface ChoroplethMapProps {
   data: Record<string, any>[];
   metric: MetricConfig;
   legendTitle: string;
@@ -28,7 +28,9 @@ function UsaChloroplethMap(props: {
   numberFormat?: NumberFormat;
   hideLegend?: boolean;
   showCounties: boolean;
-}) {
+}
+
+export function ChoroplethMap(props: ChoroplethMapProps) {
   const [ref, width] = useResponsiveWidth(
     100 /* default width during intialization */
   );
@@ -226,5 +228,3 @@ function UsaChloroplethMap(props: {
     </div>
   );
 }
-
-export default UsaChloroplethMap;
