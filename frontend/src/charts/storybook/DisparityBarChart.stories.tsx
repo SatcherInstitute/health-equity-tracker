@@ -39,23 +39,3 @@ Example1.args = {
   breakdownVar: "race_and_ethnicity",
   metricDisplayName: "Metric Display name",
 };
-
-export const Example2 = Template.bind({});
-Example2.args = {
-  data: [
-    {
-      covid_cases_pct_of_geo: 0.78,
-      population_pct: 0.8,
-      race_and_ethnicity: "Race 1",
-    },
-    {
-      covid_cases_pct_of_geo: 0.8,
-      population_pct: 0.3,
-      race_and_ethnicity: "Race 2",
-    },
-  ],
-  thickMetric: METRIC_CONFIG["covid"][0].metrics["pct_share"],
-  thinMetric: POPULATION_VARIABLE_CONFIG.metrics.pct_share,
-  breakdownVar: "race_and_ethnicity",
-  metricDisplayName: "Metric Display name",
-};

@@ -31,7 +31,7 @@ const DATASET_METADATA = {
   data_source_name: "CDC Provisional Death Counts for COVID-19",
   data_source_link: "data_source_link",
   geographic_level: "County",
-  demographic_granularity: "	Race/ethnicity",
+  demographic_granularity: "Race/ethnicity",
   update_frequency: "Daily",
   update_time: "	March 2, 2020",
 };
