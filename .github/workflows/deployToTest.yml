@@ -86,7 +86,8 @@ jobs:
           -var 'gcs_to_bq_image_digest=${{ steps.gcstobq.outputs.image-digest }}' \
           -var 'data_server_image_digest=${{ steps.serving.outputs.image-digest }}' \
           -var 'exporter_image_digest=${{ steps.exporter.outputs.image-digest }}' \
-          -var 'aggregator_image_digest=${{ steps.aggregator.outputs.image-digest }}'
+          -var 'aggregator_image_digest=${{ steps.aggregator.outputs.image-digest }}' \
+          -var 'frontend_image_digest=${{ steps.frontend.outputs.image-digest }}'
           data_server_url=$(terraform output data_server_url)
           echo "::set-output name=data_server_url::$data_server_url"
           ingestion_url=$(terraform output ingestion_url)
