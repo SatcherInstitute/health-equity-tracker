@@ -17,26 +17,32 @@ import { getDependentDatasets, MetricId } from "../data/variableProviders";
 import { MetricQuery } from "../data/MetricQuery";
 import { MetricConfig, VariableConfig } from "../data/MetricConfig";
 import { POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
-
 import CardWrapper from "./CardWrapper";
 
 const VALID_METRIC_TYPES = ["pct_share", "per100k"];
 
-function getInitalMetricConfig(variableConfig: VariableConfig) {
-  return variableConfig.metrics["pct_share"]
-    ? variableConfig.metrics["pct_share"]
-    : variableConfig.metrics["per100k"];
-}
-
-function DisparityBarChartCard(props: {
-  key: string;
+interface BarChartCardProps {
+  key?: string;
   breakdownVar: BreakdownVar;
   variableConfig: VariableConfig;
   nonstandardizedRace: boolean /* TODO- ideally wouldn't go here, could be calculated based on dataset */;
   fips: Fips;
-}) {
+}
+
+// This wrapper ensures the proper key is set to create a new instance when required rather than relying on the card caller.
+export function BarChartCard(props: BarChartCardProps) {
+  return (
+    <BarChartCardWithKey
+      key={props.variableConfig.variableId + props.breakdownVar}
+      {...props}
+    />
+  );
+}
+
+function BarChartCardWithKey(props: BarChartCardProps) {
   const [metricConfig, setMetricConfig] = useState<MetricConfig>(
-    getInitalMetricConfig(props.variableConfig)
+    props.variableConfig.metrics["pct_share"] ||
+      props.variableConfig.metrics["per100k"]
   );
 
   const datasetStore = useDatasetStore();
@@ -140,4 +146,3 @@ function DisparityBarChartCard(props: {
     </CardWrapper>
   );
 }
-export default DisparityBarChartCard;

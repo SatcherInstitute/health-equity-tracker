@@ -4,7 +4,7 @@ import Alert from "@material-ui/lab/Alert";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import { BreakdownVar, BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/Breakdowns";
-import DisparityBarChartCard from "../cards/DisparityBarChartCard";
+import { BarChartCard } from "../cards/BarChartCard";
 import { MapCard } from "../cards/MapCard";
 import PopulationCard from "../cards/PopulationCard";
 import TableCard from "../cards/TableCard";
@@ -133,9 +133,6 @@ function VariableDisparityReport(props: {
           </Grid>
           <Grid item xs={props.vertical ? 12 : 6}>
             <MapCard
-              key={
-                currentBreakdown + variableConfig.metrics["per100k"].metricId
-              }
               metricConfig={variableConfig.metrics["per100k"] as MetricConfig}
               fips={props.fips}
               updateFipsCallback={(fips: Fips) => {
@@ -161,8 +158,7 @@ function VariableDisparityReport(props: {
               <>
                 {(currentBreakdown === "all" ||
                   currentBreakdown === breakdownVar) && (
-                  <DisparityBarChartCard
-                    key={variableConfig.variableId + breakdownVar}
+                  <BarChartCard
                     variableConfig={variableConfig}
                     nonstandardizedRace={
                       props.dropdownVarId === "covid" ? true : false
