@@ -30,7 +30,7 @@ interface MapCardProps {
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required rather than relying on the card caller.
-function MapCard(props: MapCardProps) {
+export function MapCard(props: MapCardProps) {
   return (
     <MapCardWithKey
       key={props.currentBreakdown + props.metricConfig.metricId}
@@ -247,5 +247,3 @@ function MapCardWithKey(props: MapCardProps) {
     </CardWrapper>
   );
 }
-
-export default MapCard;

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Grid } from "@material-ui/core";
 import { BreakdownVar, BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/Breakdowns";
-import DisparityBarChartCard from "../cards/DisparityBarChartCard";
-import MapCard from "../cards/MapCard";
+import { BarChartCard } from "../cards/BarChartCard";
+import { MapCard } from "../cards/MapCard";
 import TableCard from "../cards/TableCard";
 import { DropdownVarId } from "../utils/madlib/MadLibs";
 import ToggleButton from "@material-ui/lab/ToggleButton";
@@ -158,7 +158,7 @@ function VariableDisparityReport(props: {
               <>
                 {(currentBreakdown === "all" ||
                   currentBreakdown === breakdownVar) && (
-                  <DisparityBarChartCard
+                  <BarChartCard
                     variableConfig={variableConfig}
                     nonstandardizedRace={
                       props.dropdownVarId === "covid" ? true : false

@@ -28,7 +28,7 @@ function getInitalMetricConfig(variableConfig: VariableConfig) {
     : variableConfig.metrics["per100k"];
 }
 
-interface DisparityBarChartCardProps {
+interface BarChartCardProps {
   key?: string;
   breakdownVar: BreakdownVar;
   variableConfig: VariableConfig;
@@ -37,16 +37,16 @@ interface DisparityBarChartCardProps {
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required rather than relying on the card caller.
-function DisparityBarChartCard(props: DisparityBarChartCardProps) {
+export function BarChartCard(props: BarChartCardProps) {
   return (
-    <DisparityBarChartCardWithKey
+    <BarChartCardWithKey
       key={props.variableConfig.variableId + props.breakdownVar}
       {...props}
     />
   );
 }
 
-function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
+function BarChartCardWithKey(props: BarChartCardProps) {
   const [metricConfig, setMetricConfig] = useState<MetricConfig>(
     getInitalMetricConfig(props.variableConfig)
   );
@@ -153,4 +153,3 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     </CardWrapper>
   );
 }
-export default DisparityBarChartCard;
