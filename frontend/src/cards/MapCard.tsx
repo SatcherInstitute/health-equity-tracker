@@ -29,7 +29,7 @@ interface MapCardProps {
   currentBreakdown: BreakdownVar | "all";
 }
 
-// This wrapper ensures the proper key is set to create a new instance when required rather than relying on the card caller.
+// This wrapper ensures the proper key is set to create a new instance when required (when the props change and the state needs to be reset) rather than relying on the card caller.
 export function MapCard(props: MapCardProps) {
   return (
     <MapCardWithKey
