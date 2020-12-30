@@ -42,9 +42,27 @@ async function getDiabetesFrame() {
     );
 }
 
+type FileFormat = "json" | "csv";
+
 class DataFetcher {
-  async loadLocalFile(fileName: string) {
-    const resp = await fetch("tmp/" + fileName);
+  useLocal: boolean;
+
+  constructor(useLocal = false) {
+    this.useLocal = useLocal;
+  }
+
+  getDatasetRequestPath(datasetName: string, format: FileFormat = "json") {
+    const fullDatasetName = datasetName + "." + format;
+    if (this.useLocal) {
+      return "/tmp/" + fullDatasetName;
+    }
+    return "/api/dataset?name=" + fullDatasetName;
+    // return "https://aaronsn-frontend-7sw5w4cpba-uc.a.run.app/api/dataset?name=" + fullDatasetName;
+    // return "https://data-server-service-zarv4pcejq-uc.a.run.app/dataset?name=" + fullDatasetName;
+  }
+
+  async fetchDataset(datasetName: string, format: FileFormat = "json") {
+    const resp = await fetch(this.getDatasetRequestPath(datasetName, format));
     return await resp.json();
   }
 
@@ -53,12 +71,13 @@ class DataFetcher {
     // TODO load from data server once it's ready
     switch (datasetId) {
       case "brfss":
-        const diabetesData = await getDiabetesFrame();
-        return diabetesData.toArray();
+        // const diabetesData = await getDiabetesFrame();
+        // return diabetesData.toArray();
+        return await this.fetchDataset("brfss");
       case "acs_state_population_by_race_nonstandard":
-        return await this.loadLocalFile("table_race_nonstand.json");
+        return await this.fetchDataset("table_race_nonstand");
       case "covid_by_state_and_race":
-        let result = await this.loadLocalFile("covid_by_state.json");
+        let result = await this.fetchDataset("covid_by_state");
         const fipsEntries = Object.entries(STATE_FIPS_MAP);
         const reversed = fipsEntries.map((entry) => [entry[1], entry[0]]);
         const fipsMap = Object.fromEntries(reversed);
@@ -73,6 +92,8 @@ class DataFetcher {
 
   async getMetadata(): Promise<MetadataMap> {
     // Simulate load time
+    // TODO get rid of this, make real metadata request. Alternatively, hard
+    // code metadata and drop the artificial timeout.
     await new Promise((res) => {
       setTimeout(res, 1000);
     });
