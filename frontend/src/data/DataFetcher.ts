@@ -45,49 +45,90 @@ async function getDiabetesFrame() {
 type FileFormat = "json" | "csv";
 
 class DataFetcher {
-  useLocal: boolean;
+  // When true, forces all data requests to be local.
+  forceLocal: boolean;
+  apiUrl: string;
 
-  constructor(useLocal = false) {
-    this.useLocal = useLocal;
+  constructor() {
+    // If the API url isn't provided, requests are relative to the domain being
+    // used.
+    this.apiUrl = process.env.REACT_APP_BASE_API_URL || "";
+
+    // Force local for unit test environments, and for localhost environments
+    // unless the API url is provided
+    // TODO we should replace this class with a FakeDataFetcher for test
+    // environments and make this class throw an error in test environments.
+    this.forceLocal =
+      process.env.NODE_ENV === "test" ||
+      (process.env.NODE_ENV === "development" && !this.apiUrl);
   }
 
-  getDatasetRequestPath(datasetName: string, format: FileFormat = "json") {
+  private getApiUrl() {
+    return this.apiUrl + "/api";
+  }
+
+  private getDatasetRequestPath(
+    datasetName: string,
+    useLocal: boolean = false,
+    format: FileFormat = "json"
+  ) {
     const fullDatasetName = datasetName + "." + format;
-    if (this.useLocal) {
-      return "/tmp/" + fullDatasetName;
-    }
-    return "/api/dataset?name=" + fullDatasetName;
-    // return "https://aaronsn-frontend-7sw5w4cpba-uc.a.run.app/api/dataset?name=" + fullDatasetName;
-    // return "https://data-server-service-zarv4pcejq-uc.a.run.app/dataset?name=" + fullDatasetName;
+    const basePath =
+      useLocal || this.forceLocal
+        ? "/tmp/"
+        : this.getApiUrl() + "/dataset?name=";
+    return basePath + fullDatasetName;
   }
 
-  async fetchDataset(datasetName: string, format: FileFormat = "json") {
-    const resp = await fetch(this.getDatasetRequestPath(datasetName, format));
+  private async fetchDataset(
+    datasetName: string,
+    useLocal: boolean = false,
+    format: FileFormat = "json"
+  ) {
+    const requestPath = this.getDatasetRequestPath(
+      datasetName,
+      useLocal,
+      format
+    );
+    // if (datasetName === "acs_population-by_race_state_std") {
+    //   requestPath = "https://data-server-service-zarv4pcejq-uc.a.run.app/dataset?name=" + datasetName + "." + format;
+    // }
+    const resp = await fetch(requestPath);
     return await resp.json();
   }
 
   // TODO build in retries, timeout before showing error to user.
   async loadDataset(datasetId: string): Promise<Row[]> {
-    // TODO load from data server once it's ready
-    switch (datasetId) {
-      case "brfss":
-        // const diabetesData = await getDiabetesFrame();
-        // return diabetesData.toArray();
-        return await this.fetchDataset("brfss");
-      case "acs_state_population_by_race_nonstandard":
-        return await this.fetchDataset("table_race_nonstand");
-      case "covid_by_state_and_race":
-        let result = await this.fetchDataset("covid_by_state");
-        const fipsEntries = Object.entries(STATE_FIPS_MAP);
-        const reversed = fipsEntries.map((entry) => [entry[1], entry[0]]);
-        const fipsMap = Object.fromEntries(reversed);
-        result = result.map((row: any) => {
-          return { ...row, state_fips: fipsMap[row["state_name"]] };
-        });
-        return result;
-      default:
-        throw new Error("Unknown dataset: " + datasetId);
+    // TODO remove these special cases once the datasets are available on the
+    // data server.
+    if (datasetId === "brfss") {
+      const diabetesData = await getDiabetesFrame();
+      return diabetesData.toArray();
     }
+
+    if (datasetId === "covid_by_state_and_race") {
+      let result = await this.fetchDataset("covid_by_state", true);
+      const fipsEntries = Object.entries(STATE_FIPS_MAP);
+      const reversed = fipsEntries.map((entry) => [entry[1], entry[0]]);
+      const fipsMap = Object.fromEntries(reversed);
+      result = result.map((row: any) => {
+        return { ...row, state_fips: fipsMap[row["state_name"]] };
+      });
+      return result;
+    }
+
+    if (datasetId === "acs_population-by_race_state_std") {
+      // TODO remove this once we figure out how to make BQ export integers as
+      // integers
+      let result = await this.fetchDataset(datasetId);
+      result = result.map((row: any) => {
+        return { ...row, population: Number(row["population"]) };
+      });
+      return result;
+    }
+
+    // TODO handle server returning a dataset not found error.
+    return await this.fetchDataset(datasetId);
   }
 
   async getMetadata(): Promise<MetadataMap> {

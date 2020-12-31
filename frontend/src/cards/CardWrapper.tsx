@@ -53,8 +53,7 @@ function CardWrapper(props: {
                 Sources:{" "}
                 {props.datasetIds.map((datasetId) => (
                   <>
-                    {datasetId ===
-                      "acs_state_population_by_race_nonstandard" && (
+                    {datasetId === "acs_population-by_race_state_std" && (
                       <>Population and demographic data from </>
                     )}
                     <LinkWithStickyParams

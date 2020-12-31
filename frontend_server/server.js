@@ -11,28 +11,14 @@ const HOST = '0.0.0.0';
 const app = express();
 
 // TODO should this go before or after basic auth?
-// TODO validate options. secure option?
+// TODO check if these are all the right options. Should we use the "secure"
+// option or the ws option?
+// TODO make data server url dynamic based on environment rather than hard-
+// coded. 
 const apiProxyOptions = {
-  // TODO make this dynamic
-  target: 'https://aaronsn-dataserver-7sw5w4cpba-uc.a.run.app',
-  // target: 'https://data-server-service-zarv4pcejq-uc.a.run.app',
+  target: 'https://data-server-service-zarv4pcejq-uc.a.run.app',
   changeOrigin: true, // needed for virtual hosted sites
-  ws: true, // proxy websockets
   pathRewrite: { '^/api': '' },
-  // router: {
-  //   // when request.headers.host == 'dev.localhost:3000',
-  //   // override target 'http://www.example.org' to 'http://localhost:8000'
-  //   'dev.localhost:3000': 'http://localhost:8000',
-  // },
-  onProxyReq: function onProxyReq(proxyReq, req, res) {
-    // Log outbound request to remote target
-    console.log("Connecting to data server");
-    console.log('-->  ', req.method, req.path, '->', proxyReq.baseUrl + proxyReq.path);
-  },
-  onError: function onError(err, req, res) {
-    console.log("Error connecting to data server");
-    console.error(err);
-  },
 };
 const apiProxy = createProxyMiddleware(apiProxyOptions);
 app.use('/api', apiProxy);

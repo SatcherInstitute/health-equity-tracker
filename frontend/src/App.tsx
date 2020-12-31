@@ -52,10 +52,7 @@ const PAGE_URL_TO_NAMES: Record<string, string> = {
 };
 
 // TODO configure the logger and data fetcher based on environment variables.
-initGlobals(
-  new Logger(false),
-  new DataFetcher(window.location.href.includes("useLocal=true"))
-);
+initGlobals(new Logger(false), new DataFetcher());
 startMetadataLoad();
 
 function MobileAppToolbar() {

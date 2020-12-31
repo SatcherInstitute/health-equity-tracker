@@ -6,14 +6,14 @@ import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
 
 const standardizedRaces = [
-  "American Indian and Alaska Native alone (Non-Hispanic)",
-  "Asian alone (Non-Hispanic)",
-  "Black or African American alone (Non-Hispanic)",
+  "American Indian and Alaska Native (Non-Hispanic)",
+  "Asian (Non-Hispanic)",
+  "Black or African American (Non-Hispanic)",
   "Hispanic or Latino",
-  "Native Hawaiian and Other Pacific Islander alone (Non-Hispanic)",
-  "Some other race alone (Non-Hispanic)",
+  "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+  "Some other race (Non-Hispanic)",
   "Two or more races (Non-Hispanic)",
-  "White alone (Non-Hispanic)",
+  "White (Non-Hispanic)",
   "Total",
 ];
 
@@ -22,7 +22,7 @@ class AcsPopulationProvider extends VariableProvider {
     super(
       "acs_pop_provider",
       ["population", "population_pct"],
-      ["acs_state_population_by_race_nonstandard"]
+      ["acs_population-by_race_state_std"]
     );
   }
 
@@ -51,7 +51,7 @@ class AcsPopulationProvider extends VariableProvider {
     datasets: Record<string, Dataset>,
     breakdowns: Breakdowns
   ): IDataFrame {
-    const statePopByRace = datasets["acs_state_population_by_race_nonstandard"];
+    const statePopByRace = datasets["acs_population-by_race_state_std"];
     const acsNonStandard = statePopByRace.toDataFrame();
 
     if (
