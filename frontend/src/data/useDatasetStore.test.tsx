@@ -192,7 +192,7 @@ describe("useDatasetStore", () => {
   test("WithMetrics: Loads metrics", async () => {
     const query = new MetricQuery(
       "copd_count",
-      Breakdowns.national().andRace() //
+      Breakdowns.national().andRace()
     );
 
     expect(mockGetMetadata).toHaveBeenCalledTimes(0);
@@ -222,6 +222,8 @@ describe("useDatasetStore", () => {
       "Loaded 2 rows. AmIn: 20. Asian: 1."
     );
   });
+
+  // TODO - one succesful dataset, one bad dataset
 
   test("WithMetrics: Loaded metrics have no rows", async () => {
     const query = new MetricQuery(
@@ -264,8 +266,11 @@ describe("useDatasetStore", () => {
   });
 
   test("WithMetrics: Dataset doesn't exist", async () => {
-    //@ts-ignore - dataset ID should be invalid for this test
-    const query = new MetricQuery("fakedatadoesntexist", Breakdowns.national());
+    //@ts-ignore - metric ID should be invalid for this test
+    const query = new MetricQuery(
+      "fakemetricdoesntexist",
+      Breakdowns.national()
+    );
 
     expect(mockGetMetadata).toHaveBeenCalledTimes(0);
     startMetadataLoad();
