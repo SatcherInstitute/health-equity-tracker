@@ -44,6 +44,7 @@ async function getDiabetesFrame() {
 
 type FileFormat = "json" | "csv";
 
+// Dummy comment
 class DataFetcher {
   /**
    * When true, forces all data requests to go to the server's static file
@@ -59,6 +60,7 @@ class DataFetcher {
   constructor() {
     // If the API url isn't provided, requests are relative to current domain.
     this.apiUrl = process.env.REACT_APP_BASE_API_URL || "";
+    console.log("api url: ", process.env.REACT_APP_BASE_API_URL);
 
     // Use the static file directory for unit test environments, and for
     // localhost environments unless the API url is provided
