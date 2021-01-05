@@ -73,7 +73,8 @@ function WithMetricsWrapperApp(props: {
               {!response.isError() && (
                 <>
                   Loaded {response.data!.length} rows.{" "}
-                  {response.data.map((row) => props.displayRow(row))}
+                  {props.displayRow !== undefined &&
+                    response.data.map((row) => props.displayRow!(row))}
                 </>
               )}
             </div>
