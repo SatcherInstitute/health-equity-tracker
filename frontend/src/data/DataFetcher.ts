@@ -45,20 +45,26 @@ async function getDiabetesFrame() {
 type FileFormat = "json" | "csv";
 
 class DataFetcher {
-  // When true, forces all data requests to be local.
-  forceLocal: boolean;
+  /**
+   * When true, forces all data requests to go to the server's static file
+   * directory. Should not be used in production environments.
+   */
+  forceStaticFile: boolean;
+  /**
+   * The base url for API calls. Empty string if API calls are relative to the
+   * current domain.
+   */
   apiUrl: string;
 
   constructor() {
-    // If the API url isn't provided, requests are relative to the domain being
-    // used.
+    // If the API url isn't provided, requests are relative to current domain.
     this.apiUrl = process.env.REACT_APP_BASE_API_URL || "";
 
-    // Force local for unit test environments, and for localhost environments
-    // unless the API url is provided
+    // Use the static file directory for unit test environments, and for
+    // localhost environments unless the API url is provided
     // TODO we should replace this class with a FakeDataFetcher for test
     // environments and make this class throw an error in test environments.
-    this.forceLocal =
+    this.forceStaticFile =
       process.env.NODE_ENV === "test" ||
       (process.env.NODE_ENV === "development" && !this.apiUrl);
   }
@@ -67,37 +73,48 @@ class DataFetcher {
     return this.apiUrl + "/api";
   }
 
+  /**
+   * @param datasetName The ID of the dataset to request
+   * @param useStaticFile Whether to route the request to the static file directory
+   * @param format FileFormat for the request.
+   */
   private getDatasetRequestPath(
     datasetName: string,
-    useLocal: boolean = false,
+    useStaticFile: boolean = false,
     format: FileFormat = "json"
   ) {
     const fullDatasetName = datasetName + "." + format;
     const basePath =
-      useLocal || this.forceLocal
+      useStaticFile || this.forceStaticFile
         ? "/tmp/"
         : this.getApiUrl() + "/dataset?name=";
     return basePath + fullDatasetName;
   }
 
+  /**
+   * @param datasetName The ID of the dataset to request
+   * @param useStaticFile Whether to route the request to the static file directory
+   * @param format FileFormat for the request.
+   */
   private async fetchDataset(
     datasetName: string,
-    useLocal: boolean = false,
+    useStaticFile: boolean = false,
     format: FileFormat = "json"
   ) {
     const requestPath = this.getDatasetRequestPath(
       datasetName,
-      useLocal,
+      useStaticFile,
       format
     );
-    // if (datasetName === "acs_population-by_race_state_std") {
-    //   requestPath = "https://data-server-service-zarv4pcejq-uc.a.run.app/dataset?name=" + datasetName + "." + format;
-    // }
     const resp = await fetch(requestPath);
     return await resp.json();
   }
 
   // TODO build in retries, timeout before showing error to user.
+  /**
+   * Fetches and returns the dataset associated with the provided ID.
+   * @param datasetId The id of the dataset to load.
+   */
   async loadDataset(datasetId: string): Promise<Row[]> {
     // TODO remove these special cases once the datasets are available on the
     // data server.

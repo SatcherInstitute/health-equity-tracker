@@ -11,8 +11,10 @@ const HOST = '0.0.0.0';
 const app = express();
 
 // TODO should this go before or after basic auth?
-// TODO check if these are all the right options. Should we use the "secure"
-// option or the ws option?
+// TODO check if these are all the right proxy options. For example, there's a
+// "secure" option that makes it check SSL certificates. I don't think we need
+// it but I can't find good documentation.
+// TODO add logging if there's an error in the request.
 // TODO make data server url dynamic based on environment rather than hard-
 // coded. 
 const apiProxyOptions = {
