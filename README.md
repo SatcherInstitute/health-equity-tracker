@@ -275,6 +275,16 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
+#### Storybook
+
+Storybook is a library that allows us to explore and develop UI components in isolation. Bring up our Storybook by running this command in the `frontend/` directory:
+
+```bash
+npm run storybook
+```
+
+Stories for each UI component are contained in the same directory as the component in a subfolder called "storybook".
+
 ## License
 
 [MIT](./LICENSE)

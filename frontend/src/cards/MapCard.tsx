@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import UsaChloroplethMap from "../charts/UsaChloroplethMap";
+import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { Fips } from "../utils/madlib/Fips";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
@@ -19,14 +19,27 @@ import Menu from "@material-ui/core/Menu";
 import { Grid } from "@material-ui/core";
 import { Breakdowns, BreakdownVar } from "../data/Breakdowns";
 
-function MapCard(props: {
+export interface MapCardProps {
+  key?: string;
   fips: Fips;
   metricConfig: MetricConfig;
   nonstandardizedRace: boolean /* TODO- ideally wouldn't go here, could be calculated based on dataset */;
   updateFipsCallback: (fips: Fips) => void;
   enableFilter?: boolean;
   currentBreakdown: BreakdownVar | "all";
-}) {
+}
+
+// This wrapper ensures the proper key is set to create a new instance when required (when the props change and the state needs to be reset) rather than relying on the card caller.
+export function MapCard(props: MapCardProps) {
+  return (
+    <MapCardWithKey
+      key={props.currentBreakdown + props.metricConfig.metricId}
+      {...props}
+    />
+  );
+}
+
+function MapCardWithKey(props: MapCardProps) {
   const signalListeners: any = {
     click: (...args: any) => {
       const clickedData = args[1];
@@ -39,21 +52,21 @@ function MapCard(props: {
   const RACES = props.nonstandardizedRace
     ? [
         "Total",
-        "American Indian and Alaska Native alone",
-        "American Indian and Alaska Native alone (Non-Hispanic)",
-        "Asian alone",
-        "Asian alone (Non-Hispanic)",
-        "Black or African American alone",
-        "Black or African American alone (Non-Hispanic)",
+        "American Indian and Alaska Native",
+        "American Indian and Alaska Native (Non-Hispanic)",
+        "Asian",
+        "Asian (Non-Hispanic)",
+        "Black or African American",
+        "Black or African American (Non-Hispanic)",
         "Hispanic or Latino",
-        "Native Hawaiian and Other Pacific Islander alone",
-        "Native Hawaiian and Other Pacific Islander alone (Non-Hispanic)",
-        "Some other race alone",
-        "Some other race alone (Non-Hispanic)",
+        "Native Hawaiian and Pacific Islander",
+        "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+        "Some other race",
+        "Some other race (Non-Hispanic)",
         "Two or more races",
         "Two or more races (Non-Hispanic)",
-        "White alone",
-        "White alone (Non-Hispanic)",
+        "White",
+        "White (Non-Hispanic)",
       ]
     : [
         "American Indian/Alaskan Native, Non-Hispanic",
@@ -216,7 +229,7 @@ function MapCard(props: {
             {!queryResponse.isError() && (
               <CardContent>
                 {props.metricConfig && (
-                  <UsaChloroplethMap
+                  <ChoroplethMap
                     signalListeners={signalListeners}
                     metric={props.metricConfig}
                     legendTitle={props.metricConfig.fullCardTitleName}
@@ -234,5 +247,3 @@ function MapCard(props: {
     </CardWrapper>
   );
 }
-
-export default MapCard;
