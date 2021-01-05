@@ -2,7 +2,7 @@ import { DatasetMetadata, MetadataMap } from "./DatasetTypes";
 
 const fakeMetadata: DatasetMetadata[] = [
   {
-    id: "acs_state_population_by_race_nonstandard",
+    id: "acs_population-by_race_state_std",
     name: "Share of population by state and race",
     data_source_name: "American Community Survey 5-year estimates (2014-2018)",
     data_source_link:

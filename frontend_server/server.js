@@ -2,12 +2,28 @@
 
 const express = require('express');
 const path = require('path');
-const basicAuth = require('express-basic-auth')
+const basicAuth = require('express-basic-auth');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const PORT = 8080;
 const HOST = '0.0.0.0';
 
 const app = express();
+
+// TODO should this go before or after basic auth?
+// TODO check if these are all the right proxy options. For example, there's a
+// "secure" option that makes it check SSL certificates. I don't think we need
+// it but I can't find good documentation.
+// TODO add logging if there's an error in the request.
+// TODO make data server url dynamic based on environment rather than hard-
+// coded. 
+const apiProxyOptions = {
+  target: 'https://data-server-service-zarv4pcejq-uc.a.run.app',
+  changeOrigin: true, // needed for virtual hosted sites
+  pathRewrite: { '^/api': '' },
+};
+const apiProxy = createProxyMiddleware(apiProxyOptions);
+app.use('/api', apiProxy);
 
 // auth middleware must be installed before setting up routes so it applies
 // to the whole site.

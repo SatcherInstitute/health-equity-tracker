@@ -42,37 +42,116 @@ async function getDiabetesFrame() {
     );
 }
 
+type FileFormat = "json" | "csv";
+
 class DataFetcher {
-  async loadLocalFile(fileName: string) {
-    const resp = await fetch("tmp/" + fileName);
+  /**
+   * When true, forces all data requests to go to the server's static file
+   * directory. Should not be used in production environments.
+   */
+  forceStaticFile: boolean;
+  /**
+   * The base url for API calls. Empty string if API calls are relative to the
+   * current domain.
+   */
+  apiUrl: string;
+
+  constructor() {
+    // If the API url isn't provided, requests are relative to current domain.
+    this.apiUrl = process.env.REACT_APP_BASE_API_URL || "";
+
+    // Use the static file directory for unit test environments, and for
+    // localhost environments unless the API url is provided
+    // TODO we should replace this class with a FakeDataFetcher for test
+    // environments and make this class throw an error in test environments.
+    this.forceStaticFile =
+      process.env.NODE_ENV === "test" ||
+      (process.env.NODE_ENV === "development" && !this.apiUrl);
+  }
+
+  private getApiUrl() {
+    return this.apiUrl + "/api";
+  }
+
+  /**
+   * @param datasetName The ID of the dataset to request
+   * @param useStaticFile Whether to route the request to the static file directory
+   * @param format FileFormat for the request.
+   */
+  private getDatasetRequestPath(
+    datasetName: string,
+    useStaticFile: boolean = false,
+    format: FileFormat = "json"
+  ) {
+    const fullDatasetName = datasetName + "." + format;
+    const basePath =
+      useStaticFile || this.forceStaticFile
+        ? "/tmp/"
+        : this.getApiUrl() + "/dataset?name=";
+    return basePath + fullDatasetName;
+  }
+
+  /**
+   * @param datasetName The ID of the dataset to request
+   * @param useStaticFile Whether to route the request to the static file directory
+   * @param format FileFormat for the request.
+   */
+  private async fetchDataset(
+    datasetName: string,
+    useStaticFile: boolean = false,
+    format: FileFormat = "json"
+  ) {
+    const requestPath = this.getDatasetRequestPath(
+      datasetName,
+      useStaticFile,
+      format
+    );
+    const resp = await fetch(requestPath);
     return await resp.json();
   }
 
   // TODO build in retries, timeout before showing error to user.
+  /**
+   * Fetches and returns the dataset associated with the provided ID.
+   * @param datasetId The id of the dataset to load.
+   */
   async loadDataset(datasetId: string): Promise<Row[]> {
-    // TODO load from data server once it's ready
-    switch (datasetId) {
-      case "brfss":
-        const diabetesData = await getDiabetesFrame();
-        return diabetesData.toArray();
-      case "acs_state_population_by_race_nonstandard":
-        return await this.loadLocalFile("table_race_nonstand.json");
-      case "covid_by_state_and_race":
-        let result = await this.loadLocalFile("covid_by_state.json");
-        const fipsEntries = Object.entries(STATE_FIPS_MAP);
-        const reversed = fipsEntries.map((entry) => [entry[1], entry[0]]);
-        const fipsMap = Object.fromEntries(reversed);
-        result = result.map((row: any) => {
-          return { ...row, state_fips: fipsMap[row["state_name"]] };
-        });
-        return result;
-      default:
-        throw new Error("Unknown dataset: " + datasetId);
+    // TODO remove these special cases once the datasets are available on the
+    // data server.
+    if (datasetId === "brfss") {
+      const diabetesData = await getDiabetesFrame();
+      return diabetesData.toArray();
     }
+
+    if (datasetId === "covid_by_state_and_race") {
+      let result = await this.fetchDataset("covid_by_state", true);
+      const fipsEntries = Object.entries(STATE_FIPS_MAP);
+      const reversed = fipsEntries.map((entry) => [entry[1], entry[0]]);
+      const fipsMap = Object.fromEntries(reversed);
+      result = result.map((row: any) => {
+        return { ...row, state_fips: fipsMap[row["state_name"]] };
+      });
+      return result;
+    }
+
+    if (datasetId === "acs_population-by_race_state_std") {
+      // TODO remove this once we figure out how to make BQ export integers as
+      // integers
+      let result = await this.fetchDataset(datasetId);
+      result = result.map((row: any) => {
+        return { ...row, population: Number(row["population"]) };
+      });
+      return result;
+    }
+
+    // TODO handle server returning a dataset not found error.
+    return await this.fetchDataset(datasetId);
   }
 
   async getMetadata(): Promise<MetadataMap> {
     // Simulate load time
+    // TODO get rid of this, make real metadata request. Alternatively, hard
+    // code metadata and drop the artificial timeout.
     await new Promise((res) => {
       setTimeout(res, 1000);
     });
