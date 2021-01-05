@@ -36,7 +36,7 @@ export function WithLoadingOrErrorUI(props: {
       );
     default:
       return (
-        <div>
+        <div data-testid="WithLoadingOrErrorUI-error">
           <p>Oops, something went wrong.</p>
           <Button onClick={() => window.location.reload()}>reload</Button>
         </div>

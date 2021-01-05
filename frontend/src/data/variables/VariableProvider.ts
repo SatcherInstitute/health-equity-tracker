@@ -1,7 +1,7 @@
 import { Breakdowns } from "../Breakdowns";
-import { Dataset, Row } from "../DatasetTypes";
+import { Dataset } from "../DatasetTypes";
 import { ProviderId, MetricId } from "../variableProviders";
-import { ExpectedError } from "../MetricQuery";
+import { ExpectedError, MetricQueryResponse } from "../MetricQuery";
 
 abstract class VariableProvider {
   readonly providerId: ProviderId;
@@ -19,36 +19,36 @@ abstract class VariableProvider {
   }
 
   // TODO change return type to MetricQueryResponse instead of Row[]
-  getData(datasets: Record<string, Dataset>, breakdowns: Breakdowns): Row[] {
+  getData(
+    datasets: Record<string, Dataset>,
+    breakdowns: Breakdowns
+  ): MetricQueryResponse {
     if (!this.allowsBreakdowns(breakdowns)) {
-      throw new ExpectedError(
-        "Breakdowns not supported for provider " +
-          this.providerId +
-          ": " +
-          JSON.stringify(breakdowns)
+      return new MetricQueryResponse(
+        new ExpectedError(
+          "Breakdowns not supported for provider " +
+            this.providerId +
+            ": " +
+            JSON.stringify(breakdowns)
+        )
       );
     }
 
     const missingDatasetIds = this.datasetIds.filter((id) => !datasets[id]);
     if (missingDatasetIds.length > 0) {
-      throw new ExpectedError(
+      const error = new ExpectedError(
         "Datasets not loaded properly: " + missingDatasetIds.join(",")
       );
+      return new MetricQueryResponse(error);
     }
 
-    const data = this.getDataInternal(datasets, breakdowns);
-
-    if (data.length > 0) {
-      return data;
-    } else {
-      throw new ExpectedError("Dataset returned empty.");
-    }
+    return this.getDataInternal(datasets, breakdowns);
   }
 
   abstract getDataInternal(
     datasets: Record<string, Dataset>,
     breakdowns: Breakdowns
-  ): Row[];
+  ): MetricQueryResponse;
 
   abstract allowsBreakdowns(breakdowns: Breakdowns): boolean;
 

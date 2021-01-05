@@ -48,6 +48,10 @@ export class MetricQueryResponse {
       this.error = input as Error;
       this.data = [];
       this.invalidValues = {};
+    } else if (input.length <= 0) {
+      this.error = new ExpectedError("No rows returned");
+      this.data = [];
+      this.invalidValues = {};
     } else {
       this.data = input as Row[];
       // TODO - it may be more efficient to calcluate this in the provider
