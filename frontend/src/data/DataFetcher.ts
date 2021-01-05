@@ -58,7 +58,13 @@ class DataFetcher {
 
   constructor() {
     // If the API url isn't provided, requests are relative to current domain.
-    this.apiUrl = process.env.REACT_APP_BASE_API_URL || "";
+    // TODO it might be better to wrap environment variable access in an API
+    // that automatically adds these prefixes and checks both. That also allows
+    // centralizing environment variables so they're easier to audit, fake, etc.
+    this.apiUrl =
+      process.env.REACT_APP_BASE_API_URL ||
+      process.env.STORYBOOK_BASE_API_URL ||
+      "";
 
     // Use the static file directory for unit test environments, and for
     // localhost environments unless the API url is provided
