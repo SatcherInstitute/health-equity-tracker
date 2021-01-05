@@ -9,7 +9,6 @@ import { MetricQuery } from "../data/MetricQuery";
 import { Breakdowns } from "../data/Breakdowns";
 import FakeMetadataMap from "./FakeMetadataMap";
 import { WithMetrics } from "./WithLoadingOrErrorUI";
-import { diabetes } from "./FakeData";
 
 const STATE_NAMES_ID = "state_names";
 const ANOTHER_FAKE_DATASET_ID = "fake_dataset_2";
@@ -54,8 +53,14 @@ function DatasetDisplayApp() {
     </AppContext>
   );
 }
-function WithMetricsWrapperApp(props: { query: MetricQuery }) {
-  function WithMetricsWrapper(props: { query: MetricQuery }) {
+function WithMetricsWrapperApp(props: {
+  query: MetricQuery;
+  displayRow?: (row: Row) => void;
+}) {
+  function WithMetricsWrapper(props: {
+    query: MetricQuery;
+    displayRow?: (row: Row) => void;
+  }) {
     const datasetStore = useDatasetStore();
 
     return (
@@ -63,9 +68,14 @@ function WithMetricsWrapperApp(props: { query: MetricQuery }) {
         {() => {
           const response = datasetStore.getMetrics(props.query);
           return (
-            <div data-testid="MetricQueryLoaded">
-              {response.isError() && <>{response.error!.message}</>}
-              {!response.isError() && <>MetricQuery loaded</>}
+            <div data-testid="MetricQueryResponseReturned">
+              {response.isError() && <>Error: {response.error!.message}</>}
+              {!response.isError() && (
+                <>
+                  Loaded {response.data!.length} rows.{" "}
+                  {response.data.map((row) => props.displayRow(row))}
+                </>
+              )}
             </div>
           );
         }}
@@ -75,7 +85,7 @@ function WithMetricsWrapperApp(props: { query: MetricQuery }) {
 
   return (
     <AppContext>
-      <WithMetricsWrapper query={props.query} />
+      <WithMetricsWrapper query={props.query} displayRow={props.displayRow} />
     </AppContext>
   );
 }
@@ -84,7 +94,7 @@ describe("useDatasetStore", () => {
   const mockGetMetadata = jest.fn();
   const mockLoadDataset = jest.fn();
   let resolveMetadata = (metadata: MetadataMap) => {};
-  let resolveDataset = (dataset: Dataset) => {};
+  let resolveDataset = (datasetRows: Row[]) => {};
 
   beforeEach(() => {
     jest.mock("./DataFetcher");
@@ -106,7 +116,7 @@ describe("useDatasetStore", () => {
     mockGetMetadata.mockClear();
     mockLoadDataset.mockClear();
     resolveMetadata = (metadata: MetadataMap) => {};
-    resolveDataset = (metadata: Dataset) => {};
+    resolveDataset = (datasetRows: Row[]) => {};
   });
 
   test("Loads metadata", async () => {
@@ -181,6 +191,40 @@ describe("useDatasetStore", () => {
 
   test("WithMetrics: Loads metrics", async () => {
     const query = new MetricQuery(
+      "copd_count",
+      Breakdowns.national().andRace() //
+    );
+
+    expect(mockGetMetadata).toHaveBeenCalledTimes(0);
+    startMetadataLoad();
+    const { findByTestId } = render(
+      <WithMetricsWrapperApp
+        query={query}
+        displayRow={(row: Row) =>
+          `${row.race_and_ethnicity}: ${row.copd_count}. `
+        }
+      />
+    );
+    act(() => {
+      resolveMetadata(fakeMetadata);
+      resolveDataset([
+        {
+          state_name: "Alabama",
+          race_and_ethnicity: "AmIn",
+          copd_count: 20,
+        },
+        { state_name: "Alabama", race_and_ethnicity: "Asian", copd_count: 1 },
+      ]);
+    });
+
+    expect(mockLoadDataset).toHaveBeenCalledTimes(1);
+    expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
+      "Loaded 2 rows. AmIn: 20. Asian: 1."
+    );
+  });
+
+  test("WithMetrics: Loaded metrics have no rows", async () => {
+    const query = new MetricQuery(
       "diabetes_count",
       Breakdowns.national().andRace()
     );
@@ -190,12 +234,12 @@ describe("useDatasetStore", () => {
     const { findByTestId } = render(<WithMetricsWrapperApp query={query} />);
     act(() => {
       resolveMetadata(fakeMetadata);
-      resolveDataset(diabetes);
+      resolveDataset([]);
     });
 
     expect(mockLoadDataset).toHaveBeenCalledTimes(1);
-    expect(await findByTestId("MetricQueryLoaded")).toHaveTextContent(
-      "MetricQuery loaded"
+    expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
+      "Error: No rows returned"
     );
   });
 
@@ -214,12 +258,13 @@ describe("useDatasetStore", () => {
     });
 
     expect(mockLoadDataset).toHaveBeenCalledTimes(1);
-    expect(await findByTestId("MetricQueryLoaded")).toHaveTextContent(
-      'Breakdowns not supported for provider brfss_provider: {"geography":"county","demographic":"age"}'
+    expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
+      'Error: Breakdowns not supported for provider brfss_provider: {"geography":"county","demographic":"age"}'
     );
   });
 
   test("WithMetrics: Dataset doesn't exist", async () => {
+    //@ts-ignore - dataset ID should be invalid for this test
     const query = new MetricQuery("fakedatadoesntexist", Breakdowns.national());
 
     expect(mockGetMetadata).toHaveBeenCalledTimes(0);
