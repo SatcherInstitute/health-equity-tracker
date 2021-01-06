@@ -56,17 +56,6 @@ variable "bq_cdc_covid_deaths_dataset_name" {
   type        = string
 }
 
-# Pub/Sub topics
-variable "upload_to_gcs_topic_name" {
-  description = "Name of the Pub/Sub topic used to trigger uploading files to GCS"
-  type        = string
-}
-
-variable "notify_data_ingested_topic" {
-  description = "The name of the topic that gets notified when the data is uploaded to GCS"
-  type        = string
-}
-
 # Ingestion Cloud Run Service vars
 variable "ingestion_service_name" {
   description = "Name of the Cloud Run service for data ingestion"
@@ -80,16 +69,6 @@ variable "ingestion_image_name" {
 
 variable "ingestion_image_digest" {
   description = "Digest of container image for the Cloud Run ingestion service"
-  type        = string
-}
-
-variable "ingestion_subscription_name" {
-  description = "Name of push subscription that invokes the ingestion service"
-  type        = string
-}
-
-variable "ingestion_invoker_identity_id" {
-  description = "Account id of the service account used to trigger data ingestion"
   type        = string
 }
 
@@ -116,16 +95,6 @@ variable "gcs_to_bq_image_name" {
 
 variable "gcs_to_bq_image_digest" {
   description = "Digest of container image for the Cloud Run GCS-to-BQ service"
-  type        = string
-}
-
-variable "notify_data_ingested_subscription_name" {
-  description = "Name of push subscription that invokes the GCS-to-BQ service"
-  type        = string
-}
-
-variable "gcs_to_bq_invoker_identity_id" {
-  description = "Account id of the service account used to trigger loading from GCS to BQ"
   type        = string
 }
 
