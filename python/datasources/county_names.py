@@ -22,7 +22,7 @@ class CountyNames(DataSource):
     def upload_to_gcs(self, url, gcs_bucket, filename):
         """Uploads county names and FIPS codes from census to GCS bucket."""
         url_params = census.get_census_params_by_county(['NAME'])
-        url_file_to_gcs.url_file_to_gcs(url, url_params, gcs_bucket, filename)
+        return url_file_to_gcs.url_file_to_gcs(url, url_params, gcs_bucket, filename)
 
     def write_to_bq(self, dataset, gcs_bucket, filename):
         """Writes county names to BigQuery from the provided GCS bucket
