@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import DisparityBarChart from "../charts/DisparityBarChart";
+import { DisparityBarChart } from "../charts/DisparityBarChart";
 import styles from "./Card.module.scss";
 import { Alert } from "@material-ui/lab";
 import { CardContent } from "@material-ui/core";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
-import SimpleHorizontalBarChart from "../charts/SimpleHorizontalBarChart";
+import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
 import { Fips } from "../utils/madlib/Fips";
 import useDatasetStore from "../data/useDatasetStore";
 import {
@@ -21,7 +21,7 @@ import CardWrapper from "./CardWrapper";
 
 const VALID_METRIC_TYPES = ["pct_share", "per100k"];
 
-interface BarChartCardProps {
+export interface BarChartCardProps {
   key?: string;
   breakdownVar: BreakdownVar;
   variableConfig: VariableConfig;

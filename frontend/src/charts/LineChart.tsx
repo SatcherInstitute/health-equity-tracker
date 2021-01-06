@@ -2,12 +2,14 @@ import React from "react";
 import { Vega } from "react-vega";
 import { Row } from "../data/DatasetTypes";
 
-function LineChart(props: {
+export interface LineChartProps {
   data: Row[];
   breakdownVar: string; // for instance, race
   variable: string; // for instance, rate
   timeVariable: string; // for instance, rate
-}) {
+}
+
+export function LineChart(props: LineChartProps) {
   const tooltipValues = Array.from(
     new Set(props.data.map((row: any) => row[props.breakdownVar]))
   ).map((breakdown) => ({ field: breakdown, type: "quantitative" }));

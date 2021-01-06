@@ -48,14 +48,14 @@ function getSpec(
     },
   };
 }
-
-function GroupedBarChart(props: {
+export interface GroupedBarChartProps {
   data: Row[];
   measure: string;
   dimension1: string;
   dimension2: string;
   bars: BarOrientation;
-}) {
+}
+export function GroupedBarChart(props: GroupedBarChartProps) {
   return (
     <Vega
       spec={getSpec(
@@ -68,5 +68,3 @@ function GroupedBarChart(props: {
     />
   );
 }
-
-export default GroupedBarChart;

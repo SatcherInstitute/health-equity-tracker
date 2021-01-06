@@ -2,11 +2,13 @@ import React from "react";
 import { Vega } from "react-vega";
 import { Row } from "../data/DatasetTypes";
 
-function PieChart(props: {
+export interface PieChartProps {
   data: Row[];
   categoryField: string;
   valueField: string;
-}) {
+}
+
+export function PieChart(props: PieChartProps) {
   const spec: any = {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     description: "A basic pie chart example.",
@@ -86,5 +88,3 @@ function PieChart(props: {
 
   return <Vega spec={spec} />;
 }
-
-export default PieChart;
