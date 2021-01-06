@@ -13,6 +13,7 @@ import {
 } from "../data/Breakdowns";
 import { CardContent } from "@material-ui/core";
 import { MetricConfig } from "../data/MetricConfig";
+
 export interface TableCardProps {
   fips: Fips;
   breakdownVar: BreakdownVar;

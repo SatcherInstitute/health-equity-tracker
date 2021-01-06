@@ -17,11 +17,7 @@ export interface TableChartProps {
   metrics: MetricConfig[];
 }
 
-export function TableChart(props: {
-  data: Row[];
-  breakdownVar: BreakdownVar;
-  metrics: MetricConfig[];
-}) {
+export function TableChart(props: TableChartProps) {
   return (
     <>
       {props.data.length <= 0 || props.metrics.length <= 0 ? (
