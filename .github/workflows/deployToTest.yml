@@ -13,6 +13,8 @@ jobs:
     outputs:
       image-digest: ${{ steps.ingestion.outputs.image-digest }}
     steps: 
+      - name: Check Out Code
+        uses: actions/checkout@v2
       - id: ingestion
         uses: ./.github/actions/buildAndPush
         with:
@@ -28,6 +30,8 @@ jobs:
     outputs:
       image-digest: ${{ steps.gcstobq.outputs.image-digest }}
     steps: 
+      - name: Check Out Code
+        uses: actions/checkout@v2
       - id: gcstobq
         uses: ./.github/actions/buildAndPush
         with:
@@ -43,6 +47,8 @@ jobs:
     outputs:
       image-digest: ${{ steps.aggregator.outputs.image-digest }}
     steps: 
+      - name: Check Out Code
+        uses: actions/checkout@v2
       - id: aggregator
         uses: ./.github/actions/buildAndPush
         with:
@@ -58,6 +64,8 @@ jobs:
     outputs:
       image-digest: ${{ steps.exporter.outputs.image-digest }}
     steps: 
+      - name: Check Out Code
+        uses: actions/checkout@v2
       - id: exporter
         uses: ./.github/actions/buildAndPush
         with:
@@ -73,6 +81,8 @@ jobs:
     outputs:
       image-digest: ${{ steps.serving.outputs.image-digest }}
     steps: 
+      - name: Check Out Code
+        uses: actions/checkout@v2
       - id: serving
         uses: ./.github/actions/buildAndPush
         with:
@@ -88,6 +98,8 @@ jobs:
     outputs:
       image-digest: ${{ steps.frontend.outputs.image-digest }}
     steps: 
+      - name: Check Out Code
+        uses: actions/checkout@v2
       - id: frontend
         uses: ./.github/actions/buildAndPush
         with:

@@ -20,8 +20,6 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Check Out Code
-      uses: actions/checkout@v2
     - name: Set Up gcloud
       uses: google-github-actions/setup-gcloud@master
       with:
