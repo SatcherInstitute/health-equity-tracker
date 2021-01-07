@@ -68,7 +68,7 @@ jobs:
 
   build-data-server:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'    
-    name: Build and Push Exporter Image
+    name: Build and Push Data Server Image
     runs-on: ubuntu-latest
     outputs:
       image-digest: ${{ steps.serving.outputs.image-digest }}
@@ -83,7 +83,7 @@ jobs:
 
   build-frontend:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'    
-    name: Build and Push Exporter Image
+    name: Build and Push Frontend Image
     runs-on: ubuntu-latest
     outputs:
       image-digest: ${{ steps.frontend.outputs.image-digest }}
