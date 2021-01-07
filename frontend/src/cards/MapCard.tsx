@@ -48,36 +48,7 @@ function MapCardWithKey(props: MapCardProps) {
   };
 
   // TODO - make sure the legends are all the same
-  // TODO - pull these from the data itself
-  const RACES = props.nonstandardizedRace
-    ? [
-        "Total",
-        "American Indian and Alaska Native alone",
-        "American Indian and Alaska Native alone (Non-Hispanic)",
-        "Asian alone",
-        "Asian alone (Non-Hispanic)",
-        "Black or African American alone",
-        "Black or African American alone (Non-Hispanic)",
-        "Hispanic or Latino",
-        "Native Hawaiian and Other Pacific Islander alone",
-        "Native Hawaiian and Other Pacific Islander alone (Non-Hispanic)",
-        "Some other race alone",
-        "Some other race alone (Non-Hispanic)",
-        "Two or more races",
-        "Two or more races (Non-Hispanic)",
-        "White alone",
-        "White alone (Non-Hispanic)",
-      ]
-    : [
-        "American Indian/Alaskan Native, Non-Hispanic",
-        "Asian, Non-Hispanic",
-        "Black, Non-Hispanic",
-        "Hispanic",
-        "Other race, Non-Hispanic",
-        "White, Non-Hispanic",
-      ];
-
-  const [breakdownFilter, setBreakdownFilter] = useState<string>(RACES[0]);
+  const [breakdownFilter, setBreakdownFilter] = useState<string>("");
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const datasetStore = useDatasetStore();
@@ -142,6 +113,12 @@ function MapCardWithKey(props: MapCardProps) {
           );
         }
 
+        const breakdownValues = queryResponse.getUniqueFieldValues(
+          props.currentBreakdown !== "all"
+            ? props.currentBreakdown
+            : "race_and_ethnicity"
+        );
+        setBreakdownFilter(breakdownValues[0]);
         return (
           <>
             <CardContent className={styles.SmallMarginContent}>
@@ -193,7 +170,7 @@ function MapCardWithKey(props: MapCardProps) {
                         ) && (
                           <>
                             <MenuItem disabled={true}>Races</MenuItem>
-                            {RACES.map((option) => (
+                            {breakdownValues.map((option) => (
                               <MenuItem
                                 key={option}
                                 onClick={(e) => {
