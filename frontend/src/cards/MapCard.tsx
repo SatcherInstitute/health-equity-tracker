@@ -18,6 +18,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Menu from "@material-ui/core/Menu";
 import { Grid } from "@material-ui/core";
 import { Breakdowns, BreakdownVar } from "../data/Breakdowns";
+import { Row } from "../data/DatasetTypes";
 
 export interface MapCardProps {
   key?: string;
@@ -85,29 +86,34 @@ function MapCardWithKey(props: MapCardProps) {
         const queryResponse = datasetStore.getMetrics(
           queries[currentlyDisplayedBreakdown]
         );
-
-        let mapData = queryResponse.data.filter(
-          (row) =>
-            row.race_and_ethnicity !== "Not Hispanic or Latino" &&
-            row[props.metricConfig.metricId] !== undefined &&
-            row[props.metricConfig.metricId] !== null
-        );
-        if (!props.fips.isUsa()) {
-          // TODO - this doesn't consider county level data
-          mapData = mapData.filter((r) => r.state_fips === props.fips.code);
-        }
-        if (props.enableFilter) {
-          mapData = mapData.filter(
-            (r) => r[currentlyDisplayedBreakdown] === breakdownFilter
-          );
-        }
-
         const breakdownValues = queryResponse.getUniqueFieldValues(
           currentlyDisplayedBreakdown
         );
         if (breakdownFilter === "") {
           setBreakdownFilter(breakdownValues[0]);
         }
+
+        let filters: Array<(row: Row) => boolean> = [
+          (row) => row.race_and_ethnicity !== "Not Hispanic or Latino",
+          (row) => row[props.metricConfig.metricId] !== undefined,
+          (row) => row[props.metricConfig.metricId] !== null,
+        ];
+        if (!props.fips.isUsa()) {
+          // TODO - this doesn't consider county level data
+          filters.push((row: Row) => row.state_fips === props.fips.code);
+        }
+        if (props.enableFilter) {
+          filters.push(
+            (row: Row) => row[currentlyDisplayedBreakdown] === breakdownFilter
+          );
+        }
+
+        // Remove any row for which we find a filter that returns false.
+        const mapData = queryResponse.data.filter(
+          (row: Row) =>
+            filters.find((filter) => filter(row) === false) === undefined
+        );
+
         return (
           <>
             <CardContent className={styles.SmallMarginContent}>
