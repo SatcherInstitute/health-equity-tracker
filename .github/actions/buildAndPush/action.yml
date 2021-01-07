@@ -16,6 +16,7 @@ runs:
   steps:
     - name: Set Up Docker to Use gcloud Credentials
       run: gcloud auth configure-docker -q
+      shell: bash
     - run: docker build -t ${{ inputs.image-path }} -f ${{ inputs.dockerfile }} .
       shell: bash
     - run: docker push ${{ inputs.image-path }}
