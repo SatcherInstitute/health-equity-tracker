@@ -128,7 +128,7 @@ function MapCardWithKey(props: MapCardProps) {
               />
             </CardContent>
 
-            {props.enableFilter && !queryResponse.isError() && (
+            {props.enableFilter && !queryResponse.dataIsMissing() && (
               <>
                 <Divider />
                 <CardContent
@@ -198,12 +198,12 @@ function MapCardWithKey(props: MapCardProps) {
                 </Alert>
               </CardContent>
             )}
-            {queryResponse.isError() && (
+            {queryResponse.dataIsMissing() && (
               <CardContent>
                 <Alert severity="error">No data available</Alert>
               </CardContent>
             )}
-            {!queryResponse.isError() && (
+            {!queryResponse.dataIsMissing() && (
               <CardContent>
                 {props.metricConfig && (
                   <ChoroplethMap

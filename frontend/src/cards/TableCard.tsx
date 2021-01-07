@@ -55,14 +55,14 @@ export function TableCard(props: TableCardProps) {
 
         return (
           <>
-            {queryResponse.shouldShowError(metricIds) && (
+            {queryResponse.shouldShowMissingDataMessage(metricIds) && (
               <CardContent>
                 <Alert severity="warning">
                   Missing data means that we don't know the full story.
                 </Alert>
               </CardContent>
             )}
-            {!queryResponse.isError() && (
+            {!queryResponse.dataIsMissing() && (
               <TableChart
                 data={dataset}
                 breakdownVar={props.breakdownVar}

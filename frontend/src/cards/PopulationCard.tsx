@@ -43,11 +43,11 @@ export function PopulationCard(props: PopulationCardProps) {
         );
         const totalPopulationSize = totalPopulation
           ? totalPopulation["population"].toLocaleString("en")
-          : "Data retrieval error";
+          : "Data Missing";
 
         return (
           <CardContent>
-            {!queryResponse.isError() && (
+            {!queryResponse.dataIsMissing() && (
               <Button
                 aria-label="expand description"
                 onClick={() => setExpanded(!expanded)}
@@ -61,7 +61,7 @@ export function PopulationCard(props: PopulationCardProps) {
             <span className={styles.PopulationCardTitle}>
               {props.fips.getFullDisplayName()}
             </span>
-            {queryResponse.isError() && (
+            {queryResponse.dataIsMissing() && (
               <Alert severity="warning">
                 Missing data means that we don't know the full story.
               </Alert>
@@ -70,7 +70,7 @@ export function PopulationCard(props: PopulationCardProps) {
                 we manually trigger a resize when the div size changes so vega chart will 
                 render with the right size. This means the vega chart won't appear until the 
                 AnimateHeight is finished expanding */}
-            {!queryResponse.isError() && (
+            {!queryResponse.dataIsMissing() && (
               <AnimateHeight
                 duration={500}
                 height={expanded ? "auto" : 70}

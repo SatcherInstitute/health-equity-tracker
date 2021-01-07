@@ -1,6 +1,6 @@
 import { DataFrame } from "data-forge";
 import { Breakdowns } from "../Breakdowns";
-import { Dataset, Row } from "../DatasetTypes";
+import { Dataset } from "../DatasetTypes";
 import VariableProvider from "./VariableProvider";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
@@ -12,6 +12,7 @@ import {
   per100k,
   percent,
 } from "../datasetutils";
+import { MetricQueryResponse } from "../MetricQuery";
 
 class CovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -38,7 +39,7 @@ class CovidProvider extends VariableProvider {
   getDataInternal(
     datasets: Record<string, Dataset>,
     breakdowns: Breakdowns
-  ): Row[] {
+  ): MetricQueryResponse {
     const covid_by_state_and_race = datasets["covid_by_state_and_race"];
     // TODO need to figure out how to handle getting this at the national level
     // because each state reports race differently.
@@ -76,9 +77,15 @@ class CovidProvider extends VariableProvider {
     // TODO How to handle territories?
     const acsBreakdowns = breakdowns.copy();
     acsBreakdowns.time = false;
-    const acsPopulation = new DataFrame(
-      this.acsProvider.getData(datasets, acsBreakdowns)
+
+    const acsMetricQueryResponse = this.acsProvider.getData(
+      datasets,
+      acsBreakdowns
     );
+    if (acsMetricQueryResponse.dataIsMissing()) {
+      return acsMetricQueryResponse;
+    }
+    const acsPopulation = new DataFrame(acsMetricQueryResponse.data);
 
     // TODO this is a weird hack - prefer left join but for some reason it's
     // causing issues.
@@ -117,7 +124,7 @@ class CovidProvider extends VariableProvider {
       });
     });
 
-    return df.toArray();
+    return new MetricQueryResponse(df.toArray());
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
