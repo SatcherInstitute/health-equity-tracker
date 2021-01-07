@@ -11,12 +11,16 @@ import { Grid } from "@material-ui/core";
 import styles from "./Card.module.scss";
 import AnimateHeight from "react-animate-height";
 import Button from "@material-ui/core/Button";
-import SimpleHorizontalBarChart from "../charts/SimpleHorizontalBarChart";
+import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import { POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
 
-function PopulationCard(props: { fips: Fips }) {
+export interface PopulationCardProps {
+  fips: Fips;
+}
+
+export function PopulationCard(props: PopulationCardProps) {
   const datasetStore = useDatasetStore();
   const [expanded, setExpanded] = useState(false);
 
@@ -129,5 +133,3 @@ function PopulationCard(props: { fips: Fips }) {
     </CardWrapper>
   );
 }
-
-export default PopulationCard;

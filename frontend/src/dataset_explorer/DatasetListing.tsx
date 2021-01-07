@@ -8,7 +8,11 @@ import Typography from "@material-ui/core/Typography";
 import AnimateHeight from "react-animate-height";
 import DownloadButton from "./DownloadButton";
 
-function DatasetListing(props: { dataset: DatasetMetadata }) {
+export interface DatasetListingProps {
+  dataset: DatasetMetadata;
+}
+
+export function DatasetListing(props: DatasetListingProps) {
   const [expanded, setExpanded] = useState(false);
 
   return (
