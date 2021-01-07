@@ -69,10 +69,12 @@ function WithMetricsWrapperApp(props: {
           const response = datasetStore.getMetrics(props.query);
           return (
             <div data-testid="MetricQueryResponseReturned">
-              {response.isError() && <>Error: {response.error!.message}</>}
-              {!response.isError() && (
+              {response.dataIsUnavailable() && (
+                <>Error: {response.dataUnavailableMessage!}</>
+              )}
+              {!response.dataIsUnavailable() && (
                 <>
-                  Loaded {response.data!.length} rows.{" "}
+                  Loaded {response.data.length} rows.{" "}
                   {props.displayRow !== undefined &&
                     response.data.map((row) => props.displayRow!(row))}
                 </>

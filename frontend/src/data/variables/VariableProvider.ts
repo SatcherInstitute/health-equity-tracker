@@ -1,7 +1,7 @@
 import { Breakdowns } from "../Breakdowns";
 import { Dataset } from "../DatasetTypes";
 import { ProviderId, MetricId } from "../variableProviders";
-import { ExpectedError, MetricQueryResponse } from "../MetricQuery";
+import { MetricQueryResponse } from "../MetricQuery";
 
 abstract class VariableProvider {
   readonly providerId: ProviderId;
@@ -25,21 +25,18 @@ abstract class VariableProvider {
   ): MetricQueryResponse {
     if (!this.allowsBreakdowns(breakdowns)) {
       return new MetricQueryResponse(
-        new ExpectedError(
-          "Breakdowns not supported for provider " +
-            this.providerId +
-            ": " +
-            JSON.stringify(breakdowns)
-        )
+        "Breakdowns not supported for provider " +
+          this.providerId +
+          ": " +
+          JSON.stringify(breakdowns)
       );
     }
 
     const missingDatasetIds = this.datasetIds.filter((id) => !datasets[id]);
     if (missingDatasetIds.length > 0) {
-      const error = new ExpectedError(
+      return new MetricQueryResponse(
         "Datasets not loaded properly: " + missingDatasetIds.join(",")
       );
-      return new MetricQueryResponse(error);
     }
 
     return this.getDataInternal(datasets, breakdowns);

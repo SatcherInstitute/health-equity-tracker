@@ -53,14 +53,14 @@ function TableCard(props: {
 
         return (
           <>
-            {queryResponse.shouldShowError(metricIds) && (
+            {queryResponse.shouldShowMissingDataMessage(metricIds) && (
               <CardContent>
                 <Alert severity="warning">
                   Missing data means that we don't know the full story.
                 </Alert>
               </CardContent>
             )}
-            {!queryResponse.isError() && (
+            {!queryResponse.dataIsUnavailable() && (
               <TableChart
                 data={dataset}
                 breakdownVar={props.breakdownVar}

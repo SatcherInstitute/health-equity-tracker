@@ -43,7 +43,7 @@ function PopulationCard(props: { fips: Fips }) {
 
         return (
           <CardContent>
-            {!queryResponse.isError() && (
+            {!queryResponse.dataIsUnavailable() && (
               <Button
                 aria-label="expand description"
                 onClick={() => setExpanded(!expanded)}
@@ -57,7 +57,7 @@ function PopulationCard(props: { fips: Fips }) {
             <span className={styles.PopulationCardTitle}>
               {props.fips.getFullDisplayName()}
             </span>
-            {queryResponse.isError() && (
+            {queryResponse.dataIsUnavailable() && (
               <Alert severity="warning">
                 Missing data means that we don't know the full story.
               </Alert>
@@ -66,7 +66,7 @@ function PopulationCard(props: { fips: Fips }) {
                 we manually trigger a resize when the div size changes so vega chart will 
                 render with the right size. This means the vega chart won't appear until the 
                 AnimateHeight is finished expanding */}
-            {!queryResponse.isError() && (
+            {!queryResponse.dataIsUnavailable() && (
               <AnimateHeight
                 duration={500}
                 height={expanded ? "auto" : 70}

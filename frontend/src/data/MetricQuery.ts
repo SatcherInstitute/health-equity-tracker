@@ -23,8 +23,6 @@ export class MetricQuery {
   }
 }
 
-export class ExpectedError extends Error {}
-
 function getInvalidValues(rows: Row[]) {
   let invalidValues: Record<string, number> = {};
   rows.forEach((row: Row) => {
@@ -40,16 +38,16 @@ function getInvalidValues(rows: Row[]) {
 
 export class MetricQueryResponse {
   readonly data: Row[];
-  readonly error?: ExpectedError;
+  readonly dataUnavailableMessage: string | undefined;
   readonly invalidValues: Record<string, number>;
 
-  constructor(input: Row[] | ExpectedError) {
-    if (input instanceof Error) {
-      this.error = input as Error;
+  constructor(input: Row[] | string) {
+    if (typeof input === "string") {
+      this.dataUnavailableMessage = input as string;
       this.data = [];
       this.invalidValues = {};
     } else if (input.length <= 0) {
-      this.error = new ExpectedError("No rows returned");
+      this.dataUnavailableMessage = "No rows returned";
       this.data = [];
       this.invalidValues = {};
     } else {
@@ -59,19 +57,19 @@ export class MetricQueryResponse {
     }
   }
 
-  isError(): boolean {
-    return !!this.error;
+  dataIsUnavailable(): boolean {
+    return this.dataUnavailableMessage !== undefined;
   }
 
   isFieldMissing(fieldName: string): boolean {
     return this.invalidValues[fieldName] === this.data.length;
   }
 
-  // Returns true if any of requested fields are missing or an error is present
-  shouldShowError(fields: string[]): boolean {
+  // Returns true if any of requested fields are missing or failure occurred
+  shouldShowMissingDataMessage(fields: string[]): boolean {
     return (
-      fields.some((field: string) => this.isFieldMissing(field)) ||
-      this.isError()
+      this.dataIsUnavailable() ||
+      fields.some((field: string) => this.isFieldMissing(field))
     );
   }
 }

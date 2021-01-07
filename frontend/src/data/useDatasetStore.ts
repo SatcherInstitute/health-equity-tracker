@@ -192,11 +192,11 @@ export function useDatasetStoreProvider(): DatasetStore {
           provider.getData(datasetMap, query.breakdowns)
         );
 
-        const error = variables.find((metricQueryResponse) =>
-          metricQueryResponse.isError()
+        const potentialErrorResponse = variables.find((metricQueryResponse) =>
+          metricQueryResponse.dataIsUnavailable()
         );
-        if (error !== undefined) {
-          return error;
+        if (potentialErrorResponse !== undefined) {
+          return potentialErrorResponse;
         }
 
         const dataframes: IDataFrame[] = variables.map(

@@ -82,12 +82,10 @@ class CovidProvider extends VariableProvider {
       datasets,
       acsBreakdowns
     );
-    if (acsMetricQueryResponse.isError()) {
+    if (acsMetricQueryResponse.dataIsUnavailable()) {
       return acsMetricQueryResponse;
     }
-    const acsPopulation = new DataFrame(
-      this.acsProvider.getData(datasets, acsBreakdowns).data
-    );
+    const acsPopulation = new DataFrame(acsMetricQueryResponse.data);
 
     // TODO this is a weird hack - prefer left join but for some reason it's
     // causing issues.
