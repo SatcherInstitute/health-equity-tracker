@@ -53,38 +53,24 @@ function MapCardWithKey(props: MapCardProps) {
 
   const datasetStore = useDatasetStore();
 
-  let queries = [];
-  let initalQuery: MetricQuery;
-
-  if (["age", "all"].includes(props.currentBreakdown)) {
-    const ageQuery = new MetricQuery(
-      props.metricConfig.metricId,
-      Breakdowns.byState().andAge()
-    );
-    queries.push(ageQuery);
-    if (props.currentBreakdown !== "all") {
-      initalQuery = ageQuery;
+  let queries: MetricQuery[] = [];
+  ["race_and_ethnicity", "age", "sex"].forEach((possibleBreakdown) => {
+    if (
+      props.currentBreakdown === possibleBreakdown ||
+      props.currentBreakdown === "all"
+    ) {
+      // TODO - remove true when non standardized race is over
+      queries.push(
+        new MetricQuery(
+          props.metricConfig.metricId,
+          Breakdowns.byState().addBreakdown(
+            possibleBreakdown as BreakdownVar,
+            props.nonstandardizedRace
+          )
+        )
+      );
     }
-  }
-  if (["sex", "all"].includes(props.currentBreakdown)) {
-    const sexQuery = new MetricQuery(
-      props.metricConfig.metricId,
-      Breakdowns.byState().andGender()
-    );
-    queries.push(sexQuery);
-    if (props.currentBreakdown !== "all") {
-      initalQuery = sexQuery;
-    }
-  }
-  if (["race_and_ethnicity", "all"].includes(props.currentBreakdown)) {
-    const raceQuery = new MetricQuery(
-      props.metricConfig.metricId,
-      Breakdowns.byState().andRace(props.nonstandardizedRace)
-    );
-    queries.push(raceQuery);
-    // If all are enabled, race should be the default inital query
-    initalQuery = raceQuery;
-  }
+  });
 
   return (
     <CardWrapper
@@ -95,9 +81,14 @@ function MapCardWithKey(props: MapCardProps) {
       } in ${props.fips.getFullDisplayName()}`}
     >
       {() => {
-        const queryResponse = datasetStore.getMetrics(initalQuery);
-        let mapData = queryResponse.data
-          .filter((row) => row.race_and_ethnicity !== "Not Hispanic or Latino")
+        const currentlyDisplayedBreakdown: BreakdownVar =
+          props.currentBreakdown === "all"
+            ? "race_and_ethnicity"
+            : props.currentBreakdown;
+        const queryResponse = datasetStore.getMetrics(queries[0]);
+
+        let mapData = queryResponse
+          .getPolishedData()
           .filter(
             (r) =>
               r[props.metricConfig.metricId] !== undefined &&
@@ -109,7 +100,7 @@ function MapCardWithKey(props: MapCardProps) {
         }
         if (props.enableFilter) {
           mapData = mapData.filter(
-            (r) => r.race_and_ethnicity === breakdownFilter
+            (r) => r[currentlyDisplayedBreakdown] === breakdownFilter
           );
         }
 
@@ -118,7 +109,9 @@ function MapCardWithKey(props: MapCardProps) {
             ? props.currentBreakdown
             : "race_and_ethnicity"
         );
-        setBreakdownFilter(breakdownValues[0]);
+        if (breakdownFilter === "") {
+          setBreakdownFilter(breakdownValues[0]);
+        }
         return (
           <>
             <CardContent className={styles.SmallMarginContent}>
