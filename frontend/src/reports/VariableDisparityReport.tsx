@@ -4,10 +4,10 @@ import Alert from "@material-ui/lab/Alert";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import { BreakdownVar, BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/Breakdowns";
-import { BarChartCard } from "../cards/BarChartCard";
 import { MapCard } from "../cards/MapCard";
-import PopulationCard from "../cards/PopulationCard";
-import TableCard from "../cards/TableCard";
+import { PopulationCard } from "../cards/PopulationCard";
+import { TableCard } from "../cards/TableCard";
+import { BarChartCard } from "../cards/BarChartCard";
 import { DropdownVarId } from "../utils/madlib/MadLibs";
 import { Fips } from "../utils/madlib/Fips";
 import {
@@ -24,14 +24,16 @@ const SUPPORTED_BREAKDOWNS: BreakdownVar[] = [
   "sex",
 ];
 
-function VariableDisparityReport(props: {
+export interface VariableDisparityReportProps {
   key: string;
   dropdownVarId: DropdownVarId;
   fips: Fips;
   updateFipsCallback: Function;
   vertical?: boolean;
   hidePopulationCard?: boolean;
-}) {
+}
+
+export function VariableDisparityReport(props: VariableDisparityReportProps) {
   const [currentBreakdown, setCurrentBreakdown] = useState<
     BreakdownVar | "all"
   >("all");
@@ -175,5 +177,3 @@ function VariableDisparityReport(props: {
     </>
   );
 }
-
-export default VariableDisparityReport;

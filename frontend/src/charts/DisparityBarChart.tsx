@@ -188,14 +188,15 @@ function getSpec(
     ],
   };
 }
-
-function DisparityBarChart(props: {
+export interface DisparityBarChartProps {
   data: Row[];
   thickMetric: MetricConfig;
   thinMetric: MetricConfig;
   breakdownVar: BreakdownVar;
   metricDisplayName: string;
-}) {
+}
+
+export function DisparityBarChart(props: DisparityBarChartProps) {
   const [ref, width] = useResponsiveWidth(
     100 /* default width during intialization */
   );
@@ -217,5 +218,3 @@ function DisparityBarChart(props: {
     </div>
   );
 }
-
-export default DisparityBarChart;

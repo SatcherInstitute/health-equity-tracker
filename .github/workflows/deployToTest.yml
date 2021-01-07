@@ -107,6 +107,7 @@ jobs:
           --update-env-variables=AIRFLOW_VAR_INGEST_TO_GCS_SERVICE_ENDPOINT=${{ steps.terraform.outputs.ingestion_url }} \
           --update-env-variables=AIRFLOW_VAR_GCS_TO_BQ_SERVICE_ENDPOINT=${{ steps.terraform.outputs.gcs_to_bq_url }} \
           --update-env-variables=AIRFLOW_VAR_EXPORTER_SERVICE_ENDPOINT=${{ steps.terraform.outputs.exporter_url }} \
+          --update-env-variables=AIRFLOW_VAR_AGGREGATOR_SERVICE_ENDPOINT=${{ steps.terraform.outputs.aggregator_url }} \
           --update-env-variables=AIRFLOW_VAR_GCS_LANDING_BUCKET=msm-test-landing-bucket \
           --update-env-variables=AIRFLOW_VAR_GCS_MANUAL_UPLOADS_BUCKET=msm-test-manual-data-bucket \
           --location=us-central1

@@ -75,6 +75,10 @@ def create_exporter_operator(task_id: str, payload: dict, dag: DAG) -> PythonOpe
     return create_request_operator(task_id, Variable.get('EXPORTER_SERVICE_ENDPOINT'), payload, dag)
 
 
+def create_aggregator_operator(task_id: str, payload: dict, dag: DAG) -> PythonOperator:
+    return create_request_operator(task_id, Variable.get('AGGREGATOR_SERVICE_ENDPOINT'), payload, dag)
+
+
 def service_request(url: str, data: dict):
     receiving_service_headers = {}
     if (os.getenv('ENV') != 'dev'):

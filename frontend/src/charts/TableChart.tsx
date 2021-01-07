@@ -11,11 +11,13 @@ import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import { BreakdownVar, BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/Breakdowns";
 import { MetricConfig, formatFieldValue } from "../data/MetricConfig";
 
-function TableChart(props: {
+export interface TableChartProps {
   data: Row[];
   breakdownVar: BreakdownVar;
   metrics: MetricConfig[];
-}) {
+}
+
+export function TableChart(props: TableChartProps) {
   return (
     <>
       {props.data.length <= 0 || props.metrics.length <= 0 ? (
@@ -60,5 +62,3 @@ function TableChart(props: {
     </>
   );
 }
-
-export default TableChart;
