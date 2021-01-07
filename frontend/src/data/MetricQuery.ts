@@ -57,18 +57,6 @@ export class MetricQueryResponse {
     }
   }
 
-  getPolishedData(): Row[] {
-    if (this.data.length <= 0) {
-      return this.data;
-    }
-    if (this.data[0].race_and_ethnicity !== undefined) {
-      return this.data.filter(
-        (row) => row["race_and_ethnicity"] !== "Not Hispanic or Latino"
-      );
-    }
-    return this.data;
-  }
-
   dataIsMissing(): boolean {
     return this.missingDataMessage !== undefined;
   }

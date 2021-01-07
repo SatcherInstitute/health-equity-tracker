@@ -53,20 +53,17 @@ function MapCardWithKey(props: MapCardProps) {
 
   const datasetStore = useDatasetStore();
 
-  let queries: MetricQuery[] = [];
+  let queries: Record<string, MetricQuery> = {};
   ["race_and_ethnicity", "age", "sex"].forEach((possibleBreakdown) => {
     if (
       props.currentBreakdown === possibleBreakdown ||
       props.currentBreakdown === "all"
     ) {
-      // TODO - remove true when non standardized race is over
-      queries.push(
-        new MetricQuery(
-          props.metricConfig.metricId,
-          Breakdowns.byState().addBreakdown(
-            possibleBreakdown as BreakdownVar,
-            props.nonstandardizedRace
-          )
+      queries[possibleBreakdown] = new MetricQuery(
+        props.metricConfig.metricId,
+        Breakdowns.byState().addBreakdown(
+          possibleBreakdown as BreakdownVar,
+          props.nonstandardizedRace
         )
       );
     }
@@ -74,7 +71,7 @@ function MapCardWithKey(props: MapCardProps) {
 
   return (
     <CardWrapper
-      queries={queries}
+      queries={Object.values(queries) as MetricQuery[]}
       datasetIds={getDependentDatasets([props.metricConfig.metricId])}
       titleText={`${
         props.metricConfig.fullCardTitleName
@@ -85,15 +82,16 @@ function MapCardWithKey(props: MapCardProps) {
           props.currentBreakdown === "all"
             ? "race_and_ethnicity"
             : props.currentBreakdown;
-        const queryResponse = datasetStore.getMetrics(queries[0]);
+        const queryResponse = datasetStore.getMetrics(
+          queries[currentlyDisplayedBreakdown]
+        );
 
-        let mapData = queryResponse
-          .getPolishedData()
-          .filter(
-            (r) =>
-              r[props.metricConfig.metricId] !== undefined &&
-              r[props.metricConfig.metricId] !== null
-          );
+        let mapData = queryResponse.data.filter(
+          (row) =>
+            row.race_and_ethnicity !== "Not Hispanic or Latino" &&
+            row[props.metricConfig.metricId] !== undefined &&
+            row[props.metricConfig.metricId] !== null
+        );
         if (!props.fips.isUsa()) {
           // TODO - this doesn't consider county level data
           mapData = mapData.filter((r) => r.state_fips === props.fips.code);
@@ -105,9 +103,7 @@ function MapCardWithKey(props: MapCardProps) {
         }
 
         const breakdownValues = queryResponse.getUniqueFieldValues(
-          props.currentBreakdown !== "all"
-            ? props.currentBreakdown
-            : "race_and_ethnicity"
+          currentlyDisplayedBreakdown
         );
         if (breakdownFilter === "") {
           setBreakdownFilter(breakdownValues[0]);
