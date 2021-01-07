@@ -15,13 +15,17 @@ jobs:
     steps: 
       - name: Check Out Code
         uses: actions/checkout@v2
+      - name: Set Up gcloud
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          export_default_credentials: true
+          service_account_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: ingestion
         uses: ./.github/actions/buildAndPush
         with:
           dockerfile: 'run_ingestion/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/data-ingestion'
-          service-account-key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
-          project-id: ${{ secrets.TEST_PROJECT_ID }}
 
   build-gcs-to-bq:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'    
@@ -32,13 +36,17 @@ jobs:
     steps: 
       - name: Check Out Code
         uses: actions/checkout@v2
+      - name: Set Up gcloud
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          export_default_credentials: true
+          service_account_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: gcstobq
         uses: ./.github/actions/buildAndPush
         with:
           dockerfile: 'run_gcs_to_bq/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/gcs-to-bq'
-          service-account-key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
-          project-id: ${{ secrets.TEST_PROJECT_ID }}
     
   build-aggregator:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'    
@@ -49,13 +57,17 @@ jobs:
     steps: 
       - name: Check Out Code
         uses: actions/checkout@v2
+      - name: Set Up gcloud
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          export_default_credentials: true
+          service_account_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: aggregator
         uses: ./.github/actions/buildAndPush
         with:
           dockerfile: 'aggregator/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/aggregator'
-          service-account-key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
-          project-id: ${{ secrets.TEST_PROJECT_ID }}
 
   build-exporter:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'    
@@ -66,13 +78,17 @@ jobs:
     steps: 
       - name: Check Out Code
         uses: actions/checkout@v2
+      - name: Set Up gcloud
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          export_default_credentials: true
+          service_account_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: exporter
         uses: ./.github/actions/buildAndPush
         with:
           dockerfile: 'exporter/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/exporter'
-          service-account-key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
-          project-id: ${{ secrets.TEST_PROJECT_ID }}
 
   build-data-server:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'    
@@ -83,13 +99,17 @@ jobs:
     steps: 
       - name: Check Out Code
         uses: actions/checkout@v2
+      - name: Set Up gcloud
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          export_default_credentials: true
+          service_account_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: serving
         uses: ./.github/actions/buildAndPush
         with:
           dockerfile: 'data_server/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/data-server'
-          service-account-key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
-          project-id: ${{ secrets.TEST_PROJECT_ID }}
 
   build-frontend:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'    
@@ -100,13 +120,17 @@ jobs:
     steps: 
       - name: Check Out Code
         uses: actions/checkout@v2
+      - name: Set Up gcloud
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          export_default_credentials: true
+          service_account_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: frontend
         uses: ./.github/actions/buildAndPush
         with:
           dockerfile: 'frontend_server/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/frontend'
-          service-account-key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
-          project-id: ${{ secrets.TEST_PROJECT_ID }}
 
   deploy:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'    

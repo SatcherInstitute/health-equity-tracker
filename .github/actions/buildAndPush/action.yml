@@ -7,12 +7,6 @@ inputs:
   image-path:
     description: 'Location to where image should be pushed'
     required: true
-  service-account-key:
-    description: 'GCP Service Account key'
-    required: true
-  project-id:
-    description: 'GCP Project ID'
-    required: true
 outputs:	
     image-digest:	
       description: 'Digest of image pushed to GCR'	
@@ -20,12 +14,6 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Set Up gcloud
-      uses: google-github-actions/setup-gcloud@master
-      with:
-        export_default_credentials: true
-        service_account_key: ${{ inputs.service-account-key }}
-        project_id: ${{ inputs.project-id }}
     - name: Set Up Docker to Use gcloud Credentials
       run: gcloud auth configure-docker -q
     - run: docker build -t ${{ inputs.image-path }} -f ${{ inputs.dockerfile }} .
