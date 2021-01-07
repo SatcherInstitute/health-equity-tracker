@@ -84,14 +84,18 @@ function BarChartCardWithKey(props: BarChartCardProps) {
         );
         return (
           <>
-            {queryResponse.shouldShowError([metricConfig.metricId]) && (
+            {queryResponse.shouldShowMissingDataMessage([
+              metricConfig.metricId,
+            ]) && (
               <CardContent className={styles.Breadcrumbs}>
                 <Alert severity="warning">
                   Missing data means that we don't know the full story.
                 </Alert>
               </CardContent>
             )}
-            {!queryResponse.shouldShowError([metricConfig.metricId]) &&
+            {!queryResponse.shouldShowMissingDataMessage([
+              metricConfig.metricId,
+            ]) &&
               validDisplayMetricConfigs.length > 1 && (
                 <CardContent className={styles.Breadcrumbs}>
                   <ToggleButtonGroup
@@ -119,7 +123,9 @@ function BarChartCardWithKey(props: BarChartCardProps) {
                   </ToggleButtonGroup>
                 </CardContent>
               )}
-            {!queryResponse.shouldShowError([metricConfig.metricId]) && (
+            {!queryResponse.shouldShowMissingDataMessage([
+              metricConfig.metricId,
+            ]) && (
               <CardContent className={styles.Breadcrumbs}>
                 {metricConfig.type === "pct_share" && (
                   <DisparityBarChart

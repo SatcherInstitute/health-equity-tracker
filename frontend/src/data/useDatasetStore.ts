@@ -4,7 +4,7 @@ import { getUniqueProviders } from "./variableProviders";
 import VariableProvider from "./variables/VariableProvider";
 import { joinOnCols } from "./datasetutils";
 import { DataFrame, IDataFrame } from "data-forge";
-import { MetricQuery, MetricQueryResponse, ExpectedError } from "./MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "./MetricQuery";
 import { getDataFetcher, getLogger } from "../utils/globals";
 
 const METADATA_KEY = "all_metadata";
@@ -188,32 +188,30 @@ export function useDatasetStoreProvider(): DatasetStore {
         // you request covid cases we could also cache it under covid deaths
         // since they're provided together. Also, it would be nice to cache ACS
         // when it's used from within another provider.
-        try {
-          const variables = providers.map((provider) =>
-            provider.getData(datasetMap, query.breakdowns)
-          );
+        const variables: MetricQueryResponse[] = providers.map((provider) =>
+          provider.getData(datasetMap, query.breakdowns)
+        );
 
-          const dataframes: IDataFrame[] = variables.map(
-            (data) => new DataFrame(data)
-          );
-
-          const joined = dataframes.reduce((prev, next) => {
-            return joinOnCols(
-              prev,
-              next,
-              query.breakdowns.getJoinColumns(),
-              query.joinType
-            );
-          });
-          return new MetricQueryResponse(joined.toArray());
-        } catch (err) {
-          // TODO refactor so that instead of Variable providers throwing ExpectedError, they just return a populated MetricQueryResponse
-          if (err instanceof ExpectedError) {
-            return new MetricQueryResponse(err);
-          } else {
-            throw err; // re-throw the error unchanged
-          }
+        const potentialErrorResponse = variables.find((metricQueryResponse) =>
+          metricQueryResponse.dataIsMissing()
+        );
+        if (potentialErrorResponse !== undefined) {
+          return potentialErrorResponse;
         }
+
+        const dataframes: IDataFrame[] = variables.map(
+          (response) => new DataFrame(response.data)
+        );
+
+        const joined = dataframes.reduce((prev, next) => {
+          return joinOnCols(
+            prev,
+            next,
+            query.breakdowns.getJoinColumns(),
+            query.joinType
+          );
+        });
+        return new MetricQueryResponse(joined.toArray());
       }
     );
   }

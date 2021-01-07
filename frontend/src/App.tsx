@@ -91,7 +91,7 @@ function AppToolbar() {
           Health Equity Tracker
         </LinkWithStickyParams>
       </Typography>
-      {[ABOUT_US_PAGE_LINK, DATA_CATALOG_PAGE_LINK, EXPLORE_DATA_PAGE_LINK].map(
+      {[EXPLORE_DATA_PAGE_LINK, DATA_CATALOG_PAGE_LINK, ABOUT_US_PAGE_LINK].map(
         (pageUrl, i) => (
           <Button className={styles.NavButton} key={i}>
             <LinkWithStickyParams to={pageUrl}>

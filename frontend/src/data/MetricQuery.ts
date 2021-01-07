@@ -23,8 +23,6 @@ export class MetricQuery {
   }
 }
 
-export class ExpectedError extends Error {}
-
 function getInvalidValues(rows: Row[]) {
   let invalidValues: Record<string, number> = {};
   rows.forEach((row: Row) => {
@@ -38,36 +36,40 @@ function getInvalidValues(rows: Row[]) {
   return invalidValues;
 }
 
+export function createMissingDataResponse(missingDataMessage: string) {
+  return new MetricQueryResponse([], missingDataMessage);
+}
+
 export class MetricQueryResponse {
   readonly data: Row[];
-  readonly error?: ExpectedError;
+  readonly missingDataMessage: string | undefined;
   readonly invalidValues: Record<string, number>;
 
-  constructor(input: Row[] | ExpectedError) {
-    if (input instanceof Error) {
-      this.error = input as Error;
-      this.data = [];
-      this.invalidValues = {};
-    } else {
-      this.data = input as Row[];
-      // TODO - it may be more efficient to calcluate this in the provider
-      this.invalidValues = getInvalidValues(this.data);
+  constructor(
+    dataRows: Row[],
+    missingDataMessage: string | undefined = undefined
+  ) {
+    this.data = dataRows;
+    this.invalidValues = getInvalidValues(this.data);
+    this.missingDataMessage = missingDataMessage; // possibily undefined
+    if (this.missingDataMessage === undefined && this.data.length <= 0) {
+      this.missingDataMessage = "No rows returned";
     }
   }
 
-  isError(): boolean {
-    return !!this.error;
+  dataIsMissing(): boolean {
+    return this.missingDataMessage !== undefined;
   }
 
   isFieldMissing(fieldName: string): boolean {
     return this.invalidValues[fieldName] === this.data.length;
   }
 
-  // Returns true if any of requested fields are missing or an error is present
-  shouldShowError(fields: string[]): boolean {
+  // Returns true if any of requested fields are missing or failure occurred
+  shouldShowMissingDataMessage(fields: string[]): boolean {
     return (
-      fields.some((field: string) => this.isFieldMissing(field)) ||
-      this.isError()
+      this.dataIsMissing() ||
+      fields.some((field: string) => this.isFieldMissing(field))
     );
   }
 }

@@ -1,9 +1,10 @@
 import { IDataFrame } from "data-forge";
 import { Breakdowns } from "../Breakdowns";
-import { Dataset, Row } from "../DatasetTypes";
+import { Dataset } from "../DatasetTypes";
 import { applyToGroups, percent } from "../datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
+import { MetricQueryResponse } from "../MetricQuery";
 
 const standardizedRaces = [
   "American Indian and Alaska Native (Non-Hispanic)",
@@ -29,7 +30,7 @@ class AcsPopulationProvider extends VariableProvider {
   getDataInternal(
     datasets: Record<string, Dataset>,
     breakdowns: Breakdowns
-  ): Row[] {
+  ): MetricQueryResponse {
     let df = this.getDataInternalWithoutPercents(datasets, breakdowns);
 
     if (breakdowns.filterFips) {
@@ -44,7 +45,7 @@ class AcsPopulationProvider extends VariableProvider {
         population_pct: (row) => percent(row.population, total),
       });
     });
-    return df.toArray();
+    return new MetricQueryResponse(df.toArray());
   }
 
   private getDataInternalWithoutPercents(
