@@ -82,7 +82,7 @@ class CovidProvider extends VariableProvider {
       datasets,
       acsBreakdowns
     );
-    if (acsMetricQueryResponse.dataIsUnavailable()) {
+    if (acsMetricQueryResponse.dataIsMissing()) {
       return acsMetricQueryResponse;
     }
     const acsPopulation = new DataFrame(acsMetricQueryResponse.data);

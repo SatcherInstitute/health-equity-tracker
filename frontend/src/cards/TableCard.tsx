@@ -62,7 +62,7 @@ export function TableCard(props: TableCardProps) {
                 </Alert>
               </CardContent>
             )}
-            {!queryResponse.dataIsUnavailable() && (
+            {!queryResponse.dataIsMissing() && (
               <TableChart
                 data={dataset}
                 breakdownVar={props.breakdownVar}

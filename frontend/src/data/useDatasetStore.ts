@@ -193,7 +193,7 @@ export function useDatasetStoreProvider(): DatasetStore {
         );
 
         const potentialErrorResponse = variables.find((metricQueryResponse) =>
-          metricQueryResponse.dataIsUnavailable()
+          metricQueryResponse.dataIsMissing()
         );
         if (potentialErrorResponse !== undefined) {
           return potentialErrorResponse;

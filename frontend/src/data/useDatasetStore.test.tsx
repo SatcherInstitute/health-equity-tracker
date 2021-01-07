@@ -69,10 +69,10 @@ function WithMetricsWrapperApp(props: {
           const response = datasetStore.getMetrics(props.query);
           return (
             <div data-testid="MetricQueryResponseReturned">
-              {response.dataIsUnavailable() && (
-                <>Error: {response.dataUnavailableMessage!}</>
+              {response.dataIsMissing() && (
+                <>Error: {response.missingDataMessage!}</>
               )}
-              {!response.dataIsUnavailable() && (
+              {!response.dataIsMissing() && (
                 <>
                   Loaded {response.data.length} rows.{" "}
                   {props.displayRow !== undefined &&
@@ -269,8 +269,8 @@ describe("useDatasetStore", () => {
   });
 
   test("WithMetrics: Dataset doesn't exist", async () => {
-    //@ts-ignore - metric ID should be invalid for this test
     const query = new MetricQuery(
+      //@ts-ignore - metric ID should be invalid for this test
       "fakemetricdoesntexist",
       Breakdowns.national()
     );
