@@ -28,11 +28,11 @@ function CardWrapper(props: {
 }) {
   const [anchorEl, handleClick, handleClose, open] = usePopover();
 
-  const optionalTitle = props.titleText ? (
+  const optionalTitle = props.title ? (
     <>
       <CardContent>
         <Typography className={styles.CardHeader}>
-          {props.titleText}
+          {props.title}
           {props.infoPopover && (
             <Button onClick={handleClick} className={styles.InfoIconButton}>
               <InfoIcon color="primary" />
