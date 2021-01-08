@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Card from "@material-ui/core/Card";
 import styles from "./Card.module.scss";
 import Button from "@material-ui/core/Button";

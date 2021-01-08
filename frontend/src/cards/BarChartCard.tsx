@@ -18,6 +18,7 @@ import { MetricQuery } from "../data/MetricQuery";
 import { MetricConfig, VariableConfig } from "../data/MetricConfig";
 import { POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
 import CardWrapper from "./CardWrapper";
+import RaceInfoPopover from "./ui/RaceInfoPopover";
 
 const VALID_METRIC_TYPES = ["pct_share", "per100k"];
 
@@ -65,20 +66,6 @@ function BarChartCardWithKey(props: BarChartCardProps) {
     props.variableConfig.metrics
   ).filter((metricConfig) => VALID_METRIC_TYPES.includes(metricConfig.type));
 
-  const infoPopover =
-    props.breakdownVar === "race_and_ethnicity" ? (
-      <div className={styles.BarChartCardPopover}>
-        <h1>How did you define these categories?</h1>
-        <p>
-          These racial categories are defined by the ACS and US Census Bureau.
-          While it is the most extensive database out there, we understand that
-          there are real limitations in how the categories have been defined, as
-          well as how these definitions can mask groups.{" "}
-          <a href="/">Learn more about limitations in the data</a>
-        </p>
-      </div>
-    ) : undefined;
-
   // TODO - we want to bold the breakdown name in the card title
   return (
     <CardWrapper
@@ -87,7 +74,11 @@ function BarChartCardWithKey(props: BarChartCardProps) {
       titleText={`${metricConfig.fullCardTitleName} by ${
         BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
       } in ${props.fips.getFullDisplayName()}`}
-      infoPopover={infoPopover}
+      infoPopover={
+        props.breakdownVar === "race_and_ethnicity" ? (
+          <RaceInfoPopover />
+        ) : undefined
+      }
     >
       {() => {
         const queryResponse = datasetStore.getMetrics(query);

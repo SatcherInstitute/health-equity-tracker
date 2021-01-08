@@ -18,6 +18,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Menu from "@material-ui/core/Menu";
 import { Grid } from "@material-ui/core";
 import { Breakdowns, BreakdownVar } from "../data/Breakdowns";
+import RaceInfoPopover from "./ui/RaceInfoPopover";
 
 export interface MapCardProps {
   key?: string;
@@ -122,6 +123,11 @@ function MapCardWithKey(props: MapCardProps) {
       titleText={`${
         props.metricConfig.fullCardTitleName
       } in ${props.fips.getFullDisplayName()}`}
+      infoPopover={
+        ["race_and_ethnicity", "all"].includes(props.currentBreakdown) ? (
+          <RaceInfoPopover />
+        ) : undefined
+      }
     >
       {() => {
         const queryResponse = datasetStore.getMetrics(initalQuery);
