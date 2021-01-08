@@ -6,8 +6,18 @@
 }
 
 .LandingPage {
-  padding: 20px;
   text-align: left;
+}
+
+.Paper {
+  padding: 20px;
+  margin: 10px;
+}
+
+.PaperTitle {
+  font-size: 18px;
+  line-height: 24px;
+  display: block;
 }
 
 .BlueLandingSquare {
@@ -28,4 +38,8 @@
   background-color: #eeeeee;
   padding: 10px;
   margin-bottom: 70px;
+}
+
+.ThreeSquares {
+  padding: 16px;
 }

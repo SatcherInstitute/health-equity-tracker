@@ -1,0 +1,27 @@
+@import "../../styles/variables";
+
+.Grid {
+  margin: auto;
+  max-width: $max-width;
+}
+
+.AboutUsPage {
+  text-align: left;
+  h1 {
+    font-size: 18px;
+    line-height: 23px;
+  }
+  padding-bottom: 100px;
+}
+
+.UnderlinedHeader {
+  font-size: 20px;
+  line-height: 26px;
+  border-bottom: 4px solid rgba(88, 169, 143, 0.5);
+  margin: 25px 0 25px 0;
+}
+
+.GreyGridItem {
+  background-color: #f9f9f9;
+  padding: 70px;
+}
