@@ -1,16 +1,14 @@
 import React from "react";
 
 export function usePopover(): [
-  HTMLButtonElement | null,
-  (event: React.MouseEvent<HTMLButtonElement>) => void,
+  HTMLElement | null,
+  (event: React.MouseEvent<HTMLElement>) => void,
   () => void,
   boolean
 ] {
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-    null
-  );
+  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     console.log(event);
     setAnchorEl(event.currentTarget);
   };

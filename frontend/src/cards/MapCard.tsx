@@ -20,6 +20,7 @@ import { Grid } from "@material-ui/core";
 import { Breakdowns, BreakdownVar } from "../data/Breakdowns";
 import RaceInfoPopover from "./ui/RaceInfoPopover";
 import { Row } from "../data/DatasetTypes";
+import { usePopover } from "../utils/usePopover";
 
 export interface MapCardProps {
   key?: string;
@@ -51,7 +52,7 @@ function MapCardWithKey(props: MapCardProps) {
 
   // TODO - make sure the legends are all the same
   const [breakdownFilter, setBreakdownFilter] = useState<string>("");
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, handleClick, handleClose, open] = usePopover();
 
   const datasetStore = useDatasetStore();
 
@@ -149,12 +150,7 @@ function MapCardWithKey(props: MapCardProps) {
                     <Grid item>
                       {/* TODO- Clean up UI */}
                       <List component="nav">
-                        <ListItem
-                          button
-                          onClick={(event: React.MouseEvent<HTMLElement>) =>
-                            setAnchorEl(event.currentTarget)
-                          }
-                        >
+                        <ListItem button onClick={handleClick}>
                           <ListItemText primary={breakdownFilter} />
                         </ListItem>
                       </List>
@@ -162,10 +158,8 @@ function MapCardWithKey(props: MapCardProps) {
                       <Menu
                         anchorEl={anchorEl}
                         keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={() => {
-                          setAnchorEl(null);
-                        }}
+                        open={open}
+                        onClose={handleClose}
                       >
                         {["age", "all"].includes(props.currentBreakdown) && (
                           <MenuItem disabled={true}>Age [unavailable]</MenuItem>
@@ -182,7 +176,7 @@ function MapCardWithKey(props: MapCardProps) {
                               <MenuItem
                                 key={option}
                                 onClick={(e) => {
-                                  setAnchorEl(null);
+                                  handleClose();
                                   setBreakdownFilter(option);
                                 }}
                               >
