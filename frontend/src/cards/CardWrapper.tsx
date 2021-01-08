@@ -51,11 +51,9 @@ function CardWrapper(props: {
             {!props.hideFooter && (
               <CardContent className={styles.CardFooter}>
                 Sources:{" "}
+                {/* TODO- add commas and "and" between the data sources */}
                 {props.datasetIds.map((datasetId) => (
                   <>
-                    {datasetId === "acs_population-by_race_state_std" && (
-                      <>Population and demographic data from </>
-                    )}
                     <LinkWithStickyParams
                       target="_blank"
                       to={`${DATA_CATALOG_PAGE_LINK}?${DATASET_PRE_FILTERS}=${datasetId}`}
@@ -63,17 +61,16 @@ function CardWrapper(props: {
                       {datasetStore.metadata[datasetId].data_source_name}
                       {". "}
                     </LinkWithStickyParams>
+                    {datasetStore.metadata[datasetId].update_time ===
+                      "unknown" && <>(last update unknown) </>}
+                    {datasetStore.metadata[datasetId].update_time !==
+                      "unknown" && (
+                      <>
+                        (updated {datasetStore.metadata[datasetId].update_time}){" "}
+                      </>
+                    )}
                   </>
                 ))}
-                <span className={styles.UpdateTime}>
-                  Data last updated:{" "}
-                  {props.datasetIds.map((datasetId) => (
-                    <>
-                      {datasetStore.metadata[datasetId].data_source_name} (
-                      {datasetStore.metadata[datasetId].update_time}){" "}
-                    </>
-                  ))}
-                </span>
               </CardContent>
             )}
           </Card>
