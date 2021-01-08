@@ -21,6 +21,7 @@ import { POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import RaceInfoPopover from "./ui/RaceInfoPopover";
 import Popover from "@material-ui/core/Popover";
+import { usePopover } from "../utils/usePopover";
 
 const VALID_METRIC_TYPES = ["pct_share", "per100k"];
 
@@ -69,20 +70,7 @@ function BarChartCardWithKey(props: BarChartCardProps) {
   ).filter((metricConfig) => VALID_METRIC_TYPES.includes(metricConfig.type));
 
   function CardTitle() {
-    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-      null
-    );
-
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-      console.log(event);
-      setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-
-    const open = Boolean(anchorEl);
+    const [anchorEl, handleClick, handleClose, open] = usePopover();
 
     return (
       <>

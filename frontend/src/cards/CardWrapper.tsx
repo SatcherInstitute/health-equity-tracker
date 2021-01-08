@@ -16,6 +16,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import useDatasetStore from "../data/useDatasetStore";
 import InfoIcon from "@material-ui/icons/Info";
 import Popover from "@material-ui/core/Popover";
+import { usePopover } from "../utils/usePopover";
 
 function CardWrapper(props: {
   datasetIds: string[];
@@ -25,21 +26,7 @@ function CardWrapper(props: {
   queries?: MetricQuery[];
   children: () => JSX.Element;
 }) {
-  // TODO- could we extract popover components into a hook
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-    null
-  );
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(event);
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
+  const [anchorEl, handleClick, handleClose, open] = usePopover();
 
   const optionalTitle = props.titleText ? (
     <>

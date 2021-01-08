@@ -10,25 +10,14 @@ import styles from "./OptionsSelector.module.scss";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import { usePopover } from "../../utils/usePopover";
 
 function OptionsSelector(props: {
   value: string;
   options: Fips[] | string[][];
   onOptionUpdate: (option: string) => void;
 }) {
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-    null
-  );
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
+  const [anchorEl, handleClick, handleClose, open] = usePopover();
 
   const isFips =
     props.options[0] && props.options[0] instanceof Fips ? true : false;
