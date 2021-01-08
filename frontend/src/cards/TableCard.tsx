@@ -41,9 +41,11 @@ export function TableCard(props: TableCardProps) {
     <CardWrapper
       queries={[query]}
       datasetIds={datasetIds}
-      titleText={`${
-        BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-      } in ${props.fips.getFullDisplayName()}`}
+      titleText={
+        <>{`${
+          BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+        } in ${props.fips.getFullDisplayName()}`}</>
+      }
       infoPopover={
         props.breakdownVar === "race_and_ethnicity" ? (
           <RaceInfoPopover />

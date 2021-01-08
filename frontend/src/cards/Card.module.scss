@@ -76,10 +76,35 @@
   min-width: unset !important;
 }
 
+.TermInfoButton {
+  padding: 3px !important;
+  margin: 0px !important;
+  min-width: unset !important;
+  text-decoration: underline !important;
+  text-decoration-style: dashed !important;
+  text-underline-offset: 3px !important;
+  font-size: 16px !important;
+  line-height: 20px !important;
+}
+
 .BarChartCardPopover {
   width: 300px;
   h1 {
     font-size: 14px;
     line-height: 20px;
+  }
+}
+
+.CardTitlePopover {
+  width: 300px;
+  background-color: black;
+  color: white;
+  padding: 10px;
+
+  a:link,
+  a:active,
+  a:hover,
+  a:visited {
+    color: white;
   }
 }

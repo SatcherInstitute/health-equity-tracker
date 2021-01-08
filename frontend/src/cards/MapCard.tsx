@@ -80,9 +80,11 @@ function MapCardWithKey(props: MapCardProps) {
     <CardWrapper
       queries={Object.values(queries) as MetricQuery[]}
       datasetIds={getDependentDatasets([props.metricConfig.metricId])}
-      titleText={`${
-        props.metricConfig.fullCardTitleName
-      } in ${props.fips.getFullDisplayName()}`}
+      titleText={
+        <>{`${
+          props.metricConfig.fullCardTitleName
+        } in ${props.fips.getFullDisplayName()}`}</>
+      }
       infoPopover={
         ["race_and_ethnicity", "all"].includes(props.currentBreakdown) ? (
           <RaceInfoPopover />

@@ -8,6 +8,7 @@ import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
 import { Fips } from "../utils/madlib/Fips";
 import useDatasetStore from "../data/useDatasetStore";
+import Button from "@material-ui/core/Button";
 import {
   Breakdowns,
   BreakdownVar,
@@ -19,6 +20,7 @@ import { MetricConfig, VariableConfig } from "../data/MetricConfig";
 import { POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import RaceInfoPopover from "./ui/RaceInfoPopover";
+import Popover from "@material-ui/core/Popover";
 
 const VALID_METRIC_TYPES = ["pct_share", "per100k"];
 
@@ -66,14 +68,59 @@ function BarChartCardWithKey(props: BarChartCardProps) {
     props.variableConfig.metrics
   ).filter((metricConfig) => VALID_METRIC_TYPES.includes(metricConfig.type));
 
+  function CardTitle() {
+    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+      null
+    );
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      console.log(event);
+      setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
+    const open = Boolean(anchorEl);
+
+    return (
+      <>
+        <Popover
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+        >
+          <div className={styles.CardTitlePopover}>
+            A <b>disparity</b> is defined by when if a health outcome is seen to
+            a greater or lesser extent between populations.{" "}
+            <a href="/">Learn more</a>
+          </div>
+        </Popover>
+        <Button onClick={handleClick} className={styles.TermInfoButton}>
+          Disparities
+        </Button>{" "}
+        in {metricConfig.fullCardTitleName} by{" "}
+        <b>{BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]}</b> in{" "}
+        {props.fips.getFullDisplayName()}
+      </>
+    );
+  }
+
   // TODO - we want to bold the breakdown name in the card title
   return (
     <CardWrapper
       datasetIds={getDependentDatasets(metrics)}
       queries={[query]}
-      titleText={`${metricConfig.fullCardTitleName} by ${
-        BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-      } in ${props.fips.getFullDisplayName()}`}
+      titleText={<CardTitle />}
       infoPopover={
         props.breakdownVar === "race_and_ethnicity" ? (
           <RaceInfoPopover />

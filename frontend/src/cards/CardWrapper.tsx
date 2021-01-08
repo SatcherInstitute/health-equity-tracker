@@ -19,17 +19,19 @@ import Popover from "@material-ui/core/Popover";
 
 function CardWrapper(props: {
   datasetIds: string[];
-  titleText?: string;
+  titleText?: JSX.Element;
   infoPopover?: JSX.Element;
   hideFooter?: boolean;
   queries?: MetricQuery[];
   children: () => JSX.Element;
 }) {
+  // TODO- could we extract popover components into a hook
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    console.log(event);
     setAnchorEl(event.currentTarget);
   };
 
