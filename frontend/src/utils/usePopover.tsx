@@ -9,7 +9,6 @@ export function usePopover(): [
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    console.log(event);
     setAnchorEl(event.currentTarget);
   };
 
