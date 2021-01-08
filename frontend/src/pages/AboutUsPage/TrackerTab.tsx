@@ -1,13 +1,19 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import styles from "../AboutUsPage.module.scss";
+import styles from "./AboutUsPage.module.scss";
 import Button from "@material-ui/core/Button";
 
-function AboutUsTrackerTab() {
+function TrackerTab() {
   const OUR_JOURNEY = (
     <Grid container xs={12} className={styles.GreyGridItem}>
-      <Grid container justify="space-around" className={styles.Grid}>
+      <Grid
+        container
+        xs={12}
+        justify="center"
+        className={styles.Grid}
+        spacing={5}
+      >
         <Grid item xs={6}>
           <h1>Our journey</h1>
           <p>
@@ -28,30 +34,34 @@ function AboutUsTrackerTab() {
         </Grid>
         <Grid item xs={6}>
           We’ve made great progress in creating this dashboard:
-          <Grid container>
+          <br />
+          <br />
+          <Grid container spacing={5} justify="center">
             <Grid item xs={6}>
-              <h6>5 databases</h6>
+              <span className={styles.UnderlinedHeader}>5 databases</span>
               <p>
                 We’re ingesting data from 5 key databases. We plan to expand
                 this to more in the coming years
               </p>
-              <h6>10 built</h6>
+              <span className={styles.UnderlinedHeader}>10 built</span>
               <p>
                 Covering COVID-19 cases deaths, and hospitalizations, COPD,
                 ashtma, diabetes, hypertension, obesity, and more{" "}
               </p>
             </Grid>
             <Grid item xs={6}>
-              <h6>4 key indicators</h6>
+              <span className={styles.UnderlinedHeader}>4 key indicators</span>
               <p>Four major indicators are htawepthiapwehi iawephtaiweht</p>
-              <h6>5 coming</h6>
+              <span className={styles.UnderlinedHeader}>5 coming</span>
               <p>
                 SDOH and PDOH variables that are coming include: crowding,
                 vulnerability indices, etih
               </p>
             </Grid>
           </Grid>
-          <Button>Explore the data</Button>
+          <Button color="secondary" variant="contained">
+            Explore the data
+          </Button>
         </Grid>
       </Grid>
     </Grid>
@@ -61,7 +71,7 @@ function AboutUsTrackerTab() {
     <Grid container xs={12}>
       <Grid item xs={4}>
         <img src="img/vision1.png" />
-        Examining comprehensive determinants of health
+        <b>Examining comprehensive determinants of health</b>
         <ul>
           <li>
             Analyze how local policies impact COVID-19 outcomes, resource
@@ -78,7 +88,7 @@ function AboutUsTrackerTab() {
       </Grid>
       <Grid item xs={4}>
         <img src="img/vision2.png" />
-        Benchmarking equity to create impactful policies
+        <b>Benchmarking equity to create impactful policies</b>
         <ul>
           <li>Create actionable policies in and with diverse communities</li>
           <li>
@@ -92,7 +102,7 @@ function AboutUsTrackerTab() {
       </Grid>
       <Grid item xs={4}>
         <img src="img/vision3.png" />
-        Empower policy influencers and makers to act now
+        <b>Empower policy influencers and makers to act now</b>
         <ul>
           <li>Engage with diverse communities across the country</li>
           <li>
@@ -106,7 +116,7 @@ function AboutUsTrackerTab() {
   );
 
   const ETHICS_GRID = (
-    <Grid container xs={12}>
+    <Grid container xs={12} spacing={5}>
       <Grid item xs={4}>
         <h4>Transparency & Accountability</h4>
         <p>
@@ -138,40 +148,52 @@ function AboutUsTrackerTab() {
 
   return (
     <>
-      <Typography variant="h5" style={{ textAlign: "center" }}>
-        We aim to collect and centralize health inequity data from across the
-        United States relating to race, ethnicity and socio-economic status,
-        which includes information on comorbidities, COVID-19 deaths, hospital
-        admissions, outcomes and more.
-      </Typography>
-      <h1>We are committed to the following ethics:</h1>
-      {ETHICS_GRID}
-      <h1>
-        With the launch of this resource, the HET will primarily focus on select
-        social and political determinants of health as they relate to the
-        COVID-19 pandemic.
-      </h1>
-      <h1>
-        The data presented has been ethically sourced and curated from
-        public-facing databases by our team of specialized researchers, data
-        scientists and engineers.
-      </h1>
-      <span className={styles.UnderlinedHeader}>This tracker’s vision</span>
-      {OUR_VISION}
+      <Grid container justify="space-around" className={styles.Grid}>
+        <Typography
+          variant="h5"
+          style={{ textAlign: "center", margin: "40px" }}
+        >
+          We aim to collect and centralize health inequity data from across the
+          United States relating to race, ethnicity and socio-economic status,
+          which includes information on comorbidities, COVID-19 deaths, hospital
+          admissions, outcomes and more.
+        </Typography>
+        <h1>We are committed to the following ethics:</h1>
+        {ETHICS_GRID}
+        <Grid item xs={12}>
+          <div style={{ width: "400px", textAlign: "center", margin: "auto" }}>
+            <h1>
+              With the launch of this resource, the HET will primarily focus on
+              select social and political determinants of health as they relate
+              to the COVID-19 pandemic.
+            </h1>
+            <h1>
+              The data presented has been ethically sourced and curated from
+              public-facing databases by our team of specialized researchers,
+              data scientists and engineers.
+            </h1>
+          </div>
+        </Grid>
+        <span className={styles.UnderlinedHeader}>This tracker’s vision</span>
+        {OUR_VISION}
+      </Grid>
       {OUR_JOURNEY}
-      <span className={styles.UnderlinedHeader}>See us in the press</span>
-      <Grid container>
-        {["1", "2", "3"].map((i) => (
-          <Grid item xs={4}>
-            <b>2020 Year-in-Review</b>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempo
-            <a href="/">Learn more</a>
-          </Grid>
-        ))}
+      <Grid container justify="space-around" className={styles.Grid}>
+        <span className={styles.UnderlinedHeader}>See us in the press</span>
+        <Grid container spacing={10}>
+          {["1", "2", "3"].map((i) => (
+            <Grid item xs={4}>
+              <h1>2020 Year-in-Review</h1>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempo
+              <br />
+              <a href="/">Learn more</a>
+            </Grid>
+          ))}
+        </Grid>
       </Grid>
     </>
   );
 }
 
-export default AboutUsTrackerTab;
+export default TrackerTab;

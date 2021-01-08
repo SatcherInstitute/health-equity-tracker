@@ -1,14 +1,14 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import styles from "../AboutUsPage.module.scss";
+import styles from "./AboutUsPage.module.scss";
 import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import Divider from "@material-ui/core/Divider";
 
-function AboutUsFaqTab() {
+function FaqTab() {
   return (
-    <Grid container>
+    <Grid container justify="space-around" className={styles.Grid}>
       <Grid item xs={3}>
         <span className={styles.UnderlinedHeader}>Data</span>
       </Grid>
@@ -126,4 +126,4 @@ function AboutUsFaqTab() {
   );
 }
 
-export default AboutUsFaqTab;
+export default FaqTab;

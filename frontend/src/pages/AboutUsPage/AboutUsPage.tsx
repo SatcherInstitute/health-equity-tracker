@@ -5,10 +5,10 @@ import Tabs from "@material-ui/core/Tabs";
 import Button from "@material-ui/core/Button";
 import Tab from "@material-ui/core/Tab";
 import styles from "./AboutUsPage.module.scss";
-import AboutUsFaqTab from "./ui/AboutUsFaqTab";
-import AboutUsTrackerTab from "./ui/AboutUsTrackerTab";
-import AboutUsOurTeamTab from "./ui/AboutUsOurTeamTab";
-import AboutUsContactUsTab from "./ui/AboutUsContactUsTab";
+import FaqTab from "./FaqTab";
+import TrackerTab from "./TrackerTab";
+import OurTeamTab from "./OurTeamTab";
+import ContactUsTab from "./ContactUsTab";
 
 function AboutUsPage() {
   const [value, setValue] = React.useState(0);
@@ -33,11 +33,11 @@ function AboutUsPage() {
           <Tab label="Frequently Asked Questions" />
           <Tab label="Contact Us" />
         </Tabs>
-        {value === 0 && <AboutUsTrackerTab />}
-        {value === 1 && <AboutUsOurTeamTab />}
-        {value === 2 && <AboutUsFaqTab />}
-        {value === 3 && <AboutUsContactUsTab />}
       </Grid>
+      {value === 0 && <TrackerTab />}
+      {value === 1 && <OurTeamTab />}
+      {value === 2 && <FaqTab />}
+      {value === 3 && <ContactUsTab />}
     </div>
   );
 }
