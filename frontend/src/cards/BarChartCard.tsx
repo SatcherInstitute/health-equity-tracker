@@ -108,7 +108,7 @@ function BarChartCardWithKey(props: BarChartCardProps) {
     <CardWrapper
       datasetIds={getDependentDatasets(metrics)}
       queries={[query]}
-      titleText={<CardTitle />}
+      title={<CardTitle />}
       infoPopover={
         props.breakdownVar === "race_and_ethnicity" ? (
           <RaceInfoPopover />
