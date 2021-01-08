@@ -1,8 +1,6 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
-import Button from "@material-ui/core/Button";
 
 function OurTeamTab() {
   return (
@@ -12,7 +10,7 @@ function OurTeamTab() {
         a more healthy, equitable, and inclusive society.
       </span>
       <span className={styles.UnderlinedHeader}>Leadership Team</span>
-      <img src="img/MSM.png" />
+      <img src="img/MSM.png" alt="Images of leadership team" />
       <span className={styles.UnderlinedHeader}>Product Team</span>
       <Grid container>
         {[
@@ -81,10 +79,10 @@ function OurTeamTab() {
       </Grid>
       <span className={styles.UnderlinedHeader}>Partners</span>
       <Grid container>
-        <img src="img/PartnerSatcher.png" />
-        <img src="img/PartnerGilead.png" />
-        <img src="img/PartnerCdc.png" />
-        <img src="img/PartnerGoogle.png" />
+        <img src="img/PartnerSatcher.png" alt="alt" />
+        <img src="img/PartnerGilead.png" alt="alt" />
+        <img src="img/PartnerCdc.png " alt="alt" />
+        <img src="img/PartnerGoogle.png" alt="alt" />
       </Grid>
     </Grid>
   );

@@ -1,6 +1,5 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
 import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";

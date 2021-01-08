@@ -70,7 +70,7 @@ function TrackerTab() {
   const OUR_VISION = (
     <Grid container xs={12}>
       <Grid item xs={4}>
-        <img src="img/vision1.png" />
+        <img src="img/vision1.png" alt="Black Lives Matter protestors" />
         <b>Examining comprehensive determinants of health</b>
         <ul>
           <li>
@@ -87,7 +87,7 @@ function TrackerTab() {
         </ul>
       </Grid>
       <Grid item xs={4}>
-        <img src="img/vision2.png" />
+        <img src="img/vision2.png" alt="Capitol Hill Rotunda" />
         <b>Benchmarking equity to create impactful policies</b>
         <ul>
           <li>Create actionable policies in and with diverse communities</li>
@@ -101,7 +101,7 @@ function TrackerTab() {
         </ul>
       </Grid>
       <Grid item xs={4}>
-        <img src="img/vision3.png" />
+        <img src="img/vision3.png" alt="A team working together" />
         <b>Empower policy influencers and makers to act now</b>
         <ul>
           <li>Engage with diverse communities across the country</li>
