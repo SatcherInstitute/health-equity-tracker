@@ -69,7 +69,7 @@ export class MetricQueryResponse {
     if (this.isFieldMissing(fieldName)) {
       return [];
     }
-    let set = new Set<string>();
+    const set = new Set<string>();
     this.data.forEach((row) => {
       set.add(row[fieldName]);
     });

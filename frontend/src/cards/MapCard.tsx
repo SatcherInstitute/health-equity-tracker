@@ -55,7 +55,12 @@ function MapCardWithKey(props: MapCardProps) {
   const datasetStore = useDatasetStore();
 
   let queries: Record<string, MetricQuery> = {};
-  ["race_and_ethnicity", "age", "sex"].forEach((possibleBreakdown) => {
+  const possibleBreakdowns: BreakdownVar[] = [
+    "race_and_ethnicity",
+    "age",
+    "sex",
+  ];
+  possibleBreakdowns.forEach((possibleBreakdown) => {
     if (
       props.currentBreakdown === possibleBreakdown ||
       props.currentBreakdown === "all"
@@ -63,7 +68,7 @@ function MapCardWithKey(props: MapCardProps) {
       queries[possibleBreakdown] = new MetricQuery(
         props.metricConfig.metricId,
         Breakdowns.byState().addBreakdown(
-          possibleBreakdown as BreakdownVar,
+          possibleBreakdown,
           props.nonstandardizedRace
         )
       );
@@ -93,25 +98,24 @@ function MapCardWithKey(props: MapCardProps) {
           setBreakdownFilter(breakdownValues[0]);
         }
 
-        let filters: Array<(row: Row) => boolean> = [
+        let predicates: Array<(row: Row) => boolean> = [
           (row) => row.race_and_ethnicity !== "Not Hispanic or Latino",
           (row) => row[props.metricConfig.metricId] !== undefined,
           (row) => row[props.metricConfig.metricId] !== null,
         ];
         if (!props.fips.isUsa()) {
           // TODO - this doesn't consider county level data
-          filters.push((row: Row) => row.state_fips === props.fips.code);
+          predicates.push((row: Row) => row.state_fips === props.fips.code);
         }
         if (props.enableFilter) {
-          filters.push(
+          predicates.push(
             (row: Row) => row[currentlyDisplayedBreakdown] === breakdownFilter
           );
         }
 
         // Remove any row for which we find a filter that returns false.
-        const mapData = queryResponse.data.filter(
-          (row: Row) =>
-            filters.find((filter) => filter(row) === false) === undefined
+        const mapData = queryResponse.data.filter((row: Row) =>
+          predicates.every((predicate) => predicate(row))
         );
 
         return (
