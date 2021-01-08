@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "@material-ui/core/Card";
 import styles from "./Card.module.scss";
+import Button from "@material-ui/core/Button";
 import {
   LinkWithStickyParams,
   DATASET_PRE_FILTERS,
@@ -13,18 +14,57 @@ import { WithMetrics } from "../data/WithLoadingOrErrorUI";
 import { MetricQuery } from "../data/MetricQuery";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import useDatasetStore from "../data/useDatasetStore";
+import InfoIcon from "@material-ui/icons/Info";
+import Popover from "@material-ui/core/Popover";
 
 function CardWrapper(props: {
   datasetIds: string[];
   titleText?: string;
+  infoPopover?: JSX.Element;
   hideFooter?: boolean;
   queries?: MetricQuery[];
   children: () => JSX.Element;
 }) {
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+    null
+  );
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+
   const optionalTitle = props.titleText ? (
     <>
       <CardContent>
-        <Typography className={styles.CardHeader}>{props.titleText}</Typography>
+        <Typography className={styles.CardHeader}>
+          {props.titleText}
+          {props.infoPopover && (
+            <Button onClick={handleClick} className={styles.InfoIconButton}>
+              <InfoIcon color="primary" />
+            </Button>
+          )}
+        </Typography>
+        <Popover
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+        >
+          <div className={styles.CardInfoPopover}>{props.infoPopover}</div>
+        </Popover>
       </CardContent>
       <Divider />
     </>

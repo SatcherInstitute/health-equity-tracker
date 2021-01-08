@@ -174,6 +174,7 @@ function MapCardWithKey(props: MapCardProps) {
                           <ListItemText primary={breakdownFilter} />
                         </ListItem>
                       </List>
+                      {/* TODO - Align this with the mocks */}
                       <Menu
                         anchorEl={anchorEl}
                         keepMounted

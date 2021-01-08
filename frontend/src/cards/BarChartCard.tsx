@@ -65,6 +65,20 @@ function BarChartCardWithKey(props: BarChartCardProps) {
     props.variableConfig.metrics
   ).filter((metricConfig) => VALID_METRIC_TYPES.includes(metricConfig.type));
 
+  const infoPopover =
+    props.breakdownVar === "race_and_ethnicity" ? (
+      <div className={styles.BarChartCardPopover}>
+        <h1>How did you define these categories?</h1>
+        <p>
+          These racial categories are defined by the ACS and US Census Bureau.
+          While it is the most extensive database out there, we understand that
+          there are real limitations in how the categories have been defined, as
+          well as how these definitions can mask groups.{" "}
+          <a href="/">Learn more about limitations in the data</a>
+        </p>
+      </div>
+    ) : undefined;
+
   // TODO - we want to bold the breakdown name in the card title
   return (
     <CardWrapper
@@ -73,6 +87,7 @@ function BarChartCardWithKey(props: BarChartCardProps) {
       titleText={`${metricConfig.fullCardTitleName} by ${
         BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
       } in ${props.fips.getFullDisplayName()}`}
+      infoPopover={infoPopover}
     >
       {() => {
         const queryResponse = datasetStore.getMetrics(query);
@@ -113,9 +128,7 @@ function BarChartCardWithKey(props: BarChartCardProps) {
                   >
                     {validDisplayMetricConfigs.map((metricConfig) => (
                       <ToggleButton value={metricConfig.type}>
-                        {metricConfig.type === "pct_share" &&
-                          props.variableConfig.variableDisplayName +
-                            " and Population"}
+                        {metricConfig.type === "pct_share" && " vs. Population"}
                         {metricConfig.type === "per100k" &&
                           "per 100,000 people"}
                       </ToggleButton>
