@@ -18,6 +18,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Menu from "@material-ui/core/Menu";
 import { Grid } from "@material-ui/core";
 import { Breakdowns, BreakdownVar } from "../data/Breakdowns";
+import { Row } from "../data/DatasetTypes";
 
 export interface MapCardProps {
   key?: string;
@@ -48,99 +49,74 @@ function MapCardWithKey(props: MapCardProps) {
   };
 
   // TODO - make sure the legends are all the same
-  // TODO - pull these from the data itself
-  const RACES = props.nonstandardizedRace
-    ? [
-        "Total",
-        "American Indian and Alaska Native",
-        "American Indian and Alaska Native (Non-Hispanic)",
-        "Asian",
-        "Asian (Non-Hispanic)",
-        "Black or African American",
-        "Black or African American (Non-Hispanic)",
-        "Hispanic or Latino",
-        "Native Hawaiian and Pacific Islander",
-        "Native Hawaiian and Pacific Islander (Non-Hispanic)",
-        "Some other race",
-        "Some other race (Non-Hispanic)",
-        "Two or more races",
-        "Two or more races (Non-Hispanic)",
-        "White",
-        "White (Non-Hispanic)",
-      ]
-    : [
-        "American Indian/Alaskan Native, Non-Hispanic",
-        "Asian, Non-Hispanic",
-        "Black, Non-Hispanic",
-        "Hispanic",
-        "Other race, Non-Hispanic",
-        "White, Non-Hispanic",
-      ];
-
-  const [breakdownFilter, setBreakdownFilter] = useState<string>(RACES[0]);
+  const [breakdownFilter, setBreakdownFilter] = useState<string>("");
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const datasetStore = useDatasetStore();
 
-  let queries = [];
-  let initalQuery: MetricQuery;
-
-  if (["age", "all"].includes(props.currentBreakdown)) {
-    const ageQuery = new MetricQuery(
-      props.metricConfig.metricId,
-      Breakdowns.byState().andAge()
-    );
-    queries.push(ageQuery);
-    if (props.currentBreakdown !== "all") {
-      initalQuery = ageQuery;
+  let queries: Record<string, MetricQuery> = {};
+  const possibleBreakdowns: BreakdownVar[] = [
+    "race_and_ethnicity",
+    "age",
+    "sex",
+  ];
+  possibleBreakdowns.forEach((possibleBreakdown) => {
+    if (
+      props.currentBreakdown === possibleBreakdown ||
+      props.currentBreakdown === "all"
+    ) {
+      queries[possibleBreakdown] = new MetricQuery(
+        props.metricConfig.metricId,
+        Breakdowns.byState().addBreakdown(
+          possibleBreakdown,
+          props.nonstandardizedRace
+        )
+      );
     }
-  }
-  if (["sex", "all"].includes(props.currentBreakdown)) {
-    const sexQuery = new MetricQuery(
-      props.metricConfig.metricId,
-      Breakdowns.byState().andGender()
-    );
-    queries.push(sexQuery);
-    if (props.currentBreakdown !== "all") {
-      initalQuery = sexQuery;
-    }
-  }
-  if (["race_and_ethnicity", "all"].includes(props.currentBreakdown)) {
-    const raceQuery = new MetricQuery(
-      props.metricConfig.metricId,
-      Breakdowns.byState().andRace(props.nonstandardizedRace)
-    );
-    queries.push(raceQuery);
-    // If all are enabled, race should be the default inital query
-    initalQuery = raceQuery;
-  }
+  });
 
   return (
     <CardWrapper
-      queries={queries}
+      queries={Object.values(queries) as MetricQuery[]}
       datasetIds={getDependentDatasets([props.metricConfig.metricId])}
       titleText={`${
         props.metricConfig.fullCardTitleName
       } in ${props.fips.getFullDisplayName()}`}
     >
       {() => {
-        const queryResponse = datasetStore.getMetrics(initalQuery);
-        let mapData = queryResponse.data
-          .filter((row) => row.race_and_ethnicity !== "Not Hispanic or Latino")
-          .filter(
-            (r) =>
-              r[props.metricConfig.metricId] !== undefined &&
-              r[props.metricConfig.metricId] !== null
-          );
+        const currentlyDisplayedBreakdown: BreakdownVar =
+          props.currentBreakdown === "all"
+            ? "race_and_ethnicity"
+            : props.currentBreakdown;
+        const queryResponse = datasetStore.getMetrics(
+          queries[currentlyDisplayedBreakdown]
+        );
+        const breakdownValues = queryResponse.getUniqueFieldValues(
+          currentlyDisplayedBreakdown
+        );
+        if (breakdownFilter === "") {
+          setBreakdownFilter(breakdownValues[0]);
+        }
+
+        let predicates: Array<(row: Row) => boolean> = [
+          (row) => row.race_and_ethnicity !== "Not Hispanic or Latino",
+          (row) => row[props.metricConfig.metricId] !== undefined,
+          (row) => row[props.metricConfig.metricId] !== null,
+        ];
         if (!props.fips.isUsa()) {
           // TODO - this doesn't consider county level data
-          mapData = mapData.filter((r) => r.state_fips === props.fips.code);
+          predicates.push((row: Row) => row.state_fips === props.fips.code);
         }
         if (props.enableFilter) {
-          mapData = mapData.filter(
-            (r) => r.race_and_ethnicity === breakdownFilter
+          predicates.push(
+            (row: Row) => row[currentlyDisplayedBreakdown] === breakdownFilter
           );
         }
+
+        // Remove any row for which we find a filter that returns false.
+        const mapData = queryResponse.data.filter((row: Row) =>
+          predicates.every((predicate) => predicate(row))
+        );
 
         return (
           <>
@@ -193,7 +169,7 @@ function MapCardWithKey(props: MapCardProps) {
                         ) && (
                           <>
                             <MenuItem disabled={true}>Races</MenuItem>
-                            {RACES.map((option) => (
+                            {breakdownValues.map((option) => (
                               <MenuItem
                                 key={option}
                                 onClick={(e) => {

@@ -65,6 +65,17 @@ export class MetricQueryResponse {
     return this.invalidValues[fieldName] === this.data.length;
   }
 
+  getUniqueFieldValues(fieldName: string): string[] {
+    if (this.isFieldMissing(fieldName)) {
+      return [];
+    }
+    const set = new Set<string>();
+    this.data.forEach((row) => {
+      set.add(row[fieldName]);
+    });
+    return Array.from(set);
+  }
+
   // Returns true if any of requested fields are missing or failure occurred
   shouldShowMissingDataMessage(fields: string[]): boolean {
     return (
