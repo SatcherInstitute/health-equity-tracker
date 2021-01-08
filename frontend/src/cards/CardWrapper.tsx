@@ -20,7 +20,7 @@ import { usePopover } from "../utils/usePopover";
 
 function CardWrapper(props: {
   datasetIds: string[];
-  titleText?: JSX.Element;
+  title?: JSX.Element;
   infoPopover?: JSX.Element;
   hideFooter?: boolean;
   queries?: MetricQuery[];

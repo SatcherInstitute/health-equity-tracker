@@ -3,12 +3,13 @@ import { DisparityBarChart } from "../charts/DisparityBarChart";
 import styles from "./Card.module.scss";
 import { Alert } from "@material-ui/lab";
 import { CardContent } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import Popover from "@material-ui/core/Popover";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
 import { Fips } from "../utils/madlib/Fips";
 import useDatasetStore from "../data/useDatasetStore";
-import Button from "@material-ui/core/Button";
 import {
   Breakdowns,
   BreakdownVar,
@@ -20,7 +21,6 @@ import { MetricConfig, VariableConfig } from "../data/MetricConfig";
 import { POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import RaceInfoPopover from "./ui/RaceInfoPopover";
-import Popover from "@material-ui/core/Popover";
 import { usePopover } from "../utils/usePopover";
 
 const VALID_METRIC_TYPES = ["pct_share", "per100k"];

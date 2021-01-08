@@ -81,7 +81,7 @@ function MapCardWithKey(props: MapCardProps) {
     <CardWrapper
       queries={Object.values(queries) as MetricQuery[]}
       datasetIds={getDependentDatasets([props.metricConfig.metricId])}
-      titleText={
+      title={
         <>{`${
           props.metricConfig.fullCardTitleName
         } in ${props.fips.getFullDisplayName()}`}</>

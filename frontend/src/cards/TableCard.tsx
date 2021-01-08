@@ -41,7 +41,7 @@ export function TableCard(props: TableCardProps) {
     <CardWrapper
       queries={[query]}
       datasetIds={datasetIds}
-      titleText={
+      title={
         <>{`${
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
         } in ${props.fips.getFullDisplayName()}`}</>
