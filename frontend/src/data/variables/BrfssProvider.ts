@@ -1,8 +1,9 @@
 import { Breakdowns, ALL_RACES_DISPLAY_NAME } from "../Breakdowns";
-import { Dataset, Row } from "../DatasetTypes";
+import { Dataset } from "../DatasetTypes";
 import { per100k } from "../datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
+import { MetricQueryResponse } from "../MetricQuery";
 
 class BrfssProvider extends VariableProvider {
   constructor() {
@@ -16,7 +17,7 @@ class BrfssProvider extends VariableProvider {
   getDataInternal(
     datasets: Record<string, Dataset>,
     breakdowns: Breakdowns
-  ): Row[] {
+  ): MetricQueryResponse {
     const brfss = datasets["brfss"];
     let df = brfss.toDataFrame();
 
@@ -45,14 +46,16 @@ class BrfssProvider extends VariableProvider {
       });
     }
 
-    return df
-      .generateSeries({
-        diabetes_per_100k: (row) =>
-          per100k(row.diabetes_count, row.diabetes_count + row.diabetes_no),
-        copd_per_100k: (row) =>
-          per100k(row.copd_count, row.copd_count + row.copd_no),
-      })
-      .toArray();
+    return new MetricQueryResponse(
+      df
+        .generateSeries({
+          diabetes_per_100k: (row) =>
+            per100k(row.diabetes_count, row.diabetes_count + row.diabetes_no),
+          copd_per_100k: (row) =>
+            per100k(row.copd_count, row.copd_count + row.copd_no),
+        })
+        .toArray()
+    );
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
