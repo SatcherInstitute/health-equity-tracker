@@ -1,7 +1,7 @@
 import React from "react";
 import DataTable from "./DataTable";
-import useDatasetStore from "../data/useDatasetStore";
-import { Dataset } from "../data/DatasetTypes";
+import useDatasetStore from "../../../data/useDatasetStore";
+import { Dataset } from "../../../data/DatasetTypes";
 
 /* NOTE: This file is currently unused */
 
