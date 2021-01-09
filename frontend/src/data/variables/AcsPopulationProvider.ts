@@ -32,6 +32,7 @@ class AcsPopulationProvider extends VariableProvider {
     breakdowns: Breakdowns
   ): MetricQueryResponse {
     let df = this.getDataInternalWithoutPercents(datasets, breakdowns);
+    console.log(df.toArray());
 
     if (breakdowns.filterFips) {
       df = df.where((row) => row.state_fips === breakdowns.filterFips);
@@ -52,21 +53,25 @@ class AcsPopulationProvider extends VariableProvider {
     datasets: Record<string, Dataset>,
     breakdowns: Breakdowns
   ): IDataFrame {
-    const statePopByRace = datasets["acs_population-by_race_state_std"];
-    const acsNonStandard = statePopByRace.toDataFrame();
+    const statePopByBreakdown =
+      breakdowns.demographic === "age"
+        ? datasets["acs_population-by_age_state_std"]
+        : datasets["acs_population-by_race_state_std"];
+    const acsDataFrame = statePopByBreakdown.toDataFrame();
 
     if (
       breakdowns.demographic === "race_nonstandard" &&
       breakdowns.geography === "state"
     ) {
-      return acsNonStandard;
+      return acsDataFrame;
     }
 
+    console.log(acsDataFrame.toArray());
     if (
       breakdowns.demographic === "race_nonstandard" &&
       breakdowns.geography === "national"
     ) {
-      return acsNonStandard
+      return acsDataFrame
         .pivot("race_and_ethnicity", {
           // TODO for the purpose of charts, rename state_name to something more
           // general so we can compare counties with states with the nation.
@@ -77,24 +82,25 @@ class AcsPopulationProvider extends VariableProvider {
         .resetIndex();
     }
 
-    const acsStandard = acsNonStandard.where((row) =>
-      standardizedRaces.includes(row.race_and_ethnicity)
-    );
-    if (breakdowns.demographic === "race" && breakdowns.geography === "state") {
-      return acsStandard;
-    }
+    if (breakdowns.demographic === "race") {
+      const acsStandard = acsDataFrame.where((row) =>
+        standardizedRaces.includes(row.race_and_ethnicity)
+      );
+      console.log(acsStandard.toArray());
 
-    if (
-      breakdowns.demographic === "race" &&
-      breakdowns.geography === "national"
-    ) {
-      return acsStandard
-        .pivot("race_and_ethnicity", {
-          state_fips: (series) => USA_FIPS,
-          state_name: (series) => USA_DISPLAY_NAME,
-          population: (series) => series.sum(),
-        })
-        .resetIndex();
+      if (breakdowns.geography === "state") {
+        return acsStandard;
+      }
+
+      if (breakdowns.geography === "national") {
+        return acsStandard
+          .pivot("race_and_ethnicity", {
+            state_fips: (series) => USA_FIPS,
+            state_name: (series) => USA_DISPLAY_NAME,
+            population: (series) => series.sum(),
+          })
+          .resetIndex();
+      }
     }
 
     throw new Error("Not implemented");
