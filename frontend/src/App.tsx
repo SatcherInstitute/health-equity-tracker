@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "./App.module.scss";
 import MaterialTheme from "./styles/MaterialTheme";
-import DataCatalogPage from "./pages/DataCatalogPage";
-import ExploreDataPage from "./pages/ExploreDataPage/ExploreDataPage";
+import DataCatalogPage from "./pages/DataCatalog/DataCatalogPage";
+import ExploreDataPage from "./pages/ExploreData/ExploreDataPage";
 import LandingPage from "./pages/LandingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import Footer from "./Footer";
@@ -35,7 +35,7 @@ import {
   DATA_CATALOG_PAGE_LINK,
   ABOUT_US_PAGE_LINK,
 } from "./utils/urlutils";
-import AboutUsPage from "./pages/AboutUsPage/AboutUsPage";
+import AboutUsPage from "./pages/AboutUs/AboutUsPage";
 import Logger from "./utils/Logger";
 import { initGlobals } from "./utils/globals";
 import DataFetcher from "./data/DataFetcher";

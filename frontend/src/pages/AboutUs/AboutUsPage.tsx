@@ -1,5 +1,4 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import styles from "./AboutUsPage.module.scss";
@@ -17,21 +16,19 @@ function AboutUsPage() {
 
   return (
     <div className={styles.AboutUsPage}>
-      <Grid container justify="space-around" className={styles.Grid}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          centered
-          style={{ marginTop: "40px" }}
-        >
-          <Tab label="The Tracker" />
-          <Tab label="Our Team" />
-          <Tab label="Frequently Asked Questions" />
-          <Tab label="Contact Us" />
-        </Tabs>
-      </Grid>
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        indicatorColor="primary"
+        textColor="primary"
+        centered
+        style={{ marginTop: "40px" }}
+      >
+        <Tab label="The Tracker" />
+        <Tab label="Our Team" />
+        <Tab label="Frequently Asked Questions" />
+        <Tab label="Contact Us" />
+      </Tabs>
       {value === 0 && <TrackerTab />}
       {value === 1 && <OurTeamTab />}
       {value === 2 && <FaqTab />}

@@ -5,8 +5,11 @@ import {
 } from "./DatasetFilter";
 import DatasetListing from "./DatasetListing";
 import styles from "./DatasetExplorer.module.scss";
-import useDatasetStore, { useOnMetadataLoaded } from "../data/useDatasetStore";
-import { DatasetMetadata, MetadataMap } from "../data/DatasetTypes";
+import useDatasetStore, {
+  useOnMetadataLoaded,
+} from "../../../data/useDatasetStore";
+import { DatasetMetadata, MetadataMap } from "../../../data/DatasetTypes";
+import Button from "@material-ui/core/Button";
 
 // Map of filter id to list of datasets selected by that filter, or empty list
 // for filters that don't have anything selected.
@@ -87,6 +90,9 @@ function DatasetExplorer(props: { preFilterDatasetIds: string[] }) {
     );
   }
 
+  const viewingSubsetOfDatasets =
+    getFilteredDatasetIds(metadata, activeFilter).length === 1;
+
   return (
     <div className={styles.DatasetExplorer}>
       <div className={styles.DatasetList}>
@@ -94,37 +100,41 @@ function DatasetExplorer(props: { preFilterDatasetIds: string[] }) {
           "Loading datasets..."
         ) : (
           <>
-            <div className={styles.FilterContainer}>
-              <div className={styles.Filter}>
-                <MultiSelectDatasetFilter
-                  datasets={metadata}
-                  onSelectionChange={(filtered) => {
-                    setActiveFilter({
-                      ...activeFilter,
-                      [NAME_FILTER_ID]: filtered,
-                    });
-                  }}
-                  propertySelector={(metadata) => metadata.name}
-                  placeholder={"Search variables..."}
-                  defaultValues={defaultDatasetNames}
-                />
-              </div>
-            </div>
-            <div className={styles.FilterContainer}>
-              <div className={styles.FilterTitle}>Filter by...</div>
-              {createFilter(
-                "geographic_filter",
-                (metadata) => metadata.geographic_level,
-                "geographic level...",
-                "All"
-              )}
-              {createFilter(
-                "demographic_filter",
-                (metadata) => metadata.demographic_granularity,
-                "demographic level...",
-                "All"
-              )}
-            </div>
+            {!viewingSubsetOfDatasets && (
+              <>
+                <div className={styles.FilterContainer}>
+                  <div className={styles.Filter}>
+                    <MultiSelectDatasetFilter
+                      datasets={metadata}
+                      onSelectionChange={(filtered) => {
+                        setActiveFilter({
+                          ...activeFilter,
+                          [NAME_FILTER_ID]: filtered,
+                        });
+                      }}
+                      propertySelector={(metadata) => metadata.name}
+                      placeholder={"Search variables..."}
+                      defaultValues={defaultDatasetNames}
+                    />
+                  </div>
+                </div>
+                <div className={styles.FilterContainer}>
+                  <div className={styles.FilterTitle}>Filter by...</div>
+                  {createFilter(
+                    "geographic_filter",
+                    (metadata) => metadata.geographic_level,
+                    "geographic level...",
+                    "All"
+                  )}
+                  {createFilter(
+                    "demographic_filter",
+                    (metadata) => metadata.demographic_granularity,
+                    "demographic level...",
+                    "All"
+                  )}
+                </div>
+              </>
+            )}
             {getFilteredDatasetIds(metadata, activeFilter).map(
               (datasetId, index) => (
                 <div className={styles.Dataset} key={index}>
@@ -133,6 +143,15 @@ function DatasetExplorer(props: { preFilterDatasetIds: string[] }) {
                   </div>
                 </div>
               )
+            )}
+            {viewingSubsetOfDatasets && (
+              <Button
+                onClick={() => setActiveFilter({})}
+                color="primary"
+                variant="contained"
+              >
+                View All datasets
+              </Button>
             )}
           </>
         )}
