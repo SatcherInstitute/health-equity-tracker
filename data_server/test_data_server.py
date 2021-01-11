@@ -71,6 +71,7 @@ def testGetMetadata(mock_func: mock.MagicMock, client: FlaskClient):
     assert response.status_code == 200
     assert (response.headers.get('Content-Disposition') ==
             'attachment; filename=test_data.ndjson')
+    assert response.headers.get('Access-Control-Allow-Origin') == '*'
     assert response.data == test_data_json
     # Make sure that the response is valid json
     try:
@@ -111,6 +112,7 @@ def testGetDataset_DataExists(mock_func: mock.MagicMock, client: FlaskClient):
     assert response.status_code == 200
     assert (response.headers.get('Content-Disposition') ==
            'attachment; filename=test_dataset')
+    assert response.headers.get('Access-Control-Allow-Origin') == '*'
     assert response.data == test_data_json
     # Make sure that the response is valid json
     try:
@@ -125,6 +127,7 @@ def testGetDataset_DatasetNotFound(mock_func: mock.MagicMock,
                                    client: FlaskClient):
     response = client.get('/dataset?name=not_found')
     mock_func.assert_called_once_with('test', 'not_found')
+    assert response.headers.get('Access-Control-Allow-Origin') == '*'
     assert response.status_code == 404
     assert b'Dataset not_found not found' in response.data
 
