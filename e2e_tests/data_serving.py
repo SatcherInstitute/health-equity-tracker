@@ -1,5 +1,9 @@
 import os
-import requests
+
+from google.oauth2 import service_account
+import google.auth
+import google.auth.transport.requests
+from google.auth.transport.requests import AuthorizedSession
 
 
 def runTests():
@@ -7,7 +11,12 @@ def runTests():
     service_url = os.environ.get('SERVICE_URL').strip('"')
     print('SERVICE_URL={}'.format(service_url))
 
-    resp = requests.get(service_url)
+    creds = service_account.IDTokenCredentials.from_service_account_file(
+        os.environ.get('PATH_TO_SA_CREDS'), target_audience=service_url)
+
+    authed_session = AuthorizedSession(creds)
+
+    resp = authed_session.get(service_url)
     if not resp.ok:
         print('Request failed with code {}'.format(resp.status_code))
         exit(1)
