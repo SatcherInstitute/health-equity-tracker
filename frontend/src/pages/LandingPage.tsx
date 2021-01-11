@@ -31,15 +31,19 @@ function LandingPage() {
               marginBottom: "80px",
             }}
           >
-            <Button
-              style={{
-                background: "white",
-                marginTop: "210px",
-                marginBottom: "210px",
-              }}
+            <LinkWithStickyParams
+              to={linkToMadLib("disparity", { 1: "covid", 3: "00" })}
             >
-              Explore the data
-            </Button>
+              <Button
+                style={{
+                  background: "white",
+                  marginTop: "210px",
+                  marginBottom: "210px",
+                }}
+              >
+                Explore the data
+              </Button>
+            </LinkWithStickyParams>
           </div>
         </Grid>
 
