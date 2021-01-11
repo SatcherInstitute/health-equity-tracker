@@ -1,4 +1,4 @@
-import logging
+from google.cloud import bigquery
 
 from datasources.data_source import DataSource
 import ingestion.gcs_to_bq_util as gcs_to_bq_util
@@ -32,15 +32,29 @@ class CovidTrackingProject(DataSource):
             'total': col_std.Race.TOTAL
         }
 
-    def write_to_bq(self, dataset, gcs_bucket, filename):
+    def write_to_bq(self, dataset, gcs_bucket, **attrs):
+        filename = self.get_attr(attrs, 'filename')
+        metadata_table_id = self.get_attr(attrs, 'metadata_table_id')
+
         df = gcs_to_bq_util.load_csv_as_dataframe(gcs_bucket, filename)
 
         # Massage the data into the standard format.
-        df.drop(columns=['cases_latinx', 'deaths_latinx', 'hosp_latinx', 'tests_latinx'])
+        df.drop(columns=['cases_latinx', 'deaths_latinx',
+                         'hosp_latinx', 'tests_latinx'])
         df.melt(id_vars=['date', 'state'])
-        df[['variable_type', 'race_and_ethnicity']] = df.variable.str.split("_", 1, expand=True)
+        df[['variable_type', 'race_and_ethnicity']] = df.variable.str.split(
+            "_", 1, expand=True)
         df.drop('variable', axis=1, inplace=True)
         df = df.pivot(index=['date', 'state', 'race_and_ethnicity'],
                       columns='variable_type', values='value').reset_index()
         df.rename(columns={'state': 'state_postal_abbreviation'})
         df.rename(columns=lambda col: col.lower().strip())
+
+        # Get the metadata table
+        client = bigquery.Client()
+        sql = """
+        SELECT *
+        FROM {};
+        """.format(metadata_table_id)
+
+        metadata = client.query(sql).to_dataframe()
