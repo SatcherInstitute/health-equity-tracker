@@ -107,7 +107,7 @@ resource "google_project_iam_custom_role" "aggregator_runner_role" {
   description = "Allows BQ reading and writing."
   permissions = ["bigquery.tables.create", "bigquery.tables.delete", "bigquery.tables.get", "bigquery.tables.list",
     "bigquery.tables.update", "bigquery.tables.updateData", "bigquery.jobs.create", "bigquery.datasets.get",
-  "bigquery.routines.list"]
+  "bigquery.routines.list", "bigquery.routines.get", "bigquery.tables.getData"]
 }
 
 resource "google_project_iam_member" "aggregator_runner_binding" {

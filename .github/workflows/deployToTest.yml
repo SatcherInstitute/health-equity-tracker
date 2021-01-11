@@ -169,6 +169,7 @@ jobs:
         working-directory: ./config
         run: |
           terraform apply -auto-approve -var-file=test/test.tfvars \
+          -var-file=common.tfvars \
           -var 'gcp_credentials=${{ secrets.TEST_DEPLOYER_SA_KEY }}' \
           -var 'project_id=${{ secrets.TEST_PROJECT_ID }}' \
           -var 'ingestion_image_digest=${{ needs.build-ingestion.outputs.image-digest }}' \
