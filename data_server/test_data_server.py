@@ -72,6 +72,7 @@ def testGetMetadata(mock_func: mock.MagicMock, client: FlaskClient):
     assert (response.headers.get('Content-Disposition') ==
             'attachment; filename=test_data.ndjson')
     assert response.headers.get('Access-Control-Allow-Origin') == '*'
+    assert response.headers.get('Vary') == 'Accept-Encoding'
     assert response.data == test_data_json
     # Make sure that the response is valid json
     try:
@@ -113,6 +114,7 @@ def testGetDataset_DataExists(mock_func: mock.MagicMock, client: FlaskClient):
     assert (response.headers.get('Content-Disposition') ==
            'attachment; filename=test_dataset')
     assert response.headers.get('Access-Control-Allow-Origin') == '*'
+    assert response.headers.get('Vary') == 'Accept-Encoding'
     assert response.data == test_data_json
     # Make sure that the response is valid json
     try:

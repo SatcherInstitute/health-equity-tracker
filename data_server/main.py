@@ -38,6 +38,7 @@ def get_metadata():
     headers = Headers()
     headers.add('Content-Disposition', 'attachment',
                 filename=os.environ.get('METADATA_FILENAME'))
+    headers.add('Vary', 'Accept-Encoding')
     return Response(generate_response(metadata), mimetype='application/json',
                     headers=headers)
 
@@ -63,6 +64,7 @@ def get_dataset():
         yield next_row.rstrip(b',') + b']'
     headers = Headers()
     headers.add('Content-Disposition', 'attachment', filename=dataset_name)
+    headers.add('Vary', 'Accept-Encoding')
 
     if dataset_name.endswith('.csv'):
         return Response(dataset, mimetype='text/csv', headers=headers)
