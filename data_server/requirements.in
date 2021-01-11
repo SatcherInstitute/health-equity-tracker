@@ -1,4 +1,5 @@
 -r ../python/data_server/requirements.in
 
 flask
+flask-cors
 gunicorn

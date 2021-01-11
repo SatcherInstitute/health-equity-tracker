@@ -4,34 +4,81 @@
 #
 #    pip-compile --output-file=data_server/requirements.txt data_server/requirements.in
 #
-cachetools==4.1.1         # via -r data_server/../python/data_server/requirements.in, google-auth
-certifi==2020.6.20        # via requests
-cffi==1.14.3              # via google-crc32c
-chardet==3.0.4            # via requests
-click==7.1.2              # via flask
-flask==1.1.2              # via -r data_server/requirements.in
-google-api-core==1.23.0   # via google-cloud-core
-google-auth==1.22.1       # via google-api-core, google-cloud-storage
-google-cloud-core==1.4.3  # via google-cloud-storage
-google-cloud-storage==1.32.0  # via -r data_server/../python/data_server/requirements.in
-google-crc32c==1.0.0      # via google-resumable-media
-google-resumable-media==1.1.0  # via google-cloud-storage
-googleapis-common-protos==1.52.0  # via google-api-core
-gunicorn==20.0.4          # via -r data_server/requirements.in
-idna==2.10                # via requests
-itsdangerous==1.1.0       # via flask
-jinja2==2.11.2            # via flask
-markupsafe==1.1.1         # via jinja2
-protobuf==3.13.0          # via google-api-core, googleapis-common-protos
-pyasn1-modules==0.2.8     # via google-auth
-pyasn1==0.4.8             # via pyasn1-modules, rsa
-pycparser==2.20           # via cffi
-pytz==2020.1              # via google-api-core
-requests==2.24.0          # via google-api-core, google-cloud-storage
-rsa==4.6                  # via google-auth
-six==1.15.0               # via google-api-core, google-auth, google-resumable-media, protobuf
-urllib3==1.25.11          # via requests
-werkzeug==1.0.1           # via flask
+cachetools==4.1.1
+    # via
+    #   -r data_server/../python/data_server/requirements.in
+    #   google-auth
+certifi==2020.6.20
+    # via requests
+cffi==1.14.3
+    # via google-crc32c
+chardet==3.0.4
+    # via requests
+click==7.1.2
+    # via flask
+flask-cors==3.0.10
+    # via -r data_server/requirements.in
+flask==1.1.2
+    # via
+    #   -r data_server/requirements.in
+    #   flask-cors
+google-api-core==1.23.0
+    # via google-cloud-core
+google-auth==1.22.1
+    # via
+    #   google-api-core
+    #   google-cloud-storage
+google-cloud-core==1.4.3
+    # via google-cloud-storage
+google-cloud-storage==1.32.0
+    # via -r data_server/../python/data_server/requirements.in
+google-crc32c==1.0.0
+    # via google-resumable-media
+google-resumable-media==1.1.0
+    # via google-cloud-storage
+googleapis-common-protos==1.52.0
+    # via google-api-core
+gunicorn==20.0.4
+    # via -r data_server/requirements.in
+idna==2.10
+    # via requests
+itsdangerous==1.1.0
+    # via flask
+jinja2==2.11.2
+    # via flask
+markupsafe==1.1.1
+    # via jinja2
+protobuf==3.13.0
+    # via
+    #   google-api-core
+    #   googleapis-common-protos
+pyasn1-modules==0.2.8
+    # via google-auth
+pyasn1==0.4.8
+    # via
+    #   pyasn1-modules
+    #   rsa
+pycparser==2.20
+    # via cffi
+pytz==2020.1
+    # via google-api-core
+requests==2.24.0
+    # via
+    #   google-api-core
+    #   google-cloud-storage
+rsa==4.6
+    # via google-auth
+six==1.15.0
+    # via
+    #   flask-cors
+    #   google-api-core
+    #   google-auth
+    #   google-resumable-media
+    #   protobuf
+urllib3==1.25.11
+    # via requests
+werkzeug==1.0.1
+    # via flask
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
