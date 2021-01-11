@@ -11,6 +11,7 @@ def runTests():
     service_url = os.environ.get('SERVICE_URL').strip('"')
     print('SERVICE_URL={}'.format(service_url))
 
+    # Get service account credentials to make request to private URL
     creds = service_account.IDTokenCredentials.from_service_account_file(
         os.environ.get('PATH_TO_SA_CREDS'), target_audience=service_url)
 
