@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DatasetExplorer from "./dataset_explorer/DatasetExplorer";
-import {
-  clearSearchParams,
-  DATASET_PRE_FILTERS,
-  useSearchParams,
-} from "../../utils/urlutils";
+import { DATASET_PRE_FILTERS, useSearchParams } from "../../utils/urlutils";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Alert from "@material-ui/lab/Alert";
@@ -21,9 +17,7 @@ function DataCatalogPage() {
   const datasets = params[DATASET_PRE_FILTERS]
     ? params[DATASET_PRE_FILTERS].split(",")
     : [];
-  useEffect(() => {
-    clearSearchParams([DATASET_PRE_FILTERS]);
-  }, []);
+
   return (
     <div className={styles.DataCatalogPage}>
       <Tabs

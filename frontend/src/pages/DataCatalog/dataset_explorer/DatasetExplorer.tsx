@@ -10,6 +10,7 @@ import useDatasetStore, {
 } from "../../../data/useDatasetStore";
 import { DatasetMetadata, MetadataMap } from "../../../data/DatasetTypes";
 import Button from "@material-ui/core/Button";
+import { DATA_CATALOG_PAGE_LINK } from "../../../utils/urlutils";
 
 // Map of filter id to list of datasets selected by that filter, or empty list
 // for filters that don't have anything selected.
@@ -146,7 +147,7 @@ function DatasetExplorer(props: { preFilterDatasetIds: string[] }) {
             )}
             {viewingSubsetOfDatasets && (
               <Button
-                onClick={() => setActiveFilter({})}
+                href={DATA_CATALOG_PAGE_LINK}
                 color="primary"
                 variant="contained"
               >
