@@ -63,8 +63,6 @@ def get_dataset():
         yield next_row.rstrip(b',') + b']'
     headers = Headers()
     headers.add('Content-Disposition', 'attachment', filename=dataset_name)
-#    headers.add('Access-Control-Allow-Origin', '*')
-#    headers.add('Vary', 'Accept-Encoding, Origin')
 
     if dataset_name.endswith('.csv'):
         return Response(dataset, mimetype='text/csv', headers=headers)
