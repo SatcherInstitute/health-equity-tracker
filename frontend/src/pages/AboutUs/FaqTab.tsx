@@ -20,7 +20,7 @@ function FaqTab() {
           COVID Tracking Project
         </a>, <a href="/">CDC Public Datasets</a>,{" "}
         <a href="/">CREW Data American</a>, and{" "}
-        <a href="/">American Community Survey data</a>. Some soures are more
+        <a href="/">American Community Survey data</a>. Some sources are more
         “real-time” like case data, but other important data, such as
         information around social determinants of health can lag weeks to
         months. For the moment, this is our best representation of how the
