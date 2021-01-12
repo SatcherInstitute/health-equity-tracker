@@ -23,7 +23,7 @@ class AcsPopulationProvider extends VariableProvider {
     super(
       "acs_pop_provider",
       ["population", "population_pct"],
-      ["acs_population-by_race_state_std"]
+      ["acs_population-by_race_state_std", "acs_population-by_age_state"]
     );
   }
 
@@ -32,16 +32,24 @@ class AcsPopulationProvider extends VariableProvider {
     breakdowns: Breakdowns
   ): MetricQueryResponse {
     let df = this.getDataInternalWithoutPercents(datasets, breakdowns);
+    console.log("getDataInternal", datasets);
     console.log(df.toArray());
-
     if (breakdowns.filterFips) {
       df = df.where((row) => row.state_fips === breakdowns.filterFips);
     }
+    console.log(df.toArray());
+
+    // TODO - hardcoded
+    const breakdownField =
+      breakdowns.demographic === "age" ? "age" : "race_and_ethnicity";
 
     df = applyToGroups(df, ["state_name"], (group) => {
-      const total = group
-        .where((r) => r.race_and_ethnicity === "Total")
-        .first()["population"];
+      const total =
+        breakdownField === "race_and_ethnicity"
+          ? group.where((r) => r[breakdownField] === "Total").first()[
+              "population"
+            ]
+          : df.getSeries("population").sum();
       return group.generateSeries({
         population_pct: (row) => percent(row.population, total),
       });
@@ -55,24 +63,13 @@ class AcsPopulationProvider extends VariableProvider {
   ): IDataFrame {
     const statePopByBreakdown =
       breakdowns.demographic === "age"
-        ? datasets["acs_population-by_age_state_std"]
+        ? datasets["acs_population-by_age_state"]
         : datasets["acs_population-by_race_state_std"];
     const acsDataFrame = statePopByBreakdown.toDataFrame();
 
-    if (
-      breakdowns.demographic === "race_nonstandard" &&
-      breakdowns.geography === "state"
-    ) {
-      return acsDataFrame;
-    }
-
-    console.log(acsDataFrame.toArray());
-    if (
-      breakdowns.demographic === "race_nonstandard" &&
-      breakdowns.geography === "national"
-    ) {
-      return acsDataFrame
-        .pivot("race_and_ethnicity", {
+    function createNationalTotal(dataFrame: IDataFrame, breakdown: string) {
+      return dataFrame
+        .pivot(breakdown, {
           // TODO for the purpose of charts, rename state_name to something more
           // general so we can compare counties with states with the nation.
           state_fips: (series) => USA_FIPS,
@@ -82,25 +79,22 @@ class AcsPopulationProvider extends VariableProvider {
         .resetIndex();
     }
 
-    if (breakdowns.demographic === "race") {
-      const acsStandard = acsDataFrame.where((row) =>
-        standardizedRaces.includes(row.race_and_ethnicity)
-      );
-      console.log(acsStandard.toArray());
-
-      if (breakdowns.geography === "state") {
-        return acsStandard;
-      }
-
-      if (breakdowns.geography === "national") {
-        return acsStandard
-          .pivot("race_and_ethnicity", {
-            state_fips: (series) => USA_FIPS,
-            state_name: (series) => USA_DISPLAY_NAME,
-            population: (series) => series.sum(),
-          })
-          .resetIndex();
-      }
+    switch (breakdowns.demographic) {
+      case "race_nonstandard":
+        return breakdowns.geography === "national"
+          ? createNationalTotal(acsDataFrame, "race_and_ethnicity")
+          : acsDataFrame;
+      case "race":
+        const standardizedAcsData = acsDataFrame.where((row) =>
+          standardizedRaces.includes(row.race_and_ethnicity)
+        );
+        return breakdowns.geography === "national"
+          ? createNationalTotal(standardizedAcsData, "race_and_ethnicity")
+          : standardizedAcsData;
+      case "age":
+        return breakdowns.geography === "national"
+          ? createNationalTotal(acsDataFrame, "age")
+          : acsDataFrame;
     }
 
     throw new Error("Not implemented");
@@ -109,10 +103,10 @@ class AcsPopulationProvider extends VariableProvider {
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
     return (
       !breakdowns.time &&
-      (breakdowns.geography === "state" ||
-        breakdowns.geography === "national") &&
-      (breakdowns.demographic === "race" ||
-        breakdowns.demographic === "race_nonstandard")
+      ["state", "national"].includes(breakdowns.geography) &&
+      ["race", "race_nonstandard", "age"].includes(
+        breakdowns.demographic as string
+      )
     );
   }
 }

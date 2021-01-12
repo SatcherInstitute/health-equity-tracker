@@ -140,7 +140,10 @@ class DataFetcher {
       return result;
     }
 
-    if (datasetId === "acs_population-by_race_state_std") {
+    if (
+      datasetId === "acs_population-by_race_state_std" ||
+      datasetId === "acs_population-by_age_state"
+    ) {
       // TODO remove this once we figure out how to make BQ export integers as
       // integers
       let result = await this.fetchDataset(datasetId);
