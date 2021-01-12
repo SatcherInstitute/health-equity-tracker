@@ -71,10 +71,10 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
       {!variableConfig && (
         <Grid item xs={5}>
           <Alert style={{ margin: "20px" }} severity="error">
-            This data is not currently available from our ingested datasets, but
-            will be coming soon.
+            This data is not currently available in the Health Equity Tracker,
+            but will be coming soon.
             <br />
-            {/* TODO - buttons should be actual working a href links*/}
+            {/* TODO - buttons should be actual working a href links and better follow UX*/}
             <Button
               style={{
                 padding: "0",

@@ -13,7 +13,7 @@ import {
 } from "../data/Breakdowns";
 import { CardContent } from "@material-ui/core";
 import { MetricConfig } from "../data/MetricConfig";
-import RaceInfoPopover from "./ui/RaceInfoPopover";
+import RaceInfoPopover from "./ui/RaceInfoPopoverContent";
 
 export interface TableCardProps {
   fips: Fips;

@@ -17,7 +17,7 @@ function OptionsSelector(props: {
   options: Fips[] | string[][];
   onOptionUpdate: (option: string) => void;
 }) {
-  const [anchorEl, handleClick, handleClose, open] = usePopover();
+  const popover = usePopover();
 
   const isFips =
     props.options[0] && props.options[0] instanceof Fips ? true : false;
@@ -36,15 +36,15 @@ function OptionsSelector(props: {
       <Button
         variant="text"
         className={styles.MadLibButton}
-        onClick={handleClick}
+        onClick={popover.open}
       >
         {currentDisplayName}
-        {open ? <ArrowDropUp /> : <ArrowDropDown />}
+        {popover.isOpen ? <ArrowDropUp /> : <ArrowDropDown />}
       </Button>
       <Popover
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
+        open={popover.isOpen}
+        anchorEl={popover.anchor}
+        onClose={popover.close}
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "center",
@@ -74,7 +74,7 @@ function OptionsSelector(props: {
               )}
               onChange={(e, fips) => {
                 props.onOptionUpdate(fips.code);
-                handleClose();
+                popover.close();
               }}
             />
             <span className={styles.NoteText}>
@@ -89,7 +89,7 @@ function OptionsSelector(props: {
                 button
                 selected={item[0] === props.value}
                 onClick={() => {
-                  handleClose();
+                  popover.close();
                   props.onOptionUpdate(item[0]);
                 }}
               >

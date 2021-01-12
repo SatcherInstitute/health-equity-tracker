@@ -18,7 +18,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Menu from "@material-ui/core/Menu";
 import { Grid } from "@material-ui/core";
 import { Breakdowns, BreakdownVar } from "../data/Breakdowns";
-import RaceInfoPopover from "./ui/RaceInfoPopover";
+import RaceInfoPopover from "./ui/RaceInfoPopoverContent";
 import { Row } from "../data/DatasetTypes";
 import { usePopover } from "../utils/usePopover";
 
@@ -52,7 +52,7 @@ function MapCardWithKey(props: MapCardProps) {
 
   // TODO - make sure the legends are all the same
   const [breakdownFilter, setBreakdownFilter] = useState<string>("");
-  const [anchorEl, handleClick, handleClose, open] = usePopover();
+  const popover = usePopover();
 
   const datasetStore = useDatasetStore();
 
@@ -150,16 +150,16 @@ function MapCardWithKey(props: MapCardProps) {
                     <Grid item>
                       {/* TODO- Clean up UI */}
                       <List component="nav">
-                        <ListItem button onClick={handleClick}>
+                        <ListItem button onClick={popover.open}>
                           <ListItemText primary={breakdownFilter} />
                         </ListItem>
                       </List>
                       {/* TODO - Align this with the mocks */}
                       <Menu
-                        anchorEl={anchorEl}
+                        anchorEl={popover.anchor}
                         keepMounted
-                        open={open}
-                        onClose={handleClose}
+                        open={popover.isOpen}
+                        onClose={popover.close}
                       >
                         {["age", "all"].includes(props.currentBreakdown) && (
                           <MenuItem disabled={true}>Age [unavailable]</MenuItem>
@@ -176,7 +176,7 @@ function MapCardWithKey(props: MapCardProps) {
                               <MenuItem
                                 key={option}
                                 onClick={(e) => {
-                                  handleClose();
+                                  popover.close();
                                   setBreakdownFilter(option);
                                 }}
                               >

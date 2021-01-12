@@ -26,7 +26,7 @@ function CardWrapper(props: {
   queries?: MetricQuery[];
   children: () => JSX.Element;
 }) {
-  const [anchorEl, handleClick, handleClose, open] = usePopover();
+  const popover = usePopover();
 
   const optionalTitle = props.title ? (
     <>
@@ -34,15 +34,15 @@ function CardWrapper(props: {
         <Typography className={styles.CardHeader}>
           {props.title}
           {props.infoPopover && (
-            <Button onClick={handleClick} className={styles.InfoIconButton}>
+            <Button onClick={popover.open} className={styles.InfoIconButton}>
               <InfoIcon color="primary" />
             </Button>
           )}
         </Typography>
         <Popover
-          open={open}
-          anchorEl={anchorEl}
-          onClose={handleClose}
+          open={popover.isOpen}
+          anchorEl={popover.anchor}
+          onClose={popover.close}
           anchorOrigin={{
             vertical: "bottom",
             horizontal: "center",
@@ -87,13 +87,12 @@ function CardWrapper(props: {
                       target="_blank"
                       to={`${DATA_CATALOG_PAGE_LINK}?${DATASET_PRE_FILTERS}=${datasetId}`}
                     >
-                      {datasetStore.metadata[datasetId].data_source_name}
-                      {". "}
+                      {datasetStore.metadata[datasetId].data_source_name}{" "}
                     </LinkWithStickyParams>
                     {datasetStore.metadata[datasetId].update_time ===
-                      "unknown" && <>(last update unknown) </>}
-                    {datasetStore.metadata[datasetId].update_time !==
-                      "unknown" && (
+                    "unknown" ? (
+                      <>(last update unknown) </>
+                    ) : (
                       <>
                         (updated {datasetStore.metadata[datasetId].update_time}){" "}
                       </>

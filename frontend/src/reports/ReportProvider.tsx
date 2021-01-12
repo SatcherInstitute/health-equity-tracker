@@ -14,7 +14,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { getMadLibPhraseText } from "../utils/madlib/MadLibs";
-import { linkToMadLib } from "../utils/urlutils";
+import { linkToMadLib, DATA_CATALOG_PAGE_LINK } from "../utils/urlutils";
 import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import ShareIcon from "@material-ui/icons/Share";
@@ -141,12 +141,12 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         </div>
         {getReport()}
       </div>
+      {/* TODO- could we extract the names of datasets from the Fake Metdata */}
       <div className={styles.MissingDataInfo}>
         <h1>What Data Are Missing?</h1>
         <p>
           In this tracker, we are using <a href="/">COVID Tracking Project</a>,{" "}
           <a href="/">CDC Public Datasets</a>,{" "}
-          <a href="/">CREW Data American</a>, and{" "}
           <a href="/">American Community Survey data</a>. Some soures are more
           "real-time" like case data, but other important data, such as
           information around social determinants of health can lag weeks to
@@ -192,9 +192,11 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             data as soon as it is made available.
           </li>
         </ul>
-        <Button color="primary" endIcon={<ArrowForward />}>
-          See Data Sources
-        </Button>
+        <a href={DATA_CATALOG_PAGE_LINK}>
+          <Button color="primary" endIcon={<ArrowForward />}>
+            See Data Sources
+          </Button>
+        </a>
       </div>
     </>
   );

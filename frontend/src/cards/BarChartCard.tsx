@@ -4,7 +4,6 @@ import styles from "./Card.module.scss";
 import { Alert } from "@material-ui/lab";
 import { CardContent } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import Popover from "@material-ui/core/Popover";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
@@ -20,7 +19,8 @@ import { MetricQuery } from "../data/MetricQuery";
 import { MetricConfig, VariableConfig } from "../data/MetricConfig";
 import { POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
 import CardWrapper from "./CardWrapper";
-import RaceInfoPopover from "./ui/RaceInfoPopover";
+import RaceInfoPopover from "./ui/RaceInfoPopoverContent";
+import DisparityInfoPopover from "./ui/DisparityInfoPopover";
 import { usePopover } from "../utils/usePopover";
 
 const VALID_METRIC_TYPES = ["pct_share", "per100k"];
@@ -70,30 +70,12 @@ function BarChartCardWithKey(props: BarChartCardProps) {
   ).filter((metricConfig) => VALID_METRIC_TYPES.includes(metricConfig.type));
 
   function CardTitle() {
-    const [anchorEl, handleClick, handleClose, open] = usePopover();
+    const popover = usePopover();
 
     return (
       <>
-        <Popover
-          open={open}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "center",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "center",
-          }}
-        >
-          <div className={styles.CardTitlePopover}>
-            A <b>disparity</b> is defined by when if a health outcome is seen to
-            a greater or lesser extent between populations.{" "}
-            <a href="/">Learn more</a>
-          </div>
-        </Popover>
-        <Button onClick={handleClick} className={styles.TermInfoButton}>
+        <DisparityInfoPopover popover={popover} />
+        <Button onClick={popover.open} className={styles.TermInfoButton}>
           Disparities
         </Button>{" "}
         in {metricConfig.fullCardTitleName} by{" "}
