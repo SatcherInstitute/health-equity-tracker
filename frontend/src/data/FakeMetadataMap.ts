@@ -3,14 +3,14 @@ import { DatasetMetadata, MetadataMap } from "./DatasetTypes";
 const fakeMetadata: DatasetMetadata[] = [
   {
     id: "acs_population-by_race_state_std",
-    name: "Share of population by state and race",
-    data_source_name: "American Community Survey 5-year estimates (2014-2018)",
+    name: "Population demographics",
+    data_source_name: "American Community Survey 5-year estimates (2015-2019)",
     data_source_link:
       "https://www.census.gov/data/developers/data-sets/acs-5year.html",
     geographic_level: "State",
     demographic_granularity: "Race/ethnicity",
-    update_frequency: "??",
-    update_time: "March 2, 2020",
+    update_frequency: "Annual",
+    update_time: "???",
     description:
       "Description placeholder for Share of population. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id lectus urna. Vestibulum lobortis ac quam vel tincidunt. Quisque ex erat, efficitur nec sagittis vitae, dictum semper arcu. Vivamus metus felis, fringilla sit amet metus nec, feugiat suscipit nisl. Morbi posuere mi sit amet elit posuere, id gravida ligula facilisis. Aenean gravida a eros fringilla venenatis.",
     fields: [
@@ -84,12 +84,12 @@ const fakeMetadata: DatasetMetadata[] = [
   },
   {
     id: "brfss",
-    name: "Diabetes Prevalence by state and race",
-    data_source_name: "CDC's BrFSS",
-    data_source_link: "https://gis.cdc.gov/grasp/diabetes/DiabetesAtlas.html#",
+    name: "COPD and Diabetes Prevalence",
+    data_source_name: "CDC's BRFSS",
+    data_source_link: "https://www.cdc.gov/brfss/index.html",
     geographic_level: "State",
     demographic_granularity: "Race/ethnicity",
-    update_frequency: "?",
+    update_frequency: "Annual",
     update_time: "unknown",
     description:
       "Description placeholder for Diabetes Prevalence. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id lectus urna. Vestibulum lobortis ac quam vel tincidunt. Quisque ex erat, efficitur nec sagittis vitae, dictum semper arcu. Vivamus metus felis, fringilla sit amet metus nec, feugiat suscipit nisl. Morbi posuere mi sit amet elit posuere, id gravida ligula facilisis. Aenean gravida a eros fringilla venenatis.",
@@ -122,12 +122,12 @@ const fakeMetadata: DatasetMetadata[] = [
   },
   {
     id: "covid_by_state_and_race",
-    name: "Covid deaths, cases, and hospitalizations by state and race",
-    data_source_name: "Covid tracking project",
+    name: "COVID-19 deaths, cases, and hospitalizations",
+    data_source_name: "Covid Tracking Project’s Racial Data Tracker",
     data_source_link: "https://covidtracking.com/race",
     geographic_level: "State",
     demographic_granularity: "Race/ethnicity",
-    update_frequency: "?",
+    update_frequency: "Annual",
     update_time: "unknown",
     description:
       "Description placeholder for covid. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id lectus urna. Vestibulum lobortis ac quam vel tincidunt. Quisque ex erat, efficitur nec sagittis vitae, dictum semper arcu. Vivamus metus felis, fringilla sit amet metus nec, feugiat suscipit nisl. Morbi posuere mi sit amet elit posuere, id gravida ligula facilisis. Aenean gravida a eros fringilla venenatis.",

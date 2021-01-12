@@ -20,6 +20,7 @@ import { Grid } from "@material-ui/core";
 import { Breakdowns, BreakdownVar } from "../data/Breakdowns";
 import RaceInfoPopover from "./ui/RaceInfoPopover";
 import { Row } from "../data/DatasetTypes";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 
 export interface MapCardProps {
   key?: string;
@@ -156,6 +157,7 @@ function MapCardWithKey(props: MapCardProps) {
                           }
                         >
                           <ListItemText primary={breakdownFilter} />
+                          <ArrowDropDownIcon />
                         </ListItem>
                       </List>
                       {/* TODO - Align this with the mocks */}
