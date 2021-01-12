@@ -49,21 +49,19 @@ function DataCatalogPage() {
         <div style={{ width: "600px", textAlign: "left" }}>
           <h3>What principles guide you?</h3>
           <p>
-            It is essential that this work and all the products, as a result of
-            it are done consistently in an ethical manner. One of the core
-            values of the Health Equity Task Force charged with developing the
-            Health Equity Tracker, is the importance of working in a way that
-            garners public trust. Here are some of the principles that the EPTC
-            is working to make sure are in place. We created these standards for
-            the work now and moving forward.
+            It is essential that all products - including this website - are
+            developed and served equitably and ethically. Garnering public trust
+            is a key principle of our work. In addition, we curated the
+            following questions to help develop this tool and for future
+            reference.
           </p>
           <b>Guiding questions:</b>
           <ul>
-            <li>Do we have open access and input in place?</li>
-            <li>Is there transparency among stakeholders?</li>
+            <li>Is it easy to access and input data?</li>
+            <li>Is communication between stakeholders transparent?</li>
             <li>
-              Are we using valid and current data that is reflective of the
-              realities?
+              Is the data correct and recent enough to reflect current lived
+              experiences?
             </li>
             <li>
               Is the community a part of the ownership and authorship of this
@@ -71,9 +69,8 @@ function DataCatalogPage() {
             </li>
             <li>
               Have we created a tool that has real value for all stakeholders
-              including the communities?
+              including the communities?{" "}
             </li>
-            <li>Are we holding our partners accountable?</li>
           </ul>
           <h3>What are the limitations of the data?</h3>
           <p>
@@ -86,33 +83,28 @@ function DataCatalogPage() {
           <b>Known limitations in the data</b>
           <ul>
             <li>
-              Data may be hidden in counties with smaller numbers of COVID-19
-              cases, hospitalizations and deaths in order to protect the privacy
-              of affected individuals.
+              To protect the privacy of affected individuals, COVID-19 data may
+              be hidden in counties with smaller numbers of COVID-19 cases,
+              hospitalizations and deaths.
             </li>
             <li>
-              Racial and ethnic categorization is often at the discretion of
+              Racial and ethnic categories are often at the discretion of
               healthcare professionals and may not be accurate.
             </li>
             <li>
-              Racial and ethnic categories differ by source and can obscure
-              severe inequity by inappropriately aggregating different
-              communities with distinct experiences into a single overly large
-              category (e.g. “Other,” “Asian”).
+              Specific racial and ethnic categories (e.g. “Native Hawaiian,”
+              “Alaska Native”) differ by source and can be inappropriately
+              obscured by broader categories (e.g. “Other,” “Asian”).
             </li>
             <li>
-              US-wide statistics are aggregations of state-wide data. Where data
-              has been withheld to protect privacy, and where data is missing
-              (such as in states that do not report race/ethnicity breakdowns of
-              COVID-19 statistics), US-wide aggregations may be incomplete and
-              potentially skewed, if excluded populations differ significantly
-              from the country as a whole.
+              National statistics are aggregations of state-wide data. If state
+              data is not available, these aggregations may be incomplete and
+              potentially skewed.
             </li>
             <li>
-              While we attempt to update our data sources with newly available
-              data within a short time frame (typically a few days), please
-              navigate to our data sources directly if you are seeking the
-              newest data as soon as it is made available.
+              We typically refresh our data sources with newly available data
+              within a few days. Seeking the latest information? Please navigate
+              to the data sources directly.
             </li>
           </ul>
           <h3>What data are we missing? </h3>
