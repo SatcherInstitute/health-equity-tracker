@@ -56,17 +56,6 @@ export interface DataFetcher {
   getMetadata(): Promise<MetadataMap>;
 }
 
-export class FakeDataFetcher implements DataFetcher {
-  loadDataset(datasetId: string): Promise<Row[]> {
-    throw new Error("Not implemented");
-  }
-
-  /** Fetches and returns the MetadataMap for all datasets. */
-  getMetadata(): Promise<MetadataMap> {
-    throw new Error("Not implemented");
-  }
-}
-
 export class ApiDataFetcher implements DataFetcher {
   /**
    * When true, forces all data requests to go to the server's static file

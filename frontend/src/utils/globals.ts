@@ -1,8 +1,5 @@
-import {
-  ApiDataFetcher,
-  DataFetcher,
-  FakeDataFetcher,
-} from "../data/DataFetcher";
+import { ApiDataFetcher, DataFetcher } from "../data/DataFetcher";
+import FakeDataFetcher from "../testing/FakeDataFetcher";
 import { createEnvironment, Environment } from "./Environment";
 import Logger from "./Logger";
 
@@ -36,6 +33,9 @@ export function initGlobals(
   globals.logger = logger;
   globals.dataFetcher = dataFetcher;
   globals.initialized = true;
+  logger.debugLog(
+    "Initialized globals for context: " + environment.deployContext
+  );
 }
 
 /**

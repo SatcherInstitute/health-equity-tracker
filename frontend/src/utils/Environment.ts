@@ -51,7 +51,7 @@ export class HetEnvironment implements Environment {
   }
 
   getEnableConsoleLogging() {
-    return !this.isUserFacingEnvironment();
+    return !this.isUserFacingEnvironment() && this.deployContext !== "test";
   }
 }
 
