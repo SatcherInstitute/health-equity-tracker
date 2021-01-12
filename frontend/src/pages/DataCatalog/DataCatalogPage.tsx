@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import DatasetExplorer from "../dataset_explorer/DatasetExplorer";
+import DatasetExplorer from "./dataset_explorer/DatasetExplorer";
 import {
   clearSearchParams,
   DATASET_PRE_FILTERS,
   useSearchParams,
-} from "../utils/urlutils";
+} from "../../utils/urlutils";
 
 function DataCatalogPage() {
   const params = useSearchParams();

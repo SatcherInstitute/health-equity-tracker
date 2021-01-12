@@ -1,7 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import { DatasetListing, DatasetListingProps } from "../DatasetListing";
-import { StoryWrapper } from "../../storybook/StoryWrapper";
+import { StoryWrapper } from "../../../../storybook/StoryWrapper";
 
 export default {
   title: "DatasetExplorer/DatasetListing",

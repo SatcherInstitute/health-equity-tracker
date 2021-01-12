@@ -6,17 +6,17 @@ import {
   MadLib,
   PhraseSegment,
   getMadLibWithUpdatedValue,
-} from "../utils/madlib/MadLibs";
-import { Fips } from "../utils/madlib/Fips";
+} from "../../utils/madlib/MadLibs";
+import { Fips } from "../../utils/madlib/Fips";
 import styles from "./ExploreDataPage.module.scss";
 import {
   clearSearchParams,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
   useSearchParams,
-} from "../utils/urlutils";
-import ReportProvider from "../reports/ReportProvider";
-import OptionsSelector from "./ui/OptionsSelector";
+} from "../../utils/urlutils";
+import ReportProvider from "../../reports/ReportProvider";
+import OptionsSelector from "../ui/OptionsSelector";
 
 function ExploreDataPage() {
   const params = useSearchParams();

@@ -3,8 +3,8 @@ import styles from "./LandingPage.module.scss";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import { linkToMadLib } from "../utils/urlutils";
-import ImageButton from "./ui/ImageButton";
+import { linkToMadLib } from "../../utils/urlutils";
+import ImageButton from "../ui/ImageButton";
 
 function LandingPage() {
   return (

@@ -5,8 +5,10 @@ import {
 } from "./DatasetFilter";
 import DatasetListing from "./DatasetListing";
 import styles from "./DatasetExplorer.module.scss";
-import useDatasetStore, { useOnMetadataLoaded } from "../data/useDatasetStore";
-import { DatasetMetadata, MetadataMap } from "../data/DatasetTypes";
+import useDatasetStore, {
+  useOnMetadataLoaded,
+} from "../../../data/useDatasetStore";
+import { DatasetMetadata, MetadataMap } from "../../../data/DatasetTypes";
 
 // Map of filter id to list of datasets selected by that filter, or empty list
 // for filters that don't have anything selected.
