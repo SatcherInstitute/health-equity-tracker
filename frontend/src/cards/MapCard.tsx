@@ -18,7 +18,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Menu from "@material-ui/core/Menu";
 import { Grid } from "@material-ui/core";
 import { Breakdowns, BreakdownVar } from "../data/Breakdowns";
+import RaceInfoPopover from "./ui/RaceInfoPopoverContent";
 import { Row } from "../data/DatasetTypes";
+import { usePopover } from "../utils/usePopover";
 
 export interface MapCardProps {
   key?: string;
@@ -50,7 +52,7 @@ function MapCardWithKey(props: MapCardProps) {
 
   // TODO - make sure the legends are all the same
   const [breakdownFilter, setBreakdownFilter] = useState<string>("");
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const popover = usePopover();
 
   const datasetStore = useDatasetStore();
 
@@ -79,9 +81,16 @@ function MapCardWithKey(props: MapCardProps) {
     <CardWrapper
       queries={Object.values(queries) as MetricQuery[]}
       datasetIds={getDependentDatasets([props.metricConfig.metricId])}
-      titleText={`${
-        props.metricConfig.fullCardTitleName
-      } in ${props.fips.getFullDisplayName()}`}
+      title={
+        <>{`${
+          props.metricConfig.fullCardTitleName
+        } in ${props.fips.getFullDisplayName()}`}</>
+      }
+      infoPopover={
+        ["race_and_ethnicity", "all"].includes(props.currentBreakdown) ? (
+          <RaceInfoPopover />
+        ) : undefined
+      }
     >
       {() => {
         const currentlyDisplayedBreakdown: BreakdownVar =
@@ -141,22 +150,16 @@ function MapCardWithKey(props: MapCardProps) {
                     <Grid item>
                       {/* TODO- Clean up UI */}
                       <List component="nav">
-                        <ListItem
-                          button
-                          onClick={(event: React.MouseEvent<HTMLElement>) =>
-                            setAnchorEl(event.currentTarget)
-                          }
-                        >
+                        <ListItem button onClick={popover.open}>
                           <ListItemText primary={breakdownFilter} />
                         </ListItem>
                       </List>
+                      {/* TODO - Align this with the mocks */}
                       <Menu
-                        anchorEl={anchorEl}
+                        anchorEl={popover.anchor}
                         keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={() => {
-                          setAnchorEl(null);
-                        }}
+                        open={popover.isOpen}
+                        onClose={popover.close}
                       >
                         {["age", "all"].includes(props.currentBreakdown) && (
                           <MenuItem disabled={true}>Age [unavailable]</MenuItem>
@@ -173,7 +176,7 @@ function MapCardWithKey(props: MapCardProps) {
                               <MenuItem
                                 key={option}
                                 onClick={(e) => {
-                                  setAnchorEl(null);
+                                  popover.close();
                                   setBreakdownFilter(option);
                                 }}
                               >
