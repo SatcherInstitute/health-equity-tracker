@@ -1,7 +1,6 @@
 import os
 
 from google.oauth2 import service_account
-import google.auth
 from google.auth.transport.requests import AuthorizedSession
 
 
