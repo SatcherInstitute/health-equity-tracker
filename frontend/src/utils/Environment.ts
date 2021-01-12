@@ -78,11 +78,6 @@ function getDeployContext(): DeployContext {
     if (!expectedContexts.includes(deployContextVar)) {
       throw new Error("Invalid value for deploy context environment variable");
     }
-    // Temporary workaround, until staging and prod are set up to deploy with
-    // correct environment variables.
-    if (process.env.NODE_ENV === "production" && !deployContextVar) {
-      return "staging";
-    }
     return deployContextVar as DeployContext;
   }
 
