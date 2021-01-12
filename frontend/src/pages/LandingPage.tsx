@@ -64,10 +64,9 @@ function LandingPage() {
             Our Project
           </Typography>
           <p>
-            Our team aims to map and display data on the trajectory of major
-            health outcomes and determinants of health across the United States
-            and its territories, including COVID-19, asthma, heart disease,
-            social vulnerability indices, and more.
+            Our team aggregates and displays data on how social vulnerabilities
+            and other inequities affect the health outcomes of people with major
+            conditions like COVID-19, asthma, and heart disease.
           </p>
         </Grid>
         <Grid item xs={4} className={styles.ThreeSquares}>
@@ -76,9 +75,10 @@ function LandingPage() {
             Our Impact
           </Typography>
           <p>
-            The project will support data- and science-backed policies and
-            decision-making to address entrenched health inequities in
-            disproportionately impacted communities.
+            Our project combats the under-reporting, misreporting, or lack of
+            health data on racial/ethnic minorities by actively collecting this
+            data, which in turn will help provide science-backed evidence to
+            support policies addressing health inequities.{" "}
           </p>
         </Grid>
         <Grid item xs={12}>
