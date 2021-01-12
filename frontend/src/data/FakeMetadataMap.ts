@@ -41,48 +41,6 @@ const fakeMetadata: DatasetMetadata[] = [
     ],
   },
   {
-    id: "covid_deaths",
-    name: "COVID-19 Deaths",
-    data_source_name: "CDC Provisional Death Counts for COVID-19",
-    data_source_link:
-      "https://www.cdc.gov/nchs/covid19/covid-19-mortality-data-files.htm",
-    geographic_level: "County",
-    demographic_granularity: "Race/ethnicity",
-    update_frequency: "Daily",
-    update_time: "March 2, 2020",
-    description:
-      "Description placeholder for COVID-19 Deaths. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id lectus urna. Vestibulum lobortis ac quam vel tincidunt. Quisque ex erat, efficitur nec sagittis vitae, dictum semper arcu. Vivamus metus felis, fringilla sit amet metus nec, feugiat suscipit nisl. Morbi posuere mi sit amet elit posuere, id gravida ligula facilisis. Aenean gravida a eros fringilla venenatis.",
-    fields: [
-      {
-        data_type: "string",
-        name: "fakefield1",
-        description: "description",
-        origin_dataset: "origin_dataset",
-      },
-    ],
-  },
-  {
-    id: "social_vulernability",
-    name: "Social Vulnerability Index",
-    data_source_name: "CDC's Social Vulernability Index",
-    data_source_link:
-      "https://www.atsdr.cdc.gov/placeandhealth/svi/data_documentation_download.html",
-    geographic_level: "State, County",
-    demographic_granularity: "No demographic breakdown",
-    update_frequency: "Every 2 years",
-    update_time: "March 2, 2020",
-    description:
-      "Description placeholder for Social Vulnerability Index. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id lectus urna. Vestibulum lobortis ac quam vel tincidunt. Quisque ex erat, efficitur nec sagittis vitae, dictum semper arcu. Vivamus metus felis, fringilla sit amet metus nec, feugiat suscipit nisl. Morbi posuere mi sit amet elit posuere, id gravida ligula facilisis. Aenean gravida a eros fringilla venenatis.",
-    fields: [
-      {
-        data_type: "string",
-        name: "fakefield1",
-        description: "description",
-        origin_dataset: "origin_dataset",
-      },
-    ],
-  },
-  {
     id: "brfss",
     name: "COPD and Diabetes Prevalence",
     data_source_name: "CDC's BRFSS",
