@@ -99,9 +99,9 @@ function MapCardWithKey(props: MapCardProps) {
         const queryResponse = datasetStore.getMetrics(
           queries[currentlyDisplayedBreakdown]
         );
-        const breakdownValues = queryResponse.getUniqueFieldValues(
-          currentlyDisplayedBreakdown
-        );
+        const breakdownValues = queryResponse
+          .getUniqueFieldValues(currentlyDisplayedBreakdown)
+          .sort();
         if (breakdownFilter === "") {
           setBreakdownFilter(breakdownValues[0]);
         }
