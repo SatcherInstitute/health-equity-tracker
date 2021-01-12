@@ -2,6 +2,7 @@ import logging
 import os
 
 from flask import Flask, Response, request
+from flask_cors import CORS
 import google.cloud.exceptions
 from werkzeug.datastructures import Headers
 
@@ -9,6 +10,7 @@ from data_server.dataset_cache import DatasetCache
 import data_server.gcs_utils as gcs_utils
 
 app = Flask(__name__)
+CORS(app)
 cache = DatasetCache()
 
 
@@ -36,6 +38,7 @@ def get_metadata():
     headers = Headers()
     headers.add('Content-Disposition', 'attachment',
                 filename=os.environ.get('METADATA_FILENAME'))
+    headers.add('Vary', 'Accept-Encoding')
     return Response(generate_response(metadata), mimetype='application/json',
                     headers=headers)
 
@@ -61,8 +64,7 @@ def get_dataset():
         yield next_row.rstrip(b',') + b']'
     headers = Headers()
     headers.add('Content-Disposition', 'attachment', filename=dataset_name)
-    headers.add('Access-Control-Allow-Origin', '*')
-    headers.add('Vary', 'Accept-Encoding, Origin')
+    headers.add('Vary', 'Accept-Encoding')
 
     if dataset_name.endswith('.csv'):
         return Response(dataset, mimetype='text/csv', headers=headers)

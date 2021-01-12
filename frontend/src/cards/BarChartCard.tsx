@@ -3,6 +3,7 @@ import { DisparityBarChart } from "../charts/DisparityBarChart";
 import styles from "./Card.module.scss";
 import { Alert } from "@material-ui/lab";
 import { CardContent } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
@@ -18,6 +19,9 @@ import { MetricQuery } from "../data/MetricQuery";
 import { MetricConfig, VariableConfig } from "../data/MetricConfig";
 import { POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
 import CardWrapper from "./CardWrapper";
+import RaceInfoPopover from "./ui/RaceInfoPopoverContent";
+import DisparityInfoPopover from "./ui/DisparityInfoPopover";
+import { usePopover } from "../utils/usePopover";
 
 const VALID_METRIC_TYPES = ["pct_share", "per100k"];
 
@@ -65,14 +69,33 @@ function BarChartCardWithKey(props: BarChartCardProps) {
     props.variableConfig.metrics
   ).filter((metricConfig) => VALID_METRIC_TYPES.includes(metricConfig.type));
 
+  function CardTitle() {
+    const popover = usePopover();
+
+    return (
+      <>
+        <DisparityInfoPopover popover={popover} />
+        <Button onClick={popover.open} className={styles.TermInfoButton}>
+          Disparities
+        </Button>{" "}
+        in {metricConfig.fullCardTitleName} by{" "}
+        <b>{BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]}</b> in{" "}
+        {props.fips.getFullDisplayName()}
+      </>
+    );
+  }
+
   // TODO - we want to bold the breakdown name in the card title
   return (
     <CardWrapper
       datasetIds={getDependentDatasets(metrics)}
       queries={[query]}
-      titleText={`${metricConfig.fullCardTitleName} by ${
-        BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-      } in ${props.fips.getFullDisplayName()}`}
+      title={<CardTitle />}
+      infoPopover={
+        props.breakdownVar === "race_and_ethnicity" ? (
+          <RaceInfoPopover />
+        ) : undefined
+      }
     >
       {() => {
         const queryResponse = datasetStore.getMetrics(query);
@@ -113,9 +136,7 @@ function BarChartCardWithKey(props: BarChartCardProps) {
                   >
                     {validDisplayMetricConfigs.map((metricConfig) => (
                       <ToggleButton value={metricConfig.type}>
-                        {metricConfig.type === "pct_share" &&
-                          props.variableConfig.variableDisplayName +
-                            " and Population"}
+                        {metricConfig.type === "pct_share" && " vs. Population"}
                         {metricConfig.type === "per100k" &&
                           "per 100,000 people"}
                       </ToggleButton>

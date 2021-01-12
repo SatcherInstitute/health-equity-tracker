@@ -14,8 +14,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { getMadLibPhraseText } from "../utils/madlib/MadLibs";
-import { linkToMadLib } from "../utils/urlutils";
+import { linkToMadLib, DATA_CATALOG_PAGE_LINK } from "../utils/urlutils";
 import Button from "@material-ui/core/Button";
+import ArrowForward from "@material-ui/icons/ArrowForward";
 import ShareIcon from "@material-ui/icons/Share";
 import styles from "./Report.module.scss";
 
@@ -107,33 +108,96 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
 
   return (
     <>
-      <Dialog
-        open={shareModalOpen}
-        onClose={() => setShareModalOpen(false)}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">Link to this Report</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {getMadLibPhraseText(props.madLib)}
-          </DialogContentText>
-          <DialogContentText id="alert-dialog-description">
-            {linkToMadLib(props.madLib.id, props.madLib.activeSelections, true)}
-          </DialogContentText>
-        </DialogContent>
-      </Dialog>
-      <div className={styles.ReportToolbar}>
-        <Button
-          color="primary"
-          startIcon={<ShareIcon />}
-          onClick={() => setShareModalOpen(true)}
-          data-tip="Share a Link to this Report"
+      <div className={styles.ReportWrapper}>
+        <Dialog
+          open={shareModalOpen}
+          onClose={() => setShareModalOpen(false)}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
         >
-          Share
-        </Button>
+          <DialogTitle id="alert-dialog-title">Link to this Report</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              {getMadLibPhraseText(props.madLib)}
+            </DialogContentText>
+            <DialogContentText id="alert-dialog-description">
+              {linkToMadLib(
+                props.madLib.id,
+                props.madLib.activeSelections,
+                true
+              )}
+            </DialogContentText>
+          </DialogContent>
+        </Dialog>
+        <div className={styles.ReportToolbar}>
+          <Button
+            color="primary"
+            startIcon={<ShareIcon />}
+            onClick={() => setShareModalOpen(true)}
+            data-tip="Share a Link to this Report"
+          >
+            Share
+          </Button>
+        </div>
+        {getReport()}
       </div>
-      {getReport()}
+      {/* TODO- could we extract the names of datasets from the Fake Metdata */}
+      <div className={styles.MissingDataInfo}>
+        <h1>What Data Are Missing?</h1>
+        <p>
+          In this tracker, we are using <a href="/">COVID Tracking Project</a>,{" "}
+          <a href="/">CDC Public Datasets</a>,{" "}
+          <a href="/">American Community Survey data</a>. Some soures are more
+          "real-time" like case data, but other important data, such as
+          information around social determinants of health can lag weeks to
+          months. For the moment, this is our best representation of how the
+          country is doing based on publically available information.
+        </p>
+        <p>
+          Unfortunately, with these publically available data sets, there are
+          crucial pieces missing, including but not limited to: comprehensive
+          city-, census tract-, and county-level data; comprehensive race and
+          ethnicity breakdowns; comprehensive gender and age breakdowns by
+          county, etc.
+        </p>
+        <h3>Known limitations in the data</h3>
+        <ul>
+          <li>
+            Data may be hidden in counties with smaller numbers of COVID-19
+            cases, hospitalizations and deaths in order to protect the privacy
+            of affected individuals.
+          </li>
+          <li>
+            Racial and ethnic categorization is often at the discretion of
+            healthcare professionals and may not be accurate.
+          </li>
+          <li>
+            Racial and ethnic categories differ by source and can obscure severe
+            inequity by inappropriately aggregating different communities with
+            distinct experiences into a single overly large category (e.g.
+            “Other,” “Asian”).
+          </li>
+          <li>
+            US-wide statistics are aggregations of state-wide data. Where data
+            has been withheld to protect privacy, and where data is missing
+            (such as in states that do not report race/ethnicity breakdowns of
+            COVID-19 statistics), US-wide aggregations may be incomplete and
+            potentially skewed, if excluded populations differ significantly
+            from the country as a whole.
+          </li>
+          <li>
+            While we attempt to update our data sources with newly available
+            data within a short time frame (typically a few days), please
+            navigate to our data sources directly if you are seeking the newest
+            data as soon as it is made available.
+          </li>
+        </ul>
+        <a href={DATA_CATALOG_PAGE_LINK}>
+          <Button color="primary" endIcon={<ArrowForward />}>
+            See Data Sources
+          </Button>
+        </a>
+      </div>
     </>
   );
 }
