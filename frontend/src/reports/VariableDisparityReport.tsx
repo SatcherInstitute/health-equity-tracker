@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
@@ -61,22 +61,54 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
     : [];
 
   return (
-    <>
+    <Grid container xs={12} spacing={1} justify="center">
+      {!props.hidePopulationCard && (
+        <Grid item xs={12}>
+          <PopulationCard fips={props.fips} />
+        </Grid>
+      )}
+
       {!variableConfig && (
-        <Grid container xs={12} spacing={1} justify="center">
-          <Grid item xs={5}>
-            <Alert severity="error">Data not currently available</Alert>
-          </Grid>
+        <Grid item xs={5}>
+          <Alert style={{ margin: "20px" }} severity="error">
+            This data is not currently available in the Health Equity Tracker,
+            but will be coming soon.
+            <br />
+            {/* TODO - buttons should be actual working a href links and better follow UX*/}
+            <Button
+              style={{
+                padding: "0",
+                paddingLeft: "5px",
+                paddingRight: "5px",
+                background: "none",
+                textDecoration: "underline",
+              }}
+              onClick={() => alert("unimplemented")}
+            >
+              See our roadmap to learn more.
+            </Button>
+          </Alert>
+          <Alert variant="outlined" severity="info">
+            Do you have information on {props.dropdownVarId} at the state or
+            local level?
+            <Button
+              style={{
+                padding: "0",
+                paddingLeft: "5px",
+                paddingRight: "5px",
+                background: "none",
+                textDecoration: "underline",
+              }}
+              onClick={() => alert("unimplemented")}
+            >
+              We would love to hear from you.
+            </Button>
+          </Alert>
         </Grid>
       )}
 
       {variableConfig && (
         <Grid container spacing={1} justify="center">
-          {!props.hidePopulationCard && (
-            <Grid item xs={12}>
-              <PopulationCard fips={props.fips} />
-            </Grid>
-          )}
           <Grid container xs={12}>
             {!!METRIC_CONFIG[props.dropdownVarId as string] &&
               METRIC_CONFIG[props.dropdownVarId as string].length > 1 && (
@@ -174,6 +206,6 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           </Grid>
         </Grid>
       )}
-    </>
+    </Grid>
   );
 }
