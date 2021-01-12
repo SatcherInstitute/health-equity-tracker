@@ -4,6 +4,7 @@ import styles from "./AboutUsPage.module.scss";
 import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import Divider from "@material-ui/core/Divider";
+import { DATA_CATALOG_PAGE_LINK } from "../../utils/urlutils";
 
 function FaqTab() {
   return (
@@ -64,10 +65,11 @@ function FaqTab() {
             data as soon as it is made available.
           </li>
         </ul>
-        <Button color="primary">
-          See Data Sources
-          <ArrowForward />
-        </Button>
+        <a href={DATA_CATALOG_PAGE_LINK}>
+          <Button color="primary" endIcon={<ArrowForward />}>
+            See Data Sources
+          </Button>
+        </a>
         <h1>What principles guide you?</h1>
         It is essential that this work and its resulting products are done
         consistently in an ethical manner. One of the core values of the Health
