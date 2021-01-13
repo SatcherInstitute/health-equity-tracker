@@ -20,14 +20,14 @@ const DATASET_METADATA: DatasetMetadata = {
 function row(
   fips: string,
   state_name: string,
-  breakdownK: string,
-  breakdownV: string,
+  breakdownName: string,
+  breakdownValue: string,
   population: number
 ) {
   return {
     state_fips: fips,
     state_name: state_name,
-    [breakdownK]: breakdownV,
+    [breakdownName]: breakdownValue,
     population: population,
   };
 }
@@ -36,12 +36,10 @@ describe("AcsPopulationProvider", () => {
   test("Invalid Breakdown", async () => {
     const acsProvider = new AcsPopulationProvider();
 
-    const expectedMetricQueryResponse = createMissingDataResponse(
-      'Breakdowns not supported for provider acs_pop_provider: {"geography":"national"}'
-    );
-
     expect(acsProvider.getData({}, Breakdowns.national())).toEqual(
-      expectedMetricQueryResponse
+      createMissingDataResponse(
+        'Breakdowns not supported for provider acs_pop_provider: {"geography":"national"}'
+      )
     );
   });
 
