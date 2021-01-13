@@ -37,8 +37,7 @@ import {
   ABOUT_US_PAGE_LINK,
 } from "./utils/urlutils";
 import Logger from "./utils/Logger";
-import { initGlobals } from "./utils/globals";
-import DataFetcher from "./data/DataFetcher";
+import { autoInitGlobals } from "./utils/globals";
 import ReactTooltip from "react-tooltip";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
@@ -51,8 +50,7 @@ const PAGE_URL_TO_NAMES: Record<string, string> = {
   [EXPLORE_DATA_PAGE_LINK]: "Explore the Data",
 };
 
-// TODO configure the logger and data fetcher based on environment variables.
-initGlobals(new Logger(false), new DataFetcher());
+autoInitGlobals();
 startMetadataLoad();
 
 function MobileAppToolbar() {

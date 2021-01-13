@@ -1,10 +1,11 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import DatasetExplorer from "./DatasetExplorer";
-import DataFetcher from "../data/DataFetcher";
 import { startMetadataLoad } from "../data/useDatasetStore";
 import AppContext from "../testing/AppContext";
 import { DatasetMetadata } from "../data/DatasetTypes";
+import { getDataFetcher } from "../utils/globals";
+import FakeDataFetcher from "../testing/FakeDataFetcher";
 
 const STATE_NAMES_DATASET_METADATA: DatasetMetadata = {
   id: "state_names",
@@ -19,26 +20,22 @@ const STATE_NAMES_DATASET_METADATA: DatasetMetadata = {
   fields: [],
 };
 
-describe("DatasetExplorer", () => {
-  const mockGetMetadata = jest.fn();
-  const mockLoadDataset = jest.fn();
+const dataFetcher = getDataFetcher() as FakeDataFetcher;
 
+describe("DatasetExplorer", () => {
   beforeEach(() => {
-    jest.mock("../data/DataFetcher");
-    DataFetcher.prototype.getMetadata = mockGetMetadata;
-    DataFetcher.prototype.loadDataset = mockLoadDataset;
+    dataFetcher.resetState();
   });
 
   afterEach(() => {
-    mockGetMetadata.mockClear();
-    mockLoadDataset.mockClear();
+    dataFetcher.resetState();
   });
 
   test("renders dataset metadata retrieved from DataFetcher", async () => {
-    mockGetMetadata.mockReturnValue(
-      Promise.resolve({ state_names: STATE_NAMES_DATASET_METADATA })
-    );
     startMetadataLoad();
+    dataFetcher.setFakeMetadataLoaded({
+      state_names: STATE_NAMES_DATASET_METADATA,
+    });
 
     const { findByText } = render(
       <AppContext>
@@ -46,8 +43,8 @@ describe("DatasetExplorer", () => {
       </AppContext>
     );
 
-    expect(mockGetMetadata).toHaveBeenCalledTimes(1);
-    expect(mockLoadDataset).toHaveBeenCalledTimes(0);
+    expect(dataFetcher.getNumGetMetdataCalls()).toBe(1);
+    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(0);
     expect(
       await findByText(STATE_NAMES_DATASET_METADATA.description)
     ).toBeInTheDocument();
