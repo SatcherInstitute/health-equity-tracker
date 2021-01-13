@@ -1,17 +1,20 @@
 export type Severity = "INFO" | "WARNING" | "ERROR";
 
 class Logger {
-  isDebug: boolean;
+  enableServerLogging: boolean;
+  enableConsoleLogging: boolean;
 
-  constructor(isDebug: boolean) {
-    this.isDebug = isDebug;
+  constructor(enableServerLogging: boolean, enableConsoleLogging: boolean) {
+    this.enableServerLogging = enableServerLogging;
+    this.enableConsoleLogging = enableConsoleLogging;
   }
 
   /**
-   * If in debug mode, logs a message to the console. Otherwise this is a noop.
+   * If console logging is enabled, logs a message to the console. Otherwise
+   * this is a noop.
    */
   debugLog(message: string, context?: Record<string, string>) {
-    if (this.isDebug) {
+    if (this.enableConsoleLogging) {
       const logInfo: any[] = [message];
       if (context) {
         logInfo.push(context);
@@ -26,11 +29,13 @@ class Logger {
     severity: Severity,
     context: Record<string, string>
   ) {
-    if (this.isDebug) {
+    if (this.enableConsoleLogging) {
       console.log("Error Reported", error, severity, context);
-    } else {
-      // TODO replace with real reporting.
-      console.log("Error Reported", error, severity, context);
+    }
+
+    if (this.enableServerLogging) {
+      // TODO: implement server logging
+      console.log("TODO: implement server logging");
     }
   }
 }

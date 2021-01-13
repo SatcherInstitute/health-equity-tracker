@@ -59,7 +59,6 @@ async function loadResource<R>(
     // TODO handle re-load periodically so long-lived tabs don't get stale.
     // Also need to reset the variable cache when datasets are reloaded.
     if (!shouldLoadResource(loadStatus)) {
-      getLogger().debugLog("Already loaded or loading " + resourceId);
       return cacheManager.cache.resources[resourceId];
     }
 

@@ -1,6 +1,5 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import DataFetcher from "./DataFetcher";
 import { DatasetMetadata, MetadataMap, Row, Dataset } from "./DatasetTypes";
 import useDatasetStore, { startMetadataLoad } from "./useDatasetStore";
 import { act } from "react-dom/test-utils";
@@ -9,6 +8,8 @@ import { MetricQuery } from "../data/MetricQuery";
 import { Breakdowns } from "../data/Breakdowns";
 import FakeMetadataMap from "./FakeMetadataMap";
 import { WithMetrics } from "./WithLoadingOrErrorUI";
+import { getDataFetcher } from "../utils/globals";
+import FakeDataFetcher from "../testing/FakeDataFetcher";
 
 const STATE_NAMES_ID = "state_names";
 const ANOTHER_FAKE_DATASET_ID = "fake_dataset_2";
@@ -93,46 +94,28 @@ function WithMetricsWrapperApp(props: {
   );
 }
 
-describe("useDatasetStore", () => {
-  const mockGetMetadata = jest.fn();
-  const mockLoadDataset = jest.fn();
-  let resolveMetadata = (metadata: MetadataMap) => {};
-  let resolveDataset = (datasetRows: Row[]) => {};
+const dataFetcher = getDataFetcher() as FakeDataFetcher;
 
+describe("useDatasetStore", () => {
   beforeEach(() => {
-    jest.mock("./DataFetcher");
-    DataFetcher.prototype.getMetadata = mockGetMetadata;
-    DataFetcher.prototype.loadDataset = mockLoadDataset;
-    mockGetMetadata.mockReturnValue(
-      new Promise((res) => {
-        resolveMetadata = res;
-      })
-    );
-    mockLoadDataset.mockReturnValue(
-      new Promise((res) => {
-        resolveDataset = res;
-      })
-    );
+    dataFetcher.resetState();
   });
 
   afterEach(() => {
-    mockGetMetadata.mockClear();
-    mockLoadDataset.mockClear();
-    resolveMetadata = (metadata: MetadataMap) => {};
-    resolveDataset = (datasetRows: Row[]) => {};
+    dataFetcher.resetState();
   });
 
   test("Loads metadata", async () => {
-    expect(mockGetMetadata).toHaveBeenCalledTimes(0);
+    expect(dataFetcher.getNumGetMetdataCalls()).toBe(0);
     startMetadataLoad();
     const { findByTestId, rerender } = render(<DatasetDisplayApp />);
-    expect(mockGetMetadata).toHaveBeenCalledTimes(1);
+    expect(dataFetcher.getNumGetMetdataCalls()).toBe(1);
     expect(await findByTestId("MetadataLoadStatus")).toHaveTextContent(
       "loading"
     );
 
     act(() => {
-      resolveMetadata(fakeMetadata);
+      dataFetcher.setFakeMetadataLoaded(fakeMetadata);
     });
     expect(await findByTestId("MetadataLoadStatus")).toHaveTextContent(
       "loaded"
@@ -141,32 +124,32 @@ describe("useDatasetStore", () => {
 
     // Rerendering should not load the metadata again
     rerender(<DatasetDisplayApp />);
-    expect(mockGetMetadata).toHaveBeenCalledTimes(1);
+    expect(dataFetcher.getNumGetMetdataCalls()).toBe(1);
   });
 
   test("Loads datset when requested", async () => {
     startMetadataLoad();
     const { findByTestId } = render(<DatasetDisplayApp />);
     act(() => {
-      resolveMetadata(fakeMetadata);
+      dataFetcher.setFakeMetadataLoaded(fakeMetadata);
     });
 
     // Loading a dataset triggers an API call and the state becomes "loading"
     expect(await findByTestId("StateNamesLoadStatus")).toHaveTextContent(
       "unloaded"
     );
-    expect(mockLoadDataset).toHaveBeenCalledTimes(0);
+    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(0);
     await act(async () => {
       fireEvent.click(await findByTestId("load_state_names"));
     });
-    expect(mockLoadDataset).toHaveBeenCalledTimes(1);
+    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
     expect(await findByTestId("StateNamesLoadStatus")).toHaveTextContent(
       "loading"
     );
 
     // When the API call finishes, the state becomes "loaded"
     act(() => {
-      resolveDataset([]);
+      dataFetcher.setFakeDatasetLoaded(STATE_NAMES_ID, []);
     });
     expect(await findByTestId("StateNamesLoadStatus")).toHaveTextContent(
       "loaded"
@@ -176,17 +159,17 @@ describe("useDatasetStore", () => {
     await act(async () => {
       fireEvent.click(await findByTestId("load_state_names"));
     });
-    expect(mockLoadDataset).toHaveBeenCalledTimes(1);
+    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
 
-    // Loading an unloaded dataset should triggers another API call.
+    // Loading an unloaded dataset should trigger another API call.
     expect(await findByTestId("FakeDatasetLoadStatus")).toHaveTextContent(
       "unloaded"
     );
-    mockLoadDataset.mockReturnValue(Promise.resolve([]));
     await act(async () => {
       fireEvent.click(await findByTestId("load_other_dataset"));
     });
-    expect(mockLoadDataset).toHaveBeenCalledTimes(2);
+    dataFetcher.setFakeDatasetLoaded(ANOTHER_FAKE_DATASET_ID, []);
+    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(2);
     expect(await findByTestId("FakeDatasetLoadStatus")).toHaveTextContent(
       "loaded"
     );
@@ -198,7 +181,7 @@ describe("useDatasetStore", () => {
       Breakdowns.national().andRace()
     );
 
-    expect(mockGetMetadata).toHaveBeenCalledTimes(0);
+    expect(dataFetcher.getNumGetMetdataCalls()).toBe(0);
     startMetadataLoad();
     const { findByTestId } = render(
       <WithMetricsWrapperApp
@@ -209,8 +192,8 @@ describe("useDatasetStore", () => {
       />
     );
     act(() => {
-      resolveMetadata(fakeMetadata);
-      resolveDataset([
+      dataFetcher.setFakeMetadataLoaded(fakeMetadata);
+      dataFetcher.setFakeDatasetLoaded("brfss", [
         {
           state_name: "Alabama",
           race_and_ethnicity: "AmIn",
@@ -220,7 +203,7 @@ describe("useDatasetStore", () => {
       ]);
     });
 
-    expect(mockLoadDataset).toHaveBeenCalledTimes(1);
+    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
       "Loaded 2 rows. AmIn: 20. Asian: 1."
     );
@@ -234,15 +217,15 @@ describe("useDatasetStore", () => {
       Breakdowns.national().andRace()
     );
 
-    expect(mockGetMetadata).toHaveBeenCalledTimes(0);
+    expect(dataFetcher.getNumGetMetdataCalls()).toBe(0);
     startMetadataLoad();
     const { findByTestId } = render(<WithMetricsWrapperApp query={query} />);
     act(() => {
-      resolveMetadata(fakeMetadata);
-      resolveDataset([]);
+      dataFetcher.setFakeMetadataLoaded(fakeMetadata);
+      dataFetcher.setFakeDatasetLoaded("brfss", []);
     });
 
-    expect(mockLoadDataset).toHaveBeenCalledTimes(1);
+    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
       "Error: No rows returned"
     );
@@ -254,15 +237,15 @@ describe("useDatasetStore", () => {
       Breakdowns.byCounty().andAge()
     );
 
-    expect(mockGetMetadata).toHaveBeenCalledTimes(0);
+    expect(dataFetcher.getNumGetMetdataCalls()).toBe(0);
     startMetadataLoad();
     const { findByTestId } = render(<WithMetricsWrapperApp query={query} />);
     act(() => {
-      resolveMetadata(fakeMetadata);
-      resolveDataset([]);
+      dataFetcher.setFakeMetadataLoaded(fakeMetadata);
+      dataFetcher.setFakeDatasetLoaded("brfss", []);
     });
 
-    expect(mockLoadDataset).toHaveBeenCalledTimes(1);
+    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
       'Error: Breakdowns not supported for provider brfss_provider: {"geography":"county","demographic":"age"}'
     );
@@ -275,15 +258,14 @@ describe("useDatasetStore", () => {
       Breakdowns.national()
     );
 
-    expect(mockGetMetadata).toHaveBeenCalledTimes(0);
+    expect(dataFetcher.getNumGetMetdataCalls()).toBe(0);
     startMetadataLoad();
     const { findByTestId } = render(<WithMetricsWrapperApp query={query} />);
     act(() => {
-      resolveMetadata(fakeMetadata);
-      resolveDataset([]);
+      dataFetcher.setFakeMetadataLoaded(fakeMetadata);
     });
 
-    expect(mockLoadDataset).toHaveBeenCalledTimes(0);
+    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(0);
     expect(await findByTestId("WithLoadingOrErrorUI-error")).toHaveTextContent(
       "Oops, something went wrong"
     );
