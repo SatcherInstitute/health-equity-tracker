@@ -18,9 +18,10 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Menu from "@material-ui/core/Menu";
 import { Grid } from "@material-ui/core";
 import { Breakdowns, BreakdownVar } from "../data/Breakdowns";
-import RaceInfoPopover from "./ui/RaceInfoPopoverContent";
-import { Row } from "../data/DatasetTypes";
+import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 import { usePopover } from "../utils/usePopover";
+import { Row } from "../data/DatasetTypes";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 
 export interface MapCardProps {
   key?: string;
@@ -88,7 +89,7 @@ function MapCardWithKey(props: MapCardProps) {
       }
       infoPopover={
         ["race_and_ethnicity", "all"].includes(props.currentBreakdown) ? (
-          <RaceInfoPopover />
+          <RaceInfoPopoverContent />
         ) : undefined
       }
     >
@@ -152,6 +153,7 @@ function MapCardWithKey(props: MapCardProps) {
                       <List component="nav">
                         <ListItem button onClick={popover.open}>
                           <ListItemText primary={breakdownFilter} />
+                          <ArrowDropDownIcon />
                         </ListItem>
                       </List>
                       {/* TODO - Align this with the mocks */}

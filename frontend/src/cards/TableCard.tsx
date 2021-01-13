@@ -13,7 +13,7 @@ import {
 } from "../data/Breakdowns";
 import { CardContent } from "@material-ui/core";
 import { MetricConfig } from "../data/MetricConfig";
-import RaceInfoPopover from "./ui/RaceInfoPopoverContent";
+import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 
 export interface TableCardProps {
   fips: Fips;
@@ -48,7 +48,7 @@ export function TableCard(props: TableCardProps) {
       }
       infoPopover={
         props.breakdownVar === "race_and_ethnicity" ? (
-          <RaceInfoPopover />
+          <RaceInfoPopoverContent />
         ) : undefined
       }
     >

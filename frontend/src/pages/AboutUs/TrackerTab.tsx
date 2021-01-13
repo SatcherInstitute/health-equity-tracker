@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
 import Button from "@material-ui/core/Button";
+import { EXPLORE_DATA_PAGE_LINK } from "../../utils/urlutils";
 
 function TrackerTab() {
   const OUR_JOURNEY = (
@@ -41,6 +42,8 @@ function TrackerTab() {
                 HET currently aggregates data from 5 key data sources. We plan
                 to continue expanding data sources.
               </p>
+            </Grid>
+            <Grid item xs={6}>
               <span className={styles.UnderlinedHeader}>15 variables</span>
               <p>
                 Covering COVID-19 cases deaths, and hospitalizations, COPD,
@@ -58,9 +61,11 @@ function TrackerTab() {
               </p>
             </Grid>
           </Grid>
-          <Button color="secondary" variant="contained">
-            Explore the data
-          </Button>
+          <a href={EXPLORE_DATA_PAGE_LINK}>
+            <Button color="secondary" variant="contained">
+              Explore the data
+            </Button>
+          </a>
         </Grid>
       </Grid>
     </Grid>
