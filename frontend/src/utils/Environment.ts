@@ -24,10 +24,15 @@ export type DeployContext =
 
 export interface Environment {
   readonly deployContext: DeployContext;
+  /**
+   * The base url for API calls. Empty string if API calls are relative to the
+   * current domain.
+   */
   getBaseApiUrl(): string;
   getEnableServerLogging(): boolean;
   getEnableConsoleLogging(): boolean;
   isUserFacingEnvironment(): boolean;
+  forceFetchDatasetAsStaticFile(fileName: string): boolean;
 }
 
 export class HetEnvironment implements Environment {
@@ -37,13 +42,19 @@ export class HetEnvironment implements Environment {
     this.deployContext = deployContext;
   }
 
+  private getEnvVariable(nonPrefixedName: string): string | undefined {
+    const prefix =
+      this.deployContext === "storybook" ? "STORYBOOK_" : "REACT_APP_";
+    return process.env[prefix + nonPrefixedName];
+  }
+
   isUserFacingEnvironment() {
     return this.deployContext === "prod" || this.deployContext === "staging";
   }
 
   getBaseApiUrl() {
     // If the API url isn't provided, requests are relative to current domain.
-    return process.env.REACT_APP_BASE_API_URL || "";
+    return this.getEnvVariable("BASE_API_URL") || "";
   }
 
   getEnableServerLogging() {
@@ -53,11 +64,9 @@ export class HetEnvironment implements Environment {
   getEnableConsoleLogging() {
     return !this.isUserFacingEnvironment() && this.deployContext !== "test";
   }
-}
 
-export class StorybookEnvironment extends HetEnvironment {
-  getBaseApiUrl() {
-    return process.env.STORYBOOK_BASE_API_URL || "";
+  forceFetchDatasetAsStaticFile(fileName: string) {
+    return this.getEnvVariable("FORCE_STATIC_" + fileName) === "true";
   }
 }
 
@@ -92,10 +101,5 @@ function getDeployContext(): DeployContext {
 
 export function createEnvironment(): Environment {
   const deployContext = getDeployContext();
-
-  if (deployContext === "storybook") {
-    return new StorybookEnvironment(deployContext);
-  }
-
   return new HetEnvironment(deployContext);
 }

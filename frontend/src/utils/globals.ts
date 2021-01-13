@@ -54,10 +54,7 @@ export function autoInitGlobals() {
   const dataFetcher =
     environment.deployContext === "test"
       ? new FakeDataFetcher()
-      : new ApiDataFetcher(
-          environment.getBaseApiUrl(),
-          environment.deployContext
-        );
+      : new ApiDataFetcher(environment);
   initGlobals(environment, logger, dataFetcher);
 }
 

@@ -3,45 +3,8 @@
 // establish the API types.
 
 import { MetadataMap, Row } from "./DatasetTypes";
-import { diabetes } from "./FakeData";
 import FakeMetadataMap from "./FakeMetadataMap";
-import { DataFrame } from "data-forge";
-import { STATE_FIPS_MAP } from "../utils/madlib/Fips";
-import { DeployContext } from "../utils/Environment";
-
-async function getDiabetesFrame() {
-  const r = await fetch(
-    "https://api.census.gov/data/2018/acs/acs5/profile?get=NAME&for=state:*"
-  );
-  const json = await r.json();
-  const stateFipsFrame = new DataFrame({
-    columnNames: json[0],
-    rows: json.slice(1),
-  }).renameSeries({
-    state: "state_fips",
-    NAME: "state_name",
-  });
-  // TODO use brfss.json not in-memory
-  return new DataFrame(diabetes)
-    .dropSeries([
-      "PREDIABETES_YES_YESPREGNANT",
-      "PREDIABETES_NO_UNSURE_REFUSED",
-    ])
-    .renameSeries({
-      BRFSS2019_STATE: "state_name",
-      BRFSS2019_IMPLIED_RACE: "race_and_ethnicity",
-      DIABETES_YES_YESPREGNANT: "diabetes_count",
-      COPD_YES: "copd_count",
-      DIABETES_NO_REFUSED: "diabetes_no",
-      COPD_NO_UNKNOWN_REFUSED: "copd_no",
-    })
-    .join(
-      stateFipsFrame,
-      (row: any) => row.state_name,
-      (row: any) => row.state_name,
-      (dia, acs) => ({ ...dia, state_fips: acs.state_fips })
-    );
-}
+import { Environment } from "../utils/Environment";
 
 type FileFormat = "json" | "csv";
 
@@ -57,86 +20,59 @@ export interface DataFetcher {
 }
 
 export class ApiDataFetcher implements DataFetcher {
-  /**
-   * When true, forces all data requests to go to the server's static file
-   * directory. Should not be used in production environments.
-   */
-  forceStaticFile: boolean;
-  /**
-   * The base url for API calls. Empty string if API calls are relative to the
-   * current domain.
-   */
-  baseApiUrl: string;
+  environment: Environment;
 
-  constructor(baseApiUrl: string, deployContext: DeployContext) {
-    this.baseApiUrl = baseApiUrl;
+  constructor(environment: Environment) {
+    this.environment = environment;
+  }
 
-    // Use the static file directory for development environments unless the API
-    // url is provided
-    this.forceStaticFile = deployContext === "development" && !this.baseApiUrl;
+  /**
+   * Returns whether the dataset should be fetched as a static file from the
+   * tmp directory. If false, fetches normally from the data server. This is
+   * mainly for local development, though it may be used for in-progress
+   * datasets that have not been fully productionized on the data server.
+   * @param fileName The full name of the dataset file, including file
+   *     extension.
+   */
+  private shouldFetchAsStaticFile(fileName: string) {
+    return (
+      (this.environment.deployContext === "development" &&
+        !this.environment.getBaseApiUrl()) ||
+      this.environment.forceFetchDatasetAsStaticFile(fileName)
+    );
   }
 
   private getApiUrl() {
-    return this.baseApiUrl + "/api";
+    return this.environment.getBaseApiUrl() + "/api";
   }
 
   /**
    * @param datasetName The ID of the dataset to request
-   * @param useStaticFile Whether to route the request to the static file directory
    * @param format FileFormat for the request.
    */
   private getDatasetRequestPath(
     datasetName: string,
-    useStaticFile: boolean = false,
     format: FileFormat = "json"
   ) {
     const fullDatasetName = datasetName + "." + format;
-    const basePath =
-      useStaticFile || this.forceStaticFile
-        ? "/tmp/"
-        : this.getApiUrl() + "/dataset?name=";
+    const basePath = this.shouldFetchAsStaticFile(fullDatasetName)
+      ? "/tmp/"
+      : this.getApiUrl() + "/dataset?name=";
     return basePath + fullDatasetName;
   }
 
   /**
    * @param datasetName The ID of the dataset to request
-   * @param useStaticFile Whether to route the request to the static file directory
    * @param format FileFormat for the request.
    */
-  private async fetchDataset(
-    datasetName: string,
-    useStaticFile: boolean = false,
-    format: FileFormat = "json"
-  ) {
-    const requestPath = this.getDatasetRequestPath(
-      datasetName,
-      useStaticFile,
-      format
-    );
+  private async fetchDataset(datasetName: string, format: FileFormat = "json") {
+    const requestPath = this.getDatasetRequestPath(datasetName, format);
     const resp = await fetch(requestPath);
     return await resp.json();
   }
 
   // TODO build in retries, timeout before showing error to user.
   async loadDataset(datasetId: string): Promise<Row[]> {
-    // TODO remove these special cases once the datasets are available on the
-    // data server.
-    if (datasetId === "brfss") {
-      const diabetesData = await getDiabetesFrame();
-      return diabetesData.toArray();
-    }
-
-    if (datasetId === "covid_by_state_and_race") {
-      let result = await this.fetchDataset("covid_by_state", true);
-      const fipsEntries = Object.entries(STATE_FIPS_MAP);
-      const reversed = fipsEntries.map((entry) => [entry[1], entry[0]]);
-      const fipsMap = Object.fromEntries(reversed);
-      result = result.map((row: any) => {
-        return { ...row, state_fips: fipsMap[row["state_name"]] };
-      });
-      return result;
-    }
-
     if (datasetId.startsWith("acs_population")) {
       // TODO remove this once we figure out how to make BQ export integers as
       // integers
