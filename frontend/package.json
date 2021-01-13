@@ -43,16 +43,20 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start:development": "env-cmd -f .env.development npm run start",
     "build": "react-scripts build",
-    "build:staging": "env-cmd -f .env.staging npm run build",
-    "build:prod": "env-cmd -f .env.prod npm run build",
-    "build:development": "env-cmd -f .env.development npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public",
+
+    "start:development": "env-cmd -f .env.development npm run start",
     "storybook:development": "env-cmd -f .env.development npm run storybook",
-    "build-storybook": "build-storybook -s public"
+
+    "build:staging": "env-cmd -f .env.staging npm run build",
+    "build:prod": "env-cmd -f .env.prod npm run build",
+    "build:development": "env-cmd -f .env.development npm run build",
+    "build:deploy_preview": "env-cmd -f .env.deploy_preview npm run build",
+    "build:storybook": "env-cmd -f .env.storybook npm run build-storybook"
   },
   "eslintConfig": {
     "extends": "react-app"
