@@ -17,19 +17,6 @@ const DATASET_METADATA: DatasetMetadata = {
   update_time: "update_time",
 };
 
-class TestRow {
-  row: any;
-
-  constructor(row: Row) {
-    this.row = row;
-  }
-
-  add(key: string, value: string) {
-    this.row[key] = value;
-    return this.row;
-  }
-}
-
 function row(
   fips: string,
   state_name: string,
@@ -42,24 +29,6 @@ function row(
     state_name: state_name,
     [breakdownK]: breakdownV,
     population: population,
-  };
-}
-
-function row2(
-  fips: string,
-  state_name: string,
-  breakdownK: string,
-  breakdownV: string,
-  population: string,
-  field: string,
-  value: number
-) {
-  return {
-    state_fips: fips,
-    state_name: state_name,
-    [breakdownK]: breakdownV,
-    population: population,
-    [field]: value,
   };
 }
 
@@ -79,43 +48,35 @@ describe("AcsPopulationProvider", () => {
   test("State and Race Breakdown", async () => {
     const acsProvider = new AcsPopulationProvider();
 
+    const NC_ASIAN_ROW = row(
+      "37",
+      "NC",
+      "race_and_ethnicity",
+      "Asian (Non-Hispanic)",
+      "5"
+    );
+    const NC_WHITE_ROW = row(
+      "37",
+      "NC",
+      "race_and_ethnicity",
+      "White (Non-Hispanic)",
+      "15"
+    );
+
     const rows = [
       row("01", "AL", "race_and_ethnicity", "Total", "2"),
       row("01", "AL", "race_and_ethnicity", "Asian (Non-Hispanic)", "2"),
-      row("37", "NC", "race_and_ethnicity", "Total", "20"),
-      row("37", "NC", "race_and_ethnicity", "Asian (Non-Hispanic)", "5"),
-      row("37", "NC", "race_and_ethnicity", "White (Non-Hispanic)", "15"),
+      NC_ASIAN_ROW,
+      NC_WHITE_ROW,
     ];
 
-    const expectedRows = [
-      row2(
-        "37",
-        "NC",
-        "race_and_ethnicity",
-        "Total",
-        "20",
-        "population_pct",
-        100
-      ),
-      row2(
-        "37",
-        "NC",
-        "race_and_ethnicity",
-        "Asian (Non-Hispanic)",
-        "5",
-        "population_pct",
-        25
-      ),
-      row2(
-        "37",
-        "NC",
-        "race_and_ethnicity",
-        "White (Non-Hispanic)",
-        "15",
-        "population_pct",
-        75
-      ),
-    ];
+    const NC_ASIAN_FINAL_ROW = Object.assign(NC_ASIAN_ROW, {
+      population_pct: 25,
+    });
+    const NC_WHITE_FINAL_ROW = Object.assign(NC_WHITE_ROW, {
+      population_pct: 75,
+    });
+    const expectedRows = [NC_ASIAN_FINAL_ROW, NC_WHITE_FINAL_ROW];
 
     const dataset = new Dataset(rows, DATASET_METADATA);
     const DATASET_MAP = {
@@ -130,16 +91,20 @@ describe("AcsPopulationProvider", () => {
   test("State and Age Breakdown", async () => {
     const acsProvider = new AcsPopulationProvider();
 
+    const NC_AGE_0_9 = row("37", "NC", "age", "0-9", 15);
+    const NC_AGE_10_19 = row("37", "NC", "age", "10-19", 10);
     const rows = [
       row("01", "AL", "age", "10-19", "2"),
-      row("37", "NC", "age", "0-9", 15),
-      row("37", "NC", "age", "10-19", 10),
+      NC_AGE_0_9,
+      NC_AGE_10_19,
     ];
 
-    const expectedRows = [
-      row2("37", "NC", "age", "0-9", 15, "population_pct", 60),
-      row2("37", "NC", "age", "10-19", 10, "population_pct", 40),
-    ];
+    const NC_AGE_0_9_FINAL = Object.assign(NC_AGE_0_9, { population_pct: 60 });
+    const NC_AGE_10_19_FINAL = Object.assign(NC_AGE_10_19, {
+      population_pct: 40,
+    });
+
+    const expectedRows = [NC_AGE_0_9_FINAL, NC_AGE_10_19_FINAL];
 
     const dataset = new Dataset(rows, DATASET_METADATA);
     const breakdown = Breakdowns.forFips(new Fips("37")).andAge();

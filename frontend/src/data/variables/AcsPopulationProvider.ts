@@ -32,17 +32,15 @@ class AcsPopulationProvider extends VariableProvider {
     breakdowns: Breakdowns
   ): MetricQueryResponse {
     let df = this.getDataInternalWithoutPercents(datasets, breakdowns);
-    console.log("getDataInternal", datasets);
-    console.log(df.toArray());
     if (breakdowns.filterFips) {
       df = df.where((row) => row.state_fips === breakdowns.filterFips);
     }
-    console.log(df.toArray());
 
     // TODO - hardcoded
     const breakdownField =
       breakdowns.demographic === "age" ? "age" : "race_and_ethnicity";
 
+    console.log(df.toArray());
     df = applyToGroups(df, ["state_name"], (group) => {
       const total =
         breakdownField === "race_and_ethnicity"
