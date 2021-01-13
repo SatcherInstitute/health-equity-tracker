@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "./App.module.scss";
 import MaterialTheme from "./styles/MaterialTheme";
-import DataCatalogPage from "./pages/DataCatalogPage";
-import ExploreDataPage from "./pages/ExploreDataPage";
-import LandingPage from "./pages/LandingPage";
+import AboutUsPage from "./pages/AboutUs/AboutUsPage";
+import DataCatalogPage from "./pages/DataCatalog/DataCatalogPage";
+import ExploreDataPage from "./pages/ExploreData/ExploreDataPage";
+import LandingPage from "./pages/Landing/LandingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import Footer from "./Footer";
 import AppBar from "@material-ui/core/AppBar";
@@ -35,7 +36,6 @@ import {
   DATA_CATALOG_PAGE_LINK,
   ABOUT_US_PAGE_LINK,
 } from "./utils/urlutils";
-import AboutUsPage from "./pages/AboutUsPage";
 import { autoInitGlobals } from "./utils/globals";
 import ReactTooltip from "react-tooltip";
 import CssBaseline from "@material-ui/core/CssBaseline";

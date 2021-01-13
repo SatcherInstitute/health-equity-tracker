@@ -1,7 +1,7 @@
 import Button from "@material-ui/core/Button";
 import React from "react";
-import { DatasetStore } from "../data/DatasetTypes";
-import useDatasetStore from "../data/useDatasetStore";
+import { DatasetStore } from "../../../data/DatasetTypes";
+import useDatasetStore from "../../../data/useDatasetStore";
 
 function download(filename: string, content: string) {
   const element = document.createElement("a");
