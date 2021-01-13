@@ -26,7 +26,7 @@ function DatasetPreview({ datasetId }: { datasetId: string }) {
   const datasetStore = useDatasetStore();
   switch (datasetStore.getDatasetLoadStatus(datasetId)) {
     case "loaded":
-      const dataset = datasetStore.datasets[datasetId];
+      const dataset = datasetStore.getDataset(datasetId);
       return (
         <DataTable
           columns={getTableViewColumns(dataset)}

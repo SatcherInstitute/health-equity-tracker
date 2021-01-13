@@ -8,7 +8,7 @@ import { MetricQuery } from "../data/MetricQuery";
 import { Breakdowns } from "../data/Breakdowns";
 import FakeMetadataMap from "./FakeMetadataMap";
 import { WithMetrics } from "./WithLoadingOrErrorUI";
-import { getDataFetcher } from "../utils/globals";
+import { getDataFetcher, resetCacheDebug } from "../utils/globals";
 import FakeDataFetcher from "../testing/FakeDataFetcher";
 
 const STATE_NAMES_ID = "state_names";
@@ -25,10 +25,10 @@ function DatasetDisplayApp() {
     return (
       <>
         <div data-testid="MetadataLoadStatus">
-          {datasetStore.metadataLoadStatus}
+          {datasetStore.getMetadataLoadStatus()}
         </div>
         <div data-testid="MetadataKeys">
-          {Object.keys(datasetStore.metadata).join(",")}
+          {Object.keys(datasetStore.getMetadata()).join(",")}
         </div>
         <div data-testid="StateNamesLoadStatus">
           {datasetStore.getDatasetLoadStatus(STATE_NAMES_ID)}
@@ -98,10 +98,7 @@ const dataFetcher = getDataFetcher() as FakeDataFetcher;
 
 describe("useDatasetStore", () => {
   beforeEach(() => {
-    dataFetcher.resetState();
-  });
-
-  afterEach(() => {
+    resetCacheDebug();
     dataFetcher.resetState();
   });
 
@@ -127,7 +124,7 @@ describe("useDatasetStore", () => {
     expect(dataFetcher.getNumGetMetdataCalls()).toBe(1);
   });
 
-  test("Loads datset when requested", async () => {
+  test("Loads dataset when requested", async () => {
     startMetadataLoad();
     const { findByTestId } = render(<DatasetDisplayApp />);
     act(() => {

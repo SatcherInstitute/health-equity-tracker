@@ -96,14 +96,15 @@ function CardWrapper(props: {
                       target="_blank"
                       to={`${DATA_CATALOG_PAGE_LINK}?${DATASET_PRE_FILTERS}=${datasetId}`}
                     >
-                      {datasetStore.metadata[datasetId].data_source_name}{" "}
+                      {datasetStore.getMetadata()[datasetId].data_source_name}{" "}
                     </LinkWithStickyParams>
-                    {datasetStore.metadata[datasetId].update_time ===
+                    {datasetStore.getMetadata()[datasetId].update_time ===
                     "unknown" ? (
                       <>(last update unknown) </>
                     ) : (
                       <>
-                        (updated {datasetStore.metadata[datasetId].update_time}){" "}
+                        (updated{" "}
+                        {datasetStore.getMetadata()[datasetId].update_time}){" "}
                       </>
                     )}
                   </>

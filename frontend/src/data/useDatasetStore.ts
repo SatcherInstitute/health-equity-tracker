@@ -5,9 +5,258 @@ import VariableProvider from "./variables/VariableProvider";
 import { joinOnCols } from "./datasetutils";
 import { DataFrame, IDataFrame } from "data-forge";
 import { MetricQuery, MetricQueryResponse } from "./MetricQuery";
-import { getDataFetcher, getLogger } from "../utils/globals";
+import { getCache, getDataFetcher, getLogger } from "../utils/globals";
 
-const METADATA_KEY = "all_metadata";
+// Note: The way this is designed is a bit of a hack to work around some issues
+// with React/data loading. React queues state updates asynchronously with no
+// guarantees for when they will be run. This means that if we use a hook for
+// loading state, we might still load the same data multiple times if different
+// charts request the same data at the same time. Instead, we use a mutable
+// global cache so that we can immediately set the loading state so that
+// subsequent requests do not re-load the same data. Using a mutable global
+// cache also facilitates things like periodically clearing the cache, loading
+// a dataset from within a variable provider, and caching similar queries at the
+// same time. We use a React hook as a wrapper around the mutable cache -
+// whenever the LoadStatus of a resource in the cache changes, it calls the
+// hook's setState method, which causes all components to re-render.
+//
+// Ideally, this should probably be rewritten in a way that is more idiomatic to
+// React: either using a hook with useRef for mutable state, or using a state
+// management library like Redux or Mobx. Redux is more popular/standard, but
+// Mobx maps better to the paradigm of using classes with mutable state that
+// we're currently using so would likely require much less refactoring.
+
+abstract class ResourceCache<K, R> {
+  private resources: Record<string, R>;
+  private loadingResources: Record<string, Promise<R>>;
+  private loadStatuses: Record<string, LoadStatus>;
+
+  /** Keep a reference to the overall cache for intermediate caching. */
+  protected readonly cache: DataCache;
+
+  private onLoadStatusChanged: (
+    statuses: Readonly<Record<string, LoadStatus>>
+  ) => void;
+
+  constructor(cache: DataCache) {
+    this.resources = {};
+    this.loadingResources = {};
+    this.loadStatuses = {};
+    this.cache = cache;
+    this.onLoadStatusChanged = () => {};
+  }
+
+  setOnLoadStatusChangedCallback(
+    onLoadStatusChanged: (
+      statuses: Readonly<Record<string, LoadStatus>>
+    ) => void
+  ) {
+    this.onLoadStatusChanged = onLoadStatusChanged;
+  }
+
+  resetCache() {
+    // There's no way to cancel in-flight promises, so we don't clear the
+    // loading resources.
+    this.resources = {};
+    this.loadStatuses = {};
+    Object.keys(this.loadingResources).forEach((resourceId: string) => {
+      this.loadStatuses[resourceId] = "loading";
+    });
+    this.onLoadStatusChanged({ ...this.loadStatuses });
+  }
+
+  addResourceToCache(key: K, resource: R) {
+    const resourceId = this.getResourceId(key);
+    this.resources[resourceId] = resource;
+    this.updateLoadStatus(resourceId, "loaded");
+  }
+
+  private updateLoadStatus(resourceId: string, status: LoadStatus) {
+    this.loadStatuses[resourceId] = status;
+    this.onLoadStatusChanged({ ...this.loadStatuses });
+  }
+
+  async loadResource(key: K): Promise<R | undefined> {
+    const resourceId = this.getResourceId(key);
+
+    // Errors are considered permanent, so we don't retry on errors. Reloading
+    // is required to retry. In the future we could consider a more robust retry
+    // mechanism that only allows retrying after a certain amount of time or
+    // when the user changes Mad-libs. However, it's simpler and safer to just
+    // not retry because frequent retries can risk spamming the server or
+    // freezing the page from too many expensive computations.
+    if (this.loadStatuses[resourceId] === "error") {
+      return undefined;
+    }
+
+    try {
+      // TODO handle errors at the DataFetcher level
+      // TODO handle re-load periodically so long-lived tabs don't get stale.
+      // Also need to reset the variable cache when datasets are reloaded.
+
+      const resource = this.resources[resourceId];
+      if (resource) {
+        return resource;
+      }
+      const loadingResource = this.loadingResources[resourceId];
+      if (loadingResource) {
+        return await loadingResource;
+      }
+
+      this.updateLoadStatus(resourceId, "loading");
+      getLogger().debugLog("Loading " + resourceId);
+
+      const loadPromise = this.loadResourceInternal(key);
+      this.loadingResources[resourceId] = loadPromise;
+      const result = await loadPromise;
+
+      this.resources[resourceId] = result;
+      delete this.loadingResources[resourceId];
+      this.updateLoadStatus(resourceId, "loaded");
+      getLogger().debugLog("Loaded " + resourceId);
+
+      return result;
+    } catch (e) {
+      delete this.loadingResources[resourceId];
+      this.updateLoadStatus(resourceId, "error");
+      await getLogger().logError(e, "WARNING", {
+        error_type: "resource_load_failure",
+        resource_id: resourceId,
+      });
+    }
+    return undefined;
+  }
+
+  getResource(key: K): R | undefined {
+    return this.resources[this.getResourceId(key)];
+  }
+
+  protected abstract loadResourceInternal(key: K): Promise<R>;
+
+  abstract getResourceId(key: K): string;
+}
+
+class MetadataCache extends ResourceCache<string, MetadataMap> {
+  static METADATA_KEY = "all_metadata";
+
+  protected async loadResourceInternal(
+    metadataId: string
+  ): Promise<MetadataMap> {
+    return metadataLoadPromise;
+  }
+
+  getResourceId(metadataId: string): string {
+    return metadataId;
+  }
+}
+
+class DatasetCache extends ResourceCache<string, Dataset> {
+  protected async loadResourceInternal(datasetId: string): Promise<Dataset> {
+    const promise = getDataFetcher().loadDataset(datasetId);
+    const [data, metadata] = await Promise.all([promise, metadataLoadPromise]);
+    // TODO throw specific error message if metadata is missing.
+    // TODO validate metadata against data, and also process variables out
+    // of it?
+    return new Dataset(data, metadata[datasetId]);
+  }
+
+  getResourceId(datasetId: string): string {
+    return datasetId;
+  }
+}
+
+class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
+  protected async loadResourceInternal(
+    query: MetricQuery
+  ): Promise<MetricQueryResponse> {
+    const providers = getUniqueProviders(query.metricIds);
+    // TODO replace with getDependentDatasets(query) so we only load the minimal
+    // set of datasets.
+    const datasetIds = VariableProvider.getUniqueDatasetIds(providers);
+
+    const promises = datasetIds.map((id) =>
+      this.cache.datasetCache.loadResource(id)
+    );
+    const datasets = await Promise.all(promises);
+
+    const entries = datasets.map((d) => {
+      if (!d) {
+        throw new Error("Failed to load dependent dataset");
+      }
+      return [d.metadata.id, d];
+    });
+    const datasetMap = Object.fromEntries(entries);
+    // Yield thread so the UI can respond. This prevents long calculations
+    // from causing UI elements to look laggy.
+    await new Promise((res) => {
+      setTimeout(res, 0);
+    });
+    // TODO potentially improve caching by caching the individual results
+    // before joining so those can be reused, or caching the results under
+    // all of the variables provided under different keys. For example, if
+    // you request covid cases we could also cache it under covid deaths
+    // since they're provided together. Also, it would be nice to cache ACS
+    // when it's used from within another provider.
+    const queryResponses: MetricQueryResponse[] = providers.map(
+      (provider) => provider.getData(datasetMap, query.breakdowns)
+    );
+
+    const potentialErrorResponse = queryResponses.find(
+      (metricQueryResponse) => metricQueryResponse.dataIsMissing()
+    );
+    if (potentialErrorResponse !== undefined) {
+      return potentialErrorResponse;
+    }
+
+    const dataframes: IDataFrame[] = queryResponses.map(
+      (response) => new DataFrame(response.data)
+    );
+
+    const joined = dataframes.reduce((prev, next) => {
+      return joinOnCols(
+        prev,
+        next,
+        query.breakdowns.getJoinColumns(),
+        query.joinType
+      );
+    });
+
+    const consumedDatasetIds = queryResponses.reduce(
+      (accumulator: string[], response: MetricQueryResponse) =>
+        accumulator.concat(response.consumedDatasetIds),
+      []
+    );
+    const uniqueConsumedDatasetIds = Array.from(
+      new Set(consumedDatasetIds)
+    );
+    return new MetricQueryResponse(
+      joined.toArray(),
+      uniqueConsumedDatasetIds
+    );
+  }
+
+  getResourceId(query: MetricQuery): string {
+    return query.getUniqueKey();
+  }
+}
+
+export class DataCache {
+  readonly datasetCache: DatasetCache;
+  readonly metricQueryCache: MetricQueryCache;
+  readonly metadataCache: MetadataCache;
+
+  constructor() {
+    this.datasetCache = new DatasetCache(this);
+    this.metricQueryCache = new MetricQueryCache(this);
+    this.metadataCache = new MetadataCache(this);
+  }
+
+  resetCache() {
+    // TODO need to handle resetting and reloading metadata
+    this.datasetCache.resetCache();
+    this.metricQueryCache.resetCache();
+  }
+}
 
 let resolveMetadataPromise: (metadata: Promise<MetadataMap>) => void;
 const metadataLoadPromise: Promise<MetadataMap> = new Promise((res, rej) => {
@@ -21,88 +270,45 @@ export function startMetadataLoad() {
   resolveMetadataPromise(getDataFetcher().getMetadata());
 }
 
-interface ResourceCache<R> {
-  readonly resources: Readonly<Record<string, R>>;
-  readonly statuses: Readonly<Record<string, LoadStatus>>;
-}
-
-interface ResourceCacheManager<R> {
-  readonly cache: ResourceCache<R>;
-  readonly setLoadStatus: (resourceId: string, status: LoadStatus) => void;
-  readonly setLoaded: (resourceId: string, resource: R) => void;
-}
-
-/** Whether the resource should be loaded based on its current load status. */
-function shouldLoadResource(loadStatus: LoadStatus) {
-  // TODO need to make it not retry for non-retryable errors and/or have a limit
-  // for the number of retries with backoff. For now, I removed retrying on
-  // error because it causes infinite reloads.
-  return loadStatus === undefined || loadStatus === "unloaded";
-}
-
 /**
- * Loads a resource and tracks its load state by updating the
- * ResourceCacheManager.
- * @param resourceId A unique id to identify the resource. If the same resource
- *     id is requested multiple times, it will only be fetched once.
- * @param cacheManager The ResourceCacheManager that tracks that resource.
- * @param loadFunction A function that loads the resource when called.
- * @return The resource, once loaded, or undefined if the resource fails to load.
+ * A hook that tracks the LoadStatuses for a ResourceCache and exposes them for
+ * use in React components so that components will update whenever a load status
+ * changes.
+ *
+ * @return An array of length three:
+ *     1. getLoadStatus: a function that returns the load status of a resource
+ *     2. loadResource: a function that loads a resource and returns a Promise
+ *        that resolves when the resource is loaded
+ *     3. getResource: a function that gets a resource synchronously, and throws
+ *        if the resource isn't loaded.
  */
-async function loadResource<R>(
-  resourceId: string,
-  cacheManager: ResourceCacheManager<R>,
-  loadFunction: () => Promise<R>
-): Promise<R | undefined> {
-  try {
-    const loadStatus = cacheManager.cache.statuses[resourceId];
-    // TODO handle re-load periodically so long-lived tabs don't get stale.
-    // Also need to reset the variable cache when datasets are reloaded.
-    if (!shouldLoadResource(loadStatus)) {
-      return cacheManager.cache.resources[resourceId];
+function useLoadStatuses<K, R>(
+  cache: ResourceCache<K, R>
+): [(key: K) => LoadStatus, (key: K) => Promise<R | undefined>, (key: K) => R] {
+  const [loadStatuses, setLoadStatuses] = useState<Record<string, LoadStatus>>(
+    {}
+  );
+  cache.setOnLoadStatusChangedCallback(setLoadStatuses);
+
+  function getLoadStatus(key: K) {
+    return loadStatuses[cache.getResourceId(key)] || "unloaded";
+  }
+
+  async function loadResource(key: K): Promise<R | undefined> {
+    return await cache.loadResource(key);
+  }
+
+  function getResource(key: K): R {
+    const resource = cache.getResource(key);
+    // TODO try to find a good way to use static type checking to make sure
+    // this is present rather than throwing an error.
+    if (!resource) {
+      throw new Error("Cannot get a resource that has not been loaded");
     }
-
-    getLogger().debugLog("Loading " + resourceId);
-    cacheManager.setLoadStatus(resourceId, "loading");
-    const result = await loadFunction();
-    getLogger().debugLog("Loaded " + resourceId);
-    cacheManager.setLoaded(resourceId, result);
-    return result;
-  } catch (e) {
-    cacheManager.setLoadStatus(resourceId, "error");
-    await getLogger().logError(e, "WARNING", {
-      error_type: "resource_load_failure",
-      resource_id: resourceId,
-    });
-  }
-  return undefined;
-}
-
-/**
- * Hook that exposes a cache of resources and their load statuses. Provides
- * functions to update the state of a resource.
- */
-function useResourceCache<R>(): ResourceCacheManager<R> {
-  const [cache, setCache] = useState<ResourceCache<R>>({
-    resources: {},
-    statuses: {},
-  });
-
-  function setLoadStatus(resourceId: string, status: LoadStatus) {
-    setCache((prevCache) => ({
-      ...prevCache,
-      statuses: { ...prevCache.statuses, [resourceId]: status },
-    }));
+    return resource;
   }
 
-  function setLoaded(resourceId: string, resource: R) {
-    setCache((prevCache) => ({
-      resources: { ...prevCache.resources, [resourceId]: resource },
-      statuses: { ...prevCache.statuses, [resourceId]: "loaded" },
-    }));
-  }
-
-  return { cache, setLoadStatus, setLoaded };
+  return [getLoadStatus, loadResource, getResource];
 }
 
 /**
@@ -117,145 +323,35 @@ function useResourceCache<R>(): ResourceCacheManager<R> {
  * management library.
  */
 export function useDatasetStoreProvider(): DatasetStore {
-  const metadataCacheManager = useResourceCache<MetadataMap>();
-  const datasetCacheManager = useResourceCache<Dataset>();
-  const metricCacheManager = useResourceCache<MetricQueryResponse>();
-
-  function trackMetadataLoad() {
-    loadResource<MetadataMap>(
-      METADATA_KEY,
-      metadataCacheManager,
-      async () => metadataLoadPromise
-    );
-  }
+  const [getMetadataLoadStatus, loadMetadata, getMetadata] = useLoadStatuses<
+    string,
+    MetadataMap
+  >(getCache().metadataCache);
+  const [getDatasetLoadStatus, loadDataset, getDataset] = useLoadStatuses<
+    string,
+    Dataset
+  >(getCache().datasetCache);
+  const [getMetricsLoadStatus, loadMetrics, getMetrics] = useLoadStatuses<
+    MetricQuery,
+    MetricQueryResponse
+  >(getCache().metricQueryCache);
 
   useEffect(() => {
-    trackMetadataLoad();
+    loadMetadata(MetadataCache.METADATA_KEY);
     // We only want this to run once, on initial render.
     // eslint-disable-next-line
   }, []);
 
-  async function loadDataset(datasetId: string): Promise<Dataset | undefined> {
-    const result = await loadResource<Dataset>(
-      datasetId,
-      datasetCacheManager,
-      async () => {
-        const promise = getDataFetcher().loadDataset(datasetId);
-        const [data, metadata] = await Promise.all([
-          promise,
-          metadataLoadPromise,
-        ]);
-        // TODO throw specific error message if metadata is missing.
-        // TODO validate metadata against data, and also process variables out
-        // of it?
-        return new Dataset(data, metadata[datasetId]);
-      }
-    );
-    return result;
-  }
-
-  /**
-   * Loads the requested metrics into a single dataset and caches them so they
-   * can be accessed via `getMetrics()`
-   */
-  async function loadMetrics(query: MetricQuery): Promise<void> {
-    const providers = getUniqueProviders(query.metricIds);
-
-    await loadResource<MetricQueryResponse>(
-      query.getUniqueKey(),
-      metricCacheManager,
-      async () => {
-        const promises = VariableProvider.getUniqueDatasetIds(
-          providers
-        ).map((id) => loadDataset(id));
-        const datasets = await Promise.all(promises);
-        const entries = datasets.map((d) => {
-          if (!d) {
-            throw new Error("Failed to load dependent dataset");
-          }
-          return [d.metadata.id, d];
-        });
-        const datasetMap = Object.fromEntries(entries);
-        // Yield thread so the UI can respond. This prevents long calculations
-        // from causing UI elements to look laggy.
-        await new Promise((res) => {
-          setTimeout(res, 0);
-        });
-        // TODO potentially improve caching by caching the individual results
-        // before joining so those can be reused, or caching the results under
-        // all of the variables provided under different keys. For example, if
-        // you request covid cases we could also cache it under covid deaths
-        // since they're provided together. Also, it would be nice to cache ACS
-        // when it's used from within another provider.
-        const queryResponses: MetricQueryResponse[] = providers.map(
-          (provider) => provider.getData(datasetMap, query.breakdowns)
-        );
-
-        const potentialErrorResponse = queryResponses.find(
-          (metricQueryResponse) => metricQueryResponse.dataIsMissing()
-        );
-        if (potentialErrorResponse !== undefined) {
-          return potentialErrorResponse;
-        }
-
-        const dataframes: IDataFrame[] = queryResponses.map(
-          (response) => new DataFrame(response.data)
-        );
-
-        const joined = dataframes.reduce((prev, next) => {
-          return joinOnCols(
-            prev,
-            next,
-            query.breakdowns.getJoinColumns(),
-            query.joinType
-          );
-        });
-
-        const consumedDatasetIds = queryResponses.reduce(
-          (accumulator: string[], response: MetricQueryResponse) =>
-            accumulator.concat(response.consumedDatasetIds),
-          []
-        );
-        const uniqueConsumedDatasetIds = Array.from(
-          new Set(consumedDatasetIds)
-        );
-        return new MetricQueryResponse(
-          joined.toArray(),
-          uniqueConsumedDatasetIds
-        );
-      }
-    );
-  }
-
-  function getDatasetLoadStatus(id: string): LoadStatus {
-    return datasetCacheManager.cache.statuses[id] || "unloaded";
-  }
-
-  function getMetricsLoadStatus(query: MetricQuery): LoadStatus {
-    const key = query.getUniqueKey();
-    return metricCacheManager.cache.statuses[key] || "unloaded";
-  }
-
-  function getMetrics(query: MetricQuery): MetricQueryResponse {
-    const metric = metricCacheManager.cache.resources[query.getUniqueKey()];
-    // TODO try to find a good way to use static type checking to make sure
-    // this is present rather than throwing an error.
-    if (!metric) {
-      throw new Error("Cannot get a metric that has not been loaded");
-    }
-    return metric;
-  }
-
   return {
     loadDataset,
     getDatasetLoadStatus,
-    loadMetrics: loadMetrics,
+    getDataset,
+    loadMetrics,
     getMetricsLoadStatus,
     getMetrics,
-    metadataLoadStatus:
-      metadataCacheManager.cache.statuses[METADATA_KEY] || "unloaded",
-    metadata: metadataCacheManager.cache.resources[METADATA_KEY] || {},
-    datasets: datasetCacheManager.cache.resources,
+    getMetadataLoadStatus: () =>
+      getMetadataLoadStatus(MetadataCache.METADATA_KEY),
+    getMetadata: () => getMetadata(MetadataCache.METADATA_KEY),
   };
 }
 

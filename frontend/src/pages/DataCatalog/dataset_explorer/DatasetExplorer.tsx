@@ -11,6 +11,7 @@ import useDatasetStore, {
 import { DatasetMetadata, MetadataMap } from "../../../data/DatasetTypes";
 import Button from "@material-ui/core/Button";
 import { DATA_CATALOG_PAGE_LINK } from "../../../utils/urlutils";
+import { WithMetadata } from "../../../data/WithLoadingOrErrorUI";
 
 // Map of filter id to list of datasets selected by that filter, or empty list
 // for filters that don't have anything selected.
@@ -45,8 +46,6 @@ function DatasetExplorer(props: { preFilterDatasetIds: string[] }) {
   });
   const datasetStore = useDatasetStore();
 
-  const metadata: MetadataMap = datasetStore.metadata;
-
   // Once the metadata is loaded, update the filter to only include valid
   // dataset ids
   useOnMetadataLoaded((metadata) => {
@@ -63,11 +62,8 @@ function DatasetExplorer(props: { preFilterDatasetIds: string[] }) {
     });
   });
 
-  const defaultDatasetNames = props.preFilterDatasetIds
-    .filter((datasetId) => !!metadata[datasetId])
-    .map((datasetId) => metadata[datasetId].name);
-
   function createFilter(
+    metadata: MetadataMap,
     id: string,
     propertySelector: (metadata: DatasetMetadata) => string,
     placeholder: string,
@@ -91,71 +87,81 @@ function DatasetExplorer(props: { preFilterDatasetIds: string[] }) {
     );
   }
 
-  const viewingSubsetOfDatasets =
-    getFilteredDatasetIds(metadata, activeFilter).length === 1;
-
   return (
     <div className={styles.DatasetExplorer}>
       <div className={styles.DatasetList}>
-        {datasetStore.metadataLoadStatus !== "loaded" ? (
-          "Loading datasets..."
-        ) : (
-          <>
-            {!viewingSubsetOfDatasets && (
+        <WithMetadata>
+          {() => {
+            const metadata: MetadataMap = datasetStore.getMetadata();
+            const viewingSubsetOfDatasets =
+              getFilteredDatasetIds(metadata, activeFilter).length === 1;
+
+            const defaultDatasetNames = props.preFilterDatasetIds
+              .filter((datasetId) => !!metadata[datasetId])
+              .map((datasetId) => metadata[datasetId].name);
+
+            return (
               <>
-                <div className={styles.FilterContainer}>
-                  <div className={styles.Filter}>
-                    <MultiSelectDatasetFilter
-                      datasets={metadata}
-                      onSelectionChange={(filtered) => {
-                        setActiveFilter({
-                          ...activeFilter,
-                          [NAME_FILTER_ID]: filtered,
-                        });
-                      }}
-                      propertySelector={(metadata) => metadata.name}
-                      placeholder={"Search variables..."}
-                      defaultValues={defaultDatasetNames}
-                    />
-                  </div>
-                </div>
-                <div className={styles.FilterContainer}>
-                  <div className={styles.FilterTitle}>Filter by...</div>
-                  {createFilter(
-                    "geographic_filter",
-                    (metadata) => metadata.geographic_level,
-                    "geographic level...",
-                    "All"
-                  )}
-                  {createFilter(
-                    "demographic_filter",
-                    (metadata) => metadata.demographic_granularity,
-                    "demographic level...",
-                    "All"
-                  )}
-                </div>
+                {!viewingSubsetOfDatasets && (
+                  <>
+                    <div className={styles.FilterContainer}>
+                      <div className={styles.Filter}>
+                        <MultiSelectDatasetFilter
+                          datasets={metadata}
+                          onSelectionChange={(filtered) => {
+                            setActiveFilter({
+                              ...activeFilter,
+                              [NAME_FILTER_ID]: filtered,
+                            });
+                          }}
+                          propertySelector={(metadata) => metadata.name}
+                          placeholder={"Search variables..."}
+                          defaultValues={defaultDatasetNames}
+                        />
+                      </div>
+                    </div>
+                    <div className={styles.FilterContainer}>
+                      <div className={styles.FilterTitle}>Filter by...</div>
+                      {createFilter(
+                        metadata,
+                        "geographic_filter",
+                        (metadata) => metadata.geographic_level,
+                        "geographic level...",
+                        "All"
+                      )}
+                      {createFilter(
+                        metadata,
+                        "demographic_filter",
+                        (metadata) => metadata.demographic_granularity,
+                        "demographic level...",
+                        "All"
+                      )}
+                    </div>
+                  </>
+                )}
+                {getFilteredDatasetIds(metadata, activeFilter).map(
+                  (datasetId, index) => (
+                    <div className={styles.Dataset} key={index}>
+                      <div className={styles.DatasetListItem}>
+                        <DatasetListing dataset={metadata[datasetId]} />
+                      </div>
+                    </div>
+                  )
+                )}
+                {/* TODO clear filters instead of reloading the page. */}
+                {viewingSubsetOfDatasets && (
+                  <Button
+                    href={DATA_CATALOG_PAGE_LINK}
+                    color="primary"
+                    variant="contained"
+                  >
+                    View All datasets
+                  </Button>
+                )}
               </>
-            )}
-            {getFilteredDatasetIds(metadata, activeFilter).map(
-              (datasetId, index) => (
-                <div className={styles.Dataset} key={index}>
-                  <div className={styles.DatasetListItem}>
-                    <DatasetListing dataset={metadata[datasetId]} />
-                  </div>
-                </div>
-              )
-            )}
-            {viewingSubsetOfDatasets && (
-              <Button
-                href={DATA_CATALOG_PAGE_LINK}
-                color="primary"
-                variant="contained"
-              >
-                View All datasets
-              </Button>
-            )}
-          </>
-        )}
+            );
+          }}
+        </WithMetadata>
       </div>
     </div>
   );

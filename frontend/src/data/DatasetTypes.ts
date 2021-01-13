@@ -63,10 +63,12 @@ export type LoadStatus = "unloaded" | "loading" | "loaded" | "error";
 export interface DatasetStore {
   readonly loadDataset: (id: string) => Promise<Dataset | undefined>;
   readonly getDatasetLoadStatus: (id: string) => LoadStatus;
-  readonly loadMetrics: (query: MetricQuery) => Promise<void>;
+  readonly getDataset: (id: string) => Dataset;
+  readonly loadMetrics: (
+    query: MetricQuery
+  ) => Promise<MetricQueryResponse | undefined>;
   readonly getMetricsLoadStatus: (query: MetricQuery) => LoadStatus;
   readonly getMetrics: (query: MetricQuery) => MetricQueryResponse;
-  readonly metadataLoadStatus: LoadStatus;
-  readonly metadata: MetadataMap;
-  readonly datasets: Readonly<Record<string, Dataset>>;
+  readonly getMetadataLoadStatus: () => LoadStatus;
+  readonly getMetadata: () => MetadataMap;
 }

@@ -75,6 +75,16 @@ export function WithMetrics(props: {
   );
 }
 
+export function WithMetadata(props: { children: () => JSX.Element }) {
+  const datasetStore = useDatasetStore();
+  // TODO reload metadata?
+  return (
+    <WithLoadingOrErrorUI loadStatus={datasetStore.getMetadataLoadStatus()}>
+      {props.children}
+    </WithLoadingOrErrorUI>
+  );
+}
+
 /**
  * Provides a wrapper around a UI component that requires some datasets, and
  * displays loading and error indicators.
