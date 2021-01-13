@@ -8,11 +8,11 @@ const fakeMetadata: DatasetMetadata[] = [
     data_source_link:
       "https://www.census.gov/data/developers/data-sets/acs-5year.html",
     geographic_level: "State",
-    demographic_granularity: "Race/ethnicity",
+    demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Annual",
     update_time: "unknown",
     description:
-      "Description placeholder for Share of population. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id lectus urna. Vestibulum lobortis ac quam vel tincidunt. Quisque ex erat, efficitur nec sagittis vitae, dictum semper arcu. Vivamus metus felis, fringilla sit amet metus nec, feugiat suscipit nisl. Morbi posuere mi sit amet elit posuere, id gravida ligula facilisis. Aenean gravida a eros fringilla venenatis.",
+      "Population percentages broken down by self-reported race/ethnicity, age, and sex at the U.S. and state levels.",
     fields: [
       {
         data_type: "string",
@@ -42,7 +42,7 @@ const fakeMetadata: DatasetMetadata[] = [
   },
   {
     id: "brfss",
-    name: "COPD and Diabetes Prevalence",
+    name: "Disease Prevalence: Diabetes and COPD",
     data_source_name: "CDC's BRFSS",
     data_source_link: "https://www.cdc.gov/brfss/index.html",
     geographic_level: "State",
@@ -50,7 +50,7 @@ const fakeMetadata: DatasetMetadata[] = [
     update_frequency: "Annual",
     update_time: "unknown",
     description:
-      "Description placeholder for Diabetes Prevalence. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id lectus urna. Vestibulum lobortis ac quam vel tincidunt. Quisque ex erat, efficitur nec sagittis vitae, dictum semper arcu. Vivamus metus felis, fringilla sit amet metus nec, feugiat suscipit nisl. Morbi posuere mi sit amet elit posuere, id gravida ligula facilisis. Aenean gravida a eros fringilla venenatis.",
+      "The prevalence (percentage) for diseases broken down by self-reported race/ethnicity and sex at the U.S. and state levels.",
     fields: [
       {
         data_type: "string",
@@ -88,7 +88,7 @@ const fakeMetadata: DatasetMetadata[] = [
     update_frequency: "Annual",
     update_time: "unknown",
     description:
-      "Description placeholder for covid. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id lectus urna. Vestibulum lobortis ac quam vel tincidunt. Quisque ex erat, efficitur nec sagittis vitae, dictum semper arcu. Vivamus metus felis, fringilla sit amet metus nec, feugiat suscipit nisl. Morbi posuere mi sit amet elit posuere, id gravida ligula facilisis. Aenean gravida a eros fringilla venenatis.",
+      "The numbers of confirmed deaths, cases, and hospitalizations broken down by race/ethnicity at the U.S. and state levels.",
     fields: [
       {
         data_type: "string",
