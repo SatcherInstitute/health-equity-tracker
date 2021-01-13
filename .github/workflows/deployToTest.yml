@@ -221,3 +221,4 @@ jobs:
           python e2e_tests/data_serving.py || code=$?; if [[ $code -ne 0 ]]; then exit $code; fi
         env:
           SERVICE_URL: ${{ steps.terraform.outputs.data_server_url }}
+          PATH_TO_SA_CREDS: config/creds.json

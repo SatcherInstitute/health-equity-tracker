@@ -1,4 +1,5 @@
 -r ../python/tests/requirements.in
+-r ../data_server/requirements.in
 
 flask
 pytest

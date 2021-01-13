@@ -1,4 +1,5 @@
 import base64
+from http import HTTPStatus
 import json
 import logging
 import os
@@ -13,33 +14,41 @@ def ingest_data():
     """Main function for data ingestion. Receives Pub/Sub trigger and triages
        to the appropriate data ingestion workflow.
 
-       Returns 400 for a bad request or 204 for success."""
+       Returns 400 for a bad request and 204 for successful new file downloads
+       or 201 for successful non file download execution."""
     envelope = request.get_json()
     if not envelope:
         logging.error('No Pub/Sub message received.')
-        return ('', 400)
+        return ('', HTTPStatus.BAD_REQUEST)
 
     if not isinstance(envelope, dict) or 'message' not in envelope:
         logging.error('Invalid Pub/Sub message format')
-        return ('', 400)
+        return ('', HTTPStatus.BAD_REQUEST)
 
     event = envelope['message']
     logging.info(f"message: {event}")
 
     try:
-        ingest_data_to_gcs(event)
-        return ('', 204)
+        if ingest_data_to_gcs(event):
+            return ('', HTTPStatus.CREATED)
+        else:
+            return ('', HTTPStatus.NO_CONTENT)
     except Exception as e:
         logging.exception(e)
-        return ('', 400)
+        return ('', HTTPStatus.BAD_REQUEST)
 
 
 def ingest_data_to_gcs(event):
-    """Main entry point for data ingestion. Receives Pub/Sub trigger and triages
-       to the appropriate data ingestion workflow.
+    """
+    Main entry point for data ingestion. Receives Pub/Sub trigger and triages
+    to the appropriate data ingestion workflow.
 
+    Parameters:
        event: Dict containing the Pub/Sub method. The payload will be a base-64
-              encoded string in the 'data' field."""
+              encoded string in the 'data' field.
+
+    Returns: A boolean indication of downloading a new file
+    """
     is_airflow_run = event['is_airflow_run']
     if is_airflow_run:
         event_dict = event
@@ -61,10 +70,11 @@ def ingest_data_to_gcs(event):
         raise RuntimeError("ID: {}, is not a valid id".format(workflow_id))
 
     data_source = DATA_SOURCES_DICT[workflow_id]
-    data_source.upload_to_gcs(gcs_bucket, **attrs)
+    file_download = data_source.upload_to_gcs(gcs_bucket, **attrs)
 
     logging.info(
         "Successfully uploaded data to GCS for workflow %s", workflow_id)
+    return file_download
 
 
 if __name__ == "__main__":
