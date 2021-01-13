@@ -7,6 +7,7 @@ import { diabetes } from "./FakeData";
 import FakeMetadataMap from "./FakeMetadataMap";
 import { DataFrame } from "data-forge";
 import { STATE_FIPS_MAP } from "../utils/madlib/Fips";
+import { DeployContext } from "../utils/Environment";
 
 async function getDiabetesFrame() {
   const r = await fetch(
@@ -44,7 +45,18 @@ async function getDiabetesFrame() {
 
 type FileFormat = "json" | "csv";
 
-class DataFetcher {
+export interface DataFetcher {
+  /**
+   * Fetches and returns the dataset associated with the provided ID.
+   * @param datasetId The id of the dataset to load.
+   */
+  loadDataset(datasetId: string): Promise<Row[]>;
+
+  /** Fetches and returns the MetadataMap for all datasets. */
+  getMetadata(): Promise<MetadataMap>;
+}
+
+export class ApiDataFetcher implements DataFetcher {
   /**
    * When true, forces all data requests to go to the server's static file
    * directory. Should not be used in production environments.
@@ -54,29 +66,18 @@ class DataFetcher {
    * The base url for API calls. Empty string if API calls are relative to the
    * current domain.
    */
-  apiUrl: string;
+  baseApiUrl: string;
 
-  constructor() {
-    // If the API url isn't provided, requests are relative to current domain.
-    // TODO it might be better to wrap environment variable access in an API
-    // that automatically adds these prefixes and checks both. That also allows
-    // centralizing environment variables so they're easier to audit, fake, etc.
-    this.apiUrl =
-      process.env.REACT_APP_BASE_API_URL ||
-      process.env.STORYBOOK_BASE_API_URL ||
-      "";
+  constructor(baseApiUrl: string, deployContext: DeployContext) {
+    this.baseApiUrl = baseApiUrl;
 
-    // Use the static file directory for unit test environments, and for
-    // localhost environments unless the API url is provided
-    // TODO we should replace this class with a FakeDataFetcher for test
-    // environments and make this class throw an error in test environments.
-    this.forceStaticFile =
-      process.env.NODE_ENV === "test" ||
-      (process.env.NODE_ENV === "development" && !this.apiUrl);
+    // Use the static file directory for development environments unless the API
+    // url is provided
+    this.forceStaticFile = deployContext === "development" && !this.baseApiUrl;
   }
 
   private getApiUrl() {
-    return this.apiUrl + "/api";
+    return this.baseApiUrl + "/api";
   }
 
   /**
@@ -117,10 +118,6 @@ class DataFetcher {
   }
 
   // TODO build in retries, timeout before showing error to user.
-  /**
-   * Fetches and returns the dataset associated with the provided ID.
-   * @param datasetId The id of the dataset to load.
-   */
   async loadDataset(datasetId: string): Promise<Row[]> {
     // TODO remove these special cases once the datasets are available on the
     // data server.
@@ -155,15 +152,7 @@ class DataFetcher {
   }
 
   async getMetadata(): Promise<MetadataMap> {
-    // Simulate load time
-    // TODO get rid of this, make real metadata request. Alternatively, hard
-    // code metadata and drop the artificial timeout.
-    await new Promise((res) => {
-      setTimeout(res, 1000);
-    });
-
+    // TODO replace with real API call.
     return FakeMetadataMap;
   }
 }
-
-export default DataFetcher;

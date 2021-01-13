@@ -5,14 +5,12 @@ import {
   DatasetProvider,
   startMetadataLoad,
 } from "../data/useDatasetStore";
-import Logger from "../utils/Logger";
-import { initGlobals } from "../utils/globals";
-import DataFetcher from "../data/DataFetcher";
+import { autoInitGlobals } from "../utils/globals";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/styles";
 import MaterialTheme from "../styles/MaterialTheme";
 
-initGlobals(new Logger(false), new DataFetcher());
+autoInitGlobals();
 startMetadataLoad();
 
 // TODO Refactor so these aren't making real API calls
