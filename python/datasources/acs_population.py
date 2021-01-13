@@ -160,9 +160,10 @@ class ACSPopulationIngester():
             group_vars = get_vars_for_group(concept, var_map, 2)
             cols = list(group_vars.keys())
             url_params = get_census_params(cols, self.county_level)
-            file_diff = url_file_to_gcs.url_file_to_gcs(
+            concept_file_diff = url_file_to_gcs.url_file_to_gcs(
                 self.base_acs_url, url_params, gcs_bucket,
-                self.get_filename(concept)) or file_diff
+                self.get_filename(concept))
+            file_diff = file_diff or concept_file_diff
 
         url_params = get_census_params(
             [TOTAL_POP_VARIABLE_ID], self.county_level)
