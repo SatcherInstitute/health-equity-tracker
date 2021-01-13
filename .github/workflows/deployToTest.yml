@@ -127,13 +127,11 @@ jobs:
           service_account_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: frontend
-        uses: ./.github/actions/buildAndPushFrontend
+        uses: ./.github/actions/buildAndPush
         with:
           dockerfile: 'frontend_server/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/frontend'
-          data-server-url: 'https://data-server-service-zarv4pcejq-uc.a.run.app'
           deploy-context: 'staging'
-          disable-basic-auth: 'false'
           basic-auth-username: ${{ secrets.BASIC_AUTH_USERNAME }}
           basic-auth-password: ${{ secrets.BASIC_AUTH_PASSWORD }}
 

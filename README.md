@@ -166,35 +166,38 @@ Before deploying, make sure you have installed Terraform and a Docker client (e.
    terraform init
    ```
 
-4. Build and push your Docker images to Google Container Registry. Select any unique identifier for `your-[ingestion|gcs-to-bq]-image-name`.
-
+4. Build and push your Docker images to Google Container Registry. This step uses the `run_ingestion` service as an example, but you will need to repeat this step for any service you've made changes to.
+   - Select any unique identifier for `your-ingestion-image-name`.
+   - Run:
    ```bash
    # Build the images locally
    docker build -t gcr.io/<project-id>/<your-ingestion-image-name> -f run_ingestion/Dockerfile .
-   docker build -t gcr.io/<project-id>/<your-gcs-to-bq-image-name> -f run_gcs_to_bq/Dockerfile .
 
    # Upload the image to Google Container Registry
    docker push gcr.io/<project-id>/<your-ingestion-image-name>
-   docker push gcr.io/<project-id>/<your-gcs-to-bq-image-name>
    ```
+   - Note that the frontend `docker build` command must append:
+   `--build-arg="DEPLOY_CONTEXT=development"`
 
-5. Deploy via Terraform.  
+5. Deploy via Terraform.
 
    ```bash
    # Get the latest image digests
    export TF_VAR_ingestion_image_name=$(gcloud container images describe gcr.io/<project-id>/<your-ingestion-image-name> \
    --format="value(image_summary.digest)")
-   export TF_VAR_gcs_to_bq_image_name=$(gcloud container images describe gcr.io/<project-id>/<your-gcs-to-bq-image-name> \
-   --format="value(image_summary.digest)")
+   # ... repeat for every service that was re-built and pushed in step 4.
+
+   # Switch to the config directory to deploy to terraform
+   cd config
 
    # Deploy via terraform, providing the paths to the latest images so it knows to redeploy
-   terraform apply -var="ingestion_image_name=<your-ingestion-image-name>@$TF_VAR_ingestion_image_name" \
-   -var="gcs_to_bq_image_name=<your-gcs-to-bq-image-name>@$TF_VAR_gcs_to_bq_image_name"
+   # Append the appropriate environment variables for each service that was re-built and pushed in step 4.
+   terraform apply -var="ingestion_image_name=<your-ingestion-image-name>@$TF_VAR_ingestion_image_name"
    ```
 
    Alternatively, if you aren't familiar with bash or are on Windows, you can run the above `gcloud container images describe` commands manually and copy/paste the output into your tfvars file for the `ingestion_image_name` and `gcs_to_bq_image_name` variables.
 
-6. To redeploy, e.g. after making changes to a Cloud Run service, repeat steps 4-5. Make sure you run the commands from your base project dir.
+6. To redeploy, e.g. after making changes to a Cloud Run service, repeat steps 4-5. Make sure you run the docker commands from your base project dir and the terraform commands from the `config/` directory.
 
 ### Terraform deployment notes
 
@@ -219,7 +222,7 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-_Note: The following instructions assume running all commands from the `frontend/` directory._
+_Note: The following instructions assume running all commands from the `frontend/` directory unless otherwise specified._
 
 #### Install
 
@@ -237,13 +240,48 @@ If you encounter errors during install that mention `gyp`, that refers to a Node
 
 #### Develop
 
-To run the app in development mode, start a local web server, and watch for changes do:
+Since the frontend is a static site that just connects to an API for data requests, most frontend development happens independently of server-side changes. The simplest way to do this is to connect the frontend to the test website server. First, copy `frontend/.env.example` into `frontend/.env.development`. This file is already set up to point to the test website server.
 
+Now, to start a local development server, run:
 ```bash
-npm start
+npm run start:development
 ```
 
-The site should now be visible at `localhost:3000`. Any changes to source code will cause a live reload of the site.
+The site should now be visible at `http://localhost:3000`. Any changes to source code will cause a live reload of the site.
+
+`frontend/.env.development` can be customized to point to different servers by changing `REACT_APP_BASE_API_URL`:
+- You can deploy the frontend server to your own GCP project
+- You can run the frontend server locally (see below)
+- You can run Docker locally (see below)
+- You can set it to an empty string or remove it to make the frontend read files from the `/public/tmp` directory. This allows testing behavior by simply dropping local files into that directory.
+
+Any other environment variables in `frontend/.env.development` can be tweaked as needed for local development.
+
+##### Develop Frontend Server
+
+If you need to run the frontend server locally, copy `frontend_server/.env.example` into `frontend_server/.env.development`, and update `DATA_SERVER_URL` to point to a specific data server url, similar to above.
+
+To run the frontend server locally, navigate to the `frontend_server/` directory and run:
+```bash
+node -r dotenv/config server.js dotenv_config_path=.env.development
+```
+
+This will start the server at `http://localhost:8080`. However, since it mostly serves static files from the `build/` directory, you will either need to
+1. run the frontend server separately and set the `REACT_APP_BASE_API_URL` url to `http://localhost:8080` (see above), or
+2. go to the `frontend/` directory and run `npm run build:development`. Then copy the `frontend/build/` directory to `frontend_server/build/`
+
+Any environment variables in `frontend_server/.env.development` can be tweaked as needed for local development.
+
+##### Develop with Docker locally
+
+To run the whole frontend locally in a way that more closely mirrors the production environment:
+1. Build the frontend Docker image:
+   `docker build -t <some-identifying-tag> -f frontend_server/Dockerfile . --build-arg="DEPLOY_CONTEXT=development"`
+2. Run the frontend Docker image:
+   `docker run -p 49160:8080 -d <some-identifying-tag>`
+3. Navigate to `http://localhost:49160`.
+
+Any environment variables in `frontend_server/.env.development` can be tweaked as needed for local development.
 
 #### Tests
 
@@ -260,32 +298,30 @@ This will run tests in watch mode, so you may have the tests running while devel
 To create a "production" build do:
 
 ```bash
-npm run build
+npm run build:${DEPLOY_CONTEXT}
 ```
 
-This should output bundled files in the `frontend/build/` directory. These are the files that are used for hosting the app in production environments.
+This will use the `frontend/.env.${DEPLOY_CONTEXT}` file for environment variables and outputs bundled files in the `frontend/build/` directory. These are the files that are used for hosting the app in production environments.
 
 #### Ejecting Create React App
 
 _Note: this is a one-way operation. Once you `eject`, you can’t go back!_
 
-If you aren’t satisfied with the Create React App build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Don't do this unless there's a strong need to. See https://create-react-app.dev/docs/available-scripts/#npm-run-eject for further information.
 
 #### Storybook
 
 Storybook is a library that allows us to explore and develop UI components in isolation. Bring up our Storybook by running this command in the `frontend/` directory:
 
 ```bash
-npm run storybook
+npm run storybook:development
 ```
+
+Any environment variables in `frontend/.env.development` can be tweaked as needed for local development.
 
 Stories for each UI component are contained in the same directory as the component in a subfolder called "storybook".
 
-Current master branch version of Storybook can be seen here: https://storybook.healthequitytracker.org
+Current master branch version of Storybook can be seen here: https://het-storybook.netlify.app
 
 ## License
 

@@ -7,6 +7,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 function assertEnvVar(name) {
   const value = process.env[name];
+  console.log(`Environment variable ${name}: ${value}`);
   if (!value) {
     throw new Error(
       `Invalid environment variable. Name: ${name}, value: ${value}`);
@@ -16,6 +17,7 @@ function assertEnvVar(name) {
 
 function getBooleanEnvVar(name) {
   const value = process.env[name];
+  console.log(`Environment variable ${name}: ${value}`);
   if (value && value !== "true" && value !== "false") {
     throw new Error(
       `Invalid boolean environment variable. Name: ${name}, value: ${value}`);
@@ -23,6 +25,8 @@ function getBooleanEnvVar(name) {
   return value === "true";
 }
 
+// TODO it would be nice to extract PORT and HOST to environment variables
+// because it's good practice not to hard-code this kind of configuration.
 const PORT = 8080;
 const HOST = '0.0.0.0';
 
