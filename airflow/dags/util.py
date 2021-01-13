@@ -1,10 +1,12 @@
 '''Collection of shared Airflow functionality.'''
+from http import HTTPStatus
 import os
 import requests
 # Ignore the Airflow module, it is installed in both our dev and prod environments
 from airflow import DAG  # type: ignore
 from airflow.models import Variable  # type: ignore
 from airflow.operators.python_operator import PythonOperator  # type: ignore
+from airflow.operators.python_operator import ShortCircuitOperator  # type: ignore
 
 
 def get_required_attrs(workflow_id: str, gcs_bucket: str = None) -> dict:
@@ -79,7 +81,7 @@ def create_aggregator_operator(task_id: str, payload: dict, dag: DAG) -> PythonO
     return create_request_operator(task_id, Variable.get('AGGREGATOR_SERVICE_ENDPOINT'), payload, dag)
 
 
-def service_request(url: str, data: dict):
+def service_request(url: str, data: dict, **kwargs):
     receiving_service_headers = {}
     if (os.getenv('ENV') != 'dev'):
         # Set up metadata server request
@@ -100,14 +102,44 @@ def service_request(url: str, data: dict):
     try:
         resp = requests.post(url, json=data, headers=receiving_service_headers)
         resp.raise_for_status()
+        # Allow the most recent response code to be accessed by a downstream task for possible short circuiting.
+        kwargs['ti'].xcom_push(key='response_status', value=resp.status_code)
     except requests.exceptions.HTTPError as err:
         raise Exception('Failed response code: {}'.format(err))
 
 
-def create_request_operator(task_id: str, url: str, payload: dict, dag: DAG) -> PythonOperator:
+def create_request_operator(task_id: str, url: str, payload: dict, dag: DAG, xcom_push: bool = True,
+                            provide_context: bool = True) -> PythonOperator:
     return PythonOperator(
         task_id=task_id,
+        provide_context=provide_context,
         python_callable=service_request,
         op_kwargs={'url': url, 'data': payload},
+        xcom_push=xcom_push,
+        dag=dag,
+    )
+
+
+def did_gcs_file_download(gcs_download_task_id: str, **kwargs):
+    """
+    Check the response code of the gcs download step.
+
+    Parameters:
+        gcs_download_task_id: the task id of the
+        kwargs: remaining named function arguments
+
+    Returns: A boolean indication that a file was downloaded
+    """
+    response_code = kwargs['ti'].xcom_pull(
+        key=None, task_ids=gcs_download_task_id)
+    return response_code == HTTPStatus.CREATED
+
+
+def create_gcs_short_circuit_operator(task_id: str, gcs_download_task_id: str, dag: DAG, provide_context: bool = True):
+    return ShortCircuitOperator(
+        task_id=task_id,
+        provide_context=provide_context,
+        python_callable=did_gcs_file_download,
+        op_kwargs={'gcs_download_task_id': gcs_download_task_id},
         dag=dag,
     )
