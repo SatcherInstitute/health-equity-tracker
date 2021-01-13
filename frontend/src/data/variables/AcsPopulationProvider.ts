@@ -40,7 +40,6 @@ class AcsPopulationProvider extends VariableProvider {
     const breakdownField =
       breakdowns.demographic === "age" ? "age" : "race_and_ethnicity";
 
-    console.log(df.toArray());
     df = applyToGroups(df, ["state_name"], (group) => {
       const total =
         breakdownField === "race_and_ethnicity"

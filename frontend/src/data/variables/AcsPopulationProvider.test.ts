@@ -62,12 +62,14 @@ describe("AcsPopulationProvider", () => {
       "White (Non-Hispanic)",
       "15"
     );
+    const NC_TOTAL_ROW = row("37", "NC", "race_and_ethnicity", "Total", "20");
 
     const rows = [
       row("01", "AL", "race_and_ethnicity", "Total", "2"),
       row("01", "AL", "race_and_ethnicity", "Asian (Non-Hispanic)", "2"),
       NC_ASIAN_ROW,
       NC_WHITE_ROW,
+      NC_TOTAL_ROW,
     ];
 
     const NC_ASIAN_FINAL_ROW = Object.assign(NC_ASIAN_ROW, {
@@ -76,7 +78,14 @@ describe("AcsPopulationProvider", () => {
     const NC_WHITE_FINAL_ROW = Object.assign(NC_WHITE_ROW, {
       population_pct: 75,
     });
-    const expectedRows = [NC_ASIAN_FINAL_ROW, NC_WHITE_FINAL_ROW];
+    const NC_TOTAL_FINAL_ROW = Object.assign(NC_TOTAL_ROW, {
+      population_pct: 100,
+    });
+    const expectedRows = [
+      NC_ASIAN_FINAL_ROW,
+      NC_WHITE_FINAL_ROW,
+      NC_TOTAL_FINAL_ROW,
+    ];
 
     const dataset = new Dataset(rows, DATASET_METADATA);
     const DATASET_MAP = {
