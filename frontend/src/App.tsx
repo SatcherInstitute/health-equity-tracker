@@ -36,7 +36,6 @@ import {
   DATA_CATALOG_PAGE_LINK,
   ABOUT_US_PAGE_LINK,
 } from "./utils/urlutils";
-import Logger from "./utils/Logger";
 import { autoInitGlobals } from "./utils/globals";
 import ReactTooltip from "react-tooltip";
 import CssBaseline from "@material-ui/core/CssBaseline";
