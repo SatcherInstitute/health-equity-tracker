@@ -154,7 +154,7 @@ To upload to BigQuery from your local development environment, use [these setup 
 
 ## Deploying your own instance with terraform
 
-Before deploying, make sure you have installed Terraform and a Docker client (e.g. Docker Desktop). See [One time setup](#one-time-setup) above.
+Before deploying, make sure you have installed Terraform and a Docker client (e.g. Docker Desktop). See [Set up](#Set-up) above.
 
 1. Create your own `terraform.tfvars` file in the same directory as the other terraform files. For each variable declared in `prototype_variables.tf` that doesn't have a default, add your own for testing. Typically your own variables should be unique and can just be prefixed with your name or ldap. There are some that have specific requirements like project ids, code paths, and image paths.
 2. Configure docker to use credentials through gcloud.
@@ -214,19 +214,22 @@ All files in the airflows/dags directory will be uploaded to the test airflow en
 
 ## frontend
 
-### Developer Instructions 
+The frontend consists of
+1. `health-equity-tracker/frontend/`: A React app that contains all code and static resources needed in the browser (html, JS, CSS, images). This app was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Documentation on Create React App can be found [here](https://create-react-app.dev/docs/getting-started/).
+2. `health-equity-tracker/frontend_server/`: A lightweight server that serves the React app as static files and forwards data requests to the data server.
+3. `health-equity-tracker/data_server/`: A data server that responds to data requests by serving data files that have been exported from the data pipeline.
 
-Code in the `frontend/` directory was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). In that directory you can run various `npm` scripts, which are described below.
+In addition, we have a Storybook project that also lives in `health-equity-tracker/frontend/`. Storybook is a library that allows us to explore and develop UI components in isolation. Stories for each UI component are contained in the same directory as the component in a subfolder called "storybook". The current master branch version of Storybook can be seen here: https://het-storybook.netlify.app
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Frontend React App Environments
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The frontend React App runs in different environments. We use configuration files (`frontend/.env.prod`, `frontend/.env.staging`, etc) to control settings in different environments. These include things like the data server URL and logging settings. These can be overridden for local development using a `frontend/.env.development` file.
 
-_Note: The following instructions assume running all commands from the `frontend/` directory unless otherwise specified._
+### Running just the React App locally
 
-#### Install
+#### One Time Setup
 
-Change directories to the `frontend/` directory, then install dependencies using NPM.  
+Switch to the `frontend/` directory, then install dependencies using NPM.  
 
 _Note: you will need a compatible verison of Node.JS and NPM installed locally. See the "engines" field in `frontend/package.json` for the required / minimum versions of each. It's recommended to use [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm) if you need to have multiple versions of Node.JS / NPM installed on your machine._
 
@@ -234,32 +237,34 @@ _Note: you will need a compatible verison of Node.JS and NPM installed locally. 
 cd frontend && npm install
 ```
 
-##### Trouble-shooting
+#### Trouble-shooting Install
 
 If you encounter errors during install that mention `gyp`, that refers to a Node.js native addon build tool that is required for some modules. Follow the instructions on the [gyp github repo](https://github.com/nodejs/node-gyp#installation) for installation and setting up required dependencies (eg Python and certain build tools like XCode Command Line Tools for OS X).
 
-#### Develop
+#### Running the React App
 
-Since the frontend is a static site that just connects to an API for data requests, most frontend development happens independently of server-side changes. The simplest way to do this is to connect the frontend to the test website server. First, copy `frontend/.env.example` into `frontend/.env.development`. This file is already set up to point to the test website server.
+Since the frontend is a static site that just connects to an API for data requests, most frontend development happens independently of server-side changes. If you're only changing client-side behavior, you only need to run the React App. The simplest way to do this is to connect the frontend to the test website server. First, copy `frontend/.env.example` into `frontend/.env.development`. This file is already set up to point to the test website server.
 
-Now, to start a local development server, run:
+To start a local development server, switch to the `frontend/` directory and run:
 ```bash
 npm run start:development
 ```
 
 The site should now be visible at `http://localhost:3000`. Any changes to source code will cause a live reload of the site.
 
-`frontend/.env.development` can be customized to point to different servers by changing `REACT_APP_BASE_API_URL`:
+#### Available Overrides for local development
+
+Environment variables in `frontend/.env.development` can be tweaked as needed for local development.
+
+The `REACT_APP_BASE_API_URL` can be changed for different setups:
 - You can deploy the frontend server to your own GCP project
 - You can run the frontend server locally (see below)
 - You can run Docker locally (see below)
 - You can set it to an empty string or remove it to make the frontend read files from the `/public/tmp` directory. This allows testing behavior by simply dropping local files into that directory.
 
-Any other environment variables in `frontend/.env.development` can be tweaked as needed for local development.
+### Running the Frontend Server locally
 
-##### Develop Frontend Server
-
-If you need to run the frontend server locally, copy `frontend_server/.env.example` into `frontend_server/.env.development`, and update `DATA_SERVER_URL` to point to a specific data server url, similar to above.
+If you need to run the frontend server locally to test server-side changes, copy `frontend_server/.env.example` into `frontend_server/.env.development`, and update `DATA_SERVER_URL` to point to a specific data server url, similar to above.
 
 To run the frontend server locally, navigate to the `frontend_server/` directory and run:
 ```bash
@@ -270,30 +275,44 @@ This will start the server at `http://localhost:8080`. However, since it mostly 
 1. run the frontend server separately and set the `REACT_APP_BASE_API_URL` url to `http://localhost:8080` (see above), or
 2. go to the `frontend/` directory and run `npm run build:development`. Then copy the `frontend/build/` directory to `frontend_server/build/`
 
-Any environment variables in `frontend_server/.env.development` can be tweaked as needed for local development.
+Similarly to the frontend React app, the frontend server can be configured for local development by changing environment variables in `frontend_server/.env.development`. Copy `frontend_server/.env.example` to get started.
 
-##### Develop with Docker locally
+#### Running the Frontend Server with Docker locally
 
-To run the whole frontend locally in a way that more closely mirrors the production environment:
+If you need to test Dockerfile changes or run the frontend in a way that more closely mirrors the production environment, you can run it using Docker. This will build both the frontend React app and the frontend server.
+
+Run the following commands from the root project directory:
 1. Build the frontend Docker image:
    `docker build -t <some-identifying-tag> -f frontend_server/Dockerfile . --build-arg="DEPLOY_CONTEXT=development"`
 2. Run the frontend Docker image:
    `docker run -p 49160:8080 -d <some-identifying-tag>`
 3. Navigate to `http://localhost:49160`.
 
-Any environment variables in `frontend_server/.env.development` can be tweaked as needed for local development.
+When building with Docker, changes will not automatically be applied; you will need to rebuild the Docker image.
 
-#### Tests
+#### Running the Frontend Sever in your own GCP project
 
-To run unit tests do:
+Refer to [Deploying your own instance with terraform](#Deploying-your-own-instance-with-terraform) for instructions on deploying the frontend server to your own GCP project.
 
+### Running Storybook locally
+
+To run storybook locally, switch to the `frontend/` directory and run:
+```bash
+npm run storybook:development
+```
+
+Storybook local development also uses `frontend/.env.development` for configuration. However, storybook environment variables must start with `STORYBOOK_` instead of `REACT_APP_`. Most environment variables have an equivalent `STORYBOOK_` version.
+
+### Tests
+
+To run unit tests, switch to the `frontend/` directory and run:
 ```bash
 npm test
 ```
 
 This will run tests in watch mode, so you may have the tests running while developing.
 
-#### Build
+### Build
 
 To create a "production" build do:
 
@@ -303,25 +322,11 @@ npm run build:${DEPLOY_CONTEXT}
 
 This will use the `frontend/.env.${DEPLOY_CONTEXT}` file for environment variables and outputs bundled files in the `frontend/build/` directory. These are the files that are used for hosting the app in production environments.
 
-#### Ejecting Create React App
+### Ejecting Create React App
 
 _Note: this is a one-way operation. Once you `eject`, you can’t go back!_
 
 Don't do this unless there's a strong need to. See https://create-react-app.dev/docs/available-scripts/#npm-run-eject for further information.
-
-#### Storybook
-
-Storybook is a library that allows us to explore and develop UI components in isolation. Bring up our Storybook by running this command in the `frontend/` directory:
-
-```bash
-npm run storybook:development
-```
-
-Any environment variables in `frontend/.env.development` can be tweaked as needed for local development.
-
-Stories for each UI component are contained in the same directory as the component in a subfolder called "storybook".
-
-Current master branch version of Storybook can be seen here: https://het-storybook.netlify.app
 
 ## License
 
