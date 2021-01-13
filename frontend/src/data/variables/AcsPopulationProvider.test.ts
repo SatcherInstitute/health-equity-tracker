@@ -22,7 +22,7 @@ function row(
   state_name: string,
   breakdownK: string,
   breakdownV: string,
-  population: string
+  population: number
 ) {
   return {
     state_fips: fips,
@@ -53,20 +53,20 @@ describe("AcsPopulationProvider", () => {
       "NC",
       "race_and_ethnicity",
       "Asian (Non-Hispanic)",
-      "5"
+      5
     );
     const NC_WHITE_ROW = row(
       "37",
       "NC",
       "race_and_ethnicity",
       "White (Non-Hispanic)",
-      "15"
+      15
     );
-    const NC_TOTAL_ROW = row("37", "NC", "race_and_ethnicity", "Total", "20");
+    const NC_TOTAL_ROW = row("37", "NC", "race_and_ethnicity", "Total", 20);
 
     const rows = [
-      row("01", "AL", "race_and_ethnicity", "Total", "2"),
-      row("01", "AL", "race_and_ethnicity", "Asian (Non-Hispanic)", "2"),
+      row("01", "AL", "race_and_ethnicity", "Total", 2),
+      row("01", "AL", "race_and_ethnicity", "Asian (Non-Hispanic)", 2),
       NC_ASIAN_ROW,
       NC_WHITE_ROW,
       NC_TOTAL_ROW,
@@ -102,11 +102,7 @@ describe("AcsPopulationProvider", () => {
 
     const NC_AGE_0_9 = row("37", "NC", "age", "0-9", 15);
     const NC_AGE_10_19 = row("37", "NC", "age", "10-19", 10);
-    const rows = [
-      row("01", "AL", "age", "10-19", "2"),
-      NC_AGE_0_9,
-      NC_AGE_10_19,
-    ];
+    const rows = [row("01", "AL", "age", "10-19", 2), NC_AGE_0_9, NC_AGE_10_19];
 
     const NC_AGE_0_9_FINAL = Object.assign(NC_AGE_0_9, { population_pct: 60 });
     const NC_AGE_10_19_FINAL = Object.assign(NC_AGE_10_19, {
@@ -124,5 +120,23 @@ describe("AcsPopulationProvider", () => {
 
     const actual = acsProvider.getData(DATASET_MAP, breakdown);
     expect(actual).toEqual(new MetricQueryResponse(expectedRows));
+  });
+
+  test("State and Gender Breakdown", async () => {
+    const acsProvider = new AcsPopulationProvider();
+
+    const dataset = new Dataset([], DATASET_METADATA);
+    const breakdown = Breakdowns.forFips(new Fips("37")).andGender();
+    const DATASET_MAP = {
+      "acs_population-by_race_state_std": new Dataset([], DATASET_METADATA),
+      "acs_population-by_age_state": dataset,
+    };
+
+    const actual = acsProvider.getData(DATASET_MAP, breakdown);
+    expect(actual).toEqual(
+      createMissingDataResponse(
+        'Breakdowns not supported for provider acs_pop_provider: {"geography":"state","demographic":"sex","filterFips":"37"}'
+      )
+    );
   });
 });

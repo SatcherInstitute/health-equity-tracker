@@ -36,19 +36,17 @@ class AcsPopulationProvider extends VariableProvider {
       df = df.where((row) => row.state_fips === breakdowns.filterFips);
     }
 
-    // TODO - hardcoded
-    const breakdownField =
-      breakdowns.demographic === "age" ? "age" : "race_and_ethnicity";
-
     df = applyToGroups(df, ["state_name"], (group) => {
-      const total =
-        breakdownField === "race_and_ethnicity"
-          ? group.where((r) => r[breakdownField] === "Total").first()[
-              "population"
-            ]
+      // Race categories don't add up to zero, so they are special cased
+      let totalStatePopulation =
+        breakdowns.demographic === "race_nonstandard" ||
+        breakdowns.demographic === "race"
+          ? group
+              .where((r: any) => r["race_and_ethnicity"] === "Total")
+              .first()["population"]
           : df.getSeries("population").sum();
       return group.generateSeries({
-        population_pct: (row) => percent(row.population, total),
+        population_pct: (row) => percent(row.population, totalStatePopulation),
       });
     });
     return new MetricQueryResponse(df.toArray());
