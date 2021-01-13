@@ -13,28 +13,7 @@ function OurTeamTab() {
       <img src="img/MSM.png" alt="Images of leadership team" />
       <span className={styles.UnderlinedHeader}>Product Team</span>
       <Grid container>
-        {[
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10,
-          11,
-          12,
-          13,
-          14,
-          15,
-          16,
-          17,
-          18,
-          19,
-          20,
-        ].map((i) => (
+        {Array.from(Array(20)).map((i) => (
           <Grid item xs={3}>
             <span style={{ fontSize: "16px", fontWeight: 500 }}>
               Person {i}
@@ -47,28 +26,7 @@ function OurTeamTab() {
         Health Equity Task Force Members
       </span>
       <Grid container>
-        {[
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10,
-          11,
-          12,
-          13,
-          14,
-          15,
-          16,
-          17,
-          18,
-          19,
-          20,
-        ].map((i) => (
+        {Array.from(Array(20)).map((i) => (
           <Grid item xs={3}>
             <span style={{ fontSize: "16px", fontWeight: 500 }}>
               Person {i}
