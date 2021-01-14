@@ -18,6 +18,18 @@ const standardizedRaces = [
   "Total",
 ];
 
+function createNationalTotal(dataFrame: IDataFrame, breakdown: string) {
+  return dataFrame
+    .pivot(breakdown, {
+      // TODO for the purpose of charts, rename state_name to something more
+      // general so we can compare counties with states with the nation.
+      state_fips: (series) => USA_FIPS,
+      state_name: (series) => USA_DISPLAY_NAME,
+      population: (series) => series.sum(),
+    })
+    .resetIndex();
+}
+
 class AcsPopulationProvider extends VariableProvider {
   constructor() {
     super(
@@ -61,18 +73,6 @@ class AcsPopulationProvider extends VariableProvider {
         ? datasets["acs_population-by_age_state"]
         : datasets["acs_population-by_race_state_std"];
     const acsDataFrame = statePopByBreakdown.toDataFrame();
-
-    function createNationalTotal(dataFrame: IDataFrame, breakdown: string) {
-      return dataFrame
-        .pivot(breakdown, {
-          // TODO for the purpose of charts, rename state_name to something more
-          // general so we can compare counties with states with the nation.
-          state_fips: (series) => USA_FIPS,
-          state_name: (series) => USA_DISPLAY_NAME,
-          population: (series) => series.sum(),
-        })
-        .resetIndex();
-    }
 
     switch (breakdowns.demographic) {
       case "race_nonstandard":

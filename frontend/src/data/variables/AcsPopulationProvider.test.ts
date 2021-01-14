@@ -1,7 +1,7 @@
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import { Breakdowns } from "../Breakdowns";
 import { MetricQueryResponse, createMissingDataResponse } from "../MetricQuery";
-import { Dataset, DatasetMetadata } from "../DatasetTypes";
+import { Dataset } from "../DatasetTypes";
 import { Fips } from "../../utils/madlib/Fips";
 import FakeMetadataMap from "../FakeMetadataMap";
 

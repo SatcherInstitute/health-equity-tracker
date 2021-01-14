@@ -137,7 +137,6 @@ export class ApiDataFetcher implements DataFetcher {
       return result;
     }
 
-    // TODO - change this to be if starts with ACS
     if (datasetId.startsWith("acs_population")) {
       // TODO remove this once we figure out how to make BQ export integers as
       // integers
