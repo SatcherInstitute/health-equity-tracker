@@ -5,26 +5,6 @@ import { Dataset } from "../DatasetTypes";
 import { Fips } from "../../utils/madlib/Fips";
 import FakeMetadataMap from "../FakeMetadataMap";
 
-function row(
-  state_fips: string,
-  state_name: string,
-  copd_count: number,
-  copd_no: number,
-  diabetes_count: number,
-  diabetes_no: number,
-  race: string
-) {
-  return {
-    state_fips: state_fips,
-    state_name: state_name,
-    copd_count: copd_count,
-    diabetes_count: diabetes_count,
-    diabetes_no: diabetes_no,
-    copd_no: copd_no,
-    race_and_ethnicity: race,
-  };
-}
-
 describe("BrfssProvider", () => {
   test("State and Race Breakdown", async () => {
     const brfssProvider = new BrfssProvider();
@@ -38,7 +18,6 @@ describe("BrfssProvider", () => {
       diabetes_count: 30,
       diabetes_no: 270,
     };
-
     const NC_WHITE_ROW = {
       race_and_ethnicity: "White (Non-Hispanic)",
       state_fips: "37",
@@ -48,7 +27,7 @@ describe("BrfssProvider", () => {
       diabetes_count: 1,
       diabetes_no: 99999,
     };
-    const rows = [NC_ASIAN_ROW, NC_WHITE_ROW];
+    const datasetRows = [NC_ASIAN_ROW, NC_WHITE_ROW];
 
     const NC_ASIAN_FINAL_ROW = Object.assign(NC_ASIAN_ROW, {
       copd_per_100k: 10000,
@@ -60,11 +39,11 @@ describe("BrfssProvider", () => {
     });
     const expectedRows = [NC_ASIAN_FINAL_ROW, NC_WHITE_FINAL_ROW];
 
-    const dataset = new Dataset(rows, FakeMetadataMap["brfss"]);
+    const dataset = new Dataset(datasetRows, FakeMetadataMap["brfss"]);
     const DATASET_MAP = {
       brfss: dataset,
     };
-    const breakdown = Breakdowns.forFips(new Fips(/*NC Fips=*/ "37")).andRace();
+    const breakdown = Breakdowns.forFips(new Fips("37")).andRace();
     const actual = brfssProvider.getData(DATASET_MAP, breakdown);
     expect(actual).toEqual(new MetricQueryResponse(expectedRows));
   });
@@ -81,7 +60,6 @@ describe("BrfssProvider", () => {
       diabetes_count: 30,
       diabetes_no: 270,
     };
-
     const NC_WHITE_ROW = {
       race_and_ethnicity: "White (Non-Hispanic)",
       state_fips: "37",
@@ -91,7 +69,6 @@ describe("BrfssProvider", () => {
       diabetes_count: 1,
       diabetes_no: 99999,
     };
-
     const AL_WHITE_ROW = {
       race_and_ethnicity: "Asian (Non-Hispanic)",
       state_fips: "37",
@@ -102,7 +79,7 @@ describe("BrfssProvider", () => {
       diabetes_no: 270,
     };
 
-    const rows = [NC_ASIAN_ROW, NC_WHITE_ROW, AL_WHITE_ROW];
+    const datasetRows = [NC_ASIAN_ROW, NC_WHITE_ROW, AL_WHITE_ROW];
 
     const ASIAN_FINAL_ROW = {
       copd_count: 300,
@@ -128,7 +105,7 @@ describe("BrfssProvider", () => {
     };
     const expectedRows = [ASIAN_FINAL_ROW, WHITE_FINAL_ROW];
 
-    const dataset = new Dataset(rows, FakeMetadataMap["brfss"]);
+    const dataset = new Dataset(datasetRows, FakeMetadataMap["brfss"]);
     const DATASET_MAP = {
       brfss: dataset,
     };

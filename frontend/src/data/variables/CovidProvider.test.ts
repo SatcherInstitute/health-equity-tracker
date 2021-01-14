@@ -10,18 +10,18 @@ function covidAndAcsRows(
   state_fips: string,
   state_name: string,
   race: string,
-  Cases: number | null,
-  Deaths: number | null,
-  Hosp: number | null,
+  cases: number | null,
+  deaths: number | null,
+  hosp: number | null,
   population: number
 ) {
   return [
     {
       state_fips: state_fips,
       state_name: state_name,
-      Cases: Cases,
-      Deaths: Deaths,
-      Hosp: Hosp,
+      Cases: cases,
+      Deaths: deaths,
+      Hosp: hosp,
       date: "2020-04-29",
       race_and_ethnicity: race,
     },
@@ -32,42 +32,6 @@ function covidAndAcsRows(
       population: population,
     },
   ];
-}
-
-function covidAndAcsRowsForNC(
-  race: string,
-  cases: number | null,
-  deaths: number | null,
-  hosp: number | null,
-  population: number
-) {
-  return covidAndAcsRows(
-    "37",
-    "North Carolina",
-    race,
-    cases,
-    deaths,
-    hosp,
-    population
-  );
-}
-
-function covidAndAcsRowsForAL(
-  race: string,
-  cases: number | null,
-  deaths: number | null,
-  hosp: number | null,
-  population: number
-) {
-  return covidAndAcsRows(
-    "01",
-    "Alabama",
-    race,
-    cases,
-    deaths,
-    hosp,
-    population
-  );
 }
 
 describe("CovidProvider", () => {
@@ -187,19 +151,23 @@ describe("CovidProvider", () => {
     const covidProvider = new CovidProvider(acsProvider);
 
     // Race, Cases, Death, Hosp, Population
-    const [NC_TOTAL_ROW, NC_ACS_TOTAL_ROW] = covidAndAcsRowsForNC(
+    const [NC_TOTAL_ROW, NC_ACS_TOTAL_ROW] = covidAndAcsRows(
+      "37",
+      "North Carolina",
       "Total",
-      200,
-      500,
-      1000,
-      100000
+      /*cases=*/ 200,
+      /*death=*/ 500,
+      /*hosp=*/ 1000,
+      /*population=*/ 100000
     );
-    const [AL_TOTAL_ROW, AL_ACS_TOTAL_ROW] = covidAndAcsRowsForAL(
+    const [AL_TOTAL_ROW, AL_ACS_TOTAL_ROW] = covidAndAcsRows(
+      "01",
+      "Alabama",
       "Total",
-      100,
-      200,
-      1000,
-      80000
+      /*cases=*/ 100,
+      /*death=*/ 200,
+      /*hosp=*/ 1000,
+      /*population=*/ 80000
     );
     const FINAL_TOTAL_ROW = {
       state_fips: "00",
@@ -219,19 +187,23 @@ describe("CovidProvider", () => {
       population_pct: 100,
     };
 
-    const [NC_WHITE_ROW, NC_ACS_WHITE_ROW] = covidAndAcsRowsForNC(
+    const [NC_WHITE_ROW, NC_ACS_WHITE_ROW] = covidAndAcsRows(
+      "37",
+      "North Carolina",
       "White (Non-Hispanic)",
-      240,
-      80,
-      34,
-      50000
+      /*cases=*/ 240,
+      /*death=*/ 80,
+      /*hosp=*/ 34,
+      /*population=*/ 50000
     );
-    const [AL_WHITE_ROW, AL_ACS_WHITE_ROW] = covidAndAcsRowsForAL(
+    const [AL_WHITE_ROW, AL_ACS_WHITE_ROW] = covidAndAcsRows(
+      "01",
+      "Alabama",
       "White (Non-Hispanic)",
-      730,
-      250,
-      45,
-      60000
+      /*cases=*/ 730,
+      /*death=*/ 250,
+      /*hosp=*/ 45,
+      /*population=*/ 60000
     );
     const FINAL_WHITE_ROW = {
       state_fips: "00",
