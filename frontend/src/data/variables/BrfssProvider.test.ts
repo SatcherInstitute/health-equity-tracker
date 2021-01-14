@@ -1,7 +1,7 @@
 import BrfssProvider from "./BrfssProvider";
 import { Breakdowns } from "../Breakdowns";
-import { MetricQueryResponse, createMissingDataResponse } from "../MetricQuery";
-import { Dataset, DatasetMetadata, Row } from "../DatasetTypes";
+import { MetricQueryResponse } from "../MetricQuery";
+import { Dataset, DatasetMetadata } from "../DatasetTypes";
 import { Fips } from "../../utils/madlib/Fips";
 
 const DATASET_METADATA: DatasetMetadata = {
