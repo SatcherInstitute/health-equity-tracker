@@ -211,7 +211,7 @@ describe("CovidProvider", () => {
       covid_cases_pct_of_geo: 100,
       covid_deaths: 700,
       covid_deaths_per_100k: 389,
-      covid_deaths_pct_of_geo: 1000,
+      covid_deaths_pct_of_geo: 100,
       covid_hosp: 2000,
       covid_hosp_per_100k: 1111,
       covid_hosp_pct_of_geo: 100,
