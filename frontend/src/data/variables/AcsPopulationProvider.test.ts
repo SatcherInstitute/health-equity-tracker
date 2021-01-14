@@ -3,19 +3,7 @@ import { Breakdowns } from "../Breakdowns";
 import { MetricQueryResponse, createMissingDataResponse } from "../MetricQuery";
 import { Dataset, DatasetMetadata } from "../DatasetTypes";
 import { Fips } from "../../utils/madlib/Fips";
-
-const DATASET_METADATA: DatasetMetadata = {
-  id: "id",
-  name: "name",
-  description: "description",
-  fields: [],
-  data_source_name: "data_source_name",
-  data_source_link: "data_source_link",
-  geographic_level: "geographic_level",
-  demographic_granularity: "demographic_granularity",
-  update_frequency: "update_frequency",
-  update_time: "update_time",
-};
+import FakeMetadataMap from "../FakeMetadataMap";
 
 function row(
   fips: string,
@@ -85,10 +73,15 @@ describe("AcsPopulationProvider", () => {
       NC_TOTAL_FINAL_ROW,
     ];
 
-    const dataset = new Dataset(rows, DATASET_METADATA);
     const DATASET_MAP = {
-      "acs_population-by_race_state_std": dataset,
-      "acs_population-by_age_state": new Dataset([], DATASET_METADATA),
+      "acs_population-by_race_state_std": new Dataset(
+        rows,
+        FakeMetadataMap["acs_population-by_race_state_std"]
+      ),
+      "acs_population-by_age_state": new Dataset(
+        [],
+        FakeMetadataMap["acs_population-by_age_state"]
+      ),
     };
     const breakdown = Breakdowns.forFips(new Fips("37")).andRace();
     const actual = acsProvider.getData(DATASET_MAP, breakdown);
@@ -109,13 +102,17 @@ describe("AcsPopulationProvider", () => {
 
     const expectedRows = [NC_AGE_0_9_FINAL, NC_AGE_10_19_FINAL];
 
-    const dataset = new Dataset(rows, DATASET_METADATA);
-    const breakdown = Breakdowns.forFips(new Fips("37")).andAge();
     const DATASET_MAP = {
-      "acs_population-by_race_state_std": new Dataset([], DATASET_METADATA),
-      "acs_population-by_age_state": dataset,
+      "acs_population-by_race_state_std": new Dataset(
+        [],
+        FakeMetadataMap["acs_population-by_race_state_std"]
+      ),
+      "acs_population-by_age_state": new Dataset(
+        rows,
+        FakeMetadataMap["acs_population-by_age_state"]
+      ),
     };
-
+    const breakdown = Breakdowns.forFips(new Fips("37")).andAge();
     const actual = acsProvider.getData(DATASET_MAP, breakdown);
     expect(actual).toEqual(new MetricQueryResponse(expectedRows));
   });
@@ -123,11 +120,17 @@ describe("AcsPopulationProvider", () => {
   test("State and Gender Breakdown", async () => {
     const acsProvider = new AcsPopulationProvider();
 
-    const dataset = new Dataset([], DATASET_METADATA);
     const breakdown = Breakdowns.forFips(new Fips("37")).andGender();
+
     const DATASET_MAP = {
-      "acs_population-by_race_state_std": new Dataset([], DATASET_METADATA),
-      "acs_population-by_age_state": dataset,
+      "acs_population-by_race_state_std": new Dataset(
+        [],
+        FakeMetadataMap["acs_population-by_race_state_std"]
+      ),
+      "acs_population-by_age_state": new Dataset(
+        [],
+        FakeMetadataMap["acs_population-by_age_state"]
+      ),
     };
 
     const actual = acsProvider.getData(DATASET_MAP, breakdown);
