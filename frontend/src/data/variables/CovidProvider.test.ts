@@ -70,131 +70,78 @@ function covidAndAcsRowsForAL(
   );
 }
 
-function finalRowForGeo(
-  state_fips: string,
-  state_name: string,
-  race: string,
-  covid_cases: number,
-  covid_cases_per_100k: number,
-  covid_cases_pct_of_geo: number,
-  covid_deaths: number,
-  covid_deaths_per_100k: number,
-  covid_deaths_pct_of_geo: number,
-  covid_hosp: number,
-  covid_hosp_per_100k: number,
-  covid_hosp_pct_of_geo: number,
-  population: number,
-  population_pct: number
-) {
-  return {
-    state_fips: state_fips,
-    state_name: state_name,
-    race_and_ethnicity: race,
-    date: "2020-04-29",
-    covid_cases: covid_cases,
-    covid_deaths: covid_deaths,
-    covid_hosp: covid_hosp,
-    covid_cases_pct_of_geo: covid_cases_pct_of_geo,
-    covid_deaths_pct_of_geo: covid_deaths_pct_of_geo,
-    covid_hosp_pct_of_geo: covid_hosp_pct_of_geo,
-    covid_cases_per_100k: covid_cases_per_100k,
-    covid_deaths_per_100k: covid_deaths_per_100k,
-    covid_hosp_per_100k: covid_hosp_per_100k,
-    population: population,
-    population_pct: population_pct,
-  };
-}
-
-function finalRowForNc(
-  race: string,
-  covid_cases: number,
-  covid_cases_per_100k: number,
-  covid_cases_pct_of_geo: number,
-  covid_deaths: number,
-  covid_deaths_per_100k: number,
-  covid_deaths_pct_of_geo: number,
-  covid_hosp: number,
-  covid_hosp_per_100k: number,
-  covid_hosp_pct_of_geo: number,
-  population: number,
-  population_pct: number
-) {
-  return finalRowForGeo(
-    "37",
-    "North Carolina",
-    race,
-    covid_cases,
-    covid_cases_per_100k,
-    covid_cases_pct_of_geo,
-    covid_deaths,
-    covid_deaths_per_100k,
-    covid_deaths_pct_of_geo,
-    covid_hosp,
-    covid_hosp_per_100k,
-    covid_hosp_pct_of_geo,
-    population,
-    population_pct
-  );
-}
-
 describe("CovidProvider", () => {
   test("State and Race Breakdown", async () => {
     const acsProvider = new AcsPopulationProvider();
     const covidProvider = new CovidProvider(acsProvider);
 
-    const [NC_WHITE_ROW, NC_ACS_WHITE_ROW] = covidAndAcsRowsForNC(
+    const [NC_WHITE_ROW, NC_ACS_WHITE_ROW] = covidAndAcsRows(
+      "37",
+      "North Carolina",
       "White (Non-Hispanic)",
       /* Cases=*/ 10,
       /* Hosp=*/ 1,
       /* Death=*/ 5,
       /*Population =*/ 2000
     );
-    const NC_WHITE_FINAL_ROW = finalRowForNc(
-      "White (Non-Hispanic)",
-      /*cases*/ 10,
-      /*cases per100k*/ 500,
-      /*cases percent*/ 5,
-      /*death*/ 1,
-      /*death per100k*/ 50,
-      /*death percent*/ 0.2,
-      /*hosp*/ 5,
-      /*hosp per100k*/ 250,
-      /*hosp percent*/ 0.5,
-      /*population*/ 2000,
-      /*population_pct*/ 2
-    );
+    const NC_WHITE_FINAL_ROW = {
+      state_fips: "37",
+      state_name: "North Carolina",
+      race_and_ethnicity: "White (Non-Hispanic)",
+      date: "2020-04-29",
+      covid_cases: 10,
+      covid_cases_per_100k: 500,
+      covid_cases_pct_of_geo: 5,
+      covid_deaths: 1,
+      covid_deaths_per_100k: 50,
+      covid_deaths_pct_of_geo: 0.2,
+      covid_hosp: 5,
+      covid_hosp_per_100k: 250,
+      covid_hosp_pct_of_geo: 0.5,
+      population: 2000,
+      population_pct: 2,
+    };
 
-    const [NC_TOTAL_ROW, NC_ACS_TOTAL_ROW] = covidAndAcsRowsForNC(
+    const [NC_TOTAL_ROW, NC_ACS_TOTAL_ROW] = covidAndAcsRows(
+      "37",
+      "North Carolina",
       "Total",
       /* Cases=*/ 200,
       /* Hosp=*/ 500,
       /* Death=*/ 1000,
       /*Population =*/ 100000
     );
-    const NC_TOTAL_FINAL_ROW = finalRowForNc(
-      "Total",
-      /*cases*/ 200,
-      /*cases per100k*/ 200,
-      /*cases percent*/ 100,
-      /*death*/ 500,
-      /*death per100k*/ 500,
-      /*death percent*/ 100,
-      /*hosp*/ 1000,
-      /*hosp per100k*/ 1000,
-      /*hosp percent*/ 100,
-      /*population*/ 100000,
-      /*population_pct*/ 100
-    );
+    const NC_TOTAL_FINAL_ROW = {
+      state_fips: "37",
+      state_name: "North Carolina",
+      race_and_ethnicity: "Total",
+      date: "2020-04-29",
+      covid_cases: 200,
+      covid_cases_per_100k: 200,
+      covid_cases_pct_of_geo: 100,
+      covid_deaths: 500,
+      covid_deaths_per_100k: 500,
+      covid_deaths_pct_of_geo: 100,
+      covid_hosp: 1000,
+      covid_hosp_per_100k: 1000,
+      covid_hosp_pct_of_geo: 100,
+      population: 100000,
+      population_pct: 100,
+    };
 
     // Alabama rows should be filtered out
-    const [AL_WHITE_ROW, AL_ACS_WHITE_ROW] = covidAndAcsRowsForAL(
+    const [AL_WHITE_ROW, AL_ACS_WHITE_ROW] = covidAndAcsRows(
+      "01",
+      "Alabama",
       "White (Non-Hispanic)",
       /* Cases=*/ 10,
       /* Hosp=*/ 1,
       /* Death=*/ 5,
       /*Population =*/ 2000
     );
-    const [AL_TOTAL_ROW, AL_ACS_TOTAL_ROW] = covidAndAcsRowsForAL(
+    const [AL_TOTAL_ROW, AL_ACS_TOTAL_ROW] = covidAndAcsRows(
+      "01",
+      "Alabama",
       "Total",
       /* Cases=*/ 10,
       /* Hosp=*/ 1,
@@ -254,22 +201,23 @@ describe("CovidProvider", () => {
       1000,
       80000
     );
-    const FINAL_TOTAL_ROW = finalRowForGeo(
-      "00",
-      "the United States",
-      "Total",
-      /*cases*/ 300,
-      /*cases per100k*/ 167,
-      /*cases percent*/ 100,
-      /*death*/ 700,
-      /*death per100k*/ 389,
-      /*death percent*/ 100,
-      /*hosp*/ 2000,
-      /*hosp per100k*/ 1111,
-      /*hosp percent*/ 100,
-      /*population*/ 180000,
-      /*population_pct*/ 100
-    );
+    const FINAL_TOTAL_ROW = {
+      state_fips: "00",
+      state_name: "the United States",
+      race_and_ethnicity: "Total",
+      date: "2020-04-29",
+      covid_cases: 300,
+      covid_cases_per_100k: 167,
+      covid_cases_pct_of_geo: 100,
+      covid_deaths: 700,
+      covid_deaths_per_100k: 389,
+      covid_deaths_pct_of_geo: 1000,
+      covid_hosp: 2000,
+      covid_hosp_per_100k: 1111,
+      covid_hosp_pct_of_geo: 100,
+      population: 180000,
+      population_pct: 100,
+    };
 
     const [NC_WHITE_ROW, NC_ACS_WHITE_ROW] = covidAndAcsRowsForNC(
       "White (Non-Hispanic)",
@@ -285,22 +233,23 @@ describe("CovidProvider", () => {
       45,
       60000
     );
-    const FINAL_WHITE_ROW = finalRowForGeo(
-      "00",
-      "the United States",
-      "White (Non-Hispanic)",
-      /*cases*/ 970,
-      /*cases per100k*/ 882,
-      /*cases percent*/ 323.3,
-      /*death*/ 330,
-      /*death per100k*/ 300,
-      /*death percent*/ 47.1,
-      /*hosp*/ 79,
-      /*hosp per100k*/ 72,
-      /*hosp percent*/ 4,
-      /*population*/ 110000,
-      /*population_pct*/ 61.1
-    );
+    const FINAL_WHITE_ROW = {
+      state_fips: "00",
+      state_name: "the United States",
+      race_and_ethnicity: "White (Non-Hispanic)",
+      date: "2020-04-29",
+      covid_cases: 970,
+      covid_cases_per_100k: 882,
+      covid_cases_pct_of_geo: 323.3,
+      covid_deaths: 330,
+      covid_deaths_per_100k: 300,
+      covid_deaths_pct_of_geo: 47.1,
+      covid_hosp: 79,
+      covid_hosp_per_100k: 72,
+      covid_hosp_pct_of_geo: 4,
+      population: 110000,
+      population_pct: 61.1,
+    };
 
     const covidDatasetRows = [
       NC_TOTAL_ROW,

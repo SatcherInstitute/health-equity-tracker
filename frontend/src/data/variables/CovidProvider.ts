@@ -124,7 +124,6 @@ class CovidProvider extends VariableProvider {
       });
     });
 
-    console.log(df.toArray());
     return new MetricQueryResponse(df.toArray());
   }
 
