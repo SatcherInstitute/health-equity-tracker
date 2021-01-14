@@ -16,6 +16,7 @@ node_modules/
 /frontend_server/build/
 /frontend/build/
 /frontend/.env.local
+/frontend/.env.development
 /frontend/.env.development.local
 /frontend/.env.test.local
 /frontend/.env.production.local
