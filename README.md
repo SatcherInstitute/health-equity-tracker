@@ -252,6 +252,10 @@ npm run start:development
 
 The site should now be visible at `http://localhost:3000`. Any changes to source code will cause a live reload of the site.
 
+Note: you can also run `npm start` without a `.env.development` file. This will read environment variables from your terminal.
+
+Note: when new environment variables are added, be sure to update the `.env.example` file so developers can reference it for their own `.env.development` files.
+
 #### Available Overrides for local development
 
 Environment variables in `frontend/.env.development` can be tweaked as needed for local development.
