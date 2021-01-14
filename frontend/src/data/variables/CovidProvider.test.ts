@@ -43,10 +43,10 @@ describe("CovidProvider", () => {
       "37",
       "North Carolina",
       "White (Non-Hispanic)",
-      /* Cases=*/ 10,
-      /* Hosp=*/ 1,
-      /* Death=*/ 5,
-      /*Population =*/ 2000
+      /*cases=*/ 10,
+      /*hosp=*/ 1,
+      /*death=*/ 5,
+      /*population=*/ 2000
     );
     const NC_WHITE_FINAL_ROW = {
       state_fips: "37",
@@ -70,10 +70,10 @@ describe("CovidProvider", () => {
       "37",
       "North Carolina",
       "Total",
-      /* Cases=*/ 200,
-      /* Hosp=*/ 500,
-      /* Death=*/ 1000,
-      /*Population =*/ 100000
+      /*cases=*/ 200,
+      /*hosp=*/ 500,
+      /*death=*/ 1000,
+      /*population=*/ 100000
     );
     const NC_TOTAL_FINAL_ROW = {
       state_fips: "37",
@@ -98,19 +98,19 @@ describe("CovidProvider", () => {
       "01",
       "Alabama",
       "White (Non-Hispanic)",
-      /* Cases=*/ 10,
-      /* Hosp=*/ 1,
-      /* Death=*/ 5,
-      /*Population =*/ 2000
+      /*cases=*/ 10,
+      /*hosp=*/ 1,
+      /*death=*/ 5,
+      /*population=*/ 2000
     );
     const [AL_TOTAL_ROW, AL_ACS_TOTAL_ROW] = covidAndAcsRows(
       "01",
       "Alabama",
       "Total",
-      /* Cases=*/ 10,
-      /* Hosp=*/ 1,
-      /* Death=*/ 5,
-      /*Population =*/ 2000
+      /*cases=*/ 10,
+      /*hosp=*/ 1,
+      /*death=*/ 5,
+      /*population=*/ 2000
     );
 
     const covidDatasetRows = [
@@ -150,7 +150,6 @@ describe("CovidProvider", () => {
     const acsProvider = new AcsPopulationProvider();
     const covidProvider = new CovidProvider(acsProvider);
 
-    // Race, Cases, Death, Hosp, Population
     const [NC_TOTAL_ROW, NC_ACS_TOTAL_ROW] = covidAndAcsRows(
       "37",
       "North Carolina",

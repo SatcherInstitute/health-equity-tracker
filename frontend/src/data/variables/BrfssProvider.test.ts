@@ -9,6 +9,15 @@ describe("BrfssProvider", () => {
   test("State and Race Breakdown", async () => {
     const brfssProvider = new BrfssProvider();
 
+    const AL_ASIAN_ROW = {
+      race_and_ethnicity: "Asian (Non-Hispanic)",
+      state_fips: "01",
+      state_name: "AL",
+      copd_count: 100,
+      copd_no: 900,
+      diabetes_count: 30,
+      diabetes_no: 270,
+    };
     const NC_ASIAN_ROW = {
       race_and_ethnicity: "Asian (Non-Hispanic)",
       state_fips: "37",
@@ -27,7 +36,7 @@ describe("BrfssProvider", () => {
       diabetes_count: 1,
       diabetes_no: 99999,
     };
-    const datasetRows = [NC_ASIAN_ROW, NC_WHITE_ROW];
+    const datasetRows = [AL_ASIAN_ROW, NC_ASIAN_ROW, NC_WHITE_ROW];
 
     const NC_ASIAN_FINAL_ROW = Object.assign(NC_ASIAN_ROW, {
       copd_per_100k: 10000,
