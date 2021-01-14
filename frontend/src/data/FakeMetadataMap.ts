@@ -41,6 +41,45 @@ const fakeMetadata: DatasetMetadata[] = [
     ],
   },
   {
+    id: "acs_population-by_age_state",
+    name: "Share of population by state and age",
+    data_source_name: "American Community Survey 5-year estimates (2014-2018)",
+    data_source_link:
+      "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+    geographic_level: "State",
+    demographic_granularity: "Age",
+    update_frequency: "??",
+    update_time: "March 2, 2020",
+    description:
+      "Description placeholder for Share of population. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id lectus urna. Vestibulum lobortis ac quam vel tincidunt. Quisque ex erat, efficitur nec sagittis vitae, dictum semper arcu. Vivamus metus felis, fringilla sit amet metus nec, feugiat suscipit nisl. Morbi posuere mi sit amet elit posuere, id gravida ligula facilisis. Aenean gravida a eros fringilla venenatis.",
+    fields: [
+      {
+        data_type: "string",
+        name: "state_name",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "string",
+        name: "state_fips",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "string",
+        name: "age",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "integer",
+        name: "population",
+        description: "description",
+        origin_dataset: "acs",
+      },
+    ],
+  },
+  {
     id: "covid_deaths",
     name: "COVID-19 Deaths",
     data_source_name: "CDC Provisional Death Counts for COVID-19",
