@@ -18,6 +18,7 @@
     "@types/react-select": "^3.0.22",
     "@types/react-table": "^7.0.24",
     "data-forge": "^1.8.12",
+    "env-cmd": "^10.1.0",
     "husky": "^4.3.0",
     "lint-staged": "^10.5.0",
     "node-sass": "^4.14.1",
@@ -46,7 +47,16 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+
+    "start:development": "env-cmd -f .env.development npm run start",
+    "storybook:development": "env-cmd -f .env.development npm run storybook",
+
+    "build:staging": "env-cmd -f .env.staging npm run build",
+    "build:prod": "env-cmd -f .env.prod npm run build",
+    "build:development": "env-cmd -f .env.development npm run build",
+    "build:deploy_preview": "env-cmd -f .env.deploy_preview npm run build",
+    "build:storybook": "env-cmd -f .env.storybook npm run build-storybook"
   },
   "eslintConfig": {
     "extends": "react-app"
