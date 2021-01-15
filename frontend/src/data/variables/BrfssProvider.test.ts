@@ -83,6 +83,8 @@ describe("BrfssProvider", () => {
       NC_WHITE_ROW,
     ]);
     const breakdown = Breakdowns.forFips(new Fips("37")).andRace();
+
+    // Evaluate the response without requesting total field
     const responseWithoutTotal = brfssProvider.getData(
       dataServerResponse,
       breakdown
@@ -90,6 +92,8 @@ describe("BrfssProvider", () => {
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse([NC_ASIAN_FINAL_ROW, NC_WHITE_FINAL_ROW])
     );
+
+    // Evaluate the response with requesting total field
     const responseWithTotal = brfssProvider.getData(
       dataServerResponse,
       breakdown.andIncludeTotal()
@@ -174,6 +178,8 @@ describe("BrfssProvider", () => {
       AL_ASIAN_ROW,
     ]);
     const breakdown = Breakdowns.national().andRace();
+
+    // Evaluate the response without requesting total field
     const responseWithoutTotal = brfssProvider.getData(
       dataServerResponse,
       breakdown
@@ -181,6 +187,8 @@ describe("BrfssProvider", () => {
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse([ASIAN_FINAL_ROW, WHITE_FINAL_ROW])
     );
+
+    // Evaluate the response with requesting total field
     const responseWithTotal = brfssProvider.getData(
       dataServerResponse,
       breakdown.andIncludeTotal()

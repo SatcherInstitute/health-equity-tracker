@@ -62,6 +62,7 @@ class AcsPopulationProvider extends VariableProvider {
       });
     });
 
+    // Race data comes from backend with Total, if it's not wanted, we remove it.
     if (
       !breakdowns.includeTotal &&
       (breakdowns.demographic === "race_nonstandard" ||
@@ -70,6 +71,7 @@ class AcsPopulationProvider extends VariableProvider {
       df = df.where((row) => row["race_and_ethnicity"] !== "Total");
     }
 
+    // Age and sex data comes from backend without Total, if it's wanted, we add it.
     if (
       breakdowns.includeTotal &&
       (breakdowns.demographic === "age" || breakdowns.demographic === "sex")
