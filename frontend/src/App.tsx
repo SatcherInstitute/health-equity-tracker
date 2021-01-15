@@ -97,11 +97,6 @@ function AppToolbar() {
           </Button>
         )
       )}
-      <Button className={styles.NavButton}>
-        <a href="https://zipline.appspot.com/view/zipline-prototypes/het-test-hawk/het-test---hawk8026/versions/1/data/index.html#/1">
-          Prototypes
-        </a>
-      </Button>
     </Toolbar>
   );
 }

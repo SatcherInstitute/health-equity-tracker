@@ -146,11 +146,11 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         <h1>What Data Are Missing?</h1>
         <p>
           In this tracker, we are using <a href="/">COVID Tracking Project</a>,{" "}
-          <a href="/">CDC Public Datasets</a>,{" "}
-          <a href="/">American Community Survey data</a>. Some soures are more
-          "real-time" like case data, but other important data, such as
+          <a href="/">CDC Public Datasets</a>, and{" "}
+          <a href="/">U.S. Census Bureau data</a>. Some soures are more
+          “real-time” like case data, but other important data, such as
           information around social determinants of health can lag weeks to
-          months. For the moment, this is our best representation of how the
+          years. For the moment, this is our best representation of how the
           country is doing based on publically available information.
         </p>
         <p>
@@ -163,33 +163,28 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         <h3>Known limitations in the data</h3>
         <ul>
           <li>
-            Data may be hidden in counties with smaller numbers of COVID-19
-            cases, hospitalizations and deaths in order to protect the privacy
-            of affected individuals.
+            To protect the privacy of affected individuals, COVID-19 data may be
+            hidden in counties with smaller numbers of COVID-19 cases,
+            hospitalizations and deaths.
           </li>
           <li>
-            Racial and ethnic categorization is often at the discretion of
+            Racial and ethnic categories are often at the discretion of
             healthcare professionals and may not be accurate.
           </li>
           <li>
-            Racial and ethnic categories differ by source and can obscure severe
-            inequity by inappropriately aggregating different communities with
-            distinct experiences into a single overly large category (e.g.
-            “Other,” “Asian”).
+            Specific racial and ethnic categories (e.g. “Native Hawaiian,”
+            “Alaska Native”) differ by source and can be inappropriately
+            obscured by broader categories (e.g. “Other,” “Asian”).
           </li>
           <li>
-            US-wide statistics are aggregations of state-wide data. Where data
-            has been withheld to protect privacy, and where data is missing
-            (such as in states that do not report race/ethnicity breakdowns of
-            COVID-19 statistics), US-wide aggregations may be incomplete and
-            potentially skewed, if excluded populations differ significantly
-            from the country as a whole.
+            National statistics are aggregations of state-wide data. If state
+            data is not available, these aggregations may be incomplete and
+            potentially skewed.
           </li>
           <li>
-            While we attempt to update our data sources with newly available
-            data within a short time frame (typically a few days), please
-            navigate to our data sources directly if you are seeking the newest
-            data as soon as it is made available.
+            We typically refresh our data sources with newly available data
+            within a few days. Seeking the latest information? Please navigate
+            to the data sources directly.
           </li>
         </ul>
         <a href={DATA_CATALOG_PAGE_LINK}>

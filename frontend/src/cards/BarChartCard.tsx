@@ -19,7 +19,7 @@ import { MetricQuery } from "../data/MetricQuery";
 import { MetricConfig, VariableConfig } from "../data/MetricConfig";
 import { POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
 import CardWrapper from "./CardWrapper";
-import RaceInfoPopover from "./ui/RaceInfoPopoverContent";
+import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 import DisparityInfoPopover from "./ui/DisparityInfoPopover";
 import { usePopover } from "../utils/usePopover";
 
@@ -93,7 +93,7 @@ function BarChartCardWithKey(props: BarChartCardProps) {
       title={<CardTitle />}
       infoPopover={
         props.breakdownVar === "race_and_ethnicity" ? (
-          <RaceInfoPopover />
+          <RaceInfoPopoverContent />
         ) : undefined
       }
     >

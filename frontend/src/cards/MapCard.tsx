@@ -1,26 +1,27 @@
 import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { Fips } from "../utils/madlib/Fips";
-import Alert from "@material-ui/lab/Alert";
-import Divider from "@material-ui/core/Divider";
-import { CardContent } from "@material-ui/core";
 import styles from "./Card.module.scss";
-import MenuItem from "@material-ui/core/MenuItem";
 import MapBreadcrumbs from "./MapBreadcrumbs";
 import CardWrapper from "./CardWrapper";
 import useDatasetStore from "../data/useDatasetStore";
 import { getDependentDatasets } from "../data/variableProviders";
 import { MetricQuery } from "../data/MetricQuery";
 import { MetricConfig } from "../data/MetricConfig";
+import { CardContent } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import Alert from "@material-ui/lab/Alert";
+import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Menu from "@material-ui/core/Menu";
-import { Grid } from "@material-ui/core";
+import MenuItem from "@material-ui/core/MenuItem";
 import { Breakdowns, BreakdownVar } from "../data/Breakdowns";
-import RaceInfoPopover from "./ui/RaceInfoPopoverContent";
-import { Row } from "../data/DatasetTypes";
+import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 import { usePopover } from "../utils/usePopover";
+import { Row } from "../data/DatasetTypes";
 
 export interface MapCardProps {
   key?: string;
@@ -88,7 +89,7 @@ function MapCardWithKey(props: MapCardProps) {
       }
       infoPopover={
         ["race_and_ethnicity", "all"].includes(props.currentBreakdown) ? (
-          <RaceInfoPopover />
+          <RaceInfoPopoverContent />
         ) : undefined
       }
     >
@@ -100,9 +101,9 @@ function MapCardWithKey(props: MapCardProps) {
         const queryResponse = datasetStore.getMetrics(
           queries[currentlyDisplayedBreakdown]
         );
-        const breakdownValues = queryResponse.getUniqueFieldValues(
-          currentlyDisplayedBreakdown
-        );
+        const breakdownValues = queryResponse
+          .getUniqueFieldValues(currentlyDisplayedBreakdown)
+          .sort();
         if (breakdownFilter === "") {
           setBreakdownFilter(breakdownValues[0]);
         }
@@ -152,6 +153,7 @@ function MapCardWithKey(props: MapCardProps) {
                       <List component="nav">
                         <ListItem button onClick={popover.open}>
                           <ListItemText primary={breakdownFilter} />
+                          <ArrowDropDownIcon />
                         </ListItem>
                       </List>
                       {/* TODO - Align this with the mocks */}
