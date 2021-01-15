@@ -139,16 +139,23 @@ describe("CovidProvider", () => {
         FakeMetadataMap["acs_population-by_age_state"]
       ),
     };
-    const breakdown = Breakdowns.forFips(new Fips("37"))
-      .andRace(true)
-      .andIncludeTotal();
-    const actual = covidProvider.getData(DATASET_MAP, breakdown);
-    expect(actual).toEqual(
+    const responseWithTotal = covidProvider.getData(
+      DATASET_MAP,
+      Breakdowns.forFips(new Fips("37")).andRace(true).andIncludeTotal()
+    );
+    expect(responseWithTotal).toEqual(
       new MetricQueryResponse([NC_TOTAL_FINAL_ROW, NC_WHITE_FINAL_ROW])
+    );
+    const responseWithoutTotal = covidProvider.getData(
+      DATASET_MAP,
+      Breakdowns.forFips(new Fips("37")).andRace(true)
+    );
+    expect(responseWithoutTotal).toEqual(
+      new MetricQueryResponse([NC_WHITE_FINAL_ROW])
     );
   });
 
-  test("National and Race Breakdown", async () => {
+  test("National and Race Breakdown - include total", async () => {
     const acsProvider = new AcsPopulationProvider();
     const covidProvider = new CovidProvider(acsProvider);
 

@@ -27,11 +27,11 @@ export function PopulationCard(props: PopulationCardProps) {
   const variableIds: MetricId[] = ["population", "population_pct"];
   const raceQuery = new MetricQuery(
     variableIds,
-    Breakdowns.forFips(props.fips).andRace()
+    Breakdowns.forFips(props.fips).andRace().andIncludeTotal()
   );
   const ageQuery = new MetricQuery(
     variableIds,
-    Breakdowns.forFips(props.fips).andAge()
+    Breakdowns.forFips(props.fips).andAge().andIncludeTotal()
   );
 
   return (

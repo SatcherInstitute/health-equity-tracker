@@ -67,6 +67,7 @@ class AcsPopulationProvider extends VariableProvider {
       (breakdowns.demographic === "race_nonstandard" ||
         breakdowns.demographic === "race")
     ) {
+      console.log("filtering ACS no Total");
       df = df.where((row) => row["race_and_ethnicity"] !== "Total");
     }
 

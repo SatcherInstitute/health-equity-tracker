@@ -77,6 +77,8 @@ class CovidProvider extends VariableProvider {
     // TODO How to handle territories?
     const acsBreakdowns = breakdowns.copy();
     acsBreakdowns.time = false;
+    acsBreakdowns.includeTotal = true;
+    console.log(acsBreakdowns);
 
     const acsMetricQueryResponse = this.acsProvider.getData(
       datasets,
@@ -124,6 +126,11 @@ class CovidProvider extends VariableProvider {
       });
     });
 
+    if (!breakdowns.includeTotal) {
+      // TDOO don't hardcode the breakdown value (race_and_ethnicity)
+      df = df.where((row) => row.race_and_ethnicity !== "Total");
+    }
+
     return new MetricQueryResponse(df.toArray());
   }
 
@@ -137,7 +144,6 @@ class CovidProvider extends VariableProvider {
         : false;
 
     return (
-      allowsIncludeTotalSelectionForBreakdown &&
       breakdowns.demographic === "race_nonstandard" &&
       (breakdowns.geography === "state" || breakdowns.geography === "national")
     );

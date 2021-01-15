@@ -6,12 +6,6 @@ import { Fips, USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import FakeMetadataMap from "../FakeMetadataMap";
 import { per100k } from "../datasetutils";
 
-function sumField(rows: any, fieldName: string) {
-  return rows
-    .map((row: any) => row[fieldName])
-    .reduce((a: number, b: number) => a + b);
-}
-
 function addCopdAndDiabetesPer100k(
   row: {},
   copd_per_100k: number,
@@ -71,9 +65,11 @@ describe("BrfssProvider", () => {
     const DATASET_MAP = {
       brfss: dataset,
     };
-    const breakdown = Breakdowns.forFips(new Fips("37")).andRace();
-    const actual = brfssProvider.getData(DATASET_MAP, breakdown);
-    expect(actual).toEqual(
+    const responseWithoutTotal = brfssProvider.getData(
+      DATASET_MAP,
+      Breakdowns.forFips(new Fips("37")).andRace()
+    );
+    expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse([NC_ASIAN_FINAL_ROW, NC_WHITE_FINAL_ROW])
     );
   });
@@ -192,8 +188,8 @@ describe("BrfssProvider", () => {
       diabetes_no: 1400,
       diabetes_per_100k: 30000,
       race_and_ethnicity: "Asian (Non-Hispanic)",
-      state_fips: "00",
-      state_name: "the United States",
+      state_fips: USA_FIPS,
+      state_name: USA_DISPLAY_NAME,
     };
     const WHITE_FINAL_ROW = {
       copd_count: 500,
@@ -203,8 +199,8 @@ describe("BrfssProvider", () => {
       diabetes_no: 400,
       diabetes_per_100k: 60000,
       race_and_ethnicity: "White (Non-Hispanic)",
-      state_fips: "00",
-      state_name: "the United States",
+      state_fips: USA_FIPS,
+      state_name: USA_DISPLAY_NAME,
     };
     const expectedRows = [ASIAN_FINAL_ROW, WHITE_FINAL_ROW];
 
@@ -256,8 +252,8 @@ describe("BrfssProvider", () => {
       diabetes_no: 1400,
       diabetes_per_100k: per100k(600, 600 + 1400),
       race_and_ethnicity: "Asian (Non-Hispanic)",
-      state_fips: "00",
-      state_name: "the United States",
+      state_fips: USA_FIPS,
+      state_name: USA_DISPLAY_NAME,
     };
     const WHITE_FINAL_ROW = {
       copd_count: 500,
@@ -267,8 +263,8 @@ describe("BrfssProvider", () => {
       diabetes_no: 400,
       diabetes_per_100k: per100k(600, 600 + 400),
       race_and_ethnicity: "White (Non-Hispanic)",
-      state_fips: "00",
-      state_name: "the United States",
+      state_fips: USA_FIPS,
+      state_name: USA_DISPLAY_NAME,
     };
     const TOTAL_FINAL_ROW = {
       copd_count: 700,
@@ -278,8 +274,8 @@ describe("BrfssProvider", () => {
       diabetes_no: 1800,
       diabetes_per_100k: per100k(1200, 1200 + 1800),
       race_and_ethnicity: "Total",
-      state_fips: "00",
-      state_name: "the United States",
+      state_fips: USA_FIPS,
+      state_name: USA_DISPLAY_NAME,
     };
 
     const dataset = new Dataset(
