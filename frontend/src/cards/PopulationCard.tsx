@@ -31,7 +31,7 @@ export function PopulationCard(props: PopulationCardProps) {
   );
   const ageQuery = new MetricQuery(
     variableIds,
-    Breakdowns.forFips(props.fips).andAge().andIncludeTotal()
+    Breakdowns.forFips(props.fips).andAge()
   );
 
   return (
