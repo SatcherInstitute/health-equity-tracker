@@ -28,6 +28,8 @@ export interface Environment {
   getEnableServerLogging(): boolean;
   getEnableConsoleLogging(): boolean;
   isUserFacingEnvironment(): boolean;
+  // TODO delete this after launch.
+  enableFullSiteContent(): boolean;
 }
 
 export class HetEnvironment implements Environment {
@@ -53,11 +55,21 @@ export class HetEnvironment implements Environment {
   getEnableConsoleLogging() {
     return !this.isUserFacingEnvironment() && this.deployContext !== "test";
   }
+
+  enableFullSiteContent() {
+    return process.env.REACT_APP_ENABLE_FULL_SITE_CONTENT === "true";
+  }
 }
 
 export class StorybookEnvironment extends HetEnvironment {
   getBaseApiUrl() {
     return process.env.STORYBOOK_BASE_API_URL || "";
+  }
+
+  enableFullSiteContent() {
+    // Storybook doesn't use this currently, but just in case, set to true since
+    // storybook should always show full site content.
+    return true;
   }
 }
 

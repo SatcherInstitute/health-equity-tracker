@@ -6,6 +6,7 @@ import os
 from google.cloud import storage
 import google.cloud.exceptions
 import requests
+import filecmp
 
 
 def local_file_path(filename):
@@ -13,15 +14,20 @@ def local_file_path(filename):
 
 
 def url_file_to_gcs(url, url_params, gcs_bucket, dest_filename):
-    """Attempts to download a file from a url and upload as a
-      blob to the given GCS bucket.
+    """
+    Attempts to download a file from a url and upload as a
+    blob to the given GCS bucket.
 
+    Parameters:
       url: The URL of the file to download.
       url_params: URL parameters to be passed to requests.get().
       gcs_bucket: Name of the GCS bucket to upload to (without gs://).
       dest_filename: What to name the downloaded file in GCS.
-        Include the file extension."""
-    download_first_url_to_gcs(
+        Include the file extension.
+
+    Returns: A boolean indication of a file diff
+    """
+    return download_first_url_to_gcs(
         [url], gcs_bucket, dest_filename, url_params)
 
 
@@ -38,15 +44,21 @@ def get_first_response(url_list, url_params):
 
 def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename,
                               url_params={}):
-    """Iterates over the list of potential URLs that may point to the data
-       source until one of the URLs succeeds in downloading. If no URL suceeds,
-       the method will return an error.
+    """
+    Iterates over the list of potential URLs that may point to the data
+    source until one of the URLs succeeds in downloading. If no URL suceeds,
+    the method will return an error.
 
+    Parameters:
       url_list: List of URLs where the file may be found.
       gcs_bucket: Name of the GCS bucket to upload to (without gs://).
       dest_filename: What to name the downloaded file in GCS.
         Include the file extension.
-      url_params: URL parameters to be passed to requests.get()."""
+      url_params: URL parameters to be passed to requests.get().
+
+      Returns:
+        files_are_diff: A boolean indication of a file diff
+      """
 
     # Establish connection to valid GCS bucket
     try:
@@ -64,10 +76,28 @@ def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename,
             dest_filename)
         return
 
-    # Download URL locally, upload to bucket and remove local file
-    local_path = local_file_path(dest_filename)
-    with file_from_url, open(local_path, 'wb') as f:
-        f.write(file_from_url.content)
-    blob = bucket.blob(dest_filename)
-    blob.upload_from_filename(local_path)
-    os.remove(local_path)
+    # Download the contents of the URL to a local file
+    new_file_local_path = local_file_path(dest_filename)
+    with file_from_url, open(new_file_local_path, 'wb') as new_file:
+        new_file.write(file_from_url.content)
+
+    # Downloads the current file in GCS to a local file
+    old_file_local_path = local_file_path("gcs_local_file")
+    with open(old_file_local_path, "wb") as old_file:
+        try:
+            bucket.blob(dest_filename).download_to_file(old_file)
+        except google.cloud.exceptions.NotFound:
+            files_are_diff = True
+        else:
+            # Compare the file contents for a diff
+            files_are_diff = not filecmp.cmp(
+                old_file_local_path, new_file_local_path)
+
+    # Only update the bucket if the files are diff
+    if files_are_diff:
+        # Upload the contents to the bucket
+        bucket.blob(dest_filename).upload_from_filename(new_file_local_path)
+    # Remove local files
+    os.remove(new_file_local_path)
+    os.remove(old_file_local_path)
+    return files_are_diff
