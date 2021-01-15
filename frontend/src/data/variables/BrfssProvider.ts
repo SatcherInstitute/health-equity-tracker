@@ -47,17 +47,21 @@ class BrfssProvider extends VariableProvider {
     }
 
     if (breakdowns.includeTotal && breakdowns.demographic) {
+      console.log("breakdowns.includeTotal");
       const breakdownName: string =
         breakdowns.demographic === "race"
           ? "race_and_ethnicity"
           : breakdowns.demographic;
-      const total = df.pivot(["state_fips", "state_name"], {
-        diabetes_count: (series) => series.sum(),
-        diabetes_no: (series) => series.sum(),
-        copd_count: (series) => series.sum(),
-        copd_no: (series) => series.sum(),
-        [breakdownName]: (series) => "Total",
-      });
+      const total = df
+        .pivot(["state_fips", "state_name"], {
+          diabetes_count: (series) => series.sum(),
+          diabetes_no: (series) => series.sum(),
+          copd_count: (series) => series.sum(),
+          copd_no: (series) => series.sum(),
+          [breakdownName]: (series) => "Total",
+        })
+        .resetIndex();
+      console.log(total);
       df = df.concat(total).resetIndex();
     }
 

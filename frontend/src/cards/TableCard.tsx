@@ -54,10 +54,7 @@ export function TableCard(props: TableCardProps) {
       {() => {
         const queryResponse = datasetStore.getMetrics(query);
         const dataset = queryResponse.data.filter(
-          (row) =>
-            !["Not Hispanic or Latino", "Total"].includes(
-              row.race_and_ethnicity
-            )
+          (row) => "Not Hispanic or Latino" !== row.race_and_ethnicity
         );
 
         return (
