@@ -36,9 +36,10 @@ import {
   DATA_CATALOG_PAGE_LINK,
   ABOUT_US_PAGE_LINK,
 } from "./utils/urlutils";
-import { autoInitGlobals } from "./utils/globals";
+import { autoInitGlobals, getEnvironment } from "./utils/globals";
 import ReactTooltip from "react-tooltip";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import PreLaunchSiteContent from "./PreLaunchSiteContent";
 
 const MOBILE_BREAKPOINT = 600;
 
@@ -97,11 +98,6 @@ function AppToolbar() {
           </Button>
         )
       )}
-      <Button className={styles.NavButton}>
-        <a href="https://zipline.appspot.com/view/zipline-prototypes/het-test-hawk/het-test---hawk8026/versions/1/data/index.html#/1">
-          Prototypes
-        </a>
-      </Button>
     </Toolbar>
   );
 }
@@ -129,6 +125,10 @@ function App() {
   }, []);
 
   const datasetStore = useDatasetStoreProvider();
+
+  if (!getEnvironment().enableFullSiteContent()) {
+    return <PreLaunchSiteContent />;
+  }
 
   return (
     <ThemeProvider theme={MaterialTheme}>

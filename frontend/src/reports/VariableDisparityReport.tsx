@@ -113,7 +113,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
             {!!METRIC_CONFIG[props.dropdownVarId as string] &&
               METRIC_CONFIG[props.dropdownVarId as string].length > 1 && (
                 <Grid item className={styles.ToggleBlock}>
-                  <span className={styles.ToggleLabel}>Filter Data</span>
+                  <span className={styles.ToggleLabel}>Choose Data Type</span>
                   <ToggleButtonGroup
                     exclusive
                     value={variableConfig.variableId}
@@ -143,7 +143,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                 </Grid>
               )}
             <Grid item className={styles.ToggleBlock}>
-              <span className={styles.ToggleLabel}>Filter Demographic</span>
+              <span className={styles.ToggleLabel}>Choose Demographic</span>
               <ToggleButtonGroup
                 exclusive
                 value={currentBreakdown}

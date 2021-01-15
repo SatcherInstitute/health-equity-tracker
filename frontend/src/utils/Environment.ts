@@ -23,15 +23,38 @@ export type DeployContext =
   | "unknown";
 
 export interface Environment {
+  /** The context the frontend is currently running in. */
   readonly deployContext: DeployContext;
+
   /**
    * The base url for API calls. Empty string if API calls are relative to the
    * current domain.
    */
   getBaseApiUrl(): string;
+
+  /** Whether to enable sending error or metric data to the server. */
   getEnableServerLogging(): boolean;
+
+  /** Whether to enable logging error and debug data to the dev console. */
   getEnableConsoleLogging(): boolean;
+
+  /** Whether the environment is exposed to any real users. */
   isUserFacingEnvironment(): boolean;
+
+  // TODO delete this after launch.
+  /**
+   * Whether to enable the full site content. If false, we only show a
+   * pre-launch info screen.
+   */
+  enableFullSiteContent(): boolean;
+
+  /**
+   * Whether to fetch the dataset as a static file from the public/tmp/
+   * directory.
+   *
+   * This should only be used for local development or in-progress datasets. In
+   * production, all datasets should be fetched from the data server.
+   */
   forceFetchDatasetAsStaticFile(fileName: string): boolean;
 }
 
@@ -63,6 +86,10 @@ export class HetEnvironment implements Environment {
 
   getEnableConsoleLogging() {
     return !this.isUserFacingEnvironment() && this.deployContext !== "test";
+  }
+
+  enableFullSiteContent() {
+    return this.getEnvVariable("ENABLE_FULL_SITE_CONTENT") === "true";
   }
 
   forceFetchDatasetAsStaticFile(fileName: string) {
