@@ -16,7 +16,7 @@ import {
   useSearchParams,
 } from "../../utils/urlutils";
 import ReportProvider from "../../reports/ReportProvider";
-import OptionsSelector from "../ui/OptionsSelector";
+import OptionsSelector from "./OptionsSelector";
 
 function ExploreDataPage() {
   const params = useSearchParams();
