@@ -53,16 +53,21 @@ export class Breakdowns {
 
   filterFips?: string;
 
+  // Whether or not a we should include a "Total" value in response which sums total population
+  includeTotal?: boolean;
+
   constructor(
     geography: GeographicBreakdown,
     demographic?: DemographicBreakdown,
     time?: boolean,
-    filterFips?: string
+    filterFips?: string,
+    includeTotal?: boolean
   ) {
     this.geography = geography;
     this.demographic = demographic;
     this.time = time;
     this.filterFips = filterFips;
+    this.includeTotal = includeTotal;
   }
 
   getUniqueKey() {
@@ -74,7 +79,9 @@ export class Breakdowns {
       ", time: " +
       !!this.time +
       ", filterGeo: " +
-      this.filterFips
+      this.filterFips +
+      ", includeTotal" +
+      this.includeTotal
     );
   }
 
@@ -83,7 +90,8 @@ export class Breakdowns {
       this.geography,
       this.demographic,
       this.time,
-      this.filterFips
+      this.filterFips,
+      this.includeTotal
     );
   }
 
@@ -147,6 +155,11 @@ export class Breakdowns {
 
   andTime(): Breakdowns {
     return this.addBreakdown("date");
+  }
+
+  andIncludeTotal(): Breakdowns {
+    this.includeTotal = true;
+    return this;
   }
 
   /** Filters to entries that exactly match the specified FIPS code. */

@@ -128,7 +128,16 @@ class CovidProvider extends VariableProvider {
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
+    const allowsIncludeTotalSelectionForBreakdown =
+      (breakdowns.demographic === "race_nonstandard" &&
+        breakdowns.includeTotal) ||
+      (breakdowns.demographic !== "race_nonstandard" &&
+        !breakdowns.includeTotal)
+        ? true
+        : false;
+
     return (
+      allowsIncludeTotalSelectionForBreakdown &&
       breakdowns.demographic === "race_nonstandard" &&
       (breakdowns.geography === "state" || breakdowns.geography === "national")
     );

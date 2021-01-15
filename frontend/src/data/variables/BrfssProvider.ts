@@ -46,6 +46,21 @@ class BrfssProvider extends VariableProvider {
       });
     }
 
+    if (breakdowns.includeTotal && breakdowns.demographic) {
+      const breakdownName: string =
+        breakdowns.demographic === "race"
+          ? "race_and_ethnicity"
+          : breakdowns.demographic;
+      const total = df.pivot(["state_fips", "state_name"], {
+        diabetes_count: (series) => series.sum(),
+        diabetes_no: (series) => series.sum(),
+        copd_count: (series) => series.sum(),
+        copd_no: (series) => series.sum(),
+        [breakdownName]: (series) => "Total",
+      });
+      df = df.concat(total).resetIndex();
+    }
+
     return new MetricQueryResponse(
       df
         .generateSeries({

@@ -61,6 +61,27 @@ class AcsPopulationProvider extends VariableProvider {
         population_pct: (row) => percent(row.population, totalStatePopulation),
       });
     });
+
+    if (
+      !breakdowns.includeTotal &&
+      (breakdowns.demographic === "race_nonstandard" ||
+        breakdowns.demographic === "race")
+    ) {
+      df = df.where((row) => row["race_and_ethnicity"] !== "Total");
+    }
+
+    if (
+      breakdowns.includeTotal &&
+      (breakdowns.demographic === "age" || breakdowns.demographic === "sex")
+    ) {
+      let total = df.pivot(["state_fips", "state_name"], {
+        population: (series) => series.sum(),
+        population_pct: (series) => 100,
+        [breakdowns.demographic as string]: (series) => "Total",
+      });
+      df = df.concat(total);
+    }
+
     return new MetricQueryResponse(df.toArray());
   }
 
