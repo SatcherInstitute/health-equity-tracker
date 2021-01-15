@@ -5,6 +5,7 @@ import styles from "./AboutUsPage.module.scss";
 import Button from "@material-ui/core/Button";
 import { EXPLORE_DATA_PAGE_LINK } from "../../utils/urlutils";
 
+/* TODO - Align with mocks, Clean up CSS */
 function TrackerTab() {
   const OUR_JOURNEY = (
     <Grid container xs={12} className={styles.GreyGridItem}>
@@ -39,6 +40,7 @@ function TrackerTab() {
             <Grid item xs={6}>
               <span className={styles.UnderlinedHeader}>5 data sources</span>
               <p>
+                {/* TODO - we could get the number of data sources dynamically from metadata so do don't forget to update this text*/}
                 HET currently aggregates data from 5 key data sources. We plan
                 to continue expanding data sources.
               </p>

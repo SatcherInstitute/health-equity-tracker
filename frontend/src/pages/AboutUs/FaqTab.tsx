@@ -6,6 +6,7 @@ import ArrowForward from "@material-ui/icons/ArrowForward";
 import Divider from "@material-ui/core/Divider";
 import { DATA_CATALOG_PAGE_LINK } from "../../utils/urlutils";
 
+/* TODO - Align with mocks, Clean up CSS */
 function FaqTab() {
   return (
     <Grid container justify="space-around" className={styles.Grid}>

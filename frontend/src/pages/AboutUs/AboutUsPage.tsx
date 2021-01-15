@@ -7,17 +7,18 @@ import TrackerTab from "./TrackerTab";
 import OurTeamTab from "./OurTeamTab";
 import ContactUsTab from "./ContactUsTab";
 
+/* TODO - Align with mocks, Clean up CSS */
 function AboutUsPage() {
-  const [value, setValue] = React.useState(0);
+  const [tabIndex, setTabIndex] = React.useState(0);
 
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setValue(newValue);
+  const handleChange = (event: React.ChangeEvent<{}>, newTabIndex: number) => {
+    setTabIndex(newTabIndex);
   };
 
   return (
     <div className={styles.AboutUsPage}>
       <Tabs
-        value={value}
+        tabIndex={tabIndex}
         onChange={handleChange}
         indicatorColor="primary"
         textColor="primary"
@@ -29,10 +30,10 @@ function AboutUsPage() {
         <Tab label="Frequently Asked Questions" />
         <Tab label="Contact Us" />
       </Tabs>
-      {value === 0 && <TrackerTab />}
-      {value === 1 && <OurTeamTab />}
-      {value === 2 && <FaqTab />}
-      {value === 3 && <ContactUsTab />}
+      {tabIndex === 0 && <TrackerTab />}
+      {tabIndex === 1 && <OurTeamTab />}
+      {tabIndex === 2 && <FaqTab />}
+      {tabIndex === 3 && <ContactUsTab />}
     </div>
   );
 }

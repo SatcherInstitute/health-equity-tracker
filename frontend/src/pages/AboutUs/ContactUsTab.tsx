@@ -2,6 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./AboutUsPage.module.scss";
 
+/* TODO - Align with mocks, Clean up CSS */
 function ContactUsTab() {
   return (
     <>

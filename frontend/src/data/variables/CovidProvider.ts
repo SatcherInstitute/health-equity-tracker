@@ -124,12 +124,6 @@ class CovidProvider extends VariableProvider {
       });
     });
 
-    // TODO - remove this hack to change "Total" for race to be "all" to get it to show up first alphabetically
-    df = df.transformSeries({
-      race_and_ethnicity: (columnValue) =>
-        columnValue === "Total" ? "All" : columnValue,
-    });
-
     return new MetricQueryResponse(df.toArray());
   }
 

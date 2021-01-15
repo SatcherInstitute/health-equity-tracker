@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { linkToMadLib, LinkWithStickyParams } from "../../utils/urlutils";
 
+/* TODO - Align with mocks, Clean up CSS */
 function LandingPage() {
   return (
     <div className={styles.LandingPage}>
@@ -21,6 +22,7 @@ function LandingPage() {
           <p>
             Our tracker shows health data for the United States and its
             Territories using <a href="/">key data sources</a>
+            {/* TODO - Add link value */}
           </p>
           <div
             style={{
