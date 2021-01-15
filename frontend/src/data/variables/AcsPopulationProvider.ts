@@ -76,12 +76,13 @@ class AcsPopulationProvider extends VariableProvider {
       breakdowns.includeTotal &&
       (breakdowns.demographic === "age" || breakdowns.demographic === "sex")
     ) {
-      let total = df.pivot(["state_fips", "state_name"], {
-        population: (series) => series.sum(),
-        population_pct: (series) => 100,
-        [breakdowns.demographic as string]: (series) => "Total",
-      });
-      df = df.concat(total);
+      df = df.concat(
+        df.pivot(["state_fips", "state_name"], {
+          population: (series) => series.sum(),
+          population_pct: (series) => 100,
+          [breakdowns.demographic as string]: (series) => "Total",
+        })
+      );
     }
 
     return new MetricQueryResponse(df.toArray());

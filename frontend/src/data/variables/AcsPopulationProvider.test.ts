@@ -95,12 +95,11 @@ describe("AcsPopulationProvider", () => {
       acsRaceRows,
       /*acsAgeRows=*/ []
     );
-    const breakdown = Breakdowns.forFips(new Fips("37")).andRace();
 
     // Evaluate the response without requesting total field
     const responseWithoutTotal = acsProvider.getData(
       dataServerResponse,
-      breakdown
+      Breakdowns.forFips(new Fips("37")).andRace()
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse([NC_ASIAN_FINAL_ROW, NC_WHITE_FINAL_ROW])
@@ -109,7 +108,7 @@ describe("AcsPopulationProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = acsProvider.getData(
       dataServerResponse,
-      breakdown.andIncludeTotal()
+      Breakdowns.forFips(new Fips("37")).andRace().andIncludeTotal()
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse([
@@ -202,12 +201,11 @@ describe("AcsPopulationProvider", () => {
       acsRaceRows,
       /*acsAgeRows=*/ []
     );
-    const breakdown = Breakdowns.national().andRace();
 
     // Evaluate the response without requesting total field
     const responseWithoutTotal = acsProvider.getData(
       dataServerResponse,
-      breakdown
+      Breakdowns.national().andRace()
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse([
@@ -219,7 +217,7 @@ describe("AcsPopulationProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = acsProvider.getData(
       dataServerResponse,
-      breakdown.andIncludeTotal()
+      Breakdowns.national().andRace().andIncludeTotal()
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse([
@@ -252,12 +250,11 @@ describe("AcsPopulationProvider", () => {
       /*acsAgeRows=*/ [],
       acsAgeRows
     );
-    const breakdown = Breakdowns.forFips(new Fips("37")).andAge();
 
     // Evaluate the response without requesting total field
     const responseWithoutTotal = acsProvider.getData(
       dataServerResponse,
-      breakdown
+      Breakdowns.forFips(new Fips("37")).andAge()
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse([NC_AGE_0_9_FINAL, NC_AGE_10_19_FINAL])
@@ -266,7 +263,7 @@ describe("AcsPopulationProvider", () => {
     // Evaluate the response without requesting total field
     const responseWithTotal = acsProvider.getData(
       dataServerResponse,
-      breakdown.andIncludeTotal()
+      Breakdowns.forFips(new Fips("37")).andAge().andIncludeTotal()
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse([
@@ -302,12 +299,11 @@ describe("AcsPopulationProvider", () => {
       /*acsAgeRows=*/ [],
       acsAgeRows
     );
-    const breakdown = Breakdowns.national().andAge();
 
     // Evaluate the response without requesting total field
     const responseWithoutTotal = acsProvider.getData(
       dataServerResponse,
-      breakdown
+      Breakdowns.national().andAge()
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse([AGE_0_9_FINAL, AGE_10_19_FINAL])
@@ -316,7 +312,7 @@ describe("AcsPopulationProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = acsProvider.getData(
       dataServerResponse,
-      breakdown.andIncludeTotal()
+      Breakdowns.national().andAge().andIncludeTotal()
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse([AGE_0_9_FINAL, AGE_10_19_FINAL, AGE_TOTAL_FINAL])
@@ -326,8 +322,6 @@ describe("AcsPopulationProvider", () => {
   test("State and Gender Breakdown", async () => {
     const acsProvider = new AcsPopulationProvider();
 
-    const breakdown = Breakdowns.forFips(new Fips("37")).andGender();
-
     const dataServerResponse = fakeDataServerResponse(
       /*acsRaceRows=*/ [],
       /*acsAgeRows=*/ []
@@ -336,7 +330,7 @@ describe("AcsPopulationProvider", () => {
     // Evaluate the response without requesting total field
     const responseWithoutTotal = acsProvider.getData(
       dataServerResponse,
-      breakdown
+      Breakdowns.forFips(new Fips("37")).andGender()
     );
     expect(responseWithoutTotal).toEqual(
       createMissingDataResponse(
@@ -347,7 +341,7 @@ describe("AcsPopulationProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = acsProvider.getData(
       dataServerResponse,
-      breakdown.andIncludeTotal()
+      Breakdowns.forFips(new Fips("37")).andGender().andIncludeTotal()
     );
     expect(responseWithTotal).toEqual(
       createMissingDataResponse(
@@ -359,8 +353,6 @@ describe("AcsPopulationProvider", () => {
   test("National and Gender Breakdown", async () => {
     const acsProvider = new AcsPopulationProvider();
 
-    const breakdown = Breakdowns.national().andGender();
-
     const dataServerResponse = fakeDataServerResponse(
       /*acsRaceRows=*/ [],
       /*acsAgeRows=*/ []
@@ -369,7 +361,7 @@ describe("AcsPopulationProvider", () => {
     // Evaluate the response without requesting total field
     const responseWithoutTotal = acsProvider.getData(
       dataServerResponse,
-      breakdown
+      Breakdowns.national().andGender()
     );
     expect(responseWithoutTotal).toEqual(
       createMissingDataResponse(
@@ -380,7 +372,7 @@ describe("AcsPopulationProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = acsProvider.getData(
       dataServerResponse,
-      breakdown.andIncludeTotal()
+      Breakdowns.national().andGender().andIncludeTotal()
     );
     expect(responseWithTotal).toEqual(
       createMissingDataResponse(

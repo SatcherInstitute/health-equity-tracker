@@ -152,6 +152,8 @@ describe("CovidProvider", () => {
       acsRaceRows,
       /*aceAgeRows=*/ []
     );
+
+    // Evaluate the response with requesting total field
     const responseWithTotal = covidProvider.getData(
       dataServerResponse,
       Breakdowns.forFips(new Fips("37")).andRace(true).andIncludeTotal()
@@ -159,6 +161,8 @@ describe("CovidProvider", () => {
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse([NC_TOTAL_FINAL_ROW, NC_WHITE_FINAL_ROW])
     );
+
+    // Evaluate the response without requesting total field
     const responseWithoutTotal = covidProvider.getData(
       dataServerResponse,
       Breakdowns.forFips(new Fips("37")).andRace(true)
@@ -168,7 +172,7 @@ describe("CovidProvider", () => {
     );
   });
 
-  test("National and Race Breakdown - include total", async () => {
+  test("National and Race Breakdown", async () => {
     const acsProvider = new AcsPopulationProvider();
     const covidProvider = new CovidProvider(acsProvider);
 
@@ -261,10 +265,23 @@ describe("CovidProvider", () => {
       acsRaceRows,
       /*aceAgeRows=*/ []
     );
-    const breakdown = Breakdowns.national().andRace(true).andIncludeTotal();
-    const actual = covidProvider.getData(dataServerResponse, breakdown);
-    expect(actual).toEqual(
+
+    // Evaluate the response with requesting total field
+    const responseWithTotal = covidProvider.getData(
+      dataServerResponse,
+      Breakdowns.national().andRace(true).andIncludeTotal()
+    );
+    expect(responseWithTotal).toEqual(
       new MetricQueryResponse([FINAL_TOTAL_ROW, FINAL_WHITE_ROW])
+    );
+
+    // Evaluate the response without requesting total field
+    const responseWithoutTotal = covidProvider.getData(
+      dataServerResponse,
+      Breakdowns.national().andRace(true)
+    );
+    expect(responseWithoutTotal).toEqual(
+      new MetricQueryResponse([FINAL_WHITE_ROW])
     );
   });
 });
