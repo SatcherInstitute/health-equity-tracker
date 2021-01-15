@@ -13,6 +13,15 @@ export default {
 
 const Template: Story<BarChartCardProps> = (args) => <BarChartCard {...args} />;
 
+export const CovidByAge = Template.bind({});
+CovidByAge.args = {
+  key: "testkey",
+  fips: new Fips(USA_FIPS),
+  nonstandardizedRace: true,
+  variableConfig: METRIC_CONFIG["covid"][0],
+  breakdownVar: "age",
+};
+
 export const CovidByRace = Template.bind({});
 CovidByRace.args = {
   key: "testkey",

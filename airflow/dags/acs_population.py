@@ -18,10 +18,14 @@ data_ingestion_dag = DAG(
     schedule_interval='@yearly',
     description='Ingestion configuration for ACS Population')
 
+acs_pop_gcs_task_id = 'acs_population_to_gcs'
 acs_pop_gcs_payload = util.generate_gcs_payload(
     _ACS_WORKFLOW_ID, url=_ACS_BASE_URL)
 acs_pop_gcs_operator = util.create_gcs_ingest_operator(
-    'acs_population_to_gcs', acs_pop_gcs_payload, data_ingestion_dag)
+    acs_pop_gcs_task_id, acs_pop_gcs_payload, data_ingestion_dag)
+
+acs_pop_gcs_short_op = util.create_gcs_short_circuit_operator(
+    'did_acs_pop_files_download', acs_pop_gcs_task_id, data_ingestion_dag)
 
 acs_pop_bq_payload = util.generate_bq_payload(
     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, url=_ACS_BASE_URL)
@@ -37,4 +41,5 @@ acs_pop_exporter_operator = util.create_exporter_operator(
     'acs_population_exporter', acs_pop_exporter_payload, data_ingestion_dag)
 
 # Ingestion DAG
-(acs_pop_gcs_operator >> acs_pop_bq_operator >> acs_pop_aggregator_operator >> acs_pop_exporter_operator)
+(acs_pop_gcs_operator >> acs_pop_gcs_short_op >>
+ acs_pop_bq_operator >> acs_pop_aggregator_operator >> acs_pop_exporter_operator)

@@ -25,20 +25,25 @@ export function PopulationCard(props: PopulationCardProps) {
   const [expanded, setExpanded] = useState(false);
 
   const variableIds: MetricId[] = ["population", "population_pct"];
-  const query = new MetricQuery(
+  const raceQuery = new MetricQuery(
     variableIds,
     Breakdowns.forFips(props.fips).andRace()
+  );
+  const ageQuery = new MetricQuery(
+    variableIds,
+    Breakdowns.forFips(props.fips).andAge()
   );
 
   return (
     <CardWrapper
-      queries={[query]}
+      queries={[raceQuery, ageQuery]}
       datasetIds={getDependentDatasets(variableIds)}
       hideFooter={true}
     >
       {() => {
-        const queryResponse = datasetStore.getMetrics(query);
-        const totalPopulation = queryResponse.data.find(
+        const raceQueryResponse = datasetStore.getMetrics(raceQuery);
+        const ageQueryResponse = datasetStore.getMetrics(ageQuery);
+        const totalPopulation = raceQueryResponse.data.find(
           (r) => r.race_and_ethnicity === "Total"
         );
         const totalPopulationSize = totalPopulation
@@ -47,7 +52,7 @@ export function PopulationCard(props: PopulationCardProps) {
 
         return (
           <CardContent>
-            {!queryResponse.dataIsMissing() && (
+            {!raceQueryResponse.dataIsMissing() && (
               <Button
                 aria-label="expand description"
                 onClick={() => setExpanded(!expanded)}
@@ -61,7 +66,7 @@ export function PopulationCard(props: PopulationCardProps) {
             <span className={styles.PopulationCardTitle}>
               {props.fips.getFullDisplayName()}
             </span>
-            {queryResponse.dataIsMissing() && (
+            {raceQueryResponse.dataIsMissing() && (
               <Alert severity="warning">
                 Missing data means that we don't know the full story.
               </Alert>
@@ -70,7 +75,7 @@ export function PopulationCard(props: PopulationCardProps) {
                 we manually trigger a resize when the div size changes so vega chart will 
                 render with the right size. This means the vega chart won't appear until the 
                 AnimateHeight is finished expanding */}
-            {!queryResponse.dataIsMissing() && (
+            {!raceQueryResponse.dataIsMissing() && (
               <AnimateHeight
                 duration={500}
                 height={expanded ? "auto" : 70}
@@ -93,7 +98,7 @@ export function PopulationCard(props: PopulationCardProps) {
                     <span className={styles.PopulationMetricValue}>??</span>
                   </Grid>
                   {/* TODO- properly align these */}
-                  {queryResponse.data
+                  {raceQueryResponse.data
                     .filter((r) => r.race_and_ethnicity !== "Total")
                     .map((row) => (
                       <Grid item className={styles.PopulationMetric}>
@@ -110,7 +115,7 @@ export function PopulationCard(props: PopulationCardProps) {
                       Population by race
                     </span>
                     <SimpleHorizontalBarChart
-                      data={queryResponse.data.filter(
+                      data={raceQueryResponse.data.filter(
                         (r) => r.race_and_ethnicity !== "Total"
                       )}
                       metric={POPULATION_VARIABLE_CONFIG.metrics.pct_share}
@@ -121,8 +126,15 @@ export function PopulationCard(props: PopulationCardProps) {
                   </Grid>
                   <Grid item xs={6}>
                     <span className={styles.PopulationChartTitle}>
-                      Population by age [coming soon]
+                      Population by age
                     </span>
+                    <SimpleHorizontalBarChart
+                      data={ageQueryResponse.data}
+                      metric={POPULATION_VARIABLE_CONFIG.metrics.pct_share}
+                      breakdownVar="age"
+                      showLegend={false}
+                      hideActions={true}
+                    />
                   </Grid>
                 </Grid>
               </AnimateHeight>

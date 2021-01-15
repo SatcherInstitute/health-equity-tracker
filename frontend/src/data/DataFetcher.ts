@@ -137,7 +137,7 @@ export class ApiDataFetcher implements DataFetcher {
       return result;
     }
 
-    if (datasetId === "acs_population-by_race_state_std") {
+    if (datasetId.startsWith("acs_population")) {
       // TODO remove this once we figure out how to make BQ export integers as
       // integers
       let result = await this.fetchDataset(datasetId);

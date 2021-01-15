@@ -15,12 +15,12 @@ export type DeployContext =
   // Unit or integration tests
   | "test"
 
-  // When running npm start or npm run storybook
+  // When running npm start or npm run storybook, or when running Docker locally
+  // or deploying to a personal GCP project.
   | "development"
 
-  // For example personal GCP deployment or local Dockerfile. Treat this
-  // similarly to development.
-  | "other";
+  // Unknown deploy context. This generally shouldn't happen.
+  | "unknown";
 
 export interface Environment {
   readonly deployContext: DeployContext;
@@ -74,19 +74,20 @@ function getDeployContext(): DeployContext {
     process.env.REACT_APP_DEPLOY_CONTEXT ||
     process.env.STORYBOOK_DEPLOY_CONTEXT;
   if (deployContextVar) {
-    const expectedContexts = ["prod", "staging", "deploy_preview", "storybook"];
+    const expectedContexts = [
+      "prod",
+      "staging",
+      "deploy_preview",
+      "storybook",
+      "development",
+    ];
     if (!expectedContexts.includes(deployContextVar)) {
       throw new Error("Invalid value for deploy context environment variable");
-    }
-    // Temporary workaround, until staging and prod are set up to deploy with
-    // correct environment variables.
-    if (process.env.NODE_ENV === "production" && !deployContextVar) {
-      return "staging";
     }
     return deployContextVar as DeployContext;
   }
 
-  return "other";
+  return "unknown";
 }
 
 export function createEnvironment(): Environment {
