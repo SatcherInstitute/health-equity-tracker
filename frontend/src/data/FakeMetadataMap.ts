@@ -2,7 +2,7 @@ import { DatasetMetadata, MetadataMap } from "./DatasetTypes";
 
 const fakeMetadata: DatasetMetadata[] = [
   {
-    id: "acs_population-by_race_state_std",
+    id: "acs_population-by_race_state_std - race",
     name: "Population demographics",
     data_source_name: "American Community Survey 5-year estimates (2015-2019)",
     data_source_link:
@@ -42,14 +42,14 @@ const fakeMetadata: DatasetMetadata[] = [
   },
   {
     id: "acs_population-by_age_state",
-    name: "Share of population by state and age",
-    data_source_name: "American Community Survey 5-year estimates (2014-2018)",
+    name: "Population demographics - age",
+    data_source_name: "American Community Survey 5-year estimates (2015-2019)",
     data_source_link:
       "https://www.census.gov/data/developers/data-sets/acs-5year.html",
     geographic_level: "State",
-    demographic_granularity: "Age",
-    update_frequency: "??",
-    update_time: "March 2, 2020",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Annual",
+    update_time: "unknown",
     description:
       "Population percentages broken down by self-reported race/ethnicity, age, and sex at the U.S. and state levels.",
     fields: [
