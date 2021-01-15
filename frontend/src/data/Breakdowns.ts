@@ -67,7 +67,7 @@ export class Breakdowns {
     this.demographic = demographic;
     this.time = time;
     this.filterFips = filterFips;
-    this.includeTotal = includeTotal ? includeTotal : false;
+    this.includeTotal = includeTotal;
   }
 
   getUniqueKey() {
@@ -81,7 +81,7 @@ export class Breakdowns {
       ", filterGeo: " +
       this.filterFips +
       ", includeTotal: " +
-      this.includeTotal
+      !!this.includeTotal
     );
   }
 

@@ -78,7 +78,6 @@ class CovidProvider extends VariableProvider {
     const acsBreakdowns = breakdowns.copy();
     acsBreakdowns.time = false;
     acsBreakdowns.includeTotal = true;
-    console.log(acsBreakdowns);
 
     const acsMetricQueryResponse = this.acsProvider.getData(
       datasets,

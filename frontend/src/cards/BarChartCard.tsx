@@ -102,7 +102,6 @@ function BarChartCardWithKey(props: BarChartCardProps) {
         const dataset = queryResponse.data.filter(
           (row) => row.race_and_ethnicity !== "Not Hispanic or Latino"
         );
-        console.log(queryResponse);
         return (
           <>
             {queryResponse.shouldShowMissingDataMessage([

@@ -49,7 +49,7 @@ describe("AcsPopulationProvider", () => {
 
     expect(acsProvider.getData({}, Breakdowns.national())).toEqual(
       createMissingDataResponse(
-        'Breakdowns not supported for provider acs_pop_provider: {"geography":"national","includeTotal":false}'
+        'Breakdowns not supported for provider acs_pop_provider: {"geography":"national"}'
       )
     );
   });
@@ -425,7 +425,7 @@ describe("AcsPopulationProvider", () => {
     const actual = acsProvider.getData(DATASET_MAP, breakdown);
     expect(actual).toEqual(
       createMissingDataResponse(
-        'Breakdowns not supported for provider acs_pop_provider: {"geography":"state","demographic":"sex","filterFips":"37","includeTotal":false}'
+        'Breakdowns not supported for provider acs_pop_provider: {"geography":"state","demographic":"sex","filterFips":"37"}'
       )
     );
   });
@@ -449,7 +449,7 @@ describe("AcsPopulationProvider", () => {
     const actual = acsProvider.getData(DATASET_MAP, breakdown);
     expect(actual).toEqual(
       createMissingDataResponse(
-        'Breakdowns not supported for provider acs_pop_provider: {"geography":"national","demographic":"sex","includeTotal":false}'
+        'Breakdowns not supported for provider acs_pop_provider: {"geography":"national","demographic":"sex"}'
       )
     );
   });

@@ -47,7 +47,6 @@ class BrfssProvider extends VariableProvider {
     }
 
     if (breakdowns.includeTotal && breakdowns.demographic) {
-      console.log("breakdowns.includeTotal");
       const breakdownName: string =
         breakdowns.demographic === "race"
           ? "race_and_ethnicity"
@@ -61,7 +60,6 @@ class BrfssProvider extends VariableProvider {
           [breakdownName]: (series) => "Total",
         })
         .resetIndex();
-      console.log(total);
       df = df.concat(total).resetIndex();
     }
 
