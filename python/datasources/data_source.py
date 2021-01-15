@@ -19,19 +19,27 @@ class DataSource(ABC):
     def get_attr(self, attributes, key):
         attr = attributes.get(key)
         if attr is None:
-            raise RuntimeError("Attribute: {} not found on payload".format(key))
+            raise RuntimeError(
+                "Attribute: {} not found on payload".format(key))
         return attr
 
     def upload_to_gcs(self, gcs_bucket, **attrs):
-        """Attempts to download a file from a url and upload as a
+        """
+        Attempts to download a file from a url and upload as a
         blob to the given GCS bucket.
 
-        gcs_bucket: Name of the GCS bucket to upload to (without gs://).
-        attrs: Additional message attributes such as url and filename that are
-               needed for this data source."""
-        url_file_to_gcs.url_file_to_gcs(self.get_attr(attrs, 'url'), None,
-                                        gcs_bucket,
-                                        self.get_attr(attrs, 'filename'))
+        Parameters:
+            gcs_bucket: Name of the GCS bucket to upload to (without gs://).
+            attrs: Additional message attributes such as url and filename that are
+                needed for this data source.
+
+        Returns: A boolean indication of a file diff.
+                 In the case that there are many files to download, this well return true
+                 if there is at least one file that is different.
+        """
+        return url_file_to_gcs.url_file_to_gcs(self.get_attr(attrs, 'url'), None,
+                                               gcs_bucket,
+                                               self.get_attr(attrs, 'filename'))
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         """Writes source data from GCS bucket to BigQuery

@@ -23,7 +23,7 @@ class AmericanCommunitySurvey(DataSource):
         """Uploads population by county and race from census to GCS bucket."""
         cols = self.get_external_columns()
         url_params = census.get_census_params_by_county(cols)
-        url_file_to_gcs.url_file_to_gcs(url, url_params, gcs_bucket, filename)
+        return url_file_to_gcs.url_file_to_gcs(url, url_params, gcs_bucket, filename)
 
     def write_to_bq(self, dataset, gcs_bucket, filename):
         """Writes population by race to BigQuery from the provided GCS bucket
