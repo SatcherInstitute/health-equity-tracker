@@ -77,21 +77,21 @@ describe("BrfssProvider", () => {
       diabetes_per_100k: 50000,
     };
 
-    const datasetResponse = fakeDataServerResponse([
+    const dataServerResponse = fakeDataServerResponse([
       AL_ASIAN_ROW,
       NC_ASIAN_ROW,
       NC_WHITE_ROW,
     ]);
     const breakdown = Breakdowns.forFips(new Fips("37")).andRace();
     const responseWithoutTotal = brfssProvider.getData(
-      datasetResponse,
+      dataServerResponse,
       breakdown
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse([NC_ASIAN_FINAL_ROW, NC_WHITE_FINAL_ROW])
     );
     const responseWithTotal = brfssProvider.getData(
-      datasetResponse,
+      dataServerResponse,
       breakdown.andIncludeTotal()
     );
     expect(responseWithTotal).toEqual(
@@ -168,21 +168,21 @@ describe("BrfssProvider", () => {
       state_name: USA_DISPLAY_NAME,
     };
 
-    const datasetResponse = fakeDataServerResponse([
+    const dataServerResponse = fakeDataServerResponse([
       NC_ASIAN_ROW,
       NC_WHITE_ROW,
       AL_ASIAN_ROW,
     ]);
     const breakdown = Breakdowns.national().andRace();
     const responseWithoutTotal = brfssProvider.getData(
-      datasetResponse,
+      dataServerResponse,
       breakdown
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse([ASIAN_FINAL_ROW, WHITE_FINAL_ROW])
     );
     const responseWithTotal = brfssProvider.getData(
-      datasetResponse,
+      dataServerResponse,
       breakdown.andIncludeTotal()
     );
     expect(responseWithTotal).toEqual(
