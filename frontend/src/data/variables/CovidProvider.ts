@@ -12,7 +12,7 @@ import {
   per100k,
   percent,
 } from "../datasetutils";
-import { MetricQueryResponse } from "../MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 
 class CovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -34,6 +34,18 @@ class CovidProvider extends VariableProvider {
       ["covid_by_state_and_race"].concat(acsProvider.datasetIds)
     );
     this.acsProvider = acsProvider;
+  }
+
+  getRequiredDatasetIds(metricQuery: MetricQuery) {
+    if (
+      metricQuery.breakdowns.demographic === "race_nonstandard" ||
+      metricQuery.breakdowns.demographic === "race"
+    ) {
+      return ["acs_population-by_race_state_std", "covid_by_state_and_race"];
+    } else if (metricQuery.breakdowns.demographic === "age") {
+      return ["acs_population-by_age_state", "covid_by_state_and_race"];
+    }
+    return ["covid_by_state_and_race"];
   }
 
   getDataInternal(

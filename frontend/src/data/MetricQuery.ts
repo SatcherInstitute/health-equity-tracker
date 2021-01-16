@@ -4,22 +4,22 @@ import { MetricId } from "./variableProviders";
 import { Row } from "./DatasetTypes";
 
 export class MetricQuery {
-  readonly varIds: MetricId[];
+  readonly metricIds: MetricId[];
   readonly breakdowns: Breakdowns;
   readonly joinType: JoinType;
 
   constructor(
-    varIds: MetricId | MetricId[],
+    metricIds: MetricId | MetricId[],
     breakdowns: Breakdowns,
     joinType?: JoinType
   ) {
-    this.varIds = [varIds].flat();
+    this.metricIds = [metricIds].flat();
     this.breakdowns = breakdowns;
     this.joinType = joinType || "left";
   }
 
   getUniqueKey(): string {
-    return this.varIds.join(",") + ":____:" + this.breakdowns.getUniqueKey();
+    return this.metricIds.join(",") + ":____:" + this.breakdowns.getUniqueKey();
   }
 }
 

@@ -17,9 +17,9 @@ import useDatasetStore from "../data/useDatasetStore";
 import InfoIcon from "@material-ui/icons/Info";
 import Popover from "@material-ui/core/Popover";
 import { usePopover } from "../utils/usePopover";
+import { getDependentDatasets } from "../data/variableProviders";
 
 function CardWrapper(props: {
-  datasetIds: string[];
   title?: JSX.Element;
   infoPopover?: JSX.Element;
   hideFooter?: boolean;
@@ -77,11 +77,11 @@ function CardWrapper(props: {
           <Card raised={true} className={styles.ChartCard}>
             {optionalTitle}
             {props.children()}
-            {!props.hideFooter && (
+            {!props.hideFooter && props.queries && (
               <CardContent className={styles.CardFooter}>
                 Sources:{" "}
                 {/* TODO- add commas and "and" between the data sources */}
-                {props.datasetIds.map((datasetId) => (
+                {getDependentDatasets(props.queries).map((datasetId) => (
                   <>
                     <LinkWithStickyParams
                       target="_blank"

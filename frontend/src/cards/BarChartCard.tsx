@@ -14,7 +14,7 @@ import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/Breakdowns";
-import { getDependentDatasets, MetricId } from "../data/variableProviders";
+import { MetricId } from "../data/variableProviders";
 import { MetricQuery } from "../data/MetricQuery";
 import { MetricConfig, VariableConfig } from "../data/MetricConfig";
 import { POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
@@ -88,7 +88,6 @@ function BarChartCardWithKey(props: BarChartCardProps) {
   // TODO - we want to bold the breakdown name in the card title
   return (
     <CardWrapper
-      datasetIds={getDependentDatasets(metrics)}
       queries={[query]}
       title={<CardTitle />}
       infoPopover={

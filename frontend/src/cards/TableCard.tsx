@@ -3,7 +3,7 @@ import { TableChart } from "../charts/TableChart";
 import { Alert } from "@material-ui/lab";
 import CardWrapper from "./CardWrapper";
 import useDatasetStore from "../data/useDatasetStore";
-import { getDependentDatasets, MetricId } from "../data/variableProviders";
+import { MetricId } from "../data/variableProviders";
 import { MetricQuery } from "../data/MetricQuery";
 import { Fips } from "../utils/madlib/Fips";
 import {
@@ -35,12 +35,10 @@ export function TableCard(props: TableCardProps) {
     (metricConfig) => metricConfig.metricId
   );
   const query = new MetricQuery(metricIds, breakdowns);
-  const datasetIds = getDependentDatasets(metricIds);
 
   return (
     <CardWrapper
       queries={[query]}
-      datasetIds={datasetIds}
       title={
         <>{`${
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]

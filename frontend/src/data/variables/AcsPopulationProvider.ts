@@ -4,7 +4,7 @@ import { Dataset } from "../DatasetTypes";
 import { applyToGroups, percent } from "../datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
-import { MetricQueryResponse } from "../MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 
 const standardizedRaces = [
   "American Indian and Alaska Native (Non-Hispanic)",
@@ -37,6 +37,18 @@ class AcsPopulationProvider extends VariableProvider {
       ["population", "population_pct"],
       ["acs_population-by_race_state_std", "acs_population-by_age_state"]
     );
+  }
+
+  getRequiredDatasetIds(metricQuery: MetricQuery) {
+    if (
+      metricQuery.breakdowns.demographic === "race_nonstandard" ||
+      metricQuery.breakdowns.demographic === "race"
+    ) {
+      return ["acs_population-by_race_state_std"];
+    } else if (metricQuery.breakdowns.demographic === "age") {
+      return ["acs_population-by_age_state"];
+    }
+    return [];
   }
 
   getDataInternal(

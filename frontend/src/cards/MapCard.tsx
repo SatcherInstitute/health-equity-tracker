@@ -5,7 +5,6 @@ import styles from "./Card.module.scss";
 import MapBreadcrumbs from "./MapBreadcrumbs";
 import CardWrapper from "./CardWrapper";
 import useDatasetStore from "../data/useDatasetStore";
-import { getDependentDatasets } from "../data/variableProviders";
 import { MetricQuery } from "../data/MetricQuery";
 import { MetricConfig } from "../data/MetricConfig";
 import { CardContent } from "@material-ui/core";
@@ -81,7 +80,6 @@ function MapCardWithKey(props: MapCardProps) {
   return (
     <CardWrapper
       queries={Object.values(queries) as MetricQuery[]}
-      datasetIds={getDependentDatasets([props.metricConfig.metricId])}
       title={
         <>{`${
           props.metricConfig.fullCardTitleName
