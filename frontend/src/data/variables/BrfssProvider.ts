@@ -36,7 +36,7 @@ class BrfssProvider extends VariableProvider {
       df = df.where((row) => row.state_fips === breakdowns.filterFips);
     }
 
-    if (!breakdowns.demographic) {
+    if (!breakdowns.race) {
       df = df.pivot(["state_name", "state_fips"], {
         race: (series) => ALL_RACES_DISPLAY_NAME,
         diabetes_count: (series) => series.sum(),
@@ -63,7 +63,8 @@ class BrfssProvider extends VariableProvider {
       !breakdowns.time &&
       (breakdowns.geography === "state" ||
         breakdowns.geography === "national") &&
-      (!breakdowns.demographic || breakdowns.demographic === "race")
+      breakdowns.demographicBreakdownCount() === 1 &&
+      !!breakdowns.race
     );
   }
 }

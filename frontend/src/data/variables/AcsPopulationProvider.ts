@@ -4,7 +4,7 @@ import { Dataset } from "../DatasetTypes";
 import { applyToGroups, percent } from "../datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
-import { MetricQueryResponse } from "../MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 
 const standardizedRaces = [
   "American Indian and Alaska Native (Non-Hispanic)",
@@ -39,6 +39,18 @@ class AcsPopulationProvider extends VariableProvider {
     );
   }
 
+  getRequiredDatasetIds(metricQuery: MetricQuery) {
+    if (
+      !!metricQuery.breakdowns.race_nonstandard ||
+      !!metricQuery.breakdowns.race
+    ) {
+      return ["acs_population-by_race_state_std"];
+    } else if (!!metricQuery.breakdowns.age) {
+      return ["acs_population-by_age_state"];
+    }
+    return [];
+  }
+
   getDataInternal(
     datasets: Record<string, Dataset>,
     breakdowns: Breakdowns
@@ -51,8 +63,7 @@ class AcsPopulationProvider extends VariableProvider {
     df = applyToGroups(df, ["state_name"], (group) => {
       // Race categories don't add up to zero, so they are special cased
       let totalStatePopulation =
-        breakdowns.demographic === "race_nonstandard" ||
-        breakdowns.demographic === "race"
+        !!breakdowns.race_nonstandard || !!breakdowns.race
           ? group
               .where((r: any) => r["race_and_ethnicity"] === "Total")
               .first()["population"]
@@ -68,40 +79,42 @@ class AcsPopulationProvider extends VariableProvider {
     datasets: Record<string, Dataset>,
     breakdowns: Breakdowns
   ): IDataFrame {
-    const statePopByBreakdown =
-      breakdowns.demographic === "age"
-        ? datasets["acs_population-by_age_state"]
-        : datasets["acs_population-by_race_state_std"];
+    const statePopByBreakdown = !!breakdowns.age
+      ? datasets["acs_population-by_age_state"]
+      : datasets["acs_population-by_race_state_std"];
     const acsDataFrame = statePopByBreakdown.toDataFrame();
 
-    switch (breakdowns.demographic) {
-      case "race_nonstandard":
-        return breakdowns.geography === "national"
-          ? createNationalTotal(acsDataFrame, "race_and_ethnicity")
-          : acsDataFrame;
-      case "race":
-        const standardizedAcsData = acsDataFrame.where((row) =>
-          standardizedRaces.includes(row.race_and_ethnicity)
-        );
-        return breakdowns.geography === "national"
-          ? createNationalTotal(standardizedAcsData, "race_and_ethnicity")
-          : standardizedAcsData;
-      case "age":
-        return breakdowns.geography === "national"
-          ? createNationalTotal(acsDataFrame, "age")
-          : acsDataFrame;
+    if (!!breakdowns.race_nonstandard) {
+      return breakdowns.geography === "national"
+        ? createNationalTotal(acsDataFrame, "race_and_ethnicity")
+        : acsDataFrame;
+    }
+    if (!!breakdowns.race) {
+      const standardizedAcsData = acsDataFrame.where((row) =>
+        standardizedRaces.includes(row.race_and_ethnicity)
+      );
+      return breakdowns.geography === "national"
+        ? createNationalTotal(standardizedAcsData, "race_and_ethnicity")
+        : standardizedAcsData;
+    }
+    if (!!breakdowns.age) {
+      return breakdowns.geography === "national"
+        ? createNationalTotal(acsDataFrame, "age")
+        : acsDataFrame;
     }
 
     throw new Error("Not implemented");
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
+    const demographicBreakdownsAllowed =
+      breakdowns.demographicBreakdownCount() === 1 &&
+      (!!breakdowns.age || !!breakdowns.race_nonstandard || !!breakdowns.race);
+
     return (
       !breakdowns.time &&
       ["state", "national"].includes(breakdowns.geography) &&
-      ["race", "race_nonstandard", "age"].includes(
-        breakdowns.demographic as string
-      )
+      demographicBreakdownsAllowed
     );
   }
 }
