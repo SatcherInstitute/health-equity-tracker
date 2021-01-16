@@ -47,12 +47,15 @@ class HouseholdIncome(DataSource):
     def upload_to_gcs(self, url, gcs_bucket, filename):
         """Uploads household income data from SAIPE to GCS bucket for all available years."""
         year_range = {1989, 1993, *range(1995, 2019)}
+        file_diff = False
         for year in year_range:
             url_params = census.get_census_params_by_county(
                 self.get_household_income_columns().keys())
             url_params['time'] = year
-            url_file_to_gcs.url_file_to_gcs(
+            next_file_diff = url_file_to_gcs.url_file_to_gcs(
                 url, url_params, gcs_bucket, '{}_{}.json'.format(filename, year))
+            file_diff = file_diff or next_file_diff
+        return file_diff
 
     def write_to_bq(self, dataset, gcs_bucket, filename):
         """Fetches all SAIPE blobs from a GCS bucket and uploads to a single BQ table.

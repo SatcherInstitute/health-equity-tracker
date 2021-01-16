@@ -36,9 +36,10 @@ import {
   DATA_CATALOG_PAGE_LINK,
   ABOUT_US_PAGE_LINK,
 } from "./utils/urlutils";
-import { autoInitGlobals } from "./utils/globals";
+import { autoInitGlobals, getEnvironment } from "./utils/globals";
 import ReactTooltip from "react-tooltip";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import PreLaunchSiteContent from "./PreLaunchSiteContent";
 
 const MOBILE_BREAKPOINT = 600;
 
@@ -124,6 +125,10 @@ function App() {
   }, []);
 
   const datasetStore = useDatasetStoreProvider();
+
+  if (!getEnvironment().enableFullSiteContent()) {
+    return <PreLaunchSiteContent />;
+  }
 
   return (
     <ThemeProvider theme={MaterialTheme}>
