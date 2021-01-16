@@ -268,7 +268,7 @@ The `REACT_APP_BASE_API_URL` can be changed for different setups:
 
 ### Running the Frontend Server locally
 
-If you need to run the frontend server locally to test server-side changes, copy `frontend_server/.env.example` into `frontend_server/.env.development`, and add `DATA_SERVER_URL` to point to a specific data server url, similar to above.
+If you need to run the frontend server locally to test server-side changes, copy `frontend_server/.env.example` into `frontend_server/.env.development`, and update `DATA_SERVER_URL` to point to a specific data server url, similar to above.
 
 To run the frontend server locally, navigate to the `frontend_server/` directory and run:
 ```bash
