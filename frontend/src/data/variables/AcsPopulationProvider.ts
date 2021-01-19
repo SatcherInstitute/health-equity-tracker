@@ -51,7 +51,7 @@ class AcsPopulationProvider extends VariableProvider {
     df = applyToGroups(df, ["state_name"], (group) => {
       // Race categories don't add up to zero, so they are special cased
       let totalStatePopulation =
-        !!breakdowns.race_nonstandard || !!breakdowns.race
+        breakdowns.race_nonstandard || breakdowns.race
           ? group
               .where((r: any) => r["race_and_ethnicity"] === "Total")
               .first()["population"]
@@ -67,17 +67,17 @@ class AcsPopulationProvider extends VariableProvider {
     datasets: Record<string, Dataset>,
     breakdowns: Breakdowns
   ): IDataFrame {
-    const statePopByBreakdown = !!breakdowns.age
+    const statePopByBreakdown = breakdowns.age
       ? datasets["acs_population-by_age_state"]
       : datasets["acs_population-by_race_state_std"];
     const acsDataFrame = statePopByBreakdown.toDataFrame();
 
-    if (!!breakdowns.race_nonstandard) {
+    if (breakdowns.race_nonstandard) {
       return breakdowns.geography === "national"
         ? createNationalTotal(acsDataFrame, "race_and_ethnicity")
         : acsDataFrame;
     }
-    if (!!breakdowns.race) {
+    if (breakdowns.race) {
       const standardizedAcsData = acsDataFrame.where((row) =>
         standardizedRaces.includes(row.race_and_ethnicity)
       );
@@ -85,7 +85,7 @@ class AcsPopulationProvider extends VariableProvider {
         ? createNationalTotal(standardizedAcsData, "race_and_ethnicity")
         : standardizedAcsData;
     }
-    if (!!breakdowns.age) {
+    if (breakdowns.age) {
       return breakdowns.geography === "national"
         ? createNationalTotal(acsDataFrame, "age")
         : acsDataFrame;
@@ -97,7 +97,7 @@ class AcsPopulationProvider extends VariableProvider {
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
     const validDemographicBreakdownRequest =
       breakdowns.demographicBreakdownCount() === 1 &&
-      (!!breakdowns.age || !!breakdowns.race_nonstandard || !!breakdowns.race);
+      (breakdowns.age || breakdowns.race_nonstandard || breakdowns.race);
 
     return (
       !breakdowns.time &&

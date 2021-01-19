@@ -4,10 +4,6 @@ export const ALL_RACES_DISPLAY_NAME = "All races";
 
 export type GeographicBreakdown = "national" | "state" | "county";
 
-// TODO is the race vs race_nonstandard distinction necessary, or should we just
-// expect each provider to know what type it uses?
-export type DemographicBreakdown = "race" | "race_nonstandard" | "age" | "sex";
-
 // TODO flesh this out - would be nice to enforce more type-checking of these
 // column names throughout the codebase, for example with a StandardizedRow type
 // or an enum/constants that can be referenced.
@@ -28,38 +24,24 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
   state_fips: "State FIPS Code",
 };
 
-function demographicBreakdownToCol(
-  demographic: DemographicBreakdown
-): BreakdownVar {
-  switch (demographic) {
-    case "race":
-    case "race_nonstandard":
-      return "race_and_ethnicity";
-    case "age":
-      return "age";
-    case "sex":
-      return "sex";
-  }
-}
-
 export class Breakdowns {
   geography: GeographicBreakdown;
   // We may want to extend this to an explicit type to support variants for
   // day/week/month/year.
-  time?: boolean;
-  race?: boolean;
-  race_nonstandard?: boolean;
-  age?: boolean;
-  sex?: boolean;
+  time: boolean;
+  race: boolean;
+  race_nonstandard: boolean;
+  age: boolean;
+  sex: boolean;
   filterFips?: string;
 
   constructor(
     geography: GeographicBreakdown,
-    race?: boolean,
-    race_nonstandard?: boolean,
-    age?: boolean,
-    sex?: boolean,
-    time?: boolean,
+    race = false,
+    race_nonstandard = false,
+    age = false,
+    sex = false,
+    time = false,
     filterFips?: string
   ) {
     this.geography = geography;
@@ -76,18 +58,31 @@ export class Breakdowns {
       "geography: " +
       this.geography +
       ", race: " +
-      !!this.race +
+      this.race +
       ", race_nonstandard: " +
-      !!this.race_nonstandard +
+      this.race_nonstandard +
       ", age: " +
-      !!this.age +
+      this.age +
       ", sex: " +
-      !!this.sex +
+      this.sex +
       ", time: " +
-      !!this.time +
+      this.time +
       ", filterGeo: " +
       this.filterFips
     );
+  }
+
+  getBreakdownString() {
+    // Any fields that are not set will not be included in the string for readibility
+    return JSON.stringify({
+      geography: this.geography,
+      time: this.time || undefined,
+      race: this.race || undefined,
+      race_nonstandard: this.race_nonstandard || undefined,
+      age: this.age || undefined,
+      sex: this.sex || undefined,
+      filterFips: this.filterFips || undefined,
+    });
   }
 
   copy() {
@@ -163,15 +158,9 @@ export class Breakdowns {
 
   // Helper function returning how many demographic breakdowns are currently requested
   demographicBreakdownCount() {
-    let demographicBreakdownCount = 0;
-    [this.age, this.sex, this.race, this.race_nonstandard].forEach(
-      (demographic) => {
-        if (demographic) {
-          demographicBreakdownCount++;
-        }
-      }
-    );
-    return demographicBreakdownCount;
+    return [this.age, this.sex, this.race, this.race_nonstandard].filter(
+      (demo) => demo
+    ).length;
   }
 
   /** Filters to entries that exactly match the specified FIPS code. */
@@ -183,16 +172,13 @@ export class Breakdowns {
   getJoinColumns(): BreakdownVar[] {
     const joinCols: BreakdownVar[] = ["state_fips"];
     if (this.age) {
-      joinCols.push(demographicBreakdownToCol("age"));
+      joinCols.push("age");
     }
-    if (this.race) {
-      joinCols.push(demographicBreakdownToCol("race"));
-    }
-    if (this.race_nonstandard) {
-      joinCols.push(demographicBreakdownToCol("race_nonstandard"));
+    if (this.race || this.race_nonstandard) {
+      joinCols.push("race_and_ethnicity");
     }
     if (this.sex) {
-      joinCols.push(demographicBreakdownToCol("sex"));
+      joinCols.push("sex");
     }
     if (this.time) {
       joinCols.push("date");

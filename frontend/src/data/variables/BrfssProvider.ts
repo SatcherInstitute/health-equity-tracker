@@ -63,8 +63,8 @@ class BrfssProvider extends VariableProvider {
       !breakdowns.time &&
       (breakdowns.geography === "state" ||
         breakdowns.geography === "national") &&
-      breakdowns.demographicBreakdownCount() === 1 &&
-      !!breakdowns.race
+      (breakdowns.demographicBreakdownCount() === 0 ||
+        (breakdowns.demographicBreakdownCount() === 1 && breakdowns.race))
     );
   }
 }
