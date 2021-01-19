@@ -60,9 +60,13 @@ export interface Environment {
 
 export class HetEnvironment implements Environment {
   readonly deployContext: DeployContext;
+  private forceStaticFiles: string[];
 
   constructor(deployContext: DeployContext) {
     this.deployContext = deployContext;
+    const forceStatic = this.getEnvVariable("FORCE_STATIC");
+    this.forceStaticFiles = forceStatic ? forceStatic.split(",") : [];
+    console.log("force static: ", this.forceStaticFiles);
   }
 
   private getEnvVariable(nonPrefixedName: string): string | undefined {
@@ -98,9 +102,10 @@ export class HetEnvironment implements Environment {
   }
 
   forceFetchDatasetAsStaticFile(fileName: string) {
-    const fileNameWithoutExt = fileName.split(".")[0];
-    this.getEnvVariable("FORCE_STATIC_" + fileNameWithoutExt);
-    return this.getEnvVariable("FORCE_STATIC_" + fileName) === "true";
+    return this.forceStaticFiles.includes(fileName);
+    // const fileNameWithoutExt = fileName.split(".")[0];
+    // this.getEnvVariable("FORCE_STATIC_" + fileNameWithoutExt);
+    // return this.getEnvVariable("FORCE_STATIC_" + fileName) === "true";
   }
 }
 
