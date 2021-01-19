@@ -1,8 +1,10 @@
 from google.cloud import bigquery
+import pandas as pd
 
 from datasources.data_source import DataSource
 import ingestion.gcs_to_bq_util as gcs_to_bq_util
 import ingestion.standardized_columns as col_std
+
 
 # Covid Tracking Project race data by state from covidtracking.com/race
 class CovidTrackingProject(DataSource):
@@ -18,43 +20,82 @@ class CovidTrackingProject(DataSource):
     @staticmethod
     def get_standard_columns():
         return {
-            'aian': col_std.Race.AIAN,
-            'asian': col_std.Race.ASIAN,
-            'black': col_std.Race.BLACK,
-            'nhpi': col_std.Race.NHPI,
-            'white': col_std.Race.WHITE,
-            'multiracial': col_std.Race.MULTI,
-            'other': col_std.Race.OTHER,
-            'unknown': col_std.Race.UNKNOWN,
-            'ethnicity_hispanic': col_std.Race.HISP,
-            'ethnicity_nonhispanic': col_std.Race.NH,
-            'ethnicity_unknown': col_std.Race.ETHNICITY_UNKNOWN,
-            'total': col_std.Race.TOTAL
+            'aian': col_std.Race.AIAN.value,
+            'asian': col_std.Race.ASIAN.value,
+            'black': col_std.Race.BLACK.value,
+            'nhpi': col_std.Race.NHPI.value,
+            'white': col_std.Race.WHITE.value,
+            'multiracial': col_std.Race.MULTI.value,
+            'other': col_std.Race.OTHER.value,
+            'unknown': col_std.Race.UNKNOWN.value,
+            'ethnicity_hispanic': col_std.Race.HISP.value,
+            'ethnicity_nonhispanic': col_std.Race.NH.value,
+            'ethnicity_unknown': col_std.Race.ETHNICITY_UNKNOWN.value,
+            'total': col_std.Race.TOTAL.value
         }
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         filename = self.get_attr(attrs, 'filename')
         metadata_table_id = self.get_attr(attrs, 'metadata_table_id')
+        table_name = self.get_attr(attrs, 'table_name')
 
         df = gcs_to_bq_util.load_csv_as_dataframe(gcs_bucket, filename)
+        self.clean_frame_column_names(df)
 
         # Massage the data into the standard format.
         df.drop(columns=['cases_latinx', 'deaths_latinx',
-                         'hosp_latinx', 'tests_latinx'])
-        df.melt(id_vars=['date', 'state'])
+                         'hosp_latinx', 'tests_latinx'], inplace=True)
+        df = df.melt(id_vars=['date', 'state'])
         df[['variable_type', 'race_and_ethnicity']] = df.variable.str.split(
             "_", 1, expand=True)
         df.drop('variable', axis=1, inplace=True)
-        df = df.pivot(index=['date', 'state', 'race_and_ethnicity'],
-                      columns='variable_type', values='value').reset_index()
-        df.rename(columns={'state': 'state_postal_abbreviation'})
-        df.rename(columns=lambda col: col.lower().strip())
+        df.rename(columns={'state': 'state_postal_abbreviation'}, inplace=True)
+        df.replace({'race_and_ethnicity': self.get_standard_columns()},
+                   inplace=True)
 
         # Get the metadata table
+        metadata = self._download_metadata(metadata_table_id)
+        if len(metadata.index) == 0:
+            raise RuntimeError(
+                'BigQuery call to {} returned 0 rows'.format(metadata_table_id))
+
+        # Merge the tables
+        merged = pd.merge(
+            df, metadata, how='left',
+            left_on=['state_postal_abbreviation', 'variable_type'],
+            right_on=['state_postal_abbreviation', 'variable_type'])
+        # Rename combined race categories
+        self._rename_race_category(merged, 'reports_api', col_std.Race.ASIAN,
+                                   col_std.Race.API)
+        self._rename_race_category(merged, 'reports_ind', col_std.Race.AIAN,
+                                   col_std.Race.INDIGENOUS)
+
+        merged.drop(columns=['reports_api', 'reports_ind'], inplace=True)
+
+        # Write to BQ
+        gcs_to_bq_util.append_dataframe_to_bq(merged, dataset, table_name)
+
+    @staticmethod
+    def _download_metadata(metadata_table_id: str) -> pd.DataFrame:
         client = bigquery.Client()
         sql = """
         SELECT *
         FROM {};
         """.format(metadata_table_id)
+        return client.query(sql).to_dataframe()
 
-        metadata = client.query(sql).to_dataframe()
+    @staticmethod
+    def _rename_race_category(df: pd.DataFrame, indicator_column: str,
+                              old_name: col_std.Race, new_name: col_std.Race):
+        df['race_and_ethnicity'] = df.apply(
+            CovidTrackingProject._replace_value, axis=1,
+            args=(indicator_column, old_name, new_name))
+
+    @staticmethod
+    def _replace_value(row: pd.Series, indicator_column: str,
+                       old_name: col_std.Race, new_name: col_std.Race):
+        if (row[indicator_column] is True and
+                row['race_and_ethnicity'] == old_name.value):
+            return new_name.value
+        else:
+            return row['race_and_ethnicity']

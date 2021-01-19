@@ -22,6 +22,7 @@ class Race(Enum):
     BLACK_NH = "Black or African American (Non-Hispanic)"
     ETHNICITY_UNKNOWN = "Unknown ethnicity"
     HISP = "Hispanic or Latino"
+    INDIGENOUS = "Indigenous"
     NHPI = "Native Hawaiian and Pacific Islander"
     NHPI_NH = "Native Hawaiian and Pacific Islander (Non-Hispanic)"
     NH = "Not Hispanic or Latino"
@@ -34,3 +35,4 @@ class Race(Enum):
     WHITE_NH = "White (Non-Hispanic)"
     UNKNOWN = "Unknown race"
     UNKNOWN_NH = "Unknown race (Non-Hispanic)"
+    API = "Asian and Pacific Islander"
