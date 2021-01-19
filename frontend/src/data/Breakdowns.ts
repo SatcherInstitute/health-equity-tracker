@@ -161,6 +161,7 @@ export class Breakdowns {
     return this.addBreakdown("date");
   }
 
+  // Helper function returning how many demographic breakdowns are currently requested
   demographicBreakdownCount() {
     let demographicBreakdownCount = 0;
     [this.age, this.sex, this.race, this.race_nonstandard].forEach(

@@ -4,7 +4,7 @@ import { Dataset } from "../DatasetTypes";
 import { applyToGroups, percent } from "../datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
-import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
+import { MetricQueryResponse } from "../MetricQuery";
 
 const standardizedRaces = [
   "American Indian and Alaska Native (Non-Hispanic)",
@@ -37,18 +37,6 @@ class AcsPopulationProvider extends VariableProvider {
       ["population", "population_pct"],
       ["acs_population-by_race_state_std", "acs_population-by_age_state"]
     );
-  }
-
-  getRequiredDatasetIds(metricQuery: MetricQuery) {
-    if (
-      !!metricQuery.breakdowns.race_nonstandard ||
-      !!metricQuery.breakdowns.race
-    ) {
-      return ["acs_population-by_race_state_std"];
-    } else if (!!metricQuery.breakdowns.age) {
-      return ["acs_population-by_age_state"];
-    }
-    return [];
   }
 
   getDataInternal(
@@ -107,14 +95,14 @@ class AcsPopulationProvider extends VariableProvider {
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    const demographicBreakdownsAllowed =
+    const validDemographicBreakdownRequest =
       breakdowns.demographicBreakdownCount() === 1 &&
       (!!breakdowns.age || !!breakdowns.race_nonstandard || !!breakdowns.race);
 
     return (
       !breakdowns.time &&
       ["state", "national"].includes(breakdowns.geography) &&
-      demographicBreakdownsAllowed
+      validDemographicBreakdownRequest
     );
   }
 }
