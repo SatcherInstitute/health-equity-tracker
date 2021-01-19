@@ -40,5 +40,5 @@ class CountyAdjacency(DataSource):
         }
         col_modes = {'neighbor_geoids': 'REPEATED'}
         gcs_to_bq_util.append_dataframe_to_bq(
-            frame, dataset, self.get_table_name(), column_types=column_types,
+            frame, dataset, self.get_staging_table_name(), column_types=column_types,
             col_modes=col_modes)
