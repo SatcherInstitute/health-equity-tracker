@@ -7,6 +7,10 @@ inputs:
   image-path:
     description: 'Location to where image should be pushed'
     required: true
+  build-directory:
+    description: 'Directory from where docker build should be run'
+    required: false
+    default: '.'
   deploy-context:
     description: 'String value for deploy context. Should be "prod" or "staging". Only used for the frontend'
     required: false
@@ -32,7 +36,7 @@ runs:
     # protecting sensitive information, we should not use build args.
     # More info here: https://docs.docker.com/engine/reference/builder/#arg
     - run: |
-        docker build -t ${{ inputs.image-path }} -f ${{ inputs.dockerfile }} . \
+        docker build -t ${{ inputs.image-path }} -f ${{ inputs.dockerfile }} ${{ inputs.build-directory }} \
         --build-arg="DEPLOY_CONTEXT=${{ inputs.deploy-context }}" \
         --build-arg="BASIC_AUTH_USERNAME=${{ inputs.basic-auth-username }}" \
         --build-arg="BASIC_AUTH_PASSWORD=${{ inputs.basic-auth-password }}"
