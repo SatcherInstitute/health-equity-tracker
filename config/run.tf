@@ -162,7 +162,7 @@ resource "google_cloud_run_service" "frontend_service" {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.frontend_image_name, var.frontend_image_digest)   
         env {
           # URL of the Data Server Cloud Run service.
-          name = DATA_SERVER_URL
+          name = "DATA_SERVER_URL"
           value = google_cloud_run_service.data_server_service.status.0.url
         }
       }
