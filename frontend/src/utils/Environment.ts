@@ -68,6 +68,11 @@ export class HetEnvironment implements Environment {
   private getEnvVariable(nonPrefixedName: string): string | undefined {
     const prefix =
       this.deployContext === "storybook" ? "STORYBOOK_" : "REACT_APP_";
+    console.log(
+      "looking up environment variable: ",
+      nonPrefixedName,
+      process.env[prefix + nonPrefixedName]
+    );
     return process.env[prefix + nonPrefixedName];
   }
 
@@ -93,11 +98,14 @@ export class HetEnvironment implements Environment {
   }
 
   forceFetchDatasetAsStaticFile(fileName: string) {
+    const fileNameWithoutExt = fileName.split(".")[0];
+    this.getEnvVariable("FORCE_STATIC_" + fileNameWithoutExt);
     return this.getEnvVariable("FORCE_STATIC_" + fileName) === "true";
   }
 }
 
 function getDeployContext(): DeployContext {
+  console.log("dummy var: ", process.env.REACT_APP_DUMMY_VAR);
   if (process.env.NODE_ENV === "test") {
     return "test";
   }
