@@ -59,12 +59,15 @@ class BrfssProvider extends VariableProvider {
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
+    const validDemographicBreakdownRequest =
+      breakdowns.demographicBreakdownCount() === 0 ||
+      (breakdowns.demographicBreakdownCount() === 1 && breakdowns.race);
+
     return (
       !breakdowns.time &&
       (breakdowns.geography === "state" ||
         breakdowns.geography === "national") &&
-      (breakdowns.demographicBreakdownCount() === 0 ||
-        (breakdowns.demographicBreakdownCount() === 1 && breakdowns.race))
+      validDemographicBreakdownRequest
     );
   }
 }
