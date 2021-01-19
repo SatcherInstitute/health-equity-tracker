@@ -39,7 +39,7 @@ import {
 import { autoInitGlobals, getEnvironment } from "./utils/globals";
 import ReactTooltip from "react-tooltip";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import PreLaunchSiteContent from "./PreLaunchSiteContent";
+import PreLaunchSiteContent from "./pages/Landing/PreLaunchSiteContent";
 
 const MOBILE_BREAKPOINT = 600;
 
