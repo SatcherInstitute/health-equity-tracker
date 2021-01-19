@@ -19,6 +19,8 @@ class CovidTrackingProject(DataSource):
 
     @staticmethod
     def get_standard_columns():
+        """Returns a dict containing conversions from Covid Tracking Project's
+           race categories to their standardized values."""
         return {
             'aian': col_std.Race.AIAN.value,
             'asian': col_std.Race.ASIAN.value,
@@ -77,6 +79,13 @@ class CovidTrackingProject(DataSource):
 
     @staticmethod
     def _download_metadata(metadata_table_id: str) -> pd.DataFrame:
+        """Downloads the metadata table from BigQuery by executing a query.
+
+        Args:
+        metadata_table_id: ID of the table to query
+
+        Returns:
+        A pandas.DataFrame containing the contents of the requested table."""
         client = bigquery.Client()
         sql = """
         SELECT *
@@ -87,6 +96,15 @@ class CovidTrackingProject(DataSource):
     @staticmethod
     def _rename_race_category(df: pd.DataFrame, indicator_column: str,
                               old_name: col_std.Race, new_name: col_std.Race):
+        """Renames values in df.race_and_ethnicity from old_name to new_name
+           based on indicator_column.
+
+        Args:
+        df: pandas.DataFrame to modify
+        indicator_column: Name of the column to be used to decide whether
+            to rename the race value. Values should be Boolean.
+        old_name: The race category to change
+        new_name: The race category to rename to"""
         df['race_and_ethnicity'] = df.apply(
             CovidTrackingProject._replace_value, axis=1,
             args=(indicator_column, old_name, new_name))
@@ -94,6 +112,15 @@ class CovidTrackingProject(DataSource):
     @staticmethod
     def _replace_value(row: pd.Series, indicator_column: str,
                        old_name: col_std.Race, new_name: col_std.Race):
+        """Helper method for _rename_race_category. Conditionally replaces
+           the race value for a given row.
+
+        Args:
+        row: A single row (pandas.Series) to modify
+        indicator_column: Name of the column that indicates whether to modify
+            the race value.
+        old_name: The race category to change
+        new_name: The race category to rename to"""
         if (row[indicator_column] is True and
                 row['race_and_ethnicity'] == old_name.value):
             return new_name.value
