@@ -218,7 +218,7 @@ describe("AcsPopulationProvider", () => {
     const actual = acsProvider.getData(DATASET_MAP, breakdown);
     expect(actual).toEqual(
       createMissingDataResponse(
-        'Breakdowns not supported for provider acs_pop_provider: {"geography":"state","demographic":"sex","filterFips":"37"}'
+        'Breakdowns not supported for provider acs_pop_provider: {"geography":"state","sex":true,"filterFips":"37"}'
       )
     );
   });
@@ -242,7 +242,7 @@ describe("AcsPopulationProvider", () => {
     const actual = acsProvider.getData(DATASET_MAP, breakdown);
     expect(actual).toEqual(
       createMissingDataResponse(
-        'Breakdowns not supported for provider acs_pop_provider: {"geography":"national","demographic":"sex"}'
+        'Breakdowns not supported for provider acs_pop_provider: {"geography":"national","sex":true}'
       )
     );
   });

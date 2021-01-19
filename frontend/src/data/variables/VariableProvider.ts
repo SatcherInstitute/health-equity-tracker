@@ -32,7 +32,7 @@ abstract class VariableProvider {
         "Breakdowns not supported for provider " +
           this.providerId +
           ": " +
-          JSON.stringify(breakdowns)
+          breakdowns.getBreakdownString()
       );
     }
 
