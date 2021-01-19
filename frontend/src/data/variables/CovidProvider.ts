@@ -36,6 +36,7 @@ class CovidProvider extends VariableProvider {
     this.acsProvider = acsProvider;
   }
 
+  // TODO- perhaps add checks to verify that MetricQuery is supported at all
   getRequiredDatasetIds(metricQuery: MetricQuery) {
     if (
       metricQuery.breakdowns.demographic === "race_nonstandard" ||
