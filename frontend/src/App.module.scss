@@ -12,13 +12,15 @@
   height: 100%;
 }
 
-.NavButton {
-  color: $white;
-  a:link,
-  a:visited {
+.NavLink {
+  button {
     color: $white;
-    text-decoration: none;
   }
+}
+
+.NavLink:link, .NavLink:visited {
+  color: $white;
+  text-decoration: none;
 }
 
 .HomeLogo {
