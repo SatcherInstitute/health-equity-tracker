@@ -45,11 +45,11 @@ function PreLaunchSiteContent() {
                 </p>
               </div>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={6} className={styles.MapImage}>
               <img
                 width="100%"
                 alt="Placeholder map"
-                src="img/LandingMapImage.png"
+                src="img/LandingMapImage.svg"
               />
             </Grid>
           </Grid>
