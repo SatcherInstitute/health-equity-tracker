@@ -9,6 +9,9 @@ build_gcs_to_bq:
 build_exporter:
 	docker build -t het/exporter -f ../../exporter/Dockerfile ../..
 
+build_aggregator:
+	docker build -t het/aggregator -f ../../aggregator/Dockerfile ../..
+
 build: build_ingest_gcs build_gcs_to_bq build_exporter
 
 run:
