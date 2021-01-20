@@ -33,11 +33,11 @@ function PreLaunchSiteContent() {
                 <Typography
                   variant="h6"
                   align="left"
-                  style={{ fontSize: "30px", textAlign: "left" }}
+                  style={{ fontSize: "44px", textAlign: "left" }}
                 >
                   Health Equity Tracker
                 </Typography>
-                <p>
+                <p className={styles.PreLaunchText}>
                   We aim to collect and centralize health inequity data from
                   across the United States relating to race, ethnicity, and
                   socio-economic status, including information on comorbidities,
