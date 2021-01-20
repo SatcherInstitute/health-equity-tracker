@@ -1,9 +1,12 @@
 from abc import ABC
+import re
+
 from ingestion import url_file_to_gcs, gcs_to_bq_util
 
 
-# Abstract base class for all data sources ingested by the Health Equity Tracker.
-# This also includes default implementations for each of the ingestion methods.
+# Abstract base class for all data sources ingested by the Health Equity
+# Tracker. This also includes default implementations for each of the
+# ingestion methods.
 class DataSource(ABC):
     @staticmethod
     def get_id():
@@ -30,16 +33,16 @@ class DataSource(ABC):
 
         Parameters:
             gcs_bucket: Name of the GCS bucket to upload to (without gs://).
-            attrs: Additional message attributes such as url and filename that are
-                needed for this data source.
+            attrs: Additional message attributes such as url and filename that
+                   are needed for this data source.
 
         Returns: A boolean indication of a file diff.
-                 In the case that there are many files to download, this well return true
-                 if there is at least one file that is different.
+                 In the case that there are many files to download, this will
+                 return true if there is at least one file that is different.
         """
-        return url_file_to_gcs.url_file_to_gcs(self.get_attr(attrs, 'url'), None,
-                                               gcs_bucket,
-                                               self.get_attr(attrs, 'filename'))
+        return url_file_to_gcs.url_file_to_gcs(
+            self.get_attr(attrs, 'url'), None, gcs_bucket,
+            self.get_attr(attrs, 'filename'))
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         """Writes source data from GCS bucket to BigQuery
@@ -52,7 +55,8 @@ class DataSource(ABC):
                                self.get_attr(attrs, 'filename'),
                                self.get_table_name())
 
-    def write_to_bq_table(self, dataset: str, gcs_bucket: str, filename: str, table_name: str, project=None):
+    def write_to_bq_table(self, dataset: str, gcs_bucket: str,
+                          filename: str, table_name: str, project=None):
         """Writes source data from GCS bucket to BigQuery
 
         dataset: The BigQuery dataset to write to
@@ -74,18 +78,10 @@ class DataSource(ABC):
         frame: The pandas dataframe with unclean columns
         """
         frame.rename(columns=lambda col: (
-            col
+            re.sub('[^0-9a-zA-Z_=%]+', '_', col)
             .lower()
-            .strip()
-            .replace(' ', '_')
-            .replace('-', '_')
-            .replace(':', '_')
-            .replace('&', '_')
-            .replace("\n", '_')
-            .replace("\t", '_')
-            .replace('(', '_')
-            .replace(')', '_')
             .replace('=', 'eq')
+            .replace('%', 'pct')
         ), inplace=True)
 
     def export_to_gcs(self):
