@@ -58,7 +58,7 @@ services:
                 max-file: "3"
 
     scheduler:
-        image: apache/airflow
+        image: apache/airflow:v1-10-stable-python3.6
         restart: always
         depends_on:
             - postgres
@@ -78,7 +78,7 @@ services:
             retries: 3
 
     webserver:
-        image: apache/airflow
+        image: apache/airflow:v1-10-stable-python3.6
         hostname: webserver
         restart: always
         depends_on:
