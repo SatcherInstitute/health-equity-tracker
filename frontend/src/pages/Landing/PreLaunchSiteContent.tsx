@@ -49,7 +49,7 @@ function PreLaunchSiteContent() {
               <img
                 width="100%"
                 alt="Placeholder map"
-                src="img/LandingMapImage.png"
+                src="img/LandingMapImage.svg"
               />
             </Grid>
           </Grid>
