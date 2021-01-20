@@ -334,7 +334,7 @@ describe("AcsPopulationProvider", () => {
     );
     expect(responseWithoutTotal).toEqual(
       createMissingDataResponse(
-        'Breakdowns not supported for provider acs_pop_provider: {"geography":"state","demographic":"sex","filterFips":"37"}'
+        'Breakdowns not supported for provider acs_pop_provider: {"geography":"state","sex":true,"filterFips":"37"}'
       )
     );
 
@@ -365,7 +365,7 @@ describe("AcsPopulationProvider", () => {
     );
     expect(responseWithoutTotal).toEqual(
       createMissingDataResponse(
-        'Breakdowns not supported for provider acs_pop_provider: {"geography":"national","demographic":"sex"}'
+        'Breakdowns not supported for provider acs_pop_provider: {"geography":"national","sex":true}'
       )
     );
 

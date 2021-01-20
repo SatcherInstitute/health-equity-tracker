@@ -11,7 +11,7 @@ class ManualUploads(DataSource):
         """Returns the data source's unique id. """
         return 'MANUAL_UPLOADS'
 
-    def write_to_bq(self, dataset, gcs_bucket, _):
+    def write_to_bq(self, dataset, gcs_bucket, **attrs):
         """Writes state names to BigQuery from the provided GCS bucket
 
         dataset: The BigQuery dataset to write to
