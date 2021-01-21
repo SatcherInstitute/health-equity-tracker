@@ -27,7 +27,7 @@ def testDataServerDataServing():
     authed_session = AuthorizedSession(creds)
 
     resp = authed_session.get(service_url)
-    assert resp.ok 
+    assert resp.ok
     assert b'Running data server.' in resp.content
 
 
