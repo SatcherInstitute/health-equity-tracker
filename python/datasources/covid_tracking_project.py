@@ -4,6 +4,7 @@ import pandas as pd
 from datasources.data_source import DataSource
 import ingestion.gcs_to_bq_util as gcs_to_bq_util
 import ingestion.standardized_columns as col_std
+from ingestion.standardized_columns import Race
 
 
 # Covid Tracking Project race data by state from covidtracking.com/race
@@ -22,18 +23,18 @@ class CovidTrackingProject(DataSource):
         """Returns a dict containing conversions from Covid Tracking Project's
            race categories to their standardized values."""
         return {
-            'aian': col_std.Race.AIAN.value,
-            'asian': col_std.Race.ASIAN.value,
-            'black': col_std.Race.BLACK.value,
-            'nhpi': col_std.Race.NHPI.value,
-            'white': col_std.Race.WHITE.value,
-            'multiracial': col_std.Race.MULTI.value,
-            'other': col_std.Race.OTHER.value,
-            'unknown': col_std.Race.UNKNOWN.value,
-            'ethnicity_hispanic': col_std.Race.HISP.value,
-            'ethnicity_nonhispanic': col_std.Race.NH.value,
-            'ethnicity_unknown': col_std.Race.ETHNICITY_UNKNOWN.value,
-            'total': col_std.Race.TOTAL.value
+            'aian': Race.AIAN.value,
+            'asian': Race.ASIAN.value,
+            'black': Race.BLACK.value,
+            'nhpi': Race.NHPI.value,
+            'white': Race.WHITE.value,
+            'multiracial': Race.MULTI.value,
+            'other': Race.OTHER.value,
+            'unknown': Race.UNKNOWN.value,
+            'ethnicity_hispanic': Race.HISP.value,
+            'ethnicity_nonhispanic': Race.NH.value,
+            'ethnicity_unknown': Race.ETHNICITY_UNKNOWN.value,
+            'total': Race.TOTAL.value
         }
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
@@ -48,11 +49,11 @@ class CovidTrackingProject(DataSource):
         df.drop(columns=['cases_latinx', 'deaths_latinx',
                          'hosp_latinx', 'tests_latinx'], inplace=True)
         df = df.melt(id_vars=['date', 'state'])
-        df[['variable_type', 'race_and_ethnicity']] = df.variable.str.split(
+        df[['variable_type', col_std.RACE_OR_HISPANIC_COL]] = df.variable.str.split(
             "_", 1, expand=True)
         df.drop('variable', axis=1, inplace=True)
         df.rename(columns={'state': 'state_postal_abbreviation'}, inplace=True)
-        df.replace({'race_and_ethnicity': self.get_standard_columns()},
+        df.replace({col_std.RACE_OR_HISPANIC_COL: self.get_standard_columns()},
                    inplace=True)
 
         # Get the metadata table
@@ -64,13 +65,12 @@ class CovidTrackingProject(DataSource):
         # Merge the tables
         merged = pd.merge(
             df, metadata, how='left',
-            left_on=['state_postal_abbreviation', 'variable_type'],
-            right_on=['state_postal_abbreviation', 'variable_type'])
+            on=['state_postal_abbreviation', 'variable_type'])
         # Rename combined race categories
-        self._rename_race_category(merged, 'reports_api', col_std.Race.ASIAN,
-                                   col_std.Race.API)
-        self._rename_race_category(merged, 'reports_ind', col_std.Race.AIAN,
-                                   col_std.Race.INDIGENOUS)
+        self._rename_race_category(merged, 'reports_api', Race.ASIAN,
+                                   Race.API)
+        self._rename_race_category(merged, 'reports_ind', Race.AIAN,
+                                   Race.INDIGENOUS)
 
         merged.drop(columns=['reports_api', 'reports_ind'], inplace=True)
 
@@ -95,7 +95,7 @@ class CovidTrackingProject(DataSource):
 
     @staticmethod
     def _rename_race_category(df: pd.DataFrame, indicator_column: str,
-                              old_name: col_std.Race, new_name: col_std.Race):
+                              old_name: Race, new_name: Race):
         """Renames values in df.race_and_ethnicity from old_name to new_name
            based on indicator_column.
 
@@ -105,13 +105,13 @@ class CovidTrackingProject(DataSource):
             to rename the race value. Values should be Boolean.
         old_name: The race category to change
         new_name: The race category to rename to"""
-        df['race_and_ethnicity'] = df.apply(
+        df[col_std.RACE_OR_HISPANIC_COL] = df.apply(
             CovidTrackingProject._replace_value, axis=1,
             args=(indicator_column, old_name, new_name))
 
     @staticmethod
     def _replace_value(row: pd.Series, indicator_column: str,
-                       old_name: col_std.Race, new_name: col_std.Race):
+                       old_name: Race, new_name: Race):
         """Helper method for _rename_race_category. Conditionally replaces
            the race value for a given row.
 
@@ -122,7 +122,6 @@ class CovidTrackingProject(DataSource):
         old_name: The race category to change
         new_name: The race category to rename to"""
         if (row[indicator_column] is True and
-                row['race_and_ethnicity'] == old_name.value):
+                row[col_std.RACE_OR_HISPANIC_COL] == old_name.value):
             return new_name.value
-        else:
-            return row['race_and_ethnicity']
+        return row[col_std.RACE_OR_HISPANIC_COL]
