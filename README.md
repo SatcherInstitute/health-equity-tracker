@@ -50,6 +50,9 @@ pip install pytest
 pytest
 ```
 
+Note: You will need to pip install all the shared directies. Also you must run
+this command from the root level test directory. (eg. ./python/tests)
+
 To test from the packaged version of the ingestion library, run `pip install -e python/ingestion` before testing.
 
 ### Python environment setup
@@ -202,6 +205,17 @@ Terraform doesn't automatically diff the contents of cloud run services, so simp
 
 Use [`terraform taint`](https://www.terraform.io/docs/commands/taint.html) to mark a resource as requiring redeploy. Eg `terraform taint google_cloud_run_service.ingestion_service`.
 You can then set the `ingestion_image_name` variable in your tfvars file to `<your-ingestion-image-name>` and `gcs_to_bq_image_name` to `<your-gcs-to-bq-image-name>`. Then replace Step 5 above with just `terraform apply`. Step 4 is still required.
+
+## Accessing the Terraform UI Deployed
+Go to pantheon.corp.google.com.
+
+Search for Composer
+
+A list of environments should be present.  Look for data-ingestion-environment
+
+Click into the details, and navigate to the environment configuration tab.
+
+One of the properties listed is Airflow web UI.
 
 ## Test and Production Environments
 
