@@ -35,13 +35,14 @@ class CtpMetadata(DataSource):
             'race_mutually_exclusive_cases', 'combined_category_other_than_api_cases',
             'race_cases', 'ethnicity_cases']
         df = df[keep_cols]
-        df = df.melt(id_vars=['ingestion_ts', 'state_postal_abbreviation'])
+        df = df.melt(id_vars=['state_postal_abbreviation'])
         df[['col_name', 'variable_type']] = df.variable.str.rsplit(
             '_', 1, expand=True)
         df.drop('variable', axis=1, inplace=True)
         df = df.pivot(
-            index=['ingestion_ts', 'state_postal_abbreviation', 'variable_type'],
+            index=['state_postal_abbreviation', 'variable_type'],
             columns='col_name', values='value').reset_index()
+        df.rename_axis(None, inplace=True)
         df.rename(columns=self._metadata_columns_map(), inplace=True)
 
         # Write to BQ
