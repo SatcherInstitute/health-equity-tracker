@@ -50,9 +50,6 @@ pip install pytest
 pytest
 ```
 
-Note: You will need to pip install all the shared directies. Also you must run
-this command from the root level test directory. (eg. ./python/tests)
-
 To test from the packaged version of the ingestion library, run `pip install -e python/ingestion` before testing.
 
 ### Python environment setup
