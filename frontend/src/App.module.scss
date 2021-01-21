@@ -16,11 +16,10 @@
   button {
     color: $white;
   }
-}
-
-.NavLink:link, .NavLink:visited {
+  &:link, &:visited {
   color: $white;
   text-decoration: none;
+  }
 }
 
 .HomeLogo {
