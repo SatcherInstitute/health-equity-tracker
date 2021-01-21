@@ -1,11 +1,7 @@
 import { Breakdowns } from "../Breakdowns";
 import { Dataset } from "../DatasetTypes";
 import { ProviderId, MetricId } from "../variableProviders";
-import {
-  MetricQuery,
-  MetricQueryResponse,
-  createMissingDataResponse,
-} from "../MetricQuery";
+import { MetricQueryResponse, createMissingDataResponse } from "../MetricQuery";
 
 abstract class VariableProvider {
   readonly providerId: ProviderId;
@@ -56,8 +52,6 @@ abstract class VariableProvider {
   static getUniqueDatasetIds(providers: VariableProvider[]): string[] {
     return Array.from(new Set(providers.map((p) => p.datasetIds).flat()));
   }
-
-  abstract getRequiredDatasetIds(metricQuery: MetricQuery): string[];
 }
 
 export default VariableProvider;

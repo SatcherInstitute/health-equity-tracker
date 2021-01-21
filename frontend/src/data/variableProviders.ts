@@ -2,7 +2,6 @@ import AcsPopulationProvider from "./variables/AcsPopulationProvider";
 import VariableProvider from "./variables/VariableProvider";
 import CovidProvider from "./variables/CovidProvider";
 import BrfssProvider from "./variables/BrfssProvider";
-import { MetricQuery } from "./MetricQuery";
 
 // TODO consider making this an enum instead of a type literal, since these will
 // be used throughout the code base and an enum provides a little more explicit
@@ -72,17 +71,4 @@ export function getUniqueProviders(metricIds: MetricId[]): VariableProvider[] {
   const providerIds = metricIds.map((id) => metricsToProviderIds[id]);
   const dedupedIds = Array.from(new Set(providerIds));
   return dedupedIds.map((id) => providersById[id]);
-}
-
-/** Returns the list of dataset ids that the provided MetricQuerys depend on. */
-export function getDependentDatasets(queries: MetricQuery[]): string[] {
-  let datasetIds = new Set<string>();
-  queries.forEach((query) =>
-    query.metricIds.forEach((id) =>
-      getProvider(id)
-        .getRequiredDatasetIds(query)
-        .forEach((id) => datasetIds.add(id))
-    )
-  );
-  return Array.from(datasetIds);
 }

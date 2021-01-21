@@ -4,7 +4,7 @@ import { Dataset } from "../DatasetTypes";
 import { applyToGroups, percent } from "../datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
-import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
+import { MetricQueryResponse } from "../MetricQuery";
 
 const standardizedRaces = [
   "American Indian and Alaska Native (Non-Hispanic)",
@@ -39,19 +39,6 @@ class AcsPopulationProvider extends VariableProvider {
     );
   }
 
-  // TODO- perhaps add checks to verify that MetricQuery is supported at all
-  getRequiredDatasetIds(metricQuery: MetricQuery) {
-    if (
-      metricQuery.breakdowns.demographic === "race_nonstandard" ||
-      metricQuery.breakdowns.demographic === "race"
-    ) {
-      return ["acs_population-by_race_state_std"];
-    } else if (metricQuery.breakdowns.demographic === "age") {
-      return ["acs_population-by_age_state"];
-    }
-    return [];
-  }
-
   getDataInternal(
     datasets: Record<string, Dataset>,
     breakdowns: Breakdowns
@@ -73,7 +60,11 @@ class AcsPopulationProvider extends VariableProvider {
         population_pct: (row) => percent(row.population, totalStatePopulation),
       });
     });
-    return new MetricQueryResponse(df.toArray());
+
+    const consumedDataset = breakdowns.age
+      ? ["acs_population-by_age_state"]
+      : ["acs_population-by_race_state_std"];
+    return new MetricQueryResponse(df.toArray(), consumedDataset);
   }
 
   private getDataInternalWithoutPercents(

@@ -54,7 +54,7 @@ describe("BrfssProvider", () => {
     };
     const breakdown = Breakdowns.forFips(new Fips("37")).andRace();
     const actual = brfssProvider.getData(DATASET_MAP, breakdown);
-    expect(actual).toEqual(new MetricQueryResponse(expectedRows));
+    expect(actual).toEqual(new MetricQueryResponse(expectedRows, ["brfss"]));
   });
 
   test("National and Race Breakdown", async () => {
@@ -120,6 +120,6 @@ describe("BrfssProvider", () => {
     };
     const breakdown = Breakdowns.national().andRace();
     const actual = brfssProvider.getData(DATASET_MAP, breakdown);
-    expect(actual).toEqual(new MetricQueryResponse(expectedRows));
+    expect(actual).toEqual(new MetricQueryResponse(expectedRows, ["brfss"]));
   });
 });

@@ -187,18 +187,23 @@ export function useDatasetStoreProvider(): DatasetStore {
         // you request covid cases we could also cache it under covid deaths
         // since they're provided together. Also, it would be nice to cache ACS
         // when it's used from within another provider.
-        const variables: MetricQueryResponse[] = providers.map((provider) =>
-          provider.getData(datasetMap, query.breakdowns)
+        const queryResponses: MetricQueryResponse[] = providers.map(
+          (provider) => provider.getData(datasetMap, query.breakdowns)
+        );
+        const consumedDatasetIds = queryResponses.reduce(
+          (accumulator: string[], response: MetricQueryResponse) =>
+            accumulator.concat(response.consumedDatasetIds),
+          []
         );
 
-        const potentialErrorResponse = variables.find((metricQueryResponse) =>
-          metricQueryResponse.dataIsMissing()
+        const potentialErrorResponse = queryResponses.find(
+          (metricQueryResponse) => metricQueryResponse.dataIsMissing()
         );
         if (potentialErrorResponse !== undefined) {
           return potentialErrorResponse;
         }
 
-        const dataframes: IDataFrame[] = variables.map(
+        const dataframes: IDataFrame[] = queryResponses.map(
           (response) => new DataFrame(response.data)
         );
 
@@ -210,7 +215,10 @@ export function useDatasetStoreProvider(): DatasetStore {
             query.joinType
           );
         });
-        return new MetricQueryResponse(joined.toArray());
+        return new MetricQueryResponse(
+          joined.toArray(),
+          Array.from(new Set(consumedDatasetIds))
+        );
       }
     );
   }

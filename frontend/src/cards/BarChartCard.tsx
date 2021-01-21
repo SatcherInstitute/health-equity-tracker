@@ -58,16 +58,20 @@ function BarChartCardWithKey(props: BarChartCardProps) {
     props.nonstandardizedRace
   );
 
-  const metricIds = Object.values(props.variableConfig.metrics).map(
-    (metricConfig: MetricConfig) => metricConfig.metricId
-  );
-  const metrics: MetricId[] = [...metricIds, "population", "population_pct"];
-  const query = new MetricQuery(metrics, breakdowns);
-
   // TODO - what if there are no valid types at all? What do we show?
   const validDisplayMetricConfigs: MetricConfig[] = Object.values(
     props.variableConfig.metrics
   ).filter((metricConfig) => VALID_METRIC_TYPES.includes(metricConfig.type));
+
+  const metricIds = Object.values(props.variableConfig.metrics).map(
+    (metricConfig: MetricConfig) => metricConfig.metricId
+  );
+  let metrics: MetricId[] = [...metricIds];
+  // For pct_share, we want to compare to population_pct
+  if (validDisplayMetricConfigs.some((config) => config.type === "pct_share")) {
+    metrics = metrics.concat(["population", "population_pct"]);
+  }
+  const query = new MetricQuery(metrics, breakdowns);
 
   function CardTitle() {
     const popover = usePopover();

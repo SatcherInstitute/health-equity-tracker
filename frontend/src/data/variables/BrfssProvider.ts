@@ -3,7 +3,7 @@ import { Dataset } from "../DatasetTypes";
 import { per100k } from "../datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
-import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
+import { MetricQueryResponse } from "../MetricQuery";
 
 class BrfssProvider extends VariableProvider {
   constructor() {
@@ -12,11 +12,6 @@ class BrfssProvider extends VariableProvider {
       ["diabetes_count", "diabetes_per_100k", "copd_count", "copd_per_100k"],
       ["brfss"]
     );
-  }
-
-  // TODO- perhaps add checks to verify that MetricQuery is supported at all
-  getRequiredDatasetIds(metricQuery: MetricQuery) {
-    return [...this.datasetIds];
   }
 
   getDataInternal(
@@ -59,7 +54,8 @@ class BrfssProvider extends VariableProvider {
           copd_per_100k: (row) =>
             per100k(row.copd_count, row.copd_count + row.copd_no),
         })
-        .toArray()
+        .toArray(),
+      ["brfss"]
     );
   }
 

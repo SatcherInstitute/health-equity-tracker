@@ -12,7 +12,7 @@ import {
   per100k,
   percent,
 } from "../datasetutils";
-import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
+import { MetricQueryResponse } from "../MetricQuery";
 
 class CovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -36,24 +36,12 @@ class CovidProvider extends VariableProvider {
     this.acsProvider = acsProvider;
   }
 
-  // TODO- perhaps add checks to verify that MetricQuery is supported at all
-  getRequiredDatasetIds(metricQuery: MetricQuery) {
-    if (
-      metricQuery.breakdowns.demographic === "race_nonstandard" ||
-      metricQuery.breakdowns.demographic === "race"
-    ) {
-      return ["acs_population-by_race_state_std", "covid_by_state_and_race"];
-    } else if (metricQuery.breakdowns.demographic === "age") {
-      return ["acs_population-by_age_state", "covid_by_state_and_race"];
-    }
-    return ["covid_by_state_and_race"];
-  }
-
   getDataInternal(
     datasets: Record<string, Dataset>,
     breakdowns: Breakdowns
   ): MetricQueryResponse {
     const covid_by_state_and_race = datasets["covid_by_state_and_race"];
+    let consumedDatasetIds = ["covid_by_state_and_race"];
     // TODO need to figure out how to handle getting this at the national level
     // because each state reports race differently.
     let df = covid_by_state_and_race.toDataFrame();
@@ -94,6 +82,9 @@ class CovidProvider extends VariableProvider {
     const acsMetricQueryResponse = this.acsProvider.getData(
       datasets,
       acsBreakdowns
+    );
+    consumedDatasetIds = consumedDatasetIds.concat(
+      acsMetricQueryResponse.consumedDatasetIds
     );
     if (acsMetricQueryResponse.dataIsMissing()) {
       return acsMetricQueryResponse;
@@ -137,7 +128,7 @@ class CovidProvider extends VariableProvider {
       });
     });
 
-    return new MetricQueryResponse(df.toArray());
+    return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
