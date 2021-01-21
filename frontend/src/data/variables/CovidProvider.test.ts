@@ -156,7 +156,10 @@ describe("CovidProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = covidProvider.getData(
       dataServerResponse,
-      Breakdowns.forFips(new Fips("37")).andRace(true).andIncludeTotal()
+      Breakdowns.forFips(new Fips("37")).andRace(
+        /*includeTotal=*/ true,
+        /*nonstandard=*/ true
+      )
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse([NC_TOTAL_FINAL_ROW, NC_WHITE_FINAL_ROW])
@@ -165,7 +168,10 @@ describe("CovidProvider", () => {
     // Evaluate the response without requesting total field
     const responseWithoutTotal = covidProvider.getData(
       dataServerResponse,
-      Breakdowns.forFips(new Fips("37")).andRace(true)
+      Breakdowns.forFips(new Fips("37")).andRace(
+        /*includeTotal=*/ false,
+        /*nonstandard=*/ true
+      )
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse([NC_WHITE_FINAL_ROW])
@@ -269,7 +275,10 @@ describe("CovidProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = covidProvider.getData(
       dataServerResponse,
-      Breakdowns.national().andRace(true).andIncludeTotal()
+      Breakdowns.national().andRace(
+        /*includeTotal=*/ true,
+        /*nonstandard=*/ true
+      )
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse([FINAL_TOTAL_ROW, FINAL_WHITE_ROW])
@@ -278,7 +287,10 @@ describe("CovidProvider", () => {
     // Evaluate the response without requesting total field
     const responseWithoutTotal = covidProvider.getData(
       dataServerResponse,
-      Breakdowns.national().andRace(true)
+      Breakdowns.national().andRace(
+        /*includeTotal=*/ false,
+        /*nonstandard=*/ true
+      )
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse([FINAL_WHITE_ROW])

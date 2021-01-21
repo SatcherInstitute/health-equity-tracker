@@ -95,7 +95,7 @@ describe("BrfssProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = brfssProvider.getData(
       dataServerResponse,
-      Breakdowns.forFips(new Fips("37")).andRace().andIncludeTotal()
+      Breakdowns.forFips(new Fips("37")).andRace(/*includeTotal=*/ true)
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse([
@@ -189,7 +189,7 @@ describe("BrfssProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = brfssProvider.getData(
       dataServerResponse,
-      Breakdowns.national().andRace().andIncludeTotal()
+      Breakdowns.national().andRace(/*includeTotal=*/ true)
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse([

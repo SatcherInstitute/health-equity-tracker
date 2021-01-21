@@ -27,9 +27,11 @@ export function TableCard(props: TableCardProps) {
 
   // TODO need to handle race categories standard vs non-standard for covid vs
   // other demographic.
-  const breakdowns = Breakdowns.forFips(props.fips)
-    .addBreakdown(props.breakdownVar, props.nonstandardizedRace)
-    .andIncludeTotal();
+  const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
+    props.breakdownVar,
+    true,
+    props.nonstandardizedRace
+  );
   const metricIds: MetricId[] = props.metrics.map(
     (metricConfig) => metricConfig.metricId
   );

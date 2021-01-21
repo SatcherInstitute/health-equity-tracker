@@ -108,7 +108,7 @@ describe("AcsPopulationProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = acsProvider.getData(
       dataServerResponse,
-      Breakdowns.forFips(new Fips("37")).andRace().andIncludeTotal()
+      Breakdowns.forFips(new Fips("37")).andRace(/*includeTotal=*/ true)
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse([
@@ -217,7 +217,7 @@ describe("AcsPopulationProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = acsProvider.getData(
       dataServerResponse,
-      Breakdowns.national().andRace().andIncludeTotal()
+      Breakdowns.national().andRace(/*includeTotal=*/ true)
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse([
@@ -263,7 +263,7 @@ describe("AcsPopulationProvider", () => {
     // Evaluate the response without requesting total field
     const responseWithTotal = acsProvider.getData(
       dataServerResponse,
-      Breakdowns.forFips(new Fips("37")).andAge().andIncludeTotal()
+      Breakdowns.forFips(new Fips("37")).andAge(/*includeTotal=*/ true)
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse([
@@ -312,7 +312,7 @@ describe("AcsPopulationProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = acsProvider.getData(
       dataServerResponse,
-      Breakdowns.national().andAge().andIncludeTotal()
+      Breakdowns.national().andAge(/*includeTotal=*/ true)
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse([AGE_0_9_FINAL, AGE_10_19_FINAL, AGE_TOTAL_FINAL])
@@ -334,18 +334,18 @@ describe("AcsPopulationProvider", () => {
     );
     expect(responseWithoutTotal).toEqual(
       createMissingDataResponse(
-        'Breakdowns not supported for provider acs_pop_provider: {"geography":"state","sex":true,"filterFips":"37"}'
+        'Breakdowns not supported for provider acs_pop_provider: {"geography":"state","sex":"without total","filterFips":"37"}'
       )
     );
 
     // Evaluate the response with requesting total field
     const responseWithTotal = acsProvider.getData(
       dataServerResponse,
-      Breakdowns.forFips(new Fips("37")).andGender().andIncludeTotal()
+      Breakdowns.forFips(new Fips("37")).andGender(/*includeTotal=*/ true)
     );
     expect(responseWithTotal).toEqual(
       createMissingDataResponse(
-        'Breakdowns not supported for provider acs_pop_provider: {"geography":"state","demographic":"sex","filterFips":"37","includeTotal":true}'
+        'Breakdowns not supported for provider acs_pop_provider: {"geography":"state","sex":"with total","filterFips":"37"}'
       )
     );
   });
@@ -365,18 +365,18 @@ describe("AcsPopulationProvider", () => {
     );
     expect(responseWithoutTotal).toEqual(
       createMissingDataResponse(
-        'Breakdowns not supported for provider acs_pop_provider: {"geography":"national","sex":true}'
+        'Breakdowns not supported for provider acs_pop_provider: {"geography":"national","sex":"without total"}'
       )
     );
 
     // Evaluate the response with requesting total field
     const responseWithTotal = acsProvider.getData(
       dataServerResponse,
-      Breakdowns.national().andGender().andIncludeTotal()
+      Breakdowns.national().andGender(/*includeTotal=*/ true)
     );
     expect(responseWithTotal).toEqual(
       createMissingDataResponse(
-        'Breakdowns not supported for provider acs_pop_provider: {"geography":"national","demographic":"sex","includeTotal":true}'
+        'Breakdowns not supported for provider acs_pop_provider: {"geography":"national","sex":"with total"}'
       )
     );
   });

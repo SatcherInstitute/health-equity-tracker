@@ -46,18 +46,18 @@ class BrfssProvider extends VariableProvider {
       });
     }
 
-    if (breakdowns.includeTotal && breakdowns.demographic) {
-      const breakdownName: string =
-        breakdowns.demographic === "race"
-          ? "race_and_ethnicity"
-          : breakdowns.demographic;
+    if (
+      breakdowns.race &&
+      breakdowns.race.enabled &&
+      breakdowns.race.includeTotal
+    ) {
       const total = df
         .pivot(["state_fips", "state_name"], {
           diabetes_count: (series) => series.sum(),
           diabetes_no: (series) => series.sum(),
           copd_count: (series) => series.sum(),
           copd_no: (series) => series.sum(),
-          [breakdownName]: (series) => "Total",
+          "race_and_ethnicity": (series) => "Total",
         })
         .resetIndex();
       df = df.concat(total).resetIndex();
@@ -78,7 +78,9 @@ class BrfssProvider extends VariableProvider {
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
     const validDemographicBreakdownRequest =
       breakdowns.demographicBreakdownCount() === 0 ||
-      (breakdowns.demographicBreakdownCount() === 1 && breakdowns.race);
+      (breakdowns.demographicBreakdownCount() === 1 &&
+        !!breakdowns.race &&
+        breakdowns.race.enabled);
 
     return (
       !breakdowns.time &&

@@ -48,41 +48,57 @@ class AcsPopulationProvider extends VariableProvider {
       df = df.where((row) => row.state_fips === breakdowns.filterFips);
     }
 
+    // Age and sex data comes from backend without Total, if it's wanted, we add it.
+    if (breakdowns.age) {
+      df = df
+        .concat(
+          df.pivot(["state_fips", "state_name"], {
+            population: (series) => series.sum(),
+            population_pct: (series) => 100,
+            "age": (series) => "Total",
+          })
+        )
+        .resetIndex();
+    }
+    if (breakdowns.sex) {
+      df = df
+        .concat(
+          df.pivot(["state_fips", "state_name"], {
+            population: (series) => series.sum(),
+            population_pct: (series) => 100,
+            "sex": (series) => "Total",
+          })
+        )
+        .resetIndex();
+    }
+
+    // TODO - this is kidn of awkawrd, we know one demographic breakdown must exist
     df = applyToGroups(df, ["state_name"], (group) => {
-      // Race categories don't add up to zero, so they are special cased
-      let totalStatePopulation =
-        breakdowns.race_nonstandard || breakdowns.race
-          ? group
-              .where((r: any) => r["race_and_ethnicity"] === "Total")
-              .first()["population"]
-          : df.getSeries("population").sum();
+      let totalPopulation = group
+        .where(
+          (r: any) =>
+            r["race_and_ethnicity"] === "Total" ||
+            r["age"] === "Total" ||
+            r["sex"] === "Total"
+        )
+        .first()["population"];
       return group.generateSeries({
-        population_pct: (row) => percent(row.population, totalStatePopulation),
+        population_pct: (row) => percent(row.population, totalPopulation),
       });
     });
 
-    // Race data comes from backend with Total, if it's not wanted, we remove it.
-    if (
-      !breakdowns.includeTotal &&
-      (breakdowns.demographic === "race_nonstandard" ||
-        breakdowns.demographic === "race")
-    ) {
-      df = df.where((row) => row["race_and_ethnicity"] !== "Total");
-    }
-
-    // Age and sex data comes from backend without Total, if it's wanted, we add it.
-    if (
-      breakdowns.includeTotal &&
-      (breakdowns.demographic === "age" || breakdowns.demographic === "sex")
-    ) {
-      df = df.concat(
-        df.pivot(["state_fips", "state_name"], {
-          population: (series) => series.sum(),
-          population_pct: (series) => 100,
-          [breakdowns.demographic as string]: (series) => "Total",
-        })
-      );
-    }
+    [
+      breakdowns.race,
+      breakdowns.race_nonstandard,
+      breakdowns.age,
+      breakdowns.sex,
+    ].forEach((demographicBreakdowns) => {
+      if (demographicBreakdowns && !demographicBreakdowns.includeTotal) {
+        df = df.where(
+          (row) => row[demographicBreakdowns.columnName] !== "Total"
+        );
+      }
+    });
 
     return new MetricQueryResponse(df.toArray());
   }
@@ -119,9 +135,12 @@ class AcsPopulationProvider extends VariableProvider {
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    const validDemographicBreakdownRequest =
+    const validDemographicBreakdownRequest: boolean =
       breakdowns.demographicBreakdownCount() === 1 &&
-      (breakdowns.age || breakdowns.race_nonstandard || breakdowns.race);
+      ((!!breakdowns.age && breakdowns.age.enabled) ||
+        (!!breakdowns.race_nonstandard &&
+          breakdowns.race_nonstandard.enabled) ||
+        (!!breakdowns.race && breakdowns.race.enabled));
 
     return (
       !breakdowns.time &&

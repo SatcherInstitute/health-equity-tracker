@@ -55,6 +55,7 @@ function BarChartCardWithKey(props: BarChartCardProps) {
   // other demographic.
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
+    /*includeTotal=*/ false,
     props.nonstandardizedRace
   );
 

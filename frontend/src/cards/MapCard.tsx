@@ -70,9 +70,11 @@ function MapCardWithKey(props: MapCardProps) {
     ) {
       queries[possibleBreakdown] = new MetricQuery(
         props.metricConfig.metricId,
-        Breakdowns.byState()
-          .addBreakdown(possibleBreakdown, props.nonstandardizedRace)
-          .andIncludeTotal()
+        Breakdowns.byState().addBreakdown(
+          possibleBreakdown,
+          true,
+          props.nonstandardizedRace
+        )
       );
     }
   });
