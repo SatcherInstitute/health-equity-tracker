@@ -36,7 +36,7 @@ class BrfssProvider extends VariableProvider {
       df = df.where((row) => row.state_fips === breakdowns.filterFips);
     }
 
-    if (!breakdowns.race) {
+    if (!breakdowns.demographicBreakdowns.race.enabled) {
       df = df.pivot(["state_name", "state_fips"], {
         race: (series) => ALL_RACES_DISPLAY_NAME,
         diabetes_count: (series) => series.sum(),
@@ -47,9 +47,8 @@ class BrfssProvider extends VariableProvider {
     }
 
     if (
-      breakdowns.race &&
-      breakdowns.race.enabled &&
-      breakdowns.race.includeTotal
+      breakdowns.demographicBreakdowns.race.enabled &&
+      breakdowns.demographicBreakdowns.race.includeTotal
     ) {
       const total = df
         .pivot(["state_fips", "state_name"], {
@@ -57,7 +56,7 @@ class BrfssProvider extends VariableProvider {
           diabetes_no: (series) => series.sum(),
           copd_count: (series) => series.sum(),
           copd_no: (series) => series.sum(),
-          "race_and_ethnicity": (series) => "Total",
+          race_and_ethnicity: (series) => "Total",
         })
         .resetIndex();
       df = df.concat(total).resetIndex();
@@ -79,8 +78,7 @@ class BrfssProvider extends VariableProvider {
     const validDemographicBreakdownRequest =
       breakdowns.demographicBreakdownCount() === 0 ||
       (breakdowns.demographicBreakdownCount() === 1 &&
-        !!breakdowns.race &&
-        breakdowns.race.enabled);
+        breakdowns.demographicBreakdowns.race.enabled);
 
     return (
       !breakdowns.time &&

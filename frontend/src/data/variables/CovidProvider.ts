@@ -77,7 +77,7 @@ class CovidProvider extends VariableProvider {
     // TODO How to handle territories?
     const acsBreakdowns = breakdowns.copy();
     acsBreakdowns.time = false;
-    acsBreakdowns.race_nonstandard = {
+    acsBreakdowns.demographicBreakdowns.race_nonstandard = {
       enabled: true,
       columnName: "race_and_ethnicity",
       includeTotal: true,
@@ -123,28 +123,34 @@ class CovidProvider extends VariableProvider {
         const total = group
           .where((r) => r.race_and_ethnicity === "Total")
           .first()[col];
-        return group.generateSeries({
-          [col + "_pct_of_geo"]: (row) => percent(row[col], total),
-        });
+        return group
+          .generateSeries({
+            [col + "_pct_of_geo"]: (row) => percent(row[col], total),
+          })
+          .resetIndex();
       });
     });
 
-    if (
-      breakdowns.race_nonstandard &&
-      !breakdowns.race_nonstandard.includeTotal
-    ) {
-      // TDOO don't hardcode the breakdown value (race_and_ethnicity)
-      df = df.where((row) => row.race_and_ethnicity !== "Total");
-    }
+    Object.entries(breakdowns.demographicBreakdowns).forEach(
+      ([key, demographicBreakdown]) => {
+        if (
+          demographicBreakdown.enabled &&
+          !demographicBreakdown.includeTotal
+        ) {
+          df = df
+            .where((row) => row[demographicBreakdown.columnName] !== "Total")
+            .resetIndex();
+        }
+      }
+    );
 
     return new MetricQueryResponse(df.toArray());
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    const validDemographicBreakdownRequest =
+    const validDemographicBreakdownRequest: boolean =
       breakdowns.demographicBreakdownCount() === 1 &&
-      !!breakdowns.race_nonstandard &&
-      breakdowns.race_nonstandard.enabled;
+      breakdowns.demographicBreakdowns.race_nonstandard.enabled;
 
     return (
       validDemographicBreakdownRequest &&

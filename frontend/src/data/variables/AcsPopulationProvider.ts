@@ -49,28 +49,19 @@ class AcsPopulationProvider extends VariableProvider {
     }
 
     // Age and sex data comes from backend without Total, if it's wanted, we add it.
-    if (breakdowns.age) {
-      df = df
-        .concat(
-          df.pivot(["state_fips", "state_name"], {
-            population: (series) => series.sum(),
-            population_pct: (series) => 100,
-            "age": (series) => "Total",
-          })
-        )
-        .resetIndex();
-    }
-    if (breakdowns.sex) {
-      df = df
-        .concat(
-          df.pivot(["state_fips", "state_name"], {
-            population: (series) => series.sum(),
-            population_pct: (series) => 100,
-            "sex": (series) => "Total",
-          })
-        )
-        .resetIndex();
-    }
+    ["age", "sex"].forEach((breakdownName) => {
+      if (breakdowns.demographicBreakdowns[breakdownName].enabled) {
+        df = df
+          .concat(
+            df.pivot(["state_fips", "state_name"], {
+              population: (series) => series.sum(),
+              population_pct: (series) => 100,
+              [breakdownName]: (series) => "Total",
+            })
+          )
+          .resetIndex();
+      }
+    });
 
     // TODO - this is kidn of awkawrd, we know one demographic breakdown must exist
     df = applyToGroups(df, ["state_name"], (group) => {
@@ -87,18 +78,18 @@ class AcsPopulationProvider extends VariableProvider {
       });
     });
 
-    [
-      breakdowns.race,
-      breakdowns.race_nonstandard,
-      breakdowns.age,
-      breakdowns.sex,
-    ].forEach((demographicBreakdowns) => {
-      if (demographicBreakdowns && !demographicBreakdowns.includeTotal) {
-        df = df.where(
-          (row) => row[demographicBreakdowns.columnName] !== "Total"
-        );
+    Object.entries(breakdowns.demographicBreakdowns).forEach(
+      ([key, demographicBreakdown]) => {
+        if (
+          demographicBreakdown.enabled &&
+          !demographicBreakdown.includeTotal
+        ) {
+          df = df
+            .where((row) => row[demographicBreakdown.columnName] !== "Total")
+            .resetIndex();
+        }
       }
-    });
+    );
 
     return new MetricQueryResponse(df.toArray());
   }
@@ -107,17 +98,17 @@ class AcsPopulationProvider extends VariableProvider {
     datasets: Record<string, Dataset>,
     breakdowns: Breakdowns
   ): IDataFrame {
-    const statePopByBreakdown = breakdowns.age
+    const statePopByBreakdown = breakdowns.demographicBreakdowns.age.enabled
       ? datasets["acs_population-by_age_state"]
       : datasets["acs_population-by_race_state_std"];
     const acsDataFrame = statePopByBreakdown.toDataFrame();
 
-    if (breakdowns.race_nonstandard) {
+    if (breakdowns.demographicBreakdowns.race_nonstandard.enabled) {
       return breakdowns.geography === "national"
         ? createNationalTotal(acsDataFrame, "race_and_ethnicity")
         : acsDataFrame;
     }
-    if (breakdowns.race) {
+    if (breakdowns.demographicBreakdowns.race.enabled) {
       const standardizedAcsData = acsDataFrame.where((row) =>
         standardizedRaces.includes(row.race_and_ethnicity)
       );
@@ -125,7 +116,7 @@ class AcsPopulationProvider extends VariableProvider {
         ? createNationalTotal(standardizedAcsData, "race_and_ethnicity")
         : standardizedAcsData;
     }
-    if (breakdowns.age) {
+    if (breakdowns.demographicBreakdowns.age.enabled) {
       return breakdowns.geography === "national"
         ? createNationalTotal(acsDataFrame, "age")
         : acsDataFrame;
@@ -137,10 +128,9 @@ class AcsPopulationProvider extends VariableProvider {
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
     const validDemographicBreakdownRequest: boolean =
       breakdowns.demographicBreakdownCount() === 1 &&
-      ((!!breakdowns.age && breakdowns.age.enabled) ||
-        (!!breakdowns.race_nonstandard &&
-          breakdowns.race_nonstandard.enabled) ||
-        (!!breakdowns.race && breakdowns.race.enabled));
+      (breakdowns.demographicBreakdowns.race_nonstandard.enabled ||
+        breakdowns.demographicBreakdowns.race.enabled ||
+        breakdowns.demographicBreakdowns.age.enabled);
 
     return (
       !breakdowns.time &&

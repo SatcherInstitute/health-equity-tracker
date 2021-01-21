@@ -34,13 +34,16 @@ interface DemographicBreakdown {
 }
 
 function stringifyDemographic(breakdown: DemographicBreakdown) {
+  if (breakdown == undefined || !breakdown.enabled) {
+    return undefined;
+  }
   return breakdown.includeTotal ? "with total" : "without total";
 }
 
 function createDemographicBreakdown(
   columnName: string,
-  enabled: boolean,
-  includeTotal: boolean
+  enabled = false,
+  includeTotal = false
 ) {
   return {
     columnName: columnName,
@@ -54,26 +57,22 @@ export class Breakdowns {
   // We may want to extend this to an explicit type to support variants for
   // day/week/month/year.
   time: boolean;
-  race?: DemographicBreakdown;
-  race_nonstandard?: DemographicBreakdown;
-  age?: DemographicBreakdown;
-  sex?: DemographicBreakdown;
+  demographicBreakdowns: Record<string, DemographicBreakdown>;
   filterFips?: string;
 
   constructor(
     geography: GeographicBreakdown,
-    race?: DemographicBreakdown,
-    race_nonstandard?: DemographicBreakdown,
-    age?: DemographicBreakdown,
-    sex?: DemographicBreakdown,
+    demographicBreakdowns?: Record<string, DemographicBreakdown>,
     time = false,
     filterFips?: string
   ) {
     this.geography = geography;
-    this.race = race;
-    this.race_nonstandard = race_nonstandard;
-    this.age = age;
-    this.sex = sex;
+    this.demographicBreakdowns = demographicBreakdowns || {
+      race: createDemographicBreakdown("race_and_ethnicity"),
+      race_nonstandard: createDemographicBreakdown("race_and_ethnicity"),
+      age: createDemographicBreakdown("age"),
+      sex: createDemographicBreakdown("sex"),
+    };
     this.time = time;
     this.filterFips = filterFips;
   }
@@ -83,13 +82,13 @@ export class Breakdowns {
       "geography: " +
       this.geography +
       ", race: " +
-      this.race +
+      this.demographicBreakdowns["race"] +
       ", race_nonstandard: " +
-      this.race_nonstandard +
+      this.demographicBreakdowns["race_nonstandard"] +
       ", age: " +
-      this.age +
+      this.demographicBreakdowns["age"] +
       ", sex: " +
-      this.sex +
+      this.demographicBreakdowns["sex"] +
       ", time: " +
       this.time +
       ", filterGeo: " +
@@ -102,12 +101,12 @@ export class Breakdowns {
     return JSON.stringify({
       geography: this.geography,
       time: this.time || undefined,
-      race: this.race ? stringifyDemographic(this.race) : undefined,
-      race_nonstandard: this.race_nonstandard
-        ? stringifyDemographic(this.race_nonstandard)
-        : undefined,
-      age: this.age ? stringifyDemographic(this.age) : undefined,
-      sex: this.sex ? stringifyDemographic(this.sex) : undefined,
+      race: stringifyDemographic(this.demographicBreakdowns["race"]),
+      race_nonstandard: stringifyDemographic(
+        this.demographicBreakdowns["race_nonstandard"]
+      ),
+      age: stringifyDemographic(this.demographicBreakdowns["age"]),
+      sex: stringifyDemographic(this.demographicBreakdowns["sex"]),
       filterFips: this.filterFips || undefined,
     });
   }
@@ -115,10 +114,7 @@ export class Breakdowns {
   copy() {
     return new Breakdowns(
       this.geography,
-      this.race,
-      this.race_nonstandard,
-      this.age,
-      this.sex,
+      Object.assign({}, this.demographicBreakdowns),
       this.time,
       this.filterFips
     );
@@ -149,25 +145,21 @@ export class Breakdowns {
   ): Breakdowns {
     switch (breakdownVar) {
       case "race_and_ethnicity":
-        if (nonstandardizedRace) {
-          this.race_nonstandard = createDemographicBreakdown(
-            "race_and_ethnicity",
-            true,
-            includeTotal
-          );
-        } else {
-          this.race = createDemographicBreakdown(
-            "race_and_ethnicity",
-            true,
-            includeTotal
-          );
-        }
+        const breakdownKey = nonstandardizedRace ? "race_nonstandard" : "race";
+        this.demographicBreakdowns[breakdownKey] = createDemographicBreakdown(
+          "race_and_ethnicity",
+          true,
+          includeTotal
+        );
         return this;
       case "age":
-        this.age = createDemographicBreakdown("age", true, includeTotal);
-        return this;
       case "sex":
-        this.sex = createDemographicBreakdown("sex", true, includeTotal);
+        // Column name is the same as key for age and sex
+        this.demographicBreakdowns[breakdownVar] = createDemographicBreakdown(
+          breakdownVar,
+          true,
+          includeTotal
+        );
         return this;
       case "date":
         this.time = true;
@@ -198,8 +190,8 @@ export class Breakdowns {
 
   // Helper function returning how many demographic breakdowns are currently requested
   demographicBreakdownCount() {
-    return [this.age, this.sex, this.race, this.race_nonstandard].filter(
-      (demo) => demo
+    return Object.entries(this.demographicBreakdowns).filter(
+      ([k, v]) => v.enabled
     ).length;
   }
 
@@ -211,13 +203,16 @@ export class Breakdowns {
 
   getJoinColumns(): BreakdownVar[] {
     const joinCols: BreakdownVar[] = ["state_fips"];
-    if (this.age) {
+    if (this.demographicBreakdowns.age.enabled) {
       joinCols.push("age");
     }
-    if (this.race || this.race_nonstandard) {
+    if (
+      this.demographicBreakdowns.race.enabled ||
+      this.demographicBreakdowns.race_nonstandard.enabled
+    ) {
       joinCols.push("race_and_ethnicity");
     }
-    if (this.sex) {
+    if (this.demographicBreakdowns.sex.enabled) {
       joinCols.push("sex");
     }
     if (this.time) {
