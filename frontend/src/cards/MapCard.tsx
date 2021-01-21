@@ -72,7 +72,7 @@ function MapCardWithKey(props: MapCardProps) {
         props.metricConfig.metricId,
         Breakdowns.byState().addBreakdown(
           possibleBreakdown,
-          true,
+          /*includeTotal=*/ true,
           props.nonstandardizedRace
         )
       );

@@ -105,7 +105,10 @@ class AcsPopulationProvider extends VariableProvider {
 
     if (breakdowns.demographicBreakdowns.race_nonstandard.enabled) {
       return breakdowns.geography === "national"
-        ? createNationalTotal(acsDataFrame, "race_and_ethnicity")
+        ? createNationalTotal(
+            acsDataFrame,
+            breakdowns.demographicBreakdowns.race_nonstandard.columnName
+          )
         : acsDataFrame;
     }
     if (breakdowns.demographicBreakdowns.race.enabled) {
@@ -113,12 +116,18 @@ class AcsPopulationProvider extends VariableProvider {
         standardizedRaces.includes(row.race_and_ethnicity)
       );
       return breakdowns.geography === "national"
-        ? createNationalTotal(standardizedAcsData, "race_and_ethnicity")
+        ? createNationalTotal(
+            standardizedAcsData,
+            breakdowns.demographicBreakdowns.race.columnName
+          )
         : standardizedAcsData;
     }
     if (breakdowns.demographicBreakdowns.age.enabled) {
       return breakdowns.geography === "national"
-        ? createNationalTotal(acsDataFrame, "age")
+        ? createNationalTotal(
+            acsDataFrame,
+            breakdowns.demographicBreakdowns.age.columnName
+          )
         : acsDataFrame;
     }
 

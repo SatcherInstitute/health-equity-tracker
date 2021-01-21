@@ -34,7 +34,7 @@ interface DemographicBreakdown {
 }
 
 function stringifyDemographic(breakdown: DemographicBreakdown) {
-  if (breakdown == undefined || !breakdown.enabled) {
+  if (breakdown === undefined || !breakdown.enabled) {
     return undefined;
   }
   return breakdown.includeTotal ? "with total" : "without total";
