@@ -131,8 +131,8 @@ class CovidProvider extends VariableProvider {
       });
     });
 
-    Object.entries(breakdowns.demographicBreakdowns).forEach(
-      ([key, demographicBreakdown]) => {
+    Object.values(breakdowns.demographicBreakdowns).forEach(
+      (demographicBreakdown) => {
         if (
           demographicBreakdown.enabled &&
           !demographicBreakdown.includeTotal

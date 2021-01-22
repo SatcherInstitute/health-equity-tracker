@@ -63,15 +63,14 @@ class AcsPopulationProvider extends VariableProvider {
       }
     });
 
-    // Calculate population_pct based on total
-    const enabledBreakdownKey: string = Object.keys(
+    // Calculate population_pct based on total for breakdown
+    // Exactly one breakdown should be enabled per allowsBreakdowns()
+    const enabledBreakdown = Object.values(
       breakdowns.demographicBreakdowns
-    ).find((key) => breakdowns.demographicBreakdowns[key].enabled === true)!;
-    const columnName =
-      breakdowns.demographicBreakdowns[enabledBreakdownKey].columnName;
+    ).find((breakdown) => breakdown.enabled === true)!;
     df = applyToGroups(df, ["state_name"], (group) => {
       let totalPopulation = group
-        .where((r: any) => r[columnName] === "Total")
+        .where((r: any) => r[enabledBreakdown.columnName] === "Total")
         .first()["population"];
       return group.generateSeries({
         population_pct: (row) => percent(row.population, totalPopulation),
@@ -79,8 +78,8 @@ class AcsPopulationProvider extends VariableProvider {
     });
 
     // If totals weren't requested, remove them
-    Object.entries(breakdowns.demographicBreakdowns).forEach(
-      ([key, demographicBreakdown]) => {
+    Object.values(breakdowns.demographicBreakdowns).forEach(
+      (demographicBreakdown) => {
         if (
           demographicBreakdown.enabled &&
           !demographicBreakdown.includeTotal
