@@ -14,7 +14,7 @@ import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/Breakdowns";
-import { getDependentDatasets, MetricId } from "../data/variableProviders";
+import { MetricId } from "../data/variableProviders";
 import { MetricQuery } from "../data/MetricQuery";
 import { MetricConfig, VariableConfig } from "../data/MetricConfig";
 import { POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
@@ -58,16 +58,19 @@ function BarChartCardWithKey(props: BarChartCardProps) {
     props.nonstandardizedRace
   );
 
-  const metricIds = Object.values(props.variableConfig.metrics).map(
-    (metricConfig: MetricConfig) => metricConfig.metricId
-  );
-  const metrics: MetricId[] = [...metricIds, "population", "population_pct"];
-  const query = new MetricQuery(metrics, breakdowns);
-
   // TODO - what if there are no valid types at all? What do we show?
   const validDisplayMetricConfigs: MetricConfig[] = Object.values(
     props.variableConfig.metrics
   ).filter((metricConfig) => VALID_METRIC_TYPES.includes(metricConfig.type));
+
+  let metricIds: MetricId[] = Object.values(props.variableConfig.metrics).map(
+    (metricConfig: MetricConfig) => metricConfig.metricId
+  );
+  // For pct_share, we want to compare to population_pct
+  if (validDisplayMetricConfigs.some((config) => config.type === "pct_share")) {
+    metricIds = metricIds.concat(["population", "population_pct"]);
+  }
+  const query = new MetricQuery(metricIds, breakdowns);
 
   function CardTitle() {
     const popover = usePopover();
@@ -88,7 +91,6 @@ function BarChartCardWithKey(props: BarChartCardProps) {
   // TODO - we want to bold the breakdown name in the card title
   return (
     <CardWrapper
-      datasetIds={getDependentDatasets(metrics)}
       queries={[query]}
       title={<CardTitle />}
       infoPopover={
