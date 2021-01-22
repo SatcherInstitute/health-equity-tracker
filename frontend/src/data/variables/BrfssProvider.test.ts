@@ -89,7 +89,10 @@ describe("BrfssProvider", () => {
       Breakdowns.forFips(new Fips("37")).andRace()
     );
     expect(responseWithoutTotal).toEqual(
-      new MetricQueryResponse([NC_ASIAN_FINAL_ROW, NC_WHITE_FINAL_ROW])
+      new MetricQueryResponse(
+        [NC_ASIAN_FINAL_ROW, NC_WHITE_FINAL_ROW],
+        ["brfss"]
+      )
     );
 
     // Evaluate the response with requesting total field
@@ -98,11 +101,10 @@ describe("BrfssProvider", () => {
       Breakdowns.forFips(new Fips("37")).andRace(/*includeTotal=*/ true)
     );
     expect(responseWithTotal).toEqual(
-      new MetricQueryResponse([
-        NC_ASIAN_FINAL_ROW,
-        NC_WHITE_FINAL_ROW,
-        NC_TOTAL_FINAL_ROW,
-      ])
+      new MetricQueryResponse(
+        [NC_ASIAN_FINAL_ROW, NC_WHITE_FINAL_ROW, NC_TOTAL_FINAL_ROW],
+        ["brfss"]
+      )
     );
   });
 
@@ -183,7 +185,7 @@ describe("BrfssProvider", () => {
       Breakdowns.national().andRace()
     );
     expect(responseWithoutTotal).toEqual(
-      new MetricQueryResponse([ASIAN_FINAL_ROW, WHITE_FINAL_ROW])
+      new MetricQueryResponse([ASIAN_FINAL_ROW, WHITE_FINAL_ROW], ["brfss"])
     );
 
     // Evaluate the response with requesting total field
@@ -192,11 +194,10 @@ describe("BrfssProvider", () => {
       Breakdowns.national().andRace(/*includeTotal=*/ true)
     );
     expect(responseWithTotal).toEqual(
-      new MetricQueryResponse([
-        ASIAN_FINAL_ROW,
-        WHITE_FINAL_ROW,
-        TOTAL_FINAL_ROW,
-      ])
+      new MetricQueryResponse(
+        [ASIAN_FINAL_ROW, WHITE_FINAL_ROW, TOTAL_FINAL_ROW],
+        ["brfss"]
+      )
     );
   });
 });

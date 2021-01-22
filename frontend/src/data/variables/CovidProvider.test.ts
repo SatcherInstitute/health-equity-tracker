@@ -162,7 +162,10 @@ describe("CovidProvider", () => {
       )
     );
     expect(responseWithTotal).toEqual(
-      new MetricQueryResponse([NC_TOTAL_FINAL_ROW, NC_WHITE_FINAL_ROW])
+      new MetricQueryResponse(
+        [NC_TOTAL_FINAL_ROW, NC_WHITE_FINAL_ROW],
+        ["covid_by_state_and_race", "acs_population-by_race_state_std"]
+      )
     );
 
     // Evaluate the response without requesting total field
@@ -174,7 +177,10 @@ describe("CovidProvider", () => {
       )
     );
     expect(responseWithoutTotal).toEqual(
-      new MetricQueryResponse([NC_WHITE_FINAL_ROW])
+      new MetricQueryResponse(
+        [NC_WHITE_FINAL_ROW],
+        ["covid_by_state_and_race", "acs_population-by_race_state_std"]
+      )
     );
   });
 
@@ -281,7 +287,10 @@ describe("CovidProvider", () => {
       )
     );
     expect(responseWithTotal).toEqual(
-      new MetricQueryResponse([FINAL_TOTAL_ROW, FINAL_WHITE_ROW])
+      new MetricQueryResponse(
+        [FINAL_TOTAL_ROW, FINAL_WHITE_ROW],
+        ["covid_by_state_and_race", "acs_population-by_race_state_std"]
+      )
     );
 
     // Evaluate the response without requesting total field
@@ -293,7 +302,10 @@ describe("CovidProvider", () => {
       )
     );
     expect(responseWithoutTotal).toEqual(
-      new MetricQueryResponse([FINAL_WHITE_ROW])
+      new MetricQueryResponse(
+        [FINAL_WHITE_ROW],
+        ["covid_by_state_and_race", "acs_population-by_race_state_std"]
+      )
     );
   });
 });

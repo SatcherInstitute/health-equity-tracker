@@ -39,19 +39,26 @@ function getInvalidValues(rows: Row[]) {
 }
 
 export function createMissingDataResponse(missingDataMessage: string) {
-  return new MetricQueryResponse([], missingDataMessage);
+  return new MetricQueryResponse(
+    [],
+    /*consumedDatasetIds=*/ [],
+    missingDataMessage
+  );
 }
 
 export class MetricQueryResponse {
   readonly data: Row[];
   readonly missingDataMessage: string | undefined;
   readonly invalidValues: Record<string, number>;
+  readonly consumedDatasetIds: string[];
 
   constructor(
     dataRows: Row[],
+    consumedDatasetIds: string[] = [],
     missingDataMessage: string | undefined = undefined
   ) {
     this.data = dataRows;
+    this.consumedDatasetIds = consumedDatasetIds;
     this.invalidValues = getInvalidValues(this.data);
     this.missingDataMessage = missingDataMessage; // possibily undefined
     if (this.missingDataMessage === undefined && this.data.length <= 0) {
