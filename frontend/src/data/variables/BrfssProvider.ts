@@ -46,16 +46,14 @@ class BrfssProvider extends VariableProvider {
       });
     }
 
-    return new MetricQueryResponse(
-      df
-        .generateSeries({
-          diabetes_per_100k: (row) =>
-            per100k(row.diabetes_count, row.diabetes_count + row.diabetes_no),
-          copd_per_100k: (row) =>
-            per100k(row.copd_count, row.copd_count + row.copd_no),
-        })
-        .toArray()
-    );
+    df = df.generateSeries({
+      diabetes_per_100k: (row) =>
+        per100k(row.diabetes_count, row.diabetes_count + row.diabetes_no),
+      copd_per_100k: (row) =>
+        per100k(row.copd_count, row.copd_count + row.copd_no),
+    });
+
+    return new MetricQueryResponse(df.toArray(), ["brfss"]);
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {

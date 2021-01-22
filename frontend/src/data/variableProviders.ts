@@ -67,16 +67,8 @@ export function getProvider(variableId: MetricId): VariableProvider {
  * Returns a list of all VariableProviders required to get the specified
  * variables.
  */
-export function getUniqueProviders(
-  variableIds: MetricId[]
-): VariableProvider[] {
-  const providerIds = variableIds.map((id) => metricsToProviderIds[id]);
+export function getUniqueProviders(metricIds: MetricId[]): VariableProvider[] {
+  const providerIds = metricIds.map((id) => metricsToProviderIds[id]);
   const dedupedIds = Array.from(new Set(providerIds));
   return dedupedIds.map((id) => providersById[id]);
-}
-
-/** Returns the list of dataset ids that the provided variables depend on. */
-export function getDependentDatasets(variableIds: MetricId[]): string[] {
-  const providers = variableIds.map((id) => getProvider(id));
-  return VariableProvider.getUniqueDatasetIds(providers);
 }

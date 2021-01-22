@@ -91,11 +91,9 @@ function AppToolbar() {
       </Typography>
       {[EXPLORE_DATA_PAGE_LINK, DATA_CATALOG_PAGE_LINK, ABOUT_US_PAGE_LINK].map(
         (pageUrl, i) => (
-            <LinkWithStickyParams to={pageUrl} class={styles.NavLink}>
-              <Button key={i}>
-                {PAGE_URL_TO_NAMES[pageUrl]}
-              </Button>
-            </LinkWithStickyParams>
+          <LinkWithStickyParams to={pageUrl} class={styles.NavLink}>
+            <Button key={i}>{PAGE_URL_TO_NAMES[pageUrl]}</Button>
+          </LinkWithStickyParams>
         )
       )}
     </Toolbar>

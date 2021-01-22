@@ -60,7 +60,11 @@ class AcsPopulationProvider extends VariableProvider {
         population_pct: (row) => percent(row.population, totalStatePopulation),
       });
     });
-    return new MetricQueryResponse(df.toArray());
+
+    const consumedDataset = breakdowns.age
+      ? ["acs_population-by_age_state"]
+      : ["acs_population-by_race_state_std"];
+    return new MetricQueryResponse(df.toArray(), consumedDataset);
   }
 
   private getDataInternalWithoutPercents(

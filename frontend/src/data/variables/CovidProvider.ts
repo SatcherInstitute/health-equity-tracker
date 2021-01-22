@@ -41,6 +41,7 @@ class CovidProvider extends VariableProvider {
     breakdowns: Breakdowns
   ): MetricQueryResponse {
     const covid_by_state_and_race = datasets["covid_by_state_and_race"];
+    let consumedDatasetIds = ["covid_by_state_and_race"];
     // TODO need to figure out how to handle getting this at the national level
     // because each state reports race differently.
     let df = covid_by_state_and_race.toDataFrame();
@@ -81,6 +82,9 @@ class CovidProvider extends VariableProvider {
     const acsMetricQueryResponse = this.acsProvider.getData(
       datasets,
       acsBreakdowns
+    );
+    consumedDatasetIds = consumedDatasetIds.concat(
+      acsMetricQueryResponse.consumedDatasetIds
     );
     if (acsMetricQueryResponse.dataIsMissing()) {
       return acsMetricQueryResponse;
@@ -124,7 +128,7 @@ class CovidProvider extends VariableProvider {
       });
     });
 
-    return new MetricQueryResponse(df.toArray());
+    return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {

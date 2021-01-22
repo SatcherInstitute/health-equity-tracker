@@ -3,7 +3,7 @@ import { Alert } from "@material-ui/lab";
 import CardWrapper from "./CardWrapper";
 import useDatasetStore from "../data/useDatasetStore";
 import { Breakdowns } from "../data/Breakdowns";
-import { getDependentDatasets, MetricId } from "../data/variableProviders";
+import { MetricId } from "../data/variableProviders";
 import { MetricQuery } from "../data/MetricQuery";
 import { Fips } from "../utils/madlib/Fips";
 import { CardContent } from "@material-ui/core";
@@ -35,11 +35,7 @@ export function PopulationCard(props: PopulationCardProps) {
   );
 
   return (
-    <CardWrapper
-      queries={[raceQuery, ageQuery]}
-      datasetIds={getDependentDatasets(variableIds)}
-      hideFooter={true}
-    >
+    <CardWrapper queries={[raceQuery, ageQuery]} hideFooter={true}>
       {() => {
         const raceQueryResponse = datasetStore.getMetrics(raceQuery);
         const ageQueryResponse = datasetStore.getMetrics(ageQuery);

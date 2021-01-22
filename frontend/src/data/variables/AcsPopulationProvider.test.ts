@@ -77,7 +77,11 @@ describe("AcsPopulationProvider", () => {
     };
     const breakdown = Breakdowns.forFips(new Fips("37")).andRace();
     const actual = acsProvider.getData(DATASET_MAP, breakdown);
-    expect(actual).toEqual(new MetricQueryResponse(expectedRows));
+    expect(actual).toEqual(
+      new MetricQueryResponse(expectedRows, [
+        "acs_population-by_race_state_std",
+      ])
+    );
   });
 
   test("National and Race Breakdown", async () => {
@@ -129,7 +133,11 @@ describe("AcsPopulationProvider", () => {
     };
     const breakdown = Breakdowns.national().andRace();
     const actual = acsProvider.getData(DATASET_MAP, breakdown);
-    expect(actual).toEqual(new MetricQueryResponse(expectedRows));
+    expect(actual).toEqual(
+      new MetricQueryResponse(expectedRows, [
+        "acs_population-by_race_state_std",
+      ])
+    );
   });
 
   test("State and Age Breakdown", async () => {
@@ -162,7 +170,9 @@ describe("AcsPopulationProvider", () => {
     };
     const breakdown = Breakdowns.forFips(new Fips("37")).andAge();
     const actual = acsProvider.getData(DATASET_MAP, breakdown);
-    expect(actual).toEqual(new MetricQueryResponse(expectedRows));
+    expect(actual).toEqual(
+      new MetricQueryResponse(expectedRows, ["acs_population-by_age_state"])
+    );
   });
 
   test("National and Age Breakdown", async () => {
@@ -196,7 +206,9 @@ describe("AcsPopulationProvider", () => {
     };
     const breakdown = Breakdowns.national().andAge();
     const actual = acsProvider.getData(DATASET_MAP, breakdown);
-    expect(actual).toEqual(new MetricQueryResponse(expectedRows));
+    expect(actual).toEqual(
+      new MetricQueryResponse(expectedRows, ["acs_population-by_age_state"])
+    );
   });
 
   test("State and Gender Breakdown", async () => {
