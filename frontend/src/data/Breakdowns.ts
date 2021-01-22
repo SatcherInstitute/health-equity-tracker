@@ -26,7 +26,7 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
 
 interface DemographicBreakdown {
   // Name of the column in the returned data
-  readonly columnName: string;
+  readonly columnName: BreakdownVar;
   // Whether the demographic breakdown is requested
   enabled: boolean;
   // If requested, should the breakdown include a "total", i.e. value for all age/race/sex
@@ -46,7 +46,7 @@ function createDemographicBreakdown(
   includeTotal = false
 ) {
   return {
-    columnName: columnName,
+    columnName: columnName as BreakdownVar,
     enabled: enabled,
     includeTotal: includeTotal,
   };
@@ -77,39 +77,19 @@ export class Breakdowns {
     this.filterFips = filterFips;
   }
 
-  getUniqueKey() {
-    //return this.getBreakdownString();/*
-    return (
-      "geography: " +
-      this.geography +
-      ", race: " +
-      this.demographicBreakdowns["race"].enabled +
-      ", race_nonstandard: " +
-      this.demographicBreakdowns["race_nonstandard"].enabled +
-      ", age: " +
-      this.demographicBreakdowns["age"].enabled +
-      ", sex: " +
-      this.demographicBreakdowns["sex"].enabled +
-      ", time: " +
-      this.time +
-      ", filterGeo: " +
-      this.filterFips
-    );
-  }
-
   getBreakdownString() {
-    // Any fields that are not set will not be included in the string for readibility
-    return JSON.stringify({
+    let breakdowns: Record<string, any> = {
       geography: this.geography,
       time: this.time || undefined,
-      race: stringifyDemographic(this.demographicBreakdowns["race"]),
-      race_nonstandard: stringifyDemographic(
-        this.demographicBreakdowns["race_nonstandard"]
-      ),
-      age: stringifyDemographic(this.demographicBreakdowns["age"]),
-      sex: stringifyDemographic(this.demographicBreakdowns["sex"]),
       filterFips: this.filterFips || undefined,
+    };
+    Object.keys(this.demographicBreakdowns).forEach((breakdownKey: string) => {
+      breakdowns[breakdownKey] = stringifyDemographic(
+        this.demographicBreakdowns[breakdownKey]
+      );
     });
+    // Any fields that are not set will not be included in the string for readibility
+    return JSON.stringify(breakdowns);
   }
 
   copy() {
@@ -204,18 +184,13 @@ export class Breakdowns {
 
   getJoinColumns(): BreakdownVar[] {
     const joinCols: BreakdownVar[] = ["state_fips"];
-    if (this.demographicBreakdowns.age.enabled) {
-      joinCols.push("age");
-    }
-    if (
-      this.demographicBreakdowns.race.enabled ||
-      this.demographicBreakdowns.race_nonstandard.enabled
-    ) {
-      joinCols.push("race_and_ethnicity");
-    }
-    if (this.demographicBreakdowns.sex.enabled) {
-      joinCols.push("sex");
-    }
+    Object.entries(this.demographicBreakdowns).forEach(
+      ([key, demographicBreakdown]) => {
+        if (demographicBreakdown.enabled) {
+          joinCols.push(demographicBreakdown.columnName as BreakdownVar);
+        }
+      }
+    );
     if (this.time) {
       joinCols.push("date");
     }
