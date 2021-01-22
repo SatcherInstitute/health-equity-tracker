@@ -138,52 +138,26 @@ class AcsPopulationProvider extends VariableProvider {
     datasets: Record<string, Dataset>,
     breakdowns: Breakdowns
   ): IDataFrame {
-    const acsDataFrame = datasets[this.getDatasetId(breakdowns)].toDataFrame();
+    let acsDataFrame = datasets[this.getDatasetId(breakdowns)].toDataFrame();
 
-    if (breakdowns.demographicBreakdowns.race_nonstandard.enabled) {
-      return breakdowns.geography === "national"
-        ? createNationalTotal(
-            acsDataFrame,
-            breakdowns.demographicBreakdowns.race_nonstandard.columnName
-          )
-        : acsDataFrame;
-    }
-    if (breakdowns.demographicBreakdowns.race.enabled) {
-      const standardizedAcsData = acsDataFrame.where((row) =>
+    // Exactly one breakdown should be enabled, identify it
+    const [breakdownVar, enabledBreakdown] = Object.entries(
+      breakdowns.demographicBreakdowns
+    ).find(([breakdownVar, breakdown]) => breakdown.enabled === true)!;
+
+    // Race must be special cased to standardize the data before proceeding
+    if (breakdownVar === "race") {
+      acsDataFrame = acsDataFrame.where((row) =>
         standardizedRaces.includes(row.race_and_ethnicity)
       );
-      return breakdowns.geography === "national"
-        ? createNationalTotal(
-            standardizedAcsData,
-            breakdowns.demographicBreakdowns.race.columnName
-          )
-        : standardizedAcsData;
     }
 
-    if (breakdowns.demographicBreakdowns.age.enabled) {
-      return breakdowns.geography === "national"
-        ? createNationalTotal(
-            acsDataFrame,
-            breakdowns.demographicBreakdowns.age.columnName
-          )
-        : acsDataFrame;
-    }
-    if (breakdowns.demographicBreakdowns.sex.enabled) {
-      return breakdowns.geography === "national"
-        ? createNationalTotal(
-            acsDataFrame,
-            breakdowns.demographicBreakdowns.sex.columnName
-          )
-        : acsDataFrame;
-    }
-
-    throw new Error("Not implemented");
+    return breakdowns.geography === "national"
+      ? createNationalTotal(acsDataFrame, enabledBreakdown.columnName)
+      : acsDataFrame;
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    const validDemographicBreakdown: boolean =
-      breakdowns.demographicBreakdownCount() === 1;
-
     const validGeographicBreakdown =
       breakdowns.geography === "county"
         ? breakdowns.demographicBreakdowns.race_nonstandard.enabled ||
@@ -191,7 +165,9 @@ class AcsPopulationProvider extends VariableProvider {
         : true;
 
     return (
-      !breakdowns.time && validDemographicBreakdown && validGeographicBreakdown
+      !breakdowns.time &&
+      breakdowns.demographicBreakdownCount() === 1 &&
+      validGeographicBreakdown
     );
   }
 }

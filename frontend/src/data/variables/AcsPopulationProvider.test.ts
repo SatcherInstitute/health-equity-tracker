@@ -289,22 +289,40 @@ describe("AcsPopulationProvider", () => {
         population_pct: population_pct,
       };
     }
-    const expectedRows = [
+
+    // Evaluate the response without requesting total field
+    const expectedNoTotalRows = [
       finalRow(ASIAN, /*population=*/ 10, /*population_pct=*/ 40),
-      finalRow(TOTAL, /*population=*/ 25, /*population_pct=*/ 100),
       finalRow(WHITE, /*population=*/ 15, /*population_pct=*/ 60),
     ];
-
-    const breakdown = Breakdowns.national().andRace(true);
-    const actual = acsProvider.getData(
+    const responseWithoutTotal = acsProvider.getData(
       fakeDataServerResponse(
         "acs_population-by_race_state_std",
         acsRaceStateData
       ),
-      breakdown
+      Breakdowns.national().andRace()
     );
-    expect(actual).toEqual(
-      new MetricQueryResponse(expectedRows, [
+    expect(responseWithoutTotal).toEqual(
+      new MetricQueryResponse(expectedNoTotalRows, [
+        "acs_population-by_race_state_std",
+      ])
+    );
+
+    // Evaluate the response with requesting total field
+    const expectedTotalRows = [
+      finalRow(ASIAN, /*population=*/ 10, /*population_pct=*/ 40),
+      finalRow(TOTAL, /*population=*/ 25, /*population_pct=*/ 100),
+      finalRow(WHITE, /*population=*/ 15, /*population_pct=*/ 60),
+    ];
+    const responseWithTotal = acsProvider.getData(
+      fakeDataServerResponse(
+        "acs_population-by_race_state_std",
+        acsRaceStateData
+      ),
+      Breakdowns.national().andRace(true)
+    );
+    expect(responseWithTotal).toEqual(
+      new MetricQueryResponse(expectedTotalRows, [
         "acs_population-by_race_state_std",
       ])
     );
