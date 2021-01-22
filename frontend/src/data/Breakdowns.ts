@@ -58,13 +58,13 @@ export class Breakdowns {
   // day/week/month/year.
   time: boolean;
   demographicBreakdowns: Record<string, DemographicBreakdown>;
-  filterFips?: string;
+  filterFips?: Fips | undefined;
 
   constructor(
     geography: GeographicBreakdown,
     demographicBreakdowns?: Record<string, DemographicBreakdown>,
     time = false,
-    filterFips?: string
+    filterFips?: Fips | undefined
   ) {
     this.geography = geography;
     this.demographicBreakdowns = demographicBreakdowns || {
@@ -81,7 +81,7 @@ export class Breakdowns {
     let breakdowns: Record<string, any> = {
       geography: this.geography,
       time: this.time || undefined,
-      filterFips: this.filterFips || undefined,
+      filterFips: this.filterFips ? this.filterFips.code : undefined,
     };
     Object.keys(this.demographicBreakdowns).forEach((breakdownKey: string) => {
       breakdowns[breakdownKey] = stringifyDemographic(
@@ -98,6 +98,11 @@ export class Breakdowns {
       Object.assign({}, this.demographicBreakdowns),
       this.time,
       this.filterFips
+        ? Object.assign(
+            Object.create(Object.getPrototypeOf(this.filterFips)),
+            this.filterFips
+          )
+        : undefined
     );
   }
 
@@ -114,9 +119,13 @@ export class Breakdowns {
   }
 
   static forFips(fips: Fips): Breakdowns {
+    if (fips.isCounty()) {
+      return Breakdowns.byCounty().withGeoFilter(fips);
+    }
+
     return fips.isUsa()
       ? Breakdowns.national()
-      : Breakdowns.byState().withGeoFilter(fips.code);
+      : Breakdowns.byState().withGeoFilter(fips);
   }
 
   addBreakdown(
@@ -177,8 +186,8 @@ export class Breakdowns {
   }
 
   /** Filters to entries that exactly match the specified FIPS code. */
-  withGeoFilter(fipsCode: string): Breakdowns {
-    this.filterFips = fipsCode;
+  withGeoFilter(fips: Fips): Breakdowns {
+    this.filterFips = fips;
     return this;
   }
 

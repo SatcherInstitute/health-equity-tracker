@@ -2,7 +2,7 @@ import { DataFrame } from "data-forge";
 import { Breakdowns } from "../Breakdowns";
 import { Dataset } from "../DatasetTypes";
 import VariableProvider from "./VariableProvider";
-import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
+import { USA_FIPS, USA_DISPLAY_NAME, Fips } from "../../utils/madlib/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import {
   applyToGroups,
@@ -71,8 +71,9 @@ class CovidProvider extends VariableProvider {
             })
             .resetIndex();
 
-    if (breakdowns.filterFips) {
-      df = df.where((row) => row.state_fips === breakdowns.filterFips);
+    if (breakdowns.filterFips !== undefined) {
+      const fips = breakdowns.filterFips as Fips;
+      df = df.where((row) => row.state_fips === fips.code);
     }
 
     // TODO How to handle territories?

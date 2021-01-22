@@ -1,7 +1,7 @@
 import { Breakdowns, ALL_RACES_DISPLAY_NAME } from "../Breakdowns";
 import { Dataset } from "../DatasetTypes";
 import { per100k } from "../datasetutils";
-import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
+import { USA_FIPS, USA_DISPLAY_NAME, Fips } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQueryResponse } from "../MetricQuery";
 
@@ -34,8 +34,9 @@ class BrfssProvider extends VariableProvider {
         .resetIndex();
     }
 
-    if (breakdowns.filterFips) {
-      df = df.where((row) => row.state_fips === breakdowns.filterFips);
+    if (breakdowns.filterFips !== undefined) {
+      const fips = breakdowns.filterFips as Fips;
+      df = df.where((row) => row.state_fips === fips.code);
     }
 
     if (!breakdowns.demographicBreakdowns.race.enabled) {

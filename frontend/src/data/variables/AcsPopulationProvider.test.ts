@@ -9,16 +9,39 @@ const WHITE = "White (Non-Hispanic)";
 const ASIAN = "Asian (Non-Hispanic)";
 const TOTAL = "Total";
 
-function fakeDataServerResponse(acsRaceRows: any[], acsAgeRows: any[]) {
+function fakeDataServerResponse(
+  acsRaceStateData: any[],
+  acsAgeStateData: any[],
+  acsRaceCountyData: any[]
+) {
   return {
     "acs_population-by_race_state_std": new Dataset(
-      acsRaceRows,
+      acsRaceStateData,
       FakeMetadataMap["acs_population-by_race_state_std"]
     ),
     "acs_population-by_age_state": new Dataset(
-      acsAgeRows,
+      acsAgeStateData,
       FakeMetadataMap["acs_population-by_age_state"]
     ),
+    "acs_population-by_race_county_std": new Dataset(
+      acsRaceCountyData,
+      FakeMetadataMap["acs_population-by_race_county_std"]
+    ),
+  };
+}
+
+function countyRow(
+  fips: string,
+  county_name: string,
+  breakdownName: string,
+  breakdownValue: string,
+  population: number
+) {
+  return {
+    county_fips: fips,
+    county_name: county_name,
+    [breakdownName]: breakdownValue,
+    population: population,
   };
 }
 
@@ -48,6 +71,159 @@ describe("AcsPopulationProvider", () => {
     );
   });
 
+  test("Get all counties in state with Race Breakdown", async () => {
+    const acsProvider = new AcsPopulationProvider();
+
+    const CHATAM_TOTAL_ROW = countyRow(
+      "37037",
+      "Chatam",
+      "race_and_ethnicity",
+      TOTAL,
+      2
+    );
+    const CHATAM_ASIAN_ROW = countyRow(
+      "37037",
+      "Chatam",
+      "race_and_ethnicity",
+      ASIAN,
+      2
+    );
+    const DURHAM_ASIAN_ROW = countyRow(
+      "37063",
+      "Durham",
+      "race_and_ethnicity",
+      ASIAN,
+      5
+    );
+    const DURHAM_WHITE_ROW = countyRow(
+      "37063",
+      "Durham",
+      "race_and_ethnicity",
+      WHITE,
+      15
+    );
+    const DURHAM_TOTAL_ROW = countyRow(
+      "37063",
+      "Durham",
+      "race_and_ethnicity",
+      TOTAL,
+      20
+    );
+
+    const acsRaceCountyData = [
+      countyRow("01111", "AL county", "race_and_ethnicity", WHITE, 2),
+      CHATAM_TOTAL_ROW,
+      CHATAM_ASIAN_ROW,
+      DURHAM_ASIAN_ROW,
+      DURHAM_WHITE_ROW,
+      DURHAM_TOTAL_ROW,
+    ];
+
+    const CHATAM_TOTAL_FINAL_ROW = Object.assign(CHATAM_TOTAL_ROW, {
+      population_pct: 100,
+    });
+    const CHATAM_ASIAN_FINAL_ROW = Object.assign(CHATAM_ASIAN_ROW, {
+      population_pct: 100,
+    });
+    const DURHAM_ASIAN_FINAL_ROW = Object.assign(DURHAM_ASIAN_ROW, {
+      population_pct: 25,
+    });
+    const DURHAM_WHITE_FINAL_ROW = Object.assign(DURHAM_WHITE_ROW, {
+      population_pct: 75,
+    });
+    const DURHAM_TOTAL_FINAL_ROW = Object.assign(DURHAM_TOTAL_ROW, {
+      population_pct: 100,
+    });
+    const expectedRows = [
+      CHATAM_TOTAL_FINAL_ROW,
+      CHATAM_ASIAN_FINAL_ROW,
+      DURHAM_ASIAN_FINAL_ROW,
+      DURHAM_WHITE_FINAL_ROW,
+      DURHAM_TOTAL_FINAL_ROW,
+    ];
+
+    const breakdown = Breakdowns.byCounty()
+      .withGeoFilter(new Fips("37"))
+      .andRace(true);
+    const actual = acsProvider.getData(
+      fakeDataServerResponse(
+        /*acsRaceStateData=*/ [],
+        /*acsAgeStateData=*/ [],
+        acsRaceCountyData
+      ),
+      breakdown
+    );
+    expect(actual).toEqual(
+      new MetricQueryResponse(expectedRows, [
+        "acs_population-by_race_county_std",
+      ])
+    );
+  });
+
+  test("County and Race Breakdown", async () => {
+    const acsProvider = new AcsPopulationProvider();
+
+    const DURHAM_ASIAN_ROW = countyRow(
+      "37063",
+      "Durham",
+      "race_and_ethnicity",
+      ASIAN,
+      5
+    );
+    const DURHAM_WHITE_ROW = countyRow(
+      "37063",
+      "Durham",
+      "race_and_ethnicity",
+      WHITE,
+      15
+    );
+    const DURHAM_TOTAL_ROW = countyRow(
+      "37063",
+      "Durham",
+      "race_and_ethnicity",
+      TOTAL,
+      20
+    );
+
+    const acsRaceCountyData = [
+      row("37037", "Chatam", "race_and_ethnicity", TOTAL, 2),
+      row("37037", "Chatam", "race_and_ethnicity", ASIAN, 2),
+      DURHAM_ASIAN_ROW,
+      DURHAM_WHITE_ROW,
+      DURHAM_TOTAL_ROW,
+    ];
+
+    const DURHAM_ASIAN_FINAL_ROW = Object.assign(DURHAM_ASIAN_ROW, {
+      population_pct: 25,
+    });
+    const DURHAM_WHITE_FINAL_ROW = Object.assign(DURHAM_WHITE_ROW, {
+      population_pct: 75,
+    });
+    const DURHAM_TOTAL_FINAL_ROW = Object.assign(DURHAM_TOTAL_ROW, {
+      population_pct: 100,
+    });
+    const expectedRows = [
+      DURHAM_ASIAN_FINAL_ROW,
+      DURHAM_WHITE_FINAL_ROW,
+      DURHAM_TOTAL_FINAL_ROW,
+    ];
+
+    const breakdown = Breakdowns.forFips(new Fips("37063")).andRace(true);
+    const actual = acsProvider.getData(
+      fakeDataServerResponse(
+        /*acsRaceStateData=*/ [],
+        /*acsAgeStateData=*/ [],
+        acsRaceCountyData
+      ),
+      breakdown
+    );
+    expect(actual).toEqual(
+      new MetricQueryResponse(expectedRows, [
+        "acs_population-by_race_county_std",
+      ])
+    );
+  });
+
   test("State and Race Breakdown", async () => {
     const acsProvider = new AcsPopulationProvider();
 
@@ -55,7 +231,7 @@ describe("AcsPopulationProvider", () => {
     const NC_WHITE_ROW = row("37", "NC", "race_and_ethnicity", WHITE, 15);
     const NC_TOTAL_ROW = row("37", "NC", "race_and_ethnicity", TOTAL, 20);
 
-    const acsRaceRows = [
+    const acsRaceStateData = [
       row("01", "AL", "race_and_ethnicity", TOTAL, 2),
       row("01", "AL", "race_and_ethnicity", ASIAN, 2),
       NC_ASIAN_ROW,
@@ -80,7 +256,11 @@ describe("AcsPopulationProvider", () => {
 
     const breakdown = Breakdowns.forFips(new Fips("37")).andRace(true);
     const actual = acsProvider.getData(
-      fakeDataServerResponse(acsRaceRows, /*acsAgeRows=*/ []),
+      fakeDataServerResponse(
+        acsRaceStateData,
+        /*acsAgeStateData=*/ [],
+        /*acsRaceCountyData=*/ []
+      ),
       breakdown
     );
     expect(actual).toEqual(
@@ -100,7 +280,7 @@ describe("AcsPopulationProvider", () => {
     const AL_ASIAN_ROW = row("01", "AL", "race_and_ethnicity", ASIAN, 5);
     const AL_TOTAL_ROW = row("01", "AL", "race_and_ethnicity", TOTAL, 5);
 
-    const acsRaceRows = [
+    const acsRaceStateData = [
       AL_TOTAL_ROW,
       AL_ASIAN_ROW,
       NC_ASIAN_ROW,
@@ -129,7 +309,11 @@ describe("AcsPopulationProvider", () => {
 
     const breakdown = Breakdowns.national().andRace(true);
     const actual = acsProvider.getData(
-      fakeDataServerResponse(acsRaceRows, /*acsAgeRows=*/ []),
+      fakeDataServerResponse(
+        acsRaceStateData,
+        /*acsAgeStateData=*/ [],
+        /*acsRaceCountyData=*/ []
+      ),
       breakdown
     );
     expect(actual).toEqual(
@@ -144,7 +328,7 @@ describe("AcsPopulationProvider", () => {
 
     const NC_AGE_0_9 = row("37", "NC", "age", "0-9", 15);
     const NC_AGE_10_19 = row("37", "NC", "age", "10-19", 10);
-    const acsAgeRows = [
+    const acsAgeStateData = [
       row("01", "AL", "age", "10-19", 2),
       NC_AGE_0_9,
       NC_AGE_10_19,
@@ -159,7 +343,11 @@ describe("AcsPopulationProvider", () => {
 
     const breakdown = Breakdowns.forFips(new Fips("37")).andAge();
     const actual = acsProvider.getData(
-      fakeDataServerResponse(/*acsRaceRows=*/ [], acsAgeRows),
+      fakeDataServerResponse(
+        /*acsRaceStateData=*/ [],
+        acsAgeStateData,
+        /*acsRaceCountyData=*/ []
+      ),
       breakdown
     );
     expect(actual).toEqual(
@@ -173,7 +361,7 @@ describe("AcsPopulationProvider", () => {
     const AL_AGE_0_9 = row("01", "AL", "age", "0-9", 15);
     const NC_AGE_0_9 = row("37", "NC", "age", "0-9", 15);
     const NC_AGE_10_19 = row("37", "NC", "age", "10-19", 10);
-    const acsAgeRows = [AL_AGE_0_9, NC_AGE_0_9, NC_AGE_10_19];
+    const acsAgeStateData = [AL_AGE_0_9, NC_AGE_0_9, NC_AGE_10_19];
 
     const AGE_0_9_FINAL = Object.assign(
       row(USA_FIPS, USA_DISPLAY_NAME, "age", "0-9", 30),
@@ -188,7 +376,11 @@ describe("AcsPopulationProvider", () => {
 
     const breakdown = Breakdowns.national().andAge();
     const actual = acsProvider.getData(
-      fakeDataServerResponse(/*acsRaceRows=*/ [], acsAgeRows),
+      fakeDataServerResponse(
+        /*acsRaceStateData=*/ [],
+        acsAgeStateData,
+        /*acsRaceCountyData=*/ []
+      ),
       breakdown
     );
     expect(actual).toEqual(
