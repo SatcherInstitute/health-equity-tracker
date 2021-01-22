@@ -63,15 +63,14 @@ function BarChartCardWithKey(props: BarChartCardProps) {
     props.variableConfig.metrics
   ).filter((metricConfig) => VALID_METRIC_TYPES.includes(metricConfig.type));
 
-  const metricIds = Object.values(props.variableConfig.metrics).map(
+  let metricIds: MetricId[] = Object.values(props.variableConfig.metrics).map(
     (metricConfig: MetricConfig) => metricConfig.metricId
   );
-  let metrics: MetricId[] = [...metricIds];
   // For pct_share, we want to compare to population_pct
   if (validDisplayMetricConfigs.some((config) => config.type === "pct_share")) {
-    metrics = metrics.concat(["population", "population_pct"]);
+    metricIds = metricIds.concat(["population", "population_pct"]);
   }
-  const query = new MetricQuery(metrics, breakdowns);
+  const query = new MetricQuery(metricIds, breakdowns);
 
   function CardTitle() {
     const popover = usePopover();

@@ -76,7 +76,7 @@ function CardWrapper(props: {
         const queryResponses = queries.map((query) =>
           datasetStore.getMetrics(query)
         );
-        const consumedDataset = queryResponses.reduce(
+        const consumedDatasetIds = queryResponses.reduce(
           (accumulator: string[], response) =>
             accumulator.concat(response.consumedDatasetIds),
           []
@@ -88,9 +88,9 @@ function CardWrapper(props: {
             {props.children()}
             {!props.hideFooter && props.queries && (
               <CardContent className={styles.CardFooter}>
-                {consumedDataset.length > 0 && <>Sources: </>}
+                {consumedDatasetIds.length > 0 && <>Sources: </>}
                 {/* TODO- add commas and "and" between the data sources */}
-                {consumedDataset.map((datasetId) => (
+                {consumedDatasetIds.map((datasetId) => (
                   <>
                     <LinkWithStickyParams
                       target="_blank"
