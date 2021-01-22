@@ -1,7 +1,7 @@
 import CovidProvider from "./CovidProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import { Breakdowns } from "../Breakdowns";
-import { MetricQueryResponse } from "../MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 import { Dataset } from "../DatasetTypes";
 import { Fips } from "../../utils/madlib/Fips";
 import FakeMetadataMap from "../FakeMetadataMap";
@@ -153,12 +153,16 @@ describe("CovidProvider", () => {
     );
 
     // Evaluate the response with requesting total field
-    const responseWithTotal = covidProvider.getData(
-      dataServerResponse,
+    const metricQueryWithTotal = new MetricQuery(
+      ["covid_cases"],
       Breakdowns.forFips(new Fips("37")).andRace(
         /*includeTotal=*/ true,
         /*nonstandard=*/ true
       )
+    );
+    const responseWithTotal = covidProvider.getData(
+      metricQueryWithTotal,
+      dataServerResponse
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse(
@@ -168,12 +172,16 @@ describe("CovidProvider", () => {
     );
 
     // Evaluate the response without requesting total field
-    const responseWithoutTotal = covidProvider.getData(
-      dataServerResponse,
+    const metricQueryWithoutTotal = new MetricQuery(
+      ["covid_cases"],
       Breakdowns.forFips(new Fips("37")).andRace(
         /*includeTotal=*/ false,
         /*nonstandard=*/ true
       )
+    );
+    const responseWithoutTotal = covidProvider.getData(
+      metricQueryWithoutTotal,
+      dataServerResponse
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse(
@@ -278,12 +286,16 @@ describe("CovidProvider", () => {
     );
 
     // Evaluate the response with requesting total field
-    const responseWithTotal = covidProvider.getData(
-      dataServerResponse,
+    const metricQueryWithTotal = new MetricQuery(
+      ["covid_cases"],
       Breakdowns.national().andRace(
         /*includeTotal=*/ true,
         /*nonstandard=*/ true
       )
+    );
+    const responseWithTotal = covidProvider.getData(
+      metricQueryWithTotal,
+      dataServerResponse
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse(
@@ -293,12 +305,16 @@ describe("CovidProvider", () => {
     );
 
     // Evaluate the response without requesting total field
-    const responseWithoutTotal = covidProvider.getData(
-      dataServerResponse,
+    const metricQueryWithoutTotal = new MetricQuery(
+      ["covid_cases"],
       Breakdowns.national().andRace(
         /*includeTotal=*/ false,
         /*nonstandard=*/ true
       )
+    );
+    const responseWithoutTotal = covidProvider.getData(
+      metricQueryWithoutTotal,
+      dataServerResponse
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse(

@@ -12,7 +12,7 @@ import {
   per100k,
   percent,
 } from "../datasetutils";
-import { MetricQueryResponse } from "../MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 
 class CovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -37,9 +37,10 @@ class CovidProvider extends VariableProvider {
   }
 
   getDataInternal(
-    datasets: Record<string, Dataset>,
-    breakdowns: Breakdowns
+    metricQuery: MetricQuery,
+    datasets: Record<string, Dataset>
   ): MetricQueryResponse {
+    const breakdowns = metricQuery.breakdowns;
     const covid_by_state_and_race = datasets["covid_by_state_and_race"];
     let consumedDatasetIds = ["covid_by_state_and_race"];
     // TODO need to figure out how to handle getting this at the national level
@@ -86,8 +87,8 @@ class CovidProvider extends VariableProvider {
     };
 
     const acsMetricQueryResponse = this.acsProvider.getData(
-      datasets,
-      acsBreakdowns
+      new MetricQuery(["population", "population_pct"], acsBreakdowns),
+      datasets
     );
     consumedDatasetIds = consumedDatasetIds.concat(
       acsMetricQueryResponse.consumedDatasetIds

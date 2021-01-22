@@ -1,6 +1,10 @@
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import { Breakdowns } from "../Breakdowns";
-import { MetricQueryResponse, createMissingDataResponse } from "../MetricQuery";
+import {
+  MetricQueryResponse,
+  createMissingDataResponse,
+  MetricQuery,
+} from "../MetricQuery";
 import { Dataset } from "../DatasetTypes";
 import { Fips, USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import FakeMetadataMap from "../FakeMetadataMap";
@@ -55,7 +59,8 @@ describe("AcsPopulationProvider", () => {
   test("Invalid Breakdown", async () => {
     const acsProvider = new AcsPopulationProvider();
 
-    expect(acsProvider.getData({}, Breakdowns.national())).toEqual(
+    const metricQuery = new MetricQuery("population", Breakdowns.national());
+    expect(acsProvider.getData(metricQuery, {})).toEqual(
       createMissingDataResponse(
         'Breakdowns not supported for provider acs_pop_provider: {"geography":"national"}'
       )
@@ -136,12 +141,13 @@ describe("AcsPopulationProvider", () => {
     const breakdown = Breakdowns.byCounty()
       .withGeoFilter(new Fips("37"))
       .andRace(true);
+    const metricQuery = new MetricQuery("population", breakdown);
     const actual = acsProvider.getData(
+      metricQuery,
       fakeDataServerResponse(
         "acs_population-by_race_county_std",
         acsRaceCountyData
-      ),
-      breakdown
+      )
     );
     expect(actual).toEqual(
       new MetricQueryResponse(expectedRows, [
@@ -198,13 +204,16 @@ describe("AcsPopulationProvider", () => {
       DURHAM_TOTAL_FINAL_ROW,
     ];
 
-    const breakdown = Breakdowns.forFips(new Fips("37063")).andRace(true);
+    const metricQuery = new MetricQuery(
+      "population",
+      Breakdowns.forFips(new Fips("37063")).andRace(true)
+    );
     const actual = acsProvider.getData(
+      metricQuery,
       fakeDataServerResponse(
         "acs_population-by_race_county_std",
         acsRaceCountyData
-      ),
-      breakdown
+      )
     );
     expect(actual).toEqual(
       new MetricQueryResponse(expectedRows, [
@@ -243,13 +252,16 @@ describe("AcsPopulationProvider", () => {
       NC_TOTAL_FINAL_ROW,
     ];
 
-    const breakdown = Breakdowns.forFips(new Fips("37")).andRace(true);
+    const metricQuery = new MetricQuery(
+      "population",
+      Breakdowns.forFips(new Fips("37")).andRace(true)
+    );
     const actual = acsProvider.getData(
+      metricQuery,
       fakeDataServerResponse(
         "acs_population-by_race_state_std",
         acsRaceStateData
-      ),
-      breakdown
+      )
     );
     expect(actual).toEqual(
       new MetricQueryResponse(expectedRows, [
@@ -295,12 +307,16 @@ describe("AcsPopulationProvider", () => {
       finalRow(ASIAN, /*population=*/ 10, /*population_pct=*/ 40),
       finalRow(WHITE, /*population=*/ 15, /*population_pct=*/ 60),
     ];
+    const metricQueryWithoutTotal = new MetricQuery(
+      "population",
+      Breakdowns.national().andRace()
+    );
     const responseWithoutTotal = acsProvider.getData(
+      metricQueryWithoutTotal,
       fakeDataServerResponse(
         "acs_population-by_race_state_std",
         acsRaceStateData
-      ),
-      Breakdowns.national().andRace()
+      )
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse(expectedNoTotalRows, [
@@ -314,12 +330,17 @@ describe("AcsPopulationProvider", () => {
       finalRow(TOTAL, /*population=*/ 25, /*population_pct=*/ 100),
       finalRow(WHITE, /*population=*/ 15, /*population_pct=*/ 60),
     ];
+
+    const metricQueryWithTotal = new MetricQuery(
+      "population",
+      Breakdowns.national().andRace(true)
+    );
     const responseWithTotal = acsProvider.getData(
+      metricQueryWithTotal,
       fakeDataServerResponse(
         "acs_population-by_race_state_std",
         acsRaceStateData
-      ),
-      Breakdowns.national().andRace(true)
+      )
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse(expectedTotalRows, [
@@ -346,10 +367,13 @@ describe("AcsPopulationProvider", () => {
 
     const expectedRows = [NC_AGE_0_9_FINAL, NC_AGE_10_19_FINAL];
 
-    const breakdown = Breakdowns.forFips(new Fips("37")).andAge();
+    const metricQuery = new MetricQuery(
+      "population",
+      Breakdowns.forFips(new Fips("37")).andAge()
+    );
     const actual = acsProvider.getData(
-      fakeDataServerResponse("acs_population-by_age_state", acsAgeStateData),
-      breakdown
+      metricQuery,
+      fakeDataServerResponse("acs_population-by_age_state", acsAgeStateData)
     );
     expect(actual).toEqual(
       new MetricQueryResponse(expectedRows, ["acs_population-by_age_state"])
@@ -375,10 +399,13 @@ describe("AcsPopulationProvider", () => {
 
     const expectedRows = [AGE_0_9_FINAL, AGE_10_19_FINAL];
 
-    const breakdown = Breakdowns.national().andAge();
+    const metricQuery = new MetricQuery(
+      "population",
+      Breakdowns.national().andAge()
+    );
     const actual = acsProvider.getData(
-      fakeDataServerResponse("acs_population-by_age_state", acsAgeStateData),
-      breakdown
+      metricQuery,
+      fakeDataServerResponse("acs_population-by_age_state", acsAgeStateData)
     );
     expect(actual).toEqual(
       new MetricQueryResponse(expectedRows, ["acs_population-by_age_state"])
@@ -402,10 +429,13 @@ describe("AcsPopulationProvider", () => {
     });
     const expectedRows = [NC_MALE_FINAL, NC_FEMALE_FINAL];
 
-    const breakdown = Breakdowns.forFips(new Fips("37")).andGender();
+    const metricQuery = new MetricQuery(
+      "population",
+      Breakdowns.forFips(new Fips("37")).andGender()
+    );
     const actual = acsProvider.getData(
-      fakeDataServerResponse("acs_population-by_sex_state", acsSexStateData),
-      breakdown
+      metricQuery,
+      fakeDataServerResponse("acs_population-by_sex_state", acsSexStateData)
     );
     expect(actual).toEqual(
       new MetricQueryResponse(expectedRows, ["acs_population-by_sex_state"])
@@ -431,10 +461,13 @@ describe("AcsPopulationProvider", () => {
 
     const expectedRows = [FEMALE_FINAL, MALE_FINAL];
 
-    const breakdown = Breakdowns.national().andGender();
+    const metricQuery = new MetricQuery(
+      "population",
+      Breakdowns.national().andGender()
+    );
     const actual = acsProvider.getData(
-      fakeDataServerResponse("acs_population-by_sex_state", acsSexStateData),
-      breakdown
+      metricQuery,
+      fakeDataServerResponse("acs_population-by_sex_state", acsSexStateData)
     );
     expect(actual).toEqual(
       new MetricQueryResponse(expectedRows, ["acs_population-by_sex_state"])

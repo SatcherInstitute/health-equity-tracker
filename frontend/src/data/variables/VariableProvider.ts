@@ -1,7 +1,11 @@
 import { Breakdowns } from "../Breakdowns";
 import { Dataset } from "../DatasetTypes";
 import { ProviderId, MetricId } from "../variableProviders";
-import { MetricQueryResponse, createMissingDataResponse } from "../MetricQuery";
+import {
+  MetricQueryResponse,
+  createMissingDataResponse,
+  MetricQuery,
+} from "../MetricQuery";
 
 abstract class VariableProvider {
   readonly providerId: ProviderId;
@@ -20,15 +24,15 @@ abstract class VariableProvider {
 
   // TODO change return type to MetricQueryResponse instead of Row[]
   getData(
-    datasets: Record<string, Dataset>,
-    breakdowns: Breakdowns
+    metricQuery: MetricQuery,
+    datasets: Record<string, Dataset>
   ): MetricQueryResponse {
-    if (!this.allowsBreakdowns(breakdowns)) {
+    if (!this.allowsBreakdowns(metricQuery.breakdowns)) {
       return createMissingDataResponse(
         "Breakdowns not supported for provider " +
           this.providerId +
           ": " +
-          breakdowns.getBreakdownString()
+          metricQuery.breakdowns.getBreakdownString()
       );
     }
 
@@ -39,12 +43,12 @@ abstract class VariableProvider {
       );
     }
 
-    return this.getDataInternal(datasets, breakdowns);
+    return this.getDataInternal(metricQuery, datasets);
   }
 
   abstract getDataInternal(
-    datasets: Record<string, Dataset>,
-    breakdowns: Breakdowns
+    metricQuery: MetricQuery,
+    datasets: Record<string, Dataset>
   ): MetricQueryResponse;
 
   abstract allowsBreakdowns(breakdowns: Breakdowns): boolean;

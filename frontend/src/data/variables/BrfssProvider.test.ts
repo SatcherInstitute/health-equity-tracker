@@ -1,6 +1,6 @@
 import BrfssProvider from "./BrfssProvider";
 import { Breakdowns } from "../Breakdowns";
-import { MetricQueryResponse } from "../MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 import { Dataset } from "../DatasetTypes";
 import { Fips, USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import FakeMetadataMap from "../FakeMetadataMap";
@@ -84,9 +84,13 @@ describe("BrfssProvider", () => {
     ]);
 
     // Evaluate the response without requesting total field
-    const responseWithoutTotal = brfssProvider.getData(
-      dataServerResponse,
+    const metricQueryWithoutTotal = new MetricQuery(
+      ["diabetes_count"],
       Breakdowns.forFips(new Fips("37")).andRace()
+    );
+    const responseWithoutTotal = brfssProvider.getData(
+      metricQueryWithoutTotal,
+      dataServerResponse
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse(
@@ -96,9 +100,13 @@ describe("BrfssProvider", () => {
     );
 
     // Evaluate the response with requesting total field
-    const responseWithTotal = brfssProvider.getData(
-      dataServerResponse,
+    const metricQueryWithTotal = new MetricQuery(
+      ["diabetes_count"],
       Breakdowns.forFips(new Fips("37")).andRace(/*includeTotal=*/ true)
+    );
+    const responseWithTotal = brfssProvider.getData(
+      metricQueryWithTotal,
+      dataServerResponse
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse(
@@ -180,18 +188,26 @@ describe("BrfssProvider", () => {
     ]);
 
     // Evaluate the response without requesting total field
-    const responseWithoutTotal = brfssProvider.getData(
-      dataServerResponse,
+    const metricQueryWithoutTotal = new MetricQuery(
+      ["diabetes_count"],
       Breakdowns.national().andRace()
+    );
+    const responseWithoutTotal = brfssProvider.getData(
+      metricQueryWithoutTotal,
+      dataServerResponse
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse([ASIAN_FINAL_ROW, WHITE_FINAL_ROW], ["brfss"])
     );
 
     // Evaluate the response with requesting total field
-    const responseWithTotal = brfssProvider.getData(
-      dataServerResponse,
+    const metricQueryWithTotal = new MetricQuery(
+      ["diabetes_count"],
       Breakdowns.national().andRace(/*includeTotal=*/ true)
+    );
+    const responseWithTotal = brfssProvider.getData(
+      metricQueryWithTotal,
+      dataServerResponse
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse(

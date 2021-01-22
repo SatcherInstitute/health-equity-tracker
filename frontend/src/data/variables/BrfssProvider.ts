@@ -3,7 +3,7 @@ import { Dataset } from "../DatasetTypes";
 import { per100k } from "../datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME, Fips } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
-import { MetricQueryResponse } from "../MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 
 class BrfssProvider extends VariableProvider {
   constructor() {
@@ -15,9 +15,10 @@ class BrfssProvider extends VariableProvider {
   }
 
   getDataInternal(
-    datasets: Record<string, Dataset>,
-    breakdowns: Breakdowns
+    metricQuery: MetricQuery,
+    datasets: Record<string, Dataset>
   ): MetricQueryResponse {
+    const breakdowns = metricQuery.breakdowns;
     const brfss = datasets["brfss"];
     let df = brfss.toDataFrame();
 

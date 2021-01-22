@@ -4,7 +4,7 @@ import { Dataset } from "../DatasetTypes";
 import { applyToGroups, percent } from "../datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME, Fips } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
-import { MetricQueryResponse } from "../MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 
 const standardizedRaces = [
   "American Indian and Alaska Native (Non-Hispanic)",
@@ -63,9 +63,10 @@ class AcsPopulationProvider extends VariableProvider {
   }
 
   getDataInternal(
-    datasets: Record<string, Dataset>,
-    breakdowns: Breakdowns
+    metricQuery: MetricQuery,
+    datasets: Record<string, Dataset>
   ): MetricQueryResponse {
+    const breakdowns = metricQuery.breakdowns;
     let df = this.getDataInternalWithoutPercents(datasets, breakdowns);
     const [fipsColumn, geoNameColumn] =
       breakdowns.geography === "county"
