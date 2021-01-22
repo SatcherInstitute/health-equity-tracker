@@ -48,7 +48,7 @@ class AcsPopulationProvider extends VariableProvider {
       df = df.where((row) => row.state_fips === breakdowns.filterFips);
     }
 
-    // Age and sex data comes from backend without Total, if it's wanted, we add it.
+    // Calculate totals where dataset doesn't provide it
     ["age", "sex"].forEach((breakdownName) => {
       if (breakdowns.demographicBreakdowns[breakdownName].enabled) {
         df = df
@@ -63,21 +63,22 @@ class AcsPopulationProvider extends VariableProvider {
       }
     });
 
-    // TODO - this is kidn of awkawrd, we know one demographic breakdown must exist
+    // Calculate population_pct based on total
+    const enabledBreakdownKey: string = Object.keys(
+      breakdowns.demographicBreakdowns
+    ).find((key) => breakdowns.demographicBreakdowns[key].enabled === true)!;
+    const columnName =
+      breakdowns.demographicBreakdowns[enabledBreakdownKey].columnName;
     df = applyToGroups(df, ["state_name"], (group) => {
       let totalPopulation = group
-        .where(
-          (r: any) =>
-            r["race_and_ethnicity"] === "Total" ||
-            r["age"] === "Total" ||
-            r["sex"] === "Total"
-        )
+        .where((r: any) => r[columnName] === "Total")
         .first()["population"];
       return group.generateSeries({
         population_pct: (row) => percent(row.population, totalPopulation),
       });
     });
 
+    // If totals weren't requested, remove them
     Object.entries(breakdowns.demographicBreakdowns).forEach(
       ([key, demographicBreakdown]) => {
         if (

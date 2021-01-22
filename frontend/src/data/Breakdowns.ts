@@ -78,17 +78,18 @@ export class Breakdowns {
   }
 
   getUniqueKey() {
+    //return this.getBreakdownString();/*
     return (
       "geography: " +
       this.geography +
       ", race: " +
-      this.demographicBreakdowns["race"] +
+      this.demographicBreakdowns["race"].enabled +
       ", race_nonstandard: " +
-      this.demographicBreakdowns["race_nonstandard"] +
+      this.demographicBreakdowns["race_nonstandard"].enabled +
       ", age: " +
-      this.demographicBreakdowns["age"] +
+      this.demographicBreakdowns["age"].enabled +
       ", sex: " +
-      this.demographicBreakdowns["sex"] +
+      this.demographicBreakdowns["sex"].enabled +
       ", time: " +
       this.time +
       ", filterGeo: " +

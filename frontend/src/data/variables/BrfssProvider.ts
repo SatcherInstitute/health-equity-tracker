@@ -22,14 +22,16 @@ class BrfssProvider extends VariableProvider {
     let df = brfss.toDataFrame();
 
     if (breakdowns.geography === "national") {
-      df = df.pivot("race_and_ethnicity", {
-        state_fips: (series) => USA_FIPS,
-        state_name: (series) => USA_DISPLAY_NAME,
-        diabetes_count: (series) => series.sum(),
-        diabetes_no: (series) => series.sum(),
-        copd_count: (series) => series.sum(),
-        copd_no: (series) => series.sum(),
-      });
+      df = df
+        .pivot(breakdowns.demographicBreakdowns.race.columnName, {
+          state_fips: (series) => USA_FIPS,
+          state_name: (series) => USA_DISPLAY_NAME,
+          diabetes_count: (series) => series.sum(),
+          diabetes_no: (series) => series.sum(),
+          copd_count: (series) => series.sum(),
+          copd_no: (series) => series.sum(),
+        })
+        .resetIndex();
     }
 
     if (breakdowns.filterFips) {

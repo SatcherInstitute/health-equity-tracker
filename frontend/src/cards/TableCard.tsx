@@ -29,7 +29,7 @@ export function TableCard(props: TableCardProps) {
   // other demographic.
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
-    true,
+    /*includeTotal=*/ true,
     props.nonstandardizedRace
   );
   const metricIds: MetricId[] = props.metrics.map(
