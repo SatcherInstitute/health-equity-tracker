@@ -9,7 +9,7 @@ from freezegun import freeze_time
 from pandas import DataFrame
 from pandas.testing import assert_frame_equal
 
-from ingestion import gcs_to_bq_util # pylint: disable=no-name-in-module
+from ingestion import gcs_to_bq_util  # pylint: disable=no-name-in-module
 
 
 class GcsToBqTest(TestCase):
