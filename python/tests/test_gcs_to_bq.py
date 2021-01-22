@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 import json
 from textwrap import dedent
+from unittest import TestCase
 from unittest.mock import MagicMock, Mock, patch
 
 from freezegun import freeze_time
@@ -8,7 +9,6 @@ from ingestion import gcs_to_bq_util
 import numpy as np
 from pandas import DataFrame
 from pandas.testing import assert_frame_equal
-from pyfakefs.fake_filesystem_unittest import TestCase
 
 
 class GcsToBqTest(TestCase):
@@ -16,9 +16,6 @@ class GcsToBqTest(TestCase):
     _test_data = [["label1", "label2", "label3"],
                   ["valuea", "valueb", "valuec"],
                   ["valued", "valuee", "valuef"]]
-
-    def setUp(self):
-        self.setUpPyfakefs()
 
     def testLoadValuesBlobAsDataframe(self):
         """Tests that data in json list format is loaded into a
@@ -142,7 +139,6 @@ class GcsToBqTest(TestCase):
             20201209,13,text,"2,937"
             20210105,"1,400",string,
             """)
-        self.fs.create_file(test_file_path)
         with open(test_file_path, 'w') as f:
             f.write(test_data)
 
@@ -158,7 +154,6 @@ class GcsToBqTest(TestCase):
             self.assertEqual(df[col].dtype, expected_types[col])
 
         # Re-write the test data since load_csv_as_dataframe removes the file.
-        self.fs.create_file(test_file_path)
         with open(test_file_path, 'w') as f:
             f.write(test_data)
         df = gcs_to_bq_util.load_csv_as_dataframe('gcs_bucket', 'test_file.csv')

@@ -83,8 +83,6 @@ pyasn1==0.4.8
     #   rsa
 pycparser==2.20
     # via cffi
-pyfakefs==4.3.3
-    # via -r python/tests/requirements.in
 python-dateutil==2.8.1
     # via
     #   freezegun
