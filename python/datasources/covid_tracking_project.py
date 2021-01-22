@@ -42,7 +42,8 @@ class CovidTrackingProject(DataSource):
         metadata_table_id = self.get_attr(attrs, 'metadata_table_id')
         table_name = self.get_attr(attrs, 'table_name')
 
-        df = gcs_to_bq_util.load_csv_as_dataframe(gcs_bucket, filename)
+        df = gcs_to_bq_util.load_csv_as_dataframe(
+            gcs_bucket, filename, parse_dates=['Date'], thousands=',')
         self.clean_frame_column_names(df)
 
         # Massage the data into the standard format.

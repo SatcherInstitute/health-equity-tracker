@@ -114,6 +114,8 @@ pyasn1==0.4.8
     #   rsa
 pycparser==2.20
     # via cffi
+pyfakefs==4.3.3
+    # via -r requirements/../python/tests/requirements.in
 pyparsing==2.4.7
     # via packaging
 pytest==6.1.1

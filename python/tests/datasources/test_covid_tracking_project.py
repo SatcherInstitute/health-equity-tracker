@@ -1,6 +1,7 @@
 from io import StringIO
 from unittest import mock
 
+import numpy as np
 import pandas as pd
 import pytest
 
@@ -13,7 +14,7 @@ test_csv_data = """Date,State,Cases_Total,Cases_White,Cases_Black,Cases_LatinX,C
 20201206,AK,37036,11070,1004,,1353,7323,1083,2605,4477,8121,1864,17628,17544,143,50,6,,13,54,9,6,3,2,1,118,24,799,239,33,,59,216,87,56,32,77,25,563,211,,,,,,,,,,,,,
 20201206,AS,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 20201206,DE,39912,17298,9804,7585,700,,,,2236,2289,7585,30038,2289,793,527,198,53,2,,,,12,1,53,739,1,,,,,,,,,,,,,,440766,213710,80219,34648,10150,,,,40634,10150,34648,338727,61405
-20201206,ID,110510,58632,677,,698,1390,247,0,8943,39923,12650,42979,54880,1035,967,7,,9,18,,,16,18,111,908,16,,,,,,,,,,,,,,,,,,,,,,,,,,
+20201206,ID,"110,510","58,632",677,,698,1390,247,0,8943,39923,12650,42979,54880,1035,967,7,,9,18,,,16,18,111,908,16,,,,,,,,,,,,,,,,,,,,,,,,,,
 20201202,DE,36698,15755,9073,7128,639,,,,1977,2126,7128,27444,2126,779,517,194,53,2,,,,12,1,53,725,1,,,,,,,,,,,,,,428533,207277,77588,33442,9778,,,,39320,9778,33442,328085,61128
 20201202,HI,18044,1780,296,,4020,,5358,,500,6090,,,,244,20,5,,137,,71,,5,6,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 20201202,ID,104734,55855,653,,673,1353,235,0,8566,37399,12293,41108,51332,991,931,7,,9,18,,,16,10,109,874,8,,,,,,,,,,,,,,,,,,,,,,,,,,
@@ -40,7 +41,7 @@ test_metadata = pd.DataFrame(
 
 def get_test_data_as_df():
     f = StringIO(test_csv_data)
-    return pd.read_csv(f)
+    return pd.read_csv(f, parse_dates=['Date'], thousands=',')
 
 
 @mock.patch('datasources.covid_tracking_project.CovidTrackingProject._download_metadata',
@@ -69,6 +70,11 @@ def testWriteToBq(mock_append_to_bq: mock.MagicMock, mock_csv: mock.MagicMock,
         result['race_and_ethnicity'] == col_std.Race.INDIGENOUS.value].index) == 2
     assert len(result.loc[
         result['race_and_ethnicity'] == col_std.Race.API.value].index) == 6
+    expected_dtypes = {col: np.object for col in result.columns}
+    expected_dtypes['date'] = np.dtype('datetime64[ns]')
+    expected_dtypes['value'] = np.float64
+    for col in result.columns:
+        assert result[col].dtype == expected_dtypes[col]
 
 
 def testWriteToBq_MissingAttr():

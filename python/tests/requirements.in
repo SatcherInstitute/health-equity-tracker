@@ -2,3 +2,4 @@
 
 freezegun
 pandas
+pyfakefs
