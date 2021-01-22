@@ -247,7 +247,7 @@ describe("useDatasetStore", () => {
 
     expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
-      'Error: Breakdowns not supported for provider brfss_provider: {"geography":"county","demographic":"age"}'
+      'Error: Breakdowns not supported for provider brfss_provider: {"geography":"county","age":true}'
     );
   });
 

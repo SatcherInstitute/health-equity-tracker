@@ -266,6 +266,8 @@ The `REACT_APP_BASE_API_URL` can be changed for different setups:
 - You can run Docker locally (see below)
 - You can set it to an empty string or remove it to make the frontend read files from the `/public/tmp` directory. This allows testing behavior by simply dropping local files into that directory.
 
+You can also force specific dataset files to read from the `/public/tmp` directory by setting an environment variable with the name `REACT_APP_FORCE_STATIC` variable to a comma-separated list of filenames. For example, `REACT_APP_FORCE_STATIC=my_file1.json,my_file2.json` would force `my_file1.json` and `my_file2.json` to be served from `/public/tmp` even if `REACT_APP_BASE_API_URL` is set to a real server url.
+
 ### Running the Frontend Server locally
 
 If you need to run the frontend server locally to test server-side changes, copy `frontend_server/.env.example` into `frontend_server/.env.development`, and update `DATA_SERVER_URL` to point to a specific data server url, similar to above.

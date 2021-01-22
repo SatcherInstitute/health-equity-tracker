@@ -22,7 +22,7 @@ class StateNames(DataSource):
     def upload_to_gcs(self, url, gcs_bucket, filename):
         """Uploads state names and FIPS codes from census to GCS bucket."""
         url_params = {'get': 'NAME', 'for': 'state:*'}
-        url_file_to_gcs.url_file_to_gcs(url, url_params, gcs_bucket, filename)
+        return url_file_to_gcs.url_file_to_gcs(url, url_params, gcs_bucket, filename)
 
     def write_to_bq(self, dataset, gcs_bucket, filename):
         """Writes state names to BigQuery from the provided GCS bucket

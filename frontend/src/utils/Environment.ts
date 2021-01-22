@@ -23,18 +23,55 @@ export type DeployContext =
   | "unknown";
 
 export interface Environment {
+  /** The context the frontend is currently running in. */
   readonly deployContext: DeployContext;
+
+  /**
+   * The base url for API calls. Empty string if API calls are relative to the
+   * current domain.
+   */
   getBaseApiUrl(): string;
+
+  /** Whether to enable sending error or metric data to the server. */
   getEnableServerLogging(): boolean;
+
+  /** Whether to enable logging error and debug data to the dev console. */
   getEnableConsoleLogging(): boolean;
+
+  /** Whether the environment is exposed to any real users. */
   isUserFacingEnvironment(): boolean;
+
+  // TODO delete this after launch.
+  /**
+   * Whether to enable the full site content. If false, we only show a
+   * pre-launch info screen.
+   */
+  enableFullSiteContent(): boolean;
+
+  /**
+   * Whether to fetch the dataset as a static file from the public/tmp/
+   * directory.
+   *
+   * This should only be used for local development or in-progress datasets. In
+   * production, all datasets should be fetched from the data server.
+   */
+  forceFetchDatasetAsStaticFile(fileName: string): boolean;
 }
 
 export class HetEnvironment implements Environment {
   readonly deployContext: DeployContext;
+  private forceStaticFiles: string[];
 
   constructor(deployContext: DeployContext) {
     this.deployContext = deployContext;
+    const forceStatic = this.getEnvVariable("FORCE_STATIC");
+    this.forceStaticFiles = forceStatic ? forceStatic.split(",") : [];
+  }
+
+  private getEnvVariable(nonPrefixedName: string): string | undefined {
+    const prefix =
+      this.deployContext === "storybook" ? "STORYBOOK_" : "REACT_APP_";
+    return process.env[prefix + nonPrefixedName];
   }
 
   isUserFacingEnvironment() {
@@ -43,7 +80,7 @@ export class HetEnvironment implements Environment {
 
   getBaseApiUrl() {
     // If the API url isn't provided, requests are relative to current domain.
-    return process.env.REACT_APP_BASE_API_URL || "";
+    return this.getEnvVariable("BASE_API_URL") || "";
   }
 
   getEnableServerLogging() {
@@ -53,11 +90,13 @@ export class HetEnvironment implements Environment {
   getEnableConsoleLogging() {
     return !this.isUserFacingEnvironment() && this.deployContext !== "test";
   }
-}
 
-export class StorybookEnvironment extends HetEnvironment {
-  getBaseApiUrl() {
-    return process.env.STORYBOOK_BASE_API_URL || "";
+  enableFullSiteContent() {
+    return this.getEnvVariable("ENABLE_FULL_SITE_CONTENT") === "true";
+  }
+
+  forceFetchDatasetAsStaticFile(fileName: string) {
+    return this.forceStaticFiles.includes(fileName);
   }
 }
 
@@ -92,10 +131,5 @@ function getDeployContext(): DeployContext {
 
 export function createEnvironment(): Environment {
   const deployContext = getDeployContext();
-
-  if (deployContext === "storybook") {
-    return new StorybookEnvironment(deployContext);
-  }
-
   return new HetEnvironment(deployContext);
 }

@@ -22,6 +22,7 @@ export const MADLIB_SELECTIONS_PARAM = "mls";
 export function LinkWithStickyParams(props: {
   to: string;
   target?: string;
+  class?: string;
   children: React.ReactNode;
 }) {
   let linkProps = { ...props };
