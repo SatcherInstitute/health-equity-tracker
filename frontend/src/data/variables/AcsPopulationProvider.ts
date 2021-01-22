@@ -39,11 +39,15 @@ class AcsPopulationProvider extends VariableProvider {
         "acs_population-by_race_state_std",
         "acs_population-by_race_county_std",
         "acs_population-by_age_state",
+        "acs_population-by_sex_state",
       ]
     );
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
+    if (breakdowns.demographicBreakdowns.sex.enabled) {
+      return "acs_population-by_sex_state";
+    }
     if (breakdowns.demographicBreakdowns.age.enabled) {
       return "acs_population-by_age_state";
     }
@@ -155,11 +159,20 @@ class AcsPopulationProvider extends VariableProvider {
           )
         : standardizedAcsData;
     }
+
     if (breakdowns.demographicBreakdowns.age.enabled) {
       return breakdowns.geography === "national"
         ? createNationalTotal(
             acsDataFrame,
             breakdowns.demographicBreakdowns.age.columnName
+          )
+        : acsDataFrame;
+    }
+    if (breakdowns.demographicBreakdowns.sex.enabled) {
+      return breakdowns.geography === "national"
+        ? createNationalTotal(
+            acsDataFrame,
+            breakdowns.demographicBreakdowns.sex.columnName
           )
         : acsDataFrame;
     }
@@ -169,10 +182,7 @@ class AcsPopulationProvider extends VariableProvider {
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
     const validDemographicBreakdown: boolean =
-      breakdowns.demographicBreakdownCount() === 1 &&
-      (breakdowns.demographicBreakdowns.race_nonstandard.enabled ||
-        breakdowns.demographicBreakdowns.race.enabled ||
-        breakdowns.demographicBreakdowns.age.enabled);
+      breakdowns.demographicBreakdownCount() === 1;
 
     const validGeographicBreakdown =
       breakdowns.geography === "county"

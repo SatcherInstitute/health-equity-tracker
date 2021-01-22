@@ -8,27 +8,22 @@ import FakeMetadataMap from "../FakeMetadataMap";
 
 function fakeDataServerResponse(
   covidRows: any[],
-  acsRaceRows: any[],
-  acsAgeRows: any[]
+  acsDatasetId: string,
+  acsDataset: any[]
 ) {
-  return {
+  let serverResponse: Record<string, Dataset> = {
     covid_by_state_and_race: new Dataset(
       covidRows,
       FakeMetadataMap["covid_by_state_and_race"]
     ),
-    "acs_population-by_race_state_std": new Dataset(
-      acsRaceRows,
-      FakeMetadataMap["acs_population-by_race_state_std"]
-    ),
-    "acs_population-by_age_state": new Dataset(
-      acsAgeRows,
-      FakeMetadataMap["acs_population-by_age_state"]
-    ),
-    "acs_population-by_race_county_std": new Dataset(
-      [],
-      FakeMetadataMap["acs_population-by_race_county_std"]
-    ),
   };
+
+  new AcsPopulationProvider().datasetIds.forEach((id) => {
+    const data = id === acsDatasetId ? acsDataset : [];
+    serverResponse[id] = new Dataset(data, FakeMetadataMap[id]);
+  });
+
+  return serverResponse;
 }
 
 function covidAndAcsRows(
@@ -153,8 +148,8 @@ describe("CovidProvider", () => {
 
     const dataServerResponse = fakeDataServerResponse(
       covidDatasetRows,
-      acsRaceRows,
-      /*aceAgeRows=*/ []
+      "acs_population-by_race_state_std",
+      acsRaceRows
     );
 
     // Evaluate the response with requesting total field
@@ -278,8 +273,8 @@ describe("CovidProvider", () => {
     ];
     const dataServerResponse = fakeDataServerResponse(
       covidDatasetRows,
-      acsRaceRows,
-      /*aceAgeRows=*/ []
+      "acs_population-by_race_state_std",
+      acsRaceRows
     );
 
     // Evaluate the response with requesting total field
