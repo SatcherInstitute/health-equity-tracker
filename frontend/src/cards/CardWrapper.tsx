@@ -19,7 +19,6 @@ import Popover from "@material-ui/core/Popover";
 import { usePopover } from "../utils/usePopover";
 
 function CardWrapper(props: {
-  datasetIds: string[];
   title?: JSX.Element;
   infoPopover?: JSX.Element;
   hideFooter?: boolean;
@@ -27,6 +26,7 @@ function CardWrapper(props: {
   children: () => JSX.Element;
 }) {
   const popover = usePopover();
+  const queries = props.queries ? props.queries : [];
 
   const optionalTitle = props.title ? (
     <>
@@ -62,7 +62,7 @@ function CardWrapper(props: {
 
   return (
     <WithMetrics
-      queries={props.queries ? props.queries : []}
+      queries={queries}
       loadingComponent={
         <Card raised={true} className={styles.ChartCard}>
           {optionalTitle}
@@ -73,15 +73,24 @@ function CardWrapper(props: {
       }
     >
       {() => {
+        const queryResponses = queries.map((query) =>
+          datasetStore.getMetrics(query)
+        );
+        const consumedDatasetIds = queryResponses.reduce(
+          (accumulator: string[], response) =>
+            accumulator.concat(response.consumedDatasetIds),
+          []
+        );
+
         return (
           <Card raised={true} className={styles.ChartCard}>
             {optionalTitle}
             {props.children()}
-            {!props.hideFooter && (
+            {!props.hideFooter && props.queries && (
               <CardContent className={styles.CardFooter}>
-                Sources:{" "}
+                {consumedDatasetIds.length > 0 && <>Sources: </>}
                 {/* TODO- add commas and "and" between the data sources */}
-                {props.datasetIds.map((datasetId) => (
+                {consumedDatasetIds.map((datasetId) => (
                   <>
                     <LinkWithStickyParams
                       target="_blank"

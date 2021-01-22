@@ -91,7 +91,11 @@ class AcsPopulationProvider extends VariableProvider {
       }
     );
 
-    return new MetricQueryResponse(df.toArray());
+    const consumedDataset = breakdowns.demographicBreakdowns.age.enabled
+      ? ["acs_population-by_age_state"]
+      : ["acs_population-by_race_state_std"];
+
+    return new MetricQueryResponse(df.toArray(), consumedDataset);
   }
 
   private getDataInternalWithoutPercents(

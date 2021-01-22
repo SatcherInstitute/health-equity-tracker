@@ -102,7 +102,10 @@ describe("AcsPopulationProvider", () => {
       Breakdowns.forFips(new Fips("37")).andRace()
     );
     expect(responseWithoutTotal).toEqual(
-      new MetricQueryResponse([NC_ASIAN_FINAL_ROW, NC_WHITE_FINAL_ROW])
+      new MetricQueryResponse(
+        [NC_ASIAN_FINAL_ROW, NC_WHITE_FINAL_ROW],
+        ["acs_population-by_race_state_std"]
+      )
     );
 
     // Evaluate the response with requesting total field
@@ -111,11 +114,10 @@ describe("AcsPopulationProvider", () => {
       Breakdowns.forFips(new Fips("37")).andRace(/*includeTotal=*/ true)
     );
     expect(responseWithTotal).toEqual(
-      new MetricQueryResponse([
-        NC_ASIAN_FINAL_ROW,
-        NC_WHITE_FINAL_ROW,
-        NC_TOTAL_FINAL_ROW,
-      ])
+      new MetricQueryResponse(
+        [NC_ASIAN_FINAL_ROW, NC_WHITE_FINAL_ROW, NC_TOTAL_FINAL_ROW],
+        ["acs_population-by_race_state_std"]
+      )
     );
   });
 
@@ -208,10 +210,10 @@ describe("AcsPopulationProvider", () => {
       Breakdowns.national().andRace()
     );
     expect(responseWithoutTotal).toEqual(
-      new MetricQueryResponse([
-        NATIONAL_ASIAN_FINAL_ROW,
-        NATIONAL_WHITE_FINAL_ROW,
-      ])
+      new MetricQueryResponse(
+        [NATIONAL_ASIAN_FINAL_ROW, NATIONAL_WHITE_FINAL_ROW],
+        ["acs_population-by_race_state_std"]
+      )
     );
 
     // Evaluate the response with requesting total field
@@ -220,11 +222,14 @@ describe("AcsPopulationProvider", () => {
       Breakdowns.national().andRace(/*includeTotal=*/ true)
     );
     expect(responseWithTotal).toEqual(
-      new MetricQueryResponse([
-        NATIONAL_ASIAN_FINAL_ROW,
-        NATIONAL_TOTAL_FINAL_ROW,
-        NATIONAL_WHITE_FINAL_ROW,
-      ])
+      new MetricQueryResponse(
+        [
+          NATIONAL_ASIAN_FINAL_ROW,
+          NATIONAL_TOTAL_FINAL_ROW,
+          NATIONAL_WHITE_FINAL_ROW,
+        ],
+        ["acs_population-by_race_state_std"]
+      )
     );
   });
 
@@ -257,7 +262,10 @@ describe("AcsPopulationProvider", () => {
       Breakdowns.forFips(new Fips("37")).andAge()
     );
     expect(responseWithoutTotal).toEqual(
-      new MetricQueryResponse([NC_AGE_0_9_FINAL, NC_AGE_10_19_FINAL])
+      new MetricQueryResponse(
+        [NC_AGE_0_9_FINAL, NC_AGE_10_19_FINAL],
+        ["acs_population-by_age_state"]
+      )
     );
 
     // Evaluate the response without requesting total field
@@ -266,11 +274,10 @@ describe("AcsPopulationProvider", () => {
       Breakdowns.forFips(new Fips("37")).andAge(/*includeTotal=*/ true)
     );
     expect(responseWithTotal).toEqual(
-      new MetricQueryResponse([
-        NC_AGE_0_9_FINAL,
-        NC_AGE_10_19_FINAL,
-        NC_TOTAL_FINAL,
-      ])
+      new MetricQueryResponse(
+        [NC_AGE_0_9_FINAL, NC_AGE_10_19_FINAL, NC_TOTAL_FINAL],
+        ["acs_population-by_age_state"]
+      )
     );
   });
 
@@ -306,7 +313,10 @@ describe("AcsPopulationProvider", () => {
       Breakdowns.national().andAge()
     );
     expect(responseWithoutTotal).toEqual(
-      new MetricQueryResponse([AGE_0_9_FINAL, AGE_10_19_FINAL])
+      new MetricQueryResponse(
+        [AGE_0_9_FINAL, AGE_10_19_FINAL],
+        ["acs_population-by_age_state"]
+      )
     );
 
     // Evaluate the response with requesting total field
@@ -315,7 +325,10 @@ describe("AcsPopulationProvider", () => {
       Breakdowns.national().andAge(/*includeTotal=*/ true)
     );
     expect(responseWithTotal).toEqual(
-      new MetricQueryResponse([AGE_0_9_FINAL, AGE_10_19_FINAL, AGE_TOTAL_FINAL])
+      new MetricQueryResponse(
+        [AGE_0_9_FINAL, AGE_10_19_FINAL, AGE_TOTAL_FINAL],
+        ["acs_population-by_age_state"]
+      )
     );
   });
 
