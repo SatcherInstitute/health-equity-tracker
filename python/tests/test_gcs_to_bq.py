@@ -1,14 +1,15 @@
-from datetime import datetime, timezone
 import json
+from datetime import datetime, timezone
 from textwrap import dedent
 from unittest import TestCase
 from unittest.mock import MagicMock, Mock, patch
 
-from freezegun import freeze_time
-from ingestion import gcs_to_bq_util
 import numpy as np
+from freezegun import freeze_time
 from pandas import DataFrame
 from pandas.testing import assert_frame_equal
+
+from ingestion import gcs_to_bq_util
 
 
 class GcsToBqTest(TestCase):
