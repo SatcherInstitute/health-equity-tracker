@@ -132,7 +132,7 @@ class GcsToBqTest(TestCase):
 
     @patch('ingestion.gcs_to_bq_util.storage.Client')
     def testLoadCsvAsDataFrame_ParseTypes(self, mock_bq: MagicMock):
-        # Write data to an in-memory file
+        # Write data to an temporary file
         test_file_path = '/tmp/test_file.csv'
         test_data = dedent(
             """
