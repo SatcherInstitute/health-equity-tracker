@@ -9,8 +9,7 @@ from freezegun import freeze_time
 from pandas import DataFrame
 from pandas.testing import assert_frame_equal
 
-from ingestion import gcs_to_bq_util
-
+import ingestion.gcs_to_bq_util as gcs_to_bq_util
 
 class GcsToBqTest(TestCase):
 
