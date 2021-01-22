@@ -159,7 +159,7 @@ export function useDatasetStoreProvider(): DatasetStore {
    * can be accessed via `getMetrics()`
    */
   async function loadMetrics(query: MetricQuery): Promise<void> {
-    const providers = getUniqueProviders(query.varIds);
+    const providers = getUniqueProviders(query.metricIds);
 
     await loadResource<MetricQueryResponse>(
       query.getUniqueKey(),
