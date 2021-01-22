@@ -12,10 +12,12 @@
   height: 100%;
 }
 
-.NavButton {
-  color: $white;
-  a:link,
-  a:visited {
+.NavLink {
+  button {
+    color: $white;
+  }
+  &:link,
+  &:visited {
     color: $white;
     text-decoration: none;
   }

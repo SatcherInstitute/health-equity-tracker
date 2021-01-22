@@ -39,7 +39,7 @@ import {
 import { autoInitGlobals, getEnvironment } from "./utils/globals";
 import ReactTooltip from "react-tooltip";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import PreLaunchSiteContent from "./PreLaunchSiteContent";
+import PreLaunchSiteContent from "./pages/Landing/PreLaunchSiteContent";
 
 const MOBILE_BREAKPOINT = 600;
 
@@ -91,11 +91,9 @@ function AppToolbar() {
       </Typography>
       {[EXPLORE_DATA_PAGE_LINK, DATA_CATALOG_PAGE_LINK, ABOUT_US_PAGE_LINK].map(
         (pageUrl, i) => (
-          <Button className={styles.NavButton} key={i}>
-            <LinkWithStickyParams to={pageUrl}>
-              {PAGE_URL_TO_NAMES[pageUrl]}
-            </LinkWithStickyParams>
-          </Button>
+          <LinkWithStickyParams to={pageUrl} class={styles.NavLink}>
+            <Button key={i}>{PAGE_URL_TO_NAMES[pageUrl]}</Button>
+          </LinkWithStickyParams>
         )
       )}
     </Toolbar>
