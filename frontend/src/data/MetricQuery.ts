@@ -37,7 +37,11 @@ function getInvalidValues(rows: Row[]) {
 }
 
 export function createMissingDataResponse(missingDataMessage: string) {
-  return new MetricQueryResponse([], [], missingDataMessage);
+  return new MetricQueryResponse(
+    [],
+    /*consumedDatasetIds=*/ [],
+    missingDataMessage
+  );
 }
 
 export class MetricQueryResponse {

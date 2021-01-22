@@ -190,11 +190,6 @@ export function useDatasetStoreProvider(): DatasetStore {
         const queryResponses: MetricQueryResponse[] = providers.map(
           (provider) => provider.getData(datasetMap, query.breakdowns)
         );
-        const consumedDatasetIds = queryResponses.reduce(
-          (accumulator: string[], response: MetricQueryResponse) =>
-            accumulator.concat(response.consumedDatasetIds),
-          []
-        );
 
         const potentialErrorResponse = queryResponses.find(
           (metricQueryResponse) => metricQueryResponse.dataIsMissing()
@@ -215,9 +210,18 @@ export function useDatasetStoreProvider(): DatasetStore {
             query.joinType
           );
         });
+
+        const consumedDatasetIds = queryResponses.reduce(
+          (accumulator: string[], response: MetricQueryResponse) =>
+            accumulator.concat(response.consumedDatasetIds),
+          []
+        );
+        const uniqueConsumedDatasetIds = Array.from(
+          new Set(consumedDatasetIds)
+        );
         return new MetricQueryResponse(
           joined.toArray(),
-          Array.from(new Set(consumedDatasetIds))
+          uniqueConsumedDatasetIds
         );
       }
     );
