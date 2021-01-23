@@ -19,9 +19,7 @@ export class MetricQuery {
   }
 
   getUniqueKey(): string {
-    return (
-      this.metricIds.join(",") + ":____:" + this.breakdowns.getBreakdownString()
-    );
+    return this.metricIds.join(",") + ":____:" + this.breakdowns.getUniqueKey();
   }
 }
 

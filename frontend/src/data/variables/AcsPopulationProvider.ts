@@ -1,5 +1,5 @@
 import { IDataFrame } from "data-forge";
-import { Breakdowns } from "../Breakdowns";
+import { Breakdowns, DemographicBreakdownKey } from "../Breakdowns";
 import { Dataset } from "../DatasetTypes";
 import { applyToGroups, percent } from "../datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
@@ -49,8 +49,13 @@ class AcsPopulationProvider extends VariableProvider {
     }
 
     // Calculate totals where dataset doesn't provide it
+    // TODO- this should be removed when Totals come from the Data Server
     ["age", "sex"].forEach((breakdownName) => {
-      if (breakdowns.demographicBreakdowns[breakdownName].enabled) {
+      if (
+        breakdowns.demographicBreakdowns[
+          breakdownName as DemographicBreakdownKey
+        ].enabled
+      ) {
         df = df
           .concat(
             df.pivot(["state_fips", "state_name"], {
@@ -91,7 +96,7 @@ class AcsPopulationProvider extends VariableProvider {
       }
     );
 
-    const consumedDataset = breakdowns.demographicBreakdowns.age.enabled
+    const consumedDataset = breakdowns.hasOnlyAge()
       ? ["acs_population-by_age_state"]
       : ["acs_population-by_race_state_std"];
 
@@ -102,12 +107,12 @@ class AcsPopulationProvider extends VariableProvider {
     datasets: Record<string, Dataset>,
     breakdowns: Breakdowns
   ): IDataFrame {
-    const statePopByBreakdown = breakdowns.demographicBreakdowns.age.enabled
+    const statePopByBreakdown = breakdowns.hasOnlyAge()
       ? datasets["acs_population-by_age_state"]
       : datasets["acs_population-by_race_state_std"];
     const acsDataFrame = statePopByBreakdown.toDataFrame();
 
-    if (breakdowns.demographicBreakdowns.race_nonstandard.enabled) {
+    if (breakdowns.hasOnlyRaceNonStandard()) {
       return breakdowns.geography === "national"
         ? createNationalTotal(
             acsDataFrame,
@@ -115,7 +120,7 @@ class AcsPopulationProvider extends VariableProvider {
           )
         : acsDataFrame;
     }
-    if (breakdowns.demographicBreakdowns.race.enabled) {
+    if (breakdowns.hasOnlyRace()) {
       const standardizedAcsData = acsDataFrame.where((row) =>
         standardizedRaces.includes(row.race_and_ethnicity)
       );
@@ -126,7 +131,7 @@ class AcsPopulationProvider extends VariableProvider {
           )
         : standardizedAcsData;
     }
-    if (breakdowns.demographicBreakdowns.age.enabled) {
+    if (breakdowns.hasOnlyAge()) {
       return breakdowns.geography === "national"
         ? createNationalTotal(
             acsDataFrame,
@@ -140,10 +145,9 @@ class AcsPopulationProvider extends VariableProvider {
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
     const validDemographicBreakdownRequest: boolean =
-      breakdowns.demographicBreakdownCount() === 1 &&
-      (breakdowns.demographicBreakdowns.race_nonstandard.enabled ||
-        breakdowns.demographicBreakdowns.race.enabled ||
-        breakdowns.demographicBreakdowns.age.enabled);
+      breakdowns.hasOnlyRaceNonStandard() ||
+      breakdowns.hasOnlyRace() ||
+      breakdowns.hasOnlyAge();
 
     return (
       !breakdowns.time &&

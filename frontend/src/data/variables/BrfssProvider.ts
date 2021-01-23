@@ -76,9 +76,7 @@ class BrfssProvider extends VariableProvider {
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
     const validDemographicBreakdownRequest =
-      breakdowns.demographicBreakdownCount() === 0 ||
-      (breakdowns.demographicBreakdownCount() === 1 &&
-        breakdowns.demographicBreakdowns.race.enabled);
+      breakdowns.demographicBreakdownCount() === 0 || breakdowns.hasOnlyRace();
 
     return (
       !breakdowns.time &&

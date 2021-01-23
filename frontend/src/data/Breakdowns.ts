@@ -16,6 +16,12 @@ export type BreakdownVar =
   | "date"
   | "state_fips";
 
+export type DemographicBreakdownKey =
+  | "race"
+  | "race_nonstandard"
+  | "sex"
+  | "age";
+
 export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
   race_and_ethnicity: "Race and Ethnicity",
   age: "Age",
@@ -29,24 +35,24 @@ interface DemographicBreakdown {
   readonly columnName: BreakdownVar;
   // Whether the demographic breakdown is requested
   enabled: boolean;
-  // If requested, should the breakdown include a "total", i.e. value for all age/race/sex
+  // If requested, should the breakdown include a "Total", i.e. value for all age/race/sex
   includeTotal: boolean;
 }
 
 function stringifyDemographic(breakdown: DemographicBreakdown) {
-  if (breakdown === undefined || !breakdown.enabled) {
+  if (!breakdown.enabled) {
     return undefined;
   }
   return breakdown.includeTotal ? "with total" : "without total";
 }
 
 function createDemographicBreakdown(
-  columnName: string,
+  columnName: BreakdownVar,
   enabled = false,
   includeTotal = false
 ) {
   return {
-    columnName: columnName as BreakdownVar,
+    columnName: columnName,
     enabled: enabled,
     includeTotal: includeTotal,
   };
@@ -57,39 +63,49 @@ export class Breakdowns {
   // We may want to extend this to an explicit type to support variants for
   // day/week/month/year.
   time: boolean;
-  demographicBreakdowns: Record<string, DemographicBreakdown>;
+  demographicBreakdowns: Record<DemographicBreakdownKey, DemographicBreakdown>;
   filterFips?: string;
 
   constructor(
     geography: GeographicBreakdown,
-    demographicBreakdowns?: Record<string, DemographicBreakdown>,
+    demographicBreakdowns?: Record<
+      DemographicBreakdownKey,
+      DemographicBreakdown
+    >,
     time = false,
     filterFips?: string
   ) {
     this.geography = geography;
-    this.demographicBreakdowns = demographicBreakdowns || {
-      race: createDemographicBreakdown("race_and_ethnicity"),
-      race_nonstandard: createDemographicBreakdown("race_and_ethnicity"),
-      age: createDemographicBreakdown("age"),
-      sex: createDemographicBreakdown("sex"),
-    };
+    this.demographicBreakdowns = demographicBreakdowns
+      ? { ...demographicBreakdowns }
+      : {
+          race: createDemographicBreakdown("race_and_ethnicity"),
+          race_nonstandard: createDemographicBreakdown("race_and_ethnicity"),
+          age: createDemographicBreakdown("age"),
+          sex: createDemographicBreakdown("sex"),
+        };
     this.time = time;
     this.filterFips = filterFips;
   }
 
-  getBreakdownString() {
+  // Returns a string that uniquely identifies a breakdown. Two identical breakdowns will return the same key
+  getUniqueKey() {
     let breakdowns: Record<string, any> = {
       geography: this.geography,
       time: this.time || undefined,
       filterFips: this.filterFips || undefined,
     };
-    Object.keys(this.demographicBreakdowns).forEach((breakdownKey: string) => {
-      breakdowns[breakdownKey] = stringifyDemographic(
-        this.demographicBreakdowns[breakdownKey]
-      );
-    });
+    Object.entries(this.demographicBreakdowns).forEach(
+      ([breakdownKey, breakdown]) => {
+        breakdowns[breakdownKey] = stringifyDemographic(breakdown);
+      }
+    );
     // Any fields that are not set will not be included in the string for readibility
-    return JSON.stringify(breakdowns);
+    // We want to sort these to ensure that it is deterministic so that all breakdowns map to the same key
+    const orderedBreakdownKeys = Object.keys(breakdowns)
+      .sort()
+      .filter((k) => breakdowns[k] !== undefined);
+    return orderedBreakdownKeys.map((k) => `${k}:${breakdowns[k]}`).join(",");
   }
 
   copy() {
@@ -176,6 +192,32 @@ export class Breakdowns {
     ).length;
   }
 
+  hasNoDemographicBreakdown() {
+    return this.demographicBreakdownCount() === 0;
+  }
+
+  hasExactlyOneDemographic() {
+    return this.demographicBreakdownCount() === 1;
+  }
+
+  hasOnlyRace() {
+    return (
+      this.hasExactlyOneDemographic() && this.demographicBreakdowns.race.enabled
+    );
+  }
+  hasOnlyRaceNonStandard() {
+    return (
+      this.hasExactlyOneDemographic() &&
+      this.demographicBreakdowns.race_nonstandard.enabled
+    );
+  }
+
+  hasOnlyAge() {
+    return (
+      this.hasExactlyOneDemographic() && this.demographicBreakdowns.age.enabled
+    );
+  }
+
   /** Filters to entries that exactly match the specified FIPS code. */
   withGeoFilter(fipsCode: string): Breakdowns {
     this.filterFips = fipsCode;
@@ -187,13 +229,13 @@ export class Breakdowns {
     Object.entries(this.demographicBreakdowns).forEach(
       ([key, demographicBreakdown]) => {
         if (demographicBreakdown.enabled) {
-          joinCols.push(demographicBreakdown.columnName as BreakdownVar);
+          joinCols.push(demographicBreakdown.columnName);
         }
       }
     );
     if (this.time) {
       joinCols.push("date");
     }
-    return joinCols;
+    return joinCols.sort();
   }
 }
