@@ -50,11 +50,11 @@ class CovidTrackingProject(DataSource):
         df.drop(columns=['cases_latinx', 'deaths_latinx',
                          'hosp_latinx', 'tests_latinx'], inplace=True)
         df = df.melt(id_vars=['date', 'state'])
-        df[['variable_type', col_std.RACE_OR_HISPANIC_COL]] = df.variable.str.split(
+        df[['variable_type', col_std.RACE_COL]] = df.variable.str.split(
             "_", 1, expand=True)
         df.drop('variable', axis=1, inplace=True)
         df.rename(columns={'state': 'state_postal_abbreviation'}, inplace=True)
-        df.replace({col_std.RACE_OR_HISPANIC_COL: self.get_standard_columns()},
+        df.replace({col_std.RACE_COL: self.get_standard_columns()},
                    inplace=True)
 
         # Get the metadata table
@@ -106,7 +106,7 @@ class CovidTrackingProject(DataSource):
             to rename the race value. Values should be Boolean.
         old_name: The race category to change
         new_name: The race category to rename to"""
-        df[col_std.RACE_OR_HISPANIC_COL] = df.apply(
+        df[col_std.RACE_COL] = df.apply(
             CovidTrackingProject._replace_value, axis=1,
             args=(indicator_column, old_name, new_name))
 
@@ -123,6 +123,6 @@ class CovidTrackingProject(DataSource):
         old_name: The race category to change
         new_name: The race category to rename to"""
         if (row[indicator_column] is True and
-                row[col_std.RACE_OR_HISPANIC_COL] == old_name.value):
+                row[col_std.RACE_COL] == old_name.value):
             return new_name.value
-        return row[col_std.RACE_OR_HISPANIC_COL]
+        return row[col_std.RACE_COL]

@@ -63,13 +63,13 @@ def testWriteToBq(mock_append_to_bq: mock.MagicMock, mock_csv: mock.MagicMock,
     expected_cols = 7
     assert result.shape == (expected_rows, expected_cols)
     expected_col_names = [
-        'date', 'state_postal_abbreviation', 'race_and_ethnicity',
+        'date', 'state_postal_abbreviation', 'race',
         'variable_type', 'value', 'reports_race', 'race_ethnicity_separately']
     assert set(result.columns) == set(expected_col_names)
     assert len(result.loc[
-        result['race_and_ethnicity'] == col_std.Race.INDIGENOUS.value].index) == 2
+        result['race'] == col_std.Race.INDIGENOUS.value].index) == 2
     assert len(result.loc[
-        result['race_and_ethnicity'] == col_std.Race.API.value].index) == 6
+        result['race'] == col_std.Race.API.value].index) == 6
     expected_dtypes = {col: np.object for col in result.columns}
     expected_dtypes['date'] = np.dtype('datetime64[ns]')
     expected_dtypes['value'] = np.float64
