@@ -29,6 +29,7 @@ export function TableCard(props: TableCardProps) {
   // other demographic.
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
+    /*includeTotal=*/ true,
     props.nonstandardizedRace
   );
   const metricIds: MetricId[] = props.metrics.map(
@@ -53,10 +54,7 @@ export function TableCard(props: TableCardProps) {
       {() => {
         const queryResponse = datasetStore.getMetrics(query);
         const dataset = queryResponse.data.filter(
-          (row) =>
-            !["Not Hispanic or Latino", "Total"].includes(
-              row.race_and_ethnicity
-            )
+          (row) => "Not Hispanic or Latino" !== row.race_and_ethnicity
         );
 
         return (

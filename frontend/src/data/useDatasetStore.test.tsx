@@ -1,6 +1,6 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import { DatasetMetadata, MetadataMap, Row, Dataset } from "./DatasetTypes";
+import { DatasetMetadata, Row } from "./DatasetTypes";
 import useDatasetStore, { startMetadataLoad } from "./useDatasetStore";
 import { act } from "react-dom/test-utils";
 import AppContext from "../testing/AppContext";
@@ -247,7 +247,7 @@ describe("useDatasetStore", () => {
 
     expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
-      'Error: Breakdowns not supported for provider brfss_provider: {"geography":"county","age":true}'
+      "Error: Breakdowns not supported for provider brfss_provider: age:without total,geography:county"
     );
   });
 

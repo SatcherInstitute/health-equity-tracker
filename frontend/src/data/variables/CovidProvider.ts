@@ -78,6 +78,11 @@ class CovidProvider extends VariableProvider {
     // TODO How to handle territories?
     const acsBreakdowns = breakdowns.copy();
     acsBreakdowns.time = false;
+    acsBreakdowns.demographicBreakdowns.race_nonstandard = {
+      enabled: true,
+      columnName: "race_and_ethnicity",
+      includeTotal: true,
+    };
 
     const acsMetricQueryResponse = this.acsProvider.getData(
       datasets,
@@ -122,22 +127,33 @@ class CovidProvider extends VariableProvider {
         const total = group
           .where((r) => r.race_and_ethnicity === "Total")
           .first()[col];
-        return group.generateSeries({
-          [col + "_pct_of_geo"]: (row) => percent(row[col], total),
-        });
+        return group
+          .generateSeries({
+            [col + "_pct_of_geo"]: (row) => percent(row[col], total),
+          })
+          .resetIndex();
       });
     });
+
+    Object.values(breakdowns.demographicBreakdowns).forEach(
+      (demographicBreakdown) => {
+        if (
+          demographicBreakdown.enabled &&
+          !demographicBreakdown.includeTotal
+        ) {
+          df = df
+            .where((row) => row[demographicBreakdown.columnName] !== "Total")
+            .resetIndex();
+        }
+      }
+    );
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    const validDemographicBreakdownRequest =
-      breakdowns.demographicBreakdownCount() === 1 &&
-      breakdowns.race_nonstandard;
-
     return (
-      validDemographicBreakdownRequest &&
+      breakdowns.hasOnlyRaceNonStandard() &&
       (breakdowns.geography === "state" || breakdowns.geography === "national")
     );
   }

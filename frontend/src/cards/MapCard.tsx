@@ -71,6 +71,7 @@ function MapCardWithKey(props: MapCardProps) {
         props.metricConfig.metricId,
         Breakdowns.byState().addBreakdown(
           possibleBreakdown,
+          /*includeTotal=*/ true,
           props.nonstandardizedRace
         )
       );
