@@ -128,6 +128,8 @@ class AcsPopulationProvider extends VariableProvider {
       }
     );
 
+    // TODO - rename state_fips and county_fips to fips
+
     return new MetricQueryResponse(df.toArray(), [
       this.getDatasetId(breakdowns),
     ]);
