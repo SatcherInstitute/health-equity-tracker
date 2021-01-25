@@ -61,6 +61,22 @@ abstract class VariableProvider {
     return df;
   }
 
+  renameGeoColumns(df: IDataFrame, breakdowns: Breakdowns): IDataFrame {
+    const [fipsColumn, geoNameColumn] =
+      breakdowns.geography === "county"
+        ? ["county_fips", "county_name"]
+        : ["state_fips", "state_name"];
+
+    df = df
+      .renameSeries({
+        [fipsColumn]: "fips",
+        [geoNameColumn]: "fips_name",
+      })
+      .resetIndex();
+
+    return df;
+  }
+
   abstract getDataInternal(
     datasets: Record<string, Dataset>,
     breakdowns: Breakdowns

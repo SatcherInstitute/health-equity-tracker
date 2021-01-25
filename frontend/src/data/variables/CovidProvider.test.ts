@@ -99,8 +99,8 @@ describe("CovidProvider", () => {
       /*population=*/ 2000
     );
     const CHATAM_WHITE_FINAL_ROW = {
-      county_fips: "37037",
-      county_name: "Chatam",
+      fips: "37037",
+      fips_name: "Chatam",
       race_and_ethnicity: "White (Non-Hispanic)",
       date: "2020-04-29",
       covid_cases: 10,
@@ -126,8 +126,8 @@ describe("CovidProvider", () => {
       /*population=*/ 100000
     );
     const CHATAM_TOTAL_FINAL_ROW = {
-      county_fips: "37037",
-      county_name: "Chatam",
+      fips: "37037",
+      fips_name: "Chatam",
       race_and_ethnicity: "Total",
       date: "2020-04-29",
       covid_cases: 200,
@@ -228,8 +228,8 @@ describe("CovidProvider", () => {
       /*population=*/ 2000
     );
     const NC_WHITE_FINAL_ROW = {
-      state_fips: "37",
-      state_name: "North Carolina",
+      fips: "37",
+      fips_name: "North Carolina",
       race_and_ethnicity: "White (Non-Hispanic)",
       date: "2020-04-29",
       covid_cases: 10,
@@ -255,8 +255,8 @@ describe("CovidProvider", () => {
       /*population=*/ 100000
     );
     const NC_TOTAL_FINAL_ROW = {
-      state_fips: "37",
-      state_name: "North Carolina",
+      fips: "37",
+      fips_name: "North Carolina",
       race_and_ethnicity: "Total",
       date: "2020-04-29",
       covid_cases: 200,
@@ -366,8 +366,8 @@ describe("CovidProvider", () => {
       /*population=*/ 80000
     );
     const FINAL_TOTAL_ROW = {
-      state_fips: "00",
-      state_name: "the United States",
+      fips: "00",
+      fips_name: "the United States",
       race_and_ethnicity: "Total",
       date: "2020-04-29",
       covid_cases: 300,
@@ -402,8 +402,8 @@ describe("CovidProvider", () => {
       /*population=*/ 60000
     );
     const FINAL_WHITE_ROW = {
-      state_fips: "00",
-      state_name: "the United States",
+      fips: "00",
+      fips_name: "the United States",
       race_and_ethnicity: "White (Non-Hispanic)",
       date: "2020-04-29",
       covid_cases: 970,

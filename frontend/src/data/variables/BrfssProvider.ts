@@ -73,6 +73,8 @@ class BrfssProvider extends VariableProvider {
         per100k(row.copd_count, row.copd_count + row.copd_no),
     });
 
+    df = this.renameGeoColumns(df, breakdowns);
+
     return new MetricQueryResponse(df.toArray(), ["brfss"]);
   }
 

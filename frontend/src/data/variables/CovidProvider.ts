@@ -50,6 +50,8 @@ class CovidProvider extends VariableProvider {
       breakdowns.geography === "county"
         ? ["covid_by_county_and_race"]
         : ["covid_by_state_and_race"];
+    const fipsColumn =
+      breakdowns.geography === "county" ? "county_fips" : "state_fips";
 
     // TODO need to figure out how to handle getting this at the national level
     // because each state reports race differently.
@@ -106,14 +108,14 @@ class CovidProvider extends VariableProvider {
     // TODO this is a weird hack - prefer left join but for some reason it's
     // causing issues.
     const supportedGeos = acsPopulation
-      .distinct((row) => row.state_fips)
-      .getSeries("state_fips")
+      .distinct((row) => row[fipsColumn])
+      .getSeries(fipsColumn)
       .toArray();
     const unknowns = df
       .where((row) => row.race_and_ethnicity === "Unknown")
-      .where((row) => supportedGeos.includes(row.state_fips));
+      .where((row) => supportedGeos.includes(row[fipsColumn]));
 
-    df = joinOnCols(df, acsPopulation, ["state_fips", "race_and_ethnicity"]);
+    df = joinOnCols(df, acsPopulation, [fipsColumn, "race_and_ethnicity"]);
 
     df = df
       .generateSeries({
@@ -130,7 +132,7 @@ class CovidProvider extends VariableProvider {
     // TODO this is a bit on the slow side. Maybe a better way to do it, or
     // pre-compute "total" column on server
     ["covid_cases", "covid_deaths", "covid_hosp"].forEach((col) => {
-      df = applyToGroups(df, ["date", "state_fips"], (group) => {
+      df = applyToGroups(df, ["date", fipsColumn], (group) => {
         const total = group
           .where((r) => r.race_and_ethnicity === "Total")
           .first()[col];
@@ -154,6 +156,8 @@ class CovidProvider extends VariableProvider {
         }
       }
     );
+
+    df = this.renameGeoColumns(df, breakdowns);
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
   }
