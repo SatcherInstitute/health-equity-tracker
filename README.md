@@ -206,6 +206,17 @@ Terraform doesn't automatically diff the contents of cloud run services, so simp
 Use [`terraform taint`](https://www.terraform.io/docs/commands/taint.html) to mark a resource as requiring redeploy. Eg `terraform taint google_cloud_run_service.ingestion_service`.
 You can then set the `ingestion_image_name` variable in your tfvars file to `<your-ingestion-image-name>` and `gcs_to_bq_image_name` to `<your-gcs-to-bq-image-name>`. Then replace Step 5 above with just `terraform apply`. Step 4 is still required.
 
+## Accessing the Terraform UI Deployed
+1. Go to [Cloud Console](console.cloud.google.com).
+
+2. Search for Composer
+
+3. A list of environments should be present.  Look for data-ingestion-environment
+
+4. Click into the details, and navigate to the environment configuration tab.
+
+5. One of the properties listed is Airflow web UI link.
+
 ## Test and Production Environments
 
 ### A note on Airflow DAGS

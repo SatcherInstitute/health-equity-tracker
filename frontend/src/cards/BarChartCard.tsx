@@ -55,6 +55,7 @@ function BarChartCardWithKey(props: BarChartCardProps) {
   // other demographic.
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
+    /*includeTotal=*/ false,
     props.nonstandardizedRace
   );
 
@@ -102,10 +103,7 @@ function BarChartCardWithKey(props: BarChartCardProps) {
       {() => {
         const queryResponse = datasetStore.getMetrics(query);
         const dataset = queryResponse.data.filter(
-          (row) =>
-            !["Not Hispanic or Latino", "Total"].includes(
-              row.race_and_ethnicity
-            )
+          (row) => row.race_and_ethnicity !== "Not Hispanic or Latino"
         );
         return (
           <>

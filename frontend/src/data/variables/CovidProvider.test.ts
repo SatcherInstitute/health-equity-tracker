@@ -6,6 +6,27 @@ import { Dataset } from "../DatasetTypes";
 import { Fips } from "../../utils/madlib/Fips";
 import FakeMetadataMap from "../FakeMetadataMap";
 
+function fakeDataServerResponse(
+  covidRows: any[],
+  acsRaceRows: any[],
+  acsAgeRows: any[]
+) {
+  return {
+    covid_by_state_and_race: new Dataset(
+      covidRows,
+      FakeMetadataMap["covid_by_state_and_race"]
+    ),
+    "acs_population-by_race_state_std": new Dataset(
+      acsRaceRows,
+      FakeMetadataMap["acs_population-by_race_state_std"]
+    ),
+    "acs_population-by_age_state": new Dataset(
+      acsAgeRows,
+      FakeMetadataMap["acs_population-by_age_state"]
+    ),
+  };
+}
+
 function covidAndAcsRows(
   state_fips: string,
   state_name: string,
@@ -119,31 +140,45 @@ describe("CovidProvider", () => {
       AL_TOTAL_ROW,
       AL_WHITE_ROW,
     ];
-    const acsDatasetRows = [
+    const acsRaceRows = [
       NC_ACS_WHITE_ROW,
       NC_ACS_TOTAL_ROW,
       AL_ACS_TOTAL_ROW,
       AL_ACS_WHITE_ROW,
     ];
-    const DATASET_MAP = {
-      covid_by_state_and_race: new Dataset(
-        covidDatasetRows,
-        FakeMetadataMap["covid_by_state_and_race"]
-      ),
-      "acs_population-by_race_state_std": new Dataset(
-        acsDatasetRows,
-        FakeMetadataMap["acs_population-by_race_state_std"]
-      ),
-      "acs_population-by_age_state": new Dataset(
-        [],
-        FakeMetadataMap["acs_population-by_age_state"]
-      ),
-    };
-    const breakdown = Breakdowns.forFips(new Fips("37")).andRace(true);
-    const actual = covidProvider.getData(DATASET_MAP, breakdown);
-    expect(actual).toEqual(
+
+    const dataServerResponse = fakeDataServerResponse(
+      covidDatasetRows,
+      acsRaceRows,
+      /*aceAgeRows=*/ []
+    );
+
+    // Evaluate the response with requesting total field
+    const responseWithTotal = covidProvider.getData(
+      dataServerResponse,
+      Breakdowns.forFips(new Fips("37")).andRace(
+        /*includeTotal=*/ true,
+        /*nonstandard=*/ true
+      )
+    );
+    expect(responseWithTotal).toEqual(
       new MetricQueryResponse(
         [NC_TOTAL_FINAL_ROW, NC_WHITE_FINAL_ROW],
+        ["covid_by_state_and_race", "acs_population-by_race_state_std"]
+      )
+    );
+
+    // Evaluate the response without requesting total field
+    const responseWithoutTotal = covidProvider.getData(
+      dataServerResponse,
+      Breakdowns.forFips(new Fips("37")).andRace(
+        /*includeTotal=*/ false,
+        /*nonstandard=*/ true
+      )
+    );
+    expect(responseWithoutTotal).toEqual(
+      new MetricQueryResponse(
+        [NC_WHITE_FINAL_ROW],
         ["covid_by_state_and_race", "acs_population-by_race_state_std"]
       )
     );
@@ -231,31 +266,44 @@ describe("CovidProvider", () => {
       AL_TOTAL_ROW,
       AL_WHITE_ROW,
     ];
-    const acsDatasetRows = [
+    const acsRaceRows = [
       NC_ACS_WHITE_ROW,
       NC_ACS_TOTAL_ROW,
       AL_ACS_TOTAL_ROW,
       AL_ACS_WHITE_ROW,
     ];
-    const DATASET_MAP = {
-      covid_by_state_and_race: new Dataset(
-        covidDatasetRows,
-        FakeMetadataMap["covid_by_state_and_race"]
-      ),
-      "acs_population-by_race_state_std": new Dataset(
-        acsDatasetRows,
-        FakeMetadataMap["acs_population-by_race_state_std"]
-      ),
-      "acs_population-by_age_state": new Dataset(
-        [],
-        FakeMetadataMap["acs_population-by_age_state"]
-      ),
-    };
-    const breakdown = Breakdowns.national().andRace(true);
-    const actual = covidProvider.getData(DATASET_MAP, breakdown);
-    expect(actual).toEqual(
+    const dataServerResponse = fakeDataServerResponse(
+      covidDatasetRows,
+      acsRaceRows,
+      /*aceAgeRows=*/ []
+    );
+
+    // Evaluate the response with requesting total field
+    const responseWithTotal = covidProvider.getData(
+      dataServerResponse,
+      Breakdowns.national().andRace(
+        /*includeTotal=*/ true,
+        /*nonstandard=*/ true
+      )
+    );
+    expect(responseWithTotal).toEqual(
       new MetricQueryResponse(
         [FINAL_TOTAL_ROW, FINAL_WHITE_ROW],
+        ["covid_by_state_and_race", "acs_population-by_race_state_std"]
+      )
+    );
+
+    // Evaluate the response without requesting total field
+    const responseWithoutTotal = covidProvider.getData(
+      dataServerResponse,
+      Breakdowns.national().andRace(
+        /*includeTotal=*/ false,
+        /*nonstandard=*/ true
+      )
+    );
+    expect(responseWithoutTotal).toEqual(
+      new MetricQueryResponse(
+        [FINAL_WHITE_ROW],
         ["covid_by_state_and_race", "acs_population-by_race_state_std"]
       )
     );

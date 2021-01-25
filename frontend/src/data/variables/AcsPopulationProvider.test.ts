@@ -9,7 +9,20 @@ const WHITE = "White (Non-Hispanic)";
 const ASIAN = "Asian (Non-Hispanic)";
 const TOTAL = "Total";
 
-function row(
+function fakeDataServerResponse(acsRaceRows: any[], acsAgeRows: any[]) {
+  return {
+    "acs_population-by_race_state_std": new Dataset(
+      acsRaceRows,
+      FakeMetadataMap["acs_population-by_race_state_std"]
+    ),
+    "acs_population-by_age_state": new Dataset(
+      acsAgeRows,
+      FakeMetadataMap["acs_population-by_age_state"]
+    ),
+  };
+}
+
+function rawPopulationRow(
   fips: string,
   state_name: string,
   breakdownName: string,
@@ -24,13 +37,19 @@ function row(
   };
 }
 
+function addPopulationPctToRow(row: {}, pct: number) {
+  return Object.assign(row, {
+    population_pct: pct,
+  });
+}
+
 describe("AcsPopulationProvider", () => {
   test("Invalid Breakdown", async () => {
     const acsProvider = new AcsPopulationProvider();
 
     expect(acsProvider.getData({}, Breakdowns.national())).toEqual(
       createMissingDataResponse(
-        'Breakdowns not supported for provider acs_pop_provider: {"geography":"national"}'
+        "Breakdowns not supported for provider acs_pop_provider: geography:national"
       )
     );
   });
@@ -38,63 +57,111 @@ describe("AcsPopulationProvider", () => {
   test("State and Race Breakdown", async () => {
     const acsProvider = new AcsPopulationProvider();
 
-    const NC_ASIAN_ROW = row("37", "NC", "race_and_ethnicity", ASIAN, 5);
-    const NC_WHITE_ROW = row("37", "NC", "race_and_ethnicity", WHITE, 15);
-    const NC_TOTAL_ROW = row("37", "NC", "race_and_ethnicity", TOTAL, 20);
+    const NC_TOTAL_ROW = rawPopulationRow(
+      "37",
+      "NC",
+      "race_and_ethnicity",
+      TOTAL,
+      20
+    );
+    const NC_ASIAN_ROW = rawPopulationRow(
+      "37",
+      "NC",
+      "race_and_ethnicity",
+      ASIAN,
+      5
+    );
+    const NC_WHITE_ROW = rawPopulationRow(
+      "37",
+      "NC",
+      "race_and_ethnicity",
+      WHITE,
+      15
+    );
 
-    const datasetRows = [
-      row("01", "AL", "race_and_ethnicity", TOTAL, 2),
-      row("01", "AL", "race_and_ethnicity", ASIAN, 2),
+    const NC_TOTAL_FINAL_ROW = addPopulationPctToRow(NC_TOTAL_ROW, 100);
+    const NC_ASIAN_FINAL_ROW = addPopulationPctToRow(NC_ASIAN_ROW, 25);
+    const NC_WHITE_FINAL_ROW = addPopulationPctToRow(NC_WHITE_ROW, 75);
+
+    const acsRaceRows = [
+      rawPopulationRow("01", "AL", "race_and_ethnicity", TOTAL, 2),
+      rawPopulationRow("01", "AL", "race_and_ethnicity", ASIAN, 2),
       NC_ASIAN_ROW,
       NC_WHITE_ROW,
       NC_TOTAL_ROW,
     ];
 
-    const NC_ASIAN_FINAL_ROW = Object.assign(NC_ASIAN_ROW, {
-      population_pct: 25,
-    });
-    const NC_WHITE_FINAL_ROW = Object.assign(NC_WHITE_ROW, {
-      population_pct: 75,
-    });
-    const NC_TOTAL_FINAL_ROW = Object.assign(NC_TOTAL_ROW, {
-      population_pct: 100,
-    });
-    const expectedRows = [
-      NC_ASIAN_FINAL_ROW,
-      NC_WHITE_FINAL_ROW,
-      NC_TOTAL_FINAL_ROW,
-    ];
+    const dataServerResponse = fakeDataServerResponse(
+      acsRaceRows,
+      /*acsAgeRows=*/ []
+    );
 
-    const DATASET_MAP = {
-      "acs_population-by_race_state_std": new Dataset(
-        datasetRows,
-        FakeMetadataMap["acs_population-by_race_state_std"]
-      ),
-      "acs_population-by_age_state": new Dataset(
-        [],
-        FakeMetadataMap["acs_population-by_age_state"]
-      ),
-    };
-    const breakdown = Breakdowns.forFips(new Fips("37")).andRace();
-    const actual = acsProvider.getData(DATASET_MAP, breakdown);
-    expect(actual).toEqual(
-      new MetricQueryResponse(expectedRows, [
-        "acs_population-by_race_state_std",
-      ])
+    // Evaluate the response without requesting total field
+    const responseWithoutTotal = acsProvider.getData(
+      dataServerResponse,
+      Breakdowns.forFips(new Fips("37")).andRace()
+    );
+    expect(responseWithoutTotal).toEqual(
+      new MetricQueryResponse(
+        [NC_ASIAN_FINAL_ROW, NC_WHITE_FINAL_ROW],
+        ["acs_population-by_race_state_std"]
+      )
+    );
+
+    // Evaluate the response with requesting total field
+    const responseWithTotal = acsProvider.getData(
+      dataServerResponse,
+      Breakdowns.forFips(new Fips("37")).andRace(/*includeTotal=*/ true)
+    );
+    expect(responseWithTotal).toEqual(
+      new MetricQueryResponse(
+        [NC_ASIAN_FINAL_ROW, NC_WHITE_FINAL_ROW, NC_TOTAL_FINAL_ROW],
+        ["acs_population-by_race_state_std"]
+      )
     );
   });
 
   test("National and Race Breakdown", async () => {
     const acsProvider = new AcsPopulationProvider();
 
-    const NC_ASIAN_ROW = row("37", "NC", "race_and_ethnicity", ASIAN, 5);
-    const NC_WHITE_ROW = row("37", "NC", "race_and_ethnicity", WHITE, 15);
-    const NC_TOTAL_ROW = row("37", "NC", "race_and_ethnicity", TOTAL, 20);
+    const NC_ASIAN_ROW = rawPopulationRow(
+      "37",
+      "NC",
+      "race_and_ethnicity",
+      ASIAN,
+      5
+    );
+    const NC_WHITE_ROW = rawPopulationRow(
+      "37",
+      "NC",
+      "race_and_ethnicity",
+      WHITE,
+      15
+    );
+    const NC_TOTAL_ROW = rawPopulationRow(
+      "37",
+      "NC",
+      "race_and_ethnicity",
+      TOTAL,
+      20
+    );
 
-    const AL_ASIAN_ROW = row("01", "AL", "race_and_ethnicity", ASIAN, 5);
-    const AL_TOTAL_ROW = row("01", "AL", "race_and_ethnicity", TOTAL, 5);
+    const AL_ASIAN_ROW = rawPopulationRow(
+      "01",
+      "AL",
+      "race_and_ethnicity",
+      ASIAN,
+      5
+    );
+    const AL_TOTAL_ROW = rawPopulationRow(
+      "01",
+      "AL",
+      "race_and_ethnicity",
+      TOTAL,
+      5
+    );
 
-    const datasetRows = [
+    const acsRaceRows = [
       AL_TOTAL_ROW,
       AL_ASIAN_ROW,
       NC_ASIAN_ROW,
@@ -102,7 +169,7 @@ describe("AcsPopulationProvider", () => {
       NC_TOTAL_ROW,
     ];
 
-    function finalRow(
+    function finalNationalRow(
       race: string,
       population: number,
       population_pct: number
@@ -115,122 +182,152 @@ describe("AcsPopulationProvider", () => {
         population_pct: population_pct,
       };
     }
-    const expectedRows = [
-      finalRow(ASIAN, /*population=*/ 10, /*population_pct=*/ 40),
-      finalRow(TOTAL, /*population=*/ 25, /*population_pct=*/ 100),
-      finalRow(WHITE, /*population=*/ 15, /*population_pct=*/ 60),
-    ];
 
-    const DATASET_MAP = {
-      "acs_population-by_race_state_std": new Dataset(
-        datasetRows,
-        FakeMetadataMap["acs_population-by_race_state_std"]
-      ),
-      "acs_population-by_age_state": new Dataset(
-        [],
-        FakeMetadataMap["acs_population-by_age_state"]
-      ),
-    };
-    const breakdown = Breakdowns.national().andRace();
-    const actual = acsProvider.getData(DATASET_MAP, breakdown);
-    expect(actual).toEqual(
-      new MetricQueryResponse(expectedRows, [
-        "acs_population-by_race_state_std",
-      ])
+    const NATIONAL_ASIAN_FINAL_ROW = finalNationalRow(
+      ASIAN,
+      /*population=*/ 10,
+      /*population_pct=*/ 40
+    );
+    const NATIONAL_WHITE_FINAL_ROW = finalNationalRow(
+      WHITE,
+      /*population=*/ 15,
+      /*population_pct=*/ 60
+    );
+    const NATIONAL_TOTAL_FINAL_ROW = finalNationalRow(
+      TOTAL,
+      /*population=*/ 25,
+      /*population_pct=*/ 100
+    );
+
+    const dataServerResponse = fakeDataServerResponse(
+      acsRaceRows,
+      /*acsAgeRows=*/ []
+    );
+
+    // Evaluate the response without requesting total field
+    const responseWithoutTotal = acsProvider.getData(
+      dataServerResponse,
+      Breakdowns.national().andRace()
+    );
+    expect(responseWithoutTotal).toEqual(
+      new MetricQueryResponse(
+        [NATIONAL_ASIAN_FINAL_ROW, NATIONAL_WHITE_FINAL_ROW],
+        ["acs_population-by_race_state_std"]
+      )
+    );
+
+    // Evaluate the response with requesting total field
+    const responseWithTotal = acsProvider.getData(
+      dataServerResponse,
+      Breakdowns.national().andRace(/*includeTotal=*/ true)
+    );
+    expect(responseWithTotal).toEqual(
+      new MetricQueryResponse(
+        [
+          NATIONAL_ASIAN_FINAL_ROW,
+          NATIONAL_TOTAL_FINAL_ROW,
+          NATIONAL_WHITE_FINAL_ROW,
+        ],
+        ["acs_population-by_race_state_std"]
+      )
     );
   });
 
   test("State and Age Breakdown", async () => {
     const acsProvider = new AcsPopulationProvider();
 
-    const NC_AGE_0_9 = row("37", "NC", "age", "0-9", 15);
-    const NC_AGE_10_19 = row("37", "NC", "age", "10-19", 10);
-    const datasetRows = [
-      row("01", "AL", "age", "10-19", 2),
+    const NC_AGE_0_9 = rawPopulationRow("37", "NC", "age", "0-9", 15);
+    const NC_AGE_10_19 = rawPopulationRow("37", "NC", "age", "10-19", 10);
+    const acsAgeRows = [
+      rawPopulationRow("01", "AL", "age", "10-19", 2),
       NC_AGE_0_9,
       NC_AGE_10_19,
     ];
 
-    const NC_AGE_0_9_FINAL = Object.assign(NC_AGE_0_9, { population_pct: 60 });
-    const NC_AGE_10_19_FINAL = Object.assign(NC_AGE_10_19, {
-      population_pct: 40,
-    });
+    const NC_AGE_0_9_FINAL = addPopulationPctToRow(NC_AGE_0_9, 60);
+    const NC_AGE_10_19_FINAL = addPopulationPctToRow(NC_AGE_10_19, 40);
+    const NC_TOTAL_FINAL = addPopulationPctToRow(
+      rawPopulationRow("37", "NC", "age", "Total", 25),
+      100
+    );
 
-    const expectedRows = [NC_AGE_0_9_FINAL, NC_AGE_10_19_FINAL];
+    const dataServerResponse = fakeDataServerResponse(
+      /*acsAgeRows=*/ [],
+      acsAgeRows
+    );
 
-    const DATASET_MAP = {
-      "acs_population-by_race_state_std": new Dataset(
-        [],
-        FakeMetadataMap["acs_population-by_race_state_std"]
-      ),
-      "acs_population-by_age_state": new Dataset(
-        datasetRows,
-        FakeMetadataMap["acs_population-by_age_state"]
-      ),
-    };
-    const breakdown = Breakdowns.forFips(new Fips("37")).andAge();
-    const actual = acsProvider.getData(DATASET_MAP, breakdown);
-    expect(actual).toEqual(
-      new MetricQueryResponse(expectedRows, ["acs_population-by_age_state"])
+    // Evaluate the response without requesting total field
+    const responseWithoutTotal = acsProvider.getData(
+      dataServerResponse,
+      Breakdowns.forFips(new Fips("37")).andAge()
+    );
+    expect(responseWithoutTotal).toEqual(
+      new MetricQueryResponse(
+        [NC_AGE_0_9_FINAL, NC_AGE_10_19_FINAL],
+        ["acs_population-by_age_state"]
+      )
+    );
+
+    // Evaluate the response without requesting total field
+    const responseWithTotal = acsProvider.getData(
+      dataServerResponse,
+      Breakdowns.forFips(new Fips("37")).andAge(/*includeTotal=*/ true)
+    );
+    expect(responseWithTotal).toEqual(
+      new MetricQueryResponse(
+        [NC_AGE_0_9_FINAL, NC_AGE_10_19_FINAL, NC_TOTAL_FINAL],
+        ["acs_population-by_age_state"]
+      )
     );
   });
 
   test("National and Age Breakdown", async () => {
     const acsProvider = new AcsPopulationProvider();
 
-    const AL_AGE_0_9 = row("01", "AL", "age", "0-9", 15);
-    const NC_AGE_0_9 = row("37", "NC", "age", "0-9", 15);
-    const NC_AGE_10_19 = row("37", "NC", "age", "10-19", 10);
-    const datasetRows = [AL_AGE_0_9, NC_AGE_0_9, NC_AGE_10_19];
+    const AL_AGE_0_9 = rawPopulationRow("01", "AL", "age", "0-9", 15);
+    const NC_AGE_0_9 = rawPopulationRow("37", "NC", "age", "0-9", 15);
+    const NC_AGE_10_19 = rawPopulationRow("37", "NC", "age", "10-19", 10);
+    const acsAgeRows = [AL_AGE_0_9, NC_AGE_0_9, NC_AGE_10_19];
 
-    const AGE_0_9_FINAL = Object.assign(
-      row(USA_FIPS, USA_DISPLAY_NAME, "age", "0-9", 30),
-      { population_pct: 75 }
+    const AGE_0_9_FINAL = addPopulationPctToRow(
+      rawPopulationRow(USA_FIPS, USA_DISPLAY_NAME, "age", "0-9", 30),
+      75
     );
-    const AGE_10_19_FINAL = Object.assign(
-      row(USA_FIPS, USA_DISPLAY_NAME, "age", "10-19", 10),
-      { population_pct: 25 }
+    const AGE_10_19_FINAL = addPopulationPctToRow(
+      rawPopulationRow(USA_FIPS, USA_DISPLAY_NAME, "age", "10-19", 10),
+      25
+    );
+    const AGE_TOTAL_FINAL = addPopulationPctToRow(
+      rawPopulationRow(USA_FIPS, USA_DISPLAY_NAME, "age", "Total", 40),
+      100
     );
 
-    const expectedRows = [AGE_0_9_FINAL, AGE_10_19_FINAL];
-
-    const DATASET_MAP = {
-      "acs_population-by_race_state_std": new Dataset(
-        [],
-        FakeMetadataMap["acs_population-by_race_state_std"]
-      ),
-      "acs_population-by_age_state": new Dataset(
-        datasetRows,
-        FakeMetadataMap["acs_population-by_age_state"]
-      ),
-    };
-    const breakdown = Breakdowns.national().andAge();
-    const actual = acsProvider.getData(DATASET_MAP, breakdown);
-    expect(actual).toEqual(
-      new MetricQueryResponse(expectedRows, ["acs_population-by_age_state"])
+    const dataServerResponse = fakeDataServerResponse(
+      /*acsAgeRows=*/ [],
+      acsAgeRows
     );
-  });
 
-  test("State and Gender Breakdown", async () => {
-    const acsProvider = new AcsPopulationProvider();
+    // Evaluate the response without requesting total field
+    const responseWithoutTotal = acsProvider.getData(
+      dataServerResponse,
+      Breakdowns.national().andAge()
+    );
+    expect(responseWithoutTotal).toEqual(
+      new MetricQueryResponse(
+        [AGE_0_9_FINAL, AGE_10_19_FINAL],
+        ["acs_population-by_age_state"]
+      )
+    );
 
-    const breakdown = Breakdowns.forFips(new Fips("37")).andGender();
-
-    const DATASET_MAP = {
-      "acs_population-by_race_state_std": new Dataset(
-        [],
-        FakeMetadataMap["acs_population-by_race_state_std"]
-      ),
-      "acs_population-by_age_state": new Dataset(
-        [],
-        FakeMetadataMap["acs_population-by_age_state"]
-      ),
-    };
-
-    const actual = acsProvider.getData(DATASET_MAP, breakdown);
-    expect(actual).toEqual(
-      createMissingDataResponse(
-        'Breakdowns not supported for provider acs_pop_provider: {"geography":"state","sex":true,"filterFips":"37"}'
+    // Evaluate the response with requesting total field
+    const responseWithTotal = acsProvider.getData(
+      dataServerResponse,
+      Breakdowns.national().andAge(/*includeTotal=*/ true)
+    );
+    expect(responseWithTotal).toEqual(
+      new MetricQueryResponse(
+        [AGE_0_9_FINAL, AGE_10_19_FINAL, AGE_TOTAL_FINAL],
+        ["acs_population-by_age_state"]
       )
     );
   });
@@ -238,23 +335,61 @@ describe("AcsPopulationProvider", () => {
   test("State and Gender Breakdown", async () => {
     const acsProvider = new AcsPopulationProvider();
 
-    const breakdown = Breakdowns.national().andGender();
+    const dataServerResponse = fakeDataServerResponse(
+      /*acsRaceRows=*/ [],
+      /*acsAgeRows=*/ []
+    );
 
-    const DATASET_MAP = {
-      "acs_population-by_race_state_std": new Dataset(
-        [],
-        FakeMetadataMap["acs_population-by_race_state_std"]
-      ),
-      "acs_population-by_age_state": new Dataset(
-        [],
-        FakeMetadataMap["acs_population-by_age_state"]
-      ),
-    };
-
-    const actual = acsProvider.getData(DATASET_MAP, breakdown);
-    expect(actual).toEqual(
+    // Evaluate the response without requesting total field
+    const responseWithoutTotal = acsProvider.getData(
+      dataServerResponse,
+      Breakdowns.forFips(new Fips("37")).andGender()
+    );
+    expect(responseWithoutTotal).toEqual(
       createMissingDataResponse(
-        'Breakdowns not supported for provider acs_pop_provider: {"geography":"national","sex":true}'
+        "Breakdowns not supported for provider acs_pop_provider: filterFips:37,geography:state,sex:without total"
+      )
+    );
+
+    // Evaluate the response with requesting total field
+    const responseWithTotal = acsProvider.getData(
+      dataServerResponse,
+      Breakdowns.forFips(new Fips("37")).andGender(/*includeTotal=*/ true)
+    );
+    expect(responseWithTotal).toEqual(
+      createMissingDataResponse(
+        "Breakdowns not supported for provider acs_pop_provider: filterFips:37,geography:state,sex:with total"
+      )
+    );
+  });
+
+  test("National and Gender Breakdown", async () => {
+    const acsProvider = new AcsPopulationProvider();
+
+    const dataServerResponse = fakeDataServerResponse(
+      /*acsRaceRows=*/ [],
+      /*acsAgeRows=*/ []
+    );
+
+    // Evaluate the response without requesting total field
+    const responseWithoutTotal = acsProvider.getData(
+      dataServerResponse,
+      Breakdowns.national().andGender()
+    );
+    expect(responseWithoutTotal).toEqual(
+      createMissingDataResponse(
+        "Breakdowns not supported for provider acs_pop_provider: geography:national,sex:without total"
+      )
+    );
+
+    // Evaluate the response with requesting total field
+    const responseWithTotal = acsProvider.getData(
+      dataServerResponse,
+      Breakdowns.national().andGender(/*includeTotal=*/ true)
+    );
+    expect(responseWithTotal).toEqual(
+      createMissingDataResponse(
+        "Breakdowns not supported for provider acs_pop_provider: geography:national,sex:with total"
       )
     );
   });

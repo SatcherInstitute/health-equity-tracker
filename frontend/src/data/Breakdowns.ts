@@ -16,6 +16,12 @@ export type BreakdownVar =
   | "date"
   | "state_fips";
 
+export type DemographicBreakdownKey =
+  | "race"
+  | "race_nonstandard"
+  | "sex"
+  | "age";
+
 export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
   race_and_ethnicity: "Race and Ethnicity",
   age: "Age",
@@ -24,74 +30,88 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
   state_fips: "State FIPS Code",
 };
 
+interface DemographicBreakdown {
+  // Name of the column in the returned data
+  readonly columnName: BreakdownVar;
+  // Whether the demographic breakdown is requested
+  enabled: boolean;
+  // If requested, should the breakdown include a "Total", i.e. value for all age/race/sex
+  includeTotal: boolean;
+}
+
+function stringifyDemographic(breakdown: DemographicBreakdown) {
+  if (!breakdown.enabled) {
+    return undefined;
+  }
+  return breakdown.includeTotal ? "with total" : "without total";
+}
+
+function createDemographicBreakdown(
+  columnName: BreakdownVar,
+  enabled = false,
+  includeTotal = false
+) {
+  return {
+    columnName: columnName,
+    enabled: enabled,
+    includeTotal: includeTotal,
+  };
+}
+
 export class Breakdowns {
   geography: GeographicBreakdown;
   // We may want to extend this to an explicit type to support variants for
   // day/week/month/year.
   time: boolean;
-  race: boolean;
-  race_nonstandard: boolean;
-  age: boolean;
-  sex: boolean;
+  demographicBreakdowns: Record<DemographicBreakdownKey, DemographicBreakdown>;
   filterFips?: string;
 
   constructor(
     geography: GeographicBreakdown,
-    race = false,
-    race_nonstandard = false,
-    age = false,
-    sex = false,
+    demographicBreakdowns?: Record<
+      DemographicBreakdownKey,
+      DemographicBreakdown
+    >,
     time = false,
     filterFips?: string
   ) {
     this.geography = geography;
-    this.race = race;
-    this.race_nonstandard = race_nonstandard;
-    this.age = age;
-    this.sex = sex;
+    this.demographicBreakdowns = demographicBreakdowns
+      ? { ...demographicBreakdowns }
+      : {
+          race: createDemographicBreakdown("race_and_ethnicity"),
+          race_nonstandard: createDemographicBreakdown("race_and_ethnicity"),
+          age: createDemographicBreakdown("age"),
+          sex: createDemographicBreakdown("sex"),
+        };
     this.time = time;
     this.filterFips = filterFips;
   }
 
+  // Returns a string that uniquely identifies a breakdown. Two identical breakdowns will return the same key
   getUniqueKey() {
-    return (
-      "geography: " +
-      this.geography +
-      ", race: " +
-      this.race +
-      ", race_nonstandard: " +
-      this.race_nonstandard +
-      ", age: " +
-      this.age +
-      ", sex: " +
-      this.sex +
-      ", time: " +
-      this.time +
-      ", filterGeo: " +
-      this.filterFips
-    );
-  }
-
-  getBreakdownString() {
-    // Any fields that are not set will not be included in the string for readibility
-    return JSON.stringify({
+    let breakdowns: Record<string, any> = {
       geography: this.geography,
       time: this.time || undefined,
-      race: this.race || undefined,
-      race_nonstandard: this.race_nonstandard || undefined,
-      age: this.age || undefined,
-      sex: this.sex || undefined,
       filterFips: this.filterFips || undefined,
-    });
+    };
+    Object.entries(this.demographicBreakdowns).forEach(
+      ([breakdownKey, breakdown]) => {
+        breakdowns[breakdownKey] = stringifyDemographic(breakdown);
+      }
+    );
+    // Any fields that are not set will not be included in the string for readibility
+    // We want to sort these to ensure that it is deterministic so that all breakdowns map to the same key
+    const orderedBreakdownKeys = Object.keys(breakdowns)
+      .sort()
+      .filter((k) => breakdowns[k] !== undefined);
+    return orderedBreakdownKeys.map((k) => `${k}:${breakdowns[k]}`).join(",");
   }
 
   copy() {
     return new Breakdowns(
       this.geography,
-      this.race,
-      this.race_nonstandard,
-      this.age,
-      this.sex,
+      Object.assign({}, this.demographicBreakdowns),
       this.time,
       this.filterFips
     );
@@ -117,21 +137,26 @@ export class Breakdowns {
 
   addBreakdown(
     breakdownVar: BreakdownVar,
+    includeTotal = false,
     nonstandardizedRace = false
   ): Breakdowns {
     switch (breakdownVar) {
       case "race_and_ethnicity":
-        if (nonstandardizedRace) {
-          this.race_nonstandard = true;
-        } else {
-          this.race = true;
-        }
+        const breakdownKey = nonstandardizedRace ? "race_nonstandard" : "race";
+        this.demographicBreakdowns[breakdownKey] = createDemographicBreakdown(
+          "race_and_ethnicity",
+          true,
+          includeTotal
+        );
         return this;
       case "age":
-        this.age = true;
-        return this;
       case "sex":
-        this.sex = true;
+        // Column name is the same as key for age and sex
+        this.demographicBreakdowns[breakdownVar] = createDemographicBreakdown(
+          breakdownVar,
+          true,
+          includeTotal
+        );
         return this;
       case "date":
         this.time = true;
@@ -140,16 +165,20 @@ export class Breakdowns {
     return this;
   }
 
-  andRace(nonstandard = false): Breakdowns {
-    return this.addBreakdown("race_and_ethnicity", nonstandard);
+  andRace(includeTotal = false, nonstandard = false): Breakdowns {
+    return this.addBreakdown(
+      "race_and_ethnicity",
+      /*includeTotal*/ includeTotal,
+      nonstandard
+    );
   }
 
-  andAge(): Breakdowns {
-    return this.addBreakdown("age");
+  andAge(includeTotal = false): Breakdowns {
+    return this.addBreakdown("age", includeTotal);
   }
 
-  andGender(): Breakdowns {
-    return this.addBreakdown("sex");
+  andGender(includeTotal = false): Breakdowns {
+    return this.addBreakdown("sex", includeTotal);
   }
 
   andTime(): Breakdowns {
@@ -158,9 +187,35 @@ export class Breakdowns {
 
   // Helper function returning how many demographic breakdowns are currently requested
   demographicBreakdownCount() {
-    return [this.age, this.sex, this.race, this.race_nonstandard].filter(
-      (demo) => demo
+    return Object.entries(this.demographicBreakdowns).filter(
+      ([k, v]) => v.enabled
     ).length;
+  }
+
+  hasNoDemographicBreakdown() {
+    return this.demographicBreakdownCount() === 0;
+  }
+
+  hasExactlyOneDemographic() {
+    return this.demographicBreakdownCount() === 1;
+  }
+
+  hasOnlyRace() {
+    return (
+      this.hasExactlyOneDemographic() && this.demographicBreakdowns.race.enabled
+    );
+  }
+  hasOnlyRaceNonStandard() {
+    return (
+      this.hasExactlyOneDemographic() &&
+      this.demographicBreakdowns.race_nonstandard.enabled
+    );
+  }
+
+  hasOnlyAge() {
+    return (
+      this.hasExactlyOneDemographic() && this.demographicBreakdowns.age.enabled
+    );
   }
 
   /** Filters to entries that exactly match the specified FIPS code. */
@@ -171,18 +226,16 @@ export class Breakdowns {
 
   getJoinColumns(): BreakdownVar[] {
     const joinCols: BreakdownVar[] = ["state_fips"];
-    if (this.age) {
-      joinCols.push("age");
-    }
-    if (this.race || this.race_nonstandard) {
-      joinCols.push("race_and_ethnicity");
-    }
-    if (this.sex) {
-      joinCols.push("sex");
-    }
+    Object.entries(this.demographicBreakdowns).forEach(
+      ([key, demographicBreakdown]) => {
+        if (demographicBreakdown.enabled) {
+          joinCols.push(demographicBreakdown.columnName);
+        }
+      }
+    );
     if (this.time) {
       joinCols.push("date");
     }
-    return joinCols;
+    return joinCols.sort();
   }
 }
