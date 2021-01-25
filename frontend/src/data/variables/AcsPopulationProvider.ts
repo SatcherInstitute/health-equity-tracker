@@ -71,14 +71,12 @@ class AcsPopulationProvider extends VariableProvider {
     // If requested, filter geography by state or county level
     if (breakdowns.filterFips !== undefined) {
       const fips = breakdowns.filterFips as Fips;
-      if (fips.isCounty()) {
-        df = df.where((row) => row["county_fips"] === fips.code);
-      } else if (fips.isState() && breakdowns.geography === "state") {
-        df = df.where((row) => row["state_fips"] === fips.code);
-      } else if (fips.isState() && breakdowns.geography === "county") {
+      if (fips.isState() && breakdowns.geography === "county") {
         df = df.where(
           (row) => row["county_fips"].substring(0, 2) === fips.code
         );
+      } else {
+        df = df.where((row) => row[fipsColumn] === fips.code);
       }
     }
 
