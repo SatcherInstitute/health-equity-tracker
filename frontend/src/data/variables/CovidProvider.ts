@@ -144,18 +144,7 @@ class CovidProvider extends VariableProvider {
       });
     });
 
-    Object.values(breakdowns.demographicBreakdowns).forEach(
-      (demographicBreakdown) => {
-        if (
-          demographicBreakdown.enabled &&
-          !demographicBreakdown.includeTotal
-        ) {
-          df = df
-            .where((row) => row[demographicBreakdown.columnName] !== "Total")
-            .resetIndex();
-        }
-      }
-    );
+    df = this.removeUnwantedDemographicTotals(df, breakdowns);
 
     df = this.renameGeoColumns(df, breakdowns);
 

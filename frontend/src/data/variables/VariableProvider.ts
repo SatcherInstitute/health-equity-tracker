@@ -77,6 +77,25 @@ abstract class VariableProvider {
     return df;
   }
 
+  removeUnwantedDemographicTotals(
+    df: IDataFrame,
+    breakdowns: Breakdowns
+  ): IDataFrame {
+    Object.values(breakdowns.demographicBreakdowns).forEach(
+      (demographicBreakdown) => {
+        if (
+          demographicBreakdown.enabled &&
+          !demographicBreakdown.includeTotal
+        ) {
+          df = df
+            .where((row) => row[demographicBreakdown.columnName] !== "Total")
+            .resetIndex();
+        }
+      }
+    );
+    return df;
+  }
+
   abstract getDataInternal(
     datasets: Record<string, Dataset>,
     breakdowns: Breakdowns

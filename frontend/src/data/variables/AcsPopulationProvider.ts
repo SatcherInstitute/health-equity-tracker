@@ -105,19 +105,7 @@ class AcsPopulationProvider extends VariableProvider {
       });
     });
 
-    // If totals weren't requested, remove them
-    Object.values(breakdowns.demographicBreakdowns).forEach(
-      (demographicBreakdown) => {
-        if (
-          demographicBreakdown.enabled &&
-          !demographicBreakdown.includeTotal
-        ) {
-          df = df
-            .where((row) => row[demographicBreakdown.columnName] !== "Total")
-            .resetIndex();
-        }
-      }
-    );
+    df = this.removeUnwantedDemographicTotals(df, breakdowns);
 
     // TODO - rename state_fips and county_fips to fips
 
