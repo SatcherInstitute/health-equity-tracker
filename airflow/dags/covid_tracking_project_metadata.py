@@ -7,7 +7,7 @@ import util
 
 _CTP_METADATA_GCS_FILENAME = 'Copy of CRDT Categories - Cleaned Metadata.csv'
 _CTP_METADATA_WORKFLOW_ID = 'COVID_TRACKING_PROJECT_METADATA'
-_CTP_METADATA_DATASET = 'ctp-metadata'
+_CTP_METADATA_DATASET = 'covid_tracking_project'
 
 default_args = {
     'start_date': days_ago(0),
