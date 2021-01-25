@@ -284,7 +284,6 @@ describe("CovidProvider", () => {
       "acs_population-by_race_state_std",
       acsRaceRows
     );
-
     // Evaluate the response with requesting total field
     const metricQueryWithTotal = new MetricQuery(
       ["covid_cases"],

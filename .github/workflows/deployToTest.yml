@@ -191,6 +191,8 @@ jobs:
           echo "::set-output name=exporter_url::$exporter_url"
           aggregator_url=$(terraform output aggregator_url)
           echo "::set-output name=aggregator_url::$aggregator_url"
+          frontend_url=$(terraform output frontend_url)
+          echo "::set-output name=frontend_url::$frontend_url"
       - name: Airflow Environment Variables
         id: airflow-environment-variables
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
@@ -221,7 +223,8 @@ jobs:
       - name: Run E2E Tests
         run: |
           pip install -r e2e_tests/requirements.txt
-          python e2e_tests/data_serving.py || code=$?; if [[ $code -ne 0 ]]; then exit $code; fi
+          pytest e2e_tests/data_serving.py
         env:
           SERVICE_URL: ${{ steps.terraform.outputs.data_server_url }}
+          FRONTEND_URL: ${{ steps.terraform.outputs.frontend_url }}
           PATH_TO_SA_CREDS: config/creds.json

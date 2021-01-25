@@ -154,12 +154,8 @@ class CovidProvider extends VariableProvider {
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    const validDemographicBreakdownRequest: boolean =
-      breakdowns.demographicBreakdownCount() === 1 &&
-      breakdowns.demographicBreakdowns.race_nonstandard.enabled;
-
     return (
-      validDemographicBreakdownRequest &&
+      breakdowns.hasOnlyRaceNonStandard() &&
       (breakdowns.geography === "state" || breakdowns.geography === "national")
     );
   }

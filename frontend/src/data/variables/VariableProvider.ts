@@ -32,7 +32,7 @@ abstract class VariableProvider {
         "Breakdowns not supported for provider " +
           this.providerId +
           ": " +
-          metricQuery.breakdowns.getBreakdownString()
+          metricQuery.breakdowns.getUniqueKey()
       );
     }
 

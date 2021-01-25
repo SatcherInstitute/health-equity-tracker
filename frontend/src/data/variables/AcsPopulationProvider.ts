@@ -1,5 +1,5 @@
 import { IDataFrame } from "data-forge";
-import { Breakdowns } from "../Breakdowns";
+import { Breakdowns, DemographicBreakdownKey } from "../Breakdowns";
 import { Dataset } from "../DatasetTypes";
 import { applyToGroups, percent } from "../datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME, Fips } from "../../utils/madlib/Fips";
@@ -88,8 +88,13 @@ class AcsPopulationProvider extends VariableProvider {
     }
 
     // Calculate totals where dataset doesn't provide it
+    // TODO- this should be removed when Totals come from the Data Server
     ["age", "sex"].forEach((breakdownName) => {
-      if (breakdowns.demographicBreakdowns[breakdownName].enabled) {
+      if (
+        breakdowns.demographicBreakdowns[
+          breakdownName as DemographicBreakdownKey
+        ].enabled
+      ) {
         df = df
           .concat(
             df.pivot([fipsColumn, geoNameColumn], {
@@ -164,11 +169,13 @@ class AcsPopulationProvider extends VariableProvider {
         ? breakdowns.demographicBreakdowns.race_nonstandard.enabled ||
           breakdowns.demographicBreakdowns.race.enabled
         : true;
+    const validDemographicBreakdown: boolean =
+      breakdowns.hasOnlyRaceNonStandard() ||
+      breakdowns.hasOnlyRace() ||
+      breakdowns.hasOnlyAge();
 
     return (
-      !breakdowns.time &&
-      breakdowns.demographicBreakdownCount() === 1 &&
-      validGeographicBreakdown
+      !breakdowns.time && validDemographicBreakdown && validGeographicBreakdown
     );
   }
 }
