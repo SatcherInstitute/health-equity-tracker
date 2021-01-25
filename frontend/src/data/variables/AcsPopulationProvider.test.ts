@@ -220,17 +220,13 @@ describe("AcsPopulationProvider", () => {
     );
 
     // Evaluate the response without requesting total field
-    const rowsWithoutTotal = [
-      DURHAM_ASIAN_FINAL_ROW,
-      DURHAM_WHITE_FINAL_ROW,
-      DURHAM_TOTAL_FINAL_ROW,
-    ];
+    const rowsWithoutTotal = [DURHAM_ASIAN_FINAL_ROW, DURHAM_WHITE_FINAL_ROW];
     const responseWithoutTotal = acsProvider.getData(
       fakeDataServerResponse(
         "acs_population-by_race_county_std",
         acsRaceCountyData
       ),
-      Breakdowns.forFips(new Fips("37063")).andRace(true)
+      Breakdowns.forFips(new Fips("37063")).andRace()
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse(rowsWithoutTotal, [
@@ -453,7 +449,7 @@ describe("AcsPopulationProvider", () => {
       )
     );
 
-    // Evaluate the response without requesting total field
+    // Evaluate the response with requesting total field
     const responseWithTotal = acsProvider.getData(
       dataServerResponse,
       Breakdowns.forFips(new Fips("37")).andAge(/*includeTotal=*/ true)
