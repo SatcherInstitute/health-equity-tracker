@@ -18,7 +18,6 @@ class CtpMetadata(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         gcs_file = self.get_attr(attrs, 'filename')
-        output_table = self.get_attr(attrs, 'table_name')
 
         # Download the raw data
         df = gcs_to_bq_util.load_csv_as_dataframe(gcs_bucket, gcs_file)
@@ -46,7 +45,7 @@ class CtpMetadata(DataSource):
         df.rename(columns=self._metadata_columns_map(), inplace=True)
 
         # Write to BQ
-        gcs_to_bq_util.append_dataframe_to_bq(df, dataset, output_table)
+        gcs_to_bq_util.append_dataframe_to_bq(df, dataset, self.get_table_name())
 
     @staticmethod
     def _metadata_columns_map():
