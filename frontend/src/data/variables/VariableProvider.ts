@@ -2,6 +2,8 @@ import { Breakdowns } from "../Breakdowns";
 import { Dataset } from "../DatasetTypes";
 import { ProviderId, MetricId } from "../variableProviders";
 import { MetricQueryResponse, createMissingDataResponse } from "../MetricQuery";
+import { IDataFrame } from "data-forge";
+import { Fips } from "../../utils/madlib/Fips";
 
 abstract class VariableProvider {
   readonly providerId: ProviderId;
@@ -40,6 +42,23 @@ abstract class VariableProvider {
     }
 
     return this.getDataInternal(datasets, breakdowns);
+  }
+
+  filterByGeo(df: IDataFrame, breakdowns: Breakdowns): IDataFrame {
+    const fipsColumn: string =
+      breakdowns.geography === "county" ? "county_fips" : "state_fips";
+
+    if (breakdowns.filterFips !== undefined) {
+      const fips = breakdowns.filterFips as Fips;
+      if (fips.isState() && breakdowns.geography === "county") {
+        df = df.where(
+          (row) => row["county_fips"].substring(0, 2) === fips.code
+        );
+      } else {
+        df = df.where((row) => row[fipsColumn] === fips.code);
+      }
+    }
+    return df;
   }
 
   abstract getDataInternal(

@@ -1,0 +1,13 @@
+[{"date":"2020-04-12","county_name":"Chatam",
+"race_and_ethnicity":"American Indian and Alaska Native",
+"Cases":223,"Deaths":18,"Hosp":null,"county_fips":"37037"},
+{"date":"2020-04-12","county_name":"Chatam",
+    "race_and_ethnicity":"American Indian and Alaska Native (Non-Hispanic)",
+    "Cases":354,"Deaths":58,"Hosp":null,"county_fips":"37037"},
+{"date":"2020-04-12","county_name":"Chatam",
+    "race_and_ethnicity":"Asian",
+    "Cases":314,"Deaths":28,"Hosp":null,"county_fips":"37037"},
+    {"date":"2020-04-12","county_name":"Chatam",
+        "race_and_ethnicity":"Asian (Non-Hispanic)",
+        "Cases":314,"Deaths":28,"Hosp":null,"county_fips":"37037"}
+]

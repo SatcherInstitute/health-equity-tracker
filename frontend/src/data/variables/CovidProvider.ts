@@ -2,7 +2,7 @@ import { DataFrame } from "data-forge";
 import { Breakdowns } from "../Breakdowns";
 import { Dataset } from "../DatasetTypes";
 import VariableProvider from "./VariableProvider";
-import { USA_FIPS, USA_DISPLAY_NAME, Fips } from "../../utils/madlib/Fips";
+import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import {
   applyToGroups,
@@ -31,7 +31,9 @@ class CovidProvider extends VariableProvider {
         "covid_cases_per_100k",
         "covid_hosp_per_100k",
       ],
-      ["covid_by_state_and_race"].concat(acsProvider.datasetIds)
+      ["covid_by_state_and_race", "covid_by_county_and_race"].concat(
+        acsProvider.datasetIds
+      )
     );
     this.acsProvider = acsProvider;
   }
@@ -40,11 +42,18 @@ class CovidProvider extends VariableProvider {
     datasets: Record<string, Dataset>,
     breakdowns: Breakdowns
   ): MetricQueryResponse {
-    const covid_by_state_and_race = datasets["covid_by_state_and_race"];
-    let consumedDatasetIds = ["covid_by_state_and_race"];
+    const covid_dataset =
+      breakdowns.geography === "county"
+        ? datasets["covid_by_county_and_race"]
+        : datasets["covid_by_state_and_race"];
+    let consumedDatasetIds =
+      breakdowns.geography === "county"
+        ? ["covid_by_county_and_race"]
+        : ["covid_by_state_and_race"];
+
     // TODO need to figure out how to handle getting this at the national level
     // because each state reports race differently.
-    let df = covid_by_state_and_race.toDataFrame();
+    let df = covid_dataset.toDataFrame();
 
     // TODO some of this can be generalized across providers.
     if (!breakdowns.time) {
@@ -59,9 +68,8 @@ class CovidProvider extends VariableProvider {
     });
 
     df =
-      breakdowns.geography === "state"
+      breakdowns.geography === "national"
         ? df
-        : df
             .pivot(["date", "race_and_ethnicity"], {
               state_fips: (series) => USA_FIPS,
               state_name: (series) => USA_DISPLAY_NAME,
@@ -69,12 +77,10 @@ class CovidProvider extends VariableProvider {
               covid_deaths: (series) => series.sum(),
               covid_hosp: (series) => series.sum(),
             })
-            .resetIndex();
+            .resetIndex()
+        : df;
 
-    if (breakdowns.filterFips !== undefined) {
-      const fips = breakdowns.filterFips as Fips;
-      df = df.where((row) => row.state_fips === fips.code);
-    }
+    df = this.filterByGeo(df, breakdowns);
 
     // TODO How to handle territories?
     const acsBreakdowns = breakdowns.copy();
@@ -153,10 +159,7 @@ class CovidProvider extends VariableProvider {
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    return (
-      breakdowns.hasOnlyRaceNonStandard() &&
-      (breakdowns.geography === "state" || breakdowns.geography === "national")
-    );
+    return breakdowns.hasOnlyRaceNonStandard();
   }
 }
 
