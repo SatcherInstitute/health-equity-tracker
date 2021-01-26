@@ -4,7 +4,7 @@ from airflow.utils.dates import days_ago
 
 import util
 
-_CTP_METADATA_GCS_FILENAME = 'Copy of CRDT Categories - Cleaned Metadata.csv'
+_CTP_METADATA_GCS_FILENAME = 'covid_tracking_project_metadata.csv'
 _CTP_METADATA_WORKFLOW_ID = 'COVID_TRACKING_PROJECT_METADATA'
 _CTP_METADATA_DATASET = 'covid_tracking_project'
 
