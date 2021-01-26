@@ -49,6 +49,7 @@ class CtpMetadata(DataSource):
 
     @staticmethod
     def _metadata_columns_map():
+        """Returns a dict for renaming raw column names."""
         return {
             'api': 'reports_api',
             'combined_category_other_than_api': 'reports_ind',

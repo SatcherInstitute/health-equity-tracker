@@ -182,9 +182,9 @@ output "data_server_url" {
   value = google_cloud_run_service.data_server_service.status.0.url
 }
 
-#output "frontend_url" {
-#  value = google_cloud_run_service.frontend_service.status.0.url
-#}
+output "frontend_url" {
+  value = google_cloud_run_service.frontend_service.status.0.url
+}
 
 # Output the URLs of the pipeline services for use in Airflow.
 output "ingestion_url" {

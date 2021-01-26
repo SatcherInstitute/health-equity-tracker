@@ -1,8 +1,8 @@
 from google.cloud import bigquery
 import pandas as pd
 
-from datasources.data_source import DataSource
 from datasources.covid_tracking_project_metadata import CtpMetadata
+from datasources.data_source import DataSource
 import ingestion.gcs_to_bq_util as gcs_to_bq_util
 import ingestion.standardized_columns as col_std
 from ingestion.standardized_columns import Race
@@ -75,7 +75,8 @@ class CovidTrackingProject(DataSource):
         merged.drop(columns=['reports_api', 'reports_ind'], inplace=True)
 
         # Write to BQ
-        gcs_to_bq_util.append_dataframe_to_bq(merged, dataset, self.get_table_name())
+        gcs_to_bq_util.append_dataframe_to_bq(
+            merged, dataset, self.get_table_name())
 
     @staticmethod
     def _download_metadata(dataset: str) -> pd.DataFrame:
@@ -87,7 +88,8 @@ class CovidTrackingProject(DataSource):
         Returns:
         A pandas.DataFrame containing the contents of the requested table."""
         client = bigquery.Client()
-        job_config = bigquery.QueryJobConfig(default_dataset=client.get_dataset(dataset))
+        job_config = bigquery.QueryJobConfig(
+            default_dataset=client.get_dataset(dataset))
         sql = """
         SELECT *
         FROM {};
