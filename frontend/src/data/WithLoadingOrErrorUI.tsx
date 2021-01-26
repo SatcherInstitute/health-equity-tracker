@@ -86,6 +86,11 @@ export function WithMetadataAndMetrics(props: {
   ) => JSX.Element;
   loadingComponent?: JSX.Element;
 }) {
+  // Note: this will result in an error page if any of the required data fails
+  // to be fetched. We could make the metadata optional so the charts still
+  // render, but it is much easier to reason about if we require both. The
+  // downside is the user is more likely to see an error if the metadata is
+  // broken but the datasets aren't.
   return (
     <WithMetadata loadingComponent={props.loadingComponent}>
       {(metadata) => (

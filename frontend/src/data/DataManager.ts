@@ -7,16 +7,12 @@ import { MetricQuery, MetricQueryResponse } from "./MetricQuery";
 import { getDataFetcher, getDataManager, getLogger } from "../utils/globals";
 import { useEffect } from "react";
 
-// Expose method to kick off metadata loading. Note that it's important that
-// this method isn't async, or failures from getMetadata will bubble up to the
-// caller. Instead we want those errors to be handled by the resource loader.
-export function startMetadataLoad() {
+async function onMetadataLoaded(callback: (metadata: MetadataMap) => void) {
   try {
-    getDataManager().loadMetadata();
-  } catch (e) {
-    // XXX test this.
-    // Ignore errors
-  }
+    const metadata = await getDataManager().loadMetadata();
+    callback(metadata);
+    // Swallow errors - they are logged in the DataManager
+  } catch (e) {}
 }
 
 /**
@@ -25,10 +21,7 @@ export function startMetadataLoad() {
  */
 export function useOnMetadataLoaded(callback: (metadata: MetadataMap) => void) {
   useEffect(() => {
-    const metadataPromise = getDataManager().loadMetadata();
-    metadataPromise.then((metadata) => {
-      callback(metadata);
-    });
+    onMetadataLoaded(callback);
     // eslint-disable-next-line
   }, []);
 }

@@ -12,8 +12,7 @@ import {
   per100k,
   percent,
 } from "../datasetutils";
-import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
-import { getDataManager } from "../../utils/globals";
+import { MetricQueryResponse } from "../MetricQuery";
 
 class CovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;

@@ -35,7 +35,6 @@ import { autoInitGlobals, getEnvironment } from "./utils/globals";
 import ReactTooltip from "react-tooltip";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import PreLaunchSiteContent from "./pages/Landing/PreLaunchSiteContent";
-import { startMetadataLoad } from "./data/DataManager";
 
 const MOBILE_BREAKPOINT = 600;
 
@@ -47,7 +46,6 @@ const PAGE_URL_TO_NAMES: Record<string, string> = {
 };
 
 autoInitGlobals();
-startMetadataLoad();
 
 function MobileAppToolbar() {
   const [open, setOpen] = useState(false);

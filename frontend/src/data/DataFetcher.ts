@@ -88,9 +88,6 @@ export class ApiDataFetcher implements DataFetcher {
   }
 
   async getMetadata(): Promise<MetadataMap> {
-    await new Promise((res, rej) => {
-      setTimeout(res, 3000);
-    });
     // TODO replace with real API call.
     return FakeMetadataMap;
   }

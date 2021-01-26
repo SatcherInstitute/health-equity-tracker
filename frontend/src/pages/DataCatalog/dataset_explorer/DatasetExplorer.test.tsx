@@ -4,7 +4,6 @@ import DatasetExplorer from "./DatasetExplorer";
 import { DatasetMetadata } from "../../../data/DatasetTypes";
 import { autoInitGlobals, getDataFetcher } from "../../../utils/globals";
 import FakeDataFetcher from "../../../testing/FakeDataFetcher";
-import { startMetadataLoad } from "../../../data/DataManager";
 
 const STATE_NAMES_DATASET_METADATA: DatasetMetadata = {
   id: "state_names",
@@ -33,7 +32,6 @@ describe("DatasetExplorer", () => {
   });
 
   test("renders dataset metadata retrieved from DataFetcher", async () => {
-    startMetadataLoad();
     dataFetcher.setFakeMetadataLoaded({
       state_names: STATE_NAMES_DATASET_METADATA,
     });

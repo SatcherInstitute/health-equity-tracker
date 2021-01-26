@@ -4,10 +4,8 @@ import { autoInitGlobals } from "../utils/globals";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/styles";
 import MaterialTheme from "../styles/MaterialTheme";
-import { startMetadataLoad } from "../data/DataManager";
 
 autoInitGlobals();
-startMetadataLoad();
 
 // TODO Refactor so these aren't making real API calls
 export const StoryWrapper = (storyFn: any) => {
