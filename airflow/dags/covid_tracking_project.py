@@ -20,7 +20,7 @@ data_ingestion_dag = DAG(
     schedule_interval='@daily',  # Run once a day at midnight
     description='Ingestion configuration for Covid Tracking Project')
 
-# Ingest to GCS 
+# Ingest to GCS
 ctp_gcs_task_id = 'covid_tracking_project_to_gcs'
 ctp_gcs_payload = util.generate_gcs_payload(
     _CTP_WORKFLOW_ID, filename=_CTP_GCS_FILENAME, url=_CTP_DOWNLOAD_URL)
