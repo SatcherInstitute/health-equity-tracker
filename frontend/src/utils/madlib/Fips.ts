@@ -49,6 +49,10 @@ class Fips {
       ? new Fips(this.code.substring(0, 2))
       : new Fips(USA_FIPS);
   }
+
+  isParentOf(countyFipsCode: string) {
+    return countyFipsCode.substring(0, 2) === this.code;
+  }
 }
 
 export { Fips };

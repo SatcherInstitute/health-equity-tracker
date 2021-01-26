@@ -24,6 +24,10 @@ function fakeDataServerResponse(
       acsAgeRows,
       FakeMetadataMap["acs_population-by_age_state"]
     ),
+    "acs_population-by_race_county_std": new Dataset(
+      [],
+      FakeMetadataMap["acs_population-by_race_county_std"]
+    ),
   };
 }
 

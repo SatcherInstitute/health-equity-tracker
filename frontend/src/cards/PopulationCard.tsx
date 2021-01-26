@@ -120,13 +120,17 @@ export function PopulationCard(props: PopulationCardProps) {
                     <span className={styles.PopulationChartTitle}>
                       Population by age
                     </span>
-                    <SimpleHorizontalBarChart
-                      data={ageQueryResponse.data}
-                      metric={POPULATION_VARIABLE_CONFIG.metrics.pct_share}
-                      breakdownVar="age"
-                      showLegend={false}
-                      hideActions={true}
-                    />
+                    {ageQueryResponse.dataIsMissing() ? (
+                      <Alert severity="warning">Age data missing.</Alert>
+                    ) : (
+                      <SimpleHorizontalBarChart
+                        data={ageQueryResponse.data}
+                        metric={POPULATION_VARIABLE_CONFIG.metrics.pct_share}
+                        breakdownVar="age"
+                        showLegend={false}
+                        hideActions={true}
+                      />
+                    )}
                   </Grid>
                 </Grid>
               </AnimateHeight>

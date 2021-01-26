@@ -2,7 +2,7 @@ import { IDataFrame } from "data-forge";
 import { Breakdowns, DemographicBreakdownKey } from "../Breakdowns";
 import { Dataset } from "../DatasetTypes";
 import { applyToGroups, percent } from "../datasetutils";
-import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
+import { USA_FIPS, USA_DISPLAY_NAME, Fips } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQueryResponse } from "../MetricQuery";
 
@@ -35,8 +35,27 @@ class AcsPopulationProvider extends VariableProvider {
     super(
       "acs_pop_provider",
       ["population", "population_pct"],
-      ["acs_population-by_race_state_std", "acs_population-by_age_state"]
+      [
+        "acs_population-by_race_state_std",
+        "acs_population-by_race_county_std",
+        "acs_population-by_age_state",
+      ]
     );
+  }
+
+  getDatasetId(breakdowns: Breakdowns): string {
+    if (breakdowns.demographicBreakdowns.age.enabled) {
+      return "acs_population-by_age_state";
+    }
+    if (
+      breakdowns.demographicBreakdowns.race_nonstandard.enabled ||
+      breakdowns.demographicBreakdowns.race.enabled
+    ) {
+      return breakdowns.geography === "county"
+        ? "acs_population-by_race_county_std"
+        : "acs_population-by_race_state_std";
+    }
+    throw new Error("Not implemented");
   }
 
   getDataInternal(
@@ -44,8 +63,19 @@ class AcsPopulationProvider extends VariableProvider {
     breakdowns: Breakdowns
   ): MetricQueryResponse {
     let df = this.getDataInternalWithoutPercents(datasets, breakdowns);
-    if (breakdowns.filterFips) {
-      df = df.where((row) => row.state_fips === breakdowns.filterFips);
+    const [fipsColumn, geoNameColumn] =
+      breakdowns.geography === "county"
+        ? ["county_fips", "county_name"]
+        : ["state_fips", "state_name"];
+
+    // If requested, filter geography by state or county level
+    if (breakdowns.filterFips !== undefined) {
+      const fips = breakdowns.filterFips as Fips;
+      if (fips.isState() && breakdowns.geography === "county") {
+        df = df.where((row) => fips.isParentOf(row["county_fips"]));
+      } else {
+        df = df.where((row) => row[fipsColumn] === fips.code);
+      }
     }
 
     // Calculate totals where dataset doesn't provide it
@@ -58,7 +88,7 @@ class AcsPopulationProvider extends VariableProvider {
       ) {
         df = df
           .concat(
-            df.pivot(["state_fips", "state_name"], {
+            df.pivot([fipsColumn, geoNameColumn], {
               population: (series) => series.sum(),
               population_pct: (series) => 100,
               [breakdownName]: (series) => "Total",
@@ -73,7 +103,7 @@ class AcsPopulationProvider extends VariableProvider {
     const enabledBreakdown = Object.values(
       breakdowns.demographicBreakdowns
     ).find((breakdown) => breakdown.enabled === true)!;
-    df = applyToGroups(df, ["state_name"], (group) => {
+    df = applyToGroups(df, [fipsColumn], (group) => {
       let totalPopulation = group
         .where((r: any) => r[enabledBreakdown.columnName] === "Total")
         .first()["population"];
@@ -96,21 +126,18 @@ class AcsPopulationProvider extends VariableProvider {
       }
     );
 
-    const consumedDataset = breakdowns.hasOnlyAge()
-      ? ["acs_population-by_age_state"]
-      : ["acs_population-by_race_state_std"];
+    // TODO - rename state_fips and county_fips to fips
 
-    return new MetricQueryResponse(df.toArray(), consumedDataset);
+    return new MetricQueryResponse(df.toArray(), [
+      this.getDatasetId(breakdowns),
+    ]);
   }
 
   private getDataInternalWithoutPercents(
     datasets: Record<string, Dataset>,
     breakdowns: Breakdowns
   ): IDataFrame {
-    const statePopByBreakdown = breakdowns.hasOnlyAge()
-      ? datasets["acs_population-by_age_state"]
-      : datasets["acs_population-by_race_state_std"];
-    const acsDataFrame = statePopByBreakdown.toDataFrame();
+    const acsDataFrame = datasets[this.getDatasetId(breakdowns)].toDataFrame();
 
     if (breakdowns.hasOnlyRaceNonStandard()) {
       return breakdowns.geography === "national"
@@ -144,15 +171,18 @@ class AcsPopulationProvider extends VariableProvider {
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    const validDemographicBreakdownRequest: boolean =
+    const validGeographicBreakdown =
+      breakdowns.geography === "county"
+        ? breakdowns.hasOnlyRaceNonStandard() || breakdowns.hasOnlyRace()
+        : true;
+
+    const validDemographicBreakdown: boolean =
       breakdowns.hasOnlyRaceNonStandard() ||
       breakdowns.hasOnlyRace() ||
       breakdowns.hasOnlyAge();
 
     return (
-      !breakdowns.time &&
-      ["state", "national"].includes(breakdowns.geography) &&
-      validDemographicBreakdownRequest
+      !breakdowns.time && validDemographicBreakdown && validGeographicBreakdown
     );
   }
 }
