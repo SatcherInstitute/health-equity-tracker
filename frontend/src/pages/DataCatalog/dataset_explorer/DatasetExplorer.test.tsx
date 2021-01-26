@@ -1,4 +1,5 @@
 import React from "react";
+import { act } from "react-dom/test-utils";
 import { render } from "@testing-library/react";
 import DatasetExplorer from "./DatasetExplorer";
 import { DatasetMetadata } from "../../../data/DatasetTypes";
@@ -32,11 +33,12 @@ describe("DatasetExplorer", () => {
   });
 
   test("renders dataset metadata retrieved from DataFetcher", async () => {
-    dataFetcher.setFakeMetadataLoaded({
-      state_names: STATE_NAMES_DATASET_METADATA,
-    });
-
     const { findByText } = render(<DatasetExplorer preFilterDatasetIds={[]} />);
+    act(() => {
+      dataFetcher.setFakeMetadataLoaded({
+        state_names: STATE_NAMES_DATASET_METADATA,
+      });
+    });
 
     expect(dataFetcher.getNumGetMetdataCalls()).toBe(1);
     expect(dataFetcher.getNumLoadDatasetCalls()).toBe(0);

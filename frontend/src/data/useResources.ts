@@ -4,6 +4,15 @@ import { getDataManager } from "../utils/globals";
 
 export type IncompleteLoadStatus = "loading" | "error";
 
+/**
+ * Loads the specified resources and returns the resources or
+ * IncompleteLoadStatus.
+ * @param resources The resources to load.
+ * @param loadFn The function to call that loads a single resource.
+ * @param depIdFn A function that returns a unique, stable id for a single
+ *     resource. This is used to determine when to load a resource: if any of
+ *     the resource ids change, all of the resources are re-loaded.
+ */
 export function useResources<K, R>(
   resources: K[],
   loadFn: (resource: K) => Promise<R>,
@@ -31,6 +40,11 @@ export function useResources<K, R>(
   return resourceState;
 }
 
+/**
+ * Loads the specified MetricQuerys and returns the responses or
+ * IncompleteLoadStatus.
+ * @param queries The queries to load the responses for.
+ */
 export function useMetrics(
   queries: MetricQuery[]
 ): MetricQueryResponse[] | IncompleteLoadStatus {

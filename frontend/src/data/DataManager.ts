@@ -215,6 +215,12 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
   }
 }
 
+/**
+ * Loads and caches metadata, datasets, and metric queries. This class is not
+ * part of the React lifecycle, so it can manage its cache independently of UI
+ * components updating. To use these in a React component, see
+ * `useResources.tsx` and `WithLoadingOrErrorUI.tsx`
+ */
 export default class DataManager {
   private readonly datasetCache: DatasetCache;
   private readonly metricQueryCache: MetricQueryCache;
