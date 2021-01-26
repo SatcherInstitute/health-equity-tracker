@@ -106,8 +106,6 @@ function MapCardWithKey(props: MapCardProps) {
         const queryResponse = datasetStore.getMetrics(
           queries[currentlyDisplayedBreakdown]
         );
-        console.log("queryResponse: ", queryResponse);
-        //"Breakdowns not supported for provider covid_provider: age:with total,geography:state,race_nonstandard:with total,sex:with total"
         const breakdownValues = queryResponse
           .getUniqueFieldValues(currentlyDisplayedBreakdown)
           .sort();
@@ -120,10 +118,6 @@ function MapCardWithKey(props: MapCardProps) {
           (row) => row[props.metricConfig.metricId] !== undefined,
           (row) => row[props.metricConfig.metricId] !== null,
         ];
-        if (!props.fips.isUsa()) {
-          // TODO - this doesn't consider county level data
-          //   predicates.push((row: Row) => row.fips === props.fips.code);
-        }
         if (props.enableFilter) {
           predicates.push(
             (row: Row) => row[currentlyDisplayedBreakdown] === breakdownFilter
@@ -134,7 +128,6 @@ function MapCardWithKey(props: MapCardProps) {
         const mapData = queryResponse.data.filter((row: Row) =>
           predicates.every((predicate) => predicate(row))
         );
-        console.log(mapData);
 
         return (
           <>

@@ -12,17 +12,6 @@ function fakeDataServerResponse(rows: any[]) {
   };
 }
 
-function addCopdAndDiabetesPer100k(
-  row: {},
-  copd_per_100k: number,
-  diabetes_per_100k: number
-) {
-  return Object.assign(row, {
-    copd_per_100k: copd_per_100k,
-    diabetes_per_100k: diabetes_per_100k,
-  });
-}
-
 describe("BrfssProvider", () => {
   test("State and Race Breakdown", async () => {
     const brfssProvider = new BrfssProvider();
