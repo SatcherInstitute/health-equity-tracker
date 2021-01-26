@@ -24,6 +24,8 @@ class CtpMetadata(DataSource):
         self.clean_frame_column_names(df)
 
         # Standardize the data
+        # The metadata currently only has information for cases and deaths,
+        # not tests or hospitalizations.
         keep_cols = [
             'state_postal_abbreviation', 'api_death',
             'defines_other_death', 'race_ethnicity_separately_death',
@@ -51,8 +53,12 @@ class CtpMetadata(DataSource):
     def _metadata_columns_map():
         """Returns a dict for renaming raw column names."""
         return {
+            # Asian and Pacific Islander
             'api': 'reports_api',
+            # Currently represents NH/PI and AI/AN combined, or "Indigenous"
             'combined_category_other_than_api': 'reports_ind',
+            # Whether the locale reports ethnicity
             'ethnicity': 'reports_ethnicity',
+            # Whether the locale reports race
             'race': 'reports_race'
         }
