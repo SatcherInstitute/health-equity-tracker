@@ -12,7 +12,8 @@ import {
   per100k,
   percent,
 } from "../datasetutils";
-import { MetricQueryResponse } from "../MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
+import { getDataManager } from "../../utils/globals";
 
 class CovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -88,9 +89,11 @@ class CovidProvider extends VariableProvider {
       datasets,
       acsBreakdowns
     );
+
     consumedDatasetIds = consumedDatasetIds.concat(
       acsMetricQueryResponse.consumedDatasetIds
     );
+
     if (acsMetricQueryResponse.dataIsMissing()) {
       return acsMetricQueryResponse;
     }

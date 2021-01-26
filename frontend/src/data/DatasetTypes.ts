@@ -1,5 +1,4 @@
 import { DataFrame, IDataFrame } from "data-forge";
-import { MetricQuery, MetricQueryResponse } from "./MetricQuery";
 
 /* TODO: These are not yet comprehensive, final interfaces */
 
@@ -57,18 +56,3 @@ export class Dataset {
 
 // Map of dataset id to DatasetMetadata
 export type MetadataMap = Readonly<Record<string, DatasetMetadata>>;
-
-export type LoadStatus = "unloaded" | "loading" | "loaded" | "error";
-
-export interface DatasetStore {
-  readonly loadDataset: (id: string) => Promise<Dataset | undefined>;
-  readonly getDatasetLoadStatus: (id: string) => LoadStatus;
-  readonly getDataset: (id: string) => Dataset;
-  readonly loadMetrics: (
-    query: MetricQuery
-  ) => Promise<MetricQueryResponse | undefined>;
-  readonly getMetricsLoadStatus: (query: MetricQuery) => LoadStatus;
-  readonly getMetrics: (query: MetricQuery) => MetricQueryResponse;
-  readonly getMetadataLoadStatus: () => LoadStatus;
-  readonly getMetadata: () => MetadataMap;
-}

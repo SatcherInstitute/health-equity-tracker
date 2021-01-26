@@ -4,7 +4,6 @@ import { Fips } from "../utils/madlib/Fips";
 import styles from "./Card.module.scss";
 import MapBreadcrumbs from "./MapBreadcrumbs";
 import CardWrapper from "./CardWrapper";
-import useDatasetStore from "../data/useDatasetStore";
 import { MetricQuery } from "../data/MetricQuery";
 import { MetricConfig } from "../data/MetricConfig";
 import { CardContent } from "@material-ui/core";
@@ -21,6 +20,12 @@ import { Breakdowns, BreakdownVar } from "../data/Breakdowns";
 import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 import { usePopover } from "../utils/usePopover";
 import { Row } from "../data/DatasetTypes";
+
+const POSSIBLE_BREAKDOWNS: BreakdownVar[] = [
+  "race_and_ethnicity",
+  "age",
+  "sex",
+];
 
 export interface MapCardProps {
   key?: string;
@@ -54,33 +59,27 @@ function MapCardWithKey(props: MapCardProps) {
   const [breakdownFilter, setBreakdownFilter] = useState<string>("");
   const popover = usePopover();
 
-  const datasetStore = useDatasetStore();
-
-  let queries: Record<string, MetricQuery> = {};
-  const possibleBreakdowns: BreakdownVar[] = [
-    "race_and_ethnicity",
-    "age",
-    "sex",
-  ];
-  possibleBreakdowns.forEach((possibleBreakdown) => {
-    if (
+  const breakdowns = POSSIBLE_BREAKDOWNS.filter(
+    (possibleBreakdown) =>
       props.currentBreakdown === possibleBreakdown ||
       props.currentBreakdown === "all"
-    ) {
-      queries[possibleBreakdown] = new MetricQuery(
+  );
+
+  const queries = breakdowns.map(
+    (breakdown) =>
+      new MetricQuery(
         props.metricConfig.metricId,
         Breakdowns.byState().addBreakdown(
-          possibleBreakdown,
+          breakdown,
           /*includeTotal=*/ true,
           props.nonstandardizedRace
         )
-      );
-    }
-  });
+      )
+  );
 
   return (
     <CardWrapper
-      queries={Object.values(queries) as MetricQuery[]}
+      queries={queries}
       title={
         <>{`${
           props.metricConfig.fullCardTitleName
@@ -92,14 +91,16 @@ function MapCardWithKey(props: MapCardProps) {
         ) : undefined
       }
     >
-      {() => {
+      {(queryResponses) => {
         const currentlyDisplayedBreakdown: BreakdownVar =
           props.currentBreakdown === "all"
             ? "race_and_ethnicity"
             : props.currentBreakdown;
-        const queryResponse = datasetStore.getMetrics(
-          queries[currentlyDisplayedBreakdown]
-        );
+        // Look up query at the same index as the breakdown.
+        // TODO: we might consider returning a map of id to response from
+        // CardWrapper so we don't need to rely on index order.
+        const queryIndex = breakdowns.indexOf(currentlyDisplayedBreakdown);
+        const queryResponse = queryResponses[queryIndex];
         const breakdownValues = queryResponse
           .getUniqueFieldValues(currentlyDisplayedBreakdown)
           .sort();

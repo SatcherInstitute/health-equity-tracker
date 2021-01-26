@@ -5,13 +5,11 @@ import {
 } from "./DatasetFilter";
 import DatasetListing from "./DatasetListing";
 import styles from "./DatasetExplorer.module.scss";
-import useDatasetStore, {
-  useOnMetadataLoaded,
-} from "../../../data/useDatasetStore";
 import { DatasetMetadata, MetadataMap } from "../../../data/DatasetTypes";
 import Button from "@material-ui/core/Button";
 import { DATA_CATALOG_PAGE_LINK } from "../../../utils/urlutils";
 import { WithMetadata } from "../../../data/WithLoadingOrErrorUI";
+import { useOnMetadataLoaded } from "../../../data/DataManager";
 
 // Map of filter id to list of datasets selected by that filter, or empty list
 // for filters that don't have anything selected.
@@ -44,7 +42,6 @@ function DatasetExplorer(props: { preFilterDatasetIds: string[] }) {
   const [activeFilter, setActiveFilter] = useState<Filters>({
     [NAME_FILTER_ID]: props.preFilterDatasetIds,
   });
-  const datasetStore = useDatasetStore();
 
   // Once the metadata is loaded, update the filter to only include valid
   // dataset ids
@@ -91,8 +88,7 @@ function DatasetExplorer(props: { preFilterDatasetIds: string[] }) {
     <div className={styles.DatasetExplorer}>
       <div className={styles.DatasetList}>
         <WithMetadata>
-          {() => {
-            const metadata: MetadataMap = datasetStore.getMetadata();
+          {(metadata) => {
             const viewingSubsetOfDatasets =
               getFilteredDatasetIds(metadata, activeFilter).length === 1;
 

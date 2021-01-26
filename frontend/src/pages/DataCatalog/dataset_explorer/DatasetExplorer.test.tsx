@@ -1,11 +1,10 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import DatasetExplorer from "./DatasetExplorer";
-import { startMetadataLoad } from "../../../data/useDatasetStore";
-import AppContext from "../../../testing/AppContext";
 import { DatasetMetadata } from "../../../data/DatasetTypes";
-import { getDataFetcher } from "../../../utils/globals";
+import { autoInitGlobals, getDataFetcher } from "../../../utils/globals";
 import FakeDataFetcher from "../../../testing/FakeDataFetcher";
+import { startMetadataLoad } from "../../../data/DataManager";
 
 const STATE_NAMES_DATASET_METADATA: DatasetMetadata = {
   id: "state_names",
@@ -19,6 +18,8 @@ const STATE_NAMES_DATASET_METADATA: DatasetMetadata = {
   update_frequency: "update_frequency",
   fields: [],
 };
+
+autoInitGlobals();
 
 const dataFetcher = getDataFetcher() as FakeDataFetcher;
 
@@ -37,11 +38,7 @@ describe("DatasetExplorer", () => {
       state_names: STATE_NAMES_DATASET_METADATA,
     });
 
-    const { findByText } = render(
-      <AppContext>
-        <DatasetExplorer preFilterDatasetIds={[]} />
-      </AppContext>
-    );
+    const { findByText } = render(<DatasetExplorer preFilterDatasetIds={[]} />);
 
     expect(dataFetcher.getNumGetMetdataCalls()).toBe(1);
     expect(dataFetcher.getNumLoadDatasetCalls()).toBe(0);

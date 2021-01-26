@@ -1,15 +1,18 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { DatasetMetadata, Row } from "./DatasetTypes";
-import useDatasetStore, { startMetadataLoad } from "./useDatasetStore";
 import { act } from "react-dom/test-utils";
-import AppContext from "../testing/AppContext";
 import { MetricQuery } from "../data/MetricQuery";
 import { Breakdowns } from "../data/Breakdowns";
 import FakeMetadataMap from "./FakeMetadataMap";
 import { WithMetrics } from "./WithLoadingOrErrorUI";
-import { getDataFetcher, resetCacheDebug } from "../utils/globals";
+import {
+  autoInitGlobals,
+  getDataFetcher,
+  resetCacheDebug,
+} from "../utils/globals";
 import FakeDataFetcher from "../testing/FakeDataFetcher";
+import { startMetadataLoad } from "./DataManager";
 
 const STATE_NAMES_ID = "state_names";
 const ANOTHER_FAKE_DATASET_ID = "fake_dataset_2";
@@ -18,6 +21,8 @@ const fakeMetadata = {
   [STATE_NAMES_ID]: {} as DatasetMetadata,
   [ANOTHER_FAKE_DATASET_ID]: {} as DatasetMetadata,
 };
+
+autoInitGlobals();
 
 function DatasetDisplayApp() {
   function DatasetDisplay() {
@@ -48,11 +53,7 @@ function DatasetDisplayApp() {
     );
   }
 
-  return (
-    <AppContext>
-      <DatasetDisplay />
-    </AppContext>
-  );
+  return <DatasetDisplay />;
 }
 function WithMetricsWrapperApp(props: {
   query: MetricQuery;
@@ -88,9 +89,7 @@ function WithMetricsWrapperApp(props: {
   }
 
   return (
-    <AppContext>
-      <WithMetricsWrapper query={props.query} displayRow={props.displayRow} />
-    </AppContext>
+    <WithMetricsWrapper query={props.query} displayRow={props.displayRow} />
   );
 }
 
