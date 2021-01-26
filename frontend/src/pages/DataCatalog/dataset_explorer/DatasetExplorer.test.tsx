@@ -1,10 +1,9 @@
 import React from "react";
+import { act } from "react-dom/test-utils";
 import { render } from "@testing-library/react";
 import DatasetExplorer from "./DatasetExplorer";
-import { startMetadataLoad } from "../../../data/useDatasetStore";
-import AppContext from "../../../testing/AppContext";
 import { DatasetMetadata } from "../../../data/DatasetTypes";
-import { getDataFetcher } from "../../../utils/globals";
+import { autoInitGlobals, getDataFetcher } from "../../../utils/globals";
 import FakeDataFetcher from "../../../testing/FakeDataFetcher";
 
 const STATE_NAMES_DATASET_METADATA: DatasetMetadata = {
@@ -20,6 +19,8 @@ const STATE_NAMES_DATASET_METADATA: DatasetMetadata = {
   fields: [],
 };
 
+autoInitGlobals();
+
 const dataFetcher = getDataFetcher() as FakeDataFetcher;
 
 describe("DatasetExplorer", () => {
@@ -32,16 +33,12 @@ describe("DatasetExplorer", () => {
   });
 
   test("renders dataset metadata retrieved from DataFetcher", async () => {
-    startMetadataLoad();
-    dataFetcher.setFakeMetadataLoaded({
-      state_names: STATE_NAMES_DATASET_METADATA,
+    const { findByText } = render(<DatasetExplorer preFilterDatasetIds={[]} />);
+    act(() => {
+      dataFetcher.setFakeMetadataLoaded({
+        state_names: STATE_NAMES_DATASET_METADATA,
+      });
     });
-
-    const { findByText } = render(
-      <AppContext>
-        <DatasetExplorer preFilterDatasetIds={[]} />
-      </AppContext>
-    );
 
     expect(dataFetcher.getNumGetMetdataCalls()).toBe(1);
     expect(dataFetcher.getNumLoadDatasetCalls()).toBe(0);

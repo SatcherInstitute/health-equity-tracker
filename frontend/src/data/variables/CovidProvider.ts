@@ -89,9 +89,11 @@ class CovidProvider extends VariableProvider {
       datasets,
       acsBreakdowns
     );
+
     consumedDatasetIds = consumedDatasetIds.concat(
       acsMetricQueryResponse.consumedDatasetIds
     );
+
     if (acsMetricQueryResponse.dataIsMissing()) {
       return acsMetricQueryResponse;
     }
