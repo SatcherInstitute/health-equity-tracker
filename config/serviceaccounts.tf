@@ -139,7 +139,7 @@ resource "google_cloud_run_service_iam_member" "data_server_invoker_binding" {
 resource "google_cloud_run_service_iam_" "frontend_invoker_binding" {
   location = google_cloud_run_service.frontend_service.location
   project = google_cloud_run_service.frontend_service.project
-  service = google_cloud_run_service.frontned_service.name
+  service = google_cloud_run_service.frontend_service.name
   role = "roles/run.invoker"
   member = "allUsers"
 }
