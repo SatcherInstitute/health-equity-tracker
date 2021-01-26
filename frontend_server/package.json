@@ -11,6 +11,6 @@
     "express": "^4.17.1",
     "express-basic-auth": "^1.2.0",
     "http-proxy-middleware": "^1.0.6",
-    "request": "^2.87.0"
+    "node-fetch": "^2.6.0"
   }
 }

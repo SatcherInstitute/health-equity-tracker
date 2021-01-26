@@ -5,7 +5,7 @@ const path = require('path');
 const basicAuth = require('express-basic-auth');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 // To make non-proxied request to metadata server for service account token.
-const request = require('request');
+const fetch = require('node-fetch');
 
 function assertEnvVar(name) {
   const value = process.env[name];
@@ -37,20 +37,22 @@ const app = express();
 // Add Authorization header for all requests that are proxied to the data server.
 // TODO: The token can be cached and only refreshed when needed
 app.use((req, res, next) => {
-  if (req.path.startsWith('/api') && assertEnvVar("NODE_ENV") == 'production') {
+  if (req.path.startsWith('/api') && assertEnvVar("NODE_ENV") === 'production') {
     // Set up metadata server request
     // See https://cloud.google.com/compute/docs/instances/verifying-instance-identity#request_signature
     const metadataServerTokenURL = 'http://metadata/computeMetadata/v1/instance/service-accounts/default/identity?audience=';
     const targetUrl = assertEnvVar("DATA_SERVER_URL");
-    const tokenRequestOptions = {
-      uri: metadataServerTokenURL + targetUrl,
+    const fetchUrl = metadataServerTokenURL + targetUrl;
+    const options = {
       headers: {
         'Metadata-Flavor': 'Google'
       }
     };
-    request(tokenRequestOptions, (error, res, token) => {
-      req.headers["Authorization"] = `bearer ${token}`;
-      next();
+    fetch(fetchUrl, options)
+      .then(res => res.text())
+      .then(token => {
+        req.headers["Authorization"] = `bearer ${token}`;
+        next();
     });
   } else {
     next();
