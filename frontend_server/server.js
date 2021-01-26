@@ -4,6 +4,8 @@ const express = require('express');
 const path = require('path');
 const basicAuth = require('express-basic-auth');
 const { createProxyMiddleware } = require('http-proxy-middleware');
+// To make non-proxied request to metadata server for service account token.
+const request = require('request');
 
 function assertEnvVar(name) {
   const value = process.env[name];
@@ -31,6 +33,29 @@ const PORT = 8080;
 const HOST = '0.0.0.0';
 
 const app = express();
+
+// Add Authorization header for all requests that are proxied to the data server.
+// TODO: The token can be cached and only refreshed when needed
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api') && assertEnvVar("NODE_ENV") == 'production') {
+    // Set up metadata server request
+    // See https://cloud.google.com/compute/docs/instances/verifying-instance-identity#request_signature
+    const metadataServerTokenURL = 'http://metadata/computeMetadata/v1/instance/service-accounts/default/identity?audience=';
+    const targetUrl = assertEnvVar("DATA_SERVER_URL");
+    const tokenRequestOptions = {
+      uri: metadataServerTokenURL + targetUrl,
+      headers: {
+        'Metadata-Flavor': 'Google'
+      }
+    };
+    request(tokenRequestOptions, (error, res, token) => {
+      req.headers["Authorization"] = `bearer ${token}`;
+      next();
+    });
+  } else {
+    next();
+  }
+});
 
 // TODO should this go before or after basic auth?
 // TODO check if these are all the right proxy options. For example, there's a
