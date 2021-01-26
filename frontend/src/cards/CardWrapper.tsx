@@ -10,10 +10,9 @@ import {
 import { CardContent } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
-import { WithMetrics } from "../data/WithLoadingOrErrorUI";
-import { MetricQuery } from "../data/MetricQuery";
+import { WithMetadataAndMetrics } from "../data/WithLoadingOrErrorUI";
+import { MetricQuery, MetricQueryResponse } from "../data/MetricQuery";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import useDatasetStore from "../data/useDatasetStore";
 import InfoIcon from "@material-ui/icons/Info";
 import Popover from "@material-ui/core/Popover";
 import { usePopover } from "../utils/usePopover";
@@ -23,7 +22,7 @@ function CardWrapper(props: {
   infoPopover?: JSX.Element;
   hideFooter?: boolean;
   queries?: MetricQuery[];
-  children: () => JSX.Element;
+  children: (queryResponses: MetricQueryResponse[]) => JSX.Element;
 }) {
   const popover = usePopover();
   const queries = props.queries ? props.queries : [];
@@ -58,24 +57,22 @@ function CardWrapper(props: {
       <Divider />
     </>
   ) : null;
-  const datasetStore = useDatasetStore();
+
+  const loadingComponent = (
+    <Card raised={true} className={styles.ChartCard}>
+      {optionalTitle}
+      <CardContent>
+        <CircularProgress />
+      </CardContent>
+    </Card>
+  );
 
   return (
-    <WithMetrics
+    <WithMetadataAndMetrics
       queries={queries}
-      loadingComponent={
-        <Card raised={true} className={styles.ChartCard}>
-          {optionalTitle}
-          <CardContent>
-            <CircularProgress />
-          </CardContent>
-        </Card>
-      }
+      loadingComponent={loadingComponent}
     >
-      {() => {
-        const queryResponses = queries.map((query) =>
-          datasetStore.getMetrics(query)
-        );
+      {(metadata, queryResponses) => {
         const consumedDatasetIds = queryResponses.reduce(
           (accumulator: string[], response) =>
             accumulator.concat(response.consumedDatasetIds),
@@ -85,7 +82,7 @@ function CardWrapper(props: {
         return (
           <Card raised={true} className={styles.ChartCard}>
             {optionalTitle}
-            {props.children()}
+            {props.children(queryResponses)}
             {!props.hideFooter && props.queries && (
               <CardContent className={styles.CardFooter}>
                 {consumedDatasetIds.length > 0 && <>Sources: </>}
@@ -96,15 +93,12 @@ function CardWrapper(props: {
                       target="_blank"
                       to={`${DATA_CATALOG_PAGE_LINK}?${DATASET_PRE_FILTERS}=${datasetId}`}
                     >
-                      {datasetStore.metadata[datasetId].data_source_name}{" "}
+                      {metadata[datasetId].data_source_name}{" "}
                     </LinkWithStickyParams>
-                    {datasetStore.metadata[datasetId].update_time ===
-                    "unknown" ? (
+                    {metadata[datasetId].update_time === "unknown" ? (
                       <>(last update unknown) </>
                     ) : (
-                      <>
-                        (updated {datasetStore.metadata[datasetId].update_time}){" "}
-                      </>
+                      <>(updated {metadata[datasetId].update_time}) </>
                     )}
                   </>
                 ))}
@@ -113,7 +107,7 @@ function CardWrapper(props: {
           </Card>
         );
       }}
-    </WithMetrics>
+    </WithMetadataAndMetrics>
   );
 }
 
