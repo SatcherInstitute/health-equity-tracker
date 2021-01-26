@@ -113,12 +113,7 @@ export class Breakdowns {
       this.geography,
       Object.assign({}, this.demographicBreakdowns),
       this.time,
-      this.filterFips
-        ? Object.assign(
-            Object.create(Object.getPrototypeOf(this.filterFips)),
-            this.filterFips
-          )
-        : undefined
+      this.filterFips ? new Fips(this.filterFips.code) : undefined
     );
   }
 
@@ -214,6 +209,7 @@ export class Breakdowns {
       this.hasExactlyOneDemographic() && this.demographicBreakdowns.race.enabled
     );
   }
+
   hasOnlyRaceNonStandard() {
     return (
       this.hasExactlyOneDemographic() &&

@@ -53,7 +53,6 @@ class BrfssProvider extends VariableProvider {
       breakdowns.demographicBreakdowns.race.enabled &&
       breakdowns.demographicBreakdowns.race.includeTotal
     ) {
-      // TODO totals
       const total = df
         .pivot(["state_fips", "state_name"], {
           diabetes_count: (series) => series.sum(),
