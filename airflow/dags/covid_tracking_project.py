@@ -1,6 +1,5 @@
-# Ignore the Airflow module, it is installed in both dev and prod
-from airflow import DAG  # type: ignore
-from airflow.utils.dates import days_ago  # type: ignore
+from airflow import DAG
+from airflow.utils.dates import days_ago
 
 import util
 
@@ -9,6 +8,7 @@ _CTP_DOWNLOAD_URL = ('https://docs.google.com/spreadsheets/d/e/'
                      'pub?gid=43720681&single=true&output=csv')
 _CTP_GCS_FILENAME = 'covid_tracking_project'
 _CTP_WORKFLOW_ID = 'COVID_TRACKING_PROJECT'
+_CTP_DATASET = 'covid_tracking_project'
 
 default_args = {
     'start_date': days_ago(0),
@@ -20,7 +20,7 @@ data_ingestion_dag = DAG(
     schedule_interval='@daily',  # Run once a day at midnight
     description='Ingestion configuration for Covid Tracking Project')
 
-# Covid Tracking Project
+# Ingest to GCS
 ctp_gcs_task_id = 'covid_tracking_project_to_gcs'
 ctp_gcs_payload = util.generate_gcs_payload(
     _CTP_WORKFLOW_ID, filename=_CTP_GCS_FILENAME, url=_CTP_DOWNLOAD_URL)
@@ -29,7 +29,12 @@ ctp_gcs_operator = util.create_gcs_ingest_operator(
 ctp_gcs_short_op = util.create_gcs_short_circuit_operator(
     'did_ctp_files_download', ctp_gcs_task_id, data_ingestion_dag)
 
+# Standardize and write to BQ
+ctp_bq_payload = util.generate_bq_payload(
+    _CTP_WORKFLOW_ID, _CTP_DATASET, filename=_CTP_GCS_FILENAME)
+ctp_bq_op = util.create_bq_ingest_operator(
+    'ctp_standardize', ctp_bq_payload, data_ingestion_dag)
 
 # Covid Tracking Project Ingestion DAG
 # TODO(jenniebrown): Add the rest of the steps
-(ctp_gcs_operator >> ctp_gcs_short_op)
+(ctp_gcs_operator >> ctp_gcs_short_op >> ctp_bq_op)
