@@ -1,4 +1,5 @@
 import { ApiDataFetcher, DataFetcher } from "../data/DataFetcher";
+import DataManager from "../data/DataManager";
 import FakeDataFetcher from "../testing/FakeDataFetcher";
 import { createEnvironment, Environment } from "./Environment";
 import Logger from "./Logger";
@@ -8,6 +9,7 @@ interface Globals {
   environment: Environment;
   logger: Logger;
   dataFetcher: DataFetcher;
+  dataManager: DataManager;
 }
 
 // TODO consider using interfaces for the various globals so they can have
@@ -20,10 +22,20 @@ function assertInitialized() {
   }
 }
 
+export function resetCacheDebug() {
+  if (globals.environment.deployContext !== "test") {
+    throw new Error(
+      "resetCacheDebug must only be called from the test environment"
+    );
+  }
+  globals.dataManager = new DataManager();
+}
+
 export function initGlobals(
   environment: Environment,
   logger: Logger,
-  dataFetcher: DataFetcher
+  dataFetcher: DataFetcher,
+  dataManager: DataManager
 ) {
   if (globals.initialized) {
     throw new Error("Cannot initialize globals multiple times");
@@ -32,6 +44,7 @@ export function initGlobals(
   globals.environment = environment;
   globals.logger = logger;
   globals.dataFetcher = dataFetcher;
+  globals.dataManager = dataManager;
   globals.initialized = true;
   logger.debugLog(
     "Initialized globals for context: " + environment.deployContext
@@ -55,7 +68,8 @@ export function autoInitGlobals() {
     environment.deployContext === "test"
       ? new FakeDataFetcher()
       : new ApiDataFetcher(environment);
-  initGlobals(environment, logger, dataFetcher);
+  const cache = new DataManager();
+  initGlobals(environment, logger, dataFetcher, cache);
 }
 
 export function getEnvironment(): Environment {
@@ -71,4 +85,9 @@ export function getLogger(): Logger {
 export function getDataFetcher(): DataFetcher {
   assertInitialized();
   return globals.dataFetcher;
+}
+
+export function getDataManager(): DataManager {
+  assertInitialized();
+  return globals.dataManager;
 }

@@ -31,8 +31,10 @@ function countyRow(
 ) {
   return {
     county_fips: fips,
+    state_fips: fips.substring(0, 2),
     county_name: county_name,
     [breakdownName]: breakdownValue,
+    ingestion_ts: "2021-01-08 22:02:55.964254 UTC",
     population: population,
   };
 }
