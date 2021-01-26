@@ -90,9 +90,11 @@ class CovidProvider extends VariableProvider {
       new MetricQuery(["population", "population_pct"], acsBreakdowns),
       datasets
     );
+
     consumedDatasetIds = consumedDatasetIds.concat(
       acsMetricQueryResponse.consumedDatasetIds
     );
+
     if (acsMetricQueryResponse.dataIsMissing()) {
       return acsMetricQueryResponse;
     }

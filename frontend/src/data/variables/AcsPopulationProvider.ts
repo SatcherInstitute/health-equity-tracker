@@ -59,7 +59,7 @@ class AcsPopulationProvider extends VariableProvider {
         ? "acs_population-by_race_county_std"
         : "acs_population-by_race_state_std";
     }
-    return "";
+    throw new Error("Not implemented");
   }
 
   getDataInternal(
@@ -76,14 +76,10 @@ class AcsPopulationProvider extends VariableProvider {
     // If requested, filter geography by state or county level
     if (breakdowns.filterFips !== undefined) {
       const fips = breakdowns.filterFips as Fips;
-      if (fips.isCounty()) {
-        df = df.where((row) => row["county_fips"] === fips.code);
-      } else if (fips.isState() && breakdowns.geography === "state") {
-        df = df.where((row) => row["state_fips"] === fips.code);
-      } else if (fips.isState() && breakdowns.geography === "county") {
-        df = df.where(
-          (row) => row["county_fips"].substring(0, 2) === fips.code
-        );
+      if (fips.isState() && breakdowns.geography === "county") {
+        df = df.where((row) => fips.isParentOf(row["county_fips"]));
+      } else {
+        df = df.where((row) => row[fipsColumn] === fips.code);
       }
     }
 
@@ -112,7 +108,7 @@ class AcsPopulationProvider extends VariableProvider {
     const enabledBreakdown = Object.values(
       breakdowns.demographicBreakdowns
     ).find((breakdown) => breakdown.enabled === true)!;
-    df = applyToGroups(df, [geoNameColumn], (group) => {
+    df = applyToGroups(df, [fipsColumn], (group) => {
       let totalPopulation = group
         .where((r: any) => r[enabledBreakdown.columnName] === "Total")
         .first()["population"];
@@ -135,6 +131,8 @@ class AcsPopulationProvider extends VariableProvider {
       }
     );
 
+    // TODO - rename state_fips and county_fips to fips
+
     return new MetricQueryResponse(df.toArray(), [
       this.getDatasetId(breakdowns),
     ]);
@@ -152,7 +150,7 @@ class AcsPopulationProvider extends VariableProvider {
     ).find(([breakdownVar, breakdown]) => breakdown.enabled === true)!;
 
     // Race must be special cased to standardize the data before proceeding
-    if (breakdownVar === "race") {
+    if (breakdowns.hasOnlyRace()) {
       acsDataFrame = acsDataFrame.where((row) =>
         standardizedRaces.includes(row.race_and_ethnicity)
       );
@@ -166,9 +164,9 @@ class AcsPopulationProvider extends VariableProvider {
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
     const validGeographicBreakdown =
       breakdowns.geography === "county"
-        ? breakdowns.demographicBreakdowns.race_nonstandard.enabled ||
-          breakdowns.demographicBreakdowns.race.enabled
+        ? breakdowns.hasOnlyRaceNonStandard() || breakdowns.hasOnlyRace()
         : true;
+
     const validDemographicBreakdown: boolean =
       breakdowns.hasOnlyRaceNonStandard() ||
       breakdowns.hasOnlyRace() ||

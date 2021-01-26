@@ -2,7 +2,6 @@ import React from "react";
 import { TableChart } from "../charts/TableChart";
 import { Alert } from "@material-ui/lab";
 import CardWrapper from "./CardWrapper";
-import useDatasetStore from "../data/useDatasetStore";
 import { MetricId } from "../data/variableProviders";
 import { MetricQuery } from "../data/MetricQuery";
 import { Fips } from "../utils/madlib/Fips";
@@ -23,8 +22,6 @@ export interface TableCardProps {
 }
 
 export function TableCard(props: TableCardProps) {
-  const datasetStore = useDatasetStore();
-
   // TODO need to handle race categories standard vs non-standard for covid vs
   // other demographic.
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
@@ -51,8 +48,7 @@ export function TableCard(props: TableCardProps) {
         ) : undefined
       }
     >
-      {() => {
-        const queryResponse = datasetStore.getMetrics(query);
+      {([queryResponse]) => {
         const dataset = queryResponse.data.filter(
           (row) => "Not Hispanic or Latino" !== row.race_and_ethnicity
         );

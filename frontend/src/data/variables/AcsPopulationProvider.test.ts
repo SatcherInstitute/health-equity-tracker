@@ -34,8 +34,10 @@ function countyRow(
 ) {
   return {
     county_fips: fips,
+    state_fips: fips.substring(0, 2),
     county_name: county_name,
     [breakdownName]: breakdownValue,
+    ingestion_ts: "2021-01-08 22:02:55.964254 UTC",
     population: population,
   };
 }
@@ -121,48 +123,59 @@ describe("AcsPopulationProvider", () => {
       DURHAM_TOTAL_ROW,
     ];
 
-    const CHATAM_TOTAL_FINAL_ROW = Object.assign(CHATAM_TOTAL_ROW, {
-      population_pct: 100,
-    });
-    const CHATAM_ASIAN_FINAL_ROW = Object.assign(CHATAM_ASIAN_ROW, {
-      population_pct: 100,
-    });
-    const DURHAM_ASIAN_FINAL_ROW = Object.assign(DURHAM_ASIAN_ROW, {
-      population_pct: 25,
-    });
-    const DURHAM_WHITE_FINAL_ROW = Object.assign(DURHAM_WHITE_ROW, {
-      population_pct: 75,
-    });
-    const DURHAM_TOTAL_FINAL_ROW = Object.assign(DURHAM_TOTAL_ROW, {
-      population_pct: 100,
-    });
-    const expectedRows = [
+    const CHATAM_TOTAL_FINAL_ROW = addPopulationPctToRow(CHATAM_TOTAL_ROW, 100);
+    const CHATAM_ASIAN_FINAL_ROW = addPopulationPctToRow(CHATAM_ASIAN_ROW, 100);
+    const DURHAM_ASIAN_FINAL_ROW = addPopulationPctToRow(DURHAM_ASIAN_ROW, 25);
+    const DURHAM_WHITE_FINAL_ROW = addPopulationPctToRow(DURHAM_WHITE_ROW, 75);
+    const DURHAM_TOTAL_FINAL_ROW = addPopulationPctToRow(DURHAM_TOTAL_ROW, 100);
+
+    const dataServerResponse = fakeDataServerResponse(
+      "acs_population-by_race_county_std",
+      acsRaceCountyData
+    );
+
+    // Evaluate the response with requesting total field
+    const rowsWithTotal = [
       CHATAM_TOTAL_FINAL_ROW,
       CHATAM_ASIAN_FINAL_ROW,
       DURHAM_ASIAN_FINAL_ROW,
       DURHAM_WHITE_FINAL_ROW,
       DURHAM_TOTAL_FINAL_ROW,
     ];
-
-    const breakdown = Breakdowns.byCounty()
-      .withGeoFilter(new Fips("37"))
-      .andRace(true);
-    const metricQuery = new MetricQuery("population", breakdown);
-    const actual = acsProvider.getData(
-      metricQuery,
-      fakeDataServerResponse(
-        "acs_population-by_race_county_std",
-        acsRaceCountyData
-      )
+    const responseWithTotal = acsProvider.getData(
+      new MetricQuery(
+        "population",
+        Breakdowns.byCounty().withGeoFilter(new Fips("37")).andRace(true)
+      ),
+      dataServerResponse
     );
-    expect(actual).toEqual(
-      new MetricQueryResponse(expectedRows, [
+    expect(responseWithTotal).toEqual(
+      new MetricQueryResponse(rowsWithTotal, [
+        "acs_population-by_race_county_std",
+      ])
+    );
+
+    // Evaluate the response without requesting total field
+    const rowsWithoutTotal = [
+      CHATAM_ASIAN_FINAL_ROW,
+      DURHAM_ASIAN_FINAL_ROW,
+      DURHAM_WHITE_FINAL_ROW,
+    ];
+    const responseWithoutTotal = acsProvider.getData(
+      new MetricQuery(
+        "population",
+        Breakdowns.byCounty().withGeoFilter(new Fips("37")).andRace()
+      ),
+      dataServerResponse
+    );
+    expect(responseWithoutTotal).toEqual(
+      new MetricQueryResponse(rowsWithoutTotal, [
         "acs_population-by_race_county_std",
       ])
     );
   });
 
-  test("County and Race Breakdown", async () => {
+  test("Get one county with Race breakdown", async () => {
     const acsProvider = new AcsPopulationProvider();
 
     const DURHAM_ASIAN_ROW = countyRow(
@@ -195,36 +208,48 @@ describe("AcsPopulationProvider", () => {
       DURHAM_TOTAL_ROW,
     ];
 
-    const DURHAM_ASIAN_FINAL_ROW = Object.assign(DURHAM_ASIAN_ROW, {
-      population_pct: 25,
-    });
-    const DURHAM_WHITE_FINAL_ROW = Object.assign(DURHAM_WHITE_ROW, {
-      population_pct: 75,
-    });
-    const DURHAM_TOTAL_FINAL_ROW = Object.assign(DURHAM_TOTAL_ROW, {
-      population_pct: 100,
-    });
-    const expectedRows = [
-      DURHAM_ASIAN_FINAL_ROW,
-      DURHAM_WHITE_FINAL_ROW,
-      DURHAM_TOTAL_FINAL_ROW,
-    ];
+    const DURHAM_ASIAN_FINAL_ROW = addPopulationPctToRow(DURHAM_ASIAN_ROW, 25);
+    const DURHAM_WHITE_FINAL_ROW = addPopulationPctToRow(DURHAM_WHITE_ROW, 75);
+    const DURHAM_TOTAL_FINAL_ROW = addPopulationPctToRow(DURHAM_TOTAL_ROW, 100);
 
-    const metricQuery = new MetricQuery(
-      "population",
-      Breakdowns.forFips(new Fips("37063")).andRace(true)
-    );
-    const actual = acsProvider.getData(
-      metricQuery,
+    // Evaluate the response with requesting total field
+    const responseWithTotal = acsProvider.getData(
+      new MetricQuery(
+        "population",
+        Breakdowns.forFips(new Fips("37063")).andRace(true)
+      ),
       fakeDataServerResponse(
         "acs_population-by_race_county_std",
         acsRaceCountyData
       )
     );
-    expect(actual).toEqual(
-      new MetricQueryResponse(expectedRows, [
+    expect(responseWithTotal).toEqual(
+      new MetricQueryResponse(
+        [
+          DURHAM_ASIAN_FINAL_ROW,
+          DURHAM_WHITE_FINAL_ROW,
+          DURHAM_TOTAL_FINAL_ROW,
+        ],
+        ["acs_population-by_race_county_std"]
+      )
+    );
+
+    // Evaluate the response without requesting total field
+    const responseWithoutTotal = acsProvider.getData(
+      new MetricQuery(
+        "population",
+        Breakdowns.forFips(new Fips("37063")).andRace()
+      ),
+      fakeDataServerResponse(
         "acs_population-by_race_county_std",
-      ])
+        acsRaceCountyData
+      )
+    );
+    expect(responseWithoutTotal).toEqual(
+      new MetricQueryResponse(
+        [DURHAM_ASIAN_FINAL_ROW, DURHAM_WHITE_FINAL_ROW],
+        ["acs_population-by_race_county_std"]
+      )
     );
   });
 
