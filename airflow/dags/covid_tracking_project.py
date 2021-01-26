@@ -1,5 +1,4 @@
 from airflow import DAG
-from airflow.models import Variable
 from airflow.utils.dates import days_ago
 
 import util
