@@ -4,27 +4,7 @@ import VariableProvider from "./variables/VariableProvider";
 import { joinOnCols } from "./datasetutils";
 import { DataFrame, IDataFrame } from "data-forge";
 import { MetricQuery, MetricQueryResponse } from "./MetricQuery";
-import { getDataFetcher, getDataManager, getLogger } from "../utils/globals";
-import { useEffect } from "react";
-
-async function onMetadataLoaded(callback: (metadata: MetadataMap) => void) {
-  try {
-    const metadata = await getDataManager().loadMetadata();
-    callback(metadata);
-    // Swallow errors - they are logged in the DataManager
-  } catch (e) {}
-}
-
-/**
- * @param callback Callback that is executed exactly once, once metadata is
- *     loaded.
- */
-export function useOnMetadataLoaded(callback: (metadata: MetadataMap) => void) {
-  useEffect(() => {
-    onMetadataLoaded(callback);
-    // eslint-disable-next-line
-  }, []);
-}
+import { getDataFetcher, getLogger } from "../utils/globals";
 
 export abstract class ResourceCache<K, R> {
   private resources: Record<string, R>;
