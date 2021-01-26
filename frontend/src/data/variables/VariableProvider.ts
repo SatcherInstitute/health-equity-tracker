@@ -28,7 +28,7 @@ abstract class VariableProvider {
         "Breakdowns not supported for provider " +
           this.providerId +
           ": " +
-          breakdowns.getBreakdownString()
+          breakdowns.getUniqueKey()
       );
     }
 

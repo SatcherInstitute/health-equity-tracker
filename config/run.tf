@@ -177,9 +177,13 @@ resource "google_cloud_run_service" "frontend_service" {
   autogenerate_revision_name = true
 }
 
-# Output the URL of the data server for use in e2e tests.
+# Output the URL of the data server and frontend for use in e2e tests.
 output "data_server_url" {
   value = google_cloud_run_service.data_server_service.status.0.url
+}
+
+output "frontend_url" {
+  value = google_cloud_run_service.frontend_service.status.0.url
 }
 
 # Output the URLs of the pipeline services for use in Airflow.
