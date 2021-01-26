@@ -1,47 +1,61 @@
 import { Button } from "@material-ui/core";
-import React, { useEffect } from "react";
-import { LoadStatus } from "./DatasetTypes";
-import useDatasetStore from "./useDatasetStore";
+import React from "react";
+import { MetadataMap } from "./DatasetTypes";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { MetricQuery } from "./MetricQuery";
-
-function getJointLoadStatus(statuses: LoadStatus[]) {
-  if (statuses.includes("error")) {
-    return "error";
-  }
-  if (statuses.includes("loading") || statuses.includes("unloaded")) {
-    return "loading";
-  }
-  return "loaded";
-}
+import { MetricQuery, MetricQueryResponse } from "./MetricQuery";
+import { getDataManager } from "../utils/globals";
+import { MetadataCache } from "./DataManager";
+import { IncompleteLoadStatus, useMetrics, useResources } from "./useResources";
 
 /**
  * Provides a wrapper around a UI component that may be loading or have an async
  * error, and displays loading and error indicators.
  */
-export function WithLoadingOrErrorUI(props: {
-  loadStatus: LoadStatus;
-  children: () => JSX.Element;
+export function WithLoadingOrErrorUI<R>(props: {
+  resources: R[] | IncompleteLoadStatus;
+  children: (resources: R[]) => JSX.Element;
   loadingComponent?: JSX.Element;
 }) {
-  switch (props.loadStatus) {
-    case "loaded":
-      return props.children();
-    case "loading":
-    case "unloaded":
-      return props.loadingComponent ? (
-        props.loadingComponent
-      ) : (
-        <CircularProgress />
-      );
-    default:
-      return (
-        <div data-testid="WithLoadingOrErrorUI-error">
-          <p>Oops, something went wrong.</p>
-          <Button onClick={() => window.location.reload()}>reload</Button>
-        </div>
-      );
+  if (props.resources === "loading") {
+    return props.loadingComponent ? (
+      props.loadingComponent
+    ) : (
+      <CircularProgress />
+    );
   }
+
+  if (props.resources === "error") {
+    return (
+      <div data-testid="WithLoadingOrErrorUI-error">
+        <p>Oops, something went wrong.</p>
+        <Button onClick={() => window.location.reload()}>reload</Button>
+      </div>
+    );
+  }
+
+  return props.children(props.resources);
+}
+
+export function WithMetadata(props: {
+  children: (metadata: MetadataMap) => JSX.Element;
+  loadingComponent?: JSX.Element;
+}) {
+  const metadatas = useResources<string, MetadataMap>(
+    [MetadataCache.METADATA_KEY],
+    async () => await getDataManager().loadMetadata(),
+    (metadataId) => metadataId
+  );
+
+  // useResources is generalized for multiple resources, but there is only one
+  // metadata resource so we use metadata[0]
+  return (
+    <WithLoadingOrErrorUI<MetadataMap>
+      resources={metadatas}
+      loadingComponent={props.loadingComponent}
+    >
+      {(metadata: MetadataMap[]) => props.children(metadata[0])}
+    </WithLoadingOrErrorUI>
+  );
 }
 
 /**
@@ -50,24 +64,13 @@ export function WithLoadingOrErrorUI(props: {
  */
 export function WithMetrics(props: {
   queries: MetricQuery[];
+  children: (responses: MetricQueryResponse[]) => JSX.Element;
   loadingComponent?: JSX.Element;
-  children: () => JSX.Element;
 }) {
-  const datasetStore = useDatasetStore();
-  // No need to make sure this only loads once, since the dataset store handles
-  // making sure it's not loaded too many times.
-  useEffect(() => {
-    props.queries.forEach((query) => {
-      datasetStore.loadMetrics(query);
-    });
-  });
-  const statuses = props.queries.map((query) =>
-    datasetStore.getMetricsLoadStatus(query)
-  );
-
+  const queryResponses = useMetrics(props.queries);
   return (
-    <WithLoadingOrErrorUI
-      loadStatus={getJointLoadStatus(statuses)}
+    <WithLoadingOrErrorUI<MetricQueryResponse>
+      resources={queryResponses}
       loadingComponent={props.loadingComponent}
     >
       {props.children}
@@ -75,28 +78,29 @@ export function WithMetrics(props: {
   );
 }
 
-/**
- * Provides a wrapper around a UI component that requires some datasets, and
- * displays loading and error indicators.
- */
-export function WithDatasets(props: {
-  datasetIds: string[];
-  children: () => JSX.Element;
+export function WithMetadataAndMetrics(props: {
+  queries: MetricQuery[];
+  children: (
+    metadata: MetadataMap,
+    queryResponses: MetricQueryResponse[]
+  ) => JSX.Element;
+  loadingComponent?: JSX.Element;
 }) {
-  const datasetStore = useDatasetStore();
-  // No need to make sure this only loads once, since the dataset store handles
-  // making sure it's not loaded too many times.
-  useEffect(() => {
-    props.datasetIds.forEach((id) => {
-      datasetStore.loadDataset(id);
-    });
-  });
-  const statuses = props.datasetIds.map((id) =>
-    datasetStore.getDatasetLoadStatus(id)
-  );
+  // Note: this will result in an error page if any of the required data fails
+  // to be fetched. We could make the metadata optional so the charts still
+  // render, but it is much easier to reason about if we require both. The
+  // downside is the user is more likely to see an error if the metadata is
+  // broken but the datasets aren't.
   return (
-    <WithLoadingOrErrorUI loadStatus={getJointLoadStatus(statuses)}>
-      {props.children}
-    </WithLoadingOrErrorUI>
+    <WithMetadata loadingComponent={props.loadingComponent}>
+      {(metadata) => (
+        <WithMetrics
+          queries={props.queries}
+          loadingComponent={props.loadingComponent}
+        >
+          {(queryResponses) => props.children(metadata, queryResponses)}
+        </WithMetrics>
+      )}
+    </WithMetadata>
   );
 }

@@ -64,7 +64,7 @@ export class Breakdowns {
   // day/week/month/year.
   time: boolean;
   demographicBreakdowns: Record<DemographicBreakdownKey, DemographicBreakdown>;
-  filterFips?: Fips | undefined;
+  filterFips?: Fips;
 
   constructor(
     geography: GeographicBreakdown,
@@ -93,7 +93,7 @@ export class Breakdowns {
     let breakdowns: Record<string, any> = {
       geography: this.geography,
       time: this.time || undefined,
-      filterFips: this.filterFips || undefined,
+      filterFips: this.filterFips ? this.filterFips.code : undefined,
     };
     Object.entries(this.demographicBreakdowns).forEach(
       ([breakdownKey, breakdown]) => {
@@ -113,12 +113,7 @@ export class Breakdowns {
       this.geography,
       Object.assign({}, this.demographicBreakdowns),
       this.time,
-      this.filterFips
-        ? Object.assign(
-            Object.create(Object.getPrototypeOf(this.filterFips)),
-            this.filterFips
-          )
-        : undefined
+      this.filterFips ? new Fips(this.filterFips.code) : undefined
     );
   }
 
@@ -214,6 +209,7 @@ export class Breakdowns {
       this.hasExactlyOneDemographic() && this.demographicBreakdowns.race.enabled
     );
   }
+
   hasOnlyRaceNonStandard() {
     return (
       this.hasExactlyOneDemographic() &&

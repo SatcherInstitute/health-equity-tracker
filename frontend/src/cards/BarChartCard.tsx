@@ -8,7 +8,6 @@ import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
 import { Fips } from "../utils/madlib/Fips";
-import useDatasetStore from "../data/useDatasetStore";
 import {
   Breakdowns,
   BreakdownVar,
@@ -48,8 +47,6 @@ function BarChartCardWithKey(props: BarChartCardProps) {
     props.variableConfig.metrics["pct_share"] ||
       props.variableConfig.metrics["per100k"]
   );
-
-  const datasetStore = useDatasetStore();
 
   // TODO need to handle race categories standard vs non-standard for covid vs
   // other demographic.
@@ -100,8 +97,7 @@ function BarChartCardWithKey(props: BarChartCardProps) {
         ) : undefined
       }
     >
-      {() => {
-        const queryResponse = datasetStore.getMetrics(query);
+      {([queryResponse]) => {
         const dataset = queryResponse.data.filter(
           (row) => row.race_and_ethnicity !== "Not Hispanic or Latino"
         );
