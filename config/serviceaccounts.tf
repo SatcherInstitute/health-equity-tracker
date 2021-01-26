@@ -129,8 +129,8 @@ resource "google_service_account" "frontend_runner_identity" {
 # Allow the frontend service to make calls to the data server
 resource "google_cloud_run_service_iam_member" "data_server_invoker_binding" {
   location = google_cloud_run_service.data_server_service.location
-  project = google_cloud_run_service.data_server_service.project
-  service = google_cloud_run_service.data_server_service.name
-  role = "roles/run.invoker"
-  member = format("serviceAccount:%s", google_service_account.frontend_runner_identity.email)
+  project  = google_cloud_run_service.data_server_service.project
+  service  = google_cloud_run_service.data_server_service.name
+  role     = "roles/run.invoker"
+  member   = format("serviceAccount:%s", google_service_account.frontend_runner_identity.email)
 }

@@ -83,15 +83,6 @@ def testWriteToBq_MissingAttr():
     with pytest.raises(RuntimeError, match=r'filename not found'):
         ctp.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-    kwargs = {'filename': 'test_file.csv'}
-    with pytest.raises(RuntimeError, match=r'metadata_table_id not found'):
-        ctp.write_to_bq('dataset', 'gcs_bucket', **kwargs)
-
-    kwargs = {'filename': 'test_file.csv',
-              'metadata_table_id': 'test_metadata'}
-    with pytest.raises(RuntimeError, match=r'table_name not found'):
-        ctp.write_to_bq('dataset', 'gcs_bucket', **kwargs)
-
 
 @mock.patch('datasources.covid_tracking_project.CovidTrackingProject._download_metadata',
             return_value=pd.DataFrame({}))
@@ -101,8 +92,7 @@ def testWriteToBq_MetadataMissing(mock_csv: mock.MagicMock,
                                   mock_download: mock.MagicMock):
     ctp = CovidTrackingProject()
     kwargs = {'filename': 'test_file.csv',
-              'metadata_table_id': 'test_metadata',
               'table_name': 'output_table'}
     with pytest.raises(RuntimeError,
-                       match=r'BigQuery call to test_metadata returned 0 rows'):
+                       match=r'BigQuery call to dataset returned 0 rows'):
         ctp.write_to_bq('dataset', 'gcs_bucket', **kwargs)
