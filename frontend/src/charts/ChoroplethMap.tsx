@@ -16,6 +16,7 @@ const GEO_DATASET = "GEO_DATASET";
 const GEO_ID = "id";
 
 const VAR_DATASET = "VAR_DATASET";
+// TODO - consider moving standardized column names, like fips, to variables shared between here and VariableProvider
 const VAR_FIPS = "fips";
 
 export interface ChoroplethMapProps {

@@ -51,9 +51,11 @@ abstract class VariableProvider {
     if (breakdowns.filterFips !== undefined) {
       const fips = breakdowns.filterFips as Fips;
       if (fips.isState() && breakdowns.geography === "county") {
-        df = df.where((row) => fips.isParentOf(row["county_fips"]));
+        return df
+          .where((row) => fips.isParentOf(row["county_fips"]))
+          .resetIndex();
       } else {
-        df = df.where((row) => row[fipsColumn] === fips.code);
+        return df.where((row) => row[fipsColumn] === fips.code).resetIndex();
       }
     }
     return df;
@@ -65,33 +67,32 @@ abstract class VariableProvider {
         ? ["county_fips", "county_name"]
         : ["state_fips", "state_name"];
 
-    df = df
+    return df
       .renameSeries({
         [fipsColumn]: "fips",
         [geoNameColumn]: "fips_name",
       })
       .resetIndex();
-
-    return df;
   }
 
   removeUnwantedDemographicTotals(
     df: IDataFrame,
     breakdowns: Breakdowns
   ): IDataFrame {
+    let dataFrame = df;
     Object.values(breakdowns.demographicBreakdowns).forEach(
       (demographicBreakdown) => {
         if (
           demographicBreakdown.enabled &&
           !demographicBreakdown.includeTotal
         ) {
-          df = df
+          dataFrame = dataFrame
             .where((row) => row[demographicBreakdown.columnName] !== "Total")
             .resetIndex();
         }
       }
     );
-    return df;
+    return dataFrame;
   }
 
   abstract getDataInternal(
