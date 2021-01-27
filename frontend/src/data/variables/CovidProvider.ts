@@ -40,9 +40,6 @@ class CovidProvider extends VariableProvider {
     const covid_dataset = await getDataManager().loadDataset(datasetId);
     let consumedDatasetIds = [datasetId];
 
-    const fipsColumn =
-      breakdowns.geography === "county" ? "county_fips" : "state_fips";
-
     // TODO need to figure out how to handle getting this at the national level
     // because each state reports race differently.
     let df = covid_dataset.toDataFrame();
