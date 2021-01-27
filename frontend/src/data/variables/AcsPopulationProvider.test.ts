@@ -1,26 +1,18 @@
 import AcsPopulationProvider from "./AcsPopulationProvider";
+import {
+  autoInitGlobals,
+  getDataFetcher,
+  resetCacheDebug,
+} from "../../utils/globals";
 import { Breakdowns } from "../Breakdowns";
 import { MetricQueryResponse, createMissingDataResponse } from "../MetricQuery";
-import { Dataset } from "../DatasetTypes";
 import { Fips, USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import FakeMetadataMap from "../FakeMetadataMap";
+import FakeDataFetcher from "../../testing/FakeDataFetcher";
 
 const WHITE = "White (Non-Hispanic)";
 const ASIAN = "Asian (Non-Hispanic)";
 const TOTAL = "Total";
-
-function fakeDataServerResponse(datasetId: string, data: any[]) {
-  let dataServerResponse: Record<string, Dataset> = {};
-  [
-    "acs_population-by_race_state_std",
-    "acs_population-by_age_state",
-    "acs_population-by_race_county_std",
-  ].forEach((id) => {
-    const datasetRows = id === datasetId ? data : [];
-    dataServerResponse[id] = new Dataset(datasetRows, FakeMetadataMap[id]);
-  });
-  return dataServerResponse;
-}
 
 function countyRow(
   fips: string,
@@ -60,11 +52,21 @@ function addPopulationPctToRow(row: {}, pct: number) {
   });
 }
 
+autoInitGlobals();
+const dataFetcher = getDataFetcher() as FakeDataFetcher;
+
 describe("AcsPopulationProvider", () => {
+  beforeEach(() => {
+    resetCacheDebug();
+    dataFetcher.resetState();
+    dataFetcher.setFakeMetadataLoaded(FakeMetadataMap);
+  });
+
   test("Invalid Breakdown", async () => {
     const acsProvider = new AcsPopulationProvider();
 
-    expect(acsProvider.getData({}, Breakdowns.national())).toEqual(
+    const response = await acsProvider.getData(Breakdowns.national());
+    expect(response).toEqual(
       createMissingDataResponse(
         "Breakdowns not supported for provider acs_pop_provider: geography:national"
       )
@@ -125,7 +127,7 @@ describe("AcsPopulationProvider", () => {
     const DURHAM_WHITE_FINAL_ROW = addPopulationPctToRow(DURHAM_WHITE_ROW, 75);
     const DURHAM_TOTAL_FINAL_ROW = addPopulationPctToRow(DURHAM_TOTAL_ROW, 100);
 
-    const dataServerResponse = fakeDataServerResponse(
+    dataFetcher.setFakeDatasetLoaded(
       "acs_population-by_race_county_std",
       acsRaceCountyData
     );
@@ -138,8 +140,8 @@ describe("AcsPopulationProvider", () => {
       DURHAM_WHITE_FINAL_ROW,
       DURHAM_TOTAL_FINAL_ROW,
     ];
-    const responseWithTotal = acsProvider.getData(
-      dataServerResponse,
+
+    const responseWithTotal = await acsProvider.getData(
       Breakdowns.byCounty().withGeoFilter(new Fips("37")).andRace(true)
     );
     expect(responseWithTotal).toEqual(
@@ -154,8 +156,7 @@ describe("AcsPopulationProvider", () => {
       DURHAM_ASIAN_FINAL_ROW,
       DURHAM_WHITE_FINAL_ROW,
     ];
-    const responseWithoutTotal = acsProvider.getData(
-      dataServerResponse,
+    const responseWithoutTotal = await acsProvider.getData(
       Breakdowns.byCounty().withGeoFilter(new Fips("37")).andRace()
     );
     expect(responseWithoutTotal).toEqual(
@@ -208,11 +209,11 @@ describe("AcsPopulationProvider", () => {
       DURHAM_WHITE_FINAL_ROW,
       DURHAM_TOTAL_FINAL_ROW,
     ];
-    const responseWithTotal = acsProvider.getData(
-      fakeDataServerResponse(
-        "acs_population-by_race_county_std",
-        acsRaceCountyData
-      ),
+    dataFetcher.setFakeDatasetLoaded(
+      "acs_population-by_race_county_std",
+      acsRaceCountyData
+    );
+    const responseWithTotal = await acsProvider.getData(
       Breakdowns.forFips(new Fips("37063")).andRace(true)
     );
     expect(responseWithTotal).toEqual(
@@ -223,11 +224,7 @@ describe("AcsPopulationProvider", () => {
 
     // Evaluate the response without requesting total field
     const rowsWithoutTotal = [DURHAM_ASIAN_FINAL_ROW, DURHAM_WHITE_FINAL_ROW];
-    const responseWithoutTotal = acsProvider.getData(
-      fakeDataServerResponse(
-        "acs_population-by_race_county_std",
-        acsRaceCountyData
-      ),
+    const responseWithoutTotal = await acsProvider.getData(
       Breakdowns.forFips(new Fips("37063")).andRace()
     );
     expect(responseWithoutTotal).toEqual(
@@ -256,14 +253,12 @@ describe("AcsPopulationProvider", () => {
       NC_TOTAL_ROW,
     ];
 
-    const dataServerResponse = fakeDataServerResponse(
+    dataFetcher.setFakeDatasetLoaded(
       "acs_population-by_race_state_std",
       acsRaceRows
     );
-
     // Evaluate the response without requesting total field
-    const responseWithoutTotal = acsProvider.getData(
-      dataServerResponse,
+    const responseWithoutTotal = await acsProvider.getData(
       Breakdowns.forFips(new Fips("37")).andRace()
     );
     expect(responseWithoutTotal).toEqual(
@@ -274,8 +269,7 @@ describe("AcsPopulationProvider", () => {
     );
 
     // Evaluate the response with requesting total field
-    const responseWithTotal = acsProvider.getData(
-      dataServerResponse,
+    const responseWithTotal = await acsProvider.getData(
       Breakdowns.forFips(new Fips("37")).andRace(/*includeTotal=*/ true)
     );
     expect(responseWithTotal).toEqual(
@@ -334,14 +328,12 @@ describe("AcsPopulationProvider", () => {
       /*population_pct=*/ 100
     );
 
-    const dataServerResponse = fakeDataServerResponse(
+    dataFetcher.setFakeDatasetLoaded(
       "acs_population-by_race_state_std",
       acsRaceStateData
     );
-
     // Evaluate the response without requesting total field
-    const responseWithoutTotal = acsProvider.getData(
-      dataServerResponse,
+    const responseWithoutTotal = await acsProvider.getData(
       Breakdowns.national().andRace()
     );
     expect(responseWithoutTotal).toEqual(
@@ -352,8 +344,7 @@ describe("AcsPopulationProvider", () => {
     );
 
     // Evaluate the response with requesting total field
-    const responseWithTotal = acsProvider.getData(
-      dataServerResponse,
+    const responseWithTotal = await acsProvider.getData(
       Breakdowns.national().andRace(/*includeTotal=*/ true)
     );
     expect(responseWithTotal).toEqual(
@@ -386,14 +377,9 @@ describe("AcsPopulationProvider", () => {
       100
     );
 
-    const dataServerResponse = fakeDataServerResponse(
-      "acs_population-by_age_state",
-      acsAgeRows
-    );
-
+    dataFetcher.setFakeDatasetLoaded("acs_population-by_age_state", acsAgeRows);
     // Evaluate the response without requesting total field
-    const responseWithoutTotal = acsProvider.getData(
-      dataServerResponse,
+    const responseWithoutTotal = await acsProvider.getData(
       Breakdowns.forFips(new Fips("37")).andAge()
     );
     expect(responseWithoutTotal).toEqual(
@@ -404,8 +390,7 @@ describe("AcsPopulationProvider", () => {
     );
 
     // Evaluate the response with requesting total field
-    const responseWithTotal = acsProvider.getData(
-      dataServerResponse,
+    const responseWithTotal = await acsProvider.getData(
       Breakdowns.forFips(new Fips("37")).andAge(/*includeTotal=*/ true)
     );
     expect(responseWithTotal).toEqual(
@@ -437,14 +422,9 @@ describe("AcsPopulationProvider", () => {
       100
     );
 
-    const dataServerResponse = fakeDataServerResponse(
-      "acs_population-by_age_state",
-      acsAgeRows
-    );
-
+    dataFetcher.setFakeDatasetLoaded("acs_population-by_age_state", acsAgeRows);
     // Evaluate the response without requesting total field
-    const responseWithoutTotal = acsProvider.getData(
-      dataServerResponse,
+    const responseWithoutTotal = await acsProvider.getData(
       Breakdowns.national().andAge()
     );
     expect(responseWithoutTotal).toEqual(
@@ -455,8 +435,7 @@ describe("AcsPopulationProvider", () => {
     );
 
     // Evaluate the response with requesting total field
-    const responseWithTotal = acsProvider.getData(
-      dataServerResponse,
+    const responseWithTotal = await acsProvider.getData(
       Breakdowns.national().andAge(/*includeTotal=*/ true)
     );
     expect(responseWithTotal).toEqual(
@@ -470,11 +449,8 @@ describe("AcsPopulationProvider", () => {
   test("State and Gender Breakdown", async () => {
     const acsProvider = new AcsPopulationProvider();
 
-    const dataServerResponse = fakeDataServerResponse("", []);
-
     // Evaluate the response without requesting total field
-    const responseWithoutTotal = acsProvider.getData(
-      dataServerResponse,
+    const responseWithoutTotal = await acsProvider.getData(
       Breakdowns.forFips(new Fips("37")).andGender()
     );
     expect(responseWithoutTotal).toEqual(
@@ -484,8 +460,7 @@ describe("AcsPopulationProvider", () => {
     );
 
     // Evaluate the response with requesting total field
-    const responseWithTotal = acsProvider.getData(
-      dataServerResponse,
+    const responseWithTotal = await acsProvider.getData(
       Breakdowns.forFips(new Fips("37")).andGender(/*includeTotal=*/ true)
     );
     expect(responseWithTotal).toEqual(
@@ -498,11 +473,8 @@ describe("AcsPopulationProvider", () => {
   test("National and Gender Breakdown", async () => {
     const acsProvider = new AcsPopulationProvider();
 
-    const dataServerResponse = fakeDataServerResponse("", []);
-
     // Evaluate the response without requesting total field
-    const responseWithoutTotal = acsProvider.getData(
-      dataServerResponse,
+    const responseWithoutTotal = await acsProvider.getData(
       Breakdowns.national().andGender()
     );
     expect(responseWithoutTotal).toEqual(
@@ -512,8 +484,7 @@ describe("AcsPopulationProvider", () => {
     );
 
     // Evaluate the response with requesting total field
-    const responseWithTotal = acsProvider.getData(
-      dataServerResponse,
+    const responseWithTotal = await acsProvider.getData(
       Breakdowns.national().andGender(/*includeTotal=*/ true)
     );
     expect(responseWithTotal).toEqual(

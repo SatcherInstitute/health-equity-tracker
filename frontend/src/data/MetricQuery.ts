@@ -1,7 +1,7 @@
 import { Breakdowns } from "./Breakdowns";
 import { JoinType } from "./datasetutils";
-import { MetricId } from "./variableProviders";
 import { Row } from "./DatasetTypes";
+import { MetricId } from "./MetricConfig";
 
 export class MetricQuery {
   readonly metricIds: MetricId[];
