@@ -1,10 +1,10 @@
 import { IDataFrame } from "data-forge";
 import { Breakdowns, DemographicBreakdownKey } from "../Breakdowns";
-import { Dataset } from "../DatasetTypes";
 import { applyToGroups, percent } from "../datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQueryResponse } from "../MetricQuery";
+import { getDataManager } from "../../utils/globals";
 
 const standardizedRaces = [
   "American Indian and Alaska Native (Non-Hispanic)",
@@ -32,18 +32,7 @@ function createNationalTotal(dataFrame: IDataFrame, breakdown: string) {
 
 class AcsPopulationProvider extends VariableProvider {
   constructor() {
-    super(
-      "acs_pop_provider",
-      ["population", "population_pct"],
-      [
-        "acs_population-by_race_state_std",
-        "acs_population-by_race_county_std",
-        "acs_population-by_age_state",
-        "acs_population-by_age_county",
-        "acs_population-by_sex_state",
-        "acs_population-by_sex_county",
-      ]
-    );
+    super("acs_pop_provider", ["population", "population_pct"]);
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
@@ -65,11 +54,8 @@ class AcsPopulationProvider extends VariableProvider {
     throw new Error("Not implemented");
   }
 
-  getDataInternal(
-    datasets: Record<string, Dataset>,
-    breakdowns: Breakdowns
-  ): MetricQueryResponse {
-    let df = this.getDataInternalWithoutPercents(datasets, breakdowns);
+  async getDataInternal(breakdowns: Breakdowns): Promise<MetricQueryResponse> {
+    let df = await this.getDataInternalWithoutPercents(breakdowns);
     const [fipsColumn, geoNameColumn] =
       breakdowns.geography === "county"
         ? ["county_fips", "county_name"]
@@ -123,11 +109,13 @@ class AcsPopulationProvider extends VariableProvider {
     ]);
   }
 
-  private getDataInternalWithoutPercents(
-    datasets: Record<string, Dataset>,
+  private async getDataInternalWithoutPercents(
     breakdowns: Breakdowns
-  ): IDataFrame {
-    let acsDataFrame = datasets[this.getDatasetId(breakdowns)].toDataFrame();
+  ): Promise<IDataFrame> {
+    const acsDataset = await getDataManager().loadDataset(
+      this.getDatasetId(breakdowns)
+    );
+    let acsDataFrame = acsDataset.toDataFrame();
 
     // Race must be special cased to standardize the data before proceeding
     if (breakdowns.hasOnlyRace()) {

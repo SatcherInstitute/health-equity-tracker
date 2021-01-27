@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Alert } from "@material-ui/lab";
 import CardWrapper from "./CardWrapper";
 import { Breakdowns } from "../data/Breakdowns";
-import { MetricId } from "../data/variableProviders";
 import { MetricQuery } from "../data/MetricQuery";
 import { Fips } from "../utils/madlib/Fips";
 import { CardContent } from "@material-ui/core";
@@ -13,7 +12,7 @@ import Button from "@material-ui/core/Button";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
-import { POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
+import { MetricId, POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
 
 export interface PopulationCardProps {
   fips: Fips;

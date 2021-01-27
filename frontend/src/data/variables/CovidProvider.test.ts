@@ -2,31 +2,14 @@ import CovidProvider from "./CovidProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import { Breakdowns } from "../Breakdowns";
 import { MetricQueryResponse } from "../MetricQuery";
-import { Dataset } from "../DatasetTypes";
 import { Fips } from "../../utils/madlib/Fips";
 import FakeMetadataMap from "../FakeMetadataMap";
-
-function fakeDataServerResponse(
-  covidDatasetId: string,
-  covidRows: any[],
-  acsDatasetId: string,
-  acsRows: any[]
-) {
-  let serverResponse: Record<string, Dataset> = {};
-
-  const acsProvider = new AcsPopulationProvider();
-  acsProvider.datasetIds.forEach((id) => {
-    const data = id === acsDatasetId ? acsRows : [];
-    serverResponse[id] = new Dataset(data, FakeMetadataMap[id]);
-  });
-
-  ["covid_by_state_and_race", "covid_by_county_and_race"].forEach((id) => {
-    const data = id === covidDatasetId ? covidRows : [];
-    serverResponse[id] = new Dataset(data, FakeMetadataMap[id]);
-  });
-
-  return serverResponse;
-}
+import {
+  autoInitGlobals,
+  getDataFetcher,
+  resetCacheDebug,
+} from "../../utils/globals";
+import FakeDataFetcher from "../../testing/FakeDataFetcher";
 
 function covidAndAcsRows(
   state_fips: string,
@@ -84,7 +67,16 @@ function covidAndCountyAcsRows(
   ];
 }
 
+autoInitGlobals();
+const dataFetcher = getDataFetcher() as FakeDataFetcher;
+
 describe("CovidProvider", () => {
+  beforeEach(() => {
+    resetCacheDebug();
+    dataFetcher.resetState();
+    dataFetcher.setFakeMetadataLoaded(FakeMetadataMap);
+  });
+
   test("County and Race Breakdown", async () => {
     const acsProvider = new AcsPopulationProvider();
     const covidProvider = new CovidProvider(acsProvider);
@@ -176,16 +168,17 @@ describe("CovidProvider", () => {
       DURHAM_ACS_WHITE_ROW,
     ];
 
-    const dataServerResponse = fakeDataServerResponse(
+    dataFetcher.setFakeDatasetLoaded(
       "covid_by_county_and_race",
-      covidDatasetRows,
+      covidDatasetRows
+    );
+    dataFetcher.setFakeDatasetLoaded(
       "acs_population-by_race_county_std",
       acsRaceRows
     );
 
     // Evaluate the response with requesting total field
-    const responseWithTotal = covidProvider.getData(
-      dataServerResponse,
+    const responseWithTotal = await covidProvider.getData(
       Breakdowns.forFips(new Fips("37037")).andRace(
         /*includeTotal=*/ true,
         /*nonstandard=*/ true
@@ -199,8 +192,7 @@ describe("CovidProvider", () => {
     );
 
     // Evaluate the response without requesting total field
-    const responseWithoutTotal = covidProvider.getData(
-      dataServerResponse,
+    const responseWithoutTotal = await covidProvider.getData(
       Breakdowns.forFips(new Fips("37037")).andRace(
         /*includeTotal=*/ false,
         /*nonstandard=*/ true
@@ -305,16 +297,17 @@ describe("CovidProvider", () => {
       AL_ACS_WHITE_ROW,
     ];
 
-    const dataServerResponse = fakeDataServerResponse(
+    dataFetcher.setFakeDatasetLoaded(
       "covid_by_state_and_race",
-      covidDatasetRows,
+      covidDatasetRows
+    );
+    dataFetcher.setFakeDatasetLoaded(
       "acs_population-by_race_state_std",
       acsRaceRows
     );
 
     // Evaluate the response with requesting total field
-    const responseWithTotal = covidProvider.getData(
-      dataServerResponse,
+    const responseWithTotal = await covidProvider.getData(
       Breakdowns.forFips(new Fips("37")).andRace(
         /*includeTotal=*/ true,
         /*nonstandard=*/ true
@@ -328,8 +321,7 @@ describe("CovidProvider", () => {
     );
 
     // Evaluate the response without requesting total field
-    const responseWithoutTotal = covidProvider.getData(
-      dataServerResponse,
+    const responseWithoutTotal = await covidProvider.getData(
       Breakdowns.forFips(new Fips("37")).andRace(
         /*includeTotal=*/ false,
         /*nonstandard=*/ true
@@ -431,16 +423,18 @@ describe("CovidProvider", () => {
       AL_ACS_TOTAL_ROW,
       AL_ACS_WHITE_ROW,
     ];
-    const dataServerResponse = fakeDataServerResponse(
+
+    dataFetcher.setFakeDatasetLoaded(
       "covid_by_state_and_race",
-      covidDatasetRows,
+      covidDatasetRows
+    );
+    dataFetcher.setFakeDatasetLoaded(
       "acs_population-by_race_state_std",
       acsRaceRows
     );
 
     // Evaluate the response with requesting total field
-    const responseWithTotal = covidProvider.getData(
-      dataServerResponse,
+    const responseWithTotal = await covidProvider.getData(
       Breakdowns.national().andRace(
         /*includeTotal=*/ true,
         /*nonstandard=*/ true
@@ -454,8 +448,7 @@ describe("CovidProvider", () => {
     );
 
     // Evaluate the response without requesting total field
-    const responseWithoutTotal = covidProvider.getData(
-      dataServerResponse,
+    const responseWithoutTotal = await covidProvider.getData(
       Breakdowns.national().andRace(
         /*includeTotal=*/ false,
         /*nonstandard=*/ true
