@@ -71,7 +71,6 @@ def testWriteToBq(mock_append_to_bq: mock.MagicMock, mock_csv: mock.MagicMock,
     assert len(result.loc[
         result['race'] == col_std.Race.API.value].index) == 6
     expected_dtypes = {col: np.object for col in result.columns}
-    expected_dtypes['date'] = np.dtype('datetime64[ns]')
     expected_dtypes['value'] = np.float64
     for col in result.columns:
         assert result[col].dtype == expected_dtypes[col]
