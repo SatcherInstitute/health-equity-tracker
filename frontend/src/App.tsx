@@ -26,11 +26,6 @@ import {
   useLocation,
 } from "react-router-dom";
 import {
-  useDatasetStoreProvider,
-  DatasetProvider,
-  startMetadataLoad,
-} from "./data/useDatasetStore";
-import {
   LinkWithStickyParams,
   EXPLORE_DATA_PAGE_LINK,
   DATA_CATALOG_PAGE_LINK,
@@ -51,7 +46,6 @@ const PAGE_URL_TO_NAMES: Record<string, string> = {
 };
 
 autoInitGlobals();
-startMetadataLoad();
 
 function MobileAppToolbar() {
   const [open, setOpen] = useState(false);
@@ -122,8 +116,6 @@ function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const datasetStore = useDatasetStoreProvider();
-
   if (!getEnvironment().enableFullSiteContent()) {
     return <PreLaunchSiteContent />;
   }
@@ -132,36 +124,34 @@ function App() {
     <ThemeProvider theme={MaterialTheme}>
       <ReactTooltip />
       <CssBaseline />
-      <DatasetProvider value={datasetStore}>
-        <div className={styles.App}>
-          <div className={styles.Content}>
-            <Router>
-              <ScrollToTop />
-              <AppBar position="static">
-                {width > MOBILE_BREAKPOINT ? (
-                  <AppToolbar />
-                ) : (
-                  <MobileAppToolbar />
-                )}
-              </AppBar>
-              <Switch>
-                <Route path={ABOUT_US_PAGE_LINK} component={AboutUsPage} />
-                <Route
-                  path={DATA_CATALOG_PAGE_LINK}
-                  component={DataCatalogPage}
-                />
-                <Route
-                  path={EXPLORE_DATA_PAGE_LINK}
-                  component={ExploreDataPage}
-                />
-                <Route exact path="/" component={LandingPage} />
-                <Route component={NotFoundPage} />
-              </Switch>
-            </Router>
-          </div>
-          <Footer />
+      <div className={styles.App}>
+        <div className={styles.Content}>
+          <Router>
+            <ScrollToTop />
+            <AppBar position="static">
+              {width > MOBILE_BREAKPOINT ? (
+                <AppToolbar />
+              ) : (
+                <MobileAppToolbar />
+              )}
+            </AppBar>
+            <Switch>
+              <Route path={ABOUT_US_PAGE_LINK} component={AboutUsPage} />
+              <Route
+                path={DATA_CATALOG_PAGE_LINK}
+                component={DataCatalogPage}
+              />
+              <Route
+                path={EXPLORE_DATA_PAGE_LINK}
+                component={ExploreDataPage}
+              />
+              <Route exact path="/" component={LandingPage} />
+              <Route component={NotFoundPage} />
+            </Switch>
+          </Router>
         </div>
-      </DatasetProvider>
+        <Footer />
+      </div>
     </ThemeProvider>
   );
 }

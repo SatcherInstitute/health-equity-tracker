@@ -1,0 +1,61 @@
+[
+{"date":"2020-04-12","county_name":"Chatam",
+"race_and_ethnicity":"American Indian and Alaska Native",
+"Cases":223,"Deaths":18,"Hosp":null,"county_fips":"37037"},
+
+{"date":"2020-04-12","county_name":"Chatam",
+"race_and_ethnicity":"Hispanic or Latino",
+"Cases":354,"Deaths":58,"Hosp":null,"county_fips":"37037"},
+
+{"date":"2020-04-12","county_name":"Chatam",
+"race_and_ethnicity":"Asian",
+"Cases":314,"Deaths":28,"Hosp":null,"county_fips":"37037"},
+
+{"date":"2020-04-12","county_name":"Chatam",
+"race_and_ethnicity":"Black or African American",
+"Cases":314,"Deaths":28,"Hosp":null,"county_fips":"37037"},
+
+{"date":"2020-04-12","county_name":"Chatam",
+"race_and_ethnicity":"Total",
+"Cases":414,"Deaths":28,"Hosp":null,"county_fips":"37037"},
+
+{"date":"2020-04-12","county_name":"Durham",
+    "race_and_ethnicity":"American Indian and Alaska Native",
+    "Cases":123,"Deaths":18,"Hosp":null,"county_fips":"37063"},
+    
+    {"date":"2020-04-12","county_name":"Durham",
+    "race_and_ethnicity":"Hispanic or Latino",
+    "Cases":254,"Deaths":58,"Hosp":null,"county_fips":"37063"},
+    
+    {"date":"2020-04-12","county_name":"Durham",
+    "race_and_ethnicity":"Asian",
+    "Cases":144,"Deaths":28,"Hosp":null,"county_fips":"37063"},
+    
+    {"date":"2020-04-12","county_name":"Durham",
+    "race_and_ethnicity":"Black or African American",
+    "Cases":324,"Deaths":28,"Hosp":null,"county_fips":"37063"},
+    
+    {"date":"2020-04-12","county_name":"Durham",
+    "race_and_ethnicity":"Total",
+    "Cases":214,"Deaths":28,"Hosp":null,"county_fips":"37063"},
+
+    {"date":"2020-04-12","county_name":"Wake",
+        "race_and_ethnicity":"American Indian and Alaska Native",
+        "Cases":823,"Deaths":18,"Hosp":null,"county_fips":"37183"},
+        
+        {"date":"2020-04-12","county_name":"Wake",
+        "race_and_ethnicity":"Hispanic or Latino",
+        "Cases":554,"Deaths":58,"Hosp":null,"county_fips":"37183"},
+        
+        {"date":"2020-04-12","county_name":"Wake",
+        "race_and_ethnicity":"Asian",
+        "Cases":744,"Deaths":28,"Hosp":null,"county_fips":"37183"},
+        
+        {"date":"2020-04-12","county_name":"Wake",
+        "race_and_ethnicity":"Black or African American",
+        "Cases":824,"Deaths":28,"Hosp":null,"county_fips":"37183"},
+        
+        {"date":"2020-04-12","county_name":"Wake",
+        "race_and_ethnicity":"Total",
+        "Cases":1014,"Deaths":28,"Hosp":null,"county_fips":"37183"}
+]

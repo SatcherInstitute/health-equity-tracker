@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Alert } from "@material-ui/lab";
 import CardWrapper from "./CardWrapper";
-import useDatasetStore from "../data/useDatasetStore";
 import { Breakdowns } from "../data/Breakdowns";
 import { MetricId } from "../data/variableProviders";
 import { MetricQuery } from "../data/MetricQuery";
@@ -21,7 +20,6 @@ export interface PopulationCardProps {
 }
 
 export function PopulationCard(props: PopulationCardProps) {
-  const datasetStore = useDatasetStore();
   const [expanded, setExpanded] = useState(false);
 
   const variableIds: MetricId[] = ["population", "population_pct"];
@@ -36,9 +34,7 @@ export function PopulationCard(props: PopulationCardProps) {
 
   return (
     <CardWrapper queries={[raceQuery, ageQuery]} hideFooter={true}>
-      {() => {
-        const raceQueryResponse = datasetStore.getMetrics(raceQuery);
-        const ageQueryResponse = datasetStore.getMetrics(ageQuery);
+      {([raceQueryResponse, ageQueryResponse]) => {
         const totalPopulation = raceQueryResponse.data.find(
           (r) => r.race_and_ethnicity === "Total"
         );
@@ -124,13 +120,17 @@ export function PopulationCard(props: PopulationCardProps) {
                     <span className={styles.PopulationChartTitle}>
                       Population by age
                     </span>
-                    <SimpleHorizontalBarChart
-                      data={ageQueryResponse.data}
-                      metric={POPULATION_VARIABLE_CONFIG.metrics.pct_share}
-                      breakdownVar="age"
-                      showLegend={false}
-                      hideActions={true}
-                    />
+                    {ageQueryResponse.dataIsMissing() ? (
+                      <Alert severity="warning">Age data missing.</Alert>
+                    ) : (
+                      <SimpleHorizontalBarChart
+                        data={ageQueryResponse.data}
+                        metric={POPULATION_VARIABLE_CONFIG.metrics.pct_share}
+                        breakdownVar="age"
+                        showLegend={false}
+                        hideActions={true}
+                      />
+                    )}
                   </Grid>
                 </Grid>
               </AnimateHeight>

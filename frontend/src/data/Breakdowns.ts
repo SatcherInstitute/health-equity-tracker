@@ -64,7 +64,7 @@ export class Breakdowns {
   // day/week/month/year.
   time: boolean;
   demographicBreakdowns: Record<DemographicBreakdownKey, DemographicBreakdown>;
-  filterFips?: string;
+  filterFips?: Fips;
 
   constructor(
     geography: GeographicBreakdown,
@@ -73,7 +73,7 @@ export class Breakdowns {
       DemographicBreakdown
     >,
     time = false,
-    filterFips?: string
+    filterFips?: Fips | undefined
   ) {
     this.geography = geography;
     this.demographicBreakdowns = demographicBreakdowns
@@ -93,7 +93,7 @@ export class Breakdowns {
     let breakdowns: Record<string, any> = {
       geography: this.geography,
       time: this.time || undefined,
-      filterFips: this.filterFips || undefined,
+      filterFips: this.filterFips ? this.filterFips.code : undefined,
     };
     Object.entries(this.demographicBreakdowns).forEach(
       ([breakdownKey, breakdown]) => {
@@ -113,7 +113,7 @@ export class Breakdowns {
       this.geography,
       Object.assign({}, this.demographicBreakdowns),
       this.time,
-      this.filterFips
+      this.filterFips ? new Fips(this.filterFips.code) : undefined
     );
   }
 
@@ -130,9 +130,13 @@ export class Breakdowns {
   }
 
   static forFips(fips: Fips): Breakdowns {
+    if (fips.isCounty()) {
+      return Breakdowns.byCounty().withGeoFilter(fips);
+    }
+
     return fips.isUsa()
       ? Breakdowns.national()
-      : Breakdowns.byState().withGeoFilter(fips.code);
+      : Breakdowns.byState().withGeoFilter(fips);
   }
 
   addBreakdown(
@@ -205,6 +209,7 @@ export class Breakdowns {
       this.hasExactlyOneDemographic() && this.demographicBreakdowns.race.enabled
     );
   }
+
   hasOnlyRaceNonStandard() {
     return (
       this.hasExactlyOneDemographic() &&
@@ -219,8 +224,8 @@ export class Breakdowns {
   }
 
   /** Filters to entries that exactly match the specified FIPS code. */
-  withGeoFilter(fipsCode: string): Breakdowns {
-    this.filterFips = fipsCode;
+  withGeoFilter(fips: Fips): Breakdowns {
+    this.filterFips = fips;
     return this;
   }
 

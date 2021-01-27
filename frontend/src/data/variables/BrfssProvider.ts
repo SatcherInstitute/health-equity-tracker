@@ -34,9 +34,7 @@ class BrfssProvider extends VariableProvider {
         .resetIndex();
     }
 
-    if (breakdowns.filterFips) {
-      df = df.where((row) => row.state_fips === breakdowns.filterFips);
-    }
+    df = this.filterByGeo(df, breakdowns);
 
     if (!breakdowns.demographicBreakdowns.race.enabled) {
       df = df.pivot(["state_name", "state_fips"], {
@@ -70,6 +68,8 @@ class BrfssProvider extends VariableProvider {
       copd_per_100k: (row) =>
         per100k(row.copd_count, row.copd_count + row.copd_no),
     });
+
+    df = this.renameGeoColumns(df, breakdowns);
 
     return new MetricQueryResponse(df.toArray(), ["brfss"]);
   }

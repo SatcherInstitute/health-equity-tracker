@@ -2,6 +2,45 @@ import { DatasetMetadata, MetadataMap } from "./DatasetTypes";
 
 const fakeMetadata: DatasetMetadata[] = [
   {
+    id: "acs_population-by_race_county_std",
+    name: "Population demographics - county race",
+    data_source_name: "American Community Survey 5-year estimates (2015-2019)",
+    data_source_link:
+      "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Annual",
+    update_time: "unknown",
+    description:
+      "Population percentages broken down by self-reported race/ethnicity, age, and sex at the U.S. and state levels.",
+    fields: [
+      {
+        data_type: "string",
+        name: "state_name",
+        description: "description",
+        origin_dataset: "acs_state_population_by_race",
+      },
+      {
+        data_type: "string",
+        name: "state_fips",
+        description: "description",
+        origin_dataset: "acs_state_population_by_race",
+      },
+      {
+        data_type: "string",
+        name: "race_and_ethnicity",
+        description: "description",
+        origin_dataset: "acs_state_population_by_race",
+      },
+      {
+        data_type: "integer",
+        name: "population",
+        description: "description",
+        origin_dataset: "acs_state_population_by_race",
+      },
+    ],
+  },
+  {
     id: "acs_population-by_race_state_std",
     name: "Population demographics - race",
     data_source_name: "American Community Survey 5-year estimates (2015-2019)",
@@ -119,7 +158,57 @@ const fakeMetadata: DatasetMetadata[] = [
   },
   {
     id: "covid_by_state_and_race",
-    name: "COVID-19 deaths, cases, and hospitalizations",
+    name: "COVID-19 deaths, cases, and hospitalizations - state",
+    data_source_name: "Covid Tracking Project’s Racial Data Tracker",
+    data_source_link: "https://covidtracking.com/race",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity",
+    update_frequency: "Annual",
+    update_time: "unknown",
+    description:
+      "The numbers of confirmed deaths, cases, and hospitalizations broken down by race/ethnicity at the U.S. and state levels.",
+    fields: [
+      {
+        data_type: "string",
+        name: "date",
+        description: "description",
+        origin_dataset: "covid_by_state_and_race",
+      },
+      {
+        data_type: "string",
+        name: "state_name",
+        description: "description",
+        origin_dataset: "covid_by_state_and_race",
+      },
+      {
+        data_type: "string",
+        name: "race_and_ethnicity",
+        description: "description",
+        origin_dataset: "covid_by_state_and_race",
+      },
+      {
+        data_type: "integer",
+        name: "Cases",
+        description: "description",
+        origin_dataset: "covid_by_state_and_race",
+      },
+      {
+        data_type: "integer",
+        name: "Deaths",
+        description: "description",
+        origin_dataset: "covid_by_state_and_race",
+      },
+      {
+        data_type: "integer",
+        name: "Hosp",
+        description: "description",
+        origin_dataset: "covid_by_state_and_race",
+      },
+    ],
+  },
+  {
+    id: "covid_by_county_and_race",
+    name: "COVID-19 deaths, cases, and hospitalizations - county",
     data_source_name: "Covid Tracking Project’s Racial Data Tracker",
     data_source_link: "https://covidtracking.com/race",
     geographic_level: "State",
