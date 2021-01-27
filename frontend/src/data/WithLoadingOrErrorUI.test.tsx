@@ -84,10 +84,10 @@ describe("useDatasetStore", () => {
       ]);
     });
 
-    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
       "Loaded 2 rows. AmIn: 20. Asian: 1."
     );
+    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
   });
 
   // TODO - one succesful dataset, one bad dataset
@@ -105,10 +105,10 @@ describe("useDatasetStore", () => {
       dataFetcher.setFakeDatasetLoaded("brfss", []);
     });
 
-    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
       "Error: No rows returned"
     );
+    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
   });
 
   test("WithMetrics: Unsupported breakdown", async () => {
@@ -124,10 +124,10 @@ describe("useDatasetStore", () => {
       dataFetcher.setFakeDatasetLoaded("brfss", []);
     });
 
-    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
       "Error: Breakdowns not supported for provider brfss_provider: age:without total,geography:county"
     );
+    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(0);
   });
 
   test("WithMetrics: Dataset doesn't exist", async () => {
@@ -140,9 +140,9 @@ describe("useDatasetStore", () => {
     expect(dataFetcher.getNumGetMetdataCalls()).toBe(0);
     const { findByTestId } = render(<WithMetricsWrapperApp query={query} />);
 
-    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(0);
     expect(await findByTestId("WithLoadingOrErrorUI-error")).toHaveTextContent(
       "Oops, something went wrong"
     );
+    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(0);
   });
 });

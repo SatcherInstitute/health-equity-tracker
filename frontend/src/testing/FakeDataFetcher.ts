@@ -2,8 +2,10 @@ import { DataFetcher } from "../data/DataFetcher";
 import { MetadataMap, Row } from "../data/DatasetTypes";
 
 export default class FakeDataFetcher implements DataFetcher {
+  private loadedDatasets: Record<string, Row[]> = {};
   private datasetResolverMap: Record<string, (dataset: Row[]) => void> = {};
   private datasetRejecterMap: Record<string, (err: Error) => void> = {};
+  private loadedMetadata: MetadataMap | undefined;
   private metadataResolver?: (metadataMap: MetadataMap) => void;
   private metadataRejecter?: (err: Error) => void;
   private numLoadDatasetCalls: number = 0;
@@ -11,6 +13,9 @@ export default class FakeDataFetcher implements DataFetcher {
 
   async loadDataset(datasetId: string): Promise<Row[]> {
     this.numLoadDatasetCalls++;
+    if (this.loadedDatasets[datasetId]) {
+      return this.loadedDatasets[datasetId];
+    }
     return new Promise((res, rej) => {
       this.datasetResolverMap[datasetId] = res;
       this.datasetRejecterMap[datasetId] = rej;
@@ -19,6 +24,9 @@ export default class FakeDataFetcher implements DataFetcher {
 
   async getMetadata(): Promise<MetadataMap> {
     this.numGetMetadataCalls++;
+    if (this.loadedMetadata) {
+      return this.loadedMetadata;
+    }
     return new Promise((res, rej) => {
       this.metadataResolver = res;
       this.metadataRejecter = rej;
@@ -28,18 +36,18 @@ export default class FakeDataFetcher implements DataFetcher {
   setFakeDatasetLoaded(datasetId: string, data: Row[]) {
     const resolver = this.datasetResolverMap[datasetId];
     if (!resolver) {
-      throw new Error("Cannot set dataset loaded before loadDataset is called");
+      this.loadedDatasets[datasetId] = data;
+    } else {
+      resolver(data);
     }
-    resolver(data);
   }
 
   setFakeMetadataLoaded(metadataMap: MetadataMap) {
     if (!this.metadataResolver) {
-      throw new Error(
-        "Cannot set metadata loaded before getMetadata is called"
-      );
+      this.loadedMetadata = metadataMap;
+    } else {
+      this.metadataResolver(metadataMap);
     }
-    this.metadataResolver(metadataMap);
   }
 
   setFakeDatasetFailedToLoad(datasetId: string, err: Error) {
