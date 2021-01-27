@@ -47,20 +47,17 @@ class AcsPopulationProvider extends VariableProvider {
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
-    if (breakdowns.demographicBreakdowns.sex.enabled) {
+    if (breakdowns.hasOnlySex()) {
       return breakdowns.geography === "county"
         ? "acs_population-by_sex_county"
         : "acs_population-by_sex_state";
     }
-    if (breakdowns.demographicBreakdowns.age.enabled) {
+    if (breakdowns.hasOnlyAge()) {
       return breakdowns.geography === "county"
         ? "acs_population-by_age_county"
         : "acs_population-by_age_state";
     }
-    if (
-      breakdowns.demographicBreakdowns.race_nonstandard.enabled ||
-      breakdowns.demographicBreakdowns.race.enabled
-    ) {
+    if (breakdowns.hasOnlyRace() || breakdowns.hasOnlyRaceNonStandard()) {
       return breakdowns.geography === "county"
         ? "acs_population-by_race_county_std"
         : "acs_population-by_race_state_std";
@@ -101,8 +98,6 @@ class AcsPopulationProvider extends VariableProvider {
       }
     });
 
-    // TODO - for race, remove ingestion_ts and state_fips ?
-
     // Calculate population_pct based on total for breakdown
     // Exactly one breakdown should be enabled per allowsBreakdowns()
     const enabledBreakdown = Object.values(
@@ -134,17 +129,17 @@ class AcsPopulationProvider extends VariableProvider {
   ): IDataFrame {
     let acsDataFrame = datasets[this.getDatasetId(breakdowns)].toDataFrame();
 
-    // Exactly one breakdown should be enabled, identify it
-    const [breakdownVar, enabledBreakdown] = Object.entries(
-      breakdowns.demographicBreakdowns
-    ).find(([breakdownVar, breakdown]) => breakdown.enabled === true)!;
-
     // Race must be special cased to standardize the data before proceeding
-    if (breakdownVar === "race") {
+    if (breakdowns.hasOnlyRace()) {
       acsDataFrame = acsDataFrame.where((row) =>
         standardizedRaces.includes(row.race_and_ethnicity)
       );
     }
+
+    // Exactly one breakdown should be enabled, identify it
+    const enabledBreakdown = Object.values(
+      breakdowns.demographicBreakdowns
+    ).find((breakdown) => breakdown.enabled === true)!;
 
     return breakdowns.geography === "national"
       ? createNationalTotal(acsDataFrame, enabledBreakdown.columnName)
