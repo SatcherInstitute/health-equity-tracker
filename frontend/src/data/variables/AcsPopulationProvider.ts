@@ -126,9 +126,9 @@ class AcsPopulationProvider extends VariableProvider {
     let acsDataFrame = datasets[this.getDatasetId(breakdowns)].toDataFrame();
 
     // Exactly one breakdown should be enabled, identify it
-    const [breakdownVar, enabledBreakdown] = Object.entries(
+    const enabledBreakdown = Object.values(
       breakdowns.demographicBreakdowns
-    ).find(([breakdownVar, breakdown]) => breakdown.enabled === true)!;
+    ).find((breakdown) => breakdown.enabled === true)!;
 
     // Race must be special cased to standardize the data before proceeding
     if (breakdowns.hasOnlyRace()) {
