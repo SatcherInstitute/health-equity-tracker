@@ -134,3 +134,12 @@ resource "google_cloud_run_service_iam_member" "data_server_invoker_binding" {
   role     = "roles/run.invoker"
   member   = format("serviceAccount:%s", google_service_account.frontend_runner_identity.email)
 }
+
+# Make the frontend service public
+resource "google_cloud_run_service_iam_" "frontend_invoker_binding" {
+  location = google_cloud_run_service.frontend_service.location
+  project = google_cloud_run_service.frontend_service.project
+  service = google_cloud_run_service.frontend_service.name
+  role = "roles/run.invoker"
+  member = "allUsers"
+}
