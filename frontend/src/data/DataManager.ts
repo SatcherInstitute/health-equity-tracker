@@ -4,28 +4,74 @@ import { DataFrame, IDataFrame } from "data-forge";
 import { MetricQuery, MetricQueryResponse } from "./MetricQuery";
 import { getDataFetcher, getDataManager, getLogger } from "../utils/globals";
 import VariableProviderMap from "./VariableProviderMap";
+import LRU from "lru-cache";
+
+// TODO test this out on the real website and tweak these numbers as needed.
+
+// Max size for the dataset and query cache is measured by number of rows in the
+// data plus a constant factor per entry.
+// To optimize performance, the goals are:
+// 1. All resources required to display a single report for a given selection of
+//    mad-lib drop downs can fit into the cache.
+// 2. The total site memory usage is reasonable. This is a bit of a judgement
+//    call, but it should be comparable with other applications. This can be
+//    viewed in the browser task manager.
+const MAX_CACHE_SIZE_DATASETS = 100000;
+const MAX_CACHE_SIZE_QUERIES = 10000;
+
+// We only expect one metadata entry so we can set cache size to 1.
+const MAX_CACHE_SIZE_METADATA = 1;
 
 export abstract class ResourceCache<K, R> {
-  private resources: Record<string, R>;
+  private readonly lruCache: LRU<string, R>;
   private loadingResources: Record<string, Promise<R>>;
   private failedResources: Set<string>;
 
-  constructor() {
-    this.resources = {};
+  constructor(maxSize: number) {
+    this.lruCache = this.createLruCache(maxSize);
     this.loadingResources = {};
     this.failedResources = new Set();
+  }
+
+  private createLruCache(maxSize: number): LRU<string, R> {
+    const onDispose = (key: string, resource: R) => {
+      getLogger().debugLog("Dropping " + key + " from cache.");
+      if (this.getResourceSize(resource, key) > maxSize) {
+        // It is recommended that if a single entry is larger than cache size,
+        // it get split up into smaller chunks to avoid poor performance when
+        // multiple cards try to use the same large resource.
+        getLogger().logError(
+          new Error(
+            "Resource loaded that is larger than the maximum cache size: " + key
+          ),
+          "WARNING"
+        );
+      }
+    };
+
+    const options = {
+      max: maxSize,
+      length: this.getResourceSize,
+      dispose: onDispose,
+      // If it has been more than 24 hours, the next time the resource is
+      // requested it will trigger a new load to make sure the data doesn't get
+      // stale. Note that max age is evaluated lazily, so this will not generate
+      // additional QPS unless the user actually interacts with the page.
+      maxAge: 1000 * 60 * 60 * 24,
+    };
+    return new LRU<string, R>(options);
   }
 
   resetCache() {
     // There's no way to cancel in-flight promises, so we don't clear the
     // loading resources.
-    this.resources = {};
+    this.lruCache.reset();
     this.failedResources = new Set();
   }
 
   addResourceToCache(key: K, resource: R) {
     const resourceId = this.getResourceId(key);
-    this.resources[resourceId] = resource;
+    this.lruCache.set(resourceId, resource);
   }
 
   /**
@@ -53,7 +99,7 @@ export abstract class ResourceCache<K, R> {
       // TODO handle re-load periodically so long-lived tabs don't get stale.
       // Also need to reset the variable cache when datasets are reloaded.
 
-      const resource = this.resources[resourceId];
+      const resource = this.lruCache.get(resourceId);
       if (resource) {
         return resource;
       }
@@ -67,9 +113,11 @@ export abstract class ResourceCache<K, R> {
       this.loadingResources[resourceId] = loadPromise;
       const result = await loadPromise;
 
-      this.resources[resourceId] = result;
+      this.lruCache.set(resourceId, result);
       delete this.loadingResources[resourceId];
-      getLogger().debugLog("Loaded " + resourceId);
+      getLogger().debugLog(
+        "Loaded " + resourceId + ". Cache size: " + this.lruCache.length
+      );
 
       return result;
     } catch (e) {
@@ -86,6 +134,8 @@ export abstract class ResourceCache<K, R> {
   protected abstract loadResourceInternal(key: K): Promise<R>;
 
   protected abstract getResourceId(key: K): string;
+
+  protected abstract getResourceSize(resource: R, id: string): number;
 }
 
 export class MetadataCache extends ResourceCache<string, MetadataMap> {
@@ -102,6 +152,14 @@ export class MetadataCache extends ResourceCache<string, MetadataMap> {
 
   getResourceId(metadataId: string): string {
     return metadataId;
+  }
+
+  /**
+   * Since there's only one metadata entry this doesn't really matter - we just
+   * use a constant factor per entry.
+   */
+  getResourceSize(resource: MetadataMap, id: string): number {
+    return 1;
   }
 }
 
@@ -120,13 +178,23 @@ class DatasetCache extends ResourceCache<string, Dataset> {
   getResourceId(datasetId: string): string {
     return datasetId;
   }
+
+  /**
+   * Max size is measured by number of rows plus a constant factor per entry.
+   * This is based on the assumption that most rows are roughly the same size
+   * across datasets and that key size plus metadata is roughly similar in size
+   * to a small number of rows.
+   */
+  getResourceSize(resource: Dataset, key: string): number {
+    return resource.rows.length + 5;
+  }
 }
 
 class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
   private providerMap: VariableProviderMap;
 
-  constructor(providerMap: VariableProviderMap) {
-    super();
+  constructor(providerMap: VariableProviderMap, maxSize: number) {
+    super(maxSize);
     this.providerMap = providerMap;
   }
 
@@ -184,6 +252,16 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
   getResourceId(query: MetricQuery): string {
     return query.getUniqueKey();
   }
+
+  /**
+   * Max size is measured by number of rows plus a constant factor per entry.
+   * This is based on the assumption that most rows are roughly the same size
+   * across queries and that key size plus metadata is roughly similar in size
+   * to a small number of rows.
+   */
+  getResourceSize(resource: MetricQueryResponse, key: string): number {
+    return resource.data.length + 5;
+  }
 }
 
 /**
@@ -198,9 +276,12 @@ export default class DataManager {
   private readonly metadataCache: MetadataCache;
 
   constructor() {
-    this.datasetCache = new DatasetCache();
-    this.metricQueryCache = new MetricQueryCache(new VariableProviderMap());
-    this.metadataCache = new MetadataCache();
+    this.datasetCache = new DatasetCache(MAX_CACHE_SIZE_DATASETS);
+    this.metricQueryCache = new MetricQueryCache(
+      new VariableProviderMap(),
+      MAX_CACHE_SIZE_QUERIES
+    );
+    this.metadataCache = new MetadataCache(MAX_CACHE_SIZE_METADATA);
   }
 
   async loadDataset(datasetId: string): Promise<Dataset> {
