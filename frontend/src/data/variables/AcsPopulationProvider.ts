@@ -39,17 +39,23 @@ class AcsPopulationProvider extends VariableProvider {
         "acs_population-by_race_state_std",
         "acs_population-by_race_county_std",
         "acs_population-by_age_state",
+        "acs_population-by_age_county",
         "acs_population-by_sex_state",
+        "acs_population-by_sex_county",
       ]
     );
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.demographicBreakdowns.sex.enabled) {
-      return "acs_population-by_sex_state";
+      return breakdowns.geography === "county"
+        ? "acs_population-by_sex_county"
+        : "acs_population-by_sex_state";
     }
     if (breakdowns.demographicBreakdowns.age.enabled) {
-      return "acs_population-by_age_state";
+      return breakdowns.geography === "county"
+        ? "acs_population-by_age_county"
+        : "acs_population-by_age_state";
     }
     if (
       breakdowns.demographicBreakdowns.race_nonstandard.enabled ||
@@ -95,6 +101,8 @@ class AcsPopulationProvider extends VariableProvider {
       }
     });
 
+    // TODO - for race, remove ingestion_ts and state_fips ?
+
     // Calculate population_pct based on total for breakdown
     // Exactly one breakdown should be enabled per allowsBreakdowns()
     const enabledBreakdown = Object.values(
@@ -110,6 +118,10 @@ class AcsPopulationProvider extends VariableProvider {
     });
 
     df = this.removeUnwantedDemographicTotals(df, breakdowns);
+
+    df = df.dropSeries(["ingestion_ts"]).resetIndex();
+
+    df = this.renameGeoColumns(df, breakdowns);
 
     return new MetricQueryResponse(df.toArray(), [
       this.getDatasetId(breakdowns),
@@ -140,16 +152,7 @@ class AcsPopulationProvider extends VariableProvider {
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    const validGeographicBreakdown =
-      breakdowns.geography === "county"
-        ? breakdowns.hasOnlyRaceNonStandard() || breakdowns.hasOnlyRace()
-        : true;
-
-    return (
-      !breakdowns.time &&
-      breakdowns.hasExactlyOneDemographic() &&
-      validGeographicBreakdown
-    );
+    return !breakdowns.time && breakdowns.hasExactlyOneDemographic();
   }
 }
 
