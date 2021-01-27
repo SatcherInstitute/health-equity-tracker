@@ -158,7 +158,57 @@ const fakeMetadata: DatasetMetadata[] = [
   },
   {
     id: "covid_by_state_and_race",
-    name: "COVID-19 deaths, cases, and hospitalizations",
+    name: "COVID-19 deaths, cases, and hospitalizations - state",
+    data_source_name: "Covid Tracking Project’s Racial Data Tracker",
+    data_source_link: "https://covidtracking.com/race",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity",
+    update_frequency: "Annual",
+    update_time: "unknown",
+    description:
+      "The numbers of confirmed deaths, cases, and hospitalizations broken down by race/ethnicity at the U.S. and state levels.",
+    fields: [
+      {
+        data_type: "string",
+        name: "date",
+        description: "description",
+        origin_dataset: "covid_by_state_and_race",
+      },
+      {
+        data_type: "string",
+        name: "state_name",
+        description: "description",
+        origin_dataset: "covid_by_state_and_race",
+      },
+      {
+        data_type: "string",
+        name: "race_and_ethnicity",
+        description: "description",
+        origin_dataset: "covid_by_state_and_race",
+      },
+      {
+        data_type: "integer",
+        name: "Cases",
+        description: "description",
+        origin_dataset: "covid_by_state_and_race",
+      },
+      {
+        data_type: "integer",
+        name: "Deaths",
+        description: "description",
+        origin_dataset: "covid_by_state_and_race",
+      },
+      {
+        data_type: "integer",
+        name: "Hosp",
+        description: "description",
+        origin_dataset: "covid_by_state_and_race",
+      },
+    ],
+  },
+  {
+    id: "covid_by_county_and_race",
+    name: "COVID-19 deaths, cases, and hospitalizations - county",
     data_source_name: "Covid Tracking Project’s Racial Data Tracker",
     data_source_link: "https://covidtracking.com/race",
     geographic_level: "State",

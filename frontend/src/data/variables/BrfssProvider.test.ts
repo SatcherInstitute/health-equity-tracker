@@ -12,17 +12,6 @@ function fakeDataServerResponse(rows: any[]) {
   };
 }
 
-function addCopdAndDiabetesPer100k(
-  row: {},
-  copd_per_100k: number,
-  diabetes_per_100k: number
-) {
-  return Object.assign(row, {
-    copd_per_100k: copd_per_100k,
-    diabetes_per_100k: diabetes_per_100k,
-  });
-}
-
 describe("BrfssProvider", () => {
   test("State and Race Breakdown", async () => {
     const brfssProvider = new BrfssProvider();
@@ -45,11 +34,17 @@ describe("BrfssProvider", () => {
       diabetes_count: 400,
       diabetes_no: 600,
     };
-    const NC_ASIAN_FINAL_ROW = addCopdAndDiabetesPer100k(
-      NC_ASIAN_ROW,
-      10000,
-      40000
-    );
+    const NC_ASIAN_FINAL_ROW = {
+      race_and_ethnicity: "Asian (Non-Hispanic)",
+      fips: "37",
+      fips_name: "NC",
+      copd_count: 100,
+      copd_no: 900,
+      copd_per_100k: 10000,
+      diabetes_count: 400,
+      diabetes_no: 600,
+      diabetes_per_100k: 40000,
+    };
     const NC_WHITE_ROW = {
       race_and_ethnicity: "White (Non-Hispanic)",
       state_fips: "37",
@@ -59,16 +54,22 @@ describe("BrfssProvider", () => {
       diabetes_count: 600,
       diabetes_no: 400,
     };
-    const NC_WHITE_FINAL_ROW = addCopdAndDiabetesPer100k(
-      NC_WHITE_ROW,
-      50000,
-      60000
-    );
+    const NC_WHITE_FINAL_ROW = {
+      race_and_ethnicity: "White (Non-Hispanic)",
+      fips: "37",
+      fips_name: "NC",
+      copd_count: 500,
+      copd_no: 500,
+      copd_per_100k: 50000,
+      diabetes_count: 600,
+      diabetes_no: 400,
+      diabetes_per_100k: 60000,
+    };
 
     const NC_TOTAL_FINAL_ROW = {
       race_and_ethnicity: "Total",
-      state_fips: "37",
-      state_name: "NC",
+      fips: "37",
+      fips_name: "NC",
       copd_count: 600,
       copd_no: 1400,
       copd_per_100k: 30000,
@@ -147,8 +148,8 @@ describe("BrfssProvider", () => {
       diabetes_no: 1400,
       diabetes_per_100k: per100k(600, 600 + 1400),
       race_and_ethnicity: "Asian (Non-Hispanic)",
-      state_fips: USA_FIPS,
-      state_name: USA_DISPLAY_NAME,
+      fips: USA_FIPS,
+      fips_name: USA_DISPLAY_NAME,
     };
     const WHITE_FINAL_ROW = {
       copd_count: 500,
@@ -158,8 +159,8 @@ describe("BrfssProvider", () => {
       diabetes_no: 400,
       diabetes_per_100k: per100k(600, 600 + 400),
       race_and_ethnicity: "White (Non-Hispanic)",
-      state_fips: USA_FIPS,
-      state_name: USA_DISPLAY_NAME,
+      fips: USA_FIPS,
+      fips_name: USA_DISPLAY_NAME,
     };
     const TOTAL_FINAL_ROW = {
       copd_count: 700,
@@ -169,8 +170,8 @@ describe("BrfssProvider", () => {
       diabetes_no: 1800,
       diabetes_per_100k: per100k(1200, 1200 + 1800),
       race_and_ethnicity: "Total",
-      state_fips: USA_FIPS,
-      state_name: USA_DISPLAY_NAME,
+      fips: USA_FIPS,
+      fips_name: USA_DISPLAY_NAME,
     };
 
     const dataServerResponse = fakeDataServerResponse([

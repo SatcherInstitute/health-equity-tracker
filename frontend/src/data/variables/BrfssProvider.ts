@@ -1,7 +1,7 @@
 import { Breakdowns, ALL_RACES_DISPLAY_NAME } from "../Breakdowns";
 import { Dataset } from "../DatasetTypes";
 import { per100k } from "../datasetutils";
-import { USA_FIPS, USA_DISPLAY_NAME, Fips } from "../../utils/madlib/Fips";
+import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQueryResponse } from "../MetricQuery";
 
@@ -34,10 +34,7 @@ class BrfssProvider extends VariableProvider {
         .resetIndex();
     }
 
-    if (breakdowns.filterFips !== undefined) {
-      const fips = breakdowns.filterFips as Fips;
-      df = df.where((row) => row.state_fips === fips.code);
-    }
+    df = this.filterByGeo(df, breakdowns);
 
     if (!breakdowns.demographicBreakdowns.race.enabled) {
       df = df.pivot(["state_name", "state_fips"], {
@@ -71,6 +68,8 @@ class BrfssProvider extends VariableProvider {
       copd_per_100k: (row) =>
         per100k(row.copd_count, row.copd_count + row.copd_no),
     });
+
+    df = this.renameGeoColumns(df, breakdowns);
 
     return new MetricQueryResponse(df.toArray(), ["brfss"]);
   }
