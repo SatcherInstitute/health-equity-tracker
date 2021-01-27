@@ -1,4 +1,19 @@
-import { MetricId } from "../data/variableProviders";
+export type MetricId =
+  | "diabetes_count"
+  | "diabetes_per_100k"
+  | "copd_count"
+  | "copd_per_100k"
+  | "population"
+  | "population_pct"
+  | "covid_cases"
+  | "covid_deaths"
+  | "covid_hosp"
+  | "covid_cases_pct_of_geo"
+  | "covid_deaths_pct_of_geo"
+  | "covid_hosp_pct_of_geo"
+  | "covid_deaths_per_100k"
+  | "covid_cases_per_100k"
+  | "covid_hosp_per_100k";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.

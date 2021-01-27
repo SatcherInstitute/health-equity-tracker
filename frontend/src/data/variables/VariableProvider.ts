@@ -1,6 +1,7 @@
 import { Breakdowns } from "../Breakdowns";
-import { ProviderId, MetricId } from "../variableProviders";
+import { MetricId } from "../MetricConfig";
 import { MetricQueryResponse, createMissingDataResponse } from "../MetricQuery";
+import { ProviderId } from "../VariableProviderMap";
 
 abstract class VariableProvider {
   readonly providerId: ProviderId;

@@ -1,9 +1,9 @@
 import { MetadataMap, Dataset } from "./DatasetTypes";
-import { getUniqueProviders } from "./variableProviders";
 import { joinOnCols } from "./datasetutils";
 import { DataFrame, IDataFrame } from "data-forge";
 import { MetricQuery, MetricQueryResponse } from "./MetricQuery";
 import { getDataFetcher, getDataManager, getLogger } from "../utils/globals";
+import VariableProviderMap from "./VariableProviderMap";
 
 export abstract class ResourceCache<K, R> {
   private resources: Record<string, R>;
@@ -123,10 +123,17 @@ class DatasetCache extends ResourceCache<string, Dataset> {
 }
 
 class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
+  private providerMap: VariableProviderMap;
+
+  constructor(providerMap: VariableProviderMap) {
+    super();
+    this.providerMap = providerMap;
+  }
+
   protected async loadResourceInternal(
     query: MetricQuery
   ): Promise<MetricQueryResponse> {
-    const providers = getUniqueProviders(query.metricIds);
+    const providers = this.providerMap.getUniqueProviders(query.metricIds);
 
     // Yield thread so the UI can respond. This prevents long calculations
     // from causing UI elements to look laggy.
@@ -192,7 +199,7 @@ export default class DataManager {
 
   constructor() {
     this.datasetCache = new DatasetCache();
-    this.metricQueryCache = new MetricQueryCache();
+    this.metricQueryCache = new MetricQueryCache(new VariableProviderMap());
     this.metadataCache = new MetadataCache();
   }
 
