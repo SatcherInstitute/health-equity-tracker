@@ -93,7 +93,7 @@ function finalRow(
   };
 }
 
-function evaluate(
+async function evaluate(
   datasetId: string,
   rawData: any[],
   baseBreakdown: Breakdowns,
@@ -102,14 +102,10 @@ function evaluate(
   totalRows: any[]
 ) {
   const acsProvider = new AcsPopulationProvider();
-
-  dataFetcher.setFakeDatasetLoaded(
-    "acs_population-by_race_county_std",
-    rawData
-  );
+  dataFetcher.setFakeDatasetLoaded(datasetId, rawData);
 
   // Evaluate the response with requesting total field
-  const responseWithTotal = acsProvider.getData(
+  const responseWithTotal = await acsProvider.getData(
     baseBreakdown.addBreakdown(breakdownVar, /*includeTotal=*/ true)
   );
   expect(responseWithTotal).toEqual(
@@ -117,7 +113,7 @@ function evaluate(
   );
 
   // Evaluate the response without requesting total field
-  const responseWithoutTotal = acsProvider.getData(
+  const responseWithoutTotal = await acsProvider.getData(
     baseBreakdown.addBreakdown(breakdownVar, /*includeTotal=*/ false)
   );
   expect(responseWithoutTotal).toEqual(
@@ -165,7 +161,7 @@ describe("AcsPopulationProvider", () => {
     const D_WHITE_FINAL = finalRow(DURHAM, RACE, WHITE, 15, 75);
     const D_TOTAL_FINAL = finalRow(DURHAM, RACE, TOTAL, 20, 100);
 
-    evaluate(
+    await evaluate(
       "acs_population-by_race_county_std",
       rawData,
       Breakdowns.byCounty().withGeoFilter(new Fips(NC.code)),
@@ -194,7 +190,7 @@ describe("AcsPopulationProvider", () => {
     const D_WHITE_FINAL = finalRow(DURHAM, RACE, WHITE, 15, 75);
     const D_TOTAL_FINAL = finalRow(DURHAM, RACE, TOTAL, 20, 100);
 
-    evaluate(
+    await evaluate(
       "acs_population-by_race_county_std",
       rawData,
       Breakdowns.forFips(new Fips(DURHAM.code)),
@@ -217,7 +213,7 @@ describe("AcsPopulationProvider", () => {
     const NC_ASIAN_FINAL = finalRow(NC, RACE, ASIAN, 5, 25);
     const NC_WHITE_FINAL = finalRow(NC, RACE, WHITE, 15, 75);
 
-    evaluate(
+    await evaluate(
       "acs_population-by_race_state_std",
       rawData,
       Breakdowns.forFips(new Fips(NC.code)),
@@ -240,7 +236,7 @@ describe("AcsPopulationProvider", () => {
     const NATIONAL_WHITE_FINAL = finalRow(USA, RACE, WHITE, 15, 60);
     const NATIONAL_TOTAL_FINAL = finalRow(USA, RACE, TOTAL, 25, 100);
 
-    evaluate(
+    await evaluate(
       "acs_population-by_race_state_std",
       rawData,
       Breakdowns.national(),
@@ -265,7 +261,7 @@ describe("AcsPopulationProvider", () => {
     const D_10_19_FINAL = finalRow(DURHAM, AGE, "10-19", 15, 75);
     const D_TOTAL_FINAL = finalRow(DURHAM, AGE, "Total", 20, 100);
 
-    evaluate(
+    await evaluate(
       "acs_population-by_age_county",
       rawData,
       Breakdowns.byCounty().withGeoFilter(new Fips(NC.code)),
@@ -286,7 +282,7 @@ describe("AcsPopulationProvider", () => {
     const D_10_19_FINAL = finalRow(DURHAM, AGE, "10-19", 15, 75);
     const D_TOTAL_FINAL = finalRow(DURHAM, AGE, TOTAL, 20, 100);
 
-    evaluate(
+    await evaluate(
       "acs_population-by_age_county",
       rawData,
       Breakdowns.forFips(new Fips(DURHAM.code)),
@@ -307,7 +303,7 @@ describe("AcsPopulationProvider", () => {
     const NC_AGE_10_19_FINAL = finalRow(NC, AGE, "10-19", 10, 40);
     const NC_TOTAL_FINAL = finalRow(NC, AGE, TOTAL, 25, 100);
 
-    evaluate(
+    await evaluate(
       "acs_population-by_age_state",
       rawData,
       Breakdowns.forFips(new Fips(NC.code)),
@@ -328,7 +324,7 @@ describe("AcsPopulationProvider", () => {
     const AGE_10_19_FINAL = finalRow(USA, AGE, "10-19", 10, 25);
     const AGE_TOTAL_FINAL = finalRow(USA, AGE, "Total", 40, 100);
 
-    evaluate(
+    await evaluate(
       "acs_population-by_age_state",
       rawData,
       Breakdowns.national(),
@@ -349,7 +345,7 @@ describe("AcsPopulationProvider", () => {
     const NC_FEMALE_FINAL = finalRow(NC, SEX, "female", 10, 40);
     const NC_TOTAL = finalRow(NC, SEX, "Total", 25, 100);
 
-    evaluate(
+    await evaluate(
       "acs_population-by_sex_state",
       rawData,
       Breakdowns.forFips(new Fips(NC.code)),
@@ -370,7 +366,7 @@ describe("AcsPopulationProvider", () => {
     const FEMALE_FINAL = finalRow(USA, SEX, "Female", 10, 25);
     const TOTAL_FINAL = finalRow(USA, SEX, "Total", 40, 100);
 
-    evaluate(
+    await evaluate(
       "acs_population-by_sex_state",
       rawData,
       Breakdowns.national(),
