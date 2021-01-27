@@ -31,7 +31,6 @@ CovidPercentShareMap.args = {
   nonstandardizedRace: true,
   metricConfig: METRIC_CONFIG["covid"][0].metrics["pct_share"],
   currentBreakdown: "all",
-  enableFilter: true,
 };
 
 export const CopdPer100kMap = Template.bind({});
@@ -39,5 +38,4 @@ CopdPer100kMap.args = {
   nonstandardizedRace: false,
   metricConfig: METRIC_CONFIG["copd"][0].metrics["per100k"],
   currentBreakdown: "all",
-  enableFilter: true,
 };
