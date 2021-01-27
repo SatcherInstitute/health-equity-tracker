@@ -13,9 +13,8 @@ import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/Breakdowns";
-import { MetricId } from "../data/variableProviders";
 import { MetricQuery } from "../data/MetricQuery";
-import { MetricConfig, VariableConfig } from "../data/MetricConfig";
+import { MetricConfig, MetricId, VariableConfig } from "../data/MetricConfig";
 import { POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";

@@ -1,27 +1,19 @@
 import { MetadataMap, Dataset } from "./DatasetTypes";
-import { getUniqueProviders } from "./variableProviders";
-import VariableProvider from "./variables/VariableProvider";
 import { joinOnCols } from "./datasetutils";
 import { DataFrame, IDataFrame } from "data-forge";
 import { MetricQuery, MetricQueryResponse } from "./MetricQuery";
-import { getDataFetcher, getLogger } from "../utils/globals";
+import { getDataFetcher, getDataManager, getLogger } from "../utils/globals";
+import VariableProviderMap from "./VariableProviderMap";
 
 export abstract class ResourceCache<K, R> {
   private resources: Record<string, R>;
   private loadingResources: Record<string, Promise<R>>;
   private failedResources: Set<string>;
 
-  /**
-   * Keep a reference to the overall data manager for intermediate caching and
-   * loading.
-   */
-  protected readonly dataManager: DataManager;
-
-  constructor(dataManager: DataManager) {
+  constructor() {
     this.resources = {};
     this.loadingResources = {};
     this.failedResources = new Set();
-    this.dataManager = dataManager;
   }
 
   resetCache() {
@@ -36,6 +28,13 @@ export abstract class ResourceCache<K, R> {
     this.resources[resourceId] = resource;
   }
 
+  /**
+   * Loads and returns the requested resource. If the resource is already in
+   * cache and not expired, returns it without re-loading. Throws an error if
+   * the resource cannot be returned.
+   * @param key The uniquely identifying key for the resource. Uses
+   *     `getResourceId` to determine uniqueness.
+   */
   async loadResource(key: K): Promise<R> {
     const resourceId = this.getResourceId(key);
 
@@ -84,13 +83,9 @@ export abstract class ResourceCache<K, R> {
     }
   }
 
-  getResource(key: K): R | undefined {
-    return this.resources[this.getResourceId(key)];
-  }
-
   protected abstract loadResourceInternal(key: K): Promise<R>;
 
-  abstract getResourceId(key: K): string;
+  protected abstract getResourceId(key: K): string;
 }
 
 export class MetadataCache extends ResourceCache<string, MetadataMap> {
@@ -113,7 +108,7 @@ export class MetadataCache extends ResourceCache<string, MetadataMap> {
 class DatasetCache extends ResourceCache<string, Dataset> {
   protected async loadResourceInternal(datasetId: string): Promise<Dataset> {
     const promise = getDataFetcher().loadDataset(datasetId);
-    const metadataPromise = this.dataManager.loadMetadata();
+    const metadataPromise = getDataManager().loadMetadata();
     const [data, metadata] = await Promise.all([promise, metadataPromise]);
     // TODO throw specific error message if metadata is missing for this dataset
     // id.
@@ -128,24 +123,18 @@ class DatasetCache extends ResourceCache<string, Dataset> {
 }
 
 class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
+  private providerMap: VariableProviderMap;
+
+  constructor(providerMap: VariableProviderMap) {
+    super();
+    this.providerMap = providerMap;
+  }
+
   protected async loadResourceInternal(
     query: MetricQuery
   ): Promise<MetricQueryResponse> {
-    const providers = getUniqueProviders(query.metricIds);
-    // TODO move dataset loading into providers so that only the ones that are
-    // strictly needed will be loaded.
-    const datasetIds = VariableProvider.getUniqueDatasetIds(providers);
+    const providers = this.providerMap.getUniqueProviders(query.metricIds);
 
-    const promises = datasetIds.map((id) => this.dataManager.loadDataset(id));
-    const datasets = await Promise.all(promises);
-
-    const entries = datasets.map((d) => {
-      if (!d) {
-        throw new Error("Failed to load dependent dataset");
-      }
-      return [d.metadata.id, d];
-    });
-    const datasetMap = Object.fromEntries(entries);
     // Yield thread so the UI can respond. This prevents long calculations
     // from causing UI elements to look laggy.
     await new Promise((res) => {
@@ -157,9 +146,11 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
     // you request covid cases we could also cache it under covid deaths
     // since they're provided together. Also, it would be nice to cache ACS
     // when it's used from within another provider.
-    const queryResponses: MetricQueryResponse[] = providers.map((provider) =>
-      provider.getData(datasetMap, query.breakdowns)
+    const promises: Promise<MetricQueryResponse>[] = providers.map((provider) =>
+      provider.getData(query.breakdowns)
     );
+
+    const queryResponses: MetricQueryResponse[] = await Promise.all(promises);
 
     const potentialErrorResponse = queryResponses.find((metricQueryResponse) =>
       metricQueryResponse.dataIsMissing()
@@ -207,9 +198,9 @@ export default class DataManager {
   private readonly metadataCache: MetadataCache;
 
   constructor() {
-    this.datasetCache = new DatasetCache(this);
-    this.metricQueryCache = new MetricQueryCache(this);
-    this.metadataCache = new MetadataCache(this);
+    this.datasetCache = new DatasetCache();
+    this.metricQueryCache = new MetricQueryCache(new VariableProviderMap());
+    this.metadataCache = new MetadataCache();
   }
 
   async loadDataset(datasetId: string): Promise<Dataset> {
