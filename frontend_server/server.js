@@ -52,8 +52,9 @@ app.use((req, res, next) => {
       .then(res => res.text())
       .then(token => {
         req.headers["Authorization"] = `bearer ${token}`;
-        next();
-    });
+        next(); 
+      })
+      .catch(next);
   } else {
     next();
   }
