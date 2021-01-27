@@ -7,7 +7,10 @@ provider "google" {
 
 # Import data sources config
 module "data_sources" {
-  source = "./data_sources"
+  source                  = "./data_sources"
+  gcs_to_bq_runner_email  = google_service_account.gcs_to_bq_runner_identity.email
+  ctp_metadata_table_name = "covid_tracking_project_metadata"
+  project_id_var          = var.project_id
 }
 
 /* [BEGIN] GCS Resources */

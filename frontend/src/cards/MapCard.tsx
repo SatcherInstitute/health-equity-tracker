@@ -59,6 +59,10 @@ function MapCardWithKey(props: MapCardProps) {
   const [breakdownFilter, setBreakdownFilter] = useState<string>("");
   const popover = usePopover();
 
+  const geographyBreakdown = props.fips.isUsa()
+    ? Breakdowns.byState()
+    : Breakdowns.byCounty().withGeoFilter(props.fips);
+
   const breakdowns = POSSIBLE_BREAKDOWNS.filter(
     (possibleBreakdown) =>
       props.currentBreakdown === possibleBreakdown ||
@@ -69,11 +73,13 @@ function MapCardWithKey(props: MapCardProps) {
     (breakdown) =>
       new MetricQuery(
         props.metricConfig.metricId,
-        Breakdowns.byState().addBreakdown(
-          breakdown,
-          /*includeTotal=*/ true,
-          props.nonstandardizedRace
-        )
+        geographyBreakdown
+          .copy()
+          .addBreakdown(
+            breakdown,
+            /*includeTotal=*/ true,
+            props.nonstandardizedRace
+          )
       )
   );
 
@@ -113,10 +119,6 @@ function MapCardWithKey(props: MapCardProps) {
           (row) => row[props.metricConfig.metricId] !== undefined,
           (row) => row[props.metricConfig.metricId] !== null,
         ];
-        if (!props.fips.isUsa()) {
-          // TODO - this doesn't consider county level data
-          predicates.push((row: Row) => row.state_fips === props.fips.code);
-        }
         if (props.enableFilter) {
           predicates.push(
             (row: Row) => row[currentlyDisplayedBreakdown] === breakdownFilter
@@ -193,35 +195,23 @@ function MapCardWithKey(props: MapCardProps) {
                 </CardContent>
               </>
             )}
-
             <Divider />
-            {!props.fips.isUsa() /* TODO - don't hardcode */ && (
-              <CardContent>
-                <Alert severity="warning">
-                  This dataset does not provide county level data
-                </Alert>
-              </CardContent>
-            )}
-            {queryResponse.dataIsMissing() && (
-              <CardContent>
+            <CardContent>
+              {queryResponse.dataIsMissing() && (
                 <Alert severity="error">No data available</Alert>
-              </CardContent>
-            )}
-            {!queryResponse.dataIsMissing() && (
-              <CardContent>
-                {props.metricConfig && (
-                  <ChoroplethMap
-                    signalListeners={signalListeners}
-                    metric={props.metricConfig}
-                    legendTitle={props.metricConfig.fullCardTitleName}
-                    data={mapData}
-                    hideLegend={!props.fips.isUsa()} // TODO - update logic here when we have county level data
-                    showCounties={props.fips.isUsa() ? false : true}
-                    fips={props.fips}
-                  />
-                )}
-              </CardContent>
-            )}
+              )}
+              {props.metricConfig && (
+                <ChoroplethMap
+                  signalListeners={signalListeners}
+                  metric={props.metricConfig}
+                  legendTitle={props.metricConfig.fullCardTitleName}
+                  data={mapData}
+                  hideLegend={queryResponse.dataIsMissing()}
+                  showCounties={props.fips.isUsa() ? false : true}
+                  fips={props.fips}
+                />
+              )}
+            </CardContent>
           </>
         );
       }}

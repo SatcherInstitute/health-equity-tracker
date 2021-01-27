@@ -2,7 +2,7 @@ import { IDataFrame } from "data-forge";
 import { Breakdowns, DemographicBreakdownKey } from "../Breakdowns";
 import { Dataset } from "../DatasetTypes";
 import { applyToGroups, percent } from "../datasetutils";
-import { USA_FIPS, USA_DISPLAY_NAME, Fips } from "../../utils/madlib/Fips";
+import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQueryResponse } from "../MetricQuery";
 
@@ -73,14 +73,7 @@ class AcsPopulationProvider extends VariableProvider {
         : ["state_fips", "state_name"];
 
     // If requested, filter geography by state or county level
-    if (breakdowns.filterFips !== undefined) {
-      const fips = breakdowns.filterFips as Fips;
-      if (fips.isState() && breakdowns.geography === "county") {
-        df = df.where((row) => fips.isParentOf(row["county_fips"]));
-      } else {
-        df = df.where((row) => row[fipsColumn] === fips.code);
-      }
-    }
+    df = this.filterByGeo(df, breakdowns);
 
     // Calculate totals where dataset doesn't provide it
     // TODO- this should be removed when Totals come from the Data Server
@@ -116,19 +109,7 @@ class AcsPopulationProvider extends VariableProvider {
       });
     });
 
-    // If totals weren't requested, remove them
-    Object.values(breakdowns.demographicBreakdowns).forEach(
-      (demographicBreakdown) => {
-        if (
-          demographicBreakdown.enabled &&
-          !demographicBreakdown.includeTotal
-        ) {
-          df = df
-            .where((row) => row[demographicBreakdown.columnName] !== "Total")
-            .resetIndex();
-        }
-      }
-    );
+    df = this.removeUnwantedDemographicTotals(df, breakdowns);
 
     return new MetricQueryResponse(df.toArray(), [
       this.getDatasetId(breakdowns),
