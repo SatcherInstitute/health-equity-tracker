@@ -43,6 +43,7 @@ class CtpMetadata(DataSource):
         df = df.pivot(
             index=['state_postal_abbreviation', 'variable_type'],
             columns='col_name', values='value').reset_index()
+        df.replace({'variable_type': {'death': 'deaths'}}, inplace=True)
         df.rename_axis(None, inplace=True)
         df.rename(columns=self._metadata_columns_map(), inplace=True)
 

@@ -1,6 +1,10 @@
 import { Breakdowns } from "../Breakdowns";
+import {
+  MetricQueryResponse,
+  createMissingDataResponse,
+  MetricQuery,
+} from "../MetricQuery";
 import { MetricId } from "../MetricConfig";
-import { MetricQueryResponse, createMissingDataResponse } from "../MetricQuery";
 import { ProviderId } from "../VariableProviderMap";
 import { IDataFrame } from "data-forge";
 import { Fips } from "../../utils/madlib/Fips";
@@ -14,17 +18,19 @@ abstract class VariableProvider {
     this.providesMetrics = providesMetrics;
   }
 
-  async getData(breakdowns: Breakdowns): Promise<MetricQueryResponse> {
-    if (!this.allowsBreakdowns(breakdowns)) {
+  async getData(metricQuery: MetricQuery): Promise<MetricQueryResponse> {
+    if (!this.allowsBreakdowns(metricQuery.breakdowns)) {
       return createMissingDataResponse(
         "Breakdowns not supported for provider " +
           this.providerId +
           ": " +
-          breakdowns.getUniqueKey()
+          metricQuery.breakdowns.getUniqueKey()
       );
     }
 
-    return await this.getDataInternal(breakdowns);
+    // TODO - check that the metrics are all provided by this provider once we don't have providers relying on other providers
+
+    return await this.getDataInternal(metricQuery);
   }
 
   filterByGeo(df: IDataFrame, breakdowns: Breakdowns): IDataFrame {
@@ -84,7 +90,7 @@ abstract class VariableProvider {
   }
 
   abstract getDataInternal(
-    breakdowns: Breakdowns
+    metricQuery: MetricQuery
   ): Promise<MetricQueryResponse>;
 
   abstract allowsBreakdowns(breakdowns: Breakdowns): boolean;

@@ -1,6 +1,6 @@
 import BrfssProvider from "./BrfssProvider";
 import { Breakdowns } from "../Breakdowns";
-import { MetricQueryResponse } from "../MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 import { Fips, USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import FakeMetadataMap from "../FakeMetadataMap";
 import { per100k } from "../datasetutils";
@@ -94,7 +94,10 @@ describe("BrfssProvider", () => {
 
     // Evaluate the response without requesting total field
     const responseWithoutTotal = await brfssProvider.getData(
-      Breakdowns.forFips(new Fips("37")).andRace()
+      new MetricQuery(
+        "diabetes_count",
+        Breakdowns.forFips(new Fips("37")).andRace()
+      )
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse(
@@ -105,7 +108,10 @@ describe("BrfssProvider", () => {
 
     // Evaluate the response with requesting total field
     const responseWithTotal = await brfssProvider.getData(
-      Breakdowns.forFips(new Fips("37")).andRace(/*includeTotal=*/ true)
+      new MetricQuery(
+        "diabetes_count",
+        Breakdowns.forFips(new Fips("37")).andRace(/*includeTotal=*/ true)
+      )
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse(
@@ -188,7 +194,7 @@ describe("BrfssProvider", () => {
 
     // Evaluate the response without requesting total field
     const responseWithoutTotal = await brfssProvider.getData(
-      Breakdowns.national().andRace()
+      new MetricQuery("diabetes_count", Breakdowns.national().andRace())
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse([ASIAN_FINAL_ROW, WHITE_FINAL_ROW], ["brfss"])
@@ -196,7 +202,10 @@ describe("BrfssProvider", () => {
 
     // Evaluate the response with requesting total field
     const responseWithTotal = await brfssProvider.getData(
-      Breakdowns.national().andRace(/*includeTotal=*/ true)
+      new MetricQuery(
+        "diabetes_count",
+        Breakdowns.national().andRace(/*includeTotal=*/ true)
+      )
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse(

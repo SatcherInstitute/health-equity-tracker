@@ -147,7 +147,7 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
     // since they're provided together. Also, it would be nice to cache ACS
     // when it's used from within another provider.
     const promises: Promise<MetricQueryResponse>[] = providers.map((provider) =>
-      provider.getData(query.breakdowns)
+      provider.getData(query)
     );
 
     const queryResponses: MetricQueryResponse[] = await Promise.all(promises);

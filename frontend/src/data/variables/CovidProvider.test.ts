@@ -1,7 +1,7 @@
 import CovidProvider from "./CovidProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import { Breakdowns } from "../Breakdowns";
-import { MetricQueryResponse } from "../MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 import { Fips } from "../../utils/madlib/Fips";
 import FakeMetadataMap from "../FakeMetadataMap";
 import {
@@ -179,9 +179,12 @@ describe("CovidProvider", () => {
 
     // Evaluate the response with requesting total field
     const responseWithTotal = await covidProvider.getData(
-      Breakdowns.forFips(new Fips("37037")).andRace(
-        /*includeTotal=*/ true,
-        /*nonstandard=*/ true
+      new MetricQuery(
+        "covid_cases",
+        Breakdowns.forFips(new Fips("37037")).andRace(
+          /*includeTotal=*/ true,
+          /*nonstandard=*/ true
+        )
       )
     );
     expect(responseWithTotal).toEqual(
@@ -193,9 +196,12 @@ describe("CovidProvider", () => {
 
     // Evaluate the response without requesting total field
     const responseWithoutTotal = await covidProvider.getData(
-      Breakdowns.forFips(new Fips("37037")).andRace(
-        /*includeTotal=*/ false,
-        /*nonstandard=*/ true
+      new MetricQuery(
+        "covid_cases",
+        Breakdowns.forFips(new Fips("37037")).andRace(
+          /*includeTotal=*/ false,
+          /*nonstandard=*/ true
+        )
       )
     );
     expect(responseWithoutTotal).toEqual(
@@ -308,9 +314,12 @@ describe("CovidProvider", () => {
 
     // Evaluate the response with requesting total field
     const responseWithTotal = await covidProvider.getData(
-      Breakdowns.forFips(new Fips("37")).andRace(
-        /*includeTotal=*/ true,
-        /*nonstandard=*/ true
+      new MetricQuery(
+        "covid_cases",
+        Breakdowns.forFips(new Fips("37")).andRace(
+          /*includeTotal=*/ true,
+          /*nonstandard=*/ true
+        )
       )
     );
     expect(responseWithTotal).toEqual(
@@ -322,9 +331,12 @@ describe("CovidProvider", () => {
 
     // Evaluate the response without requesting total field
     const responseWithoutTotal = await covidProvider.getData(
-      Breakdowns.forFips(new Fips("37")).andRace(
-        /*includeTotal=*/ false,
-        /*nonstandard=*/ true
+      new MetricQuery(
+        "covid_cases",
+        Breakdowns.forFips(new Fips("37")).andRace(
+          /*includeTotal=*/ false,
+          /*nonstandard=*/ true
+        )
       )
     );
     expect(responseWithoutTotal).toEqual(
@@ -432,12 +444,14 @@ describe("CovidProvider", () => {
       "acs_population-by_race_state_std",
       acsRaceRows
     );
-
     // Evaluate the response with requesting total field
     const responseWithTotal = await covidProvider.getData(
-      Breakdowns.national().andRace(
-        /*includeTotal=*/ true,
-        /*nonstandard=*/ true
+      new MetricQuery(
+        "covid_cases",
+        Breakdowns.national().andRace(
+          /*includeTotal=*/ true,
+          /*nonstandard=*/ true
+        )
       )
     );
     expect(responseWithTotal).toEqual(
@@ -449,9 +463,12 @@ describe("CovidProvider", () => {
 
     // Evaluate the response without requesting total field
     const responseWithoutTotal = await covidProvider.getData(
-      Breakdowns.national().andRace(
-        /*includeTotal=*/ false,
-        /*nonstandard=*/ true
+      new MetricQuery(
+        "covid_cases",
+        Breakdowns.national().andRace(
+          /*includeTotal=*/ false,
+          /*nonstandard=*/ true
+        )
       )
     );
     expect(responseWithoutTotal).toEqual(
