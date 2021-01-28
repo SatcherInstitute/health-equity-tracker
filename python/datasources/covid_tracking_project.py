@@ -55,6 +55,7 @@ class CovidTrackingProject(DataSource):
         df.rename(columns={'state': 'state_postal_abbreviation'}, inplace=True)
         df.replace({col_std.RACE_COL: self.get_standard_columns()},
                    inplace=True)
+        df['date'] = df['date'].map(lambda ts: ts.strftime("%Y-%m-%d"))
 
         # Get the metadata table
         metadata = self._download_metadata(dataset)
