@@ -236,45 +236,6 @@ const fakeMetadata: DatasetMetadata[] = [
     ],
   },
   {
-    id: "acs_population-by_sex_state",
-    name: "Population demographics - sex",
-    data_source_name: "American Community Survey 5-year estimates (2015-2019)",
-    data_source_link:
-      "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-    geographic_level: "State",
-    demographic_granularity: "Race/ethnicity, age, sex",
-    update_frequency: "Annual",
-    update_time: "unknown",
-    description:
-      "Population percentages broken down by self-reported race/ethnicity, age, and sex at the U.S. and state levels.",
-    fields: [
-      {
-        data_type: "string",
-        name: "state_name",
-        description: "description",
-        origin_dataset: "acs",
-      },
-      {
-        data_type: "string",
-        name: "state_fips",
-        description: "description",
-        origin_dataset: "acs",
-      },
-      {
-        data_type: "string",
-        name: "age",
-        description: "description",
-        origin_dataset: "acs",
-      },
-      {
-        data_type: "integer",
-        name: "population",
-        description: "description",
-        origin_dataset: "acs",
-      },
-    ],
-  },
-  {
     id: "brfss",
     name: "Disease Prevalence: Diabetes and COPD",
     data_source_name: "CDC's BRFSS",

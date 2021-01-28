@@ -207,7 +207,6 @@ describe("BrfssProvider", () => {
         Breakdowns.national().andRace(/*includeTotal=*/ true)
       )
     );
-
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse(
         [ASIAN_FINAL_ROW, WHITE_FINAL_ROW, TOTAL_FINAL_ROW],
