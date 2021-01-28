@@ -45,12 +45,17 @@ abstract class VariableProvider {
   }
 
   renameGeoColumns(df: IDataFrame, breakdowns: Breakdowns): IDataFrame {
+    let newDataframe = df;
     const [fipsColumn, geoNameColumn] =
       breakdowns.geography === "county"
         ? ["county_fips", "county_name"]
         : ["state_fips", "state_name"];
 
-    return df
+    if (breakdowns.geography === "county") {
+      newDataframe = newDataframe.dropSeries(["state_fips"]).resetIndex();
+    }
+
+    return newDataframe
       .renameSeries({
         [fipsColumn]: "fips",
         [geoNameColumn]: "fips_name",

@@ -36,13 +36,17 @@ class AcsPopulationProvider extends VariableProvider {
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
-    if (breakdowns.demographicBreakdowns.age.enabled) {
-      return "acs_population-by_age_state";
+    if (breakdowns.hasOnlySex()) {
+      return breakdowns.geography === "county"
+        ? "acs_population-by_sex_county"
+        : "acs_population-by_sex_state";
     }
-    if (
-      breakdowns.demographicBreakdowns.race_nonstandard.enabled ||
-      breakdowns.demographicBreakdowns.race.enabled
-    ) {
+    if (breakdowns.hasOnlyAge()) {
+      return breakdowns.geography === "county"
+        ? "acs_population-by_age_county"
+        : "acs_population-by_age_state";
+    }
+    if (breakdowns.hasOnlyRace() || breakdowns.hasOnlyRaceNonStandard()) {
       return breakdowns.geography === "county"
         ? "acs_population-by_race_county_std"
         : "acs_population-by_race_state_std";
@@ -84,7 +88,8 @@ class AcsPopulationProvider extends VariableProvider {
     // Exactly one breakdown should be enabled per allowsBreakdowns()
     const enabledBreakdown = Object.values(
       breakdowns.demographicBreakdowns
-    ).find((breakdown) => breakdown.enabled === true)!;
+    ).find((breakdown) => breakdown.enabled)!;
+
     df = applyToGroups(df, [fipsColumn], (group) => {
       let totalPopulation = group
         .where((r: any) => r[enabledBreakdown.columnName] === "Total")
@@ -96,7 +101,10 @@ class AcsPopulationProvider extends VariableProvider {
 
     df = this.removeUnwantedDemographicTotals(df, breakdowns);
 
-    // TODO - rename state_fips and county_fips to fips
+    // TODO - remove this when we stop getting this field from server
+    df = df.dropSeries(["ingestion_ts"]).resetIndex();
+
+    df = this.renameGeoColumns(df, breakdowns);
 
     return new MetricQueryResponse(df.toArray(), [
       this.getDatasetId(breakdowns),
@@ -109,53 +117,27 @@ class AcsPopulationProvider extends VariableProvider {
     const acsDataset = await getDataManager().loadDataset(
       this.getDatasetId(breakdowns)
     );
-    const acsDataFrame = acsDataset.toDataFrame();
+    let acsDataFrame = acsDataset.toDataFrame();
 
-    if (breakdowns.hasOnlyRaceNonStandard()) {
-      return breakdowns.geography === "national"
-        ? createNationalTotal(
-            acsDataFrame,
-            breakdowns.demographicBreakdowns.race_nonstandard.columnName
-          )
-        : acsDataFrame;
-    }
+    // Race must be special cased to standardize the data before proceeding
     if (breakdowns.hasOnlyRace()) {
-      const standardizedAcsData = acsDataFrame.where((row) =>
+      acsDataFrame = acsDataFrame.where((row) =>
         standardizedRaces.includes(row.race_and_ethnicity)
       );
-      return breakdowns.geography === "national"
-        ? createNationalTotal(
-            standardizedAcsData,
-            breakdowns.demographicBreakdowns.race.columnName
-          )
-        : standardizedAcsData;
-    }
-    if (breakdowns.hasOnlyAge()) {
-      return breakdowns.geography === "national"
-        ? createNationalTotal(
-            acsDataFrame,
-            breakdowns.demographicBreakdowns.age.columnName
-          )
-        : acsDataFrame;
     }
 
-    throw new Error("Not implemented");
+    // Exactly one breakdown should be enabled, identify it
+    const enabledBreakdown = Object.values(
+      breakdowns.demographicBreakdowns
+    ).find((breakdown) => breakdown.enabled)!;
+
+    return breakdowns.geography === "national"
+      ? createNationalTotal(acsDataFrame, enabledBreakdown.columnName)
+      : acsDataFrame;
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    const validGeographicBreakdown =
-      breakdowns.geography === "county"
-        ? breakdowns.hasOnlyRaceNonStandard() || breakdowns.hasOnlyRace()
-        : true;
-
-    const validDemographicBreakdown: boolean =
-      breakdowns.hasOnlyRaceNonStandard() ||
-      breakdowns.hasOnlyRace() ||
-      breakdowns.hasOnlyAge();
-
-    return (
-      !breakdowns.time && validDemographicBreakdown && validGeographicBreakdown
-    );
+    return !breakdowns.time && breakdowns.hasExactlyOneDemographic();
   }
 }
 

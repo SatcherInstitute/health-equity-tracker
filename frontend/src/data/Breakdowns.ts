@@ -223,6 +223,12 @@ export class Breakdowns {
     );
   }
 
+  hasOnlySex() {
+    return (
+      this.hasExactlyOneDemographic() && this.demographicBreakdowns.sex.enabled
+    );
+  }
+
   /** Filters to entries that exactly match the specified FIPS code. */
   withGeoFilter(fips: Fips): Breakdowns {
     this.filterFips = fips;
