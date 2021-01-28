@@ -1,5 +1,5 @@
 import BrfssProvider from "./BrfssProvider";
-import { Breakdowns, BreakdownVar } from "../Breakdowns";
+import { Breakdowns } from "../Breakdowns";
 import { Fips } from "../../utils/madlib/Fips";
 import FakeMetadataMap from "../FakeMetadataMap";
 import {
@@ -14,7 +14,7 @@ import {
   NC,
   AL,
   USA,
-} from "./testUtils";
+} from "./TestUtils";
 import { WHITE, ASIAN, TOTAL, RACE } from "../Constants";
 
 autoInitGlobals();
