@@ -180,7 +180,7 @@ describe("CovidProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = await covidProvider.getData(
       new MetricQuery(
-        "population",
+        "covid_cases",
         Breakdowns.forFips(new Fips("37037")).andRace(
           /*includeTotal=*/ true,
           /*nonstandard=*/ true
@@ -197,7 +197,7 @@ describe("CovidProvider", () => {
     // Evaluate the response without requesting total field
     const responseWithoutTotal = await covidProvider.getData(
       new MetricQuery(
-        "population",
+        "covid_cases",
         Breakdowns.forFips(new Fips("37037")).andRace(
           /*includeTotal=*/ false,
           /*nonstandard=*/ true
@@ -315,7 +315,7 @@ describe("CovidProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = await covidProvider.getData(
       new MetricQuery(
-        ["covid_cases"],
+        "covid_cases",
         Breakdowns.forFips(new Fips("37")).andRace(
           /*includeTotal=*/ true,
           /*nonstandard=*/ true
@@ -332,7 +332,7 @@ describe("CovidProvider", () => {
     // Evaluate the response without requesting total field
     const responseWithoutTotal = await covidProvider.getData(
       new MetricQuery(
-        ["covid_cases"],
+        "covid_cases",
         Breakdowns.forFips(new Fips("37")).andRace(
           /*includeTotal=*/ false,
           /*nonstandard=*/ true
@@ -447,7 +447,7 @@ describe("CovidProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = await covidProvider.getData(
       new MetricQuery(
-        ["covid_cases"],
+        "covid_cases",
         Breakdowns.national().andRace(
           /*includeTotal=*/ true,
           /*nonstandard=*/ true
@@ -464,7 +464,7 @@ describe("CovidProvider", () => {
     // Evaluate the response without requesting total field
     const responseWithoutTotal = await covidProvider.getData(
       new MetricQuery(
-        ["covid_cases"],
+        "covid_cases",
         Breakdowns.national().andRace(
           /*includeTotal=*/ false,
           /*nonstandard=*/ true

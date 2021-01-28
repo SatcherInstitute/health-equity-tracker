@@ -1,5 +1,4 @@
 import { Breakdowns } from "../Breakdowns";
-import { Dataset } from "../DatasetTypes";
 import {
   MetricQueryResponse,
   createMissingDataResponse,

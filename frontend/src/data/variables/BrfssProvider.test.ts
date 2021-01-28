@@ -95,7 +95,7 @@ describe("BrfssProvider", () => {
     // Evaluate the response without requesting total field
     const responseWithoutTotal = await brfssProvider.getData(
       new MetricQuery(
-        ["diabetes_count"],
+        "diabetes_count",
         Breakdowns.forFips(new Fips("37")).andRace()
       )
     );
@@ -109,7 +109,7 @@ describe("BrfssProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = await brfssProvider.getData(
       new MetricQuery(
-        ["diabetes_count"],
+        "diabetes_count",
         Breakdowns.forFips(new Fips("37")).andRace(/*includeTotal=*/ true)
       )
     );
@@ -194,7 +194,7 @@ describe("BrfssProvider", () => {
 
     // Evaluate the response without requesting total field
     const responseWithoutTotal = await brfssProvider.getData(
-      new MetricQuery(["diabetes_count"], Breakdowns.national().andRace())
+      new MetricQuery("diabetes_count", Breakdowns.national().andRace())
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse([ASIAN_FINAL_ROW, WHITE_FINAL_ROW], ["brfss"])
@@ -203,7 +203,7 @@ describe("BrfssProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = await brfssProvider.getData(
       new MetricQuery(
-        ["diabetes_count"],
+        "diabetes_count",
         Breakdowns.national().andRace(/*includeTotal=*/ true)
       )
     );

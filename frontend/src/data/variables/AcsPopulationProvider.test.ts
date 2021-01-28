@@ -111,7 +111,7 @@ async function evaluate(
   // Evaluate the response with requesting total field
   const responseWithTotal = await acsProvider.getData(
     new MetricQuery(
-      ["population"],
+      "population",
       baseBreakdown.addBreakdown(breakdownVar, /*includeTotal=*/ true)
     )
   );
@@ -122,7 +122,7 @@ async function evaluate(
   // Evaluate the response without requesting total field
   const responseWithoutTotal = await acsProvider.getData(
     new MetricQuery(
-      ["population"],
+      "population",
       baseBreakdown.addBreakdown(breakdownVar, /*includeTotal=*/ false)
     )
   );
@@ -145,7 +145,7 @@ describe("AcsPopulationProvider", () => {
     const acsProvider = new AcsPopulationProvider();
 
     const response = await acsProvider.getData(
-      new MetricQuery(["population"], Breakdowns.national())
+      new MetricQuery("population", Breakdowns.national())
     );
     expect(response).toEqual(
       createMissingDataResponse(
