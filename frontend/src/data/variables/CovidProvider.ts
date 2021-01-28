@@ -125,7 +125,7 @@ class CovidProvider extends VariableProvider {
     df = df.concat(unknowns).resetIndex();
 
     // TODO this is a bit on the slow side. Maybe a better way to do it, or
-    // pre-compute TOTAL column on server
+    // pre-compute "Total" row on server
     ["covid_cases", "covid_deaths", "covid_hosp"].forEach((col) => {
       df = applyToGroups(df, ["date", "fips"], (group) => {
         const total = group

@@ -19,7 +19,16 @@ import {
   MARIN,
   USA,
 } from "./testUtils";
-import { WHITE, ASIAN, TOTAL, RACE, AGE, SEX } from "../Constants";
+import {
+  WHITE,
+  ASIAN,
+  TOTAL,
+  RACE,
+  AGE,
+  SEX,
+  MALE,
+  FEMALE,
+} from "../Constants";
 
 function countyRow(
   fips: FipsSpec,
@@ -291,13 +300,13 @@ describe("AcsPopulationProvider", () => {
 
   test("State and Gender Breakdown", async () => {
     const rawData = [
-      stateRow(AL, SEX, "male", 2),
-      stateRow(NC, SEX, "male", 15),
-      stateRow(NC, SEX, "female", 10),
+      stateRow(AL, SEX, MALE, 2),
+      stateRow(NC, SEX, MALE, 15),
+      stateRow(NC, SEX, FEMALE, 10),
     ];
 
-    const NC_MALE_FINAL = finalRow(NC, SEX, "male", 15, 60);
-    const NC_FEMALE_FINAL = finalRow(NC, SEX, "female", 10, 40);
+    const NC_MALE_FINAL = finalRow(NC, SEX, MALE, 15, 60);
+    const NC_FEMALE_FINAL = finalRow(NC, SEX, FEMALE, 10, 40);
     const NC_TOTAL = finalRow(NC, SEX, TOTAL, 25, 100);
 
     await evaluateWithAndWithoutTotal(
@@ -312,13 +321,13 @@ describe("AcsPopulationProvider", () => {
 
   test("National and Gender Breakdown", async () => {
     const rawData = [
-      stateRow(AL, SEX, "Male", 15),
-      stateRow(NC, SEX, "Male", 15),
-      stateRow(NC, SEX, "Female", 10),
+      stateRow(AL, SEX, MALE, 15),
+      stateRow(NC, SEX, MALE, 15),
+      stateRow(NC, SEX, FEMALE, 10),
     ];
 
-    const MALE_FINAL = finalRow(USA, SEX, "Male", 30, 75);
-    const FEMALE_FINAL = finalRow(USA, SEX, "Female", 10, 25);
+    const MALE_FINAL = finalRow(USA, SEX, MALE, 30, 75);
+    const FEMALE_FINAL = finalRow(USA, SEX, FEMALE, 10, 25);
     const TOTAL_FINAL = finalRow(USA, SEX, TOTAL, 40, 100);
 
     await evaluateWithAndWithoutTotal(
