@@ -88,7 +88,8 @@ class AcsPopulationProvider extends VariableProvider {
     // Exactly one breakdown should be enabled per allowsBreakdowns()
     const enabledBreakdown = Object.values(
       breakdowns.demographicBreakdowns
-    ).find((breakdown) => breakdown.enabled === true)!;
+    ).find((breakdown) => breakdown.enabled)!;
+
     df = applyToGroups(df, [fipsColumn], (group) => {
       let totalPopulation = group
         .where((r: any) => r[enabledBreakdown.columnName] === "Total")
@@ -100,6 +101,7 @@ class AcsPopulationProvider extends VariableProvider {
 
     df = this.removeUnwantedDemographicTotals(df, breakdowns);
 
+    // TODO - remove this when we stop getting this field from server
     df = df.dropSeries(["ingestion_ts"]).resetIndex();
 
     df = this.renameGeoColumns(df, breakdowns);
@@ -127,7 +129,7 @@ class AcsPopulationProvider extends VariableProvider {
     // Exactly one breakdown should be enabled, identify it
     const enabledBreakdown = Object.values(
       breakdowns.demographicBreakdowns
-    ).find((breakdown) => breakdown.enabled === true)!;
+    ).find((breakdown) => breakdown.enabled)!;
 
     return breakdowns.geography === "national"
       ? createNationalTotal(acsDataFrame, enabledBreakdown.columnName)
