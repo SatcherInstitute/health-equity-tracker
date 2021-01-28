@@ -74,18 +74,24 @@ const apiProxy = createProxyMiddleware(apiProxyOptions);
 app.use('/api', apiProxy);
 
 // auth middleware must be installed before setting up routes so it applies
-// to the whole site.
-if (!getBooleanEnvVar("DISABLE_BASIC_AUTH")) {
-  const username = assertEnvVar("BASIC_AUTH_USERNAME");
-  const password = assertEnvVar("BASIC_AUTH_PASSWORD");
-  app.use(basicAuth({
-    // Temporary values until we can use Github Secrets. Also needs to be set up
-    // so that it's disabled for production but enabled for the test site.
-    users: { [username]: password },
-    challenge: true,
-    realm: 'Health Equity Tracker',
-  }));
-}
+// to the whole site except for api requests which go to the data server and use
+// service account tokens instead.
+app.use((req, res, next) => {
+  if (!req.path.startsWith('/api') && !getBooleanEnvVar("DISABLE_BASIC_AUTH")) {
+    const username = assertEnvVar("BASIC_AUTH_USERNAME");
+    const password = assertEnvVar("BASIC_AUTH_PASSWORD");       
+    basicAuth({
+      // Temporary values until we can use Github Secrets. Also needs to be set up
+      // so that it's disabled for production but enabled for the test site.
+      users: { [username]: password },
+      challenge: true,
+      realm: 'Health Equity Tracker',
+    })       
+    next();
+  } else {
+    next();
+  }
+  });
 
 // Serve static files from the build directory.
 app.use(express.static(path.join(__dirname, 'build')));
