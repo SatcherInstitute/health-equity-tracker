@@ -36,16 +36,17 @@ class AcsPopulationProvider extends VariableProvider {
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
-    if (breakdowns.demographicBreakdowns.sex.enabled) {
-      return "acs_population-by_sex_state";
+    if (breakdowns.hasOnlySex()) {
+      return breakdowns.geography === "county"
+        ? "acs_population-by_sex_county"
+        : "acs_population-by_sex_state";
     }
-    if (breakdowns.demographicBreakdowns.age.enabled) {
-      return "acs_population-by_age_state";
+    if (breakdowns.hasOnlyAge()) {
+      return breakdowns.geography === "county"
+        ? "acs_population-by_age_county"
+        : "acs_population-by_age_state";
     }
-    if (
-      breakdowns.demographicBreakdowns.race_nonstandard.enabled ||
-      breakdowns.demographicBreakdowns.race.enabled
-    ) {
+    if (breakdowns.hasOnlyRace() || breakdowns.hasOnlyRaceNonStandard()) {
       return breakdowns.geography === "county"
         ? "acs_population-by_race_county_std"
         : "acs_population-by_race_state_std";
@@ -53,8 +54,10 @@ class AcsPopulationProvider extends VariableProvider {
     throw new Error("Not implemented");
   }
 
-  async getDataInternal(metricQuery: MetricQuery): Promise<MetricQueryResponse> {
-      const breakdowns = metricQuery.breakdowns;
+  async getDataInternal(
+    metricQuery: MetricQuery
+  ): Promise<MetricQueryResponse> {
+    const breakdowns = metricQuery.breakdowns;
     let df = await this.getDataInternalWithoutPercents(breakdowns);
     const [fipsColumn, geoNameColumn] =
       breakdowns.geography === "county"
@@ -88,7 +91,8 @@ class AcsPopulationProvider extends VariableProvider {
     // Exactly one breakdown should be enabled per allowsBreakdowns()
     const enabledBreakdown = Object.values(
       breakdowns.demographicBreakdowns
-    ).find((breakdown) => breakdown.enabled === true)!;
+    ).find((breakdown) => breakdown.enabled)!;
+
     df = applyToGroups(df, [fipsColumn], (group) => {
       let totalPopulation = group
         .where((r: any) => r[enabledBreakdown.columnName] === "Total")
@@ -118,11 +122,6 @@ class AcsPopulationProvider extends VariableProvider {
     );
     let acsDataFrame = acsDataset.toDataFrame();
 
-    // Exactly one breakdown should be enabled, identify it
-    const enabledBreakdown = Object.values(
-      breakdowns.demographicBreakdowns
-    ).find((breakdown) => breakdown.enabled === true)!;
-
     // Race must be special cased to standardize the data before proceeding
     if (breakdowns.hasOnlyRace()) {
       acsDataFrame = acsDataFrame.where((row) =>
@@ -130,25 +129,18 @@ class AcsPopulationProvider extends VariableProvider {
       );
     }
 
+    // Exactly one breakdown should be enabled, identify it
+    const enabledBreakdown = Object.values(
+      breakdowns.demographicBreakdowns
+    ).find((breakdown) => breakdown.enabled)!;
+
     return breakdowns.geography === "national"
       ? createNationalTotal(acsDataFrame, enabledBreakdown.columnName)
       : acsDataFrame;
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    const validGeographicBreakdown =
-      breakdowns.geography === "county"
-        ? breakdowns.hasOnlyRaceNonStandard() || breakdowns.hasOnlyRace()
-        : true;
-
-    const validDemographicBreakdown: boolean =
-      breakdowns.hasOnlyRaceNonStandard() ||
-      breakdowns.hasOnlyRace() ||
-      breakdowns.hasOnlyAge();
-
-    return (
-      !breakdowns.time && validDemographicBreakdown && validGeographicBreakdown
-    );
+    return !breakdowns.time && breakdowns.hasExactlyOneDemographic();
   }
 }
 

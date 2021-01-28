@@ -179,12 +179,13 @@ describe("CovidProvider", () => {
 
     // Evaluate the response with requesting total field
     const responseWithTotal = await covidProvider.getData(
-        new MetricQuery(
-            "population",
-            Breakdowns.forFips(new Fips("37037")).andRace(
-              /*includeTotal=*/ true,
-              /*nonstandard=*/ true
-            ))
+      new MetricQuery(
+        "population",
+        Breakdowns.forFips(new Fips("37037")).andRace(
+          /*includeTotal=*/ true,
+          /*nonstandard=*/ true
+        )
+      )
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse(
@@ -195,13 +196,13 @@ describe("CovidProvider", () => {
 
     // Evaluate the response without requesting total field
     const responseWithoutTotal = await covidProvider.getData(
-        new MetricQuery(
-            "population",
-            Breakdowns.forFips(new Fips("37037")).andRace(
-              /*includeTotal=*/ false,
-              /*nonstandard=*/ true
-            )
-          )
+      new MetricQuery(
+        "population",
+        Breakdowns.forFips(new Fips("37037")).andRace(
+          /*includeTotal=*/ false,
+          /*nonstandard=*/ true
+        )
+      )
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse(
@@ -312,15 +313,14 @@ describe("CovidProvider", () => {
     );
 
     // Evaluate the response with requesting total field
-    const metricQueryWithTotal = 
-        new MetricQuery(
-            ["covid_cases"], Breakdowns.forFips(new Fips("37")).andRace(
+    const metricQueryWithTotal = new MetricQuery(
+      ["covid_cases"],
+      Breakdowns.forFips(new Fips("37")).andRace(
         /*includeTotal=*/ true,
         /*nonstandard=*/ true
-      ));
-    const responseWithTotal = await covidProvider.getData(
-      metricQueryWithTotal
+      )
     );
+    const responseWithTotal = await covidProvider.getData(metricQueryWithTotal);
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse(
         [NC_TOTAL_FINAL_ROW, NC_WHITE_FINAL_ROW],
@@ -452,9 +452,7 @@ describe("CovidProvider", () => {
         /*nonstandard=*/ true
       )
     );
-    const responseWithTotal = await covidProvider.getData(
-      metricQueryWithTotal
-    );
+    const responseWithTotal = await covidProvider.getData(metricQueryWithTotal);
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse(
         [FINAL_TOTAL_ROW, FINAL_WHITE_ROW],
@@ -471,7 +469,7 @@ describe("CovidProvider", () => {
       )
     );
     const responseWithoutTotal = await covidProvider.getData(
-      metricQueryWithoutTotal,
+      metricQueryWithoutTotal
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse(

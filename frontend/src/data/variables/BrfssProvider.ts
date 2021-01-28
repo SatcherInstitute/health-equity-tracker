@@ -15,8 +15,10 @@ class BrfssProvider extends VariableProvider {
     ]);
   }
 
-  async getDataInternal(metricQuery: MetricQuery): Promise<MetricQueryResponse> {
-      const breakdowns = metricQuery.breakdowns;
+  async getDataInternal(
+    metricQuery: MetricQuery
+  ): Promise<MetricQueryResponse> {
+    const breakdowns = metricQuery.breakdowns;
     const brfss = await getDataManager().loadDataset("brfss");
     let df = brfss.toDataFrame();
 
