@@ -1,6 +1,6 @@
 import CovidProvider from "./CovidProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
-import { Breakdowns, BreakdownVar } from "../Breakdowns";
+import { Breakdowns } from "../Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 import { Fips } from "../../utils/madlib/Fips";
 import FakeMetadataMap from "../FakeMetadataMap";

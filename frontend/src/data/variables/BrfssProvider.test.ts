@@ -18,8 +18,6 @@ import {
   ASIAN,
   TOTAL,
   RACE,
-  AGE,
-  SEX,
 } from "./TestUtils";
 
 autoInitGlobals();
