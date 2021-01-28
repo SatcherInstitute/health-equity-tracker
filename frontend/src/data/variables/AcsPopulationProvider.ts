@@ -54,6 +54,7 @@ class AcsPopulationProvider extends VariableProvider {
     throw new Error("Not implemented");
   }
 
+  // TODO - only return requested metric queries, remove unrequested columns
   async getDataInternal(
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {

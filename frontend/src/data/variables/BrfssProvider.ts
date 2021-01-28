@@ -15,6 +15,7 @@ class BrfssProvider extends VariableProvider {
     ]);
   }
 
+  // TODO - only return requested metric queries, remove unrequested columns
   async getDataInternal(
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {

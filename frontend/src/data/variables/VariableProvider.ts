@@ -28,6 +28,8 @@ abstract class VariableProvider {
       );
     }
 
+    // TODO - check that the metrics are all provided by this provider once we don't have providers relying on other providers
+
     return await this.getDataInternal(metricQuery);
   }
 
