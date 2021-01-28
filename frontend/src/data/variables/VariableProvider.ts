@@ -1,47 +1,36 @@
 import { Breakdowns } from "../Breakdowns";
-import { Dataset } from "../DatasetTypes";
-import { ProviderId, MetricId } from "../variableProviders";
-import { MetricQueryResponse, createMissingDataResponse } from "../MetricQuery";
+import {
+  MetricQueryResponse,
+  createMissingDataResponse,
+  MetricQuery,
+} from "../MetricQuery";
+import { MetricId } from "../MetricConfig";
+import { ProviderId } from "../VariableProviderMap";
 import { IDataFrame } from "data-forge";
 import { Fips } from "../../utils/madlib/Fips";
 
 abstract class VariableProvider {
   readonly providerId: ProviderId;
   readonly providesMetrics: MetricId[];
-  readonly datasetIds: readonly string[];
 
-  constructor(
-    providerId: ProviderId,
-    providesMetrics: MetricId[],
-    datasetIds: string[]
-  ) {
+  constructor(providerId: ProviderId, providesMetrics: MetricId[]) {
     this.providerId = providerId;
     this.providesMetrics = providesMetrics;
-    this.datasetIds = datasetIds;
   }
 
-  // TODO change return type to MetricQueryResponse instead of Row[]
-  getData(
-    datasets: Record<string, Dataset>,
-    breakdowns: Breakdowns
-  ): MetricQueryResponse {
-    if (!this.allowsBreakdowns(breakdowns)) {
+  async getData(metricQuery: MetricQuery): Promise<MetricQueryResponse> {
+    if (!this.allowsBreakdowns(metricQuery.breakdowns)) {
       return createMissingDataResponse(
         "Breakdowns not supported for provider " +
           this.providerId +
           ": " +
-          breakdowns.getUniqueKey()
+          metricQuery.breakdowns.getUniqueKey()
       );
     }
 
-    const missingDatasetIds = this.datasetIds.filter((id) => !datasets[id]);
-    if (missingDatasetIds.length > 0) {
-      return createMissingDataResponse(
-        "Datasets not loaded properly: " + missingDatasetIds.join(",")
-      );
-    }
+    // TODO - check that the metrics are all provided by this provider once we don't have providers relying on other providers
 
-    return this.getDataInternal(datasets, breakdowns);
+    return await this.getDataInternal(metricQuery);
   }
 
   filterByGeo(df: IDataFrame, breakdowns: Breakdowns): IDataFrame {
@@ -62,12 +51,17 @@ abstract class VariableProvider {
   }
 
   renameGeoColumns(df: IDataFrame, breakdowns: Breakdowns): IDataFrame {
+    let newDataframe = df;
     const [fipsColumn, geoNameColumn] =
       breakdowns.geography === "county"
         ? ["county_fips", "county_name"]
         : ["state_fips", "state_name"];
 
-    return df
+    if (breakdowns.geography === "county") {
+      newDataframe = newDataframe.dropSeries(["state_fips"]).resetIndex();
+    }
+
+    return newDataframe
       .renameSeries({
         [fipsColumn]: "fips",
         [geoNameColumn]: "fips_name",
@@ -96,15 +90,10 @@ abstract class VariableProvider {
   }
 
   abstract getDataInternal(
-    datasets: Record<string, Dataset>,
-    breakdowns: Breakdowns
-  ): MetricQueryResponse;
+    metricQuery: MetricQuery
+  ): Promise<MetricQueryResponse>;
 
   abstract allowsBreakdowns(breakdowns: Breakdowns): boolean;
-
-  static getUniqueDatasetIds(providers: VariableProvider[]): string[] {
-    return Array.from(new Set(providers.map((p) => p.datasetIds).flat()));
-  }
 }
 
 export default VariableProvider;

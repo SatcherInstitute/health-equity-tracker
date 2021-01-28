@@ -81,7 +81,124 @@ const fakeMetadata: DatasetMetadata[] = [
   },
   {
     id: "acs_population-by_age_state",
-    name: "Population demographics - age",
+    name: "Population demographics - age, state",
+    data_source_name: "American Community Survey 5-year estimates (2015-2019)",
+    data_source_link:
+      "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Annual",
+    update_time: "unknown",
+    description:
+      "Population percentages broken down by self-reported race/ethnicity, age, and sex at the U.S. and state levels.",
+    fields: [
+      {
+        data_type: "string",
+        name: "state_name",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "string",
+        name: "state_fips",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "string",
+        name: "age",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "integer",
+        name: "population",
+        description: "description",
+        origin_dataset: "acs",
+      },
+    ],
+  },
+  {
+    id: "acs_population-by_age_county",
+    name: "Population demographics - age, county",
+    data_source_name: "American Community Survey 5-year estimates (2015-2019)",
+    data_source_link:
+      "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Annual",
+    update_time: "unknown",
+    description:
+      "Population percentages broken down by self-reported race/ethnicity, age, and sex at the U.S. and state levels.",
+    fields: [
+      {
+        data_type: "string",
+        name: "state_name",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "string",
+        name: "state_fips",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "string",
+        name: "age",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "integer",
+        name: "population",
+        description: "description",
+        origin_dataset: "acs",
+      },
+    ],
+  },
+  {
+    id: "acs_population-by_sex_state",
+    name: "Population demographics - sex, state",
+    data_source_name: "American Community Survey 5-year estimates (2015-2019)",
+    data_source_link:
+      "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Annual",
+    update_time: "unknown",
+    description:
+      "Population percentages broken down by self-reported race/ethnicity, age, and sex at the U.S. and state levels.",
+    fields: [
+      {
+        data_type: "string",
+        name: "state_name",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "string",
+        name: "state_fips",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "string",
+        name: "age",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "integer",
+        name: "population",
+        description: "description",
+        origin_dataset: "acs",
+      },
+    ],
+  },
+  {
+    id: "acs_population-by_sex_county",
+    name: "Population demographics - sex, county",
     data_source_name: "American Community Survey 5-year estimates (2015-2019)",
     data_source_link:
       "https://www.census.gov/data/developers/data-sets/acs-5year.html",

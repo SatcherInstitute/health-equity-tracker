@@ -1,6 +1,5 @@
 import { DataFrame } from "data-forge";
 import { Breakdowns } from "../Breakdowns";
-import { Dataset } from "../DatasetTypes";
 import VariableProvider from "./VariableProvider";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
@@ -12,46 +11,38 @@ import {
   per100k,
   percent,
 } from "../datasetutils";
-import { MetricQueryResponse } from "../MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
+import { getDataManager } from "../../utils/globals";
 
 class CovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
 
   constructor(acsProvider: AcsPopulationProvider) {
-    super(
-      "covid_provider",
-      [
-        "covid_cases",
-        "covid_deaths",
-        "covid_hosp",
-        "covid_cases_pct_of_geo",
-        "covid_deaths_pct_of_geo",
-        "covid_hosp_pct_of_geo",
-        "covid_deaths_per_100k",
-        "covid_cases_per_100k",
-        "covid_hosp_per_100k",
-      ],
-      ["covid_by_state_and_race", "covid_by_county_and_race"].concat(
-        acsProvider.datasetIds
-      )
-    );
+    super("covid_provider", [
+      "covid_cases",
+      "covid_deaths",
+      "covid_hosp",
+      "covid_cases_pct_of_geo",
+      "covid_deaths_pct_of_geo",
+      "covid_hosp_pct_of_geo",
+      "covid_deaths_per_100k",
+      "covid_cases_per_100k",
+      "covid_hosp_per_100k",
+    ]);
     this.acsProvider = acsProvider;
   }
 
-  getDataInternal(
-    datasets: Record<string, Dataset>,
-    breakdowns: Breakdowns
-  ): MetricQueryResponse {
-    const covid_dataset =
+  // TODO - only return requested metric queries, remove unrequested columns
+  async getDataInternal(
+    metricQuery: MetricQuery
+  ): Promise<MetricQueryResponse> {
+    const breakdowns = metricQuery.breakdowns;
+    const datasetId =
       breakdowns.geography === "county"
-        ? datasets["covid_by_county_and_race"]
-        : datasets["covid_by_state_and_race"];
-    let consumedDatasetIds =
-      breakdowns.geography === "county"
-        ? ["covid_by_county_and_race"]
-        : ["covid_by_state_and_race"];
-    const fipsColumn =
-      breakdowns.geography === "county" ? "county_fips" : "state_fips";
+        ? "covid_by_county_and_race"
+        : "covid_by_state_and_race";
+    const covid_dataset = await getDataManager().loadDataset(datasetId);
+    let consumedDatasetIds = [datasetId];
 
     // TODO need to figure out how to handle getting this at the national level
     // because each state reports race differently.
@@ -84,6 +75,8 @@ class CovidProvider extends VariableProvider {
 
     df = this.filterByGeo(df, breakdowns);
 
+    df = this.renameGeoColumns(df, breakdowns);
+
     // TODO How to handle territories?
     const acsBreakdowns = breakdowns.copy();
     acsBreakdowns.time = false;
@@ -93,31 +86,30 @@ class CovidProvider extends VariableProvider {
       includeTotal: true,
     };
 
-    const acsMetricQueryResponse = this.acsProvider.getData(
-      datasets,
-      acsBreakdowns
+    const acsQueryResponse = await this.acsProvider.getData(
+      new MetricQuery(["population", "population_pct"], acsBreakdowns)
     );
 
     consumedDatasetIds = consumedDatasetIds.concat(
-      acsMetricQueryResponse.consumedDatasetIds
+      acsQueryResponse.consumedDatasetIds
     );
 
-    if (acsMetricQueryResponse.dataIsMissing()) {
-      return acsMetricQueryResponse;
+    if (acsQueryResponse.dataIsMissing()) {
+      return acsQueryResponse;
     }
-    const acsPopulation = new DataFrame(acsMetricQueryResponse.data);
+    const acsPopulation = new DataFrame(acsQueryResponse.data);
 
     // TODO this is a weird hack - prefer left join but for some reason it's
     // causing issues.
     const supportedGeos = acsPopulation
-      .distinct((row) => row[fipsColumn])
-      .getSeries(fipsColumn)
+      .distinct((row) => row.fips)
+      .getSeries("fips")
       .toArray();
     const unknowns = df
       .where((row) => row.race_and_ethnicity === "Unknown")
-      .where((row) => supportedGeos.includes(row[fipsColumn]));
+      .where((row) => supportedGeos.includes(row.fips));
 
-    df = joinOnCols(df, acsPopulation, [fipsColumn, "race_and_ethnicity"]);
+    df = joinOnCols(df, acsPopulation, ["fips", "race_and_ethnicity"]);
 
     df = df
       .generateSeries({
@@ -134,7 +126,7 @@ class CovidProvider extends VariableProvider {
     // TODO this is a bit on the slow side. Maybe a better way to do it, or
     // pre-compute "total" column on server
     ["covid_cases", "covid_deaths", "covid_hosp"].forEach((col) => {
-      df = applyToGroups(df, ["date", fipsColumn], (group) => {
+      df = applyToGroups(df, ["date", "fips"], (group) => {
         const total = group
           .where((r) => r.race_and_ethnicity === "Total")
           .first()[col];
@@ -147,8 +139,6 @@ class CovidProvider extends VariableProvider {
     });
 
     df = this.removeUnwantedDemographicTotals(df, breakdowns);
-
-    df = this.renameGeoColumns(df, breakdowns);
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
   }

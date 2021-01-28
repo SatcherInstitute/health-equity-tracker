@@ -1,10 +1,10 @@
 import { IDataFrame } from "data-forge";
 import { Breakdowns, DemographicBreakdownKey } from "../Breakdowns";
-import { Dataset } from "../DatasetTypes";
 import { applyToGroups, percent } from "../datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
-import { MetricQueryResponse } from "../MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
+import { getDataManager } from "../../utils/globals";
 
 const standardizedRaces = [
   "American Indian and Alaska Native (Non-Hispanic)",
@@ -32,25 +32,21 @@ function createNationalTotal(dataFrame: IDataFrame, breakdown: string) {
 
 class AcsPopulationProvider extends VariableProvider {
   constructor() {
-    super(
-      "acs_pop_provider",
-      ["population", "population_pct"],
-      [
-        "acs_population-by_race_state_std",
-        "acs_population-by_race_county_std",
-        "acs_population-by_age_state",
-      ]
-    );
+    super("acs_pop_provider", ["population", "population_pct"]);
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
-    if (breakdowns.demographicBreakdowns.age.enabled) {
-      return "acs_population-by_age_state";
+    if (breakdowns.hasOnlySex()) {
+      return breakdowns.geography === "county"
+        ? "acs_population-by_sex_county"
+        : "acs_population-by_sex_state";
     }
-    if (
-      breakdowns.demographicBreakdowns.race_nonstandard.enabled ||
-      breakdowns.demographicBreakdowns.race.enabled
-    ) {
+    if (breakdowns.hasOnlyAge()) {
+      return breakdowns.geography === "county"
+        ? "acs_population-by_age_county"
+        : "acs_population-by_age_state";
+    }
+    if (breakdowns.hasOnlyRace() || breakdowns.hasOnlyRaceNonStandard()) {
       return breakdowns.geography === "county"
         ? "acs_population-by_race_county_std"
         : "acs_population-by_race_state_std";
@@ -58,11 +54,12 @@ class AcsPopulationProvider extends VariableProvider {
     throw new Error("Not implemented");
   }
 
-  getDataInternal(
-    datasets: Record<string, Dataset>,
-    breakdowns: Breakdowns
-  ): MetricQueryResponse {
-    let df = this.getDataInternalWithoutPercents(datasets, breakdowns);
+  // TODO - only return requested metric queries, remove unrequested columns
+  async getDataInternal(
+    metricQuery: MetricQuery
+  ): Promise<MetricQueryResponse> {
+    const breakdowns = metricQuery.breakdowns;
+    let df = await this.getDataInternalWithoutPercents(breakdowns);
     const [fipsColumn, geoNameColumn] =
       breakdowns.geography === "county"
         ? ["county_fips", "county_name"]
@@ -95,7 +92,8 @@ class AcsPopulationProvider extends VariableProvider {
     // Exactly one breakdown should be enabled per allowsBreakdowns()
     const enabledBreakdown = Object.values(
       breakdowns.demographicBreakdowns
-    ).find((breakdown) => breakdown.enabled === true)!;
+    ).find((breakdown) => breakdown.enabled)!;
+
     df = applyToGroups(df, [fipsColumn], (group) => {
       let totalPopulation = group
         .where((r: any) => r[enabledBreakdown.columnName] === "Total")
@@ -107,64 +105,43 @@ class AcsPopulationProvider extends VariableProvider {
 
     df = this.removeUnwantedDemographicTotals(df, breakdowns);
 
-    // TODO - rename state_fips and county_fips to fips
+    // TODO - remove this when we stop getting this field from server
+    df = df.dropSeries(["ingestion_ts"]).resetIndex();
+
+    df = this.renameGeoColumns(df, breakdowns);
 
     return new MetricQueryResponse(df.toArray(), [
       this.getDatasetId(breakdowns),
     ]);
   }
 
-  private getDataInternalWithoutPercents(
-    datasets: Record<string, Dataset>,
+  private async getDataInternalWithoutPercents(
     breakdowns: Breakdowns
-  ): IDataFrame {
-    const acsDataFrame = datasets[this.getDatasetId(breakdowns)].toDataFrame();
+  ): Promise<IDataFrame> {
+    const acsDataset = await getDataManager().loadDataset(
+      this.getDatasetId(breakdowns)
+    );
+    let acsDataFrame = acsDataset.toDataFrame();
 
-    if (breakdowns.hasOnlyRaceNonStandard()) {
-      return breakdowns.geography === "national"
-        ? createNationalTotal(
-            acsDataFrame,
-            breakdowns.demographicBreakdowns.race_nonstandard.columnName
-          )
-        : acsDataFrame;
-    }
+    // Race must be special cased to standardize the data before proceeding
     if (breakdowns.hasOnlyRace()) {
-      const standardizedAcsData = acsDataFrame.where((row) =>
+      acsDataFrame = acsDataFrame.where((row) =>
         standardizedRaces.includes(row.race_and_ethnicity)
       );
-      return breakdowns.geography === "national"
-        ? createNationalTotal(
-            standardizedAcsData,
-            breakdowns.demographicBreakdowns.race.columnName
-          )
-        : standardizedAcsData;
-    }
-    if (breakdowns.hasOnlyAge()) {
-      return breakdowns.geography === "national"
-        ? createNationalTotal(
-            acsDataFrame,
-            breakdowns.demographicBreakdowns.age.columnName
-          )
-        : acsDataFrame;
     }
 
-    throw new Error("Not implemented");
+    // Exactly one breakdown should be enabled, identify it
+    const enabledBreakdown = Object.values(
+      breakdowns.demographicBreakdowns
+    ).find((breakdown) => breakdown.enabled)!;
+
+    return breakdowns.geography === "national"
+      ? createNationalTotal(acsDataFrame, enabledBreakdown.columnName)
+      : acsDataFrame;
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    const validGeographicBreakdown =
-      breakdowns.geography === "county"
-        ? breakdowns.hasOnlyRaceNonStandard() || breakdowns.hasOnlyRace()
-        : true;
-
-    const validDemographicBreakdown: boolean =
-      breakdowns.hasOnlyRaceNonStandard() ||
-      breakdowns.hasOnlyRace() ||
-      breakdowns.hasOnlyAge();
-
-    return (
-      !breakdowns.time && validDemographicBreakdown && validGeographicBreakdown
-    );
+    return !breakdowns.time && breakdowns.hasExactlyOneDemographic();
   }
 }
 

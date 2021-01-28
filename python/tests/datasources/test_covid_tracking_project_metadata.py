@@ -43,9 +43,7 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     # We should have a record for each state/variable_type (e.g. cases, death)
     # combo
     assert len(result.index) == 3 * 2
-    print(result.index)
-    with pd.option_context('display.max_rows', None, 'display.max_columns', None):
-        print(result)
     assert result.loc[result['state_postal_abbreviation'] == 'AL'].all().all()
     assert not result.loc[result['state_postal_abbreviation'] == 'PA', 'reports_api':].any().any()
     assert result.loc[result['state_postal_abbreviation'] == 'GA'].all().all()
+    assert result['variable_type'].isin(['cases', 'deaths']).all()

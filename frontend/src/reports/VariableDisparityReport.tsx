@@ -172,7 +172,6 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               updateFipsCallback={(fips: Fips) => {
                 props.updateFipsCallback(fips);
               }}
-              enableFilter={props.fips.isUsa()}
               nonstandardizedRace={
                 props.dropdownVarId === "covid" ? true : false
               }
