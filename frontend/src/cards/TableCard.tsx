@@ -2,7 +2,6 @@ import React from "react";
 import { TableChart } from "../charts/TableChart";
 import { Alert } from "@material-ui/lab";
 import CardWrapper from "./CardWrapper";
-import { MetricId } from "../data/variableProviders";
 import { MetricQuery } from "../data/MetricQuery";
 import { Fips } from "../utils/madlib/Fips";
 import {
@@ -11,7 +10,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/Breakdowns";
 import { CardContent } from "@material-ui/core";
-import { MetricConfig } from "../data/MetricConfig";
+import { MetricConfig, MetricId } from "../data/MetricConfig";
 import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 
 export interface TableCardProps {

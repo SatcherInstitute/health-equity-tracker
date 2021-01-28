@@ -1,18 +1,26 @@
 import BrfssProvider from "./BrfssProvider";
 import { Breakdowns } from "../Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
-import { Dataset } from "../DatasetTypes";
 import { Fips, USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import FakeMetadataMap from "../FakeMetadataMap";
 import { per100k } from "../datasetutils";
+import {
+  autoInitGlobals,
+  getDataFetcher,
+  resetCacheDebug,
+} from "../../utils/globals";
+import FakeDataFetcher from "../../testing/FakeDataFetcher";
 
-function fakeDataServerResponse(rows: any[]) {
-  return {
-    brfss: new Dataset(rows, FakeMetadataMap["brfss"]),
-  };
-}
+autoInitGlobals();
+const dataFetcher = getDataFetcher() as FakeDataFetcher;
 
 describe("BrfssProvider", () => {
+  beforeEach(() => {
+    resetCacheDebug();
+    dataFetcher.resetState();
+    dataFetcher.setFakeMetadataLoaded(FakeMetadataMap);
+  });
+
   test("State and Race Breakdown", async () => {
     const brfssProvider = new BrfssProvider();
 
@@ -78,20 +86,16 @@ describe("BrfssProvider", () => {
       diabetes_per_100k: 50000,
     };
 
-    const dataServerResponse = fakeDataServerResponse([
+    dataFetcher.setFakeDatasetLoaded("brfss", [
       AL_ASIAN_ROW,
       NC_ASIAN_ROW,
       NC_WHITE_ROW,
     ]);
 
     // Evaluate the response without requesting total field
-    const metricQueryWithoutTotal = new MetricQuery(
-      ["diabetes_count"],
-      Breakdowns.forFips(new Fips("37")).andRace()
-    );
-    const responseWithoutTotal = brfssProvider.getData(
-      metricQueryWithoutTotal,
-      dataServerResponse
+    const responseWithoutTotal = await brfssProvider.getData(
+        new MetricQuery(
+            ["diabetes_count"],Breakdowns.forFips(new Fips("37")).andRace())
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse(
@@ -101,14 +105,10 @@ describe("BrfssProvider", () => {
     );
 
     // Evaluate the response with requesting total field
-    const metricQueryWithTotal = new MetricQuery(
-      ["diabetes_count"],
-      Breakdowns.forFips(new Fips("37")).andRace(/*includeTotal=*/ true)
-    );
-    const responseWithTotal = brfssProvider.getData(
-      metricQueryWithTotal,
-      dataServerResponse
-    );
+    const responseWithTotal = await brfssProvider.getData(
+        new MetricQuery(
+            ["diabetes_count"],Breakdowns.forFips(new Fips("37")).andRace(/*includeTotal=*/ true)
+    ));
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse(
         [NC_ASIAN_FINAL_ROW, NC_WHITE_FINAL_ROW, NC_TOTAL_FINAL_ROW],
@@ -182,34 +182,27 @@ describe("BrfssProvider", () => {
       fips_name: USA_DISPLAY_NAME,
     };
 
-    const dataServerResponse = fakeDataServerResponse([
+    dataFetcher.setFakeDatasetLoaded("brfss", [
       NC_ASIAN_ROW,
       NC_WHITE_ROW,
       AL_ASIAN_ROW,
     ]);
 
     // Evaluate the response without requesting total field
-    const metricQueryWithoutTotal = new MetricQuery(
-      ["diabetes_count"],
-      Breakdowns.national().andRace()
-    );
-    const responseWithoutTotal = brfssProvider.getData(
-      metricQueryWithoutTotal,
-      dataServerResponse
+    const responseWithoutTotal = await brfssProvider.getData(
+        new MetricQuery(
+            ["diabetes_count"],Breakdowns.national().andRace())
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse([ASIAN_FINAL_ROW, WHITE_FINAL_ROW], ["brfss"])
     );
 
     // Evaluate the response with requesting total field
-    const metricQueryWithTotal = new MetricQuery(
-      ["diabetes_count"],
-      Breakdowns.national().andRace(/*includeTotal=*/ true)
+    const responseWithTotal = await brfssProvider.getData(
+        new MetricQuery(
+            ["diabetes_count"],Breakdowns.national().andRace(/*includeTotal=*/ true))
     );
-    const responseWithTotal = brfssProvider.getData(
-      metricQueryWithTotal,
-      dataServerResponse
-    );
+
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse(
         [ASIAN_FINAL_ROW, WHITE_FINAL_ROW, TOTAL_FINAL_ROW],

@@ -1,25 +1,23 @@
 import { Breakdowns, ALL_RACES_DISPLAY_NAME } from "../Breakdowns";
-import { Dataset } from "../DatasetTypes";
 import { per100k } from "../datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
+import { getDataManager } from "../../utils/globals";
 
 class BrfssProvider extends VariableProvider {
   constructor() {
-    super(
-      "brfss_provider",
-      ["diabetes_count", "diabetes_per_100k", "copd_count", "copd_per_100k"],
-      ["brfss"]
-    );
+    super("brfss_provider", [
+      "diabetes_count",
+      "diabetes_per_100k",
+      "copd_count",
+      "copd_per_100k",
+    ]);
   }
 
-  getDataInternal(
-    metricQuery: MetricQuery,
-    datasets: Record<string, Dataset>
-  ): MetricQueryResponse {
-    const breakdowns = metricQuery.breakdowns;
-    const brfss = datasets["brfss"];
+  async getDataInternal(metricQuery: MetricQuery): Promise<MetricQueryResponse> {
+      const breakdowns = metricQuery.breakdowns;
+    const brfss = await getDataManager().loadDataset("brfss");
     let df = brfss.toDataFrame();
 
     if (breakdowns.geography === "national") {

@@ -1,10 +1,10 @@
 import { IDataFrame } from "data-forge";
 import { Breakdowns, DemographicBreakdownKey } from "../Breakdowns";
-import { Dataset } from "../DatasetTypes";
 import { applyToGroups, percent } from "../datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
+import { getDataManager } from "../../utils/globals";
 
 const standardizedRaces = [
   "American Indian and Alaska Native (Non-Hispanic)",
@@ -32,16 +32,7 @@ function createNationalTotal(dataFrame: IDataFrame, breakdown: string) {
 
 class AcsPopulationProvider extends VariableProvider {
   constructor() {
-    super(
-      "acs_pop_provider",
-      ["population", "population_pct"],
-      [
-        "acs_population-by_race_state_std",
-        "acs_population-by_race_county_std",
-        "acs_population-by_age_state",
-        "acs_population-by_sex_state",
-      ]
-    );
+    super("acs_pop_provider", ["population", "population_pct"]);
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
@@ -62,12 +53,9 @@ class AcsPopulationProvider extends VariableProvider {
     throw new Error("Not implemented");
   }
 
-  getDataInternal(
-    metricQuery: MetricQuery,
-    datasets: Record<string, Dataset>
-  ): MetricQueryResponse {
-    const breakdowns = metricQuery.breakdowns;
-    let df = this.getDataInternalWithoutPercents(datasets, breakdowns);
+  async getDataInternal(metricQuery: MetricQuery): Promise<MetricQueryResponse> {
+      const breakdowns = metricQuery.breakdowns;
+    let df = await this.getDataInternalWithoutPercents(breakdowns);
     const [fipsColumn, geoNameColumn] =
       breakdowns.geography === "county"
         ? ["county_fips", "county_name"]
@@ -112,18 +100,23 @@ class AcsPopulationProvider extends VariableProvider {
 
     df = this.removeUnwantedDemographicTotals(df, breakdowns);
 
-    // TODO - rename state_fips and county_fips to fips
+    // TODO - remove this when we stop getting this field from server
+    df = df.dropSeries(["ingestion_ts"]).resetIndex();
+
+    df = this.renameGeoColumns(df, breakdowns);
 
     return new MetricQueryResponse(df.toArray(), [
       this.getDatasetId(breakdowns),
     ]);
   }
 
-  private getDataInternalWithoutPercents(
-    datasets: Record<string, Dataset>,
+  private async getDataInternalWithoutPercents(
     breakdowns: Breakdowns
-  ): IDataFrame {
-    let acsDataFrame = datasets[this.getDatasetId(breakdowns)].toDataFrame();
+  ): Promise<IDataFrame> {
+    const acsDataset = await getDataManager().loadDataset(
+      this.getDatasetId(breakdowns)
+    );
+    let acsDataFrame = acsDataset.toDataFrame();
 
     // Exactly one breakdown should be enabled, identify it
     const enabledBreakdown = Object.values(

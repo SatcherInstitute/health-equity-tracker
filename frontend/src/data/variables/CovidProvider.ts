@@ -1,6 +1,5 @@
 import { DataFrame } from "data-forge";
 import { Breakdowns } from "../Breakdowns";
-import { Dataset } from "../DatasetTypes";
 import VariableProvider from "./VariableProvider";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
@@ -13,44 +12,35 @@ import {
   percent,
 } from "../datasetutils";
 import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
+import { getDataManager } from "../../utils/globals";
 
 class CovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
 
   constructor(acsProvider: AcsPopulationProvider) {
-    super(
-      "covid_provider",
-      [
-        "covid_cases",
-        "covid_deaths",
-        "covid_hosp",
-        "covid_cases_pct_of_geo",
-        "covid_deaths_pct_of_geo",
-        "covid_hosp_pct_of_geo",
-        "covid_deaths_per_100k",
-        "covid_cases_per_100k",
-        "covid_hosp_per_100k",
-      ],
-      ["covid_by_state_and_race", "covid_by_county_and_race"].concat(
-        acsProvider.datasetIds
-      )
-    );
+    super("covid_provider", [
+      "covid_cases",
+      "covid_deaths",
+      "covid_hosp",
+      "covid_cases_pct_of_geo",
+      "covid_deaths_pct_of_geo",
+      "covid_hosp_pct_of_geo",
+      "covid_deaths_per_100k",
+      "covid_cases_per_100k",
+      "covid_hosp_per_100k",
+    ]);
     this.acsProvider = acsProvider;
   }
 
-  getDataInternal(
-    metricQuery: MetricQuery,
-    datasets: Record<string, Dataset>
-  ): MetricQueryResponse {
+  async getDataInternal(metricQuery: MetricQuery): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
-    const covid_dataset =
+    const datasetId =
       breakdowns.geography === "county"
-        ? datasets["covid_by_county_and_race"]
-        : datasets["covid_by_state_and_race"];
-    let consumedDatasetIds =
-      breakdowns.geography === "county"
-        ? ["covid_by_county_and_race"]
-        : ["covid_by_state_and_race"];
+        ? "covid_by_county_and_race"
+        : "covid_by_state_and_race";
+    const covid_dataset = await getDataManager().loadDataset(datasetId);
+    let consumedDatasetIds = [datasetId];
+
     const fipsColumn =
       breakdowns.geography === "county" ? "county_fips" : "state_fips";
 
@@ -94,19 +84,17 @@ class CovidProvider extends VariableProvider {
       includeTotal: true,
     };
 
-    const acsMetricQueryResponse = this.acsProvider.getData(
-      new MetricQuery(["population", "population_pct"], acsBreakdowns),
-      datasets
-    );
+    const acsQueryResponse = await this.acsProvider.getData(
+        new MetricQuery(["population", "population_pct"], acsBreakdowns));
 
     consumedDatasetIds = consumedDatasetIds.concat(
-      acsMetricQueryResponse.consumedDatasetIds
+      acsQueryResponse.consumedDatasetIds
     );
 
-    if (acsMetricQueryResponse.dataIsMissing()) {
-      return acsMetricQueryResponse;
+    if (acsQueryResponse.dataIsMissing()) {
+      return acsQueryResponse;
     }
-    const acsPopulation = new DataFrame(acsMetricQueryResponse.data);
+    const acsPopulation = new DataFrame(acsQueryResponse.data);
 
     // TODO this is a weird hack - prefer left join but for some reason it's
     // causing issues.

@@ -33,7 +33,6 @@ export interface MapCardProps {
   metricConfig: MetricConfig;
   nonstandardizedRace: boolean /* TODO- ideally wouldn't go here, could be calculated based on dataset */;
   updateFipsCallback: (fips: Fips) => void;
-  enableFilter?: boolean;
   currentBreakdown: BreakdownVar | "all";
 }
 
@@ -114,16 +113,12 @@ function MapCardWithKey(props: MapCardProps) {
           setBreakdownFilter(breakdownValues[0]);
         }
 
-        let predicates: Array<(row: Row) => boolean> = [
+        const predicates: Array<(row: Row) => boolean> = [
           (row) => row.race_and_ethnicity !== "Not Hispanic or Latino",
           (row) => row[props.metricConfig.metricId] !== undefined,
           (row) => row[props.metricConfig.metricId] !== null,
+          (row: Row) => row[currentlyDisplayedBreakdown] === breakdownFilter,
         ];
-        if (props.enableFilter) {
-          predicates.push(
-            (row: Row) => row[currentlyDisplayedBreakdown] === breakdownFilter
-          );
-        }
 
         // Remove any row for which we find a filter that returns false.
         const mapData = queryResponse.data.filter((row: Row) =>
@@ -139,7 +134,7 @@ function MapCardWithKey(props: MapCardProps) {
               />
             </CardContent>
 
-            {props.enableFilter && !queryResponse.dataIsMissing() && (
+            {!queryResponse.dataIsMissing() && (
               <>
                 <Divider />
                 <CardContent
