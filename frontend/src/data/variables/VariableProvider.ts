@@ -8,6 +8,7 @@ import { MetricId } from "../MetricConfig";
 import { ProviderId } from "../VariableProviderMap";
 import { IDataFrame } from "data-forge";
 import { Fips } from "../../utils/madlib/Fips";
+import { TOTAL } from "../Constants";
 
 abstract class VariableProvider {
   readonly providerId: ProviderId;
@@ -81,7 +82,7 @@ abstract class VariableProvider {
           !demographicBreakdown.includeTotal
         ) {
           dataFrame = dataFrame
-            .where((row) => row[demographicBreakdown.columnName] !== "Total")
+            .where((row) => row[demographicBreakdown.columnName] !== TOTAL)
             .resetIndex();
         }
       }

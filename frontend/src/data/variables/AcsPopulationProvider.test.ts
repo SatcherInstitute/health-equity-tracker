@@ -4,13 +4,13 @@ import {
   getDataFetcher,
   resetCacheDebug,
 } from "../../utils/globals";
-import { Breakdowns, BreakdownVar } from "../Breakdowns";
+import { Breakdowns } from "../Breakdowns";
 import { MetricQuery, createMissingDataResponse } from "../MetricQuery";
 import { Fips } from "../../utils/madlib/Fips";
 import FakeMetadataMap from "../FakeMetadataMap";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import {
-  evaluateWithAndWithoutTotalInternal,
+  createWithAndWithoutTotalEvaluator,
   FipsSpec,
   CHATAM,
   DURHAM,
@@ -18,13 +18,17 @@ import {
   AL,
   MARIN,
   USA,
+} from "./TestUtils";
+import {
   WHITE,
   ASIAN,
   TOTAL,
   RACE,
   AGE,
   SEX,
-} from "./TestUtils";
+  MALE,
+  FEMALE,
+} from "../Constants";
 
 function countyRow(
   fips: FipsSpec,
@@ -72,31 +76,15 @@ function finalRow(
   };
 }
 
-async function evaluateWithAndWithoutTotal(
-  datasetId: string,
-  rawData: any[],
-  baseBreakdown: Breakdowns,
-  breakdownVar: BreakdownVar,
-  nonTotalRows: any[],
-  totalRows: any[]
-) {
-  const acsProvider = new AcsPopulationProvider();
-
-  return evaluateWithAndWithoutTotalInternal(
-    "population",
-    dataFetcher,
-    acsProvider,
-    datasetId,
-    rawData,
-    baseBreakdown,
-    breakdownVar,
-    nonTotalRows,
-    totalRows
-  );
-}
-
 autoInitGlobals();
+
 const dataFetcher = getDataFetcher() as FakeDataFetcher;
+
+const evaluateWithAndWithoutTotal = createWithAndWithoutTotalEvaluator(
+  "population",
+  dataFetcher,
+  new AcsPopulationProvider()
+);
 
 describe("AcsPopulationProvider", () => {
   beforeEach(() => {
@@ -235,7 +223,7 @@ describe("AcsPopulationProvider", () => {
 
     const D_0_9_FINAL = finalRow(DURHAM, AGE, "0-9", 5, 25);
     const D_10_19_FINAL = finalRow(DURHAM, AGE, "10-19", 15, 75);
-    const D_TOTAL_FINAL = finalRow(DURHAM, AGE, "Total", 20, 100);
+    const D_TOTAL_FINAL = finalRow(DURHAM, AGE, TOTAL, 20, 100);
 
     await evaluateWithAndWithoutTotal(
       "acs_population-by_age_county",
@@ -298,7 +286,7 @@ describe("AcsPopulationProvider", () => {
 
     const AGE_0_9_FINAL = finalRow(USA, AGE, "0-9", 30, 75);
     const AGE_10_19_FINAL = finalRow(USA, AGE, "10-19", 10, 25);
-    const AGE_TOTAL_FINAL = finalRow(USA, AGE, "Total", 40, 100);
+    const AGE_TOTAL_FINAL = finalRow(USA, AGE, TOTAL, 40, 100);
 
     await evaluateWithAndWithoutTotal(
       "acs_population-by_age_state",
@@ -312,14 +300,14 @@ describe("AcsPopulationProvider", () => {
 
   test("State and Gender Breakdown", async () => {
     const rawData = [
-      stateRow(AL, SEX, "male", 2),
-      stateRow(NC, SEX, "male", 15),
-      stateRow(NC, SEX, "female", 10),
+      stateRow(AL, SEX, MALE, 2),
+      stateRow(NC, SEX, MALE, 15),
+      stateRow(NC, SEX, FEMALE, 10),
     ];
 
-    const NC_MALE_FINAL = finalRow(NC, SEX, "male", 15, 60);
-    const NC_FEMALE_FINAL = finalRow(NC, SEX, "female", 10, 40);
-    const NC_TOTAL = finalRow(NC, SEX, "Total", 25, 100);
+    const NC_MALE_FINAL = finalRow(NC, SEX, MALE, 15, 60);
+    const NC_FEMALE_FINAL = finalRow(NC, SEX, FEMALE, 10, 40);
+    const NC_TOTAL = finalRow(NC, SEX, TOTAL, 25, 100);
 
     await evaluateWithAndWithoutTotal(
       "acs_population-by_sex_state",
@@ -333,14 +321,14 @@ describe("AcsPopulationProvider", () => {
 
   test("National and Gender Breakdown", async () => {
     const rawData = [
-      stateRow(AL, SEX, "Male", 15),
-      stateRow(NC, SEX, "Male", 15),
-      stateRow(NC, SEX, "Female", 10),
+      stateRow(AL, SEX, MALE, 15),
+      stateRow(NC, SEX, MALE, 15),
+      stateRow(NC, SEX, FEMALE, 10),
     ];
 
-    const MALE_FINAL = finalRow(USA, SEX, "Male", 30, 75);
-    const FEMALE_FINAL = finalRow(USA, SEX, "Female", 10, 25);
-    const TOTAL_FINAL = finalRow(USA, SEX, "Total", 40, 100);
+    const MALE_FINAL = finalRow(USA, SEX, MALE, 30, 75);
+    const FEMALE_FINAL = finalRow(USA, SEX, FEMALE, 10, 25);
+    const TOTAL_FINAL = finalRow(USA, SEX, TOTAL, 40, 100);
 
     await evaluateWithAndWithoutTotal(
       "acs_population-by_sex_state",
