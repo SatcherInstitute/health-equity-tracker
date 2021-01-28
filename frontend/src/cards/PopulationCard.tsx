@@ -13,6 +13,7 @@ import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import { MetricId, POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
+import { TOTAL } from "../data/Constants";
 
 export interface PopulationCardProps {
   fips: Fips;
@@ -35,7 +36,7 @@ export function PopulationCard(props: PopulationCardProps) {
     <CardWrapper queries={[raceQuery, ageQuery]} hideFooter={true}>
       {([raceQueryResponse, ageQueryResponse]) => {
         const totalPopulation = raceQueryResponse.data.find(
-          (r) => r.race_and_ethnicity === "Total"
+          (r) => r.race_and_ethnicity === TOTAL
         );
         const totalPopulationSize = totalPopulation
           ? totalPopulation["population"].toLocaleString("en")
@@ -90,7 +91,7 @@ export function PopulationCard(props: PopulationCardProps) {
                   </Grid>
                   {/* TODO- properly align these */}
                   {raceQueryResponse.data
-                    .filter((r) => r.race_and_ethnicity !== "Total")
+                    .filter((r) => r.race_and_ethnicity !== TOTAL)
                     .map((row) => (
                       <Grid item className={styles.PopulationMetric}>
                         <span>{row.race_and_ethnicity}</span>
@@ -107,7 +108,7 @@ export function PopulationCard(props: PopulationCardProps) {
                     </span>
                     <SimpleHorizontalBarChart
                       data={raceQueryResponse.data.filter(
-                        (r) => r.race_and_ethnicity !== "Total"
+                        (r) => r.race_and_ethnicity !== TOTAL
                       )}
                       metric={POPULATION_VARIABLE_CONFIG.metrics.pct_share}
                       breakdownVar="race_and_ethnicity"

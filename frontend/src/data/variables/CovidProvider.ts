@@ -13,6 +13,7 @@ import {
 } from "../datasetutils";
 import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 import { getDataManager } from "../../utils/globals";
+import { TOTAL } from "../Constants";
 
 class CovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -124,11 +125,11 @@ class CovidProvider extends VariableProvider {
     df = df.concat(unknowns).resetIndex();
 
     // TODO this is a bit on the slow side. Maybe a better way to do it, or
-    // pre-compute "total" column on server
+    // pre-compute "Total" row on server
     ["covid_cases", "covid_deaths", "covid_hosp"].forEach((col) => {
       df = applyToGroups(df, ["date", "fips"], (group) => {
         const total = group
-          .where((r) => r.race_and_ethnicity === "Total")
+          .where((r) => r.race_and_ethnicity === TOTAL)
           .first()[col];
         return group
           .generateSeries({

@@ -10,10 +10,11 @@ import {
   resetCacheDebug,
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
+import { FipsSpec, NC, AL, DURHAM, CHATAM, USA } from "./TestUtils";
+import { WHITE, TOTAL } from "../Constants";
 
 function covidAndAcsRows(
-  state_fips: string,
-  state_name: string,
+  fips: FipsSpec,
   race: string,
   cases: number | null,
   deaths: number | null,
@@ -22,8 +23,8 @@ function covidAndAcsRows(
 ) {
   return [
     {
-      state_fips: state_fips,
-      state_name: state_name,
+      state_fips: fips.code,
+      state_name: fips.name,
       Cases: cases,
       Deaths: deaths,
       Hosp: hosp,
@@ -31,8 +32,8 @@ function covidAndAcsRows(
       race_and_ethnicity: race,
     },
     {
-      state_fips: state_fips,
-      state_name: state_name,
+      state_fips: fips.code,
+      state_name: fips.name,
       race_and_ethnicity: race,
       population: population,
     },
@@ -40,8 +41,7 @@ function covidAndAcsRows(
 }
 
 function covidAndCountyAcsRows(
-  county_fips: string,
-  county_name: string,
+  fips: FipsSpec,
   race: string,
   cases: number | null,
   deaths: number | null,
@@ -50,8 +50,8 @@ function covidAndCountyAcsRows(
 ) {
   return [
     {
-      county_fips: county_fips,
-      county_name: county_name,
+      county_fips: fips.code,
+      county_name: fips.name,
       Cases: cases,
       Deaths: deaths,
       Hosp: hosp,
@@ -59,8 +59,8 @@ function covidAndCountyAcsRows(
       race_and_ethnicity: race,
     },
     {
-      county_fips: county_fips,
-      county_name: county_name,
+      county_fips: fips.code,
+      county_name: fips.name,
       race_and_ethnicity: race,
       population: population,
     },
@@ -82,18 +82,17 @@ describe("CovidProvider", () => {
     const covidProvider = new CovidProvider(acsProvider);
 
     const [CHATAM_WHITE_ROW, CHATAM_ACS_WHITE_ROW] = covidAndCountyAcsRows(
-      "37037",
-      "Chatam",
-      "White (Non-Hispanic)",
+      CHATAM,
+      WHITE,
       /*cases=*/ 10,
       /*hosp=*/ 1,
       /*death=*/ 5,
       /*population=*/ 2000
     );
     const CHATAM_WHITE_FINAL_ROW = {
-      fips: "37037",
-      fips_name: "Chatam",
-      race_and_ethnicity: "White (Non-Hispanic)",
+      fips: CHATAM.code,
+      fips_name: CHATAM.name,
+      race_and_ethnicity: WHITE,
       date: "2020-04-29",
       covid_cases: 10,
       covid_cases_per_100k: 500,
@@ -109,18 +108,17 @@ describe("CovidProvider", () => {
     };
 
     const [CHATAM_TOTAL_ROW, CHATAM_ACS_TOTAL_ROW] = covidAndCountyAcsRows(
-      "37037",
-      "Chatam",
-      "Total",
+      CHATAM,
+      TOTAL,
       /*cases=*/ 200,
       /*hosp=*/ 500,
       /*death=*/ 1000,
       /*population=*/ 100000
     );
     const CHATAM_TOTAL_FINAL_ROW = {
-      fips: "37037",
-      fips_name: "Chatam",
-      race_and_ethnicity: "Total",
+      fips: CHATAM.code,
+      fips_name: CHATAM.name,
+      race_and_ethnicity: TOTAL,
       date: "2020-04-29",
       covid_cases: 200,
       covid_cases_per_100k: 200,
@@ -137,51 +135,40 @@ describe("CovidProvider", () => {
 
     // Durham rows should be filtered out
     const [DURHAM_WHITE_ROW, DURHAM_ACS_WHITE_ROW] = covidAndCountyAcsRows(
-      "37063",
-      "Durham",
-      "White (Non-Hispanic)",
+      DURHAM,
+      WHITE,
       /*cases=*/ 10,
       /*hosp=*/ 1,
       /*death=*/ 5,
       /*population=*/ 2000
     );
     const [DURHAM_TOTAL_ROW, DURHAM_ACS_TOTAL_ROW] = covidAndCountyAcsRows(
-      "37063",
-      "Durham",
-      "Total",
+      DURHAM,
+      TOTAL,
       /*cases=*/ 10,
       /*hosp=*/ 1,
       /*death=*/ 5,
       /*population=*/ 2000
     );
 
-    const covidDatasetRows = [
+    dataFetcher.setFakeDatasetLoaded("covid_by_county_and_race", [
       CHATAM_TOTAL_ROW,
       CHATAM_WHITE_ROW,
       DURHAM_TOTAL_ROW,
       DURHAM_WHITE_ROW,
-    ];
-    const acsRaceRows = [
+    ]);
+    dataFetcher.setFakeDatasetLoaded("acs_population-by_race_county_std", [
       CHATAM_ACS_WHITE_ROW,
       CHATAM_ACS_TOTAL_ROW,
       DURHAM_ACS_TOTAL_ROW,
       DURHAM_ACS_WHITE_ROW,
-    ];
-
-    dataFetcher.setFakeDatasetLoaded(
-      "covid_by_county_and_race",
-      covidDatasetRows
-    );
-    dataFetcher.setFakeDatasetLoaded(
-      "acs_population-by_race_county_std",
-      acsRaceRows
-    );
+    ]);
 
     // Evaluate the response with requesting total field
     const responseWithTotal = await covidProvider.getData(
       new MetricQuery(
         "covid_cases",
-        Breakdowns.forFips(new Fips("37037")).andRace(
+        Breakdowns.forFips(new Fips(CHATAM.code)).andRace(
           /*includeTotal=*/ true,
           /*nonstandard=*/ true
         )
@@ -198,7 +185,7 @@ describe("CovidProvider", () => {
     const responseWithoutTotal = await covidProvider.getData(
       new MetricQuery(
         "covid_cases",
-        Breakdowns.forFips(new Fips("37037")).andRace(
+        Breakdowns.forFips(new Fips(CHATAM.code)).andRace(
           /*includeTotal=*/ false,
           /*nonstandard=*/ true
         )
@@ -217,18 +204,17 @@ describe("CovidProvider", () => {
     const covidProvider = new CovidProvider(acsProvider);
 
     const [NC_WHITE_ROW, NC_ACS_WHITE_ROW] = covidAndAcsRows(
-      "37",
-      "North Carolina",
-      "White (Non-Hispanic)",
+      NC,
+      WHITE,
       /*cases=*/ 10,
       /*hosp=*/ 1,
       /*death=*/ 5,
       /*population=*/ 2000
     );
     const NC_WHITE_FINAL_ROW = {
-      fips: "37",
-      fips_name: "North Carolina",
-      race_and_ethnicity: "White (Non-Hispanic)",
+      fips: NC.code,
+      fips_name: NC.name,
+      race_and_ethnicity: WHITE,
       date: "2020-04-29",
       covid_cases: 10,
       covid_cases_per_100k: 500,
@@ -244,18 +230,17 @@ describe("CovidProvider", () => {
     };
 
     const [NC_TOTAL_ROW, NC_ACS_TOTAL_ROW] = covidAndAcsRows(
-      "37",
-      "North Carolina",
-      "Total",
+      NC,
+      TOTAL,
       /*cases=*/ 200,
       /*hosp=*/ 500,
       /*death=*/ 1000,
       /*population=*/ 100000
     );
     const NC_TOTAL_FINAL_ROW = {
-      fips: "37",
-      fips_name: "North Carolina",
-      race_and_ethnicity: "Total",
+      fips: NC.code,
+      fips_name: NC.name,
+      race_and_ethnicity: TOTAL,
       date: "2020-04-29",
       covid_cases: 200,
       covid_cases_per_100k: 200,
@@ -272,51 +257,40 @@ describe("CovidProvider", () => {
 
     // Alabama rows should be filtered out
     const [AL_WHITE_ROW, AL_ACS_WHITE_ROW] = covidAndAcsRows(
-      "01",
-      "Alabama",
-      "White (Non-Hispanic)",
+      AL,
+      WHITE,
       /*cases=*/ 10,
       /*hosp=*/ 1,
       /*death=*/ 5,
       /*population=*/ 2000
     );
     const [AL_TOTAL_ROW, AL_ACS_TOTAL_ROW] = covidAndAcsRows(
-      "01",
-      "Alabama",
-      "Total",
+      AL,
+      TOTAL,
       /*cases=*/ 10,
       /*hosp=*/ 1,
       /*death=*/ 5,
       /*population=*/ 2000
     );
 
-    const covidDatasetRows = [
+    dataFetcher.setFakeDatasetLoaded("covid_by_state_and_race", [
       NC_TOTAL_ROW,
       NC_WHITE_ROW,
       AL_TOTAL_ROW,
       AL_WHITE_ROW,
-    ];
-    const acsRaceRows = [
+    ]);
+    dataFetcher.setFakeDatasetLoaded("acs_population-by_race_state_std", [
       NC_ACS_WHITE_ROW,
       NC_ACS_TOTAL_ROW,
       AL_ACS_TOTAL_ROW,
       AL_ACS_WHITE_ROW,
-    ];
-
-    dataFetcher.setFakeDatasetLoaded(
-      "covid_by_state_and_race",
-      covidDatasetRows
-    );
-    dataFetcher.setFakeDatasetLoaded(
-      "acs_population-by_race_state_std",
-      acsRaceRows
-    );
+    ]);
 
     // Evaluate the response with requesting total field
     const responseWithTotal = await covidProvider.getData(
       new MetricQuery(
         "covid_cases",
-        Breakdowns.forFips(new Fips("37")).andRace(
+        Breakdowns.forFips(new Fips(NC.code)).andRace(
           /*includeTotal=*/ true,
           /*nonstandard=*/ true
         )
@@ -333,7 +307,7 @@ describe("CovidProvider", () => {
     const responseWithoutTotal = await covidProvider.getData(
       new MetricQuery(
         "covid_cases",
-        Breakdowns.forFips(new Fips("37")).andRace(
+        Breakdowns.forFips(new Fips(NC.code)).andRace(
           /*includeTotal=*/ false,
           /*nonstandard=*/ true
         )
@@ -352,27 +326,25 @@ describe("CovidProvider", () => {
     const covidProvider = new CovidProvider(acsProvider);
 
     const [NC_TOTAL_ROW, NC_ACS_TOTAL_ROW] = covidAndAcsRows(
-      "37",
-      "North Carolina",
-      "Total",
+      NC,
+      TOTAL,
       /*cases=*/ 200,
       /*death=*/ 500,
       /*hosp=*/ 1000,
       /*population=*/ 100000
     );
     const [AL_TOTAL_ROW, AL_ACS_TOTAL_ROW] = covidAndAcsRows(
-      "01",
-      "Alabama",
-      "Total",
+      AL,
+      TOTAL,
       /*cases=*/ 100,
       /*death=*/ 200,
       /*hosp=*/ 1000,
       /*population=*/ 80000
     );
     const FINAL_TOTAL_ROW = {
-      fips: "00",
-      fips_name: "the United States",
-      race_and_ethnicity: "Total",
+      fips: USA.code,
+      fips_name: USA.name,
+      race_and_ethnicity: TOTAL,
       date: "2020-04-29",
       covid_cases: 300,
       covid_cases_per_100k: 167,
@@ -388,27 +360,25 @@ describe("CovidProvider", () => {
     };
 
     const [NC_WHITE_ROW, NC_ACS_WHITE_ROW] = covidAndAcsRows(
-      "37",
-      "North Carolina",
-      "White (Non-Hispanic)",
+      NC,
+      WHITE,
       /*cases=*/ 240,
       /*death=*/ 80,
       /*hosp=*/ 34,
       /*population=*/ 50000
     );
     const [AL_WHITE_ROW, AL_ACS_WHITE_ROW] = covidAndAcsRows(
-      "01",
-      "Alabama",
-      "White (Non-Hispanic)",
+      AL,
+      WHITE,
       /*cases=*/ 730,
       /*death=*/ 250,
       /*hosp=*/ 45,
       /*population=*/ 60000
     );
     const FINAL_WHITE_ROW = {
-      fips: "00",
-      fips_name: "the United States",
-      race_and_ethnicity: "White (Non-Hispanic)",
+      fips: USA.code,
+      fips_name: USA.name,
+      race_and_ethnicity: WHITE,
       date: "2020-04-29",
       covid_cases: 970,
       covid_cases_per_100k: 882,
@@ -423,27 +393,18 @@ describe("CovidProvider", () => {
       population_pct: 61.1,
     };
 
-    const covidDatasetRows = [
+    dataFetcher.setFakeDatasetLoaded("covid_by_state_and_race", [
       NC_TOTAL_ROW,
       NC_WHITE_ROW,
       AL_TOTAL_ROW,
       AL_WHITE_ROW,
-    ];
-    const acsRaceRows = [
+    ]);
+    dataFetcher.setFakeDatasetLoaded("acs_population-by_race_state_std", [
       NC_ACS_WHITE_ROW,
       NC_ACS_TOTAL_ROW,
       AL_ACS_TOTAL_ROW,
       AL_ACS_WHITE_ROW,
-    ];
-
-    dataFetcher.setFakeDatasetLoaded(
-      "covid_by_state_and_race",
-      covidDatasetRows
-    );
-    dataFetcher.setFakeDatasetLoaded(
-      "acs_population-by_race_state_std",
-      acsRaceRows
-    );
+    ]);
     // Evaluate the response with requesting total field
     const responseWithTotal = await covidProvider.getData(
       new MetricQuery(

@@ -4,6 +4,7 @@ import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 import { getDataManager } from "../../utils/globals";
+import { TOTAL } from "../Constants";
 
 class BrfssProvider extends VariableProvider {
   constructor() {
@@ -58,7 +59,7 @@ class BrfssProvider extends VariableProvider {
           diabetes_no: (series) => series.sum(),
           copd_count: (series) => series.sum(),
           copd_no: (series) => series.sum(),
-          race_and_ethnicity: (series) => "Total",
+          race_and_ethnicity: (series) => TOTAL,
         })
         .resetIndex();
       df = df.concat(total).resetIndex();
