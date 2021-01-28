@@ -5,13 +5,6 @@ import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 import { MetricId } from "../MetricConfig";
 
-export const WHITE = "White (Non-Hispanic)";
-export const ASIAN = "Asian (Non-Hispanic)";
-export const TOTAL = "Total";
-export const RACE = "race_and_ethnicity";
-export const AGE = "age";
-export const SEX = "sex";
-
 export interface FipsSpec {
   code: string;
   name: string;
@@ -41,38 +34,41 @@ export const USA: FipsSpec = {
   name: USA_DISPLAY_NAME,
 };
 
-export async function evaluateWithAndWithoutTotalInternal(
+export function createWithAndWithoutTotalEvaluator(
   metricId: MetricId,
   dataFetcher: FakeDataFetcher,
-  variableProvider: VariableProvider,
-  datasetId: string,
-  rawData: any[],
-  baseBreakdown: Breakdowns,
-  breakdownVar: BreakdownVar,
-  nonTotalRows: any[],
-  totalRows: any[]
+  variableProvider: VariableProvider
 ) {
-  dataFetcher.setFakeDatasetLoaded(datasetId, rawData);
+  return async (
+    datasetId: string,
+    rawData: any[],
+    baseBreakdown: Breakdowns,
+    breakdownVar: BreakdownVar,
+    nonTotalRows: any[],
+    totalRows: any[]
+  ) => {
+    dataFetcher.setFakeDatasetLoaded(datasetId, rawData);
 
-  // Evaluate the response with requesting total field
-  const responseWithTotal = await variableProvider.getData(
-    new MetricQuery(
-      metricId,
-      baseBreakdown.addBreakdown(breakdownVar, /*includeTotal=*/ true)
-    )
-  );
-  expect(responseWithTotal).toEqual(
-    new MetricQueryResponse(totalRows, [datasetId])
-  );
+    // Evaluate the response with requesting total field
+    const responseWithTotal = await variableProvider.getData(
+      new MetricQuery(
+        metricId,
+        baseBreakdown.addBreakdown(breakdownVar, /*includeTotal=*/ true)
+      )
+    );
+    expect(responseWithTotal).toEqual(
+      new MetricQueryResponse(totalRows, [datasetId])
+    );
 
-  // Evaluate the response without requesting total field
-  const responseWithoutTotal = await variableProvider.getData(
-    new MetricQuery(
-      metricId,
-      baseBreakdown.addBreakdown(breakdownVar, /*includeTotal=*/ false)
-    )
-  );
-  expect(responseWithoutTotal).toEqual(
-    new MetricQueryResponse(nonTotalRows, [datasetId])
-  );
+    // Evaluate the response without requesting total field
+    const responseWithoutTotal = await variableProvider.getData(
+      new MetricQuery(
+        metricId,
+        baseBreakdown.addBreakdown(breakdownVar, /*includeTotal=*/ false)
+      )
+    );
+    expect(responseWithoutTotal).toEqual(
+      new MetricQueryResponse(nonTotalRows, [datasetId])
+    );
+  };
 }

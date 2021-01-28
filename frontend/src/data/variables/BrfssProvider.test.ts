@@ -9,16 +9,13 @@ import {
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import {
-  evaluateWithAndWithoutTotalInternal,
+  createWithAndWithoutTotalEvaluator,
   FipsSpec,
   NC,
   AL,
   USA,
-  WHITE,
-  ASIAN,
-  TOTAL,
-  RACE,
-} from "./TestUtils";
+} from "./testUtils";
+import { WHITE, ASIAN, TOTAL, RACE } from "../Constants";
 
 autoInitGlobals();
 const dataFetcher = getDataFetcher() as FakeDataFetcher;
@@ -67,28 +64,11 @@ function stateRow(
   };
 }
 
-async function evaluateWithAndWithoutTotal(
-  datasetId: string,
-  rawData: any[],
-  baseBreakdown: Breakdowns,
-  breakdownVar: BreakdownVar,
-  nonTotalRows: any[],
-  totalRows: any[]
-) {
-  const brfssProvider = new BrfssProvider();
-
-  return evaluateWithAndWithoutTotalInternal(
-    "diabetes_count",
-    dataFetcher,
-    brfssProvider,
-    datasetId,
-    rawData,
-    baseBreakdown,
-    breakdownVar,
-    nonTotalRows,
-    totalRows
-  );
-}
+const evaluateWithAndWithoutTotal = createWithAndWithoutTotalEvaluator(
+  "diabetes_count",
+  dataFetcher,
+  new BrfssProvider()
+);
 
 describe("BrfssProvider", () => {
   beforeEach(() => {

@@ -5,6 +5,7 @@ import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 import { getDataManager } from "../../utils/globals";
+import { TOTAL } from "../Constants";
 
 const standardizedRaces = [
   "American Indian and Alaska Native (Non-Hispanic)",
@@ -15,7 +16,7 @@ const standardizedRaces = [
   "Some other race (Non-Hispanic)",
   "Two or more races (Non-Hispanic)",
   "White (Non-Hispanic)",
-  "Total",
+  TOTAL,
 ];
 
 function createNationalTotal(dataFrame: IDataFrame, breakdown: string) {
@@ -81,7 +82,7 @@ class AcsPopulationProvider extends VariableProvider {
             df.pivot([fipsColumn, geoNameColumn], {
               population: (series) => series.sum(),
               population_pct: (series) => 100,
-              [breakdownName]: (series) => "Total",
+              [breakdownName]: (series) => TOTAL,
             })
           )
           .resetIndex();
@@ -96,7 +97,7 @@ class AcsPopulationProvider extends VariableProvider {
 
     df = applyToGroups(df, [fipsColumn], (group) => {
       let totalPopulation = group
-        .where((r: any) => r[enabledBreakdown.columnName] === "Total")
+        .where((r: any) => r[enabledBreakdown.columnName] === TOTAL)
         .first()["population"];
       return group.generateSeries({
         population_pct: (row) => percent(row.population, totalPopulation),

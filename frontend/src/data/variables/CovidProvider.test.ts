@@ -10,16 +10,8 @@ import {
   resetCacheDebug,
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
-import {
-  FipsSpec,
-  NC,
-  AL,
-  DURHAM,
-  CHATAM,
-  USA,
-  WHITE,
-  TOTAL,
-} from "./TestUtils";
+import { FipsSpec, NC, AL, DURHAM, CHATAM, USA } from "./TestUtils";
+import { WHITE, TOTAL } from "../Constants";
 
 function covidAndAcsRows(
   fips: FipsSpec,
