@@ -110,34 +110,34 @@ describe("BrfssProvider", () => {
       NC,
       RACE,
       ASIAN,
-      100,
-      900,
-      10000,
-      400,
-      600,
-      40000
+      /*copd_count=*/ 100,
+      /*copd_no=*/ 900,
+      /*copd_per_100k=*/ 10000,
+      /*diabetes_count=*/ 400,
+      /*diabetes_no=*/ 600,
+      /*diabetes_per_100k=*/ 40000
     );
     const NC_WHITE_FINAL = finalRow(
       NC,
       RACE,
       WHITE,
-      500,
-      500,
-      50000,
-      600,
-      400,
-      60000
+      /*copd_count=*/ 500,
+      /*copd_no=*/ 500,
+      /*copd_per_100k=*/ 50000,
+      /*diabetes_count=*/ 600,
+      /*diabetes_no=*/ 400,
+      /*diabetes_per_100k=*/ 60000
     );
     const NC_TOTAL_FINAL = finalRow(
       NC,
       RACE,
       TOTAL,
-      600,
-      1400,
-      30000,
-      1000,
-      1000,
-      50000
+      /*copd_count=*/ 600,
+      /*copd_no=*/ 1400,
+      /*copd_per_100k=*/ 30000,
+      /*diabetes_count=*/ 1000,
+      /*diabetes_no=*/ 1000,
+      /*diabetes_per_100k=*/ 50000
     );
 
     evaluateWithAndWithoutTotal(
@@ -161,34 +161,34 @@ describe("BrfssProvider", () => {
       USA,
       RACE,
       ASIAN,
-      200,
-      1800,
-      10000,
-      600,
-      1400,
-      30000
+      /*copd_count=*/ 200,
+      /*copd_no=*/ 1800,
+      /*copd_per_100k=*/ 10000,
+      /*diabetes_count=*/ 600,
+      /*diabetes_no=*/ 1400,
+      /*diabetes_per_100k=*/ 30000
     );
     const WHITE_FINAL = finalRow(
       USA,
       RACE,
       WHITE,
-      500,
-      500,
-      50000,
-      600,
-      400,
-      60000
+      /*copd_count=*/ 500,
+      /*copd_no=*/ 500,
+      /*copd_per_100k=*/ 50000,
+      /*diabetes_count=*/ 600,
+      /*diabetes_no=*/ 400,
+      /*diabetes_per_100k=*/ 60000
     );
     const TOTAL_FINAL = finalRow(
       USA,
       RACE,
       TOTAL,
-      700,
-      2300,
-      23333,
-      1200,
-      1800,
-      40000
+      /*copd_count=*/ 700,
+      /*copd_no=*/ 2300,
+      /*copd_per_100k=*/ 23333,
+      /*diabetes_count=*/ 1200,
+      /*diabetes_no=*/ 1800,
+      /*diabetes_per_100k=*/ 40000
     );
 
     evaluateWithAndWithoutTotal(

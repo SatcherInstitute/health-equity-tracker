@@ -11,7 +11,6 @@ import {
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import {
-  evaluateWithAndWithoutTotalInternal,
   FipsSpec,
   NC,
   AL,
@@ -74,34 +73,6 @@ function covidAndCountyAcsRows(
       population: population,
     },
   ];
-}
-
-async function evaluateWithAndWithoutTotal(
-  acsDatasetId: string,
-  acsData: any[],
-  covidDatasetId: string,
-  covidData: any[],
-  baseBreakdown: Breakdowns,
-  breakdownVar: BreakdownVar,
-  nonTotalRows: any[],
-  totalRows: any[]
-) {
-  const acsProvider = new AcsPopulationProvider();
-  const covidProvider = new CovidProvider(acsProvider);
-
-  dataFetcher.setFakeDatasetLoaded(acsDatasetId, acsData);
-
-  return evaluateWithAndWithoutTotalInternal(
-    "covid_cases",
-    dataFetcher,
-    covidProvider,
-    covidDatasetId,
-    covidData,
-    baseBreakdown,
-    breakdownVar,
-    nonTotalRows,
-    totalRows
-  );
 }
 
 autoInitGlobals();
