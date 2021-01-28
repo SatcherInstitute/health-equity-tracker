@@ -5,7 +5,11 @@ import {
   resetCacheDebug,
 } from "../../utils/globals";
 import { Breakdowns, BreakdownVar } from "../Breakdowns";
-import { MetricQueryResponse, createMissingDataResponse } from "../MetricQuery";
+import {
+  MetricQuery,
+  MetricQueryResponse,
+  createMissingDataResponse,
+} from "../MetricQuery";
 import { Fips, USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import FakeMetadataMap from "../FakeMetadataMap";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
@@ -106,7 +110,10 @@ async function evaluate(
 
   // Evaluate the response with requesting total field
   const responseWithTotal = await acsProvider.getData(
-    baseBreakdown.addBreakdown(breakdownVar, /*includeTotal=*/ true)
+    new MetricQuery(
+      "population",
+      baseBreakdown.addBreakdown(breakdownVar, /*includeTotal=*/ true)
+    )
   );
   expect(responseWithTotal).toEqual(
     new MetricQueryResponse(totalRows, [datasetId])
@@ -114,7 +121,10 @@ async function evaluate(
 
   // Evaluate the response without requesting total field
   const responseWithoutTotal = await acsProvider.getData(
-    baseBreakdown.addBreakdown(breakdownVar, /*includeTotal=*/ false)
+    new MetricQuery(
+      "population",
+      baseBreakdown.addBreakdown(breakdownVar, /*includeTotal=*/ false)
+    )
   );
   expect(responseWithoutTotal).toEqual(
     new MetricQueryResponse(nonTotalRows, [datasetId])
@@ -134,7 +144,9 @@ describe("AcsPopulationProvider", () => {
   test("Invalid Breakdown", async () => {
     const acsProvider = new AcsPopulationProvider();
 
-    const response = await acsProvider.getData(Breakdowns.national());
+    const response = await acsProvider.getData(
+      new MetricQuery("population", Breakdowns.national())
+    );
     expect(response).toEqual(
       createMissingDataResponse(
         "Breakdowns not supported for provider acs_pop_provider: geography:national"

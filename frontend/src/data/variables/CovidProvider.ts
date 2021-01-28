@@ -11,7 +11,7 @@ import {
   per100k,
   percent,
 } from "../datasetutils";
-import { MetricQueryResponse } from "../MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 import { getDataManager } from "../../utils/globals";
 
 class CovidProvider extends VariableProvider {
@@ -32,7 +32,11 @@ class CovidProvider extends VariableProvider {
     this.acsProvider = acsProvider;
   }
 
-  async getDataInternal(breakdowns: Breakdowns): Promise<MetricQueryResponse> {
+  // TODO - only return requested metric queries, remove unrequested columns
+  async getDataInternal(
+    metricQuery: MetricQuery
+  ): Promise<MetricQueryResponse> {
+    const breakdowns = metricQuery.breakdowns;
     const datasetId =
       breakdowns.geography === "county"
         ? "covid_by_county_and_race"
@@ -82,7 +86,9 @@ class CovidProvider extends VariableProvider {
       includeTotal: true,
     };
 
-    const acsQueryResponse = await this.acsProvider.getData(acsBreakdowns);
+    const acsQueryResponse = await this.acsProvider.getData(
+      new MetricQuery(["population", "population_pct"], acsBreakdowns)
+    );
 
     consumedDatasetIds = consumedDatasetIds.concat(
       acsQueryResponse.consumedDatasetIds

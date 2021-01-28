@@ -3,7 +3,7 @@ import { Breakdowns, DemographicBreakdownKey } from "../Breakdowns";
 import { applyToGroups, percent } from "../datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
-import { MetricQueryResponse } from "../MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 import { getDataManager } from "../../utils/globals";
 
 const standardizedRaces = [
@@ -54,7 +54,11 @@ class AcsPopulationProvider extends VariableProvider {
     throw new Error("Not implemented");
   }
 
-  async getDataInternal(breakdowns: Breakdowns): Promise<MetricQueryResponse> {
+  // TODO - only return requested metric queries, remove unrequested columns
+  async getDataInternal(
+    metricQuery: MetricQuery
+  ): Promise<MetricQueryResponse> {
+    const breakdowns = metricQuery.breakdowns;
     let df = await this.getDataInternalWithoutPercents(breakdowns);
     const [fipsColumn, geoNameColumn] =
       breakdowns.geography === "county"

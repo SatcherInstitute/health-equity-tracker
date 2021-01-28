@@ -2,7 +2,7 @@ import { Breakdowns, ALL_RACES_DISPLAY_NAME } from "../Breakdowns";
 import { per100k } from "../datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
-import { MetricQueryResponse } from "../MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 import { getDataManager } from "../../utils/globals";
 
 class BrfssProvider extends VariableProvider {
@@ -15,7 +15,11 @@ class BrfssProvider extends VariableProvider {
     ]);
   }
 
-  async getDataInternal(breakdowns: Breakdowns): Promise<MetricQueryResponse> {
+  // TODO - only return requested metric queries, remove unrequested columns
+  async getDataInternal(
+    metricQuery: MetricQuery
+  ): Promise<MetricQueryResponse> {
+    const breakdowns = metricQuery.breakdowns;
     const brfss = await getDataManager().loadDataset("brfss");
     let df = brfss.toDataFrame();
 
