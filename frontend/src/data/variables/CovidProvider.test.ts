@@ -12,6 +12,7 @@ import {
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import { FipsSpec, NC, AL, DURHAM, CHATAM, USA } from "./TestUtils";
 import { WHITE, TOTAL } from "../Constants";
+import { MetricId } from "../MetricConfig";
 
 function covidAndAcsRows(
   fips: FipsSpec,
@@ -66,6 +67,12 @@ function covidAndCountyAcsRows(
     },
   ];
 }
+
+const METRIC_IDS: MetricId[] = [
+  "covid_cases",
+  "covid_cases_reporting_population",
+  "covid_cases_reporting_population_pct",
+];
 
 autoInitGlobals();
 const dataFetcher = getDataFetcher() as FakeDataFetcher;
@@ -167,11 +174,7 @@ describe("CovidProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = await covidProvider.getData(
       new MetricQuery(
-        [
-          "covid_cases",
-          "covid_cases_reporting_population",
-          "covid_cases_reporting_population_pct",
-        ],
+        METRIC_IDS,
         Breakdowns.forFips(new Fips(CHATAM.code)).andRace(
           /*includeTotal=*/ true,
           /*nonstandard=*/ true
@@ -188,11 +191,7 @@ describe("CovidProvider", () => {
     // Evaluate the response without requesting total field
     const responseWithoutTotal = await covidProvider.getData(
       new MetricQuery(
-        [
-          "covid_cases",
-          "covid_cases_reporting_population",
-          "covid_cases_reporting_population_pct",
-        ],
+        METRIC_IDS,
         Breakdowns.forFips(new Fips(CHATAM.code)).andRace(
           /*includeTotal=*/ false,
           /*nonstandard=*/ true
@@ -297,11 +296,7 @@ describe("CovidProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = await covidProvider.getData(
       new MetricQuery(
-        [
-          "covid_cases",
-          "covid_cases_reporting_population",
-          "covid_cases_reporting_population_pct",
-        ],
+        METRIC_IDS,
         Breakdowns.forFips(new Fips(NC.code)).andRace(
           /*includeTotal=*/ true,
           /*nonstandard=*/ true
@@ -318,11 +313,7 @@ describe("CovidProvider", () => {
     // Evaluate the response without requesting total field
     const responseWithoutTotal = await covidProvider.getData(
       new MetricQuery(
-        [
-          "covid_cases",
-          "covid_cases_reporting_population",
-          "covid_cases_reporting_population_pct",
-        ],
+        METRIC_IDS,
         Breakdowns.forFips(new Fips(NC.code)).andRace(
           /*includeTotal=*/ false,
           /*nonstandard=*/ true
@@ -424,11 +415,7 @@ describe("CovidProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = await covidProvider.getData(
       new MetricQuery(
-        [
-          "covid_cases",
-          "covid_cases_reporting_population",
-          "covid_cases_reporting_population_pct",
-        ],
+        METRIC_IDS,
         Breakdowns.national().andRace(
           /*includeTotal=*/ true,
           /*nonstandard=*/ true
@@ -445,11 +432,7 @@ describe("CovidProvider", () => {
     // Evaluate the response without requesting total field
     const responseWithoutTotal = await covidProvider.getData(
       new MetricQuery(
-        [
-          "covid_cases",
-          "covid_cases_reporting_population",
-          "covid_cases_reporting_population_pct",
-        ],
+        METRIC_IDS,
         Breakdowns.national().andRace(
           /*includeTotal=*/ false,
           /*nonstandard=*/ true
