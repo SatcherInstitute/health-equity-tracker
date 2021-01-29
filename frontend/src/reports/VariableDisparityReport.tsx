@@ -14,7 +14,6 @@ import {
   METRIC_CONFIG,
   VariableConfig,
   MetricConfig,
-  POPULATION_VARIABLE_CONFIG,
 } from "../data/MetricConfig";
 import styles from "./Report.module.scss";
 
@@ -51,14 +50,13 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
   }
   if (variableConfig && variableConfig.metrics["pct_share"]) {
     fields.push(variableConfig.metrics["pct_share"]);
+    if (variableConfig.metrics["pct_share"].populationComparisonMetric) {
+      fields.push(
+        variableConfig.metrics["pct_share"].populationComparisonMetric
+      );
+    }
   }
-  const tableFields: MetricConfig[] = variableConfig
-    ? [
-        ...fields,
-        POPULATION_VARIABLE_CONFIG.metrics.count,
-        POPULATION_VARIABLE_CONFIG.metrics.pct_share,
-      ]
-    : [];
+  const tableFields: MetricConfig[] = variableConfig ? [...fields] : [];
 
   return (
     <Grid container xs={12} spacing={1} justify="center">

@@ -6,3 +6,5 @@ export const TOTAL = "Total";
 export const RACE = "race_and_ethnicity";
 export const AGE = "age";
 export const SEX = "sex";
+export const MALE = "male";
+export const FEMALE = "female";

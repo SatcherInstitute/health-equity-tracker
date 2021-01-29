@@ -10,7 +10,7 @@ import {
   resetCacheDebug,
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
-import { FipsSpec, NC, AL, DURHAM, CHATAM, USA } from "./testUtils";
+import { FipsSpec, NC, AL, DURHAM, CHATAM, USA } from "./TestUtils";
 import { WHITE, TOTAL } from "../Constants";
 
 function covidAndAcsRows(
@@ -103,8 +103,8 @@ describe("CovidProvider", () => {
       covid_hosp: 5,
       covid_hosp_per_100k: 250,
       covid_hosp_pct_of_geo: 0.5,
-      population: 2000,
-      population_pct: 2,
+      covid_cases_reporting_population: 2000,
+      covid_cases_reporting_population_pct: 2,
     };
 
     const [CHATAM_TOTAL_ROW, CHATAM_ACS_TOTAL_ROW] = covidAndCountyAcsRows(
@@ -129,8 +129,8 @@ describe("CovidProvider", () => {
       covid_hosp: 1000,
       covid_hosp_per_100k: 1000,
       covid_hosp_pct_of_geo: 100,
-      population: 100000,
-      population_pct: 100,
+      covid_cases_reporting_population: 100000,
+      covid_cases_reporting_population_pct: 100,
     };
 
     // Durham rows should be filtered out
@@ -167,7 +167,11 @@ describe("CovidProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = await covidProvider.getData(
       new MetricQuery(
-        "covid_cases",
+        [
+          "covid_cases",
+          "covid_cases_reporting_population",
+          "covid_cases_reporting_population_pct",
+        ],
         Breakdowns.forFips(new Fips(CHATAM.code)).andRace(
           /*includeTotal=*/ true,
           /*nonstandard=*/ true
@@ -184,7 +188,11 @@ describe("CovidProvider", () => {
     // Evaluate the response without requesting total field
     const responseWithoutTotal = await covidProvider.getData(
       new MetricQuery(
-        "covid_cases",
+        [
+          "covid_cases",
+          "covid_cases_reporting_population",
+          "covid_cases_reporting_population_pct",
+        ],
         Breakdowns.forFips(new Fips(CHATAM.code)).andRace(
           /*includeTotal=*/ false,
           /*nonstandard=*/ true
@@ -225,8 +233,8 @@ describe("CovidProvider", () => {
       covid_hosp: 5,
       covid_hosp_per_100k: 250,
       covid_hosp_pct_of_geo: 0.5,
-      population: 2000,
-      population_pct: 2,
+      covid_cases_reporting_population: 2000,
+      covid_cases_reporting_population_pct: 2,
     };
 
     const [NC_TOTAL_ROW, NC_ACS_TOTAL_ROW] = covidAndAcsRows(
@@ -251,8 +259,8 @@ describe("CovidProvider", () => {
       covid_hosp: 1000,
       covid_hosp_per_100k: 1000,
       covid_hosp_pct_of_geo: 100,
-      population: 100000,
-      population_pct: 100,
+      covid_cases_reporting_population: 100000,
+      covid_cases_reporting_population_pct: 100,
     };
 
     // Alabama rows should be filtered out
@@ -289,7 +297,11 @@ describe("CovidProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = await covidProvider.getData(
       new MetricQuery(
-        "covid_cases",
+        [
+          "covid_cases",
+          "covid_cases_reporting_population",
+          "covid_cases_reporting_population_pct",
+        ],
         Breakdowns.forFips(new Fips(NC.code)).andRace(
           /*includeTotal=*/ true,
           /*nonstandard=*/ true
@@ -306,7 +318,11 @@ describe("CovidProvider", () => {
     // Evaluate the response without requesting total field
     const responseWithoutTotal = await covidProvider.getData(
       new MetricQuery(
-        "covid_cases",
+        [
+          "covid_cases",
+          "covid_cases_reporting_population",
+          "covid_cases_reporting_population_pct",
+        ],
         Breakdowns.forFips(new Fips(NC.code)).andRace(
           /*includeTotal=*/ false,
           /*nonstandard=*/ true
@@ -355,8 +371,8 @@ describe("CovidProvider", () => {
       covid_hosp: 2000,
       covid_hosp_per_100k: 1111,
       covid_hosp_pct_of_geo: 100,
-      population: 180000,
-      population_pct: 100,
+      covid_cases_reporting_population: 180000,
+      covid_cases_reporting_population_pct: 100,
     };
 
     const [NC_WHITE_ROW, NC_ACS_WHITE_ROW] = covidAndAcsRows(
@@ -389,8 +405,8 @@ describe("CovidProvider", () => {
       covid_hosp: 79,
       covid_hosp_per_100k: 72,
       covid_hosp_pct_of_geo: 4,
-      population: 110000,
-      population_pct: 61.1,
+      covid_cases_reporting_population: 110000,
+      covid_cases_reporting_population_pct: 61.1,
     };
 
     dataFetcher.setFakeDatasetLoaded("covid_by_state_and_race", [
@@ -408,7 +424,11 @@ describe("CovidProvider", () => {
     // Evaluate the response with requesting total field
     const responseWithTotal = await covidProvider.getData(
       new MetricQuery(
-        "covid_cases",
+        [
+          "covid_cases",
+          "covid_cases_reporting_population",
+          "covid_cases_reporting_population_pct",
+        ],
         Breakdowns.national().andRace(
           /*includeTotal=*/ true,
           /*nonstandard=*/ true
@@ -425,7 +445,11 @@ describe("CovidProvider", () => {
     // Evaluate the response without requesting total field
     const responseWithoutTotal = await covidProvider.getData(
       new MetricQuery(
-        "covid_cases",
+        [
+          "covid_cases",
+          "covid_cases_reporting_population",
+          "covid_cases_reporting_population_pct",
+        ],
         Breakdowns.national().andRace(
           /*includeTotal=*/ false,
           /*nonstandard=*/ true

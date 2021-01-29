@@ -14,7 +14,7 @@ import {
   NC,
   AL,
   USA,
-} from "./testUtils";
+} from "./TestUtils";
 import { WHITE, ASIAN, TOTAL, RACE } from "../Constants";
 
 autoInitGlobals();

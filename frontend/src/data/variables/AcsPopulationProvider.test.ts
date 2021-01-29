@@ -18,7 +18,7 @@ import {
   AL,
   MARIN,
   USA,
-} from "./testUtils";
+} from "./TestUtils";
 import {
   WHITE,
   ASIAN,
