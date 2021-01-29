@@ -22,10 +22,8 @@ const standardizedRaces = [
 function createNationalTotal(dataFrame: IDataFrame, breakdown: string) {
   return dataFrame
     .pivot(breakdown, {
-      // TODO for the purpose of charts, rename state_name to something more
-      // general so we can compare counties with states with the nation.
-      state_fips: (series) => USA_FIPS,
-      state_name: (series) => USA_DISPLAY_NAME,
+      fips: (series) => USA_FIPS,
+      fips_name: (series) => USA_DISPLAY_NAME,
       population: (series) => series.sum(),
     })
     .resetIndex();
@@ -61,13 +59,6 @@ class AcsPopulationProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
     let df = await this.getDataInternalWithoutPercents(breakdowns);
-    const [fipsColumn, geoNameColumn] =
-      breakdowns.geography === "county"
-        ? ["county_fips", "county_name"]
-        : ["state_fips", "state_name"];
-
-    // If requested, filter geography by state or county level
-    df = this.filterByGeo(df, breakdowns);
 
     // Calculate totals where dataset doesn't provide it
     // TODO- this should be removed when Totals come from the Data Server
@@ -79,7 +70,7 @@ class AcsPopulationProvider extends VariableProvider {
       ) {
         df = df
           .concat(
-            df.pivot([fipsColumn, geoNameColumn], {
+            df.pivot(["fips", "fips_name"], {
               population: (series) => series.sum(),
               population_pct: (series) => 100,
               [breakdownName]: (series) => TOTAL,
@@ -91,13 +82,11 @@ class AcsPopulationProvider extends VariableProvider {
 
     // Calculate population_pct based on total for breakdown
     // Exactly one breakdown should be enabled per allowsBreakdowns()
-    const enabledBreakdown = Object.values(
-      breakdowns.demographicBreakdowns
-    ).find((breakdown) => breakdown.enabled)!;
-
-    df = applyToGroups(df, [fipsColumn], (group) => {
+    const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
+      .columnName;
+    df = applyToGroups(df, ["fips"], (group) => {
       let totalPopulation = group
-        .where((r: any) => r[enabledBreakdown.columnName] === TOTAL)
+        .where((r: any) => r[breakdownColumnName] === TOTAL)
         .first()["population"];
       return group.generateSeries({
         population_pct: (row) => percent(row.population, totalPopulation),
@@ -108,8 +97,6 @@ class AcsPopulationProvider extends VariableProvider {
 
     // TODO - remove this when we stop getting this field from server
     df = df.dropSeries(["ingestion_ts"]).resetIndex();
-
-    df = this.renameGeoColumns(df, breakdowns);
 
     return new MetricQueryResponse(df.toArray(), [
       this.getDatasetId(breakdowns),
@@ -124,6 +111,11 @@ class AcsPopulationProvider extends VariableProvider {
     );
     let acsDataFrame = acsDataset.toDataFrame();
 
+    // If requested, filter geography by state or county level
+    // We apply the geo filter right away to reduce subsequent calculation times
+    acsDataFrame = this.filterByGeo(acsDataFrame, breakdowns);
+    acsDataFrame = this.renameGeoColumns(acsDataFrame, breakdowns);
+
     // Race must be special cased to standardize the data before proceeding
     if (breakdowns.hasOnlyRace()) {
       acsDataFrame = acsDataFrame.where((row) =>
@@ -131,13 +123,11 @@ class AcsPopulationProvider extends VariableProvider {
       );
     }
 
-    // Exactly one breakdown should be enabled, identify it
-    const enabledBreakdown = Object.values(
-      breakdowns.demographicBreakdowns
-    ).find((breakdown) => breakdown.enabled)!;
-
     return breakdowns.geography === "national"
-      ? createNationalTotal(acsDataFrame, enabledBreakdown.columnName)
+      ? createNationalTotal(
+          acsDataFrame,
+          breakdowns.getSoleDemographicBreakdown().columnName
+        )
       : acsDataFrame;
   }
 

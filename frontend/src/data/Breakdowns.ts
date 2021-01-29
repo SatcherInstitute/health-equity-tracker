@@ -7,14 +7,12 @@ export type GeographicBreakdown = "national" | "state" | "county";
 // TODO flesh this out - would be nice to enforce more type-checking of these
 // column names throughout the codebase, for example with a StandardizedRow type
 // or an enum/constants that can be referenced.
-// TODO do we want to generalize state_fips to just fips so that the same column
-// can be used across different geography levels?
 export type BreakdownVar =
   | "race_and_ethnicity"
   | "age"
   | "sex"
   | "date"
-  | "state_fips";
+  | "fips";
 
 export type DemographicBreakdownKey =
   | "race"
@@ -27,7 +25,7 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
   age: "Age",
   sex: "Sex",
   date: "Date",
-  state_fips: "State FIPS Code",
+  fips: "FIPS Code",
 };
 
 interface DemographicBreakdown {
@@ -204,6 +202,16 @@ export class Breakdowns {
     return this.demographicBreakdownCount() === 1;
   }
 
+  getSoleDemographicBreakdown(): DemographicBreakdown {
+    if (!this.hasExactlyOneDemographic()) {
+      throw new Error("Invalid assertion of only one demographic breakdown");
+    }
+
+    return Object.values(this.demographicBreakdowns).find(
+      (breakdown) => breakdown.enabled
+    )!;
+  }
+
   hasOnlyRace() {
     return (
       this.hasExactlyOneDemographic() && this.demographicBreakdowns.race.enabled
@@ -236,7 +244,7 @@ export class Breakdowns {
   }
 
   getJoinColumns(): BreakdownVar[] {
-    const joinCols: BreakdownVar[] = ["state_fips"];
+    const joinCols: BreakdownVar[] = ["fips"];
     Object.entries(this.demographicBreakdowns).forEach(
       ([key, demographicBreakdown]) => {
         if (demographicBreakdown.enabled) {
