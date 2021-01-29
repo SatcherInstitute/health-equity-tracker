@@ -81,16 +81,16 @@ app.use('/api', apiProxy);
 // auth middleware must be installed before setting up routes so it applies
 // to the whole site.
 if (!getBooleanEnvVar("DISABLE_BASIC_AUTH")) {
-    const username = assertEnvVar("BASIC_AUTH_USERNAME");
-    const password = assertEnvVar("BASIC_AUTH_PASSWORD");
-    app.use(basicAuth({
-      // Temporary values until we can use Github Secrets. Also needs to be set up
-      // so that it's disabled for production but enabled for the test site.
-      users: { [username]: password },
-      challenge: true,
-      realm: 'Health Equity Tracker',
-    }));
-  }
+  const username = assertEnvVar("BASIC_AUTH_USERNAME");
+  const password = assertEnvVar("BASIC_AUTH_PASSWORD");
+  app.use(basicAuth({
+    // Temporary values until we can use Github Secrets. Also needs to be set up
+    // so that it's disabled for production but enabled for the test site.
+    users: { [username]: password },
+    challenge: true,
+    realm: 'Health Equity Tracker',
+  }));
+}
 
 // Serve static files from the build directory.
 app.use(express.static(path.join(__dirname, 'build')));
