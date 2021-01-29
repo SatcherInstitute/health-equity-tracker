@@ -40,7 +40,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
   // TODO Remove hard coded fail safe value
   const [variableConfig, setVariableConfig] = useState<VariableConfig | null>(
     Object.keys(METRIC_CONFIG).includes(props.dropdownVarId)
-      ? METRIC_CONFIG[props.dropdownVarId as string][0]
+      ? METRIC_CONFIG[props.dropdownVarId][0]
       : null
   );
 
@@ -109,8 +109,8 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
       {variableConfig && (
         <Grid container spacing={1} justify="center">
           <Grid container xs={12}>
-            {!!METRIC_CONFIG[props.dropdownVarId as string] &&
-              METRIC_CONFIG[props.dropdownVarId as string].length > 1 && (
+            {!!METRIC_CONFIG[props.dropdownVarId] &&
+              METRIC_CONFIG[props.dropdownVarId].length > 1 && (
                 <Grid item className={styles.ToggleBlock}>
                   <span className={styles.ToggleLabel}>Choose Data Type</span>
                   <ToggleButtonGroup
@@ -131,7 +131,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                     }}
                     aria-label="text formatting"
                   >
-                    {METRIC_CONFIG[props.dropdownVarId as string].map(
+                    {METRIC_CONFIG[props.dropdownVarId].map(
                       (variable: VariableConfig, key: number) => (
                         <ToggleButton value={variable.variableId} key={key}>
                           {variable.variableDisplayName}
@@ -166,23 +166,17 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           </Grid>
           <Grid item xs={props.vertical ? 12 : 6}>
             <MapCard
-              metricConfig={variableConfig.metrics["per100k"] as MetricConfig}
+              metricConfig={variableConfig.metrics["per100k"]}
               fips={props.fips}
               updateFipsCallback={(fips: Fips) => {
                 props.updateFipsCallback(fips);
               }}
-              nonstandardizedRace={
-                props.dropdownVarId === "covid" ? true : false
-              }
               currentBreakdown={currentBreakdown}
             />
             <TableCard
               fips={props.fips}
               metrics={tableFields}
-              breakdownVar={"race_and_ethnicity" as BreakdownVar}
-              nonstandardizedRace={
-                props.dropdownVarId === "covid" ? true : false
-              }
+              breakdownVar={"race_and_ethnicity"}
             />
           </Grid>
           <Grid item xs={props.vertical ? 12 : 6}>
@@ -192,10 +186,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                   currentBreakdown === breakdownVar) && (
                   <BarChartCard
                     variableConfig={variableConfig}
-                    nonstandardizedRace={
-                      props.dropdownVarId === "covid" ? true : false
-                    }
-                    breakdownVar={breakdownVar as BreakdownVar}
+                    breakdownVar={breakdownVar}
                     fips={props.fips}
                   />
                 )}

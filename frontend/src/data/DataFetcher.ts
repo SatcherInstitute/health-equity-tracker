@@ -5,6 +5,7 @@
 import { MetadataMap, Row } from "./DatasetTypes";
 import FakeMetadataMap from "./FakeMetadataMap";
 import { Environment } from "../utils/Environment";
+import { DataFrame } from "data-forge";
 
 type FileFormat = "json" | "csv";
 
@@ -73,18 +74,23 @@ export class ApiDataFetcher implements DataFetcher {
 
   // TODO build in retries, timeout before showing error to user.
   async loadDataset(datasetId: string): Promise<Row[]> {
+    // TODO handle server returning a dataset not found error.
+    let result = await this.fetchDataset(datasetId);
+
+    // TODO remove this once we figure out how to make BQ export integers as
+    // integers
     if (datasetId.startsWith("acs_population")) {
-      // TODO remove this once we figure out how to make BQ export integers as
-      // integers
-      let result = await this.fetchDataset(datasetId);
       result = result.map((row: any) => {
         return { ...row, population: Number(row["population"]) };
       });
-      return result;
     }
 
-    // TODO handle server returning a dataset not found error.
-    return await this.fetchDataset(datasetId);
+    // TODO - the server should drop ingestion_ts before exporting the file. At
+    // that point we can drop this code.
+    return new DataFrame(result)
+      .dropSeries(["ingestion_ts"])
+      .resetIndex()
+      .toArray();
   }
 
   async getMetadata(): Promise<MetadataMap> {

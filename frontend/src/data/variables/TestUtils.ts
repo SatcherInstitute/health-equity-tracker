@@ -4,6 +4,7 @@ import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 import { MetricId } from "../MetricConfig";
+import { excludeTotal } from "../query/BreakdownFilter";
 
 export interface FipsSpec {
   code: string;
@@ -51,10 +52,7 @@ export function createWithAndWithoutTotalEvaluator(
 
     // Evaluate the response with requesting total field
     const responseWithTotal = await variableProvider.getData(
-      new MetricQuery(
-        metricId,
-        baseBreakdown.addBreakdown(breakdownVar, /*includeTotal=*/ true)
-      )
+      new MetricQuery(metricId, baseBreakdown.addBreakdown(breakdownVar))
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse(totalRows, [datasetId])
@@ -64,7 +62,7 @@ export function createWithAndWithoutTotalEvaluator(
     const responseWithoutTotal = await variableProvider.getData(
       new MetricQuery(
         metricId,
-        baseBreakdown.addBreakdown(breakdownVar, /*includeTotal=*/ false)
+        baseBreakdown.addBreakdown(breakdownVar, excludeTotal())
       )
     );
     expect(responseWithoutTotal).toEqual(

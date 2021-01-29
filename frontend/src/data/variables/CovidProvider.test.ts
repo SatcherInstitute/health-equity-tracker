@@ -11,8 +11,9 @@ import {
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import { FipsSpec, NC, AL, DURHAM, CHATAM, USA } from "./TestUtils";
-import { WHITE, TOTAL } from "../Constants";
+import { WHITE_NH, TOTAL } from "../Constants";
 import { MetricId } from "../MetricConfig";
+import { excludeTotal } from "../query/BreakdownFilter";
 
 function covidAndAcsRows(
   fips: FipsSpec,
@@ -90,7 +91,7 @@ describe("CovidProvider", () => {
 
     const [CHATAM_WHITE_ROW, CHATAM_ACS_WHITE_ROW] = covidAndCountyAcsRows(
       CHATAM,
-      WHITE,
+      WHITE_NH,
       /*cases=*/ 10,
       /*hosp=*/ 1,
       /*death=*/ 5,
@@ -99,7 +100,7 @@ describe("CovidProvider", () => {
     const CHATAM_WHITE_FINAL_ROW = {
       fips: CHATAM.code,
       fips_name: CHATAM.name,
-      race_and_ethnicity: WHITE,
+      race_and_ethnicity: WHITE_NH,
       date: "2020-04-29",
       covid_cases: 10,
       covid_cases_per_100k: 500,
@@ -143,7 +144,7 @@ describe("CovidProvider", () => {
     // Durham rows should be filtered out
     const [DURHAM_WHITE_ROW, DURHAM_ACS_WHITE_ROW] = covidAndCountyAcsRows(
       DURHAM,
-      WHITE,
+      WHITE_NH,
       /*cases=*/ 10,
       /*hosp=*/ 1,
       /*death=*/ 5,
@@ -175,10 +176,7 @@ describe("CovidProvider", () => {
     const responseWithTotal = await covidProvider.getData(
       new MetricQuery(
         METRIC_IDS,
-        Breakdowns.forFips(new Fips(CHATAM.code)).andRace(
-          /*includeTotal=*/ true,
-          /*nonstandard=*/ true
-        )
+        Breakdowns.forFips(new Fips(CHATAM.code)).andRace()
       )
     );
     expect(responseWithTotal).toEqual(
@@ -192,10 +190,7 @@ describe("CovidProvider", () => {
     const responseWithoutTotal = await covidProvider.getData(
       new MetricQuery(
         METRIC_IDS,
-        Breakdowns.forFips(new Fips(CHATAM.code)).andRace(
-          /*includeTotal=*/ false,
-          /*nonstandard=*/ true
-        )
+        Breakdowns.forFips(new Fips(CHATAM.code)).andRace(excludeTotal())
       )
     );
     expect(responseWithoutTotal).toEqual(
@@ -212,7 +207,7 @@ describe("CovidProvider", () => {
 
     const [NC_WHITE_ROW, NC_ACS_WHITE_ROW] = covidAndAcsRows(
       NC,
-      WHITE,
+      WHITE_NH,
       /*cases=*/ 10,
       /*hosp=*/ 1,
       /*death=*/ 5,
@@ -221,7 +216,7 @@ describe("CovidProvider", () => {
     const NC_WHITE_FINAL_ROW = {
       fips: NC.code,
       fips_name: NC.name,
-      race_and_ethnicity: WHITE,
+      race_and_ethnicity: WHITE_NH,
       date: "2020-04-29",
       covid_cases: 10,
       covid_cases_per_100k: 500,
@@ -265,7 +260,7 @@ describe("CovidProvider", () => {
     // Alabama rows should be filtered out
     const [AL_WHITE_ROW, AL_ACS_WHITE_ROW] = covidAndAcsRows(
       AL,
-      WHITE,
+      WHITE_NH,
       /*cases=*/ 10,
       /*hosp=*/ 1,
       /*death=*/ 5,
@@ -297,10 +292,7 @@ describe("CovidProvider", () => {
     const responseWithTotal = await covidProvider.getData(
       new MetricQuery(
         METRIC_IDS,
-        Breakdowns.forFips(new Fips(NC.code)).andRace(
-          /*includeTotal=*/ true,
-          /*nonstandard=*/ true
-        )
+        Breakdowns.forFips(new Fips(NC.code)).andRace()
       )
     );
     expect(responseWithTotal).toEqual(
@@ -314,10 +306,7 @@ describe("CovidProvider", () => {
     const responseWithoutTotal = await covidProvider.getData(
       new MetricQuery(
         METRIC_IDS,
-        Breakdowns.forFips(new Fips(NC.code)).andRace(
-          /*includeTotal=*/ false,
-          /*nonstandard=*/ true
-        )
+        Breakdowns.forFips(new Fips(NC.code)).andRace(excludeTotal())
       )
     );
     expect(responseWithoutTotal).toEqual(
@@ -368,7 +357,7 @@ describe("CovidProvider", () => {
 
     const [NC_WHITE_ROW, NC_ACS_WHITE_ROW] = covidAndAcsRows(
       NC,
-      WHITE,
+      WHITE_NH,
       /*cases=*/ 240,
       /*death=*/ 80,
       /*hosp=*/ 34,
@@ -376,7 +365,7 @@ describe("CovidProvider", () => {
     );
     const [AL_WHITE_ROW, AL_ACS_WHITE_ROW] = covidAndAcsRows(
       AL,
-      WHITE,
+      WHITE_NH,
       /*cases=*/ 730,
       /*death=*/ 250,
       /*hosp=*/ 45,
@@ -385,7 +374,7 @@ describe("CovidProvider", () => {
     const FINAL_WHITE_ROW = {
       fips: USA.code,
       fips_name: USA.name,
-      race_and_ethnicity: WHITE,
+      race_and_ethnicity: WHITE_NH,
       date: "2020-04-29",
       covid_cases: 970,
       covid_cases_per_100k: 882,
@@ -414,13 +403,7 @@ describe("CovidProvider", () => {
     ]);
     // Evaluate the response with requesting total field
     const responseWithTotal = await covidProvider.getData(
-      new MetricQuery(
-        METRIC_IDS,
-        Breakdowns.national().andRace(
-          /*includeTotal=*/ true,
-          /*nonstandard=*/ true
-        )
-      )
+      new MetricQuery(METRIC_IDS, Breakdowns.national().andRace())
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse(
@@ -431,13 +414,7 @@ describe("CovidProvider", () => {
 
     // Evaluate the response without requesting total field
     const responseWithoutTotal = await covidProvider.getData(
-      new MetricQuery(
-        METRIC_IDS,
-        Breakdowns.national().andRace(
-          /*includeTotal=*/ false,
-          /*nonstandard=*/ true
-        )
-      )
+      new MetricQuery(METRIC_IDS, Breakdowns.national().andRace(excludeTotal()))
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse(

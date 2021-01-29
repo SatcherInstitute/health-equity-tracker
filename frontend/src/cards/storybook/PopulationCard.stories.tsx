@@ -10,7 +10,6 @@ interface PopulationCardProps {
   fips: Fips;
   breakdownVar: BreakdownVar;
   metrics: MetricConfig[];
-  nonstandardizedRace: boolean;
 }
 export default {
   title: "Cards/PopulationCard",

@@ -5,7 +5,11 @@ import {
   resetCacheDebug,
 } from "../../utils/globals";
 import { Breakdowns } from "../Breakdowns";
-import { MetricQuery, createMissingDataResponse } from "../MetricQuery";
+import {
+  MetricQuery,
+  createMissingDataResponse,
+  MetricQueryResponse,
+} from "../MetricQuery";
 import { Fips } from "../../utils/madlib/Fips";
 import FakeMetadataMap from "../FakeMetadataMap";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
@@ -20,15 +24,18 @@ import {
   USA,
 } from "./TestUtils";
 import {
-  WHITE,
-  ASIAN,
+  WHITE_NH,
+  ASIAN_NH,
   TOTAL,
   RACE,
   AGE,
   SEX,
   MALE,
   FEMALE,
+  NON_HISPANIC,
+  WHITE,
 } from "../Constants";
+import { onlyIncludeStandardRaces } from "../query/BreakdownFilter";
 
 function countyRow(
   fips: FipsSpec,
@@ -41,7 +48,6 @@ function countyRow(
     state_fips: fips.code.substring(0, 2),
     county_name: fips.name,
     [breakdownName]: breakdownValue,
-    ingestion_ts: "2021-01-08 22:02:55.964254 UTC",
     population: population,
   };
 }
@@ -108,21 +114,21 @@ describe("AcsPopulationProvider", () => {
 
   test("Get all counties in state with Race Breakdown", async () => {
     const rawData = [
-      countyRow(MARIN, RACE, WHITE, 2),
+      countyRow(MARIN, RACE, WHITE_NH, 2),
       countyRow(CHATAM, RACE, TOTAL, 2),
-      countyRow(CHATAM, RACE, ASIAN, 2),
-      countyRow(DURHAM, RACE, ASIAN, 5),
-      countyRow(DURHAM, RACE, WHITE, 15),
+      countyRow(CHATAM, RACE, ASIAN_NH, 2),
+      countyRow(DURHAM, RACE, ASIAN_NH, 5),
+      countyRow(DURHAM, RACE, WHITE_NH, 15),
       countyRow(DURHAM, RACE, TOTAL, 20),
     ];
 
     // Chatam county rows
     const C_TOTAL_FINAL = finalRow(CHATAM, RACE, TOTAL, 2, 100);
-    const C_ASIAN_FINAL = finalRow(CHATAM, RACE, ASIAN, 2, 100);
+    const C_ASIAN_FINAL = finalRow(CHATAM, RACE, ASIAN_NH, 2, 100);
 
     // Durham county rows
-    const D_ASIAN_FINAL = finalRow(DURHAM, RACE, ASIAN, 5, 25);
-    const D_WHITE_FINAL = finalRow(DURHAM, RACE, WHITE, 15, 75);
+    const D_ASIAN_FINAL = finalRow(DURHAM, RACE, ASIAN_NH, 5, 25);
+    const D_WHITE_FINAL = finalRow(DURHAM, RACE, WHITE_NH, 15, 75);
     const D_TOTAL_FINAL = finalRow(DURHAM, RACE, TOTAL, 20, 100);
 
     await evaluateWithAndWithoutTotal(
@@ -144,14 +150,14 @@ describe("AcsPopulationProvider", () => {
   test("Get one county with Race breakdown", async () => {
     const rawData = [
       countyRow(CHATAM, RACE, TOTAL, 2),
-      countyRow(CHATAM, RACE, ASIAN, 2),
-      countyRow(DURHAM, RACE, ASIAN, 5),
-      countyRow(DURHAM, RACE, WHITE, 15),
+      countyRow(CHATAM, RACE, ASIAN_NH, 2),
+      countyRow(DURHAM, RACE, ASIAN_NH, 5),
+      countyRow(DURHAM, RACE, WHITE_NH, 15),
       countyRow(DURHAM, RACE, TOTAL, 20),
     ];
 
-    const D_ASIAN_FINAL = finalRow(DURHAM, RACE, ASIAN, 5, 25);
-    const D_WHITE_FINAL = finalRow(DURHAM, RACE, WHITE, 15, 75);
+    const D_ASIAN_FINAL = finalRow(DURHAM, RACE, ASIAN_NH, 5, 25);
+    const D_WHITE_FINAL = finalRow(DURHAM, RACE, WHITE_NH, 15, 75);
     const D_TOTAL_FINAL = finalRow(DURHAM, RACE, TOTAL, 20, 100);
 
     await evaluateWithAndWithoutTotal(
@@ -167,15 +173,15 @@ describe("AcsPopulationProvider", () => {
   test("State and Race Breakdown", async () => {
     const rawData = [
       stateRow(AL, RACE, TOTAL, 2),
-      stateRow(AL, RACE, ASIAN, 2),
+      stateRow(AL, RACE, ASIAN_NH, 2),
       stateRow(NC, RACE, TOTAL, 20),
-      stateRow(NC, RACE, ASIAN, 5),
-      stateRow(NC, RACE, WHITE, 15),
+      stateRow(NC, RACE, ASIAN_NH, 5),
+      stateRow(NC, RACE, WHITE_NH, 15),
     ];
 
     const NC_TOTAL_FINAL = finalRow(NC, RACE, TOTAL, 20, 100);
-    const NC_ASIAN_FINAL = finalRow(NC, RACE, ASIAN, 5, 25);
-    const NC_WHITE_FINAL = finalRow(NC, RACE, WHITE, 15, 75);
+    const NC_ASIAN_FINAL = finalRow(NC, RACE, ASIAN_NH, 5, 25);
+    const NC_WHITE_FINAL = finalRow(NC, RACE, WHITE_NH, 15, 75);
 
     await evaluateWithAndWithoutTotal(
       "acs_population-by_race_state_std",
@@ -187,17 +193,71 @@ describe("AcsPopulationProvider", () => {
     );
   });
 
+  test("State and Race Breakdown with standard race filter", async () => {
+    const rawData = [
+      stateRow(AL, RACE, TOTAL, 2),
+      stateRow(AL, RACE, ASIAN_NH, 2),
+      stateRow(NC, RACE, TOTAL, 20),
+      stateRow(NC, RACE, ASIAN_NH, 5),
+      stateRow(NC, RACE, WHITE_NH, 15),
+      // Non-standard, will be excluded from the non-standard filter
+      stateRow(NC, RACE, WHITE, 17),
+      stateRow(NC, RACE, NON_HISPANIC, 13),
+    ];
+
+    const datasetId = "acs_population-by_race_state_std";
+    dataFetcher.setFakeDatasetLoaded(datasetId, rawData);
+
+    let response = await new AcsPopulationProvider().getData(
+      new MetricQuery(
+        "population",
+        Breakdowns.forFips(new Fips(NC.code)).andRace()
+      )
+    );
+    expect(response).toEqual(
+      new MetricQueryResponse(
+        [
+          finalRow(NC, RACE, TOTAL, 20, 100),
+          finalRow(NC, RACE, ASIAN_NH, 5, 25),
+          finalRow(NC, RACE, WHITE_NH, 15, 75),
+          finalRow(NC, RACE, WHITE, 17, 85),
+          finalRow(NC, RACE, NON_HISPANIC, 13, 65),
+        ],
+        [datasetId]
+      )
+    );
+
+    response = await new AcsPopulationProvider().getData(
+      new MetricQuery(
+        "population",
+        Breakdowns.forFips(new Fips(NC.code)).andRace(
+          onlyIncludeStandardRaces()
+        )
+      )
+    );
+    expect(response).toEqual(
+      new MetricQueryResponse(
+        [
+          finalRow(NC, RACE, TOTAL, 20, 100),
+          finalRow(NC, RACE, ASIAN_NH, 5, 25),
+          finalRow(NC, RACE, WHITE_NH, 15, 75),
+        ],
+        [datasetId]
+      )
+    );
+  });
+
   test("National and Race Breakdown", async () => {
     const rawData = [
-      stateRow(NC, RACE, ASIAN, 5),
-      stateRow(NC, RACE, WHITE, 15),
+      stateRow(NC, RACE, ASIAN_NH, 5),
+      stateRow(NC, RACE, WHITE_NH, 15),
       stateRow(NC, RACE, TOTAL, 20),
-      stateRow(AL, RACE, ASIAN, 5),
+      stateRow(AL, RACE, ASIAN_NH, 5),
       stateRow(AL, RACE, TOTAL, 5),
     ];
 
-    const NATIONAL_ASIAN_FINAL = finalRow(USA, RACE, ASIAN, 10, 40);
-    const NATIONAL_WHITE_FINAL = finalRow(USA, RACE, WHITE, 15, 60);
+    const NATIONAL_ASIAN_FINAL = finalRow(USA, RACE, ASIAN_NH, 10, 40);
+    const NATIONAL_WHITE_FINAL = finalRow(USA, RACE, WHITE_NH, 15, 60);
     const NATIONAL_TOTAL_FINAL = finalRow(USA, RACE, TOTAL, 25, 100);
 
     await evaluateWithAndWithoutTotal(

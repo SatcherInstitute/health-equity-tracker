@@ -12,6 +12,7 @@ import {
   resetCacheDebug,
 } from "../utils/globals";
 import FakeDataFetcher from "../testing/FakeDataFetcher";
+import { excludeTotal } from "./query/BreakdownFilter";
 
 const STATE_NAMES_ID = "state_names";
 const ANOTHER_FAKE_DATASET_ID = "fake_dataset_2";
@@ -51,7 +52,7 @@ function WithMetricsWrapperApp(props: {
 
 const dataFetcher = getDataFetcher() as FakeDataFetcher;
 
-describe("useDatasetStore", () => {
+describe("WithLoadingOrErrorUI", () => {
   beforeEach(() => {
     resetCacheDebug();
     dataFetcher.resetState();
@@ -60,7 +61,7 @@ describe("useDatasetStore", () => {
   test("WithMetrics: Loads metrics", async () => {
     const query = new MetricQuery(
       "copd_count",
-      Breakdowns.national().andRace()
+      Breakdowns.national().andRace(excludeTotal())
     );
 
     expect(dataFetcher.getNumGetMetdataCalls()).toBe(0);
@@ -125,7 +126,7 @@ describe("useDatasetStore", () => {
     });
 
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
-      "Error: Breakdowns not supported for provider brfss_provider: age:without total,geography:county"
+      "Error: Breakdowns not supported for provider brfss_provider: age:no filters,geography:county"
     );
     expect(dataFetcher.getNumLoadDatasetCalls()).toBe(0);
   });
