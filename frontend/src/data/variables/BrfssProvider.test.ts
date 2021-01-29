@@ -1,5 +1,5 @@
 import BrfssProvider from "./BrfssProvider";
-import { Breakdowns, BreakdownVar } from "../Breakdowns";
+import { Breakdowns } from "../Breakdowns";
 import { Fips } from "../../utils/madlib/Fips";
 import FakeMetadataMap from "../FakeMetadataMap";
 import {
