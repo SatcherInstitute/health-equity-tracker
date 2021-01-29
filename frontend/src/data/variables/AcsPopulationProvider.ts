@@ -112,6 +112,7 @@ class AcsPopulationProvider extends VariableProvider {
     let acsDataFrame = acsDataset.toDataFrame();
 
     // If requested, filter geography by state or county level
+    // We apply the geo filter right away to reduce subsequent calculation times
     acsDataFrame = this.filterByGeo(acsDataFrame, breakdowns);
     acsDataFrame = this.renameGeoColumns(acsDataFrame, breakdowns);
 
