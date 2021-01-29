@@ -1,7 +1,7 @@
 import BrfssProvider from "./BrfssProvider";
-import { Breakdowns } from "../Breakdowns";
-import { Fips } from "../../utils/madlib/Fips";
-import FakeMetadataMap from "../FakeMetadataMap";
+import { Breakdowns } from "../query/Breakdowns";
+import { Fips } from "../utils/Fips";
+import FakeMetadataMap from "../config/FakeMetadataMap";
 import {
   autoInitGlobals,
   getDataFetcher,
@@ -15,7 +15,7 @@ import {
   AL,
   USA,
 } from "./TestUtils";
-import { WHITE_NH, ASIAN_NH, TOTAL, RACE } from "../Constants";
+import { WHITE_NH, ASIAN_NH, TOTAL, RACE } from "../utils/Constants";
 
 autoInitGlobals();
 const dataFetcher = getDataFetcher() as FakeDataFetcher;

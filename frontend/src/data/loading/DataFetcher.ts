@@ -2,9 +2,9 @@
 // untyped for now, but we should define types for the API calls once we
 // establish the API types.
 
-import { MetadataMap, Row } from "./DatasetTypes";
-import FakeMetadataMap from "./FakeMetadataMap";
-import { Environment } from "../utils/Environment";
+import { MetadataMap, Row } from "../utils/DatasetTypes";
+import FakeMetadataMap from "../config/FakeMetadataMap";
+import { Environment } from "../../utils/Environment";
 import { DataFrame } from "data-forge";
 
 type FileFormat = "json" | "csv";

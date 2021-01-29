@@ -1,15 +1,15 @@
-import { Breakdowns, BreakdownVar } from "../Breakdowns";
+import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
 import {
   MetricQueryResponse,
   createMissingDataResponse,
   MetricQuery,
-} from "../MetricQuery";
-import { MetricId } from "../MetricConfig";
-import { ProviderId } from "../VariableProviderMap";
+} from "../query/MetricQuery";
+import { MetricId } from "../config/MetricConfig";
+import { ProviderId } from "../loading/VariableProviderMap";
 import { IDataFrame } from "data-forge";
-import { Fips } from "../../utils/madlib/Fips";
-import { TOTAL } from "../Constants";
-import { applyToGroups, percent } from "../datasetutils";
+import { Fips } from "../../data/utils/Fips";
+import { TOTAL } from "../utils/Constants";
+import { applyToGroups, percent } from "../utils/datasetutils";
 
 abstract class VariableProvider {
   readonly providerId: ProviderId;

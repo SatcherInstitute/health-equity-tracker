@@ -1,7 +1,5 @@
-import { Fips } from "../utils/madlib/Fips";
-import BreakdownFilter from "./query/BreakdownFilter";
-
-// TODO move this file to /data/query
+import { Fips } from "../utils/Fips";
+import BreakdownFilter from "./BreakdownFilter";
 
 export const ALL_RACES_DISPLAY_NAME = "All races";
 

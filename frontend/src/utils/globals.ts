@@ -1,5 +1,5 @@
-import { ApiDataFetcher, DataFetcher } from "../data/DataFetcher";
-import DataManager from "../data/DataManager";
+import { ApiDataFetcher, DataFetcher } from "../data/loading/DataFetcher";
+import DataManager from "../data/loading/DataManager";
 import FakeDataFetcher from "../testing/FakeDataFetcher";
 import { createEnvironment, Environment } from "./Environment";
 import Logger from "./Logger";

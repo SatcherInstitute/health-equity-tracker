@@ -1,9 +1,9 @@
 import CovidProvider from "./CovidProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
-import { Breakdowns } from "../Breakdowns";
-import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
-import { Fips } from "../../utils/madlib/Fips";
-import FakeMetadataMap from "../FakeMetadataMap";
+import { Breakdowns } from "../query/Breakdowns";
+import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { Fips } from "../utils/Fips";
+import FakeMetadataMap from "../config/FakeMetadataMap";
 import {
   autoInitGlobals,
   getDataFetcher,
@@ -11,8 +11,8 @@ import {
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import { FipsSpec, NC, AL, DURHAM, CHATAM, USA } from "./TestUtils";
-import { WHITE_NH, TOTAL } from "../Constants";
-import { MetricId } from "../MetricConfig";
+import { WHITE_NH, TOTAL } from "../utils/Constants";
+import { MetricId } from "../config/MetricConfig";
 import { excludeTotal } from "../query/BreakdownFilter";
 
 function covidAndAcsRows(

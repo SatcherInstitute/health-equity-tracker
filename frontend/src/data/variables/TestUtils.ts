@@ -1,9 +1,9 @@
-import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
-import { Breakdowns, BreakdownVar } from "../Breakdowns";
+import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
+import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import VariableProvider from "./VariableProvider";
-import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
-import { MetricId } from "../MetricConfig";
+import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { MetricId } from "../config/MetricConfig";
 import { excludeTotal } from "../query/BreakdownFilter";
 
 export interface FipsSpec {

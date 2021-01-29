@@ -3,7 +3,7 @@ import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import { Fips } from "../../utils/madlib/Fips";
+import { Fips } from "../../data/utils/Fips";
 import Popover from "@material-ui/core/Popover";
 import Button from "@material-ui/core/Button";
 import styles from "./OptionsSelector.module.scss";

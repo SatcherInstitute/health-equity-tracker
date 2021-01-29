@@ -1,8 +1,8 @@
-import { MetadataMap, Dataset } from "./DatasetTypes";
-import { joinOnCols } from "./datasetutils";
+import { MetadataMap, Dataset } from "../utils/DatasetTypes";
+import { joinOnCols } from "../utils/datasetutils";
 import { DataFrame, IDataFrame } from "data-forge";
-import { MetricQuery, MetricQueryResponse } from "./MetricQuery";
-import { getDataFetcher, getDataManager, getLogger } from "../utils/globals";
+import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { getDataFetcher, getDataManager, getLogger } from "../../utils/globals";
 import VariableProviderMap from "./VariableProviderMap";
 import LRU from "lru-cache";
 

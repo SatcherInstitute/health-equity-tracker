@@ -1,10 +1,10 @@
 import { IDataFrame } from "data-forge";
-import { Breakdowns, DemographicBreakdownKey } from "../Breakdowns";
-import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
+import { Breakdowns, DemographicBreakdownKey } from "../query/Breakdowns";
+import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
-import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { TOTAL } from "../Constants";
+import { TOTAL } from "../utils/Constants";
 
 function createNationalTotal(dataFrame: IDataFrame, breakdown: string) {
   return dataFrame

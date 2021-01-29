@@ -7,20 +7,24 @@ import Button from "@material-ui/core/Button";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
-import { Fips } from "../utils/madlib/Fips";
+import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
-} from "../data/Breakdowns";
-import { MetricQuery } from "../data/MetricQuery";
-import { MetricConfig, MetricId, VariableConfig } from "../data/MetricConfig";
+} from "../data/query/Breakdowns";
+import { MetricQuery } from "../data/query/MetricQuery";
+import {
+  MetricConfig,
+  MetricId,
+  VariableConfig,
+} from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 import DisparityInfoPopover from "./ui/DisparityInfoPopover";
 import { usePopover } from "../utils/usePopover";
 import { exclude } from "../data/query/BreakdownFilter";
-import { NON_HISPANIC, TOTAL } from "../data/Constants";
+import { NON_HISPANIC, TOTAL } from "../data/utils/Constants";
 
 const VALID_METRIC_TYPES = ["pct_share", "per100k"];
 

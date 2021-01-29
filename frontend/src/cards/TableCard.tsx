@@ -2,18 +2,18 @@ import React from "react";
 import { TableChart } from "../charts/TableChart";
 import { Alert } from "@material-ui/lab";
 import CardWrapper from "./CardWrapper";
-import { MetricQuery } from "../data/MetricQuery";
-import { Fips } from "../utils/madlib/Fips";
+import { MetricQuery } from "../data/query/MetricQuery";
+import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
-} from "../data/Breakdowns";
+} from "../data/query/Breakdowns";
 import { CardContent } from "@material-ui/core";
-import { MetricConfig, MetricId } from "../data/MetricConfig";
+import { MetricConfig, MetricId } from "../data/config/MetricConfig";
 import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 import { exclude } from "../data/query/BreakdownFilter";
-import { NON_HISPANIC } from "../data/Constants";
+import { NON_HISPANIC } from "../data/utils/Constants";
 
 export interface TableCardProps {
   fips: Fips;
