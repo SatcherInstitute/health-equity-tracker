@@ -15,7 +15,7 @@ import {
   AL,
   USA,
 } from "./TestUtils";
-import { WHITE, ASIAN, TOTAL, RACE } from "../Constants";
+import { WHITE_NH, ASIAN_NH, TOTAL, RACE } from "../Constants";
 
 autoInitGlobals();
 const dataFetcher = getDataFetcher() as FakeDataFetcher;
@@ -88,15 +88,15 @@ describe("BrfssProvider", () => {
 
   test("State and Race Breakdown", async () => {
     const rawData = [
-      stateRow(AL, RACE, ASIAN, 100, 900, 200, 800),
-      stateRow(NC, RACE, ASIAN, 100, 900, 400, 600),
-      stateRow(NC, RACE, WHITE, 500, 500, 600, 400),
+      stateRow(AL, RACE, ASIAN_NH, 100, 900, 200, 800),
+      stateRow(NC, RACE, ASIAN_NH, 100, 900, 400, 600),
+      stateRow(NC, RACE, WHITE_NH, 500, 500, 600, 400),
     ];
 
     const NC_ASIAN_FINAL = finalRow(
       NC,
       RACE,
-      ASIAN,
+      ASIAN_NH,
       /*copd_count=*/ 100,
       /*copd_no=*/ 900,
       /*copd_per_100k=*/ 10000,
@@ -109,7 +109,7 @@ describe("BrfssProvider", () => {
     const NC_WHITE_FINAL = finalRow(
       NC,
       RACE,
-      WHITE,
+      WHITE_NH,
       /*copd_count=*/ 500,
       /*copd_no=*/ 500,
       /*copd_per_100k=*/ 50000,
@@ -145,15 +145,15 @@ describe("BrfssProvider", () => {
 
   test("National and Race Breakdown", async () => {
     const rawData = [
-      stateRow(AL, RACE, ASIAN, 100, 900, 200, 800),
-      stateRow(NC, RACE, ASIAN, 100, 900, 400, 600),
-      stateRow(NC, RACE, WHITE, 500, 500, 600, 400),
+      stateRow(AL, RACE, ASIAN_NH, 100, 900, 200, 800),
+      stateRow(NC, RACE, ASIAN_NH, 100, 900, 400, 600),
+      stateRow(NC, RACE, WHITE_NH, 500, 500, 600, 400),
     ];
 
     const ASIAN_FINAL = finalRow(
       USA,
       RACE,
-      ASIAN,
+      ASIAN_NH,
       /*copd_count=*/ 200,
       /*copd_no=*/ 1800,
       /*copd_per_100k=*/ 10000,
@@ -166,7 +166,7 @@ describe("BrfssProvider", () => {
     const WHITE_FINAL = finalRow(
       USA,
       RACE,
-      WHITE,
+      WHITE_NH,
       /*copd_count=*/ 500,
       /*copd_no=*/ 500,
       /*copd_per_100k=*/ 50000,
