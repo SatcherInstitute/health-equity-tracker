@@ -14,6 +14,7 @@ import {
 import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 import { getDataManager } from "../../utils/globals";
 import { TOTAL } from "../Constants";
+import { MetricId } from "../MetricConfig";
 
 class CovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -29,6 +30,12 @@ class CovidProvider extends VariableProvider {
       "covid_deaths_per_100k",
       "covid_cases_per_100k",
       "covid_hosp_per_100k",
+      "covid_cases_reporting_population",
+      "covid_deaths_reporting_population",
+      "covid_hosp_reporting_population",
+      "covid_cases_reporting_population_pct",
+      "covid_deaths_reporting_population_pct",
+      "covid_hosp_reporting_population_pct",
     ]);
     this.acsProvider = acsProvider;
   }
@@ -140,6 +147,37 @@ class CovidProvider extends VariableProvider {
           .resetIndex();
       });
     });
+
+    // TODO - calculate actual reporting values instead of just copying fields
+    const populationMetric: MetricId[] = [
+      "covid_cases_reporting_population",
+      "covid_deaths_reporting_population",
+      "covid_hosp_reporting_population",
+    ];
+    populationMetric.forEach((reportingPopulation) => {
+      if (metricQuery.metricIds.includes(reportingPopulation)) {
+        df = df
+          .generateSeries({
+            [reportingPopulation]: (row) => row["population"],
+          })
+          .resetIndex();
+      }
+    });
+    const populationPctMetric: MetricId[] = [
+      "covid_cases_reporting_population_pct",
+      "covid_deaths_reporting_population_pct",
+      "covid_hosp_reporting_population_pct",
+    ];
+    populationPctMetric.forEach((reportingPopulation) => {
+      if (metricQuery.metricIds.includes(reportingPopulation)) {
+        df = df
+          .generateSeries({
+            [reportingPopulation]: (row) => row["population_pct"],
+          })
+          .resetIndex();
+      }
+    });
+    df = df.dropSeries(["population", "population_pct"]).resetIndex();
 
     df = this.removeUnwantedDemographicTotals(df, breakdowns);
 

@@ -15,7 +15,6 @@ import {
 } from "../data/Breakdowns";
 import { MetricQuery } from "../data/MetricQuery";
 import { MetricConfig, MetricId, VariableConfig } from "../data/MetricConfig";
-import { POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 import DisparityInfoPopover from "./ui/DisparityInfoPopover";
@@ -60,13 +59,16 @@ function BarChartCardWithKey(props: BarChartCardProps) {
     props.variableConfig.metrics
   ).filter((metricConfig) => VALID_METRIC_TYPES.includes(metricConfig.type));
 
-  let metricIds: MetricId[] = Object.values(props.variableConfig.metrics).map(
-    (metricConfig: MetricConfig) => metricConfig.metricId
+  let metricIds: MetricId[] = [];
+  Object.values(props.variableConfig.metrics).forEach(
+    (metricConfig: MetricConfig) => {
+      metricIds.push(metricConfig.metricId);
+      if (metricConfig.populationComparisonMetric) {
+        metricIds.push(metricConfig.populationComparisonMetric.metricId);
+      }
+    }
   );
-  // For pct_share, we want to compare to population_pct
-  if (validDisplayMetricConfigs.some((config) => config.type === "pct_share")) {
-    metricIds = metricIds.concat(["population", "population_pct"]);
-  }
+
   const query = new MetricQuery(metricIds, breakdowns);
 
   function CardTitle() {
@@ -146,7 +148,7 @@ function BarChartCardWithKey(props: BarChartCardProps) {
                 {metricConfig.type === "pct_share" && (
                   <DisparityBarChart
                     data={dataset}
-                    thickMetric={POPULATION_VARIABLE_CONFIG.metrics.pct_share}
+                    thickMetric={metricConfig.populationComparisonMetric!}
                     thinMetric={metricConfig}
                     breakdownVar={props.breakdownVar}
                     metricDisplayName={metricConfig.shortVegaLabel}
