@@ -51,7 +51,11 @@ app.use('/api', (req, res, next) => {
     fetch(fetchUrl, options)
       .then(res => res.text())
       .then(token => {
-        req.headers["AuthorizationTemp"] = `bearer ${token}`;
+        // Set the bearer token temporarily to Authorization_DataServer header. If BasicAuth is enabled,
+        // it will overwrite the Authorization header after the token is fetched. Right before the proxy
+        // request is sent, overwrite the Authorization header with the bearer token from the service 
+        // account and delete the Authorization_DataServer header. 
+        req.headers["Authorization_DataServer"] = `bearer ${token}`;
         next(); 
       })
       .catch(next);
@@ -71,8 +75,8 @@ const apiProxyOptions = {
   pathRewrite: { '^/api': '' },
   onProxyReq: (proxyReq, req, res) => {
     // Replace the basic auth header with the service account token.
-    proxyReq.setHeader('Authorization', proxyReq.getHeader('AuthorizationTemp'));
-    proxyReq.removeHeader('AuthorizationTemp');
+    proxyReq.setHeader('Authorization', proxyReq.getHeader('Authorization_DataServer'));
+    proxyReq.removeHeader('Authorization_DataServer');
  }
 };
 const apiProxy = createProxyMiddleware(apiProxyOptions);
