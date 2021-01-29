@@ -24,11 +24,14 @@ class BrfssProvider extends VariableProvider {
     const brfss = await getDataManager().loadDataset("brfss");
     let df = brfss.toDataFrame();
 
+    df = this.filterByGeo(df, breakdowns);
+    df = this.renameGeoColumns(df, breakdowns);
+
     if (breakdowns.geography === "national") {
       df = df
         .pivot(breakdowns.demographicBreakdowns.race.columnName, {
-          state_fips: (series) => USA_FIPS,
-          state_name: (series) => USA_DISPLAY_NAME,
+          fips: (series) => USA_FIPS,
+          fips_name: (series) => USA_DISPLAY_NAME,
           diabetes_count: (series) => series.sum(),
           diabetes_no: (series) => series.sum(),
           copd_count: (series) => series.sum(),
@@ -37,10 +40,8 @@ class BrfssProvider extends VariableProvider {
         .resetIndex();
     }
 
-    df = this.filterByGeo(df, breakdowns);
-
     if (!breakdowns.demographicBreakdowns.race.enabled) {
-      df = df.pivot(["state_name", "state_fips"], {
+      df = df.pivot(["fips", "fips_name"], {
         race: (series) => ALL_RACES_DISPLAY_NAME,
         diabetes_count: (series) => series.sum(),
         diabetes_no: (series) => series.sum(),
@@ -54,7 +55,7 @@ class BrfssProvider extends VariableProvider {
       breakdowns.demographicBreakdowns.race.includeTotal
     ) {
       const total = df
-        .pivot(["state_fips", "state_name"], {
+        .pivot(["fips", "fips_name"], {
           diabetes_count: (series) => series.sum(),
           diabetes_no: (series) => series.sum(),
           copd_count: (series) => series.sum(),
@@ -71,8 +72,6 @@ class BrfssProvider extends VariableProvider {
       copd_per_100k: (row) =>
         per100k(row.copd_count, row.copd_count + row.copd_no),
     });
-
-    df = this.renameGeoColumns(df, breakdowns);
 
     return new MetricQueryResponse(df.toArray(), ["brfss"]);
   }

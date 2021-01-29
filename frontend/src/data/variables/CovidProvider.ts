@@ -49,6 +49,13 @@ class CovidProvider extends VariableProvider {
     // because each state reports race differently.
     let df = covid_dataset.toDataFrame();
 
+    // Filter by geography, return early if no results remain
+    df = this.filterByGeo(df, breakdowns);
+    if (df.toArray().length === 0) {
+      return new MetricQueryResponse([], consumedDatasetIds);
+    }
+    df = this.renameGeoColumns(df, breakdowns);
+
     // TODO some of this can be generalized across providers.
     if (!breakdowns.time) {
       const lastTime = getLatestDate(df).getTime();
@@ -65,18 +72,14 @@ class CovidProvider extends VariableProvider {
       breakdowns.geography === "national"
         ? df
             .pivot(["date", "race_and_ethnicity"], {
-              state_fips: (series) => USA_FIPS,
-              state_name: (series) => USA_DISPLAY_NAME,
+              fips: (series) => USA_FIPS,
+              fips_name: (series) => USA_DISPLAY_NAME,
               covid_cases: (series) => series.sum(),
               covid_deaths: (series) => series.sum(),
               covid_hosp: (series) => series.sum(),
             })
             .resetIndex()
         : df;
-
-    df = this.filterByGeo(df, breakdowns);
-
-    df = this.renameGeoColumns(df, breakdowns);
 
     // TODO How to handle territories?
     const acsBreakdowns = breakdowns.copy();
@@ -87,14 +90,13 @@ class CovidProvider extends VariableProvider {
       includeTotal: true,
     };
 
+    // Get ACS population data
     const acsQueryResponse = await this.acsProvider.getData(
       new MetricQuery(["population", "population_pct"], acsBreakdowns)
     );
-
     consumedDatasetIds = consumedDatasetIds.concat(
       acsQueryResponse.consumedDatasetIds
     );
-
     if (acsQueryResponse.dataIsMissing()) {
       return acsQueryResponse;
     }
