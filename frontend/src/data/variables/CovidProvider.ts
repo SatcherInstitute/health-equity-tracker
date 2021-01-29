@@ -177,8 +177,7 @@ class CovidProvider extends VariableProvider {
           .resetIndex();
       }
     });
-    df = df.dropSeries(["population"]).resetIndex();
-    df = df.dropSeries(["population_pct"]).resetIndex();
+    df = df.dropSeries(["population", "population_pct"]).resetIndex();
 
     df = this.removeUnwantedDemographicTotals(df, breakdowns);
 
