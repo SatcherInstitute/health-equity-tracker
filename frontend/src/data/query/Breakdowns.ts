@@ -1,8 +1,6 @@
 import { Fips } from "../utils/Fips";
 import BreakdownFilter from "./BreakdownFilter";
 
-// TODO move this file to /data/query
-
 export const ALL_RACES_DISPLAY_NAME = "All races";
 
 export type GeographicBreakdown = "national" | "state" | "county";
