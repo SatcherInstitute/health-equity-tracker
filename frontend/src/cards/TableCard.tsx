@@ -28,9 +28,13 @@ export function TableCard(props: TableCardProps) {
     /*includeTotal=*/ true,
     props.nonstandardizedRace
   );
-  const metricIds: MetricId[] = props.metrics.map(
-    (metricConfig) => metricConfig.metricId
-  );
+  let metricIds: MetricId[] = [];
+  props.metrics.forEach((metricConfig) => {
+    metricIds.push(metricConfig.metricId);
+    if (metricConfig.populationComparisonMetric) {
+      metricIds.push(metricConfig.populationComparisonMetric.metricId);
+    }
+  });
   const query = new MetricQuery(metricIds, breakdowns);
 
   return (

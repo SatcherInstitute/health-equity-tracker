@@ -27,7 +27,7 @@ class Logger {
   async logError(
     error: Error,
     severity: Severity,
-    context: Record<string, string>
+    context?: Record<string, string>
   ) {
     if (this.enableConsoleLogging) {
       console.log("Error Reported", error, severity, context);

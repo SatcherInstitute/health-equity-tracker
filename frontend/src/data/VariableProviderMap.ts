@@ -49,7 +49,13 @@ export default class VariableProviderMap {
    * variables.
    */
   getUniqueProviders(metricIds: MetricId[]): VariableProvider[] {
-    const providerIds = metricIds.map((id) => this.metricsToProviderIds[id]);
+    const providerIds = metricIds.map((id) => {
+      const providerId = this.metricsToProviderIds[id];
+      if (!providerId) {
+        throw new Error("No provider configured for metric id: " + id);
+      }
+      return providerId;
+    });
     const dedupedIds = Array.from(new Set(providerIds));
     return dedupedIds.map((id) => this.providersById[id]);
   }

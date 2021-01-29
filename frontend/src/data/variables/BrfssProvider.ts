@@ -4,14 +4,17 @@ import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 import { getDataManager } from "../../utils/globals";
+import { TOTAL } from "../Constants";
 
 class BrfssProvider extends VariableProvider {
   constructor() {
     super("brfss_provider", [
       "diabetes_count",
       "diabetes_per_100k",
+      "diabetes_pct_share",
       "copd_count",
       "copd_per_100k",
+      "copd_pct_share",
     ]);
   }
 
@@ -23,11 +26,14 @@ class BrfssProvider extends VariableProvider {
     const brfss = await getDataManager().loadDataset("brfss");
     let df = brfss.toDataFrame();
 
+    df = this.filterByGeo(df, breakdowns);
+    df = this.renameGeoColumns(df, breakdowns);
+
     if (breakdowns.geography === "national") {
       df = df
         .pivot(breakdowns.demographicBreakdowns.race.columnName, {
-          state_fips: (series) => USA_FIPS,
-          state_name: (series) => USA_DISPLAY_NAME,
+          fips: (series) => USA_FIPS,
+          fips_name: (series) => USA_DISPLAY_NAME,
           diabetes_count: (series) => series.sum(),
           diabetes_no: (series) => series.sum(),
           copd_count: (series) => series.sum(),
@@ -36,10 +42,8 @@ class BrfssProvider extends VariableProvider {
         .resetIndex();
     }
 
-    df = this.filterByGeo(df, breakdowns);
-
     if (!breakdowns.demographicBreakdowns.race.enabled) {
-      df = df.pivot(["state_name", "state_fips"], {
+      df = df.pivot(["fips", "fips_name"], {
         race: (series) => ALL_RACES_DISPLAY_NAME,
         diabetes_count: (series) => series.sum(),
         diabetes_no: (series) => series.sum(),
@@ -48,21 +52,18 @@ class BrfssProvider extends VariableProvider {
       });
     }
 
-    if (
-      breakdowns.demographicBreakdowns.race.enabled &&
-      breakdowns.demographicBreakdowns.race.includeTotal
-    ) {
-      const total = df
-        .pivot(["state_fips", "state_name"], {
-          diabetes_count: (series) => series.sum(),
-          diabetes_no: (series) => series.sum(),
-          copd_count: (series) => series.sum(),
-          copd_no: (series) => series.sum(),
-          race_and_ethnicity: (series) => "Total",
-        })
-        .resetIndex();
-      df = df.concat(total).resetIndex();
-    }
+    // Calculate totals where dataset doesn't provide it
+    // TODO- this should be removed when Totals come from the Data Server
+    const total = df
+      .pivot(["fips", "fips_name"], {
+        diabetes_count: (series) => series.sum(),
+        diabetes_no: (series) => series.sum(),
+        copd_count: (series) => series.sum(),
+        copd_no: (series) => series.sum(),
+        race_and_ethnicity: (series) => TOTAL,
+      })
+      .resetIndex();
+    df = df.concat(total).resetIndex();
 
     df = df.generateSeries({
       diabetes_per_100k: (row) =>
@@ -71,8 +72,26 @@ class BrfssProvider extends VariableProvider {
         per100k(row.copd_count, row.copd_count + row.copd_no),
     });
 
-    df = this.renameGeoColumns(df, breakdowns);
+    // We can't do percent share for national because different survey rates
+    // across states may skew the results. To do that, we need to combine BRFSS
+    // survey results with state populations to estimate total counts for each
+    // state, and then use that estimate to determine the percent share.
+    // TODO this causes the "vs Population" Disparity Bar Chart to be broken for
+    // the national level. We need some way of indicating why the share of cases
+    // isn't there. Or, we can do this computation on the server.
+    if (breakdowns.hasOnlyRace() && breakdowns.geography === "state") {
+      ["diabetes_count", "copd_count"].forEach((col) => {
+        df = this.calculatePctShare(
+          df,
+          col,
+          col.split("_")[0] + "_pct_share",
+          breakdowns.demographicBreakdowns.race.columnName,
+          ["fips"]
+        );
+      });
+    }
 
+    df = this.removeUnwantedDemographicTotals(df, breakdowns);
     return new MetricQueryResponse(df.toArray(), ["brfss"]);
   }
 

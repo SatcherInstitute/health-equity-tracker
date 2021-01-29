@@ -3,10 +3,10 @@ import { IDataFrame } from "data-forge";
 /**
  * Reshapes the data frame by creating a new column for each value in
  * newColNames, and using the values from newColValues, grouping by
- * groupedByCol. For example, if you have a dataset with columns: "state_name",
+ * groupedByCol. For example, if you have a dataset with columns: "fips_name",
  * "race_and_ethnicity", and "population", calling:
- *     reshapeRowsToCols(df, "population", "race_and_ethnicity", "state_name");
- * will convert this to a data frame with a "state_name" column and a population
+ *     reshapeRowsToCols(df, "population", "race_and_ethnicity", "fips_name");
+ * will convert this to a data frame with a "fips_name" column and a population
  * column for each race. You can optionally rename the columns using
  * colNameGenerator.
  */
@@ -36,11 +36,11 @@ export function reshapeRowsToCols(
 
 /**
  * Does the opposite of reshapeRowsToCols. For example, if you have a dataset
- * with a "state_name" column and a population column for each race, calling:
+ * with a "fips_name" column and a population column for each race, calling:
  *     reshapeColsToRows(
  *         df, ["Black", "White", "Hispanic", ...], "population",
  *         "race_and_ethnicity");
- * will convert it to a dataset with columns: "state_name",
+ * will convert it to a dataset with columns: "fips_name",
  * "race_and_ethnicity", and "population"
  * @param df
  * @param cols

@@ -3,16 +3,10 @@ import { Breakdowns } from "../Breakdowns";
 import VariableProvider from "./VariableProvider";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
-import {
-  applyToGroups,
-  asDate,
-  getLatestDate,
-  joinOnCols,
-  per100k,
-  percent,
-} from "../datasetutils";
+import { asDate, getLatestDate, joinOnCols, per100k } from "../datasetutils";
 import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 import { getDataManager } from "../../utils/globals";
+import { MetricId } from "../MetricConfig";
 
 class CovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -28,6 +22,12 @@ class CovidProvider extends VariableProvider {
       "covid_deaths_per_100k",
       "covid_cases_per_100k",
       "covid_hosp_per_100k",
+      "covid_cases_reporting_population",
+      "covid_deaths_reporting_population",
+      "covid_hosp_reporting_population",
+      "covid_cases_reporting_population_pct",
+      "covid_deaths_reporting_population_pct",
+      "covid_hosp_reporting_population_pct",
     ]);
     this.acsProvider = acsProvider;
   }
@@ -48,6 +48,13 @@ class CovidProvider extends VariableProvider {
     // because each state reports race differently.
     let df = covid_dataset.toDataFrame();
 
+    // Filter by geography, return early if no results remain
+    df = this.filterByGeo(df, breakdowns);
+    if (df.toArray().length === 0) {
+      return new MetricQueryResponse([], consumedDatasetIds);
+    }
+    df = this.renameGeoColumns(df, breakdowns);
+
     // TODO some of this can be generalized across providers.
     if (!breakdowns.time) {
       const lastTime = getLatestDate(df).getTime();
@@ -64,18 +71,14 @@ class CovidProvider extends VariableProvider {
       breakdowns.geography === "national"
         ? df
             .pivot(["date", "race_and_ethnicity"], {
-              state_fips: (series) => USA_FIPS,
-              state_name: (series) => USA_DISPLAY_NAME,
+              fips: (series) => USA_FIPS,
+              fips_name: (series) => USA_DISPLAY_NAME,
               covid_cases: (series) => series.sum(),
               covid_deaths: (series) => series.sum(),
               covid_hosp: (series) => series.sum(),
             })
             .resetIndex()
         : df;
-
-    df = this.filterByGeo(df, breakdowns);
-
-    df = this.renameGeoColumns(df, breakdowns);
 
     // TODO How to handle territories?
     const acsBreakdowns = breakdowns.copy();
@@ -86,14 +89,13 @@ class CovidProvider extends VariableProvider {
       includeTotal: true,
     };
 
+    // Get ACS population data
     const acsQueryResponse = await this.acsProvider.getData(
       new MetricQuery(["population", "population_pct"], acsBreakdowns)
     );
-
     consumedDatasetIds = consumedDatasetIds.concat(
       acsQueryResponse.consumedDatasetIds
     );
-
     if (acsQueryResponse.dataIsMissing()) {
       return acsQueryResponse;
     }
@@ -123,20 +125,48 @@ class CovidProvider extends VariableProvider {
     // Must reset index or calculation is wrong. TODO how to make this less brittle?
     df = df.concat(unknowns).resetIndex();
 
-    // TODO this is a bit on the slow side. Maybe a better way to do it, or
-    // pre-compute "total" column on server
-    ["covid_cases", "covid_deaths", "covid_hosp"].forEach((col) => {
-      df = applyToGroups(df, ["date", "fips"], (group) => {
-        const total = group
-          .where((r) => r.race_and_ethnicity === "Total")
-          .first()[col];
-        return group
+    if (breakdowns.hasOnlyRaceNonStandard()) {
+      ["covid_cases", "covid_deaths", "covid_hosp"].forEach((col) => {
+        df = this.calculatePctShare(
+          df,
+          col,
+          col + "_pct_of_geo",
+          breakdowns.demographicBreakdowns.race.columnName,
+          ["date", "fips"]
+        );
+      });
+    }
+
+    // TODO - calculate actual reporting values instead of just copying fields
+    const populationMetric: MetricId[] = [
+      "covid_cases_reporting_population",
+      "covid_deaths_reporting_population",
+      "covid_hosp_reporting_population",
+    ];
+    populationMetric.forEach((reportingPopulation) => {
+      if (metricQuery.metricIds.includes(reportingPopulation)) {
+        df = df
           .generateSeries({
-            [col + "_pct_of_geo"]: (row) => percent(row[col], total),
+            [reportingPopulation]: (row) => row["population"],
           })
           .resetIndex();
-      });
+      }
     });
+    const populationPctMetric: MetricId[] = [
+      "covid_cases_reporting_population_pct",
+      "covid_deaths_reporting_population_pct",
+      "covid_hosp_reporting_population_pct",
+    ];
+    populationPctMetric.forEach((reportingPopulation) => {
+      if (metricQuery.metricIds.includes(reportingPopulation)) {
+        df = df
+          .generateSeries({
+            [reportingPopulation]: (row) => row["population_pct"],
+          })
+          .resetIndex();
+      }
+    });
+    df = df.dropSeries(["population", "population_pct"]).resetIndex();
 
     df = this.removeUnwantedDemographicTotals(df, breakdowns);
 

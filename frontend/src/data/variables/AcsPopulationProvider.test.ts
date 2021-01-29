@@ -4,52 +4,31 @@ import {
   getDataFetcher,
   resetCacheDebug,
 } from "../../utils/globals";
-import { Breakdowns, BreakdownVar } from "../Breakdowns";
-import {
-  MetricQuery,
-  MetricQueryResponse,
-  createMissingDataResponse,
-} from "../MetricQuery";
-import { Fips, USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
+import { Breakdowns } from "../Breakdowns";
+import { MetricQuery, createMissingDataResponse } from "../MetricQuery";
+import { Fips } from "../../utils/madlib/Fips";
 import FakeMetadataMap from "../FakeMetadataMap";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
-
-const WHITE = "White (Non-Hispanic)";
-const ASIAN = "Asian (Non-Hispanic)";
-const TOTAL = "Total";
-const RACE = "race_and_ethnicity";
-const AGE = "age";
-const SEX = "sex";
-
-interface FipsSpec {
-  code: string;
-  name: string;
-}
-
-const CHATAM: FipsSpec = {
-  code: "37037",
-  name: "Chatam County",
-};
-const DURHAM: FipsSpec = {
-  code: "37063",
-  name: "Durham County",
-};
-const NC: FipsSpec = {
-  code: "37",
-  name: "North Carolina",
-};
-const AL: FipsSpec = {
-  code: "01",
-  name: "Alabama",
-};
-const MARIN: FipsSpec = {
-  code: "06041",
-  name: "Marin County",
-};
-const USA: FipsSpec = {
-  code: USA_FIPS,
-  name: USA_DISPLAY_NAME,
-};
+import {
+  createWithAndWithoutTotalEvaluator,
+  FipsSpec,
+  CHATAM,
+  DURHAM,
+  NC,
+  AL,
+  MARIN,
+  USA,
+} from "./TestUtils";
+import {
+  WHITE,
+  ASIAN,
+  TOTAL,
+  RACE,
+  AGE,
+  SEX,
+  MALE,
+  FEMALE,
+} from "../Constants";
 
 function countyRow(
   fips: FipsSpec,
@@ -97,42 +76,15 @@ function finalRow(
   };
 }
 
-async function evaluate(
-  datasetId: string,
-  rawData: any[],
-  baseBreakdown: Breakdowns,
-  breakdownVar: BreakdownVar,
-  nonTotalRows: any[],
-  totalRows: any[]
-) {
-  const acsProvider = new AcsPopulationProvider();
-  dataFetcher.setFakeDatasetLoaded(datasetId, rawData);
-
-  // Evaluate the response with requesting total field
-  const responseWithTotal = await acsProvider.getData(
-    new MetricQuery(
-      "population",
-      baseBreakdown.addBreakdown(breakdownVar, /*includeTotal=*/ true)
-    )
-  );
-  expect(responseWithTotal).toEqual(
-    new MetricQueryResponse(totalRows, [datasetId])
-  );
-
-  // Evaluate the response without requesting total field
-  const responseWithoutTotal = await acsProvider.getData(
-    new MetricQuery(
-      "population",
-      baseBreakdown.addBreakdown(breakdownVar, /*includeTotal=*/ false)
-    )
-  );
-  expect(responseWithoutTotal).toEqual(
-    new MetricQueryResponse(nonTotalRows, [datasetId])
-  );
-}
-
 autoInitGlobals();
+
 const dataFetcher = getDataFetcher() as FakeDataFetcher;
+
+const evaluateWithAndWithoutTotal = createWithAndWithoutTotalEvaluator(
+  "population",
+  dataFetcher,
+  new AcsPopulationProvider()
+);
 
 describe("AcsPopulationProvider", () => {
   beforeEach(() => {
@@ -173,7 +125,7 @@ describe("AcsPopulationProvider", () => {
     const D_WHITE_FINAL = finalRow(DURHAM, RACE, WHITE, 15, 75);
     const D_TOTAL_FINAL = finalRow(DURHAM, RACE, TOTAL, 20, 100);
 
-    await evaluate(
+    await evaluateWithAndWithoutTotal(
       "acs_population-by_race_county_std",
       rawData,
       Breakdowns.byCounty().withGeoFilter(new Fips(NC.code)),
@@ -202,7 +154,7 @@ describe("AcsPopulationProvider", () => {
     const D_WHITE_FINAL = finalRow(DURHAM, RACE, WHITE, 15, 75);
     const D_TOTAL_FINAL = finalRow(DURHAM, RACE, TOTAL, 20, 100);
 
-    await evaluate(
+    await evaluateWithAndWithoutTotal(
       "acs_population-by_race_county_std",
       rawData,
       Breakdowns.forFips(new Fips(DURHAM.code)),
@@ -225,7 +177,7 @@ describe("AcsPopulationProvider", () => {
     const NC_ASIAN_FINAL = finalRow(NC, RACE, ASIAN, 5, 25);
     const NC_WHITE_FINAL = finalRow(NC, RACE, WHITE, 15, 75);
 
-    await evaluate(
+    await evaluateWithAndWithoutTotal(
       "acs_population-by_race_state_std",
       rawData,
       Breakdowns.forFips(new Fips(NC.code)),
@@ -248,7 +200,7 @@ describe("AcsPopulationProvider", () => {
     const NATIONAL_WHITE_FINAL = finalRow(USA, RACE, WHITE, 15, 60);
     const NATIONAL_TOTAL_FINAL = finalRow(USA, RACE, TOTAL, 25, 100);
 
-    await evaluate(
+    await evaluateWithAndWithoutTotal(
       "acs_population-by_race_state_std",
       rawData,
       Breakdowns.national(),
@@ -271,9 +223,9 @@ describe("AcsPopulationProvider", () => {
 
     const D_0_9_FINAL = finalRow(DURHAM, AGE, "0-9", 5, 25);
     const D_10_19_FINAL = finalRow(DURHAM, AGE, "10-19", 15, 75);
-    const D_TOTAL_FINAL = finalRow(DURHAM, AGE, "Total", 20, 100);
+    const D_TOTAL_FINAL = finalRow(DURHAM, AGE, TOTAL, 20, 100);
 
-    await evaluate(
+    await evaluateWithAndWithoutTotal(
       "acs_population-by_age_county",
       rawData,
       Breakdowns.byCounty().withGeoFilter(new Fips(NC.code)),
@@ -294,7 +246,7 @@ describe("AcsPopulationProvider", () => {
     const D_10_19_FINAL = finalRow(DURHAM, AGE, "10-19", 15, 75);
     const D_TOTAL_FINAL = finalRow(DURHAM, AGE, TOTAL, 20, 100);
 
-    await evaluate(
+    await evaluateWithAndWithoutTotal(
       "acs_population-by_age_county",
       rawData,
       Breakdowns.forFips(new Fips(DURHAM.code)),
@@ -315,7 +267,7 @@ describe("AcsPopulationProvider", () => {
     const NC_AGE_10_19_FINAL = finalRow(NC, AGE, "10-19", 10, 40);
     const NC_TOTAL_FINAL = finalRow(NC, AGE, TOTAL, 25, 100);
 
-    await evaluate(
+    await evaluateWithAndWithoutTotal(
       "acs_population-by_age_state",
       rawData,
       Breakdowns.forFips(new Fips(NC.code)),
@@ -334,9 +286,9 @@ describe("AcsPopulationProvider", () => {
 
     const AGE_0_9_FINAL = finalRow(USA, AGE, "0-9", 30, 75);
     const AGE_10_19_FINAL = finalRow(USA, AGE, "10-19", 10, 25);
-    const AGE_TOTAL_FINAL = finalRow(USA, AGE, "Total", 40, 100);
+    const AGE_TOTAL_FINAL = finalRow(USA, AGE, TOTAL, 40, 100);
 
-    await evaluate(
+    await evaluateWithAndWithoutTotal(
       "acs_population-by_age_state",
       rawData,
       Breakdowns.national(),
@@ -348,16 +300,16 @@ describe("AcsPopulationProvider", () => {
 
   test("State and Gender Breakdown", async () => {
     const rawData = [
-      stateRow(AL, SEX, "male", 2),
-      stateRow(NC, SEX, "male", 15),
-      stateRow(NC, SEX, "female", 10),
+      stateRow(AL, SEX, MALE, 2),
+      stateRow(NC, SEX, MALE, 15),
+      stateRow(NC, SEX, FEMALE, 10),
     ];
 
-    const NC_MALE_FINAL = finalRow(NC, SEX, "male", 15, 60);
-    const NC_FEMALE_FINAL = finalRow(NC, SEX, "female", 10, 40);
-    const NC_TOTAL = finalRow(NC, SEX, "Total", 25, 100);
+    const NC_MALE_FINAL = finalRow(NC, SEX, MALE, 15, 60);
+    const NC_FEMALE_FINAL = finalRow(NC, SEX, FEMALE, 10, 40);
+    const NC_TOTAL = finalRow(NC, SEX, TOTAL, 25, 100);
 
-    await evaluate(
+    await evaluateWithAndWithoutTotal(
       "acs_population-by_sex_state",
       rawData,
       Breakdowns.forFips(new Fips(NC.code)),
@@ -369,16 +321,16 @@ describe("AcsPopulationProvider", () => {
 
   test("National and Gender Breakdown", async () => {
     const rawData = [
-      stateRow(AL, SEX, "Male", 15),
-      stateRow(NC, SEX, "Male", 15),
-      stateRow(NC, SEX, "Female", 10),
+      stateRow(AL, SEX, MALE, 15),
+      stateRow(NC, SEX, MALE, 15),
+      stateRow(NC, SEX, FEMALE, 10),
     ];
 
-    const MALE_FINAL = finalRow(USA, SEX, "Male", 30, 75);
-    const FEMALE_FINAL = finalRow(USA, SEX, "Female", 10, 25);
-    const TOTAL_FINAL = finalRow(USA, SEX, "Total", 40, 100);
+    const MALE_FINAL = finalRow(USA, SEX, MALE, 30, 75);
+    const FEMALE_FINAL = finalRow(USA, SEX, FEMALE, 10, 25);
+    const TOTAL_FINAL = finalRow(USA, SEX, TOTAL, 40, 100);
 
-    await evaluate(
+    await evaluateWithAndWithoutTotal(
       "acs_population-by_sex_state",
       rawData,
       Breakdowns.national(),
