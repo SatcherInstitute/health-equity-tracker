@@ -91,7 +91,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           populationComparisonMetric: {
             metricId: "covid_cases_reporting_population",
             fullCardTitleName: "Reporting Population",
-            shortVegaLabel: "Reporting population",
+            shortVegaLabel: "people",
             type: "count",
           },
         },
@@ -102,7 +102,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "covid_cases_reporting_population_pct",
-            fullCardTitleName: "Share of Reporting Population",
+            fullCardTitleName: "Reporting Population Share",
             shortVegaLabel: "% of reporting population",
             type: "pct_share",
           },
@@ -127,7 +127,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           populationComparisonMetric: {
             metricId: "covid_deaths_reporting_population",
             fullCardTitleName: "Reporting Population",
-            shortVegaLabel: "Reporting population",
+            shortVegaLabel: "people",
             type: "count",
           },
         },
@@ -138,7 +138,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "covid_deaths_reporting_population_pct",
-            fullCardTitleName: "Share of Reporting Population",
+            fullCardTitleName: "Reporting Population Share",
             shortVegaLabel: "% of reporting population",
             type: "pct_share",
           },
@@ -163,7 +163,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           populationComparisonMetric: {
             metricId: "covid_hosp_reporting_population",
             fullCardTitleName: "Reporting Population",
-            shortVegaLabel: "Reporting population",
+            shortVegaLabel: "people",
             type: "count",
           },
         },
@@ -174,7 +174,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "covid_hosp_reporting_population_pct",
-            fullCardTitleName: "Share of Reporting Population",
+            fullCardTitleName: "Reporting Population Share",
             shortVegaLabel: "% of reporting population",
             type: "pct_share",
           },

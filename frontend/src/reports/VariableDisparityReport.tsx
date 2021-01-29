@@ -44,19 +44,20 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
       : null
   );
 
-  const fields: MetricConfig[] = [];
-  if (variableConfig && variableConfig.metrics["per100k"]) {
-    fields.push(variableConfig.metrics["per100k"]);
-  }
-  if (variableConfig && variableConfig.metrics["pct_share"]) {
-    fields.push(variableConfig.metrics["pct_share"]);
-    if (variableConfig.metrics["pct_share"].populationComparisonMetric) {
-      fields.push(
-        variableConfig.metrics["pct_share"].populationComparisonMetric
-      );
+  let tableFields: MetricConfig[] = [];
+  if (variableConfig) {
+    if (variableConfig.metrics["per100k"]) {
+      tableFields.push(variableConfig.metrics["per100k"]);
+    }
+    if (variableConfig.metrics["pct_share"]) {
+      tableFields.push(variableConfig.metrics["pct_share"]);
+      if (variableConfig.metrics["pct_share"].populationComparisonMetric) {
+        tableFields.push(
+          variableConfig.metrics["pct_share"].populationComparisonMetric
+        );
+      }
     }
   }
-  const tableFields: MetricConfig[] = variableConfig ? [...fields] : [];
 
   return (
     <Grid container xs={12} spacing={1} justify="center">
