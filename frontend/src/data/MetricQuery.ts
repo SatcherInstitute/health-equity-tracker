@@ -1,21 +1,14 @@
 import { Breakdowns } from "./Breakdowns";
-import { JoinType } from "./datasetutils";
 import { Row } from "./DatasetTypes";
 import { MetricId } from "./MetricConfig";
 
 export class MetricQuery {
   readonly metricIds: MetricId[];
   readonly breakdowns: Breakdowns;
-  readonly joinType: JoinType;
 
-  constructor(
-    metricIds: MetricId | MetricId[],
-    breakdowns: Breakdowns,
-    joinType?: JoinType
-  ) {
+  constructor(metricIds: MetricId | MetricId[], breakdowns: Breakdowns) {
     this.metricIds = [metricIds].flat();
     this.breakdowns = breakdowns;
-    this.joinType = joinType || "left";
   }
 
   getUniqueKey(): string {

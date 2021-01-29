@@ -3,8 +3,10 @@ export type MetricId =
   | "population_pct"
   | "diabetes_count"
   | "diabetes_per_100k"
+  | "diabetes_pct_share"
   | "copd_count"
   | "copd_per_100k"
+  | "copd_pct_share"
   | "covid_cases"
   | "covid_deaths"
   | "covid_hosp"
@@ -77,6 +79,10 @@ export function formatFieldValue(metricType: MetricType, value: any): string {
 
 // TODO - strongly type key
 // TODO - count and pct_share metric types should require populationComparisonMetric
+
+// Note: metrics must be declared in a consistent order becuase the UI relies
+// on this to build toggles.
+// TODO: make the UI consistent regardless of metric config order.
 export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
   covid: [
     {
@@ -200,6 +206,14 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           type: "count",
           populationComparisonMetric: POPULATION_VARIABLE_CONFIG.metrics.count,
         },
+        pct_share: {
+          metricId: "diabetes_pct_share",
+          fullCardTitleName: "Share of Diabetes cases",
+          shortVegaLabel: "% of cases",
+          type: "pct_share",
+          populationComparisonMetric:
+            POPULATION_VARIABLE_CONFIG.metrics.pct_share,
+        },
         per100k: {
           metricId: "diabetes_per_100k",
           fullCardTitleName: "Diabetes cases per 100,000 people",
@@ -220,6 +234,14 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           shortVegaLabel: "COPD cases",
           type: "count",
           populationComparisonMetric: POPULATION_VARIABLE_CONFIG.metrics.count,
+        },
+        pct_share: {
+          metricId: "copd_pct_share",
+          fullCardTitleName: "Share of COPD cases",
+          shortVegaLabel: "% of cases",
+          type: "pct_share",
+          populationComparisonMetric:
+            POPULATION_VARIABLE_CONFIG.metrics.pct_share,
         },
         per100k: {
           metricId: "copd_per_100k",
