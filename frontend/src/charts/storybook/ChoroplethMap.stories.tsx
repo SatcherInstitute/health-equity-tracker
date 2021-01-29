@@ -1,8 +1,8 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
-import { METRIC_CONFIG } from "../../data/MetricConfig";
+import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 import { ChoroplethMap, ChoroplethMapProps } from "../ChoroplethMap";
-import { Fips, USA_FIPS } from "../../utils/madlib/Fips";
+import { Fips, USA_FIPS } from "../../data/utils/Fips";
 import { StoryWrapper } from "../../storybook/StoryWrapper";
 
 export default {

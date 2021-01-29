@@ -3,18 +3,21 @@ import { Button, Grid } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
-import { BreakdownVar, BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/Breakdowns";
+import {
+  BreakdownVar,
+  BREAKDOWN_VAR_DISPLAY_NAMES,
+} from "../data/query/Breakdowns";
 import { MapCard } from "../cards/MapCard";
 import { PopulationCard } from "../cards/PopulationCard";
 import { TableCard } from "../cards/TableCard";
 import { BarChartCard } from "../cards/BarChartCard";
-import { DropdownVarId } from "../utils/madlib/MadLibs";
-import { Fips } from "../utils/madlib/Fips";
+import { DropdownVarId } from "../utils/MadLibs";
+import { Fips } from "../data/utils/Fips";
 import {
   METRIC_CONFIG,
   VariableConfig,
   MetricConfig,
-} from "../data/MetricConfig";
+} from "../data/config/MetricConfig";
 import styles from "./Report.module.scss";
 
 const SUPPORTED_BREAKDOWNS: BreakdownVar[] = [

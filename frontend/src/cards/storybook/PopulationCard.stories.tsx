@@ -1,9 +1,9 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import { PopulationCard } from "../PopulationCard";
-import { Fips, USA_FIPS } from "../../utils/madlib/Fips";
-import { BreakdownVar } from "../../data/Breakdowns";
-import { MetricConfig } from "../../data/MetricConfig";
+import { Fips, USA_FIPS } from "../../data/utils/Fips";
+import { BreakdownVar } from "../../data/query/Breakdowns";
+import { MetricConfig } from "../../data/config/MetricConfig";
 import { StoryWrapper } from "../../storybook/StoryWrapper";
 
 interface PopulationCardProps {

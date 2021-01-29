@@ -1,10 +1,10 @@
 import { Button } from "@material-ui/core";
 import React from "react";
-import { MetadataMap } from "./DatasetTypes";
+import { MetadataMap } from "../utils/DatasetTypes";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { MetricQuery, MetricQueryResponse } from "./MetricQuery";
-import { getDataManager } from "../utils/globals";
-import { MetadataCache } from "./DataManager";
+import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { getDataManager } from "../../utils/globals";
+import { MetadataCache } from "../loading/DataManager";
 import { IncompleteLoadStatus, useMetrics, useResources } from "./useResources";
 
 /**

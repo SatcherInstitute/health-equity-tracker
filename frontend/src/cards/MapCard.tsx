@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
-import { Fips } from "../utils/madlib/Fips";
+import { Fips } from "../data/utils/Fips";
 import styles from "./Card.module.scss";
 import MapBreadcrumbs from "./MapBreadcrumbs";
 import CardWrapper from "./CardWrapper";
-import { MetricQuery } from "../data/MetricQuery";
-import { MetricConfig } from "../data/MetricConfig";
+import { MetricQuery } from "../data/query/MetricQuery";
+import { MetricConfig } from "../data/config/MetricConfig";
 import { CardContent } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
@@ -16,12 +16,12 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import { Breakdowns, BreakdownVar } from "../data/Breakdowns";
+import { Breakdowns, BreakdownVar } from "../data/query/Breakdowns";
 import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 import { usePopover } from "../utils/usePopover";
-import { Row } from "../data/DatasetTypes";
+import { Row } from "../data/utils/DatasetTypes";
 import { exclude } from "../data/query/BreakdownFilter";
-import { NON_HISPANIC } from "../data/Constants";
+import { NON_HISPANIC } from "../data/utils/Constants";
 
 const POSSIBLE_BREAKDOWNS: BreakdownVar[] = [
   "race_and_ethnicity",

@@ -1,6 +1,6 @@
-import { getDataManager } from "../utils/globals";
+import { getDataManager } from "../../utils/globals";
 import { useEffect } from "react";
-import { MetadataMap } from "./DatasetTypes";
+import { MetadataMap } from "../utils/DatasetTypes";
 
 async function onMetadataLoaded(callback: (metadata: MetadataMap) => void) {
   try {

@@ -1,9 +1,12 @@
 import React from "react";
 import { Vega } from "react-vega";
-import { Row } from "../data/DatasetTypes";
+import { Row } from "../data/utils/DatasetTypes";
 import { useResponsiveWidth } from "../utils/useResponsiveWidth";
-import { BreakdownVar, BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/Breakdowns";
-import { MetricConfig } from "../data/MetricConfig";
+import {
+  BreakdownVar,
+  BREAKDOWN_VAR_DISPLAY_NAMES,
+} from "../data/query/Breakdowns";
+import { MetricConfig } from "../data/config/MetricConfig";
 
 function getSpec(
   data: Record<string, any>[],

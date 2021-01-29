@@ -1,10 +1,10 @@
-import { Breakdowns, ALL_RACES_DISPLAY_NAME } from "../Breakdowns";
-import { per100k } from "../datasetutils";
-import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
+import { Breakdowns, ALL_RACES_DISPLAY_NAME } from "../query/Breakdowns";
+import { per100k } from "../utils/datasetutils";
+import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
-import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { TOTAL } from "../Constants";
+import { TOTAL } from "../utils/Constants";
 
 class BrfssProvider extends VariableProvider {
   constructor() {

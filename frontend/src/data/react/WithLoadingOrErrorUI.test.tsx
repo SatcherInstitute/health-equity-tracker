@@ -1,18 +1,18 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import { DatasetMetadata, Row } from "./DatasetTypes";
+import { DatasetMetadata, Row } from "../utils/DatasetTypes";
 import { act } from "react-dom/test-utils";
-import { MetricQuery } from "../data/MetricQuery";
-import { Breakdowns } from "../data/Breakdowns";
-import FakeMetadataMap from "./FakeMetadataMap";
+import { MetricQuery } from "../query/MetricQuery";
+import { Breakdowns } from "../query/Breakdowns";
+import FakeMetadataMap from "../config/FakeMetadataMap";
 import { WithMetrics } from "./WithLoadingOrErrorUI";
 import {
   autoInitGlobals,
   getDataFetcher,
   resetCacheDebug,
-} from "../utils/globals";
-import FakeDataFetcher from "../testing/FakeDataFetcher";
-import { excludeTotal } from "./query/BreakdownFilter";
+} from "../../utils/globals";
+import FakeDataFetcher from "../../testing/FakeDataFetcher";
+import { excludeTotal } from "../query/BreakdownFilter";
 
 const STATE_NAMES_ID = "state_names";
 const ANOTHER_FAKE_DATASET_ID = "fake_dataset_2";

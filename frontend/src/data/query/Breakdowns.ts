@@ -1,5 +1,5 @@
-import { Fips } from "../utils/madlib/Fips";
-import BreakdownFilter from "./query/BreakdownFilter";
+import { Fips } from "../utils/Fips";
+import BreakdownFilter from "./BreakdownFilter";
 
 // TODO move this file to /data/query
 

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Alert } from "@material-ui/lab";
 import CardWrapper from "./CardWrapper";
-import { Breakdowns } from "../data/Breakdowns";
-import { MetricQuery } from "../data/MetricQuery";
-import { Fips } from "../utils/madlib/Fips";
+import { Breakdowns } from "../data/query/Breakdowns";
+import { MetricQuery } from "../data/query/MetricQuery";
+import { Fips } from "../data/utils/Fips";
 import { CardContent } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import styles from "./Card.module.scss";
@@ -12,8 +12,11 @@ import Button from "@material-ui/core/Button";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
-import { MetricId, POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
-import { TOTAL } from "../data/Constants";
+import {
+  MetricId,
+  POPULATION_VARIABLE_CONFIG,
+} from "../data/config/MetricConfig";
+import { TOTAL } from "../data/utils/Constants";
 import {
   excludeTotal,
   onlyIncludeStandardRaces,

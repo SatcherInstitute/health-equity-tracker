@@ -4,14 +4,14 @@ import {
   getDataFetcher,
   resetCacheDebug,
 } from "../../utils/globals";
-import { Breakdowns } from "../Breakdowns";
+import { Breakdowns } from "../query/Breakdowns";
 import {
   MetricQuery,
   createMissingDataResponse,
   MetricQueryResponse,
-} from "../MetricQuery";
-import { Fips } from "../../utils/madlib/Fips";
-import FakeMetadataMap from "../FakeMetadataMap";
+} from "../query/MetricQuery";
+import { Fips } from "../utils/Fips";
+import FakeMetadataMap from "../config/FakeMetadataMap";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import {
   createWithAndWithoutTotalEvaluator,
@@ -34,7 +34,7 @@ import {
   FEMALE,
   NON_HISPANIC,
   WHITE,
-} from "../Constants";
+} from "../utils/Constants";
 import { onlyIncludeStandardRaces } from "../query/BreakdownFilter";
 
 function countyRow(

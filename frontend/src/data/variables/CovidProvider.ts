@@ -1,12 +1,17 @@
 import { DataFrame } from "data-forge";
-import { Breakdowns } from "../Breakdowns";
+import { Breakdowns } from "../query/Breakdowns";
 import VariableProvider from "./VariableProvider";
-import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
+import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
-import { asDate, getLatestDate, joinOnCols, per100k } from "../datasetutils";
-import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
+import {
+  asDate,
+  getLatestDate,
+  joinOnCols,
+  per100k,
+} from "../utils/datasetutils";
+import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { MetricId } from "../MetricConfig";
+import { MetricId } from "../config/MetricConfig";
 
 class CovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
