@@ -51,7 +51,7 @@ app.use('/api', (req, res, next) => {
     fetch(fetchUrl, options)
       .then(res => res.text())
       .then(token => {
-        req.headers["Authorization"] = `bearer ${token}`;
+        req.headers["AuthorizationTemp"] = `bearer ${token}`;
         next(); 
       })
       .catch(next);
@@ -69,32 +69,28 @@ const apiProxyOptions = {
   target: assertEnvVar("DATA_SERVER_URL"),
   changeOrigin: true, // needed for virtual hosted sites
   pathRewrite: { '^/api': '' },
+  onProxyReq: (proxyReq, req, res) => {
+    // Replace the basic auth header with the service account token.
+    proxyReq.setHeader('Authorization', proxyReq.getHeader('AuthorizationTemp'));
+    proxyReq.removeHeader('AuthorizationTemp');
+ }
 };
 const apiProxy = createProxyMiddleware(apiProxyOptions);
 app.use('/api', apiProxy);
 
 // auth middleware must be installed before setting up routes so it applies
-// to the whole site except for api requests which go to the data server and use
-// service account tokens instead.
+// to the whole site.
 if (!getBooleanEnvVar("DISABLE_BASIC_AUTH")) {
-  app.use((req, res, next) => {
-    if (req.path.startsWith('/api')) {
-      next();
-    } else {
-      const username = assertEnvVar("BASIC_AUTH_USERNAME");
-      const password = assertEnvVar("BASIC_AUTH_PASSWORD"); 
-      const options = {
-        // Temporary values until we can use Github Secrets. Also needs to be set up
-        // so that it's disabled for production but enabled for the test site.
-        users: { [username]: password },
-        challenge: true,
-        realm: 'Health Equity Tracker',
-      };
-      basicAuth(options);
-      next();
-    };
-  });
-}
+    const username = assertEnvVar("BASIC_AUTH_USERNAME");
+    const password = assertEnvVar("BASIC_AUTH_PASSWORD");
+    app.use(basicAuth({
+      // Temporary values until we can use Github Secrets. Also needs to be set up
+      // so that it's disabled for production but enabled for the test site.
+      users: { [username]: password },
+      challenge: true,
+      realm: 'Health Equity Tracker',
+    }));
+  }
 
 // Serve static files from the build directory.
 app.use(express.static(path.join(__dirname, 'build')));
