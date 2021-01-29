@@ -3,17 +3,9 @@ import { Breakdowns } from "../Breakdowns";
 import VariableProvider from "./VariableProvider";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
-import {
-  applyToGroups,
-  asDate,
-  getLatestDate,
-  joinOnCols,
-  per100k,
-  percent,
-} from "../datasetutils";
+import { asDate, getLatestDate, joinOnCols, per100k } from "../datasetutils";
 import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { TOTAL } from "../Constants";
 import { MetricId } from "../MetricConfig";
 
 class CovidProvider extends VariableProvider {
@@ -133,20 +125,17 @@ class CovidProvider extends VariableProvider {
     // Must reset index or calculation is wrong. TODO how to make this less brittle?
     df = df.concat(unknowns).resetIndex();
 
-    // TODO this is a bit on the slow side. Maybe a better way to do it, or
-    // pre-compute "Total" row on server
-    ["covid_cases", "covid_deaths", "covid_hosp"].forEach((col) => {
-      df = applyToGroups(df, ["date", "fips"], (group) => {
-        const total = group
-          .where((r) => r.race_and_ethnicity === TOTAL)
-          .first()[col];
-        return group
-          .generateSeries({
-            [col + "_pct_of_geo"]: (row) => percent(row[col], total),
-          })
-          .resetIndex();
+    if (breakdowns.hasOnlyRaceNonStandard()) {
+      ["covid_cases", "covid_deaths", "covid_hosp"].forEach((col) => {
+        df = this.calculatePctShare(
+          df,
+          col,
+          col + "_pct_of_geo",
+          breakdowns.demographicBreakdowns.race.columnName,
+          ["date", "fips"]
+        );
       });
-    });
+    }
 
     // TODO - calculate actual reporting values instead of just copying fields
     const populationMetric: MetricId[] = [

@@ -232,12 +232,7 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
     );
 
     const joined = dataframes.reduce((prev, next) => {
-      return joinOnCols(
-        prev,
-        next,
-        query.breakdowns.getJoinColumns(),
-        query.joinType
-      );
+      return joinOnCols(prev, next, query.breakdowns.getJoinColumns(), "outer");
     });
 
     const consumedDatasetIds = queryResponses.reduce(

@@ -1,6 +1,5 @@
 import { IDataFrame } from "data-forge";
 import { Breakdowns, DemographicBreakdownKey } from "../Breakdowns";
-import { applyToGroups, percent } from "../datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
@@ -84,14 +83,14 @@ class AcsPopulationProvider extends VariableProvider {
     // Exactly one breakdown should be enabled per allowsBreakdowns()
     const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
       .columnName;
-    df = applyToGroups(df, ["fips"], (group) => {
-      let totalPopulation = group
-        .where((r: any) => r[breakdownColumnName] === TOTAL)
-        .first()["population"];
-      return group.generateSeries({
-        population_pct: (row) => percent(row.population, totalPopulation),
-      });
-    });
+
+    df = this.calculatePctShare(
+      df,
+      "population",
+      "population_pct",
+      breakdownColumnName,
+      ["fips"]
+    );
 
     df = this.removeUnwantedDemographicTotals(df, breakdowns);
 

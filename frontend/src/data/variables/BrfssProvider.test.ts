@@ -27,11 +27,13 @@ function finalRow(
   copd_count: number,
   copd_no: number,
   copd_per_100k: number,
+  copd_pct_share: number | undefined,
   diabetes_count: number,
   diabetes_no: number,
-  diabetes_per_100k: number
+  diabetes_per_100k: number,
+  diabetes_pct_share: number | undefined
 ) {
-  return {
+  const row = {
     [breakdownName]: breakdownValue,
     fips: fips.code,
     fips_name: fips.name,
@@ -42,6 +44,13 @@ function finalRow(
     diabetes_no: diabetes_no,
     diabetes_per_100k: diabetes_per_100k,
   };
+  if (copd_pct_share !== undefined) {
+    row["copd_pct_share"] = copd_pct_share;
+  }
+  if (diabetes_pct_share !== undefined) {
+    row["diabetes_pct_share"] = diabetes_pct_share;
+  }
+  return row;
 }
 
 function stateRow(
@@ -91,9 +100,11 @@ describe("BrfssProvider", () => {
       /*copd_count=*/ 100,
       /*copd_no=*/ 900,
       /*copd_per_100k=*/ 10000,
+      /*copd_pct_share=*/ 16.7,
       /*diabetes_count=*/ 400,
       /*diabetes_no=*/ 600,
-      /*diabetes_per_100k=*/ 40000
+      /*diabetes_per_100k=*/ 40000,
+      /*diabetes_pct_share=*/ 40
     );
     const NC_WHITE_FINAL = finalRow(
       NC,
@@ -102,9 +113,11 @@ describe("BrfssProvider", () => {
       /*copd_count=*/ 500,
       /*copd_no=*/ 500,
       /*copd_per_100k=*/ 50000,
+      /*copd_pct_share=*/ 83.3,
       /*diabetes_count=*/ 600,
       /*diabetes_no=*/ 400,
-      /*diabetes_per_100k=*/ 60000
+      /*diabetes_per_100k=*/ 60000,
+      /*diabetes_pct_share=*/ 60
     );
     const NC_TOTAL_FINAL = finalRow(
       NC,
@@ -113,12 +126,14 @@ describe("BrfssProvider", () => {
       /*copd_count=*/ 600,
       /*copd_no=*/ 1400,
       /*copd_per_100k=*/ 30000,
+      /*copd_pct_share=*/ 100,
       /*diabetes_count=*/ 1000,
       /*diabetes_no=*/ 1000,
-      /*diabetes_per_100k=*/ 50000
+      /*diabetes_per_100k=*/ 50000,
+      /*diabetes_pct_share=*/ 100
     );
 
-    evaluateWithAndWithoutTotal(
+    await evaluateWithAndWithoutTotal(
       "brfss",
       rawData,
       Breakdowns.forFips(new Fips("37")),
@@ -142,9 +157,11 @@ describe("BrfssProvider", () => {
       /*copd_count=*/ 200,
       /*copd_no=*/ 1800,
       /*copd_per_100k=*/ 10000,
+      /*copd_pct_share=*/ undefined,
       /*diabetes_count=*/ 600,
       /*diabetes_no=*/ 1400,
-      /*diabetes_per_100k=*/ 30000
+      /*diabetes_per_100k=*/ 30000,
+      /*diabetes_pct_share=*/ undefined
     );
     const WHITE_FINAL = finalRow(
       USA,
@@ -153,9 +170,11 @@ describe("BrfssProvider", () => {
       /*copd_count=*/ 500,
       /*copd_no=*/ 500,
       /*copd_per_100k=*/ 50000,
+      /*copd_pct_share=*/ undefined,
       /*diabetes_count=*/ 600,
       /*diabetes_no=*/ 400,
-      /*diabetes_per_100k=*/ 60000
+      /*diabetes_per_100k=*/ 60000,
+      /*diabetes_pct_share=*/ undefined
     );
     const TOTAL_FINAL = finalRow(
       USA,
@@ -164,12 +183,14 @@ describe("BrfssProvider", () => {
       /*copd_count=*/ 700,
       /*copd_no=*/ 2300,
       /*copd_per_100k=*/ 23333,
+      /*copd_pct_share=*/ undefined,
       /*diabetes_count=*/ 1200,
       /*diabetes_no=*/ 1800,
-      /*diabetes_per_100k=*/ 40000
+      /*diabetes_per_100k=*/ 40000,
+      /*diabetes_pct_share=*/ undefined
     );
 
-    evaluateWithAndWithoutTotal(
+    await evaluateWithAndWithoutTotal(
       "brfss",
       rawData,
       Breakdowns.national(),

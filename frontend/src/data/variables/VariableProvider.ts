@@ -1,4 +1,4 @@
-import { Breakdowns } from "../Breakdowns";
+import { Breakdowns, BreakdownVar } from "../Breakdowns";
 import {
   MetricQueryResponse,
   createMissingDataResponse,
@@ -9,6 +9,7 @@ import { ProviderId } from "../VariableProviderMap";
 import { IDataFrame } from "data-forge";
 import { Fips } from "../../utils/madlib/Fips";
 import { TOTAL } from "../Constants";
+import { applyToGroups, percent } from "../datasetutils";
 
 abstract class VariableProvider {
   readonly providerId: ProviderId;
@@ -88,6 +89,36 @@ abstract class VariableProvider {
       }
     );
     return dataFrame;
+  }
+
+  /**
+   * Calculates a percent share column. In order for this to work, a "Total"
+   * value must be present for each group being applied to.
+   * Note that this function is not very efficient so it should only be used on
+   * small batches of data.
+   * @param df The DataFrame to apply to
+   * @param rawCountCol The name of the column with the raw count
+   * @param pctShareCol The name of the column to create with percent share
+   * @param breakdownCol The name of the column to calculate the percent across.
+   * @param groupByCols The columns to group by before calculating the total.
+   */
+  calculatePctShare(
+    df: IDataFrame,
+    rawCountCol: string,
+    pctShareCol: string,
+    breakdownCol: BreakdownVar,
+    groupByCols: string[]
+  ) {
+    return applyToGroups(df, groupByCols, (group) => {
+      const total = group.where((r) => r[breakdownCol] === TOTAL).first()[
+        rawCountCol
+      ];
+      return group
+        .generateSeries({
+          [pctShareCol]: (row) => percent(row[rawCountCol], total),
+        })
+        .resetIndex();
+    });
   }
 
   abstract getDataInternal(
