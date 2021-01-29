@@ -5,7 +5,11 @@ import {
   resetCacheDebug,
 } from "../../utils/globals";
 import { Breakdowns } from "../Breakdowns";
-import { MetricQuery, createMissingDataResponse } from "../MetricQuery";
+import {
+  MetricQuery,
+  createMissingDataResponse,
+  MetricQueryResponse,
+} from "../MetricQuery";
 import { Fips } from "../../utils/madlib/Fips";
 import FakeMetadataMap from "../FakeMetadataMap";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
@@ -28,7 +32,9 @@ import {
   SEX,
   MALE,
   FEMALE,
+  NON_HISPANIC,
 } from "../Constants";
+import { onlyIncludeStandardRaces } from "../query/BreakdownFilter";
 
 function countyRow(
   fips: FipsSpec,
@@ -41,7 +47,6 @@ function countyRow(
     state_fips: fips.code.substring(0, 2),
     county_name: fips.name,
     [breakdownName]: breakdownValue,
-    ingestion_ts: "2021-01-08 22:02:55.964254 UTC",
     population: population,
   };
 }
@@ -184,6 +189,56 @@ describe("AcsPopulationProvider", () => {
       RACE,
       [NC_ASIAN_FINAL, NC_WHITE_FINAL],
       [NC_TOTAL_FINAL, NC_ASIAN_FINAL, NC_WHITE_FINAL]
+    );
+  });
+
+  test("State and Race Breakdown with standard race filter", async () => {
+    const rawData = [
+      stateRow(AL, RACE, TOTAL, 2),
+      stateRow(AL, RACE, ASIAN, 2),
+      stateRow(NC, RACE, TOTAL, 20),
+      stateRow(NC, RACE, ASIAN, 5),
+      stateRow(NC, RACE, WHITE, 15),
+      // Non-standard, will be excluded from the non-standard filter
+      stateRow(NC, RACE, "White", 17),
+      stateRow(NC, RACE, NON_HISPANIC, 13),
+    ];
+
+    const datasetId = "acs_population-by_race_state_std";
+    dataFetcher.setFakeDatasetLoaded(datasetId, rawData);
+
+    let breakdowns = Breakdowns.forFips(new Fips(NC.code)).andRace();
+    let response = await new AcsPopulationProvider().getData(
+      new MetricQuery("population", breakdowns)
+    );
+    expect(response).toEqual(
+      new MetricQueryResponse(
+        [
+          finalRow(NC, RACE, TOTAL, 20, 100),
+          finalRow(NC, RACE, ASIAN, 5, 25),
+          finalRow(NC, RACE, WHITE, 15, 75),
+          finalRow(NC, RACE, "White", 17, 85),
+          finalRow(NC, RACE, NON_HISPANIC, 13, 65),
+        ],
+        [datasetId]
+      )
+    );
+
+    breakdowns = Breakdowns.forFips(new Fips(NC.code)).andRace(
+      onlyIncludeStandardRaces()
+    );
+    response = await new AcsPopulationProvider().getData(
+      new MetricQuery("population", breakdowns)
+    );
+    expect(response).toEqual(
+      new MetricQueryResponse(
+        [
+          finalRow(NC, RACE, TOTAL, 20, 100),
+          finalRow(NC, RACE, ASIAN, 5, 25),
+          finalRow(NC, RACE, WHITE, 15, 75),
+        ],
+        [datasetId]
+      )
     );
   });
 

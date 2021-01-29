@@ -13,6 +13,7 @@ import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import { FipsSpec, NC, AL, DURHAM, CHATAM, USA } from "./TestUtils";
 import { WHITE, TOTAL } from "../Constants";
 import { MetricId } from "../MetricConfig";
+import { excludeTotal } from "../query/BreakdownFilter";
 
 function covidAndAcsRows(
   fips: FipsSpec,
@@ -175,10 +176,7 @@ describe("CovidProvider", () => {
     const responseWithTotal = await covidProvider.getData(
       new MetricQuery(
         METRIC_IDS,
-        Breakdowns.forFips(new Fips(CHATAM.code)).andRace(
-          /*includeTotal=*/ true,
-          /*nonstandard=*/ true
-        )
+        Breakdowns.forFips(new Fips(CHATAM.code)).andRace()
       )
     );
     expect(responseWithTotal).toEqual(
@@ -192,10 +190,7 @@ describe("CovidProvider", () => {
     const responseWithoutTotal = await covidProvider.getData(
       new MetricQuery(
         METRIC_IDS,
-        Breakdowns.forFips(new Fips(CHATAM.code)).andRace(
-          /*includeTotal=*/ false,
-          /*nonstandard=*/ true
-        )
+        Breakdowns.forFips(new Fips(CHATAM.code)).andRace(excludeTotal())
       )
     );
     expect(responseWithoutTotal).toEqual(
@@ -297,10 +292,7 @@ describe("CovidProvider", () => {
     const responseWithTotal = await covidProvider.getData(
       new MetricQuery(
         METRIC_IDS,
-        Breakdowns.forFips(new Fips(NC.code)).andRace(
-          /*includeTotal=*/ true,
-          /*nonstandard=*/ true
-        )
+        Breakdowns.forFips(new Fips(NC.code)).andRace()
       )
     );
     expect(responseWithTotal).toEqual(
@@ -314,10 +306,7 @@ describe("CovidProvider", () => {
     const responseWithoutTotal = await covidProvider.getData(
       new MetricQuery(
         METRIC_IDS,
-        Breakdowns.forFips(new Fips(NC.code)).andRace(
-          /*includeTotal=*/ false,
-          /*nonstandard=*/ true
-        )
+        Breakdowns.forFips(new Fips(NC.code)).andRace(excludeTotal())
       )
     );
     expect(responseWithoutTotal).toEqual(
@@ -414,13 +403,7 @@ describe("CovidProvider", () => {
     ]);
     // Evaluate the response with requesting total field
     const responseWithTotal = await covidProvider.getData(
-      new MetricQuery(
-        METRIC_IDS,
-        Breakdowns.national().andRace(
-          /*includeTotal=*/ true,
-          /*nonstandard=*/ true
-        )
-      )
+      new MetricQuery(METRIC_IDS, Breakdowns.national().andRace())
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse(
@@ -431,13 +414,7 @@ describe("CovidProvider", () => {
 
     // Evaluate the response without requesting total field
     const responseWithoutTotal = await covidProvider.getData(
-      new MetricQuery(
-        METRIC_IDS,
-        Breakdowns.national().andRace(
-          /*includeTotal=*/ false,
-          /*nonstandard=*/ true
-        )
-      )
+      new MetricQuery(METRIC_IDS, Breakdowns.national().andRace(excludeTotal()))
     );
     expect(responseWithoutTotal).toEqual(
       new MetricQueryResponse(

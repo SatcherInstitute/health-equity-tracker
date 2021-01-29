@@ -6,18 +6,6 @@ import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
 import { getDataManager } from "../../utils/globals";
 import { TOTAL } from "../Constants";
 
-const standardizedRaces = [
-  "American Indian and Alaska Native (Non-Hispanic)",
-  "Asian (Non-Hispanic)",
-  "Black or African American (Non-Hispanic)",
-  "Hispanic or Latino",
-  "Native Hawaiian and Pacific Islander (Non-Hispanic)",
-  "Some other race (Non-Hispanic)",
-  "Two or more races (Non-Hispanic)",
-  "White (Non-Hispanic)",
-  TOTAL,
-];
-
 function createNationalTotal(dataFrame: IDataFrame, breakdown: string) {
   return dataFrame
     .pivot(breakdown, {
@@ -39,12 +27,17 @@ class AcsPopulationProvider extends VariableProvider {
         ? "acs_population-by_sex_county"
         : "acs_population-by_sex_state";
     }
+    // Note: this assumes all age buckets are included in the same dataset. If
+    // we use multiple datasets for different age buckets we will need to check
+    // the filters the age breakdown is requesting and select the dataset based
+    // on which filters are applied (or select a default one). It is preferrable
+    // to have the dataset include all breakdowns.
     if (breakdowns.hasOnlyAge()) {
       return breakdowns.geography === "county"
         ? "acs_population-by_age_county"
         : "acs_population-by_age_state";
     }
-    if (breakdowns.hasOnlyRace() || breakdowns.hasOnlyRaceNonStandard()) {
+    if (breakdowns.hasOnlyRace()) {
       return breakdowns.geography === "county"
         ? "acs_population-by_race_county_std"
         : "acs_population-by_race_state_std";
@@ -60,13 +53,11 @@ class AcsPopulationProvider extends VariableProvider {
     let df = await this.getDataInternalWithoutPercents(breakdowns);
 
     // Calculate totals where dataset doesn't provide it
-    // TODO- this should be removed when Totals come from the Data Server
-    ["age", "sex"].forEach((breakdownName) => {
-      if (
-        breakdowns.demographicBreakdowns[
-          breakdownName as DemographicBreakdownKey
-        ].enabled
-      ) {
+    // TODO: this should be removed when Totals come from the Data Server. Note
+    // that this assumes that the categories sum to exactly the total
+    const breakdownsToSum: DemographicBreakdownKey[] = ["age", "sex"];
+    breakdownsToSum.forEach((breakdownName) => {
+      if (breakdowns.demographicBreakdowns[breakdownName].enabled) {
         df = df
           .concat(
             df.pivot(["fips", "fips_name"], {
@@ -92,11 +83,7 @@ class AcsPopulationProvider extends VariableProvider {
       ["fips"]
     );
 
-    df = this.removeUnwantedDemographicTotals(df, breakdowns);
-
-    // TODO - remove this when we stop getting this field from server
-    df = df.dropSeries(["ingestion_ts"]).resetIndex();
-
+    df = this.applyDemographicBreakdownFilters(df, breakdowns);
     return new MetricQueryResponse(df.toArray(), [
       this.getDatasetId(breakdowns),
     ]);
@@ -114,13 +101,6 @@ class AcsPopulationProvider extends VariableProvider {
     // We apply the geo filter right away to reduce subsequent calculation times
     acsDataFrame = this.filterByGeo(acsDataFrame, breakdowns);
     acsDataFrame = this.renameGeoColumns(acsDataFrame, breakdowns);
-
-    // Race must be special cased to standardize the data before proceeding
-    if (breakdowns.hasOnlyRace()) {
-      acsDataFrame = acsDataFrame.where((row) =>
-        standardizedRaces.includes(row.race_and_ethnicity)
-      );
-    }
 
     return breakdowns.geography === "national"
       ? createNationalTotal(

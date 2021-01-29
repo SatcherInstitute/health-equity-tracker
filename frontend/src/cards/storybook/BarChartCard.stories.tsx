@@ -17,7 +17,6 @@ export const CovidByAge = Template.bind({});
 CovidByAge.args = {
   key: "testkey",
   fips: new Fips(USA_FIPS),
-  nonstandardizedRace: true,
   variableConfig: METRIC_CONFIG["covid"][0],
   breakdownVar: "age",
 };
@@ -26,7 +25,6 @@ export const CovidByRace = Template.bind({});
 CovidByRace.args = {
   key: "testkey",
   fips: new Fips(USA_FIPS),
-  nonstandardizedRace: true,
   variableConfig: METRIC_CONFIG["covid"][0],
   breakdownVar: "race_and_ethnicity",
 };
@@ -35,7 +33,6 @@ export const CopdByRace = Template.bind({});
 CopdByRace.args = {
   key: "testkey",
   fips: new Fips(USA_FIPS),
-  nonstandardizedRace: false,
   variableConfig: METRIC_CONFIG["copd"][0],
   breakdownVar: "race_and_ethnicity",
 };

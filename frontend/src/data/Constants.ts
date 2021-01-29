@@ -4,6 +4,7 @@ export const TOTAL = "Total";
 export const RACE = "race_and_ethnicity";
 export const WHITE = "White (Non-Hispanic)";
 export const ASIAN = "Asian (Non-Hispanic)";
+export const NON_HISPANIC = "Not Hispanic or Latino";
 
 export const AGE = "age";
 

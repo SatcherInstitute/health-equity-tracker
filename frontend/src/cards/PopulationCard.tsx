@@ -14,6 +14,10 @@ import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import { MetricId, POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
 import { TOTAL } from "../data/Constants";
+import {
+  excludeTotal,
+  onlyIncludeStandardRaces,
+} from "../data/query/BreakdownFilter";
 
 export interface PopulationCardProps {
   fips: Fips;
@@ -25,11 +29,13 @@ export function PopulationCard(props: PopulationCardProps) {
   const variableIds: MetricId[] = ["population", "population_pct"];
   const raceQuery = new MetricQuery(
     variableIds,
-    Breakdowns.forFips(props.fips).andRace(/*includeTotal=*/ true)
+    Breakdowns.forFips(props.fips).andRace(onlyIncludeStandardRaces())
   );
+  // TODO when ACS by age gets more age buckets, update this to specify which
+  // ones we want.
   const ageQuery = new MetricQuery(
     variableIds,
-    Breakdowns.forFips(props.fips).andAge()
+    Breakdowns.forFips(props.fips).andAge(excludeTotal())
   );
 
   return (

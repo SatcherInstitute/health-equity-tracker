@@ -71,23 +71,22 @@ abstract class VariableProvider {
       .resetIndex();
   }
 
-  removeUnwantedDemographicTotals(
+  applyDemographicBreakdownFilters(
     df: IDataFrame,
     breakdowns: Breakdowns
   ): IDataFrame {
     let dataFrame = df;
-    Object.values(breakdowns.demographicBreakdowns).forEach(
-      (demographicBreakdown) => {
-        if (
-          demographicBreakdown.enabled &&
-          !demographicBreakdown.includeTotal
-        ) {
-          dataFrame = dataFrame
-            .where((row) => row[demographicBreakdown.columnName] !== TOTAL)
-            .resetIndex();
-        }
+    Object.values(breakdowns.demographicBreakdowns).forEach((demo) => {
+      if (demo.enabled && demo.filter) {
+        const filter = demo.filter;
+        dataFrame = dataFrame
+          .where((row) => {
+            const value = row[demo.columnName];
+            return filter.include === filter.values.includes(value);
+          })
+          .resetIndex();
       }
-    );
+    });
     return dataFrame;
   }
 
@@ -110,9 +109,11 @@ abstract class VariableProvider {
     groupByCols: string[]
   ) {
     return applyToGroups(df, groupByCols, (group) => {
-      const total = group.where((r) => r[breakdownCol] === TOTAL).first()[
-        rawCountCol
-      ];
+      const totalRow = group.where((r) => r[breakdownCol] === TOTAL);
+      if (totalRow.count() === 0) {
+        throw new Error("No Total value for group");
+      }
+      const total = totalRow.first()[rawCountCol];
       return group
         .generateSeries({
           [pctShareCol]: (row) => percent(row[rawCountCol], total),

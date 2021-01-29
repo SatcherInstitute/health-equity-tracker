@@ -2,6 +2,8 @@ import { Breakdowns } from "./Breakdowns";
 import { Row } from "./DatasetTypes";
 import { MetricId } from "./MetricConfig";
 
+// TODO move this file to /data/query
+
 export class MetricQuery {
   readonly metricIds: MetricId[];
   readonly breakdowns: Breakdowns;

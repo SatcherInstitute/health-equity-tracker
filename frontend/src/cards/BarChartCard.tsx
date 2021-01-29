@@ -19,6 +19,8 @@ import CardWrapper from "./CardWrapper";
 import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 import DisparityInfoPopover from "./ui/DisparityInfoPopover";
 import { usePopover } from "../utils/usePopover";
+import { exclude } from "../data/query/BreakdownFilter";
+import { NON_HISPANIC, TOTAL } from "../data/Constants";
 
 const VALID_METRIC_TYPES = ["pct_share", "per100k"];
 
@@ -26,7 +28,6 @@ export interface BarChartCardProps {
   key?: string;
   breakdownVar: BreakdownVar;
   variableConfig: VariableConfig;
-  nonstandardizedRace: boolean /* TODO- ideally wouldn't go here, could be calculated based on dataset */;
   fips: Fips;
 }
 
@@ -46,12 +47,9 @@ function BarChartCardWithKey(props: BarChartCardProps) {
       props.variableConfig.metrics["per100k"]
   );
 
-  // TODO need to handle race categories standard vs non-standard for covid vs
-  // other demographic.
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
-    /*includeTotal=*/ false,
-    props.nonstandardizedRace
+    exclude(TOTAL, NON_HISPANIC)
   );
 
   // TODO - what if there are no valid types at all? What do we show?
@@ -99,9 +97,6 @@ function BarChartCardWithKey(props: BarChartCardProps) {
       }
     >
       {([queryResponse]) => {
-        const dataset = queryResponse.data.filter(
-          (row) => row.race_and_ethnicity !== "Not Hispanic or Latino"
-        );
         return (
           <>
             {queryResponse.shouldShowMissingDataMessage([
@@ -124,9 +119,7 @@ function BarChartCardWithKey(props: BarChartCardProps) {
                     onChange={(e, metricType) => {
                       if (metricType !== null) {
                         setMetricConfig(
-                          props.variableConfig.metrics[
-                            metricType
-                          ] as MetricConfig
+                          props.variableConfig.metrics[metricType]
                         );
                       }
                     }}
@@ -147,7 +140,7 @@ function BarChartCardWithKey(props: BarChartCardProps) {
               <CardContent className={styles.Breadcrumbs}>
                 {metricConfig.type === "pct_share" && (
                   <DisparityBarChart
-                    data={dataset}
+                    data={queryResponse.data}
                     thickMetric={metricConfig.populationComparisonMetric!}
                     thinMetric={metricConfig}
                     breakdownVar={props.breakdownVar}
@@ -156,7 +149,7 @@ function BarChartCardWithKey(props: BarChartCardProps) {
                 )}
                 {metricConfig.type === "per100k" && (
                   <SimpleHorizontalBarChart
-                    data={dataset}
+                    data={queryResponse.data}
                     breakdownVar={props.breakdownVar}
                     metric={metricConfig}
                     showLegend={false}

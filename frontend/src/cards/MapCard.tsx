@@ -20,6 +20,8 @@ import { Breakdowns, BreakdownVar } from "../data/Breakdowns";
 import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 import { usePopover } from "../utils/usePopover";
 import { Row } from "../data/DatasetTypes";
+import { exclude } from "../data/query/BreakdownFilter";
+import { NON_HISPANIC } from "../data/Constants";
 
 const POSSIBLE_BREAKDOWNS: BreakdownVar[] = [
   "race_and_ethnicity",
@@ -31,7 +33,6 @@ export interface MapCardProps {
   key?: string;
   fips: Fips;
   metricConfig: MetricConfig;
-  nonstandardizedRace: boolean /* TODO- ideally wouldn't go here, could be calculated based on dataset */;
   updateFipsCallback: (fips: Fips) => void;
   currentBreakdown: BreakdownVar | "all";
 }
@@ -76,8 +77,9 @@ function MapCardWithKey(props: MapCardProps) {
           .copy()
           .addBreakdown(
             breakdown,
-            /*includeTotal=*/ true,
-            props.nonstandardizedRace
+            breakdown === "race_and_ethnicity"
+              ? exclude(NON_HISPANIC)
+              : undefined
           )
       )
   );
@@ -114,7 +116,6 @@ function MapCardWithKey(props: MapCardProps) {
         }
 
         const predicates: Array<(row: Row) => boolean> = [
-          (row) => row.race_and_ethnicity !== "Not Hispanic or Latino",
           (row) => row[props.metricConfig.metricId] !== undefined,
           (row) => row[props.metricConfig.metricId] !== null,
           (row: Row) => row[currentlyDisplayedBreakdown] === breakdownFilter,
