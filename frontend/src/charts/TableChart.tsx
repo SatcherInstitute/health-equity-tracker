@@ -10,6 +10,8 @@ import { Row } from "../data/DatasetTypes";
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import { BreakdownVar, BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/Breakdowns";
 import { MetricConfig, formatFieldValue } from "../data/MetricConfig";
+import TableChartDataTable from '../dataset_explorer/TableChartDataTable';
+import DataTable from '../dataset_explorer/DataTable';
 
 export interface TableChartProps {
   data: Row[];
@@ -18,47 +20,35 @@ export interface TableChartProps {
 }
 
 export function TableChart(props: TableChartProps) {
+
+  const demoColumns = [
+    {
+      Header: 'Hello',
+      accessor: '1',
+    },
+    {
+      Header: 'Hello2',
+      accessor: '2',
+    },
+  ];
+  const demoData = [
+    {
+      1: 'Hello world',
+      2: 'Hello world 2',
+    },
+    {
+      1: 'Hello world 3',
+      2: 'Hello world 4',
+    },
+  ];
+
   return (
-    <>
-      {props.data.length <= 0 || props.metrics.length <= 0 ? (
-        <h1>No Data provided</h1>
-      ) : (
-        <TableContainer component={Paper} style={{ maxHeight: "500px" }}>
-          <Table stickyHeader>
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  {BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]}
-                </TableCell>
-                {props.metrics.map((metricConfig, i) => (
-                  <TableCell key={i}>
-                    {metricConfig.fullCardTitleName}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {props.data.map((row, i) => (
-                <TableRow key={i}>
-                  <TableCell>{row[props.breakdownVar]}</TableCell>
-                  {props.metrics.map((metricConfig, j) => (
-                    <TableCell key={j}>
-                      {formatFieldValue(
-                        metricConfig.type,
-                        row[metricConfig.metricId]
-                      )}
-                      {(row[metricConfig.metricId] === null ||
-                        row[metricConfig.metricId] === undefined) && (
-                        <WarningRoundedIcon />
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
-    </>
+      <>
+        {props.data.length <= 0 || props.metrics.length <= 0 ? (
+          <h1>No Data provided</h1>
+        ) : (<TableChartDataTable data={props.data} metrics={props.metrics} breakdownVar={props.breakdownVar} />)}
+        {/* ) : (<DataTable columns={demoColumns} data={demoData}/>)}*/}
+
+      </>
   );
 }
