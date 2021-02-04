@@ -2,17 +2,17 @@ import { DatasetMetadata, MetadataMap } from "./DatasetTypes";
 
 const fakeMetadata: DatasetMetadata[] = [
   {
-    id: "acs_population-by_race_state_std",
-    name: "Share of population by state and race",
-    data_source_name: "American Community Survey 5-year estimates (2014-2018)",
+    id: "acs_population-by_race_county_std",
+    name: "Population demographics - county race",
+    data_source_name: "American Community Survey 5-year estimates (2015-2019)",
     data_source_link:
       "https://www.census.gov/data/developers/data-sets/acs-5year.html",
     geographic_level: "State",
-    demographic_granularity: "Race/ethnicity",
-    update_frequency: "??",
-    update_time: "March 2, 2020",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Annual",
+    update_time: "unknown",
     description:
-      "Description placeholder for Share of population. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id lectus urna. Vestibulum lobortis ac quam vel tincidunt. Quisque ex erat, efficitur nec sagittis vitae, dictum semper arcu. Vivamus metus felis, fringilla sit amet metus nec, feugiat suscipit nisl. Morbi posuere mi sit amet elit posuere, id gravida ligula facilisis. Aenean gravida a eros fringilla venenatis.",
+      "Population percentages broken down by self-reported race/ethnicity, age, and sex at the U.S. and state levels.",
     fields: [
       {
         data_type: "string",
@@ -41,58 +41,211 @@ const fakeMetadata: DatasetMetadata[] = [
     ],
   },
   {
-    id: "covid_deaths",
-    name: "COVID-19 Deaths",
-    data_source_name: "CDC Provisional Death Counts for COVID-19",
+    id: "acs_population-by_race_state_std",
+    name: "Population demographics - race",
+    data_source_name: "American Community Survey 5-year estimates (2015-2019)",
     data_source_link:
-      "https://www.cdc.gov/nchs/covid19/covid-19-mortality-data-files.htm",
-    geographic_level: "County",
-    demographic_granularity: "Race/ethnicity",
-    update_frequency: "Daily",
-    update_time: "March 2, 2020",
+      "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Annual",
+    update_time: "unknown",
     description:
-      "Description placeholder for COVID-19 Deaths. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id lectus urna. Vestibulum lobortis ac quam vel tincidunt. Quisque ex erat, efficitur nec sagittis vitae, dictum semper arcu. Vivamus metus felis, fringilla sit amet metus nec, feugiat suscipit nisl. Morbi posuere mi sit amet elit posuere, id gravida ligula facilisis. Aenean gravida a eros fringilla venenatis.",
+      "Population percentages broken down by self-reported race/ethnicity, age, and sex at the U.S. and state levels.",
     fields: [
       {
         data_type: "string",
-        name: "fakefield1",
+        name: "state_name",
         description: "description",
-        origin_dataset: "origin_dataset",
+        origin_dataset: "acs_state_population_by_race",
+      },
+      {
+        data_type: "string",
+        name: "state_fips",
+        description: "description",
+        origin_dataset: "acs_state_population_by_race",
+      },
+      {
+        data_type: "string",
+        name: "race_and_ethnicity",
+        description: "description",
+        origin_dataset: "acs_state_population_by_race",
+      },
+      {
+        data_type: "integer",
+        name: "population",
+        description: "description",
+        origin_dataset: "acs_state_population_by_race",
       },
     ],
   },
   {
-    id: "social_vulernability",
-    name: "Social Vulnerability Index",
-    data_source_name: "CDC's Social Vulernability Index",
+    id: "acs_population-by_age_state",
+    name: "Population demographics - age, state",
+    data_source_name: "American Community Survey 5-year estimates (2015-2019)",
     data_source_link:
-      "https://www.atsdr.cdc.gov/placeandhealth/svi/data_documentation_download.html",
-    geographic_level: "State, County",
-    demographic_granularity: "No demographic breakdown",
-    update_frequency: "Every 2 years",
-    update_time: "March 2, 2020",
+      "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Annual",
+    update_time: "unknown",
     description:
-      "Description placeholder for Social Vulnerability Index. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id lectus urna. Vestibulum lobortis ac quam vel tincidunt. Quisque ex erat, efficitur nec sagittis vitae, dictum semper arcu. Vivamus metus felis, fringilla sit amet metus nec, feugiat suscipit nisl. Morbi posuere mi sit amet elit posuere, id gravida ligula facilisis. Aenean gravida a eros fringilla venenatis.",
+      "Population percentages broken down by self-reported race/ethnicity, age, and sex at the U.S. and state levels.",
     fields: [
       {
         data_type: "string",
-        name: "fakefield1",
+        name: "state_name",
         description: "description",
-        origin_dataset: "origin_dataset",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "string",
+        name: "state_fips",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "string",
+        name: "age",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "integer",
+        name: "population",
+        description: "description",
+        origin_dataset: "acs",
+      },
+    ],
+  },
+  {
+    id: "acs_population-by_age_county",
+    name: "Population demographics - age, county",
+    data_source_name: "American Community Survey 5-year estimates (2015-2019)",
+    data_source_link:
+      "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Annual",
+    update_time: "unknown",
+    description:
+      "Population percentages broken down by self-reported race/ethnicity, age, and sex at the U.S. and state levels.",
+    fields: [
+      {
+        data_type: "string",
+        name: "state_name",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "string",
+        name: "state_fips",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "string",
+        name: "age",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "integer",
+        name: "population",
+        description: "description",
+        origin_dataset: "acs",
+      },
+    ],
+  },
+  {
+    id: "acs_population-by_sex_state",
+    name: "Population demographics - sex, state",
+    data_source_name: "American Community Survey 5-year estimates (2015-2019)",
+    data_source_link:
+      "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Annual",
+    update_time: "unknown",
+    description:
+      "Population percentages broken down by self-reported race/ethnicity, age, and sex at the U.S. and state levels.",
+    fields: [
+      {
+        data_type: "string",
+        name: "state_name",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "string",
+        name: "state_fips",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "string",
+        name: "age",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "integer",
+        name: "population",
+        description: "description",
+        origin_dataset: "acs",
+      },
+    ],
+  },
+  {
+    id: "acs_population-by_sex_county",
+    name: "Population demographics - sex, county",
+    data_source_name: "American Community Survey 5-year estimates (2015-2019)",
+    data_source_link:
+      "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Annual",
+    update_time: "unknown",
+    description:
+      "Population percentages broken down by self-reported race/ethnicity, age, and sex at the U.S. and state levels.",
+    fields: [
+      {
+        data_type: "string",
+        name: "state_name",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "string",
+        name: "state_fips",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "string",
+        name: "age",
+        description: "description",
+        origin_dataset: "acs",
+      },
+      {
+        data_type: "integer",
+        name: "population",
+        description: "description",
+        origin_dataset: "acs",
       },
     ],
   },
   {
     id: "brfss",
-    name: "Diabetes Prevalence by state and race",
-    data_source_name: "CDC's BrFSS",
-    data_source_link: "https://gis.cdc.gov/grasp/diabetes/DiabetesAtlas.html#",
+    name: "Disease Prevalence: Diabetes and COPD",
+    data_source_name: "CDC's BRFSS",
+    data_source_link: "https://www.cdc.gov/brfss/index.html",
     geographic_level: "State",
     demographic_granularity: "Race/ethnicity",
-    update_frequency: "?",
+    update_frequency: "Annual",
     update_time: "unknown",
     description:
-      "Description placeholder for Diabetes Prevalence. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id lectus urna. Vestibulum lobortis ac quam vel tincidunt. Quisque ex erat, efficitur nec sagittis vitae, dictum semper arcu. Vivamus metus felis, fringilla sit amet metus nec, feugiat suscipit nisl. Morbi posuere mi sit amet elit posuere, id gravida ligula facilisis. Aenean gravida a eros fringilla venenatis.",
+      "The prevalence (percentage) for diseases broken down by self-reported race/ethnicity and sex at the U.S. and state levels.",
     fields: [
       {
         data_type: "string",
@@ -122,15 +275,65 @@ const fakeMetadata: DatasetMetadata[] = [
   },
   {
     id: "covid_by_state_and_race",
-    name: "Covid deaths, cases, and hospitalizations by state and race",
-    data_source_name: "Covid tracking project",
+    name: "COVID-19 deaths, cases, and hospitalizations - state",
+    data_source_name: "Covid Tracking Project’s Racial Data Tracker",
     data_source_link: "https://covidtracking.com/race",
     geographic_level: "State",
     demographic_granularity: "Race/ethnicity",
-    update_frequency: "?",
+    update_frequency: "Annual",
     update_time: "unknown",
     description:
-      "Description placeholder for covid. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id lectus urna. Vestibulum lobortis ac quam vel tincidunt. Quisque ex erat, efficitur nec sagittis vitae, dictum semper arcu. Vivamus metus felis, fringilla sit amet metus nec, feugiat suscipit nisl. Morbi posuere mi sit amet elit posuere, id gravida ligula facilisis. Aenean gravida a eros fringilla venenatis.",
+      "The numbers of confirmed deaths, cases, and hospitalizations broken down by race/ethnicity at the U.S. and state levels.",
+    fields: [
+      {
+        data_type: "string",
+        name: "date",
+        description: "description",
+        origin_dataset: "covid_by_state_and_race",
+      },
+      {
+        data_type: "string",
+        name: "state_name",
+        description: "description",
+        origin_dataset: "covid_by_state_and_race",
+      },
+      {
+        data_type: "string",
+        name: "race_and_ethnicity",
+        description: "description",
+        origin_dataset: "covid_by_state_and_race",
+      },
+      {
+        data_type: "integer",
+        name: "Cases",
+        description: "description",
+        origin_dataset: "covid_by_state_and_race",
+      },
+      {
+        data_type: "integer",
+        name: "Deaths",
+        description: "description",
+        origin_dataset: "covid_by_state_and_race",
+      },
+      {
+        data_type: "integer",
+        name: "Hosp",
+        description: "description",
+        origin_dataset: "covid_by_state_and_race",
+      },
+    ],
+  },
+  {
+    id: "covid_by_county_and_race",
+    name: "COVID-19 deaths, cases, and hospitalizations - county",
+    data_source_name: "Covid Tracking Project’s Racial Data Tracker",
+    data_source_link: "https://covidtracking.com/race",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity",
+    update_frequency: "Annual",
+    update_time: "unknown",
+    description:
+      "The numbers of confirmed deaths, cases, and hospitalizations broken down by race/ethnicity at the U.S. and state levels.",
     fields: [
       {
         data_type: "string",

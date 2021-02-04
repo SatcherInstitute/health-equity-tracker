@@ -8,18 +8,15 @@ import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
 import { Fips } from "../utils/madlib/Fips";
-import useDatasetStore from "../data/useDatasetStore";
 import {
   Breakdowns,
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/Breakdowns";
-import { getDependentDatasets, MetricId } from "../data/variableProviders";
 import { MetricQuery } from "../data/MetricQuery";
-import { MetricConfig, VariableConfig } from "../data/MetricConfig";
-import { POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
+import { MetricConfig, MetricId, VariableConfig } from "../data/MetricConfig";
 import CardWrapper from "./CardWrapper";
-import RaceInfoPopover from "./ui/RaceInfoPopoverContent";
+import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 import DisparityInfoPopover from "./ui/DisparityInfoPopover";
 import { usePopover } from "../utils/usePopover";
 
@@ -49,25 +46,30 @@ function BarChartCardWithKey(props: BarChartCardProps) {
       props.variableConfig.metrics["per100k"]
   );
 
-  const datasetStore = useDatasetStore();
-
   // TODO need to handle race categories standard vs non-standard for covid vs
   // other demographic.
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
+    /*includeTotal=*/ false,
     props.nonstandardizedRace
   );
-
-  const metricIds = Object.values(props.variableConfig.metrics).map(
-    (metricConfig: MetricConfig) => metricConfig.metricId
-  );
-  const metrics: MetricId[] = [...metricIds, "population", "population_pct"];
-  const query = new MetricQuery(metrics, breakdowns);
 
   // TODO - what if there are no valid types at all? What do we show?
   const validDisplayMetricConfigs: MetricConfig[] = Object.values(
     props.variableConfig.metrics
   ).filter((metricConfig) => VALID_METRIC_TYPES.includes(metricConfig.type));
+
+  let metricIds: MetricId[] = [];
+  Object.values(props.variableConfig.metrics).forEach(
+    (metricConfig: MetricConfig) => {
+      metricIds.push(metricConfig.metricId);
+      if (metricConfig.populationComparisonMetric) {
+        metricIds.push(metricConfig.populationComparisonMetric.metricId);
+      }
+    }
+  );
+
+  const query = new MetricQuery(metricIds, breakdowns);
 
   function CardTitle() {
     const popover = usePopover();
@@ -88,22 +90,17 @@ function BarChartCardWithKey(props: BarChartCardProps) {
   // TODO - we want to bold the breakdown name in the card title
   return (
     <CardWrapper
-      datasetIds={getDependentDatasets(metrics)}
       queries={[query]}
       title={<CardTitle />}
       infoPopover={
         props.breakdownVar === "race_and_ethnicity" ? (
-          <RaceInfoPopover />
+          <RaceInfoPopoverContent />
         ) : undefined
       }
     >
-      {() => {
-        const queryResponse = datasetStore.getMetrics(query);
+      {([queryResponse]) => {
         const dataset = queryResponse.data.filter(
-          (row) =>
-            !["Not Hispanic or Latino", "Total"].includes(
-              row.race_and_ethnicity
-            )
+          (row) => row.race_and_ethnicity !== "Not Hispanic or Latino"
         );
         return (
           <>
@@ -151,7 +148,7 @@ function BarChartCardWithKey(props: BarChartCardProps) {
                 {metricConfig.type === "pct_share" && (
                   <DisparityBarChart
                     data={dataset}
-                    thickMetric={POPULATION_VARIABLE_CONFIG.metrics.pct_share}
+                    thickMetric={metricConfig.populationComparisonMetric!}
                     thinMetric={metricConfig}
                     breakdownVar={props.breakdownVar}
                     metricDisplayName={metricConfig.shortVegaLabel}

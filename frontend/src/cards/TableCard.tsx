@@ -2,8 +2,6 @@ import React from "react";
 import { TableChart } from "../charts/TableChart";
 import { Alert } from "@material-ui/lab";
 import CardWrapper from "./CardWrapper";
-import useDatasetStore from "../data/useDatasetStore";
-import { getDependentDatasets, MetricId } from "../data/variableProviders";
 import { MetricQuery } from "../data/MetricQuery";
 import { Fips } from "../utils/madlib/Fips";
 import {
@@ -12,8 +10,8 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/Breakdowns";
 import { CardContent } from "@material-ui/core";
-import { MetricConfig } from "../data/MetricConfig";
-import RaceInfoPopover from "./ui/RaceInfoPopoverContent";
+import { MetricConfig, MetricId } from "../data/MetricConfig";
+import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 
 export interface TableCardProps {
   fips: Fips;
@@ -23,24 +21,25 @@ export interface TableCardProps {
 }
 
 export function TableCard(props: TableCardProps) {
-  const datasetStore = useDatasetStore();
-
   // TODO need to handle race categories standard vs non-standard for covid vs
   // other demographic.
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
+    /*includeTotal=*/ true,
     props.nonstandardizedRace
   );
-  const metricIds: MetricId[] = props.metrics.map(
-    (metricConfig) => metricConfig.metricId
-  );
+  let metricIds: MetricId[] = [];
+  props.metrics.forEach((metricConfig) => {
+    metricIds.push(metricConfig.metricId);
+    if (metricConfig.populationComparisonMetric) {
+      metricIds.push(metricConfig.populationComparisonMetric.metricId);
+    }
+  });
   const query = new MetricQuery(metricIds, breakdowns);
-  const datasetIds = getDependentDatasets(metricIds);
 
   return (
     <CardWrapper
       queries={[query]}
-      datasetIds={datasetIds}
       title={
         <>{`${
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
@@ -48,17 +47,13 @@ export function TableCard(props: TableCardProps) {
       }
       infoPopover={
         props.breakdownVar === "race_and_ethnicity" ? (
-          <RaceInfoPopover />
+          <RaceInfoPopoverContent />
         ) : undefined
       }
     >
-      {() => {
-        const queryResponse = datasetStore.getMetrics(query);
+      {([queryResponse]) => {
         const dataset = queryResponse.data.filter(
-          (row) =>
-            !["Not Hispanic or Latino", "Total"].includes(
-              row.race_and_ethnicity
-            )
+          (row) => "Not Hispanic or Latino" !== row.race_and_ethnicity
         );
 
         return (

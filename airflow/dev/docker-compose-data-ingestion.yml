@@ -7,7 +7,7 @@ services:
             - webserver
         environment:
             - PORT=8080
-            # Ensure that the executing shell sets a PROJECT_ID value. (export PROJECT_ID=exampe-project-id)
+            # Ensure that the executing shell sets a PROJECT_ID value. (export PROJECT_ID=example-project-id)
             - PROJECT_ID=${PROJECT_ID}
             - GOOGLE_APPLICATION_CREDENTIALS=/root/keys/keyfile.json
         volumes:
@@ -45,6 +45,20 @@ services:
         volumes:
             # Ensure that the executing shell sets a GCP_KEY_PATH value. (export GCP_KEY_PATH=/absolute/path/to/service/account/key.json)
             - ${GCP_KEY_PATH}:/root/keys/keyfile.json:ro
+    
+    aggregator:
+        image: het/aggregator:latest
+        depends_on:
+            - scheduler
+            - webserver
+        environment:
+            - PORT=8080
+            # Ensure that the executing shell sets a PROJECT_ID value. (export PROJECT_ID=example-project-id)
+            - PROJECT_ID=${PROJECT_ID}
+            - GOOGLE_APPLICATION_CREDENTIALS=/root/keys/keyfile.json
+        volumes:
+            # Ensure that the executing shell sets a GCP_KEY_PATH value. (export GCP_KEY_PATH=/absolute/path/to/service/account/key.json)
+            - ${GCP_KEY_PATH}:/root/keys/keyfile.json:ro
 
     postgres:
         image: postgres:9.6
@@ -58,7 +72,7 @@ services:
                 max-file: "3"
 
     scheduler:
-        image: apache/airflow
+        image: apache/airflow:v1-10-stable-python3.6
         restart: always
         depends_on:
             - postgres
@@ -78,7 +92,7 @@ services:
             retries: 3
 
     webserver:
-        image: apache/airflow
+        image: apache/airflow:v1-10-stable-python3.6
         hostname: webserver
         restart: always
         depends_on:

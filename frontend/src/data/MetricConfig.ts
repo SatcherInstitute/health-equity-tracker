@@ -1,4 +1,27 @@
-import { MetricId } from "../data/variableProviders";
+export type MetricId =
+  | "population"
+  | "population_pct"
+  | "diabetes_count"
+  | "diabetes_per_100k"
+  | "diabetes_pct_share"
+  | "copd_count"
+  | "copd_per_100k"
+  | "copd_pct_share"
+  | "covid_cases"
+  | "covid_deaths"
+  | "covid_hosp"
+  | "covid_cases_pct_of_geo"
+  | "covid_deaths_pct_of_geo"
+  | "covid_hosp_pct_of_geo"
+  | "covid_deaths_per_100k"
+  | "covid_cases_per_100k"
+  | "covid_hosp_per_100k"
+  | "covid_cases_reporting_population"
+  | "covid_cases_reporting_population_pct"
+  | "covid_deaths_reporting_population"
+  | "covid_deaths_reporting_population_pct"
+  | "covid_hosp_reporting_population"
+  | "covid_hosp_reporting_population_pct";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -15,6 +38,7 @@ export type MetricConfig = {
   fullCardTitleName: string;
   shortVegaLabel: string;
   type: MetricType;
+  populationComparisonMetric?: MetricConfig;
 };
 
 export type VariableConfig = {
@@ -54,6 +78,11 @@ export function formatFieldValue(metricType: MetricType, value: any): string {
 }
 
 // TODO - strongly type key
+// TODO - count and pct_share metric types should require populationComparisonMetric
+
+// Note: metrics must be declared in a consistent order becuase the UI relies
+// on this to build toggles.
+// TODO: make the UI consistent regardless of metric config order.
 export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
   covid: [
     {
@@ -65,12 +94,24 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           fullCardTitleName: "COVID-19 cases",
           shortVegaLabel: "COVID-19 cases",
           type: "count",
+          populationComparisonMetric: {
+            metricId: "covid_cases_reporting_population",
+            fullCardTitleName: "Reporting Population",
+            shortVegaLabel: "people",
+            type: "count",
+          },
         },
         pct_share: {
           metricId: "covid_cases_pct_of_geo",
           fullCardTitleName: "Share of COVID-19 cases",
           shortVegaLabel: "% of cases",
           type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "covid_cases_reporting_population_pct",
+            fullCardTitleName: "Reporting Population Share",
+            shortVegaLabel: "% of reporting population",
+            type: "pct_share",
+          },
         },
         per100k: {
           metricId: "covid_cases_per_100k",
@@ -89,12 +130,24 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           fullCardTitleName: "COVID-19 deaths",
           shortVegaLabel: "Deaths",
           type: "count",
+          populationComparisonMetric: {
+            metricId: "covid_deaths_reporting_population",
+            fullCardTitleName: "Reporting Population",
+            shortVegaLabel: "people",
+            type: "count",
+          },
         },
         pct_share: {
           metricId: "covid_deaths_pct_of_geo",
           fullCardTitleName: "Share of COVID-19 deaths",
           shortVegaLabel: "% of deaths",
           type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "covid_deaths_reporting_population_pct",
+            fullCardTitleName: "Reporting Population Share",
+            shortVegaLabel: "% of reporting population",
+            type: "pct_share",
+          },
         },
         per100k: {
           metricId: "covid_deaths_per_100k",
@@ -113,12 +166,24 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           fullCardTitleName: "COVID-19 hospitalizations",
           shortVegaLabel: "Hospitalizations",
           type: "count",
+          populationComparisonMetric: {
+            metricId: "covid_hosp_reporting_population",
+            fullCardTitleName: "Reporting Population",
+            shortVegaLabel: "people",
+            type: "count",
+          },
         },
         pct_share: {
           metricId: "covid_hosp_pct_of_geo",
           fullCardTitleName: "Share of COVID-19 hospitalizations",
           shortVegaLabel: "% of hospitalizations",
           type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "covid_hosp_reporting_population_pct",
+            fullCardTitleName: "Reporting Population Share",
+            shortVegaLabel: "% of reporting population",
+            type: "pct_share",
+          },
         },
         per100k: {
           metricId: "covid_hosp_per_100k",
@@ -139,6 +204,15 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           fullCardTitleName: "Count of diabetes cases",
           shortVegaLabel: "Diabetes cases",
           type: "count",
+          populationComparisonMetric: POPULATION_VARIABLE_CONFIG.metrics.count,
+        },
+        pct_share: {
+          metricId: "diabetes_pct_share",
+          fullCardTitleName: "Share of Diabetes cases",
+          shortVegaLabel: "% of cases",
+          type: "pct_share",
+          populationComparisonMetric:
+            POPULATION_VARIABLE_CONFIG.metrics.pct_share,
         },
         per100k: {
           metricId: "diabetes_per_100k",
@@ -159,6 +233,15 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           fullCardTitleName: "Count of COPD cases",
           shortVegaLabel: "COPD cases",
           type: "count",
+          populationComparisonMetric: POPULATION_VARIABLE_CONFIG.metrics.count,
+        },
+        pct_share: {
+          metricId: "copd_pct_share",
+          fullCardTitleName: "Share of COPD cases",
+          shortVegaLabel: "% of cases",
+          type: "pct_share",
+          populationComparisonMetric:
+            POPULATION_VARIABLE_CONFIG.metrics.pct_share,
         },
         per100k: {
           metricId: "copd_per_100k",

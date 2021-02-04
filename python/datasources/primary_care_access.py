@@ -29,12 +29,15 @@ class PrimaryCareAccess(DataSource):
     def upload_to_gcs(self, url, gcs_bucket, filename):
         """Uploads one file containing primary care access info for each state."""
 
+        file_diff = False
         for state in constants.STATE_NAMES:
-            url_file_to_gcs.download_first_url_to_gcs(
+            next_file_diff = url_file_to_gcs.download_first_url_to_gcs(
                 [self._URL1.format(state), self._URL2.format(state)],
                 gcs_bucket,
                 self._FILEPATH.format(filename, state)
             )
+            file_diff = file_diff or next_file_diff
+        return file_diff
 
     def write_to_bq(self, dataset, gcs_bucket, filename):
         """Writes primary care access stats to BigQuery from bucket

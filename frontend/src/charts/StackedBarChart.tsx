@@ -44,7 +44,7 @@ export function StackedBarChart(props: StackedBarChartProps) {
     <Vega
       spec={getSpec(
         props.data,
-        "state_name",
+        "fips_name",
         "race_and_ethnicity",
         props.measure
       )}

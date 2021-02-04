@@ -1,2 +1,4 @@
 requests
 google-auth
+pytest
+pandas

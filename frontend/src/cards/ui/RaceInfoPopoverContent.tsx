@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../Card.module.scss";
 
-function RaceInfoPopover(props: {}) {
+function RaceInfoPopoverContent(props: {}) {
   return (
     <div className={styles.BarChartCardPopover}>
       <h1>How did you define these categories?</h1>
@@ -16,4 +16,4 @@ function RaceInfoPopover(props: {}) {
   );
 }
 
-export default RaceInfoPopover;
+export default RaceInfoPopoverContent;

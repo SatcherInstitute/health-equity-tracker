@@ -16,8 +16,8 @@ const GEO_DATASET = "GEO_DATASET";
 const GEO_ID = "id";
 
 const VAR_DATASET = "VAR_DATASET";
-const VAR_STATE_FIPS = "state_fips";
-const VAR_COUNTY_FIPS = "COUNTY_FIPS";
+// TODO - consider moving standardized column names, like fips, to variables shared between here and VariableProvider
+const VAR_FIPS = "fips";
 
 export interface ChoroplethMapProps {
   data: Record<string, any>[];
@@ -41,12 +41,11 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   useEffect(() => {
     /* SET UP GEO DATSET */
     // Transform geo dataset by adding varField from VAR_DATASET
-    const fipsKey = props.showCounties ? VAR_COUNTY_FIPS : VAR_STATE_FIPS;
     let geoTransformers: any[] = [
       {
         type: "lookup",
         from: VAR_DATASET,
-        key: fipsKey,
+        key: VAR_FIPS,
         fields: [GEO_ID],
         values: [props.metric.metricId],
       },

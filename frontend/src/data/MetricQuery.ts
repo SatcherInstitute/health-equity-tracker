@@ -1,25 +1,18 @@
 import { Breakdowns } from "./Breakdowns";
-import { JoinType } from "./datasetutils";
-import { MetricId } from "./variableProviders";
 import { Row } from "./DatasetTypes";
+import { MetricId } from "./MetricConfig";
 
 export class MetricQuery {
-  readonly varIds: MetricId[];
+  readonly metricIds: MetricId[];
   readonly breakdowns: Breakdowns;
-  readonly joinType: JoinType;
 
-  constructor(
-    varIds: MetricId | MetricId[],
-    breakdowns: Breakdowns,
-    joinType?: JoinType
-  ) {
-    this.varIds = [varIds].flat();
+  constructor(metricIds: MetricId | MetricId[], breakdowns: Breakdowns) {
+    this.metricIds = [metricIds].flat();
     this.breakdowns = breakdowns;
-    this.joinType = joinType || "left";
   }
 
   getUniqueKey(): string {
-    return this.varIds.join(",") + ":____:" + this.breakdowns.getUniqueKey();
+    return this.metricIds.join(",") + ":____:" + this.breakdowns.getUniqueKey();
   }
 }
 
@@ -37,19 +30,26 @@ function getInvalidValues(rows: Row[]) {
 }
 
 export function createMissingDataResponse(missingDataMessage: string) {
-  return new MetricQueryResponse([], missingDataMessage);
+  return new MetricQueryResponse(
+    [],
+    /*consumedDatasetIds=*/ [],
+    missingDataMessage
+  );
 }
 
 export class MetricQueryResponse {
   readonly data: Row[];
   readonly missingDataMessage: string | undefined;
   readonly invalidValues: Record<string, number>;
+  readonly consumedDatasetIds: string[];
 
   constructor(
     dataRows: Row[],
+    consumedDatasetIds: string[] = [],
     missingDataMessage: string | undefined = undefined
   ) {
     this.data = dataRows;
+    this.consumedDatasetIds = consumedDatasetIds;
     this.invalidValues = getInvalidValues(this.data);
     this.missingDataMessage = missingDataMessage; // possibily undefined
     if (this.missingDataMessage === undefined && this.data.length <= 0) {

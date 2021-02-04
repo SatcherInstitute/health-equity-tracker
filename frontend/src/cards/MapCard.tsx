@@ -1,26 +1,31 @@
 import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { Fips } from "../utils/madlib/Fips";
-import Alert from "@material-ui/lab/Alert";
-import Divider from "@material-ui/core/Divider";
-import { CardContent } from "@material-ui/core";
 import styles from "./Card.module.scss";
-import MenuItem from "@material-ui/core/MenuItem";
 import MapBreadcrumbs from "./MapBreadcrumbs";
 import CardWrapper from "./CardWrapper";
-import useDatasetStore from "../data/useDatasetStore";
-import { getDependentDatasets } from "../data/variableProviders";
 import { MetricQuery } from "../data/MetricQuery";
 import { MetricConfig } from "../data/MetricConfig";
+import { CardContent } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import Alert from "@material-ui/lab/Alert";
+import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Menu from "@material-ui/core/Menu";
-import { Grid } from "@material-ui/core";
+import MenuItem from "@material-ui/core/MenuItem";
 import { Breakdowns, BreakdownVar } from "../data/Breakdowns";
-import RaceInfoPopover from "./ui/RaceInfoPopoverContent";
-import { Row } from "../data/DatasetTypes";
+import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 import { usePopover } from "../utils/usePopover";
+import { Row } from "../data/DatasetTypes";
+
+const POSSIBLE_BREAKDOWNS: BreakdownVar[] = [
+  "race_and_ethnicity",
+  "age",
+  "sex",
+];
 
 export interface MapCardProps {
   key?: string;
@@ -28,7 +33,6 @@ export interface MapCardProps {
   metricConfig: MetricConfig;
   nonstandardizedRace: boolean /* TODO- ideally wouldn't go here, could be calculated based on dataset */;
   updateFipsCallback: (fips: Fips) => void;
-  enableFilter?: boolean;
   currentBreakdown: BreakdownVar | "all";
 }
 
@@ -54,33 +58,33 @@ function MapCardWithKey(props: MapCardProps) {
   const [breakdownFilter, setBreakdownFilter] = useState<string>("");
   const popover = usePopover();
 
-  const datasetStore = useDatasetStore();
+  const geographyBreakdown = props.fips.isUsa()
+    ? Breakdowns.byState()
+    : Breakdowns.byCounty().withGeoFilter(props.fips);
 
-  let queries: Record<string, MetricQuery> = {};
-  const possibleBreakdowns: BreakdownVar[] = [
-    "race_and_ethnicity",
-    "age",
-    "sex",
-  ];
-  possibleBreakdowns.forEach((possibleBreakdown) => {
-    if (
+  const breakdowns = POSSIBLE_BREAKDOWNS.filter(
+    (possibleBreakdown) =>
       props.currentBreakdown === possibleBreakdown ||
       props.currentBreakdown === "all"
-    ) {
-      queries[possibleBreakdown] = new MetricQuery(
+  );
+
+  const queries = breakdowns.map(
+    (breakdown) =>
+      new MetricQuery(
         props.metricConfig.metricId,
-        Breakdowns.byState().addBreakdown(
-          possibleBreakdown,
-          props.nonstandardizedRace
-        )
-      );
-    }
-  });
+        geographyBreakdown
+          .copy()
+          .addBreakdown(
+            breakdown,
+            /*includeTotal=*/ true,
+            props.nonstandardizedRace
+          )
+      )
+  );
 
   return (
     <CardWrapper
-      queries={Object.values(queries) as MetricQuery[]}
-      datasetIds={getDependentDatasets([props.metricConfig.metricId])}
+      queries={queries}
       title={
         <>{`${
           props.metricConfig.fullCardTitleName
@@ -88,39 +92,33 @@ function MapCardWithKey(props: MapCardProps) {
       }
       infoPopover={
         ["race_and_ethnicity", "all"].includes(props.currentBreakdown) ? (
-          <RaceInfoPopover />
+          <RaceInfoPopoverContent />
         ) : undefined
       }
     >
-      {() => {
+      {(queryResponses) => {
         const currentlyDisplayedBreakdown: BreakdownVar =
           props.currentBreakdown === "all"
             ? "race_and_ethnicity"
             : props.currentBreakdown;
-        const queryResponse = datasetStore.getMetrics(
-          queries[currentlyDisplayedBreakdown]
-        );
-        const breakdownValues = queryResponse.getUniqueFieldValues(
-          currentlyDisplayedBreakdown
-        );
+        // Look up query at the same index as the breakdown.
+        // TODO: we might consider returning a map of id to response from
+        // CardWrapper so we don't need to rely on index order.
+        const queryIndex = breakdowns.indexOf(currentlyDisplayedBreakdown);
+        const queryResponse = queryResponses[queryIndex];
+        const breakdownValues = queryResponse
+          .getUniqueFieldValues(currentlyDisplayedBreakdown)
+          .sort();
         if (breakdownFilter === "") {
           setBreakdownFilter(breakdownValues[0]);
         }
 
-        let predicates: Array<(row: Row) => boolean> = [
+        const predicates: Array<(row: Row) => boolean> = [
           (row) => row.race_and_ethnicity !== "Not Hispanic or Latino",
           (row) => row[props.metricConfig.metricId] !== undefined,
           (row) => row[props.metricConfig.metricId] !== null,
+          (row: Row) => row[currentlyDisplayedBreakdown] === breakdownFilter,
         ];
-        if (!props.fips.isUsa()) {
-          // TODO - this doesn't consider county level data
-          predicates.push((row: Row) => row.state_fips === props.fips.code);
-        }
-        if (props.enableFilter) {
-          predicates.push(
-            (row: Row) => row[currentlyDisplayedBreakdown] === breakdownFilter
-          );
-        }
 
         // Remove any row for which we find a filter that returns false.
         const mapData = queryResponse.data.filter((row: Row) =>
@@ -136,7 +134,7 @@ function MapCardWithKey(props: MapCardProps) {
               />
             </CardContent>
 
-            {props.enableFilter && !queryResponse.dataIsMissing() && (
+            {!queryResponse.dataIsMissing() && (
               <>
                 <Divider />
                 <CardContent
@@ -152,6 +150,7 @@ function MapCardWithKey(props: MapCardProps) {
                       <List component="nav">
                         <ListItem button onClick={popover.open}>
                           <ListItemText primary={breakdownFilter} />
+                          <ArrowDropDownIcon />
                         </ListItem>
                       </List>
                       {/* TODO - Align this with the mocks */}
@@ -191,35 +190,23 @@ function MapCardWithKey(props: MapCardProps) {
                 </CardContent>
               </>
             )}
-
             <Divider />
-            {!props.fips.isUsa() /* TODO - don't hardcode */ && (
-              <CardContent>
-                <Alert severity="warning">
-                  This dataset does not provide county level data
-                </Alert>
-              </CardContent>
-            )}
-            {queryResponse.dataIsMissing() && (
-              <CardContent>
+            <CardContent>
+              {queryResponse.dataIsMissing() && (
                 <Alert severity="error">No data available</Alert>
-              </CardContent>
-            )}
-            {!queryResponse.dataIsMissing() && (
-              <CardContent>
-                {props.metricConfig && (
-                  <ChoroplethMap
-                    signalListeners={signalListeners}
-                    metric={props.metricConfig}
-                    legendTitle={props.metricConfig.fullCardTitleName}
-                    data={mapData}
-                    hideLegend={!props.fips.isUsa()} // TODO - update logic here when we have county level data
-                    showCounties={props.fips.isUsa() ? false : true}
-                    fips={props.fips}
-                  />
-                )}
-              </CardContent>
-            )}
+              )}
+              {props.metricConfig && (
+                <ChoroplethMap
+                  signalListeners={signalListeners}
+                  metric={props.metricConfig}
+                  legendTitle={props.metricConfig.fullCardTitleName}
+                  data={mapData}
+                  hideLegend={queryResponse.dataIsMissing()}
+                  showCounties={props.fips.isUsa() ? false : true}
+                  fips={props.fips}
+                />
+              )}
+            </CardContent>
           </>
         );
       }}
