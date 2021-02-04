@@ -10,6 +10,7 @@ import { MetricConfig } from "../data/config/MetricConfig";
 import { RACE } from "../data/utils/Constants";
 
 const DELIMITER = "*~*";
+// TODO - it may be worth calculating where delimiters should go based on line length if we have a lot more breakdown values in future
 const MULTILINE_RACE_MAP: Record<string, string> = {
   "American Indian and Alaska Native": `American Indian${DELIMITER}and Alaska Native`,
   "American Indian and Alaska Native (Non-Hispanic)": `American Indian${DELIMITER}and Alaska Native${DELIMITER}(Non-Hispanic)`,
