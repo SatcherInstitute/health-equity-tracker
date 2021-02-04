@@ -1,6 +1,6 @@
 import React from "react";
 import { Vega } from "react-vega";
-import { Row } from "../data/DatasetTypes";
+import { Row } from "../data/utils/DatasetTypes";
 
 export interface LineChartProps {
   data: Row[];

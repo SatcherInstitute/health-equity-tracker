@@ -1,6 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
-import { METRIC_CONFIG } from "../../data/MetricConfig";
+import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 import {
   SimpleHorizontalBarChart,
   SimpleHorizontalBarChartProps,

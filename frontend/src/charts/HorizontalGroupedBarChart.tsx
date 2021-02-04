@@ -1,7 +1,7 @@
 import React from "react";
 import { Vega, VisualizationSpec } from "react-vega";
-import { BreakdownVar } from "../data/Breakdowns";
-import { Row } from "../data/DatasetTypes";
+import { BreakdownVar } from "../data/query/Breakdowns";
+import { Row } from "../data/utils/DatasetTypes";
 
 function getSpec(
   data: Record<string, any>[],

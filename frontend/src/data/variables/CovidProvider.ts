@@ -1,12 +1,17 @@
 import { DataFrame } from "data-forge";
-import { Breakdowns } from "../Breakdowns";
+import { Breakdowns } from "../query/Breakdowns";
 import VariableProvider from "./VariableProvider";
-import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
+import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
-import { asDate, getLatestDate, joinOnCols, per100k } from "../datasetutils";
-import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
+import {
+  asDate,
+  getLatestDate,
+  joinOnCols,
+  per100k,
+} from "../utils/datasetutils";
+import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { MetricId } from "../MetricConfig";
+import { MetricId } from "../config/MetricConfig";
 
 class CovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -83,11 +88,6 @@ class CovidProvider extends VariableProvider {
     // TODO How to handle territories?
     const acsBreakdowns = breakdowns.copy();
     acsBreakdowns.time = false;
-    acsBreakdowns.demographicBreakdowns.race_nonstandard = {
-      enabled: true,
-      columnName: "race_and_ethnicity",
-      includeTotal: true,
-    };
 
     // Get ACS population data
     const acsQueryResponse = await this.acsProvider.getData(
@@ -111,7 +111,7 @@ class CovidProvider extends VariableProvider {
       .where((row) => row.race_and_ethnicity === "Unknown")
       .where((row) => supportedGeos.includes(row.fips));
 
-    df = joinOnCols(df, acsPopulation, ["fips", "race_and_ethnicity"]);
+    df = joinOnCols(df, acsPopulation, ["fips", "race_and_ethnicity"], "left");
 
     df = df
       .generateSeries({
@@ -125,13 +125,13 @@ class CovidProvider extends VariableProvider {
     // Must reset index or calculation is wrong. TODO how to make this less brittle?
     df = df.concat(unknowns).resetIndex();
 
-    if (breakdowns.hasOnlyRaceNonStandard()) {
+    if (breakdowns.hasOnlyRace()) {
       ["covid_cases", "covid_deaths", "covid_hosp"].forEach((col) => {
         df = this.calculatePctShare(
           df,
           col,
           col + "_pct_of_geo",
-          breakdowns.demographicBreakdowns.race.columnName,
+          breakdowns.demographicBreakdowns.race_and_ethnicity.columnName,
           ["date", "fips"]
         );
       });
@@ -168,13 +168,12 @@ class CovidProvider extends VariableProvider {
     });
     df = df.dropSeries(["population", "population_pct"]).resetIndex();
 
-    df = this.removeUnwantedDemographicTotals(df, breakdowns);
-
+    df = this.applyDemographicBreakdownFilters(df, breakdowns);
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    return breakdowns.hasOnlyRaceNonStandard();
+    return breakdowns.hasOnlyRace();
   }
 }
 

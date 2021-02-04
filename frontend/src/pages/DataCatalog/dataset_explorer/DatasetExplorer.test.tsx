@@ -2,7 +2,7 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { render } from "@testing-library/react";
 import DatasetExplorer from "./DatasetExplorer";
-import { DatasetMetadata } from "../../../data/DatasetTypes";
+import { DatasetMetadata } from "../../../data/utils/DatasetTypes";
 import { autoInitGlobals, getDataFetcher } from "../../../utils/globals";
 import FakeDataFetcher from "../../../testing/FakeDataFetcher";
 

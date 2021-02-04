@@ -1,4 +1,5 @@
-import { Fips } from "../utils/madlib/Fips";
+import { Fips } from "../utils/Fips";
+import BreakdownFilter from "./BreakdownFilter";
 
 export const ALL_RACES_DISPLAY_NAME = "All races";
 
@@ -14,11 +15,7 @@ export type BreakdownVar =
   | "date"
   | "fips";
 
-export type DemographicBreakdownKey =
-  | "race"
-  | "race_nonstandard"
-  | "sex"
-  | "age";
+export type DemographicBreakdownKey = "race_and_ethnicity" | "sex" | "age";
 
 export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
   race_and_ethnicity: "Race and Ethnicity",
@@ -32,27 +29,32 @@ interface DemographicBreakdown {
   // Name of the column in the returned data
   readonly columnName: BreakdownVar;
   // Whether the demographic breakdown is requested
-  enabled: boolean;
-  // If requested, should the breakdown include a "Total", i.e. value for all age/race/sex
-  includeTotal: boolean;
+  readonly enabled: boolean;
+  // Filter to apply to the breakdown. If no filter is specified, all available
+  // values for that column should be returned.
+  readonly filter?: Readonly<BreakdownFilter>;
 }
 
 function stringifyDemographic(breakdown: DemographicBreakdown) {
   if (!breakdown.enabled) {
     return undefined;
   }
-  return breakdown.includeTotal ? "with total" : "without total";
+  if (!breakdown.filter) {
+    return "no filters";
+  }
+  const includeStr = breakdown.filter.include ? "include " : "exclude ";
+  return includeStr + breakdown.filter.values.join();
 }
 
 function createDemographicBreakdown(
   columnName: BreakdownVar,
   enabled = false,
-  includeTotal = false
-) {
+  filter?: BreakdownFilter
+): DemographicBreakdown {
   return {
     columnName: columnName,
     enabled: enabled,
-    includeTotal: includeTotal,
+    filter: filter,
   };
 }
 
@@ -61,7 +63,10 @@ export class Breakdowns {
   // We may want to extend this to an explicit type to support variants for
   // day/week/month/year.
   time: boolean;
-  demographicBreakdowns: Record<DemographicBreakdownKey, DemographicBreakdown>;
+  demographicBreakdowns: Record<
+    DemographicBreakdownKey,
+    Readonly<DemographicBreakdown>
+  >;
   filterFips?: Fips;
 
   constructor(
@@ -77,8 +82,7 @@ export class Breakdowns {
     this.demographicBreakdowns = demographicBreakdowns
       ? { ...demographicBreakdowns }
       : {
-          race: createDemographicBreakdown("race_and_ethnicity"),
-          race_nonstandard: createDemographicBreakdown("race_and_ethnicity"),
+          race_and_ethnicity: createDemographicBreakdown("race_and_ethnicity"),
           age: createDemographicBreakdown("age"),
           sex: createDemographicBreakdown("sex"),
         };
@@ -109,7 +113,7 @@ export class Breakdowns {
   copy() {
     return new Breakdowns(
       this.geography,
-      Object.assign({}, this.demographicBreakdowns),
+      { ...this.demographicBreakdowns },
       this.time,
       this.filterFips ? new Fips(this.filterFips.code) : undefined
     );
@@ -139,48 +143,37 @@ export class Breakdowns {
 
   addBreakdown(
     breakdownVar: BreakdownVar,
-    includeTotal = false,
-    nonstandardizedRace = false
+    filter?: BreakdownFilter
   ): Breakdowns {
     switch (breakdownVar) {
       case "race_and_ethnicity":
-        const breakdownKey = nonstandardizedRace ? "race_nonstandard" : "race";
-        this.demographicBreakdowns[breakdownKey] = createDemographicBreakdown(
-          "race_and_ethnicity",
-          true,
-          includeTotal
-        );
-        return this;
       case "age":
       case "sex":
-        // Column name is the same as key for age and sex
+        // Column name is the same as key
         this.demographicBreakdowns[breakdownVar] = createDemographicBreakdown(
           breakdownVar,
           true,
-          includeTotal
+          filter
         );
         return this;
       case "date":
         this.time = true;
         return this;
+      case "fips":
+        throw new Error("Fips breakdown cannot be added");
     }
-    return this;
   }
 
-  andRace(includeTotal = false, nonstandard = false): Breakdowns {
-    return this.addBreakdown(
-      "race_and_ethnicity",
-      /*includeTotal*/ includeTotal,
-      nonstandard
-    );
+  andRace(filter?: BreakdownFilter): Breakdowns {
+    return this.addBreakdown("race_and_ethnicity", filter);
   }
 
-  andAge(includeTotal = false): Breakdowns {
-    return this.addBreakdown("age", includeTotal);
+  andAge(filter?: BreakdownFilter): Breakdowns {
+    return this.addBreakdown("age", filter);
   }
 
-  andGender(includeTotal = false): Breakdowns {
-    return this.addBreakdown("sex", includeTotal);
+  andGender(filter?: BreakdownFilter): Breakdowns {
+    return this.addBreakdown("sex", filter);
   }
 
   andTime(): Breakdowns {
@@ -214,14 +207,8 @@ export class Breakdowns {
 
   hasOnlyRace() {
     return (
-      this.hasExactlyOneDemographic() && this.demographicBreakdowns.race.enabled
-    );
-  }
-
-  hasOnlyRaceNonStandard() {
-    return (
       this.hasExactlyOneDemographic() &&
-      this.demographicBreakdowns.race_nonstandard.enabled
+      this.demographicBreakdowns.race_and_ethnicity.enabled
     );
   }
 

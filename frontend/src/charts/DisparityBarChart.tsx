@@ -1,10 +1,13 @@
 import React from "react";
 import { Vega } from "react-vega";
-import { Row } from "../data/DatasetTypes";
+import { Row } from "../data/utils/DatasetTypes";
 import { useResponsiveWidth } from "../utils/useResponsiveWidth";
-import { BreakdownVar, BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/Breakdowns";
-import { MetricConfig } from "../data/MetricConfig";
-import { RACE } from "../data/Constants";
+import {
+  BreakdownVar,
+  BREAKDOWN_VAR_DISPLAY_NAMES,
+} from "../data/query/Breakdowns";
+import { MetricConfig } from "../data/config/MetricConfig";
+import { RACE } from "../data/utils/Constants";
 
 const DELIMITER = "*~*";
 const MULTILINE_RACE_MAP: Record<string, string> = {

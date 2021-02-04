@@ -1,8 +1,8 @@
-import AcsPopulationProvider from "./variables/AcsPopulationProvider";
-import VariableProvider from "./variables/VariableProvider";
-import CovidProvider from "./variables/CovidProvider";
-import BrfssProvider from "./variables/BrfssProvider";
-import { MetricId } from "./MetricConfig";
+import AcsPopulationProvider from "../variables/AcsPopulationProvider";
+import VariableProvider from "../variables/VariableProvider";
+import CovidProvider from "../variables/CovidProvider";
+import BrfssProvider from "../variables/BrfssProvider";
+import { MetricId } from "../config/MetricConfig";
 
 export type ProviderId =
   | "acs_pop_provider"

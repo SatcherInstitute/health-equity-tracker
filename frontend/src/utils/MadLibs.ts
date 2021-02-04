@@ -1,4 +1,4 @@
-import { USA_FIPS, FIPS_MAP } from "./Fips";
+import { USA_FIPS, FIPS_MAP } from "../data/utils/Fips";
 
 // Map of phrase segment index to its selected value
 export type PhraseSelections = Record<number, string>;
