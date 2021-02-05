@@ -33,6 +33,19 @@ function getSpec(
   // We use nested ternerys to determine the label's y axis delta based on the number of lines in the label to vertically align
   const AXIS_LABEL_Y_DELTA = `length(${MULTILINE_LABEL}) == 2 ? -3 : length(${MULTILINE_LABEL}) > 2 ? -7 : 5`;
 
+  function maxValueInField(field: string) {
+    return Math.max(
+      ...data
+        .map((row) => row[field])
+        .filter((value: number | undefined) => value !== undefined)
+    );
+  }
+
+  const measureWithLargerDomain =
+    maxValueInField(thickMeasure) > maxValueInField(thinMeasure)
+      ? thickMeasure
+      : thinMeasure;
+
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     background: "white",
@@ -124,7 +137,7 @@ function getSpec(
       {
         name: "x",
         type: "linear",
-        domain: { data: DATASET, field: thickMeasure },
+        domain: { data: DATASET, field: measureWithLargerDomain },
         range: [0, { signal: "width" }],
         nice: true,
         zero: true,
