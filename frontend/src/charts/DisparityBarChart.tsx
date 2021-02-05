@@ -7,9 +7,12 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { MetricConfig } from "../data/config/MetricConfig";
-
-const DELIMITER = "*~*";
-const MAX_LINE_LENGTH = 18;
+import {
+  addLineBreakDelimitersToField,
+  MULTILINE_LABEL,
+  AXIS_LABEL_Y_DELTA,
+  oneLineLabel,
+} from "./utils";
 
 function getSpec(
   data: Record<string, any>[],
@@ -29,9 +32,6 @@ function getSpec(
   const THICK_MEASURE_COLOR = "#BDC1C6";
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
-  const MULTILINE_LABEL = `split(datum.value, '${DELIMITER}')`;
-  // We use nested ternerys to determine the label's y axis delta based on the number of lines in the label to vertically align
-  const AXIS_LABEL_Y_DELTA = `length(${MULTILINE_LABEL}) == 2 ? -3 : length(${MULTILINE_LABEL}) > 2 ? -7 : 5`;
 
   function maxValueInField(field: string) {
     return Math.max(
@@ -75,7 +75,9 @@ function getSpec(
         encode: {
           enter: {
             tooltip: {
-              signal: `datum. ${breakdownVar} + ', ${thickMeasureDisplayName}: ' + datum. ${thickMeasure}+'%'`,
+              signal: `${oneLineLabel(
+                breakdownVar
+              )} + ', ${thickMeasureDisplayName}: ' + datum. ${thickMeasure}+'%'`,
             },
           },
           update: {
@@ -96,7 +98,9 @@ function getSpec(
         encode: {
           enter: {
             tooltip: {
-              signal: `datum. ${breakdownVar} + ', ${thinMeasureDisplayName}: ' + datum. ${thinMeasure}+'%'`,
+              signal: `${oneLineLabel(
+                breakdownVar
+              )} + ', ${thinMeasureDisplayName}: ' + datum. ${thinMeasure}+'%'`,
             },
           },
           update: {
@@ -234,20 +238,10 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     100 /* default width during intialization */
   );
 
-  let dataWithLineBreakDelimiter = props.data.map((data) => {
-    let lines = [];
-    let currentLine = "";
-    for (let word of data[props.breakdownVar].split(" ")) {
-      if (word.length + currentLine.length >= MAX_LINE_LENGTH) {
-        lines.push(currentLine.trim());
-        currentLine = word + " ";
-      } else {
-        currentLine += word + " ";
-      }
-    }
-    lines.push(currentLine.trim());
-    return { ...data, ...{ [props.breakdownVar]: lines.join(DELIMITER) } };
-  });
+  let dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
+    props.data,
+    props.breakdownVar
+  );
   dataWithLineBreakDelimiter.sort((a, b) =>
     a[props.breakdownVar].localeCompare(b[props.breakdownVar])
   );
