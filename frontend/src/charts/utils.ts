@@ -3,10 +3,10 @@ import { Row } from "../data/utils/DatasetTypes";
 const MAX_LINE_LENGTH = 18;
 export const DELIMITER = "*~*";
 
-// Returns an array of the multiple lines in the label
+// Returns a Vega Expression to create an array of the multiple lines in the label
 export const MULTILINE_LABEL = `split(datum.value, '${DELIMITER}')`;
 
-// Replaces delimiter token with a space for displaying the label on one label
+// Returns a Vega Expression to create teplace delimiter token with a space for displaying the label on one label
 export function oneLineLabel(field: string) {
   return `join(split(datum.${field}, '${DELIMITER}'), ' ')`;
 }
@@ -27,6 +27,5 @@ export function addLineBreakDelimitersToField(rawData: Row[], field: string) {
       }
     }
     lines.push(currentLine.trim());
-    return { ...data, ...{ [field]: lines.join(DELIMITER) } };
   });
 }
