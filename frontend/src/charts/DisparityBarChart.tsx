@@ -37,7 +37,7 @@ function getSpec(
     return Math.max(
       ...data
         .map((row) => row[field])
-        .filter((value: number | undefined) => !!value)
+        .filter((value: number | undefined) => value !== undefined)
     );
   }
 
