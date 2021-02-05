@@ -32,6 +32,19 @@ function getSpec(
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 
+  function maxValueInField(field: string) {
+    return Math.max(
+      ...data
+        .map((row) => row[field])
+        .filter((value: number | undefined) => !!value)
+    );
+  }
+
+  const measureWithLargerDomain =
+    maxValueInField(thickMeasure) > maxValueInField(thinMeasure)
+      ? thickMeasure
+      : thinMeasure;
+
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     background: "white",
@@ -123,7 +136,7 @@ function getSpec(
       {
         name: "x",
         type: "linear",
-        domain: { data: DATASET, field: thickMeasure },
+        domain: { data: DATASET, field: measureWithLargerDomain },
         range: [0, { signal: "width" }],
         nice: true,
         zero: true,
