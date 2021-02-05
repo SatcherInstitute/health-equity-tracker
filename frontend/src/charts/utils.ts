@@ -3,7 +3,14 @@ import { Row } from "../data/utils/DatasetTypes";
 const MAX_LINE_LENGTH = 18;
 export const DELIMITER = "*~*";
 
+// Returns an array of the multiple lines in the label
 export const MULTILINE_LABEL = `split(datum.value, '${DELIMITER}')`;
+
+// Replaces delimiter token with a space for displaying the label on one label
+export function oneLineLabel(field: string) {
+  return `join(split(datum.${field}, '${DELIMITER}'), ' ')`;
+}
+
 // We use nested ternerys to determine the label's y axis delta based on the number of lines in the label to vertically align
 export const AXIS_LABEL_Y_DELTA = `length(${MULTILINE_LABEL}) == 2 ? -3 : length(${MULTILINE_LABEL}) > 2 ? -7 : 5`;
 

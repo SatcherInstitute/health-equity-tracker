@@ -11,6 +11,7 @@ import {
   addLineBreakDelimitersToField,
   MULTILINE_LABEL,
   AXIS_LABEL_Y_DELTA,
+  oneLineLabel,
 } from "./utils";
 
 function getSpec(
@@ -74,7 +75,9 @@ function getSpec(
         encode: {
           enter: {
             tooltip: {
-              signal: `datum. ${breakdownVar} + ', ${measureDisplayName}: ' + format(datum["${measure}"], ",")`,
+              signal: `${oneLineLabel(
+                breakdownVar
+              )} + ', ${measureDisplayName}: ' + format(datum["${measure}"], ",")`,
             },
           },
           update: {
