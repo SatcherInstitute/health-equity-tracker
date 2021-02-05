@@ -8,6 +8,9 @@ import {
 } from "../data/query/Breakdowns";
 import { MetricConfig } from "../data/config/MetricConfig";
 
+const DELIMITER = "*~*";
+const MAX_LINE_LENGTH = 18;
+
 function getSpec(
   data: Record<string, any>[],
   width: number,
@@ -26,6 +29,9 @@ function getSpec(
   const THICK_MEASURE_COLOR = "#BDC1C6";
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
+  const MULTILINE_LABEL = `split(datum.value, '${DELIMITER}')`;
+  // We use nested ternerys to determine the label's y axis delta based on the number of lines in the label to vertically align
+  const AXIS_LABEL_Y_DELTA = `length(${MULTILINE_LABEL}) == 2 ? -3 : length(${MULTILINE_LABEL}) > 2 ? -7 : 5`;
 
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
@@ -129,7 +135,6 @@ function getSpec(
         domain: {
           data: DATASET,
           field: breakdownVar,
-          sort: { op: "min", field: thickMeasure, order: "descending" },
         },
         range: { step: { signal: "y_step" } },
         paddingInner: BAR_PADDING,
@@ -172,6 +177,18 @@ function getSpec(
         grid: false,
         title: breakdownVarDisplayName,
         zindex: 0,
+        tickSize: 5,
+        encode: {
+          labels: {
+            update: {
+              text: { signal: MULTILINE_LABEL },
+              baseline: { value: "bottom" },
+              // Limit at which line is truncated with an ellipsis
+              limit: { value: 90 },
+              dy: { signal: AXIS_LABEL_Y_DELTA },
+            },
+          },
+        },
       },
     ],
     legends: [
@@ -203,11 +220,30 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   const [ref, width] = useResponsiveWidth(
     100 /* default width during intialization */
   );
+
+  let dataWithLineBreakDelimiter = props.data.map((data) => {
+    let lines = [];
+    let currentLine = "";
+    for (let word of data[props.breakdownVar].split(" ")) {
+      if (word.length + currentLine.length >= MAX_LINE_LENGTH) {
+        lines.push(currentLine.trim());
+        currentLine = word + " ";
+      } else {
+        currentLine += word + " ";
+      }
+    }
+    lines.push(currentLine.trim());
+    return { ...data, ...{ [props.breakdownVar]: lines.join(DELIMITER) } };
+  });
+  dataWithLineBreakDelimiter.sort((a, b) =>
+    a[props.breakdownVar].localeCompare(b[props.breakdownVar])
+  );
+
   return (
     <div ref={ref}>
       <Vega
         spec={getSpec(
-          props.data,
+          dataWithLineBreakDelimiter,
           width,
           props.breakdownVar,
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
