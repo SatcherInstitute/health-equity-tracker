@@ -7,6 +7,11 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { MetricConfig } from "../data/config/MetricConfig";
+import {
+  addLineBreakDelimitersToField,
+  MULTILINE_LABEL,
+  AXIS_LABEL_Y_DELTA,
+} from "./utils";
 
 function getSpec(
   data: Record<string, any>[],
@@ -117,7 +122,6 @@ function getSpec(
         domain: {
           data: DATASET,
           field: breakdownVar,
-          sort: { op: "min", field: measure, order: "descending" },
         },
         range: { step: { signal: "y_step" } },
         paddingInner: BAR_PADDING,
@@ -160,6 +164,17 @@ function getSpec(
         grid: false,
         title: breakdownVarDisplayName,
         zindex: 0,
+        encode: {
+          labels: {
+            update: {
+              text: { signal: MULTILINE_LABEL },
+              baseline: { value: "bottom" },
+              // Limit at which line is truncated with an ellipsis
+              limit: { value: 90 },
+              dy: { signal: AXIS_LABEL_Y_DELTA },
+            },
+          },
+        },
       },
     ],
     legends: legends,
@@ -178,11 +193,20 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   const [ref, width] = useResponsiveWidth(
     100 /* default width during intialization */
   );
+
+  let dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
+    props.data,
+    props.breakdownVar
+  );
+  dataWithLineBreakDelimiter.sort((a, b) =>
+    a[props.breakdownVar].localeCompare(b[props.breakdownVar])
+  );
+
   return (
     <div ref={ref}>
       <Vega
         spec={getSpec(
-          props.data,
+          dataWithLineBreakDelimiter,
           width,
           props.breakdownVar,
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
