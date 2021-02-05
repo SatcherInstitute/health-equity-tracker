@@ -178,7 +178,6 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   const [ref, width] = useResponsiveWidth(
     100 /* default width during intialization */
   );
-
   return (
     <div ref={ref}>
       <Vega
