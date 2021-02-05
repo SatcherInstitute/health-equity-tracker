@@ -27,5 +27,6 @@ export function addLineBreakDelimitersToField(rawData: Row[], field: string) {
       }
     }
     lines.push(currentLine.trim());
+    return { ...data, [field]: lines.join(DELIMITER) };
   });
 }
