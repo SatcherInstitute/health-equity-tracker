@@ -7,23 +7,9 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { MetricConfig } from "../data/config/MetricConfig";
-import { RACE } from "../data/utils/Constants";
 
 const DELIMITER = "*~*";
-// TODO - it may be worth calculating where delimiters should go based on line length if we have a lot more breakdown values in future
-const MULTILINE_RACE_MAP: Record<string, string> = {
-  "American Indian and Alaska Native": `American Indian${DELIMITER}and Alaska Native`,
-  "American Indian and Alaska Native (Non-Hispanic)": `American Indian${DELIMITER}and Alaska Native${DELIMITER}(Non-Hispanic)`,
-  "Black or African American": `Black or${DELIMITER}African American`,
-  "Black or African American (Non-Hispanic)": `Black or${DELIMITER}African American${DELIMITER}(Non-Hispanic)`,
-  "Hispanic or Latino": `Hispanic${DELIMITER}or Latino`,
-  "Native Hawaiian and Pacific Islander": `Native Hawaiian${DELIMITER}and Pacific Islander`,
-  "Native Hawaiian and Pacific Islander (Non-Hispanic)": `Native Hawaiian${DELIMITER}and Pacific Islander${DELIMITER}(Non-Hispanic)`,
-  "Some other race (Non-Hispanic)": `Some other race${DELIMITER}(Non-Hispanic)`,
-  "Two or more races (Non-Hispanic)": `Two or more races${DELIMITER}(Non-Hispanic)`,
-  "Asian (Non-Hispanic)": `Asian${DELIMITER}(Non-Hispanic)`,
-  "White (Non-Hispanic)": `White${DELIMITER}(Non-Hispanic)`,
-};
+const MAX_LINE_LENGTH = 18;
 
 function getSpec(
   data: Record<string, any>[],
@@ -45,7 +31,7 @@ function getSpec(
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
   const MULTILINE_LABEL = `split(datum.value, '${DELIMITER}')`;
   // We use nested ternerys to determine the label's y axis delta based on the number of lines in the label to vertically align
-  const AXIS_LABEL_Y_DELTA = `length(${MULTILINE_LABEL}) == 2 ? parseInt(-3) : length(${MULTILINE_LABEL}) > 2 ? parseInt(-7) : parseInt(5)`;
+  const AXIS_LABEL_Y_DELTA = `length(${MULTILINE_LABEL}) == 2 ? -3 : length(${MULTILINE_LABEL}) > 2 ? -7 : 5`;
 
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
@@ -235,25 +221,29 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     100 /* default width during intialization */
   );
 
-  let data = props.data;
-  // Some standarized race names should be annotated with delimiters to indicate linebreaks
-  if (props.breakdownVar === RACE) {
-    data = props.data.map((data) => {
-      let copy = Object.assign({ ...data });
-      if (Object.keys(MULTILINE_RACE_MAP).includes(data.race_and_ethnicity)) {
-        copy["race_and_ethnicity"] =
-          MULTILINE_RACE_MAP[data.race_and_ethnicity];
+  let dataWithLineBreakDelimiter = props.data.map((data) => {
+    let lines = [];
+    let currentLine = "";
+    for (let word of data[props.breakdownVar].split(" ")) {
+      if (word.length + currentLine.length >= MAX_LINE_LENGTH) {
+        lines.push(currentLine.trim());
+        currentLine = word + " ";
+      } else {
+        currentLine += word + " ";
       }
-      return copy;
-    });
-  }
-  data.sort((a, b) => (a[props.breakdownVar] > b[props.breakdownVar] ? 1 : 0));
+    }
+    lines.push(currentLine.trim());
+    return { ...data, ...{ [props.breakdownVar]: lines.join(DELIMITER) } };
+  });
+  dataWithLineBreakDelimiter.sort((a, b) =>
+    a[props.breakdownVar].localeCompare(b[props.breakdownVar])
+  );
 
   return (
     <div ref={ref}>
       <Vega
         spec={getSpec(
-          data,
+          dataWithLineBreakDelimiter,
           width,
           props.breakdownVar,
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
