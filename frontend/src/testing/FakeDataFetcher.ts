@@ -1,5 +1,5 @@
-import { DataFetcher } from "../data/DataFetcher";
-import { MetadataMap, Row } from "../data/DatasetTypes";
+import { DataFetcher } from "../data/loading/DataFetcher";
+import { MetadataMap, Row } from "../data/utils/DatasetTypes";
 
 export default class FakeDataFetcher implements DataFetcher {
   private loadedDatasets: Record<string, Row[]> = {};

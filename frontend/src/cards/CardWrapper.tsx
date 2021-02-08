@@ -10,8 +10,8 @@ import {
 import { CardContent } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
-import { WithMetadataAndMetrics } from "../data/WithLoadingOrErrorUI";
-import { MetricQuery, MetricQueryResponse } from "../data/MetricQuery";
+import { WithMetadataAndMetrics } from "../data/react/WithLoadingOrErrorUI";
+import { MetricQuery, MetricQueryResponse } from "../data/query/MetricQuery";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import InfoIcon from "@material-ui/icons/Info";
 import Popover from "@material-ui/core/Popover";

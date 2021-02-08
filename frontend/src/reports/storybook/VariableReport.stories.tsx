@@ -5,7 +5,7 @@ import {
   VariableDisparityReportProps,
 } from "../VariableDisparityReport";
 import { StoryWrapper } from "../../storybook/StoryWrapper";
-import { Fips, USA_FIPS } from "../../utils/madlib/Fips";
+import { Fips, USA_FIPS } from "../../data/utils/Fips";
 
 export default {
   title: "Report/VariableDisparityReport",

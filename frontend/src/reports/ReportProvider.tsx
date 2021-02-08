@@ -7,13 +7,13 @@ import {
   getMadLibWithUpdatedValue,
   DropdownVarId,
   MadLibId,
-} from "../utils/madlib/MadLibs";
-import { Fips } from "../utils/madlib/Fips";
+} from "../utils/MadLibs";
+import { Fips } from "../data/utils/Fips";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { getMadLibPhraseText } from "../utils/madlib/MadLibs";
+import { getMadLibPhraseText } from "../utils/MadLibs";
 import { linkToMadLib, DATA_CATALOG_PAGE_LINK } from "../utils/urlutils";
 import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";

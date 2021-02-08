@@ -1,6 +1,6 @@
 import React from "react";
 import { Vega, VisualizationSpec } from "react-vega";
-import { Row } from "../data/DatasetTypes";
+import { Row } from "../data/utils/DatasetTypes";
 
 function getSpec(
   data: Record<string, any>[],

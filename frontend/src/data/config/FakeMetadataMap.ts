@@ -1,4 +1,4 @@
-import { DatasetMetadata, MetadataMap } from "./DatasetTypes";
+import { DatasetMetadata, MetadataMap } from "../utils/DatasetTypes";
 
 const fakeMetadata: DatasetMetadata[] = [
   {

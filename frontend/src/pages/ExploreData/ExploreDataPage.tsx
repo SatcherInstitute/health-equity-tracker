@@ -6,8 +6,8 @@ import {
   MadLib,
   PhraseSegment,
   getMadLibWithUpdatedValue,
-} from "../../utils/madlib/MadLibs";
-import { Fips } from "../../utils/madlib/Fips";
+} from "../../utils/MadLibs";
+import { Fips } from "../../data/utils/Fips";
 import styles from "./ExploreDataPage.module.scss";
 import {
   clearSearchParams,

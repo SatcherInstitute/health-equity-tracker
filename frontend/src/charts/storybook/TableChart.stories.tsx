@@ -3,7 +3,7 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 import {
   METRIC_CONFIG,
   POPULATION_VARIABLE_CONFIG,
-} from "../../data/MetricConfig";
+} from "../../data/config/MetricConfig";
 import { TableChart, TableChartProps } from "../TableChart";
 import { StoryWrapper } from "../../storybook/StoryWrapper";
 

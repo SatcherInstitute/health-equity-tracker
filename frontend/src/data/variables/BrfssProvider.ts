@@ -1,10 +1,10 @@
-import { Breakdowns, ALL_RACES_DISPLAY_NAME } from "../Breakdowns";
-import { per100k } from "../datasetutils";
-import { USA_FIPS, USA_DISPLAY_NAME } from "../../utils/madlib/Fips";
+import { Breakdowns, ALL_RACES_DISPLAY_NAME } from "../query/Breakdowns";
+import { per100k } from "../utils/datasetutils";
+import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
-import { MetricQuery, MetricQueryResponse } from "../MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { TOTAL } from "../Constants";
+import { TOTAL } from "../utils/Constants";
 
 class BrfssProvider extends VariableProvider {
   constructor() {
@@ -31,7 +31,7 @@ class BrfssProvider extends VariableProvider {
 
     if (breakdowns.geography === "national") {
       df = df
-        .pivot(breakdowns.demographicBreakdowns.race.columnName, {
+        .pivot(breakdowns.demographicBreakdowns.race_and_ethnicity.columnName, {
           fips: (series) => USA_FIPS,
           fips_name: (series) => USA_DISPLAY_NAME,
           diabetes_count: (series) => series.sum(),
@@ -42,7 +42,7 @@ class BrfssProvider extends VariableProvider {
         .resetIndex();
     }
 
-    if (!breakdowns.demographicBreakdowns.race.enabled) {
+    if (!breakdowns.demographicBreakdowns.race_and_ethnicity.enabled) {
       df = df.pivot(["fips", "fips_name"], {
         race: (series) => ALL_RACES_DISPLAY_NAME,
         diabetes_count: (series) => series.sum(),
@@ -85,13 +85,13 @@ class BrfssProvider extends VariableProvider {
           df,
           col,
           col.split("_")[0] + "_pct_share",
-          breakdowns.demographicBreakdowns.race.columnName,
+          breakdowns.demographicBreakdowns.race_and_ethnicity.columnName,
           ["fips"]
         );
       });
     }
 
-    df = this.removeUnwantedDemographicTotals(df, breakdowns);
+    df = this.applyDemographicBreakdownFilters(df, breakdowns);
     return new MetricQueryResponse(df.toArray(), ["brfss"]);
   }
 
