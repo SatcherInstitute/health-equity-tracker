@@ -18,7 +18,7 @@ import Table from '@material-ui/core/Table';
 import {MetricId} from '../data/variableProviders';
 
 /** Corollary for TableHeader **/
-function NewTableHeader({ column }: { column: HeaderGroup<any> }) {
+function TableHeader({ column }: { column: HeaderGroup<any> }) {
   return (
       <TableCell {...column.getHeaderProps(column.getSortByToggleProps())}>
         {column.render("Header")}
@@ -31,11 +31,11 @@ function NewTableHeader({ column }: { column: HeaderGroup<any> }) {
 }
 
 /** Corollary for TableHeaderGroup **/
-function NewTableHeaderGroup({ group }: { group: HeaderGroup<any> }) {
+function TableHeaderGroup({ group }: { group: HeaderGroup<any> }) {
   return (
       <TableRow {...group.getHeaderGroupProps()}>
         {group.headers.map((col, index) => (
-            <NewTableHeader column={col} key={index} />
+            <TableHeader column={col} key={index} />
         ))}
       </TableRow>
   );
@@ -82,19 +82,19 @@ function TableChartDataTable(props: DataTableProps) {
       usePagination
   );
 
-  function NewCustomTableRow({ row, }: { row: Row<any> }) {
+  function CustomTableRow({ row, }: { row: Row<any> }) {
     prepareRow(row);
     return (
         <TableRow {...row.getRowProps()}>
           {row.cells.map((cell, index) => (
-              <NewCustomTableCell cell={cell} key={index} />
+              <CustomTableCell cell={cell} key={index} />
           ))}
         </TableRow>
     );
   }
 
   /** Corollary for CustomTableCell **/
-  function NewCustomTableCell({ cell }: { cell: Cell<any> }) {
+  function CustomTableCell({ cell }: { cell: Cell<any> }) {
     if (cell.value == null) {
       return (
           <TableCell {...cell.getCellProps()}>
@@ -118,12 +118,12 @@ function TableChartDataTable(props: DataTableProps) {
         <Table stickyHeader {...getTableProps()}>
           <TableHead>
             {headerGroups.map((group, index) => (
-                <NewTableHeaderGroup group={group} key={index} />
+                <TableHeaderGroup group={group} key={index} />
             ))}
           </TableHead>
           <TableBody {...getTableBodyProps()}>
             {page.map((row: Row<any>, index) => (
-                <NewCustomTableRow row={row} key={index} />
+                <CustomTableRow row={row} key={index} />
             ))}
           </TableBody>
           <TableFooter>
