@@ -1,0 +1,45 @@
+@import "../../styles/variables";
+
+.Grid {
+  margin: auto;
+  max-width: $max-width;
+}
+
+.LandingPage {
+  text-align: left;
+}
+
+.Paper {
+  padding: 20px;
+  margin: 10px;
+}
+
+.PaperTitle {
+  font-size: 18px;
+  line-height: 24px;
+  display: block;
+}
+
+.BlueLandingSquare {
+  padding: 20px;
+  background: $blue;
+  color: $white;
+  text-align: left;
+}
+
+.GreenLandingSquare {
+  padding: 20px;
+  background: $green;
+  color: $white;
+  text-align: left;
+}
+
+.GreySquare {
+  background-color: #eeeeee;
+  padding: 10px;
+  margin-bottom: 70px;
+}
+
+.ThreeSquares {
+  padding: 16px;
+}

@@ -9,7 +9,10 @@ build_gcs_to_bq:
 build_exporter:
 	docker build -t het/exporter -f ../../exporter/Dockerfile ../..
 
-build: build_ingest_gcs build_gcs_to_bq build_exporter
+build_aggregator:
+	docker build -t het/aggregator -f ../../aggregator/Dockerfile ../..
+
+build: build_ingest_gcs build_gcs_to_bq build_exporter build_aggregator
 
 run:
 	docker-compose -f docker-compose-data-ingestion.yml up -d
@@ -20,7 +23,9 @@ reload_gcs_to_bq: build_gcs_to_bq run
 
 reload_exporter: build_exporter run
 
-reload: build_ingest_gcs build_gcs_to_bq build_exporter run
+reload_aggregator: build_aggregator run
+
+reload: build_ingest_gcs build_gcs_to_bq build_exporter build_aggregator run
 
 kill:
 	@echo "Killing docker-airflow containers"

@@ -155,18 +155,22 @@ class ACSPopulationIngester():
         concepts = list(SEX_BY_AGE_CONCEPTS_TO_RACE.keys())
         concepts.append(HISPANIC_BY_RACE_CONCEPT)
 
+        file_diff = False
         for concept in concepts:
             group_vars = get_vars_for_group(concept, var_map, 2)
             cols = list(group_vars.keys())
             url_params = get_census_params(cols, self.county_level)
-            url_file_to_gcs.url_file_to_gcs(
+            concept_file_diff = url_file_to_gcs.url_file_to_gcs(
                 self.base_acs_url, url_params, gcs_bucket,
                 self.get_filename(concept))
+            file_diff = file_diff or concept_file_diff
 
-        url_params = get_census_params([TOTAL_POP_VARIABLE_ID], self.county_level)
-        url_file_to_gcs.url_file_to_gcs(
-            self.base_acs_url, url_params, gcs_bucket,
-            self.add_filename_suffix(TOTAL_POP_VARIABLE_ID))
+        url_params = get_census_params(
+            [TOTAL_POP_VARIABLE_ID], self.county_level)
+        next_file_diff = url_file_to_gcs.url_file_to_gcs(
+            self.base_acs_url, url_params, gcs_bucket, self.add_filename_suffix(TOTAL_POP_VARIABLE_ID))
+        file_diff = file_diff or next_file_diff
+        return file_diff
 
     def write_to_bq(self, dataset, gcs_bucket):
         """Writes population data to BigQuery from the provided GCS bucket
@@ -371,8 +375,11 @@ class ACSPopulation(DataSource):
         return 'ACS_POPULATION'
 
     def upload_to_gcs(self, gcs_bucket, **attrs):
+        file_diff = False
         for ingester in self._create_ingesters():
-            ingester.upload_to_gcs(gcs_bucket)
+            next_file_diff = ingester.upload_to_gcs(gcs_bucket)
+            file_diff = file_diff or next_file_diff
+        return file_diff
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         for ingester in self._create_ingesters():

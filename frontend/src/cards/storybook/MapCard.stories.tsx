@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
-import { METRIC_CONFIG } from "../../data/MetricConfig";
+import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 import { MapCard, MapCardProps } from "../MapCard";
-import { Fips, USA_FIPS } from "../../utils/madlib/Fips";
+import { Fips, USA_FIPS } from "../../data/utils/Fips";
 import { StoryWrapper } from "../../storybook/StoryWrapper";
 
 export default {
@@ -28,8 +28,12 @@ const Template: Story<MapCardProps> = (args) => <MapCardStateful {...args} />;
 
 export const CovidPercentShareMap = Template.bind({});
 CovidPercentShareMap.args = {
-  nonstandardizedRace: true,
   metricConfig: METRIC_CONFIG["covid"][0].metrics["pct_share"],
   currentBreakdown: "all",
-  enableFilter: true,
+};
+
+export const CopdPer100kMap = Template.bind({});
+CopdPer100kMap.args = {
+  metricConfig: METRIC_CONFIG["copd"][0].metrics["per100k"],
+  currentBreakdown: "all",
 };

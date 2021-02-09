@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
-import { DropdownVarId } from "../utils/madlib/MadLibs";
-import { Fips } from "../utils/madlib/Fips";
+import { DropdownVarId } from "../utils/MadLibs";
+import { Fips } from "../data/utils/Fips";
 import { PopulationCard } from "../cards/PopulationCard";
 import { VariableDisparityReport } from "./VariableDisparityReport";
 

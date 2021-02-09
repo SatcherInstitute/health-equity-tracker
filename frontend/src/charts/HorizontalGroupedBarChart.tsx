@@ -1,7 +1,7 @@
 import React from "react";
 import { Vega, VisualizationSpec } from "react-vega";
-import { BreakdownVar } from "../data/Breakdowns";
-import { Row } from "../data/DatasetTypes";
+import { BreakdownVar } from "../data/query/Breakdowns";
+import { Row } from "../data/utils/DatasetTypes";
 
 function getSpec(
   data: Record<string, any>[],
@@ -139,12 +139,7 @@ function getSpec(
 function HorizontalGroupedBarChart(props: { data: Row[]; measure: string }) {
   return (
     <Vega
-      spec={getSpec(
-        props.data,
-        "state_fips",
-        "race_and_ethnicity",
-        props.measure
-      )}
+      spec={getSpec(props.data, "fips", "race_and_ethnicity", props.measure)}
     />
   );
 }
