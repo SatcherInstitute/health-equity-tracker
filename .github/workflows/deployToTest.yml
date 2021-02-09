@@ -202,14 +202,9 @@ jobs:
           --location=us-central1
       - name: Upload Airflow DAGs and utility file
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-        working-directory: ./airflow/dags
+        working-directory: ./airflow
         run: |
-          for filename in ./*; do
-            gcloud composer environments storage dags import \
-            --environment data-ingestion-environment \
-            --source $filename \
-            --location=us-central1
-          done
+          ./upload-dags.sh
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
