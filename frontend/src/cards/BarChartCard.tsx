@@ -7,21 +7,24 @@ import Button from "@material-ui/core/Button";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
-import { Fips } from "../utils/madlib/Fips";
-import useDatasetStore from "../data/useDatasetStore";
+import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
-} from "../data/Breakdowns";
-import { getDependentDatasets, MetricId } from "../data/variableProviders";
-import { MetricQuery } from "../data/MetricQuery";
-import { MetricConfig, VariableConfig } from "../data/MetricConfig";
-import { POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
+} from "../data/query/Breakdowns";
+import { MetricQuery } from "../data/query/MetricQuery";
+import {
+  MetricConfig,
+  MetricId,
+  VariableConfig,
+} from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
-import RaceInfoPopover from "./ui/RaceInfoPopoverContent";
+import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 import DisparityInfoPopover from "./ui/DisparityInfoPopover";
 import { usePopover } from "../utils/usePopover";
+import { exclude } from "../data/query/BreakdownFilter";
+import { NON_HISPANIC, TOTAL } from "../data/utils/Constants";
 
 const VALID_METRIC_TYPES = ["pct_share", "per100k"];
 
@@ -29,7 +32,6 @@ export interface BarChartCardProps {
   key?: string;
   breakdownVar: BreakdownVar;
   variableConfig: VariableConfig;
-  nonstandardizedRace: boolean /* TODO- ideally wouldn't go here, could be calculated based on dataset */;
   fips: Fips;
 }
 
@@ -49,25 +51,27 @@ function BarChartCardWithKey(props: BarChartCardProps) {
       props.variableConfig.metrics["per100k"]
   );
 
-  const datasetStore = useDatasetStore();
-
-  // TODO need to handle race categories standard vs non-standard for covid vs
-  // other demographic.
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
-    props.nonstandardizedRace
+    exclude(TOTAL, NON_HISPANIC)
   );
-
-  const metricIds = Object.values(props.variableConfig.metrics).map(
-    (metricConfig: MetricConfig) => metricConfig.metricId
-  );
-  const metrics: MetricId[] = [...metricIds, "population", "population_pct"];
-  const query = new MetricQuery(metrics, breakdowns);
 
   // TODO - what if there are no valid types at all? What do we show?
   const validDisplayMetricConfigs: MetricConfig[] = Object.values(
     props.variableConfig.metrics
   ).filter((metricConfig) => VALID_METRIC_TYPES.includes(metricConfig.type));
+
+  let metricIds: MetricId[] = [];
+  Object.values(props.variableConfig.metrics).forEach(
+    (metricConfig: MetricConfig) => {
+      metricIds.push(metricConfig.metricId);
+      if (metricConfig.populationComparisonMetric) {
+        metricIds.push(metricConfig.populationComparisonMetric.metricId);
+      }
+    }
+  );
+
+  const query = new MetricQuery(metricIds, breakdowns);
 
   function CardTitle() {
     const popover = usePopover();
@@ -88,23 +92,15 @@ function BarChartCardWithKey(props: BarChartCardProps) {
   // TODO - we want to bold the breakdown name in the card title
   return (
     <CardWrapper
-      datasetIds={getDependentDatasets(metrics)}
       queries={[query]}
       title={<CardTitle />}
       infoPopover={
         props.breakdownVar === "race_and_ethnicity" ? (
-          <RaceInfoPopover />
+          <RaceInfoPopoverContent />
         ) : undefined
       }
     >
-      {() => {
-        const queryResponse = datasetStore.getMetrics(query);
-        const dataset = queryResponse.data.filter(
-          (row) =>
-            !["Not Hispanic or Latino", "Total"].includes(
-              row.race_and_ethnicity
-            )
-        );
+      {([queryResponse]) => {
         return (
           <>
             {queryResponse.shouldShowMissingDataMessage([
@@ -127,9 +123,7 @@ function BarChartCardWithKey(props: BarChartCardProps) {
                     onChange={(e, metricType) => {
                       if (metricType !== null) {
                         setMetricConfig(
-                          props.variableConfig.metrics[
-                            metricType
-                          ] as MetricConfig
+                          props.variableConfig.metrics[metricType]
                         );
                       }
                     }}
@@ -150,8 +144,8 @@ function BarChartCardWithKey(props: BarChartCardProps) {
               <CardContent className={styles.Breadcrumbs}>
                 {metricConfig.type === "pct_share" && (
                   <DisparityBarChart
-                    data={dataset}
-                    thickMetric={POPULATION_VARIABLE_CONFIG.metrics.pct_share}
+                    data={queryResponse.data}
+                    thickMetric={metricConfig.populationComparisonMetric!}
                     thinMetric={metricConfig}
                     breakdownVar={props.breakdownVar}
                     metricDisplayName={metricConfig.shortVegaLabel}
@@ -159,7 +153,7 @@ function BarChartCardWithKey(props: BarChartCardProps) {
                 )}
                 {metricConfig.type === "per100k" && (
                   <SimpleHorizontalBarChart
-                    data={dataset}
+                    data={queryResponse.data}
                     breakdownVar={props.breakdownVar}
                     metric={metricConfig}
                     showLegend={false}

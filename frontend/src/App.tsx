@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "./App.module.scss";
 import MaterialTheme from "./styles/MaterialTheme";
-import DataCatalogPage from "./pages/DataCatalogPage";
-import ExploreDataPage from "./pages/ExploreDataPage";
-import LandingPage from "./pages/LandingPage";
+import AboutUsPage from "./pages/AboutUs/AboutUsPage";
+import DataCatalogPage from "./pages/DataCatalog/DataCatalogPage";
+import ExploreDataPage from "./pages/ExploreData/ExploreDataPage";
+import LandingPage from "./pages/Landing/LandingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import Footer from "./Footer";
 import AppBar from "@material-ui/core/AppBar";
@@ -25,22 +26,15 @@ import {
   useLocation,
 } from "react-router-dom";
 import {
-  useDatasetStoreProvider,
-  DatasetProvider,
-  startMetadataLoad,
-} from "./data/useDatasetStore";
-import {
   LinkWithStickyParams,
   EXPLORE_DATA_PAGE_LINK,
   DATA_CATALOG_PAGE_LINK,
   ABOUT_US_PAGE_LINK,
 } from "./utils/urlutils";
-import AboutUsPage from "./pages/AboutUsPage";
-import Logger from "./utils/Logger";
-import { initGlobals } from "./utils/globals";
-import DataFetcher from "./data/DataFetcher";
+import { autoInitGlobals, getEnvironment } from "./utils/globals";
 import ReactTooltip from "react-tooltip";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import PreLaunchSiteContent from "./pages/Landing/PreLaunchSiteContent";
 
 const MOBILE_BREAKPOINT = 600;
 
@@ -51,9 +45,7 @@ const PAGE_URL_TO_NAMES: Record<string, string> = {
   [EXPLORE_DATA_PAGE_LINK]: "Explore the Data",
 };
 
-// TODO configure the logger and data fetcher based on environment variables.
-initGlobals(new Logger(false), new DataFetcher());
-startMetadataLoad();
+autoInitGlobals();
 
 function MobileAppToolbar() {
   const [open, setOpen] = useState(false);
@@ -93,18 +85,11 @@ function AppToolbar() {
       </Typography>
       {[EXPLORE_DATA_PAGE_LINK, DATA_CATALOG_PAGE_LINK, ABOUT_US_PAGE_LINK].map(
         (pageUrl, i) => (
-          <Button className={styles.NavButton} key={i}>
-            <LinkWithStickyParams to={pageUrl}>
-              {PAGE_URL_TO_NAMES[pageUrl]}
-            </LinkWithStickyParams>
-          </Button>
+          <LinkWithStickyParams to={pageUrl} class={styles.NavLink}>
+            <Button key={i}>{PAGE_URL_TO_NAMES[pageUrl]}</Button>
+          </LinkWithStickyParams>
         )
       )}
-      <Button className={styles.NavButton}>
-        <a href="https://zipline.appspot.com/view/zipline-prototypes/het-test-hawk/het-test---hawk8026/versions/1/data/index.html#/1">
-          Prototypes
-        </a>
-      </Button>
     </Toolbar>
   );
 }
@@ -131,42 +116,42 @@ function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const datasetStore = useDatasetStoreProvider();
+  if (!getEnvironment().enableFullSiteContent()) {
+    return <PreLaunchSiteContent />;
+  }
 
   return (
     <ThemeProvider theme={MaterialTheme}>
       <ReactTooltip />
       <CssBaseline />
-      <DatasetProvider value={datasetStore}>
-        <div className={styles.App}>
-          <div className={styles.Content}>
-            <Router>
-              <ScrollToTop />
-              <AppBar position="static">
-                {width > MOBILE_BREAKPOINT ? (
-                  <AppToolbar />
-                ) : (
-                  <MobileAppToolbar />
-                )}
-              </AppBar>
-              <Switch>
-                <Route path={ABOUT_US_PAGE_LINK} component={AboutUsPage} />
-                <Route
-                  path={DATA_CATALOG_PAGE_LINK}
-                  component={DataCatalogPage}
-                />
-                <Route
-                  path={EXPLORE_DATA_PAGE_LINK}
-                  component={ExploreDataPage}
-                />
-                <Route exact path="/" component={LandingPage} />
-                <Route component={NotFoundPage} />
-              </Switch>
-            </Router>
-          </div>
-          <Footer />
+      <div className={styles.App}>
+        <div className={styles.Content}>
+          <Router>
+            <ScrollToTop />
+            <AppBar position="static">
+              {width > MOBILE_BREAKPOINT ? (
+                <AppToolbar />
+              ) : (
+                <MobileAppToolbar />
+              )}
+            </AppBar>
+            <Switch>
+              <Route path={ABOUT_US_PAGE_LINK} component={AboutUsPage} />
+              <Route
+                path={DATA_CATALOG_PAGE_LINK}
+                component={DataCatalogPage}
+              />
+              <Route
+                path={EXPLORE_DATA_PAGE_LINK}
+                component={ExploreDataPage}
+              />
+              <Route exact path="/" component={LandingPage} />
+              <Route component={NotFoundPage} />
+            </Switch>
+          </Router>
         </div>
-      </DatasetProvider>
+        <Footer />
+      </div>
     </ThemeProvider>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { USA_FIPS, USA_DISPLAY_NAME, Fips } from "../utils/madlib/Fips";
+import { USA_FIPS, USA_DISPLAY_NAME, Fips } from "../data/utils/Fips";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";

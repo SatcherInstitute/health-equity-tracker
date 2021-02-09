@@ -2,45 +2,44 @@ import React from "react";
 import { TableChart } from "../charts/TableChart";
 import { Alert } from "@material-ui/lab";
 import CardWrapper from "./CardWrapper";
-import useDatasetStore from "../data/useDatasetStore";
-import { getDependentDatasets, MetricId } from "../data/variableProviders";
-import { MetricQuery } from "../data/MetricQuery";
-import { Fips } from "../utils/madlib/Fips";
+import { MetricQuery } from "../data/query/MetricQuery";
+import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
-} from "../data/Breakdowns";
+} from "../data/query/Breakdowns";
 import { CardContent } from "@material-ui/core";
-import { MetricConfig } from "../data/MetricConfig";
-import RaceInfoPopover from "./ui/RaceInfoPopoverContent";
+import { MetricConfig, MetricId } from "../data/config/MetricConfig";
+import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
+import { exclude } from "../data/query/BreakdownFilter";
+import { NON_HISPANIC } from "../data/utils/Constants";
 
 export interface TableCardProps {
   fips: Fips;
   breakdownVar: BreakdownVar;
   metrics: MetricConfig[];
-  nonstandardizedRace: boolean /* TODO- ideally wouldn't go here, could be calculated based on dataset */;
 }
 
 export function TableCard(props: TableCardProps) {
-  const datasetStore = useDatasetStore();
-
-  // TODO need to handle race categories standard vs non-standard for covid vs
-  // other demographic.
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
-    props.nonstandardizedRace
+    props.breakdownVar === "race_and_ethnicity"
+      ? exclude(NON_HISPANIC)
+      : undefined
   );
-  const metricIds: MetricId[] = props.metrics.map(
-    (metricConfig) => metricConfig.metricId
-  );
+  let metricIds: MetricId[] = [];
+  props.metrics.forEach((metricConfig) => {
+    metricIds.push(metricConfig.metricId);
+    if (metricConfig.populationComparisonMetric) {
+      metricIds.push(metricConfig.populationComparisonMetric.metricId);
+    }
+  });
   const query = new MetricQuery(metricIds, breakdowns);
-  const datasetIds = getDependentDatasets(metricIds);
 
   return (
     <CardWrapper
       queries={[query]}
-      datasetIds={datasetIds}
       title={
         <>{`${
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
@@ -48,19 +47,11 @@ export function TableCard(props: TableCardProps) {
       }
       infoPopover={
         props.breakdownVar === "race_and_ethnicity" ? (
-          <RaceInfoPopover />
+          <RaceInfoPopoverContent />
         ) : undefined
       }
     >
-      {() => {
-        const queryResponse = datasetStore.getMetrics(query);
-        const dataset = queryResponse.data.filter(
-          (row) =>
-            !["Not Hispanic or Latino", "Total"].includes(
-              row.race_and_ethnicity
-            )
-        );
-
+      {([queryResponse]) => {
         return (
           <>
             {queryResponse.shouldShowMissingDataMessage(metricIds) && (
@@ -72,7 +63,7 @@ export function TableCard(props: TableCardProps) {
             )}
             {!queryResponse.dataIsMissing() && (
               <TableChart
-                data={dataset}
+                data={queryResponse.data}
                 breakdownVar={props.breakdownVar}
                 metrics={props.metrics}
               />

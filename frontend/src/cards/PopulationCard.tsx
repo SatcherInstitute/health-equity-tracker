@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { Alert } from "@material-ui/lab";
 import CardWrapper from "./CardWrapper";
-import useDatasetStore from "../data/useDatasetStore";
-import { Breakdowns } from "../data/Breakdowns";
-import { getDependentDatasets, MetricId } from "../data/variableProviders";
-import { MetricQuery } from "../data/MetricQuery";
-import { Fips } from "../utils/madlib/Fips";
+import { Breakdowns } from "../data/query/Breakdowns";
+import { MetricQuery } from "../data/query/MetricQuery";
+import { Fips } from "../data/utils/Fips";
 import { CardContent } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import styles from "./Card.module.scss";
@@ -14,32 +12,40 @@ import Button from "@material-ui/core/Button";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
-import { POPULATION_VARIABLE_CONFIG } from "../data/MetricConfig";
+import {
+  MetricId,
+  POPULATION_VARIABLE_CONFIG,
+} from "../data/config/MetricConfig";
+import { TOTAL } from "../data/utils/Constants";
+import {
+  excludeTotal,
+  onlyIncludeStandardRaces,
+} from "../data/query/BreakdownFilter";
 
 export interface PopulationCardProps {
   fips: Fips;
 }
 
 export function PopulationCard(props: PopulationCardProps) {
-  const datasetStore = useDatasetStore();
   const [expanded, setExpanded] = useState(false);
 
   const variableIds: MetricId[] = ["population", "population_pct"];
-  const query = new MetricQuery(
+  const raceQuery = new MetricQuery(
     variableIds,
-    Breakdowns.forFips(props.fips).andRace()
+    Breakdowns.forFips(props.fips).andRace(onlyIncludeStandardRaces())
+  );
+  // TODO when ACS by age gets more age buckets, update this to specify which
+  // ones we want.
+  const ageQuery = new MetricQuery(
+    variableIds,
+    Breakdowns.forFips(props.fips).andAge(excludeTotal())
   );
 
   return (
-    <CardWrapper
-      queries={[query]}
-      datasetIds={getDependentDatasets(variableIds)}
-      hideFooter={true}
-    >
-      {() => {
-        const queryResponse = datasetStore.getMetrics(query);
-        const totalPopulation = queryResponse.data.find(
-          (r) => r.race_and_ethnicity === "Total"
+    <CardWrapper queries={[raceQuery, ageQuery]} hideFooter={true}>
+      {([raceQueryResponse, ageQueryResponse]) => {
+        const totalPopulation = raceQueryResponse.data.find(
+          (r) => r.race_and_ethnicity === TOTAL
         );
         const totalPopulationSize = totalPopulation
           ? totalPopulation["population"].toLocaleString("en")
@@ -47,7 +53,7 @@ export function PopulationCard(props: PopulationCardProps) {
 
         return (
           <CardContent>
-            {!queryResponse.dataIsMissing() && (
+            {!raceQueryResponse.dataIsMissing() && (
               <Button
                 aria-label="expand description"
                 onClick={() => setExpanded(!expanded)}
@@ -61,7 +67,7 @@ export function PopulationCard(props: PopulationCardProps) {
             <span className={styles.PopulationCardTitle}>
               {props.fips.getFullDisplayName()}
             </span>
-            {queryResponse.dataIsMissing() && (
+            {raceQueryResponse.dataIsMissing() && (
               <Alert severity="warning">
                 Missing data means that we don't know the full story.
               </Alert>
@@ -70,7 +76,7 @@ export function PopulationCard(props: PopulationCardProps) {
                 we manually trigger a resize when the div size changes so vega chart will 
                 render with the right size. This means the vega chart won't appear until the 
                 AnimateHeight is finished expanding */}
-            {!queryResponse.dataIsMissing() && (
+            {!raceQueryResponse.dataIsMissing() && (
               <AnimateHeight
                 duration={500}
                 height={expanded ? "auto" : 70}
@@ -93,8 +99,8 @@ export function PopulationCard(props: PopulationCardProps) {
                     <span className={styles.PopulationMetricValue}>??</span>
                   </Grid>
                   {/* TODO- properly align these */}
-                  {queryResponse.data
-                    .filter((r) => r.race_and_ethnicity !== "Total")
+                  {raceQueryResponse.data
+                    .filter((r) => r.race_and_ethnicity !== TOTAL)
                     .map((row) => (
                       <Grid item className={styles.PopulationMetric}>
                         <span>{row.race_and_ethnicity}</span>
@@ -110,8 +116,8 @@ export function PopulationCard(props: PopulationCardProps) {
                       Population by race
                     </span>
                     <SimpleHorizontalBarChart
-                      data={queryResponse.data.filter(
-                        (r) => r.race_and_ethnicity !== "Total"
+                      data={raceQueryResponse.data.filter(
+                        (r) => r.race_and_ethnicity !== TOTAL
                       )}
                       metric={POPULATION_VARIABLE_CONFIG.metrics.pct_share}
                       breakdownVar="race_and_ethnicity"
@@ -121,8 +127,19 @@ export function PopulationCard(props: PopulationCardProps) {
                   </Grid>
                   <Grid item xs={6}>
                     <span className={styles.PopulationChartTitle}>
-                      Population by age [coming soon]
+                      Population by age
                     </span>
+                    {ageQueryResponse.dataIsMissing() ? (
+                      <Alert severity="warning">Age data missing.</Alert>
+                    ) : (
+                      <SimpleHorizontalBarChart
+                        data={ageQueryResponse.data}
+                        metric={POPULATION_VARIABLE_CONFIG.metrics.pct_share}
+                        breakdownVar="age"
+                        showLegend={false}
+                        hideActions={true}
+                      />
+                    )}
                   </Grid>
                 </Grid>
               </AnimateHeight>

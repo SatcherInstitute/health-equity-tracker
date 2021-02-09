@@ -1,9 +1,18 @@
 import React from "react";
 import { Vega } from "react-vega";
-import { Row } from "../data/DatasetTypes";
+import { Row } from "../data/utils/DatasetTypes";
 import { useResponsiveWidth } from "../utils/useResponsiveWidth";
-import { BreakdownVar, BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/Breakdowns";
-import { MetricConfig } from "../data/MetricConfig";
+import {
+  BreakdownVar,
+  BREAKDOWN_VAR_DISPLAY_NAMES,
+} from "../data/query/Breakdowns";
+import { MetricConfig } from "../data/config/MetricConfig";
+import {
+  addLineBreakDelimitersToField,
+  MULTILINE_LABEL,
+  AXIS_LABEL_Y_DELTA,
+  oneLineLabel,
+} from "./utils";
 
 function getSpec(
   data: Record<string, any>[],
@@ -23,6 +32,19 @@ function getSpec(
   const THICK_MEASURE_COLOR = "#BDC1C6";
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
+
+  function maxValueInField(field: string) {
+    return Math.max(
+      ...data
+        .map((row) => row[field])
+        .filter((value: number | undefined) => value !== undefined)
+    );
+  }
+
+  const measureWithLargerDomain =
+    maxValueInField(thickMeasure) > maxValueInField(thinMeasure)
+      ? thickMeasure
+      : thinMeasure;
 
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
@@ -53,7 +75,9 @@ function getSpec(
         encode: {
           enter: {
             tooltip: {
-              signal: `datum. ${breakdownVar} + ', ${thickMeasureDisplayName}: ' + datum. ${thickMeasure}+'%'`,
+              signal: `${oneLineLabel(
+                breakdownVar
+              )} + ', ${thickMeasureDisplayName}: ' + datum. ${thickMeasure}+'%'`,
             },
           },
           update: {
@@ -74,7 +98,9 @@ function getSpec(
         encode: {
           enter: {
             tooltip: {
-              signal: `datum. ${breakdownVar} + ', ${thinMeasureDisplayName}: ' + datum. ${thinMeasure}+'%'`,
+              signal: `${oneLineLabel(
+                breakdownVar
+              )} + ', ${thinMeasureDisplayName}: ' + datum. ${thinMeasure}+'%'`,
             },
           },
           update: {
@@ -115,7 +141,7 @@ function getSpec(
       {
         name: "x",
         type: "linear",
-        domain: { data: DATASET, field: thickMeasure },
+        domain: { data: DATASET, field: measureWithLargerDomain },
         range: [0, { signal: "width" }],
         nice: true,
         zero: true,
@@ -126,7 +152,6 @@ function getSpec(
         domain: {
           data: DATASET,
           field: breakdownVar,
-          sort: { op: "min", field: thickMeasure, order: "descending" },
         },
         range: { step: { signal: "y_step" } },
         paddingInner: BAR_PADDING,
@@ -169,6 +194,18 @@ function getSpec(
         grid: false,
         title: breakdownVarDisplayName,
         zindex: 0,
+        tickSize: 5,
+        encode: {
+          labels: {
+            update: {
+              text: { signal: MULTILINE_LABEL },
+              baseline: { value: "bottom" },
+              // Limit at which line is truncated with an ellipsis
+              limit: { value: 90 },
+              dy: { signal: AXIS_LABEL_Y_DELTA },
+            },
+          },
+        },
       },
     ],
     legends: [
@@ -200,11 +237,20 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   const [ref, width] = useResponsiveWidth(
     100 /* default width during intialization */
   );
+
+  let dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
+    props.data,
+    props.breakdownVar
+  );
+  dataWithLineBreakDelimiter.sort((a, b) =>
+    a[props.breakdownVar].localeCompare(b[props.breakdownVar])
+  );
+
   return (
     <div ref={ref}>
       <Vega
         spec={getSpec(
-          props.data,
+          dataWithLineBreakDelimiter,
           width,
           props.breakdownVar,
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],

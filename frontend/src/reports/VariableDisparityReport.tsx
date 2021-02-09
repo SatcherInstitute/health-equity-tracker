@@ -3,19 +3,21 @@ import { Button, Grid } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
-import { BreakdownVar, BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/Breakdowns";
+import {
+  BreakdownVar,
+  BREAKDOWN_VAR_DISPLAY_NAMES,
+} from "../data/query/Breakdowns";
 import { MapCard } from "../cards/MapCard";
 import { PopulationCard } from "../cards/PopulationCard";
 import { TableCard } from "../cards/TableCard";
 import { BarChartCard } from "../cards/BarChartCard";
-import { DropdownVarId } from "../utils/madlib/MadLibs";
-import { Fips } from "../utils/madlib/Fips";
+import { DropdownVarId } from "../utils/MadLibs";
+import { Fips } from "../data/utils/Fips";
 import {
   METRIC_CONFIG,
   VariableConfig,
   MetricConfig,
-  POPULATION_VARIABLE_CONFIG,
-} from "../data/MetricConfig";
+} from "../data/config/MetricConfig";
 import styles from "./Report.module.scss";
 
 const SUPPORTED_BREAKDOWNS: BreakdownVar[] = [
@@ -41,24 +43,24 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
   // TODO Remove hard coded fail safe value
   const [variableConfig, setVariableConfig] = useState<VariableConfig | null>(
     Object.keys(METRIC_CONFIG).includes(props.dropdownVarId)
-      ? METRIC_CONFIG[props.dropdownVarId as string][0]
+      ? METRIC_CONFIG[props.dropdownVarId][0]
       : null
   );
 
-  const fields: MetricConfig[] = [];
-  if (variableConfig && variableConfig.metrics["per100k"]) {
-    fields.push(variableConfig.metrics["per100k"]);
+  let tableFields: MetricConfig[] = [];
+  if (variableConfig) {
+    if (variableConfig.metrics["per100k"]) {
+      tableFields.push(variableConfig.metrics["per100k"]);
+    }
+    if (variableConfig.metrics["pct_share"]) {
+      tableFields.push(variableConfig.metrics["pct_share"]);
+      if (variableConfig.metrics["pct_share"].populationComparisonMetric) {
+        tableFields.push(
+          variableConfig.metrics["pct_share"].populationComparisonMetric
+        );
+      }
+    }
   }
-  if (variableConfig && variableConfig.metrics["pct_share"]) {
-    fields.push(variableConfig.metrics["pct_share"]);
-  }
-  const tableFields: MetricConfig[] = variableConfig
-    ? [
-        ...fields,
-        POPULATION_VARIABLE_CONFIG.metrics.count,
-        POPULATION_VARIABLE_CONFIG.metrics.pct_share,
-      ]
-    : [];
 
   return (
     <Grid container xs={12} spacing={1} justify="center">
@@ -110,10 +112,10 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
       {variableConfig && (
         <Grid container spacing={1} justify="center">
           <Grid container xs={12}>
-            {!!METRIC_CONFIG[props.dropdownVarId as string] &&
-              METRIC_CONFIG[props.dropdownVarId as string].length > 1 && (
+            {!!METRIC_CONFIG[props.dropdownVarId] &&
+              METRIC_CONFIG[props.dropdownVarId].length > 1 && (
                 <Grid item className={styles.ToggleBlock}>
-                  <span className={styles.ToggleLabel}>Filter Data</span>
+                  <span className={styles.ToggleLabel}>Choose Data Type</span>
                   <ToggleButtonGroup
                     exclusive
                     value={variableConfig.variableId}
@@ -132,7 +134,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                     }}
                     aria-label="text formatting"
                   >
-                    {METRIC_CONFIG[props.dropdownVarId as string].map(
+                    {METRIC_CONFIG[props.dropdownVarId].map(
                       (variable: VariableConfig, key: number) => (
                         <ToggleButton value={variable.variableId} key={key}>
                           {variable.variableDisplayName}
@@ -143,7 +145,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                 </Grid>
               )}
             <Grid item className={styles.ToggleBlock}>
-              <span className={styles.ToggleLabel}>Filter Demographic</span>
+              <span className={styles.ToggleLabel}>Choose Demographic</span>
               <ToggleButtonGroup
                 exclusive
                 value={currentBreakdown}
@@ -167,24 +169,17 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           </Grid>
           <Grid item xs={props.vertical ? 12 : 6}>
             <MapCard
-              metricConfig={variableConfig.metrics["per100k"] as MetricConfig}
+              metricConfig={variableConfig.metrics["per100k"]}
               fips={props.fips}
               updateFipsCallback={(fips: Fips) => {
                 props.updateFipsCallback(fips);
               }}
-              enableFilter={props.fips.isUsa()}
-              nonstandardizedRace={
-                props.dropdownVarId === "covid" ? true : false
-              }
               currentBreakdown={currentBreakdown}
             />
             <TableCard
               fips={props.fips}
               metrics={tableFields}
-              breakdownVar={"race_and_ethnicity" as BreakdownVar}
-              nonstandardizedRace={
-                props.dropdownVarId === "covid" ? true : false
-              }
+              breakdownVar={"race_and_ethnicity"}
             />
           </Grid>
           <Grid item xs={props.vertical ? 12 : 6}>
@@ -194,10 +189,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                   currentBreakdown === breakdownVar) && (
                   <BarChartCard
                     variableConfig={variableConfig}
-                    nonstandardizedRace={
-                      props.dropdownVarId === "covid" ? true : false
-                    }
-                    breakdownVar={breakdownVar as BreakdownVar}
+                    breakdownVar={breakdownVar}
                     fips={props.fips}
                   />
                 )}

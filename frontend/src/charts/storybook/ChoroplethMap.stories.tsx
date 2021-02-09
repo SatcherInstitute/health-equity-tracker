@@ -1,8 +1,8 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
-import { METRIC_CONFIG } from "../../data/MetricConfig";
+import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 import { ChoroplethMap, ChoroplethMapProps } from "../ChoroplethMap";
-import { Fips, USA_FIPS } from "../../utils/madlib/Fips";
+import { Fips, USA_FIPS } from "../../data/utils/Fips";
 import { StoryWrapper } from "../../storybook/StoryWrapper";
 
 export default {
@@ -18,9 +18,9 @@ const Template: Story<ChoroplethMapProps> = (args) => (
 export const Example1 = Template.bind({});
 Example1.args = {
   data: [
-    { covid_cases_per_100k: 4909, state_fips: "04", state_name: "Arizona" },
-    { covid_cases_per_100k: 3183, state_fips: "06", state_name: "California" },
-    { covid_cases_per_100k: 4360, state_fips: "08", state_name: "Colorado" },
+    { covid_cases_per_100k: 4909, fips: "04", fips_name: "Arizona" },
+    { covid_cases_per_100k: 3183, fips: "06", fips_name: "California" },
+    { covid_cases_per_100k: 4360, fips: "08", fips_name: "Colorado" },
   ],
   metric: METRIC_CONFIG["covid"][0].metrics["per100k"],
   legendTitle: "Legend Title",
