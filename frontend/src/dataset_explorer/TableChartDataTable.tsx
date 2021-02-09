@@ -1,7 +1,6 @@
 import React from "react";
 import {useTable, usePagination, useSortBy, Column} from "react-table";
 import { Cell, HeaderGroup, Row } from "react-table";
-import { Row as DataSetRow } from "../data/DatasetTypes";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
@@ -10,12 +9,13 @@ import TableFooter from "@material-ui/core/TableFooter";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Paper from "@material-ui/core/Paper";
-import {formatFieldValue, MetricConfig} from '../data/MetricConfig';
+import {MetricConfig} from '../data/MetricConfig';
 import { BreakdownVar, BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/Breakdowns";
 import {Tooltip} from '@material-ui/core';
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
+import {MetricId} from '../data/variableProviders';
 
 /** Corollary for TableHeader **/
 function NewTableHeader({ column }: { column: HeaderGroup<any> }) {
@@ -41,13 +41,6 @@ function NewTableHeaderGroup({ group }: { group: HeaderGroup<any> }) {
   );
 }
 
-/** Corollary for CustomTableCell **/
-function NewCustomTableCell({ cell }: { cell: Cell<any> }) {
-  return <TableCell {...cell.getCellProps()}>{cell.render("Cell")}</TableCell>;
-
-
-}
-
 export interface DataTableProps {
   data: Readonly<Record<string, any>>[];
   metrics: MetricConfig[];
@@ -56,36 +49,19 @@ export interface DataTableProps {
 
 function TableChartDataTable(props: DataTableProps) {
   const { data, metrics, breakdownVar } = props;
-  let columns = metrics.map((metricConfig, i) => {
+  let columns = metrics.map((metricConfig) => {
     return {
       Header: metricConfig.fullCardTitleName,
-      accessor: (i+1).toString(),
+      accessor: metricConfig.metricId,
     };
   });
   columns = [{
     Header: BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar],
-    accessor: "0",
+    accessor: breakdownVar as MetricId,
   }].concat(columns);
 
-  const demoData = [
-    {
-      0: "Hi",
-      1: "Hello",
-      2: "Hi2",
-      3: "Hi3",
-      4: "Hello again",
-    },
-    {
-      0: "Hi2",
-      1: "Hello2",
-      2: "Hi22",
-      3: "Hi32",
-      4: "Hello again 2",
-    },
-  ];
-
-  const memoCols = React.useMemo<Column<any>[]>(() => columns, [columns]);
-  const memoData = React.useMemo(() => demoData, [demoData]);
+  const memoCols = React.useMemo<Column<any>[]>(() => columns, []);
+  const memoData = React.useMemo(() => data, [data]);
 
   const {
     getTableProps,
@@ -106,7 +82,7 @@ function TableChartDataTable(props: DataTableProps) {
       usePagination
   );
 
-  function NewCustomTableRow({ row }: { row: Row<any> }) {
+  function NewCustomTableRow({ row, }: { row: Row<any> }) {
     prepareRow(row);
     return (
         <TableRow {...row.getRowProps()}>
@@ -117,39 +93,30 @@ function TableChartDataTable(props: DataTableProps) {
     );
   }
 
-  function NewTableBody({data, metrics, breakdownVar}: { data: DataSetRow[], metrics: MetricConfig[], breakdownVar: BreakdownVar }) {
-    return (
-        <>
-          {data.map((row, i) => (
-              <TableRow key={i}>
-                <TableCell>{row[breakdownVar]}</TableCell>
-                {metrics.map((metricConfig, j) => (
-                    <TableCell key={j}>
-                      {formatFieldValue(
-                          metricConfig.type,
-                          row[metricConfig.metricId]
-                      )}
-                      {(row[metricConfig.metricId] === null ||
-                          row[metricConfig.metricId] === undefined) && (
-                          <Tooltip title="No data available">
-                            <WarningRoundedIcon/>
-                          </Tooltip>
-                      )}
-                    </TableCell>
-                ))}
-              </TableRow>
-          ))}
-        </>
-    );
+  /** Corollary for CustomTableCell **/
+  function NewCustomTableCell({ cell }: { cell: Cell<any> }) {
+    if (cell.value == null) {
+      return (
+          <TableCell {...cell.getCellProps()}>
+            <Tooltip title="No data available">
+              <WarningRoundedIcon />
+            </Tooltip>
+          </TableCell>
+      );
+    }
+    // TODO(efregoso): This could be iffy -- need to use formatFieldValue from MetrigConfig
+    if (cell.column.id.includes("_pct")) {
+      return <TableCell {...cell.getCellProps()}>{cell.render("Cell")}%</TableCell>;
+    }
+    else {
+      return <TableCell {...cell.getCellProps()}>{cell.render("Cell")}</TableCell>;
+    }
   }
-
-  // debugger;
 
   return (
       <TableContainer component={Paper} style={{maxHeight: "500px"}}>
         <Table stickyHeader {...getTableProps()}>
           <TableHead>
-
             {headerGroups.map((group, index) => (
                 <NewTableHeaderGroup group={group} key={index} />
             ))}
@@ -178,7 +145,6 @@ function TableChartDataTable(props: DataTableProps) {
         </Table>
       </TableContainer>
   );
-
 }
 
 export default TableChartDataTable;
