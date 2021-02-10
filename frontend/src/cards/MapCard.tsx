@@ -196,13 +196,20 @@ function MapCardWithKey(props: MapCardProps) {
               {queryResponse.dataIsMissing() && (
                 <Alert severity="error">No data available</Alert>
               )}
+              {!queryResponse.dataIsMissing() && mapData.length === 0 && (
+                <Alert severity="warning">
+                  No data available for filter: <b>{breakdownFilter}</b>
+                </Alert>
+              )}
               {props.metricConfig && (
                 <ChoroplethMap
                   signalListeners={signalListeners}
                   metric={props.metricConfig}
                   legendTitle={props.metricConfig.fullCardTitleName}
                   data={mapData}
-                  hideLegend={queryResponse.dataIsMissing()}
+                  hideLegend={
+                    queryResponse.dataIsMissing() || mapData.length === 0
+                  }
                   showCounties={props.fips.isUsa() ? false : true}
                   fips={props.fips}
                 />
