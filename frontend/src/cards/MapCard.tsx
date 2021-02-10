@@ -122,7 +122,7 @@ function MapCardWithKey(props: MapCardProps) {
         ];
 
         // Remove any row for which we find a filter that returns false.
-        const mapData = queryResponse.data.filter((row: Row) =>
+        const filteredData = queryResponse.data.filter((row: Row) =>
           predicates.every((predicate) => predicate(row))
         );
 
@@ -196,7 +196,7 @@ function MapCardWithKey(props: MapCardProps) {
               {queryResponse.dataIsMissing() && (
                 <Alert severity="error">No data available</Alert>
               )}
-              {!queryResponse.dataIsMissing() && mapData.length === 0 && (
+              {!queryResponse.dataIsMissing() && filteredData.length === 0 && (
                 <Alert severity="warning">
                   No data available for filter: <b>{breakdownFilter}</b>
                 </Alert>
@@ -206,9 +206,9 @@ function MapCardWithKey(props: MapCardProps) {
                   signalListeners={signalListeners}
                   metric={props.metricConfig}
                   legendTitle={props.metricConfig.fullCardTitleName}
-                  data={mapData}
+                  data={filteredData}
                   hideLegend={
-                    queryResponse.dataIsMissing() || mapData.length === 0
+                    queryResponse.dataIsMissing() || filteredData.length === 0
                   }
                   showCounties={props.fips.isUsa() ? false : true}
                   fips={props.fips}

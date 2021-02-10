@@ -78,7 +78,10 @@ export function WithMetrics(props: {
   );
 }
 
-// Should create a new instance based on the keys when the queries change to make sure the loading is reset
+/**
+ * We create a wrapper with a key to create a new instance when
+ * queries change so that the component's load screen is reset.
+ */
 interface WithMetadataAndMetricsProps {
   queries: MetricQuery[];
   children: (
