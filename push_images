@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Get the current project id
+export PROJECT_ID=$(gcloud config get-value project)
+
+# Build the images locally
+docker build -t gcr.io/$PROJECT_ID/ingestion-service -f run_ingestion/Dockerfile .
+docker build -t gcr.io/$PROJECT_ID/gcs-to-bq-service -f run_gcs_to_bq/Dockerfile .
+docker build -t gcr.io/$PROJECT_ID/data-server-service -f data_server/Dockerfile .
+docker build -t gcr.io/$PROJECT_ID/exporter-service -f exporter/Dockerfile .
+docker build -t gcr.io/$PROJECT_ID/aggregator-service -f aggregator/Dockerfile .
+docker build -t gcr.io/$PROJECT_ID/frontend-service -f frontend_server/Dockerfile . --build-arg="DEPLOY_CONTEXT=development"
+
+# Upload images to Google Container Registry
+docker push gcr.io/$PROJECT_ID/ingestion-service
+docker push gcr.io/$PROJECT_ID/gcs-to-bq-service
+docker push gcr.io/$PROJECT_ID/data-server-service
+docker push gcr.io/$PROJECT_ID/exporter-service
+docker push gcr.io/$PROJECT_ID/aggregator-service
+docker push gcr.io/$PROJECT_ID/frontend-service
+
+# Export image digests as environment variables
+export INGESTION_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/ingestion-service --format="value(image_summary.digest)")
+export GCS_TO_BQ_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/gcs-to-bq-service --format="value(image_summary.digest)")
+export DATA_SERVER_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/data-server-service --format="value(image_summary.digest)")
+export EXPORTER_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/exporter-service --format="value(image_summary.digest)")
+export AGGREGATOR_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/aggregator-service --format="value(image_summary.digest)")
+export FRONTEND_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/frontend-service --format="value(image_summary.digest)")

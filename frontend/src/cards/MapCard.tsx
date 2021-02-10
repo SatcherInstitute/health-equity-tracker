@@ -111,7 +111,7 @@ function MapCardWithKey(props: MapCardProps) {
         const breakdownValues = queryResponse
           .getUniqueFieldValues(currentlyDisplayedBreakdown)
           .sort();
-        if (breakdownFilter === "") {
+        if (breakdownFilter === "" || breakdownFilter === undefined) {
           setBreakdownFilter(breakdownValues[0]);
         }
 
