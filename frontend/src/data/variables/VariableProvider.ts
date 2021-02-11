@@ -1,8 +1,4 @@
-import {
-  Breakdowns,
-  BreakdownVar,
-  DemographicBreakdownKey,
-} from "../query/Breakdowns";
+import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
 import {
   MetricQueryResponse,
   createMissingDataResponse,
@@ -77,26 +73,17 @@ abstract class VariableProvider {
 
   removeUnrequestedColumns(df: IDataFrame, metricQuery: MetricQuery) {
     let dataFrame = df;
-    let finalColumns = ["fips", "fips_name"];
-    Object.keys(metricQuery.breakdowns.demographicBreakdowns).forEach(
-      (rawKey) => {
-        const key = rawKey as DemographicBreakdownKey;
-        let breakdown = metricQuery.breakdowns.demographicBreakdowns[key];
-        if (breakdown.enabled) {
-          finalColumns.push(breakdown.columnName);
-        }
-      }
+    let requestedColumns = ["fips", "fips_name"].concat(metricQuery.metricIds);
+    // Add column names of enabled breakdowns
+    requestedColumns = requestedColumns.concat(
+      Object.entries(metricQuery.breakdowns.demographicBreakdowns)
+        .filter(([unusedKey, breakdown]) => breakdown.enabled)
+        .map(([unusedKey, breakdown]) => breakdown.columnName)
     );
-    metricQuery.metricIds.forEach((metricId) => {
-      finalColumns.push(metricId);
-    });
 
-    let columnsToRemove: string[] = [];
-    dataFrame.getColumnNames().forEach((column) => {
-      if (!finalColumns.includes(column)) {
-        columnsToRemove.push(column);
-      }
-    });
+    const columnsToRemove = dataFrame
+      .getColumnNames()
+      .filter((column) => !requestedColumns.includes(column));
 
     return dataFrame.dropSeries(columnsToRemove).resetIndex();
   }

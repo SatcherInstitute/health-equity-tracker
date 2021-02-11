@@ -135,7 +135,7 @@ describe("CovidProvider", () => {
     );
     const [CHATAM_TOTAL_ROW, CHATAM_ACS_TOTAL_ROW] = covidAndCountyAcsRows(
       CHATAM,
-      WHITE_NH,
+      TOTAL,
       200,
       500,
       1000,
@@ -193,7 +193,7 @@ describe("CovidProvider", () => {
       covid_cases_reporting_population_pct: 100,
     };
 
-    evaluateWithAndWithoutTotal(
+    await evaluateWithAndWithoutTotal(
       "covid_by_county_and_race",
       rawCovidData,
       "acs_population-by_race_county_std",
@@ -206,48 +206,6 @@ describe("CovidProvider", () => {
   });
 
   test("State and Race Breakdown", async () => {
-    const acsProvider = new AcsPopulationProvider();
-    const covidProvider = new CovidProvider(acsProvider);
-
-    const [NC_WHITE_ROW, NC_ACS_WHITE_ROW] = covidAndAcsRows(
-      NC,
-      WHITE_NH,
-      /*cases=*/ 10,
-      /*hosp=*/ 1,
-      /*death=*/ 5,
-      /*population=*/ 2000
-    );
-    const NC_WHITE_FINAL_ROW = {
-      fips: NC.code,
-      fips_name: NC.name,
-      race_and_ethnicity: WHITE_NH,
-      covid_cases: 10,
-      covid_cases_per_100k: 500,
-      covid_cases_pct_of_geo: 5,
-      covid_cases_reporting_population: 2000,
-      covid_cases_reporting_population_pct: 2,
-    };
-
-    const [NC_TOTAL_ROW, NC_ACS_TOTAL_ROW] = covidAndAcsRows(
-      NC,
-      TOTAL,
-      /*cases=*/ 200,
-      /*hosp=*/ 500,
-      /*death=*/ 1000,
-      /*population=*/ 100000
-    );
-    const NC_TOTAL_FINAL_ROW = {
-      fips: NC.code,
-      fips_name: NC.name,
-      race_and_ethnicity: TOTAL,
-      covid_cases: 200,
-      covid_cases_per_100k: 200,
-      covid_cases_pct_of_geo: 100,
-      covid_cases_reporting_population: 100000,
-      covid_cases_reporting_population_pct: 100,
-    };
-
-    // Alabama rows should be filtered out
     const [AL_WHITE_ROW, AL_ACS_WHITE_ROW] = covidAndAcsRows(
       AL,
       WHITE_NH,
@@ -264,53 +222,70 @@ describe("CovidProvider", () => {
       /*death=*/ 5,
       /*population=*/ 2000
     );
+    const [NC_WHITE_ROW, NC_ACS_WHITE_ROW] = covidAndAcsRows(
+      NC,
+      WHITE_NH,
+      /*cases=*/ 10,
+      /*hosp=*/ 1,
+      /*death=*/ 5,
+      /*population=*/ 2000
+    );
+    const [NC_TOTAL_ROW, NC_ACS_TOTAL_ROW] = covidAndAcsRows(
+      NC,
+      TOTAL,
+      /*cases=*/ 200,
+      /*hosp=*/ 500,
+      /*death=*/ 1000,
+      /*population=*/ 100000
+    );
 
-    dataFetcher.setFakeDatasetLoaded("covid_by_state_and_race", [
+    const rawCovidData = [
       NC_TOTAL_ROW,
       NC_WHITE_ROW,
       AL_TOTAL_ROW,
       AL_WHITE_ROW,
-    ]);
-    dataFetcher.setFakeDatasetLoaded("acs_population-by_race_state_std", [
+    ];
+    const rawAcsData = [
       NC_ACS_WHITE_ROW,
       NC_ACS_TOTAL_ROW,
       AL_ACS_TOTAL_ROW,
       AL_ACS_WHITE_ROW,
-    ]);
+    ];
 
-    // Evaluate the response with requesting total field
-    const responseWithTotal = await covidProvider.getData(
-      new MetricQuery(
-        METRIC_IDS,
-        Breakdowns.forFips(new Fips(NC.code)).andRace()
-      )
-    );
-    expect(responseWithTotal).toEqual(
-      new MetricQueryResponse(
-        [NC_TOTAL_FINAL_ROW, NC_WHITE_FINAL_ROW],
-        ["covid_by_state_and_race", "acs_population-by_race_state_std"]
-      )
-    );
+    const NC_TOTAL_FINAL_ROW = {
+      fips: NC.code,
+      fips_name: NC.name,
+      race_and_ethnicity: TOTAL,
+      covid_cases: 200,
+      covid_cases_per_100k: 200,
+      covid_cases_pct_of_geo: 100,
+      covid_cases_reporting_population: 100000,
+      covid_cases_reporting_population_pct: 100,
+    };
+    const NC_WHITE_FINAL_ROW = {
+      fips: NC.code,
+      fips_name: NC.name,
+      race_and_ethnicity: WHITE_NH,
+      covid_cases: 10,
+      covid_cases_per_100k: 500,
+      covid_cases_pct_of_geo: 5,
+      covid_cases_reporting_population: 2000,
+      covid_cases_reporting_population_pct: 2,
+    };
 
-    // Evaluate the response without requesting total field
-    const responseWithoutTotal = await covidProvider.getData(
-      new MetricQuery(
-        METRIC_IDS,
-        Breakdowns.forFips(new Fips(NC.code)).andRace(excludeTotal())
-      )
-    );
-    expect(responseWithoutTotal).toEqual(
-      new MetricQueryResponse(
-        [NC_WHITE_FINAL_ROW],
-        ["covid_by_state_and_race", "acs_population-by_race_state_std"]
-      )
+    await evaluateWithAndWithoutTotal(
+      "covid_by_state_and_race",
+      rawCovidData,
+      "acs_population-by_race_state_std",
+      rawAcsData,
+      Breakdowns.forFips(new Fips(NC.code)),
+      "race_and_ethnicity",
+      [NC_WHITE_FINAL_ROW],
+      [NC_TOTAL_FINAL_ROW, NC_WHITE_FINAL_ROW]
     );
   });
 
   test("National and Race Breakdown", async () => {
-    const acsProvider = new AcsPopulationProvider();
-    const covidProvider = new CovidProvider(acsProvider);
-
     const [NC_TOTAL_ROW, NC_ACS_TOTAL_ROW] = covidAndAcsRows(
       NC,
       TOTAL,
@@ -327,17 +302,6 @@ describe("CovidProvider", () => {
       /*hosp=*/ 1000,
       /*population=*/ 80000
     );
-    const FINAL_TOTAL_ROW = {
-      fips: USA.code,
-      fips_name: USA.name,
-      race_and_ethnicity: TOTAL,
-      covid_cases: 300,
-      covid_cases_per_100k: 167,
-      covid_cases_pct_of_geo: 100,
-      covid_cases_reporting_population: 180000,
-      covid_cases_reporting_population_pct: 100,
-    };
-
     const [NC_WHITE_ROW, NC_ACS_WHITE_ROW] = covidAndAcsRows(
       NC,
       WHITE_NH,
@@ -354,6 +318,20 @@ describe("CovidProvider", () => {
       /*hosp=*/ 45,
       /*population=*/ 60000
     );
+
+    const rawCovidData = [
+      NC_TOTAL_ROW,
+      NC_WHITE_ROW,
+      AL_TOTAL_ROW,
+      AL_WHITE_ROW,
+    ];
+    const rawAcsData = [
+      NC_ACS_WHITE_ROW,
+      NC_ACS_TOTAL_ROW,
+      AL_ACS_TOTAL_ROW,
+      AL_ACS_WHITE_ROW,
+    ];
+
     const FINAL_WHITE_ROW = {
       fips: USA.code,
       fips_name: USA.name,
@@ -364,39 +342,26 @@ describe("CovidProvider", () => {
       covid_cases_reporting_population: 110000,
       covid_cases_reporting_population_pct: 61.1,
     };
+    const FINAL_TOTAL_ROW = {
+      fips: USA.code,
+      fips_name: USA.name,
+      race_and_ethnicity: TOTAL,
+      covid_cases: 300,
+      covid_cases_per_100k: 167,
+      covid_cases_pct_of_geo: 100,
+      covid_cases_reporting_population: 180000,
+      covid_cases_reporting_population_pct: 100,
+    };
 
-    dataFetcher.setFakeDatasetLoaded("covid_by_state_and_race", [
-      NC_TOTAL_ROW,
-      NC_WHITE_ROW,
-      AL_TOTAL_ROW,
-      AL_WHITE_ROW,
-    ]);
-    dataFetcher.setFakeDatasetLoaded("acs_population-by_race_state_std", [
-      NC_ACS_WHITE_ROW,
-      NC_ACS_TOTAL_ROW,
-      AL_ACS_TOTAL_ROW,
-      AL_ACS_WHITE_ROW,
-    ]);
-    // Evaluate the response with requesting total field
-    const responseWithTotal = await covidProvider.getData(
-      new MetricQuery(METRIC_IDS, Breakdowns.national().andRace())
-    );
-    expect(responseWithTotal).toEqual(
-      new MetricQueryResponse(
-        [FINAL_TOTAL_ROW, FINAL_WHITE_ROW],
-        ["covid_by_state_and_race", "acs_population-by_race_state_std"]
-      )
-    );
-
-    // Evaluate the response without requesting total field
-    const responseWithoutTotal = await covidProvider.getData(
-      new MetricQuery(METRIC_IDS, Breakdowns.national().andRace(excludeTotal()))
-    );
-    expect(responseWithoutTotal).toEqual(
-      new MetricQueryResponse(
-        [FINAL_WHITE_ROW],
-        ["covid_by_state_and_race", "acs_population-by_race_state_std"]
-      )
+    await evaluateWithAndWithoutTotal(
+      "covid_by_state_and_race",
+      rawCovidData,
+      "acs_population-by_race_state_std",
+      rawAcsData,
+      Breakdowns.national(),
+      "race_and_ethnicity",
+      [FINAL_WHITE_ROW],
+      [FINAL_TOTAL_ROW, FINAL_WHITE_ROW]
     );
   });
 });
