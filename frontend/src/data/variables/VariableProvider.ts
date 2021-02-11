@@ -1,4 +1,8 @@
-import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
+import {
+  Breakdowns,
+  BreakdownVar,
+  DemographicBreakdownKey,
+} from "../query/Breakdowns";
 import {
   MetricQueryResponse,
   createMissingDataResponse,
@@ -69,6 +73,32 @@ abstract class VariableProvider {
         [geoNameColumn]: "fips_name",
       })
       .resetIndex();
+  }
+
+  removeUnrequestedColumns(df: IDataFrame, metricQuery: MetricQuery) {
+    let dataFrame = df;
+    let finalColumns = ["fips", "fips_name"];
+    Object.keys(metricQuery.breakdowns.demographicBreakdowns).forEach(
+      (rawKey) => {
+        const key = rawKey as DemographicBreakdownKey;
+        let breakdown = metricQuery.breakdowns.demographicBreakdowns[key];
+        if (breakdown.enabled) {
+          finalColumns.push(breakdown.columnName);
+        }
+      }
+    );
+    metricQuery.metricIds.forEach((metricId) => {
+      finalColumns.push(metricId);
+    });
+
+    let columnsToRemove: string[] = [];
+    dataFrame.getColumnNames().forEach((column) => {
+      if (!finalColumns.includes(column)) {
+        columnsToRemove.push(column);
+      }
+    });
+
+    return dataFrame.dropSeries(columnsToRemove).resetIndex();
   }
 
   applyDemographicBreakdownFilters(
