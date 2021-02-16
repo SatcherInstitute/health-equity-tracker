@@ -169,6 +169,7 @@ class CovidProvider extends VariableProvider {
     df = df.dropSeries(["population", "population_pct"]).resetIndex();
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
+    df = this.removeUnrequestedColumns(df, metricQuery);
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
   }
 
