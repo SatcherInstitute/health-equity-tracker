@@ -19,10 +19,18 @@ docker push gcr.io/$PROJECT_ID/exporter-service
 docker push gcr.io/$PROJECT_ID/aggregator-service
 docker push gcr.io/$PROJECT_ID/frontend-service
 
-# Export image digests as environment variables
-export INGESTION_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/ingestion-service --format="value(image_summary.digest)")
-export GCS_TO_BQ_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/gcs-to-bq-service --format="value(image_summary.digest)")
-export DATA_SERVER_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/data-server-service --format="value(image_summary.digest)")
-export EXPORTER_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/exporter-service --format="value(image_summary.digest)")
-export AGGREGATOR_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/aggregator-service --format="value(image_summary.digest)")
-export FRONTEND_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/frontend-service --format="value(image_summary.digest)")
+# Get the image digests
+INGESTION_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/ingestion-service --format="value(image_summary.digest)")
+GCS_TO_BQ_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/gcs-to-bq-service --format="value(image_summary.digest)")
+DATA_SERVER_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/data-server-service --format="value(image_summary.digest)")
+EXPORTER_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/exporter-service --format="value(image_summary.digest)")
+AGGREGATOR_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/aggregator-service --format="value(image_summary.digest)")
+FRONTEND_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/frontend-service --format="value(image_summary.digest)")
+
+# Write them to digest.tfvars. Note this overwrites digest.tfvars if it exists.
+echo "ingestion_image_digest=\"$INGESTION_DIGEST\"" > config/digest.tfvars
+echo "gcs_to_bq_image_digest=\"$GCS_TO_BQ_DIGEST\"" >> config/digest.tfvars
+echo "data_server_image_digest=\"$DATA_SERVER_DIGEST\"" >> config/digest.tfvars
+echo "exporter_image_digest=\"$EXPORTER_DIGEST\"" >> config/digest.tfvars
+echo "aggregator_image_digest=\"$AGGREGATOR_DIGEST\"" >> config/digest.tfvars
+echo "frontend_image_digest=\"$FRONTEND_DIGEST\"" >> config/digest.tfvars
