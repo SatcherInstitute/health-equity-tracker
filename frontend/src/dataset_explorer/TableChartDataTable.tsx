@@ -1,5 +1,5 @@
 import React from "react";
-import {Cell, Column, HeaderGroup, Row, usePagination, useSortBy, useTable} from "react-table";
+import {Column, HeaderGroup, Row, usePagination, useSortBy, useTable} from "react-table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
@@ -14,30 +14,6 @@ import {Tooltip} from '@material-ui/core';
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
-
-/** Content for TableHead **/
-function TableHeader({column}: { column: HeaderGroup<any> }) {
-  return (
-      <TableCell {...column.getHeaderProps(column.getSortByToggleProps())}>
-        {column.render("Header")}
-        <TableSortLabel
-            active={column.isSorted}
-            direction={column.isSortedDesc ? "desc" : "asc"}
-        />
-      </TableCell>
-  );
-}
-
-/** Group of table header rows **/
-function TableHeaderGroup({group}: { group: HeaderGroup<any> }) {
-  return (
-      <TableRow {...group.getHeaderGroupProps()}>
-        {group.headers.map((col, index) => (
-            <TableHeader column={col} key={index}/>
-        ))}
-      </TableRow>
-  );
-}
 
 /** User-provided properties for TableChartDataTable **/
 export interface TableChartDataTableProps {
@@ -59,7 +35,8 @@ function TableChartDataTable(props: TableChartDataTableProps) {
     accessor: breakdownVar as MetricId,
   }].concat(columns);
 
-  const memoCols = React.useMemo<Column<any>[]>(() => columns, [columns]);
+  // eslint-disable-next-line
+  const memoCols = React.useMemo<Column<any>[]>(() => columns, [metrics]);
   const memoData = React.useMemo(() => data, [data]);
 
   const {
@@ -81,7 +58,25 @@ function TableChartDataTable(props: TableChartDataTableProps) {
       usePagination
   );
 
-  function CustomTableRow({row,}: { row: Row<any> }) {
+  /** Component for the table's header row **/
+  function TableHeaderRow({group}: { group: HeaderGroup<any> }) {
+    return (
+        <TableRow {...group.getHeaderGroupProps()}>
+          {group.headers.map((col, index) => (
+              <TableCell {...col.getHeaderProps(col.getSortByToggleProps())}>
+                {col.render("Header")}
+                <TableSortLabel
+                    active={col.isSorted}
+                    direction={col.isSortedDesc ? "desc" : "asc"}
+                />
+              </TableCell>
+          ))}
+        </TableRow>
+    );
+  }
+
+  /** Component for the table's data rows **/
+  function TableDataRow({row,}: { row: Row<any> }) {
     prepareRow(row);
     return (
         <TableRow {...row.getRowProps()}>
@@ -107,12 +102,12 @@ function TableChartDataTable(props: TableChartDataTableProps) {
         <Table stickyHeader {...getTableProps()}>
           <TableHead>
             {headerGroups.map((group, index) => (
-                <TableHeaderGroup group={group} key={index}/>
+                <TableHeaderRow group={group} key={index}/>
             ))}
           </TableHead>
           <TableBody {...getTableBodyProps()}>
             {page.map((row: Row<any>, index) => (
-                <CustomTableRow row={row} key={index}/>
+                <TableDataRow row={row} key={index}/>
             ))}
           </TableBody>
           <TableFooter>

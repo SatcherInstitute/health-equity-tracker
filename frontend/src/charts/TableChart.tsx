@@ -1,5 +1,5 @@
 import React from "react";
-import { Row} from '../data/utils/DatasetTypes';
+import {Row} from '../data/utils/DatasetTypes';
 import {BreakdownVar} from '../data/query/Breakdowns';
 import {MetricConfig} from '../data/config/MetricConfig';
 import TableChartDataTable from '../dataset_explorer/TableChartDataTable';
