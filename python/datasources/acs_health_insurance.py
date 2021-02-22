@@ -6,6 +6,11 @@ import json
 from datasources.data_source import DataSource
 from ingestion import url_file_to_gcs, gcs_to_bq_util
 
+from ingestion.standardized_columns import (RACE_COL,
+                                            STATE_FIPS_COL, COUNTY_FIPS_COL,
+                                            STATE_NAME_COL, COUNTY_NAME_COL,
+                                            AGE_COL, SEX_COL,
+                                            RACE_COL, WITH_HEALTH_INSURANCE_COL, WITHOUT_HEALTH_INSURANCE_COL, TOTAL_HEALTH_INSURANCE_COL)
 # TODO pass this in from message data.
 BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
 
@@ -24,6 +29,19 @@ class Race:
     TWO_OR_MORE_RACES="TWO_OR_MORE_RACES"
     WHITE_ALONE_NOT_HISPANIC_OR_LATINO="WHITE_ALONE,_NOT_HISPANIC_OR_LATINO"
     HISPANIC_OR_LATINO="HISPANIC_OR_LATINO"
+
+    def values():
+        return [
+            Race.WHITE_ALONE,
+            Race.BLACK_OR_AFRICAN_AMERICAN_ALONE,
+            Race.AMERICAN_INDIAN_AND_ALASKA_NATIVE_ALONE,
+            Race.ASIAN_ALONE,
+            Race.NATIVE_HAWAIIAN_AND_OTHER_PACIFIC_ISLANDER_ALONE,
+            Race.SOME_OTHER_RACE_ALONE,
+            Race.TWO_OR_MORE_RACES,
+            Race.WHITE_ALONE_NOT_HISPANIC_OR_LATINO,
+            Race.HISPANIC_OR_LATINO
+        ]
 
 class Sex:
     MALE="Male"
@@ -166,10 +184,8 @@ class AcsHealhInsuranceIngestor:
         with open('total_health_insurance.json', 'w') as f:
             print(json.dumps({str(k):v for k, v in self.data.items()}, indent = 4), file=f)
 
-        self.stateRaceFrame.to_csv('table_health_insurance_by_race_state.csv')
-        self.stateSexFrame.to_csv('table_health_insurance_by_sex_state.csv')
-        self.countyRaceFrame.to_csv('table_health_insurance_by_race_county.csv')
-        self.countySexFrame.to_csv('table_health_insurance_by_sex_county.csv')
+        for table_name, df in self.frames.items():
+            df.to_csv(table_name + ".csv", index=False)
 
     def upload_to_gcs(self, bucket):
         maleStateParams = format_params(HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES)
@@ -204,6 +220,26 @@ class AcsHealhInsuranceIngestor:
                 url_file_to_gcs.url_file_to_gcs(
                     self.baseUrl, raceCountyParams, bucket,
                     self.getFilename(None, race, True))
+
+    def write_to_bq(self, dataset, gcs_bucket):
+
+        self.getStateFipsMap()
+        self.getCountyFipsMap()
+        self.getHealthInsuranceDataBySex(useGcs=True, gcs_bucket=gcs_bucket)
+        self.getHealthInsuranceDataByRace(useGcs=True, gcs_bucket=gcs_bucket)
+        self.splitDataFrames()
+
+
+        for table_name, df in self.frames.items():
+            # All breakdown columns are strings
+            column_types = {c: 'STRING' for c in df.columns}
+
+            column_types[WITH_HEALTH_INSURANCE_COL] = 'INT64'
+            column_types[WITHOUT_HEALTH_INSURANCE_COL] = 'INT64'
+            column_types[TOTAL_HEALTH_INSURANCE_COL] = 'INT64'
+
+            gcs_to_bq_util.append_dataframe_to_bq(
+                df, dataset, table_name, column_types=column_types)
 
 
     def buildMetadataList(self):
@@ -259,33 +295,51 @@ class AcsHealhInsuranceIngestor:
 
         self.countyFips = countyFips
     
-    def getAcsDataFromVariables(self, params):
+    def getAcsDataFromVariables(self, params):        
         resp = requests.get(self.baseUrl, params=params)
         log_response(resp)
         return resp.json()
 
-    def getHealthInsuranceDataByRace(self):
-        for prefix in HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES:
-            stateData = self.getAcsDataFromVariables(format_params(prefix, HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES))
-            self.accumulateAcsData(stateData, prefix, HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES)
-            countySexData = self.getAcsDataFromVariables(format_params(prefix, HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES, True))
-            self.accumulateAcsData(countySexData, prefix, HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES)
- 
+    def getHealthInsuranceDataByRace(self, useGcs = False, gcs_bucket = None):
+        if useGcs:
+            for race in Race.values():
+                stateData = gcs_to_bq_util.load_values_as_json(gcs_bucket, self.getFilename(None, race, False))
+                countyData = gcs_to_bq_util.load_values_as_json(gcs_bucket, self.getFilename(None, race, True))
+                self.accumulateAcsData(stateData)
+                self.accumulateAcsData(countyData)
+        else:
+            for prefix in HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES:
+                stateData = self.getAcsDataFromVariables(format_params(prefix, HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES))
+                self.accumulateAcsData(stateData)
+                countySexData = self.getAcsDataFromVariables(format_params(prefix, HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES, True))
+                self.accumulateAcsData(countySexData)
 
-    def getHealthInsuranceDataBySex(self):
-        maleStateData = self.getAcsDataFromVariables(format_params(HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES))
-        femaleStateData = self.getAcsDataFromVariables(format_params(HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES))
 
-        self.accumulateAcsData(maleStateData, HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES)
-        self.accumulateAcsData(femaleStateData, HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES)
+    def getHealthInsuranceDataBySex(self, useGcs = False, gcs_bucket = None):
+        if(useGcs): #LOAD JSON BLOBS FROM GCS
+            maleStateData = gcs_to_bq_util.load_values_as_json(gcs_bucket, self.getFilename(Sex.MALE, None, False))
+            femaleStateData = gcs_to_bq_util.load_values_as_json(gcs_bucket, self.getFilename(Sex.FEMALE, None, False))
+            maleCountyData = gcs_to_bq_util.load_values_as_json(gcs_bucket, self.getFilename(Sex.MALE, None, True))
+            femaleCountyData = gcs_to_bq_util.load_values_as_json(gcs_bucket, self.getFilename(Sex.FEMALE, None, True))
+        else: #LOAD DATA FROM ACS (useful for local debug)
+            maleStateRequestParams = format_params(HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES)
+            femaleStateRequestParams = format_params(HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES)
+            maleCountyRequestParams = format_params(HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES, True)
+            femaleCountyRequestParams = format_params(HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES, True)
 
-        maleCountyData = self.getAcsDataFromVariables(format_params(HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES, True))
-        femaleCountyData = self.getAcsDataFromVariables(format_params(HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES, True))
+            maleStateData = self.getAcsDataFromVariables(maleStateRequestParams)
+            femaleStateData = self.getAcsDataFromVariables(femaleStateRequestParams)
+            maleCountyData = self.getAcsDataFromVariables(maleCountyRequestParams)
+            femaleCountyData = self.getAcsDataFromVariables(femaleCountyRequestParams)
 
-        self.accumulateAcsData(maleCountyData, HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES)
-        self.accumulateAcsData(femaleCountyData, HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES)
 
-    def accumulateAcsData(self, data, prefixes, suffixes):
+
+        self.accumulateAcsData(maleStateData)
+        self.accumulateAcsData(femaleStateData)
+        self.accumulateAcsData(maleCountyData)
+        self.accumulateAcsData(femaleCountyData)
+
+    def accumulateAcsData(self, data):
         keyRow = data[0]
         for row in data[1::]:
             data = {}
@@ -294,6 +348,7 @@ class AcsHealhInsuranceIngestor:
                     data[key] = {}
             stateFip = None
             countyFip = None
+            colIndex = 0
             for col in row:
                 key = keyRow[colIndex]
                 if(key == 'state'):
@@ -352,12 +407,51 @@ class AcsHealhInsuranceIngestor:
                 else:
                     countyRaceData.append([stateFip, self.stateFips[stateFip], countyFip, self.countyFips[(stateFip, countyFip)], age, race, whi, wohi, total])
 
-        self.stateSexFrame = pd.DataFrame(stateSexData, columns = ['state_fips', 'state_name', 'age', 'sex', 'with_health_insurance', 'without_health_insurance', 'total'])
-        self.stateRaceFrame = pd.DataFrame(stateRaceData, columns = ['state_fips', 'state_name', 'age', 'race', 'with_health_insurance', 'without_health_insurance', 'total'])
-        self.countySexFrame = pd.DataFrame(countySexData, columns = ['state_fips', 'state_name', 'county_fips', 'county_names','age', 'sex', 'with_health_insurance', 'without_health_insurance', 'total'])
-        self.countyRaceFrame = pd.DataFrame(countyRaceData, columns = ['state_fips', 'state_name', 'county_fips', 'county_names','age', 'race', 'with_health_insurance', 'without_health_insurance', 'total'])
+        self.stateSexFrame = pd.DataFrame(stateSexData, columns = [
+            STATE_FIPS_COL, 
+            STATE_NAME_COL, 
+            AGE_COL, 
+            SEX_COL, 
+            WITH_HEALTH_INSURANCE_COL, 
+            WITHOUT_HEALTH_INSURANCE_COL, 
+            TOTAL_HEALTH_INSURANCE_COL])
+        self.stateRaceFrame = pd.DataFrame(stateRaceData, columns = [
+            STATE_FIPS_COL, 
+            STATE_NAME_COL, 
+            AGE_COL, 
+            RACE_COL, 
+            WITH_HEALTH_INSURANCE_COL, 
+            WITHOUT_HEALTH_INSURANCE_COL, 
+            TOTAL_HEALTH_INSURANCE_COL])
+        self.countySexFrame = pd.DataFrame(countySexData, columns = [
+            STATE_FIPS_COL, 
+            STATE_NAME_COL, 
+            COUNTY_FIPS_COL, 
+            COUNTY_NAME_COL, 
+            AGE_COL, 
+            SEX_COL, 
+            WITH_HEALTH_INSURANCE_COL, 
+            WITHOUT_HEALTH_INSURANCE_COL, 
+            TOTAL_HEALTH_INSURANCE_COL])
+        self.countyRaceFrame = pd.DataFrame(countyRaceData, columns = [
+            STATE_FIPS_COL, 
+            STATE_NAME_COL, 
+            COUNTY_FIPS_COL, 
+            COUNTY_NAME_COL, 
+            AGE_COL, 
+            RACE_COL, 
+            WITH_HEALTH_INSURANCE_COL, 
+            WITHOUT_HEALTH_INSURANCE_COL, 
+            TOTAL_HEALTH_INSURANCE_COL])
 
-class ACSHEalthInsurance(DataSource):
+        self.frames = {
+            'table_health_insurance_by_race_state': self.stateRaceFrame, 
+            'table_health_insurance_by_sex_state': self.stateSexFrame, 
+            'table_health_insurance_by_race_county': self.countyRaceFrame, 
+            'table_health_insurance_by_sex_county': self.countySexFrame
+        }
+
+class ACSHealthInsurance(DataSource):
 
     def get_id():
         """Returns the data source's unique id. """
@@ -379,4 +473,9 @@ class ACSHEalthInsurance(DataSource):
             AcsHealhInsuranceIngestor(BASE_ACS_URL),
         ]
 
-AcsHealhInsuranceIngestor(BASE_ACS_URL).upload_to_gcs('kalieki-dev-landing-bucket')
+#AcsHealhInsuranceIngestor(BASE_ACS_URL).upload_to_gcs('kalieki-dev-landing-bucket')
+#AcsHealhInsuranceIngestor(BASE_ACS_URL).write_to_bq('acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
+
+
+# AcsHealhInsuranceIngestor(BASE_ACS_URL).write_local_files_debug()
+
