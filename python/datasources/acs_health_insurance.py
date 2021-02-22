@@ -43,6 +43,20 @@ class Race:
             Race.HISPANIC_OR_LATINO
         ]
 
+
+    RENAME_RACE_DICT = {
+        AMERICAN_INDIAN_AND_ALASKA_NATIVE_ALONE: "American Indian and Alaska Native alone",
+        ASIAN_ALONE: "Asian alone",
+        BLACK_OR_AFRICAN_AMERICAN_ALONE: "Black or African American alone",
+        NATIVE_HAWAIIAN_AND_OTHER_PACIFIC_ISLANDER_ALONE: "Native Hawaiian and Other Pacific Islander alone",
+        SOME_OTHER_RACE_ALONE: "Some other race alone",
+        TWO_OR_MORE_RACES: "Two or more races",
+        WHITE_ALONE: "White alone"
+    }
+
+    def rename(ACS_NAME):
+        return RENAME_RACE_DICT[ACS_NAME]
+
 class Sex:
     MALE="Male"
     FEMALE="Female"
