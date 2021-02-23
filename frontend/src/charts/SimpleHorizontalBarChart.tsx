@@ -32,17 +32,9 @@ function getSpec(
   const legends = showLegend
     ? [
         {
-          stroke: "variables",
+          fill: "variables",
           orient: "top",
           padding: 4,
-          encode: {
-            symbols: {
-              enter: {
-                strokeWidth: { value: 2 },
-                size: { value: 50 },
-              },
-            },
-          },
         },
       ]
     : [];
