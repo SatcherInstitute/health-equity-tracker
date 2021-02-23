@@ -34,7 +34,8 @@ export function TableChart(props: TableChartProps) {
     accessor: breakdownVar as MetricId,
   }].concat(columns);
 
-  // eslint-disable-next-line: Changes deps to columns on save for some reason
+  // eslint-disable-next-line
+  // Changes deps to columns on save for some reason
   const memoCols = useMemo<Column<any>[]>(() => columns, [metrics]);
   const memoData = useMemo(() => data, [data]);
 
