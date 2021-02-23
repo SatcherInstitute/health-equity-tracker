@@ -26,7 +26,7 @@ import CloseIcon from "@material-ui/icons/Close";
 
 export type LoadStatus = "loading" | "unloaded" | "error" | "loaded";
 
-function DataSourceListItem(props: {
+function DownloadDatasetListItem(props: {
   datasetId: string;
   datasetMetadata: DatasetMetadata;
 }) {
@@ -43,7 +43,7 @@ function DataSourceListItem(props: {
       case "unloaded":
         return <GetAppIcon />;
       case "loading":
-        return <CircularProgress style={{ width: "24px", height: "24px" }} />;
+        return <CircularProgress className={styles.DownloadIcon} />;
       case "loaded":
         return <CheckCircleIcon />;
       default:
@@ -121,6 +121,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
             </td>
             <td>{props.source_metadata.update_frequency}</td>
           </tr>
+          {/* TODO - do we want to add all the dataset latest update times? */}
         </tbody>
       </table>
       <AnimateHeight duration={500} height={expanded ? "auto" : 20}>
@@ -156,7 +157,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
           </DialogTitle>
           <List>
             {props.source_metadata.dataset_ids.map((datasetId) => (
-              <DataSourceListItem
+              <DownloadDatasetListItem
                 key={datasetId}
                 datasetId={datasetId}
                 datasetMetadata={props.dataset_metadata[datasetId]}
