@@ -78,14 +78,32 @@ export function WithMetrics(props: {
   );
 }
 
-export function WithMetadataAndMetrics(props: {
+/**
+ * We create a wrapper with a key to create a new instance when
+ * queries change so that the component's load screen is reset.
+ */
+interface WithMetadataAndMetricsProps {
   queries: MetricQuery[];
   children: (
     metadata: MetadataMap,
     queryResponses: MetricQueryResponse[]
   ) => JSX.Element;
   loadingComponent?: JSX.Element;
-}) {
+}
+
+export function WithMetadataAndMetrics(props: WithMetadataAndMetricsProps) {
+  const key = props.queries.reduce(
+    (accumulator: string, query: MetricQuery) =>
+      (accumulator += query.getUniqueKey()),
+    ""
+  );
+
+  return <WithMetadataAndMetricsWithKey key={key} {...props} />;
+}
+
+export function WithMetadataAndMetricsWithKey(
+  props: WithMetadataAndMetricsProps
+) {
   // Note: this will result in an error page if any of the required data fails
   // to be fetched. We could make the metadata optional so the charts still
   // render, but it is much easier to reason about if we require both. The
