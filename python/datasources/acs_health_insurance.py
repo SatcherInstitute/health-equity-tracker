@@ -254,38 +254,40 @@ class AcsHealhInsuranceIngestor:
     def upload_to_gcs(self, bucket):
         maleStateParams = format_params(
             HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES)
-        url_file_to_gcs.url_file_to_gcs(
+        fileDiff = url_file_to_gcs.url_file_to_gcs(
             self.baseUrl, maleStateParams, bucket,
             self.getFilename(Sex.MALE, None, False))
 
         femaleStateParams = format_params(
             HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES)
-        url_file_to_gcs.url_file_to_gcs(
+        fileDiff = url_file_to_gcs.url_file_to_gcs(
             self.baseUrl, femaleStateParams, bucket,
-            self.getFilename(Sex.FEMALE, None, False))
+            self.getFilename(Sex.FEMALE, None, False)) and fileDiff
 
         maleCountyParams = format_params(
             HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES, True)
-        url_file_to_gcs.url_file_to_gcs(
+        fileDiff = url_file_to_gcs.url_file_to_gcs(
             self.baseUrl, maleCountyParams, bucket,
-            self.getFilename(Sex.MALE, None, True))
+            self.getFilename(Sex.MALE, None, True)) and fileDiff
 
         femaleCountyParams = format_params(
             HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES, True)
-        url_file_to_gcs.url_file_to_gcs(
+        fileDiff = url_file_to_gcs.url_file_to_gcs(
             self.baseUrl, femaleCountyParams, bucket,
-            self.getFilename(Sex.FEMALE, None, True))
+            self.getFilename(Sex.FEMALE, None, True)) and fileDiff
 
         for prefix in HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES:
             for prefixKey in prefix:
-                url_file_to_gcs.url_file_to_gcs(
+                fileDiff = url_file_to_gcs.url_file_to_gcs(
                     self.baseUrl, raceStateParams, bucket,
-                    self.getFilename(None, race, False))
+                    self.getFilename(None, race, False)) and fileDiff
                 raceCountyParams = format_params(
                     prefix, HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES, True)
-                url_file_to_gcs.url_file_to_gcs(
+                fileDiff = url_file_to_gcs.url_file_to_gcs(
                     self.baseUrl, raceCountyParams, bucket,
-                    self.getFilename(None, race, True))
+                    self.getFilename(None, race, True)) and fileDiff
+
+        return fileDiff
 
     def write_to_bq(self, dataset, gcs_bucket):
         # Get an ACS mapping of Fip Codes to State Names and county codes to county names
