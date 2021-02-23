@@ -331,13 +331,14 @@ class AcsHealhInsuranceIngestor:
     # Combine Into Four:
     # {"C27001A_002E": {Race: White, Age: 0-19: Sex: None, Population: Total}}
     # {"C27001A_OO3E": {Race: White, Age: 0-19: Sex: None, PopulW[MetadataKey.RACE]
+    def buildMetadataList(self):
         for racePrefix in HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES:
             for prefix in racePrefix:
                 for suffix in HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES:
                     key = prefix+suffix
                     print(
-                        f'Building merged metadata for {key}: {racePrefix[prefix]} + 
-                        {HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES[suffix]}')
+                        f'Building merged metadata for {key}: {racePrefix[prefix]} + '
+                        f'{HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES[suffix]}')
                     prefixMeta = racePrefix[prefix].copy()
                     prefixMeta.update(
                         HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES[suffix])
@@ -347,9 +348,9 @@ class AcsHealhInsuranceIngestor:
             for male_suffix in HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES:
                 key = sex_prefix + male_suffix
                 print(
-                    f'Building merged metadata for {key}:
-                    {HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX[sex_prefix]} +
-                    {HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES[male_suffix]}')
+                    f'Building merged metadata for {key}: '
+                    f'{HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX[sex_prefix]} + '
+                    f'{HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES[male_suffix]}')
                 meta = HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX[sex_prefix].copy()
                 meta.update(HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES[male_suffix])
                 self.metadata[key] = meta
@@ -357,9 +358,9 @@ class AcsHealhInsuranceIngestor:
             for female_suffix in HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES:
                 key = sex_prefix + female_suffix
                 print(
-                    f'Building merged metadata for {key}:
-                    {HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX[sex_prefix]} +
-                    {HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES[female_suffix]}')
+                    f'Building merged metadata for {key}: '
+                    f'{HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX[sex_prefix]} + '
+                    f'{HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES[female_suffix]}')
                 meta = HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX[sex_prefix].copy()
                 meta.update(
                     HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES[female_suffix])
@@ -627,7 +628,7 @@ class AcsHealhInsuranceIngestor:
         }
 
 
-class AcsHealthInsurance(DataSource):
+class ACSHealthInsurance(DataSource):
 
     def get_id():
         return 'ACS_HEALTH_INSURANCE'
@@ -652,4 +653,4 @@ class AcsHealthInsurance(DataSource):
 # AcsHealhInsuranceIngestor(BASE_ACS_URL).write_to_bq('acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
 
 
-# AcsHealhInsuranceIngestor(BASE_ACS_URL).write_local_files_debug()
+#AcsHealhInsuranceIngestor(BASE_ACS_URL).write_local_files_debug()
