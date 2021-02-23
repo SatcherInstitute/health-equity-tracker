@@ -10,7 +10,9 @@ from ingestion.standardized_columns import (RACE_COL,
                                             STATE_FIPS_COL, COUNTY_FIPS_COL,
                                             STATE_NAME_COL, COUNTY_NAME_COL,
                                             AGE_COL, SEX_COL,
-                                            RACE_COL, WITH_HEALTH_INSURANCE_COL, WITHOUT_HEALTH_INSURANCE_COL, TOTAL_HEALTH_INSURANCE_COL)
+                                            RACE_COL, WITH_HEALTH_INSURANCE_COL,
+                                            WITHOUT_HEALTH_INSURANCE_COL,
+                                            TOTAL_HEALTH_INSURANCE_COL)
 # TODO pass this in from message data.
 BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
 
@@ -111,11 +113,13 @@ HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES = {
     "_010E": meta(None, 65, None, HealthInsurancePopulation.WITHOUT),
 }
 
-# Health insurance by Sex only has one prefix, and is kept in the form of a dict to help with standardizing code flow
+# Health insurance by Sex only has one prefix, and is kept
+# in the form of a dict to help with standardizing code flow
 HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX = {"B27001": {}}
 
 
-# Health insurance by Sex suffixes for Male.  Split because ACS get will only allow 50 variables at a time.
+# Health insurance by Sex suffixes for Male.  Split because
+# ACS get will only allow 50 variables at a time.
 HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES = {
     "_003E": meta(Sex.MALE, 0, 6),
     "_004E": meta(Sex.MALE, 0, 6, HealthInsurancePopulation.WITH),
@@ -251,29 +255,29 @@ class AcsHealhInsuranceIngestor:
         maleStateParams = format_params(
             HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES)
         url_file_to_gcs.url_file_to_gcs(
-                self.baseUrl, maleStateParams, bucket,
-                self.getFilename(Sex.MALE, None, False))
+            self.baseUrl, maleStateParams, bucket,
+            self.getFilename(Sex.MALE, None, False))
 
         femaleStateParams = format_params(
             HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES)
         url_file_to_gcs.url_file_to_gcs(
-                self.baseUrl, femaleStateParams, bucket,
-                self.getFilename(Sex.FEMALE, None, False))
+            self.baseUrl, femaleStateParams, bucket,
+            self.getFilename(Sex.FEMALE, None, False))
 
         maleCountyParams = format_params(
             HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES, True)
         url_file_to_gcs.url_file_to_gcs(
-                self.baseUrl, maleCountyParams, bucket,
-                self.getFilename(Sex.MALE, None, True))
+            self.baseUrl, maleCountyParams, bucket,
+            self.getFilename(Sex.MALE, None, True))
 
         femaleCountyParams = format_params(
             HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES, True)
         url_file_to_gcs.url_file_to_gcs(
-                self.baseUrl, femaleCountyParams, bucket,
-                self.getFilename(Sex.FEMALE, None, True))
+            self.baseUrl, femaleCountyParams, bucket,
+            self.getFilename(Sex.FEMALE, None, True))
 
         for prefix in HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES:
-            for prefixKey in prefix: W[MetadataKey.RACE]
+            for prefixKey in prefix:
                 url_file_to_gcs.url_file_to_gcs(
                     self.baseUrl, raceStateParams, bucket,
                     self.getFilename(None, race, False))
@@ -320,11 +324,7 @@ class AcsHealhInsuranceIngestor:
     #     "_003E":meta(None,0, 19,HealthInsurancePopulation.WITH) ``}
     # Combine Into Four:
     # {"C27001A_002E": {Race: White, Age: 0-19: Sex: None, Population: Total}}
-    # {"C27001A_OO3E": {Race: White, Age: 0-19: Sex: None, Population: WithHealthInsurance}}
-    # {"C27001B_002E": {Race: African_American, Age: 0-19: Sex: None, Population: Total}}
-    # {"C27001B_OO3E": {Race: African_American, Age: 0-19: Sex: None, Population: WithHealthInsurance}}
-
-    def buildMetadataList(self):
+    # {"C27001A_OO3E": {Race: White, Age: 0-19: Sex: None, PopulW[MetadataKey.RACE]
         for racePrefix in HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES:
             for prefix in racePrefix:
                 for suffix in HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES:
@@ -392,7 +392,8 @@ class AcsHealhInsuranceIngestor:
         return resp.json()
 
     #   Get Health insurance data from either GCS or Directly, and aggregate the data in memory
-    def getHealthInsuranceDataByRace(self, useGcs=FalW
+    def getHealthInsuranceDataByRace(self, useGcs=False, gcs_bucket=None):
+        if useGcs:
             for race in Race.values():
                 # Get cached data from GCS
                 stateData = gcs_to_bq_util.load_values_as_json(
@@ -445,7 +446,6 @@ class AcsHealhInsuranceIngestor:
             femaleCountyData = self.getAcsDataFromVariables(
                 femaleCountyRequestParams)
 
-
         # Aggregate and accumulate data in memory
         self.accumulateAcsData(maleStateData)
         self.accumulateAcsData(femaleStateData)
@@ -478,6 +478,7 @@ class AcsHealhInsuranceIngestor:
         ...
     } Note: This can be debugged via the total_health_insurance.json output file via local_debug
     '''
+
     def accumulateAcsData(self, data):
         keyRow = data[0]
         for row in data[1::]:
@@ -511,13 +512,13 @@ class AcsHealhInsuranceIngestor:
                     MetadataKey.AGE), metadata.get(MetadataKey.SEX), metadata.get(MetadataKey.RACE))
                 row[metadata[MetadataKey.POPULATION]] = value
 
-
     # Helper method from grabbing a tuple in self.data.  If the tuple hasnt been created then it initializes an empty tuple.
     # This is needed as each data variable will only update one of the population values at a time.
+
     def upsertRow(self, stateFip, countyFip, age, sex, race):
         if self.data.get((stateFip, countyFip, age, sex, race)) is None:
             self.data[(stateFip, countyFip, age, sex, race)] = {
-                       HealthInsurancePopulation.TOTAL: -1, HealthInsurancePopulation.WITH: -1, HealthInsurancePopulation.WITHOUT: -1}
+                HealthInsurancePopulation.TOTAL: -1, HealthInsurancePopulation.WITH: -1, HealthInsurancePopulation.WITHOUT: -1}
         return self.data[(stateFip, countyFip, age, sex, race)]
 
     # Splits the in memory aggregation into dataframes
@@ -607,11 +608,6 @@ class AcsHealhInsuranceIngestor:
             'table_health_insurance_by_race_county': self.countyRaceFrame,
             'table_health_insurance_by_sex_county': self.countySexFrame
         }
-
-class ACSHealthInsurance(DataSource):
-
-    def get_id():
-        """Returns the data source's unique id. """
         return 'ACS_HEALTH_INSURANCE'
 
     def upload_to_gcs(self, gcs_bucket, **attrs):
