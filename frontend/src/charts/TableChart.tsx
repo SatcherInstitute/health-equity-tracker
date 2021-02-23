@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import {Column, HeaderGroup, Row, usePagination, useSortBy, useTable} from "react-table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -34,9 +34,9 @@ export function TableChart(props: TableChartProps) {
     accessor: breakdownVar as MetricId,
   }].concat(columns);
 
-  // eslint-disable-next-line
-  const memoCols = React.useMemo<Column<any>[]>(() => columns, [metrics]);
-  const memoData = React.useMemo(() => data, [data]);
+  // eslint-disable-next-line: Changes deps to columns on save for some reason
+  const memoCols = useMemo<Column<any>[]>(() => columns, [metrics]);
+  const memoData = useMemo(() => data, [data]);
 
   const {
     getTableProps,
@@ -75,7 +75,7 @@ export function TableChart(props: TableChartProps) {
   }
 
   /** Component for the table's data rows **/
-  function TableDataRow({row,}: { row: Row<any> }) {
+  function TableDataRow({row}: { row: Row<any> }) {
     prepareRow(row);
     return (
         <TableRow {...row.getRowProps()}>
