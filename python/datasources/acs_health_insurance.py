@@ -1,7 +1,6 @@
 import pandas as pd
 
 import requests
-import sys
 import json
 from datasources.data_source import DataSource
 from ingestion import url_file_to_gcs, gcs_to_bq_util
@@ -280,7 +279,8 @@ class AcsHealhInsuranceIngestor:
 
         for prefix in HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES:
             for prefixKey in prefix:
-                raceStateParams = format_params(prefix, HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES)
+                raceStateParams = format_params(
+                    prefix, HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES)
                 race = prefix[prefixKey][MetadataKey.RACE]
                 fileDiff = url_file_to_gcs.url_file_to_gcs(
                     self.baseUrl, raceStateParams, bucket,
@@ -336,7 +336,8 @@ class AcsHealhInsuranceIngestor:
                 for suffix in HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES:
                     key = prefix+suffix
                     print(
-                        f'Building merged metadata for {key}: {racePrefix[prefix]} + {HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES[suffix]}')
+                        f'Building merged metadata for {key}: {racePrefix[prefix]} + 
+                        {HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES[suffix]}')
                     prefixMeta = racePrefix[prefix].copy()
                     prefixMeta.update(
                         HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES[suffix])
@@ -346,7 +347,9 @@ class AcsHealhInsuranceIngestor:
             for male_suffix in HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES:
                 key = sex_prefix + male_suffix
                 print(
-                    f'Building merged metadata for {key}: {HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX[sex_prefix]} + {HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES[male_suffix]}')
+                    f'Building merged metadata for {key}:
+                    {HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX[sex_prefix]} +
+                    {HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES[male_suffix]}')
                 meta = HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX[sex_prefix].copy()
                 meta.update(HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES[male_suffix])
                 self.metadata[key] = meta
@@ -354,7 +357,9 @@ class AcsHealhInsuranceIngestor:
             for female_suffix in HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES:
                 key = sex_prefix + female_suffix
                 print(
-                    f'Building merged metadata for {key}: {HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX[sex_prefix]} + {HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES[female_suffix]}')
+                    f'Building merged metadata for {key}:
+                    {HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX[sex_prefix]} +
+                    {HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES[female_suffix]}')
                 meta = HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX[sex_prefix].copy()
                 meta.update(
                     HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES[female_suffix])
@@ -515,16 +520,22 @@ class AcsHealhInsuranceIngestor:
                 metadata = data[var]['meta']
                 value = data[var]['value']
                 row = self.upsertRow(stateFip, countyFip, metadata.get(
-                    MetadataKey.AGE), metadata.get(MetadataKey.SEX), metadata.get(MetadataKey.RACE))
+                    MetadataKey.AGE), metadata.get(MetadataKey.SEX),
+                    metadata.get(MetadataKey.RACE))
                 row[metadata[MetadataKey.POPULATION]] = value
 
-    # Helper method from grabbing a tuple in self.data.  If the tuple hasnt been created then it initializes an empty tuple.
-    # This is needed as each data variable will only update one of the population values at a time.
+    # Helper method from grabbing a tuple in self.data.  If the
+    # tuple hasnt been created then it initializes an empty tuple.
+    # This is needed as each data variable will only
+    # update one of the population values at a time.
 
     def upsertRow(self, stateFip, countyFip, age, sex, race):
         if self.data.get((stateFip, countyFip, age, sex, race)) is None:
             self.data[(stateFip, countyFip, age, sex, race)] = {
-                HealthInsurancePopulation.TOTAL: -1, HealthInsurancePopulation.WITH: -1, HealthInsurancePopulation.WITHOUT: -1}
+                HealthInsurancePopulation.TOTAL: -1,
+                HealthInsurancePopulation.WITH: -1,
+                HealthInsurancePopulation.WITHOUT: -1
+            }
         return self.data[(stateFip, countyFip, age, sex, race)]
 
     # Splits the in memory aggregation into dataframes
@@ -614,6 +625,11 @@ class AcsHealhInsuranceIngestor:
             'table_health_insurance_by_race_county': self.countyRaceFrame,
             'table_health_insurance_by_sex_county': self.countySexFrame
         }
+
+
+class AcsHealthInsurance(DataSource):
+
+    def get_id():
         return 'ACS_HEALTH_INSURANCE'
 
     def upload_to_gcs(self, gcs_bucket, **attrs):
