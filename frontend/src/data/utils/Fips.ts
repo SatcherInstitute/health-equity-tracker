@@ -1,4 +1,4 @@
-export const USA_DISPLAY_NAME = "the United States";
+export const USA_DISPLAY_NAME = "United States";
 // Fake FIPS code used to represent totals in USA for convenience
 export const USA_FIPS = "00";
 
