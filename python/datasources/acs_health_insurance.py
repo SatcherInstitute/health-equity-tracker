@@ -628,8 +628,10 @@ class AcsHealhInsuranceIngestor:
 
 
 class ACSHealthInsurance(DataSource):
-
-    def get_id(self):
+    
+    @staticmethod
+    def get_id():
+        """Returns the data source's unique id. """
         return 'ACS_HEALTH_INSURANCE'
 
     def upload_to_gcs(self, gcs_bucket, **attrs):

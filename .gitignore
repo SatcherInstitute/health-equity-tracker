@@ -22,3 +22,17 @@ node_modules/
 /frontend/.env.test.local
 /frontend/.env.production.local
 /frontend/npm-debug.log*
+
+health_insurance_by_race_state.json
+
+health_insurance_by_sex_state.json
+
+table_health_insurance_by_race_county.csv
+
+table_health_insurance_by_race_state.csv
+
+table_health_insurance_by_sex_county.csv
+
+table_health_insurance_by_sex_state.csv
+
+total_health_insurance.json
