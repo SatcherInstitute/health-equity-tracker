@@ -46,6 +46,30 @@ resource "google_project_iam_member" "gcs_to_bq_runner_binding" {
   member  = format("serviceAccount:%s", google_service_account.gcs_to_bq_runner_identity.email)
 }
 
+# Service account whose identity is used when running the Dedupe service.
+resource "google_service_account" "dedupe_runner_identity" {
+  # The account id that is used to generate the service account email. Must be 6-30 characters long and
+  # match the regex [a-z]([-a-z0-9]*[a-z0-9]).
+  account_id = var.dedupe_runner_identity_id
+}
+
+# Give the Dedupe runner service account permissions it needs (e.g. BigQuery access). Add to the permissions list
+# here if the Dedupe runner needs access to other GCP resources.
+resource "google_project_iam_custom_role" "dedupe_runner_role" {
+  role_id     = var.dedupe_runner_role_id
+  title       = "Dedupe Runner"
+  description = "Allows for creating, writing and reading BQ tables."
+  permissions = ["bigquery.datasets.get", "bigquery.tables.create", "bigquery.tables.delete",
+    "bigquery.tables.get", "bigquery.tables.list", "bigquery.tables.update",
+    "bigquery.tables.updateData", "bigquery.jobs.create"]
+}
+
+resource "google_project_iam_member" "dedupe_runner_binding" {
+  project = var.project_id
+  role    = google_project_iam_custom_role.dedupe_runner_role.id
+  member  = format("serviceAccount:%s", google_service_account.dedupe_runner_identity.email)
+}
+
 # Service account whose identity is used when running the data server service.
 resource "google_service_account" "data_server_runner_identity" {
   # The account id that is used to generate the service account email. Must be 6-30 characters long and
