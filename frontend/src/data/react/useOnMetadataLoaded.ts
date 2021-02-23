@@ -1,8 +1,10 @@
 import { getDataManager } from "../../utils/globals";
 import { useEffect } from "react";
-import { MetadataMap } from "../utils/DatasetTypes";
+import { MapOfDatasetMetadata } from "../utils/DatasetTypes";
 
-async function onMetadataLoaded(callback: (metadata: MetadataMap) => void) {
+async function onMetadataLoaded(
+  callback: (metadata: MapOfDatasetMetadata) => void
+) {
   try {
     const metadata = await getDataManager().loadMetadata();
     callback(metadata);
@@ -15,7 +17,7 @@ async function onMetadataLoaded(callback: (metadata: MetadataMap) => void) {
  *     loaded.
  */
 export default function useOnMetadataLoaded(
-  callback: (metadata: MetadataMap) => void
+  callback: (metadata: MapOfDatasetMetadata) => void
 ) {
   useEffect(() => {
     onMetadataLoaded(callback);
