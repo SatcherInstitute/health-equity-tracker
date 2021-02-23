@@ -34,8 +34,8 @@ export function TableChart(props: TableChartProps) {
     accessor: breakdownVar as MetricId,
   }].concat(columns);
 
+  // Changes deps array to columns on save, which triggers reload loop
   // eslint-disable-next-line
-  // Changes deps to columns on save for some reason
   const memoCols = useMemo<Column<any>[]>(() => columns, [metrics]);
   const memoData = useMemo(() => data, [data]);
 
