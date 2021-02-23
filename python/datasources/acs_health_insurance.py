@@ -34,6 +34,7 @@ class Race:
     WHITE_ALONE_NOT_HISPANIC_OR_LATINO = "WHITE_ALONE,_NOT_HISPANIC_OR_LATINO"
     HISPANIC_OR_LATINO = "HISPANIC_OR_LATINO"
 
+    @staticmethod
     def values():
         return [
             Race.WHITE_ALONE,
@@ -57,8 +58,9 @@ class Race:
         WHITE_ALONE: "White alone"
     }
 
+    @staticmethod
     def rename(ACS_NAME):
-        return RENAME_RACE_DICT[ACS_NAME]
+        return Race.RENAME_RACE_DICT[ACS_NAME]
 
 
 class Sex:
@@ -278,6 +280,8 @@ class AcsHealhInsuranceIngestor:
 
         for prefix in HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES:
             for prefixKey in prefix:
+                raceStateParams = format_params(prefix, HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES)
+                race = prefix[prefixKey][MetadataKey.RACE]
                 fileDiff = url_file_to_gcs.url_file_to_gcs(
                     self.baseUrl, raceStateParams, bucket,
                     self.getFilename(None, race, False)) and fileDiff
