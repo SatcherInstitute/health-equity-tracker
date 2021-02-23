@@ -5,8 +5,7 @@ import json
 from datasources.data_source import DataSource
 from ingestion import url_file_to_gcs, gcs_to_bq_util
 
-from ingestion.standardized_columns import (RACE_COL,
-                                            STATE_FIPS_COL, COUNTY_FIPS_COL,
+from ingestion.standardized_columns import (STATE_FIPS_COL, COUNTY_FIPS_COL,
                                             STATE_NAME_COL, COUNTY_NAME_COL,
                                             AGE_COL, SEX_COL,
                                             RACE_COL, WITH_HEALTH_INSURANCE_COL,
@@ -653,4 +652,4 @@ class ACSHealthInsurance(DataSource):
 # AcsHealhInsuranceIngestor(BASE_ACS_URL).write_to_bq('acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
 
 
-#AcsHealhInsuranceIngestor(BASE_ACS_URL).write_local_files_debug()
+# AcsHealhInsuranceIngestor(BASE_ACS_URL).write_local_files_debug()
