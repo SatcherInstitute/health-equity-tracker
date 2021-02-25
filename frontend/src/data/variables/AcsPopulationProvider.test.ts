@@ -66,7 +66,21 @@ function stateRow(
   };
 }
 
-function finalRow(
+function finalPopulationCountRow(
+  fips: FipsSpec,
+  breakdownName: string,
+  breakdownValue: string,
+  population: number
+) {
+  return {
+    fips: fips.code,
+    fips_name: fips.name,
+    [breakdownName]: breakdownValue,
+    population: population,
+  };
+}
+
+function finalPopulationCountAndPctRow(
   fips: FipsSpec,
   breakdownName: string,
   breakdownValue: string,
@@ -86,7 +100,13 @@ autoInitGlobals();
 
 const dataFetcher = getDataFetcher() as FakeDataFetcher;
 
-const evaluateWithAndWithoutTotal = createWithAndWithoutTotalEvaluator(
+const evaluatePopulationCountAndPctWithAndWithoutTotal = createWithAndWithoutTotalEvaluator(
+  ["population", "population_pct"],
+  dataFetcher,
+  new AcsPopulationProvider()
+);
+
+const evaluatePopulationCountOnlyWithAndWithoutTotal = createWithAndWithoutTotalEvaluator(
   "population",
   dataFetcher,
   new AcsPopulationProvider()
@@ -103,7 +123,7 @@ describe("AcsPopulationProvider", () => {
     const acsProvider = new AcsPopulationProvider();
 
     const response = await acsProvider.getData(
-      new MetricQuery("population", Breakdowns.national())
+      new MetricQuery(["population", "population_pct"], Breakdowns.national())
     );
     expect(response).toEqual(
       createMissingDataResponse(
@@ -123,15 +143,45 @@ describe("AcsPopulationProvider", () => {
     ];
 
     // Chatam county rows
-    const C_TOTAL_FINAL = finalRow(CHATAM, RACE, TOTAL, 2, 100);
-    const C_ASIAN_FINAL = finalRow(CHATAM, RACE, ASIAN_NH, 2, 100);
+    const C_TOTAL_FINAL = finalPopulationCountAndPctRow(
+      CHATAM,
+      RACE,
+      TOTAL,
+      2,
+      100
+    );
+    const C_ASIAN_FINAL = finalPopulationCountAndPctRow(
+      CHATAM,
+      RACE,
+      ASIAN_NH,
+      2,
+      100
+    );
 
     // Durham county rows
-    const D_ASIAN_FINAL = finalRow(DURHAM, RACE, ASIAN_NH, 5, 25);
-    const D_WHITE_FINAL = finalRow(DURHAM, RACE, WHITE_NH, 15, 75);
-    const D_TOTAL_FINAL = finalRow(DURHAM, RACE, TOTAL, 20, 100);
+    const D_ASIAN_FINAL = finalPopulationCountAndPctRow(
+      DURHAM,
+      RACE,
+      ASIAN_NH,
+      5,
+      25
+    );
+    const D_WHITE_FINAL = finalPopulationCountAndPctRow(
+      DURHAM,
+      RACE,
+      WHITE_NH,
+      15,
+      75
+    );
+    const D_TOTAL_FINAL = finalPopulationCountAndPctRow(
+      DURHAM,
+      RACE,
+      TOTAL,
+      20,
+      100
+    );
 
-    await evaluateWithAndWithoutTotal(
+    await evaluatePopulationCountAndPctWithAndWithoutTotal(
       "acs_population-by_race_county_std",
       rawData,
       Breakdowns.byCounty().withGeoFilter(new Fips(NC.code)),
@@ -156,11 +206,29 @@ describe("AcsPopulationProvider", () => {
       countyRow(DURHAM, RACE, TOTAL, 20),
     ];
 
-    const D_ASIAN_FINAL = finalRow(DURHAM, RACE, ASIAN_NH, 5, 25);
-    const D_WHITE_FINAL = finalRow(DURHAM, RACE, WHITE_NH, 15, 75);
-    const D_TOTAL_FINAL = finalRow(DURHAM, RACE, TOTAL, 20, 100);
+    const D_ASIAN_FINAL = finalPopulationCountAndPctRow(
+      DURHAM,
+      RACE,
+      ASIAN_NH,
+      5,
+      25
+    );
+    const D_WHITE_FINAL = finalPopulationCountAndPctRow(
+      DURHAM,
+      RACE,
+      WHITE_NH,
+      15,
+      75
+    );
+    const D_TOTAL_FINAL = finalPopulationCountAndPctRow(
+      DURHAM,
+      RACE,
+      TOTAL,
+      20,
+      100
+    );
 
-    await evaluateWithAndWithoutTotal(
+    await evaluatePopulationCountAndPctWithAndWithoutTotal(
       "acs_population-by_race_county_std",
       rawData,
       Breakdowns.forFips(new Fips(DURHAM.code)),
@@ -179,11 +247,29 @@ describe("AcsPopulationProvider", () => {
       stateRow(NC, RACE, WHITE_NH, 15),
     ];
 
-    const NC_TOTAL_FINAL = finalRow(NC, RACE, TOTAL, 20, 100);
-    const NC_ASIAN_FINAL = finalRow(NC, RACE, ASIAN_NH, 5, 25);
-    const NC_WHITE_FINAL = finalRow(NC, RACE, WHITE_NH, 15, 75);
+    const NC_TOTAL_FINAL = finalPopulationCountAndPctRow(
+      NC,
+      RACE,
+      TOTAL,
+      20,
+      100
+    );
+    const NC_ASIAN_FINAL = finalPopulationCountAndPctRow(
+      NC,
+      RACE,
+      ASIAN_NH,
+      5,
+      25
+    );
+    const NC_WHITE_FINAL = finalPopulationCountAndPctRow(
+      NC,
+      RACE,
+      WHITE_NH,
+      15,
+      75
+    );
 
-    await evaluateWithAndWithoutTotal(
+    await evaluatePopulationCountAndPctWithAndWithoutTotal(
       "acs_population-by_race_state_std",
       rawData,
       Breakdowns.forFips(new Fips(NC.code)),
@@ -210,18 +296,18 @@ describe("AcsPopulationProvider", () => {
 
     let response = await new AcsPopulationProvider().getData(
       new MetricQuery(
-        "population",
+        ["population", "population_pct"],
         Breakdowns.forFips(new Fips(NC.code)).andRace()
       )
     );
     expect(response).toEqual(
       new MetricQueryResponse(
         [
-          finalRow(NC, RACE, TOTAL, 20, 100),
-          finalRow(NC, RACE, ASIAN_NH, 5, 25),
-          finalRow(NC, RACE, WHITE_NH, 15, 75),
-          finalRow(NC, RACE, WHITE, 17, 85),
-          finalRow(NC, RACE, NON_HISPANIC, 13, 65),
+          finalPopulationCountAndPctRow(NC, RACE, TOTAL, 20, 100),
+          finalPopulationCountAndPctRow(NC, RACE, ASIAN_NH, 5, 25),
+          finalPopulationCountAndPctRow(NC, RACE, WHITE_NH, 15, 75),
+          finalPopulationCountAndPctRow(NC, RACE, WHITE, 17, 85),
+          finalPopulationCountAndPctRow(NC, RACE, NON_HISPANIC, 13, 65),
         ],
         [datasetId]
       )
@@ -229,7 +315,7 @@ describe("AcsPopulationProvider", () => {
 
     response = await new AcsPopulationProvider().getData(
       new MetricQuery(
-        "population",
+        ["population", "population_pct"],
         Breakdowns.forFips(new Fips(NC.code)).andRace(
           onlyIncludeStandardRaces()
         )
@@ -238,9 +324,9 @@ describe("AcsPopulationProvider", () => {
     expect(response).toEqual(
       new MetricQueryResponse(
         [
-          finalRow(NC, RACE, TOTAL, 20, 100),
-          finalRow(NC, RACE, ASIAN_NH, 5, 25),
-          finalRow(NC, RACE, WHITE_NH, 15, 75),
+          finalPopulationCountAndPctRow(NC, RACE, TOTAL, 20, 100),
+          finalPopulationCountAndPctRow(NC, RACE, ASIAN_NH, 5, 25),
+          finalPopulationCountAndPctRow(NC, RACE, WHITE_NH, 15, 75),
         ],
         [datasetId]
       )
@@ -256,11 +342,29 @@ describe("AcsPopulationProvider", () => {
       stateRow(AL, RACE, TOTAL, 5),
     ];
 
-    const NATIONAL_ASIAN_FINAL = finalRow(USA, RACE, ASIAN_NH, 10, 40);
-    const NATIONAL_WHITE_FINAL = finalRow(USA, RACE, WHITE_NH, 15, 60);
-    const NATIONAL_TOTAL_FINAL = finalRow(USA, RACE, TOTAL, 25, 100);
+    const NATIONAL_ASIAN_FINAL = finalPopulationCountAndPctRow(
+      USA,
+      RACE,
+      ASIAN_NH,
+      10,
+      40
+    );
+    const NATIONAL_WHITE_FINAL = finalPopulationCountAndPctRow(
+      USA,
+      RACE,
+      WHITE_NH,
+      15,
+      60
+    );
+    const NATIONAL_TOTAL_FINAL = finalPopulationCountAndPctRow(
+      USA,
+      RACE,
+      TOTAL,
+      25,
+      100
+    );
 
-    await evaluateWithAndWithoutTotal(
+    await evaluatePopulationCountAndPctWithAndWithoutTotal(
       "acs_population-by_race_state_std",
       rawData,
       Breakdowns.national(),
@@ -278,14 +382,44 @@ describe("AcsPopulationProvider", () => {
       countyRow(DURHAM, AGE, "10-19", 15),
     ];
 
-    const C_0_9_FINAL = finalRow(CHATAM, AGE, "0-9", 2, 100);
-    const C_TOTAL_FINAL = finalRow(CHATAM, AGE, TOTAL, 2, 100);
+    const C_0_9_FINAL = finalPopulationCountAndPctRow(
+      CHATAM,
+      AGE,
+      "0-9",
+      2,
+      100
+    );
+    const C_TOTAL_FINAL = finalPopulationCountAndPctRow(
+      CHATAM,
+      AGE,
+      TOTAL,
+      2,
+      100
+    );
 
-    const D_0_9_FINAL = finalRow(DURHAM, AGE, "0-9", 5, 25);
-    const D_10_19_FINAL = finalRow(DURHAM, AGE, "10-19", 15, 75);
-    const D_TOTAL_FINAL = finalRow(DURHAM, AGE, TOTAL, 20, 100);
+    const D_0_9_FINAL = finalPopulationCountAndPctRow(
+      DURHAM,
+      AGE,
+      "0-9",
+      5,
+      25
+    );
+    const D_10_19_FINAL = finalPopulationCountAndPctRow(
+      DURHAM,
+      AGE,
+      "10-19",
+      15,
+      75
+    );
+    const D_TOTAL_FINAL = finalPopulationCountAndPctRow(
+      DURHAM,
+      AGE,
+      TOTAL,
+      20,
+      100
+    );
 
-    await evaluateWithAndWithoutTotal(
+    await evaluatePopulationCountAndPctWithAndWithoutTotal(
       "acs_population-by_age_county",
       rawData,
       Breakdowns.byCounty().withGeoFilter(new Fips(NC.code)),
@@ -302,11 +436,29 @@ describe("AcsPopulationProvider", () => {
       countyRow(DURHAM, AGE, "10-19", 15),
     ];
 
-    const D_0_9_FINAL = finalRow(DURHAM, AGE, "0-9", 5, 25);
-    const D_10_19_FINAL = finalRow(DURHAM, AGE, "10-19", 15, 75);
-    const D_TOTAL_FINAL = finalRow(DURHAM, AGE, TOTAL, 20, 100);
+    const D_0_9_FINAL = finalPopulationCountAndPctRow(
+      DURHAM,
+      AGE,
+      "0-9",
+      5,
+      25
+    );
+    const D_10_19_FINAL = finalPopulationCountAndPctRow(
+      DURHAM,
+      AGE,
+      "10-19",
+      15,
+      75
+    );
+    const D_TOTAL_FINAL = finalPopulationCountAndPctRow(
+      DURHAM,
+      AGE,
+      TOTAL,
+      20,
+      100
+    );
 
-    await evaluateWithAndWithoutTotal(
+    await evaluatePopulationCountAndPctWithAndWithoutTotal(
       "acs_population-by_age_county",
       rawData,
       Breakdowns.forFips(new Fips(DURHAM.code)),
@@ -323,11 +475,29 @@ describe("AcsPopulationProvider", () => {
       stateRow(NC, AGE, "10-19", 10),
     ];
 
-    const NC_AGE_0_9_FINAL = finalRow(NC, AGE, "0-9", 15, 60);
-    const NC_AGE_10_19_FINAL = finalRow(NC, AGE, "10-19", 10, 40);
-    const NC_TOTAL_FINAL = finalRow(NC, AGE, TOTAL, 25, 100);
+    const NC_AGE_0_9_FINAL = finalPopulationCountAndPctRow(
+      NC,
+      AGE,
+      "0-9",
+      15,
+      60
+    );
+    const NC_AGE_10_19_FINAL = finalPopulationCountAndPctRow(
+      NC,
+      AGE,
+      "10-19",
+      10,
+      40
+    );
+    const NC_TOTAL_FINAL = finalPopulationCountAndPctRow(
+      NC,
+      AGE,
+      TOTAL,
+      25,
+      100
+    );
 
-    await evaluateWithAndWithoutTotal(
+    await evaluatePopulationCountAndPctWithAndWithoutTotal(
       "acs_population-by_age_state",
       rawData,
       Breakdowns.forFips(new Fips(NC.code)),
@@ -344,11 +514,29 @@ describe("AcsPopulationProvider", () => {
       stateRow(NC, AGE, "10-19", 10),
     ];
 
-    const AGE_0_9_FINAL = finalRow(USA, AGE, "0-9", 30, 75);
-    const AGE_10_19_FINAL = finalRow(USA, AGE, "10-19", 10, 25);
-    const AGE_TOTAL_FINAL = finalRow(USA, AGE, TOTAL, 40, 100);
+    const AGE_0_9_FINAL = finalPopulationCountAndPctRow(
+      USA,
+      AGE,
+      "0-9",
+      30,
+      75
+    );
+    const AGE_10_19_FINAL = finalPopulationCountAndPctRow(
+      USA,
+      AGE,
+      "10-19",
+      10,
+      25
+    );
+    const AGE_TOTAL_FINAL = finalPopulationCountAndPctRow(
+      USA,
+      AGE,
+      TOTAL,
+      40,
+      100
+    );
 
-    await evaluateWithAndWithoutTotal(
+    await evaluatePopulationCountAndPctWithAndWithoutTotal(
       "acs_population-by_age_state",
       rawData,
       Breakdowns.national(),
@@ -365,11 +553,17 @@ describe("AcsPopulationProvider", () => {
       stateRow(NC, SEX, FEMALE, 10),
     ];
 
-    const NC_MALE_FINAL = finalRow(NC, SEX, MALE, 15, 60);
-    const NC_FEMALE_FINAL = finalRow(NC, SEX, FEMALE, 10, 40);
-    const NC_TOTAL = finalRow(NC, SEX, TOTAL, 25, 100);
+    const NC_MALE_FINAL = finalPopulationCountAndPctRow(NC, SEX, MALE, 15, 60);
+    const NC_FEMALE_FINAL = finalPopulationCountAndPctRow(
+      NC,
+      SEX,
+      FEMALE,
+      10,
+      40
+    );
+    const NC_TOTAL = finalPopulationCountAndPctRow(NC, SEX, TOTAL, 25, 100);
 
-    await evaluateWithAndWithoutTotal(
+    await evaluatePopulationCountAndPctWithAndWithoutTotal(
       "acs_population-by_sex_state",
       rawData,
       Breakdowns.forFips(new Fips(NC.code)),
@@ -386,11 +580,38 @@ describe("AcsPopulationProvider", () => {
       stateRow(NC, SEX, FEMALE, 10),
     ];
 
-    const MALE_FINAL = finalRow(USA, SEX, MALE, 30, 75);
-    const FEMALE_FINAL = finalRow(USA, SEX, FEMALE, 10, 25);
-    const TOTAL_FINAL = finalRow(USA, SEX, TOTAL, 40, 100);
+    const MALE_FINAL = finalPopulationCountAndPctRow(USA, SEX, MALE, 30, 75);
+    const FEMALE_FINAL = finalPopulationCountAndPctRow(
+      USA,
+      SEX,
+      FEMALE,
+      10,
+      25
+    );
+    const TOTAL_FINAL = finalPopulationCountAndPctRow(USA, SEX, TOTAL, 40, 100);
 
-    await evaluateWithAndWithoutTotal(
+    await evaluatePopulationCountAndPctWithAndWithoutTotal(
+      "acs_population-by_sex_state",
+      rawData,
+      Breakdowns.national(),
+      SEX,
+      [FEMALE_FINAL, MALE_FINAL],
+      [FEMALE_FINAL, MALE_FINAL, TOTAL_FINAL]
+    );
+  });
+
+  test("Filters metrics to only those requested", async () => {
+    const rawData = [
+      stateRow(AL, SEX, MALE, 15),
+      stateRow(NC, SEX, MALE, 15),
+      stateRow(NC, SEX, FEMALE, 10),
+    ];
+
+    const MALE_FINAL = finalPopulationCountRow(USA, SEX, MALE, 30);
+    const FEMALE_FINAL = finalPopulationCountRow(USA, SEX, FEMALE, 10);
+    const TOTAL_FINAL = finalPopulationCountRow(USA, SEX, TOTAL, 40);
+
+    await evaluatePopulationCountOnlyWithAndWithoutTotal(
       "acs_population-by_sex_state",
       rawData,
       Breakdowns.national(),

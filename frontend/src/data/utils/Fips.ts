@@ -1,4 +1,4 @@
-export const USA_DISPLAY_NAME = "the United States";
+export const USA_DISPLAY_NAME = "United States";
 // Fake FIPS code used to represent totals in USA for convenience
 export const USA_FIPS = "00";
 
@@ -86,7 +86,7 @@ export const STATE_FIPS_MAP: Record<string, string> = {
   "28": "Mississippi",
   "29": "Missouri",
   "30": "Montana",
-  "31": "Nebraksa",
+  "31": "Nebraska",
   "32": "Nevada",
   "33": "New Hampshire",
   "34": "New Jersey",

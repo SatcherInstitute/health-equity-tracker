@@ -210,17 +210,9 @@ function getSpec(
     ],
     legends: [
       {
-        stroke: "variables",
+        fill: "variables",
         orient: "top",
         padding: 4,
-        encode: {
-          symbols: {
-            enter: {
-              strokeWidth: { value: 2 },
-              size: { value: 50 },
-            },
-          },
-        },
       },
     ],
   };
