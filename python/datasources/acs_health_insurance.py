@@ -178,6 +178,7 @@ def format_params(prefixes, suffixes, is_county=False):
 
     return {'for': 'county' if is_county else 'state', "get": vars}
 
+
 class AcsHealhInsuranceIngestor:
 
     # Initialize variables in class instance, also merge all metadata so that lookup of the
@@ -272,8 +273,10 @@ class AcsHealhInsuranceIngestor:
         self.get_county_fips_mapping()
 
         # Pull data from GCS and aggregate in memory
-        self.get_health_insurance_data_by_sex(use_gcs=True, gcs_bucket=gcs_bucket)
-        self.get_health_insurance_data_by_race(use_gcs=True, gcs_bucket=gcs_bucket)
+        self.get_health_insurance_data_by_sex(
+            use_gcs=True, gcs_bucket=gcs_bucket)
+        self.get_health_insurance_data_by_race(
+            use_gcs=True, gcs_bucket=gcs_bucket)
 
         # Split internal memory into data frames for sex/race by state/county
         self.split_data_frames()
@@ -606,4 +609,4 @@ class ACSHealthInsurance(DataSource):
 # AcsHealhInsuranceIngestor(BASE_ACS_URL).write_to_bq('acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
 
 
-AcsHealhInsuranceIngestor(BASE_ACS_URL).write_local_files_debug()
+# AcsHealhInsuranceIngestor(BASE_ACS_URL).write_local_files_debug()
