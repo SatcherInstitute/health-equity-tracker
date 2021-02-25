@@ -169,14 +169,14 @@ HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES = {
 # ?for=state&get=C27001A_002E,C27001A_003E...
 
 
-def format_params(prefixes, suffixes, isCounty=False):
+def format_params(prefixes, suffixes, is_county=False):
     groups = []
     for prefix in prefixes:
         for suffix in suffixes:
             groups.append(prefix+suffix)
     vars = ','.join(groups)
 
-    return {'for': 'county' if isCounty else 'state', "get": vars}
+    return {'for': 'county' if is_county else 'state', "get": vars}
 
 
 
@@ -191,19 +191,19 @@ class AcsHealhInsuranceIngestor:
         self.buildMetadataList()
 
     # Gets standardized filename
-    def getFilename(self, sex, race, isCounty):
+    def get_filename(self, sex, race, is_county):
         if(race is not None):
-            return "HEALTH_INSURANCE_BY_RACE_{0}_{1}.json".format("STATE" if isCounty else "COUNTY", race)
+            return "HEALTH_INSURANCE_BY_RACE_{0}_{1}.json".format("STATE" if is_county else "COUNTY", race)
         else:
-            return "HEALTH_INSURANCE_BY_SEX_{0}_{1}.json".format("STATE" if isCounty else "COUNTY", sex)
+            return "HEALTH_INSURANCE_BY_SEX_{0}_{1}.json".format("STATE" if is_county else "COUNTY", sex)
 
     # Method to output <Filename.csv>.  Used for debugging purposes.
     def write_local_files_debug(self):
-        self.getStateFipsMap()
-        self.getCountyFipsMap()
-        self.getHealthInsuranceDataBySex()
-        self.getHealthInsuranceDataByRace()
-        self.splitDataFrames()
+        self.get_state_fips_mapping()
+        self.get_county_fips_mapping()
+        self.get_health_insurance_data_by_sex()
+        self.get_health_insurance_data_by_race()
+        self.split_data_frames()
 
         with open('total_health_insurance.json', 'w') as f:
             print(json.dumps(
@@ -224,61 +224,61 @@ class AcsHealhInsuranceIngestor:
     # FileDiff = If the data has changed by diffing the old run vs the new run.
     # (presumably to skip the write to bq step though not 100% sure as of writing this)
     def upload_to_gcs(self, bucket):
-        maleStateParams = format_params(
+        male_state_params = format_params(
             HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES)
 
-        fileDiff = url_file_to_gcs.url_file_to_gcs(
-            self.baseUrl, maleStateParams, bucket,
+        file_diff = url_file_to_gcs.url_file_to_gcs(
+            self.baseUrl, male_state_params, bucket,
             self.getFilename(Sex.MALE, None, False))
 
-        femaleStateParams = format_params(
+        female_state_params = format_params(
             HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES)
-        fileDiff = url_file_to_gcs.url_file_to_gcs(
-            self.baseUrl, femaleStateParams, bucket,
-            self.getFilename(Sex.FEMALE, None, False)) and fileDiff
+        file_diff = url_file_to_gcs.url_file_to_gcs(
+            self.baseUrl, female_state_params, bucket,
+            self.getFilename(Sex.FEMALE, None, False)) and file_diff
 
-        maleCountyParams = format_params(
+        male_county_params = format_params(
             HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES, True)
-        fileDiff = url_file_to_gcs.url_file_to_gcs(
-            self.baseUrl, maleCountyParams, bucket,
-            self.getFilename(Sex.MALE, None, True)) and fileDiff
+        file_diff = url_file_to_gcs.url_file_to_gcs(
+            self.baseUrl, male_county_params, bucket,
+            self.getFilename(Sex.MALE, None, True)) and file_diff
 
-        femaleCountyParams = format_params(
+        female_county_params = format_params(
             HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES, True)
-        fileDiff = url_file_to_gcs.url_file_to_gcs(
-            self.baseUrl, femaleCountyParams, bucket,
-            self.getFilename(Sex.FEMALE, None, True)) and fileDiff
+        file_diff = url_file_to_gcs.url_file_to_gcs(
+            self.baseUrl, female_county_params, bucket,
+            self.getFilename(Sex.FEMALE, None, True)) and file_diff
 
         # Iterates over the different race ACS variables,
         # retrieves the race from the metadata merged dict
         # writes the data to the GCS bucket and sees if file diff is changed
         for prefix in HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES:
-            for prefixKey in prefix:
-                raceStateParams = format_params(
+            for prefix_key in prefix:
+                race_state_params = format_params(
                     prefix, HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES)
                 race = prefix[prefixKey][MetadataKey.RACE]
-                fileDiff = url_file_to_gcs.url_file_to_gcs(
-                    self.baseUrl, raceStateParams, bucket,
-                    self.getFilename(None, race, False)) and fileDiff
-                raceCountyParams = format_params(
+                file_diff = url_file_to_gcs.url_file_to_gcs(
+                    self.baseUrl, race_state_params, bucket,
+                    self.getFilename(None, race, False)) and file_diff
+                race_county_params = format_params(
                     prefix, HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES, True)
-                fileDiff = url_file_to_gcs.url_file_to_gcs(
-                    self.baseUrl, raceCountyParams, bucket,
-                    self.getFilename(None, race, True)) and fileDiff
+                file_diff = url_file_to_gcs.url_file_to_gcs(
+                    self.baseUrl, race_county_params, bucket,
+                    self.getFilename(None, race, True)) and file_diff
 
-        return fileDiff
+        return file_diff
 
     def write_to_bq(self, dataset, gcs_bucket):
         # Get an ACS mapping of Fip Codes to State Names and county codes to county names
-        self.getStateFipsMap()
-        self.getCountyFipsMap()
+        self.get_state_fips_mapping()
+        self.get_county_fips_mapping()
 
         # Pull data from GCS and aggregate in memory
-        self.getHealthInsuranceDataBySex(useGcs=True, gcs_bucket=gcs_bucket)
-        self.getHealthInsuranceDataByRace(useGcs=True, gcs_bucket=gcs_bucket)
+        self.get_health_insurance_data_by_sex(useGcs=True, gcs_bucket=gcs_bucket)
+        self.get_health_insurance_data_by_race(useGcs=True, gcs_bucket=gcs_bucket)
 
         # Split internal memory into data frames for sex/race by state/county
-        self.splitDataFrames()
+        self.split_data_frames()
 
         # Create BQ columns and write dataframes to BQ
         for table_name, df in self.frames.items():
@@ -306,15 +306,15 @@ class AcsHealhInsuranceIngestor:
     # Combine Into Four:
     # {"C27001A_002E": {Race: White, Age: 0-19: Sex: None, Population: Total}}
     # {"C27001A_OO3E": {Race: White, Age: 0-19: Sex: None, PopulW[MetadataKey.RACE]
-    def buildMetadataList(self):
-        for racePrefix in HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES:
-            for prefix in racePrefix:
+    def build_metadata_list(self):
+        for race_prefix in HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES:
+            for prefix in race_prefix:
                 for suffix in HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES:
                     key = prefix+suffix
-                    prefixMeta = racePrefix[prefix].copy()
-                    prefixMeta.update(
+                    prefix_metadata = race_prefix[prefix].copy()
+                    prefix_metadata.update(
                         HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES[suffix])
-                    self.metadata[key] = prefixMeta
+                    self.metadata[key] = prefix_metadata
 
         for sex_prefix in HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX:
             for male_suffix in HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES:
@@ -332,98 +332,96 @@ class AcsHealhInsuranceIngestor:
 
     # Pull the State_Fips map Code->Name from ACS
 
-    def getStateFipsMap(self):
+    def get_state_fips_mapping(self):
         params = {'for': 'state', "get": "NAME"}
         resp = requests.get(self.baseUrl, params=params)
-        jResp = resp.json()
-        stateFips = {}
-        for row in jResp[1::]:
-            fipCode = row[1]
-            stateName = row[0]
-            stateFips[fipCode] = stateName
+        json_formatted_response = resp.json()
+        state_fips = {}
+        for row in json_formatted_response[1::]:
+            state_name, fip_code = row
+            state_fips[fipCode] = state_name
 
-        self.stateFips = stateFips
+        self.stateFips = state_fips
 
     # Pull the County Fips map Code->Name from ACS
-    def getCountyFipsMap(self):
+    def get_county_fips_mapping(self):
         params = {'for': 'county', "get": "NAME"}
         resp = requests.get(self.baseUrl, params=params)
-        jResp = resp.json()
-        countyFips = {}
-        for row in jResp[1::]:
-            countyFip = row[2]
-            stateFip = row[1]
-            countyName = row[0]
-            countyFips[(stateFip, countyFip)] = countyName
+        json_formatted_response = resp.json()
+        county_fips = {}
+        for row in json_formatted_response[1::]:
+            county_name, state_fip, county_fip = row
 
-        self.countyFips = countyFips
+            county_fips[(state_fip, county_fip)] = county_name
+
+        self.county_fips = county_fips
 
     # Given an ACS formatted param string, query the server, log and return the response as JSON
     # Note: the method is defined this way to be similar to the Upload_to_GCS_util method.
-    def getAcsDataFromVariables(self, params):
+    def get_acs_data_from_variables(self, params):
         resp = requests.get(self.baseUrl, params=params)
         return resp.json()
 
     #   Get Health insurance data from either GCS or Directly, and aggregate the data in memory
-    def getHealthInsuranceDataByRace(self, useGcs=False, gcs_bucket=None):
-        if useGcs:
+    def get_health_insurance_data_by_race(self, use_gcs=False, gcs_bucket=None):
+        if use_gcs:
             for race in RACE:
                 # Get cached data from GCS
-                stateData = gcs_to_bq_util.load_values_as_json(
+                state_data = gcs_to_bq_util.load_values_as_json(
                     gcs_bucket, self.getFilename(None, race, False))
-                countyData = gcs_to_bq_util.load_values_as_json(
+                county_data = gcs_to_bq_util.load_values_as_json(
                     gcs_bucket, self.getFilename(None, race, True))
 
                 # Aggregate in Memory
-                self.accumulateAcsData(stateData)
-                self.accumulateAcsData(countyData)
+                self.accumulate_acs_data(stateData)
+                self.accumulate_acs_data(countyData)
         else:
             for prefix in HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES:
                 # Get ACS data from API
-                stateData = self.getAcsDataFromVariables(format_params(
+                state_data = self.getAcsDataFromVariables(format_params(
                     prefix, HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES))
-                countySexData = self.getAcsDataFromVariables(format_params(
+                county_sex_data = self.getAcsDataFromVariables(format_params(
                     prefix, HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES, True))
 
                 # Aggregate in Memory
-                self.accumulateAcsData(stateData)
-                self.accumulateAcsData(countySexData)
+                self.accumulate_acs_data(stateData)
+                self.accumulate_acs_data(countySexData)
 
     # Get Health insurance By Sex from either API or GCS and aggregate it in memory
-    def getHealthInsuranceDataBySex(self, useGcs=False, gcs_bucket=None):
+    def get_health_insurance_data_by_sex(self, use_gcs=False, gcs_bucket=None):
         if(useGcs):  # LOAD JSON BLOBS FROM GCS
-            maleStateData = gcs_to_bq_util.load_values_as_json(
+            male_state_data = gcs_to_bq_util.load_values_as_json(
                 gcs_bucket, self.getFilename(Sex.MALE, None, False))
-            femaleStateData = gcs_to_bq_util.load_values_as_json(
+            female_state_data = gcs_to_bq_util.load_values_as_json(
                 gcs_bucket, self.getFilename(Sex.FEMALE, None, False))
-            maleCountyData = gcs_to_bq_util.load_values_as_json(
+            male_county_data = gcs_to_bq_util.load_values_as_json(
                 gcs_bucket, self.getFilename(Sex.MALE, None, True))
-            femaleCountyData = gcs_to_bq_util.load_values_as_json(
+            female_county_data = gcs_to_bq_util.load_values_as_json(
                 gcs_bucket, self.getFilename(Sex.FEMALE, None, True))
         else:  # LOAD DATA FROM ACS (useful for local debug)
-            maleStateRequestParams = format_params(
+            male_state_request_params = format_params(
                 HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES)
-            femaleStateRequestParams = format_params(
+            female_state_request_params = format_params(
                 HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES)
-            maleCountyRequestParams = format_params(
+            male_county_request_params = format_params(
                 HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES, True)
-            femaleCountyRequestParams = format_params(
+            female_county_request_params = format_params(
                 HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES, True)
 
-            maleStateData = self.getAcsDataFromVariables(
-                maleStateRequestParams)
-            femaleStateData = self.getAcsDataFromVariables(
-                femaleStateRequestParams)
-            maleCountyData = self.getAcsDataFromVariables(
-                maleCountyRequestParams)
-            femaleCountyData = self.getAcsDataFromVariables(
-                femaleCountyRequestParams)
+            male_state_data = self.getAcsDataFromVariables(
+                male_state_request_params)
+            female_state_data = self.getAcsDataFromVariables(
+                female_state_request_params)
+            male_county_data = self.getAcsDataFromVariables(
+                male_county_request_params)
+            female_county_data = self.getAcsDataFromVariables(
+                female_county_request_params)
 
         # Aggregate and accumulate data in memory
-        self.accumulateAcsData(maleStateData)
-        self.accumulateAcsData(femaleStateData)
-        self.accumulateAcsData(maleCountyData)
-        self.accumulateAcsData(femaleCountyData)
+        self.accumulate_acs_data(male_state_data)
+        self.accumulate_acs_data(female_state_data)
+        self.accumulate_acs_data(male_county_data)
+        self.accumulate_acs_data(female_county_data)
 
     '''
     Takes data in the form of
@@ -432,11 +430,11 @@ class AcsHealhInsuranceIngestor:
         [12345, 1245, 123546, 124567, 01, 02]
         ...
     ]
-    This method determines the variables at the top (aka: keyrow)
+    This method determines the variables at the top (aka: key_row)
     matches the value with the metadata from the prefix_suffix list
     and stores it in the self.data as a tuple
 
-    (stateFip, countyFip, age, sex, race) example:
+    (stateFip, county_fip, age, sex, race) example:
     {
         "('01', None, '0-6', 'Male', None)": {
             "Total": "177643",
@@ -452,32 +450,32 @@ class AcsHealhInsuranceIngestor:
     } Note: This can be debugged via the total_health_insurance.json output file via local_debug
     '''
 
-    def accumulateAcsData(self, data):
-        keyRow = data[0]
+    def accumulate_acs_data(self, data):
+        key_row = data[0]
         for row in data[1::]:
             data = {}
-            for key in keyRow:
+            for key in key_row:
                 if(key != 'state' and key != 'county'):
                     data[key] = {}
-            stateFip = None
-            countyFip = None
-            colIndex = 0
+            state_fip = None
+            county_fip = None
+            col_index = 0
             for col in row:
-                key = keyRow[colIndex]
+                key = key_row[colIndex]
                 if(key == 'state'):
-                    stateFip = col  # Extract the static keyrow state
+                    state_fip = col  # Extract the static key_row state
                 elif key == 'county':
-                    # Extract the static keyrow (county) *if exists
-                    countyFip = col
+                    # Extract the static key_row (county) *if exists
+                    county_fip = col
                 else:
                     data[key] = {'value': col, 'meta': self.metadata[key]}
 
-                colIndex += 1
+                col_index += 1
 
             for var in data:
                 metadata = data[var]['meta']
                 value = data[var]['value']
-                row = self.upsertRow(stateFip, countyFip, metadata.get(
+                row = self.upsertRow(state_fip, county_fip, metadata.get(
                     MetadataKey.AGE), metadata.get(MetadataKey.SEX),
                     metadata.get(MetadataKey.RACE))
                 row[metadata[MetadataKey.POPULATION]] = value
@@ -487,24 +485,24 @@ class AcsHealhInsuranceIngestor:
     # This is needed as each data variable will only
     # update one of the population values at a time.
 
-    def upsertRow(self, stateFip, countyFip, age, sex, race):
-        if self.data.get((stateFip, countyFip, age, sex, race)) is None:
-            self.data[(stateFip, countyFip, age, sex, race)] = {
+    def upsert_row(self, state_fip, county_fip, age, sex, race):
+        if self.data.get((state_fip, county_fip, age, sex, race)) is None:
+            self.data[(state_fip, county_fip, age, sex, race)] = {
                 HealthInsurancePopulation.TOTAL: -1,
                 HealthInsurancePopulation.WITH: -1,
                 HealthInsurancePopulation.WITHOUT: -1
             }
-        return self.data[(stateFip, countyFip, age, sex, race)]
+        return self.data[(state_fip, county_fip, age, sex, race)]
 
     # Splits the in memory aggregation into dataframes
-    def splitDataFrames(self):
-        stateSexData = []
-        stateRaceData = []
-        countyRaceData = []
-        countySexData = []
+    def split_data_frames(self):
+        state_sex_data = []
+        state_race_data = []
+        county_race_data = []
+        county_sex_data = []
 
         # Extract keys from self.data Tuple
-        # (StateFip, CountyFip, Age, Sex, Race): {PopulationObj}
+        # (state_fip, County_fip, Age, Sex, Race): {PopulationObj}
         for data in self.data:
             state_fip, county_fip, age, sex, race = data
 
@@ -516,26 +514,26 @@ class AcsHealhInsuranceIngestor:
             if county_fip is None:
                 # State-Sex
                 if race is None:
-                    stateSexData.append(
-                        [state_fip, self.stateFips[state_fip], age, sex, whi, wohi, total])
+                    state_sex_data.append(
+                        [state_fip, self.state_fips[state_fip], age, sex, whi, wohi, total])
                 # State-Race
                 else:
-                    stateRaceData.append(
-                        [state_fip, self.stateFips[state_fip], age, race, whi, wohi, total])
+                    state_race_data.append(
+                        [state_fip, self.state_fips[state_fip], age, race, whi, wohi, total])
             else:
 
                 # County-Sex
                 if race is None:
-                    countySexData.append([state_fip, self.stateFips[state_fip], county_fip, self.countyFips[(
+                    county_sex_data.append([state_fip, self.state_fips[state_fip], county_fip, self.county_fips[(
                         state_fip, county_fip)], age, sex, whi, wohi, total])
 
                 # County-Race
                 else:
-                    countyRaceData.append([state_fip, self.stateFips[state_fip], county_fip, self.countyFips[(
+                    county_race_data.append([state_fip, self.state_fips[state_fip], county_fip, self.county_fips[(
                         state_fip, county_fip)], age, race, whi, wohi, total])
 
         # Build Panda DataFrames with standardized cols
-        self.stateSexFrame = pd.DataFrame(stateSexData, columns=[
+        self.state_sex_frame = pd.DataFrame(state_sex_data, columns=[
             STATE_FIPS_COL,
             STATE_NAME_COL,
             AGE_COL,
@@ -543,7 +541,7 @@ class AcsHealhInsuranceIngestor:
             WITH_HEALTH_INSURANCE_COL,
             WITHOUT_HEALTH_INSURANCE_COL,
             TOTAL_HEALTH_INSURANCE_COL])
-        self.stateRaceFrame = pd.DataFrame(stateRaceData, columns=[
+        self.state_race_frame = pd.DataFrame(state_race_data, columns=[
             STATE_FIPS_COL,
             STATE_NAME_COL,
             AGE_COL,
@@ -551,7 +549,7 @@ class AcsHealhInsuranceIngestor:
             WITH_HEALTH_INSURANCE_COL,
             WITHOUT_HEALTH_INSURANCE_COL,
             TOTAL_HEALTH_INSURANCE_COL])
-        self.countySexFrame = pd.DataFrame(countySexData, columns=[
+        self.county_sex_frame = pd.DataFrame(countySexData, columns=[
             STATE_FIPS_COL,
             STATE_NAME_COL,
             COUNTY_FIPS_COL,
