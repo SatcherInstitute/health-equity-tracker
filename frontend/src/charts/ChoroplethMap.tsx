@@ -6,6 +6,7 @@ import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 
 type NumberFormat = "raw" | "percentage";
+export type ScaleType = "quantize" | "quantile";
 
 const UNKNOWN_GREY = "#BDC1C6";
 const HEIGHT_WIDTH_RATIO = 0.5;
@@ -18,11 +19,14 @@ const GEO_ID = "id";
 const COLOR_SCALE = "COLOR_SCALE";
 
 const VAR_DATASET = "VAR_DATASET";
+const LEGEND_DATASET = "LEGEND_DATASET";
+const USA_PROJECTION = "USA_PROJECTION";
 // TODO - consider moving standardized column names, like fips, to variables shared between here and VariableProvider
 const VAR_FIPS = "fips";
 
 export interface ChoroplethMapProps {
   data: Record<string, any>[];
+  legendData?: Record<string, any>[]; // Dataset for which to calculate legend
   metric: MetricConfig;
   legendTitle: string;
   signalListeners: any;
@@ -32,6 +36,7 @@ export interface ChoroplethMapProps {
   fieldRange?: FieldRange;
   showCounties: boolean;
   hideActions?: boolean;
+  scaleType: ScaleType;
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
@@ -98,8 +103,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     let colorScale: any = {
       name: COLOR_SCALE,
-      type: "quantize",
-      domain: { data: VALID_DATASET, field: props.metric.metricId },
+      type: props.scaleType,
+      domain: { data: LEGEND_DATASET, field: props.metric.metricId },
       range: { scheme: "yellowgreenblue", count: 7 },
     };
     if (props.fieldRange) {
@@ -114,6 +119,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         {
           name: VAR_DATASET,
           values: props.data,
+        },
+        {
+          name: LEGEND_DATASET,
+          values: props.legendData || props.data,
         },
         {
           name: GEO_DATASET,
@@ -155,7 +164,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ],
       projections: [
         {
-          name: "usProjection",
+          name: USA_PROJECTION,
           type: "albersUsa",
           fit: { signal: "data('" + GEO_DATASET + "')" },
           size: {
@@ -184,7 +193,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
               fill: { value: UNKNOWN_GREY },
             },
           },
-          transform: [{ type: "geoshape", projection: "usProjection" }],
+          transform: [{ type: "geoshape", projection: USA_PROJECTION }],
         },
         {
           type: "shape",
@@ -200,7 +209,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             },
             hover: { fill: { value: "red" } },
           },
-          transform: [{ type: "geoshape", projection: "usProjection" }],
+          transform: [{ type: "geoshape", projection: USA_PROJECTION }],
         },
       ],
       signals: [
@@ -211,17 +220,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
       ],
     });
-  }, [
-    width,
-    props.metric,
-    props.legendTitle,
-    props.numberFormat,
-    props.data,
-    props.fips,
-    props.hideLegend,
-    props.showCounties,
-    props.fieldRange,
-  ]);
+  }, [width, props.metric, props.legendTitle, props.numberFormat, props.data, props.fips, props.hideLegend, props.showCounties, props.fieldRange, props.scaleType, props.legendData]);
 
   return (
     <div

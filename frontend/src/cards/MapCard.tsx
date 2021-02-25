@@ -215,6 +215,7 @@ function MapCardWithKey(props: MapCardProps) {
                   fieldRange={queryResponse.getFieldRange(
                     props.metricConfig.metricId
                   )}
+                  scaleType="quantile"
                 />
               )}
             </CardContent>

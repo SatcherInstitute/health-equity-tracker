@@ -28,14 +28,26 @@ const Template: Story<MultiMapCardProps> = (args) => (
   <MultiMapCardStateful {...args} />
 );
 
+export const CovidPer100kMap = Template.bind({});
+CovidPer100kMap.args = {
+  metricConfig: METRIC_CONFIG["covid"][0].metrics["per100k"],
+  currentBreakdown: "all",
+  legend: "individual",
+  scaleType: "quantile",
+};
+
 export const CovidPercentShareMap = Template.bind({});
 CovidPercentShareMap.args = {
   metricConfig: METRIC_CONFIG["covid"][0].metrics["pct_share"],
   currentBreakdown: "all",
+  legend: "individual",
+  scaleType: "quantile",
 };
 
 export const CopdPer100kMap = Template.bind({});
 CopdPer100kMap.args = {
   metricConfig: METRIC_CONFIG["copd"][0].metrics["per100k"],
   currentBreakdown: "all",
+  legend: "individual",
+  scaleType: "quantile",
 };

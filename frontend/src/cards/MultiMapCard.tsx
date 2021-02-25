@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { ChoroplethMap } from "../charts/ChoroplethMap";
+import { ChoroplethMap, ScaleType } from "../charts/ChoroplethMap";
+import { Legend } from "../charts/Legend";
 import { Fips } from "../data/utils/Fips";
 import styles from "./Card.module.scss";
 import MapBreadcrumbs from "./MapBreadcrumbs";
@@ -28,13 +29,16 @@ const POSSIBLE_BREAKDOWNS: BreakdownVar[] = [
   "sex",
 ];
 
+type LegendOptions = "individual" | "standard_one" | "standard_multi";
+
 export interface MultiMapCardProps {
   key?: string;
   fips: Fips;
   metricConfig: MetricConfig;
   updateFipsCallback: (fips: Fips) => void;
   currentBreakdown: BreakdownVar | "all";
-  useSameLegend: boolean;
+  legend: LegendOptions;
+  scaleType: ScaleType;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when the props change and the state needs to be reset) rather than relying on the card caller.
@@ -136,6 +140,14 @@ function MultiMapCardWithKey(props: MultiMapCardProps) {
               {!queryResponse.dataIsMissing() && filteredData.length === 0 && (
                 <Alert severity="warning">No data available</Alert>
               )}
+              {props.legend === "standard_one" && (
+                <Legend
+                  metric={props.metricConfig}
+                  legendTitle={props.metricConfig.fullCardTitleName}
+                  legendData={filteredData}
+                  scaleType={props.scaleType}
+                />
+              )}
               <Grid container>
                 {breakdownValues.map((breakdownValue) => {
                   const dataForValue = filteredData.filter(
@@ -146,29 +158,36 @@ function MultiMapCardWithKey(props: MultiMapCardProps) {
                   console.log("kkz-dataForValue", dataForValue);
                   return (
                     <Grid item style={{ height: "300px", width: "300px" }}>
-                      <b>breakdown: {breakdownValue}</b>
-
+                      <b>{breakdownValue}</b>
                       {props.metricConfig && (
                         <ChoroplethMap
                           key={breakdownValue}
                           signalListeners={signalListeners}
                           metric={props.metricConfig}
                           legendTitle={props.metricConfig.fullCardTitleName}
+                          legendData={
+                            props.legend === "individual"
+                              ? dataForValue
+                              : filteredData
+                          }
                           data={dataForValue}
                           hideLegend={
+                            props.legend === "standard_one" ||
                             queryResponse.dataIsMissing() ||
                             dataForValue.length === 0
                           }
                           showCounties={props.fips.isUsa() ? false : true}
                           fips={props.fips}
                           fieldRange={
-                            props.useSameLegend
+                            props.legend === "standard_one" ||
+                            props.legend === "standard_multi"
                               ? queryResponse.getFieldRange(
                                   props.metricConfig.metricId
                                 )
                               : undefined
                           }
-                          hideActions={true}
+                          hideActions={false}
+                          scaleType={props.scaleType}
                         />
                       )}
                     </Grid>
