@@ -28,25 +28,57 @@ const Template: Story<MultiMapCardProps> = (args) => (
   <MultiMapCardStateful {...args} />
 );
 
-export const CovidPer100kMap = Template.bind({});
-CovidPer100kMap.args = {
+export const CovidCases = Template.bind({});
+CovidCases.args = {
+  metricConfig: METRIC_CONFIG["covid"][0].metrics["count"],
+  currentBreakdown: "all",
+  legend: "individual",
+  scaleType: "quantile",
+};
+
+export const CovidPer100k = Template.bind({});
+CovidPer100k.args = {
   metricConfig: METRIC_CONFIG["covid"][0].metrics["per100k"],
   currentBreakdown: "all",
   legend: "individual",
   scaleType: "quantile",
 };
 
-export const CovidPercentShareMap = Template.bind({});
-CovidPercentShareMap.args = {
+export const CovidPercentShare = Template.bind({});
+CovidPercentShare.args = {
   metricConfig: METRIC_CONFIG["covid"][0].metrics["pct_share"],
   currentBreakdown: "all",
   legend: "individual",
   scaleType: "quantile",
 };
 
-export const CopdPer100kMap = Template.bind({});
-CopdPer100kMap.args = {
+export const CopdPer100k = Template.bind({});
+CopdPer100k.args = {
   metricConfig: METRIC_CONFIG["copd"][0].metrics["per100k"],
+  currentBreakdown: "all",
+  legend: "individual",
+  scaleType: "quantile",
+};
+
+export const CopdCount = Template.bind({});
+CopdCount.args = {
+  metricConfig: METRIC_CONFIG["copd"][0].metrics["count"],
+  currentBreakdown: "all",
+  legend: "individual",
+  scaleType: "quantile",
+};
+
+export const DiabetesPer100k = Template.bind({});
+DiabetesPer100k.args = {
+  metricConfig: METRIC_CONFIG["diabetes"][0].metrics["per100k"],
+  currentBreakdown: "all",
+  legend: "individual",
+  scaleType: "quantile",
+};
+
+export const DiabetesCount = Template.bind({});
+DiabetesCount.args = {
+  metricConfig: METRIC_CONFIG["diabetes"][0].metrics["count"],
   currentBreakdown: "all",
   legend: "individual",
   scaleType: "quantile",
