@@ -178,8 +178,6 @@ def format_params(prefixes, suffixes, is_county=False):
 
     return {'for': 'county' if is_county else 'state', "get": vars}
 
-
-
 class AcsHealhInsuranceIngestor:
 
     # Initialize variables in class instance, also merge all metadata so that lookup of the
