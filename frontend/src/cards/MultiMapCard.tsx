@@ -168,6 +168,7 @@ function MultiMapCardWithKey(props: MultiMapCardProps) {
                                 )
                               : undefined
                           }
+                          hideActions={true}
                         />
                       )}
                     </Grid>

@@ -31,6 +31,7 @@ export interface ChoroplethMapProps {
   hideLegend?: boolean;
   fieldRange?: FieldRange;
   showCounties: boolean;
+  hideActions?: boolean;
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
@@ -108,8 +109,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
-      description:
-        "A choropleth map depicting U.S. diabetesloyment temp_maxs by county in 2009.",
+      description: "A choropleth map.",
       data: [
         {
           name: VAR_DATASET,
@@ -231,7 +231,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         margin: "auto",
       }}
     >
-      <Vega spec={spec} width={width} signalListeners={props.signalListeners} />
+      <Vega
+        spec={spec}
+        width={width}
+        actions={!props.hideActions}
+        signalListeners={props.signalListeners}
+      />
     </div>
   );
 }
