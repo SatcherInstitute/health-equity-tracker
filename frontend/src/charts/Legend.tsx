@@ -1,27 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Vega } from "react-vega";
 import { useResponsiveWidth } from "../utils/useResponsiveWidth";
-import { Fips } from "../data/utils/Fips";
 import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 import { ScaleType } from "./ChoroplethMap";
 
 type NumberFormat = "raw" | "percentage";
 
-const UNKNOWN_GREY = "#BDC1C6";
-const HEIGHT_WIDTH_RATIO = 0.5;
-const LEGEND_WIDTH = 100;
-
-const MISSING_DATASET = "MISSING_DATASET";
-const VALID_DATASET = "VALID_DATASET";
-const GEO_DATASET = "GEO_DATASET";
-const GEO_ID = "id";
 const COLOR_SCALE = "COLOR_SCALE";
 
-const VAR_DATASET = "VAR_DATASET";
 const LEGEND_DATASET = "LEGEND_DATASET";
 // TODO - consider moving standardized column names, like fips, to variables shared between here and VariableProvider
-const VAR_FIPS = "fips";
 
 export interface Legend {
   legendData?: Record<string, any>[]; // Dataset for which to calculate legend
@@ -84,7 +73,16 @@ export function Legend(props: Legend) {
       scales: [colorScale],
       legends: legendList,
     });
-  }, [width, props.metric, props.legendTitle, props.numberFormat, props.scaleType, props.hideLegend, props.fieldRange, props.legendData]);
+  }, [
+    width,
+    props.metric,
+    props.legendTitle,
+    props.numberFormat,
+    props.scaleType,
+    props.hideLegend,
+    props.fieldRange,
+    props.legendData,
+  ]);
 
   return (
     <div
