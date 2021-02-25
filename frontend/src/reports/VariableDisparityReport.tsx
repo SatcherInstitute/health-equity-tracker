@@ -175,8 +175,8 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                 props.updateFipsCallback(fips);
               }}
               currentBreakdown={currentBreakdown}
-              useSameLegend={false}
-              oneLegend={true}
+              legend="individual"
+              scaleType="quantile"
             />
           </Grid>
           <Grid item xs={props.vertical ? 12 : 6}>
