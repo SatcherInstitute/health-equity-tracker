@@ -21,44 +21,17 @@ class HealthInsurancePopulation:
     TOTAL = "Total"
 
 
-class Race:
-    WHITE_ALONE = "WHITE_ALONE"
-    BLACK_OR_AFRICAN_AMERICAN_ALONE = "BLACK_OR_AFRICAN_AMERICAN_ALONE"
-    AMERICAN_INDIAN_AND_ALASKA_NATIVE_ALONE = "AMERICAN_INDIAN_AND_ALASKA_NATIVE_ALONE"
-    ASIAN_ALONE = "ASIAN_ALONE"
-    NATIVE_HAWAIIAN_AND_OTHER_PACIFIC_ISLANDER_ALONE = "NATIVE_HAWAIIAN_AND_OTHER_PACIFIC_ISLANDER_ALONE"
-    SOME_OTHER_RACE_ALONE = "SOME_OTHER_RACE_ALONE"
-    TWO_OR_MORE_RACES = "TWO_OR_MORE_RACES"
-    WHITE_ALONE_NOT_HISPANIC_OR_LATINO = "WHITE_ALONE,_NOT_HISPANIC_OR_LATINO"
-    HISPANIC_OR_LATINO = "HISPANIC_OR_LATINO"
-
-    @staticmethod
-    def values():
-        return [
-            Race.WHITE_ALONE,
-            Race.BLACK_OR_AFRICAN_AMERICAN_ALONE,
-            Race.AMERICAN_INDIAN_AND_ALASKA_NATIVE_ALONE,
-            Race.ASIAN_ALONE,
-            Race.NATIVE_HAWAIIAN_AND_OTHER_PACIFIC_ISLANDER_ALONE,
-            Race.SOME_OTHER_RACE_ALONE,
-            Race.TWO_OR_MORE_RACES,
-            Race.WHITE_ALONE_NOT_HISPANIC_OR_LATINO,
-            Race.HISPANIC_OR_LATINO
-        ]
-
-    RENAME_RACE_DICT = {
-        AMERICAN_INDIAN_AND_ALASKA_NATIVE_ALONE: "American Indian and Alaska Native alone",
-        ASIAN_ALONE: "Asian alone",
-        BLACK_OR_AFRICAN_AMERICAN_ALONE: "Black or African American alone",
-        NATIVE_HAWAIIAN_AND_OTHER_PACIFIC_ISLANDER_ALONE: "Native Hawaiian and Other Pacific Islander alone",
-        SOME_OTHER_RACE_ALONE: "Some other race alone",
-        TWO_OR_MORE_RACES: "Two or more races",
-        WHITE_ALONE: "White alone"
-    }
-
-    @staticmethod
-    def rename(ACS_NAME):
-        return Race.RENAME_RACE_DICT[ACS_NAME]
+RACE = {
+    "WHITE_ALONE" : "WHITE_ALONE",
+    "BLACK_OR_AFRICAN_AMERICAN_ALONE" : "BLACK_OR_AFRICAN_AMERICAN_ALONE",
+    "AMERICAN_INDIAN_AND_ALASKA_NATIVE_ALONE" : "AMERICAN_INDIAN_AND_ALASKA_NATIVE_ALONE",
+    "ASIAN_ALONE" : "ASIAN_ALONE",
+    "NATIVE_HAWAIIAN_AND_OTHER_PACIFIC_ISLANDER_ALONE" : "NATIVE_HAWAIIAN_AND_OTHER_PACIFIC_ISLANDER_ALONE",
+    "SOME_OTHER_RACE_ALONE" : "SOME_OTHER_RACE_ALONE",
+    "TWO_OR_MORE_RACES" : "TWO_OR_MORE_RACES",
+    "WHITE_ALONE_NOT_HISPANIC_OR_LATINO" : "WHITE_ALONE,_NOT_HISPANIC_OR_LATINO",
+    "HISPANIC_OR_LATINO" : "HISPANIC_OR_LATINO"
+}
 
 
 class Sex:
@@ -89,15 +62,15 @@ def meta(sex, min_age, max_age, hi_status=HealthInsurancePopulation.TOTAL):
 # Acs variables are in the form C27001A_xxx0 C27001A_xxx2 ect
 # to determine age buckets.  The metadata variables are merged with the suffixes to form the entire metadeta.
 HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES = [
-    {"C27001A": {MetadataKey.RACE: Race.WHITE_ALONE}},
-    {"C27001B": {MetadataKey.RACE: Race.BLACK_OR_AFRICAN_AMERICAN_ALONE}},
-    {"C27001C": {MetadataKey.RACE: Race.AMERICAN_INDIAN_AND_ALASKA_NATIVE_ALONE}},
-    {"C27001D": {MetadataKey.RACE: Race.ASIAN_ALONE}},
-    {"C27001E": {MetadataKey.RACE: Race.NATIVE_HAWAIIAN_AND_OTHER_PACIFIC_ISLANDER_ALONE}},
-    {"C27001F": {MetadataKey.RACE: Race.SOME_OTHER_RACE_ALONE}},
-    {"C27001G": {MetadataKey.RACE: Race.TWO_OR_MORE_RACES}},
-    {"C27001H": {MetadataKey.RACE: Race.WHITE_ALONE_NOT_HISPANIC_OR_LATINO}},
-    {"C27001I": {MetadataKey.RACE: Race.HISPANIC_OR_LATINO}},
+    {"C27001A": {MetadataKey.RACE: RACE["WHITE_ALONE"]}},
+    {"C27001B": {MetadataKey.RACE: RACE["BLACK_OR_AFRICAN_AMERICAN_ALONE"]}},
+    {"C27001C": {MetadataKey.RACE: RACE["AMERICAN_INDIAN_AND_ALASKA_NATIVE_ALONE"]}},
+    {"C27001D": {MetadataKey.RACE: RACE["ASIAN_ALONE"]}},
+    {"C27001E": {MetadataKey.RACE: RACE["NATIVE_HAWAIIAN_AND_OTHER_PACIFIC_ISLANDER_ALONE"]}},
+    {"C27001F": {MetadataKey.RACE: RACE["SOME_OTHER_RACE_ALONE"]}},
+    {"C27001G": {MetadataKey.RACE: RACE["TWO_OR_MORE_RACES"]}},
+    {"C27001H": {MetadataKey.RACE: RACE["WHITE_ALONE_NOT_HISPANIC_OR_LATINO"]}},
+    {"C27001I": {MetadataKey.RACE: RACE["HISPANIC_OR_LATINO"]}},
 ]
 
 # Race group suffixes. See comment on Race group prefixes.
@@ -182,7 +155,7 @@ HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES = {
 }
 
 # Given the Prefix: eg.
-# {"C27001A":{MetadataKey.RACE: Race.WHITE_ALONE}}
+# {"C27001A":{MetadataKey.RACE: RACE["WHITE_ALONE"]}}
 # will combine with the provided suffixes eg.
 # {
 #   "_002E":meta(None,0, 19),
@@ -322,8 +295,8 @@ class AcsHealhInsuranceIngestor:
     # Metadata quick, without having to explicitely define each combination of metadata
     # EG:
     # Prefixes:
-    # {"C27001A":{MetadataKey.RACE: Race.WHITE_ALONE}},
-    # {"C27001B":{MetadataKey.RACE: Race.BLACK_OR_AFRICAN_AMERICAN_ALONE}}
+    # {"C27001A":{MetadataKey.RACE: RACE["WHITE_ALONE"]}},
+    # {"C27001B":{MetadataKey.RACE: RACE["BLACK_OR_AFRICAN_AMERICAN_ALONE"]}}
     # Suffixes:
     #    {"_002E":meta(None,0, 19),
     #     "_003E":meta(None,0, 19,HealthInsurancePopulation.WITH) ``}
@@ -405,7 +378,7 @@ class AcsHealhInsuranceIngestor:
     #   Get Health insurance data from either GCS or Directly, and aggregate the data in memory
     def getHealthInsuranceDataByRace(self, useGcs=False, gcs_bucket=None):
         if useGcs:
-            for race in Race.values():
+            for race in RACE:
                 # Get cached data from GCS
                 stateData = gcs_to_bq_util.load_values_as_json(
                     gcs_bucket, self.getFilename(None, race, False))
@@ -654,4 +627,4 @@ class ACSHealthInsurance(DataSource):
 # AcsHealhInsuranceIngestor(BASE_ACS_URL).write_to_bq('acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
 
 
-# AcsHealhInsuranceIngestor(BASE_ACS_URL).write_local_files_debug()
+AcsHealhInsuranceIngestor(BASE_ACS_URL).write_local_files_debug()
