@@ -22,6 +22,11 @@ export interface Field {
   readonly origin_dataset: string;
 }
 
+export interface FieldRange {
+  readonly min: number;
+  readonly max: number;
+}
+
 // TODO: make typedef for valid data types instead of any.
 export type Row = Readonly<Record<string, any>>;
 
