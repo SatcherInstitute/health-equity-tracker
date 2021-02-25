@@ -1,16 +1,16 @@
-import pandas as pd
-
-import requests
 import json
+import pandas as pd
+import requests
+
 from datasources.data_source import DataSource
 from ingestion import url_file_to_gcs, gcs_to_bq_util
-
 from ingestion.standardized_columns import (STATE_FIPS_COL, COUNTY_FIPS_COL,
                                             STATE_NAME_COL, COUNTY_NAME_COL,
                                             AGE_COL, SEX_COL,
                                             RACE_COL, WITH_HEALTH_INSURANCE_COL,
                                             WITHOUT_HEALTH_INSURANCE_COL,
                                             TOTAL_HEALTH_INSURANCE_COL)
+
 # TODO pass this in from message data.
 BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
 
@@ -628,7 +628,7 @@ class AcsHealhInsuranceIngestor:
 
 
 class ACSHealthInsurance(DataSource):
-    
+
     @staticmethod
     def get_id():
         """Returns the data source's unique id. """
