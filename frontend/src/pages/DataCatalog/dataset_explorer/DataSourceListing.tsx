@@ -56,12 +56,17 @@ function DownloadDatasetListItem(props: {
   }
 
   return (
-    <ListItem button onClick={() => download()} key={props.datasetId}>
+    <ListItem
+      className={styles.DownloadListItem}
+      button
+      onClick={() => download()}
+      key={props.datasetId}
+    >
       {downloadStatus !== "error" ? (
         <>
           <ListItemIcon>{getIcon()}</ListItemIcon>
           <ListItemText
-            className={styles.ListItem}
+            className={styles.DownloadListItemText}
             primary={props.datasetMetadata.name}
             secondary={"Last updated: " + props.datasetMetadata.update_time}
           />
