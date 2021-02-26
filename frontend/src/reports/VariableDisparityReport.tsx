@@ -63,6 +63,9 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
     }
   }
 
+  const breakdownIsShown = (breakdownVar: string) =>
+    currentBreakdown === "all" || currentBreakdown === breakdownVar;
+
   return (
     <Grid container xs={12} spacing={1} justify="center">
       {!props.hidePopulationCard && (
@@ -179,23 +182,20 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
             />
             {SUPPORTED_BREAKDOWNS.map((breakdownVar) => (
               <>
-                {(currentBreakdown === "all" ||
-                  currentBreakdown === breakdownVar) &&
-                  variableConfig.metrics["pct_share"] && (
-                    <TableCard
-                      fips={props.fips}
-                      metrics={tableFields}
-                      breakdownVar={breakdownVar}
-                    />
-                  )}
+                {breakdownIsShown(breakdownVar) && (
+                  <TableCard
+                    fips={props.fips}
+                    metrics={tableFields}
+                    breakdownVar={breakdownVar}
+                  />
+                )}
               </>
             ))}
           </Grid>
           <Grid item xs={props.vertical ? 12 : 6}>
             {SUPPORTED_BREAKDOWNS.map((breakdownVar) => (
               <>
-                {(currentBreakdown === "all" ||
-                  currentBreakdown === breakdownVar) &&
+                {breakdownIsShown(breakdownVar) &&
                   variableConfig.metrics["pct_share"] && (
                     <DisparityBarChartCard
                       metricConfig={variableConfig.metrics["pct_share"]}
@@ -203,8 +203,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                       fips={props.fips}
                     />
                   )}
-                {(currentBreakdown === "all" ||
-                  currentBreakdown === breakdownVar) &&
+                {breakdownIsShown(breakdownVar) &&
                   variableConfig.metrics["per100k"] && (
                     <SimpleBarChartCard
                       metricConfig={variableConfig.metrics["per100k"]}
