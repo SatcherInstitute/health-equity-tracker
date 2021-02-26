@@ -4,7 +4,7 @@ import styles from "./Card.module.scss";
 import Button from "@material-ui/core/Button";
 import {
   LinkWithStickyParams,
-  DATASET_PRE_FILTERS,
+  DATA_SOURCE_PRE_FILTERS,
   DATA_CATALOG_PAGE_LINK,
 } from "../utils/urlutils";
 import { CardContent } from "@material-ui/core";
@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import { WithMetadataAndMetrics } from "../data/react/WithLoadingOrErrorUI";
 import { MetricQuery, MetricQueryResponse } from "../data/query/MetricQuery";
+import { DataSourceMetadataMap } from "../data/config/MetadataMap";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import InfoIcon from "@material-ui/icons/Info";
 import Popover from "@material-ui/core/Popover";
@@ -87,21 +88,26 @@ function CardWrapper(props: {
               <CardContent className={styles.CardFooter}>
                 {consumedDatasetIds.length > 0 && <>Sources: </>}
                 {/* TODO- add commas and "and" between the data sources */}
-                {consumedDatasetIds.map((datasetId) => (
-                  <>
-                    <LinkWithStickyParams
-                      target="_blank"
-                      to={`${DATA_CATALOG_PAGE_LINK}?${DATASET_PRE_FILTERS}=${datasetId}`}
-                    >
-                      {metadata[datasetId].data_source_name}{" "}
-                    </LinkWithStickyParams>
-                    {metadata[datasetId].update_time === "unknown" ? (
-                      <>(last update unknown) </>
-                    ) : (
-                      <>(updated {metadata[datasetId].update_time}) </>
-                    )}
-                  </>
-                ))}
+                {consumedDatasetIds.map((datasetId) => {
+                  const dataSourceId = metadata[datasetId].source_id || "";
+                  const dataSourceName =
+                    DataSourceMetadataMap[dataSourceId].data_source_name;
+                  return (
+                    <>
+                      <LinkWithStickyParams
+                        target="_blank"
+                        to={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${dataSourceId}`}
+                      >
+                        {dataSourceName}{" "}
+                      </LinkWithStickyParams>
+                      {metadata[datasetId].update_time === "unknown" ? (
+                        <>(last update unknown) </>
+                      ) : (
+                        <>(updated {metadata[datasetId].update_time}) </>
+                      )}
+                    </>
+                  );
+                })}
               </CardContent>
             )}
           </Card>
