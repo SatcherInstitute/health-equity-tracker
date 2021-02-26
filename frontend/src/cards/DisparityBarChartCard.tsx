@@ -26,7 +26,8 @@ export interface DisparityBarChartCardProps {
   fips: Fips;
 }
 
-// This wrapper ensures the proper key is set to create a new instance when required rather than relying on the card caller.
+// This wrapper ensures the proper key is set to create a new instance when
+// required rather than relying on the card caller.
 export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
   return (
     <DisparityBarChartCardWithKey
@@ -42,7 +43,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     exclude(TOTAL, NON_HISPANIC)
   );
 
-  // props.metricConfig.populationComparisonMetric there
+  // Population Comparison Metric is required for the Disparity Bar Chart.
   const query = new MetricQuery(
     [
       props.metricConfig.metricId,
@@ -67,7 +68,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     );
   }
 
-  // TODO - we want to bold the breakdown name in the card title
   return (
     <CardWrapper
       queries={[query]}

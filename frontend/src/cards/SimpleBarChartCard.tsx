@@ -26,7 +26,8 @@ export interface SimpleBarChartCardProps {
   fips: Fips;
 }
 
-// This wrapper ensures the proper key is set to create a new instance when required rather than relying on the card caller.
+// This wrapper ensures the proper key is set to create a new instance when
+// required rather than relying on the card caller.
 export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
   return (
     <SimpleBarChartCardWithKey
@@ -42,7 +43,6 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     exclude(TOTAL, NON_HISPANIC)
   );
 
-  // props.metricConfig.populationComparisonMetric there
   const query = new MetricQuery([props.metricConfig.metricId], breakdowns);
 
   function CardTitle() {
@@ -61,7 +61,6 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     );
   }
 
-  // TODO - we want to bold the breakdown name in the card title
   return (
     <CardWrapper
       queries={[query]}
