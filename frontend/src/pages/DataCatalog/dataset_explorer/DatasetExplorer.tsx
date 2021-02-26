@@ -5,10 +5,7 @@ import {
 } from "./DatasetFilter";
 import DataSourceListing from "./DataSourceListing";
 import styles from "./DatasetExplorer.module.scss";
-import {
-  DataSourceMetadataMap,
-  FakeDatasetMetadataMap,
-} from "../../../data/config/MetadataMap";
+import { DataSourceMetadataMap } from "../../../data/config/MetadataMap";
 import { DataSourceMetadata } from "../../../data/utils/DatasetTypes";
 import Button from "@material-ui/core/Button";
 import { DATA_CATALOG_PAGE_LINK } from "../../../utils/urlutils";
@@ -41,9 +38,9 @@ function getFilteredSources(
   return filters.reduce(reducer, allIds);
 }
 
-function DatasetExplorer(props: { preFilterDatasetIds: string[] }) {
+function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
   const [activeFilter, setActiveFilter] = useState<Filters>({
-    [NAME_FILTER_ID]: props.preFilterDatasetIds,
+    [NAME_FILTER_ID]: props.preFilterDataSourceIds,
   });
 
   function createFilter(
@@ -80,14 +77,15 @@ function DatasetExplorer(props: { preFilterDatasetIds: string[] }) {
               DataSourceMetadataMap,
               activeFilter
             );
-            // Check if more than the default filters are enabled to see if you're viewing subset of sources
+            // Check if more than the default filters are enabled to see if you're viewing
+            // a subset of sources
             const viewingSubsetOfSources =
               Object.keys(activeFilter).length > 1 ||
               activeFilter[NAME_FILTER_ID].length > 0;
 
-            const defaultDatasetNames = props.preFilterDatasetIds
-              .filter((datasetId) => !!FakeDatasetMetadataMap[datasetId])
-              .map((datasetId) => FakeDatasetMetadataMap[datasetId].name);
+            const defaultDataSourceNames = props.preFilterDataSourceIds
+              .filter((datasetId) => !!datasetMetadata[datasetId])
+              .map((datasetId) => datasetMetadata[datasetId].name);
 
             return (
               <>
@@ -107,7 +105,7 @@ function DatasetExplorer(props: { preFilterDatasetIds: string[] }) {
                             metadata.data_source_name
                           }
                           placeholder={"Search variables..."}
-                          defaultValues={defaultDatasetNames}
+                          defaultValues={defaultDataSourceNames}
                         />
                       </div>
                     </div>

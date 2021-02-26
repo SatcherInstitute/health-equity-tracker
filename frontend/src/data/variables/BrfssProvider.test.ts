@@ -1,7 +1,7 @@
 import BrfssProvider from "./BrfssProvider";
 import { Breakdowns } from "../query/Breakdowns";
 import { Fips } from "../utils/Fips";
-import { FakeDatasetMetadataMap } from "../config/MetadataMap";
+import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
 import {
   autoInitGlobals,
   getDataFetcher,

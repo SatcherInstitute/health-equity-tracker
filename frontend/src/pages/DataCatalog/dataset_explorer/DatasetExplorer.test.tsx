@@ -19,7 +19,7 @@ test("DatasetExplorer renders all data sources", async () => {
   const dataFetcher = getDataFetcher() as FakeDataFetcher;
 
   const { queryByText, findByTestId } = render(
-    <DatasetExplorer preFilterDatasetIds={[]} />
+    <DatasetExplorer preFilterDataSourceIds={[]} />
   );
   act(() => {
     dataFetcher.setFakeMetadataLoaded({
@@ -39,7 +39,7 @@ test("DatasetExplorer renders subset of data sources", async () => {
   const dataFetcher = getDataFetcher() as FakeDataFetcher;
 
   const { findByText, findByTestId, queryByTestId } = render(
-    <DatasetExplorer preFilterDatasetIds={["acs"]} />
+    <DatasetExplorer preFilterDataSourceIds={["acs"]} />
   );
   act(() => {
     dataFetcher.setFakeMetadataLoaded({

@@ -4,6 +4,7 @@ import {
   MapOfDatasetMetadata,
   DatasetMetadata,
 } from "../../../data/utils/DatasetTypes";
+import { getLogger } from "../../../utils/globals";
 import styles from "./DataSourceListing.module.scss";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -24,7 +25,7 @@ import GetAppIcon from "@material-ui/icons/GetApp";
 import { IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 
-export type LoadStatus = "loading" | "unloaded" | "error" | "loaded";
+type LoadStatus = "loading" | "unloaded" | "error" | "loaded";
 
 function DownloadDatasetListItem(props: {
   datasetId: string;
@@ -46,12 +47,18 @@ function DownloadDatasetListItem(props: {
         return <CircularProgress className={styles.DownloadIcon} />;
       case "loaded":
         return <CheckCircleIcon />;
-      default:
+      case "error":
         return "";
     }
   };
 
   if (props.datasetMetadata === undefined) {
+    getLogger().logError(
+      new Error(
+        "Dataset metdata was missing for dataset with ID: " + props.datasetId
+      ),
+      "ERROR"
+    );
     return <></>;
   }
 

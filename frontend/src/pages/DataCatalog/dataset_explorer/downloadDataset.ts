@@ -14,6 +14,7 @@ function download(filename: string, content: string) {
   document.body.removeChild(element);
 }
 
+// Returns true if the dataset downloads successfully and otherwise false
 async function downloadDataset(datasetId: string) {
   try {
     const dataset = await getDataManager().loadDataset(datasetId);

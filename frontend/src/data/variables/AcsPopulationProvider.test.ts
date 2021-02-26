@@ -11,7 +11,7 @@ import {
   MetricQueryResponse,
 } from "../query/MetricQuery";
 import { Fips } from "../utils/Fips";
-import { FakeDatasetMetadataMap } from "../config/MetadataMap";
+import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import {
   createWithAndWithoutTotalEvaluator,

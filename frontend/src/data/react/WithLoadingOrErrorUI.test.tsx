@@ -4,7 +4,7 @@ import { DatasetMetadata, Row } from "../utils/DatasetTypes";
 import { act } from "react-dom/test-utils";
 import { MetricQuery } from "../query/MetricQuery";
 import { Breakdowns } from "../query/Breakdowns";
-import { FakeDatasetMetadataMap } from "../config/MetadataMap";
+import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
 import { WithMetrics } from "./WithLoadingOrErrorUI";
 import {
   autoInitGlobals,

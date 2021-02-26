@@ -3,7 +3,7 @@
 // establish the API types.
 
 import { MapOfDatasetMetadata, Row } from "../utils/DatasetTypes";
-import { FakeDatasetMetadataMap } from "../config/MetadataMap";
+import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
 import { Environment } from "../../utils/Environment";
 import { DataFrame } from "data-forge";
 

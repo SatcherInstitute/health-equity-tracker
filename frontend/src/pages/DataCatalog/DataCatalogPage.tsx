@@ -16,7 +16,7 @@ function DataCatalogPage() {
   }, []);
   return (
     <React.Fragment>
-      <DatasetExplorer preFilterDatasetIds={datasets} />
+      <DatasetExplorer preFilterDataSourceIds={datasets} />
     </React.Fragment>
   );
 }

@@ -12,10 +12,8 @@ import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import { WithMetadataAndMetrics } from "../data/react/WithLoadingOrErrorUI";
 import { MetricQuery, MetricQueryResponse } from "../data/query/MetricQuery";
-import {
-  DataSourceMetadataMap,
-  FakeDatasetMetadataMap,
-} from "../data/config/MetadataMap";
+import { DataSourceMetadataMap } from "../data/config/MetadataMap";
+import { FakeDatasetMetadataMap } from "../data/config/FakeDatasetMetadata";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import InfoIcon from "@material-ui/icons/Info";
 import Popover from "@material-ui/core/Popover";
