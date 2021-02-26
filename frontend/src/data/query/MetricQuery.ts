@@ -74,12 +74,15 @@ export class MetricQueryResponse {
       return undefined;
     }
     return {
-      min: Math.min.apply(Math, fieldValues),
-      max: Math.max.apply(Math, fieldValues),
+      min: Math.min(...fieldValues),
+      max: Math.max(...fieldValues),
     };
   }
 
   getUniqueFieldValues(fieldName: string): string[] {
+    if (this.isFieldMissing(fieldName)) {
+      return [];
+    }
     const set = new Set<string>();
     this.data.forEach((row) => {
       set.add(row[fieldName]);
