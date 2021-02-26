@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import TextField from "@material-ui/core/TextField";
@@ -31,6 +31,12 @@ function OptionsSelector(props: {
     currentDisplayName = chosenOption ? chosenOption[1] : "";
   }
 
+  const [textBoxValue, setTextBoxValue] = useState("");
+  const updateTextBox = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("updateTextBox");
+    setTextBoxValue(event.target.value);
+  };
+
   return (
     <>
       <Button
@@ -59,7 +65,8 @@ function OptionsSelector(props: {
             <span className={styles.SearchForText}>Search for location</span>
             <Autocomplete
               disableClearable={true}
-              options={props.options as Fips[]}
+              noOptionsText="Begin typing to view options"
+              options={textBoxValue.length < 3 ? [] : (props.options as Fips[])}
               clearOnEscape={true}
               getOptionLabel={(fips) => fips.getFullDisplayName()}
               getOptionSelected={(fips) => fips.code === props.value}
@@ -69,6 +76,7 @@ function OptionsSelector(props: {
                   placeholder="County, State, Territory, or United States" // TODO- update depending on what options are
                   margin="dense"
                   variant="outlined"
+                  onChange={updateTextBox}
                   {...params}
                 />
               )}
