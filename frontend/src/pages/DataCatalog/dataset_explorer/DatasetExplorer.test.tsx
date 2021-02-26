@@ -6,44 +6,51 @@ import { DatasetMetadata } from "../../../data/utils/DatasetTypes";
 import { autoInitGlobals, getDataFetcher } from "../../../utils/globals";
 import FakeDataFetcher from "../../../testing/FakeDataFetcher";
 
-const STATE_NAMES_DATASET_METADATA: DatasetMetadata = {
-  id: "state_names",
-  name: "State Names",
-  description: "List of states and their FIPS codes.",
-  geographic_level: "geographic_level",
-  demographic_granularity: "demographic_granularity",
-  data_source_name: "data_source_name",
-  data_source_link: "data_source_link",
+const ACS_DATASET_METADATA: DatasetMetadata = {
+  id: "acs_population-by_age_county",
+  name: "ACS Population by Age and County",
   update_time: "update_time",
-  update_frequency: "update_frequency",
   fields: [],
 };
 
 autoInitGlobals();
 
-const dataFetcher = getDataFetcher() as FakeDataFetcher;
+test("DatasetExplorer renders all data sources", async () => {
+  const dataFetcher = getDataFetcher() as FakeDataFetcher;
 
-describe("DatasetExplorer", () => {
-  beforeEach(() => {
-    dataFetcher.resetState();
-  });
-
-  afterEach(() => {
-    dataFetcher.resetState();
-  });
-
-  test("renders dataset metadata retrieved from DataFetcher", async () => {
-    const { findByText } = render(<DatasetExplorer preFilterDatasetIds={[]} />);
-    act(() => {
-      dataFetcher.setFakeMetadataLoaded({
-        state_names: STATE_NAMES_DATASET_METADATA,
-      });
+  const { queryByText, findByTestId } = render(
+    <DatasetExplorer preFilterDataSourceIds={[]} />
+  );
+  act(() => {
+    dataFetcher.setFakeMetadataLoaded({
+      state_names: ACS_DATASET_METADATA,
     });
-
-    expect(dataFetcher.getNumGetMetdataCalls()).toBe(1);
-    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(0);
-    expect(
-      await findByText(STATE_NAMES_DATASET_METADATA.description)
-    ).toBeInTheDocument();
   });
+
+  expect(dataFetcher.getNumGetMetdataCalls()).toBe(1);
+  expect(dataFetcher.getNumLoadDatasetCalls()).toBe(0);
+  expect(await queryByText("View All Datasets")).not.toBeInTheDocument();
+  expect(await findByTestId("acs")).toBeInTheDocument();
+  expect(await findByTestId("brfss")).toBeInTheDocument();
+  expect(await findByTestId("covid_tracking_project")).toBeInTheDocument();
+});
+
+test("DatasetExplorer renders subset of data sources", async () => {
+  const dataFetcher = getDataFetcher() as FakeDataFetcher;
+
+  const { findByText, findByTestId, queryByTestId } = render(
+    <DatasetExplorer preFilterDataSourceIds={["acs"]} />
+  );
+  act(() => {
+    dataFetcher.setFakeMetadataLoaded({
+      state_names: ACS_DATASET_METADATA,
+    });
+  });
+
+  expect(dataFetcher.getNumGetMetdataCalls()).toBe(1);
+  expect(dataFetcher.getNumLoadDatasetCalls()).toBe(0);
+  expect(await findByText("View All Datasets")).toBeInTheDocument();
+  expect(await findByTestId("acs")).toBeInTheDocument();
+  expect(await queryByTestId("brfss")).not.toBeInTheDocument();
+  expect(await queryByTestId("covid_tracking_project")).not.toBeInTheDocument();
 });
