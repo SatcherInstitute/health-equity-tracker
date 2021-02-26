@@ -13,7 +13,6 @@ import Divider from "@material-ui/core/Divider";
 import { WithMetadataAndMetrics } from "../data/react/WithLoadingOrErrorUI";
 import { MetricQuery, MetricQueryResponse } from "../data/query/MetricQuery";
 import { DataSourceMetadataMap } from "../data/config/MetadataMap";
-import { FakeDatasetMetadataMap } from "../data/config/FakeDatasetMetadata";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import InfoIcon from "@material-ui/icons/Info";
 import Popover from "@material-ui/core/Popover";
@@ -90,8 +89,7 @@ function CardWrapper(props: {
                 {consumedDatasetIds.length > 0 && <>Sources: </>}
                 {/* TODO- add commas and "and" between the data sources */}
                 {consumedDatasetIds.map((datasetId) => {
-                  const dataSourceId =
-                    FakeDatasetMetadataMap[datasetId].source_id || "";
+                  const dataSourceId = metadata[datasetId].source_id || "";
                   const dataSourceName =
                     DataSourceMetadataMap[dataSourceId].data_source_name;
                   return (
