@@ -1,5 +1,5 @@
 import { Breakdowns } from "./Breakdowns";
-import { Row } from "../utils/DatasetTypes";
+import { Row, FieldRange } from "../utils/DatasetTypes";
 import { MetricId } from "../config/MetricConfig";
 
 export class MetricQuery {
@@ -51,7 +51,7 @@ export class MetricQueryResponse {
     this.data = dataRows;
     this.consumedDatasetIds = consumedDatasetIds;
     this.invalidValues = getInvalidValues(this.data);
-    this.missingDataMessage = missingDataMessage; // possibily undefined
+    this.missingDataMessage = missingDataMessage; // possibly undefined
     if (this.missingDataMessage === undefined && this.data.length <= 0) {
       this.missingDataMessage = "No rows returned";
     }
@@ -63,6 +63,20 @@ export class MetricQueryResponse {
 
   isFieldMissing(fieldName: string): boolean {
     return this.invalidValues[fieldName] === this.data.length;
+  }
+
+  // Calculate numerical range for a field or return undefined if not applicable
+  getFieldRange(fieldName: string): FieldRange | undefined {
+    const fieldValues = this.data
+      .filter((row) => !isNaN(row[fieldName]))
+      .map((row) => row[fieldName]);
+    if (fieldValues.length === 0) {
+      return undefined;
+    }
+    return {
+      min: Math.min(...fieldValues),
+      max: Math.max(...fieldValues),
+    };
   }
 
   getUniqueFieldValues(fieldName: string): string[] {
