@@ -1,7 +1,7 @@
 import BrfssProvider from "./BrfssProvider";
 import { Breakdowns } from "../query/Breakdowns";
 import { Fips } from "../utils/Fips";
-import FakeMetadataMap from "../config/FakeMetadataMap";
+import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
 import {
   autoInitGlobals,
   getDataFetcher,
@@ -67,7 +67,7 @@ describe("BrfssProvider", () => {
   beforeEach(() => {
     resetCacheDebug();
     dataFetcher.resetState();
-    dataFetcher.setFakeMetadataLoaded(FakeMetadataMap);
+    dataFetcher.setFakeMetadataLoaded(FakeDatasetMetadataMap);
   });
 
   test("State and Race Breakdown", async () => {
