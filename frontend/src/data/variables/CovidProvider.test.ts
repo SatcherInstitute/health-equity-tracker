@@ -3,7 +3,7 @@ import AcsPopulationProvider from "./AcsPopulationProvider";
 import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { Fips } from "../utils/Fips";
-import FakeMetadataMap from "../config/FakeMetadataMap";
+import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
 import {
   autoInitGlobals,
   getDataFetcher,
@@ -120,7 +120,7 @@ describe("CovidProvider", () => {
   beforeEach(() => {
     resetCacheDebug();
     dataFetcher.resetState();
-    dataFetcher.setFakeMetadataLoaded(FakeMetadataMap);
+    dataFetcher.setFakeMetadataLoaded(FakeDatasetMetadataMap);
   });
 
   test("County and Race Breakdown", async () => {
