@@ -1,4 +1,4 @@
-import { MetadataMap, Dataset } from "../utils/DatasetTypes";
+import { MapOfDatasetMetadata, Dataset } from "../utils/DatasetTypes";
 import { joinOnCols } from "../utils/datasetutils";
 import { DataFrame, IDataFrame } from "data-forge";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
@@ -138,12 +138,12 @@ export abstract class ResourceCache<K, R> {
   protected abstract getResourceSize(resource: R, id: string): number;
 }
 
-export class MetadataCache extends ResourceCache<string, MetadataMap> {
+export class MetadataCache extends ResourceCache<string, MapOfDatasetMetadata> {
   static METADATA_KEY = "all_metadata";
 
   protected async loadResourceInternal(
     metadataId: string
-  ): Promise<MetadataMap> {
+  ): Promise<MapOfDatasetMetadata> {
     if (metadataId !== MetadataCache.METADATA_KEY) {
       throw new Error("Invalid metadata id");
     }
@@ -158,7 +158,7 @@ export class MetadataCache extends ResourceCache<string, MetadataMap> {
    * Since there's only one metadata entry this doesn't really matter - we just
    * use a constant factor per entry.
    */
-  getResourceSize(resource: MetadataMap, id: string): number {
+  getResourceSize(resource: MapOfDatasetMetadata, id: string): number {
     return 1;
   }
 }
@@ -287,7 +287,7 @@ export default class DataManager {
     return await this.metricQueryCache.loadResource(query);
   }
 
-  async loadMetadata(): Promise<MetadataMap> {
+  async loadMetadata(): Promise<MapOfDatasetMetadata> {
     return await this.metadataCache.loadResource(MetadataCache.METADATA_KEY);
   }
 

@@ -17,7 +17,7 @@
   line-height: 20px;
 }
 
-.DatasetListing {
+.DataSourceListing {
   padding: 20px;
   padding-bottom: 10px;
 }
@@ -56,4 +56,18 @@
   td {
     padding-right: 15px;
   }
+}
+
+.DownloadListItem {
+  padding-right: 24px !important;
+  padding-left: 24px !important;
+}
+
+.DownloadListItemText {
+  line-height: 24px;
+}
+
+.DownloadIcon {
+  height: 24px !important;
+  width: 24px !important;
 }
