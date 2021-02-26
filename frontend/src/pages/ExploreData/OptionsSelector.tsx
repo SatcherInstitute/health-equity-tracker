@@ -93,6 +93,7 @@ function OptionsSelector(props: {
               )}
               onChange={(e, fips) => {
                 props.onOptionUpdate(fips.code);
+                setTextBoxValue("");
                 popover.close();
               }}
             />
