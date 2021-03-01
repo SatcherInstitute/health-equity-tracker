@@ -42,7 +42,7 @@ class CdcRestrictedData(DataSource):
             for col in str_cols:
                 if col in column_types:
                     column_types[col] = 'STRING'
-            
+
             # Clean up column names.
             self.clean_frame_column_names(df)
 

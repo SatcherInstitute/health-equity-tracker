@@ -1,3 +1,12 @@
+import ingestion.standardized_columns as std_col
+import numpy as np
+import os
+import pandas as pd
+pd.options.mode.chained_assignment = None  # default='warn'
+import sys
+import time
+
+
 """
 This program is intended to be run locally by someone who has access to the CDC
 restricted public surveillance data and has downloaded the latest version of
@@ -8,15 +17,6 @@ performs aggregation and standardization, and outputs the resulting CSV to the
 same path that was input. The resulting CSVs are intended to be uploaded to the
 manual-uploads GCS bucket for consumption by the ingestion pipeline.
 """
-
-import ingestion.standardized_columns as std_col
-import numpy as np
-import os
-import pandas as pd
-pd.options.mode.chained_assignment = None  # default='warn'
-import sys
-import time
-
 
 # These are the columns that we want to keep from the data. We split them out
 # by geo columns (we always break down by these), race/sex/age columns (we
@@ -30,12 +30,12 @@ OUTCOME_COLS = ['hosp_yn', 'death_yn']
 
 # Mapping from column name in the data to standardized version.
 COL_NAME_MAPPING = {
-    GEO_COLS[0] : std_col.COUNTY_FIPS_COL,
-    GEO_COLS[1] : std_col.COUNTY_NAME_COL,
-    GEO_COLS[2] : std_col.STATE_NAME_COL,
-    RACE_COL : std_col.RACE_OR_HISPANIC_COL,
-    SEX_COL : std_col.SEX_COL,
-    AGE_COL : std_col.AGE_COL,
+    GEO_COLS[0]: std_col.COUNTY_FIPS_COL,
+    GEO_COLS[1]: std_col.COUNTY_NAME_COL,
+    GEO_COLS[2]: std_col.STATE_NAME_COL,
+    RACE_COL: std_col.RACE_OR_HISPANIC_COL,
+    SEX_COL: std_col.SEX_COL,
+    AGE_COL: std_col.AGE_COL,
 }
 
 # Mappings for race & age values in the data to their standardized forms.
@@ -94,7 +94,7 @@ def accumulate_data(df, groupby_cols, overall_df, breakdown_col=None,
     df[std_col.COVID_DEATH_Y] = (df['death_yn'] == 'Yes')
     df[std_col.COVID_DEATH_N] = (df['death_yn'] == 'No')
     df[std_col.COVID_DEATH_UNKNOWN] = ((df['death_yn'] == 'Unknown') |
-                                      (df['death_yn'] == 'Missing'))
+                                       (df['death_yn'] == 'Missing'))
 
     assert (df[std_col.COVID_HOSP_Y] | df[std_col.COVID_HOSP_N] |
             df[std_col.COVID_HOSP_UNKNOWN]).all()
@@ -107,7 +107,7 @@ def accumulate_data(df, groupby_cols, overall_df, breakdown_col=None,
     # If given, standardize the values in breakdown_col using values_mapping.
     if breakdown_col is not None:
         df = df.replace({breakdown_col: values_mapping})
-    
+
     # Group by the desired columns and compute the sum/counts of
     # cases/hospitalizations/deaths. Add this df to overall_df.
     df = df.groupby(groupby_cols).sum().reset_index()
@@ -161,7 +161,7 @@ def main():
     print("Matching files: ")
     for f in matching_files:
         print(f)
-    
+
     # Go through the CSV files, chunking each and grouping by columns we want.
     race_df = pd.DataFrame()
     sex_df = pd.DataFrame()
@@ -173,20 +173,19 @@ def main():
         for chunk in chunked_frame:
             # For each of {race, sex, age}, we slice the data to focus on that
             # breakdown, and then aggregate by geo + that breakdown.
-
             df = chunk[GEO_COLS + OUTCOME_COLS + [RACE_COL]]
             race_df = accumulate_data(df, GEO_COLS + [RACE_COL], race_df,
-                RACE_COL, RACE_VALUES_MAPPING)
+                                      RACE_COL, RACE_VALUES_MAPPING)
 
             df = chunk[GEO_COLS + OUTCOME_COLS + [SEX_COL]]
             sex_df = accumulate_data(df, GEO_COLS + [SEX_COL], sex_df)
 
             df = chunk[GEO_COLS + OUTCOME_COLS + [AGE_COL]]
             age_df = accumulate_data(df, GEO_COLS + [AGE_COL], age_df, AGE_COL,
-                AGE_VALUES_MAPPING)
+                                     AGE_VALUES_MAPPING)
         end = time.time()
         print("Took", round(end - start, 2), "seconds to process file", f)
-    
+
     # Some brief sanity checks to make sure the data is OK.
     sanity_check_data(race_df)
     sanity_check_data(sex_df)

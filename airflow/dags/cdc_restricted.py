@@ -17,7 +17,7 @@ data_ingestion_dag = DAG(
     default_args=default_args,
     description='Ingestion configuration for CDC Restricted Data')
 
-# Standardize the CDC restricted data 
+# Standardize the CDC restricted data
 cdc_bq_payload = util.generate_bq_payload(
     _CDC_RESTRICTED_WORKFLOW_ID,
     _CDC_RESTRICTED_DATASET,
