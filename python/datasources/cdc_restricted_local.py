@@ -68,35 +68,45 @@ AGE_VALUES_MAPPING = {
 }
 
 
-def accumulate_data(df, groupby_cols, overall_df):
-    """Converts/adds columns for num_cases, hospitalizations, deaths. Groups
-    by given groupby_cols and aggregates. Returns aggregated df + overall_df.
+def accumulate_data(df, groupby_cols, overall_df, breakdown_col=None,
+                    values_mapping=None):
+    """Converts/adds columns for cases, hospitalizations, deaths. Does some
+    basic standardization of dataframe elements. Groups by given groupby_cols
+    and aggregates. Returns sum of the aggregated df & overall_df.
 
     df: Pandas dataframe that contains a chunk of all of the raw data.
     groupby_cols: List of columns we want to groupby / breakdown on.
     overall_df: Pandas dataframe to add our aggregated data to.
+    breakdown_col: Name of the breakdown column to standardize.
+    values_mapping: Mapping from breakdown value to standardized form.
     """
-    # Add a columns of all ones, for counting num_cases for a breakdown.
-    df['num_cases'] = np.ones(df.shape[0], dtype=int)
+    # Add a columns of all ones, for counting the # of cases for a breakdown.
+    df[std_col.COVID_CASES] = np.ones(df.shape[0], dtype=int)
 
     # Add columns for hospitalization yes/no/unknown and death yes/no/unknown,
     # as we aggregate and count these individually. Do a sanity check that we
     # covered all the data and drop the original hospitalization/death columns.
-    df['hosp_y'] = (df['hosp_yn'] == 'Yes')
-    df['hosp_n'] = (df['hosp_yn'] == 'No')
-    df['hosp_unknown'] = ((df['hosp_yn'] == 'Unknown') |
-                            (df['hosp_yn'] == 'Missing') |
-                            (df['hosp_yn'] == 'OTH'))
-    df['death_y'] = (df['death_yn'] == 'Yes')
-    df['death_n'] = (df['death_yn'] == 'No')
-    df['death_unknown'] = ((df['death_yn'] == 'Unknown') |
-                            (df['death_yn'] == 'Missing'))
+    df[std_col.COVID_HOSP_Y] = (df['hosp_yn'] == 'Yes')
+    df[std_col.COVID_HOSP_N] = (df['hosp_yn'] == 'No')
+    df[std_col.COVID_HOSP_UNKNOWN] = ((df['hosp_yn'] == 'Unknown') |
+                                      (df['hosp_yn'] == 'Missing') |
+                                      (df['hosp_yn'] == 'OTH'))
+    df[std_col.COVID_DEATH_Y] = (df['death_yn'] == 'Yes')
+    df[std_col.COVID_DEATH_N] = (df['death_yn'] == 'No')
+    df[std_col.COVID_DEATH_UNKNOWN] = ((df['death_yn'] == 'Unknown') |
+                                      (df['death_yn'] == 'Missing'))
 
-    assert (df['hosp_y'] | df['hosp_n'] | df['hosp_unknown']).all()
-    assert (df['death_y'] | df['death_n'] | df['death_unknown']).all()
+    assert (df[std_col.COVID_HOSP_Y] | df[std_col.COVID_HOSP_N] |
+            df[std_col.COVID_HOSP_UNKNOWN]).all()
+    assert (df[std_col.COVID_DEATH_Y] | df[std_col.COVID_DEATH_N] |
+            df[std_col.COVID_DEATH_UNKNOWN]).all()
 
     df = df.drop(columns='hosp_yn')
     df = df.drop(columns='death_yn')
+
+    # If given, standardize the values in breakdown_col using values_mapping.
+    if breakdown_col is not None:
+        df = df.replace({breakdown_col: values_mapping})
     
     # Group by the desired columns and compute the sum/counts of
     # cases/hospitalizations/deaths. Add this df to overall_df.
@@ -109,28 +119,22 @@ def accumulate_data(df, groupby_cols, overall_df):
 
 def sanity_check_data(df):
     # Perform some simple sanity checks that we are covering all the data.
-    cases = df['num_cases']
-    assert cases.equals(df['hosp_y'] + df['hosp_n'] + df['hosp_unknown'])
-    assert cases.equals(df['death_y'] + df['death_n'] + df['death_unknown'])
+    cases = df[std_col.COVID_CASES]
+    assert cases.equals(df[std_col.COVID_HOSP_Y] + df[std_col.COVID_HOSP_N] +
+                        df[std_col.COVID_HOSP_UNKNOWN])
+    assert cases.equals(df[std_col.COVID_DEATH_Y] + df[std_col.COVID_DEATH_N] +
+                        df[std_col.COVID_DEATH_UNKNOWN])
 
 
-def standardize_data(df, col_names_mapping, breakdown_col=None,
-                     values_mapping=None):
-    """Standardizes the data by cleaning string values, standardizing values if
-    needed, and standardizing column names.
+def standardize_data(df):
+    """Standardizes the data by cleaning string values and standardizing column
+    names.
 
     df: Pandas dataframe to standardize.
-    col_names_mapping: Mapping from column name to standardized form.
-    breakdown_col: Name of the breakdown column to standardize.
-    values_mapping: Mapping from breakdown value to standardized form.
     """
     # Clean string values in the dataframe.
     df = df.applymap(
         lambda x: x.replace('"', '').strip() if isinstance(x, str) else x)
-    
-    # If given, standardize the values in breakdown_col using values_mapping.
-    if breakdown_col is not None:
-        df = df.replace({breakdown_col: values_mapping})
 
     # Standardize column names.
     return df.rename(columns=COL_NAME_MAPPING)
@@ -171,13 +175,15 @@ def main():
             # breakdown, and then aggregate by geo + that breakdown.
 
             df = chunk[GEO_COLS + OUTCOME_COLS + [RACE_COL]]
-            race_df = accumulate_data(df, GEO_COLS + [RACE_COL], race_df)
+            race_df = accumulate_data(df, GEO_COLS + [RACE_COL], race_df,
+                RACE_COL, RACE_VALUES_MAPPING)
 
             df = chunk[GEO_COLS + OUTCOME_COLS + [SEX_COL]]
             sex_df = accumulate_data(df, GEO_COLS + [SEX_COL], sex_df)
 
             df = chunk[GEO_COLS + OUTCOME_COLS + [AGE_COL]]
-            age_df = accumulate_data(df, GEO_COLS + [AGE_COL], age_df)
+            age_df = accumulate_data(df, GEO_COLS + [AGE_COL], age_df, AGE_COL,
+                AGE_VALUES_MAPPING)
         end = time.time()
         print("Took", round(end - start, 2), "seconds to process file", f)
     
@@ -194,16 +200,17 @@ def main():
     age_df = age_df.astype(int).reset_index()
 
     # Standardize the column names and race/age/sex values.
-    race_df = standardize_data(
-        race_df, COL_NAME_MAPPING, RACE_COL, RACE_VALUES_MAPPING)
-    sex_df = standardize_data(sex_df, COL_NAME_MAPPING)
-    age_df = standardize_data(
-        age_df, COL_NAME_MAPPING, AGE_COL, AGE_VALUES_MAPPING)
+    race_df = standardize_data(race_df)
+    sex_df = standardize_data(sex_df)
+    age_df = standardize_data(age_df)
 
     # Write the results out to CSVs.
-    race_df.to_csv(os.path.join(dir, "cdc_restricted_by_race_county.csv"))
-    sex_df.to_csv(os.path.join(dir, "cdc_restricted_by_sex_county.csv"))
-    age_df.to_csv(os.path.join(dir, "cdc_restricted_by_age_county.csv"))
+    race_df.to_csv(
+        os.path.join(dir, "cdc_restricted_by_race_county.csv"), index=False)
+    sex_df.to_csv(
+        os.path.join(dir, "cdc_restricted_by_sex_county.csv"), index=False)
+    age_df.to_csv(
+        os.path.join(dir, "cdc_restricted_by_age_county.csv"), index=False)
 
 
 if __name__ == "__main__":

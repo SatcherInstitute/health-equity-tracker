@@ -11,6 +11,14 @@ COUNTY_FIPS_COL = "county_fips"
 COUNTY_NAME_COL = "county_name"
 POPULATION_COL = "population"
 
+# Standardized column names for Covid cases, hospitalizations, and deaths.
+COVID_CASES = "cases"
+COVID_HOSP_Y = "hosp_y"
+COVID_HOSP_N = "hosp_n"
+COVID_HOSP_UNKNOWN = "hosp_unknown"
+COVID_DEATH_Y = "death_y"
+COVID_DEATH_N = "death_n"
+COVID_DEATH_UNKNOWN = "death_unknown"
 
 # TODO add Asian/Pacific Islander combined, and Indigenous combined
 class Race(Enum):

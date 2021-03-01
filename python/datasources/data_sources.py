@@ -1,5 +1,6 @@
 from datasources.acs_population import ACSPopulation
 from datasources.cdc_covid_deaths import CDCCovidDeaths
+from datasources.cdc_restricted import CdcRestrictedData
 from datasources.county_adjacency import CountyAdjacency
 from datasources.county_names import CountyNames
 from datasources.covid_tracking_project import CovidTrackingProject
@@ -16,6 +17,7 @@ from datasources.urgent_care_facilities import UrgentCareFacilities
 DATA_SOURCES_DICT = {
     ACSPopulation.get_id(): ACSPopulation(),
     CDCCovidDeaths.get_id(): CDCCovidDeaths(),
+    CdcRestrictedData.get_id(): CdcRestrictedData(),
     CountyAdjacency.get_id(): CountyAdjacency(),
     CountyNames.get_id(): CountyNames(),
     CovidTrackingProject.get_id(): CovidTrackingProject(),
