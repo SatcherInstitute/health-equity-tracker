@@ -66,7 +66,7 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
 
 # Cloud Run service for uploading data to gcs.
 resource "google_cloud_run_service" "dedupe_service" {
-  name     = var.ingestion_service_name
+  name     = var.dedupe_service_name
   location = var.compute_region
   project  = var.project_id
 
