@@ -10,6 +10,7 @@ from ingestion.standardized_columns import (STATE_FIPS_COL, COUNTY_FIPS_COL,
                                             RACE_COL, WITH_HEALTH_INSURANCE_COL,
                                             WITHOUT_HEALTH_INSURANCE_COL,
                                             TOTAL_HEALTH_INSURANCE_COL)
+from typing import Dict
 
 # TODO pass this in from message data.
 BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
@@ -91,7 +92,7 @@ HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES = {
 
 # Health insurance by Sex only has one prefix, and is kept
 # in the form of a dict to help with standardizing code flow
-HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX = {"B27001": {}}
+HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX: Dict[str, object] = {"B27001": {}}
 
 
 # Health insurance by Sex suffixes for Male.  Split because
