@@ -10,7 +10,7 @@ docker build -t gcr.io/$PROJECT_ID/data-server-service -f data_server/Dockerfile
 docker build -t gcr.io/$PROJECT_ID/exporter-service -f exporter/Dockerfile .
 docker build -t gcr.io/$PROJECT_ID/aggregator-service -f aggregator/Dockerfile .
 docker build -t gcr.io/$PROJECT_ID/frontend-service -f frontend_server/Dockerfile . --build-arg="DEPLOY_CONTEXT=development"
-docker build -t gcr.io/$PROJECT_ID/dedupe-service -f run_dedupe/Dockerfile . --build-arg="DEPLOY_CONTEXT=development"
+docker build -t gcr.io/$PROJECT_ID/dedupe-service -f run_dedupe/Dockerfile .
 
 # Upload images to Google Container Registry
 docker push gcr.io/$PROJECT_ID/ingestion-service
