@@ -5,6 +5,7 @@ import BrfssProvider from "../variables/BrfssProvider";
 import { MetricId } from "../config/MetricConfig";
 
 export type ProviderId =
+  | "acs_health_insurance_provider"
   | "acs_pop_provider"
   | "covid_provider"
   | "brfss_provider";
