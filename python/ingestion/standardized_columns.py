@@ -20,6 +20,7 @@ COVID_DEATH_Y = "death_y"
 COVID_DEATH_N = "death_n"
 COVID_DEATH_UNKNOWN = "death_unknown"
 
+
 # TODO add Asian/Pacific Islander combined, and Indigenous combined
 class Race(Enum):
     AIAN = "American Indian and Alaska Native"

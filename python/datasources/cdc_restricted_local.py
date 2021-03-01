@@ -1,12 +1,3 @@
-import ingestion.standardized_columns as std_col
-import numpy as np
-import os
-import pandas as pd
-pd.options.mode.chained_assignment = None  # default='warn'
-import sys
-import time
-
-
 """
 This program is intended to be run locally by someone who has access to the CDC
 restricted public surveillance data and has downloaded the latest version of
@@ -17,6 +8,15 @@ performs aggregation and standardization, and outputs the resulting CSV to the
 same path that was input. The resulting CSVs are intended to be uploaded to the
 manual-uploads GCS bucket for consumption by the ingestion pipeline.
 """
+
+import os
+import sys
+import time
+
+import ingestion.standardized_columns as std_col
+import numpy as np
+import pandas as pd
+pd.options.mode.chained_assignment = None  # default='warn'
 
 # These are the columns that we want to keep from the data. We split them out
 # by geo columns (we always break down by these), race/sex/age columns (we
