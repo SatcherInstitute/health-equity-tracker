@@ -190,8 +190,10 @@ class AcsHealhInsuranceIngestor:
         self.build_metadata_list()
 
     # Gets standardized filename
+    # If race is set, gets race filename
+    # If race is None and sex is set, gets filename for sex
     def get_filename(self, sex, race, is_county):
-        if(race is not None):
+        if race is not None:
             return "HEALTH_INSURANCE_BY_RACE_{0}_{1}.json".format("STATE" if is_county else "COUNTY", race)
         else:
             return "HEALTH_INSURANCE_BY_SEX_{0}_{1}.json".format("STATE" if is_county else "COUNTY", sex)
@@ -232,21 +234,21 @@ class AcsHealhInsuranceIngestor:
 
         female_state_params = format_params(
             HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES)
-        file_diff = url_file_to_gcs.url_file_to_gcs(
+        file_diff = file_diff and url_file_to_gcs.url_file_to_gcs(
             self.base_url, female_state_params, bucket,
-            self.get_filename(Sex.FEMALE, None, False)) and file_diff
+            self.get_filename(Sex.FEMALE, None, False))
 
         male_county_params = format_params(
             HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES, True)
-        file_diff = url_file_to_gcs.url_file_to_gcs(
+        file_diff = file_diff and url_file_to_gcs.url_file_to_gcs(
             self.base_url, male_county_params, bucket,
-            self.get_filename(Sex.MALE, None, True)) and file_diff
+            self.get_filename(Sex.MALE, None, True))
 
         female_county_params = format_params(
             HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES, True)
-        file_diff = url_file_to_gcs.url_file_to_gcs(
+        file_diff = file_diff and url_file_to_gcs.url_file_to_gcs(
             self.base_url, female_county_params, bucket,
-            self.get_filename(Sex.FEMALE, None, True)) and file_diff
+            self.get_filename(Sex.FEMALE, None, True))
 
         # Iterates over the different race ACS variables,
         # retrieves the race from the metadata merged dict
@@ -256,14 +258,14 @@ class AcsHealhInsuranceIngestor:
                 race_state_params = format_params(
                     prefix, HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES)
                 race = prefix[prefix_key][MetadataKey.RACE]
-                file_diff = url_file_to_gcs.url_file_to_gcs(
+                file_diff = file_diff and url_file_to_gcs.url_file_to_gcs(
                     self.base_url, race_state_params, bucket,
-                    self.get_filename(None, race, False)) and file_diff
+                    self.get_filename(None, race, False))
                 race_county_params = format_params(
                     prefix, HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES, True)
-                file_diff = url_file_to_gcs.url_file_to_gcs(
+                file_diff = file_diff and url_file_to_gcs.url_file_to_gcs(
                     self.base_url, race_county_params, bucket,
-                    self.get_filename(None, race, True)) and file_diff
+                    self.get_filename(None, race, True))
 
         return file_diff
 
@@ -460,8 +462,8 @@ class AcsHealhInsuranceIngestor:
                     data[key] = {}
             state_fip = None
             county_fip = None
-            col_index = 0
-            for col in row:
+            for col_index in range(len(row)):
+                col = row[col_index]
                 key = key_row[col_index]
                 if(key == 'state'):
                     state_fip = col  # Extract the static key_row state
@@ -470,8 +472,6 @@ class AcsHealhInsuranceIngestor:
                     county_fip = col
                 else:
                     data[key] = {'value': col, 'meta': self.metadata[key]}
-
-                col_index += 1
 
             for var in data:
                 metadata = data[var]['meta']
@@ -609,4 +609,4 @@ class ACSHealthInsurance(DataSource):
 # AcsHealhInsuranceIngestor(BASE_ACS_URL).write_to_bq('acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
 
 
-# AcsHealhInsuranceIngestor(BASE_ACS_URL).write_local_files_debug()
+AcsHealhInsuranceIngestor(BASE_ACS_URL).write_local_files_debug()
