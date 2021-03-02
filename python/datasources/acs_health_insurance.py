@@ -488,7 +488,7 @@ class AcsHealhInsuranceIngestor:
     # update one of the population values at a time.
 
     def upsert_row(self, state_fip, county_fip, age, sex, race):
-        if self.data.get((state_fip, county_fip, age, sex, race)) is None:
+        if (state_fip, county_fip, age, sex, race) not in self.data:
             self.data[(state_fip, county_fip, age, sex, race)] = {
                 HealthInsurancePopulation.TOTAL: -1,
                 HealthInsurancePopulation.WITH: -1,
@@ -610,4 +610,4 @@ class ACSHealthInsurance(DataSource):
 # AcsHealhInsuranceIngestor(BASE_ACS_URL).write_to_bq('acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
 
 
-AcsHealhInsuranceIngestor(BASE_ACS_URL).write_local_files_debug()
+# AcsHealhInsuranceIngestor(BASE_ACS_URL).write_local_files_debug()
