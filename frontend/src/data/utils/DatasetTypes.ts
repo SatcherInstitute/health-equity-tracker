@@ -1,18 +1,26 @@
 import { DataFrame, IDataFrame } from "data-forge";
 
-/* TODO: These are not yet comprehensive, final interfaces */
-
-export interface DatasetMetadata {
+// Data sources may provide multiple datasets
+export interface DataSourceMetadata {
   readonly id: string;
-  readonly name: string;
   readonly description: string;
-  readonly fields: readonly Field[];
+  readonly dataset_ids: string[];
   readonly data_source_name: string;
   readonly data_source_link: string;
   readonly geographic_level: string;
   readonly demographic_granularity: string;
   readonly update_frequency: string;
+}
+
+// Datasets contain data with specified breakdowns
+// For example: data by race and county or data by age and state
+export interface DatasetMetadata {
+  readonly id: string;
+  readonly name: string;
+  readonly fields: readonly Field[];
   readonly update_time: string;
+  // Source ID is added programmatically based on DataSourceMetadata config
+  source_id?: string;
 }
 
 export interface Field {
@@ -20,6 +28,11 @@ export interface Field {
   readonly name: string;
   readonly description: string;
   readonly origin_dataset: string;
+}
+
+export interface FieldRange {
+  readonly min: number;
+  readonly max: number;
 }
 
 // TODO: make typedef for valid data types instead of any.
@@ -55,4 +68,4 @@ export class Dataset {
 }
 
 // Map of dataset id to DatasetMetadata
-export type MetadataMap = Readonly<Record<string, DatasetMetadata>>;
+export type MapOfDatasetMetadata = Readonly<Record<string, DatasetMetadata>>;

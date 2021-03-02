@@ -1,12 +1,12 @@
 import { DataFetcher } from "../data/loading/DataFetcher";
-import { MetadataMap, Row } from "../data/utils/DatasetTypes";
+import { MapOfDatasetMetadata, Row } from "../data/utils/DatasetTypes";
 
 export default class FakeDataFetcher implements DataFetcher {
   private loadedDatasets: Record<string, Row[]> = {};
   private datasetResolverMap: Record<string, (dataset: Row[]) => void> = {};
   private datasetRejecterMap: Record<string, (err: Error) => void> = {};
-  private loadedMetadata: MetadataMap | undefined;
-  private metadataResolver?: (metadataMap: MetadataMap) => void;
+  private loadedMetadata: MapOfDatasetMetadata | undefined;
+  private metadataResolver?: (metadataMap: MapOfDatasetMetadata) => void;
   private metadataRejecter?: (err: Error) => void;
   private numLoadDatasetCalls: number = 0;
   private numGetMetadataCalls: number = 0;
@@ -22,7 +22,7 @@ export default class FakeDataFetcher implements DataFetcher {
     });
   }
 
-  async getMetadata(): Promise<MetadataMap> {
+  async getMetadata(): Promise<MapOfDatasetMetadata> {
     this.numGetMetadataCalls++;
     if (this.loadedMetadata) {
       return this.loadedMetadata;
@@ -42,7 +42,7 @@ export default class FakeDataFetcher implements DataFetcher {
     }
   }
 
-  setFakeMetadataLoaded(metadataMap: MetadataMap) {
+  setFakeMetadataLoaded(metadataMap: MapOfDatasetMetadata) {
     if (!this.metadataResolver) {
       this.loadedMetadata = metadataMap;
     } else {
