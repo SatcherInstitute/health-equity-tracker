@@ -11,7 +11,7 @@ import {
   MetricQueryResponse,
 } from "../query/MetricQuery";
 import { Fips } from "../utils/Fips";
-import FakeMetadataMap from "../config/FakeMetadataMap";
+import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import {
   createWithAndWithoutTotalEvaluator,
@@ -116,7 +116,7 @@ describe("AcsHealthInsuranceProvider", () => {
   beforeEach(() => {
     resetCacheDebug();
     dataFetcher.resetState();
-    dataFetcher.setFakeMetadataLoaded(FakeMetadataMap);
+    dataFetcher.setFakeMetadataLoaded(FakeDatasetMetadataMap);
   });
 
   test("Invalid Breakdown", async () => {
