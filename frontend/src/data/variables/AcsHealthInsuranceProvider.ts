@@ -36,9 +36,9 @@ class AcsHealthInsuranceProvider extends VariableProvider {
       throw new Error("Age Only breakdown not implemented");
 
       //TODO
-      return breakdowns.geography === "county"
-        ? "acs_health_insurance-by_age_county"
-        : "acs_health_insurance-by_age_state";
+      // return breakdowns.geography === "county"
+      //   ? "acs_health_insurance-by_age_county"
+      //   : "acs_health_insurance-by_age_state";
     }
     if (breakdowns.hasOnlyRace()) {
       return breakdowns.geography === "county"
