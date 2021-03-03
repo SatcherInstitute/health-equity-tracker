@@ -21,6 +21,25 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     ],
   },
   {
+    id: "acs_health_insurance",
+    data_source_name: "American Community Survey 5-year estimates (2015-2019)",
+    data_source_link:
+      "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity, sex", //Todo: Add Sex
+    update_frequency: "Annual",
+    description:
+      "Health Insurance Status broken down by self-reported race/ethnicity, age, and sex at the U.S. and state levels.",
+    dataset_ids: [
+      "acs_health_insurance-by_race_county_std",
+      "acs_health_insurance-by_race_state_std",
+      // "acs_health_insurance-by_age_state",
+      // "acs_health_insurance-by_age_county",
+      "acs_health_insurance-by_sex_state",
+      "acs_health_insurance-by_sex_county",
+    ],
+  },
+  {
     id: "brfss",
     data_source_name: "Disease Prevalence: Diabetes and COPD",
     data_source_link: "https://www.cdc.gov/brfss/index.html",
