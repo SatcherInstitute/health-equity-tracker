@@ -27,19 +27,10 @@ class AcsHealthInsuranceProvider extends VariableProvider {
         ? "acs_health_insurance-by_sex_county"
         : "acs_health_insurance-by_sex_state";
     }
-    // Note: this assumes all age buckets are included in the same dataset. If
-    // we use multiple datasets for different age buckets we will need to check
-    // the filters the age breakdown is requesting and select the dataset based
-    // on which filters are applied (or select a default one). It is preferrable
-    // to have the dataset include all breakdowns.
-    if (breakdowns.hasOnlyAge()) {
-      throw new Error("Age Only breakdown not implemented");
 
-      //TODO
-      // return breakdowns.geography === "county"
-      //   ? "acs_health_insurance-by_age_county"
-      //   : "acs_health_insurance-by_age_state";
-    }
+    // Age only breakdown is not supported yet, due to the dataset not being
+    // Aggregated on the backend.
+
     if (breakdowns.hasOnlyRace()) {
       return breakdowns.geography === "county"
         ? "acs_health_insurance-by_race_county_std"
@@ -115,7 +106,11 @@ class AcsHealthInsuranceProvider extends VariableProvider {
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    return !breakdowns.time && breakdowns.hasExactlyOneDemographic();
+    return (
+      !breakdowns.hasOnlyAge() &&
+      !breakdowns.time &&
+      breakdowns.hasExactlyOneDemographic()
+    );
   }
 }
 
