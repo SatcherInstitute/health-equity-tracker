@@ -18,25 +18,35 @@ import numpy as np
 import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
 
-# These are the columns that we want to keep from the data. We split them out
-# by geo columns (we always break down by these), race/sex/age columns (we
-# break down by one of these at a time), and outcome columns, which are the
-# measured variables.
-GEO_COLS = ['county_fips_code', 'res_county', 'res_state']
+# These are the columns that we want to keep from the data.
+# Geo columns (state, county) - we aggregate or groupby either state or county.
+# Demog columns (race, age, sex) - we groupby one of these at a time.
+# Outcome columns (hosp, death) - these are the measured variables we count.
+STATE_COL = 'res_state'
+COUNTY_FIPS_COL = 'county_fips_code'
+COUNTY_COL = 'res_county'
 RACE_COL = 'race_ethnicity_combined'
 SEX_COL = 'sex'
 AGE_COL = 'age_group'
 OUTCOME_COLS = ['hosp_yn', 'death_yn']
 
+# Convenience list for when we group the data by county.
+COUNTY_COLS = [COUNTY_FIPS_COL, COUNTY_COL, STATE_COL]
+
 # Mapping from column name in the data to standardized version.
 COL_NAME_MAPPING = {
-    GEO_COLS[0]: std_col.COUNTY_FIPS_COL,
-    GEO_COLS[1]: std_col.COUNTY_NAME_COL,
-    GEO_COLS[2]: std_col.STATE_NAME_COL,
+    STATE_COL: std_col.STATE_NAME_COL,
+    COUNTY_COLS[0]: std_col.COUNTY_FIPS_COL,
+    COUNTY_COLS[1]: std_col.COUNTY_NAME_COL,
     RACE_COL: std_col.RACE_OR_HISPANIC_COL,
     SEX_COL: std_col.SEX_COL,
     AGE_COL: std_col.AGE_COL,
 }
+
+# Mapping for county_fips, county, and state unknown values to "Unknown".
+COUNTY_FIPS_VALUES_MAPPING = {"NA": "Unknown"}
+COUNTY_VALUES_MAPPING = {"MISSING": "Unknown", "NA": "Unknown"}
+STATE_VALUES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 
 # Mappings for race & age values in the data to their standardized forms.
 RACE_VALUES_MAPPING = {
@@ -68,19 +78,19 @@ AGE_VALUES_MAPPING = {
 }
 
 
-def accumulate_data(df, groupby_cols, overall_df, breakdown_col=None,
-                    values_mapping=None):
+def accumulate_data(df, groupby_cols, overall_df, demog_col,
+                    values_mapping):
     """Converts/adds columns for cases, hospitalizations, deaths. Does some
     basic standardization of dataframe elements. Groups by given groupby_cols
     and aggregates. Returns sum of the aggregated df & overall_df.
 
     df: Pandas dataframe that contains a chunk of all of the raw data.
-    groupby_cols: List of columns we want to groupby / breakdown on.
+    groupby_cols: List of columns we want to groupby / aggregate on.
     overall_df: Pandas dataframe to add our aggregated data to.
-    breakdown_col: Name of the breakdown column to standardize.
-    values_mapping: Mapping from breakdown value to standardized form.
+    demog_col: Name of the demographic column to standardize.
+    values_mapping: Mapping from demog value to standardized form.
     """
-    # Add a columns of all ones, for counting the # of cases for a breakdown.
+    # Add a columns of all ones, for counting the # of cases / records.
     df[std_col.COVID_CASES] = np.ones(df.shape[0], dtype=int)
 
     # Add columns for hospitalization yes/no/unknown and death yes/no/unknown,
@@ -104,9 +114,9 @@ def accumulate_data(df, groupby_cols, overall_df, breakdown_col=None,
     df = df.drop(columns='hosp_yn')
     df = df.drop(columns='death_yn')
 
-    # If given, standardize the values in breakdown_col using values_mapping.
-    if breakdown_col is not None:
-        df = df.replace({breakdown_col: values_mapping})
+    # If given, standardize the values in demog_col using values_mapping.
+    if demog_col is not None and values_mapping is not None:
+        df = df.replace({demog_col: values_mapping})
 
     # Group by the desired columns and compute the sum/counts of
     # cases/hospitalizations/deaths. Add this df to overall_df.
@@ -141,8 +151,11 @@ def standardize_data(df):
 
 
 def main():
-    dir = input("Enter the path to the CDC restricted data CSV files: ")
-    prefix = input("Enter the prefix for the CDC restricted CSV files: ")
+    # dir = input("Enter the path to the CDC restricted data CSV files: ")
+    # prefix = input("Enter the prefix for the CDC restricted CSV files: ")
+
+    dir = "/Users/vanshkumar/Downloads"
+    prefix = "COVID_Cases_Restricted_Detailed_01312021"
 
     # Get the files in the specified directory which match the prefix.
     matching_files = []
@@ -163,53 +176,68 @@ def main():
         print(f)
 
     # Go through the CSV files, chunking each and grouping by columns we want.
-    race_df = pd.DataFrame()
-    sex_df = pd.DataFrame()
-    age_df = pd.DataFrame()
+    all_dfs = {}
+    for geo in ['state', 'county']:
+        for demog in ['race', 'sex', 'age']:
+            all_dfs[(geo, demog)] = pd.DataFrame()
+
+    # Mapping from geo and demog to relevant column(s) in the data. The demog
+    # mapping also includes the values mapping for transforming values to their
+    # standardized form, if applicable.
+    geo_col_mapping = {'state': [STATE_COL], 'county': COUNTY_COLS}
+    demog_col_mapping = {
+        'race': (RACE_COL, RACE_VALUES_MAPPING),
+        'sex': (SEX_COL, None),
+        'age': (AGE_COL, AGE_VALUES_MAPPING),
+    }
+    
     for f in sorted(matching_files):
         start = time.time()
-        chunked_frame = pd.read_csv(
-            os.path.join(dir, f), dtype=str, chunksize=100000)
+
+        # Note that we read CSVs with keep_default_na = False as we want to
+        # prevent pandas from interpreting "NA" in the data as NaN
+        chunked_frame = pd.read_csv(os.path.join(dir, f), dtype=str,
+                                    chunksize=100000, keep_default_na=False)
         for chunk in chunked_frame:
-            # For each of {race, sex, age}, we slice the data to focus on that
-            # breakdown, and then aggregate by geo + that breakdown.
-            df = chunk[GEO_COLS + OUTCOME_COLS + [RACE_COL]]
-            race_df = accumulate_data(df, GEO_COLS + [RACE_COL], race_df,
-                                      RACE_COL, RACE_VALUES_MAPPING)
+            # We first do a bit of cleaning up of geo values.
+            df = chunk.replace({COUNTY_FIPS_COL: COUNTY_FIPS_VALUES_MAPPING})
+            df = df.replace({COUNTY_COL: COUNTY_VALUES_MAPPING})
+            df = df.replace({STATE_COL: STATE_VALUES_MAPPING})
 
-            df = chunk[GEO_COLS + OUTCOME_COLS + [SEX_COL]]
-            sex_df = accumulate_data(df, GEO_COLS + [SEX_COL], sex_df)
+            # For each of ({state, county} x {race, sex, age}), we slice the
+            # data to focus on that dimension and aggregate.
+            for geo, demog in all_dfs:
+                # Build the columns we will group by.
+                geo_cols = geo_col_mapping[geo]
+                demog_col, demog_values_mapping = demog_col_mapping[demog]
+                groupby_cols = geo_cols + [demog_col]
 
-            df = chunk[GEO_COLS + OUTCOME_COLS + [AGE_COL]]
-            age_df = accumulate_data(df, GEO_COLS + [AGE_COL], age_df, AGE_COL,
-                                     AGE_VALUES_MAPPING)
+                # Slice the data and aggregate for the given dimension.
+                sliced_df = df[groupby_cols + OUTCOME_COLS]
+                all_dfs[(geo, demog)] = accumulate_data(
+                    sliced_df, groupby_cols, all_dfs[(geo, demog)], demog_col,
+                    demog_values_mapping)
+
         end = time.time()
         print("Took", round(end - start, 2), "seconds to process file", f)
 
-    # Some brief sanity checks to make sure the data is OK.
-    sanity_check_data(race_df)
-    sanity_check_data(sex_df)
-    sanity_check_data(age_df)
+    # Post-processing of the data.
+    for key in all_dfs:
+        # Some brief sanity checks to make sure the data is OK.
+        sanity_check_data(all_dfs[key])
 
-    # The outcomes data is automatically converted to float when the chunks
-    # are added together, so we convert back to int here. We also reset the
-    # the index for simplicity.
-    race_df = race_df.astype(int).reset_index()
-    sex_df = sex_df.astype(int).reset_index()
-    age_df = age_df.astype(int).reset_index()
+        # The outcomes data is automatically converted to float when the chunks
+        # are added together, so we convert back to int here. We also reset the
+        # the index for simplicity.
+        all_dfs[key] = all_dfs[key].astype(int).reset_index()
 
-    # Standardize the column names and race/age/sex values.
-    race_df = standardize_data(race_df)
-    sex_df = standardize_data(sex_df)
-    age_df = standardize_data(age_df)
+        # Standardize the column names and race/age/sex values.
+        all_dfs[key] = standardize_data(all_dfs[key])
 
     # Write the results out to CSVs.
-    race_df.to_csv(
-        os.path.join(dir, "cdc_restricted_by_race_county.csv"), index=False)
-    sex_df.to_csv(
-        os.path.join(dir, "cdc_restricted_by_sex_county.csv"), index=False)
-    age_df.to_csv(
-        os.path.join(dir, "cdc_restricted_by_age_county.csv"), index=False)
+    for geo, demog in all_dfs:
+        file_path = os.path.join(dir, f"cdc_restricted_by_{demog}_{geo}.csv")
+        all_dfs[(geo, demog)].to_csv(file_path, index=False)
 
 
 if __name__ == "__main__":

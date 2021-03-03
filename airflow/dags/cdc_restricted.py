@@ -4,9 +4,14 @@ from airflow.utils.dates import days_ago
 
 import util
 
-_CDC_RESTRICTED_GCS_FILENAMES = ('cdc_restricted_by_race_county.csv,'
-                                 'cdc_restricted_by_age_county.csv,'
-                                 'cdc_restricted_by_sex_county.csv')
+_CDC_RESTRICTED_GCS_FILENAMES = (
+    'cdc_restricted_by_race_county.csv,'
+    'cdc_restricted_by_race_state.csv,'
+    'cdc_restricted_by_age_county.csv,'
+    'cdc_restricted_by_age_state.csv,'
+    'cdc_restricted_by_sex_county.csv'
+    'cdc_restricted_by_sex_state.csv'
+)
 _CDC_RESTRICTED_WORKFLOW_ID = 'CDC_RESTRICTED_DATA'
 _CDC_RESTRICTED_DATASET = 'cdc_restricted_data'
 
