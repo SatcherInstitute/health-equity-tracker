@@ -38,8 +38,8 @@ class StateNames(DataSource):
                 'NAME': 'state_name'
             })
             column_types = {'state_fips_code': 'STRING', 'state_name': 'STRING'}
-            gcs_to_bq_util.append_dataframe_to_bq(frame, dataset, self.get_table_name(),
-                                                  column_types=column_types)
+            gcs_to_bq_util.append_dataframe_to_bq(
+                frame, dataset, self.get_staging_table_name(), column_types=column_types)
         except json.JSONDecodeError as err:
             logging.error(
                 'Unable to write to BigQuery due to improperly formatted data: %s', err)
