@@ -44,14 +44,14 @@ COL_NAME_MAPPING = {
 }
 
 # Mapping for county_fips, county, and state unknown values to "Unknown".
-COUNTY_FIPS_VALUES_MAPPING = {"NA": "-1"}  # Has to be str for later ingestion.
-COUNTY_VALUES_MAPPING = {"MISSING": "Unknown", "NA": "Unknown"}
-STATE_VALUES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
+COUNTY_FIPS_NAMES_MAPPING = {"NA": "-1"}  # Has to be str for later ingestion.
+COUNTY_NAMES_MAPPING = {"MISSING": "Unknown", "NA": "Unknown"}
+STATE_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 
 # Mappings for race, sex, and age values in the data to a standardized forms.
 # Note that these mappings cover the possible values in the data as of 3/1/21.
 # New data should be checked for schema changes.
-RACE_VALUES_MAPPING = {
+RACE_NAMES_MAPPING = {
     "American Indian/Alaska Native, Non-Hispanic": std_col.Race.AIAN_NH.value,
     "Asian, Non-Hispanic": std_col.Race.ASIAN_NH.value,
     "Black, Non-Hispanic": std_col.Race.BLACK_NH.value,
@@ -64,12 +64,12 @@ RACE_VALUES_MAPPING = {
     "Unknown": std_col.Race.UNKNOWN.value,
 }
 
-SEX_VALUES_MAPPING = {
+SEX_NAMES_MAPPING = {
     "NA": "Unknown",
     "Missing": "Unknown",
 }
 
-AGE_VALUES_MAPPING = {
+AGE_NAMES_MAPPING = {
     "0 - 9 Years": "0-9",
     "10 - 19 Years": "10-19",
     "20 - 29 Years": "20-29",
@@ -84,8 +84,8 @@ AGE_VALUES_MAPPING = {
 }
 
 
-def accumulate_data(df, groupby_cols, overall_df, demog_col,
-                    values_mapping):
+def accumulate_data(df, groupby_cols, overall_df, demographic_col,
+                    names_mapping):
     """Converts/adds columns for cases, hospitalizations, deaths. Does some
     basic standardization of dataframe elements. Groups by given groupby_cols
     and aggregates. Returns sum of the aggregated df & overall_df.
@@ -93,8 +93,8 @@ def accumulate_data(df, groupby_cols, overall_df, demog_col,
     df: Pandas dataframe that contains a chunk of all of the raw data.
     groupby_cols: List of columns we want to groupby / aggregate on.
     overall_df: Pandas dataframe to add our aggregated data to.
-    demog_col: Name of the demographic column to standardize.
-    values_mapping: Mapping from demog value to standardized form.
+    demographic_col: Name of the demographic column to standardize.
+    names_mapping: Mapping from demographic value to standardized form.
     """
     # Add a columns of all ones, for counting the # of cases / records.
     df[std_col.COVID_CASES] = np.ones(df.shape[0], dtype=int)
@@ -112,16 +112,18 @@ def accumulate_data(df, groupby_cols, overall_df, demog_col,
     df[std_col.COVID_DEATH_UNKNOWN] = ((df['death_yn'] == 'Unknown') |
                                        (df['death_yn'] == 'Missing'))
 
-    assert (df[std_col.COVID_HOSP_Y] | df[std_col.COVID_HOSP_N] |
-            df[std_col.COVID_HOSP_UNKNOWN]).all()
-    assert (df[std_col.COVID_DEATH_Y] | df[std_col.COVID_DEATH_N] |
-            df[std_col.COVID_DEATH_UNKNOWN]).all()
+    check_hosp = (df[std_col.COVID_HOSP_Y] | df[std_col.COVID_HOSP_N] |
+                  df[std_col.COVID_HOSP_UNKNOWN]).all()
+    check_deaths = (df[std_col.COVID_DEATH_Y] | df[std_col.COVID_DEATH_N] |
+                    df[std_col.COVID_DEATH_UNKNOWN]).all()
 
-    df = df.drop(columns='hosp_yn')
-    df = df.drop(columns='death_yn')
+    assert check_hosp, "All possible hosp_yn values are not accounted for"
+    assert check_deaths, "All possible death_yn values are not accounted for"
 
-    # Standardize the values in demog_col using values_mapping.
-    df = df.replace({demog_col: values_mapping})
+    df = df.drop(columns=['hosp_yn', 'death_yn'])
+
+    # Standardize the values in demographic_col using names_mapping.
+    df = df.replace({demographic_col: names_mapping})
 
     # Group by the desired columns and compute the sum/counts of
     # cases/hospitalizations/deaths. Add this df to overall_df.
@@ -148,9 +150,8 @@ def standardize_data(df):
     df: Pandas dataframe to standardize.
     """
     # Clean string values in the dataframe.
-    def _clean_str(x):
-        return x.strip().replace('"', '').strip() if isinstance(x, str) else x
-    df = df.applymap(_clean_str)
+    df = df.applymap(
+        lambda x: x.replace('"', '').strip() if isinstance(x, str) else x)
 
     # Standardize column names.
     return df.rename(columns=COL_NAME_MAPPING)
@@ -181,17 +182,17 @@ def main():
     # Go through the CSV files, chunking each and grouping by columns we want.
     all_dfs = {}
     for geo in ['state', 'county']:
-        for demog in ['race', 'sex', 'age']:
-            all_dfs[(geo, demog)] = pd.DataFrame()
+        for demo in ['race', 'sex', 'age']:
+            all_dfs[(geo, demo)] = pd.DataFrame()
 
-    # Mapping from geo and demog to relevant column(s) in the data. The demog
+    # Mapping from geo and demo to relevant column(s) in the data. The demo
     # mapping also includes the values mapping for transforming values to their
     # standardized form.
     geo_col_mapping = {'state': [STATE_COL], 'county': COUNTY_COLS}
-    demog_col_mapping = {
-        'race': (RACE_COL, RACE_VALUES_MAPPING),
-        'sex': (SEX_COL, SEX_VALUES_MAPPING),
-        'age': (AGE_COL, AGE_VALUES_MAPPING),
+    demographic_col_mapping = {
+        'race': (RACE_COL, RACE_NAMES_MAPPING),
+        'sex': (SEX_COL, SEX_NAMES_MAPPING),
+        'age': (AGE_COL, AGE_NAMES_MAPPING),
     }
 
     for f in sorted(matching_files):
@@ -203,9 +204,9 @@ def main():
                                     chunksize=100000, keep_default_na=False)
         for chunk in chunked_frame:
             # We first do a bit of cleaning up of geo values and str values.
-            df = chunk.replace({COUNTY_FIPS_COL: COUNTY_FIPS_VALUES_MAPPING})
-            df = df.replace({COUNTY_COL: COUNTY_VALUES_MAPPING})
-            df = df.replace({STATE_COL: STATE_VALUES_MAPPING})
+            df = chunk.replace({COUNTY_FIPS_COL: COUNTY_FIPS_NAMES_MAPPING})
+            df = df.replace({COUNTY_COL: COUNTY_NAMES_MAPPING})
+            df = df.replace({STATE_COL: STATE_NAMES_MAPPING})
 
             def _clean_str(x):
                 return x.replace('"', '').strip() if isinstance(x, str) else x
@@ -213,17 +214,17 @@ def main():
 
             # For each of ({state, county} x {race, sex, age}), we slice the
             # data to focus on that dimension and aggregate.
-            for (geo, demog), _ in all_dfs.items():
+            for (geo, demo), _ in all_dfs.items():
                 # Build the columns we will group by.
                 geo_cols = geo_col_mapping[geo]
-                demog_col, demog_values_mapping = demog_col_mapping[demog]
+                demog_col, demog_names_mapping = demographic_col_mapping[demo]
                 groupby_cols = geo_cols + [demog_col]
 
                 # Slice the data and aggregate for the given dimension.
                 sliced_df = df[groupby_cols + OUTCOME_COLS]
-                all_dfs[(geo, demog)] = accumulate_data(
-                    sliced_df, groupby_cols, all_dfs[(geo, demog)], demog_col,
-                    demog_values_mapping)
+                all_dfs[(geo, demo)] = accumulate_data(
+                    sliced_df, groupby_cols, all_dfs[(geo, demo)], demog_col,
+                    demog_names_mapping)
 
         end = time.time()
         print("Took", round(end - start, 2), "seconds to process file", f)
@@ -242,8 +243,8 @@ def main():
         all_dfs[key] = standardize_data(all_dfs[key])
 
     # Write the results out to CSVs.
-    for (geo, demog), df in all_dfs.items():
-        file_path = os.path.join(dir, f"cdc_restricted_by_{demog}_{geo}.csv")
+    for (geo, demo), df in all_dfs.items():
+        file_path = os.path.join(dir, f"cdc_restricted_by_{demo}_{geo}.csv")
         df.to_csv(file_path, index=False)
 
 
