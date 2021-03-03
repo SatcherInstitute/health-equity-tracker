@@ -24,8 +24,8 @@ class AcsHealthInsuranceProvider extends VariableProvider {
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.hasOnlySex()) {
       return breakdowns.geography === "county"
-        ? "acs_health_insurance-by_sex_county"
-        : "acs_health_insurance-by_sex_state";
+        ? "acs_health_Insurance_manual_test-by_sex_county"
+        : "acs_health_Insurance_manual_test-by_sex_state";
     }
 
     // Age only breakdown is not supported yet, due to the dataset not being
@@ -33,8 +33,8 @@ class AcsHealthInsuranceProvider extends VariableProvider {
 
     if (breakdowns.hasOnlyRace()) {
       return breakdowns.geography === "county"
-        ? "acs_health_insurance-by_race_county_std"
-        : "acs_health_insurance-by_race_state_std";
+        ? "acs_health_insurance_manual_test-table_health_insurance_by_race_county"
+        : "acs_health_insurance_manual_test-table_health_insurance_by_race_state";
     }
     throw new Error("Not implemented");
   }

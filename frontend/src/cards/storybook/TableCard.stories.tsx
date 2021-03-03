@@ -37,3 +37,10 @@ CopdCountAndPer100k.args = {
   ],
   breakdownVar: "race_and_ethnicity",
 };
+
+export const HealthInsuranceCoverage = Template.bind({});
+HealthInsuranceCoverage.args = {
+  fips: new Fips(USA_FIPS),
+  metrics: [METRIC_CONFIG["health_insurance"][0].metrics.count],
+  breakdownVar: "race_and_ethnicity",
+};
