@@ -156,7 +156,6 @@ export function LegendOther(props: LegendOtherProps) {
           ],*/
           legends: [
             {
-              title: "Quantile",
               fill: COLOR_SCALE,
               labelOverlap: "greedy",
               symbolType: "circle",

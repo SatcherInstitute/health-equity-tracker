@@ -151,7 +151,6 @@ export function LegendThree(props: LegendThreeProps) {
           ],*/
           legends: [
             {
-              title: "Quantile",
               fill: COLOR_SCALE,
               labelOverlap: "greedy",
             },

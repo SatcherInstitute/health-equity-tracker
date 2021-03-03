@@ -137,29 +137,37 @@ function MultiMapCardWithKey(props: MultiMapCardProps) {
                 <Alert severity="warning">No data available</Alert>
               )}
               {props.legend === "standard_one" && (
-                <Legend
-                  metric={props.metricConfig}
-                  legendTitle={props.metricConfig.fullCardTitleName}
-                  legendData={filteredData}
-                  scaleType={props.scaleType}
-                />
+                <Grid container>
+                  <Grid item>
+                    <h3> Legend option 1</h3>
+                    <Legend
+                      metric={props.metricConfig}
+                      legendTitle={props.metricConfig.fullCardTitleName}
+                      legendData={filteredData}
+                      scaleType={props.scaleType}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <h3> Legend option 2</h3>
+                    <LegendThree
+                      metric={props.metricConfig}
+                      legendTitle={props.metricConfig.fullCardTitleName}
+                      legendData={filteredData}
+                      scaleType={props.scaleType}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <h3> Legend option 3</h3>
+                    <LegendOther
+                      metric={props.metricConfig}
+                      legendTitle={props.metricConfig.fullCardTitleName}
+                      legendData={filteredData}
+                      scaleType={props.scaleType}
+                    />
+                  </Grid>
+                </Grid>
               )}
-              {props.legend === "standard_one" && (
-                <LegendOther
-                  metric={props.metricConfig}
-                  legendTitle={props.metricConfig.fullCardTitleName}
-                  legendData={filteredData}
-                  scaleType={props.scaleType}
-                />
-              )}
-              {props.legend === "standard_one" && (
-                <LegendThree
-                  metric={props.metricConfig}
-                  legendTitle={props.metricConfig.fullCardTitleName}
-                  legendData={filteredData}
-                  scaleType={props.scaleType}
-                />
-              )}
+
               <Grid container>
                 {breakdownValues.map((breakdownValue) => {
                   const dataForValue = filteredData.filter(
