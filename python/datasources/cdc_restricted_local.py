@@ -157,11 +157,8 @@ def standardize_data(df):
 
 
 def main():
-    # dir = input("Enter the path to the CDC restricted data CSV files: ")
-    # prefix = input("Enter the prefix for the CDC restricted CSV files: ")
-    # kill this
-    dir = "/Users/vanshkumar/Downloads"
-    prefix = "COVID_Cases_Restricted_Detailed_01312021"
+    dir = input("Enter the path to the CDC restricted data CSV files: ")
+    prefix = input("Enter the prefix for the CDC restricted CSV files: ")
 
     # Get the files in the specified directory which match the prefix.
     matching_files = []
