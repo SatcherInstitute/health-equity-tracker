@@ -143,8 +143,9 @@ def standardize_data(df):
     df: Pandas dataframe to standardize.
     """
     # Clean string values in the dataframe.
-    df = df.applymap(
-        lambda x: x.replace('"', '').strip() if isinstance(x, str) else x)
+    def _clean_str(x):
+        return x.strip().replace('"', '').strip() if isinstance(x, str) else x
+    df = df.applymap(_clean_str)
 
     # Standardize column names.
     return df.rename(columns=COL_NAME_MAPPING)
@@ -190,7 +191,7 @@ def main():
         'sex': (SEX_COL, None),
         'age': (AGE_COL, AGE_VALUES_MAPPING),
     }
-    
+
     for f in sorted(matching_files):
         start = time.time()
 
@@ -199,14 +200,18 @@ def main():
         chunked_frame = pd.read_csv(os.path.join(dir, f), dtype=str,
                                     chunksize=100000, keep_default_na=False)
         for chunk in chunked_frame:
-            # We first do a bit of cleaning up of geo values.
+            # We first do a bit of cleaning up of geo values and str values.
             df = chunk.replace({COUNTY_FIPS_COL: COUNTY_FIPS_VALUES_MAPPING})
             df = df.replace({COUNTY_COL: COUNTY_VALUES_MAPPING})
             df = df.replace({STATE_COL: STATE_VALUES_MAPPING})
 
+            def _clean_str(x):
+                return x.replace('"', '').strip() if isinstance(x, str) else x
+            df = df.applymap(_clean_str)
+
             # For each of ({state, county} x {race, sex, age}), we slice the
             # data to focus on that dimension and aggregate.
-            for geo, demog in all_dfs:
+            for (geo, demog), _ in all_dfs.items():
                 # Build the columns we will group by.
                 geo_cols = geo_col_mapping[geo]
                 demog_col, demog_values_mapping = demog_col_mapping[demog]
@@ -235,9 +240,9 @@ def main():
         all_dfs[key] = standardize_data(all_dfs[key])
 
     # Write the results out to CSVs.
-    for geo, demog in all_dfs:
+    for (geo, demog), df in all_dfs.items():
         file_path = os.path.join(dir, f"cdc_restricted_by_{demog}_{geo}.csv")
-        all_dfs[(geo, demog)].to_csv(file_path, index=False)
+        df.to_csv(file_path, index=False)
 
 
 if __name__ == "__main__":
