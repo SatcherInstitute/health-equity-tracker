@@ -36,19 +36,21 @@ COUNTY_COLS = [COUNTY_FIPS_COL, COUNTY_COL, STATE_COL]
 # Mapping from column name in the data to standardized version.
 COL_NAME_MAPPING = {
     STATE_COL: std_col.STATE_NAME_COL,
-    COUNTY_COLS[0]: std_col.COUNTY_FIPS_COL,
-    COUNTY_COLS[1]: std_col.COUNTY_NAME_COL,
+    COUNTY_FIPS_COL: std_col.COUNTY_FIPS_COL,
+    COUNTY_COL: std_col.COUNTY_NAME_COL,
     RACE_COL: std_col.RACE_OR_HISPANIC_COL,
     SEX_COL: std_col.SEX_COL,
     AGE_COL: std_col.AGE_COL,
 }
 
 # Mapping for county_fips, county, and state unknown values to "Unknown".
-COUNTY_FIPS_VALUES_MAPPING = {"NA": "Unknown"}
+COUNTY_FIPS_VALUES_MAPPING = {"NA": "-1"}  # Has to be str for later ingestion.
 COUNTY_VALUES_MAPPING = {"MISSING": "Unknown", "NA": "Unknown"}
 STATE_VALUES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 
-# Mappings for race & age values in the data to their standardized forms.
+# Mappings for race, sex, and age values in the data to a standardized forms.
+# Note that these mappings cover the possible values in the data as of 3/1/21.
+# New data should be checked for schema changes.
 RACE_VALUES_MAPPING = {
     "American Indian/Alaska Native, Non-Hispanic": std_col.Race.AIAN_NH.value,
     "Asian, Non-Hispanic": std_col.Race.ASIAN_NH.value,
@@ -60,6 +62,11 @@ RACE_VALUES_MAPPING = {
     "NA": std_col.Race.UNKNOWN.value,
     "Missing": std_col.Race.UNKNOWN.value,
     "Unknown": std_col.Race.UNKNOWN.value,
+}
+
+SEX_VALUES_MAPPING = {
+    "NA": "Unknown",
+    "Missing": "Unknown",
 }
 
 AGE_VALUES_MAPPING = {
@@ -74,7 +81,6 @@ AGE_VALUES_MAPPING = {
     "80+ Years": "80+",
     "NA": "Unknown",
     "Missing": "Unknown",
-    "Unknown": "Unknown",
 }
 
 
@@ -114,9 +120,8 @@ def accumulate_data(df, groupby_cols, overall_df, demog_col,
     df = df.drop(columns='hosp_yn')
     df = df.drop(columns='death_yn')
 
-    # If given, standardize the values in demog_col using values_mapping.
-    if demog_col is not None and values_mapping is not None:
-        df = df.replace({demog_col: values_mapping})
+    # Standardize the values in demog_col using values_mapping.
+    df = df.replace({demog_col: values_mapping})
 
     # Group by the desired columns and compute the sum/counts of
     # cases/hospitalizations/deaths. Add this df to overall_df.
@@ -154,7 +159,7 @@ def standardize_data(df):
 def main():
     # dir = input("Enter the path to the CDC restricted data CSV files: ")
     # prefix = input("Enter the prefix for the CDC restricted CSV files: ")
-
+    # kill this
     dir = "/Users/vanshkumar/Downloads"
     prefix = "COVID_Cases_Restricted_Detailed_01312021"
 
@@ -184,11 +189,11 @@ def main():
 
     # Mapping from geo and demog to relevant column(s) in the data. The demog
     # mapping also includes the values mapping for transforming values to their
-    # standardized form, if applicable.
+    # standardized form.
     geo_col_mapping = {'state': [STATE_COL], 'county': COUNTY_COLS}
     demog_col_mapping = {
         'race': (RACE_COL, RACE_VALUES_MAPPING),
-        'sex': (SEX_COL, None),
+        'sex': (SEX_COL, SEX_VALUES_MAPPING),
         'age': (AGE_COL, AGE_VALUES_MAPPING),
     }
 
@@ -198,7 +203,7 @@ def main():
         # Note that we read CSVs with keep_default_na = False as we want to
         # prevent pandas from interpreting "NA" in the data as NaN
         chunked_frame = pd.read_csv(os.path.join(dir, f), dtype=str,
-                                    chunksize=100000, keep_default_na=False)
+                                    chunksize=100000, keep_default_na=False)    
         for chunk in chunked_frame:
             # We first do a bit of cleaning up of geo values and str values.
             df = chunk.replace({COUNTY_FIPS_COL: COUNTY_FIPS_VALUES_MAPPING})
@@ -233,7 +238,7 @@ def main():
 
         # The outcomes data is automatically converted to float when the chunks
         # are added together, so we convert back to int here. We also reset the
-        # the index for simplicity.
+        # index for simplicity.
         all_dfs[key] = all_dfs[key].astype(int).reset_index()
 
         # Standardize the column names and race/age/sex values.
