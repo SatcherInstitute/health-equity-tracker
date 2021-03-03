@@ -21,6 +21,7 @@ export interface LegendOtherProps {
   hideLegend?: boolean;
   fieldRange?: FieldRange;
   scaleType: ScaleType;
+  sameDotSize?: boolean;
 }
 
 export function LegendOther(props: LegendOtherProps) {
@@ -65,6 +66,10 @@ export function LegendOther(props: LegendOtherProps) {
       props.numberFormat === "percentage"
         ? `format(datum.${props.metric.metricId}, '0.1%')`
         : `format(datum.${props.metric.metricId}, ',')`;
+
+    const dotRange = props.sameDotSize
+      ? [200, 200, 200, 200, 200, 200, 200]
+      : [70, 120, 170, 220, 270, 320, 370];
 
     const blah = {
       $schema: "https://vega.github.io/schema/vega/v5.json",
@@ -185,7 +190,7 @@ export function LegendOther(props: LegendOtherProps) {
           type: props.scaleType,
 
           domain: { data: DATASET_VALUES, field: props.metric.metricId },
-          range: [70, 120, 170, 220, 270, 320, 370],
+          range: dotRange,
           /*{
             signal: 
              // "sequence(0, 361 + (361 - 0) / (7 - 1), (361 - 0) / (7 - 1))",
@@ -195,16 +200,7 @@ export function LegendOther(props: LegendOtherProps) {
     };
 
     setSpec(blah);
-  }, [
-    width,
-    props.metric,
-    props.legendTitle,
-    props.numberFormat,
-    props.scaleType,
-    props.hideLegend,
-    props.fieldRange,
-    props.legendData,
-  ]);
+  }, [width, props.metric, props.legendTitle, props.numberFormat, props.scaleType, props.hideLegend, props.fieldRange, props.legendData, props.sameDotSize]);
 
   return (
     <div
@@ -214,9 +210,11 @@ export function LegendOther(props: LegendOtherProps) {
         margin: "auto",
       }}
     >
-      <Alert severity="info">
-        Please note that circles in legend are not to scale.
-      </Alert>
+      {!props.sameDotSize && (
+        <Alert severity="info">
+          Please note that circles in legend are not to scale.
+        </Alert>
+      )}
       <Vega spec={spec} width={width} actions={true} />
     </div>
   );

@@ -165,6 +165,16 @@ function MultiMapCardWithKey(props: MultiMapCardProps) {
                       scaleType={props.scaleType}
                     />
                   </Grid>
+                  <Grid item>
+                    <h3> Legend option 4</h3>
+                    <LegendOther
+                      metric={props.metricConfig}
+                      legendTitle={props.metricConfig.fullCardTitleName}
+                      legendData={filteredData}
+                      scaleType={props.scaleType}
+                      sameDotSize={true}
+                    />
+                  </Grid>
                 </Grid>
               )}
 
