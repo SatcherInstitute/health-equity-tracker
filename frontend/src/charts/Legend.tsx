@@ -9,7 +9,7 @@ type NumberFormat = "raw" | "percentage";
 
 const COLOR_SCALE = "COLOR_SCALE";
 
-const LEGEND_DATASET = "LEGEND_DATASET";
+const DATASET_VALUES = "DATASET_VALUES";
 // TODO - consider moving standardized column names, like fips, to variables shared between here and VariableProvider
 
 export interface Legend {
@@ -53,7 +53,7 @@ export function Legend(props: Legend) {
     let colorScale: any = {
       name: COLOR_SCALE,
       type: props.scaleType,
-      domain: { data: LEGEND_DATASET, field: props.metric.metricId },
+      domain: { data: DATASET_VALUES, field: props.metric.metricId },
       range: { scheme: "yellowgreenblue", count: 7 },
     };
     if (props.fieldRange) {
@@ -66,8 +66,18 @@ export function Legend(props: Legend) {
       description: "Legend",
       data: [
         {
-          name: LEGEND_DATASET,
+          name: "source_0",
           values: props.legendData,
+        },
+        {
+          name: DATASET_VALUES,
+          source: "source_0",
+          transform: [
+            {
+              type: "filter",
+              expr: `isValid(datum["${props.metric.metricId}"]) && isFinite(+datum["${props.metric.metricId}"])`,
+            },
+          ],
         },
       ],
       scales: [colorScale],

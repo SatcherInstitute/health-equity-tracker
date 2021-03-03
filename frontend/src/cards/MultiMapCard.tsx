@@ -1,6 +1,8 @@
 import React from "react";
 import { ChoroplethMap, ScaleType } from "../charts/ChoroplethMap";
 import { Legend } from "../charts/Legend";
+import { LegendThree } from "../charts/LegendThree";
+import { LegendOther } from "../charts/LegendOther";
 import { Fips } from "../data/utils/Fips";
 import styles from "./Card.module.scss";
 import MapBreadcrumbs from "./MapBreadcrumbs";
@@ -136,6 +138,22 @@ function MultiMapCardWithKey(props: MultiMapCardProps) {
               )}
               {props.legend === "standard_one" && (
                 <Legend
+                  metric={props.metricConfig}
+                  legendTitle={props.metricConfig.fullCardTitleName}
+                  legendData={filteredData}
+                  scaleType={props.scaleType}
+                />
+              )}
+              {props.legend === "standard_one" && (
+                <LegendOther
+                  metric={props.metricConfig}
+                  legendTitle={props.metricConfig.fullCardTitleName}
+                  legendData={filteredData}
+                  scaleType={props.scaleType}
+                />
+              )}
+              {props.legend === "standard_one" && (
+                <LegendThree
                   metric={props.metricConfig}
                   legendTitle={props.metricConfig.fullCardTitleName}
                   legendData={filteredData}
