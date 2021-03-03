@@ -280,4 +280,19 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       },
     },
   ],
+  health_insurance: [
+    {
+      variableId: "health_coverage",
+      variableDisplayName: "Coverage",
+      metrics: {
+        count: {
+          metricId: "health_insurance",
+          fullCardTitleName: "TODO",
+          shortVegaLabel: "COPD cases",
+          type: "count",
+          populationComparisonMetric: POPULATION_VARIABLE_CONFIG.metrics.count,
+        },
+      },
+    },
+  ],
 };
