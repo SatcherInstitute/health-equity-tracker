@@ -4,7 +4,7 @@ from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 
 
-class CdcRestrictedData(DataSource):
+class CDCRestrictedData(DataSource):
 
     @staticmethod
     def get_id():
@@ -16,7 +16,7 @@ class CdcRestrictedData(DataSource):
 
     def upload_to_gcs(self, _, **attrs):
         raise NotImplementedError(
-            'upload_to_gcs should not be called for CdcRestrictedData')
+            'upload_to_gcs should not be called for CDCRestrictedData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         gcs_files = self.get_attr(attrs, 'filename')
