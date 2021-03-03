@@ -203,7 +203,7 @@ def main():
         # Note that we read CSVs with keep_default_na = False as we want to
         # prevent pandas from interpreting "NA" in the data as NaN
         chunked_frame = pd.read_csv(os.path.join(dir, f), dtype=str,
-                                    chunksize=100000, keep_default_na=False)    
+                                    chunksize=100000, keep_default_na=False)
         for chunk in chunked_frame:
             # We first do a bit of cleaning up of geo values and str values.
             df = chunk.replace({COUNTY_FIPS_COL: COUNTY_FIPS_VALUES_MAPPING})
