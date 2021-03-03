@@ -20,6 +20,11 @@ COVID_DEATH_Y = "death_y"
 COVID_DEATH_N = "death_n"
 COVID_DEATH_UNKNOWN = "death_unknown"
 
+# Standard Health Insurance Population Cols
+TOTAL_HEALTH_INSURANCE_COL = "total_health_insurance"
+WITH_HEALTH_INSURANCE_COL = "with_health_insurance"
+WITHOUT_HEALTH_INSURANCE_COL = "without_health_insurance"
+
 
 # TODO add Asian/Pacific Islander combined, and Indigenous combined
 class Race(Enum):

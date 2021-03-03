@@ -24,5 +24,7 @@ node_modules/
 /frontend/npm-debug.log*
 
 config/.terraform.lock.hcl
-
 config/.terraform/
+
+*.json
+*.csv
