@@ -11,6 +11,11 @@ COUNTY_FIPS_COL = "county_fips"
 COUNTY_NAME_COL = "county_name"
 POPULATION_COL = "population"
 
+# Standard Health Insurance Population Cols
+TOTAL_HEALTH_INSURANCE_COL = "total_health_insurance"
+WITH_HEALTH_INSURANCE_COL = "with_health_insurance"
+WITHOUT_HEALTH_INSURANCE_COL = "without_health_insurance"
+
 
 # TODO add Asian/Pacific Islander combined, and Indigenous combined
 class Race(Enum):
