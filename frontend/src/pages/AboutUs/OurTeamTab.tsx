@@ -41,12 +41,12 @@ const LEADERSHIP_TEAM = [
   {
     name: "Maisha Standifer, PhD, MPH",
     role: "Health Policy Analyst",
-    imageUrl: "img/RespressEbony.png",
+    imageUrl: "img/maisha-standifer.jpg",
   },
   {
     name: "Jammie Hopkins, DrPH, MS",
     role: "Coalition/Engagement",
-    imageUrl: "img/RespressEbony.png",
+    imageUrl: "img/jammie-hopkins.jpg",
   },
 ]
 
