@@ -1,10 +1,5 @@
 @import "../../styles/variables";
 
-.Grid {
-  margin: auto;
-  max-width: $max-width;
-}
-
 .AboutUsPage {
   text-align: left;
   h1 {
@@ -14,11 +9,54 @@
   padding-bottom: 100px;
 }
 
+.Grid {
+  margin: auto;
+  max-width: 90%;
+  font-family: "Inter", serif;
+}
+
+.GridSection {
+  padding: 30px;
+
+  .GridSubSection {
+    padding: 20px;
+  }
+}
+
+.GridSectionHeaderText {
+  padding: 30px;
+  justify-content: center;
+
+  .HeaderText {
+    font-size: 48px;
+    text-align: center;
+    font-weight: 300;
+    font-family: "Taviraj", serif !important;
+    line-height: 40px;
+    color: $alt-green;
+    padding-bottom: 20px;
+  }
+
+  .HeaderSubtext {
+    font-size: 20px;
+    text-align: center;
+    font-weight: 300;
+    line-height: 24px;
+    font-family: "Inter", serif !important;
+  }
+}
+
 .UnderlinedHeader {
-  font-size: 20px;
+  font-size: 28px;
   line-height: 26px;
-  border-bottom: 4px solid rgba(88, 169, 143, 0.5);
+  border-bottom: 2px solid #9AA0A6;
   margin: 25px 0 25px 0;
+  font-family: "Taviraj", serif !important;
+  text-align: left;
+}
+
+.TextProfile {
+  padding: 12px;
 }
 
 .GreyGridItem {
