@@ -313,6 +313,9 @@ function MapCardWithKey(props: MapCardProps) {
                   showCounties={props.fips.isUsa() ? false : true}
                   fips={props.fips}
                   scaleType="quantile"
+                  fieldRange={queryResponse.getFieldRange(
+                    props.metricConfig.metricId
+                  )}
                 />
               )}
             </CardContent>

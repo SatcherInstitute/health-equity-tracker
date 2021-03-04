@@ -3,13 +3,13 @@ import {
   MultiSelectDatasetFilter,
   SingleSelectDatasetFilter,
 } from "./DatasetFilter";
-import DatasetListing from "./DatasetListing";
+import DataSourceListing from "./DataSourceListing";
 import styles from "./DatasetExplorer.module.scss";
-import { DatasetMetadata, MetadataMap } from "../../../data/utils/DatasetTypes";
+import { DataSourceMetadataMap } from "../../../data/config/MetadataMap";
+import { DataSourceMetadata } from "../../../data/utils/DatasetTypes";
 import Button from "@material-ui/core/Button";
 import { DATA_CATALOG_PAGE_LINK } from "../../../utils/urlutils";
 import { WithMetadata } from "../../../data/react/WithLoadingOrErrorUI";
-import useOnMetadataLoaded from "../../../data/react/useOnMetadataLoaded";
 
 // Map of filter id to list of datasets selected by that filter, or empty list
 // for filters that don't have anything selected.
@@ -20,11 +20,11 @@ type Filters = Record<string, string[]>;
 const NAME_FILTER_ID = "name_filter";
 
 /**
- * Returns the ids of the datasets to display based on the provided filter. The
- * displayed datasets are the intersection of each filter.
+ * Returns the ids of the sources to display based on the provided filter. The
+ * displayed sources are the intersection of each filter.
  */
-function getFilteredDatasetIds(
-  metadata: MetadataMap,
+function getFilteredSources(
+  metadata: Record<string, DataSourceMetadata>,
   activeFilter: Filters
 ): string[] {
   const filters = Object.values(activeFilter);
@@ -38,38 +38,22 @@ function getFilteredDatasetIds(
   return filters.reduce(reducer, allIds);
 }
 
-function DatasetExplorer(props: { preFilterDatasetIds: string[] }) {
+function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
   const [activeFilter, setActiveFilter] = useState<Filters>({
-    [NAME_FILTER_ID]: props.preFilterDatasetIds,
-  });
-
-  // Once the metadata is loaded, update the filter to only include valid
-  // dataset ids
-  useOnMetadataLoaded((metadata) => {
-    const validIds = props.preFilterDatasetIds.filter(
-      (datasetId) => !!metadata[datasetId]
-    );
-    setActiveFilter((prevFilter) => {
-      const names = prevFilter[NAME_FILTER_ID];
-      const newNames = names.filter((name) => validIds.includes(name));
-      return {
-        ...prevFilter,
-        [NAME_FILTER_ID]: newNames,
-      };
-    });
+    [NAME_FILTER_ID]: props.preFilterDataSourceIds,
   });
 
   function createFilter(
-    metadata: MetadataMap,
+    metadata: Record<string, DataSourceMetadata>,
     id: string,
-    propertySelector: (metadata: DatasetMetadata) => string,
+    propertySelector: (metadata: DataSourceMetadata) => string,
     placeholder: string,
     allOption: string
   ) {
     return (
       <div className={styles.Filter}>
         <SingleSelectDatasetFilter
-          datasets={metadata}
+          dataSources={metadata}
           onSelectionChange={(filtered) => {
             setActiveFilter({
               ...activeFilter,
@@ -88,45 +72,54 @@ function DatasetExplorer(props: { preFilterDatasetIds: string[] }) {
     <div className={styles.DatasetExplorer}>
       <div className={styles.DatasetList}>
         <WithMetadata>
-          {(metadata) => {
-            const viewingSubsetOfDatasets =
-              getFilteredDatasetIds(metadata, activeFilter).length === 1;
+          {(datasetMetadata) => {
+            const filteredDatasets = getFilteredSources(
+              DataSourceMetadataMap,
+              activeFilter
+            );
+            // Check if more than the default filters are enabled to see if you're viewing
+            // a subset of sources
+            const viewingSubsetOfSources =
+              Object.keys(activeFilter).length > 1 ||
+              activeFilter[NAME_FILTER_ID].length > 0;
 
-            const defaultDatasetNames = props.preFilterDatasetIds
-              .filter((datasetId) => !!metadata[datasetId])
-              .map((datasetId) => metadata[datasetId].name);
+            const defaultDataSourceNames = props.preFilterDataSourceIds
+              .filter((datasetId) => !!datasetMetadata[datasetId])
+              .map((datasetId) => datasetMetadata[datasetId].name);
 
             return (
               <>
-                {!viewingSubsetOfDatasets && (
+                {!viewingSubsetOfSources && (
                   <>
                     <div className={styles.FilterContainer}>
                       <div className={styles.Filter}>
                         <MultiSelectDatasetFilter
-                          datasets={metadata}
+                          dataSources={DataSourceMetadataMap}
                           onSelectionChange={(filtered) => {
                             setActiveFilter({
                               ...activeFilter,
                               [NAME_FILTER_ID]: filtered,
                             });
                           }}
-                          propertySelector={(metadata) => metadata.name}
+                          propertySelector={(metadata) =>
+                            metadata.data_source_name
+                          }
                           placeholder={"Search variables..."}
-                          defaultValues={defaultDatasetNames}
+                          defaultValues={defaultDataSourceNames}
                         />
                       </div>
                     </div>
                     <div className={styles.FilterContainer}>
                       <div className={styles.FilterTitle}>Filter by...</div>
                       {createFilter(
-                        metadata,
+                        DataSourceMetadataMap,
                         "geographic_filter",
                         (metadata) => metadata.geographic_level,
                         "geographic level...",
                         "All"
                       )}
                       {createFilter(
-                        metadata,
+                        DataSourceMetadataMap,
                         "demographic_filter",
                         (metadata) => metadata.demographic_granularity,
                         "demographic level...",
@@ -135,23 +128,25 @@ function DatasetExplorer(props: { preFilterDatasetIds: string[] }) {
                     </div>
                   </>
                 )}
-                {getFilteredDatasetIds(metadata, activeFilter).map(
-                  (datasetId, index) => (
-                    <div className={styles.Dataset} key={index}>
-                      <div className={styles.DatasetListItem}>
-                        <DatasetListing dataset={metadata[datasetId]} />
-                      </div>
+                {filteredDatasets.map((source_id, index) => (
+                  <div className={styles.Dataset} key={index}>
+                    <div className={styles.DatasetListItem}>
+                      <DataSourceListing
+                        key={DataSourceMetadataMap[source_id].id}
+                        source_metadata={DataSourceMetadataMap[source_id]}
+                        dataset_metadata={datasetMetadata}
+                      />
                     </div>
-                  )
-                )}
+                  </div>
+                ))}
                 {/* TODO clear filters instead of reloading the page. */}
-                {viewingSubsetOfDatasets && (
+                {viewingSubsetOfSources && (
                   <Button
                     href={DATA_CATALOG_PAGE_LINK}
                     color="primary"
                     variant="contained"
                   >
-                    View All datasets
+                    View All Datasets
                   </Button>
                 )}
               </>

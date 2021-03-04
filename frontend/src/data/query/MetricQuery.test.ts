@@ -71,6 +71,7 @@ describe("MetricQueryResponse", () => {
       "01",
       "02",
     ]);
+    expect(metricQueryResponse.getUniqueFieldValues("invalid")).toEqual([]);
   });
 
   test("fieldHasMissingValues()", async () => {

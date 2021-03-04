@@ -10,6 +10,7 @@ docker build -t gcr.io/$PROJECT_ID/data-server-service -f data_server/Dockerfile
 docker build -t gcr.io/$PROJECT_ID/exporter-service -f exporter/Dockerfile .
 docker build -t gcr.io/$PROJECT_ID/aggregator-service -f aggregator/Dockerfile .
 docker build -t gcr.io/$PROJECT_ID/frontend-service -f frontend_server/Dockerfile . --build-arg="DEPLOY_CONTEXT=development"
+docker build -t gcr.io/$PROJECT_ID/dedupe-service -f run_dedupe/Dockerfile .
 
 # Upload images to Google Container Registry
 docker push gcr.io/$PROJECT_ID/ingestion-service
@@ -18,6 +19,7 @@ docker push gcr.io/$PROJECT_ID/data-server-service
 docker push gcr.io/$PROJECT_ID/exporter-service
 docker push gcr.io/$PROJECT_ID/aggregator-service
 docker push gcr.io/$PROJECT_ID/frontend-service
+docker push gcr.io/$PROJECT_ID/dedupe-service
 
 # Get the image digests
 INGESTION_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/ingestion-service --format="value(image_summary.digest)")
@@ -26,6 +28,7 @@ DATA_SERVER_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/data-se
 EXPORTER_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/exporter-service --format="value(image_summary.digest)")
 AGGREGATOR_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/aggregator-service --format="value(image_summary.digest)")
 FRONTEND_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/frontend-service --format="value(image_summary.digest)")
+DEDUPE_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/dedupe-service --format="value(image_summary.digest)")
 
 # Write them to digest.tfvars. Note this overwrites digest.tfvars if it exists.
 echo "ingestion_image_digest=\"$INGESTION_DIGEST\"" > config/digest.tfvars
@@ -34,3 +37,4 @@ echo "data_server_image_digest=\"$DATA_SERVER_DIGEST\"" >> config/digest.tfvars
 echo "exporter_image_digest=\"$EXPORTER_DIGEST\"" >> config/digest.tfvars
 echo "aggregator_image_digest=\"$AGGREGATOR_DIGEST\"" >> config/digest.tfvars
 echo "frontend_image_digest=\"$FRONTEND_DIGEST\"" >> config/digest.tfvars
+echo "dedupe_image_digest=\"$DEDUPE_DIGEST\"" >> config/digest.tfvars

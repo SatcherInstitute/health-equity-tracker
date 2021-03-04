@@ -1,5 +1,3 @@
-import Button from "@material-ui/core/Button";
-import React from "react";
 import { getDataManager } from "../../../utils/globals";
 
 function download(filename: string, content: string) {
@@ -16,28 +14,15 @@ function download(filename: string, content: string) {
   document.body.removeChild(element);
 }
 
+// Returns true if the dataset downloads successfully and otherwise false
 async function downloadDataset(datasetId: string) {
   try {
     const dataset = await getDataManager().loadDataset(datasetId);
     download(dataset.metadata.name + ".csv", dataset.toCsvString());
+    return true;
   } catch (e) {
-    // TODO remove alert, log error and show error in UI
-    alert("Oops, failed to load dataset. Try reloading.");
-    return;
+    return false;
   }
 }
 
-function DownloadButton(props: { datasetId: string }) {
-  return (
-    <Button
-      color="primary"
-      onClick={() => {
-        downloadDataset(props.datasetId);
-      }}
-    >
-      Download
-    </Button>
-  );
-}
-
-export default DownloadButton;
+export default downloadDataset;

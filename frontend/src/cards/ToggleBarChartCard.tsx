@@ -27,8 +27,7 @@ import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC, TOTAL } from "../data/utils/Constants";
 
 const VALID_METRIC_TYPES = ["pct_share", "per100k"];
-
-export interface BarChartCardProps {
+export interface ToggleBarChartCardProps {
   key?: string;
   breakdownVar: BreakdownVar;
   variableConfig: VariableConfig;
@@ -36,16 +35,16 @@ export interface BarChartCardProps {
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required rather than relying on the card caller.
-export function BarChartCard(props: BarChartCardProps) {
+export function ToggleBarChartCard(props: ToggleBarChartCardProps) {
   return (
-    <BarChartCardWithKey
+    <ToggleBarChartCardWithKey
       key={props.variableConfig.variableId + props.breakdownVar}
       {...props}
     />
   );
 }
 
-function BarChartCardWithKey(props: BarChartCardProps) {
+function ToggleBarChartCardWithKey(props: ToggleBarChartCardProps) {
   const [metricConfig, setMetricConfig] = useState<MetricConfig>(
     props.variableConfig.metrics["pct_share"] ||
       props.variableConfig.metrics["per100k"]

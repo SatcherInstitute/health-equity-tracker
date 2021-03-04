@@ -16,10 +16,10 @@ const VALID_DATASET = "VALID_DATASET";
 const GEO_DATASET = "GEO_DATASET";
 const GEO_ID = "id";
 const COLOR_SCALE = "COLOR_SCALE";
+const US_PROJECTION = "US_PROJECTION";
 
 const VAR_DATASET = "VAR_DATASET";
 const LEGEND_DATASET = "LEGEND_DATASET";
-const USA_PROJECTION = "USA_PROJECTION";
 // TODO - consider moving standardized column names, like fips, to variables shared between here and VariableProvider
 const VAR_FIPS = "fips";
 
@@ -76,13 +76,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     }
 
     /* SET UP TOOLTIP */
+    const geographyName = props.showCounties ? "County" : "State";
     const tooltipDatum =
       props.numberFormat === "percentage"
         ? `format(datum.${props.metric.metricId}, '0.1%')`
         : `format(datum.${props.metric.metricId}, ',')`;
-    const tooltipValue = `{"State": datum.properties.name, "${props.metric.shortVegaLabel}": ${tooltipDatum} }`;
-    const missingDataTooltipValue = `{"State": datum.properties.name, "${props.metric.shortVegaLabel}": "No data" }`;
-    console.log(tooltipValue);
+    const tooltipValue = `{"${geographyName}": datum.properties.name, "${props.metric.shortVegaLabel}": ${tooltipDatum} }`;
+    const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${props.metric.shortVegaLabel}": "No data" }`;
 
     /* SET UP LEGEND */
     // TODO - Legends should be scaled exactly the same the across compared charts. Looks misleading otherwise.
@@ -166,7 +166,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ],
       projections: [
         {
-          name: USA_PROJECTION,
+          name: US_PROJECTION,
           type: "albersUsa",
           fit: { signal: "data('" + GEO_DATASET + "')" },
           size: {
@@ -195,7 +195,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
               fill: { value: UNKNOWN_GREY },
             },
           },
-          transform: [{ type: "geoshape", projection: USA_PROJECTION }],
+          transform: [{ type: "geoshape", projection: US_PROJECTION }],
         },
         {
           type: "shape",
@@ -211,7 +211,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             },
             hover: { fill: { value: "red" } },
           },
-          transform: [{ type: "geoshape", projection: USA_PROJECTION }],
+          transform: [{ type: "geoshape", projection: US_PROJECTION }],
         },
       ],
       signals: [

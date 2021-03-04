@@ -1,6 +1,6 @@
 import { Button } from "@material-ui/core";
 import React from "react";
-import { MetadataMap } from "../utils/DatasetTypes";
+import { MapOfDatasetMetadata } from "../utils/DatasetTypes";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
@@ -37,10 +37,10 @@ export function WithLoadingOrErrorUI<R>(props: {
 }
 
 export function WithMetadata(props: {
-  children: (metadata: MetadataMap) => JSX.Element;
+  children: (metadata: MapOfDatasetMetadata) => JSX.Element;
   loadingComponent?: JSX.Element;
 }) {
-  const metadatas = useResources<string, MetadataMap>(
+  const metadatas = useResources<string, MapOfDatasetMetadata>(
     [MetadataCache.METADATA_KEY],
     async () => await getDataManager().loadMetadata(),
     (metadataId) => metadataId
@@ -49,11 +49,11 @@ export function WithMetadata(props: {
   // useResources is generalized for multiple resources, but there is only one
   // metadata resource so we use metadata[0]
   return (
-    <WithLoadingOrErrorUI<MetadataMap>
+    <WithLoadingOrErrorUI<MapOfDatasetMetadata>
       resources={metadatas}
       loadingComponent={props.loadingComponent}
     >
-      {(metadata: MetadataMap[]) => props.children(metadata[0])}
+      {(metadata: MapOfDatasetMetadata[]) => props.children(metadata[0])}
     </WithLoadingOrErrorUI>
   );
 }
@@ -85,7 +85,7 @@ export function WithMetrics(props: {
 interface WithMetadataAndMetricsProps {
   queries: MetricQuery[];
   children: (
-    metadata: MetadataMap,
+    metadata: MapOfDatasetMetadata,
     queryResponses: MetricQueryResponse[]
   ) => JSX.Element;
   loadingComponent?: JSX.Element;
