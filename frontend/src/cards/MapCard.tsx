@@ -1,9 +1,5 @@
 import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
-import { Legend } from "../charts/Legend";
-import { LegendOther } from "../charts/LegendOther";
-import { LegendThree } from "../charts/LegendThree";
-import { MultiMapCard } from "./MultiMapCard";
 import { Fips } from "../data/utils/Fips";
 import styles from "./Card.module.scss";
 import MapBreadcrumbs from "./MapBreadcrumbs";
@@ -26,12 +22,8 @@ import { usePopover } from "../utils/usePopover";
 import { Row } from "../data/utils/DatasetTypes";
 import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC } from "../data/utils/Constants";
-import Dialog, { DialogProps } from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
+import { MultiMapDialog } from "./ui/MultiMapDialog";
 
 const POSSIBLE_BREAKDOWNS: BreakdownVar[] = [
   "race_and_ethnicity",
@@ -79,11 +71,9 @@ function MapCardWithKey(props: MapCardProps) {
       props.currentBreakdown === "all"
   );
   const [open, setOpen] = React.useState(false);
-  const [scroll, setScroll] = React.useState<DialogProps["scroll"]>("paper");
 
-  const handleClickOpen = (scrollType: DialogProps["scroll"]) => () => {
+  const handleClickOpen = () => {
     setOpen(true);
-    setScroll(scrollType);
   };
 
   const handleClose = () => {
@@ -161,74 +151,22 @@ function MapCardWithKey(props: MapCardProps) {
         const filteredData = queryResponse.data.filter((row: Row) =>
           predicates.every((predicate) => predicate(row))
         );
+        console.log(queryResponse.data);
+        console.log(filteredData);
 
         return (
           <>
-            <Dialog
-              style={{ width: "90%", padding: "0" }}
+            <MultiMapDialog
+              fips={props.fips}
+              metricConfig={props.metricConfig}
+              filteredData={filteredData}
+              validData={validData}
+              currentlyDisplayedBreakdown={currentlyDisplayedBreakdown}
+              handleClose={handleClose}
               open={open}
-              onClose={handleClose}
-              maxWidth={false}
-              scroll={scroll}
-              aria-labelledby="scroll-dialog-title"
-              aria-describedby="scroll-dialog-description"
-            >
-              <DialogContent dividers={scroll === "paper"}>
-                <Grid container justify="space-around">
-                  <Grid item xs={6}>
-                    <Alert severity="info">
-                      This legend is quantile math math math explanation.
-                    </Alert>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <LegendOther
-                      metric={props.metricConfig}
-                      legendTitle={props.metricConfig.fullCardTitleName}
-                      legendData={filteredData}
-                      scaleType="quantile"
-                      sameDotSize={true}
-                    />
-                  </Grid>
-                </Grid>
-                <Grid container justify="space-around">
-                  {breakdownValues.map((breakdownValue) => {
-                    const dataForValue = validData.filter(
-                      (row: Row) =>
-                        row[currentlyDisplayedBreakdown] === breakdownValue
-                    );
-                    return (
-                      <Grid item style={{ width: "300px", padding: "15px" }}>
-                        <b>{breakdownValue}</b>
-                        {props.metricConfig && (
-                          <ChoroplethMap
-                            key={breakdownValue}
-                            signalListeners={{ click: (...args: any) => {} }}
-                            metric={props.metricConfig}
-                            legendTitle={props.metricConfig.fullCardTitleName}
-                            legendData={validData}
-                            data={dataForValue}
-                            hideLegend={true}
-                            showCounties={props.fips.isUsa() ? false : true}
-                            fips={props.fips}
-                            fieldRange={queryResponse.getFieldRange(
-                              props.metricConfig.metricId
-                            )}
-                            hideActions={false} /* TODO false */
-                            scaleType="quantile"
-                          />
-                        )}
-                      </Grid>
-                    );
-                  })}
-                </Grid>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleClose} color="primary">
-                  close
-                </Button>
-              </DialogActions>
-            </Dialog>
-
+              breakdownValues={breakdownValues}
+              queryResponse={queryResponse}
+            />
             <CardContent className={styles.SmallMarginContent}>
               <MapBreadcrumbs
                 fips={props.fips}
@@ -290,7 +228,7 @@ function MapCardWithKey(props: MapCardProps) {
                       </Menu>
                     </Grid>
                     <Grid item>
-                      <Button onClick={handleClickOpen("paper")}>
+                      <Button onClick={handleClickOpen}>
                         show full breakdown by {currentlyDisplayedBreakdown}
                       </Button>
                     </Grid>

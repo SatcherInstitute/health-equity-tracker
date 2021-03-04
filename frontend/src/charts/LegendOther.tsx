@@ -62,10 +62,6 @@ export function LegendOther(props: LegendOtherProps) {
       colorScale["domainMax"] = props.fieldRange.max;
       colorScale["domainMin"] = props.fieldRange.min;
     }
-    const tooltipDatum =
-      props.numberFormat === "percentage"
-        ? `format(datum.${props.metric.metricId}, '0.1%')`
-        : `format(datum.${props.metric.metricId}, ',')`;
 
     const dotRange = props.sameDotSize
       ? [200, 200, 200, 200, 200, 200, 200]
