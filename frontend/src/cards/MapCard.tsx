@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
+import { Legend } from "../charts/Legend";
+import { LegendOther } from "../charts/LegendOther";
+import { LegendThree } from "../charts/LegendThree";
+import { MultiMapCard } from "./MultiMapCard";
 import { Fips } from "../data/utils/Fips";
 import styles from "./Card.module.scss";
 import MapBreadcrumbs from "./MapBreadcrumbs";
@@ -22,6 +26,12 @@ import { usePopover } from "../utils/usePopover";
 import { Row } from "../data/utils/DatasetTypes";
 import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC } from "../data/utils/Constants";
+import Dialog, { DialogProps } from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Button from "@material-ui/core/Button";
 
 const POSSIBLE_BREAKDOWNS: BreakdownVar[] = [
   "race_and_ethnicity",
@@ -68,7 +78,27 @@ function MapCardWithKey(props: MapCardProps) {
       props.currentBreakdown === possibleBreakdown ||
       props.currentBreakdown === "all"
   );
+  const [open, setOpen] = React.useState(false);
+  const [scroll, setScroll] = React.useState<DialogProps["scroll"]>("paper");
 
+  const handleClickOpen = (scrollType: DialogProps["scroll"]) => () => {
+    setOpen(true);
+    setScroll(scrollType);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const descriptionElementRef = React.useRef<HTMLElement>(null);
+  React.useEffect(() => {
+    if (open) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [open]);
   const queries = breakdowns.map(
     (breakdown) =>
       new MetricQuery(
@@ -115,6 +145,12 @@ function MapCardWithKey(props: MapCardProps) {
           setBreakdownFilter(breakdownValues[0]);
         }
 
+        const validData = queryResponse.data.filter(
+          (row: Row) =>
+            row[props.metricConfig.metricId] !== undefined &&
+            row[props.metricConfig.metricId] !== null
+        );
+
         const predicates: Array<(row: Row) => boolean> = [
           (row) => row[props.metricConfig.metricId] !== undefined,
           (row) => row[props.metricConfig.metricId] !== null,
@@ -128,6 +164,64 @@ function MapCardWithKey(props: MapCardProps) {
 
         return (
           <>
+            <Dialog
+              style={{ width: "90%", padding: "0" }}
+              open={open}
+              onClose={handleClose}
+              maxWidth={false}
+              scroll={scroll}
+              aria-labelledby="scroll-dialog-title"
+              aria-describedby="scroll-dialog-description"
+            >
+              <DialogContent dividers={scroll === "paper"}>
+                <LegendOther
+                  metric={props.metricConfig}
+                  legendTitle={props.metricConfig.fullCardTitleName}
+                  legendData={filteredData}
+                  scaleType="quantile"
+                  sameDotSize={true}
+                />
+                <Grid container justify="space-around">
+                  {breakdownValues.map((breakdownValue) => {
+                    const dataForValue = validData.filter(
+                      (row: Row) =>
+                        row[currentlyDisplayedBreakdown] === breakdownValue
+                    );
+                    console.log("kkz-breakdownValue", breakdownValue);
+                    console.log("kkz-dataForValue", dataForValue);
+                    return (
+                      <Grid item style={{ width: "300px", padding: "15px" }}>
+                        <b>{breakdownValue}</b>
+                        {props.metricConfig && (
+                          <ChoroplethMap
+                            key={breakdownValue}
+                            signalListeners={{ click: (...args: any) => {} }}
+                            metric={props.metricConfig}
+                            legendTitle={props.metricConfig.fullCardTitleName}
+                            legendData={validData}
+                            data={dataForValue}
+                            hideLegend={true}
+                            showCounties={props.fips.isUsa() ? false : true}
+                            fips={props.fips}
+                            fieldRange={queryResponse.getFieldRange(
+                              props.metricConfig.metricId
+                            )}
+                            hideActions={false} /* TODO false */
+                            scaleType="quantile"
+                          />
+                        )}
+                      </Grid>
+                    );
+                  })}
+                </Grid>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                  close
+                </Button>
+              </DialogActions>
+            </Dialog>
+
             <CardContent className={styles.SmallMarginContent}>
               <MapBreadcrumbs
                 fips={props.fips}
@@ -142,10 +236,11 @@ function MapCardWithKey(props: MapCardProps) {
                   className={styles.SmallMarginContent}
                   style={{ textAlign: "left" }}
                 >
-                  <Grid container>
-                    <Grid item style={{ lineHeight: "64px", fontSize: "20px" }}>
-                      Filtered by:
-                    </Grid>
+                  <Grid
+                    container
+                    justify="space-between"
+                    align-items="flex-end"
+                  >
                     <Grid item>
                       {/* TODO- Clean up UI */}
                       <List component="nav">
@@ -187,6 +282,11 @@ function MapCardWithKey(props: MapCardProps) {
                         )}
                       </Menu>
                     </Grid>
+                    <Grid item>
+                      <Button onClick={handleClickOpen("paper")}>
+                        show full breakdown by {props.currentBreakdown}
+                      </Button>
+                    </Grid>
                   </Grid>
                 </CardContent>
               </>
@@ -212,9 +312,6 @@ function MapCardWithKey(props: MapCardProps) {
                   }
                   showCounties={props.fips.isUsa() ? false : true}
                   fips={props.fips}
-                  fieldRange={queryResponse.getFieldRange(
-                    props.metricConfig.metricId
-                  )}
                   scaleType="quantile"
                 />
               )}

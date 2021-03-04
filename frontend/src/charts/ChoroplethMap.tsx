@@ -10,7 +10,6 @@ export type ScaleType = "quantize" | "quantile";
 
 const UNKNOWN_GREY = "#BDC1C6";
 const HEIGHT_WIDTH_RATIO = 0.5;
-const LEGEND_WIDTH = 100;
 
 const MISSING_DATASET = "MISSING_DATASET";
 const VALID_DATASET = "VALID_DATASET";
@@ -47,6 +46,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   // Initial spec state is set in useEffect
   const [spec, setSpec] = useState({});
 
+  const LEGEND_WIDTH = props.hideLegend ? 0 : 100;
+
   useEffect(() => {
     /* SET UP GEO DATSET */
     // Transform geo dataset by adding varField from VAR_DATASET
@@ -81,6 +82,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         : `format(datum.${props.metric.metricId}, ',')`;
     const tooltipValue = `{"State": datum.properties.name, "${props.metric.shortVegaLabel}": ${tooltipDatum} }`;
     const missingDataTooltipValue = `{"State": datum.properties.name, "${props.metric.shortVegaLabel}": "No data" }`;
+    console.log(tooltipValue);
 
     /* SET UP LEGEND */
     // TODO - Legends should be scaled exactly the same the across compared charts. Looks misleading otherwise.
@@ -220,13 +222,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
       ],
     });
-  }, [width, props.metric, props.legendTitle, props.numberFormat, props.data, props.fips, props.hideLegend, props.showCounties, props.fieldRange, props.scaleType, props.legendData]);
+  }, [width, props.metric, props.legendTitle, props.numberFormat, props.data, props.fips, props.hideLegend, props.showCounties, props.fieldRange, props.scaleType, props.legendData, LEGEND_WIDTH]);
 
   return (
     <div
       ref={ref}
       style={{
-        width: "80%",
+        width: "90%",
         margin: "auto",
       }}
     >

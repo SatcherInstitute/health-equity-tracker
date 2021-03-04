@@ -7,7 +7,7 @@ import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
-import { MultiMapCard } from "../cards/MultiMapCard";
+import { MapCard } from "../cards/MapCard";
 import { PopulationCard } from "../cards/PopulationCard";
 import { TableCard } from "../cards/TableCard";
 import { BarChartCard } from "../cards/BarChartCard";
@@ -167,19 +167,15 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               </ToggleButtonGroup>
             </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <MultiMapCard
+          <Grid item xs={props.vertical ? 12 : 6}>
+            <MapCard
               metricConfig={variableConfig.metrics["per100k"]}
               fips={props.fips}
               updateFipsCallback={(fips: Fips) => {
                 props.updateFipsCallback(fips);
               }}
               currentBreakdown={currentBreakdown}
-              legend="individual"
-              scaleType="quantile"
             />
-          </Grid>
-          <Grid item xs={props.vertical ? 12 : 6}>
             <TableCard
               fips={props.fips}
               metrics={tableFields}

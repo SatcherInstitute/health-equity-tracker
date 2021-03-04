@@ -49,10 +49,7 @@ export function MultiMapCard(props: MultiMapCardProps) {
 
 function MultiMapCardWithKey(props: MultiMapCardProps) {
   const signalListeners: any = {
-    click: (...args: any) => {
-      const clickedData = args[1];
-      props.updateFipsCallback(new Fips(clickedData.id));
-    },
+    click: (...args: any) => {},
   };
 
   const geographyBreakdown = props.fips.isUsa()
@@ -82,19 +79,7 @@ function MultiMapCardWithKey(props: MultiMapCardProps) {
   );
 
   return (
-    <CardWrapper
-      queries={queries}
-      title={
-        <>{`${
-          props.metricConfig.fullCardTitleName
-        } in ${props.fips.getFullDisplayName()}`}</>
-      }
-      infoPopover={
-        ["race_and_ethnicity", "all"].includes(props.currentBreakdown) ? (
-          <RaceInfoPopoverContent />
-        ) : undefined
-      }
-    >
+    <CardWrapper queries={queries}>
       {(queryResponses) => {
         const currentlyDisplayedBreakdown: BreakdownVar =
           props.currentBreakdown === "all"
@@ -121,14 +106,6 @@ function MultiMapCardWithKey(props: MultiMapCardProps) {
 
         return (
           <>
-            <CardContent className={styles.SmallMarginContent}>
-              <MapBreadcrumbs
-                fips={props.fips}
-                updateFipsCallback={props.updateFipsCallback}
-              />
-            </CardContent>
-
-            <Divider />
             <CardContent>
               {queryResponse.dataIsMissing() && (
                 <Alert severity="error">No data available</Alert>

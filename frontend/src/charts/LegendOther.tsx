@@ -200,7 +200,17 @@ export function LegendOther(props: LegendOtherProps) {
     };
 
     setSpec(blah);
-  }, [width, props.metric, props.legendTitle, props.numberFormat, props.scaleType, props.hideLegend, props.fieldRange, props.legendData, props.sameDotSize]);
+  }, [
+    width,
+    props.metric,
+    props.legendTitle,
+    props.numberFormat,
+    props.scaleType,
+    props.hideLegend,
+    props.fieldRange,
+    props.legendData,
+    props.sameDotSize,
+  ]);
 
   return (
     <div
@@ -215,7 +225,7 @@ export function LegendOther(props: LegendOtherProps) {
           Please note that circles in legend are not to scale.
         </Alert>
       )}
-      <Vega spec={spec} width={width} actions={true} />
+      <Vega spec={spec} width={width} actions={false} />
     </div>
   );
 }
