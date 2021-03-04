@@ -174,21 +174,28 @@ function MapCardWithKey(props: MapCardProps) {
               aria-describedby="scroll-dialog-description"
             >
               <DialogContent dividers={scroll === "paper"}>
-                <LegendOther
-                  metric={props.metricConfig}
-                  legendTitle={props.metricConfig.fullCardTitleName}
-                  legendData={filteredData}
-                  scaleType="quantile"
-                  sameDotSize={true}
-                />
+                <Grid container justify="space-around">
+                  <Grid item xs={6}>
+                    <Alert severity="info">
+                      This legend is quantile math math math explanation.
+                    </Alert>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <LegendOther
+                      metric={props.metricConfig}
+                      legendTitle={props.metricConfig.fullCardTitleName}
+                      legendData={filteredData}
+                      scaleType="quantile"
+                      sameDotSize={true}
+                    />
+                  </Grid>
+                </Grid>
                 <Grid container justify="space-around">
                   {breakdownValues.map((breakdownValue) => {
                     const dataForValue = validData.filter(
                       (row: Row) =>
                         row[currentlyDisplayedBreakdown] === breakdownValue
                     );
-                    console.log("kkz-breakdownValue", breakdownValue);
-                    console.log("kkz-dataForValue", dataForValue);
                     return (
                       <Grid item style={{ width: "300px", padding: "15px" }}>
                         <b>{breakdownValue}</b>
@@ -284,7 +291,7 @@ function MapCardWithKey(props: MapCardProps) {
                     </Grid>
                     <Grid item>
                       <Button onClick={handleClickOpen("paper")}>
-                        show full breakdown by {props.currentBreakdown}
+                        show full breakdown by {currentlyDisplayedBreakdown}
                       </Button>
                     </Grid>
                   </Grid>
@@ -301,6 +308,12 @@ function MapCardWithKey(props: MapCardProps) {
                   No data available for filter: <b>{breakdownFilter}</b>
                 </Alert>
               )}
+              {!queryResponse.dataIsMissing() && props.metricConfig && (
+                <Alert severity="info">
+                  Note that legend changes between races. To see races with
+                  common legend, use show all breakdowns button.
+                </Alert>
+              )}
               {props.metricConfig && (
                 <ChoroplethMap
                   signalListeners={signalListeners}
@@ -313,9 +326,6 @@ function MapCardWithKey(props: MapCardProps) {
                   showCounties={props.fips.isUsa() ? false : true}
                   fips={props.fips}
                   scaleType="quantile"
-                  fieldRange={queryResponse.getFieldRange(
-                    props.metricConfig.metricId
-                  )}
                 />
               )}
             </CardContent>

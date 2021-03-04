@@ -222,7 +222,20 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
       ],
     });
-  }, [width, props.metric, props.legendTitle, props.numberFormat, props.data, props.fips, props.hideLegend, props.showCounties, props.fieldRange, props.scaleType, props.legendData, LEGEND_WIDTH]);
+  }, [
+    width,
+    props.metric,
+    props.legendTitle,
+    props.numberFormat,
+    props.data,
+    props.fips,
+    props.hideLegend,
+    props.showCounties,
+    props.fieldRange,
+    props.scaleType,
+    props.legendData,
+    LEGEND_WIDTH,
+  ]);
 
   return (
     <div
