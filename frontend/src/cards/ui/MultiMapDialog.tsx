@@ -14,7 +14,6 @@ import Button from "@material-ui/core/Button";
 export interface MultiMapDialogProps {
   fips: Fips;
   metricConfig: MetricConfig;
-  filteredData: Row[];
   validData: Row[];
   currentlyDisplayedBreakdown: string;
   handleClose: () => void;
@@ -46,7 +45,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             <LegendOther
               metric={props.metricConfig}
               legendTitle={props.metricConfig.fullCardTitleName}
-              legendData={props.filteredData}
+              legendData={props.validData} // TODO is this right?
               scaleType="quantile"
               sameDotSize={true}
             />

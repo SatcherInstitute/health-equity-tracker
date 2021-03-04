@@ -8,17 +8,10 @@ import { MetricQuery } from "../data/query/MetricQuery";
 import { MetricConfig } from "../data/config/MetricConfig";
 import { CardContent } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import { Breakdowns, BreakdownVar } from "../data/query/Breakdowns";
 import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
-import { usePopover } from "../utils/usePopover";
 import { Row } from "../data/utils/DatasetTypes";
 import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC } from "../data/utils/Constants";
@@ -60,7 +53,6 @@ function MapCardWithKey(props: MapCardProps) {
 
   // TODO - make sure the legends are all the same
   const [breakdownFilter, setBreakdownFilter] = useState<string>("");
-  const popover = usePopover();
 
   const geographyBreakdown = props.fips.isUsa()
     ? Breakdowns.byState()
@@ -135,6 +127,7 @@ function MapCardWithKey(props: MapCardProps) {
         if (breakdownFilter === "" || breakdownFilter === undefined) {
           setBreakdownFilter(breakdownValues[0]);
         }
+        console.log("breakdownFilter", breakdownFilter);
 
         const validData = queryResponse.data.filter(
           (row: Row) =>
@@ -155,18 +148,22 @@ function MapCardWithKey(props: MapCardProps) {
         console.log(queryResponse.data);
         console.log(filteredData);
 
-        const filterOptions = {
-          "Race and ethnicity": breakdownValues,
-          Age: [],
-          Sex: [],
-        };
+        let filterOptions: any = {};
+        if (["race_and_ethnicity", "all"].includes(props.currentBreakdown)) {
+          filterOptions["race_and_ethnicity"] = breakdownValues;
+        }
+        if (["age", "all"].includes(props.currentBreakdown)) {
+          filterOptions["age"] = [];
+        }
+        if (["sex", "all"].includes(props.currentBreakdown)) {
+          filterOptions["sex"] = [];
+        }
 
         return (
           <>
             <MultiMapDialog
               fips={props.fips}
               metricConfig={props.metricConfig}
-              filteredData={filteredData}
               validData={validData}
               currentlyDisplayedBreakdown={currentlyDisplayedBreakdown}
               handleClose={handleClose}
@@ -195,7 +192,7 @@ function MapCardWithKey(props: MapCardProps) {
                   >
                     <Grid item>
                       <Filter
-                        value="Choose a filter" // TODO
+                        value={breakdownFilter} // TODO
                         options={filterOptions}
                         onOptionUpdate={(option) => setBreakdownFilter(option)}
                       />
@@ -219,12 +216,14 @@ function MapCardWithKey(props: MapCardProps) {
                   No data available for filter: <b>{breakdownFilter}</b>
                 </Alert>
               )}
-              {!queryResponse.dataIsMissing() && props.metricConfig && (
-                <Alert severity="info">
-                  Note that legend changes between races. To see races with
-                  common legend, use show all breakdowns button.
-                </Alert>
-              )}
+              {!queryResponse.dataIsMissing() &&
+                filteredData.length !== 0 &&
+                props.metricConfig && (
+                  <Alert severity="info">
+                    Note that legend changes between races. To see races with
+                    common legend, use show all breakdowns button.
+                  </Alert>
+                )}
               {props.metricConfig && (
                 <ChoroplethMap
                   signalListeners={signalListeners}

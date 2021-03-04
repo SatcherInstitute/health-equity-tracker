@@ -1,15 +1,19 @@
 import React, { useState } from "react";
-import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
-import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
-import TextField from "@material-ui/core/TextField";
-import { Fips } from "../../data/utils/Fips";
-import Popover from "@material-ui/core/Popover";
+import Popover, { PopoverOrigin } from "@material-ui/core/Popover";
 import Button from "@material-ui/core/Button";
-import styles from "./Filter.module.scss";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { usePopover } from "../../utils/usePopover";
+
+const ANCHOR_ORIGIN: PopoverOrigin = {
+  vertical: "top",
+  horizontal: "right",
+};
+const TRANSFORM_ORIGIN: PopoverOrigin = {
+  vertical: "top",
+  horizontal: "left",
+};
 
 function Filter(props: {
   value: string;
@@ -19,30 +23,19 @@ function Filter(props: {
   const popover = usePopover();
   const subPopover = usePopover();
 
-  const [value, setValue] = useState(props.value);
   const [category, setCategory] = useState(Object.keys(props.options)[0]);
-
-  const updateValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
-  };
 
   return (
     <>
       <Button variant="text" onClick={popover.open}>
-        Filter by: {value}
+        Filter by: {props.value}
       </Button>
       <Popover
         open={popover.isOpen}
         anchorEl={popover.anchor}
         onClose={popover.close}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
+        anchorOrigin={ANCHOR_ORIGIN}
+        transformOrigin={TRANSFORM_ORIGIN}
       >
         <List>
           {Object.keys(props.options).map((breakdown: string) => (
@@ -72,14 +65,8 @@ function Filter(props: {
         open={subPopover.isOpen}
         anchorEl={subPopover.anchor}
         onClose={subPopover.close}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
+        anchorOrigin={ANCHOR_ORIGIN}
+        transformOrigin={TRANSFORM_ORIGIN}
       >
         <List>
           {props.options[category].map((breakdown: string) => (
@@ -89,7 +76,6 @@ function Filter(props: {
               onClick={() => {
                 popover.close();
                 subPopover.close();
-                setValue(breakdown);
                 props.onOptionUpdate(breakdown);
               }}
             >
