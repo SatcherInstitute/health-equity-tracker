@@ -185,6 +185,19 @@ def load_csv_as_dataframe(gcs_bucket, filename, dtype=None, chunksize=None,
     return frame
 
 
+def load_values_as_json(gcs_bucket, filename):
+    """Loads data from the provided gcs_bucket and filename.
+       Expects the data to be in the pandas 'values' format: a list of rows,
+       where each row is a list of values.
+
+       gcs_bucket: The name of the gcs bucket to read the data from
+       filename: The name of the file in the gcs bucket to read from"""
+    client = storage.Client()
+    bucket = client.get_bucket(gcs_bucket)
+    blob = bucket.blob(filename)
+    return blob.download_as_string()
+
+
 def local_file_path(filename):
     return '/tmp/{}'.format(filename)
 

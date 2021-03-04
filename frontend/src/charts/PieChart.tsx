@@ -34,17 +34,8 @@ export function PieChart(props: PieChartProps) {
     legends: [
       {
         orient: "top-right",
-        stroke: "color",
+        fill: "color",
         title: "Ethnicity and Race",
-        encode: {
-          symbols: {
-            update: {
-              fill: { value: "" },
-              strokeWidth: { value: 2 },
-              size: { value: 64 },
-            },
-          },
-        },
       },
     ],
     scales: [

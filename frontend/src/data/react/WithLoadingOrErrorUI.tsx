@@ -1,6 +1,6 @@
 import { Button } from "@material-ui/core";
 import React from "react";
-import { MetadataMap } from "../utils/DatasetTypes";
+import { MapOfDatasetMetadata } from "../utils/DatasetTypes";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
@@ -37,10 +37,10 @@ export function WithLoadingOrErrorUI<R>(props: {
 }
 
 export function WithMetadata(props: {
-  children: (metadata: MetadataMap) => JSX.Element;
+  children: (metadata: MapOfDatasetMetadata) => JSX.Element;
   loadingComponent?: JSX.Element;
 }) {
-  const metadatas = useResources<string, MetadataMap>(
+  const metadatas = useResources<string, MapOfDatasetMetadata>(
     [MetadataCache.METADATA_KEY],
     async () => await getDataManager().loadMetadata(),
     (metadataId) => metadataId
@@ -49,11 +49,11 @@ export function WithMetadata(props: {
   // useResources is generalized for multiple resources, but there is only one
   // metadata resource so we use metadata[0]
   return (
-    <WithLoadingOrErrorUI<MetadataMap>
+    <WithLoadingOrErrorUI<MapOfDatasetMetadata>
       resources={metadatas}
       loadingComponent={props.loadingComponent}
     >
-      {(metadata: MetadataMap[]) => props.children(metadata[0])}
+      {(metadata: MapOfDatasetMetadata[]) => props.children(metadata[0])}
     </WithLoadingOrErrorUI>
   );
 }
@@ -78,14 +78,32 @@ export function WithMetrics(props: {
   );
 }
 
-export function WithMetadataAndMetrics(props: {
+/**
+ * We create a wrapper with a key to create a new instance when
+ * queries change so that the component's load screen is reset.
+ */
+interface WithMetadataAndMetricsProps {
   queries: MetricQuery[];
   children: (
-    metadata: MetadataMap,
+    metadata: MapOfDatasetMetadata,
     queryResponses: MetricQueryResponse[]
   ) => JSX.Element;
   loadingComponent?: JSX.Element;
-}) {
+}
+
+export function WithMetadataAndMetrics(props: WithMetadataAndMetricsProps) {
+  const key = props.queries.reduce(
+    (accumulator: string, query: MetricQuery) =>
+      (accumulator += query.getUniqueKey()),
+    ""
+  );
+
+  return <WithMetadataAndMetricsWithKey key={key} {...props} />;
+}
+
+export function WithMetadataAndMetricsWithKey(
+  props: WithMetadataAndMetricsProps
+) {
   // Note: this will result in an error page if any of the required data fails
   // to be fetched. We could make the metadata optional so the charts still
   // render, but it is much easier to reason about if we require both. The
