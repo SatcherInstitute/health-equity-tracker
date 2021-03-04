@@ -24,6 +24,7 @@ import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC } from "../data/utils/Constants";
 import Button from "@material-ui/core/Button";
 import { MultiMapDialog } from "./ui/MultiMapDialog";
+import Filter from "./ui/Filter";
 
 const POSSIBLE_BREAKDOWNS: BreakdownVar[] = [
   "race_and_ethnicity",
@@ -154,6 +155,12 @@ function MapCardWithKey(props: MapCardProps) {
         console.log(queryResponse.data);
         console.log(filteredData);
 
+        const filterOptions = {
+          "Race and ethnicity": breakdownValues,
+          Age: [],
+          Sex: [],
+        };
+
         return (
           <>
             <MultiMapDialog
@@ -187,45 +194,11 @@ function MapCardWithKey(props: MapCardProps) {
                     align-items="flex-end"
                   >
                     <Grid item>
-                      {/* TODO- Clean up UI */}
-                      <List component="nav">
-                        <ListItem button onClick={popover.open}>
-                          <ListItemText primary={breakdownFilter} />
-                          <ArrowDropDownIcon />
-                        </ListItem>
-                      </List>
-                      {/* TODO - Align this with the mocks */}
-                      <Menu
-                        anchorEl={popover.anchor}
-                        keepMounted
-                        open={popover.isOpen}
-                        onClose={popover.close}
-                      >
-                        {["age", "all"].includes(props.currentBreakdown) && (
-                          <MenuItem disabled={true}>Age [unavailable]</MenuItem>
-                        )}
-                        {["sex", "all"].includes(props.currentBreakdown) && (
-                          <MenuItem disabled={true}>Sex [unavailable]</MenuItem>
-                        )}
-                        {["race_and_ethnicity", "all"].includes(
-                          props.currentBreakdown
-                        ) && (
-                          <>
-                            <MenuItem disabled={true}>Races</MenuItem>
-                            {breakdownValues.map((option) => (
-                              <MenuItem
-                                key={option}
-                                onClick={(e) => {
-                                  popover.close();
-                                  setBreakdownFilter(option);
-                                }}
-                              >
-                                {option}
-                              </MenuItem>
-                            ))}
-                          </>
-                        )}
-                      </Menu>
+                      <Filter
+                        value="Choose a filter" // TODO
+                        options={filterOptions}
+                        onOptionUpdate={(option) => setBreakdownFilter(option)}
+                      />
                     </Grid>
                     <Grid item>
                       <Button onClick={handleClickOpen}>
