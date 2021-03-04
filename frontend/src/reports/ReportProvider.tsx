@@ -9,16 +9,12 @@ import {
   MadLibId,
 } from "../utils/MadLibs";
 import { Fips } from "../data/utils/Fips";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import { getMadLibPhraseText } from "../utils/MadLibs";
-import { linkToMadLib, DATA_CATALOG_PAGE_LINK } from "../utils/urlutils";
+import { DATA_CATALOG_PAGE_LINK } from "../utils/urlutils";
 import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import ShareIcon from "@material-ui/icons/Share";
 import styles from "./Report.module.scss";
+import ShareDialog from "./ui/ShareDialog";
 
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
   const segment = madLib.phrase[segmentIndex];
@@ -109,26 +105,11 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
   return (
     <>
       <div className={styles.ReportWrapper}>
-        <Dialog
-          open={shareModalOpen}
-          onClose={() => setShareModalOpen(false)}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">Link to this Report</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              {getMadLibPhraseText(props.madLib)}
-            </DialogContentText>
-            <DialogContentText id="alert-dialog-description">
-              {linkToMadLib(
-                props.madLib.id,
-                props.madLib.activeSelections,
-                true
-              )}
-            </DialogContentText>
-          </DialogContent>
-        </Dialog>
+        <ShareDialog
+          madLib={props.madLib}
+          shareModalOpen={shareModalOpen}
+          setShareModalOpen={setShareModalOpen}
+        />
         <div className={styles.ReportToolbar}>
           <Button
             color="primary"
@@ -145,12 +126,13 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
       <div className={styles.MissingDataInfo}>
         <h1>What Data Are Missing?</h1>
         <p>
-          In this tracker, we are using <a href="/">COVID Tracking Project</a>,{" "}
-          <a href="/">CDC Public Datasets</a>, and{" "}
-          <a href="/">U.S. Census Bureau data</a>. Some soures are more
-          “real-time” like case data, but other important data, such as
-          information around social determinants of health can lag weeks to
-          years. For the moment, this is our best representation of how the
+          In this tracker, we are using{" "}
+          <a href={DATA_CATALOG_PAGE_LINK}>COVID Tracking Project</a>,{" "}
+          <a href={DATA_CATALOG_PAGE_LINK}>CDC Public Datasets</a>, and{" "}
+          <a href={DATA_CATALOG_PAGE_LINK}>U.S. Census Bureau data</a>. Some
+          soures are more “real-time” like case data, but other important data,
+          such as information around social determinants of health can lag weeks
+          to years. For the moment, this is our best representation of how the
           country is doing based on publically available information.
         </p>
         <p>
