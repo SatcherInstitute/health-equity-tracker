@@ -20,7 +20,7 @@ const PARTNERS = [
     imageUrl: "img/PartnerGoogle.png",
     alt: "alt",
   },
-]
+];
 
 const LEADERSHIP_TEAM = [
   {
@@ -48,7 +48,7 @@ const LEADERSHIP_TEAM = [
     role: "Coalition/Engagement",
     imageUrl: "img/jammie-hopkins.jpg",
   },
-]
+];
 
 const GOOGLE_FELLOWS = [
   {
@@ -143,32 +143,34 @@ const GOOGLE_FELLOWS = [
     name: "Emily Rothschild",
     role: "Content Strategist",
   },
-]
+];
 
 function OurTeamTab() {
   return (
     <Grid container className={styles.Grid}>
-
       <Grid container className={styles.GridSectionHeaderText}>
         <Grid item xs={7}>
           <Typography className={styles.HeaderText}>
             We're working towards a better tomorrow.
           </Typography>
           <Typography className={styles.HeaderSubtext}>
-            We strongly support breaking down systemic barriers in order to achieve
-            a more healthy, equitable, and inclusive society.
+            We strongly support breaking down systemic barriers in order to
+            achieve a more healthy, equitable, and inclusive society.
           </Typography>
-
         </Grid>
       </Grid>
 
       <Grid container className={styles.GridSection}>
         <Grid item xs={12}>
           <Typography
-              variant="h6"
-              align="left"
-              style={{ fontSize: "28px", textAlign: "left", fontFamily: "Taviraj" }}
-              className={styles.UnderlinedHeader}
+            variant="h6"
+            align="left"
+            style={{
+              fontSize: "28px",
+              textAlign: "left",
+              fontFamily: "Taviraj",
+            }}
+            className={styles.UnderlinedHeader}
           >
             Leadership Team
           </Typography>
@@ -177,17 +179,17 @@ function OurTeamTab() {
           <Grid container className={styles.GridSubSection}>
             {LEADERSHIP_TEAM.map((leader) => {
               return (
-                  <Grid item xs={3} className={styles.TextProfile}>
-                    <img src={leader.imageUrl} alt={leader.name} />
-                    <br/>
-                    <span style={{ fontSize: "16px", fontWeight: 500 }}>
-                      { leader.name }
-                    </span>
-                    <br/>
-                    <span style={{ fontSize: "14px", fontWeight: 400 }}>
-                      { leader.role }
-                    </span>
-                  </Grid>
+                <Grid item xs={3} className={styles.TextProfile}>
+                  <img src={leader.imageUrl} alt={leader.name} />
+                  <br />
+                  <span style={{ fontSize: "16px", fontWeight: 500 }}>
+                    {leader.name}
+                  </span>
+                  <br />
+                  <span style={{ fontSize: "14px", fontWeight: 400 }}>
+                    {leader.role}
+                  </span>
+                </Grid>
               );
             })}
           </Grid>
@@ -197,27 +199,31 @@ function OurTeamTab() {
       <Grid container className={styles.GridSection}>
         <Grid item xs={12}>
           <Typography
-                variant="h6"
-                align="left"
-                style={{ fontSize: "28px", textAlign: "left", fontFamily: "Taviraj" }}
-                className={styles.UnderlinedHeader}
-            >
-              Google.org Fellows
+            variant="h6"
+            align="left"
+            style={{
+              fontSize: "28px",
+              textAlign: "left",
+              fontFamily: "Taviraj",
+            }}
+            className={styles.UnderlinedHeader}
+          >
+            Google.org Fellows
           </Typography>
         </Grid>
         <Grid item>
           <Grid container className={styles.GridSubSection}>
             {GOOGLE_FELLOWS.map((fellow) => {
               return (
-                  <Grid item xs={3} className={styles.TextProfile}>
-                    <span style={{ fontSize: "16px", fontWeight: 500 }}>
-                      { fellow.name }
-                    </span>
-                    <br/>
-                    <span style={{ fontSize: "14px", fontWeight: 400 }}>
-                      { fellow.role }
-                    </span>
-                  </Grid>
+                <Grid item xs={3} className={styles.TextProfile}>
+                  <span style={{ fontSize: "16px", fontWeight: 500 }}>
+                    {fellow.name}
+                  </span>
+                  <br />
+                  <span style={{ fontSize: "14px", fontWeight: 400 }}>
+                    {fellow.role}
+                  </span>
+                </Grid>
               );
             })}
           </Grid>
@@ -227,10 +233,14 @@ function OurTeamTab() {
       <Grid container className={styles.GridSection}>
         <Grid item xs={12}>
           <Typography
-              variant="h6"
-              align="left"
-              style={{ fontSize: "28px", textAlign: "left", fontFamily: "Taviraj" }}
-              className={styles.UnderlinedHeader}
+            variant="h6"
+            align="left"
+            style={{
+              fontSize: "28px",
+              textAlign: "left",
+              fontFamily: "Taviraj",
+            }}
+            className={styles.UnderlinedHeader}
           >
             Health Equity Task Force
           </Typography>
@@ -239,15 +249,15 @@ function OurTeamTab() {
         <Grid item xs={12}>
           <Grid container className={styles.GridSubSection}>
             {Array.from(Array(20)).map((i) => (
-                <Grid item xs={3} className={styles.TextProfile}>
-                  <span style={{ fontSize: "16px", fontWeight: 500 }}>
-                    Person {i}
-                  </span>
-                  <br/>
-                  <span style={{ fontSize: "14px", fontWeight: 400 }}>
-                      Name of role
-                  </span>
-                </Grid>
+              <Grid item xs={3} className={styles.TextProfile}>
+                <span style={{ fontSize: "16px", fontWeight: 500 }}>
+                  Person {i}
+                </span>
+                <br />
+                <span style={{ fontSize: "14px", fontWeight: 400 }}>
+                  Name of role
+                </span>
+              </Grid>
             ))}
           </Grid>
         </Grid>
@@ -256,10 +266,14 @@ function OurTeamTab() {
       <Grid container className={styles.GridSection}>
         <Grid item xs={12}>
           <Typography
-              variant="h6"
-              align="left"
-              style={{ fontSize: "28px", textAlign: "left", fontFamily: "Taviraj" }}
-              className={styles.UnderlinedHeader}
+            variant="h6"
+            align="left"
+            style={{
+              fontSize: "28px",
+              textAlign: "left",
+              fontFamily: "Taviraj",
+            }}
+            className={styles.UnderlinedHeader}
           >
             Partners
           </Typography>
@@ -268,14 +282,13 @@ function OurTeamTab() {
         <Grid item xs={12}>
           <Grid container className={styles.GridSubSection}>
             {PARTNERS.map((partner) => (
-                <Grid item xs={3} className={styles.TextProfile}>
-                  <img src={partner.imageUrl} alt={partner.alt} />
-                </Grid>
+              <Grid item xs={3} className={styles.TextProfile}>
+                <img src={partner.imageUrl} alt={partner.alt} />
+              </Grid>
             ))}
           </Grid>
         </Grid>
       </Grid>
-
     </Grid>
   );
 }
