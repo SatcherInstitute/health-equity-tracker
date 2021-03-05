@@ -218,7 +218,8 @@ export function LegendOther(props: LegendOtherProps) {
     >
       {!props.sameDotSize && (
         <Alert severity="info">
-          Please note that circles in legend are not to scale.
+          This scale is optimized for visualizing this demographic. Use the
+          “show full breakdown” button to compare demographics.
         </Alert>
       )}
       <Vega spec={spec} width={width} actions={false} />

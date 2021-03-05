@@ -37,7 +37,12 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
         <Grid container justify="space-around">
           <Grid item xs={6}>
             <Alert severity="info">
-              This legend is quantile math math math explanation.
+              This scale is a{" "}
+              <a href="https://vega.github.io/vega/docs/scales/#quantile">
+                quantile
+              </a>{" "}
+              scale, optimized for visualizing and comparing across
+              demographics.
             </Alert>
           </Grid>
           <Grid item xs={6}>
