@@ -30,7 +30,7 @@ RACE = {
     "NATIVE_HAWAIIAN_AND_OTHER_PACIFIC_ISLANDER_ALONE": "NATIVE_HAWAIIAN_AND_OTHER_PACIFIC_ISLANDER_ALONE",
     "SOME_OTHER_RACE_ALONE": "SOME_OTHER_RACE_ALONE",
     "TWO_OR_MORE_RACES": "TWO_OR_MORE_RACES",
-    "WHITE_ALONE_NOT_HISPANIC_OR_LATINO": "WHITE_ALONE,_NOT_HISPANIC_OR_LATINO",
+    "WHITE_ALONE_NOT_HISPANIC_OR_LATINO": "WHITE_ALONE_NOT_HISPANIC_OR_LATINO",
     "HISPANIC_OR_LATINO": "HISPANIC_OR_LATINO"
 }
 
@@ -606,8 +606,11 @@ class ACSHealthInsurance(DataSource):
             AcsHealhInsuranceIngestor(BASE_ACS_URL),
         ]
 
-# AcsHealhInsuranceIngestor(BASE_ACS_URL).upload_to_gcs('kalieki-dev-landing-bucket')
-# AcsHealhInsuranceIngestor(BASE_ACS_URL).write_to_bq('acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
+
+AcsHealhInsuranceIngestor(BASE_ACS_URL).upload_to_gcs(
+    'kalieki-dev-landing-bucket')
+AcsHealhInsuranceIngestor(BASE_ACS_URL).write_to_bq(
+    'acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
 
 
 # AcsHealhInsuranceIngestor(BASE_ACS_URL).write_local_files_debug()
