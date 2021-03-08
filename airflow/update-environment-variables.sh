@@ -25,7 +25,7 @@ LANDING_BUCKET=${LANDING_BUCKET:5:-1}
 echo $LANDING_BUCKET
 
 echo Input manual upload bucket?
-MANUAL_BUCKET=$(gsutil ls | grep -oP ".*landing.*")
+MANUAL_BUCKET=$(gsutil ls | grep -oP ".*manual.*")
 MANUAL_BUCKET=${MANUAL_BUCKET:5:-1}
 echo $MANUAL_BUCKET
 
