@@ -35,9 +35,9 @@ const LEADERSHIP_TEAM = [
     imageUrl: "img/BeltonAllyson.png",
   },
   {
-    name: "Mahia Valley, BSBA",
+    name: "Mahia Valle, BSBA",
     role: "Communications",
-    imageUrl: "img/ValleyMahia.png",
+    imageUrl: "img/ValleMahia.png",
   },
   {
     name: "Megan Douglas, JD",
