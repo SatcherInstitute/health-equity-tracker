@@ -235,19 +235,19 @@ class AcsHealhInsuranceIngestor:
 
         female_state_params = format_params(
             HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES)
-        file_diff = file_diff and url_file_to_gcs.url_file_to_gcs(
+        file_diff = file_diff or url_file_to_gcs.url_file_to_gcs(
             self.base_url, female_state_params, bucket,
             self.get_filename(Sex.FEMALE, None, False))
 
         male_county_params = format_params(
             HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES, True)
-        file_diff = file_diff and url_file_to_gcs.url_file_to_gcs(
+        file_diff = file_diff or url_file_to_gcs.url_file_to_gcs(
             self.base_url, male_county_params, bucket,
             self.get_filename(Sex.MALE, None, True))
 
         female_county_params = format_params(
             HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES, True)
-        file_diff = file_diff and url_file_to_gcs.url_file_to_gcs(
+        file_diff = file_diff or url_file_to_gcs.url_file_to_gcs(
             self.base_url, female_county_params, bucket,
             self.get_filename(Sex.FEMALE, None, True))
 
@@ -259,12 +259,12 @@ class AcsHealhInsuranceIngestor:
                 race_state_params = format_params(
                     prefix, HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES)
                 race = prefix[prefix_key][MetadataKey.RACE]
-                file_diff = file_diff and url_file_to_gcs.url_file_to_gcs(
+                file_diff = file_diff or url_file_to_gcs.url_file_to_gcs(
                     self.base_url, race_state_params, bucket,
                     self.get_filename(None, race, False))
                 race_county_params = format_params(
                     prefix, HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES, True)
-                file_diff = file_diff and url_file_to_gcs.url_file_to_gcs(
+                file_diff = file_diff or url_file_to_gcs.url_file_to_gcs(
                     self.base_url, race_county_params, bucket,
                     self.get_filename(None, race, True))
 
