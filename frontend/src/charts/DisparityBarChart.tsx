@@ -19,17 +19,17 @@ function getSpec(
   width: number,
   breakdownVar: string,
   breakdownVarDisplayName: string,
-  thickMeasure: string,
-  thickMeasureDisplayName: string,
-  thinMeasure: string,
-  thinMeasureDisplayName: string,
+  lightMeasure: string,
+  lightMeasureDisplayName: string,
+  darkMeasure: string,
+  darkMeasureDisplayName: string,
   metricDisplayName: string,
   stacked?: boolean
 ): any {
   const BAR_HEIGHT = stacked ? 40 : 10;
   const BAR_PADDING = 0.1;
-  const THIN_MEASURE_COLOR = "#0B5420";
-  const THICK_MEASURE_COLOR = "#9ACFC0";
+  const DARK_MEASURE_COLOR = "#0B5420";
+  const LIGHT_MEASURE_COLOR = "#9ACFC0";
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 
@@ -54,9 +54,9 @@ function getSpec(
   }
 
   const measureWithLargerDomain =
-    maxValueInField(thickMeasure) > maxValueInField(thinMeasure)
-      ? thickMeasure
-      : thinMeasure;
+    maxValueInField(lightMeasure) > maxValueInField(darkMeasure)
+      ? lightMeasure
+      : darkMeasure;
 
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
@@ -83,7 +83,7 @@ function getSpec(
     ],
     marks: [
       {
-        name: "thickMeasure_bars",
+        name: "lightMeasure_bars",
         type: "rect",
         style: ["bar"],
         from: { data: DATASET },
@@ -92,13 +92,13 @@ function getSpec(
             tooltip: {
               signal: `${oneLineLabel(
                 breakdownVar
-              )} + ', ${thickMeasureDisplayName}: ' + datum. ${thickMeasure}+'%'`,
+              )} + ', ${lightMeasureDisplayName}: ' + datum. ${lightMeasure}+'%'`,
             },
           },
           update: {
-            fill: { value: THICK_MEASURE_COLOR },
+            fill: { value: LIGHT_MEASURE_COLOR },
             ariaRoleDescription: { value: "bar" },
-            x: { scale: "x", field: thickMeasure },
+            x: { scale: "x", field: lightMeasure },
             x2: { scale: "x", value: 0 },
             y: { scale: "y", field: breakdownVar },
             yc: {
@@ -116,7 +116,7 @@ function getSpec(
         },
       },
       {
-        name: "thinMeasure_bars",
+        name: "darkMeasure_bars",
         type: "rect",
         style: ["bar"],
         from: { data: DATASET },
@@ -125,13 +125,13 @@ function getSpec(
             tooltip: {
               signal: `${oneLineLabel(
                 breakdownVar
-              )} + ', ${thinMeasureDisplayName}: ' + datum. ${thinMeasure}+'%'`,
+              )} + ', ${darkMeasureDisplayName}: ' + datum. ${darkMeasure}+'%'`,
             },
           },
           update: {
-            fill: { value: THIN_MEASURE_COLOR },
+            fill: { value: DARK_MEASURE_COLOR },
             ariaRoleDescription: { value: "bar" },
-            x: { scale: "x", field: thinMeasure },
+            x: { scale: "x", field: darkMeasure },
             x2: { scale: "x", value: 0 },
             yc: {
               scale: "y",
@@ -148,7 +148,7 @@ function getSpec(
         },
       },
       {
-        name: "thinMeasure_text_labels",
+        name: "darkMeasure_text_labels",
         type: "text",
         style: ["text"],
         from: { data: DATASET },
@@ -158,7 +158,7 @@ function getSpec(
             baseline: { value: "middle" },
             dx: { value: 3 },
             fill: { value: "black" },
-            x: { scale: "x", field: thinMeasure },
+            x: { scale: "x", field: darkMeasure },
             y: { scale: "y", field: breakdownVar, band: 0.5 },
             yc: {
               scale: "y",
@@ -168,7 +168,7 @@ function getSpec(
                 : MIDDLE_OF_BAND + BAR_HEIGHT,
             },
             text: {
-              signal: `isValid(datum["${thinMeasure}"]) ? datum["${thinMeasure}"] + "${metricDisplayName}" : "" `,
+              signal: `isValid(datum["${darkMeasure}"]) ? datum["${darkMeasure}"] + "${metricDisplayName}" : "" `,
             },
           },
         },
@@ -196,8 +196,8 @@ function getSpec(
       {
         name: "variables",
         type: "ordinal",
-        domain: [thickMeasureDisplayName, thinMeasureDisplayName],
-        range: [THICK_MEASURE_COLOR, THIN_MEASURE_COLOR],
+        domain: [lightMeasureDisplayName, darkMeasureDisplayName],
+        range: [LIGHT_MEASURE_COLOR, DARK_MEASURE_COLOR],
       },
     ],
     axes: [
@@ -219,7 +219,7 @@ function getSpec(
         scale: "x",
         orient: "bottom",
         grid: false,
-        title: `${thickMeasureDisplayName} vs. ${thinMeasureDisplayName} `,
+        title: `${lightMeasureDisplayName} vs. ${darkMeasureDisplayName} `,
         labelFlush: true,
         labelOverlap: true,
         tickCount: { signal: `ceil(width/${BAR_HEIGHT})` },
@@ -256,11 +256,11 @@ function getSpec(
 }
 export interface DisparityBarChartProps {
   data: Row[];
-  thickMetric: MetricConfig;
-  thinMetric: MetricConfig;
+  lightMetric: MetricConfig;
+  darkMetric: MetricConfig;
   breakdownVar: BreakdownVar;
   metricDisplayName: string;
-  // Stacked will render one thin bar on top of a thicker bar
+  // Stacked will render one dark bar on top of a lighter bar
   // Not stacked will show two equally sized bars side by side
   stacked?: boolean;
 }
@@ -286,10 +286,10 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           width,
           props.breakdownVar,
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
-          props.thickMetric.metricId,
-          props.thickMetric.shortVegaLabel,
-          props.thinMetric.metricId,
-          props.thinMetric.shortVegaLabel,
+          props.lightMetric.metricId,
+          props.lightMetric.shortVegaLabel,
+          props.darkMetric.metricId,
+          props.darkMetric.shortVegaLabel,
           props.metricDisplayName,
           props.stacked
         )}
