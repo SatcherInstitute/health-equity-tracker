@@ -195,7 +195,7 @@ def load_values_as_json(gcs_bucket, filename):
     client = storage.Client()
     bucket = client.get_bucket(gcs_bucket)
     blob = bucket.blob(filename)
-    return blob.download_as_string()
+    return json.loads(blob.download_as_bytes().decode('utf-8'))
 
 
 def local_file_path(filename):
