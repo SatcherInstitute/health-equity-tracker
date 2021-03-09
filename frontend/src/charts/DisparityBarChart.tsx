@@ -23,13 +23,16 @@ function getSpec(
   thickMeasureDisplayName: string,
   thinMeasure: string,
   thinMeasureDisplayName: string,
-  metricDisplayName: string
+  metricDisplayName: string,
+  stacked?: boolean
 ): any {
-  const BAR_HEIGHT = 40;
+  const BAR_HEIGHT = stacked ? 40 : 10;
   const BAR_PADDING = 0.1;
   const THIN_RATIO = 0.3;
-  const THIN_MEASURE_COLOR = "#174EA6";
-  const THICK_MEASURE_COLOR = "#BDC1C6";
+  const SIDE_BY_SIDE_ONE_BAR_RATIO = 0.4;
+  const SIDE_BY_SIDE_FULL_BAR_RATIO = 4;
+  const THIN_MEASURE_COLOR = "#0B5420";
+  const THICK_MEASURE_COLOR = "#9ACFC0";
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 
@@ -60,7 +63,10 @@ function getSpec(
       },
     ],
     signals: [
-      { name: "y_step", value: BAR_HEIGHT },
+      {
+        name: "y_step",
+        value: stacked ? BAR_HEIGHT : BAR_HEIGHT * SIDE_BY_SIDE_FULL_BAR_RATIO,
+      },
       {
         name: "height",
         update: "bandspace(domain('y').length, 0.1, 0.05) * y_step",
@@ -86,7 +92,20 @@ function getSpec(
             x: { scale: "x", field: thickMeasure },
             x2: { scale: "x", value: 0 },
             y: { scale: "y", field: breakdownVar },
-            height: { scale: "y", band: 1 },
+            yc: {
+              scale: "y",
+              field: breakdownVar,
+              offset: stacked
+                ? (BAR_HEIGHT - BAR_HEIGHT * BAR_PADDING) / 2
+                : ((BAR_HEIGHT - BAR_HEIGHT * BAR_PADDING) *
+                    SIDE_BY_SIDE_FULL_BAR_RATIO) /
+                    2 -
+                  BAR_HEIGHT * SIDE_BY_SIDE_ONE_BAR_RATIO * 2,
+            },
+            height: {
+              scale: "y",
+              band: stacked ? 1 : SIDE_BY_SIDE_ONE_BAR_RATIO,
+            },
           },
         },
       },
@@ -111,9 +130,17 @@ function getSpec(
             yc: {
               scale: "y",
               field: breakdownVar,
-              offset: (BAR_HEIGHT - BAR_HEIGHT * BAR_PADDING) / 2,
+              offset: stacked
+                ? (BAR_HEIGHT - BAR_HEIGHT * BAR_PADDING) / 2
+                : ((BAR_HEIGHT - BAR_HEIGHT * BAR_PADDING) *
+                    SIDE_BY_SIDE_FULL_BAR_RATIO) /
+                    2 +
+                  BAR_HEIGHT * SIDE_BY_SIDE_ONE_BAR_RATIO * 2,
             },
-            height: { scale: "y", band: THIN_RATIO },
+            height: {
+              scale: "y",
+              band: stacked ? THIN_RATIO : SIDE_BY_SIDE_ONE_BAR_RATIO,
+            },
           },
         },
       },
@@ -130,6 +157,14 @@ function getSpec(
             fill: { value: "black" },
             x: { scale: "x", field: thinMeasure },
             y: { scale: "y", field: breakdownVar, band: 0.5 },
+            yc: {
+              scale: "y",
+              field: breakdownVar,
+              offset: stacked
+                ? (BAR_HEIGHT - BAR_HEIGHT * BAR_PADDING) / 2
+                : ((BAR_HEIGHT - BAR_HEIGHT * BAR_PADDING) * 4) / 2 +
+                  BAR_HEIGHT,
+            },
             text: {
               signal: `isValid(datum["${thinMeasure}"]) ? datum["${thinMeasure}"] + "${metricDisplayName}" : "" `,
             },
@@ -169,7 +204,7 @@ function getSpec(
         orient: "bottom",
         gridScale: "y",
         grid: true,
-        tickCount: { signal: "ceil(width/40)" },
+        tickCount: { signal: `ceil(width/${BAR_HEIGHT})` },
         domain: false,
         labels: false,
         aria: false,
@@ -185,7 +220,7 @@ function getSpec(
         title: `${thickMeasureDisplayName} vs. ${thinMeasureDisplayName} `,
         labelFlush: true,
         labelOverlap: true,
-        tickCount: { signal: "ceil(width/40)" },
+        tickCount: { signal: `ceil(width/${BAR_HEIGHT})` },
         zindex: 0,
       },
       {
@@ -223,6 +258,9 @@ export interface DisparityBarChartProps {
   thinMetric: MetricConfig;
   breakdownVar: BreakdownVar;
   metricDisplayName: string;
+  // Stacked will render one thin bar on top of a thicker bar
+  // Not stacked will show two equally sized bars side by side
+  stacked?: boolean;
 }
 
 export function DisparityBarChart(props: DisparityBarChartProps) {
@@ -250,7 +288,8 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           props.thickMetric.shortVegaLabel,
           props.thinMetric.metricId,
           props.thinMetric.shortVegaLabel,
-          props.metricDisplayName
+          props.metricDisplayName,
+          props.stacked
         )}
       />
     </div>
