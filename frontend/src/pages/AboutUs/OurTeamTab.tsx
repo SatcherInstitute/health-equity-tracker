@@ -326,14 +326,10 @@ function OurTeamTab() {
 
         <Grid item xs={12}>
           <Grid container className={styles.GridSubSection}>
-            {Array.from(Array(20)).map((i) => (
+            {HE_TASKFORCE.map((name) => (
               <Grid item xs={3} className={styles.TextProfile}>
                 <span style={{ fontSize: "16px", fontWeight: 500 }}>
-                  Person {i}
-                </span>
-                <br />
-                <span style={{ fontSize: "14px", fontWeight: 400 }}>
-                  Name of role
+                  {name}
                 </span>
               </Grid>
             ))}
