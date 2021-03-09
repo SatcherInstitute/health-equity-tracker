@@ -28,13 +28,22 @@ function getSpec(
 ): any {
   const BAR_HEIGHT = stacked ? 40 : 10;
   const BAR_PADDING = 0.1;
-  const THIN_RATIO = 0.3;
-  const SIDE_BY_SIDE_ONE_BAR_RATIO = 0.4;
-  const SIDE_BY_SIDE_FULL_BAR_RATIO = 4;
   const THIN_MEASURE_COLOR = "#0B5420";
   const THICK_MEASURE_COLOR = "#9ACFC0";
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
+
+  const THIN_RATIO = 0.3;
+  const STACKED_BAND_HEIGHT = BAR_HEIGHT - BAR_HEIGHT * BAR_PADDING;
+
+  const SIDE_BY_SIDE_ONE_BAR_RATIO = 0.4;
+  const SIDE_BY_SIDE_FULL_BAR_RATIO = 5;
+  const SIDE_BY_SIDE_BAND_HEIGHT =
+    SIDE_BY_SIDE_FULL_BAR_RATIO * BAR_HEIGHT -
+    SIDE_BY_SIDE_FULL_BAR_RATIO * BAR_HEIGHT * BAR_PADDING;
+  const MIDDLE_OF_BAND = SIDE_BY_SIDE_BAND_HEIGHT / 2;
+  const SIDE_BY_SIDE_OFFSET =
+    BAR_HEIGHT * SIDE_BY_SIDE_ONE_BAR_RATIO * (SIDE_BY_SIDE_FULL_BAR_RATIO / 2);
 
   function maxValueInField(field: string) {
     return Math.max(
@@ -96,11 +105,8 @@ function getSpec(
               scale: "y",
               field: breakdownVar,
               offset: stacked
-                ? (BAR_HEIGHT - BAR_HEIGHT * BAR_PADDING) / 2
-                : ((BAR_HEIGHT - BAR_HEIGHT * BAR_PADDING) *
-                    SIDE_BY_SIDE_FULL_BAR_RATIO) /
-                    2 -
-                  BAR_HEIGHT * SIDE_BY_SIDE_ONE_BAR_RATIO * 2,
+                ? STACKED_BAND_HEIGHT / 2
+                : MIDDLE_OF_BAND - SIDE_BY_SIDE_OFFSET,
             },
             height: {
               scale: "y",
@@ -131,11 +137,8 @@ function getSpec(
               scale: "y",
               field: breakdownVar,
               offset: stacked
-                ? (BAR_HEIGHT - BAR_HEIGHT * BAR_PADDING) / 2
-                : ((BAR_HEIGHT - BAR_HEIGHT * BAR_PADDING) *
-                    SIDE_BY_SIDE_FULL_BAR_RATIO) /
-                    2 +
-                  BAR_HEIGHT * SIDE_BY_SIDE_ONE_BAR_RATIO * 2,
+                ? STACKED_BAND_HEIGHT / 2
+                : MIDDLE_OF_BAND + SIDE_BY_SIDE_OFFSET,
             },
             height: {
               scale: "y",
@@ -161,9 +164,8 @@ function getSpec(
               scale: "y",
               field: breakdownVar,
               offset: stacked
-                ? (BAR_HEIGHT - BAR_HEIGHT * BAR_PADDING) / 2
-                : ((BAR_HEIGHT - BAR_HEIGHT * BAR_PADDING) * 4) / 2 +
-                  BAR_HEIGHT,
+                ? STACKED_BAND_HEIGHT / 2
+                : MIDDLE_OF_BAND + BAR_HEIGHT,
             },
             text: {
               signal: `isValid(datum["${thinMeasure}"]) ? datum["${thinMeasure}"] + "${metricDisplayName}" : "" `,
