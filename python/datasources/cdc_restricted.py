@@ -46,6 +46,6 @@ class CDCRestrictedData(DataSource):
             # Clean up column names.
             self.clean_frame_column_names(df)
 
-            table_name = f.removesuffix('.csv')  # Table name is file name
+            table_name = f.replace('.csv', '')  # Table name is file name
             gcs_to_bq_util.append_dataframe_to_bq(
                 df, dataset, table_name, column_types=column_types)
