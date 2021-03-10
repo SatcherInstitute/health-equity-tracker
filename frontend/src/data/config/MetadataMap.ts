@@ -21,7 +21,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     ],
   },
   {
-    id: "acs_health_insurance",
+    id: "health_insurance",
     data_source_name: "American Community Survey 5-year estimates (2015-2019)",
     data_source_link:
       "https://www.census.gov/data/developers/data-sets/acs-5year.html",
@@ -31,12 +31,10 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "Health Insurance Status broken down by self-reported race/ethnicity, age, and sex at the U.S. and state levels.",
     dataset_ids: [
-      "acs_health_insurance-by_race_county_std",
-      "acs_health_insurance-by_race_state_std",
-      // "acs_health_insurance-by_age_state",
-      // "acs_health_insurance-by_age_county",
-      "acs_health_insurance-by_sex_state",
-      "acs_health_insurance-by_sex_county",
+      "acs_health_insurance-health_insurance_by_race_state",
+      "acs_health_insurance-health_insurance_by_race_county",
+      "acs_health_insurance-health_insurance_by_sex_state",
+      "acs_health_insurance-health_insurance_by_sex_county",
     ],
   },
   {
