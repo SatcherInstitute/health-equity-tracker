@@ -1,5 +1,6 @@
 export type MetricId =
-  | "health_insurance"
+  | "with_health_insurance"
+  | "health_insurance_per_100k"
   | "population"
   | "population_pct"
   | "diabetes_count"
@@ -286,11 +287,17 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableDisplayName: "Coverage",
       metrics: {
         count: {
-          metricId: "health_insurance",
-          fullCardTitleName: "TODO",
-          shortVegaLabel: "COPD cases",
+          metricId: "with_health_insurance",
+          fullCardTitleName: "Count of Health Insurance",
+          shortVegaLabel: "Health Insurance",
           type: "count",
           populationComparisonMetric: POPULATION_VARIABLE_CONFIG.metrics.count,
+        },
+        per100k: {
+          metricId: "health_insurance_per_100k",
+          fullCardTitleName: "Health Insurance cases per 100,000 people",
+          shortVegaLabel: "Health Insurance cases per 100k",
+          type: "per100k",
         },
       },
     },
