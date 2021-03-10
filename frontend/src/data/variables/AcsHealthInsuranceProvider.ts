@@ -1,31 +1,24 @@
-import { IDataFrame } from "data-forge";
-import { Breakdowns, DemographicBreakdownKey } from "../query/Breakdowns";
+import { Breakdowns, ALL_RACES_DISPLAY_NAME } from "../query/Breakdowns";
+import { per100k } from "../utils/datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
 import { TOTAL } from "../utils/Constants";
 
-function createNationalTotal(dataFrame: IDataFrame, breakdown: string) {
-  return dataFrame
-    .pivot(breakdown, {
-      fips: (series) => USA_FIPS,
-      fips_name: (series) => USA_DISPLAY_NAME,
-      population: (series) => series.sum(),
-    })
-    .resetIndex();
-}
-
 class AcsHealthInsuranceProvider extends VariableProvider {
   constructor() {
-    super("acs_health_insurance_provider", ["health_insurance"]);
+    super("acs_health_insurance_provider", [
+      "with_health_insurance",
+      "health_insurance_per_100k",
+    ]);
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.hasOnlySex()) {
       return breakdowns.geography === "county"
-        ? "acs_health_Insurance_manual_test-by_sex_county"
-        : "acs_health_Insurance_manual_test-by_sex_state";
+        ? "acs_health_insurance-health_insurance_by_sex_county"
+        : "acs_health_insurance-health_insurance_by_sex_state";
     }
 
     // Age only breakdown is not supported yet, due to the dataset not being
@@ -33,8 +26,8 @@ class AcsHealthInsuranceProvider extends VariableProvider {
 
     if (breakdowns.hasOnlyRace()) {
       return breakdowns.geography === "county"
-        ? "acs_health_insurance_manual_test-table_health_insurance_by_race_county"
-        : "acs_health_insurance_manual_test-table_health_insurance_by_race_state";
+        ? "acs_health_insurance-health_insurance_by_race_county"
+        : "acs_health_insurance-health_insurance_by_race_state";
     }
     throw new Error("Not implemented");
   }
@@ -44,65 +37,82 @@ class AcsHealthInsuranceProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
-    let df = await this.getDataInternalWithoutPercents(breakdowns);
+    const datasetId = this.getDatasetId(breakdowns);
+    const acsDataset = await getDataManager().loadDataset(datasetId);
 
-    // Calculate totals where dataset doesn't provide it
-    // TODO: this should be removed when Totals come from the Data Server. Note
-    // that this assumes that the categories sum to exactly the total
-    const breakdownsToSum: DemographicBreakdownKey[] = ["age", "sex"];
-    breakdownsToSum.forEach((breakdownName) => {
-      if (breakdowns.demographicBreakdowns[breakdownName].enabled) {
-        df = df
-          .concat(
-            df.pivot(["fips", "fips_name"], {
-              population: (series) => series.sum(),
-              population_pct: (series) => 100,
-              [breakdownName]: (series) => TOTAL,
-            })
-          )
-          .resetIndex();
-      }
-    });
-
-    // Calculate population_pct based on total for breakdown
-    // Exactly one breakdown should be enabled per allowsBreakdowns()
-    const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
-      .columnName;
-
-    df = this.calculatePctShare(
-      df,
-      "population",
-      "population_pct",
-      breakdownColumnName,
-      ["fips"]
-    );
-
-    df = this.applyDemographicBreakdownFilters(df, breakdowns);
-    df = this.removeUnrequestedColumns(df, metricQuery);
-    return new MetricQueryResponse(df.toArray(), [
-      this.getDatasetId(breakdowns),
-    ]);
-  }
-
-  private async getDataInternalWithoutPercents(
-    breakdowns: Breakdowns
-  ): Promise<IDataFrame> {
-    const acsDataset = await getDataManager().loadDataset(
-      this.getDatasetId(breakdowns)
-    );
-    let acsDataFrame = acsDataset.toDataFrame();
+    let df = acsDataset.toDataFrame();
 
     // If requested, filter geography by state or county level
     // We apply the geo filter right away to reduce subsequent calculation times
-    acsDataFrame = this.filterByGeo(acsDataFrame, breakdowns);
-    acsDataFrame = this.renameGeoColumns(acsDataFrame, breakdowns);
+    df = this.filterByGeo(df, breakdowns);
+    df = this.renameGeoColumns(df, breakdowns);
+    df = df.renameSeries({ race: "race_and_ethnicity" });
+    df = df.parseInts([
+      "with_health_insurance",
+      "without_health_insurance",
+      "total_health_insurance",
+    ]);
 
-    return breakdowns.geography === "national"
-      ? createNationalTotal(
-          acsDataFrame,
-          breakdowns.getSoleDemographicBreakdown().columnName
-        )
-      : acsDataFrame;
+    if (breakdowns.geography === "national") {
+      df = df
+        .pivot(breakdowns.demographicBreakdowns.race_and_ethnicity.columnName, {
+          fips: (series) => USA_FIPS,
+          fips_name: (series) => USA_DISPLAY_NAME,
+          with_health_insurance: (series) => series.sum(),
+          without_health_insurance: (series) => series.sum(),
+          total_health_insurance: (series) => series.sum(),
+        })
+        .resetIndex();
+    }
+
+    if (!breakdowns.demographicBreakdowns.race_and_ethnicity.enabled) {
+      df = df.pivot(["fips", "fips_name"], {
+        race: (series) => ALL_RACES_DISPLAY_NAME,
+        with_health_insurance: (series) => series.sum(),
+        without_health_insurance: (series) => series.sum(),
+        total_health_insurance: (series) => series.sum(),
+      });
+    }
+
+    // Calculate totals where dataset doesn't provide it
+    // TODO- this should be removed when Totals come from the Data Server
+    const total = df
+      .pivot(["fips", "fips_name"], {
+        with_health_insurance: (series) => series.sum(),
+        without_health_insurance: (series) => series.sum(),
+        total_health_insurance: (series) => series.sum(),
+        race_and_ethnicity: (series) => TOTAL,
+      })
+      .resetIndex();
+    df = df.concat(total).resetIndex();
+
+    df = df.generateSeries({
+      health_insurance_per_100k: (row) =>
+        per100k(row.with_health_insurance, row.total_health_insurance),
+    });
+
+    // We can't do percent share for national because different survey rates
+    // across states may skew the results. To do that, we need to combine BRFSS
+    // survey results with state populations to estimate total counts for each
+    // state, and then use that estimate to determine the percent share.
+    // TODO this causes the "vs Population" Disparity Bar Chart to be broken for
+    // the national level. We need some way of indicating why the share of cases
+    // isn't there. Or, we can do this computation on the server.
+    if (breakdowns.hasOnlyRace() && breakdowns.geography === "state") {
+      ["health_insurance"].forEach((col) => {
+        df = this.calculatePctShare(
+          df,
+          col,
+          col.split("_")[0] + "_pct_share",
+          breakdowns.demographicBreakdowns.race_and_ethnicity.columnName,
+          ["fips"]
+        );
+      });
+    }
+
+    df = this.applyDemographicBreakdownFilters(df, breakdowns);
+    df = this.removeUnrequestedColumns(df, metricQuery);
+    return new MetricQueryResponse(df.toArray(), [datasetId]);
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
