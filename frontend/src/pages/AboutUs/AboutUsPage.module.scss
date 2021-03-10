@@ -147,6 +147,30 @@
   }
 }
 
+// TODO: Convert to GridRowHeaderText
+.GridSectionHeaderText {
+  padding: 30px;
+  justify-content: center;
+
+  .HeaderText {
+    font-size: 48px;
+    text-align: center;
+    font-weight: 300;
+    font-family: "Taviraj", serif !important;
+    line-height: 40px;
+    color: $alt-green;
+    padding-bottom: 20px;
+  }
+
+  .HeaderSubtext {
+    font-size: 20px;
+    text-align: left;
+    font-weight: 300;
+    line-height: 24px;
+    font-family: "Inter", serif !important;
+  }
+}
+
 // Grid rows with outlines.
 .GridOutlinedRow {
   padding: 147px 120px 147px 120px;
