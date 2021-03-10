@@ -50,7 +50,8 @@ def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
     workflow_id: ID of the datasource workflow. Should match ID defined in
                  DATA_SOURCES_DICT.
     dataset: Name of the BQ dataset to write the data to.
-    filename: Name of gcs file to get the data from.
+    filename: Name of gcs file to get the data from. May also be a
+              comma-separated list of files.
     gcs_bucket: GCS bucket to read from. Defaults to the GCS_LANDING_BUCKET env
                 var.
     url: The URL used for ingestion. This should be deprecated in favor of

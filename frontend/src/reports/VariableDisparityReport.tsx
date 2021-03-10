@@ -10,7 +10,8 @@ import {
 import { MapCard } from "../cards/MapCard";
 import { PopulationCard } from "../cards/PopulationCard";
 import { TableCard } from "../cards/TableCard";
-import { BarChartCard } from "../cards/BarChartCard";
+import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
+import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
 import { DropdownVarId } from "../utils/MadLibs";
 import { Fips } from "../data/utils/Fips";
 import {
@@ -61,6 +62,9 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
       }
     }
   }
+
+  const breakdownIsShown = (breakdownVar: string) =>
+    currentBreakdown === "all" || currentBreakdown === breakdownVar;
 
   return (
     <Grid container xs={12} spacing={1} justify="center">
@@ -176,23 +180,37 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               }}
               currentBreakdown={currentBreakdown}
             />
-            <TableCard
-              fips={props.fips}
-              metrics={tableFields}
-              breakdownVar={"race_and_ethnicity"}
-            />
+            {SUPPORTED_BREAKDOWNS.map((breakdownVar) => (
+              <>
+                {breakdownIsShown(breakdownVar) && (
+                  <TableCard
+                    fips={props.fips}
+                    metrics={tableFields}
+                    breakdownVar={breakdownVar}
+                  />
+                )}
+              </>
+            ))}
           </Grid>
           <Grid item xs={props.vertical ? 12 : 6}>
             {SUPPORTED_BREAKDOWNS.map((breakdownVar) => (
               <>
-                {(currentBreakdown === "all" ||
-                  currentBreakdown === breakdownVar) && (
-                  <BarChartCard
-                    variableConfig={variableConfig}
-                    breakdownVar={breakdownVar}
-                    fips={props.fips}
-                  />
-                )}
+                {breakdownIsShown(breakdownVar) &&
+                  variableConfig.metrics["pct_share"] && (
+                    <DisparityBarChartCard
+                      metricConfig={variableConfig.metrics["pct_share"]}
+                      breakdownVar={breakdownVar}
+                      fips={props.fips}
+                    />
+                  )}
+                {breakdownIsShown(breakdownVar) &&
+                  variableConfig.metrics["per100k"] && (
+                    <SimpleBarChartCard
+                      metricConfig={variableConfig.metrics["per100k"]}
+                      breakdownVar={breakdownVar}
+                      fips={props.fips}
+                    />
+                  )}
               </>
             ))}
           </Grid>

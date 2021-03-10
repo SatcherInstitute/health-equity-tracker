@@ -32,7 +32,7 @@ function AboutUsPage() {
       </Tabs>
       {tabIndex === 0 && <TheProjectTab />}
       {tabIndex === 1 && <OurTeamTab />}
-      {tabIndex === 2 && <FaqTab />}
+      {tabIndex === 2 && <FaqTab setTabIndexFx={setTabIndex} />}
       {tabIndex === 3 && <ContactUsTab />}
     </div>
   );

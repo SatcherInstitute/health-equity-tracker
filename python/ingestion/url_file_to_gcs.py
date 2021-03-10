@@ -97,6 +97,7 @@ def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename,
     if files_are_diff:
         # Upload the contents to the bucket
         bucket.blob(dest_filename).upload_from_filename(new_file_local_path)
+        print(f'Uploading to Gcs_Bucket: {gcs_bucket}, FileName: {dest_filename}')
     # Remove local files
     os.remove(new_file_local_path)
     os.remove(old_file_local_path)
