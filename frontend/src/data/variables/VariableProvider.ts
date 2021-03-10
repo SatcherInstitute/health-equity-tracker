@@ -71,6 +71,23 @@ abstract class VariableProvider {
       .resetIndex();
   }
 
+  removeUnrequestedColumns(df: IDataFrame, metricQuery: MetricQuery) {
+    let dataFrame = df;
+    let requestedColumns = ["fips", "fips_name"].concat(metricQuery.metricIds);
+    // Add column names of enabled breakdowns
+    requestedColumns = requestedColumns.concat(
+      Object.entries(metricQuery.breakdowns.demographicBreakdowns)
+        .filter(([unusedKey, breakdown]) => breakdown.enabled)
+        .map(([unusedKey, breakdown]) => breakdown.columnName)
+    );
+
+    const columnsToRemove = dataFrame
+      .getColumnNames()
+      .filter((column) => !requestedColumns.includes(column));
+
+    return dataFrame.dropSeries(columnsToRemove).resetIndex();
+  }
+
   applyDemographicBreakdownFilters(
     df: IDataFrame,
     breakdowns: Breakdowns

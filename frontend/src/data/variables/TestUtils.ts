@@ -36,7 +36,7 @@ export const USA: FipsSpec = {
 };
 
 export function createWithAndWithoutTotalEvaluator(
-  metricId: MetricId,
+  metricIds: MetricId | MetricId[],
   dataFetcher: FakeDataFetcher,
   variableProvider: VariableProvider
 ) {
@@ -52,7 +52,7 @@ export function createWithAndWithoutTotalEvaluator(
 
     // Evaluate the response with requesting total field
     const responseWithTotal = await variableProvider.getData(
-      new MetricQuery(metricId, baseBreakdown.addBreakdown(breakdownVar))
+      new MetricQuery(metricIds, baseBreakdown.addBreakdown(breakdownVar))
     );
     expect(responseWithTotal).toEqual(
       new MetricQueryResponse(totalRows, [datasetId])
@@ -61,7 +61,7 @@ export function createWithAndWithoutTotalEvaluator(
     // Evaluate the response without requesting total field
     const responseWithoutTotal = await variableProvider.getData(
       new MetricQuery(
-        metricId,
+        metricIds,
         baseBreakdown.addBreakdown(breakdownVar, excludeTotal())
       )
     );

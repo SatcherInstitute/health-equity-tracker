@@ -1,6 +1,6 @@
 import React from "react";
 import Select, { ActionTypes } from "react-select";
-import { DatasetMetadata } from "../../../data/utils/DatasetTypes";
+import { DataSourceMetadata } from "../../../data/utils/DatasetTypes";
 
 const changeActions: Array<ActionTypes> = [
   "select-option",
@@ -22,8 +22,8 @@ function propertyToSelectOption(property: string): SelectOption {
 }
 
 function getPropertyToDatasetsMap(
-  datasets: Record<string, DatasetMetadata>,
-  propertySelector: (metadata: DatasetMetadata) => string
+  datasets: Record<string, DataSourceMetadata>,
+  propertySelector: (metadata: DataSourceMetadata) => string
 ): Record<string, string[]> {
   const propertyToDatasetsMap: Record<string, string[]> = {};
   Object.keys(datasets).forEach((dataset_id) => {
@@ -63,20 +63,21 @@ function updateFilters(
  *         can only exist initially, before anything has been selected.
  */
 export function SingleSelectDatasetFilter(props: {
-  datasets: Record<string, DatasetMetadata>;
+  dataSources: Record<string, DataSourceMetadata>;
   onSelectionChange: (filtered: Array<string>) => void;
-  propertySelector: (metadata: DatasetMetadata) => string;
+  propertySelector: (metadata: DataSourceMetadata) => string;
   placeholder: string;
   allOption: string;
 }) {
   const propertyToDatasetsMap = getPropertyToDatasetsMap(
-    props.datasets,
+    props.dataSources,
     props.propertySelector
   );
   const options = [props.allOption]
     .concat(Object.keys(propertyToDatasetsMap))
     .sort()
     .map(propertyToSelectOption);
+
   return (
     <Select
       options={options}
@@ -109,14 +110,14 @@ export function SingleSelectDatasetFilter(props: {
  *         values. Must be valid options or the filter won't work properly.
  */
 export function MultiSelectDatasetFilter(props: {
-  datasets: Record<string, DatasetMetadata>;
+  dataSources: Record<string, DataSourceMetadata>;
   onSelectionChange: (filtered: Array<string>) => void;
-  propertySelector: (metadata: DatasetMetadata) => string;
+  propertySelector: (metadata: DataSourceMetadata) => string;
   placeholder: string;
   defaultValues: string[] | null;
 }) {
   const propertyToDatasetsMap = getPropertyToDatasetsMap(
-    props.datasets,
+    props.dataSources,
     props.propertySelector
   );
   const options = Object.keys(propertyToDatasetsMap)

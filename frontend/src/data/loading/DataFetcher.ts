@@ -2,8 +2,8 @@
 // untyped for now, but we should define types for the API calls once we
 // establish the API types.
 
-import { MetadataMap, Row } from "../utils/DatasetTypes";
-import FakeMetadataMap from "../config/FakeMetadataMap";
+import { MapOfDatasetMetadata, Row } from "../utils/DatasetTypes";
+import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
 import { Environment } from "../../utils/Environment";
 import { DataFrame } from "data-forge";
 
@@ -17,7 +17,7 @@ export interface DataFetcher {
   loadDataset(datasetId: string): Promise<Row[]>;
 
   /** Fetches and returns the MetadataMap for all datasets. */
-  getMetadata(): Promise<MetadataMap>;
+  getMetadata(): Promise<MapOfDatasetMetadata>;
 }
 
 export class ApiDataFetcher implements DataFetcher {
@@ -93,8 +93,8 @@ export class ApiDataFetcher implements DataFetcher {
       .toArray();
   }
 
-  async getMetadata(): Promise<MetadataMap> {
+  async getMetadata(): Promise<MapOfDatasetMetadata> {
     // TODO replace with real API call.
-    return FakeMetadataMap;
+    return FakeDatasetMetadataMap;
   }
 }

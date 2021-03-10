@@ -15,9 +15,21 @@ class DataSource(ABC):
 
     @staticmethod
     def get_table_name():
-        """Returns the BigQuery table name where the data source's data will
+        """Returns the BigQuery base table name where the data source's data will
         stored. """
         pass
+
+    def get_staging_table_name(self):
+        """Returns the BigQuery staging data table name."""
+        return self.get_table_name() + "_staging"
+
+    def get_historical_table_name(self):
+        """Returns the BigQuery historical data table name."""
+        return self.get_table_name() + "_historical"
+
+    def get_latest_table_name(self):
+        """Returns the BigQuery latest data table name."""
+        return self.get_table_name() + "_latest"
 
     def get_attr(self, attributes, key):
         attr = attributes.get(key)
@@ -53,7 +65,7 @@ class DataSource(ABC):
                needed for this data source."""
         self.write_to_bq_table(dataset, gcs_bucket,
                                self.get_attr(attrs, 'filename'),
-                               self.get_table_name())
+                               self.get_staging_table_name())
 
     def write_to_bq_table(self, dataset: str, gcs_bucket: str,
                           filename: str, table_name: str, project=None):

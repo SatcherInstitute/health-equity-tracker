@@ -9,7 +9,7 @@ export const ABOUT_US_PAGE_LINK = "/aboutus";
 
 // Value is a comma-separated list of dataset ids. Dataset ids cannot have
 // commas in them.
-export const DATASET_PRE_FILTERS = "dpf";
+export const DATA_SOURCE_PRE_FILTERS = "dpf";
 
 // Value is index of the phrase to jump to
 export const MADLIB_PHRASE_PARAM = "mlp";
