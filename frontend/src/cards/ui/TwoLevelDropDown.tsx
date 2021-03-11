@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
+import ArrowRight from "@material-ui/icons/ArrowRight";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -22,12 +23,16 @@ function ListPopover(props: {
   items: Record<string, string[]> | string[];
   onClick: (event: React.MouseEvent<HTMLElement>, value: string) => void;
 }) {
-  const listItems = Array.isArray(props.items)
-    ? props.items
-    : Object.keys(props.items);
+  const hasChildren = !Array.isArray(props.items);
+  const listItems: string[] = hasChildren
+    ? Object.keys(props.items)
+    : (props.items as string[]);
 
   const renderListItem = (listItem: string) => {
-    if (!Array.isArray(props.items) && props.items[listItem].length === 0) {
+    if (
+      hasChildren &&
+      (props.items as Record<string, string[]>)[listItem].length === 0
+    ) {
       return (
         <ListItem button disabled>
           {listItem} [unavailable]
@@ -43,6 +48,7 @@ function ListPopover(props: {
           }}
         >
           <ListItemText primary={listItem} />
+          {hasChildren && <ArrowRight />}
         </ListItem>
       );
     }

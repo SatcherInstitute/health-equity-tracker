@@ -25,7 +25,8 @@ const VAR_FIPS = "fips";
 
 export interface ChoroplethMapProps {
   data: Record<string, any>[];
-  legendData?: Record<string, any>[]; // Dataset for which to calculate legend
+  // legendData is the dataset for which to calculate legend. Used to have a common legend between two maps.
+  legendData?: Record<string, any>[];
   metric: MetricConfig;
   legendTitle: string;
   signalListeners: any;

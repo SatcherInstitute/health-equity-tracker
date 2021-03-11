@@ -10,6 +10,7 @@ import { Fips } from "../../data/utils/Fips";
 import { Legend } from "../../charts/Legend";
 import { MetricConfig } from "../../data/config/MetricConfig";
 import { Row, FieldRange } from "../../data/utils/DatasetTypes";
+import styles from "./MultiMapDialog.module.scss";
 
 export interface MultiMapDialogProps {
   metricConfig: MetricConfig;
@@ -44,11 +45,10 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             </Alert>
           </Grid>
           <Grid item xs={6}>
-            {/* TODO- not working at the county level */}
             <Legend
               metric={props.metricConfig}
               legendTitle={props.metricConfig.fullCardTitleName}
-              legendData={props.data} // TODO is this right?
+              legendData={props.data}
               scaleType="quantile"
               sameDotSize={true}
             />
@@ -60,7 +60,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               (row: Row) => row[props.breakdown] === breakdownValue
             );
             return (
-              <Grid item style={{ width: "300px", padding: "15px" }}>
+              <Grid item className={styles.SmallMultipleMap}>
                 <b>{breakdownValue}</b>
                 {props.metricConfig && (
                   <ChoroplethMap
@@ -74,7 +74,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     showCounties={props.fips.isUsa() ? false : true}
                     fips={props.fips}
                     fieldRange={props.fieldRange}
-                    hideActions={false} /* TODO false */
+                    hideActions={false}
                     scaleType="quantile"
                   />
                 )}
