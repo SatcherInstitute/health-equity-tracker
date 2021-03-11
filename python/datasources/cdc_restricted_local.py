@@ -45,7 +45,7 @@ COL_NAME_MAPPING = {
 
 # Mapping for county_fips, county, and state unknown values to "Unknown".
 COUNTY_FIPS_NAMES_MAPPING = {"NA": "-1"}  # Has to be str for later ingestion.
-COUNTY_NAMES_MAPPING = {"MISSING": "Unknown", "NA": "Unknown"}
+COUNTY_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 STATE_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 
 # Mappings for race, sex, and age values in the data to a standardized forms.
