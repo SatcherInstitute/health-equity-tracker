@@ -1,6 +1,6 @@
 import React from "react";
 import { ChoroplethMap } from "../../charts/ChoroplethMap";
-import { LegendOther } from "../../charts/LegendOther";
+import { Legend } from "../../charts/Legend";
 import { Fips } from "../../data/utils/Fips";
 import { MetricConfig } from "../../data/config/MetricConfig";
 import { Grid } from "@material-ui/core";
@@ -14,24 +14,22 @@ import Button from "@material-ui/core/Button";
 export interface MultiMapDialogProps {
   fips: Fips;
   metricConfig: MetricConfig;
-  validData: Row[];
-  currentlyDisplayedBreakdown: string;
+  data: Row[];
+  breakdown: string;
   handleClose: () => void;
   open: boolean;
-  breakdownValues: string[];
+  breakdownOptions: string[];
   queryResponse: any;
 }
 
 export function MultiMapDialog(props: MultiMapDialogProps) {
   return (
     <Dialog
-      style={{ width: "90%", padding: "0" }}
       open={props.open}
       onClose={props.handleClose}
       maxWidth={false}
       scroll="paper"
-      aria-labelledby="scroll-dialog-title"
-      aria-describedby="scroll-dialog-description"
+      aria-labelledby="Dialog showing choropleth maps of each breakdown category with the same scale."
     >
       <DialogContent dividers={true}>
         <Grid container justify="space-around">
@@ -47,20 +45,19 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
           </Grid>
           <Grid item xs={6}>
             {/* TODO- not working at the county level */}
-            <LegendOther
+            <Legend
               metric={props.metricConfig}
               legendTitle={props.metricConfig.fullCardTitleName}
-              legendData={props.validData} // TODO is this right?
+              legendData={props.data} // TODO is this right?
               scaleType="quantile"
               sameDotSize={true}
             />
           </Grid>
         </Grid>
         <Grid container justify="space-around">
-          {props.breakdownValues.map((breakdownValue) => {
-            const dataForValue = props.validData.filter(
-              (row: Row) =>
-                row[props.currentlyDisplayedBreakdown] === breakdownValue
+          {props.breakdownOptions.map((breakdownValue) => {
+            const dataForValue = props.data.filter(
+              (row: Row) => row[props.breakdown] === breakdownValue
             );
             return (
               <Grid item style={{ width: "300px", padding: "15px" }}>
@@ -71,7 +68,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     signalListeners={{ click: (...args: any) => {} }}
                     metric={props.metricConfig}
                     legendTitle={props.metricConfig.fullCardTitleName}
-                    legendData={props.validData}
+                    legendData={props.data}
                     data={dataForValue}
                     hideLegend={true}
                     showCounties={props.fips.isUsa() ? false : true}
@@ -90,7 +87,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       </DialogContent>
       <DialogActions>
         <Button onClick={props.handleClose} color="primary">
-          close
+          Close
         </Button>
       </DialogActions>
     </Dialog>

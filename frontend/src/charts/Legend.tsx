@@ -4,6 +4,7 @@ import { useResponsiveWidth } from "../utils/useResponsiveWidth";
 import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 import { ScaleType } from "./ChoroplethMap";
+import { Alert } from "@material-ui/lab";
 
 type NumberFormat = "raw" | "percentage";
 
@@ -12,7 +13,7 @@ const COLOR_SCALE = "COLOR_SCALE";
 const DATASET_VALUES = "DATASET_VALUES";
 // TODO - consider moving standardized column names, like fips, to variables shared between here and VariableProvider
 
-export interface Legend {
+export interface LegendProps {
   legendData?: Record<string, any>[]; // Dataset for which to calculate legend
   metric: MetricConfig;
   legendTitle: string;
@@ -20,9 +21,10 @@ export interface Legend {
   hideLegend?: boolean;
   fieldRange?: FieldRange;
   scaleType: ScaleType;
+  sameDotSize?: boolean;
 }
 
-export function Legend(props: Legend) {
+export function Legend(props: LegendProps) {
   const [ref, width] = useResponsiveWidth(
     100 /* default width during intialization */
   );
@@ -61,9 +63,16 @@ export function Legend(props: Legend) {
       colorScale["domainMin"] = props.fieldRange.min;
     }
 
-    setSpec({
+    const dotRange = props.sameDotSize
+      ? [200, 200, 200, 200, 200, 200, 200]
+      : [70, 120, 170, 220, 270, 320, 370];
+
+    const blah = {
       $schema: "https://vega.github.io/schema/vega/v5.json",
-      description: "Legend",
+      description:
+        "Horizontally concatenated charts that show different types of discretizing scales.",
+      background: "white",
+      padding: 5,
       data: [
         {
           name: "source_0",
@@ -80,9 +89,37 @@ export function Legend(props: Legend) {
           ],
         },
       ],
-      scales: [colorScale],
-      legends: legendList,
-    });
+      layout: { padding: 20, bounds: "full", align: "each" },
+      marks: [
+        {
+          legends: [
+            {
+              fill: COLOR_SCALE,
+              labelOverlap: "greedy",
+              symbolType: "circle",
+              size: "concat_0_size",
+            },
+          ],
+        },
+      ],
+      scales: [
+        {
+          name: COLOR_SCALE,
+          type: props.scaleType,
+          domain: { data: DATASET_VALUES, field: props.metric.metricId },
+          range: { scheme: "yellowgreenblue", count: 7 },
+        },
+        {
+          name: "concat_0_size",
+          type: props.scaleType,
+
+          domain: { data: DATASET_VALUES, field: props.metric.metricId },
+          range: dotRange,
+        },
+      ],
+    };
+
+    setSpec(blah);
   }, [
     width,
     props.metric,
@@ -92,6 +129,7 @@ export function Legend(props: Legend) {
     props.hideLegend,
     props.fieldRange,
     props.legendData,
+    props.sameDotSize,
   ]);
 
   return (
@@ -102,6 +140,12 @@ export function Legend(props: Legend) {
         margin: "auto",
       }}
     >
+      {!props.sameDotSize && (
+        <Alert severity="info">
+          This scale is optimized for visualizing this demographic. Use the
+          “show full breakdown” button to compare demographics.
+        </Alert>
+      )}
       <Vega spec={spec} width={width} actions={false} />
     </div>
   );

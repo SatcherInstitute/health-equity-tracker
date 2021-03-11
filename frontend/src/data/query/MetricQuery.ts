@@ -44,11 +44,11 @@ export class MetricQueryResponse {
   readonly consumedDatasetIds: string[];
 
   constructor(
-    dataRows: Row[],
+    data: Row[],
     consumedDatasetIds: string[] = [],
     missingDataMessage: string | undefined = undefined
   ) {
-    this.data = dataRows;
+    this.data = data;
     this.consumedDatasetIds = consumedDatasetIds;
     this.invalidValues = getInvalidValues(this.data);
     this.missingDataMessage = missingDataMessage; // possibly undefined
@@ -77,6 +77,12 @@ export class MetricQueryResponse {
       min: Math.min(...fieldValues),
       max: Math.max(...fieldValues),
     };
+  }
+
+  getValidRowsForField(fieldName: string) {
+    return this.data.filter(
+      (row: Row) => row[fieldName] !== undefined && row[fieldName] !== null
+    );
   }
 
   getUniqueFieldValues(fieldName: string): string[] {
