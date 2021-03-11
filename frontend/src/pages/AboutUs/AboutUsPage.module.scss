@@ -352,3 +352,32 @@
   font-weight: 700;
   font-family: "Inter", sans-serif !important;
 }
+
+/** ------------- CONTACT US ------------- **/
+
+.ContactUsHeaderText {
+  font-size: 70px !important;
+  font-weight: 400 !important;
+  font-family: "Taviraj", sans-serif !important;
+  line-height: 70px !important;
+  color: $alt-green;
+}
+
+.ContactUsSubheaderText {
+  font-size: 48px !important;
+  font-weight: 300 !important;
+  font-family: "Taviraj", sans-serif !important;
+  line-height: 48px !important;
+  color: $alt-green;
+  text-align: center;
+}
+
+.ImgContactUsHeader {
+  width: 870px;
+  height: 645px;
+  padding-left: 25px;
+}
+
+.GridCenteredTextItem {
+  text-align: center;
+}
