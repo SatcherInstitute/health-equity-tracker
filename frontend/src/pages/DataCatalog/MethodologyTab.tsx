@@ -9,7 +9,7 @@ function MethodologyTab() {
             justify="space-around"
             alignItems="center">
         <Grid item xs={9}>
-          <Grid container>
+          <Grid container className={styles.MethodologySection}>
             <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
               <span className={styles.MethodologyQuestion}>
                 How did you ingest and standardize the data?
@@ -76,11 +76,11 @@ function MethodologyTab() {
                 </p>
               </div>
               <div className={styles.MethodologyInfoBar}>
-                <p>Do you have information on health outcomes at the state and
+                <p>
+                  Do you have information on health outcomes at the state and
                   local level?
                   <br/>
-                  <a href="/aboutus"
-                     className={styles.MethodologyContactUsButton}>
+                  <a href="/aboutus" className={styles.MethodologyContactUsLink}>
                     We would love to hear from you
                   </a>
                 </p>

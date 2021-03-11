@@ -14,10 +14,6 @@ export const DATA_SOURCE_PRE_FILTERS = "dpf";
 // Value is index of the phrase to jump to
 export const MADLIB_PHRASE_PARAM = "mlp";
 
-// Value is a comma-separated list of dataset ids. Dataset ids cannot have
-// commas in them.
-export const DATA_SOURCE_PRE_FILTERS = "dpf";
-
 // Value is a comma-separated list mapping indicies to values with : delimiter
 // Values are applied on top of defaults so you only need to specify those that differ
 // mls=0:1,2:5

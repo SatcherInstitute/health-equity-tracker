@@ -13,7 +13,6 @@
 .MethodologySection {
   padding-top: 50px;
   padding-bottom: 50px;
-  border-bottom: 1px solid $alt-grey;
 }
 
 .MethodologyQuestionAndAnswer {
@@ -58,12 +57,6 @@
 
 .MethodologyInfoBar {
   background-color: #F8E8B0;
-  padding: 1px 10px 1px 10px;
+  padding: 2px 10px 2px 10px;
   border-radius: 8px;
-
-  .MethodologyContactUsLink {
-    border: none;
-    text-decoration: underline;
-    background-color: transparent;
-  }
 }
