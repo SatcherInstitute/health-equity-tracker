@@ -9,6 +9,7 @@
   width: 90%;
   max-width: $max-width;
   text-align: center;
+  font-family: "DM Sans", sans-serif;
 }
 
 .FilterContainer {
@@ -46,4 +47,33 @@
 
 .Table {
   padding: 5px;
+}
+
+/** ------------- DATA DOWNLOADS ------------- **/
+
+.DatasetHeader {
+  padding: 10px 0 10px 0;
+}
+
+.DataDownloadsHeaderText {
+  font-size: 32px !important;
+  line-height: 32px !important;
+  font-weight: 400;
+  font-family: "Taviraj", sans-serif !important;
+  text-align: center;
+  color: $alt-black;
+  padding: 5px 0 5px 0;
+}
+
+.DataDownloadsHeaderSubtext {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  font-family: "Inter", sans-serif !important;
+  color: $alt-black;
+
+  .DataDownloadsExploreLink {
+    text-decoration: underline;
+    background-color: transparent;
+  }
 }

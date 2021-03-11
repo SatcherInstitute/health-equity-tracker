@@ -34,8 +34,8 @@ Example1.args = {
       race_and_ethnicity: "Race 2",
     },
   ],
-  thickMetric: METRIC_CONFIG["covid"][0].metrics["pct_share"],
-  thinMetric: POPULATION_VARIABLE_CONFIG.metrics.pct_share,
+  lightMetric: METRIC_CONFIG["covid"][0].metrics["pct_share"],
+  darkMetric: POPULATION_VARIABLE_CONFIG.metrics.pct_share,
   breakdownVar: "race_and_ethnicity",
   metricDisplayName: "Metric Display name",
 };

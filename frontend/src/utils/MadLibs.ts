@@ -56,8 +56,8 @@ export function getMadLibWithUpdatedValue(
 export type DropdownVarId =
   | "covid"
   | "diabetes"
-//  | "obesity"
-//  | "asthma"
+  //  | "obesity"
+  //  | "asthma"
   | "copd"
   | "insurance";
 
@@ -66,8 +66,8 @@ export type DropdownVarId =
 const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   covid: "COVID-19",
   diabetes: "diabetes",
-//  obesity: "[coming soon] obesity",
-//  asthma: "[coming soon] asthma",
+  //  obesity: "[coming soon] obesity",
+  //  asthma: "[coming soon] asthma",
   copd: "COPD",
   insurance: "[coming soon] health insurance",
 };
@@ -94,7 +94,14 @@ const MADLIB_LIST: MadLib[] = [
   },
   {
     id: "comparevars",
-    phrase: ["Explore relationships between", DROPDOWN_VAR, " and ", DROPDOWN_VAR, " in ", FIPS_MAP],
+    phrase: [
+      "Explore relationships between",
+      DROPDOWN_VAR,
+      " and ",
+      DROPDOWN_VAR,
+      " in ",
+      FIPS_MAP,
+    ],
     defaultSelections: { 1: "diabetes", 3: "covid", 5: USA_FIPS }, // 13 is Georgia
     activeSelections: { 1: "diabetes", 3: "covid", 5: USA_FIPS }, // 13 is Georgia
   },
