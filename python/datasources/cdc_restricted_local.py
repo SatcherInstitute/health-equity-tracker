@@ -43,10 +43,75 @@ COL_NAME_MAPPING = {
     AGE_COL: std_col.AGE_COL,
 }
 
-# Mapping for county_fips, county, and state unknown values to "Unknown".
+# Mapping for county_fips and county unknown values to "Unknown".
 COUNTY_FIPS_NAMES_MAPPING = {"NA": "-1"}  # Has to be str for later ingestion.
 COUNTY_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
-STATE_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
+
+# Mapping for state 2-letter abbreviations to full name and for unknowns. This
+# is copied from https://pe.usps.com/text/pub28/28apb.htm.
+STATE_NAMES_MAPPING = {
+    "AL": "Alabama",
+    "AK": "Alaska",
+    "AS": "American Samoa",
+    "AZ": "Arizona",
+    "AR": "Arkansas",
+    "CA": "California",
+    "CO": "Colorado",
+    "CT": "Connecticut",
+    "DE": "Delaware",
+    "DC": "District of Columbia",
+    "FM": "Federated States of Micronesia",
+    "FL": "Florida",
+    "GA": "Georgia",
+    "GU": "Guam",
+    "HI": "Hawaii",
+    "ID": "Idaho",
+    "IL": "Illinois",
+    "IN": "Indiana",
+    "IA": "Iowa",
+    "KS": "Kansas",
+    "KY": "Kentucky",
+    "LA": "Louisiana",
+    "ME": "Maine",
+    "MH": "Marshall Islands",
+    "MD": "Maryland",
+    "MA": "Massachusetts",
+    "MI": "Michigan",
+    "MN": "Minnesota",
+    "MS": "Mississippi",
+    "MO": "Missouri",
+    "MT": "Montana",
+    "NE": "Nebraska",
+    "NV": "Nevada",
+    "NH": "New Hampshire",
+    "NJ": "New Jersey",
+    "NM": "New Mexico",
+    "NY": "New York",
+    "NC": "North Carolina",
+    "ND": "North Dakota",
+    "MP": "Northern Mariana Islands",
+    "OH": "Ohio",
+    "OK": "Oklahoma",
+    "OR": "Oregon",
+    "PW": "Palau",
+    "PA": "Pennsylvania",
+    "PR": "Puerto Rico",
+    "RI": "Rhode Island",
+    "SC": "South Carolina",
+    "SD": "South Dakota",
+    "TN": "Tennessee",
+    "TX": "Texas",
+    "UT": "Utah",
+    "VT": "Vermont",
+    "VI": "Virgin Islands",
+    "VA": "Virginia",
+    "WA": "Washington",
+    "WV": "West Virginia",
+    "WI": "Wisconsin",
+    "WY": "Wyoming",
+    "Missing": "Unknown",
+    "NA": "Unknown"
+}
 
 # Mappings for race, sex, and age values in the data to a standardized forms.
 # Note that these mappings cover the possible values in the data as of 3/1/21.
