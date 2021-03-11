@@ -1,25 +1,25 @@
 import React from "react";
-import { ChoroplethMap } from "../../charts/ChoroplethMap";
-import { Legend } from "../../charts/Legend";
-import { Fips } from "../../data/utils/Fips";
-import { MetricConfig } from "../../data/config/MetricConfig";
-import { Grid } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
-import { Row } from "../../data/utils/DatasetTypes";
+import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import Button from "@material-ui/core/Button";
+import { Grid } from "@material-ui/core";
+import { ChoroplethMap } from "../../charts/ChoroplethMap";
+import { Fips } from "../../data/utils/Fips";
+import { Legend } from "../../charts/Legend";
+import { MetricConfig } from "../../data/config/MetricConfig";
+import { Row, FieldRange } from "../../data/utils/DatasetTypes";
 
 export interface MultiMapDialogProps {
-  fips: Fips;
   metricConfig: MetricConfig;
-  data: Row[];
   breakdown: string;
-  handleClose: () => void;
+  fips: Fips;
+  data: Row[];
+  fieldRange: FieldRange | undefined;
   open: boolean;
-  breakdownOptions: string[];
-  queryResponse: any;
+  handleClose: () => void;
+  breakdownValues: string[];
 }
 
 export function MultiMapDialog(props: MultiMapDialogProps) {
@@ -55,7 +55,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
           </Grid>
         </Grid>
         <Grid container justify="space-around">
-          {props.breakdownOptions.map((breakdownValue) => {
+          {props.breakdownValues.map((breakdownValue) => {
             const dataForValue = props.data.filter(
               (row: Row) => row[props.breakdown] === breakdownValue
             );
@@ -73,9 +73,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     hideLegend={true}
                     showCounties={props.fips.isUsa() ? false : true}
                     fips={props.fips}
-                    fieldRange={props.queryResponse.getFieldRange(
-                      props.metricConfig.metricId
-                    )}
+                    fieldRange={props.fieldRange}
                     hideActions={false} /* TODO false */
                     scaleType="quantile"
                   />

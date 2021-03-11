@@ -80,7 +80,8 @@ function TwoLevelDropDown(props: {
   return (
     <>
       <Button variant="text" onClick={firstMenu.open}>
-        Filter by: {props.value} <ArrowDropDown />
+        Filter by:<u>{props.value}</u>
+        <ArrowDropDown />
       </Button>
 
       <ListPopover

@@ -1,23 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ChoroplethMap } from "../charts/ChoroplethMap";
-import { Fips } from "../data/utils/Fips";
-import styles from "./Card.module.scss";
-import MapBreadcrumbs from "./MapBreadcrumbs";
-import CardWrapper from "./CardWrapper";
-import { MetricQuery } from "../data/query/MetricQuery";
-import { MetricConfig } from "../data/config/MetricConfig";
+import Alert from "@material-ui/lab/Alert";
+import Button from "@material-ui/core/Button";
+import Divider from "@material-ui/core/Divider";
 import { CardContent } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
-import Divider from "@material-ui/core/Divider";
-import { Breakdowns, BreakdownVar } from "../data/query/Breakdowns";
+import styles from "./Card.module.scss";
+import CardWrapper from "./CardWrapper";
+import MapBreadcrumbs from "./MapBreadcrumbs";
 import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
+import TwoLevelDropDown from "./ui/TwoLevelDropDown";
+import { Breakdowns, BreakdownVar } from "../data/query/Breakdowns";
+import { ChoroplethMap } from "../charts/ChoroplethMap";
+import { Fips } from "../data/utils/Fips";
+import { MetricQuery } from "../data/query/MetricQuery";
+import { MetricConfig } from "../data/config/MetricConfig";
+import { MultiMapDialog } from "./ui/MultiMapDialog";
 import { Row } from "../data/utils/DatasetTypes";
 import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC } from "../data/utils/Constants";
-import Button from "@material-ui/core/Button";
-import { MultiMapDialog } from "./ui/MultiMapDialog";
-import TwoLevelDropDown from "./ui/TwoLevelDropDown";
 import { BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/query/Breakdowns";
 
 const POSSIBLE_BREAKDOWNS: BreakdownVar[] = [
@@ -34,8 +34,8 @@ export interface MapCardProps {
   currentBreakdown: BreakdownVar | "all";
 }
 
-// This wrapper ensures the proper key is set to create a new instance when required
-// (when the props change and the state needs to be reset) rather than relying on the card caller.
+// This wrapper ensures the proper key is set to create a new instance when required (when
+// the props change and the state needs to be reset) rather than relying on the card caller.
 export function MapCard(props: MapCardProps) {
   return (
     <MapCardWithKey
@@ -60,12 +60,12 @@ function MapCardWithKey(props: MapCardProps) {
     false
   );
 
-  const descriptionElementRef = useRef<HTMLElement>(null);
+  const dialogElementRef = useRef<HTMLElement>(null);
   useEffect(() => {
     if (smallMultiplesDialogOpen) {
-      const { current: descriptionElement } = descriptionElementRef;
-      if (descriptionElement !== null) {
-        descriptionElement.focus();
+      const { current: dialogElement } = dialogElementRef;
+      if (dialogElement !== null) {
+        dialogElement.focus();
       }
     }
   }, [smallMultiplesDialogOpen]);
@@ -119,14 +119,14 @@ function MapCardWithKey(props: MapCardProps) {
         // CardWrapper so we don't need to rely on index order.
         const queryResponse =
           queryResponses[requestedBreakdowns.indexOf(activeBreakdown)];
-        const breakdownOptions = queryResponse
+        const breakdownValues = queryResponse
           .getUniqueFieldValues(activeBreakdown)
           .sort();
         if (
           activeBreakdownFilter === "" ||
           activeBreakdownFilter === undefined
         ) {
-          setActiveBreakdownFilter(breakdownOptions[0]);
+          setActiveBreakdownFilter(breakdownValues[0]);
         }
 
         const dataForActiveBreakdownFilter = queryResponse
@@ -159,8 +159,10 @@ function MapCardWithKey(props: MapCardProps) {
               breakdown={activeBreakdown}
               handleClose={() => setSmallMultiplesDialogOpen(false)}
               open={smallMultiplesDialogOpen}
-              breakdownOptions={breakdownOptions}
-              queryResponse={queryResponse}
+              breakdownValues={breakdownValues}
+              fieldRange={queryResponse.getFieldRange(
+                props.metricConfig.metricId
+              )}
             />
             <CardContent className={styles.SmallMarginContent}>
               <MapBreadcrumbs
@@ -172,10 +174,7 @@ function MapCardWithKey(props: MapCardProps) {
             {!queryResponse.dataIsMissing() && (
               <>
                 <Divider />
-                <CardContent
-                  className={styles.SmallMarginContent}
-                  style={{ textAlign: "left" }}
-                >
+                <CardContent className={styles.SmallMarginContent}>
                   <Grid
                     container
                     justify="space-between"
@@ -183,7 +182,7 @@ function MapCardWithKey(props: MapCardProps) {
                   >
                     <Grid item>
                       <TwoLevelDropDown
-                        value={activeBreakdownFilter} // TODO
+                        value={activeBreakdownFilter}
                         options={filterOptions}
                         onOptionUpdate={(option) =>
                           setActiveBreakdownFilter(option)
@@ -191,8 +190,11 @@ function MapCardWithKey(props: MapCardProps) {
                       />
                     </Grid>
                     <Grid item>
-                      <Button onClick={() => setSmallMultiplesDialogOpen(true)}>
-                        Show Full Breakdown by{" "}
+                      <Button
+                        onClick={() => setSmallMultiplesDialogOpen(true)}
+                        color="primary"
+                      >
+                        Show full breakdown by{" "}
                         {BREAKDOWN_VAR_DISPLAY_NAMES[activeBreakdown]}
                       </Button>
                     </Grid>
@@ -201,25 +203,31 @@ function MapCardWithKey(props: MapCardProps) {
               </>
             )}
             <Divider />
-            <CardContent>
-              {queryResponse.dataIsMissing() && (
+            {queryResponse.dataIsMissing() && (
+              <CardContent>
                 <Alert severity="error">No data available</Alert>
-              )}
-              {!queryResponse.dataIsMissing() &&
-                dataForActiveBreakdownFilter.length === 0 && (
+              </CardContent>
+            )}
+            {!queryResponse.dataIsMissing() &&
+              dataForActiveBreakdownFilter.length === 0 && (
+                <CardContent>
                   <Alert severity="warning">
                     No data available for filter: <b>{activeBreakdownFilter}</b>
                   </Alert>
-                )}
-              {!queryResponse.dataIsMissing() &&
-                dataForActiveBreakdownFilter.length !== 0 &&
-                props.metricConfig && (
+                </CardContent>
+              )}
+            {!queryResponse.dataIsMissing() &&
+              dataForActiveBreakdownFilter.length !== 0 &&
+              props.metricConfig && (
+                <CardContent>
                   <Alert severity="info">
                     Note that legend changes between races. To see races with
                     common legend, use show all breakdowns button.
                   </Alert>
-                )}
-              {props.metricConfig && (
+                </CardContent>
+              )}
+            {props.metricConfig && (
+              <CardContent>
                 <ChoroplethMap
                   signalListeners={signalListeners}
                   metric={props.metricConfig}
@@ -233,8 +241,8 @@ function MapCardWithKey(props: MapCardProps) {
                   fips={props.fips}
                   scaleType="quantile"
                 />
-              )}
-            </CardContent>
+              </CardContent>
+            )}
           </>
         );
       }}

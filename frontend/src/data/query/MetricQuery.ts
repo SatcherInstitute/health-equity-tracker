@@ -86,6 +86,9 @@ export class MetricQueryResponse {
   }
 
   getUniqueFieldValues(fieldName: string): string[] {
+    if (this.isFieldMissing(fieldName)) {
+      return [];
+    }
     const set = new Set<string>();
     this.data.forEach((row) => {
       set.add(row[fieldName]);
