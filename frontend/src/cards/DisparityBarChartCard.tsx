@@ -96,8 +96,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               <CardContent className={styles.Breadcrumbs}>
                 <DisparityBarChart
                   data={queryResponse.data}
-                  thickMetric={props.metricConfig.populationComparisonMetric!}
-                  thinMetric={props.metricConfig}
+                  lightMetric={props.metricConfig.populationComparisonMetric!}
+                  darkMetric={props.metricConfig}
                   breakdownVar={props.breakdownVar}
                   metricDisplayName={props.metricConfig.shortVegaLabel}
                 />

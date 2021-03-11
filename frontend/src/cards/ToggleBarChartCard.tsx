@@ -144,8 +144,8 @@ function ToggleBarChartCardWithKey(props: ToggleBarChartCardProps) {
                 {metricConfig.type === "pct_share" && (
                   <DisparityBarChart
                     data={queryResponse.data}
-                    thickMetric={metricConfig.populationComparisonMetric!}
-                    thinMetric={metricConfig}
+                    lightMetric={metricConfig.populationComparisonMetric!}
+                    darkMetric={metricConfig}
                     breakdownVar={props.breakdownVar}
                     metricDisplayName={metricConfig.shortVegaLabel}
                   />
