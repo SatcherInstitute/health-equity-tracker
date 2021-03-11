@@ -3,7 +3,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import styles from "./AboutUsPage.module.scss";
 import FaqTab from "./FaqTab";
-import TrackerTab from "./TrackerTab";
+import TheProjectTab from "./TheProjectTab";
 import OurTeamTab from "./OurTeamTab";
 import ContactUsTab from "./ContactUsTab";
 
@@ -30,7 +30,7 @@ function AboutUsPage() {
         <Tab label="Frequently Asked Questions" />
         <Tab label="Contact Us" />
       </Tabs>
-      {tabIndex === 0 && <TrackerTab />}
+      {tabIndex === 0 && <TheProjectTab />}
       {tabIndex === 1 && <OurTeamTab />}
       {tabIndex === 2 && <FaqTab setTabIndexFx={setTabIndex} />}
       {tabIndex === 3 && <ContactUsTab />}
