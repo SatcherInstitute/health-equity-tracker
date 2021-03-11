@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import TextField from "@material-ui/core/TextField";
@@ -30,6 +30,21 @@ function OptionsSelector(props: {
     );
     currentDisplayName = chosenOption ? chosenOption[1] : "";
   }
+
+  const [textBoxValue, setTextBoxValue] = useState("");
+  const updateTextBox = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTextBoxValue(event.target.value);
+  };
+
+  const [autoCompleteOpen, setAutoCompleteOpen] = useState(false);
+  const openAutoComplete = () => {
+    if (textBoxValue.length >= 1) {
+      setAutoCompleteOpen(true);
+    }
+  };
+  const closeAutoComplete = () => {
+    setAutoCompleteOpen(false);
+  };
 
   return (
     <>
@@ -64,16 +79,21 @@ function OptionsSelector(props: {
               getOptionLabel={(fips) => fips.getFullDisplayName()}
               getOptionSelected={(fips) => fips.code === props.value}
               renderOption={(fips) => <>{fips.getFullDisplayName()}</>}
+              open={autoCompleteOpen}
+              onOpen={openAutoComplete}
+              onClose={closeAutoComplete}
               renderInput={(params) => (
                 <TextField
                   placeholder="County, State, Territory, or United States" // TODO- update depending on what options are
                   margin="dense"
                   variant="outlined"
+                  onChange={updateTextBox}
                   {...params}
                 />
               )}
               onChange={(e, fips) => {
                 props.onOptionUpdate(fips.code);
+                setTextBoxValue("");
                 popover.close();
               }}
             />

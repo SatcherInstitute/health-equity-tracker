@@ -124,7 +124,7 @@ function TheProjectTab() {
                 <Grid item>
                   <img className={styles.ImgAimToGo}
                        src="img/LINES-2@2x 4.png"
-                       alt="Decorative image of lines"/>
+                       alt="Decorative lines"/>
                 </Grid>
                 <Grid item>
                   <Typography className={styles.SubheaderL2Text}>
@@ -150,7 +150,7 @@ function TheProjectTab() {
                 <Grid item>
                   <img className={styles.ImgAimToGo}
                        src="img/Asset 3@2x 4.png"
-                       alt="Decorative image of thick lines"/>
+                       alt="Decorative thick lines"/>
                 </Grid>
                 <Grid item>
                   <Typography className={styles.SubheaderL2Text}>
@@ -176,7 +176,7 @@ function TheProjectTab() {
                 <Grid item>
                   <img className={styles.ImgAimToGo}
                        src="img/Dots_1@2x 5.png"
-                       alt="Decorative image of dots"/>
+                       alt="Decorative dots"/>
                 </Grid>
                 <Grid item>
                   <Typography className={styles.SubheaderL2Text}>

@@ -9,8 +9,7 @@ function RaceInfoPopoverContent(props: {}) {
         These racial categories are defined by the ACS and US Census Bureau.
         While it is the most extensive database out there, we understand that
         there are real limitations in how the categories have been defined, as
-        well as how these definitions can mask groups.{" "}
-        <a href="/">Learn more about limitations in the data</a>
+        well as how these definitions can mask groups.
       </p>
     </div>
   );
