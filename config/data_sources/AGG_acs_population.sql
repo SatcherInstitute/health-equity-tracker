@@ -37,14 +37,14 @@ CREATE TEMP FUNCTION getStaggeredDecadeAgeBuckets(x ANY TYPE) AS (
 -- been deduped and only include the latest rows.
 CREATE OR REPLACE TABLE acs_population.by_sex_age_state AS
 SELECT state_fips, state_name, sex, getDecadeAgeBucket(age) AS age, SUM(population) AS population
-FROM `acs_population.by_sex_age_race_state_std`
+FROM `acs_population.by_sex_age_race_state_std_staging`
 WHERE race_and_ethnicity = "Total"
 GROUP BY state_fips, state_name, sex, age
 ORDER BY state_fips, state_name, sex, age;
 
 CREATE OR REPLACE TABLE acs_population.by_sex_age_county AS
 SELECT state_fips, county_fips, county_name, sex, getDecadeAgeBucket(age) AS age, SUM(population) AS population
-FROM `acs_population.by_sex_age_race_county_std`
+FROM `acs_population.by_sex_age_race_county_std_staging`
 WHERE race_and_ethnicity = "Total"
 GROUP BY state_fips, county_fips, county_name, sex, age
 ORDER BY state_fips, county_fips, county_name, sex, age;
@@ -68,13 +68,13 @@ ORDER BY state_fips, county_fips, county_name, age;
 -- age bucket availability.
 CREATE OR REPLACE TABLE acs_population.by_sex_age_race_state_staggered_buckets AS
 SELECT state_fips, state_name, sex, getStaggeredDecadeAgeBuckets(age) AS age, race_and_ethnicity, SUM(population) AS population
-FROM `acs_population.by_sex_age_race_state_std`
+FROM `acs_population.by_sex_age_race_state_std_staging`
 GROUP BY state_fips, state_name, sex, age, race_and_ethnicity
 ORDER BY state_fips, state_name, sex, age, race_and_ethnicity;
 
 CREATE OR REPLACE TABLE acs_population.by_sex_age_race_county_staggered_buckets AS
 SELECT state_fips, county_fips, county_name, sex, getStaggeredDecadeAgeBuckets(age) AS age, race_and_ethnicity, SUM(population) AS population
-FROM `acs_population.by_sex_age_race_county_std`
+FROM `acs_population.by_sex_age_race_county_std_staging`
 GROUP BY state_fips, county_fips, county_name, sex, age, race_and_ethnicity
 ORDER BY state_fips, county_fips, county_name, sex, age, race_and_ethnicity;
 
@@ -94,14 +94,14 @@ ORDER BY state_fips, county_fips, county_name, age, race_and_ethnicity;
 
 CREATE OR REPLACE TABLE acs_population.by_sex_state AS
 SELECT state_fips, state_name, sex, SUM(population) AS population
-FROM `acs_population.by_sex_age_race_state_std`
+FROM `acs_population.by_sex_age_race_state_std_staging`
 WHERE race_and_ethnicity = "Total"
 GROUP BY state_fips, state_name, sex
 ORDER BY state_fips, state_name, sex;
 
 CREATE OR REPLACE TABLE acs_population.by_sex_county AS
 SELECT state_fips, county_fips, county_name, sex, SUM(population) AS population
-FROM `acs_population.by_sex_age_race_county_std`
+FROM `acs_population.by_sex_age_race_county_std_staging`
 WHERE race_and_ethnicity = "Total"
 GROUP BY state_fips, county_fips, county_name, sex
 ORDER BY state_fips, county_fips, county_name, sex;
