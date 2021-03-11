@@ -45,7 +45,7 @@ COL_NAME_MAPPING = {
 
 # Mapping for county_fips, county, and state unknown values to "Unknown".
 COUNTY_FIPS_NAMES_MAPPING = {"NA": "-1"}  # Has to be str for later ingestion.
-COUNTY_NAMES_MAPPING = {"MISSING": "Unknown", "NA": "Unknown"}
+COUNTY_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 STATE_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 
 # Mappings for race, sex, and age values in the data to a standardized forms.
@@ -67,6 +67,7 @@ RACE_NAMES_MAPPING = {
 SEX_NAMES_MAPPING = {
     "NA": "Unknown",
     "Missing": "Unknown",
+    "Unknown": "Unknown",
 }
 
 AGE_NAMES_MAPPING = {
@@ -106,6 +107,7 @@ def accumulate_data(df, groupby_cols, overall_df, demographic_col,
     df[std_col.COVID_HOSP_N] = (df['hosp_yn'] == 'No')
     df[std_col.COVID_HOSP_UNKNOWN] = ((df['hosp_yn'] == 'Unknown') |
                                       (df['hosp_yn'] == 'Missing') |
+                                      (df['hosp_yn'] == 'nul') |
                                       (df['hosp_yn'] == 'OTH'))
     df[std_col.COVID_DEATH_Y] = (df['death_yn'] == 'Yes')
     df[std_col.COVID_DEATH_N] = (df['death_yn'] == 'No')
