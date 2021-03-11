@@ -20,7 +20,7 @@ function DisparityInfoPopover(props: { popover: PopoverElements }) {
     >
       <div className={styles.CardTitlePopover}>
         A <b>disparity</b> is defined by when if a health outcome is seen to a
-        greater or lesser extent between populations. <a href="/">Learn more</a>
+        greater or lesser extent between populations.
       </div>
     </Popover>
   );
