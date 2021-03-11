@@ -17,7 +17,7 @@ import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC } from "../data/utils/Constants";
 import Button from "@material-ui/core/Button";
 import { MultiMapDialog } from "./ui/MultiMapDialog";
-import Filter from "./ui/Filter";
+import TwoLevelDropDown from "./ui/TwoLevelDropDown";
 import { BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/query/Breakdowns";
 
 const POSSIBLE_BREAKDOWNS: BreakdownVar[] = [
@@ -129,9 +129,9 @@ function MapCardWithKey(props: MapCardProps) {
           setActiveBreakdownFilter(breakdownOptions[0]);
         }
 
-        const dataForActiveBreakdownFilter = queryResponse.data.filter(
-          (row: Row) => row[activeBreakdown] === activeBreakdownFilter
-        );
+        const dataForActiveBreakdownFilter = queryResponse
+          .getValidRowsForField(props.metricConfig.metricId)
+          .filter((row: Row) => row[activeBreakdown] === activeBreakdownFilter);
 
         // Create and populate a map of breakdown display name to options
         let filterOptions: Record<string, string[]> = {};
@@ -182,7 +182,7 @@ function MapCardWithKey(props: MapCardProps) {
                     align-items="flex-end"
                   >
                     <Grid item>
-                      <Filter
+                      <TwoLevelDropDown
                         value={activeBreakdownFilter} // TODO
                         options={filterOptions}
                         onOptionUpdate={(option) =>
