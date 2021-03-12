@@ -96,6 +96,7 @@ SELECT
 FROM cdc_restricted_race_county AS x
 LEFT JOIN `acs_population.by_race_county_std_staging` AS y ON
     x.county_fips = y.county_fips AND
+    x.state_fips = y.state_fips AND
     x.race_and_ethnicity = y.race_and_ethnicity
 ;
 
@@ -119,6 +120,7 @@ SELECT
 FROM cdc_restricted_sex_county AS x
 LEFT JOIN `acs_population.by_sex_county` AS y ON
     x.county_fips = y.county_fips AND
+    x.state_fips = y.state_fips AND
     x.sex = y.sex
 ;
 
@@ -142,5 +144,6 @@ SELECT
 FROM cdc_restricted_age_county AS x
 LEFT JOIN `acs_population.by_age_county` AS y ON
     x.county_fips = y.county_fips AND
+    x.state_fips = y.state_fips AND
     x.age = y.age
 ;
