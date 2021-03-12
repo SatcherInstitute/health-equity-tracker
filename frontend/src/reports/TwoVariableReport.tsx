@@ -11,11 +11,13 @@ import { Fips } from "../data/utils/Fips";
 import {
   METRIC_CONFIG,
   VariableConfig,
-  getTableFields,
+  getPer100kAndPctShareMetrics,
 } from "../data/config/MetricConfig";
 import ReportToggleControls from "./ui/ReportToggleControls";
 import NoDataAlert from "./ui/NoDataAlert";
 
+/* Takes dropdownVar and fips inputs for each side-by-side column.
+Input values for each column can be the same. */
 function TwoVariableReport(props: {
   key: string;
   dropdownVarId1: DropdownVarId;
@@ -120,14 +122,14 @@ function TwoVariableReport(props: {
             <Grid item xs={6}>
               <TableCard
                 fips={props.fips1}
-                metrics={getTableFields(variableConfig1)}
+                metrics={getPer100kAndPctShareMetrics(variableConfig1)}
                 breakdownVar={breakdownVar}
               />
             </Grid>
             <Grid item xs={6}>
               <TableCard
                 fips={props.fips2}
-                metrics={getTableFields(variableConfig2)}
+                metrics={getPer100kAndPctShareMetrics(variableConfig2)}
                 breakdownVar={breakdownVar}
               />
             </Grid>

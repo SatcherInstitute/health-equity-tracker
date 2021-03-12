@@ -19,6 +19,7 @@ function NoDataAlert(props: { dropdownVarId: string }) {
             background: "none",
             textDecoration: "underline",
           }}
+          /* TODO - https://github.com/SatcherInstitute/health-equity-tracker/issues/431 */
           onClick={() => alert("unimplemented")}
         >
           See our roadmap to learn more.
@@ -35,6 +36,7 @@ function NoDataAlert(props: { dropdownVarId: string }) {
             background: "none",
             textDecoration: "underline",
           }}
+          /* TODO - https://github.com/SatcherInstitute/health-equity-tracker/issues/431 */
           onClick={() => alert("unimplemented")}
         >
           We would love to hear from you.

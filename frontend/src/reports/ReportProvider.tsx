@@ -44,17 +44,14 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           />
         );
       case "comparegeos":
-        const compareDisparityVariable = getPhraseValue(
-          props.madLib,
-          1
-        ) as DropdownVarId;
+        const compareDisparityVariable = getPhraseValue(props.madLib, 1);
         const fipsCode1 = getPhraseValue(props.madLib, 3);
         const fipsCode2 = getPhraseValue(props.madLib, 5);
         return (
           <TwoVariableReport
             key={compareDisparityVariable + fipsCode1 + fipsCode2}
-            dropdownVarId1={compareDisparityVariable}
-            dropdownVarId2={compareDisparityVariable}
+            dropdownVarId1={compareDisparityVariable as DropdownVarId}
+            dropdownVarId2={compareDisparityVariable as DropdownVarId}
             fips1={new Fips(fipsCode1)}
             fips2={new Fips(fipsCode2)}
             updateFips1Callback={(fips: Fips) =>
@@ -70,22 +67,16 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           />
         );
       case "comparevars":
-        const compareDisparityVariable1 = getPhraseValue(
-          props.madLib,
-          1
-        ) as DropdownVarId;
-        const compareDisparityVariable2 = getPhraseValue(
-          props.madLib,
-          3
-        ) as DropdownVarId;
+        const compareDisparityVariable1 = getPhraseValue(props.madLib, 1);
+        const compareDisparityVariable2 = getPhraseValue(props.madLib, 3);
         const fipsCode = getPhraseValue(props.madLib, 5);
         return (
           <TwoVariableReport
             key={
               compareDisparityVariable1 + +compareDisparityVariable2 + fipsCode
             }
-            dropdownVarId1={compareDisparityVariable1}
-            dropdownVarId2={compareDisparityVariable2}
+            dropdownVarId1={compareDisparityVariable1 as DropdownVarId}
+            dropdownVarId2={compareDisparityVariable2 as DropdownVarId}
             fips1={new Fips(fipsCode)}
             fips2={new Fips(fipsCode)}
             updateFips1Callback={(fips: Fips) =>

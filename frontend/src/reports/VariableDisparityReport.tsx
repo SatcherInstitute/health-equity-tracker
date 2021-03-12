@@ -11,7 +11,7 @@ import { Fips } from "../data/utils/Fips";
 import {
   METRIC_CONFIG,
   VariableConfig,
-  getTableFields,
+  getPer100kAndPctShareMetrics,
 } from "../data/config/MetricConfig";
 import ReportToggleControls from "./ui/ReportToggleControls";
 import NoDataAlert from "./ui/NoDataAlert";
@@ -75,7 +75,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                 {breakdownIsShown(breakdownVar) && (
                   <TableCard
                     fips={props.fips}
-                    metrics={getTableFields(variableConfig)}
+                    metrics={getPer100kAndPctShareMetrics(variableConfig)}
                     breakdownVar={breakdownVar}
                   />
                 )}

@@ -77,7 +77,9 @@ export function formatFieldValue(metricType: MetricType, value: any): string {
   return `${formattedValue}${suffix}`;
 }
 
-export function getTableFields(variableConfig: VariableConfig): MetricConfig[] {
+export function getPer100kAndPctShareMetrics(
+  variableConfig: VariableConfig
+): MetricConfig[] {
   let tableFields: MetricConfig[] = [];
   if (variableConfig) {
     if (variableConfig.metrics["per100k"]) {
