@@ -44,7 +44,7 @@ COL_NAME_MAPPING = {
 }
 
 # Mapping for county_fips, county, and state unknown values to "Unknown".
-COUNTY_FIPS_NAMES_MAPPING = {"NA": "-1"}  # Has to be str for later ingestion.
+COUNTY_FIPS_NAMES_MAPPING = {"NA": ""}
 COUNTY_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 STATE_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 
@@ -213,6 +213,11 @@ def main():
             def _clean_str(x):
                 return x.replace('"', '').strip() if isinstance(x, str) else x
             df = df.applymap(_clean_str)
+
+            # For county fips, we make sure they are strings of length 5 as per
+            # our standardization (ignoring empty values).
+            df[COUNTY_FIPS_COL] = df[COUNTY_FIPS_COL].map(
+                lambda x: x.zfill(5) if len(x) > 0 else x)
 
             # For each of ({state, county} x {race, sex, age}), we slice the
             # data to focus on that dimension and aggregate.

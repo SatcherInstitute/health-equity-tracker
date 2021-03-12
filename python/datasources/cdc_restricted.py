@@ -27,21 +27,25 @@ class CDCRestrictedData(DataSource):
             raise ValueError('filename passed to write_to_bq is not a '
                              'comma-separated list of files')
         files = gcs_files.split(',')
+        print("Files that will be written to BQ:", files)
 
         # For each of the files, we load it as a dataframe and add it as a
         # table in the BigQuery dataset. We expect that all aggregation and
         # standardization of the data has been done by this point.
-        str_cols = [std_col.COUNTY_NAME_COL, std_col.STATE_NAME_COL,
-                    std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL,
-                    std_col.SEX_COL]
+        int_cols = [std_col.COVID_CASES, std_col.COVID_HOSP_Y,
+                    std_col.COVID_HOSP_N, std_col.COVID_HOSP_UNKNOWN,
+                    std_col.COVID_DEATH_Y, std_col.COVID_DEATH_N,
+                    std_col.COVID_DEATH_UNKNOWN]
         for f in files:
-            df = gcs_to_bq_util.load_csv_as_dataframe(gcs_bucket, f)
+            # Explicitly specify county_fips is a string.
+            df = gcs_to_bq_util.load_csv_as_dataframe(
+                gcs_bucket, f, dtype={'county_fips': str})
 
-            # All columns are int, except certain geo and breakdown columns.
-            column_types = {c: 'INT64' for c in df.columns}
-            for col in str_cols:
+            # All columns are str, except outcome columns.
+            column_types = {c: 'STRING' for c in df.columns}
+            for col in int_cols:
                 if col in column_types:
-                    column_types[col] = 'STRING'
+                    column_types[col] = 'INT64'
 
             # Clean up column names.
             self.clean_frame_column_names(df)
