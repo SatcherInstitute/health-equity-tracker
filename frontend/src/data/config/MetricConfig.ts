@@ -77,6 +77,24 @@ export function formatFieldValue(metricType: MetricType, value: any): string {
   return `${formattedValue}${suffix}`;
 }
 
+export function getTableFields(variableConfig: VariableConfig): MetricConfig[] {
+  let tableFields: MetricConfig[] = [];
+  if (variableConfig) {
+    if (variableConfig.metrics["per100k"]) {
+      tableFields.push(variableConfig.metrics["per100k"]);
+    }
+    if (variableConfig.metrics["pct_share"]) {
+      tableFields.push(variableConfig.metrics["pct_share"]);
+      if (variableConfig.metrics["pct_share"].populationComparisonMetric) {
+        tableFields.push(
+          variableConfig.metrics["pct_share"].populationComparisonMetric
+        );
+      }
+    }
+  }
+  return tableFields;
+}
+
 // TODO - strongly type key
 // TODO - count and pct_share metric types should require populationComparisonMetric
 
