@@ -18,8 +18,7 @@ WITH cdc_restricted_race_state AS (
     LEFT JOIN `bigquery-public-data.census_utility.fips_codes_states` AS b
         ON a.state_postal = b.state_postal_abbreviation
 )
-SELECT
-    x.*, y.population
+SELECT x.*, y.population
 FROM cdc_restricted_race_state AS x
 LEFT JOIN `acs_population.by_race_state_std` AS y
     USING (state_fips, race_and_ethnicity)
@@ -37,8 +36,7 @@ WITH cdc_restricted_sex_state AS (
     LEFT JOIN `bigquery-public-data.census_utility.fips_codes_states` AS b
     ON a.state_postal = b.state_postal_abbreviation
 )
-SELECT
-    x.*, y.population
+SELECT x.*, y.population
 FROM cdc_restricted_sex_state AS x
 LEFT JOIN `acs_population.by_sex_state` AS y
     USING (state_fips, sex)
@@ -56,8 +54,7 @@ WITH cdc_restricted_age_state AS (
     LEFT JOIN `bigquery-public-data.census_utility.fips_codes_states` AS b
     ON a.state_postal = b.state_postal_abbreviation
 )
-SELECT
-    x.*, y.population
+SELECT x.*, y.population
 FROM cdc_restricted_age_state AS x
 LEFT JOIN `acs_population.by_age_state` AS y
     USING (state_fips, age)
@@ -86,8 +83,7 @@ WITH cdc_restricted_race_county AS (
         ON a.county_fips = c.county_fips_code AND
            c.summary_level_name = "state-county"
 )
-SELECT
-    x.*, y.population
+SELECT x.*, y.population
 FROM cdc_restricted_race_county AS x
 LEFT JOIN `acs_population.by_race_county_std` AS y
     USING (county_fips, state_fips, race_and_ethnicity)
@@ -110,8 +106,7 @@ WITH cdc_restricted_sex_county AS (
         ON a.county_fips = c.county_fips_code AND
            c.summary_level_name = "state-county"
 )
-SELECT
-    x.*, y.population
+SELECT x.*, y.population
 FROM cdc_restricted_sex_county AS x
 LEFT JOIN `acs_population.by_sex_county` AS y
     USING (county_fips, state_fips, sex)
@@ -134,8 +129,7 @@ WITH cdc_restricted_age_county AS (
         ON a.county_fips = c.county_fips_code AND
            c.summary_level_name = "state-county"
 )
-SELECT
-    x.*, y.population
+SELECT x.*, y.population
 FROM cdc_restricted_age_county AS x
 LEFT JOIN `acs_population.by_age_county` AS y
     USING (county_fips, state_fips, age)
