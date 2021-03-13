@@ -35,7 +35,7 @@ COUNTY_COLS = [COUNTY_FIPS_COL, COUNTY_COL, STATE_COL]
 
 # Mapping from column name in the data to standardized version.
 COL_NAME_MAPPING = {
-    STATE_COL: std_col.STATE_NAME_COL,
+    STATE_COL: std_col.STATE_POSTAL_COL,
     COUNTY_FIPS_COL: std_col.COUNTY_FIPS_COL,
     COUNTY_COL: std_col.COUNTY_NAME_COL,
     RACE_COL: std_col.RACE_OR_HISPANIC_COL,
