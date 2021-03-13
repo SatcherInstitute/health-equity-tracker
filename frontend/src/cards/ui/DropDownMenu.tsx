@@ -76,12 +76,12 @@ function MenuPopover(props: {
 }
 
 /*
-   TwoLevelDropDown is a dropdown menu with an optional second level of submenu options.
+   DropDownMenu is a dropdown menu with one or two levels of menu items.
    For example you can have:
      * Dropdown with one level listing all race options
      * Dropdown with one level to select race and a second level listing all race options
 */
-function TwoLevelDropDown(props: {
+function DropDownMenu(props: {
   // Dropdown's currently selected option.
   value: string;
   // Map of first level menu option to submenu options.
@@ -137,4 +137,4 @@ function TwoLevelDropDown(props: {
   );
 }
 
-export default TwoLevelDropDown;
+export default DropDownMenu;

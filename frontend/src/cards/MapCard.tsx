@@ -6,9 +6,9 @@ import { CardContent } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
+import DropDownMenu from "./ui/DropDownMenu";
 import MapBreadcrumbs from "./MapBreadcrumbs";
 import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
-import TwoLevelDropDown from "./ui/TwoLevelDropDown";
 import { Breakdowns, BreakdownVar } from "../data/query/Breakdowns";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { Fips } from "../data/utils/Fips";
@@ -173,7 +173,7 @@ function MapCardWithKey(props: MapCardProps) {
                     align-items="flex-end"
                   >
                     <Grid item>
-                      <TwoLevelDropDown
+                      <DropDownMenu
                         value={activeBreakdownFilter}
                         options={filterOptions}
                         onOptionUpdate={(option) =>

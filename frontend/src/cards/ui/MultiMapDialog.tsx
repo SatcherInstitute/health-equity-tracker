@@ -19,15 +19,15 @@ const VEGA_LEGEND_REFERENCE_LINK =
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
   metricConfig: MetricConfig;
-  // Demographic breakdown we which to compare, i.e. "age"
+  // Demographic breakdown upon which we're dividing the data, i.e. "age"
   breakdown: string;
-  // Unique values for breakdown, each has one map
+  // Unique values for breakdown, each one will have it's own map
   breakdownValues: string[];
-  // Geographic restriction for this data
+  // Geographic region of maps
   fips: Fips;
   // Data that populates maps
   data: Row[];
-  // Range of field values, used for creating a common legend
+  // Range of metric's values, used for creating a common legend across maps
   fieldRange: FieldRange | undefined;
   // Whether or not dialog is currently open
   open: boolean;
@@ -36,7 +36,8 @@ export interface MultiMapDialogProps {
 }
 
 /*
-   MultiMapDialog is a dialog opened via the MapCard.
+   MultiMapDialog is a dialog opened via the MapCard that shows one small map for each unique
+    value in a given breakdown for a particualr metric.
 */
 export function MultiMapDialog(props: MultiMapDialogProps) {
   return (
