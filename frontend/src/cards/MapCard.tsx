@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import Alert from "@material-ui/lab/Alert";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
@@ -17,6 +17,7 @@ import { MetricConfig } from "../data/config/MetricConfig";
 import { MultiMapDialog } from "./ui/MultiMapDialog";
 import { Row } from "../data/utils/DatasetTypes";
 import { exclude } from "../data/query/BreakdownFilter";
+import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
 import { NON_HISPANIC } from "../data/utils/Constants";
 import { BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/query/Breakdowns";
 
@@ -56,19 +57,10 @@ function MapCardWithKey(props: MapCardProps) {
   const [activeBreakdownFilter, setActiveBreakdownFilter] = useState<string>(
     ""
   );
-  const [smallMultiplesDialogOpen, setSmallMultiplesDialogOpen] = useState(
-    false
-  );
-
-  const dialogElementRef = useRef<HTMLElement>(null);
-  useEffect(() => {
-    if (smallMultiplesDialogOpen) {
-      const { current: dialogElement } = dialogElementRef;
-      if (dialogElement !== null) {
-        dialogElement.focus();
-      }
-    }
-  }, [smallMultiplesDialogOpen]);
+  const [
+    smallMultiplesDialogOpen,
+    setSmallMultiplesDialogOpen,
+  ] = useAutoFocusDialog();
 
   const geographyBreakdown = props.fips.isUsa()
     ? Breakdowns.byState()

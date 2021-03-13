@@ -11,12 +11,21 @@ const DOT_SIZE_SCALE = "dot_size_scale";
 const RAW_VALUES = "raw_values";
 const DATASET_VALUES = "dataset_values";
 
+/*
+   Legend renders a vega chart that just contains a legend.
+*/
 export interface LegendProps {
-  legendData?: Record<string, any>[]; // Dataset for which to calculate legend
+  // Data for which to create a legend.
+  legendData?: Record<string, any>[]; // Dataset for which to calculate legend.
+  // Metric in the data for which to create a legend.
   metric: MetricConfig;
   legendTitle: string;
+  // May be used if standardizing legends across charts
   fieldRange?: FieldRange;
+  // Quantile or quantize scale.
   scaleType: ScaleType;
+  // Whether the dots all be the same size or increase in size.
+  // Size does not corrolate to the range size.
   sameDotSize?: boolean;
 }
 

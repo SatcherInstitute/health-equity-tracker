@@ -17,11 +17,13 @@ const TRANSFORM_ORIGIN: PopoverOrigin = {
   horizontal: "left",
 };
 
-function ListPopover(props: {
-  currentSelection: string;
+function MenuPopover(props: {
   popover: PopoverElements;
+  // Map type indicates items are first level menu items, array indicates second level
   items: Record<string, string[]> | string[];
   onClick: (event: React.MouseEvent<HTMLElement>, value: string) => void;
+  // Optional additional actions to do when the popover is closed
+  onClose?: () => void;
 }) {
   const hasChildren = !Array.isArray(props.items);
   const listItems: string[] = hasChildren
@@ -42,7 +44,6 @@ function ListPopover(props: {
       return (
         <ListItem
           button
-          selected={listItem === props.currentSelection}
           onClick={(event) => {
             props.onClick(event, listItem);
           }}
@@ -58,7 +59,12 @@ function ListPopover(props: {
     <Popover
       open={props.popover.isOpen}
       anchorEl={props.popover.anchor}
-      onClose={props.popover.close}
+      onClose={() => {
+        props.popover.close();
+        if (props.onClose) {
+          props.onClose();
+        }
+      }}
       anchorOrigin={ANCHOR_ORIGIN}
       transformOrigin={TRANSFORM_ORIGIN}
     >
@@ -69,9 +75,19 @@ function ListPopover(props: {
   );
 }
 
+/*
+   TwoLevelDropDown is a dropdown menu with an optional second level of submenu options.
+   For example you can have:
+     * Dropdown with one level listing all race options
+     * Dropdown with one level to select race and a second level listing all race options
+*/
 function TwoLevelDropDown(props: {
+  // Dropdown's currently selected option.
   value: string;
+  // Map of first level menu option to submenu options.
+  // If only one key is present, submenu options will render as first level.
   options: Record<string, string[]>;
+  // Update parent component with a newly selected value.
   onOptionUpdate: (option: string) => void;
 }) {
   const firstMenu = usePopover();
@@ -90,9 +106,8 @@ function TwoLevelDropDown(props: {
         <ArrowDropDown />
       </Button>
 
-      <ListPopover
+      <MenuPopover
         popover={firstMenu}
-        currentSelection={firstMenuSelection}
         items={oneLevelMenu ? Object.values(props.options)[0] : props.options}
         onClick={(event: React.MouseEvent<HTMLElement>, value: string) => {
           if (oneLevelMenu) {
@@ -105,9 +120,8 @@ function TwoLevelDropDown(props: {
         }}
       />
 
-      <ListPopover
+      <MenuPopover
         popover={secondMenu}
-        currentSelection={props.value}
         items={props.options[firstMenuSelection]}
         onClick={(
           unused_event: React.MouseEvent<HTMLElement>,
@@ -117,6 +131,7 @@ function TwoLevelDropDown(props: {
           secondMenu.close();
           props.onOptionUpdate(value);
         }}
+        onClose={firstMenu.close}
       />
     </>
   );

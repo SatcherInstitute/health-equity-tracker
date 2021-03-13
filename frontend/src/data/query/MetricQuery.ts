@@ -79,6 +79,7 @@ export class MetricQueryResponse {
     };
   }
 
+  // Filters rows to those for which the requested field has a valid value
   getValidRowsForField(fieldName: string) {
     return this.data.filter(
       (row: Row) => row[fieldName] !== undefined && row[fieldName] !== null

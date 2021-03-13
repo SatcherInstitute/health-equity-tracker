@@ -12,17 +12,32 @@ import { MetricConfig } from "../../data/config/MetricConfig";
 import { Row, FieldRange } from "../../data/utils/DatasetTypes";
 import styles from "./MultiMapDialog.module.scss";
 
+const QUANTILE = "quantile";
+const VEGA_LEGEND_REFERENCE_LINK =
+  "https://vega.github.io/vega/docs/scales/#" + QUANTILE;
+
 export interface MultiMapDialogProps {
+  // Metric the small maps will evaluate
   metricConfig: MetricConfig;
+  // Demographic breakdown we which to compare, i.e. "age"
   breakdown: string;
-  fips: Fips;
-  data: Row[];
-  fieldRange: FieldRange | undefined;
-  open: boolean;
-  handleClose: () => void;
+  // Unique values for breakdown, each has one map
   breakdownValues: string[];
+  // Geographic restriction for this data
+  fips: Fips;
+  // Data that populates maps
+  data: Row[];
+  // Range of field values, used for creating a common legend
+  fieldRange: FieldRange | undefined;
+  // Whether or not dialog is currently open
+  open: boolean;
+  // Closes the dialog in the parent component
+  handleClose: () => void;
 }
 
+/*
+   MultiMapDialog is a dialog opened via the MapCard.
+*/
 export function MultiMapDialog(props: MultiMapDialogProps) {
   return (
     <Dialog
@@ -37,11 +52,8 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
           <Grid item xs={6}>
             <Alert severity="info">
               This scale is a{" "}
-              <a href="https://vega.github.io/vega/docs/scales/#quantile">
-                quantile
-              </a>{" "}
-              scale, optimized for visualizing and comparing across
-              demographics.
+              <a href={VEGA_LEGEND_REFERENCE_LINK}>{QUANTILE}</a> scale,
+              optimized for visualizing and comparing across demographics.
             </Alert>
           </Grid>
           <Grid item xs={6}>
@@ -49,7 +61,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               metric={props.metricConfig}
               legendTitle={props.metricConfig.fullCardTitleName}
               legendData={props.data}
-              scaleType="quantile"
+              scaleType={QUANTILE}
               sameDotSize={true}
             />
           </Grid>
