@@ -6,7 +6,6 @@ import {
 } from "../DataSourceListing";
 import { StoryWrapper } from "../../../../storybook/StoryWrapper";
 import { MapOfDatasetMetadata } from "../../../../data/utils/DatasetTypes";
-import { FakeDatasetMetadataMap } from "../../../../data/config/FakeDatasetMetadata";
 
 export default {
   title: "DatasetExplorer/DataSourceListing",
