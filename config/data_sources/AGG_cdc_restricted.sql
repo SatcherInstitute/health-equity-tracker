@@ -1,10 +1,10 @@
 -- Ignore all ingestion timestamps. These queries assume that the dataset has
 -- already been deduped and only include the latest rows.
 
--- State-level joins with ACS population tables. First, we join with a public
--- state fips codes dataset so we can convert from two-leter state postal
--- abbreviation to state fips and full state name (eg AL -> 01 and "Alabama").
--- Then we join with ACS on state x {race, sex, age}.
+-- State-level joins with ACS population tables. First, we join with the public
+-- fips_codes_states dataset to convert from 2-letter state postal abbreviation
+-- to state fips & full name (eg AL -> 01 and "Alabama"). Then we join with ACS
+-- to get population for state x {race, sex, age}.
 
 -- State-level race.
 CREATE OR REPLACE TABLE cdc_restricted_data.by_race_state AS
@@ -61,10 +61,10 @@ LEFT JOIN `acs_population.by_age_state` AS y
 ;
 
 
--- County-level joins with ACS population tables. We first do the same join as
--- in the state case to get state fips codes and use ACS state & county names,
--- but also join with another public dataset to get ACS county names. We then
--- join with ACS to get county x {race, sex, age} data.
+-- County-level joins with ACS population tables. We first do the same join
+-- with fips_codes_states as in the state case, but also join with
+-- fips_codes_all to get county names. We then join with ACS to get population
+-- for county x {race, sex, age}.
 
 -- County-level race.
 CREATE OR REPLACE TABLE cdc_restricted_data.by_race_county AS
