@@ -4,3 +4,59 @@
   margin: auto;
   max-width: $max-width;
 }
+
+/** ------------------ METHODOLOGY -------------------- **/
+.MethodologyGrid {
+  max-width: 1024px;
+}
+
+.MethodologySection {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.MethodologyQuestionAndAnswer {
+  padding-bottom: 20px;
+  padding-right: 250px;
+}
+
+.MethodologyHeaderText {
+  font-size: 32px !important;
+  text-align: center;
+  font-weight: 300;
+  font-family: "Taviraj", serif !important;
+  line-height: 40px;
+  color: $alt-black;
+  padding-bottom: 20px;
+}
+
+.MethodologyQuestion {
+  font-size: 18px !important;
+  text-align: left;
+  font-weight: 500;
+  font-family: "DM Sans", sans-serif;
+  line-height: 23.44px;
+  color: $alt-black;
+  padding-top: 10px;
+  padding-bottom: 15px;
+}
+
+.MethodologyAnswer {
+  font-size: 14px;
+  text-align: left;
+  font-weight: 400;
+  font-family: "Inter", sans-serif;
+  line-height: 20px;
+  color: $alt-black;
+}
+
+.MethodologySubheaderText {
+  font-weight: 700;
+  font-family: "Inter", sans-serif !important;
+}
+
+.MethodologyInfoBar {
+  background-color: #F8E8B0;
+  padding: 2px 10px 2px 10px;
+  border-radius: 8px;
+}

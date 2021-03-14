@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./App.module.scss";
 import MaterialTheme from "./styles/MaterialTheme";
 import AboutUsPage from "./pages/AboutUs/AboutUsPage";
-import DataCatalogPage from "./pages/DataCatalog/DataCatalogPage";
+import DataCatalogTab from "./pages/DataCatalog/DataCatalogTab";
 import ExploreDataPage from "./pages/ExploreData/ExploreDataPage";
 import LandingPage from "./pages/Landing/LandingPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -139,7 +139,7 @@ function App() {
               <Route path={ABOUT_US_PAGE_LINK} component={AboutUsPage} />
               <Route
                 path={DATA_CATALOG_PAGE_LINK}
-                component={DataCatalogPage}
+                component={DataCatalogTab}
               />
               <Route
                 path={EXPLORE_DATA_PAGE_LINK}
