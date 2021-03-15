@@ -35,7 +35,7 @@ COUNTY_COLS = [COUNTY_FIPS_COL, COUNTY_COL, STATE_COL]
 
 # Mapping from column name in the data to standardized version.
 COL_NAME_MAPPING = {
-    STATE_COL: std_col.STATE_NAME_COL,
+    STATE_COL: std_col.STATE_POSTAL_COL,
     COUNTY_FIPS_COL: std_col.COUNTY_FIPS_COL,
     COUNTY_COL: std_col.COUNTY_NAME_COL,
     RACE_COL: std_col.RACE_OR_HISPANIC_COL,
@@ -44,7 +44,7 @@ COL_NAME_MAPPING = {
 }
 
 # Mapping for county_fips, county, and state unknown values to "Unknown".
-COUNTY_FIPS_NAMES_MAPPING = {"NA": "-1"}  # Has to be str for later ingestion.
+COUNTY_FIPS_NAMES_MAPPING = {"NA": ""}
 COUNTY_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 STATE_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 
@@ -213,6 +213,11 @@ def main():
             def _clean_str(x):
                 return x.replace('"', '').strip() if isinstance(x, str) else x
             df = df.applymap(_clean_str)
+
+            # For county fips, we make sure they are strings of length 5 as per
+            # our standardization (ignoring empty values).
+            df[COUNTY_FIPS_COL] = df[COUNTY_FIPS_COL].map(
+                lambda x: x.zfill(5) if len(x) > 0 else x)
 
             # For each of ({state, county} x {race, sex, age}), we slice the
             # data to focus on that dimension and aggregate.
