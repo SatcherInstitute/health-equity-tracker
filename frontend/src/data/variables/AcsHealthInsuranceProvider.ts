@@ -55,36 +55,58 @@ class AcsHealthInsuranceProvider extends VariableProvider {
 
     if (breakdowns.geography === "national") {
       df = df
-        .pivot(breakdowns.demographicBreakdowns.race_and_ethnicity.columnName, {
-          fips: (series) => USA_FIPS,
-          fips_name: (series) => USA_DISPLAY_NAME,
-          with_health_insurance: (series) => series.sum(),
-          without_health_insurance: (series) => series.sum(),
-          total_health_insurance: (series) => series.sum(),
-        })
+        .pivot(
+          [
+            breakdowns.demographicBreakdowns.race_and_ethnicity.columnName,
+            "sex",
+          ],
+          {
+            fips: (series) => USA_FIPS,
+            fips_name: (series) => USA_DISPLAY_NAME,
+            with_health_insurance: (series) => series.sum(),
+            without_health_insurance: (series) => series.sum(),
+            total_health_insurance: (series) => series.sum(),
+          }
+        )
         .resetIndex();
     }
 
     if (!breakdowns.demographicBreakdowns.race_and_ethnicity.enabled) {
-      df = df.pivot(["fips", "fips_name"], {
-        race: (series) => ALL_RACES_DISPLAY_NAME,
-        with_health_insurance: (series) => series.sum(),
-        without_health_insurance: (series) => series.sum(),
-        total_health_insurance: (series) => series.sum(),
-      });
+      df = df.pivot(
+        ["fips", "fips_name", "sex"].concat(
+          breakdowns.hasOnlySex() ? [] : ["age"]
+        ),
+        {
+          race: (series) => ALL_RACES_DISPLAY_NAME,
+          with_health_insurance: (series) => series.sum(),
+          without_health_insurance: (series) => series.sum(),
+          total_health_insurance: (series) => series.sum(),
+        }
+      );
+      // Calculate totals where dataset doesn't provide it
+      // TODO- this should be removed when Totals come from the Data Server
+      const total = df
+        .pivot(["fips", "fips_name"], {
+          with_health_insurance: (series) => series.sum(),
+          without_health_insurance: (series) => series.sum(),
+          total_health_insurance: (series) => series.sum(),
+          sex: (series) => TOTAL,
+        })
+        .resetIndex();
+      df = df.concat(total).resetIndex();
+    } else {
+      // Calculate totals where dataset doesn't provide it
+      // TODO- this should be removed when Totals come from the Data Server
+      const total = df
+        .pivot(["fips", "fips_name"], {
+          with_health_insurance: (series) => series.sum(),
+          without_health_insurance: (series) => series.sum(),
+          total_health_insurance: (series) => series.sum(),
+          race_and_ethnicity: (series) => TOTAL,
+        })
+        .resetIndex();
+      df = df.concat(total).resetIndex();
     }
-
-    // Calculate totals where dataset doesn't provide it
-    // TODO- this should be removed when Totals come from the Data Server
-    const total = df
-      .pivot(["fips", "fips_name"], {
-        with_health_insurance: (series) => series.sum(),
-        without_health_insurance: (series) => series.sum(),
-        total_health_insurance: (series) => series.sum(),
-        race_and_ethnicity: (series) => TOTAL,
-      })
-      .resetIndex();
-    df = df.concat(total).resetIndex();
 
     df = df.generateSeries({
       health_insurance_per_100k: (row) =>
@@ -109,7 +131,7 @@ class AcsHealthInsuranceProvider extends VariableProvider {
         );
       });
     }
-
+    df = df.renameSeries({ total_health_insurance: "total" });
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
     return new MetricQueryResponse(df.toArray(), [datasetId]);
