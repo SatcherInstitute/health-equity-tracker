@@ -130,7 +130,10 @@ class AcsHealthInsuranceProvider extends VariableProvider {
         );
       });
     }
-    df = df.renameSeries({ total_health_insurance: "total" });
+    df = df.renameSeries({
+      total_health_insurance: "total",
+      with_health_insurance: "health_insurance_count",
+    });
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
     return new MetricQueryResponse(df.toArray(), [datasetId]);
