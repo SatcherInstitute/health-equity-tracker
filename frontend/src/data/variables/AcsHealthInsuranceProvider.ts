@@ -118,24 +118,6 @@ class AcsHealthInsuranceProvider extends VariableProvider {
         per100k(row.with_health_insurance, row.total_health_insurance),
     });
 
-    // We can't do percent share for national because different survey rates
-    // across states may skew the results. To do that, we need to combine BRFSS
-    // survey results with state populations to estimate total counts for each
-    // state, and then use that estimate to determine the percent share.
-    // TODO this causes the "vs Population" Disparity Bar Chart to be broken for
-    // the national level. We need some way of indicating why the share of cases
-    // isn't there. Or, we can do this computation on the server.
-    if (breakdowns.hasOnlyRace() && breakdowns.geography === "state") {
-      ["health_insurance"].forEach((col) => {
-        df = this.calculatePctShare(
-          df,
-          col,
-          col.split("_")[0] + "_pct_share",
-          breakdowns.demographicBreakdowns.race_and_ethnicity.columnName,
-          ["fips"]
-        );
-      });
-    }
     df = df.renameSeries({
       total_health_insurance: "total",
       with_health_insurance: "health_insurance_count",
