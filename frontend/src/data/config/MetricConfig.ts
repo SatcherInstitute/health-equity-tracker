@@ -289,7 +289,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       metrics: {
         count: {
           metricId: "health_insurance_count",
-          fullCardTitleName: "Individuals with cealth insurance coverage",
+          fullCardTitleName: "Individuals with health insurance coverage",
           shortVegaLabel: "Individuals with health insurance",
           type: "count",
           populationComparisonMetric: POPULATION_VARIABLE_CONFIG.metrics.count,
