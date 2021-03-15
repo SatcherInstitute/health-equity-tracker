@@ -5,6 +5,7 @@ import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
 import { TOTAL } from "../utils/Constants";
+import { ISeries } from "data-forge";
 
 class AcsHealthInsuranceProvider extends VariableProvider {
   constructor() {
@@ -43,6 +44,7 @@ class AcsHealthInsuranceProvider extends VariableProvider {
 
     // If requested, filter geography by state or county level
     // We apply the geo filter right away to reduce subsequent calculation times
+    df = this.mergeStateCountyFips(df);
     df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);
     df = df.renameSeries({ race: "race_and_ethnicity" });
@@ -68,44 +70,48 @@ class AcsHealthInsuranceProvider extends VariableProvider {
           }
         )
         .resetIndex();
-    }
-
-    if (!breakdowns.demographicBreakdowns.race_and_ethnicity.enabled) {
+    } else {
       df = df.pivot(
-        ["fips", "fips_name", "sex"].concat(
-          breakdowns.hasOnlySex() ? [] : ["age"]
-        ),
+        ["fips", "fips_name"]
+          .concat(
+            breakdowns.demographicBreakdowns.age.enabled
+              ? [breakdowns.demographicBreakdowns.age.columnName]
+              : []
+          )
+          .concat(
+            breakdowns.demographicBreakdowns.sex.enabled
+              ? [breakdowns.demographicBreakdowns.sex.columnName]
+              : []
+          )
+          .concat(
+            breakdowns.demographicBreakdowns.race_and_ethnicity.enabled
+              ? [breakdowns.demographicBreakdowns.race_and_ethnicity.columnName]
+              : []
+          ),
         {
-          race: (series) => ALL_RACES_DISPLAY_NAME,
           with_health_insurance: (series) => series.sum(),
           without_health_insurance: (series) => series.sum(),
           total_health_insurance: (series) => series.sum(),
         }
       );
-      // Calculate totals where dataset doesn't provide it
-      // TODO- this should be removed when Totals come from the Data Server
-      const total = df
-        .pivot(["fips", "fips_name"], {
-          with_health_insurance: (series) => series.sum(),
-          without_health_insurance: (series) => series.sum(),
-          total_health_insurance: (series) => series.sum(),
-          sex: (series) => TOTAL,
-        })
-        .resetIndex();
-      df = df.concat(total).resetIndex();
-    } else {
-      // Calculate totals where dataset doesn't provide it
-      // TODO- this should be removed when Totals come from the Data Server
-      const total = df
-        .pivot(["fips", "fips_name"], {
-          with_health_insurance: (series) => series.sum(),
-          without_health_insurance: (series) => series.sum(),
-          total_health_insurance: (series) => series.sum(),
-          race_and_ethnicity: (series) => TOTAL,
-        })
-        .resetIndex();
-      df = df.concat(total).resetIndex();
     }
+
+    let totalPivot: { [key: string]: (series: ISeries) => any } = {
+      with_health_insurance: (series: ISeries) => series.sum(),
+      without_health_insurance: (series: ISeries) => series.sum(),
+      total_health_insurance: (series: ISeries) => series.sum(),
+    };
+
+    Object.values(breakdowns.demographicBreakdowns).forEach((demo) => {
+      if (demo && demo.enabled) {
+        totalPivot[demo.columnName] = (series: ISeries) => TOTAL;
+      }
+    });
+
+    // Calculate totals where dataset doesn't provide it
+    // TODO- this should be removed when Totals come from the Data Server
+    const total = df.pivot(["fips", "fips_name"], totalPivot).resetIndex();
+    df = df.concat(total).resetIndex();
 
     df = df.generateSeries({
       health_insurance_per_100k: (row) =>
@@ -136,6 +142,7 @@ class AcsHealthInsuranceProvider extends VariableProvider {
     });
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
+
     return new MetricQueryResponse(df.toArray(), [datasetId]);
   }
 
