@@ -37,3 +37,9 @@ CopdPer100kMap.args = {
   metricConfig: METRIC_CONFIG["copd"][0].metrics["per100k"],
   currentBreakdown: "all",
 };
+
+export const HealthInsurancePer100kMap = Template.bind({});
+HealthInsurancePer100kMap.args = {
+  metricConfig: METRIC_CONFIG["health_insurance"][0].metrics["per100k"],
+  currentBreakdown: "all",
+};
