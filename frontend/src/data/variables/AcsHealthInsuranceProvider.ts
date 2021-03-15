@@ -9,7 +9,7 @@ import { TOTAL } from "../utils/Constants";
 class AcsHealthInsuranceProvider extends VariableProvider {
   constructor() {
     super("acs_health_insurance_provider", [
-      "with_health_insurance",
+      "health_insurance_count",
       "health_insurance_per_100k",
     ]);
   }
@@ -21,18 +21,17 @@ class AcsHealthInsuranceProvider extends VariableProvider {
         : "acs_health_insurance-health_insurance_by_sex_state";
     }
 
-    // Age only breakdown is not supported yet, due to the dataset not being
-    // Aggregated on the backend.
-
     if (breakdowns.hasOnlyRace()) {
       return breakdowns.geography === "county"
         ? "acs_health_insurance-health_insurance_by_race_county"
         : "acs_health_insurance-health_insurance_by_race_state";
     }
+
+    // Age only breakdown is not supported yet, due to the dataset not being
+    // Aggregated on the backend.
     throw new Error("Not implemented");
   }
 
-  // TODO - only return requested metric queries, remove unrequested columns
   async getDataInternal(
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
@@ -58,7 +57,7 @@ class AcsHealthInsuranceProvider extends VariableProvider {
         .pivot(
           [
             breakdowns.demographicBreakdowns.race_and_ethnicity.columnName,
-            "sex",
+            breakdowns.demographicBreakdowns.sex.columnName,
           ],
           {
             fips: (series) => USA_FIPS,
@@ -139,9 +138,9 @@ class AcsHealthInsuranceProvider extends VariableProvider {
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
     return (
+      breakdowns.hasExactlyOneDemographic() &&
       !breakdowns.hasOnlyAge() &&
-      !breakdowns.time &&
-      breakdowns.hasExactlyOneDemographic()
+      !breakdowns.time
     );
   }
 }
