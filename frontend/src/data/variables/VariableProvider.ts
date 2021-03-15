@@ -71,6 +71,25 @@ abstract class VariableProvider {
       .resetIndex();
   }
 
+  // If County fips exists and is 'Short'
+  // Prepends the state fips to the county fips to create the expected format
+  // {state_fips:"01", county_fips: "001"}
+  // to
+  // {state_fips:"01", county_fips: "01001"}
+  mergeStateCountyFips(df: IDataFrame) {
+    if (
+      df.getColumnNames().indexOf("county_fips") != -1 &&
+      df.getSeries("county_fips").first().length == 3
+    ) {
+      df = df.withSeries(
+        "county_fips",
+        df.deflate((row) => row.state_fips + row.county_fips)
+      );
+    }
+
+    return df;
+  }
+
   removeUnrequestedColumns(df: IDataFrame, metricQuery: MetricQuery) {
     let dataFrame = df;
     let requestedColumns = ["fips", "fips_name"].concat(metricQuery.metricIds);
