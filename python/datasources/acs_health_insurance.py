@@ -235,21 +235,21 @@ class AcsHealhInsuranceIngestor:
 
         female_state_params = format_params(
             HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES)
-        file_diff = file_diff and url_file_to_gcs.url_file_to_gcs(
+        file_diff = url_file_to_gcs.url_file_to_gcs(
             self.base_url, female_state_params, bucket,
-            self.get_filename(Sex.FEMALE, None, False))
+            self.get_filename(Sex.FEMALE, None, False)) or file_diff
 
         male_county_params = format_params(
             HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_MALE_SUFFIXES, True)
-        file_diff = file_diff and url_file_to_gcs.url_file_to_gcs(
+        file_diff = url_file_to_gcs.url_file_to_gcs(
             self.base_url, male_county_params, bucket,
-            self.get_filename(Sex.MALE, None, True))
+            self.get_filename(Sex.MALE, None, True)) or file_diff
 
         female_county_params = format_params(
             HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES, True)
-        file_diff = file_diff and url_file_to_gcs.url_file_to_gcs(
+        file_diff = url_file_to_gcs.url_file_to_gcs(
             self.base_url, female_county_params, bucket,
-            self.get_filename(Sex.FEMALE, None, True))
+            self.get_filename(Sex.FEMALE, None, True)) or file_diff
 
         # Iterates over the different race ACS variables,
         # retrieves the race from the metadata merged dict
@@ -259,14 +259,15 @@ class AcsHealhInsuranceIngestor:
                 race_state_params = format_params(
                     prefix, HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES)
                 race = prefix[prefix_key][MetadataKey.RACE]
-                file_diff = file_diff and url_file_to_gcs.url_file_to_gcs(
+                file_diff = url_file_to_gcs.url_file_to_gcs(
                     self.base_url, race_state_params, bucket,
-                    self.get_filename(None, race, False))
+                    self.get_filename(None, race, False)) or file_diff
+
                 race_county_params = format_params(
                     prefix, HEALTH_INSURANCE_BY_RACE_GROUP_SUFFIXES, True)
-                file_diff = file_diff and url_file_to_gcs.url_file_to_gcs(
+                file_diff = url_file_to_gcs.url_file_to_gcs(
                     self.base_url, race_county_params, bucket,
-                    self.get_filename(None, race, True))
+                    self.get_filename(None, race, True)) or file_diff
 
         return file_diff
 
@@ -607,10 +608,10 @@ class ACSHealthInsurance(DataSource):
         ]
 
 
-# AcsHealhInsuranceIngestor(BASE_ACS_URL).upload_to_gcs(
-#     'kalieki-dev-landing-bucket')
-# AcsHealhInsuranceIngestor(BASE_ACS_URL).write_to_bq(
-#     'acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
+AcsHealhInsuranceIngestor(BASE_ACS_URL).upload_to_gcs(
+    'kalieki-dev-landing-bucket')
+AcsHealhInsuranceIngestor(BASE_ACS_URL).write_to_bq(
+    'acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
 
 
 # AcsHealhInsuranceIngestor(BASE_ACS_URL).write_local_files_debug()
