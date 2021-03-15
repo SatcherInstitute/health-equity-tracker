@@ -57,10 +57,4 @@ resource "google_bigquery_dataset" "bq_cdc_covid_deaths_dataset" {
   location   = "US"
 }
 
-# Create a BigQuery dataset for cdc covid deaths
-resource "google_bigquery_dataset" "health_insurance_dataset" {
-  dataset_id = "health_insurance_dataset"
-  location   = "US"
-}
-
 /* [END] BigQuery Setup */
