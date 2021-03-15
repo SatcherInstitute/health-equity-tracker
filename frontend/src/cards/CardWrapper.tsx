@@ -17,7 +17,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import InfoIcon from "@material-ui/icons/Info";
 import Popover from "@material-ui/core/Popover";
 import { usePopover } from "../utils/usePopover";
-import { AssertionError } from "assert";
 
 function CardWrapper(props: {
   title?: JSX.Element;
@@ -90,14 +89,9 @@ function CardWrapper(props: {
                 {consumedDatasetIds.length > 0 && <>Sources: </>}
                 {/* TODO- add commas and "and" between the data sources */}
                 {consumedDatasetIds.map((datasetId) => {
-                  if (metadata[datasetId] == null)
-                    throw new AssertionError({
-                      message: `Dataset Id not found: ${datasetId}`,
-                    });
-
-                  const dataSourceId = metadata[datasetId].source_id || "";
+                  const dataSourceId = metadata[datasetId]?.source_id || "";
                   const dataSourceName =
-                    DataSourceMetadataMap[dataSourceId].data_source_name;
+                    DataSourceMetadataMap[dataSourceId]?.data_source_name || "";
                   return (
                     <>
                       <LinkWithStickyParams
