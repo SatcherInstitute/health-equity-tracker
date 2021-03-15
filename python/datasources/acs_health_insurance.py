@@ -9,7 +9,7 @@ from ingestion.standardized_columns import (STATE_FIPS_COL, COUNTY_FIPS_COL,
                                             AGE_COL, SEX_COL,
                                             RACE_COL, WITH_HEALTH_INSURANCE_COL,
                                             WITHOUT_HEALTH_INSURANCE_COL,
-                                            TOTAL_HEALTH_INSURANCE_COL)
+                                            TOTAL_HEALTH_INSURANCE_COL, Race)
 from typing import Dict
 
 # TODO pass this in from message data.
@@ -20,19 +20,6 @@ class HealthInsurancePopulation:
     WITH = "With"
     WITHOUT = "Without"
     TOTAL = "Total"
-
-
-RACE = {
-    "WHITE_ALONE": "WHITE_ALONE",
-    "BLACK_OR_AFRICAN_AMERICAN_ALONE": "BLACK_OR_AFRICAN_AMERICAN_ALONE",
-    "AMERICAN_INDIAN_AND_ALASKA_NATIVE_ALONE": "AMERICAN_INDIAN_AND_ALASKA_NATIVE_ALONE",
-    "ASIAN_ALONE": "ASIAN_ALONE",
-    "NATIVE_HAWAIIAN_AND_OTHER_PACIFIC_ISLANDER_ALONE": "NATIVE_HAWAIIAN_AND_OTHER_PACIFIC_ISLANDER_ALONE",
-    "SOME_OTHER_RACE_ALONE": "SOME_OTHER_RACE_ALONE",
-    "TWO_OR_MORE_RACES": "TWO_OR_MORE_RACES",
-    "WHITE_ALONE_NOT_HISPANIC_OR_LATINO": "WHITE_ALONE_NOT_HISPANIC_OR_LATINO",
-    "HISPANIC_OR_LATINO": "HISPANIC_OR_LATINO"
-}
 
 
 class Sex:
@@ -63,18 +50,18 @@ def meta(sex, min_age, max_age, hi_status=HealthInsurancePopulation.TOTAL):
 # Acs variables are in the form C27001A_xxx0 C27001A_xxx2 ect
 # to determine age buckets.  The metadata variables are merged with the suffixes to form the entire metadeta.
 HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES = [
-    {"C27001A": {MetadataKey.RACE: RACE["WHITE_ALONE"]}},
-    {"C27001B": {MetadataKey.RACE: RACE["BLACK_OR_AFRICAN_AMERICAN_ALONE"]}},
+    {"C27001A": {MetadataKey.RACE: Race.WHITE.value}},
+    {"C27001B": {MetadataKey.RACE: Race.BLACK.value}},
     {"C27001C": {
-        MetadataKey.RACE: RACE["AMERICAN_INDIAN_AND_ALASKA_NATIVE_ALONE"]}},
-    {"C27001D": {MetadataKey.RACE: RACE["ASIAN_ALONE"]}},
+        MetadataKey.RACE: Race.AIAN.value}},
+    {"C27001D": {MetadataKey.RACE: Race.ASIAN.value}},
     {"C27001E": {
-        MetadataKey.RACE: RACE["NATIVE_HAWAIIAN_AND_OTHER_PACIFIC_ISLANDER_ALONE"]}},
-    {"C27001F": {MetadataKey.RACE: RACE["SOME_OTHER_RACE_ALONE"]}},
-    {"C27001G": {MetadataKey.RACE: RACE["TWO_OR_MORE_RACES"]}},
+        MetadataKey.RACE: Race.NHPI.value}},
+    {"C27001F": {MetadataKey.RACE: Race.OTHER.value}},
+    {"C27001G": {MetadataKey.RACE: Race.MULTI.value}},
     {"C27001H": {
-        MetadataKey.RACE: RACE["WHITE_ALONE_NOT_HISPANIC_OR_LATINO"]}},
-    {"C27001I": {MetadataKey.RACE: RACE["HISPANIC_OR_LATINO"]}},
+        MetadataKey.RACE: Race.WHITE_NH.value}},
+    {"C27001I": {MetadataKey.RACE: Race.HISP.value}},
 ]
 
 # Race group suffixes. See comment on Race group prefixes.
@@ -608,10 +595,10 @@ class ACSHealthInsurance(DataSource):
         ]
 
 
-AcsHealhInsuranceIngestor(BASE_ACS_URL).upload_to_gcs(
-    'kalieki-dev-landing-bucket')
-AcsHealhInsuranceIngestor(BASE_ACS_URL).write_to_bq(
-    'acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
+# AcsHealhInsuranceIngestor(BASE_ACS_URL).upload_to_gcs(
+#     'kalieki-dev-landing-bucket')
+# AcsHealhInsuranceIngestor(BASE_ACS_URL).write_to_bq(
+#     'acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
 
 
 # AcsHealhInsuranceIngestor(BASE_ACS_URL).write_local_files_debug()
