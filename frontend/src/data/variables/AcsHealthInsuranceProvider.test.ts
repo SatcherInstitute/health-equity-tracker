@@ -1,4 +1,3 @@
-import BrfssProvider from "./BrfssProvider";
 import { Breakdowns } from "../query/Breakdowns";
 import { Fips } from "../utils/Fips";
 import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
@@ -32,7 +31,7 @@ function finalRow(
     [breakdownName]: breakdownValue,
     fips: fips.code,
     fips_name: fips.name,
-    with_health_insurance: with_health_insurance,
+    health_insurance_count: with_health_insurance,
     health_insurance_per_100k: health_insurance_per_100k,
   };
   return row;
@@ -62,6 +61,7 @@ const evaluateHealthInsuranceWithAndWithoutTotal = createWithAndWithoutTotalEval
   new AcsHealthInsuranceProvider()
 );
 
+//TODO: Add more tests for breakdown by SEX.
 describe("AcsHealthInsuranceProvider", () => {
   beforeEach(() => {
     resetCacheDebug();
