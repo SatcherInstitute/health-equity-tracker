@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
 echo Input ingestion service url?
-INGESTION_URL=$(gcloud run services list --platform managed --filter ingestion-service | grep -o "https:.*\.app")
+INGESTION_URL=$(gcloud run services list --platform managed --filter ingestion-service --format 'value(status.url)')
 echo "Using Fetched Data: ${INGESTION_URL}"
 
 echo Input dedupe service url?
-DEDUPE_URL=$(gcloud run services list --platform managed --filter dedupe-service | grep -o "https:.*\.app")
+DEDUPE_URL=$(gcloud run services list --platform managed --filter dedupe-service --format 'value(status.url)')
 echo "Using Fetched Data: ${DEDUPE_URL}"
 
 echo Input gcs to bq service url?
-GCS_TO_BQ_URL=$(gcloud run services list --platform managed --filter gcs-to-bq-service | grep -o "https:.*\.app")
+GCS_TO_BQ_URL=$(gcloud run services list --platform managed --filter gcs-to-bq-service --format 'value(status.url)')
 echo "Using Fetched Data: ${GCS_TO_BQ_URL}"
 
 echo Input exporter service url?
-EXPORTER_URL=$(gcloud run services list --platform managed --filter exporter-service | grep -o "https:.*\.app")
+EXPORTER_URL=$(gcloud run services list --platform managed --filter exporter-service --format 'value(status.url)')
 echo "Using Fetched Data: ${EXPORTER_URL}"
 
 echo Input aggregator service url?
-AGGREGATOR_URL=$(gcloud run services list --platform managed --filter aggregator-service | grep -o "https:.*\.app")
+AGGREGATOR_URL=$(gcloud run services list --platform managed --filter aggregator-service --format 'value(status.url)')
 echo "Using Fetched Data: ${AGGREGATOR_URL}"
 
 echo Input landing bucket?
