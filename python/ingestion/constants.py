@@ -51,3 +51,14 @@ STATE_NAMES = [
     "Wisconsin",
     "Wyoming"
 ]
+
+
+class Sex:
+    MALE = "Male"
+    FEMALE = "Female"
+
+
+class HealthInsurancePopulation:
+    WITH = "With"
+    WITHOUT = "Without"
+    TOTAL = "Total"
