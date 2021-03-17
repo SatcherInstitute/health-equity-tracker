@@ -242,9 +242,9 @@ class ACSIncomeDatasource(DataSource):
         ]
 
 
-AcsIncomeIngestor(BASE_ACS_URL).upload_to_gcs(
-    'kalieki-dev-landing-bucket')
-AcsIncomeIngestor(BASE_ACS_URL).write_to_bq(
-    'acs_health_income_manual_test', 'kalieki-dev-landing-bucket')
+# AcsIncomeIngestor(BASE_ACS_URL).upload_to_gcs(
+#     'kalieki-dev-landing-bucket')
+# AcsIncomeIngestor(BASE_ACS_URL).write_to_bq(
+#     'acs_income_manual_test', 'kalieki-dev-landing-bucket')
 
 # AcsIncomeIngestor(BASE_ACS_URL).write_local_files_debug()
