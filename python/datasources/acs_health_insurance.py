@@ -73,7 +73,7 @@ class AcsHealhInsuranceRaceIngestor:
     # If race is set, gets race filename
     # If race is None and sex is set, gets filename for sex
     def get_filename(self, race, is_county):
-        return "HEALTH_INSURANCE_BY_RACE_{0}_{1}.json".format("STATE" if is_county else "COUNTY", race)
+        return "HEALTH_INSURANCE_BY_RACE_{0}_{1}.json".format("STATE" if is_county else "COUNTY", race.replace(" ", "_").upper())
 
     # Method to output <Filename.csv>.  Used for debugging purposes.
     def write_local_files_debug(self):
@@ -108,22 +108,20 @@ class AcsHealhInsuranceRaceIngestor:
         # Iterates over the different race ACS variables,
         # retrieves the race from the metadata merged dict
         # writes the data to the GCS bucket and sees if file diff is changed
+        file_diff = False
         for prefix_key in HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES:
-            race_state_params = get_params(prefix_key, False)
-            race = prefix[prefix_key][MetadataKey.RACE]
-            file_diff = url_file_to_gcs.url_file_to_gcs(
-                self.base_url, race_state_params, bucket,
-                self.get_filename(race, False)) or file_diff
+            race = HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES[prefix_key]
+            for is_county in [True, False]:
+                params = get_params(prefix_key, is_county)
 
-            race_county_params = (prefix_key, True)
-            file_diff = url_file_to_gcs.url_file_to_gcs(
-                self.base_url, race_county_params, bucket,
-                self.get_filename(race, True)) or file_diff
+                file_diff = url_file_to_gcs.url_file_to_gcs(
+                    self.base_url, params, bucket,
+                    self.get_filename(race, is_county)) or file_diff
 
         return file_diff
 
     def write_to_bq(self, dataset, gcs_bucket):
-        self.getData(use_gcs=True, gcs_bucket=gcs_bucket)
+        self.getData(gcs_bucket=gcs_bucket)
 
         # Split internal memory into data frames for sex/race by state/county
         self.split_data_frames()
@@ -144,7 +142,7 @@ class AcsHealhInsuranceRaceIngestor:
 
     def getData(self, gcs_bucket=None):
         if gcs_bucket is not None:
-            for race in get_supported_races():
+            for race in HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES.values():
                 for is_county in [True, False]:
                     # Get cached data from GCS
                     data = gcs_to_bq_util.load_values_as_json(
@@ -332,19 +330,14 @@ class AcsHealhInsuranceSexIngestor:
     # FileDiff = If the data has changed by diffing the old run vs the new run.
     # (presumably to skip the write to bq step though not 100% sure as of writing this)
     def upload_to_gcs(self, bucket):
-        state_sex_params = get_params(
-            HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, False)
-        county_sex_params = get_params(
-            HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, True)
+        file_diff = False
+        for is_county in [True, False]:
+            params = get_params(
+                HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, is_county)
 
-        file_diff = url_file_to_gcs.url_file_to_gcs(
-            self.base_url, state_sex_params, bucket,
-            self.get_filename(False))
-
-        file_diff = url_file_to_gcs.url_file_to_gcs(
-            self.base_url, county_sex_params, bucket,
-            self.get_filename(True))
-
+            file_diff = url_file_to_gcs.url_file_to_gcs(
+                self.base_url, params, bucket,
+                self.get_filename(is_county)) or file_diff
         return file_diff
 
     def write_to_bq(self, dataset, gcs_bucket):
@@ -370,25 +363,17 @@ class AcsHealhInsuranceSexIngestor:
 
     def getData(self, gcs_bucket=None):
 
-        if gcs_bucket is not None:  # LOAD JSON BLOBS FROM GCS
-            sex_state_data = gcs_to_bq_util.load_values_as_json(
-                gcs_bucket, self.get_filename(False))
-            sex_county_data = gcs_to_bq_util.load_values_as_json(
-                gcs_bucket, self.get_filename(False))
-        else:  # LOAD DATA FROM ACS (useful for local debug)
-            state_sex_params = get_params(
-                HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, False)
-            county_sex_params = get_params(
-                HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, True)
+        for is_county in [True, False]:
+            if gcs_bucket is not None:  # LOAD JSON BLOBS FROM GCS
+                data = gcs_to_bq_util.load_values_as_json(
+                    gcs_bucket, self.get_filename(is_county))
+            else:  # LOAD DATA FROM ACS (useful for local debug)
+                data = get_acs_data_from_variables(
+                    self.base_url, get_params(
+                        HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, False))
 
-            sex_state_data = get_acs_data_from_variables(
-                self.base_url, state_sex_params)
-            sex_county_data = get_acs_data_from_variables(
-                self.base_url, county_sex_params)
-
-        # Aggregate and accumulate data in memory
-        self.accumulate_acs_data(state_sex_params)
-        self.accumulate_acs_data(sex_county_data)
+            # Aggregate and accumulate data in memory
+            self.accumulate_acs_data(data)
 
     '''
     Takes data in the form of
@@ -539,12 +524,12 @@ class ACSHealthInsurance(DataSource):
         ]
 
 
-AcsHealhInsuranceSexIngestor(BASE_ACS_URL).upload_to_gcs(
-    'kalieki-dev-landing-bucket')
-AcsHealhInsuranceSexIngestor(BASE_ACS_URL).write_to_bq(
-    'acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
+# AcsHealhInsuranceSexIngestor(BASE_ACS_URL).upload_to_gcs(
+#     'kalieki-dev-landing-bucket')
+# AcsHealhInsuranceSexIngestor(BASE_ACS_URL).write_to_bq(
+#     'acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
 
-AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).upload_to_gcs(
-    'kalieki-dev-landing-bucket')
-AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).write_to_bq(
-    'acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
+# AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).upload_to_gcs(
+#     'kalieki-dev-landing-bucket')
+# AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).write_to_bq(
+#     'acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
