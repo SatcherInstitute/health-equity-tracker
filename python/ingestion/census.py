@@ -4,6 +4,8 @@ import json
 from ingestion.standardized_columns import (STATE_FIPS_COL, COUNTY_FIPS_COL,
                                             STATE_NAME_COL, COUNTY_NAME_COL)
 
+import re
+
 
 def get_census_params_by_county(columns):
     """Returns the base set of params for making a census API call by county.
@@ -64,7 +66,8 @@ def fetch_acs_group(base_acs_url, group_concept, var_map, num_breakdowns, county
         has one breakdown while "SEX BY AGE" has two.
     county_level: Whether to request at the county level, or the state level."""
     group_vars = get_vars_for_group(group_concept, var_map, num_breakdowns)
-    json_string = fetch_acs_variables(base_acs_url, list(group_vars.keys()), county_level)
+    json_string = fetch_acs_variables(
+        base_acs_url, list(group_vars.keys()), county_level)
     return json_string
 
 
@@ -110,7 +113,8 @@ def get_vars_for_group(group_concept, var_map, num_breakdowns):
             num_parts = 2 + num_breakdowns
             if len(parts) == num_parts:
                 attributes = parts[2:num_parts]
-                attributes = [a[:-1] if a.endswith(":") else a for a in attributes]
+                attributes = [
+                    a[:-1] if a.endswith(":") else a for a in attributes]
                 group_vars[group] = attributes
     return group_vars
 
@@ -122,7 +126,8 @@ def standardize_frame(frame, var_to_labels_map, breakdowns, county_level, measur
        One dimension:
            standardize_frame(frame, group_vars, ["race"], False, "population")
        Two dimensions:
-           standardize_frame(frame, group_vars, ["hispanic", "race"], False, "population")
+           standardize_frame(frame, group_vars, [
+                             "hispanic", "race"], False, "population")
        This will convert an ACS frame into one with columns for "hispanic" and
        "race" and "population".
 
@@ -135,8 +140,10 @@ def standardize_frame(frame, var_to_labels_map, breakdowns, county_level, measur
     measured_var: The column name of the measured variable."""
     # First, "melt" the frame so that each column other than the geo identifier
     # gets converted to a value with the column name "variable"
-    id_cols = ["state", "county", "NAME"] if county_level else ["state", "NAME"]
-    sort_cols = ["state", "county", "variable"] if county_level else ["state", "variable"]
+    id_cols = ["state", "county", "NAME"] if county_level else [
+        "state", "NAME"]
+    sort_cols = ["state", "county", "variable"] if county_level else [
+        "state", "variable"]
     df = frame.melt(id_vars=id_cols)
     df = df.sort_values(sort_cols)
 
@@ -164,3 +171,31 @@ def standardize_frame(frame, var_to_labels_map, breakdowns, county_level, measur
         df[COUNTY_FIPS_COL] = df[STATE_FIPS_COL] + df[COUNTY_FIPS_COL]
 
     return df.reset_index(drop=True)
+
+# Pull the State_Fips map Code->Name from ACS
+
+
+def get_state_fips_mapping(base_url):
+    params = {'for': 'state', "get": "NAME"}
+    resp = requests.get(base_url, params=params)
+    json_formatted_response = resp.json()
+    state_fips = {}
+    for row in json_formatted_response[1::]:
+        state_name, fip_code = row
+        state_fips[fip_code] = state_name
+
+    return state_fips
+
+# Pull the County Fips map Code->Name from ACS
+
+
+def get_county_fips_mapping(base_url):
+    params = {'for': 'county', "get": "NAME"}
+    resp = requests.get(base_url, params=params)
+    json_formatted_response = resp.json()
+    county_fips = {}
+    for row in json_formatted_response[1::]:
+        county_name, state_fip, county_fip = row
+        county_fips[(state_fip, county_fip)] = county_name
+
+    return county_fips

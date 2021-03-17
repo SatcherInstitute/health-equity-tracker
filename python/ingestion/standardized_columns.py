@@ -11,6 +11,7 @@ STATE_POSTAL_COL = "state_postal"  # State 2-letter postal abberviation.
 COUNTY_FIPS_COL = "county_fips"
 COUNTY_NAME_COL = "county_name"
 POPULATION_COL = "population"
+INCOME_COL = "income"
 
 # Standardized column names for Covid cases, hospitalizations, and deaths.
 COVID_CASES = "cases"
