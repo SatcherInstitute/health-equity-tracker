@@ -43,7 +43,6 @@ REGEX_METADATA_LIBRARY = {
 
 
 def parseMetadata(raw_metadata_trimmed, required_keys, metadataInitializer):
-    requiredKeys = [MetadataKey.AGE, MetadataKey.INCOME, MetadataKey.RACE]
     parsed = {}
     for k, v in raw_metadata_trimmed.items():
         label = v['label']
