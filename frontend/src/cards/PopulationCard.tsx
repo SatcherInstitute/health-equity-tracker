@@ -24,6 +24,7 @@ import {
 
 export interface PopulationCardProps {
   fips: Fips;
+  hideFooter?: boolean;
 }
 
 export function PopulationCard(props: PopulationCardProps) {
@@ -42,7 +43,10 @@ export function PopulationCard(props: PopulationCardProps) {
   );
 
   return (
-    <CardWrapper queries={[raceQuery, ageQuery]} hideFooter={true}>
+    <CardWrapper
+      queries={[raceQuery, ageQuery]}
+      hideFooter={props.hideFooter || false}
+    >
       {([raceQueryResponse, ageQueryResponse]) => {
         const totalPopulation = raceQueryResponse.data.find(
           (r) => r.race_and_ethnicity === TOTAL
