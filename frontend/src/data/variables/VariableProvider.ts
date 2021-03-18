@@ -8,7 +8,7 @@ import { MetricId } from "../config/MetricConfig";
 import { ProviderId } from "../loading/VariableProviderMap";
 import { IDataFrame } from "data-forge";
 import { Fips } from "../../data/utils/Fips";
-import { TOTAL } from "../utils/Constants";
+import { TOTAL, UNKNOWN } from "../utils/Constants";
 import { applyToGroups, percent } from "../utils/datasetutils";
 import { Row } from "../utils/DatasetTypes";
 
@@ -112,6 +112,28 @@ abstract class VariableProvider {
   sortAlphabeticallyByField(rows: Row[], fieldName: string) {
     let finalRows: Row[] = Object.assign(rows, []);
     finalRows.sort((a, b) => a[fieldName].localeCompare(b[fieldName]));
+    return finalRows;
+  }
+
+  maybeApplyRowReorder(rows: Row[], breakdowns: Breakdowns) {
+    let finalRows: Row[] = Object.assign(rows, []);
+    const reorderingColumn = breakdowns.getSoleDemographicBreakdown()
+      .columnName;
+    // For charts displaying only one region of geographic granularity (for instance a bar chart of race in LA county),
+    // we want a specific order of the metric values
+    if (breakdowns.hasOneRegionOfGeographicGranularity()) {
+      finalRows = this.sortAlphabeticallyByField(finalRows, reorderingColumn);
+      finalRows = this.moveRowWithValueToFront(
+        finalRows,
+        reorderingColumn,
+        TOTAL
+      );
+      finalRows = this.moveRowWithValueToBack(
+        finalRows,
+        reorderingColumn,
+        UNKNOWN
+      );
+    }
     return finalRows;
   }
 

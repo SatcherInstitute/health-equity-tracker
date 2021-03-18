@@ -4,7 +4,7 @@ import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { TOTAL, UNKNOWN } from "../utils/Constants";
+import { TOTAL } from "../utils/Constants";
 import { Row } from "../utils/DatasetTypes";
 
 function createNationalTotal(dataFrame: IDataFrame, breakdown: string) {
@@ -86,26 +86,10 @@ class AcsPopulationProvider extends VariableProvider {
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
-
-    let finalRows = df.toArray() as Row[];
-    // For charts displaying only one region (bar charts), we want Total to be the first value displayed
-    if (breakdowns.hasOneRegionOfGeographicGranularity()) {
-      finalRows = this.sortAlphabeticallyByField(
-        finalRows,
-        breakdowns.getSoleDemographicBreakdown().columnName
-      );
-      finalRows = this.moveRowWithValueToFront(
-        finalRows,
-        breakdowns.getSoleDemographicBreakdown().columnName,
-        TOTAL
-      );
-      finalRows = this.moveRowWithValueToBack(
-        finalRows,
-        breakdowns.getSoleDemographicBreakdown().columnName,
-        UNKNOWN
-      );
-    }
-
+    const finalRows = this.maybeApplyRowReorder(
+      df.toArray() as Row[],
+      breakdowns
+    );
     return new MetricQueryResponse(finalRows, [this.getDatasetId(breakdowns)]);
   }
 
