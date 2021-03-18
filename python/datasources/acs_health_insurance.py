@@ -1,8 +1,7 @@
 import json
 import pandas as pd
-import requests
 
-from ingestion.constants import (HealthInsurancePopulation, Sex)
+from ingestion.constants import (HealthInsurancePopulation)
 from datasources.data_source import DataSource
 from ingestion import url_file_to_gcs, gcs_to_bq_util
 
@@ -15,8 +14,6 @@ from ingestion.standardized_columns import (STATE_FIPS_COL, COUNTY_FIPS_COL,
                                             RACE_COL, WITH_HEALTH_INSURANCE_COL,
                                             WITHOUT_HEALTH_INSURANCE_COL,
                                             TOTAL_HEALTH_INSURANCE_COL, Race)
-from typing import Dict
-
 
 # TODO pass this in from message data.
 BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
@@ -73,7 +70,9 @@ class AcsHealhInsuranceRaceIngestor:
     # If race is set, gets race filename
     # If race is None and sex is set, gets filename for sex
     def get_filename(self, race, is_county):
-        return "HEALTH_INSURANCE_BY_RACE_{0}_{1}.json".format("STATE" if is_county else "COUNTY", race.replace(" ", "_").upper())
+        geo = "STATE" if is_county else "COUNTY"
+        race = race.replace(" ", "_").upper()
+        return "HEALTH_INSURANCE_BY_RACE_{0}_{1}.json".format(geo, race)
 
     # Method to output <Filename.csv>.  Used for debugging purposes.
     def write_local_files_debug(self):
@@ -228,10 +227,8 @@ class AcsHealhInsuranceRaceIngestor:
     # Splits the in memory aggregation into dataframes
 
     def split_data_frames(self):
-        state_sex_data = []
         state_race_data = []
         county_race_data = []
-        county_sex_data = []
 
         # Extract keys from self.data Tuple
         # (state_fip, County_fip, Age, Sex, Race): {PopulationObj}

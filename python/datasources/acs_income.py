@@ -1,14 +1,12 @@
 import json
 import pandas as pd
-import requests
 
 from datasources.data_source import DataSource
 from ingestion import url_file_to_gcs, gcs_to_bq_util
 from ingestion.standardized_columns import (STATE_FIPS_COL, COUNTY_FIPS_COL,
                                             STATE_NAME_COL, COUNTY_NAME_COL, INCOME_COL,
-                                            AGE_COL, SEX_COL,
+                                            AGE_COL,
                                             RACE_COL, POPULATION_COL, Race)
-from typing import Dict
 from ingestion.census import fetch_acs_metadata, get_state_fips_mapping, get_county_fips_mapping
 from ingestion.acs_utils import (
     MetadataKey, parseMetadata, trimMetadata, get_acs_data_from_variables, get_params)
@@ -28,7 +26,7 @@ MEDIAN_INCOME_BY_RACE_GROUPS = {
     "B19037F": Race.OTHER.value,
     "B19037G": Race.MULTI.value,
     "B19037H": Race.WHITE_NH.value,
-    "B19037A": Race.HISP.value,
+    "B19037I": Race.HISP.value,
 }
 
 
