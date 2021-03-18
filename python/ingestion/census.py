@@ -4,8 +4,6 @@ import json
 from ingestion.standardized_columns import (STATE_FIPS_COL, COUNTY_FIPS_COL,
                                             STATE_NAME_COL, COUNTY_NAME_COL)
 
-import re
-
 
 def get_census_params_by_county(columns):
     """Returns the base set of params for making a census API call by county.
