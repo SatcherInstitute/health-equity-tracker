@@ -1,5 +1,4 @@
 '''Collection of shared Airflow functionality.'''
-from http import HTTPStatus
 import os
 import requests
 # Ignore the Airflow module, it is installed in both our dev and prod environments
