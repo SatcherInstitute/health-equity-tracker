@@ -1,4 +1,7 @@
 import { IDataFrame } from "data-forge";
+import { Row } from "../utils/DatasetTypes";
+import { TOTAL, UNKNOWN, UNKNOWN_HL } from "../utils/Constants";
+import { Breakdowns } from "../query/Breakdowns";
 
 /**
  * Reshapes the data frame by creating a new column for each value in
@@ -151,4 +154,60 @@ export function getLatestDate(df: IDataFrame): Date {
     .getSeries("date")
     .select((dateStr) => asDate(dateStr).getTime());
   return new Date(dateTimes.max());
+}
+
+function moveRowWithValueToFront(
+  rows: Row[],
+  fieldName: string,
+  value: string
+) {
+  let finalRows: Row[] = Object.assign(rows, []);
+  const indexOfTotal = rows.findIndex((r: any) => r[fieldName] === value);
+  if (indexOfTotal !== -1) {
+    const removedItem = finalRows.splice(indexOfTotal, 1);
+    finalRows = removedItem.concat(finalRows);
+  }
+  return finalRows;
+}
+
+function moveRowsWithValueToBack(
+  rows: Row[],
+  fieldName: string,
+  value: string
+) {
+  let finalRows: Row[] = Object.assign(rows, []);
+  let removedItems = [];
+  let index = rows.findIndex((r: any) => r[fieldName] === value);
+  while (index > 0) {
+    removedItems.push(finalRows.splice(index, 1));
+    index = rows.findIndex((r: any) => r[fieldName] === value);
+  }
+  removedItems.forEach((removedItem) => {
+    finalRows = finalRows.concat(removedItem);
+  });
+  return finalRows;
+}
+
+function sortAlphabeticallyByField(rows: Row[], fieldName: string) {
+  let finalRows: Row[] = Object.assign(rows, []);
+  finalRows.sort((a, b) => a[fieldName].localeCompare(b[fieldName]));
+  return finalRows;
+}
+
+export function maybeApplyRowReorder(rows: Row[], breakdowns: Breakdowns) {
+  let finalRows: Row[] = Object.assign(rows, []);
+  const reorderingColumn = breakdowns.getSoleDemographicBreakdown().columnName;
+  // For charts displaying only one region of geographic granularity (for instance a bar chart of
+  // race in LA county), we want a specific order of the metric values
+  if (breakdowns.hasOneRegionOfGeographicGranularity()) {
+    finalRows = sortAlphabeticallyByField(finalRows, reorderingColumn);
+    finalRows = moveRowWithValueToFront(finalRows, reorderingColumn, TOTAL);
+    finalRows = moveRowsWithValueToBack(finalRows, reorderingColumn, UNKNOWN);
+    finalRows = moveRowsWithValueToBack(
+      finalRows,
+      reorderingColumn,
+      UNKNOWN_HL
+    );
+  }
+  return finalRows;
 }

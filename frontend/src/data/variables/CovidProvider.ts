@@ -8,6 +8,7 @@ import {
   getLatestDate,
   joinOnCols,
   per100k,
+  maybeApplyRowReorder,
 } from "../utils/datasetutils";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
@@ -170,8 +171,10 @@ class CovidProvider extends VariableProvider {
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
-    const finalRows = this.maybeApplyRowReorder(df.toArray(), breakdowns);
-    return new MetricQueryResponse(finalRows, consumedDatasetIds);
+    return new MetricQueryResponse(
+      maybeApplyRowReorder(df.toArray(), breakdowns),
+      consumedDatasetIds
+    );
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {

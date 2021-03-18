@@ -1,5 +1,5 @@
 import { Breakdowns, ALL_RACES_DISPLAY_NAME } from "../query/Breakdowns";
-import { per100k } from "../utils/datasetutils";
+import { per100k, maybeApplyRowReorder } from "../utils/datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
@@ -93,8 +93,10 @@ class BrfssProvider extends VariableProvider {
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
-    const finalRows = this.maybeApplyRowReorder(df.toArray(), breakdowns);
-    return new MetricQueryResponse(finalRows, ["brfss"]);
+    return new MetricQueryResponse(
+      maybeApplyRowReorder(df.toArray(), breakdowns),
+      ["brfss"]
+    );
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {

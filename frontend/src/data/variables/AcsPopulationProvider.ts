@@ -5,6 +5,7 @@ import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
 import { TOTAL } from "../utils/Constants";
+import { maybeApplyRowReorder } from "../utils/datasetutils";
 
 function createNationalTotal(dataFrame: IDataFrame, breakdown: string) {
   return dataFrame
@@ -85,8 +86,10 @@ class AcsPopulationProvider extends VariableProvider {
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
-    const finalRows = this.maybeApplyRowReorder(df.toArray(), breakdowns);
-    return new MetricQueryResponse(finalRows, [this.getDatasetId(breakdowns)]);
+    return new MetricQueryResponse(
+      maybeApplyRowReorder(df.toArray(), breakdowns),
+      [this.getDatasetId(breakdowns)]
+    );
   }
 
   private async getDataInternalWithoutPercents(
