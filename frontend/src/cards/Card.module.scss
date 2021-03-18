@@ -108,3 +108,8 @@
     color: white;
   }
 }
+
+// This ensures that vega tooltips are always visible even when in dialog elements
+#vg-tooltip-element {
+  z-index: 2000 !important;
+}
