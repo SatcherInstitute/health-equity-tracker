@@ -89,7 +89,8 @@ export function PopulationCard(props: PopulationCardProps) {
                 <Grid
                   container
                   className={styles.PopulationCard}
-                  justify="space-around"
+                  justify="flex-start"
+                  alignItems="flex-start"
                 >
                   <Grid item>
                     <span>Total Population</span>
