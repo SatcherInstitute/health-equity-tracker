@@ -5,7 +5,6 @@ import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
 import { TOTAL } from "../utils/Constants";
-import { Row } from "../utils/DatasetTypes";
 
 class BrfssProvider extends VariableProvider {
   constructor() {
@@ -94,10 +93,7 @@ class BrfssProvider extends VariableProvider {
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
-    const finalRows = this.maybeApplyRowReorder(
-      df.toArray() as Row[],
-      breakdowns
-    );
+    const finalRows = this.maybeApplyRowReorder(df.toArray(), breakdowns);
     return new MetricQueryResponse(finalRows, ["brfss"]);
   }
 

@@ -12,7 +12,6 @@ import {
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
 import { MetricId } from "../config/MetricConfig";
-import { Row } from "../utils/DatasetTypes";
 
 class CovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -171,10 +170,7 @@ class CovidProvider extends VariableProvider {
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
-    const finalRows = this.maybeApplyRowReorder(
-      df.toArray() as Row[],
-      breakdowns
-    );
+    const finalRows = this.maybeApplyRowReorder(df.toArray(), breakdowns);
     return new MetricQueryResponse(finalRows, consumedDatasetIds);
   }
 
