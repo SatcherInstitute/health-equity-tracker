@@ -74,11 +74,35 @@ function CardWrapper(props: {
       loadingComponent={loadingComponent}
     >
       {(metadata, queryResponses) => {
-        const consumedDatasetIds = queryResponses.reduce(
+        const allConsumedDatasetIds = queryResponses.reduce(
           (accumulator: string[], response) =>
             accumulator.concat(response.consumedDatasetIds),
           []
         );
+        type DataSourceInfo = {
+          name: string;
+          updateTimes: string[];
+        };
+        let dataSourceMap: Record<string, DataSourceInfo> = {};
+        allConsumedDatasetIds.forEach((datasetId) => {
+          const dataSourceId = metadata[datasetId].source_id;
+          if (dataSourceId === undefined) {
+            return;
+          }
+          if (!dataSourceMap[dataSourceId]) {
+            dataSourceMap[dataSourceId] = {
+              name: DataSourceMetadataMap[dataSourceId].data_source_name,
+              updateTimes:
+                metadata[datasetId].update_time === "unknown"
+                  ? []
+                  : [metadata[datasetId].update_time],
+            };
+          } else if (metadata[datasetId].update_time !== "unknown") {
+            dataSourceMap[dataSourceId].updateTimes = dataSourceMap[
+              dataSourceId
+            ].updateTimes.concat(metadata[datasetId].update_time);
+          }
+        });
 
         return (
           <Card raised={true} className={styles.ChartCard}>
@@ -86,24 +110,24 @@ function CardWrapper(props: {
             {props.children(queryResponses)}
             {!props.hideFooter && props.queries && (
               <CardContent className={styles.CardFooter}>
-                {consumedDatasetIds.length > 0 && <>Sources: </>}
+                {Object.keys(dataSourceMap).length > 0 && <>Sources: </>}
                 {/* TODO- add commas and "and" between the data sources */}
-                {consumedDatasetIds.map((datasetId) => {
-                  const dataSourceId = metadata[datasetId].source_id || "";
-                  const dataSourceName =
-                    DataSourceMetadataMap[dataSourceId].data_source_name;
+                {Object.keys(dataSourceMap).map((dataSourceId) => {
                   return (
                     <>
                       <LinkWithStickyParams
                         target="_blank"
                         to={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${dataSourceId}`}
                       >
-                        {dataSourceName}{" "}
+                        {dataSourceMap[dataSourceId].name}{" "}
                       </LinkWithStickyParams>
-                      {metadata[datasetId].update_time === "unknown" ? (
+                      {dataSourceMap[dataSourceId].updateTimes.length === 0 ? (
                         <>(last update unknown) </>
                       ) : (
-                        <>(updated {metadata[datasetId].update_time}) </>
+                        <>
+                          (updated{" "}
+                          {dataSourceMap[dataSourceId].updateTimes.join(", ")}){" "}
+                        </>
                       )}
                     </>
                   );
