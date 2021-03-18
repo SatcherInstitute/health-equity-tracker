@@ -157,6 +157,17 @@ HEALTH_INSURANCE_BY_SEX_FEMALE_SUFFIXES = {
 # ?for=state&get=C27001A_002E,C27001A_003E...
 
 
+def get_supported_races():
+    races = set()
+    for prefix in HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES:
+        for prefixKey in prefix:
+            races.add(
+                prefix[prefixKey][MetadataKey.RACE]
+            )
+
+    return races
+
+
 def format_params(prefixes, suffixes, is_county=False):
     groups = []
     for prefix in prefixes:
@@ -357,7 +368,7 @@ class AcsHealhInsuranceIngestor:
     #   Get Health insurance data from either GCS or Directly, and aggregate the data in memory
     def get_health_insurance_data_by_race(self, use_gcs=False, gcs_bucket=None):
         if use_gcs:
-            for race in RACE:
+            for race in get_supported_races():
                 # Get cached data from GCS
                 state_data = gcs_to_bq_util.load_values_as_json(
                     gcs_bucket, self.get_filename(None, race, False))
