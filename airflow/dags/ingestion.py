@@ -27,8 +27,6 @@ cdc_covid_deaths_gcs_payload = util.generate_gcs_payload(
     _CDC_WORKFLOW_ID, filename=_CDC_GCS_FILENAME, url=_CDC_COVID_DEATHS_DOWNLOAD_URL)
 cdc_covid_deaths_gcs_operator = util.create_gcs_ingest_operator(
     cdc_covid_deaths_task_id, cdc_covid_deaths_gcs_payload, data_ingestion_dag)
-cdc_covid_deaths_gcs_short_op = util.create_gcs_short_circuit_operator(
-    'did_cdc_covid_deaths_gcs_file_download', cdc_covid_deaths_task_id, data_ingestion_dag)
 cdc_covid_deaths_bq_payload = util.generate_bq_payload(
     _CDC_WORKFLOW_ID, _CDC_DATASET_NAME, filename=_CDC_GCS_FILENAME)
 cdc_covid_deaths_bq_operator = util.create_bq_ingest_operator(
@@ -39,5 +37,5 @@ cdc_covid_deaths_exporter_operator = util.create_exporter_operator(
     data_ingestion_dag)
 
 # Ingestion DAG
-(cdc_covid_deaths_gcs_operator >> cdc_covid_deaths_gcs_short_op >>
- cdc_covid_deaths_bq_operator >> cdc_covid_deaths_exporter_operator)
+(cdc_covid_deaths_gcs_operator >> cdc_covid_deaths_bq_operator >>
+ cdc_covid_deaths_exporter_operator)

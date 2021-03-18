@@ -24,9 +24,6 @@ acs_hi_gcs_payload = util.generate_gcs_payload(
 acs_hi_gcs_operator = util.create_gcs_ingest_operator(
     acs_hi_gcs_task_id, acs_hi_gcs_payload, data_ingestion_dag)
 
-acs_hi_gcs_short_op = util.create_gcs_short_circuit_operator(
-    'did_acs_hi_files_download', acs_hi_gcs_task_id, data_ingestion_dag)
-
 acs_hi_bq_payload = util.generate_bq_payload(
     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, url=_ACS_BASE_URL)
 acs_hi_bq_operator = util.create_bq_ingest_operator(
@@ -41,5 +38,5 @@ acs_hi_exporter_operator = util.create_exporter_operator(
     'acs_health_insurance_exporter', acs_hi_exporter_payload, data_ingestion_dag)
 
 # Ingestion DAG
-(acs_hi_gcs_operator >> acs_hi_gcs_short_op >>
- acs_hi_bq_operator >> acs_hi_aggregator_operator >> acs_hi_exporter_operator)
+(acs_hi_gcs_operator >> acs_hi_bq_operator >>
+ acs_hi_aggregator_operator >> acs_hi_exporter_operator)
