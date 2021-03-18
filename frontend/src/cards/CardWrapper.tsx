@@ -10,13 +10,46 @@ import {
 import { CardContent } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
-import { WithMetadataAndMetrics } from "../data/react/WithLoadingOrErrorUI";
-import { MetricQuery, MetricQueryResponse } from "../data/query/MetricQuery";
-import { DataSourceMetadataMap } from "../data/config/MetadataMap";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import InfoIcon from "@material-ui/icons/Info";
 import Popover from "@material-ui/core/Popover";
 import { usePopover } from "../utils/usePopover";
+import { DataSourceMetadataMap } from "../data/config/MetadataMap";
+import { MapOfDatasetMetadata } from "../data/utils/DatasetTypes";
+import { MetricQuery, MetricQueryResponse } from "../data/query/MetricQuery";
+import { WithMetadataAndMetrics } from "../data/react/WithLoadingOrErrorUI";
+
+type DataSourceInfo = {
+  name: string;
+  updateTimes: string[];
+};
+
+function getDataSourceMapFromDatasetIds(
+  datasetIds: string[],
+  metadata: MapOfDatasetMetadata
+): Record<string, DataSourceInfo> {
+  let dataSourceMap: Record<string, DataSourceInfo> = {};
+  datasetIds.forEach((datasetId) => {
+    const dataSourceId = metadata[datasetId].source_id;
+    if (dataSourceId === undefined) {
+      return;
+    }
+    if (!dataSourceMap[dataSourceId]) {
+      dataSourceMap[dataSourceId] = {
+        name: DataSourceMetadataMap[dataSourceId].data_source_name,
+        updateTimes:
+          metadata[datasetId].update_time === "unknown"
+            ? []
+            : [metadata[datasetId].update_time],
+      };
+    } else if (metadata[datasetId].update_time !== "unknown") {
+      dataSourceMap[dataSourceId].updateTimes = dataSourceMap[
+        dataSourceId
+      ].updateTimes.concat(metadata[datasetId].update_time);
+    }
+  });
+  return dataSourceMap;
+}
 
 function CardWrapper(props: {
   title?: JSX.Element;
@@ -79,30 +112,10 @@ function CardWrapper(props: {
             accumulator.concat(response.consumedDatasetIds),
           []
         );
-        type DataSourceInfo = {
-          name: string;
-          updateTimes: string[];
-        };
-        let dataSourceMap: Record<string, DataSourceInfo> = {};
-        allConsumedDatasetIds.forEach((datasetId) => {
-          const dataSourceId = metadata[datasetId].source_id;
-          if (dataSourceId === undefined) {
-            return;
-          }
-          if (!dataSourceMap[dataSourceId]) {
-            dataSourceMap[dataSourceId] = {
-              name: DataSourceMetadataMap[dataSourceId].data_source_name,
-              updateTimes:
-                metadata[datasetId].update_time === "unknown"
-                  ? []
-                  : [metadata[datasetId].update_time],
-            };
-          } else if (metadata[datasetId].update_time !== "unknown") {
-            dataSourceMap[dataSourceId].updateTimes = dataSourceMap[
-              dataSourceId
-            ].updateTimes.concat(metadata[datasetId].update_time);
-          }
-        });
+        const dataSourceMap = getDataSourceMapFromDatasetIds(
+          allConsumedDatasetIds,
+          metadata
+        );
 
         return (
           <Card raised={true} className={styles.ChartCard}>
@@ -112,26 +125,24 @@ function CardWrapper(props: {
               <CardContent className={styles.CardFooter}>
                 {Object.keys(dataSourceMap).length > 0 && <>Sources: </>}
                 {/* TODO- add commas and "and" between the data sources */}
-                {Object.keys(dataSourceMap).map((dataSourceId) => {
-                  return (
-                    <>
-                      <LinkWithStickyParams
-                        target="_blank"
-                        to={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${dataSourceId}`}
-                      >
-                        {dataSourceMap[dataSourceId].name}{" "}
-                      </LinkWithStickyParams>
-                      {dataSourceMap[dataSourceId].updateTimes.length === 0 ? (
-                        <>(last update unknown) </>
-                      ) : (
-                        <>
-                          (updated{" "}
-                          {dataSourceMap[dataSourceId].updateTimes.join(", ")}){" "}
-                        </>
-                      )}
-                    </>
-                  );
-                })}
+                {Object.keys(dataSourceMap).map((dataSourceId) => (
+                  <>
+                    <LinkWithStickyParams
+                      target="_blank"
+                      to={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${dataSourceId}`}
+                    >
+                      {dataSourceMap[dataSourceId].name}{" "}
+                    </LinkWithStickyParams>
+                    {dataSourceMap[dataSourceId].updateTimes.length === 0 ? (
+                      <>(last update unknown) </>
+                    ) : (
+                      <>
+                        (updated{" "}
+                        {dataSourceMap[dataSourceId].updateTimes.join(", ")}){" "}
+                      </>
+                    )}
+                  </>
+                ))}
               </CardContent>
             )}
           </Card>
