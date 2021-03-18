@@ -189,12 +189,9 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     100 /* default width during intialization */
   );
 
-  let dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
+  const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
     props.data,
     props.breakdownVar
-  );
-  dataWithLineBreakDelimiter.sort((a, b) =>
-    a[props.breakdownVar].localeCompare(b[props.breakdownVar])
   );
 
   return (
