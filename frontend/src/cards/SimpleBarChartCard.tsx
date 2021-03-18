@@ -1,7 +1,6 @@
 import React from "react";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
 import styles from "./Card.module.scss";
-import { Alert } from "@material-ui/lab";
 import { CardContent } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { Fips } from "../data/utils/Fips";
@@ -18,6 +17,7 @@ import DisparityInfoPopover from "./ui/DisparityInfoPopover";
 import { usePopover } from "../utils/usePopover";
 import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC, TOTAL } from "../data/utils/Constants";
+import MissingDataAlert from "./ui/MissingDataAlert";
 
 export interface SimpleBarChartCardProps {
   key?: string;
@@ -78,9 +78,12 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
               props.metricConfig.metricId,
             ]) && (
               <CardContent className={styles.Breadcrumbs}>
-                <Alert severity="warning">
-                  Missing data means that we don't know the full story.
-                </Alert>
+                <MissingDataAlert
+                  dataName={props.metricConfig.fullCardTitleName}
+                  breakdownString={
+                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+                  }
+                />
               </CardContent>
             )}
             {!queryResponse.shouldShowMissingDataMessage([

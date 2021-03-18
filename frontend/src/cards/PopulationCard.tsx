@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Alert } from "@material-ui/lab";
 import CardWrapper from "./CardWrapper";
-import { Breakdowns } from "../data/query/Breakdowns";
+import {
+  Breakdowns,
+  BREAKDOWN_VAR_DISPLAY_NAMES,
+} from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
 import { Fips } from "../data/utils/Fips";
 import { CardContent } from "@material-ui/core";
@@ -21,6 +23,7 @@ import {
   excludeTotal,
   onlyIncludeStandardRaces,
 } from "../data/query/BreakdownFilter";
+import MissingDataAlert from "./ui/MissingDataAlert";
 
 export interface PopulationCardProps {
   fips: Fips;
@@ -29,15 +32,15 @@ export interface PopulationCardProps {
 export function PopulationCard(props: PopulationCardProps) {
   const [expanded, setExpanded] = useState(false);
 
-  const variableIds: MetricId[] = ["population", "population_pct"];
+  const metricIds: MetricId[] = ["population", "population_pct"];
   const raceQuery = new MetricQuery(
-    variableIds,
+    metricIds,
     Breakdowns.forFips(props.fips).andRace(onlyIncludeStandardRaces())
   );
   // TODO when ACS by age gets more age buckets, update this to specify which
   // ones we want.
   const ageQuery = new MetricQuery(
-    variableIds,
+    metricIds,
     Breakdowns.forFips(props.fips).andAge(excludeTotal())
   );
 
@@ -68,9 +71,12 @@ export function PopulationCard(props: PopulationCardProps) {
               {props.fips.getFullDisplayName()}
             </span>
             {raceQueryResponse.dataIsMissing() && (
-              <Alert severity="warning">
-                Missing data means that we don't know the full story.
-              </Alert>
+              <MissingDataAlert
+                dataName={POPULATION_VARIABLE_CONFIG.variableDisplayName}
+                breakdownString={
+                  BREAKDOWN_VAR_DISPLAY_NAMES["race_and_ethnicity"]
+                }
+              />
             )}
             {/* Because the Vega charts are using responsive width based on the window resizing,
                 we manually trigger a resize when the div size changes so vega chart will 
@@ -130,7 +136,12 @@ export function PopulationCard(props: PopulationCardProps) {
                       Population by age
                     </span>
                     {ageQueryResponse.dataIsMissing() ? (
-                      <Alert severity="warning">Age data missing.</Alert>
+                      <MissingDataAlert
+                        dataName={
+                          POPULATION_VARIABLE_CONFIG.variableDisplayName
+                        }
+                        breakdownString={BREAKDOWN_VAR_DISPLAY_NAMES["age"]}
+                      />
                     ) : (
                       <SimpleHorizontalBarChart
                         data={ageQueryResponse.data}
