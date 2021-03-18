@@ -6,10 +6,10 @@ import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 
 type NumberFormat = "raw" | "percentage";
+export type ScaleType = "quantize" | "quantile";
 
 const UNKNOWN_GREY = "#BDC1C6";
 const HEIGHT_WIDTH_RATIO = 0.5;
-const LEGEND_WIDTH = 100;
 
 const MISSING_DATASET = "MISSING_DATASET";
 const VALID_DATASET = "VALID_DATASET";
@@ -19,11 +19,14 @@ const COLOR_SCALE = "COLOR_SCALE";
 const US_PROJECTION = "US_PROJECTION";
 
 const VAR_DATASET = "VAR_DATASET";
+const LEGEND_DATASET = "LEGEND_DATASET";
 // TODO - consider moving standardized column names, like fips, to variables shared between here and VariableProvider
 const VAR_FIPS = "fips";
 
 export interface ChoroplethMapProps {
   data: Record<string, any>[];
+  // legendData is the dataset for which to calculate legend. Used to have a common legend between two maps.
+  legendData?: Record<string, any>[];
   metric: MetricConfig;
   legendTitle: string;
   signalListeners: any;
@@ -32,6 +35,8 @@ export interface ChoroplethMapProps {
   hideLegend?: boolean;
   fieldRange?: FieldRange;
   showCounties: boolean;
+  hideActions?: boolean;
+  scaleType: ScaleType;
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
@@ -41,6 +46,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
   // Initial spec state is set in useEffect
   const [spec, setSpec] = useState({});
+
+  const LEGEND_WIDTH = props.hideLegend ? 0 : 100;
 
   useEffect(() => {
     /* SET UP GEO DATSET */
@@ -99,8 +106,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     let colorScale: any = {
       name: COLOR_SCALE,
-      type: "quantize",
-      domain: { data: VALID_DATASET, field: props.metric.metricId },
+      type: props.scaleType,
+      domain: { data: LEGEND_DATASET, field: props.metric.metricId },
       range: { scheme: "yellowgreenblue", count: 7 },
     };
     if (props.fieldRange) {
@@ -110,12 +117,15 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
-      description:
-        "A choropleth map depicting U.S. diabetesloyment temp_maxs by county in 2009.",
+      description: "A choropleth map.",
       data: [
         {
           name: VAR_DATASET,
           values: props.data,
+        },
+        {
+          name: LEGEND_DATASET,
+          values: props.legendData || props.data,
         },
         {
           name: GEO_DATASET,
@@ -223,17 +233,25 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props.hideLegend,
     props.showCounties,
     props.fieldRange,
+    props.scaleType,
+    props.legendData,
+    LEGEND_WIDTH,
   ]);
 
   return (
     <div
       ref={ref}
       style={{
-        width: "80%",
+        width: "90%",
         margin: "auto",
       }}
     >
-      <Vega spec={spec} width={width} signalListeners={props.signalListeners} />
+      <Vega
+        spec={spec}
+        width={width}
+        actions={!props.hideActions}
+        signalListeners={props.signalListeners}
+      />
     </div>
   );
 }

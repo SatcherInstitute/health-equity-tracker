@@ -27,11 +27,19 @@ cdc_bq_payload = util.generate_bq_payload(
     _CDC_RESTRICTED_WORKFLOW_ID,
     _CDC_RESTRICTED_DATASET,
     gcs_bucket=Variable.get('GCS_MANUAL_UPLOADS_BUCKET'),
-    filename=_CDC_RESTRICTED_GCS_FILENAMES
-)
+    filename=_CDC_RESTRICTED_GCS_FILENAMES)
 cdc_restricted_bq_op = util.create_bq_ingest_operator(
-    'cdc_restricted_data', cdc_bq_payload, data_ingestion_dag
-)
+    'cdc_restricted_gcs_to_bq', cdc_bq_payload, data_ingestion_dag)
+
+cdc_restricted_aggregator_payload = {'dataset_name': _CDC_RESTRICTED_DATASET}
+cdc_restricted_aggregator_operator = util.create_aggregator_operator(
+    'cdc_restricted_aggregator', cdc_restricted_aggregator_payload,
+    data_ingestion_dag)
+
+cdc_restricted_exporter_payload = {'dataset_name': _CDC_RESTRICTED_DATASET}
+cdc_restricted_exporter_operator = util.create_exporter_operator(
+    'cdc_restricted_exporter', cdc_restricted_exporter_payload,
+    data_ingestion_dag)
 
 # CDC Restricted Data Ingestion DAG
-cdc_restricted_bq_op
+cdc_restricted_bq_op >> cdc_restricted_aggregator_operator >> cdc_restricted_exporter_operator

@@ -210,9 +210,9 @@ class ACSPopulationIngester():
             sex_by_age_frames[concept] = sex_by_age_frame
 
         frames = {
-            self.get_staging_table_name_by_race(): self.get_all_races_frame(
+            self.get_table_name_by_race(): self.get_all_races_frame(
                 race_and_hispanic_frame, total_frame),
-            self.get_staging_table_name_by_sex_age_race(): self.get_sex_by_age_and_race(
+            self.get_table_name_by_sex_age_race(): self.get_sex_by_age_and_race(
                 var_map, sex_by_age_frames)
         }
 

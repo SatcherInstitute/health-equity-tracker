@@ -7,6 +7,7 @@ AGE_COL = "age"
 SEX_COL = "sex"
 STATE_FIPS_COL = "state_fips"
 STATE_NAME_COL = "state_name"
+STATE_POSTAL_COL = "state_postal"  # State 2-letter postal abberviation.
 COUNTY_FIPS_COL = "county_fips"
 COUNTY_NAME_COL = "county_name"
 POPULATION_COL = "population"

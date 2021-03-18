@@ -8,8 +8,10 @@ import styles from "./DatasetExplorer.module.scss";
 import { DataSourceMetadataMap } from "../../../data/config/MetadataMap";
 import { DataSourceMetadata } from "../../../data/utils/DatasetTypes";
 import Button from "@material-ui/core/Button";
-import { DATA_CATALOG_PAGE_LINK } from "../../../utils/urlutils";
+import {DATA_CATALOG_PAGE_LINK, EXPLORE_DATA_PAGE_LINK} from "../../../utils/urlutils";
 import { WithMetadata } from "../../../data/react/WithLoadingOrErrorUI";
+import {Grid} from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 // Map of filter id to list of datasets selected by that filter, or empty list
 // for filters that don't have anything selected.
@@ -70,90 +72,110 @@ function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
 
   return (
     <div className={styles.DatasetExplorer}>
-      <div className={styles.DatasetList}>
-        <WithMetadata>
-          {(datasetMetadata) => {
-            const filteredDatasets = getFilteredSources(
-              DataSourceMetadataMap,
-              activeFilter
-            );
-            // Check if more than the default filters are enabled to see if you're viewing
-            // a subset of sources
-            const viewingSubsetOfSources =
-              Object.keys(activeFilter).length > 1 ||
-              activeFilter[NAME_FILTER_ID].length > 0;
+      <Grid container>
+        <div className={styles.DatasetHeader}>
+          <Grid item>
+            <Typography className={styles.DataDownloadsHeaderText}>
+              View and download Health Equity Tracker data sources
+            </Typography>
+          </Grid>
+          <Grid item>
+            <p className={styles.DataDownloadsHeaderSubtext}>
+              Here you can access and download the data sources that are
+              displayed in the charts on the Health Equity Tracker.
+              Want to explore what each data set can show us about
+              different health outcomes? {" "}
+              <a href={EXPLORE_DATA_PAGE_LINK}
+                 className={styles.DataDownloadsExploreLink}>
+                Go explore the data dashboard.</a>
+            </p>
+          </Grid>
+        </div>
+        <div className={styles.DatasetList}>
+          <WithMetadata>
+            {(datasetMetadata) => {
+              const filteredDatasets = getFilteredSources(
+                  DataSourceMetadataMap,
+                  activeFilter
+              );
+              // Check if more than the default filters are enabled to see if you're viewing
+              // a subset of sources
+              const viewingSubsetOfSources =
+                  Object.keys(activeFilter).length > 1 ||
+                  activeFilter[NAME_FILTER_ID].length > 0;
 
-            const defaultDataSourceNames = props.preFilterDataSourceIds
-              .filter((datasetId) => !!datasetMetadata[datasetId])
-              .map((datasetId) => datasetMetadata[datasetId].name);
+              const defaultDataSourceNames = props.preFilterDataSourceIds
+                  .filter((datasetId) => !!datasetMetadata[datasetId])
+                  .map((datasetId) => datasetMetadata[datasetId].name);
 
-            return (
-              <>
-                {!viewingSubsetOfSources && (
+              return (
                   <>
-                    <div className={styles.FilterContainer}>
-                      <div className={styles.Filter}>
-                        <MultiSelectDatasetFilter
-                          dataSources={DataSourceMetadataMap}
-                          onSelectionChange={(filtered) => {
-                            setActiveFilter({
-                              ...activeFilter,
-                              [NAME_FILTER_ID]: filtered,
-                            });
-                          }}
-                          propertySelector={(metadata) =>
-                            metadata.data_source_name
-                          }
-                          placeholder={"Search variables..."}
-                          defaultValues={defaultDataSourceNames}
-                        />
-                      </div>
-                    </div>
-                    <div className={styles.FilterContainer}>
-                      <div className={styles.FilterTitle}>Filter by...</div>
-                      {createFilter(
-                        DataSourceMetadataMap,
-                        "geographic_filter",
-                        (metadata) => metadata.geographic_level,
-                        "geographic level...",
-                        "All"
-                      )}
-                      {createFilter(
-                        DataSourceMetadataMap,
-                        "demographic_filter",
-                        (metadata) => metadata.demographic_granularity,
-                        "demographic level...",
-                        "All"
-                      )}
-                    </div>
+                    {!viewingSubsetOfSources && (
+                        <>
+                          <div className={styles.FilterContainer}>
+                            <div className={styles.Filter}>
+                              <MultiSelectDatasetFilter
+                                  dataSources={DataSourceMetadataMap}
+                                  onSelectionChange={(filtered) => {
+                                    setActiveFilter({
+                                      ...activeFilter,
+                                      [NAME_FILTER_ID]: filtered,
+                                    });
+                                  }}
+                                  propertySelector={(metadata) =>
+                                      metadata.data_source_name
+                                  }
+                                  placeholder={"Search variables..."}
+                                  defaultValues={defaultDataSourceNames}
+                              />
+                            </div>
+                          </div>
+                          <div className={styles.FilterContainer}>
+                            <div className={styles.FilterTitle}>Filter by...</div>
+                            {createFilter(
+                                DataSourceMetadataMap,
+                                "geographic_filter",
+                                (metadata) => metadata.geographic_level,
+                                "geographic level...",
+                                "All"
+                            )}
+                            {createFilter(
+                                DataSourceMetadataMap,
+                                "demographic_filter",
+                                (metadata) => metadata.demographic_granularity,
+                                "demographic level...",
+                                "All"
+                            )}
+                          </div>
+                        </>
+                    )}
+                    {filteredDatasets.map((source_id, index) => (
+                        <div className={styles.Dataset} key={index}>
+                          <div className={styles.DatasetListItem}>
+                            <DataSourceListing
+                                key={DataSourceMetadataMap[source_id].id}
+                                source_metadata={DataSourceMetadataMap[source_id]}
+                                dataset_metadata={datasetMetadata}
+                            />
+                          </div>
+                        </div>
+                    ))}
+                    {/* TODO clear filters instead of reloading the page. */}
+                    {viewingSubsetOfSources && (
+                        <Button
+                            href={DATA_CATALOG_PAGE_LINK}
+                            color="primary"
+                            variant="contained"
+                        >
+                          View All Datasets
+                        </Button>
+                    )}
                   </>
-                )}
-                {filteredDatasets.map((source_id, index) => (
-                  <div className={styles.Dataset} key={index}>
-                    <div className={styles.DatasetListItem}>
-                      <DataSourceListing
-                        key={DataSourceMetadataMap[source_id].id}
-                        source_metadata={DataSourceMetadataMap[source_id]}
-                        dataset_metadata={datasetMetadata}
-                      />
-                    </div>
-                  </div>
-                ))}
-                {/* TODO clear filters instead of reloading the page. */}
-                {viewingSubsetOfSources && (
-                  <Button
-                    href={DATA_CATALOG_PAGE_LINK}
-                    color="primary"
-                    variant="contained"
-                  >
-                    View All Datasets
-                  </Button>
-                )}
-              </>
-            );
-          }}
-        </WithMetadata>
-      </div>
+              );
+            }}
+          </WithMetadata>
+        </div>
+      </Grid>
     </div>
   );
 }
