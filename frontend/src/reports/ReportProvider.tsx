@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Grid } from "@material-ui/core";
 import { VariableDisparityReport } from "./VariableDisparityReport";
 import TwoVariableReport from "./TwoVariableReport";
 import {
@@ -49,34 +48,23 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         const fipsCode1 = getPhraseValue(props.madLib, 3);
         const fipsCode2 = getPhraseValue(props.madLib, 5);
         return (
-          <Grid container spacing={1} alignItems="flex-start">
-            <Grid item xs={6}>
-              <VariableDisparityReport
-                key={compareDisparityVariable + fipsCode1}
-                dropdownVarId={compareDisparityVariable as DropdownVarId}
-                fips={new Fips(fipsCode1)}
-                updateFipsCallback={(fips: Fips) =>
-                  props.setMadLib(
-                    getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
-                  )
-                }
-                vertical={true}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <VariableDisparityReport
-                key={compareDisparityVariable + fipsCode2}
-                dropdownVarId={compareDisparityVariable as DropdownVarId}
-                fips={new Fips(fipsCode2)}
-                updateFipsCallback={(fips: Fips) =>
-                  props.setMadLib(
-                    getMadLibWithUpdatedValue(props.madLib, 5, fips.code)
-                  )
-                }
-                vertical={true}
-              />
-            </Grid>
-          </Grid>
+          <TwoVariableReport
+            key={compareDisparityVariable + fipsCode1 + fipsCode2}
+            dropdownVarId1={compareDisparityVariable as DropdownVarId}
+            dropdownVarId2={compareDisparityVariable as DropdownVarId}
+            fips1={new Fips(fipsCode1)}
+            fips2={new Fips(fipsCode2)}
+            updateFips1Callback={(fips: Fips) =>
+              props.setMadLib(
+                getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
+              )
+            }
+            updateFips2Callback={(fips: Fips) =>
+              props.setMadLib(
+                getMadLibWithUpdatedValue(props.madLib, 5, fips.code)
+              )
+            }
+          />
         );
       case "comparevars":
         const compareDisparityVariable1 = getPhraseValue(props.madLib, 1);
@@ -89,8 +77,14 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             }
             dropdownVarId1={compareDisparityVariable1 as DropdownVarId}
             dropdownVarId2={compareDisparityVariable2 as DropdownVarId}
-            fips={new Fips(fipsCode)}
-            updateFipsCallback={(fips: Fips) =>
+            fips1={new Fips(fipsCode)}
+            fips2={new Fips(fipsCode)}
+            updateFips1Callback={(fips: Fips) =>
+              props.setMadLib(
+                getMadLibWithUpdatedValue(props.madLib, 5, fips.code)
+              )
+            }
+            updateFips2Callback={(fips: Fips) =>
               props.setMadLib(
                 getMadLibWithUpdatedValue(props.madLib, 5, fips.code)
               )
