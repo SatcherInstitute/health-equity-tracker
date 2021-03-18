@@ -13,3 +13,4 @@ export const AGE = "age";
 export const SEX = "sex";
 export const MALE = "Male";
 export const FEMALE = "Female";
+export const UNKNOWN = "Unknown";

@@ -10,6 +10,7 @@ import { IDataFrame } from "data-forge";
 import { Fips } from "../../data/utils/Fips";
 import { TOTAL } from "../utils/Constants";
 import { applyToGroups, percent } from "../utils/datasetutils";
+import { Row } from "../utils/DatasetTypes";
 
 abstract class VariableProvider {
   readonly providerId: ProviderId;
@@ -86,6 +87,32 @@ abstract class VariableProvider {
       .filter((column) => !requestedColumns.includes(column));
 
     return dataFrame.dropSeries(columnsToRemove).resetIndex();
+  }
+
+  moveRowWithValueToFront(rows: Row[], fieldName: string, value: string) {
+    let finalRows: Row[] = Object.assign(rows, []);
+    const indexOfTotal = rows.findIndex((r: any) => r[fieldName] === value);
+    if (indexOfTotal !== -1) {
+      const removedItem = finalRows.splice(indexOfTotal, 1);
+      finalRows = removedItem.concat(finalRows);
+    }
+    return finalRows;
+  }
+
+  moveRowWithValueToBack(rows: Row[], fieldName: string, value: string) {
+    let finalRows: Row[] = Object.assign(rows, []);
+    const indexOfTotal = rows.findIndex((r: any) => r[fieldName] === value);
+    if (indexOfTotal !== -1) {
+      const removedItem = finalRows.splice(indexOfTotal, 1);
+      finalRows = finalRows.concat(removedItem);
+    }
+    return finalRows;
+  }
+
+  sortAlphabeticallyByField(rows: Row[], fieldName: string) {
+    let finalRows: Row[] = Object.assign(rows, []);
+    finalRows.sort((a, b) => a[fieldName].localeCompare(b[fieldName]));
+    return finalRows;
   }
 
   applyDemographicBreakdownFilters(

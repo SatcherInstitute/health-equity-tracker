@@ -4,7 +4,8 @@ import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { TOTAL } from "../utils/Constants";
+import { TOTAL, UNKNOWN } from "../utils/Constants";
+import { Row } from "../utils/DatasetTypes";
 
 class BrfssProvider extends VariableProvider {
   constructor() {
@@ -93,7 +94,27 @@ class BrfssProvider extends VariableProvider {
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
-    return new MetricQueryResponse(df.toArray(), ["brfss"]);
+
+    let finalRows = df.toArray() as Row[];
+    // For charts displaying only one region (bar charts), we want Total to be the first value displayed
+    if (breakdowns.hasOneRegionOfGeographicGranularity()) {
+      finalRows = this.sortAlphabeticallyByField(
+        finalRows,
+        breakdowns.getSoleDemographicBreakdown().columnName
+      );
+      finalRows = this.moveRowWithValueToFront(
+        finalRows,
+        breakdowns.getSoleDemographicBreakdown().columnName,
+        TOTAL
+      );
+      finalRows = this.moveRowWithValueToBack(
+        finalRows,
+        breakdowns.getSoleDemographicBreakdown().columnName,
+        UNKNOWN
+      );
+    }
+
+    return new MetricQueryResponse(finalRows, ["brfss"]);
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {

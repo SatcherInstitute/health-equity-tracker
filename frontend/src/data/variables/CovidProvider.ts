@@ -12,6 +12,8 @@ import {
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
 import { MetricId } from "../config/MetricConfig";
+import { TOTAL, UNKNOWN } from "../utils/Constants";
+import { Row } from "../utils/DatasetTypes";
 
 class CovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -170,7 +172,27 @@ class CovidProvider extends VariableProvider {
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
-    return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
+
+    let finalRows = df.toArray() as Row[];
+    // For charts displaying only one region (bar charts), we want Total to be the first value displayed
+    if (breakdowns.hasOneRegionOfGeographicGranularity()) {
+      finalRows = this.sortAlphabeticallyByField(
+        finalRows,
+        breakdowns.getSoleDemographicBreakdown().columnName
+      );
+      finalRows = this.moveRowWithValueToFront(
+        finalRows,
+        breakdowns.getSoleDemographicBreakdown().columnName,
+        TOTAL
+      );
+      finalRows = this.moveRowWithValueToBack(
+        finalRows,
+        breakdowns.getSoleDemographicBreakdown().columnName,
+        UNKNOWN
+      );
+    }
+
+    return new MetricQueryResponse(finalRows, consumedDatasetIds);
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
