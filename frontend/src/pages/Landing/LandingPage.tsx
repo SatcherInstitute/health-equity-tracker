@@ -7,7 +7,6 @@ import {Accordion, AccordionSummary} from '@material-ui/core';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-/* TODO - Align with mocks, Clean up CSS */
 function LandingPage() {
   return (
       <div className={styles.LandingPage}>
