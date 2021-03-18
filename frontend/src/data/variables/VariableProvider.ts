@@ -119,8 +119,8 @@ abstract class VariableProvider {
     let finalRows: Row[] = Object.assign(rows, []);
     const reorderingColumn = breakdowns.getSoleDemographicBreakdown()
       .columnName;
-    // For charts displaying only one region of geographic granularity (for instance a bar chart of race in LA county),
-    // we want a specific order of the metric values
+    // For charts displaying only one region of geographic granularity (for instance a bar chart of
+    // race in LA county), we want a specific order of the metric values
     if (breakdowns.hasOneRegionOfGeographicGranularity()) {
       finalRows = this.sortAlphabeticallyByField(finalRows, reorderingColumn);
       finalRows = this.moveRowWithValueToFront(
