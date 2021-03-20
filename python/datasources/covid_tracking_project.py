@@ -85,7 +85,6 @@ class CovidTrackingProject(DataSource):
             gcs_to_bq_util.append_dataframe_to_bq(
                 result, dataset, self.get_table_name() + '_' + variable_type)
 
-
     @staticmethod
     def _download_metadata(dataset: str) -> pd.DataFrame:
         """Downloads the metadata table from BigQuery by executing a query.
