@@ -305,4 +305,4 @@ class ACSHouseholdIncomeDatasource(DataSource):
 # AcsHouseholdIncomeIngestor(BASE_ACS_URL).write_to_bq(
 #     'acs_income_manual_test', 'kalieki-dev-landing-bucket')
 
-# AcsHouseholdIncomeIngestor(BASE_ACS_URL).write_local_files_debug()
+AcsHouseholdIncomeIngestor(BASE_ACS_URL).write_local_files_debug()

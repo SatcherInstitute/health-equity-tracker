@@ -175,7 +175,7 @@ class AcsPovertyIngestor:
             "Population": "104",
         },
         ...
-    } Note: This can be debugged via the acs_income_internal_data.json file
+    } Note: This can be debugged via the acs_poverty_metadata.json file
     """
 
     def accumulate_acs_data(self, data):
@@ -198,8 +198,7 @@ class AcsPovertyIngestor:
                     county_fip = col
                 elif key in self.metadata:
                     row_data[key] = {"value": col, "meta": self.metadata[key]}
-
-            for var in data:
+            for var in row_data:
                 metadata = row_data[var]["meta"]
                 value = row_data[var]["value"]
                 row = self.upsert_row(
@@ -331,4 +330,4 @@ class ACSPovertyDataSource(DataSource):
 # AcsPovertyIngestor(BASE_ACS_URL).write_to_bq(
 #     'acs_poverty_manual_test', 'kalieki-dev-landing-bucket')
 
-AcsPovertyIngestor(BASE_ACS_URL).write_local_files_debug()
+# AcsPovertyIngestor(BASE_ACS_URL).write_local_files_debug()
