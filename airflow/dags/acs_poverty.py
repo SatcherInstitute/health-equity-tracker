@@ -6,7 +6,7 @@ import util
 
 _ACS_BASE_URL = 'https://api.census.gov/data/2019/acs/acs5'
 _ACS_WORKFLOW_ID = 'ACS_POVERTY'
-_ACS_DATASET_NAME = 'acs_poverty'
+_ACS_DATASET_NAME = 'acs_poverty_dataset'
 
 default_args = {
     'start_date': days_ago(0),
