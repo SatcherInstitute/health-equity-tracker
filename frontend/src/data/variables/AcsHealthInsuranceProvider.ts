@@ -44,7 +44,6 @@ class AcsHealthInsuranceProvider extends VariableProvider {
 
     // If requested, filter geography by state or county level
     // We apply the geo filter right away to reduce subsequent calculation times
-    df = this.mergeStateCountyFips(df);
     df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);
     df = df.renameSeries({ race: "race_and_ethnicity" });
@@ -56,38 +55,21 @@ class AcsHealthInsuranceProvider extends VariableProvider {
 
     if (breakdowns.geography === "national") {
       df = df
-        .pivot(
-          [
-            breakdowns.demographicBreakdowns.race_and_ethnicity.columnName,
-            breakdowns.demographicBreakdowns.sex.columnName,
-          ],
-          {
-            fips: (series) => USA_FIPS,
-            fips_name: (series) => USA_DISPLAY_NAME,
-            with_health_insurance: (series) => series.sum(),
-            without_health_insurance: (series) => series.sum(),
-            total_health_insurance: (series) => series.sum(),
-          }
-        )
+        .pivot([breakdowns.getSoleDemographicBreakdown().columnName], {
+          fips: (series) => USA_FIPS,
+          fips_name: (series) => USA_DISPLAY_NAME,
+          with_health_insurance: (series) => series.sum(),
+          without_health_insurance: (series) => series.sum(),
+          total_health_insurance: (series) => series.sum(),
+        })
         .resetIndex();
     } else {
       df = df.pivot(
-        ["fips", "fips_name"]
-          .concat(
-            breakdowns.demographicBreakdowns.age.enabled
-              ? [breakdowns.demographicBreakdowns.age.columnName]
-              : []
-          )
-          .concat(
-            breakdowns.demographicBreakdowns.sex.enabled
-              ? [breakdowns.demographicBreakdowns.sex.columnName]
-              : []
-          )
-          .concat(
-            breakdowns.demographicBreakdowns.race_and_ethnicity.enabled
-              ? [breakdowns.demographicBreakdowns.race_and_ethnicity.columnName]
-              : []
-          ),
+        [
+          "fips",
+          "fips_name",
+          breakdowns.getSoleDemographicBreakdown().columnName,
+        ],
         {
           with_health_insurance: (series) => series.sum(),
           without_health_insurance: (series) => series.sum(),
@@ -102,11 +84,9 @@ class AcsHealthInsuranceProvider extends VariableProvider {
       total_health_insurance: (series: ISeries) => series.sum(),
     };
 
-    Object.values(breakdowns.demographicBreakdowns).forEach((demo) => {
-      if (demo && demo.enabled) {
-        totalPivot[demo.columnName] = (series: ISeries) => TOTAL;
-      }
-    });
+    totalPivot[breakdowns.getSoleDemographicBreakdown().columnName] = (
+      series: ISeries
+    ) => TOTAL;
 
     // Calculate totals where dataset doesn't provide it
     // TODO- this should be removed when Totals come from the Data Server
