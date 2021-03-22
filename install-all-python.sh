@@ -7,7 +7,7 @@ do
     pip install -r ${file}
 done
 
-for dir in $(find . -type d -not -path "./.venv/*" -not -path "./.git/*")
+for dir in $(find python -type d)
 do
     if test -f $dir/setup.py ; then
         pip install $dir
