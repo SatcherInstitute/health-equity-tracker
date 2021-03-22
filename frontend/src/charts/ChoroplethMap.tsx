@@ -108,7 +108,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       name: COLOR_SCALE,
       type: props.scaleType,
       domain: { data: LEGEND_DATASET, field: props.metric.metricId },
-      range: { scheme: "yellowgreenblue", count: 7 },
+      range: { scheme: "yellowgreen", count: 7 },
     };
     if (props.fieldRange) {
       colorScale["domainMax"] = props.fieldRange.max;
