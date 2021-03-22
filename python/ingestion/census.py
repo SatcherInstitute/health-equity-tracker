@@ -1,19 +1,18 @@
-
 import requests
 import json
-from ingestion.standardized_columns import (STATE_FIPS_COL, COUNTY_FIPS_COL,
-                                            STATE_NAME_COL, COUNTY_NAME_COL)
+from ingestion.standardized_columns import (
+    STATE_FIPS_COL,
+    COUNTY_FIPS_COL,
+    STATE_NAME_COL,
+    COUNTY_NAME_COL,
+)
 
 
 def get_census_params_by_county(columns):
     """Returns the base set of params for making a census API call by county.
 
-       columns: The list of columns to request."""
-    return {
-        'get': ','.join(columns),
-        'for': 'county:*',
-        'in': 'state:*'
-    }
+    columns: The list of columns to request."""
+    return {"get": ",".join(columns), "for": "county:*", "in": "state:*"}1
 
 
 def get_census_params(variable_ids, county_level=False):
@@ -37,8 +36,9 @@ def fetch_acs_variables(base_acs_url, variable_ids, county_level):
     variable_ids: The ids of the variables to request. Automatically includes
         NAME.
     county_level: Whether to request at the county level, or the state level."""
-    resp2 = requests.get(base_acs_url,
-                         params=get_census_params(variable_ids, county_level))
+    resp2 = requests.get(
+        base_acs_url, params=get_census_params(variable_ids, county_level)
+    )
     json_result = resp2.json()
     json_string = json.dumps(json_result)
     return json_string
@@ -65,7 +65,8 @@ def fetch_acs_group(base_acs_url, group_concept, var_map, num_breakdowns, county
     county_level: Whether to request at the county level, or the state level."""
     group_vars = get_vars_for_group(group_concept, var_map, num_breakdowns)
     json_string = fetch_acs_variables(
-        base_acs_url, list(group_vars.keys()), county_level)
+        base_acs_url, list(group_vars.keys()), county_level
+    )
     return json_string
 
 
@@ -76,9 +77,9 @@ def parse_acs_metadata(acs_metadata, groups):
     acs_metadata: The ACS metadata as json.
     groups: The list of group ids to include."""
     output_vars = {}
-    for variable_id, metadata in acs_metadata['variables'].items():
-        group = metadata.get('group')
-        if group in groups and metadata['label'].startswith("Estimate!!Total"):
+    for variable_id, metadata in acs_metadata["variables"].items():
+        group = metadata.get("group")
+        if group in groups and metadata["label"].startswith("Estimate!!Total"):
             output_vars[variable_id] = metadata
     return output_vars
 
@@ -101,9 +102,9 @@ def get_vars_for_group(group_concept, var_map, num_breakdowns):
         has one breakdown while "SEX BY AGE" has two."""
     group_vars = {}
     for group, metadata in var_map.items():
-        if metadata.get('concept') == group_concept:
+        if metadata.get("concept") == group_concept:
             # TODO switch to use explicit prefix to handle median, etc
-            parts = metadata['label'].split("!!")
+            parts = metadata["label"].split("!!")
             # If length is greater than (2 + num_breakdowns), it means it's a
             # sub-category, which we don't need to include. If the length is
             # less than (2 + num_breakdowns), it means it's a combination of
@@ -111,8 +112,7 @@ def get_vars_for_group(group_concept, var_map, num_breakdowns):
             num_parts = 2 + num_breakdowns
             if len(parts) == num_parts:
                 attributes = parts[2:num_parts]
-                attributes = [
-                    a[:-1] if a.endswith(":") else a for a in attributes]
+                attributes = [a[:-1] if a.endswith(":") else a for a in attributes]
                 group_vars[group] = attributes
     return group_vars
 
@@ -138,10 +138,10 @@ def standardize_frame(frame, var_to_labels_map, breakdowns, county_level, measur
     measured_var: The column name of the measured variable."""
     # First, "melt" the frame so that each column other than the geo identifier
     # gets converted to a value with the column name "variable"
-    id_cols = ["state", "county", "NAME"] if county_level else [
-        "state", "NAME"]
-    sort_cols = ["state", "county", "variable"] if county_level else [
-        "state", "variable"]
+    id_cols = ["state", "county", "NAME"] if county_level else ["state", "NAME"]
+    sort_cols = (
+        ["state", "county", "variable"] if county_level else ["state", "variable"]
+    )
     df = frame.melt(id_vars=id_cols)
     df = df.sort_values(sort_cols)
 
@@ -149,20 +149,22 @@ def standardize_frame(frame, var_to_labels_map, breakdowns, county_level, measur
     # var_to_labels_map, and then delete the original variable ids.
     for index, breakdown in enumerate(breakdowns):
         renaming = {k: v[index] for k, v in var_to_labels_map.items()}
-        df[breakdown] = df['variable'].replace(renaming)
+        df[breakdown] = df["variable"].replace(renaming)
     df = df.drop("variable", axis=1)
 
     # Standardize column names and move the measured variable to the end.
     reorder_cols = list(df.columns)
-    reorder_cols.remove('value')
-    reorder_cols.append('value')
+    reorder_cols.remove("value")
+    reorder_cols.append("value")
     df = df[reorder_cols]
-    df = df.rename(columns={
-        'state': STATE_FIPS_COL,
-        'county': COUNTY_FIPS_COL,
-        'NAME': COUNTY_NAME_COL if county_level else STATE_NAME_COL,
-        'value': measured_var
-    })
+    df = df.rename(
+        columns={
+            "state": STATE_FIPS_COL,
+            "county": COUNTY_FIPS_COL,
+            "NAME": COUNTY_NAME_COL if county_level else STATE_NAME_COL,
+            "value": measured_var,
+        }
+    )
 
     # Make the county FIPS code fully qualified.
     if county_level:
@@ -170,11 +172,10 @@ def standardize_frame(frame, var_to_labels_map, breakdowns, county_level, measur
 
     return df.reset_index(drop=True)
 
+
 # Pull the State_Fips map Code->Name from ACS
-
-
 def get_state_fips_mapping(base_url):
-    params = {'for': 'state', "get": "NAME"}
+    params = {"for": "state", "get": "NAME"}
     resp = requests.get(base_url, params=params)
     json_formatted_response = resp.json()
     state_fips = {}
@@ -184,11 +185,10 @@ def get_state_fips_mapping(base_url):
 
     return state_fips
 
+
 # Pull the County Fips map Code->Name from ACS
-
-
 def get_county_fips_mapping(base_url):
-    params = {'for': 'county', "get": "NAME"}
+    params = {"for": "county", "get": "NAME"}
     resp = requests.get(base_url, params=params)
     json_formatted_response = resp.json()
     county_fips = {}
