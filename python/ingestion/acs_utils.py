@@ -18,7 +18,7 @@ REGEX_METADATA_LIBRARY = {
     r'(\d+) years and over': lambda matches: {MetadataKey.AGE: f'{matches[0]}+'},
     r'\$(\d+,\d{3}) or more': lambda matches: {MetadataKey.INCOME: f'${matches[0]}+'},
     r'\$(\d+,\d{3}) to \$(\d+,\d{3})': lambda matches: {MetadataKey.INCOME: f'${matches[0]}-${matches[1]}'},
-    r'Less than \$(\d+,\d{3})': lambda matches: {MetadataKey.INCOME: f'$0-{matches[0]}'},
+    r'Less than \$(\d+,\d{3})': lambda matches: {MetadataKey.INCOME: f'$0-${matches[0]}'},
     r'Female': lambda matches: {MetadataKey.SEX: Sex.FEMALE},
     r'Male': lambda matches: {MetadataKey.SEX: Sex.MALE},
     r'With health insurance coverage': lambda matches: {MetadataKey.POPULATION: HealthInsurancePopulation.WITH},
@@ -41,7 +41,7 @@ REGEX_METADATA_LIBRARY = {
 '''
 
 
-def parseMetadata(raw_metadata_trimmed, required_keys, metadataInitializer):
+def parseMetadata(raw_metadata_trimmed, required_keys, metadataInitializer=lambda grp: {}):
     parsed = {}
     for k, v in raw_metadata_trimmed.items():
         label = v['label']
