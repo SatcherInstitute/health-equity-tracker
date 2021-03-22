@@ -43,12 +43,6 @@ export const USA: FipsSpec = {
   name: USA_DISPLAY_NAME,
 };
 
-//Used for Testing
-export const NEGATIVE_CTRL = {
-  code: "999",
-  name: "Negative Control",
-};
-
 export function createWithAndWithoutTotalEvaluator(
   metricIds: MetricId | MetricId[],
   dataFetcher: FakeDataFetcher,
