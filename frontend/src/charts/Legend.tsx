@@ -42,7 +42,7 @@ export function Legend(props: LegendProps) {
       name: COLOR_SCALE,
       type: props.scaleType,
       domain: { data: DATASET_VALUES, field: props.metric.metricId },
-      range: { scheme: "yellowgreenblue", count: 7 },
+      range: { scheme: "yellowgreen", count: 7 },
     };
     if (props.fieldRange) {
       colorScale["domainMax"] = props.fieldRange.max;
@@ -93,7 +93,7 @@ export function Legend(props: LegendProps) {
           name: COLOR_SCALE,
           type: props.scaleType,
           domain: { data: DATASET_VALUES, field: props.metric.metricId },
-          range: { scheme: "yellowgreenblue", count: 7 },
+          range: { scheme: "yellowgreen", count: 7 },
         },
         {
           name: DOT_SIZE_SCALE,

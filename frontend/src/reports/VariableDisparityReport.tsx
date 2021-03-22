@@ -75,6 +75,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                 {breakdownIsShown(breakdownVar) && (
                   <TableCard
                     fips={props.fips}
+                    variableConfig={variableConfig}
                     metrics={getPer100kAndPctShareMetrics(variableConfig)}
                     breakdownVar={breakdownVar}
                   />
