@@ -45,7 +45,7 @@ def get_filename(grp_code, is_county):
     return f'ACS_MEDIAN_INCOME_BY_AGE_RACE_{geo}_{grp_name}'
 
 
-class AcsIncomeIngestor:
+class AcsHouseholdIncomeIngestor:
 
     # Initialize the fips mappings, retrieve all concepts for groups,
     # parse metadata into dict for easy lookup.
@@ -91,12 +91,12 @@ class AcsIncomeIngestor:
     # Write all the datas to local files to debug
     def write_local_files_debug(self):
 
-        with open('acs_income_metadata.json', 'w') as f:
+        with open('acs_hhi_metadata.json', 'w') as f:
             print(json.dumps(self.metadata, indent=4), file=f)
 
         self.getData()
 
-        with open('acs_income_internal_data.json', 'w') as f:
+        with open('acs_hhi_internal_data.json', 'w') as f:
             print(json.dumps(
                 {str(k): v for k, v in self.data.items()}, indent=4), file=f)
 
@@ -140,7 +140,7 @@ class AcsIncomeIngestor:
             "Population": "104",
         },
         ...
-    } Note: This can be debugged via the acs_income_internal_data.json file
+    } Note: This can be debugged via the acs_hhi_internal_data.json file
     '''
 
     def accumulate_acs_data(self, data):
@@ -185,7 +185,7 @@ class AcsIncomeIngestor:
                 state_data.append(
                     [state_fip, self.state_fips[state_fip], race, age, income, population])
             else:
-                county_data.append([state_fip, self.state_fips[state_fip], county_fip, self.county_fips[(
+                county_data.append([state_fip, self.state_fips[state_fip], state_fip + county_fip, self.county_fips[(
                     state_fip, county_fip)], race, age, income, population])
 
         # Build Panda DataFrames with standardized cols
@@ -209,17 +209,17 @@ class AcsIncomeIngestor:
 
         # Aggregate Frames by Filename
         self.frames = {
-            'income_by_race_age_state': self.income_by_race_age_state_frame,
-            'income_by_race_age_county': self.income_by_race_age_county_frame,
+            'household_income_by_race_age_state': self.income_by_race_age_state_frame,
+            'household_income_by_race_age_county': self.income_by_race_age_county_frame,
         }
 
 
-class ACSIncomeDatasource(DataSource):
+class ACSHouseholdIncomeDatasource(DataSource):
 
     @ staticmethod
     def get_id():
         """Returns the data source's unique id. """
-        return 'ACS_INCOME'
+        return 'ACS_HOUSEHOLD_INCOME'
 
     # Uploads to GCS. Sees if the data has changed by diffing the old run vs the new run.
     # (presumably to skip the write to bq step though not 100% sure as of writing this)
@@ -236,13 +236,13 @@ class ACSIncomeDatasource(DataSource):
 
     def _create_ingesters(self):
         return [
-            AcsIncomeIngestor(BASE_ACS_URL),
+            AcsHouseholdIncomeIngestor(BASE_ACS_URL),
         ]
 
 
-# AcsIncomeIngestor(BASE_ACS_URL).upload_to_gcs(
+# AcsHouseholdIncomeIngestor(BASE_ACS_URL).upload_to_gcs(
 #     'kalieki-dev-landing-bucket')
-# AcsIncomeIngestor(BASE_ACS_URL).write_to_bq(
+# AcsHouseholdIncomeIngestor(BASE_ACS_URL).write_to_bq(
 #     'acs_income_manual_test', 'kalieki-dev-landing-bucket')
 
-# AcsIncomeIngestor(BASE_ACS_URL).write_local_files_debug()
+AcsHouseholdIncomeIngestor(BASE_ACS_URL).write_local_files_debug()
