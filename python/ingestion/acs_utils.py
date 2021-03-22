@@ -1,4 +1,4 @@
-from ingestion.constants import (HealthInsurancePopulation, Sex)
+from ingestion.constants import HealthInsurancePopulation, Sex
 import re
 import requests
 
@@ -13,20 +13,30 @@ class MetadataKey:
 
 # Regex and builder functions for parsing the ACS labels into usable metadata.
 REGEX_METADATA_LIBRARY = {
-    r'under (\d+) years': lambda matches: {MetadataKey.AGE: f'0-{matches[0]}'},
-    r'(\d+) to (\d+) years': lambda matches: {MetadataKey.AGE: f'{matches[0]}-{matches[1]}'},
-    r'(\d+) years and over': lambda matches: {MetadataKey.AGE: f'{matches[0]}+'},
-    r'\$(\d+,\d{3}) or more': lambda matches: {MetadataKey.INCOME: f'${matches[0]}+'},
-    r'\$(\d+,\d{3}) to \$(\d+,\d{3})': lambda matches: {MetadataKey.INCOME: f'${matches[0]}-${matches[1]}'},
-    r'Less than \$(\d+,\d{3})': lambda matches: {MetadataKey.INCOME: f'$0-${matches[0]}'},
-    r'Female': lambda matches: {MetadataKey.SEX: Sex.FEMALE},
-    r'Male': lambda matches: {MetadataKey.SEX: Sex.MALE},
-    r'With health insurance coverage': lambda matches: {MetadataKey.POPULATION: HealthInsurancePopulation.WITH},
-    r'No health insurance coverage': lambda matches: {MetadataKey.POPULATION: HealthInsurancePopulation.WITHOUT},
+    r"under (\d+) years": lambda matches: {MetadataKey.AGE: f"0-{matches[0]}"},
+    r"(\d+) to (\d+) years": lambda matches: {
+        MetadataKey.AGE: f"{matches[0]}-{matches[1]}"
+    },
+    r"(\d+) years and over": lambda matches: {MetadataKey.AGE: f"{matches[0]}+"},
+    r"\$(\d+,\d{3}) or more": lambda matches: {MetadataKey.INCOME: f"${matches[0]}+"},
+    r"\$(\d+,\d{3}) to \$(\d+,\d{3})": lambda matches: {
+        MetadataKey.INCOME: f"${matches[0]}-${matches[1]}"
+    },
+    r"Less than \$(\d+,\d{3})": lambda matches: {
+        MetadataKey.INCOME: f"$0-${matches[0]}"
+    },
+    r"Female": lambda matches: {MetadataKey.SEX: Sex.FEMALE},
+    r"Male": lambda matches: {MetadataKey.SEX: Sex.MALE},
+    r"With health insurance coverage": lambda matches: {
+        MetadataKey.POPULATION: HealthInsurancePopulation.WITH
+    },
+    r"No health insurance coverage": lambda matches: {
+        MetadataKey.POPULATION: HealthInsurancePopulation.WITHOUT
+    },
 }
 
 
-'''
+"""
     Loops over the trimmed metadata, uses the regex mapping to convert the label into metadata object.
     Race metadata is pulled from the parent group by using reverse lookup on the acs key
 
@@ -38,20 +48,20 @@ REGEX_METADATA_LIBRARY = {
         "age": "25-44",
         "income": "$125,000-$149,999"
     }
-'''
+"""
 
 
-def parseMetadata(raw_metadata_trimmed, required_keys, metadataInitializer=lambda grp: {}):
+def parseMetadata(
+    raw_metadata_trimmed, required_keys, metadataInitializer=lambda grp: {}
+):
     parsed = {}
     for k, v in raw_metadata_trimmed.items():
-        label = v['label']
+        label = v["label"]
         parts = label.split("!!")
         label_meta = metadataInitializer(k)
 
         for part in parts:
-            if(part == 'Estimate'):
-                continue
-            if(part == 'Total:'):
+            if part == "Estimate" or part == "Total:":
                 continue
 
             regex_match = False
@@ -64,9 +74,9 @@ def parseMetadata(raw_metadata_trimmed, required_keys, metadataInitializer=lambd
                     regex_match = True
                     break
             if not regex_match:
-                raise Exception(f'No Regex handler for part: {part}')
+                raise Exception(f"No Regex handler for part: {part}")
 
-        if(set(required_keys).issubset(label_meta.keys())):
+        if set(required_keys).issubset(label_meta.keys()):
             parsed[k] = label_meta
 
     return parsed
@@ -74,8 +84,6 @@ def parseMetadata(raw_metadata_trimmed, required_keys, metadataInitializer=lambd
 
 # Loops over the returned metadata variables and throws out the ones not in the
 # MEDIAN_INCOME_BY_RACE_GROUPS list.
-
-
 def trimMetadata(raw_metadata, groups_to_include):
     trimmed = {}
     for metadata_key in raw_metadata:
@@ -95,12 +103,11 @@ def trimMetadata(raw_metadata, groups_to_include):
 
 def get_acs_data_from_variables(base_url, params):
     resp = requests.get(base_url, params=params)
-    print(f'[{resp.status_code}] {resp.request.url}')
+    print(f"[{resp.status_code}] {resp.request.url}")
     return resp.json()
 
+
 # Gets the query params for the ACS Data Request
-
-
 def get_params(group, is_county):
-    geo = 'county' if is_county else 'state'
-    return f'get=group({group})&for={geo}'
+    geo = "county" if is_county else "state"
+    return f"get=group({group})&for={geo}"
