@@ -15,7 +15,12 @@ export type BreakdownVar =
   | "date"
   | "fips";
 
-export type DemographicBreakdownKey = "race_and_ethnicity" | "sex" | "age";
+export const DEMOGRAPHIC_BREAKDOWNS = [
+  "race_and_ethnicity",
+  "sex",
+  "age",
+] as const;
+export type DemographicBreakdownKey = typeof DEMOGRAPHIC_BREAKDOWNS[number]; // union type of array
 
 export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
   race_and_ethnicity: "Race and Ethnicity",

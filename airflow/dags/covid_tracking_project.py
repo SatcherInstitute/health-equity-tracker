@@ -17,7 +17,6 @@ default_args = {
 data_ingestion_dag = DAG(
     'covid_tracking_project_ingestion_dag',
     default_args=default_args,
-    schedule_interval='@daily',  # Run once a day at midnight
     description='Ingestion configuration for Covid Tracking Project')
 
 # Ingest to GCS
