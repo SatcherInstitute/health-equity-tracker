@@ -16,7 +16,7 @@ data_ingestion_dag = DAG(
     'acs_hhi_ingestion_dag',
     default_args=default_args,
     schedule_interval='@yearly',
-    description='Ingestion configuration for ACS Health Insurance')
+    description='Ingestion configuration for ACS Household Income')
 
 acs_hhi_gcs_task_id = 'acs_hhi_to_gcs'
 acs_hhi_gcs_payload = util.generate_gcs_payload(
