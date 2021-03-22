@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { DisparityBarChart } from "../charts/DisparityBarChart";
 import styles from "./Card.module.scss";
-import { Alert } from "@material-ui/lab";
 import { CardContent } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import ToggleButton from "@material-ui/lab/ToggleButton";
@@ -25,6 +24,7 @@ import DisparityInfoPopover from "./ui/DisparityInfoPopover";
 import { usePopover } from "../utils/usePopover";
 import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC, TOTAL } from "../data/utils/Constants";
+import MissingDataAlert from "./ui/MissingDataAlert";
 
 const VALID_METRIC_TYPES = ["pct_share", "per100k"];
 export interface ToggleBarChartCardProps {
@@ -106,9 +106,12 @@ function ToggleBarChartCardWithKey(props: ToggleBarChartCardProps) {
               metricConfig.metricId,
             ]) && (
               <CardContent className={styles.Breadcrumbs}>
-                <Alert severity="warning">
-                  Missing data means that we don't know the full story.
-                </Alert>
+                <MissingDataAlert
+                  dataName={metricConfig.fullCardTitleName}
+                  breakdownString={
+                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+                  }
+                />
               </CardContent>
             )}
             {!queryResponse.shouldShowMissingDataMessage([
