@@ -1,4 +1,5 @@
-from ingestion.constants import HealthInsurancePopulation, Sex
+from ingestion.constants import (
+    HealthInsurancePopulation, Sex, PovertyPopulation)
 import re
 import requests
 
@@ -13,26 +14,20 @@ class MetadataKey:
 
 # Regex and builder functions for parsing the ACS labels into usable metadata.
 REGEX_METADATA_LIBRARY = {
-    r"under (\d+) years": lambda matches: {MetadataKey.AGE: f"0-{matches[0]}"},
-    r"(\d+) to (\d+) years": lambda matches: {
-        MetadataKey.AGE: f"{matches[0]}-{matches[1]}"
-    },
-    r"(\d+) years and over": lambda matches: {MetadataKey.AGE: f"{matches[0]}+"},
-    r"\$(\d+,\d{3}) or more": lambda matches: {MetadataKey.INCOME: f"${matches[0]}+"},
-    r"\$(\d+,\d{3}) to \$(\d+,\d{3})": lambda matches: {
-        MetadataKey.INCOME: f"${matches[0]}-${matches[1]}"
-    },
-    r"Less than \$(\d+,\d{3})": lambda matches: {
-        MetadataKey.INCOME: f"$0-${matches[0]}"
-    },
-    r"Female": lambda matches: {MetadataKey.SEX: Sex.FEMALE},
-    r"Male": lambda matches: {MetadataKey.SEX: Sex.MALE},
-    r"With health insurance coverage": lambda matches: {
-        MetadataKey.POPULATION: HealthInsurancePopulation.WITH
-    },
-    r"No health insurance coverage": lambda matches: {
-        MetadataKey.POPULATION: HealthInsurancePopulation.WITHOUT
-    },
+    r'under (\d+) years': lambda matches: {MetadataKey.AGE: f'0-{matches[0]}'},
+    r'(\d+) to (\d+) years': lambda matches: {MetadataKey.AGE: f'{matches[0]}-{matches[1]}'},
+    r'(\d+) years and over': lambda matches: {MetadataKey.AGE: f'{matches[0]}+'},
+    r'(\d+) years': lambda matches: {MetadataKey.AGE: f'{matches[0]}'},
+    r'(\d+) and (\d+) years': lambda matches: {MetadataKey.AGE: f'{matches[0]}-{matches[1]}'},
+    r'\$(\d+,\d{3}) or more': lambda matches: {MetadataKey.INCOME: f'${matches[0]}+'},
+    r'\$(\d+,\d{3}) to \$(\d+,\d{3})': lambda matches: {MetadataKey.INCOME: f'${matches[0]}-${matches[1]}'},
+    r'Less than \$(\d+,\d{3})': lambda matches: {MetadataKey.INCOME: f'$0-{matches[0]}'},
+    r'Female': lambda matches: {MetadataKey.SEX: Sex.FEMALE},
+    r'Male': lambda matches: {MetadataKey.SEX: Sex.MALE},
+    r'With health insurance coverage': lambda matches: {MetadataKey.POPULATION: HealthInsurancePopulation.WITH},
+    r'No health insurance coverage': lambda matches: {MetadataKey.POPULATION: HealthInsurancePopulation.WITHOUT},
+    r'Income in the past 12 months below poverty level:': lambda matches: {MetadataKey.POPULATION: PovertyPopulation.BELOW},
+    r'Income in the past 12 months at or above poverty level:': lambda matches: {MetadataKey.POPULATION: PovertyPopulation.ABOVE}
 }
 
 
