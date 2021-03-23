@@ -1,7 +1,6 @@
 import React from "react";
 import { DisparityBarChart } from "../charts/DisparityBarChart";
 import styles from "./Card.module.scss";
-import { Alert } from "@material-ui/lab";
 import { CardContent } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { Fips } from "../data/utils/Fips";
@@ -15,6 +14,7 @@ import { MetricConfig } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 import DisparityInfoPopover from "./ui/DisparityInfoPopover";
+import MissingDataAlert from "./ui/MissingDataAlert";
 import { usePopover } from "../utils/usePopover";
 import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC, TOTAL } from "../data/utils/Constants";
@@ -85,9 +85,12 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               props.metricConfig.metricId,
             ]) && (
               <CardContent className={styles.Breadcrumbs}>
-                <Alert severity="warning">
-                  Missing data means that we don't know the full story.
-                </Alert>
+                <MissingDataAlert
+                  dataName={props.metricConfig.fullCardTitleName}
+                  breakdownString={
+                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+                  }
+                />
               </CardContent>
             )}
             {!queryResponse.shouldShowMissingDataMessage([

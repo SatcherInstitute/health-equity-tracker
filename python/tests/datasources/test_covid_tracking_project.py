@@ -57,23 +57,28 @@ def testWriteToBq(mock_append_to_bq: mock.MagicMock, mock_csv: mock.MagicMock,
               'metadata_table_id': 'test_metadata',
               'table_name': 'output_table'}
     ctp.write_to_bq('dataset', 'gcs_bucket', **kwargs)
-    mock_append_to_bq.assert_called_once()
-    result = mock_append_to_bq.call_args.args[0]
-    expected_rows = (_RACE_CATEGORIES - 1) * _VARIABLE_TYPES * _NUM_ROWS
-    expected_cols = 7
-    assert result.shape == (expected_rows, expected_cols)
-    expected_col_names = [
-        'date', 'state_postal_abbreviation', 'race',
-        'variable_type', 'value', 'reports_race', 'race_ethnicity_separately']
-    assert set(result.columns) == set(expected_col_names)
-    assert len(result.loc[
-        result['race'] == col_std.Race.INDIGENOUS.value].index) == 2
-    assert len(result.loc[
-        result['race'] == col_std.Race.API.value].index) == 6
-    expected_dtypes = {col: np.object for col in result.columns}
-    expected_dtypes['value'] = np.float64
-    for col in result.columns:
-        assert result[col].dtype == expected_dtypes[col]
+    assert mock_append_to_bq.call_count == 4
+    var_types = ['cases', 'deaths', 'tests', 'hosp']
+    for i in range(len(var_types)):
+        result = mock_append_to_bq.call_args_list[i].args[0]
+        expected_rows = (_RACE_CATEGORIES - 1) * _NUM_ROWS
+        expected_col_names = [
+            'date', 'state_postal_abbreviation', 'race',
+            var_types[i], 'reports_race', 'race_ethnicity_separately']
+        assert result.shape == (expected_rows, len(expected_col_names))
+        assert set(result.columns) == set(expected_col_names)
+        expected_ind_rows = {'cases': 1, 'deaths': 1}
+        assert (len(result.loc[
+            result['race'] == col_std.Race.INDIGENOUS.value].index) ==
+            expected_ind_rows.get(var_types[i], 0))
+        expected_api_rows = {'cases': 4, 'deaths': 2}
+        assert (len(result.loc[
+            result['race'] == col_std.Race.API.value].index) ==
+            expected_api_rows.get(var_types[i], 0))
+        expected_dtypes = {col: np.object for col in result.columns}
+        expected_dtypes[var_types[i]] = np.float64
+        for col in result.columns:
+            assert result[col].dtype == expected_dtypes[col]
 
 
 def testWriteToBq_MissingAttr():
