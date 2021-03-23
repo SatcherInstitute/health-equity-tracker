@@ -83,4 +83,4 @@ class PrimaryCareAccess(DataSource):
             'primary_care_physicians_rate': 'FLOAT64',
         }
         gcs_to_bq_util.append_dataframe_to_bq(
-            new_dataframe, dataset, self.get_staging_table_name(), column_types=column_types)
+            new_dataframe, dataset, self.get_table_name(), column_types=column_types)

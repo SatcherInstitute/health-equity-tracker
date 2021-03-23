@@ -2,9 +2,6 @@
 INGESTION_URL=$(gcloud run services list --platform managed --filter ingestion-service --format 'value(status.url)')
 echo "Using Fetched Data: ${INGESTION_URL}"
 
-DEDUPE_URL=$(gcloud run services list --platform managed --filter dedupe-service --format 'value(status.url)')
-echo "Using Fetched Data: ${DEDUPE_URL}"
-
 GCS_TO_BQ_URL=$(gcloud run services list --platform managed --filter gcs-to-bq-service --format 'value(status.url)')
 echo "Using Fetched Data: ${GCS_TO_BQ_URL}"
 
@@ -24,7 +21,6 @@ echo "Using Manual Bucket: $MANUAL_BUCKET"
 
 gcloud composer environments update data-ingestion-environment \
 --update-env-variables=AIRFLOW_VAR_INGEST_TO_GCS_SERVICE_ENDPOINT=${INGESTION_URL} \
---update-env-variables=AIRFLOW_VAR_DEDUPE_SERVICE_ENDPOINT=${DEDUPE_URL} \
 --update-env-variables=AIRFLOW_VAR_GCS_TO_BQ_SERVICE_ENDPOINT=${GCS_TO_BQ_URL} \
 --update-env-variables=AIRFLOW_VAR_EXPORTER_SERVICE_ENDPOINT=${EXPORTER_URL} \
 --update-env-variables=AIRFLOW_VAR_AGGREGATOR_SERVICE_ENDPOINT=${AGGREGATOR_URL} \
