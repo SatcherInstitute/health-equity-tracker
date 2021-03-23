@@ -1,3 +1,4 @@
+//TODO: Rename to Count
 export type MetricId =
   | "population"
   | "population_pct"
@@ -21,7 +22,9 @@ export type MetricId =
   | "covid_deaths_reporting_population"
   | "covid_deaths_reporting_population_pct"
   | "covid_hosp_reporting_population"
-  | "covid_hosp_reporting_population_pct";
+  | "covid_hosp_reporting_population_pct"
+  | "health_insurance_count"
+  | "health_insurance_per_100k";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -44,12 +47,14 @@ export type MetricConfig = {
 export type VariableConfig = {
   variableId: string; // TODO - strongly type key
   variableDisplayName: string;
+  variableFullDisplayName: string;
   metrics: Record<string, MetricConfig>; // TODO - strongly type key
 };
 
 export const POPULATION_VARIABLE_CONFIG: VariableConfig = {
   variableId: "population",
   variableDisplayName: "Population",
+  variableFullDisplayName: "Population",
   metrics: {
     count: {
       metricId: "population",
@@ -108,6 +113,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "cases",
       variableDisplayName: "Cases",
+      variableFullDisplayName: "COVID-19 Cases",
       metrics: {
         count: {
           metricId: "covid_cases",
@@ -144,6 +150,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "deaths",
       variableDisplayName: "Deaths",
+      variableFullDisplayName: "COVID-19 Deaths",
       metrics: {
         count: {
           metricId: "covid_deaths",
@@ -180,6 +187,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "hospitalizations",
       variableDisplayName: "Hospitalizations",
+      variableFullDisplayName: "COVID-19 Hospitalizations",
       metrics: {
         count: {
           metricId: "covid_hosp",
@@ -218,6 +226,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "cases",
       variableDisplayName: "Cases",
+      variableFullDisplayName: "Diabetes Cases",
       metrics: {
         count: {
           metricId: "diabetes_count",
@@ -247,6 +256,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "cases",
       variableDisplayName: "Cases",
+      variableFullDisplayName: "COPD Cases",
       metrics: {
         count: {
           metricId: "copd_count",
@@ -267,6 +277,28 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           metricId: "copd_per_100k",
           fullCardTitleName: "COPD cases per 100,000 people",
           shortVegaLabel: "COPD cases per 100k",
+          type: "per100k",
+        },
+      },
+    },
+  ],
+  health_insurance: [
+    {
+      variableId: "health_coverage",
+      variableDisplayName: "Coverage",
+      variableFullDisplayName: "Health Insurance Coverage",
+      metrics: {
+        count: {
+          metricId: "health_insurance_count",
+          fullCardTitleName: "Individuals with health insurance coverage",
+          shortVegaLabel: "Individuals with health insurance",
+          type: "count",
+          populationComparisonMetric: POPULATION_VARIABLE_CONFIG.metrics.count,
+        },
+        per100k: {
+          metricId: "health_insurance_per_100k",
+          fullCardTitleName: "Health insurance coverage per 100,000 people",
+          shortVegaLabel: "Health insurance coverage per 100k",
           type: "per100k",
         },
       },

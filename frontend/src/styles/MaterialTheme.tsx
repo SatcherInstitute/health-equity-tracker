@@ -4,8 +4,8 @@ import "typeface-dm-sans";
 const MaterialTheme = createMuiTheme({
   palette: {
     primary: {
-      light: "#6a97bb",
-      main: "#07538f",
+      light: "#91C684",
+      main: "#0B5240",
       dark: "#054272",
     },
     secondary: {
@@ -22,6 +22,12 @@ const MaterialTheme = createMuiTheme({
       "@global": {
         body: {
           fontFamily: "DM Sans",
+        },
+        ".MuiAlert-standardInfo	.MuiAlert-icon": {
+          color: "#0B5240 !important",
+        },
+        ".MuiAlert-standardWarning	.MuiAlert-icon": {
+          color: "#D85C47 !important",
         },
       },
     },
@@ -49,9 +55,19 @@ const MaterialTheme = createMuiTheme({
         color: "black",
         textTransform: "none",
         "&$selected": {
-          backgroundColor: "#E8F0FE",
-          color: "#1A73E8",
+          backgroundColor: "#E1E9E7",
+          color: "#0B5240",
         },
+      },
+    },
+    MuiAlert: {
+      standardInfo: {
+        backgroundColor: "#F8F9FA !important",
+        color: "#00000 !important",
+      },
+      standardWarning: {
+        backgroundColor: "#FFF8EB !important",
+        color: "#00000 !important",
       },
     },
   },

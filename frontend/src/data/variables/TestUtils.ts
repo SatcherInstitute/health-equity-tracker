@@ -26,9 +26,17 @@ export const AL: FipsSpec = {
   code: "01",
   name: "Alabama",
 };
+export const CA: FipsSpec = {
+  code: "06",
+  name: "California",
+};
 export const MARIN: FipsSpec = {
   code: "06041",
   name: "Marin County",
+};
+export const WA: FipsSpec = {
+  code: "53",
+  name: "Washington",
 };
 export const USA: FipsSpec = {
   code: USA_FIPS,

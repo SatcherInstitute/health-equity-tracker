@@ -30,13 +30,13 @@ function getDataSourceMapFromDatasetIds(
 ): Record<string, DataSourceInfo> {
   let dataSourceMap: Record<string, DataSourceInfo> = {};
   datasetIds.forEach((datasetId) => {
-    const dataSourceId = metadata[datasetId].source_id;
+    const dataSourceId = metadata[datasetId]?.source_id || undefined;
     if (dataSourceId === undefined) {
       return;
     }
     if (!dataSourceMap[dataSourceId]) {
       dataSourceMap[dataSourceId] = {
-        name: DataSourceMetadataMap[dataSourceId].data_source_name,
+        name: DataSourceMetadataMap[dataSourceId]?.data_source_name || "",
         updateTimes:
           metadata[datasetId].update_time === "unknown"
             ? []

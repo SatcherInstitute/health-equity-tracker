@@ -122,6 +122,7 @@ function TwoVariableReport(props: {
             <Grid item xs={6}>
               <TableCard
                 fips={props.fips1}
+                variableConfig={variableConfig1}
                 metrics={getPer100kAndPctShareMetrics(variableConfig1)}
                 breakdownVar={breakdownVar}
               />
@@ -129,6 +130,7 @@ function TwoVariableReport(props: {
             <Grid item xs={6}>
               <TableCard
                 fips={props.fips2}
+                variableConfig={variableConfig2}
                 metrics={getPer100kAndPctShareMetrics(variableConfig2)}
                 breakdownVar={breakdownVar}
               />
