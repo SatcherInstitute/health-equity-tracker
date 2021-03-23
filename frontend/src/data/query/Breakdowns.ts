@@ -229,6 +229,17 @@ export class Breakdowns {
     );
   }
 
+  hasOneRegionOfGeographicGranularity() {
+    switch (this.geography) {
+      case "county":
+        return this.filterFips && this.filterFips.isCounty();
+      case "state":
+        return this.filterFips && this.filterFips.isState();
+      case "national":
+        return !this.filterFips || this.filterFips.isUsa();
+    }
+  }
+
   /** Filters to entries that exactly match the specified FIPS code. */
   withGeoFilter(fips: Fips): Breakdowns {
     this.filterFips = fips;

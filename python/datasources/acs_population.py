@@ -276,14 +276,8 @@ class ACSPopulationIngester():
     def get_table_name_by_race(self):
         return "by_race" + self.get_table_geo_suffix() + "_std"
 
-    def get_staging_table_name_by_race(self):
-        return self.get_table_name_by_race() + "_staging"
-
     def get_table_name_by_sex_age_race(self):
         return "by_sex_age_race" + self.get_table_geo_suffix() + "_std"
-
-    def get_staging_table_name_by_sex_age_race(self):
-        return self.get_table_name_by_sex_age_race() + "_staging"
 
     def get_filename(self, concept):
         """Returns the name of a file for the given ACS concept

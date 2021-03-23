@@ -305,6 +305,30 @@ const datasetMetadataList: DatasetMetadata[] = [
       },
     ],
   },
+  {
+    id: "acs_health_insurance-health_insurance_by_race_state",
+    name: "Health Insurance By Race and County",
+    update_time: "February",
+    fields: [],
+  },
+  {
+    id: "acs_health_insurance-health_insurance_by_race_county",
+    name: "Health Insurance By Race and State",
+    update_time: "February",
+    fields: [],
+  },
+  {
+    id: "acs_health_insurance-health_insurance_by_sex_state",
+    name: "Health Insurance By Sex and County",
+    update_time: "February",
+    fields: [],
+  },
+  {
+    id: "acs_health_insurance-health_insurance_by_sex_county",
+    name: "Health Insurance By Sex and State",
+    update_time: "February",
+    fields: [],
+  },
 ];
 
 export const FakeDatasetMetadataMap: Record<

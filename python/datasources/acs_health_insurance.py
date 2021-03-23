@@ -525,12 +525,12 @@ class AcsHealhInsuranceIngestor:
 
                 # County-Sex
                 if race is None:
-                    county_sex_data.append([state_fip, self.state_fips[state_fip], county_fip, self.county_fips[(
+                    county_sex_data.append([state_fip, self.state_fips[state_fip], state_fip + county_fip, self.county_fips[(
                         state_fip, county_fip)], age, sex, whi, wohi, total])
 
                 # County-Race
                 else:
-                    county_race_data.append([state_fip, self.state_fips[state_fip], county_fip, self.county_fips[(
+                    county_race_data.append([state_fip, self.state_fips[state_fip], state_fip + county_fip, self.county_fips[(
                         state_fip, county_fip)], age, race, whi, wohi, total])
 
         # Build Panda DataFrames with standardized cols
@@ -612,4 +612,4 @@ class ACSHealthInsurance(DataSource):
 #     'acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
 
 
-# AcsHealhInsuranceIngestor(BASE_ACS_URL).write_local_files_debug()
+AcsHealhInsuranceIngestor(BASE_ACS_URL).write_local_files_debug()

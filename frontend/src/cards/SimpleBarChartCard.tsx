@@ -16,7 +16,7 @@ import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 import DisparityInfoPopover from "./ui/DisparityInfoPopover";
 import { usePopover } from "../utils/usePopover";
 import { exclude } from "../data/query/BreakdownFilter";
-import { NON_HISPANIC, TOTAL } from "../data/utils/Constants";
+import { NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 
 export interface SimpleBarChartCardProps {
@@ -40,7 +40,7 @@ export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
 function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
-    exclude(TOTAL, NON_HISPANIC)
+    exclude(NON_HISPANIC)
   );
 
   const query = new MetricQuery([props.metricConfig.metricId], breakdowns);
@@ -91,7 +91,9 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
             ]) && (
               <CardContent className={styles.Breadcrumbs}>
                 <SimpleHorizontalBarChart
-                  data={queryResponse.data}
+                  data={queryResponse.getValidRowsForField(
+                    props.metricConfig.metricId
+                  )}
                   breakdownVar={props.breakdownVar}
                   metric={props.metricConfig}
                   showLegend={false}

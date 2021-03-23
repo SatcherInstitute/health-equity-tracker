@@ -1,3 +1,4 @@
+//TODO: Rename to Count
 export type MetricId =
   | "population"
   | "population_pct"
@@ -21,7 +22,9 @@ export type MetricId =
   | "covid_deaths_reporting_population"
   | "covid_deaths_reporting_population_pct"
   | "covid_hosp_reporting_population"
-  | "covid_hosp_reporting_population_pct";
+  | "covid_hosp_reporting_population_pct"
+  | "health_insurance_count"
+  | "health_insurance_per_100k";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -274,6 +277,28 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           metricId: "copd_per_100k",
           fullCardTitleName: "COPD cases per 100,000 people",
           shortVegaLabel: "COPD cases per 100k",
+          type: "per100k",
+        },
+      },
+    },
+  ],
+  health_insurance: [
+    {
+      variableId: "health_coverage",
+      variableDisplayName: "Coverage",
+      variableFullDisplayName: "Health Insurance Coverage",
+      metrics: {
+        count: {
+          metricId: "health_insurance_count",
+          fullCardTitleName: "Individuals with health insurance coverage",
+          shortVegaLabel: "Individuals with health insurance",
+          type: "count",
+          populationComparisonMetric: POPULATION_VARIABLE_CONFIG.metrics.count,
+        },
+        per100k: {
+          metricId: "health_insurance_per_100k",
+          fullCardTitleName: "Health insurance coverage per 100,000 people",
+          shortVegaLabel: "Health insurance coverage per 100k",
           type: "per100k",
         },
       },

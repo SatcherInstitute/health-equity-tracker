@@ -89,9 +89,9 @@ function CardWrapper(props: {
                 {consumedDatasetIds.length > 0 && <>Sources: </>}
                 {/* TODO- add commas and "and" between the data sources */}
                 {consumedDatasetIds.map((datasetId) => {
-                  const dataSourceId = metadata[datasetId].source_id || "";
+                  const dataSourceId = metadata[datasetId]?.source_id || "";
                   const dataSourceName =
-                    DataSourceMetadataMap[dataSourceId].data_source_name;
+                    DataSourceMetadataMap[dataSourceId]?.data_source_name || "";
                   return (
                     <>
                       <LinkWithStickyParams
