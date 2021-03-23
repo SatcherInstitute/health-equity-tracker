@@ -29,10 +29,8 @@ def ingest_data():
     logging.info(f"message: {event}")
 
     try:
-        if ingest_data_to_gcs(event):
-            return ('', HTTPStatus.CREATED)
-        else:
-            return ('', HTTPStatus.NO_CONTENT)
+        ingest_data_to_gcs(event)
+        return ('', HTTPStatus.CREATED)
     except Exception as e:
         logging.exception(e)
         return ('', HTTPStatus.BAD_REQUEST)
@@ -46,8 +44,6 @@ def ingest_data_to_gcs(event):
     Parameters:
        event: Dict containing the Pub/Sub method. The payload will be a base-64
               encoded string in the 'data' field.
-
-    Returns: A boolean indication of downloading a new file
     """
     is_airflow_run = event['is_airflow_run']
     if is_airflow_run:
@@ -70,11 +66,10 @@ def ingest_data_to_gcs(event):
         raise RuntimeError("ID: {}, is not a valid id".format(workflow_id))
 
     data_source = DATA_SOURCES_DICT[workflow_id]
-    file_download = data_source.upload_to_gcs(gcs_bucket, **attrs)
+    data_source.upload_to_gcs(gcs_bucket, **attrs)
 
     logging.info(
         "Successfully uploaded data to GCS for workflow %s", workflow_id)
-    return file_download
 
 
 if __name__ == "__main__":

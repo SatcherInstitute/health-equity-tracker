@@ -19,10 +19,6 @@ class DataSource(ABC):
         stored. """
         pass
 
-    def get_staging_table_name(self):
-        """Returns the BigQuery staging data table name."""
-        return self.get_table_name() + "_staging"
-
     def get_historical_table_name(self):
         """Returns the BigQuery historical data table name."""
         return self.get_table_name() + "_historical"
@@ -65,7 +61,7 @@ class DataSource(ABC):
                needed for this data source."""
         self.write_to_bq_table(dataset, gcs_bucket,
                                self.get_attr(attrs, 'filename'),
-                               self.get_staging_table_name())
+                               self.get_table_name())
 
     def write_to_bq_table(self, dataset: str, gcs_bucket: str,
                           filename: str, table_name: str, project=None):

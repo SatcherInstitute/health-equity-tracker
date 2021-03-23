@@ -25,8 +25,6 @@ ctp_gcs_payload = util.generate_gcs_payload(
     _CTP_WORKFLOW_ID, filename=_CTP_GCS_FILENAME, url=_CTP_DOWNLOAD_URL)
 ctp_gcs_operator = util.create_gcs_ingest_operator(
     ctp_gcs_task_id, ctp_gcs_payload, data_ingestion_dag)
-ctp_gcs_short_op = util.create_gcs_short_circuit_operator(
-    'did_ctp_files_download', ctp_gcs_task_id, data_ingestion_dag)
 
 # Standardize and write to BQ
 ctp_bq_payload = util.generate_bq_payload(
@@ -36,4 +34,4 @@ ctp_bq_op = util.create_bq_ingest_operator(
 
 # Covid Tracking Project Ingestion DAG
 # TODO(jenniebrown): Add the rest of the steps
-(ctp_gcs_operator >> ctp_gcs_short_op >> ctp_bq_op)
+(ctp_gcs_operator >> ctp_bq_op)

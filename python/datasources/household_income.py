@@ -78,4 +78,4 @@ class HouseholdIncome(DataSource):
         # ALL_CAPS counterparts. Toss 'em.
         concat.drop(columns=['state', 'county', 'time'], inplace=True)
         gcs_to_bq_util.append_dataframe_to_bq(
-            concat, dataset, self.get_staging_table_name())
+            concat, dataset, self.get_table_name())
