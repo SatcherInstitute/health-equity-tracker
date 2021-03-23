@@ -22,12 +22,12 @@ echo "Using Fetched Data: ${AGGREGATOR_URL}"
 echo Input landing bucket?
 LANDING_BUCKET=$(gsutil ls | grep -oP ".*landing.*")
 LANDING_BUCKET=${LANDING_BUCKET:5:-1}
-echo $LANDING_BUCKET
+echo "Using Landing Bucket: $LANDING_BUCKET"
 
 echo Input manual upload bucket?
 MANUAL_BUCKET=$(gsutil ls | grep -oP ".*manual.*")
 MANUAL_BUCKET=${MANUAL_BUCKET:5:-1}
-echo $MANUAL_BUCKET
+echo "Using Manual Bucket: $MANUAL_BUCKET"
 
 gcloud composer environments update data-ingestion-environment \
 --update-env-variables=AIRFLOW_VAR_INGEST_TO_GCS_SERVICE_ENDPOINT=${INGESTION_URL} \
