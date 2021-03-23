@@ -18,6 +18,10 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
       "acs_population-by_age_county",
       "acs_population-by_sex_state",
       "acs_population-by_sex_county",
+      "acs_health_insurance-health_insurance_by_race_state",
+      "acs_health_insurance-health_insurance_by_race_county",
+      "acs_health_insurance-health_insurance_by_sex_state",
+      "acs_health_insurance-health_insurance_by_sex_county",
     ],
   },
   {
