@@ -286,6 +286,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "health_coverage",
       variableDisplayName: "Coverage",
+      variableFullDisplayName: "Health Insurance Coverage",
       metrics: {
         count: {
           metricId: "health_insurance_count",
