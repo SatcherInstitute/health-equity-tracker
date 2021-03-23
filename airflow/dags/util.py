@@ -1,12 +1,10 @@
 '''Collection of shared Airflow functionality.'''
-from http import HTTPStatus
 import os
 import requests
 # Ignore the Airflow module, it is installed in both our dev and prod environments
 from airflow import DAG  # type: ignore
 from airflow.models import Variable  # type: ignore
 from airflow.operators.python_operator import PythonOperator  # type: ignore
-from airflow.operators.python_operator import ShortCircuitOperator  # type: ignore
 
 
 def get_required_attrs(workflow_id: str, gcs_bucket: str = None) -> dict:
@@ -117,30 +115,5 @@ def create_request_operator(task_id: str, url: str, payload: dict, dag: DAG, xco
         python_callable=service_request,
         op_kwargs={'url': url, 'data': payload},
         xcom_push=xcom_push,
-        dag=dag,
-    )
-
-
-def did_gcs_file_download(gcs_download_task_id: str, **kwargs):
-    """
-    Check the response code of the gcs download step.
-
-    Parameters:
-        gcs_download_task_id: the task id of the
-        kwargs: remaining named function arguments
-
-    Returns: A boolean indication that a file was downloaded
-    """
-    response_code = kwargs['ti'].xcom_pull(
-        key=None, task_ids=gcs_download_task_id)
-    return response_code == HTTPStatus.CREATED
-
-
-def create_gcs_short_circuit_operator(task_id: str, gcs_download_task_id: str, dag: DAG, provide_context: bool = True):
-    return ShortCircuitOperator(
-        task_id=task_id,
-        provide_context=provide_context,
-        python_callable=did_gcs_file_download,
-        op_kwargs={'gcs_download_task_id': gcs_download_task_id},
         dag=dag,
     )
