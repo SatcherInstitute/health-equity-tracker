@@ -1,4 +1,4 @@
-import { Breakdowns, ALL_RACES_DISPLAY_NAME } from "../query/Breakdowns";
+import { Breakdowns } from "../query/Breakdowns";
 import { per100k } from "../utils/datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
