@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-import { Button, Grid } from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
-import ToggleButton from "@material-ui/lab/ToggleButton";
-import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
-import {
-  BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES,
-} from "../data/query/Breakdowns";
+import { Grid } from "@material-ui/core";
+import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
 import { MapCard } from "../cards/MapCard";
 import { PopulationCard } from "../cards/PopulationCard";
 import { TableCard } from "../cards/TableCard";
@@ -17,15 +11,10 @@ import { Fips } from "../data/utils/Fips";
 import {
   METRIC_CONFIG,
   VariableConfig,
-  MetricConfig,
+  getPer100kAndPctShareMetrics,
 } from "../data/config/MetricConfig";
-import styles from "./Report.module.scss";
-
-const SUPPORTED_BREAKDOWNS: BreakdownVar[] = [
-  "race_and_ethnicity",
-  "age",
-  "sex",
-];
+import ReportToggleControls from "./ui/ReportToggleControls";
+import NoDataAlert from "./ui/NoDataAlert";
 
 export interface VariableDisparityReportProps {
   key: string;
@@ -48,21 +37,6 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
       : null
   );
 
-  let tableFields: MetricConfig[] = [];
-  if (variableConfig) {
-    if (variableConfig.metrics["per100k"]) {
-      tableFields.push(variableConfig.metrics["per100k"]);
-    }
-    if (variableConfig.metrics["pct_share"]) {
-      tableFields.push(variableConfig.metrics["pct_share"]);
-      if (variableConfig.metrics["pct_share"].populationComparisonMetric) {
-        tableFields.push(
-          variableConfig.metrics["pct_share"].populationComparisonMetric
-        );
-      }
-    }
-  }
-
   const breakdownIsShown = (breakdownVar: string) =>
     currentBreakdown === "all" || currentBreakdown === breakdownVar;
 
@@ -74,102 +48,18 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
         </Grid>
       )}
 
-      {!variableConfig && (
-        <Grid item xs={5}>
-          <Alert style={{ margin: "20px" }} severity="error">
-            This data is not currently available in the Health Equity Tracker,
-            but will be coming soon.
-            <br />
-            {/* TODO - buttons should be actual working a href links and better follow UX*/}
-            <Button
-              style={{
-                padding: "0",
-                paddingLeft: "5px",
-                paddingRight: "5px",
-                background: "none",
-                textDecoration: "underline",
-              }}
-              onClick={() => alert("unimplemented")}
-            >
-              See our roadmap to learn more.
-            </Button>
-          </Alert>
-          <Alert variant="outlined" severity="info">
-            Do you have information on {props.dropdownVarId} at the state or
-            local level?
-            <Button
-              style={{
-                padding: "0",
-                paddingLeft: "5px",
-                paddingRight: "5px",
-                background: "none",
-                textDecoration: "underline",
-              }}
-              onClick={() => alert("unimplemented")}
-            >
-              We would love to hear from you.
-            </Button>
-          </Alert>
-        </Grid>
-      )}
+      {!variableConfig && <NoDataAlert dropdownVarId={props.dropdownVarId} />}
 
       {variableConfig && (
         <Grid container spacing={1} justify="center">
           <Grid container xs={12}>
-            {!!METRIC_CONFIG[props.dropdownVarId] &&
-              METRIC_CONFIG[props.dropdownVarId].length > 1 && (
-                <Grid item className={styles.ToggleBlock}>
-                  <span className={styles.ToggleLabel}>Choose Data Type</span>
-                  <ToggleButtonGroup
-                    exclusive
-                    value={variableConfig.variableId}
-                    onChange={(e, variableId) => {
-                      if (
-                        variableId !== null &&
-                        METRIC_CONFIG[props.dropdownVarId]
-                      ) {
-                        setVariableConfig(
-                          METRIC_CONFIG[props.dropdownVarId].find(
-                            (variableConfig) =>
-                              variableConfig.variableId === variableId
-                          ) as VariableConfig
-                        );
-                      }
-                    }}
-                    aria-label="text formatting"
-                  >
-                    {METRIC_CONFIG[props.dropdownVarId].map(
-                      (variable: VariableConfig, key: number) => (
-                        <ToggleButton value={variable.variableId} key={key}>
-                          {variable.variableDisplayName}
-                        </ToggleButton>
-                      )
-                    )}
-                  </ToggleButtonGroup>
-                </Grid>
-              )}
-            <Grid item className={styles.ToggleBlock}>
-              <span className={styles.ToggleLabel}>Choose Demographic</span>
-              <ToggleButtonGroup
-                exclusive
-                value={currentBreakdown}
-                onChange={(e, v) => {
-                  if (v !== null) {
-                    setCurrentBreakdown(v);
-                  }
-                }}
-                aria-label="text formatting"
-              >
-                <ToggleButton value="all" key="all">
-                  All
-                </ToggleButton>
-                {SUPPORTED_BREAKDOWNS.map((breakdownVar) => (
-                  <ToggleButton value={breakdownVar} key={breakdownVar}>
-                    {BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar]}
-                  </ToggleButton>
-                ))}
-              </ToggleButtonGroup>
-            </Grid>
+            <ReportToggleControls
+              dropdownVarId={props.dropdownVarId}
+              variableConfig={variableConfig}
+              setVariableConfig={setVariableConfig}
+              currentBreakdown={currentBreakdown}
+              setCurrentBreakdown={setCurrentBreakdown}
+            />
           </Grid>
           <Grid item xs={props.vertical ? 12 : 6}>
             <MapCard
@@ -180,12 +70,13 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               }}
               currentBreakdown={currentBreakdown}
             />
-            {SUPPORTED_BREAKDOWNS.map((breakdownVar) => (
+            {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
               <>
                 {breakdownIsShown(breakdownVar) && (
                   <TableCard
                     fips={props.fips}
-                    metrics={tableFields}
+                    variableConfig={variableConfig}
+                    metrics={getPer100kAndPctShareMetrics(variableConfig)}
                     breakdownVar={breakdownVar}
                   />
                 )}
@@ -193,7 +84,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
             ))}
           </Grid>
           <Grid item xs={props.vertical ? 12 : 6}>
-            {SUPPORTED_BREAKDOWNS.map((breakdownVar) => (
+            {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
               <>
                 {breakdownIsShown(breakdownVar) &&
                   variableConfig.metrics["pct_share"] && (

@@ -1,6 +1,5 @@
 import React from "react";
 import { TableChart } from "../charts/TableChart";
-import { Alert } from "@material-ui/lab";
 import CardWrapper from "./CardWrapper";
 import { MetricQuery } from "../data/query/MetricQuery";
 import { Fips } from "../data/utils/Fips";
@@ -10,15 +9,21 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { CardContent } from "@material-ui/core";
-import { MetricConfig, MetricId } from "../data/config/MetricConfig";
+import {
+  MetricConfig,
+  MetricId,
+  VariableConfig,
+} from "../data/config/MetricConfig";
 import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC } from "../data/utils/Constants";
+import MissingDataAlert from "./ui/MissingDataAlert";
 
 export interface TableCardProps {
   fips: Fips;
   breakdownVar: BreakdownVar;
   metrics: MetricConfig[];
+  variableConfig: VariableConfig;
 }
 
 export function TableCard(props: TableCardProps) {
@@ -56,9 +61,14 @@ export function TableCard(props: TableCardProps) {
           <>
             {queryResponse.shouldShowMissingDataMessage(metricIds) && (
               <CardContent>
-                <Alert severity="warning">
-                  Missing data means that we don't know the full story.
-                </Alert>
+                <MissingDataAlert
+                  dataName={
+                    props.variableConfig.variableFullDisplayName + " data"
+                  }
+                  breakdownString={
+                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+                  }
+                />
               </CardContent>
             )}
             {!queryResponse.dataIsMissing() && (
