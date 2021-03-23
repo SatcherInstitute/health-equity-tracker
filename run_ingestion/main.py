@@ -30,7 +30,7 @@ def ingest_data():
 
     try:
         ingest_data_to_gcs(event)
-        return ('', HTTPStatus.NO_CONTENT)
+        return ('', HTTPStatus.CREATED)
     except Exception as e:
         logging.exception(e)
         return ('', HTTPStatus.BAD_REQUEST)
