@@ -1,30 +1,23 @@
 #!/usr/bin/env bash
-echo Input ingestion service url?
 INGESTION_URL=$(gcloud run services list --platform managed --filter ingestion-service --format 'value(status.url)')
 echo "Using Fetched Data: ${INGESTION_URL}"
 
-echo Input dedupe service url?
 DEDUPE_URL=$(gcloud run services list --platform managed --filter dedupe-service --format 'value(status.url)')
 echo "Using Fetched Data: ${DEDUPE_URL}"
 
-echo Input gcs to bq service url?
 GCS_TO_BQ_URL=$(gcloud run services list --platform managed --filter gcs-to-bq-service --format 'value(status.url)')
 echo "Using Fetched Data: ${GCS_TO_BQ_URL}"
 
-echo Input exporter service url?
 EXPORTER_URL=$(gcloud run services list --platform managed --filter exporter-service --format 'value(status.url)')
 echo "Using Fetched Data: ${EXPORTER_URL}"
 
-echo Input aggregator service url?
 AGGREGATOR_URL=$(gcloud run services list --platform managed --filter aggregator-service --format 'value(status.url)')
 echo "Using Fetched Data: ${AGGREGATOR_URL}"
 
-echo Input landing bucket?
 LANDING_BUCKET=$(gsutil ls | grep -oP ".*landing.*")
 LANDING_BUCKET=${LANDING_BUCKET:5:-1}
 echo "Using Landing Bucket: $LANDING_BUCKET"
 
-echo Input manual upload bucket?
 MANUAL_BUCKET=$(gsutil ls | grep -oP ".*manual.*")
 MANUAL_BUCKET=${MANUAL_BUCKET:5:-1}
 echo "Using Manual Bucket: $MANUAL_BUCKET"
