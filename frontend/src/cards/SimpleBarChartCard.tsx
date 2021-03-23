@@ -16,7 +16,7 @@ import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 import DisparityInfoPopover from "./ui/DisparityInfoPopover";
 import { usePopover } from "../utils/usePopover";
 import { exclude } from "../data/query/BreakdownFilter";
-import { NON_HISPANIC, TOTAL } from "../data/utils/Constants";
+import { NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 
 export interface SimpleBarChartCardProps {
