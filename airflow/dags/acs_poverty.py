@@ -24,9 +24,6 @@ acs_poverty_gcs_payload = util.generate_gcs_payload(
 acs_poverty_gcs_operator = util.create_gcs_ingest_operator(
     acs_poverty_gcs_task_id, acs_poverty_gcs_payload, data_ingestion_dag)
 
-acs_poverty_gcs_short_op = util.create_gcs_short_circuit_operator(
-    'did_acs_poverty_files_download', acs_poverty_gcs_task_id, data_ingestion_dag)
-
 acs_poverty_bq_payload = util.generate_bq_payload(
     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, url=_ACS_BASE_URL)
 acs_poverty_bq_operator = util.create_bq_ingest_operator(
@@ -41,5 +38,5 @@ acs_poverty_exporter_operator = util.create_exporter_operator(
     'acs_poverty_exporter', acs_poverty_exporter_payload, data_ingestion_dag)
 
 # Ingestion DAG
-(acs_poverty_gcs_operator >> acs_poverty_gcs_short_op >>
+(acs_poverty_gcs_operator  >>
  acs_poverty_bq_operator >> acs_poverty_aggregator_operator >> acs_poverty_exporter_operator)
