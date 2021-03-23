@@ -234,7 +234,7 @@ describe("AcsPopulationProvider", () => {
       Breakdowns.forFips(new Fips(DURHAM.code)),
       RACE,
       [D_ASIAN_FINAL, D_WHITE_FINAL],
-      [D_ASIAN_FINAL, D_WHITE_FINAL, D_TOTAL_FINAL]
+      [D_TOTAL_FINAL, D_ASIAN_FINAL, D_WHITE_FINAL]
     );
   });
 
@@ -305,9 +305,9 @@ describe("AcsPopulationProvider", () => {
         [
           finalPopulationCountAndPctRow(NC, RACE, TOTAL, 20, 100),
           finalPopulationCountAndPctRow(NC, RACE, ASIAN_NH, 5, 25),
-          finalPopulationCountAndPctRow(NC, RACE, WHITE_NH, 15, 75),
-          finalPopulationCountAndPctRow(NC, RACE, WHITE, 17, 85),
           finalPopulationCountAndPctRow(NC, RACE, NON_HISPANIC, 13, 65),
+          finalPopulationCountAndPctRow(NC, RACE, WHITE, 17, 85),
+          finalPopulationCountAndPctRow(NC, RACE, WHITE_NH, 15, 75),
         ],
         [datasetId]
       )
@@ -370,7 +370,7 @@ describe("AcsPopulationProvider", () => {
       Breakdowns.national(),
       RACE,
       [NATIONAL_ASIAN_FINAL, NATIONAL_WHITE_FINAL],
-      [NATIONAL_ASIAN_FINAL, NATIONAL_TOTAL_FINAL, NATIONAL_WHITE_FINAL]
+      [NATIONAL_TOTAL_FINAL, NATIONAL_ASIAN_FINAL, NATIONAL_WHITE_FINAL]
     );
   });
 
@@ -464,7 +464,7 @@ describe("AcsPopulationProvider", () => {
       Breakdowns.forFips(new Fips(DURHAM.code)),
       AGE,
       [D_0_9_FINAL, D_10_19_FINAL],
-      [D_0_9_FINAL, D_10_19_FINAL, D_TOTAL_FINAL]
+      [D_TOTAL_FINAL, D_0_9_FINAL, D_10_19_FINAL]
     );
   });
 
@@ -503,7 +503,7 @@ describe("AcsPopulationProvider", () => {
       Breakdowns.forFips(new Fips(NC.code)),
       AGE,
       [NC_AGE_0_9_FINAL, NC_AGE_10_19_FINAL],
-      [NC_AGE_0_9_FINAL, NC_AGE_10_19_FINAL, NC_TOTAL_FINAL]
+      [NC_TOTAL_FINAL, NC_AGE_0_9_FINAL, NC_AGE_10_19_FINAL]
     );
   });
 
@@ -542,7 +542,7 @@ describe("AcsPopulationProvider", () => {
       Breakdowns.national(),
       AGE,
       [AGE_0_9_FINAL, AGE_10_19_FINAL],
-      [AGE_0_9_FINAL, AGE_10_19_FINAL, AGE_TOTAL_FINAL]
+      [AGE_TOTAL_FINAL, AGE_0_9_FINAL, AGE_10_19_FINAL]
     );
   });
 
@@ -568,8 +568,8 @@ describe("AcsPopulationProvider", () => {
       rawData,
       Breakdowns.forFips(new Fips(NC.code)),
       SEX,
-      [NC_MALE_FINAL, NC_FEMALE_FINAL],
-      [NC_MALE_FINAL, NC_FEMALE_FINAL, NC_TOTAL]
+      [NC_FEMALE_FINAL, NC_MALE_FINAL],
+      [NC_TOTAL, NC_FEMALE_FINAL, NC_MALE_FINAL]
     );
   });
 
@@ -596,7 +596,7 @@ describe("AcsPopulationProvider", () => {
       Breakdowns.national(),
       SEX,
       [FEMALE_FINAL, MALE_FINAL],
-      [FEMALE_FINAL, MALE_FINAL, TOTAL_FINAL]
+      [TOTAL_FINAL, FEMALE_FINAL, MALE_FINAL]
     );
   });
 
@@ -617,7 +617,7 @@ describe("AcsPopulationProvider", () => {
       Breakdowns.national(),
       SEX,
       [FEMALE_FINAL, MALE_FINAL],
-      [FEMALE_FINAL, MALE_FINAL, TOTAL_FINAL]
+      [TOTAL_FINAL, FEMALE_FINAL, MALE_FINAL]
     );
   });
 });

@@ -98,7 +98,9 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
             ]) && (
               <CardContent className={styles.Breadcrumbs}>
                 <DisparityBarChart
-                  data={queryResponse.data}
+                  data={queryResponse.getValidRowsForField(
+                    props.metricConfig.metricId
+                  )}
                   lightMetric={props.metricConfig.populationComparisonMetric!}
                   darkMetric={props.metricConfig}
                   breakdownVar={props.breakdownVar}
