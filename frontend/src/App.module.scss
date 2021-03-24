@@ -19,26 +19,40 @@
   height: 100%;
 }
 
-.NavLink {
-  button {
-    color: $white;
-  }
-  &:link,
-  &:visited {
-    color: $white;
-    text-decoration: none;
-  }
+.AppToolbar {
+  background-color: white;
+  border-bottom: 1px solid black;
+  min-height: 65px;
+}
+
+.AppbarLogoImg {
+  width: 30px;
+  height: 30px;
+  margin-top: 5px;
 }
 
 .HomeLogo {
   flex-grow: 1;
   text-align: left;
-  font-family: "Montserrat" !important;
-  text-transform: uppercase;
-  color: $white;
+  font-family: "DM Sans", sans-serif !important;
+  color: $alt-green;
+  padding-left: 17px;
   a:link,
   a:visited {
-    color: $white;
+    color: $alt-green;
+    text-decoration: none;
+  }
+}
+
+.NavLink {
+  button {
+    color: #202124;
+    margin: 0 5px 0 5px;
+    font-family: "DM Sans", sans-serif !important;
+  }
+  &:link,
+  &:visited {
+    color: #202124;
     text-decoration: none;
   }
 }
