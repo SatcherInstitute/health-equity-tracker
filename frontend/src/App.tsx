@@ -5,6 +5,7 @@ import AboutUsPage from "./pages/AboutUs/AboutUsPage";
 import DataCatalogTab from "./pages/DataCatalog/DataCatalogTab";
 import ExploreDataPage from "./pages/ExploreData/ExploreDataPage";
 import LandingPage from "./pages/Landing/LandingPage";
+import WhatIsHealthEquityPage from './pages/WhatIsHealthEquity/WhatIsHealthEquityPage';
 import NotFoundPage from "./pages/NotFoundPage";
 import Footer from "./Footer";
 import AppBar from "@material-ui/core/AppBar";
@@ -30,6 +31,7 @@ import {
   EXPLORE_DATA_PAGE_LINK,
   DATA_CATALOG_PAGE_LINK,
   ABOUT_US_PAGE_LINK,
+  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "./utils/urlutils";
 import { autoInitGlobals, getEnvironment } from "./utils/globals";
 import ReactTooltip from "react-tooltip";
@@ -43,6 +45,7 @@ const PAGE_URL_TO_NAMES: Record<string, string> = {
   [ABOUT_US_PAGE_LINK]: "About Us",
   [DATA_CATALOG_PAGE_LINK]: "Data Sources & Methodology",
   [EXPLORE_DATA_PAGE_LINK]: "Explore the Data",
+  [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: "What is Health Equity?",
 };
 
 autoInitGlobals();
@@ -83,7 +86,8 @@ function AppToolbar() {
           Health Equity Tracker
         </LinkWithStickyParams>
       </Typography>
-      {[EXPLORE_DATA_PAGE_LINK, DATA_CATALOG_PAGE_LINK, ABOUT_US_PAGE_LINK].map(
+      {[EXPLORE_DATA_PAGE_LINK, DATA_CATALOG_PAGE_LINK,
+        WHAT_IS_HEALTH_EQUITY_PAGE_LINK, ABOUT_US_PAGE_LINK].map(
         (pageUrl, i) => (
           <LinkWithStickyParams to={pageUrl} class={styles.NavLink}>
             <Button key={i}>{PAGE_URL_TO_NAMES[pageUrl]}</Button>
@@ -144,6 +148,10 @@ function App() {
               <Route
                 path={EXPLORE_DATA_PAGE_LINK}
                 component={ExploreDataPage}
+              />
+              <Route
+                  path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+                  component={WhatIsHealthEquityPage}
               />
               <Route exact path="/" component={LandingPage} />
               <Route component={NotFoundPage} />
