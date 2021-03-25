@@ -62,6 +62,7 @@ export function Sources(props: {
     return !response.isFieldMissing("race_and_ethnicity");
   });
 
+  // TODO: Remove brittle assumption when we have more product direction here
   // Assumes that all data sources have the same value for includesHispanic
   // Data sources that don't have the same values should not be displayed together
   const dataSourceIncludesHispanic = Object.values(dataSourceMap).find(
