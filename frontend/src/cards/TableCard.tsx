@@ -46,7 +46,7 @@ export function TableCard(props: TableCardProps) {
     <CardWrapper
       queries={[query]}
       title={
-        <>{`${
+        <>{`${props.variableConfig.variableFullDisplayName} by ${
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
         } in ${props.fips.getFullDisplayName()}`}</>
       }
@@ -62,9 +62,7 @@ export function TableCard(props: TableCardProps) {
             {queryResponse.shouldShowMissingDataMessage(metricIds) && (
               <CardContent>
                 <MissingDataAlert
-                  dataName={
-                    props.variableConfig.variableFullDisplayName + " data"
-                  }
+                  dataName={props.variableConfig.variableFullDisplayName + " "}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
