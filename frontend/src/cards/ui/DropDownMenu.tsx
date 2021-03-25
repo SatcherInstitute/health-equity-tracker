@@ -7,6 +7,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Popover, { PopoverOrigin } from "@material-ui/core/Popover";
 import { usePopover, PopoverElements } from "../../utils/usePopover";
+import styles from "./DropDownMenu.module.scss";
 
 const ANCHOR_ORIGIN: PopoverOrigin = {
   vertical: "top",
@@ -112,8 +113,9 @@ function DropDownMenu(props: {
 
   return (
     <>
+      <div className={styles.FilterBy}>Filter by:</div>
       <Button variant="text" onClick={firstMenu.open}>
-        Filter by:<u>{props.value === "Total" ? "All" : props.value}</u>
+        <u>{props.value === "Total" ? "All" : props.value}</u>
         <ArrowDropDown />
       </Button>
 
