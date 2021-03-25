@@ -106,7 +106,7 @@ function MapCardWithKey(props: MapCardProps) {
         ) : undefined
       }
     >
-      {(queryResponses) => {
+      {(queryResponses, metadata) => {
         // Look up query at the same index as the breakdown.
         // TODO: we might consider returning a map of id to response from
         // CardWrapper so we don't need to rely on index order.
@@ -158,6 +158,8 @@ function MapCardWithKey(props: MapCardProps) {
               fieldRange={queryResponse.getFieldRange(
                 props.metricConfig.metricId
               )}
+              queryResponses={queryResponses} // TODO
+              metadata={metadata}
             />
             <CardContent className={styles.SmallMarginContent}>
               <MapBreadcrumbs
