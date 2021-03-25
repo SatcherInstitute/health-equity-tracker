@@ -36,12 +36,15 @@ export function TableChart(props: TableChartProps) {
   let columns = metrics.map((metricConfig) => {
     return {
       Header: metricConfig.fullCardTitleName,
+      Cell: (a: any) =>
+        isNaN(a.value) ? a.value : Number(a.value).toLocaleString(),
       accessor: metricConfig.metricId,
     };
   });
   columns = [
     {
       Header: BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar],
+      Cell: (cell: any) => cell.value,
       accessor: breakdownVar as MetricId,
     },
   ].concat(columns);
