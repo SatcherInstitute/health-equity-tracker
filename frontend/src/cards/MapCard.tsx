@@ -57,6 +57,12 @@ function MapCardWithKey(props: MapCardProps) {
   const [activeBreakdownFilter, setActiveBreakdownFilter] = useState<string>(
     ""
   );
+  const [activeBreakdownVar, setActiveBreakdownVar] = useState<BreakdownVar>(
+    props.currentBreakdown === "all"
+      ? ("race_and_ethnicity" as BreakdownVar)
+      : props.currentBreakdown
+  );
+
   const [
     smallMultiplesDialogOpen,
     setSmallMultiplesDialogOpen,
@@ -86,11 +92,6 @@ function MapCardWithKey(props: MapCardProps) {
       )
   );
 
-  const activeBreakdown: BreakdownVar =
-    props.currentBreakdown === "all"
-      ? "race_and_ethnicity"
-      : props.currentBreakdown;
-
   return (
     <CardWrapper
       queries={queries}
@@ -110,9 +111,9 @@ function MapCardWithKey(props: MapCardProps) {
         // TODO: we might consider returning a map of id to response from
         // CardWrapper so we don't need to rely on index order.
         const queryResponse =
-          queryResponses[requestedBreakdowns.indexOf(activeBreakdown)];
+          queryResponses[requestedBreakdowns.indexOf(activeBreakdownVar)];
         const breakdownValues = queryResponse
-          .getUniqueFieldValues(activeBreakdown)
+          .getUniqueFieldValues(activeBreakdownVar)
           .sort();
         if (
           activeBreakdownFilter === "" ||
@@ -123,13 +124,15 @@ function MapCardWithKey(props: MapCardProps) {
 
         const dataForActiveBreakdownFilter = queryResponse
           .getValidRowsForField(props.metricConfig.metricId)
-          .filter((row: Row) => row[activeBreakdown] === activeBreakdownFilter);
+          .filter(
+            (row: Row) => row[activeBreakdownVar] === activeBreakdownFilter
+          );
 
         // Create and populate a map of breakdown display name to options
         let filterOptions: Record<string, string[]> = {};
         const getBreakdownOptions = (breakdown: BreakdownVar) => {
           return queryResponses[requestedBreakdowns.indexOf(breakdown)]
-            .getUniqueFieldValues(activeBreakdown)
+            .getUniqueFieldValues(breakdown)
             .sort();
         };
         POSSIBLE_BREAKDOWNS.forEach((breakdown: BreakdownVar) => {
@@ -148,7 +151,7 @@ function MapCardWithKey(props: MapCardProps) {
               data={queryResponse.getValidRowsForField(
                 props.metricConfig.metricId
               )}
-              breakdown={activeBreakdown}
+              breakdown={activeBreakdownVar}
               handleClose={() => setSmallMultiplesDialogOpen(false)}
               open={smallMultiplesDialogOpen}
               breakdownValues={breakdownValues}
@@ -176,9 +179,14 @@ function MapCardWithKey(props: MapCardProps) {
                       <DropDownMenu
                         value={activeBreakdownFilter}
                         options={filterOptions}
-                        onOptionUpdate={(option) =>
-                          setActiveBreakdownFilter(option)
-                        }
+                        onOptionUpdate={(category, selection) => {
+                          setActiveBreakdownVar(
+                            category.toLowerCase() as BreakdownVar
+                          );
+                          if (selection !== undefined) {
+                            setActiveBreakdownFilter(selection);
+                          }
+                        }}
                       />
                     </Grid>
                     <Grid item>
@@ -187,7 +195,7 @@ function MapCardWithKey(props: MapCardProps) {
                         color="primary"
                       >
                         Show full breakdown by{" "}
-                        {BREAKDOWN_VAR_DISPLAY_NAMES[activeBreakdown]}
+                        {BREAKDOWN_VAR_DISPLAY_NAMES[activeBreakdownVar]}
                       </Button>
                     </Grid>
                   </Grid>
