@@ -181,10 +181,22 @@ function MapCardWithKey(props: MapCardProps) {
                       <DropDownMenu
                         value={activeBreakdownFilter}
                         options={filterOptions}
-                        onOptionUpdate={(category, selection) => {
-                          setActiveBreakdownVar(
-                            category.toLowerCase() as BreakdownVar
+                        onOptionUpdate={(
+                          newBreakdownDisplayName,
+                          selection
+                        ) => {
+                          // Get breakdownVar (ex. race_and_ethnicity) from display name (ex. Race and Ethnicity)
+                          const breakdownVar = Object.keys(
+                            BREAKDOWN_VAR_DISPLAY_NAMES
+                          ).find(
+                            (key) =>
+                              BREAKDOWN_VAR_DISPLAY_NAMES[
+                                key as BreakdownVar
+                              ] === newBreakdownDisplayName
                           );
+                          if (breakdownVar) {
+                            setActiveBreakdownVar(breakdownVar as BreakdownVar);
+                          }
                           if (selection !== undefined) {
                             setActiveBreakdownFilter(selection);
                           }
