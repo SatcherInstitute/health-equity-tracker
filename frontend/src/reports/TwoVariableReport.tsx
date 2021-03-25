@@ -65,37 +65,39 @@ function TwoVariableReport(props: {
       {props.fips1.code === props.fips2.code ? (
         <Grid item xs={12}>
           <PopulationCard fips={props.fips1} />
+          <ReportToggleControls
+            dropdownVarId={props.dropdownVarId1}
+            variableConfig={variableConfig1}
+            setVariableConfig={setVariableConfig1}
+            currentBreakdown={currentBreakdown}
+            setCurrentBreakdown={setCurrentBreakdown}
+          />
         </Grid>
       ) : (
         <>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <PopulationCard fips={props.fips1} />
+            <ReportToggleControls
+              dropdownVarId={props.dropdownVarId1}
+              variableConfig={variableConfig1}
+              setVariableConfig={setVariableConfig1}
+              currentBreakdown={currentBreakdown}
+              setCurrentBreakdown={setCurrentBreakdown}
+            />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <PopulationCard fips={props.fips2} />
+            <ReportToggleControls
+              dropdownVarId={props.dropdownVarId2}
+              variableConfig={variableConfig2}
+              setVariableConfig={setVariableConfig2}
+              currentBreakdown={currentBreakdown}
+              setCurrentBreakdown={setCurrentBreakdown}
+            />
           </Grid>
         </>
       )}
-
-      <Grid item xs={6}>
-        <ReportToggleControls
-          dropdownVarId={props.dropdownVarId1}
-          variableConfig={variableConfig1}
-          setVariableConfig={setVariableConfig1}
-          currentBreakdown={currentBreakdown}
-          setCurrentBreakdown={setCurrentBreakdown}
-        />
-      </Grid>
-      <Grid item xs={6}>
-        <ReportToggleControls
-          dropdownVarId={props.dropdownVarId2}
-          variableConfig={variableConfig2}
-          setVariableConfig={setVariableConfig2}
-          currentBreakdown={currentBreakdown}
-          setCurrentBreakdown={setCurrentBreakdown}
-        />
-      </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12} sm={6}>
         <MapCard
           metricConfig={variableConfig1.metrics["per100k"]}
           fips={props.fips1}
@@ -105,7 +107,7 @@ function TwoVariableReport(props: {
           currentBreakdown={currentBreakdown}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12} sm={6}>
         <MapCard
           metricConfig={variableConfig2.metrics["per100k"]}
           fips={props.fips2}
@@ -119,7 +121,7 @@ function TwoVariableReport(props: {
       {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
         !breakdownIsShown(breakdownVar) ? null : (
           <>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <TableCard
                 fips={props.fips1}
                 variableConfig={variableConfig1}
@@ -127,7 +129,7 @@ function TwoVariableReport(props: {
                 breakdownVar={breakdownVar}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <TableCard
                 fips={props.fips2}
                 variableConfig={variableConfig2}
@@ -142,7 +144,7 @@ function TwoVariableReport(props: {
         !breakdownIsShown(breakdownVar) ? null : (
           <>
             {variableConfig1.metrics["pct_share"] && (
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <DisparityBarChartCard
                   metricConfig={variableConfig1.metrics["pct_share"]}
                   breakdownVar={breakdownVar}
@@ -151,7 +153,7 @@ function TwoVariableReport(props: {
               </Grid>
             )}
             {variableConfig2.metrics["pct_share"] && (
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <DisparityBarChartCard
                   metricConfig={variableConfig2.metrics["pct_share"]}
                   breakdownVar={breakdownVar}
@@ -160,7 +162,7 @@ function TwoVariableReport(props: {
               </Grid>
             )}
             {variableConfig1.metrics["per100k"] && (
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <SimpleBarChartCard
                   metricConfig={variableConfig1.metrics["per100k"]}
                   breakdownVar={breakdownVar}
@@ -169,7 +171,7 @@ function TwoVariableReport(props: {
               </Grid>
             )}
             {variableConfig1.metrics["per100k"] && (
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <SimpleBarChartCard
                   metricConfig={variableConfig2.metrics["per100k"]}
                   breakdownVar={breakdownVar}
