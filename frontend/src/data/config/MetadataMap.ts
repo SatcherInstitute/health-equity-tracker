@@ -23,6 +23,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
       "acs_health_insurance-health_insurance_by_sex_state",
       "acs_health_insurance-health_insurance_by_sex_county",
     ],
+    includes_hispanic: false,
   },
   {
     id: "brfss",
@@ -34,6 +35,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "The prevalence (percentage) for diseases broken down by self-reported race/ethnicity and sex at the U.S. and state levels.",
     dataset_ids: ["brfss"],
+    includes_hispanic: false,
   },
   {
     id: "covid_tracking_project",
@@ -45,6 +47,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "The numbers of confirmed deaths, cases, and hospitalizations broken down by race/ethnicity at the U.S. and state levels.",
     dataset_ids: ["covid_by_state_and_race", "covid_by_county_and_race"],
+    includes_hispanic: true,
   },
 ];
 

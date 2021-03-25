@@ -62,7 +62,14 @@ export class MetricQueryResponse {
   }
 
   isFieldMissing(fieldName: string): boolean {
-    return this.invalidValues[fieldName] === this.data.length;
+    const fieldIsPresentInData =
+      this.data.length !== 0 &&
+      this.data[0][fieldName] !== null &&
+      this.data[0][fieldName] !== undefined;
+    return (
+      this.invalidValues[fieldName] === this.data.length ||
+      !fieldIsPresentInData
+    );
   }
 
   // Calculate numerical range for a field or return undefined if not applicable

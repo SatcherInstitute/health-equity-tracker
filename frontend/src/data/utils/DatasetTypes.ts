@@ -10,6 +10,7 @@ export interface DataSourceMetadata {
   readonly geographic_level: string;
   readonly demographic_granularity: string;
   readonly update_frequency: string;
+  readonly includes_hispanic: boolean;
 }
 
 // Datasets contain data with specified breakdowns

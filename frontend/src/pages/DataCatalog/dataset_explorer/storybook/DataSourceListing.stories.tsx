@@ -31,6 +31,7 @@ const DATA_SOURCE_METADATA = {
   demographic_granularity: "Race/ethnicity",
   update_frequency: "Daily",
   update_time: "	March 2, 2020",
+  includes_hispanic: true,
 };
 
 const DATASET_METADATA: MapOfDatasetMetadata = {
