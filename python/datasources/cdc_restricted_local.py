@@ -38,7 +38,7 @@ COL_NAME_MAPPING = {
     STATE_COL: std_col.STATE_POSTAL_COL,
     COUNTY_FIPS_COL: std_col.COUNTY_FIPS_COL,
     COUNTY_COL: std_col.COUNTY_NAME_COL,
-    RACE_COL: std_col.RACE_OR_HISPANIC_COL,
+    RACE_COL: std_col.RACE_CATEGORY_ID_COL,
     SEX_COL: std_col.SEX_COL,
     AGE_COL: std_col.AGE_COL,
 }

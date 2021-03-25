@@ -3,8 +3,9 @@ from ingestion.standardized_columns import (HISPANIC_COL, RACE_COL,
                                             STATE_FIPS_COL, COUNTY_FIPS_COL,
                                             STATE_NAME_COL, COUNTY_NAME_COL,
                                             RACE_OR_HISPANIC_COL,
+                                            RACE_INCLUDES_HISPANIC_COL,
                                             POPULATION_COL, AGE_COL, SEX_COL,
-                                            Race)
+                                            Race, RACE_CATEGORY_ID_COL)
 from ingestion import url_file_to_gcs, gcs_to_bq_util
 from datasources.data_source import DataSource
 from ingestion.census import (get_census_params, fetch_acs_metadata,
@@ -48,7 +49,7 @@ SEX_BY_AGE_CONCEPTS_TO_RACE = {
   "SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)": Race.AIAN.value,
   "SEX BY AGE (ASIAN ALONE)": Race.ASIAN.value,
   "SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)": Race.NHPI.value,
-  "SEX BY AGE (SOME OTHER RACE ALONE)": Race.OTHER.value,
+  "SEX BY AGE (SOME OTHER RACE ALONE)": Race.OTHER_STANDARD.value,
   "SEX BY AGE (TWO OR MORE RACES)": Race.MULTI.value,
   "SEX BY AGE (HISPANIC OR LATINO)": Race.HISP.value,
 
@@ -57,14 +58,25 @@ SEX_BY_AGE_CONCEPTS_TO_RACE = {
 }
 
 
-RENAME_RACE = {
+RACE_STRING_TO_CATEGORY_ID_INCLUDE_HISP = {
     "American Indian and Alaska Native alone": Race.AIAN.value,
     "Asian alone": Race.ASIAN.value,
     "Black or African American alone": Race.BLACK.value,
     "Native Hawaiian and Other Pacific Islander alone": Race.NHPI.value,
-    "Some other race alone": Race.OTHER.value,
+    "Some other race alone": Race.OTHER_STANDARD.value,
     "Two or more races": Race.MULTI.value,
     "White alone": Race.WHITE.value
+}
+
+
+RACE_STRING_TO_CATEGORY_ID_EXCLUDE_HISP = {
+    "American Indian and Alaska Native alone": Race.AIAN_NH.value,
+    "Asian alone": Race.ASIAN_NH.value,
+    "Black or African American alone": Race.BLACK_NH.value,
+    "Native Hawaiian and Other Pacific Islander alone": Race.NHPI_NH.value,
+    "Some other race alone": Race.OTHER_STANDARD_NH.value,
+    "Two or more races": Race.MULTI_NH.value,
+    "White alone": Race.WHITE_NH.value
 }
 
 
@@ -89,25 +101,15 @@ def rename_age_bracket(bracket):
         return bracket
 
 
-def rename_race_value(race):
-    """Renames the ACS race label to standardized value.
-
-       race: The ACS race label."""
-    renamed_race = RENAME_RACE.get(race)
-    if renamed_race:
-        return renamed_race
-    return race
-
-
-def get_standardized_race(row):
-    """Gets the standardized race value from a row that contains race and
-       hispanic/non-hispanic values separately.
-
-       row: A data row that has both race and hispanic/non-hispanic columns."""
-    if (row[HISPANIC_COL] == 'Hispanic or Latino'):
-        return row[HISPANIC_COL]
-    else:
-        return rename_race_value(row[RACE_COL]) + " (Non-Hispanic)"
+def add_race_columns_from_category_id(df):
+    """Adds all race-related columns to the dataframe using the race category id
+       to determine these values."""
+    df["race_tuple"] = df.apply(
+        lambda r: Race.from_category_id(r[RACE_CATEGORY_ID_COL]).as_tuple(),
+        axis=1)
+    df[Race.get_col_names()] = pandas.DataFrame(
+        df["race_tuple"].tolist(), index=df.index)
+    df.drop("race_tuple", axis=1, inplace=True)
 
 
 def update_col_types(frame):
@@ -168,7 +170,8 @@ class ACSPopulationIngester():
         url_params = get_census_params(
             [TOTAL_POP_VARIABLE_ID], self.county_level)
         next_file_diff = url_file_to_gcs.url_file_to_gcs(
-            self.base_acs_url, url_params, gcs_bucket, self.add_filename_suffix(TOTAL_POP_VARIABLE_ID))
+            self.base_acs_url, url_params, gcs_bucket,
+            self.add_filename_suffix(TOTAL_POP_VARIABLE_ID))
         file_diff = file_diff or next_file_diff
         return file_diff
 
@@ -242,7 +245,8 @@ class ACSPopulationIngester():
             frame = gcs_to_bq_util.values_json_to_dataframe(json_string)
             sex_by_age_frames[concept] = update_col_types(frame)
 
-        race_and_hispanic_frame = gcs_to_bq_util.values_json_to_dataframe(by_hisp_and_race_json)
+        race_and_hispanic_frame = gcs_to_bq_util.values_json_to_dataframe(
+            by_hisp_and_race_json)
         race_and_hispanic_frame = update_col_types(race_and_hispanic_frame)
         race_and_hispanic_frame = standardize_frame(
             race_and_hispanic_frame,
@@ -268,7 +272,8 @@ class ACSPopulationIngester():
         }
         for key, df in frames.items():
             df.to_csv("table_" + key + ".csv", index=False)
-            df.to_json("table_" + key + ".json", orient="records")
+            # XXX comment back in
+            # df.to_json("table_" + key + ".json", orient="records")
 
     def get_table_geo_suffix(self):
         return "_county" if self.county_level else "_state"
@@ -296,49 +301,70 @@ class ACSPopulationIngester():
         sort_cols.append(RACE_OR_HISPANIC_COL)
         return df.sort_values(sort_cols)
 
-    def standardize_race(self, df):
+    def standardize_race_mutually_exclusive(self, df):
         """Standardized format using mutually exclusive groups by excluding
            Hispanic or Latino from other racial groups. Summing across all
            RACE_OR_HISPANIC_COL values equals the total population."""
+
+        def get_race_category_id_mutually_exclusive(row):
+            if (row[HISPANIC_COL] == 'Hispanic or Latino'):
+                return Race.HISP.value
+            else:
+                return RACE_STRING_TO_CATEGORY_ID_EXCLUDE_HISP[row[RACE_COL]]
+
         standardized_race = df.copy()
-        standardized_race[RACE_OR_HISPANIC_COL] = standardized_race.apply(
-            get_standardized_race, axis=1)
-        standardized_race = standardized_race.drop([HISPANIC_COL, RACE_COL], axis=1)
+        standardized_race[RACE_CATEGORY_ID_COL] = standardized_race.apply(
+            get_race_category_id_mutually_exclusive, axis=1)
+        standardized_race.drop(HISPANIC_COL, axis=1, inplace=True)
+
         group_by_cols = self.base_group_by_cols.copy()
-        group_by_cols.append(RACE_OR_HISPANIC_COL)
-        standardized_race = standardized_race.groupby(group_by_cols).sum().reset_index()
+        group_by_cols.append(RACE_CATEGORY_ID_COL)
+        standardized_race = standardized_race.groupby(
+            group_by_cols).sum().reset_index()
         return standardized_race
 
     def standardize_race_include_hispanic(self, df, total_frame):
-        """Alternative format where race categories includ Hispanic/Latino.
+        """Alternative format where race categories include Hispanic/Latino.
            Totals are also included because summing over the column will give a
            larger number than the actual total."""
         by_hispanic = df.copy()
         group_by_cols = self.base_group_by_cols.copy()
         group_by_cols.append(HISPANIC_COL)
         by_hispanic = by_hispanic.groupby(group_by_cols).sum().reset_index()
-        by_hispanic = by_hispanic.rename(columns={HISPANIC_COL: RACE_OR_HISPANIC_COL})
+        by_hispanic[RACE_CATEGORY_ID_COL] = by_hispanic.apply(
+            lambda r: (Race.HISP.value
+                       if r[HISPANIC_COL] == 'Hispanic or Latino'
+                       else Race.NH.value),
+            axis=1)
+        by_hispanic.drop(HISPANIC_COL, axis=1, inplace=True)
 
         by_race = df.copy()
-        by_race[RACE_COL] = by_race[RACE_COL].apply(rename_race_value)
         group_by_cols = self.base_group_by_cols.copy()
         group_by_cols.append(RACE_COL)
         by_race = by_race.groupby(group_by_cols).sum().reset_index()
-        by_race = by_race.rename(columns={RACE_COL: RACE_OR_HISPANIC_COL})
+        by_race[RACE_CATEGORY_ID_COL] = by_race.apply(
+            lambda r: RACE_STRING_TO_CATEGORY_ID_INCLUDE_HISP[r[RACE_COL]],
+            axis=1)
 
-        combined = pandas.concat([by_hispanic, by_race, total_frame])
-        return self.sort_race_frame(combined)
+        total_frame_copy = total_frame.copy()
+        total_frame_copy[RACE_CATEGORY_ID_COL] = Race.TOTAL.value
+
+        return pandas.concat([by_hispanic, by_race, total_frame_copy])
 
     def get_all_races_frame(self, race_and_hispanic_frame, total_frame):
         """Includes all race categories, both including and not including
            Hispanic/Latino."""
-        all_races = self.standardize_race_include_hispanic(race_and_hispanic_frame, total_frame)
-        standardized_race = self.standardize_race(race_and_hispanic_frame)
+        all_races = self.standardize_race_include_hispanic(
+            race_and_hispanic_frame, total_frame)
+        standardized_race = self.standardize_race_mutually_exclusive(
+            race_and_hispanic_frame)
         standardized_race = standardized_race.copy()
-        # both variants of standardized race include a "Hispanic or Latino" group, so
-        # remove from one before concatenating.
-        standardized_race = standardized_race[standardized_race[RACE_OR_HISPANIC_COL] != "Hispanic or Latino"]
+        # both variants of standardized race include a "Hispanic or Latino"
+        # group, so remove from one before concatenating.
+        standardized_race = standardized_race[
+            standardized_race[RACE_CATEGORY_ID_COL] != Race.HISP.value]
         all_races = pandas.concat([all_races, standardized_race])
+        add_race_columns_from_category_id(all_races)
         return self.sort_race_frame(all_races)
 
     def get_sex_by_age_and_race(self, var_map, sex_by_age_frames):
@@ -352,13 +378,16 @@ class ACSPopulationIngester():
         for concept, race in SEX_BY_AGE_CONCEPTS_TO_RACE.items():
             frame = sex_by_age_frames[concept]
             group_vars = get_vars_for_group(concept, var_map, 2)
-            sex_by_age = standardize_frame(frame, group_vars, [SEX_COL, AGE_COL], self.county_level, POPULATION_COL)
+            sex_by_age = standardize_frame(frame, group_vars,
+                                           [SEX_COL, AGE_COL],
+                                           self.county_level, POPULATION_COL)
 
             # TODO reorder columns so population is last
-            sex_by_age[RACE_OR_HISPANIC_COL] = race
+            sex_by_age[RACE_CATEGORY_ID_COL] = race
             frames.append(sex_by_age)
         result = pandas.concat(frames)
         result[AGE_COL] = result[AGE_COL].apply(rename_age_bracket)
+        add_race_columns_from_category_id(result)
         return result
 
 

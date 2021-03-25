@@ -7,7 +7,8 @@ from ingestion import url_file_to_gcs, gcs_to_bq_util
 from ingestion.standardized_columns import (STATE_FIPS_COL, COUNTY_FIPS_COL,
                                             STATE_NAME_COL, COUNTY_NAME_COL,
                                             AGE_COL, SEX_COL,
-                                            RACE_COL, WITH_HEALTH_INSURANCE_COL,
+                                            RACE_CATEGORY_ID_COL,
+                                            WITH_HEALTH_INSURANCE_COL,
                                             WITHOUT_HEALTH_INSURANCE_COL,
                                             TOTAL_HEALTH_INSURANCE_COL, Race)
 from typing import Dict
@@ -57,7 +58,7 @@ HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES = [
     {"C27001D": {MetadataKey.RACE: Race.ASIAN.value}},
     {"C27001E": {
         MetadataKey.RACE: Race.NHPI.value}},
-    {"C27001F": {MetadataKey.RACE: Race.OTHER.value}},
+    {"C27001F": {MetadataKey.RACE: Race.OTHER_STANDARD.value}},
     {"C27001G": {MetadataKey.RACE: Race.MULTI.value}},
     {"C27001H": {
         MetadataKey.RACE: Race.WHITE_NH.value}},
@@ -554,7 +555,7 @@ class AcsHealhInsuranceIngestor:
             STATE_FIPS_COL,
             STATE_NAME_COL,
             AGE_COL,
-            RACE_COL,
+            RACE_CATEGORY_ID_COL,
             WITH_HEALTH_INSURANCE_COL,
             WITHOUT_HEALTH_INSURANCE_COL,
             TOTAL_HEALTH_INSURANCE_COL])
@@ -574,7 +575,7 @@ class AcsHealhInsuranceIngestor:
             COUNTY_FIPS_COL,
             COUNTY_NAME_COL,
             AGE_COL,
-            RACE_COL,
+            RACE_CATEGORY_ID_COL,
             WITH_HEALTH_INSURANCE_COL,
             WITHOUT_HEALTH_INSURANCE_COL,
             TOTAL_HEALTH_INSURANCE_COL])
