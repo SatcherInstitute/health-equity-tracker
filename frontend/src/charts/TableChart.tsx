@@ -144,7 +144,7 @@ export function TableChart(props: TableChartProps) {
                     onChangeRowsPerPage={(event) => {
                       setPageSize(Number(event.target.value));
                     }}
-                    rowsPerPageOptions={[5, 10, 25, 50, 100]}
+                    rowsPerPageOptions={[5, 10, 25, 50, 100]} // If changed, update pagination condition above
                   />
                 </TableRow>
               </TableFooter>
