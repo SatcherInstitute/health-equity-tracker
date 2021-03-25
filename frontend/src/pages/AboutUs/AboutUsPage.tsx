@@ -16,8 +16,6 @@ export const ABOUT_US_CONTACT_TAB_INDEX = 3;
 /* TODO - Align with mocks, Clean up CSS */
 export function AboutUsPage() {
   const params = useSearchParams();
-  console.log(params);
-  console.log(params[ABOUT_US_TAB_PARAM]);
 
   const [tabIndex, setTabIndex] = React.useState(
     params[ABOUT_US_TAB_PARAM] ? Number(params[ABOUT_US_TAB_PARAM]) : 0
