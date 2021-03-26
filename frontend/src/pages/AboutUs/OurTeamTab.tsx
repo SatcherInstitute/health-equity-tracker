@@ -7,52 +7,52 @@ const LEADERSHIP_TEAM = [
   {
     name: "Daniel Dawes, JD",
     role: "Co-Principal Investigator",
-    imageUrl: "img/Daniel-E 1.png",
+    imageUrl: "img/our_team/Daniel-E 1.png",
   },
   {
     name: "Nelson Dunlap, JD",
     role: "Co-Principal Investigator",
-    imageUrl: "img/DunlapNelson.png",
+    imageUrl: "img/our_team/DunlapNelson.png",
   },
   {
     name: "Ebony Respress, MPH",
     role: "Project Director",
-    imageUrl: "img/RespressEbony.png",
+    imageUrl: "img/our_team/RespressEbony.png",
   },
   {
     name: "Maisha Standifer, PhD, MPH",
     role: "Health Policy Analyst",
-    imageUrl: "img/maisha-standifer.jpg",
+    imageUrl: "img/our_team/maisha-standifer.jpg",
   },
   {
     name: "Jammie Hopkins, DrPH, MS",
     role: "Coalition/Engagement",
-    imageUrl: "img/jammie-hopkins.jpg",
+    imageUrl: "img/our_team/jammie-hopkins.jpg",
   },
   {
     name: "Allyson Belton, MPH",
     role: "Coalition/Engagement",
-    imageUrl: "img/BeltonAllyson.png",
+    imageUrl: "img/our_team/BeltonAllyson.png",
   },
   {
     name: "Mahia Valle, BSBA",
     role: "Communications",
-    imageUrl: "img/ValleMahia.png",
+    imageUrl: "img/our_team/ValleMahia.png",
   },
   {
     name: "Megan Douglas, JD",
     role: "Health Policy Analyst",
-    imageUrl: "img/DouglasMegan.png",
+    imageUrl: "img/our_team/DouglasMegan.png",
   },
   {
     name: "Fengxia Yan, MD, MS",
     role: "Biostatician",
-    imageUrl: "img/YanFengxia.png",
+    imageUrl: "img/our_team/YanFengxia.png",
   },
   {
     name: "Peter Baltrus, PhD",
     role: "Data Analyst",
-    imageUrl: "img/BaltrusPeter.png",
+    imageUrl: "img/our_team/BaltrusPeter.png",
   },
 ];
 
@@ -206,19 +206,19 @@ const HE_TASKFORCE = [
 
 const PARTNERS = [
   {
-    imageUrl: "img/PartnerSatcher.png",
+    imageUrl: "img/logos/PartnerSatcher.png",
     alt: "alt",
   },
   {
-    imageUrl: "img/PartnerGilead.png",
+    imageUrl: "img/logos/PartnerGilead.png",
     alt: "alt",
   },
   {
-    imageUrl: "img/PartnerCdc.png",
+    imageUrl: "img/logos/PartnerCdc.png",
     alt: "alt",
   },
   {
-    imageUrl: "img/PartnerGoogle.png",
+    imageUrl: "img/logos/PartnerGoogle.png",
     alt: "alt",
   },
 ];
