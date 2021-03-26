@@ -7,7 +7,7 @@ import { Grid } from "@material-ui/core";
 import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
 import DropDownMenu from "./ui/DropDownMenu";
-import MapBreadcrumbs from "./MapBreadcrumbs";
+import MapBreadcrumbs from "./ui/MapBreadcrumbs";
 import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 import { Breakdowns, BreakdownVar } from "../data/query/Breakdowns";
 import { ChoroplethMap } from "../charts/ChoroplethMap";

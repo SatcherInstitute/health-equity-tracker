@@ -1,8 +1,9 @@
 import React from "react";
-import { USA_FIPS, USA_DISPLAY_NAME, Fips } from "../data/utils/Fips";
+import { USA_FIPS, USA_DISPLAY_NAME, Fips } from "../../data/utils/Fips";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
+import styles from "./MapBreadcrumbs.module.scss";
 
 function MapBreadcrumbs(props: { fips: Fips; updateFipsCallback: Function }) {
   return (
@@ -38,14 +39,14 @@ function Crumb(props: {
   return (
     <>
       {props.isClickable && (
-        <Button color="primary" style={{ padding: "3px" }}>
+        <Button color="primary" className={styles.Crumb}>
           <Link color="inherit" onClick={() => props.onClick!()}>
             {props.text}
           </Link>
         </Button>
       )}
       {!props.isClickable && (
-        <Button style={{ padding: "3px" }} disabled>
+        <Button color="primary" className={styles.CurrentCrumb} disabled>
           {props.text}
         </Button>
       )}
