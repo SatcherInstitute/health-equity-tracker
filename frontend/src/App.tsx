@@ -132,31 +132,22 @@ function App() {
       <CssBaseline />
       <div className={styles.App}>
         <Router>
-          <div>
-            <ScrollToTop />
-            <AppBar position="static">
-              {width > MOBILE_BREAKPOINT ? (
-                <AppToolbar />
-              ) : (
-                <MobileAppToolbar />
-              )}
-            </AppBar>
-            <Switch>
-              <Route path={ABOUT_US_PAGE_LINK} component={AboutUsPage} />
-              <Route path={DATA_CATALOG_PAGE_LINK} component={DataCatalogTab} />
-              <Route
-                path={EXPLORE_DATA_PAGE_LINK}
-                component={ExploreDataPage}
-              />
-              <Route
-                path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
-                component={WhatIsHealthEquityPage}
-              />
-              <Route exact path="/" component={LandingPage} />
-              <Route component={NotFoundPage} />
-            </Switch>
-            <Footer />
-          </div>
+          <ScrollToTop />
+          <AppBar position="static">
+            {width > MOBILE_BREAKPOINT ? <AppToolbar /> : <MobileAppToolbar />}
+          </AppBar>
+          <Switch>
+            <Route path={ABOUT_US_PAGE_LINK} component={AboutUsPage} />
+            <Route path={DATA_CATALOG_PAGE_LINK} component={DataCatalogTab} />
+            <Route path={EXPLORE_DATA_PAGE_LINK} component={ExploreDataPage} />
+            <Route
+              path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+              component={WhatIsHealthEquityPage}
+            />
+            <Route exact path="/" component={LandingPage} />
+            <Route component={NotFoundPage} />
+          </Switch>
+          <Footer />
         </Router>
       </div>
     </ThemeProvider>

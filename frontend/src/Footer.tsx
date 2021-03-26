@@ -18,6 +18,16 @@ function ImageButton(props: { src: string; alt: string; link: string }) {
   );
 }
 
+function LinkGridItem(props: { text: string; link: string }) {
+  return (
+    <Grid item>
+      <Button onClick={() => (window.location.href = props.link)}>
+        {props.text}
+      </Button>
+    </Grid>
+  );
+}
+
 function Footer() {
   return (
     <div className={styles.Footer}>
@@ -85,39 +95,14 @@ function Footer() {
               alignItems="center"
               container
             >
-              <Grid item>
-                <Button
-                  onClick={() =>
-                    (window.location.href = EXPLORE_DATA_PAGE_LINK)
-                  }
-                >
-                  Explore Data
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button
-                  onClick={() =>
-                    (window.location.href = DATA_CATALOG_PAGE_LINK)
-                  }
-                >
-                  Downloads and Methods
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button onClick={() => (window.location.href = "")}>
-                  FAQs
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button onClick={() => (window.location.href = "")}>
-                  Contact Us
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button onClick={() => (window.location.href = "")}>
-                  Terms of Use
-                </Button>
-              </Grid>
+              <LinkGridItem text="Explore Data" link={EXPLORE_DATA_PAGE_LINK} />
+              <LinkGridItem
+                text="Downloads and Methods"
+                link={DATA_CATALOG_PAGE_LINK}
+              />
+              <LinkGridItem text="FAQs" link="" />
+              <LinkGridItem text="Contact Us" link="" />
+              <LinkGridItem text="Terms of Use" link="" />
             </Grid>
           </Grid>
         </Grid>
