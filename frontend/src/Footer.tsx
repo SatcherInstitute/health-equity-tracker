@@ -25,14 +25,14 @@ function Footer() {
         <Grid container justify="space-between" alignItems="flex-start">
           <Grid item xs={12} sm={12} md={4} className={styles.FooterGrid}>
             <Grid container className={styles.Logos}>
-              <Grid item>
+              <Grid item className={styles.LogosLeft}>
                 <ImageButton
                   link="http://www.healthequitytracker.org"
                   src="/img/logos/HET_logo.png"
                   alt="Health Equity Tracker"
                 />
               </Grid>
-              <Grid item>
+              <Grid item className={styles.LogosRight}>
                 <Grid container justify="flex-start" alignItems="flex-start">
                   <Grid item>
                     <img
