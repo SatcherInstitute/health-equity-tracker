@@ -27,7 +27,7 @@ function Footer() {
             <Grid container className={styles.Logos}>
               <Grid item className={styles.LogosLeft}>
                 <ImageButton
-                  link="http://www.healthequitytracker.org"
+                  link="https://healthequitytracker.org/"
                   src="/img/logos/HET_logo.png"
                   alt="Health Equity Tracker"
                 />
@@ -41,6 +41,7 @@ function Footer() {
                     />
                     <Grid container justify="flex-start">
                       <Grid item>
+                        {/* TODO: Add YouTube URL*/}
                         <ImageButton
                           link="http://www.youtube.com"
                           src="/img/logos/youtube_green.png"
@@ -48,6 +49,7 @@ function Footer() {
                         />
                       </Grid>
                       <Grid item>
+                        {/* TODO: Add LinkedIn URL*/}
                         <ImageButton
                           link="http://www.linkedin.com"
                           src="/img/logos/linkedIn_green.png"
@@ -55,6 +57,7 @@ function Footer() {
                         />
                       </Grid>
                       <Grid item>
+                        {/* TODO: Add Twitter URL*/}
                         <ImageButton
                           link="http://www.twitter.com"
                           src="/img/logos/twitter_green.png"
