@@ -1,7 +1,6 @@
 import AcsPopulationProvider from "../variables/AcsPopulationProvider";
 import VariableProvider from "../variables/VariableProvider";
 import CdcCovidProvider from "../variables/CdcCovidProvider";
-import CovidProvider from "../variables/CovidProvider";
 import BrfssProvider from "../variables/BrfssProvider";
 import { MetricId } from "../config/MetricConfig";
 import AcsHealthInsuranceProvider from "../variables/AcsHealthInsuranceProvider";
@@ -23,7 +22,6 @@ export default class VariableProviderMap {
     this.providers = [
       acsProvider,
       new CdcCovidProvider(acsProvider),
-      // new CovidProvider(acsProvider),
       new BrfssProvider(),
       new AcsHealthInsuranceProvider(),
     ];
