@@ -89,7 +89,7 @@ describe("BrfssProvider", () => {
       Breakdowns.forFips(new Fips("37")),
       RACE,
       [NC_ASIAN_FINAL, NC_WHITE_FINAL],
-      [NC_ASIAN_FINAL, NC_WHITE_FINAL, NC_TOTAL_FINAL]
+      [NC_TOTAL_FINAL, NC_ASIAN_FINAL, NC_WHITE_FINAL]
     );
   });
 
@@ -112,7 +112,7 @@ describe("BrfssProvider", () => {
       Breakdowns.national(),
       RACE,
       [ASIAN_FINAL, WHITE_FINAL],
-      [ASIAN_FINAL, WHITE_FINAL, TOTAL_FINAL]
+      [TOTAL_FINAL, ASIAN_FINAL, WHITE_FINAL]
     );
   });
 });

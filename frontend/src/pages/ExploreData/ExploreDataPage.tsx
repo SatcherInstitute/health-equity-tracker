@@ -82,6 +82,7 @@ function ExploreDataPage() {
           indicators={!sticking}
           animation="slide"
           navButtonsAlwaysVisible={true}
+          index={initalIndex}
           onChange={(index: number) => {
             setMadLib({
               ...MADLIB_LIST[index],

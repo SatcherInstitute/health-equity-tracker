@@ -75,9 +75,15 @@ class CovidTrackingProject(DataSource):
 
         merged.drop(columns=['reports_api', 'reports_ind'], inplace=True)
 
-        # Write to BQ
-        gcs_to_bq_util.append_dataframe_to_bq(
-            merged, dataset, self.get_table_name())
+        # Split into separate tables by variable type
+        for variable_type in ['cases', 'deaths', 'tests', 'hosp']:
+            result = merged.copy()
+            result = result.loc[result['variable_type'] == variable_type]
+            result.rename(columns={'value': variable_type}, inplace=True)
+            result.drop('variable_type', axis='columns', inplace=True)
+            # Write to BQ
+            gcs_to_bq_util.append_dataframe_to_bq(
+                result, dataset, self.get_table_name() + '_' + variable_type)
 
     @staticmethod
     def _download_metadata(dataset: str) -> pd.DataFrame:

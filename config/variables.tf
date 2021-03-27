@@ -108,32 +108,6 @@ variable "gcs_to_bq_runner_role_id" {
   type        = string
 }
 
-# Dedupe Cloud Run Service Vars
-variable "dedupe_service_name" {
-  description = "Name of the Cloud Run service for removing duplicate data entries"
-  type        = string
-}
-
-variable "dedupe_image_name" {
-  description = "Name of container image for the Cloud Run Dedupe service"
-  type        = string
-}
-
-variable "dedupe_image_digest" {
-  description = "Digest of container image for the Cloud Run Dedupe service"
-  type        = string
-}
-
-variable "dedupe_runner_identity_id" {
-  description = "Account id of the service account used when running the Dedupe service"
-  type        = string
-}
-
-variable "dedupe_runner_role_id" {
-  description = "Id of custom role given to the dedupe runner service account"
-  type        = string
-}
-
 # Data Server Cloud Run Service Vars
 variable "data_server_service_name" {
   description = "Name of the Cloud Run service for serving data to client frontends"

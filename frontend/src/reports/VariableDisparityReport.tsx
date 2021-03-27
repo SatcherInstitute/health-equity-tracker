@@ -21,7 +21,6 @@ export interface VariableDisparityReportProps {
   dropdownVarId: DropdownVarId;
   fips: Fips;
   updateFipsCallback: Function;
-  vertical?: boolean;
   hidePopulationCard?: boolean;
 }
 
@@ -61,7 +60,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               setCurrentBreakdown={setCurrentBreakdown}
             />
           </Grid>
-          <Grid item xs={props.vertical ? 12 : 6}>
+          <Grid item xs={12} sm={12} md={6}>
             <MapCard
               metricConfig={variableConfig.metrics["per100k"]}
               fips={props.fips}
@@ -75,6 +74,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                 {breakdownIsShown(breakdownVar) && (
                   <TableCard
                     fips={props.fips}
+                    variableConfig={variableConfig}
                     metrics={getPer100kAndPctShareMetrics(variableConfig)}
                     breakdownVar={breakdownVar}
                   />
@@ -82,7 +82,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               </>
             ))}
           </Grid>
-          <Grid item xs={props.vertical ? 12 : 6}>
+          <Grid item xs={12} sm={12} md={6}>
             {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
               <>
                 {breakdownIsShown(breakdownVar) &&

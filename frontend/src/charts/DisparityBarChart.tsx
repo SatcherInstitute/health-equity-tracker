@@ -29,7 +29,7 @@ function getSpec(
   const BAR_HEIGHT = stacked ? 40 : 10;
   const BAR_PADDING = 0.1;
   const DARK_MEASURE_COLOR = "#0B5420";
-  const LIGHT_MEASURE_COLOR = "#9ACFC0";
+  const LIGHT_MEASURE_COLOR = "#91C684";
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 
@@ -270,12 +270,9 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     100 /* default width during intialization */
   );
 
-  let dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
+  const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
     props.data,
     props.breakdownVar
-  );
-  dataWithLineBreakDelimiter.sort((a, b) =>
-    a[props.breakdownVar].localeCompare(b[props.breakdownVar])
   );
 
   return (

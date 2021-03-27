@@ -25,7 +25,7 @@ function getSpec(
 ): any {
   const BAR_HEIGHT = 40;
   const BAR_PADDING = 0.1;
-  const MEASURE_COLOR = "#BDC1C6";
+  const MEASURE_COLOR = "#0B5240";
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 
@@ -189,12 +189,9 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     100 /* default width during intialization */
   );
 
-  let dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
+  const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
     props.data,
     props.breakdownVar
-  );
-  dataWithLineBreakDelimiter.sort((a, b) =>
-    a[props.breakdownVar].localeCompare(b[props.breakdownVar])
   );
 
   return (

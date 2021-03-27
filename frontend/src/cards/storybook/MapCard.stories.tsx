@@ -32,8 +32,20 @@ CovidPercentShareMap.args = {
   currentBreakdown: "all",
 };
 
+export const CovidPer100kMap = Template.bind({});
+CovidPer100kMap.args = {
+  metricConfig: METRIC_CONFIG["covid"][2].metrics["per100k"],
+  currentBreakdown: "all",
+};
+
 export const CopdPer100kMap = Template.bind({});
 CopdPer100kMap.args = {
   metricConfig: METRIC_CONFIG["copd"][0].metrics["per100k"],
+  currentBreakdown: "all",
+};
+
+export const HealthInsurancePer100kMap = Template.bind({});
+HealthInsurancePer100kMap.args = {
+  metricConfig: METRIC_CONFIG["health_insurance"][0].metrics["per100k"],
   currentBreakdown: "all",
 };
