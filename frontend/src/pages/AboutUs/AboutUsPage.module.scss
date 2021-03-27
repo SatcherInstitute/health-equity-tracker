@@ -86,8 +86,10 @@
   border-top: 1px solid #3e3e3e;
 
   .ImgHeaderGridItem {
-    width: 760px;
-    height: 645px;
+    width: 100%;
+    height: auto;
+    max-width: 760px;
+    max-height: 645px;
     padding-left: 25px;
   }
 
@@ -274,8 +276,10 @@
 
 // For each image in the "Where We Aim To Go" section
 .ImgAimToGo {
-  height: 255px;
-  width: 255px;
+  width: 100%;
+  height: auto;
+  max-height: 255px;
+  max-width: 255px;
 }
 
 /** ------------- OUR TEAM ------------- **/
@@ -283,6 +287,18 @@
 // Profiles items for people in Our Team
 .TextProfile {
   padding: 12px;
+}
+
+.ProfileImg {
+  max-width: 181px;
+  max-height: 181px;
+  width: 100%;
+  height: auto;
+}
+
+.PartnerImg {
+  width: 70%;
+  height: auto;
 }
 
 .GreyGridItem {
@@ -373,8 +389,10 @@
 }
 
 .ImgContactUsHeader {
-  width: 870px;
-  height: 645px;
+  width: 100%;
+  height: auto;
+  max-width: 870px;
+  max-height: 645px;
   padding-left: 25px;
 }
 

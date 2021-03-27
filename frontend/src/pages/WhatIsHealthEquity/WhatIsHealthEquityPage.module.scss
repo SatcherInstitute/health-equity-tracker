@@ -45,8 +45,10 @@
 
 .HeaderImg {
   border-radius: 30px;
-  height: 770px;
-  width: 400px;
+  height: auto;
+  width: 100%;
+  max-height: 770px;
+  max-width: 400px;
   align-items: center;
   justify-content: center;
   padding: 10px;
@@ -107,7 +109,8 @@
 
 .ResourceImg {
   border-radius: 30px;
-  height: 180px;
+  max-height: 180px;
+  height: auto;
   width: 100%;
 }
 
@@ -151,6 +154,7 @@
 
 .NewsAndStoriesBigImg {
   width: 100%;
+  height: auto;
   border-radius: 30px;
 }
 
@@ -207,8 +211,10 @@
 }
 
 .JoinTheEffortImg {
-  width: 410px;
-  height: 500px;
+  width: 100%;
+  height: auto;
+  max-width: 410px;
+  max-height: 500px;
 }
 
 .JoinTheEffortStepHeaderText {
