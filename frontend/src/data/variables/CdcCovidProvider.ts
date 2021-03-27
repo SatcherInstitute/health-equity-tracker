@@ -94,6 +94,7 @@ class CdcCovidProvider extends VariableProvider {
         : df;
 
     // Calculate Total column and add to data.
+    // TODO - do this on the BE.
     const total = df
       .pivot(["fips", "fips_name"], {
         [breakdownColumnName]: (series) => TOTAL,
