@@ -1,6 +1,5 @@
 //TODO: Rename to Count
 export type MetricId =
-  | "health_insurance"
   | "population"
   | "population_pct"
   | "diabetes_count"
