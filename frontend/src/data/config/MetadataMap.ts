@@ -46,6 +46,25 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
       "The numbers of confirmed deaths, cases, and hospitalizations broken down by race/ethnicity at the U.S. and state levels.",
     dataset_ids: ["covid_by_state_and_race", "covid_by_county_and_race"],
   },
+  {
+    id: "cdc_restricted",
+    data_source_name: "CDC Case Surveillance Restricted Access Detailed Data",
+    data_source_link:
+      "https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Monthly",
+    description:
+      "The numbers of confirmed deaths, cases, and hospitalizations at the U.S. and state levels.",
+    dataset_ids: [
+      "cdc_restricted_data-by_race_county",
+      "cdc_restricted_data-by_race_state",
+      "cdc_restricted_data-by_age_county",
+      "cdc_restricted_data-by_age_state",
+      "cdc_restricted_data-by_sex_county",
+      "cdc_restricted_data-by_sex_state",
+    ],
+  },
 ];
 
 export const DataSourceMetadataMap: Record<
