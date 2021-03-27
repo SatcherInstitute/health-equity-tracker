@@ -66,7 +66,7 @@ class AcsPopulationProvider extends VariableProvider {
         breakdowns.demographicBreakdowns[breakdownName].enabled &&
         df
           .getSeries(breakdownName)
-          .where((row) => row == TOTAL)
+          .where((row) => row === TOTAL)
           .count() === 0
       ) {
         df = df
