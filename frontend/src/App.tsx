@@ -32,11 +32,13 @@ import {
   DATA_CATALOG_PAGE_LINK,
   ABOUT_US_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+  TERMS_OF_SERVICE_PAGE_LINK,
 } from "./utils/urlutils";
 import { autoInitGlobals, getEnvironment } from "./utils/globals";
 import ReactTooltip from "react-tooltip";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import PreLaunchSiteContent from "./pages/Landing/PreLaunchSiteContent";
+import TermsOfServicePage from './pages/TermsOfServicePage/TermsOfServicePage';
 
 const MOBILE_BREAKPOINT = 600;
 
@@ -152,6 +154,10 @@ function App() {
               <Route
                   path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
                   component={WhatIsHealthEquityPage}
+              />
+              <Route
+                  path={TERMS_OF_SERVICE_PAGE_LINK}
+                  component={TermsOfServicePage}
               />
               <Route exact path="/" component={LandingPage} />
               <Route component={NotFoundPage} />
