@@ -150,12 +150,12 @@
 }
 
 .NewsAndStoriesBigImg {
-  width: 640px;
+  width: 100%;
   border-radius: 30px;
 }
 
 .NewsAndStoriesSmallImg {
-  width: 445px;
+  width: 100%;
   border-radius: 30px;
 }
 
@@ -287,7 +287,6 @@
 
 // Grid rows that have outlines and an image in one cell.
 .GridOutlinedImgRow {
-  border-top: 1px solid #3e3e3e;
 
   .ImgHeaderGridItem {
     width: 760px;

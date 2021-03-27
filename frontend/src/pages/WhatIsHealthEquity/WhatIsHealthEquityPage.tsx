@@ -57,10 +57,10 @@ function WhatIsHealthEquityPage() {
                     /pəˈlidək(ə)l dəˈtərmənənt əv helTH/
                   </p>
                   <p className={styles.DefinitionText}>
-                    The creators of structural conditions and the social drivers –
-                    including poor environmental conditions, inadequate
-                    transportation, unsafe neighborhoods, and lack of healthy food
-                    options – that affect all other dynamics of health.
+                    The creators of structural conditions and the social drivers
+                    – including poor environmental conditions, inadequate
+                    transportation, unsafe neighborhoods, and lack of healthy
+                    food options – that affect all other dynamics of health.
                   </p>
                   <span className={styles.DefinitionSourceSpan}>
                     Daniel Dawes, 2020
@@ -76,8 +76,8 @@ function WhatIsHealthEquityPage() {
                   <p className={styles.DefinitionText}>
                     The conditions in the environments in which people are born,
                     live, learn, work, play, worship, and age that affect a wide
-                    range of health, functioning, and quality-of-life outcomes and
-                    risks.
+                    range of health, functioning, and quality-of-life outcomes
+                    and risks.
                   </p>
                   <span className={styles.DefinitionSourceSpan}>
                     Healthy People 2020, CDC
@@ -109,9 +109,11 @@ function WhatIsHealthEquityPage() {
                   <iframe className={styles.ResourceVideoEmbed}
                           width="100%" height="633px"
                           src="https://www.youtube.com/embed/cmMutvgQIcU"
-                          title="YouTube video player - The Allegory of the Orchard"
+                          title="YouTube video player -
+                          The Allegory of the Orchard"
                           frameBorder="0"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allow="accelerometer; autoplay; clipboard-write;
+                          encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen></iframe>
                   <p className={styles.MainResourceTitleText}>
                     Learn about the Political Determinants of Health through
@@ -134,9 +136,11 @@ function WhatIsHealthEquityPage() {
                       <iframe className={styles.ResourceVideoEmbed}
                               width="100%" height="180px"
                               src="https://www.youtube.com/embed/cmMutvgQIcU"
-                              title="YouTube video player - Jessica's Story"
+                              title="YouTube video player -
+                              Jessica's Story"
                               frameBorder="0"
-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                              allow="accelerometer; autoplay; clipboard-write;
+                              encrypted-media; gyroscope; picture-in-picture"
                               allowFullScreen></iframe>
                       <p className={styles.ResourceTitleText}>
                         Jessica's Story
@@ -150,7 +154,8 @@ function WhatIsHealthEquityPage() {
                       <a href="https://ncrn.msm.edu/">
                         <img className={styles.ResourceImg}
                              src="img/maxresdefault (1) 1.png"
-                             alt="Header for Morehouse School of Medicine National COVID-19 Resiliency Network"/>
+                             alt="Header for Morehouse School of Medicine
+                             National COVID-19 Resiliency Network"/>
                         <p className={styles.ResourceTitleText}>
                           Morehouse School of Medicine National COVID-19
                           Resiliency Network (NCRN)
@@ -191,7 +196,8 @@ function WhatIsHealthEquityPage() {
                 <Grid item xs={6} className={styles.NewsAndStoriesItem}>
                   <img className={styles.NewsAndStoriesBigImg}
                        src="img/pexels-august-de-richelieu-4261261 1.png"
-                       alt="Asian woman assisting a young black child with his mask" />
+                       alt="Asian woman assisting a young black child with his
+                       mask" />
                   <p className={styles.NewsAndStoriesTitleText}>
                     COVID-19: Black Folks Have Been Trying To Tell You That Data
                     Is Political
@@ -253,7 +259,8 @@ function WhatIsHealthEquityPage() {
                 <Grid item xs={4} className={styles.NewsAndStoriesItem}>
                   <img className={styles.NewsAndStoriesSmallImg}
                        src="img/Screen Shot 2021-03-01 at 5.25 1.png"
-                       alt="Laptop sitting on desk and opened to the Health Equity Tracker Homepage" />
+                       alt="Laptop sitting on desk and opened to the Health
+                       Equity Tracker Homepage" />
                   <p className={styles.NewsAndStoriesTitleText}>
                     Advancing  Health Equity through the Political Determinants
                     of Health and Health Equity Tracker

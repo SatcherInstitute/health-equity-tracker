@@ -36,12 +36,15 @@ export function TableChart(props: TableChartProps) {
   let columns = metrics.map((metricConfig) => {
     return {
       Header: metricConfig.fullCardTitleName,
+      Cell: (a: any) =>
+        isNaN(a.value) ? a.value : Number(a.value).toLocaleString(),
       accessor: metricConfig.metricId,
     };
   });
   columns = [
     {
       Header: BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar],
+      Cell: (cell: any) => cell.value,
       accessor: breakdownVar as MetricId,
     },
   ].concat(columns);
@@ -127,22 +130,25 @@ export function TableChart(props: TableChartProps) {
                 <TableDataRow row={row} key={index} />
               ))}
             </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TablePagination
-                  count={memoData.length}
-                  rowsPerPage={pageSize}
-                  page={pageIndex}
-                  onChangePage={(event, newPage) => {
-                    gotoPage(newPage);
-                  }}
-                  onChangeRowsPerPage={(event) => {
-                    setPageSize(Number(event.target.value));
-                  }}
-                  rowsPerPageOptions={[5, 10, 25, 50, 100]}
-                />
-              </TableRow>
-            </TableFooter>
+            {/* If the number of rows is less than the smallest page size, we can hide pagination */}
+            {props.data.length > 5 && (
+              <TableFooter>
+                <TableRow>
+                  <TablePagination
+                    count={memoData.length}
+                    rowsPerPage={pageSize}
+                    page={pageIndex}
+                    onChangePage={(event, newPage) => {
+                      gotoPage(newPage);
+                    }}
+                    onChangeRowsPerPage={(event) => {
+                      setPageSize(Number(event.target.value));
+                    }}
+                    rowsPerPageOptions={[5, 10, 25, 50, 100]} // If changed, update pagination condition above
+                  />
+                </TableRow>
+              </TableFooter>
+            )}
           </Table>
         </TableContainer>
       )}

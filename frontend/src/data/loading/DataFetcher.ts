@@ -77,11 +77,26 @@ export class ApiDataFetcher implements DataFetcher {
     // TODO handle server returning a dataset not found error.
     let result = await this.fetchDataset(datasetId);
 
-    // TODO remove this once we figure out how to make BQ export integers as
+    // TODO remove these once we figure out how to make BQ export integers as
     // integers
     if (datasetId.startsWith("acs_population")) {
       result = result.map((row: any) => {
         return { ...row, population: Number(row["population"]) };
+      });
+    }
+    if (datasetId.startsWith("cdc_restricted")) {
+      result = result.map((row: any) => {
+        return {
+          ...row,
+          cases: Number(row["cases"]),
+          hosp_y: Number(row["hosp_y"]),
+          hosp_n: Number(row["hosp_n"]),
+          hosp_unknown: Number(row["hosp_unknown"]),
+          death_y: Number(row["death_y"]),
+          death_n: Number(row["death_n"]),
+          death_unknown: Number(row["death_unknown"]),
+          population: Number(row["population"]),
+        };
       });
     }
 

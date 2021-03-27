@@ -25,23 +25,6 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     ],
   },
   {
-    id: "health_insurance",
-    data_source_name: "American Community Survey 5-year estimates (2015-2019)",
-    data_source_link:
-      "https://www.census.gov/data/developers/data-sets/acs-5year.html",
-    geographic_level: "State",
-    demographic_granularity: "Race/ethnicity, sex", //Todo: Add Sex
-    update_frequency: "Annual",
-    description:
-      "Health Insurance Status broken down by self-reported race/ethnicity, age, and sex at the U.S. and state levels.",
-    dataset_ids: [
-      "acs_health_insurance-health_insurance_by_race_state",
-      "acs_health_insurance-health_insurance_by_race_county",
-      "acs_health_insurance-health_insurance_by_sex_state",
-      "acs_health_insurance-health_insurance_by_sex_county",
-    ],
-  },
-  {
     id: "brfss",
     data_source_name: "Disease Prevalence: Diabetes and COPD",
     data_source_link: "https://www.cdc.gov/brfss/index.html",
@@ -62,6 +45,25 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "The numbers of confirmed deaths, cases, and hospitalizations broken down by race/ethnicity at the U.S. and state levels.",
     dataset_ids: ["covid_by_state_and_race", "covid_by_county_and_race"],
+  },
+  {
+    id: "cdc_restricted",
+    data_source_name: "CDC Case Surveillance Restricted Access Detailed Data",
+    data_source_link:
+      "https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Monthly",
+    description:
+      "The numbers of confirmed deaths, cases, and hospitalizations at the U.S. and state levels.",
+    dataset_ids: [
+      "cdc_restricted_data-by_race_county",
+      "cdc_restricted_data-by_race_state",
+      "cdc_restricted_data-by_age_county",
+      "cdc_restricted_data-by_age_state",
+      "cdc_restricted_data-by_sex_county",
+      "cdc_restricted_data-by_sex_state",
+    ],
   },
 ];
 

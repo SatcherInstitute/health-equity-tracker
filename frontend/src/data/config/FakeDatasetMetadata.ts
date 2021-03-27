@@ -329,6 +329,42 @@ const datasetMetadataList: DatasetMetadata[] = [
     update_time: "February",
     fields: [],
   },
+  {
+    id: "cdc_restricted_data-by_race_county",
+    name: "COVID-19 deaths, cases, and hospitalizations by race and county",
+    update_time: "February",
+    fields: [],
+  },
+  {
+    id: "cdc_restricted_data-by_race_state",
+    name: "COVID-19 deaths, cases, and hospitalizations by race and state",
+    update_time: "February",
+    fields: [],
+  },
+  {
+    id: "cdc_restricted_data-by_age_county",
+    name: "COVID-19 deaths, cases, and hospitalizations by age and county",
+    update_time: "February",
+    fields: [],
+  },
+  {
+    id: "cdc_restricted_data-by_age_state",
+    name: "COVID-19 deaths, cases, and hospitalizations by age and state",
+    update_time: "February",
+    fields: [],
+  },
+  {
+    id: "cdc_restricted_data-by_sex_county",
+    name: "COVID-19 deaths, cases, and hospitalizations by sex and county",
+    update_time: "February",
+    fields: [],
+  },
+  {
+    id: "cdc_restricted_data-by_sex_state",
+    name: "COVID-19 deaths, cases, and hospitalizations by sex and state",
+    update_time: "February",
+    fields: [],
+  },
 ];
 
 export const FakeDatasetMetadataMap: Record<
