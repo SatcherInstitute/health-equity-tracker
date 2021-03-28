@@ -95,7 +95,8 @@ export class ApiDataFetcher implements DataFetcher {
           death_y: Number(row["death_y"]),
           death_n: Number(row["death_n"]),
           death_unknown: Number(row["death_unknown"]),
-          population: Number(row["population"]),
+          population:
+            row["population"] == null ? null : Number(row["population"]),
         };
       });
     }
