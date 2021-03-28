@@ -7,6 +7,7 @@ export const EXPLORE_DATA_PAGE_LINK = "/exploredata";
 export const DATA_CATALOG_PAGE_LINK = "/datacatalog";
 export const ABOUT_US_PAGE_LINK = "/aboutus";
 export const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = "/whatishealthequity";
+export const TERMS_OF_SERVICE_PAGE_LINK = "/termsofservice";
 
 // Value is a comma-separated list of dataset ids. Dataset ids cannot have
 // commas in them.
