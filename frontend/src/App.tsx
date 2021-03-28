@@ -82,7 +82,12 @@ function MobileAppToolbar() {
 
 function AppToolbar() {
   return (
-    <Toolbar>
+    <Toolbar className={styles.AppToolbar}>
+      <LinkWithStickyParams to="/">
+        <img src="img/AppbarLogo.png"
+             className={styles.AppbarLogoImg}
+             alt="Health Equity Tracker Logo -- decorative 'H'"/>
+      </LinkWithStickyParams>
       <Typography variant="h6" className={styles.HomeLogo}>
         <LinkWithStickyParams to="/">
           Health Equity Tracker
@@ -134,7 +139,7 @@ function App() {
         <div className={styles.Content}>
           <Router>
             <ScrollToTop />
-            <AppBar position="static">
+            <AppBar position="static" elevation={0}>
               {width > MOBILE_BREAKPOINT ? (
                 <AppToolbar />
               ) : (
