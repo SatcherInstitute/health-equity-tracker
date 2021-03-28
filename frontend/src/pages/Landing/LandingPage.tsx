@@ -191,7 +191,7 @@ function LandingPage() {
 
         <Grid container className={styles.GridOutlinedRow}>
           <Grid item xs={12}>
-            <Typography className={styles.HeaderText}>
+            <Typography className={styles.HowToHeaderText}>
               How do I use the Data Tracker?
             </Typography>
           </Grid>
@@ -219,10 +219,10 @@ function LandingPage() {
               </Grid>
               <Grid item xs={3}>
                 <div>
-                  <p className={styles.HowToTextHeader}>
+                  <p className={styles.HowToStepTextHeader}>
                     Search by completing the sentence
                   </p>
-                  <p className={styles.HowToTextSubheader}>
+                  <p className={styles.HowToStepTextSubheader}>
                     Select variables you’re interested in to complete the
                     sentence and explore the data
                   </p>
@@ -246,10 +246,10 @@ function LandingPage() {
               </Grid>
               <Grid item xs={3}>
                 <div>
-                  <p className={styles.HowToTextHeader}>
+                  <p className={styles.HowToStepTextHeader}>
                     Use filters to go deeper
                   </p>
-                  <p className={styles.HowToTextSubheader}>
+                  <p className={styles.HowToStepTextSubheader}>
                     Where available, the tracker offers breakdowns by race and
                     ethnicity, sex, and age. This is currently limited to the
                     national and state level, with county-level data coming
@@ -275,10 +275,10 @@ function LandingPage() {
               </Grid>
               <Grid item xs={3}>
                 <div>
-                  <p className={styles.HowToTextHeader}>
+                  <p className={styles.HowToStepTextHeader}>
                     Explore maps and graphs
                   </p>
-                  <p className={styles.HowToTextSubheader}>
+                  <p className={styles.HowToStepTextSubheader}>
                     The interactive maps and graphs are a great way to
                     investigate the data more closely. If a state or county is
                     gray, that means there’s no data currently available.

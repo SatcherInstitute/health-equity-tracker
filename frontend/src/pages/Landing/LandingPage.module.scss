@@ -43,8 +43,10 @@
 
 .HeaderImg {
   border-radius: 30px;
-  height: 600px;
-  width: 700px;
+  height: auto;
+  max-height: 600px;
+  width: 100%;
+  max-width: 700px;
   align-items: center;
   justify-content: center;
   padding: 10px;
@@ -59,8 +61,10 @@
 
 // For each image in the "Where We Aim To Go" section
 .TakeALookAroundImg {
-  height: 255px;
-  width: 255px;
+  height: auto;
+  max-height: 255px;
+  width: 100%;
+  max-width: 255px;
 }
 
 /** ------------- TIME TO PRIORITIZE HEALTH EQUITY ROW  ------------- **/
@@ -70,7 +74,8 @@
 }
 
 .DecorativeHImgContainer {
-  width: 560px;
+  width: 95%;
+  max-width: 560px;
   height: 810px;
   border-radius: 30px;
   background-color: #d85c47;
@@ -81,11 +86,23 @@
 }
 
 .DecorativeHImg {
-  width: 465px;
-  height: 460px;
+  height: auto;
+  width: 100%;
+  max-width: 465px;
+  max-height: 460px;
 }
 
 /** ------------- HOW TO SECTION ------------- **/
+
+.HowToHeaderText {
+  font-family: "Taviraj", sans-serif !important;
+  text-align: center;
+  font-weight: 400;
+  font-size: 52px !important;
+  line-height: 89px;
+  color: $alt-green;
+  padding-bottom: 50px;
+}
 
 .HowToStepContainer {
   border: 1px solid #bdc1c6;
@@ -101,7 +118,7 @@
   height: auto;
 }
 
-.HowToTextHeader {
+.HowToStepTextHeader {
   font-family: "Inter", sans-serif !important;
   font-weight: 600;
   font-size: 24px;
@@ -109,7 +126,7 @@
   text-align: left;
 }
 
-.HowToTextSubheader {
+.HowToStepTextSubheader {
   font-family: "Inter", sans-serif !important;
   font-weight: 400;
   font-size: 16px;
@@ -180,6 +197,7 @@
 
 .EmailAddressBackgroundImgContainer {
   background-image: url("pexels-armin-rimoldi-5304098 1.png");
+  background-position: center;
   border-radius: 30px;
   padding: 30px;
   height: 700px;
@@ -267,7 +285,7 @@
 
   .HeaderL2Text {
     font-size: 58px;
-    text-align: center;
+    text-align: left;
     font-weight: 400;
     font-family: "Taviraj", serif !important;
     line-height: 58px;
@@ -323,7 +341,7 @@
 
   .HeaderText {
     font-size: 48px;
-    text-align: center;
+    text-align: left;
     font-weight: 300;
     font-family: "Taviraj", serif !important;
     line-height: 40px;
@@ -352,7 +370,7 @@
 
   .HeaderText {
     font-size: 48px;
-    text-align: center;
+    text-align: left;
     font-weight: 300;
     font-family: "Taviraj", serif !important;
     line-height: 40px;
