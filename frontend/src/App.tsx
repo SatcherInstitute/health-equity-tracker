@@ -32,11 +32,13 @@ import {
   DATA_CATALOG_PAGE_LINK,
   ABOUT_US_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+  TERMS_OF_SERVICE_PAGE_LINK,
 } from "./utils/urlutils";
 import { autoInitGlobals, getEnvironment } from "./utils/globals";
 import ReactTooltip from "react-tooltip";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import PreLaunchSiteContent from "./pages/Landing/PreLaunchSiteContent";
+import TermsOfServicePage from './pages/TermsOfServicePage/TermsOfServicePage';
 
 const MOBILE_BREAKPOINT = 600;
 
@@ -80,7 +82,12 @@ function MobileAppToolbar() {
 
 function AppToolbar() {
   return (
-    <Toolbar>
+    <Toolbar className={styles.AppToolbar}>
+      <LinkWithStickyParams to="/">
+        <img src="img/AppbarLogo.png"
+             className={styles.AppbarLogoImg}
+             alt="Health Equity Tracker Logo -- decorative 'H'"/>
+      </LinkWithStickyParams>
       <Typography variant="h6" className={styles.HomeLogo}>
         <LinkWithStickyParams to="/">
           Health Equity Tracker
@@ -132,7 +139,7 @@ function App() {
         <div className={styles.Content}>
           <Router>
             <ScrollToTop />
-            <AppBar position="static">
+            <AppBar position="static" elevation={0}>
               {width > MOBILE_BREAKPOINT ? (
                 <AppToolbar />
               ) : (
@@ -152,6 +159,10 @@ function App() {
               <Route
                   path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
                   component={WhatIsHealthEquityPage}
+              />
+              <Route
+                  path={TERMS_OF_SERVICE_PAGE_LINK}
+                  component={TermsOfServicePage}
               />
               <Route exact path="/" component={LandingPage} />
               <Route component={NotFoundPage} />

@@ -1,14 +1,5 @@
 @import "../../styles/variables";
 
-.AboutUsPage {
-  text-align: left;
-  h1 {
-    font-size: 18px;
-    line-height: 23px;
-  }
-  padding-bottom: 100px;
-}
-
 // For styles Grid-wide
 .Grid {
   margin: auto;
@@ -86,10 +77,8 @@
   border-top: 1px solid #3e3e3e;
 
   .ImgHeaderGridItem {
-    width: 100%;
-    height: auto;
-    max-width: 760px;
-    max-height: 645px;
+    width: 760px;
+    height: 645px;
     padding-left: 25px;
   }
 
@@ -234,101 +223,25 @@
   }
 }
 
-/** ------------- HEADERS ------------- **/
+/** ------------- TERMS OF SERVICE AND PRIVACY POLICY ------------- **/
 
-// TODO: Change all instances to UnderlinedHeaderL1
-.UnderlinedHeader {
-  font-size: 28px !important;
-  line-height: 26px;
-  border-bottom: 2px solid #9aa0a6;
-  margin: 25px 0 25px 0;
-  font-family: "Taviraj", serif !important;
-  text-align: left;
-}
-
-// Underlined Header H1
-.UnderlinedHeaderL1 {
-  font-size: 28px !important;
-  line-height: 26px;
-  border-bottom: 2px solid #9aa0a6;
-  margin: 25px 0 25px 0;
-  font-family: "Taviraj", serif !important;
-  text-align: left;
-}
-
-// Underlined Header H2
-.UnderlinedHeaderL2 {
-  font-size: 28px !important;
-  line-height: 26px;
-  border-bottom: 1.5px solid #0b5240;
-  margin: 25px 0 25px 0;
-  font-family: "Taviraj", serif !important;
-  text-align: left;
-  font-weight: 400;
-}
-
-/** ------------- THE PROJECT ------------- **/
-
-// For each item in the "Where We Aim To Go" section
-.AimToGoItem {
-  padding: 0 15px 0 15px;
-}
-
-// For each image in the "Where We Aim To Go" section
-.ImgAimToGo {
-  width: 100%;
-  height: auto;
-  max-height: 255px;
-  max-width: 255px;
-}
-
-/** ------------- OUR TEAM ------------- **/
-
-// Profiles items for people in Our Team
-.TextProfile {
-  padding: 12px;
-}
-
-.ProfileImg {
-  max-width: 181px;
-  max-height: 181px;
-  width: 100%;
-  height: auto;
-}
-
-.PartnerImg {
-  width: 70%;
-  height: auto;
-}
-
-.GreyGridItem {
-  background-color: #f9f9f9;
-  padding: 70px;
-}
-
-.MajorLink {
-  color: $alt-green;
-  font-weight: 600;
-}
-
-/** ------------- FAQ ------------- **/
-
-.FaqGrid {
+.TosGrid {
   max-width: 1024px;
 }
 
-.FaqSection {
+.TosSection {
   padding-top: 50px;
   padding-bottom: 50px;
   border-bottom: 1px solid $alt-grey;
 }
 
-.FaqQuestionAndAnswer {
+.TosQuestionAndAnswer {
   padding-bottom: 20px;
   padding-right: 250px;
+  text-align: left;
 }
 
-.FaqHeaderText {
+.TosHeaderText {
   font-size: 32px !important;
   text-align: center;
   font-weight: 300;
@@ -338,9 +251,8 @@
   padding-bottom: 20px;
 }
 
-.FaqQuestion {
+.TosQuestion {
   font-size: 18px !important;
-  text-align: left;
   font-weight: 500;
   font-family: "DM Sans", sans-serif;
   line-height: 23.44px;
@@ -349,7 +261,7 @@
   padding-bottom: 15px;
 }
 
-.FaqAnswer {
+.TosAnswer {
   font-size: 14px;
   text-align: left;
   font-weight: 400;
@@ -357,45 +269,14 @@
   line-height: 20px;
   color: $alt-black;
 
-  .FaqContactUsButton {
+  .TosContactUsButton {
     border: none;
     text-decoration: underline;
     background-color: transparent;
   }
 }
 
-.FaqSubheaderText {
+.TosSubheaderText {
   font-weight: 700;
   font-family: "Inter", sans-serif !important;
-}
-
-/** ------------- CONTACT US ------------- **/
-
-.ContactUsHeaderText {
-  font-size: 70px !important;
-  font-weight: 400 !important;
-  font-family: "Taviraj", sans-serif !important;
-  line-height: 70px !important;
-  color: $alt-green;
-}
-
-.ContactUsSubheaderText {
-  font-size: 48px !important;
-  font-weight: 300 !important;
-  font-family: "Taviraj", sans-serif !important;
-  line-height: 48px !important;
-  color: $alt-green;
-  text-align: center;
-}
-
-.ImgContactUsHeader {
-  width: 100%;
-  height: auto;
-  max-width: 870px;
-  max-height: 645px;
-  padding-left: 25px;
-}
-
-.GridCenteredTextItem {
-  text-align: center;
 }
