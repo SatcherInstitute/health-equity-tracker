@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styles from "./App.module.scss";
 import MaterialTheme from "./styles/MaterialTheme";
-import AboutUsPage from "./pages/AboutUs/AboutUsPage";
+import { AboutUsPage } from "./pages/AboutUs/AboutUsPage";
 import DataCatalogTab from "./pages/DataCatalog/DataCatalogTab";
 import ExploreDataPage from "./pages/ExploreData/ExploreDataPage";
 import LandingPage from "./pages/Landing/LandingPage";
-import WhatIsHealthEquityPage from './pages/WhatIsHealthEquity/WhatIsHealthEquityPage';
+import WhatIsHealthEquityPage from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import Footer from "./Footer";
 import AppBar from "@material-ui/core/AppBar";
@@ -93,14 +93,16 @@ function AppToolbar() {
           Health Equity Tracker
         </LinkWithStickyParams>
       </Typography>
-      {[EXPLORE_DATA_PAGE_LINK, DATA_CATALOG_PAGE_LINK,
-        WHAT_IS_HEALTH_EQUITY_PAGE_LINK, ABOUT_US_PAGE_LINK].map(
-        (pageUrl, i) => (
-          <LinkWithStickyParams to={pageUrl} class={styles.NavLink}>
-            <Button key={i}>{PAGE_URL_TO_NAMES[pageUrl]}</Button>
-          </LinkWithStickyParams>
-        )
-      )}
+      {[
+        EXPLORE_DATA_PAGE_LINK,
+        DATA_CATALOG_PAGE_LINK,
+        WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+        ABOUT_US_PAGE_LINK,
+      ].map((pageUrl, i) => (
+        <LinkWithStickyParams to={pageUrl} class={styles.NavLink}>
+          <Button key={i}>{PAGE_URL_TO_NAMES[pageUrl]}</Button>
+        </LinkWithStickyParams>
+      ))}
     </Toolbar>
   );
 }
@@ -148,17 +150,14 @@ function App() {
             </AppBar>
             <Switch>
               <Route path={ABOUT_US_PAGE_LINK} component={AboutUsPage} />
-              <Route
-                path={DATA_CATALOG_PAGE_LINK}
-                component={DataCatalogTab}
-              />
+              <Route path={DATA_CATALOG_PAGE_LINK} component={DataCatalogTab} />
               <Route
                 path={EXPLORE_DATA_PAGE_LINK}
                 component={ExploreDataPage}
               />
               <Route
-                  path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
-                  component={WhatIsHealthEquityPage}
+                path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+                component={WhatIsHealthEquityPage}
               />
               <Route
                   path={TERMS_OF_SERVICE_PAGE_LINK}

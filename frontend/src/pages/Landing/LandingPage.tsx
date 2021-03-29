@@ -6,6 +6,12 @@ import { EXPLORE_DATA_PAGE_LINK } from "../../utils/urlutils";
 import { Accordion, AccordionSummary } from "@material-ui/core";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import {
+  LinkWithStickyParams,
+  ABOUT_US_TAB_PARAM,
+  ABOUT_US_PAGE_LINK,
+} from "../../utils/urlutils";
+import { ABOUT_US_FAQ_TAB_INDEX } from "../AboutUs/AboutUsPage";
 
 function LandingPage() {
   return (
@@ -481,9 +487,12 @@ function LandingPage() {
             </Accordion>
           </Grid>
           <Grid item>
-            <a href="/aboutus" className={styles.FaqLink}>
+            <LinkWithStickyParams
+              class={styles.FaqLink}
+              to={`${ABOUT_US_PAGE_LINK}?${ABOUT_US_TAB_PARAM}=${ABOUT_US_FAQ_TAB_INDEX}`}
+            >
               See our full FAQ page
-            </a>
+            </LinkWithStickyParams>
           </Grid>
         </Grid>
 
