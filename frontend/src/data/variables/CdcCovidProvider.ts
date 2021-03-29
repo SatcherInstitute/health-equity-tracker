@@ -93,21 +93,6 @@ class CdcCovidProvider extends VariableProvider {
             .resetIndex()
         : df;
 
-    // Calculate Total column and add to data.
-    // TODO - do this on the BE.
-    const total = df
-      .pivot(["fips", "fips_name"], {
-        [breakdownColumnName]: (series) => TOTAL,
-        covid_cases: (series) => series.sum(),
-        covid_deaths: (series) => series.sum(),
-        covid_hosp: (series) => series.sum(),
-        population: (series) =>
-          series.where((population) => !isNaN(population)).sum(),
-        population_pct: (series) => 100,
-      })
-      .resetIndex();
-    df = df.concat(total).resetIndex();
-
     df = df
       .generateSeries({
         covid_cases_per_100k: (row) => per100k(row.covid_cases, row.population),
