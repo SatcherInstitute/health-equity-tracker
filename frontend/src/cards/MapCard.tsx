@@ -183,7 +183,7 @@ function MapCardWithKey(props: MapCardProps) {
                         options={filterOptions}
                         onOptionUpdate={(
                           newBreakdownDisplayName,
-                          selection
+                          filterSelection
                         ) => {
                           // Get breakdownVar (ex. race_and_ethnicity) from display name (ex. Race and Ethnicity)
                           const breakdownVar = Object.keys(
@@ -197,8 +197,8 @@ function MapCardWithKey(props: MapCardProps) {
                           if (breakdownVar) {
                             setActiveBreakdownVar(breakdownVar as BreakdownVar);
                           }
-                          if (selection !== undefined) {
-                            setActiveBreakdownFilter(selection);
+                          if (filterSelection) {
+                            setActiveBreakdownFilter(filterSelection);
                           }
                         }}
                       />
