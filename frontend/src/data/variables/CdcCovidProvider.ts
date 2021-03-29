@@ -3,7 +3,6 @@ import { Breakdowns } from "../query/Breakdowns";
 import VariableProvider from "./VariableProvider";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
-import { TOTAL } from "../utils/Constants";
 import { joinOnCols, per100k } from "../utils/datasetutils";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
