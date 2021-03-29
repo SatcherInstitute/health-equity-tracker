@@ -34,7 +34,7 @@ CovidPercentShareMap.args = {
 
 export const CovidPer100kMap = Template.bind({});
 CovidPer100kMap.args = {
-  metricConfig: METRIC_CONFIG["covid"][2].metrics["per100k"],
+  metricConfig: METRIC_CONFIG["covid"][0].metrics["per100k"],
   currentBreakdown: "all",
 };
 
