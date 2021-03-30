@@ -8,6 +8,7 @@ import AcsHealthInsuranceProvider from "../variables/AcsHealthInsuranceProvider"
 export type ProviderId =
   | "acs_health_insurance_provider"
   | "acs_pop_provider"
+  | "acs_poverty_provider"
   | "cdc_covid_provider"
   | "covid_provider"
   | "brfss_provider";
