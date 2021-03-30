@@ -45,7 +45,7 @@ export function PopulationCard(props: PopulationCardProps) {
   );
 
   return (
-    <CardWrapper queries={[raceQuery, ageQuery]} hideFooter={true}>
+    <CardWrapper queries={[raceQuery, ageQuery]}>
       {([raceQueryResponse, ageQueryResponse]) => {
         const totalPopulation = raceQueryResponse.data.find(
           (r) => r.race_and_ethnicity === TOTAL
@@ -91,7 +91,8 @@ export function PopulationCard(props: PopulationCardProps) {
                 <Grid
                   container
                   className={styles.PopulationCard}
-                  justify="space-around"
+                  justify="flex-start"
+                  alignItems="flex-start"
                 >
                   <Grid item>
                     <span>Total Population</span>
@@ -99,14 +100,19 @@ export function PopulationCard(props: PopulationCardProps) {
                       {totalPopulationSize}
                     </span>
                   </Grid>
-                  {/* TODO- calculate median age */}
+                  {/* TODO- calculate median age 
                   <Grid item className={styles.PopulationMetric}>
                     <span>Median Age</span>
                     <span className={styles.PopulationMetricValue}>??</span>
                   </Grid>
+                  */}
                   {/* TODO- properly align these */}
-                  {raceQueryResponse.data
+                  {raceQueryResponse
+                    .getValidRowsForField("race_and_ethnicity")
                     .filter((r) => r.race_and_ethnicity !== TOTAL)
+                    .sort((a, b) => {
+                      return b.population - a.population;
+                    })
                     .map((row) => (
                       <Grid item className={styles.PopulationMetric}>
                         <span>{row.race_and_ethnicity}</span>

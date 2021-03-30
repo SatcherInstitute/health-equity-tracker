@@ -9,12 +9,51 @@
 }
 
 .FooterGrid {
-  max-width: $max-width;
   margin: auto;
+  height: 100%;
 }
 
 .FooterColumn {
   text-align: left;
   margin-left: 20px;
   margin-right: 20px;
+}
+
+.SocialsIcon {
+  height: 25px !important;
+}
+
+.FooterTitleSpan {
+  font-family: "DM Sans", sans-serif !important;
+  font-size: 20px;
+  color: $alt-green;
+  font-weight: 500;
+}
+
+.FooterLogo {
+  padding: 10px 10px 0 10px;
+}
+
+.FooterNavLink {
+  padding-left: 20px;
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18.23px;
+  text-decoration: none;
+  color: #202124 !important;
+}
+
+.CopyrightSpan {
+  color: $alt-grey;
+}
+
+.ScrollToTopButton {
+  border-radius: 30px;
+  background-color: transparent;
+  border: none;
+
+  &:focus {
+    outline: none;
+  }
 }

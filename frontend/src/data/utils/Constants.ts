@@ -9,6 +9,7 @@ export const ASIAN_NH = "Asian (Non-Hispanic)";
 export const NON_HISPANIC = "Not Hispanic or Latino";
 
 export const AGE = "age";
+export const FORTY_TO_FORTY_NINE = "40-49";
 
 export const SEX = "sex";
 export const MALE = "Male";

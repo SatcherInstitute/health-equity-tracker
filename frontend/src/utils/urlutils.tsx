@@ -6,6 +6,8 @@ export const STICKY_VERSION_PARAM = "sv";
 export const EXPLORE_DATA_PAGE_LINK = "/exploredata";
 export const DATA_CATALOG_PAGE_LINK = "/datacatalog";
 export const ABOUT_US_PAGE_LINK = "/aboutus";
+export const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = "/whatishealthequity";
+export const TERMS_OF_SERVICE_PAGE_LINK = "/termsofservice";
 
 // Value is a comma-separated list of dataset ids. Dataset ids cannot have
 // commas in them.
@@ -18,6 +20,9 @@ export const MADLIB_PHRASE_PARAM = "mlp";
 // Values are applied on top of defaults so you only need to specify those that differ
 // mls=0:1,2:5
 export const MADLIB_SELECTIONS_PARAM = "mls";
+
+// Value is index of the tab to jump to
+export const ABOUT_US_TAB_PARAM = "tab";
 
 export function LinkWithStickyParams(props: {
   to: string;

@@ -7,6 +7,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Popover, { PopoverOrigin } from "@material-ui/core/Popover";
 import { usePopover, PopoverElements } from "../../utils/usePopover";
+import styles from "./DropDownMenu.module.scss";
 
 const ANCHOR_ORIGIN: PopoverOrigin = {
   vertical: "top",
@@ -30,6 +31,14 @@ function MenuPopover(props: {
     ? Object.keys(props.items)
     : (props.items as string[]);
 
+  // If present, rename "Total" option to "All" and append to beginning of options
+  let updatedListItems = listItems.filter((value) => {
+    return value !== "Total";
+  });
+  if (listItems.length !== updatedListItems.length) {
+    updatedListItems.splice(0, 0, "All");
+  }
+
   const renderListItem = (listItem: string) => {
     if (
       hasChildren &&
@@ -45,7 +54,7 @@ function MenuPopover(props: {
         <ListItem
           button
           onClick={(event) => {
-            props.onClick(event, listItem);
+            props.onClick(event, listItem === "All" ? "Total" : listItem);
           }}
         >
           <ListItemText primary={listItem} />
@@ -69,7 +78,7 @@ function MenuPopover(props: {
       transformOrigin={TRANSFORM_ORIGIN}
     >
       <List>
-        {listItems.map((listItem: string) => renderListItem(listItem))}
+        {updatedListItems.map((listItem: string) => renderListItem(listItem))}
       </List>
     </Popover>
   );
@@ -88,7 +97,10 @@ function DropDownMenu(props: {
   // If only one key is present, submenu options will render as first level.
   options: Record<string, string[]>;
   // Update parent component with a newly selected value.
-  onOptionUpdate: (option: string) => void;
+  onOptionUpdate: (
+    category: string | undefined,
+    filterSelection: string | undefined
+  ) => void;
 }) {
   const firstMenu = usePopover();
   const secondMenu = usePopover();
@@ -101,8 +113,9 @@ function DropDownMenu(props: {
 
   return (
     <>
+      <div className={styles.FilterBy}>Filter by:</div>
       <Button variant="text" onClick={firstMenu.open}>
-        Filter by:<u>{props.value}</u>
+        <u>{props.value === "Total" ? "All" : props.value}</u>
         <ArrowDropDown />
       </Button>
 
@@ -111,7 +124,7 @@ function DropDownMenu(props: {
         items={oneLevelMenu ? Object.values(props.options)[0] : props.options}
         onClick={(event: React.MouseEvent<HTMLElement>, value: string) => {
           if (oneLevelMenu) {
-            props.onOptionUpdate(value);
+            props.onOptionUpdate(undefined, value);
             firstMenu.close();
           } else {
             setFirstMenuSelection(value);
@@ -129,7 +142,7 @@ function DropDownMenu(props: {
         ) => {
           firstMenu.close();
           secondMenu.close();
-          props.onOptionUpdate(value);
+          props.onOptionUpdate(firstMenuSelection, value);
         }}
         onClose={firstMenu.close}
       />

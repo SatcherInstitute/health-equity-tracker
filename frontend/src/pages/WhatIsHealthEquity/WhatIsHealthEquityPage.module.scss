@@ -10,7 +10,7 @@
 // For primary-themed buttons
 .PrimaryButton {
   background-color: #0b5240;
-  color: white !important;
+  color: white;
   border-radius: 40px;
   height: 52px;
   width: 220px;
@@ -25,6 +25,8 @@
 .MajorLink {
   color: $alt-green;
   font-weight: 600;
+  font-size: 26px;
+  line-height: 31.47px;
 }
 
 // For minor links, in black
@@ -38,180 +40,197 @@
 /** ------------- HEADER ROW ------------- **/
 
 .HeaderImgItem {
-  border-left: 1px solid #3e3e3e;
+  border-right: 1px solid #3e3e3e;
 }
 
 .HeaderImg {
   border-radius: 30px;
   height: auto;
-  max-height: 600px;
   width: 100%;
-  max-width: 700px;
+  max-height: 770px;
+  max-width: 400px;
   align-items: center;
   justify-content: center;
   padding: 10px;
 }
 
-/** ------------- TAKE A LOOK AROUND ROW ------------- **/
-
-// For each item in the "Where We Aim To Go" section
-.TakeALookAroundItem {
-  padding: 0 15px 0 15px;
+.DefinitionsContainer {
+  text-align: left;
 }
 
-// For each image in the "Where We Aim To Go" section
-.TakeALookAroundImg {
-  height: auto;
-  max-height: 255px;
-  width: 100%;
-  max-width: 255px;
-}
-
-/** ------------- TIME TO PRIORITIZE HEALTH EQUITY ROW  ------------- **/
-
-.DecorativeHImgItem {
-  border-right: 1px solid #3e3e3e;
-}
-
-.DecorativeHImgContainer {
-  width: 95%;
-  max-width: 560px;
-  height: 810px;
-  border-radius: 30px;
-  background-color: #d85c47;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-}
-
-.DecorativeHImg {
-  height: auto;
-  width: 100%;
-  max-width: 465px;
-  max-height: 460px;
-}
-
-/** ------------- HOW TO SECTION ------------- **/
-
-.HowToHeaderText {
-  font-family: "Taviraj", sans-serif !important;
-  text-align: center;
-  font-weight: 400;
-  font-size: 52px !important;
-  line-height: 89px;
-  color: $alt-green;
-  padding-bottom: 50px;
-}
-
-.HowToStepContainer {
-  border: 1px solid #bdc1c6;
-  border-radius: 30px;
-  box-sizing: border-box;
+.DefinitionsItem {
   padding: 10px;
-  margin: 10px;
 }
 
-.HowToStepImg {
-  padding: 10px;
-  width: 100%;
-  height: auto;
-}
-
-.HowToStepTextHeader {
-  font-family: "Inter", sans-serif !important;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 34px;
-  text-align: left;
-}
-
-.HowToStepTextSubheader {
-  font-family: "Inter", sans-serif !important;
+.DefinitionHeader {
+  font-size: 22px;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 26px;
-  letter-spacing: 0.1px;
-  text-align: left;
-}
-
-/** ------------- FAQ ROW ------------- **/
-
-.FaqHeader {
-  font-size: 54px !important;
-  text-align: left;
-  font-weight: 400;
-  font-family: "Taviraj", serif !important;
-  line-height: 64px !important;
+  line-height: 54px;
   color: $alt-green;
-  padding-bottom: 20px;
-}
-
-.FaqQAItem {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-.FaqQuestion {
-  font-size: 28px !important;
-  text-align: left;
-  font-weight: 300 !important;
   font-family: "Taviraj", sans-serif !important;
-  line-height: 68px !important;
-  color: $alt-black;
 }
 
-.FaqAnswer {
+.DefinitionPronunciation {
   font-size: 14px;
-  text-align: left;
   font-weight: 400;
-  font-family: "Inter", sans-serif;
-  line-height: 20px;
-  color: $alt-black;
+  line-height: 26px;
+  color: #5F6368;
 }
 
-.FaqSubheaderText {
-  font-weight: 700;
-  font-family: "Inter", sans-serif !important;
+.DefinitionText {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
 }
 
-.FaqLink {
-  font-family: "Inter", sans-serif !important;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 68px;
-  color: $alt-green;
+.DefinitionSourceSpan {
+  color: $alt-grey;
 }
 
-/** ------------- NEWSLETTER SIGN UP ROW ------------- **/
+/** ------------- HEALTH EQUITY RESOURCES SECTION ------------- **/
 
-.NewsletterRowHeader {
-  font-size: 130px !important;
-  font-family: "Taviraj", sans-serif !important;
-  text-align: center;
-  font-weight: 400 !important;
-  color: white;
-  line-height: 120px !important;
-  padding: 30px;
-}
-
-.EmailAddressBackgroundImgContainer {
-  background-image: url("pexels-armin-rimoldi-5304098 1.png");
-  background-position: center;
-  border-radius: 30px;
-  padding: 30px;
-  height: 700px;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.EmailAddressContentDiv {
-  position: absolute;
-  width: 80%;
+// For each item in the "Health Equity Resources" section
+.ResourceItem {
+  padding: 15px;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+.ResourceVideoEmbed {
+  border-radius: 30px;
+}
+
+.ResourceImg {
+  border-radius: 30px;
+  max-height: 180px;
+  height: auto;
+  width: 100%;
+}
+
+.MainResourceTitleText {
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 33.89px;
+  margin: 15px 0 15px 0;
+}
+
+.MainResourceSubtitleText {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 26px;
+  margin: 0px;
+}
+
+.ResourceTitleText {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 26.63px;
+  margin: 15px 0 15px 0;
+}
+
+.ResourceSubtitleText {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  margin: 0px;
+}
+
+/** ------------- NEWS AND STORIES SECTION  ------------- **/
+
+.NewsAndStoriesItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-content: space-around;
+  padding: 30px;
+}
+
+.NewsAndStoriesBigImg {
+  width: 100%;
+  height: auto;
+  border-radius: 30px;
+}
+
+.NewsAndStoriesSmallImg {
+  width: 100%;
+  border-radius: 30px;
+}
+
+.NewsAndStoriesTitleText {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 26.63px;
+  margin: 15px 0 15px 0;
+}
+
+.NewsAndStoriesSubtitleText {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  margin: 0px;
+
+  a {
+    text-decoration: underline;
+    color: black;
+  }
+}
+
+/** ------------- HOW TO JOIN THE EFFORT SECTION ------------- **/
+
+.JoinTheEffortHeaderRow {
+  padding: 40px 0 60px 0;
+}
+
+.JoinTheEffortItemContainer {
+  padding: 30px 0px 30px 0px;
+  border-top: 1px solid #5F6368;
+}
+
+.JoinTheEffortTextContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  padding: 100px;
+}
+
+.JoinTheEffortImgContainer {
+  width: 600px;
+  height: 720px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.JoinTheEffortImg {
+  width: 100%;
+  height: auto;
+  max-width: 410px;
+  max-height: 500px;
+}
+
+.JoinTheEffortStepHeaderText {
+  font-size: 44px !important;
+  font-weight: 400 !important;
+  line-height: 50px !important;
+  font-family: "Taviraj", sans-serif !important;
+  padding: 10px 0 10px 0;
+}
+
+.JoinTheEffortStepText {
+  font-size: 22px !important;
+  font-weight: 400 !important;
+  line-height: 30px !important;
+  font-family: "DM Sans", sans-serif !important;
+  padding: 10px 0 10px 0;
 }
 
 .EmailAddressForm {
@@ -219,7 +238,7 @@
   width: 485px;
   height: 60px;
   background-color: white;
-  border: none;
+  border: 1px solid #888888;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -251,6 +270,20 @@
   }
 }
 
+.SocialsDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  color: $alt-green;
+  padding: 10px 0 10px 0;
+}
+
+.SocialsIcon {
+  color: $alt-green;
+  font-size: 68px !important;
+}
+
 /** ------------- TYPES OF GRID ROWS ------------- **/
 
 // Generic grid subrow with no special styling
@@ -260,7 +293,6 @@
 
 // Grid rows that have outlines and an image in one cell.
 .GridOutlinedImgRow {
-  border-top: 1px solid #3e3e3e;
 
   .ImgHeaderGridItem {
     width: 760px;
@@ -268,29 +300,27 @@
     padding-left: 25px;
   }
 
-  .GridVerticallyAlignedItem {
+  .HeaderTextItem {
     justify-content: center;
-    padding: 25px;
+    padding: 0 100px 0 100px;
   }
 
   .HeaderText {
-    font-size: 138px;
-    text-align: left;
-    font-weight: 300;
-    font-family: "Taviraj", serif !important;
-    line-height: 115px;
-    color: $alt-green;
-    padding-bottom: 20px;
-  }
-
-  .HeaderL2Text {
-    font-size: 58px;
+    font-size: 62px;
     text-align: left;
     font-weight: 400;
     font-family: "Taviraj", serif !important;
-    line-height: 58px;
+    line-height: 64px;
     color: $alt-green;
-    padding-bottom: 20px;
+  }
+
+  .HeaderL2Text {
+    font-size: 52px;
+    text-align: center;
+    font-weight: 400;
+    font-family: "Taviraj", serif !important;
+    line-height: 88.71px;
+    color: $alt-green;
   }
 
   .SubheaderL1Text {
@@ -302,27 +332,28 @@
   }
 
   .SubheaderL2Text {
-    font-family: "Taviraj", sans-serif;
-    font-weight: 300;
-    font-size: 30px;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
     line-height: 30px;
-    padding: 10px 0 10px 0;
+    margin: 0px;
   }
 
   .HeaderSubtext {
-    font-size: 18px;
+    font-size: 20px;
     text-align: left;
-    font-weight: 400;
-    line-height: 26px;
+    font-weight: 500;
+    line-height: 30px;
     font-family: "Inter", sans-serif !important;
   }
 
   .HeaderSubtextL2 {
-    font-size: 16px;
+    font-size: 18px;
     text-align: left;
     font-weight: 300;
-    line-height: 22px;
+    line-height: 24px;
     font-family: "Inter", sans-serif !important;
+    color: black !important;
   }
 
   .HeaderSubtextL3 {
@@ -341,7 +372,7 @@
 
   .HeaderText {
     font-size: 48px;
-    text-align: left;
+    text-align: center;
     font-weight: 300;
     font-family: "Taviraj", serif !important;
     line-height: 40px;
@@ -360,7 +391,7 @@
 
 // Grid rows with outlines.
 .GridOutlinedRow {
-  padding: 147px 30px 147px 30px;
+  padding: 75px 30px 75px 30px;
   align-items: center;
   border-top: 1px solid #3e3e3e;
 
@@ -370,7 +401,7 @@
 
   .HeaderText {
     font-size: 48px;
-    text-align: left;
+    text-align: center;
     font-weight: 300;
     font-family: "Taviraj", serif !important;
     line-height: 40px;
@@ -379,13 +410,13 @@
   }
 
   .HeaderL2Text {
-    font-size: 58px;
+    font-size: 52px;
     text-align: center;
     font-weight: 400;
     font-family: "Taviraj", serif !important;
-    line-height: 58px;
+    line-height: 88.71px;
     color: $alt-green;
-    padding-bottom: 20px;
+    //padding-bottom: 20px;
   }
 
   .SubheaderL1Text {
@@ -397,11 +428,11 @@
   }
 
   .SubheaderL2Text {
-    font-family: "Taviraj", sans-serif;
-    font-weight: 300;
-    font-size: 30px;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
     line-height: 30px;
-    padding: 30px 0 0 0;
+    margin: 0px;
   }
 
   .HeaderSubtext {
@@ -413,12 +444,12 @@
   }
 
   .HeaderSubtextL2 {
-    font-size: 20px;
-    text-align: center;
-    font-weight: 400;
-    line-height: 24.2px;
+    font-size: 18px;
+    text-align: left;
+    font-weight: 300;
+    line-height: 24px;
     font-family: "Inter", sans-serif !important;
-    color: $alt-green;
+    color: black !important;
   }
 
   .HeaderSubtextL3 {

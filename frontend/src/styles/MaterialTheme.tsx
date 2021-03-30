@@ -35,6 +35,9 @@ const MaterialTheme = createMuiTheme({
       root: {
         textTransform: "unset",
       },
+      containedPrimary: {
+        color: "#ffffff !important",
+      },
     },
     MuiPaper: {
       root: {
