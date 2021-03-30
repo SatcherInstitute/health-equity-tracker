@@ -16,7 +16,7 @@ data_ingestion_dag = DAG(
     'acs_poverty_ingestion_dag',
     default_args=default_args,
     schedule_interval='@yearly',
-    description='Ingestion configuration for ACS Poverty Information")
+    description='Ingestion configuration for ACS Poverty Information')
 
 acs_poverty_gcs_task_id = 'acs_poverty_to_gcs'
 acs_poverty_gcs_payload = util.generate_gcs_payload(
@@ -38,5 +38,5 @@ acs_poverty_exporter_operator = util.create_exporter_operator(
     'acs_poverty_exporter', acs_poverty_exporter_payload, data_ingestion_dag)
 
 # Ingestion DAG
-(acs_poverty_gcs_operator  >>
- acs_poverty_bq_operator >> acs_poverty_aggregator_operator >> acs_poverty_exporter_operator)
+(acs_poverty_gcs_operator >> acs_poverty_bq_operator >>
+ acs_poverty_aggregator_operator >> acs_poverty_exporter_operator)
