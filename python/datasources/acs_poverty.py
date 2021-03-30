@@ -168,11 +168,13 @@ class AcsPovertyIngestor:
 
     (state_fip, county_fip, age, sex, race) example:
     {
-        "('01', 'None', '0-6', 'White', $0-$10000)": {
-            "Population": "143",
+        "('01', 'None', '0-6', 'White')": {
+            "above_poverty_line": "143",
+            "below_poverty_line": "13",
 
-        "('01', 'None', '0-6', 'White', $10,000-$20,000)": {
-            "Population": "104",
+        "('01', 'None', '0-6', 'Asian')": {
+             "above_poverty_line": "113",
+            "below_poverty_line": "16",
         },
         ...
     } Note: This can be debugged via the acs_poverty_metadata.json file

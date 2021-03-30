@@ -30,6 +30,6 @@ DATA_SOURCES_DICT = {
     StateNames.get_id(): StateNames(),
     UrgentCareFacilities.get_id(): UrgentCareFacilities(),
     ACSHealthInsurance.get_id(): ACSHealthInsurance(),
-    ACSIncomeDatasource.get_id(): ACSIncomeDatasource()
+    ACSHouseholdIncomeDatasource.get_id(): ACSHouseholdIncomeDatasource(),
     ACSPovertyDataSource.get_id(): ACSPovertyDataSource()
 }
