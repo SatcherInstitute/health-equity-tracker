@@ -38,5 +38,5 @@ acs_poverty_exporter_operator = util.create_exporter_operator(
     'acs_poverty_exporter', acs_poverty_exporter_payload, data_ingestion_dag)
 
 # Ingestion DAG
-(acs_poverty_gcs_operator  >>
- acs_poverty_bq_operator >> acs_poverty_aggregator_operator >> acs_poverty_exporter_operator)
+(acs_poverty_gcs_operator >> acs_poverty_bq_operator >>
+ acs_poverty_aggregator_operator >> acs_poverty_exporter_operator)
