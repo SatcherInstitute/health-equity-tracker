@@ -10,6 +10,12 @@ resource "google_cloud_run_service" "ingestion_service" {
     spec {
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.ingestion_image_name, var.ingestion_image_digest)
+
+        resources {
+          limits = {
+            memory = "4G"
+          }
+        }
       }
       service_account_name = google_service_account.ingestion_runner_identity.email
     }
