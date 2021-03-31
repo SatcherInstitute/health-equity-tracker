@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 INGESTION_URL=$(gcloud run services list --platform managed --filter ingestion-service --format 'value(status.url)')
 echo "Using Fetched Data: ${INGESTION_URL}"
 
@@ -11,12 +12,10 @@ echo "Using Fetched Data: ${EXPORTER_URL}"
 AGGREGATOR_URL=$(gcloud run services list --platform managed --filter aggregator-service --format 'value(status.url)')
 echo "Using Fetched Data: ${AGGREGATOR_URL}"
 
-LANDING_BUCKET=$(gsutil ls | grep -oP ".*landing.*")
-LANDING_BUCKET=${LANDING_BUCKET:5:-1}
+LANDING_BUCKET=$(gsutil ls | grep -o ".*landing.*" | cut -d "/" -f 3)
 echo "Using Landing Bucket: $LANDING_BUCKET"
 
-MANUAL_BUCKET=$(gsutil ls | grep -oP ".*manual.*")
-MANUAL_BUCKET=${MANUAL_BUCKET:5:-1}
+MANUAL_BUCKET=$(gsutil ls | grep -o ".*manual.*" | cut -d "/" -f 3)
 echo "Using Manual Bucket: $MANUAL_BUCKET"
 
 gcloud composer environments update data-ingestion-environment \
