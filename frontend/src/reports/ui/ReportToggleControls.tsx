@@ -74,9 +74,6 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
             }
           }}
         >
-          <ToggleButton value="all" key="all">
-            All
-          </ToggleButton>
           {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
             <ToggleButton value={breakdownVar} key={breakdownVar}>
               {BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar]}
