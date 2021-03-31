@@ -15,7 +15,7 @@ interface ReportToggleControlsProps {
   dropdownVarId: DropdownVarId;
   variableConfig: VariableConfig;
   setVariableConfig: (variableConfig: VariableConfig) => void;
-  currentBreakdown: BreakdownVar | "all";
+  currentBreakdown: BreakdownVar;
   setCurrentBreakdown: (breakdown: BreakdownVar) => void;
 }
 
@@ -39,7 +39,7 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
     <Grid container>
       {enableMetricToggle && (
         <Grid className={styles.ToggleBlock}>
-          <span className={styles.ToggleLabel}>Choose Data Type</span>
+          <span className={styles.ToggleLabel}>Data Type</span>
           <ToggleButtonGroup
             exclusive
             value={props.variableConfig.variableId}
@@ -64,7 +64,7 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
         </Grid>
       )}
       <Grid item className={styles.ToggleBlock}>
-        <span className={styles.ToggleLabel}>Choose Demographic</span>
+        <span className={styles.ToggleLabel}>Demographic</span>
         <ToggleButtonGroup
           exclusive
           value={props.currentBreakdown}
