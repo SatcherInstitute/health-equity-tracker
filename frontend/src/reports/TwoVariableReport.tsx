@@ -27,9 +27,9 @@ function TwoVariableReport(props: {
   updateFips1Callback: Function;
   updateFips2Callback: Function;
 }) {
-  const [currentBreakdown, setCurrentBreakdown] = useState<
-    BreakdownVar | "all"
-  >("all");
+  const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
+    "race_and_ethnicity"
+  );
 
   const [variableConfig1, setVariableConfig1] = useState<VariableConfig | null>(
     Object.keys(METRIC_CONFIG).includes(props.dropdownVarId1)
@@ -58,7 +58,7 @@ function TwoVariableReport(props: {
   }
 
   const breakdownIsShown = (breakdownVar: string) =>
-    currentBreakdown === "all" || currentBreakdown === breakdownVar;
+    currentBreakdown === breakdownVar;
 
   return (
     <Grid container spacing={1} alignItems="flex-start">
