@@ -7,6 +7,12 @@
     line-height: 23px;
   }
   padding-bottom: 100px;
+
+  // Special styling for each tab
+  .AboutUsTab {
+    font-family: "DM Sans", sans-serif !important;
+    text-transform: capitalize !important;
+  }
 }
 
 // For styles Grid-wide
@@ -43,7 +49,7 @@
 .GridAlignLeftItem {
   display: flex;
   justify-content: flex-start;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
 // Grid items that are centered both vertically and horizonally.
@@ -55,16 +61,6 @@
 }
 
 /** ------------- TYPES OF GRID ROWS ------------- **/
-
-// TODO: Convert to GridRow
-.GridSection {
-  padding: 30px;
-
-  // TODO: Convert to GridSubRow
-  .GridSubSection {
-    padding: 20px;
-  }
-}
 
 // Generic grid row with no special styling
 .GridRow {
@@ -99,11 +95,11 @@
   }
 
   .HeaderText {
-    font-size: 48px;
+    font-size: 50px;
     text-align: left;
     font-weight: 300;
     font-family: "Taviraj", serif !important;
-    line-height: 40px;
+    line-height: 50px;
     color: $alt-green;
     padding-bottom: 20px;
   }
@@ -149,8 +145,7 @@
   }
 }
 
-// TODO: Convert to GridRowHeaderText
-.GridSectionHeaderText {
+.GridRowHeaderText {
   padding: 30px;
   justify-content: center;
 
@@ -236,16 +231,6 @@
 
 /** ------------- HEADERS ------------- **/
 
-// TODO: Change all instances to UnderlinedHeaderL1
-.UnderlinedHeader {
-  font-size: 28px !important;
-  line-height: 26px;
-  border-bottom: 2px solid #9aa0a6;
-  margin: 25px 0 25px 0;
-  font-family: "Taviraj", serif !important;
-  text-align: left;
-}
-
 // Underlined Header H1
 .UnderlinedHeaderL1 {
   font-size: 28px !important;
@@ -284,11 +269,23 @@
 
 /** ------------- OUR TEAM ------------- **/
 
+// For the "Our Team" header text at the very top of the page
+.OurTeamHeaderText {
+  font-size: 50px !important;
+  text-align: center;
+  font-weight: 300 !important;
+  font-family: "Taviraj", serif !important;
+  line-height: 50px !important;
+  color: $alt-green;
+  padding: 72px 0 20px 0;
+}
+
 // Profiles items for people in Our Team
 .TextProfile {
   padding: 12px;
 }
 
+// For profile images
 .ProfileImg {
   max-width: 181px;
   max-height: 181px;
@@ -296,6 +293,7 @@
   height: auto;
 }
 
+// For partner images at the bottom of the page
 .PartnerImg {
   width: 70%;
   height: auto;
@@ -372,10 +370,10 @@
 /** ------------- CONTACT US ------------- **/
 
 .ContactUsHeaderText {
-  font-size: 70px !important;
-  font-weight: 400 !important;
+  font-size: 50px !important;
+  font-weight: 300 !important;
   font-family: "Taviraj", sans-serif !important;
-  line-height: 70px !important;
+  line-height: 50px !important;
   color: $alt-green;
 }
 
@@ -396,6 +394,6 @@
   padding-left: 25px;
 }
 
-.GridCenteredTextItem {
+.ContactUsCenteredTextItem {
   text-align: center;
 }
