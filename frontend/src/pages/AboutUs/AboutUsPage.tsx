@@ -36,10 +36,10 @@ export function AboutUsPage() {
         centered
         style={{ marginTop: "40px" }}
       >
-        <Tab label="The Project" />
-        <Tab label="Our Team" />
-        <Tab label="Frequently Asked Questions" />
-        <Tab label="Contact Us" />
+        <Tab className={styles.AboutUsTab} label="The Project" />
+        <Tab className={styles.AboutUsTab} label="Our Team" />
+        <Tab className={styles.AboutUsTab} label="Frequently Asked Questions" />
+        <Tab className={styles.AboutUsTab} label="Contact Us" />
       </Tabs>
       {tabIndex === 0 && <TheProjectTab />}
       {tabIndex === 1 && <OurTeamTab />}

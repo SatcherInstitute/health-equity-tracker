@@ -16,7 +16,7 @@ function ContactUsTab() {
               <Typography className={styles.ContactUsHeaderText}>
                 Let's move
                 <br/>
-                equity <b>forward</b>
+                equity <b style={{ fontWeight: 400 }}>forward</b>
               </Typography>
             </Grid>
             <Grid item xs={8} className={styles.GridAlignRightItem}>
@@ -35,7 +35,7 @@ function ContactUsTab() {
                 Thank you for your interest in the Health Equity Tracker
               </Typography>
             </Grid>
-            <Grid item xs={5} className={styles.GridCenteredTextItem}>
+            <Grid item xs={5} className={styles.ContactUsCenteredTextItem}>
               <p>
                 <b>For general requests:</b> please contact the Satcher Health
                 Leadership Institute at shli@msm.edu

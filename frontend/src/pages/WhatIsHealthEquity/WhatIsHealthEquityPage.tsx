@@ -19,12 +19,12 @@ function WhatIsHealthEquityPage() {
       <Grid container className={styles.Grid}>
         <Grid
           container
-          className={styles.GridOutlinedImgRow}
+          className={styles.HeaderRow}
           direction="row"
           justify="center"
           alignItems="center"
         >
-          <Grid item xs={4} className={styles.HeaderImgItem}>
+          <Grid container item xs={4} className={styles.HeaderImgItem}>
             <img
               src="img/pexels-marcus-aurelius-4063919 1.png"
               className={styles.HeaderImg}
@@ -99,19 +99,19 @@ function WhatIsHealthEquityPage() {
 
         <Grid
           container
-          className={styles.GridOutlinedRow}
+          className={styles.ResourcesAndNewsRow}
           direction="column"
           justify="center"
         >
-          <Grid container className={styles.GridSubRow} justify="center">
+          <Grid container className={styles.ResourcesRow} justify="center">
             <Grid item>
-              <Typography className={styles.HeaderL2Text}>
+              <Typography className={styles.ResourcesHeaderText}>
                 Health equity resources
               </Typography>
             </Grid>
             <Grid
               container
-              className={styles.GridSubRow}
+              className={styles.ResourcesContainer}
               direction="row"
               justify="space-around"
               xs={12}
@@ -192,15 +192,15 @@ function WhatIsHealthEquityPage() {
 
           <Grid
             container
-            className={styles.GridSubRow}
+            className={styles.NewsAndStoriesRow}
             direction="row"
             justify="center"
           >
             <Grid item>
-              <Typography className={styles.HeaderL2Text}>
+              <Typography className={styles.NewsAndStoriesHeaderText}>
                 News and stories
               </Typography>
-              <span className={styles.HeaderSubtextL2}>
+              <span className={styles.NewsAndStoriesSubheaderText}>
                 Read the latest news, posts, and stories related to health
                 equity
               </span>
@@ -299,16 +299,16 @@ function WhatIsHealthEquityPage() {
 
         <Grid
           container
-          className={styles.GridOutlinedRow}
+          className={styles.JoinTheEffortRow}
           direction="column"
           justify="center"
           alignItems="center"
         >
           <Grid item className={styles.JoinTheEffortHeaderRow}>
-            <Typography className={styles.HeaderL2Text}>
+            <Typography className={styles.JoinTheEffortHeaderText}>
               How do I join the effort?
             </Typography>
-            <p className={styles.SubheaderL2Text}>
+            <p className={styles.JoinTheEffortSubheaderText}>
               To advance health equity, we need smart, talented,
               <br />
               passionate folks like you on board.
@@ -424,7 +424,7 @@ function WhatIsHealthEquityPage() {
                 action, implement a program, advocate for change, or more.
               </p>
               <LinkWithStickyParams
-                class={styles.MajorLink}
+                class={styles.ContactUsLink}
                 to={`${ABOUT_US_PAGE_LINK}?${ABOUT_US_TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
               >
                 Contact Us

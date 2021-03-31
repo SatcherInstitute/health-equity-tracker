@@ -18,7 +18,7 @@
   font-weight: 500;
   font-family: "DM Sans", sans-serif !important;
   text-decoration: none;
-  padding: 10px 30px 10px 30px;
+  padding: 16px 30px 16px 30px;
 }
 
 // For major links, in primary colors
@@ -37,240 +37,13 @@
 
 /** ------------- HEADER ROW ------------- **/
 
-.HeaderImgItem {
-  border-left: 1px solid #3e3e3e;
-}
+.HeaderRow {
+  border-bottom: 1px solid #3e3e3e;
 
-.HeaderImg {
-  border-radius: 30px;
-  height: auto;
-  max-height: 600px;
-  width: 100%;
-  max-width: 700px;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-}
-
-/** ------------- TAKE A LOOK AROUND ROW ------------- **/
-
-// For each item in the "Where We Aim To Go" section
-.TakeALookAroundItem {
-  padding: 0 15px 0 15px;
-}
-
-// For each image in the "Where We Aim To Go" section
-.TakeALookAroundImg {
-  height: auto;
-  max-height: 255px;
-  width: 100%;
-  max-width: 255px;
-}
-
-/** ------------- TIME TO PRIORITIZE HEALTH EQUITY ROW  ------------- **/
-
-.DecorativeHImgItem {
-  border-right: 1px solid #3e3e3e;
-}
-
-.DecorativeHImgContainer {
-  width: 95%;
-  max-width: 560px;
-  height: 810px;
-  border-radius: 30px;
-  background-color: #d85c47;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-}
-
-.DecorativeHImg {
-  height: auto;
-  width: 100%;
-  max-width: 465px;
-  max-height: 460px;
-}
-
-/** ------------- HOW TO SECTION ------------- **/
-
-.HowToHeaderText {
-  font-family: "Taviraj", sans-serif !important;
-  text-align: center;
-  font-weight: 400;
-  font-size: 52px !important;
-  line-height: 89px;
-  color: $alt-green;
-  padding-bottom: 50px;
-}
-
-.HowToStepContainer {
-  border: 1px solid #bdc1c6;
-  border-radius: 30px;
-  box-sizing: border-box;
-  padding: 10px;
-  margin: 10px;
-}
-
-.HowToStepImg {
-  padding: 10px;
-  width: 100%;
-  height: auto;
-}
-
-.HowToStepTextHeader {
-  font-family: "Inter", sans-serif !important;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 34px;
-  text-align: left;
-}
-
-.HowToStepTextSubheader {
-  font-family: "Inter", sans-serif !important;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 26px;
-  letter-spacing: 0.1px;
-  text-align: left;
-}
-
-/** ------------- FAQ ROW ------------- **/
-
-.FaqHeader {
-  font-size: 54px !important;
-  text-align: left;
-  font-weight: 400;
-  font-family: "Taviraj", serif !important;
-  line-height: 64px !important;
-  color: $alt-green;
-  padding-bottom: 20px;
-}
-
-.FaqQAItem {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-.FaqQuestion {
-  font-size: 28px !important;
-  text-align: left;
-  font-weight: 300 !important;
-  font-family: "Taviraj", sans-serif !important;
-  line-height: 68px !important;
-  color: $alt-black;
-}
-
-.FaqAnswer {
-  font-size: 14px;
-  text-align: left;
-  font-weight: 400;
-  font-family: "Inter", sans-serif;
-  line-height: 20px;
-  color: $alt-black;
-}
-
-.FaqSubheaderText {
-  font-weight: 700;
-  font-family: "Inter", sans-serif !important;
-}
-
-.FaqLink {
-  font-family: "Inter", sans-serif !important;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 68px;
-  color: $alt-green;
-}
-
-/** ------------- NEWSLETTER SIGN UP ROW ------------- **/
-
-.NewsletterRowHeader {
-  font-size: 130px !important;
-  font-family: "Taviraj", sans-serif !important;
-  text-align: center;
-  font-weight: 400 !important;
-  color: white;
-  line-height: 120px !important;
-  padding: 30px;
-}
-
-.EmailAddressBackgroundImgContainer {
-  background-image: url("pexels-armin-rimoldi-5304098 1.png");
-  background-position: center;
-  border-radius: 30px;
-  padding: 30px;
-  height: 700px;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.EmailAddressContentDiv {
-  position: absolute;
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.EmailAddressForm {
-  border-radius: 40px;
-  width: 485px;
-  height: 60px;
-  background-color: white;
-  border: none;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.EmailAddressFormText {
-  height: 60px;
-  background-color: transparent;
-  border: none;
-  margin-left: 20px;
-
-  &:focus {
-    outline: none;
-  }
-}
-
-.EmailAddressFormSubmit {
-  height: 48px;
-  width: 150px;
-  border-radius: 40px;
-  background: $alt-green;
-  color: white;
-  border: none;
-  margin-right: 10px;
-
-  &:focus {
-    outline: 1px solid darkgreen;
-  }
-}
-
-/** ------------- TYPES OF GRID ROWS ------------- **/
-
-// Generic grid subrow with no special styling
-.GridSubRow {
-  padding: 20px 0 20px 0;
-}
-
-// Grid rows that have outlines and an image in one cell.
-.GridOutlinedImgRow {
-  border-top: 1px solid #3e3e3e;
-
-  .ImgHeaderGridItem {
-    width: 760px;
-    height: 645px;
-    padding-left: 25px;
-  }
-
-  .GridVerticallyAlignedItem {
+  .HeaderTextItem {
     justify-content: center;
     padding: 25px;
+    text-align: left !important;
   }
 
   .HeaderText {
@@ -283,32 +56,6 @@
     padding-bottom: 20px;
   }
 
-  .HeaderL2Text {
-    font-size: 58px;
-    text-align: left;
-    font-weight: 400;
-    font-family: "Taviraj", serif !important;
-    line-height: 58px;
-    color: $alt-green;
-    padding-bottom: 20px;
-  }
-
-  .SubheaderL1Text {
-    font-family: "Taviraj", sans-serif;
-    font-weight: 300;
-    font-size: 36px;
-    line-height: 61.42px;
-    padding: 10px 0 10px 0;
-  }
-
-  .SubheaderL2Text {
-    font-family: "Taviraj", sans-serif;
-    font-weight: 300;
-    font-size: 30px;
-    line-height: 30px;
-    padding: 10px 0 10px 0;
-  }
-
   .HeaderSubtext {
     font-size: 18px;
     text-align: left;
@@ -317,68 +64,30 @@
     font-family: "Inter", sans-serif !important;
   }
 
-  .HeaderSubtextL2 {
-    font-size: 16px;
-    text-align: left;
-    font-weight: 300;
-    line-height: 22px;
-    font-family: "Inter", sans-serif !important;
+  .HeaderImgItem {
+    border-left: 1px solid #3e3e3e;
   }
 
-  .HeaderSubtextL3 {
-    font-size: 14px;
-    text-align: left;
-    font-weight: 400;
-    line-height: 20px;
-    font-family: "Inter", sans-serif !important;
-  }
-}
-
-// TODO: Convert to GridRowHeaderText
-.GridSectionHeaderText {
-  padding: 30px;
-  justify-content: center;
-
-  .HeaderText {
-    font-size: 48px;
-    text-align: left;
-    font-weight: 300;
-    font-family: "Taviraj", serif !important;
-    line-height: 40px;
-    color: $alt-green;
-    padding-bottom: 20px;
-  }
-
-  .HeaderSubtext {
-    font-size: 20px;
-    text-align: left;
-    font-weight: 300;
-    line-height: 24px;
-    font-family: "Inter", serif !important;
+  .HeaderImg {
+    border-radius: 30px;
+    height: auto;
+    max-height: 600px;
+    width: 100%;
+    max-width: 700px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
   }
 }
 
-// Grid rows with outlines.
-.GridOutlinedRow {
+/** ------------- TAKE A LOOK AROUND ROW ------------- **/
+
+.TakeALookAroundRow {
   padding: 147px 30px 147px 30px;
   align-items: center;
-  border-top: 1px solid #3e3e3e;
+  border-bottom: 1px solid #3e3e3e;
 
-  .GridVerticallyAlignedItem {
-    justify-content: center;
-  }
-
-  .HeaderText {
-    font-size: 48px;
-    text-align: left;
-    font-weight: 300;
-    font-family: "Taviraj", serif !important;
-    line-height: 40px;
-    color: $alt-green;
-    padding-bottom: 20px;
-  }
-
-  .HeaderL2Text {
+  .TakeALookAroundHeaderText {
     font-size: 58px;
     text-align: center;
     font-weight: 400;
@@ -388,31 +97,32 @@
     padding-bottom: 20px;
   }
 
-  .SubheaderL1Text {
-    font-family: "Taviraj", sans-serif;
-    font-weight: 300;
-    font-size: 36px;
-    line-height: 61.42px;
-    padding: 0 0 10px 0;
-  }
-
-  .SubheaderL2Text {
-    font-family: "Taviraj", sans-serif;
-    font-weight: 300;
-    font-size: 30px;
-    line-height: 30px;
-    padding: 30px 0 0 0;
-  }
-
-  .HeaderSubtext {
-    font-size: 20px;
+  .TakeALookAroundHeaderSubtext {
+    font-size: 18px;
     text-align: center;
-    font-weight: 300;
-    line-height: 24px;
-    font-family: "Inter", serif !important;
+    font-weight: 400;
+    line-height: 26px;
+    font-family: "Inter", sans-serif !important;
   }
 
-  .HeaderSubtextL2 {
+  .TakeALookAroundItemRow {
+    padding: 72px;
+  }
+
+  // For each item in the "Where We Aim To Go" section
+  .TakeALookAroundItem {
+    padding: 0 15px 0 15px;
+  }
+
+  // For each image in the "Where We Aim To Go" section
+  .TakeALookAroundImg {
+    height: auto;
+    max-height: 255px;
+    width: 100%;
+    max-width: 255px;
+  }
+
+  .TakeALookAroundText {
     font-size: 20px;
     text-align: center;
     font-weight: 400;
@@ -420,12 +130,233 @@
     font-family: "Inter", sans-serif !important;
     color: $alt-green;
   }
+}
 
-  .HeaderSubtextL3 {
+/** ------------- TIME TO PRIORITIZE HEALTH EQUITY ROW  ------------- **/
+
+.PrioritizeHealthEquityRow {
+
+  .PrioritizeHealthEquityTextItem {
+    justify-content: center;
+    padding: 56px;
+    text-align: left !important;
+
+    .PrioritizeHealthEquityHeader {
+      font-size: 58px;
+      text-align: left;
+      font-weight: 400;
+      font-family: "Taviraj", serif !important;
+      line-height: 58px;
+      color: $alt-green;
+      padding-bottom: 20px;
+    }
+
+    .PrioritizeHealthEquityHeaderSubtext {
+      font-size: 18px;
+      text-align: left;
+      font-weight: 400;
+      line-height: 26px;
+      font-family: "Inter", sans-serif !important;
+    }
+  }
+
+  .DecorativeHImgItem {
+    border-right: 1px solid #3e3e3e;
+  }
+
+  .DecorativeHImgContainer {
+    width: 95%;
+    max-width: 560px;
+    height: 810px;
+    border-radius: 30px;
+    background-color: #d85c47;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+  }
+
+  .DecorativeHImg {
+    height: auto;
+    width: 100%;
+    max-width: 465px;
+    max-height: 460px;
+  }
+}
+
+/** ------------- HOW TO SECTION ------------- **/
+
+.HowToRow {
+  padding: 120px 30px 120px 30px;
+  align-items: center;
+  border-bottom: 1px solid #3e3e3e;
+  border-top: 1px solid #3e3e3e;
+
+  .HowToHeaderText {
+    font-size: 48px;
+    text-align: center;
+    font-weight: 300;
+    font-family: "Taviraj", serif !important;
+    line-height: 40px;
+    color: $alt-green;
+    padding-bottom: 56px;
+  }
+
+  .HowToStepContainer {
+    border: 1px solid #bdc1c6;
+    border-radius: 30px;
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 10px;
+  }
+
+  .HowToStepImg {
+    padding: 10px;
+    width: 100%;
+    height: auto;
+  }
+
+  .HowToStepTextHeader {
+    font-family: "DM Sans", sans-serif !important;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 34px;
+    text-align: left;
+  }
+
+  .HowToStepTextSubheader {
+    font-family: "Inter", sans-serif !important;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    letter-spacing: 0.1px;
+    text-align: left;
+  }
+}
+
+/** ------------- FAQ ROW ------------- **/
+
+.FaqRow {
+  padding: 100px 30px 100px 30px;
+  align-items: center;
+  border-bottom: 1px solid #3e3e3e;
+
+  .FaqHeader {
+    font-size: 54px !important;
+    text-align: left;
+    font-weight: 400;
+    font-family: "Taviraj", serif !important;
+    line-height: 64px !important;
+    color: $alt-green;
+    padding-bottom: 20px;
+  }
+
+  .FaqQAItem {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .FaqQuestion {
+    font-size: 28px !important;
+    text-align: left;
+    font-weight: 300 !important;
+    font-family: "Taviraj", sans-serif !important;
+    line-height: 68px !important;
+    color: $alt-black;
+  }
+
+  .FaqAnswer {
     font-size: 14px;
     text-align: left;
     font-weight: 400;
+    font-family: "Inter", sans-serif;
     line-height: 20px;
+    color: $alt-black;
+  }
+
+  .FaqSubheaderText {
+    font-weight: 700;
     font-family: "Inter", sans-serif !important;
+  }
+
+  .FaqLink {
+    font-family: "Inter", sans-serif !important;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 68px;
+    color: $alt-green;
+  }
+}
+
+/** ------------- NEWSLETTER SIGN UP ROW ------------- **/
+
+.NewsletterSignUpRow {
+  padding: 100px 30px 100px 30px;
+  align-items: center;
+
+  .NewsletterRowHeader {
+    font-size: 130px !important;
+    font-family: "Taviraj", sans-serif !important;
+    text-align: center;
+    font-weight: 400 !important;
+    color: white;
+    line-height: 120px !important;
+    padding: 30px;
+  }
+
+  .EmailAddressBackgroundImgContainer {
+    background-image: url("pexels-armin-rimoldi-5304098 1.png");
+    background-position: center;
+    border-radius: 30px;
+    padding: 30px;
+    height: 700px;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .EmailAddressContentDiv {
+    position: absolute;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .EmailAddressForm {
+    border-radius: 40px;
+    width: 485px;
+    height: 60px;
+    background-color: white;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .EmailAddressFormText {
+    height: 60px;
+    background-color: transparent;
+    border: none;
+    margin-left: 20px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .EmailAddressFormSubmit {
+    height: 48px;
+    width: 150px;
+    border-radius: 40px;
+    background: $alt-green;
+    color: white;
+    border: none;
+    margin-right: 10px;
+
+    &:focus {
+      outline: 1px solid darkgreen;
+    }
   }
 }

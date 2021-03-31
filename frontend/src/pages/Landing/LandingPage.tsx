@@ -19,12 +19,12 @@ function LandingPage() {
       <Grid container className={styles.Grid}>
         <Grid
           container
-          className={styles.GridOutlinedImgRow}
+          className={styles.HeaderRow}
           direction="row"
           justify="center"
           alignItems="center"
         >
-          <Grid item xs={6} className={styles.GridVerticallyAlignedItem}>
+          <Grid item xs={6} className={styles.HeaderTextItem}>
             <Typography className={styles.HeaderText}>
               Equity Forward
             </Typography>
@@ -56,17 +56,17 @@ function LandingPage() {
 
         <Grid
           container
-          className={styles.GridOutlinedRow}
+          className={styles.TakeALookAroundRow}
           direction="column"
           justify="center"
         >
           <Grid item xs={12}>
-            <Typography className={styles.HeaderL2Text}>
+            <Typography className={styles.TakeALookAroundHeaderText}>
               Take a look around
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography className={styles.HeaderSubtext}>
+            <Typography className={styles.TakeALookAroundHeaderSubtext}>
               We’re working toward health equity, but can’t do it alone. Please
               join our effort to move the needle forward.
             </Typography>
@@ -74,7 +74,7 @@ function LandingPage() {
 
           <Grid
             container
-            className={styles.GridSubRow}
+            className={styles.TakeALookAroundItemRow}
             direction="row"
             justify="space-around"
           >
@@ -93,7 +93,7 @@ function LandingPage() {
                   />
                 </Grid>
                 <Grid item>
-                  <Typography className={styles.HeaderSubtextL2}>
+                  <Typography className={styles.TakeALookAroundText}>
                     <p>(1) Learn about health equity</p>
                   </Typography>
                 </Grid>
@@ -114,7 +114,7 @@ function LandingPage() {
                   />
                 </Grid>
                 <Grid item>
-                  <Typography className={styles.HeaderSubtextL2}>
+                  <Typography className={styles.TakeALookAroundText}>
                     <p>(2) Investigate the data</p>
                   </Typography>
                 </Grid>
@@ -135,7 +135,7 @@ function LandingPage() {
                   />
                 </Grid>
                 <Grid item>
-                  <Typography className={styles.HeaderSubtextL2}>
+                  <Typography className={styles.TakeALookAroundText}>
                     <p>(3) Share our site and join our movement</p>
                   </Typography>
                 </Grid>
@@ -145,7 +145,6 @@ function LandingPage() {
 
           <Grid
             container
-            className={styles.GridSubRow}
             direction="row"
             justify="center"
           >
@@ -159,7 +158,7 @@ function LandingPage() {
 
         <Grid
           container
-          className={styles.GridOutlinedImgRow}
+          className={styles.PrioritizeHealthEquityRow}
           direction="row"
           justify="center"
           alignItems="center"
@@ -173,12 +172,12 @@ function LandingPage() {
               />
             </div>
           </Grid>
-          <Grid item xs={7} className={styles.GridVerticallyAlignedItem}>
-            <Typography className={styles.HeaderL2Text}>
+          <Grid item xs={7} className={styles.PrioritizeHealthEquityTextItem}>
+            <Typography className={styles.PrioritizeHealthEquityHeader}>
               It's time to prioritize health equity
             </Typography>
             <br />
-            <Typography className={styles.HeaderSubtext}>
+            <Typography className={styles.PrioritizeHealthEquityHeaderSubtext}>
               <p>
                 We’re living through a historical moment. COVID-19 has taken a
                 toll on everyone. But the pandemic is hitting the most
@@ -195,7 +194,7 @@ function LandingPage() {
           </Grid>
         </Grid>
 
-        <Grid container className={styles.GridOutlinedRow}>
+        <Grid container className={styles.HowToRow}>
           <Grid item xs={12}>
             <Typography className={styles.HowToHeaderText}>
               How do I use the Data Tracker?
@@ -303,7 +302,7 @@ function LandingPage() {
           </Grid>
         </Grid>
 
-        <Grid container className={styles.GridOutlinedRow}>
+        <Grid container className={styles.FaqRow}>
           <Grid item xs={12}>
             <Typography className={styles.FaqHeader}>
               Frequently asked questions
@@ -496,7 +495,7 @@ function LandingPage() {
           </Grid>
         </Grid>
 
-        <Grid container className={styles.GridOutlinedRow}>
+        <Grid container className={styles.NewsletterSignUpRow}>
           <Grid
             container
             direction="column"

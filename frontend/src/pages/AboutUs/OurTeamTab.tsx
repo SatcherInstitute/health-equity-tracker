@@ -226,9 +226,9 @@ const PARTNERS = [
 function OurTeamTab() {
   return (
     <Grid container className={styles.Grid}>
-      <Grid container className={styles.GridSectionHeaderText}>
+      <Grid container className={styles.GridRowHeaderText}>
         <Grid item xs={7}>
-          <Typography className={styles.HeaderText}>
+          <Typography className={styles.OurTeamHeaderText}>
             We're working towards a better tomorrow.
           </Typography>
           <Typography className={styles.HeaderSubtext}>
@@ -238,7 +238,7 @@ function OurTeamTab() {
         </Grid>
       </Grid>
 
-      <Grid container className={styles.GridSection}>
+      <Grid container className={styles.GridRow}>
         <Grid item xs={12}>
           <Typography
             variant="h6"
@@ -248,13 +248,13 @@ function OurTeamTab() {
               textAlign: "left",
               fontFamily: "Taviraj",
             }}
-            className={styles.UnderlinedHeader}
+            className={styles.UnderlinedHeaderL1}
           >
             Leadership Team
           </Typography>
         </Grid>
         <Grid item>
-          <Grid container className={styles.GridSubSection}>
+          <Grid container className={styles.GridSubRow}>
             {LEADERSHIP_TEAM.map((leader) => {
               return (
                 <Grid item xs={3} className={styles.TextProfile}>
@@ -275,7 +275,7 @@ function OurTeamTab() {
         </Grid>
       </Grid>
 
-      <Grid container className={styles.GridSection}>
+      <Grid container className={styles.GridRow}>
         <Grid item xs={12}>
           <Typography
             variant="h6"
@@ -285,13 +285,13 @@ function OurTeamTab() {
               textAlign: "left",
               fontFamily: "Taviraj",
             }}
-            className={styles.UnderlinedHeader}
+            className={styles.UnderlinedHeaderL1}
           >
             Google.org Fellows
           </Typography>
         </Grid>
         <Grid item>
-          <Grid container className={styles.GridSubSection}>
+          <Grid container className={styles.GridSubRow}>
             {GOOGLE_FELLOWS.map((fellow) => {
               return (
                 <Grid item xs={3} className={styles.TextProfile}>
@@ -309,7 +309,7 @@ function OurTeamTab() {
         </Grid>
       </Grid>
 
-      <Grid container className={styles.GridSection}>
+      <Grid container className={styles.GridRow}>
         <Grid item xs={12}>
           <Typography
             variant="h6"
@@ -319,14 +319,14 @@ function OurTeamTab() {
               textAlign: "left",
               fontFamily: "Taviraj",
             }}
-            className={styles.UnderlinedHeader}
+            className={styles.UnderlinedHeaderL1}
           >
             Health Equity Task Force
           </Typography>
         </Grid>
 
         <Grid item xs={12}>
-          <Grid container className={styles.GridSubSection}>
+          <Grid container className={styles.GridSubRow}>
             {HE_TASKFORCE.map((name) => (
               <Grid item xs={3} className={styles.TextProfile}>
                 <span style={{ fontSize: "16px", fontWeight: 500 }}>
@@ -338,7 +338,7 @@ function OurTeamTab() {
         </Grid>
       </Grid>
 
-      <Grid container className={styles.GridSection}>
+      <Grid container className={styles.GridRow}>
         <Grid item xs={12}>
           <Typography
             variant="h6"
@@ -348,14 +348,14 @@ function OurTeamTab() {
               textAlign: "left",
               fontFamily: "Taviraj",
             }}
-            className={styles.UnderlinedHeader}
+            className={styles.UnderlinedHeaderL1}
           >
             Partners
           </Typography>
         </Grid>
 
         <Grid item xs={12}>
-          <Grid container className={styles.GridSubSection}>
+          <Grid container className={styles.GridSubRow}>
             {PARTNERS.map((partner) => (
               <Grid item xs={3} className={styles.TextProfile}>
                 <img src={partner.imageUrl} alt={partner.alt}
