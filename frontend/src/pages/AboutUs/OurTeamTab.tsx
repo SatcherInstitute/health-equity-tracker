@@ -258,7 +258,8 @@ function OurTeamTab() {
             {LEADERSHIP_TEAM.map((leader) => {
               return (
                 <Grid item xs={3} className={styles.TextProfile}>
-                  <img src={leader.imageUrl} alt={leader.name} />
+                  <img src={leader.imageUrl} alt={leader.name}
+                  className={styles.ProfileImg}/>
                   <br />
                   <span style={{ fontSize: "16px", fontWeight: 500 }}>
                     {leader.name}
@@ -357,7 +358,8 @@ function OurTeamTab() {
           <Grid container className={styles.GridSubSection}>
             {PARTNERS.map((partner) => (
               <Grid item xs={3} className={styles.TextProfile}>
-                <img src={partner.imageUrl} alt={partner.alt} />
+                <img src={partner.imageUrl} alt={partner.alt}
+                className={styles.PartnerImg}/>
               </Grid>
             ))}
           </Grid>

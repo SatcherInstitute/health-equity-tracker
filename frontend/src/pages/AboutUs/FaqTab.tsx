@@ -1,9 +1,11 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./AboutUsPage.module.scss";
 import { Typography } from "@material-ui/core";
+import { ABOUT_US_TAB_PARAM, ABOUT_US_PAGE_LINK } from "../../utils/urlutils";
+import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
 
-function FaqTab(props: { setTabIndexFx: Dispatch<SetStateAction<number>> }) {
+function FaqTab(props: {}) {
   return (
     <Grid container className={styles.Grid}>
       <Grid container className={styles.FaqSection}>
@@ -296,7 +298,9 @@ function FaqTab(props: { setTabIndexFx: Dispatch<SetStateAction<number>> }) {
                     Share your health equity story.{" "}
                     <button
                       className={styles.FaqContactUsButton}
-                      onClick={() => props.setTabIndexFx(3)}
+                      onClick={() =>
+                        (window.location.href = `${ABOUT_US_PAGE_LINK}?${ABOUT_US_TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`)
+                      }
                     >
                       Click here to contact us
                     </button>
