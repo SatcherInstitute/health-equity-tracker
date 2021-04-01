@@ -69,8 +69,6 @@ class CdcCovidProvider extends VariableProvider {
     }
     df = this.renameGeoColumns(df, breakdowns);
 
-    let asdf = df.toArray();
-
     df = df.renameSeries({
       cases: "covid_cases",
       death_y: "covid_deaths",
@@ -80,8 +78,6 @@ class CdcCovidProvider extends VariableProvider {
       hosp_n: "covid_hosp_n",
       hosp_unknown: "covid_hosp_unknown",
     });
-
-    asdf = df.toArray();
 
     const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
       .columnName;
@@ -104,8 +100,6 @@ class CdcCovidProvider extends VariableProvider {
             .resetIndex()
         : df;
 
-    asdf = df.toArray();
-
     df = df
       .select((row) => {
         return {
@@ -122,8 +116,6 @@ class CdcCovidProvider extends VariableProvider {
         };
       })
       .resetIndex();
-
-    asdf = df.toArray();
 
     df = df
       .generateSeries({
