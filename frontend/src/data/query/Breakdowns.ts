@@ -146,6 +146,16 @@ export class Breakdowns {
       : Breakdowns.byState().withGeoFilter(fips);
   }
 
+  static forParentFips(fips: Fips): Breakdowns {
+    if (fips.isState()) {
+      return Breakdowns.byCounty().withGeoFilter(fips);
+    }
+    if (fips.isUsa()) {
+      return Breakdowns.byState();
+    }
+    return Breakdowns.forFips(fips);
+  }
+
   addBreakdown(
     breakdownVar: BreakdownVar,
     filter?: BreakdownFilter

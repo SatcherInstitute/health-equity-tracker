@@ -1,7 +1,7 @@
 import React from "react";
 import { DisparityBarChart } from "../charts/DisparityBarChart";
 import styles from "./Card.module.scss";
-import { CardContent } from "@material-ui/core";
+import { CardContent, Divider } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { Fips } from "../data/utils/Fips";
 import {
@@ -17,7 +17,16 @@ import DisparityInfoPopover from "./ui/DisparityInfoPopover";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { usePopover } from "../utils/usePopover";
 import { exclude } from "../data/query/BreakdownFilter";
-import { NON_HISPANIC, TOTAL } from "../data/utils/Constants";
+import {
+  NON_HISPANIC,
+  TOTAL,
+  UNKNOWN,
+  UNKNOWN_RACE,
+} from "../data/utils/Constants";
+import { UnknownsMapDialog } from "./ui/UnknownsMapDialog";
+import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
+import { Row } from "../data/utils/DatasetTypes";
+import Alert from "@material-ui/lab/Alert";
 
 export interface DisparityBarChartCardProps {
   key?: string;
@@ -38,6 +47,11 @@ export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
 }
 
 function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
+  const [
+    unknownsMapDialogOpen,
+    setUnknownsMapDialogOpen,
+  ] = useAutoFocusDialog();
+
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     exclude(TOTAL, NON_HISPANIC)
@@ -79,8 +93,49 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
       }
     >
       {([queryResponse]) => {
+        const unknowns = queryResponse
+          .getValidRowsForField(props.metricConfig.metricId)
+          .filter(
+            (row: Row) =>
+              row[props.breakdownVar] === UNKNOWN ||
+              row[props.breakdownVar] === UNKNOWN_RACE
+          );
+        const dataWithoutUnknowns = queryResponse
+          .getValidRowsForField(props.metricConfig.metricId)
+          .filter(
+            (row: Row) =>
+              row[props.breakdownVar] !== UNKNOWN &&
+              row[props.breakdownVar] !== UNKNOWN_RACE
+          );
+
         return (
           <>
+            {unknowns.length === 1 && (
+              <>
+                <CardContent className={styles.SmallMarginContent}>
+                  <UnknownsMapDialog
+                    fips={props.fips}
+                    metricConfig={props.metricConfig}
+                    breakdownVar={props.breakdownVar}
+                    handleClose={() => setUnknownsMapDialogOpen(false)}
+                    open={unknownsMapDialogOpen}
+                  />
+                  <Alert severity="info">
+                    {unknowns[0][props.metricConfig.metricId]}
+                    {props.metricConfig.shortVegaLabel} in{" "}
+                    {props.fips.getFullDisplayName} are reporting unknown value
+                    for {BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]}.
+                  </Alert>
+                  <Button
+                    onClick={() => setUnknownsMapDialogOpen(true)}
+                    color="primary"
+                  >
+                    View breakdown map of where unknowns are being reported
+                  </Button>
+                </CardContent>
+                <Divider />
+              </>
+            )}
             {queryResponse.shouldShowMissingDataMessage([
               props.metricConfig.metricId,
             ]) && (
@@ -98,9 +153,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
             ]) && (
               <CardContent className={styles.Breadcrumbs}>
                 <DisparityBarChart
-                  data={queryResponse.getValidRowsForField(
-                    props.metricConfig.metricId
-                  )}
+                  data={dataWithoutUnknowns}
                   lightMetric={props.metricConfig.populationComparisonMetric!}
                   darkMetric={props.metricConfig}
                   breakdownVar={props.breakdownVar}
