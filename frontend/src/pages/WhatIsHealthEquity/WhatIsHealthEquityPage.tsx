@@ -386,16 +386,25 @@ function WhatIsHealthEquityPage() {
                 />
               </form>
               <div className={styles.SocialsDiv}>
-                <a href="/">
+                <a target="_blank"
+                   href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhealthequitytracker.org%2F&amp;src=sdkpreparse">
                   <FacebookIcon className={styles.SocialsIcon} />
                 </a>
-                <a href="/">
+                <a target="_blank"
+                   href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fhealthequitytracker.org">
                   <LinkedInIcon className={styles.SocialsIcon} />
                 </a>
-                <a href="/">
+                <a target="_blank"
+                   href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+                   className="twitter-share-button"
+                   data-url="https://www.healthequitytracker.org"
+                   data-show-count="false">
                   <TwitterIcon className={styles.SocialsIcon} />
                 </a>
-                <a href="/">
+                <script async src="https://platform.twitter.com/widgets.js"
+                        charSet="utf-8"></script>
+                <a target="_blank"
+                   href="/">
                   <ShareIcon className={styles.SocialsIcon} />
                 </a>
               </div>
