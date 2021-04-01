@@ -38,7 +38,7 @@ MEDIAN_INCOME_BY_RACE_GROUPS = {
     "B19037C": Race.AIAN.value,
     "B19037D": Race.ASIAN.value,
     "B19037E": Race.NHPI.value,
-    "B19037F": Race.OTHER.value,
+    "B19037F": Race.OTHER_STANDARD.value,
     "B19037G": Race.MULTI.value,
     "B19037H": Race.WHITE_NH.value,
     "B19037I": Race.HISP.value,

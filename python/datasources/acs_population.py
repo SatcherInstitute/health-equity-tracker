@@ -48,7 +48,7 @@ SEX_BY_AGE_CONCEPTS_TO_RACE = {
   "SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)": Race.AIAN.value,
   "SEX BY AGE (ASIAN ALONE)": Race.ASIAN.value,
   "SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)": Race.NHPI.value,
-  "SEX BY AGE (SOME OTHER RACE ALONE)": Race.OTHER.value,
+  "SEX BY AGE (SOME OTHER RACE ALONE)": Race.OTHER_STANDARD.value,
   "SEX BY AGE (TWO OR MORE RACES)": Race.MULTI.value,
   "SEX BY AGE (HISPANIC OR LATINO)": Race.HISP.value,
 
@@ -62,7 +62,7 @@ RENAME_RACE = {
     "Asian alone": Race.ASIAN.value,
     "Black or African American alone": Race.BLACK.value,
     "Native Hawaiian and Other Pacific Islander alone": Race.NHPI.value,
-    "Some other race alone": Race.OTHER.value,
+    "Some other race alone": Race.OTHER_STANDARD.value,
     "Two or more races": Race.MULTI.value,
     "White alone": Race.WHITE.value
 }

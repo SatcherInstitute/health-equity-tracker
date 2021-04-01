@@ -55,7 +55,7 @@ RACE_NAMES_MAPPING = {
     "American Indian/Alaska Native, Non-Hispanic": std_col.Race.AIAN_NH.value,
     "Asian, Non-Hispanic": std_col.Race.ASIAN_NH.value,
     "Black, Non-Hispanic": std_col.Race.BLACK_NH.value,
-    "Multiple/Other, Non-Hispanic": std_col.Race.MULTI_NH.value,
+    "Multiple/Other, Non-Hispanic": std_col.Race.OTHER_NONSTANDARD.value,
     "Native Hawaiian/Other Pacific Islander, Non-Hispanic": std_col.Race.NHPI_NH.value,
     "White, Non-Hispanic": std_col.Race.WHITE_NH.value,
     "Hispanic/Latino": std_col.Race.HISP.value,

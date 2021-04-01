@@ -47,6 +47,8 @@ class Race(Enum):
     NH = "Not Hispanic or Latino"
     OTHER = "Some other race"
     OTHER_NH = "Some other race (Non-Hispanic)"
+    OTHER_STANDARD = "Matches the ACS definition of 'Some other race'"
+    OTHER_NONSTANDARD = "Does not match the ACS definition of 'Some other race'"
     TOTAL = "Total"
     MULTI = "Two or more races"
     MULTI_NH = "Two or more races (Non-Hispanic)"

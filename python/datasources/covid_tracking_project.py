@@ -30,7 +30,7 @@ class CovidTrackingProject(DataSource):
             'nhpi': Race.NHPI.value,
             'white': Race.WHITE.value,
             'multiracial': Race.MULTI.value,
-            'other': Race.OTHER.value,
+            'other': Race.OTHER_NONSTANDARD.value,
             'unknown': Race.UNKNOWN.value,
             'ethnicity_hispanic': Race.HISP.value,
             'ethnicity_nonhispanic': Race.NH.value,

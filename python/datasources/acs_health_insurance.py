@@ -57,7 +57,7 @@ HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES = [
     {"C27001D": {MetadataKey.RACE: Race.ASIAN.value}},
     {"C27001E": {
         MetadataKey.RACE: Race.NHPI.value}},
-    {"C27001F": {MetadataKey.RACE: Race.OTHER.value}},
+    {"C27001F": {MetadataKey.RACE: Race.OTHER_STANDARD.value}},
     {"C27001G": {MetadataKey.RACE: Race.MULTI.value}},
     {"C27001H": {
         MetadataKey.RACE: Race.WHITE_NH.value}},
