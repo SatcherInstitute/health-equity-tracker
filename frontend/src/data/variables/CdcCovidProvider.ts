@@ -69,11 +69,19 @@ class CdcCovidProvider extends VariableProvider {
     }
     df = this.renameGeoColumns(df, breakdowns);
 
+    let asdf = df.toArray();
+
     df = df.renameSeries({
       cases: "covid_cases",
       death_y: "covid_deaths",
+      death_n: "covid_deaths_n",
+      death_unknown: "covid_deaths_unknown",
       hosp_y: "covid_hosp",
+      hosp_n: "covid_hosp_n",
+      hosp_unknown: "covid_hosp_unknown",
     });
+
+    asdf = df.toArray();
 
     const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
       .columnName;
@@ -85,12 +93,37 @@ class CdcCovidProvider extends VariableProvider {
               fips_name: (series) => USA_DISPLAY_NAME,
               covid_cases: (series) => series.sum(),
               covid_deaths: (series) => series.sum(),
+              covid_deaths_n: (series) => series.sum(),
+              covid_deaths_unknown: (series) => series.sum(),
               covid_hosp: (series) => series.sum(),
+              covid_hosp_n: (series) => series.sum(),
+              covid_hosp_unknown: (series) => series.sum(),
               population: (series) =>
                 series.where((population) => !isNaN(population)).sum(),
             })
             .resetIndex()
         : df;
+
+    asdf = df.toArray();
+
+    df = df
+      .select((row) => {
+        return {
+          ...row,
+          covid_deaths:
+            row.covid_deaths + row.covid_deaths_n > row.covid_deaths_unknown
+              ? row.covid_deaths
+              : null,
+          covid_hosp:
+            row.covid_hosp + row.covid_hosp_n > row.covid_hosp_unknown
+              ? row.covid_hosp
+              : null,
+          population: row.population,
+        };
+      })
+      .resetIndex();
+
+    asdf = df.toArray();
 
     df = df
       .generateSeries({
