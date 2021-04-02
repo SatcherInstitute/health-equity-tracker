@@ -22,9 +22,9 @@ class CovidProvider extends VariableProvider {
       "covid_cases",
       "covid_deaths",
       "covid_hosp",
-      "covid_cases_pct_of_geo",
-      "covid_deaths_pct_of_geo",
-      "covid_hosp_pct_of_geo",
+      "covid_cases_share",
+      "covid_deaths_share",
+      "covid_hosp_share",
       "covid_deaths_per_100k",
       "covid_cases_per_100k",
       "covid_hosp_per_100k",
@@ -131,7 +131,7 @@ class CovidProvider extends VariableProvider {
         df = this.calculatePctShare(
           df,
           col,
-          col + "_pct_of_geo",
+          col + "_share",
           breakdowns.demographicBreakdowns.race_and_ethnicity.columnName,
           ["date", "fips"]
         );

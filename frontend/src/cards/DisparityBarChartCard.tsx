@@ -8,6 +8,7 @@ import {
   Breakdowns,
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
+  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
 import { MetricConfig } from "../data/config/MetricConfig";
@@ -58,13 +59,15 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   );
 
   // Population Comparison Metric is required for the Disparity Bar Chart.
-  const query = new MetricQuery(
-    [
-      props.metricConfig.metricId,
-      props.metricConfig.populationComparisonMetric!.metricId,
-    ],
-    breakdowns
-  );
+  // If MetricConfig supports known breakdown metric, prefer this metric.
+  let metricIds = [
+    props.metricConfig.metricId,
+    props.metricConfig.populationComparisonMetric!.metricId,
+  ];
+  if (props.metricConfig.knownBreakdownComparisonMetric) {
+    metricIds.push(props.metricConfig.knownBreakdownComparisonMetric.metricId);
+  }
+  const query = new MetricQuery(metricIds, breakdowns);
 
   function CardTitle() {
     const popover = usePopover();
@@ -123,8 +126,12 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   <Alert severity="info">
                     {unknowns[0][props.metricConfig.metricId]}
                     {props.metricConfig.shortVegaLabel} in{" "}
-                    {props.fips.getFullDisplayName} are reporting unknown value
-                    for {BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]}.
+                    {props.fips.getFullDisplayName} reported had an unknown
+                    value for{" "}
+                    {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]}
+                    . This chart displays data for cases where{" "}
+                    {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]}{" "}
+                    was known.
                   </Alert>
                   <Button
                     onClick={() => setUnknownsMapDialogOpen(true)}
@@ -155,7 +162,10 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 <DisparityBarChart
                   data={dataWithoutUnknowns}
                   lightMetric={props.metricConfig.populationComparisonMetric!}
-                  darkMetric={props.metricConfig}
+                  darkMetric={
+                    props.metricConfig.knownBreakdownComparisonMetric ||
+                    props.metricConfig
+                  }
                   breakdownVar={props.breakdownVar}
                   metricDisplayName={props.metricConfig.shortVegaLabel}
                 />

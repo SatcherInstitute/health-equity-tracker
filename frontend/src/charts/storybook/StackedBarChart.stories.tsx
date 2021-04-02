@@ -17,25 +17,25 @@ export const RaceByState = Template.bind({});
 RaceByState.args = {
   data: [
     {
-      covid_cases_pct_of_geo: 20,
+      covid_cases_share: 20,
       race_and_ethnicity: "Race 1",
       fips_name: "State 1",
     },
     {
-      covid_cases_pct_of_geo: 80,
+      covid_cases_share: 80,
       race_and_ethnicity: "Race 2",
       fips_name: "State 1",
     },
     {
-      covid_cases_pct_of_geo: 60,
+      covid_cases_share: 60,
       race_and_ethnicity: "Race 1",
       fips_name: "State 2",
     },
     {
-      covid_cases_pct_of_geo: 40,
+      covid_cases_share: 40,
       race_and_ethnicity: "Race 2",
       fips_name: "State 2",
     },
   ],
-  measure: "covid_cases_pct_of_geo",
+  measure: "covid_cases_share",
 };
