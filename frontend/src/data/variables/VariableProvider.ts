@@ -149,9 +149,11 @@ abstract class VariableProvider {
     groupByCols: string[]
   ) {
     let dataFrame = df;
+    const shareOfKnownColumnName = rawCountCol + "_share_of_known";
 
-    // Remove and store rows for which calculating share_of_known doesn't make sense
+    // Remove and store rows for which calculating share_of_known is illogical
     // These rows will be added back at the end of calculations.
+    // This leaves only the rows to be summed to calculate TOTAL_KNOWN metric
     const originalTotalRow = dataFrame.where(
       (row) => row[breakdownCol] === TOTAL
     );
@@ -161,9 +163,6 @@ abstract class VariableProvider {
     const originalUnknownRaceRow = dataFrame.where(
       (row) => row[breakdownCol] === UNKNOWN_RACE
     );
-
-    // Remove rows for which calculating share_of_metrics is illogical
-    // This leaves only the rows to be summed to calculate TOTAL_KNOWN metric
     dataFrame = dataFrame.where(
       (row) =>
         row[breakdownCol] !== TOTAL &&
@@ -171,30 +170,31 @@ abstract class VariableProvider {
         row[breakdownCol] !== UNKNOWN_RACE
     );
 
-    // Generate Total of known values sum to be used to calculate share_of_known metrics for each breakdown value
+    // Generate Total of Known Values sum to be used to calculate share_of_known
+    // metrics for each breakdown value
     const knownValuesTotal = dataFrame.pivot(["fips", "fips_name"], {
       [rawCountCol]: (series) => series.sum(),
       population: (series) => series.sum(),
       [breakdownCol]: (series) => TOTAL,
     });
 
-    // Append calculated Total of known values sum to the data frame and use to calculatePctShare
+    // Append calculated Total of Known Values sum to the data frame and use to calculatePctShare()
     dataFrame = dataFrame.concat(knownValuesTotal).resetIndex();
     dataFrame = this.calculatePctShare(
       dataFrame,
       rawCountCol,
-      rawCountCol + "_share_of_known",
+      shareOfKnownColumnName,
       breakdownCol,
       ["fips"],
       TOTAL
     );
 
-    // Remove Total of known values that was used to calculate the _share_of_known metrics
+    // Remove Total of Known Values that was used to calculate the _share_of_known metrics
     dataFrame = dataFrame.where((row) => row[breakdownCol] !== TOTAL);
 
     // Update original Total row to have a logic value, 100%, for the _share_of_known metric and attach to DF
     let updatedTotalRow = originalTotalRow.toArray()[0];
-    updatedTotalRow[rawCountCol + "_share_of_known"] = 100;
+    updatedTotalRow[shareOfKnownColumnName] = 100;
     dataFrame = dataFrame.concat(new DataFrame([updatedTotalRow])).resetIndex();
 
     // Add back original unknown rows unchanged; they have no value for the METRIC_share_of_known column
