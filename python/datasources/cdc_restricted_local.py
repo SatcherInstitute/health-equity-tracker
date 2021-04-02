@@ -49,8 +49,8 @@ COUNTY_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 STATE_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 
 # Mappings for race, sex, and age values in the data to a standardized forms.
-# Note that these mappings cover the possible values in the data as the latest
-# dataset. New data should be checked for schema changes.
+# Note that these mappings cover the possible values in the data as of the
+# latest dataset. New data should be checked for schema changes.
 RACE_NAMES_MAPPING = {
     "American Indian/Alaska Native, Non-Hispanic": std_col.Race.AIAN_NH.value,
     "Asian, Non-Hispanic": std_col.Race.ASIAN_NH.value,
