@@ -8,7 +8,7 @@ import { MetricId } from "../config/MetricConfig";
 import { ProviderId } from "../loading/VariableProviderMap";
 import { DataFrame, IDataFrame } from "data-forge";
 import { Fips } from "../../data/utils/Fips";
-import { TOTAL, TOTAL_KNOWN, UNKNOWN, UNKNOWN_RACE } from "../utils/Constants";
+import { TOTAL, UNKNOWN, UNKNOWN_RACE } from "../utils/Constants";
 import { applyToGroups, percent } from "../utils/datasetutils";
 
 abstract class VariableProvider {
@@ -171,14 +171,14 @@ abstract class VariableProvider {
         row[breakdownCol] !== UNKNOWN_RACE
     );
 
-    // Generate TOTAL_KNOWN sum to be used to calculate share_of_known metrics for each breakdown value
+    // Generate Total of known values sum to be used to calculate share_of_known metrics for each breakdown value
     const knownValuesTotal = dataFrame.pivot(["fips", "fips_name"], {
       [rawCountCol]: (series) => series.sum(),
       population: (series) => series.sum(),
-      [breakdownCol]: (series) => TOTAL_KNOWN,
+      [breakdownCol]: (series) => TOTAL,
     });
 
-    // Append calculated TOTAL_KNOWN sum to the data frame and use to calculatePctShare
+    // Append calculated Total of known values sum to the data frame and use to calculatePctShare
     dataFrame = dataFrame.concat(knownValuesTotal).resetIndex();
     dataFrame = this.calculatePctShare(
       dataFrame,
@@ -186,11 +186,11 @@ abstract class VariableProvider {
       rawCountCol + "_share_of_known",
       breakdownCol,
       ["fips"],
-      TOTAL_KNOWN
+      TOTAL
     );
 
-    // Remove TOTAL_KNOWN that was used to calculate the _share_of_known metrics
-    dataFrame = dataFrame.where((row) => row[breakdownCol] !== TOTAL_KNOWN);
+    // Remove Total of known values that was used to calculate the _share_of_known metrics
+    dataFrame = dataFrame.where((row) => row[breakdownCol] !== TOTAL);
 
     // Update original Total row to have a logic value, 100%, for the _share_of_known metric and attach to DF
     let updatedTotalRow = originalTotalRow.toArray()[0];

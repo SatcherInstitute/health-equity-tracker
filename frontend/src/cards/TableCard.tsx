@@ -45,7 +45,6 @@ export function TableCard(props: TableCardProps) {
         metricConfig.populationComparisonMetric;
     }
   });
-  console.log(metricConfigs);
   const metricIds = Object.keys(metricConfigs);
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
