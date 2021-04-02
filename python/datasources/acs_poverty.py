@@ -13,7 +13,6 @@ from ingestion.standardized_columns import (
     ABOVE_POVERTY_COL,
     BELOW_POVERTY_COL,
     RACE_CATEGORY_ID_COL,
-    POPULATION_COL,
     Race,
 )
 from ingestion.census import (

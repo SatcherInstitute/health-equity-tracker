@@ -3,7 +3,6 @@ from ingestion.standardized_columns import (HISPANIC_COL, RACE_COL,
                                             STATE_FIPS_COL, COUNTY_FIPS_COL,
                                             STATE_NAME_COL, COUNTY_NAME_COL,
                                             RACE_OR_HISPANIC_COL,
-                                            RACE_INCLUDES_HISPANIC_COL,
                                             POPULATION_COL, AGE_COL, SEX_COL,
                                             Race, RACE_CATEGORY_ID_COL)
 from ingestion import url_file_to_gcs, gcs_to_bq_util
