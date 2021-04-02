@@ -18,7 +18,12 @@ import { MultiMapDialog } from "./ui/MultiMapDialog";
 import { Row } from "../data/utils/DatasetTypes";
 import { exclude } from "../data/query/BreakdownFilter";
 import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
-import { NON_HISPANIC } from "../data/utils/Constants";
+import {
+  NON_HISPANIC,
+  UNKNOWN,
+  UNKNOWN_RACE,
+  TOTAL,
+} from "../data/utils/Constants";
 import { BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/query/Breakdowns";
 
 const POSSIBLE_BREAKDOWNS: BreakdownVar[] = [
@@ -82,7 +87,7 @@ function MapCardWithKey(props: MapCardProps) {
           .addBreakdown(
             breakdown,
             breakdown === "race_and_ethnicity"
-              ? exclude(NON_HISPANIC)
+              ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE)
               : undefined
           )
       )
@@ -115,7 +120,7 @@ function MapCardWithKey(props: MapCardProps) {
           activeBreakdownFilter === "" ||
           activeBreakdownFilter === undefined
         ) {
-          setActiveBreakdownFilter(breakdownValues[0]);
+          setActiveBreakdownFilter(TOTAL || breakdownValues[0]);
         }
 
         const dataForActiveBreakdownFilter = queryResponse
