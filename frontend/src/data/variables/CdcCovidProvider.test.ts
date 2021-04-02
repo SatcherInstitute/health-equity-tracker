@@ -16,6 +16,8 @@ import {
   TOTAL,
   FORTY_TO_FORTY_NINE,
   FEMALE,
+  MALE,
+  UNKNOWN,
 } from "../utils/Constants";
 import { MetricId } from "../config/MetricConfig";
 import { excludeTotal } from "../query/BreakdownFilter";
@@ -214,7 +216,7 @@ describe("cdcCovidProvider", () => {
       Breakdowns.forFips(new Fips(CHATAM.code)),
       "race_and_ethnicity",
       [CHATAM_WHITE_FINAL_ROW],
-      [CHATAM_WHITE_FINAL_ROW, CHATAM_TOTAL_FINAL_ROW]
+      [CHATAM_TOTAL_FINAL_ROW, CHATAM_WHITE_FINAL_ROW]
     );
   });
 
@@ -300,7 +302,7 @@ describe("cdcCovidProvider", () => {
       Breakdowns.forFips(new Fips(NC.code)),
       "age",
       [NC_FORTY_FINAL_ROW],
-      [NC_FORTY_FINAL_ROW, NC_TOTAL_FINAL_ROW]
+      [NC_TOTAL_FINAL_ROW, NC_FORTY_FINAL_ROW]
     );
   });
 
@@ -386,7 +388,125 @@ describe("cdcCovidProvider", () => {
       Breakdowns.national(),
       "sex",
       [FINAL_FEMALE_ROW],
-      [FINAL_FEMALE_ROW, FINAL_TOTAL_ROW]
+      [FINAL_TOTAL_ROW, FINAL_FEMALE_ROW]
+    );
+  });
+
+  test("Calculates share of known with unknown present", async () => {
+    const [NC_UNKNOWN_ROW, UNUSED_NC_UNKNOWN] = covidAndAcsRows(
+      /*fips=*/ NC,
+      /*breakdownColumnName=*/ "sex",
+      /*breakdownValue=*/ UNKNOWN,
+      /*cases=*/ 100,
+      /*death=*/ 100,
+      /*hosp=*/ 100,
+      /*population=*/ 1
+    );
+    const [NC_TOTAL_ROW, NC_ACS_TOTAL_ROW] = covidAndAcsRows(
+      /*fips=*/ NC,
+      /*breakdownColumnName=*/ "sex",
+      /*breakdownValue=*/ TOTAL,
+      /*cases=*/ 300,
+      /*death=*/ 600,
+      /*hosp=*/ 1100,
+      /*population=*/ 100000
+    );
+    const [AL_TOTAL_ROW, AL_ACS_TOTAL_ROW] = covidAndAcsRows(
+      /*fips=*/ AL,
+      /*breakdownColumnName=*/ "sex",
+      /*breakdownValue=*/ TOTAL,
+      /*cases=*/ 100,
+      /*death=*/ 200,
+      /*hosp=*/ 1000,
+      /*population=*/ 80000
+    );
+    const [NC_FEMALE_ROW, NC_ACS_FEMALE_ROW] = covidAndAcsRows(
+      /*fips=*/ NC,
+      /*breakdownColumnName=*/ "sex",
+      /*breakdownValue=*/ FEMALE,
+      /*cases=*/ 240,
+      /*death=*/ 80,
+      /*hosp=*/ 34,
+      /*population=*/ 50000
+    );
+    const [AL_MALE_ROW, AL_ACS_MALE_ROW] = covidAndAcsRows(
+      /*fips=*/ AL,
+      /*breakdownColumnName=*/ "sex",
+      /*breakdownValue=*/ MALE,
+      /*cases=*/ 730,
+      /*death=*/ 250,
+      /*hosp=*/ 45,
+      /*population=*/ 60000
+    );
+
+    const rawCovidData = [
+      NC_UNKNOWN_ROW,
+      NC_FEMALE_ROW,
+      NC_TOTAL_ROW,
+      AL_MALE_ROW,
+      AL_TOTAL_ROW,
+    ];
+    const rawAcsData = [
+      NC_ACS_FEMALE_ROW,
+      NC_ACS_TOTAL_ROW,
+      AL_ACS_TOTAL_ROW,
+      AL_ACS_MALE_ROW,
+    ];
+
+    const FINAL_MALE_ROW = {
+      fips: USA.code,
+      fips_name: USA.name,
+      sex: MALE,
+      covid_cases: 730,
+      covid_cases_per_100k: 1217,
+      covid_cases_share: 182.5,
+      covid_cases_share_of_known: 75.3,
+      covid_cases_reporting_population: 60000,
+      covid_cases_reporting_population_pct: 33.3,
+    };
+    const FINAL_FEMALE_ROW = {
+      fips: USA.code,
+      fips_name: USA.name,
+      sex: FEMALE,
+      covid_cases: 240,
+      covid_cases_per_100k: 480,
+      covid_cases_share: 60,
+      covid_cases_share_of_known: 24.7,
+      covid_cases_reporting_population: 50000,
+      covid_cases_reporting_population_pct: 27.8,
+    };
+    const FINAL_TOTAL_ROW = {
+      fips: USA.code,
+      fips_name: USA.name,
+      sex: TOTAL,
+      covid_cases: 400,
+      covid_cases_per_100k: 222,
+      covid_cases_share: 100,
+      covid_cases_share_of_known: 100,
+      covid_cases_reporting_population: 180000,
+      covid_cases_reporting_population_pct: 100,
+    };
+    // Note that covid_cases_share_of_known is not present.
+    const FINAL_UNKNOWN_ROW = {
+      fips: USA.code,
+      fips_name: USA.name,
+      sex: UNKNOWN,
+      covid_cases: 100,
+      covid_cases_per_100k: 10000000,
+      covid_cases_share: 25,
+      covid_cases_reporting_population: 1,
+      covid_cases_reporting_population_pct: undefined,
+    };
+
+    await evaluateWithAndWithoutTotal(
+      "cdc_restricted_data-by_sex_state",
+      rawCovidData,
+      "acs_population-by_sex_state",
+      rawAcsData,
+      Breakdowns.national(),
+      "sex",
+      [FINAL_FEMALE_ROW, FINAL_MALE_ROW, FINAL_UNKNOWN_ROW],
+      [FINAL_TOTAL_ROW, FINAL_FEMALE_ROW, FINAL_MALE_ROW, FINAL_UNKNOWN_ROW]
     );
   });
 });
