@@ -30,6 +30,17 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
   fips: "FIPS Code",
 };
 
+export const BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE: Record<
+  BreakdownVar,
+  string
+> = {
+  race_and_ethnicity: "race and ethnicity",
+  age: "age",
+  sex: "sex",
+  date: "date",
+  fips: "FIPs codes",
+};
+
 interface DemographicBreakdown {
   // Name of the column in the returned data
   readonly columnName: BreakdownVar;
