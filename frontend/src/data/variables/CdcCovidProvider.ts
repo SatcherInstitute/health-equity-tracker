@@ -119,18 +119,24 @@ class CdcCovidProvider extends VariableProvider {
     });
 
     // Calculate any share_of_known metrics that may have been requested in the query
-    const shareOfUnknownMetrics = metricQuery.metricIds.filter(
-      (metricId) =>
-        ![
-          "covid_cases_share_of_known",
-          "covid_deaths_share_of_known",
-          "covid_hosp_share_of_known",
-        ].includes(metricId)
+    const shareOfUnknownMetrics = metricQuery.metricIds.filter((metricId) =>
+      [
+        "covid_cases_share_of_known",
+        "covid_deaths_share_of_known",
+        "covid_hosp_share_of_known",
+      ].includes(metricId)
     );
-    shareOfUnknownMetrics.forEach((col) => {
-      df = this.calculatePctShareOfKnown(df, col, breakdownColumnName, [
-        "fips",
-      ]);
+    shareOfUnknownMetrics.forEach((shareOfUnknownColumnName) => {
+      const rawCountColunn = shareOfUnknownColumnName.slice(
+        0,
+        -"_share_of_known".length
+      );
+      df = this.calculatePctShareOfKnown(
+        df,
+        rawCountColunn,
+        shareOfUnknownColumnName,
+        breakdownColumnName
+      );
     });
 
     // TODO - calculate actual reporting values on the BE instead of just copying fields

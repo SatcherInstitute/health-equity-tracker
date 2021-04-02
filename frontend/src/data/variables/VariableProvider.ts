@@ -144,12 +144,11 @@ abstract class VariableProvider {
 
   calculatePctShareOfKnown(
     df: IDataFrame,
-    rawCountCol: string,
-    breakdownCol: BreakdownVar,
-    groupByCols: string[]
+    rawCountColumnName: string, // Example. case_count_share_of_known
+    shareOfKnownColumnName: string, // Example: case_count_share_of_known
+    breakdownCol: BreakdownVar
   ) {
     let dataFrame = df;
-    const shareOfKnownColumnName = rawCountCol + "_share_of_known";
 
     // Remove and store rows for which calculating share_of_known is illogical
     // These rows will be added back at the end of calculations.
@@ -173,7 +172,7 @@ abstract class VariableProvider {
     // Generate Total of Known Values sum to be used to calculate share_of_known
     // metrics for each breakdown value
     const knownValuesTotal = dataFrame.pivot(["fips", "fips_name"], {
-      [rawCountCol]: (series) => series.sum(),
+      [rawCountColumnName]: (series) => series.sum(),
       population: (series) => series.sum(),
       [breakdownCol]: (series) => TOTAL,
     });
@@ -182,7 +181,7 @@ abstract class VariableProvider {
     dataFrame = dataFrame.concat(knownValuesTotal).resetIndex();
     dataFrame = this.calculatePctShare(
       dataFrame,
-      rawCountCol,
+      rawCountColumnName,
       shareOfKnownColumnName,
       breakdownCol,
       ["fips"],
