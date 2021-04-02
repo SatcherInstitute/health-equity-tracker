@@ -128,7 +128,7 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "acs_population-by_sex_state",
-    name: "Population by Sex and State",
+    name: "Population by Gender and State",
     update_time: "May",
     fields: [
       {
@@ -159,7 +159,7 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "acs_population-by_sex_county",
-    name: "Population by Sex and County",
+    name: "Population by Gender and County",
     update_time: "June",
     fields: [
       {
@@ -319,13 +319,13 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "acs_health_insurance-health_insurance_by_sex_state",
-    name: "Health Insurance By Sex and County",
+    name: "Health Insurance By Gender and County",
     update_time: "February",
     fields: [],
   },
   {
     id: "acs_health_insurance-health_insurance_by_sex_county",
-    name: "Health Insurance By Sex and State",
+    name: "Health Insurance By Gender and State",
     update_time: "February",
     fields: [],
   },
@@ -355,13 +355,13 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "cdc_restricted_data-by_sex_county",
-    name: "COVID-19 deaths, cases, and hospitalizations by sex and county",
+    name: "COVID-19 deaths, cases, and hospitalizations by gender and county",
     update_time: "February",
     fields: [],
   },
   {
     id: "cdc_restricted_data-by_sex_state",
-    name: "COVID-19 deaths, cases, and hospitalizations by sex and state",
+    name: "COVID-19 deaths, cases, and hospitalizations by gender and state",
     update_time: "February",
     fields: [],
   },
