@@ -13,10 +13,18 @@ import {
   NC,
   AL,
   USA,
-  CA,
   WA,
 } from "./TestUtils";
-import { WHITE_NH, ASIAN_NH, TOTAL, RACE } from "../utils/Constants";
+import {
+  WHITE_NH,
+  ASIAN_NH,
+  TOTAL,
+  RACE,
+  MALE,
+  FEMALE,
+  SEX,
+  AGE,
+} from "../utils/Constants";
 import AcsPovertyProvider from "./AcsPovertyProvider";
 
 autoInitGlobals();
@@ -42,8 +50,8 @@ function finalRow(
     [breakdownName]: breakdownValue,
     fips: fips.code,
     fips_name: fips.name,
-    below_poverty_level_count: below_poverty_level_count,
-    below_poverty_level_per_100k: below_poverty_level_per_100k,
+    poverty_count: below_poverty_level_count,
+    poverty_per_100k: below_poverty_level_per_100k,
   };
   return row;
 }
@@ -60,26 +68,28 @@ function finalCountyRow(
     [breakdownName]: breakdownValue,
     fips: countyFips.code,
     fips_name: countyFips.name,
-    below_poverty_level: below_poverty_level,
-    below_poverty_level_per_100k: below_poverty_level_per_100k,
+    poverty_count: below_poverty_level,
+    poverty_per_100k: below_poverty_level_per_100k,
   };
   return row;
 }
 
 function stateRow(
   fips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
-  above_poverty: string,
+  race_value: string,
+  age_value: string,
+  sex_value: string,
   below_poverty: string,
+  above_poverty: string
 ) {
   return {
-    [breakdownName]: breakdownValue,
+    race: race_value,
+    age: age_value,
+    sex: sex_value,
     state_fips: fips.code,
     state_name: fips.name,
-    with_health_insurance: with_health_insurance,
-    witout_health_insurance: witout_health_insurance,
-    total_health_insurance: total_health_insurance,
+    above_poverty_line: above_poverty,
+    below_poverty_line: below_poverty,
   };
 }
 
@@ -88,8 +98,8 @@ function countyRow(
   countyFips: FipsSpec,
   breakdownName: string,
   breakdownValue: string,
-  above_poverty_level: string,
-  below_poverty_level: string,
+  below_poverty: string,
+  above_poverty: string
 ) {
   return {
     [breakdownName]: breakdownValue,
@@ -97,41 +107,63 @@ function countyRow(
     state_name: stateFips.name,
     county_fips: countyFips.code,
     county_name: countyFips.name,
-    above_poverty_level: above_poverty_level,
-    below_poverty_level: below_poverty_level,
+    above_poverty_level: above_poverty,
+    below_poverty_level: below_poverty,
   };
 }
 
-const evaluateHealthInsuranceWithAndWithoutTotal = createWithAndWithoutTotalEvaluator(
-  /*metricIds=*/ ["health_insurance_count", "health_insurance_per_100k"],
+const evaluatePovertyWithTotal = createWithAndWithoutTotalEvaluator(
+  /*metricIds=*/ ["poverty_count", "poverty_per_100k"],
   dataFetcher,
   new AcsPovertyProvider()
 );
 
 //TODO: Add more tests for breakdown by SEX.
-describe("AcsHealthInsuranceProvider", () => {
+describe("AcsPovertyProvider", () => {
   beforeEach(() => {
     resetCacheDebug();
     dataFetcher.resetState();
     dataFetcher.setFakeMetadataLoaded(FakeDatasetMetadataMap);
   });
 
-  test("State and Race Breakdown", async () => {
-    // Create raw rows with health insurance coverage
+  test("testing aggregate by race alone", async () => {
+    // Create raw rows with poverty coverage
     const rawData = [
-      stateRow(AL, "race", ASIAN_NH, "100", "900", "1000"),
-      stateRow(NC, "race", ASIAN_NH, "100", "900", "1000"),
-      stateRow(NC, "race", WHITE_NH, "250", "250", "500"),
+      stateRow(NC, ASIAN_NH, "10-19", MALE, "50", "950"),
+      stateRow(NC, ASIAN_NH, "20-29", MALE, "150", "850"),
     ];
 
-    // Create final rows with health insurance count
-    // and health insurance per 100k
-    const NC_ASIAN_FINAL = finalRow(NC, RACE, ASIAN_NH, 100, 10000);
-    const NC_WHITE_FINAL = finalRow(NC, RACE, WHITE_NH, 250, 50000);
-    const NC_TOTAL_FINAL = finalRow(NC, RACE, TOTAL, 350, 23333);
+    // Create final rows with poverty count
+    // and poverty per 100k
+    const NC_ASIAN_FINAL = finalRow(NC, RACE, ASIAN_NH, 200, 10000);
+    const NC_TOTAL_FINAL = finalRow(NC, RACE, TOTAL, 200, 10000);
 
-    await evaluateHealthInsuranceWithAndWithoutTotal(
-      "acs_health_insurance-health_insurance_by_race_state",
+    await evaluatePovertyWithTotal(
+      "acs_poverty_dataset-poverty_by_race_age_sex_state",
+      rawData,
+      Breakdowns.forFips(new Fips("37")),
+      RACE,
+      [NC_ASIAN_FINAL],
+      [NC_ASIAN_FINAL, NC_TOTAL_FINAL]
+    );
+  });
+
+  test("testing aggregate by race multiple", async () => {
+    // Create raw rows with poverty coverage
+    const rawData = [
+      stateRow(NC, ASIAN_NH, "10-19", MALE, "50", "950"),
+      stateRow(NC, ASIAN_NH, "20-29", MALE, "150", "850"),
+      stateRow(NC, WHITE_NH, "10-19", MALE, "100", "100"),
+    ];
+
+    // Create final rows with poverty count
+    // and poverty per 100k
+    const NC_ASIAN_FINAL = finalRow(NC, RACE, ASIAN_NH, 200, 10000);
+    const NC_WHITE_FINAL = finalRow(NC, RACE, WHITE_NH, 100, 50000);
+    const NC_TOTAL_FINAL = finalRow(NC, RACE, TOTAL, 300, 13636);
+
+    await evaluatePovertyWithTotal(
+      "acs_poverty_dataset-poverty_by_race_age_sex_state",
       rawData,
       Breakdowns.forFips(new Fips("37")),
       RACE,
@@ -140,64 +172,26 @@ describe("AcsHealthInsuranceProvider", () => {
     );
   });
 
-  test("National and Race Breakdown", async () => {
-    // Create raw rows with health insurance coverage
+  test("testing aggregate by sex alone", async () => {
+    // Create raw rows with poverty coverage
     const rawData = [
-      stateRow(AL, "race", ASIAN_NH, "100", "900", "1000"),
-      stateRow(NC, "race", ASIAN_NH, "100", "900", "1000"),
-      stateRow(NC, "race", WHITE_NH, "250", "250", "500"),
+      stateRow(NC, ASIAN_NH, "10-19", MALE, "50", "950"),
+      stateRow(NC, ASIAN_NH, "10-19", FEMALE, "150", "850"),
     ];
 
-    // Create final rows with health insurance count
-    // and health insurance per 100k
-    const NC_ASIAN_FINAL = finalRow(USA, RACE, ASIAN_NH, 200, 10000);
-    const NC_WHITE_FINAL = finalRow(USA, RACE, WHITE_NH, 250, 50000);
-    const NC_TOTAL_FINAL = finalRow(USA, RACE, TOTAL, 450, 18000);
+    // Create final rows with poverty count
+    // and poverty per 100k
+    const NC_MALE_FINAL = finalRow(NC, SEX, MALE, 50, 5000);
+    const NC_FEMALE_FINAL = finalRow(NC, SEX, FEMALE, 150, 15000);
+    const NC_TOTAL_FINAL = finalRow(NC, SEX, TOTAL, 200, 10000);
 
-    await evaluateHealthInsuranceWithAndWithoutTotal(
-      "acs_health_insurance-health_insurance_by_race_state",
+    await evaluatePovertyWithTotal(
+      "acs_poverty_dataset-poverty_by_race_age_sex_state",
       rawData,
-      Breakdowns.forFips(new Fips(USA.code)),
-      RACE,
-      [NC_ASIAN_FINAL, NC_WHITE_FINAL],
-      [NC_ASIAN_FINAL, NC_WHITE_FINAL, NC_TOTAL_FINAL]
-    );
-  });
-
-  test("County and Race Breakdown", async () => {
-    // Create raw rows with health insurance coverage
-    const rawData = [
-      countyRow(WA, KING_COUNTY, "race", ASIAN_NH, "100", "900", "1000"),
-      countyRow(WA, KING_COUNTY, "race", WHITE_NH, "150", "800", "950"),
-    ];
-
-    // Create final rows with health insurance count
-    // and health insurance per 100k
-    const WA_KC_ASIAN_FINAL = finalCountyRow(
-      WA,
-      KING_COUNTY,
-      RACE,
-      ASIAN_NH,
-      100,
-      10000
-    );
-    const WA_KC_WHITE_FINAL = finalCountyRow(
-      WA,
-      KING_COUNTY,
-      RACE,
-      WHITE_NH,
-      150,
-      15789
-    );
-    const TOTAL_ROW = finalCountyRow(WA, KING_COUNTY, RACE, TOTAL, 250, 12821);
-
-    await evaluateHealthInsuranceWithAndWithoutTotal(
-      "acs_health_insurance-health_insurance_by_race_county",
-      rawData,
-      Breakdowns.byCounty(),
-      RACE,
-      [WA_KC_ASIAN_FINAL, WA_KC_WHITE_FINAL],
-      [WA_KC_ASIAN_FINAL, WA_KC_WHITE_FINAL, TOTAL_ROW]
+      Breakdowns.forFips(new Fips("37")),
+      SEX,
+      [NC_FEMALE_FINAL, NC_MALE_FINAL],
+      [NC_FEMALE_FINAL, NC_MALE_FINAL, NC_TOTAL_FINAL]
     );
   });
 });

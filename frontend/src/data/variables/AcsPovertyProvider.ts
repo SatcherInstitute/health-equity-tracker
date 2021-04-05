@@ -5,32 +5,20 @@ import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
 import { TOTAL } from "../utils/Constants";
-import { ISeries } from "data-forge";
+import { IDataFrame, ISeries } from "data-forge";
+
+const ABOVE_POVERTY_COL = "above_poverty_line";
+const BELOW_POVERTY_COL = "below_poverty_line";
 
 class AcsPovertyProvider extends VariableProvider {
   constructor() {
-    super("acs_poverty_provider", [
-      "poverty_count",
-      "poverty_per_100k",
-    ]);
+    super("acs_poverty_provider", ["poverty_count", "poverty_per_100k"]);
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
-    if (breakdowns.hasOnlySex()) {
-      return breakdowns.geography === "county"
-        ? "acs_health_insurance-health_insurance_by_sex_county"
-        : "acs_health_insurance-health_insurance_by_sex_state";
-    }
-
-    if (breakdowns.hasOnlyRace()) {
-      return breakdowns.geography === "county"
-        ? "acs_health_insurance-health_insurance_by_race_county"
-        : "acs_health_insurance-health_insurance_by_race_state";
-    }
-
-    // Age only breakdown is not supported yet, due to the dataset not being
-    // Aggregated on the backend.
-    throw new Error("Not implemented");
+    return (
+      "acs_poverty_dataset-poverty_by_race_age_sex_" + breakdowns.geography
+    );
   }
 
   async getDataInternal(
@@ -47,41 +35,25 @@ class AcsPovertyProvider extends VariableProvider {
     df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);
     df = df.renameSeries({ race: "race_and_ethnicity" });
-    df = df.parseInts([
-      "with_health_insurance",
-      "without_health_insurance",
-      "total_health_insurance",
-    ]);
+    df = df.parseInts([ABOVE_POVERTY_COL, BELOW_POVERTY_COL]);
+
+    df = this.aggregateByBreakdown(df, breakdowns);
 
     if (breakdowns.geography === "national") {
+      //TODO
       df = df
         .pivot([breakdowns.getSoleDemographicBreakdown().columnName], {
           fips: (series) => USA_FIPS,
           fips_name: (series) => USA_DISPLAY_NAME,
-          with_health_insurance: (series) => series.sum(),
-          without_health_insurance: (series) => series.sum(),
-          total_health_insurance: (series) => series.sum(),
+          above_poverty_line: (series) => series.sum(),
+          below_poverty_line: (series) => series.sum(),
         })
         .resetIndex();
-    } else {
-      df = df.pivot(
-        [
-          "fips",
-          "fips_name",
-          breakdowns.getSoleDemographicBreakdown().columnName,
-        ],
-        {
-          with_health_insurance: (series) => series.sum(),
-          without_health_insurance: (series) => series.sum(),
-          total_health_insurance: (series) => series.sum(),
-        }
-      );
     }
 
     let totalPivot: { [key: string]: (series: ISeries) => any } = {
-      with_health_insurance: (series: ISeries) => series.sum(),
-      without_health_insurance: (series: ISeries) => series.sum(),
-      total_health_insurance: (series: ISeries) => series.sum(),
+      above_poverty_line: (series: ISeries) => series.sum(),
+      below_poverty_line: (series: ISeries) => series.sum(),
     };
 
     totalPivot[breakdowns.getSoleDemographicBreakdown().columnName] = (
@@ -94,18 +66,41 @@ class AcsPovertyProvider extends VariableProvider {
     df = df.concat(total).resetIndex();
 
     df = df.generateSeries({
-      health_insurance_per_100k: (row) =>
-        per100k(row.with_health_insurance, row.total_health_insurance),
+      poverty_per_100k: (row) =>
+        per100k(
+          row[BELOW_POVERTY_COL],
+          row[BELOW_POVERTY_COL] + row[ABOVE_POVERTY_COL]
+        ),
     });
 
     df = df.renameSeries({
-      total_health_insurance: "total",
-      with_health_insurance: "health_insurance_count",
+      below_poverty_line: "poverty_count",
     });
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 
     return new MetricQueryResponse(df.toArray(), [datasetId]);
+  }
+
+  aggregateByBreakdown(df: IDataFrame, breakdowns: Breakdowns) {
+    let breakdown_cols = ["race_and_ethnicity", "age", "sex"];
+    let default_cols = df
+      .getColumnNames()
+      .filter(
+        (c) =>
+          breakdown_cols.indexOf(c) == -1 &&
+          c != ABOVE_POVERTY_COL &&
+          c != BELOW_POVERTY_COL
+      );
+    let cols_to_grp_by = default_cols.concat([
+      breakdowns.getSoleDemographicBreakdown().columnName,
+    ]);
+    df = df.pivot(cols_to_grp_by, {
+      above_poverty_line: (series: ISeries) => series.sum(),
+      below_poverty_line: (series: ISeries) => series.sum(),
+    });
+
+    return df;
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
@@ -117,4 +112,4 @@ class AcsPovertyProvider extends VariableProvider {
   }
 }
 
-export default AcsHealthInsuranceProvider;
+export default AcsPovertyProvider;
