@@ -38,7 +38,6 @@ class AcsPovertyProvider extends VariableProvider {
     df = df.parseInts([ABOVE_POVERTY_COL, BELOW_POVERTY_COL]);
 
     df = this.aggregateByBreakdown(df, breakdowns);
-
     if (breakdowns.geography === "national") {
       //TODO
       df = df
@@ -84,6 +83,8 @@ class AcsPovertyProvider extends VariableProvider {
 
   aggregateByBreakdown(df: IDataFrame, breakdowns: Breakdowns) {
     let breakdown_cols = ["race_and_ethnicity", "age", "sex"];
+
+    //Get all collumns minus the breakdown cols and the summation cols.
     let default_cols = df
       .getColumnNames()
       .filter(
@@ -92,9 +93,13 @@ class AcsPovertyProvider extends VariableProvider {
           c != ABOVE_POVERTY_COL &&
           c != BELOW_POVERTY_COL
       );
+
+    // Add the breakdown col to the pivot
     let cols_to_grp_by = default_cols.concat([
       breakdowns.getSoleDemographicBreakdown().columnName,
     ]);
+
+    // Sum the pivot cols to merge to breakdown col only
     df = df.pivot(cols_to_grp_by, {
       above_poverty_line: (series: ISeries) => series.sum(),
       below_poverty_line: (series: ISeries) => series.sum(),

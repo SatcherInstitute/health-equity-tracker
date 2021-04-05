@@ -26,6 +26,7 @@ import {
   AGE,
 } from "../utils/Constants";
 import AcsPovertyProvider from "./AcsPovertyProvider";
+import { count } from "console";
 
 autoInitGlobals();
 const dataFetcher = getDataFetcher() as FakeDataFetcher;
@@ -57,7 +58,6 @@ function finalRow(
 }
 
 function finalCountyRow(
-  stateFips: FipsSpec,
   countyFips: FipsSpec,
   breakdownName: string,
   breakdownValue: string,
@@ -96,19 +96,22 @@ function stateRow(
 function countyRow(
   stateFips: FipsSpec,
   countyFips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  race_value: string,
+  age_value: string,
+  sex_value: string,
   below_poverty: string,
   above_poverty: string
 ) {
   return {
-    [breakdownName]: breakdownValue,
     state_fips: stateFips.code,
     state_name: stateFips.name,
     county_fips: countyFips.code,
     county_name: countyFips.name,
-    above_poverty_level: above_poverty,
-    below_poverty_level: below_poverty,
+    race: race_value,
+    age: age_value,
+    sex: sex_value,
+    above_poverty_line: above_poverty,
+    below_poverty_line: below_poverty,
   };
 }
 
@@ -126,7 +129,7 @@ describe("AcsPovertyProvider", () => {
     dataFetcher.setFakeMetadataLoaded(FakeDatasetMetadataMap);
   });
 
-  test("testing aggregate by race alone", async () => {
+  test("testing state aggregate by race alone", async () => {
     // Create raw rows with poverty coverage
     const rawData = [
       stateRow(NC, ASIAN_NH, "10-19", MALE, "50", "950"),
@@ -148,7 +151,7 @@ describe("AcsPovertyProvider", () => {
     );
   });
 
-  test("testing aggregate by race multiple", async () => {
+  test("testing state aggregate by race multiple", async () => {
     // Create raw rows with poverty coverage
     const rawData = [
       stateRow(NC, ASIAN_NH, "10-19", MALE, "50", "950"),
@@ -172,7 +175,7 @@ describe("AcsPovertyProvider", () => {
     );
   });
 
-  test("testing aggregate by sex alone", async () => {
+  test("testing state aggregate by sex alone", async () => {
     // Create raw rows with poverty coverage
     const rawData = [
       stateRow(NC, ASIAN_NH, "10-19", MALE, "50", "950"),
@@ -192,6 +195,53 @@ describe("AcsPovertyProvider", () => {
       SEX,
       [NC_FEMALE_FINAL, NC_MALE_FINAL],
       [NC_FEMALE_FINAL, NC_MALE_FINAL, NC_TOTAL_FINAL]
+    );
+  });
+
+  /* -------------------------------------------- */
+
+  test("testing county aggregate by race alone", async () => {
+    // Create raw rows with poverty coverage
+    const rawData = [
+      countyRow(NC, MARIN, ASIAN_NH, "10-19", MALE, "1", "999"),
+      countyRow(NC, KING_COUNTY, ASIAN_NH, "10-19", MALE, "50", "950"),
+      countyRow(NC, KING_COUNTY, ASIAN_NH, "20-29", MALE, "150", "850"),
+      countyRow(NC, KING_COUNTY, WHITE_NH, "10-19", MALE, "100", "100"),
+    ];
+
+    // Create final rows with poverty count
+    // and poverty per 100k
+    const NC_ASIAN_FINAL = finalCountyRow(
+      KING_COUNTY,
+      RACE,
+      ASIAN_NH,
+      200,
+      10000
+    );
+    const NC_WHITE_FINAL = finalCountyRow(
+      KING_COUNTY,
+      RACE,
+      WHITE_NH,
+      100,
+      50000
+    );
+    const NC_TOTAL_FINAL = finalCountyRow(KING_COUNTY, RACE, TOTAL, 300, 13636);
+    const MARIN_ROW_FINAL = finalCountyRow(MARIN, RACE, ASIAN_NH, 1, 100);
+    const MARIN_TOTAL_ROW_FINAL = finalCountyRow(MARIN, RACE, TOTAL, 1, 100);
+
+    await evaluatePovertyWithTotal(
+      "acs_poverty_dataset-poverty_by_race_age_sex_county",
+      rawData,
+      Breakdowns.byCounty(),
+      RACE,
+      [MARIN_ROW_FINAL, NC_ASIAN_FINAL, NC_WHITE_FINAL],
+      [
+        MARIN_ROW_FINAL,
+        NC_ASIAN_FINAL,
+        NC_WHITE_FINAL,
+        MARIN_TOTAL_ROW_FINAL,
+        NC_TOTAL_FINAL,
+      ]
     );
   });
 });
