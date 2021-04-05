@@ -512,11 +512,15 @@ function LandingPage() {
                 </Typography>
               </Grid>
               <Grid item>
-                <form className={styles.EmailAddressForm}>
+                <form className={styles.EmailAddressForm}
+                action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
+                method="post"
+                target="_blank">
                   <input
                     className={styles.EmailAddressFormText}
-                    type="text"
-                    id="email"
+                    type="email"
+                    id="mce-EMAIL"
+                    name="MERGE0"
                     placeholder="Enter email address"
                   />
                   <input
