@@ -17,7 +17,7 @@ def __convert_frame_to_json(frame):
     return json_data
 
 
-def __create_bq_load_job_config(frame, column_types, col_modes):
+def __create_bq_load_job_config(frame, column_types, col_modes, overwrite):
     """
     Creates a job to write the given data frame into BigQuery.
 
@@ -25,14 +25,16 @@ def __create_bq_load_job_config(frame, column_types, col_modes):
         frame: A pandas.DataFrame representing the data for the job.
         column_types: Optional dict of column name to BigQuery data type.
         col_modes: Optional dict of modes for each field.
+        overwrite: Boolean indicating whether we want to overwrite or append.
 
     Returns:
-        job_config: The BigQuery write job to append the given frame to a table.
+        job_config: The BigQuery write job to add the given frame to a table.
     """
-    job_config = bigquery.LoadJobConfig(
-        # Always append, so we can keep the history.
-        write_disposition=bigquery.WriteDisposition.WRITE_APPEND
-    )
+    write_disposition = bigquery.WriteDisposition.WRITE_APPEND
+    if overwrite:
+        write_disposition = bigquery.WriteDisposition.WRITE_TRUNCATE
+    job_config = bigquery.LoadJobConfig(write_disposition=write_disposition)
+
     if column_types is None:
         job_config.autodetect = True
     else:
@@ -50,8 +52,10 @@ def __add_ingestion_ts(frame, column_types):
         column_types['ingestion_ts'] = 'TIMESTAMP'
 
 
-def __append_dataframe_to_bq(frame, dataset, table_name, column_types, col_modes, project, json_data):
-    job_config = __create_bq_load_job_config(frame, column_types, col_modes)
+def __dataframe_to_bq(frame, dataset, table_name, column_types, col_modes,
+                      project, json_data, overwrite):
+    job_config = __create_bq_load_job_config(
+        frame, column_types, col_modes, overwrite)
 
     client = bigquery.Client(project)
     table_id = client.dataset(dataset).table(table_name)
@@ -61,12 +65,14 @@ def __append_dataframe_to_bq(frame, dataset, table_name, column_types, col_modes
     load_job.result()  # Wait for table load to complete.
 
 
-def append_dataframe_to_bq_as_str_values(frame, dataset, table_name, column_types=None, col_modes=None, project=None):
-    """Appends the provided DataFrame to the table specified by
-       `dataset.table_name`. Automatically adds an ingestion time column and coverts
-       all other values to a string.
+def add_dataframe_to_bq_as_str_values(frame, dataset, table_name,
+                                      column_types=None, col_modes=None,
+                                      project=None, overwrite=True):
+    """Adds (either overwrites or appends) the provided DataFrame to the table
+       specified by `dataset.table_name`. Automatically adds an ingestion time
+       column and coverts all other values to a string.
 
-       frame: pandas.DataFrame representing the data to append.
+       frame: pandas.DataFrame representing the data to add.
        dataset: The BigQuery dataset to write to.
        table_name: The BigQuery table to write to.
        column_types: Optional dict of column name to BigQuery data type. If
@@ -74,23 +80,25 @@ def append_dataframe_to_bq_as_str_values(frame, dataset, table_name, column_type
                      DataFrame. Otherwise, table schema is inferred.
        col_modes: Optional dict of modes for each field. Possible values include
                   NULLABLE, REQUIRED, and REPEATED. Must also specify
-                  column_types to specify col_modes."""
+                  column_types to specify col_modes.
+       overwrite: Whether to overwrite or append to the BigQuery table."""
     __add_ingestion_ts(frame, column_types)
     json_data = __convert_frame_to_json(frame)
     for sub in json_data:
         for key in sub:
             sub[key] = str(sub[key])
 
-    __append_dataframe_to_bq(frame, dataset, table_name,
-                             column_types, col_modes, project, json_data)
+    __dataframe_to_bq(frame, dataset, table_name, column_types, col_modes,
+                      project, json_data, overwrite)
 
 
-def append_dataframe_to_bq(
-        frame, dataset, table_name, column_types=None, col_modes=None, project=None):
-    """Appends the provided DataFrame to the table specified by
-       `dataset.table_name`. Automatically adds an ingestion time column.
+def add_dataframe_to_bq(frame, dataset, table_name, column_types=None,
+                        col_modes=None, project=None, overwrite=True):
+    """Adds (either overwrites or appends) the provided DataFrame to the table
+       specified by `dataset.table_name`. Automatically adds an ingestion time
+       column.
 
-       frame: pandas.DataFrame representing the data to append.
+       frame: pandas.DataFrame representing the data to add.
        dataset: The BigQuery dataset to write to.
        table_name: The BigQuery table to write to.
        column_types: Optional dict of column name to BigQuery data type. If
@@ -98,17 +106,18 @@ def append_dataframe_to_bq(
                      DataFrame. Otherwise, table schema is inferred.
        col_modes: Optional dict of modes for each field. Possible values include
                   NULLABLE, REQUIRED, and REPEATED. Must also specify
-                  column_types to specify col_modes."""
+                  column_types to specify col_modes.
+       overwrite: Whether to overwrite or append to the BigQuery table."""
     __add_ingestion_ts(frame, column_types)
     json_data = __convert_frame_to_json(frame)
-    __append_dataframe_to_bq(frame, dataset, table_name,
-                             column_types, col_modes, project, json_data)
+    __dataframe_to_bq(frame, dataset, table_name, column_types, col_modes,
+                      project, json_data, overwrite)
 
 
 def get_schema(frame, column_types, col_modes):
     """Generates the BigQuery table schema from the column types and modes.
 
-       frame: pandas.DataFrame representing the data to append.
+       frame: pandas.DataFrame representing the data to add.
        column_types: a dict of column name to BigQuery data type."""
     if col_modes is None:
         col_modes = {}

@@ -292,7 +292,7 @@ class AcsHealhInsuranceIngestor:
             column_types[WITHOUT_HEALTH_INSURANCE_COL] = 'INT64'
             column_types[TOTAL_HEALTH_INSURANCE_COL] = 'INT64'
 
-            gcs_to_bq_util.append_dataframe_to_bq(
+            gcs_to_bq_util.add_dataframe_to_bq(
                 df, dataset, table_name, column_types=column_types)
 
     # This method runs through each Race/Sex Prefix Suffix
@@ -525,13 +525,21 @@ class AcsHealhInsuranceIngestor:
 
                 # County-Sex
                 if race is None:
-                    county_sex_data.append([state_fip, self.state_fips[state_fip], state_fip + county_fip, self.county_fips[(
-                        state_fip, county_fip)], age, sex, whi, wohi, total])
+                    county_sex_data.append([
+                        state_fip,
+                        self.state_fips[state_fip],
+                        state_fip + county_fip,
+                        self.county_fips[(state_fip, county_fip)],
+                        age, sex, whi, wohi, total])
 
                 # County-Race
                 else:
-                    county_race_data.append([state_fip, self.state_fips[state_fip], state_fip + county_fip, self.county_fips[(
-                        state_fip, county_fip)], age, race, whi, wohi, total])
+                    county_race_data.append([
+                        state_fip,
+                        self.state_fips[state_fip],
+                        state_fip + county_fip,
+                        self.county_fips[(state_fip, county_fip)],
+                        age, race, whi, wohi, total])
 
         # Build Panda DataFrames with standardized cols
         self.state_sex_frame = pd.DataFrame(state_sex_data, columns=[

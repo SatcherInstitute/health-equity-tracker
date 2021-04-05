@@ -3,7 +3,6 @@ import { Breakdowns } from "../query/Breakdowns";
 import VariableProvider from "./VariableProvider";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
-import { TOTAL } from "../utils/Constants";
 import { joinOnCols, per100k } from "../utils/datasetutils";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
@@ -92,21 +91,6 @@ class CdcCovidProvider extends VariableProvider {
             })
             .resetIndex()
         : df;
-
-    // Calculate Total column and add to data.
-    // TODO - do this on the BE.
-    const total = df
-      .pivot(["fips", "fips_name"], {
-        [breakdownColumnName]: (series) => TOTAL,
-        covid_cases: (series) => series.sum(),
-        covid_deaths: (series) => series.sum(),
-        covid_hosp: (series) => series.sum(),
-        population: (series) =>
-          series.where((population) => !isNaN(population)).sum(),
-        population_pct: (series) => 100,
-      })
-      .resetIndex();
-    df = df.concat(total).resetIndex();
 
     df = df
       .generateSeries({

@@ -220,7 +220,7 @@ class ACSPopulationIngester():
             # All breakdown columns are strings
             column_types = {c: 'STRING' for c in df.columns}
             column_types[POPULATION_COL] = 'INT64'
-            gcs_to_bq_util.append_dataframe_to_bq(
+            gcs_to_bq_util.add_dataframe_to_bq(
                 df, dataset, table_name, column_types=column_types)
 
     def write_local_files_debug(self):

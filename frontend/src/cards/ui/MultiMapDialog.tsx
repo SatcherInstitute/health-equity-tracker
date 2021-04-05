@@ -3,6 +3,7 @@ import Alert from "@material-ui/lab/Alert";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
+import Typography from "@material-ui/core/Typography";
 import { Grid } from "@material-ui/core";
 import { ChoroplethMap } from "../../charts/ChoroplethMap";
 import { Fips } from "../../data/utils/Fips";
@@ -13,6 +14,10 @@ import { Row, FieldRange } from "../../data/utils/DatasetTypes";
 import { Sources } from "./Sources";
 import styles from "./MultiMapDialog.module.scss";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
+import {
+  BreakdownVar,
+  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+} from "../../data/query/Breakdowns";
 
 const QUANTILE = "quantile";
 const VEGA_LEGEND_REFERENCE_LINK =
@@ -22,7 +27,7 @@ export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
   metricConfig: MetricConfig;
   // Demographic breakdown upon which we're dividing the data, i.e. "age"
-  breakdown: string;
+  breakdown: BreakdownVar;
   // Unique values for breakdown, each one will have it's own map
   breakdownValues: string[];
   // Geographic region of maps
@@ -55,6 +60,10 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       aria-labelledby="Dialog showing choropleth maps of each breakdown category with the same scale."
     >
       <DialogContent dividers={true}>
+        <Typography className={styles.Title}>
+          {props.metricConfig.fullCardTitleName} across all{" "}
+          {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups
+        </Typography>
         <Grid container justify="space-around">
           <Grid item xs={12}>
             <Alert severity="warning">

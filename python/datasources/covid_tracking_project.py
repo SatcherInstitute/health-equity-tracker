@@ -82,7 +82,7 @@ class CovidTrackingProject(DataSource):
             result.rename(columns={'value': variable_type}, inplace=True)
             result.drop('variable_type', axis='columns', inplace=True)
             # Write to BQ
-            gcs_to_bq_util.append_dataframe_to_bq(
+            gcs_to_bq_util.add_dataframe_to_bq(
                 result, dataset, self.get_table_name() + '_' + variable_type)
 
     @staticmethod
