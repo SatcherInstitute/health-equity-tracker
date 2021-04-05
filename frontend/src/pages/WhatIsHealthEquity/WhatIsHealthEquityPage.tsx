@@ -5,7 +5,6 @@ import Typography from "@material-ui/core/Typography";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import ShareIcon from "@material-ui/icons/Share";
 import {
   LinkWithStickyParams,
   ABOUT_US_TAB_PARAM,
@@ -337,11 +336,15 @@ function WhatIsHealthEquityPage() {
                 Want updates on the latest news in health equity? Sign up for
                 our Satcher Health Leadership Institute newsletter.
               </p>
-              <form className={styles.EmailAddressForm}>
+              <form className={styles.EmailAddressForm}
+                    action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
+                    method="post"
+                    target="_blank">
                 <input
                   className={styles.EmailAddressFormText}
-                  type="text"
-                  id="email"
+                  type="email"
+                  id="mce-EMAIL"
+                  name="MERGE0"
                   placeholder="Enter email address"
                 />
                 <input
@@ -386,17 +389,22 @@ function WhatIsHealthEquityPage() {
                 />
               </form>
               <div className={styles.SocialsDiv}>
-                <a href="/">
+                <a target="_blank"
+                   rel="noopener noreferrer"
+                   href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhealthequitytracker.org%2F&amp;src=sdkpreparse">
                   <FacebookIcon className={styles.SocialsIcon} />
                 </a>
-                <a href="/">
+                <a target="_blank"
+                   rel="noopener noreferrer"
+                   href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fhealthequitytracker.org">
                   <LinkedInIcon className={styles.SocialsIcon} />
                 </a>
-                <a href="/">
+                <a target="_blank"
+                   rel="noopener noreferrer"
+                   href="https://twitter.com/share?url=https%3A%2F%2Fwww.healthequitytracker.org"
+                   className="twitter-share-button"
+                   data-url="https://www.healthequitytracker.org">
                   <TwitterIcon className={styles.SocialsIcon} />
-                </a>
-                <a href="/">
-                  <ShareIcon className={styles.SocialsIcon} />
                 </a>
               </div>
             </Grid>
