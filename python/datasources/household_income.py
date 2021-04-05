@@ -77,5 +77,5 @@ class HouseholdIncome(DataSource):
         # The SAIPE API includes the query predicate columns, which are duplicates of their
         # ALL_CAPS counterparts. Toss 'em.
         concat.drop(columns=['state', 'county', 'time'], inplace=True)
-        gcs_to_bq_util.append_dataframe_to_bq(
+        gcs_to_bq_util.add_dataframe_to_bq(
             concat, dataset, self.get_table_name())
