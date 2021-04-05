@@ -42,7 +42,7 @@ POVERTY_BY_RACE_SEX_AGE_GROUPS = {
     "B17001C": Race.AIAN.value,
     "B17001D": Race.ASIAN.value,
     "B17001E": Race.NHPI.value,
-    "B17001F": Race.OTHER.value,
+    "B17001F": Race.OTHER_STANDARD.value,
     "B17001G": Race.MULTI.value,
     "B17001H": Race.WHITE_NH.value,
     "B17001I": Race.HISP.value,
