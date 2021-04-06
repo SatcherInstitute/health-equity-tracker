@@ -72,7 +72,7 @@ function covidAndCountyAcsRows(
 const METRIC_IDS: MetricId[] = [
   "covid_cases",
   "covid_cases_per_100k",
-  "covid_cases_pct_of_geo",
+  "covid_cases_share",
   "covid_cases_reporting_population",
   "covid_cases_reporting_population_pct",
 ];
@@ -177,7 +177,7 @@ describe("CovidProvider", () => {
       race_and_ethnicity: WHITE_NH,
       covid_cases: 10,
       covid_cases_per_100k: 500,
-      covid_cases_pct_of_geo: 5,
+      covid_cases_share: 5,
       covid_cases_reporting_population: 2000,
       covid_cases_reporting_population_pct: 2,
     };
@@ -188,7 +188,7 @@ describe("CovidProvider", () => {
       race_and_ethnicity: TOTAL,
       covid_cases: 200,
       covid_cases_per_100k: 200,
-      covid_cases_pct_of_geo: 100,
+      covid_cases_share: 100,
       covid_cases_reporting_population: 100000,
       covid_cases_reporting_population_pct: 100,
     };
@@ -258,7 +258,7 @@ describe("CovidProvider", () => {
       race_and_ethnicity: TOTAL,
       covid_cases: 200,
       covid_cases_per_100k: 200,
-      covid_cases_pct_of_geo: 100,
+      covid_cases_share: 100,
       covid_cases_reporting_population: 100000,
       covid_cases_reporting_population_pct: 100,
     };
@@ -268,7 +268,7 @@ describe("CovidProvider", () => {
       race_and_ethnicity: WHITE_NH,
       covid_cases: 10,
       covid_cases_per_100k: 500,
-      covid_cases_pct_of_geo: 5,
+      covid_cases_share: 5,
       covid_cases_reporting_population: 2000,
       covid_cases_reporting_population_pct: 2,
     };
@@ -338,7 +338,7 @@ describe("CovidProvider", () => {
       race_and_ethnicity: WHITE_NH,
       covid_cases: 970,
       covid_cases_per_100k: 882,
-      covid_cases_pct_of_geo: 323.3,
+      covid_cases_share: 323.3,
       covid_cases_reporting_population: 110000,
       covid_cases_reporting_population_pct: 61.1,
     };
@@ -348,7 +348,7 @@ describe("CovidProvider", () => {
       race_and_ethnicity: TOTAL,
       covid_cases: 300,
       covid_cases_per_100k: 167,
-      covid_cases_pct_of_geo: 100,
+      covid_cases_share: 100,
       covid_cases_reporting_population: 180000,
       covid_cases_reporting_population_pct: 100,
     };

@@ -15,7 +15,11 @@ import TableFooter from "@material-ui/core/TableFooter";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Paper from "@material-ui/core/Paper";
-import { MetricConfig, MetricId } from "../data/config/MetricConfig";
+import {
+  MetricConfig,
+  MetricId,
+  formatFieldValue,
+} from "../data/config/MetricConfig";
 import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
   BreakdownVar,
@@ -36,8 +40,7 @@ export function TableChart(props: TableChartProps) {
   let columns = metrics.map((metricConfig) => {
     return {
       Header: metricConfig.fullCardTitleName,
-      Cell: (a: any) =>
-        isNaN(a.value) ? a.value : Number(a.value).toLocaleString(),
+      Cell: (a: any) => formatFieldValue(metricConfig.type, a.value),
       accessor: metricConfig.metricId,
     };
   });
@@ -105,7 +108,6 @@ export function TableChart(props: TableChartProps) {
           ) : (
             <TableCell {...cell.getCellProps()}>
               {cell.render("Cell")}
-              {cell.column.id.includes("_pct") && <span>%</span>}
             </TableCell>
           )
         )}

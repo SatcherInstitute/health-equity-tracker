@@ -3,7 +3,11 @@ import { Breakdowns } from "../query/Breakdowns";
 import VariableProvider from "./VariableProvider";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
-import { joinOnCols, per100k } from "../utils/datasetutils";
+import {
+  joinOnCols,
+  per100k,
+  maybeApplyRowReorder,
+} from "../utils/datasetutils";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
 import { MetricId } from "../config/MetricConfig";
@@ -16,9 +20,12 @@ class CdcCovidProvider extends VariableProvider {
       "covid_cases",
       "covid_deaths",
       "covid_hosp",
-      "covid_cases_pct_of_geo",
-      "covid_deaths_pct_of_geo",
-      "covid_hosp_pct_of_geo",
+      "covid_cases_share",
+      "covid_deaths_share",
+      "covid_hosp_share",
+      "covid_cases_share_of_known",
+      "covid_deaths_share_of_known",
+      "covid_hosp_share_of_known",
       "covid_deaths_per_100k",
       "covid_cases_per_100k",
       "covid_hosp_per_100k",
@@ -105,9 +112,30 @@ class CdcCovidProvider extends VariableProvider {
       df = this.calculatePctShare(
         df,
         col,
-        col + "_pct_of_geo",
+        col + "_share",
         breakdownColumnName,
         ["fips"]
+      );
+    });
+
+    // Calculate any share_of_known metrics that may have been requested in the query
+    const shareOfUnknownMetrics = metricQuery.metricIds.filter((metricId) =>
+      [
+        "covid_cases_share_of_known",
+        "covid_deaths_share_of_known",
+        "covid_hosp_share_of_known",
+      ].includes(metricId)
+    );
+    shareOfUnknownMetrics.forEach((shareOfUnknownColumnName) => {
+      const rawCountColunn = shareOfUnknownColumnName.slice(
+        0,
+        -"_share_of_known".length
+      );
+      df = this.calculatePctShareOfKnown(
+        df,
+        rawCountColunn,
+        shareOfUnknownColumnName,
+        breakdownColumnName
       );
     });
 
@@ -179,7 +207,10 @@ class CdcCovidProvider extends VariableProvider {
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 
-    return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
+    return new MetricQueryResponse(
+      maybeApplyRowReorder(df.toArray(), breakdowns),
+      consumedDatasetIds
+    );
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
