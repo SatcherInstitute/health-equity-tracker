@@ -257,11 +257,13 @@ function WhatIsHealthEquityPage() {
                   alt="Documents lying on a table"
                 />
                 <p className={styles.NewsAndStoriesTitleText}>
-                  Federal Requirements for Race and other Descriptive Data--How
-                  to Make Lasting Changes
+                  Data and Technology Can Help Us Make Progress on COVID
+                  Inequities
                 </p>
                 <p className={styles.NewsAndStoriesSubtitleText}>
-                  <a href="/">Learn more</a>
+                  <a href="https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/">
+                    Read more
+                  </a>
                 </p>
               </Grid>
               <Grid item xs={4} className={styles.NewsAndStoriesItem}>
