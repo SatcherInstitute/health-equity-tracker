@@ -109,7 +109,6 @@ export class ApiDataFetcher implements DataFetcher {
       });
     }
 
-    console.log("HELLoWORLDS");
     // TODO - the server should drop ingestion_ts before exporting the file. At
     // that point we can drop this code.
     return new DataFrame(result)
