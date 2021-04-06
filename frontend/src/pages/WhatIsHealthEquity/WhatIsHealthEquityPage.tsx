@@ -391,7 +391,7 @@ function WhatIsHealthEquityPage() {
                 />
               </form>
               <div className={styles.SocialsDiv}>
-                <a target="_blank
+                <a target="_blank"
                    rel="noopener noreferrer"
                    href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhealthequitytracker.org%2F&amp;src=sdkpreparse">
                   <FacebookIcon className={styles.SocialsIcon} />
