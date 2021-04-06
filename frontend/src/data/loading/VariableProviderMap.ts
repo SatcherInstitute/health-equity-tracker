@@ -4,6 +4,7 @@ import CdcCovidProvider from "../variables/CdcCovidProvider";
 import BrfssProvider from "../variables/BrfssProvider";
 import { MetricId } from "../config/MetricConfig";
 import AcsHealthInsuranceProvider from "../variables/AcsHealthInsuranceProvider";
+import AcsPovertyProvider from "../variables/AcsPovertyProvider";
 
 export type ProviderId =
   | "acs_health_insurance_provider"
@@ -25,6 +26,7 @@ export default class VariableProviderMap {
       new CdcCovidProvider(acsProvider),
       new BrfssProvider(),
       new AcsHealthInsuranceProvider(),
+      new AcsPovertyProvider(),
     ];
 
     this.providersById = this.getProvidersById();

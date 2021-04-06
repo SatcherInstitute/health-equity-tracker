@@ -306,4 +306,27 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       },
     },
   ],
+  poverty: [
+    {
+      variableId: "poverty",
+      variableDisplayName: "Poverty",
+      variableFullDisplayName: "Below the poverty level",
+      metrics: {
+        count: {
+          metricId: "poverty_count",
+          fullCardTitleName: "Individuals below the poverty line",
+          shortVegaLabel: "Individuals below the poverty line",
+          type: "count",
+          populationComparisonMetric: POPULATION_VARIABLE_CONFIG.metrics.count,
+        },
+        per100k: {
+          metricId: "poverty_per_100k",
+          fullCardTitleName:
+            "Individuals below the poverty line per 100,000 people",
+          shortVegaLabel: "Individuals below the poverty line per 100k",
+          type: "per100k",
+        },
+      },
+    },
+  ],
 };
