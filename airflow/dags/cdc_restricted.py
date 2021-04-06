@@ -20,6 +20,7 @@ default_args = {'start_date': days_ago(0)}
 data_ingestion_dag = DAG(
     'cdc_restricted_data_dag',
     default_args=default_args,
+    schedule_interval=None,
     description='Ingestion configuration for CDC Restricted Data')
 
 # Standardize the CDC restricted data

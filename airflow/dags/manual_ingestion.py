@@ -12,6 +12,7 @@ default_args = {
 manual_ingestion_dag = DAG(
     'manual_ingestion_dag',
     default_args=default_args,
+    schedule_interval=None,
     description='Triggering for manual uploads.')
 
 # Manual Uplaods
