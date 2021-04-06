@@ -4,11 +4,12 @@ import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { TOTAL } from "../utils/Constants";
+import {
+  TOTAL,
+  ABOVE_POVERTY_COL,
+  BELOW_POVERTY_COL,
+} from "../utils/Constants";
 import { IDataFrame, ISeries } from "data-forge";
-
-const ABOVE_POVERTY_COL = "above_poverty_line";
-const BELOW_POVERTY_COL = "below_poverty_line";
 
 class AcsPovertyProvider extends VariableProvider {
   constructor() {
@@ -25,6 +26,7 @@ class AcsPovertyProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
+    const breakdownCol = breakdowns.getSoleDemographicBreakdown().columnName;
     const datasetId = this.getDatasetId(breakdowns);
     const acsDataset = await getDataManager().loadDataset(datasetId);
 
@@ -34,14 +36,13 @@ class AcsPovertyProvider extends VariableProvider {
     // We apply the geo filter right away to reduce subsequent calculation times
     df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);
+    //TODO: Move rename to backend.
     df = df.renameSeries({ race: "race_and_ethnicity" });
-    df = df.parseInts([ABOVE_POVERTY_COL, BELOW_POVERTY_COL]);
 
-    df = this.aggregateByBreakdown(df, breakdowns);
+    df = this.aggregateByBreakdown(df, breakdownCol);
     if (breakdowns.geography === "national") {
-      //TODO
       df = df
-        .pivot([breakdowns.getSoleDemographicBreakdown().columnName], {
+        .pivot([breakdownCol], {
           fips: (series) => USA_FIPS,
           fips_name: (series) => USA_DISPLAY_NAME,
           above_poverty_line: (series) => series.sum(),
@@ -55,9 +56,7 @@ class AcsPovertyProvider extends VariableProvider {
       below_poverty_line: (series: ISeries) => series.sum(),
     };
 
-    totalPivot[breakdowns.getSoleDemographicBreakdown().columnName] = (
-      series: ISeries
-    ) => TOTAL;
+    totalPivot[breakdownCol] = (series: ISeries) => TOTAL;
 
     // Calculate totals where dataset doesn't provide it
     // TODO- this should be removed when Totals come from the Data Server
@@ -81,7 +80,7 @@ class AcsPovertyProvider extends VariableProvider {
     return new MetricQueryResponse(df.toArray(), [datasetId]);
   }
 
-  aggregateByBreakdown(df: IDataFrame, breakdowns: Breakdowns) {
+  aggregateByBreakdown(df: IDataFrame, breakdownCol: string) {
     let breakdown_cols = ["race_and_ethnicity", "age", "sex"];
 
     //Get all collumns minus the breakdown cols and the summation cols.
@@ -95,9 +94,7 @@ class AcsPovertyProvider extends VariableProvider {
       );
 
     // Add the breakdown col to the pivot
-    let cols_to_grp_by = default_cols.concat([
-      breakdowns.getSoleDemographicBreakdown().columnName,
-    ]);
+    let cols_to_grp_by = default_cols.concat([breakdownCol]);
 
     // Sum the pivot cols to merge to breakdown col only
     df = df.pivot(cols_to_grp_by, {
@@ -109,11 +106,7 @@ class AcsPovertyProvider extends VariableProvider {
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    return (
-      breakdowns.hasExactlyOneDemographic() &&
-      !breakdowns.hasOnlyAge() &&
-      !breakdowns.time
-    );
+    return breakdowns.hasExactlyOneDemographic() && !breakdowns.time;
   }
 }
 

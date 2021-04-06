@@ -88,8 +88,8 @@ function stateRow(
     sex: sex_value,
     state_fips: fips.code,
     state_name: fips.name,
-    above_poverty_line: above_poverty,
-    below_poverty_line: below_poverty,
+    above_poverty_line: Number(above_poverty),
+    below_poverty_line: Number(below_poverty),
   };
 }
 
@@ -110,8 +110,8 @@ function countyRow(
     race: race_value,
     age: age_value,
     sex: sex_value,
-    above_poverty_line: above_poverty,
-    below_poverty_line: below_poverty,
+    above_poverty_line: Number(above_poverty),
+    below_poverty_line: Number(below_poverty),
   };
 }
 
