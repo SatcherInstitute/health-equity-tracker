@@ -99,7 +99,7 @@ class AcsPovertyIngestor:
             column_types[ABOVE_POVERTY_COL] = "INT64"
             column_types[BELOW_POVERTY_COL] = "INT64"
 
-            gcs_to_bq_util.append_dataframe_to_bq(
+            gcs_to_bq_util.add_dataframe_to_bq(
                 df, dataset, table_name, column_types=column_types
             )
 
