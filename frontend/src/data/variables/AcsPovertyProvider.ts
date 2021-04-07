@@ -88,9 +88,9 @@ class AcsPovertyProvider extends VariableProvider {
       .getColumnNames()
       .filter(
         (c) =>
-          breakdown_cols.indexOf(c) == -1 &&
-          c != ABOVE_POVERTY_COL &&
-          c != BELOW_POVERTY_COL
+          breakdown_cols.indexOf(c) === -1 &&
+          c !== ABOVE_POVERTY_COL &&
+          c !== BELOW_POVERTY_COL
       );
 
     // Add the breakdown col to the pivot
