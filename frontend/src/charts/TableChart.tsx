@@ -81,7 +81,8 @@ export function TableChart(props: TableChartProps) {
     return (
       <TableRow {...group.getHeaderGroupProps()}>
         {group.headers.map((col, index) => (
-          <TableCell {...col.getHeaderProps(col.getSortByToggleProps())}>
+          <TableCell {...col.getHeaderProps(col.getSortByToggleProps())}
+                     style={{ width: "200px" }}>
             {col.render("Header")}
             <TableSortLabel
               active={col.isSorted}
@@ -100,7 +101,7 @@ export function TableChart(props: TableChartProps) {
       <TableRow {...row.getRowProps()}>
         {row.cells.map((cell, index) =>
           cell.value == null ? (
-            <TableCell {...cell.getCellProps()}>
+            <TableCell {...cell.getCellProps()} style={{ width: "200px" }}>
               <Tooltip title="No data available">
                 <WarningRoundedIcon />
               </Tooltip>
