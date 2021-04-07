@@ -71,7 +71,7 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   //  asthma: "[coming soon] asthma",
   copd: "COPD",
   health_insurance: "Health Insurance",
-  poverty: "Poverty",
+  poverty: "poverty",
 };
 
 const MADLIB_LIST: MadLib[] = [
