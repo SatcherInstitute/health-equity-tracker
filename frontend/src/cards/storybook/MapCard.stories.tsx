@@ -53,5 +53,5 @@ HealthInsurancePer100kMap.args = {
 export const PovertyPer100kMap = Template.bind({});
 PovertyPer100kMap.args = {
   metricConfig: METRIC_CONFIG["poverty"][0].metrics["per100k"],
-  currentBreakdown: "all",
+  currentBreakdown: "race_and_ethnicity",
 };

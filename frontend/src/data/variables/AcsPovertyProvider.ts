@@ -15,10 +15,10 @@ class AcsPovertyProvider extends VariableProvider {
   constructor() {
     super("acs_poverty_provider", ["poverty_count", "poverty_per_100k"]);
   }
-
   getDatasetId(breakdowns: Breakdowns): string {
     return (
-      "acs_poverty_dataset-poverty_by_race_age_sex_" + breakdowns.geography
+      "acs_poverty_dataset-poverty_by_race_age_sex_" +
+      (breakdowns.geography == "county" ? "county" : "state")
     );
   }
 
