@@ -18,7 +18,7 @@ class AcsPovertyProvider extends VariableProvider {
   getDatasetId(breakdowns: Breakdowns): string {
     return (
       "acs_poverty_dataset-poverty_by_race_age_sex_" +
-      (breakdowns.geography == "county" ? "county" : "state")
+      (breakdowns.geography === "county" ? "county" : "state")
     );
   }
 
