@@ -232,7 +232,7 @@ class AcsPovertyIngestor:
         # Extract keys from self.data Tuple
         # (state_fip, County_fip, Age, Sex, Race): {PopulationObj}
         for data, population in self.data.items():
-            state_fip, county_fip, race, age, sex = data
+            state_fip, county_fip, age, sex, race = data
 
             population = self.data[data]
             above = population[PovertyPopulation.ABOVE]
