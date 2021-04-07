@@ -8,13 +8,11 @@ from ingestion.standardized_columns import (
     COUNTY_FIPS_COL,
     STATE_NAME_COL,
     COUNTY_NAME_COL,
-    INCOME_COL,
     SEX_COL,
     AGE_COL,
     ABOVE_POVERTY_COL,
     BELOW_POVERTY_COL,
     RACE_COL,
-    POPULATION_COL,
     Race,
 )
 from ingestion.census import (
