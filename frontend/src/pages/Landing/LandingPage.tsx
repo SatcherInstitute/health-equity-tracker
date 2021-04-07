@@ -24,7 +24,7 @@ function LandingPage() {
           justify="center"
           alignItems="center"
         >
-          <Grid item xs={6} className={styles.HeaderTextItem}>
+          <Grid item className={styles.HeaderTextItem} xs={12} sm={12} md={6}>
             <Typography className={styles.HeaderText}>
               Equity Forward
             </Typography>
@@ -45,7 +45,7 @@ function LandingPage() {
               Explore the Health Equity Tracker
             </a>
           </Grid>
-          <Grid item xs={6} className={styles.HeaderImgItem}>
+          <Grid item xs={12} sm={12} md={6} className={styles.HeaderImgItem}>
             <img
               src="img/shutterstock_1414416191 2 (1).png"
               className={styles.HeaderImg}
@@ -60,12 +60,12 @@ function LandingPage() {
           direction="column"
           justify="center"
         >
-          <Grid item xs={12}>
+          <Grid item  xs={12} sm={12} md={6}>
             <Typography className={styles.TakeALookAroundHeaderText}>
               Take a look around
             </Typography>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item  xs={12} sm={12} md={6}>
             <Typography className={styles.TakeALookAroundHeaderSubtext}>
               We’re working toward health equity, but can’t do it alone. Please
               join our effort to move the needle forward.
@@ -78,7 +78,7 @@ function LandingPage() {
             direction="row"
             justify="space-around"
           >
-            <Grid item xs={4} className={styles.TakeALookAroundItem}>
+            <Grid item  xs={12} sm={12} md={4} className={styles.TakeALookAroundItem}>
               <Grid
                 container
                 direction="column"
@@ -99,7 +99,7 @@ function LandingPage() {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={4} className={styles.TakeALookAroundItem}>
+            <Grid item xs={12} sm={12} md={4} className={styles.TakeALookAroundItem}>
               <Grid
                 container
                 direction="column"
@@ -120,7 +120,7 @@ function LandingPage() {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={4} className={styles.TakeALookAroundItem}>
+            <Grid item  xs={12} sm={12} md={4} className={styles.TakeALookAroundItem}>
               <Grid
                 container
                 direction="column"
@@ -148,7 +148,7 @@ function LandingPage() {
             direction="row"
             justify="center"
           >
-            <Grid item xs={2}>
+            <Grid item  xs={12} sm={12} md={2}>
               <a href="/whatishealthequity" className={styles.PrimaryButton}>
                 Learn more
               </a>
@@ -163,7 +163,7 @@ function LandingPage() {
           justify="center"
           alignItems="center"
         >
-          <Grid item xs={5} className={styles.DecorativeHImgItem}>
+          <Grid item  xs={12} sm={12} md={5} className={styles.DecorativeHImgItem}>
             <div className={styles.DecorativeHImgContainer}>
               <img
                 src="img/Asset 10@3x 1.png"
@@ -172,7 +172,7 @@ function LandingPage() {
               />
             </div>
           </Grid>
-          <Grid item xs={7} className={styles.PrioritizeHealthEquityTextItem}>
+          <Grid item  xs={12} sm={12} md={7} className={styles.PrioritizeHealthEquityTextItem}>
             <Typography className={styles.PrioritizeHealthEquityHeader}>
               It's time to prioritize health equity
             </Typography>
@@ -215,14 +215,14 @@ function LandingPage() {
               justify="space-around"
               alignItems="center"
             >
-              <Grid item xs={8}>
+              <Grid item xs={12} sm={12} md={8}>
                 <img
                   className={styles.HowToStepImg}
                   src="img/ezgif 2.png"
                   alt="Screenshot of Data Tracker - selecting mad libs"
                 />
               </Grid>
-              <Grid item xs={3}>
+              <Grid item  xs={12} sm={12} md={3}>
                 <div>
                   <p className={styles.HowToStepTextHeader}>
                     Search by completing the sentence
@@ -242,14 +242,14 @@ function LandingPage() {
               justify="space-around"
               alignItems="center"
             >
-              <Grid item xs={8}>
+              <Grid item  xs={12} sm={12} md={8}>
                 <img
                   className={styles.HowToStepImg}
                   src="img/ezgif 5.png"
                   alt="Screenshot of Data Tracker - using filters"
                 />
               </Grid>
-              <Grid item xs={3}>
+              <Grid item  xs={12} sm={12} md={3}>
                 <div>
                   <p className={styles.HowToStepTextHeader}>
                     Use filters to go deeper
@@ -271,14 +271,14 @@ function LandingPage() {
               justify="space-around"
               alignItems="center"
             >
-              <Grid item xs={8}>
+              <Grid item  xs={12} sm={12} md={8}>
                 <img
                   className={styles.HowToStepImg}
                   src="img/ezgif 6.png"
                   alt="Screenshot of Data Tracker - map of the US"
                 />
               </Grid>
-              <Grid item xs={3}>
+              <Grid item  xs={12} sm={12} md={3}>
                 <div>
                   <p className={styles.HowToStepTextHeader}>
                     Explore maps and graphs
@@ -497,7 +497,8 @@ function LandingPage() {
 
         <Grid container className={styles.NewsletterSignUpRow}>
           <Grid
-            container
+            container item
+            xs={12} sm={12} md={12}
             direction="column"
             justify="center"
             alignItems="center"

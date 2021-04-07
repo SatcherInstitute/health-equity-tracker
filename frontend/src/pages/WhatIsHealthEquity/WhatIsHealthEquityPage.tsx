@@ -23,14 +23,14 @@ function WhatIsHealthEquityPage() {
           justify="center"
           alignItems="center"
         >
-          <Grid container item xs={4} className={styles.HeaderImgItem}>
+          <Grid container item xs={12} sm={12} md={4} className={styles.HeaderImgItem}>
             <img
               src="img/pexels-marcus-aurelius-4063919 1.png"
               className={styles.HeaderImg}
               alt="A woman in a wheelchair relaxing with a cup of tea"
             />
           </Grid>
-          <Grid item xs={8} className={styles.HeaderTextItem}>
+          <Grid item xs={12} sm={12} md={8} className={styles.HeaderTextItem}>
             <Typography className={styles.HeaderText}>
               What is Health Equity?
             </Typography>
@@ -58,7 +58,7 @@ function WhatIsHealthEquityPage() {
               alignItems="flex-start"
               className={styles.DefinitionsContainer}
             >
-              <Grid item xs={6} className={styles.DefinitionsItem}>
+              <Grid item  xs={12} sm={12} md={6} className={styles.DefinitionsItem}>
                 <Typography className={styles.DefinitionHeader}>
                   Political determinants of health
                 </Typography>
@@ -75,7 +75,7 @@ function WhatIsHealthEquityPage() {
                   Daniel Dawes, 2020
                 </span>
               </Grid>
-              <Grid item xs={6} className={styles.DefinitionsItem}>
+              <Grid item  xs={12} sm={12} md={6} className={styles.DefinitionsItem}>
                 <Typography className={styles.DefinitionHeader}>
                   Social determinant of health
                 </Typography>
@@ -115,7 +115,7 @@ function WhatIsHealthEquityPage() {
               justify="space-around"
               xs={12}
             >
-              <Grid item xs={9} className={styles.ResourceItem}>
+              <Grid item  xs={12} sm={12} md={9} className={styles.ResourceItem}>
                 <iframe
                   className={styles.ResourceVideoEmbed}
                   width="100%"
@@ -138,7 +138,7 @@ function WhatIsHealthEquityPage() {
                   political determinants of health
                 </p>
               </Grid>
-              <Grid item xs={3}>
+              <Grid item  xs={12} sm={12} md={3}>
                 <Grid
                   container
                   direction="column"
@@ -210,7 +210,7 @@ function WhatIsHealthEquityPage() {
               justify="space-between"
               alignItems="flex-start"
             >
-              <Grid item xs={6} className={styles.NewsAndStoriesItem}>
+              <Grid item  xs={12} sm={12} md={6} className={styles.NewsAndStoriesItem}>
                 <img
                   className={styles.NewsAndStoriesBigImg}
                   src="img/pexels-august-de-richelieu-4261261 1.png"
@@ -231,7 +231,7 @@ function WhatIsHealthEquityPage() {
                   </a>
                 </p>
               </Grid>
-              <Grid item xs={6} className={styles.NewsAndStoriesItem}>
+              <Grid item  xs={12} sm={12} md={6} className={styles.NewsAndStoriesItem}>
                 <img
                   className={styles.NewsAndStoriesBigImg}
                   src="img/pexels-cottonbro-7000149 1.png"
@@ -250,7 +250,7 @@ function WhatIsHealthEquityPage() {
                   </a>
                 </p>
               </Grid>
-              <Grid item xs={4} className={styles.NewsAndStoriesItem}>
+              <Grid item  xs={12} sm={12} md={4} className={styles.NewsAndStoriesItem}>
                 <img
                   className={styles.NewsAndStoriesSmallImg}
                   src="img/pexels-alex-green-5699516 1.png"
@@ -266,7 +266,7 @@ function WhatIsHealthEquityPage() {
                   </a>
                 </p>
               </Grid>
-              <Grid item xs={4} className={styles.NewsAndStoriesItem}>
+              <Grid item  xs={12} sm={12} md={4} className={styles.NewsAndStoriesItem}>
                 <img
                   className={styles.NewsAndStoriesSmallImg}
                   src="img/pexels-ketut-subiyanto-4473409 2.png"
@@ -279,7 +279,7 @@ function WhatIsHealthEquityPage() {
                   <a href="/">Learn more</a>
                 </p>
               </Grid>
-              <Grid item xs={4} className={styles.NewsAndStoriesItem}>
+              <Grid item  xs={12} sm={12} md={4} className={styles.NewsAndStoriesItem}>
                 <img
                   className={styles.NewsAndStoriesSmallImg}
                   src="img/Screen Shot 2021-03-01 at 5.25 1.png"
