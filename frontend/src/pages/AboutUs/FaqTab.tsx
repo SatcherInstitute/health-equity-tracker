@@ -9,10 +9,10 @@ function FaqTab(props: {}) {
   return (
     <Grid container className={styles.Grid}>
       <Grid container className={styles.FaqSection}>
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={12} md={3}>
           <Typography className={styles.FaqHeaderText}>Data</Typography>
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={12} sm={12} md={9}>
           <Grid container>
             <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
               <span className={styles.FaqQuestion}>
@@ -156,10 +156,10 @@ function FaqTab(props: {}) {
       </Grid>
 
       <Grid container className={styles.FaqSection}>
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={12} md={3}>
           <Typography className={styles.FaqHeaderText}>Definitions</Typography>
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={12} sm={12} md={9}>
           <Grid container>
             <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
               <span className={styles.FaqQuestion}>What is equity?</span>
@@ -271,10 +271,10 @@ function FaqTab(props: {}) {
       </Grid>
 
       <Grid container className={styles.FaqSection}>
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={12} md={3}>
           <Typography className={styles.FaqHeaderText}>Take Action</Typography>
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={12} sm={12} md={9}>
           <Grid container>
             <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
               <span className={styles.FaqQuestion}>

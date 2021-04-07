@@ -27,6 +27,9 @@ TOTAL_HEALTH_INSURANCE_COL = "total_health_insurance"
 WITH_HEALTH_INSURANCE_COL = "with_health_insurance"
 WITHOUT_HEALTH_INSURANCE_COL = "without_health_insurance"
 
+ABOVE_POVERTY_COL = "above_poverty_line"
+BELOW_POVERTY_COL = "below_poverty_line"
+
 
 # TODO add Asian/Pacific Islander combined, and Indigenous combined
 class Race(Enum):

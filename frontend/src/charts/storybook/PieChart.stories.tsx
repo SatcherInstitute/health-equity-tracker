@@ -15,14 +15,14 @@ export const Example1 = Template.bind({});
 Example1.args = {
   data: [
     {
-      covid_cases_pct_of_geo: 20,
+      covid_cases_share: 20,
       race_and_ethnicity: "Race 1",
     },
     {
-      covid_cases_pct_of_geo: 80,
+      covid_cases_share: 80,
       race_and_ethnicity: "Race 2",
     },
   ],
   categoryField: "race_and_ethnicity",
-  valueField: "covid_cases_pct_of_geo",
+  valueField: "covid_cases_share",
 };

@@ -1,4 +1,4 @@
-from ingestion.constants import HealthInsurancePopulation, Sex
+from ingestion.constants import HealthInsurancePopulation, Sex, PovertyPopulation
 import re
 import requests
 
@@ -18,6 +18,10 @@ REGEX_METADATA_LIBRARY = {
         MetadataKey.AGE: f"{matches[0]}-{matches[1]}"
     },
     r"(\d+) years and over": lambda matches: {MetadataKey.AGE: f"{matches[0]}+"},
+    r"(\d+) years": lambda matches: {MetadataKey.AGE: f"{matches[0]}"},
+    r"(\d+) and (\d+) years": lambda matches: {
+        MetadataKey.AGE: f"{matches[0]}-{matches[1]}"
+    },
     r"\$(\d+,\d{3}) or more": lambda matches: {MetadataKey.INCOME: f"${matches[0]}+"},
     r"\$(\d+,\d{3}) to \$(\d+,\d{3})": lambda matches: {
         MetadataKey.INCOME: f"${matches[0]}-${matches[1]}"
@@ -32,6 +36,12 @@ REGEX_METADATA_LIBRARY = {
     },
     r"No health insurance coverage": lambda matches: {
         MetadataKey.POPULATION: HealthInsurancePopulation.WITHOUT
+    },
+    r"Income in the past 12 months below poverty level:": lambda matches: {
+        MetadataKey.POPULATION: PovertyPopulation.BELOW
+    },
+    r"Income in the past 12 months at or above poverty level:": lambda matches: {
+        MetadataKey.POPULATION: PovertyPopulation.ABOVE
     },
 }
 

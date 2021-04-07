@@ -62,3 +62,9 @@ class HealthInsurancePopulation:
     WITH = "With"
     WITHOUT = "Without"
     TOTAL = "Total"
+
+
+class PovertyPopulation:
+    BELOW = "below"
+    ABOVE = "above"
+    TOTAL = "total"

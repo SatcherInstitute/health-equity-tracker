@@ -8,10 +8,11 @@ from ingestion.standardized_columns import (
     COUNTY_FIPS_COL,
     STATE_NAME_COL,
     COUNTY_NAME_COL,
-    INCOME_COL,
+    SEX_COL,
     AGE_COL,
+    ABOVE_POVERTY_COL,
+    BELOW_POVERTY_COL,
     RACE_COL,
-    POPULATION_COL,
     Race,
 )
 from ingestion.census import (
@@ -19,6 +20,7 @@ from ingestion.census import (
     get_state_fips_mapping,
     get_county_fips_mapping,
 )
+from ingestion.constants import PovertyPopulation
 from ingestion.acs_utils import (
     MetadataKey,
     parseMetadata,
@@ -32,47 +34,48 @@ BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
 
 
 # Acs Groups for income / age / race
-MEDIAN_INCOME_BY_RACE_GROUPS = {
-    "B19037A": Race.WHITE.value,
-    "B19037B": Race.BLACK.value,
-    "B19037C": Race.AIAN.value,
-    "B19037D": Race.ASIAN.value,
-    "B19037E": Race.NHPI.value,
-    "B19037F": Race.OTHER.value,
-    "B19037G": Race.MULTI.value,
-    "B19037H": Race.WHITE_NH.value,
-    "B19037I": Race.HISP.value,
+POVERTY_BY_RACE_SEX_AGE_GROUPS = {
+    "B17001A": Race.WHITE.value,
+    "B17001B": Race.BLACK.value,
+    "B17001C": Race.AIAN.value,
+    "B17001D": Race.ASIAN.value,
+    "B17001E": Race.NHPI.value,
+    "B17001F": Race.OTHER.value,
+    "B17001G": Race.MULTI.value,
+    "B17001H": Race.WHITE_NH.value,
+    "B17001I": Race.HISP.value,
 }
 
 
-# Gets the race from ACS Variable ex. B19037A_001E
+# Gets the race from ACS Variable ex. B17001A_001E
 
 
 def get_race_from_key(key):
     parts = key.split("_")
-    return MEDIAN_INCOME_BY_RACE_GROUPS[parts[0]]
+    return POVERTY_BY_RACE_SEX_AGE_GROUPS[parts[0]]
 
 
 # Standardized way of getting filename by group
 def get_filename(grp_code, is_county):
     geo = "COUNTY" if is_county else "STATE"
-    grp_name = MEDIAN_INCOME_BY_RACE_GROUPS[grp_code].replace(" ", "_").upper()
-    return f"ACS_MEDIAN_INCOME_BY_AGE_RACE_{geo}_{grp_name}"
+    grp_name = POVERTY_BY_RACE_SEX_AGE_GROUPS[grp_code].replace(" ", "_").upper()
+    return f"ACS_POVERTY_BY_AGE_RACE_{geo}_{grp_name}"
 
 
-class AcsHouseholdIncomeIngestor:
+class AcsPovertyIngestor:
 
     # Initialize the fips mappings, retrieve all concepts for groups,
     # parse metadata into dict for easy lookup.
     def __init__(self, base_url):
         self.base_url = base_url
         metadata = fetch_acs_metadata(self.base_url)["variables"]
-        metadata = trimMetadata(metadata, MEDIAN_INCOME_BY_RACE_GROUPS.keys())
+        metadata = trimMetadata(metadata, POVERTY_BY_RACE_SEX_AGE_GROUPS.keys())
         self.metadata = parseMetadata(
             metadata,
-            [MetadataKey.AGE, MetadataKey.INCOME, MetadataKey.RACE],
+            [MetadataKey.AGE, MetadataKey.SEX, MetadataKey.RACE],
             self.metadataInitializer,
         )
+
         self.state_fips = get_state_fips_mapping(base_url)
         self.county_fips = get_county_fips_mapping(base_url)
         self.data = {}
@@ -91,7 +94,8 @@ class AcsHouseholdIncomeIngestor:
             # All breakdown columns are strings
             column_types = {c: "STRING" for c in df.columns}
 
-            column_types[POPULATION_COL] = "INT64"
+            column_types[ABOVE_POVERTY_COL] = "INT64"
+            column_types[BELOW_POVERTY_COL] = "INT64"
 
             gcs_to_bq_util.add_dataframe_to_bq(
                 df, dataset, table_name, column_types=column_types
@@ -100,7 +104,7 @@ class AcsHouseholdIncomeIngestor:
     # Uploads the acs data to gcs and returns if files are diff.
     def upload_to_gcs(self, bucket):
         file_diff = False
-        for group in MEDIAN_INCOME_BY_RACE_GROUPS:
+        for group in POVERTY_BY_RACE_SEX_AGE_GROUPS:
             for is_county in [True, False]:
                 file_diff = (
                     url_file_to_gcs.url_file_to_gcs(
@@ -117,12 +121,12 @@ class AcsHouseholdIncomeIngestor:
     # Write all the datas to local files to debug
     def write_local_files_debug(self):
 
-        with open("acs_hhi_metadata.json", "w") as f:
+        with open("acs_poverty_metadata.json", "w") as f:
             print(json.dumps(self.metadata, indent=4), file=f)
 
         self.getData()
 
-        with open("acs_hhi_internal_data.json", "w") as f:
+        with open("acs_poverty_internal_data.json", "w") as f:
             print(
                 json.dumps({str(k): v for k, v in self.data.items()}, indent=4), file=f
             )
@@ -136,7 +140,7 @@ class AcsHouseholdIncomeIngestor:
     # Get the acs data for all the group / concept combinations.
     # Accumulate to in memory data to be split later
     def getData(self, gcs_bucket=None):
-        for group in MEDIAN_INCOME_BY_RACE_GROUPS:
+        for group in POVERTY_BY_RACE_SEX_AGE_GROUPS:
             for is_county in [True, False]:
                 data = None
                 if gcs_bucket is None:
@@ -162,14 +166,16 @@ class AcsHouseholdIncomeIngestor:
 
     (state_fip, county_fip, age, sex, race) example:
     {
-        "('01', 'None', '0-6', 'White', $0-$10000)": {
-            "Population": "143",
+        "('01', 'None', '0-6', 'White')": {
+            "above_poverty_line": "143",
+            "below_poverty_line": "13",
 
-        "('01', 'None', '0-6', 'White', $10,000-$20,000)": {
-            "Population": "104",
+        "('01', 'None', '0-6', 'Asian')": {
+             "above_poverty_line": "113",
+            "below_poverty_line": "16",
         },
         ...
-    } Note: This can be debugged via the acs_hhi_internal_data.json file
+    } Note: This can be debugged via the acs_poverty_metadata.json file
     """
 
     def accumulate_acs_data(self, data):
@@ -192,19 +198,30 @@ class AcsHouseholdIncomeIngestor:
                     county_fip = col
                 elif key in self.metadata:
                     row_data[key] = {"value": col, "meta": self.metadata[key]}
+            for var in row_data:
+                metadata = row_data[var]["meta"]
+                value = row_data[var]["value"]
+                row = self.upsert_row(
+                    state_fip,
+                    county_fip,
+                    metadata.get(MetadataKey.AGE),
+                    metadata.get(MetadataKey.SEX),
+                    metadata.get(MetadataKey.RACE),
+                )
+                row[metadata[MetadataKey.POPULATION]] = value
 
-            for key in row_data:
-                metadata = row_data[key]["meta"]
-                population = row_data[key]["value"]
-                self.data[
-                    (
-                        state_fip,
-                        county_fip,
-                        metadata[MetadataKey.RACE],
-                        metadata[MetadataKey.AGE],
-                        metadata[MetadataKey.INCOME],
-                    )
-                ] = population
+    # Helper method from grabbing a tuple in self.data.  If the
+    # tuple hasnt been created then it initializes an empty tuple.
+    # This is needed as each data variable will only
+    # update one of the population values at a time.
+
+    def upsert_row(self, state_fip, county_fip, age, sex, race):
+        if (state_fip, county_fip, age, sex, race) not in self.data:
+            self.data[(state_fip, county_fip, age, sex, race)] = {
+                PovertyPopulation.ABOVE: -1,
+                PovertyPopulation.BELOW: -1,
+            }
+        return self.data[(state_fip, county_fip, age, sex, race)]
 
     # Splits the in memory aggregation into dataframes
 
@@ -215,7 +232,11 @@ class AcsHouseholdIncomeIngestor:
         # Extract keys from self.data Tuple
         # (state_fip, County_fip, Age, Sex, Race): {PopulationObj}
         for data, population in self.data.items():
-            state_fip, county_fip, race, age, income = data
+            state_fip, county_fip, race, age, sex = data
+
+            population = self.data[data]
+            above = population[PovertyPopulation.ABOVE]
+            below = population[PovertyPopulation.BELOW]
 
             if county_fip is None:
                 state_data.append(
@@ -224,8 +245,9 @@ class AcsHouseholdIncomeIngestor:
                         self.state_fips[state_fip],
                         race,
                         age,
-                        income,
-                        population,
+                        sex,
+                        above,
+                        below,
                     ]
                 )
             else:
@@ -233,28 +255,30 @@ class AcsHouseholdIncomeIngestor:
                     [
                         state_fip,
                         self.state_fips[state_fip],
-                        state_fip + county_fip,
+                        county_fip,
                         self.county_fips[(state_fip, county_fip)],
                         race,
                         age,
-                        income,
-                        population,
+                        sex,
+                        above,
+                        below,
                     ]
                 )
 
         # Build Panda DataFrames with standardized cols
-        self.income_by_race_age_state_frame = pd.DataFrame(
+        self.poverty_by_race_age_sex_state_frame = pd.DataFrame(
             state_data,
             columns=[
                 STATE_FIPS_COL,
                 STATE_NAME_COL,
                 RACE_COL,
                 AGE_COL,
-                INCOME_COL,
-                POPULATION_COL,
+                SEX_COL,
+                ABOVE_POVERTY_COL,
+                BELOW_POVERTY_COL,
             ],
         )
-        self.income_by_race_age_county_frame = pd.DataFrame(
+        self.poverty_by_race_age_sex_county_frame = pd.DataFrame(
             county_data,
             columns=[
                 STATE_FIPS_COL,
@@ -263,23 +287,24 @@ class AcsHouseholdIncomeIngestor:
                 COUNTY_NAME_COL,
                 RACE_COL,
                 AGE_COL,
-                INCOME_COL,
-                POPULATION_COL,
+                SEX_COL,
+                ABOVE_POVERTY_COL,
+                BELOW_POVERTY_COL,
             ],
         )
 
         # Aggregate Frames by Filename
         self.frames = {
-            "household_income_by_race_age_state": self.income_by_race_age_state_frame,
-            "household_income_by_race_age_county": self.income_by_race_age_county_frame,
+            "poverty_by_race_age_sex_state": self.poverty_by_race_age_sex_state_frame,
+            "poverty_by_race_age_sex_county": self.poverty_by_race_age_sex_county_frame,
         }
 
 
-class ACSHouseholdIncomeDatasource(DataSource):
+class ACSPovertyDataSource(DataSource):
     @staticmethod
     def get_id():
         """Returns the data source's unique id. """
-        return "ACS_HOUSEHOLD_INCOME"
+        return "ACS_POVERTY"
 
     # Uploads to GCS. Sees if the data has changed by diffing the old run vs the new run.
     # (presumably to skip the write to bq step though not 100% sure as of writing this)
@@ -296,13 +321,13 @@ class ACSHouseholdIncomeDatasource(DataSource):
 
     def _create_ingesters(self):
         return [
-            AcsHouseholdIncomeIngestor(BASE_ACS_URL),
+            AcsPovertyIngestor(BASE_ACS_URL),
         ]
 
 
-# AcsHouseholdIncomeIngestor(BASE_ACS_URL).upload_to_gcs(
+# AcsPovertyIngestor(BASE_ACS_URL).upload_to_gcs(
 #     'kalieki-dev-landing-bucket')
-# AcsHouseholdIncomeIngestor(BASE_ACS_URL).write_to_bq(
-#     'acs_income_manual_test', 'kalieki-dev-landing-bucket')
+# AcsPovertyIngestor(BASE_ACS_URL).write_to_bq(
+#     'acs_poverty_manual_test', 'kalieki-dev-landing-bucket')
 
-# AcsHouseholdIncomeIngestor(BASE_ACS_URL).write_local_files_debug()
+# AcsPovertyIngestor(BASE_ACS_URL).write_local_files_debug()

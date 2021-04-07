@@ -24,12 +24,12 @@ export const Example1 = Template.bind({});
 Example1.args = {
   data: [
     {
-      covid_cases_pct_of_geo: 0.4,
+      covid_cases_share: 0.4,
       population_pct: 0.8,
       race_and_ethnicity: "Race 1",
     },
     {
-      covid_cases_pct_of_geo: 0.8,
+      covid_cases_share: 0.8,
       population_pct: 0.3,
       race_and_ethnicity: "Race 2",
     },

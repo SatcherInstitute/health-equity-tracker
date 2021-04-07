@@ -15,6 +15,7 @@ export const SEX = "sex";
 export const MALE = "Male";
 export const FEMALE = "Female";
 export const UNKNOWN = "Unknown";
+export const UNKNOWN_RACE = "Unknown race";
 export const UNKNOWN_HL = "Unknown Hispanic or Latino";
 
 export const ABOVE_POVERTY_COL = "above_poverty_line";
