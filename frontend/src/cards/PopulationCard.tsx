@@ -110,9 +110,6 @@ export function PopulationCard(props: PopulationCardProps) {
                   {raceQueryResponse
                     .getValidRowsForField("race_and_ethnicity")
                     .filter((r) => r.race_and_ethnicity !== TOTAL)
-                    .sort((a, b) => {
-                      return b.population - a.population;
-                    })
                     .map((row) => (
                       <Grid item className={styles.PopulationMetric}>
                         <span>{row.race_and_ethnicity}</span>
