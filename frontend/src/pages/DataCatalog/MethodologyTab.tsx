@@ -17,7 +17,7 @@ function MethodologyTab() {
       justify="space-around"
       alignItems="center"
     >
-      <Grid item xs={9}>
+      <Grid item xs={12} sm={12} md={9}>
         <Grid container className={styles.MethodologySection}>
           <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
             <span className={styles.MethodologyQuestion}>
