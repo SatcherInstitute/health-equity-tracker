@@ -5,7 +5,6 @@ import Typography from "@material-ui/core/Typography";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import ShareIcon from "@material-ui/icons/Share";
 import {
   LinkWithStickyParams,
   ABOUT_US_TAB_PARAM,
@@ -258,11 +257,13 @@ function WhatIsHealthEquityPage() {
                   alt="Documents lying on a table"
                 />
                 <p className={styles.NewsAndStoriesTitleText}>
-                  Federal Requirements for Race and other Descriptive Data--How
-                  to Make Lasting Changes
+                  Data and Technology Can Help Us Make Progress on COVID
+                  Inequities
                 </p>
                 <p className={styles.NewsAndStoriesSubtitleText}>
-                  <a href="/">Learn more</a>
+                  <a href="https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/">
+                    Read more
+                  </a>
                 </p>
               </Grid>
               <Grid item  xs={12} sm={12} md={4} className={styles.NewsAndStoriesItem}>
@@ -337,11 +338,15 @@ function WhatIsHealthEquityPage() {
                 Want updates on the latest news in health equity? Sign up for
                 our Satcher Health Leadership Institute newsletter.
               </p>
-              <form className={styles.EmailAddressForm}>
+              <form className={styles.EmailAddressForm}
+                    action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
+                    method="post"
+                    target="_blank">
                 <input
                   className={styles.EmailAddressFormText}
-                  type="text"
-                  id="email"
+                  type="email"
+                  id="mce-EMAIL"
+                  name="MERGE0"
                   placeholder="Enter email address"
                 />
                 <input
@@ -387,25 +392,21 @@ function WhatIsHealthEquityPage() {
               </form>
               <div className={styles.SocialsDiv}>
                 <a target="_blank"
+                   rel="noopener noreferrer"
                    href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhealthequitytracker.org%2F&amp;src=sdkpreparse">
                   <FacebookIcon className={styles.SocialsIcon} />
                 </a>
                 <a target="_blank"
+                   rel="noopener noreferrer"
                    href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fhealthequitytracker.org">
                   <LinkedInIcon className={styles.SocialsIcon} />
                 </a>
                 <a target="_blank"
-                   href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+                   rel="noopener noreferrer"
+                   href="https://twitter.com/share?url=https%3A%2F%2Fwww.healthequitytracker.org"
                    className="twitter-share-button"
-                   data-url="https://www.healthequitytracker.org"
-                   data-show-count="false">
+                   data-url="https://www.healthequitytracker.org">
                   <TwitterIcon className={styles.SocialsIcon} />
-                </a>
-                <script async src="https://platform.twitter.com/widgets.js"
-                        charSet="utf-8"></script>
-                <a target="_blank"
-                   href="/">
-                  <ShareIcon className={styles.SocialsIcon} />
                 </a>
               </div>
             </Grid>

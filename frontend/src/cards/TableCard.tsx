@@ -33,14 +33,20 @@ export function TableCard(props: TableCardProps) {
       ? exclude(NON_HISPANIC)
       : undefined
   );
-  let metricIds: MetricId[] = [];
+  let metricConfigs: Record<string, MetricConfig> = {};
   props.metrics.forEach((metricConfig) => {
-    metricIds.push(metricConfig.metricId);
+    metricConfigs[metricConfig.metricId] = metricConfig;
+    if (metricConfig.knownBreakdownComparisonMetric) {
+      metricConfigs[metricConfig.knownBreakdownComparisonMetric.metricId] =
+        metricConfig.knownBreakdownComparisonMetric;
+    }
     if (metricConfig.populationComparisonMetric) {
-      metricIds.push(metricConfig.populationComparisonMetric.metricId);
+      metricConfigs[metricConfig.populationComparisonMetric.metricId] =
+        metricConfig.populationComparisonMetric;
     }
   });
-  const query = new MetricQuery(metricIds, breakdowns);
+  const metricIds = Object.keys(metricConfigs);
+  const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
   return (
     <CardWrapper
@@ -73,7 +79,7 @@ export function TableCard(props: TableCardProps) {
               <TableChart
                 data={queryResponse.data}
                 breakdownVar={props.breakdownVar}
-                metrics={props.metrics}
+                metrics={Object.values(metricConfigs)}
               />
             )}
           </>

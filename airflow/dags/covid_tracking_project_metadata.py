@@ -15,6 +15,7 @@ default_args = {
 data_ingestion_dag = DAG(
     'covid_tracking_project_metadata_dag',
     default_args=default_args,
+    schedule_interval=None,
     description='Ingestion configuration for Covid Tracking Project Metadata')
 
 # Standardize CTP Metadata

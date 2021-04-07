@@ -6,9 +6,9 @@ import {
 } from "../query/MetricQuery";
 import { MetricId } from "../config/MetricConfig";
 import { ProviderId } from "../loading/VariableProviderMap";
-import { IDataFrame } from "data-forge";
+import { DataFrame, IDataFrame } from "data-forge";
 import { Fips } from "../../data/utils/Fips";
-import { TOTAL } from "../utils/Constants";
+import { TOTAL, UNKNOWN, UNKNOWN_RACE } from "../utils/Constants";
 import { applyToGroups, percent } from "../utils/datasetutils";
 
 abstract class VariableProvider {
@@ -123,10 +123,13 @@ abstract class VariableProvider {
     rawCountCol: string,
     pctShareCol: string,
     breakdownCol: BreakdownVar,
-    groupByCols: string[]
+    groupByCols: string[],
+    totalString?: string
   ) {
     return applyToGroups(df, groupByCols, (group) => {
-      const totalRow = group.where((r) => r[breakdownCol] === TOTAL);
+      const totalRow = group.where(
+        (r) => r[breakdownCol] === (totalString || TOTAL)
+      );
       if (totalRow.count() === 0) {
         throw new Error("No Total value for group");
       }
@@ -137,6 +140,71 @@ abstract class VariableProvider {
         })
         .resetIndex();
     });
+  }
+
+  calculatePctShareOfKnown(
+    df: IDataFrame,
+    rawCountColumnName: string, // Example. case_count_share_of_known
+    shareOfKnownColumnName: string, // Example: case_count_share_of_known
+    breakdownCol: BreakdownVar
+  ) {
+    let dataFrame = df;
+
+    // Remove and store rows for which calculating share_of_known is illogical
+    // These rows will be added back at the end of calculations.
+    // This leaves only the rows to be summed to calculate TOTAL_KNOWN metric
+    const originalTotalRow = dataFrame.where(
+      (row) => row[breakdownCol] === TOTAL
+    );
+    const originalUnknownRow = dataFrame.where(
+      (row) => row[breakdownCol] === UNKNOWN
+    );
+    const originalUnknownRaceRow = dataFrame.where(
+      (row) => row[breakdownCol] === UNKNOWN_RACE
+    );
+    dataFrame = dataFrame.where(
+      (row) =>
+        row[breakdownCol] !== TOTAL &&
+        row[breakdownCol] !== UNKNOWN &&
+        row[breakdownCol] !== UNKNOWN_RACE
+    );
+
+    // Generate Total of Known Values sum to be used to calculate share_of_known
+    // metrics for each breakdown value
+    const knownValuesTotal = dataFrame.pivot(["fips", "fips_name"], {
+      [rawCountColumnName]: (series) => series.sum(),
+      population: (series) => series.sum(),
+      [breakdownCol]: (series) => TOTAL,
+    });
+
+    // Append calculated Total of Known Values sum to the data frame and use to calculatePctShare()
+    dataFrame = dataFrame.concat(knownValuesTotal).resetIndex();
+    dataFrame = this.calculatePctShare(
+      dataFrame,
+      rawCountColumnName,
+      shareOfKnownColumnName,
+      breakdownCol,
+      ["fips"],
+      TOTAL
+    );
+
+    // Remove Total of Known Values that was used to calculate the _share_of_known metrics
+    dataFrame = dataFrame.where((row) => row[breakdownCol] !== TOTAL);
+
+    // Update original Total row to have a logic value, 100%, for the _share_of_known metric and attach to DF
+    let updatedTotalRow = originalTotalRow.toArray()[0];
+    updatedTotalRow[shareOfKnownColumnName] = 100;
+    dataFrame = dataFrame.concat(new DataFrame([updatedTotalRow])).resetIndex();
+
+    // Add back original unknown rows unchanged; they have no value for the METRIC_share_of_known column
+    if (originalUnknownRow) {
+      dataFrame = dataFrame.concat(originalUnknownRow).resetIndex();
+    }
+    if (originalUnknownRaceRow) {
+      dataFrame = dataFrame.concat(originalUnknownRaceRow).resetIndex();
+    }
+
+    return dataFrame;
   }
 
   abstract getDataInternal(

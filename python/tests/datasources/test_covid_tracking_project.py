@@ -48,7 +48,7 @@ def get_test_data_as_df():
             return_value=test_metadata)
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe',
             return_value=get_test_data_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.append_dataframe_to_bq',
+@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
             return_value=None)
 def testWriteToBq(mock_append_to_bq: mock.MagicMock, mock_csv: mock.MagicMock,
                   mock_download: mock.MagicMock):

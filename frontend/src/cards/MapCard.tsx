@@ -18,7 +18,12 @@ import { MultiMapDialog } from "./ui/MultiMapDialog";
 import { Row } from "../data/utils/DatasetTypes";
 import { exclude } from "../data/query/BreakdownFilter";
 import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
-import { NON_HISPANIC } from "../data/utils/Constants";
+import {
+  NON_HISPANIC,
+  UNKNOWN,
+  UNKNOWN_RACE,
+  TOTAL,
+} from "../data/utils/Constants";
 import { BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/query/Breakdowns";
 
 const POSSIBLE_BREAKDOWNS: BreakdownVar[] = [
@@ -32,7 +37,7 @@ export interface MapCardProps {
   fips: Fips;
   metricConfig: MetricConfig;
   updateFipsCallback: (fips: Fips) => void;
-  currentBreakdown: BreakdownVar | "all";
+  currentBreakdown: BreakdownVar;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -58,9 +63,7 @@ function MapCardWithKey(props: MapCardProps) {
     ""
   );
   const [activeBreakdownVar, setActiveBreakdownVar] = useState<BreakdownVar>(
-    props.currentBreakdown === "all"
-      ? ("race_and_ethnicity" as BreakdownVar)
-      : props.currentBreakdown
+    props.currentBreakdown
   );
 
   const [
@@ -73,9 +76,7 @@ function MapCardWithKey(props: MapCardProps) {
     : Breakdowns.byCounty().withGeoFilter(props.fips);
 
   const requestedBreakdowns = POSSIBLE_BREAKDOWNS.filter(
-    (possibleBreakdown) =>
-      props.currentBreakdown === possibleBreakdown ||
-      props.currentBreakdown === "all"
+    (possibleBreakdown) => props.currentBreakdown === possibleBreakdown
   );
   const queries = requestedBreakdowns.map(
     (breakdown) =>
@@ -86,7 +87,7 @@ function MapCardWithKey(props: MapCardProps) {
           .addBreakdown(
             breakdown,
             breakdown === "race_and_ethnicity"
-              ? exclude(NON_HISPANIC)
+              ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE)
               : undefined
           )
       )
@@ -101,7 +102,7 @@ function MapCardWithKey(props: MapCardProps) {
         } in ${props.fips.getFullDisplayName()}`}</>
       }
       infoPopover={
-        ["race_and_ethnicity", "all"].includes(props.currentBreakdown) ? (
+        ["race_and_ethnicity"].includes(props.currentBreakdown) ? (
           <RaceInfoPopoverContent />
         ) : undefined
       }
@@ -119,7 +120,7 @@ function MapCardWithKey(props: MapCardProps) {
           activeBreakdownFilter === "" ||
           activeBreakdownFilter === undefined
         ) {
-          setActiveBreakdownFilter(breakdownValues[0]);
+          setActiveBreakdownFilter(TOTAL || breakdownValues[0]);
         }
 
         const dataForActiveBreakdownFilter = queryResponse
@@ -136,7 +137,7 @@ function MapCardWithKey(props: MapCardProps) {
             .sort();
         };
         POSSIBLE_BREAKDOWNS.forEach((breakdown: BreakdownVar) => {
-          if ([breakdown, "all"].includes(props.currentBreakdown)) {
+          if ([breakdown].includes(props.currentBreakdown)) {
             filterOptions[
               BREAKDOWN_VAR_DISPLAY_NAMES[breakdown]
             ] = getBreakdownOptions(breakdown);

@@ -28,7 +28,7 @@ def generate_test_data() -> pd.DataFrame:
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe',
             return_value=generate_test_data())
-@mock.patch('ingestion.gcs_to_bq_util.append_dataframe_to_bq')
+@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq')
 def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     ctp = CtpMetadata()
     kwargs = {'filename': 'test_file.csv', 'table_name': 'output_table'}

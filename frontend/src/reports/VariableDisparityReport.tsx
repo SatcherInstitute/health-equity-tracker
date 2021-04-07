@@ -25,9 +25,9 @@ export interface VariableDisparityReportProps {
 }
 
 export function VariableDisparityReport(props: VariableDisparityReportProps) {
-  const [currentBreakdown, setCurrentBreakdown] = useState<
-    BreakdownVar | "all"
-  >("all");
+  const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
+    "race_and_ethnicity"
+  );
 
   // TODO Remove hard coded fail safe value
   const [variableConfig, setVariableConfig] = useState<VariableConfig | null>(
@@ -37,7 +37,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
   );
 
   const breakdownIsShown = (breakdownVar: string) =>
-    currentBreakdown === "all" || currentBreakdown === breakdownVar;
+    currentBreakdown === breakdownVar;
 
   return (
     <Grid container xs={12} spacing={1} justify="center">

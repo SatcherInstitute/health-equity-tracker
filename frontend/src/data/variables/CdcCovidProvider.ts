@@ -3,8 +3,11 @@ import { Breakdowns } from "../query/Breakdowns";
 import VariableProvider from "./VariableProvider";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
-import { TOTAL } from "../utils/Constants";
-import { joinOnCols, per100k } from "../utils/datasetutils";
+import {
+  joinOnCols,
+  per100k,
+  maybeApplyRowReorder,
+} from "../utils/datasetutils";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
 import { MetricId } from "../config/MetricConfig";
@@ -17,9 +20,12 @@ class CdcCovidProvider extends VariableProvider {
       "covid_cases",
       "covid_deaths",
       "covid_hosp",
-      "covid_cases_pct_of_geo",
-      "covid_deaths_pct_of_geo",
-      "covid_hosp_pct_of_geo",
+      "covid_cases_share",
+      "covid_deaths_share",
+      "covid_hosp_share",
+      "covid_cases_share_of_known",
+      "covid_deaths_share_of_known",
+      "covid_hosp_share_of_known",
       "covid_deaths_per_100k",
       "covid_cases_per_100k",
       "covid_hosp_per_100k",
@@ -93,21 +99,6 @@ class CdcCovidProvider extends VariableProvider {
             .resetIndex()
         : df;
 
-    // Calculate Total column and add to data.
-    // TODO - do this on the BE.
-    const total = df
-      .pivot(["fips", "fips_name"], {
-        [breakdownColumnName]: (series) => TOTAL,
-        covid_cases: (series) => series.sum(),
-        covid_deaths: (series) => series.sum(),
-        covid_hosp: (series) => series.sum(),
-        population: (series) =>
-          series.where((population) => !isNaN(population)).sum(),
-        population_pct: (series) => 100,
-      })
-      .resetIndex();
-    df = df.concat(total).resetIndex();
-
     df = df
       .generateSeries({
         covid_cases_per_100k: (row) => per100k(row.covid_cases, row.population),
@@ -121,9 +112,30 @@ class CdcCovidProvider extends VariableProvider {
       df = this.calculatePctShare(
         df,
         col,
-        col + "_pct_of_geo",
+        col + "_share",
         breakdownColumnName,
         ["fips"]
+      );
+    });
+
+    // Calculate any share_of_known metrics that may have been requested in the query
+    const shareOfUnknownMetrics = metricQuery.metricIds.filter((metricId) =>
+      [
+        "covid_cases_share_of_known",
+        "covid_deaths_share_of_known",
+        "covid_hosp_share_of_known",
+      ].includes(metricId)
+    );
+    shareOfUnknownMetrics.forEach((shareOfUnknownColumnName) => {
+      const rawCountColunn = shareOfUnknownColumnName.slice(
+        0,
+        -"_share_of_known".length
+      );
+      df = this.calculatePctShareOfKnown(
+        df,
+        rawCountColunn,
+        shareOfUnknownColumnName,
+        breakdownColumnName
       );
     });
 
@@ -195,7 +207,10 @@ class CdcCovidProvider extends VariableProvider {
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 
-    return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
+    return new MetricQueryResponse(
+      maybeApplyRowReorder(df.toArray(), breakdowns),
+      consumedDatasetIds
+    );
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
