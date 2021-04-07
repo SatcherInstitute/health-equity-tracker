@@ -79,7 +79,11 @@ class CdcCovidProvider extends VariableProvider {
     df = df.renameSeries({
       cases: "covid_cases",
       death_y: "covid_deaths",
+      death_n: "covid_deaths_n",
+      death_unknown: "covid_deaths_unknown",
       hosp_y: "covid_hosp",
+      hosp_n: "covid_hosp_n",
+      hosp_unknown: "covid_hosp_unknown",
     });
 
     const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
@@ -92,7 +96,11 @@ class CdcCovidProvider extends VariableProvider {
               fips_name: (series) => USA_DISPLAY_NAME,
               covid_cases: (series) => series.sum(),
               covid_deaths: (series) => series.sum(),
+              covid_deaths_n: (series) => series.sum(),
+              covid_deaths_unknown: (series) => series.sum(),
               covid_hosp: (series) => series.sum(),
+              covid_hosp_n: (series) => series.sum(),
+              covid_hosp_unknown: (series) => series.sum(),
               population: (series) =>
                 series.where((population) => !isNaN(population)).sum(),
             })
@@ -103,8 +111,9 @@ class CdcCovidProvider extends VariableProvider {
       .generateSeries({
         covid_cases_per_100k: (row) => per100k(row.covid_cases, row.population),
         covid_deaths_per_100k: (row) =>
-          per100k(row.covid_deaths, row.population),
-        covid_hosp_per_100k: (row) => per100k(row.covid_hosp, row.population),
+          per100k(row.covid_deaths, row.covid_deaths + row.covid_deaths_n),
+        covid_hosp_per_100k: (row) =>
+          per100k(row.covid_hosp, row.covid_hosp + row.covid_hosp_n),
       })
       .resetIndex();
 
