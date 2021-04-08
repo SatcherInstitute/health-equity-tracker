@@ -20,7 +20,7 @@ import { usePopover } from "../utils/usePopover";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
   NON_HISPANIC,
-  TOTAL,
+  ALL,
   UNKNOWN,
   UNKNOWN_RACE,
 } from "../data/utils/Constants";
@@ -55,7 +55,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
-    exclude(TOTAL, NON_HISPANIC)
+    exclude(ALL, NON_HISPANIC)
   );
 
   // Population Comparison Metric is required for the Disparity Bar Chart.

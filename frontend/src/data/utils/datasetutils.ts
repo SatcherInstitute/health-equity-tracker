@@ -1,6 +1,6 @@
 import { IDataFrame } from "data-forge";
 import { Row } from "../utils/DatasetTypes";
-import { TOTAL, UNKNOWN, UNKNOWN_HL } from "../utils/Constants";
+import { ALL, UNKNOWN, UNKNOWN_HL } from "../utils/Constants";
 import { Breakdowns } from "../query/Breakdowns";
 
 /**
@@ -162,9 +162,9 @@ function moveRowWithValueToFront(
   value: string
 ) {
   let finalRows: Row[] = Object.assign(rows, []);
-  const indexOfTotal = rows.findIndex((r: any) => r[fieldName] === value);
-  if (indexOfTotal !== -1) {
-    const removedItem = finalRows.splice(indexOfTotal, 1);
+  const indexOfValue = rows.findIndex((r: any) => r[fieldName] === value);
+  if (indexOfValue !== -1) {
+    const removedItem = finalRows.splice(indexOfValue, 1);
     finalRows = removedItem.concat(finalRows);
   }
   return finalRows;
@@ -201,7 +201,7 @@ export function maybeApplyRowReorder(rows: Row[], breakdowns: Breakdowns) {
   // race in LA county), we want a specific order of the metric values
   if (breakdowns.hasOneRegionOfGeographicGranularity()) {
     finalRows = sortAlphabeticallyByField(finalRows, reorderingColumn);
-    finalRows = moveRowWithValueToFront(finalRows, reorderingColumn, TOTAL);
+    finalRows = moveRowWithValueToFront(finalRows, reorderingColumn, ALL);
     finalRows = moveRowsWithValueToBack(finalRows, reorderingColumn, UNKNOWN);
     finalRows = moveRowsWithValueToBack(
       finalRows,
