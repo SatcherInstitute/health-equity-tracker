@@ -16,6 +16,8 @@ import {
   TOTAL,
   FORTY_TO_FORTY_NINE,
   FEMALE,
+  MALE,
+  UNKNOWN,
 } from "../utils/Constants";
 import { MetricId } from "../config/MetricConfig";
 import { excludeTotal } from "../query/BreakdownFilter";
@@ -79,7 +81,8 @@ function covidAndCountyAcsRows(
 const METRIC_IDS: MetricId[] = [
   "covid_cases",
   "covid_cases_per_100k",
-  "covid_cases_pct_of_geo",
+  "covid_cases_share",
+  "covid_cases_share_of_known",
   "covid_cases_reporting_population",
   "covid_cases_reporting_population_pct",
 ];
@@ -141,7 +144,7 @@ describe("cdcCovidProvider", () => {
       /*hosp=*/ 5,
       /*population=*/ 2000
     );
-    const [, CHATAM_ACS_TOTAL_ROW] = covidAndCountyAcsRows(
+    const [CHATAM_TOTAL_ROW, CHATAM_ACS_TOTAL_ROW] = covidAndCountyAcsRows(
       /*fips=*/ CHATAM,
       /*breakdownColumnName=*/ "race_and_ethnicity",
       /*breakdownValue=*/ TOTAL,
@@ -159,7 +162,7 @@ describe("cdcCovidProvider", () => {
       /*hosp=*/ 5,
       /*population=*/ 2000
     );
-    const [, DURHAM_ACS_TOTAL_ROW] = covidAndCountyAcsRows(
+    const [DURHAM_TOTAL_ROW, DURHAM_ACS_TOTAL_ROW] = covidAndCountyAcsRows(
       /*fips=*/ DURHAM,
       /*breakdownColumnName=*/ "race_and_ethnicity",
       /*breakdownValue=*/ TOTAL,
@@ -169,7 +172,12 @@ describe("cdcCovidProvider", () => {
       /*population=*/ 2000
     );
 
-    const rawCovidData = [CHATAM_WHITE_ROW, DURHAM_WHITE_ROW];
+    const rawCovidData = [
+      CHATAM_WHITE_ROW,
+      CHATAM_TOTAL_ROW,
+      DURHAM_WHITE_ROW,
+      DURHAM_TOTAL_ROW,
+    ];
     const rawAcsData = [
       CHATAM_ACS_WHITE_ROW,
       CHATAM_ACS_TOTAL_ROW,
@@ -183,19 +191,20 @@ describe("cdcCovidProvider", () => {
       race_and_ethnicity: WHITE_NH,
       covid_cases: 10,
       covid_cases_per_100k: 500,
-      covid_cases_pct_of_geo: 100,
+      covid_cases_share: 5,
+      covid_cases_share_of_known: 100,
       covid_cases_reporting_population: 2000,
       covid_cases_reporting_population_pct: 2,
     };
-
     const CHATAM_TOTAL_FINAL_ROW = {
       fips: CHATAM.code,
       fips_name: CHATAM.name,
       race_and_ethnicity: TOTAL,
-      covid_cases: 10,
-      covid_cases_per_100k: 500,
-      covid_cases_pct_of_geo: 100,
-      covid_cases_reporting_population: 2000,
+      covid_cases: 200,
+      covid_cases_per_100k: 200,
+      covid_cases_share: 100,
+      covid_cases_share_of_known: 100,
+      covid_cases_reporting_population: 100000,
       covid_cases_reporting_population_pct: 100,
     };
 
@@ -207,7 +216,7 @@ describe("cdcCovidProvider", () => {
       Breakdowns.forFips(new Fips(CHATAM.code)),
       "race_and_ethnicity",
       [CHATAM_WHITE_FINAL_ROW],
-      [CHATAM_WHITE_FINAL_ROW, CHATAM_TOTAL_FINAL_ROW]
+      [CHATAM_TOTAL_FINAL_ROW, CHATAM_WHITE_FINAL_ROW]
     );
   });
 
@@ -221,7 +230,7 @@ describe("cdcCovidProvider", () => {
       /*death=*/ 5,
       /*population=*/ 2000
     );
-    const [, AL_ACS_TOTAL_ROW] = covidAndAcsRows(
+    const [AL_TOTAL_ROW, AL_ACS_TOTAL_ROW] = covidAndAcsRows(
       /*fips=*/ AL,
       /*breakdownColumnName=*/ "age",
       /*breakdownValue=*/ TOTAL,
@@ -239,7 +248,7 @@ describe("cdcCovidProvider", () => {
       /*death=*/ 5,
       /*population=*/ 2000
     );
-    const [, NC_ACS_TOTAL_ROW] = covidAndAcsRows(
+    const [NC_TOTAL_ROW, NC_ACS_TOTAL_ROW] = covidAndAcsRows(
       /*fips=*/ NC,
       /*breakdownColumnName=*/ "age",
       /*breakdownValue=*/ TOTAL,
@@ -249,7 +258,12 @@ describe("cdcCovidProvider", () => {
       /*population=*/ 100000
     );
 
-    const rawCovidData = [NC_FORTY_ROW, AL_FORTY_ROW];
+    const rawCovidData = [
+      NC_FORTY_ROW,
+      NC_TOTAL_ROW,
+      AL_FORTY_ROW,
+      AL_TOTAL_ROW,
+    ];
     const rawAcsData = [
       NC_ACS_FORTY_ROW,
       NC_ACS_TOTAL_ROW,
@@ -257,25 +271,27 @@ describe("cdcCovidProvider", () => {
       AL_ACS_FORTY_ROW,
     ];
 
-    const NC_TOTAL_FINAL_ROW = {
-      fips: NC.code,
-      fips_name: NC.name,
-      age: TOTAL,
-      covid_cases: 10,
-      covid_cases_per_100k: 500,
-      covid_cases_pct_of_geo: 100,
-      covid_cases_reporting_population: 2000,
-      covid_cases_reporting_population_pct: 100,
-    };
     const NC_FORTY_FINAL_ROW = {
       fips: NC.code,
       fips_name: NC.name,
       age: FORTY_TO_FORTY_NINE,
       covid_cases: 10,
       covid_cases_per_100k: 500,
-      covid_cases_pct_of_geo: 100,
+      covid_cases_share: 5,
+      covid_cases_share_of_known: 100,
       covid_cases_reporting_population: 2000,
       covid_cases_reporting_population_pct: 2,
+    };
+    const NC_TOTAL_FINAL_ROW = {
+      fips: NC.code,
+      fips_name: NC.name,
+      age: TOTAL,
+      covid_cases: 200,
+      covid_cases_per_100k: 200,
+      covid_cases_share: 100,
+      covid_cases_share_of_known: 100,
+      covid_cases_reporting_population: 100000,
+      covid_cases_reporting_population_pct: 100,
     };
 
     await evaluateWithAndWithoutTotal(
@@ -286,12 +302,12 @@ describe("cdcCovidProvider", () => {
       Breakdowns.forFips(new Fips(NC.code)),
       "age",
       [NC_FORTY_FINAL_ROW],
-      [NC_FORTY_FINAL_ROW, NC_TOTAL_FINAL_ROW]
+      [NC_TOTAL_FINAL_ROW, NC_FORTY_FINAL_ROW]
     );
   });
 
   test("National and Sex Breakdown", async () => {
-    const [, NC_ACS_TOTAL_ROW] = covidAndAcsRows(
+    const [NC_TOTAL_ROW, NC_ACS_TOTAL_ROW] = covidAndAcsRows(
       /*fips=*/ NC,
       /*breakdownColumnName=*/ "sex",
       /*breakdownValue=*/ TOTAL,
@@ -300,7 +316,7 @@ describe("cdcCovidProvider", () => {
       /*hosp=*/ 1000,
       /*population=*/ 100000
     );
-    const [, AL_ACS_TOTAL_ROW] = covidAndAcsRows(
+    const [AL_TOTAL_ROW, AL_ACS_TOTAL_ROW] = covidAndAcsRows(
       /*fips=*/ AL,
       /*breakdownColumnName=*/ "sex",
       /*breakdownValue=*/ TOTAL,
@@ -328,7 +344,12 @@ describe("cdcCovidProvider", () => {
       /*population=*/ 60000
     );
 
-    const rawCovidData = [NC_FEMALE_ROW, AL_FEMALE_ROW];
+    const rawCovidData = [
+      NC_FEMALE_ROW,
+      NC_TOTAL_ROW,
+      AL_FEMALE_ROW,
+      AL_TOTAL_ROW,
+    ];
     const rawAcsData = [
       NC_ACS_FEMALE_ROW,
       NC_ACS_TOTAL_ROW,
@@ -342,7 +363,8 @@ describe("cdcCovidProvider", () => {
       sex: FEMALE,
       covid_cases: 970,
       covid_cases_per_100k: 882,
-      covid_cases_pct_of_geo: 100,
+      covid_cases_share: 323.3,
+      covid_cases_share_of_known: 100,
       covid_cases_reporting_population: 110000,
       covid_cases_reporting_population_pct: 61.1,
     };
@@ -350,10 +372,11 @@ describe("cdcCovidProvider", () => {
       fips: USA.code,
       fips_name: USA.name,
       sex: TOTAL,
-      covid_cases: 970,
-      covid_cases_per_100k: 882,
-      covid_cases_pct_of_geo: 100,
-      covid_cases_reporting_population: 110000,
+      covid_cases: 300,
+      covid_cases_per_100k: 167,
+      covid_cases_share: 100,
+      covid_cases_share_of_known: 100,
+      covid_cases_reporting_population: 180000,
       covid_cases_reporting_population_pct: 100,
     };
 
@@ -365,7 +388,125 @@ describe("cdcCovidProvider", () => {
       Breakdowns.national(),
       "sex",
       [FINAL_FEMALE_ROW],
-      [FINAL_FEMALE_ROW, FINAL_TOTAL_ROW]
+      [FINAL_TOTAL_ROW, FINAL_FEMALE_ROW]
+    );
+  });
+
+  test("Calculates share of known with unknown present", async () => {
+    const [NC_UNKNOWN_ROW, UNUSED_NC_UNKNOWN] = covidAndAcsRows(
+      /*fips=*/ NC,
+      /*breakdownColumnName=*/ "sex",
+      /*breakdownValue=*/ UNKNOWN,
+      /*cases=*/ 100,
+      /*death=*/ 100,
+      /*hosp=*/ 100,
+      /*population=*/ 1
+    );
+    const [NC_TOTAL_ROW, NC_ACS_TOTAL_ROW] = covidAndAcsRows(
+      /*fips=*/ NC,
+      /*breakdownColumnName=*/ "sex",
+      /*breakdownValue=*/ TOTAL,
+      /*cases=*/ 300,
+      /*death=*/ 600,
+      /*hosp=*/ 1100,
+      /*population=*/ 100000
+    );
+    const [AL_TOTAL_ROW, AL_ACS_TOTAL_ROW] = covidAndAcsRows(
+      /*fips=*/ AL,
+      /*breakdownColumnName=*/ "sex",
+      /*breakdownValue=*/ TOTAL,
+      /*cases=*/ 100,
+      /*death=*/ 200,
+      /*hosp=*/ 1000,
+      /*population=*/ 80000
+    );
+    const [NC_FEMALE_ROW, NC_ACS_FEMALE_ROW] = covidAndAcsRows(
+      /*fips=*/ NC,
+      /*breakdownColumnName=*/ "sex",
+      /*breakdownValue=*/ FEMALE,
+      /*cases=*/ 240,
+      /*death=*/ 80,
+      /*hosp=*/ 34,
+      /*population=*/ 50000
+    );
+    const [AL_MALE_ROW, AL_ACS_MALE_ROW] = covidAndAcsRows(
+      /*fips=*/ AL,
+      /*breakdownColumnName=*/ "sex",
+      /*breakdownValue=*/ MALE,
+      /*cases=*/ 730,
+      /*death=*/ 250,
+      /*hosp=*/ 45,
+      /*population=*/ 60000
+    );
+
+    const rawCovidData = [
+      NC_UNKNOWN_ROW,
+      NC_FEMALE_ROW,
+      NC_TOTAL_ROW,
+      AL_MALE_ROW,
+      AL_TOTAL_ROW,
+    ];
+    const rawAcsData = [
+      NC_ACS_FEMALE_ROW,
+      NC_ACS_TOTAL_ROW,
+      AL_ACS_TOTAL_ROW,
+      AL_ACS_MALE_ROW,
+    ];
+
+    const FINAL_MALE_ROW = {
+      fips: USA.code,
+      fips_name: USA.name,
+      sex: MALE,
+      covid_cases: 730,
+      covid_cases_per_100k: 1217,
+      covid_cases_share: 182.5,
+      covid_cases_share_of_known: 75.3,
+      covid_cases_reporting_population: 60000,
+      covid_cases_reporting_population_pct: 33.3,
+    };
+    const FINAL_FEMALE_ROW = {
+      fips: USA.code,
+      fips_name: USA.name,
+      sex: FEMALE,
+      covid_cases: 240,
+      covid_cases_per_100k: 480,
+      covid_cases_share: 60,
+      covid_cases_share_of_known: 24.7,
+      covid_cases_reporting_population: 50000,
+      covid_cases_reporting_population_pct: 27.8,
+    };
+    const FINAL_TOTAL_ROW = {
+      fips: USA.code,
+      fips_name: USA.name,
+      sex: TOTAL,
+      covid_cases: 400,
+      covid_cases_per_100k: 222,
+      covid_cases_share: 100,
+      covid_cases_share_of_known: 100,
+      covid_cases_reporting_population: 180000,
+      covid_cases_reporting_population_pct: 100,
+    };
+    // Note that covid_cases_share_of_known is not present.
+    const FINAL_UNKNOWN_ROW = {
+      fips: USA.code,
+      fips_name: USA.name,
+      sex: UNKNOWN,
+      covid_cases: 100,
+      covid_cases_per_100k: 10000000,
+      covid_cases_share: 25,
+      covid_cases_reporting_population: 1,
+      covid_cases_reporting_population_pct: undefined,
+    };
+
+    await evaluateWithAndWithoutTotal(
+      "cdc_restricted_data-by_sex_state",
+      rawCovidData,
+      "acs_population-by_sex_state",
+      rawAcsData,
+      Breakdowns.national(),
+      "sex",
+      [FINAL_FEMALE_ROW, FINAL_MALE_ROW, FINAL_UNKNOWN_ROW],
+      [FINAL_TOTAL_ROW, FINAL_FEMALE_ROW, FINAL_MALE_ROW, FINAL_UNKNOWN_ROW]
     );
   });
 });

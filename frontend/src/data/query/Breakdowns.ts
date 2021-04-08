@@ -25,9 +25,20 @@ export type DemographicBreakdownKey = typeof DEMOGRAPHIC_BREAKDOWNS[number]; // 
 export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
   race_and_ethnicity: "Race and Ethnicity",
   age: "Age",
-  sex: "Sex",
+  sex: "Gender",
   date: "Date",
   fips: "FIPS Code",
+};
+
+export const BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE: Record<
+  BreakdownVar,
+  string
+> = {
+  race_and_ethnicity: "race and ethnicity",
+  age: "age",
+  sex: "sex",
+  date: "date",
+  fips: "FIPs codes",
 };
 
 interface DemographicBreakdown {
@@ -144,6 +155,16 @@ export class Breakdowns {
     return fips.isUsa()
       ? Breakdowns.national()
       : Breakdowns.byState().withGeoFilter(fips);
+  }
+
+  static forParentFips(fips: Fips): Breakdowns {
+    if (fips.isState()) {
+      return Breakdowns.byCounty().withGeoFilter(fips);
+    }
+    if (fips.isUsa()) {
+      return Breakdowns.byState();
+    }
+    return Breakdowns.forFips(fips);
   }
 
   addBreakdown(

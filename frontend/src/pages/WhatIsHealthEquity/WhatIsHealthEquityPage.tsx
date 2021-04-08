@@ -5,7 +5,6 @@ import Typography from "@material-ui/core/Typography";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import ShareIcon from "@material-ui/icons/Share";
 import {
   LinkWithStickyParams,
   ABOUT_US_TAB_PARAM,
@@ -24,14 +23,14 @@ function WhatIsHealthEquityPage() {
           justify="center"
           alignItems="center"
         >
-          <Grid container item xs={4} className={styles.HeaderImgItem}>
+          <Grid container item xs={12} sm={12} md={4} className={styles.HeaderImgItem}>
             <img
               src="img/pexels-marcus-aurelius-4063919 1.png"
               className={styles.HeaderImg}
               alt="A woman in a wheelchair relaxing with a cup of tea"
             />
           </Grid>
-          <Grid item xs={8} className={styles.HeaderTextItem}>
+          <Grid item xs={12} sm={12} md={8} className={styles.HeaderTextItem}>
             <Typography className={styles.HeaderText} variant="h1">
               What is Health Equity?
             </Typography>
@@ -59,7 +58,7 @@ function WhatIsHealthEquityPage() {
               alignItems="flex-start"
               className={styles.DefinitionsContainer}
             >
-              <Grid item xs={6} className={styles.DefinitionsItem}>
+              <Grid item  xs={12} sm={12} md={6} className={styles.DefinitionsItem}>
                 <Typography className={styles.DefinitionHeader} variant="h2">
                   Political determinants of health
                 </Typography>
@@ -76,7 +75,7 @@ function WhatIsHealthEquityPage() {
                   Daniel Dawes, 2020
                 </span>
               </Grid>
-              <Grid item xs={6} className={styles.DefinitionsItem}>
+              <Grid item  xs={12} sm={12} md={6} className={styles.DefinitionsItem}>
                 <Typography className={styles.DefinitionHeader} variant="h2">
                   Social determinant of health
                 </Typography>
@@ -116,7 +115,7 @@ function WhatIsHealthEquityPage() {
               justify="space-around"
               xs={12}
             >
-              <Grid item xs={9} className={styles.ResourceItem}>
+              <Grid item  xs={12} sm={12} md={9} className={styles.ResourceItem}>
                 <iframe
                   className={styles.ResourceVideoEmbed}
                   width="100%"
@@ -139,7 +138,7 @@ function WhatIsHealthEquityPage() {
                   political determinants of health
                 </p>
               </Grid>
-              <Grid item xs={3}>
+              <Grid item  xs={12} sm={12} md={3}>
                 <Grid
                   container
                   direction="column"
@@ -212,7 +211,7 @@ function WhatIsHealthEquityPage() {
               justify="space-between"
               alignItems="flex-start"
             >
-              <Grid item xs={6} className={styles.NewsAndStoriesItem}>
+              <Grid item  xs={12} sm={12} md={6} className={styles.NewsAndStoriesItem}>
                 <img
                   className={styles.NewsAndStoriesBigImg}
                   src="img/pexels-august-de-richelieu-4261261 1.png"
@@ -233,7 +232,7 @@ function WhatIsHealthEquityPage() {
                   </a>
                 </p>
               </Grid>
-              <Grid item xs={6} className={styles.NewsAndStoriesItem}>
+              <Grid item  xs={12} sm={12} md={6} className={styles.NewsAndStoriesItem}>
                 <img
                   className={styles.NewsAndStoriesBigImg}
                   src="img/pexels-cottonbro-7000149 1.png"
@@ -252,21 +251,23 @@ function WhatIsHealthEquityPage() {
                   </a>
                 </p>
               </Grid>
-              <Grid item xs={4} className={styles.NewsAndStoriesItem}>
+              <Grid item  xs={12} sm={12} md={4} className={styles.NewsAndStoriesItem}>
                 <img
                   className={styles.NewsAndStoriesSmallImg}
                   src="img/pexels-alex-green-5699516 1.png"
                   alt="Documents lying on a table"
                 />
                 <h2 className={styles.NewsAndStoriesTitleText}>
-                  Federal Requirements for Race and other Descriptive Data--How
-                  to Make Lasting Changes
+                  Data and Technology Can Help Us Make Progress on COVID
+                  Inequities
                 </h2>
                 <p className={styles.NewsAndStoriesSubtitleText}>
-                  <a href="/">Learn more</a>
+                  <a href="https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/">
+                    Read more
+                  </a>
                 </p>
               </Grid>
-              <Grid item xs={4} className={styles.NewsAndStoriesItem}>
+              <Grid item  xs={12} sm={12} md={4} className={styles.NewsAndStoriesItem}>
                 <img
                   className={styles.NewsAndStoriesSmallImg}
                   src="img/pexels-ketut-subiyanto-4473409 2.png"
@@ -279,7 +280,7 @@ function WhatIsHealthEquityPage() {
                   <a href="/">Learn more</a>
                 </p>
               </Grid>
-              <Grid item xs={4} className={styles.NewsAndStoriesItem}>
+              <Grid item  xs={12} sm={12} md={4} className={styles.NewsAndStoriesItem}>
                 <img
                   className={styles.NewsAndStoriesSmallImg}
                   src="img/Screen Shot 2021-03-01 at 5.25 1.png"
@@ -320,7 +321,7 @@ function WhatIsHealthEquityPage() {
           <Grid container className={styles.JoinTheEffortItemContainer}>
             <Grid
               item
-              xs={5}
+              xs={12} sm={12} md={5}
               className={styles.JoinTheEffortImgContainer}
               style={{ backgroundColor: "#275141" }}
             >
@@ -330,7 +331,8 @@ function WhatIsHealthEquityPage() {
                 className={styles.JoinTheEffortImg}
               />
             </Grid>
-            <Grid item xs={7} className={styles.JoinTheEffortTextContainer}>
+            <Grid item xs={12} sm={12} md={7}
+                  className={styles.JoinTheEffortTextContainer}>
               <Typography className={styles.JoinTheEffortStepHeaderText} variant="h2">
                 Sign up for our newsletter
               </Typography>
@@ -338,11 +340,15 @@ function WhatIsHealthEquityPage() {
                 Want updates on the latest news in health equity? Sign up for
                 our Satcher Health Leadership Institute newsletter.
               </p>
-              <form className={styles.EmailAddressForm}>
+              <form className={styles.EmailAddressForm}
+                    action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
+                    method="post"
+                    target="_blank">
                 <input
                   className={styles.EmailAddressFormText}
-                  type="text"
-                  id="email"
+                  type="email"
+                  id="mce-EMAIL"
+                  name="MERGE0"
                   placeholder="Enter email address"
                 />
                 <input
@@ -356,7 +362,7 @@ function WhatIsHealthEquityPage() {
           <Grid container className={styles.JoinTheEffortItemContainer}>
             <Grid
               item
-              xs={5}
+              xs={12} sm={12} md={5}
               className={styles.JoinTheEffortImgContainer}
               style={{ backgroundColor: "#D85C47" }}
             >
@@ -366,7 +372,7 @@ function WhatIsHealthEquityPage() {
                 className={styles.JoinTheEffortImg}
               />
             </Grid>
-            <Grid item xs={7} className={styles.JoinTheEffortTextContainer}>
+            <Grid item xs={12} sm={12} md={7} className={styles.JoinTheEffortTextContainer}>
               <Typography className={styles.JoinTheEffortStepHeaderText} variant="h2">
                 Share information with your community
               </Typography>
@@ -388,25 +394,21 @@ function WhatIsHealthEquityPage() {
               </form>
               <div className={styles.SocialsDiv}>
                 <a target="_blank"
+                   rel="noopener noreferrer"
                    href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhealthequitytracker.org%2F&amp;src=sdkpreparse">
                   <FacebookIcon className={styles.SocialsIcon} />
                 </a>
                 <a target="_blank"
+                   rel="noopener noreferrer"
                    href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fhealthequitytracker.org">
                   <LinkedInIcon className={styles.SocialsIcon} />
                 </a>
                 <a target="_blank"
-                   href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+                   rel="noopener noreferrer"
+                   href="https://twitter.com/share?url=https%3A%2F%2Fwww.healthequitytracker.org"
                    className="twitter-share-button"
-                   data-url="https://www.healthequitytracker.org"
-                   data-show-count="false">
+                   data-url="https://www.healthequitytracker.org">
                   <TwitterIcon className={styles.SocialsIcon} />
-                </a>
-                <script async src="https://platform.twitter.com/widgets.js"
-                        charSet="utf-8"></script>
-                <a target="_blank"
-                   href="/">
-                  <ShareIcon className={styles.SocialsIcon} />
                 </a>
               </div>
             </Grid>
@@ -414,7 +416,7 @@ function WhatIsHealthEquityPage() {
           <Grid container className={styles.JoinTheEffortItemContainer}>
             <Grid
               item
-              xs={5}
+              xs={12} sm={12} md={5}
               className={styles.JoinTheEffortImgContainer}
               style={{ backgroundColor: "#A5CDC0" }}
             >
@@ -424,7 +426,8 @@ function WhatIsHealthEquityPage() {
                 className={styles.JoinTheEffortImg}
               />
             </Grid>
-            <Grid item xs={7} className={styles.JoinTheEffortTextContainer}>
+            <Grid item xs={12} sm={12} md={7}
+                  className={styles.JoinTheEffortTextContainer}>
               <Typography className={styles.JoinTheEffortStepHeaderText}
                           variant="h2">
                 Share your story

@@ -86,7 +86,6 @@
     height: auto;
     max-width: 760px;
     max-height: 645px;
-    padding-left: 25px;
   }
 
   .GridVerticallyAlignedItem {
@@ -257,7 +256,26 @@
   max-width: 255px;
 }
 
+// Grid item for each Ethics subheader
+.CommittedToEthicsSubheaderItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 100px;
+}
+
 /** ------------- OUR TEAM ------------- **/
+
+// For the "Our Team" header text at the very top of the page
+.OurTeamHeaderText {
+  font-size: 50px !important;
+  text-align: center;
+  font-weight: 300 !important;
+  font-family: "Taviraj", serif !important;
+  line-height: 50px !important;
+  color: $alt-green;
+  padding: 72px 0 20px 0;
+}
 
 // For the "Our Team" header text at the very top of the page
 .OurTeamHeaderText {
@@ -317,14 +335,12 @@
 }
 
 .FaqSection {
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding: 50px 20px 50px 20px;
   border-bottom: 1px solid $alt-grey;
 }
 
 .FaqQuestionAndAnswer {
   padding-bottom: 20px;
-  padding-right: 250px;
 }
 
 .FaqHeaderText {
@@ -390,7 +406,6 @@
   height: auto;
   max-width: 870px;
   max-height: 645px;
-  padding-left: 25px;
 }
 
 .ContactUsCenteredTextItem {

@@ -15,7 +15,11 @@ import TableFooter from "@material-ui/core/TableFooter";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Paper from "@material-ui/core/Paper";
-import { MetricConfig, MetricId } from "../data/config/MetricConfig";
+import {
+  MetricConfig,
+  MetricId,
+  formatFieldValue,
+} from "../data/config/MetricConfig";
 import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
   BreakdownVar,
@@ -36,8 +40,7 @@ export function TableChart(props: TableChartProps) {
   let columns = metrics.map((metricConfig) => {
     return {
       Header: metricConfig.fullCardTitleName,
-      Cell: (a: any) =>
-        isNaN(a.value) ? a.value : Number(a.value).toLocaleString(),
+      Cell: (a: any) => formatFieldValue(metricConfig.type, a.value),
       accessor: metricConfig.metricId,
     };
   });
@@ -78,7 +81,8 @@ export function TableChart(props: TableChartProps) {
     return (
       <TableRow {...group.getHeaderGroupProps()}>
         {group.headers.map((col, index) => (
-          <TableCell {...col.getHeaderProps(col.getSortByToggleProps())}>
+          <TableCell {...col.getHeaderProps(col.getSortByToggleProps())}
+                     style={{ width: "200px" }}>
             {col.render("Header")}
             <TableSortLabel
               active={col.isSorted}
@@ -97,7 +101,7 @@ export function TableChart(props: TableChartProps) {
       <TableRow {...row.getRowProps()}>
         {row.cells.map((cell, index) =>
           cell.value == null ? (
-            <TableCell {...cell.getCellProps()}>
+            <TableCell {...cell.getCellProps()} style={{ width: "200px" }}>
               <Tooltip title="No data available">
                 <WarningRoundedIcon />
               </Tooltip>
@@ -105,7 +109,6 @@ export function TableChart(props: TableChartProps) {
           ) : (
             <TableCell {...cell.getCellProps()}>
               {cell.render("Cell")}
-              {cell.column.id.includes("_pct") && <span>%</span>}
             </TableCell>
           )
         )}

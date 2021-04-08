@@ -99,6 +99,14 @@ export class ApiDataFetcher implements DataFetcher {
             row["population"] == null ? null : Number(row["population"]),
         };
       });
+    } else if (datasetId.startsWith("acs_poverty")) {
+      result = result.map((row: any) => {
+        return {
+          ...row,
+          above_poverty_line: Number(row["above_poverty_line"]),
+          below_poverty_line: Number(row["below_poverty_line"]),
+        };
+      });
     }
 
     // TODO - the server should drop ingestion_ts before exporting the file. At
