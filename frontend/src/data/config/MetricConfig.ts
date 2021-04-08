@@ -27,7 +27,9 @@ export type MetricId =
   | "covid_hosp_reporting_population"
   | "covid_hosp_reporting_population_pct"
   | "health_insurance_count"
-  | "health_insurance_per_100k";
+  | "health_insurance_per_100k"
+  | "poverty_count"
+  | "poverty_per_100k";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -324,6 +326,29 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           metricId: "health_insurance_per_100k",
           fullCardTitleName: "Health insurance coverage per 100,000 people",
           shortVegaLabel: "Health insurance coverage per 100k",
+          type: "per100k",
+        },
+      },
+    },
+  ],
+  poverty: [
+    {
+      variableId: "poverty",
+      variableDisplayName: "Poverty",
+      variableFullDisplayName: "Below the poverty level",
+      metrics: {
+        count: {
+          metricId: "poverty_count",
+          fullCardTitleName: "Individuals below the poverty line",
+          shortVegaLabel: "Individuals below the poverty line",
+          type: "count",
+          populationComparisonMetric: POPULATION_VARIABLE_CONFIG.metrics.count,
+        },
+        per100k: {
+          metricId: "poverty_per_100k",
+          fullCardTitleName:
+            "Individuals below the poverty line per 100,000 people",
+          shortVegaLabel: "Individuals below the poverty line per 100k",
           type: "per100k",
         },
       },

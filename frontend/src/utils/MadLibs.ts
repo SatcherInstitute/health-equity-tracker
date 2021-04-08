@@ -59,7 +59,8 @@ export type DropdownVarId =
   //  | "obesity"
   //  | "asthma"
   | "copd"
-  | "health_insurance";
+  | "health_insurance"
+  | "poverty";
 
 // TODO- investigate type check error to see if we can remove
 // @ts-ignore
@@ -70,6 +71,7 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   //  asthma: "[coming soon] asthma",
   copd: "COPD",
   health_insurance: "Health Insurance",
+  poverty: "poverty",
 };
 
 const MADLIB_LIST: MadLib[] = [
