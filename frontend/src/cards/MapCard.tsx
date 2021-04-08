@@ -250,7 +250,7 @@ function MapCardWithKey(props: MapCardProps) {
                   data={dataForActiveBreakdownFilter}
                   hideLegend={
                     queryResponse.dataIsMissing() ||
-                    dataForActiveBreakdownFilter.length === 0
+                    dataForActiveBreakdownFilter.length <= 1
                   }
                   showCounties={props.fips.isUsa() ? false : true}
                   fips={props.fips}
