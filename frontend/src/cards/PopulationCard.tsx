@@ -122,7 +122,7 @@ export function PopulationCard(props: PopulationCardProps) {
                 onAnimationEnd={() => window.dispatchEvent(new Event("resize"))}
               >
                 <Grid container>
-                  <Grid item xs={6}>
+                  <Grid item xs={12} sm={6}>
                     <span className={styles.PopulationChartTitle}>
                       Population by race
                     </span>
@@ -136,7 +136,7 @@ export function PopulationCard(props: PopulationCardProps) {
                       hideActions={true}
                     />
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid item xs={12} sm={6}>
                     <span className={styles.PopulationChartTitle}>
                       Population by age
                     </span>
