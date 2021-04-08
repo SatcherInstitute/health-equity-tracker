@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./LandingPage.module.scss";
 import Grid from "@material-ui/core/Grid";
+import Hidden from "@material-ui/core/Hidden";
 import Typography from "@material-ui/core/Typography";
 import { EXPLORE_DATA_PAGE_LINK } from "../../utils/urlutils";
 import { Accordion, AccordionSummary } from "@material-ui/core";
@@ -25,10 +26,17 @@ function LandingPage() {
           alignItems="center"
         >
           <Grid item className={styles.HeaderTextItem} xs={12} sm={12} md={6}>
-            <Typography className={styles.HeaderText}>
-              Equity Forward
-            </Typography>
-            <br />
+            <Hidden xsDown>
+              <Typography className={styles.HeaderText}>
+                Equity Forward
+              </Typography>
+              <br />
+            </Hidden>
+            <Hidden smUp>
+              <Typography className={styles.HeaderTextMobile}>
+                Equity Forward
+              </Typography>
+            </Hidden>
             <Typography className={styles.HeaderSubtext}>
               <p>
                 We know that our communities are experiencing life or death
@@ -60,12 +68,12 @@ function LandingPage() {
           direction="column"
           justify="center"
         >
-          <Grid item  xs={12} sm={12} md={6}>
+          <Grid item xs={12} sm={12} md={6}>
             <Typography className={styles.TakeALookAroundHeaderText}>
               Take a look around
             </Typography>
           </Grid>
-          <Grid item  xs={12} sm={12} md={6}>
+          <Grid item xs={12} sm={12} md={6}>
             <Typography className={styles.TakeALookAroundHeaderSubtext}>
               We’re working toward health equity, but can’t do it alone. Please
               join our effort to move the needle forward.
@@ -78,7 +86,13 @@ function LandingPage() {
             direction="row"
             justify="space-around"
           >
-            <Grid item  xs={12} sm={12} md={4} className={styles.TakeALookAroundItem}>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={4}
+              className={styles.TakeALookAroundItem}
+            >
               <Grid
                 container
                 direction="column"
@@ -99,7 +113,13 @@ function LandingPage() {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} sm={12} md={4} className={styles.TakeALookAroundItem}>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={4}
+              className={styles.TakeALookAroundItem}
+            >
               <Grid
                 container
                 direction="column"
@@ -120,7 +140,13 @@ function LandingPage() {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item  xs={12} sm={12} md={4} className={styles.TakeALookAroundItem}>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={4}
+              className={styles.TakeALookAroundItem}
+            >
               <Grid
                 container
                 direction="column"
@@ -143,12 +169,8 @@ function LandingPage() {
             </Grid>
           </Grid>
 
-          <Grid
-            container
-            direction="row"
-            justify="center"
-          >
-            <Grid item  xs={12} sm={12} md={2}>
+          <Grid container direction="row" justify="center">
+            <Grid item xs={12} sm={12} md={2}>
               <a href="/whatishealthequity" className={styles.PrimaryButton}>
                 Learn more
               </a>
@@ -163,16 +185,30 @@ function LandingPage() {
           justify="center"
           alignItems="center"
         >
-          <Grid item  xs={12} sm={12} md={5} className={styles.DecorativeHImgItem}>
-            <div className={styles.DecorativeHImgContainer}>
-              <img
-                src="img/Asset 10@3x 1.png"
-                className={styles.DecorativeHImg}
-                alt="A decorative letter H centered on an orange background"
-              />
-            </div>
-          </Grid>
-          <Grid item  xs={12} sm={12} md={7} className={styles.PrioritizeHealthEquityTextItem}>
+          <Hidden xsDown>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={5}
+              className={styles.DecorativeHImgItem}
+            >
+              <div className={styles.DecorativeHImgContainer}>
+                <img
+                  src="img/Asset 10@3x 1.png"
+                  className={styles.DecorativeHImg}
+                  alt="A decorative letter H centered on an orange background"
+                />
+              </div>
+            </Grid>
+          </Hidden>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={7}
+            className={styles.PrioritizeHealthEquityTextItem}
+          >
             <Typography className={styles.PrioritizeHealthEquityHeader}>
               It's time to prioritize health equity
             </Typography>
@@ -222,7 +258,7 @@ function LandingPage() {
                   alt="Screenshot of Data Tracker - selecting mad libs"
                 />
               </Grid>
-              <Grid item  xs={12} sm={12} md={3}>
+              <Grid item xs={12} sm={12} md={3}>
                 <div>
                   <p className={styles.HowToStepTextHeader}>
                     Search by completing the sentence
@@ -242,14 +278,14 @@ function LandingPage() {
               justify="space-around"
               alignItems="center"
             >
-              <Grid item  xs={12} sm={12} md={8}>
+              <Grid item xs={12} sm={12} md={8}>
                 <img
                   className={styles.HowToStepImg}
                   src="img/ezgif 5.png"
                   alt="Screenshot of Data Tracker - using filters"
                 />
               </Grid>
-              <Grid item  xs={12} sm={12} md={3}>
+              <Grid item xs={12} sm={12} md={3}>
                 <div>
                   <p className={styles.HowToStepTextHeader}>
                     Use filters to go deeper
@@ -271,14 +307,14 @@ function LandingPage() {
               justify="space-around"
               alignItems="center"
             >
-              <Grid item  xs={12} sm={12} md={8}>
+              <Grid item xs={12} sm={12} md={8}>
                 <img
                   className={styles.HowToStepImg}
                   src="img/ezgif 6.png"
                   alt="Screenshot of Data Tracker - map of the US"
                 />
               </Grid>
-              <Grid item  xs={12} sm={12} md={3}>
+              <Grid item xs={12} sm={12} md={3}>
                 <div>
                   <p className={styles.HowToStepTextHeader}>
                     Explore maps and graphs
@@ -497,8 +533,11 @@ function LandingPage() {
 
         <Grid container className={styles.NewsletterSignUpRow}>
           <Grid
-            container item
-            xs={12} sm={12} md={12}
+            container
+            item
+            xs={12}
+            sm={12}
+            md={12}
             direction="column"
             justify="center"
             alignItems="center"
@@ -513,10 +552,12 @@ function LandingPage() {
                 </Typography>
               </Grid>
               <Grid item>
-                <form className={styles.EmailAddressForm}
-                action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
-                method="post"
-                target="_blank">
+                <form
+                  className={styles.EmailAddressForm}
+                  action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
+                  method="post"
+                  target="_blank"
+                >
                   <input
                     className={styles.EmailAddressFormText}
                     type="email"
