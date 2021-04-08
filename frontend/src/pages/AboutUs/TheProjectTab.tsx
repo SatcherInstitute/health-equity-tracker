@@ -158,7 +158,8 @@ function TheProjectTab() {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography className={styles.HeaderSubtextL2} variant="body2">
+                  <Typography className={styles.HeaderSubtextL2}
+                              variant="body2">
                     <p>
                       As we continue to expand our data sources and analyze the
                       data, we will have more information to share on

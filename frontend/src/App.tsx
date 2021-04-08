@@ -61,7 +61,8 @@ function MobileAppToolbar() {
 
   return (
       <Toolbar>
-        <IconButton onClick={() => setOpen(true)}>
+        <IconButton onClick={() => setOpen(true)}
+                    aria-label="Expand site navigation button">
           <MenuIcon />
         </IconButton>
         <Drawer variant="persistent" anchor="left" open={open}>
@@ -90,7 +91,7 @@ function AppToolbar() {
                className={styles.AppbarLogoImg}
                alt="Health Equity Tracker Logo -- decorative 'H'"/>
         </LinkWithStickyParams>
-        <Typography variant="h6" className={styles.HomeLogo}>
+        <Typography variant="h1" className={styles.HomeLogo}>
           <LinkWithStickyParams to="/">
             Health Equity Tracker
           </LinkWithStickyParams>
