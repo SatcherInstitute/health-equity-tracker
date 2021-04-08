@@ -24,6 +24,7 @@
 
 .DatasetTitle {
   font-size: 20px;
+  font-family: "Taviraj", serif !important;
 }
 
 .Footer {
@@ -38,10 +39,6 @@
 
 .CardFooterRight {
   float: right;
-}
-
-.CardFooterLeft {
-  float: left;
 }
 
 .DataSubtitle {
@@ -70,4 +67,17 @@
 .DownloadIcon {
   height: 24px !important;
   width: 24px !important;
+}
+
+.DialogTitle {
+  padding: 10px 24px 0px 24px !important;
+}
+
+.DialogTitleText {
+  // Same height as close button
+  line-height: 48px !important;
+}
+
+.CloseDialogButton {
+  float: right;
 }
