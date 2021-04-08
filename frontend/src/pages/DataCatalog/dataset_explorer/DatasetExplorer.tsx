@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { SingleSelectDatasetFilter } from "./DatasetFilter";
+import React from "react";
 import DataSourceListing from "./DataSourceListing";
 import styles from "./DatasetExplorer.module.scss";
 import { DataSourceMetadataMap } from "../../../data/config/MetadataMap";
