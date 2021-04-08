@@ -228,10 +228,10 @@ function OurTeamTab() {
     <Grid container className={styles.Grid}>
       <Grid container className={styles.GridRowHeaderText}>
         <Grid item xs={7}>
-          <Typography className={styles.OurTeamHeaderText}>
+          <Typography className={styles.OurTeamHeaderText} variant="h1">
             We're working towards a better tomorrow.
           </Typography>
-          <Typography className={styles.HeaderSubtext}>
+          <Typography className={styles.HeaderSubtext} variant="subtitle1">
             We strongly support breaking down systemic barriers in order to
             achieve a more healthy, equitable, and inclusive society.
           </Typography>
@@ -241,14 +241,9 @@ function OurTeamTab() {
       <Grid container className={styles.GridRow}>
         <Grid item xs={12}>
           <Typography
-            variant="h6"
+            variant="h2"
             align="left"
-            style={{
-              fontSize: "28px",
-              textAlign: "left",
-              fontFamily: "Taviraj",
-            }}
-            className={styles.UnderlinedHeaderL1}
+            className={styles.TeamHeader}
           >
             Leadership Team
           </Typography>
@@ -278,14 +273,9 @@ function OurTeamTab() {
       <Grid container className={styles.GridRow}>
         <Grid item xs={12}>
           <Typography
-            variant="h6"
+            variant="h2"
             align="left"
-            style={{
-              fontSize: "28px",
-              textAlign: "left",
-              fontFamily: "Taviraj",
-            }}
-            className={styles.UnderlinedHeaderL1}
+            className={styles.TeamHeader}
           >
             Google.org Fellows
           </Typography>
@@ -312,14 +302,9 @@ function OurTeamTab() {
       <Grid container className={styles.GridRow}>
         <Grid item xs={12}>
           <Typography
-            variant="h6"
+            variant="h2"
             align="left"
-            style={{
-              fontSize: "28px",
-              textAlign: "left",
-              fontFamily: "Taviraj",
-            }}
-            className={styles.UnderlinedHeaderL1}
+            className={styles.TeamHeader}
           >
             Health Equity Task Force
           </Typography>
@@ -348,7 +333,7 @@ function OurTeamTab() {
               textAlign: "left",
               fontFamily: "Taviraj",
             }}
-            className={styles.UnderlinedHeaderL1}
+            className={styles.TeamHeader}
           >
             Partners
           </Typography>

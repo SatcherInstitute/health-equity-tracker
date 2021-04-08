@@ -13,7 +13,7 @@ function ContactUsTab() {
                 justify="center"
                 alignItems="center">
             <Grid item xs={4} className={styles.GridVerticallyAlignedItem}>
-              <Typography className={styles.ContactUsHeaderText}>
+              <Typography className={styles.ContactUsHeaderText} variant="h1">
                 Let's move
                 <br/>
                 equity <b style={{ fontWeight: 400 }}>forward</b>
@@ -31,7 +31,7 @@ function ContactUsTab() {
                 justify="center"
                 alignItems="center">
             <Grid item xs={8}>
-              <Typography className={styles.ContactUsSubheaderText}>
+              <Typography className={styles.ContactUsSubheaderText} variant="h1">
                 Thank you for your interest in the Health Equity Tracker
               </Typography>
             </Grid>

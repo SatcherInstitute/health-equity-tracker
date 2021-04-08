@@ -32,11 +32,11 @@ function WhatIsHealthEquityPage() {
             />
           </Grid>
           <Grid item xs={8} className={styles.HeaderTextItem}>
-            <Typography className={styles.HeaderText}>
+            <Typography className={styles.HeaderText} variant="h1">
               What is Health Equity?
             </Typography>
             <br />
-            <Typography className={styles.HeaderSubtext}>
+            <Typography className={styles.HeaderSubtext} variant="body1">
               <p>
                 <b>Health Equity</b> exists when all people, regardless of race,
                 gender, socio-economic status, geographic location, or other
@@ -60,11 +60,11 @@ function WhatIsHealthEquityPage() {
               className={styles.DefinitionsContainer}
             >
               <Grid item xs={6} className={styles.DefinitionsItem}>
-                <Typography className={styles.DefinitionHeader}>
+                <Typography className={styles.DefinitionHeader} variant="h2">
                   Political determinants of health
                 </Typography>
                 <p className={styles.DefinitionPronunciation}>
-                  /pəˈlidək(ə)l dəˈtərmənənt əv helTH/
+                  /pəˈlidək(ə)l dəˈtərmənənts əv helTH/
                 </p>
                 <p className={styles.DefinitionText}>
                   The creators of structural conditions and the social drivers –
@@ -77,7 +77,7 @@ function WhatIsHealthEquityPage() {
                 </span>
               </Grid>
               <Grid item xs={6} className={styles.DefinitionsItem}>
-                <Typography className={styles.DefinitionHeader}>
+                <Typography className={styles.DefinitionHeader} variant="h2">
                   Social determinant of health
                 </Typography>
                 <p className={styles.DefinitionPronunciation}>
@@ -105,7 +105,7 @@ function WhatIsHealthEquityPage() {
         >
           <Grid container className={styles.ResourcesRow} justify="center">
             <Grid item>
-              <Typography className={styles.ResourcesHeaderText}>
+              <Typography className={styles.ResourcesHeaderText} variant="h1">
                 Health equity resources
               </Typography>
             </Grid>
@@ -129,10 +129,10 @@ function WhatIsHealthEquityPage() {
                           encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 ></iframe>
-                <p className={styles.MainResourceTitleText}>
+                <h2 className={styles.MainResourceTitleText}>
                   Learn about the Political Determinants of Health through the{" "}
                   <b>Allegory of the Orchard</b>
-                </p>
+                </h2>
                 <p className={styles.MainResourceSubtitleText}>
                   Girding all health determinants is one that rarely gets
                   addressed but which has power over all aspects of health:
@@ -159,7 +159,7 @@ function WhatIsHealthEquityPage() {
                               encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     ></iframe>
-                    <p className={styles.ResourceTitleText}>Jessica's Story</p>
+                    <h2 className={styles.ResourceTitleText}>Jessica's Story</h2>
                     <p className={styles.ResourceSubtitleText}>
                       How political determinants of health operate and the
                       impact they have on BIPOC communities
@@ -173,10 +173,10 @@ function WhatIsHealthEquityPage() {
                         alt="Header for Morehouse School of Medicine
                              National COVID-19 Resiliency Network"
                       />
-                      <p className={styles.ResourceTitleText}>
+                      <h2 className={styles.ResourceTitleText}>
                         Morehouse School of Medicine National COVID-19
                         Resiliency Network (NCRN)
-                      </p>
+                      </h2>
                       <p className={styles.ResourceSubtitleText}>
                         We provide awareness and linkage to critical health
                         information and services, helping families recover from
@@ -197,7 +197,8 @@ function WhatIsHealthEquityPage() {
             justify="center"
           >
             <Grid item>
-              <Typography className={styles.NewsAndStoriesHeaderText}>
+              <Typography className={styles.NewsAndStoriesHeaderText}
+              variant="h1">
                 News and stories
               </Typography>
               <span className={styles.NewsAndStoriesSubheaderText}>
@@ -218,10 +219,10 @@ function WhatIsHealthEquityPage() {
                   alt="Asian woman assisting a young black child with his
                        mask"
                 />
-                <p className={styles.NewsAndStoriesTitleText}>
+                <h2 className={styles.NewsAndStoriesTitleText}>
                   COVID-19: Black Folks Have Been Trying To Tell You That Data
                   Is Political
-                </p>
+                </h2>
                 <p className={styles.NewsAndStoriesSubtitleText}>
                   COVID-19 does not discriminate, but our current economic and
                   social policies do. Let’s talk about “a crisis within a
@@ -238,9 +239,9 @@ function WhatIsHealthEquityPage() {
                   src="img/pexels-cottonbro-7000149 1.png"
                   alt="Asian woman sitting while wearing a mask"
                 />
-                <p className={styles.NewsAndStoriesTitleText}>
+                <h2 className={styles.NewsAndStoriesTitleText}>
                   Back to ‘normal’ isn’t good enough
-                </p>
+                </h2>
                 <p className={styles.NewsAndStoriesSubtitleText}>
                   With the anticipation of increasing distribution of Covid-19
                   vaccines, Americans are looking forward to a “return to
@@ -257,10 +258,10 @@ function WhatIsHealthEquityPage() {
                   src="img/pexels-alex-green-5699516 1.png"
                   alt="Documents lying on a table"
                 />
-                <p className={styles.NewsAndStoriesTitleText}>
+                <h2 className={styles.NewsAndStoriesTitleText}>
                   Federal Requirements for Race and other Descriptive Data--How
                   to Make Lasting Changes
-                </p>
+                </h2>
                 <p className={styles.NewsAndStoriesSubtitleText}>
                   <a href="/">Learn more</a>
                 </p>
@@ -271,9 +272,9 @@ function WhatIsHealthEquityPage() {
                   src="img/pexels-ketut-subiyanto-4473409 2.png"
                   alt="Asian woman laughing with two children"
                 />
-                <p className={styles.NewsAndStoriesTitleText}>
+                <h2 className={styles.NewsAndStoriesTitleText}>
                   Importance of disaggregated data
-                </p>
+                </h2>
                 <p className={styles.NewsAndStoriesSubtitleText}>
                   <a href="/">Learn more</a>
                 </p>
@@ -285,10 +286,10 @@ function WhatIsHealthEquityPage() {
                   alt="Laptop sitting on desk and opened to the Health
                        Equity Tracker Homepage"
                 />
-                <p className={styles.NewsAndStoriesTitleText}>
+                <h2 className={styles.NewsAndStoriesTitleText}>
                   Advancing Health Equity through the Political Determinants of
                   Health and Health Equity Tracker
-                </p>
+                </h2>
                 <p className={styles.NewsAndStoriesSubtitleText}>
                   <a href="/">Learn more</a>
                 </p>
@@ -305,14 +306,14 @@ function WhatIsHealthEquityPage() {
           alignItems="center"
         >
           <Grid item className={styles.JoinTheEffortHeaderRow}>
-            <Typography className={styles.JoinTheEffortHeaderText}>
+            <Typography className={styles.JoinTheEffortHeaderText} variant="h1">
               How do I join the effort?
             </Typography>
-            <p className={styles.JoinTheEffortSubheaderText}>
+            <span className={styles.JoinTheEffortSubheaderText}>
               To advance health equity, we need smart, talented,
               <br />
               passionate folks like you on board.
-            </p>
+            </span>
             <br />
             <br />
           </Grid>
@@ -330,7 +331,7 @@ function WhatIsHealthEquityPage() {
               />
             </Grid>
             <Grid item xs={7} className={styles.JoinTheEffortTextContainer}>
-              <Typography className={styles.JoinTheEffortStepHeaderText}>
+              <Typography className={styles.JoinTheEffortStepHeaderText} variant="h2">
                 Sign up for our newsletter
               </Typography>
               <p className={styles.JoinTheEffortStepText}>
@@ -366,7 +367,7 @@ function WhatIsHealthEquityPage() {
               />
             </Grid>
             <Grid item xs={7} className={styles.JoinTheEffortTextContainer}>
-              <Typography className={styles.JoinTheEffortStepHeaderText}>
+              <Typography className={styles.JoinTheEffortStepHeaderText} variant="h2">
                 Share information with your community
               </Typography>
               <p className={styles.JoinTheEffortStepText}>
@@ -424,7 +425,8 @@ function WhatIsHealthEquityPage() {
               />
             </Grid>
             <Grid item xs={7} className={styles.JoinTheEffortTextContainer}>
-              <Typography className={styles.JoinTheEffortStepHeaderText}>
+              <Typography className={styles.JoinTheEffortStepHeaderText}
+                          variant="h2">
                 Share your story
               </Typography>
               <p className={styles.JoinTheEffortStepText}>

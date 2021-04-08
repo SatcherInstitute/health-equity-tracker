@@ -76,6 +76,7 @@ function ExploreDataPage() {
     <div id="ExploreData" className={styles.ExploreData}>
       <div className={styles.CarouselContainer}>
         <Carousel
+          aria-label="Mad lib selection carousel"
           className={styles.Carousel}
           timeout={200}
           autoPlay={false}
@@ -96,7 +97,8 @@ function ExploreDataPage() {
         </Carousel>
       </div>
       <div className={styles.ReportContainer}>
-        <ReportProvider madLib={madLib} setMadLib={setMadLib} />
+        <ReportProvider aria-label="Custom disparity report"
+                        madLib={madLib} setMadLib={setMadLib} />
       </div>
     </div>
   );

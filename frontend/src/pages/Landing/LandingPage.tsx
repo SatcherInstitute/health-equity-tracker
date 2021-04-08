@@ -25,11 +25,13 @@ function LandingPage() {
           alignItems="center"
         >
           <Grid item xs={6} className={styles.HeaderTextItem}>
-            <Typography className={styles.HeaderText}>
+            <Typography className={styles.HeaderText}
+                        variant="h1">
               Equity Forward
             </Typography>
             <br />
-            <Typography className={styles.HeaderSubtext}>
+            <Typography className={styles.HeaderSubtext}
+                        variant="body1">
               <p>
                 We know that our communities are experiencing life or death
                 situations due to the inequities, conditions and policies into
@@ -61,12 +63,14 @@ function LandingPage() {
           justify="center"
         >
           <Grid item xs={12}>
-            <Typography className={styles.TakeALookAroundHeaderText}>
+            <Typography className={styles.TakeALookAroundHeaderText}
+                        variant="h1">
               Take a look around
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography className={styles.TakeALookAroundHeaderSubtext}>
+            <Typography className={styles.TakeALookAroundHeaderSubtext}
+                        variant="subtitle1">
               We’re working toward health equity, but can’t do it alone. Please
               join our effort to move the needle forward.
             </Typography>
@@ -93,7 +97,8 @@ function LandingPage() {
                   />
                 </Grid>
                 <Grid item>
-                  <Typography className={styles.TakeALookAroundText}>
+                  <Typography className={styles.TakeALookAroundText}
+                              variant="h2">
                     <p>(1) Learn about health equity</p>
                   </Typography>
                 </Grid>
@@ -114,7 +119,8 @@ function LandingPage() {
                   />
                 </Grid>
                 <Grid item>
-                  <Typography className={styles.TakeALookAroundText}>
+                  <Typography className={styles.TakeALookAroundText}
+                              variant="h2">
                     <p>(2) Investigate the data</p>
                   </Typography>
                 </Grid>
@@ -135,7 +141,8 @@ function LandingPage() {
                   />
                 </Grid>
                 <Grid item>
-                  <Typography className={styles.TakeALookAroundText}>
+                  <Typography className={styles.TakeALookAroundText}
+                              variant="h2">
                     <p>(3) Share our site and join our movement</p>
                   </Typography>
                 </Grid>
@@ -173,11 +180,13 @@ function LandingPage() {
             </div>
           </Grid>
           <Grid item xs={7} className={styles.PrioritizeHealthEquityTextItem}>
-            <Typography className={styles.PrioritizeHealthEquityHeader}>
+            <Typography className={styles.PrioritizeHealthEquityHeader}
+                        variant="h1">
               It's time to prioritize health equity
             </Typography>
             <br />
-            <Typography className={styles.PrioritizeHealthEquityHeaderSubtext}>
+            <Typography className={styles.PrioritizeHealthEquityHeaderSubtext}
+                        variant="body1">
               <p>
                 We’re living through a historical moment. COVID-19 has taken a
                 toll on everyone. But the pandemic is hitting the most
@@ -196,7 +205,8 @@ function LandingPage() {
 
         <Grid container className={styles.HowToRow}>
           <Grid item xs={12}>
-            <Typography className={styles.HowToHeaderText}>
+            <Typography className={styles.HowToHeaderText}
+                        variant="h1">
               How do I use the Data Tracker?
             </Typography>
           </Grid>
@@ -224,9 +234,9 @@ function LandingPage() {
               </Grid>
               <Grid item xs={3}>
                 <div>
-                  <p className={styles.HowToStepTextHeader}>
+                  <h2 className={styles.HowToStepTextHeader}>
                     Search by completing the sentence
-                  </p>
+                  </h2>
                   <p className={styles.HowToStepTextSubheader}>
                     Select variables you’re interested in to complete the
                     sentence and explore the data
@@ -251,9 +261,9 @@ function LandingPage() {
               </Grid>
               <Grid item xs={3}>
                 <div>
-                  <p className={styles.HowToStepTextHeader}>
+                  <h2 className={styles.HowToStepTextHeader}>
                     Use filters to go deeper
-                  </p>
+                  </h2>
                   <p className={styles.HowToStepTextSubheader}>
                     Where available, the tracker offers breakdowns by race and
                     ethnicity, sex, and age. This is currently limited to the
@@ -280,9 +290,9 @@ function LandingPage() {
               </Grid>
               <Grid item xs={3}>
                 <div>
-                  <p className={styles.HowToStepTextHeader}>
+                  <h2 className={styles.HowToStepTextHeader}>
                     Explore maps and graphs
-                  </p>
+                  </h2>
                   <p className={styles.HowToStepTextSubheader}>
                     The interactive maps and graphs are a great way to
                     investigate the data more closely. If a state or county is
@@ -291,10 +301,9 @@ function LandingPage() {
                 </div>
               </Grid>
             </Grid>
-
             <Grid item>
-              <br />
-              <br />
+              <br/>
+              <br/>
               <a href={EXPLORE_DATA_PAGE_LINK} className={styles.PrimaryButton}>
                 Explore the Tracker
               </a>
@@ -304,7 +313,8 @@ function LandingPage() {
 
         <Grid container className={styles.FaqRow}>
           <Grid item xs={12}>
-            <Typography className={styles.FaqHeader}>
+            <Typography className={styles.FaqHeader}
+                        variant="h1">
               Frequently asked questions
             </Typography>
           </Grid>
@@ -312,10 +322,10 @@ function LandingPage() {
             <Accordion>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
+                aria-controls="panel1-content"
+                id="panel1-header"
               >
-                <Typography className={styles.FaqQuestion}>
+                <Typography className={styles.FaqQuestion} variant="h2">
                   What is health equity? Why is it important?
                 </Typography>
               </AccordionSummary>
@@ -346,10 +356,10 @@ function LandingPage() {
             <Accordion>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
+                aria-controls="panel2-content"
+                id="panel2-header"
               >
-                <Typography className={styles.FaqQuestion}>
+                <Typography className={styles.FaqQuestion} variant="h2">
                   What are disparities?
                 </Typography>
               </AccordionSummary>
@@ -367,10 +377,10 @@ function LandingPage() {
             <Accordion>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
+                aria-controls="panel3-content"
+                id="panel3-header"
               >
-                <Typography className={styles.FaqQuestion}>
+                <Typography className={styles.FaqQuestion} variant="h2">
                   What data sources did you use? Why?
                 </Typography>
               </AccordionSummary>
@@ -401,10 +411,10 @@ function LandingPage() {
             <Accordion>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
+                aria-controls="panel4-content"
+                id="panel4-header"
               >
-                <Typography className={styles.FaqQuestion}>
+                <Typography className={styles.FaqQuestion} variant="h2">
                   What are the limitations in the data?
                 </Typography>
               </AccordionSummary>
@@ -453,10 +463,10 @@ function LandingPage() {
             <Accordion>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
+                aria-controls="panel5-content"
+                id="panel5-header"
               >
-                <Typography className={styles.FaqQuestion}>
+                <Typography className={styles.FaqQuestion} variant="h2">
                   What was your methodology in ingesting the data?
                 </Typography>
               </AccordionSummary>
@@ -505,7 +515,8 @@ function LandingPage() {
           >
             <div className={styles.EmailAddressContentDiv}>
               <Grid item>
-                <Typography className={styles.NewsletterRowHeader}>
+                <Typography className={styles.NewsletterRowHeader}
+                            variant="h1">
                   Engage in
                   <br />
                   Health Equity

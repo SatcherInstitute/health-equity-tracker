@@ -60,50 +60,54 @@ function MobileAppToolbar() {
   }
 
   return (
-    <Toolbar>
-      <IconButton onClick={() => setOpen(true)}>
-        <MenuIcon />
-      </IconButton>
-      <Drawer variant="persistent" anchor="left" open={open}>
-        <Button onClick={() => setOpen(false)}>
-          <ChevronLeftIcon />
-        </Button>
-        <List>
-          {Object.keys(PAGE_URL_TO_NAMES).map((pageUrl, index) => (
-            <ListItemLink href={pageUrl} key={index}>
-              <ListItemText primary={PAGE_URL_TO_NAMES[pageUrl]} />
-            </ListItemLink>
-          ))}
-        </List>
-      </Drawer>
-    </Toolbar>
+      <Toolbar>
+        <IconButton onClick={() => setOpen(true)}>
+          <MenuIcon />
+        </IconButton>
+        <Drawer variant="persistent" anchor="left" open={open}>
+          <Button aria-label="Hide site navigation button"
+                  onClick={() => setOpen(false)}>
+            <ChevronLeftIcon />
+          </Button>
+          <List>
+            {Object.keys(PAGE_URL_TO_NAMES).map((pageUrl, index) => (
+                <ListItemLink href={pageUrl} key={index}
+                              aria-label={PAGE_URL_TO_NAMES[pageUrl]}>
+                  <ListItemText primary={PAGE_URL_TO_NAMES[pageUrl]} />
+                </ListItemLink>
+            ))}
+          </List>
+        </Drawer>
+      </Toolbar>
   );
 }
 
 function AppToolbar() {
   return (
-    <Toolbar className={styles.AppToolbar}>
-      <LinkWithStickyParams to="/">
-        <img src="img/AppbarLogo.png"
-             className={styles.AppbarLogoImg}
-             alt="Health Equity Tracker Logo -- decorative 'H'"/>
-      </LinkWithStickyParams>
-      <Typography variant="h6" className={styles.HomeLogo}>
+      <Toolbar className={styles.AppToolbar}>
         <LinkWithStickyParams to="/">
-          Health Equity Tracker
+          <img src="img/AppbarLogo.png"
+               className={styles.AppbarLogoImg}
+               alt="Health Equity Tracker Logo -- decorative 'H'"/>
         </LinkWithStickyParams>
-      </Typography>
-      {[
-        EXPLORE_DATA_PAGE_LINK,
-        DATA_CATALOG_PAGE_LINK,
-        WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-        ABOUT_US_PAGE_LINK,
-      ].map((pageUrl, i) => (
-        <LinkWithStickyParams to={pageUrl} class={styles.NavLink}>
-          <Button key={i}>{PAGE_URL_TO_NAMES[pageUrl]}</Button>
-        </LinkWithStickyParams>
-      ))}
-    </Toolbar>
+        <Typography variant="h6" className={styles.HomeLogo}>
+          <LinkWithStickyParams to="/">
+            Health Equity Tracker
+          </LinkWithStickyParams>
+        </Typography>
+        {[
+          EXPLORE_DATA_PAGE_LINK,
+          DATA_CATALOG_PAGE_LINK,
+          WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+          ABOUT_US_PAGE_LINK,
+        ].map((pageUrl, i) => (
+            <LinkWithStickyParams to={pageUrl} class={styles.NavLink}>
+              <Button key={i} aria-label={PAGE_URL_TO_NAMES[pageUrl]}>
+                {PAGE_URL_TO_NAMES[pageUrl]}
+              </Button>
+            </LinkWithStickyParams>
+        ))}
+      </Toolbar>
   );
 }
 
@@ -141,34 +145,40 @@ function App() {
         <div className={styles.Content}>
           <Router>
             <ScrollToTop />
-            <AppBar position="static" elevation={0}>
-              {width > MOBILE_BREAKPOINT ? (
-                <AppToolbar />
-              ) : (
-                <MobileAppToolbar />
-              )}
-            </AppBar>
-            <Switch>
-              <Route path={ABOUT_US_PAGE_LINK} component={AboutUsPage} />
-              <Route path={DATA_CATALOG_PAGE_LINK} component={DataCatalogTab} />
-              <Route
-                path={EXPLORE_DATA_PAGE_LINK}
-                component={ExploreDataPage}
-              />
-              <Route
-                path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
-                component={WhatIsHealthEquityPage}
-              />
-              <Route
-                  path={TERMS_OF_SERVICE_PAGE_LINK}
-                  component={TermsOfServicePage}
-              />
-              <Route exact path="/" component={LandingPage} />
-              <Route component={NotFoundPage} />
-            </Switch>
+            <header aria-label="Header content including site navigation">
+              <AppBar position="static" elevation={0}>
+                {width > MOBILE_BREAKPOINT ? (
+                    <AppToolbar />
+                ) : (
+                    <MobileAppToolbar />
+                )}
+              </AppBar>
+            </header>
+            <main>
+              <Switch>
+                <Route path={ABOUT_US_PAGE_LINK} component={AboutUsPage} />
+                <Route path={DATA_CATALOG_PAGE_LINK} component={DataCatalogTab} />
+                <Route
+                    path={EXPLORE_DATA_PAGE_LINK}
+                    component={ExploreDataPage}
+                />
+                <Route
+                    path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+                    component={WhatIsHealthEquityPage}
+                />
+                <Route
+                    path={TERMS_OF_SERVICE_PAGE_LINK}
+                    component={TermsOfServicePage}
+                />
+                <Route exact path="/" component={LandingPage} />
+                <Route component={NotFoundPage} />
+              </Switch>
+            </main>
           </Router>
         </div>
-        <Footer />
+        <footer aria-label="Footer content">
+          <Footer />
+        </footer>
       </div>
     </ThemeProvider>
   );
