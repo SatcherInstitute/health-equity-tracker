@@ -1,77 +1,176 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
+import Hidden from "@material-ui/core/Hidden";
 import styles from "./Footer.module.scss";
-import TwitterIcon from '@material-ui/icons/Twitter';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import YouTubeIcon from '@material-ui/icons/YouTube';
-import ArrowUpwardRoundedIcon from '@material-ui/icons/ArrowUpwardRounded';
-import {Button} from '@material-ui/core';
+import TwitterIcon from "@material-ui/icons/Twitter";
+import LinkedInIcon from "@material-ui/icons/LinkedIn";
+import YouTubeIcon from "@material-ui/icons/YouTube";
+import ArrowUpwardRoundedIcon from "@material-ui/icons/ArrowUpwardRounded";
+import { Button } from "@material-ui/core";
+import {
+  EXPLORE_DATA_PAGE_LINK,
+  DATA_CATALOG_PAGE_LINK,
+  ABOUT_US_PAGE_LINK,
+  ABOUT_US_TAB_PARAM,
+} from "./utils/urlutils";
+import {
+  ABOUT_US_CONTACT_TAB_INDEX,
+  ABOUT_US_FAQ_TAB_INDEX,
+} from "./pages/AboutUs/AboutUsPage";
 
 function Footer() {
   return (
     <div className={styles.Footer}>
+      <Grid container justify="space-between" alignItems="flex-start">
+        <Grid item xs={12} sm={12} md={4} className={styles.FooterGrid}>
+          <Logos />
+        </Grid>
 
-      <Grid container direction="row" className={styles.FooterGrid}>
-
-        <Grid container item direction="column" xs={1}
-        alignItems="center"
-        justify="center">
-          <Grid item>
-                <img src="img/updated mark 1.png"
-                     className={styles.FooterLogo}
-                     alt="Health Equity Tracker decorative logo"/>
+        <Grid
+          item
+          xs={8}
+          sm={12}
+          md={8}
+          lg={6}
+          xl={4}
+          className={styles.LinksContainer}
+        >
+          <Grid
+            className={styles.Links}
+            justify="space-between"
+            alignItems="center"
+            spacing={0}
+            container
+          >
+            {[
+              ["Explore Data", EXPLORE_DATA_PAGE_LINK],
+              ["Downloads and Methods", DATA_CATALOG_PAGE_LINK],
+              [
+                "FAQs",
+                `${ABOUT_US_PAGE_LINK}?${ABOUT_US_TAB_PARAM}=${ABOUT_US_FAQ_TAB_INDEX}`,
+              ],
+              [
+                "Contact Us",
+                `${ABOUT_US_PAGE_LINK}?${ABOUT_US_TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`,
+              ],
+              [
+                "Terms of Use",
+                `${ABOUT_US_PAGE_LINK}?${ABOUT_US_TAB_PARAM}=${ABOUT_US_FAQ_TAB_INDEX}`,
+              ],
+            ].map(([label, link]) => (
+              <LinkGridItem text={label} link={link} />
+            ))}
+            <Hidden smDown>
+              <Grid item sm={12}>
+                <span className={styles.CopyrightSpanLargerWindow}>
+                  Copyright 2020
+                </span>
+              </Grid>
+            </Hidden>
           </Grid>
         </Grid>
 
-        <Grid container item direction="column" xs={5}
-              alignItems="flex-start"
-              justify="center">
-          <Grid item>
-            <span className={styles.FooterTitleSpan}>Health Equity Tracker</span>
-          </Grid>
-          <Grid item>
-            <div className={styles.SocialsDiv}>
-              <a href="https://www.linkedin.com/in/satcherhealth">
-                <LinkedInIcon className={styles.SocialsIcon}/>
-              </a>
-              <a href="https://twitter.com/SatcherHealth">
-                <TwitterIcon className={styles.SocialsIcon}/>
-              </a>
-              <a href="https://www.youtube.com/channel/UC2sNXCD2KGLdyjqe6FGzMiA">
-                <YouTubeIcon className={styles.SocialsIcon}/>
-              </a>
-            </div>
-          </Grid>
+        <Grid
+          container
+          item
+          direction="column"
+          md={12}
+          lg={1}
+          alignItems="center"
+          justify="center"
+        >
+          <Hidden mdUp>
+            <Grid item>
+              <span className={styles.CopyrightSpanSmallerWindow}>
+                Copyright 2020
+              </span>
+            </Grid>
+          </Hidden>
+          <ReturnToTop />
         </Grid>
-
-        <Grid container item direction="column" xs={5}
-              alignItems="flex-end"
-              justify="center">
-          <Grid item>
-            <div className={styles.NavLinkDiv}>
-              <a href="/exploredata" className={styles.FooterNavLink}>Explore Data</a>
-              <a href="/datadownloads" className={styles.FooterNavLink}>Downloads and Methods</a>
-              <a href="/aboutus" className={styles.FooterNavLink}>FAQ</a>
-              <a href="/aboutus" className={styles.FooterNavLink}>Contact Us</a>
-              <a href="/termsofuse" className={styles.FooterNavLink}>Terms of Use</a>
-            </div>
-          </Grid>
-          <Grid item>
-            <span className={styles.CopyrightSpan}>Copyright 2020</span>
-          </Grid>
-        </Grid>
-
-        <Grid container item direction="column" xs={1}
-              alignItems="center"
-              justify="center">
-          <Button onClick={() => window.scrollTo(0, 0)}
-          className={styles.ScrollToTopButton}>
-            <ArrowUpwardRoundedIcon />
-          </Button>
-        </Grid>
-
       </Grid>
     </div>
+  );
+}
+
+function Logos() {
+  return (
+    <Grid container className={styles.Logos}>
+      <Grid item className={styles.LogosLeft}>
+        <Button
+          className={styles.ImageButton}
+          onClick={() =>
+            (window.location.href = "https://healthequitytracker.org/")
+          }
+        >
+          <img
+            src="img/updated mark 1.png"
+            className={styles.FooterLogo}
+            alt="Health Equity Tracker decorative logo"
+          />
+        </Button>
+      </Grid>
+      <Grid item className={styles.LogosRight}>
+        <Grid container justify="flex-start" alignItems="flex-start">
+          <Grid item>
+            <span className={styles.FooterTitleSpan}>
+              Health Equity Tracker
+            </span>
+            <Grid container justify="center">
+              <Grid item className={styles.SocialsIcon}>
+                <a href="https://www.linkedin.com/in/satcherhealth">
+                  <LinkedInIcon />
+                </a>
+              </Grid>
+              <Grid item className={styles.SocialsIcon}>
+                <a href="https://twitter.com/SatcherHealth">
+                  <TwitterIcon />
+                </a>
+              </Grid>
+              <Grid item className={styles.SocialsIcon}>
+                <a href="https://www.youtube.com/channel/UC2sNXCD2KGLdyjqe6FGzMiA">
+                  <YouTubeIcon />
+                </a>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
+  );
+}
+
+function LinkGridItem(props: { text: string; link: string }) {
+  return (
+    <>
+      <Hidden xsDown>
+        <Grid item>
+          <Button onClick={() => (window.location.href = props.link)}>
+            {props.text}
+          </Button>
+        </Grid>
+      </Hidden>
+      <Hidden smUp>
+        <Grid item xs={12}>
+          <Button onClick={() => (window.location.href = props.link)}>
+            {props.text}
+          </Button>
+        </Grid>
+      </Hidden>
+    </>
+  );
+}
+
+function ReturnToTop() {
+  return (
+    <Grid item>
+      <Button
+        onClick={() => window.scrollTo(0, 0)}
+        className={styles.ScrollToTopButton}
+      >
+        <ArrowUpwardRoundedIcon />
+      </Button>
+    </Grid>
   );
 }
 

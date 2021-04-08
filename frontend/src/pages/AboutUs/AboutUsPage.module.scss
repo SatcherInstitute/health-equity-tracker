@@ -6,7 +6,6 @@
     font-size: 18px;
     line-height: 23px;
   }
-  padding-bottom: 100px;
 
   // Special styling for each tab
   .AboutUsTab {
@@ -169,7 +168,7 @@
 
 // Grid rows with outlines.
 .GridOutlinedRow {
-  padding: 147px 120px 147px 120px;
+  padding: 147px 120px 0px 120px;
   align-items: center;
   border-top: 1px solid #3e3e3e;
 
