@@ -78,6 +78,39 @@ export function PopulationCard(props: PopulationCardProps) {
                 }
               />
             )}
+            <Grid
+              container
+              className={styles.PopulationCard}
+              justify="flex-start"
+              alignItems="flex-start"
+            >
+              <Grid item>
+                <span>Total Population</span>
+                <span className={styles.TotalPopulationValue}>
+                  {totalPopulationSize}
+                </span>
+              </Grid>
+              {/* TODO- calculate median age 
+                <Grid item className={styles.PopulationMetric}>
+                <span>Median Age</span>
+                <span className={styles.PopulationMetricValue}>??</span>
+                </Grid>
+                */}
+              {raceQueryResponse
+                .getValidRowsForField("race_and_ethnicity")
+                .filter((r) => r.race_and_ethnicity !== TOTAL)
+                .sort((a, b) => {
+                  return b.population - a.population;
+                })
+                .map((row) => (
+                  <Grid item className={styles.PopulationMetric}>
+                    <span>{row.race_and_ethnicity}</span>
+                    <span className={styles.PopulationMetricValue}>
+                      {row.population_pct}%
+                    </span>
+                  </Grid>
+                ))}
+            </Grid>
             {/* Because the Vega charts are using responsive width based on the window resizing,
                 we manually trigger a resize when the div size changes so vega chart will 
                 render with the right size. This means the vega chart won't appear until the 
@@ -85,43 +118,9 @@ export function PopulationCard(props: PopulationCardProps) {
             {!raceQueryResponse.dataIsMissing() && (
               <AnimateHeight
                 duration={500}
-                height={expanded ? "auto" : 70}
+                height={expanded ? "auto" : 0}
                 onAnimationEnd={() => window.dispatchEvent(new Event("resize"))}
               >
-                <Grid
-                  container
-                  className={styles.PopulationCard}
-                  justify="flex-start"
-                  alignItems="flex-start"
-                >
-                  <Grid item>
-                    <span>Total Population</span>
-                    <span className={styles.TotalPopulationValue}>
-                      {totalPopulationSize}
-                    </span>
-                  </Grid>
-                  {/* TODO- calculate median age 
-                  <Grid item className={styles.PopulationMetric}>
-                    <span>Median Age</span>
-                    <span className={styles.PopulationMetricValue}>??</span>
-                  </Grid>
-                  */}
-                  {/* TODO- properly align these */}
-                  {raceQueryResponse
-                    .getValidRowsForField("race_and_ethnicity")
-                    .filter((r) => r.race_and_ethnicity !== TOTAL)
-                    .sort((a, b) => {
-                      return b.population - a.population;
-                    })
-                    .map((row) => (
-                      <Grid item className={styles.PopulationMetric}>
-                        <span>{row.race_and_ethnicity}</span>
-                        <span className={styles.PopulationMetricValue}>
-                          {row.population_pct}%
-                        </span>
-                      </Grid>
-                    ))}
-                </Grid>
                 <Grid container>
                   <Grid item xs={6}>
                     <span className={styles.PopulationChartTitle}>
