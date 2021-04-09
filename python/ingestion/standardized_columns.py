@@ -118,7 +118,7 @@ class Race(Enum):
     # should be set to the same value as the enum name.
     # Arguments are set as optional to accommodate a mypy bug with enums:
     # https://github.com/python/mypy/issues/1021.
-    def __new__(cls, value, race = None, includes_hispanic = None):
+    def __new__(cls, value, race=None, includes_hispanic=None):
         obj = object.__new__(cls)
         obj._value_ = value
         obj._race = race
