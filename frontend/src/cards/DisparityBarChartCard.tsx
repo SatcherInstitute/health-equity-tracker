@@ -123,7 +123,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                     handleClose={() => setUnknownsMapDialogOpen(false)}
                     open={unknownsMapDialogOpen}
                   />
-                  <Alert severity="info">
+                  <Alert severity="warning">
                     {unknowns[0][props.metricConfig.metricId]}
                     {props.metricConfig.shortVegaLabel} in{" "}
                     {props.fips.getFullDisplayName} reported had an unknown

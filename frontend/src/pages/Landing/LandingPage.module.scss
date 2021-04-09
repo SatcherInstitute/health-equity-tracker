@@ -56,6 +56,15 @@
     padding-bottom: 20px;
   }
 
+  .HeaderTextMobile {
+    font-size: 50px;
+    text-align: left;
+    font-weight: 300;
+    font-family: "Taviraj", serif !important;
+    line-height: 50px;
+    color: $alt-green;
+  }
+
   .HeaderSubtext {
     font-size: 18px;
     text-align: left;
@@ -135,7 +144,6 @@
 /** ------------- TIME TO PRIORITIZE HEALTH EQUITY ROW  ------------- **/
 
 .PrioritizeHealthEquityRow {
-
   .PrioritizeHealthEquityTextItem {
     justify-content: center;
     padding: 56px;
