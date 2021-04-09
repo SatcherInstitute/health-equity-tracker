@@ -8,6 +8,7 @@ export const WHITE_NH = "White (Non-Hispanic)";
 export const WHITE = "White";
 export const ASIAN_NH = "Asian (Non-Hispanic)";
 export const NON_HISPANIC = "Not Hispanic or Latino";
+export const TWO_OR_MORE = "Two or more races";
 
 export const AGE = "age";
 export const FORTY_TO_FORTY_NINE = "40-49";

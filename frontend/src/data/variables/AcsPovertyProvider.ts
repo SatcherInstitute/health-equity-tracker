@@ -4,7 +4,13 @@ import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { ALL, ABOVE_POVERTY_COL, BELOW_POVERTY_COL } from "../utils/Constants";
+import {
+  ALL,
+  ABOVE_POVERTY_COL,
+  BELOW_POVERTY_COL,
+  WHITE_NH,
+  TWO_OR_MORE,
+} from "../utils/Constants";
 import { IDataFrame, ISeries } from "data-forge";
 
 class AcsPovertyProvider extends VariableProvider {
@@ -34,6 +40,19 @@ class AcsPovertyProvider extends VariableProvider {
     df = this.renameGeoColumns(df, breakdowns);
     //TODO: Move rename to backend.
     df = df.renameSeries({ race: "race_and_ethnicity" });
+
+    //TODO: Once this is is figured out, determine how to add these back in.
+    // Its currently unclear how white and white_nh relate.  The current theory
+    // is that white includes an implied(white_hispanic) and white_nh, but until
+    // this is confirmed, we need to remove the finer breakdown
+    // as its skewing poplulation data
+    if (breakdowns.hasOnlyRace()) {
+      df = df.where(
+        (row) =>
+          row["race_and_ethnicity"] !== WHITE_NH &&
+          row["race_and_ethnicity"] !== TWO_OR_MORE
+      );
+    }
 
     df = this.aggregateByBreakdown(df, breakdownCol);
     if (breakdowns.geography === "national") {

@@ -4,7 +4,7 @@ import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { ALL } from "../utils/Constants";
+import { ALL, WHITE_NH, TWO_OR_MORE } from "../utils/Constants";
 import { ISeries } from "data-forge";
 
 class AcsHealthInsuranceProvider extends VariableProvider {
@@ -52,6 +52,19 @@ class AcsHealthInsuranceProvider extends VariableProvider {
       "without_health_insurance",
       "total_health_insurance",
     ]);
+
+    //TODO: Once this is is figured out, determine how to add these back in.
+    // Its currently unclear how white and white_nh relate.  The current theory
+    // is that white includes an implied(white_hispanic) and white_nh, but until
+    // this is confirmed, we need to remove the finer breakdown
+    // as its skewing poplulation data
+    if (breakdowns.hasOnlyRace()) {
+      df = df.where(
+        (row) =>
+          row["race_and_ethnicity"] !== WHITE_NH &&
+          row["race_and_ethnicity"] !== TWO_OR_MORE
+      );
+    }
 
     if (breakdowns.geography === "national") {
       df = df
