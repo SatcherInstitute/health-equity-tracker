@@ -28,6 +28,7 @@ export type MetricId =
   | "covid_hosp_reporting_population_pct"
   | "health_insurance_count"
   | "health_insurance_per_100k"
+  | "health_insurance_pct_share"
   | "poverty_count"
   | "poverty_per_100k";
 
@@ -327,6 +328,14 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           fullCardTitleName: "Health insurance coverage per 100,000 people",
           shortVegaLabel: "Health insurance coverage per 100k",
           type: "per100k",
+        },
+        pct_share: {
+          metricId: "health_insurance_pct_share",
+          fullCardTitleName: "Share of Health Insurance",
+          shortVegaLabel: "% of cases",
+          type: "pct_share",
+          populationComparisonMetric:
+            POPULATION_VARIABLE_CONFIG.metrics.pct_share,
         },
       },
     },

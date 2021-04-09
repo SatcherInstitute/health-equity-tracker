@@ -12,6 +12,7 @@ class AcsHealthInsuranceProvider extends VariableProvider {
     super("acs_health_insurance_provider", [
       "health_insurance_count",
       "health_insurance_per_100k",
+      "health_insurance_pct_share",
     ]);
   }
 
@@ -109,6 +110,14 @@ class AcsHealthInsuranceProvider extends VariableProvider {
       total_health_insurance: "total",
       with_health_insurance: "health_insurance_count",
     });
+
+    df = this.calculatePctShare(
+      df,
+      "health_insurance_count",
+      "health_insurance_count_pct_share",
+      breakdowns.getSoleDemographicBreakdown().columnName,
+      ["fips"]
+    );
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 
