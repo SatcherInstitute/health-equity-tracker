@@ -1,13 +1,22 @@
+import { DataFrame } from "data-forge";
 import { Breakdowns, ALL_RACES_DISPLAY_NAME } from "../query/Breakdowns";
-import { per100k, maybeApplyRowReorder } from "../utils/datasetutils";
+import {
+  per100k,
+  maybeApplyRowReorder,
+  joinOnCols,
+  estimateTotal,
+} from "../utils/datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
+import AcsPopulationProvider from "./AcsPopulationProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
 import { ALL } from "../utils/Constants";
 
 class BrfssProvider extends VariableProvider {
-  constructor() {
+  private acsProvider: AcsPopulationProvider;
+
+  constructor(acsProvider: AcsPopulationProvider) {
     super("brfss_provider", [
       "diabetes_count",
       "diabetes_per_100k",
@@ -16,6 +25,7 @@ class BrfssProvider extends VariableProvider {
       "copd_per_100k",
       "copd_pct_share",
     ]);
+    this.acsProvider = acsProvider;
   }
 
   // TODO - only return requested metric queries, remove unrequested columns
@@ -29,7 +39,42 @@ class BrfssProvider extends VariableProvider {
     df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);
 
+    // TODO How to handle territories?
+    let acsBreakdowns = breakdowns.copy();
+    acsBreakdowns.time = false;
+
     if (breakdowns.geography === "national") {
+      // Because we add together the estimated state totals
+      // we need to get the acs state breakdown
+      acsBreakdowns.geography = "state";
+
+      const acsQueryResponse = await this.acsProvider.getData(
+        new MetricQuery(["population", "population_pct"], acsBreakdowns)
+      );
+      const acsPopulation = new DataFrame(acsQueryResponse.data);
+
+      df = joinOnCols(
+        df,
+        acsPopulation,
+        ["fips", "race_and_ethnicity"],
+        "left"
+      );
+
+      df = df.generateSeries({
+        estimated_total_diabetes: (row) =>
+          estimateTotal(
+            row.diabetes_count,
+            row.diabetes_count + row.diabetes_no,
+            row.population
+          ),
+        estimated_total_copd: (row) =>
+          estimateTotal(
+            row.copd_count,
+            row.copd_count + row.copd_no,
+            row.population
+          ),
+      });
+
       df = df
         .pivot(breakdowns.demographicBreakdowns.race_and_ethnicity.columnName, {
           fips: (series) => USA_FIPS,
@@ -38,6 +83,8 @@ class BrfssProvider extends VariableProvider {
           diabetes_no: (series) => series.sum(),
           copd_count: (series) => series.sum(),
           copd_no: (series) => series.sum(),
+          estimated_total_copd: (series) => series.sum(),
+          estimated_total_diabetes: (series) => series.sum(),
         })
         .resetIndex();
     }
@@ -60,6 +107,8 @@ class BrfssProvider extends VariableProvider {
         diabetes_no: (series) => series.sum(),
         copd_count: (series) => series.sum(),
         copd_no: (series) => series.sum(),
+        estimated_total_copd: (series) => series.sum(),
+        estimated_total_diabetes: (series) => series.sum(),
         [breakdowns.getSoleDemographicBreakdown().columnName]: (series) => ALL,
       })
       .resetIndex();
@@ -79,16 +128,28 @@ class BrfssProvider extends VariableProvider {
     // TODO this causes the "vs Population" Disparity Bar Chart to be broken for
     // the national level. We need some way of indicating why the share of cases
     // isn't there. Or, we can do this computation on the server.
-    if (breakdowns.hasOnlyRace() && breakdowns.geography === "state") {
-      ["diabetes_count", "copd_count"].forEach((col) => {
-        df = this.calculatePctShare(
-          df,
-          col,
-          col.split("_")[0] + "_pct_share",
-          breakdowns.demographicBreakdowns.race_and_ethnicity.columnName,
-          ["fips"]
-        );
-      });
+    if (breakdowns.hasOnlyRace()) {
+      if (breakdowns.geography === "state") {
+        ["diabetes_count", "copd_count"].forEach((col) => {
+          df = this.calculatePctShare(
+            df,
+            col,
+            col.split("_")[0] + "_pct_share",
+            breakdowns.demographicBreakdowns.race_and_ethnicity.columnName,
+            ["fips"]
+          );
+        });
+      } else if (breakdowns.geography === "national") {
+        ["estimated_total_diabetes", "estimated_total_copd"].forEach((col) => {
+          df = this.calculatePctShare(
+            df,
+            col,
+            col.split("_")[2] + "_pct_share",
+            breakdowns.demographicBreakdowns.race_and_ethnicity.columnName,
+            ["fips"]
+          );
+        });
+      }
     }
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);

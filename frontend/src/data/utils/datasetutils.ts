@@ -142,6 +142,17 @@ export function percent(numerator: number, denominator: number): number | null {
     : Math.round((1000 * numerator) / denominator) / 10;
 }
 
+/** Divides two numbers. */
+export function estimateTotal(
+  numerator: number,
+  denominator: number,
+  total: number
+): number {
+  return numerator == null || denominator == null || denominator === 0
+    ? 0
+    : Math.round((numerator / denominator) * total);
+}
+
 export function asDate(dateStr: string) {
   const parts = dateStr.split("-").map(Number);
   // Date expects month to be 0-indexed so need to subtract 1.
