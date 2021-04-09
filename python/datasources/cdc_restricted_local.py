@@ -55,7 +55,9 @@ RACE_NAMES_MAPPING = {
     "American Indian/Alaska Native, Non-Hispanic": std_col.Race.AIAN_NH.value,
     "Asian, Non-Hispanic": std_col.Race.ASIAN_NH.value,
     "Black, Non-Hispanic": std_col.Race.BLACK_NH.value,
-    "Multiple/Other, Non-Hispanic": std_col.Race.MULTI_NH.value,
+    # CDC Restricted Covid data combines multiple/other which we don't currently
+    # have a category for so use OTHER_NONSTANDARD_NH
+    "Multiple/Other, Non-Hispanic": std_col.Race.OTHER_NONSTANDARD_NH.value,
     "Native Hawaiian/Other Pacific Islander, Non-Hispanic": std_col.Race.NHPI_NH.value,
     "White, Non-Hispanic": std_col.Race.WHITE_NH.value,
     "Hispanic/Latino": std_col.Race.HISP.value,
