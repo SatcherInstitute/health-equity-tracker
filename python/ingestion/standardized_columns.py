@@ -116,7 +116,7 @@ class Race(Enum):
     # We set the enum value to the first arg, which is the race category id, or
     # a unique code that can be used to reference that race. Race category ids
     # should be set to the same value as the enum name.
-    def __new__(cls, value: str, race: str, includes_hispanic):
+    def __new__(cls, value, race, includes_hispanic):
         obj = object.__new__(cls)
         obj._value_ = value
         obj._race = race
@@ -129,10 +129,8 @@ class Race(Enum):
         return self.value
 
     @property
-    def race(self) -> str:
+    def race(self):
         """The basic display name for this race."""
-        # Mypy doesn't seem to handle the __new__ syntax for enums.
-        # type: ignore
         return self._race
 
     @property
@@ -163,7 +161,6 @@ class Race(Enum):
         # Instances of an enum can be constructed from their value, and since we
         # set the enum value to the category id, we can construct an instance
         # without providing other params.
-        # type: ignore
         # pylint: disable=no-value-for-parameter
         return Race(category_id)
 
