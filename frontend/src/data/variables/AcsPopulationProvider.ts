@@ -4,7 +4,7 @@ import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { TOTAL } from "../utils/Constants";
+import { ALL } from "../utils/Constants";
 import { maybeApplyRowReorder } from "../utils/datasetutils";
 
 function createNationalTotal(dataFrame: IDataFrame, breakdown: string) {
@@ -66,7 +66,7 @@ class AcsPopulationProvider extends VariableProvider {
         breakdowns.demographicBreakdowns[breakdownName].enabled &&
         df
           .getSeries(breakdownName)
-          .where((row) => row === TOTAL)
+          .where((row) => row === ALL)
           .count() === 0
       ) {
         df = df
@@ -74,7 +74,7 @@ class AcsPopulationProvider extends VariableProvider {
             df.pivot(["fips", "fips_name"], {
               population: (series) => series.sum(),
               population_pct: (series) => 100,
-              [breakdownName]: (series) => TOTAL,
+              [breakdownName]: (series) => ALL,
             })
           )
           .resetIndex();

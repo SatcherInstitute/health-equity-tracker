@@ -9,13 +9,13 @@ import {
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import {
-  createWithAndWithoutTotalEvaluator,
+  createWithAndWithoutAllEvaluator,
   FipsSpec,
   NC,
   AL,
   USA,
 } from "./TestUtils";
-import { WHITE_NH, ASIAN_NH, TOTAL, RACE } from "../utils/Constants";
+import { WHITE_NH, ASIAN_NH, ALL, RACE } from "../utils/Constants";
 
 autoInitGlobals();
 const dataFetcher = getDataFetcher() as FakeDataFetcher;
@@ -57,7 +57,7 @@ function stateRow(
   };
 }
 
-const evaluateDiabetesCountAndPer100kWithAndWithoutTotal = createWithAndWithoutTotalEvaluator(
+const evaluateDiabetesCountAndPer100kWithAndWithoutAll = createWithAndWithoutAllEvaluator(
   /*metricIds=*/ ["diabetes_count", "diabetes_per_100k"],
   dataFetcher,
   new BrfssProvider()
@@ -81,15 +81,15 @@ describe("BrfssProvider", () => {
     // Create final rows with diabetes_count & diabetes_per_100k
     const NC_ASIAN_FINAL = finalRow(NC, RACE, ASIAN_NH, 400, 40000);
     const NC_WHITE_FINAL = finalRow(NC, RACE, WHITE_NH, 600, 60000);
-    const NC_TOTAL_FINAL = finalRow(NC, RACE, TOTAL, 1000, 50000);
+    const NC_ALL_FINAL = finalRow(NC, RACE, ALL, 1000, 50000);
 
-    await evaluateDiabetesCountAndPer100kWithAndWithoutTotal(
+    await evaluateDiabetesCountAndPer100kWithAndWithoutAll(
       "brfss",
       rawData,
       Breakdowns.forFips(new Fips("37")),
       RACE,
       [NC_ASIAN_FINAL, NC_WHITE_FINAL],
-      [NC_TOTAL_FINAL, NC_ASIAN_FINAL, NC_WHITE_FINAL]
+      [NC_ALL_FINAL, NC_ASIAN_FINAL, NC_WHITE_FINAL]
     );
   });
 
@@ -104,15 +104,15 @@ describe("BrfssProvider", () => {
     // Create final rows with diabetes_count & diabetes_per_100k
     const ASIAN_FINAL = finalRow(USA, RACE, ASIAN_NH, 600, 30000);
     const WHITE_FINAL = finalRow(USA, RACE, WHITE_NH, 600, 60000);
-    const TOTAL_FINAL = finalRow(USA, RACE, TOTAL, 1200, 40000);
+    const ALL_FINAL = finalRow(USA, RACE, ALL, 1200, 40000);
 
-    await evaluateDiabetesCountAndPer100kWithAndWithoutTotal(
+    await evaluateDiabetesCountAndPer100kWithAndWithoutAll(
       "brfss",
       rawData,
       Breakdowns.national(),
       RACE,
       [ASIAN_FINAL, WHITE_FINAL],
-      [TOTAL_FINAL, ASIAN_FINAL, WHITE_FINAL]
+      [ALL_FINAL, ASIAN_FINAL, WHITE_FINAL]
     );
   });
 });

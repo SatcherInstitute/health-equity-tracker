@@ -1,4 +1,4 @@
-import { TOTAL } from "../utils/Constants";
+import { ALL } from "../utils/Constants";
 
 /**
  * Specifies a set of filters to apply to a breakdown. When `include` is true,
@@ -19,7 +19,7 @@ const STANDARD_RACES = [
   "Some other race (Non-Hispanic)",
   "Two or more races (Non-Hispanic)",
   "White (Non-Hispanic)",
-  TOTAL,
+  ALL,
 ];
 
 export function exclude(...valuesToExclude: string[]): BreakdownFilter {
@@ -34,6 +34,6 @@ export function onlyIncludeStandardRaces(): BreakdownFilter {
   return onlyInclude(...STANDARD_RACES);
 }
 
-export function excludeTotal(): BreakdownFilter {
-  return exclude(TOTAL);
+export function excludeAll(): BreakdownFilter {
+  return exclude(ALL);
 }

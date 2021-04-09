@@ -18,9 +18,9 @@ import {
   MetricId,
   POPULATION_VARIABLE_CONFIG,
 } from "../data/config/MetricConfig";
-import { TOTAL } from "../data/utils/Constants";
+import { ALL } from "../data/utils/Constants";
 import {
-  excludeTotal,
+  excludeAll,
   onlyIncludeStandardRaces,
 } from "../data/query/BreakdownFilter";
 import MissingDataAlert from "./ui/MissingDataAlert";
@@ -41,14 +41,14 @@ export function PopulationCard(props: PopulationCardProps) {
   // ones we want.
   const ageQuery = new MetricQuery(
     metricIds,
-    Breakdowns.forFips(props.fips).andAge(excludeTotal())
+    Breakdowns.forFips(props.fips).andAge(excludeAll())
   );
 
   return (
     <CardWrapper queries={[raceQuery, ageQuery]}>
       {([raceQueryResponse, ageQueryResponse]) => {
         const totalPopulation = raceQueryResponse.data.find(
-          (r) => r.race_and_ethnicity === TOTAL
+          (r) => r.race_and_ethnicity === ALL
         );
         const totalPopulationSize = totalPopulation
           ? totalPopulation["population"].toLocaleString("en")
@@ -98,7 +98,7 @@ export function PopulationCard(props: PopulationCardProps) {
                 */}
               {raceQueryResponse
                 .getValidRowsForField("race_and_ethnicity")
-                .filter((r) => r.race_and_ethnicity !== TOTAL)
+                .filter((r) => r.race_and_ethnicity !== ALL)
                 .sort((a, b) => {
                   return b.population - a.population;
                 })
@@ -128,7 +128,7 @@ export function PopulationCard(props: PopulationCardProps) {
                     </span>
                     <SimpleHorizontalBarChart
                       data={raceQueryResponse.data.filter(
-                        (r) => r.race_and_ethnicity !== TOTAL
+                        (r) => r.race_and_ethnicity !== ALL
                       )}
                       metric={POPULATION_VARIABLE_CONFIG.metrics.pct_share}
                       breakdownVar="race_and_ethnicity"

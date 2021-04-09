@@ -1,6 +1,7 @@
 // Constant strings to be used in tests and elsewhere
 
 // TODO add values for the other categories. Maybe convert to an enum.
+export const ALL = "All";
 export const TOTAL = "Total";
 export const RACE = "race_and_ethnicity";
 export const WHITE_NH = "White (Non-Hispanic)";
