@@ -13,6 +13,8 @@ from ingestion.standardized_columns import (
     RACE_CATEGORY_ID_COL,
     POPULATION_COL,
     Race,
+    add_race_columns_from_category_id,
+    RACE_INCLUDES_HISPANIC_COL
 )
 from ingestion.census import (
     fetch_acs_metadata,
@@ -90,6 +92,8 @@ class AcsHouseholdIncomeIngestor:
         for table_name, df in self.frames.items():
             # All breakdown columns are strings
             column_types = {c: "STRING" for c in df.columns}
+            if RACE_INCLUDES_HISPANIC_COL in df.columns:
+                column_types[RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
             column_types[POPULATION_COL] = "INT64"
 
@@ -267,6 +271,9 @@ class AcsHouseholdIncomeIngestor:
                 POPULATION_COL,
             ],
         )
+
+        add_race_columns_from_category_id(self.income_by_race_age_state_frame)
+        add_race_columns_from_category_id(self.income_by_race_age_county_frame)
 
         # Aggregate Frames by Filename
         self.frames = {

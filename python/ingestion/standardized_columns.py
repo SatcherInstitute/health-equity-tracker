@@ -1,5 +1,6 @@
 from enum import Enum, unique
 from collections import namedtuple
+import pandas
 
 
 # The name of the column for a unique string id for the race category. Should be
@@ -49,11 +50,11 @@ ABOVE_POVERTY_COL = "above_poverty_line"
 BELOW_POVERTY_COL = "below_poverty_line"
 
 
-RaceTuple = namedtuple('RaceTuple', [
-    RACE_CATEGORY_ID_COL,
-    RACE_COL,
-    RACE_INCLUDES_HISPANIC_COL,
-    RACE_OR_HISPANIC_COL
+RaceTuple = namedtuple("RaceTuple", [
+    "race_category_id",
+    "race",
+    "race_includes_hispanic",
+    "race_and_ethnicity"
 ])
 
 
@@ -130,6 +131,8 @@ class Race(Enum):
     @property
     def race(self) -> str:
         """The basic display name for this race."""
+        # Mypy doesn't seem to handle the __new__ syntax for enums.
+        # type: ignore
         return self._race
 
     @property
@@ -160,6 +163,7 @@ class Race(Enum):
         # Instances of an enum can be constructed from their value, and since we
         # set the enum value to the category id, we can construct an instance
         # without providing other params.
+        # type: ignore
         # pylint: disable=no-value-for-parameter
         return Race(category_id)
 
@@ -167,3 +171,14 @@ class Race(Enum):
         """The race attributes, in the same order as `get_col_names()`."""
         return RaceTuple(self.race_category_id, self.race,
                          self.includes_hispanic, self.race_and_ethnicity)
+
+
+def add_race_columns_from_category_id(df):
+    """Adds all race-related columns to the dataframe using the race category id
+       to determine these values."""
+    df["race_tuple"] = df.apply(
+        lambda r: Race.from_category_id(r[RACE_CATEGORY_ID_COL]).as_tuple(),
+        axis=1)
+    df[Race.get_col_names()] = pandas.DataFrame(
+        df["race_tuple"].tolist(), index=df.index)
+    df.drop("race_tuple", axis=1, inplace=True)

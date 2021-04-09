@@ -14,6 +14,8 @@ from ingestion.standardized_columns import (
     BELOW_POVERTY_COL,
     RACE_CATEGORY_ID_COL,
     Race,
+    add_race_columns_from_category_id,
+    RACE_INCLUDES_HISPANIC_COL
 )
 from ingestion.census import (
     fetch_acs_metadata,
@@ -93,6 +95,8 @@ class AcsPovertyIngestor:
         for table_name, df in self.frames.items():
             # All breakdown columns are strings
             column_types = {c: "STRING" for c in df.columns}
+            if RACE_INCLUDES_HISPANIC_COL in df.columns:
+                column_types[RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
             column_types[ABOVE_POVERTY_COL] = "INT64"
             column_types[BELOW_POVERTY_COL] = "INT64"
@@ -292,6 +296,11 @@ class AcsPovertyIngestor:
                 BELOW_POVERTY_COL,
             ],
         )
+
+        add_race_columns_from_category_id(
+            self.poverty_by_race_age_sex_state_frame)
+        add_race_columns_from_category_id(
+            self.poverty_by_race_age_sex_county_frame)
 
         # Aggregate Frames by Filename
         self.frames = {

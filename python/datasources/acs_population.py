@@ -4,7 +4,9 @@ from ingestion.standardized_columns import (HISPANIC_COL, RACE_COL,
                                             STATE_NAME_COL, COUNTY_NAME_COL,
                                             RACE_OR_HISPANIC_COL,
                                             POPULATION_COL, AGE_COL, SEX_COL,
-                                            Race, RACE_CATEGORY_ID_COL)
+                                            Race, RACE_CATEGORY_ID_COL,
+                                            RACE_INCLUDES_HISPANIC_COL,
+                                            add_race_columns_from_category_id)
 from ingestion import url_file_to_gcs, gcs_to_bq_util
 from datasources.data_source import DataSource
 from ingestion.census import (get_census_params, fetch_acs_metadata,
@@ -98,17 +100,6 @@ def rename_age_bracket(bracket):
         return parts[0] + "+"
     else:
         return bracket
-
-
-def add_race_columns_from_category_id(df):
-    """Adds all race-related columns to the dataframe using the race category id
-       to determine these values."""
-    df["race_tuple"] = df.apply(
-        lambda r: Race.from_category_id(r[RACE_CATEGORY_ID_COL]).as_tuple(),
-        axis=1)
-    df[Race.get_col_names()] = pandas.DataFrame(
-        df["race_tuple"].tolist(), index=df.index)
-    df.drop("race_tuple", axis=1, inplace=True)
 
 
 def update_col_types(frame):
@@ -222,6 +213,7 @@ class ACSPopulationIngester():
             # All breakdown columns are strings
             column_types = {c: 'STRING' for c in df.columns}
             column_types[POPULATION_COL] = 'INT64'
+            column_types[RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
             gcs_to_bq_util.add_dataframe_to_bq(
                 df, dataset, table_name, column_types=column_types)
 
@@ -271,8 +263,7 @@ class ACSPopulationIngester():
         }
         for key, df in frames.items():
             df.to_csv("table_" + key + ".csv", index=False)
-            # XXX comment back in
-            # df.to_json("table_" + key + ".json", orient="records")
+            df.to_json("table_" + key + ".json", orient="records")
 
     def get_table_geo_suffix(self):
         return "_county" if self.county_level else "_state"
