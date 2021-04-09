@@ -2,7 +2,6 @@
 
 // TODO add values for the other categories. Maybe convert to an enum.
 export const ALL = "All";
-export const ALL_OF_KNOWN = "All of known";
 export const TOTAL = "Total";
 export const RACE = "race_and_ethnicity";
 export const WHITE_NH = "White (Non-Hispanic)";
