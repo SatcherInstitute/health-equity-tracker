@@ -31,9 +31,6 @@ WITH
       SELECT
         state_fips, state_name,
         'TOTAL' as race_category_id,
-        'Total' as race,
-        'Total' as race_and_ethnicity,
-        NULL as race_includes_hispanic,
         SUM(cases) as cases,
         SUM(hosp_y) as hosp_y,
         SUM(hosp_n) as hosp_n,
@@ -41,6 +38,9 @@ WITH
         SUM(death_y) as death_y,
         SUM(death_n) as death_n,
         SUM(death_unknown) as death_unknown,
+        'Total' as race,
+        CAST(NULL as BOOL) as race_includes_hispanic,
+        'Total' as race_and_ethnicity
       FROM joined_with_acs
       GROUP BY
         state_fips,
@@ -203,9 +203,6 @@ WITH
       SELECT
         county_fips, county_name, state_fips, state_name,
         'TOTAL' as race_category_id,
-        'Total' as race,
-        'Total' as race_and_ethnicity,
-        NULL as race_includes_hispanic,
         SUM(cases) as cases,
         SUM(hosp_y) as hosp_y,
         SUM(hosp_n) as hosp_n,
@@ -213,6 +210,9 @@ WITH
         SUM(death_y) as death_y,
         SUM(death_n) as death_n,
         SUM(death_unknown) as death_unknown,
+        'Total' as race,
+        CAST(NULL as BOOL) as race_includes_hispanic,
+        'Total' as race_and_ethnicity
       FROM joined_with_acs
       GROUP BY
         county_fips,
