@@ -42,19 +42,6 @@ class AcsPovertyProvider extends VariableProvider {
     //TODO: Move rename to backend.
     df = df.renameSeries({ race: "race_and_ethnicity" });
 
-    //TODO: Once this is is figured out, determine how to add these back in.
-    // Its currently unclear how white and white_nh relate.  The current theory
-    // is that white includes an implied(white_hispanic) and white_nh, but until
-    // this is confirmed, we need to remove the finer breakdown
-    // as its skewing poplulation data
-    if (breakdowns.hasOnlyRace()) {
-      df = df.where(
-        (row) =>
-          row["race_and_ethnicity"] !== WHITE_NH &&
-          row["race_and_ethnicity"] !== HISPANIC
-      );
-    }
-
     df = this.aggregateByBreakdown(df, breakdownCol);
     if (breakdowns.geography === "national") {
       df = df
