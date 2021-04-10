@@ -10,6 +10,7 @@ import {
   BELOW_POVERTY_COL,
   WHITE_NH,
   TWO_OR_MORE,
+  HISPANIC,
 } from "../utils/Constants";
 import { IDataFrame, ISeries } from "data-forge";
 
@@ -50,7 +51,7 @@ class AcsPovertyProvider extends VariableProvider {
       df = df.where(
         (row) =>
           row["race_and_ethnicity"] !== WHITE_NH &&
-          row["race_and_ethnicity"] !== TWO_OR_MORE
+          row["race_and_ethnicity"] !== HISPANIC
       );
     }
 
@@ -69,6 +70,11 @@ class AcsPovertyProvider extends VariableProvider {
     // Calculate totals where dataset doesn't provide it
     // TODO- this should be removed when Totals come from the Data Server
     const calculatedValueForAll = df
+      .where(
+        (row) =>
+          row["race_and_ethnicity"] !== WHITE_NH &&
+          row["race_and_ethnicity"] !== TWO_OR_MORE
+      )
       .pivot(["fips", "fips_name"], {
         above_poverty_line: (series: ISeries) => series.sum(),
         below_poverty_line: (series: ISeries) => series.sum(),
