@@ -15,7 +15,11 @@ import { IDataFrame, ISeries } from "data-forge";
 
 class AcsPovertyProvider extends VariableProvider {
   constructor() {
-    super("acs_poverty_provider", ["poverty_count", "poverty_per_100k"]);
+    super("acs_poverty_provider", [
+      "poverty_count",
+      "poverty_per_100k",
+      "poverty_pct_share",
+    ]);
   }
   getDatasetId(breakdowns: Breakdowns): string {
     return (
@@ -89,6 +93,15 @@ class AcsPovertyProvider extends VariableProvider {
     df = df.renameSeries({
       below_poverty_line: "poverty_count",
     });
+
+    df = this.calculatePctShare(
+      df,
+      "poverty_count",
+      "poverty_pct_share",
+      breakdowns.getSoleDemographicBreakdown().columnName,
+      ["fips"]
+    );
+
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 
