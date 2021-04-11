@@ -114,7 +114,7 @@ class AcsHealthInsuranceProvider extends VariableProvider {
     df = this.calculatePctShare(
       df,
       "health_insurance_count",
-      "health_insurance_count_pct_share",
+      "health_insurance_pct_share",
       breakdowns.getSoleDemographicBreakdown().columnName,
       ["fips"]
     );
