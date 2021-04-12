@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./LandingPage.module.scss";
+import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
 import Typography from "@material-ui/core/Typography";
-import { EXPLORE_DATA_PAGE_LINK } from "../../utils/urlutils";
 import { Accordion, AccordionSummary } from "@material-ui/core";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -11,6 +11,7 @@ import {
   LinkWithStickyParams,
   ABOUT_US_TAB_PARAM,
   ABOUT_US_PAGE_LINK,
+  EXPLORE_DATA_PAGE_LINK,
 } from "../../utils/urlutils";
 import { ABOUT_US_FAQ_TAB_INDEX } from "../AboutUs/AboutUsPage";
 
@@ -49,9 +50,18 @@ function LandingPage() {
               </p>
               <br />
             </Typography>
-            <a href={EXPLORE_DATA_PAGE_LINK} className={styles.PrimaryButton}>
-              Explore the Health Equity Tracker
-            </a>
+            <LinkWithStickyParams
+              to={EXPLORE_DATA_PAGE_LINK}
+              class={styles.NoUnderline}
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                className={styles.PrimaryButton}
+              >
+                Explore the Health Equity Tracker
+              </Button>
+            </LinkWithStickyParams>
           </Grid>
           <Grid item xs={12} sm={12} md={6} className={styles.HeaderImgItem}>
             <img
@@ -171,9 +181,18 @@ function LandingPage() {
 
           <Grid container direction="row" justify="center">
             <Grid item xs={12} sm={12} md={2}>
-              <a href="/whatishealthequity" className={styles.PrimaryButton}>
-                Learn more
-              </a>
+              <LinkWithStickyParams
+                to="/whatishealthequity"
+                class={styles.NoUnderline}
+              >
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={styles.PrimaryButton}
+                >
+                  Learn more
+                </Button>
+              </LinkWithStickyParams>
             </Grid>
           </Grid>
         </Grid>
@@ -327,13 +346,21 @@ function LandingPage() {
                 </div>
               </Grid>
             </Grid>
-
             <Grid item>
               <br />
               <br />
-              <a href={EXPLORE_DATA_PAGE_LINK} className={styles.PrimaryButton}>
-                Explore the Tracker
-              </a>
+              <LinkWithStickyParams
+                to={EXPLORE_DATA_PAGE_LINK}
+                class={styles.NoUnderline}
+              >
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={styles.PrimaryButton}
+                >
+                  Explore the Tracker
+                </Button>
+              </LinkWithStickyParams>
             </Grid>
           </Grid>
         </Grid>
