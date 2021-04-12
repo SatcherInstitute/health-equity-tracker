@@ -13,7 +13,10 @@ function ContactUsTab() {
                 justify="center"
                 alignItems="center">
             <Grid item xs={12} sm={12} md={4} className={styles.GridVerticallyAlignedItem}>
-              <Typography className={styles.ContactUsHeaderText} variant="h1">
+              <Typography id="main"
+                          tabIndex={-1}
+                          className={styles.ContactUsHeaderText}
+                          variant="h1">
                 Let's move
                 <br/>
                 equity <b style={{ fontWeight: 400 }}>forward</b>

@@ -145,6 +145,7 @@ function App() {
       <div className={styles.App}>
         <div className={styles.Content}>
           <Router>
+            <a className="skip-main" href="#main">Skip to main content</a>
             <ScrollToTop />
             <header aria-label="Header content including site navigation">
               <AppBar position="static" elevation={0}>

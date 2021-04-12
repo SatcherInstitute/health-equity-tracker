@@ -228,7 +228,10 @@ function OurTeamTab() {
     <Grid container className={styles.Grid}>
       <Grid container className={styles.GridRowHeaderText}>
         <Grid item xs={12} sm={12} md={7}>
-          <Typography className={styles.OurTeamHeaderText} variant="h1">
+          <Typography id="main"
+                      tabIndex={-1}
+                      className={styles.OurTeamHeaderText}
+                      variant="h1">
             We're working towards a better tomorrow.
           </Typography>
           <Typography className={styles.HeaderSubtext} variant="subtitle1">

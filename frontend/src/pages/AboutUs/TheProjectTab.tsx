@@ -16,7 +16,10 @@ function TheProjectTab() {
           alignItems="center"
         >
           <Grid item xs={12} sm={12} md={5} className={styles.GridVerticallyAlignedItem}>
-            <Typography className={styles.HeaderText} variant="h1">
+            <Typography  id="main"
+                         tabIndex={-1}
+                         className={styles.HeaderText}
+                         variant="h1">
               We're focused on equitable data.
             </Typography>
             <br />

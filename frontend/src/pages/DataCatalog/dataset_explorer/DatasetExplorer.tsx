@@ -75,7 +75,10 @@ function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
       <Grid container>
         <div className={styles.DatasetHeader}>
           <Grid item>
-            <Typography className={styles.DataDownloadsHeaderText} variant="h1">
+            <Typography id="main"
+                        tabIndex={-1}
+                        className={styles.DataDownloadsHeaderText}
+                        variant="h1">
               View and download Health Equity Tracker data sources
             </Typography>
           </Grid>

@@ -17,6 +17,7 @@ import {
 } from "../../utils/urlutils";
 import ReportProvider from "../../reports/ReportProvider";
 import OptionsSelector from "./OptionsSelector";
+import Typography from '@material-ui/core/Typography';
 
 function ExploreDataPage() {
   const params = useSearchParams();
@@ -73,7 +74,7 @@ function ExploreDataPage() {
   }, []);
 
   return (
-    <div id="ExploreData" className={styles.ExploreData}>
+    <div id="main" tabIndex={-1} className={styles.ExploreData}>
       <div className={styles.CarouselContainer}>
         <Carousel
           aria-label="Mad lib selection carousel"

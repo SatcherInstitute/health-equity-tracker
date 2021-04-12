@@ -25,7 +25,7 @@ function LandingPage() {
           alignItems="center"
         >
           <Grid item className={styles.HeaderTextItem} xs={12} sm={12} md={6}>
-            <Typography className={styles.HeaderText}
+            <Typography id="main" tabIndex={-1} className={styles.HeaderText}
                         variant="h1">
               Equity Forward
             </Typography>

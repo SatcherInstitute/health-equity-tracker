@@ -10,7 +10,10 @@ function FaqTab(props: {}) {
     <Grid container className={styles.Grid}>
       <Grid container className={styles.FaqSection}>
         <Grid item xs={12} sm={12} md={3}>
-          <Typography className={styles.FaqHeaderText} variant="h1">
+          <Typography id="main"
+                      tabIndex={-1}
+                      className={styles.FaqHeaderText}
+                      variant="h1">
             Data
           </Typography>
         </Grid>

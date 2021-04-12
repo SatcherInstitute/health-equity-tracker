@@ -31,7 +31,10 @@ function WhatIsHealthEquityPage() {
             />
           </Grid>
           <Grid item xs={12} sm={12} md={8} className={styles.HeaderTextItem}>
-            <Typography className={styles.HeaderText} variant="h1">
+            <Typography id="main"
+                        tabIndex={-1}
+                        className={styles.HeaderText}
+                        variant="h1">
               What is Health Equity?
             </Typography>
             <br />
