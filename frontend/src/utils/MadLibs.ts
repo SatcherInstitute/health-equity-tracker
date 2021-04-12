@@ -66,7 +66,7 @@ export type DropdownVarId =
 // @ts-ignore
 const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   covid: "COVID-19",
-  diabetes: "diabetes",
+  diabetes: "Diabetes",
   //  obesity: "[coming soon] obesity",
   //  asthma: "[coming soon] asthma",
   copd: "COPD",

@@ -68,6 +68,11 @@ class CdcCovidProvider extends VariableProvider {
     let consumedDatasetIds = [datasetId];
     let df = covidDataset.toDataFrame();
 
+    const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
+      .columnName;
+
+    df = this.renameTotalToAll(df, breakdownColumnName);
+
     // If requested, filter geography by state or county level. We apply the
     // geo filter right away to reduce subsequent calculation times.
     df = this.filterByGeo(df, breakdowns);
@@ -82,8 +87,6 @@ class CdcCovidProvider extends VariableProvider {
       hosp_y: "covid_hosp",
     });
 
-    const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
-      .columnName;
     df =
       breakdowns.geography === "national"
         ? df

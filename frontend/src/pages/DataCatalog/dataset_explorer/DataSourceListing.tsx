@@ -10,7 +10,6 @@ import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
-import AnimateHeight from "react-animate-height";
 import downloadDataset from "./downloadDataset";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
@@ -92,7 +91,6 @@ export interface DataSourceListingProps {
 }
 
 export function DataSourceListing(props: DataSourceListingProps) {
-  const [expanded, setExpanded] = useState(false);
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
   return (
@@ -136,36 +134,27 @@ export function DataSourceListing(props: DataSourceListingProps) {
           {/* TODO - do we want to add all the dataset latest update times? */}
         </tbody>
       </table>
-      <AnimateHeight duration={500} height={expanded ? "auto" : 20}>
-        <div className={styles.Description}>
-          {props.source_metadata.description}
-        </div>
-      </AnimateHeight>
+      <div className={styles.Description}>
+        {props.source_metadata.description}
+      </div>
       <div className={styles.Footer}>
         <div className={styles.CardFooterRight}>
           <Button color="primary" onClick={() => setDialogIsOpen(true)}>
             Download
           </Button>
         </div>
-        <div className={styles.CardFooterLeft}>
-          <Button
-            aria-label="expand description"
-            onClick={() => setExpanded(!expanded)}
-            data-testid={"expand-" + props.source_metadata.id}
-            color="primary"
-          >
-            {expanded ? "Less" : "More"}
-          </Button>
-        </div>
         <Dialog onClose={() => setDialogIsOpen(false)} open={dialogIsOpen}>
-          <DialogTitle>
-            Available Breakdowns for this Data Source
+          <DialogTitle className={styles.DialogTitle}>
             <IconButton
               aria-label="close"
+              className={styles.CloseDialogButton}
               onClick={() => setDialogIsOpen(false)}
             >
               <CloseIcon />
             </IconButton>
+            <div className={styles.DialogTitleText}>
+              Available Breakdowns for this Data Source
+            </div>
           </DialogTitle>
           <List>
             {props.source_metadata.dataset_ids.map((datasetId) => (

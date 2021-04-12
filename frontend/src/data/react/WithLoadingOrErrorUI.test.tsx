@@ -12,7 +12,7 @@ import {
   resetCacheDebug,
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
-import { excludeTotal } from "../query/BreakdownFilter";
+import { excludeAll } from "../query/BreakdownFilter";
 
 const STATE_NAMES_ID = "state_names";
 const ANOTHER_FAKE_DATASET_ID = "fake_dataset_2";
@@ -61,7 +61,7 @@ describe("WithLoadingOrErrorUI", () => {
   test("WithMetrics: Loads metrics", async () => {
     const query = new MetricQuery(
       "copd_count",
-      Breakdowns.national().andRace(excludeTotal())
+      Breakdowns.national().andRace(excludeAll())
     );
 
     expect(dataFetcher.getNumGetMetdataCalls()).toBe(0);
