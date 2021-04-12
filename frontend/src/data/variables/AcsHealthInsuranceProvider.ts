@@ -4,7 +4,7 @@ import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { ALL } from "../utils/Constants";
+import { ALL, WHITE_NH, HISPANIC } from "../utils/Constants";
 import { ISeries } from "data-forge";
 
 class AcsHealthInsuranceProvider extends VariableProvider {
@@ -90,7 +90,14 @@ class AcsHealthInsuranceProvider extends VariableProvider {
 
     // Calculate totals where dataset doesn't provide it
     // TODO- this should be removed when Totals come from the Data Server
-    const total = df.pivot(["fips", "fips_name"], totalPivot).resetIndex();
+    const total = df
+      .where(
+        (row) => //We remove these races because they are subsets
+          row["race_and_ethnicity"] !== WHITE_NH &&
+          row["race_and_ethnicity"] !== HISPANIC
+      )
+      .pivot(["fips", "fips_name"], totalPivot)
+      .resetIndex();
     df = df.concat(total).resetIndex();
 
     df = df.generateSeries({
