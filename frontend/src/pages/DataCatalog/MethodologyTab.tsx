@@ -7,7 +7,6 @@ import {
   ABOUT_US_PAGE_LINK,
 } from "../../utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
-import Typography from '@material-ui/core/Typography';
 
 function MethodologyTab() {
   return (
