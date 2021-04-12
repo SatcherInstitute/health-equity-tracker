@@ -83,12 +83,13 @@ describe("WithLoadingOrErrorUI", () => {
         },
         { state_name: "Alabama", race_and_ethnicity: "Asian", copd_count: 1 },
       ]);
+      dataFetcher.setFakeDatasetLoaded("acs_population-by_race_state_std", []);
     });
 
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
       "Loaded 2 rows. AmIn: 20. Asian: 1."
     );
-    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
+    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(2);
   });
 
   // TODO - one succesful dataset, one bad dataset
@@ -104,12 +105,13 @@ describe("WithLoadingOrErrorUI", () => {
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
       dataFetcher.setFakeDatasetLoaded("brfss", []);
+      dataFetcher.setFakeDatasetLoaded("acs_population-by_race_state_std", []);
     });
 
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
       "Error: No rows returned"
     );
-    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
+    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(2);
   });
 
   test("WithMetrics: Unsupported breakdown", async () => {

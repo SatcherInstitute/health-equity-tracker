@@ -43,6 +43,8 @@ class BrfssProvider extends VariableProvider {
     let acsBreakdowns = breakdowns.copy();
     acsBreakdowns.time = false;
 
+    let consumedDatasetIds = ["brfss"];
+
     if (breakdowns.geography === "national") {
       // Because we add together the estimated state totals
       // we need to get the acs state breakdown
@@ -51,6 +53,10 @@ class BrfssProvider extends VariableProvider {
       const acsQueryResponse = await this.acsProvider.getData(
         new MetricQuery(["population", "population_pct"], acsBreakdowns)
       );
+      consumedDatasetIds = consumedDatasetIds.concat(
+        acsQueryResponse.consumedDatasetIds
+      );
+
       const acsPopulation = new DataFrame(acsQueryResponse.data);
 
       df = joinOnCols(
@@ -121,13 +127,6 @@ class BrfssProvider extends VariableProvider {
         per100k(row.copd_count, row.copd_count + row.copd_no),
     });
 
-    // We can't do percent share for national because different survey rates
-    // across states may skew the results. To do that, we need to combine BRFSS
-    // survey results with state populations to estimate total counts for each
-    // state, and then use that estimate to determine the percent share.
-    // TODO this causes the "vs Population" Disparity Bar Chart to be broken for
-    // the national level. We need some way of indicating why the share of cases
-    // isn't there. Or, we can do this computation on the server.
     if (breakdowns.hasOnlyRace()) {
       if (breakdowns.geography === "state") {
         ["diabetes_count", "copd_count"].forEach((col) => {
@@ -152,11 +151,20 @@ class BrfssProvider extends VariableProvider {
       }
     }
 
+    df = df
+      .dropSeries([
+        "population",
+        "population_pct",
+        "estimated_total_copd",
+        "estimated_total_diabetes",
+      ])
+      .resetIndex();
+
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
     return new MetricQueryResponse(
       maybeApplyRowReorder(df.toArray(), breakdowns),
-      ["brfss"]
+      consumedDatasetIds
     );
   }
 
