@@ -9,7 +9,6 @@ import {
   ABOVE_POVERTY_COL,
   BELOW_POVERTY_COL,
   WHITE_NH,
-  TWO_OR_MORE,
   HISPANIC,
 } from "../utils/Constants";
 import { IDataFrame, ISeries } from "data-forge";
