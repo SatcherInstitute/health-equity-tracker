@@ -17,7 +17,6 @@ import {
 } from "../../utils/urlutils";
 import ReportProvider from "../../reports/ReportProvider";
 import OptionsSelector from "./OptionsSelector";
-import Typography from '@material-ui/core/Typography';
 
 function ExploreDataPage() {
   const params = useSearchParams();
