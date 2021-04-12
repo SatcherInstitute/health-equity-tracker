@@ -70,7 +70,7 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   //  obesity: "[coming soon] obesity",
   //  asthma: "[coming soon] asthma",
   copd: "COPD",
-  health_insurance: "uninsured people",
+  health_insurance: "Uninsured People",
   poverty: "poverty",
 };
 
