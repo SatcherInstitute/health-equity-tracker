@@ -58,9 +58,9 @@ class AcsPovertyProvider extends VariableProvider {
     // TODO- this should be removed when Totals come from the Data Server
     const calculatedValueForAll = df
       .where(
-        (row) =>
+        (row) => //We remove these races because they are subsets
           row["race_and_ethnicity"] !== WHITE_NH &&
-          row["race_and_ethnicity"] !== TWO_OR_MORE
+          row["race_and_ethnicity"] !== HISPANIC
       )
       .pivot(["fips", "fips_name"], {
         above_poverty_line: (series: ISeries) => series.sum(),

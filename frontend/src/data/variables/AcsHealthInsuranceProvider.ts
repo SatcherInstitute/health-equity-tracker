@@ -92,7 +92,7 @@ class AcsHealthInsuranceProvider extends VariableProvider {
     // TODO- this should be removed when Totals come from the Data Server
     const total = df
       .where(
-        (row) =>
+        (row) => //We remove these races because they are subsets
           row["race_and_ethnicity"] !== WHITE_NH &&
           row["race_and_ethnicity"] !== HISPANIC
       )
