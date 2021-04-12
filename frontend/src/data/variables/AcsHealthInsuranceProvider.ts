@@ -4,7 +4,7 @@ import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { TOTAL } from "../utils/Constants";
+import { ALL } from "../utils/Constants";
 import { ISeries } from "data-forge";
 
 class AcsHealthInsuranceProvider extends VariableProvider {
@@ -86,7 +86,7 @@ class AcsHealthInsuranceProvider extends VariableProvider {
 
     totalPivot[breakdowns.getSoleDemographicBreakdown().columnName] = (
       series: ISeries
-    ) => TOTAL;
+    ) => ALL;
 
     // Calculate totals where dataset doesn't provide it
     // TODO- this should be removed when Totals come from the Data Server

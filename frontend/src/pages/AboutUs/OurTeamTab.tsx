@@ -254,12 +254,15 @@ function OurTeamTab() {
           </Typography>
         </Grid>
         <Grid item>
-          <Grid container className={styles.GridSubRow}>
+          <Grid container justify="space-around" className={styles.GridSubRow}>
             {LEADERSHIP_TEAM.map((leader) => {
               return (
-                <Grid item xs={12} sm={12} md={3} className={styles.TextProfile}>
-                  <img src={leader.imageUrl} alt={leader.name}
-                  className={styles.ProfileImg}/>
+                <Grid item className={styles.TextProfile}>
+                  <img
+                    src={leader.imageUrl}
+                    alt={leader.name}
+                    className={styles.ProfileImg}
+                  />
                   <br />
                   <span style={{ fontSize: "16px", fontWeight: 500 }}>
                     {leader.name}
@@ -294,7 +297,7 @@ function OurTeamTab() {
           <Grid container className={styles.GridSubRow}>
             {GOOGLE_FELLOWS.map((fellow) => {
               return (
-                <Grid item xs={12} sm={12} md={3} className={styles.TextProfile}>
+                <Grid item className={styles.TextProfile}>
                   <span style={{ fontSize: "16px", fontWeight: 500 }}>
                     {fellow.name}
                   </span>
@@ -328,7 +331,7 @@ function OurTeamTab() {
         <Grid item xs={12}>
           <Grid container className={styles.GridSubRow}>
             {HE_TASKFORCE.map((name) => (
-              <Grid item xs={12} sm={12} md={3} className={styles.TextProfile}>
+              <Grid item className={styles.TextProfile}>
                 <span style={{ fontSize: "16px", fontWeight: 500 }}>
                   {name}
                 </span>
@@ -355,14 +358,13 @@ function OurTeamTab() {
         </Grid>
 
         <Grid item xs={12}>
-          <Grid container className={styles.GridSubRow}>
-            {PARTNERS.map((partner) => (
-              <Grid item xs={12} sm={12} md={3} className={styles.TextProfile}>
-                <img src={partner.imageUrl} alt={partner.alt}
-                className={styles.PartnerImg}/>
-              </Grid>
-            ))}
-          </Grid>
+          {PARTNERS.map((partner) => (
+            <img
+              src={partner.imageUrl}
+              alt={partner.alt}
+              className={styles.PartnerImg}
+            />
+          ))}
         </Grid>
       </Grid>
     </Grid>

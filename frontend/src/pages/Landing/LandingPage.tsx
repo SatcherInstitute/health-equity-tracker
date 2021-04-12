@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./LandingPage.module.scss";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import Hidden from "@material-ui/core/Hidden";
 import Typography from "@material-ui/core/Typography";
 import { Accordion, AccordionSummary } from "@material-ui/core";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
@@ -26,10 +27,17 @@ function LandingPage() {
           alignItems="center"
         >
           <Grid item className={styles.HeaderTextItem} xs={12} sm={12} md={6}>
-            <Typography className={styles.HeaderText}>
-              Equity Forward
-            </Typography>
-            <br />
+            <Hidden xsDown>
+              <Typography className={styles.HeaderText}>
+                Equity Forward
+              </Typography>
+              <br />
+            </Hidden>
+            <Hidden smUp>
+              <Typography className={styles.HeaderTextMobile}>
+                Equity Forward
+              </Typography>
+            </Hidden>
             <Typography className={styles.HeaderSubtext}>
               <p>
                 We know that our communities are experiencing life or death
@@ -196,21 +204,23 @@ function LandingPage() {
           justify="center"
           alignItems="center"
         >
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={5}
-            className={styles.DecorativeHImgItem}
-          >
-            <div className={styles.DecorativeHImgContainer}>
-              <img
-                src="img/Asset 10@3x 1.png"
-                className={styles.DecorativeHImg}
-                alt="A decorative letter H centered on an orange background"
-              />
-            </div>
-          </Grid>
+          <Hidden xsDown>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={5}
+              className={styles.DecorativeHImgItem}
+            >
+              <div className={styles.DecorativeHImgContainer}>
+                <img
+                  src="img/Asset 10@3x 1.png"
+                  className={styles.DecorativeHImg}
+                  alt="A decorative letter H centered on an orange background"
+                />
+              </div>
+            </Grid>
+          </Hidden>
           <Grid
             item
             xs={12}

@@ -4,7 +4,7 @@ import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { TOTAL } from "../utils/Constants";
+import { ALL } from "../utils/Constants";
 
 class BrfssProvider extends VariableProvider {
   constructor() {
@@ -60,7 +60,7 @@ class BrfssProvider extends VariableProvider {
         diabetes_no: (series) => series.sum(),
         copd_count: (series) => series.sum(),
         copd_no: (series) => series.sum(),
-        race_and_ethnicity: (series) => TOTAL,
+        [breakdowns.getSoleDemographicBreakdown().columnName]: (series) => ALL,
       })
       .resetIndex();
     df = df.concat(total).resetIndex();

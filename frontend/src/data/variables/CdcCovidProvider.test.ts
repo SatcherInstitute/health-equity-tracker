@@ -13,14 +13,14 @@ import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import { FipsSpec, NC, AL, DURHAM, CHATAM, USA } from "./TestUtils";
 import {
   WHITE_NH,
-  TOTAL,
+  ALL,
   FORTY_TO_FORTY_NINE,
   FEMALE,
   MALE,
   UNKNOWN,
 } from "../utils/Constants";
 import { MetricId } from "../config/MetricConfig";
-import { excludeTotal } from "../query/BreakdownFilter";
+import { excludeAll } from "../query/BreakdownFilter";
 
 function covidAndAcsRows(
   fips: FipsSpec,
@@ -87,15 +87,15 @@ const METRIC_IDS: MetricId[] = [
   "covid_cases_reporting_population_pct",
 ];
 
-export async function evaluateWithAndWithoutTotal(
+export async function evaluateWithAndWithoutAll(
   covidDatasetId: string,
   rawCovidData: any[],
   acsDatasetId: string,
   rawAcsData: any[],
   baseBreakdown: Breakdowns,
   breakdownVar: BreakdownVar,
-  nonTotalRows: any[],
-  totalRows: any[]
+  rowsExcludingAll: any[],
+  rowsIncludingAll: any[]
 ) {
   const acsProvider = new AcsPopulationProvider();
   const cdcCovidProvider = new CdcCovidProvider(acsProvider);
@@ -103,23 +103,23 @@ export async function evaluateWithAndWithoutTotal(
   dataFetcher.setFakeDatasetLoaded(covidDatasetId, rawCovidData);
   dataFetcher.setFakeDatasetLoaded(acsDatasetId, rawAcsData);
 
-  // Evaluate the response with requesting total field
-  const responseWithTotal = await cdcCovidProvider.getData(
+  // Evaluate the response with requesting "All" field
+  const responseIncludingAll = await cdcCovidProvider.getData(
     new MetricQuery(METRIC_IDS, baseBreakdown.addBreakdown(breakdownVar))
   );
-  expect(responseWithTotal).toEqual(
-    new MetricQueryResponse(totalRows, [covidDatasetId, acsDatasetId])
+  expect(responseIncludingAll).toEqual(
+    new MetricQueryResponse(rowsIncludingAll, [covidDatasetId, acsDatasetId])
   );
 
-  // Evaluate the response without requesting total field
-  const responseWithoutTotal = await cdcCovidProvider.getData(
+  // Evaluate the response without requesting "All" field
+  const responseExcludingAll = await cdcCovidProvider.getData(
     new MetricQuery(
       METRIC_IDS,
-      baseBreakdown.addBreakdown(breakdownVar, excludeTotal())
+      baseBreakdown.addBreakdown(breakdownVar, excludeAll())
     )
   );
-  expect(responseWithoutTotal).toEqual(
-    new MetricQueryResponse(nonTotalRows, [covidDatasetId, acsDatasetId])
+  expect(responseExcludingAll).toEqual(
+    new MetricQueryResponse(rowsExcludingAll, [covidDatasetId, acsDatasetId])
   );
 }
 
@@ -144,10 +144,10 @@ describe("cdcCovidProvider", () => {
       /*hosp=*/ 5,
       /*population=*/ 2000
     );
-    const [CHATAM_TOTAL_ROW, CHATAM_ACS_TOTAL_ROW] = covidAndCountyAcsRows(
+    const [CHATAM_ALL_ROW, CHATAM_ACS_ALL_ROW] = covidAndCountyAcsRows(
       /*fips=*/ CHATAM,
       /*breakdownColumnName=*/ "race_and_ethnicity",
-      /*breakdownValue=*/ TOTAL,
+      /*breakdownValue=*/ ALL,
       /*cases=*/ 200,
       /*deaths=*/ 500,
       /*hosp=*/ 1000,
@@ -162,10 +162,10 @@ describe("cdcCovidProvider", () => {
       /*hosp=*/ 5,
       /*population=*/ 2000
     );
-    const [DURHAM_TOTAL_ROW, DURHAM_ACS_TOTAL_ROW] = covidAndCountyAcsRows(
+    const [DURHAM_ALL_ROW, DURHAM_ACS_ALL_ROW] = covidAndCountyAcsRows(
       /*fips=*/ DURHAM,
       /*breakdownColumnName=*/ "race_and_ethnicity",
-      /*breakdownValue=*/ TOTAL,
+      /*breakdownValue=*/ ALL,
       /*cases=*/ 10,
       /*deaths=*/ 1,
       /*hosp=*/ 5,
@@ -174,14 +174,14 @@ describe("cdcCovidProvider", () => {
 
     const rawCovidData = [
       CHATAM_WHITE_ROW,
-      CHATAM_TOTAL_ROW,
+      CHATAM_ALL_ROW,
       DURHAM_WHITE_ROW,
-      DURHAM_TOTAL_ROW,
+      DURHAM_ALL_ROW,
     ];
     const rawAcsData = [
       CHATAM_ACS_WHITE_ROW,
-      CHATAM_ACS_TOTAL_ROW,
-      DURHAM_ACS_TOTAL_ROW,
+      CHATAM_ACS_ALL_ROW,
+      DURHAM_ACS_ALL_ROW,
       DURHAM_ACS_WHITE_ROW,
     ];
 
@@ -196,10 +196,10 @@ describe("cdcCovidProvider", () => {
       covid_cases_reporting_population: 2000,
       covid_cases_reporting_population_pct: 2,
     };
-    const CHATAM_TOTAL_FINAL_ROW = {
+    const CHATAM_ALL_FINAL_ROW = {
       fips: CHATAM.code,
       fips_name: CHATAM.name,
-      race_and_ethnicity: TOTAL,
+      race_and_ethnicity: ALL,
       covid_cases: 200,
       covid_cases_per_100k: 200,
       covid_cases_share: 100,
@@ -208,7 +208,7 @@ describe("cdcCovidProvider", () => {
       covid_cases_reporting_population_pct: 100,
     };
 
-    await evaluateWithAndWithoutTotal(
+    await evaluateWithAndWithoutAll(
       "cdc_restricted_data-by_race_county",
       rawCovidData,
       "acs_population-by_race_county_std",
@@ -216,7 +216,7 @@ describe("cdcCovidProvider", () => {
       Breakdowns.forFips(new Fips(CHATAM.code)),
       "race_and_ethnicity",
       [CHATAM_WHITE_FINAL_ROW],
-      [CHATAM_TOTAL_FINAL_ROW, CHATAM_WHITE_FINAL_ROW]
+      [CHATAM_ALL_FINAL_ROW, CHATAM_WHITE_FINAL_ROW]
     );
   });
 
@@ -230,10 +230,10 @@ describe("cdcCovidProvider", () => {
       /*death=*/ 5,
       /*population=*/ 2000
     );
-    const [AL_TOTAL_ROW, AL_ACS_TOTAL_ROW] = covidAndAcsRows(
+    const [AL_ALL_ROW, AL_ACS_ALL_ROW] = covidAndAcsRows(
       /*fips=*/ AL,
       /*breakdownColumnName=*/ "age",
-      /*breakdownValue=*/ TOTAL,
+      /*breakdownValue=*/ ALL,
       /*cases=*/ 10,
       /*hosp=*/ 1,
       /*death=*/ 5,
@@ -248,26 +248,21 @@ describe("cdcCovidProvider", () => {
       /*death=*/ 5,
       /*population=*/ 2000
     );
-    const [NC_TOTAL_ROW, NC_ACS_TOTAL_ROW] = covidAndAcsRows(
+    const [NC_ALL_ROW, NC_ACS_ALL_ROW] = covidAndAcsRows(
       /*fips=*/ NC,
       /*breakdownColumnName=*/ "age",
-      /*breakdownValue=*/ TOTAL,
+      /*breakdownValue=*/ ALL,
       /*cases=*/ 200,
       /*hosp=*/ 500,
       /*death=*/ 1000,
       /*population=*/ 100000
     );
 
-    const rawCovidData = [
-      NC_FORTY_ROW,
-      NC_TOTAL_ROW,
-      AL_FORTY_ROW,
-      AL_TOTAL_ROW,
-    ];
+    const rawCovidData = [NC_FORTY_ROW, NC_ALL_ROW, AL_FORTY_ROW, AL_ALL_ROW];
     const rawAcsData = [
       NC_ACS_FORTY_ROW,
-      NC_ACS_TOTAL_ROW,
-      AL_ACS_TOTAL_ROW,
+      NC_ACS_ALL_ROW,
+      AL_ACS_ALL_ROW,
       AL_ACS_FORTY_ROW,
     ];
 
@@ -282,10 +277,10 @@ describe("cdcCovidProvider", () => {
       covid_cases_reporting_population: 2000,
       covid_cases_reporting_population_pct: 2,
     };
-    const NC_TOTAL_FINAL_ROW = {
+    const NC_ALL_FINAL_ROW = {
       fips: NC.code,
       fips_name: NC.name,
-      age: TOTAL,
+      age: ALL,
       covid_cases: 200,
       covid_cases_per_100k: 200,
       covid_cases_share: 100,
@@ -294,7 +289,7 @@ describe("cdcCovidProvider", () => {
       covid_cases_reporting_population_pct: 100,
     };
 
-    await evaluateWithAndWithoutTotal(
+    await evaluateWithAndWithoutAll(
       "cdc_restricted_data-by_age_state",
       rawCovidData,
       "acs_population-by_age_state",
@@ -302,24 +297,24 @@ describe("cdcCovidProvider", () => {
       Breakdowns.forFips(new Fips(NC.code)),
       "age",
       [NC_FORTY_FINAL_ROW],
-      [NC_TOTAL_FINAL_ROW, NC_FORTY_FINAL_ROW]
+      [NC_ALL_FINAL_ROW, NC_FORTY_FINAL_ROW]
     );
   });
 
   test("National and Sex Breakdown", async () => {
-    const [NC_TOTAL_ROW, NC_ACS_TOTAL_ROW] = covidAndAcsRows(
+    const [NC_ALL_ROW, NC_ACS_ALL_ROW] = covidAndAcsRows(
       /*fips=*/ NC,
       /*breakdownColumnName=*/ "sex",
-      /*breakdownValue=*/ TOTAL,
+      /*breakdownValue=*/ ALL,
       /*cases=*/ 200,
       /*death=*/ 500,
       /*hosp=*/ 1000,
       /*population=*/ 100000
     );
-    const [AL_TOTAL_ROW, AL_ACS_TOTAL_ROW] = covidAndAcsRows(
+    const [AL_ALL_ROW, AL_ACS_ALL_ROW] = covidAndAcsRows(
       /*fips=*/ AL,
       /*breakdownColumnName=*/ "sex",
-      /*breakdownValue=*/ TOTAL,
+      /*breakdownValue=*/ ALL,
       /*cases=*/ 100,
       /*death=*/ 200,
       /*hosp=*/ 1000,
@@ -344,16 +339,11 @@ describe("cdcCovidProvider", () => {
       /*population=*/ 60000
     );
 
-    const rawCovidData = [
-      NC_FEMALE_ROW,
-      NC_TOTAL_ROW,
-      AL_FEMALE_ROW,
-      AL_TOTAL_ROW,
-    ];
+    const rawCovidData = [NC_FEMALE_ROW, NC_ALL_ROW, AL_FEMALE_ROW, AL_ALL_ROW];
     const rawAcsData = [
       NC_ACS_FEMALE_ROW,
-      NC_ACS_TOTAL_ROW,
-      AL_ACS_TOTAL_ROW,
+      NC_ACS_ALL_ROW,
+      AL_ACS_ALL_ROW,
       AL_ACS_FEMALE_ROW,
     ];
 
@@ -368,10 +358,10 @@ describe("cdcCovidProvider", () => {
       covid_cases_reporting_population: 110000,
       covid_cases_reporting_population_pct: 61.1,
     };
-    const FINAL_TOTAL_ROW = {
+    const FINAL_ALL_ROW = {
       fips: USA.code,
       fips_name: USA.name,
-      sex: TOTAL,
+      sex: ALL,
       covid_cases: 300,
       covid_cases_per_100k: 167,
       covid_cases_share: 100,
@@ -380,7 +370,7 @@ describe("cdcCovidProvider", () => {
       covid_cases_reporting_population_pct: 100,
     };
 
-    await evaluateWithAndWithoutTotal(
+    await evaluateWithAndWithoutAll(
       "cdc_restricted_data-by_sex_state",
       rawCovidData,
       "acs_population-by_sex_state",
@@ -388,7 +378,7 @@ describe("cdcCovidProvider", () => {
       Breakdowns.national(),
       "sex",
       [FINAL_FEMALE_ROW],
-      [FINAL_TOTAL_ROW, FINAL_FEMALE_ROW]
+      [FINAL_ALL_ROW, FINAL_FEMALE_ROW]
     );
   });
 
@@ -402,19 +392,19 @@ describe("cdcCovidProvider", () => {
       /*hosp=*/ 100,
       /*population=*/ 1
     );
-    const [NC_TOTAL_ROW, NC_ACS_TOTAL_ROW] = covidAndAcsRows(
+    const [NC_ALL_ROW, NC_ACS_ALL_ROW] = covidAndAcsRows(
       /*fips=*/ NC,
       /*breakdownColumnName=*/ "sex",
-      /*breakdownValue=*/ TOTAL,
+      /*breakdownValue=*/ ALL,
       /*cases=*/ 300,
       /*death=*/ 600,
       /*hosp=*/ 1100,
       /*population=*/ 100000
     );
-    const [AL_TOTAL_ROW, AL_ACS_TOTAL_ROW] = covidAndAcsRows(
+    const [AL_ALL_ROW, AL_ACS_ALL_ROW] = covidAndAcsRows(
       /*fips=*/ AL,
       /*breakdownColumnName=*/ "sex",
-      /*breakdownValue=*/ TOTAL,
+      /*breakdownValue=*/ ALL,
       /*cases=*/ 100,
       /*death=*/ 200,
       /*hosp=*/ 1000,
@@ -442,14 +432,14 @@ describe("cdcCovidProvider", () => {
     const rawCovidData = [
       NC_UNKNOWN_ROW,
       NC_FEMALE_ROW,
-      NC_TOTAL_ROW,
+      NC_ALL_ROW,
       AL_MALE_ROW,
-      AL_TOTAL_ROW,
+      AL_ALL_ROW,
     ];
     const rawAcsData = [
       NC_ACS_FEMALE_ROW,
-      NC_ACS_TOTAL_ROW,
-      AL_ACS_TOTAL_ROW,
+      NC_ACS_ALL_ROW,
+      AL_ACS_ALL_ROW,
       AL_ACS_MALE_ROW,
     ];
 
@@ -475,10 +465,10 @@ describe("cdcCovidProvider", () => {
       covid_cases_reporting_population: 50000,
       covid_cases_reporting_population_pct: 27.8,
     };
-    const FINAL_TOTAL_ROW = {
+    const FINAL_ALL_ROW = {
       fips: USA.code,
       fips_name: USA.name,
-      sex: TOTAL,
+      sex: ALL,
       covid_cases: 400,
       covid_cases_per_100k: 222,
       covid_cases_share: 100,
@@ -498,7 +488,7 @@ describe("cdcCovidProvider", () => {
       covid_cases_reporting_population_pct: undefined,
     };
 
-    await evaluateWithAndWithoutTotal(
+    await evaluateWithAndWithoutAll(
       "cdc_restricted_data-by_sex_state",
       rawCovidData,
       "acs_population-by_sex_state",
@@ -506,7 +496,7 @@ describe("cdcCovidProvider", () => {
       Breakdowns.national(),
       "sex",
       [FINAL_FEMALE_ROW, FINAL_MALE_ROW, FINAL_UNKNOWN_ROW],
-      [FINAL_TOTAL_ROW, FINAL_FEMALE_ROW, FINAL_MALE_ROW, FINAL_UNKNOWN_ROW]
+      [FINAL_ALL_ROW, FINAL_FEMALE_ROW, FINAL_MALE_ROW, FINAL_UNKNOWN_ROW]
     );
   });
 });
