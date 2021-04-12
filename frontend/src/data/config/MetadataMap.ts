@@ -22,6 +22,8 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
       "acs_health_insurance-health_insurance_by_race_county",
       "acs_health_insurance-health_insurance_by_sex_state",
       "acs_health_insurance-health_insurance_by_sex_county",
+      "acs_poverty_dataset-poverty_by_race_age_sex_state",
+      "acs_poverty_dataset-poverty_by_race_age_sex_county",
     ],
   },
   {

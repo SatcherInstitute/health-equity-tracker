@@ -4,7 +4,7 @@ import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { MetricId } from "../config/MetricConfig";
-import { excludeTotal } from "../query/BreakdownFilter";
+import { excludeAll } from "../query/BreakdownFilter";
 
 export interface FipsSpec {
   code: string;
@@ -43,7 +43,7 @@ export const USA: FipsSpec = {
   name: USA_DISPLAY_NAME,
 };
 
-export function createWithAndWithoutTotalEvaluator(
+export function createWithAndWithoutAllEvaluator(
   metricIds: MetricId | MetricId[],
   dataFetcher: FakeDataFetcher,
   variableProvider: VariableProvider
@@ -53,28 +53,28 @@ export function createWithAndWithoutTotalEvaluator(
     rawData: any[],
     baseBreakdown: Breakdowns,
     breakdownVar: BreakdownVar,
-    nonTotalRows: any[],
-    totalRows: any[]
+    rowsExcludingAll: any[],
+    rowsIncludingAll: any[]
   ) => {
     dataFetcher.setFakeDatasetLoaded(datasetId, rawData);
 
-    // Evaluate the response with requesting total field
-    const responseWithTotal = await variableProvider.getData(
+    // Evaluate the response with requesting "All" field
+    const responseWithAll = await variableProvider.getData(
       new MetricQuery(metricIds, baseBreakdown.addBreakdown(breakdownVar))
     );
-    expect(responseWithTotal).toEqual(
-      new MetricQueryResponse(totalRows, [datasetId])
+    expect(responseWithAll).toEqual(
+      new MetricQueryResponse(rowsIncludingAll, [datasetId])
     );
 
-    // Evaluate the response without requesting total field
-    const responseWithoutTotal = await variableProvider.getData(
+    // Evaluate the response without requesting "All" field
+    const responseWithoutAll = await variableProvider.getData(
       new MetricQuery(
         metricIds,
-        baseBreakdown.addBreakdown(breakdownVar, excludeTotal())
+        baseBreakdown.addBreakdown(breakdownVar, excludeAll())
       )
     );
-    expect(responseWithoutTotal).toEqual(
-      new MetricQueryResponse(nonTotalRows, [datasetId])
+    expect(responseWithoutAll).toEqual(
+      new MetricQueryResponse(rowsExcludingAll, [datasetId])
     );
   };
 }

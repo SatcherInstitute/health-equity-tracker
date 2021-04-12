@@ -18,6 +18,7 @@ data_ingestion_dag = DAG(
     default_args=default_args,
     # TODO(https://github.com/SatcherInstitute/health-equity-tracker/issues/30)
     # schedule_interval='@daily',  # Run once a day at midnight
+    schedule_interval=None,
     description='The data ingestion pipeline.')
 
 

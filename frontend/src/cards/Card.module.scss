@@ -36,7 +36,8 @@
     padding: 10px;
     font-size: 12px;
     line-height: 16px;
-    width: 200px;
+    // Smallest width at which current standardized strings all fit on 3 lines
+    width: 131px;
   }
   .PopulationMetricValue {
     color: #9aa0a6;

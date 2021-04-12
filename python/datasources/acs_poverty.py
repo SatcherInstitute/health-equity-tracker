@@ -8,13 +8,11 @@ from ingestion.standardized_columns import (
     COUNTY_FIPS_COL,
     STATE_NAME_COL,
     COUNTY_NAME_COL,
-    INCOME_COL,
     SEX_COL,
     AGE_COL,
     ABOVE_POVERTY_COL,
     BELOW_POVERTY_COL,
     RACE_COL,
-    POPULATION_COL,
     Race,
 )
 from ingestion.census import (
@@ -99,7 +97,7 @@ class AcsPovertyIngestor:
             column_types[ABOVE_POVERTY_COL] = "INT64"
             column_types[BELOW_POVERTY_COL] = "INT64"
 
-            gcs_to_bq_util.append_dataframe_to_bq(
+            gcs_to_bq_util.add_dataframe_to_bq(
                 df, dataset, table_name, column_types=column_types
             )
 
@@ -234,7 +232,7 @@ class AcsPovertyIngestor:
         # Extract keys from self.data Tuple
         # (state_fip, County_fip, Age, Sex, Race): {PopulationObj}
         for data, population in self.data.items():
-            state_fip, county_fip, race, age, sex = data
+            state_fip, county_fip, age, sex, race = data
 
             population = self.data[data]
             above = population[PovertyPopulation.ABOVE]

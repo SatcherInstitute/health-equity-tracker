@@ -49,8 +49,8 @@ COUNTY_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 STATE_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 
 # Mappings for race, sex, and age values in the data to a standardized forms.
-# Note that these mappings cover the possible values in the data as of 3/1/21.
-# New data should be checked for schema changes.
+# Note that these mappings cover the possible values in the data as of the
+# latest dataset. New data should be checked for schema changes.
 RACE_NAMES_MAPPING = {
     "American Indian/Alaska Native, Non-Hispanic": std_col.Race.AIAN_NH.value,
     "Asian, Non-Hispanic": std_col.Race.ASIAN_NH.value,
@@ -106,9 +106,7 @@ def accumulate_data(df, groupby_cols, overall_df, demographic_col,
     df[std_col.COVID_HOSP_Y] = (df['hosp_yn'] == 'Yes')
     df[std_col.COVID_HOSP_N] = (df['hosp_yn'] == 'No')
     df[std_col.COVID_HOSP_UNKNOWN] = ((df['hosp_yn'] == 'Unknown') |
-                                      (df['hosp_yn'] == 'Missing') |
-                                      (df['hosp_yn'] == 'nul') |
-                                      (df['hosp_yn'] == 'OTH'))
+                                      (df['hosp_yn'] == 'Missing'))
     df[std_col.COVID_DEATH_Y] = (df['death_yn'] == 'Yes')
     df[std_col.COVID_DEATH_N] = (df['death_yn'] == 'No')
     df[std_col.COVID_DEATH_UNKNOWN] = ((df['death_yn'] == 'Unknown') |

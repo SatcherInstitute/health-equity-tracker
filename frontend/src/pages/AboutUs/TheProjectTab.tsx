@@ -1,8 +1,12 @@
 import React from "react";
+import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
-import { EXPLORE_DATA_PAGE_LINK } from "../../utils/urlutils";
+import {
+  LinkWithStickyParams,
+  EXPLORE_DATA_PAGE_LINK,
+} from "../../utils/urlutils";
 
 function TheProjectTab() {
   return (
@@ -15,7 +19,13 @@ function TheProjectTab() {
           justify="center"
           alignItems="center"
         >
-          <Grid item xs={5} className={styles.GridVerticallyAlignedItem}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={5}
+            className={styles.GridVerticallyAlignedItem}
+          >
             <Typography className={styles.HeaderText}>
               We're focused on equitable data.
             </Typography>
@@ -28,7 +38,13 @@ function TheProjectTab() {
               </p>
             </Typography>
           </Grid>
-          <Grid item xs={7} className={styles.GridAlignRightItem}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={7}
+            className={styles.GridAlignRightItem}
+          >
             <img
               src="img/pexels-ketut-subiyanto-4473871 1.png"
               className={styles.ImgHeaderGridItem}
@@ -51,7 +67,13 @@ function TheProjectTab() {
             justify="space-around"
             alignItems="center"
           >
-            <Grid item xs={5} className={styles.GridVerticallyAlignedItem}>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={5}
+              className={styles.GridVerticallyAlignedItem}
+            >
               <Typography className={styles.SubheaderL1Text}>
                 Where we started
               </Typography>
@@ -72,7 +94,13 @@ function TheProjectTab() {
               </Typography>
             </Grid>
 
-            <Grid item xs={7} className={styles.GridCenteredItem}>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={7}
+              className={styles.GridCenteredItem}
+            >
               <Grid
                 container
                 direction="row"
@@ -80,7 +108,7 @@ function TheProjectTab() {
                 alignItems="flex-start"
                 xs={12}
               >
-                <Grid item xs={5}>
+                <Grid item xs={12} sm={12} md={5}>
                   <Typography className={styles.UnderlinedHeaderL2}>
                     5 data sources
                   </Typography>
@@ -91,7 +119,7 @@ function TheProjectTab() {
                     </p>
                   </Typography>
                 </Grid>
-                <Grid item xs={5}>
+                <Grid item xs={12} sm={12} md={5}>
                   <Typography className={styles.UnderlinedHeaderL2}>
                     15 variables
                   </Typography>
@@ -111,15 +139,20 @@ function TheProjectTab() {
                     alignItems="flex-start"
                     xs={12}
                   >
-                    <Grid item xs={5}>
-                      <a
-                        href={EXPLORE_DATA_PAGE_LINK}
-                        className={styles.PrimaryButton}
+                    <Grid item xs={12} sm={12} md={5}>
+                      <LinkWithStickyParams
+                        to={EXPLORE_DATA_PAGE_LINK}
+                        class={styles.NoUnderline}
                       >
-                        Explore the data
-                      </a>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          className={styles.PrimaryButton}
+                        >
+                          Explore the data
+                        </Button>
+                      </LinkWithStickyParams>
                     </Grid>
-                    <Grid item xs={5}></Grid>
                   </Grid>
                 </Grid>
               </Grid>
@@ -137,7 +170,7 @@ function TheProjectTab() {
                 Where we aim to go
               </Typography>
             </Grid>
-            <Grid item xs={4} className={styles.AimToGoItem}>
+            <Grid item xs={12} sm={12} md={4} className={styles.AimToGoItem}>
               <Grid
                 container
                 direction="column"
@@ -167,7 +200,7 @@ function TheProjectTab() {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={4} className={styles.AimToGoItem}>
+            <Grid item xs={12} sm={12} md={4} className={styles.AimToGoItem}>
               <Grid
                 container
                 direction="column"
@@ -197,7 +230,7 @@ function TheProjectTab() {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={4} className={styles.AimToGoItem}>
+            <Grid item xs={12} sm={12} md={4} className={styles.AimToGoItem}>
               <Grid
                 container
                 direction="column"
@@ -240,54 +273,82 @@ function TheProjectTab() {
               <i>We are committed to the following ethics</i>
             </Typography>
           </Grid>
+
           <Grid
             container
+            item
             className={styles.GridSubRow}
-            direction="row"
             justify="space-around"
+            alignItems="flex-start"
           >
-            <Grid item xs={3} className={styles.GridAlignLeftItem}>
-              <Typography className={styles.SubheaderL2Text}>
-                Transparency & Accountability
-              </Typography>
+            <Grid
+              container
+              item
+              xs={12}
+              sm={12}
+              md={3}
+              direction="column"
+              justify="space-around"
+            >
+              <Grid item className={styles.CommittedToEthicsSubheaderItem}>
+                <Typography className={styles.SubheaderL2Text}>
+                  Transparency & Accountability
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography className={styles.HeaderSubtext}>
+                  We partner closely with diverse communities and are clear
+                  about who interprets the data and how that shapes the overall
+                  health narrative
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid item xs={3} className={styles.GridAlignLeftItem}>
-              <Typography className={styles.SubheaderL2Text}>
-                Community first
-              </Typography>
+
+            <Grid
+              container
+              item
+              xs={12}
+              sm={12}
+              md={3}
+              direction="column"
+              justify="space-around"
+            >
+              <Grid item className={styles.CommittedToEthicsSubheaderItem}>
+                <Typography className={styles.SubheaderL2Text}>
+                  Community first
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography className={styles.HeaderSubtext}>
+                  People and communities drive our work. By making sure we
+                  collect data from underserved populations, we can help
+                  highlight what policy changes are needed to boost these
+                  communities.
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid item xs={3} className={styles.GridAlignLeftItem}>
-              <Typography className={styles.SubheaderL2Text}>
-                Open Access
-              </Typography>
-            </Grid>
-          </Grid>
-          <Grid
-            container
-            className={styles.GridSubRow}
-            direction="row"
-            justify="space-around"
-          >
-            <Grid item xs={3}>
-              <Typography className={styles.HeaderSubtext}>
-                We partner closely with diverse communities and are clear about
-                who interprets the data and how that shapes the overall health
-                narrative
-              </Typography>
-            </Grid>
-            <Grid item xs={3}>
-              <Typography className={styles.HeaderSubtext}>
-                People and communities drive our work. By making sure we collect
-                data from underserved populations, we can help highlight what
-                policy changes are needed to boost these communities.
-              </Typography>
-            </Grid>
-            <Grid item xs={3}>
-              <Typography className={styles.HeaderSubtext}>
-                We ensure community leaders partner with us and play an active
-                role in determining what data to use in making policy
-                recommendations
-              </Typography>
+
+            <Grid
+              container
+              item
+              xs={12}
+              sm={12}
+              md={3}
+              direction="column"
+              justify="space-around"
+            >
+              <Grid item className={styles.CommittedToEthicsSubheaderItem}>
+                <Typography className={styles.SubheaderL2Text}>
+                  Open Access
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography className={styles.HeaderSubtext}>
+                  We ensure community leaders partner with us and play an active
+                  role in determining what data to use in making policy
+                  recommendations
+                </Typography>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
