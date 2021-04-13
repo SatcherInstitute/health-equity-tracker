@@ -144,13 +144,15 @@ export function percent(numerator: number, denominator: number): number | null {
 
 /** Finds expected value of an ailment based on a population sample. */
 export function estimateTotal(
-  numerator: number,
-  denominator: number,
-  total: number
+  sample_count: number,
+  sample_population: number,
+  total_population: number
 ): number {
-  return numerator == null || denominator == null || denominator === 0
+  return sample_count == null ||
+    sample_population == null ||
+    sample_population === 0
     ? 0
-    : Math.round((numerator / denominator) * total);
+    : Math.round((sample_count / sample_population) * total_population);
 }
 
 export function asDate(dateStr: string) {

@@ -28,13 +28,15 @@ class BrfssProvider extends VariableProvider {
     this.acsProvider = acsProvider;
   }
 
-  // TODO - only return requested metric queries, remove unrequested columns
   async getDataInternal(
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
     const brfss = await getDataManager().loadDataset("brfss");
     let df = brfss.toDataFrame();
+
+    const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
+      .columnName;
 
     df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);
@@ -46,12 +48,15 @@ class BrfssProvider extends VariableProvider {
     let consumedDatasetIds = ["brfss"];
 
     if (breakdowns.geography === "national") {
-      // Because we add together the estimated state totals
-      // we need to get the acs state breakdown
+      // Because BRFSS is a survey that samples each demographic
+      // in each state at different rates, we must calculate the national
+      // numbers by estimating the total number of diabetes and COPD
+      // cases per demographic in each state and taking the sum.
+
       acsBreakdowns.geography = "state";
 
       const acsQueryResponse = await this.acsProvider.getData(
-        new MetricQuery(["population", "population_pct"], acsBreakdowns)
+        new MetricQuery(["population"], acsBreakdowns)
       );
       consumedDatasetIds = consumedDatasetIds.concat(
         acsQueryResponse.consumedDatasetIds
@@ -82,7 +87,7 @@ class BrfssProvider extends VariableProvider {
       });
 
       df = df
-        .pivot(breakdowns.demographicBreakdowns.race_and_ethnicity.columnName, {
+        .pivot(breakdownColumnName, {
           fips: (series) => USA_FIPS,
           fips_name: (series) => USA_DISPLAY_NAME,
           diabetes_count: (series) => series.sum(),
@@ -115,7 +120,7 @@ class BrfssProvider extends VariableProvider {
         copd_no: (series) => series.sum(),
         estimated_total_copd: (series) => series.sum(),
         estimated_total_diabetes: (series) => series.sum(),
-        [breakdowns.getSoleDemographicBreakdown().columnName]: (series) => ALL,
+        [breakdownColumnName]: (series) => ALL,
       })
       .resetIndex();
     df = df.concat(total).resetIndex();
@@ -134,7 +139,7 @@ class BrfssProvider extends VariableProvider {
             df,
             col,
             col.split("_")[0] + "_pct_share",
-            breakdowns.demographicBreakdowns.race_and_ethnicity.columnName,
+            breakdownColumnName,
             ["fips"]
           );
         });
@@ -144,7 +149,7 @@ class BrfssProvider extends VariableProvider {
             df,
             col,
             col.split("_")[2] + "_pct_share",
-            breakdowns.demographicBreakdowns.race_and_ethnicity.columnName,
+            breakdownColumnName,
             ["fips"]
           );
         });
@@ -154,7 +159,6 @@ class BrfssProvider extends VariableProvider {
     df = df
       .dropSeries([
         "population",
-        "population_pct",
         "estimated_total_copd",
         "estimated_total_diabetes",
       ])
