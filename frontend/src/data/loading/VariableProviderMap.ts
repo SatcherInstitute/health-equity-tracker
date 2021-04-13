@@ -24,7 +24,7 @@ export default class VariableProviderMap {
     this.providers = [
       acsProvider,
       new CdcCovidProvider(acsProvider),
-      new BrfssProvider(),
+      new BrfssProvider(acsProvider),
       new AcsHealthInsuranceProvider(),
       new AcsPovertyProvider(),
     ];

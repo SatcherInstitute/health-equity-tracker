@@ -1,13 +1,22 @@
+import { DataFrame } from "data-forge";
 import { Breakdowns, ALL_RACES_DISPLAY_NAME } from "../query/Breakdowns";
-import { per100k, maybeApplyRowReorder } from "../utils/datasetutils";
+import {
+  per100k,
+  maybeApplyRowReorder,
+  joinOnCols,
+  estimateTotal,
+} from "../utils/datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
+import AcsPopulationProvider from "./AcsPopulationProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
 import { ALL } from "../utils/Constants";
 
 class BrfssProvider extends VariableProvider {
-  constructor() {
+  private acsProvider: AcsPopulationProvider;
+
+  constructor(acsProvider: AcsPopulationProvider) {
     super("brfss_provider", [
       "diabetes_count",
       "diabetes_per_100k",
@@ -16,9 +25,9 @@ class BrfssProvider extends VariableProvider {
       "copd_per_100k",
       "copd_pct_share",
     ]);
+    this.acsProvider = acsProvider;
   }
 
-  // TODO - only return requested metric queries, remove unrequested columns
   async getDataInternal(
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
@@ -26,18 +35,67 @@ class BrfssProvider extends VariableProvider {
     const brfss = await getDataManager().loadDataset("brfss");
     let df = brfss.toDataFrame();
 
+    const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
+      .columnName;
+
     df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);
 
+    // TODO How to handle territories?
+    let acsBreakdowns = breakdowns.copy();
+    acsBreakdowns.time = false;
+
+    let consumedDatasetIds = ["brfss"];
+
     if (breakdowns.geography === "national") {
+      // Because BRFSS is a survey that samples each demographic
+      // in each state at different rates, we must calculate the national
+      // numbers by estimating the total number of diabetes and COPD
+      // cases per demographic in each state and taking the sum.
+
+      acsBreakdowns.geography = "state";
+
+      const acsQueryResponse = await this.acsProvider.getData(
+        new MetricQuery(["population"], acsBreakdowns)
+      );
+      consumedDatasetIds = consumedDatasetIds.concat(
+        acsQueryResponse.consumedDatasetIds
+      );
+
+      const acsPopulation = new DataFrame(acsQueryResponse.data);
+
+      df = joinOnCols(
+        df,
+        acsPopulation,
+        ["fips", "race_and_ethnicity"],
+        "left"
+      );
+
+      df = df.generateSeries({
+        estimated_total_diabetes: (row) =>
+          estimateTotal(
+            row.diabetes_count,
+            row.diabetes_count + row.diabetes_no,
+            row.population
+          ),
+        estimated_total_copd: (row) =>
+          estimateTotal(
+            row.copd_count,
+            row.copd_count + row.copd_no,
+            row.population
+          ),
+      });
+
       df = df
-        .pivot(breakdowns.demographicBreakdowns.race_and_ethnicity.columnName, {
+        .pivot(breakdownColumnName, {
           fips: (series) => USA_FIPS,
           fips_name: (series) => USA_DISPLAY_NAME,
           diabetes_count: (series) => series.sum(),
           diabetes_no: (series) => series.sum(),
           copd_count: (series) => series.sum(),
           copd_no: (series) => series.sum(),
+          estimated_total_copd: (series) => series.sum(),
+          estimated_total_diabetes: (series) => series.sum(),
         })
         .resetIndex();
     }
@@ -60,7 +118,9 @@ class BrfssProvider extends VariableProvider {
         diabetes_no: (series) => series.sum(),
         copd_count: (series) => series.sum(),
         copd_no: (series) => series.sum(),
-        [breakdowns.getSoleDemographicBreakdown().columnName]: (series) => ALL,
+        estimated_total_copd: (series) => series.sum(),
+        estimated_total_diabetes: (series) => series.sum(),
+        [breakdownColumnName]: (series) => ALL,
       })
       .resetIndex();
     df = df.concat(total).resetIndex();
@@ -72,30 +132,43 @@ class BrfssProvider extends VariableProvider {
         per100k(row.copd_count, row.copd_count + row.copd_no),
     });
 
-    // We can't do percent share for national because different survey rates
-    // across states may skew the results. To do that, we need to combine BRFSS
-    // survey results with state populations to estimate total counts for each
-    // state, and then use that estimate to determine the percent share.
-    // TODO this causes the "vs Population" Disparity Bar Chart to be broken for
-    // the national level. We need some way of indicating why the share of cases
-    // isn't there. Or, we can do this computation on the server.
-    if (breakdowns.hasOnlyRace() && breakdowns.geography === "state") {
-      ["diabetes_count", "copd_count"].forEach((col) => {
-        df = this.calculatePctShare(
-          df,
-          col,
-          col.split("_")[0] + "_pct_share",
-          breakdowns.demographicBreakdowns.race_and_ethnicity.columnName,
-          ["fips"]
-        );
-      });
+    if (breakdowns.hasOnlyRace()) {
+      if (breakdowns.geography === "state") {
+        ["diabetes_count", "copd_count"].forEach((col) => {
+          df = this.calculatePctShare(
+            df,
+            col,
+            col.split("_")[0] + "_pct_share",
+            breakdownColumnName,
+            ["fips"]
+          );
+        });
+      } else if (breakdowns.geography === "national") {
+        ["estimated_total_diabetes", "estimated_total_copd"].forEach((col) => {
+          df = this.calculatePctShare(
+            df,
+            col,
+            col.split("_")[2] + "_pct_share",
+            breakdownColumnName,
+            ["fips"]
+          );
+        });
+      }
     }
+
+    df = df
+      .dropSeries([
+        "population",
+        "estimated_total_copd",
+        "estimated_total_diabetes",
+      ])
+      .resetIndex();
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
     return new MetricQueryResponse(
       maybeApplyRowReorder(df.toArray(), breakdowns),
-      ["brfss"]
+      consumedDatasetIds
     );
   }
 
