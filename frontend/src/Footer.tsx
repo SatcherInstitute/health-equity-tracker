@@ -6,6 +6,17 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import ArrowUpwardRoundedIcon from '@material-ui/icons/ArrowUpwardRounded';
 import {Button} from '@material-ui/core';
+import {
+  ABOUT_US_TAB_PARAM,
+  ABOUT_US_PAGE_LINK,
+  EXPLORE_DATA_PAGE_LINK,
+  DATA_CATALOG_PAGE_LINK,
+  TERMS_OF_SERVICE_PAGE_LINK,
+} from "./utils/urlutils";
+import {
+  ABOUT_US_FAQ_TAB_INDEX,
+  ABOUT_US_CONTACT_TAB_INDEX,
+} from "./pages/AboutUs/AboutUsPage";
 
 function Footer() {
   return (
@@ -17,7 +28,7 @@ function Footer() {
         alignItems="center"
         justify="center">
           <Grid item>
-                <img src="img/updated mark 1.png"
+                <img src="img/AppbarLogo.png"
                      className={styles.FooterLogo}
                      alt="Health Equity Tracker decorative logo"/>
           </Grid>
@@ -49,11 +60,26 @@ function Footer() {
               justify="center">
           <Grid item>
             <div className={styles.NavLinkDiv}>
-              <a href="/exploredata" className={styles.FooterNavLink}>Explore Data</a>
-              <a href="/datadownloads" className={styles.FooterNavLink}>Downloads and Methods</a>
-              <a href="/aboutus" className={styles.FooterNavLink}>FAQ</a>
-              <a href="/aboutus" className={styles.FooterNavLink}>Contact Us</a>
-              <a href="/termsofuse" className={styles.FooterNavLink}>Terms of Use</a>
+              <a href={ EXPLORE_DATA_PAGE_LINK }
+                 className={styles.FooterNavLink}>
+                Explore Data
+              </a>
+              <a href={ DATA_CATALOG_PAGE_LINK }
+                 className={styles.FooterNavLink}>
+                Downloads and Methods
+              </a>
+              <a href={`${ABOUT_US_PAGE_LINK}?${ABOUT_US_TAB_PARAM}=${ABOUT_US_FAQ_TAB_INDEX}`}
+                 className={styles.FooterNavLink}>
+                FAQ
+              </a>
+              <a href={`${ABOUT_US_PAGE_LINK}?${ABOUT_US_TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
+                 className={styles.FooterNavLink}>
+                Contact Us
+              </a>
+              <a href={ TERMS_OF_SERVICE_PAGE_LINK }
+                 className={styles.FooterNavLink}>
+                Terms of Service
+              </a>
             </div>
           </Grid>
           <Grid item>
