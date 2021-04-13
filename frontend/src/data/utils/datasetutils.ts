@@ -142,7 +142,7 @@ export function percent(numerator: number, denominator: number): number | null {
     : Math.round((1000 * numerator) / denominator) / 10;
 }
 
-/** Divides two numbers. */
+/** Finds expected value of an ailment based on a population sample. */
 export function estimateTotal(
   numerator: number,
   denominator: number,
