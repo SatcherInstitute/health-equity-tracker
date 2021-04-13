@@ -4,7 +4,13 @@ import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { ALL, ABOVE_POVERTY_COL, BELOW_POVERTY_COL } from "../utils/Constants";
+import {
+  ALL,
+  ABOVE_POVERTY_COL,
+  BELOW_POVERTY_COL,
+  WHITE_NH,
+  HISPANIC,
+} from "../utils/Constants";
 import { IDataFrame, ISeries } from "data-forge";
 
 class AcsPovertyProvider extends VariableProvider {
@@ -50,6 +56,11 @@ class AcsPovertyProvider extends VariableProvider {
     // Calculate totals where dataset doesn't provide it
     // TODO- this should be removed when Totals come from the Data Server
     const calculatedValueForAll = df
+      .where(
+        (row) => //We remove these races because they are subsets
+          row["race_and_ethnicity"] !== WHITE_NH &&
+          row["race_and_ethnicity"] !== HISPANIC
+      )
       .pivot(["fips", "fips_name"], {
         above_poverty_line: (series: ISeries) => series.sum(),
         below_poverty_line: (series: ISeries) => series.sum(),

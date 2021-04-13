@@ -11,14 +11,15 @@
 .PrimaryButton {
   background-color: #0b5240;
   color: white !important;
-  border-radius: 40px;
-  height: 52px;
-  width: 220px;
-  font-size: 18px;
-  font-weight: 500;
+  border-radius: 40px !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
   font-family: "DM Sans", sans-serif !important;
+  padding: 16px 30px !important;
+}
+
+.NoUnderline {
   text-decoration: none;
-  padding: 16px 30px 16px 30px;
 }
 
 // For major links, in primary colors
