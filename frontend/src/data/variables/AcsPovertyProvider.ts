@@ -5,9 +5,11 @@ import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
 import {
-  TOTAL,
+  ALL,
   ABOVE_POVERTY_COL,
   BELOW_POVERTY_COL,
+  WHITE_NH,
+  HISPANIC,
 } from "../utils/Constants";
 import { IDataFrame, ISeries } from "data-forge";
 
@@ -51,17 +53,23 @@ class AcsPovertyProvider extends VariableProvider {
         .resetIndex();
     }
 
-    let totalPivot: { [key: string]: (series: ISeries) => any } = {
-      above_poverty_line: (series: ISeries) => series.sum(),
-      below_poverty_line: (series: ISeries) => series.sum(),
-    };
-
-    totalPivot[breakdownCol] = (series: ISeries) => TOTAL;
-
     // Calculate totals where dataset doesn't provide it
     // TODO- this should be removed when Totals come from the Data Server
-    const total = df.pivot(["fips", "fips_name"], totalPivot).resetIndex();
-    df = df.concat(total).resetIndex();
+    const calculatedValueForAll = df
+      .where(
+        (
+          row //We remove these races because they are subsets
+        ) =>
+          row["race_and_ethnicity"] !== WHITE_NH &&
+          row["race_and_ethnicity"] !== HISPANIC
+      )
+      .pivot(["fips", "fips_name"], {
+        above_poverty_line: (series: ISeries) => series.sum(),
+        below_poverty_line: (series: ISeries) => series.sum(),
+        [breakdownCol]: (series: ISeries) => ALL,
+      })
+      .resetIndex();
+    df = df.concat(calculatedValueForAll).resetIndex();
 
     df = df.generateSeries({
       poverty_per_100k: (row) =>

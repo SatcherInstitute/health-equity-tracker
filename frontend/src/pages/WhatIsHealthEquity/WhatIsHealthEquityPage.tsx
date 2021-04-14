@@ -385,7 +385,7 @@ function WhatIsHealthEquityPage() {
                 style={{ backgroundColor: "#275141" }}
               >
                 <img
-                  src="img/Dots_1@2x 4.png"
+                  src="img/HET_Dots_1_v3_1000px.gif"
                   alt="Decorative dots"
                   className={styles.JoinTheEffortImg}
                 />
@@ -434,10 +434,10 @@ function WhatIsHealthEquityPage() {
                 item
                 md={5}
                 className={styles.JoinTheEffortImgContainer}
-                style={{ backgroundColor: "#D85C47" }}
+                style={{ backgroundColor: "#EDB2A6" }}
               >
                 <img
-                  src="img/het_lines 8.png"
+                  src="img/HET_Fields_1_v2_1000px.gif"
                   alt="Decorative thick lines"
                   className={styles.JoinTheEffortImg}
                 />
@@ -517,7 +517,7 @@ function WhatIsHealthEquityPage() {
                 style={{ backgroundColor: "#A5CDC0" }}
               >
                 <img
-                  src="img/LINES-2@2x 3.png"
+                  src="img/HET_Overlapping_Lines_v4_1000px.gif"
                   alt="Decorative thin lines"
                   className={styles.JoinTheEffortImg}
                 />

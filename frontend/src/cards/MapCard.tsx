@@ -22,7 +22,7 @@ import {
   NON_HISPANIC,
   UNKNOWN,
   UNKNOWN_RACE,
-  TOTAL,
+  ALL,
 } from "../data/utils/Constants";
 import { BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/query/Breakdowns";
 
@@ -120,7 +120,7 @@ function MapCardWithKey(props: MapCardProps) {
           activeBreakdownFilter === "" ||
           activeBreakdownFilter === undefined
         ) {
-          setActiveBreakdownFilter(TOTAL || breakdownValues[0]);
+          setActiveBreakdownFilter(ALL || breakdownValues[0]);
         }
 
         const dataForActiveBreakdownFilter = queryResponse
