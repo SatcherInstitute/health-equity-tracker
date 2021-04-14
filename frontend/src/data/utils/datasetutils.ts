@@ -142,6 +142,19 @@ export function percent(numerator: number, denominator: number): number | null {
     : Math.round((1000 * numerator) / denominator) / 10;
 }
 
+/** Finds expected value of an ailment based on a population sample. */
+export function estimateTotal(
+  sample_count: number,
+  sample_population: number,
+  total_population: number
+): number {
+  return sample_count == null ||
+    sample_population == null ||
+    sample_population === 0
+    ? 0
+    : Math.round((sample_count / sample_population) * total_population);
+}
+
 export function asDate(dateStr: string) {
   const parts = dateStr.split("-").map(Number);
   // Date expects month to be 0-indexed so need to subtract 1.

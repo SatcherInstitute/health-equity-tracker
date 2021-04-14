@@ -38,7 +38,7 @@ import { autoInitGlobals, getEnvironment } from "./utils/globals";
 import ReactTooltip from "react-tooltip";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import PreLaunchSiteContent from "./pages/Landing/PreLaunchSiteContent";
-import TermsOfServicePage from './pages/TermsOfServicePage/TermsOfServicePage';
+import TermsOfServicePage from "./pages/TermsOfServicePage/TermsOfServicePage";
 
 const MOBILE_BREAKPOINT = 600;
 
@@ -84,9 +84,11 @@ function AppToolbar() {
   return (
     <Toolbar className={styles.AppToolbar}>
       <LinkWithStickyParams to="/">
-        <img src="img/AppbarLogo.png"
-             className={styles.AppbarLogoImg}
-             alt="Health Equity Tracker Logo -- decorative 'H'"/>
+        <img
+          src="img/AppbarLogo.png"
+          className={styles.AppbarLogoImg}
+          alt="Health Equity Tracker Logo -- decorative 'H'"
+        />
       </LinkWithStickyParams>
       <Typography variant="h6" className={styles.HomeLogo}>
         <LinkWithStickyParams to="/">
@@ -160,8 +162,8 @@ function App() {
                 component={WhatIsHealthEquityPage}
               />
               <Route
-                  path={TERMS_OF_SERVICE_PAGE_LINK}
-                  component={TermsOfServicePage}
+                path={TERMS_OF_SERVICE_PAGE_LINK}
+                component={TermsOfServicePage}
               />
               <Route exact path="/" component={LandingPage} />
               <Route component={NotFoundPage} />

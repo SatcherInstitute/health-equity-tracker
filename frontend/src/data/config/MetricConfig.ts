@@ -312,20 +312,20 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
   health_insurance: [
     {
       variableId: "health_coverage",
-      variableDisplayName: "Coverage",
-      variableFullDisplayName: "Health Insurance Coverage",
+      variableDisplayName: "Uninsured people",
+      variableFullDisplayName: "Uninsured people",
       metrics: {
         count: {
           metricId: "health_insurance_count",
-          fullCardTitleName: "Individuals with health insurance coverage",
-          shortVegaLabel: "Individuals with health insurance",
+          fullCardTitleName: "Uninsured individuals",
+          shortVegaLabel: "Uninsured individuals",
           type: "count",
           populationComparisonMetric: POPULATION_VARIABLE_CONFIG.metrics.count,
         },
         per100k: {
           metricId: "health_insurance_per_100k",
-          fullCardTitleName: "Health insurance coverage per 100,000 people",
-          shortVegaLabel: "Health insurance coverage per 100k",
+          fullCardTitleName: "Uninsured individuals per 100,000 people",
+          shortVegaLabel: "Uninsured individuals per 100k",
           type: "per100k",
         },
       },
