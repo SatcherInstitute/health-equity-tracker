@@ -103,12 +103,12 @@ class AcsHealthInsuranceProvider extends VariableProvider {
 
     df = df.generateSeries({
       health_insurance_per_100k: (row) =>
-        per100k(row.with_health_insurance, row.total_health_insurance),
+        per100k(row.without_health_insurance, row.total_health_insurance),
     });
 
     df = df.renameSeries({
       total_health_insurance: "total",
-      with_health_insurance: "health_insurance_count",
+      without_health_insurance: "health_insurance_count",
     });
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
