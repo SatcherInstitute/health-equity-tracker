@@ -229,7 +229,7 @@ describe("AcsHealthInsuranceProvider", () => {
     const TOTAL_ROW = finalRow(WA, RACE, ALL, 100, 11111);
 
     await evaluateHealthInsuranceWithAndWithoutTotal(
-      "acs_health_insurance-health_insurance_by_race_state",
+      "acs_health_insurance-health_insurance_by_race_age_state",
       rawData,
       Breakdowns.forFips(new Fips("53")),
       RACE,
