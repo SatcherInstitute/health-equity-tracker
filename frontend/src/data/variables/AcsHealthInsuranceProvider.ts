@@ -18,14 +18,14 @@ class AcsHealthInsuranceProvider extends VariableProvider {
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.hasOnlySex() || breakdowns.hasOnlyAge()) {
       return breakdowns.geography === "county"
-        ? "acs_health_insurance-health_insurance_by_sex_county"
-        : "acs_health_insurance-health_insurance_by_sex_state";
+        ? "acs_health_insurance-health_insurance_by_sex_age_county"
+        : "acs_health_insurance-health_insurance_by_sex_age_state";
     }
 
     if (breakdowns.hasOnlyRace()) {
       return breakdowns.geography === "county"
-        ? "acs_health_insurance-health_insurance_by_race_county"
-        : "acs_health_insurance-health_insurance_by_race_state";
+        ? "acs_health_insurance-health_insurance_by_race_age_county"
+        : "acs_health_insurance-health_insurance_by_race_age_state";
     }
 
     // Fallback for future breakdowns
