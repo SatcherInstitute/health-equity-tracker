@@ -137,15 +137,9 @@ describe("AcsHealthInsuranceProvider", () => {
 
     // Create final rows with health insurance count
     // and health insurance per 100k
-<<<<<<< HEAD
     const NC_ASIAN_FINAL = finalRow(NC, RACE, ASIAN_NH, 900, 90000);
-    const NC_WHITE_FINAL = finalRow(NC, RACE, WHITE_NH, 250, 50000);
-    const NC_TOTAL_FINAL = finalRow(NC, RACE, TOTAL, 1150, 76667);
-=======
-    const NC_ASIAN_FINAL = finalRow(NC, RACE, ASIAN_NH, 100, 10000);
     const NC_WHITE_FINAL = finalRow(NC, RACE, WHITE, 250, 50000);
-    const NC_ALL_FINAL = finalRow(NC, RACE, ALL, 350, 23333);
->>>>>>> 1654b41a0c52013e4b11eb29e9b3bd0c92daba19
+    const NC_ALL_FINAL = finalRow(NC, RACE, ALL, 1150, 76667);
 
     await evaluateHealthInsuranceWithAndWithoutTotal(
       "acs_health_insurance-health_insurance_by_race_state",
@@ -167,15 +161,9 @@ describe("AcsHealthInsuranceProvider", () => {
 
     // Create final rows with health insurance count
     // and health insurance per 100k
-<<<<<<< HEAD
     const NC_ASIAN_FINAL = finalRow(USA, RACE, ASIAN_NH, 1800, 90000);
-    const NC_WHITE_FINAL = finalRow(USA, RACE, WHITE_NH, 250, 50000);
-    const NC_TOTAL_FINAL = finalRow(USA, RACE, TOTAL, 2050, 82000);
-=======
-    const NC_ASIAN_FINAL = finalRow(USA, RACE, ASIAN_NH, 200, 10000);
     const NC_WHITE_FINAL = finalRow(USA, RACE, WHITE, 250, 50000);
-    const NC_ALL_FINAL = finalRow(USA, RACE, ALL, 450, 18000);
->>>>>>> 1654b41a0c52013e4b11eb29e9b3bd0c92daba19
+    const NC_ALL_FINAL = finalRow(USA, RACE, ALL, 2050, 82000);
 
     await evaluateHealthInsuranceWithAndWithoutTotal(
       "acs_health_insurance-health_insurance_by_race_state",
@@ -208,19 +196,11 @@ describe("AcsHealthInsuranceProvider", () => {
       WA,
       KING_COUNTY,
       RACE,
-<<<<<<< HEAD
-      WHITE_NH,
+      WHITE,
       800,
       84211
     );
-    const TOTAL_ROW = finalCountyRow(WA, KING_COUNTY, RACE, TOTAL, 1700, 87179);
-=======
-      WHITE,
-      150,
-      15789
-    );
-    const TOTAL_ROW = finalCountyRow(WA, KING_COUNTY, RACE, ALL, 250, 12821);
->>>>>>> 1654b41a0c52013e4b11eb29e9b3bd0c92daba19
+    const TOTAL_ROW = finalCountyRow(WA, KING_COUNTY, RACE, ALL, 1700, 87179);
 
     await evaluateHealthInsuranceWithAndWithoutTotal(
       "acs_health_insurance-health_insurance_by_race_county",
@@ -240,13 +220,13 @@ describe("AcsHealthInsuranceProvider", () => {
       stateRow(WA, "race", HISPANIC, "400", "800", "1200"),
     ];
 
-    const WA_HL = finalRow(WA, RACE, HISPANIC, 400, 33333);
+    const WA_HL = finalRow(WA, RACE, HISPANIC, 800, 66667);
 
-    const WA_WHITE = finalRow(WA, RACE, WHITE, 100, 11111);
+    const WA_WHITE = finalRow(WA, RACE, WHITE, 800, 88889);
 
-    const WA_WHITE_NH = finalRow(WA, RACE, WHITE_NH, 200, 20000);
+    const WA_WHITE_NH = finalRow(WA, RACE, WHITE_NH, 800, 80000);
 
-    const TOTAL_ROW = finalRow(WA, RACE, ALL, 100, 11111);
+    const TOTAL_ROW = finalRow(WA, RACE, ALL, 800, 88889);
 
     await evaluateHealthInsuranceWithAndWithoutTotal(
       "acs_health_insurance-health_insurance_by_race_state",
