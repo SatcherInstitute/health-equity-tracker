@@ -142,7 +142,7 @@ describe("AcsHealthInsuranceProvider", () => {
     const NC_ALL_FINAL = finalRow(NC, RACE, ALL, 1150, 76667);
 
     await evaluateHealthInsuranceWithAndWithoutTotal(
-      "acs_health_insurance-health_insurance_by_race_state",
+      "acs_health_insurance-health_insurance_by_race_age_state",
       rawData,
       Breakdowns.forFips(new Fips("37")),
       RACE,
@@ -166,7 +166,7 @@ describe("AcsHealthInsuranceProvider", () => {
     const NC_ALL_FINAL = finalRow(USA, RACE, ALL, 2050, 82000);
 
     await evaluateHealthInsuranceWithAndWithoutTotal(
-      "acs_health_insurance-health_insurance_by_race_state",
+      "acs_health_insurance-health_insurance_by_race_age_state",
       rawData,
       Breakdowns.forFips(new Fips(USA.code)),
       RACE,
@@ -203,7 +203,7 @@ describe("AcsHealthInsuranceProvider", () => {
     const TOTAL_ROW = finalCountyRow(WA, KING_COUNTY, RACE, ALL, 1700, 87179);
 
     await evaluateHealthInsuranceWithAndWithoutTotal(
-      "acs_health_insurance-health_insurance_by_race_county",
+      "acs_health_insurance-health_insurance_by_race_age_county",
       rawData,
       Breakdowns.byCounty(),
       RACE,
@@ -229,7 +229,7 @@ describe("AcsHealthInsuranceProvider", () => {
     const TOTAL_ROW = finalRow(WA, RACE, ALL, 800, 88889);
 
     await evaluateHealthInsuranceWithAndWithoutTotal(
-      "acs_health_insurance-health_insurance_by_race_state",
+      "acs_health_insurance-health_insurance_by_race_age_state",
       rawData,
       Breakdowns.forFips(new Fips("53")),
       RACE,

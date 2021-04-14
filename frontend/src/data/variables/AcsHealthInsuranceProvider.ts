@@ -16,20 +16,19 @@ class AcsHealthInsuranceProvider extends VariableProvider {
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
-    if (breakdowns.hasOnlySex()) {
+    if (breakdowns.hasOnlySex() || breakdowns.hasOnlyAge()) {
       return breakdowns.geography === "county"
-        ? "acs_health_insurance-health_insurance_by_sex_county"
-        : "acs_health_insurance-health_insurance_by_sex_state";
+        ? "acs_health_insurance-health_insurance_by_sex_age_county"
+        : "acs_health_insurance-health_insurance_by_sex_age_state";
     }
 
     if (breakdowns.hasOnlyRace()) {
       return breakdowns.geography === "county"
-        ? "acs_health_insurance-health_insurance_by_race_county"
-        : "acs_health_insurance-health_insurance_by_race_state";
+        ? "acs_health_insurance-health_insurance_by_race_age_county"
+        : "acs_health_insurance-health_insurance_by_race_age_state";
     }
 
-    // Age only breakdown is not supported yet, due to the dataset not being
-    // Aggregated on the backend.
+    // Fallback for future breakdowns
     throw new Error("Not implemented");
   }
 
@@ -119,7 +118,6 @@ class AcsHealthInsuranceProvider extends VariableProvider {
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
     return (
       breakdowns.hasExactlyOneDemographic() &&
-      !breakdowns.hasOnlyAge() &&
       !breakdowns.time
     );
   }
