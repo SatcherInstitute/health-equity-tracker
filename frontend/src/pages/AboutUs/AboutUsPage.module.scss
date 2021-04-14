@@ -24,16 +24,17 @@
 
 // For primary-themed buttons
 .PrimaryButton {
-  background-color: #0b5240;
-  color: white !important;
-  border-radius: 40px;
+  border-radius: 40px !important;
   height: 52px;
   width: 220px;
-  font-size: 18px;
+  font-size: 18px !important;
   font-weight: 500;
   font-family: "DM Sans", sans-serif !important;
-  text-decoration: none;
-  padding: 10px 30px 10px 30px;
+  padding: 10px 30px;
+}
+
+.NoUnderline {
+  text-decoration: none !important;
 }
 
 /** ------------- GRID ITEM POSITIONING ------------- **/

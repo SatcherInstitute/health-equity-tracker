@@ -53,6 +53,13 @@ class AcsPopulationProvider extends VariableProvider {
     const breakdowns = metricQuery.breakdowns;
     let df = await this.getDataInternalWithoutPercents(breakdowns);
 
+    // Calculate population_pct based on total for breakdown
+    // Exactly one breakdown should be enabled per allowsBreakdowns()
+    const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
+      .columnName;
+
+    df = this.renameTotalToAll(df, breakdownColumnName);
+
     // Calculate totals when the dataset doesn't provide it
     // TODO: this should be removed when Totals come from the Data Server. Note
     // that this assumes that the categories sum to exactly the total
@@ -80,11 +87,6 @@ class AcsPopulationProvider extends VariableProvider {
           .resetIndex();
       }
     });
-
-    // Calculate population_pct based on total for breakdown
-    // Exactly one breakdown should be enabled per allowsBreakdowns()
-    const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
-      .columnName;
 
     df = this.calculatePctShare(
       df,

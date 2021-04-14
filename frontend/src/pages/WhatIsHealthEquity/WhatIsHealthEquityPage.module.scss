@@ -99,7 +99,7 @@
       font-size: 14px;
       font-weight: 400;
       line-height: 26px;
-      color: #5F6368;
+      color: #5f6368;
       margin: 0px;
     }
 
@@ -286,7 +286,7 @@
 
   .JoinTheEffortItemContainer {
     padding: 30px 0px 30px 0px;
-    border-top: 1px solid #5F6368;
+    border-top: 1px solid #5f6368;
     display: flex;
     align-items: center;
   }
@@ -331,42 +331,13 @@
     padding: 10px 0 10px 0;
   }
 
-  .EmailAddressForm {
-    border-radius: 40px;
-    width: 485px;
-    height: 60px;
-    background-color: white;
-    border: 1px solid #888888;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .EmailAddressFormText {
-    height: 60px;
-    background-color: transparent;
-    border: none;
-    margin-left: 20px;
-    font-size: 16px;
-
-    &:focus {
-      outline: none;
-    }
+  .EmailTextField {
+    width: 260px;
   }
 
   .EmailAddressFormSubmit {
-    height: 48px;
-    width: 150px;
-    border-radius: 40px;
-    background: $alt-green;
-    color: white;
-    border: none;
-    margin-right: 10px;
-
-    &:focus {
-      outline: 1px solid darkgreen;
-    }
+    height: 56px;
+    margin-left: 5px;
   }
 
   .SocialsDiv {
@@ -381,6 +352,11 @@
   .SocialsIcon {
     color: $alt-green;
     font-size: 35px;
+  }
+
+  .CopyIcon {
+    color: $alt-green;
+    height: 35px;
   }
 
   .ContactUsLink {

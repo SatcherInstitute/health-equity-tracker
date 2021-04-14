@@ -9,7 +9,6 @@ import {
   ABOVE_POVERTY_COL,
   BELOW_POVERTY_COL,
   WHITE_NH,
-  TWO_OR_MORE,
   HISPANIC,
 } from "../utils/Constants";
 import { IDataFrame, ISeries } from "data-forge";
@@ -59,8 +58,9 @@ class AcsPovertyProvider extends VariableProvider {
     const calculatedValueForAll = df
       .where(
         (row) =>
+          //We remove these races because they are subsets
           row["race_and_ethnicity"] !== WHITE_NH &&
-          row["race_and_ethnicity"] !== TWO_OR_MORE
+          row["race_and_ethnicity"] !== HISPANIC
       )
       .pivot(["fips", "fips_name"], {
         above_poverty_line: (series: ISeries) => series.sum(),

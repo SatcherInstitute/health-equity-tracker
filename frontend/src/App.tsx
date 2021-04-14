@@ -38,16 +38,16 @@ import { autoInitGlobals, getEnvironment } from "./utils/globals";
 import ReactTooltip from "react-tooltip";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import PreLaunchSiteContent from "./pages/Landing/PreLaunchSiteContent";
-import TermsOfServicePage from './pages/TermsOfServicePage/TermsOfServicePage';
+import TermsOfServicePage from "./pages/TermsOfServicePage/TermsOfServicePage";
 
 const MOBILE_BREAKPOINT = 600;
 
 const PAGE_URL_TO_NAMES: Record<string, string> = {
   "/": "Homepage",
-  [ABOUT_US_PAGE_LINK]: "About Us",
-  [DATA_CATALOG_PAGE_LINK]: "Downloads & Methodology",
-  [EXPLORE_DATA_PAGE_LINK]: "Explore the Data",
   [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: "What is Health Equity?",
+  [EXPLORE_DATA_PAGE_LINK]: "Explore the Data",
+  [DATA_CATALOG_PAGE_LINK]: "Downloads & Methodology",
+  [ABOUT_US_PAGE_LINK]: "About Us",
 };
 
 autoInitGlobals();
@@ -84,9 +84,11 @@ function AppToolbar() {
   return (
     <Toolbar className={styles.AppToolbar}>
       <LinkWithStickyParams to="/">
-        <img src="img/AppbarLogo.png"
-             className={styles.AppbarLogoImg}
-             alt="Health Equity Tracker Logo -- decorative 'H'"/>
+        <img
+          src="img/AppbarLogo.png"
+          className={styles.AppbarLogoImg}
+          alt="Health Equity Tracker Logo -- decorative 'H'"
+        />
       </LinkWithStickyParams>
       <Typography variant="h6" className={styles.HomeLogo}>
         <LinkWithStickyParams to="/">
@@ -94,9 +96,9 @@ function AppToolbar() {
         </LinkWithStickyParams>
       </Typography>
       {[
+        WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
         EXPLORE_DATA_PAGE_LINK,
         DATA_CATALOG_PAGE_LINK,
-        WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
         ABOUT_US_PAGE_LINK,
       ].map((pageUrl, i) => (
         <LinkWithStickyParams to={pageUrl} class={styles.NavLink}>
@@ -160,8 +162,8 @@ function App() {
                 component={WhatIsHealthEquityPage}
               />
               <Route
-                  path={TERMS_OF_SERVICE_PAGE_LINK}
-                  component={TermsOfServicePage}
+                path={TERMS_OF_SERVICE_PAGE_LINK}
+                component={TermsOfServicePage}
               />
               <Route exact path="/" component={LandingPage} />
               <Route component={NotFoundPage} />

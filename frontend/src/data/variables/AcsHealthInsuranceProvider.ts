@@ -17,20 +17,19 @@ class AcsHealthInsuranceProvider extends VariableProvider {
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
-    if (breakdowns.hasOnlySex()) {
+    if (breakdowns.hasOnlySex() || breakdowns.hasOnlyAge()) {
       return breakdowns.geography === "county"
-        ? "acs_health_insurance-health_insurance_by_sex_county"
-        : "acs_health_insurance-health_insurance_by_sex_state";
+        ? "acs_health_insurance-health_insurance_by_sex_age_county"
+        : "acs_health_insurance-health_insurance_by_sex_age_state";
     }
 
     if (breakdowns.hasOnlyRace()) {
       return breakdowns.geography === "county"
-        ? "acs_health_insurance-health_insurance_by_race_county"
-        : "acs_health_insurance-health_insurance_by_race_state";
+        ? "acs_health_insurance-health_insurance_by_race_age_county"
+        : "acs_health_insurance-health_insurance_by_race_age_state";
     }
 
-    // Age only breakdown is not supported yet, due to the dataset not being
-    // Aggregated on the backend.
+    // Fallback for future breakdowns
     throw new Error("Not implemented");
   }
 
@@ -94,6 +93,7 @@ class AcsHealthInsuranceProvider extends VariableProvider {
     const total = df
       .where(
         (row) =>
+          //We remove these races because they are subsets
           row["race_and_ethnicity"] !== WHITE_NH &&
           row["race_and_ethnicity"] !== HISPANIC
       )
@@ -103,12 +103,12 @@ class AcsHealthInsuranceProvider extends VariableProvider {
 
     df = df.generateSeries({
       health_insurance_per_100k: (row) =>
-        per100k(row.with_health_insurance, row.total_health_insurance),
+        per100k(row.without_health_insurance, row.total_health_insurance),
     });
 
     df = df.renameSeries({
       total_health_insurance: "total",
-      with_health_insurance: "health_insurance_count",
+      without_health_insurance: "health_insurance_count",
     });
 
     df = this.calculatePctShare(
@@ -127,7 +127,6 @@ class AcsHealthInsuranceProvider extends VariableProvider {
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
     return (
       breakdowns.hasExactlyOneDemographic() &&
-      !breakdowns.hasOnlyAge() &&
       !breakdowns.time
     );
   }
