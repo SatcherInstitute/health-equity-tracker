@@ -74,7 +74,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       }
     >
       {([queryResponse]) => {
-        console.log(queryResponse);
         const unknowns = queryResponse
           .getValidRowsForField(props.currentBreakdown)
           .filter(
