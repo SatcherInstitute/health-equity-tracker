@@ -2,7 +2,6 @@ import React from "react";
 import { DisparityBarChart } from "../charts/DisparityBarChart";
 import styles from "./Card.module.scss";
 import { CardContent, Divider } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
