@@ -16,6 +16,7 @@ import { MapOfDatasetMetadata } from "../data/utils/DatasetTypes";
 
 function CardWrapper(props: {
   title?: JSX.Element;
+  // To have an info icon that opens additional info, pass a Popover such as <RaceInfoPopoverContent />
   infoPopover?: JSX.Element;
   hideFooter?: boolean;
   queries?: MetricQuery[];
