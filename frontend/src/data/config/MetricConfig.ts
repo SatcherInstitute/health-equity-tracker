@@ -47,6 +47,12 @@ export type MetricConfig = {
   shortVegaLabel: string;
   type: MetricType;
   populationComparisonMetric?: MetricConfig;
+
+  // This metric is one where the denominator only includes records where
+  // demographics are known. For example, for "share of covid cases" in the US
+  // for the "Asian" demographic, this metric would be equal to
+  // (# of Asian covid cases in the US) divided by
+  // (# of covid cases in the US excluding those with unknown race/ethnicity).
   knownBreakdownComparisonMetric?: MetricConfig;
 };
 
