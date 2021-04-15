@@ -139,9 +139,21 @@ export function DataSourceListing(props: DataSourceListingProps) {
       </div>
       <div className={styles.Footer}>
         <div className={styles.CardFooterRight}>
-          <Button color="primary" onClick={() => setDialogIsOpen(true)}>
-            Download
-          </Button>
+          {props.source_metadata.downloadable && (
+            <Button color="primary" onClick={() => setDialogIsOpen(true)}>
+              Download
+            </Button>
+          )}
+          {!props.source_metadata.downloadable &&
+            props.source_metadata.download_link && (
+              <Link
+                href={props.source_metadata.download_link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button color="primary">Download</Button>
+              </Link>
+            )}
         </div>
         <Dialog onClose={() => setDialogIsOpen(false)} open={dialogIsOpen}>
           <DialogTitle className={styles.DialogTitle}>
