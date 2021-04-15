@@ -70,7 +70,6 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
       "cdc_restricted_data-by_sex_state",
     ],
     downloadable: false,
-    download_link: "https://covid.cdc.gov/covid-data-tracker/#datatracker-home",
   },
 ];
 

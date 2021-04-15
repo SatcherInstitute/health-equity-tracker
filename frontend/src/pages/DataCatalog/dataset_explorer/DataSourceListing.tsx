@@ -100,9 +100,6 @@ export function DataSourceListing(props: DataSourceListingProps) {
       data-testid={props.source_metadata.id}
     >
       <Typography variant="h5" className={styles.DatasetTitle} align="left">
-        {props.source_metadata.data_source_name}
-      </Typography>
-      <Typography className={styles.DataSubtitle} align="left">
         <Link
           href={props.source_metadata.data_source_link}
           target="_blank"
