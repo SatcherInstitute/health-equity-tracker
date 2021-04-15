@@ -8,6 +8,7 @@ import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
 import DropDownMenu from "./ui/DropDownMenu";
 import MapBreadcrumbs from "./ui/MapBreadcrumbs";
+import MissingDataAlert from "./ui/MissingDataAlert";
 import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 import { Breakdowns, BreakdownVar } from "../data/query/Breakdowns";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
@@ -220,7 +221,12 @@ function MapCardWithKey(props: MapCardProps) {
             <Divider />
             {queryResponse.dataIsMissing() && (
               <CardContent>
-                <Alert severity="error">No data available</Alert>
+                <MissingDataAlert
+                  dataName={props.metricConfig.fullCardTitleName}
+                  breakdownString={
+                    BREAKDOWN_VAR_DISPLAY_NAMES[activeBreakdownVar]
+                  }
+                />
               </CardContent>
             )}
             {!queryResponse.dataIsMissing() &&
