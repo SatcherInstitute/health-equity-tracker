@@ -7,6 +7,7 @@ import MapBreadcrumbs from "./ui/MapBreadcrumbs";
 import { Row } from "../data/utils/DatasetTypes";
 import CardWrapper from "./CardWrapper";
 import { MetricQuery } from "../data/query/MetricQuery";
+import MissingDataAlert from "./ui/MissingDataAlert";
 import {
   Breakdowns,
   BreakdownVar,
@@ -15,6 +16,7 @@ import {
 import { UNKNOWN, UNKNOWN_RACE } from "../data/utils/Constants";
 import styles from "./Card.module.scss";
 import Divider from "@material-ui/core/Divider";
+import Alert from "@material-ui/lab/Alert";
 
 export interface UnknownsMapCardProps {
   // Metric the map will evaluate for unknowns
@@ -72,7 +74,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       }
     >
       {([queryResponse]) => {
-        const dataForValue = queryResponse
+        console.log(queryResponse);
+        const unknowns = queryResponse
           .getValidRowsForField(props.currentBreakdown)
           .filter(
             (row: Row) =>
@@ -90,15 +93,32 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             </CardContent>
             <Divider />
             <CardContent>
-              <ChoroplethMap
-                signalListeners={signalListeners}
-                metric={props.metricConfig}
-                legendTitle={props.metricConfig.fullCardTitleName}
-                data={dataForValue}
-                showCounties={props.fips.isUsa() ? false : true}
-                fips={props.fips}
-                scaleType="quantile"
-              />
+              {queryResponse.dataIsMissing() && (
+                <MissingDataAlert
+                  dataName={props.metricConfig.fullCardTitleName}
+                  breakdownString={
+                    BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+                  }
+                />
+              )}
+              {!queryResponse.dataIsMissing() && unknowns.length === 0 && (
+                <Alert severity="info">
+                  No unknown values for{" "}
+                  {BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]} reported
+                  in this dataset.
+                </Alert>
+              )}
+              {!queryResponse.dataIsMissing() && unknowns.length > 0 && (
+                <ChoroplethMap
+                  signalListeners={signalListeners}
+                  metric={props.metricConfig}
+                  legendTitle={props.metricConfig.fullCardTitleName}
+                  data={unknowns}
+                  showCounties={props.fips.isUsa() ? false : true}
+                  fips={props.fips}
+                  scaleType="quantile"
+                />
+              )}
             </CardContent>
           </>
         );
