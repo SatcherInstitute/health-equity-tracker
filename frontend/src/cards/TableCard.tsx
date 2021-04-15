@@ -35,11 +35,15 @@ export function TableCard(props: TableCardProps) {
   );
   let metricConfigs: Record<string, MetricConfig> = {};
   props.metrics.forEach((metricConfig) => {
-    metricConfigs[metricConfig.metricId] = metricConfig;
+    // We prefer to show the known breakdown metric over the vanilla metric, if
+    // it is available.
     if (metricConfig.knownBreakdownComparisonMetric) {
       metricConfigs[metricConfig.knownBreakdownComparisonMetric.metricId] =
         metricConfig.knownBreakdownComparisonMetric;
+    } else {
+      metricConfigs[metricConfig.metricId] = metricConfig;
     }
+
     if (metricConfig.populationComparisonMetric) {
       metricConfigs[metricConfig.populationComparisonMetric.metricId] =
         metricConfig.populationComparisonMetric;
