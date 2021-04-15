@@ -70,7 +70,7 @@ export function TableChart(props: TableChartProps) {
     {
       columns: memoCols,
       data: memoData,
-      initialState: { pageSize: 5 },
+      initialState: { pageSize: 10 },
     },
     useSortBy,
     usePagination
@@ -121,7 +121,7 @@ export function TableChart(props: TableChartProps) {
       {props.data.length <= 0 || props.metrics.length <= 0 ? (
         <h1>No Data provided</h1>
       ) : (
-        <TableContainer component={Paper} style={{ maxHeight: "500px" }}>
+        <TableContainer component={Paper} style={{ maxHeight: "100%" }}>
           <Table stickyHeader {...getTableProps()}>
             <TableHead>
               {headerGroups.map((group, index) => (
