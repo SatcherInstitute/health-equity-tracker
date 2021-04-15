@@ -43,7 +43,7 @@ export async function evaluateWithAndWithoutAll(
     new MetricQuery(METRIC_IDS, baseBreakdown.addBreakdown(breakdownVar))
   );
 
-  let consumedDatasetIds = ["brfss"];
+  let consumedDatasetIds = ["brfss", "acs_population-by_race_state_std"];
   if (baseBreakdown.geography === "national") {
     consumedDatasetIds.push(acsDatasetId);
   }
@@ -171,7 +171,7 @@ describe("BrfssProvider", () => {
     await evaluateWithAndWithoutAll(
       "brfss",
       rawData,
-      "acs_population-by_race_county_std",
+      "acs_population-by_race_state_std",
       rawAcsData,
       Breakdowns.forFips(new Fips("37")),
       RACE,
