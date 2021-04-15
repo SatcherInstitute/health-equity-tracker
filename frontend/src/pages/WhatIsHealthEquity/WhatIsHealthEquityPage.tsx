@@ -18,6 +18,44 @@ import {
 import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
+function JoinTheEffortContainer(props: {
+  imageUrl: string;
+  imageAlt: string;
+  imageBackground: string;
+  textTitle: string;
+  content: JSX.Element;
+}) {
+  return (
+    <Grid
+      container
+      justify="space-around"
+      className={styles.JoinTheEffortItemContainer}
+    >
+      <Hidden smDown>
+        <Grid
+          item
+          md={5}
+          lg={5}
+          className={styles.JoinTheEffortImgContainer}
+          style={{ backgroundColor: props.imageBackground }}
+        >
+          <img
+            src={props.imageUrl}
+            alt={props.imageAlt}
+            className={styles.JoinTheEffortImg}
+          />
+        </Grid>
+      </Hidden>
+      <Grid item sm={12} md={6} className={styles.JoinTheEffortTextContainer}>
+        <Typography className={styles.JoinTheEffortStepHeaderText}>
+          {props.textTitle}
+        </Typography>
+        {props.content}
+      </Grid>
+    </Grid>
+  );
+}
+
 function WhatIsHealthEquityPage() {
   const [textCopied, setTextCopied] = useState(false);
 
@@ -356,7 +394,6 @@ function WhatIsHealthEquityPage() {
             </Grid>
           </Grid>
         </Grid>
-
         <Grid
           container
           className={styles.JoinTheEffortRow}
@@ -376,175 +413,127 @@ function WhatIsHealthEquityPage() {
             <br />
             <br />
           </Grid>
-          <Grid container className={styles.JoinTheEffortItemContainer}>
-            <Hidden smDown>
-              <Grid
-                item
-                xs={5}
-                className={styles.JoinTheEffortImgContainer}
-                style={{ backgroundColor: "#275141" }}
-              >
-                <img
-                  src="img/HET_Dots_1_v3_1000px.gif"
-                  alt="Decorative dots"
-                  className={styles.JoinTheEffortImg}
-                />
-              </Grid>
-            </Hidden>
-            <Grid
-              item
-              sm={12}
-              md={7}
-              className={styles.JoinTheEffortTextContainer}
-            >
-              <Typography className={styles.JoinTheEffortStepHeaderText}>
-                Sign up for our newsletter
-              </Typography>
-              <p className={styles.JoinTheEffortStepText}>
-                Want updates on the latest news in health equity? Sign up for
-                our Satcher Health Leadership Institute newsletter.
-              </p>
-              <form
-                action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
-                method="post"
-                target="_blank"
-              >
-                <TextField
-                  id="Enter email address to sign up" // Accessibility label
-                  name="MERGE0"
-                  variant="outlined"
-                  className={styles.EmailTextField}
-                  type="email"
-                  placeholder="Enter email address"
-                />
-                <Button
-                  type="submit"
-                  color="primary"
-                  variant="contained"
-                  className={styles.EmailAddressFormSubmit}
-                >
-                  Sign up
-                </Button>
-              </form>
-            </Grid>
-          </Grid>
-          <Grid container className={styles.JoinTheEffortItemContainer}>
-            <Hidden smDown>
-              <Grid
-                item
-                md={5}
-                className={styles.JoinTheEffortImgContainer}
-                style={{ backgroundColor: "#EDB2A6" }}
-              >
-                <img
-                  src="img/HET_Fields_1_v2_1000px.gif"
-                  alt="Decorative thick lines"
-                  className={styles.JoinTheEffortImg}
-                />
-              </Grid>
-            </Hidden>
-            <Grid
-              item
-              sm={12}
-              md={7}
-              className={styles.JoinTheEffortTextContainer}
-            >
-              <Typography className={styles.JoinTheEffortStepHeaderText}>
-                Share information with your community
-              </Typography>
-              <p className={styles.JoinTheEffortStepText}>
-                Movements begin with awareness, and gain momentum with
-                excitement. We need your help in creating both for the movement
-                to advance health equity!
-                <br />
-                <br />
-                Share this tool with your network
-              </p>
-              <div className={styles.SocialsDiv}>
-                <IconButton
+          <JoinTheEffortContainer
+            imageUrl="img/HET_Dots_1_v3_1000px.gif"
+            imageBackground="#275141"
+            imageAlt="Decorative dots"
+            textTitle="Sign up for our newsletter"
+            content={
+              <>
+                <p className={styles.JoinTheEffortStepText}>
+                  Want updates on the latest news in health equity? Sign up for
+                  our Satcher Health Leadership Institute newsletter.
+                </p>
+                <form
+                  action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
+                  method="post"
                   target="_blank"
-                  href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhealthequitytracker.org%2F&amp;src=sdkpreparse"
                 >
-                  <FacebookIcon className={styles.SocialsIcon} />
-                </IconButton>
-                <IconButton
-                  target="_blank"
-                  href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fhealthequitytracker.org"
-                >
-                  <LinkedInIcon className={styles.SocialsIcon} />
-                </IconButton>
-                <IconButton
-                  target="_blank"
-                  href="https://twitter.com/share?url=https%3A%2F%2Fwww.healthequitytracker.org"
-                >
-                  <TwitterIcon className={styles.SocialsIcon} />
-                </IconButton>
-              </div>
-              <TextField
-                InputProps={{
-                  readOnly: true,
-                }}
-                id="www.healthequitytracker.org" // Accessibility label
-                variant="outlined"
-                defaultValue="www.healthequitytracker.org"
-                className={styles.TextField}
-              />
-              <div className={styles.SocialsDiv}>
-                <CopyToClipboard
-                  text="www.healthequitytracker.org"
-                  onCopy={() => {
-                    setTextCopied(true);
-                    setTimeout(() => setTextCopied(false), 1500);
-                  }}
-                >
+                  <TextField
+                    id="Enter email address to sign up" // Accessibility label
+                    name="MERGE0"
+                    variant="outlined"
+                    className={styles.EmailTextField}
+                    type="email"
+                    placeholder="Enter email address"
+                  />
                   <Button
-                    className={styles.CopyIcon}
-                    startIcon={<FileCopyIcon />}
+                    type="submit"
+                    color="primary"
+                    variant="contained"
+                    className={styles.EmailAddressFormSubmit}
                   >
-                    Copy link to clipboard
+                    Sign up
                   </Button>
-                </CopyToClipboard>
-                {textCopied && <span>Text copied!</span>}
-              </div>
-            </Grid>
-          </Grid>
-          <Grid container className={styles.JoinTheEffortItemContainer}>
-            <Hidden smDown>
-              <Grid
-                item
-                xs={5}
-                className={styles.JoinTheEffortImgContainer}
-                style={{ backgroundColor: "#A5CDC0" }}
-              >
-                <img
-                  src="img/HET_Overlapping_Lines_v4_1000px.gif"
-                  alt="Decorative thin lines"
-                  className={styles.JoinTheEffortImg}
+                </form>
+              </>
+            }
+          />
+          <JoinTheEffortContainer
+            imageUrl="img/HET_Fields_1_v2_1000px.gif"
+            imageBackground="#EDB2A6"
+            imageAlt="Decorative thick lines"
+            textTitle="Share information with your community"
+            content={
+              <>
+                <p className={styles.JoinTheEffortStepText}>
+                  Movements begin with awareness, and gain momentum with
+                  excitement. We need your help in creating both for the
+                  movement to advance health equity!
+                  <br />
+                  <br />
+                  Share this tool with your network
+                </p>
+                <div className={styles.SocialsDiv}>
+                  <IconButton
+                    target="_blank"
+                    href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhealthequitytracker.org%2F&amp;src=sdkpreparse"
+                  >
+                    <FacebookIcon className={styles.SocialsIcon} />
+                  </IconButton>
+                  <IconButton
+                    target="_blank"
+                    href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fhealthequitytracker.org"
+                  >
+                    <LinkedInIcon className={styles.SocialsIcon} />
+                  </IconButton>
+                  <IconButton
+                    target="_blank"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fwww.healthequitytracker.org"
+                  >
+                    <TwitterIcon className={styles.SocialsIcon} />
+                  </IconButton>
+                </div>
+                <TextField
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  id="www.healthequitytracker.org" // Accessibility label
+                  variant="outlined"
+                  defaultValue="www.healthequitytracker.org"
+                  className={styles.TextField}
                 />
-              </Grid>
-            </Hidden>
-            <Grid
-              item
-              sm={12}
-              md={7}
-              className={styles.JoinTheEffortTextContainer}
-            >
-              <Typography className={styles.JoinTheEffortStepHeaderText}>
-                Share your story
-              </Typography>
-              <p className={styles.JoinTheEffortStepText}>
-                We would love to hear about and feature your work in health
-                equity, or if you’ve used the Health Equity Tracker to take
-                action, implement a program, advocate for change, or more.
-              </p>
-              <LinkWithStickyParams
-                class={styles.ContactUsLink}
-                to={`${ABOUT_US_PAGE_LINK}?${ABOUT_US_TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
-              >
-                Contact Us
-              </LinkWithStickyParams>
-            </Grid>
-          </Grid>
+                <div className={styles.SocialsDiv}>
+                  <CopyToClipboard
+                    text="www.healthequitytracker.org"
+                    onCopy={() => {
+                      setTextCopied(true);
+                      setTimeout(() => setTextCopied(false), 1500);
+                    }}
+                  >
+                    <Button
+                      className={styles.CopyIcon}
+                      startIcon={<FileCopyIcon />}
+                    >
+                      Copy link to clipboard
+                    </Button>
+                  </CopyToClipboard>
+                  {textCopied && <span>Text copied!</span>}
+                </div>
+              </>
+            }
+          />
+          <JoinTheEffortContainer
+            imageUrl="img/HET_Overlapping_Lines_v4_1000px.gif"
+            imageBackground="#A5CDC0"
+            imageAlt="Decorative thin lines"
+            textTitle="Share your story?"
+            content={
+              <>
+                <p className={styles.JoinTheEffortStepText}>
+                  We would love to hear about and feature your work in health
+                  equity, or if you’ve used the Health Equity Tracker to take
+                  action, implement a program, advocate for change, or more.
+                </p>
+                <LinkWithStickyParams
+                  class={styles.ContactUsLink}
+                  to={`${ABOUT_US_PAGE_LINK}?${ABOUT_US_TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
+                >
+                  Contact Us
+                </LinkWithStickyParams>
+              </>
+            }
+          />
         </Grid>
       </Grid>
     </div>
