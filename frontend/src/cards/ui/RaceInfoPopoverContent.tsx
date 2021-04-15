@@ -1,6 +1,9 @@
 import React from "react";
 import styles from "../Card.module.scss";
 
+/*
+This popover may be used to add an info icon to a Card title that opens additional race info
+*/
 function RaceInfoPopoverContent(props: {}) {
   return (
     <div className={styles.BarChartCardPopover}>

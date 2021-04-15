@@ -2,7 +2,6 @@ import React from "react";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
 import styles from "./Card.module.scss";
 import { CardContent } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
@@ -12,9 +11,6 @@ import {
 import { MetricQuery } from "../data/query/MetricQuery";
 import { MetricConfig } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
-import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
-import DisparityInfoPopover from "./ui/DisparityInfoPopover";
-import { usePopover } from "../utils/usePopover";
 import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
@@ -46,15 +42,9 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const query = new MetricQuery([props.metricConfig.metricId], breakdowns);
 
   function CardTitle() {
-    const popover = usePopover();
-
     return (
       <>
-        <DisparityInfoPopover popover={popover} />
-        <Button onClick={popover.open} className={styles.TermInfoButton}>
-          Disparities
-        </Button>{" "}
-        in {props.metricConfig.fullCardTitleName} by{" "}
+        Disparities in {props.metricConfig.fullCardTitleName} by{" "}
         <b>{BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]}</b> in{" "}
         {props.fips.getFullDisplayName()}
       </>
@@ -62,15 +52,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   }
 
   return (
-    <CardWrapper
-      queries={[query]}
-      title={<CardTitle />}
-      infoPopover={
-        props.breakdownVar === "race_and_ethnicity" ? (
-          <RaceInfoPopoverContent />
-        ) : undefined
-      }
-    >
+    <CardWrapper queries={[query]} title={<CardTitle />}>
       {([queryResponse]) => {
         return (
           <>

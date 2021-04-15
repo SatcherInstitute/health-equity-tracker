@@ -25,6 +25,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
       "acs_poverty_dataset-poverty_by_race_age_sex_state",
       "acs_poverty_dataset-poverty_by_race_age_sex_county",
     ],
+    downloadable: true,
   },
   {
     id: "brfss",
@@ -36,6 +37,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "The prevalence (percentage) for diseases broken down by self-reported race/ethnicity and sex at the U.S. and state levels.",
     dataset_ids: ["brfss"],
+    downloadable: true,
   },
   {
     id: "covid_tracking_project",
@@ -47,6 +49,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "The numbers of confirmed deaths, cases, and hospitalizations broken down by race/ethnicity at the U.S. and state levels.",
     dataset_ids: ["covid_by_state_and_race", "covid_by_county_and_race"],
+    downloadable: true,
   },
   {
     id: "cdc_restricted",
@@ -66,6 +69,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
       "cdc_restricted_data-by_sex_county",
       "cdc_restricted_data-by_sex_state",
     ],
+    downloadable: false,
   },
 ];
 
