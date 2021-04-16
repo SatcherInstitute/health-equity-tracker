@@ -2,7 +2,7 @@
 export type MetricId =
   | "population"
   | "population_pct"
-  | "my_population_pct"
+  | "brfss_population_pct"
   | "diabetes_count"
   | "diabetes_per_100k"
   | "diabetes_pct_share"
@@ -268,7 +268,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           shortVegaLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
-            metricId: "my_population_pct",
+            metricId: "brfss_population_pct",
             fullCardTitleName: "Population Share",
             shortVegaLabel: "% of total population",
             type: "pct_share",
@@ -295,7 +295,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           shortVegaLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
-            metricId: "my_population_pct",
+            metricId: "brfss_population_pct",
             fullCardTitleName: "Population Share",
             shortVegaLabel: "% of total population",
             type: "pct_share",
