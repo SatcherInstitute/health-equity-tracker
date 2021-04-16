@@ -49,19 +49,24 @@ class BrfssProvider extends VariableProvider {
     let consumedDatasetIds = ["brfss"];
 
     if (breakdowns.geography === "national") {
+      // So we can calculate the estimated disease prevalence
+      // for each state.
       acsBreakdowns.geography = "state";
     }
 
-    const acsQueryResponse = await this.acsProvider.getData(
+    const acsStateQueryResponse = await this.acsProvider.getData(
       new MetricQuery(["population", "population_pct"], acsBreakdowns)
     );
     consumedDatasetIds = consumedDatasetIds.concat(
-      acsQueryResponse.consumedDatasetIds
+      acsStateQueryResponse.consumedDatasetIds
     );
 
-    const acsPopulation = new DataFrame(acsQueryResponse.data);
-
-    df = joinOnCols(df, acsPopulation, ["fips", breakdownColumnName], "left");
+    df = joinOnCols(
+      df,
+      new DataFrame(acsStateQueryResponse.data),
+      ["fips", breakdownColumnName],
+      "left"
+    );
 
     if (breakdowns.geography === "national") {
       // Because BRFSS is a survey that samples each demographic
@@ -103,16 +108,19 @@ class BrfssProvider extends VariableProvider {
       // TODO: remove both calls to the ACS provider once we
       // automatically merge ACS data in the backend
       acsBreakdowns.geography = "national";
-      const acsQueryResponse = await this.acsProvider.getData(
+      const acsNationalQueryResponse = await this.acsProvider.getData(
         new MetricQuery(["population_pct"], acsBreakdowns)
       );
       consumedDatasetIds = consumedDatasetIds.concat(
-        acsQueryResponse.consumedDatasetIds
+        acsNationalQueryResponse.consumedDatasetIds
       );
 
-      const acsPopulation = new DataFrame(acsQueryResponse.data);
-
-      df = joinOnCols(df, acsPopulation, ["fips", breakdownColumnName], "left");
+      df = joinOnCols(
+        df,
+        new DataFrame(acsNationalQueryResponse.data),
+        ["fips", breakdownColumnName],
+        "left"
+      );
     }
 
     df = df.renameSeries({
@@ -179,7 +187,6 @@ class BrfssProvider extends VariableProvider {
     df = df
       .dropSeries([
         "population",
-        "population_pct",
         "estimated_total_copd",
         "estimated_total_diabetes",
       ])
