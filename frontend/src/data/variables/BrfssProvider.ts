@@ -24,6 +24,7 @@ class BrfssProvider extends VariableProvider {
       "copd_count",
       "copd_per_100k",
       "copd_pct_share",
+      "brfss_population_pct",
     ]);
     this.acsProvider = acsProvider;
   }
@@ -48,28 +49,30 @@ class BrfssProvider extends VariableProvider {
     let consumedDatasetIds = ["brfss"];
 
     if (breakdowns.geography === "national") {
+      // So we can calculate the estimated disease prevalence
+      // for each state.
+      acsBreakdowns.geography = "state";
+    }
+
+    const acsStateQueryResponse = await this.acsProvider.getData(
+      new MetricQuery(["population", "population_pct"], acsBreakdowns)
+    );
+    consumedDatasetIds = consumedDatasetIds.concat(
+      acsStateQueryResponse.consumedDatasetIds
+    );
+
+    df = joinOnCols(
+      df,
+      new DataFrame(acsStateQueryResponse.data),
+      ["fips", breakdownColumnName],
+      "left"
+    );
+
+    if (breakdowns.geography === "national") {
       // Because BRFSS is a survey that samples each demographic
       // in each state at different rates, we must calculate the national
       // numbers by estimating the total number of diabetes and COPD
       // cases per demographic in each state and taking the sum.
-
-      acsBreakdowns.geography = "state";
-
-      const acsQueryResponse = await this.acsProvider.getData(
-        new MetricQuery(["population"], acsBreakdowns)
-      );
-      consumedDatasetIds = consumedDatasetIds.concat(
-        acsQueryResponse.consumedDatasetIds
-      );
-
-      const acsPopulation = new DataFrame(acsQueryResponse.data);
-
-      df = joinOnCols(
-        df,
-        acsPopulation,
-        ["fips", "race_and_ethnicity"],
-        "left"
-      );
 
       df = df.generateSeries({
         estimated_total_diabetes: (row) =>
@@ -98,7 +101,31 @@ class BrfssProvider extends VariableProvider {
           estimated_total_diabetes: (series) => series.sum(),
         })
         .resetIndex();
+
+      // We need to get the national acs dataset here in order to
+      // get the national pct share of population for each state.
+      //
+      // TODO: remove both calls to the ACS provider once we
+      // automatically merge ACS data in the backend
+      acsBreakdowns.geography = "national";
+      const acsNationalQueryResponse = await this.acsProvider.getData(
+        new MetricQuery(["population_pct"], acsBreakdowns)
+      );
+      consumedDatasetIds = consumedDatasetIds.concat(
+        acsNationalQueryResponse.consumedDatasetIds
+      );
+
+      df = joinOnCols(
+        df,
+        new DataFrame(acsNationalQueryResponse.data),
+        ["fips", breakdownColumnName],
+        "left"
+      );
     }
+
+    df = df.renameSeries({
+      population_pct: "brfss_population_pct",
+    });
 
     if (!breakdowns.demographicBreakdowns.race_and_ethnicity.enabled) {
       df = df.pivot(["fips", "fips_name"], {
@@ -121,6 +148,7 @@ class BrfssProvider extends VariableProvider {
         estimated_total_copd: (series) => series.sum(),
         estimated_total_diabetes: (series) => series.sum(),
         [breakdownColumnName]: (series) => ALL,
+        brfss_population_pct: (series) => series.sum(),
       })
       .resetIndex();
     df = df.concat(total).resetIndex();

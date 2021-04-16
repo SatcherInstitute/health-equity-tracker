@@ -2,6 +2,7 @@
 export type MetricId =
   | "population"
   | "population_pct"
+  | "brfss_population_pct"
   | "diabetes_count"
   | "diabetes_per_100k"
   | "diabetes_pct_share"
@@ -261,20 +262,17 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableDisplayName: "Cases",
       variableFullDisplayName: "Diabetes Cases",
       metrics: {
-        count: {
-          metricId: "diabetes_count",
-          fullCardTitleName: "Count of diabetes cases",
-          shortVegaLabel: "Diabetes cases",
-          type: "count",
-          populationComparisonMetric: POPULATION_VARIABLE_CONFIG.metrics.count,
-        },
         pct_share: {
           metricId: "diabetes_pct_share",
           fullCardTitleName: "Share of Diabetes cases",
           shortVegaLabel: "% of cases",
           type: "pct_share",
-          populationComparisonMetric:
-            POPULATION_VARIABLE_CONFIG.metrics.pct_share,
+          populationComparisonMetric: {
+            metricId: "brfss_population_pct",
+            fullCardTitleName: "Population Share",
+            shortVegaLabel: "% of total population",
+            type: "pct_share",
+          },
         },
         per100k: {
           metricId: "diabetes_per_100k",
@@ -291,20 +289,17 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableDisplayName: "Cases",
       variableFullDisplayName: "COPD Cases",
       metrics: {
-        count: {
-          metricId: "copd_count",
-          fullCardTitleName: "Count of COPD cases",
-          shortVegaLabel: "COPD cases",
-          type: "count",
-          populationComparisonMetric: POPULATION_VARIABLE_CONFIG.metrics.count,
-        },
         pct_share: {
           metricId: "copd_pct_share",
           fullCardTitleName: "Share of COPD cases",
           shortVegaLabel: "% of cases",
           type: "pct_share",
-          populationComparisonMetric:
-            POPULATION_VARIABLE_CONFIG.metrics.pct_share,
+          populationComparisonMetric: {
+            metricId: "brfss_population_pct",
+            fullCardTitleName: "Population Share",
+            shortVegaLabel: "% of total population",
+            type: "pct_share",
+          },
         },
         per100k: {
           metricId: "copd_per_100k",
