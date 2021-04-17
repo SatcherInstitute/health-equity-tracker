@@ -62,7 +62,7 @@ function MobileAppToolbar() {
   return (
     <Toolbar>
       <IconButton onClick={() => setOpen(true)}>
-        <MenuIcon />
+        <MenuIcon className={styles.MenuIconForMobile} />
       </IconButton>
       <Drawer variant="persistent" anchor="left" open={open}>
         <Button onClick={() => setOpen(false)}>
