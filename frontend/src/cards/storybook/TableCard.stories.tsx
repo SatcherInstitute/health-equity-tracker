@@ -1,9 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
-import {
-  METRIC_CONFIG,
-  POPULATION_VARIABLE_CONFIG,
-} from "../../data/config/MetricConfig";
+import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 import { TableCard, TableCardProps } from "../TableCard";
 import { Fips, USA_FIPS } from "../../data/utils/Fips";
 import { StoryWrapper } from "../../storybook/StoryWrapper";
