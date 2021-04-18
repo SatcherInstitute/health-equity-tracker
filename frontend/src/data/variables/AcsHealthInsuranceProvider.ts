@@ -77,6 +77,14 @@ class AcsHealthInsuranceProvider extends VariableProvider {
       );
     }
 
+    //Remove white hispanic to bring inline with others
+    df = df
+      .where(
+        (row) =>
+          //We remove these races because they are subsets
+          row["race_and_ethnicity"] !== WHITE_NH
+      )
+
     let totalPivot: { [key: string]: (series: ISeries) => any } = {
       with_health_insurance: (series: ISeries) => series.sum(),
       without_health_insurance: (series: ISeries) => series.sum(),
@@ -93,7 +101,6 @@ class AcsHealthInsuranceProvider extends VariableProvider {
       .where(
         (row) =>
           //We remove these races because they are subsets
-          row["race_and_ethnicity"] !== WHITE_NH &&
           row["race_and_ethnicity"] !== HISPANIC
       )
       .pivot(["fips", "fips_name"], totalPivot)
