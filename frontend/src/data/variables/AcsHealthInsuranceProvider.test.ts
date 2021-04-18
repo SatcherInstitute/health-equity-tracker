@@ -224,8 +224,6 @@ describe("AcsHealthInsuranceProvider", () => {
 
     const WA_WHITE = finalRow(WA, RACE, WHITE, 800, 88889);
 
-    const WA_WHITE_NH = finalRow(WA, RACE, WHITE_NH, 800, 80000);
-
     const TOTAL_ROW = finalRow(WA, RACE, ALL, 800, 88889);
 
     await evaluateHealthInsuranceWithAndWithoutTotal(
@@ -233,8 +231,8 @@ describe("AcsHealthInsuranceProvider", () => {
       rawData,
       Breakdowns.forFips(new Fips("53")),
       RACE,
-      [WA_HL, WA_WHITE, WA_WHITE_NH],
-      [WA_HL, WA_WHITE, WA_WHITE_NH, TOTAL_ROW]
+      [WA_HL, WA_WHITE],
+      [WA_HL, WA_WHITE, TOTAL_ROW]
     );
   });
 });

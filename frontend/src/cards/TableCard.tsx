@@ -14,7 +14,6 @@ import {
   MetricId,
   VariableConfig,
 } from "../data/config/MetricConfig";
-import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
 import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
@@ -35,11 +34,15 @@ export function TableCard(props: TableCardProps) {
   );
   let metricConfigs: Record<string, MetricConfig> = {};
   props.metrics.forEach((metricConfig) => {
-    metricConfigs[metricConfig.metricId] = metricConfig;
+    // We prefer to show the known breakdown metric over the vanilla metric, if
+    // it is available.
     if (metricConfig.knownBreakdownComparisonMetric) {
       metricConfigs[metricConfig.knownBreakdownComparisonMetric.metricId] =
         metricConfig.knownBreakdownComparisonMetric;
+    } else {
+      metricConfigs[metricConfig.metricId] = metricConfig;
     }
+
     if (metricConfig.populationComparisonMetric) {
       metricConfigs[metricConfig.populationComparisonMetric.metricId] =
         metricConfig.populationComparisonMetric;
@@ -55,11 +58,6 @@ export function TableCard(props: TableCardProps) {
         <>{`${props.variableConfig.variableFullDisplayName} by ${
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
         } in ${props.fips.getFullDisplayName()}`}</>
-      }
-      infoPopover={
-        props.breakdownVar === "race_and_ethnicity" ? (
-          <RaceInfoPopoverContent />
-        ) : undefined
       }
     >
       {([queryResponse]) => {

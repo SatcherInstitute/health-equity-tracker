@@ -3,6 +3,14 @@ import styles from "../Card.module.scss";
 import Popover from "@material-ui/core/Popover";
 import { PopoverElements } from "../../utils/usePopover";
 
+/*
+Example usage of this popover to define a "glossary" term:
+
+<DisparityInfoPopover popover={popover} />
+<Button onClick={popover.open} className={styles.TermInfoButton}>
+    Disparities
+</Button>
+*/
 function DisparityInfoPopover(props: { popover: PopoverElements }) {
   return (
     <Popover

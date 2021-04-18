@@ -100,9 +100,6 @@ export function DataSourceListing(props: DataSourceListingProps) {
       data-testid={props.source_metadata.id}
     >
       <Typography variant="h5" className={styles.DatasetTitle} align="left">
-        {props.source_metadata.data_source_name}
-      </Typography>
-      <Typography className={styles.DataSubtitle} align="left">
         <Link
           href={props.source_metadata.data_source_link}
           target="_blank"
@@ -139,9 +136,21 @@ export function DataSourceListing(props: DataSourceListingProps) {
       </div>
       <div className={styles.Footer}>
         <div className={styles.CardFooterRight}>
-          <Button color="primary" onClick={() => setDialogIsOpen(true)}>
-            Download
-          </Button>
+          {props.source_metadata.downloadable && (
+            <Button color="primary" onClick={() => setDialogIsOpen(true)}>
+              Download
+            </Button>
+          )}
+          {!props.source_metadata.downloadable &&
+            props.source_metadata.download_link && (
+              <Link
+                href={props.source_metadata.download_link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button color="primary">Download</Button>
+              </Link>
+            )}
         </div>
         <Dialog onClose={() => setDialogIsOpen(false)} open={dialogIsOpen}>
           <DialogTitle className={styles.DialogTitle}>
