@@ -333,7 +333,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         pct_share: {
           metricId: "health_insurance_pct_share",
           fullCardTitleName: "Share of uninsured Americans",
-          shortVegaLabel: "% of cases",
+          shortVegaLabel: "% of uninsured",
           type: "pct_share",
           populationComparisonMetric:
             POPULATION_VARIABLE_CONFIG.metrics.pct_share,
