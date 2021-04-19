@@ -321,8 +321,8 @@ class AcsHealhInsuranceRaceIngestor:
 
         # Aggregate Frames by Filename
         self.frames = {
-            "health_insurance_by_race_state": self.state_race_frame,
-            "health_insurance_by_race_county": self.county_race_frame,
+            "health_insurance_by_race_age_state": self.state_race_frame,
+            "health_insurance_by_race_age_county": self.county_race_frame,
         }
 
 
@@ -482,7 +482,7 @@ class AcsHealhInsuranceSexIngestor:
                 elif key in self.metadata:
                     row_data[key] = {"value": col, "meta": self.metadata[key]}
 
-            for key in data:
+            for key in row_data:
                 metadata = row_data[key]["meta"]
                 population = row_data[key]["value"]
                 row = self.upsert_row(
@@ -575,8 +575,8 @@ class AcsHealhInsuranceSexIngestor:
 
         # Aggregate Frames by Filename
         self.frames = {
-            "health_insurance_by_sex_state": self.state_sex_frame,
-            "health_insurance_by_sex_county": self.county_sex_frame,
+            "health_insurance_by_sex_age_state": self.state_sex_frame,
+            "health_insurance_by_sex_age_county": self.county_sex_frame,
         }
 
 
