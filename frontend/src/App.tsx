@@ -38,7 +38,7 @@ import { autoInitGlobals, getEnvironment } from "./utils/globals";
 import ReactTooltip from "react-tooltip";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import PreLaunchSiteContent from "./pages/Landing/PreLaunchSiteContent";
-import TermsOfServicePage from './pages/TermsOfServicePage/TermsOfServicePage';
+import TermsOfServicePage from "./pages/TermsOfServicePage/TermsOfServicePage";
 
 const MOBILE_BREAKPOINT = 600;
 
@@ -60,26 +60,26 @@ function MobileAppToolbar() {
   }
 
   return (
-      <Toolbar>
-        <IconButton onClick={() => setOpen(true)}
-                    aria-label="Expand site navigation button">
-          <MenuIcon />
-        </IconButton>
-        <Drawer variant="persistent" anchor="left" open={open}>
-          <Button aria-label="Hide site navigation button"
-                  onClick={() => setOpen(false)}>
-            <ChevronLeftIcon />
-          </Button>
-          <List>
-            {Object.keys(PAGE_URL_TO_NAMES).map((pageUrl, index) => (
-                <ListItemLink href={pageUrl} key={index}
-                              aria-label={PAGE_URL_TO_NAMES[pageUrl]}>
-                  <ListItemText primary={PAGE_URL_TO_NAMES[pageUrl]} />
-                </ListItemLink>
-            ))}
-          </List>
-        </Drawer>
-      </Toolbar>
+    <Toolbar>
+      <IconButton onClick={() => setOpen(true)}
+                  aria-label="Expand site navigation button">
+        <MenuIcon className={styles.MenuIconForMobile} />
+      </IconButton>
+      <Drawer variant="persistent" anchor="left" open={open}>
+        <Button aria-label="Hide site navigation button"
+          onClick={() => setOpen(false)}>
+          <ChevronLeftIcon />
+        </Button>
+        <List>
+          {Object.keys(PAGE_URL_TO_NAMES).map((pageUrl, index) => (
+            <ListItemLink href={pageUrl} key={index} 
+                          aria-label={PAGE_URL_TO_NAMES[pageUrl]}>
+              <ListItemText primary={PAGE_URL_TO_NAMES[pageUrl]} />
+            </ListItemLink>
+          ))}
+        </List>
+      </Drawer>
+    </Toolbar>
   );
 }
 

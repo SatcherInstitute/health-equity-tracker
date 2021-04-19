@@ -116,7 +116,7 @@ function LandingPage() {
                 <Grid item>
                   <img
                     className={styles.TakeALookAroundImg}
-                    src="img/Dots_1@2x 5.png"
+                    src="img/HET_Dots_1_v3_1000px.gif"
                     alt="Decorative dots"
                   />
                 </Grid>
@@ -144,7 +144,7 @@ function LandingPage() {
                 <Grid item>
                   <img
                     className={styles.TakeALookAroundImg}
-                    src="img/Asset 3@2x 4.png"
+                    src="img/HET_Fields_1_v2_1000px.gif"
                     alt="Decorative thick lines"
                   />
                 </Grid>
@@ -172,7 +172,7 @@ function LandingPage() {
                 <Grid item>
                   <img
                     className={styles.TakeALookAroundImg}
-                    src="img/Asset 4@2x 2 (1).png"
+                    src="img/HET_Spiral_v4_1000px.gif"
                     alt="Decorative circular pattern"
                   />
                 </Grid>
@@ -282,7 +282,7 @@ function LandingPage() {
               <Grid item xs={12} sm={12} md={8}>
                 <img
                   className={styles.HowToStepImg}
-                  src="img/ezgif 2.png"
+                  src="img/het-screen-1.png"
                   alt="Screenshot of Data Tracker - selecting mad libs"
                 />
               </Grid>
@@ -309,7 +309,7 @@ function LandingPage() {
               <Grid item xs={12} sm={12} md={8}>
                 <img
                   className={styles.HowToStepImg}
-                  src="img/ezgif 5.png"
+                  src="img/het-screen-2.png"
                   alt="Screenshot of Data Tracker - using filters"
                 />
               </Grid>
@@ -338,7 +338,7 @@ function LandingPage() {
               <Grid item xs={12} sm={12} md={8}>
                 <img
                   className={styles.HowToStepImg}
-                  src="img/ezgif 6.png"
+                  src="img/het-screen-3.png"
                   alt="Screenshot of Data Tracker - map of the US"
                 />
               </Grid>
