@@ -136,6 +136,9 @@ ORDER BY state_fips, age
 -- fips_codes_all to get county names. We then join with ACS to get population
 -- for county x {race, sex, age} and compute a total row for county x
 -- {race, sex, age}, returning the union of these last two tables.
+-- Note that there are county/state pairs in the data which do not actually
+-- exist, so we have to filter these out by checking that the first two
+-- characters of the county fips code match the state fips code.
 
 -- County-level race.
 CREATE OR REPLACE TABLE cdc_restricted_data.by_race_county AS
@@ -161,6 +164,7 @@ WITH
       FROM cdc_restricted_race_county AS x
       LEFT JOIN `acs_population.by_race_county_std` AS y
           USING (county_fips, state_fips, race_and_ethnicity)
+      WHERE SUBSTRING(x.county_fips, 0, 2) = x.state_fips
   ),
   total_rows as (
       SELECT
@@ -207,6 +211,7 @@ WITH
       FROM cdc_restricted_sex_county AS x
       LEFT JOIN `acs_population.by_sex_county` AS y
           USING (county_fips, state_fips, sex)
+      WHERE SUBSTRING(x.county_fips, 0, 2) = x.state_fips
   ),
   total_rows as (
       SELECT
@@ -253,6 +258,7 @@ WITH
       FROM cdc_restricted_age_county AS x
       LEFT JOIN `acs_population.by_age_county` AS y
           USING (county_fips, state_fips, age)
+      WHERE SUBSTRING(x.county_fips, 0, 2) = x.state_fips
   ),
   total_rows as (
       SELECT
