@@ -68,7 +68,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       title={
         <>{`${
           props.metricConfig.fullCardTitleName
-        } in ${props.fips.getFullDisplayName()}: Unknowns for ${
+        } in ${props.fips.getFullDisplayName()}: Unknown ${
           BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
         } `}</>
       }
