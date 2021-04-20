@@ -93,7 +93,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 <CardContent className={styles.SmallMarginContent}>
                   <Alert severity="warning">
                     {unknowns[0][props.metricConfig.metricId]}
-                    {props.metricConfig.shortVegaLabel} in{" "}
+                    {props.metricConfig.shortVegaLabel}
                     {props.fips.getFullDisplayName} reported unknown{" "}
                     {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]}
                     . The chart below only displays data for cases where{" "}
