@@ -273,7 +273,7 @@ function LandingPage() {
               <Grid item xs={12} sm={12} md={8}>
                 <img
                   className={styles.HowToStepImg}
-                  src="img/ezgif 2.png"
+                  src="img/het-screen-1.png"
                   alt="Screenshot of Data Tracker - selecting mad libs"
                 />
               </Grid>
@@ -300,7 +300,7 @@ function LandingPage() {
               <Grid item xs={12} sm={12} md={8}>
                 <img
                   className={styles.HowToStepImg}
-                  src="img/ezgif 5.png"
+                  src="img/het-screen-2.png"
                   alt="Screenshot of Data Tracker - using filters"
                 />
               </Grid>
@@ -329,7 +329,7 @@ function LandingPage() {
               <Grid item xs={12} sm={12} md={8}>
                 <img
                   className={styles.HowToStepImg}
-                  src="img/ezgif 6.png"
+                  src="img/het-screen-3.png"
                   alt="Screenshot of Data Tracker - map of the US"
                 />
               </Grid>

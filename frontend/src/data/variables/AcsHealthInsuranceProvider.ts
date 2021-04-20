@@ -12,6 +12,7 @@ class AcsHealthInsuranceProvider extends VariableProvider {
     super("acs_health_insurance_provider", [
       "health_insurance_count",
       "health_insurance_per_100k",
+      "health_insurance_pct_share",
     ]);
   }
 
@@ -77,6 +78,14 @@ class AcsHealthInsuranceProvider extends VariableProvider {
       );
     }
 
+    //Remove white hispanic to bring inline with others
+    df = df
+      .where(
+        (row) =>
+          //We remove these races because they are subsets
+          row["race_and_ethnicity"] !== WHITE_NH
+      )
+
     let totalPivot: { [key: string]: (series: ISeries) => any } = {
       with_health_insurance: (series: ISeries) => series.sum(),
       without_health_insurance: (series: ISeries) => series.sum(),
@@ -93,7 +102,6 @@ class AcsHealthInsuranceProvider extends VariableProvider {
       .where(
         (row) =>
           //We remove these races because they are subsets
-          row["race_and_ethnicity"] !== WHITE_NH &&
           row["race_and_ethnicity"] !== HISPANIC
       )
       .pivot(["fips", "fips_name"], totalPivot)
@@ -109,6 +117,14 @@ class AcsHealthInsuranceProvider extends VariableProvider {
       total_health_insurance: "total",
       without_health_insurance: "health_insurance_count",
     });
+
+    df = this.calculatePctShare(
+      df,
+      "health_insurance_count",
+      "health_insurance_pct_share",
+      breakdowns.getSoleDemographicBreakdown().columnName,
+      ["fips"]
+    );
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 
