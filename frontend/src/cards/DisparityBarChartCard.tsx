@@ -2,7 +2,6 @@ import React from "react";
 import { DisparityBarChart } from "../charts/DisparityBarChart";
 import styles from "./Card.module.scss";
 import { CardContent, Divider } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
@@ -21,8 +20,6 @@ import {
   UNKNOWN,
   UNKNOWN_RACE,
 } from "../data/utils/Constants";
-import { UnknownsMapDialog } from "./ui/UnknownsMapDialog";
-import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
 import { Row } from "../data/utils/DatasetTypes";
 import Alert from "@material-ui/lab/Alert";
 
@@ -45,11 +42,6 @@ export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
 }
 
 function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
-  const [
-    unknownsMapDialogOpen,
-    setUnknownsMapDialogOpen,
-  ] = useAutoFocusDialog();
-
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     exclude(ALL, NON_HISPANIC)
@@ -99,13 +91,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
             {unknowns.length === 1 && (
               <>
                 <CardContent className={styles.SmallMarginContent}>
-                  <UnknownsMapDialog
-                    fips={props.fips}
-                    metricConfig={props.metricConfig}
-                    breakdownVar={props.breakdownVar}
-                    handleClose={() => setUnknownsMapDialogOpen(false)}
-                    open={unknownsMapDialogOpen}
-                  />
                   <Alert severity="warning">
                     {unknowns[0][props.metricConfig.metricId]}
                     {props.metricConfig.shortVegaLabel} in{" "}
@@ -116,12 +101,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                     {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]}{" "}
                     was known.
                   </Alert>
-                  <Button
-                    onClick={() => setUnknownsMapDialogOpen(true)}
-                    color="primary"
-                  >
-                    View breakdown map of where unknowns are being reported
-                  </Button>
                 </CardContent>
                 <Divider />
               </>
