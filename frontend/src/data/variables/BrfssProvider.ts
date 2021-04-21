@@ -11,7 +11,7 @@ import VariableProvider from "./VariableProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { ALL } from "../utils/Constants";
+import { ALL, UNKNOWN_RACE } from "../utils/Constants";
 
 class BrfssProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -21,9 +21,11 @@ class BrfssProvider extends VariableProvider {
       "diabetes_count",
       "diabetes_per_100k",
       "diabetes_pct_share",
+      "diabetes_count_share_of_known",
       "copd_count",
       "copd_per_100k",
       "copd_pct_share",
+      "copd_count_share_of_known",
       "brfss_population_pct",
     ]);
     this.acsProvider = acsProvider;
@@ -148,6 +150,7 @@ class BrfssProvider extends VariableProvider {
         estimated_total_copd: (series) => series.sum(),
         estimated_total_diabetes: (series) => series.sum(),
         [breakdownColumnName]: (series) => ALL,
+        population: (series) => series.sum(),
         brfss_population_pct: (series) => series.sum(),
       })
       .resetIndex();
@@ -160,8 +163,29 @@ class BrfssProvider extends VariableProvider {
         per100k(row.copd_count, row.copd_count + row.copd_no),
     });
 
+    // Calculate any share_of_known metrics that may have been requested in the query
+
     if (breakdowns.hasOnlyRace()) {
       if (breakdowns.geography === "state") {
+        const shareOfUnknownMetrics = metricQuery.metricIds.filter((metricId) =>
+          [
+            "copd_count_share_of_known",
+            "diabetes_count_share_of_known",
+          ].includes(metricId)
+        );
+        shareOfUnknownMetrics.forEach((shareOfUnknownColumnName) => {
+          const rawCountColunn = shareOfUnknownColumnName.slice(
+            0,
+            -"_share_of_known".length
+          );
+          df = this.calculatePctShareOfKnown(
+            df,
+            rawCountColunn,
+            shareOfUnknownColumnName,
+            breakdownColumnName
+          );
+        });
+
         ["diabetes_count", "copd_count"].forEach((col) => {
           df = this.calculatePctShare(
             df,
@@ -172,6 +196,26 @@ class BrfssProvider extends VariableProvider {
           );
         });
       } else if (breakdowns.geography === "national") {
+        const shareOfUnknownMetrics = metricQuery.metricIds.filter((metricId) =>
+          [
+            "copd_count_share_of_known",
+            "diabetes_count_share_of_known",
+          ].includes(metricId)
+        );
+
+        shareOfUnknownMetrics.forEach((shareOfUnknownColumnName) => {
+          const rawCountColunn = shareOfUnknownColumnName.slice(
+            0,
+            -"_count_share_of_known".length
+          );
+          df = this.calculatePctShareOfKnown(
+            df,
+            "estimated_total_" + rawCountColunn,
+            shareOfUnknownColumnName,
+            breakdownColumnName
+          );
+        });
+
         ["estimated_total_diabetes", "estimated_total_copd"].forEach((col) => {
           df = this.calculatePctShare(
             df,
