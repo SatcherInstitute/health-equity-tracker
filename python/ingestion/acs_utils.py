@@ -35,7 +35,7 @@ REGEX_METADATA_LIBRARY = {
         MetadataKey.POPULATION: HealthInsurancePopulation.WITH
     },
     r"No health insurance coverage": lambda matches: {
-        MetadataKey.POPULATION: HealthInsurancePopulation.WITHOUT
+        MetadataKey.POPULATION: HealthIns"""  """urancePopulation.WITHOUT
     },
     r"Income in the past 12 months below poverty level:": lambda matches: {
         MetadataKey.POPULATION: PovertyPopulation.BELOW

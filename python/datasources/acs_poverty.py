@@ -51,12 +51,13 @@ POVERTY_BY_RACE_SEX_AGE_GROUPS = {
 CUSTOM_AGE_BUCKETS = [
     {"min": 0, "max": 5},
     {"min": 6, "max": 11},
-    {"min": 12, "max": 17}
+    {"min": 12, "max": 17},
 ]
+
 
 def parseAgeString(str):
     if str.endswith("+"):
-        return {"min": int(str.removesuffix("+")), "max":sys.maxsize}
+        return {"min": int(str.removesuffix("+")), "max": sys.maxsize}
     else:
         parts = str.split("-")
         if len(parts) == 2:
@@ -64,20 +65,24 @@ def parseAgeString(str):
         else:
             return {"min": int(parts[0]), "max": int(parts[0])}
 
+
 def determine_new_age_bucket(ageStr):
-    age = parseAgeString(ageStr);
+    age = parseAgeString(ageStr)
     for bucket in CUSTOM_AGE_BUCKETS:
-        if(bucket["min"] <= age["min"] and bucket["max"] >= age["max"]):
+        if bucket["min"] <= age["min"] and bucket["max"] >= age["max"]:
             return f'{bucket["min"]}-{bucket["max"]}'
-        elif(bucket['min'] > age['max'] or bucket['max'] < age['min']):
-            pass;
-        elif(bucket["min"] <= age["min"] and age["max"] >= bucket["min"]):
-            raise Exception(f'Invalid Grouping [1] for age {age} for bucket {bucket}')
-        elif(bucket["max"] >= age["max"] and age["min"] <= bucket["min"]):
-            raise Exception(f'Invalid Grouping [2] for age {age} for bucket {bucket}')
+        elif bucket["min"] > age["max"] or bucket["max"] < age["min"]:
+            pass
+        elif bucket["min"] <= age["min"] and age["max"] >= bucket["min"]:
+            raise Exception(f"Invalid Grouping [1] for age {age} for bucket {bucket}")
+        elif bucket["max"] >= age["max"] and age["min"] <= bucket["min"]:
+            raise Exception(f"Invalid Grouping [2] for age {age} for bucket {bucket}")
 
     return ageStr
+
+
 # Gets the race from ACS Variable ex. B17001A_001E
+
 
 def get_race_from_key(key):
     parts = key.split("_")
@@ -94,6 +99,7 @@ def get_filename(grp_code, is_county):
     # tuple hasnt been created then it initializes an empty tuple.
     # This is needed as each data variable will only
     # update one of the population values at a time.
+
 
 def upsert_row(data, state_fip, county_fip, age, sex, race):
     if (state_fip, county_fip, age, sex, race) not in data:
@@ -181,7 +187,6 @@ class AcsPovertyIngestor:
                 json.dumps({str(k): v for k, v in self.data.items()}, indent=4), file=f
             )
 
-
         self.split_data_frames()
 
         for table_name, df in self.frames.items():
@@ -206,28 +211,31 @@ class AcsPovertyIngestor:
 
     def custom_accumulations(self):
         new_data = {}
-        
+
         for data, population in self.data.items():
             state_fip, county_fip, age, sex, race = data
 
-            old_population = self.data[data]    
+            old_population = self.data[data]
             above = int(population[PovertyPopulation.ABOVE])
             below = int(population[PovertyPopulation.BELOW])
 
             assert above != -1
             assert below != -1
 
-            new_age = determine_new_age_bucket(age);
-            new_key = (state_fip, county_fip, new_age, sex, race);
-            upsert_row(new_data, state_fip, county_fip, new_age, sex, race);
+            new_age = determine_new_age_bucket(age)
+            new_key = (state_fip, county_fip, new_age, sex, race)
+            upsert_row(new_data, state_fip, county_fip, new_age, sex, race)
             new_population = new_data[new_key]
-            new_population[PovertyPopulation.ABOVE] = str(int(new_population[PovertyPopulation.ABOVE]) + above)
-            new_population[PovertyPopulation.BELOW] = str(int(new_population[PovertyPopulation.BELOW]) + below)
+            new_population[PovertyPopulation.ABOVE] = str(
+                int(new_population[PovertyPopulation.ABOVE]) + above
+            )
+            new_population[PovertyPopulation.BELOW] = str(
+                int(new_population[PovertyPopulation.BELOW]) + below
+            )
 
             new_data[new_key] = new_population
 
         self.data = new_data
-
 
     """
     Takes data in the form of
