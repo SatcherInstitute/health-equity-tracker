@@ -98,26 +98,30 @@ function TwoVariableReport(props: {
           </Grid>
         </>
       )}
-      <Grid item xs={12} sm={6}>
-        <UnknownsMapCard
-          metricConfig={variableConfig1.metrics["pct_share"]}
-          fips={props.fips1}
-          updateFipsCallback={(fips: Fips) => {
-            props.updateFips1Callback(fips);
-          }}
-          currentBreakdown={currentBreakdown}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6}>
-        <UnknownsMapCard
-          metricConfig={variableConfig2.metrics["pct_share"]}
-          fips={props.fips2}
-          updateFipsCallback={(fips: Fips) => {
-            props.updateFips2Callback(fips);
-          }}
-          currentBreakdown={currentBreakdown}
-        />
-      </Grid>
+      {variableConfig1.metrics["pct_share"] && (
+        <Grid item xs={12} sm={6}>
+          <UnknownsMapCard
+            metricConfig={variableConfig1.metrics["pct_share"]}
+            fips={props.fips1}
+            updateFipsCallback={(fips: Fips) => {
+              props.updateFips1Callback(fips);
+            }}
+            currentBreakdown={currentBreakdown}
+          />
+        </Grid>
+      )}
+      {variableConfig2.metrics["pct_share"] && (
+        <Grid item xs={12} sm={6}>
+          <UnknownsMapCard
+            metricConfig={variableConfig2.metrics["pct_share"]}
+            fips={props.fips2}
+            updateFipsCallback={(fips: Fips) => {
+              props.updateFips2Callback(fips);
+            }}
+            currentBreakdown={currentBreakdown}
+          />
+        </Grid>
+      )}
       <Grid item xs={12} sm={6}>
         <MapCard
           metricConfig={variableConfig1.metrics["per100k"]}

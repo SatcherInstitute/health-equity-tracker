@@ -84,14 +84,16 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
             ))}
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
-            <UnknownsMapCard
-              metricConfig={variableConfig.metrics["pct_share"]}
-              fips={props.fips}
-              updateFipsCallback={(fips: Fips) => {
-                props.updateFipsCallback(fips);
-              }}
-              currentBreakdown={currentBreakdown}
-            />
+            {variableConfig.metrics["pct_share"] && (
+              <UnknownsMapCard
+                metricConfig={variableConfig.metrics["pct_share"]}
+                fips={props.fips}
+                updateFipsCallback={(fips: Fips) => {
+                  props.updateFipsCallback(fips);
+                }}
+                currentBreakdown={currentBreakdown}
+              />
+            )}
             {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
               <>
                 {breakdownIsShown(breakdownVar) &&
