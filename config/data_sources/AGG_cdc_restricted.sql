@@ -27,7 +27,7 @@ WITH
       LEFT JOIN `acs_population.by_race_state_std` AS y
           USING (state_fips, race_and_ethnicity)
   ),
-  total_rows as (
+  totals as (
       SELECT
         state_fips, state_name,
         'Total' as race_and_ethnicity,
@@ -38,9 +38,17 @@ WITH
         SUM(death_y) as death_y,
         SUM(death_n) as death_n,
         SUM(death_unknown) as death_unknown,
-        SUM(population) as population
       FROM joined_with_acs
       GROUP BY state_fips, state_name, race_and_ethnicity
+  ),
+  -- TODO do this properly. For more details, see
+  -- https://github.com/SatcherInstitute/health-equity-tracker/issues/604.
+  total_rows as (
+      SELECT x.*, y.population
+      FROM totals as x
+      LEFT JOIN `acs_population.by_race_state_std` AS y
+          ON x.state_fips = y.state_fips AND 
+             y.race_and_ethnicity = "Total"
   )
 SELECT * FROM joined_with_acs
 UNION ALL
@@ -68,7 +76,7 @@ WITH
       LEFT JOIN `acs_population.by_sex_state` AS y
           USING (state_fips, sex)
   ),
-  total_rows as (
+  totals as (
       SELECT
         state_fips, state_name,
         'Total' as sex,
@@ -79,9 +87,17 @@ WITH
         SUM(death_y) as death_y,
         SUM(death_n) as death_n,
         SUM(death_unknown) as death_unknown,
-        SUM(population) as population
       FROM joined_with_acs
-      GROUP BY state_fips, state_name
+      GROUP BY state_fips, state_name, sex
+  ),
+  -- TODO do this properly. For more details, see
+  -- https://github.com/SatcherInstitute/health-equity-tracker/issues/604.
+  total_rows as (
+      SELECT x.*, y.population
+      FROM totals as x
+      LEFT JOIN `acs_population.by_race_state_std` AS y
+          ON x.state_fips = y.state_fips AND 
+             y.race_and_ethnicity = "Total"
   )
 SELECT * FROM joined_with_acs
 UNION ALL
@@ -109,7 +125,7 @@ WITH
       LEFT JOIN `acs_population.by_age_state` AS y
           USING (state_fips, age)
   ),
-  total_rows as (
+  totals as (
       SELECT
         state_fips, state_name,
         'Total' as age,
@@ -120,9 +136,17 @@ WITH
         SUM(death_y) as death_y,
         SUM(death_n) as death_n,
         SUM(death_unknown) as death_unknown,
-        SUM(population) as population
       FROM joined_with_acs
-      GROUP BY state_fips, state_name
+      GROUP BY state_fips, state_name, age
+  ),
+  -- TODO do this properly. For more details, see
+  -- https://github.com/SatcherInstitute/health-equity-tracker/issues/604.
+  total_rows as (
+      SELECT x.*, y.population
+      FROM totals as x
+      LEFT JOIN `acs_population.by_race_state_std` AS y
+          ON x.state_fips = y.state_fips AND 
+             y.race_and_ethnicity = "Total"
   )
 SELECT * FROM joined_with_acs
 UNION ALL
@@ -166,7 +190,7 @@ WITH
           USING (county_fips, state_fips, race_and_ethnicity)
       WHERE SUBSTRING(x.county_fips, 0, 2) = x.state_fips
   ),
-  total_rows as (
+  totals as (
       SELECT
         county_fips, county_name, state_fips, state_name,
         'Total' as race_and_ethnicity,
@@ -177,9 +201,18 @@ WITH
         SUM(death_y) as death_y,
         SUM(death_n) as death_n,
         SUM(death_unknown) as death_unknown,
-        SUM(population) as population
       FROM joined_with_acs
-      GROUP BY county_fips, county_name, state_fips, state_name
+      GROUP BY county_fips, county_name, state_fips, state_name, race_and_ethnicity
+  ),
+  -- TODO do this properly. For more details, see
+  -- https://github.com/SatcherInstitute/health-equity-tracker/issues/604.
+  total_rows as (
+      SELECT x.*, y.population
+      FROM totals as x
+      LEFT JOIN `acs_population.by_race_county_std` AS y
+          ON x.county_fips = y.county_fips AND
+             x.state_fips = y.state_fips AND
+             y.race_and_ethnicity = "Total"
   )
 SELECT * FROM joined_with_acs
 UNION ALL
@@ -213,7 +246,7 @@ WITH
           USING (county_fips, state_fips, sex)
       WHERE SUBSTRING(x.county_fips, 0, 2) = x.state_fips
   ),
-  total_rows as (
+  totals as (
       SELECT
         county_fips, county_name, state_fips, state_name,
         'Total' as sex,
@@ -224,9 +257,18 @@ WITH
         SUM(death_y) as death_y,
         SUM(death_n) as death_n,
         SUM(death_unknown) as death_unknown,
-        SUM(population) as population
       FROM joined_with_acs
-      GROUP BY county_fips, county_name, state_fips, state_name
+      GROUP BY county_fips, county_name, state_fips, state_name, sex
+  ),
+  -- TODO do this properly. For more details, see
+  -- https://github.com/SatcherInstitute/health-equity-tracker/issues/604.
+  total_rows as (
+      SELECT x.*, y.population
+      FROM totals as x
+      LEFT JOIN `acs_population.by_race_county_std` AS y
+          ON x.county_fips = y.county_fips AND
+             x.state_fips = y.state_fips AND
+             y.race_and_ethnicity = "Total"
   )
 SELECT * FROM joined_with_acs
 UNION ALL
@@ -260,7 +302,7 @@ WITH
           USING (county_fips, state_fips, age)
       WHERE SUBSTRING(x.county_fips, 0, 2) = x.state_fips
   ),
-  total_rows as (
+  totals as (
       SELECT
         county_fips, county_name, state_fips, state_name,
         'Total' as age,
@@ -271,9 +313,18 @@ WITH
         SUM(death_y) as death_y,
         SUM(death_n) as death_n,
         SUM(death_unknown) as death_unknown,
-        SUM(population) as population
       FROM joined_with_acs
-      GROUP BY county_fips, county_name, state_fips, state_name
+      GROUP BY county_fips, county_name, state_fips, state_name, age
+  ),
+  -- TODO do this properly. For more details, see
+  -- https://github.com/SatcherInstitute/health-equity-tracker/issues/604.
+  total_rows as (
+      SELECT x.*, y.population
+      FROM totals as x
+      LEFT JOIN `acs_population.by_race_county_std` AS y
+          ON x.county_fips = y.county_fips AND
+             x.state_fips = y.state_fips AND
+             y.race_and_ethnicity = "Total"
   )
 SELECT * FROM joined_with_acs
 UNION ALL
