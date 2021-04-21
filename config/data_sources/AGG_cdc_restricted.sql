@@ -209,7 +209,7 @@ WITH
   total_rows as (
       SELECT x.*, y.population
       FROM totals as x
-      LEFT JOIN `acs_population.by_race_state_std` AS y
+      LEFT JOIN `acs_population.by_race_county_std` AS y
           ON x.county_fips = y.county_fips AND
              x.state_fips = y.state_fips AND
              y.race_and_ethnicity = "Total"
@@ -265,7 +265,7 @@ WITH
   total_rows as (
       SELECT x.*, y.population
       FROM totals as x
-      LEFT JOIN `acs_population.by_race_state_std` AS y
+      LEFT JOIN `acs_population.by_race_county_std` AS y
           ON x.county_fips = y.county_fips AND
              x.state_fips = y.state_fips AND
              y.race_and_ethnicity = "Total"
@@ -321,7 +321,7 @@ WITH
   total_rows as (
       SELECT x.*, y.population
       FROM totals as x
-      LEFT JOIN `acs_population.by_race_state_std` AS y
+      LEFT JOIN `acs_population.by_race_county_std` AS y
           ON x.county_fips = y.county_fips AND
              x.state_fips = y.state_fips AND
              y.race_and_ethnicity = "Total"
