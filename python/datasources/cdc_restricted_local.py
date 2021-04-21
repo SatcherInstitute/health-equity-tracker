@@ -156,7 +156,12 @@ def standardize_data(df):
         lambda x: x.replace('"', '').strip() if isinstance(x, str) else x)
 
     # Standardize column names.
-    return df.rename(columns=COL_NAME_MAPPING)
+    df = df.rename(columns=COL_NAME_MAPPING)
+
+    # Add race metadata columns.
+    std_col.add_race_columns_from_category_id(df)
+
+    return df
 
 
 def main():
