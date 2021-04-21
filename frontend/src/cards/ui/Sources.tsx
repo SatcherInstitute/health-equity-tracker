@@ -65,8 +65,8 @@ export function Sources(props: {
             target="_blank"
             to={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${dataSourceId}`}
           >
-            {dataSourceMap[dataSourceId].name}{" "}
-          </LinkWithStickyParams>
+            {dataSourceMap[dataSourceId].name}
+          </LinkWithStickyParams>{" "}
           {dataSourceMap[dataSourceId].updateTimes.size === 0 ? (
             <>(last update unknown) </>
           ) : (
