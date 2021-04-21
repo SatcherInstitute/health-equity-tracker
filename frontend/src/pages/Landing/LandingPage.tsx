@@ -3,6 +3,7 @@ import styles from "./LandingPage.module.scss";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
+import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { Accordion, AccordionSummary } from "@material-ui/core";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
@@ -572,31 +573,43 @@ function LandingPage() {
           >
             <div className={styles.EmailAddressContentDiv}>
               <Grid item>
-                <Typography className={styles.NewsletterRowHeader}>
-                  Engage in
-                  <br />
-                  Health Equity
-                </Typography>
+                <Hidden mdUp>
+                  <Typography className={styles.NewsletterRowHeaderSmall}>
+                    Engage in
+                    <br />
+                    Health Equity
+                  </Typography>
+                </Hidden>
+                <Hidden smDown>
+                  <Typography className={styles.NewsletterRowHeader}>
+                    Engage in
+                    <br />
+                    Health Equity
+                  </Typography>
+                </Hidden>
               </Grid>
               <Grid item>
                 <form
-                  className={styles.EmailAddressForm}
                   action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
                   method="post"
                   target="_blank"
+                  className={styles.NewsletterForm}
                 >
-                  <input
-                    className={styles.EmailAddressFormText}
-                    type="email"
-                    id="mce-EMAIL"
+                  <TextField
+                    id="Enter email address to sign up" // Accessibility label
                     name="MERGE0"
+                    variant="outlined"
+                    type="email"
                     placeholder="Enter email address"
                   />
-                  <input
-                    className={styles.EmailAddressFormSubmit}
+                  <Button
                     type="submit"
-                    value="Sign up"
-                  />
+                    color="primary"
+                    variant="contained"
+                    className={styles.NewsletterEmailSubmitInput}
+                  >
+                    Sign up
+                  </Button>
                 </form>
               </Grid>
             </div>

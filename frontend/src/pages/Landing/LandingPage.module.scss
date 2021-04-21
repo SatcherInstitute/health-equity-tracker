@@ -315,6 +315,16 @@
     padding: 30px;
   }
 
+  .NewsletterRowHeaderSmall {
+    font-size: 90px !important;
+    font-family: "Taviraj", sans-serif !important;
+    text-align: center;
+    font-weight: 400 !important;
+    color: white;
+    line-height: 80px !important;
+    padding: 30px;
+  }
+
   .EmailAddressBackgroundImgContainer {
     background-image: url("pexels-armin-rimoldi-5304098 1.png");
     background-position: center;
@@ -334,40 +344,14 @@
     justify-content: space-around;
   }
 
-  .EmailAddressForm {
-    border-radius: 40px;
-    width: 485px;
-    height: 60px;
-    background-color: white;
-    border: none;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+  .NewsletterForm {
+    background: white;
+    border-radius: 5px !important;
+    padding: 10px;
   }
 
-  .EmailAddressFormText {
-    height: 60px;
-    background-color: transparent;
-    border: none;
-    margin-left: 20px;
-
-    &:focus {
-      outline: none;
-    }
-  }
-
-  .EmailAddressFormSubmit {
-    height: 48px;
-    width: 150px;
-    border-radius: 40px;
-    background: $alt-green;
-    color: white;
-    border: none;
-    margin-right: 10px;
-
-    &:focus {
-      outline: 1px solid darkgreen;
-    }
+  .NewsletterEmailSubmitInput {
+    height: 56px !important;
+    margin-left: 5px;
   }
 }
