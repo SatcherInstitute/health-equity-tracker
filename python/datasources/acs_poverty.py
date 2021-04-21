@@ -95,11 +95,10 @@ def get_filename(grp_code, is_county):
     grp_name = POVERTY_BY_RACE_SEX_AGE_GROUPS[grp_code].replace(" ", "_").upper()
     return f"ACS_POVERTY_BY_AGE_RACE_{geo}_{grp_name}"
 
-    # Helper method from grabbing a tuple in self.data.  If the
+    # Helper method from grabbing a tuple in data.  If the
     # tuple hasnt been created then it initializes an empty tuple.
     # This is needed as each data variable will only
     # update one of the population values at a time.
-
 
 def upsert_row(data, state_fip, county_fip, age, sex, race):
     if (state_fip, county_fip, age, sex, race) not in data:
