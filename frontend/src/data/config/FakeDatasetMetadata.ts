@@ -5,7 +5,7 @@ const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "acs_population-by_race_county_std",
     name: "Population by Race and County",
-    update_time: "January",
+    update_time: "2019",
     fields: [
       {
         data_type: "string",
@@ -36,7 +36,7 @@ const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "acs_population-by_race_state_std",
     name: "Population by Race and State",
-    update_time: "February",
+    update_time: "2019",
     fields: [
       {
         data_type: "string",
@@ -67,7 +67,7 @@ const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "acs_population-by_age_state",
     name: "Population by Age and State",
-    update_time: "March",
+    update_time: "2019",
     fields: [
       {
         data_type: "string",
@@ -98,7 +98,7 @@ const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "acs_population-by_age_county",
     name: "Population by Age and County",
-    update_time: "April",
+    update_time: "2019",
     fields: [
       {
         data_type: "string",
@@ -129,7 +129,7 @@ const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "acs_population-by_sex_state",
     name: "Population by Gender and State",
-    update_time: "May",
+    update_time: "2019",
     fields: [
       {
         data_type: "string",
@@ -160,7 +160,7 @@ const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "acs_population-by_sex_county",
     name: "Population by Gender and County",
-    update_time: "June",
+    update_time: "2019",
     fields: [
       {
         data_type: "string",
@@ -191,7 +191,7 @@ const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "brfss",
     name: "Disease Prevalence: Diabetes and COPD",
-    update_time: "July",
+    update_time: "2019",
     fields: [
       {
         data_type: "string",
@@ -222,7 +222,7 @@ const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "covid_by_state_and_race",
     name: "COVID-19 deaths, cases, and hospitalizations by state",
-    update_time: "August",
+    update_time: "March 2021",
     fields: [
       {
         data_type: "string",
@@ -265,7 +265,7 @@ const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "covid_by_county_and_race",
     name: "COVID-19 deaths, cases, and hospitalizations by county",
-    update_time: "September",
+    update_time: "March 2021",
     fields: [
       {
         data_type: "string",
@@ -308,61 +308,73 @@ const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "acs_health_insurance-health_insurance_by_race_state",
     name: "Health Insurance By Race and County",
-    update_time: "February",
+    update_time: "2019",
     fields: [],
   },
   {
     id: "acs_health_insurance-health_insurance_by_race_county",
     name: "Health Insurance By Race and State",
-    update_time: "February",
+    update_time: "2019",
     fields: [],
   },
   {
     id: "acs_health_insurance-health_insurance_by_sex_state",
     name: "Health Insurance By Gender and County",
-    update_time: "February",
+    update_time: "2019",
     fields: [],
   },
   {
     id: "acs_health_insurance-health_insurance_by_sex_county",
     name: "Health Insurance By Gender and State",
-    update_time: "February",
+    update_time: "2019",
+    fields: [],
+  },
+  {
+    id: "acs_poverty_dataset-poverty_by_race_age_sex_state",
+    name: "Poverty By Race, Age, Sex, and State",
+    update_time: "2019",
+    fields: [],
+  },
+  {
+    id: "acs_poverty_dataset-poverty_by_race_age_sex_county",
+    name: "Poverty By Race, Age, Sex, and County",
+    update_time: "2019",
     fields: [],
   },
   {
     id: "cdc_restricted_data-by_race_county",
     name: "COVID-19 deaths, cases, and hospitalizations by race and county",
-    update_time: "February",
+    update_time: "March 2021",
     fields: [],
   },
   {
     id: "cdc_restricted_data-by_race_state",
     name: "COVID-19 deaths, cases, and hospitalizations by race and state",
-    update_time: "February",
+    update_time: "March 2021",
     fields: [],
   },
   {
     id: "cdc_restricted_data-by_age_county",
     name: "COVID-19 deaths, cases, and hospitalizations by age and county",
-    update_time: "February",
+    update_time: "March 2021",
     fields: [],
   },
   {
     id: "cdc_restricted_data-by_age_state",
     name: "COVID-19 deaths, cases, and hospitalizations by age and state",
-    update_time: "February",
+    update_time: "March 2021",
     fields: [],
   },
   {
     id: "cdc_restricted_data-by_sex_county",
     name: "COVID-19 deaths, cases, and hospitalizations by gender and county",
-    update_time: "February",
+    update_time: "March 2021",
     fields: [],
   },
   {
     id: "cdc_restricted_data-by_sex_state",
     name: "COVID-19 deaths, cases, and hospitalizations by gender and state",
-    update_time: "February",
+    update_time: "March 2021",
     fields: [],
   },
 ];
