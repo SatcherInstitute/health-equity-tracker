@@ -88,7 +88,7 @@ WITH
         SUM(death_n) as death_n,
         SUM(death_unknown) as death_unknown,
       FROM joined_with_acs
-      GROUP BY state_fips, state_name, race_and_ethnicity
+      GROUP BY state_fips, state_name, sex
   ),
   -- TODO do this properly. For more details, see
   -- https://github.com/SatcherInstitute/health-equity-tracker/issues/604.
@@ -137,7 +137,7 @@ WITH
         SUM(death_n) as death_n,
         SUM(death_unknown) as death_unknown,
       FROM joined_with_acs
-      GROUP BY state_fips, state_name, race_and_ethnicity
+      GROUP BY state_fips, state_name, age
   ),
   -- TODO do this properly. For more details, see
   -- https://github.com/SatcherInstitute/health-equity-tracker/issues/604.
@@ -202,7 +202,7 @@ WITH
         SUM(death_n) as death_n,
         SUM(death_unknown) as death_unknown,
       FROM joined_with_acs
-      GROUP BY county_fips, county_name, state_fips, state_name
+      GROUP BY county_fips, county_name, state_fips, state_name, race_and_ethnicity
   ),
   -- TODO do this properly. For more details, see
   -- https://github.com/SatcherInstitute/health-equity-tracker/issues/604.
@@ -258,7 +258,7 @@ WITH
         SUM(death_n) as death_n,
         SUM(death_unknown) as death_unknown,
       FROM joined_with_acs
-      GROUP BY county_fips, county_name, state_fips, state_name
+      GROUP BY county_fips, county_name, state_fips, state_name, sex
   ),
   -- TODO do this properly. For more details, see
   -- https://github.com/SatcherInstitute/health-equity-tracker/issues/604.
@@ -314,7 +314,7 @@ WITH
         SUM(death_n) as death_n,
         SUM(death_unknown) as death_unknown,
       FROM joined_with_acs
-      GROUP BY county_fips, county_name, state_fips, state_name
+      GROUP BY county_fips, county_name, state_fips, state_name, age
   ),
   -- TODO do this properly. For more details, see
   -- https://github.com/SatcherInstitute/health-equity-tracker/issues/604.
