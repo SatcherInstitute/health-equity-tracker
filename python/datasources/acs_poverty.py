@@ -100,6 +100,7 @@ def get_filename(grp_code, is_county):
     # This is needed as each data variable will only
     # update one of the population values at a time.
 
+
 def upsert_row(data, state_fip, county_fip, age, sex, race):
     if (state_fip, county_fip, age, sex, race) not in data:
         data[(state_fip, county_fip, age, sex, race)] = {
@@ -284,7 +285,7 @@ class AcsPovertyIngestor:
             for var in row_data:
                 metadata = row_data[var]["meta"]
                 value = row_data[var]["value"]
-                row = self.upsert_row(
+                row = upsert_row(
                     self.data,
                     state_fip,
                     county_fip,
