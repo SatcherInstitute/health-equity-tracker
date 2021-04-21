@@ -101,11 +101,11 @@ def get_filename(grp_code, is_county):
     # update one of the population values at a time.
 
 
-def upsert_row(data, state_fip, county_fip, age, sex, race):
+def upsert_row(data, state_fip, county_fip, age, sex, race, default_values=-1):
     if (state_fip, county_fip, age, sex, race) not in data:
         data[(state_fip, county_fip, age, sex, race)] = {
-            PovertyPopulation.ABOVE: -1,
-            PovertyPopulation.BELOW: -1,
+            PovertyPopulation.ABOVE: default_values,
+            PovertyPopulation.BELOW: default_values,
         }
     return data[(state_fip, county_fip, age, sex, race)]
 
@@ -224,7 +224,7 @@ class AcsPovertyIngestor:
 
             new_age = determine_new_age_bucket(age)
             new_key = (state_fip, county_fip, new_age, sex, race)
-            upsert_row(new_data, state_fip, county_fip, new_age, sex, race)
+            upsert_row(new_data, state_fip, county_fip, new_age, sex, race, 0)
             new_population = new_data[new_key]
             new_population[PovertyPopulation.ABOVE] = str(
                 int(new_population[PovertyPopulation.ABOVE]) + above
