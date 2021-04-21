@@ -344,14 +344,14 @@
     justify-content: space-around;
   }
 
-  .EmailTextWrapper {
+  .NewsletterForm {
     background: white;
     border-radius: 5px !important;
     padding: 10px;
   }
 
-  .EmailAddressFormSubmit {
-    height: 56px;
+  .NewsletterEmailSubmitInput {
+    height: 56px !important;
     margin-left: 5px;
   }
 }

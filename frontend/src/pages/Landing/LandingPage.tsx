@@ -593,13 +593,12 @@ function LandingPage() {
                   action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
                   method="post"
                   target="_blank"
-                  className={styles.EmailTextWrapper}
+                  className={styles.NewsletterForm}
                 >
                   <TextField
                     id="Enter email address to sign up" // Accessibility label
                     name="MERGE0"
                     variant="outlined"
-                    className={styles.EmailTextField}
                     type="email"
                     placeholder="Enter email address"
                   />
@@ -607,7 +606,7 @@ function LandingPage() {
                     type="submit"
                     color="primary"
                     variant="contained"
-                    className={styles.EmailAddressFormSubmit}
+                    className={styles.NewsletterEmailSubmitInput}
                   >
                     Sign up
                   </Button>
