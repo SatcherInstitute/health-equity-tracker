@@ -328,12 +328,12 @@ class ACSPopulationIngester():
         sort_cols.append(RACE_OR_HISPANIC_COL)
         return df.sort_values(sort_cols)
 
-    def standardize_race_mutually_exclusive(self, df):
+    def standardize_race_exclude_hispanic(self, df):
         """Standardized format using mutually exclusive groups by excluding
-           Hispanic or Latino from other racial groups. Summing across all
-           RACE_OR_HISPANIC_COL values equals the total population."""
+           Hispanic or Latino from other racial groups. Summing across all race
+           categories equals the total population."""
 
-        def get_race_category_id_mutually_exclusive(row):
+        def get_race_category_id_exclude_hispanic(row):
             if (row[HISPANIC_COL] == 'Hispanic or Latino'):
                 return Race.HISP.value
             else:
@@ -341,7 +341,7 @@ class ACSPopulationIngester():
 
         standardized_race = df.copy()
         standardized_race[RACE_CATEGORY_ID_COL] = standardized_race.apply(
-            get_race_category_id_mutually_exclusive, axis=1)
+            get_race_category_id_exclude_hispanic, axis=1)
         standardized_race.drop(HISPANIC_COL, axis=1, inplace=True)
 
         group_by_cols = self.base_group_by_cols.copy()
@@ -383,7 +383,7 @@ class ACSPopulationIngester():
            Hispanic/Latino."""
         all_races = self.standardize_race_include_hispanic(
             race_and_hispanic_frame, total_frame)
-        standardized_race = self.standardize_race_mutually_exclusive(
+        standardized_race = self.standardize_race_exclude_hispanic(
             race_and_hispanic_frame)
         standardized_race = standardized_race.copy()
         # both variants of standardized race include a "Hispanic or Latino"

@@ -60,19 +60,33 @@ RaceTuple = namedtuple("RaceTuple", [
 
 @unique
 class Race(Enum):
-    # Basic categories
+    # These categories are one format of standard categories used in ACS data,
+    # where categories are mutually exclusive but each one includes
+    # Hispanic/Latino. The sum of these values is equal to the total population.
+    # OTHER_STANDARD is defined as anyone who does not fall into one of the
+    # other categories in this format.
     AIAN = ("AIAN", "American Indian and Alaska Native", True)
-    AIAN_NH = ("AIAN_NH", "American Indian and Alaska Native", False)
     ASIAN = ("ASIAN", "Asian", True)
-    ASIAN_NH = ("ASIAN_NH", "Asian", False)
     BLACK = ("BLACK", "Black or African American", True)
-    BLACK_NH = ("BLACK_NH", "Black or African American", False)
     NHPI = ("NHPI", "Native Hawaiian and Pacific Islander", True)
-    NHPI_NH = ("NHPI_NH", "Native Hawaiian and Pacific Islander", False)
     MULTI = ("MULTI", "Two or more races", True)
-    MULTI_NH = ("MULTI_NH", "Two or more races", False)
     WHITE = ("WHITE", "White", True)
+    OTHER_STANDARD = ("OTHER_STANDARD", "Some other race", True)
+
+    # These categories are another format of standard categories used in ACS
+    # data, where categories are mutually exclusive and exclude Hispanic/Latino.
+    # Hispanic/Latino is its own category. Each one of these is a strict subset
+    # of its counterpart in the above format. OTHER_STANDARD_NH is defined as
+    # anyone who does not fall into one of the other categories in this format.
+    # Where possible, this format is preferred.
+    AIAN_NH = ("AIAN_NH", "American Indian and Alaska Native", False)
+    ASIAN_NH = ("ASIAN_NH", "Asian", False)
+    BLACK_NH = ("BLACK_NH", "Black or African American", False)
+    NHPI_NH = ("NHPI_NH", "Native Hawaiian and Pacific Islander", False)
+    MULTI_NH = ("MULTI_NH", "Two or more races", False)
     WHITE_NH = ("WHITE_NH", "White", False)
+    HISP = ("HISP", "Hispanic or Latino", True)
+    OTHER_STANDARD_NH = ("OTHER_STANDARD_NH", "Some other race", False)
 
     # Below are special values that have slightly different characteristics.
 
@@ -86,18 +100,14 @@ class Race(Enum):
     # ETHNICITY_UNKNOWN refers to data that does not know whether the person is
     # Hispanic or Latino. (Some datasets use "ethnicity" to refer to whether
     # someone is Hispanic or Latino)
-    HISP = ("HISP", "Hispanic or Latino", True)
     NH = ("NH", "Not Hispanic or Latino", False)
     ETHNICITY_UNKNOWN = ("ETHNICITY_UNKNOWN", "Unknown ethnicity", None)
 
-    # OTHER_STANDARD and OTHER_STANDARD_NH define "other" in the same way that
-    # ACS does, meaning they do not belong to any of the other identified racial
-    # categories above. Some datasets may group additional races into "other"
+    # OTHER_STANDARD and OTHER_STANDARD_NH define "other" in a specific way (see
+    # above). Some datasets may group additional races into "other"
     # when reporting (for example "other" may sometimes include AIAN or NHPI).
     # These datasets should use OTHER_NONSTANDARD/OTHER_NONSTANDARD_NH to
     # prevent joining with the incorrect population data.
-    OTHER_STANDARD = ("OTHER_STANDARD", "Some other race", True)
-    OTHER_STANDARD_NH = ("OTHER_STANDARD_NH", "Some other race", False)
     # TODO: The frontend uses the race_and_ethnicity column as a unique
     # identifier in some places. Until we migrate to using race_category_id,
     # we add a * for the non-standard other so it doesn't accidentally get
@@ -108,7 +118,9 @@ class Race(Enum):
     # Categories that are combinations of other categories
     API = ("API", "Asian and Pacific Islander", True)
     API_NH = ("API_NH", "Asian and Pacific Islander", False)
+    # Combines AIAN and NHPI
     INDIGENOUS = ("INDIGENOUS", "Indigenous", True)
+    # Combines AIAN_NH and NHPI_NH
     INDIGENOUS_NH = ("INDIGENOUS_NH", "Indigenous", False)
     MULTI_OR_OTHER_STANDARD = (
         "MULTI_OR_OTHER_STANDARD",
