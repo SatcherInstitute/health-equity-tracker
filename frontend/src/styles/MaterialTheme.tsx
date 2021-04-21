@@ -6,7 +6,7 @@ const MaterialTheme = createMuiTheme({
     primary: {
       light: "#91C684",
       main: "#0B5240",
-      dark: "#054272",
+      dark: "#083f31",
     },
     secondary: {
       light: "#89D5CC",

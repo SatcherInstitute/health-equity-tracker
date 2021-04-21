@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./WhatIsHealthEquityPage.module.scss";
+import Button from "@material-ui/core/Button";
+import Hidden from "@material-ui/core/Hidden";
+import IconButton from "@material-ui/core/IconButton";
+import FileCopyIcon from "@material-ui/icons/FileCopy";
 import Grid from "@material-ui/core/Grid";
+import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
@@ -11,8 +16,49 @@ import {
   ABOUT_US_PAGE_LINK,
 } from "../../utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+
+function JoinTheEffortContainer(props: {
+  imageUrl: string;
+  imageAlt: string;
+  imageBackground: string;
+  textTitle: string;
+  content: JSX.Element;
+}) {
+  return (
+    <Grid
+      container
+      justify="space-around"
+      className={styles.JoinTheEffortItemContainer}
+    >
+      <Hidden smDown>
+        <Grid
+          item
+          md={5}
+          lg={5}
+          className={styles.JoinTheEffortImgContainer}
+          style={{ backgroundColor: props.imageBackground }}
+        >
+          <img
+            src={props.imageUrl}
+            alt={props.imageAlt}
+            className={styles.JoinTheEffortImg}
+          />
+        </Grid>
+      </Hidden>
+      <Grid item sm={12} md={6} className={styles.JoinTheEffortTextContainer}>
+        <Typography className={styles.JoinTheEffortStepHeaderText}>
+          {props.textTitle}
+        </Typography>
+        {props.content}
+      </Grid>
+    </Grid>
+  );
+}
 
 function WhatIsHealthEquityPage() {
+  const [textCopied, setTextCopied] = useState(false);
+
   return (
     <div className={styles.WhatIsHealthEquityPage}>
       <Grid container className={styles.Grid}>
@@ -23,13 +69,22 @@ function WhatIsHealthEquityPage() {
           justify="center"
           alignItems="center"
         >
-          <Grid container item xs={12} sm={12} md={4} className={styles.HeaderImgItem}>
-            <img
-              src="img/pexels-marcus-aurelius-4063919 1.png"
-              className={styles.HeaderImg}
-              alt="A woman in a wheelchair relaxing with a cup of tea"
-            />
-          </Grid>
+          <Hidden smDown>
+            <Grid
+              container
+              item
+              xs={12}
+              sm={12}
+              md={4}
+              className={styles.HeaderImgItem}
+            >
+              <img
+                src="img/pexels-marcus-aurelius-4063919 1.png"
+                className={styles.HeaderImg}
+                alt="A woman in a wheelchair relaxing with a cup of tea"
+              />
+            </Grid>
+          </Hidden>
           <Grid item xs={12} sm={12} md={8} className={styles.HeaderTextItem}>
             <Typography className={styles.HeaderText}>
               What is Health Equity?
@@ -58,7 +113,13 @@ function WhatIsHealthEquityPage() {
               alignItems="flex-start"
               className={styles.DefinitionsContainer}
             >
-              <Grid item  xs={12} sm={12} md={6} className={styles.DefinitionsItem}>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={6}
+                className={styles.DefinitionsItem}
+              >
                 <Typography className={styles.DefinitionHeader}>
                   Political determinants of health
                 </Typography>
@@ -75,7 +136,13 @@ function WhatIsHealthEquityPage() {
                   Daniel Dawes, 2020
                 </span>
               </Grid>
-              <Grid item  xs={12} sm={12} md={6} className={styles.DefinitionsItem}>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={6}
+                className={styles.DefinitionsItem}
+              >
                 <Typography className={styles.DefinitionHeader}>
                   Social determinant of health
                 </Typography>
@@ -115,12 +182,12 @@ function WhatIsHealthEquityPage() {
               justify="space-around"
               xs={12}
             >
-              <Grid item  xs={12} sm={12} md={9} className={styles.ResourceItem}>
+              <Grid item xs={12} sm={12} md={9} className={styles.ResourceItem}>
                 <iframe
                   className={styles.ResourceVideoEmbed}
                   width="100%"
                   height="633px"
-                  src="https://www.youtube.com/embed/cmMutvgQIcU"
+                  src="https://www.youtube.com/embed/mux1c73fJ78"
                   title="YouTube video player -
                           The Allegory of the Orchard"
                   frameBorder="0"
@@ -138,7 +205,7 @@ function WhatIsHealthEquityPage() {
                   political determinants of health
                 </p>
               </Grid>
-              <Grid item  xs={12} sm={12} md={3}>
+              <Grid item xs={12} sm={12} md={3}>
                 <Grid
                   container
                   direction="column"
@@ -210,7 +277,13 @@ function WhatIsHealthEquityPage() {
               justify="space-between"
               alignItems="flex-start"
             >
-              <Grid item  xs={12} sm={12} md={6} className={styles.NewsAndStoriesItem}>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={6}
+                className={styles.NewsAndStoriesItem}
+              >
                 <img
                   className={styles.NewsAndStoriesBigImg}
                   src="img/pexels-august-de-richelieu-4261261 1.png"
@@ -231,7 +304,13 @@ function WhatIsHealthEquityPage() {
                   </a>
                 </p>
               </Grid>
-              <Grid item  xs={12} sm={12} md={6} className={styles.NewsAndStoriesItem}>
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={6}
+                className={styles.NewsAndStoriesItem}
+              >
                 <img
                   className={styles.NewsAndStoriesBigImg}
                   src="img/pexels-cottonbro-7000149 1.png"
@@ -250,7 +329,13 @@ function WhatIsHealthEquityPage() {
                   </a>
                 </p>
               </Grid>
-              <Grid item  xs={12} sm={12} md={4} className={styles.NewsAndStoriesItem}>
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                className={styles.NewsAndStoriesItem}
+              >
                 <img
                   className={styles.NewsAndStoriesSmallImg}
                   src="img/pexels-alex-green-5699516 1.png"
@@ -266,7 +351,13 @@ function WhatIsHealthEquityPage() {
                   </a>
                 </p>
               </Grid>
-              <Grid item  xs={12} sm={12} md={4} className={styles.NewsAndStoriesItem}>
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                className={styles.NewsAndStoriesItem}
+              >
                 <img
                   className={styles.NewsAndStoriesSmallImg}
                   src="img/pexels-ketut-subiyanto-4473409 2.png"
@@ -279,7 +370,13 @@ function WhatIsHealthEquityPage() {
                   <a href="/">Learn more</a>
                 </p>
               </Grid>
-              <Grid item  xs={12} sm={12} md={4} className={styles.NewsAndStoriesItem}>
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                className={styles.NewsAndStoriesItem}
+              >
                 <img
                   className={styles.NewsAndStoriesSmallImg}
                   src="img/Screen Shot 2021-03-01 at 5.25 1.png"
@@ -297,7 +394,6 @@ function WhatIsHealthEquityPage() {
             </Grid>
           </Grid>
         </Grid>
-
         <Grid
           container
           className={styles.JoinTheEffortRow}
@@ -317,130 +413,127 @@ function WhatIsHealthEquityPage() {
             <br />
             <br />
           </Grid>
-          <Grid container className={styles.JoinTheEffortItemContainer}>
-            <Grid
-              item
-              xs={5}
-              className={styles.JoinTheEffortImgContainer}
-              style={{ backgroundColor: "#275141" }}
-            >
-              <img
-                src="img/Dots_1@2x 4.png"
-                alt="Decorative dots"
-                className={styles.JoinTheEffortImg}
-              />
-            </Grid>
-            <Grid item xs={7} className={styles.JoinTheEffortTextContainer}>
-              <Typography className={styles.JoinTheEffortStepHeaderText}>
-                Sign up for our newsletter
-              </Typography>
-              <p className={styles.JoinTheEffortStepText}>
-                Want updates on the latest news in health equity? Sign up for
-                our Satcher Health Leadership Institute newsletter.
-              </p>
-              <form className={styles.EmailAddressForm}
-                    action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
-                    method="post"
-                    target="_blank">
-                <input
-                  className={styles.EmailAddressFormText}
-                  type="email"
-                  id="mce-EMAIL"
-                  name="MERGE0"
-                  placeholder="Enter email address"
+          <JoinTheEffortContainer
+            imageUrl="img/HET_Dots_1_v3_1000px.gif"
+            imageBackground="#275141"
+            imageAlt="Decorative dots"
+            textTitle="Sign up for our newsletter"
+            content={
+              <>
+                <p className={styles.JoinTheEffortStepText}>
+                  Want updates on the latest news in health equity? Sign up for
+                  our Satcher Health Leadership Institute newsletter.
+                </p>
+                <form
+                  action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
+                  method="post"
+                  target="_blank"
+                >
+                  <TextField
+                    id="Enter email address to sign up" // Accessibility label
+                    name="MERGE0"
+                    variant="outlined"
+                    className={styles.EmailTextField}
+                    type="email"
+                    placeholder="Enter email address"
+                  />
+                  <Button
+                    type="submit"
+                    color="primary"
+                    variant="contained"
+                    className={styles.EmailAddressFormSubmit}
+                  >
+                    Sign up
+                  </Button>
+                </form>
+              </>
+            }
+          />
+          <JoinTheEffortContainer
+            imageUrl="img/HET_Fields_1_v2_1000px.gif"
+            imageBackground="#EDB2A6"
+            imageAlt="Decorative thick lines"
+            textTitle="Share information with your community"
+            content={
+              <>
+                <p className={styles.JoinTheEffortStepText}>
+                  Movements begin with awareness, and gain momentum with
+                  excitement. We need your help in creating both for the
+                  movement to advance health equity!
+                  <br />
+                  <br />
+                  Share this tool with your network
+                </p>
+                <div className={styles.SocialsDiv}>
+                  <IconButton
+                    target="_blank"
+                    href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhealthequitytracker.org%2F&amp;src=sdkpreparse"
+                  >
+                    <FacebookIcon className={styles.SocialsIcon} />
+                  </IconButton>
+                  <IconButton
+                    target="_blank"
+                    href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fhealthequitytracker.org"
+                  >
+                    <LinkedInIcon className={styles.SocialsIcon} />
+                  </IconButton>
+                  <IconButton
+                    target="_blank"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fwww.healthequitytracker.org"
+                  >
+                    <TwitterIcon className={styles.SocialsIcon} />
+                  </IconButton>
+                </div>
+                <TextField
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  id="www.healthequitytracker.org" // Accessibility label
+                  variant="outlined"
+                  defaultValue="www.healthequitytracker.org"
+                  className={styles.TextField}
                 />
-                <input
-                  className={styles.EmailAddressFormSubmit}
-                  type="submit"
-                  value="Sign up"
-                />
-              </form>
-            </Grid>
-          </Grid>
-          <Grid container className={styles.JoinTheEffortItemContainer}>
-            <Grid
-              item
-              xs={5}
-              className={styles.JoinTheEffortImgContainer}
-              style={{ backgroundColor: "#D85C47" }}
-            >
-              <img
-                src="img/het_lines 8.png"
-                alt="Decorative thick lines"
-                className={styles.JoinTheEffortImg}
-              />
-            </Grid>
-            <Grid item xs={7} className={styles.JoinTheEffortTextContainer}>
-              <Typography className={styles.JoinTheEffortStepHeaderText}>
-                Share information with your community
-              </Typography>
-              <p className={styles.JoinTheEffortStepText}>
-                Movements begin with awareness, and gain momentum with
-                excitement. We need your help in creating both for the movement
-                to advance health equity!
-                <br />
-                <br />
-                Share this tool with your network
-              </p>
-              <form className={styles.EmailAddressForm}>
-                <input
-                  className={styles.EmailAddressFormText}
-                  type="text"
-                  value="www.healthequitytracker.org"
-                  readOnly
-                />
-              </form>
-              <div className={styles.SocialsDiv}>
-                <a target="_blank"
-                   rel="noopener noreferrer"
-                   href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhealthequitytracker.org%2F&amp;src=sdkpreparse">
-                  <FacebookIcon className={styles.SocialsIcon} />
-                </a>
-                <a target="_blank"
-                   rel="noopener noreferrer"
-                   href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fhealthequitytracker.org">
-                  <LinkedInIcon className={styles.SocialsIcon} />
-                </a>
-                <a target="_blank"
-                   rel="noopener noreferrer"
-                   href="https://twitter.com/share?url=https%3A%2F%2Fwww.healthequitytracker.org"
-                   className="twitter-share-button"
-                   data-url="https://www.healthequitytracker.org">
-                  <TwitterIcon className={styles.SocialsIcon} />
-                </a>
-              </div>
-            </Grid>
-          </Grid>
-          <Grid container className={styles.JoinTheEffortItemContainer}>
-            <Grid
-              item
-              xs={5}
-              className={styles.JoinTheEffortImgContainer}
-              style={{ backgroundColor: "#A5CDC0" }}
-            >
-              <img
-                src="img/LINES-2@2x 3.png"
-                alt="Decorative thin lines"
-                className={styles.JoinTheEffortImg}
-              />
-            </Grid>
-            <Grid item xs={7} className={styles.JoinTheEffortTextContainer}>
-              <Typography className={styles.JoinTheEffortStepHeaderText}>
-                Share your story
-              </Typography>
-              <p className={styles.JoinTheEffortStepText}>
-                We would love to hear about and feature your work in health
-                equity, or if you’ve used the Health Equity Tracker to take
-                action, implement a program, advocate for change, or more.
-              </p>
-              <LinkWithStickyParams
-                class={styles.ContactUsLink}
-                to={`${ABOUT_US_PAGE_LINK}?${ABOUT_US_TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
-              >
-                Contact Us
-              </LinkWithStickyParams>
-            </Grid>
-          </Grid>
+                <div className={styles.SocialsDiv}>
+                  <CopyToClipboard
+                    text="www.healthequitytracker.org"
+                    onCopy={() => {
+                      setTextCopied(true);
+                      setTimeout(() => setTextCopied(false), 1500);
+                    }}
+                  >
+                    <Button
+                      className={styles.CopyIcon}
+                      startIcon={<FileCopyIcon />}
+                    >
+                      Copy link to clipboard
+                    </Button>
+                  </CopyToClipboard>
+                  {textCopied && <span>Text copied!</span>}
+                </div>
+              </>
+            }
+          />
+          <JoinTheEffortContainer
+            imageUrl="img/HET_Overlapping_Lines_v4_1000px.gif"
+            imageBackground="#A5CDC0"
+            imageAlt="Decorative thin lines"
+            textTitle="Share your story?"
+            content={
+              <>
+                <p className={styles.JoinTheEffortStepText}>
+                  We would love to hear about and feature your work in health
+                  equity, or if you’ve used the Health Equity Tracker to take
+                  action, implement a program, advocate for change, or more.
+                </p>
+                <LinkWithStickyParams
+                  class={styles.ContactUsLink}
+                  to={`${ABOUT_US_PAGE_LINK}?${ABOUT_US_TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
+                >
+                  Contact Us
+                </LinkWithStickyParams>
+              </>
+            }
+          />
         </Grid>
       </Grid>
     </div>

@@ -1,6 +1,6 @@
 import { IDataFrame } from "data-forge";
 import { Row } from "../utils/DatasetTypes";
-import { TOTAL, UNKNOWN, UNKNOWN_HL } from "../utils/Constants";
+import { ALL, UNKNOWN, UNKNOWN_HL } from "../utils/Constants";
 import { Breakdowns } from "../query/Breakdowns";
 
 /**
@@ -142,6 +142,19 @@ export function percent(numerator: number, denominator: number): number | null {
     : Math.round((1000 * numerator) / denominator) / 10;
 }
 
+/** Finds expected value of an ailment based on a population sample. */
+export function estimateTotal(
+  sample_count: number,
+  sample_population: number,
+  total_population: number
+): number {
+  return sample_count == null ||
+    sample_population == null ||
+    sample_population === 0
+    ? 0
+    : Math.round((sample_count / sample_population) * total_population);
+}
+
 export function asDate(dateStr: string) {
   const parts = dateStr.split("-").map(Number);
   // Date expects month to be 0-indexed so need to subtract 1.
@@ -162,9 +175,9 @@ function moveRowWithValueToFront(
   value: string
 ) {
   let finalRows: Row[] = Object.assign(rows, []);
-  const indexOfTotal = rows.findIndex((r: any) => r[fieldName] === value);
-  if (indexOfTotal !== -1) {
-    const removedItem = finalRows.splice(indexOfTotal, 1);
+  const indexOfValue = rows.findIndex((r: any) => r[fieldName] === value);
+  if (indexOfValue !== -1) {
+    const removedItem = finalRows.splice(indexOfValue, 1);
     finalRows = removedItem.concat(finalRows);
   }
   return finalRows;
@@ -201,7 +214,7 @@ export function maybeApplyRowReorder(rows: Row[], breakdowns: Breakdowns) {
   // race in LA county), we want a specific order of the metric values
   if (breakdowns.hasOneRegionOfGeographicGranularity()) {
     finalRows = sortAlphabeticallyByField(finalRows, reorderingColumn);
-    finalRows = moveRowWithValueToFront(finalRows, reorderingColumn, TOTAL);
+    finalRows = moveRowWithValueToFront(finalRows, reorderingColumn, ALL);
     finalRows = moveRowsWithValueToBack(finalRows, reorderingColumn, UNKNOWN);
     finalRows = moveRowsWithValueToBack(
       finalRows,

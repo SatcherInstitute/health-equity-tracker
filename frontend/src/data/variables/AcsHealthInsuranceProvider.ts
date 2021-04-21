@@ -4,7 +4,7 @@ import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { TOTAL } from "../utils/Constants";
+import { ALL, WHITE_NH, HISPANIC } from "../utils/Constants";
 import { ISeries } from "data-forge";
 
 class AcsHealthInsuranceProvider extends VariableProvider {
@@ -12,24 +12,25 @@ class AcsHealthInsuranceProvider extends VariableProvider {
     super("acs_health_insurance_provider", [
       "health_insurance_count",
       "health_insurance_per_100k",
+      "health_insurance_pct_share",
+      "health_insurance_population_pct",
     ]);
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
-    if (breakdowns.hasOnlySex()) {
+    if (breakdowns.hasOnlySex() || breakdowns.hasOnlyAge()) {
       return breakdowns.geography === "county"
-        ? "acs_health_insurance-health_insurance_by_sex_county"
-        : "acs_health_insurance-health_insurance_by_sex_state";
+        ? "acs_health_insurance-health_insurance_by_sex_age_county"
+        : "acs_health_insurance-health_insurance_by_sex_age_state";
     }
 
     if (breakdowns.hasOnlyRace()) {
       return breakdowns.geography === "county"
-        ? "acs_health_insurance-health_insurance_by_race_county"
-        : "acs_health_insurance-health_insurance_by_race_state";
+        ? "acs_health_insurance-health_insurance_by_race_age_county"
+        : "acs_health_insurance-health_insurance_by_race_age_state";
     }
 
-    // Age only breakdown is not supported yet, due to the dataset not being
-    // Aggregated on the backend.
+    // Fallback for future breakdowns
     throw new Error("Not implemented");
   }
 
@@ -78,6 +79,13 @@ class AcsHealthInsuranceProvider extends VariableProvider {
       );
     }
 
+    //Remove white hispanic to bring inline with others
+    df = df.where(
+      (row) =>
+        //We remove these races because they are subsets
+        row["race_and_ethnicity"] !== WHITE_NH
+    );
+
     let totalPivot: { [key: string]: (series: ISeries) => any } = {
       with_health_insurance: (series: ISeries) => series.sum(),
       without_health_insurance: (series: ISeries) => series.sum(),
@@ -86,22 +94,46 @@ class AcsHealthInsuranceProvider extends VariableProvider {
 
     totalPivot[breakdowns.getSoleDemographicBreakdown().columnName] = (
       series: ISeries
-    ) => TOTAL;
+    ) => ALL;
 
     // Calculate totals where dataset doesn't provide it
     // TODO- this should be removed when Totals come from the Data Server
-    const total = df.pivot(["fips", "fips_name"], totalPivot).resetIndex();
+    const total = df
+      .where(
+        (row) =>
+          //We remove these races because they are subsets
+          row["race_and_ethnicity"] !== HISPANIC
+      )
+      .pivot(["fips", "fips_name"], totalPivot)
+      .resetIndex();
     df = df.concat(total).resetIndex();
 
     df = df.generateSeries({
       health_insurance_per_100k: (row) =>
-        per100k(row.with_health_insurance, row.total_health_insurance),
+        per100k(row.without_health_insurance, row.total_health_insurance),
     });
 
     df = df.renameSeries({
       total_health_insurance: "total",
-      with_health_insurance: "health_insurance_count",
+      without_health_insurance: "health_insurance_count",
     });
+
+    df = this.calculatePctShare(
+      df,
+      "health_insurance_count",
+      "health_insurance_pct_share",
+      breakdowns.getSoleDemographicBreakdown().columnName,
+      ["fips"]
+    );
+
+    df = this.calculatePctShare(
+      df,
+      "total",
+      "health_insurance_population_pct",
+      breakdowns.getSoleDemographicBreakdown().columnName,
+      ["fips"]
+    );
+
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 
@@ -109,11 +141,7 @@ class AcsHealthInsuranceProvider extends VariableProvider {
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    return (
-      breakdowns.hasExactlyOneDemographic() &&
-      !breakdowns.hasOnlyAge() &&
-      !breakdowns.time
-    );
+    return breakdowns.hasExactlyOneDemographic() && !breakdowns.time;
   }
 }
 

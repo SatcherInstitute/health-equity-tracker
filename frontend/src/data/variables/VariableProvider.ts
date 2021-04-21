@@ -8,7 +8,7 @@ import { MetricId } from "../config/MetricConfig";
 import { ProviderId } from "../loading/VariableProviderMap";
 import { DataFrame, IDataFrame } from "data-forge";
 import { Fips } from "../../data/utils/Fips";
-import { TOTAL, UNKNOWN, UNKNOWN_RACE } from "../utils/Constants";
+import { ALL, TOTAL, UNKNOWN, UNKNOWN_RACE } from "../utils/Constants";
 import { applyToGroups, percent } from "../utils/datasetutils";
 
 abstract class VariableProvider {
@@ -88,6 +88,14 @@ abstract class VariableProvider {
     return dataFrame.dropSeries(columnsToRemove).resetIndex();
   }
 
+  // Renames all instances of Total in the column to All
+  // TODO: Backend should do this instead so frontend doesn't have to
+  renameTotalToAll(df: IDataFrame, columnName: string) {
+    return df.transformSeries({
+      [columnName]: (series) => (series === TOTAL ? ALL : series),
+    });
+  }
+
   applyDemographicBreakdownFilters(
     df: IDataFrame,
     breakdowns: Breakdowns
@@ -123,13 +131,10 @@ abstract class VariableProvider {
     rawCountCol: string,
     pctShareCol: string,
     breakdownCol: BreakdownVar,
-    groupByCols: string[],
-    totalString?: string
+    groupByCols: string[]
   ) {
     return applyToGroups(df, groupByCols, (group) => {
-      const totalRow = group.where(
-        (r) => r[breakdownCol] === (totalString || TOTAL)
-      );
+      const totalRow = group.where((r) => r[breakdownCol] === ALL);
       if (totalRow.count() === 0) {
         throw new Error("No Total value for group");
       }
@@ -154,7 +159,7 @@ abstract class VariableProvider {
     // These rows will be added back at the end of calculations.
     // This leaves only the rows to be summed to calculate TOTAL_KNOWN metric
     const originalTotalRow = dataFrame.where(
-      (row) => row[breakdownCol] === TOTAL
+      (row) => row[breakdownCol] === ALL
     );
     const originalUnknownRow = dataFrame.where(
       (row) => row[breakdownCol] === UNKNOWN
@@ -164,7 +169,7 @@ abstract class VariableProvider {
     );
     dataFrame = dataFrame.where(
       (row) =>
-        row[breakdownCol] !== TOTAL &&
+        row[breakdownCol] !== ALL &&
         row[breakdownCol] !== UNKNOWN &&
         row[breakdownCol] !== UNKNOWN_RACE
     );
@@ -174,7 +179,7 @@ abstract class VariableProvider {
     const knownValuesTotal = dataFrame.pivot(["fips", "fips_name"], {
       [rawCountColumnName]: (series) => series.sum(),
       population: (series) => series.sum(),
-      [breakdownCol]: (series) => TOTAL,
+      [breakdownCol]: (series) => ALL,
     });
 
     // Append calculated Total of Known Values sum to the data frame and use to calculatePctShare()
@@ -184,12 +189,11 @@ abstract class VariableProvider {
       rawCountColumnName,
       shareOfKnownColumnName,
       breakdownCol,
-      ["fips"],
-      TOTAL
+      ["fips"]
     );
 
     // Remove Total of Known Values that was used to calculate the _share_of_known metrics
-    dataFrame = dataFrame.where((row) => row[breakdownCol] !== TOTAL);
+    dataFrame = dataFrame.where((row) => row[breakdownCol] !== ALL);
 
     // Update original Total row to have a logic value, 100%, for the _share_of_known metric and attach to DF
     let updatedTotalRow = originalTotalRow.toArray()[0];

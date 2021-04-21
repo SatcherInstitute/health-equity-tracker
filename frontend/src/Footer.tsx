@@ -8,14 +8,15 @@ import YouTubeIcon from "@material-ui/icons/YouTube";
 import ArrowUpwardRoundedIcon from "@material-ui/icons/ArrowUpwardRounded";
 import { Button } from "@material-ui/core";
 import {
+  ABOUT_US_TAB_PARAM,
+  ABOUT_US_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
   DATA_CATALOG_PAGE_LINK,
-  ABOUT_US_PAGE_LINK,
-  ABOUT_US_TAB_PARAM,
+  TERMS_OF_SERVICE_PAGE_LINK,
 } from "./utils/urlutils";
 import {
-  ABOUT_US_CONTACT_TAB_INDEX,
   ABOUT_US_FAQ_TAB_INDEX,
+  ABOUT_US_CONTACT_TAB_INDEX,
 } from "./pages/AboutUs/AboutUsPage";
 
 function Footer() {
@@ -53,10 +54,7 @@ function Footer() {
                 "Contact Us",
                 `${ABOUT_US_PAGE_LINK}?${ABOUT_US_TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`,
               ],
-              [
-                "Terms of Use",
-                `${ABOUT_US_PAGE_LINK}?${ABOUT_US_TAB_PARAM}=${ABOUT_US_FAQ_TAB_INDEX}`,
-              ],
+              ["Terms of Use", `${TERMS_OF_SERVICE_PAGE_LINK}`],
             ].map(([label, link]) => (
               <LinkGridItem text={label} link={link} />
             ))}
@@ -102,9 +100,10 @@ function Logos() {
           onClick={() =>
             (window.location.href = "https://healthequitytracker.org/")
           }
+          disableRipple={true}
         >
           <img
-            src="img/updated mark 1.png"
+            src="img/AppbarLogo.png"
             className={styles.FooterLogo}
             alt="Health Equity Tracker decorative logo"
           />
