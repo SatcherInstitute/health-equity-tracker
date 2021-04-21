@@ -157,7 +157,8 @@ def standardize_data(df):
     df = df.rename(columns=COL_NAME_MAPPING)
 
     # Add race metadata columns.
-    std_col.add_race_columns_from_category_id(df)
+    if std_col.RACE_CATEGORY_ID_COL in df.columns:
+        std_col.add_race_columns_from_category_id(df)
 
     return df
 
