@@ -60,22 +60,19 @@ RaceTuple = namedtuple("RaceTuple", [
 
 @unique
 class Race(Enum):
+    # Basic categories
     AIAN = ("AIAN", "American Indian and Alaska Native", True)
     AIAN_NH = ("AIAN_NH", "American Indian and Alaska Native", False)
     ASIAN = ("ASIAN", "Asian", True)
     ASIAN_NH = ("ASIAN_NH", "Asian", False)
     BLACK = ("BLACK", "Black or African American", True)
     BLACK_NH = ("BLACK_NH", "Black or African American", False)
-    INDIGENOUS = ("INDIGENOUS", "Indigenous", True)
-    INDIGENOUS_NH = ("INDIGENOUS_NH", "Indigenous", False)
     NHPI = ("NHPI", "Native Hawaiian and Pacific Islander", True)
     NHPI_NH = ("NHPI_NH", "Native Hawaiian and Pacific Islander", False)
     MULTI = ("MULTI", "Two or more races", True)
     MULTI_NH = ("MULTI_NH", "Two or more races", False)
     WHITE = ("WHITE", "White", True)
     WHITE_NH = ("WHITE_NH", "White", False)
-    API = ("API", "Asian and Pacific Islander", True)
-    API_NH = ("API_NH", "Asian and Pacific Islander", False)
 
     # Below are special values that have slightly different characteristics.
 
@@ -101,8 +98,26 @@ class Race(Enum):
     # prevent joining with the incorrect population data.
     OTHER_STANDARD = ("OTHER_STANDARD", "Some other race", True)
     OTHER_STANDARD_NH = ("OTHER_STANDARD_NH", "Some other race", False)
-    OTHER_NONSTANDARD = ("OTHER_NONSTANDARD", "Some other race", True)
-    OTHER_NONSTANDARD_NH = ("OTHER_NONSTANDARD_NH", "Some other race", False)
+    # TODO: The frontend uses the race_and_ethnicity column as a unique
+    # identifier in some places. Until we migrate to using race_category_id,
+    # we add a * for the non-standard other so it doesn't accidentally get
+    # joined with the standard other on the frontend.
+    OTHER_NONSTANDARD = ("OTHER_NONSTANDARD", "Some other race*", True)
+    OTHER_NONSTANDARD_NH = ("OTHER_NONSTANDARD_NH", "Some other race*", False)
+
+    # Categories that are combinations of other categories
+    API = ("API", "Asian and Pacific Islander", True)
+    API_NH = ("API_NH", "Asian and Pacific Islander", False)
+    INDIGENOUS = ("INDIGENOUS", "Indigenous", True)
+    INDIGENOUS_NH = ("INDIGENOUS_NH", "Indigenous", False)
+    MULTI_OR_OTHER_STANDARD = (
+        "MULTI_OR_OTHER_STANDARD",
+        '"Two or more races" and "Some other race"',
+        True)
+    MULTI_OR_OTHER_STANDARD_NH = (
+        "MULTI_OR_OTHER_STANDARD_NH",
+        '"Two or more races" and "Some other race"',
+        False)
 
     # When the race is unknown. Different from ETHNICITY_UNKNOWN, which
     # specifically refers to whether Hispanic/Latino is unknown.
