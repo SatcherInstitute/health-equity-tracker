@@ -81,6 +81,43 @@ RACE_STRING_TO_CATEGORY_ID_EXCLUDE_HISP = {
 }
 
 
+# TODO move this to a utility file and add tests.
+def add_sum_of_rows(df, breakdown_col, value_col, new_row_breakdown_val,
+                    breakdown_vals_to_sum=None):
+    """Returns a new DataFrame by appending rows by summing the values of other
+       rows. Automatically groups by all other columns, so this won't work if
+       there are extraneous columns.
+
+       For example, calling
+           `add_sum_of_rows(df, 'race', 'population', 'total')`
+       will group by all columns except for 'race' and 'population, and for each
+       group add a row with race='total' and population=the sum of population
+       for all races in that group.
+
+       df: The DataFrame to calculate new rows from.
+       breakdown_col: The name of the breakdown column that a new value is being
+                      summed over.
+       value_col: The name of the column whose values should be summed.
+       new_row_breakdown_val: The value to use for the breakdown column.
+       breakdown_vals_to_sum: The list of breakdown values to sum across. If not
+                              provided, defaults to summing across all values.
+       """
+    filtered_df = df
+    if breakdown_vals_to_sum is not None:
+        filtered_df = df.loc[df[breakdown_col].isin(breakdown_vals_to_sum)]
+
+    group_by_cols = list(df.columns)
+    group_by_cols.remove(breakdown_col)
+    group_by_cols.remove(value_col)
+
+    sums = filtered_df.groupby(group_by_cols).sum().reset_index()
+    sums[breakdown_col] = new_row_breakdown_val
+
+    result = pandas.concat([df, sums])
+    result = result.reset_index(drop=True)
+    return result
+
+
 def rename_age_bracket(bracket):
     """Converts ACS age bracket label to standardized bracket format of "a-b",
        where a is the lower end of the bracket and b is the upper end,
@@ -354,6 +391,21 @@ class ACSPopulationIngester():
         standardized_race = standardized_race[
             standardized_race[RACE_CATEGORY_ID_COL] != Race.HISP.value]
         all_races = pandas.concat([all_races, standardized_race])
+
+        # Drop extra columns before adding derived rows so they don't interfere
+        # with grouping.
+        all_races.drop([RACE_COL, RACE_OR_HISPANIC_COL], axis=1, inplace=True)
+
+        # Add derived rows.
+        all_races = add_sum_of_rows(
+            all_races, RACE_CATEGORY_ID_COL, POPULATION_COL,
+            Race.MULTI_OR_OTHER_STANDARD_NH.value,
+            [Race.MULTI_NH.value, Race.OTHER_STANDARD_NH.value])
+        all_races = add_sum_of_rows(
+            all_races, RACE_CATEGORY_ID_COL, POPULATION_COL,
+            Race.MULTI_OR_OTHER_STANDARD.value,
+            [Race.MULTI.value, Race.OTHER_STANDARD.value])
+
         add_race_columns_from_category_id(all_races)
         return self.sort_race_frame(all_races)
 
