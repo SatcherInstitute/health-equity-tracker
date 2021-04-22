@@ -17,7 +17,6 @@ import {
 } from "../../utils/urlutils";
 import ReportProvider from "../../reports/ReportProvider";
 import OptionsSelector from "./OptionsSelector";
-import Typography from '@material-ui/core/Typography';
 
 function ExploreDataPage() {
   const params = useSearchParams();
@@ -77,7 +76,6 @@ function ExploreDataPage() {
     <div id="main" tabIndex={-1} className={styles.ExploreData}>
       <div className={styles.CarouselContainer}>
         <Carousel
-          aria-label="Mad lib selection carousel"
           className={styles.Carousel}
           timeout={200}
           autoPlay={false}
@@ -98,8 +96,7 @@ function ExploreDataPage() {
         </Carousel>
       </div>
       <div className={styles.ReportContainer}>
-        <ReportProvider aria-label="Custom disparity report"
-                        madLib={madLib} setMadLib={setMadLib} />
+        <ReportProvider madLib={madLib} setMadLib={setMadLib} />
       </div>
     </div>
   );
