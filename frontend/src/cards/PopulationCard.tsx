@@ -57,7 +57,11 @@ export function PopulationCard(props: PopulationCardProps) {
 
         const CollapseButton = (
           <Button
-            aria-label="expand population profile card"
+            aria-label={
+              expanded
+                ? "collapse population profile card"
+                : "expand population profile card"
+            }
             onClick={() => setExpanded(!expanded)}
             color="primary"
           >
