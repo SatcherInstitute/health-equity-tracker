@@ -343,7 +343,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "poverty",
       variableDisplayName: "Poverty",
-      variableFullDisplayName: "Below the poverty level",
+      variableFullDisplayName: "Individuals below the poverty line",
       metrics: {
         per100k: {
           metricId: "poverty_per_100k",
