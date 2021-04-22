@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { VariableDisparityReport } from "./VariableDisparityReport";
 import TwoVariableReport from "./TwoVariableReport";
 import {
@@ -14,6 +14,7 @@ import ArrowForward from "@material-ui/icons/ArrowForward";
 import ShareIcon from "@material-ui/icons/Share";
 import styles from "./Report.module.scss";
 import ShareDialog from "./ui/ShareDialog";
+import DisclaimerAlert from "./ui/DisclaimerAlert";
 
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
   const segment = madLib.phrase[segmentIndex];
@@ -24,6 +25,7 @@ function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
 
 function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
   const [shareModalOpen, setShareModalOpen] = useState(false);
+  const fieldRef = useRef<HTMLInputElement>(null);
 
   function getReport() {
     // Each report has a unique key based on its props so it will create a
@@ -110,10 +112,17 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             Share
           </Button>
         </div>
+        <DisclaimerAlert
+          jumpToData={() => {
+            if (fieldRef.current) {
+              fieldRef.current.scrollIntoView();
+            }
+          }}
+        />
         {getReport()}
       </div>
       {/* TODO- could we extract the names of datasets from the Fake Metdata */}
-      <div className={styles.MissingDataInfo}>
+      <div className={styles.MissingDataInfo} ref={fieldRef}>
         <h1>What Data Are Missing?</h1>
         <p>
           In this tracker, we are using{" "}

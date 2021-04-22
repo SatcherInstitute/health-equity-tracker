@@ -65,16 +65,18 @@ function TwoVariableReport(props: {
   return (
     <Grid container spacing={1} alignItems="flex-start">
       {props.fips1.code === props.fips2.code ? (
-        <Grid item xs={12}>
-          <PopulationCard fips={props.fips1} />
-          <ReportToggleControls
-            dropdownVarId={props.dropdownVarId1}
-            variableConfig={variableConfig1}
-            setVariableConfig={setVariableConfig1}
-            currentBreakdown={currentBreakdown}
-            setCurrentBreakdown={setCurrentBreakdown}
-          />
-        </Grid>
+        <>
+          <Grid item xs={12}>
+            <PopulationCard fips={props.fips1} />
+            <ReportToggleControls
+              dropdownVarId={props.dropdownVarId1}
+              variableConfig={variableConfig1}
+              setVariableConfig={setVariableConfig1}
+              currentBreakdown={currentBreakdown}
+              setCurrentBreakdown={setCurrentBreakdown}
+            />
+          </Grid>
+        </>
       ) : (
         <>
           <Grid item xs={12} sm={6}>
