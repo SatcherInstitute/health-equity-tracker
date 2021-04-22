@@ -62,11 +62,11 @@ function MobileAppToolbar() {
   return (
     <Toolbar>
       <IconButton onClick={() => setOpen(true)}
-                  aria-label="Expand site navigation button">
+                  aria-label="Expand site navigation">
         <MenuIcon className={styles.MenuIconForMobile} />
       </IconButton>
       <Drawer variant="persistent" anchor="left" open={open}>
-        <Button aria-label="Hide site navigation button"
+        <Button aria-label="Collapse site navigation"
           onClick={() => setOpen(false)}>
           <ChevronLeftIcon />
         </Button>
