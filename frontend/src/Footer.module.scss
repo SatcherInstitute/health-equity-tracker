@@ -1,11 +1,15 @@
 @import "styles/variables";
 
+/** ------------------ Footer styles -------------------- **/
+
 .Footer {
   width: 100%;
   background: $footer-color;
   position: absolute;
   bottom: 0;
-  height: $footer-size;
+  max-height: $footer-size;
+  margin: auto;
+  padding: 50px 10px;
 }
 
 .FooterGrid {
@@ -13,14 +17,10 @@
   height: 100%;
 }
 
-.FooterColumn {
-  text-align: left;
-  margin-left: 20px;
-  margin-right: 20px;
-}
+/** ------------------ Logos - first -------------------- **/
 
 .SocialsIcon {
-  height: 25px !important;
+  margin: 0 7px !important;
 }
 
 .FooterTitleSpan {
@@ -36,17 +36,41 @@
   height: 30px;
 }
 
-.FooterNavLink {
-  padding-left: 20px;
-  font-family: "DM Sans", sans-serif !important;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 18.23px;
-  text-decoration: none;
-  color: #202124 !important;
+.Logos {
+  margin: auto !important;
+  max-width: 288px;
 }
 
-.CopyrightSpan {
+.LogosLeft {
+  margin: auto !important;
+}
+
+.LogosRight {
+  padding-top: 15px;
+}
+
+/** ------------------ Links - second -------------------- **/
+
+.CopyrightSpanLargerWindow {
+  color: $alt-grey;
+  float: right;
+  // So it aligns with the button above it
+  padding-right: 8px;
+  // To get it closer to the grid above it
+  margin-top: -24px;
+}
+
+.LinksContainer {
+  margin: auto !important;
+}
+
+.Links {
+  min-height: 78px;
+}
+
+/** ------------------ Back to top - third -------------------- **/
+
+.CopyrightSpanSmallerWindow {
   color: $alt-grey;
 }
 
