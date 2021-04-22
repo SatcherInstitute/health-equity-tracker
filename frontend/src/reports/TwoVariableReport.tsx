@@ -100,7 +100,7 @@ function TwoVariableReport(props: {
         </>
       )}
 
-      <RowOfOptionalMetrics
+      <RowOfTwoOptionalMetrics
         metric1={variableConfig1.metrics["per100k"]}
         metric2={variableConfig2.metrics["per100k"]}
         fips1={props.fips1}
@@ -123,7 +123,7 @@ function TwoVariableReport(props: {
         )}
       />
 
-      <RowOfOptionalMetrics
+      <RowOfTwoOptionalMetrics
         metric1={variableConfig1.metrics["pct_share"]}
         metric2={variableConfig2.metrics["pct_share"]}
         fips1={props.fips1}
@@ -171,7 +171,7 @@ function TwoVariableReport(props: {
       {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
         !breakdownIsShown(breakdownVar) ? null : (
           <>
-            <RowOfOptionalMetrics
+            <RowOfTwoOptionalMetrics
               metric1={variableConfig1.metrics["pct_share"]}
               metric2={variableConfig2.metrics["pct_share"]}
               fips1={props.fips1}
@@ -188,7 +188,7 @@ function TwoVariableReport(props: {
                 />
               )}
             />
-            <RowOfOptionalMetrics
+            <RowOfTwoOptionalMetrics
               metric1={variableConfig1.metrics["per100k"]}
               metric2={variableConfig2.metrics["per100k"]}
               fips1={props.fips1}
@@ -212,7 +212,7 @@ function TwoVariableReport(props: {
   );
 }
 
-function RowOfOptionalMetrics(props: {
+function RowOfTwoOptionalMetrics(props: {
   metric1: MetricConfig | undefined;
   metric2: MetricConfig | undefined;
   fips1: Fips;
