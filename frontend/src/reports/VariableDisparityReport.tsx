@@ -16,6 +16,7 @@ import {
 } from "../data/config/MetricConfig";
 import ReportToggleControls from "./ui/ReportToggleControls";
 import NoDataAlert from "./ui/NoDataAlert";
+import DisclaimerAlert from "./ui/DisclaimerAlert";
 
 export interface VariableDisparityReportProps {
   key: string;
@@ -23,6 +24,7 @@ export interface VariableDisparityReportProps {
   fips: Fips;
   updateFipsCallback: Function;
   hidePopulationCard?: boolean;
+  jumpToData: () => void;
 }
 
 export function VariableDisparityReport(props: VariableDisparityReportProps) {
@@ -47,7 +49,9 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           <PopulationCard fips={props.fips} />
         </Grid>
       )}
-
+      <Grid item xs={12}>
+        <DisclaimerAlert jumpToData={props.jumpToData} />
+      </Grid>
       {!variableConfig && <NoDataAlert dropdownVarId={props.dropdownVarId} />}
 
       {variableConfig && (

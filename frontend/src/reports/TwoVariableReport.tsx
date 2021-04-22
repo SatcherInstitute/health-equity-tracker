@@ -16,6 +16,7 @@ import {
 } from "../data/config/MetricConfig";
 import ReportToggleControls from "./ui/ReportToggleControls";
 import NoDataAlert from "./ui/NoDataAlert";
+import DisclaimerAlert from "./ui/DisclaimerAlert";
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
@@ -27,6 +28,7 @@ function TwoVariableReport(props: {
   fips2: Fips;
   updateFips1Callback: Function;
   updateFips2Callback: Function;
+  jumpToData: () => void;
 }) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     "race_and_ethnicity"
@@ -64,16 +66,23 @@ function TwoVariableReport(props: {
   return (
     <Grid container spacing={1} alignItems="flex-start">
       {props.fips1.code === props.fips2.code ? (
-        <Grid item xs={12}>
-          <PopulationCard fips={props.fips1} />
-          <ReportToggleControls
-            dropdownVarId={props.dropdownVarId1}
-            variableConfig={variableConfig1}
-            setVariableConfig={setVariableConfig1}
-            currentBreakdown={currentBreakdown}
-            setCurrentBreakdown={setCurrentBreakdown}
-          />
-        </Grid>
+        <>
+          <Grid item xs={12}>
+            <PopulationCard fips={props.fips1} />
+          </Grid>
+          <Grid item xs={12}>
+            <DisclaimerAlert jumpToData={props.jumpToData} />
+          </Grid>
+          <Grid item xs={12}>
+            <ReportToggleControls
+              dropdownVarId={props.dropdownVarId1}
+              variableConfig={variableConfig1}
+              setVariableConfig={setVariableConfig1}
+              currentBreakdown={currentBreakdown}
+              setCurrentBreakdown={setCurrentBreakdown}
+            />
+          </Grid>
+        </>
       ) : (
         <>
           <Grid item xs={12} sm={6}>
@@ -96,8 +105,12 @@ function TwoVariableReport(props: {
               setCurrentBreakdown={setCurrentBreakdown}
             />
           </Grid>
+          <Grid item xs={12}>
+            <DisclaimerAlert jumpToData={props.jumpToData} />
+          </Grid>
         </>
       )}
+
       {variableConfig1.metrics["pct_share"] && (
         <Grid item xs={12} sm={6}>
           <UnknownsMapCard

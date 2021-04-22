@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { VariableDisparityReport } from "./VariableDisparityReport";
 import TwoVariableReport from "./TwoVariableReport";
 import {
@@ -24,6 +24,7 @@ function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
 
 function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
   const [shareModalOpen, setShareModalOpen] = useState(false);
+  const fieldRef = useRef<HTMLInputElement>(null);
 
   function getReport() {
     // Each report has a unique key based on its props so it will create a
@@ -41,6 +42,11 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
                 getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
               )
             }
+            jumpToData={() => {
+              if (fieldRef.current) {
+                fieldRef.current.scrollIntoView();
+              }
+            }}
           />
         );
       case "comparegeos":
@@ -64,6 +70,11 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
                 getMadLibWithUpdatedValue(props.madLib, 5, fips.code)
               )
             }
+            jumpToData={() => {
+              if (fieldRef.current) {
+                fieldRef.current.scrollIntoView();
+              }
+            }}
           />
         );
       case "comparevars":
@@ -89,6 +100,11 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
                 getMadLibWithUpdatedValue(props.madLib, 5, fips.code)
               )
             }
+            jumpToData={() => {
+              if (fieldRef.current) {
+                fieldRef.current.scrollIntoView();
+              }
+            }}
           />
         );
       default:
@@ -117,7 +133,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         {getReport()}
       </div>
       {/* TODO- could we extract the names of datasets from the Fake Metdata */}
-      <div className={styles.MissingDataInfo}>
+      <div className={styles.MissingDataInfo} ref={fieldRef}>
         <h1>What Data Are Missing?</h1>
         <p>
           In this tracker, we are using{" "}
