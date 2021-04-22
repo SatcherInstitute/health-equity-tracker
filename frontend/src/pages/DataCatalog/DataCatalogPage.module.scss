@@ -33,7 +33,7 @@
   text-align: left;
   font-weight: 500;
   font-family: "DM Sans", sans-serif;
-  line-height: 23.44px;
+  line-height: 23.44px !important;
   color: $alt-black;
   padding-top: 10px;
   padding-bottom: 15px;
@@ -51,6 +51,7 @@
 .MethodologySubheaderText {
   font-weight: 700;
   font-family: "Inter", sans-serif !important;
+  font-size: 1.17em;
 }
 
 .MethodologyInfoBar {

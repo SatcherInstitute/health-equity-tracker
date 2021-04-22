@@ -230,16 +230,6 @@
 
 /** ------------- HEADERS ------------- **/
 
-// Underlined Header H1
-.UnderlinedHeaderL1 {
-  font-size: 28px !important;
-  line-height: 26px;
-  border-bottom: 2px solid #9aa0a6;
-  margin: 25px 0 25px 0;
-  font-family: "Taviraj", serif !important;
-  text-align: left;
-}
-
 // Underlined Header H2
 .UnderlinedHeaderL2 {
   font-size: 28px !important;
@@ -285,6 +275,28 @@
   line-height: 50px !important;
   color: $alt-green;
   padding: 72px 0 20px 0;
+}
+
+// For the "Our Team" header text at the very top of the page
+.OurTeamHeaderText {
+  font-size: 50px !important;
+  text-align: center;
+  font-weight: 300 !important;
+  font-family: "Taviraj", serif !important;
+  line-height: 50px !important;
+  color: $alt-green;
+  padding: 72px 0 20px 0;
+}
+
+// For headers denoting each subgroup on the team
+.TeamHeader {
+  font-size: 28px !important;
+  line-height: 26px;
+  border-bottom: 2px solid #9aa0a6;
+  margin: 25px 0 25px 0;
+  font-family: "Taviraj", sans-serif !important;
+  text-align: left;
+  font-weight: 400 !important;
 }
 
 // Profiles items for people in Our Team
@@ -346,10 +358,8 @@
   text-align: left;
   font-weight: 500;
   font-family: "DM Sans", sans-serif;
-  line-height: 23.44px;
+  line-height: 5px !important;
   color: $alt-black;
-  padding-top: 10px;
-  padding-bottom: 15px;
 }
 
 .FaqAnswer {

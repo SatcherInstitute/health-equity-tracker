@@ -20,9 +20,9 @@ function MethodologyTab() {
       <Grid item xs={12} sm={12} md={9}>
         <Grid container className={styles.MethodologySection}>
           <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-            <span className={styles.MethodologyQuestion}>
+            <h1 id="main" tabIndex={-1} className={styles.MethodologyQuestion}>
               How did you ingest and standardize the data?
-            </span>
+            </h1>
             <div className={styles.MethodologyAnswer}>
               <ul>
                 <li>
@@ -43,9 +43,9 @@ function MethodologyTab() {
             </div>
           </Grid>
           <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-            <span className={styles.MethodologyQuestion}>
+            <h1 className={styles.MethodologyQuestion}>
               What are the limitations of the data?
-            </span>
+            </h1>
             <div className={styles.MethodologyAnswer}>
               <p>
                 Unfortunately, with these publically available data sets, there
@@ -54,9 +54,9 @@ function MethodologyTab() {
                 comprehensive race and ethnicity breakdowns; comprehensive
                 gender and age breakdowns by county, etc.
               </p>
-              <span className={styles.MethodologySubheaderText}>
+              <h2 className={styles.MethodologySubheaderText}>
                 Known limitations in the data
-              </span>
+              </h2>
               <ul>
                 <li>
                   To protect the privacy of affected individuals, COVID-19 data
@@ -82,9 +82,9 @@ function MethodologyTab() {
             </div>
           </Grid>
           <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-            <span className={styles.MethodologyQuestion}>
+            <h1 className={styles.MethodologyQuestion}>
               What data is missing?
-            </span>
+            </h1>
             <div className={styles.MethodologyAnswer}>
               <p>
                 Our tracker is iterating and expanding to include additional
