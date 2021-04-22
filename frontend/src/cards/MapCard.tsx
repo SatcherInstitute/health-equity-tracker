@@ -96,11 +96,7 @@ function MapCardWithKey(props: MapCardProps) {
   return (
     <CardWrapper
       queries={queries}
-      title={
-        <>{`${
-          props.metricConfig.fullCardTitleName
-        } in ${props.fips.getFullDisplayName()}`}</>
-      }
+      title={<>{props.metricConfig.fullCardTitleName}</>}
     >
       {(queryResponses, metadata) => {
         // Look up query at the same index as the breakdown.
