@@ -72,8 +72,7 @@ function MobileAppToolbar() {
         </Button>
         <List>
           {Object.keys(PAGE_URL_TO_NAMES).map((pageUrl, index) => (
-            <ListItemLink href={pageUrl} key={index} 
-                          aria-label={PAGE_URL_TO_NAMES[pageUrl]}>
+            <ListItemLink href={pageUrl} key={index}>
               <ListItemText primary={PAGE_URL_TO_NAMES[pageUrl]} />
             </ListItemLink>
           ))}
@@ -89,7 +88,7 @@ function AppToolbar() {
         <LinkWithStickyParams to="/">
           <img src="img/AppbarLogo.png"
                className={styles.AppbarLogoImg}
-               alt="Health Equity Tracker Logo -- decorative 'H'"/>
+               alt=""/>
         </LinkWithStickyParams>
         <Typography variant="h1" className={styles.HomeLogo}>
           <LinkWithStickyParams to="/">
@@ -147,7 +146,7 @@ function App() {
           <Router>
             <a className={styles.SkipMainLink} href="#main">Skip to main content</a>
             <ScrollToTop />
-            <header aria-label="Header content including site navigation">
+            <header>
               <AppBar position="static" elevation={0}>
                 {width > MOBILE_BREAKPOINT ? (
                     <AppToolbar />
@@ -178,7 +177,7 @@ function App() {
             </main>
           </Router>
         </div>
-        <footer aria-label="Footer content">
+        <footer>
           <Footer />
         </footer>
       </div>
