@@ -67,10 +67,15 @@ const MaterialTheme = createMuiTheme({
       standardInfo: {
         backgroundColor: "#F8F9FA !important",
         color: "#00000 !important",
+        textAlign: "left",
       },
       standardWarning: {
         backgroundColor: "#FFF8EB !important",
         color: "#00000 !important",
+        textAlign: "left",
+      },
+      standardError: {
+        textAlign: "left",
       },
     },
   },

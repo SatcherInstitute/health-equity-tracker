@@ -24,7 +24,10 @@ import {
   UNKNOWN_RACE,
   ALL,
 } from "../data/utils/Constants";
-import { BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/query/Breakdowns";
+import {
+  BREAKDOWN_VAR_DISPLAY_NAMES,
+  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+} from "../data/query/Breakdowns";
 
 const POSSIBLE_BREAKDOWNS: BreakdownVar[] = [
   "race_and_ethnicity",
@@ -223,14 +226,17 @@ function MapCardWithKey(props: MapCardProps) {
               props.metricConfig && (
                 <CardContent>
                   <Alert severity="info">
+                    Note that legend changes between races.
                     <Button
                       onClick={() => setSmallMultiplesDialogOpen(true)}
                       color="primary"
                       className={styles.SmallMarginButton}
                     >
-                      View all {BREAKDOWN_VAR_DISPLAY_NAMES[activeBreakdownVar]}{" "}
-                      groups on one page
+                      Click here
                     </Button>
+                    to see a breakdown of all{" "}
+                    {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[activeBreakdownVar]}{" "}
+                    groups with a common legend.
                   </Alert>
                 </CardContent>
               )}

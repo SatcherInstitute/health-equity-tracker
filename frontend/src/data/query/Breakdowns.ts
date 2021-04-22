@@ -36,7 +36,7 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE: Record<
 > = {
   race_and_ethnicity: "race and ethnicity",
   age: "age",
-  sex: "sex",
+  sex: "gender",
   date: "date",
   fips: "FIPs codes",
 };
