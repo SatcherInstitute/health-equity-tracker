@@ -228,7 +228,7 @@ function MapCardWithKey(props: MapCardProps) {
                       color="primary"
                       className={styles.SmallMarginButton}
                     >
-                      VIEW ALL {BREAKDOWN_VAR_DISPLAY_NAMES[activeBreakdownVar]}{" "}
+                      View all {BREAKDOWN_VAR_DISPLAY_NAMES[activeBreakdownVar]}{" "}
                       groups on one page
                     </Button>
                   </Alert>
