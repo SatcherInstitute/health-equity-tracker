@@ -10,9 +10,11 @@ from ingestion.standardized_columns import (
     COUNTY_NAME_COL,
     INCOME_COL,
     AGE_COL,
-    RACE_COL,
+    RACE_CATEGORY_ID_COL,
     POPULATION_COL,
     Race,
+    add_race_columns_from_category_id,
+    RACE_INCLUDES_HISPANIC_COL
 )
 from ingestion.census import (
     fetch_acs_metadata,
@@ -38,7 +40,7 @@ MEDIAN_INCOME_BY_RACE_GROUPS = {
     "B19037C": Race.AIAN.value,
     "B19037D": Race.ASIAN.value,
     "B19037E": Race.NHPI.value,
-    "B19037F": Race.OTHER.value,
+    "B19037F": Race.OTHER_STANDARD.value,
     "B19037G": Race.MULTI.value,
     "B19037H": Race.WHITE_NH.value,
     "B19037I": Race.HISP.value,
@@ -90,6 +92,8 @@ class AcsHouseholdIncomeIngestor:
         for table_name, df in self.frames.items():
             # All breakdown columns are strings
             column_types = {c: "STRING" for c in df.columns}
+            if RACE_INCLUDES_HISPANIC_COL in df.columns:
+                column_types[RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
             column_types[POPULATION_COL] = "INT64"
 
@@ -248,7 +252,7 @@ class AcsHouseholdIncomeIngestor:
             columns=[
                 STATE_FIPS_COL,
                 STATE_NAME_COL,
-                RACE_COL,
+                RACE_CATEGORY_ID_COL,
                 AGE_COL,
                 INCOME_COL,
                 POPULATION_COL,
@@ -261,12 +265,15 @@ class AcsHouseholdIncomeIngestor:
                 STATE_NAME_COL,
                 COUNTY_FIPS_COL,
                 COUNTY_NAME_COL,
-                RACE_COL,
+                RACE_CATEGORY_ID_COL,
                 AGE_COL,
                 INCOME_COL,
                 POPULATION_COL,
             ],
         )
+
+        add_race_columns_from_category_id(self.income_by_race_age_state_frame)
+        add_race_columns_from_category_id(self.income_by_race_age_county_frame)
 
         # Aggregate Frames by Filename
         self.frames = {

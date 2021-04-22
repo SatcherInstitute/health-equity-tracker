@@ -38,7 +38,7 @@ COL_NAME_MAPPING = {
     STATE_COL: std_col.STATE_POSTAL_COL,
     COUNTY_FIPS_COL: std_col.COUNTY_FIPS_COL,
     COUNTY_COL: std_col.COUNTY_NAME_COL,
-    RACE_COL: std_col.RACE_OR_HISPANIC_COL,
+    RACE_COL: std_col.RACE_CATEGORY_ID_COL,
     SEX_COL: std_col.SEX_COL,
     AGE_COL: std_col.AGE_COL,
 }
@@ -55,7 +55,7 @@ RACE_NAMES_MAPPING = {
     "American Indian/Alaska Native, Non-Hispanic": std_col.Race.AIAN_NH.value,
     "Asian, Non-Hispanic": std_col.Race.ASIAN_NH.value,
     "Black, Non-Hispanic": std_col.Race.BLACK_NH.value,
-    "Multiple/Other, Non-Hispanic": std_col.Race.MULTI_NH.value,
+    "Multiple/Other, Non-Hispanic": std_col.Race.MULTI_OR_OTHER_STANDARD_NH.value,
     "Native Hawaiian/Other Pacific Islander, Non-Hispanic": std_col.Race.NHPI_NH.value,
     "White, Non-Hispanic": std_col.Race.WHITE_NH.value,
     "Hispanic/Latino": std_col.Race.HISP.value,
@@ -154,7 +154,13 @@ def standardize_data(df):
         lambda x: x.replace('"', '').strip() if isinstance(x, str) else x)
 
     # Standardize column names.
-    return df.rename(columns=COL_NAME_MAPPING)
+    df = df.rename(columns=COL_NAME_MAPPING)
+
+    # Add race metadata columns.
+    if std_col.RACE_CATEGORY_ID_COL in df.columns:
+        std_col.add_race_columns_from_category_id(df)
+
+    return df
 
 
 def main():

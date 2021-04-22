@@ -7,9 +7,12 @@ from ingestion import url_file_to_gcs, gcs_to_bq_util
 from ingestion.standardized_columns import (STATE_FIPS_COL, COUNTY_FIPS_COL,
                                             STATE_NAME_COL, COUNTY_NAME_COL,
                                             AGE_COL, SEX_COL,
-                                            RACE_COL, WITH_HEALTH_INSURANCE_COL,
+                                            RACE_CATEGORY_ID_COL,
+                                            WITH_HEALTH_INSURANCE_COL,
                                             WITHOUT_HEALTH_INSURANCE_COL,
-                                            TOTAL_HEALTH_INSURANCE_COL, Race)
+                                            TOTAL_HEALTH_INSURANCE_COL, Race,
+                                            add_race_columns_from_category_id,
+                                            RACE_INCLUDES_HISPANIC_COL)
 from typing import Dict
 
 # TODO pass this in from message data.
@@ -57,7 +60,7 @@ HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES = [
     {"C27001D": {MetadataKey.RACE: Race.ASIAN.value}},
     {"C27001E": {
         MetadataKey.RACE: Race.NHPI.value}},
-    {"C27001F": {MetadataKey.RACE: Race.OTHER.value}},
+    {"C27001F": {MetadataKey.RACE: Race.OTHER_STANDARD.value}},
     {"C27001G": {MetadataKey.RACE: Race.MULTI.value}},
     {"C27001H": {
         MetadataKey.RACE: Race.WHITE_NH.value}},
@@ -287,6 +290,8 @@ class AcsHealhInsuranceIngestor:
         for table_name, df in self.frames.items():
             # All breakdown columns are strings
             column_types = {c: 'STRING' for c in df.columns}
+            if RACE_INCLUDES_HISPANIC_COL in df.columns:
+                column_types[RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
             column_types[WITH_HEALTH_INSURANCE_COL] = 'INT64'
             column_types[WITHOUT_HEALTH_INSURANCE_COL] = 'INT64'
@@ -554,7 +559,7 @@ class AcsHealhInsuranceIngestor:
             STATE_FIPS_COL,
             STATE_NAME_COL,
             AGE_COL,
-            RACE_COL,
+            RACE_CATEGORY_ID_COL,
             WITH_HEALTH_INSURANCE_COL,
             WITHOUT_HEALTH_INSURANCE_COL,
             TOTAL_HEALTH_INSURANCE_COL])
@@ -574,10 +579,13 @@ class AcsHealhInsuranceIngestor:
             COUNTY_FIPS_COL,
             COUNTY_NAME_COL,
             AGE_COL,
-            RACE_COL,
+            RACE_CATEGORY_ID_COL,
             WITH_HEALTH_INSURANCE_COL,
             WITHOUT_HEALTH_INSURANCE_COL,
             TOTAL_HEALTH_INSURANCE_COL])
+
+        add_race_columns_from_category_id(self.state_race_frame)
+        add_race_columns_from_category_id(self.county_race_frame)
 
         # Aggregate Frames by Filename
         self.frames = {
