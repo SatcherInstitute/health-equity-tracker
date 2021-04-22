@@ -17,6 +17,7 @@ class AcsPovertyProvider extends VariableProvider {
   constructor() {
     super("acs_poverty_provider", ["poverty_count", "poverty_per_100k"]);
   }
+  // ALERT! Make sure you update DataSourceMetadata if you update dataset IDs
   getDatasetId(breakdowns: Breakdowns): string {
     return (
       "acs_poverty_dataset-poverty_by_race_age_sex_" +
