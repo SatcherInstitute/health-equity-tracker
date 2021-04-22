@@ -25,6 +25,9 @@ import {
 } from "../data/query/BreakdownFilter";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Hidden from "@material-ui/core/Hidden";
+import { ABOUT_US_TAB_PARAM, ABOUT_US_PAGE_LINK } from "../utils/urlutils";
+import { ABOUT_US_FAQ_TAB_INDEX } from "../pages/AboutUs/AboutUsPage";
+import Alert from "@material-ui/lab/Alert";
 
 export interface PopulationCardProps {
   fips: Fips;
@@ -130,6 +133,18 @@ export function PopulationCard(props: PopulationCardProps) {
               >
                 <Grid container>
                   <Grid item xs={12}>
+                    <Alert severity="info" className={styles.PopulationAlert}>
+                      These racial categories are defined by the ACS and US
+                      Census Bureau. While it is the standard for CDC reporting,
+                      the definition of these categories often results in not
+                      counting or miscounting people in underrepresented groups.
+                      <a
+                        href={`${ABOUT_US_PAGE_LINK}?${ABOUT_US_TAB_PARAM}=${ABOUT_US_FAQ_TAB_INDEX}`}
+                      >
+                        Learn more
+                      </a>
+                      .
+                    </Alert>
                     <Grid container>
                       {raceQueryResponse
                         .getValidRowsForField("race_and_ethnicity")
