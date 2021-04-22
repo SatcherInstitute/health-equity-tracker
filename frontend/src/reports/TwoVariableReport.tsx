@@ -16,7 +16,6 @@ import {
 } from "../data/config/MetricConfig";
 import ReportToggleControls from "./ui/ReportToggleControls";
 import NoDataAlert from "./ui/NoDataAlert";
-import DisclaimerAlert from "./ui/DisclaimerAlert";
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
@@ -28,7 +27,6 @@ function TwoVariableReport(props: {
   fips2: Fips;
   updateFips1Callback: Function;
   updateFips2Callback: Function;
-  jumpToData: () => void;
 }) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     "race_and_ethnicity"
@@ -71,9 +69,6 @@ function TwoVariableReport(props: {
             <PopulationCard fips={props.fips1} />
           </Grid>
           <Grid item xs={12}>
-            <DisclaimerAlert jumpToData={props.jumpToData} />
-          </Grid>
-          <Grid item xs={12}>
             <ReportToggleControls
               dropdownVarId={props.dropdownVarId1}
               variableConfig={variableConfig1}
@@ -104,9 +99,6 @@ function TwoVariableReport(props: {
               currentBreakdown={currentBreakdown}
               setCurrentBreakdown={setCurrentBreakdown}
             />
-          </Grid>
-          <Grid item xs={12}>
-            <DisclaimerAlert jumpToData={props.jumpToData} />
           </Grid>
         </>
       )}

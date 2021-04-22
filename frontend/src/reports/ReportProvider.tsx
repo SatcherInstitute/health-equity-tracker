@@ -14,6 +14,7 @@ import ArrowForward from "@material-ui/icons/ArrowForward";
 import ShareIcon from "@material-ui/icons/Share";
 import styles from "./Report.module.scss";
 import ShareDialog from "./ui/ShareDialog";
+import DisclaimerAlert from "./ui/DisclaimerAlert";
 
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
   const segment = madLib.phrase[segmentIndex];
@@ -42,11 +43,6 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
                 getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
               )
             }
-            jumpToData={() => {
-              if (fieldRef.current) {
-                fieldRef.current.scrollIntoView();
-              }
-            }}
           />
         );
       case "comparegeos":
@@ -70,11 +66,6 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
                 getMadLibWithUpdatedValue(props.madLib, 5, fips.code)
               )
             }
-            jumpToData={() => {
-              if (fieldRef.current) {
-                fieldRef.current.scrollIntoView();
-              }
-            }}
           />
         );
       case "comparevars":
@@ -100,11 +91,6 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
                 getMadLibWithUpdatedValue(props.madLib, 5, fips.code)
               )
             }
-            jumpToData={() => {
-              if (fieldRef.current) {
-                fieldRef.current.scrollIntoView();
-              }
-            }}
           />
         );
       default:
@@ -130,6 +116,13 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             Share
           </Button>
         </div>
+        <DisclaimerAlert
+          jumpToData={() => {
+            if (fieldRef.current) {
+              fieldRef.current.scrollIntoView();
+            }
+          }}
+        />
         {getReport()}
       </div>
       {/* TODO- could we extract the names of datasets from the Fake Metdata */}
