@@ -37,6 +37,7 @@ export interface ChoroplethMapProps {
   showCounties: boolean;
   hideActions?: boolean;
   scaleType: ScaleType;
+  scaleColorScheme?: string;
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
@@ -108,7 +109,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       name: COLOR_SCALE,
       type: props.scaleType,
       domain: { data: LEGEND_DATASET, field: props.metric.metricId },
-      range: { scheme: "yellowgreen", count: 7 },
+      range: { scheme: props.scaleColorScheme || "yellowgreen", count: 7 },
     };
     if (props.fieldRange) {
       colorScale["domainMax"] = props.fieldRange.max;
@@ -235,6 +236,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props.fieldRange,
     props.scaleType,
     props.legendData,
+    props.scaleColorScheme,
     LEGEND_WIDTH,
   ]);
 

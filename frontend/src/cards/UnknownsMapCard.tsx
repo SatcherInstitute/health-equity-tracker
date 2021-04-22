@@ -66,11 +66,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     <CardWrapper
       queries={[query]}
       title={
-        <>{`${
-          props.metricConfig.fullCardTitleName
-        } in ${props.fips.getFullDisplayName()}: Unknown ${
+        <>{`Unknown ${
           BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
-        } `}</>
+        } for ${props.metricConfig.fullCardTitleName}`}</>
       }
     >
       {([queryResponse]) => {
@@ -116,6 +114,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   showCounties={props.fips.isUsa() ? false : true}
                   fips={props.fips}
                   scaleType="quantile"
+                  scaleColorScheme="warmgreys"
                   hideLegend={
                     queryResponse.dataIsMissing() || unknowns.length <= 1
                   }
