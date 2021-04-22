@@ -66,11 +66,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     <CardWrapper
       queries={[query]}
       title={
-        <>{`UNKNOWN ${
+        <>{`Unknown ${
           BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
-        } for ${
-          props.metricConfig.fullCardTitleName
-        } in ${props.fips.getFullDisplayName()}`}</>
+        } for ${props.metricConfig.fullCardTitleName}`}</>
       }
     >
       {([queryResponse]) => {
