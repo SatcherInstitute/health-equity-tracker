@@ -15,14 +15,17 @@ WITH
         b.state_fips_code as state_fips,
         b.state_name,
         a.race_category_id,
-        a.cases, a.hosp_y, a.hosp_n, a.hosp_unknown, a.death_y, a.death_n, a.death_unknown
+        a.cases, a.hosp_y, a.hosp_n, a.hosp_unknown, a.death_y, a.death_n, a.death_unknown,
+        a.race,
+        a.race_includes_hispanic,
+        a.race_and_ethnicity
     FROM `cdc_restricted_data.cdc_restricted_by_race_state` AS a
     LEFT JOIN `bigquery-public-data.census_utility.fips_codes_states` AS b
         ON a.state_postal = b.state_postal_abbreviation
     WHERE a.state_postal != "Unknown"
   ),
   joined_with_acs as (
-      SELECT x.*, y.race, y.race_includes_hispanic, y.race_and_ethnicity, y.population
+      SELECT x.*, y.population
       FROM cdc_restricted_race_state AS x
       LEFT JOIN `acs_population.by_race_state_std` AS y
           USING (state_fips, race_category_id)
@@ -183,7 +186,10 @@ WITH
         IF(a.state_postal = "Unknown", "", b.state_fips_code) as state_fips,
         IF(a.state_postal = "Unknown", "Unknown", b.state_name) as state_name,
         a.race_category_id,
-        a.cases, a.hosp_y, a.hosp_n, a.hosp_unknown, a.death_y, a.death_n, a.death_unknown
+        a.cases, a.hosp_y, a.hosp_n, a.hosp_unknown, a.death_y, a.death_n, a.death_unknown,
+        a.race,
+        a.race_includes_hispanic,
+        a.race_and_ethnicity
       FROM `cdc_restricted_data.cdc_restricted_by_race_county` AS a
       LEFT JOIN `bigquery-public-data.census_utility.fips_codes_states` AS b
           ON a.state_postal = b.state_postal_abbreviation
@@ -193,7 +199,7 @@ WITH
       WHERE a.county_fips != ""
   ),
   joined_with_acs as (
-      SELECT x.*, y.race, y.race_includes_hispanic, y.race_and_ethnicity, y.population
+      SELECT x.*, y.population
       FROM cdc_restricted_race_county AS x
       LEFT JOIN `acs_population.by_race_county_std` AS y
           USING (county_fips, state_fips, race_category_id)

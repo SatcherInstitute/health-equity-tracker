@@ -46,6 +46,8 @@ class CDCRestrictedData(DataSource):
             for col in int_cols:
                 if col in column_types:
                     column_types[col] = 'INT64'
+            if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
+                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
             # Clean up column names.
             self.clean_frame_column_names(df)

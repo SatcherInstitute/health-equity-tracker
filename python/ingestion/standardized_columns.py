@@ -124,11 +124,11 @@ class Race(Enum):
     INDIGENOUS_NH = ("INDIGENOUS_NH", "Indigenous", False)
     MULTI_OR_OTHER_STANDARD = (
         "MULTI_OR_OTHER_STANDARD",
-        '"Two or more races" and "Some other race"',
+        "Two or more races & Some other race",
         True)
     MULTI_OR_OTHER_STANDARD_NH = (
         "MULTI_OR_OTHER_STANDARD_NH",
-        '"Two or more races" and "Some other race"',
+        "Two or more races & Some other race",
         False)
 
     # When the race is unknown. Different from ETHNICITY_UNKNOWN, which
