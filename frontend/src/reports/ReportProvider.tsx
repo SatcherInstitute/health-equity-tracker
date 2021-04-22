@@ -70,25 +70,21 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         const compareDisparityVariable1 = getPhraseValue(props.madLib, 1);
         const compareDisparityVariable2 = getPhraseValue(props.madLib, 3);
         const fipsCode = getPhraseValue(props.madLib, 5);
+        const updateFips = (fips: Fips) =>
+          props.setMadLib(
+            getMadLibWithUpdatedValue(props.madLib, 5, fips.code)
+          );
         return (
           <TwoVariableReport
             key={
-              compareDisparityVariable1 + +compareDisparityVariable2 + fipsCode
+              compareDisparityVariable1 + compareDisparityVariable2 + fipsCode
             }
             dropdownVarId1={compareDisparityVariable1 as DropdownVarId}
             dropdownVarId2={compareDisparityVariable2 as DropdownVarId}
             fips1={new Fips(fipsCode)}
             fips2={new Fips(fipsCode)}
-            updateFips1Callback={(fips: Fips) =>
-              props.setMadLib(
-                getMadLibWithUpdatedValue(props.madLib, 5, fips.code)
-              )
-            }
-            updateFips2Callback={(fips: Fips) =>
-              props.setMadLib(
-                getMadLibWithUpdatedValue(props.madLib, 5, fips.code)
-              )
-            }
+            updateFips1Callback={updateFips}
+            updateFips2Callback={updateFips}
           />
         );
       default:
