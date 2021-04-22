@@ -10,7 +10,7 @@ import { MetricQueryResponse } from "../../data/query/MetricQuery";
 
 type DataSourceInfo = {
   name: string;
-  updateTimes: string[];
+  updateTimes: Set<string>;
 };
 
 function getDataSourceMapFromDatasetIds(
@@ -28,13 +28,13 @@ function getDataSourceMapFromDatasetIds(
         name: DataSourceMetadataMap[dataSourceId]?.data_source_name || "",
         updateTimes:
           metadata[datasetId].update_time === "unknown"
-            ? []
-            : [metadata[datasetId].update_time],
+            ? new Set()
+            : new Set([metadata[datasetId].update_time]),
       };
     } else if (metadata[datasetId].update_time !== "unknown") {
       dataSourceMap[dataSourceId].updateTimes = dataSourceMap[
         dataSourceId
-      ].updateTimes.concat(metadata[datasetId].update_time);
+      ].updateTimes.add(metadata[datasetId].update_time);
     }
   });
   return dataSourceMap;
@@ -65,12 +65,15 @@ export function Sources(props: {
             target="_blank"
             to={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${dataSourceId}`}
           >
-            {dataSourceMap[dataSourceId].name}{" "}
-          </LinkWithStickyParams>
-          {dataSourceMap[dataSourceId].updateTimes.length === 0 ? (
+            {dataSourceMap[dataSourceId].name}
+          </LinkWithStickyParams>{" "}
+          {dataSourceMap[dataSourceId].updateTimes.size === 0 ? (
             <>(last update unknown) </>
           ) : (
-            <>(updated {dataSourceMap[dataSourceId].updateTimes.join(", ")}) </>
+            <>
+              (updated{" "}
+              {Array.from(dataSourceMap[dataSourceId].updateTimes).join(", ")}){" "}
+            </>
           )}
         </>
       ))}
