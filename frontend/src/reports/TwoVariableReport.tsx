@@ -27,8 +27,8 @@ function TwoVariableReport(props: {
   dropdownVarId2: DropdownVarId;
   fips1: Fips;
   fips2: Fips;
-  updateFips1Callback: Function;
-  updateFips2Callback: Function;
+  updateFips1Callback: (fips: Fips) => void;
+  updateFips2Callback: (fips: Fips) => void;
 }) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     "race_and_ethnicity"
@@ -101,38 +101,46 @@ function TwoVariableReport(props: {
         </>
       )}
 
-      <Grid item xs={12} sm={6}>
-        <MapCard
-          metricConfig={variableConfig1.metrics["per100k"]}
-          fips={props.fips1}
-          updateFipsCallback={(fips: Fips) => {
-            props.updateFips1Callback(fips);
-          }}
-          currentBreakdown={currentBreakdown}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6}>
-        <MapCard
-          metricConfig={variableConfig2.metrics["per100k"]}
-          fips={props.fips2}
-          updateFipsCallback={(fips: Fips) => {
-            props.updateFips2Callback(fips);
-          }}
-          currentBreakdown={currentBreakdown}
-        />
-      </Grid>
+      <RowOfOptionalMetrics
+        metric1={variableConfig1.metrics["per100k"]}
+        metric2={variableConfig2.metrics["per100k"]}
+        fips1={props.fips1}
+        fips2={props.fips2}
+        updateFips1={props.updateFips1Callback}
+        updateFips2={props.updateFips2Callback}
+        createCard={(
+          metricConfig: MetricConfig,
+          fips: Fips,
+          updateFips: (fips: Fips) => void
+        ) => (
+          <MapCard
+            metricConfig={metricConfig}
+            fips={fips}
+            updateFipsCallback={(fips: Fips) => {
+              updateFips(fips);
+            }}
+            currentBreakdown={currentBreakdown}
+          />
+        )}
+      />
 
-      <PairOfOptionalMetrics
+      <RowOfOptionalMetrics
         metric1={variableConfig1.metrics["pct_share"]}
         metric2={variableConfig2.metrics["pct_share"]}
         fips1={props.fips1}
         fips2={props.fips2}
-        createCard={(metricConfig: MetricConfig, fips: Fips) => (
+        updateFips1={props.updateFips1Callback}
+        updateFips2={props.updateFips2Callback}
+        createCard={(
+          metricConfig: MetricConfig,
+          fips: Fips,
+          updateFips: (fips: Fips) => void
+        ) => (
           <UnknownsMapCard
             metricConfig={metricConfig}
             fips={fips}
             updateFipsCallback={(fips: Fips) => {
-              props.updateFips1Callback(fips);
+              updateFips(fips);
             }}
             currentBreakdown={currentBreakdown}
           />
@@ -164,42 +172,44 @@ function TwoVariableReport(props: {
       {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
         !breakdownIsShown(breakdownVar) ? null : (
           <>
-            {variableConfig1.metrics["pct_share"] && (
-              <Grid item xs={12} sm={6}>
+            <RowOfOptionalMetrics
+              metric1={variableConfig1.metrics["pct_share"]}
+              metric2={variableConfig2.metrics["pct_share"]}
+              fips1={props.fips1}
+              fips2={props.fips2}
+              updateFips1={() => {}}
+              updateFips2={() => {}}
+              createCard={(
+                metricConfig: MetricConfig,
+                fips: Fips,
+                unusedUpdateFips: (fips: Fips) => void
+              ) => (
                 <DisparityBarChartCard
-                  metricConfig={variableConfig1.metrics["pct_share"]}
+                  metricConfig={metricConfig}
                   breakdownVar={breakdownVar}
-                  fips={props.fips1}
+                  fips={fips}
                 />
-              </Grid>
-            )}
-            {variableConfig2.metrics["pct_share"] && (
-              <Grid item xs={12} sm={6}>
-                <DisparityBarChartCard
-                  metricConfig={variableConfig2.metrics["pct_share"]}
-                  breakdownVar={breakdownVar}
-                  fips={props.fips2}
-                />
-              </Grid>
-            )}
-            {variableConfig1.metrics["per100k"] && (
-              <Grid item xs={12} sm={6}>
+              )}
+            />
+            <RowOfOptionalMetrics
+              metric1={variableConfig1.metrics["per100k"]}
+              metric2={variableConfig2.metrics["per100k"]}
+              fips1={props.fips1}
+              fips2={props.fips2}
+              updateFips1={() => {}}
+              updateFips2={() => {}}
+              createCard={(
+                metricConfig: MetricConfig,
+                fips: Fips,
+                unusedUpdateFips: (fips: Fips) => void
+              ) => (
                 <SimpleBarChartCard
-                  metricConfig={variableConfig1.metrics["per100k"]}
+                  metricConfig={metricConfig}
                   breakdownVar={breakdownVar}
-                  fips={props.fips1}
+                  fips={fips}
                 />
-              </Grid>
-            )}
-            {variableConfig1.metrics["per100k"] && (
-              <Grid item xs={12} sm={6}>
-                <SimpleBarChartCard
-                  metricConfig={variableConfig2.metrics["per100k"]}
-                  breakdownVar={breakdownVar}
-                  fips={props.fips2}
-                />
-              </Grid>
-            )}
+              )}
+            />
           </>
         )
       )}
@@ -207,12 +217,18 @@ function TwoVariableReport(props: {
   );
 }
 
-function PairOfOptionalMetrics(props: {
+function RowOfOptionalMetrics(props: {
   metric1: MetricConfig | undefined;
   metric2: MetricConfig | undefined;
   fips1: Fips;
   fips2: Fips;
-  createCard: (metricConfig: MetricConfig, fips: Fips) => JSX.Element;
+  updateFips1: (fips: Fips) => void;
+  updateFips2: (fips: Fips) => void;
+  createCard: (
+    metricConfig: MetricConfig,
+    fips: Fips,
+    updateFips: (fips: Fips) => void
+  ) => JSX.Element;
 }) {
   if (!props.metric1 && !props.metric2) {
     return <></>;
@@ -222,7 +238,7 @@ function PairOfOptionalMetrics(props: {
     <>
       <Grid item xs={12} sm={6}>
         {props.metric1 ? (
-          <>{props.createCard(props.metric1, props.fips1)}</>
+          <>{props.createCard(props.metric1, props.fips1, props.updateFips1)}</>
         ) : (
           <Alert severity="error" style={{ border: "1px solid #f44336" }}>
             Data unavailable.
@@ -231,7 +247,7 @@ function PairOfOptionalMetrics(props: {
       </Grid>
       <Grid item xs={12} sm={6}>
         {props.metric2 ? (
-          <>{props.createCard(props.metric2, props.fips2)}</>
+          <>{props.createCard(props.metric2, props.fips2, props.updateFips2)}</>
         ) : (
           <Alert severity="error" style={{ border: "1px solid #f44336" }}>
             Data unavailable.
