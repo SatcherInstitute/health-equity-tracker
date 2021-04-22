@@ -47,7 +47,13 @@ class AcsHealthInsuranceProvider extends VariableProvider {
     // We apply the geo filter right away to reduce subsequent calculation times
     df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);
-    df = df.renameSeries({ race: "race_and_ethnicity" });
+
+    // TODO: remove this code once the pipeline is run with the new race
+    // standardization changes.
+    if (!df.getColumnNames().includes("race_and_ethnicity")) {
+      df = df.renameSeries({ race: "race_and_ethnicity" });
+    }
+
     df = df.parseInts([
       "with_health_insurance",
       "without_health_insurance",
