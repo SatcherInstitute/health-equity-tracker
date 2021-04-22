@@ -24,6 +24,7 @@ import {
   onlyIncludeStandardRaces,
 } from "../data/query/BreakdownFilter";
 import MissingDataAlert from "./ui/MissingDataAlert";
+import Hidden from "@material-ui/core/Hidden";
 
 export interface PopulationCardProps {
   fips: Fips;
@@ -54,22 +55,19 @@ export function PopulationCard(props: PopulationCardProps) {
           ? totalPopulation["population"].toLocaleString("en")
           : "Data Missing";
 
+        const CollapseButton = (
+          <Button
+            aria-label="expand description"
+            onClick={() => setExpanded(!expanded)}
+            color="primary"
+          >
+            {expanded ? "Collapse full profile" : "See full profile"}
+            {expanded ? <ArrowDropUp /> : <ArrowDropDown />}
+          </Button>
+        );
+
         return (
-          <CardContent>
-            {!raceQueryResponse.dataIsMissing() && (
-              <Button
-                aria-label="expand description"
-                onClick={() => setExpanded(!expanded)}
-                color="primary"
-                className={styles.ExpandPopulationCardButton}
-              >
-                {expanded ? "Collapse full profile" : "See full profile"}
-                {expanded ? <ArrowDropUp /> : <ArrowDropDown />}
-              </Button>
-            )}
-            <span className={styles.PopulationCardTitle}>
-              {props.fips.getFullDisplayName()}
-            </span>
+          <CardContent className={styles.PopulationCardContent}>
             {raceQueryResponse.dataIsMissing() && (
               <MissingDataAlert
                 dataName={POPULATION_VARIABLE_CONFIG.variableDisplayName}
@@ -78,39 +76,44 @@ export function PopulationCard(props: PopulationCardProps) {
                 }
               />
             )}
+
             <Grid
               container
               className={styles.PopulationCard}
-              justify="flex-start"
-              alignItems="flex-start"
+              justify="space-between"
+              alignItems="center"
             >
               <Grid item>
-                <span>Total Population</span>
-                <span className={styles.TotalPopulationValue}>
-                  {totalPopulationSize}
-                </span>
-              </Grid>
-              {/* TODO- calculate median age 
-                <Grid item className={styles.PopulationMetric}>
-                <span>Median Age</span>
-                <span className={styles.PopulationMetricValue}>??</span>
-                </Grid>
-                */}
-              {raceQueryResponse
-                .getValidRowsForField("race_and_ethnicity")
-                .filter((r) => r.race_and_ethnicity !== ALL)
-                .sort((a, b) => {
-                  return b.population - a.population;
-                })
-                .map((row) => (
-                  <Grid item className={styles.PopulationMetric}>
-                    <span>{row.race_and_ethnicity}</span>
-                    <span className={styles.PopulationMetricValue}>
-                      {row.population_pct}%
-                    </span>
+                <Grid container justify="flex-start" alignItems="center">
+                  <Grid item>
+                    <div className={styles.PopulationCardTitle}>
+                      {props.fips.getFullDisplayName()}
+                      <Hidden smDown>
+                        <div className={styles.VerticalDivider} />
+                      </Hidden>
+                    </div>
                   </Grid>
-                ))}
+                  <Grid item>
+                    <Grid container>
+                      <Grid item>
+                        <span className={styles.TotalPopulationKey}>
+                          Total Population:
+                        </span>
+                      </Grid>
+                      <Grid item>
+                        <span className={styles.TotalPopulationValue}>
+                          {totalPopulationSize}
+                        </span>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+              {!raceQueryResponse.dataIsMissing() && (
+                <Grid item>{CollapseButton}</Grid>
+              )}
             </Grid>
+
             {/* Because the Vega charts are using responsive width based on the window resizing,
                 we manually trigger a resize when the div size changes so vega chart will 
                 render with the right size. This means the vega chart won't appear until the 
@@ -122,6 +125,25 @@ export function PopulationCard(props: PopulationCardProps) {
                 onAnimationEnd={() => window.dispatchEvent(new Event("resize"))}
               >
                 <Grid container>
+                  <Grid item xs={12}>
+                    <Grid container>
+                      {raceQueryResponse
+                        .getValidRowsForField("race_and_ethnicity")
+                        .filter((r) => r.race_and_ethnicity !== ALL)
+                        .sort((a, b) => {
+                          return b.population - a.population;
+                        })
+                        .map((row) => (
+                          <Grid item className={styles.PopulationMetric}>
+                            <span>{row.race_and_ethnicity}</span>
+                            <br />
+                            <span className={styles.PopulationMetricValue}>
+                              {row.population_pct}%
+                            </span>
+                          </Grid>
+                        ))}
+                    </Grid>
+                  </Grid>
                   <Grid item xs={12} sm={6}>
                     <span className={styles.PopulationChartTitle}>
                       Population by race
@@ -158,6 +180,7 @@ export function PopulationCard(props: PopulationCardProps) {
                     )}
                   </Grid>
                 </Grid>
+                <Hidden smUp>{CollapseButton}</Hidden>
               </AnimateHeight>
             )}
           </CardContent>
