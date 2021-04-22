@@ -47,6 +47,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           <PopulationCard fips={props.fips} />
         </Grid>
       )}
+
       {!variableConfig && <NoDataAlert dropdownVarId={props.dropdownVarId} />}
 
       {variableConfig && (

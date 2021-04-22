@@ -67,8 +67,6 @@ function TwoVariableReport(props: {
         <>
           <Grid item xs={12}>
             <PopulationCard fips={props.fips1} />
-          </Grid>
-          <Grid item xs={12}>
             <ReportToggleControls
               dropdownVarId={props.dropdownVarId1}
               variableConfig={variableConfig1}
@@ -102,7 +100,6 @@ function TwoVariableReport(props: {
           </Grid>
         </>
       )}
-
       {variableConfig1.metrics["pct_share"] && (
         <Grid item xs={12} sm={6}>
           <UnknownsMapCard
