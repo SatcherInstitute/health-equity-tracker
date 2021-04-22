@@ -11,11 +11,13 @@ import { DropdownVarId } from "../utils/MadLibs";
 import { Fips } from "../data/utils/Fips";
 import {
   METRIC_CONFIG,
+  MetricConfig,
   VariableConfig,
   getPer100kAndPctShareMetrics,
 } from "../data/config/MetricConfig";
 import ReportToggleControls from "./ui/ReportToggleControls";
 import NoDataAlert from "./ui/NoDataAlert";
+import Alert from "@material-ui/lab/Alert";
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
@@ -98,30 +100,7 @@ function TwoVariableReport(props: {
           </Grid>
         </>
       )}
-      {variableConfig1.metrics["pct_share"] && (
-        <Grid item xs={12} sm={6}>
-          <UnknownsMapCard
-            metricConfig={variableConfig1.metrics["pct_share"]}
-            fips={props.fips1}
-            updateFipsCallback={(fips: Fips) => {
-              props.updateFips1Callback(fips);
-            }}
-            currentBreakdown={currentBreakdown}
-          />
-        </Grid>
-      )}
-      {variableConfig2.metrics["pct_share"] && (
-        <Grid item xs={12} sm={6}>
-          <UnknownsMapCard
-            metricConfig={variableConfig2.metrics["pct_share"]}
-            fips={props.fips2}
-            updateFipsCallback={(fips: Fips) => {
-              props.updateFips2Callback(fips);
-            }}
-            currentBreakdown={currentBreakdown}
-          />
-        </Grid>
-      )}
+
       <Grid item xs={12} sm={6}>
         <MapCard
           metricConfig={variableConfig1.metrics["per100k"]}
@@ -142,6 +121,23 @@ function TwoVariableReport(props: {
           currentBreakdown={currentBreakdown}
         />
       </Grid>
+
+      <PairOfOptionalMetrics
+        metric1={variableConfig1.metrics["pct_share"]}
+        metric2={variableConfig2.metrics["pct_share"]}
+        fips1={props.fips1}
+        fips2={props.fips2}
+        createCard={(metricConfig: MetricConfig, fips: Fips) => (
+          <UnknownsMapCard
+            metricConfig={metricConfig}
+            fips={fips}
+            updateFipsCallback={(fips: Fips) => {
+              props.updateFips1Callback(fips);
+            }}
+            currentBreakdown={currentBreakdown}
+          />
+        )}
+      />
 
       {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
         !breakdownIsShown(breakdownVar) ? null : (
@@ -208,6 +204,41 @@ function TwoVariableReport(props: {
         )
       )}
     </Grid>
+  );
+}
+
+function PairOfOptionalMetrics(props: {
+  metric1: MetricConfig | undefined;
+  metric2: MetricConfig | undefined;
+  fips1: Fips;
+  fips2: Fips;
+  createCard: (metricConfig: MetricConfig, fips: Fips) => JSX.Element;
+}) {
+  if (!props.metric1 && !props.metric2) {
+    return <></>;
+  }
+
+  return (
+    <>
+      <Grid item xs={12} sm={6}>
+        {props.metric1 ? (
+          <>{props.createCard(props.metric1, props.fips1)}</>
+        ) : (
+          <Alert severity="error" style={{ border: "1px solid #f44336" }}>
+            Data unavailable.
+          </Alert>
+        )}
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        {props.metric2 ? (
+          <>{props.createCard(props.metric2, props.fips2)}</>
+        ) : (
+          <Alert severity="error" style={{ border: "1px solid #f44336" }}>
+            Data unavailable.
+          </Alert>
+        )}
+      </Grid>
+    </>
   );
 }
 
