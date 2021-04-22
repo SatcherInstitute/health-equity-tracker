@@ -207,19 +207,19 @@ const HE_TASKFORCE = [
 const PARTNERS = [
   {
     imageUrl: "img/PartnerSatcher.png",
-    alt: "alt",
+    alt: "Morehouse School of Medicine Satcher Health Leadership Institute",
   },
   {
     imageUrl: "img/PartnerGilead.png",
-    alt: "alt",
+    alt: "Gilead Sciences, Inc.",
   },
   {
     imageUrl: "img/PartnerCdc.png",
-    alt: "alt",
+    alt: "United States Center for Disease Control and Prevention",
   },
   {
     imageUrl: "img/PartnerGoogle.png",
-    alt: "alt",
+    alt: "Google",
   },
 ];
 
