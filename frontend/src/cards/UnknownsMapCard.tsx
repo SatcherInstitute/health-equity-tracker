@@ -115,6 +115,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   fips={props.fips}
                   scaleType="quantile"
                   scaleColorScheme="warmgreys"
+                  hideLegend={
+                    queryResponse.dataIsMissing() || unknowns.length <= 1
+                  }
                 />
               )}
             </CardContent>
