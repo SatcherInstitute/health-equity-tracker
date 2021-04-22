@@ -31,14 +31,6 @@ function MenuPopover(props: {
     ? Object.keys(props.items)
     : (props.items as string[]);
 
-  // If present, rename "Total" option to "All" and append to beginning of options
-  let updatedListItems = listItems.filter((value) => {
-    return value !== "Total";
-  });
-  if (listItems.length !== updatedListItems.length) {
-    updatedListItems.splice(0, 0, "All");
-  }
-
   const renderListItem = (listItem: string) => {
     if (
       hasChildren &&
@@ -54,7 +46,7 @@ function MenuPopover(props: {
         <ListItem
           button
           onClick={(event) => {
-            props.onClick(event, listItem === "All" ? "Total" : listItem);
+            props.onClick(event, listItem);
           }}
         >
           <ListItemText primary={listItem} />
@@ -78,7 +70,7 @@ function MenuPopover(props: {
       transformOrigin={TRANSFORM_ORIGIN}
     >
       <List>
-        {updatedListItems.map((listItem: string) => renderListItem(listItem))}
+        {listItems.map((listItem: string) => renderListItem(listItem))}
       </List>
     </Popover>
   );
@@ -115,7 +107,7 @@ function DropDownMenu(props: {
     <>
       <div className={styles.FilterBy}>Filter by:</div>
       <Button variant="text" onClick={firstMenu.open}>
-        <u>{props.value === "Total" ? "All" : props.value}</u>
+        <u>{props.value}</u>
         <ArrowDropDown />
       </Button>
 

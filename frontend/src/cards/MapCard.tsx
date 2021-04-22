@@ -8,7 +8,7 @@ import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
 import DropDownMenu from "./ui/DropDownMenu";
 import MapBreadcrumbs from "./ui/MapBreadcrumbs";
-import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
+import MissingDataAlert from "./ui/MissingDataAlert";
 import { Breakdowns, BreakdownVar } from "../data/query/Breakdowns";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { Fips } from "../data/utils/Fips";
@@ -22,7 +22,7 @@ import {
   NON_HISPANIC,
   UNKNOWN,
   UNKNOWN_RACE,
-  TOTAL,
+  ALL,
 } from "../data/utils/Constants";
 import { BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/query/Breakdowns";
 
@@ -101,11 +101,6 @@ function MapCardWithKey(props: MapCardProps) {
           props.metricConfig.fullCardTitleName
         } in ${props.fips.getFullDisplayName()}`}</>
       }
-      infoPopover={
-        ["race_and_ethnicity"].includes(props.currentBreakdown) ? (
-          <RaceInfoPopoverContent />
-        ) : undefined
-      }
     >
       {(queryResponses, metadata) => {
         // Look up query at the same index as the breakdown.
@@ -120,7 +115,7 @@ function MapCardWithKey(props: MapCardProps) {
           activeBreakdownFilter === "" ||
           activeBreakdownFilter === undefined
         ) {
-          setActiveBreakdownFilter(TOTAL || breakdownValues[0]);
+          setActiveBreakdownFilter(ALL || breakdownValues[0]);
         }
 
         const dataForActiveBreakdownFilter = queryResponse
@@ -220,7 +215,12 @@ function MapCardWithKey(props: MapCardProps) {
             <Divider />
             {queryResponse.dataIsMissing() && (
               <CardContent>
-                <Alert severity="error">No data available</Alert>
+                <MissingDataAlert
+                  dataName={props.metricConfig.fullCardTitleName}
+                  breakdownString={
+                    BREAKDOWN_VAR_DISPLAY_NAMES[activeBreakdownVar]
+                  }
+                />
               </CardContent>
             )}
             {!queryResponse.dataIsMissing() &&
@@ -250,7 +250,7 @@ function MapCardWithKey(props: MapCardProps) {
                   data={dataForActiveBreakdownFilter}
                   hideLegend={
                     queryResponse.dataIsMissing() ||
-                    dataForActiveBreakdownFilter.length === 0
+                    dataForActiveBreakdownFilter.length <= 1
                   }
                   showCounties={props.fips.isUsa() ? false : true}
                   fips={props.fips}

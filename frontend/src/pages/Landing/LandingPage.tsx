@@ -1,8 +1,9 @@
 import React from "react";
 import styles from "./LandingPage.module.scss";
+import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import Hidden from "@material-ui/core/Hidden";
 import Typography from "@material-ui/core/Typography";
-import { EXPLORE_DATA_PAGE_LINK } from "../../utils/urlutils";
 import { Accordion, AccordionSummary } from "@material-ui/core";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -10,6 +11,7 @@ import {
   LinkWithStickyParams,
   ABOUT_US_TAB_PARAM,
   ABOUT_US_PAGE_LINK,
+  EXPLORE_DATA_PAGE_LINK,
 } from "../../utils/urlutils";
 import { ABOUT_US_FAQ_TAB_INDEX } from "../AboutUs/AboutUsPage";
 
@@ -25,13 +27,21 @@ function LandingPage() {
           alignItems="center"
         >
           <Grid item className={styles.HeaderTextItem} xs={12} sm={12} md={6}>
-            <Typography id="main" tabIndex={-1} className={styles.HeaderText}
-                        variant="h1">
-              Equity Forward
-            </Typography>
-            <br />
-            <Typography className={styles.HeaderSubtext}
-                        variant="body1">
+            <Hidden xsDown>
+              <Typography id="main" 
+                          tabIndex={-1}
+                          className={styles.HeaderText}
+                          variant="h1">
+                Equity Forward
+              </Typography>
+              <br />
+            </Hidden>
+            <Hidden smUp>
+              <Typography className={styles.HeaderTextMobile}>
+                Equity Forward
+              </Typography>
+            </Hidden>
+            <Typography className={styles.HeaderSubtext} variant="body1">
               <p>
                 We know that our communities are experiencing life or death
                 situations due to the inequities, conditions and policies into
@@ -43,9 +53,18 @@ function LandingPage() {
               </p>
               <br />
             </Typography>
-            <a href={EXPLORE_DATA_PAGE_LINK} className={styles.PrimaryButton}>
-              Explore the Health Equity Tracker
-            </a>
+            <LinkWithStickyParams
+              to={EXPLORE_DATA_PAGE_LINK}
+              class={styles.NoUnderline}
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                className={styles.PrimaryButton}
+              >
+                Explore the Health Equity Tracker
+              </Button>
+            </LinkWithStickyParams>
           </Grid>
           <Grid item xs={12} sm={12} md={6} className={styles.HeaderImgItem}>
             <img
@@ -62,13 +81,12 @@ function LandingPage() {
           direction="column"
           justify="center"
         >
-          <Grid item  xs={12} sm={12} md={6}>
-            <Typography className={styles.TakeALookAroundHeaderText}
-                        variant="h1">
+          <Grid item xs={12} sm={12} md={6}>
+            <Typography className={styles.TakeALookAroundHeaderText} variant="h1">
               Take a look around
             </Typography>
           </Grid>
-          <Grid item  xs={12} sm={12} md={6}>
+          <Grid item xs={12} sm={12} md={6}>
             <Typography className={styles.TakeALookAroundHeaderSubtext}
                         variant="subtitle1">
               We’re working toward health equity, but can’t do it alone. Please
@@ -82,7 +100,13 @@ function LandingPage() {
             direction="row"
             justify="space-around"
           >
-            <Grid item  xs={12} sm={12} md={4} className={styles.TakeALookAroundItem}>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={4}
+              className={styles.TakeALookAroundItem}
+            >
               <Grid
                 container
                 direction="column"
@@ -92,7 +116,7 @@ function LandingPage() {
                 <Grid item>
                   <img
                     className={styles.TakeALookAroundImg}
-                    src="img/Dots_1@2x 5.png"
+                    src="img/HET_Dots_1_v3_1000px.gif"
                     alt="Decorative dots"
                   />
                 </Grid>
@@ -104,7 +128,13 @@ function LandingPage() {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} sm={12} md={4} className={styles.TakeALookAroundItem}>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={4}
+              className={styles.TakeALookAroundItem}
+            >
               <Grid
                 container
                 direction="column"
@@ -114,7 +144,7 @@ function LandingPage() {
                 <Grid item>
                   <img
                     className={styles.TakeALookAroundImg}
-                    src="img/Asset 3@2x 4.png"
+                    src="img/HET_Fields_1_v2_1000px.gif"
                     alt="Decorative thick lines"
                   />
                 </Grid>
@@ -126,7 +156,13 @@ function LandingPage() {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item  xs={12} sm={12} md={4} className={styles.TakeALookAroundItem}>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={4}
+              className={styles.TakeALookAroundItem}
+            >
               <Grid
                 container
                 direction="column"
@@ -136,7 +172,7 @@ function LandingPage() {
                 <Grid item>
                   <img
                     className={styles.TakeALookAroundImg}
-                    src="img/Asset 4@2x 2 (1).png"
+                    src="img/HET_Spiral_v4_1000px.gif"
                     alt="Decorative circular pattern"
                   />
                 </Grid>
@@ -150,15 +186,20 @@ function LandingPage() {
             </Grid>
           </Grid>
 
-          <Grid
-            container
-            direction="row"
-            justify="center"
-          >
-            <Grid item  xs={12} sm={12} md={2}>
-              <a href="/whatishealthequity" className={styles.PrimaryButton}>
-                Learn more
-              </a>
+          <Grid container direction="row" justify="center">
+            <Grid item xs={12} sm={12} md={2}>
+              <LinkWithStickyParams
+                to="/whatishealthequity"
+                class={styles.NoUnderline}
+              >
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={styles.PrimaryButton}
+                >
+                  Learn more
+                </Button>
+              </LinkWithStickyParams>
             </Grid>
           </Grid>
         </Grid>
@@ -170,18 +211,31 @@ function LandingPage() {
           justify="center"
           alignItems="center"
         >
-          <Grid item  xs={12} sm={12} md={5} className={styles.DecorativeHImgItem}>
-            <div className={styles.DecorativeHImgContainer}>
-              <img
-                src="img/Asset 10@3x 1.png"
-                className={styles.DecorativeHImg}
-                alt="A decorative letter H centered on an orange background"
-              />
-            </div>
-          </Grid>
-          <Grid item  xs={12} sm={12} md={7} className={styles.PrioritizeHealthEquityTextItem}>
-            <Typography className={styles.PrioritizeHealthEquityHeader}
-                        variant="h1">
+          <Hidden xsDown>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={5}
+              className={styles.DecorativeHImgItem}
+            >
+              <div className={styles.DecorativeHImgContainer}>
+                <img
+                  src="img/Asset 10@3x 1.png"
+                  className={styles.DecorativeHImg}
+                  alt="A decorative letter H centered on an orange background"
+                />
+              </div>
+            </Grid>
+          </Hidden>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={7}
+            className={styles.PrioritizeHealthEquityTextItem}
+          >
+            <Typography className={styles.PrioritizeHealthEquityHeader} variant="h1">
               It's time to prioritize health equity
             </Typography>
             <br />
@@ -228,11 +282,11 @@ function LandingPage() {
               <Grid item xs={12} sm={12} md={8}>
                 <img
                   className={styles.HowToStepImg}
-                  src="img/ezgif 2.png"
+                  src="img/het-screen-1.png"
                   alt="Screenshot of Data Tracker - selecting mad libs"
                 />
               </Grid>
-              <Grid item  xs={12} sm={12} md={3}>
+              <Grid item xs={12} sm={12} md={3}>
                 <div>
                   <h2 className={styles.HowToStepTextHeader}>
                     Search by completing the sentence
@@ -252,14 +306,14 @@ function LandingPage() {
               justify="space-around"
               alignItems="center"
             >
-              <Grid item  xs={12} sm={12} md={8}>
+              <Grid item xs={12} sm={12} md={8}>
                 <img
                   className={styles.HowToStepImg}
-                  src="img/ezgif 5.png"
+                  src="img/het-screen-2.png"
                   alt="Screenshot of Data Tracker - using filters"
                 />
               </Grid>
-              <Grid item  xs={12} sm={12} md={3}>
+              <Grid item xs={12} sm={12} md={3}>
                 <div>
                   <h2 className={styles.HowToStepTextHeader}>
                     Use filters to go deeper
@@ -281,14 +335,14 @@ function LandingPage() {
               justify="space-around"
               alignItems="center"
             >
-              <Grid item  xs={12} sm={12} md={8}>
+              <Grid item xs={12} sm={12} md={8}>
                 <img
                   className={styles.HowToStepImg}
-                  src="img/ezgif 6.png"
+                  src="img/het-screen-3.png"
                   alt="Screenshot of Data Tracker - map of the US"
                 />
               </Grid>
-              <Grid item  xs={12} sm={12} md={3}>
+              <Grid item xs={12} sm={12} md={3}>
                 <div>
                   <h2 className={styles.HowToStepTextHeader}>
                     Explore maps and graphs
@@ -302,11 +356,20 @@ function LandingPage() {
               </Grid>
             </Grid>
             <Grid item>
-              <br/>
-              <br/>
-              <a href={EXPLORE_DATA_PAGE_LINK} className={styles.PrimaryButton}>
-                Explore the Tracker
-              </a>
+              <br />
+              <br />
+              <LinkWithStickyParams
+                to={EXPLORE_DATA_PAGE_LINK}
+                class={styles.NoUnderline}
+              >
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={styles.PrimaryButton}
+                >
+                  Explore the Tracker
+                </Button>
+              </LinkWithStickyParams>
             </Grid>
           </Grid>
         </Grid>
@@ -507,8 +570,11 @@ function LandingPage() {
 
         <Grid container className={styles.NewsletterSignUpRow}>
           <Grid
-            container item
-            xs={12} sm={12} md={12}
+            container
+            item
+            xs={12}
+            sm={12}
+            md={12}
             direction="column"
             justify="center"
             alignItems="center"
@@ -524,10 +590,12 @@ function LandingPage() {
                 </Typography>
               </Grid>
               <Grid item>
-                <form className={styles.EmailAddressForm}
-                action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
-                method="post"
-                target="_blank">
+                <form
+                  className={styles.EmailAddressForm}
+                  action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
+                  method="post"
+                  target="_blank"
+                >
                   <input
                     className={styles.EmailAddressFormText}
                     type="email"

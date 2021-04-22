@@ -38,16 +38,16 @@ import { autoInitGlobals, getEnvironment } from "./utils/globals";
 import ReactTooltip from "react-tooltip";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import PreLaunchSiteContent from "./pages/Landing/PreLaunchSiteContent";
-import TermsOfServicePage from './pages/TermsOfServicePage/TermsOfServicePage';
+import TermsOfServicePage from "./pages/TermsOfServicePage/TermsOfServicePage";
 
 const MOBILE_BREAKPOINT = 600;
 
 const PAGE_URL_TO_NAMES: Record<string, string> = {
   "/": "Homepage",
-  [ABOUT_US_PAGE_LINK]: "About Us",
-  [DATA_CATALOG_PAGE_LINK]: "Downloads & Methodology",
-  [EXPLORE_DATA_PAGE_LINK]: "Explore the Data",
   [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: "What is Health Equity?",
+  [EXPLORE_DATA_PAGE_LINK]: "Explore the Data",
+  [DATA_CATALOG_PAGE_LINK]: "Downloads & Methodology",
+  [ABOUT_US_PAGE_LINK]: "About Us",
 };
 
 autoInitGlobals();
@@ -60,26 +60,26 @@ function MobileAppToolbar() {
   }
 
   return (
-      <Toolbar>
-        <IconButton onClick={() => setOpen(true)}
-                    aria-label="Expand site navigation button">
-          <MenuIcon />
-        </IconButton>
-        <Drawer variant="persistent" anchor="left" open={open}>
-          <Button aria-label="Hide site navigation button"
-                  onClick={() => setOpen(false)}>
-            <ChevronLeftIcon />
-          </Button>
-          <List>
-            {Object.keys(PAGE_URL_TO_NAMES).map((pageUrl, index) => (
-                <ListItemLink href={pageUrl} key={index}
-                              aria-label={PAGE_URL_TO_NAMES[pageUrl]}>
-                  <ListItemText primary={PAGE_URL_TO_NAMES[pageUrl]} />
-                </ListItemLink>
-            ))}
-          </List>
-        </Drawer>
-      </Toolbar>
+    <Toolbar>
+      <IconButton onClick={() => setOpen(true)}
+                  aria-label="Expand site navigation button">
+        <MenuIcon className={styles.MenuIconForMobile} />
+      </IconButton>
+      <Drawer variant="persistent" anchor="left" open={open}>
+        <Button aria-label="Hide site navigation button"
+          onClick={() => setOpen(false)}>
+          <ChevronLeftIcon />
+        </Button>
+        <List>
+          {Object.keys(PAGE_URL_TO_NAMES).map((pageUrl, index) => (
+            <ListItemLink href={pageUrl} key={index} 
+                          aria-label={PAGE_URL_TO_NAMES[pageUrl]}>
+              <ListItemText primary={PAGE_URL_TO_NAMES[pageUrl]} />
+            </ListItemLink>
+          ))}
+        </List>
+      </Drawer>
+    </Toolbar>
   );
 }
 
@@ -97,10 +97,10 @@ function AppToolbar() {
           </LinkWithStickyParams>
         </Typography>
         {[
-          EXPLORE_DATA_PAGE_LINK,
-          DATA_CATALOG_PAGE_LINK,
-          WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-          ABOUT_US_PAGE_LINK,
+        WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+        EXPLORE_DATA_PAGE_LINK,
+        DATA_CATALOG_PAGE_LINK,
+        ABOUT_US_PAGE_LINK,
         ].map((pageUrl, i) => (
             <LinkWithStickyParams to={pageUrl} class={styles.NavLink}>
               <Button key={i} aria-label={PAGE_URL_TO_NAMES[pageUrl]}>

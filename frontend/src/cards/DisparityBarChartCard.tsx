@@ -13,14 +13,11 @@ import {
 import { MetricQuery } from "../data/query/MetricQuery";
 import { MetricConfig } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
-import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
-import DisparityInfoPopover from "./ui/DisparityInfoPopover";
 import MissingDataAlert from "./ui/MissingDataAlert";
-import { usePopover } from "../utils/usePopover";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
   NON_HISPANIC,
-  TOTAL,
+  ALL,
   UNKNOWN,
   UNKNOWN_RACE,
 } from "../data/utils/Constants";
@@ -55,7 +52,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
-    exclude(TOTAL, NON_HISPANIC)
+    exclude(ALL, NON_HISPANIC)
   );
 
   // Population Comparison Metric is required for the Disparity Bar Chart.
@@ -70,15 +67,9 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   const query = new MetricQuery(metricIds, breakdowns);
 
   function CardTitle() {
-    const popover = usePopover();
-
     return (
       <>
-        <DisparityInfoPopover popover={popover} />
-        <Button onClick={popover.open} className={styles.TermInfoButton}>
-          Disparities
-        </Button>{" "}
-        in {props.metricConfig.fullCardTitleName} by{" "}
+        Disparities in {props.metricConfig.fullCardTitleName} by{" "}
         <b>{BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]}</b> in{" "}
         {props.fips.getFullDisplayName()}
       </>
@@ -86,15 +77,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   }
 
   return (
-    <CardWrapper
-      queries={[query]}
-      title={<CardTitle />}
-      infoPopover={
-        props.breakdownVar === "race_and_ethnicity" ? (
-          <RaceInfoPopoverContent />
-        ) : undefined
-      }
-    >
+    <CardWrapper queries={[query]} title={<CardTitle />}>
       {([queryResponse]) => {
         const unknowns = queryResponse
           .getValidRowsForField(props.metricConfig.metricId)
@@ -123,7 +106,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                     handleClose={() => setUnknownsMapDialogOpen(false)}
                     open={unknownsMapDialogOpen}
                   />
-                  <Alert severity="info">
+                  <Alert severity="warning">
                     {unknowns[0][props.metricConfig.metricId]}
                     {props.metricConfig.shortVegaLabel} in{" "}
                     {props.fips.getFullDisplayName} reported had an unknown
