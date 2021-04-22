@@ -17,7 +17,6 @@ import {
 } from "../data/config/MetricConfig";
 import ReportToggleControls from "./ui/ReportToggleControls";
 import NoDataAlert from "./ui/NoDataAlert";
-import Alert from "@material-ui/lab/Alert";
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
@@ -177,8 +176,6 @@ function TwoVariableReport(props: {
               metric2={variableConfig2.metrics["pct_share"]}
               fips1={props.fips1}
               fips2={props.fips2}
-              updateFips1={() => {}}
-              updateFips2={() => {}}
               createCard={(
                 metricConfig: MetricConfig,
                 fips: Fips,
@@ -196,8 +193,6 @@ function TwoVariableReport(props: {
               metric2={variableConfig2.metrics["per100k"]}
               fips1={props.fips1}
               fips2={props.fips2}
-              updateFips1={() => {}}
-              updateFips2={() => {}}
               createCard={(
                 metricConfig: MetricConfig,
                 fips: Fips,
@@ -222,8 +217,8 @@ function RowOfOptionalMetrics(props: {
   metric2: MetricConfig | undefined;
   fips1: Fips;
   fips2: Fips;
-  updateFips1: (fips: Fips) => void;
-  updateFips2: (fips: Fips) => void;
+  updateFips1?: (fips: Fips) => void;
+  updateFips2?: (fips: Fips) => void;
   createCard: (
     metricConfig: MetricConfig,
     fips: Fips,
@@ -234,24 +229,31 @@ function RowOfOptionalMetrics(props: {
     return <></>;
   }
 
+  // Needed for type safety, used when the card does not need to use the fips update callback
+  const unusedFipsCallback = () => {};
+
   return (
     <>
       <Grid item xs={12} sm={6}>
-        {props.metric1 ? (
-          <>{props.createCard(props.metric1, props.fips1, props.updateFips1)}</>
-        ) : (
-          <Alert severity="error" style={{ border: "1px solid #f44336" }}>
-            Data unavailable.
-          </Alert>
+        {props.metric1 && (
+          <>
+            {props.createCard(
+              props.metric1,
+              props.fips1,
+              props.updateFips1 || unusedFipsCallback
+            )}
+          </>
         )}
       </Grid>
       <Grid item xs={12} sm={6}>
-        {props.metric2 ? (
-          <>{props.createCard(props.metric2, props.fips2, props.updateFips2)}</>
-        ) : (
-          <Alert severity="error" style={{ border: "1px solid #f44336" }}>
-            Data unavailable.
-          </Alert>
+        {props.metric2 && (
+          <>
+            {props.createCard(
+              props.metric2,
+              props.fips2,
+              props.updateFips2 || unusedFipsCallback
+            )}
+          </>
         )}
       </Grid>
     </>
