@@ -199,15 +199,6 @@ function MapCardWithKey(props: MapCardProps) {
                         }}
                       />
                     </Grid>
-                    <Grid item>
-                      <Button
-                        onClick={() => setSmallMultiplesDialogOpen(true)}
-                        color="primary"
-                      >
-                        Show full breakdown by{" "}
-                        {BREAKDOWN_VAR_DISPLAY_NAMES[activeBreakdownVar]}
-                      </Button>
-                    </Grid>
                   </Grid>
                 </CardContent>
               </>
@@ -236,8 +227,14 @@ function MapCardWithKey(props: MapCardProps) {
               props.metricConfig && (
                 <CardContent>
                   <Alert severity="info">
-                    Note that legend changes between races. To see races with
-                    common legend, use show all breakdowns button.
+                    <Button
+                      onClick={() => setSmallMultiplesDialogOpen(true)}
+                      color="primary"
+                      className={styles.SmallMarginButton}
+                    >
+                      VIEW ALL {BREAKDOWN_VAR_DISPLAY_NAMES[activeBreakdownVar]}{" "}
+                      groups on one page
+                    </Button>
                   </Alert>
                 </CardContent>
               )}
