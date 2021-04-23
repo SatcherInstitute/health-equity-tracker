@@ -142,15 +142,17 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           For COVID related reports, this tracker uses disaggregated, individual
           case level data reported by states to the CDC. Unfortunately, some
           states have not provided this disaggregated data to the CDC, so we
-          cannot report accurate metrics of health equity for the states of
-          Louisiana, New Hampshire, Texas, and Wyoming. A number of other states
-          report disaggregated data, but the number of individual cases reported
-          to the CDC is far fewer than the aggregate numbers they report. These
-          states' data are included, but their data should be interpreted with
-          caution since the cases reported may not be representative of the
-          population at large: Connecticut, Florida, Kentucky, Maryland,
-          Michigan, Mississippi, Missouri, Nebraska, New Mexico, North Dakota,
-          Ohio, Rhode Island, West Virginia.
+          cannot report accurate metrics of health equity for the states of{" "}
+          <b>Louisiana</b>, <b>New Hampshire</b>, <b>Texas</b>, and{" "}
+          <b>Wyoming</b>. A number of other states report disaggregated data,
+          but the number of individual cases reported to the CDC is far fewer
+          than the aggregate numbers they report. These states' data are
+          included, but their data should be interpreted with caution since the
+          cases reported may not be representative of the population at large:{" "}
+          <b>Connecticut</b>, <b>Florida</b>, <b>Kentucky</b>, <b>Maryland</b>,{" "}
+          <b>Michigan</b>, <b>Mississippi</b>, <b>Missouri</b>, <b>Nebraska</b>,{" "}
+          <b>New Mexico</b>, <b>North Dakota</b>, <b>Ohio</b>,{" "}
+          <b>Rhode Island</b>, <b>West Virginia</b>.
         </p>
         <h3>Missing Outcomes</h3>
         <p>
