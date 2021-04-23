@@ -1,19 +1,27 @@
 import React from "react";
+import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import styles from "./AboutUsPage.module.scss";
+import styles from "./WhatIsHealthEquityPage.module.scss";
 import { Typography } from "@material-ui/core";
-import { ABOUT_US_TAB_PARAM, ABOUT_US_PAGE_LINK } from "../../utils/urlutils";
+import {
+  TAB_PARAM,
+  ABOUT_US_PAGE_LINK,
+  DATA_CATALOG_PAGE_LINK,
+  LinkWithStickyParams,
+} from "../../utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
 
-function FaqTab(props: {}) {
+function FaqTab() {
   return (
     <Grid container className={styles.Grid}>
       <Grid container className={styles.FaqSection}>
         <Grid item xs={12} sm={12} md={3}>
-          <Typography id="main"
-                      tabIndex={-1}
-                      className={styles.FaqHeaderText}
-                      variant="h1">
+          <Typography
+            id="main"
+            tabIndex={-1}
+            className={styles.FaqHeaderText}
+            variant="h1"
+          >
             Data
           </Typography>
         </Grid>
@@ -31,9 +39,7 @@ function FaqTab(props: {}) {
               </div>
             </Grid>
             <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-              <h2 className={styles.FaqQuestion}>
-                What sources were used?
-              </h2>
+              <h2 className={styles.FaqQuestion}>What sources were used?</h2>
               <div className={styles.FaqAnswer}>
                 <p>
                   In this tracker, we are using many sources, including{" "}
@@ -99,9 +105,18 @@ function FaqTab(props: {}) {
                   </li>
                 </ul>
               </div>
-              <a href="/datacatalog" className={styles.MajorLink}>
-                See Data Sources
-              </a>
+              <LinkWithStickyParams
+                to={DATA_CATALOG_PAGE_LINK}
+                class={styles.MajorLink}
+              >
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={styles.PrimaryButton}
+                >
+                  See Data Sources
+                </Button>
+              </LinkWithStickyParams>
             </Grid>
             <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
               <h2 className={styles.FaqQuestion}>
@@ -122,9 +137,7 @@ function FaqTab(props: {}) {
               </div>
             </Grid>
             <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-              <h2 className={styles.FaqQuestion}>
-                What principles guide you?
-              </h2>
+              <h2 className={styles.FaqQuestion}>What principles guide you?</h2>
               <div className={styles.FaqAnswer}>
                 <p>
                   It is essential that this work and its resulting products are
@@ -162,17 +175,14 @@ function FaqTab(props: {}) {
 
       <Grid container className={styles.FaqSection}>
         <Grid item xs={12} sm={12} md={3}>
-          <Typography className={styles.FaqHeaderText}
-                      variant="h1">
+          <Typography className={styles.FaqHeaderText} variant="h1">
             Definitions
           </Typography>
         </Grid>
         <Grid item xs={12} sm={12} md={9}>
           <Grid container>
             <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-              <h2 className={styles.FaqQuestion}>
-                What is equity?
-              </h2>
+              <h2 className={styles.FaqQuestion}>What is equity?</h2>
               <div className={styles.FaqAnswer}>
                 <p>
                   Equity refers to everyone having a fair opportunity to reach
@@ -282,17 +292,14 @@ function FaqTab(props: {}) {
 
       <Grid container className={styles.FaqSection}>
         <Grid item xs={12} sm={12} md={3}>
-          <Typography className={styles.FaqHeaderText}
-                      variant="h1">
+          <Typography className={styles.FaqHeaderText} variant="h1">
             Take Action
           </Typography>
         </Grid>
         <Grid item xs={12} sm={12} md={9}>
           <Grid container>
             <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-              <h2 className={styles.FaqQuestion}>
-                How can I get involved?
-              </h2>
+              <h2 className={styles.FaqQuestion}>How can I get involved?</h2>
               <div className={styles.FaqAnswer}>
                 <p>
                   To advance health equity, we need smart, talented, passionate
@@ -312,7 +319,7 @@ function FaqTab(props: {}) {
                     <button
                       className={styles.FaqContactUsButton}
                       onClick={() =>
-                        (window.location.href = `${ABOUT_US_PAGE_LINK}?${ABOUT_US_TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`)
+                        (window.location.href = `${ABOUT_US_PAGE_LINK}?${TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`)
                       }
                     >
                       Click here to contact us
@@ -322,9 +329,7 @@ function FaqTab(props: {}) {
               </div>
             </Grid>
             <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-              <h2 className={styles.FaqQuestion}>
-                How do I share the graphs?
-              </h2>
+              <h2 className={styles.FaqQuestion}>How do I share the graphs?</h2>
               <div className={styles.FaqAnswer}>
                 <p>
                   Next to each graph, there is a circle-shaped button with three

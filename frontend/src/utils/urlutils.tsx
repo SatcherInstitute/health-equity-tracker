@@ -22,7 +22,7 @@ export const MADLIB_PHRASE_PARAM = "mlp";
 export const MADLIB_SELECTIONS_PARAM = "mls";
 
 // Value is index of the tab to jump to
-export const ABOUT_US_TAB_PARAM = "tab";
+export const TAB_PARAM = "tab";
 
 export function LinkWithStickyParams(props: {
   to: string;

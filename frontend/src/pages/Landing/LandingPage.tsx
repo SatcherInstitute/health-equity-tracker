@@ -10,11 +10,11 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {
   LinkWithStickyParams,
-  ABOUT_US_TAB_PARAM,
-  ABOUT_US_PAGE_LINK,
+  TAB_PARAM,
+  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
 } from "../../utils/urlutils";
-import { ABOUT_US_FAQ_TAB_INDEX } from "../AboutUs/AboutUsPage";
+import { WIHE_FAQ_TAB_INDEX } from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
 
 function LandingPage() {
   return (
@@ -29,10 +29,12 @@ function LandingPage() {
         >
           <Grid item className={styles.HeaderTextItem} xs={12} sm={12} md={6}>
             <Hidden xsDown>
-              <Typography id="main" 
-                          tabIndex={-1}
-                          className={styles.HeaderText}
-                          variant="h1">
+              <Typography
+                id="main"
+                tabIndex={-1}
+                className={styles.HeaderText}
+                variant="h1"
+              >
                 Equity Forward
               </Typography>
               <br />
@@ -83,13 +85,18 @@ function LandingPage() {
           justify="center"
         >
           <Grid item xs={12} sm={12} md={6}>
-            <Typography className={styles.TakeALookAroundHeaderText} variant="h1">
+            <Typography
+              className={styles.TakeALookAroundHeaderText}
+              variant="h1"
+            >
               Take a look around
             </Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
-            <Typography className={styles.TakeALookAroundHeaderSubtext}
-                        variant="subtitle1">
+            <Typography
+              className={styles.TakeALookAroundHeaderSubtext}
+              variant="subtitle1"
+            >
               We’re working toward health equity, but can’t do it alone. Please
               join our effort to move the needle forward.
             </Typography>
@@ -122,8 +129,10 @@ function LandingPage() {
                   />
                 </Grid>
                 <Grid item>
-                  <Typography className={styles.TakeALookAroundText}
-                              variant="h2">
+                  <Typography
+                    className={styles.TakeALookAroundText}
+                    variant="h2"
+                  >
                     <p>(1) Learn about health equity</p>
                   </Typography>
                 </Grid>
@@ -150,8 +159,10 @@ function LandingPage() {
                   />
                 </Grid>
                 <Grid item>
-                  <Typography className={styles.TakeALookAroundText}
-                              variant="h2">
+                  <Typography
+                    className={styles.TakeALookAroundText}
+                    variant="h2"
+                  >
                     <p>(2) Investigate the data</p>
                   </Typography>
                 </Grid>
@@ -178,8 +189,10 @@ function LandingPage() {
                   />
                 </Grid>
                 <Grid item>
-                  <Typography className={styles.TakeALookAroundText}
-                              variant="h2">
+                  <Typography
+                    className={styles.TakeALookAroundText}
+                    variant="h2"
+                  >
                     <p>(3) Share our site and join our movement</p>
                   </Typography>
                 </Grid>
@@ -236,12 +249,17 @@ function LandingPage() {
             md={7}
             className={styles.PrioritizeHealthEquityTextItem}
           >
-            <Typography className={styles.PrioritizeHealthEquityHeader} variant="h1">
+            <Typography
+              className={styles.PrioritizeHealthEquityHeader}
+              variant="h1"
+            >
               It's time to prioritize health equity
             </Typography>
             <br />
-            <Typography className={styles.PrioritizeHealthEquityHeaderSubtext}
-                        variant="body1">
+            <Typography
+              className={styles.PrioritizeHealthEquityHeaderSubtext}
+              variant="body1"
+            >
               <p>
                 We’re living through a historical moment. COVID-19 has taken a
                 toll on everyone. But the pandemic is hitting the most
@@ -260,8 +278,7 @@ function LandingPage() {
 
         <Grid container className={styles.HowToRow}>
           <Grid item xs={12}>
-            <Typography className={styles.HowToHeaderText}
-                        variant="h1">
+            <Typography className={styles.HowToHeaderText} variant="h1">
               How do I use the Data Tracker?
             </Typography>
           </Grid>
@@ -377,8 +394,7 @@ function LandingPage() {
 
         <Grid container className={styles.FaqRow}>
           <Grid item xs={12}>
-            <Typography className={styles.FaqHeader}
-                        variant="h1">
+            <Typography className={styles.FaqHeader} variant="h1">
               Frequently asked questions
             </Typography>
           </Grid>
@@ -562,7 +578,7 @@ function LandingPage() {
           <Grid item>
             <LinkWithStickyParams
               class={styles.FaqLink}
-              to={`${ABOUT_US_PAGE_LINK}?${ABOUT_US_TAB_PARAM}=${ABOUT_US_FAQ_TAB_INDEX}`}
+              to={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_FAQ_TAB_INDEX}`}
             >
               See our full FAQ page
             </LinkWithStickyParams>
@@ -584,16 +600,20 @@ function LandingPage() {
             <div className={styles.EmailAddressContentDiv}>
               <Grid item>
                 <Hidden mdUp>
-                  <Typography className={styles.NewsletterRowHeaderSmall}
-                              variant="h1">
+                  <Typography
+                    className={styles.NewsletterRowHeaderSmall}
+                    variant="h1"
+                  >
                     Engage in
                     <br />
                     Health Equity
                   </Typography>
                 </Hidden>
                 <Hidden smDown>
-                  <Typography className={styles.NewsletterRowHeader}
-                              variant="h1">
+                  <Typography
+                    className={styles.NewsletterRowHeader}
+                    variant="h1"
+                  >
                     Engage in
                     <br />
                     Health Equity
