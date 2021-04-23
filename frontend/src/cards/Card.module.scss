@@ -1,3 +1,5 @@
+@import "../styles/variables";
+
 .CardHeader {
   text-align: left;
   font-weight: bold !important;
@@ -17,6 +19,9 @@
   padding-bottom: 6px !important;
   padding-top: 6px !important;
 }
+.PopulationCardContent {
+  padding: 16px 16px 0 16px !important;
+}
 
 .SmallMarginButton {
   padding: 0 5px !important;
@@ -29,37 +34,51 @@
   }
   span {
     text-align: left;
-    display: block;
   }
+
+  .TotalPopulationKey {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 57px;
+    padding-right: 7px;
+  }
+
   .TotalPopulationValue {
-    font-size: 44px;
-    line-height: 44px;
-    color: #0b5240;
-    padding-right: 15px;
+    font-size: 32px;
+    line-height: 57px;
+    color: $alt-green;
   }
-  .PopulationMetric {
-    padding: 10px;
-    font-size: 12px;
-    line-height: 16px;
-    // Smallest width at which current standardized strings all fit on 3 lines
-    width: 131px;
+
+  .PopulationCardTitle {
+    line-height: 40px;
+    padding-right: 20px;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 57px;
   }
-  .PopulationMetricValue {
-    color: #9aa0a6;
-    font-size: 20px;
-    line-height: 32px;
+  .VerticalDivider {
+    height: 57px;
+    border-right: 1px solid grey;
+    margin-left: 20px;
+    float: right;
   }
-}
-.ExpandPopulationCardButton {
-  float: right;
-  text-transform: none !important;
 }
 
-.PopulationCardTitle {
-  font-size: 28px;
-  line-height: 40px;
-  text-align: left;
-  display: block;
+.PopulationAlert {
+  margin: 10px;
+}
+
+.PopulationMetric {
+  padding: 10px;
+  font-size: 12px;
+  line-height: 16px;
+  // Smallest width at which current standardized strings all fit on 3 lines
+  width: 131px;
+}
+.PopulationMetricValue {
+  color: #9aa0a6;
+  font-size: 20px;
+  line-height: 32px;
 }
 
 .CardFooter {
