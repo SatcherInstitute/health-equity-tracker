@@ -109,13 +109,7 @@ function FaqTab() {
                 to={DATA_CATALOG_PAGE_LINK}
                 class={styles.MajorLink}
               >
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={styles.PrimaryButton}
-                >
-                  See Data Sources
-                </Button>
+                <Button color="primary">See Data Sources</Button>
               </LinkWithStickyParams>
             </Grid>
             <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>

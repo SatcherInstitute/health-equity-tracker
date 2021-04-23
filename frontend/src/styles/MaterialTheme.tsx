@@ -40,6 +40,7 @@ const MaterialTheme = createMuiTheme({
     MuiTabs: {
       root: {
         marginTop: "40px",
+        borderBottom: "1px solid #3e3e3e",
       },
     },
     MuiButton: {
