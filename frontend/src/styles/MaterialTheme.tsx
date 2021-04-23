@@ -21,7 +21,7 @@ const MaterialTheme = createMuiTheme({
     MuiCssBaseline: {
       "@global": {
         body: {
-          fontFamily: "DM Sans",
+          fontFamily: '"Inter", serif',
         },
         ".MuiAlert-standardInfo	.MuiAlert-icon": {
           color: "#0B5240 !important",
@@ -33,6 +33,7 @@ const MaterialTheme = createMuiTheme({
     },
     MuiButton: {
       root: {
+        fontFamily: '"Inter", serif',
         textTransform: "unset",
       },
       containedPrimary: {
@@ -64,6 +65,9 @@ const MaterialTheme = createMuiTheme({
       },
     },
     MuiAlert: {
+      root: {
+        fontFamily: '"Inter", serif',
+      },
       standardInfo: {
         backgroundColor: "#F8F9FA !important",
         color: "#00000 !important",
