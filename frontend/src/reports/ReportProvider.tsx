@@ -121,53 +121,48 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         />
         {getReport()}
       </div>
-      {/* TODO- could we extract the names of datasets from the Fake Metdata */}
       <div className={styles.MissingDataInfo} ref={fieldRef}>
         <h1>What Data Are Missing?</h1>
+        <p>Unfortunately there are crucial data missing in our sources.</p>
+        <h3>Missing and Misidentified People</h3>
         <p>
-          In this tracker, we are using{" "}
-          <a href={DATA_CATALOG_PAGE_LINK}>COVID Tracking Project</a>,{" "}
-          <a href={DATA_CATALOG_PAGE_LINK}>CDC Public Datasets</a>, and{" "}
-          <a href={DATA_CATALOG_PAGE_LINK}>U.S. Census Bureau data</a>. Some
-          soures are more “real-time” like case data, but other important data,
-          such as information around social determinants of health can lag weeks
-          to years. For the moment, this is our best representation of how the
-          country is doing based on publically available information.
+          Currently, there are no required or standardized race and ethnicity
+          categories for data collection across state and local jurisdictions.
+          The most notable gaps exist for race and ethnic groups, physical and
+          mental health status, and gender categories. Many states do not record
+          data for American Indian, Alaska Native, Native Hawaiian and Pacific
+          Islander racial categories, lumping these people into other groups.
+          Individuals who identify as Hispanic/Latino may not be recorded in
+          their respective race category. Neither disability nor mental health
+          status is collected with the Covid case data. Additionally, gender is
+          recorded only as female, male, or other.
         </p>
+        <h3>Missing Cases</h3>
         <p>
-          Unfortunately, with these publically available data sets, there are
-          crucial pieces missing, including but not limited to: comprehensive
-          city-, census tract-, and county-level data; comprehensive race and
-          ethnicity breakdowns; comprehensive gender and age breakdowns by
-          county, etc.
+          For COVID related reports, this tracker uses disaggregated, individual
+          case level data reported by states to the CDC. Unfortunately, some
+          states have not provided this disaggregated data to the CDC, so we
+          cannot report accurate metrics of health equity for the states of{" "}
+          <b>Louisiana</b>, <b>New Hampshire</b>, <b>Texas</b>, and{" "}
+          <b>Wyoming</b>. A number of other states report disaggregated data,
+          but the number of individual cases reported to the CDC is far fewer
+          than the aggregate numbers they report. These states' data are
+          included, but their data should be interpreted with caution since the
+          cases reported may not be representative of the population at large:{" "}
+          <b>Connecticut</b>, <b>Florida</b>, <b>Kentucky</b>, <b>Maryland</b>,{" "}
+          <b>Michigan</b>, <b>Mississippi</b>, <b>Missouri</b>, <b>Nebraska</b>,{" "}
+          <b>New Mexico</b>, <b>North Dakota</b>, <b>Ohio</b>,{" "}
+          <b>Rhode Island</b>, <b>West Virginia</b>.
         </p>
-        <h3>Known limitations in the data</h3>
-        <ul>
-          <li>
-            To protect the privacy of affected individuals, COVID-19 data may be
-            hidden in counties with smaller numbers of COVID-19 cases,
-            hospitalizations and deaths.
-          </li>
-          <li>
-            Racial and ethnic categories are often at the discretion of
-            healthcare professionals and may not be accurate.
-          </li>
-          <li>
-            Specific racial and ethnic categories (e.g. “Native Hawaiian,”
-            “Alaska Native”) differ by source and can be inappropriately
-            obscured by broader categories (e.g. “Other,” “Asian”).
-          </li>
-          <li>
-            National statistics are aggregations of state-wide data. If state
-            data is not available, these aggregations may be incomplete and
-            potentially skewed.
-          </li>
-          <li>
-            We typically refresh our data sources with newly available data
-            within a few days. Seeking the latest information? Please navigate
-            to the data sources directly.
-          </li>
-        </ul>
+        <h3>Missing Outcomes</h3>
+        <p>
+          Furthermore, many of the individual COVID case records are incomplete
+          with an unknown hospitalization and/or death status, meaning that even
+          in states that are reporting Covid case data, we have an incomplete
+          picture of its overall impact. Due to the nature of surveillance data,
+          we expect this picture to become more complete over time and will use
+          the Health Equity Tracker to record the progress.
+        </p>
         <a href={DATA_CATALOG_PAGE_LINK}>
           <Button color="primary" endIcon={<ArrowForward />}>
             See Data Sources
