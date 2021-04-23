@@ -26,10 +26,12 @@ function TheProjectTab() {
             md={5}
             className={styles.GridVerticallyAlignedItem}
           >
-            <Typography id="main"
-                        tabIndex={-1}
-                        className={styles.HeaderText}
-                        variant="h1">
+            <Typography
+              id="main"
+              tabIndex={-1}
+              className={styles.HeaderText}
+              variant="h1"
+            >
               We're focused on equitable data.
             </Typography>
             <br />
@@ -112,11 +114,16 @@ function TheProjectTab() {
                 xs={12}
               >
                 <Grid item xs={12} sm={12} md={5}>
-                  <Typography className={styles.UnderlinedHeaderL2}
-                              variant="h2">
+                  <Typography
+                    className={styles.UnderlinedHeaderL2}
+                    variant="h2"
+                  >
                     5 data sources
                   </Typography>
-                  <Typography className={styles.HeaderSubtextL3} variant="body2">
+                  <Typography
+                    className={styles.HeaderSubtextL3}
+                    variant="body2"
+                  >
                     <p>
                       HET currently aggregates data from 5 key data sources.
                       We’ll continue adding to these initial sources.
@@ -124,15 +131,20 @@ function TheProjectTab() {
                   </Typography>
                 </Grid>
                 <Grid item xs={12} sm={12} md={5}>
-                  <Typography className={styles.UnderlinedHeaderL2}
-                              variant="h2">
+                  <Typography
+                    className={styles.UnderlinedHeaderL2}
+                    variant="h2"
+                  >
                     15 variables
                   </Typography>
-                  <Typography className={styles.HeaderSubtextL3} variant="body2">
+                  <Typography
+                    className={styles.HeaderSubtextL3}
+                    variant="body2"
+                  >
                     <p>
                       Along with COVID-19 cases, hospitalizations and deaths,
-                      the tracker also covers conditions like COPD, asthma,
-                      diabetes, hypertension, obesity, SDOH, and more
+                      the tracker also covers conditions like COPD, diabetes,
+                      SDOH, and more
                     </p>
                   </Typography>
                 </Grid>
@@ -195,8 +207,10 @@ function TheProjectTab() {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography className={styles.HeaderSubtextL2}
-                              variant="body2">
+                  <Typography
+                    className={styles.HeaderSubtextL2}
+                    variant="body2"
+                  >
                     <p>
                       As we continue to expand our data sources and analyze the
                       data, we will have more information to share on
@@ -226,8 +240,10 @@ function TheProjectTab() {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography className={styles.HeaderSubtextL2}
-                              variant="body2">
+                  <Typography
+                    className={styles.HeaderSubtextL2}
+                    variant="body2"
+                  >
                     <p>
                       We plan to develop policy templates for local, state, and
                       federal policy makers, and help create actionable policies
@@ -257,8 +273,10 @@ function TheProjectTab() {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography className={styles.HeaderSubtextL2}
-                              variant="body2">
+                  <Typography
+                    className={styles.HeaderSubtextL2}
+                    variant="body2"
+                  >
                     <p>
                       It’s important to track progress, so we plan to develop
                       and publish more health equity reports and analyses.
