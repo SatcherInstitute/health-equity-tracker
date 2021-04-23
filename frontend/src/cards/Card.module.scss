@@ -18,6 +18,11 @@
   padding-top: 6px !important;
 }
 
+.SmallMarginButton {
+  padding: 0 5px !important;
+  margin-top: -2px !important; // To align with surrounding text
+}
+
 .PopulationCard {
   h1 {
     text-align: left;
