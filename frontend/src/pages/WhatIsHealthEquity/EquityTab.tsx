@@ -56,7 +56,7 @@ function JoinTheEffortContainer(props: {
   );
 }
 
-function WhatIsHealthEquityPage() {
+function EquityTab() {
   const [textCopied, setTextCopied] = useState(false);
 
   return (
@@ -550,4 +550,4 @@ function WhatIsHealthEquityPage() {
   );
 }
 
-export default WhatIsHealthEquityPage;
+export default EquityTab;
