@@ -84,6 +84,10 @@ AGE_NAMES_MAPPING = {
     "Missing": "Unknown",
 }
 
+# States that we have decided to suppress all data from, due to very incomplete
+# case data.
+STATES_TO_SUPPRESS = ["LA", "NH", "TX", "WY"]
+
 
 def accumulate_data(df, groupby_cols, overall_df, demographic_col,
                     names_mapping):
@@ -222,6 +226,9 @@ def main():
             # our standardization (ignoring empty values).
             df[COUNTY_FIPS_COL] = df[COUNTY_FIPS_COL].map(
                 lambda x: x.zfill(5) if len(x) > 0 else x)
+
+            # Remove records from states where we want to suppress all data.
+            df = df[~df[STATE_COL].isin(STATES_TO_SUPPRESS)]
 
             # For each of ({state, county} x {race, sex, age}), we slice the
             # data to focus on that dimension and aggregate.
