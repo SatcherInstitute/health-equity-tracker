@@ -17,6 +17,7 @@ import {
 } from "../../utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import FaqSection from "../ui/FaqSection";
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -86,10 +87,12 @@ function WhatIsHealthEquityPage() {
             </Grid>
           </Hidden>
           <Grid item xs={12} sm={12} md={8} className={styles.HeaderTextItem}>
-            <Typography id="main"
-                        tabIndex={-1}
-                        className={styles.HeaderText}
-                        variant="h1">
+            <Typography
+              id="main"
+              tabIndex={-1}
+              className={styles.HeaderText}
+              variant="h1"
+            >
               What is Health Equity?
             </Typography>
             <br />
@@ -228,7 +231,9 @@ function WhatIsHealthEquityPage() {
                               encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     ></iframe>
-                    <h2 className={styles.ResourceTitleText}>Jessica's Story</h2>
+                    <h2 className={styles.ResourceTitleText}>
+                      Jessica's Story
+                    </h2>
                     <p className={styles.ResourceSubtitleText}>
                       How political determinants of health operate and the
                       impact they have on BIPOC communities
@@ -266,8 +271,10 @@ function WhatIsHealthEquityPage() {
             justify="center"
           >
             <Grid item>
-              <Typography className={styles.NewsAndStoriesHeaderText}
-              variant="h1">
+              <Typography
+                className={styles.NewsAndStoriesHeaderText}
+                variant="h1"
+              >
                 News and stories
               </Typography>
               <span className={styles.NewsAndStoriesSubheaderText}>
@@ -405,6 +412,18 @@ function WhatIsHealthEquityPage() {
           justify="center"
           alignItems="center"
         >
+          <Grid
+            container
+            item
+            xs={12}
+            className={styles.FaqRow}
+            alignItems="center"
+            justify="center"
+          >
+            <Grid sm={12} md={10}>
+              <FaqSection />
+            </Grid>
+          </Grid>
           <Grid item className={styles.JoinTheEffortHeaderRow}>
             <Typography className={styles.JoinTheEffortHeaderText} variant="h1">
               How do I join the effort?
