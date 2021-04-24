@@ -16,6 +16,29 @@ import {
 } from "../../utils/urlutils";
 import { ABOUT_US_FAQ_TAB_INDEX } from "../AboutUs/AboutUsPage";
 
+function ChartGif(props: { src: string; alt: string; text: string }) {
+  return (
+    <Grid item xs={12} sm={4} md={4} className={styles.TakeALookAroundItem}>
+      <Grid container direction="column" alignItems="center" justify="center">
+        <Hidden xsDown>
+          <Grid item>
+            <img
+              className={styles.TakeALookAroundImg}
+              src={props.src}
+              alt={props.alt}
+            />
+          </Grid>
+        </Hidden>
+        <Grid item>
+          <Typography className={styles.TakeALookAroundText} variant="h2">
+            <p>{props.text}</p>
+          </Typography>
+        </Grid>
+      </Grid>
+    </Grid>
+  );
+}
+
 function LandingPage() {
   return (
     <div className={styles.LandingPage}>
@@ -29,10 +52,12 @@ function LandingPage() {
         >
           <Grid item className={styles.HeaderTextItem} xs={12} sm={12} md={6}>
             <Hidden xsDown>
-              <Typography id="main" 
-                          tabIndex={-1}
-                          className={styles.HeaderText}
-                          variant="h1">
+              <Typography
+                id="main"
+                tabIndex={-1}
+                className={styles.HeaderText}
+                variant="h1"
+              >
                 Equity Forward
               </Typography>
               <br />
@@ -79,111 +104,48 @@ function LandingPage() {
         <Grid
           container
           className={styles.TakeALookAroundRow}
-          direction="column"
-          justify="center"
+          justify="flex-start"
+          align-items="center"
         >
-          <Grid item xs={12} sm={12} md={6}>
-            <Typography className={styles.TakeALookAroundHeaderText} variant="h1">
+          <Grid item xs={12}>
+            <Typography
+              className={styles.TakeALookAroundHeaderText}
+              variant="h1"
+            >
               Take a look around
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={12} md={6}>
-            <Typography className={styles.TakeALookAroundHeaderSubtext}
-                        variant="subtitle1">
+          <Grid item xs={12}>
+            <Typography
+              className={styles.TakeALookAroundHeaderSubtext}
+              variant="subtitle1"
+            >
               We’re working toward health equity, but can’t do it alone. Please
               join our effort to move the needle forward.
             </Typography>
           </Grid>
-
-          <Grid
-            container
-            className={styles.TakeALookAroundItemRow}
-            direction="row"
-            justify="space-around"
-          >
+          <Grid item xs={12}>
             <Grid
-              item
-              xs={12}
-              sm={12}
-              md={4}
-              className={styles.TakeALookAroundItem}
+              container
+              className={styles.TakeALookAroundItemRow}
+              direction="row"
+              justify="space-around"
             >
-              <Grid
-                container
-                direction="column"
-                alignItems="center"
-                justify="center"
-              >
-                <Grid item>
-                  <img
-                    className={styles.TakeALookAroundImg}
-                    src="img/HET_Dots_1_v3_1000px.gif"
-                    alt="Decorative dots"
-                  />
-                </Grid>
-                <Grid item>
-                  <Typography className={styles.TakeALookAroundText}
-                              variant="h2">
-                    <p>(1) Learn about health equity</p>
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={4}
-              className={styles.TakeALookAroundItem}
-            >
-              <Grid
-                container
-                direction="column"
-                alignItems="center"
-                justify="center"
-              >
-                <Grid item>
-                  <img
-                    className={styles.TakeALookAroundImg}
-                    src="img/HET_Fields_1_v2_1000px.gif"
-                    alt="Decorative thick lines"
-                  />
-                </Grid>
-                <Grid item>
-                  <Typography className={styles.TakeALookAroundText}
-                              variant="h2">
-                    <p>(2) Investigate the data</p>
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={4}
-              className={styles.TakeALookAroundItem}
-            >
-              <Grid
-                container
-                direction="column"
-                alignItems="center"
-                justify="center"
-              >
-                <Grid item>
-                  <img
-                    className={styles.TakeALookAroundImg}
-                    src="img/HET_Spiral_v4_1000px.gif"
-                    alt="Decorative circular pattern"
-                  />
-                </Grid>
-                <Grid item>
-                  <Typography className={styles.TakeALookAroundText}
-                              variant="h2">
-                    <p>(3) Share our site and join our movement</p>
-                  </Typography>
-                </Grid>
-              </Grid>
+              <ChartGif
+                src="img/HET_Fields_1_v2_1000px.gif"
+                alt="Decorative dots"
+                text="(1) Learn about health equity"
+              />
+              <ChartGif
+                src="img/HET_Dots_1_v3_1000px.gif"
+                alt="Decorative thick lines"
+                text="(2) Investigate the data"
+              />
+              <ChartGif
+                src="img/HET_Spiral_v4_1000px.gif"
+                alt="Decorative circular pattern"
+                text="(3) Share our site and join our movement"
+              />
             </Grid>
           </Grid>
 
@@ -212,7 +174,7 @@ function LandingPage() {
           justify="center"
           alignItems="center"
         >
-          <Hidden xsDown>
+          <Hidden smDown>
             <Grid
               item
               xs={12}
@@ -236,12 +198,17 @@ function LandingPage() {
             md={7}
             className={styles.PrioritizeHealthEquityTextItem}
           >
-            <Typography className={styles.PrioritizeHealthEquityHeader} variant="h1">
+            <Typography
+              className={styles.PrioritizeHealthEquityHeader}
+              variant="h1"
+            >
               It's time to prioritize health equity
             </Typography>
             <br />
-            <Typography className={styles.PrioritizeHealthEquityHeaderSubtext}
-                        variant="body1">
+            <Typography
+              className={styles.PrioritizeHealthEquityHeaderSubtext}
+              variant="body1"
+            >
               <p>
                 We’re living through a historical moment. COVID-19 has taken a
                 toll on everyone. But the pandemic is hitting the most
@@ -260,8 +227,7 @@ function LandingPage() {
 
         <Grid container className={styles.HowToRow}>
           <Grid item xs={12}>
-            <Typography className={styles.HowToHeaderText}
-                        variant="h1">
+            <Typography className={styles.HowToHeaderText} variant="h1">
               How do I use the Data Tracker?
             </Typography>
           </Grid>
@@ -377,8 +343,7 @@ function LandingPage() {
 
         <Grid container className={styles.FaqRow}>
           <Grid item xs={12}>
-            <Typography className={styles.FaqHeader}
-                        variant="h1">
+            <Typography className={styles.FaqHeader} variant="h1">
               Frequently asked questions
             </Typography>
           </Grid>
@@ -584,16 +549,20 @@ function LandingPage() {
             <div className={styles.EmailAddressContentDiv}>
               <Grid item>
                 <Hidden mdUp>
-                  <Typography className={styles.NewsletterRowHeaderSmall}
-                              variant="h1">
+                  <Typography
+                    className={styles.NewsletterRowHeaderSmall}
+                    variant="h1"
+                  >
                     Engage in
                     <br />
                     Health Equity
                   </Typography>
                 </Hidden>
                 <Hidden smDown>
-                  <Typography className={styles.NewsletterRowHeader}
-                              variant="h1">
+                  <Typography
+                    className={styles.NewsletterRowHeader}
+                    variant="h1"
+                  >
                     Engage in
                     <br />
                     Health Equity
