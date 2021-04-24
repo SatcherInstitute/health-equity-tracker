@@ -238,7 +238,7 @@ function getSpec(
               text: { signal: MULTILINE_LABEL },
               baseline: { value: "bottom" },
               // Limit at which line is truncated with an ellipsis
-              limit: { value: 90 },
+              limit: { value: 100 },
               dy: { signal: AXIS_LABEL_Y_DELTA },
             },
           },
