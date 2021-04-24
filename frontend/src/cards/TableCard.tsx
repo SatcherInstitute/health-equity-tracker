@@ -65,7 +65,17 @@ export function TableCard(props: TableCardProps) {
       {([queryResponse]) => {
         return (
           <>
-            {props.breakdownVar === RACE && (
+            {queryResponse.shouldShowMissingDataMessage(metricIds) && (
+              <CardContent>
+                <MissingDataAlert
+                  dataName={props.variableConfig.variableFullDisplayName + " "}
+                  breakdownString={
+                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+                  }
+                />
+              </CardContent>
+            )}
+            {!queryResponse.dataIsMissing() && props.breakdownVar === RACE && (
               <>
                 <CardContent>
                   <Alert severity="warning">
@@ -87,16 +97,6 @@ export function TableCard(props: TableCardProps) {
                 </CardContent>
                 <Divider />
               </>
-            )}
-            {queryResponse.shouldShowMissingDataMessage(metricIds) && (
-              <CardContent>
-                <MissingDataAlert
-                  dataName={props.variableConfig.variableFullDisplayName + " "}
-                  breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-                  }
-                />
-              </CardContent>
             )}
             {!queryResponse.dataIsMissing() && (
               <TableChart
