@@ -13,6 +13,7 @@ class AcsHealthInsuranceProvider extends VariableProvider {
       "health_insurance_count",
       "health_insurance_per_100k",
       "health_insurance_pct_share",
+      "health_insurance_population_pct",
     ]);
   }
 
@@ -46,7 +47,13 @@ class AcsHealthInsuranceProvider extends VariableProvider {
     // We apply the geo filter right away to reduce subsequent calculation times
     df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);
-    df = df.renameSeries({ race: "race_and_ethnicity" });
+
+    // TODO: remove this code once the pipeline is run with the new race
+    // standardization changes.
+    if (!df.getColumnNames().includes("race_and_ethnicity")) {
+      df = df.renameSeries({ race: "race_and_ethnicity" });
+    }
+
     df = df.parseInts([
       "with_health_insurance",
       "without_health_insurance",
@@ -79,12 +86,11 @@ class AcsHealthInsuranceProvider extends VariableProvider {
     }
 
     //Remove white hispanic to bring inline with others
-    df = df
-      .where(
-        (row) =>
-          //We remove these races because they are subsets
-          row["race_and_ethnicity"] !== WHITE_NH
-      )
+    df = df.where(
+      (row) =>
+        //We remove these races because they are subsets
+        row["race_and_ethnicity"] !== WHITE_NH
+    );
 
     let totalPivot: { [key: string]: (series: ISeries) => any } = {
       with_health_insurance: (series: ISeries) => series.sum(),
@@ -125,6 +131,15 @@ class AcsHealthInsuranceProvider extends VariableProvider {
       breakdowns.getSoleDemographicBreakdown().columnName,
       ["fips"]
     );
+
+    df = this.calculatePctShare(
+      df,
+      "total",
+      "health_insurance_population_pct",
+      breakdowns.getSoleDemographicBreakdown().columnName,
+      ["fips"]
+    );
+
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 
@@ -132,10 +147,7 @@ class AcsHealthInsuranceProvider extends VariableProvider {
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    return (
-      breakdowns.hasExactlyOneDemographic() &&
-      !breakdowns.time
-    );
+    return breakdowns.hasExactlyOneDemographic() && !breakdowns.time;
   }
 }
 

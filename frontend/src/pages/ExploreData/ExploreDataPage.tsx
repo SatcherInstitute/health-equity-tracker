@@ -73,7 +73,7 @@ function ExploreDataPage() {
   }, []);
 
   return (
-    <div id="ExploreData" className={styles.ExploreData}>
+    <div id="main" tabIndex={-1} className={styles.ExploreData}>
       <div className={styles.CarouselContainer}>
         <Carousel
           className={styles.Carousel}

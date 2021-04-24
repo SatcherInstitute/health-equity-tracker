@@ -81,8 +81,10 @@ export function TableChart(props: TableChartProps) {
     return (
       <TableRow {...group.getHeaderGroupProps()}>
         {group.headers.map((col, index) => (
-          <TableCell {...col.getHeaderProps(col.getSortByToggleProps())}
-                     style={{ width: "200px" }}>
+          <TableCell
+            {...col.getHeaderProps(col.getSortByToggleProps())}
+            style={{ width: "200px" }}
+          >
             {col.render("Header")}
             <TableSortLabel
               active={col.isSorted}

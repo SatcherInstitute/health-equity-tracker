@@ -2,13 +2,13 @@
 export type MetricId =
   | "population"
   | "population_pct"
-  | "brfss_population_pct"
   | "diabetes_count"
   | "diabetes_per_100k"
   | "diabetes_pct_share"
   | "copd_count"
   | "copd_per_100k"
   | "copd_pct_share"
+  | "brfss_population_pct"
   | "covid_cases"
   | "covid_deaths"
   | "covid_hosp"
@@ -30,6 +30,7 @@ export type MetricId =
   | "health_insurance_count"
   | "health_insurance_per_100k"
   | "health_insurance_pct_share"
+  | "health_insurance_population_pct"
   | "poverty_count"
   | "poverty_per_100k";
 
@@ -314,16 +315,9 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
   health_insurance: [
     {
       variableId: "health_coverage",
-      variableDisplayName: "Uninsured people",
-      variableFullDisplayName: "Uninsured people",
+      variableDisplayName: "Uninsured individuals",
+      variableFullDisplayName: "Uninsured individuals",
       metrics: {
-        count: {
-          metricId: "health_insurance_count",
-          fullCardTitleName: "Uninsured individuals",
-          shortVegaLabel: "Uninsured individuals",
-          type: "count",
-          populationComparisonMetric: POPULATION_VARIABLE_CONFIG.metrics.count,
-        },
         per100k: {
           metricId: "health_insurance_per_100k",
           fullCardTitleName: "Uninsured individuals per 100,000 people",
@@ -332,11 +326,15 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         pct_share: {
           metricId: "health_insurance_pct_share",
-          fullCardTitleName: "Share of uninsured Americans",
+          fullCardTitleName: "Share of Uninsured individuals",
           shortVegaLabel: "% of uninsured",
           type: "pct_share",
-          populationComparisonMetric:
-            POPULATION_VARIABLE_CONFIG.metrics.pct_share,
+          populationComparisonMetric: {
+            metricId: "health_insurance_population_pct",
+            fullCardTitleName: "Population Share",
+            shortVegaLabel: "% of total population",
+            type: "pct_share",
+          },
         },
       },
     },
@@ -345,15 +343,8 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "poverty",
       variableDisplayName: "Poverty",
-      variableFullDisplayName: "Below the poverty level",
+      variableFullDisplayName: "Individuals below the poverty line",
       metrics: {
-        count: {
-          metricId: "poverty_count",
-          fullCardTitleName: "Individuals below the poverty line",
-          shortVegaLabel: "Individuals below the poverty line",
-          type: "count",
-          populationComparisonMetric: POPULATION_VARIABLE_CONFIG.metrics.count,
-        },
         per100k: {
           metricId: "poverty_per_100k",
           fullCardTitleName:

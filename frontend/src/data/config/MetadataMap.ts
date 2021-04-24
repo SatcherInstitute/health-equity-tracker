@@ -3,7 +3,7 @@ import { DataSourceMetadata } from "../utils/DatasetTypes";
 const dataSourceMetadataList: DataSourceMetadata[] = [
   {
     id: "acs",
-    data_source_name: "American Community Survey 5-year estimates (2015-2019)",
+    data_source_name: "American Community Survey 5-year estimates",
     data_source_link:
       "https://www.census.gov/data/developers/data-sets/acs-5year.html",
     geographic_level: "State",

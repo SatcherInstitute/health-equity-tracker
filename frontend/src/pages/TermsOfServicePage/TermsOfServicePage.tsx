@@ -8,7 +8,11 @@ function TermsOfServicePage(props: { setTabIndexFx: Dispatch<SetStateAction<numb
       <Grid container className={styles.Grid}>
         <Grid container className={styles.TosSection}>
           <Grid item xs={3}>
-            <Typography className={styles.TosHeaderText}>Privacy Policy</Typography>
+            <Typography id="main"
+                        tabIndex={-1}
+                        className={styles.TosHeaderText}>
+              Privacy Policy
+            </Typography>
           </Grid>
           <Grid item xs={9}>
             <Grid container>

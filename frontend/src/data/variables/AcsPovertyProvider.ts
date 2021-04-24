@@ -38,8 +38,12 @@ class AcsPovertyProvider extends VariableProvider {
     // We apply the geo filter right away to reduce subsequent calculation times
     df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);
-    //TODO: Move rename to backend.
-    df = df.renameSeries({ race: "race_and_ethnicity" });
+
+    // TODO: remove this code once the pipeline is run with the new race
+    // standardization changes.
+    if (!df.getColumnNames().includes("race_and_ethnicity")) {
+      df = df.renameSeries({ race: "race_and_ethnicity" });
+    }
 
     df = this.aggregateByBreakdown(df, breakdownCol);
     if (breakdowns.geography === "national") {
@@ -53,14 +57,12 @@ class AcsPovertyProvider extends VariableProvider {
         .resetIndex();
     }
 
-    
     //Remove white hispanic to bring inline with others
-    df = df
-      .where(
-        (row) =>
-          //We remove these races because they are subsets
-          row["race_and_ethnicity"] !== WHITE_NH
-      )
+    df = df.where(
+      (row) =>
+        //We remove these races because they are subsets
+        row["race_and_ethnicity"] !== WHITE_NH
+    );
 
     // Calculate totals where dataset doesn't provide it
     // TODO- this should be removed when Totals come from the Data Server

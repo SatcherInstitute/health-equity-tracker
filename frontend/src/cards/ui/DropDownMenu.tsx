@@ -105,7 +105,7 @@ function DropDownMenu(props: {
 
   return (
     <>
-      <div className={styles.FilterBy}>Filter by:</div>
+      <div className={styles.FilterBy}>Select group:</div>
       <Button variant="text" onClick={firstMenu.open}>
         <u>{props.value}</u>
         <ArrowDropDown />
