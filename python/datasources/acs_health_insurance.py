@@ -616,5 +616,5 @@ class ACSHealthInsurance(DataSource):
 # AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).write_to_bq(
 #     'acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
 
-AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).write_local_files_debug()
-AcsHealhInsuranceSexIngestor(BASE_ACS_URL).write_local_files_debug()
+# AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).write_local_files_debug()
+# AcsHealhInsuranceSexIngestor(BASE_ACS_URL).write_local_files_debug()
