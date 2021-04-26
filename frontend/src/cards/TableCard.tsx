@@ -79,8 +79,8 @@ export function TableCard(props: TableCardProps) {
                 />
               </CardContent>
             )}
-            {displayingCovidData &&
-              !queryResponse.dataIsMissing() &&
+            {!queryResponse.dataIsMissing() &&
+              displayingCovidData &&
               props.breakdownVar === RACE && (
                 <>
                   <CardContent>
