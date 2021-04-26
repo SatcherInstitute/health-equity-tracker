@@ -44,7 +44,7 @@ HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES = {
     "C27001C": Race.AIAN.value,
     "C27001D": Race.ASIAN.value,
     "C27001E": Race.NHPI.value,
-    "C27001F": Race.OTHER.value,
+    "C27001F": Race.OTHER_STANDARD.value,
     "C27001G": Race.MULTI.value,
     "C27001H": Race.WHITE_NH.value,
     "C27001I": Race.HISP.value,
