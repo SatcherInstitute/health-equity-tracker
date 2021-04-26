@@ -33,7 +33,8 @@ export type MetricId =
   | "health_insurance_population_pct"
   | "poverty_count"
   | "poverty_per_100k"
-  | "poverty_pct_share";
+  | "poverty_pct_share"
+  | "poverty_population_pct";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.

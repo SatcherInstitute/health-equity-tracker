@@ -19,6 +19,7 @@ class AcsPovertyProvider extends VariableProvider {
       "poverty_count",
       "poverty_per_100k",
       "poverty_pct_share",
+      "poverty_population_pct",
     ]);
   }
   getDatasetId(breakdowns: Breakdowns): string {
@@ -57,14 +58,12 @@ class AcsPovertyProvider extends VariableProvider {
         .resetIndex();
     }
 
-    
     //Remove white hispanic to bring inline with others
-    df = df
-      .where(
-        (row) =>
-          //We remove these races because they are subsets
-          row["race_and_ethnicity"] !== WHITE_NH
-      )
+    df = df.where(
+      (row) =>
+        //We remove these races because they are subsets
+        row["race_and_ethnicity"] !== WHITE_NH
+    );
 
     // Calculate totals where dataset doesn't provide it
     // TODO- this should be removed when Totals come from the Data Server
@@ -98,6 +97,14 @@ class AcsPovertyProvider extends VariableProvider {
       df,
       "poverty_count",
       "poverty_pct_share",
+      breakdowns.getSoleDemographicBreakdown().columnName,
+      ["fips"]
+    );
+
+    df = this.calculatePctShare(
+      df,
+      "total",
+      "poverty_population_pct",
       breakdowns.getSoleDemographicBreakdown().columnName,
       ["fips"]
     );
