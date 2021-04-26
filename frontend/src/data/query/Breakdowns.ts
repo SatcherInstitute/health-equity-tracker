@@ -48,7 +48,7 @@ interface DemographicBreakdown {
   readonly enabled: boolean;
   // Filter to apply to the breakdown. If no filter is specified, all available
   // values for that column should be returned.
-  filter?: BreakdownFilter;
+  readonly filter?: Readonly<BreakdownFilter>;
 }
 
 function stringifyDemographic(breakdown: DemographicBreakdown) {
@@ -79,7 +79,10 @@ export class Breakdowns {
   // We may want to extend this to an explicit type to support variants for
   // day/week/month/year.
   time: boolean;
-  demographicBreakdowns: Record<DemographicBreakdownKey, DemographicBreakdown>;
+  demographicBreakdowns: Record<
+    DemographicBreakdownKey,
+    Readonly<DemographicBreakdown>
+  >;
   filterFips?: Fips;
 
   constructor(
