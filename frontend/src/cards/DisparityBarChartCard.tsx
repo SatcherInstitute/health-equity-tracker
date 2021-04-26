@@ -86,8 +86,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               row[props.breakdownVar] !== UNKNOWN_RACE
           );
 
-        console.log(unknowns);
-
         return (
           <>
             {unknowns.length === 1 && (
