@@ -359,8 +359,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           fullCardTitleName: "Share of Poverty",
           shortVegaLabel: "% of impoverished",
           type: "pct_share",
-          populationComparisonMetric:
-            POPULATION_VARIABLE_CONFIG.metrics.pct_share,
+          populationComparisonMetric: {
+            metricId: "poverty_population_pct",
+            fullCardTitleName: "Population Share",
+            shortVegaLabel: "% of total population",
+            type: "pct_share",
+          },
         },
       },
     },

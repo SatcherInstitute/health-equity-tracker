@@ -63,7 +63,7 @@ class AcsPovertyProvider extends VariableProvider {
         .resetIndex();
     }
 
-    //Remove white hispanic to bring inline with others
+    // Remove white hispanic to bring inline with others
     df = df.where(
       (row) =>
         //We remove these races because they are subsets
@@ -86,12 +86,14 @@ class AcsPovertyProvider extends VariableProvider {
       .resetIndex();
     df = df.concat(calculatedValueForAll).resetIndex();
 
+    // Add a column for all people.
+    df = df.generateSeries({
+      total_pop: (row) => row[BELOW_POVERTY_COL] + row[ABOVE_POVERTY_COL],
+    });
+
     df = df.generateSeries({
       poverty_per_100k: (row) =>
-        per100k(
-          row[BELOW_POVERTY_COL],
-          row[BELOW_POVERTY_COL] + row[ABOVE_POVERTY_COL]
-        ),
+        per100k(row[BELOW_POVERTY_COL], row["total_pop"]),
     });
 
     df = df.renameSeries({
@@ -108,7 +110,7 @@ class AcsPovertyProvider extends VariableProvider {
 
     df = this.calculatePctShare(
       df,
-      "total",
+      "total_pop",
       "poverty_population_pct",
       breakdowns.getSoleDemographicBreakdown().columnName,
       ["fips"]
