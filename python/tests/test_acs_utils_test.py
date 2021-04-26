@@ -65,7 +65,7 @@ class AcsUtilsTest(unittest.TestCase):
         }
 
         result = parseMetadata(meta_in, [])
-        expected = {"B00001_001E": {MetadataKey.AGE: "0-4"}}
+        expected = {"B00001_001E": {MetadataKey.AGE: "0-5"}}
         self.assertEqual(result, expected)
 
     def testing_age_range(self):
