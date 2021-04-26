@@ -48,6 +48,7 @@ class CovidProvider extends VariableProvider {
         ? "covid_by_county_and_race"
         : "covid_by_state_and_race";
     const covid_dataset = await getDataManager().loadDataset(datasetId);
+    // ALERT! KEEP IN SYNC! Make sure you update DataSourceMetadata if you update dataset IDs
     let consumedDatasetIds = [datasetId];
 
     // TODO need to figure out how to handle getting this at the national level

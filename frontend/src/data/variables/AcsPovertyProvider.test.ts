@@ -209,8 +209,8 @@ describe("AcsPovertyProvider", () => {
       200,
       10000
     );
-    const NC_WHITE_FINAL = finalCountyRow(KING_COUNTY, RACE, WHITE, 100, 50000);
-    const NC_ALL_FINAL = finalCountyRow(KING_COUNTY, RACE, ALL, 300, 13636);
+    const KC_WHITE_FINAL = finalCountyRow(KING_COUNTY, RACE, WHITE, 100, 50000);
+    const KC_ALL_FINAL = finalCountyRow(KING_COUNTY, RACE, ALL, 300, 13636);
     const MARIN_ROW_FINAL = finalCountyRow(MARIN, RACE, ASIAN_NH, 1, 100);
     const MARIN_ALL_ROW_FINAL = finalCountyRow(MARIN, RACE, ALL, 1, 100);
 
@@ -219,13 +219,13 @@ describe("AcsPovertyProvider", () => {
       rawData,
       Breakdowns.byCounty(),
       RACE,
-      [MARIN_ROW_FINAL, NC_ASIAN_FINAL, NC_WHITE_FINAL],
+      [MARIN_ROW_FINAL, NC_ASIAN_FINAL, KC_WHITE_FINAL],
       [
         MARIN_ROW_FINAL,
-        NC_ASIAN_FINAL,
-        NC_WHITE_FINAL,
         MARIN_ALL_ROW_FINAL,
-        NC_ALL_FINAL,
+        NC_ASIAN_FINAL,
+        KC_WHITE_FINAL,
+        KC_ALL_FINAL,
       ]
     );
   });

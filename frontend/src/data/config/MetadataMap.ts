@@ -1,9 +1,12 @@
 import { DataSourceMetadata } from "../utils/DatasetTypes";
 
+// ALERT!!! Keep this file in sync with FakeDatasetMetadata while it is present
+// All dataset IDs should be in the FakeDatasetMetadata
+
 const dataSourceMetadataList: DataSourceMetadata[] = [
   {
     id: "acs",
-    data_source_name: "American Community Survey 5-year estimates (2015-2019)",
+    data_source_name: "American Community Survey 5-year estimates",
     data_source_link:
       "https://www.census.gov/data/developers/data-sets/acs-5year.html",
     geographic_level: "State",
@@ -18,10 +21,10 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
       "acs_population-by_age_county",
       "acs_population-by_sex_state",
       "acs_population-by_sex_county",
-      "acs_health_insurance-health_insurance_by_race_state",
-      "acs_health_insurance-health_insurance_by_race_county",
-      "acs_health_insurance-health_insurance_by_sex_state",
-      "acs_health_insurance-health_insurance_by_sex_county",
+      "acs_health_insurance-health_insurance_by_sex_age_county",
+      "acs_health_insurance-health_insurance_by_sex_age_state",
+      "acs_health_insurance-health_insurance_by_race_age_state",
+      "acs_health_insurance-health_insurance_by_race_age_county",
       "acs_poverty_dataset-poverty_by_race_age_sex_state",
       "acs_poverty_dataset-poverty_by_race_age_sex_county",
     ],

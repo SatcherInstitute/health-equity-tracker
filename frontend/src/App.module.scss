@@ -14,6 +14,35 @@
   background-color: white;
 }
 
+// For the "Skip to Main Content" link for screenreader users
+.SkipMainLink {
+  left:-999px;
+  position:absolute;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+  z-index:-999;
+
+  &:focus,
+  &:active {
+    color: #fff;
+    background-color:#000;
+    left: auto;
+    top: auto;
+    width: 30%;
+    height: auto;
+    overflow:auto;
+    margin: 10px 35%;
+    padding:5px;
+    border-radius: 15px;
+    border:4px solid yellow;
+    text-align:center;
+    font-size:1.2em;
+    z-index:999;
+  }
+}
+
 .Content {
   padding-bottom: $footer-size;
   height: 100%;
@@ -36,6 +65,8 @@
 }
 
 .HomeLogo {
+  font-size: 1.25rem !important;
+  font-weight: 500 !important;
   flex-grow: 1;
   text-align: left;
   font-family: "DM Sans", sans-serif !important;

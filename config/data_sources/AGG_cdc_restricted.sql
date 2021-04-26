@@ -14,8 +14,11 @@ WITH
       SELECT DISTINCT
         b.state_fips_code as state_fips,
         b.state_name,
-        a.race_and_ethnicity,
-        a.cases, a.hosp_y, a.hosp_n, a.hosp_unknown, a.death_y, a.death_n, a.death_unknown
+        a.race_category_id,
+        a.cases, a.hosp_y, a.hosp_n, a.hosp_unknown, a.death_y, a.death_n, a.death_unknown,
+        a.race,
+        a.race_includes_hispanic,
+        a.race_and_ethnicity
     FROM `cdc_restricted_data.cdc_restricted_by_race_state` AS a
     LEFT JOIN `bigquery-public-data.census_utility.fips_codes_states` AS b
         ON a.state_postal = b.state_postal_abbreviation
@@ -25,12 +28,12 @@ WITH
       SELECT x.*, y.population
       FROM cdc_restricted_race_state AS x
       LEFT JOIN `acs_population.by_race_state_std` AS y
-          USING (state_fips, race_and_ethnicity)
+          USING (state_fips, race_category_id)
   ),
   totals as (
       SELECT
         state_fips, state_name,
-        'Total' as race_and_ethnicity,
+        'TOTAL' as race_category_id,
         SUM(cases) as cases,
         SUM(hosp_y) as hosp_y,
         SUM(hosp_n) as hosp_n,
@@ -38,8 +41,17 @@ WITH
         SUM(death_y) as death_y,
         SUM(death_n) as death_n,
         SUM(death_unknown) as death_unknown,
+        'Total' as race,
+        CAST(NULL as BOOL) as race_includes_hispanic,
+        'Total' as race_and_ethnicity
       FROM joined_with_acs
-      GROUP BY state_fips, state_name, race_and_ethnicity
+      GROUP BY
+        state_fips,
+        state_name,
+        race_category_id,
+        race,
+        race_and_ethnicity,
+        race_includes_hispanic
   ),
   -- TODO do this properly. For more details, see
   -- https://github.com/SatcherInstitute/health-equity-tracker/issues/604.
@@ -48,12 +60,12 @@ WITH
       FROM totals as x
       LEFT JOIN `acs_population.by_race_state_std` AS y
           ON x.state_fips = y.state_fips AND 
-             y.race_and_ethnicity = "Total"
+             y.race_category_id = "TOTAL"
   )
 SELECT * FROM joined_with_acs
 UNION ALL
 SELECT * FROM total_rows
-ORDER BY state_fips, race_and_ethnicity
+ORDER BY state_fips, race_category_id
 ;
 
 -- State-level sex.
@@ -97,7 +109,7 @@ WITH
       FROM totals as x
       LEFT JOIN `acs_population.by_race_state_std` AS y
           ON x.state_fips = y.state_fips AND 
-             y.race_and_ethnicity = "Total"
+             y.race_category_id = "TOTAL"
   )
 SELECT * FROM joined_with_acs
 UNION ALL
@@ -146,7 +158,7 @@ WITH
       FROM totals as x
       LEFT JOIN `acs_population.by_race_state_std` AS y
           ON x.state_fips = y.state_fips AND 
-             y.race_and_ethnicity = "Total"
+             y.race_category_id = "TOTAL"
   )
 SELECT * FROM joined_with_acs
 UNION ALL
@@ -173,8 +185,11 @@ WITH
         c.area_name as county_name,
         IF(a.state_postal = "Unknown", "", b.state_fips_code) as state_fips,
         IF(a.state_postal = "Unknown", "Unknown", b.state_name) as state_name,
-        a.race_and_ethnicity,
-        a.cases, a.hosp_y, a.hosp_n, a.hosp_unknown, a.death_y, a.death_n, a.death_unknown
+        a.race_category_id,
+        a.cases, a.hosp_y, a.hosp_n, a.hosp_unknown, a.death_y, a.death_n, a.death_unknown,
+        a.race,
+        a.race_includes_hispanic,
+        a.race_and_ethnicity
       FROM `cdc_restricted_data.cdc_restricted_by_race_county` AS a
       LEFT JOIN `bigquery-public-data.census_utility.fips_codes_states` AS b
           ON a.state_postal = b.state_postal_abbreviation
@@ -187,13 +202,13 @@ WITH
       SELECT x.*, y.population
       FROM cdc_restricted_race_county AS x
       LEFT JOIN `acs_population.by_race_county_std` AS y
-          USING (county_fips, state_fips, race_and_ethnicity)
+          USING (county_fips, state_fips, race_category_id)
       WHERE SUBSTRING(x.county_fips, 0, 2) = x.state_fips
   ),
   totals as (
       SELECT
         county_fips, county_name, state_fips, state_name,
-        'Total' as race_and_ethnicity,
+        'TOTAL' as race_category_id,
         SUM(cases) as cases,
         SUM(hosp_y) as hosp_y,
         SUM(hosp_n) as hosp_n,
@@ -201,8 +216,19 @@ WITH
         SUM(death_y) as death_y,
         SUM(death_n) as death_n,
         SUM(death_unknown) as death_unknown,
+        'Total' as race,
+        CAST(NULL as BOOL) as race_includes_hispanic,
+        'Total' as race_and_ethnicity
       FROM joined_with_acs
-      GROUP BY county_fips, county_name, state_fips, state_name, race_and_ethnicity
+      GROUP BY
+        county_fips,
+        county_name,
+        state_fips,
+        state_name,
+        race_category_id,
+        race,
+        race_and_ethnicity,
+        race_includes_hispanic
   ),
   -- TODO do this properly. For more details, see
   -- https://github.com/SatcherInstitute/health-equity-tracker/issues/604.
@@ -212,12 +238,12 @@ WITH
       LEFT JOIN `acs_population.by_race_county_std` AS y
           ON x.county_fips = y.county_fips AND
              x.state_fips = y.state_fips AND
-             y.race_and_ethnicity = "Total"
+             y.race_category_id = "TOTAL"
   )
 SELECT * FROM joined_with_acs
 UNION ALL
 SELECT * FROM total_rows
-ORDER BY county_fips, race_and_ethnicity
+ORDER BY county_fips, race_category_id
 ;
 
 -- County-level sex.
@@ -268,7 +294,7 @@ WITH
       LEFT JOIN `acs_population.by_race_county_std` AS y
           ON x.county_fips = y.county_fips AND
              x.state_fips = y.state_fips AND
-             y.race_and_ethnicity = "Total"
+             y.race_category_id = "TOTAL"
   )
 SELECT * FROM joined_with_acs
 UNION ALL
@@ -324,7 +350,7 @@ WITH
       LEFT JOIN `acs_population.by_race_county_std` AS y
           ON x.county_fips = y.county_fips AND
              x.state_fips = y.state_fips AND
-             y.race_and_ethnicity = "Total"
+             y.race_category_id = "TOTAL"
   )
 SELECT * FROM joined_with_acs
 UNION ALL
