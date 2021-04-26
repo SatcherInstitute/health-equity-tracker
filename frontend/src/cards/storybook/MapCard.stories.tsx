@@ -29,11 +29,29 @@ const Template: Story<MapCardProps> = (args) => <MapCardStateful {...args} />;
 export const CovidPercentShareMap = Template.bind({});
 CovidPercentShareMap.args = {
   metricConfig: METRIC_CONFIG["covid"][0].metrics["pct_share"],
-  currentBreakdown: "all",
+  currentBreakdown: "race_and_ethnicity",
+};
+
+export const CovidPer100kMap = Template.bind({});
+CovidPer100kMap.args = {
+  metricConfig: METRIC_CONFIG["covid"][0].metrics["per100k"],
+  currentBreakdown: "race_and_ethnicity",
 };
 
 export const CopdPer100kMap = Template.bind({});
 CopdPer100kMap.args = {
   metricConfig: METRIC_CONFIG["copd"][0].metrics["per100k"],
-  currentBreakdown: "all",
+  currentBreakdown: "race_and_ethnicity",
+};
+
+export const HealthInsurancePer100kMap = Template.bind({});
+HealthInsurancePer100kMap.args = {
+  metricConfig: METRIC_CONFIG["health_insurance"][0].metrics["per100k"],
+  currentBreakdown: "race_and_ethnicity",
+};
+
+export const PovertyPer100kMap = Template.bind({});
+PovertyPer100kMap.args = {
+  metricConfig: METRIC_CONFIG["poverty"][0].metrics["per100k"],
+  currentBreakdown: "race_and_ethnicity",
 };

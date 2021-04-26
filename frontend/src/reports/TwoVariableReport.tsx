@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Grid } from "@material-ui/core";
 import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
 import { MapCard } from "../cards/MapCard";
+import { UnknownsMapCard } from "../cards/UnknownsMapCard";
 import { PopulationCard } from "../cards/PopulationCard";
 import { TableCard } from "../cards/TableCard";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
@@ -10,6 +11,7 @@ import { DropdownVarId } from "../utils/MadLibs";
 import { Fips } from "../data/utils/Fips";
 import {
   METRIC_CONFIG,
+  MetricConfig,
   VariableConfig,
   getPer100kAndPctShareMetrics,
 } from "../data/config/MetricConfig";
@@ -24,12 +26,12 @@ function TwoVariableReport(props: {
   dropdownVarId2: DropdownVarId;
   fips1: Fips;
   fips2: Fips;
-  updateFips1Callback: Function;
-  updateFips2Callback: Function;
+  updateFips1Callback: (fips: Fips) => void;
+  updateFips2Callback: (fips: Fips) => void;
 }) {
-  const [currentBreakdown, setCurrentBreakdown] = useState<
-    BreakdownVar | "all"
-  >("all");
+  const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
+    "race_and_ethnicity"
+  );
 
   const [variableConfig1, setVariableConfig1] = useState<VariableConfig | null>(
     Object.keys(METRIC_CONFIG).includes(props.dropdownVarId1)
@@ -58,68 +60,98 @@ function TwoVariableReport(props: {
   }
 
   const breakdownIsShown = (breakdownVar: string) =>
-    currentBreakdown === "all" || currentBreakdown === breakdownVar;
+    currentBreakdown === breakdownVar;
 
   return (
     <Grid container spacing={1} alignItems="flex-start">
       {props.fips1.code === props.fips2.code ? (
-        <Grid item xs={12}>
-          <PopulationCard fips={props.fips1} />
-        </Grid>
+        <>
+          <Grid item xs={12}>
+            <PopulationCard fips={props.fips1} />
+            <ReportToggleControls
+              dropdownVarId={props.dropdownVarId1}
+              variableConfig={variableConfig1}
+              setVariableConfig={setVariableConfig1}
+              currentBreakdown={currentBreakdown}
+              setCurrentBreakdown={setCurrentBreakdown}
+            />
+          </Grid>
+        </>
       ) : (
         <>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <PopulationCard fips={props.fips1} />
+            <ReportToggleControls
+              dropdownVarId={props.dropdownVarId1}
+              variableConfig={variableConfig1}
+              setVariableConfig={setVariableConfig1}
+              currentBreakdown={currentBreakdown}
+              setCurrentBreakdown={setCurrentBreakdown}
+            />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <PopulationCard fips={props.fips2} />
+            <ReportToggleControls
+              dropdownVarId={props.dropdownVarId2}
+              variableConfig={variableConfig2}
+              setVariableConfig={setVariableConfig2}
+              currentBreakdown={currentBreakdown}
+              setCurrentBreakdown={setCurrentBreakdown}
+            />
           </Grid>
         </>
       )}
 
-      <Grid item xs={6}>
-        <ReportToggleControls
-          dropdownVarId={props.dropdownVarId1}
-          variableConfig={variableConfig1}
-          setVariableConfig={setVariableConfig1}
-          currentBreakdown={currentBreakdown}
-          setCurrentBreakdown={setCurrentBreakdown}
-        />
-      </Grid>
-      <Grid item xs={6}>
-        <ReportToggleControls
-          dropdownVarId={props.dropdownVarId2}
-          variableConfig={variableConfig2}
-          setVariableConfig={setVariableConfig2}
-          currentBreakdown={currentBreakdown}
-          setCurrentBreakdown={setCurrentBreakdown}
-        />
-      </Grid>
-      <Grid item xs={6}>
-        <MapCard
-          metricConfig={variableConfig1.metrics["per100k"]}
-          fips={props.fips1}
-          updateFipsCallback={(fips: Fips) => {
-            props.updateFips1Callback(fips);
-          }}
-          currentBreakdown={currentBreakdown}
-        />
-      </Grid>
-      <Grid item xs={6}>
-        <MapCard
-          metricConfig={variableConfig2.metrics["per100k"]}
-          fips={props.fips2}
-          updateFipsCallback={(fips: Fips) => {
-            props.updateFips2Callback(fips);
-          }}
-          currentBreakdown={currentBreakdown}
-        />
-      </Grid>
+      <RowOfTwoOptionalMetrics
+        metric1={variableConfig1.metrics["per100k"]}
+        metric2={variableConfig2.metrics["per100k"]}
+        fips1={props.fips1}
+        fips2={props.fips2}
+        updateFips1={props.updateFips1Callback}
+        updateFips2={props.updateFips2Callback}
+        createCard={(
+          metricConfig: MetricConfig,
+          fips: Fips,
+          updateFips: (fips: Fips) => void
+        ) => (
+          <MapCard
+            metricConfig={metricConfig}
+            fips={fips}
+            updateFipsCallback={(fips: Fips) => {
+              updateFips(fips);
+            }}
+            currentBreakdown={currentBreakdown}
+          />
+        )}
+      />
+
+      <RowOfTwoOptionalMetrics
+        metric1={variableConfig1.metrics["pct_share"]}
+        metric2={variableConfig2.metrics["pct_share"]}
+        fips1={props.fips1}
+        fips2={props.fips2}
+        updateFips1={props.updateFips1Callback}
+        updateFips2={props.updateFips2Callback}
+        createCard={(
+          metricConfig: MetricConfig,
+          fips: Fips,
+          updateFips: (fips: Fips) => void
+        ) => (
+          <UnknownsMapCard
+            metricConfig={metricConfig}
+            fips={fips}
+            updateFipsCallback={(fips: Fips) => {
+              updateFips(fips);
+            }}
+            currentBreakdown={currentBreakdown}
+          />
+        )}
+      />
 
       {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
         !breakdownIsShown(breakdownVar) ? null : (
           <>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <TableCard
                 fips={props.fips1}
                 variableConfig={variableConfig1}
@@ -127,7 +159,7 @@ function TwoVariableReport(props: {
                 breakdownVar={breakdownVar}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <TableCard
                 fips={props.fips2}
                 variableConfig={variableConfig2}
@@ -141,46 +173,92 @@ function TwoVariableReport(props: {
       {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
         !breakdownIsShown(breakdownVar) ? null : (
           <>
-            {variableConfig1.metrics["pct_share"] && (
-              <Grid item xs={6}>
+            <RowOfTwoOptionalMetrics
+              metric1={variableConfig1.metrics["pct_share"]}
+              metric2={variableConfig2.metrics["pct_share"]}
+              fips1={props.fips1}
+              fips2={props.fips2}
+              createCard={(
+                metricConfig: MetricConfig,
+                fips: Fips,
+                unusedUpdateFips: (fips: Fips) => void
+              ) => (
                 <DisparityBarChartCard
-                  metricConfig={variableConfig1.metrics["pct_share"]}
+                  metricConfig={metricConfig}
                   breakdownVar={breakdownVar}
-                  fips={props.fips1}
+                  fips={fips}
                 />
-              </Grid>
-            )}
-            {variableConfig2.metrics["pct_share"] && (
-              <Grid item xs={6}>
-                <DisparityBarChartCard
-                  metricConfig={variableConfig2.metrics["pct_share"]}
-                  breakdownVar={breakdownVar}
-                  fips={props.fips2}
-                />
-              </Grid>
-            )}
-            {variableConfig1.metrics["per100k"] && (
-              <Grid item xs={6}>
+              )}
+            />
+            <RowOfTwoOptionalMetrics
+              metric1={variableConfig1.metrics["per100k"]}
+              metric2={variableConfig2.metrics["per100k"]}
+              fips1={props.fips1}
+              fips2={props.fips2}
+              createCard={(
+                metricConfig: MetricConfig,
+                fips: Fips,
+                unusedUpdateFips: (fips: Fips) => void
+              ) => (
                 <SimpleBarChartCard
-                  metricConfig={variableConfig1.metrics["per100k"]}
+                  metricConfig={metricConfig}
                   breakdownVar={breakdownVar}
-                  fips={props.fips1}
+                  fips={fips}
                 />
-              </Grid>
-            )}
-            {variableConfig1.metrics["per100k"] && (
-              <Grid item xs={6}>
-                <SimpleBarChartCard
-                  metricConfig={variableConfig2.metrics["per100k"]}
-                  breakdownVar={breakdownVar}
-                  fips={props.fips2}
-                />
-              </Grid>
-            )}
+              )}
+            />
           </>
         )
       )}
     </Grid>
+  );
+}
+
+function RowOfTwoOptionalMetrics(props: {
+  metric1: MetricConfig | undefined;
+  metric2: MetricConfig | undefined;
+  fips1: Fips;
+  fips2: Fips;
+  updateFips1?: (fips: Fips) => void;
+  updateFips2?: (fips: Fips) => void;
+  createCard: (
+    metricConfig: MetricConfig,
+    fips: Fips,
+    updateFips: (fips: Fips) => void
+  ) => JSX.Element;
+}) {
+  if (!props.metric1 && !props.metric2) {
+    return <></>;
+  }
+
+  // Needed for type safety, used when the card does not need to use the fips update callback
+  const unusedFipsCallback = () => {};
+
+  return (
+    <>
+      <Grid item xs={12} sm={6}>
+        {props.metric1 && (
+          <>
+            {props.createCard(
+              props.metric1,
+              props.fips1,
+              props.updateFips1 || unusedFipsCallback
+            )}
+          </>
+        )}
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        {props.metric2 && (
+          <>
+            {props.createCard(
+              props.metric2,
+              props.fips2,
+              props.updateFips2 || unusedFipsCallback
+            )}
+          </>
+        )}
+      </Grid>
+    </>
   );
 }
 

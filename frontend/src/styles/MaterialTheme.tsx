@@ -6,7 +6,7 @@ const MaterialTheme = createMuiTheme({
     primary: {
       light: "#91C684",
       main: "#0B5240",
-      dark: "#054272",
+      dark: "#083f31",
     },
     secondary: {
       light: "#89D5CC",
@@ -21,7 +21,7 @@ const MaterialTheme = createMuiTheme({
     MuiCssBaseline: {
       "@global": {
         body: {
-          fontFamily: "DM Sans",
+          fontFamily: '"Inter", serif',
         },
         ".MuiAlert-standardInfo	.MuiAlert-icon": {
           color: "#0B5240 !important",
@@ -33,7 +33,11 @@ const MaterialTheme = createMuiTheme({
     },
     MuiButton: {
       root: {
+        fontFamily: '"Inter", serif',
         textTransform: "unset",
+      },
+      containedPrimary: {
+        color: "#ffffff !important",
       },
     },
     MuiPaper: {
@@ -61,13 +65,21 @@ const MaterialTheme = createMuiTheme({
       },
     },
     MuiAlert: {
+      root: {
+        fontFamily: '"Inter", serif',
+      },
       standardInfo: {
         backgroundColor: "#F8F9FA !important",
         color: "#00000 !important",
+        textAlign: "left",
       },
       standardWarning: {
         backgroundColor: "#FFF8EB !important",
         color: "#00000 !important",
+        textAlign: "left",
+      },
+      standardError: {
+        textAlign: "left",
       },
     },
   },

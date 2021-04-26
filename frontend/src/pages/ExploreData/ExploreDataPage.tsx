@@ -51,8 +51,10 @@ function ExploreDataPage() {
 
   const [sticking, setSticking] = useState<boolean>(false);
 
+  const EXPLORE_DATA_ID = "main";
+
   useEffect(() => {
-    const header = document.getElementById("ExploreData");
+    const header = document.getElementById(EXPLORE_DATA_ID);
     const stickyBarOffsetFromTop: number = header ? header.offsetTop : 1;
     const scrollCallBack: any = window.addEventListener("scroll", () => {
       if (window.pageYOffset > stickyBarOffsetFromTop) {
@@ -73,7 +75,7 @@ function ExploreDataPage() {
   }, []);
 
   return (
-    <div id="ExploreData" className={styles.ExploreData}>
+    <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
       <div className={styles.CarouselContainer}>
         <Carousel
           className={styles.Carousel}
@@ -82,6 +84,7 @@ function ExploreDataPage() {
           indicators={!sticking}
           animation="slide"
           navButtonsAlwaysVisible={true}
+          index={initalIndex}
           onChange={(index: number) => {
             setMadLib({
               ...MADLIB_LIST[index],

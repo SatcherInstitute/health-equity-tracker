@@ -207,66 +207,61 @@ const HE_TASKFORCE = [
 const PARTNERS = [
   {
     imageUrl: "img/PartnerSatcher.png",
-    alt: "alt",
+    alt: "Morehouse School of Medicine Satcher Health Leadership Institute",
   },
   {
     imageUrl: "img/PartnerGilead.png",
-    alt: "alt",
+    alt: "Gilead Sciences, Inc.",
   },
   {
     imageUrl: "img/PartnerCdc.png",
-    alt: "alt",
+    alt: "United States Center for Disease Control and Prevention",
   },
   {
     imageUrl: "img/PartnerGoogle.png",
-    alt: "alt",
+    alt: "Google",
   },
 ];
 
 function OurTeamTab() {
   return (
     <Grid container className={styles.Grid}>
-      <Grid container className={styles.GridSectionHeaderText}>
-        <Grid item xs={7}>
-          <Typography className={styles.HeaderText}>
+      <Grid container className={styles.GridRowHeaderText}>
+        <Grid item xs={12} sm={12} md={7}>
+          <Typography
+            id="main"
+            tabIndex={-1}
+            className={styles.OurTeamHeaderText}
+            variant="h1"
+          >
             We're working towards a better tomorrow.
           </Typography>
-          <Typography className={styles.HeaderSubtext}>
+          <Typography className={styles.HeaderSubtext} variant="subtitle1">
             We strongly support breaking down systemic barriers in order to
             achieve a more healthy, equitable, and inclusive society.
           </Typography>
         </Grid>
       </Grid>
 
-      <Grid container className={styles.GridSection}>
+      <Grid container className={styles.GridRow}>
         <Grid item xs={12}>
-          <Typography
-            variant="h6"
-            align="left"
-            style={{
-              fontSize: "28px",
-              textAlign: "left",
-              fontFamily: "Taviraj",
-            }}
-            className={styles.UnderlinedHeader}
-          >
+          <Typography variant="h2" align="left" className={styles.TeamHeader}>
             Leadership Team
           </Typography>
         </Grid>
         <Grid item>
-          <Grid container className={styles.GridSubSection}>
+          <Grid container justify="space-around" className={styles.GridSubRow}>
             {LEADERSHIP_TEAM.map((leader) => {
               return (
-                <Grid item xs={3} className={styles.TextProfile}>
-                  <img src={leader.imageUrl} alt={leader.name} />
+                <Grid item className={styles.TextProfile}>
+                  <img
+                    src={leader.imageUrl}
+                    alt={leader.name}
+                    className={styles.ProfileImg}
+                  />
                   <br />
-                  <span style={{ fontSize: "16px", fontWeight: 500 }}>
-                    {leader.name}
-                  </span>
-                  <br />
-                  <span style={{ fontSize: "14px", fontWeight: 400 }}>
-                    {leader.role}
-                  </span>
+                  <h3 className={styles.LeaderNameHeading}>{leader.name}</h3>
+                  <span className={styles.LeaderRoleSpan}>{leader.role}</span>
                 </Grid>
               );
             })}
@@ -274,26 +269,17 @@ function OurTeamTab() {
         </Grid>
       </Grid>
 
-      <Grid container className={styles.GridSection}>
+      <Grid container className={styles.GridRow}>
         <Grid item xs={12}>
-          <Typography
-            variant="h6"
-            align="left"
-            style={{
-              fontSize: "28px",
-              textAlign: "left",
-              fontFamily: "Taviraj",
-            }}
-            className={styles.UnderlinedHeader}
-          >
+          <Typography variant="h2" align="left" className={styles.TeamHeader}>
             Google.org Fellows
           </Typography>
         </Grid>
         <Grid item>
-          <Grid container className={styles.GridSubSection}>
+          <Grid container className={styles.GridSubRow}>
             {GOOGLE_FELLOWS.map((fellow) => {
               return (
-                <Grid item xs={3} className={styles.TextProfile}>
+                <Grid item className={styles.TextProfile}>
                   <span style={{ fontSize: "16px", fontWeight: 500 }}>
                     {fellow.name}
                   </span>
@@ -308,26 +294,17 @@ function OurTeamTab() {
         </Grid>
       </Grid>
 
-      <Grid container className={styles.GridSection}>
+      <Grid container className={styles.GridRow}>
         <Grid item xs={12}>
-          <Typography
-            variant="h6"
-            align="left"
-            style={{
-              fontSize: "28px",
-              textAlign: "left",
-              fontFamily: "Taviraj",
-            }}
-            className={styles.UnderlinedHeader}
-          >
+          <Typography variant="h2" align="left" className={styles.TeamHeader}>
             Health Equity Task Force
           </Typography>
         </Grid>
 
         <Grid item xs={12}>
-          <Grid container className={styles.GridSubSection}>
+          <Grid container className={styles.GridSubRow}>
             {HE_TASKFORCE.map((name) => (
-              <Grid item xs={3} className={styles.TextProfile}>
+              <Grid item className={styles.TextProfile}>
                 <span style={{ fontSize: "16px", fontWeight: 500 }}>
                   {name}
                 </span>
@@ -337,30 +314,21 @@ function OurTeamTab() {
         </Grid>
       </Grid>
 
-      <Grid container className={styles.GridSection}>
+      <Grid container className={styles.GridRow}>
         <Grid item xs={12}>
-          <Typography
-            variant="h6"
-            align="left"
-            style={{
-              fontSize: "28px",
-              textAlign: "left",
-              fontFamily: "Taviraj",
-            }}
-            className={styles.UnderlinedHeader}
-          >
+          <Typography variant="h6" align="left" className={styles.TeamHeader}>
             Partners
           </Typography>
         </Grid>
 
         <Grid item xs={12}>
-          <Grid container className={styles.GridSubSection}>
-            {PARTNERS.map((partner) => (
-              <Grid item xs={3} className={styles.TextProfile}>
-                <img src={partner.imageUrl} alt={partner.alt} />
-              </Grid>
-            ))}
-          </Grid>
+          {PARTNERS.map((partner) => (
+            <img
+              src={partner.imageUrl}
+              alt={partner.alt}
+              className={styles.PartnerImg}
+            />
+          ))}
         </Grid>
       </Grid>
     </Grid>

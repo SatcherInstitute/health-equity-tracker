@@ -1,23 +1,27 @@
 import React from "react";
 import { DisparityBarChart } from "../charts/DisparityBarChart";
 import styles from "./Card.module.scss";
-import { CardContent } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
+import { CardContent, Divider } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
+  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
 import { MetricConfig } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
-import RaceInfoPopoverContent from "./ui/RaceInfoPopoverContent";
-import DisparityInfoPopover from "./ui/DisparityInfoPopover";
 import MissingDataAlert from "./ui/MissingDataAlert";
-import { usePopover } from "../utils/usePopover";
 import { exclude } from "../data/query/BreakdownFilter";
-import { NON_HISPANIC, TOTAL } from "../data/utils/Constants";
+import {
+  NON_HISPANIC,
+  ALL,
+  UNKNOWN,
+  UNKNOWN_RACE,
+} from "../data/utils/Constants";
+import { Row } from "../data/utils/DatasetTypes";
+import Alert from "@material-ui/lab/Alert";
 
 export interface DisparityBarChartCardProps {
   key?: string;
@@ -40,28 +44,24 @@ export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
 function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
-    exclude(TOTAL, NON_HISPANIC)
+    exclude(ALL, NON_HISPANIC)
   );
 
   // Population Comparison Metric is required for the Disparity Bar Chart.
-  const query = new MetricQuery(
-    [
-      props.metricConfig.metricId,
-      props.metricConfig.populationComparisonMetric!.metricId,
-    ],
-    breakdowns
-  );
+  // If MetricConfig supports known breakdown metric, prefer this metric.
+  let metricIds = [
+    props.metricConfig.metricId,
+    props.metricConfig.populationComparisonMetric!.metricId,
+  ];
+  if (props.metricConfig.knownBreakdownComparisonMetric) {
+    metricIds.push(props.metricConfig.knownBreakdownComparisonMetric.metricId);
+  }
+  const query = new MetricQuery(metricIds, breakdowns);
 
   function CardTitle() {
-    const popover = usePopover();
-
     return (
       <>
-        <DisparityInfoPopover popover={popover} />
-        <Button onClick={popover.open} className={styles.TermInfoButton}>
-          Disparities
-        </Button>{" "}
-        in {props.metricConfig.fullCardTitleName} by{" "}
+        Disparities in {props.metricConfig.fullCardTitleName} by{" "}
         <b>{BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]}</b> in{" "}
         {props.fips.getFullDisplayName()}
       </>
@@ -69,18 +69,41 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   }
 
   return (
-    <CardWrapper
-      queries={[query]}
-      title={<CardTitle />}
-      infoPopover={
-        props.breakdownVar === "race_and_ethnicity" ? (
-          <RaceInfoPopoverContent />
-        ) : undefined
-      }
-    >
+    <CardWrapper queries={[query]} title={<CardTitle />}>
       {([queryResponse]) => {
+        const unknowns = queryResponse
+          .getValidRowsForField(props.metricConfig.metricId)
+          .filter(
+            (row: Row) =>
+              row[props.breakdownVar] === UNKNOWN ||
+              row[props.breakdownVar] === UNKNOWN_RACE
+          );
+        const dataWithoutUnknowns = queryResponse
+          .getValidRowsForField(props.metricConfig.metricId)
+          .filter(
+            (row: Row) =>
+              row[props.breakdownVar] !== UNKNOWN &&
+              row[props.breakdownVar] !== UNKNOWN_RACE
+          );
+
         return (
           <>
+            {unknowns.length === 1 && (
+              <>
+                <CardContent className={styles.SmallMarginContent}>
+                  <Alert severity="warning">
+                    {unknowns[0][props.metricConfig.metricId]}
+                    {props.metricConfig.shortVegaLabel}
+                    {props.fips.getFullDisplayName} reported unknown{" "}
+                    {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]}
+                    . The chart below only displays data for cases where{" "}
+                    {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]}{" "}
+                    was known.
+                  </Alert>
+                </CardContent>
+                <Divider />
+              </>
+            )}
             {queryResponse.shouldShowMissingDataMessage([
               props.metricConfig.metricId,
             ]) && (
@@ -98,9 +121,12 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
             ]) && (
               <CardContent className={styles.Breadcrumbs}>
                 <DisparityBarChart
-                  data={queryResponse.data}
+                  data={dataWithoutUnknowns}
                   lightMetric={props.metricConfig.populationComparisonMetric!}
-                  darkMetric={props.metricConfig}
+                  darkMetric={
+                    props.metricConfig.knownBreakdownComparisonMetric ||
+                    props.metricConfig
+                  }
                   breakdownVar={props.breakdownVar}
                   metricDisplayName={props.metricConfig.shortVegaLabel}
                 />

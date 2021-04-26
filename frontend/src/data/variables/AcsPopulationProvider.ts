@@ -4,7 +4,8 @@ import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { TOTAL } from "../utils/Constants";
+import { ALL } from "../utils/Constants";
+import { maybeApplyRowReorder } from "../utils/datasetutils";
 
 function createNationalTotal(dataFrame: IDataFrame, breakdown: string) {
   return dataFrame
@@ -52,28 +53,40 @@ class AcsPopulationProvider extends VariableProvider {
     const breakdowns = metricQuery.breakdowns;
     let df = await this.getDataInternalWithoutPercents(breakdowns);
 
-    // Calculate totals where dataset doesn't provide it
+    // Calculate population_pct based on total for breakdown
+    // Exactly one breakdown should be enabled per allowsBreakdowns()
+    const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
+      .columnName;
+
+    df = this.renameTotalToAll(df, breakdownColumnName);
+
+    // Calculate totals when the dataset doesn't provide it
     // TODO: this should be removed when Totals come from the Data Server. Note
     // that this assumes that the categories sum to exactly the total
-    const breakdownsToSum: DemographicBreakdownKey[] = ["age", "sex"];
+    const breakdownsToSum: DemographicBreakdownKey[] = [
+      "race_and_ethnicity",
+      "age",
+      "sex",
+    ];
     breakdownsToSum.forEach((breakdownName) => {
-      if (breakdowns.demographicBreakdowns[breakdownName].enabled) {
+      if (
+        breakdowns.demographicBreakdowns[breakdownName].enabled &&
+        df
+          .getSeries(breakdownName)
+          .where((row) => row === ALL)
+          .count() === 0
+      ) {
         df = df
           .concat(
             df.pivot(["fips", "fips_name"], {
               population: (series) => series.sum(),
               population_pct: (series) => 100,
-              [breakdownName]: (series) => TOTAL,
+              [breakdownName]: (series) => ALL,
             })
           )
           .resetIndex();
       }
     });
-
-    // Calculate population_pct based on total for breakdown
-    // Exactly one breakdown should be enabled per allowsBreakdowns()
-    const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
-      .columnName;
 
     df = this.calculatePctShare(
       df,
@@ -85,9 +98,10 @@ class AcsPopulationProvider extends VariableProvider {
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
-    return new MetricQueryResponse(df.toArray(), [
-      this.getDatasetId(breakdowns),
-    ]);
+    return new MetricQueryResponse(
+      maybeApplyRowReorder(df.toArray(), breakdowns),
+      [this.getDatasetId(breakdowns)]
+    );
   }
 
   private async getDataInternalWithoutPercents(

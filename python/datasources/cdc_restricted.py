@@ -46,10 +46,12 @@ class CDCRestrictedData(DataSource):
             for col in int_cols:
                 if col in column_types:
                     column_types[col] = 'INT64'
+            if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
+                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
             # Clean up column names.
             self.clean_frame_column_names(df)
 
             table_name = f.replace('.csv', '')  # Table name is file name
-            gcs_to_bq_util.append_dataframe_to_bq(
+            gcs_to_bq_util.add_dataframe_to_bq(
                 df, dataset, table_name, column_types=column_types)

@@ -48,7 +48,7 @@ def get_test_data_as_df():
             return_value=test_metadata)
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe',
             return_value=get_test_data_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.append_dataframe_to_bq',
+@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
             return_value=None)
 def testWriteToBq(mock_append_to_bq: mock.MagicMock, mock_csv: mock.MagicMock,
                   mock_download: mock.MagicMock):
@@ -69,11 +69,11 @@ def testWriteToBq(mock_append_to_bq: mock.MagicMock, mock_csv: mock.MagicMock,
         assert set(result.columns) == set(expected_col_names)
         expected_ind_rows = {'cases': 1, 'deaths': 1}
         assert (len(result.loc[
-            result['race'] == col_std.Race.INDIGENOUS.value].index) ==
+            result['race'] == col_std.Race.INDIGENOUS.race].index) ==
             expected_ind_rows.get(var_types[i], 0))
         expected_api_rows = {'cases': 4, 'deaths': 2}
         assert (len(result.loc[
-            result['race'] == col_std.Race.API.value].index) ==
+            result['race'] == col_std.Race.API.race].index) ==
             expected_api_rows.get(var_types[i], 0))
         expected_dtypes = {col: np.object for col in result.columns}
         expected_dtypes[var_types[i]] = np.float64

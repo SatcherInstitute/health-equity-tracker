@@ -15,7 +15,11 @@ import TableFooter from "@material-ui/core/TableFooter";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Paper from "@material-ui/core/Paper";
-import { MetricConfig, MetricId } from "../data/config/MetricConfig";
+import {
+  MetricConfig,
+  MetricId,
+  formatFieldValue,
+} from "../data/config/MetricConfig";
 import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
   BreakdownVar,
@@ -36,12 +40,14 @@ export function TableChart(props: TableChartProps) {
   let columns = metrics.map((metricConfig) => {
     return {
       Header: metricConfig.fullCardTitleName,
+      Cell: (a: any) => formatFieldValue(metricConfig.type, a.value),
       accessor: metricConfig.metricId,
     };
   });
   columns = [
     {
       Header: BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar],
+      Cell: (cell: any) => cell.value,
       accessor: breakdownVar as MetricId,
     },
   ].concat(columns);
@@ -64,7 +70,7 @@ export function TableChart(props: TableChartProps) {
     {
       columns: memoCols,
       data: memoData,
-      initialState: { pageSize: 5 },
+      initialState: { pageSize: 10 },
     },
     useSortBy,
     usePagination
@@ -75,7 +81,10 @@ export function TableChart(props: TableChartProps) {
     return (
       <TableRow {...group.getHeaderGroupProps()}>
         {group.headers.map((col, index) => (
-          <TableCell {...col.getHeaderProps(col.getSortByToggleProps())}>
+          <TableCell
+            {...col.getHeaderProps(col.getSortByToggleProps())}
+            style={{ width: "200px" }}
+          >
             {col.render("Header")}
             <TableSortLabel
               active={col.isSorted}
@@ -94,7 +103,7 @@ export function TableChart(props: TableChartProps) {
       <TableRow {...row.getRowProps()}>
         {row.cells.map((cell, index) =>
           cell.value == null ? (
-            <TableCell {...cell.getCellProps()}>
+            <TableCell {...cell.getCellProps()} style={{ width: "200px" }}>
               <Tooltip title="No data available">
                 <WarningRoundedIcon />
               </Tooltip>
@@ -102,7 +111,6 @@ export function TableChart(props: TableChartProps) {
           ) : (
             <TableCell {...cell.getCellProps()}>
               {cell.render("Cell")}
-              {cell.column.id.includes("_pct") && <span>%</span>}
             </TableCell>
           )
         )}
@@ -115,7 +123,7 @@ export function TableChart(props: TableChartProps) {
       {props.data.length <= 0 || props.metrics.length <= 0 ? (
         <h1>No Data provided</h1>
       ) : (
-        <TableContainer component={Paper} style={{ maxHeight: "500px" }}>
+        <TableContainer component={Paper} style={{ maxHeight: "100%" }}>
           <Table stickyHeader {...getTableProps()}>
             <TableHead>
               {headerGroups.map((group, index) => (
@@ -127,22 +135,25 @@ export function TableChart(props: TableChartProps) {
                 <TableDataRow row={row} key={index} />
               ))}
             </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TablePagination
-                  count={memoData.length}
-                  rowsPerPage={pageSize}
-                  page={pageIndex}
-                  onChangePage={(event, newPage) => {
-                    gotoPage(newPage);
-                  }}
-                  onChangeRowsPerPage={(event) => {
-                    setPageSize(Number(event.target.value));
-                  }}
-                  rowsPerPageOptions={[5, 10, 25, 50, 100]}
-                />
-              </TableRow>
-            </TableFooter>
+            {/* If the number of rows is less than the smallest page size, we can hide pagination */}
+            {props.data.length > 5 && (
+              <TableFooter>
+                <TableRow>
+                  <TablePagination
+                    count={memoData.length}
+                    rowsPerPage={pageSize}
+                    page={pageIndex}
+                    onChangePage={(event, newPage) => {
+                      gotoPage(newPage);
+                    }}
+                    onChangeRowsPerPage={(event) => {
+                      setPageSize(Number(event.target.value));
+                    }}
+                    rowsPerPageOptions={[5, 10, 25, 50, 100]} // If changed, update pagination condition above
+                  />
+                </TableRow>
+              </TableFooter>
+            )}
           </Table>
         </TableContainer>
       )}

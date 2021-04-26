@@ -19,10 +19,6 @@ class DataSource(ABC):
         stored. """
         pass
 
-    def get_staging_table_name(self):
-        """Returns the BigQuery staging data table name."""
-        return self.get_table_name() + "_staging"
-
     def get_historical_table_name(self):
         """Returns the BigQuery historical data table name."""
         return self.get_table_name() + "_historical"
@@ -65,7 +61,7 @@ class DataSource(ABC):
                needed for this data source."""
         self.write_to_bq_table(dataset, gcs_bucket,
                                self.get_attr(attrs, 'filename'),
-                               self.get_staging_table_name())
+                               self.get_table_name())
 
     def write_to_bq_table(self, dataset: str, gcs_bucket: str,
                           filename: str, table_name: str, project=None):
@@ -78,10 +74,15 @@ class DataSource(ABC):
         chunked_frame = gcs_to_bq_util.load_csv_as_dataframe(
             gcs_bucket, filename, chunksize=1000)
 
+        # For the very first chunk, we set the mode to overwrite to clear the
+        # previous table. For subsequent chunks we append.
+        overwrite = True
         for chunk in chunked_frame:
             self.clean_frame_column_names(chunk)
-            gcs_to_bq_util.append_dataframe_to_bq(
-                chunk, dataset, table_name, project=project)
+            gcs_to_bq_util.add_dataframe_to_bq(
+                chunk, dataset, table_name, project=project,
+                overwrite=overwrite)
+            overwrite = False
 
     def clean_frame_column_names(self, frame):
         """ Replaces unfitting BigQuery characters and

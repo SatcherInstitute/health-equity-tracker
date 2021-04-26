@@ -10,6 +10,12 @@ resource "google_cloud_run_service" "ingestion_service" {
     spec {
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.ingestion_image_name, var.ingestion_image_digest)
+
+        resources {
+          limits = {
+            memory = "4G"
+          }
+        }
       }
       service_account_name = google_service_account.ingestion_runner_identity.email
     }
@@ -49,33 +55,11 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
 
         resources {
           limits = {
-            memory = "2G"
+            memory = "4G"
           }
         }
       }
       service_account_name = google_service_account.gcs_to_bq_runner_identity.email
-    }
-  }
-
-  traffic {
-    percent         = 100
-    latest_revision = true
-  }
-  autogenerate_revision_name = true
-}
-
-# Cloud Run service for uploading data to gcs.
-resource "google_cloud_run_service" "dedupe_service" {
-  name     = var.dedupe_service_name
-  location = var.compute_region
-  project  = var.project_id
-
-  template {
-    spec {
-      containers {
-        image = format("gcr.io/%s/%s@%s", var.project_id, var.dedupe_image_name, var.dedupe_image_digest)
-      }
-      service_account_name = google_service_account.dedupe_runner_identity.email
     }
   }
 
@@ -215,10 +199,6 @@ output "ingestion_url" {
 
 output "gcs_to_bq_url" {
   value = google_cloud_run_service.gcs_to_bq_service.status.0.url
-}
-
-output "dedupe_url" {
-  value = google_cloud_run_service.dedupe_service.status.0.url
 }
 
 output "exporter_url" {

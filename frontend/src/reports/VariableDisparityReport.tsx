@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Grid } from "@material-ui/core";
 import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
 import { MapCard } from "../cards/MapCard";
+import { UnknownsMapCard } from "../cards/UnknownsMapCard";
 import { PopulationCard } from "../cards/PopulationCard";
 import { TableCard } from "../cards/TableCard";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
@@ -21,14 +22,13 @@ export interface VariableDisparityReportProps {
   dropdownVarId: DropdownVarId;
   fips: Fips;
   updateFipsCallback: Function;
-  vertical?: boolean;
   hidePopulationCard?: boolean;
 }
 
 export function VariableDisparityReport(props: VariableDisparityReportProps) {
-  const [currentBreakdown, setCurrentBreakdown] = useState<
-    BreakdownVar | "all"
-  >("all");
+  const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
+    "race_and_ethnicity"
+  );
 
   // TODO Remove hard coded fail safe value
   const [variableConfig, setVariableConfig] = useState<VariableConfig | null>(
@@ -38,7 +38,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
   );
 
   const breakdownIsShown = (breakdownVar: string) =>
-    currentBreakdown === "all" || currentBreakdown === breakdownVar;
+    currentBreakdown === breakdownVar;
 
   return (
     <Grid container xs={12} spacing={1} justify="center">
@@ -61,7 +61,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               setCurrentBreakdown={setCurrentBreakdown}
             />
           </Grid>
-          <Grid item xs={props.vertical ? 12 : 6}>
+          <Grid item xs={12} sm={12} md={6}>
             <MapCard
               metricConfig={variableConfig.metrics["per100k"]}
               fips={props.fips}
@@ -83,7 +83,17 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               </>
             ))}
           </Grid>
-          <Grid item xs={props.vertical ? 12 : 6}>
+          <Grid item xs={12} sm={12} md={6}>
+            {variableConfig.metrics["pct_share"] && (
+              <UnknownsMapCard
+                metricConfig={variableConfig.metrics["pct_share"]}
+                fips={props.fips}
+                updateFipsCallback={(fips: Fips) => {
+                  props.updateFipsCallback(fips);
+                }}
+                currentBreakdown={currentBreakdown}
+              />
+            )}
             {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
               <>
                 {breakdownIsShown(breakdownVar) &&

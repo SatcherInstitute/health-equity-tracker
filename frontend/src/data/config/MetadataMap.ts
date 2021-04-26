@@ -3,7 +3,7 @@ import { DataSourceMetadata } from "../utils/DatasetTypes";
 const dataSourceMetadataList: DataSourceMetadata[] = [
   {
     id: "acs",
-    data_source_name: "American Community Survey 5-year estimates (2015-2019)",
+    data_source_name: "American Community Survey 5-year estimates",
     data_source_link:
       "https://www.census.gov/data/developers/data-sets/acs-5year.html",
     geographic_level: "State",
@@ -18,7 +18,14 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
       "acs_population-by_age_county",
       "acs_population-by_sex_state",
       "acs_population-by_sex_county",
+      "acs_health_insurance-health_insurance_by_race_state",
+      "acs_health_insurance-health_insurance_by_race_county",
+      "acs_health_insurance-health_insurance_by_sex_state",
+      "acs_health_insurance-health_insurance_by_sex_county",
+      "acs_poverty_dataset-poverty_by_race_age_sex_state",
+      "acs_poverty_dataset-poverty_by_race_age_sex_county",
     ],
+    downloadable: true,
   },
   {
     id: "brfss",
@@ -30,6 +37,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "The prevalence (percentage) for diseases broken down by self-reported race/ethnicity and sex at the U.S. and state levels.",
     dataset_ids: ["brfss"],
+    downloadable: true,
   },
   {
     id: "covid_tracking_project",
@@ -41,6 +49,27 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "The numbers of confirmed deaths, cases, and hospitalizations broken down by race/ethnicity at the U.S. and state levels.",
     dataset_ids: ["covid_by_state_and_race", "covid_by_county_and_race"],
+    downloadable: true,
+  },
+  {
+    id: "cdc_restricted",
+    data_source_name: "CDC Case Surveillance Restricted Access Detailed Data",
+    data_source_link:
+      "https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Monthly",
+    description:
+      "The numbers of confirmed deaths, cases, and hospitalizations at the U.S. and state levels.",
+    dataset_ids: [
+      "cdc_restricted_data-by_race_county",
+      "cdc_restricted_data-by_race_state",
+      "cdc_restricted_data-by_age_county",
+      "cdc_restricted_data-by_age_state",
+      "cdc_restricted_data-by_sex_county",
+      "cdc_restricted_data-by_sex_state",
+    ],
+    downloadable: false,
   },
 ];
 

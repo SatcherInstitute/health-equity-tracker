@@ -38,7 +38,7 @@ COL_NAME_MAPPING = {
     STATE_COL: std_col.STATE_POSTAL_COL,
     COUNTY_FIPS_COL: std_col.COUNTY_FIPS_COL,
     COUNTY_COL: std_col.COUNTY_NAME_COL,
-    RACE_COL: std_col.RACE_OR_HISPANIC_COL,
+    RACE_COL: std_col.RACE_CATEGORY_ID_COL,
     SEX_COL: std_col.SEX_COL,
     AGE_COL: std_col.AGE_COL,
 }
@@ -49,13 +49,13 @@ COUNTY_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 STATE_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 
 # Mappings for race, sex, and age values in the data to a standardized forms.
-# Note that these mappings cover the possible values in the data as of 3/1/21.
-# New data should be checked for schema changes.
+# Note that these mappings cover the possible values in the data as of the
+# latest dataset. New data should be checked for schema changes.
 RACE_NAMES_MAPPING = {
     "American Indian/Alaska Native, Non-Hispanic": std_col.Race.AIAN_NH.value,
     "Asian, Non-Hispanic": std_col.Race.ASIAN_NH.value,
     "Black, Non-Hispanic": std_col.Race.BLACK_NH.value,
-    "Multiple/Other, Non-Hispanic": std_col.Race.MULTI_NH.value,
+    "Multiple/Other, Non-Hispanic": std_col.Race.MULTI_OR_OTHER_STANDARD_NH.value,
     "Native Hawaiian/Other Pacific Islander, Non-Hispanic": std_col.Race.NHPI_NH.value,
     "White, Non-Hispanic": std_col.Race.WHITE_NH.value,
     "Hispanic/Latino": std_col.Race.HISP.value,
@@ -84,6 +84,10 @@ AGE_NAMES_MAPPING = {
     "Missing": "Unknown",
 }
 
+# States that we have decided to suppress all data from, due to very incomplete
+# case data.
+STATES_TO_SUPPRESS = ["LA", "NH", "TX", "WY"]
+
 
 def accumulate_data(df, groupby_cols, overall_df, demographic_col,
                     names_mapping):
@@ -106,9 +110,7 @@ def accumulate_data(df, groupby_cols, overall_df, demographic_col,
     df[std_col.COVID_HOSP_Y] = (df['hosp_yn'] == 'Yes')
     df[std_col.COVID_HOSP_N] = (df['hosp_yn'] == 'No')
     df[std_col.COVID_HOSP_UNKNOWN] = ((df['hosp_yn'] == 'Unknown') |
-                                      (df['hosp_yn'] == 'Missing') |
-                                      (df['hosp_yn'] == 'nul') |
-                                      (df['hosp_yn'] == 'OTH'))
+                                      (df['hosp_yn'] == 'Missing'))
     df[std_col.COVID_DEATH_Y] = (df['death_yn'] == 'Yes')
     df[std_col.COVID_DEATH_N] = (df['death_yn'] == 'No')
     df[std_col.COVID_DEATH_UNKNOWN] = ((df['death_yn'] == 'Unknown') |
@@ -156,7 +158,13 @@ def standardize_data(df):
         lambda x: x.replace('"', '').strip() if isinstance(x, str) else x)
 
     # Standardize column names.
-    return df.rename(columns=COL_NAME_MAPPING)
+    df = df.rename(columns=COL_NAME_MAPPING)
+
+    # Add race metadata columns.
+    if std_col.RACE_CATEGORY_ID_COL in df.columns:
+        std_col.add_race_columns_from_category_id(df)
+
+    return df
 
 
 def main():
@@ -218,6 +226,9 @@ def main():
             # our standardization (ignoring empty values).
             df[COUNTY_FIPS_COL] = df[COUNTY_FIPS_COL].map(
                 lambda x: x.zfill(5) if len(x) > 0 else x)
+
+            # Remove records from states where we want to suppress all data.
+            df = df[~df[STATE_COL].isin(STATES_TO_SUPPRESS)]
 
             # For each of ({state, county} x {race, sex, age}), we slice the
             # data to focus on that dimension and aggregate.

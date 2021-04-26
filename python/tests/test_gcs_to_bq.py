@@ -34,9 +34,9 @@ class GcsToBqTest(TestCase):
         assert_frame_equal(frame, test_frame)
 
     @freeze_time("2020-01-01")
-    def testAppendDataframeToBq_AutoSchema(self):
+    def testAddDataframeToBq_AutoSchema(self):
         """Tests that autodetect is used when no column_types are provided to
-           append_dataframe_to_bq."""
+           add_dataframe_to_bq."""
         test_frame = DataFrame(
             data=self._test_data[1:], columns=self._test_data[0], index=[1, 2])
 
@@ -47,7 +47,7 @@ class GcsToBqTest(TestCase):
             mock_instance.dataset.return_value = mock_table
             mock_table.table.return_value = 'test-project.test-dataset.table'
 
-            gcs_to_bq_util.append_dataframe_to_bq(
+            gcs_to_bq_util.add_dataframe_to_bq(
                 test_frame.copy(deep=True), "test-dataset", "table")
 
             mock_instance.load_table_from_json.assert_called()
@@ -61,9 +61,9 @@ class GcsToBqTest(TestCase):
             self.assertTrue(job_config.autodetect)
 
     @freeze_time("2020-01-01")
-    def testAppendDataframeToBq_IgnoreColModes(self):
+    def testAddDataframeToBq_IgnoreColModes(self):
         """Tests that col_modes is ignored when no column_types are provided
-           to append_dataframe_to_bq."""
+           to add_dataframe_to_bq."""
         test_frame = DataFrame(
             data=self._test_data[1:], columns=self._test_data[0], index=[1, 2])
 
@@ -74,7 +74,7 @@ class GcsToBqTest(TestCase):
             mock_instance.dataset.return_value = mock_table
             mock_table.table.return_value = 'test-project.test-dataset.table'
 
-            gcs_to_bq_util.append_dataframe_to_bq(
+            gcs_to_bq_util.add_dataframe_to_bq(
                 test_frame.copy(deep=True), "test-dataset", "table",
                 col_modes={'label1': 'REPEATED', 'label2': 'REQUIRED'})
 
@@ -89,9 +89,9 @@ class GcsToBqTest(TestCase):
             self.assertTrue(job_config.autodetect)
 
     @freeze_time("2020-01-01")
-    def testAppendDataframeToBq_SpecifySchema(self):
+    def testAddDataframeToBq_SpecifySchema(self):
         """Tests that the BigQuery schema is properly defined when column_types
-           are provided to append_dataframe_to_bq."""
+           are provided to add_dataframe_to_bq."""
         test_frame = DataFrame(
             data=self._test_data[1:], columns=self._test_data[0], index=[1, 2])
 
@@ -105,7 +105,7 @@ class GcsToBqTest(TestCase):
             column_types = {label: 'STRING' for label in test_frame.columns}
             col_modes = {'label1': 'REPEATED',
                          'label2': 'REQUIRED'}
-            gcs_to_bq_util.append_dataframe_to_bq(
+            gcs_to_bq_util.add_dataframe_to_bq(
                 test_frame.copy(deep=True), 'test-dataset', 'table',
                 column_types=column_types, col_modes=col_modes)
 

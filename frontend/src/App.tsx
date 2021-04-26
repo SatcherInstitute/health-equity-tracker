@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styles from "./App.module.scss";
 import MaterialTheme from "./styles/MaterialTheme";
-import AboutUsPage from "./pages/AboutUs/AboutUsPage";
+import { AboutUsPage } from "./pages/AboutUs/AboutUsPage";
 import DataCatalogTab from "./pages/DataCatalog/DataCatalogTab";
 import ExploreDataPage from "./pages/ExploreData/ExploreDataPage";
 import LandingPage from "./pages/Landing/LandingPage";
+import WhatIsHealthEquityPage from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import Footer from "./Footer";
 import AppBar from "@material-ui/core/AppBar";
@@ -30,19 +31,23 @@ import {
   EXPLORE_DATA_PAGE_LINK,
   DATA_CATALOG_PAGE_LINK,
   ABOUT_US_PAGE_LINK,
+  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+  TERMS_OF_SERVICE_PAGE_LINK,
 } from "./utils/urlutils";
 import { autoInitGlobals, getEnvironment } from "./utils/globals";
 import ReactTooltip from "react-tooltip";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import PreLaunchSiteContent from "./pages/Landing/PreLaunchSiteContent";
+import TermsOfServicePage from "./pages/TermsOfServicePage/TermsOfServicePage";
 
 const MOBILE_BREAKPOINT = 600;
 
 const PAGE_URL_TO_NAMES: Record<string, string> = {
   "/": "Homepage",
-  [ABOUT_US_PAGE_LINK]: "About Us",
-  [DATA_CATALOG_PAGE_LINK]: "Data Sources & Methodology",
+  [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: "What is Health Equity?",
   [EXPLORE_DATA_PAGE_LINK]: "Explore the Data",
+  [DATA_CATALOG_PAGE_LINK]: "Downloads & Methodology",
+  [ABOUT_US_PAGE_LINK]: "About Us",
 };
 
 autoInitGlobals();
@@ -56,11 +61,17 @@ function MobileAppToolbar() {
 
   return (
     <Toolbar>
-      <IconButton onClick={() => setOpen(true)}>
-        <MenuIcon />
+      <IconButton
+        onClick={() => setOpen(true)}
+        aria-label="Expand site navigation"
+      >
+        <MenuIcon className={styles.MenuIconForMobile} />
       </IconButton>
       <Drawer variant="persistent" anchor="left" open={open}>
-        <Button onClick={() => setOpen(false)}>
+        <Button
+          aria-label="Collapse site navigation"
+          onClick={() => setOpen(false)}
+        >
           <ChevronLeftIcon />
         </Button>
         <List>
@@ -77,19 +88,27 @@ function MobileAppToolbar() {
 
 function AppToolbar() {
   return (
-    <Toolbar>
-      <Typography variant="h6" className={styles.HomeLogo}>
+    <Toolbar className={styles.AppToolbar}>
+      <LinkWithStickyParams to="/">
+        <img src="img/AppbarLogo.png" className={styles.AppbarLogoImg} alt="" />
+      </LinkWithStickyParams>
+      <Typography variant="h1" className={styles.HomeLogo}>
         <LinkWithStickyParams to="/">
           Health Equity Tracker
         </LinkWithStickyParams>
       </Typography>
-      {[EXPLORE_DATA_PAGE_LINK, DATA_CATALOG_PAGE_LINK, ABOUT_US_PAGE_LINK].map(
-        (pageUrl, i) => (
-          <LinkWithStickyParams to={pageUrl} class={styles.NavLink}>
-            <Button key={i}>{PAGE_URL_TO_NAMES[pageUrl]}</Button>
-          </LinkWithStickyParams>
-        )
-      )}
+      {[
+        WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+        EXPLORE_DATA_PAGE_LINK,
+        DATA_CATALOG_PAGE_LINK,
+        ABOUT_US_PAGE_LINK,
+      ].map((pageUrl, i) => (
+        <LinkWithStickyParams to={pageUrl} class={styles.NavLink}>
+          <Button key={i} aria-label={PAGE_URL_TO_NAMES[pageUrl]}>
+            {PAGE_URL_TO_NAMES[pageUrl]}
+          </Button>
+        </LinkWithStickyParams>
+      ))}
     </Toolbar>
   );
 }
@@ -127,30 +146,47 @@ function App() {
       <div className={styles.App}>
         <div className={styles.Content}>
           <Router>
+            <a className={styles.SkipMainLink} href="#main">
+              Skip to main content
+            </a>
             <ScrollToTop />
-            <AppBar position="static">
-              {width > MOBILE_BREAKPOINT ? (
-                <AppToolbar />
-              ) : (
-                <MobileAppToolbar />
-              )}
-            </AppBar>
-            <Switch>
-              <Route path={ABOUT_US_PAGE_LINK} component={AboutUsPage} />
-              <Route
-                path={DATA_CATALOG_PAGE_LINK}
-                component={DataCatalogTab}
-              />
-              <Route
-                path={EXPLORE_DATA_PAGE_LINK}
-                component={ExploreDataPage}
-              />
-              <Route exact path="/" component={LandingPage} />
-              <Route component={NotFoundPage} />
-            </Switch>
+            <header>
+              <AppBar position="static" elevation={0}>
+                {width > MOBILE_BREAKPOINT ? (
+                  <AppToolbar />
+                ) : (
+                  <MobileAppToolbar />
+                )}
+              </AppBar>
+            </header>
+            <main>
+              <Switch>
+                <Route path={ABOUT_US_PAGE_LINK} component={AboutUsPage} />
+                <Route
+                  path={DATA_CATALOG_PAGE_LINK}
+                  component={DataCatalogTab}
+                />
+                <Route
+                  path={EXPLORE_DATA_PAGE_LINK}
+                  component={ExploreDataPage}
+                />
+                <Route
+                  path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+                  component={WhatIsHealthEquityPage}
+                />
+                <Route
+                  path={TERMS_OF_SERVICE_PAGE_LINK}
+                  component={TermsOfServicePage}
+                />
+                <Route exact path="/" component={LandingPage} />
+                <Route component={NotFoundPage} />
+              </Switch>
+            </main>
           </Router>
         </div>
-        <Footer />
+        <footer>
+          <Footer />
+        </footer>
       </div>
     </ThemeProvider>
   );

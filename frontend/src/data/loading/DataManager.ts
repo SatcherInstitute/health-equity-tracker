@@ -3,6 +3,7 @@ import { joinOnCols } from "../utils/datasetutils";
 import { DataFrame, IDataFrame } from "data-forge";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataFetcher, getDataManager, getLogger } from "../../utils/globals";
+import { maybeApplyRowReorder } from "../utils/datasetutils";
 import VariableProviderMap from "./VariableProviderMap";
 import LRU from "lru-cache";
 
@@ -241,7 +242,10 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
       []
     );
     const uniqueConsumedDatasetIds = Array.from(new Set(consumedDatasetIds));
-    return new MetricQueryResponse(joined.toArray(), uniqueConsumedDatasetIds);
+    return new MetricQueryResponse(
+      maybeApplyRowReorder(joined.toArray(), query.breakdowns),
+      uniqueConsumedDatasetIds
+    );
   }
 
   getResourceId(query: MetricQuery): string {

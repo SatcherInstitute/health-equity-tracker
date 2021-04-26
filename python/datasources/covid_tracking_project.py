@@ -22,20 +22,23 @@ class CovidTrackingProject(DataSource):
     @staticmethod
     def get_standard_columns():
         """Returns a dict containing conversions from Covid Tracking Project's
-           race categories to their standardized values."""
+           race categories to their standardized values. Unlike other datasets,
+           CTP doesn't use the race category id because it is not known at this
+           stage, until it is joined with CTP metadata. Instead it uses the race
+           column plus the includes_hispanic column."""
         return {
-            'aian': Race.AIAN.value,
-            'asian': Race.ASIAN.value,
-            'black': Race.BLACK.value,
-            'nhpi': Race.NHPI.value,
-            'white': Race.WHITE.value,
-            'multiracial': Race.MULTI.value,
-            'other': Race.OTHER.value,
-            'unknown': Race.UNKNOWN.value,
-            'ethnicity_hispanic': Race.HISP.value,
-            'ethnicity_nonhispanic': Race.NH.value,
-            'ethnicity_unknown': Race.ETHNICITY_UNKNOWN.value,
-            'total': Race.TOTAL.value
+            'aian': Race.AIAN.race,
+            'asian': Race.ASIAN.race,
+            'black': Race.BLACK.race,
+            'nhpi': Race.NHPI.race,
+            'white': Race.WHITE.race,
+            'multiracial': Race.MULTI.race,
+            'other': Race.OTHER_NONSTANDARD.race,
+            'unknown': Race.UNKNOWN.race,
+            'ethnicity_hispanic': Race.HISP.race,
+            'ethnicity_nonhispanic': Race.NH.race,
+            'ethnicity_unknown': Race.ETHNICITY_UNKNOWN.race,
+            'total': Race.TOTAL.race
         }
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
@@ -82,7 +85,7 @@ class CovidTrackingProject(DataSource):
             result.rename(columns={'value': variable_type}, inplace=True)
             result.drop('variable_type', axis='columns', inplace=True)
             # Write to BQ
-            gcs_to_bq_util.append_dataframe_to_bq(
+            gcs_to_bq_util.add_dataframe_to_bq(
                 result, dataset, self.get_table_name() + '_' + variable_type)
 
     @staticmethod
@@ -132,6 +135,6 @@ class CovidTrackingProject(DataSource):
         old_name: The race category to change
         new_name: The race category to rename to"""
         if (row[indicator_column] is True and
-                row[col_std.RACE_COL] == old_name.value):
-            return new_name.value
+                row[col_std.RACE_COL] == old_name.race):
+            return new_name.race
         return row[col_std.RACE_COL]

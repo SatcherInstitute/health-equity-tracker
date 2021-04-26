@@ -18,12 +18,16 @@ import {
   MetricId,
   POPULATION_VARIABLE_CONFIG,
 } from "../data/config/MetricConfig";
-import { TOTAL } from "../data/utils/Constants";
+import { ALL } from "../data/utils/Constants";
 import {
-  excludeTotal,
+  excludeAll,
   onlyIncludeStandardRaces,
 } from "../data/query/BreakdownFilter";
 import MissingDataAlert from "./ui/MissingDataAlert";
+import Hidden from "@material-ui/core/Hidden";
+import { ABOUT_US_TAB_PARAM, ABOUT_US_PAGE_LINK } from "../utils/urlutils";
+import { ABOUT_US_FAQ_TAB_INDEX } from "../pages/AboutUs/AboutUsPage";
+import Alert from "@material-ui/lab/Alert";
 
 export interface PopulationCardProps {
   fips: Fips;
@@ -41,35 +45,36 @@ export function PopulationCard(props: PopulationCardProps) {
   // ones we want.
   const ageQuery = new MetricQuery(
     metricIds,
-    Breakdowns.forFips(props.fips).andAge(excludeTotal())
+    Breakdowns.forFips(props.fips).andAge(excludeAll())
   );
 
   return (
-    <CardWrapper queries={[raceQuery, ageQuery]} hideFooter={true}>
+    <CardWrapper queries={[raceQuery, ageQuery]}>
       {([raceQueryResponse, ageQueryResponse]) => {
         const totalPopulation = raceQueryResponse.data.find(
-          (r) => r.race_and_ethnicity === TOTAL
+          (r) => r.race_and_ethnicity === ALL
         );
         const totalPopulationSize = totalPopulation
           ? totalPopulation["population"].toLocaleString("en")
           : "Data Missing";
 
+        const CollapseButton = (
+          <Button
+            aria-label={
+              expanded
+                ? "collapse population profile card"
+                : "expand population profile card"
+            }
+            onClick={() => setExpanded(!expanded)}
+            color="primary"
+          >
+            {expanded ? "Collapse full profile" : "See full profile"}
+            {expanded ? <ArrowDropUp /> : <ArrowDropDown />}
+          </Button>
+        );
+
         return (
-          <CardContent>
-            {!raceQueryResponse.dataIsMissing() && (
-              <Button
-                aria-label="expand description"
-                onClick={() => setExpanded(!expanded)}
-                color="primary"
-                className={styles.ExpandPopulationCardButton}
-              >
-                {expanded ? "Collapse full profile" : "See full profile"}
-                {expanded ? <ArrowDropUp /> : <ArrowDropDown />}
-              </Button>
-            )}
-            <span className={styles.PopulationCardTitle}>
-              {props.fips.getFullDisplayName()}
-            </span>
+          <CardContent className={styles.PopulationCardContent}>
             {raceQueryResponse.dataIsMissing() && (
               <MissingDataAlert
                 dataName={POPULATION_VARIABLE_CONFIG.variableDisplayName}
@@ -78,6 +83,44 @@ export function PopulationCard(props: PopulationCardProps) {
                 }
               />
             )}
+
+            <Grid
+              container
+              className={styles.PopulationCard}
+              justify="space-between"
+              alignItems="center"
+            >
+              <Grid item>
+                <Grid container justify="flex-start" alignItems="center">
+                  <Grid item>
+                    <div className={styles.PopulationCardTitle}>
+                      {props.fips.getFullDisplayName()}
+                      <Hidden smDown>
+                        <div className={styles.VerticalDivider} />
+                      </Hidden>
+                    </div>
+                  </Grid>
+                  <Grid item>
+                    <Grid container>
+                      <Grid item>
+                        <span className={styles.TotalPopulationKey}>
+                          Total Population:
+                        </span>
+                      </Grid>
+                      <Grid item>
+                        <span className={styles.TotalPopulationValue}>
+                          {totalPopulationSize}
+                        </span>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+              {!raceQueryResponse.dataIsMissing() && (
+                <Grid item>{CollapseButton}</Grid>
+              )}
+            </Grid>
+
             {/* Because the Vega charts are using responsive width based on the window resizing,
                 we manually trigger a resize when the div size changes so vega chart will 
                 render with the right size. This means the vega chart won't appear until the 
@@ -85,45 +128,48 @@ export function PopulationCard(props: PopulationCardProps) {
             {!raceQueryResponse.dataIsMissing() && (
               <AnimateHeight
                 duration={500}
-                height={expanded ? "auto" : 70}
+                height={expanded ? "auto" : 0}
                 onAnimationEnd={() => window.dispatchEvent(new Event("resize"))}
               >
-                <Grid
-                  container
-                  className={styles.PopulationCard}
-                  justify="space-around"
-                >
-                  <Grid item>
-                    <span>Total Population</span>
-                    <span className={styles.TotalPopulationValue}>
-                      {totalPopulationSize}
-                    </span>
-                  </Grid>
-                  {/* TODO- calculate median age */}
-                  <Grid item className={styles.PopulationMetric}>
-                    <span>Median Age</span>
-                    <span className={styles.PopulationMetricValue}>??</span>
-                  </Grid>
-                  {/* TODO- properly align these */}
-                  {raceQueryResponse.data
-                    .filter((r) => r.race_and_ethnicity !== TOTAL)
-                    .map((row) => (
-                      <Grid item className={styles.PopulationMetric}>
-                        <span>{row.race_and_ethnicity}</span>
-                        <span className={styles.PopulationMetricValue}>
-                          {row.population_pct}%
-                        </span>
-                      </Grid>
-                    ))}
-                </Grid>
                 <Grid container>
-                  <Grid item xs={6}>
+                  <Grid item xs={12}>
+                    <Alert severity="info" className={styles.PopulationAlert}>
+                      These racial categories are defined by the ACS and US
+                      Census Bureau. While it is the standard for CDC reporting,
+                      the definition of these categories often results in not
+                      counting or miscounting people in underrepresented groups.
+                      <a
+                        href={`${ABOUT_US_PAGE_LINK}?${ABOUT_US_TAB_PARAM}=${ABOUT_US_FAQ_TAB_INDEX}`}
+                      >
+                        Learn more
+                      </a>
+                      .
+                    </Alert>
+                    <Grid container>
+                      {raceQueryResponse
+                        .getValidRowsForField("race_and_ethnicity")
+                        .filter((r) => r.race_and_ethnicity !== ALL)
+                        .sort((a, b) => {
+                          return b.population - a.population;
+                        })
+                        .map((row) => (
+                          <Grid item className={styles.PopulationMetric}>
+                            <span>{row.race_and_ethnicity}</span>
+                            <br />
+                            <span className={styles.PopulationMetricValue}>
+                              {row.population_pct}%
+                            </span>
+                          </Grid>
+                        ))}
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
                     <span className={styles.PopulationChartTitle}>
                       Population by race
                     </span>
                     <SimpleHorizontalBarChart
                       data={raceQueryResponse.data.filter(
-                        (r) => r.race_and_ethnicity !== TOTAL
+                        (r) => r.race_and_ethnicity !== ALL
                       )}
                       metric={POPULATION_VARIABLE_CONFIG.metrics.pct_share}
                       breakdownVar="race_and_ethnicity"
@@ -131,7 +177,7 @@ export function PopulationCard(props: PopulationCardProps) {
                       hideActions={true}
                     />
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid item xs={12} sm={6}>
                     <span className={styles.PopulationChartTitle}>
                       Population by age
                     </span>
@@ -153,6 +199,7 @@ export function PopulationCard(props: PopulationCardProps) {
                     )}
                   </Grid>
                 </Grid>
+                <Hidden smUp>{CollapseButton}</Hidden>
               </AnimateHeight>
             )}
           </CardContent>
