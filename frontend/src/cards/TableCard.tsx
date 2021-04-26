@@ -53,6 +53,10 @@ export function TableCard(props: TableCardProps) {
   const metricIds = Object.keys(metricConfigs);
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
+  const displayingCovidData = props.metrics
+    .map((config) => config.metricId)
+    .some((metricId) => metricId.includes("covid"));
+
   return (
     <CardWrapper
       queries={[query]}
@@ -75,29 +79,31 @@ export function TableCard(props: TableCardProps) {
                 />
               </CardContent>
             )}
-            {!queryResponse.dataIsMissing() && props.breakdownVar === RACE && (
-              <>
-                <CardContent>
-                  <Alert severity="warning">
-                    Share of Covid-19 cases for American Indian, Alaska Native,
-                    Native Hawaiian and Pacific Islander are all
-                    underrepresented because many states do not record these
-                    racial categories. The Urban Indian Health Institute
-                    publishes{" "}
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="https://www.uihi.org/resources/best-practices-for-american-indian-and-alaska-native-data-collection/"
-                    >
-                      guidelines for American Indian and Alaska Native Data
-                      Collection
-                    </a>
-                    .
-                  </Alert>
-                </CardContent>
-                <Divider />
-              </>
-            )}
+            {displayingCovidData &&
+              !queryResponse.dataIsMissing() &&
+              props.breakdownVar === RACE && (
+                <>
+                  <CardContent>
+                    <Alert severity="warning">
+                      Share of Covid-19 cases for American Indian, Alaska
+                      Native, Native Hawaiian and Pacific Islander are all
+                      underrepresented because many states do not record these
+                      racial categories. The Urban Indian Health Institute
+                      publishes{" "}
+                      <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href="https://www.uihi.org/resources/best-practices-for-american-indian-and-alaska-native-data-collection/"
+                      >
+                        guidelines for American Indian and Alaska Native Data
+                        Collection
+                      </a>
+                      .
+                    </Alert>
+                  </CardContent>
+                  <Divider />
+                </>
+              )}
             {!queryResponse.dataIsMissing() && (
               <TableChart
                 data={queryResponse.data}
