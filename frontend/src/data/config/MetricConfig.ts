@@ -32,7 +32,9 @@ export type MetricId =
   | "health_insurance_pct_share"
   | "health_insurance_population_pct"
   | "poverty_count"
-  | "poverty_per_100k";
+  | "poverty_per_100k"
+  | "poverty_pct_share"
+  | "poverty_population_pct";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -351,6 +353,14 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             "Individuals below the poverty line per 100,000 people",
           shortVegaLabel: "Individuals below the poverty line per 100k",
           type: "per100k",
+        },
+        pct_share: {
+          metricId: "poverty_pct_share",
+          fullCardTitleName: "Share of Poverty",
+          shortVegaLabel: "% of impoverished",
+          type: "pct_share",
+          populationComparisonMetric:
+            POPULATION_VARIABLE_CONFIG.metrics.pct_share,
         },
       },
     },
