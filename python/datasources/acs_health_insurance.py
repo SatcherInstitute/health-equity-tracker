@@ -161,7 +161,7 @@ class AcsHealhInsuranceRaceIngestor:
             column_types[WITHOUT_HEALTH_INSURANCE_COL] = "INT64"
             column_types[TOTAL_HEALTH_INSURANCE_COL] = "INT64"
 
-            gcs_to_bq_util.append_dataframe_to_bq(
+            gcs_to_bq_util.add_dataframe_to_bq(
                 df, dataset, table_name, column_types=column_types
             )
 
@@ -412,7 +412,7 @@ class AcsHealhInsuranceSexIngestor:
             column_types[WITHOUT_HEALTH_INSURANCE_COL] = "INT64"
             column_types[TOTAL_HEALTH_INSURANCE_COL] = "INT64"
 
-            gcs_to_bq_util.append_dataframe_to_bq(
+            gcs_to_bq_util.add_dataframe_to_bq(
                 df, dataset, table_name, column_types=column_types
             )
 
