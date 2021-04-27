@@ -15,7 +15,7 @@ from ingestion.standardized_columns import (
     RACE_CATEGORY_ID_COL,
     Race,
     add_race_columns_from_category_id,
-    RACE_INCLUDES_HISPANIC_COL
+    RACE_INCLUDES_HISPANIC_COL,
 )
 from ingestion.census import (
     fetch_acs_metadata,
@@ -96,7 +96,7 @@ class AcsPovertyIngestor:
             # All breakdown columns are strings
             column_types = {c: "STRING" for c in df.columns}
             if RACE_INCLUDES_HISPANIC_COL in df.columns:
-                column_types[RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+                column_types[RACE_INCLUDES_HISPANIC_COL] = "BOOL"
 
             column_types[ABOVE_POVERTY_COL] = "INT64"
             column_types[BELOW_POVERTY_COL] = "INT64"
@@ -259,7 +259,7 @@ class AcsPovertyIngestor:
                     [
                         state_fip,
                         self.state_fips[state_fip],
-                        county_fip,
+                        state_fip + county_fip,
                         self.county_fips[(state_fip, county_fip)],
                         race,
                         age,
@@ -297,10 +297,8 @@ class AcsPovertyIngestor:
             ],
         )
 
-        add_race_columns_from_category_id(
-            self.poverty_by_race_age_sex_state_frame)
-        add_race_columns_from_category_id(
-            self.poverty_by_race_age_sex_county_frame)
+        add_race_columns_from_category_id(self.poverty_by_race_age_sex_state_frame)
+        add_race_columns_from_category_id(self.poverty_by_race_age_sex_county_frame)
 
         # Aggregate Frames by Filename
         self.frames = {
