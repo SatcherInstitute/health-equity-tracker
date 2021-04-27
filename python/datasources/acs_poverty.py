@@ -55,11 +55,17 @@ CUSTOM_AGE_BUCKETS = [
 ]
 
 
-def parseAgeString(str):
-    if str.endswith("+"):
-        return {"min": int(str.removesuffix("+")), "max": sys.maxsize}
+def remove_suffix(input_string, suffix):
+    if suffix and input_string.endswith(suffix):
+        return input_string[: -len(suffix)]
+    return input_string
+
+
+def parseAgeString(in_str):
+    if in_str.endswith("+"):
+        return {"min": int(remove_suffix(in_str, "+")), "max": sys.maxsize}
     else:
-        parts = str.split("-")
+        parts = in_str.split("-")
         if len(parts) == 2:
             return {"min": int(parts[0]), "max": int(parts[1])}
         else:

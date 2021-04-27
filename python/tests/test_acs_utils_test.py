@@ -214,3 +214,29 @@ class AcsUtilsTest(unittest.TestCase):
         result = parseMetadata(meta_in, [])
         expected = {"B00001_001E": {MetadataKey.POPULATION: PovertyPopulation.ABOVE}}
         self.assertEqual(result, expected)
+
+    def testing_age_order(self):
+        meta_in = {
+            "B00001_001E": {
+                "label": "Estimate!!Total:!!Income in the past 12 months below poverty level:!!Male:!!15 years",
+                "concept": "SEX BY AGE",
+                "group": "B00001",
+            }
+        }
+
+        result = parseMetadata(meta_in, [])
+        age_out = result["B00001_001E"][MetadataKey.AGE]
+        self.assertEqual(age_out, "15")
+
+    def testing_age_order_longer(self):
+        meta_in = {
+            "B00001_001E": {
+                "label": "Estimate!!Total:!!Income in the past 12 months below poverty level:!!Male:!!12 to 14 years",
+                "concept": "SEX BY AGE",
+                "group": "B00001",
+            }
+        }
+
+        result = parseMetadata(meta_in, [])
+        age_out = result["B00001_001E"][MetadataKey.AGE]
+        self.assertEqual(age_out, "12-14")
