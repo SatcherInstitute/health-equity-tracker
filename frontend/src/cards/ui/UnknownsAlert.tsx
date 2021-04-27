@@ -40,7 +40,7 @@ function UnknownsAlert(props: {
             {props.known ? "only " : ""}displays data for cases where{" "}
             {breakdownVarDisplayName} was {props.known ? "known" : "unknown"}.
           </Alert>
-        </CardContent>{" "}
+        </CardContent>
         <Divider />
       </>
     );
