@@ -146,7 +146,6 @@ function App() {
           <Router>
             <a className={styles.SkipMainLink} href="#main">Skip to main content</a>
             <ScrollToTop />
-            <header>
               <AppBar position="static" elevation={0}>
                 {width > MOBILE_BREAKPOINT ? (
                     <AppToolbar />
@@ -154,7 +153,6 @@ function App() {
                     <MobileAppToolbar />
                 )}
               </AppBar>
-            </header>
             <main>
               <Switch>
                 <Route path={ABOUT_US_PAGE_LINK} component={AboutUsPage} />
