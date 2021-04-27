@@ -97,6 +97,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               queryResponse={alertQueryResponse}
               metricConfig={props.metricConfig}
               breakdownVar={props.currentBreakdown}
+              displayType="map"
+              known={false}
             />
             <CardContent>
               {mapQueryResponse.dataIsMissing() && (

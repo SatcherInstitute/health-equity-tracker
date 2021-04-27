@@ -15,6 +15,8 @@ function UnknownsAlert(props: {
   queryResponse: MetricQueryResponse;
   metricConfig: MetricConfig;
   breakdownVar: BreakdownVar;
+  displayType: string; // "chart" or "map"
+  known: Boolean;
 }) {
   const unknowns = props.queryResponse
     .getValidRowsForField(props.metricConfig.metricId)
@@ -34,8 +36,9 @@ function UnknownsAlert(props: {
           <Alert severity="warning">
             {unknowns[0][props.metricConfig.metricId]}
             {props.metricConfig.shortVegaLabel} reported unknown{" "}
-            {breakdownVarDisplayName}. The chart below only displays data for
-            cases where {breakdownVarDisplayName} was known.
+            {breakdownVarDisplayName}. The {props.displayType} below{" "}
+            {props.known ? "only " : ""}displays data for cases where{" "}
+            {breakdownVarDisplayName} was {props.known ? "known" : "unknown"}.
           </Alert>
         </CardContent>{" "}
         <Divider />

@@ -84,6 +84,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               metricConfig={props.metricConfig}
               queryResponse={queryResponse}
               breakdownVar={props.breakdownVar}
+              displayType="chart"
+              known={true}
             />
             {queryResponse.shouldShowMissingDataMessage([
               props.metricConfig.metricId,
