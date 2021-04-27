@@ -262,11 +262,10 @@ function OurTeamTab() {
                     className={styles.ProfileImg}
                   />
                   <br />
-                  <span style={{ fontSize: "16px", fontWeight: 500 }}>
+                  <h3 className={styles.LeaderNameHeading}>
                     {leader.name}
-                  </span>
-                  <br />
-                  <span style={{ fontSize: "14px", fontWeight: 400 }}>
+                  </h3>
+                  <span className={styles.LeaderRoleSpan}>
                     {leader.role}
                   </span>
                 </Grid>

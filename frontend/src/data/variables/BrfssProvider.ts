@@ -46,6 +46,7 @@ class BrfssProvider extends VariableProvider {
     let acsBreakdowns = breakdowns.copy();
     acsBreakdowns.time = false;
 
+    // ALERT! KEEP IN SYNC! Make sure you update DataSourceMetadata if you update dataset IDs
     let consumedDatasetIds = ["brfss"];
 
     if (breakdowns.geography === "national") {
