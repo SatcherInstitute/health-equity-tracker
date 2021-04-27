@@ -64,12 +64,12 @@ def remove_suffix(input_string, suffix):
 def parseAgeString(in_str):
     if in_str.endswith("+"):
         return {"min": int(remove_suffix(in_str, "+")), "max": sys.maxsize}
+
+    parts = in_str.split("-")
+    if len(parts) == 2:
+        return {"min": int(parts[0]), "max": int(parts[1])}
     else:
-        parts = in_str.split("-")
-        if len(parts) == 2:
-            return {"min": int(parts[0]), "max": int(parts[1])}
-        else:
-            return {"min": int(parts[0]), "max": int(parts[0])}
+        return {"min": int(parts[0]), "max": int(parts[0])}
 
 
 def determine_new_age_bucket(ageStr):
