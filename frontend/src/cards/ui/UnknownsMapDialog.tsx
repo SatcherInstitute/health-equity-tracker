@@ -41,14 +41,7 @@ export function UnknownsMapDialog(props: UnknownsMapDialogProps) {
     props.breakdownVar
   );
 
-  // Population Comparison Metric is required
-  const query = new MetricQuery(
-    [
-      props.metricConfig.metricId,
-      props.metricConfig.populationComparisonMetric!.metricId,
-    ],
-    breakdowns
-  );
+  const query = new MetricQuery([props.metricConfig.metricId], breakdowns);
 
   return (
     <Dialog
