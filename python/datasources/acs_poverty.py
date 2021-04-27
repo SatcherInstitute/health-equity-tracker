@@ -224,8 +224,12 @@ class AcsPovertyIngestor:
             above = int(population[PovertyPopulation.ABOVE])
             below = int(population[PovertyPopulation.BELOW])
 
-            assert above != -1
-            assert below != -1
+            if above == -1 or below == -1:
+                raise Exception(
+                    "Custom Accumulation Error State"
+                    + f" - Unset precondition, ({state_fip},{county_fip},{age},{sex},{race})"
+                    + f" - Above: {above}, Below {below}"
+                )
 
             new_age = determine_new_age_bucket(age)
             new_key = (state_fip, county_fip, new_age, sex, race)
