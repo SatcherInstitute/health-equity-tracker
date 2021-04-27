@@ -105,9 +105,7 @@ function AppToolbar() {
             ABOUT_US_PAGE_LINK,
           ].map((pageUrl, i) => (
               <LinkWithStickyParams to={pageUrl} class={styles.NavLink}>
-                <Button key={i} aria-label={PAGE_URL_TO_NAMES[pageUrl]}>
-                  {PAGE_URL_TO_NAMES[pageUrl]}
-                </Button>
+                {PAGE_URL_TO_NAMES[pageUrl]}
               </LinkWithStickyParams>
           ))}
         </nav>
@@ -150,7 +148,6 @@ function App() {
           <Router>
             <a className={styles.SkipMainLink} href="#main">Skip to main content</a>
             <ScrollToTop />
-            <header>
               <AppBar position="static" elevation={0}>
                 {width > MOBILE_BREAKPOINT ? (
                     <AppToolbar />
@@ -158,7 +155,6 @@ function App() {
                     <MobileAppToolbar />
                 )}
               </AppBar>
-            </header>
             <main>
               <Switch>
                 <Route path={ABOUT_US_PAGE_LINK} component={AboutUsPage} />
