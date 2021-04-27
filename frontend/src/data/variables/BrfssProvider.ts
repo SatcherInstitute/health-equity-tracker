@@ -11,7 +11,8 @@ import VariableProvider from "./VariableProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { ALL } from "../utils/Constants";
+import { ALL, NON_HISPANIC } from "../utils/Constants";
+import { exclude } from "../query/BreakdownFilter";
 
 class BrfssProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -21,9 +22,11 @@ class BrfssProvider extends VariableProvider {
       "diabetes_count",
       "diabetes_per_100k",
       "diabetes_pct_share",
+      "diabetes_count_share_of_known",
       "copd_count",
       "copd_per_100k",
       "copd_pct_share",
+      "copd_count_share_of_known",
       "brfss_population_pct",
     ]);
     this.acsProvider = acsProvider;
@@ -45,8 +48,10 @@ class BrfssProvider extends VariableProvider {
     // TODO How to handle territories?
     let acsBreakdowns = breakdowns.copy();
     acsBreakdowns.time = false;
-
-    // ALERT! KEEP IN SYNC! Make sure you update DataSourceMetadata if you update dataset IDs
+    acsBreakdowns = acsBreakdowns.addBreakdown(
+      breakdownColumnName,
+      exclude(NON_HISPANIC)
+    );
     let consumedDatasetIds = ["brfss"];
 
     if (breakdowns.geography === "national") {
@@ -62,28 +67,66 @@ class BrfssProvider extends VariableProvider {
       acsStateQueryResponse.consumedDatasetIds
     );
 
-    df = joinOnCols(
-      df,
-      new DataFrame(acsStateQueryResponse.data),
-      ["fips", breakdownColumnName],
-      "left"
-    );
+    const acsState = new DataFrame(acsStateQueryResponse.data);
+    df = joinOnCols(df, acsState, ["fips", breakdownColumnName], "left");
 
+    var acsNational: DataFrame;
     if (breakdowns.geography === "national") {
       // Because BRFSS is a survey that samples each demographic
       // in each state at different rates, we must calculate the national
       // numbers by estimating the total number of diabetes and COPD
       // cases per demographic in each state and taking the sum.
+      acsBreakdowns.geography = "national";
+      const acsNationalQueryResponse = await this.acsProvider.getData(
+        new MetricQuery(["population_pct"], acsBreakdowns)
+      );
+      consumedDatasetIds = consumedDatasetIds.concat(
+        acsNationalQueryResponse.consumedDatasetIds
+      );
+
+      acsNational = new DataFrame(acsNationalQueryResponse.data);
+
+      let stateTotalsDiabetes = df
+        .pivot("fips", {
+          diabetes_no: (series) => series.sum(),
+          diabetes_count: (series) => series.sum(),
+        })
+        .resetIndex();
+
+      stateTotalsDiabetes = stateTotalsDiabetes
+        .generateSeries({
+          total_sample_size: (row) => row.diabetes_no + row.diabetes_count,
+        })
+        .resetIndex();
+
+      let stateTotalsCopd = df
+        .pivot("fips", {
+          copd_no: (series) => series.sum(),
+          copd_count: (series) => series.sum(),
+        })
+        .resetIndex();
+
+      stateTotalsCopd = stateTotalsCopd
+        .generateSeries({
+          total_sample_size: (row) => row.copd_no + row.copd_count,
+        })
+        .resetIndex();
 
       df = df.generateSeries({
         estimated_total_diabetes: (row) =>
           estimateTotal(
+            row,
+            acsState,
+            stateTotalsDiabetes,
             row.diabetes_count,
             row.diabetes_count + row.diabetes_no,
             row.population
           ),
         estimated_total_copd: (row) =>
           estimateTotal(
+            row,
+            acsState,
+            stateTotalsCopd,
             row.copd_count,
             row.copd_count + row.copd_no,
             row.population
@@ -108,20 +151,8 @@ class BrfssProvider extends VariableProvider {
       //
       // TODO: remove both calls to the ACS provider once we
       // automatically merge ACS data in the backend
-      acsBreakdowns.geography = "national";
-      const acsNationalQueryResponse = await this.acsProvider.getData(
-        new MetricQuery(["population_pct"], acsBreakdowns)
-      );
-      consumedDatasetIds = consumedDatasetIds.concat(
-        acsNationalQueryResponse.consumedDatasetIds
-      );
 
-      df = joinOnCols(
-        df,
-        new DataFrame(acsNationalQueryResponse.data),
-        ["fips", breakdownColumnName],
-        "left"
-      );
+      df = joinOnCols(df, acsNational, ["fips", breakdownColumnName], "left");
     }
 
     df = df.renameSeries({
@@ -149,7 +180,12 @@ class BrfssProvider extends VariableProvider {
         estimated_total_copd: (series) => series.sum(),
         estimated_total_diabetes: (series) => series.sum(),
         [breakdownColumnName]: (series) => ALL,
-        brfss_population_pct: (series) => series.sum(),
+        population: (series) =>
+          series.where((population) => !isNaN(population)).sum(),
+        brfss_population_pct: (series) =>
+          series
+            .where((brfss_population_pct) => !isNaN(brfss_population_pct))
+            .sum(),
       })
       .resetIndex();
     df = df.concat(total).resetIndex();
@@ -161,8 +197,29 @@ class BrfssProvider extends VariableProvider {
         per100k(row.copd_count, row.copd_count + row.copd_no),
     });
 
+    // Calculate any share_of_known metrics that may have been requested in the query
+
     if (breakdowns.hasOnlyRace()) {
       if (breakdowns.geography === "state") {
+        const shareOfUnknownMetrics = metricQuery.metricIds.filter((metricId) =>
+          [
+            "copd_count_share_of_known",
+            "diabetes_count_share_of_known",
+          ].includes(metricId)
+        );
+        shareOfUnknownMetrics.forEach((shareOfUnknownColumnName) => {
+          const rawCountColunn = shareOfUnknownColumnName.slice(
+            0,
+            -"_share_of_known".length
+          );
+          df = this.calculatePctShareOfKnown(
+            df,
+            rawCountColunn,
+            shareOfUnknownColumnName,
+            breakdownColumnName
+          );
+        });
+
         ["diabetes_count", "copd_count"].forEach((col) => {
           df = this.calculatePctShare(
             df,
@@ -173,6 +230,26 @@ class BrfssProvider extends VariableProvider {
           );
         });
       } else if (breakdowns.geography === "national") {
+        const shareOfUnknownMetrics = metricQuery.metricIds.filter((metricId) =>
+          [
+            "copd_count_share_of_known",
+            "diabetes_count_share_of_known",
+          ].includes(metricId)
+        );
+
+        shareOfUnknownMetrics.forEach((shareOfUnknownColumnName) => {
+          const rawCountColunn = shareOfUnknownColumnName.slice(
+            0,
+            -"_count_share_of_known".length
+          );
+          df = this.calculatePctShareOfKnown(
+            df,
+            "estimated_total_" + rawCountColunn,
+            shareOfUnknownColumnName,
+            breakdownColumnName
+          );
+        });
+
         ["estimated_total_diabetes", "estimated_total_copd"].forEach((col) => {
           df = this.calculatePctShare(
             df,
