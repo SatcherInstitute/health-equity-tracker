@@ -144,7 +144,7 @@ export function percent(numerator: number, denominator: number): number | null {
 
 /** Finds expected value of an ailment based on a population sample. */
 export function estimateTotal(
-  sRow: Row,
+  stateRow: Row,
   acsState: IDataFrame,
   stateTotals: IDataFrame,
   sample_count: number,
@@ -152,11 +152,11 @@ export function estimateTotal(
   total_population: number
 ): number {
   if (
-    sRow.race_and_ethnicity === UNKNOWN_RACE ||
-    sRow.race_and_ethnicity === UNKNOWN
+    stateRow.race_and_ethnicity === UNKNOWN_RACE ||
+    stateRow.race_and_ethnicity === UNKNOWN
   ) {
     const state_population = acsState
-      .where((row) => row.fips === sRow.fips)
+      .where((row) => row.fips === stateRow.fips)
       .where((row) => row.race_and_ethnicity === ALL)
       .resetIndex()
       .at(0);
@@ -166,7 +166,7 @@ export function estimateTotal(
     }
 
     const sample_population = stateTotals
-      .where((row) => row.fips === sRow.fips)
+      .where((row) => row.fips === stateRow.fips)
       .resetIndex()
       .at(0).total_sample_size;
 

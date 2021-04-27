@@ -171,15 +171,15 @@ describe("BrfssProvider", () => {
 
     // Create final rows with diabetes_count & diabetes_per_100k
     const NC_ASIAN_FINAL = finalRow(
-      NC,
-      RACE,
-      ASIAN_NH,
-      400,
-      40000,
-      16.7,
-      40,
-      16.7,
-      40
+      /*fips*/ NC,
+      /*breakdownName*/ RACE,
+      /*breakdownValue*/ ASIAN_NH,
+      /*diabetes_count*/ 400,
+      /*diabetes_per_100k*/ 40000,
+      /*copd_pct_share*/ 16.7,
+      /*diabetes_pct_share*/ 40,
+      /*copd_count_share_of_known*/ 16.7,
+      /*diabetes_count_share_of_known*/ 40
     );
     const NC_WHITE_FINAL = finalRow(
       NC,
