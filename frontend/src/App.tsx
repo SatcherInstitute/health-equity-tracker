@@ -102,9 +102,7 @@ function AppToolbar() {
         ABOUT_US_PAGE_LINK,
         ].map((pageUrl, i) => (
             <LinkWithStickyParams to={pageUrl} class={styles.NavLink}>
-              <Button key={i} aria-label={PAGE_URL_TO_NAMES[pageUrl]}>
                 {PAGE_URL_TO_NAMES[pageUrl]}
-              </Button>
             </LinkWithStickyParams>
         ))}
       </Toolbar>
