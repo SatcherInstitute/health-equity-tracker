@@ -31,6 +31,8 @@ from ingestion.acs_utils import (
     get_params,
 )
 
+import sys
+
 # TODO pass this in from message data.
 BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
 
@@ -48,6 +50,44 @@ POVERTY_BY_RACE_SEX_AGE_GROUPS = {
     "B17001I": Race.HISP.value,
 }
 
+CUSTOM_AGE_BUCKETS = [
+    {"min": 0, "max": 5},
+    {"min": 6, "max": 11},
+    {"min": 12, "max": 17},
+]
+
+
+def remove_suffix(input_string, suffix):
+    if suffix and input_string.endswith(suffix):
+        return input_string[: -len(suffix)]
+    return input_string
+
+
+def parseAgeString(in_str):
+    if in_str.endswith("+"):
+        return {"min": int(remove_suffix(in_str, "+")), "max": sys.maxsize}
+
+    parts = in_str.split("-")
+    if len(parts) == 2:
+        return {"min": int(parts[0]), "max": int(parts[1])}
+    else:
+        return {"min": int(parts[0]), "max": int(parts[0])}
+
+
+def determine_new_age_bucket(ageStr):
+    age = parseAgeString(ageStr)
+    for bucket in CUSTOM_AGE_BUCKETS:
+        if bucket["min"] <= age["min"] and bucket["max"] >= age["max"]:
+            return f'{bucket["min"]}-{bucket["max"]}'
+        elif bucket["min"] > age["max"] or bucket["max"] < age["min"]:
+            pass
+        elif bucket["min"] <= age["min"] and age["max"] >= bucket["min"]:
+            raise Exception(f"Invalid Grouping [1] for age {age} for bucket {bucket}")
+        elif bucket["max"] >= age["max"] and age["min"] <= bucket["min"]:
+            raise Exception(f"Invalid Grouping [2] for age {age} for bucket {bucket}")
+
+    return ageStr
+
 
 # Gets the race from ACS Variable ex. B17001A_001E
 
@@ -62,6 +102,20 @@ def get_filename(grp_code, is_county):
     geo = "COUNTY" if is_county else "STATE"
     grp_name = POVERTY_BY_RACE_SEX_AGE_GROUPS[grp_code].replace(" ", "_").upper()
     return f"ACS_POVERTY_BY_AGE_RACE_{geo}_{grp_name}"
+
+    # Helper method from grabbing a tuple in data.  If the
+    # tuple hasnt been created then it initializes an empty tuple.
+    # This is needed as each data variable will only
+    # update one of the population values at a time.
+
+
+def upsert_row(data, state_fip, county_fip, age, sex, race, default_values=-1):
+    if (state_fip, county_fip, age, sex, race) not in data:
+        data[(state_fip, county_fip, age, sex, race)] = {
+            PovertyPopulation.ABOVE: default_values,
+            PovertyPopulation.BELOW: default_values,
+        }
+    return data[(state_fip, county_fip, age, sex, race)]
 
 
 class AcsPovertyIngestor:
@@ -87,6 +141,7 @@ class AcsPovertyIngestor:
 
     def write_to_bq(self, dataset, bucket):
         self.getData(bucket)
+        self.custom_accumulations()
 
         # Split internal memory into data frames for sex/race by state/county
         self.split_data_frames()
@@ -135,6 +190,13 @@ class AcsPovertyIngestor:
                 json.dumps({str(k): v for k, v in self.data.items()}, indent=4), file=f
             )
 
+        self.custom_accumulations()
+
+        with open("acs_poverty_internal_accumulated_data.json", "w") as f:
+            print(
+                json.dumps({str(k): v for k, v in self.data.items()}, indent=4), file=f
+            )
+
         self.split_data_frames()
 
         for table_name, df in self.frames.items():
@@ -156,6 +218,37 @@ class AcsPovertyIngestor:
                         gcs_bucket, get_filename(group, is_county)
                     )
                 self.accumulate_acs_data(data)
+
+    def custom_accumulations(self):
+        new_data = {}
+
+        for data, population in self.data.items():
+            state_fip, county_fip, age, sex, race = data
+
+            above = int(population[PovertyPopulation.ABOVE])
+            below = int(population[PovertyPopulation.BELOW])
+
+            if above == -1 or below == -1:
+                raise Exception(
+                    "Custom Accumulation Error State"
+                    + f" - Unset precondition, ({state_fip},{county_fip},{age},{sex},{race})"
+                    + f" - Above: {above}, Below {below}"
+                )
+
+            new_age = determine_new_age_bucket(age)
+            new_key = (state_fip, county_fip, new_age, sex, race)
+            upsert_row(new_data, state_fip, county_fip, new_age, sex, race, 0)
+            new_population = new_data[new_key]
+            new_population[PovertyPopulation.ABOVE] = str(
+                int(new_population[PovertyPopulation.ABOVE]) + above
+            )
+            new_population[PovertyPopulation.BELOW] = str(
+                int(new_population[PovertyPopulation.BELOW]) + below
+            )
+
+            new_data[new_key] = new_population
+
+        self.data = new_data
 
     """
     Takes data in the form of
@@ -205,7 +298,8 @@ class AcsPovertyIngestor:
             for var in row_data:
                 metadata = row_data[var]["meta"]
                 value = row_data[var]["value"]
-                row = self.upsert_row(
+                row = upsert_row(
+                    self.data,
                     state_fip,
                     county_fip,
                     metadata.get(MetadataKey.AGE),
@@ -213,19 +307,6 @@ class AcsPovertyIngestor:
                     metadata.get(MetadataKey.RACE),
                 )
                 row[metadata[MetadataKey.POPULATION]] = value
-
-    # Helper method from grabbing a tuple in self.data.  If the
-    # tuple hasnt been created then it initializes an empty tuple.
-    # This is needed as each data variable will only
-    # update one of the population values at a time.
-
-    def upsert_row(self, state_fip, county_fip, age, sex, race):
-        if (state_fip, county_fip, age, sex, race) not in self.data:
-            self.data[(state_fip, county_fip, age, sex, race)] = {
-                PovertyPopulation.ABOVE: -1,
-                PovertyPopulation.BELOW: -1,
-            }
-        return self.data[(state_fip, county_fip, age, sex, race)]
 
     # Splits the in memory aggregation into dataframes
 
