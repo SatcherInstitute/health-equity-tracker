@@ -1,6 +1,14 @@
 import unittest
-from ingestion.acs_utils import MetadataKey, parseMetadata, trimMetadata
-from ingestion.constants import HealthInsurancePopulation, Sex, PovertyPopulation
+from ingestion.acs_utils import (
+    MetadataKey,
+    parseMetadata,
+    trimMetadata,
+)  # pylint: disable=no-name-in-module
+from ingestion.constants import (
+    HealthInsurancePopulation,
+    Sex,
+    PovertyPopulation,
+)  # pylint: disable=no-name-in-module
 
 _fake_metadata_to_trim = {
     "variables": {

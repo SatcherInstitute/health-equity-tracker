@@ -221,7 +221,6 @@ class AcsPovertyIngestor:
         for data, population in self.data.items():
             state_fip, county_fip, age, sex, race = data
 
-            old_population = self.data[data]
             above = int(population[PovertyPopulation.ABOVE])
             below = int(population[PovertyPopulation.BELOW])
 
