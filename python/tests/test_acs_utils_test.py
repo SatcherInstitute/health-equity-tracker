@@ -240,3 +240,16 @@ class AcsUtilsTest(unittest.TestCase):
         result = parseMetadata(meta_in, [])
         age_out = result["B00001_001E"][MetadataKey.AGE]
         self.assertEqual(age_out, "12-14")
+
+    def testing_age_order_two(self):
+        meta_in = {
+            "B00001_001E": {
+                "label": "Estimate!!Total:!!Income in the past 12 months below poverty level:!!Male:!!16 and 17 years",
+                "concept": "SEX BY AGE",
+                "group": "B00001",
+            }
+        }
+
+        result = parseMetadata(meta_in, [])
+        age_out = result["B00001_001E"][MetadataKey.AGE]
+        self.assertEqual(age_out, "16-17")
