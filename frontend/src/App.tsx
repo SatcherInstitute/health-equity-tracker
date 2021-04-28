@@ -70,13 +70,15 @@ function MobileAppToolbar() {
           onClick={() => setOpen(false)}>
           <ChevronLeftIcon />
         </Button>
-        <List>
-          {Object.keys(PAGE_URL_TO_NAMES).map((pageUrl, index) => (
-            <ListItemLink href={pageUrl} key={index}>
-              <ListItemText primary={PAGE_URL_TO_NAMES[pageUrl]} />
-            </ListItemLink>
-          ))}
-        </List>
+        <nav>
+          <List>
+            {Object.keys(PAGE_URL_TO_NAMES).map((pageUrl, index) => (
+                <ListItemLink href={pageUrl} key={index}>
+                  <ListItemText primary={PAGE_URL_TO_NAMES[pageUrl]} />
+                </ListItemLink>
+            ))}
+          </List>
+        </nav>
       </Drawer>
     </Toolbar>
   );
@@ -95,18 +97,18 @@ function AppToolbar() {
             Health Equity Tracker
           </LinkWithStickyParams>
         </Typography>
-        {[
-        WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-        EXPLORE_DATA_PAGE_LINK,
-        DATA_CATALOG_PAGE_LINK,
-        ABOUT_US_PAGE_LINK,
-        ].map((pageUrl, i) => (
-            <LinkWithStickyParams to={pageUrl} class={styles.NavLink}>
-              <Button key={i} aria-label={PAGE_URL_TO_NAMES[pageUrl]}>
+        <nav>
+          {[
+            WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+            EXPLORE_DATA_PAGE_LINK,
+            DATA_CATALOG_PAGE_LINK,
+            ABOUT_US_PAGE_LINK,
+          ].map((pageUrl, i) => (
+              <LinkWithStickyParams to={pageUrl} class={styles.NavLink}>
                 {PAGE_URL_TO_NAMES[pageUrl]}
-              </Button>
-            </LinkWithStickyParams>
-        ))}
+              </LinkWithStickyParams>
+          ))}
+        </nav>
       </Toolbar>
   );
 }
@@ -146,7 +148,6 @@ function App() {
           <Router>
             <a className={styles.SkipMainLink} href="#main">Skip to main content</a>
             <ScrollToTop />
-            <header>
               <AppBar position="static" elevation={0}>
                 {width > MOBILE_BREAKPOINT ? (
                     <AppToolbar />
@@ -154,7 +155,6 @@ function App() {
                     <MobileAppToolbar />
                 )}
               </AppBar>
-            </header>
             <main>
               <Switch>
                 <Route path={ABOUT_US_PAGE_LINK} component={AboutUsPage} />

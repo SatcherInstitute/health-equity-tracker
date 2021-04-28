@@ -1,6 +1,18 @@
 import unittest
-from ingestion.acs_utils import MetadataKey, parseMetadata, trimMetadata
-from ingestion.constants import HealthInsurancePopulation, Sex, PovertyPopulation
+
+# pylint: disable=no-name-in-module
+from ingestion.acs_utils import (
+    MetadataKey,
+    parseMetadata,
+    trimMetadata,
+)
+
+# pylint: disable=no-name-in-module
+from ingestion.constants import (
+    HealthInsurancePopulation,
+    Sex,
+    PovertyPopulation,
+)
 
 _fake_metadata_to_trim = {
     "variables": {
@@ -65,7 +77,7 @@ class AcsUtilsTest(unittest.TestCase):
         }
 
         result = parseMetadata(meta_in, [])
-        expected = {"B00001_001E": {MetadataKey.AGE: "0-5"}}
+        expected = {"B00001_001E": {MetadataKey.AGE: "0-4"}}
         self.assertEqual(result, expected)
 
     def testing_age_range(self):
@@ -214,3 +226,42 @@ class AcsUtilsTest(unittest.TestCase):
         result = parseMetadata(meta_in, [])
         expected = {"B00001_001E": {MetadataKey.POPULATION: PovertyPopulation.ABOVE}}
         self.assertEqual(result, expected)
+
+    def testing_age_order(self):
+        meta_in = {
+            "B00001_001E": {
+                "label": "Estimate!!Total:!!Income in the past 12 months below poverty level:!!Male:!!15 years",
+                "concept": "SEX BY AGE",
+                "group": "B00001",
+            }
+        }
+
+        result = parseMetadata(meta_in, [])
+        age_out = result["B00001_001E"][MetadataKey.AGE]
+        self.assertEqual(age_out, "15")
+
+    def testing_age_order_longer(self):
+        meta_in = {
+            "B00001_001E": {
+                "label": "Estimate!!Total:!!Income in the past 12 months below poverty level:!!Male:!!12 to 14 years",
+                "concept": "SEX BY AGE",
+                "group": "B00001",
+            }
+        }
+
+        result = parseMetadata(meta_in, [])
+        age_out = result["B00001_001E"][MetadataKey.AGE]
+        self.assertEqual(age_out, "12-14")
+
+    def testing_age_order_two(self):
+        meta_in = {
+            "B00001_001E": {
+                "label": "Estimate!!Total:!!Income in the past 12 months below poverty level:!!Male:!!16 and 17 years",
+                "concept": "SEX BY AGE",
+                "group": "B00001",
+            }
+        }
+
+        result = parseMetadata(meta_in, [])
+        age_out = result["B00001_001E"][MetadataKey.AGE]
+        self.assertEqual(age_out, "16-17")

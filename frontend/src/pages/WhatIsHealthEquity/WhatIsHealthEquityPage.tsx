@@ -368,10 +368,12 @@ function WhatIsHealthEquityPage() {
                   alt="Asian woman laughing with two children"
                 />
                 <h2 className={styles.NewsAndStoriesTitleText}>
-                  Importance of disaggregated data
+                  Variation in Reporting of the Race and Ethnicity of COVID-19
+                  Cases and Deaths Across US States: Apr 12, 2020 and November
+                  9, 2020
                 </h2>
                 <p className={styles.NewsAndStoriesSubtitleText}>
-                  <a href="/">Learn more</a>
+                  <a href="https://satcherinstitute.org/variation-in-reporting-of-the-race-and-ethnicity-of-covid-19-cases-and-deaths-across-us-states-april-12-2020-and-november-9-2020/">Learn more</a>
                 </p>
               </Grid>
               <Grid

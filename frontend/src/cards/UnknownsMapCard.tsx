@@ -17,6 +17,7 @@ import { UNKNOWN, UNKNOWN_RACE } from "../data/utils/Constants";
 import styles from "./Card.module.scss";
 import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
+import UnknownsAlert from "./ui/UnknownsAlert";
 
 export interface UnknownsMapCardProps {
   // Metric the map will evaluate for unknowns
@@ -49,30 +50,33 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   };
 
   // TODO Debug why onlyInclude(UNKNOWN, UNKNOWN_RACE) isn't working
-  const breakdowns = Breakdowns.forParentFips(props.fips).addBreakdown(
+  const mapGeoBreakdowns = Breakdowns.forParentFips(props.fips).addBreakdown(
+    props.currentBreakdown
+  );
+  const alertBreakdown = Breakdowns.forFips(props.fips).addBreakdown(
     props.currentBreakdown
   );
 
-  // Population Comparison Metric is required
-  const query = new MetricQuery(
-    [
-      props.metricConfig.metricId,
-      props.metricConfig.populationComparisonMetric!.metricId,
-    ],
-    breakdowns
+  const mapQuery = new MetricQuery(
+    [props.metricConfig.metricId],
+    mapGeoBreakdowns
+  );
+  const alertQuery = new MetricQuery(
+    [props.metricConfig.metricId],
+    alertBreakdown
   );
 
   return (
     <CardWrapper
-      queries={[query]}
+      queries={[mapQuery, alertQuery]}
       title={
         <>{`Unknown ${
           BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
         } for ${props.metricConfig.fullCardTitleName}`}</>
       }
     >
-      {([queryResponse]) => {
-        const unknowns = queryResponse
+      {([mapQueryResponse, alertQueryResponse]) => {
+        const unknowns = mapQueryResponse
           .getValidRowsForField(props.currentBreakdown)
           .filter(
             (row: Row) =>
@@ -89,8 +93,15 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               />
             </CardContent>
             <Divider />
+            <UnknownsAlert
+              queryResponse={alertQueryResponse}
+              metricConfig={props.metricConfig}
+              breakdownVar={props.currentBreakdown}
+              displayType="map"
+              known={false}
+            />
             <CardContent>
-              {queryResponse.dataIsMissing() && (
+              {mapQueryResponse.dataIsMissing() && (
                 <MissingDataAlert
                   dataName={props.metricConfig.fullCardTitleName}
                   breakdownString={
@@ -98,14 +109,14 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   }
                 />
               )}
-              {!queryResponse.dataIsMissing() && unknowns.length === 0 && (
+              {!mapQueryResponse.dataIsMissing() && unknowns.length === 0 && (
                 <Alert severity="info">
                   No unknown values for{" "}
                   {BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]} reported
                   in this dataset.
                 </Alert>
               )}
-              {!queryResponse.dataIsMissing() && unknowns.length > 0 && (
+              {!mapQueryResponse.dataIsMissing() && unknowns.length > 0 && (
                 <ChoroplethMap
                   signalListeners={signalListeners}
                   metric={props.metricConfig}
@@ -116,7 +127,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   scaleType="quantile"
                   scaleColorScheme="warmgreys"
                   hideLegend={
-                    queryResponse.dataIsMissing() || unknowns.length <= 1
+                    mapQueryResponse.dataIsMissing() || unknowns.length <= 1
                   }
                 />
               )}
