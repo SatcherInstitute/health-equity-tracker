@@ -17,7 +17,7 @@ import {
 } from "../../utils/urlutils";
 import ReportProvider from "../../reports/ReportProvider";
 import OptionsSelector from "./OptionsSelector";
-import Joyride from "react-joyride";
+import Joyride, { STATUS } from "react-joyride";
 
 function ExploreDataPage() {
   const params = useSearchParams();
@@ -51,10 +51,14 @@ function ExploreDataPage() {
   });
 
   const [sticking, setSticking] = useState<boolean>(false);
+  const [joyrideRun, setJoyrideRun] = useState<boolean>(true);
 
   const EXPLORE_DATA_ID = "main";
 
   useEffect(() => {
+    if (joyrideRun) {
+      return;
+    }
     const header = document.getElementById(EXPLORE_DATA_ID);
     const stickyBarOffsetFromTop: number = header ? header.offsetTop : 1;
     const scrollCallBack: any = window.addEventListener("scroll", () => {
@@ -73,7 +77,7 @@ function ExploreDataPage() {
     return () => {
       window.removeEventListener("scroll", scrollCallBack);
     };
-  }, []);
+  }, [joyrideRun]);
 
   const steps = [
     Step(
@@ -118,11 +122,19 @@ function ExploreDataPage() {
       </>
     ),
   ];
+  const joyrideCallback = (data: any) => {
+    // eslint-disable-next-line
+    const { unusedAction, unusedIndex, status, unusedType } = data;
+    if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
+      setJoyrideRun(false);
+    }
+  };
 
   return (
     <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
       <Joyride
         steps={steps}
+        callback={joyrideCallback}
         disableScrolling={true}
         run={true}
         styles={{
