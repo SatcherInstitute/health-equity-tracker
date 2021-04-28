@@ -17,6 +17,7 @@ import {
 } from "../../utils/urlutils";
 import ReportProvider from "../../reports/ReportProvider";
 import OptionsSelector from "./OptionsSelector";
+import Joyride from "react-joyride";
 
 function ExploreDataPage() {
   const params = useSearchParams();
@@ -74,9 +75,44 @@ function ExploreDataPage() {
     };
   }, []);
 
+  const steps = [
+    {
+      target: "#first-step",
+      content:
+        "Click here to add Case to the Database ! click and enter the given details and submit to add row to the table",
+    },
+    {
+      target: ".box-two",
+      content: "Generates a csv file of table given below,Click to download",
+    },
+    {
+      target: ".box-three",
+      content: "Opens email client",
+    },
+    {
+      target: ".Table",
+      content:
+        "This is whole data, You can filter, sort and do things accordingly",
+    },
+    {
+      target: ".heading-row",
+      content: "Sort by clicking on the element which you want to sort!",
+    },
+  ];
+
   return (
     <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
-      <div className={styles.CarouselContainer}>
+      <Joyride
+        steps={steps}
+        run={true}
+        styles={{
+          options: {
+            arrowColor: "#e3ffeb",
+            backgroundColor: "#e3ffeb",
+          },
+        }}
+      />
+      <div className={styles.CarouselContainer} id="first-step">
         <Carousel
           className={styles.Carousel}
           timeout={200}
