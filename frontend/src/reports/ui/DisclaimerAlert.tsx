@@ -7,7 +7,7 @@ import FlagIcon from "@material-ui/icons/Flag";
 
 function DisclaimerAlert(props: { jumpToData: () => void }) {
   return (
-    <div id="third-step">
+    <div id="onboarding-limits-in-the-data">
       <Alert
         severity="warning"
         className={styles.ReportAlert}

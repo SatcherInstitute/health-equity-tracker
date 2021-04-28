@@ -76,30 +76,47 @@ function ExploreDataPage() {
   }, []);
 
   const steps = [
-    {
-      target: "#first-step",
-      content: (
-        <React.Fragment>
-          <h4>Start Your Search</h4>
-          Complete the sentence by selecting a location. You can scroll left or
-          right for more ways to search. Try it out: Search for 'Investigate
-          impacts of COVID-19 in California'
-        </React.Fragment>
-      ),
-      disableBeacon: true,
-    },
-    {
-      target: "#second-step",
-      disableBeacon: true,
-      content:
-        "Where available, the tracker offers breakdowns by race and ethnicity, sex, and age. This is currently limited to the national and state level, with county-level data coming soon.  Try it out: See information around COVID Hospitalizations by Gender",
-    },
-    {
-      target: "#third-step",
-      disableBeacon: true,
-      content:
-        "The Tracker ingests and standardizes many data sets, but unfortunately there is missing, incomplete, or misclassified data in our sources. We acknowledge that deep inequities exist in the very structure we use to collect and share data. We are committed to helping to fix this.",
-    },
+    Step(
+      "#onboarding-start-your-search",
+      "Start Your Search",
+      <>
+        Complete the sentence by selecting a location. You can scroll left or
+        right for more ways to search.
+        <br />
+        <i>
+          Try it out: Search for 'Investigate impacts of <u>COVID-19</u> in{" "}
+          <u>California</u>'
+        </i>
+      </>
+    ),
+    Step(
+      "#onboarding-limits-in-the-data",
+      "Limits in the data",
+      <>
+        The Tracker ingests and standardizes many data sets, but unfortunately
+        there is missing, incomplete, or misclassified data in our sources. 
+        <br />
+        <i>
+          *We acknowledge that deep inequities exist in the very structure we
+          use to collect and share data. We are committed to helping to fix
+          this.
+        </i>
+      </>
+    ),
+    Step(
+      "#onboarding-explore-trends",
+      "Explore further to see trends",
+      <>
+        Where available, the tracker offers breakdowns by race and ethnicity,
+        sex, and age. This is currently limited to the national and state level,
+        with county-level data coming soon.
+        <br />
+        <i>
+          Try it out: See information around <u>COVID Hospitalizations</u> by{" "}
+          <u>Gender</u>'
+        </i>
+      </>
+    ),
   ];
 
   return (
@@ -119,7 +136,10 @@ function ExploreDataPage() {
           },
         }}
       />
-      <div className={styles.CarouselContainer} id="first-step">
+      <div
+        className={styles.CarouselContainer}
+        id="onboarding-start-your-search"
+      >
         <Carousel
           className={styles.Carousel}
           timeout={200}
@@ -199,6 +219,19 @@ function CarouselMadLib(props: {
       )}
     </Grid>
   );
+}
+
+function Step(targetId: string, title: string, content: JSX.Element) {
+  return {
+    target: targetId,
+    content: (
+      <div style={{ textAlign: "left" }}>
+        <h4>{title}</h4>
+        {content}
+      </div>
+    ),
+    disableBeacon: true,
+  };
 }
 
 export default ExploreDataPage;
