@@ -78,25 +78,27 @@ function ExploreDataPage() {
   const steps = [
     {
       target: "#first-step",
+      content: (
+        <React.Fragment>
+          <h4>Start Your Search</h4>
+          Complete the sentence by selecting a location. You can scroll left or
+          right for more ways to search. Try it out: Search for 'Investigate
+          impacts of COVID-19 in California'
+        </React.Fragment>
+      ),
+      disableBeacon: true,
+    },
+    {
+      target: "#second-step",
+      disableBeacon: true,
       content:
-        "Click here to add Case to the Database ! click and enter the given details and submit to add row to the table",
+        "Where available, the tracker offers breakdowns by race and ethnicity, sex, and age. This is currently limited to the national and state level, with county-level data coming soon.  Try it out: See information around COVID Hospitalizations by Gender",
     },
     {
-      target: ".box-two",
-      content: "Generates a csv file of table given below,Click to download",
-    },
-    {
-      target: ".box-three",
-      content: "Opens email client",
-    },
-    {
-      target: ".Table",
+      target: "#third-step",
+      disableBeacon: true,
       content:
-        "This is whole data, You can filter, sort and do things accordingly",
-    },
-    {
-      target: ".heading-row",
-      content: "Sort by clicking on the element which you want to sort!",
+        "The Tracker ingests and standardizes many data sets, but unfortunately there is missing, incomplete, or misclassified data in our sources. We acknowledge that deep inequities exist in the very structure we use to collect and share data. We are committed to helping to fix this.",
     },
   ];
 
@@ -104,11 +106,16 @@ function ExploreDataPage() {
     <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
       <Joyride
         steps={steps}
+        disableScrolling={true}
         run={true}
         styles={{
           options: {
-            arrowColor: "#e3ffeb",
-            backgroundColor: "#e3ffeb",
+            arrowColor: "#0B5240",
+            backgroundColor: "#0B5240",
+            primaryColor: "#000",
+            textColor: "#fff",
+            width: 900,
+            zIndex: 1000,
           },
         }}
       />
