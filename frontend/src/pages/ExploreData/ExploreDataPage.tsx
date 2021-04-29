@@ -148,52 +148,55 @@ function ExploreDataPage() {
   };
 
   return (
-    <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
-      <Joyride
-        steps={steps}
-        callback={joyrideCallback}
-        disableScrolling={true}
-        run={true}
-        styles={{
-          options: {
-            arrowColor: "#0B5240",
-            backgroundColor: "#0B5240",
-            primaryColor: "#000",
-            textColor: "#fff",
-            width: 900,
-            zIndex: 1000,
-          },
-        }}
-      />
-      <div
-        className={styles.CarouselContainer}
-        id="onboarding-start-your-search"
-      >
-        <Carousel
-          className={styles.Carousel}
-          NextIcon={<NavigateNextIcon id="onboarding-madlib-arrow" />}
-          timeout={200}
-          autoPlay={false}
-          indicators={!sticking}
-          animation="slide"
-          navButtonsAlwaysVisible={true}
-          index={initalIndex}
-          onChange={(index: number) => {
-            setMadLib({
-              ...MADLIB_LIST[index],
-              activeSelections: MADLIB_LIST[index].defaultSelections,
-            });
+    <>
+      <title>Explore the Data - Health Equity Tracker</title>
+      <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
+        <Joyride
+          steps={steps}
+          callback={joyrideCallback}
+          disableScrolling={true}
+          run={true}
+          styles={{
+            options: {
+              arrowColor: "#0B5240",
+              backgroundColor: "#0B5240",
+              primaryColor: "#000",
+              textColor: "#fff",
+              width: 900,
+              zIndex: 1000,
+            },
           }}
+        />
+        <div
+          className={styles.CarouselContainer}
+          id="onboarding-start-your-search"
         >
-          {MADLIB_LIST.map((madlib: MadLib, i) => (
-            <CarouselMadLib madLib={madLib} setMadLib={setMadLib} key={i} />
-          ))}
-        </Carousel>
+          <Carousel
+            className={styles.Carousel}
+            NextIcon={<NavigateNextIcon id="onboarding-madlib-arrow" />}
+            timeout={200}
+            autoPlay={false}
+            indicators={!sticking}
+            animation="slide"
+            navButtonsAlwaysVisible={true}
+            index={initalIndex}
+            onChange={(index: number) => {
+              setMadLib({
+                ...MADLIB_LIST[index],
+                activeSelections: MADLIB_LIST[index].defaultSelections,
+              });
+            }}
+          >
+            {MADLIB_LIST.map((madlib: MadLib, i) => (
+              <CarouselMadLib madLib={madLib} setMadLib={setMadLib} key={i} />
+            ))}
+          </Carousel>
+        </div>
+        <div className={styles.ReportContainer}>
+          <ReportProvider madLib={madLib} setMadLib={setMadLib} />
+        </div>
       </div>
-      <div className={styles.ReportContainer}>
-        <ReportProvider madLib={madLib} setMadLib={setMadLib} />
-      </div>
-    </div>
+    </>
   );
 }
 
