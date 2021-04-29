@@ -7,6 +7,45 @@ import {
   LinkWithStickyParams,
   EXPLORE_DATA_PAGE_LINK,
 } from "../../utils/urlutils";
+import Hidden from "@material-ui/core/Hidden";
+
+function AimToGoItem(props: {
+  src: string;
+  alt: string;
+  title: string;
+  text: string;
+}) {
+  return (
+    <Grid item xs={12} sm={12} md={4} className={styles.AimToGoItem}>
+      <Grid
+        container
+        direction="column"
+        alignItems="flex-start"
+        justify="flex-start"
+      >
+        <Hidden smDown>
+          <Grid item>
+            <img
+              className={styles.ImgAimToGo}
+              src={props.src}
+              alt={props.alt}
+            />
+          </Grid>
+        </Hidden>
+        <Grid item>
+          <Typography className={styles.SubheaderL2Text} variant="h2">
+            {props.title}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography className={styles.HeaderSubtextL2} variant="body2">
+            <p>{props.text}</p>
+          </Typography>
+        </Grid>
+      </Grid>
+    </Grid>
+  );
+}
 
 function TheProjectTab() {
   return (
@@ -44,19 +83,21 @@ function TheProjectTab() {
               </p>
             </Typography>
           </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={7}
-            className={styles.GridAlignRightItem}
-          >
-            <img
-              src="img/pexels-ketut-subiyanto-4473871 1.png"
-              className={styles.ImgHeaderGridItem}
-              alt="A woman laying with her two children"
-            />
-          </Grid>
+          <Hidden smDown>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={7}
+              className={styles.GridAlignRightItem}
+            >
+              <img
+                src="img/pexels-ketut-subiyanto-4473871 1.png"
+                className={styles.ImgHeaderGridItem}
+                alt="A woman laying with her two children"
+              />
+            </Grid>
+          </Hidden>
         </Grid>
 
         <Grid
@@ -100,13 +141,7 @@ function TheProjectTab() {
               </Typography>
             </Grid>
 
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={7}
-              className={styles.GridCenteredItem}
-            >
+            <Grid item xs={12} sm={12} md={6}>
               <Grid
                 container
                 direction="row"
@@ -188,104 +223,29 @@ function TheProjectTab() {
                 Where we aim to go
               </Typography>
             </Grid>
-            <Grid item xs={12} sm={12} md={4} className={styles.AimToGoItem}>
-              <Grid
-                container
-                direction="column"
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Grid item>
-                  <img
-                    className={styles.ImgAimToGo}
-                    src="img/HET_Overlapping_Lines_v4_1000px.gif"
-                    alt="Decorative lines"
-                  />
-                </Grid>
-                <Grid item>
-                  <Typography className={styles.SubheaderL2Text} variant="h2">
-                    Expand data
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography
-                    className={styles.HeaderSubtextL2}
-                    variant="body2"
-                  >
-                    <p>
-                      As we continue to expand our data sources and analyze the
-                      data, we will have more information to share on
-                      disparities and the equity impact of COVID-19.
-                    </p>
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={12} sm={12} md={4} className={styles.AimToGoItem}>
-              <Grid
-                container
-                direction="column"
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Grid item>
-                  <img
-                    className={styles.ImgAimToGo}
-                    src="img/HET_Fields_1_v2_1000px.gif"
-                    alt="Decorative thick lines"
-                  />
-                </Grid>
-                <Grid item>
-                  <Typography className={styles.SubheaderL2Text} variant="h2">
-                    Empower policy makers
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography
-                    className={styles.HeaderSubtextL2}
-                    variant="body2"
-                  >
-                    <p>
-                      We plan to develop policy templates for local, state, and
-                      federal policy makers, and help create actionable policies
-                      with diverse communities
-                    </p>
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={12} sm={12} md={4} className={styles.AimToGoItem}>
-              <Grid
-                container
-                direction="column"
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Grid item>
-                  <img
-                    className={styles.ImgAimToGo}
-                    src="img/HET_Dots_1_v3_1000px.gif"
-                    alt="Decorative dots"
-                  />
-                </Grid>
-                <Grid item>
-                  <Typography className={styles.SubheaderL2Text} variant="h2">
-                    Measure progress
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography
-                    className={styles.HeaderSubtextL2}
-                    variant="body2"
-                  >
-                    <p>
-                      It’s important to track progress, so we plan to develop
-                      and publish more health equity reports and analyses.
-                    </p>
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
+            <AimToGoItem
+              src="img/HET_Overlapping_Lines_v4_1000px.gif"
+              alt="Decorative lines"
+              title="Expand data"
+              text="As we continue to expand our data sources and analyze the
+            data, we will have more information to share on
+            disparities and the equity impact of COVID-19."
+            />
+            <AimToGoItem
+              src="img/HET_Fields_1_v2_1000px.gif"
+              alt="Decorative thick lines"
+              title="Empower policy makers"
+              text="We plan to develop policy templates for local, state, and
+            federal policy makers, and help create actionable policies
+            with diverse communities."
+            />
+            <AimToGoItem
+              src="img/HET_Dots_1_v3_1000px.gif"
+              alt="Decorative dots"
+              title="Measure progress"
+              text="It’s important to track progress, so we plan to develop
+            and publish more health equity reports and analyses."
+            />
           </Grid>
         </Grid>
 

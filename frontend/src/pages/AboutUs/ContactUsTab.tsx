@@ -2,8 +2,8 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./AboutUsPage.module.scss";
 import Typography from "@material-ui/core/Typography";
+import Hidden from "@material-ui/core/Hidden";
 
-/* TODO - Align with mocks, Clean up CSS */
 function ContactUsTab() {
   return (
     <>
@@ -16,41 +16,44 @@ function ContactUsTab() {
           justify="center"
           alignItems="center"
         >
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={4}
-            className={styles.GridVerticallyAlignedItem}
-          >
-            <Typography id="main"
-                        tabIndex={-1}
-                        className={styles.ContactUsHeaderText}
-                        variant="h1">
-              Let's move
-              <br />
-              equity <b style={{ fontWeight: 400 }}>forward</b>
-            </Typography>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={8}
-            className={styles.GridAlignRightItem}
-          >
-            <img
-              src="img/pexels-mentatdgt-1206059 2.png"
-              className={styles.ImgContactUsHeader}
-              alt="A woman laying with her two children"
-            />
-          </Grid>
+          <Hidden smDown>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={4}
+              className={styles.GridVerticallyAlignedItem}
+            >
+              <Typography
+                id="main"
+                tabIndex={-1}
+                className={styles.ContactUsHeaderText}
+                variant="h1"
+              >
+                Let's move
+                <br />
+                equity <b style={{ fontWeight: 400 }}>forward</b>
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={8}
+              className={styles.GridAlignRightItem}
+            >
+              <img
+                src="img/pexels-mentatdgt-1206059 2.png"
+                className={styles.ImgContactUsHeader}
+                alt="A group of female friends hug"
+              />
+            </Grid>
+          </Hidden>
         </Grid>
-        
+
         <Grid
           container
           className={styles.GridOutlinedRow}
-          direction="column"
           justify="center"
           alignItems="center"
         >
