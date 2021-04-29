@@ -2,13 +2,15 @@
 export type MetricId =
   | "population"
   | "population_pct"
+  | "brfss_population_pct"
   | "diabetes_count"
   | "diabetes_per_100k"
   | "diabetes_pct_share"
+  | "diabetes_count_share_of_known"
   | "copd_count"
   | "copd_per_100k"
   | "copd_pct_share"
-  | "brfss_population_pct"
+  | "copd_count_share_of_known"
   | "covid_cases"
   | "covid_deaths"
   | "covid_hosp"
@@ -32,7 +34,9 @@ export type MetricId =
   | "health_insurance_pct_share"
   | "health_insurance_population_pct"
   | "poverty_count"
-  | "poverty_per_100k";
+  | "poverty_per_100k"
+  | "poverty_pct_share"
+  | "poverty_population_pct";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -275,6 +279,13 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             shortVegaLabel: "% of total population",
             type: "pct_share",
           },
+          knownBreakdownComparisonMetric: {
+            metricId: "diabetes_count_share_of_known",
+            fullCardTitleName:
+              "Share of diabetes cases with known demographics",
+            shortVegaLabel: "% of cases",
+            type: "pct_share",
+          },
         },
         per100k: {
           metricId: "diabetes_per_100k",
@@ -300,6 +311,13 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             metricId: "brfss_population_pct",
             fullCardTitleName: "Population Share",
             shortVegaLabel: "% of total population",
+            type: "pct_share",
+          },
+          knownBreakdownComparisonMetric: {
+            metricId: "copd_count_share_of_known",
+            fullCardTitleName:
+              "Share of diabetes cases with known demographics",
+            shortVegaLabel: "% of cases",
             type: "pct_share",
           },
         },
@@ -351,6 +369,18 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             "Individuals below the poverty line per 100,000 people",
           shortVegaLabel: "Individuals below the poverty line per 100k",
           type: "per100k",
+        },
+        pct_share: {
+          metricId: "poverty_pct_share",
+          fullCardTitleName: "Share of Poverty",
+          shortVegaLabel: "% of impoverished",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "poverty_population_pct",
+            fullCardTitleName: "Population Share",
+            shortVegaLabel: "% of total population",
+            type: "pct_share",
+          },
         },
       },
     },

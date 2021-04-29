@@ -1,6 +1,6 @@
 import { IDataFrame } from "data-forge";
 import { Row } from "../utils/DatasetTypes";
-import { ALL, UNKNOWN, UNKNOWN_HL } from "../utils/Constants";
+import { ALL, UNKNOWN, UNKNOWN_RACE, UNKNOWN_HL } from "../utils/Constants";
 import { Breakdowns } from "../query/Breakdowns";
 
 /**
@@ -144,10 +144,39 @@ export function percent(numerator: number, denominator: number): number | null {
 
 /** Finds expected value of an ailment based on a population sample. */
 export function estimateTotal(
+  stateRow: Row,
+  acsState: IDataFrame,
+  stateTotals: IDataFrame,
   sample_count: number,
   sample_population: number,
   total_population: number
 ): number {
+  if (
+    stateRow.race_and_ethnicity === UNKNOWN_RACE ||
+    stateRow.race_and_ethnicity === UNKNOWN
+  ) {
+    const state_population = acsState
+      .where((row) => row.fips === stateRow.fips)
+      .where((row) => row.race_and_ethnicity === ALL)
+      .resetIndex()
+      .at(0);
+
+    if (state_population !== undefined) {
+      total_population = state_population.population;
+    }
+
+    const sample_population = stateTotals
+      .where((row) => row.fips === stateRow.fips)
+      .resetIndex()
+      .at(0).total_sample_size;
+
+    return sample_count == null ||
+      sample_population == null ||
+      sample_population === 0
+      ? 0
+      : Math.round((sample_count / sample_population) * total_population);
+  }
+
   return sample_count == null ||
     sample_population == null ||
     sample_population === 0

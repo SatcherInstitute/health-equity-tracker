@@ -313,6 +313,19 @@
   height: auto;
 }
 
+// For the leader name heading
+.LeaderNameHeading {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 2px 0;
+}
+
+// For the leader role span
+.LeaderRoleSpan {
+  font-size: 14px;
+  font-weight: 400;
+}
+
 // For partner images at the bottom of the page
 .PartnerImg {
   padding: 10px;
