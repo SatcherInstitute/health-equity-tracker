@@ -225,133 +225,119 @@ const PARTNERS = [
 
 function OurTeamTab() {
   return (
-      <>
-        <title>Our Team - About Us - Health Equity Tracker</title>
-        <Grid container className={styles.Grid}>
-          <Grid container className={styles.GridRowHeaderText}>
-            <Grid item xs={12} sm={12} md={7}>
-              <Typography id="main"
-                          tabIndex={-1}
-                          className={styles.OurTeamHeaderText}
-                          variant="h1">
-                We're working towards a better tomorrow.
-              </Typography>
-              <Typography className={styles.HeaderSubtext} variant="subtitle1">
-                We strongly support breaking down systemic barriers in order to
-                achieve a more healthy, equitable, and inclusive society.
-              </Typography>
+    <>
+      <title>Our Team - About Us - Health Equity Tracker</title>
+      <Grid container className={styles.Grid}>
+        <Grid container className={styles.GridRowHeaderText}>
+          <Grid item xs={12} sm={12} md={7}>
+            <Typography
+              id="main"
+              tabIndex={-1}
+              className={styles.OurTeamHeaderText}
+              variant="h1"
+            >
+              We're working towards a better tomorrow.
+            </Typography>
+            <Typography className={styles.HeaderSubtext} variant="subtitle1">
+              We strongly support breaking down systemic barriers in order to
+              achieve a more healthy, equitable, and inclusive society.
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid container className={styles.GridRow}>
+          <Grid item xs={12}>
+            <Typography variant="h2" align="left" className={styles.TeamHeader}>
+              Leadership Team
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Grid
+              container
+              justify="space-around"
+              className={styles.GridSubRow}
+            >
+              {LEADERSHIP_TEAM.map((leader) => {
+                return (
+                  <Grid item className={styles.TextProfile}>
+                    <img
+                      src={leader.imageUrl}
+                      alt={leader.name}
+                      className={styles.ProfileImg}
+                    />
+                    <br />
+                    <h3 className={styles.LeaderNameHeading}>{leader.name}</h3>
+                    <span className={styles.LeaderRoleSpan}>{leader.role}</span>
+                  </Grid>
+                );
+              })}
             </Grid>
           </Grid>
+        </Grid>
 
-          <Grid container className={styles.GridRow}>
-            <Grid item xs={12}>
-              <Typography
-                variant="h2"
-                align="left"
-                className={styles.TeamHeader}
-              >
-                Leadership Team
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Grid container justify="space-around" className={styles.GridSubRow}>
-                {LEADERSHIP_TEAM.map((leader) => {
-                  return (
-                    <Grid item className={styles.TextProfile}>
-                      <img
-                        src={leader.imageUrl}
-                        alt={leader.name}
-                        className={styles.ProfileImg}
-                      />
-                      <br />
-                      <h3 className={styles.LeaderNameHeading}>
-                        {leader.name}
-                      </h3>
-                      <span className={styles.LeaderRoleSpan}>
-                        {leader.role}
-                      </span>
-                    </Grid>
-                  );
-                })}
-              </Grid>
-            </Grid>
+        <Grid container className={styles.GridRow}>
+          <Grid item xs={12}>
+            <Typography variant="h2" align="left" className={styles.TeamHeader}>
+              Google.org Fellows
+            </Typography>
           </Grid>
-
-          <Grid container className={styles.GridRow}>
-            <Grid item xs={12}>
-              <Typography
-                variant="h2"
-                align="left"
-                className={styles.TeamHeader}
-              >
-                Google.org Fellows
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Grid container className={styles.GridSubRow}>
-                {GOOGLE_FELLOWS.map((fellow) => {
-                  return (
-                    <Grid item className={styles.TextProfile}>
-                      <span style={{ fontSize: "16px", fontWeight: 500 }}>
-                        {fellow.name}
-                      </span>
-                      <br />
-                      <span style={{ fontSize: "14px", fontWeight: 400 }}>
-                        {fellow.role}
-                      </span>
-                    </Grid>
-                  );
-                })}
-              </Grid>
-            </Grid>
-          </Grid>
-
-          <Grid container className={styles.GridRow}>
-            <Grid item xs={12}>
-              <Typography
-                variant="h2"
-                align="left"
-                className={styles.TeamHeader}
-              >
-                Health Equity Task Force
-              </Typography>
-            </Grid>
-
-            <Grid item xs={12}>
-              <Grid container className={styles.GridSubRow}>
-                {HE_TASKFORCE.map((name) => (
+          <Grid item>
+            <Grid container className={styles.GridSubRow}>
+              {GOOGLE_FELLOWS.map((fellow) => {
+                return (
                   <Grid item className={styles.TextProfile}>
                     <span style={{ fontSize: "16px", fontWeight: 500 }}>
-                      {name}
+                      {fellow.name}
+                    </span>
+                    <br />
+                    <span style={{ fontSize: "14px", fontWeight: 400 }}>
+                      {fellow.role}
                     </span>
                   </Grid>
-                ))}
-              </Grid>
+                );
+              })}
             </Grid>
           </Grid>
+        </Grid>
 
-          <Grid container className={styles.GridRow}>
-            <Grid item xs={12}>
-              <Typography
-                variant="h6"
-                align="left"
-                className={styles.TeamHeader}
-              >
-                Partners
-              </Typography>
-            </Grid>
+        <Grid container className={styles.GridRow}>
+          <Grid item xs={12}>
+            <Typography variant="h2" align="left" className={styles.TeamHeader}>
+              Health Equity Task Force
+            </Typography>
+          </Grid>
 
-            <Grid item xs={12}>
-              {PARTNERS.map((partner) => (
-                <img
-                  src={partner.imageUrl}
-                  alt={partner.alt}
-                  className={styles.PartnerImg}
-                />
+          <Grid item xs={12}>
+            <Grid container className={styles.GridSubRow}>
+              {HE_TASKFORCE.map((name) => (
+                <Grid item className={styles.TextProfile}>
+                  <span style={{ fontSize: "16px", fontWeight: 500 }}>
+                    {name}
+                  </span>
+                </Grid>
               ))}
             </Grid>
           </Grid>
         </Grid>
+
+        <Grid container className={styles.GridRow}>
+          <Grid item xs={12}>
+            <Typography variant="h6" align="left" className={styles.TeamHeader}>
+              Partners
+            </Typography>
+          </Grid>
+
+          <Grid item xs={12}>
+            {PARTNERS.map((partner) => (
+              <img
+                src={partner.imageUrl}
+                alt={partner.alt}
+                className={styles.PartnerImg}
+              />
+            ))}
+          </Grid>
+        </Grid>
+      </Grid>
     </>
   );
 }
