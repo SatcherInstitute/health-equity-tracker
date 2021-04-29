@@ -257,14 +257,21 @@
   }
 }
 
+/** ------------- FAQ SECTION ------------- **/
+
+.FaqRow {
+  padding: 50px 0;
+  border-bottom: 1px solid #3e3e3e;
+}
+
 /** ------------- HOW TO JOIN THE EFFORT SECTION ------------- **/
 
 .JoinTheEffortRow {
-  padding: 75px 30px 75px 30px;
+  padding: 0 30px;
   align-items: center;
 
   .JoinTheEffortHeaderRow {
-    padding: 40px 0 60px 0;
+    padding: 60px 0;
 
     .JoinTheEffortHeaderText {
       font-size: 52px;
