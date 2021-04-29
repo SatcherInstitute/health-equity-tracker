@@ -16,7 +16,11 @@ import {
 } from "../../utils/urlutils";
 import { ABOUT_US_FAQ_TAB_INDEX } from "../AboutUs/AboutUsPage";
 
-function ChartGif(props: { src: string; alt: string; text: string }) {
+function TakeALookAroundItem(props: {
+  src: string;
+  alt: string;
+  text: string;
+}) {
   return (
     <Grid item xs={12} sm={4} md={4} className={styles.TakeALookAroundItem}>
       <Grid container direction="column" alignItems="center" justify="center">
@@ -133,17 +137,17 @@ function LandingPage() {
                 direction="row"
                 justify="space-around"
               >
-                <ChartGif
+                <TakeALookAroundItem
                   src="img/HET_Fields_1_v2_1000px.gif"
                   alt="Decorative dots"
                   text="(1) Learn about health equity"
                 />
-                <ChartGif
+                <TakeALookAroundItem
                   src="img/HET_Dots_1_v3_1000px.gif"
                   alt="Decorative thick lines"
                   text="(2) Investigate the data"
                 />
-                <ChartGif
+                <TakeALookAroundItem
                   src="img/HET_Spiral_v4_1000px.gif"
                   alt="Decorative circular pattern"
                   text="(3) Share our site and join our movement"

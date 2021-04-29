@@ -9,7 +9,7 @@ import {
 } from "../../utils/urlutils";
 import Hidden from "@material-ui/core/Hidden";
 
-function ChartGif(props: {
+function AimToGoItem(props: {
   src: string;
   alt: string;
   title: string;
@@ -223,7 +223,7 @@ function TheProjectTab() {
                 Where we aim to go
               </Typography>
             </Grid>
-            <ChartGif
+            <AimToGoItem
               src="img/HET_Overlapping_Lines_v4_1000px.gif"
               alt="Decorative lines"
               title="Expand data"
@@ -231,7 +231,7 @@ function TheProjectTab() {
             data, we will have more information to share on
             disparities and the equity impact of COVID-19."
             />
-            <ChartGif
+            <AimToGoItem
               src="img/HET_Fields_1_v2_1000px.gif"
               alt="Decorative thick lines"
               title="Empower policy makers"
@@ -239,7 +239,7 @@ function TheProjectTab() {
             federal policy makers, and help create actionable policies
             with diverse communities."
             />
-            <ChartGif
+            <AimToGoItem
               src="img/HET_Dots_1_v3_1000px.gif"
               alt="Decorative dots"
               title="Measure progress"
