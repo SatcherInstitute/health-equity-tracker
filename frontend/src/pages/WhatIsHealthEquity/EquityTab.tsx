@@ -17,6 +17,7 @@ import {
 } from "../../utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import FaqSection from "../ui/FaqSection";
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -411,6 +412,18 @@ function EquityTab() {
           justify="center"
           alignItems="center"
         >
+          <Grid
+            container
+            item
+            xs={12}
+            className={styles.FaqRow}
+            alignItems="center"
+            justify="center"
+          >
+            <Grid sm={12} md={10}>
+              <FaqSection />
+            </Grid>
+          </Grid>
           <Grid item className={styles.JoinTheEffortHeaderRow}>
             <Typography className={styles.JoinTheEffortHeaderText} variant="h1">
               How do I join the effort?
