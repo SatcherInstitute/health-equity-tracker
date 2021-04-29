@@ -21,20 +21,9 @@ import OptionsSelector from "./OptionsSelector";
 import Joyride, { STATUS } from "react-joyride";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { useCookies } from "react-cookie";
+import ONBOARDING_STEPS from "./OnboardingSteps";
 
-function onboardingStep(targetId: string, title: string, content: JSX.Element) {
-  return {
-    hideCloseButton: true,
-    target: targetId,
-    content: (
-      <div style={{ textAlign: "left" }}>
-        <h4>{title}</h4>
-        {content}
-      </div>
-    ),
-    disableBeacon: true,
-  };
-}
+const EXPLORE_DATA_ID = "main";
 
 function ExploreDataPage() {
   const params = useSearchParams();
@@ -44,6 +33,7 @@ function ExploreDataPage() {
     clearSearchParams([MADLIB_PHRASE_PARAM, MADLIB_SELECTIONS_PARAM]);
   }, []);
 
+  // Set up inital mad lib values based on defaults and query params
   const foundIndex = MADLIB_LIST.findIndex(
     (madlib) => madlib.id === params[MADLIB_PHRASE_PARAM]
   );
@@ -61,20 +51,13 @@ function ExploreDataPage() {
       }
     });
   }
-
-  const [cookies, setCookie] = useCookies(["name"]);
-
   const [madLib, setMadLib] = useState<MadLib>({
     ...MADLIB_LIST[initalIndex],
     activeSelections: defaultValuesWithOverrides,
   });
 
-  const [sticking, setSticking] = useState<boolean>(false);
-  console.log("skipOnboarding cookies.skipOnboarding", cookies.skipOnboarding);
-  console.log(
-    "skipOnboarding params[SHOW_ONBOARDING_PARAM]",
-    params[SHOW_ONBOARDING_PARAM]
-  );
+  // Set up warm welcome onboarding behaviors
+  const [cookies, setCookie] = useCookies(["name"]);
   let skipOnboarding = cookies.skipOnboarding === "true";
   if (params[SHOW_ONBOARDING_PARAM] === "true") {
     skipOnboarding = false;
@@ -82,13 +65,20 @@ function ExploreDataPage() {
   if (params[SHOW_ONBOARDING_PARAM] === "false") {
     skipOnboarding = true;
   }
-  console.log("skipOnboarding", skipOnboarding);
-  const [joyrideRun, setJoyrideRun] = useState<boolean>(!skipOnboarding);
+  const [activelyOnboarding, setActivelyOnboarding] = useState<boolean>(
+    !skipOnboarding
+  );
+  const endOnboardingCallback = (data: any) => {
+    if ([STATUS.FINISHED, STATUS.SKIPPED].includes(data.status)) {
+      setActivelyOnboarding(false);
+      setCookie("skipOnboarding", true, { path: "/" });
+    }
+  };
 
-  const EXPLORE_DATA_ID = "main";
-
+  // Set up sticky madlib behavior
+  const [sticking, setSticking] = useState<boolean>(false);
   useEffect(() => {
-    if (joyrideRun) {
+    if (activelyOnboarding) {
       return;
     }
     const header = document.getElementById(EXPLORE_DATA_ID);
@@ -109,70 +99,15 @@ function ExploreDataPage() {
     return () => {
       window.removeEventListener("scroll", scrollCallBack);
     };
-  }, [joyrideRun]);
-
-  const steps = [
-    onboardingStep(
-      "#onboarding-start-your-search",
-      "Start Your Search",
-      <>
-        Complete the sentence by selecting a location. You can also select a
-        different variable, like <i>'Diabetes'</i> or <i>'Poverty'</i>
-      </>
-    ),
-    onboardingStep(
-      "#onboarding-madlib-arrow",
-      "Compare Locations and Variables",
-      <>
-        Click the arrows to scroll left or right for more ways to search, such
-        as <i>‘Compare rates of COVID-19 between Georgia and Alabama’</i> or{" "}
-        <i>
-          ‘Explore relationships between Diabetes and Health Insurance in the
-          United States’
-        </i>
-        .
-      </>
-    ),
-    onboardingStep(
-      "#onboarding-limits-in-the-data",
-      "Limits in the data",
-      <>
-        The Tracker ingests and standardizes many data sets, but unfortunately
-        there is missing, incomplete, or misclassified data in our sources.
-        <br />
-        <i>
-          *We acknowledge that deep inequities exist in the very structure we
-          use to collect and share data. We are committed to helping to fix
-          this.
-        </i>
-      </>
-    ),
-    onboardingStep(
-      "#onboarding-explore-trends",
-      "Explore further to see trends",
-      <>
-        Where available, the tracker offers breakdowns by race and ethnicity,
-        sex, and age. This is currently limited to the national and state level,
-        with county-level data coming soon.
-      </>
-    ),
-  ];
-  const joyrideCallback = (data: any) => {
-    // eslint-disable-next-line
-    const { unusedAction, unusedIndex, status, unusedType } = data;
-    if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
-      setJoyrideRun(false);
-      setCookie("skipOnboarding", true, { path: "/" });
-    }
-  };
+  }, [activelyOnboarding]);
 
   return (
     <>
       <title>Explore the Data - Health Equity Tracker</title>
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
         <Joyride
-          steps={steps}
-          callback={joyrideCallback}
+          steps={ONBOARDING_STEPS}
+          callback={endOnboardingCallback}
           disableScrolling={true}
           showProgress={true}
           showSkipButton={true}
@@ -180,7 +115,7 @@ function ExploreDataPage() {
           continuous={true}
           disableOverlayClose={true}
           disableOverlay={true}
-          run={joyrideRun}
+          run={activelyOnboarding}
           styles={{
             options: {
               arrowColor: "#0B5240",
