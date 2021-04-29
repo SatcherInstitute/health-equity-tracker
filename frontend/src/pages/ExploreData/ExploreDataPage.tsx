@@ -22,6 +22,7 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 
 function onboardingStep(targetId: string, title: string, content: JSX.Element) {
   return {
+    hideCloseButton: true,
     target: targetId,
     content: (
       <div style={{ textAlign: "left" }}>
@@ -155,6 +156,12 @@ function ExploreDataPage() {
           steps={steps}
           callback={joyrideCallback}
           disableScrolling={true}
+          showProgress={true}
+          showSkipButton={true}
+          disableCloseOnEsc={true}
+          continuous={true}
+          disableOverlayClose={true}
+          disableOverlay={true}
           run={true}
           styles={{
             options: {

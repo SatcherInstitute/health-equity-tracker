@@ -52,7 +52,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
 
       {variableConfig && (
         <Grid container spacing={1} justify="center">
-          <Grid container xs={12} id="onboarding-explore-trends">
+          <Grid container xs={12}>
             <ReportToggleControls
               dropdownVarId={props.dropdownVarId}
               variableConfig={variableConfig}

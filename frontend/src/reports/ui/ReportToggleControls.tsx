@@ -63,7 +63,7 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
           </ToggleButtonGroup>
         </Grid>
       )}
-      <Grid item className={styles.ToggleBlock}>
+      <Grid item className={styles.ToggleBlock} id="onboarding-explore-trends">
         <span className={styles.ToggleLabel}>Demographic</span>
         <ToggleButtonGroup
           exclusive
