@@ -73,6 +73,10 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   return (
     <CardWrapper queries={[query]} title={<CardTitle />}>
       {([queryResponse]) => {
+        const showMissingDataMessage = queryResponse.shouldShowMissingDataMessage(
+          [metricConfig.metricId]
+        );
+
         const dataWithoutUnknowns = queryResponse
           .getValidRowsForField(metricConfig.metricId)
           .filter(
@@ -83,17 +87,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
         return (
           <>
-            <UnknownsAlert
-              metricConfig={metricConfig}
-              queryResponse={queryResponse}
-              breakdownVar={props.breakdownVar}
-              displayType="chart"
-              known={true}
-            />
-            <Divider />
-            {queryResponse.shouldShowMissingDataMessage([
-              metricConfig.metricId,
-            ]) && (
+            {showMissingDataMessage && (
               <CardContent className={styles.Breadcrumbs}>
                 <MissingDataAlert
                   dataName={metricConfig.fullCardTitleName}
@@ -103,20 +97,29 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 />
               </CardContent>
             )}
-            {!queryResponse.shouldShowMissingDataMessage([
-              metricConfig.metricId,
-            ]) && (
-              <CardContent className={styles.Breadcrumbs}>
-                <DisparityBarChart
-                  data={dataWithoutUnknowns}
-                  lightMetric={metricConfig.populationComparisonMetric!}
-                  darkMetric={
-                    metricConfig.knownBreakdownComparisonMetric || metricConfig
-                  }
+            {!showMissingDataMessage && (
+              <>
+                <UnknownsAlert
+                  metricConfig={metricConfig}
+                  queryResponse={queryResponse}
                   breakdownVar={props.breakdownVar}
-                  metricDisplayName={metricConfig.shortVegaLabel}
+                  displayType="chart"
+                  known={true}
                 />
-              </CardContent>
+                <Divider />
+                <CardContent className={styles.Breadcrumbs}>
+                  <DisparityBarChart
+                    data={dataWithoutUnknowns}
+                    lightMetric={metricConfig.populationComparisonMetric!}
+                    darkMetric={
+                      metricConfig.knownBreakdownComparisonMetric ||
+                      metricConfig
+                    }
+                    breakdownVar={props.breakdownVar}
+                    metricDisplayName={metricConfig.shortVegaLabel}
+                  />
+                </CardContent>
+              </>
             )}
           </>
         );

@@ -15,7 +15,7 @@ function UnknownsAlert(props: {
   queryResponse: MetricQueryResponse;
   metricConfig: MetricConfig;
   breakdownVar: BreakdownVar;
-  displayType: string; // "chart" or "map"
+  displayType: string; // "chart" or "map" or "maps"
   pluralDisplayType?: Boolean;
   known: Boolean;
 }) {
