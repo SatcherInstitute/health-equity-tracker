@@ -125,7 +125,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   showCounties={props.fips.isUsa() ? false : true}
                   fips={props.fips}
                   scaleType="quantile"
-                  scaleColorScheme="warmgreys"
+                  scaleColorScheme="greenblue"
                   hideLegend={
                     mapQueryResponse.dataIsMissing() || unknowns.length <= 1
                   }
