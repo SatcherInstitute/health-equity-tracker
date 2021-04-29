@@ -45,75 +45,78 @@ function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
   };
 
   return (
-    <div className={styles.DatasetExplorer}>
-      <Grid container>
-        <div className={styles.DatasetHeader}>
-          <Grid item>
-            <Typography id="main"
-                        tabIndex={-1}
-                        className={styles.DataDownloadsHeaderText}
-                        variant="h1">
-              View and download Health Equity Tracker data sources
-            </Typography>
-          </Grid>
-          <Grid item>
-            <p className={styles.DataDownloadsHeaderSubtext}>
-              Here you can access and download the data sources that are
-              displayed in the charts on the Health Equity Tracker. Want to
-              explore what each data set can show us about different health
-              outcomes?{" "}
-              <a
-                href={EXPLORE_DATA_PAGE_LINK}
-                className={styles.DataDownloadsExploreLink}
-              >
-                Go explore the data dashboard.
-              </a>
-            </p>
-          </Grid>
-        </div>
-        <div className={styles.DatasetList}>
-          <WithMetadata>
-            {(datasetMetadata) => {
-              const filteredDatasets = getFilteredSources(
-                DataSourceMetadataMap,
-                activeFilter
-              );
-              // Check if more than the default filters are enabled to see if you're viewing
-              // a subset of sources
-              const viewingSubsetOfSources =
-                Object.keys(activeFilter).length > 1 ||
-                activeFilter[NAME_FILTER_ID].length > 0;
+      <>
+        <title>Data Downloads - Health Equity Tracker</title>
+        <div className={styles.DatasetExplorer}>
+          <Grid container>
+            <div className={styles.DatasetHeader}>
+              <Grid item>
+                <Typography id="main"
+                            tabIndex={-1}
+                            className={styles.DataDownloadsHeaderText}
+                            variant="h1">
+                  View and download Health Equity Tracker data sources
+                </Typography>
+              </Grid>
+              <Grid item>
+                <p className={styles.DataDownloadsHeaderSubtext}>
+                  Here you can access and download the data sources that are
+                  displayed in the charts on the Health Equity Tracker. Want to
+                  explore what each data set can show us about different health
+                  outcomes?{" "}
+                  <a
+                    href={EXPLORE_DATA_PAGE_LINK}
+                    className={styles.DataDownloadsExploreLink}
+                  >
+                    Go explore the data dashboard.
+                  </a>
+                </p>
+              </Grid>
+            </div>
+            <div className={styles.DatasetList}>
+              <WithMetadata>
+                {(datasetMetadata) => {
+                  const filteredDatasets = getFilteredSources(
+                    DataSourceMetadataMap,
+                    activeFilter
+                  );
+                  // Check if more than the default filters are enabled to see if you're viewing
+                  // a subset of sources
+                  const viewingSubsetOfSources =
+                    Object.keys(activeFilter).length > 1 ||
+                    activeFilter[NAME_FILTER_ID].length > 0;
 
-              return (
-                <>
-                  {filteredDatasets.map((source_id, index) => (
-                    <div className={styles.Dataset} key={index}>
-                      <div className={styles.DatasetListItem}>
-                        <DataSourceListing
-                          key={DataSourceMetadataMap[source_id].id}
-                          source_metadata={DataSourceMetadataMap[source_id]}
-                          dataset_metadata={datasetMetadata}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                  {/* TODO clear filters instead of reloading the page. */}
-                  {viewingSubsetOfSources && (
-                    <Button
-                      href={DATA_CATALOG_PAGE_LINK}
-                      color="primary"
-                      variant="contained"
-                    >
-                      View All Datasets
-                    </Button>
-                  )}
-                </>
-              );
-            }}
-          </WithMetadata>
+                  return (
+                    <>
+                      {filteredDatasets.map((source_id, index) => (
+                        <div className={styles.Dataset} key={index}>
+                          <div className={styles.DatasetListItem}>
+                            <DataSourceListing
+                              key={DataSourceMetadataMap[source_id].id}
+                              source_metadata={DataSourceMetadataMap[source_id]}
+                              dataset_metadata={datasetMetadata}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                      {/* TODO clear filters instead of reloading the page. */}
+                      {viewingSubsetOfSources && (
+                        <Button
+                          href={DATA_CATALOG_PAGE_LINK}
+                          color="primary"
+                          variant="contained"
+                        >
+                          View All Datasets
+                        </Button>
+                      )}
+                    </>
+                  );
+                }}
+              </WithMetadata>
+            </div>
+          </Grid>
         </div>
-      </Grid>
-    </div>
+      </>
   );
 }
 

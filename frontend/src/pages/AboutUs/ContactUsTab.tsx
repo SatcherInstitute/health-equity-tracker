@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 function ContactUsTab() {
   return (
     <>
+      <title>Contact Us - About Us - Health Equity Tracker</title>
       <Grid container className={styles.Grid}>
         <Grid
           container

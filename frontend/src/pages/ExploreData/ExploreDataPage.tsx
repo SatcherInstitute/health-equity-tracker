@@ -75,32 +75,35 @@ function ExploreDataPage() {
   }, []);
 
   return (
-    <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
-      <div className={styles.CarouselContainer}>
-        <Carousel
-          className={styles.Carousel}
-          timeout={200}
-          autoPlay={false}
-          indicators={!sticking}
-          animation="slide"
-          navButtonsAlwaysVisible={true}
-          index={initalIndex}
-          onChange={(index: number) => {
-            setMadLib({
-              ...MADLIB_LIST[index],
-              activeSelections: MADLIB_LIST[index].defaultSelections,
-            });
-          }}
-        >
-          {MADLIB_LIST.map((madlib: MadLib, i) => (
-            <CarouselMadLib madLib={madLib} setMadLib={setMadLib} key={i} />
-          ))}
-        </Carousel>
-      </div>
-      <div className={styles.ReportContainer}>
-        <ReportProvider madLib={madLib} setMadLib={setMadLib} />
-      </div>
-    </div>
+      <>
+        <title>Explore the Data - Health Equity Tracker</title>
+        <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
+          <div className={styles.CarouselContainer}>
+            <Carousel
+              className={styles.Carousel}
+              timeout={200}
+              autoPlay={false}
+              indicators={!sticking}
+              animation="slide"
+              navButtonsAlwaysVisible={true}
+              index={initalIndex}
+              onChange={(index: number) => {
+                setMadLib({
+                  ...MADLIB_LIST[index],
+                  activeSelections: MADLIB_LIST[index].defaultSelections,
+                });
+              }}
+            >
+              {MADLIB_LIST.map((madlib: MadLib, i) => (
+                <CarouselMadLib madLib={madLib} setMadLib={setMadLib} key={i} />
+              ))}
+            </Carousel>
+          </div>
+          <div className={styles.ReportContainer}>
+            <ReportProvider madLib={madLib} setMadLib={setMadLib} />
+          </div>
+        </div>
+        </>
   );
 }
 
