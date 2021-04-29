@@ -13,6 +13,7 @@ import {
   MetricConfig,
   MetricId,
   VariableConfig,
+  getPer100kAndPctShareMetrics,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC, RACE } from "../data/utils/Constants";
@@ -23,11 +24,12 @@ import Divider from "@material-ui/core/Divider";
 export interface TableCardProps {
   fips: Fips;
   breakdownVar: BreakdownVar;
-  metrics: MetricConfig[];
   variableConfig: VariableConfig;
 }
 
 export function TableCard(props: TableCardProps) {
+  const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
+
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     props.breakdownVar === "race_and_ethnicity"
@@ -35,7 +37,7 @@ export function TableCard(props: TableCardProps) {
       : undefined
   );
   let metricConfigs: Record<string, MetricConfig> = {};
-  props.metrics.forEach((metricConfig) => {
+  metrics.forEach((metricConfig) => {
     // We prefer to show the known breakdown metric over the vanilla metric, if
     // it is available.
     if (metricConfig.knownBreakdownComparisonMetric) {
@@ -53,7 +55,7 @@ export function TableCard(props: TableCardProps) {
   const metricIds = Object.keys(metricConfigs);
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
-  const displayingCovidData = props.metrics
+  const displayingCovidData = metrics
     .map((config) => config.metricId)
     .some((metricId) => metricId.includes("covid"));
 

@@ -2,7 +2,7 @@ import React from "react";
 import { CardContent } from "@material-ui/core";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { Fips } from "../data/utils/Fips";
-import { MetricConfig } from "../data/config/MetricConfig";
+import { VariableConfig } from "../data/config/MetricConfig";
 import MapBreadcrumbs from "./ui/MapBreadcrumbs";
 import { Row } from "../data/utils/DatasetTypes";
 import CardWrapper from "./CardWrapper";
@@ -20,8 +20,8 @@ import Alert from "@material-ui/lab/Alert";
 import UnknownsAlert from "./ui/UnknownsAlert";
 
 export interface UnknownsMapCardProps {
-  // Metric the map will evaluate for unknowns
-  metricConfig: MetricConfig;
+  // Variable the map will evaluate for unknowns
+  variableConfig: VariableConfig;
   // Breakdown value to evaluate for unknowns
   currentBreakdown: BreakdownVar;
   // Geographic region of maps
@@ -35,13 +35,15 @@ export interface UnknownsMapCardProps {
 export function UnknownsMapCard(props: UnknownsMapCardProps) {
   return (
     <UnknownsMapCardWithKey
-      key={props.currentBreakdown + props.metricConfig.metricId}
+      key={props.currentBreakdown + props.variableConfig.variableId}
       {...props}
     />
   );
 }
 
 function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
+  const metricConfig = props.variableConfig.metrics["pct_share"];
+
   const signalListeners: any = {
     click: (...args: any) => {
       const clickedData = args[1];
@@ -57,14 +59,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     props.currentBreakdown
   );
 
-  const mapQuery = new MetricQuery(
-    [props.metricConfig.metricId],
-    mapGeoBreakdowns
-  );
-  const alertQuery = new MetricQuery(
-    [props.metricConfig.metricId],
-    alertBreakdown
-  );
+  const mapQuery = new MetricQuery([metricConfig.metricId], mapGeoBreakdowns);
+  const alertQuery = new MetricQuery([metricConfig.metricId], alertBreakdown);
 
   return (
     <CardWrapper
@@ -72,7 +68,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       title={
         <>{`Unknown ${
           BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
-        } for ${props.metricConfig.fullCardTitleName}`}</>
+        } for ${metricConfig.fullCardTitleName}`}</>
       }
     >
       {([mapQueryResponse, alertQueryResponse]) => {
@@ -95,7 +91,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             <Divider />
             <UnknownsAlert
               queryResponse={alertQueryResponse}
-              metricConfig={props.metricConfig}
+              metricConfig={metricConfig}
               breakdownVar={props.currentBreakdown}
               displayType="map"
               known={false}
@@ -103,7 +99,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             <CardContent>
               {mapQueryResponse.dataIsMissing() && (
                 <MissingDataAlert
-                  dataName={props.metricConfig.fullCardTitleName}
+                  dataName={metricConfig.fullCardTitleName}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
                   }
@@ -119,8 +115,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               {!mapQueryResponse.dataIsMissing() && unknowns.length > 0 && (
                 <ChoroplethMap
                   signalListeners={signalListeners}
-                  metric={props.metricConfig}
-                  legendTitle={props.metricConfig.fullCardTitleName}
+                  metric={metricConfig}
+                  legendTitle={metricConfig.fullCardTitleName}
                   data={unknowns}
                   showCounties={props.fips.isUsa() ? false : true}
                   fips={props.fips}
