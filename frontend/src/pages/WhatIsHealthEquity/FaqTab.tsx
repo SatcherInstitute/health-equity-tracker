@@ -2,12 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import { Typography } from "@material-ui/core";
-import {
-    TAB_PARAM,
-    ABOUT_US_PAGE_LINK,
-    DATA_CATALOG_PAGE_LINK,
-    LinkWithStickyParams,
-  } from "../../utils/urlutils";
+import { TAB_PARAM, ABOUT_US_PAGE_LINK } from "../../utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
 
 function FaqTab() {

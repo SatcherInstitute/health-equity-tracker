@@ -539,7 +539,7 @@ function LandingPage() {
               <LinkWithStickyParams
                 class={styles.FaqLink}
                 to={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_FAQ_TAB_INDEX}`}
-            >
+              >
                 See our full FAQ page
               </LinkWithStickyParams>
             </Grid>
