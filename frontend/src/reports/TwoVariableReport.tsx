@@ -68,13 +68,26 @@ function TwoVariableReport(props: {
         <>
           <Grid item xs={12}>
             <PopulationCard fips={props.fips1} />
-            <ReportToggleControls
-              dropdownVarId={props.dropdownVarId1}
-              variableConfig={variableConfig1}
-              setVariableConfig={setVariableConfig1}
-              currentBreakdown={currentBreakdown}
-              setCurrentBreakdown={setCurrentBreakdown}
-            />
+            <Grid container>
+              <Grid item xs={12} sm={6}>
+                <ReportToggleControls
+                  dropdownVarId={props.dropdownVarId1}
+                  variableConfig={variableConfig1}
+                  setVariableConfig={setVariableConfig1}
+                  currentBreakdown={currentBreakdown}
+                  setCurrentBreakdown={setCurrentBreakdown}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <ReportToggleControls
+                  dropdownVarId={props.dropdownVarId2}
+                  variableConfig={variableConfig2}
+                  setVariableConfig={setVariableConfig2}
+                  currentBreakdown={currentBreakdown}
+                  setCurrentBreakdown={setCurrentBreakdown}
+                />
+              </Grid>
+            </Grid>
           </Grid>
         </>
       ) : (
