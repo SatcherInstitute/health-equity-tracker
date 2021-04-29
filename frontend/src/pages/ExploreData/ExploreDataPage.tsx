@@ -13,12 +13,14 @@ import {
   clearSearchParams,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
+  SHOW_ONBOARDING_PARAM,
   useSearchParams,
 } from "../../utils/urlutils";
 import ReportProvider from "../../reports/ReportProvider";
 import OptionsSelector from "./OptionsSelector";
 import Joyride, { STATUS } from "react-joyride";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import { useCookies } from "react-cookie";
 
 function onboardingStep(targetId: string, title: string, content: JSX.Element) {
   return {
@@ -60,13 +62,28 @@ function ExploreDataPage() {
     });
   }
 
+  const [cookies, setCookie] = useCookies(["name"]);
+
   const [madLib, setMadLib] = useState<MadLib>({
     ...MADLIB_LIST[initalIndex],
     activeSelections: defaultValuesWithOverrides,
   });
 
   const [sticking, setSticking] = useState<boolean>(false);
-  const [joyrideRun, setJoyrideRun] = useState<boolean>(true);
+  console.log("skipOnboarding cookies.skipOnboarding", cookies.skipOnboarding);
+  console.log(
+    "skipOnboarding params[SHOW_ONBOARDING_PARAM]",
+    params[SHOW_ONBOARDING_PARAM]
+  );
+  let skipOnboarding = cookies.skipOnboarding === "true";
+  if (params[SHOW_ONBOARDING_PARAM] === "true") {
+    skipOnboarding = false;
+  }
+  if (params[SHOW_ONBOARDING_PARAM] === "false") {
+    skipOnboarding = true;
+  }
+  console.log("skipOnboarding", skipOnboarding);
+  const [joyrideRun, setJoyrideRun] = useState<boolean>(!skipOnboarding);
 
   const EXPLORE_DATA_ID = "main";
 
@@ -145,6 +162,7 @@ function ExploreDataPage() {
     const { unusedAction, unusedIndex, status, unusedType } = data;
     if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
       setJoyrideRun(false);
+      setCookie("skipOnboarding", true, { path: "/" });
     }
   };
 
@@ -162,7 +180,7 @@ function ExploreDataPage() {
           continuous={true}
           disableOverlayClose={true}
           disableOverlay={true}
-          run={true}
+          run={joyrideRun}
           styles={{
             options: {
               arrowColor: "#0B5240",
