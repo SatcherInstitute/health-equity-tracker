@@ -3,14 +3,20 @@ import Grid from "@material-ui/core/Grid";
 import styles from "./TermsOfServicePage.module.scss";
 import { Typography } from "@material-ui/core";
 
-function TermsOfServicePage(props: { setTabIndexFx: Dispatch<SetStateAction<number>> }) {
+function TermsOfServicePage(props: {
+  setTabIndexFx: Dispatch<SetStateAction<number>>;
+}) {
   return (
+    <>
+      <title>Terms of Service - Health Equity Tracker</title>
       <Grid container className={styles.Grid}>
         <Grid container className={styles.TosSection}>
           <Grid item xs={3}>
-            <Typography id="main"
-                        tabIndex={-1}
-                        className={styles.TosHeaderText}>
+            <Typography
+              id="main"
+              tabIndex={-1}
+              className={styles.TosHeaderText}
+            >
               Privacy Policy
             </Typography>
           </Grid>
@@ -30,9 +36,9 @@ function TermsOfServicePage(props: { setTabIndexFx: Dispatch<SetStateAction<numb
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-              <span className={styles.TosQuestion}>
-                Personally Provided Information
-              </span>
+                <span className={styles.TosQuestion}>
+                  Personally Provided Information
+                </span>
                 <div className={styles.TosAnswer}>
                   <p>
                     In general, you can visit official MSM web sites, such as
@@ -49,9 +55,9 @@ function TermsOfServicePage(props: { setTabIndexFx: Dispatch<SetStateAction<numb
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-              <span className={styles.TosQuestion}>
-                Email and Phone Communications
-              </span>
+                <span className={styles.TosQuestion}>
+                  Email and Phone Communications
+                </span>
                 <div className={styles.TosAnswer}>
                   <p>
                     Email communication that you send to us via contact forms on
@@ -64,9 +70,9 @@ function TermsOfServicePage(props: { setTabIndexFx: Dispatch<SetStateAction<numb
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-              <span className={styles.TosQuestion}>
-                Collection of Technical Information
-              </span>
+                <span className={styles.TosQuestion}>
+                  Collection of Technical Information
+                </span>
                 <div className={styles.TosAnswer}>
                   <p>
                     MSM and the HET use IP addresses (the Internet address of
@@ -95,9 +101,7 @@ function TermsOfServicePage(props: { setTabIndexFx: Dispatch<SetStateAction<numb
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-              <span className={styles.TosQuestion}>
-                Security
-              </span>
+                <span className={styles.TosQuestion}>Security</span>
                 <div className={styles.TosAnswer}>
                   <p>
                     While no computing environment can be 100% secure, it is
@@ -111,9 +115,7 @@ function TermsOfServicePage(props: { setTabIndexFx: Dispatch<SetStateAction<numb
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-              <span className={styles.TosQuestion}>
-                Links to Other Sites
-              </span>
+                <span className={styles.TosQuestion}>Links to Other Sites</span>
                 <div className={styles.TosAnswer}>
                   <p>
                     Please note that some pages within MSM web site, for the
@@ -126,9 +128,9 @@ function TermsOfServicePage(props: { setTabIndexFx: Dispatch<SetStateAction<numb
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-              <span className={styles.TosQuestion}>
-                Changes to our Privacy Policy
-              </span>
+                <span className={styles.TosQuestion}>
+                  Changes to our Privacy Policy
+                </span>
                 <div className={styles.TosAnswer}>
                   <p>
                     We may change the terms and conditions of our Privacy Policy
@@ -143,9 +145,7 @@ function TermsOfServicePage(props: { setTabIndexFx: Dispatch<SetStateAction<numb
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-              <span className={styles.TosQuestion}>
-                Complaint Process
-              </span>
+                <span className={styles.TosQuestion}>Complaint Process</span>
                 <div className={styles.TosAnswer}>
                   <p>
                     If you have a complaint or problem with the HET website, or
@@ -158,9 +158,7 @@ function TermsOfServicePage(props: { setTabIndexFx: Dispatch<SetStateAction<numb
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-              <span className={styles.TosQuestion}>
-                Disclaimer
-              </span>
+                <span className={styles.TosQuestion}>Disclaimer</span>
                 <div className={styles.TosAnswer}>
                   <p>
                     No data protection method or combination of methods can be
@@ -182,7 +180,9 @@ function TermsOfServicePage(props: { setTabIndexFx: Dispatch<SetStateAction<numb
 
         <Grid container className={styles.TosSection}>
           <Grid item xs={3}>
-            <Typography className={styles.TosHeaderText}>Terms and Conditions</Typography>
+            <Typography className={styles.TosHeaderText}>
+              Terms and Conditions
+            </Typography>
           </Grid>
           <Grid item xs={9}>
             <Grid container>
@@ -200,9 +200,9 @@ function TermsOfServicePage(props: { setTabIndexFx: Dispatch<SetStateAction<numb
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-              <span className={styles.TosQuestion}>
-                Personally Provided Information
-              </span>
+                <span className={styles.TosQuestion}>
+                  Personally Provided Information
+                </span>
                 <div className={styles.TosAnswer}>
                   <p>
                     In general, you can visit official MSM web sites, such as
@@ -219,9 +219,9 @@ function TermsOfServicePage(props: { setTabIndexFx: Dispatch<SetStateAction<numb
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-              <span className={styles.TosQuestion}>
-                Email and Phone Communications
-              </span>
+                <span className={styles.TosQuestion}>
+                  Email and Phone Communications
+                </span>
                 <div className={styles.TosAnswer}>
                   <p>
                     Email communication that you send to us via contact forms on
@@ -234,9 +234,9 @@ function TermsOfServicePage(props: { setTabIndexFx: Dispatch<SetStateAction<numb
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-              <span className={styles.TosQuestion}>
-                Collection of Technical Information
-              </span>
+                <span className={styles.TosQuestion}>
+                  Collection of Technical Information
+                </span>
                 <div className={styles.TosAnswer}>
                   <p>
                     MSM and the HET use IP addresses (the Internet address of
@@ -265,9 +265,7 @@ function TermsOfServicePage(props: { setTabIndexFx: Dispatch<SetStateAction<numb
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-              <span className={styles.TosQuestion}>
-                Security
-              </span>
+                <span className={styles.TosQuestion}>Security</span>
                 <div className={styles.TosAnswer}>
                   <p>
                     While no computing environment can be 100% secure, it is
@@ -281,9 +279,7 @@ function TermsOfServicePage(props: { setTabIndexFx: Dispatch<SetStateAction<numb
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-              <span className={styles.TosQuestion}>
-                Links to Other Sites
-              </span>
+                <span className={styles.TosQuestion}>Links to Other Sites</span>
                 <div className={styles.TosAnswer}>
                   <p>
                     Please note that some pages within MSM website, for the
@@ -296,9 +292,9 @@ function TermsOfServicePage(props: { setTabIndexFx: Dispatch<SetStateAction<numb
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-              <span className={styles.TosQuestion}>
-                Changes to our Privacy Policy
-              </span>
+                <span className={styles.TosQuestion}>
+                  Changes to our Privacy Policy
+                </span>
                 <div className={styles.TosAnswer}>
                   <p>
                     We may change the terms and conditions of our Privacy Policy
@@ -313,9 +309,7 @@ function TermsOfServicePage(props: { setTabIndexFx: Dispatch<SetStateAction<numb
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-              <span className={styles.TosQuestion}>
-                Complaint Process
-              </span>
+                <span className={styles.TosQuestion}>Complaint Process</span>
                 <div className={styles.TosAnswer}>
                   <p>
                     If you have a complaint or problem with the HET website, or
@@ -327,9 +321,7 @@ function TermsOfServicePage(props: { setTabIndexFx: Dispatch<SetStateAction<numb
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-              <span className={styles.TosQuestion}>
-                Disclaimer
-              </span>
+                <span className={styles.TosQuestion}>Disclaimer</span>
                 <div className={styles.TosAnswer}>
                   <p>
                     No data protection method or combination of methods can be
@@ -346,13 +338,13 @@ function TermsOfServicePage(props: { setTabIndexFx: Dispatch<SetStateAction<numb
                 </div>
               </Grid>
             </Grid>
+            <span>
+              Copyright ©Morehouse School of Medicine 2021. All rights reserved.
+            </span>
           </Grid>
-
-          <span>Copyright ©Morehouse School of Medicine 2021. All rights reserved.</span>
-
         </Grid>
-
       </Grid>
+    </>
   );
 }
 
