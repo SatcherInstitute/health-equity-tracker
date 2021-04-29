@@ -18,6 +18,7 @@ import {
 import ReportProvider from "../../reports/ReportProvider";
 import OptionsSelector from "./OptionsSelector";
 import Joyride, { STATUS } from "react-joyride";
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 
 function ExploreDataPage() {
   const params = useSearchParams();
@@ -84,13 +85,21 @@ function ExploreDataPage() {
       "#onboarding-start-your-search",
       "Start Your Search",
       <>
-        Complete the sentence by selecting a location. You can scroll left or
-        right for more ways to search.
-        <br />
+        Complete the sentence by selecting a location. You can also select a
+        different variable, like <i>'Diabetes'</i> or <i>'Poverty'</i>
+      </>
+    ),
+    Step(
+      "#onboarding-madlib-arrow",
+      "Compare Locations and Variables",
+      <>
+        Click the arrows to scroll left or right for more ways to search, such
+        as <i>‘Compare rates of COVID-19 between Georgia and Alabama’</i> or{" "}
         <i>
-          Try it out: Search for 'Investigate impacts of <u>COVID-19</u> in{" "}
-          <u>California</u>'
+          ‘Explore relationships between Diabetes and Health Insurance in the
+          United States’
         </i>
+        .
       </>
     ),
     Step(
@@ -98,7 +107,7 @@ function ExploreDataPage() {
       "Limits in the data",
       <>
         The Tracker ingests and standardizes many data sets, but unfortunately
-        there is missing, incomplete, or misclassified data in our sources. 
+        there is missing, incomplete, or misclassified data in our sources.
         <br />
         <i>
           *We acknowledge that deep inequities exist in the very structure we
@@ -114,11 +123,6 @@ function ExploreDataPage() {
         Where available, the tracker offers breakdowns by race and ethnicity,
         sex, and age. This is currently limited to the national and state level,
         with county-level data coming soon.
-        <br />
-        <i>
-          Try it out: See information around <u>COVID Hospitalizations</u> by{" "}
-          <u>Gender</u>'
-        </i>
       </>
     ),
   ];
@@ -154,6 +158,7 @@ function ExploreDataPage() {
       >
         <Carousel
           className={styles.Carousel}
+          NextIcon={<NavigateNextIcon id="onboarding-madlib-arrow" />}
           timeout={200}
           autoPlay={false}
           indicators={!sticking}
