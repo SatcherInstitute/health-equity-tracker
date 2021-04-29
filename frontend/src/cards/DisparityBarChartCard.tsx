@@ -21,6 +21,7 @@ import {
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import UnknownsAlert from "./ui/UnknownsAlert";
+import Divider from "@material-ui/core/Divider";
 
 export interface DisparityBarChartCardProps {
   key?: string;
@@ -89,6 +90,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               displayType="chart"
               known={true}
             />
+            <Divider />
             {queryResponse.shouldShowMissingDataMessage([
               metricConfig.metricId,
             ]) && (

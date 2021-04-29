@@ -80,7 +80,7 @@ function MapCardWithKey(props: MapCardProps) {
     ? Breakdowns.byState()
     : Breakdowns.byCounty().withGeoFilter(props.fips);
 
-  const requestedBreakdowns = POSSIBLE_BREAKDOWNS.filter(
+  let requestedBreakdowns = POSSIBLE_BREAKDOWNS.filter(
     (possibleBreakdown) => props.currentBreakdown === possibleBreakdown
   );
   const queries = requestedBreakdowns.map(
@@ -97,6 +97,16 @@ function MapCardWithKey(props: MapCardProps) {
           )
       )
   );
+
+  // Create query for the unknowns alert and append to the front
+  const alertBreakdown = Breakdowns.forFips(props.fips).addBreakdown(
+    props.currentBreakdown
+  );
+  const alertQuery = new MetricQuery(
+    [props.variableConfig.metrics["pct_share"].metricId],
+    alertBreakdown
+  );
+  queries.push(alertQuery);
 
   return (
     <CardWrapper
@@ -144,7 +154,7 @@ function MapCardWithKey(props: MapCardProps) {
           <>
             <MultiMapDialog
               fips={props.fips}
-              metricConfig={metricConfig}
+              variableConfig={props.variableConfig}
               data={queryResponse.getValidRowsForField(metricConfig.metricId)}
               breakdown={activeBreakdownVar}
               handleClose={() => setSmallMultiplesDialogOpen(false)}

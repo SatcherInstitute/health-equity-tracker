@@ -5,7 +5,7 @@ import { MetricQueryResponse } from "../../data/query/MetricQuery";
 import { MetricConfig } from "../../data/config/MetricConfig";
 import { UNKNOWN, UNKNOWN_RACE } from "../../data/utils/Constants";
 import styles from "../Card.module.scss";
-import { CardContent, Divider } from "@material-ui/core";
+import { CardContent } from "@material-ui/core";
 import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
@@ -16,6 +16,7 @@ function UnknownsAlert(props: {
   metricConfig: MetricConfig;
   breakdownVar: BreakdownVar;
   displayType: string; // "chart" or "map"
+  pluralDisplayType?: Boolean;
   known: Boolean;
 }) {
   const unknowns = props.queryResponse
@@ -37,11 +38,12 @@ function UnknownsAlert(props: {
             {unknowns[0][props.metricConfig.metricId]}
             {props.metricConfig.shortVegaLabel} reported unknown{" "}
             {breakdownVarDisplayName}. The {props.displayType} below{" "}
-            {props.known ? "only " : ""}displays data for cases where{" "}
-            {breakdownVarDisplayName} was {props.known ? "known" : "unknown"}.
+            {props.known ? "only " : ""}
+            {props.pluralDisplayType ? "display" : "displays"} data for cases
+            where {breakdownVarDisplayName} was{" "}
+            {props.known ? "known" : "unknown"}.
           </Alert>
         </CardContent>
-        <Divider />
       </>
     );
   }

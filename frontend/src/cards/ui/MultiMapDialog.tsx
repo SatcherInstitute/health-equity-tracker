@@ -1,5 +1,4 @@
 import React from "react";
-import Alert from "@material-ui/lab/Alert";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -9,7 +8,7 @@ import { ChoroplethMap } from "../../charts/ChoroplethMap";
 import { Fips } from "../../data/utils/Fips";
 import { Legend } from "../../charts/Legend";
 import { MapOfDatasetMetadata } from "../../data/utils/DatasetTypes";
-import { MetricConfig } from "../../data/config/MetricConfig";
+import { VariableConfig } from "../../data/config/MetricConfig";
 import { Row, FieldRange } from "../../data/utils/DatasetTypes";
 import { Sources } from "./Sources";
 import styles from "./MultiMapDialog.module.scss";
@@ -18,14 +17,13 @@ import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
+import UnknownsAlert from "./UnknownsAlert";
 
 const QUANTILE = "quantile";
-const VEGA_LEGEND_REFERENCE_LINK =
-  "https://vega.github.io/vega/docs/scales/#" + QUANTILE;
 
 export interface MultiMapDialogProps {
-  // Metric the small maps will evaluate
-  metricConfig: MetricConfig;
+  // Variable the small maps will evaluate
+  variableConfig: VariableConfig;
   // Demographic breakdown upon which we're dividing the data, i.e. "age"
   breakdown: BreakdownVar;
   // Unique values for breakdown, each one will have it's own map
@@ -51,6 +49,8 @@ export interface MultiMapDialogProps {
     value in a given breakdown for a particualr metric.
 */
 export function MultiMapDialog(props: MultiMapDialogProps) {
+  const metricConfig = props.variableConfig.metrics["per100k"];
+
   return (
     <Dialog
       open={props.open}
@@ -61,18 +61,21 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
     >
       <DialogContent dividers={true}>
         <Typography className={styles.Title}>
-          {props.metricConfig.fullCardTitleName} across all{" "}
+          {metricConfig.fullCardTitleName} across all{" "}
           {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups
         </Typography>
         <Grid container justify="space-around">
           <Grid item xs={12}>
-            <Alert severity="warning">
-              <b>Compare with caution</b>
-              <br />
-              This scale is a{" "}
-              <a href={VEGA_LEGEND_REFERENCE_LINK}>{QUANTILE}</a> scale,
-              optimized for visualizing and comparing across demographics.
-            </Alert>
+            <UnknownsAlert
+              metricConfig={props.variableConfig.metrics["pct_share"]}
+              queryResponse={
+                props.queryResponses[props.queryResponses.length - 1]
+              }
+              breakdownVar={props.breakdown}
+              displayType="maps"
+              pluralDisplayType={true}
+              known={true}
+            />
           </Grid>
         </Grid>
         <Grid container justify="space-around">
@@ -80,8 +83,8 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             <b>Legend</b>
             <div className={styles.LegendDiv}>
               <Legend
-                metric={props.metricConfig}
-                legendTitle={props.metricConfig.fullCardTitleName}
+                metric={metricConfig}
+                legendTitle={metricConfig.fullCardTitleName}
                 legendData={props.data}
                 scaleType={QUANTILE}
                 sameDotSize={true}
@@ -95,12 +98,12 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             return (
               <Grid item className={styles.SmallMultipleMap}>
                 <b>{breakdownValue}</b>
-                {props.metricConfig && (
+                {metricConfig && (
                   <ChoroplethMap
                     key={breakdownValue}
                     signalListeners={{ click: (...args: any) => {} }}
-                    metric={props.metricConfig}
-                    legendTitle={props.metricConfig.fullCardTitleName}
+                    metric={metricConfig}
+                    legendTitle={metricConfig.fullCardTitleName}
                     legendData={props.data}
                     data={dataForValue}
                     hideLegend={true}

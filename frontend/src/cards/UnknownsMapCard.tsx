@@ -96,6 +96,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               displayType="map"
               known={false}
             />
+            <Divider />
             <CardContent>
               {mapQueryResponse.dataIsMissing() && (
                 <MissingDataAlert
