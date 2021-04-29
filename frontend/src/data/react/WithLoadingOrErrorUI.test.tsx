@@ -60,8 +60,8 @@ describe("WithLoadingOrErrorUI", () => {
 
   test("WithMetrics: Loads metrics", async () => {
     const query = new MetricQuery(
-      "copd_count",
-      Breakdowns.national().andRace(excludeAll())
+      "copd_pct",
+      Breakdowns.byState().andRace(excludeAll())
     );
 
     expect(dataFetcher.getNumGetMetdataCalls()).toBe(0);
@@ -69,21 +69,22 @@ describe("WithLoadingOrErrorUI", () => {
       <WithMetricsWrapperApp
         query={query}
         displayRow={(row: Row) =>
-          `${row.race_and_ethnicity}: ${row.copd_count}. `
+          `${row.race_and_ethnicity}: ${row.copd_pct}. `
         }
       />
     );
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
+      dataFetcher.setFakeDatasetLoaded("acs_population-by_race_state_std", []);
       dataFetcher.setFakeDatasetLoaded("brfss", [
         {
           state_name: "Alabama",
           race_and_ethnicity: "AmIn",
-          copd_count: 20,
+          copd_pct: 20,
         },
-        { state_name: "Alabama", race_and_ethnicity: "Asian", copd_count: 1 },
+        { state_name: "Alabama", race_and_ethnicity: "Asian", copd_pct: 1 },
+        { state_name: "Alabama", race_and_ethnicity: "All", copd_pct: 1 },
       ]);
-      dataFetcher.setFakeDatasetLoaded("acs_population-by_race_state_std", []);
     });
 
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
@@ -96,7 +97,7 @@ describe("WithLoadingOrErrorUI", () => {
 
   test("WithMetrics: Loaded metrics have no rows", async () => {
     const query = new MetricQuery(
-      "diabetes_count",
+      "diabetes_pct",
       Breakdowns.national().andRace()
     );
 
@@ -104,8 +105,8 @@ describe("WithLoadingOrErrorUI", () => {
     const { findByTestId } = render(<WithMetricsWrapperApp query={query} />);
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
-      dataFetcher.setFakeDatasetLoaded("brfss", []);
       dataFetcher.setFakeDatasetLoaded("acs_population-by_race_state_std", []);
+      dataFetcher.setFakeDatasetLoaded("brfss", []);
     });
 
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
@@ -116,7 +117,7 @@ describe("WithLoadingOrErrorUI", () => {
 
   test("WithMetrics: Unsupported breakdown", async () => {
     const query = new MetricQuery(
-      "diabetes_count",
+      "diabetes_pct",
       Breakdowns.byCounty().andAge()
     );
 
@@ -125,6 +126,7 @@ describe("WithLoadingOrErrorUI", () => {
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
       dataFetcher.setFakeDatasetLoaded("brfss", []);
+      dataFetcher.setFakeDatasetLoaded("acs_population-by_age_county", []);
     });
 
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
