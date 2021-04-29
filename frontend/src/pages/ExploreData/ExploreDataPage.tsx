@@ -18,10 +18,10 @@ import {
 } from "../../utils/urlutils";
 import ReportProvider from "../../reports/ReportProvider";
 import OptionsSelector from "./OptionsSelector";
-import Joyride, { STATUS } from "react-joyride";
+import { STATUS } from "react-joyride";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { useCookies } from "react-cookie";
-import ONBOARDING_STEPS from "./OnboardingSteps";
+import { Onboarding } from "./Onboarding";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -68,7 +68,7 @@ function ExploreDataPage() {
   const [activelyOnboarding, setActivelyOnboarding] = useState<boolean>(
     !skipOnboarding
   );
-  const endOnboardingCallback = (data: any) => {
+  const onboardingCallback = (data: any) => {
     if ([STATUS.FINISHED, STATUS.SKIPPED].includes(data.status)) {
       setActivelyOnboarding(false);
       setCookie("skipOnboarding", true, { path: "/" });
@@ -103,30 +103,12 @@ function ExploreDataPage() {
 
   return (
     <>
+      <Onboarding
+        callback={onboardingCallback}
+        activelyOnboarding={activelyOnboarding}
+      />
       <title>Explore the Data - Health Equity Tracker</title>
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
-        <Joyride
-          steps={ONBOARDING_STEPS}
-          callback={endOnboardingCallback}
-          disableScrolling={true}
-          showProgress={true}
-          showSkipButton={true}
-          disableCloseOnEsc={true}
-          continuous={true}
-          disableOverlayClose={true}
-          disableOverlay={true}
-          run={activelyOnboarding}
-          styles={{
-            options: {
-              arrowColor: "#0B5240",
-              backgroundColor: "#0B5240",
-              primaryColor: "#000",
-              textColor: "#fff",
-              width: 900,
-              zIndex: 1000,
-            },
-          }}
-        />
         <div
           className={styles.CarouselContainer}
           id="onboarding-start-your-search"

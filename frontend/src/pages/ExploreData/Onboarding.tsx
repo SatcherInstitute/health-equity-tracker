@@ -1,19 +1,35 @@
 import React from "react";
+import Joyride from "react-joyride";
 
-function onboardingStep(targetId: string, title: string, content: JSX.Element) {
-  return {
-    hideCloseButton: true,
-    target: targetId,
-    content: (
-      <div style={{ textAlign: "left" }}>
-        <h4>{title}</h4>
-        {content}
-      </div>
-    ),
-    disableBeacon: true,
-  };
+export function Onboarding(props: {
+  callback: (data: any) => void;
+  activelyOnboarding: boolean;
+}) {
+  return (
+    <Joyride
+      steps={ONBOARDING_STEPS}
+      callback={props.callback}
+      disableScrolling={true}
+      showProgress={true}
+      showSkipButton={true}
+      disableCloseOnEsc={true}
+      continuous={true}
+      disableOverlayClose={true}
+      disableOverlay={true}
+      run={props.activelyOnboarding}
+      styles={{
+        options: {
+          arrowColor: "#0B5240",
+          backgroundColor: "#0B5240",
+          primaryColor: "#0B5240",
+          textColor: "#fff",
+          width: 900,
+          zIndex: 1000,
+        },
+      }}
+    />
+  );
 }
-
 const ONBOARDING_STEPS = [
   onboardingStep(
     "#onboarding-start-your-search",
@@ -60,4 +76,16 @@ const ONBOARDING_STEPS = [
   ),
 ];
 
-export default ONBOARDING_STEPS;
+function onboardingStep(targetId: string, title: string, content: JSX.Element) {
+  return {
+    hideCloseButton: true,
+    target: targetId,
+    content: (
+      <div style={{ textAlign: "left" }}>
+        <h4>{title}</h4>
+        {content}
+      </div>
+    ),
+    disableBeacon: true,
+  };
+}
