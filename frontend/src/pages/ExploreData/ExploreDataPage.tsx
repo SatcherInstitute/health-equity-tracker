@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Carousel from "react-material-ui-carousel";
+import { useCookies } from "react-cookie";
+import { STATUS } from "react-joyride";
 import { Grid } from "@material-ui/core";
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import {
   MADLIB_LIST,
   MadLib,
@@ -18,9 +21,6 @@ import {
 } from "../../utils/urlutils";
 import ReportProvider from "../../reports/ReportProvider";
 import OptionsSelector from "./OptionsSelector";
-import { STATUS } from "react-joyride";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import { useCookies } from "react-cookie";
 import { Onboarding } from "./Onboarding";
 
 const EXPLORE_DATA_ID = "main";
@@ -58,15 +58,15 @@ function ExploreDataPage() {
 
   // Set up warm welcome onboarding behaviors
   const [cookies, setCookie] = useCookies(["name"]);
-  let skipOnboarding = cookies.skipOnboarding === "true";
+  let showOnboarding = cookies.skipOnboarding !== "true";
   if (params[SHOW_ONBOARDING_PARAM] === "true") {
-    skipOnboarding = false;
+    showOnboarding = true;
   }
   if (params[SHOW_ONBOARDING_PARAM] === "false") {
-    skipOnboarding = true;
+    showOnboarding = false;
   }
   const [activelyOnboarding, setActivelyOnboarding] = useState<boolean>(
-    !skipOnboarding
+    showOnboarding
   );
   const onboardingCallback = (data: any) => {
     if ([STATUS.FINISHED, STATUS.SKIPPED].includes(data.status)) {
