@@ -37,7 +37,8 @@ const ONBOARDING_STEPS = [
     <>
       Complete the sentence by selecting a location. You can also select a
       different variable, like <i>'Diabetes'</i> or <i>'Poverty'</i>
-    </>
+    </>,
+    /*hideCloseButton=*/ true
   ),
   onboardingStep(
     "#onboarding-madlib-arrow",
@@ -50,7 +51,8 @@ const ONBOARDING_STEPS = [
         United States’
       </i>
       .
-    </>
+    </>,
+    /*hideCloseButton=*/ true
   ),
   onboardingStep(
     "#onboarding-limits-in-the-data",
@@ -63,7 +65,8 @@ const ONBOARDING_STEPS = [
         *We acknowledge that deep inequities exist in the very structure we use
         to collect and share data. We are committed to helping to fix this.
       </i>
-    </>
+    </>,
+    /*hideCloseButton=*/ true
   ),
   onboardingStep(
     "#onboarding-explore-trends",
@@ -72,13 +75,19 @@ const ONBOARDING_STEPS = [
       Where available, the tracker offers breakdowns by race and ethnicity, sex,
       and age. This is currently limited to the national and state level, with
       county-level data coming soon.
-    </>
+    </>,
+    /*hideCloseButton=*/ false
   ),
 ];
 
-function onboardingStep(targetId: string, title: string, content: JSX.Element) {
+function onboardingStep(
+  targetId: string,
+  title: string,
+  content: JSX.Element,
+  hideCloseButton: boolean
+) {
   return {
-    hideCloseButton: true,
+    hideCloseButton: hideCloseButton,
     target: targetId,
     content: (
       <div style={{ textAlign: "left" }}>
