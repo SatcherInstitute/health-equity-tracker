@@ -25,27 +25,32 @@ function UnknownsAlert(props: {
         row[props.breakdownVar] === UNKNOWN_RACE ||
         row[props.breakdownVar] === UNKNOWN
     );
+  if (unknowns.length === 0) {
+    return <></>;
+  }
 
   const breakdownVarDisplayName =
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar];
 
-  if (unknowns.length === 1) {
-    return (
-      <>
-        <CardContent className={styles.SmallMarginContent}>
-          <Alert severity="warning">
-            {unknowns[0][props.metricConfig.metricId]}
-            {props.metricConfig.shortVegaLabel} reported unknown{" "}
-            {breakdownVarDisplayName}. The {props.displayType} below{" "}
-            {props.known ? "only " : ""}displays data for cases where{" "}
-            {breakdownVarDisplayName} was {props.known ? "known" : "unknown"}.
-          </Alert>
-        </CardContent>
-        <Divider />
-      </>
-    );
-  }
-  return <></>;
+  const cardHelperText = props.known
+    ? `The ${props.displayType} below only displays data for cases where ${breakdownVarDisplayName} was known.`
+    : `The ${props.displayType} below displays data for cases where ${breakdownVarDisplayName} was unknown.`;
+
+  const percentageUnknown = unknowns[0][props.metricConfig.metricId];
+
+  return (
+    <>
+      <CardContent className={styles.SmallMarginContent}>
+        <Alert severity="warning">
+          {percentageUnknown}
+          {props.metricConfig.shortVegaLabel} reported unknown{" "}
+          {breakdownVarDisplayName}.{" "}
+          {percentageUnknown !== 100 && cardHelperText}
+        </Alert>
+      </CardContent>
+      <Divider />
+    </>
+  );
 }
 
 export default UnknownsAlert;
