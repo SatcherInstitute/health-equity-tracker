@@ -20,6 +20,19 @@ import OptionsSelector from "./OptionsSelector";
 import Joyride, { STATUS } from "react-joyride";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 
+function onboardingStep(targetId: string, title: string, content: JSX.Element) {
+  return {
+    target: targetId,
+    content: (
+      <div style={{ textAlign: "left" }}>
+        <h4>{title}</h4>
+        {content}
+      </div>
+    ),
+    disableBeacon: true,
+  };
+}
+
 function ExploreDataPage() {
   const params = useSearchParams();
   useEffect(() => {
@@ -81,7 +94,7 @@ function ExploreDataPage() {
   }, [joyrideRun]);
 
   const steps = [
-    Step(
+    onboardingStep(
       "#onboarding-start-your-search",
       "Start Your Search",
       <>
@@ -89,7 +102,7 @@ function ExploreDataPage() {
         different variable, like <i>'Diabetes'</i> or <i>'Poverty'</i>
       </>
     ),
-    Step(
+    onboardingStep(
       "#onboarding-madlib-arrow",
       "Compare Locations and Variables",
       <>
@@ -102,7 +115,7 @@ function ExploreDataPage() {
         .
       </>
     ),
-    Step(
+    onboardingStep(
       "#onboarding-limits-in-the-data",
       "Limits in the data",
       <>
@@ -116,7 +129,7 @@ function ExploreDataPage() {
         </i>
       </>
     ),
-    Step(
+    onboardingStep(
       "#onboarding-explore-trends",
       "Explore further to see trends",
       <>
@@ -236,19 +249,6 @@ function CarouselMadLib(props: {
       )}
     </Grid>
   );
-}
-
-function Step(targetId: string, title: string, content: JSX.Element) {
-  return {
-    target: targetId,
-    content: (
-      <div style={{ textAlign: "left" }}>
-        <h4>{title}</h4>
-        {content}
-      </div>
-    ),
-    disableBeacon: true,
-  };
 }
 
 export default ExploreDataPage;
