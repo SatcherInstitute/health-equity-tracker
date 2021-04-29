@@ -22,6 +22,7 @@ class AcsPopulationProvider extends VariableProvider {
     super("acs_pop_provider", ["population", "population_pct"]);
   }
 
+  // ALERT! KEEP IN SYNC! Make sure you update DataSourceMetadata if you update dataset IDs
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.hasOnlySex()) {
       return breakdowns.geography === "county"

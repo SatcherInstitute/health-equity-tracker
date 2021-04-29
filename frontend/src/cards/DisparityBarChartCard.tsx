@@ -1,13 +1,12 @@
 import React from "react";
 import { DisparityBarChart } from "../charts/DisparityBarChart";
 import styles from "./Card.module.scss";
-import { CardContent, Divider } from "@material-ui/core";
+import { CardContent } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
 import { MetricConfig } from "../data/config/MetricConfig";
@@ -21,7 +20,7 @@ import {
   UNKNOWN_RACE,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
-import Alert from "@material-ui/lab/Alert";
+import UnknownsAlert from "./ui/UnknownsAlert";
 
 export interface DisparityBarChartCardProps {
   key?: string;
@@ -71,13 +70,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   return (
     <CardWrapper queries={[query]} title={<CardTitle />}>
       {([queryResponse]) => {
-        const unknowns = queryResponse
-          .getValidRowsForField(props.metricConfig.metricId)
-          .filter(
-            (row: Row) =>
-              row[props.breakdownVar] === UNKNOWN ||
-              row[props.breakdownVar] === UNKNOWN_RACE
-          );
         const dataWithoutUnknowns = queryResponse
           .getValidRowsForField(props.metricConfig.metricId)
           .filter(
@@ -88,22 +80,13 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
         return (
           <>
-            {unknowns.length === 1 && (
-              <>
-                <CardContent className={styles.SmallMarginContent}>
-                  <Alert severity="warning">
-                    {unknowns[0][props.metricConfig.metricId]}
-                    {props.metricConfig.shortVegaLabel}
-                    {props.fips.getFullDisplayName} reported unknown{" "}
-                    {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]}
-                    . The chart below only displays data for cases where{" "}
-                    {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]}{" "}
-                    was known.
-                  </Alert>
-                </CardContent>
-                <Divider />
-              </>
-            )}
+            <UnknownsAlert
+              metricConfig={props.metricConfig}
+              queryResponse={queryResponse}
+              breakdownVar={props.breakdownVar}
+              displayType="chart"
+              known={true}
+            />
             {queryResponse.shouldShowMissingDataMessage([
               props.metricConfig.metricId,
             ]) && (
