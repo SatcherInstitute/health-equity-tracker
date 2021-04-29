@@ -10,6 +10,7 @@ import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
+import Divider from "@material-ui/core/Divider";
 
 function UnknownsAlert(props: {
   queryResponse: MetricQueryResponse;
@@ -18,6 +19,7 @@ function UnknownsAlert(props: {
   displayType: string; // "chart" or "map" or "maps"
   pluralDisplayType?: Boolean;
   known: Boolean;
+  noBottomDivider?: boolean;
 }) {
   const unknowns = props.queryResponse
     .getValidRowsForField(props.metricConfig.metricId)
@@ -44,6 +46,7 @@ function UnknownsAlert(props: {
             {props.known ? "known" : "unknown"}.
           </Alert>
         </CardContent>
+        {!props.noBottomDivider && <Divider />}
       </>
     );
   }

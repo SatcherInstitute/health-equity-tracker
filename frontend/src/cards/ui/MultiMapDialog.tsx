@@ -75,6 +75,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               displayType="maps"
               pluralDisplayType={true}
               known={true}
+              noBottomDivider={true}
             />
           </Grid>
         </Grid>

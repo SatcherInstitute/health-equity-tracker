@@ -89,17 +89,14 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               />
             </CardContent>
             <Divider />
-            {!mapQueryResponse.dataIsMissing() && unknowns.length === 0 && (
-              <>
-                <UnknownsAlert
-                  queryResponse={alertQueryResponse}
-                  metricConfig={metricConfig}
-                  breakdownVar={props.currentBreakdown}
-                  displayType="map"
-                  known={false}
-                />
-                <Divider />
-              </>
+            {!mapQueryResponse.dataIsMissing() && (
+              <UnknownsAlert
+                queryResponse={alertQueryResponse}
+                metricConfig={metricConfig}
+                breakdownVar={props.currentBreakdown}
+                displayType="map"
+                known={false}
+              />
             )}
             <CardContent>
               {mapQueryResponse.dataIsMissing() && (
