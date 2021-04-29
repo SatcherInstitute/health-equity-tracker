@@ -15,8 +15,14 @@ import { IDataFrame, ISeries } from "data-forge";
 
 class AcsPovertyProvider extends VariableProvider {
   constructor() {
-    super("acs_poverty_provider", ["poverty_count", "poverty_per_100k"]);
+    super("acs_poverty_provider", [
+      "poverty_count",
+      "poverty_per_100k",
+      "poverty_pct_share",
+      "poverty_population_pct",
+    ]);
   }
+  // ALERT! Make sure you update DataSourceMetadata if you update dataset IDs
   getDatasetId(breakdowns: Breakdowns): string {
     return (
       "acs_poverty_dataset-poverty_by_race_age_sex_" +
@@ -57,7 +63,7 @@ class AcsPovertyProvider extends VariableProvider {
         .resetIndex();
     }
 
-    //Remove white hispanic to bring inline with others
+    // Remove white hispanic to bring inline with others
     df = df.where(
       (row) =>
         //We remove these races because they are subsets
@@ -80,17 +86,36 @@ class AcsPovertyProvider extends VariableProvider {
       .resetIndex();
     df = df.concat(calculatedValueForAll).resetIndex();
 
+    // Add a column for all people.
+    df = df.generateSeries({
+      total_pop: (row) => row[BELOW_POVERTY_COL] + row[ABOVE_POVERTY_COL],
+    });
+
     df = df.generateSeries({
       poverty_per_100k: (row) =>
-        per100k(
-          row[BELOW_POVERTY_COL],
-          row[BELOW_POVERTY_COL] + row[ABOVE_POVERTY_COL]
-        ),
+        per100k(row[BELOW_POVERTY_COL], row["total_pop"]),
     });
 
     df = df.renameSeries({
       below_poverty_line: "poverty_count",
     });
+
+    df = this.calculatePctShare(
+      df,
+      "poverty_count",
+      "poverty_pct_share",
+      breakdowns.getSoleDemographicBreakdown().columnName,
+      ["fips"]
+    );
+
+    df = this.calculatePctShare(
+      df,
+      "total_pop",
+      "poverty_population_pct",
+      breakdowns.getSoleDemographicBreakdown().columnName,
+      ["fips"]
+    );
+
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 

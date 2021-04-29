@@ -50,6 +50,7 @@ function ChartGif(props: {
 function TheProjectTab() {
   return (
     <>
+      <title>The Project - About Us - Health Equity Tracker</title>
       <Grid container className={styles.Grid}>
         <Grid
           container

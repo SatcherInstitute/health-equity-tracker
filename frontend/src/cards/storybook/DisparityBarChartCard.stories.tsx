@@ -49,3 +49,11 @@ HealthInsuranceByRace.args = {
   metricConfig: METRIC_CONFIG["health_insurance"][0].metrics["pct_share"],
   breakdownVar: "race_and_ethnicity",
 };
+
+export const PovertyByRace = Template.bind({});
+PovertyByRace.args = {
+  key: "testkey",
+  fips: new Fips(USA_FIPS),
+  metricConfig: METRIC_CONFIG["poverty"][0].metrics["pct_share"],
+  breakdownVar: "race_and_ethnicity",
+};

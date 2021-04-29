@@ -7,6 +7,7 @@ import Hidden from "@material-ui/core/Hidden";
 function ContactUsTab() {
   return (
     <>
+      <title>Contact Us - About Us - Health Equity Tracker</title>
       <Grid container className={styles.Grid}>
         <Grid
           container

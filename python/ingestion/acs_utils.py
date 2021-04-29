@@ -13,12 +13,12 @@ class MetadataKey:
 
 # Regex and builder functions for parsing the ACS labels into usable metadata.
 REGEX_METADATA_LIBRARY = {
-    r"under (\d+) years": lambda matches: {MetadataKey.AGE: f"0-{matches[0]}"},
+    r"under (\d+) years": lambda matches: {MetadataKey.AGE: f"0-{int(matches[0])-1}"},
     r"(\d+) to (\d+) years": lambda matches: {
         MetadataKey.AGE: f"{matches[0]}-{matches[1]}"
     },
     r"(\d+) years and over": lambda matches: {MetadataKey.AGE: f"{matches[0]}+"},
-    r"(\d+) years": lambda matches: {MetadataKey.AGE: f"{matches[0]}"},
+    r"^(\d+) years": lambda matches: {MetadataKey.AGE: f"{matches[0]}"},
     r"(\d+) and (\d+) years": lambda matches: {
         MetadataKey.AGE: f"{matches[0]}-{matches[1]}"
     },
