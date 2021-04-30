@@ -235,13 +235,6 @@ def main():
             # Remove records from states where we want to suppress all data.
             df = df[~df[STATE_COL].isin(ALL_DATA_SUPPRESSION_STATES)]
 
-            # Set hospitalization and death data for states where we want to
-            # suppress data to unknown.
-            df.loc[df[STATE_COL].isin(HOSP_DATA_SUPPRESSION_STATES),
-                   'hosp_yn'] = 'Unknown'
-            df.loc[df[STATE_COL].isin(DEATH_DATA_SUPPRESSION_STATES),
-                   'death_yn'] = 'Unknown'
-
             # For each of ({state, county} x {race, sex, age}), we slice the
             # data to focus on that dimension and aggregate.
             for (geo, demo), _ in all_dfs.items():
@@ -271,6 +264,20 @@ def main():
 
         # Standardize the column names and race/age/sex values.
         all_dfs[key] = standardize_data(all_dfs[key])
+        
+        # Clear hospitalization and death data for states where we want to
+        # suppress that data.
+        rows_to_modify = all_dfs[key][std_col.STATE_POSTAL_COL].isin(
+            HOSP_DATA_SUPPRESSION_STATES)
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_Y] = ''
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_N] = ''
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_UNKNOWN] = ''
+
+        rows_to_modify = all_dfs[key][std_col.STATE_POSTAL_COL].isin(
+            DEATH_DATA_SUPPRESSION_STATES)
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_Y] = ''
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_N] = ''
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_UNKNOWN] = ''
 
     # Write the results out to CSVs.
     for (geo, demo), df in all_dfs.items():
