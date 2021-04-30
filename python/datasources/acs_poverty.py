@@ -335,7 +335,6 @@ class AcsPovertyIngestor:
             state_fip, county_fip, age, sex, race = data
 
             population = self.data[data]
-            above = population[PovertyPopulation.ABOVE]
             below = population[PovertyPopulation.BELOW]
 
             if (age is not None) + (sex is not None) + (race is not None) != 1:
