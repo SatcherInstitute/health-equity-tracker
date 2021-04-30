@@ -24,9 +24,9 @@ class AcsPovertyProvider extends VariableProvider {
   }
   // ALERT! Make sure you update DataSourceMetadata if you update dataset IDs
   getDatasetId(breakdowns: Breakdowns): string {
-    let datasetPrefix = "acs_poverty_dataset-";
-    let dataset_selector;
+    let datasetPrefix = "acs_poverty_dataset-poverty_by_";
 
+    let dataset_selector;
     if (breakdowns.hasOnlyAge()) {
       dataset_selector = "age";
     } else if (breakdowns.hasOnlyRace()) {
