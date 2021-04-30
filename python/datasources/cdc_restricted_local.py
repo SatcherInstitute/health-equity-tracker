@@ -84,9 +84,14 @@ AGE_NAMES_MAPPING = {
     "Missing": "Unknown",
 }
 
-# States that we have decided to suppress all data from, due to very incomplete
-# case data.
-STATES_TO_SUPPRESS = ["LA", "NH", "TX", "WY"]
+# States that we have decided to suppress different kinds of data for, due to
+# very incomplete data. Note that states that have all data suppressed will
+# have case, hospitalization, and death data suppressed.
+# See https://github.com/SatcherInstitute/health-equity-tracker/issues/617.
+ALL_DATA_SUPPRESSION_STATES = ("LA", "MO", "MS", "ND", "NH", "TX", "WY")
+HOSP_DATA_SUPPRESSION_STATES = ("HI", "MD", "NE", "NM", "RI", "SD")
+DEATH_DATA_SUPPRESSION_STATES = ("HI", "MD", "NE", "NM", "RI", "SD",
+                                 "WV", "DE")
 
 
 def accumulate_data(df, groupby_cols, overall_df, demographic_col,
@@ -228,7 +233,14 @@ def main():
                 lambda x: x.zfill(5) if len(x) > 0 else x)
 
             # Remove records from states where we want to suppress all data.
-            df = df[~df[STATE_COL].isin(STATES_TO_SUPPRESS)]
+            df = df[~df[STATE_COL].isin(ALL_DATA_SUPPRESSION_STATES)]
+
+            # Set hospitalization and death data for states where we want to
+            # suppress data to unknown.
+            df.loc[df[STATE_COL].isin(HOSP_DATA_SUPPRESSION_STATES),
+                   'hosp_yn'] = 'Unknown'
+            df.loc[df[STATE_COL].isin(DEATH_DATA_SUPPRESSION_STATES),
+                   'death_yn'] = 'Unknown'
 
             # For each of ({state, county} x {race, sex, age}), we slice the
             # data to focus on that dimension and aggregate.
