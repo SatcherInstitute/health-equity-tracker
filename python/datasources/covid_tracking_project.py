@@ -91,7 +91,7 @@ class CovidTrackingProject(DataSource):
         Args:
         df: a pandas.DataFrame containing the standardized CTP data.
         metadata: a pandas.DataFrame containing the CTP metadata.
-        
+
         Returns:
         A pandas.DataFrame that contains the merged CTP data and metadata."""
         # Merge the tables
@@ -126,7 +126,8 @@ class CovidTrackingProject(DataSource):
 
     @staticmethod
     def _rename_race_category(
-        df: pd.DataFrame, indicator_column: str, old_name: Race, new_name: Race):
+        df: pd.DataFrame, indicator_column: str, old_name: Race, new_name: Race
+    ):
         """Renames values in df.race_and_ethnicity from old_name to new_name
            based on indicator_column.
 
@@ -144,7 +145,8 @@ class CovidTrackingProject(DataSource):
 
     @staticmethod
     def _replace_value(
-        row: pd.Series, indicator_column: str, old_name: Race, new_name: Race):
+        row: pd.Series, indicator_column: str, old_name: Race, new_name: Race
+    ):
         """Helper method for _rename_race_category. Conditionally replaces
            the race value for a given row.
 

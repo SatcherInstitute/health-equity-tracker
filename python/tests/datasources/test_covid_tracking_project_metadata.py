@@ -44,7 +44,7 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     # We should have a record for each state/variable_type (e.g. cases, death)
     # combo
     assert len(result.index) == 3 * 2
-    assert result.loc[result['state_postal'] == 'AL'].all().all()
-    assert not result.loc[result['state_postal'] == 'PA', 'reports_api':].any().any()
-    assert result.loc[result['state_postal'] == 'GA'].all().all()
+    assert result.loc[result[col_std.STATE_POSTAL_COL] == 'AL'].all().all()
+    assert not result.loc[result[col_std.STATE_POSTAL_COL] == 'PA', 'reports_api':].any().any()
+    assert result.loc[result[col_std.STATE_POSTAL_COL] == 'GA'].all().all()
     assert result['variable_type'].isin(['cases', 'deaths']).all()
