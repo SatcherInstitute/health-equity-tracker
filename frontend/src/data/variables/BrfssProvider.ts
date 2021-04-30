@@ -18,13 +18,13 @@ class BrfssProvider extends VariableProvider {
 
   constructor(acsProvider: AcsPopulationProvider) {
     super("brfss_provider", [
-      "diabetes_per_100k",
-      "diabetes_pct_share",
-      "copd_per_100k",
-      "copd_pct_share",
       "brfss_population_pct",
       "copd_pct",
+      "copd_pct_share",
+      "copd_per_100k",
       "diabetes_pct",
+      "diabetes_pct_share",
+      "diabetes_per_100k",
     ]);
     this.acsProvider = acsProvider;
   }
