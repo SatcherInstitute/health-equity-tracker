@@ -264,7 +264,7 @@ def main():
 
         # Standardize the column names and race/age/sex values.
         all_dfs[key] = standardize_data(all_dfs[key])
-        
+
         # Clear hospitalization and death data for states where we want to
         # suppress that data.
         rows_to_modify = all_dfs[key][std_col.STATE_POSTAL_COL].isin(
