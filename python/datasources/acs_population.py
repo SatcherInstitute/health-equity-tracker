@@ -10,9 +10,8 @@ from ingestion.standardized_columns import (HISPANIC_COL, RACE_COL,
 from ingestion import url_file_to_gcs, gcs_to_bq_util
 from datasources.data_source import DataSource
 from ingestion.census import (get_census_params, fetch_acs_metadata,
-                              parse_acs_metadata, fetch_acs_variables,
-                              fetch_acs_group, get_vars_for_group,
-                              standardize_frame)
+                              parse_acs_metadata, fetch_acs_group,
+                              get_vars_for_group, standardize_frame)
 
 
 # TODO pass this in from message data.
