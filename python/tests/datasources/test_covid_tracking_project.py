@@ -23,20 +23,26 @@ _RACE_CATEGORIES = 13
 _VARIABLE_TYPES = 4
 _NUM_ROWS = 7
 
-test_metadata = pd.DataFrame(
-    {'state_postal_abbreviation':
-        ['AK', 'AS', 'DE', 'ID', 'HI', 'AK', 'AS', 'DE', 'ID', 'HI'],
-     'variable_type':
-        ['cases', 'cases', 'cases', 'cases', 'cases',
-         'deaths', 'deaths', 'deaths', 'deaths', 'deaths'],
-     'reports_race':
-        [True, False, True, True, True, True, False, True, True, True],
-     'reports_api':
-        [False, False, True, True, False, False, False, False, True, False],
-     'reports_ind':
-        [False, False, False, False, True, False, False, False, False, True],
-     'race_ethnicity_separately':
-        [True, False, True, True, False, True, False, True, True, False]})
+metadata_cols = [
+    col_std.STATE_POSTAL_COL,
+    'variable_type',
+    'reports_race',
+    'reports_api',
+    'reports_ind',
+    'race_ethnicity_separately'
+]
+test_metadata = [
+    ['AK', 'cases', True, False, False, True],
+    ['AS', 'cases', False, False, False, False],
+    ['DE', 'cases', True, True, False, True],
+    ['ID', 'cases', True, True, False, True],
+    ['HI', 'cases', True, False, True, False],
+    ['AK', 'deaths', True, False, False, True],
+    ['AS', 'deaths', False, False, False, False],
+    ['DE', 'deaths', True, False, False, True],
+    ['ID', 'deaths', True, True, False, True],
+    ['HI', 'deaths', True, False, True, False]
+]
 
 
 def get_test_data_as_df():
@@ -44,8 +50,12 @@ def get_test_data_as_df():
     return pd.read_csv(f, parse_dates=['Date'], thousands=',')
 
 
+def get_test_metadata_as_df():
+    return pd.DataFrame(test_metadata, columns=metadata_cols)
+
+
 @mock.patch('datasources.covid_tracking_project.CovidTrackingProject._download_metadata',
-            return_value=test_metadata)
+            return_value=get_test_metadata_as_df())
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe',
             return_value=get_test_data_as_df())
 @mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
@@ -63,7 +73,7 @@ def testWriteToBq(mock_append_to_bq: mock.MagicMock, mock_csv: mock.MagicMock,
         result = mock_append_to_bq.call_args_list[i].args[0]
         expected_rows = (_RACE_CATEGORIES - 1) * _NUM_ROWS
         expected_col_names = [
-            'date', 'state_postal_abbreviation', 'race',
+            'date', col_std.STATE_POSTAL_COL, col_std.RACE_COL,
             var_types[i], 'reports_race', 'race_ethnicity_separately']
         assert result.shape == (expected_rows, len(expected_col_names))
         assert set(result.columns) == set(expected_col_names)
@@ -79,6 +89,53 @@ def testWriteToBq(mock_append_to_bq: mock.MagicMock, mock_csv: mock.MagicMock,
         expected_dtypes[var_types[i]] = np.float64
         for col in result.columns:
             assert result[col].dtype == expected_dtypes[col]
+
+
+def testStandardize():
+    ctp = CovidTrackingProject()
+    df = get_test_data_as_df()
+    df = ctp.standardize(df)
+
+    expected_cols = {
+        'date', col_std.STATE_POSTAL_COL, col_std.RACE_COL, 'variable_type', 'value'
+    }
+    assert set(df.columns) == expected_cols
+
+    expected_race_categories = [r.race for r in col_std.Race]
+    assert set(df[col_std.RACE_COL]).issubset(set(expected_race_categories))
+
+
+def testMergeWithMetadata():
+    ctp = CovidTrackingProject()
+    df = get_test_data_as_df()
+    mdf = get_test_metadata_as_df()
+
+    df = ctp.standardize(df)
+    df = ctp.merge_with_metadata(df, mdf)
+
+    expected_cols = {
+        'date', col_std.STATE_POSTAL_COL, col_std.RACE_COL, 'variable_type', 'value',
+        'reports_race', 'race_ethnicity_separately'
+    }
+    assert set(df.columns) == expected_cols
+
+    expected_race_categories = {
+        col_std.Race.AIAN.race,
+        col_std.Race.API.race,
+        col_std.Race.ASIAN.race,
+        col_std.Race.BLACK.race,
+        col_std.Race.HISP.race,
+        col_std.Race.INDIGENOUS.race,
+        col_std.Race.NHPI.race,
+        col_std.Race.MULTI.race,
+        col_std.Race.WHITE.race,
+        col_std.Race.NH.race,
+        col_std.Race.ETHNICITY_UNKNOWN.race,
+        col_std.Race.OTHER_NONSTANDARD.race,
+        col_std.Race.UNKNOWN.race,
+        col_std.Race.TOTAL.race
+    }
+    assert set(df[col_std.RACE_COL]) == expected_race_categories
 
 
 def testWriteToBq_MissingAttr():
