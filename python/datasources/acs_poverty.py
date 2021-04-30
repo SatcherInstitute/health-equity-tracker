@@ -342,7 +342,7 @@ class AcsPovertyIngestor:
                 raise AssertionError(f"Invalid Tuple: {data}")
 
             if county_fip is None:
-                if race is not None:
+                if race:
                     race_state_data.append(
                         [
                             state_fip,
@@ -351,7 +351,7 @@ class AcsPovertyIngestor:
                             below,
                         ]
                     )
-                elif sex is not None:
+                elif sex:
                     sex_state_data.append(
                         [
                             state_fip,
@@ -360,7 +360,7 @@ class AcsPovertyIngestor:
                             below,
                         ]
                     )
-                elif age is not None:
+                elif age:
                     age_state_data.append(
                         [
                             state_fip,
@@ -370,7 +370,7 @@ class AcsPovertyIngestor:
                         ]
                     )
             else:
-                if race is not None:
+                if race:
                     race_county_data.append(
                         [
                             state_fip,
@@ -381,7 +381,7 @@ class AcsPovertyIngestor:
                             below,
                         ]
                     )
-                elif sex is not None:
+                elif sex:
                     sex_county_data.append(
                         [
                             state_fip,
@@ -392,7 +392,7 @@ class AcsPovertyIngestor:
                             below,
                         ]
                     )
-                elif age is not None:
+                elif age:
                     age_county_data.append(
                         [
                             state_fip,
