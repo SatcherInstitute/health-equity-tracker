@@ -373,3 +373,58 @@
     line-height: 31.47px;
   }
 }
+
+/** ------------- FAQ ------------- **/
+
+.FaqGrid {
+  max-width: 1024px;
+}
+
+.FaqSection {
+  padding: 50px 20px 50px 20px;
+  border-bottom: 1px solid $alt-grey;
+}
+
+.FaqQuestionAndAnswer {
+  padding-bottom: 20px;
+  text-align: left;
+}
+
+.FaqHeaderText {
+  font-size: 32px !important;
+  text-align: center;
+  font-weight: 300;
+  font-family: "Taviraj", serif !important;
+  line-height: 40px;
+  color: $alt-black;
+  padding-bottom: 20px;
+}
+
+.FaqQuestion {
+  font-size: 18px !important;
+  text-align: left;
+  font-weight: 500;
+  font-family: "DM Sans", sans-serif;
+  line-height: 5px !important;
+  color: $alt-black;
+}
+
+.FaqAnswer {
+  font-size: 14px;
+  text-align: left;
+  font-weight: 400;
+  font-family: "Inter", sans-serif;
+  line-height: 20px;
+  color: $alt-black;
+
+  .FaqContactUsButton {
+    border: none;
+    text-decoration: underline;
+    background-color: transparent;
+  }
+}
+
+.FaqSubheaderText {
+  font-weight: 700;
+  font-family: "Inter", sans-serif !important;
+}

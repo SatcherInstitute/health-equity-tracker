@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import styles from "./DataCatalogPage.module.scss";
 import {
   LinkWithStickyParams,
-  ABOUT_US_TAB_PARAM,
+  TAB_PARAM,
   ABOUT_US_PAGE_LINK,
 } from "../../utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
@@ -107,7 +107,7 @@ function MethodologyTab() {
                   <br />
                   <LinkWithStickyParams
                     class={styles.MethodologyContactUsLink}
-                    to={`${ABOUT_US_PAGE_LINK}?${ABOUT_US_TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
+                    to={`${ABOUT_US_PAGE_LINK}?${TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
                   >
                     We would love to hear from you
                   </LinkWithStickyParams>
