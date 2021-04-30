@@ -24,9 +24,21 @@ class AcsPovertyProvider extends VariableProvider {
   }
   // ALERT! Make sure you update DataSourceMetadata if you update dataset IDs
   getDatasetId(breakdowns: Breakdowns): string {
+    let datasetPrefix = "acs_poverty_dataset-";
+    let dataset_selector;
+
+    if (breakdowns.hasOnlyAge()) {
+      dataset_selector = "age";
+    } else if (breakdowns.hasOnlyRace()) {
+      dataset_selector = "race";
+    } else {
+      dataset_selector = "sex";
+    }
+
     return (
-      "acs_poverty_dataset-poverty_by_race_age_sex_" +
-      (breakdowns.geography === "county" ? "county" : "state")
+      datasetPrefix +
+      dataset_selector +
+      (breakdowns.geography === "county" ? "_county" : "_state")
     );
   }
 
