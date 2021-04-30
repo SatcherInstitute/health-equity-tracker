@@ -9,12 +9,8 @@ from ingestion.standardized_columns import (
     COUNTY_NAME_COL,
     SEX_COL,
     AGE_COL,
-    ABOVE_POVERTY_COL,
     BELOW_POVERTY_COL,
-    RACE_CATEGORY_ID_COL,
     Race,
-    add_race_columns_from_category_id,
-    RACE_INCLUDES_HISPANIC_COL,
 )
 
 
