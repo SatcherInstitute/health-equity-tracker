@@ -88,6 +88,12 @@ class CdcCovidProvider extends VariableProvider {
       hosp_y: "covid_hosp",
     });
 
+    // For hospitalizations and deaths, NaN signifies missing data.
+    df = df.transformSeries({
+      covid_deaths: (value) => (value === NaN ? null : value),
+      covid_hosp: (value) => (value === NaN ? null : value),
+    });
+
     df =
       breakdowns.geography === "national"
         ? df
