@@ -266,8 +266,8 @@ def main():
         all_dfs[key] = standardize_data(all_dfs[key])
 
         # Set hospitalization and death data for states we want to suppress to
-        # NaN. We use NaN to signify this as this field is interpreted as an
-        # integer later in the pipeline
+        # NaN. The frontend interprets NaN to mean missing data for
+        # hospitalizations and deaths.
         rows_to_modify = all_dfs[key][std_col.STATE_POSTAL_COL].isin(
             HOSP_DATA_SUPPRESSION_STATES)
         all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_Y] = np.NaN
