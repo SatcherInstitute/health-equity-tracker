@@ -270,15 +270,15 @@ def main():
         # integer later in the pipeline
         rows_to_modify = all_dfs[key][std_col.STATE_POSTAL_COL].isin(
             HOSP_DATA_SUPPRESSION_STATES)
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_Y] = ""
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_N] = ""
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_UNKNOWN] = ""
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_Y] = np.NaN
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_N] = np.NaN
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_UNKNOWN] = np.NaN
 
         rows_to_modify = all_dfs[key][std_col.STATE_POSTAL_COL].isin(
             DEATH_DATA_SUPPRESSION_STATES)
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_Y] = ""
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_N] = ""
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_UNKNOWN] = ""
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_Y] = np.NaN
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_N] = np.NaN
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_UNKNOWN] = np.NaN
 
     # Write the results out to CSVs.
     for (geo, demo), df in all_dfs.items():
