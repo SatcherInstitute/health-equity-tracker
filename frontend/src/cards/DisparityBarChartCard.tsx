@@ -78,18 +78,12 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               row[props.breakdownVar] !== UNKNOWN_RACE
           );
 
+        const dataAvailable = !queryResponse.shouldShowMissingDataMessage([
+          props.metricConfig.metricId,
+        ]);
         return (
           <>
-            <UnknownsAlert
-              metricConfig={props.metricConfig}
-              queryResponse={queryResponse}
-              breakdownVar={props.breakdownVar}
-              displayType="chart"
-              known={true}
-            />
-            {queryResponse.shouldShowMissingDataMessage([
-              props.metricConfig.metricId,
-            ]) && (
+            {!dataAvailable && (
               <CardContent className={styles.Breadcrumbs}>
                 <MissingDataAlert
                   dataName={props.metricConfig.fullCardTitleName}
@@ -99,9 +93,16 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 />
               </CardContent>
             )}
-            {!queryResponse.shouldShowMissingDataMessage([
-              props.metricConfig.metricId,
-            ]) && (
+            {dataAvailable && (
+              <UnknownsAlert
+                metricConfig={props.metricConfig}
+                queryResponse={queryResponse}
+                breakdownVar={props.breakdownVar}
+                displayType="chart"
+                known={true}
+              />
+            )}
+            {dataAvailable && dataWithoutUnknowns.length !== 0 && (
               <CardContent className={styles.Breadcrumbs}>
                 <DisparityBarChart
                   data={dataWithoutUnknowns}
