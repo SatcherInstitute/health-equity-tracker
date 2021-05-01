@@ -375,12 +375,11 @@ function EquityTab() {
                   alt="Asian woman laughing with two children"
                 />
                 <h2 className={styles.NewsAndStoriesTitleText}>
-                  Variation in Reporting of the Race and Ethnicity of COVID-19
-                  Cases and Deaths Across US States: Apr 12, 2020 and November
-                  9, 2020
+                  How complete are the CDC's COVID-19 Case Surveillance datasets
+                  for race/ethnicity at the state and county levels?
                 </h2>
                 <p className={styles.NewsAndStoriesSubtitleText}>
-                  <a href="https://satcherinstitute.org/variation-in-reporting-of-the-race-and-ethnicity-of-covid-19-cases-and-deaths-across-us-states-april-12-2020-and-november-9-2020/">
+                  <a href="https://satcherinstitute.github.io/analysis/cdc_case_data">
                     Learn more
                   </a>
                 </p>
@@ -399,11 +398,11 @@ function EquityTab() {
                        Equity Tracker Homepage"
                 />
                 <h2 className={styles.NewsAndStoriesTitleText}>
-                  Advancing Health Equity through the Political Determinants of
-                  Health and Health Equity Tracker
+                  How To Include The Social Determinants That Impact Behavioral
+                  Health In A Health Equity Tracker
                 </h2>
                 <p className={styles.NewsAndStoriesSubtitleText}>
-                  <a href="/">Learn more</a>
+                  <a href="https://satcherinstitute.org/post-4840/">Learn more</a>
                 </p>
               </Grid>
             </Grid>
