@@ -90,8 +90,8 @@ class CdcCovidProvider extends VariableProvider {
 
     // For hospitalizations and deaths, NaN signifies missing data.
     df = df.transformSeries({
-      covid_deaths: (value) => (value === NaN ? null : value),
-      covid_hosp: (value) => (value === NaN ? null : value),
+      covid_deaths: (value) => (isNaN(value) ? null : value),
+      covid_hosp: (value) => (isNaN(value) ? null : value),
     });
 
     df =
