@@ -13,6 +13,20 @@ from ingestion.standardized_columns import (
     Race,
 )
 
+expected_default_county_cols = [
+    STATE_FIPS_COL,
+    STATE_NAME_COL,
+    COUNTY_FIPS_COL,
+    COUNTY_NAME_COL,
+    BELOW_POVERTY_COL,
+]
+
+expected_default_state_cols = [
+    STATE_FIPS_COL,
+    STATE_NAME_COL,
+    BELOW_POVERTY_COL,
+]
+
 
 def pov(above, below):
     return {PovertyPopulation.ABOVE: str(above), PovertyPopulation.BELOW: str(below)}
@@ -117,45 +131,31 @@ class AcsPovertyIngestorTest(unittest.TestCase, AcsPovertyIngestor):
         ] = pov(1, 2)
 
         self.split_data_frames()
+
         self.assertEqual(
             list(self.poverty_by_sex_state.columns),
-            [STATE_FIPS_COL, STATE_NAME_COL, SEX_COL, BELOW_POVERTY_COL],
+            expected_default_state_cols + [SEX_COL],
         )
+
         self.assertEqual(
             list(self.poverty_by_sex_county.columns),
-            [
-                STATE_FIPS_COL,
-                STATE_NAME_COL,
-                COUNTY_FIPS_COL,
-                COUNTY_NAME_COL,
-                SEX_COL,
-                BELOW_POVERTY_COL,
-            ],
+            expected_default_county_cols + [SEX_COL],
         )
 
         self.assertEqual(
             list(self.poverty_by_age_state.columns),
-            [STATE_FIPS_COL, STATE_NAME_COL, AGE_COL, BELOW_POVERTY_COL],
+            expected_default_state_cols + [AGE_COL],
         )
         self.assertEqual(
             list(self.poverty_by_age_county.columns),
-            [
-                STATE_FIPS_COL,
-                STATE_NAME_COL,
-                COUNTY_FIPS_COL,
-                COUNTY_NAME_COL,
-                AGE_COL,
-                BELOW_POVERTY_COL,
-            ],
+            expected_default_county_cols + [AGE_COL],
         )
 
         self.assertEqual(
             list(self.poverty_by_race_state.columns),
-            [
-                STATE_FIPS_COL,
-                STATE_NAME_COL,
+            expected_default_state_cols
+            + [
                 "race_category_id",
-                BELOW_POVERTY_COL,
                 "race",
                 "race_includes_hispanic",
                 "race_and_ethnicity",
@@ -163,13 +163,9 @@ class AcsPovertyIngestorTest(unittest.TestCase, AcsPovertyIngestor):
         )
         self.assertEqual(
             list(self.poverty_by_race_county.columns),
-            [
-                STATE_FIPS_COL,
-                STATE_NAME_COL,
-                COUNTY_FIPS_COL,
-                COUNTY_NAME_COL,
+            expected_default_county_cols
+            + [
                 "race_category_id",
-                BELOW_POVERTY_COL,
                 "race",
                 "race_includes_hispanic",
                 "race_and_ethnicity",
@@ -198,25 +194,25 @@ class AcsPovertyIngestorTest(unittest.TestCase, AcsPovertyIngestor):
         self.split_data_frames()
         self.assertEqual(
             self.poverty_by_sex_state.values.tolist(),
-            [["01", "01_state_name", "male", "2"]],
+            [["01", "01_state_name", "2", "male"]],
         )
         self.assertEqual(
             list(self.poverty_by_sex_county.values.tolist()),
-            [["01", "01_state_name", "001", "001_county_name", "male", "2"]],
+            [["01", "01_state_name", "001", "001_county_name", "2", "male"]],
         )
 
         self.assertEqual(
             list(self.poverty_by_age_state.values.tolist()),
-            [["01", "01_state_name", "1-2", "2"]],
+            [["01", "01_state_name", "2", "1-2"]],
         )
         self.assertEqual(
             list(self.poverty_by_age_county.values.tolist()),
-            [["01", "01_state_name", "001", "001_county_name", "1-2", "2"]],
+            [["01", "01_state_name", "001", "001_county_name", "2", "1-2"]],
         )
 
         self.assertEqual(
             list(self.poverty_by_race_state.values.tolist()),
-            [["01", "01_state_name", "WHITE", "2", "White", True, "White"]],
+            [["01", "01_state_name", "2", "WHITE", "White", True, "White"]],
         )
         self.assertEqual(
             list(self.poverty_by_race_county.values.tolist()),
@@ -226,8 +222,8 @@ class AcsPovertyIngestorTest(unittest.TestCase, AcsPovertyIngestor):
                     "01_state_name",
                     "001",
                     "001_county_name",
-                    "WHITE",
                     "2",
+                    "WHITE",
                     "White",
                     True,
                     "White",
