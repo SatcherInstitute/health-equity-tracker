@@ -19,10 +19,6 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
 
-const QUANTILE = "quantile";
-const VEGA_LEGEND_REFERENCE_LINK =
-  "https://vega.github.io/vega/docs/scales/#" + QUANTILE;
-
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
   metricConfig: MetricConfig;
@@ -65,17 +61,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
           {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups
         </Typography>
         <Grid container justify="space-around">
-          <Grid item xs={12}>
-            <Alert severity="warning">
-              <b>Compare with caution</b>
-              <br />
-              This scale is a{" "}
-              <a href={VEGA_LEGEND_REFERENCE_LINK}>{QUANTILE}</a> scale,
-              optimized for visualizing and comparing across demographics.
-            </Alert>
-          </Grid>
-        </Grid>
-        <Grid container justify="space-around">
           <Grid item className={styles.SmallMultipleLegendMap}>
             <b>Legend</b>
             <div className={styles.LegendDiv}>
@@ -83,7 +68,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 metric={props.metricConfig}
                 legendTitle={props.metricConfig.fullCardTitleName}
                 legendData={props.data}
-                scaleType={QUANTILE}
+                scaleType="quantile"
                 sameDotSize={true}
               />
             </div>
