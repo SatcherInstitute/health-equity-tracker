@@ -24,11 +24,12 @@ from ingestion.standardized_columns import (
     COUNTY_NAME_COL,
     AGE_COL,
     SEX_COL,
-    RACE_COL,
+    RACE_CATEGORY_ID_COL,
     WITH_HEALTH_INSURANCE_COL,
     WITHOUT_HEALTH_INSURANCE_COL,
     TOTAL_HEALTH_INSURANCE_COL,
     Race,
+    add_race_columns_from_category_id,
 )
 
 # TODO pass this in from message data.
@@ -298,7 +299,7 @@ class AcsHealhInsuranceRaceIngestor:
                 STATE_FIPS_COL,
                 STATE_NAME_COL,
                 AGE_COL,
-                RACE_COL,
+                RACE_CATEGORY_ID_COL,
                 WITH_HEALTH_INSURANCE_COL,
                 WITHOUT_HEALTH_INSURANCE_COL,
                 TOTAL_HEALTH_INSURANCE_COL,
@@ -312,12 +313,15 @@ class AcsHealhInsuranceRaceIngestor:
                 COUNTY_FIPS_COL,
                 COUNTY_NAME_COL,
                 AGE_COL,
-                RACE_COL,
+                RACE_CATEGORY_ID_COL,
                 WITH_HEALTH_INSURANCE_COL,
                 WITHOUT_HEALTH_INSURANCE_COL,
                 TOTAL_HEALTH_INSURANCE_COL,
             ],
         )
+
+        add_race_columns_from_category_id(self.state_race_frame)
+        add_race_columns_from_category_id(self.county_race_frame)
 
         # Aggregate Frames by Filename
         self.frames = {
