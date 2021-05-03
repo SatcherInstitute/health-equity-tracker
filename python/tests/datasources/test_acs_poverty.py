@@ -9,6 +9,7 @@ from ingestion.standardized_columns import (
     COUNTY_NAME_COL,
     SEX_COL,
     AGE_COL,
+    ABOVE_POVERTY_COL,
     BELOW_POVERTY_COL,
     Race,
 )
@@ -19,12 +20,14 @@ expected_default_county_cols = [
     COUNTY_FIPS_COL,
     COUNTY_NAME_COL,
     BELOW_POVERTY_COL,
+    ABOVE_POVERTY_COL,
 ]
 
 expected_default_state_cols = [
     STATE_FIPS_COL,
     STATE_NAME_COL,
     BELOW_POVERTY_COL,
+    ABOVE_POVERTY_COL,
 ]
 
 
@@ -194,25 +197,25 @@ class AcsPovertyIngestorTest(unittest.TestCase, AcsPovertyIngestor):
         self.split_data_frames()
         self.assertEqual(
             self.poverty_by_sex_state.values.tolist(),
-            [["01", "01_state_name", "2", "male"]],
+            [["01", "01_state_name", "2", "1", "male"]],
         )
         self.assertEqual(
             list(self.poverty_by_sex_county.values.tolist()),
-            [["01", "01_state_name", "001", "001_county_name", "2", "male"]],
+            [["01", "01_state_name", "001", "001_county_name", "2", "1", "male"]],
         )
 
         self.assertEqual(
             list(self.poverty_by_age_state.values.tolist()),
-            [["01", "01_state_name", "2", "1-2"]],
+            [["01", "01_state_name", "2", "1", "1-2"]],
         )
         self.assertEqual(
             list(self.poverty_by_age_county.values.tolist()),
-            [["01", "01_state_name", "001", "001_county_name", "2", "1-2"]],
+            [["01", "01_state_name", "001", "001_county_name", "2", "1", "1-2"]],
         )
 
         self.assertEqual(
             list(self.poverty_by_race_state.values.tolist()),
-            [["01", "01_state_name", "2", "WHITE", "White", True, "White"]],
+            [["01", "01_state_name", "2", "1", "WHITE", "White", True, "White"]],
         )
         self.assertEqual(
             list(self.poverty_by_race_county.values.tolist()),
@@ -223,6 +226,7 @@ class AcsPovertyIngestorTest(unittest.TestCase, AcsPovertyIngestor):
                     "001",
                     "001_county_name",
                     "2",
+                    "1",
                     "WHITE",
                     "White",
                     True,
