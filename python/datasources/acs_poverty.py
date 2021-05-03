@@ -10,7 +10,6 @@ from ingestion.standardized_columns import (
     COUNTY_NAME_COL,
     SEX_COL,
     AGE_COL,
-    ABOVE_POVERTY_COL,
     BELOW_POVERTY_COL,
     RACE_CATEGORY_ID_COL,
     Race,
@@ -153,7 +152,6 @@ class AcsPovertyIngestor:
             if RACE_INCLUDES_HISPANIC_COL in df.columns:
                 column_types[RACE_INCLUDES_HISPANIC_COL] = "BOOL"
 
-            column_types[ABOVE_POVERTY_COL] = "INT64"
             column_types[BELOW_POVERTY_COL] = "INT64"
 
             gcs_to_bq_util.add_dataframe_to_bq(
@@ -360,10 +358,7 @@ class AcsPovertyIngestor:
                             below
                         ]
                 if race is not None:
-                    race_county_data.append(default_county_vals + [race])
-                elif sex is not None:
-                    sex_county_data.append(default_county_vals + [sex])
-                elif age is not None:
+                    race_county_data.append(default_county_vals + [rac-
                     age_county_data.append(default_county_vals + [age])
 
         base_state_cols = [STATE_FIPS_COL, STATE_NAME_COL, BELOW_POVERTY_COL]
