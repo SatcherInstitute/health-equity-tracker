@@ -33,7 +33,6 @@ function DataCatalogTab() {
         indicatorColor="primary"
         textColor="primary"
         centered
-        style={{ marginTop: "40px" }}
       >
         <Tab label="Data Downloads" />
         <Tab label="Methodology" />
