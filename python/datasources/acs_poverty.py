@@ -219,6 +219,8 @@ class AcsPovertyIngestor:
                     )
                 self.accumulate_acs_data(data)
 
+    # Accumulates the data into new age groups and then splits the data
+    # into unique groupings of age, race, and sex.
     def custom_accumulations(self):
         new_data = {}
 
@@ -236,17 +238,25 @@ class AcsPovertyIngestor:
                 )
 
             new_age = determine_new_age_bucket(age)
-            new_key = (state_fip, county_fip, new_age, sex, race)
-            upsert_row(new_data, state_fip, county_fip, new_age, sex, race, 0)
-            new_population = new_data[new_key]
-            new_population[PovertyPopulation.ABOVE] = str(
-                int(new_population[PovertyPopulation.ABOVE]) + above
-            )
-            new_population[PovertyPopulation.BELOW] = str(
-                int(new_population[PovertyPopulation.BELOW]) + below
-            )
 
-            new_data[new_key] = new_population
+            age_key = (state_fip, county_fip, new_age, None, None)
+            sex_key = (state_fip, county_fip, None, sex, None)
+            race_key = (state_fip, county_fip, None, None, race)
+
+            upsert_row(new_data, state_fip, county_fip, new_age, None, None, 0)
+            upsert_row(new_data, state_fip, county_fip, None, sex, None, 0)
+            upsert_row(new_data, state_fip, county_fip, None, None, race, 0)
+
+            for new_key in [age_key, sex_key, race_key]:
+                new_population = new_data[new_key]
+                new_population[PovertyPopulation.ABOVE] = str(
+                    int(new_population[PovertyPopulation.ABOVE]) + above
+                )
+                new_population[PovertyPopulation.BELOW] = str(
+                    int(new_population[PovertyPopulation.BELOW]) + below
+                )
+
+                new_data[new_key] = new_population
 
         self.data = new_data
 
@@ -311,80 +321,101 @@ class AcsPovertyIngestor:
     # Splits the in memory aggregation into dataframes
 
     def split_data_frames(self):
-        state_data = []
-        county_data = []
+        race_state_data = []
+        sex_state_data = []
+        age_state_data = []
+
+        race_county_data = []
+        sex_county_data = []
+        age_county_data = []
 
         # Extract keys from self.data Tuple
-        # (state_fip, County_fip, Age, Sex, Race): {PopulationObj}
+        # (state_fip, county_fip, Age, Sex, Race): {PopulationObj}
         for data, population in self.data.items():
             state_fip, county_fip, age, sex, race = data
 
             population = self.data[data]
-            above = population[PovertyPopulation.ABOVE]
             below = population[PovertyPopulation.BELOW]
 
+            # Since data is going into unique datasets, data should be split to
+            # only have one dataset target.  If this fails,
+            # check custom_accumulations
+            if (age is not None) + (sex is not None) + (race is not None) != 1:
+                raise AssertionError(f"Invalid Tuple: {data}")
+
             if county_fip is None:
-                state_data.append(
-                    [
-                        state_fip,
-                        self.state_fips[state_fip],
-                        race,
-                        age,
-                        sex,
-                        above,
-                        below,
-                    ]
-                )
+                default_state_vals = [state_fip, self.state_fips[state_fip], below]
+                if race is not None:
+                    race_state_data.append(default_state_vals + [race])
+                elif sex is not None:
+                    sex_state_data.append(default_state_vals + [sex])
+                elif age is not None:
+                    age_state_data.append(default_state_vals + [age])
             else:
-                county_data.append(
-                    [
-                        state_fip,
-                        self.state_fips[state_fip],
-                        state_fip + county_fip,
-                        self.county_fips[(state_fip, county_fip)],
-                        race,
-                        age,
-                        sex,
-                        above,
-                        below,
-                    ]
-                )
+                default_county_vals = [
+                            state_fip,
+                            self.state_fips[state_fip],
+                            county_fip,
+                            self.county_fips[(state_fip, county_fip)],
+                            below
+                        ]
+                if race is not None:
+                    race_county_data.append(default_county_vals + [race])
+                elif sex is not None:
+                    sex_county_data.append(default_county_vals + [sex])
+                elif age is not None:
+                    age_county_data.append(default_county_vals + [age])
+
+        base_state_cols = [STATE_FIPS_COL, STATE_NAME_COL, BELOW_POVERTY_COL]
+
+        base_county_cols = [
+            STATE_FIPS_COL,
+            STATE_NAME_COL,
+            COUNTY_FIPS_COL,
+            COUNTY_NAME_COL,
+            BELOW_POVERTY_COL,
+        ]
 
         # Build Panda DataFrames with standardized cols
-        self.poverty_by_race_age_sex_state_frame = pd.DataFrame(
-            state_data,
-            columns=[
-                STATE_FIPS_COL,
-                STATE_NAME_COL,
-                RACE_CATEGORY_ID_COL,
-                AGE_COL,
-                SEX_COL,
-                ABOVE_POVERTY_COL,
-                BELOW_POVERTY_COL,
-            ],
+        self.poverty_by_race_state = pd.DataFrame(
+            race_state_data,
+            columns=base_state_cols + [RACE_CATEGORY_ID_COL],
         )
-        self.poverty_by_race_age_sex_county_frame = pd.DataFrame(
-            county_data,
-            columns=[
-                STATE_FIPS_COL,
-                STATE_NAME_COL,
-                COUNTY_FIPS_COL,
-                COUNTY_NAME_COL,
-                RACE_CATEGORY_ID_COL,
-                AGE_COL,
-                SEX_COL,
-                ABOVE_POVERTY_COL,
-                BELOW_POVERTY_COL,
-            ],
+        self.poverty_by_race_county = pd.DataFrame(
+            race_county_data,
+            columns=base_county_cols + [RACE_CATEGORY_ID_COL],
         )
 
-        add_race_columns_from_category_id(self.poverty_by_race_age_sex_state_frame)
-        add_race_columns_from_category_id(self.poverty_by_race_age_sex_county_frame)
+        add_race_columns_from_category_id(self.poverty_by_race_state)
+        add_race_columns_from_category_id(self.poverty_by_race_county)
+
+        # Build Panda DataFrames with standardized cols
+        self.poverty_by_age_state = pd.DataFrame(
+            age_state_data,
+            columns=base_state_cols + [AGE_COL],
+        )
+        self.poverty_by_age_county = pd.DataFrame(
+            age_county_data,
+            columns=base_county_cols + [AGE_COL],
+        )
+
+        self.poverty_by_sex_state = pd.DataFrame(
+            sex_state_data,
+            columns=base_state_cols + [SEX_COL],
+        )
+        self.poverty_by_sex_county = pd.DataFrame(
+            sex_county_data,
+            columns=base_county_cols + [SEX_COL],
+        )
 
         # Aggregate Frames by Filename
         self.frames = {
-            "poverty_by_race_age_sex_state": self.poverty_by_race_age_sex_state_frame,
-            "poverty_by_race_age_sex_county": self.poverty_by_race_age_sex_county_frame,
+            "poverty_by_race_state": self.poverty_by_race_state,
+            "poverty_by_race_county": self.poverty_by_race_county,
+            "poverty_by_age_state": self.poverty_by_age_state,
+            "poverty_by_age_county": self.poverty_by_age_county,
+            "poverty_by_sex_state": self.poverty_by_sex_state,
+            "poverty_by_sex_county": self.poverty_by_sex_county,
         }
 
 

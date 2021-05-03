@@ -45,7 +45,7 @@ class CDCRestrictedData(DataSource):
             column_types = {c: 'STRING' for c in df.columns}
             for col in int_cols:
                 if col in column_types:
-                    column_types[col] = 'INT64'
+                    column_types[col] = 'FLOAT'
             if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
                 column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
