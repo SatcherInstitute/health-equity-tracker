@@ -351,14 +351,17 @@ class AcsPovertyIngestor:
                     age_state_data.append(default_state_vals + [age])
             else:
                 default_county_vals = [
-                            state_fip,
-                            self.state_fips[state_fip],
-                            county_fip,
-                            self.county_fips[(state_fip, county_fip)],
-                            below
-                        ]
+                    state_fip,
+                    self.state_fips[state_fip],
+                    county_fip,
+                    self.county_fips[(state_fip, county_fip)],
+                    below,
+                ]
                 if race is not None:
-                    race_county_data.append(default_county_vals + [rac-
+                    race_county_data.append(default_county_vals + [race])
+                elif sex is not None:
+                    sex_county_data.append(default_county_vals + [sex])
+                elif age is not None:
                     age_county_data.append(default_county_vals + [age])
 
         base_state_cols = [STATE_FIPS_COL, STATE_NAME_COL, BELOW_POVERTY_COL]
