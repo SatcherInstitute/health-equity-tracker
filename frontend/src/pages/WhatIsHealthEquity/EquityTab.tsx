@@ -402,7 +402,9 @@ function EquityTab() {
                   Health In A Health Equity Tracker
                 </h2>
                 <p className={styles.NewsAndStoriesSubtitleText}>
-                  <a href="https://satcherinstitute.org/post-4840/">Learn more</a>
+                  <a href="https://satcherinstitute.org/post-4840/">
+                    Learn more
+                  </a>
                 </p>
               </Grid>
             </Grid>

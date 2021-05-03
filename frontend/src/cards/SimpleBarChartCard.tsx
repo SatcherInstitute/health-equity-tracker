@@ -9,7 +9,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { MetricConfig } from "../data/config/MetricConfig";
+import { VariableConfig } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC } from "../data/utils/Constants";
@@ -18,7 +18,7 @@ import MissingDataAlert from "./ui/MissingDataAlert";
 export interface SimpleBarChartCardProps {
   key?: string;
   breakdownVar: BreakdownVar;
-  metricConfig: MetricConfig;
+  variableConfig: VariableConfig;
   fips: Fips;
 }
 
@@ -27,24 +27,26 @@ export interface SimpleBarChartCardProps {
 export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
   return (
     <SimpleBarChartCardWithKey
-      key={props.metricConfig.metricId + props.breakdownVar}
+      key={props.variableConfig.variableId + props.breakdownVar}
       {...props}
     />
   );
 }
 
 function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
+  const metricConfig = props.variableConfig.metrics["per100k"];
+
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     exclude(NON_HISPANIC)
   );
 
-  const query = new MetricQuery([props.metricConfig.metricId], breakdowns);
+  const query = new MetricQuery([metricConfig.metricId], breakdowns);
 
   function CardTitle() {
     return (
       <>
-        Disparities in {props.metricConfig.fullCardTitleName} by{" "}
+        Disparities in {metricConfig.fullCardTitleName} by{" "}
         <b>{BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]}</b> in{" "}
         {props.fips.getFullDisplayName()}
       </>
@@ -57,11 +59,11 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
         return (
           <>
             {queryResponse.shouldShowMissingDataMessage([
-              props.metricConfig.metricId,
+              metricConfig.metricId,
             ]) && (
               <CardContent className={styles.Breadcrumbs}>
                 <MissingDataAlert
-                  dataName={props.metricConfig.fullCardTitleName}
+                  dataName={metricConfig.fullCardTitleName}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
@@ -69,15 +71,15 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
               </CardContent>
             )}
             {!queryResponse.shouldShowMissingDataMessage([
-              props.metricConfig.metricId,
+              metricConfig.metricId,
             ]) && (
               <CardContent className={styles.Breadcrumbs}>
                 <SimpleHorizontalBarChart
                   data={queryResponse.getValidRowsForField(
-                    props.metricConfig.metricId
+                    metricConfig.metricId
                   )}
                   breakdownVar={props.breakdownVar}
-                  metric={props.metricConfig}
+                  metric={metricConfig}
                   showLegend={false}
                 />
               </CardContent>
