@@ -5,12 +5,11 @@ import { MetricQueryResponse } from "../../data/query/MetricQuery";
 import { MetricConfig } from "../../data/config/MetricConfig";
 import { UNKNOWN, UNKNOWN_RACE } from "../../data/utils/Constants";
 import styles from "../Card.module.scss";
-import { CardContent } from "@material-ui/core";
+import { CardContent, Divider } from "@material-ui/core";
 import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
-import Divider from "@material-ui/core/Divider";
 
 function UnknownsAlert(props: {
   queryResponse: MetricQueryResponse;
@@ -35,9 +34,10 @@ function UnknownsAlert(props: {
   const breakdownVarDisplayName =
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar];
 
+  const displays = props.pluralDisplayType ? "display" : "displays";
   const cardHelperText = props.known
-    ? `The ${props.displayType} below only displays data for cases where ${breakdownVarDisplayName} was known.`
-    : `The ${props.displayType} below displays data for cases where ${breakdownVarDisplayName} was unknown.`;
+    ? `The ${props.displayType} below only ${displays} data for cases where ${breakdownVarDisplayName} was known.`
+    : `The ${props.displayType} below ${displays} data for cases where ${breakdownVarDisplayName} was unknown.`;
 
   const percentageUnknown = unknowns[0][props.metricConfig.metricId];
 
