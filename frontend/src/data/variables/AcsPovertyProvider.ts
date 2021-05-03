@@ -26,18 +26,18 @@ class AcsPovertyProvider extends VariableProvider {
   getDatasetId(breakdowns: Breakdowns): string {
     let datasetPrefix = "acs_poverty_dataset-poverty_by_";
 
-    let dataset_selector;
+    let breakdownSelector;
     if (breakdowns.hasOnlyAge()) {
-      dataset_selector = "age";
+      breakdownSelector = "age";
     } else if (breakdowns.hasOnlyRace()) {
-      dataset_selector = "race";
+      breakdownSelector = "race";
     } else {
-      dataset_selector = "sex";
+      breakdownSelector = "sex";
     }
 
     return (
       datasetPrefix +
-      dataset_selector +
+      breakdownSelector +
       (breakdowns.geography === "county" ? "_county" : "_state")
     );
   }
