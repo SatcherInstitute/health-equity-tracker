@@ -16,7 +16,13 @@ import {
   getPer100kAndPctShareMetrics,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
-import { NON_HISPANIC, RACE } from "../data/utils/Constants";
+import {
+  NON_HISPANIC,
+  RACE,
+  UNKNOWN,
+  UNKNOWN_RACE,
+} from "../data/utils/Constants";
+import { Row } from "../data/utils/DatasetTypes";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
@@ -69,6 +75,12 @@ export function TableCard(props: TableCardProps) {
       }
     >
       {([queryResponse]) => {
+        const dataWithoutUnknowns = queryResponse.data.filter(
+          (row: Row) =>
+            row[props.breakdownVar] !== UNKNOWN &&
+            row[props.breakdownVar] !== UNKNOWN_RACE
+        );
+
         return (
           <>
             {queryResponse.shouldShowMissingDataMessage(metricIds) && (
@@ -108,7 +120,7 @@ export function TableCard(props: TableCardProps) {
               )}
             {!queryResponse.dataIsMissing() && (
               <TableChart
-                data={queryResponse.data}
+                data={dataWithoutUnknowns}
                 breakdownVar={props.breakdownVar}
                 metrics={Object.values(metricConfigs)}
               />
