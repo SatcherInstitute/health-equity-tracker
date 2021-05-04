@@ -29,11 +29,17 @@ class BrfssProvider extends VariableProvider {
     this.acsProvider = acsProvider;
   }
 
+  getDatasetId(breakdowns: Breakdowns): string {
+    return "uhc_" + breakdowns.getSoleDemographicBreakdown().columnName;
+  }
+
   async getDataInternal(
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
-    const brfss = await getDataManager().loadDataset("brfss");
+
+    const datasetID = this.getDatasetId(breakdowns);
+    const brfss = await getDataManager().loadDataset(datasetID);
     let df = brfss.toDataFrame();
 
     const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
@@ -65,7 +71,7 @@ class BrfssProvider extends VariableProvider {
       acsQueryResponse.consumedDatasetIds
     );
 
-    const acs = new DataFrame(acsQueryResponse.data);
+    let acs = new DataFrame(acsQueryResponse.data);
     df = joinOnCols(df, acs, ["fips", breakdownColumnName], "left");
 
     df = df.generateSeries({
@@ -87,7 +93,7 @@ class BrfssProvider extends VariableProvider {
     });
 
     // Calculate any share_of_known metrics that may have been requested in the query
-    if (breakdowns.hasOnlyRace()) {
+    if (this.allowsBreakdowns(breakdowns)) {
       ["estimated_total_diabetes", "estimated_total_copd"].forEach((col) => {
         df = this.calculatePctShare(
           df,
@@ -117,7 +123,7 @@ class BrfssProvider extends VariableProvider {
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
     const validDemographicBreakdownRequest =
-      breakdowns.demographicBreakdownCount() === 0 || breakdowns.hasOnlyRace();
+      !breakdowns.time && breakdowns.hasExactlyOneDemographic();
 
     return (
       !breakdowns.time &&
