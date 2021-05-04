@@ -71,7 +71,7 @@ class BrfssProvider extends VariableProvider {
       acsQueryResponse.consumedDatasetIds
     );
 
-    let acs = new DataFrame(acsQueryResponse.data);
+    const acs = new DataFrame(acsQueryResponse.data);
     df = joinOnCols(df, acs, ["fips", breakdownColumnName], "left");
 
     df = df.generateSeries({
@@ -126,7 +126,6 @@ class BrfssProvider extends VariableProvider {
       !breakdowns.time && breakdowns.hasExactlyOneDemographic();
 
     return (
-      !breakdowns.time &&
       (breakdowns.geography === "state" ||
         breakdowns.geography === "national") &&
       validDemographicBreakdownRequest
