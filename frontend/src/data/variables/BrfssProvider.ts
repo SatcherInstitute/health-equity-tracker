@@ -61,7 +61,7 @@ class BrfssProvider extends VariableProvider {
     } else if (breakdowns.geography === "state") {
       df = df.where((row) => row.fips !== USA_FIPS);
     }
-    let consumedDatasetIds = ["brfss"];
+    let consumedDatasetIds = [datasetID];
 
     const acsQueryResponse = await this.acsProvider.getData(
       new MetricQuery(["population", "population_pct"], acsBreakdowns)
