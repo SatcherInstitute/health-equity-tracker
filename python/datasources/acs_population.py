@@ -2,17 +2,16 @@ import pandas
 from ingestion.standardized_columns import (HISPANIC_COL, RACE_COL,
                                             STATE_FIPS_COL, COUNTY_FIPS_COL,
                                             STATE_NAME_COL, COUNTY_NAME_COL,
-                                            RACE_OR_HISPANIC_COL,
                                             POPULATION_COL, AGE_COL, SEX_COL,
                                             Race, RACE_CATEGORY_ID_COL,
                                             RACE_INCLUDES_HISPANIC_COL,
+                                            TOTAL_VALUE,
                                             add_race_columns_from_category_id)
 from ingestion import url_file_to_gcs, gcs_to_bq_util
 from datasources.data_source import DataSource
 from ingestion.census import (get_census_params, fetch_acs_metadata,
-                              parse_acs_metadata, fetch_acs_variables,
-                              fetch_acs_group, get_vars_for_group,
-                              standardize_frame)
+                              parse_acs_metadata, fetch_acs_group,
+                              get_vars_for_group, standardize_frame)
 
 
 # TODO pass this in from message data.
@@ -20,7 +19,6 @@ BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
 
 
 HISPANIC_BY_RACE_CONCEPT = "HISPANIC OR LATINO ORIGIN BY RACE"
-TOTAL_POP_VARIABLE_ID = "B01003_001E"
 
 
 GROUPS = {
@@ -89,9 +87,9 @@ def add_sum_of_rows(df, breakdown_col, value_col, new_row_breakdown_val,
        there are extraneous columns.
 
        For example, calling
-           `add_sum_of_rows(df, 'race', 'population', 'total')`
+           `add_sum_of_rows(df, 'race', 'population', 'Total')`
        will group by all columns except for 'race' and 'population, and for each
-       group add a row with race='total' and population=the sum of population
+       group add a row with race='Total' and population=the sum of population
        for all races in that group.
 
        df: The DataFrame to calculate new rows from.
@@ -194,12 +192,6 @@ class ACSPopulationIngester():
                 self.get_filename(concept))
             file_diff = file_diff or concept_file_diff
 
-        url_params = get_census_params(
-            [TOTAL_POP_VARIABLE_ID], self.county_level)
-        next_file_diff = url_file_to_gcs.url_file_to_gcs(
-            self.base_acs_url, url_params, gcs_bucket,
-            self.add_filename_suffix(TOTAL_POP_VARIABLE_ID))
-        file_diff = file_diff or next_file_diff
         return file_diff
 
     def write_to_bq(self, dataset, gcs_bucket):
@@ -222,16 +214,6 @@ class ACSPopulationIngester():
             self.county_level,
             POPULATION_COL)
 
-        total_frame = gcs_to_bq_util.load_values_as_dataframe(
-            gcs_bucket, self.add_filename_suffix(TOTAL_POP_VARIABLE_ID))
-        total_frame = update_col_types(total_frame)
-        total_frame = standardize_frame(
-            total_frame,
-            {TOTAL_POP_VARIABLE_ID: ['Total']},
-            [RACE_OR_HISPANIC_COL],
-            self.county_level,
-            POPULATION_COL)
-
         sex_by_age_frames = {}
         for concept in SEX_BY_AGE_CONCEPTS_TO_RACE:
             sex_by_age_frame = gcs_to_bq_util.load_values_as_dataframe(
@@ -241,7 +223,7 @@ class ACSPopulationIngester():
 
         frames = {
             self.get_table_name_by_race(): self.get_all_races_frame(
-                race_and_hispanic_frame, total_frame),
+                race_and_hispanic_frame),
             self.get_table_name_by_sex_age_race(): self.get_sex_by_age_and_race(
                 var_map, sex_by_age_frames)
         }
@@ -264,8 +246,6 @@ class ACSPopulationIngester():
         by_hisp_and_race_json = fetch_acs_group(
             self.base_acs_url, HISPANIC_BY_RACE_CONCEPT, var_map, 2,
             self.county_level)
-        total_json = fetch_acs_variables(
-            self.base_acs_url, [TOTAL_POP_VARIABLE_ID], self.county_level)
         sex_by_age_frames = {}
         for concept in SEX_BY_AGE_CONCEPTS_TO_RACE:
             json_string = fetch_acs_group(
@@ -283,18 +263,9 @@ class ACSPopulationIngester():
             self.county_level,
             POPULATION_COL)
 
-        total_frame = gcs_to_bq_util.values_json_to_dataframe(total_json)
-        total_frame = update_col_types(total_frame)
-        total_frame = standardize_frame(
-            total_frame,
-            {TOTAL_POP_VARIABLE_ID: ['Total']},
-            [RACE_OR_HISPANIC_COL],
-            self.county_level,
-            POPULATION_COL)
-
         frames = {
             self.get_table_name_by_race(): self.get_all_races_frame(
-                race_and_hispanic_frame, total_frame),
+                race_and_hispanic_frame),
             self.get_table_name_by_sex_age_race(): self.get_sex_by_age_and_race(
                 var_map, sex_by_age_frames)
         }
@@ -325,7 +296,15 @@ class ACSPopulationIngester():
 
     def sort_race_frame(self, df):
         sort_cols = self.base_sort_by_cols.copy()
-        sort_cols.append(RACE_OR_HISPANIC_COL)
+        sort_cols.append(RACE_CATEGORY_ID_COL)
+        return df.sort_values(sort_cols)
+
+    def sort_sex_age_race_frame(self, df):
+        sort_cols = self.base_sort_by_cols.copy()
+        # Note: This sorts alphabetically, which isn't ideal for the age column.
+        # However, it doesn't matter how these are sorted in the backend, this
+        # is just for convenience when looking at the data in BigQuery.
+        sort_cols.extend([RACE_CATEGORY_ID_COL, SEX_COL, AGE_COL])
         return df.sort_values(sort_cols)
 
     def standardize_race_exclude_hispanic(self, df):
@@ -350,7 +329,7 @@ class ACSPopulationIngester():
             group_by_cols).sum().reset_index()
         return standardized_race
 
-    def standardize_race_include_hispanic(self, df, total_frame):
+    def standardize_race_include_hispanic(self, df):
         """Alternative format where race categories include Hispanic/Latino.
            Totals are also included because summing over the column will give a
            larger number than the actual total."""
@@ -373,16 +352,13 @@ class ACSPopulationIngester():
             lambda r: RACE_STRING_TO_CATEGORY_ID_INCLUDE_HISP[r[RACE_COL]],
             axis=1)
 
-        total_frame_copy = total_frame.copy()
-        total_frame_copy[RACE_CATEGORY_ID_COL] = Race.TOTAL.value
+        return pandas.concat([by_hispanic, by_race])
 
-        return pandas.concat([by_hispanic, by_race, total_frame_copy])
-
-    def get_all_races_frame(self, race_and_hispanic_frame, total_frame):
+    def get_all_races_frame(self, race_and_hispanic_frame):
         """Includes all race categories, both including and not including
            Hispanic/Latino."""
         all_races = self.standardize_race_include_hispanic(
-            race_and_hispanic_frame, total_frame)
+            race_and_hispanic_frame)
         standardized_race = self.standardize_race_exclude_hispanic(
             race_and_hispanic_frame)
         standardized_race = standardized_race.copy()
@@ -394,9 +370,12 @@ class ACSPopulationIngester():
 
         # Drop extra columns before adding derived rows so they don't interfere
         # with grouping.
-        all_races.drop([RACE_COL, RACE_OR_HISPANIC_COL], axis=1, inplace=True)
+        all_races.drop(RACE_COL, axis=1, inplace=True)
 
         # Add derived rows.
+        all_races = add_sum_of_rows(
+            all_races, RACE_CATEGORY_ID_COL, POPULATION_COL, Race.TOTAL.value,
+            list(RACE_STRING_TO_CATEGORY_ID_INCLUDE_HISP.values()))
         all_races = add_sum_of_rows(
             all_races, RACE_CATEGORY_ID_COL, POPULATION_COL,
             Race.MULTI_OR_OTHER_STANDARD_NH.value,
@@ -429,8 +408,12 @@ class ACSPopulationIngester():
             frames.append(sex_by_age)
         result = pandas.concat(frames)
         result[AGE_COL] = result[AGE_COL].apply(rename_age_bracket)
+
+        result = add_sum_of_rows(result, AGE_COL, POPULATION_COL, TOTAL_VALUE)
+        result = add_sum_of_rows(result, SEX_COL, POPULATION_COL, TOTAL_VALUE)
+
         add_race_columns_from_category_id(result)
-        return result
+        return self.sort_sex_age_race_frame(result)
 
 
 class ACSPopulation(DataSource):

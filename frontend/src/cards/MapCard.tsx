@@ -13,7 +13,7 @@ import { Breakdowns, BreakdownVar } from "../data/query/Breakdowns";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { Fips } from "../data/utils/Fips";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { MetricConfig } from "../data/config/MetricConfig";
+import { VariableConfig } from "../data/config/MetricConfig";
 import { MultiMapDialog } from "./ui/MultiMapDialog";
 import { Row } from "../data/utils/DatasetTypes";
 import { exclude } from "../data/query/BreakdownFilter";
@@ -38,7 +38,7 @@ const POSSIBLE_BREAKDOWNS: BreakdownVar[] = [
 export interface MapCardProps {
   key?: string;
   fips: Fips;
-  metricConfig: MetricConfig;
+  variableConfig: VariableConfig;
   updateFipsCallback: (fips: Fips) => void;
   currentBreakdown: BreakdownVar;
 }
@@ -48,13 +48,15 @@ export interface MapCardProps {
 export function MapCard(props: MapCardProps) {
   return (
     <MapCardWithKey
-      key={props.currentBreakdown + props.metricConfig.metricId}
+      key={props.currentBreakdown + props.variableConfig.variableId}
       {...props}
     />
   );
 }
 
 function MapCardWithKey(props: MapCardProps) {
+  const metricConfig = props.variableConfig.metrics["per100k"];
+
   const signalListeners: any = {
     click: (...args: any) => {
       const clickedData = args[1];
@@ -84,7 +86,7 @@ function MapCardWithKey(props: MapCardProps) {
   const queries = requestedBreakdowns.map(
     (breakdown) =>
       new MetricQuery(
-        props.metricConfig.metricId,
+        metricConfig.metricId,
         geographyBreakdown
           .copy()
           .addBreakdown(
@@ -99,7 +101,7 @@ function MapCardWithKey(props: MapCardProps) {
   return (
     <CardWrapper
       queries={queries}
-      title={<>{props.metricConfig.fullCardTitleName}</>}
+      title={<>{metricConfig.fullCardTitleName}</>}
     >
       {(queryResponses, metadata) => {
         // Look up query at the same index as the breakdown.
@@ -118,7 +120,7 @@ function MapCardWithKey(props: MapCardProps) {
         }
 
         const dataForActiveBreakdownFilter = queryResponse
-          .getValidRowsForField(props.metricConfig.metricId)
+          .getValidRowsForField(metricConfig.metricId)
           .filter(
             (row: Row) => row[activeBreakdownVar] === activeBreakdownFilter
           );
@@ -142,17 +144,13 @@ function MapCardWithKey(props: MapCardProps) {
           <>
             <MultiMapDialog
               fips={props.fips}
-              metricConfig={props.metricConfig}
-              data={queryResponse.getValidRowsForField(
-                props.metricConfig.metricId
-              )}
+              metricConfig={metricConfig}
+              data={queryResponse.getValidRowsForField(metricConfig.metricId)}
               breakdown={activeBreakdownVar}
               handleClose={() => setSmallMultiplesDialogOpen(false)}
               open={smallMultiplesDialogOpen}
               breakdownValues={breakdownValues}
-              fieldRange={queryResponse.getFieldRange(
-                props.metricConfig.metricId
-              )}
+              fieldRange={queryResponse.getFieldRange(metricConfig.metricId)}
               queryResponses={queryResponses} // TODO
               metadata={metadata}
             />
@@ -206,7 +204,7 @@ function MapCardWithKey(props: MapCardProps) {
             {queryResponse.dataIsMissing() && (
               <CardContent>
                 <MissingDataAlert
-                  dataName={props.metricConfig.fullCardTitleName}
+                  dataName={metricConfig.fullCardTitleName}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[activeBreakdownVar]
                   }
@@ -223,7 +221,7 @@ function MapCardWithKey(props: MapCardProps) {
               )}
             {!queryResponse.dataIsMissing() &&
               dataForActiveBreakdownFilter.length !== 0 &&
-              props.metricConfig && (
+              metricConfig && (
                 <CardContent>
                   <Alert severity="info">
                     <Button
@@ -242,12 +240,12 @@ function MapCardWithKey(props: MapCardProps) {
                   </Alert>
                 </CardContent>
               )}
-            {props.metricConfig && (
+            {metricConfig && (
               <CardContent>
                 <ChoroplethMap
                   signalListeners={signalListeners}
-                  metric={props.metricConfig}
-                  legendTitle={props.metricConfig.fullCardTitleName}
+                  metric={metricConfig}
+                  legendTitle={metricConfig.fullCardTitleName}
                   data={dataForActiveBreakdownFilter}
                   hideLegend={
                     queryResponse.dataIsMissing() ||

@@ -9,11 +9,7 @@ import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
 import { DropdownVarId } from "../utils/MadLibs";
 import { Fips } from "../data/utils/Fips";
-import {
-  METRIC_CONFIG,
-  VariableConfig,
-  getPer100kAndPctShareMetrics,
-} from "../data/config/MetricConfig";
+import { METRIC_CONFIG, VariableConfig } from "../data/config/MetricConfig";
 import ReportToggleControls from "./ui/ReportToggleControls";
 import NoDataAlert from "./ui/NoDataAlert";
 
@@ -63,7 +59,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <MapCard
-              metricConfig={variableConfig.metrics["per100k"]}
+              variableConfig={variableConfig}
               fips={props.fips}
               updateFipsCallback={(fips: Fips) => {
                 props.updateFipsCallback(fips);
@@ -76,7 +72,6 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                   <TableCard
                     fips={props.fips}
                     variableConfig={variableConfig}
-                    metrics={getPer100kAndPctShareMetrics(variableConfig)}
                     breakdownVar={breakdownVar}
                   />
                 )}
@@ -86,7 +81,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           <Grid item xs={12} sm={12} md={6}>
             {variableConfig.metrics["pct_share"] && (
               <UnknownsMapCard
-                metricConfig={variableConfig.metrics["pct_share"]}
+                variableConfig={variableConfig}
                 fips={props.fips}
                 updateFipsCallback={(fips: Fips) => {
                   props.updateFipsCallback(fips);
@@ -99,7 +94,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                 {breakdownIsShown(breakdownVar) &&
                   variableConfig.metrics["pct_share"] && (
                     <DisparityBarChartCard
-                      metricConfig={variableConfig.metrics["pct_share"]}
+                      variableConfig={variableConfig}
                       breakdownVar={breakdownVar}
                       fips={props.fips}
                     />
@@ -107,7 +102,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                 {breakdownIsShown(breakdownVar) &&
                   variableConfig.metrics["per100k"] && (
                     <SimpleBarChartCard
-                      metricConfig={variableConfig.metrics["per100k"]}
+                      variableConfig={variableConfig}
                       breakdownVar={breakdownVar}
                       fips={props.fips}
                     />

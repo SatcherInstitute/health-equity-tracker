@@ -42,7 +42,7 @@ export async function evaluateWithAndWithoutAll(
     new MetricQuery(METRIC_IDS, baseBreakdown.addBreakdown(breakdownVar))
   );
 
-  const consumedDatasetIds = ["brfss", acsDatasetId];
+  const consumedDatasetIds = ["uhc_race_and_ethnicity", acsDatasetId];
 
   expect(responseIncludingAll).toEqual(
     new MetricQueryResponse(rowsIncludingAll, consumedDatasetIds)
@@ -190,7 +190,7 @@ describe("BrfssProvider", () => {
     );
 
     await evaluateWithAndWithoutAll(
-      "brfss",
+      "uhc_race_and_ethnicity",
       rawData,
       "acs_population-by_race_state_std",
       rawAcsData,
@@ -263,7 +263,7 @@ describe("BrfssProvider", () => {
     );
 
     await evaluateWithAndWithoutAll(
-      "brfss",
+      "uhc_race_and_ethnicity",
       rawData,
       "acs_population-by_race_state_std",
       rawAcsData,
