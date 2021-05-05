@@ -158,6 +158,9 @@ class AcsHealhInsuranceRaceIngestor:
             # All breakdown columns are strings
             column_types = {c: "STRING" for c in df.columns}
 
+            if RACE_INCLUDES_HISPANIC_COL in df.columns:
+                column_types[RACE_INCLUDES_HISPANIC_COL] = "BOOL"
+
             column_types[WITH_HEALTH_INSURANCE_COL] = "INT64"
             column_types[WITHOUT_HEALTH_INSURANCE_COL] = "INT64"
             column_types[TOTAL_HEALTH_INSURANCE_COL] = "INT64"
@@ -612,13 +615,15 @@ class ACSHealthInsurance(DataSource):
 
 # AcsHealhInsuranceSexIngestor(BASE_ACS_URL).upload_to_gcs(
 #     'kalieki-dev-landing-bucket')
-# AcsHealhInsuranceSexIngestor(BASE_ACS_URL).write_to_bq(
-#     'acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
+AcsHealhInsuranceSexIngestor(BASE_ACS_URL).write_to_bq(
+    "acs_health_insurance_manual_test", "kalieki-dev-landing-bucket"
+)
 
 # AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).upload_to_gcs(
 #     'kalieki-dev-landing-bucket')
-# AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).write_to_bq(
-#     'acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
+AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).write_to_bq(
+    "acs_health_insurance_manual_test", "kalieki-dev-landing-bucket"
+)
 
 # AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).write_local_files_debug()
 # AcsHealhInsuranceSexIngestor(BASE_ACS_URL).write_local_files_debug()
