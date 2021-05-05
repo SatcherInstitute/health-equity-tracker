@@ -474,6 +474,7 @@ function EquityTab() {
                    <a class={styles.ContactUsLink} href="#">
                   LINK DESTINATION TBD
                 </a>
+                </p>
               </>
             }
           />
