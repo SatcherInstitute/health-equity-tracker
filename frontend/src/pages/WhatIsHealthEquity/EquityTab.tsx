@@ -46,7 +46,6 @@ function JoinTheEffortContainer(props: {
 }
 
 function EquityTab() {
-  const [textCopied, setTextCopied] = useState(false);
 
   return (
     <div className={styles.WhatIsHealthEquityPage}>
@@ -462,7 +461,7 @@ function EquityTab() {
                   to receive information on our vaccine rideshare efforts and opportunities.
                 </p>
                 <p>
-                   <a className={styles.ContactUsLink} href="#">
+                   <a className={styles.ContactUsLink} href="http://satcherinstitute.org">
                   LINK DESTINATION TBD
                 </a>
                 </p>
