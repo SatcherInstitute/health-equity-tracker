@@ -99,14 +99,14 @@ function EquityTab() {
             <Typography className={styles.HeaderSubtext} variant="body1">
               <p>
                 <b>Health Equity</b> exists when all people, regardless of race,
-                gender, socio-economic status, geographic location, or other
-                societal constructs have the same access, opportunity, and
-                resources to achieve their highest potential for health  (Health
-                Equity Leadership & Exchange Network)
+                gender, sexual orientation, disability, socio-economic status, 
+                geographic location, or other societal constructs have fair and just 
+                access, opportunity, and resources to achieve their highest potential 
+                for health (Health Equity Leadership & Exchange Network)
               </p>
               <p>
-                Unfortunately, political and social determinants of health
-                negatively affect many marginalized communities, their people,
+                Unfortunately, social and political determinants of health
+                negatively affect many communities, their people,
                 and their ability to lead healthy lives.
               </p>
               <br />
@@ -431,7 +431,7 @@ function EquityTab() {
           </Grid>
           <Grid item className={styles.JoinTheEffortHeaderRow}>
             <Typography className={styles.JoinTheEffortHeaderText} variant="h1">
-              How do I join the effort?
+              How do I join the movement?
             </Typography>
             <span className={styles.JoinTheEffortSubheaderText}>
               To advance health equity, we need smart, talented,
