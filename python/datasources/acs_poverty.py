@@ -11,6 +11,7 @@ from ingestion.standardized_columns import (
     SEX_COL,
     AGE_COL,
     BELOW_POVERTY_COL,
+    ABOVE_POVERTY_COL,
     RACE_CATEGORY_ID_COL,
     Race,
     add_race_columns_from_category_id,
@@ -153,6 +154,7 @@ class AcsPovertyIngestor:
                 column_types[RACE_INCLUDES_HISPANIC_COL] = "BOOL"
 
             column_types[BELOW_POVERTY_COL] = "INT64"
+            column_types[ABOVE_POVERTY_COL] = "INT64"
 
             gcs_to_bq_util.add_dataframe_to_bq(
                 df, dataset, table_name, column_types=column_types
@@ -333,6 +335,7 @@ class AcsPovertyIngestor:
             state_fip, county_fip, age, sex, race = data
 
             population = self.data[data]
+            above = population[PovertyPopulation.ABOVE]
             below = population[PovertyPopulation.BELOW]
 
             # Since data is going into unique datasets, data should be split to
@@ -342,7 +345,12 @@ class AcsPovertyIngestor:
                 raise AssertionError(f"Invalid Tuple: {data}")
 
             if county_fip is None:
-                default_state_vals = [state_fip, self.state_fips[state_fip], below]
+                default_state_vals = [
+                    state_fip,
+                    self.state_fips[state_fip],
+                    below,
+                    above,
+                ]
                 if race is not None:
                     race_state_data.append(default_state_vals + [race])
                 elif sex is not None:
@@ -356,6 +364,7 @@ class AcsPovertyIngestor:
                     county_fip,
                     self.county_fips[(state_fip, county_fip)],
                     below,
+                    above,
                 ]
                 if race is not None:
                     race_county_data.append(default_county_vals + [race])
@@ -364,7 +373,12 @@ class AcsPovertyIngestor:
                 elif age is not None:
                     age_county_data.append(default_county_vals + [age])
 
-        base_state_cols = [STATE_FIPS_COL, STATE_NAME_COL, BELOW_POVERTY_COL]
+        base_state_cols = [
+            STATE_FIPS_COL,
+            STATE_NAME_COL,
+            BELOW_POVERTY_COL,
+            ABOVE_POVERTY_COL,
+        ]
 
         base_county_cols = [
             STATE_FIPS_COL,
@@ -372,6 +386,7 @@ class AcsPovertyIngestor:
             COUNTY_FIPS_COL,
             COUNTY_NAME_COL,
             BELOW_POVERTY_COL,
+            ABOVE_POVERTY_COL,
         ]
 
         # Build Panda DataFrames with standardized cols
