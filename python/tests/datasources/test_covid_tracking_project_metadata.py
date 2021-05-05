@@ -36,8 +36,8 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     ctp.write_to_bq('dataset', 'gcs_bucket', **kwargs)
     result = mock_bq.call_args.args[0]
     expected_cols = [
-         col_std.STATE_POSTAL_COL, 'reports_api', 'defines_other',
-         'race_ethnicity_separately', 'race_ethnicity_combined',
+         col_std.STATE_POSTAL_COL, 'reports_api',
+         col_std.RACE_INCLUDES_HISPANIC_COL,
          'race_mutually_exclusive', 'reports_ind', 'reports_race',
          'reports_ethnicity', 'variable_type']
     assert set(result.columns) == set(expected_cols)
@@ -45,6 +45,10 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     # combo
     assert len(result.index) == 3 * 2
     assert result.loc[result[col_std.STATE_POSTAL_COL] == 'AL'].all().all()
-    assert not result.loc[result[col_std.STATE_POSTAL_COL] == 'PA', 'reports_api':].any().any()
+    assert result.loc[
+        result[col_std.STATE_POSTAL_COL] == 'PA'][col_std.RACE_INCLUDES_HISPANIC_COL].all()
+    assert not result.drop(
+        [col_std.RACE_INCLUDES_HISPANIC_COL, col_std.STATE_POSTAL_COL, 'variable_type'], axis=1).loc[
+            result[col_std.STATE_POSTAL_COL] == 'PA'].any().any()
     assert result.loc[result[col_std.STATE_POSTAL_COL] == 'GA'].all().all()
     assert result['variable_type'].isin(['cases', 'deaths']).all()

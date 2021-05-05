@@ -36,7 +36,6 @@ class CtpMetadata(DataSource):
         keep_cols = [
             "state_postal_abbreviation",
             "api_death",
-            "defines_other_death",
             "race_ethnicity_separately_death",
             "race_ethnicity_combined_death",
             "race_mutually_exclusive_death",
@@ -44,7 +43,6 @@ class CtpMetadata(DataSource):
             "race_death",
             "ethnicity_death",
             "api_cases",
-            "defines_other_cases",
             "race_ethnicity_separately_cases",
             "race_ethnicity_combined_cases",
             "race_mutually_exclusive_cases",
@@ -64,6 +62,20 @@ class CtpMetadata(DataSource):
         df.replace({"variable_type": {"death": "deaths"}}, inplace=True)
         df.rename_axis(None, inplace=True)
         df.rename(columns=CtpMetadata._metadata_columns_map(), inplace=True)
+        df = CtpMetadata._convert_to_includes_hisp(df)
+        return df
+
+    @staticmethod
+    def _convert_to_includes_hisp(df: pd.DataFrame):
+        includes_hisp_col = col_std.RACE_INCLUDES_HISPANIC_COL
+        df[includes_hisp_col] = df.apply(
+            lambda row: (
+                row["race_ethnicity_separately"] == 1 or row["reports_ethnicity"] == 0
+            ),
+            axis=1
+        )
+        df.drop(["race_ethnicity_separately", "race_ethnicity_combined"],
+                axis=1, inplace=True)
         return df
 
     @staticmethod
