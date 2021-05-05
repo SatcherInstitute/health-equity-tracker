@@ -2,18 +2,9 @@ import React, { useState } from "react";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import Button from "@material-ui/core/Button";
 import Hidden from "@material-ui/core/Hidden";
-import IconButton from "@material-ui/core/IconButton";
-import FileCopyIcon from "@material-ui/icons/FileCopy";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import FacebookIcon from "@material-ui/icons/Facebook";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import {
-  LinkWithStickyParams,
-} from "../../utils/urlutils";
-import { CopyToClipboard } from "react-copy-to-clipboard";
 import FaqSection from "../ui/FaqSection";
 
 function JoinTheEffortContainer(props: {
