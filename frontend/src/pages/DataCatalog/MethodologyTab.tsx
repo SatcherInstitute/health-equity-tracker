@@ -12,6 +12,7 @@ function MethodologyTab() {
   return (
     <>
       <title>Methodology - Health Equity Tracker</title>
+      <h1 className={styles.ScreenreaderTitleHeader}>Methodology</h1>
       <Grid
         container
         className={styles.Grid}
@@ -22,13 +23,13 @@ function MethodologyTab() {
         <Grid item xs={12} sm={12} md={9}>
           <Grid container className={styles.MethodologySection}>
             <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h1
+              <h2
                 id="main"
                 tabIndex={-1}
                 className={styles.MethodologyQuestion}
               >
                 How did you ingest and standardize the data?
-              </h1>
+              </h2>
               <div className={styles.MethodologyAnswer}>
                 <ul>
                   <li>
@@ -49,9 +50,9 @@ function MethodologyTab() {
               </div>
             </Grid>
             <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h1 className={styles.MethodologyQuestion}>
+              <h2 className={styles.MethodologyQuestion}>
                 What are the limitations of the data?
-              </h1>
+              </h2>
               <div className={styles.MethodologyAnswer}>
                 <p>
                   Unfortunately, with these publically available data sets,
@@ -60,9 +61,9 @@ function MethodologyTab() {
                   comprehensive race and ethnicity breakdowns; comprehensive
                   gender and age breakdowns by county, etc.
                 </p>
-                <h2 className={styles.MethodologySubheaderText}>
+                <h3 className={styles.MethodologySubheaderText}>
                   Known limitations in the data
-                </h2>
+                </h3>
                 <ul>
                   <li>
                     To protect the privacy of affected individuals, COVID-19
@@ -89,9 +90,9 @@ function MethodologyTab() {
               </div>
             </Grid>
             <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h1 className={styles.MethodologyQuestion}>
+              <h2 className={styles.MethodologyQuestion}>
                 What data is missing?
-              </h1>
+              </h2>
               <div className={styles.MethodologyAnswer}>
                 <p>
                   Our tracker is iterating and expanding to include additional
