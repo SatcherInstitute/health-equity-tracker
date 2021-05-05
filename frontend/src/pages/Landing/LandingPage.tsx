@@ -29,7 +29,7 @@ function TakeALookAroundItem(props: {
           </Grid>
         </Hidden>
         <Grid item>
-          <Typography className={styles.TakeALookAroundText} variant="h2">
+          <Typography className={styles.TakeALookAroundText} variant="h3">
             <p>{props.text}</p>
           </Typography>
         </Grid>
@@ -42,6 +42,7 @@ function LandingPage() {
   return (
     <>
       <title>Home - Health Equity Tracker</title>
+      <h1 className={styles.ScreenreaderTitleHeader}>Home Page</h1>
       <div className={styles.LandingPage}>
         <Grid container className={styles.Grid}>
           <Grid
@@ -57,7 +58,7 @@ function LandingPage() {
                   id="main"
                   tabIndex={-1}
                   className={styles.HeaderText}
-                  variant="h1"
+                  variant="h2"
                 >
                   Equity Forward
                 </Typography>
@@ -111,7 +112,7 @@ function LandingPage() {
             <Grid item xs={12}>
               <Typography
                 className={styles.TakeALookAroundHeaderText}
-                variant="h1"
+                variant="h2"
               >
                 Take a look around
               </Typography>
@@ -201,7 +202,7 @@ function LandingPage() {
             >
               <Typography
                 className={styles.PrioritizeHealthEquityHeader}
-                variant="h1"
+                variant="h2"
               >
                 It's time to prioritize health equity
               </Typography>
@@ -228,7 +229,7 @@ function LandingPage() {
 
           <Grid container className={styles.HowToRow}>
             <Grid item xs={12}>
-              <Typography className={styles.HowToHeaderText} variant="h1">
+              <Typography className={styles.HowToHeaderText} variant="h2">
                 How do I use the Data Tracker?
               </Typography>
             </Grid>
@@ -256,9 +257,9 @@ function LandingPage() {
                 </Grid>
                 <Grid item xs={12} sm={12} md={3}>
                   <div>
-                    <h2 className={styles.HowToStepTextHeader}>
+                    <h3 className={styles.HowToStepTextHeader}>
                       Search by completing the sentence
-                    </h2>
+                    </h3>
                     <p className={styles.HowToStepTextSubheader}>
                       Select variables you’re interested in to complete the
                       sentence and explore the data
@@ -283,9 +284,9 @@ function LandingPage() {
                 </Grid>
                 <Grid item xs={12} sm={12} md={3}>
                   <div>
-                    <h2 className={styles.HowToStepTextHeader}>
+                    <h3 className={styles.HowToStepTextHeader}>
                       Use filters to go deeper
-                    </h2>
+                    </h3>
                     <p className={styles.HowToStepTextSubheader}>
                       Where available, the tracker offers breakdowns by race and
                       ethnicity, sex, and age. This is currently limited to the
@@ -312,9 +313,9 @@ function LandingPage() {
                 </Grid>
                 <Grid item xs={12} sm={12} md={3}>
                   <div>
-                    <h2 className={styles.HowToStepTextHeader}>
+                    <h3 className={styles.HowToStepTextHeader}>
                       Explore maps and graphs
-                    </h2>
+                    </h3>
                     <p className={styles.HowToStepTextSubheader}>
                       The interactive maps and graphs are a great way to
                       investigate the data more closely. If a state or county is
@@ -363,7 +364,7 @@ function LandingPage() {
                   <Hidden mdUp>
                     <Typography
                       className={styles.NewsletterRowHeaderSmall}
-                      variant="h1"
+                      variant="h2"
                     >
                       Engage in
                       <br />
@@ -373,7 +374,7 @@ function LandingPage() {
                   <Hidden smDown>
                     <Typography
                       className={styles.NewsletterRowHeader}
-                      variant="h1"
+                      variant="h2"
                     >
                       Engage in
                       <br />

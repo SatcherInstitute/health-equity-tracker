@@ -8,6 +8,7 @@ function ContactUsTab() {
   return (
     <>
       <title>Contact Us - About Us - Health Equity Tracker</title>
+      <h1 className={styles.ScreenreaderTitleHeader}>Contact Us</h1>
       <Grid container className={styles.Grid}>
         <Grid
           container
@@ -28,7 +29,7 @@ function ContactUsTab() {
                 id="main"
                 tabIndex={-1}
                 className={styles.ContactUsHeaderText}
-                variant="h1"
+                variant="h2"
               >
                 Let's move
                 <br />
@@ -58,7 +59,7 @@ function ContactUsTab() {
           alignItems="center"
         >
           <Grid item xs={12} sm={12} md={8}>
-            <Typography className={styles.ContactUsSubheaderText} variant="h2">
+            <Typography className={styles.ContactUsSubheaderText} variant="h3">
               Thank you for your interest in the Health Equity Tracker
             </Typography>
           </Grid>

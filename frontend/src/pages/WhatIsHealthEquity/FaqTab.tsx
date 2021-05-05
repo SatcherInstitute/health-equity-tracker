@@ -9,6 +9,9 @@ function FaqTab() {
   return (
     <>
       <title>FAQ - About Us - Health Equity Tracker</title>
+      <h1 className={styles.ScreenreaderTitleHeader}>
+        Frequently Asked Questions
+      </h1>
       <Grid container className={styles.Grid}>
         <Grid container className={styles.FaqSection}>
           <Grid item xs={12} sm={12} md={3}>
@@ -16,7 +19,7 @@ function FaqTab() {
               id="main"
               tabIndex={-1}
               className={styles.FaqHeaderText}
-              variant="h1"
+              variant="h2"
             >
               Data
             </Typography>
@@ -24,9 +27,9 @@ function FaqTab() {
           <Grid item xs={12} sm={12} md={9}>
             <Grid container>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h2 className={styles.FaqQuestion}>
+                <h3 className={styles.FaqQuestion}>
                   How was the data collected?
-                </h2>
+                </h3>
                 <div className={styles.FaqAnswer}>
                   <p>
                     All data collected was publicly sourced in an effort to be
@@ -35,7 +38,7 @@ function FaqTab() {
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h2 className={styles.FaqQuestion}>What sources were used?</h2>
+                <h3 className={styles.FaqQuestion}>What sources were used?</h3>
                 <div className={styles.FaqAnswer}>
                   <p>
                     In this tracker, we are using many sources, including{" "}
@@ -59,9 +62,9 @@ function FaqTab() {
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h2 className={styles.FaqQuestion}>
+                <h3 className={styles.FaqQuestion}>
                   What are the limitations of the data?
-                </h2>
+                </h3>
                 <div className={styles.FaqAnswer}>
                   <p>
                     Unfortunately, with these publicly available data sets,
@@ -74,9 +77,9 @@ function FaqTab() {
                     <li>comprehensive race and ethnicity breakdowns</li>
                     <li>comprehensive gender and age breakdowns</li>
                   </ul>
-                  <h3 className={styles.FaqSubheaderText}>
+                  <h4 className={styles.FaqSubheaderText}>
                     Known limitations in the data
-                  </h3>
+                  </h4>
                   <ul>
                     <li>
                       To protect the privacy of affected individuals, COVID-19
@@ -106,9 +109,9 @@ function FaqTab() {
                 </a>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h2 className={styles.FaqQuestion}>
+                <h3 className={styles.FaqQuestion}>
                   What are the inequities in the data?
-                </h2>
+                </h3>
                 <div className={styles.FaqAnswer}>
                   <ul>
                     <li>
@@ -126,9 +129,9 @@ function FaqTab() {
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h2 className={styles.FaqQuestion}>
+                <h3 className={styles.FaqQuestion}>
                   What principles guide you?
-                </h2>
+                </h3>
                 <div className={styles.FaqAnswer}>
                   <p>
                     It is essential that this work and its resulting products
@@ -137,10 +140,10 @@ function FaqTab() {
                     developing the Health Equity Tracker is the importance of
                     working in a way that garners public trust.{" "}
                   </p>
-                  <h3 className={styles.FaqSubheaderText}>
+                  <h4 className={styles.FaqSubheaderText}>
                     These guiding questions help ensure the right standards are
                     in place:
-                  </h3>
+                  </h4>
                   <ul>
                     <li>Do we have open access and input in place?</li>
                     <li>Is there transparency among stakeholders?</li>
@@ -166,14 +169,14 @@ function FaqTab() {
 
         <Grid container className={styles.FaqSection}>
           <Grid item xs={12} sm={12} md={3}>
-            <Typography className={styles.FaqHeaderText} variant="h1">
+            <Typography className={styles.FaqHeaderText} variant="h2">
               Definitions
             </Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={9}>
             <Grid container>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h2 className={styles.FaqQuestion}>What is equity?</h2>
+                <h3 className={styles.FaqQuestion}>What is equity?</h3>
                 <div className={styles.FaqAnswer}>
                   <p>
                     Equity refers to everyone having a fair opportunity to reach
@@ -183,9 +186,9 @@ function FaqTab() {
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h2 className={styles.FaqQuestion}>
+                <h3 className={styles.FaqQuestion}>
                   What is the difference between equality and equity?
-                </h2>
+                </h3>
                 <div className={styles.FaqAnswer}>
                   <p>
                     By definition, equality means “the state of being equal,
@@ -199,9 +202,9 @@ function FaqTab() {
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h2 className={styles.FaqQuestion}>
+                <h3 className={styles.FaqQuestion}>
                   What is health equity? And why is this important?
-                </h2>
+                </h3>
                 <div className={styles.FaqAnswer}>
                   <p>
                     The World Health Organization defines health equity “as the
@@ -225,9 +228,9 @@ function FaqTab() {
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h2 className={styles.FaqQuestion}>
+                <h3 className={styles.FaqQuestion}>
                   What are health disparities?
-                </h2>
+                </h3>
                 <div className={styles.FaqAnswer}>
                   <p>
                     Health disparities are preventable differences in the burden
@@ -238,9 +241,9 @@ function FaqTab() {
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h2 className={styles.FaqQuestion}>
+                <h3 className={styles.FaqQuestion}>
                   What are political determinants of health?
-                </h2>
+                </h3>
                 <div className={styles.FaqAnswer}>
                   <p>
                     The political determinants of health create the structural
@@ -264,9 +267,9 @@ function FaqTab() {
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h2 className={styles.FaqQuestion}>
+                <h3 className={styles.FaqQuestion}>
                   What are social determinants of health?
-                </h2>
+                </h3>
                 <div className={styles.FaqAnswer}>
                   <p>
                     Social determinants of health are conditions in the
@@ -283,14 +286,14 @@ function FaqTab() {
 
         <Grid container className={styles.FaqSection}>
           <Grid item xs={12} sm={12} md={3}>
-            <Typography className={styles.FaqHeaderText} variant="h1">
+            <Typography className={styles.FaqHeaderText} variant="h2">
               Take Action
             </Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={9}>
             <Grid container>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h2 className={styles.FaqQuestion}>How can I get involved?</h2>
+                <h3 className={styles.FaqQuestion}>How can I get involved?</h3>
                 <div className={styles.FaqAnswer}>
                   <p>
                     To advance health equity, we need smart, talented,
@@ -317,9 +320,9 @@ function FaqTab() {
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h2 className={styles.FaqQuestion}>
+                <h3 className={styles.FaqQuestion}>
                   How do I share the graphs?
-                </h2>
+                </h3>
                 <div className={styles.FaqAnswer}>
                   <p>
                     Next to each graph, there is a circle-shaped button with
