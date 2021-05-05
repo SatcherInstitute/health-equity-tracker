@@ -441,6 +441,29 @@ function EquityTab() {
             <br />
             <br />
           </Grid>
+          
+          <JoinTheEffortContainer
+            imageUrl="img/HET_Overlapping_Lines_v4_1000px.gif"
+            imageBackground="#A5CDC0"
+            imageAlt="Decorative thin lines"
+            textTitle="Learn to create actionable solutions"
+            content={
+              <>
+                <p className={styles.JoinTheEffortStepText}>
+                  Apply to our Political Determininants of Health Learning Laboratory Fellowship. 
+                  We seek to partner and support diverse groups in building equitable and 
+                  sustainable pathways for healthy communities.
+                </p>
+                <LinkWithStickyParams
+                  class={styles.ContactUsLink}
+                  to={`https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/`}
+                >
+                  Contact Us
+                </LinkWithStickyParams>
+              </>
+            }
+          />
+          
           <JoinTheEffortContainer
             imageUrl="img/HET_Dots_1_v3_1000px.gif"
             imageBackground="#275141"
@@ -538,27 +561,6 @@ function EquityTab() {
                   </CopyToClipboard>
                   {textCopied && <span>Text copied!</span>}
                 </div>
-              </>
-            }
-          />
-          <JoinTheEffortContainer
-            imageUrl="img/HET_Overlapping_Lines_v4_1000px.gif"
-            imageBackground="#A5CDC0"
-            imageAlt="Decorative thin lines"
-            textTitle="Share your story"
-            content={
-              <>
-                <p className={styles.JoinTheEffortStepText}>
-                  We would love to hear about and feature your work in health
-                  equity, or if you’ve used the Health Equity Tracker to take
-                  action, implement a program, advocate for change, or more.
-                </p>
-                <LinkWithStickyParams
-                  class={styles.ContactUsLink}
-                  to={`${ABOUT_US_PAGE_LINK}?${TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
-                >
-                  Contact Us
-                </LinkWithStickyParams>
               </>
             }
           />
