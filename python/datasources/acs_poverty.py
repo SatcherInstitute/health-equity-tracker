@@ -362,7 +362,7 @@ class AcsPovertyIngestor:
                     state_fip,
                     self.state_fips[state_fip],
                     county_fip,
-                    self.county_fips[(state_fip, county_fip)],
+                    self.state_fips[state_fip] + self.county_fips[(state_fip, county_fip)],
                     below,
                     above,
                 ]

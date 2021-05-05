@@ -42,7 +42,9 @@ class AcsPovertyIngestorTest(unittest.TestCase, AcsPovertyIngestor):
         if state_fip is not None:
             self.state_fips[state_fip] = state_fip + "_state_name"
         if county_fip is not None:
-            self.county_fips[(state_fip, county_fip)] = county_fip + "_county_name"
+            self.county_fips[(state_fip, county_fip)] = (
+                "-" + county_fip + "_county_name"
+            )
 
         return (
             state_fip,
@@ -201,7 +203,17 @@ class AcsPovertyIngestorTest(unittest.TestCase, AcsPovertyIngestor):
         )
         self.assertEqual(
             list(self.poverty_by_sex_county.values.tolist()),
-            [["01", "01_state_name", "001", "001_county_name", "2", "1", "male"]],
+            [
+                [
+                    "01",
+                    "01_state_name",
+                    "001",
+                    "01_state_name-001_county_name",
+                    "2",
+                    "1",
+                    "male",
+                ]
+            ],
         )
 
         self.assertEqual(
@@ -210,7 +222,17 @@ class AcsPovertyIngestorTest(unittest.TestCase, AcsPovertyIngestor):
         )
         self.assertEqual(
             list(self.poverty_by_age_county.values.tolist()),
-            [["01", "01_state_name", "001", "001_county_name", "2", "1", "1-2"]],
+            [
+                [
+                    "01",
+                    "01_state_name",
+                    "001",
+                    "01_state_name-001_county_name",
+                    "2",
+                    "1",
+                    "1-2",
+                ]
+            ],
         )
 
         self.assertEqual(
@@ -224,7 +246,7 @@ class AcsPovertyIngestorTest(unittest.TestCase, AcsPovertyIngestor):
                     "01",
                     "01_state_name",
                     "001",
-                    "001_county_name",
+                    "01_state_name-001_county_name",
                     "2",
                     "1",
                     "WHITE",
