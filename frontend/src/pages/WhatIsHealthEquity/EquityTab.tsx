@@ -451,7 +451,7 @@ function EquityTab() {
                   We seek to partner and support diverse groups in building equitable and 
                   sustainable pathways for healthy communities.
                 </p>
-                <a class={styles.ContactUsLink} href="https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/">
+                <a className={styles.ContactUsLink} href="https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/">
                   Learn More
                 </a>
               </>
@@ -471,7 +471,7 @@ function EquityTab() {
                   to receive information on our vaccine rideshare efforts and opportunities.
                 </p>
                 <p>
-                   <a class={styles.ContactUsLink} href="#">
+                   <a className={styles.ContactUsLink} href="#">
                   LINK DESTINATION TBD
                 </a>
                 </p>
