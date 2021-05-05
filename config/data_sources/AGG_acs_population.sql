@@ -35,6 +35,16 @@ CREATE TEMP FUNCTION getStaggeredDecadeAgeBuckets(x ANY TYPE) AS (
   END
 );
 
+CREATE TEMP FUNCTION getUhcAgeBuckets(x ANY TYPE) AS (
+  CASE
+    WHEN x IN ("18-19", "20-24", "20-20", "21-21", "22-24", "25-29", "30-34", "35-44", "35-39", "40-44") THEN "18-44"
+    WHEN x IN ("45-54", "45-49", "50-54", "55-64", "55-59", "60-61", "62-64") THEN "45-64"
+    WHEN x IN ("65-74", "65-66", "67-69", "70-74", "75-84", "75-79", "80-84", "85+") THEN "65+"
+    WHEN x = "Total" THEN "Total"
+    ELSE "Unknown"
+  END
+);
+
 -- Ignore ingestion timestamp. These queries assume that the dataset has already
 -- been deduped and only include the latest rows.
 CREATE OR REPLACE TABLE acs_population.by_sex_age_state AS
@@ -46,6 +56,20 @@ ORDER BY state_fips, state_name, sex, age;
 
 CREATE OR REPLACE TABLE acs_population.by_sex_age_county AS
 SELECT state_fips, county_fips, county_name, sex, getDecadeAgeBucket(age) AS age, SUM(population) AS population
+FROM `acs_population.by_sex_age_race_county_std`
+WHERE race_category_id = "TOTAL"
+GROUP BY state_fips, county_fips, county_name, sex, age
+ORDER BY state_fips, county_fips, county_name, sex, age;
+
+CREATE OR REPLACE TABLE acs_population.by_sex_age_state_big AS
+SELECT state_fips, state_name, sex, getUhcAgeBuckets(age) AS age, SUM(population) AS population
+FROM `acs_population.by_sex_age_race_state_std`
+WHERE race_category_id = "TOTAL"
+GROUP BY state_fips, state_name, sex, age
+ORDER BY state_fips, state_name, sex, age;
+
+CREATE OR REPLACE TABLE acs_population.by_sex_age_county_big AS
+SELECT state_fips, county_fips, county_name, sex, getUhcAgeBuckets(age) AS age, SUM(population) AS population
 FROM `acs_population.by_sex_age_race_county_std`
 WHERE race_category_id = "TOTAL"
 GROUP BY state_fips, county_fips, county_name, sex, age
@@ -63,6 +87,23 @@ SELECT * EXCEPT(sex)
 FROM `acs_population.by_sex_age_county`
 WHERE sex = "Total";
 
+CREATE OR REPLACE TABLE acs_population.by_age_state_big AS
+SELECT * EXCEPT(sex)
+FROM `acs_population.by_sex_age_state_big`
+WHERE sex = "Total";
+
+CREATE OR REPLACE TABLE acs_population.by_age_county_big AS
+SELECT * EXCEPT(sex)
+FROM `acs_population.by_sex_age_county_big`
+WHERE sex = "Total";
+
+CREATE OR REPLACE TABLE acs_population.by_age_state AS
+SELECT * FROM acs_population.by_age_state_big UNION DISTINCT
+SELECT * FROM acs_population.by_age_state;
+
+CREATE OR REPLACE TABLE acs_population.by_age_county AS
+SELECT * FROM acs_population.by_age_county_big UNION DISTINCT
+SELECT * FROM acs_population.by_age_county;
 
 -- These tables use staggered decade age buckets due to limitations with ACS
 -- age bucket availability.
@@ -94,7 +135,6 @@ CREATE OR REPLACE TABLE acs_population.by_age_race_county_staggered_buckets AS
 SELECT * EXCEPT(sex)
 FROM `acs_population.by_sex_age_race_county_staggered_buckets`
 WHERE sex = "Total";
-
 
 CREATE OR REPLACE TABLE acs_population.by_sex_state AS
 SELECT * EXCEPT(race_category_id, race, race_and_ethnicity, race_includes_hispanic, age)

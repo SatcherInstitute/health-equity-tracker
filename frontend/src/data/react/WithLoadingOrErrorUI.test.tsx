@@ -76,7 +76,7 @@ describe("WithLoadingOrErrorUI", () => {
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
       dataFetcher.setFakeDatasetLoaded("acs_population-by_race_state_std", []);
-      dataFetcher.setFakeDatasetLoaded("brfss", [
+      dataFetcher.setFakeDatasetLoaded("uhc_race_and_ethnicity", [
         {
           state_name: "Alabama",
           race_and_ethnicity: "AmIn",
@@ -106,7 +106,7 @@ describe("WithLoadingOrErrorUI", () => {
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
       dataFetcher.setFakeDatasetLoaded("acs_population-by_race_state_std", []);
-      dataFetcher.setFakeDatasetLoaded("brfss", []);
+      dataFetcher.setFakeDatasetLoaded("uhc_race_and_ethnicity", []);
     });
 
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
@@ -125,8 +125,8 @@ describe("WithLoadingOrErrorUI", () => {
     const { findByTestId } = render(<WithMetricsWrapperApp query={query} />);
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
-      dataFetcher.setFakeDatasetLoaded("brfss", []);
       dataFetcher.setFakeDatasetLoaded("acs_population-by_age_county", []);
+      dataFetcher.setFakeDatasetLoaded("uhc_race_and_ethnicity", []);
     });
 
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
