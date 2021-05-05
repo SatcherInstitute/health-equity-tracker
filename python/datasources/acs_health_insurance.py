@@ -25,6 +25,7 @@ from ingestion.standardized_columns import (
     AGE_COL,
     SEX_COL,
     RACE_CATEGORY_ID_COL,
+    RACE_INCLUDES_HISPANIC_COL,
     WITH_HEALTH_INSURANCE_COL,
     WITHOUT_HEALTH_INSURANCE_COL,
     TOTAL_HEALTH_INSURANCE_COL,
@@ -157,6 +158,9 @@ class AcsHealhInsuranceRaceIngestor:
         for table_name, df in self.frames.items():
             # All breakdown columns are strings
             column_types = {c: "STRING" for c in df.columns}
+
+            if RACE_INCLUDES_HISPANIC_COL in df.columns:
+                column_types[RACE_INCLUDES_HISPANIC_COL] = "BOOL"
 
             column_types[WITH_HEALTH_INSURANCE_COL] = "INT64"
             column_types[WITHOUT_HEALTH_INSURANCE_COL] = "INT64"
@@ -613,12 +617,14 @@ class ACSHealthInsurance(DataSource):
 # AcsHealhInsuranceSexIngestor(BASE_ACS_URL).upload_to_gcs(
 #     'kalieki-dev-landing-bucket')
 # AcsHealhInsuranceSexIngestor(BASE_ACS_URL).write_to_bq(
-#     'acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
+#     "acs_health_insurance_manual_test", "kalieki-dev-landing-bucket"
+# )
 
-# AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).upload_to_gcs(
-#     'kalieki-dev-landing-bucket')
+# # AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).upload_to_gcs(
+# #     'kalieki-dev-landing-bucket')
 # AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).write_to_bq(
-#     'acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
+#     "acs_health_insurance_manual_test", "kalieki-dev-landing-bucket"
+# )
 
 # AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).write_local_files_debug()
 # AcsHealhInsuranceSexIngestor(BASE_ACS_URL).write_local_files_debug()
