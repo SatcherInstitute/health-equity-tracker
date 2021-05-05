@@ -13,7 +13,6 @@ import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import {
   LinkWithStickyParams,
 } from "../../utils/urlutils";
-import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import FaqSection from "../ui/FaqSection";
 
