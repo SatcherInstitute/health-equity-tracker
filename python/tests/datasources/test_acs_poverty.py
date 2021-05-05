@@ -42,9 +42,7 @@ class AcsPovertyIngestorTest(unittest.TestCase, AcsPovertyIngestor):
         if state_fip is not None:
             self.state_fips[state_fip] = state_fip + "_state_name"
         if county_fip is not None:
-            self.county_fips[(state_fip, county_fip)] = (
-                "-" + county_fip + "_county_name"
-            )
+            self.county_fips[(state_fip, county_fip)] = county_fip + "_county_name"
 
         return (
             state_fip,
@@ -207,8 +205,8 @@ class AcsPovertyIngestorTest(unittest.TestCase, AcsPovertyIngestor):
                 [
                     "01",
                     "01_state_name",
-                    "001",
-                    "01_state_name-001_county_name",
+                    "01001",
+                    "001_county_name",
                     "2",
                     "1",
                     "male",
@@ -226,8 +224,8 @@ class AcsPovertyIngestorTest(unittest.TestCase, AcsPovertyIngestor):
                 [
                     "01",
                     "01_state_name",
-                    "001",
-                    "01_state_name-001_county_name",
+                    "01001",
+                    "001_county_name",
                     "2",
                     "1",
                     "1-2",
@@ -245,8 +243,8 @@ class AcsPovertyIngestorTest(unittest.TestCase, AcsPovertyIngestor):
                 [
                     "01",
                     "01_state_name",
-                    "001",
-                    "01_state_name-001_county_name",
+                    "01001",
+                    "001_county_name",
                     "2",
                     "1",
                     "WHITE",

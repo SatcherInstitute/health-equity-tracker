@@ -361,8 +361,8 @@ class AcsPovertyIngestor:
                 default_county_vals = [
                     state_fip,
                     self.state_fips[state_fip],
-                    county_fip,
-                    self.state_fips[state_fip] + self.county_fips[(state_fip, county_fip)],
+                    state_fip + county_fip,
+                    self.county_fips[(state_fip, county_fip)],
                     below,
                     above,
                 ]
