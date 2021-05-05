@@ -227,6 +227,7 @@ function OurTeamTab() {
   return (
     <>
       <title>Our Team - About Us - Health Equity Tracker</title>
+      <h1 className={styles.ScreenreaderTitleHeader}>Our Team</h1>
       <Grid container className={styles.Grid}>
         <Grid container className={styles.GridRowHeaderText}>
           <Grid item xs={12} sm={12} md={7}>
@@ -234,7 +235,7 @@ function OurTeamTab() {
               id="main"
               tabIndex={-1}
               className={styles.OurTeamHeaderText}
-              variant="h1"
+              variant="h2"
             >
               We're working towards a better tomorrow.
             </Typography>
@@ -247,7 +248,7 @@ function OurTeamTab() {
 
         <Grid container className={styles.GridRow}>
           <Grid item xs={12}>
-            <Typography variant="h2" align="left" className={styles.TeamHeader}>
+            <Typography variant="h3" align="left" className={styles.TeamHeader}>
               Leadership Team
             </Typography>
           </Grid>
@@ -266,7 +267,7 @@ function OurTeamTab() {
                       className={styles.ProfileImg}
                     />
                     <br />
-                    <h3 className={styles.LeaderNameHeading}>{leader.name}</h3>
+                    <h4 className={styles.LeaderNameHeading}>{leader.name}</h4>
                     <span className={styles.LeaderRoleSpan}>{leader.role}</span>
                   </Grid>
                 );
@@ -277,7 +278,7 @@ function OurTeamTab() {
 
         <Grid container className={styles.GridRow}>
           <Grid item xs={12}>
-            <Typography variant="h2" align="left" className={styles.TeamHeader}>
+            <Typography variant="h3" align="left" className={styles.TeamHeader}>
               Google.org Fellows
             </Typography>
           </Grid>
@@ -302,7 +303,7 @@ function OurTeamTab() {
 
         <Grid container className={styles.GridRow}>
           <Grid item xs={12}>
-            <Typography variant="h2" align="left" className={styles.TeamHeader}>
+            <Typography variant="h3" align="left" className={styles.TeamHeader}>
               Health Equity Task Force
             </Typography>
           </Grid>
@@ -322,7 +323,7 @@ function OurTeamTab() {
 
         <Grid container className={styles.GridRow}>
           <Grid item xs={12}>
-            <Typography variant="h6" align="left" className={styles.TeamHeader}>
+            <Typography variant="h3" align="left" className={styles.TeamHeader}>
               Partners
             </Typography>
           </Grid>

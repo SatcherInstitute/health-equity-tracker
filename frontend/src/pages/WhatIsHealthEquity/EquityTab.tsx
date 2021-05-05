@@ -48,7 +48,7 @@ function JoinTheEffortContainer(props: {
         </Grid>
       </Hidden>
       <Grid item sm={12} md={6} className={styles.JoinTheEffortTextContainer}>
-        <Typography className={styles.JoinTheEffortStepHeaderText} variant="h2">
+        <Typography className={styles.JoinTheEffortStepHeaderText} variant="h3">
           {props.textTitle}
         </Typography>
         {props.content}
@@ -61,7 +61,12 @@ function EquityTab() {
   const [textCopied, setTextCopied] = useState(false);
 
   return (
-    <div className={styles.WhatIsHealthEquityPage}>
+      <>
+        <title>What is Health Equity? - About Us - Health Equity Tracker</title>
+        <h1 className={styles.ScreenreaderTitleHeader}>
+          What is Health Equity?
+        </h1>
+        <div className={styles.WhatIsHealthEquityPage}>
       <Grid container className={styles.Grid}>
         <Grid
           container
@@ -91,7 +96,7 @@ function EquityTab() {
               id="main"
               tabIndex={-1}
               className={styles.HeaderText}
-              variant="h1"
+              variant="h2"
             >
               What is Health Equity?
             </Typography>
@@ -126,7 +131,7 @@ function EquityTab() {
                 md={6}
                 className={styles.DefinitionsItem}
               >
-                <Typography className={styles.DefinitionHeader} variant="h2">
+                <Typography className={styles.DefinitionHeader} variant="h3">
                   Political determinants of health
                 </Typography>
                 <p className={styles.DefinitionPronunciation}>
@@ -149,7 +154,7 @@ function EquityTab() {
                 md={6}
                 className={styles.DefinitionsItem}
               >
-                <Typography className={styles.DefinitionHeader} variant="h2">
+                <Typography className={styles.DefinitionHeader} variant="h3">
                   Social determinant of health
                 </Typography>
                 <p className={styles.DefinitionPronunciation}>
@@ -177,7 +182,7 @@ function EquityTab() {
         >
           <Grid container className={styles.ResourcesRow} justify="center">
             <Grid item>
-              <Typography className={styles.ResourcesHeaderText} variant="h1">
+              <Typography className={styles.ResourcesHeaderText} variant="h2">
                 Health equity resources
               </Typography>
             </Grid>
@@ -201,10 +206,10 @@ function EquityTab() {
                           encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 ></iframe>
-                <h2 className={styles.MainResourceTitleText}>
+                <h3 className={styles.MainResourceTitleText}>
                   Learn about the Political Determinants of Health through the{" "}
                   <b>Allegory of the Orchard</b>
-                </h2>
+                </h3>
                 <p className={styles.MainResourceSubtitleText}>
                   Girding all health determinants is one that rarely gets
                   addressed but which has power over all aspects of health:
@@ -231,9 +236,9 @@ function EquityTab() {
                               encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     ></iframe>
-                    <h2 className={styles.ResourceTitleText}>
+                    <h3 className={styles.ResourceTitleText}>
                       Jessica's Story
-                    </h2>
+                    </h3>
                     <p className={styles.ResourceSubtitleText}>
                       How political determinants of health operate and the
                       impact they have on BIPOC communities
@@ -247,10 +252,10 @@ function EquityTab() {
                         alt="Header for Morehouse School of Medicine
                              National COVID-19 Resiliency Network"
                       />
-                      <h2 className={styles.ResourceTitleText}>
+                      <h3 className={styles.ResourceTitleText}>
                         Morehouse School of Medicine National COVID-19
                         Resiliency Network (NCRN)
-                      </h2>
+                      </h3>
                       <p className={styles.ResourceSubtitleText}>
                         We provide awareness and linkage to critical health
                         information and services, helping families recover from
@@ -273,7 +278,7 @@ function EquityTab() {
             <Grid item>
               <Typography
                 className={styles.NewsAndStoriesHeaderText}
-                variant="h1"
+                variant="h2"
               >
                 News and stories
               </Typography>
@@ -301,10 +306,10 @@ function EquityTab() {
                   alt="Asian woman assisting a young black child with his
                        mask"
                 />
-                <h2 className={styles.NewsAndStoriesTitleText}>
+                <h3 className={styles.NewsAndStoriesTitleText}>
                   COVID-19: Black Folks Have Been Trying To Tell You That Data
                   Is Political
-                </h2>
+                </h3>
                 <p className={styles.NewsAndStoriesSubtitleText}>
                   COVID-19 does not discriminate, but our current economic and
                   social policies do. Let’s talk about “a crisis within a
@@ -327,9 +332,9 @@ function EquityTab() {
                   src="img/pexels-cottonbro-7000149 1.png"
                   alt="Asian woman sitting while wearing a mask"
                 />
-                <h2 className={styles.NewsAndStoriesTitleText}>
+                <h3 className={styles.NewsAndStoriesTitleText}>
                   Back to ‘normal’ isn’t good enough
-                </h2>
+                </h3>
                 <p className={styles.NewsAndStoriesSubtitleText}>
                   With the anticipation of increasing distribution of Covid-19
                   vaccines, Americans are looking forward to a “return to
@@ -352,10 +357,10 @@ function EquityTab() {
                   src="img/pexels-alex-green-5699516 1.png"
                   alt="Documents lying on a table"
                 />
-                <h2 className={styles.NewsAndStoriesTitleText}>
+                <h3 className={styles.NewsAndStoriesTitleText}>
                   Data and Technology Can Help Us Make Progress on COVID
                   Inequities
-                </h2>
+                </h3>
                 <p className={styles.NewsAndStoriesSubtitleText}>
                   <a href="https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/">
                     Read more
@@ -374,10 +379,10 @@ function EquityTab() {
                   src="img/pexels-ketut-subiyanto-4473409 2.png"
                   alt="Asian woman laughing with two children"
                 />
-                <h2 className={styles.NewsAndStoriesTitleText}>
+                <h3 className={styles.NewsAndStoriesTitleText}>
                   How complete are the CDC's COVID-19 Case Surveillance datasets
                   for race/ethnicity at the state and county levels?
-                </h2>
+                </h3>
                 <p className={styles.NewsAndStoriesSubtitleText}>
                   <a href="https://satcherinstitute.github.io/analysis/cdc_case_data">
                     Learn more
@@ -397,10 +402,10 @@ function EquityTab() {
                   alt="Laptop sitting on desk and opened to the Health
                        Equity Tracker Homepage"
                 />
-                <h2 className={styles.NewsAndStoriesTitleText}>
+                <h3 className={styles.NewsAndStoriesTitleText}>
                   How To Include The Social Determinants That Impact Behavioral
                   Health In A Health Equity Tracker
-                </h2>
+                </h3>
                 <p className={styles.NewsAndStoriesSubtitleText}>
                   <a href="https://satcherinstitute.org/post-4840/">
                     Learn more
@@ -430,7 +435,7 @@ function EquityTab() {
             </Grid>
           </Grid>
           <Grid item className={styles.JoinTheEffortHeaderRow}>
-            <Typography className={styles.JoinTheEffortHeaderText} variant="h1">
+            <Typography className={styles.JoinTheEffortHeaderText} variant="h2">
               How do I join the effort?
             </Typography>
             <span className={styles.JoinTheEffortSubheaderText}>
@@ -565,6 +570,7 @@ function EquityTab() {
         </Grid>
       </Grid>
     </div>
+        </>
   );
 }
 
