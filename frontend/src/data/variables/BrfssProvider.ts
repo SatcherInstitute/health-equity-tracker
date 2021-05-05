@@ -38,8 +38,8 @@ class BrfssProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
 
-    const datasetID = this.getDatasetId(breakdowns);
-    const brfss = await getDataManager().loadDataset(datasetID);
+    const datasetId = this.getDatasetId(breakdowns);
+    const brfss = await getDataManager().loadDataset(datasetId);
     let df = brfss.toDataFrame();
 
     const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
@@ -61,7 +61,7 @@ class BrfssProvider extends VariableProvider {
     } else if (breakdowns.geography === "state") {
       df = df.where((row) => row.fips !== USA_FIPS);
     }
-    let consumedDatasetIds = [datasetID];
+    let consumedDatasetIds = [datasetId];
 
     const acsQueryResponse = await this.acsProvider.getData(
       new MetricQuery(["population", "population_pct"], acsBreakdowns)

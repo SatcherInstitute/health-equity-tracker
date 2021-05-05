@@ -35,9 +35,8 @@ CREATE TEMP FUNCTION getStaggeredDecadeAgeBuckets(x ANY TYPE) AS (
   END
 );
 
-CREATE TEMP FUNCTION getBigAgeBuckets(x ANY TYPE) AS (
+CREATE TEMP FUNCTION getUhcAgeBuckets(x ANY TYPE) AS (
   CASE
-    WHEN x IN ("0-4", "5-9", "10-14", "15-17") THEN "0-17"
     WHEN x IN ("18-19", "20-24", "20-20", "21-21", "22-24", "25-29", "30-34", "35-44", "35-39", "40-44") THEN "18-44"
     WHEN x IN ("45-54", "45-49", "50-54", "55-64", "55-59", "60-61", "62-64") THEN "45-64"
     WHEN x IN ("65-74", "65-66", "67-69", "70-74", "75-84", "75-79", "80-84", "85+") THEN "65+"
@@ -63,14 +62,14 @@ GROUP BY state_fips, county_fips, county_name, sex, age
 ORDER BY state_fips, county_fips, county_name, sex, age;
 
 CREATE OR REPLACE TABLE acs_population.by_sex_age_state_big AS
-SELECT state_fips, state_name, sex, getBigAgeBuckets(age) AS age, SUM(population) AS population
+SELECT state_fips, state_name, sex, getUhcAgeBuckets(age) AS age, SUM(population) AS population
 FROM `acs_population.by_sex_age_race_state_std`
 WHERE race_category_id = "TOTAL"
 GROUP BY state_fips, state_name, sex, age
 ORDER BY state_fips, state_name, sex, age;
 
 CREATE OR REPLACE TABLE acs_population.by_sex_age_county_big AS
-SELECT state_fips, county_fips, county_name, sex, getBigAgeBuckets(age) AS age, SUM(population) AS population
+SELECT state_fips, county_fips, county_name, sex, getUhcAgeBuckets(age) AS age, SUM(population) AS population
 FROM `acs_population.by_sex_age_race_county_std`
 WHERE race_category_id = "TOTAL"
 GROUP BY state_fips, county_fips, county_name, sex, age

@@ -125,7 +125,7 @@ describe("WithLoadingOrErrorUI", () => {
     const { findByTestId } = render(<WithMetricsWrapperApp query={query} />);
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
-      dataFetcher.setFakeDatasetLoaded("brfss", []);
+      dataFetcher.setFakeDatasetLoaded("acs_population-by_age_county", []);
       dataFetcher.setFakeDatasetLoaded("uhc_race_and_ethnicity", []);
     });
 
