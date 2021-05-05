@@ -99,10 +99,10 @@ export function TableCard(props: TableCardProps) {
                 <>
                   <CardContent>
                     <Alert severity="warning">
-                      Share of Covid-19 cases for American Indian, Alaska
-                      Native, Native Hawaiian and Pacific Islander are all
-                      underrepresented because many states do not record these
-                      racial categories. The Urban Indian Health Institute
+                      Share of Covid-19 cases reported for American Indian, Alaska
+                      Native, Native Hawaiian and Pacific Islander are underrepresented 
+                      at the national level and in many states because these racial categories 
+                      are often not recorded. The Urban Indian Health Institute
                       publishes{" "}
                       <a
                         target="_blank"
