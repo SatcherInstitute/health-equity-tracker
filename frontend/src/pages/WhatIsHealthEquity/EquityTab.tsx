@@ -451,12 +451,29 @@ function EquityTab() {
                   We seek to partner and support diverse groups in building equitable and 
                   sustainable pathways for healthy communities.
                 </p>
-                <LinkWithStickyParams
-                  class={styles.ContactUsLink}
-                  to={`https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/`}
-                >
-                  Contact Us
-                </LinkWithStickyParams>
+                <a class={styles.ContactUsLink} href="https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/">
+                  Learn More
+                </a>
+              </>
+            }
+          />
+          
+          <JoinTheEffortContainer
+            imageUrl="img/HET_Fields_1_v2_1000px.gif"
+            imageBackground="#EDB2A6"
+            imageAlt="Decorative thick lines"
+            textTitle="Give back to your community"
+            content={
+              <>
+                <p className={styles.JoinTheEffortStepText}>
+                  Are you a community leader interested in expanding transportation 
+                  access to vaccine sites within your community? Complete our inquiry form 
+                  to receive information on our vaccine rideshare efforts and opportunities.
+                </p>
+                <p>
+                   <a class={styles.ContactUsLink} href="#">
+                  LINK DESTINATION TBD
+                </a>
               </>
             }
           />
@@ -494,70 +511,6 @@ function EquityTab() {
                     Sign up
                   </Button>
                 </form>
-              </>
-            }
-          />
-          <JoinTheEffortContainer
-            imageUrl="img/HET_Fields_1_v2_1000px.gif"
-            imageBackground="#EDB2A6"
-            imageAlt="Decorative thick lines"
-            textTitle="Share information with your community"
-            content={
-              <>
-                <p className={styles.JoinTheEffortStepText}>
-                  Movements begin with awareness, and gain momentum with
-                  excitement. We need your help in creating both for the
-                  movement to advance health equity!
-                  <br />
-                  <br />
-                  Share this tool with your network
-                </p>
-                <div className={styles.SocialsDiv}>
-                  <IconButton
-                    target="_blank"
-                    href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhealthequitytracker.org%2F&amp;src=sdkpreparse"
-                  >
-                    <FacebookIcon className={styles.SocialsIcon} />
-                  </IconButton>
-                  <IconButton
-                    target="_blank"
-                    href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fhealthequitytracker.org"
-                  >
-                    <LinkedInIcon className={styles.SocialsIcon} />
-                  </IconButton>
-                  <IconButton
-                    target="_blank"
-                    href="https://twitter.com/share?url=https%3A%2F%2Fwww.healthequitytracker.org"
-                  >
-                    <TwitterIcon className={styles.SocialsIcon} />
-                  </IconButton>
-                </div>
-                <TextField
-                  InputProps={{
-                    readOnly: true,
-                  }}
-                  id="www.healthequitytracker.org" // Accessibility label
-                  variant="outlined"
-                  defaultValue="www.healthequitytracker.org"
-                  className={styles.TextField}
-                />
-                <div className={styles.SocialsDiv}>
-                  <CopyToClipboard
-                    text="www.healthequitytracker.org"
-                    onCopy={() => {
-                      setTextCopied(true);
-                      setTimeout(() => setTextCopied(false), 1500);
-                    }}
-                  >
-                    <Button
-                      className={styles.CopyIcon}
-                      startIcon={<FileCopyIcon />}
-                    >
-                      Copy link to clipboard
-                    </Button>
-                  </CopyToClipboard>
-                  {textCopied && <span>Text copied!</span>}
-                </div>
               </>
             }
           />
