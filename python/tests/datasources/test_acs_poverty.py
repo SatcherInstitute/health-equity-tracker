@@ -201,7 +201,17 @@ class AcsPovertyIngestorTest(unittest.TestCase, AcsPovertyIngestor):
         )
         self.assertEqual(
             list(self.poverty_by_sex_county.values.tolist()),
-            [["01", "01_state_name", "001", "001_county_name", "2", "1", "male"]],
+            [
+                [
+                    "01",
+                    "01_state_name",
+                    "01001",
+                    "001_county_name",
+                    "2",
+                    "1",
+                    "male",
+                ]
+            ],
         )
 
         self.assertEqual(
@@ -210,7 +220,17 @@ class AcsPovertyIngestorTest(unittest.TestCase, AcsPovertyIngestor):
         )
         self.assertEqual(
             list(self.poverty_by_age_county.values.tolist()),
-            [["01", "01_state_name", "001", "001_county_name", "2", "1", "1-2"]],
+            [
+                [
+                    "01",
+                    "01_state_name",
+                    "01001",
+                    "001_county_name",
+                    "2",
+                    "1",
+                    "1-2",
+                ]
+            ],
         )
 
         self.assertEqual(
@@ -223,7 +243,7 @@ class AcsPovertyIngestorTest(unittest.TestCase, AcsPovertyIngestor):
                 [
                     "01",
                     "01_state_name",
-                    "001",
+                    "01001",
                     "001_county_name",
                     "2",
                     "1",
