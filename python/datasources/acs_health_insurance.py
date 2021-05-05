@@ -616,15 +616,15 @@ class ACSHealthInsurance(DataSource):
 
 # AcsHealhInsuranceSexIngestor(BASE_ACS_URL).upload_to_gcs(
 #     'kalieki-dev-landing-bucket')
-AcsHealhInsuranceSexIngestor(BASE_ACS_URL).write_to_bq(
-    "acs_health_insurance_manual_test", "kalieki-dev-landing-bucket"
-)
+# AcsHealhInsuranceSexIngestor(BASE_ACS_URL).write_to_bq(
+#     "acs_health_insurance_manual_test", "kalieki-dev-landing-bucket"
+# )
 
-# AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).upload_to_gcs(
-#     'kalieki-dev-landing-bucket')
-AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).write_to_bq(
-    "acs_health_insurance_manual_test", "kalieki-dev-landing-bucket"
-)
+# # AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).upload_to_gcs(
+# #     'kalieki-dev-landing-bucket')
+# AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).write_to_bq(
+#     "acs_health_insurance_manual_test", "kalieki-dev-landing-bucket"
+# )
 
 # AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).write_local_files_debug()
 # AcsHealhInsuranceSexIngestor(BASE_ACS_URL).write_local_files_debug()
