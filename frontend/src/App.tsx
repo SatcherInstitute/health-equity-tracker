@@ -91,9 +91,9 @@ function MobileAppToolbar() {
 function AppToolbar() {
   return (
     <Toolbar className={styles.AppToolbar}>
-      <LinkWithStickyParams to="/">
+      <Button href="/">
         <img src="img/AppbarLogo.png" className={styles.AppbarLogoImg} alt="" />
-      </LinkWithStickyParams>
+      </Button>
       <Typography variant="h1" className={styles.HomeLogo}>
         <LinkWithStickyParams to="/">
           Health Equity Tracker
