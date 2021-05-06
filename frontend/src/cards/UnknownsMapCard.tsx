@@ -120,7 +120,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               <CardContent>
                 <ChoroplethMap
                   useSmallSampleMessage={
-                    props.variableConfig.surveyCollectedData || false
+                    !mapQueryResponse.dataIsMissing() &&
+                    (props.variableConfig.surveyCollectedData || false)
                   }
                   signalListeners={signalListeners}
                   metric={metricConfig}
