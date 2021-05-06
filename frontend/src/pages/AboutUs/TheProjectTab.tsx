@@ -33,7 +33,7 @@ function AimToGoItem(props: {
           </Grid>
         </Hidden>
         <Grid item>
-          <Typography className={styles.SubheaderL2Text} variant="h2">
+          <Typography className={styles.SubheaderL2Text} variant="h3">
             {props.title}
           </Typography>
         </Grid>
@@ -51,6 +51,7 @@ function TheProjectTab() {
   return (
     <>
       <title>The Project - About Us - Health Equity Tracker</title>
+      <h1 className={styles.ScreenreaderTitleHeader}>The Project</h1>
       <Grid container className={styles.Grid}>
         <Grid
           container
@@ -70,7 +71,7 @@ function TheProjectTab() {
               id="main"
               tabIndex={-1}
               className={styles.HeaderText}
-              variant="h1"
+              variant="h2"
             >
               We're focused on equitable data.
             </Typography>
@@ -121,7 +122,7 @@ function TheProjectTab() {
               md={5}
               className={styles.GridVerticallyAlignedItem}
             >
-              <Typography className={styles.SubheaderL1Text} variant="h1">
+              <Typography className={styles.SubheaderL1Text} variant="h2">
                 Where we started
               </Typography>
               <Typography variant="body1">
@@ -152,7 +153,7 @@ function TheProjectTab() {
                 <Grid item xs={12} sm={12} md={5}>
                   <Typography
                     className={styles.UnderlinedHeaderL2}
-                    variant="h2"
+                    variant="h3"
                   >
                     5 data sources
                   </Typography>
@@ -169,7 +170,7 @@ function TheProjectTab() {
                 <Grid item xs={12} sm={12} md={5}>
                   <Typography
                     className={styles.UnderlinedHeaderL2}
-                    variant="h2"
+                    variant="h3"
                   >
                     15 variables
                   </Typography>
@@ -219,7 +220,7 @@ function TheProjectTab() {
             justify="space-around"
           >
             <Grid item xs={12}>
-              <Typography className={styles.SubheaderL1Text} variant="h1">
+              <Typography className={styles.SubheaderL1Text} variant="h2">
                 Where we aim to go
               </Typography>
             </Grid>
@@ -256,7 +257,7 @@ function TheProjectTab() {
           justify="space-around"
         >
           <Grid item xs={12}>
-            <Typography className={styles.HeaderText} variant="h1">
+            <Typography className={styles.HeaderText} variant="h2">
               <i>We are committed to the following ethics</i>
             </Typography>
           </Grid>
@@ -278,7 +279,7 @@ function TheProjectTab() {
               justify="space-around"
             >
               <Grid item className={styles.CommittedToEthicsSubheaderItem}>
-                <Typography className={styles.SubheaderL2Text} variant="h2">
+                <Typography className={styles.SubheaderL2Text} variant="h3">
                   Transparency & Accountability
                 </Typography>
               </Grid>
@@ -301,7 +302,7 @@ function TheProjectTab() {
               justify="space-around"
             >
               <Grid item className={styles.CommittedToEthicsSubheaderItem}>
-                <Typography className={styles.SubheaderL2Text} variant="h2">
+                <Typography className={styles.SubheaderL2Text} variant="h3">
                   Community first
                 </Typography>
               </Grid>
@@ -325,7 +326,7 @@ function TheProjectTab() {
               justify="space-around"
             >
               <Grid item className={styles.CommittedToEthicsSubheaderItem}>
-                <Typography className={styles.SubheaderL2Text} variant="h2">
+                <Typography className={styles.SubheaderL2Text} variant="h3">
                   Open Access
                 </Typography>
               </Grid>

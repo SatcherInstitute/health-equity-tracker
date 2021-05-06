@@ -1,7 +1,8 @@
-import pandas as pd
 from unittest import mock
+import pandas as pd
 
 from datasources.covid_tracking_project_metadata import CtpMetadata
+import ingestion.standardized_columns as col_std
 
 
 def generate_test_data() -> pd.DataFrame:
@@ -35,7 +36,7 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     ctp.write_to_bq('dataset', 'gcs_bucket', **kwargs)
     result = mock_bq.call_args.args[0]
     expected_cols = [
-         'state_postal_abbreviation', 'reports_api', 'defines_other',
+         col_std.STATE_POSTAL_COL, 'reports_api', 'defines_other',
          'race_ethnicity_separately', 'race_ethnicity_combined',
          'race_mutually_exclusive', 'reports_ind', 'reports_race',
          'reports_ethnicity', 'variable_type']
@@ -43,7 +44,7 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     # We should have a record for each state/variable_type (e.g. cases, death)
     # combo
     assert len(result.index) == 3 * 2
-    assert result.loc[result['state_postal_abbreviation'] == 'AL'].all().all()
-    assert not result.loc[result['state_postal_abbreviation'] == 'PA', 'reports_api':].any().any()
-    assert result.loc[result['state_postal_abbreviation'] == 'GA'].all().all()
+    assert result.loc[result[col_std.STATE_POSTAL_COL] == 'AL'].all().all()
+    assert not result.loc[result[col_std.STATE_POSTAL_COL] == 'PA', 'reports_api':].any().any()
+    assert result.loc[result[col_std.STATE_POSTAL_COL] == 'GA'].all().all()
     assert result['variable_type'].isin(['cases', 'deaths']).all()

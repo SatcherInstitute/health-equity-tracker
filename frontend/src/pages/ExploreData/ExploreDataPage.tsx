@@ -77,6 +77,7 @@ function ExploreDataPage() {
   return (
     <>
       <title>Explore the Data - Health Equity Tracker</title>
+      <h1 className={styles.ScreenreaderTitleHeader}>Explore the Data</h1>
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
         <div className={styles.CarouselContainer}>
           <Carousel
