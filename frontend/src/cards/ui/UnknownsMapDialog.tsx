@@ -22,7 +22,7 @@ import { UNKNOWN, UNKNOWN_RACE } from "../../data/utils/Constants";
 export interface UnknownsMapDialogProps {
   // Metric the map will evaluate for unknowns
   metricConfig: MetricConfig;
-  // asdfsdf
+  // Whether or not the data was collected via survey
   surveyCollectedData: boolean;
   // Breakdown value to evaluate for unknowns
   breakdownVar: BreakdownVar;

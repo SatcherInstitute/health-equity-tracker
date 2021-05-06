@@ -21,7 +21,7 @@ import {
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
   metricConfig: MetricConfig;
-  // Metric the small maps will evaluate
+  // Whether or not the data was collected via survey
   surveyCollectedData: boolean;
   // Demographic breakdown upon which we're dividing the data, i.e. "age"
   breakdown: BreakdownVar;
