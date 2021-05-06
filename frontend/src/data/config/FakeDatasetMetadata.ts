@@ -189,37 +189,6 @@ const datasetMetadataList: DatasetMetadata[] = [
     ],
   },
   {
-    id: "brfss",
-    name: "Disease Prevalence: Diabetes and COPD",
-    update_time: "2019",
-    fields: [
-      {
-        data_type: "string",
-        name: "state_name",
-        description: "description",
-        origin_dataset: "brfss",
-      },
-      {
-        data_type: "string",
-        name: "race_and_ethnicity",
-        description: "description",
-        origin_dataset: "brfss",
-      },
-      {
-        data_type: "integer",
-        name: "diabetes_count",
-        description: "description",
-        origin_dataset: "brfss",
-      },
-      {
-        data_type: "integer",
-        name: "copd_count",
-        description: "description",
-        origin_dataset: "brfss",
-      },
-    ],
-  },
-  {
     id: "covid_by_state_and_race",
     name: "COVID-19 deaths, cases, and hospitalizations by state",
     update_time: "March 2021",
@@ -306,6 +275,37 @@ const datasetMetadataList: DatasetMetadata[] = [
     ],
   },
   {
+    id: "uhc",
+    name: "America's Health Rankings",
+    update_time: "2019",
+    fields: [
+      {
+        data_type: "string",
+        name: "state_name",
+        description: "description",
+        origin_dataset: "uhc",
+      },
+      {
+        data_type: "string",
+        name: "race_and_ethnicity",
+        description: "description",
+        origin_dataset: "uhc",
+      },
+      {
+        data_type: "number",
+        name: "diabetes_pct",
+        description: "description",
+        origin_dataset: "uhc",
+      },
+      {
+        data_type: "number",
+        name: "copd_pct",
+        description: "description",
+        origin_dataset: "uhc",
+      },
+    ],
+  },
+  {
     id: "acs_health_insurance-health_insurance_by_sex_age_county",
     name: "Health Insurance By Sex, Age and County",
     update_time: "2019",
@@ -375,6 +375,24 @@ const datasetMetadataList: DatasetMetadata[] = [
     id: "cdc_restricted_data-by_sex_state",
     name: "COVID-19 deaths, cases, and hospitalizations by gender and state",
     update_time: "March 2021",
+    fields: [],
+  },
+  {
+    id: "uhc_age",
+    name: "COPD and Diabetes prevelence by age and state",
+    update_time: "2020",
+    fields: [],
+  },
+  {
+    id: "uhc_race_and_ethnicity",
+    name: "COPD and Diabetes prevelence by race and state",
+    update_time: "2020",
+    fields: [],
+  },
+  {
+    id: "uhc_sex",
+    name: "COPD and Diabetes prevelence by sex and state",
+    update_time: "2020",
     fields: [],
   },
 ];
