@@ -21,6 +21,8 @@ import {
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
   metricConfig: MetricConfig;
+  // Whether or not the data was collected via survey
+  surveyCollectedData: boolean;
   // Demographic breakdown upon which we're dividing the data, i.e. "age"
   breakdown: BreakdownVar;
   // Unique values for breakdown, each one will have it's own map
@@ -84,6 +86,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     key={breakdownValue}
                     signalListeners={{ click: (...args: any) => {} }}
                     metric={props.metricConfig}
+                    surveyCollectedData={props.surveyCollectedData}
                     legendTitle={props.metricConfig.fullCardTitleName}
                     legendData={props.data}
                     data={dataForValue}

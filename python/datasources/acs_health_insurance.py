@@ -543,7 +543,7 @@ class AcsHealhInsuranceSexIngestor:
                     [
                         state_fip,
                         self.state_fips[state_fip],
-                        county_fip,
+                        state_fip + county_fip,
                         self.county_fips[(state_fip, county_fip)],
                         age,
                         sex,

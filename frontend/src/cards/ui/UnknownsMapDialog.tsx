@@ -22,6 +22,8 @@ import { UNKNOWN, UNKNOWN_RACE } from "../../data/utils/Constants";
 export interface UnknownsMapDialogProps {
   // Metric the map will evaluate for unknowns
   metricConfig: MetricConfig;
+  // Whether or not the data was collected via survey such as brfss
+  surveyCollectedData: boolean;
   // Breakdown value to evaluate for unknowns
   breakdownVar: BreakdownVar;
   // Geographic region of maps
@@ -81,6 +83,7 @@ export function UnknownsMapDialog(props: UnknownsMapDialogProps) {
               </DialogContent>
               <DialogContent dividers={true}>
                 <ChoroplethMap
+                  surveyCollectedData={props.surveyCollectedData || false}
                   signalListeners={{}}
                   metric={props.metricConfig}
                   legendTitle={props.metricConfig.fullCardTitleName}
