@@ -105,6 +105,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
                   }
+                  geoLevel={props.fips.getChildFipsTypeDisplayName()}
                 />
               )}
               {noUnknownValuesReported && (
