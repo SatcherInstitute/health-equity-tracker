@@ -22,8 +22,8 @@ import { UNKNOWN, UNKNOWN_RACE } from "../../data/utils/Constants";
 export interface UnknownsMapDialogProps {
   // Metric the map will evaluate for unknowns
   metricConfig: MetricConfig;
-  // Whether or not the data was collected via survey such as brfss
-  surveyCollectedData: boolean;
+  // Whether or not the map should use "small sample message" for missing data tooltip
+  useSmallSampleMessage: boolean;
   // Breakdown value to evaluate for unknowns
   breakdownVar: BreakdownVar;
   // Geographic region of maps
@@ -83,7 +83,10 @@ export function UnknownsMapDialog(props: UnknownsMapDialogProps) {
               </DialogContent>
               <DialogContent dividers={true}>
                 <ChoroplethMap
-                  surveyCollectedData={props.surveyCollectedData || false}
+                  useSmallSampleMessage={
+                    !queryResponse.dataIsMissing() &&
+                    (props.useSmallSampleMessage || false)
+                  }
                   signalListeners={{}}
                   metric={props.metricConfig}
                   legendTitle={props.metricConfig.fullCardTitleName}
