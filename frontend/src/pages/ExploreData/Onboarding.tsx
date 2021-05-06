@@ -35,10 +35,11 @@ const ONBOARDING_STEPS = [
     "#onboarding-start-your-search",
     "Start Your Search",
     <>
-      Complete the sentence by selecting a location. You can also select a
-      different variable, like <i>'Diabetes'</i> or <i>'Poverty'</i>
+      Select the variable or location of interest to start your search. We'll be
+      adding additional variables in the coming months!
     </>,
-    /*hideCloseButton=*/ true
+    /*hideCloseButton=*/ true,
+    /*placement=*/ "auto"
   ),
   onboardingStep(
     "#onboarding-madlib-arrow",
@@ -52,21 +53,22 @@ const ONBOARDING_STEPS = [
       </i>
       .
     </>,
-    /*hideCloseButton=*/ true
+    /*hideCloseButton=*/ true,
+    /*placement=*/ "auto"
   ),
   onboardingStep(
     "#onboarding-limits-in-the-data",
     "Limits in the data",
     <>
       The Tracker ingests and standardizes many data sets, but unfortunately
-      there is missing, incomplete, or misclassified data in our sources.
-      <br />
+      there is missing, incomplete, or misclassified data in our sources.{" "}
       <i>
         *We acknowledge that deep inequities exist in the very structure we use
         to collect and share data. We are committed to helping to fix this.
       </i>
     </>,
-    /*hideCloseButton=*/ true
+    /*hideCloseButton=*/ true,
+    /*placement=*/ "top-start"
   ),
   onboardingStep(
     "#onboarding-explore-trends",
@@ -76,7 +78,8 @@ const ONBOARDING_STEPS = [
       and age. This is currently limited to the national and state level, with
       county-level data coming soon.
     </>,
-    /*hideCloseButton=*/ false
+    /*hideCloseButton=*/ false,
+    /*placement=*/ "top-start"
   ),
 ];
 
@@ -84,11 +87,28 @@ function onboardingStep(
   targetId: string,
   title: string,
   content: JSX.Element,
-  hideCloseButton: boolean
+  hideCloseButton: boolean,
+  placement:
+    | "auto"
+    | "left-start"
+    | "top"
+    | "top-start"
+    | "top-end"
+    | "bottom"
+    | "bottom-start"
+    | "bottom-end"
+    | "left"
+    | "left-end"
+    | "right"
+    | "right-start"
+    | "right-end"
+    | "center"
+    | undefined
 ) {
   return {
     hideCloseButton: hideCloseButton,
     target: targetId,
+    placement: placement,
     content: (
       <div style={{ textAlign: "left" }}>
         <h4>{title}</h4>

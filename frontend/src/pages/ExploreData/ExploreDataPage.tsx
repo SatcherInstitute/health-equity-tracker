@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Carousel from "react-material-ui-carousel";
-import { useCookies } from "react-cookie";
+// TODO(kristak): Add cookies back
+// import { useCookies } from "react-cookie";
 import { STATUS } from "react-joyride";
 import { Grid } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
@@ -57,8 +58,10 @@ function ExploreDataPage() {
   });
 
   // Set up warm welcome onboarding behaviors
-  const [cookies, setCookie] = useCookies(["name"]);
-  let showOnboarding = cookies.skipOnboarding !== "true";
+  // TODO(kristak): Add cookies back
+  // const [cookies, setCookie] = useCookies(["name"]);
+  // let showOnboarding = cookies.skipOnboarding !== "true";
+  let showOnboarding = false;
   if (params[SHOW_ONBOARDING_PARAM] === "true") {
     showOnboarding = true;
   }
@@ -71,7 +74,8 @@ function ExploreDataPage() {
   const onboardingCallback = (data: any) => {
     if ([STATUS.FINISHED, STATUS.SKIPPED].includes(data.status)) {
       setActivelyOnboarding(false);
-      setCookie("skipOnboarding", true, { path: "/" });
+      // TODO(kristak): Add cookies back
+      // setCookie("skipOnboarding", true, { path: "/" });
     }
   };
 
