@@ -20,7 +20,7 @@ import {
 } from "../data/config/MetricConfig";
 import { ALL } from "../data/utils/Constants";
 import {
-  excludeAll,
+  onlyIncludeDecadeAgeBrackets,
   onlyIncludeStandardRaces,
 } from "../data/query/BreakdownFilter";
 import MissingDataAlert from "./ui/MissingDataAlert";
@@ -45,7 +45,7 @@ export function PopulationCard(props: PopulationCardProps) {
   // ones we want.
   const ageQuery = new MetricQuery(
     metricIds,
-    Breakdowns.forFips(props.fips).andAge(excludeAll())
+    Breakdowns.forFips(props.fips).andAge(onlyIncludeDecadeAgeBrackets())
   );
 
   return (
@@ -81,6 +81,7 @@ export function PopulationCard(props: PopulationCardProps) {
                 breakdownString={
                   BREAKDOWN_VAR_DISPLAY_NAMES["race_and_ethnicity"]
                 }
+                geoLevel={props.fips.getFipsTypeDisplayName()}
               />
             )}
 
@@ -187,6 +188,7 @@ export function PopulationCard(props: PopulationCardProps) {
                           POPULATION_VARIABLE_CONFIG.variableDisplayName
                         }
                         breakdownString={BREAKDOWN_VAR_DISPLAY_NAMES["age"]}
+                        geoLevel={props.fips.getFipsTypeDisplayName()}
                       />
                     ) : (
                       <SimpleHorizontalBarChart
