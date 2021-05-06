@@ -151,7 +151,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         <h3>Missing Outcomes</h3>
         <p>
 	  Furthermore, many COVID case records are incomplete, with an unknown 
-	  hospitalization and/or death status. This means that some states that 
+	  hospitalization and\/or death status. This means that some states that 
 	  report disaggregated Covid case data still do not provide a complete 
 	  picture of its overall impact. Due to the nature of surveillance data, 
 	  we expect this picture to become more complete over time and will use 
