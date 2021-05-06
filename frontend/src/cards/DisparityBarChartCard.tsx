@@ -62,8 +62,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   function CardTitle() {
     return (
       <>
-        Disparities in {metricConfig.fullCardTitleName} by{" "}
-        <b>{BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]}</b> in{" "}
+        {metricConfig.fullCardTitleName} vs Share of Population by{" "}
+        {BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]} in{" "}
         {props.fips.getFullDisplayName()}
       </>
     );
