@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Grid } from "@material-ui/core";
 import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
 import { MapCard } from "../cards/MapCard";
-import { UnknownsMapCard } from "../cards/UnknownsMapCard";
+import { MissingOrUnknownMapCard } from "../cards/MissingOrUnknownMapCard";
 import { PopulationCard } from "../cards/PopulationCard";
 import { TableCard } from "../cards/TableCard";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
@@ -80,7 +80,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             {variableConfig.metrics["pct_share"] && (
-              <UnknownsMapCard
+              <MissingOrUnknownMapCard
                 variableConfig={variableConfig}
                 fips={props.fips}
                 updateFipsCallback={(fips: Fips) => {

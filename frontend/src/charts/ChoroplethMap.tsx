@@ -16,6 +16,7 @@ const VALID_DATASET = "VALID_DATASET";
 const GEO_DATASET = "GEO_DATASET";
 const GEO_ID = "id";
 const COLOR_SCALE = "COLOR_SCALE";
+const INVERTED_SCALE = "INVERTED_SCALE";
 const US_PROJECTION = "US_PROJECTION";
 
 const VAR_DATASET = "VAR_DATASET";
@@ -38,6 +39,7 @@ export interface ChoroplethMapProps {
   hideActions?: boolean;
   scaleType: ScaleType;
   scaleColorScheme?: string;
+  inverted?: boolean;
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
@@ -48,7 +50,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   // Initial spec state is set in useEffect
   const [spec, setSpec] = useState({});
 
-  const LEGEND_WIDTH = props.hideLegend ? 0 : 100;
+  const LEGEND_WIDTH = props.hideLegend || props.inverted ? 0 : 100;
 
   useEffect(() => {
     /* SET UP GEO DATSET */
@@ -83,11 +85,14 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       props.numberFormat === "percentage"
         ? `format(datum.${props.metric.metricId}, '0.1%')`
         : `format(datum.${props.metric.metricId}, ',')`;
-    const tooltipValue = `{"${geographyName}": datum.properties.name, "${props.metric.shortVegaLabel}": ${tooltipDatum} }`;
-    const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${props.metric.shortVegaLabel}": "No data" }`;
+    const tooltipValue = props.inverted
+      ? `{"${geographyName}": datum.properties.name}`
+      : `{"${geographyName}": datum.properties.name, "${props.metric.shortVegaLabel}": ${tooltipDatum} }`;
+    const missingDataTooltipValue = props.inverted
+      ? `{"${geographyName}": datum.properties.name}`
+      : `{"${geographyName}": datum.properties.name, "${props.metric.shortVegaLabel}": "No data" }`;
 
     /* SET UP LEGEND */
-    // TODO - Legends should be scaled exactly the same the across compared charts. Looks misleading otherwise.
     let legendList = [];
     let legend: any = {
       fill: COLOR_SCALE,
@@ -101,7 +106,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     if (props.numberFormat === "percentage") {
       legend["format"] = "0.1%";
     }
-    if (!props.hideLegend) {
+    if (!props.hideLegend && !props.inverted) {
       legendList.push(legend);
     }
 
@@ -115,6 +120,21 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       colorScale["domainMax"] = props.fieldRange.max;
       colorScale["domainMin"] = props.fieldRange.min;
     }
+    let invertedScale: any = {
+      name: INVERTED_SCALE,
+      type: props.scaleType,
+      domain: { data: MISSING_DATASET, field: props.metric.metricId },
+      range: { scheme: props.scaleColorScheme || "yellowgreen", count: 7 },
+    };
+
+    const fillForMissingDataset = {
+      value: props.inverted
+        ? [{ scale: INVERTED_SCALE, field: "id" }]
+        : UNKNOWN_GREY,
+    };
+    const fillForValidDataset = !props.inverted
+      ? [{ scale: COLOR_SCALE, field: props.metric.metricId }]
+      : { value: UNKNOWN_GREY };
 
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
@@ -181,7 +201,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           },
         },
       ],
-      scales: [colorScale],
+      scales: [colorScale, invertedScale],
       legends: legendList,
       marks: [
         {
@@ -194,7 +214,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
               },
             },
             update: {
-              fill: { value: UNKNOWN_GREY },
+              fill: fillForMissingDataset,
             },
           },
           transform: [{ type: "geoshape", projection: US_PROJECTION }],
@@ -209,7 +229,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
               },
             },
             update: {
-              fill: [{ scale: COLOR_SCALE, field: props.metric.metricId }],
+              fill: fillForValidDataset,
             },
             hover: { fill: { value: "red" } },
           },
@@ -237,6 +257,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props.scaleType,
     props.legendData,
     props.scaleColorScheme,
+    props.inverted,
     LEGEND_WIDTH,
   ]);
 

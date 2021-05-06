@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Grid } from "@material-ui/core";
 import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
 import { MapCard } from "../cards/MapCard";
-import { UnknownsMapCard } from "../cards/UnknownsMapCard";
+import { MissingOrUnknownMapCard } from "../cards/MissingOrUnknownMapCard";
 import { PopulationCard } from "../cards/PopulationCard";
 import { TableCard } from "../cards/TableCard";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
@@ -145,7 +145,7 @@ function TwoVariableReport(props: {
           fips: Fips,
           updateFips: (fips: Fips) => void
         ) => (
-          <UnknownsMapCard
+          <MissingOrUnknownMapCard
             variableConfig={variableConfig}
             fips={fips}
             updateFipsCallback={(fips: Fips) => {

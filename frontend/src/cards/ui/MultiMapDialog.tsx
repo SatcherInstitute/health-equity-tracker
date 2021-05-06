@@ -39,6 +39,8 @@ export interface MultiMapDialogProps {
   queryResponses: MetricQueryResponse[];
   // Metadata required for the source footer
   metadata: MapOfDatasetMetadata;
+  // Metadata required for the source footer
+  inverted?: boolean;
 }
 
 /*
@@ -60,18 +62,20 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
           {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups
         </Typography>
         <Grid container justify="space-around">
-          <Grid item className={styles.SmallMultipleLegendMap}>
-            <b>Legend</b>
-            <div className={styles.LegendDiv}>
-              <Legend
-                metric={props.metricConfig}
-                legendTitle={props.metricConfig.fullCardTitleName}
-                legendData={props.data}
-                scaleType="quantile"
-                sameDotSize={true}
-              />
-            </div>
-          </Grid>
+          {!props.inverted && (
+            <Grid item className={styles.SmallMultipleLegendMap}>
+              <b>Legend</b>
+              <div className={styles.LegendDiv}>
+                <Legend
+                  metric={props.metricConfig}
+                  legendTitle={props.metricConfig.fullCardTitleName}
+                  legendData={props.data}
+                  scaleType="quantile"
+                  sameDotSize={true}
+                />
+              </div>
+            </Grid>
+          )}
           {props.breakdownValues.map((breakdownValue) => {
             const dataForValue = props.data.filter(
               (row: Row) => row[props.breakdown] === breakdownValue
@@ -93,6 +97,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     fieldRange={props.fieldRange}
                     hideActions={false}
                     scaleType="quantile"
+                    inverted={props.inverted || false}
                   />
                 )}
               </Grid>
