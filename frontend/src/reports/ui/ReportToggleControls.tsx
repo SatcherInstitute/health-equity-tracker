@@ -64,22 +64,24 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
         </Grid>
       )}
       <Grid item className={styles.ToggleBlock}>
-        <span className={styles.ToggleLabel}>Demographic</span>
-        <ToggleButtonGroup
-          exclusive
-          value={props.currentBreakdown}
-          onChange={(e, v) => {
-            if (v !== null) {
-              props.setCurrentBreakdown(v);
-            }
-          }}
-        >
-          {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-            <ToggleButton value={breakdownVar} key={breakdownVar}>
-              {BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar]}
-            </ToggleButton>
-          ))}
-        </ToggleButtonGroup>
+        <div className={styles.ToggleLabel}>Demographic</div>
+        <div id="onboarding-explore-trends">
+          <ToggleButtonGroup
+            exclusive
+            value={props.currentBreakdown}
+            onChange={(e, v) => {
+              if (v !== null) {
+                props.setCurrentBreakdown(v);
+              }
+            }}
+          >
+            {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+              <ToggleButton value={breakdownVar} key={breakdownVar}>
+                {BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar]}
+              </ToggleButton>
+            ))}
+          </ToggleButtonGroup>
+        </div>
       </Grid>
     </Grid>
   );

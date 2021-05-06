@@ -39,6 +39,7 @@ import ReactTooltip from "react-tooltip";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import PreLaunchSiteContent from "./pages/Landing/PreLaunchSiteContent";
 import TermsOfServicePage from "./pages/TermsOfServicePage/TermsOfServicePage";
+import { CookiesProvider } from "react-cookie";
 
 const MOBILE_BREAKPOINT = 600;
 
@@ -143,51 +144,53 @@ function App() {
 
   return (
     <ThemeProvider theme={MaterialTheme}>
-      <ReactTooltip />
-      <CssBaseline />
-      <div className={styles.App}>
-        <div className={styles.Content}>
-          <Router>
-            <a className={styles.SkipMainLink} href="#main">
-              Skip to main content
-            </a>
-            <ScrollToTop />
-            <AppBar position="static" elevation={0}>
-              {width > MOBILE_BREAKPOINT ? (
-                <AppToolbar />
-              ) : (
-                <MobileAppToolbar />
-              )}
-            </AppBar>
-            <main>
-              <Switch>
-                <Route path={ABOUT_US_PAGE_LINK} component={AboutUsPage} />
-                <Route
-                  path={DATA_CATALOG_PAGE_LINK}
-                  component={DataCatalogTab}
-                />
-                <Route
-                  path={EXPLORE_DATA_PAGE_LINK}
-                  component={ExploreDataPage}
-                />
-                <Route
-                  path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
-                  component={WhatIsHealthEquityPage}
-                />
-                <Route
-                  path={TERMS_OF_SERVICE_PAGE_LINK}
-                  component={TermsOfServicePage}
-                />
-                <Route exact path="/" component={LandingPage} />
-                <Route component={NotFoundPage} />
-              </Switch>
-            </main>
-          </Router>
+      <CookiesProvider>
+        <ReactTooltip />
+        <CssBaseline />
+        <div className={styles.App}>
+          <div className={styles.Content}>
+            <Router>
+              <a className={styles.SkipMainLink} href="#main">
+                Skip to main content
+              </a>
+              <ScrollToTop />
+              <AppBar position="static" elevation={0}>
+                {width > MOBILE_BREAKPOINT ? (
+                  <AppToolbar />
+                ) : (
+                  <MobileAppToolbar />
+                )}
+              </AppBar>
+              <main>
+                <Switch>
+                  <Route path={ABOUT_US_PAGE_LINK} component={AboutUsPage} />
+                  <Route
+                    path={DATA_CATALOG_PAGE_LINK}
+                    component={DataCatalogTab}
+                  />
+                  <Route
+                    path={EXPLORE_DATA_PAGE_LINK}
+                    component={ExploreDataPage}
+                  />
+                  <Route
+                    path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+                    component={WhatIsHealthEquityPage}
+                  />
+                  <Route
+                    path={TERMS_OF_SERVICE_PAGE_LINK}
+                    component={TermsOfServicePage}
+                  />
+                  <Route exact path="/" component={LandingPage} />
+                  <Route component={NotFoundPage} />
+                </Switch>
+              </main>
+            </Router>
+          </div>
+          <footer>
+            <Footer />
+          </footer>
         </div>
-        <footer>
-          <Footer />
-        </footer>
-      </div>
+      </CookiesProvider>
     </ThemeProvider>
   );
 }
