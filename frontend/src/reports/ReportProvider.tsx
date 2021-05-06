@@ -139,7 +139,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         </p>
         <h3>Missing Cases</h3>
         <p>
-	  For COVID related reports, this tracker uses disaggregated, individual 
+	  For COVID related reports, this tracker uses disaggregated, individual{" "} 
 	  <a href="https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/about-us-cases-deaths.html">
 	  case level data reported by states, territories, and other jurisdictions 
 	  to the CDC</a>. We cannot report accurate metrics for states that do not 
