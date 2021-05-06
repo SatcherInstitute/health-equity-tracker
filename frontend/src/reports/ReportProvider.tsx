@@ -145,8 +145,8 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
 	  to the CDC</a>. We cannot report accurate metrics for states that do not 
 	  provide disaggregated data to the CDC, so these states appear as  	 
 	  grey on the maps reporting Covid cases, hospitalizations and deaths: 
-	  <b>Louisiana, Missouri, Mississippi, North Dakota, New Hampshire, Texas, and Wyoming</b>. 
-
+	  <b>Louisiana, Missouri, Mississippi, New Hampshire, North Dakota,{" "}
+	  Texas, and Wyoming</b>. 
         </p>
         <h3>Missing Outcomes</h3>
         <p>
