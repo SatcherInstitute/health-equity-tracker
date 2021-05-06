@@ -66,6 +66,7 @@ export type VariableConfig = {
   variableDisplayName: string;
   variableFullDisplayName: string;
   metrics: Record<string, MetricConfig>; // TODO - strongly type key
+  surveyCollectedData?: boolean;
 };
 
 export const POPULATION_VARIABLE_CONFIG: VariableConfig = {
@@ -265,6 +266,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "Diabetes Cases",
+      surveyCollectedData: true,
       metrics: {
         pct_share: {
           metricId: "diabetes_pct_share",
@@ -292,6 +294,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "COPD Cases",
+      surveyCollectedData: true,
       metrics: {
         pct_share: {
           metricId: "copd_pct_share",
