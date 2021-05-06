@@ -4,9 +4,9 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { Accordion, AccordionSummary } from "@material-ui/core";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
+import Button from "@material-ui/core/Button";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {
-  LinkWithStickyParams,
   TAB_PARAM,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "../../utils/urlutils";
@@ -182,12 +182,12 @@ function FaqSection() {
         />
       </Grid>
       <Grid item>
-        <LinkWithStickyParams
-          class={styles.FaqLink}
-          to={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_FAQ_TAB_INDEX}`}
+        <Button
+          className={styles.FaqLink}
+          href={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_FAQ_TAB_INDEX}`}
         >
           See our full FAQ page
-        </LinkWithStickyParams>
+        </Button>
       </Grid>
     </Grid>
   );

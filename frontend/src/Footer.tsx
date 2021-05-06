@@ -96,9 +96,7 @@ function Logos() {
       <Grid item className={styles.LogosLeft}>
         <Button
           className={styles.ImageButton}
-          onClick={() =>
-            (window.location.href = "https://healthequitytracker.org/")
-          }
+          href="https://healthequitytracker.org/"
           disableRipple={true}
         >
           <img
@@ -143,14 +141,14 @@ function LinkGridItem(props: { text: string; link: string }) {
     <>
       <Hidden xsDown>
         <Grid item>
-          <Button onClick={() => (window.location.href = props.link)}>
+          <Button className={styles.FooterLink} href={props.link}>
             {props.text}
           </Button>
         </Grid>
       </Hidden>
       <Hidden smUp>
         <Grid item xs={12}>
-          <Button onClick={() => (window.location.href = props.link)}>
+          <Button className={styles.FooterLink} href={props.link}>
             {props.text}
           </Button>
         </Grid>

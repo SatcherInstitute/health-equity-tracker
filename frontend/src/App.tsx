@@ -106,9 +106,9 @@ function AppToolbar() {
           DATA_CATALOG_PAGE_LINK,
           ABOUT_US_PAGE_LINK,
         ].map((pageUrl, i) => (
-          <LinkWithStickyParams to={pageUrl} class={styles.NavLink}>
+          <Button href={pageUrl} className={styles.NavLink}>
             {PAGE_URL_TO_NAMES[pageUrl]}
-          </LinkWithStickyParams>
+          </Button>
         ))}
       </nav>
     </Toolbar>

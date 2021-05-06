@@ -68,6 +68,16 @@
   min-height: 78px;
 }
 
+.FooterLink {
+  color: #202124 !important;
+
+  &:link,
+  &:visited {
+    color: #202124 !important;
+    text-decoration: none !important;
+  }
+}
+
 /** ------------------ Back to top - third -------------------- **/
 
 .CopyrightSpanSmallerWindow {

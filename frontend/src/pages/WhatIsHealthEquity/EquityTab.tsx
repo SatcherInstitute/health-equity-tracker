@@ -10,11 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import {
-  LinkWithStickyParams,
-  TAB_PARAM,
-  ABOUT_US_PAGE_LINK,
-} from "../../utils/urlutils";
+import { TAB_PARAM, ABOUT_US_PAGE_LINK } from "../../utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import FaqSection from "../ui/FaqSection";
@@ -565,12 +561,14 @@ function EquityTab() {
                     equity, or if you’ve used the Health Equity Tracker to take
                     action, implement a program, advocate for change, or more.
                   </p>
-                  <LinkWithStickyParams
-                    class={styles.ContactUsLink}
-                    to={`${ABOUT_US_PAGE_LINK}?${TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
-                  >
-                    Contact Us
-                  </LinkWithStickyParams>
+                  <p>
+                    <Button
+                      className={styles.ContactUsLink}
+                      href={`${ABOUT_US_PAGE_LINK}?${TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
+                    >
+                      See our full FAQ page
+                    </Button>
+                  </p>
                 </>
               }
             />
