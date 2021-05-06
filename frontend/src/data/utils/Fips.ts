@@ -41,8 +41,6 @@ class Fips {
       return "state";
     } else if (this.isState()) {
       return "county";
-    } else if (this.isCounty()) {
-      return "";
     } else {
       return "";
     }
