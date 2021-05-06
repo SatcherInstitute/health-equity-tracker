@@ -20,7 +20,7 @@ import {
 } from "../data/config/MetricConfig";
 import { ALL } from "../data/utils/Constants";
 import {
-  excludeAll,
+  onlyIncludeDecadeAgeBrackets,
   onlyIncludeStandardRaces,
 } from "../data/query/BreakdownFilter";
 import MissingDataAlert from "./ui/MissingDataAlert";
@@ -45,7 +45,7 @@ export function PopulationCard(props: PopulationCardProps) {
   // ones we want.
   const ageQuery = new MetricQuery(
     metricIds,
-    Breakdowns.forFips(props.fips).andAge(excludeAll())
+    Breakdowns.forFips(props.fips).andAge(onlyIncludeDecadeAgeBrackets())
   );
 
   return (

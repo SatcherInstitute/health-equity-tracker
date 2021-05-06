@@ -9,6 +9,8 @@ type NumberFormat = "raw" | "percentage";
 export type ScaleType = "quantize" | "quantile";
 
 const UNKNOWN_GREY = "#BDC1C6";
+const DARK_RED = "#A93038";
+const DARK_BLUE = "#255792";
 const HEIGHT_WIDTH_RATIO = 0.5;
 
 const MISSING_DATASET = "MISSING_DATASET";
@@ -27,6 +29,7 @@ export interface ChoroplethMapProps {
   data: Record<string, any>[];
   // legendData is the dataset for which to calculate legend. Used to have a common legend between two maps.
   legendData?: Record<string, any>[];
+  surveyCollectedData: boolean;
   metric: MetricConfig;
   legendTitle: string;
   signalListeners: any;
@@ -78,13 +81,16 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     }
 
     /* SET UP TOOLTIP */
+    const noDataText = props.surveyCollectedData
+      ? "Sample size too small"
+      : "No data";
     const geographyName = props.showCounties ? "County" : "State";
     const tooltipDatum =
       props.numberFormat === "percentage"
         ? `format(datum.${props.metric.metricId}, '0.1%')`
         : `format(datum.${props.metric.metricId}, ',')`;
     const tooltipValue = `{"${geographyName}": datum.properties.name, "${props.metric.shortVegaLabel}": ${tooltipDatum} }`;
-    const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${props.metric.shortVegaLabel}": "No data" }`;
+    const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${props.metric.shortVegaLabel}": "${noDataText}" }`;
 
     /* SET UP LEGEND */
     // TODO - Legends should be scaled exactly the same the across compared charts. Looks misleading otherwise.
@@ -196,6 +202,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             update: {
               fill: { value: UNKNOWN_GREY },
             },
+            hover: { fill: { value: DARK_RED } },
           },
           transform: [{ type: "geoshape", projection: US_PROJECTION }],
         },
@@ -211,7 +218,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             update: {
               fill: [{ scale: COLOR_SCALE, field: props.metric.metricId }],
             },
-            hover: { fill: { value: "red" } },
+            hover: { fill: { value: DARK_BLUE } },
           },
           transform: [{ type: "geoshape", projection: US_PROJECTION }],
         },
@@ -237,6 +244,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props.scaleType,
     props.legendData,
     props.scaleColorScheme,
+    props.surveyCollectedData,
     LEGEND_WIDTH,
   ]);
 
