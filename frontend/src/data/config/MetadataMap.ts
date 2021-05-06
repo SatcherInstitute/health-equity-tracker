@@ -71,7 +71,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Annual",
     description:
-      "The prevalence (percentage) for diseases broken down by self-reported race/ethnicity and sex at the U.S. and state levels.",
+      "The prevalence (percentage) for diseases broken down by self-reported race/ethnicity, sex and age at the U.S. and state levels.",
     dataset_ids: ["uhc_age", "uhc_race_and_ethnicity", "uhc_sex"],
     downloadable: true,
   },
