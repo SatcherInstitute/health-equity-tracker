@@ -143,8 +143,8 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
 	  case level data reported by states to the CDC. For states that do not 
 	  provide disaggregated data to the CDC, we cannot report accurate metrics 
 	  for cases, hospitalizations or deaths so these states appear as 
-	  grey on the maps: Louisiana, Missouri, Mississippi, North Dakota, 
-	  New Hampshire, Texas, and Wyoming. 
+	  grey on the maps: <b>Louisiana, Missouri, Mississippi, North Dakota, 
+	  New Hampshire, Texas, and Wyoming</b>. 
 
         </p>
         <h3>Missing Outcomes</h3>
@@ -156,9 +156,9 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
 	  we expect this picture to become more complete over time and will use 
 	  the Health Equity Tracker to record the progress. Until then, the 
 	  following states appear as grey on when viewing Covid maps featuring 
-	  hospitalizations and deaths: Hawaii, Maryland, Nebraska, New Mexico, 
-	  Rhode Island, and South Dakota. Delaware and West Virginia are included 
-	  when viewing hospitalizations but appear as grey for deaths.
+	  hospitalizations and deaths: <b>Hawaii, Maryland, Nebraska, New Mexico, 
+	  Rhode Island, and South Dakota</b>. <b>Delaware and West Virginia</b>
+	  are included when viewing hospitalizations but appear as grey for deaths.
         </p>
         <a href={DATA_CATALOG_PAGE_LINK}>
           <Button color="primary" endIcon={<ArrowForward />}>
