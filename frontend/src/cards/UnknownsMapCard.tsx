@@ -105,6 +105,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
                   }
+                  geoLevel={props.fips.getChildFipsTypeDisplayName()}
                 />
               )}
               {noUnknownValuesReported && (
@@ -118,8 +119,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             {!noUnknownValuesReported && (
               <CardContent>
                 <ChoroplethMap
-                  surveyCollectedData={
-                    props.variableConfig.surveyCollectedData || false
+                  useSmallSampleMessage={
+                    !mapQueryResponse.dataIsMissing() &&
+                    (props.variableConfig.surveyCollectedData || false)
                   }
                   signalListeners={signalListeners}
                   metric={metricConfig}

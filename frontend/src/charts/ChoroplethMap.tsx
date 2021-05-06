@@ -29,7 +29,7 @@ export interface ChoroplethMapProps {
   data: Record<string, any>[];
   // legendData is the dataset for which to calculate legend. Used to have a common legend between two maps.
   legendData?: Record<string, any>[];
-  surveyCollectedData: boolean;
+  useSmallSampleMessage: boolean;
   metric: MetricConfig;
   legendTitle: string;
   signalListeners: any;
@@ -81,7 +81,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     }
 
     /* SET UP TOOLTIP */
-    const noDataText = props.surveyCollectedData
+    const noDataText = props.useSmallSampleMessage
       ? "Sample size too small"
       : "No data";
     const geographyName = props.showCounties ? "County" : "State";
@@ -244,7 +244,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props.scaleType,
     props.legendData,
     props.scaleColorScheme,
-    props.surveyCollectedData,
+    props.useSmallSampleMessage,
     LEGEND_WIDTH,
   ]);
 

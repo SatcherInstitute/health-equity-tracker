@@ -24,6 +24,28 @@ class Fips {
     return this.code.length === 5;
   }
 
+  getFipsTypeDisplayName() {
+    if (this.isUsa()) {
+      return "national";
+    } else if (this.isState()) {
+      return "state";
+    } else if (this.isCounty()) {
+      return "county";
+    } else {
+      return "";
+    }
+  }
+
+  getChildFipsTypeDisplayName() {
+    if (this.isUsa()) {
+      return "state";
+    } else if (this.isState()) {
+      return "county";
+    } else {
+      return "";
+    }
+  }
+
   getDisplayName() {
     return this.isCounty()
       ? `${COUNTY_FIPS_MAP[this.code]}`

@@ -81,6 +81,7 @@ export function PopulationCard(props: PopulationCardProps) {
                 breakdownString={
                   BREAKDOWN_VAR_DISPLAY_NAMES["race_and_ethnicity"]
                 }
+                geoLevel={props.fips.getFipsTypeDisplayName()}
               />
             )}
 
@@ -187,6 +188,7 @@ export function PopulationCard(props: PopulationCardProps) {
                           POPULATION_VARIABLE_CONFIG.variableDisplayName
                         }
                         breakdownString={BREAKDOWN_VAR_DISPLAY_NAMES["age"]}
+                        geoLevel={props.fips.getFipsTypeDisplayName()}
                       />
                     ) : (
                       <SimpleHorizontalBarChart
