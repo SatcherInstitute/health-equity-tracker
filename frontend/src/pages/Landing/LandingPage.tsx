@@ -220,7 +220,10 @@ function LandingPage() {
                   <b>People need help, and they need it now.</b>
                 </p>
                 <br />
-                <Button className={styles.MinorLink} href="/whatishealthequity">
+                <Button
+                  className={styles.LearnMoreAboutHealthEquity}
+                  href="/whatishealthequity"
+                >
                   Learn more about health equity
                 </Button>
               </Typography>
