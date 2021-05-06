@@ -212,6 +212,7 @@ function MapCardWithKey(props: MapCardProps) {
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[activeBreakdownVar]
                   }
+                  geoLevel={props.fips.getChildFipsTypeDisplayName()}
                 />
               </CardContent>
             )}
