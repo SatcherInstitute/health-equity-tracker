@@ -243,6 +243,14 @@ function MapCardWithKey(props: MapCardProps) {
                   </Alert>
                 </CardContent>
               )}
+            {metricConfig && props.variableConfig.surveyCollectedData && (
+              <CardContent>
+                <Alert severity="info">
+                  This data was collected via survey. Data for some demographic
+                  groups may be suppressed due to inadequate sample size.
+                </Alert>
+              </CardContent>
+            )}
             {metricConfig && (
               <CardContent>
                 <ChoroplethMap
