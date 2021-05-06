@@ -21,6 +21,17 @@
   padding: 10px 30px 10px 30px;
 }
 
+// For the title of the page read off by screenreaders in an h1
+.ScreenreaderTitleHeader {
+  left: -999px;
+  position: absolute;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: -999;
+}
+
 /** ------------- GRID ITEM POSITIONING ------------- **/
 
 // Grid Item with content aligned to the bottom-right.
@@ -259,6 +270,7 @@
   color: $alt-black;
   padding-top: 10px;
   padding-bottom: 15px;
+  margin: 0px;
 }
 
 .TosAnswer {

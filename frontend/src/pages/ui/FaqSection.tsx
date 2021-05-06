@@ -7,10 +7,10 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {
   LinkWithStickyParams,
-  ABOUT_US_TAB_PARAM,
-  ABOUT_US_PAGE_LINK,
+  TAB_PARAM,
+  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "../../utils/urlutils";
-import { ABOUT_US_FAQ_TAB_INDEX } from "../AboutUs/AboutUsPage";
+import { WIHE_FAQ_TAB_INDEX } from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
 
 function Question(props: {
   questionText: string;
@@ -184,7 +184,7 @@ function FaqSection() {
       <Grid item>
         <LinkWithStickyParams
           class={styles.FaqLink}
-          to={`${ABOUT_US_PAGE_LINK}?${ABOUT_US_TAB_PARAM}=${ABOUT_US_FAQ_TAB_INDEX}`}
+          to={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_FAQ_TAB_INDEX}`}
         >
           See our full FAQ page
         </LinkWithStickyParams>

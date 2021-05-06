@@ -31,10 +31,22 @@ const MaterialTheme = createMuiTheme({
         },
       },
     },
+    MuiTab: {
+      root: {
+        textTransform: "none",
+        fontFamily: '"DM Sans", sans-serif !important',
+      },
+    },
+    MuiTabs: {
+      root: {
+        marginTop: "40px",
+        borderBottom: "1px solid #3e3e3e",
+      },
+    },
     MuiButton: {
       root: {
+        textTransform: "none",
         fontFamily: '"Inter", serif',
-        textTransform: "unset",
       },
       containedPrimary: {
         color: "#ffffff !important",

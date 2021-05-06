@@ -24,11 +24,13 @@ from ingestion.standardized_columns import (
     COUNTY_NAME_COL,
     AGE_COL,
     SEX_COL,
-    RACE_COL,
+    RACE_CATEGORY_ID_COL,
+    RACE_INCLUDES_HISPANIC_COL,
     WITH_HEALTH_INSURANCE_COL,
     WITHOUT_HEALTH_INSURANCE_COL,
     TOTAL_HEALTH_INSURANCE_COL,
     Race,
+    add_race_columns_from_category_id,
 )
 
 # TODO pass this in from message data.
@@ -157,6 +159,9 @@ class AcsHealhInsuranceRaceIngestor:
             # All breakdown columns are strings
             column_types = {c: "STRING" for c in df.columns}
 
+            if RACE_INCLUDES_HISPANIC_COL in df.columns:
+                column_types[RACE_INCLUDES_HISPANIC_COL] = "BOOL"
+
             column_types[WITH_HEALTH_INSURANCE_COL] = "INT64"
             column_types[WITHOUT_HEALTH_INSURANCE_COL] = "INT64"
             column_types[TOTAL_HEALTH_INSURANCE_COL] = "INT64"
@@ -282,7 +287,7 @@ class AcsHealhInsuranceRaceIngestor:
                     [
                         state_fip,
                         self.state_fips[state_fip],
-                        county_fip,
+                        state_fip + county_fip,
                         self.county_fips[(state_fip, county_fip)],
                         age,
                         race,
@@ -298,7 +303,7 @@ class AcsHealhInsuranceRaceIngestor:
                 STATE_FIPS_COL,
                 STATE_NAME_COL,
                 AGE_COL,
-                RACE_COL,
+                RACE_CATEGORY_ID_COL,
                 WITH_HEALTH_INSURANCE_COL,
                 WITHOUT_HEALTH_INSURANCE_COL,
                 TOTAL_HEALTH_INSURANCE_COL,
@@ -312,12 +317,15 @@ class AcsHealhInsuranceRaceIngestor:
                 COUNTY_FIPS_COL,
                 COUNTY_NAME_COL,
                 AGE_COL,
-                RACE_COL,
+                RACE_CATEGORY_ID_COL,
                 WITH_HEALTH_INSURANCE_COL,
                 WITHOUT_HEALTH_INSURANCE_COL,
                 TOTAL_HEALTH_INSURANCE_COL,
             ],
         )
+
+        add_race_columns_from_category_id(self.state_race_frame)
+        add_race_columns_from_category_id(self.county_race_frame)
 
         # Aggregate Frames by Filename
         self.frames = {
@@ -535,7 +543,7 @@ class AcsHealhInsuranceSexIngestor:
                     [
                         state_fip,
                         self.state_fips[state_fip],
-                        county_fip,
+                        state_fip + county_fip,
                         self.county_fips[(state_fip, county_fip)],
                         age,
                         sex,
@@ -609,12 +617,14 @@ class ACSHealthInsurance(DataSource):
 # AcsHealhInsuranceSexIngestor(BASE_ACS_URL).upload_to_gcs(
 #     'kalieki-dev-landing-bucket')
 # AcsHealhInsuranceSexIngestor(BASE_ACS_URL).write_to_bq(
-#     'acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
+#     "acs_health_insurance_manual_test", "kalieki-dev-landing-bucket"
+# )
 
-# AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).upload_to_gcs(
-#     'kalieki-dev-landing-bucket')
+# # AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).upload_to_gcs(
+# #     'kalieki-dev-landing-bucket')
 # AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).write_to_bq(
-#     'acs_health_insurance_manual_test', 'kalieki-dev-landing-bucket')
+#     "acs_health_insurance_manual_test", "kalieki-dev-landing-bucket"
+# )
 
 # AcsHealhInsuranceRaceIngestor(BASE_ACS_URL).write_local_files_debug()
 # AcsHealhInsuranceSexIngestor(BASE_ACS_URL).write_local_files_debug()

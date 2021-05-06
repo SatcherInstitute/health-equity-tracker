@@ -88,6 +88,12 @@ class CdcCovidProvider extends VariableProvider {
       hosp_y: "covid_hosp",
     });
 
+    // For hospitalizations and deaths, NaN signifies missing data.
+    df = df.transformSeries({
+      covid_deaths: (value) => (isNaN(value) ? null : value),
+      covid_hosp: (value) => (isNaN(value) ? null : value),
+    });
+
     df =
       breakdowns.geography === "national"
         ? df
@@ -102,6 +108,17 @@ class CdcCovidProvider extends VariableProvider {
             })
             .resetIndex()
         : df;
+
+    // If a given geo x breakdown has all unknown hospitalizations or deaths,
+    // we treat it as if it has "no data," i.e. we clear the hosp/death fields.
+    df = df
+      .generateSeries({
+        covid_deaths: (row) =>
+          row.death_unknown === row.covid_cases ? null : row.covid_deaths,
+        covid_hosp: (row) =>
+          row.hosp_unknown === row.covid_cases ? null : row.covid_hosp,
+      })
+      .resetIndex();
 
     df = df
       .generateSeries({

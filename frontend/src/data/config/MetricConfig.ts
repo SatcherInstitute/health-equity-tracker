@@ -1,41 +1,39 @@
 //TODO: Rename to Count
 export type MetricId =
-  | "population"
-  | "population_pct"
   | "brfss_population_pct"
-  | "diabetes_count"
-  | "diabetes_per_100k"
-  | "diabetes_pct_share"
-  | "diabetes_count_share_of_known"
-  | "copd_count"
-  | "copd_per_100k"
+  | "copd_pct"
   | "copd_pct_share"
-  | "copd_count_share_of_known"
+  | "copd_per_100k"
   | "covid_cases"
-  | "covid_deaths"
-  | "covid_hosp"
-  | "covid_cases_share"
-  | "covid_deaths_share"
-  | "covid_hosp_share"
-  | "covid_cases_share_of_known"
-  | "covid_deaths_share_of_known"
-  | "covid_hosp_share_of_known"
-  | "covid_deaths_per_100k"
   | "covid_cases_per_100k"
-  | "covid_hosp_per_100k"
   | "covid_cases_reporting_population"
   | "covid_cases_reporting_population_pct"
+  | "covid_cases_share"
+  | "covid_cases_share_of_known"
+  | "covid_deaths"
+  | "covid_deaths_per_100k"
   | "covid_deaths_reporting_population"
   | "covid_deaths_reporting_population_pct"
+  | "covid_deaths_share"
+  | "covid_deaths_share_of_known"
+  | "covid_hosp"
+  | "covid_hosp_per_100k"
   | "covid_hosp_reporting_population"
   | "covid_hosp_reporting_population_pct"
+  | "covid_hosp_share"
+  | "covid_hosp_share_of_known"
+  | "diabetes_pct"
+  | "diabetes_pct_share"
+  | "diabetes_per_100k"
   | "health_insurance_count"
-  | "health_insurance_per_100k"
   | "health_insurance_pct_share"
+  | "health_insurance_per_100k"
   | "health_insurance_population_pct"
+  | "population"
+  | "population_pct"
   | "poverty_count"
-  | "poverty_per_100k"
   | "poverty_pct_share"
+  | "poverty_per_100k"
   | "poverty_population_pct";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
@@ -279,13 +277,6 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             shortVegaLabel: "% of total population",
             type: "pct_share",
           },
-          knownBreakdownComparisonMetric: {
-            metricId: "diabetes_count_share_of_known",
-            fullCardTitleName:
-              "Share of diabetes cases with known demographics",
-            shortVegaLabel: "% of cases",
-            type: "pct_share",
-          },
         },
         per100k: {
           metricId: "diabetes_per_100k",
@@ -311,13 +302,6 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             metricId: "brfss_population_pct",
             fullCardTitleName: "Population Share",
             shortVegaLabel: "% of total population",
-            type: "pct_share",
-          },
-          knownBreakdownComparisonMetric: {
-            metricId: "copd_count_share_of_known",
-            fullCardTitleName:
-              "Share of diabetes cases with known demographics",
-            shortVegaLabel: "% of cases",
             type: "pct_share",
           },
         },
