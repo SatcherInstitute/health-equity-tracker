@@ -140,11 +140,12 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         <h3>Missing Cases</h3>
         <p>
 	  For COVID related reports, this tracker uses disaggregated, individual 
-	  case level data reported by states to the CDC. For states that do not 
-	  provide disaggregated data to the CDC, we cannot report accurate metrics 
-	  for cases, hospitalizations or deaths so these states appear as 
-	  grey on the maps: <b>Louisiana, Missouri, Mississippi, North Dakota, 
-	  New Hampshire, Texas, and Wyoming</b>. 
+	  <a href="https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/about-us-cases-deaths.html>
+	  case level data reported by states, territories, and other jurisdictions 
+	  to the CDC</a>. We cannot report accurate metrics for states that do not 
+	  provide disaggregated data to the CDC, so these states appear as  	 
+	  grey on the maps reporting Covid cases, hospitalizations and deaths: 
+	  <b>Louisiana, Missouri, Mississippi, North Dakota, New Hampshire, Texas, and Wyoming</b>. 
 
         </p>
         <h3>Missing Outcomes</h3>
