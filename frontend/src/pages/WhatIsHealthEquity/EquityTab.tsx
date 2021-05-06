@@ -442,12 +442,14 @@ function EquityTab() {
                   groups in building equitable and sustainable pathways for
                   healthy communities.
                 </p>
-                <a
-                  className={styles.ContactUsLink}
-                  href="https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/"
-                >
-                  Learn More
-                </a>
+                <p>
+                  <Button
+                    className={styles.ContactUsLink}
+                    href="https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/"
+                  >
+                    Learn More
+                  </Button>
+                </p>
               </>
             }
           />
@@ -466,12 +468,12 @@ function EquityTab() {
                   vaccine rideshare efforts and opportunities.
                 </p>
                 <p>
-                  <a
+                  <Button
                     className={styles.ContactUsLink}
                     href="http://satcherinstitute.org"
                   >
                     LINK DESTINATION TBD
-                  </a>
+                  </Button>
                 </p>
               </>
             }
