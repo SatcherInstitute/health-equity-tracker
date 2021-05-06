@@ -3,7 +3,6 @@ import styles from "./LandingPage.module.scss";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
-import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import {
   LinkWithStickyParams,
@@ -11,7 +10,6 @@ import {
 } from "../../utils/urlutils";
 import FaqSection from "../ui/FaqSection";
 import {
-  WIHE_FAQ_TAB_INDEX,
   WIHE_HEALTH_EQUITY_TAB_INDEX,
   WIHE_JOIN_THE_EFFORT_SECTION_ID
 } from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
