@@ -35,12 +35,12 @@ const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "covid_by_state_and_race",
     name: "COVID-19 deaths, cases, and hospitalizations by state",
-    update_time: "March 2021",
+    update_time: "April 2021",
   },
   {
     id: "covid_by_county_and_race",
     name: "COVID-19 deaths, cases, and hospitalizations by county",
-    update_time: "March 2021",
+    update_time: "April 2021",
   },
   {
     id: "acs_health_insurance-health_insurance_by_sex_age_county",
@@ -75,32 +75,32 @@ const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "cdc_restricted_data-by_race_county",
     name: "COVID-19 deaths, cases, and hospitalizations by race and county",
-    update_time: "March 2021",
+    update_time: "April 2021",
   },
   {
     id: "cdc_restricted_data-by_race_state",
     name: "COVID-19 deaths, cases, and hospitalizations by race and state",
-    update_time: "March 2021",
+    update_time: "April 2021",
   },
   {
     id: "cdc_restricted_data-by_age_county",
     name: "COVID-19 deaths, cases, and hospitalizations by age and county",
-    update_time: "March 2021",
+    update_time: "April 2021",
   },
   {
     id: "cdc_restricted_data-by_age_state",
     name: "COVID-19 deaths, cases, and hospitalizations by age and state",
-    update_time: "March 2021",
+    update_time: "April 2021",
   },
   {
     id: "cdc_restricted_data-by_sex_county",
     name: "COVID-19 deaths, cases, and hospitalizations by gender and county",
-    update_time: "March 2021",
+    update_time: "April 2021",
   },
   {
     id: "cdc_restricted_data-by_sex_state",
     name: "COVID-19 deaths, cases, and hospitalizations by gender and state",
-    update_time: "March 2021",
+    update_time: "April 2021",
   },
   {
     id: "uhc_age",
