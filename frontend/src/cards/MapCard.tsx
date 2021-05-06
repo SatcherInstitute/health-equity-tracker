@@ -145,8 +145,9 @@ function MapCardWithKey(props: MapCardProps) {
             <MultiMapDialog
               fips={props.fips}
               metricConfig={metricConfig}
-              surveyCollectedData={
-                props.variableConfig.surveyCollectedData || false
+              useSmallSampleMessage={
+                !queryResponse.dataIsMissing() &&
+                (props.variableConfig.surveyCollectedData || false)
               }
               data={queryResponse.getValidRowsForField(metricConfig.metricId)}
               breakdown={activeBreakdownVar}
@@ -247,8 +248,9 @@ function MapCardWithKey(props: MapCardProps) {
             {metricConfig && (
               <CardContent>
                 <ChoroplethMap
-                  surveyCollectedData={
-                    props.variableConfig.surveyCollectedData || false
+                  useSmallSampleMessage={
+                    !queryResponse.dataIsMissing() &&
+                    (props.variableConfig.surveyCollectedData || false)
                   }
                   signalListeners={signalListeners}
                   metric={metricConfig}

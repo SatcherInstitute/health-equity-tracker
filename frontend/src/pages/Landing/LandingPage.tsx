@@ -71,18 +71,17 @@ function LandingPage() {
               </Hidden>
               <Typography className={styles.HeaderSubtext} variant="body1">
                 <p>
-                  We know that the data we collect can be flawed and at times even 
-                  worsen health inequities many people face if not reported or 
-                  analyzed correctly.
+                  We know that the data we collect can be flawed and at times
+                  even worsen health inequities many people face if not reported
+                  or analyzed correctly.
                 </p>
                 <p>
-                  We work to change that narrative by identifying, understanding, and 
-                  responding to health inequities in our communities in a way that will
-                  allow every person to live well and long from generation to generation.
+                  We work to change that narrative by identifying,
+                  understanding, and responding to health inequities in our
+                  communities in a way that will allow every person to live well
+                  and long from generation to generation.
                 </p>
-                <p>
-                  Join us in powering transformational action!
-                </p>
+                <p>Join us in powering transformational action!</p>
                 <br />
               </Typography>
               <LinkWithStickyParams
