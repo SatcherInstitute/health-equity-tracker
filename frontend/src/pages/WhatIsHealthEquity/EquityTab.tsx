@@ -434,7 +434,7 @@ function EquityTab() {
               <FaqSection />
             </Grid>
           </Grid>
-          <Grid item className={styles.JoinTheEffortHeaderRow}>
+          <Grid item className={styles.JoinTheEffortHeaderRow} id="join">
             <Typography className={styles.JoinTheEffortHeaderText} variant="h2">
               How do I join the effort?
             </Typography>
