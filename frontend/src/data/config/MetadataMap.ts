@@ -31,18 +31,6 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
-    id: "brfss",
-    data_source_name: "Disease Prevalence: Diabetes and COPD",
-    data_source_link: "https://www.cdc.gov/brfss/index.html",
-    geographic_level: "State",
-    demographic_granularity: "Race/ethnicity",
-    update_frequency: "Annual",
-    description:
-      "The prevalence (percentage) for diseases broken down by self-reported race/ethnicity and sex at the U.S. and state levels.",
-    dataset_ids: ["brfss"],
-    downloadable: true,
-  },
-  {
     id: "covid_tracking_project",
     data_source_name: "Covid Tracking Project’s Racial Data Tracker",
     data_source_link: "https://covidtracking.com/race",
@@ -73,6 +61,19 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
       "cdc_restricted_data-by_sex_state",
     ],
     downloadable: false,
+  },
+  {
+    id: "uhc",
+    data_source_name: "America's Health Rankings",
+    data_source_link:
+      "https://www.americashealthrankings.org/explore/annual/measure/Overall_a/state/ALL",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Annual",
+    description:
+      "The prevalence (percentage) for diseases broken down by self-reported race/ethnicity, sex and age at the U.S. and state levels.",
+    dataset_ids: ["uhc_age", "uhc_race_and_ethnicity", "uhc_sex"],
+    downloadable: true,
   },
 ];
 

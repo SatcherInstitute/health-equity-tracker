@@ -33,11 +33,6 @@ const datasetMetadataList: DatasetMetadata[] = [
     update_time: "2019",
   },
   {
-    id: "brfss",
-    name: "Disease Prevalence: Diabetes and COPD",
-    update_time: "2019",
-  },
-  {
     id: "covid_by_state_and_race",
     name: "COVID-19 deaths, cases, and hospitalizations by state",
     update_time: "March 2021",
@@ -106,6 +101,21 @@ const datasetMetadataList: DatasetMetadata[] = [
     id: "cdc_restricted_data-by_sex_state",
     name: "COVID-19 deaths, cases, and hospitalizations by gender and state",
     update_time: "March 2021",
+  },
+  {
+    id: "uhc_age",
+    name: "COPD and Diabetes prevelence by age and state",
+    update_time: "2019",
+  },
+  {
+    id: "uhc_race_and_ethnicity",
+    name: "COPD and Diabetes prevelence by race and state",
+    update_time: "2019",
+  },
+  {
+    id: "uhc_sex",
+    name: "COPD and Diabetes prevelence by sex and state",
+    update_time: "2019",
   },
 ];
 
