@@ -13,6 +13,7 @@ import {
   getParameter,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
+  parseMls,
   setParameter,
   useSearchParams,
 } from "../../utils/urlutils";
@@ -50,10 +51,11 @@ function ExploreDataPage() {
       return MADLIB_LIST.findIndex((ele) => ele.id === str);
     });
     let selection = getParameter(
-      "selection",
+      "mls",
       MADLIB_LIST[index].defaultSelections,
-      (str) => JSON.parse(atob(str))
+      parseMls
     );
+
     setMadLibState({
       ...MADLIB_LIST[index],
       activeSelections: selection,
