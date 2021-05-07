@@ -67,10 +67,17 @@ class CtpMetadata(DataSource):
 
     @staticmethod
     def _convert_to_includes_hisp(df: pd.DataFrame):
+        """Translates metadata from 'race_ethnicity_[separately|combined]'
+        to RACE_INCLUDES_HISPANIC_COL."""
         includes_hisp_col = col_std.RACE_INCLUDES_HISPANIC_COL
         df[includes_hisp_col] = df.apply(
+            # If both race_ethnicity_separately and race_ethnicity_combined are
+            # 0, and the state doesn't report ethnicity, then we want to use
+            # race_includes_ethnicity unless the state also doesn't report race.
             lambda row: (
-                row["race_ethnicity_separately"] == 1 or row["reports_ethnicity"] == 0
+                int(row["race_ethnicity_separately"] == 1 or (
+                    row["race_ethnicity_combined"] == 0 and
+                    row["reports_ethnicity"] == 0 and row["reports_race"] == 1))
             ),
             axis=1
         )
