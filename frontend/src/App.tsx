@@ -24,6 +24,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Link,
   useLocation,
 } from "react-router-dom";
 import {
@@ -33,6 +34,7 @@ import {
   ABOUT_US_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   TERMS_OF_SERVICE_PAGE_LINK,
+  ReactRouterLinkButton,
 } from "./utils/urlutils";
 import { autoInitGlobals, getEnvironment } from "./utils/globals";
 import ReactTooltip from "react-tooltip";
@@ -91,7 +93,7 @@ function MobileAppToolbar() {
 function AppToolbar() {
   return (
     <Toolbar className={styles.AppToolbar}>
-      <Button href="/">
+      <Button component={Link} to="/">
         <img src="img/AppbarLogo.png" className={styles.AppbarLogoImg} alt="" />
       </Button>
       <Typography variant="h1" className={styles.HomeLogo}>
@@ -106,9 +108,11 @@ function AppToolbar() {
           DATA_CATALOG_PAGE_LINK,
           ABOUT_US_PAGE_LINK,
         ].map((pageUrl, i) => (
-          <Button href={pageUrl} className={styles.NavLink}>
-            {PAGE_URL_TO_NAMES[pageUrl]}
-          </Button>
+          <ReactRouterLinkButton
+            url={pageUrl}
+            className={styles.NavLink}
+            displayName={PAGE_URL_TO_NAMES[pageUrl]}
+          />
         ))}
       </nav>
     </Toolbar>
@@ -145,9 +149,9 @@ function App() {
     <ThemeProvider theme={MaterialTheme}>
       <ReactTooltip />
       <CssBaseline />
-      <div className={styles.App}>
-        <div className={styles.Content}>
-          <Router>
+      <Router>
+        <div className={styles.App}>
+          <div className={styles.Content}>
             <a className={styles.SkipMainLink} href="#main">
               Skip to main content
             </a>
@@ -182,12 +186,12 @@ function App() {
                 <Route component={NotFoundPage} />
               </Switch>
             </main>
-          </Router>
+          </div>
+          <footer>
+            <Footer />
+          </footer>
         </div>
-        <footer>
-          <Footer />
-        </footer>
-      </div>
+      </Router>
     </ThemeProvider>
   );
 }

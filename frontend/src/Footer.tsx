@@ -14,6 +14,7 @@ import {
   DATA_CATALOG_PAGE_LINK,
   TERMS_OF_SERVICE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+  ReactRouterLinkButton,
 } from "./utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "./pages/AboutUs/AboutUsPage";
 import { WIHE_FAQ_TAB_INDEX } from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
@@ -141,16 +142,20 @@ function LinkGridItem(props: { text: string; link: string }) {
     <>
       <Hidden xsDown>
         <Grid item>
-          <Button className={styles.FooterLink} href={props.link}>
-            {props.text}
-          </Button>
+          <ReactRouterLinkButton
+            url={props.link}
+            className={styles.FooterLink}
+            displayName={props.text}
+          />
         </Grid>
       </Hidden>
       <Hidden smUp>
         <Grid item xs={12}>
-          <Button className={styles.FooterLink} href={props.link}>
-            {props.text}
-          </Button>
+          <ReactRouterLinkButton
+            url={props.link}
+            className={styles.FooterLink}
+            displayName={props.text}
+          />
         </Grid>
       </Hidden>
     </>
