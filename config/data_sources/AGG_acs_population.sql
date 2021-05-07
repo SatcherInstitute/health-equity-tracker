@@ -41,7 +41,6 @@ CREATE TEMP FUNCTION getUhcAgeBuckets(x ANY TYPE) AS (
     WHEN x IN ("45-54", "45-49", "50-54", "55-64", "55-59", "60-61", "62-64") THEN "45-64"
     WHEN x IN ("65-74", "65-66", "67-69", "70-74", "75-84", "75-79", "80-84", "85+") THEN "65+"
     WHEN x = "Total" THEN "Total"
-    ELSE "Unknown"
   END
 );
 
@@ -61,17 +60,19 @@ WHERE race_category_id = "TOTAL"
 GROUP BY state_fips, county_fips, county_name, sex, age
 ORDER BY state_fips, county_fips, county_name, sex, age;
 
-CREATE OR REPLACE TABLE acs_population.by_sex_age_state_big AS
+CREATE TEMP TABLE by_sex_age_state_big AS
 SELECT state_fips, state_name, sex, getUhcAgeBuckets(age) AS age, SUM(population) AS population
 FROM `acs_population.by_sex_age_race_state_std`
 WHERE race_category_id = "TOTAL"
+  AND getUhcAgeBuckets(age) IS NOT NULL
 GROUP BY state_fips, state_name, sex, age
 ORDER BY state_fips, state_name, sex, age;
 
-CREATE OR REPLACE TABLE acs_population.by_sex_age_county_big AS
+CREATE TEMP TABLE by_sex_age_county_big AS
 SELECT state_fips, county_fips, county_name, sex, getUhcAgeBuckets(age) AS age, SUM(population) AS population
 FROM `acs_population.by_sex_age_race_county_std`
 WHERE race_category_id = "TOTAL"
+  AND getUhcAgeBuckets(age) IS NOT NULL
 GROUP BY state_fips, county_fips, county_name, sex, age
 ORDER BY state_fips, county_fips, county_name, sex, age;
 
@@ -87,22 +88,22 @@ SELECT * EXCEPT(sex)
 FROM `acs_population.by_sex_age_county`
 WHERE sex = "Total";
 
-CREATE OR REPLACE TABLE acs_population.by_age_state_big AS
+CREATE TEMP TABLE by_age_state_big AS
 SELECT * EXCEPT(sex)
-FROM `acs_population.by_sex_age_state_big`
+FROM by_sex_age_state_big
 WHERE sex = "Total";
 
-CREATE OR REPLACE TABLE acs_population.by_age_county_big AS
+CREATE TEMP TABLE by_age_county_big AS
 SELECT * EXCEPT(sex)
-FROM `acs_population.by_sex_age_county_big`
+FROM by_sex_age_county_big
 WHERE sex = "Total";
 
 CREATE OR REPLACE TABLE acs_population.by_age_state AS
-SELECT * FROM acs_population.by_age_state_big UNION DISTINCT
+SELECT * FROM by_age_state_big UNION DISTINCT
 SELECT * FROM acs_population.by_age_state;
 
 CREATE OR REPLACE TABLE acs_population.by_age_county AS
-SELECT * FROM acs_population.by_age_county_big UNION DISTINCT
+SELECT * FROM by_age_county_big UNION DISTINCT
 SELECT * FROM acs_population.by_age_county;
 
 -- These tables use staggered decade age buckets due to limitations with ACS
