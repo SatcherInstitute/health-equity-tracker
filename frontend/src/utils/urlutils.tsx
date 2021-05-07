@@ -48,11 +48,12 @@ export function LinkWithStickyParams(props: {
 export function ReactRouterLinkButton(props: {
   url: string;
   className: string;
-  displayName: string;
+  displayName?: string;
+  children?: React.ReactNode;
 }) {
   return (
     <Button to={props.url} component={Link} className={props.className}>
-      {props.displayName}
+      {props.displayName || props.children}
     </Button>
   );
 }

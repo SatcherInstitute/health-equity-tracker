@@ -18,7 +18,6 @@ import {
 } from "./utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "./pages/AboutUs/AboutUsPage";
 import { WIHE_FAQ_TAB_INDEX } from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
-import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -96,18 +95,13 @@ function Logos() {
   return (
     <Grid container className={styles.Logos}>
       <Grid item className={styles.LogosLeft}>
-        <Button
-          className={styles.ImageButton}
-          component={Link}
-          to="/"
-          disableRipple={true}
-        >
+        <ReactRouterLinkButton url="/" className={styles.ImageButton}>
           <img
             src="img/AppbarLogo.png"
             className={styles.FooterLogo}
             alt="Health Equity Tracker decorative logo"
           />
-        </Button>
+        </ReactRouterLinkButton>
       </Grid>
       <Grid item className={styles.LogosRight}>
         <Grid container justify="flex-start" alignItems="flex-start">

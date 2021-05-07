@@ -24,7 +24,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   useLocation,
 } from "react-router-dom";
 import {
@@ -93,9 +92,9 @@ function MobileAppToolbar() {
 function AppToolbar() {
   return (
     <Toolbar className={styles.AppToolbar}>
-      <Button component={Link} to="/">
+      <ReactRouterLinkButton url="/" className={styles.AppbarLogoImg}>
         <img src="img/AppbarLogo.png" className={styles.AppbarLogoImg} alt="" />
-      </Button>
+      </ReactRouterLinkButton>
       <Typography variant="h1" className={styles.HomeLogo}>
         <LinkWithStickyParams to="/">
           Health Equity Tracker
