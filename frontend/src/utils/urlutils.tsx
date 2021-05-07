@@ -65,22 +65,6 @@ export function useSearchParams() {
   return Object.fromEntries(params.entries());
 }
 
-/**
- * Removes the provided search params from the displayed url, so that the user
- * doesn't see them and so that reloads will not include the params.
- */
-export function clearSearchParams(params: string[]) {
-  const originalUrl = window.location.href;
-  const url = new URL(originalUrl);
-  params.forEach((param) => {
-    url.searchParams.delete(param);
-  });
-  const newUrl = url.toString();
-  if (newUrl !== originalUrl) {
-    window.history.replaceState(null /* state */, "" /* title */, newUrl);
-  }
-}
-
 export function linkToMadLib(
   madLibId: MadLibId,
   phraseSelections: PhraseSelections,
@@ -102,4 +86,41 @@ export function linkToMadLib(
     selectionOverrides.join(","),
   ].join("");
   return absolute ? window.location.host + url : url;
+}
+
+export function setParameter(paramName: string, paramValue: string) {
+  let searchParams = new URLSearchParams(window.location.search);
+  searchParams.set(paramName, paramValue);
+
+  let base =
+    window.location.protocol +
+    "//" +
+    window.location.host +
+    window.location.pathname;
+
+  window.history.replaceState(
+    "HELLO",
+    "TITLE",
+    base + "?" + searchParams.toString()
+  );
+}
+
+const defaultHandler = <T extends unknown>(inp: string | null): T => {
+  return (inp as unknown) as T;
+};
+
+export function getParameter<T1>(
+  paramName: string,
+  defaultValue: T1,
+  formatter: (x: any) => T1 = defaultHandler
+): T1 {
+  let searchParams = new URLSearchParams(window.location.search);
+  try {
+    return searchParams.has(paramName)
+      ? formatter(searchParams.get(paramName))
+      : defaultValue;
+  } catch (err) {
+    console.error(err);
+    return defaultValue;
+  }
 }

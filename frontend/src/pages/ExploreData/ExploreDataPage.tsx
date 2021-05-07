@@ -10,9 +10,10 @@ import {
 import { Fips } from "../../data/utils/Fips";
 import styles from "./ExploreDataPage.module.scss";
 import {
-  clearSearchParams,
+  getParameter,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
+  setParameter,
   useSearchParams,
 } from "../../utils/urlutils";
 import ReportProvider from "../../reports/ReportProvider";
@@ -20,11 +21,6 @@ import OptionsSelector from "./OptionsSelector";
 
 function ExploreDataPage() {
   const params = useSearchParams();
-  useEffect(() => {
-    // TODO - it would be nice to have the params stay and update when selections are made
-    // Until then, it's best to just clear them so they can't become mismatched
-    clearSearchParams([MADLIB_PHRASE_PARAM, MADLIB_SELECTIONS_PARAM]);
-  }, []);
 
   const foundIndex = MADLIB_LIST.findIndex(
     (madlib) => madlib.id === params[MADLIB_PHRASE_PARAM]
@@ -44,10 +40,23 @@ function ExploreDataPage() {
     });
   }
 
-  const [madLib, setMadLib] = useState<MadLib>({
+  const [madLib, setMadLibState] = useState<MadLib>({
     ...MADLIB_LIST[initalIndex],
     activeSelections: defaultValuesWithOverrides,
   });
+
+  useEffect(() => {
+    let index = getParameter("carousel_index", 0, Number.parseInt);
+    let selection = getParameter(
+      "selection",
+      MADLIB_LIST[index].defaultSelections,
+      (str) => JSON.parse(atob(str))
+    );
+    setMadLibState({
+      ...MADLIB_LIST[index],
+      activeSelections: selection,
+    });
+  }, []);
 
   const [sticking, setSticking] = useState<boolean>(false);
 
@@ -89,19 +98,24 @@ function ExploreDataPage() {
             navButtonsAlwaysVisible={true}
             index={initalIndex}
             onChange={(index: number) => {
-              setMadLib({
+              setParameter("carousel_index", index.toString());
+              setMadLibState({
                 ...MADLIB_LIST[index],
                 activeSelections: MADLIB_LIST[index].defaultSelections,
               });
             }}
           >
             {MADLIB_LIST.map((madlib: MadLib, i) => (
-              <CarouselMadLib madLib={madLib} setMadLib={setMadLib} key={i} />
+              <CarouselMadLib
+                madLib={madLib}
+                setMadLib={setMadLibState}
+                key={i}
+              />
             ))}
           </Carousel>
         </div>
         <div className={styles.ReportContainer}>
-          <ReportProvider madLib={madLib} setMadLib={setMadLib} />
+          <ReportProvider madLib={madLib} setMadLib={setMadLibState} />
         </div>
       </div>
     </>
