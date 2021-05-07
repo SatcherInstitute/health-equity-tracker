@@ -6,8 +6,10 @@ import Hidden from "@material-ui/core/Hidden";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import {
+  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   LinkWithStickyParams,
   EXPLORE_DATA_PAGE_LINK,
+  ReactRouterLinkButton,
 } from "../../utils/urlutils";
 import FaqSection from "../ui/FaqSection";
 
@@ -223,9 +225,11 @@ function LandingPage() {
                   <b>People need help, and they need it now.</b>
                 </p>
                 <br />
-                <a className={styles.MinorLink} href="/whatishealthequity">
-                  Learn more about health equity
-                </a>
+                <ReactRouterLinkButton
+                  url={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+                  className={styles.LearnMoreAboutHealthEquity}
+                  displayName="Learn more about health equity"
+                />
               </Typography>
             </Grid>
           </Grid>

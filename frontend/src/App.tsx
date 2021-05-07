@@ -33,6 +33,7 @@ import {
   ABOUT_US_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   TERMS_OF_SERVICE_PAGE_LINK,
+  ReactRouterLinkButton,
 } from "./utils/urlutils";
 import { autoInitGlobals, getEnvironment } from "./utils/globals";
 import ReactTooltip from "react-tooltip";
@@ -91,9 +92,9 @@ function MobileAppToolbar() {
 function AppToolbar() {
   return (
     <Toolbar className={styles.AppToolbar}>
-      <LinkWithStickyParams to="/">
+      <ReactRouterLinkButton url="/" className={styles.AppbarLogoImg}>
         <img src="img/AppbarLogo.png" className={styles.AppbarLogoImg} alt="" />
-      </LinkWithStickyParams>
+      </ReactRouterLinkButton>
       <Typography variant="h1" className={styles.HomeLogo}>
         <LinkWithStickyParams to="/">
           Health Equity Tracker
@@ -106,9 +107,11 @@ function AppToolbar() {
           DATA_CATALOG_PAGE_LINK,
           ABOUT_US_PAGE_LINK,
         ].map((pageUrl, i) => (
-          <LinkWithStickyParams to={pageUrl} class={styles.NavLink}>
-            {PAGE_URL_TO_NAMES[pageUrl]}
-          </LinkWithStickyParams>
+          <ReactRouterLinkButton
+            url={pageUrl}
+            className={styles.NavLink}
+            displayName={PAGE_URL_TO_NAMES[pageUrl]}
+          />
         ))}
       </nav>
     </Toolbar>
@@ -145,9 +148,9 @@ function App() {
     <ThemeProvider theme={MaterialTheme}>
       <ReactTooltip />
       <CssBaseline />
-      <div className={styles.App}>
-        <div className={styles.Content}>
-          <Router>
+      <Router>
+        <div className={styles.App}>
+          <div className={styles.Content}>
             <a className={styles.SkipMainLink} href="#main">
               Skip to main content
             </a>
@@ -182,12 +185,12 @@ function App() {
                 <Route component={NotFoundPage} />
               </Switch>
             </main>
-          </Router>
+          </div>
+          <footer>
+            <Footer />
+          </footer>
         </div>
-        <footer>
-          <Footer />
-        </footer>
-      </div>
+      </Router>
     </ThemeProvider>
   );
 }
