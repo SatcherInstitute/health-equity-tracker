@@ -139,29 +139,32 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         </p>
         <h3>Missing Cases</h3>
         <p>
-          For COVID related reports, this tracker uses disaggregated, individual
-          case level data reported by states to the CDC. Unfortunately, some
-          states have not provided this disaggregated data to the CDC, so we
-          cannot report accurate metrics of health equity for the states of{" "}
-          <b>Louisiana</b>, <b>New Hampshire</b>, <b>Texas</b>, and{" "}
-          <b>Wyoming</b>. A number of other states report disaggregated data,
-          but the number of individual cases reported to the CDC is far fewer
-          than the aggregate numbers they report. These states' data are
-          included, but their data should be interpreted with caution since the
-          cases reported may not be representative of the population at large:{" "}
-          <b>Connecticut</b>, <b>Florida</b>, <b>Kentucky</b>, <b>Maryland</b>,{" "}
-          <b>Michigan</b>, <b>Mississippi</b>, <b>Missouri</b>, <b>Nebraska</b>,{" "}
-          <b>New Mexico</b>, <b>North Dakota</b>, <b>Ohio</b>,{" "}
-          <b>Rhode Island</b>, <b>West Virginia</b>.
+	  For Covid related reports, this tracker uses disaggregated, individual{" "} 
+	  <a href="https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/about-us-cases-deaths.html">
+	  case level data reported by states, territories, and other jurisdictions 
+	  to the CDC</a>. We cannot report accurate metrics for states that do not 
+	  provide disaggregated data to the CDC, so these states appear as  	 
+	  grey on the maps reporting Covid cases, hospitalizations and deaths: 
+	  <b>Louisiana, Mississippi, Missouri, New Hampshire, North Dakota,{" "}
+	  Texas, and Wyoming</b>. The following states' data are included, but 
+	  their data should be interpreted with caution since the cases reported 
+	  may not be representative of the population at large: <b>Connecticut,{" "}
+          Florida, Kentucky, Maryland, Michigan, Nebraska, New Mexico, Ohio, Rhode{" "}
+          Island, West Virginia.</b>
         </p>
         <h3>Missing Outcomes</h3>
         <p>
-          Furthermore, many of the individual COVID case records are incomplete
-          with an unknown hospitalization and/or death status, meaning that even
-          in states that are reporting Covid case data, we have an incomplete
-          picture of its overall impact. Due to the nature of surveillance data,
-          we expect this picture to become more complete over time and will use
-          the Health Equity Tracker to record the progress.
+	  Furthermore, many Covid case records are incomplete, with an unknown 
+	  hospitalization and/or death status. This means that some states that 
+	  report disaggregated Covid case data still do not provide a complete 
+	  picture of its overall impact. Due to the nature of surveillance data, 
+	  we expect this picture to become more complete over time and will use 
+	  the Health Equity Tracker to record the progress. Until then, the 
+	  following states appear as grey when viewing Covid maps featuring 
+	  hospitalizations and deaths: <b>Hawaii, Maryland, Nebraska, New Mexico, 
+	  Rhode Island, </b>and <b>South Dakota</b>. <b>Delaware </b>and{" "}
+	  <b>West Virginia</b> are included when viewing hospitalizations but 
+	  appear as grey when viewing reports on deaths.
         </p>
         <a href={DATA_CATALOG_PAGE_LINK}>
           <Button color="primary" endIcon={<ArrowForward />}>
