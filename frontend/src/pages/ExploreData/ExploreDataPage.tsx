@@ -46,7 +46,9 @@ function ExploreDataPage() {
   });
 
   useEffect(() => {
-    let index = getParameter("carousel_index", 0, Number.parseInt);
+    let index = getParameter("mlp", 0, (str) => {
+      return MADLIB_LIST.findIndex((ele) => ele.id === str);
+    });
     let selection = getParameter(
       "selection",
       MADLIB_LIST[index].defaultSelections,
@@ -98,7 +100,7 @@ function ExploreDataPage() {
             navButtonsAlwaysVisible={true}
             index={initalIndex}
             onChange={(index: number) => {
-              setParameter("carousel_index", index.toString());
+              setParameter("mlp", MADLIB_LIST[index].id);
               setMadLibState({
                 ...MADLIB_LIST[index],
                 activeSelections: MADLIB_LIST[index].defaultSelections,
