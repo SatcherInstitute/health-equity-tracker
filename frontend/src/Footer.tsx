@@ -18,6 +18,7 @@ import {
 } from "./utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "./pages/AboutUs/AboutUsPage";
 import { WIHE_FAQ_TAB_INDEX } from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -97,7 +98,8 @@ function Logos() {
       <Grid item className={styles.LogosLeft}>
         <Button
           className={styles.ImageButton}
-          href="https://healthequitytracker.org/"
+          component={Link}
+          to="/"
           disableRipple={true}
         >
           <img
