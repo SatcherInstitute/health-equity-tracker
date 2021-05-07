@@ -15,6 +15,7 @@ import {
   MADLIB_SELECTIONS_PARAM,
   parseMls,
   setParameter,
+  stringifyMls,
   useSearchParams,
 } from "../../utils/urlutils";
 import ReportProvider from "../../reports/ReportProvider";
@@ -103,10 +104,21 @@ function ExploreDataPage() {
             index={initalIndex}
             onChange={(index: number) => {
               setParameter("mlp", MADLIB_LIST[index].id);
-              setMadLibState({
+              let newState = {
                 ...MADLIB_LIST[index],
-                activeSelections: MADLIB_LIST[index].defaultSelections,
-              });
+                activeSelections: {
+                  ...MADLIB_LIST[index].defaultSelections,
+                  ...{
+                    1: getParameter(
+                      "mls",
+                      MADLIB_LIST[index].defaultSelections,
+                      parseMls
+                    )[1],
+                  },
+                },
+              };
+              setMadLibState(newState);
+              setParameter("mls", stringifyMls(newState.activeSelections));
             }}
           >
             {MADLIB_LIST.map((madlib: MadLib, i) => (
