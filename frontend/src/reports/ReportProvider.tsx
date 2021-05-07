@@ -160,7 +160,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
 	  picture of its overall impact. Due to the nature of surveillance data, 
 	  we expect this picture to become more complete over time and will use 
 	  the Health Equity Tracker to record the progress. Until then, the 
-	  following states appear as grey on when viewing Covid maps featuring 
+	  following states appear as grey when viewing Covid maps featuring 
 	  hospitalizations and deaths: <b>Hawaii, Maryland, Nebraska, New Mexico, 
 	  Rhode Island, </b>and <b>South Dakota</b>. <b>Delaware </b>and{" "}
 	  <b>West Virginia</b> are included when viewing hospitalizations but 
