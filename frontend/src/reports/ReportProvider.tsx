@@ -150,7 +150,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
 	  their data should be interpreted with caution since the cases reported 
 	  may not be representative of the population at large: <b>Connecticut,{" "}
           Florida, Kentucky, Maryland, Michigan, Nebraska, New Mexico, Ohio, Rhode{" "}
-          Island, West Virginia.
+          Island, West Virginia.</b>
         </p>
         <h3>Missing Outcomes</h3>
         <p>
