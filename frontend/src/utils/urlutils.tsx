@@ -124,3 +124,27 @@ export function getParameter<T1>(
     return defaultValue;
   }
 }
+
+let kvSeperator = "-";
+let partsSeperator = "_";
+
+export const parseMls = (param: string) => {
+  let parts = param.split(partsSeperator);
+  let selection: PhraseSelections = {};
+  parts.forEach((part) => {
+    let p = part.split(kvSeperator);
+    selection[Number(p[0])] = p[1];
+  });
+
+  return selection;
+};
+
+export const stringifyMls = (selection: PhraseSelections): string => {
+  let kvPair: Array<string> = [];
+
+  Object.keys(selection).forEach((key: any) => {
+    kvPair.push(key + kvSeperator + selection[key]);
+  });
+
+  return kvPair.join(partsSeperator);
+};
