@@ -139,7 +139,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         </p>
         <h3>Missing Cases</h3>
         <p>
-	  For COVID related reports, this tracker uses disaggregated, individual{" "} 
+	  For Covid related reports, this tracker uses disaggregated, individual{" "} 
 	  <a href="https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/about-us-cases-deaths.html">
 	  case level data reported by states, territories, and other jurisdictions 
 	  to the CDC</a>. We cannot report accurate metrics for states that do not 
@@ -154,7 +154,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         </p>
         <h3>Missing Outcomes</h3>
         <p>
-	  Furthermore, many COVID case records are incomplete, with an unknown 
+	  Furthermore, many Covid case records are incomplete, with an unknown 
 	  hospitalization and/or death status. This means that some states that 
 	  report disaggregated Covid case data still do not provide a complete 
 	  picture of its overall impact. Due to the nature of surveillance data, 
@@ -164,7 +164,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
 	  hospitalizations and deaths: <b>Hawaii, Maryland, Nebraska, New Mexico, 
 	  Rhode Island, </b>and <b>South Dakota</b>. <b>Delaware </b>and{" "}
 	  <b>West Virginia</b> are included when viewing hospitalizations but 
-	  appear as grey for deaths.
+	  appear as grey when viewing reports on deaths.
         </p>
         <a href={DATA_CATALOG_PAGE_LINK}>
           <Button color="primary" endIcon={<ArrowForward />}>
