@@ -378,10 +378,11 @@
   }
 
   .ContactUsLink {
-    color: $alt-green;
-    font-weight: 500;
-    font-size: 26px;
-    line-height: 31.47px;
+    color: $alt-green !important;
+    font-weight: 500 !important;
+    font-size: 26px !important;
+    line-height: 31.47px !important;
+    text-decoration: underline !important;
   }
 }
 
