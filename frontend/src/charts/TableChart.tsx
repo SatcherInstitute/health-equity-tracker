@@ -28,6 +28,7 @@ import { Tooltip } from "@material-ui/core";
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
+import { sortAgeParsedNumerically } from "./utils";
 
 export interface TableChartProps {
   data: Readonly<Record<string, any>>[];
@@ -53,25 +54,7 @@ export function TableChart(props: TableChartProps) {
   ].concat(columns);
 
   if (breakdownVar === "age") {
-    data.sort((l, r) => {
-      let lAge = l["age"];
-      let rAge = r["age"]; //Rage hehe
-
-      if (lAge === "All" && rAge === "All") return 0;
-      else if (lAge === "All") return -1;
-      else if (rAge === "All") return 1;
-
-      let leftUnbounded = lAge.indexOf("+") !== -1;
-      let rightUnbounded = lAge.indexOf("+") !== -1;
-
-      if (leftUnbounded && rightUnbounded) return 0;
-      else if (leftUnbounded) return 1;
-      else if (rightUnbounded) return -1;
-
-      let lMin = lAge.split("-")[0];
-      let rMin = rAge.split("-")[1];
-      return Number(lMin) - Number(rMin);
-    });
+    data.sort(sortAgeParsedNumerically);
   }
 
   // Changes deps array to columns on save, which triggers reload loop

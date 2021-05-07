@@ -12,6 +12,7 @@ import {
   MULTILINE_LABEL,
   AXIS_LABEL_Y_DELTA,
   oneLineLabel,
+  sortAgeParsedNumerically,
 } from "./utils";
 
 function getSpec(
@@ -188,6 +189,10 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   const [ref, width] = useResponsiveWidth(
     100 /* default width during intialization */
   );
+
+  if (props.breakdownVar === "age") {
+    props.data.sort(sortAgeParsedNumerically);
+  }
 
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
     props.data,
