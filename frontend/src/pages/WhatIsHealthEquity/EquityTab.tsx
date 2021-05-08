@@ -18,6 +18,7 @@ import {
 import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import FaqSection from "../ui/FaqSection";
+import {WIHE_JOIN_THE_EFFORT_SECTION_ID} from './WhatIsHealthEquityPage';
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -434,7 +435,10 @@ function EquityTab() {
               <FaqSection />
             </Grid>
           </Grid>
-          <Grid item className={styles.JoinTheEffortHeaderRow} id="join">
+          <Grid
+              item
+              className={styles.JoinTheEffortHeaderRow}
+              id={WIHE_JOIN_THE_EFFORT_SECTION_ID}>
             <Typography className={styles.JoinTheEffortHeaderText} variant="h2">
               How do I join the effort?
             </Typography>

@@ -390,7 +390,7 @@ function LandingPage() {
                   <Button
                       variant="contained"
                       color="primary"
-                      className={styles.PrimaryButton}
+                      className={styles.JoinOurMovementButton}
                       href={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_HEALTH_EQUITY_TAB_INDEX}#${WIHE_JOIN_THE_EFFORT_SECTION_ID}`}>
                     Click here
                   </Button>
