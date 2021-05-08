@@ -8,7 +8,6 @@ import {
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   LinkWithStickyParams,
   EXPLORE_DATA_PAGE_LINK,
-  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   TAB_PARAM,
   ReactRouterLinkButton,
 } from "../../utils/urlutils";
