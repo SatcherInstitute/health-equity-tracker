@@ -28,7 +28,6 @@ import { Tooltip } from "@material-ui/core";
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
-import { sortAgeParsedNumerically } from "./utils";
 
 export interface TableChartProps {
   data: Readonly<Record<string, any>>[];
@@ -52,10 +51,6 @@ export function TableChart(props: TableChartProps) {
       accessor: breakdownVar as MetricId,
     },
   ].concat(columns);
-
-  if (breakdownVar === "age") {
-    data.sort(sortAgeParsedNumerically);
-  }
 
   // Changes deps array to columns on save, which triggers reload loop
   // eslint-disable-next-line
