@@ -406,8 +406,8 @@ describe("AcsPopulationProvider", () => {
       rawData,
       Breakdowns.byCounty().withGeoFilter(new Fips(NC.code)),
       AGE,
-      [C_0_9_FINAL, D_0_9_FINAL, D_10_19_FINAL],
-      [C_0_9_FINAL, C_ALL_FINAL, D_0_9_FINAL, D_10_19_FINAL, D_ALL_FINAL]
+      [D_0_9_FINAL, C_0_9_FINAL, D_10_19_FINAL],
+      [C_ALL_FINAL, D_ALL_FINAL, D_0_9_FINAL, C_0_9_FINAL, D_10_19_FINAL]
     );
   });
 

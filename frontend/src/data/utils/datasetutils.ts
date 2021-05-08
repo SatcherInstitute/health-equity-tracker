@@ -229,7 +229,7 @@ export function maybeApplyRowReorder(rows: Row[], breakdowns: Breakdowns) {
   return finalRows;
 }
 
-const sortAgeParsedNumerically = (l: any, r: any) => {
+export const sortAgeParsedNumerically = (l: any, r: any) => {
   let lAge = l["age"];
   let rAge = r["age"]; //Rage hehe
 
@@ -238,7 +238,7 @@ const sortAgeParsedNumerically = (l: any, r: any) => {
   else if (rAge === "All") return 1;
 
   let leftUnbounded = lAge.indexOf("+") !== -1;
-  let rightUnbounded = lAge.indexOf("+") !== -1;
+  let rightUnbounded = rAge.indexOf("+") !== -1;
 
   if (leftUnbounded && rightUnbounded) return 0;
   else if (leftUnbounded) return 1;
