@@ -74,7 +74,7 @@ function stateRow(
   above_poverty: string
 ) {
   return {
-    race_and_ethnicity: race_value,
+    [RACE]: race_value,
     age: age_value,
     sex: sex_value,
     state_fips: fips.code,
@@ -98,7 +98,7 @@ function countyRow(
     state_name: stateFips.name,
     county_fips: countyFips.code,
     county_name: countyFips.name,
-    race_and_ethnicity: race_value,
+    [RACE]: race_value,
     age: age_value,
     sex: sex_value,
     above_poverty_line: Number(above_poverty),
