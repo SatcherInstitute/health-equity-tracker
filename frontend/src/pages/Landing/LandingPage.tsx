@@ -6,12 +6,14 @@ import Hidden from "@material-ui/core/Hidden";
 import Typography from "@material-ui/core/Typography";
 import {
   LinkWithStickyParams,
-  EXPLORE_DATA_PAGE_LINK, WHAT_IS_HEALTH_EQUITY_PAGE_LINK, TAB_PARAM,
+  EXPLORE_DATA_PAGE_LINK,
+  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+  TAB_PARAM,
 } from "../../utils/urlutils";
 import FaqSection from "../ui/FaqSection";
 import {
   WIHE_HEALTH_EQUITY_TAB_INDEX,
-  WIHE_JOIN_THE_EFFORT_SECTION_ID
+  WIHE_JOIN_THE_EFFORT_SECTION_ID,
 } from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
 
 
