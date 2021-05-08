@@ -3,15 +3,20 @@ import styles from "./LandingPage.module.scss";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
-import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import {
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   LinkWithStickyParams,
   EXPLORE_DATA_PAGE_LINK,
+  TAB_PARAM,
   ReactRouterLinkButton,
 } from "../../utils/urlutils";
 import FaqSection from "../ui/FaqSection";
+import {
+  WIHE_HEALTH_EQUITY_TAB_INDEX,
+  WIHE_JOIN_THE_EFFORT_SECTION_ID,
+} from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
+
 
 function TakeALookAroundItem(props: {
   src: string;
@@ -383,35 +388,20 @@ function LandingPage() {
                       className={styles.NewsletterRowHeader}
                       variant="h2"
                     >
-                      Engage in
+                      Join Our
                       <br />
-                      Health Equity
+                      Movement
                     </Typography>
                   </Hidden>
                 </Grid>
                 <Grid item>
-                  <form
-                    action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
-                    method="post"
-                    target="_blank"
-                    className={styles.NewsletterForm}
-                  >
-                    <TextField
-                      id="Enter email address to sign up" // Accessibility label
-                      name="MERGE0"
-                      variant="outlined"
-                      type="email"
-                      placeholder="Enter email address"
-                    />
-                    <Button
-                      type="submit"
-                      color="primary"
+                  <Button
                       variant="contained"
-                      className={styles.NewsletterEmailSubmitInput}
-                    >
-                      Sign up
-                    </Button>
-                  </form>
+                      color="primary"
+                      className={styles.JoinOurMovementButton}
+                      href={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_HEALTH_EQUITY_TAB_INDEX}#${WIHE_JOIN_THE_EFFORT_SECTION_ID}`}>
+                    Click here
+                  </Button>
                 </Grid>
               </div>
             </Grid>
