@@ -195,4 +195,8 @@ function App() {
   );
 }
 
+window.onpopstate = function (e: any) {
+  window.location.reload();
+};
+
 export default App;

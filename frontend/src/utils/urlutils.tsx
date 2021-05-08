@@ -98,11 +98,7 @@ export function setParameter(paramName: string, paramValue: string) {
     window.location.host +
     window.location.pathname;
 
-  window.history.replaceState(
-    "HELLO",
-    "TITLE",
-    base + "?" + searchParams.toString()
-  );
+  window.history.pushState({}, "", base + "?" + searchParams.toString());
 }
 
 const defaultHandler = <T extends unknown>(inp: string | null): T => {
