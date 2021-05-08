@@ -130,9 +130,9 @@ describe("AcsHealthInsuranceProvider", () => {
   test("State and Race Breakdown", async () => {
     // Create raw rows with health insurance coverage
     const rawData = [
-      stateRow(AL, "race", ASIAN_NH, "100", "900", "1000"),
-      stateRow(NC, "race", ASIAN_NH, "100", "900", "1000"),
-      stateRow(NC, "race", WHITE, "250", "250", "500"),
+      stateRow(AL, "race_and_ethnicity", ASIAN_NH, "100", "900", "1000"),
+      stateRow(NC, "race_and_ethnicity", ASIAN_NH, "100", "900", "1000"),
+      stateRow(NC, "race_and_ethnicity", WHITE, "250", "250", "500"),
     ];
 
     // Create final rows with health insurance count
@@ -154,9 +154,9 @@ describe("AcsHealthInsuranceProvider", () => {
   test("National and Race Breakdown", async () => {
     // Create raw rows with health insurance coverage
     const rawData = [
-      stateRow(AL, "race", ASIAN_NH, "100", "900", "1000"),
-      stateRow(NC, "race", ASIAN_NH, "100", "900", "1000"),
-      stateRow(NC, "race", WHITE, "250", "250", "500"),
+      stateRow(AL, "race_and_ethnicity", ASIAN_NH, "100", "900", "1000"),
+      stateRow(NC, "race_and_ethnicity", ASIAN_NH, "100", "900", "1000"),
+      stateRow(NC, "race_and_ethnicity", WHITE, "250", "250", "500"),
     ];
 
     // Create final rows with health insurance count
@@ -178,8 +178,24 @@ describe("AcsHealthInsuranceProvider", () => {
   test("County and Race Breakdown", async () => {
     // Create raw rows with health insurance coverage
     const rawData = [
-      countyRow(WA, KING_COUNTY, "race", ASIAN_NH, "100", "900", "1000"),
-      countyRow(WA, KING_COUNTY, "race", WHITE, "150", "800", "950"),
+      countyRow(
+        WA,
+        KING_COUNTY,
+        "race_and_ethnicity",
+        ASIAN_NH,
+        "100",
+        "900",
+        "1000"
+      ),
+      countyRow(
+        WA,
+        KING_COUNTY,
+        "race_and_ethnicity",
+        WHITE,
+        "150",
+        "800",
+        "950"
+      ),
     ];
 
     // Create final rows with health insurance count
@@ -215,9 +231,9 @@ describe("AcsHealthInsuranceProvider", () => {
   test("Testing total deaggregates by hispanic and white_nh", async () => {
     // Create raw rows with health insurance coverage
     const rawData = [
-      stateRow(WA, "race", WHITE, "100", "800", "900"),
-      stateRow(WA, "race", WHITE_NH, "200", "800", "1000"),
-      stateRow(WA, "race", HISPANIC, "400", "800", "1200"),
+      stateRow(WA, "race_and_ethnicity", WHITE, "100", "800", "900"),
+      stateRow(WA, "race_and_ethnicity", WHITE_NH, "200", "800", "1000"),
+      stateRow(WA, "race_and_ethnicity", HISPANIC, "400", "800", "1200"),
     ];
 
     const WA_HL = finalRow(WA, RACE, HISPANIC, 800, 66667);
