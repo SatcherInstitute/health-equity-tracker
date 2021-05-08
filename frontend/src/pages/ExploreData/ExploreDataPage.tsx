@@ -10,9 +10,12 @@ import {
 import { Fips } from "../../data/utils/Fips";
 import styles from "./ExploreDataPage.module.scss";
 import {
-  clearSearchParams,
+  getParameter,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
+  parseMls,
+  setParameter,
+  stringifyMls,
   useSearchParams,
 } from "../../utils/urlutils";
 import ReportProvider from "../../reports/ReportProvider";
@@ -20,11 +23,6 @@ import OptionsSelector from "./OptionsSelector";
 
 function ExploreDataPage() {
   const params = useSearchParams();
-  useEffect(() => {
-    // TODO - it would be nice to have the params stay and update when selections are made
-    // Until then, it's best to just clear them so they can't become mismatched
-    clearSearchParams([MADLIB_PHRASE_PARAM, MADLIB_SELECTIONS_PARAM]);
-  }, []);
 
   const foundIndex = MADLIB_LIST.findIndex(
     (madlib) => madlib.id === params[MADLIB_PHRASE_PARAM]
@@ -44,10 +42,26 @@ function ExploreDataPage() {
     });
   }
 
-  const [madLib, setMadLib] = useState<MadLib>({
+  const [madLib, setMadLibState] = useState<MadLib>({
     ...MADLIB_LIST[initalIndex],
     activeSelections: defaultValuesWithOverrides,
   });
+
+  useEffect(() => {
+    let index = getParameter("mlp", 0, (str) => {
+      return MADLIB_LIST.findIndex((ele) => ele.id === str);
+    });
+    let selection = getParameter(
+      "mls",
+      MADLIB_LIST[index].defaultSelections,
+      parseMls
+    );
+
+    setMadLibState({
+      ...MADLIB_LIST[index],
+      activeSelections: selection,
+    });
+  }, []);
 
   const [sticking, setSticking] = useState<boolean>(false);
 
@@ -89,19 +103,35 @@ function ExploreDataPage() {
             navButtonsAlwaysVisible={true}
             index={initalIndex}
             onChange={(index: number) => {
-              setMadLib({
+              setParameter("mlp", MADLIB_LIST[index].id);
+              let newState = {
                 ...MADLIB_LIST[index],
-                activeSelections: MADLIB_LIST[index].defaultSelections,
-              });
+                activeSelections: {
+                  ...MADLIB_LIST[index].defaultSelections,
+                  ...{
+                    1: getParameter(
+                      "mls",
+                      MADLIB_LIST[index].defaultSelections,
+                      parseMls
+                    )[1],
+                  },
+                },
+              };
+              setMadLibState(newState);
+              setParameter("mls", stringifyMls(newState.activeSelections));
             }}
           >
             {MADLIB_LIST.map((madlib: MadLib, i) => (
-              <CarouselMadLib madLib={madLib} setMadLib={setMadLib} key={i} />
+              <CarouselMadLib
+                madLib={madLib}
+                setMadLib={setMadLibState}
+                key={i}
+              />
             ))}
           </Carousel>
         </div>
         <div className={styles.ReportContainer}>
-          <ReportProvider madLib={madLib} setMadLib={setMadLib} />
+          <ReportProvider madLib={madLib} setMadLib={setMadLibState} />
         </div>
       </div>
     </>
