@@ -90,6 +90,7 @@ export function TableCard(props: TableCardProps) {
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
+                  geoLevel={props.fips.getFipsTypeDisplayName()}
                 />
               </CardContent>
             )}
@@ -99,11 +100,11 @@ export function TableCard(props: TableCardProps) {
                 <>
                   <CardContent>
                     <Alert severity="warning">
-                      Share of Covid-19 cases reported for American Indian, Alaska
-                      Native, Native Hawaiian and Pacific Islander are underrepresented 
-                      at the national level and in many states because these racial categories 
-                      are often not recorded. The Urban Indian Health Institute
-                      publishes{" "}
+                      Share of Covid-19 cases reported for American Indian,
+                      Alaska Native, Native Hawaiian and Pacific Islander are
+                      underrepresented at the national level and in many states
+                      because these racial categories are often not recorded.
+                      The Urban Indian Health Institute publishes{" "}
                       <a
                         target="_blank"
                         rel="noopener noreferrer"

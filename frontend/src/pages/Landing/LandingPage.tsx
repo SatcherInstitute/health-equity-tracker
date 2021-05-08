@@ -5,10 +5,12 @@ import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
 import Typography from "@material-ui/core/Typography";
 import {
+  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   LinkWithStickyParams,
   EXPLORE_DATA_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   TAB_PARAM,
+  ReactRouterLinkButton,
 } from "../../utils/urlutils";
 import FaqSection from "../ui/FaqSection";
 import {
@@ -66,25 +68,28 @@ function LandingPage() {
                   className={styles.HeaderText}
                   variant="h2"
                 >
-                  Equity Forward
+                  Advancing Health Equity
                 </Typography>
                 <br />
               </Hidden>
               <Hidden smUp>
                 <Typography className={styles.HeaderTextMobile}>
-                  Equity Forward
+                  Advancing Health Equity
                 </Typography>
               </Hidden>
               <Typography className={styles.HeaderSubtext} variant="body1">
                 <p>
-                  We know that our communities are experiencing life or death
-                  situations due to the inequities, conditions and policies into
-                  which they are born, grow, learn, work and age.
+                  We know that the data we collect can be flawed and at times
+                  even worsen health inequities many people face if not reported
+                  or analyzed correctly.
                 </p>
                 <p>
-                  We work to collect the data needed to identify and address
-                  these inequities.
+                  We work to change that narrative by identifying,
+                  understanding, and responding to health inequities in our
+                  communities in a way that will allow every person to live well
+                  and long from generation to generation.
                 </p>
+                <p>Join us in powering transformational action!</p>
                 <br />
               </Typography>
               <LinkWithStickyParams
@@ -226,9 +231,11 @@ function LandingPage() {
                   <b>People need help, and they need it now.</b>
                 </p>
                 <br />
-                <a className={styles.MinorLink} href="/whatishealthequity">
-                  Learn more about health equity
-                </a>
+                <ReactRouterLinkButton
+                  url={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+                  className={styles.LearnMoreAboutHealthEquity}
+                  displayName="Learn more about health equity"
+                />
               </Typography>
             </Grid>
           </Grid>

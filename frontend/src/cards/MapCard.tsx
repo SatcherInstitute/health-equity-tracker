@@ -145,6 +145,10 @@ function MapCardWithKey(props: MapCardProps) {
             <MultiMapDialog
               fips={props.fips}
               metricConfig={metricConfig}
+              useSmallSampleMessage={
+                !queryResponse.dataIsMissing() &&
+                (props.variableConfig.surveyCollectedData || false)
+              }
               data={queryResponse.getValidRowsForField(metricConfig.metricId)}
               breakdown={activeBreakdownVar}
               handleClose={() => setSmallMultiplesDialogOpen(false)}
@@ -208,6 +212,7 @@ function MapCardWithKey(props: MapCardProps) {
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[activeBreakdownVar]
                   }
+                  geoLevel={props.fips.getChildFipsTypeDisplayName()}
                 />
               </CardContent>
             )}
@@ -243,6 +248,10 @@ function MapCardWithKey(props: MapCardProps) {
             {metricConfig && (
               <CardContent>
                 <ChoroplethMap
+                  useSmallSampleMessage={
+                    !queryResponse.dataIsMissing() &&
+                    (props.variableConfig.surveyCollectedData || false)
+                  }
                   signalListeners={signalListeners}
                   metric={metricConfig}
                   legendTitle={metricConfig.fullCardTitleName}
