@@ -12,8 +12,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     geographic_level: "State",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Annual",
-    description:
-      "Population percentages broken down by self-reported race/ethnicity, age, and sex at the U.S. and state levels.",
+    description: "Population percentages at the state and county levels.",
     dataset_ids: [
       "acs_population-by_race_county_std",
       "acs_population-by_race_state_std",
@@ -36,9 +35,9 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_link: "https://covidtracking.com/race",
     geographic_level: "State",
     demographic_granularity: "Race/ethnicity",
-    update_frequency: "Annual",
+    update_frequency: "Final update was March 7 2021",
     description:
-      "The numbers of confirmed deaths, cases, and hospitalizations broken down by race/ethnicity at the U.S. and state levels.",
+      "The numbers of confirmed Covid deaths, cases, and hospitalizations at the state and county levels.",
     dataset_ids: ["covid_by_state_and_race", "covid_by_county_and_race"],
     downloadable: true,
   },
@@ -51,7 +50,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Monthly",
     description:
-      "The numbers of confirmed deaths, cases, and hospitalizations at the U.S. and state levels.",
+      "The numbers of confirmed Covid deaths, cases, and hospitalizations at the state and county levels.",
     dataset_ids: [
       "cdc_restricted_data-by_race_county",
       "cdc_restricted_data-by_race_state",
@@ -70,8 +69,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     geographic_level: "State",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Annual",
-    description:
-      "The prevalence (percentage) for diseases broken down by self-reported race/ethnicity, sex and age at the U.S. and state levels.",
+    description: "The prevalence of diabetes and COPD at the state level.",
     dataset_ids: ["uhc_age", "uhc_race_and_ethnicity", "uhc_sex"],
     downloadable: true,
   },
