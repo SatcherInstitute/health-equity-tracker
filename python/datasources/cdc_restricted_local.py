@@ -94,16 +94,15 @@ DEATH_DATA_SUPPRESSION_STATES = ("HI", "MD", "NE", "NM", "RI", "SD",
                                  "WV", "DE")
 
 
-def accumulate_data(df, groupby_cols, overall_df, demographic_col,
-                    names_mapping):
+def accumulate_data(df, geo_cols, overall_df, demog_col, names_mapping):
     """Converts/adds columns for cases, hospitalizations, deaths. Does some
     basic standardization of dataframe elements. Groups by given groupby_cols
     and aggregates. Returns sum of the aggregated df & overall_df.
 
     df: Pandas dataframe that contains a chunk of all of the raw data.
-    groupby_cols: List of columns we want to groupby / aggregate on.
+    geo_cols: List of geo columns we want to groupby / aggregate on.
     overall_df: Pandas dataframe to add our aggregated data to.
-    demographic_col: Name of the demographic column to standardize.
+    demog_col: Name of the demographic column to aggregate on & standardize.
     names_mapping: Mapping from demographic value to standardized form.
     """
     # Add a columns of all ones, for counting the # of cases / records.
@@ -131,13 +130,18 @@ def accumulate_data(df, groupby_cols, overall_df, demographic_col,
 
     df = df.drop(columns=['hosp_yn', 'death_yn'])
 
-    # Standardize the values in demographic_col using names_mapping.
-    df = df.replace({demographic_col: names_mapping})
+    # Standardize the values in demog_col using names_mapping.
+    df = df.replace({demog_col: names_mapping})
 
-    # Group by the desired columns and compute the sum/counts of
-    # cases/hospitalizations/deaths. Add this df to overall_df.
+    # Group by the geo and demographic columns and compute the sum/counts of
+    # cases/hospitalizations/deaths. Add total rows and add to overall_df.
+    groupby_cols = geo_cols + [demog_col]
     df = df.groupby(groupby_cols).sum().reset_index()
+    totals = df.groupby(geo_cols).sum().reset_index()
+    totals[demog_col] = std_col.Race.TOTAL.value
+    df = df.append(totals)
     df = df.set_index(groupby_cols)
+
     if not overall_df.empty:
         return overall_df.add(df, fill_value=0)
     return df
@@ -241,12 +245,11 @@ def main():
                 # Build the columns we will group by.
                 geo_cols = geo_col_mapping[geo]
                 demog_col, demog_names_mapping = demographic_col_mapping[demo]
-                groupby_cols = geo_cols + [demog_col]
 
                 # Slice the data and aggregate for the given dimension.
-                sliced_df = df[groupby_cols + OUTCOME_COLS]
+                sliced_df = df[geo_cols + [demog_col] + OUTCOME_COLS]
                 all_dfs[(geo, demo)] = accumulate_data(
-                    sliced_df, groupby_cols, all_dfs[(geo, demo)], demog_col,
+                    sliced_df, geo_cols, all_dfs[(geo, demo)], demog_col,
                     demog_names_mapping)
 
         end = time.time()

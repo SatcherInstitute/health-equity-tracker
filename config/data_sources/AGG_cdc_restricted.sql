@@ -4,8 +4,7 @@
 -- State-level joins with ACS population tables. First, we join with the public
 -- fips_codes_states dataset to convert from 2-letter state postal abbreviation
 -- to state fips & full name (eg AL -> 01 and "Alabama"). We then join with ACS
--- to get population for state x {race, sex, age} and compute a total row for
--- state x {race, sex, age}, returning the union of these last two tables.
+-- to get population for state x {race, sex, age}.
 
 -- State-level race.
 CREATE OR REPLACE TABLE cdc_restricted_data.by_race_state AS
@@ -29,42 +28,8 @@ WITH
       FROM cdc_restricted_race_state AS x
       LEFT JOIN `acs_population.by_race_state_std` AS y
           USING (state_fips, race_category_id)
-  ),
-  totals as (
-      SELECT
-        state_fips, state_name,
-        'TOTAL' as race_category_id,
-        SUM(cases) as cases,
-        SUM(hosp_y) as hosp_y,
-        SUM(hosp_n) as hosp_n,
-        SUM(hosp_unknown) as hosp_unknown,
-        SUM(death_y) as death_y,
-        SUM(death_n) as death_n,
-        SUM(death_unknown) as death_unknown,
-        'Total' as race,
-        CAST(NULL as BOOL) as race_includes_hispanic,
-        'Total' as race_and_ethnicity
-      FROM joined_with_acs
-      GROUP BY
-        state_fips,
-        state_name,
-        race_category_id,
-        race,
-        race_and_ethnicity,
-        race_includes_hispanic
-  ),
-  -- TODO do this properly. For more details, see
-  -- https://github.com/SatcherInstitute/health-equity-tracker/issues/604.
-  total_rows as (
-      SELECT x.*, y.population
-      FROM totals as x
-      LEFT JOIN `acs_population.by_race_state_std` AS y
-          ON x.state_fips = y.state_fips AND 
-             y.race_category_id = "TOTAL"
   )
 SELECT * FROM joined_with_acs
-UNION ALL
-SELECT * FROM total_rows
 ORDER BY state_fips, race_category_id
 ;
 
@@ -87,33 +52,8 @@ WITH
       FROM cdc_restricted_sex_state AS x
       LEFT JOIN `acs_population.by_sex_state` AS y
           USING (state_fips, sex)
-  ),
-  totals as (
-      SELECT
-        state_fips, state_name,
-        'Total' as sex,
-        SUM(cases) as cases,
-        SUM(hosp_y) as hosp_y,
-        SUM(hosp_n) as hosp_n,
-        SUM(hosp_unknown) as hosp_unknown,
-        SUM(death_y) as death_y,
-        SUM(death_n) as death_n,
-        SUM(death_unknown) as death_unknown,
-      FROM joined_with_acs
-      GROUP BY state_fips, state_name, sex
-  ),
-  -- TODO do this properly. For more details, see
-  -- https://github.com/SatcherInstitute/health-equity-tracker/issues/604.
-  total_rows as (
-      SELECT x.*, y.population
-      FROM totals as x
-      LEFT JOIN `acs_population.by_race_state_std` AS y
-          ON x.state_fips = y.state_fips AND 
-             y.race_category_id = "TOTAL"
   )
 SELECT * FROM joined_with_acs
-UNION ALL
-SELECT * FROM total_rows
 ORDER BY state_fips, sex
 ;
 
@@ -136,33 +76,8 @@ WITH
       FROM cdc_restricted_age_state AS x
       LEFT JOIN `acs_population.by_age_state` AS y
           USING (state_fips, age)
-  ),
-  totals as (
-      SELECT
-        state_fips, state_name,
-        'Total' as age,
-        SUM(cases) as cases,
-        SUM(hosp_y) as hosp_y,
-        SUM(hosp_n) as hosp_n,
-        SUM(hosp_unknown) as hosp_unknown,
-        SUM(death_y) as death_y,
-        SUM(death_n) as death_n,
-        SUM(death_unknown) as death_unknown,
-      FROM joined_with_acs
-      GROUP BY state_fips, state_name, age
-  ),
-  -- TODO do this properly. For more details, see
-  -- https://github.com/SatcherInstitute/health-equity-tracker/issues/604.
-  total_rows as (
-      SELECT x.*, y.population
-      FROM totals as x
-      LEFT JOIN `acs_population.by_race_state_std` AS y
-          ON x.state_fips = y.state_fips AND 
-             y.race_category_id = "TOTAL"
   )
 SELECT * FROM joined_with_acs
-UNION ALL
-SELECT * FROM total_rows
 ORDER BY state_fips, age
 ;
 
@@ -170,8 +85,7 @@ ORDER BY state_fips, age
 -- County-level joins with ACS population tables. We first do the same join
 -- with fips_codes_states as in the state case, but also join with
 -- fips_codes_all to get county names. We then join with ACS to get population
--- for county x {race, sex, age} and compute a total row for county x
--- {race, sex, age}, returning the union of these last two tables.
+-- for county x {race, sex, age}.
 -- Note that there are county/state pairs in the data which do not actually
 -- exist, so we have to filter these out by checking that the first two
 -- characters of the county fips code match the state fips code.
@@ -204,45 +118,8 @@ WITH
       LEFT JOIN `acs_population.by_race_county_std` AS y
           USING (county_fips, state_fips, race_category_id)
       WHERE SUBSTRING(x.county_fips, 0, 2) = x.state_fips
-  ),
-  totals as (
-      SELECT
-        county_fips, county_name, state_fips, state_name,
-        'TOTAL' as race_category_id,
-        SUM(cases) as cases,
-        SUM(hosp_y) as hosp_y,
-        SUM(hosp_n) as hosp_n,
-        SUM(hosp_unknown) as hosp_unknown,
-        SUM(death_y) as death_y,
-        SUM(death_n) as death_n,
-        SUM(death_unknown) as death_unknown,
-        'Total' as race,
-        CAST(NULL as BOOL) as race_includes_hispanic,
-        'Total' as race_and_ethnicity
-      FROM joined_with_acs
-      GROUP BY
-        county_fips,
-        county_name,
-        state_fips,
-        state_name,
-        race_category_id,
-        race,
-        race_and_ethnicity,
-        race_includes_hispanic
-  ),
-  -- TODO do this properly. For more details, see
-  -- https://github.com/SatcherInstitute/health-equity-tracker/issues/604.
-  total_rows as (
-      SELECT x.*, y.population
-      FROM totals as x
-      LEFT JOIN `acs_population.by_race_county_std` AS y
-          ON x.county_fips = y.county_fips AND
-             x.state_fips = y.state_fips AND
-             y.race_category_id = "TOTAL"
   )
 SELECT * FROM joined_with_acs
-UNION ALL
-SELECT * FROM total_rows
 ORDER BY county_fips, race_category_id
 ;
 
@@ -271,34 +148,8 @@ WITH
       LEFT JOIN `acs_population.by_sex_county` AS y
           USING (county_fips, state_fips, sex)
       WHERE SUBSTRING(x.county_fips, 0, 2) = x.state_fips
-  ),
-  totals as (
-      SELECT
-        county_fips, county_name, state_fips, state_name,
-        'Total' as sex,
-        SUM(cases) as cases,
-        SUM(hosp_y) as hosp_y,
-        SUM(hosp_n) as hosp_n,
-        SUM(hosp_unknown) as hosp_unknown,
-        SUM(death_y) as death_y,
-        SUM(death_n) as death_n,
-        SUM(death_unknown) as death_unknown,
-      FROM joined_with_acs
-      GROUP BY county_fips, county_name, state_fips, state_name, sex
-  ),
-  -- TODO do this properly. For more details, see
-  -- https://github.com/SatcherInstitute/health-equity-tracker/issues/604.
-  total_rows as (
-      SELECT x.*, y.population
-      FROM totals as x
-      LEFT JOIN `acs_population.by_race_county_std` AS y
-          ON x.county_fips = y.county_fips AND
-             x.state_fips = y.state_fips AND
-             y.race_category_id = "TOTAL"
   )
 SELECT * FROM joined_with_acs
-UNION ALL
-SELECT * FROM total_rows
 ORDER BY county_fips, sex
 ;
 
@@ -327,33 +178,7 @@ WITH
       LEFT JOIN `acs_population.by_age_county` AS y
           USING (county_fips, state_fips, age)
       WHERE SUBSTRING(x.county_fips, 0, 2) = x.state_fips
-  ),
-  totals as (
-      SELECT
-        county_fips, county_name, state_fips, state_name,
-        'Total' as age,
-        SUM(cases) as cases,
-        SUM(hosp_y) as hosp_y,
-        SUM(hosp_n) as hosp_n,
-        SUM(hosp_unknown) as hosp_unknown,
-        SUM(death_y) as death_y,
-        SUM(death_n) as death_n,
-        SUM(death_unknown) as death_unknown,
-      FROM joined_with_acs
-      GROUP BY county_fips, county_name, state_fips, state_name, age
-  ),
-  -- TODO do this properly. For more details, see
-  -- https://github.com/SatcherInstitute/health-equity-tracker/issues/604.
-  total_rows as (
-      SELECT x.*, y.population
-      FROM totals as x
-      LEFT JOIN `acs_population.by_race_county_std` AS y
-          ON x.county_fips = y.county_fips AND
-             x.state_fips = y.state_fips AND
-             y.race_category_id = "TOTAL"
   )
 SELECT * FROM joined_with_acs
-UNION ALL
-SELECT * FROM total_rows
 ORDER BY county_fips, age
 ;
