@@ -138,7 +138,7 @@ describe("AcsPovertyProvider", () => {
       Breakdowns.forFips(new Fips("37")),
       RACE,
       [NC_ASIAN_FINAL],
-      [NC_ASIAN_FINAL, NC_ALL_FINAL]
+      [NC_ALL_FINAL, NC_ASIAN_FINAL]
     );
   });
 
@@ -162,7 +162,7 @@ describe("AcsPovertyProvider", () => {
       Breakdowns.forFips(new Fips("37")),
       RACE,
       [NC_ASIAN_FINAL, NC_WHITE_FINAL],
-      [NC_ASIAN_FINAL, NC_WHITE_FINAL, NC_ALL_FINAL]
+      [NC_ALL_FINAL, NC_ASIAN_FINAL, NC_WHITE_FINAL]
     );
   });
 
@@ -185,7 +185,7 @@ describe("AcsPovertyProvider", () => {
       Breakdowns.forFips(new Fips("37")),
       SEX,
       [NC_FEMALE_FINAL, NC_MALE_FINAL],
-      [NC_FEMALE_FINAL, NC_MALE_FINAL, NC_ALL_FINAL]
+      [NC_ALL_FINAL, NC_FEMALE_FINAL, NC_MALE_FINAL]
     );
   });
 
@@ -211,7 +211,7 @@ describe("AcsPovertyProvider", () => {
     );
     const KC_WHITE_FINAL = finalCountyRow(KING_COUNTY, RACE, WHITE, 100, 50000);
     const KC_ALL_FINAL = finalCountyRow(KING_COUNTY, RACE, ALL, 300, 13636);
-    const MARIN_ROW_FINAL = finalCountyRow(MARIN, RACE, ASIAN_NH, 1, 100);
+    const MARIN_ASIAN_ROW_FINAL = finalCountyRow(MARIN, RACE, ASIAN_NH, 1, 100);
     const MARIN_ALL_ROW_FINAL = finalCountyRow(MARIN, RACE, ALL, 1, 100);
 
     await evaluatePovertyWithAll(
@@ -219,9 +219,9 @@ describe("AcsPovertyProvider", () => {
       rawData,
       Breakdowns.byCounty(),
       RACE,
-      [MARIN_ROW_FINAL, NC_ASIAN_FINAL, KC_WHITE_FINAL],
+      [MARIN_ASIAN_ROW_FINAL, NC_ASIAN_FINAL, KC_WHITE_FINAL],
       [
-        MARIN_ROW_FINAL,
+        MARIN_ASIAN_ROW_FINAL,
         MARIN_ALL_ROW_FINAL,
         NC_ASIAN_FINAL,
         KC_WHITE_FINAL,

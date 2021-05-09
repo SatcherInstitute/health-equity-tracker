@@ -13,7 +13,6 @@ import {
   NC,
   AL,
   USA,
-  CA,
   WA,
 } from "./TestUtils";
 import {
@@ -23,7 +22,6 @@ import {
   RACE,
   WHITE,
   HISPANIC,
-  TOTAL,
 } from "../utils/Constants";
 import AcsHealthInsuranceProvider from "./AcsHealthInsuranceProvider";
 
@@ -147,7 +145,7 @@ describe("AcsHealthInsuranceProvider", () => {
       Breakdowns.forFips(new Fips("37")),
       RACE,
       [NC_ASIAN_FINAL, NC_WHITE_FINAL],
-      [NC_ASIAN_FINAL, NC_WHITE_FINAL, NC_ALL_FINAL]
+      [NC_ALL_FINAL, NC_ASIAN_FINAL, NC_WHITE_FINAL]
     );
   });
 
@@ -171,7 +169,7 @@ describe("AcsHealthInsuranceProvider", () => {
       Breakdowns.forFips(new Fips(USA.code)),
       RACE,
       [NC_ASIAN_FINAL, NC_WHITE_FINAL],
-      [NC_ASIAN_FINAL, NC_WHITE_FINAL, NC_ALL_FINAL]
+      [NC_ALL_FINAL, NC_ASIAN_FINAL, NC_WHITE_FINAL]
     );
   });
 
@@ -232,7 +230,7 @@ describe("AcsHealthInsuranceProvider", () => {
       Breakdowns.forFips(new Fips("53")),
       RACE,
       [WA_HL, WA_WHITE],
-      [WA_HL, WA_WHITE, TOTAL_ROW]
+      [TOTAL_ROW, WA_HL, WA_WHITE]
     );
   });
 });
