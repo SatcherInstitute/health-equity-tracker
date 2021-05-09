@@ -1,11 +1,9 @@
 import { MapOfDatasetMetadata, Dataset } from "../utils/DatasetTypes";
-import { joinOnCols } from "../utils/datasetutils";
-import { DataFrame, IDataFrame } from "data-forge";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataFetcher, getDataManager, getLogger } from "../../utils/globals";
-import { maybeApplyRowReorder } from "../utils/datasetutils";
 import VariableProviderMap from "./VariableProviderMap";
 import LRU from "lru-cache";
+import { joinResponses } from "../query/queryutils";
 
 // TODO test this out on the real website and tweak these numbers as needed.
 
@@ -221,31 +219,9 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
 
     const queryResponses: MetricQueryResponse[] = await Promise.all(promises);
 
-    const potentialErrorResponse = queryResponses.find((metricQueryResponse) =>
-      metricQueryResponse.dataIsMissing()
-    );
-    if (potentialErrorResponse !== undefined) {
-      return potentialErrorResponse;
-    }
-
-    const dataframes: IDataFrame[] = queryResponses.map(
-      (response) => new DataFrame(response.data)
-    );
-
-    const joined = dataframes.reduce((prev, next) => {
-      return joinOnCols(prev, next, query.breakdowns.getJoinColumns(), "outer");
+    return queryResponses.reduce((prev, next) => {
+      return joinResponses(prev, next, query.breakdowns, "outer");
     });
-
-    const consumedDatasetIds = queryResponses.reduce(
-      (accumulator: string[], response: MetricQueryResponse) =>
-        accumulator.concat(response.consumedDatasetIds),
-      []
-    );
-    const uniqueConsumedDatasetIds = Array.from(new Set(consumedDatasetIds));
-    return new MetricQueryResponse(
-      maybeApplyRowReorder(joined.toArray(), query.breakdowns),
-      uniqueConsumedDatasetIds
-    );
   }
 
   getResourceId(query: MetricQuery): string {

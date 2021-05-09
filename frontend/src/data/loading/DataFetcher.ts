@@ -74,8 +74,18 @@ export class ApiDataFetcher implements DataFetcher {
 
   // TODO build in retries, timeout before showing error to user.
   async loadDataset(datasetId: string): Promise<Row[]> {
+    // TODO drop this once datasets are renamed on the backend.
+    let realDatasetId = datasetId;
+    if (
+      ["acs_population-by_race_state", "acs_population-by_race_state"].includes(
+        datasetId
+      )
+    ) {
+      realDatasetId = datasetId + "_std";
+    }
+
     // TODO handle server returning a dataset not found error.
-    let result = await this.fetchDataset(datasetId);
+    let result = await this.fetchDataset(realDatasetId);
 
     // TODO remove these once we figure out how to make BQ export integers as
     // integers

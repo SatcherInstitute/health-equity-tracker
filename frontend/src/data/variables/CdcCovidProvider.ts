@@ -2,7 +2,6 @@ import { DataFrame } from "data-forge";
 import { Breakdowns } from "../query/Breakdowns";
 import VariableProvider from "./VariableProvider";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
-import AcsPopulationProvider from "./AcsPopulationProvider";
 import {
   joinOnCols,
   per100k,
@@ -13,9 +12,9 @@ import { getDataManager } from "../../utils/globals";
 import { MetricId } from "../config/MetricConfig";
 
 class CdcCovidProvider extends VariableProvider {
-  private acsProvider: AcsPopulationProvider;
+  private acsProvider: VariableProvider;
 
-  constructor(acsProvider: AcsPopulationProvider) {
+  constructor(acsProvider: VariableProvider) {
     super("cdc_covid_provider", [
       "covid_cases",
       "covid_deaths",

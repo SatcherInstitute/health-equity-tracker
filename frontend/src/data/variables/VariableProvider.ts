@@ -7,13 +7,19 @@ import {
 import { MetricId } from "../config/MetricConfig";
 import { ProviderId } from "../loading/VariableProviderMap";
 import { DataFrame, IDataFrame } from "data-forge";
-import { Fips } from "../../data/utils/Fips";
+import { Fips, USA_DISPLAY_NAME, USA_FIPS } from "../../data/utils/Fips";
 import { ALL, TOTAL, UNKNOWN, UNKNOWN_RACE } from "../utils/Constants";
-import { applyToGroups, percent } from "../utils/datasetutils";
+import {
+  applyToGroups,
+  maybeApplyRowReorder,
+  percent,
+  sumSeries,
+} from "../utils/datasetutils";
+import { joinResponses } from "../query/queryutils";
 
 abstract class VariableProvider {
   readonly providerId: ProviderId;
-  readonly providesMetrics: MetricId[];
+  readonly providesMetrics: Readonly<MetricId[]>;
 
   constructor(providerId: ProviderId, providesMetrics: MetricId[]) {
     this.providerId = providerId;
@@ -209,6 +215,76 @@ abstract class VariableProvider {
     }
 
     return dataFrame;
+  }
+
+  /**
+   * Converts state-level data to national-level data by summing values across
+   * all columns except the demographic breakdown column.
+   *
+   * NOTE: This only supports one demographic breakdown, and only supports
+   * non-breakdown columns that can be summed. Do not use this on datasets that
+   * have non-summable columns like a percentage.
+   */
+  sumStateToNational(df: IDataFrame, breakdowns: Breakdowns): IDataFrame {
+    if (breakdowns.geography !== "national") {
+      return df;
+    }
+
+    const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
+      .columnName;
+    const allCols = df.getColumnNames();
+    const sumCols = allCols.filter(
+      (col) => !["fips", "fips_name", breakdownColumnName].includes(col)
+    );
+    const pivotOps = Object.fromEntries(sumCols.map((col) => [col, sumSeries]));
+    return df
+      .pivot([breakdownColumnName], {
+        fips: (series) => USA_FIPS,
+        fips_name: (series) => USA_DISPLAY_NAME,
+        ...pivotOps,
+      })
+      .resetIndex();
+  }
+
+  /**
+   * @param df The original DataFrame, used as the left side of the join.
+   * @param breakdowns The breakdowns used in the query being processed.
+   * @param consumedDatasetIds The dataset ids consumed to produce df so far.
+   * @param populationProvider The population provider to join with.
+   * @returns An array of length 2, the first element being the joined DataFrame
+   *     and the second being the new list of consumed dataset ids, including
+   *     both sides of the join.
+   */
+  async joinWithPopulation(
+    df: IDataFrame,
+    breakdowns: Breakdowns,
+    consumedDatasetIds: string[],
+    populationProvider: VariableProvider
+  ): Promise<[IDataFrame, string[]]> {
+    // Population does not support time
+    const populationBreakdowns = breakdowns.copy();
+    populationBreakdowns.time = false;
+
+    const populationResponse = await populationProvider.getData(
+      new MetricQuery(
+        [...populationProvider.providesMetrics],
+        populationBreakdowns
+      )
+    );
+
+    const tempResponse = new MetricQueryResponse(
+      maybeApplyRowReorder(df.toArray(), breakdowns),
+      consumedDatasetIds
+    );
+
+    const joined = joinResponses(
+      tempResponse,
+      populationResponse,
+      populationBreakdowns,
+      "left"
+    );
+
+    return [new DataFrame(joined.data), joined.consumedDatasetIds];
   }
 
   abstract getDataInternal(

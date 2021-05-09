@@ -1,4 +1,4 @@
-import { IDataFrame } from "data-forge";
+import { IDataFrame, ISeries } from "data-forge";
 import { Row } from "../utils/DatasetTypes";
 import { ALL, UNKNOWN, UNKNOWN_HL } from "../utils/Constants";
 import { Breakdowns } from "../query/Breakdowns";
@@ -206,6 +206,8 @@ function sortAlphabeticallyByField(rows: Row[], fieldName: string) {
   return finalRows;
 }
 
+// TODO: move this and other functions that require knowledge of how we process
+// the data (vs just general utilities) to data/query/queryutils.ts.
 export function maybeApplyRowReorder(rows: Row[], breakdowns: Breakdowns) {
   let finalRows: Row[] = Object.assign(rows, []);
   const reorderingColumn = breakdowns.getSoleDemographicBreakdown().columnName;
@@ -222,4 +224,8 @@ export function maybeApplyRowReorder(rows: Row[], breakdowns: Breakdowns) {
     );
   }
   return finalRows;
+}
+
+export function sumSeries(series: ISeries): number {
+  return series.where((val) => val != null && !isNaN(val)).sum();
 }

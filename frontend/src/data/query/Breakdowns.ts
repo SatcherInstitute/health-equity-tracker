@@ -30,6 +30,14 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
   fips: "FIPS Code",
 };
 
+const ORDERED_BREAKDOWNS: BreakdownVar[] = [
+  "sex",
+  "age",
+  "race_and_ethnicity",
+  "date",
+  "fips",
+];
+
 export const BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE: Record<
   BreakdownVar,
   string
@@ -267,18 +275,20 @@ export class Breakdowns {
     return this;
   }
 
-  getJoinColumns(): BreakdownVar[] {
-    const joinCols: BreakdownVar[] = ["fips"];
+  getOrderedBreakdowns(): BreakdownVar[] {
+    const activeBreakdowns: BreakdownVar[] = ["fips"];
     Object.entries(this.demographicBreakdowns).forEach(
       ([key, demographicBreakdown]) => {
         if (demographicBreakdown.enabled) {
-          joinCols.push(demographicBreakdown.columnName);
+          activeBreakdowns.push(demographicBreakdown.columnName);
         }
       }
     );
     if (this.time) {
-      joinCols.push("date");
+      activeBreakdowns.push("date");
     }
-    return joinCols.sort();
+    return ORDERED_BREAKDOWNS.filter((breakdown) =>
+      activeBreakdowns.includes(breakdown)
+    );
   }
 }

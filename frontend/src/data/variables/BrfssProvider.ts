@@ -7,16 +7,15 @@ import {
 } from "../utils/datasetutils";
 import { USA_FIPS } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
-import AcsPopulationProvider from "./AcsPopulationProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
 import { NON_HISPANIC } from "../utils/Constants";
 import { exclude } from "../query/BreakdownFilter";
 
 class BrfssProvider extends VariableProvider {
-  private acsProvider: AcsPopulationProvider;
+  private acsProvider: VariableProvider;
 
-  constructor(acsProvider: AcsPopulationProvider) {
+  constructor(acsProvider: VariableProvider) {
     super("brfss_provider", [
       "brfss_population_pct",
       "copd_pct",
