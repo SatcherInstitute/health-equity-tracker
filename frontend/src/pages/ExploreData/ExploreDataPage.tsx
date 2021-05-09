@@ -48,11 +48,11 @@ function ExploreDataPage() {
   });
 
   useEffect(() => {
-    let index = getParameter("mlp", 0, (str) => {
+    let index = getParameter(MADLIB_PHRASE_PARAM, 0, (str) => {
       return MADLIB_LIST.findIndex((ele) => ele.id === str);
     });
     let selection = getParameter(
-      "mls",
+      MADLIB_SELECTIONS_PARAM,
       MADLIB_LIST[index].defaultSelections,
       parseMls
     );

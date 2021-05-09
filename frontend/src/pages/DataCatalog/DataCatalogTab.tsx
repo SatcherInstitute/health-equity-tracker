@@ -17,9 +17,6 @@ function DataCatalogTab() {
   const datasets = params[DATA_SOURCE_PRE_FILTERS]
     ? params[DATA_SOURCE_PRE_FILTERS].split(",")
     : [];
-  useEffect(() => {
-    //TODO
-  }, []);
   return (
     <div className={styles.AboutUsPage}>
       <Tabs

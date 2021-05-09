@@ -88,9 +88,16 @@ export function linkToMadLib(
   return absolute ? window.location.host + url : url;
 }
 
-export function setParameter(paramName: string, paramValue: string) {
+export function setParameter(
+  paramName: string,
+  paramValue: string | null = null
+) {
   let searchParams = new URLSearchParams(window.location.search);
-  searchParams.set(paramName, paramValue);
+  if (paramValue) {
+    searchParams.set(paramName, paramValue);
+  } else {
+    searchParams.delete(paramName);
+  }
 
   let base =
     window.location.protocol +
@@ -105,6 +112,14 @@ const defaultHandler = <T extends unknown>(inp: string | null): T => {
   return (inp as unknown) as T;
 };
 
+export function removeParamAndReturnValue<T1>(
+  paramName: string,
+  defaultValue: T1
+) {
+  setParameter(paramName, null);
+  return defaultValue;
+}
+
 export function getParameter<T1>(
   paramName: string,
   defaultValue: T1,
@@ -117,7 +132,7 @@ export function getParameter<T1>(
       : defaultValue;
   } catch (err) {
     console.error(err);
-    return defaultValue;
+    return removeParamAndReturnValue(paramName, defaultValue);
   }
 }
 
@@ -144,3 +159,5 @@ export const stringifyMls = (selection: PhraseSelections): string => {
 
   return kvPair.join(partsSeperator);
 };
+
+export function removeParameter() {}

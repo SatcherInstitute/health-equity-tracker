@@ -1,5 +1,9 @@
 import { USA_FIPS, FIPS_MAP } from "../data/utils/Fips";
-import { setParameter, stringifyMls } from "./urlutils";
+import {
+  MADLIB_SELECTIONS_PARAM,
+  setParameter,
+  stringifyMls,
+} from "./urlutils";
 
 // Map of phrase segment index to its selected value
 export type PhraseSelections = Record<number, string>;
@@ -48,7 +52,7 @@ export function getMadLibWithUpdatedValue(
     ...originalMadLib.activeSelections,
   };
   updatePhraseSelections[phraseSegementIndex] = newValue;
-  setParameter("mls", stringifyMls(updatePhraseSelections));
+  setParameter(MADLIB_SELECTIONS_PARAM, stringifyMls(updatePhraseSelections));
   return {
     ...originalMadLib,
     activeSelections: updatePhraseSelections,
