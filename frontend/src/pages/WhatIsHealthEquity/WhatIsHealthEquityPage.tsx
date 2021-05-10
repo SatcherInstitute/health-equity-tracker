@@ -5,12 +5,11 @@ import styles from "./WhatIsHealthEquityPage.module.scss";
 import EquityTab from "./EquityTab";
 import FaqTab from "./FaqTab";
 import {
-  ReactRouterLinkButton,
   TAB_PARAM,
   useSearchParams,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "../../utils/urlutils";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export const WIHE_HEALTH_EQUITY_TAB_INDEX = 0;
 export const WIHE_FAQ_TAB_INDEX = 1;

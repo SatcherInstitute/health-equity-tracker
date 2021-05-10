@@ -9,10 +9,8 @@ import {
   TAB_PARAM,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   ReactRouterLinkButton,
-  useSearchParams,
 } from "../../utils/urlutils";
 import { WIHE_FAQ_TAB_INDEX } from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
-import { useParams } from "react-router-dom";
 
 function Question(props: {
   questionText: string;
