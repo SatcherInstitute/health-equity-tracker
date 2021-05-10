@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { PhraseSelections, MadLibId } from "./MadLibs";
+import Button from "@material-ui/core/Button";
+
 export const STICKY_VERSION_PARAM = "sv";
 
 export const EXPLORE_DATA_PAGE_LINK = "/exploredata";
@@ -41,6 +43,19 @@ export function LinkWithStickyParams(props: {
   linkProps.to = newUrl;
 
   return <Link {...linkProps}>{props.children}</Link>;
+}
+
+export function ReactRouterLinkButton(props: {
+  url: string;
+  className: string;
+  displayName?: string;
+  children?: React.ReactNode;
+}) {
+  return (
+    <Button to={props.url} component={Link} className={props.className}>
+      {props.displayName || props.children}
+    </Button>
+  );
 }
 
 export function useSearchParams() {

@@ -34,6 +34,7 @@ import {
   FEMALE,
   NON_HISPANIC,
   WHITE,
+  TOTAL,
 } from "../utils/Constants";
 import { onlyIncludeStandardRaces } from "../query/BreakdownFilter";
 
@@ -365,9 +366,12 @@ describe("AcsPopulationProvider", () => {
   test("Get all counties in state with age Breakdown", async () => {
     const rawData = [
       countyRow(MARIN, AGE, "10-19", 2),
+      countyRow(MARIN, AGE, TOTAL, 2),
       countyRow(CHATAM, AGE, "0-9", 2),
+      countyRow(CHATAM, AGE, TOTAL, 2),
       countyRow(DURHAM, AGE, "0-9", 5),
       countyRow(DURHAM, AGE, "10-19", 15),
+      countyRow(DURHAM, AGE, TOTAL, 20),
     ];
 
     const C_0_9_FINAL = finalPopulationCountAndPctRow(
@@ -414,8 +418,10 @@ describe("AcsPopulationProvider", () => {
   test("Get one county with age breakdown", async () => {
     const rawData = [
       countyRow(CHATAM, AGE, "0-9", 2),
+      countyRow(CHATAM, AGE, TOTAL, 2),
       countyRow(DURHAM, AGE, "0-9", 5),
       countyRow(DURHAM, AGE, "10-19", 15),
+      countyRow(DURHAM, AGE, TOTAL, 20),
     ];
 
     const D_0_9_FINAL = finalPopulationCountAndPctRow(
@@ -453,8 +459,10 @@ describe("AcsPopulationProvider", () => {
   test("State and Age Breakdown", async () => {
     const rawData = [
       stateRow(AL, AGE, "10-19", 2),
+      stateRow(AL, AGE, TOTAL, 2),
       stateRow(NC, AGE, "0-9", 15),
       stateRow(NC, AGE, "10-19", 10),
+      stateRow(NC, AGE, TOTAL, 25),
     ];
 
     const NC_AGE_0_9_FINAL = finalPopulationCountAndPctRow(
@@ -486,8 +494,10 @@ describe("AcsPopulationProvider", () => {
   test("National and Age Breakdown", async () => {
     const rawData = [
       stateRow(AL, AGE, "0-9", 15),
+      stateRow(AL, AGE, TOTAL, 15),
       stateRow(NC, AGE, "0-9", 15),
       stateRow(NC, AGE, "10-19", 10),
+      stateRow(NC, AGE, TOTAL, 25),
     ];
 
     const AGE_0_9_FINAL = finalPopulationCountAndPctRow(
@@ -519,8 +529,10 @@ describe("AcsPopulationProvider", () => {
   test("State and Gender Breakdown", async () => {
     const rawData = [
       stateRow(AL, SEX, MALE, 2),
+      stateRow(AL, SEX, TOTAL, 2),
       stateRow(NC, SEX, MALE, 15),
       stateRow(NC, SEX, FEMALE, 10),
+      stateRow(NC, SEX, TOTAL, 25),
     ];
 
     const NC_MALE_FINAL = finalPopulationCountAndPctRow(NC, SEX, MALE, 15, 60);
@@ -546,8 +558,10 @@ describe("AcsPopulationProvider", () => {
   test("National and Gender Breakdown", async () => {
     const rawData = [
       stateRow(AL, SEX, MALE, 15),
+      stateRow(AL, SEX, TOTAL, 15),
       stateRow(NC, SEX, MALE, 15),
       stateRow(NC, SEX, FEMALE, 10),
+      stateRow(NC, SEX, TOTAL, 25),
     ];
 
     const MALE_FINAL = finalPopulationCountAndPctRow(USA, SEX, MALE, 30, 75);
@@ -573,8 +587,10 @@ describe("AcsPopulationProvider", () => {
   test("Filters metrics to only those requested", async () => {
     const rawData = [
       stateRow(AL, SEX, MALE, 15),
+      stateRow(AL, SEX, TOTAL, 15),
       stateRow(NC, SEX, MALE, 15),
       stateRow(NC, SEX, FEMALE, 10),
+      stateRow(NC, SEX, TOTAL, 25),
     ];
 
     const MALE_FINAL = finalPopulationCountRow(USA, SEX, MALE, 30);
