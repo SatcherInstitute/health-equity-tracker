@@ -75,11 +75,15 @@ export function TableCard(props: TableCardProps) {
       }
     >
       {([queryResponse]) => {
-        const dataWithoutUnknowns = queryResponse.data.filter(
-          (row: Row) =>
-            row[props.breakdownVar] !== UNKNOWN &&
-            row[props.breakdownVar] !== UNKNOWN_RACE
-        );
+        const dataWithoutUnknowns = queryResponse
+          .getValidRowsForFields(
+            metricIds.filter((m) => m !== "brfss_population_pct")
+          )
+          .filter(
+            (row: Row) =>
+              row[props.breakdownVar] !== UNKNOWN &&
+              row[props.breakdownVar] !== UNKNOWN_RACE
+          );
 
         return (
           <>

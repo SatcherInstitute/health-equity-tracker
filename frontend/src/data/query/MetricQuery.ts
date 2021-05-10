@@ -86,6 +86,16 @@ export class MetricQueryResponse {
     );
   }
 
+  getValidRowsForFields(fieldNames: string[]) {
+    let data = this.data;
+    fieldNames.forEach((name) => {
+      data = this.data.filter(
+        (row: Row) => row[name] !== undefined && row[name] !== null
+      );
+    });
+    return data;
+  }
+
   getUniqueFieldValues(fieldName: string): string[] {
     if (this.isFieldMissing(fieldName)) {
       return [];
