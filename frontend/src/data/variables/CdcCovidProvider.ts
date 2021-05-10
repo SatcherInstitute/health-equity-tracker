@@ -3,11 +3,7 @@ import { Breakdowns } from "../query/Breakdowns";
 import VariableProvider from "./VariableProvider";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
-import {
-  joinOnCols,
-  per100k,
-  maybeApplyRowReorder,
-} from "../utils/datasetutils";
+import { joinOnCols, per100k } from "../utils/datasetutils";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
 import { MetricId } from "../config/MetricConfig";
@@ -228,10 +224,7 @@ class CdcCovidProvider extends VariableProvider {
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 
-    return new MetricQueryResponse(
-      maybeApplyRowReorder(df.toArray(), breakdowns),
-      consumedDatasetIds
-    );
+    return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {

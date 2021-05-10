@@ -10,6 +10,7 @@ import { DataFrame, IDataFrame } from "data-forge";
 import { Fips } from "../../data/utils/Fips";
 import { ALL, TOTAL, UNKNOWN, UNKNOWN_RACE } from "../utils/Constants";
 import { applyToGroups, percent } from "../utils/datasetutils";
+import { DatasetOrganizer } from "../sorting/DatasetOrganizer";
 
 abstract class VariableProvider {
   readonly providerId: ProviderId;
@@ -32,7 +33,10 @@ abstract class VariableProvider {
 
     // TODO - check that the metrics are all provided by this provider once we don't have providers relying on other providers
 
-    return await this.getDataInternal(metricQuery);
+    let resp = await this.getDataInternal(metricQuery);
+    let organizer = new DatasetOrganizer(resp.data, metricQuery.breakdowns);
+    organizer.organize();
+    return resp;
   }
 
   filterByGeo(df: IDataFrame, breakdowns: Breakdowns): IDataFrame {

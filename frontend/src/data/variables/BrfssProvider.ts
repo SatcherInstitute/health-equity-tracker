@@ -1,10 +1,6 @@
 import { DataFrame } from "data-forge";
 import { Breakdowns } from "../query/Breakdowns";
-import {
-  maybeApplyRowReorder,
-  joinOnCols,
-  estimateTotal,
-} from "../utils/datasetutils";
+import { joinOnCols, estimateTotal } from "../utils/datasetutils";
 import { USA_FIPS } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
@@ -115,10 +111,7 @@ class BrfssProvider extends VariableProvider {
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
-    return new MetricQueryResponse(
-      maybeApplyRowReorder(df.toArray(), breakdowns),
-      consumedDatasetIds
-    );
+    return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
