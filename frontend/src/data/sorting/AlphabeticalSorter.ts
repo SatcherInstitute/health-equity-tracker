@@ -7,10 +7,17 @@ export class AlphabeticalSorter extends AbstractDataSorter {
   frontValues: string[];
   backValues: string[];
 
-  constructor(reorderCol: string, frontValues: string[], backValues: string[]) {
+  constructor(
+    reorderCol: string,
+    frontValues: string[] = [],
+    backValues: string[] = []
+  ) {
     super();
     this.reorderCol = reorderCol;
-    this.frontValues = frontValues;
+    // We Reverse these becauase we want the human readable version of sorting.
+    // eg. [A, B, C] to work with the index calculation. so that A is first and B is
+    // second ... ect
+    this.frontValues = frontValues.reverse();
     this.backValues = backValues;
   }
 
