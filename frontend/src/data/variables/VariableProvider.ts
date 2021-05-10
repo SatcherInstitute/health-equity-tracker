@@ -1,4 +1,4 @@
-import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
+import { Breakdowns } from "../query/Breakdowns";
 import {
   MetricQueryResponse,
   createMissingDataResponse,
