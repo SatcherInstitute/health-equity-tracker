@@ -4,7 +4,6 @@ import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { ALL } from "../utils/Constants";
 
 function createNationalTotal(dataFrame: IDataFrame, breakdown: string) {
   return dataFrame
