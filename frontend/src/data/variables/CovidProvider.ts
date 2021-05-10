@@ -15,11 +15,12 @@ import { getDataManager } from "../../utils/globals";
 import { MetricId } from "../config/MetricConfig";
 
 class CovidProvider extends VariableProvider {
-  getDatasetId(breakdown: Breakdowns) {
+  getDatasetId(breakdown: Breakdowns): string {
     return breakdown.geography === "county"
       ? "covid_by_county_and_race"
       : "covid_by_state_and_race";
   }
+
   private acsProvider: AcsPopulationProvider;
 
   constructor(acsProvider: AcsPopulationProvider) {
@@ -48,7 +49,7 @@ class CovidProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
-    const datasetId = getDatasetId(breakdowns);
+    const datasetId = this.getDatasetId(breakdowns);
     const covid_dataset = await getDataManager().loadDataset(datasetId);
     // ALERT! KEEP IN SYNC! Make sure you update DataSourceMetadata if you update dataset IDs
     let consumedDatasetIds = [datasetId];
