@@ -57,12 +57,6 @@ class AcsPovertyProvider extends VariableProvider {
     df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);
 
-    // TODO: remove this code once the pipeline is run with the new race
-    // standardization changes.
-    if (!df.getColumnNames().includes("race_and_ethnicity")) {
-      df = df.renameSeries({ race: "race_and_ethnicity" });
-    }
-
     df = this.aggregateByBreakdown(df, breakdownCol);
     if (breakdowns.geography === "national") {
       df = df

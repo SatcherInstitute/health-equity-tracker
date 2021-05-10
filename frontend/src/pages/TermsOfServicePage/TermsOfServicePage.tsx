@@ -182,10 +182,7 @@ function TermsOfServicePage(props: {
 
         <Grid container className={styles.TosSection}>
           <Grid item xs={3}>
-            <Typography 
-                className={styles.TosHeaderText}
-                variant="h2"
-            >
+            <Typography className={styles.TosHeaderText} variant="h2">
               Terms and Conditions
             </Typography>
           </Grid>

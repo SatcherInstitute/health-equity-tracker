@@ -66,6 +66,7 @@ export type VariableConfig = {
   variableDisplayName: string;
   variableFullDisplayName: string;
   metrics: Record<string, MetricConfig>; // TODO - strongly type key
+  surveyCollectedData?: boolean;
 };
 
 export const POPULATION_VARIABLE_CONFIG: VariableConfig = {
@@ -152,7 +153,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           populationComparisonMetric: {
             metricId: "covid_cases_reporting_population_pct",
             fullCardTitleName: "Population Share",
-            shortVegaLabel: "% of Population",
+            shortVegaLabel: "% of population",
             type: "pct_share",
           },
           knownBreakdownComparisonMetric: {
@@ -196,7 +197,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           populationComparisonMetric: {
             metricId: "covid_deaths_reporting_population_pct",
             fullCardTitleName: "Population Share",
-            shortVegaLabel: "% of Population",
+            shortVegaLabel: "% of population",
             type: "pct_share",
           },
           knownBreakdownComparisonMetric: {
@@ -240,7 +241,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           populationComparisonMetric: {
             metricId: "covid_hosp_reporting_population_pct",
             fullCardTitleName: "Population Share",
-            shortVegaLabel: "% of Population",
+            shortVegaLabel: "% of population",
             type: "pct_share",
           },
           knownBreakdownComparisonMetric: {
@@ -265,10 +266,11 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "Diabetes Cases",
+      surveyCollectedData: true,
       metrics: {
         pct_share: {
           metricId: "diabetes_pct_share",
-          fullCardTitleName: "Share of Diabetes cases",
+          fullCardTitleName: "Share of total Diabetes cases",
           shortVegaLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
@@ -292,10 +294,11 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "COPD Cases",
+      surveyCollectedData: true,
       metrics: {
         pct_share: {
           metricId: "copd_pct_share",
-          fullCardTitleName: "Share of COPD cases",
+          fullCardTitleName: "Share of total COPD cases",
           shortVegaLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
