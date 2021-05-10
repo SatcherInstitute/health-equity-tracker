@@ -247,8 +247,7 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
       uniqueConsumedDatasetIds
     );
 
-    let datasetOrganizer = new DatasetOrganizer(resp.data, query.breakdowns);
-    datasetOrganizer.organize();
+    new DatasetOrganizer(resp.data, query.breakdowns).organize();
     return resp;
   }
 
