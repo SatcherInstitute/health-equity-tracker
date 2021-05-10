@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from "react";
-import Carousel from "react-material-ui-carousel";
 import { Grid } from "@material-ui/core";
-import {
-  MADLIB_LIST,
-  MadLib,
-  PhraseSegment,
-  getMadLibWithUpdatedValue,
-} from "../../utils/MadLibs";
+import React, { useEffect, useState } from "react";
+import Carousel from "react-material-ui-carousel";
 import { Fips } from "../../data/utils/Fips";
-import styles from "./ExploreDataPage.module.scss";
+import ReportProvider from "../../reports/ReportProvider";
+import {
+  getMadLibWithUpdatedValue,
+  MadLib,
+  MADLIB_LIST,
+  PhraseSegment,
+} from "../../utils/MadLibs";
 import {
   getParameter,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
   parseMls,
-  setParameter,
+  setParameters,
   stringifyMls,
   useSearchParams,
 } from "../../utils/urlutils";
-import ReportProvider from "../../reports/ReportProvider";
+import styles from "./ExploreDataPage.module.scss";
 import OptionsSelector from "./OptionsSelector";
 
 function ExploreDataPage() {
@@ -47,7 +47,7 @@ function ExploreDataPage() {
     activeSelections: defaultValuesWithOverrides,
   });
 
-  useEffect(() => {
+  let readParam = () => {
     let index = getParameter(MADLIB_PHRASE_PARAM, 0, (str) => {
       return MADLIB_LIST.findIndex((ele) => ele.id === str);
     });
@@ -61,6 +61,13 @@ function ExploreDataPage() {
       ...MADLIB_LIST[index],
       activeSelections: selection,
     });
+  };
+
+  useEffect(() => {
+    readParam();
+    window.onpopstate = () => {
+      readParam();
+    };
   }, []);
 
   const [sticking, setSticking] = useState<boolean>(false);
@@ -103,14 +110,13 @@ function ExploreDataPage() {
             navButtonsAlwaysVisible={true}
             index={initalIndex}
             onChange={(index: number) => {
-              setParameter("mlp", MADLIB_LIST[index].id);
               let newState = {
                 ...MADLIB_LIST[index],
                 activeSelections: {
                   ...MADLIB_LIST[index].defaultSelections,
                   ...{
                     1: getParameter(
-                      "mls",
+                      MADLIB_SELECTIONS_PARAM /*mls*/,
                       MADLIB_LIST[index].defaultSelections,
                       parseMls
                     )[1],
@@ -118,7 +124,13 @@ function ExploreDataPage() {
                 },
               };
               setMadLibState(newState);
-              setParameter("mls", stringifyMls(newState.activeSelections));
+              setParameters([
+                {
+                  name: MADLIB_SELECTIONS_PARAM,
+                  value: stringifyMls(newState.activeSelections),
+                },
+                { name: MADLIB_PHRASE_PARAM, value: MADLIB_LIST[index].id },
+              ]);
             }}
           >
             {MADLIB_LIST.map((madlib: MadLib, i) => (

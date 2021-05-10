@@ -1,7 +1,7 @@
+import Button from "@material-ui/core/Button";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { PhraseSelections, MadLibId } from "./MadLibs";
-import Button from "@material-ui/core/Button";
+import { MadLibId, PhraseSelections } from "./MadLibs";
 
 export const STICKY_VERSION_PARAM = "sv";
 
@@ -92,12 +92,24 @@ export function setParameter(
   paramName: string,
   paramValue: string | null = null
 ) {
+  setParameters([{ name: paramName, value: paramValue }]);
+}
+
+export type ParamKeyValue = { name: string; value: string | null };
+
+export function setParameters(paramMap: ParamKeyValue[]) {
   let searchParams = new URLSearchParams(window.location.search);
-  if (paramValue) {
-    searchParams.set(paramName, paramValue);
-  } else {
-    searchParams.delete(paramName);
-  }
+
+  paramMap.forEach((kv) => {
+    let paramName = kv.name;
+    let paramValue = kv.value;
+
+    if (paramValue) {
+      searchParams.set(paramName, paramValue);
+    } else {
+      searchParams.delete(paramName);
+    }
+  });
 
   let base =
     window.location.protocol +

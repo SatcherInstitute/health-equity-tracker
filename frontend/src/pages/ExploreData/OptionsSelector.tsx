@@ -23,12 +23,7 @@ function OptionsSelector(props: {
     props.options[0] && props.options[0] instanceof Fips ? true : false;
   let currentDisplayName;
   if (isFips) {
-    try {
-      currentDisplayName = new Fips(props.value).getFullDisplayName();
-    } catch (err) {
-      console.error(err);
-      props.onOptionUpdate("00");
-    }
+    currentDisplayName = new Fips(props.value).getFullDisplayName();
   } else {
     const chosenOption = (props.options as string[][]).find(
       (i: string[]) => i[0] === props.value

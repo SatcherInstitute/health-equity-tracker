@@ -76,17 +76,6 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           props.setMadLib(
             getMadLibWithUpdatedValue(props.madLib, 5, fips.code)
           );
-        let fips1: Fips;
-        let fips2: Fips;
-        try {
-          fips1 = new Fips(fipsCode);
-          fips2 = new Fips(fipsCode);
-        } catch (err) {
-          updateFips(new Fips("00"));
-          fips1 = new Fips("00");
-          fips2 = new Fips("00");
-        }
-
         return (
           <TwoVariableReport
             key={
@@ -94,8 +83,8 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             }
             dropdownVarId1={compareDisparityVariable1 as DropdownVarId}
             dropdownVarId2={compareDisparityVariable2 as DropdownVarId}
-            fips1={fips1}
-            fips2={fips2}
+            fips1={new Fips(fipsCode)}
+            fips2={new Fips(fipsCode)}
             updateFips1Callback={updateFips}
             updateFips2Callback={updateFips}
           />
@@ -157,14 +146,14 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           </a>
           . We cannot report accurate metrics for states that do not provide
           disaggregated data to the CDC, so these states appear as grey on the
-          maps reporting Covid cases, hospitalizations and deaths:
+          maps reporting Covid cases, hospitalizations and deaths: 
           <b>
             Louisiana, Mississippi, Missouri, New Hampshire, North Dakota,{" "}
             Texas, and Wyoming
           </b>
           . The following states' data are included, but their data should be
           interpreted with caution since the cases reported may not be
-          representative of the population at large:
+          representative of the population at large: 
           <b>
             Connecticut, Florida, Kentucky, Maryland, Michigan, Nebraska, New
             Mexico, Ohio, Rhode Island, West Virginia.
