@@ -3,11 +3,7 @@ import { Breakdowns } from "../query/Breakdowns";
 import VariableProvider from "./VariableProvider";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
-import {
-  joinOnCols,
-  per100k,
-  maybeApplyRowReorder,
-} from "../utils/datasetutils";
+import { joinOnCols, maybeApplyRowReorder } from "../utils/datasetutils";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
 import { MetricId } from "../config/MetricConfig";
@@ -122,15 +118,17 @@ class CdcCovidProvider extends VariableProvider {
 
     df = df
       .generateSeries({
-        covid_cases_per_100k: (row) => per100k(row.covid_cases, row.population),
+        covid_cases_per_100k: (row) =>
+          this.calculations.per100k(row.covid_cases, row.population),
         covid_deaths_per_100k: (row) =>
-          per100k(row.covid_deaths, row.population),
-        covid_hosp_per_100k: (row) => per100k(row.covid_hosp, row.population),
+          this.calculations.per100k(row.covid_deaths, row.population),
+        covid_hosp_per_100k: (row) =>
+          this.calculations.per100k(row.covid_hosp, row.population),
       })
       .resetIndex();
 
     ["covid_cases", "covid_deaths", "covid_hosp"].forEach((col) => {
-      df = this.calculatePctShare(
+      df = this.calculations.calculatePctShare(
         df,
         col,
         col + "_share",
@@ -152,7 +150,7 @@ class CdcCovidProvider extends VariableProvider {
         0,
         -"_share_of_known".length
       );
-      df = this.calculatePctShareOfKnown(
+      df = this.calculations.calculatePctShareOfKnown(
         df,
         rawCountColunn,
         shareOfUnknownColumnName,
