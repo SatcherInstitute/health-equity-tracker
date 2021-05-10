@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import FaqSection from "../ui/FaqSection";
-import {WIHE_JOIN_THE_EFFORT_SECTION_ID} from './WhatIsHealthEquityPage';
+import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "./WhatIsHealthEquityPage";
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -46,7 +46,7 @@ function JoinTheEffortContainer(props: {
   );
 }
 
-function EquityTab() {
+function EquityTab(props: { toFaq: any }) {
   return (
     <div className={styles.WhatIsHealthEquityPage}>
       <Grid container className={styles.Grid}>
@@ -414,13 +414,18 @@ function EquityTab() {
             justify="center"
           >
             <Grid sm={12} md={10}>
-              <FaqSection />
+              <FaqSection
+                toFaq={() => {
+                  props.toFaq();
+                }}
+              />
             </Grid>
           </Grid>
           <Grid
-              item
-              className={styles.JoinTheEffortHeaderRow}
-              id={WIHE_JOIN_THE_EFFORT_SECTION_ID}>
+            item
+            className={styles.JoinTheEffortHeaderRow}
+            id={WIHE_JOIN_THE_EFFORT_SECTION_ID}
+          >
             <Typography className={styles.JoinTheEffortHeaderText} variant="h2">
               How do I join the movement?
             </Typography>

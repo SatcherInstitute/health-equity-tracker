@@ -9,8 +9,10 @@ import {
   TAB_PARAM,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   ReactRouterLinkButton,
+  useSearchParams,
 } from "../../utils/urlutils";
 import { WIHE_FAQ_TAB_INDEX } from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
+import { useParams } from "react-router-dom";
 
 function Question(props: {
   questionText: string;
@@ -36,7 +38,7 @@ function Question(props: {
   );
 }
 
-function FaqSection() {
+function FaqSection(props: { toFaq: any }) {
   return (
     <Grid container className={styles.FaqRow}>
       <Grid item xs={12}>
@@ -182,11 +184,17 @@ function FaqSection() {
         />
       </Grid>
       <Grid item>
-        <ReactRouterLinkButton
-          url={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_FAQ_TAB_INDEX}`}
-          className={styles.FaqLink}
-          displayName="See our full FAQ page"
-        />
+        <div
+          onClick={() => {
+            props.toFaq();
+          }}
+        >
+          <ReactRouterLinkButton
+            url={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_FAQ_TAB_INDEX}`}
+            className={styles.FaqLink}
+            displayName="See our full FAQ page"
+          />
+        </div>
       </Grid>
     </Grid>
   );
