@@ -76,7 +76,7 @@ function OptionsSelector(props: {
               disableClearable={true}
               options={props.options as Fips[]}
               clearOnEscape={true}
-              freeSolo={true}
+              // freeSolo={true}
               getOptionLabel={(fips) => fips.getFullDisplayName()}
               getOptionSelected={(fips) => fips.code === props.value}
               renderOption={(fips) => <>{fips.getFullDisplayName()}</>}
