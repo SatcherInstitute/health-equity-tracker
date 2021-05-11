@@ -45,14 +45,14 @@ const LEADERSHIP_TEAM = [
     imageUrl: "img/DouglasMegan.png",
   },
   {
+    name: "JC Gonzalez",
+    role: "Product Manager",
+    imageUrl: "img/GonzalezJC.png",
+  },
+  {
     name: "Josh Zarrabi",
     role: "Software Engineer",
     imageUrl: "img/ZarrabiJosh.png",
-  },
-  {
-    name: "JC Gonzales",
-    role: "Software Engineer",
-    imageUrl: "img/GonzalesJC.png",
   },
 ];
 
