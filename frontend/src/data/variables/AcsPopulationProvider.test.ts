@@ -21,6 +21,7 @@ import {
   NON_HISPANIC,
   RACE,
   SEX,
+  TOTAL,
   WHITE,
   WHITE_NH,
 } from "../utils/Constants";
@@ -36,20 +37,6 @@ import {
   NC,
   USA,
 } from "./TestUtils";
-import {
-  WHITE_NH,
-  ASIAN_NH,
-  ALL,
-  RACE,
-  AGE,
-  SEX,
-  MALE,
-  FEMALE,
-  NON_HISPANIC,
-  WHITE,
-  TOTAL,
-} from "../utils/Constants";
-import { onlyIncludeStandardRaces } from "../query/BreakdownFilter";
 
 function countyRow(
   fips: FipsSpec,
