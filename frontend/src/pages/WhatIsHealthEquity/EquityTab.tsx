@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import FaqSection from "../ui/FaqSection";
+import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "./WhatIsHealthEquityPage";
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -46,7 +47,6 @@ function JoinTheEffortContainer(props: {
 }
 
 function EquityTab() {
-
   return (
     <div className={styles.WhatIsHealthEquityPage}>
       <Grid container className={styles.Grid}>
@@ -86,15 +86,16 @@ function EquityTab() {
             <Typography className={styles.HeaderSubtext} variant="body1">
               <p>
                 <b>Health Equity</b> exists when all people, regardless of race,
-                gender, sexual orientation, disability, socio-economic status, 
-                geographic location, or other societal constructs have fair and just 
-                access, opportunity, and resources to achieve their highest potential 
-                for health (Health Equity Leadership & Exchange Network)
+                gender, sexual orientation, disability, socio-economic status,
+                geographic location, or other societal constructs have fair and
+                just access, opportunity, and resources to achieve their highest
+                potential for health (Health Equity Leadership & Exchange
+                Network)
               </p>
               <p>
                 Unfortunately, social and political determinants of health
-                negatively affect many communities, their people,
-                and their ability to lead healthy lives.
+                negatively affect many communities, their people, and their
+                ability to lead healthy lives.
               </p>
               <br />
             </Typography>
@@ -137,7 +138,7 @@ function EquityTab() {
                 className={styles.DefinitionsItem}
               >
                 <Typography className={styles.DefinitionHeader} variant="h2">
-                  Social determinant of health
+                  Social determinants of health
                 </Typography>
                 <p className={styles.DefinitionPronunciation}>
                   /ˈsōSHəl dəˈtərmənənt əv helTH/
@@ -416,8 +417,12 @@ function EquityTab() {
               <FaqSection />
             </Grid>
           </Grid>
-          <Grid item className={styles.JoinTheEffortHeaderRow}>
-            <Typography className={styles.JoinTheEffortHeaderText} variant="h1">
+          <Grid
+            item
+            className={styles.JoinTheEffortHeaderRow}
+            id={WIHE_JOIN_THE_EFFORT_SECTION_ID}
+          >
+            <Typography className={styles.JoinTheEffortHeaderText} variant="h2">
               How do I join the movement?
             </Typography>
             <span className={styles.JoinTheEffortSubheaderText}>
@@ -428,7 +433,7 @@ function EquityTab() {
             <br />
             <br />
           </Grid>
-          
+
           <JoinTheEffortContainer
             imageUrl="img/HET_Overlapping_Lines_v4_1000px.gif"
             imageBackground="#A5CDC0"
@@ -437,17 +442,23 @@ function EquityTab() {
             content={
               <>
                 <p className={styles.JoinTheEffortStepText}>
-                  Apply to our Political Determininants of Health Learning Laboratory Fellowship. 
-                  We seek to partner and support diverse groups in building equitable and 
-                  sustainable pathways for healthy communities.
+                  Apply to our Political Determininants of Health Learning
+                  Laboratory Fellowship. We seek to partner and support diverse
+                  groups in building equitable and sustainable pathways for
+                  healthy communities.
                 </p>
-                <a className={styles.ContactUsLink} href="https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/">
-                  Learn More
-                </a>
+                <p>
+                  <Button
+                    className={styles.ContactUsLink}
+                    href="https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/"
+                  >
+                    Learn More
+                  </Button>
+                </p>
               </>
             }
           />
-          
+
           <JoinTheEffortContainer
             imageUrl="img/HET_Fields_1_v2_1000px.gif"
             imageBackground="#EDB2A6"
@@ -456,19 +467,23 @@ function EquityTab() {
             content={
               <>
                 <p className={styles.JoinTheEffortStepText}>
-                  Are you a community leader interested in expanding transportation 
-                  access to vaccine sites within your community? Complete our inquiry form 
-                  to receive information on our vaccine rideshare efforts and opportunities.
+                  Are you a community leader interested in expanding
+                  transportation access to vaccine sites within your community?
+                  Complete our inquiry form to receive information on our
+                  vaccine rideshare efforts and opportunities.
                 </p>
                 <p>
-                   <a className={styles.ContactUsLink} href="http://satcherinstitute.org">
-                  LINK DESTINATION TBD
-                </a>
+                  <Button
+                    className={styles.ContactUsLink}
+                    href="http://satcherinstitute.org"
+                  >
+                    LINK DESTINATION TBD
+                  </Button>
                 </p>
               </>
             }
           />
-          
+
           <JoinTheEffortContainer
             imageUrl="img/HET_Dots_1_v3_1000px.gif"
             imageBackground="#275141"
