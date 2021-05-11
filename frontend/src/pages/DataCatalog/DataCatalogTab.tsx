@@ -1,13 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import DatasetExplorer from "./dataset_explorer/DatasetExplorer";
 import MethodologyTab from "./MethodologyTab";
-import {
-  clearSearchParams,
-  DATA_SOURCE_PRE_FILTERS,
-  useSearchParams,
-} from "../../utils/urlutils";
+import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from "../../utils/urlutils";
 import styles from "../AboutUs/AboutUsPage.module.scss";
 
 function DataCatalogTab() {
@@ -21,9 +17,6 @@ function DataCatalogTab() {
   const datasets = params[DATA_SOURCE_PRE_FILTERS]
     ? params[DATA_SOURCE_PRE_FILTERS].split(",")
     : [];
-  useEffect(() => {
-    clearSearchParams([DATA_SOURCE_PRE_FILTERS]);
-  }, []);
   return (
     <div className={styles.AboutUsPage}>
       <Tabs

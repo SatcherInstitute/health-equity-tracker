@@ -1,45 +1,45 @@
-import React, { useState, useEffect } from "react";
+import AppBar from "@material-ui/core/AppBar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Drawer from "@material-ui/core/Drawer";
+import IconButton from "@material-ui/core/IconButton";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import MenuIcon from "@material-ui/icons/Menu";
+import { ThemeProvider } from "@material-ui/styles";
+import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useLocation,
+} from "react-router-dom";
+import ReactTooltip from "react-tooltip";
 import styles from "./App.module.scss";
-import MaterialTheme from "./styles/MaterialTheme";
+import Footer from "./Footer";
 import { AboutUsPage } from "./pages/AboutUs/AboutUsPage";
 import DataCatalogTab from "./pages/DataCatalog/DataCatalogTab";
 import ExploreDataPage from "./pages/ExploreData/ExploreDataPage";
 import LandingPage from "./pages/Landing/LandingPage";
-import { WhatIsHealthEquityPage } from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
-import NotFoundPage from "./pages/NotFoundPage";
-import Footer from "./Footer";
-import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
-import Toolbar from "@material-ui/core/Toolbar";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Typography from "@material-ui/core/Typography";
-import { ThemeProvider } from "@material-ui/styles";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useLocation,
-} from "react-router-dom";
-import {
-  LinkWithStickyParams,
-  EXPLORE_DATA_PAGE_LINK,
-  DATA_CATALOG_PAGE_LINK,
-  ABOUT_US_PAGE_LINK,
-  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-  TERMS_OF_SERVICE_PAGE_LINK,
-  ReactRouterLinkButton,
-} from "./utils/urlutils";
-import { autoInitGlobals, getEnvironment } from "./utils/globals";
-import ReactTooltip from "react-tooltip";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import PreLaunchSiteContent from "./pages/Landing/PreLaunchSiteContent";
+import NotFoundPage from "./pages/NotFoundPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage/TermsOfServicePage";
+import { WhatIsHealthEquityPage } from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
+import MaterialTheme from "./styles/MaterialTheme";
+import { autoInitGlobals, getEnvironment } from "./utils/globals";
+import {
+  ABOUT_US_PAGE_LINK,
+  DATA_CATALOG_PAGE_LINK,
+  EXPLORE_DATA_PAGE_LINK,
+  LinkWithStickyParams,
+  ReactRouterLinkButton,
+  TERMS_OF_SERVICE_PAGE_LINK,
+  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+} from "./utils/urlutils";
 
 const MOBILE_BREAKPOINT = 600;
 
