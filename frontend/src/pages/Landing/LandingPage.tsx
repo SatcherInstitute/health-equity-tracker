@@ -17,7 +17,6 @@ import {
   WIHE_JOIN_THE_EFFORT_SECTION_ID,
 } from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
 
-
 function TakeALookAroundItem(props: {
   src: string;
   alt: string;
@@ -396,10 +395,11 @@ function LandingPage() {
                 </Grid>
                 <Grid item>
                   <Button
-                      variant="contained"
-                      color="primary"
-                      className={styles.JoinOurMovementButton}
-                      href={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_HEALTH_EQUITY_TAB_INDEX}#${WIHE_JOIN_THE_EFFORT_SECTION_ID}`}>
+                    variant="contained"
+                    color="primary"
+                    className={styles.JoinOurMovementButton}
+                    href={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_HEALTH_EQUITY_TAB_INDEX}#${WIHE_JOIN_THE_EFFORT_SECTION_ID}`}
+                  >
                     Click here
                   </Button>
                 </Grid>
