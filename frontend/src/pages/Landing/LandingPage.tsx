@@ -66,13 +66,20 @@ function LandingPage() {
                   className={styles.HeaderText}
                   variant="h2"
                 >
-                  Advancing Health Equity
+                  Advancing
+                  <br/>
+                  Health
+                  <br/>
+                  Equity
                 </Typography>
-                <br />
               </Hidden>
               <Hidden smUp>
                 <Typography className={styles.HeaderTextMobile}>
-                  Advancing Health Equity
+                  Advancing
+                  <br/>
+                  Health
+                  <br/>
+                  Equity
                 </Typography>
               </Hidden>
               <Typography className={styles.HeaderSubtext} variant="body1">
