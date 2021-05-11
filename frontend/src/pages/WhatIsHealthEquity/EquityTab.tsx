@@ -138,7 +138,7 @@ function EquityTab() {
                 className={styles.DefinitionsItem}
               >
                 <Typography className={styles.DefinitionHeader} variant="h2">
-                  Social determinant of health
+                  Social determinants of health
                 </Typography>
                 <p className={styles.DefinitionPronunciation}>
                   /ˈsōSHəl dəˈtərmənənt əv helTH/
