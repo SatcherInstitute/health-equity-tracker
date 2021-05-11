@@ -52,7 +52,7 @@ export function ReactRouterLinkButton(props: {
   children?: React.ReactNode;
 }) {
   return (
-    <Button to={props.url} component={Link} className={props.className}>
+    <Button href={props.url} className={props.className}>
       {props.displayName || props.children}
     </Button>
   );
