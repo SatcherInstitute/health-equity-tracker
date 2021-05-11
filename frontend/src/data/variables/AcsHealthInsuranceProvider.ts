@@ -1,11 +1,11 @@
-import { Breakdowns } from "../query/Breakdowns";
-import { maybeApplyRowReorder, per100k } from "../utils/datasetutils";
-import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
-import VariableProvider from "./VariableProvider";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { getDataManager } from "../../utils/globals";
-import { ALL, WHITE_NH, HISPANIC } from "../utils/Constants";
 import { ISeries } from "data-forge";
+import { getDataManager } from "../../utils/globals";
+import { Breakdowns } from "../query/Breakdowns";
+import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { ALL, HISPANIC, WHITE_NH } from "../utils/Constants";
+import { per100k } from "../utils/datasetutils";
+import { USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
+import VariableProvider from "./VariableProvider";
 
 class AcsHealthInsuranceProvider extends VariableProvider {
   constructor() {
@@ -138,10 +138,7 @@ class AcsHealthInsuranceProvider extends VariableProvider {
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 
-    return new MetricQueryResponse(
-      maybeApplyRowReorder(df.toArray(), breakdowns),
-      [datasetId]
-    );
+    return new MetricQueryResponse(df.toArray(), [datasetId]);
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
