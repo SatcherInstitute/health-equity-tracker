@@ -1,5 +1,5 @@
 import { Breakdowns } from "../query/Breakdowns";
-import { per100k } from "../utils/datasetutils";
+import { maybeApplyRowReorder, per100k } from "../utils/datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
@@ -138,7 +138,10 @@ class AcsHealthInsuranceProvider extends VariableProvider {
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 
-    return new MetricQueryResponse(df.toArray(), [datasetId]);
+    return new MetricQueryResponse(
+      maybeApplyRowReorder(df.toArray(), breakdowns),
+      [datasetId]
+    );
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
