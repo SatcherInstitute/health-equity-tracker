@@ -45,14 +45,14 @@ const LEADERSHIP_TEAM = [
     imageUrl: "img/DouglasMegan.png",
   },
   {
-    name: "Fengxia Yan, MD, MS",
-    role: "Biostatician",
-    imageUrl: "img/YanFengxia.png",
+    name: "JC Gonzalez",
+    role: "Product Manager",
+    imageUrl: "img/GonzalezJC.png",
   },
   {
-    name: "Peter Baltrus, PhD",
-    role: "Data Analyst",
-    imageUrl: "img/BaltrusPeter.png",
+    name: "Josh Zarrabi",
+    role: "Software Engineer",
+    imageUrl: "img/ZarrabiJosh.png",
   },
 ];
 
