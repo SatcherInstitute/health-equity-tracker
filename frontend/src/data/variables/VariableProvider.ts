@@ -1,16 +1,16 @@
-import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
-import {
-  MetricQueryResponse,
-  createMissingDataResponse,
-  MetricQuery,
-} from "../query/MetricQuery";
-import { MetricId } from "../config/MetricConfig";
-import { ProviderId } from "../loading/VariableProviderMap";
 import { DataFrame, IDataFrame } from "data-forge";
 import { Fips } from "../../data/utils/Fips";
+import { MetricId } from "../config/MetricConfig";
+import { ProviderId } from "../loading/VariableProviderMap";
+import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
+import {
+  createMissingDataResponse,
+  MetricQuery,
+  MetricQueryResponse,
+} from "../query/MetricQuery";
+import { DatasetOrganizer } from "../sorting/DatasetOrganizer";
 import { ALL, TOTAL, UNKNOWN, UNKNOWN_RACE } from "../utils/Constants";
 import { applyToGroups, percent } from "../utils/datasetutils";
-import { DatasetOrganizer } from "../sorting/DatasetOrganizer";
 
 abstract class VariableProvider {
   readonly providerId: ProviderId;
@@ -34,8 +34,7 @@ abstract class VariableProvider {
     // TODO - check that the metrics are all provided by this provider once we don't have providers relying on other providers
 
     let resp = await this.getDataInternal(metricQuery);
-    let organizer = new DatasetOrganizer(resp.data, metricQuery.breakdowns);
-    organizer.organize();
+    new DatasetOrganizer(resp.data, metricQuery.breakdowns).organize();
     return resp;
   }
 
