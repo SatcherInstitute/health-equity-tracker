@@ -100,6 +100,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       direction: "horizontal",
       orient: "bottom-left",
       title: props.legendTitle,
+      titleLimit: 0,
       font: "monospace",
       labelFont: "monospace",
       offset: 10,
