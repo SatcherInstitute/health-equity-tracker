@@ -1,7 +1,7 @@
 import { IDataFrame } from "data-forge";
-import { Row } from "../utils/DatasetTypes";
-import { ALL, UNKNOWN, UNKNOWN_HL } from "../utils/Constants";
 import { Breakdowns } from "../query/Breakdowns";
+import { ALL, UNKNOWN, UNKNOWN_HL } from "../utils/Constants";
+import { Row } from "../utils/DatasetTypes";
 
 /**
  * Reshapes the data frame by creating a new column for each value in
@@ -229,6 +229,11 @@ export function maybeApplyRowReorder(rows: Row[], breakdowns: Breakdowns) {
   return finalRows;
 }
 
+/*
+  Sorts age with All in front
+  Sorts age by age min parse numerically.
+  Sorts age with unbounded at end.
+*/
 export const sortAgeParsedNumerically = (l: any, r: any) => {
   let lAge = l["age"];
   let rAge = r["age"]; //Rage hehe
@@ -245,6 +250,6 @@ export const sortAgeParsedNumerically = (l: any, r: any) => {
   else if (rightUnbounded) return -1;
 
   let lMin = lAge.split("-")[0];
-  let rMin = rAge.split("-")[1];
+  let rMin = rAge.split("-")[0];
   return Number(lMin) - Number(rMin);
 };
