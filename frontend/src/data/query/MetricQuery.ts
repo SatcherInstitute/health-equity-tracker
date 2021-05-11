@@ -89,9 +89,7 @@ export class MetricQueryResponse {
   getValidRowsForFields(fieldNames: string[]) {
     let data = this.data;
     fieldNames.forEach((name) => {
-      data = data.filter(
-        (row: Row) => row[name] !== undefined && row[name] !== null
-      );
+      data = this.getValidRowsForField(name);
     });
     return data;
   }

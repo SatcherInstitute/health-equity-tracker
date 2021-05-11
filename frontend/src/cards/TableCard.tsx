@@ -65,6 +65,9 @@ export function TableCard(props: TableCardProps) {
     .map((config) => config.metricId)
     .some((metricId) => metricId.includes("covid"));
 
+  //TODO figure out a better way to figure this out
+  const populationComparisonMetric = "brfss_population_pct";
+
   return (
     <CardWrapper
       queries={[query]}
@@ -77,7 +80,7 @@ export function TableCard(props: TableCardProps) {
       {([queryResponse]) => {
         const dataWithoutUnknowns = queryResponse
           .getValidRowsForFields(
-            metricIds.filter((m) => m !== "brfss_population_pct")
+            metricIds.filter((m) => m !== populationComparisonMetric)
           )
           .filter(
             (row: Row) =>
