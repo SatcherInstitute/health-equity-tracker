@@ -99,14 +99,14 @@ class AcsPovertyProvider extends VariableProvider {
 
     df = df.generateSeries({
       poverty_per_100k: (row) =>
-        per100k(row[BELOW_POVERTY_COL], row["total_pop"]),
+        this.calculations.per100k(row[BELOW_POVERTY_COL], row["total_pop"]),
     });
 
     df = df.renameSeries({
       below_poverty_line: "poverty_count",
     });
 
-    df = this.calculatePctShare(
+    df = this.calculations.calculatePctShare(
       df,
       "poverty_count",
       "poverty_pct_share",
@@ -114,7 +114,7 @@ class AcsPovertyProvider extends VariableProvider {
       ["fips"]
     );
 
-    df = this.calculatePctShare(
+    df = this.calculations.calculatePctShare(
       df,
       "total_pop",
       "poverty_population_pct",

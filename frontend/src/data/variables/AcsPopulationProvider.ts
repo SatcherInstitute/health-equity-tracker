@@ -58,7 +58,7 @@ class AcsPopulationProvider extends VariableProvider {
 
     df = this.renameTotalToAll(df, breakdownColumnName);
 
-    df = this.calculatePctShare(
+    df = this.calculations.calculatePctShare(
       df,
       "population",
       "population_pct",
