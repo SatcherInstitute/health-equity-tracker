@@ -1,5 +1,4 @@
 import { DataFrame, IDataFrame } from "data-forge";
-import { Breakdowns } from "../query/Breakdowns";
 import { DatasetCalculator } from "./DatasetCalculator";
 
 describe("Dataset Calculator", () => {
@@ -77,6 +76,40 @@ describe("Dataset Calculator", () => {
         race_and_ethnicity: "All",
         population: 2,
         pct_share: 100,
+        fips: "00",
+      },
+    ]);
+  });
+
+  test("Testing calculatePctShareOfKnown", async () => {
+    let data = [
+      { race_and_ethnicity: "a", population: 1, fips: "00" },
+      { race_and_ethnicity: "Unknown", population: 1, fips: "00" },
+      { race_and_ethnicity: "All", population: 2, fips: "00" },
+    ];
+    let df: IDataFrame = new DataFrame(data);
+    df = calc.calculatePctShareOfKnown(
+      df,
+      "population",
+      "share_unk",
+      "race_and_ethnicity"
+    );
+    expect(df.toArray()).toEqual([
+      {
+        race_and_ethnicity: "a",
+        population: 1,
+        share_unk: 100,
+        fips: "00",
+      },
+      {
+        race_and_ethnicity: "All",
+        population: 2,
+        share_unk: 100,
+        fips: "00",
+      },
+      {
+        race_and_ethnicity: "Unknown",
+        population: 1,
         fips: "00",
       },
     ]);
