@@ -227,3 +227,27 @@ export const sortAgeParsedNumerically = (l: any, r: any) => {
   let rMin = rAge.split("-")[0];
   return Number(lMin) - Number(rMin);
 };
+
+export const getLowestN = (
+  data: Row[],
+  fieldName: string,
+  listSize: number
+): Row[] => {
+  return data
+    .sort((rowA: Row, rowB: Row) =>
+      rowA[fieldName] > rowB[fieldName] ? 1 : -1
+    )
+    .slice(0, listSize);
+};
+
+export const getHighestN = (
+  data: Row[],
+  fieldName: string,
+  listSize: number
+): Row[] => {
+  return data
+    .sort((rowA: Row, rowB: Row) =>
+      rowA[fieldName] <= rowB[fieldName] ? 1 : -1
+    )
+    .slice(0, listSize);
+};
