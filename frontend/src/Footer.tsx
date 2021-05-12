@@ -61,7 +61,7 @@ function Footer() {
             <Hidden smDown>
               <Grid item sm={12}>
                 <span className={styles.CopyrightSpanLargerWindow}>
-                  Copyright 2020
+                  Copyright 2021
                 </span>
               </Grid>
             </Hidden>
@@ -80,7 +80,7 @@ function Footer() {
           <Hidden mdUp>
             <Grid item>
               <span className={styles.CopyrightSpanSmallerWindow}>
-                Copyright 2020
+                Copyright 2021
               </span>
             </Grid>
           </Hidden>
