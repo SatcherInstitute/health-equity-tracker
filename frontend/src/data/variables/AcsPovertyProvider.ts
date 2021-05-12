@@ -9,7 +9,6 @@ import {
   HISPANIC,
   WHITE_NH,
 } from "../utils/Constants";
-import { per100k } from "../utils/datasetutils";
 import { USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 

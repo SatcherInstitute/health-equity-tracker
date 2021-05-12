@@ -1,16 +1,16 @@
-import { DataFrame, IDataFrame } from "data-forge";
+import { IDataFrame } from "data-forge";
 import { Fips } from "../../data/utils/Fips";
 import { MetricId } from "../config/MetricConfig";
 import { ProviderId } from "../loading/VariableProviderMap";
-import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
+import { Breakdowns } from "../query/Breakdowns";
 import {
   createMissingDataResponse,
   MetricQuery,
   MetricQueryResponse,
 } from "../query/MetricQuery";
 import { DatasetOrganizer } from "../sorting/DatasetOrganizer";
-import { ALL, TOTAL, UNKNOWN, UNKNOWN_RACE } from "../utils/Constants";
-import { applyToGroups, percent } from "../utils/datasetutils";
+import { ALL, TOTAL } from "../utils/Constants";
+import { DatasetCalculator } from "../utils/DatasetCalculator";
 
 abstract class VariableProvider {
   readonly providerId: ProviderId;

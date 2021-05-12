@@ -3,7 +3,6 @@ import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { ALL, HISPANIC, WHITE_NH } from "../utils/Constants";
-import { per100k } from "../utils/datasetutils";
 import { USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 
