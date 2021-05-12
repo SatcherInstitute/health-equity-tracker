@@ -355,9 +355,8 @@ function MapCardWithKey(props: MapCardProps) {
                   scaleType="quantile"
                 />
                 {!queryResponse.dataIsMissing() &&
-                  dataForActiveBreakdownFilter.length > 1 && {
-                    HighestAndLowestRatesList,
-                  }}
+                  dataForActiveBreakdownFilter.length > 1 &&
+                  HighestAndLowestRatesList}
               </CardContent>
             )}
           </>
