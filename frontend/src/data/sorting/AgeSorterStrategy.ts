@@ -40,8 +40,8 @@ export class AgeSorterStrategy extends AbstractSortStrategy {
       return diff;
     }
 
-    let leftUnbounded = lAge.includes("+") !== -1;
-    let rightUnbounded = rAge.includes("+") !== -1;
+    let leftUnbounded = lAge.includes("+");
+    let rightUnbounded = rAge.includes("+");
 
     if (leftUnbounded && rightUnbounded) {
       return 0;
@@ -52,7 +52,7 @@ export class AgeSorterStrategy extends AbstractSortStrategy {
     }
 
     let lMin = lAge.split("-")[0];
-    let rMin = rAge.split("-")[1];
+    let rMin = rAge.split("-")[0];
     return Number(lMin) - Number(rMin);
   };
 }

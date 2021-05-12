@@ -10,7 +10,6 @@ export class DatasetOrganizer {
   breakdowns: Breakdowns;
   data: Row[] | string[];
   sortStrategies: AbstractSortStrategy[];
-  shortCircuitFirstSort: boolean;
 
   /*
     data : Data to be sorted (in place)
@@ -23,8 +22,7 @@ export class DatasetOrganizer {
     data: Row[] | string[],
     breakdowns: Breakdowns,
     valuesToFront = [ALL],
-    valuesToBack = [UNKNOWN, UNKNOWN_HL],
-    shortCircuitFirstSort = true
+    valuesToBack = [UNKNOWN, UNKNOWN_HL]
   ) {
     this.breakdowns = breakdowns;
     this.data = data;
@@ -37,16 +35,13 @@ export class DatasetOrganizer {
       ),
       new AgeSorterStrategy(valuesToFront, valuesToBack),
     ];
-    this.shortCircuitFirstSort = shortCircuitFirstSort;
   }
 
   organize() {
     this.sortStrategies.forEach((strategy) => {
       if (strategy.appliesToBreakdowns(this.breakdowns)) {
         this.data.sort(strategy.compareFn);
-        if (this.shortCircuitFirstSort) {
-          return;
-        }
+        return;
       }
     });
   }
