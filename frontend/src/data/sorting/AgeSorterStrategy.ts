@@ -43,9 +43,13 @@ export class AgeSorterStrategy extends AbstractSortStrategy {
     let leftUnbounded = lAge.includes("+") !== -1;
     let rightUnbounded = rAge.includes("+") !== -1;
 
-    if (leftUnbounded && rightUnbounded) return 0;
-    else if (leftUnbounded) return 1;
-    else if (rightUnbounded) return -1;
+    if (leftUnbounded && rightUnbounded) {
+      return 0;
+    } else if (leftUnbounded) {
+      return 1;
+    } else if (rightUnbounded) {
+      return -1;
+    }
 
     let lMin = lAge.split("-")[0];
     let rMin = rAge.split("-")[1];
