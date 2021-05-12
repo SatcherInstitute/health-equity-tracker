@@ -27,8 +27,12 @@ export function WithLoadingOrErrorUI<R>(props: {
   if (props.resources === "error") {
     return (
       <div data-testid="WithLoadingOrErrorUI-error">
-        <p>Oops, something went wrong.</p>
-        <Button onClick={() => window.location.reload()}>reload</Button>
+        <p>
+          <b>Oops, something went wrong.</b>
+        </p>
+        <Button onClick={() => window.location.reload()}>
+          <b>Reload</b>
+        </Button>
       </div>
     );
   }
