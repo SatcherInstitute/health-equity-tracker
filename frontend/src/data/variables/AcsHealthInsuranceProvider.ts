@@ -1,11 +1,11 @@
-import { Breakdowns } from "../query/Breakdowns";
-import { maybeApplyRowReorder, per100k } from "../utils/datasetutils";
-import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
-import VariableProvider from "./VariableProvider";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { getDataManager } from "../../utils/globals";
-import { ALL, WHITE_NH, HISPANIC } from "../utils/Constants";
 import { ISeries } from "data-forge";
+import { getDataManager } from "../../utils/globals";
+import { Breakdowns } from "../query/Breakdowns";
+import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { ALL, HISPANIC, WHITE_NH } from "../utils/Constants";
+import { maybeApplyRowReorder } from "../utils/datasetutils";
+import { USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
+import VariableProvider from "./VariableProvider";
 
 class AcsHealthInsuranceProvider extends VariableProvider {
   constructor() {
@@ -111,7 +111,10 @@ class AcsHealthInsuranceProvider extends VariableProvider {
 
     df = df.generateSeries({
       health_insurance_per_100k: (row) =>
-        per100k(row.without_health_insurance, row.total_health_insurance),
+        this.calculations.per100k(
+          row.without_health_insurance,
+          row.total_health_insurance
+        ),
     });
 
     df = df.renameSeries({
@@ -119,7 +122,7 @@ class AcsHealthInsuranceProvider extends VariableProvider {
       without_health_insurance: "health_insurance_count",
     });
 
-    df = this.calculatePctShare(
+    df = this.calculations.calculatePctShare(
       df,
       "health_insurance_count",
       "health_insurance_pct_share",
@@ -127,7 +130,7 @@ class AcsHealthInsuranceProvider extends VariableProvider {
       ["fips"]
     );
 
-    df = this.calculatePctShare(
+    df = this.calculations.calculatePctShare(
       df,
       "total",
       "health_insurance_population_pct",

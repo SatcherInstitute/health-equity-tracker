@@ -104,17 +104,17 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "uhc_age",
-    name: "COPD and Diabetes prevelence by age and state",
+    name: "COPD and Diabetes prevalence by age and state",
     update_time: "2019",
   },
   {
     id: "uhc_race_and_ethnicity",
-    name: "COPD and Diabetes prevelence by race and state",
+    name: "COPD and Diabetes prevalence by race and state",
     update_time: "2019",
   },
   {
     id: "uhc_sex",
-    name: "COPD and Diabetes prevelence by sex and state",
+    name: "COPD and Diabetes prevalence by sex and state",
     update_time: "2019",
   },
 ];

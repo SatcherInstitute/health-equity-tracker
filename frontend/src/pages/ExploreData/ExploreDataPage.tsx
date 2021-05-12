@@ -1,5 +1,5 @@
-import { Grid } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
+import { Grid } from "@material-ui/core";
 import Carousel from "react-material-ui-carousel";
 import { Fips } from "../../data/utils/Fips";
 import ReportProvider from "../../reports/ReportProvider";
@@ -13,6 +13,7 @@ import {
   getParameter,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
+  SHOW_ONBOARDING_PARAM,
   parseMls,
   setParameters,
   stringifyMls,
@@ -20,10 +21,18 @@ import {
 } from "../../utils/urlutils";
 import styles from "./ExploreDataPage.module.scss";
 import OptionsSelector from "./OptionsSelector";
+import { Onboarding } from "./Onboarding";
+// TODO(kristak): Add cookies back
+// import { useCookies } from "react-cookie";
+import { STATUS } from "react-joyride";
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+
+const EXPLORE_DATA_ID = "main";
 
 function ExploreDataPage() {
   const params = useSearchParams();
 
+  // Set up inital mad lib values based on defaults and query params
   const foundIndex = MADLIB_LIST.findIndex(
     (madlib) => madlib.id === params[MADLIB_PHRASE_PARAM]
   );
@@ -42,7 +51,7 @@ function ExploreDataPage() {
     });
   }
 
-  const [madLib, setMadLibState] = useState<MadLib>({
+  const [madLib, setMadLib] = useState<MadLib>({
     ...MADLIB_LIST[initalIndex],
     activeSelections: defaultValuesWithOverrides,
   });
@@ -57,7 +66,7 @@ function ExploreDataPage() {
       parseMls
     );
 
-    setMadLibState({
+    setMadLib({
       ...MADLIB_LIST[index],
       activeSelections: selection,
     });
@@ -70,11 +79,34 @@ function ExploreDataPage() {
     };
   }, []);
 
+  // Set up warm welcome onboarding behaviors
+  // TODO(kristak): Add cookies back
+  // const [cookies, setCookie] = useCookies(["name"]);
+  // let showOnboarding = cookies.skipOnboarding !== "true";
+  let showOnboarding = false;
+  if (params[SHOW_ONBOARDING_PARAM] === "true") {
+    showOnboarding = true;
+  }
+  if (params[SHOW_ONBOARDING_PARAM] === "false") {
+    showOnboarding = false;
+  }
+  const [activelyOnboarding, setActivelyOnboarding] = useState<boolean>(
+    showOnboarding
+  );
+  const onboardingCallback = (data: any) => {
+    if ([STATUS.FINISHED, STATUS.SKIPPED].includes(data.status)) {
+      setActivelyOnboarding(false);
+      // TODO(kristak): Add cookies back
+      // setCookie("skipOnboarding", true, { path: "/" });
+    }
+  };
+
+  // Set up sticky madlib behavior
   const [sticking, setSticking] = useState<boolean>(false);
-
-  const EXPLORE_DATA_ID = "main";
-
   useEffect(() => {
+    if (activelyOnboarding) {
+      return;
+    }
     const header = document.getElementById(EXPLORE_DATA_ID);
     const stickyBarOffsetFromTop: number = header ? header.offsetTop : 1;
     const scrollCallBack: any = window.addEventListener("scroll", () => {
@@ -93,16 +125,24 @@ function ExploreDataPage() {
     return () => {
       window.removeEventListener("scroll", scrollCallBack);
     };
-  }, []);
+  }, [activelyOnboarding]);
 
   return (
     <>
+      <Onboarding
+        callback={onboardingCallback}
+        activelyOnboarding={activelyOnboarding}
+      />
       <title>Explore the Data - Health Equity Tracker</title>
       <h1 className={styles.ScreenreaderTitleHeader}>Explore the Data</h1>
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
-        <div className={styles.CarouselContainer}>
+        <div
+          className={styles.CarouselContainer}
+          id="onboarding-start-your-search"
+        >
           <Carousel
             className={styles.Carousel}
+            NextIcon={<NavigateNextIcon id="onboarding-madlib-arrow" />}
             timeout={200}
             autoPlay={false}
             indicators={!sticking}
@@ -123,7 +163,7 @@ function ExploreDataPage() {
                   },
                 },
               };
-              setMadLibState(newState);
+              setMadLib(newState);
               setParameters([
                 {
                   name: MADLIB_SELECTIONS_PARAM,
@@ -134,16 +174,12 @@ function ExploreDataPage() {
             }}
           >
             {MADLIB_LIST.map((madlib: MadLib, i) => (
-              <CarouselMadLib
-                madLib={madLib}
-                setMadLib={setMadLibState}
-                key={i}
-              />
+              <CarouselMadLib madLib={madLib} setMadLib={setMadLib} key={i} />
             ))}
           </Carousel>
         </div>
         <div className={styles.ReportContainer}>
-          <ReportProvider madLib={madLib} setMadLib={setMadLibState} />
+          <ReportProvider madLib={madLib} setMadLib={setMadLib} />
         </div>
       </div>
     </>

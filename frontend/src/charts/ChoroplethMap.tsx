@@ -9,7 +9,7 @@ type NumberFormat = "raw" | "percentage";
 export type ScaleType = "quantize" | "quantile";
 
 const UNKNOWN_GREY = "#BDC1C6";
-const DARK_RED = "#A93038";
+const RED_ORANGE = "#ED573F";
 const DARK_BLUE = "#255792";
 const HEIGHT_WIDTH_RATIO = 0.5;
 
@@ -202,7 +202,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             update: {
               fill: { value: UNKNOWN_GREY },
             },
-            hover: { fill: { value: DARK_RED } },
+            hover: { fill: { value: RED_ORANGE } },
           },
           transform: [{ type: "geoshape", projection: US_PROJECTION }],
         },
