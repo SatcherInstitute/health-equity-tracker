@@ -40,8 +40,8 @@ export class AgeSorterStrategy extends AbstractSortStrategy {
       return diff;
     }
 
-    let leftUnbounded = lAge.indexOf("+") !== -1;
-    let rightUnbounded = rAge.indexOf("+") !== -1;
+    let leftUnbounded = lAge.includes("+") !== -1;
+    let rightUnbounded = rAge.includes("+") !== -1;
 
     if (leftUnbounded && rightUnbounded) return 0;
     else if (leftUnbounded) return 1;
