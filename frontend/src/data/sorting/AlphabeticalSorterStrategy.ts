@@ -1,8 +1,8 @@
 import { Breakdowns } from "../query/Breakdowns";
 import { Row } from "../utils/DatasetTypes";
-import { AbstractDataSorter } from "./AbstractDataSorter";
+import { AbstractSortStrategy } from "./AbstractDataSorter";
 
-export class AlphabeticalSorter extends AbstractDataSorter {
+export class AlphabeticalSorterStrategy extends AbstractSortStrategy {
   reorderCol: string;
   frontValues: string[];
   backValues: string[];
@@ -21,13 +21,13 @@ export class AlphabeticalSorter extends AbstractDataSorter {
     this.backValues = backValues;
   }
 
-  checkShouldSort = (b: Breakdowns) => {
-    return !!b.hasOneRegionOfGeographicGranularity();
+  appliesToBreakdowns = (b: Breakdowns) => {
+    return b.hasOneRegionOfGeographicGranularity();
   };
 
-  sort = (l: Row, r: Row) => {
-    let l_val = l[this.reorderCol];
-    let r_val = r[this.reorderCol];
+  compareFn = (l: Row | string, r: Row | string) => {
+    let l_val = typeof l === "string" ? l : l[this.reorderCol];
+    let r_val = typeof r === "string" ? r : r[this.reorderCol];
 
     let front_left = this.frontValues.indexOf(l_val);
     let front_right = this.frontValues.indexOf(r_val);
@@ -47,6 +47,6 @@ export class AlphabeticalSorter extends AbstractDataSorter {
       return diff;
     }
 
-    return l[this.reorderCol].localeCompare(r[this.reorderCol]);
+    return l_val.localeCompare(r_val);
   };
 }

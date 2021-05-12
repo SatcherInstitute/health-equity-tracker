@@ -1,38 +1,53 @@
 import { Breakdowns } from "../query/Breakdowns";
 import { ALL, UNKNOWN, UNKNOWN_HL } from "../utils/Constants";
 import { Row } from "../utils/DatasetTypes";
-import { AbstractDataSorter } from "./AbstractDataSorter";
-import { AgeSorter } from "./AgeSorter";
-import { AlphabeticalSorter } from "./AlphabeticalSorter";
+import { AbstractSortStrategy } from "./AbstractDataSorter";
+import { AgeSorterStrategy } from "./AgeSorterStrategy";
+import { AlphabeticalSorterStrategy } from "./AlphabeticalSorterStrategy";
 
 export class DatasetOrganizer {
   reorderingColumn: string;
   breakdowns: Breakdowns;
-  rows: Row[];
-  sorters: AbstractDataSorter[];
+  data: Row[] | string[];
+  sortStrategies: AbstractSortStrategy[];
+  shortCircuitFirstSort: boolean;
 
+  /*
+    data : Data to be sorted (in place)
+    breakdowns : current breakdown config
+    valuesToFront: values to bring to the front in left to right being the frontmost
+    valuesToBack: values to bring to the back in left to right being the frontmost
+    shortCircuitFirstSort: stop sorting on first strategy that applies.
+  */
   constructor(
-    rows: Row[],
+    data: Row[] | string[],
     breakdowns: Breakdowns,
     valuesToFront = [ALL],
-    valuesToBack = [UNKNOWN, UNKNOWN_HL]
+    valuesToBack = [UNKNOWN, UNKNOWN_HL],
+    shortCircuitFirstSort = true
   ) {
     this.breakdowns = breakdowns;
-    this.rows = rows;
+    this.data = data;
     this.reorderingColumn = breakdowns.getSoleDemographicBreakdown().columnName;
-    this.sorters = [
-      new AlphabeticalSorter(
+    this.sortStrategies = [
+      new AlphabeticalSorterStrategy(
         this.reorderingColumn,
         valuesToFront,
         valuesToBack
       ),
-      new AgeSorter(),
+      new AgeSorterStrategy(valuesToFront, valuesToBack),
     ];
+    this.shortCircuitFirstSort = shortCircuitFirstSort;
   }
 
   organize() {
-    this.sorters.forEach((sorter) => {
-      sorter.checkApply(this.rows, this.breakdowns);
+    this.sortStrategies.forEach((strategy) => {
+      if (strategy.appliesToBreakdowns(this.breakdowns)) {
+        this.data.sort(strategy.compareFn);
+        if (this.shortCircuitFirstSort) {
+          return;
+        }
+      }
     });
   }
 }

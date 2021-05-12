@@ -1,5 +1,5 @@
 import { Breakdowns } from "../query/Breakdowns";
-import { AgeSorter } from "./AgeSorter";
+import { AgeSorterStrategy } from "./AgeSorterStrategy";
 
 describe("dataset utils test", () => {
   const ALL = { age: "All" };
@@ -13,43 +13,43 @@ describe("dataset utils test", () => {
 
   test("empty arr", async () => {
     let data: any = [];
-    new AgeSorter().checkApply(data, breakdown);
+    new AgeSorterStrategy(["All"]);
     expect(data).toStrictEqual([]);
   });
 
   test("single ell all", async () => {
     let data: any = [ALL];
-    new AgeSorter().checkApply(data, breakdown);
+    data.sort(new AgeSorterStrategy(["All"]).compareFn);
     expect(data).toStrictEqual([ALL]);
   });
 
   test("single single sort sorted", async () => {
     let data: any = [ALL, A0_4];
-    new AgeSorter().checkApply(data, breakdown);
+    data.sort(new AgeSorterStrategy(["All"]).compareFn);
     expect(data).toStrictEqual([ALL, A0_4]);
   });
 
   test("single single sort reversed", async () => {
     let data: any = [A0_4, ALL];
-    new AgeSorter().checkApply(data, breakdown);
+    data.sort(new AgeSorterStrategy(["All"]).compareFn);
     expect(data).toStrictEqual([ALL, A0_4]);
   });
 
   test("testing single sort unbounded sorted", async () => {
     let data: any = [A0_4, A20P];
-    new AgeSorter().checkApply(data, breakdown);
+    data.sort(new AgeSorterStrategy(["All"]).compareFn);
     expect(data).toStrictEqual([A0_4, A20P]);
   });
 
   test("testing single sort unbounded reversed", async () => {
     let data: any = [A20P, A0_4];
-    new AgeSorter().checkApply(data, breakdown);
+    data.sort(new AgeSorterStrategy(["All"]).compareFn);
     expect(data).toStrictEqual([A0_4, A20P]);
   });
 
   test("testing real life usecase", async () => {
     let data: any = [A11_20, A20P, A0_4, A5_9, ALL];
-    new AgeSorter().checkApply(data, breakdown);
+    data.sort(new AgeSorterStrategy(["All"]).compareFn);
     expect(data).toStrictEqual([ALL, A0_4, A5_9, A11_20, A20P]);
   });
 });
