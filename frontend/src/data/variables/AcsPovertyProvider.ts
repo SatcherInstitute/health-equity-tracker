@@ -1,17 +1,17 @@
-import { Breakdowns } from "../query/Breakdowns";
-import { maybeApplyRowReorder, per100k } from "../utils/datasetutils";
-import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
-import VariableProvider from "./VariableProvider";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { getDataManager } from "../../utils/globals";
-import {
-  ALL,
-  ABOVE_POVERTY_COL,
-  BELOW_POVERTY_COL,
-  WHITE_NH,
-  HISPANIC,
-} from "../utils/Constants";
 import { IDataFrame, ISeries } from "data-forge";
+import { getDataManager } from "../../utils/globals";
+import { Breakdowns } from "../query/Breakdowns";
+import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import {
+  ABOVE_POVERTY_COL,
+  ALL,
+  BELOW_POVERTY_COL,
+  HISPANIC,
+  WHITE_NH,
+} from "../utils/Constants";
+import { maybeApplyRowReorder } from "../utils/datasetutils";
+import { USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
+import VariableProvider from "./VariableProvider";
 
 class AcsPovertyProvider extends VariableProvider {
   constructor() {
