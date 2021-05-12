@@ -1,5 +1,5 @@
 import { Breakdowns } from "../query/Breakdowns";
-import { per100k } from "../utils/datasetutils";
+import { maybeApplyRowReorder, per100k } from "../utils/datasetutils";
 import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
@@ -56,12 +56,6 @@ class AcsPovertyProvider extends VariableProvider {
     // We apply the geo filter right away to reduce subsequent calculation times
     df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);
-
-    // TODO: remove this code once the pipeline is run with the new race
-    // standardization changes.
-    if (!df.getColumnNames().includes("race_and_ethnicity")) {
-      df = df.renameSeries({ race: "race_and_ethnicity" });
-    }
 
     df = this.aggregateByBreakdown(df, breakdownCol);
     if (breakdowns.geography === "national") {
@@ -131,7 +125,10 @@ class AcsPovertyProvider extends VariableProvider {
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 
-    return new MetricQueryResponse(df.toArray(), [datasetId]);
+    return new MetricQueryResponse(
+      maybeApplyRowReorder(df.toArray(), breakdowns),
+      [datasetId]
+    );
   }
 
   aggregateByBreakdown(df: IDataFrame, breakdownCol: string) {

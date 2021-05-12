@@ -6,21 +6,19 @@ import { STATUS } from "react-joyride";
 import { Grid } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import {
-  MADLIB_LIST,
-  MadLib,
-  PhraseSegment,
   getMadLibWithUpdatedValue,
+  MadLib,
+  MADLIB_LIST,
+  PhraseSegment,
 } from "../../utils/MadLibs";
-import { Fips } from "../../data/utils/Fips";
-import styles from "./ExploreDataPage.module.scss";
 import {
-  clearSearchParams,
+  getParameter,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
   SHOW_ONBOARDING_PARAM,
   useSearchParams,
 } from "../../utils/urlutils";
-import ReportProvider from "../../reports/ReportProvider";
+import styles from "./ExploreDataPage.module.scss";
 import OptionsSelector from "./OptionsSelector";
 import { Onboarding } from "./Onboarding";
 
@@ -28,11 +26,6 @@ const EXPLORE_DATA_ID = "main";
 
 function ExploreDataPage() {
   const params = useSearchParams();
-  useEffect(() => {
-    // TODO - it would be nice to have the params stay and update when selections are made
-    // Until then, it's best to just clear them so they can't become mismatched
-    clearSearchParams([MADLIB_PHRASE_PARAM, MADLIB_SELECTIONS_PARAM]);
-  }, []);
 
   // Set up inital mad lib values based on defaults and query params
   const foundIndex = MADLIB_LIST.findIndex(
@@ -128,19 +121,40 @@ function ExploreDataPage() {
             navButtonsAlwaysVisible={true}
             index={initalIndex}
             onChange={(index: number) => {
-              setMadLib({
+              let newState = {
                 ...MADLIB_LIST[index],
-                activeSelections: MADLIB_LIST[index].defaultSelections,
-              });
+                activeSelections: {
+                  ...MADLIB_LIST[index].defaultSelections,
+                  ...{
+                    1: getParameter(
+                      MADLIB_SELECTIONS_PARAM /*mls*/,
+                      MADLIB_LIST[index].defaultSelections,
+                      parseMls
+                    )[1],
+                  },
+                },
+              };
+              setMadLibState(newState);
+              setParameters([
+                {
+                  name: MADLIB_SELECTIONS_PARAM,
+                  value: stringifyMls(newState.activeSelections),
+                },
+                { name: MADLIB_PHRASE_PARAM, value: MADLIB_LIST[index].id },
+              ]);
             }}
           >
             {MADLIB_LIST.map((madlib: MadLib, i) => (
-              <CarouselMadLib madLib={madLib} setMadLib={setMadLib} key={i} />
+              <CarouselMadLib
+                madLib={madLib}
+                setMadLib={setMadLibState}
+                key={i}
+              />
             ))}
           </Carousel>
         </div>
         <div className={styles.ReportContainer}>
-          <ReportProvider madLib={madLib} setMadLib={setMadLib} />
+          <ReportProvider madLib={madLib} setMadLib={setMadLibState} />
         </div>
       </div>
     </>
