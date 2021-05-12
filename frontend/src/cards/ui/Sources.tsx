@@ -44,6 +44,11 @@ export function Sources(props: {
   queryResponses: MetricQueryResponse[];
   metadata: MapOfDatasetMetadata;
 }) {
+  // If all data is missing, no need to show sources.
+  if (props.queryResponses.every((resp) => resp.dataIsMissing())) {
+    return <></>;
+  }
+
   const datasetIds = props.queryResponses.reduce(
     (accumulator: string[], response) =>
       accumulator.concat(response.consumedDatasetIds),

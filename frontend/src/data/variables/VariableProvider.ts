@@ -121,6 +121,8 @@ abstract class VariableProvider {
   ): Promise<MetricQueryResponse>;
 
   abstract allowsBreakdowns(breakdowns: Breakdowns): boolean;
+
+  abstract getDatasetId(breakdown: Breakdowns): string;
 }
 
 export default VariableProvider;

@@ -21,6 +21,7 @@ function getSpec(
   breakdownVarDisplayName: string,
   measure: string,
   measureDisplayName: string,
+  labelSuffix: string,
   showLegend: boolean
 ): any {
   const BAR_HEIGHT = 40;
@@ -96,7 +97,7 @@ function getSpec(
             x: { scale: "x", field: measure },
             y: { scale: "y", field: breakdownVar, band: 0.8 },
             text: {
-              signal: `isValid(datum["${measure}"]) ? format(datum["${measure}"], ",") : "" `,
+              signal: `isValid(datum["${measure}"]) ? format(datum["${measure}"], ",") + "${labelSuffix}" : "" `,
             },
           },
         },
@@ -204,6 +205,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
           props.metric.metricId,
           props.metric.shortVegaLabel,
+          props.metric.type === "pct_share" ? "%" : "",
           props.showLegend
         )}
         actions={props.hideActions ? false : true}
