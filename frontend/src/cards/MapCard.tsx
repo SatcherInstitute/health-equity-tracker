@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Alert from "@material-ui/lab/Alert";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
-import { CardContent } from "@material-ui/core";
+import { CardContent, IconButton } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
@@ -13,7 +13,7 @@ import { Breakdowns, BreakdownVar } from "../data/query/Breakdowns";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { Fips } from "../data/utils/Fips";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { VariableConfig } from "../data/config/MetricConfig";
+import { VariableConfig, formatFieldValue } from "../data/config/MetricConfig";
 import { MultiMapDialog } from "./ui/MultiMapDialog";
 import { Row } from "../data/utils/DatasetTypes";
 import { exclude } from "../data/query/BreakdownFilter";
@@ -28,6 +28,9 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
+import AnimateHeight from "react-animate-height";
+import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
+import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 
 const POSSIBLE_BREAKDOWNS: BreakdownVar[] = [
   "race_and_ethnicity",
@@ -63,6 +66,8 @@ function MapCardWithKey(props: MapCardProps) {
       props.updateFipsCallback(new Fips(clickedData.id));
     },
   };
+
+  const [listExpanded, setListExpanded] = useState(false);
 
   const [activeBreakdownFilter, setActiveBreakdownFilter] = useState<string>(
     ""
@@ -125,6 +130,17 @@ function MapCardWithKey(props: MapCardProps) {
             (row: Row) => row[activeBreakdownVar] === activeBreakdownFilter
           );
 
+        const highestFive = dataForActiveBreakdownFilter
+          .sort((rowA: Row, rowB: Row) =>
+            rowA[metricConfig.metricId] <= rowB[metricConfig.metricId] ? 1 : -1
+          )
+          .slice(0, 5);
+        const lowestFive = dataForActiveBreakdownFilter
+          .sort((rowA: Row, rowB: Row) =>
+            rowA[metricConfig.metricId] > rowB[metricConfig.metricId] ? 1 : -1
+          )
+          .slice(0, 5);
+
         // Create and populate a map of breakdown display name to options
         let filterOptions: Record<string, string[]> = {};
         const getBreakdownOptions = (breakdown: BreakdownVar) => {
@@ -139,6 +155,75 @@ function MapCardWithKey(props: MapCardProps) {
             ] = getBreakdownOptions(breakdown);
           }
         });
+
+        const HighestAndLowestRatesList = (
+          <AnimateHeight
+            duration={500}
+            height={listExpanded ? "auto" : 47}
+            onAnimationEnd={() => window.dispatchEvent(new Event("resize"))}
+            className={styles.ListBox}
+          >
+            <div className={styles.CollapseButton}>
+              <IconButton
+                aria-label={
+                  listExpanded
+                    ? "hide highest and lowest rates"
+                    : "show highest and lowest rates"
+                }
+                onClick={() => setListExpanded(!listExpanded)}
+                color="primary"
+              >
+                {listExpanded ? <ArrowDropUp /> : <ArrowDropDown />}
+              </IconButton>
+            </div>
+            <div
+              className={
+                listExpanded ? styles.ListBoxTitleExpanded : styles.ListBoxTitle
+              }
+            >
+              See the {props.fips.getPluralChildFipsTypeDisplayName()} with the{" "}
+              <b>highest</b> and <b>lowest</b> rates of{" "}
+              {props.variableConfig.variableFullDisplayName}
+            </div>
+            <div className={styles.ListBoxLists}>
+              <Grid container justify="space-around">
+                <Grid item>
+                  <h4>Top 5 Highest Rates</h4>
+                  <ul>
+                    {highestFive.map((row) => {
+                      return (
+                        <li>
+                          {row["fips_name"]} -{" "}
+                          {formatFieldValue(
+                            metricConfig.type,
+                            row[metricConfig.metricId]
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </Grid>
+                <Grid item>
+                  <h4>Top 5 Lowest Rates</h4>
+                  <ul>
+                    {lowestFive.map((row) => {
+                      return (
+                        <li>
+                          {row["fips_name"]} -{" "}
+                          {formatFieldValue(
+                            metricConfig.type,
+                            row[metricConfig.metricId]
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </Grid>
+              </Grid>
+            </div>
+            <p>All rates are reported as: {metricConfig.fullCardTitleName}</p>
+          </AnimateHeight>
+        );
 
         return (
           <>
@@ -255,7 +340,12 @@ function MapCardWithKey(props: MapCardProps) {
                   signalListeners={signalListeners}
                   metric={metricConfig}
                   legendTitle={metricConfig.fullCardTitleName}
-                  data={dataForActiveBreakdownFilter}
+                  data={
+                    listExpanded
+                      ? highestFive.concat(lowestFive)
+                      : dataForActiveBreakdownFilter
+                  }
+                  legendData={dataForActiveBreakdownFilter}
                   hideLegend={
                     queryResponse.dataIsMissing() ||
                     dataForActiveBreakdownFilter.length <= 1
@@ -264,6 +354,10 @@ function MapCardWithKey(props: MapCardProps) {
                   fips={props.fips}
                   scaleType="quantile"
                 />
+                {!queryResponse.dataIsMissing() &&
+                  dataForActiveBreakdownFilter.length > 1 && {
+                    HighestAndLowestRatesList,
+                  }}
               </CardContent>
             )}
           </>

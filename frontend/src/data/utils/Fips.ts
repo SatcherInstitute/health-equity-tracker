@@ -46,6 +46,16 @@ class Fips {
     }
   }
 
+  getPluralChildFipsTypeDisplayName() {
+    if (this.isUsa()) {
+      return "states";
+    } else if (this.isState()) {
+      return "counties";
+    } else {
+      return "";
+    }
+  }
+
   getDisplayName() {
     return this.isCounty()
       ? `${COUNTY_FIPS_MAP[this.code]}`
