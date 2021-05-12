@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
-import Carousel from "react-material-ui-carousel";
-// TODO(kristak): Add cookies back
-// import { useCookies } from "react-cookie";
-import { STATUS } from "react-joyride";
+import React, { useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import Carousel from "react-material-ui-carousel";
+import { Fips } from "../../data/utils/Fips";
+import ReportProvider from "../../reports/ReportProvider";
 import {
   getMadLibWithUpdatedValue,
   MadLib,
@@ -16,11 +14,18 @@ import {
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
   SHOW_ONBOARDING_PARAM,
+  parseMls,
+  setParameters,
+  stringifyMls,
   useSearchParams,
 } from "../../utils/urlutils";
 import styles from "./ExploreDataPage.module.scss";
 import OptionsSelector from "./OptionsSelector";
 import { Onboarding } from "./Onboarding";
+// TODO(kristak): Add cookies back
+// import { useCookies } from "react-cookie";
+import { STATUS } from "react-joyride";
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -45,10 +50,34 @@ function ExploreDataPage() {
       }
     });
   }
+
   const [madLib, setMadLib] = useState<MadLib>({
     ...MADLIB_LIST[initalIndex],
     activeSelections: defaultValuesWithOverrides,
   });
+
+  let readParam = () => {
+    let index = getParameter(MADLIB_PHRASE_PARAM, 0, (str) => {
+      return MADLIB_LIST.findIndex((ele) => ele.id === str);
+    });
+    let selection = getParameter(
+      MADLIB_SELECTIONS_PARAM,
+      MADLIB_LIST[index].defaultSelections,
+      parseMls
+    );
+
+    setMadLib({
+      ...MADLIB_LIST[index],
+      activeSelections: selection,
+    });
+  };
+
+  useEffect(() => {
+    readParam();
+    window.onpopstate = () => {
+      readParam();
+    };
+  }, []);
 
   // Set up warm welcome onboarding behaviors
   // TODO(kristak): Add cookies back
@@ -134,7 +163,7 @@ function ExploreDataPage() {
                   },
                 },
               };
-              setMadLibState(newState);
+              setMadLib(newState);
               setParameters([
                 {
                   name: MADLIB_SELECTIONS_PARAM,
@@ -145,16 +174,12 @@ function ExploreDataPage() {
             }}
           >
             {MADLIB_LIST.map((madlib: MadLib, i) => (
-              <CarouselMadLib
-                madLib={madLib}
-                setMadLib={setMadLibState}
-                key={i}
-              />
+              <CarouselMadLib madLib={madLib} setMadLib={setMadLib} key={i} />
             ))}
           </Carousel>
         </div>
         <div className={styles.ReportContainer}>
-          <ReportProvider madLib={madLib} setMadLib={setMadLibState} />
+          <ReportProvider madLib={madLib} setMadLib={setMadLib} />
         </div>
       </div>
     </>
