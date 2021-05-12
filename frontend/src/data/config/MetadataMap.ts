@@ -12,7 +12,8 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     geographic_level: "State",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Annual",
-    description: "Population percentages at the state and county levels.",
+    description:
+      "Population percentages, health insurance rates, and poverty rates at the state and county levels.",
     dataset_ids: [
       "acs_population-by_race_county_std",
       "acs_population-by_race_state_std",
