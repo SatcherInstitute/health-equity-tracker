@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import FaqSection from "../ui/FaqSection";
+import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "./WhatIsHealthEquityPage";
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -137,7 +138,7 @@ function EquityTab() {
                 className={styles.DefinitionsItem}
               >
                 <Typography className={styles.DefinitionHeader} variant="h2">
-                  Social determinant of health
+                  Social determinants of health
                 </Typography>
                 <p className={styles.DefinitionPronunciation}>
                   /ˈsōSHəl dəˈtərmənənt əv helTH/
@@ -416,8 +417,12 @@ function EquityTab() {
               <FaqSection />
             </Grid>
           </Grid>
-          <Grid item className={styles.JoinTheEffortHeaderRow}>
-            <Typography className={styles.JoinTheEffortHeaderText} variant="h1">
+          <Grid
+            item
+            className={styles.JoinTheEffortHeaderRow}
+            id={WIHE_JOIN_THE_EFFORT_SECTION_ID}
+          >
+            <Typography className={styles.JoinTheEffortHeaderText} variant="h2">
               How do I join the movement?
             </Typography>
             <span className={styles.JoinTheEffortSubheaderText}>

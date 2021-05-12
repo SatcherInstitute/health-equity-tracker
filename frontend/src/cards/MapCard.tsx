@@ -234,7 +234,7 @@ function MapCardWithKey(props: MapCardProps) {
                       color="primary"
                       className={styles.SmallMarginButton}
                     >
-                      Click to view a breakdown of all{" "}
+                      Compare across{" "}
                       {
                         BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
                           activeBreakdownVar

@@ -68,14 +68,6 @@ WHERE race_category_id = "TOTAL"
 GROUP BY state_fips, state_name, sex, age
 ORDER BY state_fips, state_name, sex, age;
 
-CREATE TEMP TABLE by_sex_age_county_big AS
-SELECT state_fips, county_fips, county_name, sex, getUhcAgeBuckets(age) AS age, SUM(population) AS population
-FROM `acs_population.by_sex_age_race_county_std`
-WHERE race_category_id = "TOTAL"
-  AND getUhcAgeBuckets(age) IS NOT NULL
-GROUP BY state_fips, county_fips, county_name, sex, age
-ORDER BY state_fips, county_fips, county_name, sex, age;
-
 -- We can base further aggregations on the above tables. No need to filter to
 -- race_category_id = "TOTAL" since the above tables have already done that.
 CREATE OR REPLACE TABLE acs_population.by_age_state AS
@@ -93,18 +85,9 @@ SELECT * EXCEPT(sex)
 FROM by_sex_age_state_big
 WHERE sex = "Total";
 
-CREATE TEMP TABLE by_age_county_big AS
-SELECT * EXCEPT(sex)
-FROM by_sex_age_county_big
-WHERE sex = "Total";
-
 CREATE OR REPLACE TABLE acs_population.by_age_state AS
 SELECT * FROM by_age_state_big UNION DISTINCT
 SELECT * FROM acs_population.by_age_state;
-
-CREATE OR REPLACE TABLE acs_population.by_age_county AS
-SELECT * FROM by_age_county_big UNION DISTINCT
-SELECT * FROM acs_population.by_age_county;
 
 -- These tables use staggered decade age buckets due to limitations with ACS
 -- age bucket availability.
