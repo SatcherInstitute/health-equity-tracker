@@ -7,7 +7,6 @@ import {
   asDate,
   getLatestDate,
   joinOnCols,
-  per100k,
   maybeApplyRowReorder,
 } from "../utils/datasetutils";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
@@ -120,10 +119,12 @@ class CovidProvider extends VariableProvider {
 
     df = df
       .generateSeries({
-        covid_cases_per_100k: (row) => per100k(row.covid_cases, row.population),
+        covid_cases_per_100k: (row) =>
+          this.calculations.per100k(row.covid_cases, row.population),
         covid_deaths_per_100k: (row) =>
-          per100k(row.covid_deaths, row.population),
-        covid_hosp_per_100k: (row) => per100k(row.covid_hosp, row.population),
+          this.calculations.per100k(row.covid_deaths, row.population),
+        covid_hosp_per_100k: (row) =>
+          this.calculations.per100k(row.covid_hosp, row.population),
       })
       .resetIndex();
 
@@ -132,7 +133,7 @@ class CovidProvider extends VariableProvider {
 
     if (breakdowns.hasOnlyRace()) {
       ["covid_cases", "covid_deaths", "covid_hosp"].forEach((col) => {
-        df = this.calculatePctShare(
+        df = this.calculations.calculatePctShare(
           df,
           col,
           col + "_share",
