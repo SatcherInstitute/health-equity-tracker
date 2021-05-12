@@ -39,8 +39,10 @@
 
 .FaqLink {
   font-family: "Inter", sans-serif !important;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 68px;
-  color: $alt-green;
+  font-weight: 500 !important;
+  font-size: 24px !important;
+  line-height: 28px !important;
+  margin-top: 20px !important;
+  color: $alt-green !important;
+  text-decoration: underline !important;
 }

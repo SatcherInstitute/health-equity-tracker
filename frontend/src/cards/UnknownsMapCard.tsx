@@ -79,6 +79,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               row[props.currentBreakdown] === UNKNOWN_RACE ||
               row[props.currentBreakdown] === UNKNOWN
           );
+        const noUnknownValuesReported =
+          !mapQueryResponse.dataIsMissing() && unknowns.length === 0;
 
         return (
           <>
@@ -103,17 +105,24 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
                   }
+                  geoLevel={props.fips.getChildFipsTypeDisplayName()}
                 />
               )}
-              {!mapQueryResponse.dataIsMissing() && unknowns.length === 0 && (
+              {noUnknownValuesReported && (
                 <Alert severity="info">
                   No unknown values for{" "}
                   {BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]} reported
                   in this dataset.
                 </Alert>
               )}
-              {!mapQueryResponse.dataIsMissing() && unknowns.length > 0 && (
+            </CardContent>
+            {!noUnknownValuesReported && (
+              <CardContent>
                 <ChoroplethMap
+                  useSmallSampleMessage={
+                    !mapQueryResponse.dataIsMissing() &&
+                    (props.variableConfig.surveyCollectedData || false)
+                  }
                   signalListeners={signalListeners}
                   metric={metricConfig}
                   legendTitle={metricConfig.fullCardTitleName}
@@ -126,8 +135,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     mapQueryResponse.dataIsMissing() || unknowns.length <= 1
                   }
                 />
-              )}
-            </CardContent>
+              </CardContent>
+            )}
           </>
         );
       }}

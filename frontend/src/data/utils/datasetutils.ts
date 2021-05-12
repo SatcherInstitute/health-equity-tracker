@@ -1,7 +1,7 @@
 import { IDataFrame } from "data-forge";
-import { Row } from "../utils/DatasetTypes";
-import { ALL, UNKNOWN, UNKNOWN_HL } from "../utils/Constants";
 import { Breakdowns } from "../query/Breakdowns";
+import { ALL, UNKNOWN, UNKNOWN_HL } from "../utils/Constants";
+import { Row } from "../utils/DatasetTypes";
 
 /**
  * Reshapes the data frame by creating a new column for each value in
@@ -221,5 +221,35 @@ export function maybeApplyRowReorder(rows: Row[], breakdowns: Breakdowns) {
       UNKNOWN_HL
     );
   }
+
+  if (breakdowns.hasOnlyAge()) {
+    finalRows.sort(sortAgeParsedNumerically);
+  }
+
   return finalRows;
 }
+
+/*
+  Sorts age with All in front
+  Sorts age by age min parse numerically.
+  Sorts age with unbounded at end.
+*/
+export const sortAgeParsedNumerically = (l: any, r: any) => {
+  let lAge = l["age"];
+  let rAge = r["age"]; //Rage hehe
+
+  if (lAge === "All" && rAge === "All") return 0;
+  else if (lAge === "All") return -1;
+  else if (rAge === "All") return 1;
+
+  let leftUnbounded = lAge.indexOf("+") !== -1;
+  let rightUnbounded = rAge.indexOf("+") !== -1;
+
+  if (leftUnbounded && rightUnbounded) return 0;
+  else if (leftUnbounded) return 1;
+  else if (rightUnbounded) return -1;
+
+  let lMin = lAge.split("-")[0];
+  let rMin = rAge.split("-")[0];
+  return Number(lMin) - Number(rMin);
+};

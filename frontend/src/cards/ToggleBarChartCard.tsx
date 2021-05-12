@@ -111,6 +111,7 @@ function ToggleBarChartCardWithKey(props: ToggleBarChartCardProps) {
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
+                  geoLevel={props.fips.getFipsTypeDisplayName()}
                 />
               </CardContent>
             )}

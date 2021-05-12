@@ -19,7 +19,6 @@ export interface DataSourceMetadata {
 export interface DatasetMetadata {
   readonly id: string;
   readonly name: string;
-  readonly fields: readonly Field[];
   readonly update_time: string;
   // Source ID is added programmatically based on DataSourceMetadata config
   source_id?: string;

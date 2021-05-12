@@ -1,23 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import Button from "@material-ui/core/Button";
 import Hidden from "@material-ui/core/Hidden";
-import IconButton from "@material-ui/core/IconButton";
-import FileCopyIcon from "@material-ui/icons/FileCopy";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import FacebookIcon from "@material-ui/icons/Facebook";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import {
-  LinkWithStickyParams,
-  TAB_PARAM,
-  ABOUT_US_PAGE_LINK,
-} from "../../utils/urlutils";
-import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
-import { CopyToClipboard } from "react-copy-to-clipboard";
 import FaqSection from "../ui/FaqSection";
+import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "./WhatIsHealthEquityPage";
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -48,7 +37,7 @@ function JoinTheEffortContainer(props: {
         </Grid>
       </Hidden>
       <Grid item sm={12} md={6} className={styles.JoinTheEffortTextContainer}>
-        <Typography className={styles.JoinTheEffortStepHeaderText} variant="h3">
+        <Typography className={styles.JoinTheEffortStepHeaderText} variant="h2">
           {props.textTitle}
         </Typography>
         {props.content}
@@ -58,8 +47,6 @@ function JoinTheEffortContainer(props: {
 }
 
 function EquityTab() {
-  const [textCopied, setTextCopied] = useState(false);
-
   return (
     <>
       <title>What is Health Equity? - About Us - Health Equity Tracker</title>
