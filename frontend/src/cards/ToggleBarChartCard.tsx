@@ -134,8 +134,7 @@ function ToggleBarChartCardWithKey(props: ToggleBarChartCardProps) {
                     {validDisplayMetricConfigs.map((metricConfig) => (
                       <ToggleButton value={metricConfig.type}>
                         {metricConfig.type === "pct_share" && " vs. Population"}
-                        {metricConfig.type === "per100k" &&
-                          "per 100,000 people"}
+                        {metricConfig.type === "per100k" && "per 100k people"}
                       </ToggleButton>
                     ))}
                   </ToggleButtonGroup>

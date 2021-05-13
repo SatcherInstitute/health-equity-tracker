@@ -26,6 +26,9 @@ export const MADLIB_SELECTIONS_PARAM = "mls";
 // Value is index of the tab to jump to
 export const TAB_PARAM = "tab";
 
+// 'true' or 'false' will override the cookie to show or hide the onboarding flow
+export const SHOW_ONBOARDING_PARAM = "onboard";
+
 export function LinkWithStickyParams(props: {
   to: string;
   target?: string;

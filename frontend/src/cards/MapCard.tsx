@@ -5,6 +5,10 @@ import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { VariableConfig } from "../data/config/MetricConfig";
+import { MultiMapDialog } from "./ui/MultiMapDialog";
+import { HighestLowestList } from "./ui/HighestLowestList";
+import { Row } from "../data/utils/DatasetTypes";
+import { getLowestN, getHighestN } from "../data/utils/datasetutils";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
   Breakdowns,
@@ -36,6 +40,8 @@ const POSSIBLE_BREAKDOWNS: BreakdownVar[] = [
   "sex",
 ];
 
+const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
+
 export interface MapCardProps {
   key?: string;
   fips: Fips;
@@ -64,6 +70,8 @@ function MapCardWithKey(props: MapCardProps) {
       props.updateFipsCallback(new Fips(clickedData.id));
     },
   };
+
+  const [listExpanded, setListExpanded] = useState(false);
 
   const [activeBreakdownFilter, setActiveBreakdownFilter] = useState<string>(
     ""
@@ -133,6 +141,16 @@ function MapCardWithKey(props: MapCardProps) {
           .filter(
             (row: Row) => row[activeBreakdownVar] === activeBreakdownFilter
           );
+        const highestRatesList = getHighestN(
+          dataForActiveBreakdownFilter,
+          metricConfig.metricId,
+          SIZE_OF_HIGHEST_LOWEST_RATES_LIST
+        );
+        const lowestRatesList = getLowestN(
+          dataForActiveBreakdownFilter,
+          metricConfig.metricId,
+          SIZE_OF_HIGHEST_LOWEST_RATES_LIST
+        );
 
         // Create and populate a map of breakdown display name to options
         let filterOptions: Record<string, string[]> = {};
@@ -265,7 +283,12 @@ function MapCardWithKey(props: MapCardProps) {
                   signalListeners={signalListeners}
                   metric={metricConfig}
                   legendTitle={metricConfig.fullCardTitleName}
-                  data={dataForActiveBreakdownFilter}
+                  data={
+                    listExpanded
+                      ? highestRatesList.concat(lowestRatesList)
+                      : dataForActiveBreakdownFilter
+                  }
+                  legendData={dataForActiveBreakdownFilter}
                   hideLegend={
                     queryResponse.dataIsMissing() ||
                     dataForActiveBreakdownFilter.length <= 1
@@ -274,6 +297,18 @@ function MapCardWithKey(props: MapCardProps) {
                   fips={props.fips}
                   scaleType="quantile"
                 />
+                {!queryResponse.dataIsMissing() &&
+                  dataForActiveBreakdownFilter.length > 1 && (
+                    <HighestLowestList
+                      variableConfig={props.variableConfig}
+                      metricConfig={metricConfig}
+                      listExpanded={listExpanded}
+                      setListExpanded={setListExpanded}
+                      highestRatesList={highestRatesList}
+                      lowestRatesList={lowestRatesList}
+                      fipsTypePluralDisplayName={props.fips.getPluralChildFipsTypeDisplayName()}
+                    />
+                  )}
               </CardContent>
             )}
           </>
