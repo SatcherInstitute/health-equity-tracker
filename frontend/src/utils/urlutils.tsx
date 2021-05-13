@@ -152,7 +152,7 @@ export function getParameter<T1>(
 }
 
 let kvSeperator = ".";
-let partsSeperator = "..";
+let partsSeperator = "-";
 
 export const parseMls = (param: string) => {
   let parts = param.split(partsSeperator);
