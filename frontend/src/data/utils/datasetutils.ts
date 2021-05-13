@@ -208,9 +208,14 @@ export function maybeApplyRowReorder(rows: Row[], breakdowns: Breakdowns) {
   Sorts age by age min parse numerically.
   Sorts age with unbounded at end.
 */
-export const sortAgeParsedNumerically = (l: any, r: any) => {
-  let lAge = l["age"];
-  let rAge = r["age"]; //Rage hehe
+type DynamicSortParam = string | Record<string, string>;
+
+export const sortAgeParsedNumerically = (
+  l: DynamicSortParam,
+  r: DynamicSortParam
+) => {
+  let lAge = typeof l === "string" ? l : l["age"];
+  let rAge = typeof r === "string" ? r : r["age"]; // rage hehe
 
   if (lAge === "All" && rAge === "All") return 0;
   else if (lAge === "All") return -1;
