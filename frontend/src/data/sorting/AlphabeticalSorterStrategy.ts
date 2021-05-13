@@ -32,7 +32,7 @@ export class AlphabeticalSorterStrategy extends AbstractSortStrategy {
     const front_left = this.frontValues.indexOf(l_val);
     const front_right = this.frontValues.indexOf(r_val);
 
-    const diff = front_right - front_left;
+    let diff = front_right - front_left;
 
     if (diff !== 0) {
       return diff;

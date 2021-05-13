@@ -26,7 +26,7 @@ export class AgeSorterStrategy extends AbstractSortStrategy {
     const front_left = this.frontValues.indexOf(lAge);
     const front_right = this.frontValues.indexOf(rAge);
 
-    const diff = front_right - front_left;
+    let diff = front_right - front_left;
 
     if (diff !== 0) {
       return diff;
