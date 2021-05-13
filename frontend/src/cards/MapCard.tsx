@@ -5,10 +5,6 @@ import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { VariableConfig } from "../data/config/MetricConfig";
-import { MultiMapDialog } from "./ui/MultiMapDialog";
-import { HighestLowestList } from "./ui/HighestLowestList";
-import { Row } from "../data/utils/DatasetTypes";
-import { getLowestN, getHighestN } from "../data/utils/datasetutils";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
   Breakdowns,
@@ -24,12 +20,17 @@ import {
   UNKNOWN_RACE,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
-import { sortAgeParsedNumerically } from "../data/utils/datasetutils";
+import {
+  getHighestN,
+  getLowestN,
+  sortAgeParsedNumerically,
+} from "../data/utils/datasetutils";
 import { Fips } from "../data/utils/Fips";
 import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
 import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
 import DropDownMenu from "./ui/DropDownMenu";
+import { HighestLowestList } from "./ui/HighestLowestList";
 import MapBreadcrumbs from "./ui/MapBreadcrumbs";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { MultiMapDialog } from "./ui/MultiMapDialog";
