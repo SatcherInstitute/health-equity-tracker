@@ -16,8 +16,7 @@ export class DatasetOrganizer {
     breakdowns : current breakdown config
     valuesToFront: values to bring to the front in left to right being the frontmost
     valuesToBack: values to bring to the back in left to right being the frontmost
-    shortCircuitFirstSort: stop sorting on first strategy that applies.
-  */
+=  */
   constructor(
     data: Row[] | string[],
     breakdowns: Breakdowns,
@@ -38,11 +37,11 @@ export class DatasetOrganizer {
   }
 
   organize() {
-    this.sortStrategies.forEach((strategy) => {
+    for (const strategy of this.sortStrategies) {
       if (strategy.appliesToBreakdowns(this.breakdowns)) {
         this.data.sort(strategy.compareFn);
         return;
       }
-    });
+    }
   }
 }

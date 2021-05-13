@@ -20,28 +20,28 @@ export class AgeSorterStrategy extends AbstractSortStrategy {
   }
 
   readonly compareFn = (l: Row | string, r: Row | string) => {
-    let lAge = typeof l === "string" ? l : l["age"];
-    let rAge = typeof r === "string" ? r : r["age"]; //Rage hehe
+    const lAge = typeof l === "string" ? l : l["age"];
+    const rAge = typeof r === "string" ? r : r["age"]; //Rage hehe
 
-    let front_left = this.frontValues.indexOf(lAge);
-    let front_right = this.frontValues.indexOf(rAge);
+    const front_left = this.frontValues.indexOf(lAge);
+    const front_right = this.frontValues.indexOf(rAge);
 
-    let diff = front_right - front_left;
+    const diff = front_right - front_left;
 
     if (diff !== 0) {
       return diff;
     }
 
-    let back_left = this.backValues.indexOf(lAge);
-    let back_right = this.backValues.indexOf(rAge);
+    const back_left = this.backValues.indexOf(lAge);
+    const back_right = this.backValues.indexOf(rAge);
 
     diff = back_left - back_right;
     if (diff !== 0) {
       return diff;
     }
 
-    let leftUnbounded = lAge.includes("+");
-    let rightUnbounded = rAge.includes("+");
+    const leftUnbounded = lAge.includes("+");
+    const rightUnbounded = rAge.includes("+");
 
     if (leftUnbounded && rightUnbounded) {
       return 0;
@@ -51,8 +51,8 @@ export class AgeSorterStrategy extends AbstractSortStrategy {
       return -1;
     }
 
-    let lMin = lAge.split("-")[0];
-    let rMin = rAge.split("-")[0];
+    const lMin = lAge.split("-")[0];
+    const rMin = rAge.split("-")[0];
     return Number(lMin) - Number(rMin);
   };
 }

@@ -12,43 +12,43 @@ describe("dataset utils test", () => {
   beforeEach(() => {});
 
   test("empty arr", async () => {
-    let data: any = [];
+    const data: any = [];
     new AgeSorterStrategy(["All"]);
     expect(data).toStrictEqual([]);
   });
 
   test("single ell all", async () => {
-    let data: any = [ALL];
+    const data: any = [ALL];
     data.sort(new AgeSorterStrategy(["All"]).compareFn);
     expect(data).toStrictEqual([ALL]);
   });
 
   test("single single sort sorted", async () => {
-    let data: any = [ALL, A0_4];
+    const data: any = [ALL, A0_4];
     data.sort(new AgeSorterStrategy(["All"]).compareFn);
     expect(data).toStrictEqual([ALL, A0_4]);
   });
 
   test("single single sort reversed", async () => {
-    let data: any = [A0_4, ALL];
+    const data: any = [A0_4, ALL];
     data.sort(new AgeSorterStrategy(["All"]).compareFn);
     expect(data).toStrictEqual([ALL, A0_4]);
   });
 
   test("testing single sort unbounded sorted", async () => {
-    let data: any = [A0_4, A20P];
+    const data: any = [A0_4, A20P];
     data.sort(new AgeSorterStrategy(["All"]).compareFn);
     expect(data).toStrictEqual([A0_4, A20P]);
   });
 
   test("testing single sort unbounded reversed", async () => {
-    let data: any = [A20P, A0_4];
+    const data: any = [A20P, A0_4];
     data.sort(new AgeSorterStrategy(["All"]).compareFn);
     expect(data).toStrictEqual([A0_4, A20P]);
   });
 
   test("testing real life usecase", async () => {
-    let data: any = [A11_20, A20P, A0_4, A5_9, ALL];
+    const data: any = [A11_20, A20P, A0_4, A5_9, ALL];
     data.sort(new AgeSorterStrategy(["All"]).compareFn);
     expect(data).toStrictEqual([ALL, A0_4, A5_9, A11_20, A20P]);
   });

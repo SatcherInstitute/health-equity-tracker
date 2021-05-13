@@ -26,20 +26,20 @@ export class AlphabeticalSorterStrategy extends AbstractSortStrategy {
   };
 
   compareFn = (l: Row | string, r: Row | string) => {
-    let l_val = typeof l === "string" ? l : l[this.reorderCol];
-    let r_val = typeof r === "string" ? r : r[this.reorderCol];
+    const l_val = typeof l === "string" ? l : l[this.reorderCol];
+    const r_val = typeof r === "string" ? r : r[this.reorderCol];
 
-    let front_left = this.frontValues.indexOf(l_val);
-    let front_right = this.frontValues.indexOf(r_val);
+    const front_left = this.frontValues.indexOf(l_val);
+    const front_right = this.frontValues.indexOf(r_val);
 
-    let diff = front_right - front_left;
+    const diff = front_right - front_left;
 
     if (diff !== 0) {
       return diff;
     }
 
-    let back_left = this.backValues.indexOf(l_val);
-    let back_right = this.backValues.indexOf(r_val);
+    const back_left = this.backValues.indexOf(l_val);
+    const back_right = this.backValues.indexOf(r_val);
 
     diff = back_left - back_right;
 
