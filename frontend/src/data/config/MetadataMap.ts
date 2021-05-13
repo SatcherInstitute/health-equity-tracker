@@ -52,7 +52,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     update_frequency: "Monthly",
     description:
       "The numbers of confirmed Covid deaths, cases, and hospitalizations at the state and county levels." +
-      "<br /><br />" +
+      "<br><br>" +
       "The CDC does not take responsibility for the scientific validity or accuracy of methodology, " +
       "results, statistical analyses, or conclusions presented.",
     dataset_ids: [
