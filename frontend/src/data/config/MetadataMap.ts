@@ -51,8 +51,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Monthly",
     description:
-      "The numbers of confirmed Covid deaths, cases, and hospitalizations at the state and county levels." +
-      "<br><br>" +
+      "The numbers of confirmed Covid deaths, cases, and hospitalizations at the state and county levels. " +
       "The CDC does not take responsibility for the scientific validity or accuracy of methodology, " +
       "results, statistical analyses, or conclusions presented.",
     dataset_ids: [
