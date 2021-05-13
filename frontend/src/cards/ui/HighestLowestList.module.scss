@@ -1,0 +1,43 @@
+.ListBox {
+  margin-top: 15px;
+  background: #f1f3f4;
+  border-radius: 8px;
+  size: 14px;
+  line-height: 20px;
+  text-align: left;
+  p {
+    padding: 16px;
+    margin: 0;
+  }
+  h4 {
+    line-height: 0;
+  }
+}
+
+.ListBoxTitle,
+.ListBoxTitleExpanded {
+  padding-left: 16px;
+  size: 14px;
+  text-align: left;
+  margin-right: 50px;
+}
+
+.ListBoxTitle {
+  line-height: 47px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ListBoxTitleExpanded {
+  line-height: 20px;
+  padding: 14px 0 14px 16px;
+}
+
+.ListBoxLists {
+  margin: 0 16px;
+}
+
+.CollapseButton {
+  float: right;
+}

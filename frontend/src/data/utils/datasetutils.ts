@@ -138,3 +138,15 @@ export function getLatestDate(df: IDataFrame): Date {
     .select((dateStr) => asDate(dateStr).getTime());
   return new Date(dateTimes.max());
 }
+
+export const getHighestN = (
+  data: Row[],
+  fieldName: string,
+  listSize: number
+): Row[] => {
+  return data
+    .sort((rowA: Row, rowB: Row) =>
+      rowA[fieldName] <= rowB[fieldName] ? 1 : -1
+    )
+    .slice(0, listSize);
+};
