@@ -284,11 +284,7 @@ function MapCardWithKey(props: MapCardProps) {
                   signalListeners={signalListeners}
                   metric={metricConfig}
                   legendTitle={metricConfig.fullCardTitleName}
-                  data={
-                    listExpanded
-                      ? highestRatesList.concat(lowestRatesList)
-                      : dataForActiveBreakdownFilter
-                  }
+                  data={dataForActiveBreakdownFilter}
                   legendData={dataForActiveBreakdownFilter}
                   hideLegend={
                     queryResponse.dataIsMissing() ||
