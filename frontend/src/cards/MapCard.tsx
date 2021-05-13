@@ -13,6 +13,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
+import { AgeSorterStrategy } from "../data/sorting/AgeSorterStrategy";
 import {
   ALL,
   NON_HISPANIC,
@@ -20,11 +21,7 @@ import {
   UNKNOWN_RACE,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
-import {
-  getHighestN,
-  getLowestN,
-  sortAgeParsedNumerically,
-} from "../data/utils/datasetutils";
+import { getHighestN, getLowestN } from "../data/utils/datasetutils";
 import { Fips } from "../data/utils/Fips";
 import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
 import styles from "./Card.module.scss";
@@ -116,7 +113,7 @@ function MapCardWithKey(props: MapCardProps) {
       {(queryResponses, metadata) => {
         const sortArgs =
           props.currentBreakdown === "age"
-            ? ([sortAgeParsedNumerically] as any)
+            ? ([new AgeSorterStrategy([ALL]).compareFn] as any)
             : [];
 
         // Look up query at the same index as the breakdown.
