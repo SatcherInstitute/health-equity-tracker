@@ -74,11 +74,16 @@ function ExploreDataPage() {
     });
   };
 
+  let psHandler: any = null;
   useEffect(() => {
     readParam();
-    let psHandler = addPopStateHandler(readParam);
+    if (!psHandler) {
+      psHandler = addPopStateHandler(readParam);
+    }
     return () => {
-      removePopStateHandler(psHandler);
+      if (psHandler) {
+        removePopStateHandler(psHandler);
+      }
     };
   }, []);
 

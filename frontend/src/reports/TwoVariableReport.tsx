@@ -82,13 +82,18 @@ function TwoVariableReport(props: {
     setCurrentBreakdown(demo);
   };
 
+  let popstateHandler: any = null;
   useEffect(() => {
-    let popstandHandler = addPopStateHandler(parseParams);
+    if (!popstateHandler) {
+      popstateHandler = addPopStateHandler(parseParams);
+    }
     parseParams();
     return () => {
-      removePopStateHandler(popstandHandler);
+      if (popstateHandler) {
+        removePopStateHandler(popstateHandler);
+      }
     };
-  }, [parseParams]);
+  }, []);
 
   if (variableConfig1 === null) {
     return (
