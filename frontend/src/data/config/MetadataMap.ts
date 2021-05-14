@@ -33,18 +33,6 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
-    id: "covid_tracking_project",
-    data_source_name: "Covid Tracking Project’s Racial Data Tracker",
-    data_source_link: "https://covidtracking.com/race",
-    geographic_level: "State",
-    demographic_granularity: "Race/ethnicity",
-    update_frequency: "Final update was March 7 2021",
-    description:
-      "The numbers of confirmed Covid deaths, cases, and hospitalizations at the state and county levels.",
-    dataset_ids: ["covid_by_state_and_race", "covid_by_county_and_race"],
-    downloadable: true,
-  },
-  {
     id: "cdc_restricted",
     data_source_name: "CDC Case Surveillance Restricted Access Detailed Data",
     data_source_link:
@@ -76,6 +64,23 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     update_frequency: "Annual",
     description: "The prevalence of diabetes and COPD at the state level.",
     dataset_ids: ["uhc_age", "uhc_race_and_ethnicity", "uhc_sex"],
+    downloadable: true,
+  },
+  {
+    id: "covid_tracking_project",
+    data_source_name: "Covid Tracking Project’s Racial Data Tracker",
+    data_source_link: "https://covidtracking.com/race",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity",
+    update_frequency: "Final update was March 7 2021",
+    description:
+      "The numbers of confirmed Covid deaths, cases, and hospitalizations at the state level.",
+    dataset_ids: [
+      "covid_tracking_project-covid_tracking_project_cases",
+      "covid_tracking_project-covid_tracking_project_deaths",
+      "covid_tracking_project-covid_tracking_project_hosp",
+      "covid_tracking_project-covid_tracking_project_tests",
+    ],
     downloadable: true,
   },
 ];
