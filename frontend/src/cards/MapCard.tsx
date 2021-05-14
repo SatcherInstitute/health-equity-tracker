@@ -112,8 +112,9 @@ function MapCardWithKey(props: MapCardProps) {
     <CardWrapper
       queries={queries}
       title={<>{metricConfig.fullCardTitleName}</>}
+      loadGeographies={true}
     >
-      {(queryResponses, metadata) => {
+      {(queryResponses, metadata, geoData) => {
         const sortArgs =
           props.currentBreakdown === "age"
             ? ([sortAgeParsedNumerically] as any)
@@ -186,6 +187,7 @@ function MapCardWithKey(props: MapCardProps) {
               fieldRange={queryResponse.getFieldRange(metricConfig.metricId)}
               queryResponses={queryResponses} // TODO
               metadata={metadata}
+              geoData={geoData}
             />
             <CardContent className={styles.SmallMarginContent}>
               <MapBreadcrumbs
@@ -284,7 +286,11 @@ function MapCardWithKey(props: MapCardProps) {
                   signalListeners={signalListeners}
                   metric={metricConfig}
                   legendTitle={metricConfig.fullCardTitleName}
-                  data={dataForActiveBreakdownFilter}
+                  data={
+                    listExpanded
+                      ? highestRatesList.concat(lowestRatesList)
+                      : dataForActiveBreakdownFilter
+                  }
                   legendData={dataForActiveBreakdownFilter}
                   hideLegend={
                     queryResponse.dataIsMissing() ||
@@ -293,6 +299,7 @@ function MapCardWithKey(props: MapCardProps) {
                   showCounties={props.fips.isUsa() ? false : true}
                   fips={props.fips}
                   scaleType="quantile"
+                  geoData={geoData}
                 />
                 {!queryResponse.dataIsMissing() &&
                   dataForActiveBreakdownFilter.length > 1 && (
