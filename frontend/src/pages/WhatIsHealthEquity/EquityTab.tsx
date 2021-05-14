@@ -49,6 +49,7 @@ function JoinTheEffortContainer(props: {
 function EquityTab() {
   return (
     <div className={styles.WhatIsHealthEquityPage}>
+      <title>What is Health Equity - Health Equity Tracker</title>
       <Grid container className={styles.Grid}>
         <Grid
           container

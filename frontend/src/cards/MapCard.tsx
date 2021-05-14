@@ -13,6 +13,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
+import { AgeSorterStrategy } from "../data/sorting/AgeSorterStrategy";
 import {
   ALL,
   NON_HISPANIC,
@@ -20,11 +21,7 @@ import {
   UNKNOWN_RACE,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
-import {
-  getHighestN,
-  getLowestN,
-  sortAgeParsedNumerically,
-} from "../data/utils/datasetutils";
+import { getHighestN, getLowestN } from "../data/utils/datasetutils";
 import { Fips } from "../data/utils/Fips";
 import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
 import styles from "./Card.module.scss";
@@ -103,7 +100,7 @@ function MapCardWithKey(props: MapCardProps) {
             breakdown,
             breakdown === "race_and_ethnicity"
               ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE)
-              : undefined
+              : exclude(UNKNOWN)
           )
       )
   );
@@ -112,11 +109,12 @@ function MapCardWithKey(props: MapCardProps) {
     <CardWrapper
       queries={queries}
       title={<>{metricConfig.fullCardTitleName}</>}
+      loadGeographies={true}
     >
-      {(queryResponses, metadata) => {
+      {(queryResponses, metadata, geoData) => {
         const sortArgs =
           props.currentBreakdown === "age"
-            ? ([sortAgeParsedNumerically] as any)
+            ? ([new AgeSorterStrategy([ALL]).compareFn] as any)
             : [];
 
         // Look up query at the same index as the breakdown.
@@ -186,6 +184,7 @@ function MapCardWithKey(props: MapCardProps) {
               fieldRange={queryResponse.getFieldRange(metricConfig.metricId)}
               queryResponses={queryResponses} // TODO
               metadata={metadata}
+              geoData={geoData}
             />
             <CardContent className={styles.SmallMarginContent}>
               <MapBreadcrumbs
@@ -284,7 +283,11 @@ function MapCardWithKey(props: MapCardProps) {
                   signalListeners={signalListeners}
                   metric={metricConfig}
                   legendTitle={metricConfig.fullCardTitleName}
-                  data={dataForActiveBreakdownFilter}
+                  data={
+                    listExpanded
+                      ? highestRatesList.concat(lowestRatesList)
+                      : dataForActiveBreakdownFilter
+                  }
                   legendData={dataForActiveBreakdownFilter}
                   hideLegend={
                     queryResponse.dataIsMissing() ||
@@ -293,6 +296,7 @@ function MapCardWithKey(props: MapCardProps) {
                   showCounties={props.fips.isUsa() ? false : true}
                   fips={props.fips}
                   scaleType="quantile"
+                  geoData={geoData}
                 />
                 {!queryResponse.dataIsMissing() &&
                   dataForActiveBreakdownFilter.length > 1 && (

@@ -20,9 +20,12 @@ function CardWrapper(props: {
   infoPopover?: JSX.Element;
   hideFooter?: boolean;
   queries?: MetricQuery[];
+  // Whether to load the geographies dataset for this card.
+  loadGeographies?: boolean;
   children: (
     queryResponses: MetricQueryResponse[],
-    metadata: MapOfDatasetMetadata
+    metadata: MapOfDatasetMetadata,
+    geoData?: Record<string, any>
   ) => JSX.Element;
 }) {
   const popover = usePopover();
@@ -72,12 +75,13 @@ function CardWrapper(props: {
     <WithMetadataAndMetrics
       queries={queries}
       loadingComponent={loadingComponent}
+      loadGeographies={props.loadGeographies}
     >
-      {(metadata, queryResponses) => {
+      {(metadata, queryResponses, geoData) => {
         return (
           <Card raised={true} className={styles.ChartCard}>
             {optionalTitle}
-            {props.children(queryResponses, metadata)}
+            {props.children(queryResponses, metadata, geoData)}
             {!props.hideFooter && props.queries && (
               <CardContent className={styles.CardFooter}>
                 <Sources queryResponses={queryResponses} metadata={metadata} />

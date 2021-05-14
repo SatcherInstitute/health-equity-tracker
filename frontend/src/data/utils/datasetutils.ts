@@ -1,7 +1,5 @@
 import { IDataFrame } from "data-forge";
-import { Breakdowns } from "../query/Breakdowns";
-import { ALL, UNKNOWN, UNKNOWN_HL } from "../utils/Constants";
-import { Row } from "../utils/DatasetTypes";
+import { Row } from "./DatasetTypes";
 
 /**
  * Reshapes the data frame by creating a new column for each value in
@@ -141,97 +139,6 @@ export function getLatestDate(df: IDataFrame): Date {
     .select((dateStr) => asDate(dateStr).getTime());
   return new Date(dateTimes.max());
 }
-
-function moveRowWithValueToFront(
-  rows: Row[],
-  fieldName: string,
-  value: string
-) {
-  let finalRows: Row[] = Object.assign(rows, []);
-  const indexOfValue = rows.findIndex((r: any) => r[fieldName] === value);
-  if (indexOfValue !== -1) {
-    const removedItem = finalRows.splice(indexOfValue, 1);
-    finalRows = removedItem.concat(finalRows);
-  }
-  return finalRows;
-}
-
-function moveRowsWithValueToBack(
-  rows: Row[],
-  fieldName: string,
-  value: string
-) {
-  let finalRows: Row[] = Object.assign(rows, []);
-  let removedItems = [];
-  let index = rows.findIndex((r: any) => r[fieldName] === value);
-  while (index > 0) {
-    removedItems.push(finalRows.splice(index, 1));
-    index = rows.findIndex((r: any) => r[fieldName] === value);
-  }
-  removedItems.forEach((removedItem) => {
-    finalRows = finalRows.concat(removedItem);
-  });
-  return finalRows;
-}
-
-function sortAlphabeticallyByField(rows: Row[], fieldName: string) {
-  let finalRows: Row[] = Object.assign(rows, []);
-  finalRows.sort((a, b) => a[fieldName].localeCompare(b[fieldName]));
-  return finalRows;
-}
-
-export function maybeApplyRowReorder(rows: Row[], breakdowns: Breakdowns) {
-  let finalRows: Row[] = Object.assign(rows, []);
-  const reorderingColumn = breakdowns.getSoleDemographicBreakdown().columnName;
-  // For charts displaying only one region of geographic granularity (for instance a bar chart of
-  // race in LA county), we want a specific order of the metric values
-  if (breakdowns.hasOneRegionOfGeographicGranularity()) {
-    finalRows = sortAlphabeticallyByField(finalRows, reorderingColumn);
-    finalRows = moveRowWithValueToFront(finalRows, reorderingColumn, ALL);
-    finalRows = moveRowsWithValueToBack(finalRows, reorderingColumn, UNKNOWN);
-    finalRows = moveRowsWithValueToBack(
-      finalRows,
-      reorderingColumn,
-      UNKNOWN_HL
-    );
-  }
-
-  if (breakdowns.hasOnlyAge()) {
-    finalRows.sort(sortAgeParsedNumerically);
-  }
-
-  return finalRows;
-}
-
-/*
-  Sorts age with All in front
-  Sorts age by age min parse numerically.
-  Sorts age with unbounded at end.
-*/
-type DynamicSortParam = string | Record<string, string>;
-
-export const sortAgeParsedNumerically = (
-  l: DynamicSortParam,
-  r: DynamicSortParam
-) => {
-  let lAge = typeof l === "string" ? l : l["age"];
-  let rAge = typeof r === "string" ? r : r["age"]; // rage hehe
-
-  if (lAge === "All" && rAge === "All") return 0;
-  else if (lAge === "All") return -1;
-  else if (rAge === "All") return 1;
-
-  let leftUnbounded = lAge.indexOf("+") !== -1;
-  let rightUnbounded = rAge.indexOf("+") !== -1;
-
-  if (leftUnbounded && rightUnbounded) return 0;
-  else if (leftUnbounded) return 1;
-  else if (rightUnbounded) return -1;
-
-  let lMin = lAge.split("-")[0];
-  let rMin = rAge.split("-")[0];
-  return Number(lMin) - Number(rMin);
-};
 
 export const getLowestN = (
   data: Row[],

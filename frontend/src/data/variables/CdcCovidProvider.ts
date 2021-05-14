@@ -1,12 +1,12 @@
 import { DataFrame } from "data-forge";
-import { Breakdowns } from "../query/Breakdowns";
-import VariableProvider from "./VariableProvider";
-import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
-import AcsPopulationProvider from "./AcsPopulationProvider";
-import { joinOnCols, maybeApplyRowReorder } from "../utils/datasetutils";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
 import { MetricId } from "../config/MetricConfig";
+import { Breakdowns } from "../query/Breakdowns";
+import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { joinOnCols } from "../utils/datasetutils";
+import { USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
+import AcsPopulationProvider from "./AcsPopulationProvider";
+import VariableProvider from "./VariableProvider";
 
 class CdcCovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -226,10 +226,7 @@ class CdcCovidProvider extends VariableProvider {
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 
-    return new MetricQueryResponse(
-      maybeApplyRowReorder(df.toArray(), breakdowns),
-      consumedDatasetIds
-    );
+    return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {

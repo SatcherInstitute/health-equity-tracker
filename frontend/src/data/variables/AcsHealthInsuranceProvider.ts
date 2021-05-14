@@ -3,7 +3,6 @@ import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { ALL, HISPANIC, WHITE_NH } from "../utils/Constants";
-import { maybeApplyRowReorder } from "../utils/datasetutils";
 import { USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 
@@ -141,10 +140,7 @@ class AcsHealthInsuranceProvider extends VariableProvider {
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 
-    return new MetricQueryResponse(
-      maybeApplyRowReorder(df.toArray(), breakdowns),
-      [datasetId]
-    );
+    return new MetricQueryResponse(df.toArray(), [datasetId]);
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
