@@ -184,6 +184,24 @@ export type PSEventHandler = () => void;
 const psSubscriptions: any = {};
 let psCount: number = 0;
 
+//Use effect with popState
+export const usePopStateEffect = (
+  readStateFromParamFunc: () => void,
+  deps = []
+) => {
+  useEffect(() => {
+    let psHandler: any;
+    if (!psHandler) {
+      psHandler = psSubscribe(readStateFromParamFunc);
+    }
+    return () => {
+      if (psHandler) {
+        psUnsubscribe(psHandler);
+      }
+    };
+  }, [readStateFromParamFunc]);
+};
+
 export const psSubscribe = (handler: PSEventHandler): number => {
   console.log("Adding PSHandler: " + psCount);
   psSubscriptions[psCount] = handler;
@@ -204,22 +222,4 @@ window.onpopstate = () => {
       handler();
     }
   });
-};
-
-//Use effect with popState
-export const usePopStateEffect = (
-  readStateFromParamFunc: () => void,
-  deps = []
-) => {
-  useEffect(() => {
-    let psHandler: any;
-    if (!psHandler) {
-      psHandler = psSubscribe(readStateFromParamFunc);
-    }
-    return () => {
-      if (psHandler) {
-        psUnsubscribe(psHandler);
-      }
-    };
-  }, [readStateFromParamFunc]);
 };
