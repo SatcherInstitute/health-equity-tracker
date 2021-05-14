@@ -1,39 +1,44 @@
-import React, { useState } from "react";
-import Alert from "@material-ui/lab/Alert";
+import { CardContent, Grid } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
-import { CardContent } from "@material-ui/core";
-import { Grid } from "@material-ui/core";
-import styles from "./Card.module.scss";
-import CardWrapper from "./CardWrapper";
-import DropDownMenu from "./ui/DropDownMenu";
-import MapBreadcrumbs from "./ui/MapBreadcrumbs";
-import MissingDataAlert from "./ui/MissingDataAlert";
-import { Breakdowns, BreakdownVar } from "../data/query/Breakdowns";
+import Alert from "@material-ui/lab/Alert";
+import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
-import { Fips } from "../data/utils/Fips";
-import { MetricQuery } from "../data/query/MetricQuery";
 import { VariableConfig } from "../data/config/MetricConfig";
-import { MultiMapDialog } from "./ui/MultiMapDialog";
-import { Row } from "../data/utils/DatasetTypes";
 import { exclude } from "../data/query/BreakdownFilter";
-import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
 import {
-  NON_HISPANIC,
-  UNKNOWN,
-  UNKNOWN_RACE,
-  ALL,
-} from "../data/utils/Constants";
-import {
+  Breakdowns,
+  BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
+import { MetricQuery } from "../data/query/MetricQuery";
+import { AgeSorterStrategy } from "../data/sorting/AgeSorterStrategy";
+import {
+  ALL,
+  NON_HISPANIC,
+  UNKNOWN,
+  UNKNOWN_RACE,
+} from "../data/utils/Constants";
+import { Row } from "../data/utils/DatasetTypes";
+import { getHighestN, getLowestN } from "../data/utils/datasetutils";
+import { Fips } from "../data/utils/Fips";
+import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
+import styles from "./Card.module.scss";
+import CardWrapper from "./CardWrapper";
+import DropDownMenu from "./ui/DropDownMenu";
+import { HighestLowestList } from "./ui/HighestLowestList";
+import MapBreadcrumbs from "./ui/MapBreadcrumbs";
+import MissingDataAlert from "./ui/MissingDataAlert";
+import { MultiMapDialog } from "./ui/MultiMapDialog";
 
 const POSSIBLE_BREAKDOWNS: BreakdownVar[] = [
   "race_and_ethnicity",
   "age",
   "sex",
 ];
+
+const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
 
 export interface MapCardProps {
   key?: string;
@@ -64,6 +69,8 @@ function MapCardWithKey(props: MapCardProps) {
     },
   };
 
+  const [listExpanded, setListExpanded] = useState(false);
+
   const [activeBreakdownFilter, setActiveBreakdownFilter] = useState<string>(
     ""
   );
@@ -93,7 +100,7 @@ function MapCardWithKey(props: MapCardProps) {
             breakdown,
             breakdown === "race_and_ethnicity"
               ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE)
-              : undefined
+              : exclude(UNKNOWN)
           )
       )
   );
@@ -104,14 +111,22 @@ function MapCardWithKey(props: MapCardProps) {
       title={<>{metricConfig.fullCardTitleName}</>}
     >
       {(queryResponses, metadata) => {
+        const sortArgs =
+          props.currentBreakdown === "age"
+            ? ([new AgeSorterStrategy([ALL]).compareFn] as any)
+            : [];
+
         // Look up query at the same index as the breakdown.
         // TODO: we might consider returning a map of id to response from
         // CardWrapper so we don't need to rely on index order.
         const queryResponse =
           queryResponses[requestedBreakdowns.indexOf(activeBreakdownVar)];
-        const breakdownValues = queryResponse
-          .getUniqueFieldValues(activeBreakdownVar)
-          .sort();
+        const breakdownValues = queryResponse.getUniqueFieldValues(
+          activeBreakdownVar
+        );
+
+        breakdownValues.sort.apply(breakdownValues, sortArgs);
+
         if (
           activeBreakdownFilter === "" ||
           activeBreakdownFilter === undefined
@@ -124,13 +139,24 @@ function MapCardWithKey(props: MapCardProps) {
           .filter(
             (row: Row) => row[activeBreakdownVar] === activeBreakdownFilter
           );
+        const highestRatesList = getHighestN(
+          dataForActiveBreakdownFilter,
+          metricConfig.metricId,
+          SIZE_OF_HIGHEST_LOWEST_RATES_LIST
+        );
+        const lowestRatesList = getLowestN(
+          dataForActiveBreakdownFilter,
+          metricConfig.metricId,
+          SIZE_OF_HIGHEST_LOWEST_RATES_LIST
+        );
 
         // Create and populate a map of breakdown display name to options
         let filterOptions: Record<string, string[]> = {};
         const getBreakdownOptions = (breakdown: BreakdownVar) => {
-          return queryResponses[requestedBreakdowns.indexOf(breakdown)]
-            .getUniqueFieldValues(breakdown)
-            .sort();
+          const values = queryResponses[
+            requestedBreakdowns.indexOf(breakdown)
+          ].getUniqueFieldValues(breakdown);
+          return values.sort.apply(values, sortArgs);
         };
         POSSIBLE_BREAKDOWNS.forEach((breakdown: BreakdownVar) => {
           if ([breakdown].includes(props.currentBreakdown)) {
@@ -256,6 +282,7 @@ function MapCardWithKey(props: MapCardProps) {
                   metric={metricConfig}
                   legendTitle={metricConfig.fullCardTitleName}
                   data={dataForActiveBreakdownFilter}
+                  legendData={dataForActiveBreakdownFilter}
                   hideLegend={
                     queryResponse.dataIsMissing() ||
                     dataForActiveBreakdownFilter.length <= 1
@@ -264,6 +291,18 @@ function MapCardWithKey(props: MapCardProps) {
                   fips={props.fips}
                   scaleType="quantile"
                 />
+                {!queryResponse.dataIsMissing() &&
+                  dataForActiveBreakdownFilter.length > 1 && (
+                    <HighestLowestList
+                      variableConfig={props.variableConfig}
+                      metricConfig={metricConfig}
+                      listExpanded={listExpanded}
+                      setListExpanded={setListExpanded}
+                      highestRatesList={highestRatesList}
+                      lowestRatesList={lowestRatesList}
+                      fipsTypePluralDisplayName={props.fips.getPluralChildFipsTypeDisplayName()}
+                    />
+                  )}
               </CardContent>
             )}
           </>

@@ -1,13 +1,14 @@
-import { Breakdowns } from "../query/Breakdowns";
-import {
-  MetricQueryResponse,
-  createMissingDataResponse,
-  MetricQuery,
-} from "../query/MetricQuery";
-import { MetricId } from "../config/MetricConfig";
-import { ProviderId } from "../loading/VariableProviderMap";
 import { IDataFrame } from "data-forge";
 import { Fips } from "../../data/utils/Fips";
+import { MetricId } from "../config/MetricConfig";
+import { ProviderId } from "../loading/VariableProviderMap";
+import { Breakdowns } from "../query/Breakdowns";
+import {
+  createMissingDataResponse,
+  MetricQuery,
+  MetricQueryResponse,
+} from "../query/MetricQuery";
+import { DatasetOrganizer } from "../sorting/DatasetOrganizer";
 import { ALL, TOTAL } from "../utils/Constants";
 import { DatasetCalculator } from "../utils/DatasetCalculator";
 
@@ -33,7 +34,9 @@ abstract class VariableProvider {
 
     // TODO - check that the metrics are all provided by this provider once we don't have providers relying on other providers
 
-    return await this.getDataInternal(metricQuery);
+    let resp = await this.getDataInternal(metricQuery);
+    new DatasetOrganizer(resp.data, metricQuery.breakdowns).organize();
+    return resp;
   }
 
   filterByGeo(df: IDataFrame, breakdowns: Breakdowns): IDataFrame {

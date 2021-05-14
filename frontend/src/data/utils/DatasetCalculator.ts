@@ -3,17 +3,29 @@ import { BreakdownVar } from "../query/Breakdowns";
 import { ALL, UNKNOWN, UNKNOWN_RACE } from "./Constants";
 import { applyToGroups } from "./datasetutils";
 
+// The finest grain percentage resolution we support - below this resolution,
+// we treat the data as null/nonexistent. The smallest supported percentage
+// can be calculated as 1 / resolution * 100, and the smallest supported per
+// 100k number is then 1 / resolution * 100000.
+export const MAXIMUM_PERCENTAGE_RESOLUTION = 100000;
+
 export class DatasetCalculator {
   /** Calculates a rate as occurrences per 100k */
   per100k(numerator: number, denominator: number): number | null {
-    return numerator == null || denominator == null || denominator === 0
+    return numerator == null ||
+      denominator == null ||
+      denominator === 0 ||
+      MAXIMUM_PERCENTAGE_RESOLUTION * numerator < denominator
       ? null
       : Math.round(100000 * (numerator / denominator));
   }
 
   /** Calculates a rate as a percent to one decimal place. */
   percent(numerator: number, denominator: number): number | null {
-    return numerator == null || denominator == null || denominator === 0
+    return numerator == null ||
+      denominator == null ||
+      denominator === 0 ||
+      MAXIMUM_PERCENTAGE_RESOLUTION * numerator < denominator
       ? null
       : Math.round((1000 * numerator) / denominator) / 10;
   }

@@ -250,12 +250,12 @@ export class Breakdowns {
     );
   }
 
-  hasOneRegionOfGeographicGranularity() {
+  hasOneRegionOfGeographicGranularity(): boolean {
     switch (this.geography) {
       case "county":
-        return this.filterFips && this.filterFips.isCounty();
+        return !!this.filterFips && this.filterFips.isCounty();
       case "state":
-        return this.filterFips && this.filterFips.isState();
+        return !!this.filterFips && this.filterFips.isState();
       case "national":
         return !this.filterFips || this.filterFips.isUsa();
     }
