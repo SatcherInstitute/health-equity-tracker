@@ -70,8 +70,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
           BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
         } for ${metricConfig.fullCardTitleName}`}</>
       }
+      loadGeographies={true}
     >
-      {([mapQueryResponse, alertQueryResponse]) => {
+      {([mapQueryResponse, alertQueryResponse], metadata, geoData) => {
         const unknowns = mapQueryResponse
           .getValidRowsForField(props.currentBreakdown)
           .filter(
@@ -134,6 +135,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   hideLegend={
                     mapQueryResponse.dataIsMissing() || unknowns.length <= 1
                   }
+                  geoData={geoData}
                 />
               </CardContent>
             )}

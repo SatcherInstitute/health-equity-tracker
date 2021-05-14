@@ -1,5 +1,5 @@
 import { DatasetMetadata } from "../utils/DatasetTypes";
-import { DataSourceMetadataMap } from "./MetadataMap";
+import { DataSourceMetadataMap, GEOGRAPHIES_DATASET_ID } from "./MetadataMap";
 
 const datasetMetadataList: DatasetMetadata[] = [
   {
@@ -116,6 +116,11 @@ const datasetMetadataList: DatasetMetadata[] = [
     id: "uhc_sex",
     name: "COPD and Diabetes prevalence by sex and state",
     update_time: "2019",
+  },
+  {
+    id: GEOGRAPHIES_DATASET_ID,
+    name: "U.S. Geographic Data",
+    update_time: "2020",
   },
 ];
 

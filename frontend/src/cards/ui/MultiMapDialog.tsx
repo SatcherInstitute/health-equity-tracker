@@ -41,6 +41,9 @@ export interface MultiMapDialogProps {
   queryResponses: MetricQueryResponse[];
   // Metadata required for the source footer
   metadata: MapOfDatasetMetadata;
+  // Geography data, in topojson format. Must include both states and counties.
+  // If not provided, defaults to directly loading /tmp/geographies.json
+  geoData?: Record<string, any>;
 }
 
 /*
@@ -96,6 +99,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     fieldRange={props.fieldRange}
                     hideActions={false}
                     scaleType="quantile"
+                    geoData={props.geoData}
                   />
                 )}
               </Grid>
