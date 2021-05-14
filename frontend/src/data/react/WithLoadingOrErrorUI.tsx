@@ -152,9 +152,19 @@ export function WithMetadataAndMetricsWithKey(
                 datasetIds={[GEOGRAPHIES_DATASET_ID]}
                 loadingComponent={props.loadingComponent}
               >
-                {(datasets) =>
-                  props.children(metadata, queryResponses, datasets[0].rows)
-                }
+                {(datasets) => {
+                  // Expect just the geography dataset because that's what we
+                  // passed to props.datasetIds
+                  // TODO: Consider changing WithLoadingOrErrorUI and similar
+                  // components to return a map of {id: resource} instead of
+                  // an array so it's less brittle.
+                  const [geographies] = datasets;
+                  return props.children(
+                    metadata,
+                    queryResponses,
+                    geographies.rows
+                  );
+                }}
               </WithDatasets>
             );
           }}
