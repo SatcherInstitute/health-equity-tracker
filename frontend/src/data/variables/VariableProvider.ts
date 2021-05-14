@@ -1,13 +1,13 @@
-import { Breakdowns } from "../query/Breakdowns";
-import {
-  MetricQueryResponse,
-  createMissingDataResponse,
-  MetricQuery,
-} from "../query/MetricQuery";
-import { MetricId } from "../config/MetricConfig";
-import { ProviderId } from "../loading/VariableProviderMap";
 import { IDataFrame } from "data-forge";
 import { Fips } from "../../data/utils/Fips";
+import { MetricId } from "../config/MetricConfig";
+import { ProviderId } from "../loading/VariableProviderMap";
+import { Breakdowns } from "../query/Breakdowns";
+import {
+  createMissingDataResponse,
+  MetricQuery,
+  MetricQueryResponse,
+} from "../query/MetricQuery";
 import { ALL, TOTAL } from "../utils/Constants";
 import { DatasetCalculator } from "../utils/DatasetCalculator";
 

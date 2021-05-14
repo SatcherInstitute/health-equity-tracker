@@ -77,6 +77,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
       setCurrentBreakdown(demo);
     };
     const psHandler = psSubscribe(readParams, "vardisp");
+    readParams();
     return () => {
       if (psHandler) {
         psHandler.unsubscribe();
