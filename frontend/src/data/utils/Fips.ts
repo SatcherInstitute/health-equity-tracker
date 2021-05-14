@@ -29,11 +29,11 @@ class Fips {
   }
 
   isState() {
-    return this.isStateOrTerritory() && TERRITORY_CODES.includes(this.code);
+    return this.isStateOrTerritory() && !TERRITORY_CODES.includes(this.code);
   }
 
   isTerritory() {
-    return this.isStateOrTerritory() && !TERRITORY_CODES.includes(this.code);
+    return this.isStateOrTerritory() && TERRITORY_CODES.includes(this.code);
   }
 
   isCounty() {
