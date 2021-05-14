@@ -40,4 +40,4 @@ ctp_exporter_operator = util.create_exporter_operator(
 
 # Covid Tracking Project Ingestion DAG
 # TODO(jenniebrown): Add the rest of the steps
-(ctp_gcs_operator >> ctp_bq_op)
+(ctp_gcs_operator >> ctp_bq_op >> ctp_exporter_operator)
