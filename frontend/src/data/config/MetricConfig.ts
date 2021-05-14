@@ -131,12 +131,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "cases",
       variableDisplayName: "Cases",
-      variableFullDisplayName: "COVID-19 Cases",
+      variableFullDisplayName: "Total COVID-19 Cases",
       metrics: {
         count: {
           metricId: "covid_cases",
-          fullCardTitleName: "COVID-19 cases",
-          shortVegaLabel: "COVID-19 cases",
+          fullCardTitleName: "Total COVID-19 cases",
+          shortVegaLabel: "Total COVID-19 cases",
           type: "count",
           populationComparisonMetric: {
             metricId: "covid_cases_reporting_population",
@@ -159,14 +159,14 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           knownBreakdownComparisonMetric: {
             metricId: "covid_cases_share_of_known",
             fullCardTitleName:
-              "Share of COVID-19 cases with known demographics",
+              "Share of total COVID-19 cases with known demographics",
             shortVegaLabel: "% of cases",
             type: "pct_share",
           },
         },
         per100k: {
           metricId: "covid_cases_per_100k",
-          fullCardTitleName: "COVID-19 cases per 100k people",
+          fullCardTitleName: "Total COVID-19 cases per 100k people",
           shortVegaLabel: "Cases per 100k",
           type: "per100k",
         },
