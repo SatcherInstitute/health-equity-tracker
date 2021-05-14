@@ -207,7 +207,10 @@ window.onpopstate = () => {
 };
 
 //Use effect with popState
-export const usePopStateEffect = (readStateFromParamFunc: () => void) => {
+export const usePopStateEffect = (
+  readStateFromParamFunc: () => void,
+  deps = []
+) => {
   useEffect(() => {
     let psHandler: any;
     if (!psHandler) {
