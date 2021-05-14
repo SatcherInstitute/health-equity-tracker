@@ -31,7 +31,7 @@ export function WhatIsHealthEquityPage() {
         textColor="primary"
         centered
       >
-        <title>What is Health Equity - Health Equity Tracker</title>
+        {/* <title>What is Health Equity - Health Equity Tracker</title> */}
         <Tab
           className={styles.WhatIsHealthEquityTab}
           label="What is Health Equity?"
