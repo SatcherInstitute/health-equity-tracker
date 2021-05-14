@@ -160,7 +160,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             metricId: "covid_cases_share_of_known",
             fullCardTitleName:
               "Share of Total COVID-19 cases with known demographics",
-            shortVegaLabel: "% of cases",
+            shortVegaLabel: "% of total cases",
             type: "pct_share",
           },
         },
@@ -175,12 +175,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "deaths",
       variableDisplayName: "Deaths",
-      variableFullDisplayName: "COVID-19 Deaths",
+      variableFullDisplayName: "Total COVID-19 Deaths",
       metrics: {
         count: {
           metricId: "covid_deaths",
-          fullCardTitleName: "COVID-19 deaths",
-          shortVegaLabel: "Deaths",
+          fullCardTitleName: "Total COVID-19 deaths",
+          shortVegaLabel: "Total COVID-19 deaths",
           type: "count",
           populationComparisonMetric: {
             metricId: "covid_deaths_reporting_population",
@@ -191,7 +191,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         pct_share: {
           metricId: "covid_deaths_share",
-          fullCardTitleName: "Share of Total COVID-19 deaths",
+          fullCardTitleName: "Share of total COVID-19 deaths",
           shortVegaLabel: "% of deaths",
           type: "pct_share",
           populationComparisonMetric: {
@@ -203,14 +203,14 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           knownBreakdownComparisonMetric: {
             metricId: "covid_deaths_share_of_known",
             fullCardTitleName:
-              "Share of COVID-19 deaths with known demographics",
-            shortVegaLabel: "% of deaths",
+              "Share of Total COVID-19 deaths with known demographics",
+            shortVegaLabel: "% of total deaths",
             type: "pct_share",
           },
         },
         per100k: {
           metricId: "covid_deaths_per_100k",
-          fullCardTitleName: "COVID-19 deaths per 100k people",
+          fullCardTitleName: "Total COVID-19 deaths per 100k people",
           shortVegaLabel: "Deaths per 100k",
           type: "per100k",
         },
@@ -219,12 +219,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "hospitalizations",
       variableDisplayName: "Hospitalizations",
-      variableFullDisplayName: "COVID-19 Hospitalizations",
+      variableFullDisplayName: "Total COVID-19 Hospitalizations",
       metrics: {
         count: {
           metricId: "covid_hosp",
-          fullCardTitleName: "COVID-19 hospitalizations",
-          shortVegaLabel: "Hospitalizations",
+          fullCardTitleName: "Total COVID-19 hospitalizations",
+          shortVegaLabel: "Total COVID-19 hospitalizations",
           type: "count",
           populationComparisonMetric: {
             metricId: "covid_hosp_reporting_population",
@@ -235,7 +235,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         pct_share: {
           metricId: "covid_hosp_share",
-          fullCardTitleName: "Share of Total COVID-19 hospitalizations",
+          fullCardTitleName: "Share of total COVID-19 hospitalizations",
           shortVegaLabel: "% of hospitalizations",
           type: "pct_share",
           populationComparisonMetric: {
@@ -247,14 +247,14 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           knownBreakdownComparisonMetric: {
             metricId: "covid_hosp_share_of_known",
             fullCardTitleName:
-              "Share of COVID-19 hospitalizations with known demographics",
-            shortVegaLabel: "% of hospitalizations",
+              "Share of Total COVID-19 hospitalizations with known demographics",
+            shortVegaLabel: "% of total hospitalizations",
             type: "pct_share",
           },
         },
         per100k: {
           metricId: "covid_hosp_per_100k",
-          fullCardTitleName: "COVID-19 hospitalizations per 100k people",
+          fullCardTitleName: "Total COVID-19 hospitalizations per 100k people",
           shortVegaLabel: "Hospitalizations per 100k",
           type: "per100k",
         },
