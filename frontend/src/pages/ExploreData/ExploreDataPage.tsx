@@ -14,12 +14,12 @@ import {
   PhraseSegment,
 } from "../../utils/MadLibs";
 import {
-  addPopStateHandler,
   getParameter,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
   parseMls,
-  removePopStateHandler,
+  psSubscribe,
+  psUnsubscribe,
   setParameters,
   SHOW_ONBOARDING_PARAM,
   stringifyMls,
@@ -78,11 +78,11 @@ function ExploreDataPage() {
   useEffect(() => {
     readParam();
     if (!psHandler) {
-      psHandler = addPopStateHandler(readParam);
+      psHandler = psSubscribe(readParam);
     }
     return () => {
       if (psHandler) {
-        removePopStateHandler(psHandler);
+        psUnsubscribe(psHandler);
       }
     };
   }, []);

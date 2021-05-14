@@ -11,9 +11,9 @@ import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
 import { Fips } from "../data/utils/Fips";
 import { DropdownVarId } from "../utils/MadLibs";
 import {
-  addPopStateHandler,
   getParameter,
-  removePopStateHandler,
+  psSubscribe,
+  psUnsubscribe,
   setParameter,
 } from "../utils/urlutils";
 import NoDataAlert from "./ui/NoDataAlert";
@@ -85,12 +85,12 @@ function TwoVariableReport(props: {
   let popstateHandler: any = null;
   useEffect(() => {
     if (!popstateHandler) {
-      popstateHandler = addPopStateHandler(parseParams);
+      popstateHandler = psSubscribe(parseParams);
     }
     parseParams();
     return () => {
       if (popstateHandler) {
-        removePopStateHandler(popstateHandler);
+        psUnsubscribe(popstateHandler);
       }
     };
   }, []);

@@ -11,9 +11,9 @@ import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
 import { Fips } from "../data/utils/Fips";
 import { DropdownVarId } from "../utils/MadLibs";
 import {
-  addPopStateHandler,
   getParameter,
-  removePopStateHandler,
+  psSubscribe,
+  psUnsubscribe,
   setParameter,
   setParameters,
 } from "../utils/urlutils";
@@ -71,12 +71,12 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
 
   useEffect(() => {
     if (!popstateHandler) {
-      popstateHandler = addPopStateHandler(readParams);
+      popstateHandler = psSubscribe(readParams);
     }
     readParams();
     return () => {
       if (popstateHandler != null) {
-        removePopStateHandler(popstateHandler);
+        psUnsubscribe(popstateHandler);
       }
     };
   }, []);
