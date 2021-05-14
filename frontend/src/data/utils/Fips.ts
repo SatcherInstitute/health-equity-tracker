@@ -5,7 +5,7 @@ export const USA_FIPS = "00";
 export const TERRITORY_CODES = [
   /*American Samoa-*/ "60",
   /*Guam-*/ "66",
-  /*Northern Mariana Islands-*/ "60",
+  /*Northern Mariana Islands-*/ "69",
   /*Puerto Rico-*/ "72",
   /*Virgin Islands-*/ "78",
 ];
