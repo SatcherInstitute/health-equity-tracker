@@ -189,8 +189,9 @@ export const usePopStateEffect = (
   readStateFromParamFunc: () => void,
   deps = []
 ) => {
+  let psHandler: any;
+
   useEffect(() => {
-    let psHandler: any;
     if (!psHandler) {
       psHandler = psSubscribe(readStateFromParamFunc);
     }
