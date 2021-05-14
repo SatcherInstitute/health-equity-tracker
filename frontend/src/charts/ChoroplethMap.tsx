@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Vega } from "react-vega";
 import { useResponsiveWidth } from "../utils/useResponsiveWidth";
-import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
+import { Fips } from "../data/utils/Fips";
 import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 
@@ -176,9 +176,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       projections: [
         {
           name: US_PROJECTION,
-          type: TERRITORY_CODES.includes(props.fips.code)
-            ? "albers"
-            : "albersUsa",
+          type: props.fips.isTerritory() ? "albers" : "albersUsa",
           fit: { signal: "data('" + GEO_DATASET + "')" },
           size: {
             signal:
