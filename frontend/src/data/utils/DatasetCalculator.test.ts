@@ -1,11 +1,18 @@
 import { DataFrame, IDataFrame } from "data-forge";
-import { DatasetCalculator } from "./DatasetCalculator";
+import {
+  DatasetCalculator,
+  MAXIMUM_PERCENTAGE_RESOLUTION,
+} from "./DatasetCalculator";
 
 describe("Dataset Calculator", () => {
   let calc = new DatasetCalculator();
 
-  test("Testing calculation", async () => {
+  test("Testing per 100k", async () => {
     expect(calc.per100k(100, 1000)).toEqual(10000);
+  });
+
+  test("Testing per 100k max resolution", async () => {
+    expect(calc.per100k(1, MAXIMUM_PERCENTAGE_RESOLUTION + 1)).toBeNull();
   });
 
   test("Testing total", async () => {
@@ -14,6 +21,10 @@ describe("Dataset Calculator", () => {
 
   test("Testing percent", async () => {
     expect(calc.percent(10, 20)).toEqual(50);
+  });
+
+  test("Testing percent max resolution", async () => {
+    expect(calc.percent(1, MAXIMUM_PERCENTAGE_RESOLUTION + 1)).toBeNull();
   });
 
   test("Testing percent share one race", async () => {
