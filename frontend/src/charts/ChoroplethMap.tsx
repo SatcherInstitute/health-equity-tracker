@@ -189,7 +189,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       projections: [
         {
           name: US_PROJECTION,
-          type: "albersUsa",
+          type: props.fips.isTerritory() ? "albers" : "albersUsa",
           fit: { signal: "data('" + GEO_DATASET + "')" },
           size: {
             signal:
