@@ -57,24 +57,22 @@ function ExploreDataPage() {
     activeSelections: defaultValuesWithOverrides,
   });
 
-  let readParams = () => {
-    let index = getParameter(MADLIB_PHRASE_PARAM, 0, (str) => {
-      return MADLIB_LIST.findIndex((ele) => ele.id === str);
-    });
-    let selection = getParameter(
-      MADLIB_SELECTIONS_PARAM,
-      MADLIB_LIST[index].defaultSelections,
-      parseMls
-    );
-
-    setMadLib({
-      ...MADLIB_LIST[index],
-      activeSelections: selection,
-    });
-  };
-
   useEffect(() => {
-    const psSub = psSubscribe(readParams);
+    const psSub = psSubscribe(() => {
+      let index = getParameter(MADLIB_PHRASE_PARAM, 0, (str) => {
+        return MADLIB_LIST.findIndex((ele) => ele.id === str);
+      });
+      let selection = getParameter(
+        MADLIB_SELECTIONS_PARAM,
+        MADLIB_LIST[index].defaultSelections,
+        parseMls
+      );
+
+      setMadLib({
+        ...MADLIB_LIST[index],
+        activeSelections: selection,
+      });
+    });
     return () => {
       if (psSub) {
         psSub.unsubscribe();

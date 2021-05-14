@@ -62,47 +62,45 @@ function TwoVariableReport(props: {
     setCurrentBreakdown(str);
   };
 
-  const readParams = () => {
-    const demoParam1 = getParameter(
-      DATA_TYPE_1_PARAM,
-      undefined,
-      (val: string) => {
-        return METRIC_CONFIG[props.dropdownVarId1].find(
-          (cfg) => cfg.variableId === val
-        );
-      }
-    );
-    const demoParam2 = getParameter(
-      DATA_TYPE_2_PARAM,
-      undefined,
-      (val: string) => {
-        return METRIC_CONFIG[props.dropdownVarId2].find(
-          (cfg) => cfg.variableId === val
-        );
-      }
-    );
-
-    const demo: BreakdownVar = getParameter(
-      DEMOGRAPHIC_PARAM,
-      "race_and_ethnicity"
-    );
-    setVariableConfig1(
-      demoParam1 ? demoParam1 : METRIC_CONFIG[props.dropdownVarId1][0]
-    );
-    setVariableConfig2(
-      demoParam2 ? demoParam2 : METRIC_CONFIG[props.dropdownVarId2][0]
-    );
-    setCurrentBreakdown(demo);
-  };
-
   useEffect(() => {
-    const psSub = psSubscribe(readParams);
+    const psSub = psSubscribe(() => {
+      const demoParam1 = getParameter(
+        DATA_TYPE_1_PARAM,
+        undefined,
+        (val: string) => {
+          return METRIC_CONFIG[props.dropdownVarId1].find(
+            (cfg) => cfg.variableId === val
+          );
+        }
+      );
+      const demoParam2 = getParameter(
+        DATA_TYPE_2_PARAM,
+        undefined,
+        (val: string) => {
+          return METRIC_CONFIG[props.dropdownVarId2].find(
+            (cfg) => cfg.variableId === val
+          );
+        }
+      );
+
+      const demo: BreakdownVar = getParameter(
+        DEMOGRAPHIC_PARAM,
+        "race_and_ethnicity"
+      );
+      setVariableConfig1(
+        demoParam1 ? demoParam1 : METRIC_CONFIG[props.dropdownVarId1][0]
+      );
+      setVariableConfig2(
+        demoParam2 ? demoParam2 : METRIC_CONFIG[props.dropdownVarId2][0]
+      );
+      setCurrentBreakdown(demo);
+    });
     return () => {
       if (psSub) {
         psSub.unsubscribe();
       }
     };
-  }, [readParams]);
+  }, [props.dropdownVarId1, props.dropdownVarId2]);
 
   if (variableConfig1 === null) {
     return (

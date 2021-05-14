@@ -55,35 +55,33 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
     setCurrentBreakdown(str);
   };
 
-  const readParams = () => {
-    const demoParam1 = getParameter(
-      DATA_TYPE_1_PARAM,
-      undefined,
-      (val: string) => {
-        return METRIC_CONFIG[props.dropdownVarId].find(
-          (cfg) => cfg.variableId === val
-        );
-      }
-    );
-    setVariableConfig(
-      demoParam1 ? demoParam1 : METRIC_CONFIG[props.dropdownVarId][0]
-    );
-
-    const demo: BreakdownVar = getParameter(
-      DEMOGRAPHIC_PARAM,
-      "race_and_ethnicity"
-    );
-    setCurrentBreakdown(demo);
-  };
-
   useEffect(() => {
-    const psHandler = psSubscribe(readParams);
+    const psHandler = psSubscribe(() => {
+      const demoParam1 = getParameter(
+        DATA_TYPE_1_PARAM,
+        undefined,
+        (val: string) => {
+          return METRIC_CONFIG[props.dropdownVarId].find(
+            (cfg) => cfg.variableId === val
+          );
+        }
+      );
+      setVariableConfig(
+        demoParam1 ? demoParam1 : METRIC_CONFIG[props.dropdownVarId][0]
+      );
+
+      const demo: BreakdownVar = getParameter(
+        DEMOGRAPHIC_PARAM,
+        "race_and_ethnicity"
+      );
+      setCurrentBreakdown(demo);
+    });
     return () => {
       if (psHandler) {
         psHandler.unsubscribe();
       }
     };
-  }, [readParams]);
+  }, [props.dropdownVarId]);
 
   const breakdownIsShown = (breakdownVar: string) =>
     currentBreakdown === breakdownVar;
