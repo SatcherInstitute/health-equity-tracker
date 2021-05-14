@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Vega } from "react-vega";
 import { useResponsiveWidth } from "../utils/useResponsiveWidth";
-import { Fips } from "../data/utils/Fips";
+import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
 import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 
@@ -24,14 +24,6 @@ const VAR_DATASET = "VAR_DATASET";
 const LEGEND_DATASET = "LEGEND_DATASET";
 // TODO - consider moving standardized column names, like fips, to variables shared between here and VariableProvider
 const VAR_FIPS = "fips";
-
-const TERRITORIES = [
-  /*American Samoa-*/ "60",
-  /*Guam-*/ "66",
-  /*Northern Mariana Islands-*/ "60",
-  /*Puerto Rico-*/ "72",
-  /*Virgin Islands-*/ "78",
-];
 
 export interface ChoroplethMapProps {
   data: Record<string, any>[];
@@ -184,7 +176,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       projections: [
         {
           name: US_PROJECTION,
-          type: TERRITORIES.includes(props.fips.code) ? "albers" : "albersUsa",
+          type: TERRITORY_CODES.includes(props.fips.code)
+            ? "albers"
+            : "albersUsa",
           fit: { signal: "data('" + GEO_DATASET + "')" },
           size: {
             signal:
