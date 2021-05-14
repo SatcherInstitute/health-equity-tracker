@@ -22,8 +22,7 @@ import {
 import styles from "./ExploreDataPage.module.scss";
 import OptionsSelector from "./OptionsSelector";
 import { Onboarding } from "./Onboarding";
-// TODO(kristak): Add cookies back
-// import { useCookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 import { STATUS } from "react-joyride";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 
@@ -80,10 +79,8 @@ function ExploreDataPage() {
   }, []);
 
   // Set up warm welcome onboarding behaviors
-  // TODO(kristak): Add cookies back
-  // const [cookies, setCookie] = useCookies(["name"]);
-  // let showOnboarding = cookies.skipOnboarding !== "true";
-  let showOnboarding = false;
+  const [cookies, setCookie] = useCookies();
+  let showOnboarding = cookies.skipOnboarding !== "true";
   if (params[SHOW_ONBOARDING_PARAM] === "true") {
     showOnboarding = true;
   }
@@ -96,8 +93,10 @@ function ExploreDataPage() {
   const onboardingCallback = (data: any) => {
     if ([STATUS.FINISHED, STATUS.SKIPPED].includes(data.status)) {
       setActivelyOnboarding(false);
-      // TODO(kristak): Add cookies back
-      // setCookie("skipOnboarding", true, { path: "/" });
+      const expirationDate = new Date();
+      // Expiration date set for a year from now
+      expirationDate.setFullYear(expirationDate.getFullYear() + 1);
+      setCookie("skipOnboarding", true, { path: "/", expires: expirationDate });
     }
   };
 
