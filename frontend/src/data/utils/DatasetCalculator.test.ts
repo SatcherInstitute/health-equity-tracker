@@ -7,8 +7,12 @@ import {
 describe("Dataset Calculator", () => {
   let calc = new DatasetCalculator();
 
-  test("Testing calculation", async () => {
+  test("Testing per 100k", async () => {
     expect(calc.per100k(100, 1000)).toEqual(10000);
+  });
+
+  test("Testing per 100k max resolution", async () => {
+    expect(calc.per100k(1, MAXIMUM_PERCENTAGE_RESOLUTION + 1)).toBeNull();
   });
 
   test("Testing total", async () => {
