@@ -25,6 +25,14 @@ const LEGEND_DATASET = "LEGEND_DATASET";
 // TODO - consider moving standardized column names, like fips, to variables shared between here and VariableProvider
 const VAR_FIPS = "fips";
 
+const TERRITORIES = [
+  /*American Samoa-*/ "60",
+  /*Guam-*/ "66",
+  /*Northern Mariana Islands-*/ "60",
+  /*Puerto Rico-*/ "72",
+  /*Virgin Islands-*/ "78",
+];
+
 export interface ChoroplethMapProps {
   data: Record<string, any>[];
   // legendData is the dataset for which to calculate legend. Used to have a common legend between two maps.
@@ -176,7 +184,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       projections: [
         {
           name: US_PROJECTION,
-          type: "albersUsa",
+          type: TERRITORIES.includes(props.fips.code) ? "albers" : "albersUsa",
           fit: { signal: "data('" + GEO_DATASET + "')" },
           size: {
             signal:
