@@ -18,11 +18,10 @@ import {
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
   parseMls,
-  psSubscribe,
-  psUnsubscribe,
   setParameters,
   SHOW_ONBOARDING_PARAM,
   stringifyMls,
+  usePopStateEffect,
   useSearchParams,
 } from "../../utils/urlutils";
 import styles from "./ExploreDataPage.module.scss";
@@ -58,7 +57,7 @@ function ExploreDataPage() {
     activeSelections: defaultValuesWithOverrides,
   });
 
-  let readParam = () => {
+  let readParams = () => {
     let index = getParameter(MADLIB_PHRASE_PARAM, 0, (str) => {
       return MADLIB_LIST.findIndex((ele) => ele.id === str);
     });
@@ -74,18 +73,7 @@ function ExploreDataPage() {
     });
   };
 
-  let psHandler: any = null;
-  useEffect(() => {
-    readParam();
-    if (!psHandler) {
-      psHandler = psSubscribe(readParam);
-    }
-    return () => {
-      if (psHandler) {
-        psUnsubscribe(psHandler);
-      }
-    };
-  }, []);
+  usePopStateEffect(readParams);
 
   // Set up warm welcome onboarding behaviors
   // TODO(kristak): Add cookies back

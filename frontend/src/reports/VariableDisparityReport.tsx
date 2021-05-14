@@ -1,5 +1,5 @@
 import { Grid } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { MapCard } from "../cards/MapCard";
 import { PopulationCard } from "../cards/PopulationCard";
@@ -12,10 +12,9 @@ import { Fips } from "../data/utils/Fips";
 import { DropdownVarId } from "../utils/MadLibs";
 import {
   getParameter,
-  psSubscribe,
-  psUnsubscribe,
   setParameter,
   setParameters,
+  usePopStateEffect,
 } from "../utils/urlutils";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
@@ -67,19 +66,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
     setCurrentBreakdown(demo);
   };
 
-  let popstateHandler: any = null;
-
-  useEffect(() => {
-    if (!popstateHandler) {
-      popstateHandler = psSubscribe(readParams);
-    }
-    readParams();
-    return () => {
-      if (popstateHandler != null) {
-        psUnsubscribe(popstateHandler);
-      }
-    };
-  }, []);
+  usePopStateEffect(readParams);
 
   const breakdownIsShown = (breakdownVar: string) =>
     currentBreakdown === breakdownVar;

@@ -1,5 +1,5 @@
 import { Grid } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { MapCard } from "../cards/MapCard";
 import { PopulationCard } from "../cards/PopulationCard";
@@ -12,9 +12,8 @@ import { Fips } from "../data/utils/Fips";
 import { DropdownVarId } from "../utils/MadLibs";
 import {
   getParameter,
-  psSubscribe,
-  psUnsubscribe,
   setParameter,
+  usePopStateEffect,
 } from "../utils/urlutils";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
@@ -60,7 +59,7 @@ function TwoVariableReport(props: {
     setCurrentBreakdown(str);
   };
 
-  const parseParams = () => {
+  const readParams = () => {
     const demoParam1 = getParameter("dt1", undefined, (val: string) => {
       return METRIC_CONFIG[props.dropdownVarId1].find(
         (cfg) => cfg.variableId === val
@@ -82,18 +81,7 @@ function TwoVariableReport(props: {
     setCurrentBreakdown(demo);
   };
 
-  let popstateHandler: any = null;
-  useEffect(() => {
-    if (!popstateHandler) {
-      popstateHandler = psSubscribe(parseParams);
-    }
-    parseParams();
-    return () => {
-      if (popstateHandler) {
-        psUnsubscribe(popstateHandler);
-      }
-    };
-  }, []);
+  usePopStateEffect(readParams);
 
   if (variableConfig1 === null) {
     return (

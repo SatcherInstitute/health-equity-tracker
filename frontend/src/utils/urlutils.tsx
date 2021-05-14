@@ -1,5 +1,5 @@
 import Button from "@material-ui/core/Button";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { MadLibId, PhraseSelections } from "./MadLibs";
 
@@ -200,4 +200,18 @@ window.onpopstate = () => {
       handler();
     }
   });
+};
+
+export const usePopStateEffect = (readStateFromParamFunc: () => void) => {
+  useEffect(() => {
+    let psHandler: any;
+    if (!psHandler) {
+      psHandler = psSubscribe(readStateFromParamFunc);
+      return () => {
+        if (!psHandler) {
+          psUnsubscribe(psHandler);
+        }
+      };
+    }
+  }, [readStateFromParamFunc]);
 };
