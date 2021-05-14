@@ -1,5 +1,5 @@
 import Button from "@material-ui/core/Button";
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { MadLibId, PhraseSelections } from "./MadLibs";
 
@@ -184,30 +184,17 @@ export type PSEventHandler = () => void;
 const psSubscriptions: any = {};
 let psCount: number = 0;
 
-//Use effect with popState
-export const usePopStateEffect = (
-  readStateFromParamFunc: () => void,
-  deps = []
-) => {
-  let psHandler: any;
-
-  useEffect(() => {
-    if (!psHandler) {
-      psHandler = psSubscribe(readStateFromParamFunc);
-    }
-    return () => {
-      if (psHandler) {
-        psUnsubscribe(psHandler);
-      }
-    };
-  }, [readStateFromParamFunc]);
-};
-
-export const psSubscribe = (handler: PSEventHandler): number => {
+export const psSubscribe = (
+  handler: PSEventHandler
+): { unsubscribe: () => void } => {
   console.log("Adding PSHandler: " + psCount);
   psSubscriptions[psCount] = handler;
   psCount++;
-  return psCount - 1;
+  return {
+    unsubscribe: () => {
+      psUnsubscribe(psCount - 1);
+    },
+  };
 };
 
 export const psUnsubscribe = (k: number) => {

@@ -1,5 +1,5 @@
 import { Grid } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { MapCard } from "../cards/MapCard";
 import { PopulationCard } from "../cards/PopulationCard";
@@ -15,8 +15,8 @@ import {
   DATA_TYPE_2_PARAM,
   DEMOGRAPHIC_PARAM,
   getParameter,
+  psSubscribe,
   setParameter,
-  usePopStateEffect,
 } from "../utils/urlutils";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
@@ -95,7 +95,14 @@ function TwoVariableReport(props: {
     setCurrentBreakdown(demo);
   };
 
-  usePopStateEffect(readParams);
+  useEffect(() => {
+    const psSub = psSubscribe(readParams);
+    return () => {
+      if (psSub) {
+        psSub.unsubscribe();
+      }
+    };
+  }, [readParams]);
 
   if (variableConfig1 === null) {
     return (
