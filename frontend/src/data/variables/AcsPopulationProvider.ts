@@ -1,10 +1,9 @@
 import { IDataFrame } from "data-forge";
-import { Breakdowns } from "../query/Breakdowns";
-import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
-import VariableProvider from "./VariableProvider";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { maybeApplyRowReorder } from "../utils/datasetutils";
+import { Breakdowns } from "../query/Breakdowns";
+import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
+import VariableProvider from "./VariableProvider";
 
 function createNationalTotal(dataFrame: IDataFrame, breakdown: string) {
   return dataFrame
@@ -69,10 +68,9 @@ class AcsPopulationProvider extends VariableProvider {
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
-    return new MetricQueryResponse(
-      maybeApplyRowReorder(df.toArray(), breakdowns),
-      [this.getDatasetId(breakdowns)]
-    );
+    return new MetricQueryResponse(df.toArray(), [
+      this.getDatasetId(breakdowns),
+    ]);
   }
 
   private async getDataInternalWithoutPercents(
