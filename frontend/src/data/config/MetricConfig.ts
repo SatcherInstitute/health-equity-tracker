@@ -147,7 +147,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         pct_share: {
           metricId: "covid_cases_share",
-          fullCardTitleName: "Share of total COVID-19 cases",
+          fullCardTitleName: "Share of Total COVID-19 cases",
           shortVegaLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
@@ -191,7 +191,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         pct_share: {
           metricId: "covid_deaths_share",
-          fullCardTitleName: "Share of total COVID-19 deaths",
+          fullCardTitleName: "Share of Total COVID-19 deaths",
           shortVegaLabel: "% of deaths",
           type: "pct_share",
           populationComparisonMetric: {
@@ -235,7 +235,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         pct_share: {
           metricId: "covid_hosp_share",
-          fullCardTitleName: "Share of total COVID-19 hospitalizations",
+          fullCardTitleName: "Share of Total COVID-19 hospitalizations",
           shortVegaLabel: "% of hospitalizations",
           type: "pct_share",
           populationComparisonMetric: {
@@ -270,7 +270,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       metrics: {
         pct_share: {
           metricId: "diabetes_pct_share",
-          fullCardTitleName: "Share of total Diabetes cases",
+          fullCardTitleName: "Share of Total Diabetes cases",
           shortVegaLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
@@ -298,7 +298,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       metrics: {
         pct_share: {
           metricId: "copd_pct_share",
-          fullCardTitleName: "Share of total COPD cases",
+          fullCardTitleName: "Share of Total COPD cases",
           shortVegaLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
