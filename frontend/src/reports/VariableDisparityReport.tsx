@@ -56,7 +56,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
   };
 
   useEffect(() => {
-    const psHandler = psSubscribe(() => {
+    const readParams = () => {
       const demoParam1 = getParameter(
         DATA_TYPE_1_PARAM,
         undefined,
@@ -75,7 +75,8 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
         "race_and_ethnicity"
       );
       setCurrentBreakdown(demo);
-    });
+    };
+    const psHandler = psSubscribe(readParams, "vardisp");
     return () => {
       if (psHandler) {
         psHandler.unsubscribe();

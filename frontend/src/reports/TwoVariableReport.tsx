@@ -63,7 +63,7 @@ function TwoVariableReport(props: {
   };
 
   useEffect(() => {
-    const psSub = psSubscribe(() => {
+    const readParams = () => {
       const demoParam1 = getParameter(
         DATA_TYPE_1_PARAM,
         undefined,
@@ -94,7 +94,9 @@ function TwoVariableReport(props: {
         demoParam2 ? demoParam2 : METRIC_CONFIG[props.dropdownVarId2][0]
       );
       setCurrentBreakdown(demo);
-    });
+    };
+    const psSub = psSubscribe(readParams, "twovar");
+    readParams();
     return () => {
       if (psSub) {
         psSub.unsubscribe();

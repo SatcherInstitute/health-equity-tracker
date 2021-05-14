@@ -19,6 +19,7 @@ import {
   MADLIB_SELECTIONS_PARAM,
   parseMls,
   psSubscribe,
+  setParameter,
   setParameters,
   SHOW_ONBOARDING_PARAM,
   stringifyMls,
@@ -58,7 +59,7 @@ function ExploreDataPage() {
   });
 
   useEffect(() => {
-    const psSub = psSubscribe(() => {
+    const readParams = () => {
       let index = getParameter(MADLIB_PHRASE_PARAM, 0, (str) => {
         return MADLIB_LIST.findIndex((ele) => ele.id === str);
       });
@@ -72,13 +73,22 @@ function ExploreDataPage() {
         ...MADLIB_LIST[index],
         activeSelections: selection,
       });
-    });
+    };
+    const psSub = psSubscribe(readParams, "explore");
+
+    readParams();
+
     return () => {
       if (psSub) {
         psSub.unsubscribe();
       }
     };
   }, []);
+
+  const setMadLibWithParam = (ml: MadLib) => {
+    setParameter(MADLIB_SELECTIONS_PARAM, stringifyMls(ml.activeSelections));
+    setMadLib(ml);
+  };
 
   // Set up warm welcome onboarding behaviors
   // TODO(kristak): Add cookies back
@@ -168,12 +178,16 @@ function ExploreDataPage() {
             }}
           >
             {MADLIB_LIST.map((madlib: MadLib, i) => (
-              <CarouselMadLib madLib={madLib} setMadLib={setMadLib} key={i} />
+              <CarouselMadLib
+                madLib={madLib}
+                setMadLib={setMadLibWithParam}
+                key={i}
+              />
             ))}
           </Carousel>
         </div>
         <div className={styles.ReportContainer}>
-          <ReportProvider madLib={madLib} setMadLib={setMadLib} />
+          <ReportProvider madLib={madLib} setMadLib={setMadLibWithParam} />
         </div>
       </div>
     </>

@@ -185,19 +185,21 @@ const psSubscriptions: any = {};
 let psCount: number = 0;
 
 export const psSubscribe = (
-  handler: PSEventHandler
+  handler: PSEventHandler,
+  keyPrefix = "unk"
 ): { unsubscribe: () => void } => {
-  console.log("Adding PSHandler: " + psCount);
-  psSubscriptions[psCount] = handler;
+  const key = keyPrefix + "_" + psCount;
+  console.log("Adding PSHandler: " + key);
+  psSubscriptions[key] = handler;
   psCount++;
   return {
     unsubscribe: () => {
-      psUnsubscribe(psCount - 1);
+      psUnsubscribe(key);
     },
   };
 };
 
-export const psUnsubscribe = (k: number) => {
+export const psUnsubscribe = (k: string) => {
   console.log("Removing PSHandler: " + k);
   delete psSubscriptions[k];
 };
