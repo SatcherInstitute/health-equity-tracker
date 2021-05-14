@@ -103,7 +103,7 @@ function MapCardWithKey(props: MapCardProps) {
             breakdown,
             breakdown === "race_and_ethnicity"
               ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE)
-              : undefined
+              : exclude(UNKNOWN)
           )
       )
   );
