@@ -10,7 +10,13 @@ import { METRIC_CONFIG, VariableConfig } from "../data/config/MetricConfig";
 import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
 import { Fips } from "../data/utils/Fips";
 import { DropdownVarId } from "../utils/MadLibs";
-import { getParameter, setParameter, setParameters } from "../utils/urlutils";
+import {
+  addPopStateHandler,
+  getParameter,
+  removePopStateHandler,
+  setParameter,
+  setParameters,
+} from "../utils/urlutils";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
 
@@ -47,7 +53,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
     setCurrentBreakdown(str);
   };
 
-  useEffect(() => {
+  const readParams = () => {
     const demoParam1 = getParameter("dt1", undefined, (val: string) => {
       return METRIC_CONFIG[props.dropdownVarId].find(
         (cfg) => cfg.variableId === val
@@ -59,7 +65,21 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
 
     const demo: BreakdownVar = getParameter("demo", "race_and_ethnicity");
     setCurrentBreakdown(demo);
-  }, [props.dropdownVarId]);
+  };
+
+  let popstateHandler: any = null;
+
+  useEffect(() => {
+    if (!popstateHandler) {
+      popstateHandler = addPopStateHandler(readParams);
+    }
+    readParams();
+    return () => {
+      if (popstateHandler != null) {
+        removePopStateHandler(popstateHandler);
+      }
+    };
+  }, []);
 
   const breakdownIsShown = (breakdownVar: string) =>
     currentBreakdown === breakdownVar;

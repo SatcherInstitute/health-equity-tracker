@@ -175,4 +175,30 @@ export const stringifyMls = (selection: PhraseSelections): string => {
   return kvPair.join(partsSeperator);
 };
 
-export function removeParameter() {}
+export type PopstandHandler = () => void;
+
+const popstatelisteners: any = {};
+let psCount: number = 0;
+
+export const addPopStateHandler = (handler: PopstandHandler): number => {
+  console.log("Adding popstate handler: " + psCount);
+  popstatelisteners[psCount] = handler;
+  psCount++;
+  return psCount - 1;
+};
+
+export const removePopStateHandler = (k: number) => {
+  delete popstatelisteners[k];
+  console.log("Removing popstate handler: " + k);
+  console.log(JSON.stringify(Object.keys(popstatelisteners)));
+};
+
+window.onpopstate = () => {
+  Object.keys(popstatelisteners).forEach((key) => {
+    const handler = popstatelisteners[key];
+    console.log("running handler: " + key);
+    if (handler) {
+      handler();
+    }
+  });
+};

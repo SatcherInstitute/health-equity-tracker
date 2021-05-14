@@ -10,7 +10,12 @@ import { METRIC_CONFIG, VariableConfig } from "../data/config/MetricConfig";
 import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
 import { Fips } from "../data/utils/Fips";
 import { DropdownVarId } from "../utils/MadLibs";
-import { getParameter, setParameter } from "../utils/urlutils";
+import {
+  addPopStateHandler,
+  getParameter,
+  removePopStateHandler,
+  setParameter,
+} from "../utils/urlutils";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
 
@@ -55,7 +60,7 @@ function TwoVariableReport(props: {
     setCurrentBreakdown(str);
   };
 
-  useEffect(() => {
+  const parseParams = () => {
     const demoParam1 = getParameter("dt1", undefined, (val: string) => {
       return METRIC_CONFIG[props.dropdownVarId1].find(
         (cfg) => cfg.variableId === val
@@ -67,13 +72,23 @@ function TwoVariableReport(props: {
       );
     });
 
+    const demo: BreakdownVar = getParameter("demo", "race_and_ethnicity");
     setVariableConfig1(
       demoParam1 ? demoParam1 : METRIC_CONFIG[props.dropdownVarId1][0]
     );
     setVariableConfig2(
       demoParam2 ? demoParam2 : METRIC_CONFIG[props.dropdownVarId2][0]
     );
-  }, [props.dropdownVarId1, props.dropdownVarId2]);
+    setCurrentBreakdown(demo);
+  };
+
+  useEffect(() => {
+    let popstandHandler = addPopStateHandler(parseParams);
+    parseParams();
+    return () => {
+      removePopStateHandler(popstandHandler);
+    };
+  }, [parseParams]);
 
   if (variableConfig1 === null) {
     return (

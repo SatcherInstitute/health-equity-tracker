@@ -1,5 +1,9 @@
-import React, { useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import React, { useEffect, useState } from "react";
+// TODO(kristak): Add cookies back
+// import { useCookies } from "react-cookie";
+import { STATUS } from "react-joyride";
 import Carousel from "react-material-ui-carousel";
 import { Fips } from "../../data/utils/Fips";
 import ReportProvider from "../../reports/ReportProvider";
@@ -10,22 +14,20 @@ import {
   PhraseSegment,
 } from "../../utils/MadLibs";
 import {
+  addPopStateHandler,
   getParameter,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
-  SHOW_ONBOARDING_PARAM,
   parseMls,
+  removePopStateHandler,
   setParameters,
+  SHOW_ONBOARDING_PARAM,
   stringifyMls,
   useSearchParams,
 } from "../../utils/urlutils";
 import styles from "./ExploreDataPage.module.scss";
-import OptionsSelector from "./OptionsSelector";
 import { Onboarding } from "./Onboarding";
-// TODO(kristak): Add cookies back
-// import { useCookies } from "react-cookie";
-import { STATUS } from "react-joyride";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import OptionsSelector from "./OptionsSelector";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -74,8 +76,9 @@ function ExploreDataPage() {
 
   useEffect(() => {
     readParam();
-    window.onpopstate = () => {
-      readParam();
+    let psHandler = addPopStateHandler(readParam);
+    return () => {
+      removePopStateHandler(psHandler);
     };
   }, []);
 
@@ -154,13 +157,6 @@ function ExploreDataPage() {
                 ...MADLIB_LIST[index],
                 activeSelections: {
                   ...MADLIB_LIST[index].defaultSelections,
-                  ...{
-                    1: getParameter(
-                      MADLIB_SELECTIONS_PARAM /*mls*/,
-                      MADLIB_LIST[index].defaultSelections,
-                      parseMls
-                    )[1],
-                  },
                 },
               };
               setMadLib(newState);
