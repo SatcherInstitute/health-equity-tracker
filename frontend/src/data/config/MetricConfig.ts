@@ -159,7 +159,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           knownBreakdownComparisonMetric: {
             metricId: "covid_cases_share_of_known",
             fullCardTitleName:
-              "Share of total COVID-19 cases with known demographics",
+              "Share of Total COVID-19 cases with known demographics",
             shortVegaLabel: "% of cases",
             type: "pct_share",
           },
@@ -191,7 +191,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         pct_share: {
           metricId: "covid_deaths_share",
-          fullCardTitleName: "Share of total COVID-19 deaths",
+          fullCardTitleName: "Share of Total COVID-19 deaths",
           shortVegaLabel: "% of deaths",
           type: "pct_share",
           populationComparisonMetric: {
@@ -235,7 +235,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         pct_share: {
           metricId: "covid_hosp_share",
-          fullCardTitleName: "Share of total COVID-19 hospitalizations",
+          fullCardTitleName: "Share of Total COVID-19 hospitalizations",
           shortVegaLabel: "% of hospitalizations",
           type: "pct_share",
           populationComparisonMetric: {
