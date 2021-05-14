@@ -29,6 +29,10 @@ export const TAB_PARAM = "tab";
 // 'true' or 'false' will override the cookie to show or hide the onboarding flow
 export const SHOW_ONBOARDING_PARAM = "onboard";
 
+export const DEMOGRAPHIC_PARAM = "demo";
+export const DATA_TYPE_1_PARAM = "dt1";
+export const DATA_TYPE_2_PARAM = "dt2";
+
 export function LinkWithStickyParams(props: {
   to: string;
   target?: string;

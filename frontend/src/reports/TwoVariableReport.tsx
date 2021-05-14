@@ -11,6 +11,9 @@ import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
 import { Fips } from "../data/utils/Fips";
 import { DropdownVarId } from "../utils/MadLibs";
 import {
+  DATA_TYPE_1_PARAM,
+  DATA_TYPE_2_PARAM,
+  DEMOGRAPHIC_PARAM,
   getParameter,
   setParameter,
   usePopStateEffect,
@@ -30,7 +33,7 @@ function TwoVariableReport(props: {
   updateFips2Callback: (fips: Fips) => void;
 }) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
-    getParameter("demo", "race_and_ethnicity")
+    getParameter(DEMOGRAPHIC_PARAM, "race_and_ethnicity")
   );
 
   const [variableConfig1, setVariableConfig1] = useState<VariableConfig | null>(
@@ -45,33 +48,44 @@ function TwoVariableReport(props: {
   );
 
   const setVariableConfigWithParam1 = (v: VariableConfig) => {
-    setParameter("dt1", v.variableId);
+    setParameter(DATA_TYPE_1_PARAM, v.variableId);
     setVariableConfig1(v);
   };
 
   const setVariableConfigWithParam2 = (v: VariableConfig) => {
-    setParameter("dt2", v.variableId);
+    setParameter(DATA_TYPE_2_PARAM, v.variableId);
     setVariableConfig2(v);
   };
 
   const setDemoWithParam = (str: BreakdownVar) => {
-    setParameter("demo", str);
+    setParameter(DEMOGRAPHIC_PARAM, str);
     setCurrentBreakdown(str);
   };
 
   const readParams = () => {
-    const demoParam1 = getParameter("dt1", undefined, (val: string) => {
-      return METRIC_CONFIG[props.dropdownVarId1].find(
-        (cfg) => cfg.variableId === val
-      );
-    });
-    const demoParam2 = getParameter("dt2", undefined, (val: string) => {
-      return METRIC_CONFIG[props.dropdownVarId2].find(
-        (cfg) => cfg.variableId === val
-      );
-    });
+    const demoParam1 = getParameter(
+      DATA_TYPE_1_PARAM,
+      undefined,
+      (val: string) => {
+        return METRIC_CONFIG[props.dropdownVarId1].find(
+          (cfg) => cfg.variableId === val
+        );
+      }
+    );
+    const demoParam2 = getParameter(
+      DATA_TYPE_2_PARAM,
+      undefined,
+      (val: string) => {
+        return METRIC_CONFIG[props.dropdownVarId2].find(
+          (cfg) => cfg.variableId === val
+        );
+      }
+    );
 
-    const demo: BreakdownVar = getParameter("demo", "race_and_ethnicity");
+    const demo: BreakdownVar = getParameter(
+      DEMOGRAPHIC_PARAM,
+      "race_and_ethnicity"
+    );
     setVariableConfig1(
       demoParam1 ? demoParam1 : METRIC_CONFIG[props.dropdownVarId1][0]
     );

@@ -11,6 +11,9 @@ import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
 import { Fips } from "../data/utils/Fips";
 import { DropdownVarId } from "../utils/MadLibs";
 import {
+  DATA_TYPE_1_PARAM,
+  DATA_TYPE_2_PARAM,
+  DEMOGRAPHIC_PARAM,
   getParameter,
   setParameter,
   setParameters,
@@ -29,7 +32,7 @@ export interface VariableDisparityReportProps {
 
 export function VariableDisparityReport(props: VariableDisparityReportProps) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
-    getParameter("demo", "race_and_ethnicity")
+    getParameter(DEMOGRAPHIC_PARAM, "race_and_ethnicity")
   );
 
   // TODO Remove hard coded fail safe value
@@ -41,28 +44,35 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
 
   const setVariableConfigWithParam = (v: VariableConfig) => {
     setParameters([
-      { name: "dt1", value: v.variableId },
-      { name: "dt2", value: null },
+      { name: DATA_TYPE_1_PARAM, value: v.variableId },
+      { name: DATA_TYPE_2_PARAM, value: null },
     ]);
     setVariableConfig(v);
   };
 
   const setDemoWithParam = (str: BreakdownVar) => {
-    setParameter("demo", str);
+    setParameter(DEMOGRAPHIC_PARAM, str);
     setCurrentBreakdown(str);
   };
 
   const readParams = () => {
-    const demoParam1 = getParameter("dt1", undefined, (val: string) => {
-      return METRIC_CONFIG[props.dropdownVarId].find(
-        (cfg) => cfg.variableId === val
-      );
-    });
+    const demoParam1 = getParameter(
+      DATA_TYPE_1_PARAM,
+      undefined,
+      (val: string) => {
+        return METRIC_CONFIG[props.dropdownVarId].find(
+          (cfg) => cfg.variableId === val
+        );
+      }
+    );
     setVariableConfig(
       demoParam1 ? demoParam1 : METRIC_CONFIG[props.dropdownVarId][0]
     );
 
-    const demo: BreakdownVar = getParameter("demo", "race_and_ethnicity");
+    const demo: BreakdownVar = getParameter(
+      DEMOGRAPHIC_PARAM,
+      "race_and_ethnicity"
+    );
     setCurrentBreakdown(demo);
   };
 
