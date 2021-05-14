@@ -45,7 +45,7 @@ abstract class VariableProvider {
 
     if (breakdowns.filterFips !== undefined) {
       const fips = breakdowns.filterFips as Fips;
-      if (fips.isState() && breakdowns.geography === "county") {
+      if (fips.isStateOrTerritory() && breakdowns.geography === "county") {
         return df
           .where((row) => fips.isParentOf(row["county_fips"]))
           .resetIndex();
