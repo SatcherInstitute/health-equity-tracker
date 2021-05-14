@@ -158,7 +158,7 @@ export class Breakdowns {
   }
 
   static forParentFips(fips: Fips): Breakdowns {
-    if (fips.isState()) {
+    if (fips.isStateOrTerritory()) {
       return Breakdowns.byCounty().withGeoFilter(fips);
     }
     if (fips.isUsa()) {
@@ -255,7 +255,7 @@ export class Breakdowns {
       case "county":
         return !!this.filterFips && this.filterFips.isCounty();
       case "state":
-        return !!this.filterFips && this.filterFips.isState();
+        return !!this.filterFips && this.filterFips.isStateOrTerritory();
       case "national":
         return !this.filterFips || this.filterFips.isUsa();
     }

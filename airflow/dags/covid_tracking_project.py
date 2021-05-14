@@ -33,6 +33,11 @@ ctp_bq_payload = util.generate_bq_payload(
 ctp_bq_op = util.create_bq_ingest_operator(
     'ctp_standardize', ctp_bq_payload, data_ingestion_dag)
 
+# Export to json
+ctp_exporter_payload = {'dataset_name': _CTP_DATASET}
+ctp_exporter_operator = util.create_exporter_operator(
+    'covid_tracking_project_exporter', ctp_exporter_payload, data_ingestion_dag)
+
 # Covid Tracking Project Ingestion DAG
 # TODO(jenniebrown): Add the rest of the steps
-(ctp_gcs_operator >> ctp_bq_op)
+(ctp_gcs_operator >> ctp_bq_op >> ctp_exporter_operator)
