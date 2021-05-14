@@ -5,7 +5,7 @@ export const USA_FIPS = "00";
 export const TERRITORY_CODES = [
   /*American Samoa-*/ "60",
   /*Guam-*/ "66",
-  /*Northern Mariana Islands-*/ "60",
+  /*Northern Mariana Islands-*/ "69",
   /*Puerto Rico-*/ "72",
   /*Virgin Islands-*/ "78",
 ];
@@ -24,8 +24,16 @@ class Fips {
     return this.code === USA_FIPS;
   }
 
-  isState() {
+  isStateOrTerritory() {
     return !this.isCounty() && !this.isUsa();
+  }
+
+  isState() {
+    return this.isStateOrTerritory() && !TERRITORY_CODES.includes(this.code);
+  }
+
+  isTerritory() {
+    return this.isStateOrTerritory() && TERRITORY_CODES.includes(this.code);
   }
 
   isCounty() {
@@ -37,6 +45,8 @@ class Fips {
       return "national";
     } else if (this.isState()) {
       return "state";
+    } else if (this.isTerritory()) {
+      return "territory";
     } else if (this.isCounty()) {
       return "county";
     } else {
@@ -46,8 +56,8 @@ class Fips {
 
   getChildFipsTypeDisplayName() {
     if (this.isUsa()) {
-      return "state";
-    } else if (this.isState()) {
+      return "state/territory";
+    } else if (this.isStateOrTerritory()) {
       return "county";
     } else {
       return "";
@@ -56,8 +66,8 @@ class Fips {
 
   getPluralChildFipsTypeDisplayName() {
     if (this.isUsa()) {
-      return "states";
-    } else if (this.isState()) {
+      return "states/territories";
+    } else if (this.isStateOrTerritory()) {
       return "counties";
     } else {
       return "";

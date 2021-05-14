@@ -65,7 +65,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         values: [props.metric.metricId],
       },
     ];
-    if (props.fips.isState()) {
+    if (props.fips.isStateOrTerritory()) {
       // The first two characters of a county FIPS are the state FIPS
       let stateFipsVar = `slice(datum.id,0,2) == '${props.fips.code}'`;
       geoTransformers.push({
