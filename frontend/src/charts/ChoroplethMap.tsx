@@ -114,7 +114,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       font: "monospace",
       labelFont: "monospace",
       labelOverlap: "greedy",
-      labelSeparation: 5,
+      labelSeparation: 10,
       offset: 10,
     };
     if (props.numberFormat === "percentage") {
