@@ -1,7 +1,5 @@
 import { IDataFrame } from "data-forge";
-import { Row } from "../utils/DatasetTypes";
-import { ALL, UNKNOWN, UNKNOWN_HL } from "../utils/Constants";
-import { Breakdowns } from "../query/Breakdowns";
+import { Row } from "./DatasetTypes";
 
 /**
  * Reshapes the data frame by creating a new column for each value in
@@ -128,32 +126,6 @@ export function joinOnCols(
   return joined.resetIndex();
 }
 
-/** Calculates a rate as occurrences per 100k */
-export function per100k(numerator: number, denominator: number): number | null {
-  return numerator == null || denominator == null || denominator === 0
-    ? null
-    : Math.round(100000 * (numerator / denominator));
-}
-
-/** Calculates a rate as a percent to one decimal place. */
-export function percent(numerator: number, denominator: number): number | null {
-  return numerator == null || denominator == null || denominator === 0
-    ? null
-    : Math.round((1000 * numerator) / denominator) / 10;
-}
-
-/** Finds expected value of an ailment based on a population sample. */
-export function estimateTotal(
-  sample_percentage: number,
-  total_population: number
-): number | null {
-  return sample_percentage == null ||
-    total_population == null ||
-    total_population === 0
-    ? null
-    : Math.round((sample_percentage / 100) * total_population);
-}
-
 export function asDate(dateStr: string) {
   const parts = dateStr.split("-").map(Number);
   // Date expects month to be 0-indexed so need to subtract 1.
@@ -168,58 +140,26 @@ export function getLatestDate(df: IDataFrame): Date {
   return new Date(dateTimes.max());
 }
 
-function moveRowWithValueToFront(
-  rows: Row[],
+export const getLowestN = (
+  data: Row[],
   fieldName: string,
-  value: string
-) {
-  let finalRows: Row[] = Object.assign(rows, []);
-  const indexOfValue = rows.findIndex((r: any) => r[fieldName] === value);
-  if (indexOfValue !== -1) {
-    const removedItem = finalRows.splice(indexOfValue, 1);
-    finalRows = removedItem.concat(finalRows);
-  }
-  return finalRows;
-}
+  listSize: number
+): Row[] => {
+  return data
+    .sort((rowA: Row, rowB: Row) =>
+      rowA[fieldName] > rowB[fieldName] ? 1 : -1
+    )
+    .slice(0, listSize);
+};
 
-function moveRowsWithValueToBack(
-  rows: Row[],
+export const getHighestN = (
+  data: Row[],
   fieldName: string,
-  value: string
-) {
-  let finalRows: Row[] = Object.assign(rows, []);
-  let removedItems = [];
-  let index = rows.findIndex((r: any) => r[fieldName] === value);
-  while (index > 0) {
-    removedItems.push(finalRows.splice(index, 1));
-    index = rows.findIndex((r: any) => r[fieldName] === value);
-  }
-  removedItems.forEach((removedItem) => {
-    finalRows = finalRows.concat(removedItem);
-  });
-  return finalRows;
-}
-
-function sortAlphabeticallyByField(rows: Row[], fieldName: string) {
-  let finalRows: Row[] = Object.assign(rows, []);
-  finalRows.sort((a, b) => a[fieldName].localeCompare(b[fieldName]));
-  return finalRows;
-}
-
-export function maybeApplyRowReorder(rows: Row[], breakdowns: Breakdowns) {
-  let finalRows: Row[] = Object.assign(rows, []);
-  const reorderingColumn = breakdowns.getSoleDemographicBreakdown().columnName;
-  // For charts displaying only one region of geographic granularity (for instance a bar chart of
-  // race in LA county), we want a specific order of the metric values
-  if (breakdowns.hasOneRegionOfGeographicGranularity()) {
-    finalRows = sortAlphabeticallyByField(finalRows, reorderingColumn);
-    finalRows = moveRowWithValueToFront(finalRows, reorderingColumn, ALL);
-    finalRows = moveRowsWithValueToBack(finalRows, reorderingColumn, UNKNOWN);
-    finalRows = moveRowsWithValueToBack(
-      finalRows,
-      reorderingColumn,
-      UNKNOWN_HL
-    );
-  }
-  return finalRows;
-}
+  listSize: number
+): Row[] => {
+  return data
+    .sort((rowA: Row, rowB: Row) =>
+      rowA[fieldName] <= rowB[fieldName] ? 1 : -1
+    )
+    .slice(0, listSize);
+};

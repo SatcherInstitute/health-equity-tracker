@@ -1,5 +1,5 @@
 import { DatasetMetadata } from "../utils/DatasetTypes";
-import { DataSourceMetadataMap } from "./MetadataMap";
+import { DataSourceMetadataMap, GEOGRAPHIES_DATASET_ID } from "./MetadataMap";
 
 const datasetMetadataList: DatasetMetadata[] = [
   {
@@ -33,13 +33,23 @@ const datasetMetadataList: DatasetMetadata[] = [
     update_time: "2019",
   },
   {
-    id: "covid_by_state_and_race",
-    name: "COVID-19 deaths, cases, and hospitalizations by state",
+    id: "covid_tracking_project-covid_tracking_project_cases",
+    name: "COVID-19 cases by race and state",
     update_time: "April 2021",
   },
   {
-    id: "covid_by_county_and_race",
-    name: "COVID-19 deaths, cases, and hospitalizations by county",
+    id: "covid_tracking_project-covid_tracking_project_deaths",
+    name: "COVID-19 deaths by race and state",
+    update_time: "April 2021",
+  },
+  {
+    id: "covid_tracking_project-covid_tracking_project_hosp",
+    name: "COVID-19 hospitalizations by race and state",
+    update_time: "April 2021",
+  },
+  {
+    id: "covid_tracking_project-covid_tracking_project_tests",
+    name: "COVID-19 tests by race and state",
     update_time: "April 2021",
   },
   {
@@ -104,18 +114,23 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "uhc_age",
-    name: "COPD and Diabetes prevelence by age and state",
+    name: "COPD and Diabetes prevalence by age and state",
     update_time: "2019",
   },
   {
     id: "uhc_race_and_ethnicity",
-    name: "COPD and Diabetes prevelence by race and state",
+    name: "COPD and Diabetes prevalence by race and state",
     update_time: "2019",
   },
   {
     id: "uhc_sex",
-    name: "COPD and Diabetes prevelence by sex and state",
+    name: "COPD and Diabetes prevalence by sex and state",
     update_time: "2019",
+  },
+  {
+    id: GEOGRAPHIES_DATASET_ID,
+    name: "U.S. Geographic Data",
+    update_time: "2020",
   },
 ];
 

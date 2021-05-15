@@ -1,42 +1,42 @@
-import AcsPopulationProvider from "./AcsPopulationProvider";
+import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import {
   autoInitGlobals,
   getDataFetcher,
   resetCacheDebug,
 } from "../../utils/globals";
+import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
+import { onlyIncludeStandardRaces } from "../query/BreakdownFilter";
 import { Breakdowns } from "../query/Breakdowns";
 import {
-  MetricQuery,
   createMissingDataResponse,
+  MetricQuery,
   MetricQueryResponse,
 } from "../query/MetricQuery";
-import { Fips } from "../utils/Fips";
-import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
-import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import {
-  createWithAndWithoutAllEvaluator,
-  FipsSpec,
-  CHATAM,
-  DURHAM,
-  NC,
+  AGE,
+  ALL,
+  ASIAN_NH,
+  FEMALE,
+  MALE,
+  NON_HISPANIC,
+  RACE,
+  SEX,
+  TOTAL,
+  WHITE,
+  WHITE_NH,
+} from "../utils/Constants";
+import { Fips } from "../utils/Fips";
+import AcsPopulationProvider from "./AcsPopulationProvider";
+import {
   AL,
+  CHATAM,
+  createWithAndWithoutAllEvaluator,
+  DURHAM,
+  FipsSpec,
   MARIN,
+  NC,
   USA,
 } from "./TestUtils";
-import {
-  WHITE_NH,
-  ASIAN_NH,
-  ALL,
-  RACE,
-  AGE,
-  SEX,
-  MALE,
-  FEMALE,
-  NON_HISPANIC,
-  WHITE,
-  TOTAL,
-} from "../utils/Constants";
-import { onlyIncludeStandardRaces } from "../query/BreakdownFilter";
 
 function countyRow(
   fips: FipsSpec,
@@ -411,7 +411,7 @@ describe("AcsPopulationProvider", () => {
       Breakdowns.byCounty().withGeoFilter(new Fips(NC.code)),
       AGE,
       [C_0_9_FINAL, D_0_9_FINAL, D_10_19_FINAL],
-      [C_0_9_FINAL, C_ALL_FINAL, D_0_9_FINAL, D_10_19_FINAL, D_ALL_FINAL]
+      [C_ALL_FINAL, D_ALL_FINAL, C_0_9_FINAL, D_0_9_FINAL, D_10_19_FINAL]
     );
   });
 

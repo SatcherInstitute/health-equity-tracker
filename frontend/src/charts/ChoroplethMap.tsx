@@ -4,12 +4,13 @@ import { useResponsiveWidth } from "../utils/useResponsiveWidth";
 import { Fips } from "../data/utils/Fips";
 import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
+import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
 
 type NumberFormat = "raw" | "percentage";
 export type ScaleType = "quantize" | "quantile";
 
 const UNKNOWN_GREY = "#BDC1C6";
-const DARK_RED = "#A93038";
+const RED_ORANGE = "#ED573F";
 const DARK_BLUE = "#255792";
 const HEIGHT_WIDTH_RATIO = 0.5;
 
@@ -41,9 +42,17 @@ export interface ChoroplethMapProps {
   hideActions?: boolean;
   scaleType: ScaleType;
   scaleColorScheme?: string;
+  // Geography data, in topojson format. Must include both states and counties.
+  // If not provided, defaults to directly loading /tmp/geographies.json
+  geoData?: Record<string, any>;
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
+  // We render the Vega map asynchronously because it can be performance
+  // intensive. Loading a page with many maps on it can cause the UI to lag if
+  // done synchronously.
+  const [shouldRenderMap, setShouldRenderMap] = useState(false);
+
   const [ref, width] = useResponsiveWidth(
     100 /* default width during intialization */
   );
@@ -54,6 +63,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   const LEGEND_WIDTH = props.hideLegend ? 0 : 100;
 
   useEffect(() => {
+    const geoData = props.geoData
+      ? { values: props.geoData }
+      : { url: `/tmp/${GEOGRAPHIES_DATASET_ID}.json` };
+
     /* SET UP GEO DATSET */
     // Transform geo dataset by adding varField from VAR_DATASET
     let geoTransformers: any[] = [
@@ -65,7 +78,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         values: [props.metric.metricId],
       },
     ];
-    if (props.fips.isState()) {
+    if (props.fips.isStateOrTerritory()) {
       // The first two characters of a county FIPS are the state FIPS
       let stateFipsVar = `slice(datum.id,0,2) == '${props.fips.code}'`;
       geoTransformers.push({
@@ -100,6 +113,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       direction: "horizontal",
       orient: "bottom-left",
       title: props.legendTitle,
+      titleLimit: 0,
       font: "monospace",
       labelFont: "monospace",
       offset: 10,
@@ -137,7 +151,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         {
           name: GEO_DATASET,
           transform: geoTransformers,
-          url: "/counties-10m.json",
+          ...geoData,
           format: {
             type: "topojson",
             feature: props.showCounties ? "counties" : "states",
@@ -175,7 +189,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       projections: [
         {
           name: US_PROJECTION,
-          type: "albersUsa",
+          type: props.fips.isTerritory() ? "albers" : "albersUsa",
           fit: { signal: "data('" + GEO_DATASET + "')" },
           size: {
             signal:
@@ -202,7 +216,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             update: {
               fill: { value: UNKNOWN_GREY },
             },
-            hover: { fill: { value: DARK_RED } },
+            hover: { fill: { value: RED_ORANGE } },
           },
           transform: [{ type: "geoshape", projection: US_PROJECTION }],
         },
@@ -231,6 +245,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
       ],
     });
+
+    // Render the Vega map asynchronously, allowing the UI to respond to user
+    // interaction before Vega maps render.
+    setTimeout(() => {
+      setShouldRenderMap(true);
+    }, 0);
   }, [
     width,
     props.metric,
@@ -245,6 +265,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props.legendData,
     props.scaleColorScheme,
     props.useSmallSampleMessage,
+    props.geoData,
     LEGEND_WIDTH,
   ]);
 
@@ -256,12 +277,14 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         margin: "auto",
       }}
     >
-      <Vega
-        spec={spec}
-        width={width}
-        actions={!props.hideActions}
-        signalListeners={props.signalListeners}
-      />
+      {shouldRenderMap && (
+        <Vega
+          spec={spec}
+          width={width}
+          actions={!props.hideActions}
+          signalListeners={props.signalListeners}
+        />
+      )}
     </div>
   );
 }
