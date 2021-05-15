@@ -130,6 +130,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   data={unknowns}
                   showCounties={props.fips.isUsa() ? false : true}
                   fips={props.fips}
+                  numberFormat={"percentage"}
                   scaleType="quantile"
                   scaleColorScheme="greenblue"
                   hideLegend={
