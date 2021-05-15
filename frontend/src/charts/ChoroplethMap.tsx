@@ -210,13 +210,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           from: { data: MISSING_DATASET },
           encode: {
             enter:
-              props.hideMissingDataTooltip !== true
-                ? {
+              props.hideMissingDataTooltip === true
+                ? {}
+                : {
                     tooltip: {
                       signal: missingDataTooltipValue,
                     },
-                  }
-                : {},
+                  },
             update: {
               fill: { value: UNKNOWN_GREY },
             },
