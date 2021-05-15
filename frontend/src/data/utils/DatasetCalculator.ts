@@ -7,7 +7,7 @@ import { applyToGroups } from "./datasetutils";
 // we treat the data as null/nonexistent. The smallest supported percentage
 // can be calculated as 1 / resolution * 100, and the smallest supported per
 // 100k number is then 1 / resolution * 100000.
-export const MAXIMUM_PERCENTAGE_RESOLUTION = 100000;
+export const MAXIMUM_PERCENTAGE_RESOLUTION = 200000;
 
 export class DatasetCalculator {
   /** Calculates a rate as occurrences per 100k */
