@@ -116,6 +116,10 @@ class CdcCovidProvider extends VariableProvider {
       })
       .resetIndex();
 
+    // Remove all data for territories; these will be suppressed on Monday :)
+    let territories = ["66", "69", "72", "78"];
+    df = df.where((row) => !territories.includes(row.fips));
+
     df = df
       .generateSeries({
         covid_cases_per_100k: (row) =>

@@ -7,7 +7,7 @@ import { FieldRange } from "../data/utils/DatasetTypes";
 import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
 
 type NumberFormat = "raw" | "percentage";
-export type ScaleType = "quantize" | "quantile";
+export type ScaleType = "quantize" | "quantile" | "symlog";
 
 const UNKNOWN_GREY = "#BDC1C6";
 const RED_ORANGE = "#ED573F";
@@ -98,10 +98,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ? "Sample size too small"
       : "No data";
     const geographyName = props.showCounties ? "County" : "State";
-    const tooltipDatum =
-      props.numberFormat === "percentage"
-        ? `format(datum.${props.metric.metricId}, '0.1%')`
-        : `format(datum.${props.metric.metricId}, ',')`;
+    const tooltipDatum = `format(datum.${props.metric.metricId}, ',')`;
     const tooltipValue = `{"${geographyName}": datum.properties.name, "${props.metric.shortVegaLabel}": ${tooltipDatum} }`;
     const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${props.metric.shortVegaLabel}": "${noDataText}" }`;
 
@@ -116,10 +113,20 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       titleLimit: 0,
       font: "monospace",
       labelFont: "monospace",
+      labelOverlap: "greedy",
+      labelSeparation: 5,
       offset: 10,
     };
     if (props.numberFormat === "percentage") {
-      legend["format"] = "0.1%";
+      legend["encode"] = {
+        labels: {
+          update: {
+            text: {
+              signal: `format(datum.label, '0.1r') + '%'`,
+            },
+          },
+        },
+      };
     }
     if (!props.hideLegend) {
       legendList.push(legend);
@@ -134,6 +141,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     if (props.fieldRange) {
       colorScale["domainMax"] = props.fieldRange.max;
       colorScale["domainMin"] = props.fieldRange.min;
+    }
+    if (props.scaleType === "symlog") {
+      colorScale["constant"] = 0.01;
     }
 
     setSpec({
