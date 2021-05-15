@@ -203,7 +203,7 @@ function LandingPage() {
                 <img
                   src="img/118172286-e3fffb80-b3c7-11eb-9553-127462881af3.png"
                   className={styles.PrioritizeHealthEquityImg}
-                  alt="A decorative letter H centered on an orange background"
+                  alt="Three women embracing a small baby in between them"
                 />
               </Grid>
             </Hidden>
