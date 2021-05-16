@@ -51,40 +51,108 @@ function MethodologyTab() {
             </Grid>
             <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
               <h2 className={styles.MethodologyQuestion}>
-                What are the limitations of the data?
+                What are the limitations of the tracker?
               </h2>
               <div className={styles.MethodologyAnswer}>
+                <h3 className={styles.MethodologySubheaderText}>Data</h3>
+
+                <h4 className={styles.MethodologySubsubheaderText}>COVID-19</h4>
                 <p>
-                  Unfortunately, with these publically available data sets,
-                  there are crucial pieces missing, including but not limited
-                  to: comprehensive city-, census tract-, and county-level data;
-                  comprehensive race and ethnicity breakdowns; comprehensive
-                  gender and age breakdowns by county, etc.
+                  {/* TODO - this should really be a button... */}
+                  For a description of some of the gaps in COVID-19 data, please
+                  see the "What Data Are Missing" section on the "Explore the
+                  Data" page; here, we provide further details.
                 </p>
-                <h3 className={styles.MethodologySubheaderText}>
-                  Known limitations in the data
-                </h3>
                 <ul>
-                  <li>
-                    To protect the privacy of affected individuals, COVID-19
-                    data may be hidden in counties with smaller numbers of
-                    COVID-19 cases, hospitalizations and deaths.
-                  </li>
-                  <li>
-                    Specific racial and ethnic categories (e.g. “Native
-                    Hawaiian,” “Alaska Native”) differ by source and can be
-                    inappropriately obscured by broader categories (e.g.
-                    “Other,” “Asian”).
-                  </li>
                   <li>
                     National statistics are aggregations of state-wide data. If
                     state data is not available, these aggregations may be
                     incomplete and potentially skewed.
                   </li>
                   <li>
-                    We typically refresh our data sources with newly available
-                    data within a few days. Seeking the latest information?
-                    Please navigate to the data sources directly.
+                    As the underlying dataset is at the case-level, we are
+                    unable to distinguish between a given state/county not
+                    reporting data for a particular demographic group vs. the
+                    state/county legitimately having zero cases for that group.
+                  </li>
+                  <li>
+                    To protect the privacy of affected individuals, COVID-19
+                    data may be hidden in counties with smaller numbers of
+                    COVID-19 cases, hospitalizations and deaths.
+                  </li>
+                  <li>
+                    Decisions to suppress COVID-19 data for particular states in
+                    the tracker are evaluated by comparing the aggregate case,
+                    death, and hospitalization counts in the CDC surveillance
+                    dataset vs other sources, such as the New York Times. These
+                    analyses are available for
+                    <a href="https://satcherinstitute.github.io/analysis/cdc_case_data">
+                      cases
+                    </a>
+                    and
+                    <a href="https://satcherinstitute.github.io/analysis/cdc_death_data">
+                      deaths
+                    </a>
+                    .
+                  </li>
+                </ul>
+
+                <h4 className={styles.MethodologySubsubheaderText}>
+                  Diabetes/COPD
+                </h4>
+                <p>
+                  Diabetes/COPD data in the tracker is sourced from
+                  <a href="https://www.americashealthrankings.org/explore/annual/measure/Overall_a/state/ALL">
+                    America's Health Rankings
+                  </a>
+                  , who in turn source their diabetes/COPD data from the
+                  <a href="https://www.cdc.gov/brfss/index.html">
+                    Behavioral Risk Factor Surveillance System (BRFSS)
+                  </a>
+                  , a sampled survey run by the CDC.
+                </p>
+                <ul>
+                  <li>
+                    As BRFSS is a sampled survey, statistical software is
+                    required to properly use its data. Please see the
+                    <a href="https://www.americashealthrankings.org/about/methodology/data-sources-and-measures">
+                      methodology page
+                    </a>
+                    of America's Health Rankings for further details.
+                  </li>
+                  <li>
+                    Another consequence of BRFSS being a survey is that often,
+                    especially for smaller and typically marginalized racial
+                    groups, there are not enough respondents to provide a
+                    statistically meaningful estimate of disease prevalence. In
+                    the tracker, states are colored grey to indicate that the
+                    sample size was too small to produce an estimate of
+                    diabetes/COPD prevalence for the given demographic group.
+                  </li>
+                  <li>
+                    BRFSS data is not usable/available at the county level, so
+                    the tracker does not have diabetes/COPD data at the county
+                    level, either.
+                  </li>
+                </ul>
+
+                <h3 className={styles.MethodologySubheaderText}>
+                  Visualizations
+                </h3>
+                <ul>
+                  <li>
+                    Unfortunately, the national-level map projection and
+                    rendering software used in the tracker (
+                    <a href="">Vega, with the albersUsa projection</a>) is
+                    currently unable to display territories such as Puerto Rico
+                    on the national-level USA map. Searching directly for
+                    territories does bring up the correct projection, however.
+                  </li>
+                  <li>
+                    Please consider the impact of under-reporting and data gaps
+                    when exploring the visualizations. These issues may lead to
+                    incorrect conclusion, e.g. low per100k rates in a given
+                    geography may be due to under-reporting.
                   </li>
                 </ul>
               </div>
@@ -110,7 +178,7 @@ function MethodologyTab() {
                     class={styles.MethodologyContactUsLink}
                     to={`${ABOUT_US_PAGE_LINK}?${TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
                   >
-                    We would love to hear from you
+                    We would love to hear from you!
                   </LinkWithStickyParams>
                 </p>
               </div>
