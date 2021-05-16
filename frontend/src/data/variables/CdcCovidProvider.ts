@@ -160,7 +160,7 @@ class CdcCovidProvider extends VariableProvider {
 
     let r = rowsToAdd.toArray();
 
-    df.concat(rowsToAdd);
+    df = df.concat(rowsToAdd);
 
     asdf = df.toArray();
 
