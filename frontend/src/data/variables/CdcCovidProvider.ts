@@ -119,18 +119,22 @@ class CdcCovidProvider extends VariableProvider {
     // Drop unused columns for simplicity.
     df = df.dropSeries(["death_n", "death_unknown", "hosp_n", "hosp_unknown"]);
 
-    // Hotfix for District of Columbia - remove all county-level DC data.
-    // df = df.where((row) => row.fips !== DC_COUNTY_FIPS);
-    df = df.select((row) => {
-      return {
-        fips: row.fips,
-        fips_name: row.fips_name,
-        [breakdownColumnName]: row.breakdownColumnName,
-        covid_cases: row.fips === DC_COUNTY_FIPS ? null : row.covid_cases,
-        covid_deaths: row.fips === DC_COUNTY_FIPS ? null : row.covid_deaths,
-        covid_hosp: row.fips === DC_COUNTY_FIPS ? null : row.covid_hosp,
-        population: row.population,
-      };
+    // Clear all county-level DC data. See issue for more details:
+    // https://github.com/SatcherInstitute/health-equity-tracker/issues/872.
+    // TODO - fix this the right way.
+    df = df.withSeries({
+      covid_cases: (df) =>
+        df.deflate((row) =>
+          row.fips === DC_COUNTY_FIPS ? null : row.covid_cases
+        ),
+      covid_deaths: (df) =>
+        df.deflate((row) =>
+          row.fips === DC_COUNTY_FIPS ? null : row.covid_deaths
+        ),
+      covid_hosp: (df) =>
+        df.deflate((row) =>
+          row.fips === DC_COUNTY_FIPS ? null : row.covid_hosp
+        ),
     });
 
     df = df
