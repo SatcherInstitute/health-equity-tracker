@@ -135,7 +135,6 @@ class CdcCovidProvider extends VariableProvider {
     // For example, if a county does not have Asian, we add in a row for Asian
     // with values of null for all stats.
     const allFips = df.getSeries("fips").distinct();
-    let rowsToAdd = new DataFrame({ columnNames: df.getColumnNames() });
     allFips.forEach((fips) => {
       const slice = df.where((row) => row.fips === fips);
       const values = slice.getSeries(breakdownColumnName).distinct().toArray();
@@ -154,13 +153,11 @@ class CdcCovidProvider extends VariableProvider {
         let newRow = templateRow.transformSeries({
           [breakdownColumnName]: (series) => value,
         });
-        rowsToAdd = rowsToAdd.concat(newRow);
+        let r = newRow.toArray();
+        df = df.concat(newRow);
+        asdf = df.toArray();
       });
     });
-
-    let r = rowsToAdd.toArray();
-
-    df = df.concat(rowsToAdd);
 
     asdf = df.toArray();
 
