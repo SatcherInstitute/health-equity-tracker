@@ -143,9 +143,11 @@ function MethodologyTab() {
                   <li>
                     Unfortunately, the national-level map projection and
                     rendering software used in the tracker (
-                    <a href="">Vega, with the albersUsa projection</a>) is
-                    currently unable to display territories such as Puerto Rico
-                    on the national-level USA map. Searching directly for
+                    <a href="https://vega.github.io/vega-lite/docs/projection.html">
+                      Vega, with the albersUsa projection
+                    </a>
+                    ) is currently unable to display territories such as Puerto
+                    Rico on the national-level USA map. Searching directly for
                     territories does bring up the correct projection, however.
                   </li>
                   <li>
