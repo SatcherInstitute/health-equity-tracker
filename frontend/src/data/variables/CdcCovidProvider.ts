@@ -4,7 +4,7 @@ import { MetricId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { joinOnCols } from "../utils/datasetutils";
-import { USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
+import { DC_COUNTY_FIPS, USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 
@@ -77,6 +77,9 @@ class CdcCovidProvider extends VariableProvider {
       return new MetricQueryResponse([], consumedDatasetIds);
     }
     df = this.renameGeoColumns(df, breakdowns);
+
+    // Hotfix for District of Columbia - remove all county-level DC data.
+    df = df.where((row) => row.fips !== DC_COUNTY_FIPS);
 
     df = df.renameSeries({
       cases: "covid_cases",
