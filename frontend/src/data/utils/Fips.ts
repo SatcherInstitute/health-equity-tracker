@@ -490,7 +490,7 @@ export const COUNTY_FIPS_MAP: Record<string, string> = {
   "10001": "Kent",
   "10003": "New Castle",
   "10005": "Sussex",
-  "11001": "District of Columbia",
+  // "11001": "District of Columbia",
   "12001": "Alachua",
   "12003": "Baker",
   "12005": "Bay",

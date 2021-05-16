@@ -78,9 +78,6 @@ class CdcCovidProvider extends VariableProvider {
     }
     df = this.renameGeoColumns(df, breakdowns);
 
-    // Hotfix for District of Columbia - remove all county-level DC data.
-    df = df.where((row) => row.fips !== DC_COUNTY_FIPS);
-
     df = df.renameSeries({
       cases: "covid_cases",
       death_y: "covid_deaths",
@@ -118,6 +115,23 @@ class CdcCovidProvider extends VariableProvider {
           row.hosp_unknown === row.covid_cases ? null : row.covid_hosp,
       })
       .resetIndex();
+
+    // Drop unused columns for simplicity.
+    df = df.dropSeries(["death_n", "death_unknown", "hosp_n", "hosp_unknown"]);
+
+    // Hotfix for District of Columbia - remove all county-level DC data.
+    // df = df.where((row) => row.fips !== DC_COUNTY_FIPS);
+    df = df.select((row) => {
+      return {
+        fips: row.fips,
+        fips_name: row.fips_name,
+        [breakdownColumnName]: row.breakdownColumnName,
+        covid_cases: row.fips === DC_COUNTY_FIPS ? null : row.covid_cases,
+        covid_deaths: row.fips === DC_COUNTY_FIPS ? null : row.covid_deaths,
+        covid_hosp: row.fips === DC_COUNTY_FIPS ? null : row.covid_hosp,
+        population: row.population,
+      };
+    });
 
     df = df
       .generateSeries({
