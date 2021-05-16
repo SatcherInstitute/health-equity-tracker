@@ -61,7 +61,7 @@ function MethodologyTab() {
                   {/* TODO - this should really be a button... */}
                   For a description of some of the gaps in COVID-19 data, please
                   see the "What Data Are Missing" section on the "Explore the
-                  Data" page; here, we provide further details.
+                  Data" page. Here, we provide further details:
                 </p>
                 <ul>
                   <li>
@@ -85,11 +85,11 @@ function MethodologyTab() {
                     the tracker are evaluated by comparing the aggregate case,
                     death, and hospitalization counts in the CDC surveillance
                     dataset vs other sources, such as the New York Times. These
-                    analyses are available for
+                    analyses are available for{" "}
                     <a href="https://satcherinstitute.github.io/analysis/cdc_case_data">
                       cases
-                    </a>
-                    and
+                    </a>{" "}
+                    and{" "}
                     <a href="https://satcherinstitute.github.io/analysis/cdc_death_data">
                       deaths
                     </a>
@@ -101,11 +101,11 @@ function MethodologyTab() {
                   Diabetes/COPD
                 </h4>
                 <p>
-                  Diabetes/COPD data in the tracker is sourced from
+                  Diabetes/COPD data in the tracker is sourced from{" "}
                   <a href="https://www.americashealthrankings.org/explore/annual/measure/Overall_a/state/ALL">
                     America's Health Rankings
                   </a>
-                  , who in turn source their diabetes/COPD data from the
+                  , who in turn source their diabetes/COPD data from the{" "}
                   <a href="https://www.cdc.gov/brfss/index.html">
                     Behavioral Risk Factor Surveillance System (BRFSS)
                   </a>
@@ -114,10 +114,10 @@ function MethodologyTab() {
                 <ul>
                   <li>
                     As BRFSS is a sampled survey, statistical software is
-                    required to properly use its data. Please see the
+                    required to properly use its data. Please see the{" "}
                     <a href="https://www.americashealthrankings.org/about/methodology/data-sources-and-measures">
                       methodology page
-                    </a>
+                    </a>{" "}
                     of America's Health Rankings for further details.
                   </li>
                   <li>
