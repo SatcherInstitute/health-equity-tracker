@@ -164,17 +164,6 @@ class CdcCovidProvider extends VariableProvider {
 
     asdf = df.toArray();
 
-    // const possibleValues = df.getSeries(breakdownColumnName).distinct();
-    // const allFips = df.getSeries("fips").distinct();
-    // let rowsToAdd = new DataFrame();
-    // allFips.forEach(fips => {
-    //   const breakdownValues = df.where(row => row.fips === fips).getSeries(breakdownColumnName).distinct();
-    //   const breakdownsToAdd = possibleValues.where(val => !breakdownValues.toArray().includes(val));
-    //   breakdownsToAdd.forEach(breakdown => {
-    //     rowsToAdd.concat();
-    //   });
-    // });
-
     df = df
       .generateSeries({
         covid_cases_per_100k: (row) =>
