@@ -113,8 +113,9 @@ function MethodologyTab() {
                 </p>
                 <ul>
                   <li>
-                    As BRFSS is a sampled survey, statistical software is
-                    required to properly use its data. Please see the{" "}
+                    As BRFSS is a sampled survey, the use of statistical
+                    software is required to propertly integrate it. Please see
+                    the{" "}
                     <a href="https://www.americashealthrankings.org/about/methodology/data-sources-and-measures">
                       methodology page
                     </a>{" "}
@@ -132,7 +133,7 @@ function MethodologyTab() {
                   <li>
                     BRFSS data is not usable/available at the county level, so
                     the tracker does not have diabetes/COPD data at the county
-                    level, either.
+                    level either.
                   </li>
                 </ul>
 
@@ -153,7 +154,7 @@ function MethodologyTab() {
                   <li>
                     Please consider the impact of under-reporting and data gaps
                     when exploring the visualizations. These issues may lead to
-                    incorrect conclusion, e.g. low per100k rates in a given
+                    incorrect conclusions, e.g. low per100k rates in a given
                     geography may be due to under-reporting.
                   </li>
                 </ul>
