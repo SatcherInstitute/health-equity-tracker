@@ -102,8 +102,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
       </div>
       <p>All rates are reported as: {props.metricConfig.fullCardTitleName}</p>
       <p>
-        Consider the impact of Gaps in Data when interpreting highest and lowest
-        rates.
+        Consider the impact of
         <Button
           onClick={() => props.jumpToDisclaimer()}
           className={styles.LinkButton}
