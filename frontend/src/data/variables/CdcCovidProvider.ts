@@ -86,7 +86,7 @@ class CdcCovidProvider extends VariableProvider {
       hosp_y: "covid_hosp",
     });
 
-    let asdf = df.toArray();
+    // let asdf = df.toArray();
 
     // For hospitalizations and deaths, NaN signifies missing data.
     df = df.transformSeries({
@@ -94,7 +94,7 @@ class CdcCovidProvider extends VariableProvider {
       covid_hosp: (value) => (isNaN(value) ? null : value),
     });
 
-    asdf = df.toArray();
+    // asdf = df.toArray();
 
     df =
       breakdowns.geography === "national"
@@ -111,7 +111,7 @@ class CdcCovidProvider extends VariableProvider {
             .resetIndex()
         : df;
 
-    asdf = df.toArray();
+    // asdf = df.toArray();
 
     // If a given geo x breakdown has all unknown hospitalizations or deaths,
     // we treat it as if it has "no data," i.e. we clear the hosp/death fields.
@@ -124,7 +124,7 @@ class CdcCovidProvider extends VariableProvider {
       })
       .resetIndex();
 
-    asdf = df.toArray();
+    // asdf = df.toArray();
 
     // Drop unused columns for faster processing.
     df = df
@@ -147,19 +147,19 @@ class CdcCovidProvider extends VariableProvider {
         covid_hosp: (series) => null,
         population: (series) => null,
       });
-      let t = templateRow.toArray();
+      // let t = templateRow.toArray();
       // The issue is that race, includes_hispanic, race_category_id, etc all need to be updated..
       valuesToAdd.forEach((value) => {
         let newRow = templateRow.transformSeries({
           [breakdownColumnName]: (series) => value,
         });
-        let r = newRow.toArray();
+        // let r = newRow.toArray();
         df = df.concat(newRow);
-        asdf = df.toArray();
+        // asdf = df.toArray();
       });
     });
 
-    asdf = df.toArray();
+    // asdf = df.toArray();
 
     df = df
       .generateSeries({
@@ -172,7 +172,7 @@ class CdcCovidProvider extends VariableProvider {
       })
       .resetIndex();
 
-    asdf = df.toArray();
+    // asdf = df.toArray();
 
     ["covid_cases", "covid_deaths", "covid_hosp"].forEach((col) => {
       df = this.calculations.calculatePctShare(
