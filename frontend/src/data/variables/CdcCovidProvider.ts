@@ -149,7 +149,7 @@ class CdcCovidProvider extends VariableProvider {
         population: (series) => null,
       });
       let t = templateRow.toArray();
-      // The issue is that race, includes_hispanic, race_category_id, etc all need to be updated...
+      // The issue is that race, includes_hispanic, race_category_id, etc all need to be updated..
       valuesToAdd.forEach((value) => {
         let newRow = templateRow.transformSeries({
           [breakdownColumnName]: (series) => value,
