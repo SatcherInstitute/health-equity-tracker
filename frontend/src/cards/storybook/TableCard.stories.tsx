@@ -15,7 +15,7 @@ const Template: Story<TableCardProps> = (args) => <TableCard {...args} />;
 
 export const CovidAndPopulationShare = Template.bind({});
 CovidAndPopulationShare.args = {
-  fips: new Fips(USA_FIPS),
+  fips: new Fips("35"),
   variableConfig: METRIC_CONFIG["covid"][0],
   breakdownVar: "race_and_ethnicity",
 };

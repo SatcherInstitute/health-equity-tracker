@@ -84,11 +84,15 @@ class CdcCovidProvider extends VariableProvider {
       hosp_y: "covid_hosp",
     });
 
+    let asdf = df.toArray();
+
     // For hospitalizations and deaths, NaN signifies missing data.
     df = df.transformSeries({
       covid_deaths: (value) => (isNaN(value) ? null : value),
       covid_hosp: (value) => (isNaN(value) ? null : value),
     });
+
+    asdf = df.toArray();
 
     df =
       breakdowns.geography === "national"
@@ -105,6 +109,8 @@ class CdcCovidProvider extends VariableProvider {
             .resetIndex()
         : df;
 
+    asdf = df.toArray();
+
     // If a given geo x breakdown has all unknown hospitalizations or deaths,
     // we treat it as if it has "no data," i.e. we clear the hosp/death fields.
     df = df
@@ -116,6 +122,58 @@ class CdcCovidProvider extends VariableProvider {
       })
       .resetIndex();
 
+    asdf = df.toArray();
+
+    // Drop unused columns for faster processing.
+    df = df
+      .dropSeries(["death_unknown", "death_n", "hosp_unknown", "hosp_n"])
+      .resetIndex();
+
+    // Ensure that every geo contains a row for all possible breakdown values.
+    // For example, if a county does not have Asian, we add in a row for Asian
+    // with values of null for all stats.
+    const allValues = df.getSeries(breakdownColumnName).distinct().toArray();
+    const allFips = df.getSeries("fips").distinct();
+    let rowsToAdd = new DataFrame();
+    allFips.forEach((fips) => {
+      const slice = df.where((row) => row.fips === fips);
+      const values = slice.getSeries(breakdownColumnName).distinct().toArray();
+      const valuesToAdd = allValues.filter((value) => !values.includes(value));
+
+      let templateRow = slice.take(1);
+      templateRow = templateRow.transformSeries({
+        covid_cases: (series) => null,
+        covid_deaths: (series) => null,
+        covid_hosp: (series) => null,
+        population: (series) => null,
+      });
+      let t = templateRow.toArray();
+      valuesToAdd.forEach((value) => {
+        rowsToAdd.concat(
+          templateRow.transformSeries({
+            [breakdownColumnName]: value,
+          })
+        );
+      });
+    });
+
+    let r = rowsToAdd.toArray();
+
+    df.concat(rowsToAdd);
+
+    asdf = df.toArray();
+
+    // const possibleValues = df.getSeries(breakdownColumnName).distinct();
+    // const allFips = df.getSeries("fips").distinct();
+    // let rowsToAdd = new DataFrame();
+    // allFips.forEach(fips => {
+    //   const breakdownValues = df.where(row => row.fips === fips).getSeries(breakdownColumnName).distinct();
+    //   const breakdownsToAdd = possibleValues.where(val => !breakdownValues.toArray().includes(val));
+    //   breakdownsToAdd.forEach(breakdown => {
+    //     rowsToAdd.concat();
+    //   });
+    // });
+
     df = df
       .generateSeries({
         covid_cases_per_100k: (row) =>
@@ -126,6 +184,8 @@ class CdcCovidProvider extends VariableProvider {
           this.calculations.per100k(row.covid_hosp, row.population),
       })
       .resetIndex();
+
+    asdf = df.toArray();
 
     ["covid_cases", "covid_deaths", "covid_hosp"].forEach((col) => {
       df = this.calculations.calculatePctShare(
