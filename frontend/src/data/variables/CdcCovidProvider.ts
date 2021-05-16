@@ -86,15 +86,11 @@ class CdcCovidProvider extends VariableProvider {
       hosp_y: "covid_hosp",
     });
 
-    // let asdf = df.toArray();
-
     // For hospitalizations and deaths, NaN signifies missing data.
     df = df.transformSeries({
       covid_deaths: (value) => (isNaN(value) ? null : value),
       covid_hosp: (value) => (isNaN(value) ? null : value),
     });
-
-    // asdf = df.toArray();
 
     df =
       breakdowns.geography === "national"
@@ -111,8 +107,6 @@ class CdcCovidProvider extends VariableProvider {
             .resetIndex()
         : df;
 
-    // asdf = df.toArray();
-
     // If a given geo x breakdown has all unknown hospitalizations or deaths,
     // we treat it as if it has "no data," i.e. we clear the hosp/death fields.
     df = df
@@ -123,8 +117,6 @@ class CdcCovidProvider extends VariableProvider {
           row.hosp_unknown === row.covid_cases ? null : row.covid_hosp,
       })
       .resetIndex();
-
-    // asdf = df.toArray();
 
     // Drop unused columns for faster processing.
     df = df
@@ -147,19 +139,24 @@ class CdcCovidProvider extends VariableProvider {
         covid_hosp: (series) => null,
         population: (series) => null,
       });
-      // let t = templateRow.toArray();
-      // The issue is that race, includes_hispanic, race_category_id, etc all need to be updated..
       valuesToAdd.forEach((value) => {
         let newRow = templateRow.transformSeries({
           [breakdownColumnName]: (series) => value,
         });
-        // let r = newRow.toArray();
-        df = df.concat(newRow);
-        // asdf = df.toArray();
+        df = df.concat(newRow).resetIndex();
       });
     });
 
-    // asdf = df.toArray();
+    // When race/ethnicity is the breakdown, there are extra columns (currently
+    // unused) that we do not update when we add in the new rows above. Remove
+    // these extra columns as they are set incorrectly for these new rows.
+    if (breakdownColumnName === "race_and_ethnicity") {
+      df = df.dropSeries([
+        "race",
+        "race_category_id",
+        "race_includes_hispanic",
+      ]);
+    }
 
     df = df
       .generateSeries({
@@ -171,8 +168,6 @@ class CdcCovidProvider extends VariableProvider {
           this.calculations.per100k(row.covid_hosp, row.population),
       })
       .resetIndex();
-
-    // asdf = df.toArray();
 
     ["covid_cases", "covid_deaths", "covid_hosp"].forEach((col) => {
       df = this.calculations.calculatePctShare(
