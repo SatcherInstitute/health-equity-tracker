@@ -136,7 +136,7 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
-                <h3 className={styles.MethodologySubheaderText}>
+                <h3 className={styles.MethodologySubsubheaderText}>
                   Visualizations
                 </h3>
                 <ul>
