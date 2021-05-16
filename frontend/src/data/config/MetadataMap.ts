@@ -74,7 +74,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: "Race/ethnicity",
     update_frequency: "Final update was March 7 2021",
     description:
-      "The numbers of confirmed Covid deaths, cases, and hospitalizations at the state level.",
+      "The numbers of confirmed Covid deaths, cases, hospitalizations, and tests at the state level.",
     dataset_ids: [
       "covid_tracking_project-covid_tracking_project_cases",
       "covid_tracking_project-covid_tracking_project_deaths",
