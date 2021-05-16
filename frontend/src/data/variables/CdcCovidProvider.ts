@@ -70,6 +70,8 @@ class CdcCovidProvider extends VariableProvider {
 
     df = this.renameTotalToAll(df, breakdownColumnName);
 
+    const allValues = df.getSeries(breakdownColumnName).distinct().toArray();
+
     // If requested, filter geography by state or county level. We apply the
     // geo filter right away to reduce subsequent calculation times.
     df = this.filterByGeo(df, breakdowns);
@@ -132,9 +134,8 @@ class CdcCovidProvider extends VariableProvider {
     // Ensure that every geo contains a row for all possible breakdown values.
     // For example, if a county does not have Asian, we add in a row for Asian
     // with values of null for all stats.
-    const allValues = df.getSeries(breakdownColumnName).distinct().toArray();
     const allFips = df.getSeries("fips").distinct();
-    let rowsToAdd = new DataFrame();
+    let rowsToAdd = new DataFrame({ columnNames: df.getColumnNames() });
     allFips.forEach((fips) => {
       const slice = df.where((row) => row.fips === fips);
       const values = slice.getSeries(breakdownColumnName).distinct().toArray();
@@ -148,12 +149,12 @@ class CdcCovidProvider extends VariableProvider {
         population: (series) => null,
       });
       let t = templateRow.toArray();
+      // The issue is that race, includes_hispanic, race_category_id, etc all need to be updated...
       valuesToAdd.forEach((value) => {
-        rowsToAdd.concat(
-          templateRow.transformSeries({
-            [breakdownColumnName]: value,
-          })
-        );
+        let newRow = templateRow.transformSeries({
+          [breakdownColumnName]: (series) => value,
+        });
+        rowsToAdd = rowsToAdd.concat(newRow);
       });
     });
 
