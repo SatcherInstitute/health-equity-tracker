@@ -29,7 +29,7 @@ export interface HighestLowestListProps {
   // List of rows with lowest rates
   lowestRatesList: Row[];
   // Callback for jumping to the missing data disclaimer.
-  jumpToDisclaimer: () => void;
+  jumpToDisclaimer?: () => void;
 }
 
 /*
@@ -104,7 +104,9 @@ export function HighestLowestList(props: HighestLowestListProps) {
       <p>
         Consider the impact of
         <Button
-          onClick={() => props.jumpToDisclaimer()}
+          onClick={() =>
+            props.jumpToDisclaimer ? props.jumpToDisclaimer() : null
+          }
           className={styles.LinkButton}
         >
           gaps in the data
