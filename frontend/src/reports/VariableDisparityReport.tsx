@@ -19,6 +19,7 @@ export interface VariableDisparityReportProps {
   fips: Fips;
   updateFipsCallback: Function;
   hidePopulationCard?: boolean;
+  jumpToDisclaimer?: () => void;
 }
 
 export function VariableDisparityReport(props: VariableDisparityReportProps) {
@@ -65,6 +66,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                 props.updateFipsCallback(fips);
               }}
               currentBreakdown={currentBreakdown}
+              jumpToDisclaimer={props.jumpToDisclaimer}
             />
             {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
               <>

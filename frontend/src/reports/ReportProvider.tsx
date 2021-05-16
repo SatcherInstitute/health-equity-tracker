@@ -43,6 +43,11 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
                 getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
               )
             }
+            jumpToDisclaimer={() => {
+              if (fieldRef.current) {
+                fieldRef.current.scrollIntoView();
+              }
+            }}
           />
         );
       case "comparegeos":
@@ -66,6 +71,11 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
                 getMadLibWithUpdatedValue(props.madLib, 5, fips.code)
               )
             }
+            jumpToDisclaimer={() => {
+              if (fieldRef.current) {
+                fieldRef.current.scrollIntoView();
+              }
+            }}
           />
         );
       case "comparevars":
@@ -87,6 +97,11 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             fips2={new Fips(fipsCode)}
             updateFips1Callback={updateFips}
             updateFips2Callback={updateFips}
+            jumpToDisclaimer={() => {
+              if (fieldRef.current) {
+                fieldRef.current.scrollIntoView();
+              }
+            }}
           />
         );
       default:
