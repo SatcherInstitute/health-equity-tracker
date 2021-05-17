@@ -137,7 +137,7 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
-                <h3 className={styles.MethodologySubsubheaderText}>
+                <h3 className={styles.MethodologySubheaderText}>
                   Visualizations
                 </h3>
                 <ul>
@@ -191,6 +191,11 @@ function MethodologyTab() {
                 What do the metrics on the tracker mean?
               </h2>
               <div className={styles.MethodologyAnswer}>
+                <p>
+                  None of the metrics shown on the tracker are age-adjusted. We
+                  are aware that showing non-adjusted data can mask disparities
+                  and are working on moving to age-adjusted data.
+                </p>
                 <p>
                   In the definitions below, we use COVID-19 Cases as the
                   variable, and Race and Ethnicity as the demographic breakdown.
