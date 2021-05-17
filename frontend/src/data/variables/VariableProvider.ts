@@ -8,6 +8,7 @@ import {
   MetricQuery,
   MetricQueryResponse,
 } from "../query/MetricQuery";
+import { DatasetOrganizer } from "../sorting/DatasetOrganizer";
 import { ALL, TOTAL } from "../utils/Constants";
 import { DatasetCalculator } from "../utils/DatasetCalculator";
 
@@ -33,7 +34,9 @@ abstract class VariableProvider {
 
     // TODO - check that the metrics are all provided by this provider once we don't have providers relying on other providers
 
-    return await this.getDataInternal(metricQuery);
+    let resp = await this.getDataInternal(metricQuery);
+    new DatasetOrganizer(resp.data, metricQuery.breakdowns).organize();
+    return resp;
   }
 
   filterByGeo(df: IDataFrame, breakdowns: Breakdowns): IDataFrame {
@@ -42,7 +45,7 @@ abstract class VariableProvider {
 
     if (breakdowns.filterFips !== undefined) {
       const fips = breakdowns.filterFips as Fips;
-      if (fips.isState() && breakdowns.geography === "county") {
+      if (fips.isStateOrTerritory() && breakdowns.geography === "county") {
         return df
           .where((row) => fips.isParentOf(row["county_fips"]))
           .resetIndex();

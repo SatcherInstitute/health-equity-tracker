@@ -1,11 +1,11 @@
-import { MapOfDatasetMetadata, Dataset } from "../utils/DatasetTypes";
-import { joinOnCols } from "../utils/datasetutils";
 import { DataFrame, IDataFrame } from "data-forge";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { getDataFetcher, getDataManager, getLogger } from "../../utils/globals";
-import { maybeApplyRowReorder } from "../utils/datasetutils";
-import VariableProviderMap from "./VariableProviderMap";
 import LRU from "lru-cache";
+import { getDataFetcher, getDataManager, getLogger } from "../../utils/globals";
+import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { DatasetOrganizer } from "../sorting/DatasetOrganizer";
+import { Dataset, MapOfDatasetMetadata } from "../utils/DatasetTypes";
+import { joinOnCols } from "../utils/datasetutils";
+import VariableProviderMap from "./VariableProviderMap";
 
 // TODO test this out on the real website and tweak these numbers as needed.
 
@@ -242,10 +242,13 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
       []
     );
     const uniqueConsumedDatasetIds = Array.from(new Set(consumedDatasetIds));
-    return new MetricQueryResponse(
-      maybeApplyRowReorder(joined.toArray(), query.breakdowns),
+    const resp = new MetricQueryResponse(
+      joined.toArray(),
       uniqueConsumedDatasetIds
     );
+
+    new DatasetOrganizer(resp.data, query.breakdowns).organize();
+    return resp;
   }
 
   getResourceId(query: MetricQuery): string {

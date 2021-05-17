@@ -9,7 +9,6 @@ import {
   HISPANIC,
   WHITE_NH,
 } from "../utils/Constants";
-import { maybeApplyRowReorder } from "../utils/datasetutils";
 import { USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 
@@ -125,10 +124,7 @@ class AcsPovertyProvider extends VariableProvider {
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 
-    return new MetricQueryResponse(
-      maybeApplyRowReorder(df.toArray(), breakdowns),
-      [datasetId]
-    );
+    return new MetricQueryResponse(df.toArray(), [datasetId]);
   }
 
   aggregateByBreakdown(df: IDataFrame, breakdownCol: string) {

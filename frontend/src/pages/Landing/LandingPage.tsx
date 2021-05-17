@@ -198,15 +198,13 @@ function LandingPage() {
                 xs={12}
                 sm={12}
                 md={5}
-                className={styles.DecorativeHImgItem}
+                className={styles.PrioritizeHealthEquityImgItem}
               >
-                <div className={styles.DecorativeHImgContainer}>
-                  <img
-                    src="img/Asset 10@3x 1.png"
-                    className={styles.DecorativeHImg}
-                    alt="A decorative letter H centered on an orange background"
-                  />
-                </div>
+                <img
+                  src="img/118172286-e3fffb80-b3c7-11eb-9553-127462881af3.png"
+                  className={styles.PrioritizeHealthEquityImg}
+                  alt="Three women embracing a small baby in between them"
+                />
               </Grid>
             </Hidden>
             <Grid

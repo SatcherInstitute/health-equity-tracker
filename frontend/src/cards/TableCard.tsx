@@ -43,7 +43,6 @@ export function TableCard(props: TableCardProps) {
       : undefined
   );
   let metricConfigs: Record<string, MetricConfig> = {};
-  var populationComparisonMetric: string;
   metrics.forEach((metricConfig) => {
     // We prefer to show the known breakdown metric over the vanilla metric, if
     // it is available.
@@ -55,9 +54,6 @@ export function TableCard(props: TableCardProps) {
     }
 
     if (metricConfig.populationComparisonMetric) {
-      populationComparisonMetric =
-        metricConfig.populationComparisonMetric.metricId;
-
       metricConfigs[metricConfig.populationComparisonMetric.metricId] =
         metricConfig.populationComparisonMetric;
     }
@@ -69,8 +65,6 @@ export function TableCard(props: TableCardProps) {
     .map((config) => config.metricId)
     .some((metricId) => metricId.includes("covid"));
 
-  //TODO figure out a better way to figure this out
-
   return (
     <CardWrapper
       queries={[query]}
@@ -81,15 +75,11 @@ export function TableCard(props: TableCardProps) {
       }
     >
       {([queryResponse]) => {
-        const dataWithoutUnknowns = queryResponse
-          .getValidRowsForFields(
-            metricIds.filter((m) => m !== populationComparisonMetric)
-          )
-          .filter(
-            (row: Row) =>
-              row[props.breakdownVar] !== UNKNOWN &&
-              row[props.breakdownVar] !== UNKNOWN_RACE
-          );
+        const dataWithoutUnknowns = queryResponse.data.filter(
+          (row: Row) =>
+            row[props.breakdownVar] !== UNKNOWN &&
+            row[props.breakdownVar] !== UNKNOWN_RACE
+        );
 
         return (
           <>

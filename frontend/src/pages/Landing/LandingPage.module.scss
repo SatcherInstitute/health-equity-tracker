@@ -179,29 +179,18 @@
     }
   }
 
-  .DecorativeHImgItem {
+  .PrioritizeHealthEquityImgItem {
     border-right: 1px solid #3e3e3e;
     display: flex;
     justify-content: center;
   }
 
-  .DecorativeHImgContainer {
+  .PrioritizeHealthEquityImg {
     width: 95%;
     max-width: 560px;
-    height: 810px;
-    border-radius: 30px;
-    background-color: #d85c47;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 10px;
-  }
-
-  .DecorativeHImg {
     height: auto;
-    width: 100%;
-    max-width: 465px;
-    max-height: 460px;
+    border-radius: 30px;
+    margin: 10px;
   }
 }
 

@@ -1,5 +1,7 @@
 import { DataSourceMetadata } from "../utils/DatasetTypes";
 
+export const GEOGRAPHIES_DATASET_ID = "geographies";
+
 // ALERT!!! Keep this file in sync with FakeDatasetMetadata while it is present
 // All dataset IDs should be in the FakeDatasetMetadata
 
@@ -31,18 +33,6 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
-    id: "covid_tracking_project",
-    data_source_name: "Covid Tracking Project’s Racial Data Tracker",
-    data_source_link: "https://covidtracking.com/race",
-    geographic_level: "State",
-    demographic_granularity: "Race/ethnicity",
-    update_frequency: "Final update was March 7 2021",
-    description:
-      "The numbers of confirmed Covid deaths, cases, and hospitalizations at the state and county levels.",
-    dataset_ids: ["covid_by_state_and_race", "covid_by_county_and_race"],
-    downloadable: true,
-  },
-  {
     id: "cdc_restricted",
     data_source_name: "CDC Case Surveillance Restricted Access Detailed Data",
     data_source_link:
@@ -51,7 +41,9 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Monthly",
     description:
-      "The numbers of confirmed Covid deaths, cases, and hospitalizations at the state and county levels.",
+      "The numbers of confirmed Covid deaths, cases, and hospitalizations at the state and county levels. " +
+      "The CDC does not take responsibility for the scientific validity or accuracy of methodology, " +
+      "results, statistical analyses, or conclusions presented.",
     dataset_ids: [
       "cdc_restricted_data-by_race_county",
       "cdc_restricted_data-by_race_state",
@@ -72,6 +64,23 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     update_frequency: "Annual",
     description: "The prevalence of diabetes and COPD at the state level.",
     dataset_ids: ["uhc_age", "uhc_race_and_ethnicity", "uhc_sex"],
+    downloadable: true,
+  },
+  {
+    id: "covid_tracking_project",
+    data_source_name: "Covid Tracking Project’s Racial Data Tracker",
+    data_source_link: "https://covidtracking.com/race",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity",
+    update_frequency: "Final update was March 7 2021",
+    description:
+      "The numbers of confirmed Covid deaths, cases, hospitalizations, and tests at the state level.",
+    dataset_ids: [
+      "covid_tracking_project-covid_tracking_project_cases",
+      "covid_tracking_project-covid_tracking_project_deaths",
+      "covid_tracking_project-covid_tracking_project_hosp",
+      "covid_tracking_project-covid_tracking_project_tests",
+    ],
     downloadable: true,
   },
 ];
