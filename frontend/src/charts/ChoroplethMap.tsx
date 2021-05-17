@@ -161,6 +161,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           name: LEGEND_DATASET,
           // The current national-level Vega projection does not support
           // territories, so we remove them from the legend.
+          // TODO - remove this when projection supports territories.
           values: props.fips.isUsa()
             ? legendData.filter((row) => !new Fips(row[VAR_FIPS]).isTerritory())
             : legendData,
@@ -271,7 +272,24 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     setTimeout(() => {
       setShouldRenderMap(true);
     }, 0);
-  }, [width, props.metric, props.legendTitle, props.data, props.fips, props.hideLegend, props.showCounties, props.fieldRange, props.scaleType, props.legendData, props.scaleColorScheme, props.useSmallSampleMessage, props.hideMissingDataTooltip, props.geoData, LEGEND_WIDTH, legendData]);
+  }, [
+    width,
+    props.metric,
+    props.legendTitle,
+    props.data,
+    props.fips,
+    props.hideLegend,
+    props.showCounties,
+    props.fieldRange,
+    props.scaleType,
+    props.legendData,
+    props.scaleColorScheme,
+    props.useSmallSampleMessage,
+    props.hideMissingDataTooltip,
+    props.geoData,
+    LEGEND_WIDTH,
+    legendData,
+  ]);
 
   return (
     <div
