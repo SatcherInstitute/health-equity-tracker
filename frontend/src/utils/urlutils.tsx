@@ -29,6 +29,10 @@ export const TAB_PARAM = "tab";
 // 'true' or 'false' will override the cookie to show or hide the onboarding flow
 export const SHOW_ONBOARDING_PARAM = "onboard";
 
+export const DEMOGRAPHIC_PARAM = "demo";
+export const DATA_TYPE_1_PARAM = "dt1";
+export const DATA_TYPE_2_PARAM = "dt2";
+
 export function LinkWithStickyParams(props: {
   to: string;
   target?: string;
@@ -152,7 +156,7 @@ export function getParameter<T1>(
 }
 
 let kvSeperator = ".";
-let partsSeperator = "..";
+let partsSeperator = "-";
 
 export const parseMls = (param: string) => {
   let parts = param.split(partsSeperator);
@@ -175,4 +179,37 @@ export const stringifyMls = (selection: PhraseSelections): string => {
   return kvPair.join(partsSeperator);
 };
 
-export function removeParameter() {}
+export type PSEventHandler = () => void;
+
+const psSubscriptions: any = {};
+let psCount: number = 0;
+
+export const psSubscribe = (
+  handler: PSEventHandler,
+  keyPrefix = "unk"
+): { unsubscribe: () => void } => {
+  const key = keyPrefix + "_" + psCount;
+  console.log("Adding PSHandler: " + key);
+  psSubscriptions[key] = handler;
+  psCount++;
+  return {
+    unsubscribe: () => {
+      psUnsubscribe(key);
+    },
+  };
+};
+
+export const psUnsubscribe = (k: string) => {
+  console.log("Removing PSHandler: " + k);
+  delete psSubscriptions[k];
+};
+
+window.onpopstate = () => {
+  Object.keys(psSubscriptions).forEach((key) => {
+    const handler = psSubscriptions[key];
+    if (handler) {
+      console.log("Firing PSHandler: " + key);
+      handler();
+    }
+  });
+};

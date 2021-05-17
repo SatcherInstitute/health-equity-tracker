@@ -1,17 +1,25 @@
-import React, { useState } from "react";
 import { Grid } from "@material-ui/core";
-import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
-import { MapCard } from "../cards/MapCard";
-import { UnknownsMapCard } from "../cards/UnknownsMapCard";
-import { PopulationCard } from "../cards/PopulationCard";
-import { TableCard } from "../cards/TableCard";
+import React, { useEffect, useState } from "react";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
+import { MapCard } from "../cards/MapCard";
+import { PopulationCard } from "../cards/PopulationCard";
 import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
-import { DropdownVarId } from "../utils/MadLibs";
-import { Fips } from "../data/utils/Fips";
+import { TableCard } from "../cards/TableCard";
+import { UnknownsMapCard } from "../cards/UnknownsMapCard";
 import { METRIC_CONFIG, VariableConfig } from "../data/config/MetricConfig";
-import ReportToggleControls from "./ui/ReportToggleControls";
+import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
+import { Fips } from "../data/utils/Fips";
+import { DropdownVarId } from "../utils/MadLibs";
+import {
+  DATA_TYPE_1_PARAM,
+  DATA_TYPE_2_PARAM,
+  DEMOGRAPHIC_PARAM,
+  getParameter,
+  psSubscribe,
+  setParameter,
+} from "../utils/urlutils";
 import NoDataAlert from "./ui/NoDataAlert";
+import ReportToggleControls from "./ui/ReportToggleControls";
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
@@ -25,7 +33,7 @@ function TwoVariableReport(props: {
   updateFips2Callback: (fips: Fips) => void;
 }) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
-    "race_and_ethnicity"
+    getParameter(DEMOGRAPHIC_PARAM, "race_and_ethnicity")
   );
 
   const [variableConfig1, setVariableConfig1] = useState<VariableConfig | null>(
@@ -38,6 +46,63 @@ function TwoVariableReport(props: {
       ? METRIC_CONFIG[props.dropdownVarId2][0]
       : null
   );
+
+  const setVariableConfigWithParam1 = (v: VariableConfig) => {
+    setParameter(DATA_TYPE_1_PARAM, v.variableId);
+    setVariableConfig1(v);
+  };
+
+  const setVariableConfigWithParam2 = (v: VariableConfig) => {
+    setParameter(DATA_TYPE_2_PARAM, v.variableId);
+    setVariableConfig2(v);
+  };
+
+  const setDemoWithParam = (str: BreakdownVar) => {
+    setParameter(DEMOGRAPHIC_PARAM, str);
+    setCurrentBreakdown(str);
+  };
+
+  useEffect(() => {
+    const readParams = () => {
+      const demoParam1 = getParameter(
+        DATA_TYPE_1_PARAM,
+        undefined,
+        (val: string) => {
+          return METRIC_CONFIG[props.dropdownVarId1].find(
+            (cfg) => cfg.variableId === val
+          );
+        }
+      );
+      const demoParam2 = getParameter(
+        DATA_TYPE_2_PARAM,
+        undefined,
+        (val: string) => {
+          return METRIC_CONFIG[props.dropdownVarId2].find(
+            (cfg) => cfg.variableId === val
+          );
+        }
+      );
+
+      const demo: BreakdownVar = getParameter(
+        DEMOGRAPHIC_PARAM,
+        "race_and_ethnicity"
+      );
+      setVariableConfig1(
+        demoParam1 ? demoParam1 : METRIC_CONFIG[props.dropdownVarId1][0]
+      );
+      setVariableConfig2(
+        demoParam2 ? demoParam2 : METRIC_CONFIG[props.dropdownVarId2][0]
+      );
+      setCurrentBreakdown(demo);
+    };
+    const psSub = psSubscribe(readParams, "twovar");
+    readParams();
+    return () => {
+      if (psSub) {
+        psSub.unsubscribe();
+      }
+    };
+  }, [props.dropdownVarId1, props.dropdownVarId2]);
 
   if (variableConfig1 === null) {
     return (
@@ -68,18 +133,18 @@ function TwoVariableReport(props: {
                 <ReportToggleControls
                   dropdownVarId={props.dropdownVarId1}
                   variableConfig={variableConfig1}
-                  setVariableConfig={setVariableConfig1}
+                  setVariableConfig={setVariableConfigWithParam1}
                   currentBreakdown={currentBreakdown}
-                  setCurrentBreakdown={setCurrentBreakdown}
+                  setCurrentBreakdown={setDemoWithParam}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <ReportToggleControls
                   dropdownVarId={props.dropdownVarId2}
                   variableConfig={variableConfig2}
-                  setVariableConfig={setVariableConfig2}
+                  setVariableConfig={setVariableConfigWithParam2}
                   currentBreakdown={currentBreakdown}
-                  setCurrentBreakdown={setCurrentBreakdown}
+                  setCurrentBreakdown={setDemoWithParam}
                 />
               </Grid>
             </Grid>
@@ -92,9 +157,9 @@ function TwoVariableReport(props: {
             <ReportToggleControls
               dropdownVarId={props.dropdownVarId1}
               variableConfig={variableConfig1}
-              setVariableConfig={setVariableConfig1}
+              setVariableConfig={setVariableConfigWithParam1}
               currentBreakdown={currentBreakdown}
-              setCurrentBreakdown={setCurrentBreakdown}
+              setCurrentBreakdown={setDemoWithParam}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -102,9 +167,9 @@ function TwoVariableReport(props: {
             <ReportToggleControls
               dropdownVarId={props.dropdownVarId2}
               variableConfig={variableConfig2}
-              setVariableConfig={setVariableConfig2}
+              setVariableConfig={setVariableConfigWithParam2}
               currentBreakdown={currentBreakdown}
-              setCurrentBreakdown={setCurrentBreakdown}
+              setCurrentBreakdown={setDemoWithParam}
             />
           </Grid>
         </>
