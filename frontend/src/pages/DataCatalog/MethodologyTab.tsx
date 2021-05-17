@@ -226,6 +226,57 @@ function MethodologyTab() {
                 </ul>
               </div>
             </Grid>
+            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
+              <h2 className={styles.MethodologyQuestion}>
+                What do the race/ethnicity groups mean?
+              </h2>
+              <div className={styles.MethodologyAnswer}>
+                <p>
+                  The combined race/ethnicity groups shown on the tracker can be
+                  hard to understand, partially due to non-standard
+                  race/ethnicity breakdowns across data sources. Generally, all
+                  race/ethnicities on the tracker include Hispanic/Latino unless
+                  otherwise specified.
+                </p>
+                <p>
+                  We include a few example groups and definitions below. Note
+                  that the complete definition of a race/ethnicity can only be
+                  understood in the context of a particular dataset and how it
+                  classifies race/ethnicity (e.g. the presence of "Other" within
+                  a dataset changes who might be classified as "Asian" vs
+                  "Other").
+                </p>
+                <ul>
+                  <li>
+                    <b>All</b>: Any race or ethnicity, including unknown
+                    race/ethnicity.
+                  </li>
+                  <li>
+                    <b>Asian (Non-Hispanic)</b>: A single race (Asian), not
+                    Hispanic/Latino.
+                  </li>
+                  <li>
+                    <b>Hispanic/Latino</b>: Any race(s), Hispanic/Latino.
+                  </li>
+                  <li>
+                    <b>Some other race (Non-Hispanic)</b>: A single race (some
+                    other race), not Hispanic/Latino. The definition of "some
+                    other race" is dependent on what other race categories exist
+                    in the dataset.
+                  </li>
+                  <li>
+                    <b>Two or more races & Some other race (Non-Hispanic)</b>:
+                    People who are either multiple races or some other race, and
+                    not Hispanic/Latino.
+                  </li>
+                  <li>
+                    <b>Black or African American</b>: A single race (African
+                    American), including those who identify as African American
+                    and Hispanic/Latino.
+                  </li>
+                </ul>
+              </div>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
