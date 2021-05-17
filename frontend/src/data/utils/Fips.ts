@@ -10,6 +10,9 @@ export const TERRITORY_CODES = [
   /*Virgin Islands-*/ "78",
 ];
 
+// Fips code for District of Columbia (county).
+export const DC_COUNTY_FIPS = "11001";
+
 class Fips {
   code: string;
 
