@@ -31,6 +31,7 @@ export interface ChoroplethMapProps {
   // legendData is the dataset for which to calculate legend. Used to have a common legend between two maps.
   legendData?: Record<string, any>[];
   useSmallSampleMessage: boolean;
+  hideMissingDataTooltip?: boolean;
   metric: MetricConfig;
   legendTitle: string;
   signalListeners: any;
@@ -208,11 +209,14 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           type: "shape",
           from: { data: MISSING_DATASET },
           encode: {
-            enter: {
-              tooltip: {
-                signal: missingDataTooltipValue,
-              },
-            },
+            enter:
+              props.hideMissingDataTooltip === true
+                ? {}
+                : {
+                    tooltip: {
+                      signal: missingDataTooltipValue,
+                    },
+                  },
             update: {
               fill: { value: UNKNOWN_GREY },
             },
@@ -265,6 +269,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props.legendData,
     props.scaleColorScheme,
     props.useSmallSampleMessage,
+    props.hideMissingDataTooltip,
     props.geoData,
     LEGEND_WIDTH,
   ]);
