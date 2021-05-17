@@ -70,14 +70,14 @@ function MethodologyTab() {
                     incomplete and potentially skewed.
                   </li>
                   <li>
-                    As the underlying dataset is at the case-level, we are
-                    unable to distinguish between a given state/county not
-                    reporting data for a particular demographic group vs. the
-                    state/county legitimately having zero cases for that group.
+                    The underlying data is reported at the case-level, so we
+                    cannot determine whether a state/county lacking cases for 
+                    a particular demographic group truly has zero cases for that group 
+                    or whether that that locale fails to report demographics correctly.
                   </li>
                   <li>
                     To protect the privacy of affected individuals, COVID-19
-                    data may be hidden in counties with smaller numbers of
+                    data may be hidden in counties with low numbers of
                     COVID-19 cases, hospitalizations and deaths.
                   </li>
                   <li>
@@ -98,14 +98,14 @@ function MethodologyTab() {
                 </ul>
 
                 <h4 className={styles.MethodologySubsubheaderText}>
-                  Diabetes/COPD
+                  Diabetes & COPD
                 </h4>
                 <p>
-                  Diabetes/COPD data in the tracker is sourced from{" "}
+                  Diabetes & COPD data in the tracker is sourced from{" "}
                   <a href="https://www.americashealthrankings.org/explore/annual/measure/Overall_a/state/ALL">
                     America's Health Rankings
                   </a>
-                  , who in turn source their diabetes/COPD data from the{" "}
+                  , who in turn source their diabetes & COPD data from the{" "}
                   <a href="https://www.cdc.gov/brfss/index.html">
                     Behavioral Risk Factor Surveillance System (BRFSS)
                   </a>
@@ -113,7 +113,7 @@ function MethodologyTab() {
                 </p>
                 <ul>
                   <li>
-                    As BRFSS is a sampled survey, the use of statistical
+                    BRFSS is a sampled survey, so the use of statistical
                     software is required to propertly integrate it. Please see
                     the{" "}
                     <a href="https://www.americashealthrankings.org/about/methodology/data-sources-and-measures">
@@ -126,13 +126,13 @@ function MethodologyTab() {
                     especially for smaller and typically marginalized racial
                     groups, there are not enough respondents to provide a
                     statistically meaningful estimate of disease prevalence. In
-                    the tracker, states are colored grey to indicate that the
-                    sample size was too small to produce an estimate of
-                    diabetes/COPD prevalence for the given demographic group.
+                    the tracker, states are colored grey to indicate areas where 
+                    sample sizes were too small to produce an estimate of
+                    diabetes and/or COPD prevalence for a given demographic group.
                   </li>
                   <li>
                     BRFSS data is not usable/available at the county level, so
-                    the tracker does not have diabetes/COPD data at the county
+                    the tracker does not display diabetes or COPD data at the county
                     level either.
                   </li>
                 </ul>
@@ -142,20 +142,20 @@ function MethodologyTab() {
                 </h3>
                 <ul>
                   <li>
-                    Unfortunately, the national-level map projection and
+                    The national-level map projection and
                     rendering software used in the tracker (
                     <a href="https://vega.github.io/vega-lite/docs/projection.html">
                       Vega, with the albersUsa projection
                     </a>
-                    ) is currently unable to display territories such as Puerto
+                    ) currently cannot display territories such as Puerto
                     Rico on the national-level USA map. Searching directly for
-                    territories does bring up the correct projection, however.
+                    each territory displays a map for the territory itself.
                   </li>
                   <li>
                     Please consider the impact of under-reporting and data gaps
                     when exploring the visualizations. These issues may lead to
-                    incorrect conclusions, e.g. low per100k rates in a given
-                    geography may be due to under-reporting.
+                    incorrect conclusions, e.g. low rates in a given
+                    location may be due to under-reporting rather than absence of impact.
                   </li>
                 </ul>
               </div>
@@ -166,16 +166,14 @@ function MethodologyTab() {
               </h2>
               <div className={styles.MethodologyAnswer}>
                 <p>
-                  Our tracker is iterating and expanding to include additional
-                  health variables, social and political determinants of health,
-                  and increasing coverage at the state, county, and census-tract
-                  levels
+                  Our tracker will expand to include additional
+                  health variables, social and political determinants of health.
                 </p>
               </div>
               <div className={styles.MethodologyInfoBar}>
                 <p>
                   Do you have information on health outcomes at the state and
-                  local level?
+                  local level that belong in the Health Equity Tracker?
                   <br />
                   <LinkWithStickyParams
                     class={styles.MethodologyContactUsLink}
@@ -193,19 +191,19 @@ function MethodologyTab() {
               <div className={styles.MethodologyAnswer}>
                 <p>
                   None of the metrics/data shown on the tracker are
-                  age-adjusted. We are aware that showing non-adjusted data can
-                  mask disparities and are working on moving to age-adjusted
-                  data.
+                  age-adjusted. Showing non-adjusted data can
+                  mask disparities and are we working to use age-adjusted
+                  data instead.
                 </p>
                 <p>
                   In the definitions below, we use COVID-19 Cases as the
-                  variable, and Race and Ethnicity as the demographic breakdown.
-                  This is for simplicity; the definitions apply to all variables
+                  variable, and Race and Ethnicity as the demographic breakdown
+                  for simplicity; the definitions apply to all variables
                   and demographic breakdowns.
                 </p>
                 <ul>
                   <li>
-                    <b>COVID-19 cases per 100k people</b>: The rate of
+                    <b>COVID-19 cases per 100k people</b>: The total rate of
                     occurrence of COVID-19 cases expressed per 100,000 people
                     (i.e. 10,000 per 100k implies a 10% occurence rate). This
                     metric normalizes for population size, allowing for
@@ -215,7 +213,7 @@ function MethodologyTab() {
                     <b>
                       Share of COVID-19 cases with Unknown Race and Ethnicity
                     </b>
-                    : For a certain geography, the percentage of COVID-19 cases
+                    : Within a locale, the percentage of COVID-19 cases
                     that reported unknown race/ethnicity. For example, a value
                     of 20% for Georgia means that 20% of Georgia's reported
                     cases had unknown race/ethnicity.
@@ -227,7 +225,8 @@ function MethodologyTab() {
                   </li>
                   <li>
                     <b>Population Share</b>: The percentage of the total
-                    population that reported a particular race/ethnicity.
+                    population that identified as a particular race/ethnicity in 
+                    the ACS survey.
                   </li>
                 </ul>
               </div>
@@ -242,7 +241,9 @@ function MethodologyTab() {
                   hard to understand, partially due to non-standard
                   race/ethnicity breakdowns across data sources. Generally, all
                   race/ethnicities on the tracker include Hispanic/Latino unless
-                  otherwise specified.
+                  otherwise specified. A notable exception is Covid data, where
+                  cases, hospitalizations and deaths that are recorded as 
+                  Hispanic/Latino ignore any other race that is reported.
                 </p>
                 <p>
                   We include a few example groups and definitions below. Note
