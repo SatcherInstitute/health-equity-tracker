@@ -6,7 +6,7 @@ import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
 
-export type ScaleType = "quantize" | "quantile";
+export type ScaleType = "quantize" | "quantile" | "symlog";
 
 const UNKNOWN_GREY = "#BDC1C6";
 const RED_ORANGE = "#ED573F";
@@ -144,6 +144,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     if (props.fieldRange) {
       colorScale["domainMax"] = props.fieldRange.max;
       colorScale["domainMin"] = props.fieldRange.min;
+    }
+    if (props.scaleType === "symlog") {
+      // Controls the slope of the linear behavior of symlog around 0.
+      colorScale["constant"] = 0.01;
     }
 
     setSpec({
