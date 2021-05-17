@@ -22,7 +22,7 @@ export class AlphabeticalSorterStrategy extends AbstractSortStrategy {
   }
 
   appliesToBreakdowns = (b: Breakdowns) => {
-    return b.hasOneRegionOfGeographicGranularity();
+    return !b.hasOnlyAge() && b.hasOneRegionOfGeographicGranularity();
   };
 
   compareFn = (l: Row | string, r: Row | string) => {
