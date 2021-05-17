@@ -71,14 +71,15 @@ function MethodologyTab() {
                   </li>
                   <li>
                     The underlying data is reported at the case-level, so we
-                    cannot determine whether a state/county lacking cases for 
-                    a particular demographic group truly has zero cases for that group 
-                    or whether that that locale fails to report demographics correctly.
+                    cannot determine whether a state/county lacking cases for a
+                    particular demographic group truly has zero cases for that
+                    group or whether that that locale fails to report
+                    demographics correctly.
                   </li>
                   <li>
                     To protect the privacy of affected individuals, COVID-19
-                    data may be hidden in counties with low numbers of
-                    COVID-19 cases, hospitalizations and deaths.
+                    data may be hidden in counties with low numbers of COVID-19
+                    cases, hospitalizations and deaths.
                   </li>
                   <li>
                     Decisions to suppress COVID-19 data for particular states in
@@ -126,14 +127,15 @@ function MethodologyTab() {
                     especially for smaller and typically marginalized racial
                     groups, there are not enough respondents to provide a
                     statistically meaningful estimate of disease prevalence. In
-                    the tracker, states are colored grey to indicate areas where 
+                    the tracker, states are colored grey to indicate areas where
                     sample sizes were too small to produce an estimate of
-                    diabetes and/or COPD prevalence for a given demographic group.
+                    diabetes and/or COPD prevalence for a given demographic
+                    group.
                   </li>
                   <li>
                     BRFSS data is not usable/available at the county level, so
-                    the tracker does not display diabetes or COPD data at the county
-                    level either.
+                    the tracker does not display diabetes or COPD data at the
+                    county level either.
                   </li>
                 </ul>
 
@@ -142,20 +144,20 @@ function MethodologyTab() {
                 </h3>
                 <ul>
                   <li>
-                    The national-level map projection and
-                    rendering software used in the tracker (
+                    The national-level map projection and rendering software
+                    used in the tracker (
                     <a href="https://vega.github.io/vega-lite/docs/projection.html">
                       Vega, with the albersUsa projection
                     </a>
-                    ) currently cannot display territories such as Puerto
-                    Rico on the national-level USA map. Searching directly for
-                    each territory displays a map for the territory itself.
+                    ) currently cannot display territories such as Puerto Rico
+                    on the national-level USA map. Searching directly for each
+                    territory displays a map for the territory itself.
                   </li>
                   <li>
                     Please consider the impact of under-reporting and data gaps
                     when exploring the visualizations. These issues may lead to
-                    incorrect conclusions, e.g. low rates in a given
-                    location may be due to under-reporting rather than absence of impact.
+                    incorrect conclusions, e.g. low rates in a given location
+                    may be due to under-reporting rather than absence of impact.
                   </li>
                 </ul>
               </div>
@@ -166,8 +168,8 @@ function MethodologyTab() {
               </h2>
               <div className={styles.MethodologyAnswer}>
                 <p>
-                  Our tracker will expand to include additional
-                  health variables, social and political determinants of health.
+                  Our tracker will expand to include additional health
+                  variables, social and political determinants of health.
                 </p>
               </div>
               <div className={styles.MethodologyInfoBar}>
@@ -191,15 +193,14 @@ function MethodologyTab() {
               <div className={styles.MethodologyAnswer}>
                 <p>
                   None of the metrics/data shown on the tracker are
-                  age-adjusted. Showing non-adjusted data can
-                  mask disparities and are we working to use age-adjusted
-                  data instead.
+                  age-adjusted. Showing non-adjusted data can mask disparities
+                  and are we working to use age-adjusted data instead.
                 </p>
                 <p>
                   In the definitions below, we use COVID-19 Cases as the
                   variable, and Race and Ethnicity as the demographic breakdown
-                  for simplicity; the definitions apply to all variables
-                  and demographic breakdowns.
+                  for simplicity; the definitions apply to all variables and
+                  demographic breakdowns.
                 </p>
                 <ul>
                   <li>
@@ -213,10 +214,10 @@ function MethodologyTab() {
                     <b>
                       Share of COVID-19 cases with Unknown Race and Ethnicity
                     </b>
-                    : Within a locale, the percentage of COVID-19 cases
-                    that reported unknown race/ethnicity. For example, a value
-                    of 20% for Georgia means that 20% of Georgia's reported
-                    cases had unknown race/ethnicity.
+                    : Within a locale, the percentage of COVID-19 cases that
+                    reported unknown race/ethnicity. For example, a value of 20%
+                    for Georgia means that 20% of Georgia's reported cases had
+                    unknown race/ethnicity.
                   </li>
                   <li>
                     <b>Share of COVID-19 cases with known demographics</b>: The
@@ -225,7 +226,7 @@ function MethodologyTab() {
                   </li>
                   <li>
                     <b>Population Share</b>: The percentage of the total
-                    population that identified as a particular race/ethnicity in 
+                    population that identified as a particular race/ethnicity in
                     the ACS survey.
                   </li>
                 </ul>
@@ -241,9 +242,7 @@ function MethodologyTab() {
                   hard to understand, partially due to non-standard
                   race/ethnicity breakdowns across data sources. Generally, all
                   race/ethnicities on the tracker include Hispanic/Latino unless
-                  otherwise specified. A notable exception is Covid data, where
-                  cases, hospitalizations and deaths that are recorded as 
-                  Hispanic/Latino ignore any other race that is reported.
+                  otherwise specified.
                 </p>
                 <p>
                   We include a few example groups and definitions below. Note
