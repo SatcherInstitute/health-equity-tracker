@@ -6,7 +6,6 @@ import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
 
-type NumberFormat = "raw" | "percentage";
 export type ScaleType = "quantize" | "quantile" | "symlog";
 
 const UNKNOWN_GREY = "#BDC1C6";
@@ -35,7 +34,6 @@ export interface ChoroplethMapProps {
   legendTitle: string;
   signalListeners: any;
   fips: Fips;
-  numberFormat?: NumberFormat;
   hideLegend?: boolean;
   fieldRange?: FieldRange;
   showCounties: boolean;
@@ -117,7 +115,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       labelSeparation: 10,
       offset: 10,
     };
-    if (props.numberFormat === "percentage") {
+    if (props.metric.type === "pct_share") {
       legend["encode"] = {
         labels: {
           update: {
@@ -265,7 +263,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     width,
     props.metric,
     props.legendTitle,
-    props.numberFormat,
     props.data,
     props.fips,
     props.hideLegend,
