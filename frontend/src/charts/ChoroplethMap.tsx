@@ -61,6 +61,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
   const LEGEND_WIDTH = props.hideLegend ? 0 : 100;
 
+  // Dataset to use for computing the legend
+  const legendData = props.legendData || props.data;
+
   useEffect(() => {
     const geoData = props.geoData
       ? { values: props.geoData }
@@ -153,7 +156,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
         {
           name: LEGEND_DATASET,
-          values: props.legendData || props.data,
+          // The current national-level Vega projection does not support
+          // territories, so we remove them from the legend.
+          // TODO - remove this when projection supports territories.
+          values: props.fips.isUsa()
+            ? legendData.filter((row) => !new Fips(row[VAR_FIPS]).isTerritory())
+            : legendData,
         },
         {
           name: GEO_DATASET,
@@ -271,12 +279,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props.showCounties,
     props.fieldRange,
     props.scaleType,
-    props.legendData,
     props.scaleColorScheme,
     props.useSmallSampleMessage,
     props.hideMissingDataTooltip,
     props.geoData,
     LEGEND_WIDTH,
+    legendData,
   ]);
 
   return (
