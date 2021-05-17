@@ -192,9 +192,10 @@ function MethodologyTab() {
               </h2>
               <div className={styles.MethodologyAnswer}>
                 <p>
-                  None of the metrics shown on the tracker are age-adjusted. We
-                  are aware that showing non-adjusted data can mask disparities
-                  and are working on moving to age-adjusted data.
+                  None of the metrics/data shown on the tracker are
+                  age-adjusted. We are aware that showing non-adjusted data can
+                  mask disparities and are working on moving to age-adjusted
+                  data.
                 </p>
                 <p>
                   In the definitions below, we use COVID-19 Cases as the
