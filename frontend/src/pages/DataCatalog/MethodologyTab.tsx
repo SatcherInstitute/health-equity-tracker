@@ -28,7 +28,7 @@ function MethodologyTab() {
                 tabIndex={-1}
                 className={styles.MethodologyQuestion}
               >
-                How did you ingest and standardize the data?
+                How did you acquire and standardize the data?
               </h2>
               <div className={styles.MethodologyAnswer}>
                 <ul>
