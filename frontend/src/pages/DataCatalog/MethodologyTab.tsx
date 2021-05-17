@@ -186,6 +186,46 @@ function MethodologyTab() {
                 </p>
               </div>
             </Grid>
+            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
+              <h2 className={styles.MethodologyQuestion}>
+                What do the metrics on the tracker mean?
+              </h2>
+              <div className={styles.MethodologyAnswer}>
+                <p>
+                  In the definitions below, we use COVID-19 Cases as the
+                  variable, and Race and Ethnicity as the demographic breakdown.
+                  This is for simplicity; the definitions apply to all variables
+                  and demographic breakdowns.
+                </p>
+                <ul>
+                  <li>
+                    <b>COVID-19 cases per 100k people</b>: The rate of
+                    occurrence of COVID-19 cases expressed per 100,000 people
+                    (i.e. 10,000 per 100k implies a 10% occurence rate). This
+                    metric normalizes for population size, allowing for
+                    comparisons across demographic groups.
+                  </li>
+                  <li>
+                    <b>
+                      Share of COVID-19 cases with Unknown Race and Ethnicity
+                    </b>
+                    : For a certain geography, the percentage of COVID-19 cases
+                    that reported unknown race/ethnicity. For example, a value
+                    of 20% for Georgia means that 20% of Georgia's reported
+                    cases had unknown race/ethnicity.
+                  </li>
+                  <li>
+                    <b>Share of COVID-19 cases with known demographics</b>: The
+                    percentage of all COVID-19 cases that reported a particular
+                    race/ethnicity, excluding cases with unknown race/ethnicity.
+                  </li>
+                  <li>
+                    <b>Population Share</b>: The percentage of the total
+                    population that reported a particular race/ethnicity.
+                  </li>
+                </ul>
+              </div>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
