@@ -155,7 +155,7 @@ export const STATE_FIPS_MAP: Record<string, string> = {
   "48": "Texas",
   "49": "Utah",
   "50": "Vermont",
-  "51": "Virigina",
+  "51": "Virginia",
   "53": "Washington",
   "54": "West Virginia",
   "55": "Wisconsin",
