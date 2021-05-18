@@ -257,7 +257,7 @@ function TwoVariableReport(props: {
                 fips: Fips,
                 unusedUpdateFips: (fips: Fips) => void
               ) => (
-                <DisparityBarChartCard
+                <SimpleBarChartCard
                   variableConfig={variableConfig}
                   breakdownVar={breakdownVar}
                   fips={fips}
@@ -274,7 +274,7 @@ function TwoVariableReport(props: {
                 fips: Fips,
                 unusedUpdateFips: (fips: Fips) => void
               ) => (
-                <SimpleBarChartCard
+                <DisparityBarChartCard
                   variableConfig={variableConfig}
                   breakdownVar={breakdownVar}
                   fips={fips}
