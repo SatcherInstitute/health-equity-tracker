@@ -320,7 +320,7 @@ function EquityTab() {
                   Back to ‘normal’ isn’t good enough
                 </h2>
                 <p className={styles.NewsAndStoriesSubtitleText}>
-                  With the anticipation of increasing distribution of Covid-19
+                  With the anticipation of increasing distribution of COVID-19
                   vaccines, Americans are looking forward to a “return to
                   normal.” But the reality is that “normal” is a privilege, one
                   that is out of reach for millions.{" "}

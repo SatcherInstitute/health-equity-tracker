@@ -4,7 +4,7 @@ import { MetricId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { joinOnCols } from "../utils/datasetutils";
-import { USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
+import { DC_COUNTY_FIPS, USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 
@@ -115,6 +115,27 @@ class CdcCovidProvider extends VariableProvider {
           row.hosp_unknown === row.covid_cases ? null : row.covid_hosp,
       })
       .resetIndex();
+
+    // Drop unused columns for simplicity.
+    df = df.dropSeries(["death_n", "death_unknown", "hosp_n", "hosp_unknown"]);
+
+    // Clear all county-level DC data. See issue for more details:
+    // https://github.com/SatcherInstitute/health-equity-tracker/issues/872.
+    // TODO - fix this the right way.
+    df = df.withSeries({
+      covid_cases: (df) =>
+        df.deflate((row) =>
+          row.fips === DC_COUNTY_FIPS ? null : row.covid_cases
+        ),
+      covid_deaths: (df) =>
+        df.deflate((row) =>
+          row.fips === DC_COUNTY_FIPS ? null : row.covid_deaths
+        ),
+      covid_hosp: (df) =>
+        df.deflate((row) =>
+          row.fips === DC_COUNTY_FIPS ? null : row.covid_hosp
+        ),
+    });
 
     df = df
       .generateSeries({
