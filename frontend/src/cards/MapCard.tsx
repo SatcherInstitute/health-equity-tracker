@@ -288,6 +288,7 @@ function MapCardWithKey(props: MapCardProps) {
                       ? highestRatesList.concat(lowestRatesList)
                       : dataForActiveBreakdownFilter
                   }
+                  hideMissingDataTooltip={listExpanded}
                   legendData={dataForActiveBreakdownFilter}
                   hideLegend={
                     queryResponse.dataIsMissing() ||

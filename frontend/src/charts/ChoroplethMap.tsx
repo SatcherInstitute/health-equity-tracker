@@ -6,8 +6,7 @@ import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
 
-type NumberFormat = "raw" | "percentage";
-export type ScaleType = "quantize" | "quantile";
+export type ScaleType = "quantize" | "quantile" | "symlog";
 
 const UNKNOWN_GREY = "#BDC1C6";
 const RED_ORANGE = "#ED573F";
@@ -31,11 +30,11 @@ export interface ChoroplethMapProps {
   // legendData is the dataset for which to calculate legend. Used to have a common legend between two maps.
   legendData?: Record<string, any>[];
   useSmallSampleMessage: boolean;
+  hideMissingDataTooltip?: boolean;
   metric: MetricConfig;
   legendTitle: string;
   signalListeners: any;
   fips: Fips;
-  numberFormat?: NumberFormat;
   hideLegend?: boolean;
   fieldRange?: FieldRange;
   showCounties: boolean;
@@ -61,6 +60,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   const [spec, setSpec] = useState({});
 
   const LEGEND_WIDTH = props.hideLegend ? 0 : 100;
+
+  // Dataset to use for computing the legend
+  const legendData = props.legendData || props.data;
 
   useEffect(() => {
     const geoData = props.geoData
@@ -98,10 +100,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ? "Sample size too small"
       : "No data";
     const geographyName = props.showCounties ? "County" : "State";
-    const tooltipDatum =
-      props.numberFormat === "percentage"
-        ? `format(datum.${props.metric.metricId}, '0.1%')`
-        : `format(datum.${props.metric.metricId}, ',')`;
+    const tooltipDatum = `format(datum.${props.metric.metricId}, ',')`;
     const tooltipValue = `{"${geographyName}": datum.properties.name, "${props.metric.shortVegaLabel}": ${tooltipDatum} }`;
     const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${props.metric.shortVegaLabel}": "${noDataText}" }`;
 
@@ -116,10 +115,21 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       titleLimit: 0,
       font: "monospace",
       labelFont: "monospace",
+      labelOverlap: "greedy",
+      labelSeparation: 10,
       offset: 10,
+      format: "d",
     };
-    if (props.numberFormat === "percentage") {
-      legend["format"] = "0.1%";
+    if (props.metric.type === "pct_share") {
+      legend["encode"] = {
+        labels: {
+          update: {
+            text: {
+              signal: `format(datum.label, '0.1r') + '%'`,
+            },
+          },
+        },
+      };
     }
     if (!props.hideLegend) {
       legendList.push(legend);
@@ -135,6 +145,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       colorScale["domainMax"] = props.fieldRange.max;
       colorScale["domainMin"] = props.fieldRange.min;
     }
+    if (props.scaleType === "symlog") {
+      // Controls the slope of the linear behavior of symlog around 0.
+      colorScale["constant"] = 0.01;
+    }
 
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
@@ -146,7 +160,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
         {
           name: LEGEND_DATASET,
-          values: props.legendData || props.data,
+          // The current national-level Vega projection does not support
+          // territories, so we remove them from the legend.
+          // TODO - remove this when projection supports territories.
+          values: props.fips.isUsa()
+            ? legendData.filter((row) => !new Fips(row[VAR_FIPS]).isTerritory())
+            : legendData,
         },
         {
           name: GEO_DATASET,
@@ -189,7 +208,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       projections: [
         {
           name: US_PROJECTION,
-          type: props.fips.isTerritory() ? "albers" : "albersUsa",
+          type:
+            props.fips.isTerritory() || props.fips.getParentFips().isTerritory()
+              ? "albers"
+              : "albersUsa",
           fit: { signal: "data('" + GEO_DATASET + "')" },
           size: {
             signal:
@@ -208,11 +230,14 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           type: "shape",
           from: { data: MISSING_DATASET },
           encode: {
-            enter: {
-              tooltip: {
-                signal: missingDataTooltipValue,
-              },
-            },
+            enter:
+              props.hideMissingDataTooltip === true
+                ? {}
+                : {
+                    tooltip: {
+                      signal: missingDataTooltipValue,
+                    },
+                  },
             update: {
               fill: { value: UNKNOWN_GREY },
             },
@@ -255,18 +280,18 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     width,
     props.metric,
     props.legendTitle,
-    props.numberFormat,
     props.data,
     props.fips,
     props.hideLegend,
     props.showCounties,
     props.fieldRange,
     props.scaleType,
-    props.legendData,
     props.scaleColorScheme,
     props.useSmallSampleMessage,
+    props.hideMissingDataTooltip,
     props.geoData,
     LEGEND_WIDTH,
+    legendData,
   ]);
 
   return (

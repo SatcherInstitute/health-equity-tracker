@@ -208,18 +208,32 @@ const PARTNERS = [
   {
     imageUrl: "img/PartnerSatcher.png",
     alt: "Morehouse School of Medicine Satcher Health Leadership Institute",
+    url: "https://satcherinstitute.org/",
   },
   {
     imageUrl: "img/PartnerGilead.png",
     alt: "Gilead Sciences, Inc.",
+    url: "https://www.gilead.com/",
   },
   {
     imageUrl: "img/PartnerCdc.png",
     alt: "United States Center for Disease Control and Prevention",
+    url: "https://www.cdc.gov/",
   },
   {
     imageUrl: "img/PartnerGoogle.png",
     alt: "Google",
+    url: "https://google.org",
+  },
+  {
+    imageUrl: "img/PartnerAARP.png",
+    alt: "American Association of Retired Persons",
+    url: "https://aarp.org",
+  },
+  {
+    imageUrl: "img/PartnerAnnieECasey.png",
+    alt: "Annie E. Casey Foundation",
+    url: "https://www.aecf.org/",
   },
 ];
 
@@ -330,11 +344,13 @@ function OurTeamTab() {
 
           <Grid item xs={12}>
             {PARTNERS.map((partner) => (
-              <img
-                src={partner.imageUrl}
-                alt={partner.alt}
-                className={styles.PartnerImg}
-              />
+                <a href={partner.url}>
+                  <img
+                      src={partner.imageUrl}
+                      alt={partner.alt}
+                      className={styles.PartnerImg}
+                  />
+                </a>
             ))}
           </Grid>
         </Grid>
