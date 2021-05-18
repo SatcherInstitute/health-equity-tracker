@@ -105,7 +105,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
         Consider the possible impact of
         <Button
           onClick={() =>
-            props.jumpToDisclaimer ? props.jumpToDisclaimer() : null
+            document.getElementById("missingDataInfo")?.scrollIntoView()
           }
           className={styles.LinkButton}
         >
