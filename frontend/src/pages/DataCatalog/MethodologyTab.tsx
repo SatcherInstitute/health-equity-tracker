@@ -60,10 +60,10 @@ function MethodologyTab() {
                 <h4 className={styles.MethodologySubsubheaderText}>COVID-19</h4>
                 <p>
                   For a description of some of the gaps in COVID-19 data, please
-                  see the
+                  see the{" "}
                   <a href={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}>
                     "What Data Are Missing" section.
-                  </a>
+                  </a>{" "}
                   Here, we provide further details:
                 </p>
                 <ul>
