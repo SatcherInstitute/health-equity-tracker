@@ -5,6 +5,7 @@ import {
   LinkWithStickyParams,
   TAB_PARAM,
   ABOUT_US_PAGE_LINK,
+  EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK,
 } from "../../utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
 
@@ -58,10 +59,12 @@ function MethodologyTab() {
 
                 <h4 className={styles.MethodologySubsubheaderText}>COVID-19</h4>
                 <p>
-                  {/* TODO - this should really be a button... */}
                   For a description of some of the gaps in COVID-19 data, please
-                  see the "What Data Are Missing" section on the "Explore the
-                  Data" page. Here, we provide further details:
+                  see the{" "}
+                  <a href={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}>
+                    "What Data Are Missing" section.
+                  </a>{" "}
+                  Here, we provide further details:
                 </p>
                 <ul>
                   <li>
