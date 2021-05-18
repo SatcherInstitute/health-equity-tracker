@@ -6,6 +6,8 @@ import { MadLibId, PhraseSelections } from "./MadLibs";
 export const STICKY_VERSION_PARAM = "sv";
 
 export const EXPLORE_DATA_PAGE_LINK = "/exploredata";
+export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
+  EXPLORE_DATA_PAGE_LINK + "#missingDataInfo";
 export const DATA_CATALOG_PAGE_LINK = "/datacatalog";
 export const ABOUT_US_PAGE_LINK = "/aboutus";
 export const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = "/whatishealthequity";
