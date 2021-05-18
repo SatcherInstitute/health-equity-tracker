@@ -15,6 +15,7 @@ import {
   WHITE_NH,
   ALL,
   FORTY_TO_FORTY_NINE,
+  FIFTY_TO_FIFTY_NINE,
   FEMALE,
   MALE,
   UNKNOWN,
@@ -230,6 +231,15 @@ describe("cdcCovidProvider", () => {
       /*death=*/ 5,
       /*population=*/ 2000
     );
+    const [AL_FIFTY_ROW, AL_ACS_FIFTY_ROW] = covidAndAcsRows(
+      /*fips=*/ AL,
+      /*breakdownColumnName=*/ "age",
+      /*breakdownValue=*/ FIFTY_TO_FIFTY_NINE,
+      /*cases=*/ 20,
+      /*hosp=*/ 3,
+      /*death=*/ 8,
+      /*population=*/ 1800
+    );
     const [AL_ALL_ROW, AL_ACS_ALL_ROW] = covidAndAcsRows(
       /*fips=*/ AL,
       /*breakdownColumnName=*/ "age",
@@ -248,6 +258,15 @@ describe("cdcCovidProvider", () => {
       /*death=*/ 5,
       /*population=*/ 2000
     );
+    const [_, NC_ACS_FIFTY_ROW] = covidAndAcsRows(
+      /*fips=*/ NC,
+      /*breakdownColumnName=*/ "age",
+      /*breakdownValue=*/ FIFTY_TO_FIFTY_NINE,
+      /*cases=*/ 10,
+      /*hosp=*/ 1,
+      /*death=*/ 5,
+      /*population=*/ 3000
+    );
     const [NC_ALL_ROW, NC_ACS_ALL_ROW] = covidAndAcsRows(
       /*fips=*/ NC,
       /*breakdownColumnName=*/ "age",
@@ -258,12 +277,20 @@ describe("cdcCovidProvider", () => {
       /*population=*/ 100000
     );
 
-    const rawCovidData = [NC_FORTY_ROW, NC_ALL_ROW, AL_FORTY_ROW, AL_ALL_ROW];
+    const rawCovidData = [
+      NC_FORTY_ROW,
+      NC_ALL_ROW,
+      AL_FORTY_ROW,
+      AL_FIFTY_ROW,
+      AL_ALL_ROW,
+    ];
     const rawAcsData = [
       NC_ACS_FORTY_ROW,
+      NC_ACS_FIFTY_ROW,
       NC_ACS_ALL_ROW,
       AL_ACS_ALL_ROW,
       AL_ACS_FORTY_ROW,
+      AL_ACS_FIFTY_ROW,
     ];
 
     const NC_FORTY_FINAL_ROW = {
@@ -276,6 +303,18 @@ describe("cdcCovidProvider", () => {
       covid_cases_share_of_known: 100,
       covid_cases_reporting_population: 2000,
       covid_cases_reporting_population_pct: 2,
+    };
+    // This is added in because AL has a 50-59 row.
+    const NC_FIFTY_FINAL_ROW = {
+      fips: NC.code,
+      fips_name: NC.name,
+      age: FIFTY_TO_FIFTY_NINE,
+      covid_cases: undefined,
+      covid_cases_per_100k: undefined,
+      covid_cases_share: undefined,
+      covid_cases_share_of_known: undefined,
+      covid_cases_reporting_population: undefined,
+      covid_cases_reporting_population_pct: 3,
     };
     const NC_ALL_FINAL_ROW = {
       fips: NC.code,
@@ -296,8 +335,8 @@ describe("cdcCovidProvider", () => {
       rawAcsData,
       Breakdowns.forFips(new Fips(NC.code)),
       "age",
-      [NC_FORTY_FINAL_ROW],
-      [NC_ALL_FINAL_ROW, NC_FORTY_FINAL_ROW]
+      [NC_FORTY_FINAL_ROW, NC_FIFTY_FINAL_ROW],
+      [NC_ALL_FINAL_ROW, NC_FORTY_FINAL_ROW, NC_FIFTY_FINAL_ROW]
     );
   });
 

@@ -104,8 +104,9 @@ export class DatasetCalculator {
     // Generate Total of Known Values sum to be used to calculate share_of_known
     // metrics for each breakdown value
     const knownValuesTotal = dataFrame.pivot(["fips", "fips_name"], {
-      [rawCountColumnName]: (series) => series.sum(),
-      population: (series) => series.sum(),
+      [rawCountColumnName]: (series) =>
+        series.where((val) => !isNaN(val)).sum(),
+      population: (series) => series.where((val) => !isNaN(val)).sum(),
       [breakdownCol]: (series) => ALL,
     });
 

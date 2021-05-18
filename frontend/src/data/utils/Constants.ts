@@ -13,6 +13,7 @@ export const TWO_OR_MORE = "Two or more races";
 
 export const AGE = "age";
 export const FORTY_TO_FORTY_NINE = "40-49";
+export const FIFTY_TO_FIFTY_NINE = "50-59";
 
 export const SEX = "sex";
 export const MALE = "Male";
