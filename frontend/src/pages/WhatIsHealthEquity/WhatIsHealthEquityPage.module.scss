@@ -70,7 +70,10 @@
   .HeaderTextItem {
     justify-content: center;
     padding: 104px 66px 104px 66px;
-    border-left: 1px solid #3e3e3e;
+
+    @media (min-width: $md) {
+      border-left: 1px solid #3e3e3e;
+    }
 
     .HeaderText {
       font-size: 62px;
