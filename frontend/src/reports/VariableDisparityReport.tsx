@@ -144,16 +144,16 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
             {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
               <>
                 {breakdownIsShown(breakdownVar) &&
-                  variableConfig.metrics["pct_share"] && (
-                    <DisparityBarChartCard
+                  variableConfig.metrics["per100k"] && (
+                    <SimpleBarChartCard
                       variableConfig={variableConfig}
                       breakdownVar={breakdownVar}
                       fips={props.fips}
                     />
                   )}
                 {breakdownIsShown(breakdownVar) &&
-                  variableConfig.metrics["per100k"] && (
-                    <SimpleBarChartCard
+                  variableConfig.metrics["pct_share"] && (
+                    <DisparityBarChartCard
                       variableConfig={variableConfig}
                       breakdownVar={breakdownVar}
                       fips={props.fips}
