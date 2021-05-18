@@ -207,15 +207,16 @@ function MethodologyTab() {
                 </p>
                 <ul>
                   <li>
-                    <b>COVID-19 cases per 100k people</b>: The total rate of
-                    occurrence of COVID-19 cases expressed per 100,000 people
+                    <b>Total COVID-19 cases per 100k people</b>: The total rate
+                    of occurrence of COVID-19 cases expressed per 100,000 people
                     (i.e. 10,000 per 100k implies a 10% occurence rate). This
                     metric normalizes for population size, allowing for
                     comparisons across demographic groups.
                   </li>
                   <li>
                     <b>
-                      Share of COVID-19 cases with Unknown Race and Ethnicity
+                      Share of Total COVID-19 cases with Unknown Race and
+                      Ethnicity
                     </b>
                     : Within a locale, the percentage of COVID-19 cases that
                     reported unknown race/ethnicity. For example, a value of 20%
@@ -223,9 +224,9 @@ function MethodologyTab() {
                     unknown race/ethnicity.
                   </li>
                   <li>
-                    <b>Share of COVID-19 cases with known demographics</b>: The
-                    percentage of all COVID-19 cases that reported a particular
-                    race/ethnicity, excluding cases with unknown race/ethnicity.
+                    <b>Share of Total COVID-19 cases</b>: The percentage of all
+                    COVID-19 cases that reported a particular race/ethnicity,
+                    excluding cases with unknown race/ethnicity.
                   </li>
                   <li>
                     <b>Population Share</b>: The percentage of the total
