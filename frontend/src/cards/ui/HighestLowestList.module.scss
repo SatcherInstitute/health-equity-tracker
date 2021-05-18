@@ -1,3 +1,5 @@
+@import "../../styles/variables";
+
 .ListBox {
   margin-top: 15px;
   background: #f1f3f4;
@@ -40,4 +42,11 @@
 
 .CollapseButton {
   float: right;
+}
+
+.LinkButton {
+  text-decoration: underline !important;
+  color: $alt-green !important;
+  padding: 0 5px !important;
+  margin-top: -2px !important; // To align with the <p> text better
 }

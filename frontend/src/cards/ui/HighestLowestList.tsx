@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./HighestLowestList.module.scss";
 import AnimateHeight from "react-animate-height";
 import { Grid } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import { IconButton } from "@material-ui/core";
@@ -98,6 +99,18 @@ export function HighestLowestList(props: HighestLowestListProps) {
         </Grid>
       </div>
       <p>All rates are reported as: {props.metricConfig.fullCardTitleName}</p>
+      <p>
+        Consider the possible impact of
+        <Button
+          onClick={() =>
+            document.getElementById("missingDataInfo")?.scrollIntoView()
+          }
+          className={styles.LinkButton}
+        >
+          data reporting gaps
+        </Button>
+        when interpreting the highest and lowest rates.
+      </p>
     </AnimateHeight>
   );
 }

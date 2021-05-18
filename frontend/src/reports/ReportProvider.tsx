@@ -121,7 +121,11 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         />
         {getReport()}
       </div>
-      <div className={styles.MissingDataInfo} ref={fieldRef}>
+      <div
+        id="missingDataInfo"
+        className={styles.MissingDataInfo}
+        ref={fieldRef}
+      >
         <h1>What Data Are Missing?</h1>
         <p>Unfortunately there are crucial data missing in our sources.</p>
         <h3>Missing and Misidentified People</h3>
