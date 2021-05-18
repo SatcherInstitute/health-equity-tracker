@@ -28,8 +28,6 @@ export interface HighestLowestListProps {
   highestRatesList: Row[];
   // List of rows with lowest rates
   lowestRatesList: Row[];
-  // Callback for jumping to the missing data disclaimer.
-  jumpToDisclaimer?: () => void;
 }
 
 /*
