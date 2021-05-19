@@ -139,13 +139,13 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           Currently, there are no required or standardized race and ethnicity
           categories for data collection across state and local jurisdictions.
           The most notable gaps exist for race and ethnic groups, physical and
-          mental health status, and gender categories. Many states do not record
+          mental health status, and sex categories. Many states do not record
           data for American Indian, Alaska Native, Native Hawaiian and Pacific
           Islander racial categories, lumping these people into other groups.
           Individuals who identify as Hispanic/Latino may not be recorded in
           their respective race category. Neither disability nor mental health
-          status is collected with the COVID-19 case data. Additionally, gender
-          is recorded only as female, male, or other.
+          status is collected with the COVID-19 case data. Additionally, sex is
+          recorded only as female, male, or other.
         </p>
         <h3>Missing Cases</h3>
         <p>

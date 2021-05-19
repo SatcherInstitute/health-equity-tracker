@@ -24,12 +24,12 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "acs_population-by_sex_state",
-    name: "Population by Gender and State",
+    name: "Population by Sex and State",
     update_time: "2019",
   },
   {
     id: "acs_population-by_sex_county",
-    name: "Population by Gender and County",
+    name: "Population by Sex and County",
     update_time: "2019",
   },
   {
@@ -104,12 +104,12 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "cdc_restricted_data-by_sex_county",
-    name: "COVID-19 deaths, cases, and hospitalizations by gender and county",
+    name: "COVID-19 deaths, cases, and hospitalizations by sex and county",
     update_time: "April 2021",
   },
   {
     id: "cdc_restricted_data-by_sex_state",
-    name: "COVID-19 deaths, cases, and hospitalizations by gender and state",
+    name: "COVID-19 deaths, cases, and hospitalizations by sex and state",
     update_time: "April 2021",
   },
   {
