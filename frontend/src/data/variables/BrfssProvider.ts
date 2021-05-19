@@ -1,17 +1,13 @@
 import { DataFrame } from "data-forge";
-import { Breakdowns } from "../query/Breakdowns";
-import {
-  maybeApplyRowReorder,
-  joinOnCols,
-  estimateTotal,
-} from "../utils/datasetutils";
-import { USA_FIPS } from "../utils/Fips";
-import VariableProvider from "./VariableProvider";
-import AcsPopulationProvider from "./AcsPopulationProvider";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { NON_HISPANIC } from "../utils/Constants";
 import { exclude } from "../query/BreakdownFilter";
+import { Breakdowns } from "../query/Breakdowns";
+import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { NON_HISPANIC } from "../utils/Constants";
+import { joinOnCols } from "../utils/datasetutils";
+import { USA_FIPS } from "../utils/Fips";
+import AcsPopulationProvider from "./AcsPopulationProvider";
+import VariableProvider from "./VariableProvider";
 
 class BrfssProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -76,9 +72,9 @@ class BrfssProvider extends VariableProvider {
 
     df = df.generateSeries({
       estimated_total_diabetes: (row) =>
-        estimateTotal(row.diabetes_pct, row.population),
+        this.calculations.estimateTotal(row.diabetes_pct, row.population),
       estimated_total_copd: (row) =>
-        estimateTotal(row.copd_pct, row.population),
+        this.calculations.estimateTotal(row.copd_pct, row.population),
     });
 
     df = df.renameSeries({
@@ -95,7 +91,7 @@ class BrfssProvider extends VariableProvider {
     // Calculate any share_of_known metrics that may have been requested in the query
     if (this.allowsBreakdowns(breakdowns)) {
       ["estimated_total_diabetes", "estimated_total_copd"].forEach((col) => {
-        df = this.calculatePctShare(
+        df = this.calculations.calculatePctShare(
           df,
           col,
           col.split("_")[2] + "_pct_share",
@@ -115,10 +111,7 @@ class BrfssProvider extends VariableProvider {
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
-    return new MetricQueryResponse(
-      maybeApplyRowReorder(df.toArray(), breakdowns),
-      consumedDatasetIds
-    );
+    return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {

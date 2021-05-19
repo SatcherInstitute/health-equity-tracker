@@ -22,6 +22,18 @@ const STANDARD_RACES = [
   ALL,
 ];
 
+const DECADE_AGE_BRACKETS = [
+  "0-9",
+  "10-19",
+  "20-29",
+  "30-39",
+  "40-49",
+  "50-59",
+  "60-69",
+  "70-79",
+  "80+",
+];
+
 export function exclude(...valuesToExclude: string[]): BreakdownFilter {
   return { include: false, values: [...valuesToExclude] };
 }
@@ -32,6 +44,10 @@ export function onlyInclude(...valuesToInclude: string[]): BreakdownFilter {
 
 export function onlyIncludeStandardRaces(): BreakdownFilter {
   return onlyInclude(...STANDARD_RACES);
+}
+
+export function onlyIncludeDecadeAgeBrackets(): BreakdownFilter {
+  return onlyInclude(...DECADE_AGE_BRACKETS);
 }
 
 export function excludeAll(): BreakdownFilter {

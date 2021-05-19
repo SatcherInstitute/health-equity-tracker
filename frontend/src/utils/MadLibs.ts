@@ -1,4 +1,4 @@
-import { USA_FIPS, FIPS_MAP } from "../data/utils/Fips";
+import { FIPS_MAP, USA_FIPS } from "../data/utils/Fips";
 
 // Map of phrase segment index to its selected value
 export type PhraseSelections = Record<number, string>;
@@ -62,8 +62,6 @@ export type DropdownVarId =
   | "health_insurance"
   | "poverty";
 
-// TODO- investigate type check error to see if we can remove
-// @ts-ignore
 const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   covid: "COVID-19",
   diabetes: "Diabetes",

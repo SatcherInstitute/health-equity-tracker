@@ -14,6 +14,7 @@ import {
   DATA_CATALOG_PAGE_LINK,
   TERMS_OF_SERVICE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+  ReactRouterLinkButton,
 } from "./utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "./pages/AboutUs/AboutUsPage";
 import { WIHE_FAQ_TAB_INDEX } from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
@@ -55,12 +56,12 @@ function Footer() {
               ],
               ["Terms of Use", `${TERMS_OF_SERVICE_PAGE_LINK}`],
             ].map(([label, link]) => (
-              <LinkGridItem text={label} link={link} />
+              <LinkGridItem key={link} text={label} link={link} />
             ))}
             <Hidden smDown>
               <Grid item sm={12}>
                 <span className={styles.CopyrightSpanLargerWindow}>
-                  Copyright 2020
+                  Copyright 2021
                 </span>
               </Grid>
             </Hidden>
@@ -79,7 +80,7 @@ function Footer() {
           <Hidden mdUp>
             <Grid item>
               <span className={styles.CopyrightSpanSmallerWindow}>
-                Copyright 2020
+                Copyright 2021
               </span>
             </Grid>
           </Hidden>
@@ -94,19 +95,13 @@ function Logos() {
   return (
     <Grid container className={styles.Logos}>
       <Grid item className={styles.LogosLeft}>
-        <Button
-          className={styles.ImageButton}
-          onClick={() =>
-            (window.location.href = "https://healthequitytracker.org/")
-          }
-          disableRipple={true}
-        >
+        <ReactRouterLinkButton url="/" className={styles.ImageButton}>
           <img
             src="img/AppbarLogo.png"
             className={styles.FooterLogo}
             alt="Health Equity Tracker decorative logo"
           />
-        </Button>
+        </ReactRouterLinkButton>
       </Grid>
       <Grid item className={styles.LogosRight}>
         <Grid container justify="flex-start" alignItems="flex-start">
@@ -143,16 +138,20 @@ function LinkGridItem(props: { text: string; link: string }) {
     <>
       <Hidden xsDown>
         <Grid item>
-          <Button onClick={() => (window.location.href = props.link)}>
-            {props.text}
-          </Button>
+          <ReactRouterLinkButton
+            url={props.link}
+            className={styles.FooterLink}
+            displayName={props.text}
+          />
         </Grid>
       </Hidden>
       <Hidden smUp>
         <Grid item xs={12}>
-          <Button onClick={() => (window.location.href = props.link)}>
-            {props.text}
-          </Button>
+          <ReactRouterLinkButton
+            url={props.link}
+            className={styles.FooterLink}
+            displayName={props.text}
+          />
         </Grid>
       </Hidden>
     </>

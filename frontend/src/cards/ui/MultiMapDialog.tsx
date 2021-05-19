@@ -21,6 +21,8 @@ import {
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
   metricConfig: MetricConfig;
+  // Whether or not the data was collected via survey
+  useSmallSampleMessage: boolean;
   // Demographic breakdown upon which we're dividing the data, i.e. "age"
   breakdown: BreakdownVar;
   // Unique values for breakdown, each one will have it's own map
@@ -39,6 +41,9 @@ export interface MultiMapDialogProps {
   queryResponses: MetricQueryResponse[];
   // Metadata required for the source footer
   metadata: MapOfDatasetMetadata;
+  // Geography data, in topojson format. Must include both states and counties.
+  // If not provided, defaults to directly loading /tmp/geographies.json
+  geoData?: Record<string, any>;
 }
 
 /*
@@ -56,7 +61,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
     >
       <DialogContent dividers={true}>
         <Typography className={styles.Title}>
-          {props.metricConfig.fullCardTitleName} across all{" "}
+          {props.metricConfig.fullCardTitleName} Across All{" "}
           {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups
         </Typography>
         <Grid container justify="space-around">
@@ -77,13 +82,18 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               (row: Row) => row[props.breakdown] === breakdownValue
             );
             return (
-              <Grid item className={styles.SmallMultipleMap}>
+              <Grid
+                item
+                key={breakdownValue}
+                className={styles.SmallMultipleMap}
+              >
                 <b>{breakdownValue}</b>
                 {props.metricConfig && (
                   <ChoroplethMap
                     key={breakdownValue}
                     signalListeners={{ click: (...args: any) => {} }}
                     metric={props.metricConfig}
+                    useSmallSampleMessage={props.useSmallSampleMessage}
                     legendTitle={props.metricConfig.fullCardTitleName}
                     legendData={props.data}
                     data={dataForValue}
@@ -93,6 +103,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     fieldRange={props.fieldRange}
                     hideActions={false}
                     scaleType="quantile"
+                    geoData={props.geoData}
                   />
                 )}
               </Grid>

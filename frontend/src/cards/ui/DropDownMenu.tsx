@@ -37,13 +37,14 @@ function MenuPopover(props: {
       (props.items as Record<string, string[]>)[listItem].length === 0
     ) {
       return (
-        <ListItem button disabled>
+        <ListItem key={listItem} button disabled>
           {listItem} [unavailable]
         </ListItem>
       );
     } else {
       return (
         <ListItem
+          key={listItem}
           button
           onClick={(event) => {
             props.onClick(event, listItem);

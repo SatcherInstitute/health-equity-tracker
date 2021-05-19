@@ -1,5 +1,7 @@
 import { DataSourceMetadata } from "../utils/DatasetTypes";
 
+export const GEOGRAPHIES_DATASET_ID = "geographies";
+
 // ALERT!!! Keep this file in sync with FakeDatasetMetadata while it is present
 // All dataset IDs should be in the FakeDatasetMetadata
 
@@ -13,7 +15,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Annual",
     description:
-      "Population percentages broken down by self-reported race/ethnicity, age, and sex at the U.S. and state levels.",
+      "Population percentages, health insurance rates, and poverty rates at the state and county levels.",
     dataset_ids: [
       "acs_population-by_race_county_std",
       "acs_population-by_race_state_std",
@@ -31,30 +33,6 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
-    id: "brfss",
-    data_source_name: "Disease Prevalence: Diabetes and COPD",
-    data_source_link: "https://www.cdc.gov/brfss/index.html",
-    geographic_level: "State",
-    demographic_granularity: "Race/ethnicity",
-    update_frequency: "Annual",
-    description:
-      "The prevalence (percentage) for diseases broken down by self-reported race/ethnicity and sex at the U.S. and state levels.",
-    dataset_ids: ["brfss"],
-    downloadable: true,
-  },
-  {
-    id: "covid_tracking_project",
-    data_source_name: "Covid Tracking Project’s Racial Data Tracker",
-    data_source_link: "https://covidtracking.com/race",
-    geographic_level: "State",
-    demographic_granularity: "Race/ethnicity",
-    update_frequency: "Annual",
-    description:
-      "The numbers of confirmed deaths, cases, and hospitalizations broken down by race/ethnicity at the U.S. and state levels.",
-    dataset_ids: ["covid_by_state_and_race", "covid_by_county_and_race"],
-    downloadable: true,
-  },
-  {
     id: "cdc_restricted",
     data_source_name: "CDC Case Surveillance Restricted Access Detailed Data",
     data_source_link:
@@ -63,7 +41,9 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Monthly",
     description:
-      "The numbers of confirmed deaths, cases, and hospitalizations at the U.S. and state levels.",
+      "The numbers of confirmed COVID-19 deaths, cases, and hospitalizations at the state and county levels. " +
+      "The CDC does not take responsibility for the scientific validity or accuracy of methodology, " +
+      "results, statistical analyses, or conclusions presented.",
     dataset_ids: [
       "cdc_restricted_data-by_race_county",
       "cdc_restricted_data-by_race_state",
@@ -73,6 +53,35 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
       "cdc_restricted_data-by_sex_state",
     ],
     downloadable: false,
+  },
+  {
+    id: "uhc",
+    data_source_name: "America's Health Rankings",
+    data_source_link:
+      "https://www.americashealthrankings.org/explore/annual/measure/Overall_a/state/ALL",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Annual",
+    description: "The prevalence of diabetes and COPD at the state level.",
+    dataset_ids: ["uhc_age", "uhc_race_and_ethnicity", "uhc_sex"],
+    downloadable: true,
+  },
+  {
+    id: "covid_tracking_project",
+    data_source_name: "Covid Tracking Project’s Racial Data Tracker",
+    data_source_link: "https://covidtracking.com/race",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity",
+    update_frequency: "Final update was March 7 2021",
+    description:
+      "The numbers of confirmed COVID-19 deaths, cases, hospitalizations, and tests at the state level.",
+    dataset_ids: [
+      "covid_tracking_project-covid_tracking_project_cases",
+      "covid_tracking_project-covid_tracking_project_deaths",
+      "covid_tracking_project-covid_tracking_project_hosp",
+      "covid_tracking_project-covid_tracking_project_tests",
+    ],
+    downloadable: true,
   },
 ];
 

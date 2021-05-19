@@ -3,13 +3,19 @@ import styles from "./LandingPage.module.scss";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
-import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import {
+  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   LinkWithStickyParams,
   EXPLORE_DATA_PAGE_LINK,
+  TAB_PARAM,
+  ReactRouterLinkButton,
 } from "../../utils/urlutils";
 import FaqSection from "../ui/FaqSection";
+import {
+  WIHE_HEALTH_EQUITY_TAB_INDEX,
+  WIHE_JOIN_THE_EFFORT_SECTION_ID,
+} from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
 
 function TakeALookAroundItem(props: {
   src: string;
@@ -60,25 +66,35 @@ function LandingPage() {
                   className={styles.HeaderText}
                   variant="h2"
                 >
-                  Equity Forward
+                  Advancing
+                  <br />
+                  Health
+                  <br />
+                  Equity
                 </Typography>
-                <br />
               </Hidden>
               <Hidden smUp>
                 <Typography className={styles.HeaderTextMobile}>
-                  Equity Forward
+                  Advancing
+                  <br />
+                  Health
+                  <br />
+                  Equity
                 </Typography>
               </Hidden>
               <Typography className={styles.HeaderSubtext} variant="body1">
                 <p>
-                  We know that our communities are experiencing life or death
-                  situations due to the inequities, conditions and policies into
-                  which they are born, grow, learn, work and age.
+                  We know that the data we collect can be flawed and at times
+                  even worsen health inequities many people face if not reported
+                  or analyzed correctly.
                 </p>
                 <p>
-                  We work to collect the data needed to identify and address
-                  these inequities.
+                  We work to change that narrative by identifying,
+                  understanding, and responding to health inequities in our
+                  communities in a way that will allow every person to live well
+                  and long from generation to generation.
                 </p>
+                <p>Join us in powering transformational action!</p>
                 <br />
               </Typography>
               <LinkWithStickyParams
@@ -182,15 +198,13 @@ function LandingPage() {
                 xs={12}
                 sm={12}
                 md={5}
-                className={styles.DecorativeHImgItem}
+                className={styles.PrioritizeHealthEquityImgItem}
               >
-                <div className={styles.DecorativeHImgContainer}>
-                  <img
-                    src="img/Asset 10@3x 1.png"
-                    className={styles.DecorativeHImg}
-                    alt="A decorative letter H centered on an orange background"
-                  />
-                </div>
+                <img
+                  src="img/118172286-e3fffb80-b3c7-11eb-9553-127462881af3.png"
+                  className={styles.PrioritizeHealthEquityImg}
+                  alt="Three women embracing a small baby in between them"
+                />
               </Grid>
             </Hidden>
             <Grid
@@ -220,9 +234,11 @@ function LandingPage() {
                   <b>People need help, and they need it now.</b>
                 </p>
                 <br />
-                <a className={styles.MinorLink} href="/whatishealthequity">
-                  Learn more about health equity
-                </a>
+                <ReactRouterLinkButton
+                  url={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+                  className={styles.LearnMoreAboutHealthEquity}
+                  displayName="Learn more about health equity"
+                />
               </Typography>
             </Grid>
           </Grid>
@@ -376,35 +392,21 @@ function LandingPage() {
                       className={styles.NewsletterRowHeader}
                       variant="h2"
                     >
-                      Engage in
+                      Join Our
                       <br />
-                      Health Equity
+                      Movement
                     </Typography>
                   </Hidden>
                 </Grid>
                 <Grid item>
-                  <form
-                    action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
-                    method="post"
-                    target="_blank"
-                    className={styles.NewsletterForm}
+                  <Button
+                    variant="contained"
+                    color="default"
+                    className={styles.JoinOurMovementButton}
+                    href={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_HEALTH_EQUITY_TAB_INDEX}#${WIHE_JOIN_THE_EFFORT_SECTION_ID}`}
                   >
-                    <TextField
-                      id="Enter email address to sign up" // Accessibility label
-                      name="MERGE0"
-                      variant="outlined"
-                      type="email"
-                      placeholder="Enter email address"
-                    />
-                    <Button
-                      type="submit"
-                      color="primary"
-                      variant="contained"
-                      className={styles.NewsletterEmailSubmitInput}
-                    >
-                      Sign up
-                    </Button>
-                  </form>
+                    Click here
+                  </Button>
                 </Grid>
               </div>
             </Grid>

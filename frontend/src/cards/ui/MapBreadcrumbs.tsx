@@ -18,7 +18,7 @@ function MapBreadcrumbs(props: { fips: Fips; updateFipsCallback: Function }) {
       {!props.fips.isUsa() && (
         <Crumb
           text={props.fips.getStateDisplayName()}
-          isClickable={!props.fips.isState()}
+          isClickable={!props.fips.isStateOrTerritory()}
           onClick={() => {
             props.updateFipsCallback(props.fips.getParentFips());
           }}
