@@ -23,7 +23,7 @@ export const DEMOGRAPHIC_BREAKDOWNS = [
 export type DemographicBreakdownKey = typeof DEMOGRAPHIC_BREAKDOWNS[number]; // union type of array
 
 export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
-  race_and_ethnicity: "Race and Ethnicity",
+  race_and_ethnicity: "Race And Ethnicity",
   age: "Age",
   sex: "Gender",
   date: "Date",
