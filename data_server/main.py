@@ -51,10 +51,10 @@ def get_dataset():
         return 'Request missing required url param \'name\'', 400
 
     try:
-        dataset = gcs_utils.download_blob_as_bytes(
-            os.environ.get('GCS_BUCKET'), dataset_name)
-    except google.cloud.exceptions.NotFound:
-        return 'Dataset {} not found'.format(dataset_name), 404
+        dataset = cache.getDataset(os.environ.get('GCS_BUCKET'), dataset_name)
+    except Exception as err:
+        logging.error(err)
+        return 'Internal server error: {}'.format(err), 500
 
     def generate_response(data: bytes):
         next_row = b'['
