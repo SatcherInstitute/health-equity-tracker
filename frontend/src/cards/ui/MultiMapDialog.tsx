@@ -82,7 +82,11 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               (row: Row) => row[props.breakdown] === breakdownValue
             );
             return (
-              <Grid item className={styles.SmallMultipleMap}>
+              <Grid
+                item
+                key={breakdownValue}
+                className={styles.SmallMultipleMap}
+              >
                 <b>{breakdownValue}</b>
                 {props.metricConfig && (
                   <ChoroplethMap

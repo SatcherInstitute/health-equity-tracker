@@ -62,8 +62,6 @@ export type DropdownVarId =
   | "health_insurance"
   | "poverty";
 
-// TODO- investigate type check error to see if we can remove
-// @ts-ignore
 const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   covid: "COVID-19",
   diabetes: "Diabetes",

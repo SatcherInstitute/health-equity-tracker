@@ -1,5 +1,5 @@
 import { Grid } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { MapCard } from "../cards/MapCard";
 import { PopulationCard } from "../cards/PopulationCard";
@@ -89,7 +89,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
     currentBreakdown === breakdownVar;
 
   return (
-    <Grid container xs={12} spacing={1} justify="center">
+    <Grid item container xs={12} spacing={1} justify="center">
       {!props.hidePopulationCard && (
         <Grid item xs={12}>
           <PopulationCard fips={props.fips} />
@@ -100,7 +100,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
 
       {variableConfig && (
         <Grid container spacing={1} justify="center">
-          <Grid container xs={12}>
+          <Grid item container xs={12}>
             <ReportToggleControls
               dropdownVarId={props.dropdownVarId}
               variableConfig={variableConfig}
@@ -119,7 +119,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               currentBreakdown={currentBreakdown}
             />
             {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-              <>
+              <Fragment key={breakdownVar}>
                 {breakdownIsShown(breakdownVar) && (
                   <TableCard
                     fips={props.fips}
@@ -127,7 +127,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                     breakdownVar={breakdownVar}
                   />
                 )}
-              </>
+              </Fragment>
             ))}
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
@@ -142,7 +142,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               />
             )}
             {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-              <>
+              <Fragment key={breakdownVar}>
                 {breakdownIsShown(breakdownVar) &&
                   variableConfig.metrics["per100k"] && (
                     <SimpleBarChartCard
@@ -159,7 +159,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                       fips={props.fips}
                     />
                   )}
-              </>
+              </Fragment>
             ))}
           </Grid>
         </Grid>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { MapOfDatasetMetadata } from "../../data/utils/DatasetTypes";
 import {
   LinkWithStickyParams,
@@ -65,7 +65,7 @@ export function Sources(props: {
       {Object.keys(dataSourceMap).length > 0 && <>Sources: </>}
       {/* TODO- add commas and "and" between the data sources */}
       {Object.keys(dataSourceMap).map((dataSourceId) => (
-        <>
+        <Fragment key={dataSourceId}>
           <LinkWithStickyParams
             target="_blank"
             to={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${dataSourceId}`}
@@ -80,7 +80,7 @@ export function Sources(props: {
               {Array.from(dataSourceMap[dataSourceId].updateTimes).join(", ")}){" "}
             </>
           )}
-        </>
+        </Fragment>
       ))}
     </>
   );

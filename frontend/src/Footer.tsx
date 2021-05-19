@@ -56,7 +56,7 @@ function Footer() {
               ],
               ["Terms of Use", `${TERMS_OF_SERVICE_PAGE_LINK}`],
             ].map(([label, link]) => (
-              <LinkGridItem text={label} link={link} />
+              <LinkGridItem key={link} text={label} link={link} />
             ))}
             <Hidden smDown>
               <Grid item sm={12}>

@@ -69,7 +69,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
             <ul>
               {props.highestRatesList.map((row) => {
                 return (
-                  <li>
+                  <li key={row["fips_name"]}>
                     {row["fips_name"]} -{" "}
                     {formatFieldValue(
                       props.metricConfig.type,
@@ -85,7 +85,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
             <ul>
               {props.lowestRatesList.map((row) => {
                 return (
-                  <li>
+                  <li key={row["fips_name"]}>
                     {row["fips_name"]} -{" "}
                     {formatFieldValue(
                       props.metricConfig.type,
