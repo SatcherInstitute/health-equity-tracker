@@ -101,6 +101,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       : "No data";
     const geographyName = props.showCounties ? "County" : "State";
     const tooltipDatum = `format(datum.${props.metric.metricId}, ',')`;
+    // TODO: would be nice to use addMetricDisplayColumn for the tooltips here
+    // so that data formatting is consistent.
     const tooltipValue = `{"${geographyName}": datum.properties.name, "${props.metric.shortVegaLabel}": ${tooltipDatum} }`;
     const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${props.metric.shortVegaLabel}": "${noDataText}" }`;
 

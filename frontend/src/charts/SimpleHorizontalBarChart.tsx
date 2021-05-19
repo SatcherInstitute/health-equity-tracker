@@ -12,6 +12,7 @@ import {
   MULTILINE_LABEL,
   AXIS_LABEL_Y_DELTA,
   oneLineLabel,
+  addMetricDisplayColumn,
 } from "./utils";
 
 function getSpec(
@@ -21,7 +22,9 @@ function getSpec(
   breakdownVarDisplayName: string,
   measure: string,
   measureDisplayName: string,
-  labelSuffix: string,
+  // Column name to use for the display value of the metric. This column
+  // contains preformatted data as strings.
+  metricDisplayColumnName: string,
   showLegend: boolean
 ): any {
   const BAR_HEIGHT = 40;
@@ -70,7 +73,7 @@ function getSpec(
             tooltip: {
               signal: `${oneLineLabel(
                 breakdownVar
-              )} + ', ${measureDisplayName}: ' + format(datum["${measure}"], ",")`,
+              )} + ', ${measureDisplayName}: ' + datum.${metricDisplayColumnName}`,
             },
           },
           update: {
@@ -96,9 +99,7 @@ function getSpec(
             fill: { value: "black" },
             x: { scale: "x", field: measure },
             y: { scale: "y", field: breakdownVar, band: 0.8 },
-            text: {
-              signal: `isValid(datum["${measure}"]) ? format(datum["${measure}"], ",") + "${labelSuffix}" : "" `,
-            },
+            text: { signal: `datum.${metricDisplayColumnName}` },
           },
         },
       },
@@ -194,18 +195,22 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     props.data,
     props.breakdownVar
   );
+  const [data, displayColumnName] = addMetricDisplayColumn(
+    props.metric,
+    dataWithLineBreakDelimiter
+  );
 
   return (
     <div ref={ref}>
       <Vega
         spec={getSpec(
-          dataWithLineBreakDelimiter,
+          data,
           width,
           props.breakdownVar,
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
           props.metric.metricId,
           props.metric.shortVegaLabel,
-          props.metric.type === "pct_share" ? "%" : "",
+          displayColumnName,
           props.showLegend
         )}
         actions={props.hideActions ? false : true}

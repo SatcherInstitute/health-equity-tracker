@@ -92,14 +92,29 @@ export const POPULATION_VARIABLE_CONFIG: VariableConfig = {
   },
 };
 
-// Prints a formatted version of a field value based on the type specified by the field name
-export function formatFieldValue(metricType: MetricType, value: any): string {
+/**
+ * @param metricType The type of the metric to format.
+ * @param value The value to format.
+ * @param omitPctSymbol Whether to omit the % symbol if the metric is a %. This
+ *     can be used for example if the % symbol is part of the description.
+ * @returns A formatted version of a field value based on the type specified by
+ *     the field name
+ */
+export function formatFieldValue(
+  metricType: MetricType,
+  value: any,
+  omitPctSymbol: boolean = false
+): string {
   if (value === null || value === undefined) {
     return "";
   }
+  const isPctShare = metricType === "pct_share";
+  const formatOptions = isPctShare ? { minimumFractionDigits: 1 } : {};
   const formattedValue =
-    typeof value === "number" ? value.toLocaleString("en") : value;
-  const suffix = metricType === "pct_share" ? "%" : "";
+    typeof value === "number"
+      ? value.toLocaleString("en", formatOptions)
+      : value;
+  const suffix = isPctShare && !omitPctSymbol ? "%" : "";
   return `${formattedValue}${suffix}`;
 }
 
