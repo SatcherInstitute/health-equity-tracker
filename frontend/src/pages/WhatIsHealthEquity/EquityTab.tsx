@@ -317,7 +317,7 @@ function EquityTab() {
                   alt="Asian woman sitting while wearing a mask"
                 />
                 <h2 className={styles.NewsAndStoriesTitleText}>
-                  Back to ‘normal’ isn’t good enough
+                  Back To ‘Normal’ Isn’t Good Enough
                 </h2>
                 <p className={styles.NewsAndStoriesSubtitleText}>
                   With the anticipation of increasing distribution of COVID-19
@@ -342,7 +342,7 @@ function EquityTab() {
                   alt="Documents lying on a table"
                 />
                 <h2 className={styles.NewsAndStoriesTitleText}>
-                  Data and Technology Can Help Us Make Progress on COVID
+                  Data And Technology Can Help Us Make Progress On COVID
                   Inequities
                 </h2>
                 <p className={styles.NewsAndStoriesSubtitleText}>
@@ -364,8 +364,8 @@ function EquityTab() {
                   alt="Asian woman laughing with two children"
                 />
                 <h2 className={styles.NewsAndStoriesTitleText}>
-                  How complete are the CDC's COVID-19 Case Surveillance datasets
-                  for race/ethnicity at the state and county levels?
+                  How Complete Are The CDC's COVID-19 Case Surveillance Datasets
+                  For Race/Ethnicity At The State And County Levels?
                 </h2>
                 <p className={styles.NewsAndStoriesSubtitleText}>
                   <a href="https://satcherinstitute.github.io/analysis/cdc_case_data">
