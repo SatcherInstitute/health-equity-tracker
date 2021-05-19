@@ -5,6 +5,279 @@ import { Typography } from "@material-ui/core";
 import { TAB_PARAM, ABOUT_US_PAGE_LINK } from "../../utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
 
+const RESOURCES = [
+  {
+    name: "Health Equity Guide",
+    url: "https://healthequityguide.org/",
+    description: "",
+  },
+  {
+    name: "Health Equity - APHA",
+    url: "https://www.apha.org/topics-and-issues/health-equity",
+    description: "",
+  },
+  {
+    name: "Minority Health",
+    url: "https://www.cdc.gov/minorityhealth/",
+    description: "",
+  },
+  {
+    name: "Teaching the Difference Between Equality, Equity, and Justice",
+    url: "https://www.paperpinecone.com/blog/teaching-difference-between-equality-equity-and-justice-preschool",
+    description: "",
+  },
+  {
+    name: "Equity vs. Equality: What's the Difference?",
+    url: "https://onlinepublichealth.gwu.edu/resources/equity-vs-equality/",
+    description: "",
+  },
+  {
+    name: "Social determinants of health -WHO",
+    url: "https://www.who.int/health-topics/social-determinants-of-health#tab=tab_1",
+    description: "",
+  },
+  {
+    name: "Equity- WHO",
+    url: "https://www.who.int/healthsystems/topics/equity/en/",
+    description: "",
+  },
+  {
+    name: "Intro to Health Equity and Social Determinants of Health",
+    url: "https://www.ncbi.nlm.nih.gov/books/NBK540766/#:~:text=Health%20equity%2C%20as%20defined%20by,of%20health%20for%20all%20people.",
+    description: "",
+  },
+  {
+    name: "Health Disparities and Health Equity: The Issue Is Justice",
+    url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3222512/",
+    description: "",
+  },
+  {
+    name: "Health Equity CDC",
+    url: "https://www.cdc.gov/chronicdisease/healthequity/index.htm",
+    description: "",
+  },
+  {
+    name: "Health Equity Resources",
+    url: "https://www.policylink.org/health-equity-resources",
+    description: "",
+  },
+  {
+    name: "Health Equity: Why It Matters, and How To Take Action - RWJF",
+    url: "https://www.rwjf.org/en/library/features/achieving-health-equity.html",
+    description: "",
+  },
+  {
+    name: "Health Equity and Prevention Primer",
+    url: "https://www.preventioninstitute.org/tools/tools-general/health-equity-toolkit#:~:text=The%20Health%20Equity%20and%20Prevention%20Primer%20(HEPP)%20is%20a%20web,%2C%20and%20multi%2Dsector%20engagement.",
+    description: "",
+  },
+  {
+    name: "APIAHF: Health Equity",
+    url: "https://www.apiahf.org/",
+    description: "",
+  },
+  {
+    name: "UCLA HEALTH: COVID-19 exposes how Native Hawaiians and Pacific...",
+    url: "https://www.uclahealth.org/covid19-exposes-how-native-hawaiians-and-pacific-islanders-face-stark-health-care-disparities",
+    description: "",
+  },
+  {
+    name: "Health Equity Matters for Asian Americans, Native Hawaiians...",
+    url: "https://jamanetwork.com/channels/health-forum/fullarticle/2760153",
+    description: "",
+  },
+  {
+    name: "American Indian Health Equity/Disparities",
+    url: "https://in.nau.edu/cair/ai-health-equity-and-disparities/",
+    description: "",
+  },
+  {
+    name: "Indigenous Health Equity- UIHI",
+    url: "https://www.uihi.org/resources/indigenous-health-equity/",
+    description: "",
+  },
+  {
+    name: "Racialization as a Barrier to Achieving Health Equity for Native...",
+    url: "https://journalofethics.ama-assn.org/article/racialization-barrier-achieving-health-equity-native-americans/2020-10",
+    description: "",
+  },
+  {
+    name: "The Impact of Historical Trauma on American Indian Health Equity",
+    url: "https://www.medicalnewstoday.com/articles/the-impact-of-historical-trauma-on-american-indian-health-equity",
+    description: "",
+  },
+  {
+    name: "COVID-19 and Equity*- APHA",
+    url: "https://www.apha.org/topics-and-issues/communicable-disease/coronavirus/equity",
+    description: "",
+  },
+  {
+    name: "COVID-19 and Health Equity: A Policy Platform and Voices",
+    url: "https://www.apha.org/events-and-meetings/apha-calendar/webinar-events/2020/covid-19-and-health-equity",
+    description: "",
+  },
+  {
+    name: "Investing in Latino Leadership for Health Equity and Justice...",
+    url: "https://www.gih.org/publication/investing-in-latino-leadership-for-health-equity-and-justice/",
+    description: "",
+  },
+  {
+    name: "Tackling Health disparities among latinos in the US",
+    url: "https://nimhd.blogs.govdelivery.com/2018/10/11/tackling-health-disparities-among-latinos-in-the-united-states/",
+    description: "",
+  },
+  {
+    name: "Hispanic/Lainto- Minority Health",
+    url: "https://minorityhealth.hhs.gov/omh/browse.aspx?lvl=3&lvlid=64",
+    description: "",
+  },
+  {
+    name: "PDOH - JHU PRESS",
+    url: "https://www.press.jhu.edu/news/blog/political-determinants-health",
+    description: "",
+  },
+  {
+    name: "The Economic Case for Health Equity - ASTHO",
+    url: "https://www.astho.org/Programs/Health-Equity/Economic-Case-Issue-Brief/",
+    description: "",
+  },
+  {
+    name: "Estimating the economic burden of racial health inequalities in the United States",
+    url: "https://pubmed.ncbi.nlm.nih.gov/21563622/",
+    description: "",
+  },
+  {
+    name: "Roots of Health Inequity free, web-based course",
+    url: "http://www.rootsofhealthinequity.org/",
+    description: "",
+  },
+  {
+    name: "Health equity and social justice 101 series: Part I The Politics of Health Inequity",
+    url: "https://www.youtube.com/watch?v=2k5XPbEB4H0",
+    description: "",
+  },
+  {
+    name: "NACCHO Health Equity and Social Justice Resources and Trainings",
+    url: "https://www.naccho.org/programs/public-health-infrastructure/health-equity",
+    description: "",
+  },
+  {
+    name: "How to use data to inform community health assessment and planning: NACCHO's Mobiling for Action through Planning and Partnerships (MAPP) framework",
+    url: "https://www.naccho.org/programs/public-health-infrastructure/performance-improvement/community-health-assessment/mapp",
+    description: "",
+  },
+  {
+    name: "UIHI Best Practices",
+    url: "https://www.uihi.org/resources/best-practices-for-american-indian-and-alaska-native-data-collection/",
+    description: "",
+  },
+  {
+    name: "Racial Equity Index",
+    url: "https://nationalequityatlas.org/research/racial_equity_index/index#/",
+    description: "",
+  },
+  {
+    name: "Mapping Inequality",
+    url: "https://dsl.richmond.edu/panorama/redlining/#loc=5/39.1/-94.58",
+    description: "",
+  },
+  {
+    name: "Social Vulnerability Index",
+    url: "https://www.atsdr.cdc.gov/placeandhealth/svi/index.html",
+    description: "",
+  },
+  {
+    name: "Neighborhood Atlas - Area Deprivation Index",
+    url: "https://www.neighborhoodatlas.medicine.wisc.edu/#about-anchor",
+    description: "",
+  },
+  {
+    name: "CDC MMWR",
+    url: "https://www.cdc.gov/mmwr/volumes/70/wr/mm7005e1.htm",
+    description: "",
+  },
+  {
+    name: "Kaiser Family Foundation: COVID-19 Disparities",
+    url: "https://www.kff.org/state-category/covid-19/covid-19-disparities/",
+    description: "",
+  },
+  {
+    name: "Bloomberg: COVID-19 Global Vaccine Tracker",
+    url: "https://www.bloomberg.com/graphics/covid-vaccine-tracker-global-distribution/us-vaccine-demographics.html",
+    description: "",
+  },
+  {
+    name: "APM Research: COVID-19 Vaccine Progress",
+    url: "https://www.apmresearchlab.org/covid/vaccine-progress",
+    description: "",
+  },
+  {
+    name: "APM Research: COVID-19 Vaccines by Race",
+    url: "https://www.apmresearchlab.org/covid/vaccines-by-race",
+    description: "",
+  },
+  {
+    name: "New York Times: Real-Time, Interactive COVID-19 Tracker",
+    url: "https://www.nytimes.com/interactive/2020/us/coronavirus-us-cases.html",
+    description: "",
+  },
+  {
+    name: "California COVID-19 Health Equity Site",
+    url: "https://covid19.ca.gov/equity/",
+    description: "",
+  },
+  {
+    name: "APM Research: Death & Vaccination Statistics",
+    url: "https://www.apmresearchlab.org/",
+    description: "",
+  },
+  {
+    name: "Building Trust and Access to the COVID-19 Vaccine in Communities of Color and Tribal Nations",
+    url: "https://www.tfah.org/report-details/trust-and-access-to-covid-19-vaccine-within-communities-of-color/",
+    description: "",
+  },
+  {
+    name: "Advancing Health Equity: What we learned from Community-based Health Equity Initiatives",
+    url: "https://www.tfah.org/initiatives/health-equity/",
+    description: "",
+  },
+  {
+    name: "TFAH Health Equity Webinar Series",
+    url: "https://www.tfah.org/article/tfah-webinar-series-on-achieving-health-equity-through-collaborations-innovative-funding-and-leadership/",
+    description: "",
+  },
+  {
+    name: "CDC - Johnson & Johnson’s Janssen COVID-19 Vaccine Overview and Safety",
+    url: "https://www.cdc.gov/coronavirus/2019-ncov/vaccines/different-vaccines/janssen.html",
+    description: "",
+  },
+  {
+    name: "CDC - Pfizer-BioNTech COVID-19 Vaccine Overview and Safety",
+    url: "https://www.cdc.gov/coronavirus/2019-ncov/vaccines/different-vaccines/Pfizer-BioNTech.html",
+    description: "",
+  },
+  {
+    name: "CDC - Moderna COVID-19 Vaccine Overview and Safety",
+    url: "https://www.cdc.gov/coronavirus/2019-ncov/vaccines/different-vaccines/Moderna.html",
+    description: "",
+  },
+  {
+    name: "Medical Justice In Advocacy Fellowship",
+    url: "https://www.ama-assn.org/delivering-care/health-equity/medical-justice-advocacy-fellowship",
+    description: "",
+  },
+  {
+    name: "THE ECONOMIC BURDEN OF HEALTH INEQUALITIES IN THE UNITED STATES",
+    url: "https://hsrc.himmelfarb.gwu.edu/cgi/viewcontent.cgi?article=1224&context=sphhs_policy_facpubs",
+    description: "",
+  },
+  {
+    name: "Satcher Health Leadership Institute",
+    url: "https://satcherinstitute.org/",
+    description: "",
+  },
+]
+
 function ResourcesTab() {
   return (
       <>
@@ -16,12 +289,12 @@ function ResourcesTab() {
           Health Equity Resources
         </h1>
         <Grid container className={styles.Grid}>
-          <Grid container className={styles.FaqSection}>
+          <Grid container className={styles.ResourcesSection}>
             <Grid item xs={12} sm={12} md={3}>
               <Typography
                   id="main"
                   tabIndex={-1}
-                  className={styles.FaqHeaderText}
+                  className={styles.ResourcesHeaderText}
                   variant="h2"
               >
                 Resources
@@ -29,310 +302,14 @@ function ResourcesTab() {
             </Grid>
             <Grid item xs={12} sm={12} md={9}>
               <Grid container>
-                <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                  <h3 className={styles.FaqQuestion}>
-                    How was the data collected?
-                  </h3>
-                  <div className={styles.FaqAnswer}>
-                    <p>
-                      All data collected was publicly sourced in an effort to be
-                      fully transparent.
-                    </p>
-                  </div>
-                </Grid>
-                <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                  <h3 className={styles.FaqQuestion}>What sources were used?</h3>
-                  <div className={styles.FaqAnswer}>
-                    <p>
-                      In this tracker, we are using many sources, including{" "}
-                      <a href="https://www.census.gov/data/developers/data-sets/acs-5year.html">
-                        American Community Survey 5-year estimates (2015-2019)
-                      </a>
-                      ,{" "}
-                      <a href="https://www.cdc.gov/brfss/index.html">
-                        CDC’s BRFSS data set
-                      </a>
-                      , and{" "}
-                      <a href="https://covidtracking.com/race">
-                        COVID Tracking Project’s Racial Data Tracker
-                      </a>
-                      . Some sources are “real-time”, like case data, but other
-                      important data, such as information around social
-                      determinants of health can lag from weeks to years. For the
-                      moment, this is our best representation of how the country
-                      is doing based on publicly available information.
-                    </p>
-                  </div>
-                </Grid>
-                <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                  <h3 className={styles.FaqQuestion}>
-                    What are the limitations of the data?
-                  </h3>
-                  <div className={styles.FaqAnswer}>
-                    <p>
-                      Unfortunately, with these publicly available data sets,
-                      there are crucial gaps, including but not limited to:{" "}
-                    </p>
-                    <ul>
-                      <li>
-                        comprehensive city-, census tract-, and county-level data
-                      </li>
-                      <li>comprehensive race and ethnicity breakdowns</li>
-                      <li>comprehensive gender and age breakdowns</li>
-                    </ul>
-                    <h4 className={styles.FaqSubheaderText}>
-                      Known limitations in the data
-                    </h4>
-                    <ul>
-                      <li>
-                        To protect the privacy of affected individuals, COVID-19
-                        data may be hidden in counties with smaller numbers of
-                        COVID-19 cases, hospitalizations and deaths.
-                      </li>
-                      <li>
-                        Specific racial and ethnic categories (e.g. “Native
-                        Hawaiian,” “Alaska Native”) differ by source and can be
-                        inappropriately obscured by broader categories (e.g.
-                        “Other,” “Asian”).
-                      </li>
-                      <li>
-                        National statistics are aggregations of state-wide data.
-                        If state data is not available, these aggregations may be
-                        incomplete and potentially skewed.
-                      </li>
-                      <li>
-                        We typically refresh our data sources with newly available
-                        data within a few days. Seeking the latest information?
-                        Please navigate to the data sources directly.
-                      </li>
-                    </ul>
-                  </div>
-                  <a href="/datacatalog" className={styles.MajorLink}>
-                    See Data Sources
-                  </a>
-                </Grid>
-                <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                  <h3 className={styles.FaqQuestion}>
-                    What are the inequities in the data?
-                  </h3>
-                  <div className={styles.FaqAnswer}>
-                    <ul>
-                      <li>
-                        We’ve seen that many agencies do not reliably collect race
-                        and ethnicity data
-                      </li>
-                      <li>
-                        Some of others that do collect it, fail to report it
-                      </li>
-                      <li>
-                        Racial and ethnic categories are often at the discretion
-                        of healthcare professionals and may not be accurate
-                      </li>
-                    </ul>
-                  </div>
-                </Grid>
-                <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                  <h3 className={styles.FaqQuestion}>
-                    What principles guide you?
-                  </h3>
-                  <div className={styles.FaqAnswer}>
-                    <p>
-                      It is essential that this work and its resulting products
-                      are done consistently in an ethical manner. One of the core
-                      values of the Health Equity Task Force charged with
-                      developing the Health Equity Tracker is the importance of
-                      working in a way that garners public trust.{" "}
-                    </p>
-                    <h4 className={styles.FaqSubheaderText}>
-                      These guiding questions help ensure the right standards are
-                      in place:
-                    </h4>
-                    <ul>
-                      <li>Do we have open access and input in place?</li>
-                      <li>Is there transparency among stakeholders?</li>
-                      <li>
-                        Are we using valid and current data that is reflective of
-                        the realities?
-                      </li>
-                      <li>
-                        Is the community a part of the ownership and authorship of
-                        this work?
-                      </li>
-                      <li>
-                        Have we created a tool that has real value for all
-                        stakeholders including the communities?
-                      </li>
-                      <li>Are we holding our partners accountable?</li>
-                    </ul>
-                  </div>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-
-          <Grid container className={styles.FaqSection}>
-            <Grid item xs={12} sm={12} md={3}>
-              <Typography className={styles.FaqHeaderText} variant="h2">
-                Definitions
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={12} md={9}>
-              <Grid container>
-                <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                  <h3 className={styles.FaqQuestion}>What is equity?</h3>
-                  <div className={styles.FaqAnswer}>
-                    <p>
-                      Equity refers to everyone having a fair opportunity to reach
-                      their full potential and no one being disadvantaged from
-                      achieving this potential (Dawes D.E., 2020).
-                    </p>
-                  </div>
-                </Grid>
-                <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                  <h3 className={styles.FaqQuestion}>
-                    What is the difference between equality and equity?
-                  </h3>
-                  <div className={styles.FaqAnswer}>
-                    <p>
-                      By definition, equality means “the state of being equal,
-                      especially in status, rights, and opportunities.” Equity, in
-                      comparison, “the quality of being fair and just.” Equity
-                      occurs when everyone has access to the necessary tools to
-                      achieve their full potential. Equality occurs when everyone
-                      has the same level and quality of access, which may not
-                      yield fair results.
-                    </p>
-                  </div>
-                </Grid>
-                <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                  <h3 className={styles.FaqQuestion}>
-                    What is health equity? And why is this important?
-                  </h3>
-                  <div className={styles.FaqAnswer}>
-                    <p>
-                      The World Health Organization defines health equity “as the
-                      absence of unfair and avoidable or remediable differences in
-                      health among population groups defined socially,
-                      economically, demographically or geographically”.
-                    </p>
-                    <p>
-                      Health Equity exists when all people, regardless of race,
-                      gender, socio-economic status, geographic location, or other
-                      societal constructs have the same access, opportunity, and
-                      resources to achieve their highest potential for health
-                      (Health Equity Leadership and Exchange Network).
-                    </p>
-                    <p>
-                      Health equity is important because everyone, regardless of
-                      race, ethnicity, gender, or socioeconomic status, should
-                      have the opportunity to reach their full potential and
-                      achieve optimal health.
-                    </p>
-                  </div>
-                </Grid>
-                <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                  <h3 className={styles.FaqQuestion}>
-                    What are health disparities?
-                  </h3>
-                  <div className={styles.FaqAnswer}>
-                    <p>
-                      Health disparities are preventable differences in the burden
-                      of disease, injury, violence, or in opportunities to achieve
-                      optimal health experienced by socially disadvantaged racial,
-                      ethnic, and other population groups, and communities. (CDC)
-                    </p>
-                  </div>
-                </Grid>
-                <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                  <h3 className={styles.FaqQuestion}>
-                    What are political determinants of health?
-                  </h3>
-                  <div className={styles.FaqAnswer}>
-                    <p>
-                      The political determinants of health create the structural
-                      conditions and the social drivers – including poor
-                      environmental conditions, inadequate transportation, unsafe
-                      neighborhoods, and lack of healthy food options – that
-                      affect all other dynamics of health. (Dawes, D.E. 2020) What
-                      is important to note, is that the political determinants of
-                      health are more than merely separate and distinct from the
-                      social determinants of health, they actually serve as the
-                      instigators of the social determinants that many people are
-                      already well acquainted with.
-                    </p>
-                    <p>
-                      By understanding these political determinants, their
-                      origins, and their impact on the equitable distribution of
-                      opportunities and resources, we can be better equipped to
-                      develop and implement actionable solutions to close the
-                      health gap.
-                    </p>
-                  </div>
-                </Grid>
-                <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                  <h3 className={styles.FaqQuestion}>
-                    What are social determinants of health?
-                  </h3>
-                  <div className={styles.FaqAnswer}>
-                    <p>
-                      Social determinants of health are conditions in the
-                      environments in which people are born, live, learn, work,
-                      play, worship, and age that affect a wide range of health,
-                      functioning, and quality-of-life outcomes and risks.
-                      (Healthy People 2020, CDC)
-                    </p>
-                  </div>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-
-          <Grid container className={styles.FaqSection}>
-            <Grid item xs={12} sm={12} md={3}>
-              <Typography className={styles.FaqHeaderText} variant="h2">
-                Take Action
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={12} md={9}>
-              <Grid container>
-                <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                  <h3 className={styles.FaqQuestion}>How can I get involved?</h3>
-                  <div className={styles.FaqAnswer}>
-                    <p>
-                      To advance health equity, we need smart, talented,
-                      passionate folks like you on board.
-                    </p>
-                    <ul>
-                      <li>
-                        Sign up for our newsletter to stay up to date with the
-                        latest news
-                      </li>
-                      <li>
-                        Share our site and graphs with your community on social
-                        media
-                      </li>
-                      <li>
-                        Share your health equity story.{" "}
-                        <a
-                            href={`${ABOUT_US_PAGE_LINK}?${TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
-                        >
-                          Click here to contact us
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </Grid>
-                <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                  <h3 className={styles.FaqQuestion}>
-                    How do I share the graphs?
-                  </h3>
-                  <div className={styles.FaqAnswer}>
-                    <p>
-                      Next to each graph, there is a circle-shaped button with
-                      three dots in it. Click on that button to see a menu where
-                      you can save each graph as a PNG or SVG.{" "}
-                    </p>
-                  </div>
+                <Grid item>
+                  <ul className={styles.ResourcesList}>
+                    {RESOURCES.map((resource) => (
+                        <li className={styles.ResourcesListItem}>
+                          <a href={resource.url}>{resource.name}</a>
+                        </li>
+                    ))}
+                  </ul>
                 </Grid>
               </Grid>
             </Grid>
