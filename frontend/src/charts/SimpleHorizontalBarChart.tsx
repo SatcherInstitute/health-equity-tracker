@@ -22,9 +22,10 @@ function getSpec(
   breakdownVarDisplayName: string,
   measure: string,
   measureDisplayName: string,
-  // Column name to use for the display value of the metric. This column
+  // Column names to use for the display value of the metric. These columns
   // contains preformatted data as strings.
-  metricDisplayColumnName: string,
+  barMetricDisplayColumnName: string,
+  tooltipMetricDisplayColumnName: string,
   showLegend: boolean
 ): any {
   const BAR_HEIGHT = 40;
@@ -73,7 +74,7 @@ function getSpec(
             tooltip: {
               signal: `${oneLineLabel(
                 breakdownVar
-              )} + ', ${measureDisplayName}: ' + datum.${metricDisplayColumnName}`,
+              )} + ', ${measureDisplayName}: ' + datum.${tooltipMetricDisplayColumnName}`,
             },
           },
           update: {
@@ -99,7 +100,7 @@ function getSpec(
             fill: { value: "black" },
             x: { scale: "x", field: measure },
             y: { scale: "y", field: breakdownVar, band: 0.8 },
-            text: { signal: `datum.${metricDisplayColumnName}` },
+            text: { signal: `datum.${barMetricDisplayColumnName}` },
           },
         },
       },
@@ -195,9 +196,15 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     props.data,
     props.breakdownVar
   );
-  const [data, displayColumnName] = addMetricDisplayColumn(
+  const [
+    dataWithDisplayCol,
+    barMetricDisplayColumnName,
+  ] = addMetricDisplayColumn(props.metric, dataWithLineBreakDelimiter);
+  // Omit the % symbol for the tooltip because it's included in shortVegaLabel.
+  const [data, tooltipMetricDisplayColumnName] = addMetricDisplayColumn(
     props.metric,
-    dataWithLineBreakDelimiter
+    dataWithDisplayCol,
+    /* omitPctSymbol= */ true
   );
 
   return (
@@ -210,7 +217,8 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
           props.metric.metricId,
           props.metric.shortVegaLabel,
-          displayColumnName,
+          barMetricDisplayColumnName,
+          tooltipMetricDisplayColumnName,
           props.showLegend
         )}
         actions={props.hideActions ? false : true}

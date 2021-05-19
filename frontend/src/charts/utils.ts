@@ -54,7 +54,7 @@ export function addMetricDisplayColumn(
   data: Row[],
   omitPctSymbol: boolean = false
 ): [Row[], string] {
-  const displayColName = metric.metricId + "__DISPLAY";
+  const displayColName = metric.metricId + "__DISPLAY_" + String(omitPctSymbol);
   const newData = data.map((row) => {
     return {
       ...row,
