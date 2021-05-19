@@ -1,16 +1,14 @@
-import React, { useState } from "react";
-import { MadLib } from "../../utils/MadLibs";
+import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { getMadLibPhraseText } from "../../utils/MadLibs";
-import { linkToMadLib } from "../../utils/urlutils";
-import FileCopyIcon from "@material-ui/icons/FileCopy";
-import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
+import TextField from "@material-ui/core/TextField";
+import FileCopyIcon from "@material-ui/icons/FileCopy";
+import React, { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import Button from "@material-ui/core/Button";
+import { getMadLibPhraseText, MadLib } from "../../utils/MadLibs";
 
 function ShareDialog(props: {
   madLib: MadLib;
@@ -18,6 +16,7 @@ function ShareDialog(props: {
   setShareModalOpen: (shareModalOpen: boolean) => void;
 }) {
   const [textCopied, setTextCopied] = useState(false);
+  const text = window.location.href;
 
   return (
     <Dialog
@@ -31,14 +30,7 @@ function ShareDialog(props: {
       <DialogTitle>{getMadLibPhraseText(props.madLib)}</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          <CopyToClipboard
-            text={linkToMadLib(
-              props.madLib.id,
-              props.madLib.activeSelections,
-              true
-            )}
-            onCopy={() => setTextCopied(true)}
-          >
+          <CopyToClipboard text={text} onCopy={() => setTextCopied(true)}>
             <Button startIcon={<FileCopyIcon />}>Copy link to clipboard</Button>
           </CopyToClipboard>
           {textCopied && <span>Text copied!</span>}
@@ -48,11 +40,7 @@ function ShareDialog(props: {
             <TextField
               id="report-link"
               variant="outlined"
-              defaultValue={linkToMadLib(
-                props.madLib.id,
-                props.madLib.activeSelections,
-                true
-              )}
+              defaultValue={text}
             />
           </FormControl>
         </DialogContentText>

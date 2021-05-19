@@ -80,16 +80,17 @@
 }
 
 .NavLink {
-  color: #202124;
-  margin: 0 5px 0 5px;
-  padding: 6px 16px;
+  color: #202124 !important;
+  margin: 0 5px 0 5px !important;
+  padding: 6px 16px !important;
   font-family: "DM Sans", sans-serif !important;
-  font-weight: 500;
-  font-size: 0.875rem;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
 
+  a,
   &:link,
   &:visited {
-    color: #202124;
-    text-decoration: none;
+    color: #202124 !important;
+    text-decoration: none !important;
   }
 }

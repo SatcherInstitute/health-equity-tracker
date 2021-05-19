@@ -1,31 +1,41 @@
-import React, { useState, useEffect } from "react";
-import Carousel from "react-material-ui-carousel";
 import { Grid } from "@material-ui/core";
-import {
-  MADLIB_LIST,
-  MadLib,
-  PhraseSegment,
-  getMadLibWithUpdatedValue,
-} from "../../utils/MadLibs";
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+// TODO(kristak): Add cookies back
+// import { useCookies } from "react-cookie";
+import { STATUS } from "react-joyride";
+import Carousel from "react-material-ui-carousel";
 import { Fips } from "../../data/utils/Fips";
-import styles from "./ExploreDataPage.module.scss";
+import ReportProvider from "../../reports/ReportProvider";
 import {
-  clearSearchParams,
+  getMadLibWithUpdatedValue,
+  MadLib,
+  MADLIB_LIST,
+  PhraseSegment,
+} from "../../utils/MadLibs";
+import {
+  getParameter,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
+  parseMls,
+  psSubscribe,
+  setParameter,
+  setParameters,
+  SHOW_ONBOARDING_PARAM,
+  stringifyMls,
   useSearchParams,
 } from "../../utils/urlutils";
-import ReportProvider from "../../reports/ReportProvider";
+import styles from "./ExploreDataPage.module.scss";
+import { Onboarding } from "./Onboarding";
 import OptionsSelector from "./OptionsSelector";
+
+const EXPLORE_DATA_ID = "main";
 
 function ExploreDataPage() {
   const params = useSearchParams();
-  useEffect(() => {
-    // TODO - it would be nice to have the params stay and update when selections are made
-    // Until then, it's best to just clear them so they can't become mismatched
-    clearSearchParams([MADLIB_PHRASE_PARAM, MADLIB_SELECTIONS_PARAM]);
-  }, []);
 
+  // Set up inital mad lib values based on defaults and query params
   const foundIndex = MADLIB_LIST.findIndex(
     (madlib) => madlib.id === params[MADLIB_PHRASE_PARAM]
   );
@@ -49,11 +59,66 @@ function ExploreDataPage() {
     activeSelections: defaultValuesWithOverrides,
   });
 
-  const [sticking, setSticking] = useState<boolean>(false);
-
-  const EXPLORE_DATA_ID = "main";
-
   useEffect(() => {
+    const readParams = () => {
+      let index = getParameter(MADLIB_PHRASE_PARAM, 0, (str) => {
+        return MADLIB_LIST.findIndex((ele) => ele.id === str);
+      });
+      let selection = getParameter(
+        MADLIB_SELECTIONS_PARAM,
+        MADLIB_LIST[index].defaultSelections,
+        parseMls
+      );
+
+      setMadLib({
+        ...MADLIB_LIST[index],
+        activeSelections: selection,
+      });
+    };
+    const psSub = psSubscribe(readParams, "explore");
+
+    readParams();
+
+    return () => {
+      if (psSub) {
+        psSub.unsubscribe();
+      }
+    };
+  }, []);
+
+  const setMadLibWithParam = (ml: MadLib) => {
+    setParameter(MADLIB_SELECTIONS_PARAM, stringifyMls(ml.activeSelections));
+    setMadLib(ml);
+  };
+
+  // Set up warm welcome onboarding behaviors
+  const [cookies, setCookie] = useCookies();
+  let showOnboarding = cookies.skipOnboarding !== "true";
+  if (params[SHOW_ONBOARDING_PARAM] === "true") {
+    showOnboarding = true;
+  }
+  if (params[SHOW_ONBOARDING_PARAM] === "false") {
+    showOnboarding = false;
+  }
+  const [activelyOnboarding, setActivelyOnboarding] = useState<boolean>(
+    showOnboarding
+  );
+  const onboardingCallback = (data: any) => {
+    if ([STATUS.FINISHED, STATUS.SKIPPED].includes(data.status)) {
+      setActivelyOnboarding(false);
+      const expirationDate = new Date();
+      // Expiration date set for a year from now
+      expirationDate.setFullYear(expirationDate.getFullYear() + 1);
+      setCookie("skipOnboarding", true, { path: "/", expires: expirationDate });
+    }
+  };
+
+  // Set up sticky madlib behavior
+  const [sticking, setSticking] = useState<boolean>(false);
+  useEffect(() => {
+    if (activelyOnboarding) {
+      return;
+    }
     const header = document.getElementById(EXPLORE_DATA_ID);
     const stickyBarOffsetFromTop: number = header ? header.offsetTop : 1;
     const scrollCallBack: any = window.addEventListener("scroll", () => {
@@ -72,16 +137,24 @@ function ExploreDataPage() {
     return () => {
       window.removeEventListener("scroll", scrollCallBack);
     };
-  }, []);
+  }, [activelyOnboarding]);
 
   return (
     <>
+      <Onboarding
+        callback={onboardingCallback}
+        activelyOnboarding={activelyOnboarding}
+      />
       <title>Explore the Data - Health Equity Tracker</title>
       <h1 className={styles.ScreenreaderTitleHeader}>Explore the Data</h1>
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
-        <div className={styles.CarouselContainer}>
+        <div
+          className={styles.CarouselContainer}
+          id="onboarding-start-your-search"
+        >
           <Carousel
             className={styles.Carousel}
+            NextIcon={<NavigateNextIcon id="onboarding-madlib-arrow" />}
             timeout={200}
             autoPlay={false}
             indicators={!sticking}
@@ -89,19 +162,33 @@ function ExploreDataPage() {
             navButtonsAlwaysVisible={true}
             index={initalIndex}
             onChange={(index: number) => {
-              setMadLib({
+              let newState = {
                 ...MADLIB_LIST[index],
-                activeSelections: MADLIB_LIST[index].defaultSelections,
-              });
+                activeSelections: {
+                  ...MADLIB_LIST[index].defaultSelections,
+                },
+              };
+              setMadLib(newState);
+              setParameters([
+                {
+                  name: MADLIB_SELECTIONS_PARAM,
+                  value: stringifyMls(newState.activeSelections),
+                },
+                { name: MADLIB_PHRASE_PARAM, value: MADLIB_LIST[index].id },
+              ]);
             }}
           >
             {MADLIB_LIST.map((madlib: MadLib, i) => (
-              <CarouselMadLib madLib={madLib} setMadLib={setMadLib} key={i} />
+              <CarouselMadLib
+                madLib={madLib}
+                setMadLib={setMadLibWithParam}
+                key={i}
+              />
             ))}
           </Carousel>
         </div>
         <div className={styles.ReportContainer}>
-          <ReportProvider madLib={madLib} setMadLib={setMadLib} />
+          <ReportProvider madLib={madLib} setMadLib={setMadLibWithParam} />
         </div>
       </div>
     </>

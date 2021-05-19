@@ -23,7 +23,7 @@ export const DEMOGRAPHIC_BREAKDOWNS = [
 export type DemographicBreakdownKey = typeof DEMOGRAPHIC_BREAKDOWNS[number]; // union type of array
 
 export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
-  race_and_ethnicity: "Race and Ethnicity",
+  race_and_ethnicity: "Race And Ethnicity",
   age: "Age",
   sex: "Gender",
   date: "Date",
@@ -158,7 +158,7 @@ export class Breakdowns {
   }
 
   static forParentFips(fips: Fips): Breakdowns {
-    if (fips.isState()) {
+    if (fips.isStateOrTerritory()) {
       return Breakdowns.byCounty().withGeoFilter(fips);
     }
     if (fips.isUsa()) {
@@ -250,12 +250,12 @@ export class Breakdowns {
     );
   }
 
-  hasOneRegionOfGeographicGranularity() {
+  hasOneRegionOfGeographicGranularity(): boolean {
     switch (this.geography) {
       case "county":
-        return this.filterFips && this.filterFips.isCounty();
+        return !!this.filterFips && this.filterFips.isCounty();
       case "state":
-        return this.filterFips && this.filterFips.isState();
+        return !!this.filterFips && this.filterFips.isStateOrTerritory();
       case "national":
         return !this.filterFips || this.filterFips.isUsa();
     }

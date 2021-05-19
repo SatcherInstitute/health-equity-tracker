@@ -1,11 +1,12 @@
 import { Button } from "@material-ui/core";
 import React from "react";
-import { MapOfDatasetMetadata } from "../utils/DatasetTypes";
+import { Dataset, MapOfDatasetMetadata } from "../utils/DatasetTypes";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
 import { MetadataCache } from "../loading/DataManager";
 import { IncompleteLoadStatus, useMetrics, useResources } from "./useResources";
+import { GEOGRAPHIES_DATASET_ID } from "../config/MetadataMap";
 
 /**
  * Provides a wrapper around a UI component that may be loading or have an async
@@ -27,8 +28,12 @@ export function WithLoadingOrErrorUI<R>(props: {
   if (props.resources === "error") {
     return (
       <div data-testid="WithLoadingOrErrorUI-error">
-        <p>Oops, something went wrong.</p>
-        <Button onClick={() => window.location.reload()}>reload</Button>
+        <p>
+          <b>Oops, something went wrong.</b>
+        </p>
+        <Button onClick={() => window.location.reload()}>
+          <b>Reload</b>
+        </Button>
       </div>
     );
   }
@@ -78,6 +83,26 @@ export function WithMetrics(props: {
   );
 }
 
+function WithDatasets(props: {
+  datasetIds: string[];
+  children: (datasets: Dataset[]) => JSX.Element;
+  loadingComponent?: JSX.Element;
+}) {
+  const datasets = useResources<string, Dataset>(
+    props.datasetIds,
+    async (id: string) => await getDataManager().loadDataset(id),
+    (id: string) => id
+  );
+  return (
+    <WithLoadingOrErrorUI<Dataset>
+      resources={datasets}
+      loadingComponent={props.loadingComponent}
+    >
+      {props.children}
+    </WithLoadingOrErrorUI>
+  );
+}
+
 /**
  * We create a wrapper with a key to create a new instance when
  * queries change so that the component's load screen is reset.
@@ -86,16 +111,18 @@ interface WithMetadataAndMetricsProps {
   queries: MetricQuery[];
   children: (
     metadata: MapOfDatasetMetadata,
-    queryResponses: MetricQueryResponse[]
+    queryResponses: MetricQueryResponse[],
+    geoData?: Record<string, any>
   ) => JSX.Element;
   loadingComponent?: JSX.Element;
+  loadGeographies?: boolean;
 }
 
 export function WithMetadataAndMetrics(props: WithMetadataAndMetricsProps) {
   const key = props.queries.reduce(
     (accumulator: string, query: MetricQuery) =>
       (accumulator += query.getUniqueKey()),
-    ""
+    String(!!props.loadGeographies)
   );
 
   return <WithMetadataAndMetricsWithKey key={key} {...props} />;
@@ -116,7 +143,31 @@ export function WithMetadataAndMetricsWithKey(
           queries={props.queries}
           loadingComponent={props.loadingComponent}
         >
-          {(queryResponses) => props.children(metadata, queryResponses)}
+          {(queryResponses) => {
+            if (!props.loadGeographies) {
+              return props.children(metadata, queryResponses);
+            }
+            return (
+              <WithDatasets
+                datasetIds={[GEOGRAPHIES_DATASET_ID]}
+                loadingComponent={props.loadingComponent}
+              >
+                {(datasets) => {
+                  // Expect just the geography dataset because that's what we
+                  // passed to props.datasetIds
+                  // TODO: Consider changing WithLoadingOrErrorUI and similar
+                  // components to return a map of {id: resource} instead of
+                  // an array so it's less brittle.
+                  const [geographies] = datasets;
+                  return props.children(
+                    metadata,
+                    queryResponses,
+                    geographies.rows
+                  );
+                }}
+              </WithDatasets>
+            );
+          }}
         </WithMetrics>
       )}
     </WithMetadata>

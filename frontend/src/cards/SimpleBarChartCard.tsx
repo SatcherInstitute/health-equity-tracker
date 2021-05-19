@@ -46,8 +46,8 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   function CardTitle() {
     return (
       <>
-        Disparities in {metricConfig.fullCardTitleName} by{" "}
-        <b>{BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]}</b> in{" "}
+        {metricConfig.fullCardTitleName} By{" "}
+        <b>{BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]}</b> In{" "}
         {props.fips.getFullDisplayName()}
       </>
     );
@@ -67,6 +67,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
+                  geoLevel={props.fips.getFipsTypeDisplayName()}
                 />
               </CardContent>
             )}
