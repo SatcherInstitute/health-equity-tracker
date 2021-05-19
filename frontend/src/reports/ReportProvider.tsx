@@ -185,17 +185,18 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           included when viewing hospitalizations but appear as grey when viewing
           reports on deaths.
         </p>
-        <p>
-          Do you have information on health outcomes at the state and local
-          level that belong in the Health Equity Tracker?
-          <br />
-          <LinkWithStickyParams
-            class={styles.MethodologyContactUsLink}
-            to={`${ABOUT_US_PAGE_LINK}?${TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
-          >
-            We would love to hear from you!
-          </LinkWithStickyParams>
-        </p>
+        <div className={styles.MissingDataContactUs}>
+          <p>
+            Do you have information on health outcomes at the state and local
+            level that belong in the Health Equity Tracker?
+            <br />
+            <LinkWithStickyParams
+              to={`${ABOUT_US_PAGE_LINK}?${TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
+            >
+              w We would love to hear from you!
+            </LinkWithStickyParams>
+          </p>
+        </div>
         <a href={DATA_CATALOG_PAGE_LINK}>
           <Button color="primary" endIcon={<ArrowForward />}>
             See Our Data Sources
