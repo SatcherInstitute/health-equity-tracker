@@ -3,11 +3,9 @@ import os
 
 from flask import Flask, Response, request
 from flask_cors import CORS
-import google.cloud.exceptions
 from werkzeug.datastructures import Headers
 
 from data_server.dataset_cache import DatasetCache
-import data_server.gcs_utils as gcs_utils
 
 app = Flask(__name__)
 CORS(app)
