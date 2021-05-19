@@ -8,7 +8,13 @@ import {
   MadLibId,
 } from "../utils/MadLibs";
 import { Fips } from "../data/utils/Fips";
-import { DATA_CATALOG_PAGE_LINK } from "../utils/urlutils";
+import {
+  LinkWithStickyParams,
+  ABOUT_US_PAGE_LINK,
+  DATA_CATALOG_PAGE_LINK,
+  TAB_PARAM,
+} from "../utils/urlutils";
+import { ABOUT_US_CONTACT_TAB_INDEX } from "../pages/AboutUs/AboutUsPage";
 import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import ShareIcon from "@material-ui/icons/Share";
@@ -179,9 +185,21 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           included when viewing hospitalizations but appear as grey when viewing
           reports on deaths.
         </p>
+        <div className={styles.MissingDataContactUs}>
+          <p>
+            Do you have information on health outcomes at the state and local
+            level that belong in the Health Equity Tracker?
+            <br />
+            <LinkWithStickyParams
+              to={`${ABOUT_US_PAGE_LINK}?${TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
+            >
+              We would love to hear from you!
+            </LinkWithStickyParams>
+          </p>
+        </div>
         <a href={DATA_CATALOG_PAGE_LINK}>
           <Button color="primary" endIcon={<ArrowForward />}>
-            See Data Sources
+            See Our Data Sources
           </Button>
         </a>
       </div>
