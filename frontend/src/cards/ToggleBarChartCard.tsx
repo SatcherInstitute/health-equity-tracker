@@ -81,8 +81,8 @@ function ToggleBarChartCardWithKey(props: ToggleBarChartCardProps) {
         <Button onClick={popover.open} className={styles.TermInfoButton}>
           Disparities
         </Button>{" "}
-        in {metricConfig.fullCardTitleName} by{" "}
-        <b>{BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]}</b> in{" "}
+        in {metricConfig.fullCardTitleName} By{" "}
+        <b>{BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]}</b> In{" "}
         {props.fips.getFullDisplayName()}
       </>
     );

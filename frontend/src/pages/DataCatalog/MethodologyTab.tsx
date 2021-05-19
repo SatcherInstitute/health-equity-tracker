@@ -207,9 +207,9 @@ function MethodologyTab() {
                 </p>
                 <ul>
                   <li>
-                    <b>Total COVID-19 cases per 100k people</b>: The total rate
+                    <b>Total COVID-19 cases per 100K people</b>: The total rate
                     of occurrence of COVID-19 cases expressed per 100,000 people
-                    (i.e. 10,000 per 100k implies a 10% occurence rate). This
+                    (i.e. 10,000 per 100K implies a 10% occurrence rate). This
                     metric normalizes for population size, allowing for
                     comparisons across demographic groups.
                   </li>

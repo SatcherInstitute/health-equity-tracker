@@ -74,11 +74,11 @@ export function UnknownsMapDialog(props: UnknownsMapDialogProps) {
             <>
               <DialogContent>
                 <Typography className={styles.Title}>
-                  {`Unknown values for ${
+                  {`Unknown Values For ${
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   } ${
                     props.metricConfig.fullCardTitleName
-                  } in ${props.fips.getFullDisplayName()}`}
+                  } In ${props.fips.getFullDisplayName()}`}
                 </Typography>
               </DialogContent>
               <DialogContent dividers={true}>

@@ -60,7 +60,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
         }
       >
         See the {props.fipsTypePluralDisplayName} with the <b>highest</b> and{" "}
-        <b>lowest</b> rates of {props.variableConfig.variableFullDisplayName}
+        <b>lowest</b> rates
       </div>
       <div className={styles.ListBoxLists}>
         <Grid container justify="space-around">
