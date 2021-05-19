@@ -87,7 +87,7 @@ function EquityTab() {
             <Typography className={styles.HeaderSubtext} variant="body1">
               <p>
                 <b>Health Equity</b> exists when all people, regardless of race,
-                gender, sexual orientation, disability, socio-economic status,
+                sex, sexual orientation, disability, socio-economic status,
                 geographic location, or other societal constructs have fair and
                 just access, opportunity, and resources to achieve their highest
                 potential for health (Health Equity Leadership & Exchange

@@ -75,7 +75,7 @@ function FaqTab() {
                       comprehensive city-, census tract-, and county-level data
                     </li>
                     <li>comprehensive race and ethnicity breakdowns</li>
-                    <li>comprehensive gender and age breakdowns</li>
+                    <li>comprehensive sex and age breakdowns</li>
                   </ul>
                   <h4 className={styles.FaqSubheaderText}>
                     Known limitations in the data
@@ -214,16 +214,16 @@ function FaqTab() {
                   </p>
                   <p>
                     Health Equity exists when all people, regardless of race,
-                    gender, socio-economic status, geographic location, or other
+                    sex, socio-economic status, geographic location, or other
                     societal constructs have the same access, opportunity, and
                     resources to achieve their highest potential for health
                     (Health Equity Leadership and Exchange Network).
                   </p>
                   <p>
                     Health equity is important because everyone, regardless of
-                    race, ethnicity, gender, or socioeconomic status, should
-                    have the opportunity to reach their full potential and
-                    achieve optimal health.
+                    race, ethnicity, sex, or socioeconomic status, should have
+                    the opportunity to reach their full potential and achieve
+                    optimal health.
                   </p>
                 </div>
               </Grid>

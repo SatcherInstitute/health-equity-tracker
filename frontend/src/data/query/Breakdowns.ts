@@ -25,7 +25,7 @@ export type DemographicBreakdownKey = typeof DEMOGRAPHIC_BREAKDOWNS[number]; // 
 export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
   race_and_ethnicity: "Race And Ethnicity",
   age: "Age",
-  sex: "Gender",
+  sex: "Sex",
   date: "Date",
   fips: "FIPS Code",
 };
@@ -36,7 +36,7 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE: Record<
 > = {
   race_and_ethnicity: "race and ethnicity",
   age: "age",
-  sex: "gender",
+  sex: "sex",
   date: "date",
   fips: "FIPs codes",
 };
@@ -198,7 +198,7 @@ export class Breakdowns {
     return this.addBreakdown("age", filter);
   }
 
-  andGender(filter?: BreakdownFilter): Breakdowns {
+  andSex(filter?: BreakdownFilter): Breakdowns {
     return this.addBreakdown("sex", filter);
   }
 
