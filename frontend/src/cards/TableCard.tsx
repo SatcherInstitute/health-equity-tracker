@@ -69,9 +69,9 @@ export function TableCard(props: TableCardProps) {
     <CardWrapper
       queries={[query]}
       title={
-        <>{`${props.variableConfig.variableFullDisplayName} by ${
+        <>{`${props.variableConfig.variableFullDisplayName} By ${
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-        } in ${props.fips.getFullDisplayName()}`}</>
+        } In ${props.fips.getFullDisplayName()}`}</>
       }
     >
       {([queryResponse]) => {

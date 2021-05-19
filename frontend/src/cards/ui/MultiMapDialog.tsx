@@ -61,7 +61,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
     >
       <DialogContent dividers={true}>
         <Typography className={styles.Title}>
-          {props.metricConfig.fullCardTitleName} across all{" "}
+          {props.metricConfig.fullCardTitleName} Across All{" "}
           {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups
         </Typography>
         <Grid container justify="space-around">
