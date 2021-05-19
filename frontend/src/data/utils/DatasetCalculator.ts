@@ -3,19 +3,70 @@ import { BreakdownVar } from "../query/Breakdowns";
 import { ALL, UNKNOWN, UNKNOWN_RACE } from "./Constants";
 import { applyToGroups } from "./datasetutils";
 
+type OptionalNumber = number | undefined | null;
+
 export class DatasetCalculator {
   /** Calculates a rate as occurrences per 100k */
   per100k(numerator: number, denominator: number): number | null {
-    return numerator == null || denominator == null || denominator === 0
-      ? null
-      : Math.round(100000 * (numerator / denominator));
+    // per100k is just a percent scaled up by 1000.
+    return this.percentAvoidRoundingToZero(
+      1000 * numerator,
+      denominator,
+      /* defaultDecimals= */ 0,
+      /* maxDecimals= */ 0
+    );
   }
 
-  /** Calculates a rate as a percent to one decimal place. */
-  percent(numerator: number, denominator: number): number | null {
+  /**
+   * Calculates a rate as a percent to one decimal place, or 2 places if the
+   * number would otherwise round to 0.
+   */
+  percent(
+    numerator: OptionalNumber,
+    denominator: OptionalNumber
+  ): number | null {
+    return this.percentAvoidRoundingToZero(numerator, denominator);
+  }
+
+  /**
+   * Calculates percentage to the specified number of decimal places.
+   * numDecimals must be 0 or greater.
+   */
+  percentToXDecimals(
+    numerator: OptionalNumber,
+    denominator: OptionalNumber,
+    numDecimals: number = 1
+  ): number | null {
+    const decMultiplier = Math.pow(10, numDecimals);
     return numerator == null || denominator == null || denominator === 0
       ? null
-      : Math.round((1000 * numerator) / denominator) / 10;
+      : Math.round((100 * decMultiplier * numerator) / denominator) /
+          decMultiplier;
+  }
+
+  /**
+   * Calculates percentage to `defaultDecimals` number of decimal places. If
+   * the percentage would round to 0, calculates with more decimal places until
+   * either it doesn't round to 0, or until `maxDecimals`. `defaultDecimals`
+   * and `maxDecimals` should be >= 0 and `maxDecimals` should be >=
+   * `defaultDecimals`.
+   */
+  percentAvoidRoundingToZero(
+    numerator: OptionalNumber,
+    denominator: OptionalNumber,
+    defaultDecimals: number = 1,
+    maxDecimals: number = 2
+  ): number | null {
+    let decimals = defaultDecimals;
+    let pct = this.percentToXDecimals(numerator, denominator, decimals);
+
+    // If the number is not exactly 0 but rounded to 0, and we're still less
+    // than the maximum number of decimals, add a decimal place and try again.
+    while (pct === 0 && numerator !== 0 && decimals < maxDecimals) {
+      decimals++;
+      pct = this.percentToXDecimals(numerator, denominator, decimals);
+    }
+    return pct;
   }
 
   /** Finds expected value of an ailment based on a population sample. */
