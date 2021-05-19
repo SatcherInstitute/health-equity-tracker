@@ -476,9 +476,9 @@ function EquityTab() {
                 <p>
                   <Button
                     className={styles.ContactUsLink}
-                    href="http://satcherinstitute.org"
+                    href="https://satcherinstitute.org/uberrideshare/"
                   >
-                    LINK DESTINATION TBD
+                    Sign Up
                   </Button>
                 </p>
               </>
