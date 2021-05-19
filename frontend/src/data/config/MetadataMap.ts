@@ -76,10 +76,10 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "The numbers of confirmed COVID-19 deaths, cases, hospitalizations, and tests at the state level.",
     dataset_ids: [
-      "covid_tracking_project-covid_tracking_project_cases",
-      "covid_tracking_project-covid_tracking_project_deaths",
-      "covid_tracking_project-covid_tracking_project_hosp",
-      "covid_tracking_project-covid_tracking_project_tests",
+      "covid_tracking_project-cases_by_race_state",
+      "covid_tracking_project-deaths_by_race_state",
+      "covid_tracking_project-hospitalizations_by_race_state",
+      "covid_tracking_project-tests_by_race_state",
     ],
     downloadable: true,
   },
