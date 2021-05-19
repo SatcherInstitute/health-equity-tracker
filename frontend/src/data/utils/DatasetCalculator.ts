@@ -13,7 +13,7 @@ export class DatasetCalculator {
       1000 * numerator,
       denominator,
       /* defaultDecimals= */ 0,
-      /* maxDecimals= */ 1
+      /* maxDecimals= */ 0
     );
   }
 
