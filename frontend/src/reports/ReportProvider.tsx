@@ -193,7 +193,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             <LinkWithStickyParams
               to={`${ABOUT_US_PAGE_LINK}?${TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
             >
-              w We would love to hear from you!
+              We would love to hear from you!
             </LinkWithStickyParams>
           </p>
         </div>
