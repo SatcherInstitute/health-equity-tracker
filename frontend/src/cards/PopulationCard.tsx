@@ -154,7 +154,11 @@ export function PopulationCard(props: PopulationCardProps) {
                           return b.race_and_ethnicity - a.race_and_ethnicity;
                         })
                         .map((row) => (
-                          <Grid item className={styles.PopulationMetric}>
+                          <Grid
+                            item
+                            key={row.race_and_ethnicity}
+                            className={styles.PopulationMetric}
+                          >
                             <span>{row.race_and_ethnicity}</span>
                             <br />
                             <span className={styles.PopulationMetricValue}>

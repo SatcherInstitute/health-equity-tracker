@@ -1,5 +1,5 @@
 import { Grid } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { MapCard } from "../cards/MapCard";
 import { PopulationCard } from "../cards/PopulationCard";
@@ -224,6 +224,7 @@ function TwoVariableReport(props: {
       {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
         !breakdownIsShown(breakdownVar) ? null : (
           <RowOfTwoOptionalMetrics
+            key={breakdownVar}
             variableConfig1={variableConfig1}
             variableConfig2={variableConfig2}
             fips1={props.fips1}
@@ -246,7 +247,7 @@ function TwoVariableReport(props: {
       )}
       {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
         !breakdownIsShown(breakdownVar) ? null : (
-          <>
+          <Fragment key={breakdownVar}>
             <RowOfTwoOptionalMetrics
               variableConfig1={variableConfig1}
               variableConfig2={variableConfig2}
@@ -281,7 +282,7 @@ function TwoVariableReport(props: {
                 />
               )}
             />
-          </>
+          </Fragment>
         )
       )}
     </Grid>

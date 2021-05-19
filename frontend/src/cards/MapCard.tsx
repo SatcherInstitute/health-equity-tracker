@@ -72,7 +72,7 @@ function MapCardWithKey(props: MapCardProps) {
   const [listExpanded, setListExpanded] = useState(false);
 
   const [activeBreakdownFilter, setActiveBreakdownFilter] = useState<string>(
-    ""
+    ALL
   );
   const [activeBreakdownVar, setActiveBreakdownVar] = useState<BreakdownVar>(
     props.currentBreakdown
@@ -127,13 +127,6 @@ function MapCardWithKey(props: MapCardProps) {
         );
 
         breakdownValues.sort.apply(breakdownValues, sortArgs);
-
-        if (
-          activeBreakdownFilter === "" ||
-          activeBreakdownFilter === undefined
-        ) {
-          setActiveBreakdownFilter(ALL || breakdownValues[0]);
-        }
 
         const dataForActiveBreakdownFilter = queryResponse
           .getValidRowsForField(metricConfig.metricId)
@@ -210,7 +203,8 @@ function MapCardWithKey(props: MapCardProps) {
                           newBreakdownDisplayName,
                           filterSelection
                         ) => {
-                          // Get breakdownVar (ex. race_and_ethnicity) from display name (ex. Race and Ethnicity)
+                          // Get breakdownVar (ex. race_and_ethnicity) from
+                          // display name (ex. Race and Ethnicity)
                           const breakdownVar = Object.keys(
                             BREAKDOWN_VAR_DISPLAY_NAMES
                           ).find(
