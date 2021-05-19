@@ -13,7 +13,7 @@ SELECT DISTINCT
     a.date,
     a.race,
     IF(a.race_includes_hispanic = 1, true, false) AS race_includes_hispanic,
-    TO_JSON_STRING(cases) as cases,
+    TO_JSON_STRING(a.cases) as cases,
     IF(a.reports_race = 1, true, false) AS reports_race,
     IF(a.reports_ethnicity = 1, true, false) AS reports_ethnicity,
     IF(a.race_mutually_exclusive = 1, true, false) AS race_mutually_exclusive
@@ -41,36 +41,28 @@ LEFT JOIN `bigquery-public-data.census_utility.fips_codes_states` AS b
 ORDER BY state_fips, date, race
 ;
 
--- State-level hospitalizations by race.
+-- State-level hospitalizations by race. We don't currently have metadata for hospitalizations.
 CREATE OR REPLACE TABLE covid_tracking_project.hospitalizations_by_race_state AS
 SELECT DISTINCT
     b.state_fips_code AS state_fips,
     b.state_name,
     a.date,
     a.race,
-    IF(a.race_includes_hispanic = 1, true, false) AS race_includes_hispanic,
     TO_JSON_STRING(a.hosp) as hospitalizations,
-    IF(a.reports_race = 1, true, false) AS reports_race,
-    IF(a.reports_ethnicity = 1, true, false) AS reports_ethnicity,
-    IF(a.race_mutually_exclusive = 1, true, false) AS race_mutually_exclusive
-FROM `covid_tracking_project.covid_tracking_project_hospitalizations` AS a
+FROM `covid_tracking_project.covid_tracking_project_hosp` AS a
 LEFT JOIN `bigquery-public-data.census_utility.fips_codes_states` AS b
     ON a.state_postal = b.state_postal_abbreviation
 ORDER BY state_fips, date, race
 ;
 
--- State-level tests by race.
+-- State-level tests by race. We don't currently have metadata for tests.
 CREATE OR REPLACE TABLE covid_tracking_project.tests_by_race_state AS
 SELECT DISTINCT
     b.state_fips_code AS state_fips,
     b.state_name,
     a.date,
     a.race,
-    IF(a.race_includes_hispanic = 1, true, false) AS race_includes_hispanic,
     TO_JSON_STRING(a.tests) as tests,
-    IF(a.reports_race = 1, true, false) AS reports_race,
-    IF(a.reports_ethnicity = 1, true, false) AS reports_ethnicity,
-    IF(a.race_mutually_exclusive = 1, true, false) AS race_mutually_exclusive
 FROM `covid_tracking_project.covid_tracking_project_tests` AS a
 LEFT JOIN `bigquery-public-data.census_utility.fips_codes_states` AS b
     ON a.state_postal = b.state_postal_abbreviation
