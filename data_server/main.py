@@ -80,10 +80,7 @@ def get_dataset():
 
     if dataset_name.endswith(".csv"):
         return Response(resp, mimetype="text/csv", headers=headers)
-    encode_start_time = time.time()
-    e_time = time.time()
-    print(f"Time to Encode Request: {(e_time - encode_start_time) * 1000}ms")
-    print(f"Time to Request Complete: {(e_time - req_start) * 1000}ms")
+    print(f"Time to Request Complete: {(time.time() - req_start) * 1000}ms")
 
     return Response(resp, mimetype="application/text", headers=headers)
 

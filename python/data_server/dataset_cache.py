@@ -61,8 +61,11 @@ class DatasetCache:
         for d in resp:
             resp_data += d
 
-        resp_data = gzip.compress(resp_data, 5)
         print(f"Time to generate resp {(time.time() - gen_dset_start_time) * 1000}ms")
+
+        encode_start_time = time.time()
+        resp_data = gzip.compress(resp_data, 5)
+        print(f"Time to Encode: {(time.time() - encode_start_time) * 1000}ms")
         # If this has been updated since we last checked, it's still okay to
         # overwrite since it will only affect freshness.
         with self.cache_lock:
