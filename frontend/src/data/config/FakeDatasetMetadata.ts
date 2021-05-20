@@ -33,22 +33,22 @@ const datasetMetadataList: DatasetMetadata[] = [
     update_time: "2019",
   },
   {
-    id: "covid_tracking_project-covid_tracking_project_cases",
+    id: "covid_tracking_project-cases_by_race_state",
     name: "COVID-19 cases by race and state",
     update_time: "April 2021",
   },
   {
-    id: "covid_tracking_project-covid_tracking_project_deaths",
+    id: "covid_tracking_project-deaths_by_race_state",
     name: "COVID-19 deaths by race and state",
     update_time: "April 2021",
   },
   {
-    id: "covid_tracking_project-covid_tracking_project_hosp",
+    id: "covid_tracking_project-hospitalizations_by_race_state",
     name: "COVID-19 hospitalizations by race and state",
     update_time: "April 2021",
   },
   {
-    id: "covid_tracking_project-covid_tracking_project_tests",
+    id: "covid_tracking_project-tests_by_race_state",
     name: "COVID-19 tests by race and state",
     update_time: "April 2021",
   },

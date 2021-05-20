@@ -22,3 +22,11 @@ resource "google_bigquery_table_iam_binding" "covid_tracking_project_metadata_ia
     format("serviceAccount:%s", var.gcs_to_bq_runner_email),
   ]
 }
+
+resource "google_bigquery_routine" "bq_agg_covid_tracking_project" {
+  dataset_id = google_bigquery_dataset.bq_covid_tracking_project.dataset_id
+  routine_id = "AGG_covid_tracking_project"
+  routine_type = "PROCEDURE"
+  language = "SQL"
+  definition_body = file("${path.module}/AGG_covid_tracking_project.sql")
+}
