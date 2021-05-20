@@ -207,10 +207,10 @@ function CarouselMadLib(props: {
     return Object.keys(phraseSegment).length > 20
       ? Object.keys(phraseSegment)
           .sort((a: string, b: string) => {
-            if (a[0].length === b[0].length) {
-              return a[0].localeCompare(b[0]);
+            if (a.length === b.length) {
+              return a.localeCompare(b);
             }
-            return b[0].length > a[0].length ? -1 : 1;
+            return b.length > a.length ? -1 : 1;
           })
           .map((fipsCode) => new Fips(fipsCode))
       : Object.entries(phraseSegment).sort((a, b) => a[0].localeCompare(b[0]));
