@@ -43,7 +43,8 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "The numbers of confirmed COVID-19 deaths, cases, and hospitalizations at the state and county levels. " +
       "The CDC does not take responsibility for the scientific validity or accuracy of methodology, " +
-      "results, statistical analyses, or conclusions presented.",
+      "results, statistical analyses, or conclusions presented. This dataset is not available for download, " +
+      "please press the button below to apply for access.",
     dataset_ids: [
       "cdc_restricted_data-by_race_county",
       "cdc_restricted_data-by_race_state",
