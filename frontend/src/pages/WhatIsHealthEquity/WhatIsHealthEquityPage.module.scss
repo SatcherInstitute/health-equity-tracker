@@ -441,3 +441,28 @@
     text-decoration: underline !important;
   }
 }
+
+/** ------------- RESOURCES ------------- **/
+
+.ResourcesSection {
+  padding: 50px 20px 50px 20px;
+  border-bottom: 1px solid $alt-grey;
+}
+
+.ResourcesHeaderText {
+  font-size: 32px !important;
+  text-align: center;
+  font-weight: 300;
+  font-family: "Taviraj", serif !important;
+  line-height: 40px;
+  color: $alt-black;
+  padding-bottom: 20px;
+}
+
+.ResourcesList {
+  text-align: left;
+}
+
+.ResourcesListItem {
+  padding: 7px 0;
+}
