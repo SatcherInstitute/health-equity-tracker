@@ -35,8 +35,9 @@ const ONBOARDING_STEPS = [
     "#onboarding-start-your-search",
     "Start Your Search",
     <>
-      Select the variable or location of interest to start your search. We'll be
-      adding additional variables in the coming months!
+      Select the variable or location of interest to start your search, such as{" "}
+      <i>'Investigate rates of COPD in California</i>. We'll be adding
+      additional variables in the coming months!
     </>,
     /*hideCloseButton=*/ true,
     /*placement=*/ "auto"
@@ -64,7 +65,7 @@ const ONBOARDING_STEPS = [
       there is missing, incomplete, or misclassified data in our sources.{" "}
       <i>
         *We acknowledge that deep inequities exist in the very structure we use
-        to collect and share data. We are committed to helping to fix this.
+        to collect and share data. We are committed to helping fix this.
       </i>
     </>,
     /*hideCloseButton=*/ true,

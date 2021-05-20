@@ -99,8 +99,7 @@ function FaqTab() {
                     </li>
                     <li>
                       We typically refresh our data sources with newly available
-                      data within a few days. Seeking the latest information?
-                      Please navigate to the data sources directly.
+                      data within a few days.
                     </li>
                   </ul>
                 </div>
@@ -118,12 +117,10 @@ function FaqTab() {
                       We’ve seen that many agencies do not reliably collect race
                       and ethnicity data
                     </li>
+                    <li>Others that do collect it, fail to report it</li>
                     <li>
-                      Some of others that do collect it, fail to report it
-                    </li>
-                    <li>
-                      Racial and ethnic categories are often at the discretion
-                      of healthcare professionals and may not be accurate
+                      Racial and ethnic categories are often left up to a
+                      person’s interpretation and may not be accurate
                     </li>
                   </ul>
                 </div>
@@ -236,7 +233,7 @@ function FaqTab() {
                     Health disparities are preventable differences in the burden
                     of disease, injury, violence, or in opportunities to achieve
                     optimal health experienced by socially disadvantaged racial,
-                    ethnic, and other population groups, and communities. (CDC)
+                    ethnic, and other population groups, and communities (CDC).
                   </p>
                 </div>
               </Grid>
