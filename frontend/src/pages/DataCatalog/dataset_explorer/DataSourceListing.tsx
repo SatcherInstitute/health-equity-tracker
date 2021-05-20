@@ -142,16 +142,15 @@ export function DataSourceListing(props: DataSourceListingProps) {
               Download
             </Button>
           )}
-          {!props.source_metadata.downloadable &&
-            props.source_metadata.download_link && (
-              <Link
-                href={props.source_metadata.download_link}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button color="primary">Download</Button>
-              </Link>
-            )}
+          {/* CDC restricted data is not downloadable. */}
+          {props.source_metadata.id === "cdc_restricted" && (
+            <ReactRouterLinkButton
+              url="https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t"
+              className={styles.DownloadListItem}
+            >
+              Apply For Access
+            </ReactRouterLinkButton>
+          )}
         </div>
         <Dialog onClose={() => setDialogIsOpen(false)} open={dialogIsOpen}>
           <DialogTitle className={styles.DialogTitle}>
@@ -167,24 +166,12 @@ export function DataSourceListing(props: DataSourceListingProps) {
             </div>
           </DialogTitle>
           <List>
-            {props.source_metadata.dataset_ids.map((datasetId: string) => (
-              <div>
-                {datasetId === "cdc_restricted" && (
-                  <ReactRouterLinkButton
-                    url="https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t"
-                    className={styles.DownloadListItem}
-                  >
-                    Apply For Access
-                  </ReactRouterLinkButton>
-                )}
-                {datasetId !== "cdc_restricted" && (
-                  <DownloadDatasetListItem
-                    key={datasetId}
-                    datasetId={datasetId}
-                    datasetMetadata={props.dataset_metadata[datasetId]}
-                  />
-                )}
-              </div>
+            {props.source_metadata.dataset_ids.map((datasetId) => (
+              <DownloadDatasetListItem
+                key={datasetId}
+                datasetId={datasetId}
+                datasetMetadata={props.dataset_metadata[datasetId]}
+              />
             ))}
           </List>
         </Dialog>
