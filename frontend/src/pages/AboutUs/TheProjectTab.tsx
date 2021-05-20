@@ -302,7 +302,7 @@ function TheProjectTab() {
             >
               <Grid item className={styles.CommittedToEthicsSubheaderItem}>
                 <Typography className={styles.SubheaderL2Text} variant="h3">
-                  Community first
+                  Community First
                 </Typography>
               </Grid>
               <Grid item>
