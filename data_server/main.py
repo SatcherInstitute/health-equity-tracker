@@ -1,4 +1,5 @@
 import base64
+import gzip
 import logging
 import os
 import time
@@ -63,7 +64,7 @@ def get_dataset():
         return "Request missing required url param 'name'", 400
 
     try:
-        dataset = cache.getDataset(os.environ.get("GCS_BUCKET"), dataset_name)
+        resp = cache.getDataset(os.environ.get("GCS_BUCKET"), dataset_name)
     except Exception as err:
         logging.error(err)
         return "Internal server error: {}".format(err), 500
@@ -75,16 +76,16 @@ def get_dataset():
     # TODO: If we want to make sure this stays in sync with the DatasetCache
     # TTL, move this to a constant that's shared between them.
     headers.add("Cache-Control", "public, max-age=7200")
+    headers.add("Content-Encoding", "gzip")
 
     if dataset_name.endswith(".csv"):
-        return Response(dataset, mimetype="text/csv", headers=headers)
+        return Response(resp, mimetype="text/csv", headers=headers)
     encode_start_time = time.time()
-    encoded = base64.encodestring(dataset)
     e_time = time.time()
     print(f"Time to Encode Request: {(e_time - encode_start_time) * 1000}ms")
     print(f"Time to Request Complete: {(e_time - req_start) * 1000}ms")
 
-    return Response(encoded, mimetype="application/text", headers=headers)
+    return Response(resp, mimetype="application/text", headers=headers)
 
 
 if __name__ == "__main__":

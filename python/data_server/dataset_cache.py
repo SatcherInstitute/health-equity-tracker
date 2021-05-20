@@ -1,3 +1,5 @@
+import gzip
+import json
 import threading
 import time
 
@@ -59,6 +61,7 @@ class DatasetCache:
         for d in resp:
             resp_data += d
 
+        resp_data = gzip.compress(resp_data, 5)
         print(f"Time to generate resp {(time.time() - gen_dset_start_time) * 1000}ms")
         # If this has been updated since we last checked, it's still okay to
         # overwrite since it will only affect freshness.
