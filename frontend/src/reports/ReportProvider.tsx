@@ -155,14 +155,14 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             case level data reported by states, territories, and other
             jurisdictions to the CDC
           </a>
-          . The following states appear grey on the maps reporting COVID-19 cases
-          , hospitalizations and deaths because they have not provided disaggregated 
-          data to the CDC: 
+          . The following states appear grey on the maps reporting COVID-19
+          cases , hospitalizations and deaths because they have not provided
+          sufficient disaggregated data to the CDC:{" "}
           <b>
             Louisiana, Mississippi, Missouri, New Hampshire, North Dakota,{" "}
             Texas, and Wyoming
           </b>
-          . The following states' data for COVID-19 are included, but their data 
+          . The following states' data for COVID-19 are included, but their data
           should be interpreted with caution since the cases reported may not be
           representative of the population at large: 
           <b>
@@ -172,10 +172,10 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         </p>
         <h3>Missing Outcomes</h3>
         <p>
-          Many COVID-19 case records are incomplete, with an
-          unknown hospitalization and/or death status. This means that some
-          states that report disaggregated COVID-19 case data still do not
-          provide a complete picture of its overall impact. Due to the nature of
+          Many COVID-19 case records are incomplete, with an unknown
+          hospitalization and/or death status. This means that some states that
+          report disaggregated COVID-19 case data still do not provide a
+          complete picture of its overall impact. Due to the nature of
           surveillance data, we expect this picture to become more complete over
           time and will use the Health Equity Tracker to record the progress.
           Until then, the following states appear grey when viewing COVID-19
