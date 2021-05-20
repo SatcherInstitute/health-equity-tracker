@@ -5,15 +5,12 @@ import os
 import time
 
 from flask import Flask, Response, request
-from flask_compress import Compress
 from flask_cors import CORS
 from werkzeug.datastructures import Headers
 
 from data_server.dataset_cache import DatasetCache
 
 app = Flask(__name__)
-compress = Compress()
-compress.init_app(app)
 
 CORS(app)
 cache = DatasetCache()
@@ -55,7 +52,6 @@ def get_metadata():
 
 
 @app.route("/dataset", methods=["GET"])
-@compress.compressed()
 def get_dataset():
     req_start = time.time()
     """Downloads and returns the requested dataset if it exists."""
