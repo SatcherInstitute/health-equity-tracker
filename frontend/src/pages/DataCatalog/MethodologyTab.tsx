@@ -216,20 +216,23 @@ function MethodologyTab() {
                     : Within a locale, the percentage of COVID-19 cases that
                     reported unknown race/ethnicity. For example, a value of 20%
                     for Georgia means that 20% of Georgia's reported cases had
-                    unknown race/ethnicity. This metric is rounded to two
-                    decimal places in the tracker.
+                    unknown race/ethnicity. This metric is rounded to one
+                    decimal place. In instances where this would round to 0%,
+                    two decimal places are used.
                   </li>
                   <li>
                     <b>Share of total COVID-19 cases</b>: The percentage of all
                     COVID-19 cases that reported a particular race/ethnicity,
                     excluding cases with unknown race/ethnicity. This metric is
-                    rounded to two decimal places in the tracker.
+                    rounded to one decimal place. In instances where this would
+                    round to 0%, two decimal places are used.
                   </li>
                   <li>
                     <b>Population share</b>: The percentage of the total
                     population that identified as a particular race/ethnicity in
-                    the ACS survey. This metric is rounded to two decimal places
-                    in the tracker.
+                    the ACS survey. This metric is rounded to one decimal place.
+                    In instances where this would round to 0%, two decimal
+                    places are used.
                   </li>
                 </ul>
               </div>
