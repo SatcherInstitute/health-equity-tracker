@@ -69,6 +69,9 @@ export type VariableConfig = {
   surveyCollectedData?: boolean;
 };
 
+const populationPctTitle = "Population Share";
+const populationPctShortLabel = "% of population";
+
 export const POPULATION_VARIABLE_CONFIG: VariableConfig = {
   variableId: "population",
   variableDisplayName: "Population",
@@ -82,21 +85,36 @@ export const POPULATION_VARIABLE_CONFIG: VariableConfig = {
     },
     pct_share: {
       metricId: "population_pct",
-      fullCardTitleName: "Population Share",
-      shortVegaLabel: "% of total population",
+      fullCardTitleName: populationPctTitle,
+      shortVegaLabel: populationPctShortLabel,
       type: "pct_share",
     },
   },
 };
 
-// Prints a formatted version of a field value based on the type specified by the field name
-export function formatFieldValue(metricType: MetricType, value: any): string {
+/**
+ * @param metricType The type of the metric to format.
+ * @param value The value to format.
+ * @param omitPctSymbol Whether to omit the % symbol if the metric is a %. This
+ *     can be used for example if the % symbol is part of the description.
+ * @returns A formatted version of a field value based on the type specified by
+ *     the field name
+ */
+export function formatFieldValue(
+  metricType: MetricType,
+  value: any,
+  omitPctSymbol: boolean = false
+): string {
   if (value === null || value === undefined) {
     return "";
   }
+  const isPctShare = metricType === "pct_share";
+  const formatOptions = isPctShare ? { minimumFractionDigits: 1 } : {};
   const formattedValue =
-    typeof value === "number" ? value.toLocaleString("en") : value;
-  const suffix = metricType === "pct_share" ? "%" : "";
+    typeof value === "number"
+      ? value.toLocaleString("en", formatOptions)
+      : value;
+  const suffix = isPctShare && !omitPctSymbol ? "%" : "";
   return `${formattedValue}${suffix}`;
 }
 
@@ -131,12 +149,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "cases",
       variableDisplayName: "Cases",
-      variableFullDisplayName: "COVID-19 Cases",
+      variableFullDisplayName: "Total COVID-19 Cases",
       metrics: {
         count: {
           metricId: "covid_cases",
-          fullCardTitleName: "COVID-19 cases",
-          shortVegaLabel: "COVID-19 cases",
+          fullCardTitleName: "Total COVID-19 Cases",
+          shortVegaLabel: "total COVID-19 cases",
           type: "count",
           populationComparisonMetric: {
             metricId: "covid_cases_reporting_population",
@@ -147,27 +165,26 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         pct_share: {
           metricId: "covid_cases_share",
-          fullCardTitleName: "Share of total COVID-19 cases",
+          fullCardTitleName: "Share Of Total COVID-19 Cases",
           shortVegaLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "covid_cases_reporting_population_pct",
-            fullCardTitleName: "Population Share",
-            shortVegaLabel: "% of population",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
             type: "pct_share",
           },
           knownBreakdownComparisonMetric: {
             metricId: "covid_cases_share_of_known",
-            fullCardTitleName:
-              "Share of COVID-19 cases with known demographics",
+            fullCardTitleName: "Share Of Total COVID-19 Cases",
             shortVegaLabel: "% of cases",
             type: "pct_share",
           },
         },
         per100k: {
           metricId: "covid_cases_per_100k",
-          fullCardTitleName: "COVID-19 cases per 100k people",
-          shortVegaLabel: "Cases per 100k",
+          fullCardTitleName: "Total COVID-19 Cases Per 100K People",
+          shortVegaLabel: "cases per 100K",
           type: "per100k",
         },
       },
@@ -175,12 +192,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "deaths",
       variableDisplayName: "Deaths",
-      variableFullDisplayName: "COVID-19 Deaths",
+      variableFullDisplayName: "Total COVID-19 Deaths",
       metrics: {
         count: {
           metricId: "covid_deaths",
-          fullCardTitleName: "COVID-19 deaths",
-          shortVegaLabel: "Deaths",
+          fullCardTitleName: "Total COVID-19 Deaths",
+          shortVegaLabel: "total COVID-19 Deaths",
           type: "count",
           populationComparisonMetric: {
             metricId: "covid_deaths_reporting_population",
@@ -191,27 +208,26 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         pct_share: {
           metricId: "covid_deaths_share",
-          fullCardTitleName: "Share of total COVID-19 deaths",
+          fullCardTitleName: "Share Of Total COVID-19 Deaths",
           shortVegaLabel: "% of deaths",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "covid_deaths_reporting_population_pct",
-            fullCardTitleName: "Population Share",
-            shortVegaLabel: "% of population",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
             type: "pct_share",
           },
           knownBreakdownComparisonMetric: {
             metricId: "covid_deaths_share_of_known",
-            fullCardTitleName:
-              "Share of COVID-19 deaths with known demographics",
+            fullCardTitleName: "Share Of Total COVID-19 Deaths",
             shortVegaLabel: "% of deaths",
             type: "pct_share",
           },
         },
         per100k: {
           metricId: "covid_deaths_per_100k",
-          fullCardTitleName: "COVID-19 deaths per 100k people",
-          shortVegaLabel: "Deaths per 100k",
+          fullCardTitleName: "Total COVID-19 Deaths Per 100K People",
+          shortVegaLabel: "deaths per 100K",
           type: "per100k",
         },
       },
@@ -219,12 +235,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "hospitalizations",
       variableDisplayName: "Hospitalizations",
-      variableFullDisplayName: "COVID-19 Hospitalizations",
+      variableFullDisplayName: "Total COVID-19 Hospitalizations",
       metrics: {
         count: {
           metricId: "covid_hosp",
-          fullCardTitleName: "COVID-19 hospitalizations",
-          shortVegaLabel: "Hospitalizations",
+          fullCardTitleName: "Total COVID-19 Hospitalizations",
+          shortVegaLabel: "total COVID-19 hospitalizations",
           type: "count",
           populationComparisonMetric: {
             metricId: "covid_hosp_reporting_population",
@@ -235,27 +251,26 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         pct_share: {
           metricId: "covid_hosp_share",
-          fullCardTitleName: "Share of total COVID-19 hospitalizations",
+          fullCardTitleName: "Share Of Total COVID-19 Hospitalizations",
           shortVegaLabel: "% of hospitalizations",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "covid_hosp_reporting_population_pct",
-            fullCardTitleName: "Population Share",
-            shortVegaLabel: "% of population",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
             type: "pct_share",
           },
           knownBreakdownComparisonMetric: {
             metricId: "covid_hosp_share_of_known",
-            fullCardTitleName:
-              "Share of COVID-19 hospitalizations with known demographics",
+            fullCardTitleName: "Share Of Total COVID-19 Hospitalizations",
             shortVegaLabel: "% of hospitalizations",
             type: "pct_share",
           },
         },
         per100k: {
           metricId: "covid_hosp_per_100k",
-          fullCardTitleName: "COVID-19 hospitalizations per 100k people",
-          shortVegaLabel: "Hospitalizations per 100k",
+          fullCardTitleName: "Total COVID-19 Hospitalizations Per 100K People",
+          shortVegaLabel: "hospitalizations per 100K",
           type: "per100k",
         },
       },
@@ -270,20 +285,20 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       metrics: {
         pct_share: {
           metricId: "diabetes_pct_share",
-          fullCardTitleName: "Share of total Diabetes cases",
+          fullCardTitleName: "Share Of Total Diabetes Cases",
           shortVegaLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "brfss_population_pct",
-            fullCardTitleName: "Population Share",
-            shortVegaLabel: "% of total population",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         per100k: {
           metricId: "diabetes_per_100k",
-          fullCardTitleName: "Diabetes cases per 100k people",
-          shortVegaLabel: "Diabetes cases per 100k",
+          fullCardTitleName: "Diabetes Cases Per 100K People",
+          shortVegaLabel: "diabetes cases per 100K",
           type: "per100k",
         },
       },
@@ -298,20 +313,20 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       metrics: {
         pct_share: {
           metricId: "copd_pct_share",
-          fullCardTitleName: "Share of total COPD cases",
+          fullCardTitleName: "Share Of Total COPD Cases",
           shortVegaLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "brfss_population_pct",
-            fullCardTitleName: "Population Share",
-            shortVegaLabel: "% of total population",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
         per100k: {
           metricId: "copd_per_100k",
-          fullCardTitleName: "COPD cases per 100k people",
-          shortVegaLabel: "COPD cases per 100k",
+          fullCardTitleName: "COPD Cases Per 100K People",
+          shortVegaLabel: "COPD cases per 100K",
           type: "per100k",
         },
       },
@@ -320,24 +335,24 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
   health_insurance: [
     {
       variableId: "health_coverage",
-      variableDisplayName: "Uninsured individuals",
-      variableFullDisplayName: "Uninsured individuals",
+      variableDisplayName: "Uninsured Individuals",
+      variableFullDisplayName: "Uninsured Individuals",
       metrics: {
         per100k: {
           metricId: "health_insurance_per_100k",
-          fullCardTitleName: "Uninsured individuals per 100k people",
-          shortVegaLabel: "Uninsured individuals per 100k",
+          fullCardTitleName: "Uninsured Individuals Per 100K People",
+          shortVegaLabel: "uninsured individuals per 100K",
           type: "per100k",
         },
         pct_share: {
           metricId: "health_insurance_pct_share",
-          fullCardTitleName: "Share of Uninsured individuals",
+          fullCardTitleName: "Share Of Uninsured Individuals",
           shortVegaLabel: "% of uninsured",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "health_insurance_population_pct",
-            fullCardTitleName: "Population Share",
-            shortVegaLabel: "% of total population",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
@@ -348,24 +363,24 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "poverty",
       variableDisplayName: "Poverty",
-      variableFullDisplayName: "Individuals below the poverty line",
+      variableFullDisplayName: "Individuals Below The Poverty Line",
       metrics: {
         per100k: {
           metricId: "poverty_per_100k",
           fullCardTitleName:
-            "Individuals below the poverty line per 100k people",
-          shortVegaLabel: "Individuals below the poverty line per 100k",
+            "Individuals Below The Poverty Line Per 100K People",
+          shortVegaLabel: "individuals below the poverty line per 100K",
           type: "per100k",
         },
         pct_share: {
           metricId: "poverty_pct_share",
-          fullCardTitleName: "Share of Poverty",
+          fullCardTitleName: "Share Of Poverty",
           shortVegaLabel: "% of impoverished",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "poverty_population_pct",
-            fullCardTitleName: "Population Share",
-            shortVegaLabel: "% of total population",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },

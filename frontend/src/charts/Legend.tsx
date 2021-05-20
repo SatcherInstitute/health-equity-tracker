@@ -84,6 +84,7 @@ export function Legend(props: LegendProps) {
               labelOverlap: "greedy",
               symbolType: "circle",
               size: DOT_SIZE_SCALE,
+              format: "d",
             },
           ],
         },

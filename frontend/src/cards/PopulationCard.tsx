@@ -15,6 +15,7 @@ import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import {
+  formatFieldValue,
   MetricId,
   POPULATION_VARIABLE_CONFIG,
 } from "../data/config/MetricConfig";
@@ -154,11 +155,18 @@ export function PopulationCard(props: PopulationCardProps) {
                           return b.race_and_ethnicity - a.race_and_ethnicity;
                         })
                         .map((row) => (
-                          <Grid item className={styles.PopulationMetric}>
+                          <Grid
+                            item
+                            key={row.race_and_ethnicity}
+                            className={styles.PopulationMetric}
+                          >
                             <span>{row.race_and_ethnicity}</span>
                             <br />
                             <span className={styles.PopulationMetricValue}>
-                              {row.population_pct}%
+                              {formatFieldValue(
+                                "pct_share",
+                                row.population_pct
+                              )}
                             </span>
                           </Grid>
                         ))}

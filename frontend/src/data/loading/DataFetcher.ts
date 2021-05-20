@@ -70,12 +70,14 @@ export class ApiDataFetcher implements DataFetcher {
   private async fetchDataset(datasetName: string, format: FileFormat = "json") {
     const requestPath = this.getDatasetRequestPath(datasetName, format);
     const resp = await fetch(requestPath);
+    if (resp.status !== 200) {
+      throw new Error("Failed to fetch dataset. Status: " + resp.status);
+    }
     return await resp.json();
   }
 
   // TODO build in retries, timeout before showing error to user.
   async loadDataset(datasetId: string): Promise<Row[]> {
-    // TODO handle server returning a dataset not found error.
     let result = await this.fetchDataset(datasetId);
 
     // Don't apply any of the below processing to the geography dataset.

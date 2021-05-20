@@ -5,6 +5,7 @@ import {
   DatasetMetadata,
 } from "../../../data/utils/DatasetTypes";
 import { getLogger } from "../../../utils/globals";
+import { ReactRouterLinkButton } from "../../../utils/urlutils";
 import styles from "./DataSourceListing.module.scss";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -141,16 +142,15 @@ export function DataSourceListing(props: DataSourceListingProps) {
               Download
             </Button>
           )}
-          {!props.source_metadata.downloadable &&
-            props.source_metadata.download_link && (
-              <Link
-                href={props.source_metadata.download_link}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button color="primary">Download</Button>
-              </Link>
-            )}
+          {/* CDC restricted data is not downloadable. */}
+          {props.source_metadata.id === "cdc_restricted" && (
+            <ReactRouterLinkButton
+              url="https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t"
+              className={styles.DownloadListItem}
+            >
+              Apply For Access
+            </ReactRouterLinkButton>
+          )}
         </div>
         <Dialog onClose={() => setDialogIsOpen(false)} open={dialogIsOpen}>
           <DialogTitle className={styles.DialogTitle}>

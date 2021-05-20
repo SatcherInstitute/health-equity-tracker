@@ -35,7 +35,7 @@ const LEADERSHIP_TEAM = [
     imageUrl: "img/BeltonAllyson.png",
   },
   {
-    name: "Mahia Valle, BSBA",
+    name: "Mahia Valle, MBA",
     role: "Communications",
     imageUrl: "img/ValleMahia.png",
   },
@@ -45,7 +45,7 @@ const LEADERSHIP_TEAM = [
     imageUrl: "img/DouglasMegan.png",
   },
   {
-    name: "JC Gonzalez",
+    name: "JC Gonzalez, MBA, PMP",
     role: "Product Manager",
     imageUrl: "img/GonzalezJC.png",
   },
