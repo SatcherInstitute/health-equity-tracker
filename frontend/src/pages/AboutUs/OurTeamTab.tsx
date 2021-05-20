@@ -231,7 +231,7 @@ const PARTNERS = [
     url: "https://aarp.org",
   },
   {
-    imageUrl: "img/PartnerAnnieECasey.png",
+    imageUrl: "img/PartnerAECF.png",
     alt: "Annie E. Casey Foundation",
     url: "https://www.aecf.org/",
   },
