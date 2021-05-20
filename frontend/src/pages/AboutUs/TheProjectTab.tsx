@@ -133,11 +133,10 @@ function TheProjectTab() {
                 </p>
                 <p>
                   The Health Equity Tracker aims to give a detailed view of
-                  health outcomes by race, ethnicity, gender, socioeconomic
-                  status, and other critical factors. Our hope is that it will
-                  help policymakers understand what resources and support
-                  affected communities need to be able to improve their
-                  outcomes.
+                  health outcomes by race, ethnicity, sex, socioeconomic status,
+                  and other critical factors. Our hope is that it will help
+                  policymakers understand what resources and support affected
+                  communities need to be able to improve their outcomes.
                 </p>
               </Typography>
             </Grid>

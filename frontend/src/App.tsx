@@ -107,8 +107,9 @@ function AppToolbar() {
           EXPLORE_DATA_PAGE_LINK,
           DATA_CATALOG_PAGE_LINK,
           ABOUT_US_PAGE_LINK,
-        ].map((pageUrl, i) => (
+        ].map((pageUrl) => (
           <ReactRouterLinkButton
+            key={pageUrl}
             url={pageUrl}
             className={styles.NavLink}
             displayName={PAGE_URL_TO_NAMES[pageUrl]}

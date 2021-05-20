@@ -104,18 +104,22 @@ function OptionsSelector(props: {
         )}
         {!isFips && (
           <List>
-            {(props.options as string[][]).map((item: string[]) => (
-              <ListItem
-                button
-                selected={item[0] === props.value}
-                onClick={() => {
-                  popover.close();
-                  props.onOptionUpdate(item[0]);
-                }}
-              >
-                <ListItemText primary={item[1]} />
-              </ListItem>
-            ))}
+            {(props.options as string[][]).map((item: string[]) => {
+              const [optionId, optionDisplayName] = item;
+              return (
+                <ListItem
+                  key={optionId}
+                  button
+                  selected={optionId === props.value}
+                  onClick={() => {
+                    popover.close();
+                    props.onOptionUpdate(optionId);
+                  }}
+                >
+                  <ListItemText primary={optionDisplayName} />
+                </ListItem>
+              );
+            })}
           </List>
         )}
       </Popover>

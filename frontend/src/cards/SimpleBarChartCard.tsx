@@ -46,8 +46,8 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   function CardTitle() {
     return (
       <>
-        {metricConfig.fullCardTitleName} by{" "}
-        <b>{BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]}</b> in{" "}
+        {metricConfig.fullCardTitleName} By{" "}
+        <b>{BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]}</b> In{" "}
         {props.fips.getFullDisplayName()}
       </>
     );

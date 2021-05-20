@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./HighestLowestList.module.scss";
 import AnimateHeight from "react-animate-height";
 import { Grid } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import { IconButton } from "@material-ui/core";
@@ -59,7 +60,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
         }
       >
         See the {props.fipsTypePluralDisplayName} with the <b>highest</b> and{" "}
-        <b>lowest</b> rates of {props.variableConfig.variableFullDisplayName}
+        <b>lowest</b> rates
       </div>
       <div className={styles.ListBoxLists}>
         <Grid container justify="space-around">
@@ -68,7 +69,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
             <ul>
               {props.highestRatesList.map((row) => {
                 return (
-                  <li>
+                  <li key={row["fips_name"]}>
                     {row["fips_name"]} -{" "}
                     {formatFieldValue(
                       props.metricConfig.type,
@@ -84,7 +85,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
             <ul>
               {props.lowestRatesList.map((row) => {
                 return (
-                  <li>
+                  <li key={row["fips_name"]}>
                     {row["fips_name"]} -{" "}
                     {formatFieldValue(
                       props.metricConfig.type,
@@ -98,6 +99,18 @@ export function HighestLowestList(props: HighestLowestListProps) {
         </Grid>
       </div>
       <p>All rates are reported as: {props.metricConfig.fullCardTitleName}</p>
+      <p>
+        Consider the possible impact of
+        <Button
+          onClick={() =>
+            document.getElementById("missingDataInfo")?.scrollIntoView()
+          }
+          className={styles.LinkButton}
+        >
+          data reporting gaps
+        </Button>
+        when interpreting the highest and lowest rates.
+      </p>
     </AnimateHeight>
   );
 }

@@ -1,5 +1,10 @@
-import React, { useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+// TODO(kristak): Add cookies back
+// import { useCookies } from "react-cookie";
+import { STATUS } from "react-joyride";
 import Carousel from "react-material-ui-carousel";
 import { Fips } from "../../data/utils/Fips";
 import ReportProvider from "../../reports/ReportProvider";
@@ -13,18 +18,17 @@ import {
   getParameter,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
-  SHOW_ONBOARDING_PARAM,
   parseMls,
+  psSubscribe,
+  setParameter,
   setParameters,
+  SHOW_ONBOARDING_PARAM,
   stringifyMls,
   useSearchParams,
 } from "../../utils/urlutils";
 import styles from "./ExploreDataPage.module.scss";
-import OptionsSelector from "./OptionsSelector";
 import { Onboarding } from "./Onboarding";
-import { useCookies } from "react-cookie";
-import { STATUS } from "react-joyride";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import OptionsSelector from "./OptionsSelector";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -55,28 +59,37 @@ function ExploreDataPage() {
     activeSelections: defaultValuesWithOverrides,
   });
 
-  let readParam = () => {
-    let index = getParameter(MADLIB_PHRASE_PARAM, 0, (str) => {
-      return MADLIB_LIST.findIndex((ele) => ele.id === str);
-    });
-    let selection = getParameter(
-      MADLIB_SELECTIONS_PARAM,
-      MADLIB_LIST[index].defaultSelections,
-      parseMls
-    );
-
-    setMadLib({
-      ...MADLIB_LIST[index],
-      activeSelections: selection,
-    });
-  };
-
   useEffect(() => {
-    readParam();
-    window.onpopstate = () => {
-      readParam();
+    const readParams = () => {
+      let index = getParameter(MADLIB_PHRASE_PARAM, 0, (str) => {
+        return MADLIB_LIST.findIndex((ele) => ele.id === str);
+      });
+      let selection = getParameter(
+        MADLIB_SELECTIONS_PARAM,
+        MADLIB_LIST[index].defaultSelections,
+        parseMls
+      );
+
+      setMadLib({
+        ...MADLIB_LIST[index],
+        activeSelections: selection,
+      });
+    };
+    const psSub = psSubscribe(readParams, "explore");
+
+    readParams();
+
+    return () => {
+      if (psSub) {
+        psSub.unsubscribe();
+      }
     };
   }, []);
+
+  const setMadLibWithParam = (ml: MadLib) => {
+    setParameter(MADLIB_SELECTIONS_PARAM, stringifyMls(ml.activeSelections));
+    setMadLib(ml);
+  };
 
   // Set up warm welcome onboarding behaviors
   const [cookies, setCookie] = useCookies();
@@ -153,13 +166,6 @@ function ExploreDataPage() {
                 ...MADLIB_LIST[index],
                 activeSelections: {
                   ...MADLIB_LIST[index].defaultSelections,
-                  ...{
-                    1: getParameter(
-                      MADLIB_SELECTIONS_PARAM /*mls*/,
-                      MADLIB_LIST[index].defaultSelections,
-                      parseMls
-                    )[1],
-                  },
                 },
               };
               setMadLib(newState);
@@ -173,12 +179,16 @@ function ExploreDataPage() {
             }}
           >
             {MADLIB_LIST.map((madlib: MadLib, i) => (
-              <CarouselMadLib madLib={madLib} setMadLib={setMadLib} key={i} />
+              <CarouselMadLib
+                madLib={madLib}
+                setMadLib={setMadLibWithParam}
+                key={i}
+              />
             ))}
           </Carousel>
         </div>
         <div className={styles.ReportContainer}>
-          <ReportProvider madLib={madLib} setMadLib={setMadLib} />
+          <ReportProvider madLib={madLib} setMadLib={setMadLibWithParam} />
         </div>
       </div>
     </>
@@ -197,10 +207,10 @@ function CarouselMadLib(props: {
     return Object.keys(phraseSegment).length > 20
       ? Object.keys(phraseSegment)
           .sort((a: string, b: string) => {
-            if (a[0].length === b[0].length) {
-              return a[0].localeCompare(b[0]);
+            if (a.length === b.length) {
+              return a.localeCompare(b);
             }
-            return b[0].length > a[0].length ? -1 : 1;
+            return b.length > a.length ? -1 : 1;
           })
           .map((fipsCode) => new Fips(fipsCode))
       : Object.entries(phraseSegment).sort((a, b) => a[0].localeCompare(b[0]));

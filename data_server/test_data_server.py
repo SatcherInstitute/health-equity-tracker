@@ -130,8 +130,8 @@ def testGetDataset_DatasetNotFound(mock_func: mock.MagicMock,
     response = client.get('/dataset?name=not_found')
     mock_func.assert_called_once_with('test', 'not_found')
     assert response.headers.get('Access-Control-Allow-Origin') == '*'
-    assert response.status_code == 404
-    assert b'Dataset not_found not found' in response.data
+    assert response.status_code == 500
+    assert b'Internal server error: 404 File not found' in response.data
 
 
 def testGetDataset_UrlParamMissing(client: FlaskClient):

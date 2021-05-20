@@ -11,7 +11,6 @@ export interface DataSourceMetadata {
   readonly demographic_granularity: string;
   readonly update_frequency: string;
   readonly downloadable: boolean;
-  readonly download_link?: string;
 }
 
 // Datasets contain data with specified breakdowns
