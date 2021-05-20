@@ -5,6 +5,7 @@ import {
   DatasetMetadata,
 } from "../../../data/utils/DatasetTypes";
 import { getLogger } from "../../../utils/globals";
+import { ReactRouterLinkButton } from "../../../utils/urlutils";
 import styles from "./DataSourceListing.module.scss";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -166,12 +167,24 @@ export function DataSourceListing(props: DataSourceListingProps) {
             </div>
           </DialogTitle>
           <List>
-            {props.source_metadata.dataset_ids.map((datasetId) => (
-              <DownloadDatasetListItem
-                key={datasetId}
-                datasetId={datasetId}
-                datasetMetadata={props.dataset_metadata[datasetId]}
-              />
+            {props.source_metadata.dataset_ids.map((datasetId: string) => (
+              <div>
+                {datasetId === "cdc_restricted" && (
+                  <ReactRouterLinkButton
+                    url="https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t"
+                    className={styles.DownloadListItem}
+                  >
+                    Apply For Access
+                  </ReactRouterLinkButton>
+                )}
+                {datasetId !== "cdc_restricted" && (
+                  <DownloadDatasetListItem
+                    key={datasetId}
+                    datasetId={datasetId}
+                    datasetMetadata={props.dataset_metadata[datasetId]}
+                  />
+                )}
+              </div>
             ))}
           </List>
         </Dialog>
