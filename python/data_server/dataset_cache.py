@@ -1,11 +1,12 @@
 import threading
+import time
 
 import cachetools
 
 from data_server import gcs_utils
 
 
-class DatasetCache():
+class DatasetCache:
     """DatasetCache manages and stores datasets accessed through GCS.
     DatasetCache is a thin, thread-safe wrapper around cachetools.TTLCache."""
 
@@ -32,16 +33,38 @@ class DatasetCache():
 
         Returns: Bytes object containing the dataset if successful. Throws
         NotFoundError on failure."""
+
+        get_dataset_start_time = time.time()
         with self.cache_lock:
             item = self.cache.get(table_id)
             if item is not None:
+                print(
+                    f"Time to retrieve dataset from cache {(time.time() - get_dataset_start_time) * 1000}ms"
+                )
                 return item
 
         # Release the lock while performing IO.
         blob_str = gcs_utils.download_blob_as_bytes(gcs_bucket, table_id)
 
+        def generate_response(data: bytes):
+            next_row = b"["
+            for row in blob_str.splitlines():
+                yield next_row
+                next_row = row + b","
+            yield next_row.rstrip(b",") + b"]"
+
+        resp_data = b""
+        gen_dset_start_time = time.time()
+        resp = generate_response(blob_str)
+        for d in resp:
+            resp_data += d
+
+        print(f"Time to generate resp {(time.time() - gen_dset_start_time) * 1000}ms")
         # If this has been updated since we last checked, it's still okay to
         # overwrite since it will only affect freshness.
         with self.cache_lock:
-            self.cache[table_id] = blob_str
-            return blob_str
+            self.cache[table_id] = resp_data
+            print(
+                f"Time to retrieve dataset from gcs {(time.time() - get_dataset_start_time) * 1000}ms"
+            )
+            return resp_data
