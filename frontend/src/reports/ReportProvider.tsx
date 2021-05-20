@@ -155,15 +155,15 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             case level data reported by states, territories, and other
             jurisdictions to the CDC
           </a>
-          . We cannot report accurate metrics for states that do not provide
-          disaggregated data to the CDC, so these states appear as grey on the
-          maps reporting COVID-19 cases, hospitalizations and deaths: 
+          . The following states appear grey on the maps reporting COVID-19 cases
+          , hospitalizations and deaths because they have not provided disaggregated 
+          data to the CDC: 
           <b>
             Louisiana, Mississippi, Missouri, New Hampshire, North Dakota,{" "}
             Texas, and Wyoming
           </b>
-          . The following states' data are included, but their data should be
-          interpreted with caution since the cases reported may not be
+          . The following states' data for COVID-19 are included, but their data 
+          should be interpreted with caution since the cases reported may not be
           representative of the population at large: 
           <b>
             Connecticut, Florida, Kentucky, Maryland, Michigan, Nebraska, New
@@ -172,13 +172,13 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         </p>
         <h3>Missing Outcomes</h3>
         <p>
-          Furthermore, many COVID-19 case records are incomplete, with an
+          Many COVID-19 case records are incomplete, with an
           unknown hospitalization and/or death status. This means that some
           states that report disaggregated COVID-19 case data still do not
           provide a complete picture of its overall impact. Due to the nature of
           surveillance data, we expect this picture to become more complete over
           time and will use the Health Equity Tracker to record the progress.
-          Until then, the following states appear as grey when viewing COVID-19
+          Until then, the following states appear grey when viewing COVID-19
           maps featuring hospitalizations and deaths:{" "}
           <b>Hawaii, Maryland, Nebraska, New Mexico, Rhode Island, </b>and{" "}
           <b>South Dakota</b>. <b>Delaware </b>and <b>West Virginia</b> are
