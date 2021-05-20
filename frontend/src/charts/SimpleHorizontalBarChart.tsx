@@ -184,7 +184,6 @@ export interface SimpleHorizontalBarChartProps {
   metric: MetricConfig;
   breakdownVar: BreakdownVar;
   showLegend: boolean;
-  hideActions?: boolean;
 }
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
@@ -221,7 +220,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           tooltipMetricDisplayColumnName,
           props.showLegend
         )}
-        actions={props.hideActions ? false : true}
+        actions={false}
       />
     </div>
   );

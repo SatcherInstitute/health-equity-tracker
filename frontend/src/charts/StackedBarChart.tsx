@@ -48,6 +48,7 @@ export function StackedBarChart(props: StackedBarChartProps) {
         "race_and_ethnicity",
         props.measure
       )}
+      actions={false}
     />
   );
 }

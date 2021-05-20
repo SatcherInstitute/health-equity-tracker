@@ -101,7 +101,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     showCounties={props.fips.isUsa() ? false : true}
                     fips={props.fips}
                     fieldRange={props.fieldRange}
-                    hideActions={false}
                     scaleType="quantile"
                     geoData={props.geoData}
                   />

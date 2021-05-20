@@ -38,7 +38,6 @@ export interface ChoroplethMapProps {
   hideLegend?: boolean;
   fieldRange?: FieldRange;
   showCounties: boolean;
-  hideActions?: boolean;
   scaleType: ScaleType;
   scaleColorScheme?: string;
   // Geography data, in topojson format. Must include both states and counties.
@@ -308,7 +307,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         <Vega
           spec={spec}
           width={width}
-          actions={!props.hideActions}
+          actions={false}
           signalListeners={props.signalListeners}
         />
       )}

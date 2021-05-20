@@ -312,6 +312,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           darkMetricDisplayColumnName,
           props.stacked
         )}
+        actions={false}
       />
     </div>
   );

@@ -65,6 +65,7 @@ export function GroupedBarChart(props: GroupedBarChartProps) {
         props.measure,
         props.bars
       )}
+      actions={false}
     />
   );
 }

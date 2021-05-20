@@ -173,7 +173,6 @@ export function PopulationCard(props: PopulationCardProps) {
                       metric={POPULATION_VARIABLE_CONFIG.metrics.pct_share}
                       breakdownVar="race_and_ethnicity"
                       showLegend={false}
-                      hideActions={true}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -194,7 +193,6 @@ export function PopulationCard(props: PopulationCardProps) {
                         metric={POPULATION_VARIABLE_CONFIG.metrics.pct_share}
                         breakdownVar="age"
                         showLegend={false}
-                        hideActions={true}
                       />
                     )}
                   </Grid>
