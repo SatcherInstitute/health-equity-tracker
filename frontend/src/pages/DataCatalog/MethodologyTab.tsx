@@ -73,13 +73,6 @@ function MethodologyTab() {
                     incomplete and potentially skewed.
                   </li>
                   <li>
-                    The underlying data is reported at the case-level, so we
-                    cannot determine whether a state/county lacking cases for a
-                    particular demographic group truly has zero cases for that
-                    group or whether that that locale fails to report
-                    demographics correctly.
-                  </li>
-                  <li>
                     To protect the privacy of affected individuals, COVID-19
                     data may be hidden in counties with low numbers of COVID-19
                     cases, hospitalizations and deaths.
@@ -88,8 +81,10 @@ function MethodologyTab() {
                     Decisions to suppress COVID-19 data for particular states in
                     the tracker are evaluated by comparing the aggregate case,
                     death, and hospitalization counts in the CDC surveillance
-                    dataset vs other sources, such as the New York Times. These
-                    analyses are available for{" "}
+                    dataset vs other sources, such as the New York Times. Data
+                    for a state are suppressed if the aggregate counts for that
+                    state are &lt; 5% of the source being used for comparison.
+                    These analyses are available for{" "}
                     <a href="https://satcherinstitute.github.io/analysis/cdc_case_data">
                       cases
                     </a>{" "}
@@ -98,6 +93,13 @@ function MethodologyTab() {
                       deaths
                     </a>
                     .
+                  </li>
+                  <li>
+                    The underlying data is reported at the case-level, so we
+                    cannot determine whether a state/county lacking cases for a
+                    particular demographic group truly has zero cases for that
+                    group or whether that that locale fails to report
+                    demographics correctly.
                   </li>
                 </ul>
 
@@ -113,32 +115,24 @@ function MethodologyTab() {
                   <a href="https://www.cdc.gov/brfss/index.html">
                     Behavioral Risk Factor Surveillance System (BRFSS)
                   </a>
-                  , a sampled survey run by the CDC.
+                  , a survey run by the CDC.
                 </p>
                 <ul>
                   <li>
-                    BRFSS is a sampled survey, so the use of statistical
-                    software is required to propertly integrate it. Please see
-                    the{" "}
+                    Because BRFSS is a survey, there are not always enough
+                    respondents to provide a statistically meaningful estimate
+                    of disease prevalence, especially for smaller and typically
+                    marginalized racial groups. Please see the{" "}
                     <a href="https://www.americashealthrankings.org/about/methodology/data-sources-and-measures">
                       methodology page
                     </a>{" "}
-                    of America's Health Rankings for further details.
+                    of America's Health Rankings for details on data
+                    suppression.
                   </li>
                   <li>
-                    Another consequence of BRFSS being a survey is that often,
-                    especially for smaller and typically marginalized racial
-                    groups, there are not enough respondents to provide a
-                    statistically meaningful estimate of disease prevalence. In
-                    the tracker, states are colored grey to indicate areas where
-                    sample sizes were too small to produce an estimate of
-                    diabetes and/or COPD prevalence for a given demographic
-                    group.
-                  </li>
-                  <li>
-                    BRFSS data is not usable/available at the county level, so
-                    the tracker does not display diabetes or COPD data at the
-                    county level either.
+                    BRFSS data broken down by race and ethnicity is not
+                    available at the county level, so the tracker does not
+                    display diabetes or COPD data at the county level either.
                   </li>
                 </ul>
 
@@ -211,27 +205,34 @@ function MethodologyTab() {
                     of occurrence of COVID-19 cases expressed per 100,000 people
                     (i.e. 10,000 per 100K implies a 10% occurrence rate). This
                     metric normalizes for population size, allowing for
-                    comparisons across demographic groups.
+                    comparisons across demographic groups. This metric is
+                    rounded to the nearest integer in the tracker.
                   </li>
                   <li>
                     <b>
-                      Share of Total COVID-19 cases with Unknown Race and
-                      Ethnicity
+                      Share of total COVID-19 cases with unknown race and
+                      ethnicity
                     </b>
                     : Within a locale, the percentage of COVID-19 cases that
                     reported unknown race/ethnicity. For example, a value of 20%
                     for Georgia means that 20% of Georgia's reported cases had
-                    unknown race/ethnicity.
+                    unknown race/ethnicity. This metric is rounded to one
+                    decimal place. In instances where this would round to 0%,
+                    two decimal places are used.
                   </li>
                   <li>
-                    <b>Share of Total COVID-19 cases</b>: The percentage of all
+                    <b>Share of total COVID-19 cases</b>: The percentage of all
                     COVID-19 cases that reported a particular race/ethnicity,
-                    excluding cases with unknown race/ethnicity.
+                    excluding cases with unknown race/ethnicity. This metric is
+                    rounded to one decimal place. In instances where this would
+                    round to 0%, two decimal places are used.
                   </li>
                   <li>
-                    <b>Population Share</b>: The percentage of the total
+                    <b>Population share</b>: The percentage of the total
                     population that identified as a particular race/ethnicity in
-                    the ACS survey.
+                    the ACS survey. This metric is rounded to one decimal place.
+                    In instances where this would round to 0%, two decimal
+                    places are used.
                   </li>
                 </ul>
               </div>
