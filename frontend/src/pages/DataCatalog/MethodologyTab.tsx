@@ -73,6 +73,11 @@ function MethodologyTab() {
                     incomplete and potentially skewed.
                   </li>
                   <li>
+                    When calculating national level statistics for COVID-19, the
+                    per 100k ratios are based off the total population of states
+                    that show data for the chosen demographic breakdown.
+                  </li>
+                  <li>
                     To protect the privacy of affected individuals, COVID-19
                     data may be hidden in counties with low numbers of COVID-19
                     cases, hospitalizations and deaths.
