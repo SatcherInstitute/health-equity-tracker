@@ -42,9 +42,11 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     update_frequency: "Biweekly",
     description:
       "The numbers of confirmed COVID-19 deaths, cases, and hospitalizations at the state and county levels. " +
-      "The CDC does not take responsibility for the scientific validity or accuracy of methodology, " +
-      "results, statistical analyses, or conclusions presented. This dataset is not available for download, " +
-      "please press the button below to apply for access.",
+      "The data source is Centers for Disease Control and Prevention, COVID-19 Response. COVID-19 Case " +
+      "Surveillance Data Access, Summary, and Limitations (4/30/2021). The last case data included is 2 " +
+      "weeks before 4/30/2021. The CDC does not take responsibility for the scientific validity " +
+      "or accuracy of methodology, results, statistical analyses, or conclusions presented. This " +
+      "dataset is not available for download, please press the button below to apply for access.",
     dataset_ids: [
       "cdc_restricted_data-by_race_county",
       "cdc_restricted_data-by_race_state",
