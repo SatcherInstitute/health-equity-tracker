@@ -225,7 +225,7 @@ function getSpec(
         scale: "x",
         orient: "bottom",
         grid: false,
-        title: `${lightMeasureDisplayName} VS. ${darkMeasureDisplayName} `,
+        title: `${lightMeasureDisplayName} vs. ${darkMeasureDisplayName} `,
         labelFlush: true,
         labelOverlap: true,
         tickCount: { signal: `ceil(width/${BAR_HEIGHT})` },
