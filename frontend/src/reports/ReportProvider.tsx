@@ -159,15 +159,15 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           cases , hospitalizations and deaths because they have not provided
           sufficient disaggregated data to the CDC:{" "}
           <b>
-            Louisiana, Mississippi, Missouri, New Hampshire, North Dakota,{" "}
-            Texas, and Wyoming
+            Louisiana, Mississippi, Missouri, New Hampshire, North Dakota,{" "}
+            Texas, and Wyoming
           </b>
           . The following states' data for COVID-19 are included, but their data
           should be interpreted with caution since the cases reported may not be
-          representative of the population at large: 
+          representative of the population at large:{" "}
           <b>
-            Connecticut, Florida, Kentucky, Maryland, Michigan, Nebraska, New
-            Mexico, Ohio, Rhode Island, West Virginia.
+            Connecticut, Florida, Kentucky, Maryland, Michigan, Nebraska, New
+            Mexico, Ohio, Rhode Island, West Virginia.
           </b>
         </p>
         <h3>Missing Outcomes</h3>
