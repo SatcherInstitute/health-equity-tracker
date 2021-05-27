@@ -1,5 +1,3 @@
-import base64
-import gzip
 import logging
 import os
 import time
