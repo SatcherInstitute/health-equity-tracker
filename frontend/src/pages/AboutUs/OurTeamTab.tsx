@@ -152,56 +152,61 @@ const GOOGLE_FELLOWS = [
 ];
 
 const HE_TASKFORCE = [
-  "Ngozi Afulezi",
-  "Dr. Philip Alberti",
-  "Dr. Zinzi Bailey",
-  "Mr. Luis Belen",
-  "Dr. Coleen Boyle",
-  "Roberta Carlin",
-  "Rita Carreón",
-  "Brian Castrucci",
-  "Richard Calvin Chang",
-  "Kathy Ko Chin, M.S.",
-  "Congresswoman Donna M. Christensen, MD",
-  "Dr. Helene Clayton-Jeter",
-  "Alyssa Cobb",
-  "Robin W. Coleman",
-  "Andrea Collier",
-  "Scott Bryant Comstock, M.S.",
-  "Mary Ann Cooney",
-  "Francys Crevier, JD",
-  "Joia Crear-Perry, MD",
-  "Fernando DeMaio",
-  "Abigail Echo-Hawk",
-  "Lori Tremmel Freeman",
-  "Eduardo J. Gomez, Ph.D, M.A.",
-  "Tawara D. Goode, MA",
-  "J. Nadine Gracia",
-  "Corinne Graffunder",
-  "Dawn Hunter",
-  "Dr. Marjorie Innocent",
-  "David Introcaso, PhD",
-  "Jenné Johns, MPH",
-  "Leandris Liburd",
-  "Dr. Pierluigi Mancini",
+  "Abigail Echo-Hawk, MA",
   "Aletha Maybank, MD, MPH",
-  "Dr. Judith Monroe",
-  "Mr. Todd Moore",
-  "Elena Ong, PHN, MS",
-  "Mr. Duanne Pearson",
-  "Dr. Magda Peck",
-  "Marcos Pesquera, R.Ph., MPH",
-  "Elena Rios, MD, MSPH, FACP",
-  "Geoffrey M. Roche, MPA",
-  "Dr. Raynald Samoa",
-  "Janisse Rosario Schoepp, M.P.H., Ph.D.",
+  "Alyssa Cobb",
+  "Andrea Collier",
+  "B. Todd Moore, M.D.",
+  "Brian C. Castrucci, DrPH, MA",
   "Brian Smedley, PhD",
-  "Lauren Smith",
-  "Dr. Erica Taylor",
-  "Dr. Michael Toedt",
+  "Coleen A. Boyle, PhD, MS hyg",
+  "Corinne M. Graffunder, DrPH",
+  "Darrell LaRoche",
+  "David Introcaso, PhD",
+  "Dawn M. Hunter, JD, MPH",
+  "Douglas M. Brooks",
+  "Dr. Joseph Sakran, MD, MPA, MPH",
+  "Dr. Raynald Samoa, MD",
+  "Duanne Pearson",
+  "Eduardo J. Gomez, PhD, MA",
+  "Elena Ong, PHN, MS",
+  "Elena Rios, MD, MSPH, FACP",
+  "Erica Taylor, PhD, MPH, MA",
+  "Fernando De Maio, PhD",
+  "Francys Crevier, JD",
+  "Geoffrey M. Roche, MPA",
+  "Helene Clayton-Jeter, OD",
+  "J. Nadine Gracia, MD, MSCE",
+  "Janisse Rosario Schoepp, M.P.H., Ph.D.",
+  "Jenné Johns, MPH",
+  "Joia Crear-Perry, MD, FACOG",
+  "Judy Monroe, MD",
+  "Kathy Ko Chin, M.S.",
+  "Kimberlydawn Wisdom, MD, MS",
+  "Lauren Smith, MD, MPH",
+  "Leandris Liburd, PhD, MPH",
+  "Lori Tremmel Freeman, MBA",
+  "Luis Belén",
+  "Magda G Peck ScD",
+  "Marcos Pesquera, R.Ph., MPH",
+  "Marjorie A. Innocent, PhD",
+  "Mary Ann Cooney, MPH, MSN",
+  "Melicia Witt-Glover",
+  "Ngozi Afulezi, MHA",
+  "Philip Alberti PhD",
+  "Pierluigi Mancini, PhD",
+  "RADM Michael Toedt, M.D., F.A.A.F.P.",
+  "Richard Calvin Chang, JD",
+  "Rita Carreón",
+  "Roberta Carlin, MS, JD",
+  "Robin W. Coleman",
+  "Ruqaiijah A. Yearby, JD, MPH",
+  "Scott Bryant Comstock, M.S.",
+  "Shavon Arline-Bradley",
   "T'Pring Westbrook, PhD",
-  "Dr. Kimberlydawn Wisdom",
-  "Ruqaiijah A. Yearby, J.D., M.P.H.",
+  "Tawara D. Goode, MA",
+  "The Honorable Donna M. Christensen, MD",
+  "Zinzi Bailey, Scd, MSPH",
 ];
 
 const PARTNERS = [
@@ -344,13 +349,13 @@ function OurTeamTab() {
 
           <Grid item xs={12}>
             {PARTNERS.map((partner) => (
-                <a href={partner.url}>
-                  <img
-                      src={partner.imageUrl}
-                      alt={partner.alt}
-                      className={styles.PartnerImg}
-                  />
-                </a>
+              <a href={partner.url}>
+                <img
+                  src={partner.imageUrl}
+                  alt={partner.alt}
+                  className={styles.PartnerImg}
+                />
+              </a>
             ))}
           </Grid>
         </Grid>
