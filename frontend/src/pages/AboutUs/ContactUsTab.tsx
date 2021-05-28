@@ -77,6 +77,8 @@ function ContactUsTab() {
             <p>
               <b>Mailing Address:</b>
               <br />
+              Morehouse School of Medicine
+              <br />
               Satcher Health Leadership Institute
               <br />
               720 Westview Drive, SW
