@@ -20,16 +20,6 @@ const LEADERSHIP_TEAM = [
     imageUrl: "img/RespressEbony.png",
   },
   {
-    name: "Maisha Standifer, PhD, MPH",
-    role: "Health Policy Analyst",
-    imageUrl: "img/maisha-standifer.jpg",
-  },
-  {
-    name: "Jammie Hopkins, DrPH, MS",
-    role: "Coalition/Engagement",
-    imageUrl: "img/jammie-hopkins.jpg",
-  },
-  {
     name: "Allyson Belton, MPH",
     role: "Coalition/Engagement",
     imageUrl: "img/BeltonAllyson.png",
@@ -40,9 +30,9 @@ const LEADERSHIP_TEAM = [
     imageUrl: "img/ValleMahia.png",
   },
   {
-    name: "Megan Douglas, JD",
-    role: "Health Policy Analyst",
-    imageUrl: "img/DouglasMegan.png",
+    name: "Shaneeta M. Johnson MD, MBA, FACS, FASMBS, ABOM",
+    role: "Senior Advisor",
+    imageUrl: "img/dr-johnson.png",
   },
   {
     name: "JC Gonzalez, MBA, PMP",
@@ -51,8 +41,23 @@ const LEADERSHIP_TEAM = [
   },
   {
     name: "Josh Zarrabi",
-    role: "Software Engineer",
+    role: "Sr. Software Engineer",
     imageUrl: "img/ZarrabiJosh.png",
+  },
+  {
+    name: "Maisha Standifer, PhD, MPH",
+    role: "Health Policy Analyst",
+    imageUrl: "img/maisha-standifer.jpg",
+  },
+  {
+    name: "Jammie Hopkins, DrPH, MS",
+    role: "Coalition/Engagement",
+    imageUrl: "img/jammie-hopkins.jpg",
+  },
+  {
+    name: "Megan Douglas, JD",
+    role: "Health Policy Analyst",
+    imageUrl: "img/DouglasMegan.png",
   },
 ];
 
