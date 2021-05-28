@@ -40,6 +40,11 @@ const LEADERSHIP_TEAM = [
     imageUrl: "img/ValleMahia.png",
   },
   {
+    name: "Shaneeta M. Johnson MD MBA FACS FASMBS ABOM",
+    role: "Senior Advisor",
+    imageUrl: "img/dr-johnson.png",
+  },
+  {
     name: "Megan Douglas, JD",
     role: "Health Policy Analyst",
     imageUrl: "img/DouglasMegan.png",
