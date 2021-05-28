@@ -226,7 +226,7 @@ function LandingPage() {
                 variant="body1"
               >
                 <p>
-                  We’re living through a historical moment. COVID-19 has taken a
+                  We’re living through a historic moment. COVID-19 has taken a
                   toll on everyone. But the pandemic is hitting the most
                   marginalized, vulnerable communities the hardest.
                 </p>
