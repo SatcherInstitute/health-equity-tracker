@@ -146,6 +146,7 @@ export const getLowestN = (
   listSize: number
 ): Row[] => {
   return data
+    .filter((row: Row) => !isNaN(row[fieldName]) && row[fieldName] != null)
     .sort((rowA: Row, rowB: Row) =>
       rowA[fieldName] > rowB[fieldName] ? 1 : -1
     )
@@ -158,6 +159,7 @@ export const getHighestN = (
   listSize: number
 ): Row[] => {
   return data
+    .filter((row: Row) => !isNaN(row[fieldName]) && row[fieldName] != null)
     .sort((rowA: Row, rowB: Row) =>
       rowA[fieldName] <= rowB[fieldName] ? 1 : -1
     )

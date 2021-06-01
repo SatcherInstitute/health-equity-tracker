@@ -84,7 +84,7 @@ function LandingPage() {
               </Hidden>
               <Typography className={styles.HeaderSubtext} variant="body1">
                 <p>
-                  We know that the data we collect can be flawed and at times
+                  We know that the data we collect can be imperfect and at times
                   even worsen health inequities many people face if not reported
                   or analyzed correctly.
                 </p>
@@ -226,7 +226,7 @@ function LandingPage() {
                 variant="body1"
               >
                 <p>
-                  We’re living through a historical moment. COVID-19 has taken a
+                  We’re living through a historic moment. COVID-19 has taken a
                   toll on everyone. But the pandemic is hitting the most
                   marginalized, vulnerable communities the hardest.
                 </p>

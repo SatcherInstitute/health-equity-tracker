@@ -39,12 +39,14 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
       "https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t",
     geographic_level: "State",
     demographic_granularity: "Race/ethnicity, age, sex",
-    update_frequency: "Monthly",
+    update_frequency: "Biweekly",
     description:
       "The numbers of confirmed COVID-19 deaths, cases, and hospitalizations at the state and county levels. " +
-      "The CDC does not take responsibility for the scientific validity or accuracy of methodology, " +
-      "results, statistical analyses, or conclusions presented. This dataset is not available for download, " +
-      "please press the button below to apply for access.",
+      "The data source is Centers for Disease Control and Prevention, COVID-19 Response. COVID-19 Case " +
+      "Surveillance Data Access, Summary, and Limitations (5/11/2021). The last case data included is 2 " +
+      "weeks before 5/11/2021. The CDC does not take responsibility for the scientific validity " +
+      "or accuracy of methodology, results, statistical analyses, or conclusions presented. This " +
+      "dataset is not available for download, please press the button below to apply for access.",
     dataset_ids: [
       "cdc_restricted_data-by_race_county",
       "cdc_restricted_data-by_race_state",
@@ -75,7 +77,9 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: "Race/ethnicity",
     update_frequency: "Final update was March 7 2021",
     description:
-      "The numbers of confirmed COVID-19 deaths, cases, hospitalizations, and tests at the state level.",
+      "The numbers of confirmed COVID-19 deaths, cases, hospitalizations, and tests at the state level. " +
+      "Please note that Covid Tracking Project data is not used for any visualizations on the tracker, " +
+      "it is only available for download.",
     dataset_ids: [
       "covid_tracking_project-cases_by_race_state",
       "covid_tracking_project-deaths_by_race_state",

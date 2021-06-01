@@ -76,16 +76,6 @@ export function PopulationCard(props: PopulationCardProps) {
 
         return (
           <CardContent className={styles.PopulationCardContent}>
-            {raceQueryResponse.dataIsMissing() && (
-              <MissingDataAlert
-                dataName={POPULATION_VARIABLE_CONFIG.variableDisplayName}
-                breakdownString={
-                  BREAKDOWN_VAR_DISPLAY_NAMES["race_and_ethnicity"]
-                }
-                geoLevel={props.fips.getFipsTypeDisplayName()}
-              />
-            )}
-
             <Grid
               container
               className={styles.PopulationCard}
