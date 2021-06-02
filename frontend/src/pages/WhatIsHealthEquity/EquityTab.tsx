@@ -293,17 +293,14 @@ function EquityTab() {
                        mask"
                 />
                 <h2 className={styles.NewsAndStoriesTitleText}>
-                  COVID-19: Black Folks Have Been Trying To Tell You That Data
-                  Is Political
+                  Why It Matters That Information On Race, Ethnicity, Gender And
+                  Disability Are Measured Accurately And Completely
                 </h2>
                 <p className={styles.NewsAndStoriesSubtitleText}>
-                  COVID-19 does not discriminate, but our current economic and
-                  social policies do. Let’s talk about “a crisis within a
-                  crisis” that too few policy makers and leaders have been
-                  raising.{" "}
-                  <a href="https://www.essence.com/feature/covid-19-black-americans-data/">
-                    Read more
-                  </a>
+                  Why ongoing data on health and wellbeing metrics could be used
+                  in targeting federal resources and programs to address
+                  inequities due to social and economic factors.{" "}
+                  <a href="https://satcherinstitute.org/hetblog2/">Read more</a>
                 </p>
               </Grid>
               <Grid
