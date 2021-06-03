@@ -179,7 +179,6 @@ class CdcCovidProvider extends VariableProvider {
       );
     });
 
-    // TODO - calculate actual reporting values on the BE instead of just copying fields
     const populationMetric: MetricId[] = [
       "covid_cases_reporting_population",
       "covid_deaths_reporting_population",
@@ -195,7 +194,6 @@ class CdcCovidProvider extends VariableProvider {
       }
     });
 
-    // TODO How to handle territories?
     const acsBreakdowns = breakdowns.copy();
     acsBreakdowns.time = false;
 

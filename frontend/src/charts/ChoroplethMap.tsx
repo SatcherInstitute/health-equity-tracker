@@ -107,7 +107,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${props.metric.shortVegaLabel}": "${noDataText}" }`;
 
     /* SET UP LEGEND */
-    // TODO - Legends should be scaled exactly the same the across compared charts. Looks misleading otherwise.
     let legendList = [];
     let legend: any = {
       fill: COLOR_SCALE,

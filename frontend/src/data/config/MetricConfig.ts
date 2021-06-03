@@ -1,4 +1,3 @@
-//TODO: Rename to Count
 export type MetricId =
   | "brfss_population_pct"
   | "copd_pct"

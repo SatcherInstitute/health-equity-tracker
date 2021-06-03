@@ -44,7 +44,6 @@ class BrfssProvider extends VariableProvider {
     df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);
 
-    // TODO How to handle territories?
     let acsBreakdowns = breakdowns.copy();
     acsBreakdowns.time = false;
     acsBreakdowns = acsBreakdowns.addBreakdown(

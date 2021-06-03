@@ -96,7 +96,3 @@ class DataSource(ABC):
             .replace('=', 'eq')
             .replace('%', 'pct')
         ), inplace=True)
-
-    def export_to_gcs(self):
-        # TODO: Implement
-        pass
