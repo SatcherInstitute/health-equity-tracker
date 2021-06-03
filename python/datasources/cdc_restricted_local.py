@@ -84,21 +84,25 @@ AGE_NAMES_MAPPING = {
     "Missing": "Unknown",
 }
 
-# States that we have decided to suppress all data from, due to very incomplete
-# case data.
-STATES_TO_SUPPRESS = ["LA", "NH", "TX", "WY"]
+# States that we have decided to suppress different kinds of data for, due to
+# very incomplete data. Note that states that have all data suppressed will
+# have case, hospitalization, and death data suppressed.
+# See https://github.com/SatcherInstitute/health-equity-tracker/issues/617.
+ALL_DATA_SUPPRESSION_STATES = ("LA", "MO", "MS", "ND", "NH", "TX", "WY")
+HOSP_DATA_SUPPRESSION_STATES = ("HI", "MD", "NE", "NM", "RI", "SD")
+DEATH_DATA_SUPPRESSION_STATES = ("HI", "MD", "NE", "NM", "RI", "SD",
+                                 "WV", "DE")
 
 
-def accumulate_data(df, groupby_cols, overall_df, demographic_col,
-                    names_mapping):
+def accumulate_data(df, geo_cols, overall_df, demog_col, names_mapping):
     """Converts/adds columns for cases, hospitalizations, deaths. Does some
     basic standardization of dataframe elements. Groups by given groupby_cols
     and aggregates. Returns sum of the aggregated df & overall_df.
 
     df: Pandas dataframe that contains a chunk of all of the raw data.
-    groupby_cols: List of columns we want to groupby / aggregate on.
+    geo_cols: List of geo columns we want to groupby / aggregate on.
     overall_df: Pandas dataframe to add our aggregated data to.
-    demographic_col: Name of the demographic column to standardize.
+    demog_col: Name of the demographic column to aggregate on & standardize.
     names_mapping: Mapping from demographic value to standardized form.
     """
     # Add a columns of all ones, for counting the # of cases / records.
@@ -126,13 +130,21 @@ def accumulate_data(df, groupby_cols, overall_df, demographic_col,
 
     df = df.drop(columns=['hosp_yn', 'death_yn'])
 
-    # Standardize the values in demographic_col using names_mapping.
-    df = df.replace({demographic_col: names_mapping})
+    # Standardize the values in demog_col using names_mapping.
+    df = df.replace({demog_col: names_mapping})
 
-    # Group by the desired columns and compute the sum/counts of
-    # cases/hospitalizations/deaths. Add this df to overall_df.
+    # Group by the geo and demographic columns and compute the sum/counts of
+    # cases/hospitalizations/deaths. Add total rows and add to overall_df.
+    groupby_cols = geo_cols + [demog_col]
     df = df.groupby(groupby_cols).sum().reset_index()
+    totals = df.groupby(geo_cols).sum().reset_index()
+    if demog_col == RACE_COL:  # Special case required due to later processing.
+        totals[demog_col] = std_col.Race.TOTAL.value
+    else:
+        totals[demog_col] = std_col.TOTAL_VALUE
+    df = df.append(totals)
     df = df.set_index(groupby_cols)
+
     if not overall_df.empty:
         return overall_df.add(df, fill_value=0)
     return df
@@ -228,7 +240,7 @@ def main():
                 lambda x: x.zfill(5) if len(x) > 0 else x)
 
             # Remove records from states where we want to suppress all data.
-            df = df[~df[STATE_COL].isin(STATES_TO_SUPPRESS)]
+            df = df[~df[STATE_COL].isin(ALL_DATA_SUPPRESSION_STATES)]
 
             # For each of ({state, county} x {race, sex, age}), we slice the
             # data to focus on that dimension and aggregate.
@@ -236,12 +248,11 @@ def main():
                 # Build the columns we will group by.
                 geo_cols = geo_col_mapping[geo]
                 demog_col, demog_names_mapping = demographic_col_mapping[demo]
-                groupby_cols = geo_cols + [demog_col]
 
                 # Slice the data and aggregate for the given dimension.
-                sliced_df = df[groupby_cols + OUTCOME_COLS]
+                sliced_df = df[geo_cols + [demog_col] + OUTCOME_COLS]
                 all_dfs[(geo, demo)] = accumulate_data(
-                    sliced_df, groupby_cols, all_dfs[(geo, demo)], demog_col,
+                    sliced_df, geo_cols, all_dfs[(geo, demo)], demog_col,
                     demog_names_mapping)
 
         end = time.time()
@@ -259,6 +270,21 @@ def main():
 
         # Standardize the column names and race/age/sex values.
         all_dfs[key] = standardize_data(all_dfs[key])
+
+        # Set hospitalization and death data for states we want to suppress to
+        # NaN. The frontend interprets NaN to mean missing data for
+        # hospitalizations and deaths.
+        rows_to_modify = all_dfs[key][std_col.STATE_POSTAL_COL].isin(
+            HOSP_DATA_SUPPRESSION_STATES)
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_Y] = np.NaN
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_N] = np.NaN
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_UNKNOWN] = np.NaN
+
+        rows_to_modify = all_dfs[key][std_col.STATE_POSTAL_COL].isin(
+            DEATH_DATA_SUPPRESSION_STATES)
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_Y] = np.NaN
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_N] = np.NaN
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_UNKNOWN] = np.NaN
 
     # Write the results out to CSVs.
     for (geo, demo), df in all_dfs.items():

@@ -81,8 +81,8 @@ function ToggleBarChartCardWithKey(props: ToggleBarChartCardProps) {
         <Button onClick={popover.open} className={styles.TermInfoButton}>
           Disparities
         </Button>{" "}
-        in {metricConfig.fullCardTitleName} by{" "}
-        <b>{BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]}</b> in{" "}
+        in {metricConfig.fullCardTitleName} By{" "}
+        <b>{BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]}</b> In{" "}
         {props.fips.getFullDisplayName()}
       </>
     );
@@ -111,6 +111,7 @@ function ToggleBarChartCardWithKey(props: ToggleBarChartCardProps) {
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
+                  geoLevel={props.fips.getFipsTypeDisplayName()}
                 />
               </CardContent>
             )}
@@ -133,8 +134,7 @@ function ToggleBarChartCardWithKey(props: ToggleBarChartCardProps) {
                     {validDisplayMetricConfigs.map((metricConfig) => (
                       <ToggleButton value={metricConfig.type}>
                         {metricConfig.type === "pct_share" && " vs. Population"}
-                        {metricConfig.type === "per100k" &&
-                          "per 100,000 people"}
+                        {metricConfig.type === "per100k" && "per 100k people"}
                       </ToggleButton>
                     ))}
                   </ToggleButtonGroup>

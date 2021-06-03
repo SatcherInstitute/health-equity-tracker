@@ -1,33 +1,36 @@
-import React, { useState } from "react";
-import Alert from "@material-ui/lab/Alert";
+import { CardContent, Grid } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
-import { CardContent } from "@material-ui/core";
-import { Grid } from "@material-ui/core";
-import styles from "./Card.module.scss";
-import CardWrapper from "./CardWrapper";
-import DropDownMenu from "./ui/DropDownMenu";
-import MapBreadcrumbs from "./ui/MapBreadcrumbs";
-import MissingDataAlert from "./ui/MissingDataAlert";
-import { Breakdowns, BreakdownVar } from "../data/query/Breakdowns";
+import Alert from "@material-ui/lab/Alert";
+import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
-import { Fips } from "../data/utils/Fips";
-import { MetricQuery } from "../data/query/MetricQuery";
-import { MetricConfig } from "../data/config/MetricConfig";
-import { MultiMapDialog } from "./ui/MultiMapDialog";
-import { Row } from "../data/utils/DatasetTypes";
+import { VariableConfig } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
-import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
 import {
-  NON_HISPANIC,
-  UNKNOWN,
-  UNKNOWN_RACE,
-  ALL,
-} from "../data/utils/Constants";
-import {
+  Breakdowns,
+  BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
+import { MetricQuery } from "../data/query/MetricQuery";
+import { AgeSorterStrategy } from "../data/sorting/AgeSorterStrategy";
+import {
+  ALL,
+  NON_HISPANIC,
+  UNKNOWN,
+  UNKNOWN_RACE,
+} from "../data/utils/Constants";
+import { Row } from "../data/utils/DatasetTypes";
+import { getHighestN, getLowestN } from "../data/utils/datasetutils";
+import { Fips } from "../data/utils/Fips";
+import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
+import styles from "./Card.module.scss";
+import CardWrapper from "./CardWrapper";
+import DropDownMenu from "./ui/DropDownMenu";
+import { HighestLowestList } from "./ui/HighestLowestList";
+import MapBreadcrumbs from "./ui/MapBreadcrumbs";
+import MissingDataAlert from "./ui/MissingDataAlert";
+import { MultiMapDialog } from "./ui/MultiMapDialog";
 
 const POSSIBLE_BREAKDOWNS: BreakdownVar[] = [
   "race_and_ethnicity",
@@ -35,10 +38,12 @@ const POSSIBLE_BREAKDOWNS: BreakdownVar[] = [
   "sex",
 ];
 
+const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
+
 export interface MapCardProps {
   key?: string;
   fips: Fips;
-  metricConfig: MetricConfig;
+  variableConfig: VariableConfig;
   updateFipsCallback: (fips: Fips) => void;
   currentBreakdown: BreakdownVar;
 }
@@ -48,13 +53,15 @@ export interface MapCardProps {
 export function MapCard(props: MapCardProps) {
   return (
     <MapCardWithKey
-      key={props.currentBreakdown + props.metricConfig.metricId}
+      key={props.currentBreakdown + props.variableConfig.variableId}
       {...props}
     />
   );
 }
 
 function MapCardWithKey(props: MapCardProps) {
+  const metricConfig = props.variableConfig.metrics["per100k"];
+
   const signalListeners: any = {
     click: (...args: any) => {
       const clickedData = args[1];
@@ -62,8 +69,10 @@ function MapCardWithKey(props: MapCardProps) {
     },
   };
 
+  const [listExpanded, setListExpanded] = useState(false);
+
   const [activeBreakdownFilter, setActiveBreakdownFilter] = useState<string>(
-    ""
+    ALL
   );
   const [activeBreakdownVar, setActiveBreakdownVar] = useState<BreakdownVar>(
     props.currentBreakdown
@@ -84,14 +93,14 @@ function MapCardWithKey(props: MapCardProps) {
   const queries = requestedBreakdowns.map(
     (breakdown) =>
       new MetricQuery(
-        props.metricConfig.metricId,
+        metricConfig.metricId,
         geographyBreakdown
           .copy()
           .addBreakdown(
             breakdown,
             breakdown === "race_and_ethnicity"
               ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE)
-              : undefined
+              : exclude(UNKNOWN)
           )
       )
   );
@@ -99,36 +108,49 @@ function MapCardWithKey(props: MapCardProps) {
   return (
     <CardWrapper
       queries={queries}
-      title={<>{props.metricConfig.fullCardTitleName}</>}
+      title={<>{metricConfig.fullCardTitleName}</>}
+      loadGeographies={true}
     >
-      {(queryResponses, metadata) => {
+      {(queryResponses, metadata, geoData) => {
+        const sortArgs =
+          props.currentBreakdown === "age"
+            ? ([new AgeSorterStrategy([ALL]).compareFn] as any)
+            : [];
+
         // Look up query at the same index as the breakdown.
         // TODO: we might consider returning a map of id to response from
         // CardWrapper so we don't need to rely on index order.
         const queryResponse =
           queryResponses[requestedBreakdowns.indexOf(activeBreakdownVar)];
-        const breakdownValues = queryResponse
-          .getUniqueFieldValues(activeBreakdownVar)
-          .sort();
-        if (
-          activeBreakdownFilter === "" ||
-          activeBreakdownFilter === undefined
-        ) {
-          setActiveBreakdownFilter(ALL || breakdownValues[0]);
-        }
+        const breakdownValues = queryResponse.getUniqueFieldValues(
+          activeBreakdownVar
+        );
+
+        breakdownValues.sort.apply(breakdownValues, sortArgs);
 
         const dataForActiveBreakdownFilter = queryResponse
-          .getValidRowsForField(props.metricConfig.metricId)
+          .getValidRowsForField(metricConfig.metricId)
           .filter(
             (row: Row) => row[activeBreakdownVar] === activeBreakdownFilter
           );
+        const highestRatesList = getHighestN(
+          dataForActiveBreakdownFilter,
+          metricConfig.metricId,
+          SIZE_OF_HIGHEST_LOWEST_RATES_LIST
+        );
+        const lowestRatesList = getLowestN(
+          dataForActiveBreakdownFilter,
+          metricConfig.metricId,
+          SIZE_OF_HIGHEST_LOWEST_RATES_LIST
+        );
 
         // Create and populate a map of breakdown display name to options
         let filterOptions: Record<string, string[]> = {};
         const getBreakdownOptions = (breakdown: BreakdownVar) => {
-          return queryResponses[requestedBreakdowns.indexOf(breakdown)]
-            .getUniqueFieldValues(breakdown)
-            .sort();
+          const values = queryResponses[
+            requestedBreakdowns.indexOf(breakdown)
+          ].getUniqueFieldValues(breakdown);
+          return values.sort.apply(values, sortArgs);
         };
         POSSIBLE_BREAKDOWNS.forEach((breakdown: BreakdownVar) => {
           if ([breakdown].includes(props.currentBreakdown)) {
@@ -142,19 +164,20 @@ function MapCardWithKey(props: MapCardProps) {
           <>
             <MultiMapDialog
               fips={props.fips}
-              metricConfig={props.metricConfig}
-              data={queryResponse.getValidRowsForField(
-                props.metricConfig.metricId
-              )}
+              metricConfig={metricConfig}
+              useSmallSampleMessage={
+                !queryResponse.dataIsMissing() &&
+                (props.variableConfig.surveyCollectedData || false)
+              }
+              data={queryResponse.getValidRowsForField(metricConfig.metricId)}
               breakdown={activeBreakdownVar}
               handleClose={() => setSmallMultiplesDialogOpen(false)}
               open={smallMultiplesDialogOpen}
               breakdownValues={breakdownValues}
-              fieldRange={queryResponse.getFieldRange(
-                props.metricConfig.metricId
-              )}
+              fieldRange={queryResponse.getFieldRange(metricConfig.metricId)}
               queryResponses={queryResponses} // TODO
               metadata={metadata}
+              geoData={geoData}
             />
             <CardContent className={styles.SmallMarginContent}>
               <MapBreadcrumbs
@@ -180,7 +203,8 @@ function MapCardWithKey(props: MapCardProps) {
                           newBreakdownDisplayName,
                           filterSelection
                         ) => {
-                          // Get breakdownVar (ex. race_and_ethnicity) from display name (ex. Race and Ethnicity)
+                          // Get breakdownVar (ex. race_and_ethnicity) from
+                          // display name (ex. Race and Ethnicity)
                           const breakdownVar = Object.keys(
                             BREAKDOWN_VAR_DISPLAY_NAMES
                           ).find(
@@ -206,10 +230,11 @@ function MapCardWithKey(props: MapCardProps) {
             {queryResponse.dataIsMissing() && (
               <CardContent>
                 <MissingDataAlert
-                  dataName={props.metricConfig.fullCardTitleName}
+                  dataName={metricConfig.fullCardTitleName}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[activeBreakdownVar]
                   }
+                  geoLevel={props.fips.getChildFipsTypeDisplayName()}
                 />
               </CardContent>
             )}
@@ -223,7 +248,7 @@ function MapCardWithKey(props: MapCardProps) {
               )}
             {!queryResponse.dataIsMissing() &&
               dataForActiveBreakdownFilter.length !== 0 &&
-              props.metricConfig && (
+              metricConfig && (
                 <CardContent>
                   <Alert severity="info">
                     <Button
@@ -231,7 +256,7 @@ function MapCardWithKey(props: MapCardProps) {
                       color="primary"
                       className={styles.SmallMarginButton}
                     >
-                      Click to view a breakdown of all{" "}
+                      Compare across{" "}
                       {
                         BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
                           activeBreakdownVar
@@ -242,13 +267,23 @@ function MapCardWithKey(props: MapCardProps) {
                   </Alert>
                 </CardContent>
               )}
-            {props.metricConfig && (
+            {metricConfig && (
               <CardContent>
                 <ChoroplethMap
+                  useSmallSampleMessage={
+                    !queryResponse.dataIsMissing() &&
+                    (props.variableConfig.surveyCollectedData || false)
+                  }
                   signalListeners={signalListeners}
-                  metric={props.metricConfig}
-                  legendTitle={props.metricConfig.fullCardTitleName}
-                  data={dataForActiveBreakdownFilter}
+                  metric={metricConfig}
+                  legendTitle={metricConfig.fullCardTitleName}
+                  data={
+                    listExpanded
+                      ? highestRatesList.concat(lowestRatesList)
+                      : dataForActiveBreakdownFilter
+                  }
+                  hideMissingDataTooltip={listExpanded}
+                  legendData={dataForActiveBreakdownFilter}
                   hideLegend={
                     queryResponse.dataIsMissing() ||
                     dataForActiveBreakdownFilter.length <= 1
@@ -256,7 +291,20 @@ function MapCardWithKey(props: MapCardProps) {
                   showCounties={props.fips.isUsa() ? false : true}
                   fips={props.fips}
                   scaleType="quantile"
+                  geoData={geoData}
                 />
+                {!queryResponse.dataIsMissing() &&
+                  dataForActiveBreakdownFilter.length > 1 && (
+                    <HighestLowestList
+                      variableConfig={props.variableConfig}
+                      metricConfig={metricConfig}
+                      listExpanded={listExpanded}
+                      setListExpanded={setListExpanded}
+                      highestRatesList={highestRatesList}
+                      lowestRatesList={lowestRatesList}
+                      fipsTypePluralDisplayName={props.fips.getPluralChildFipsTypeDisplayName()}
+                    />
+                  )}
               </CardContent>
             )}
           </>

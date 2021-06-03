@@ -74,7 +74,7 @@ function stateRow(
   above_poverty: string
 ) {
   return {
-    race: race_value,
+    [RACE]: race_value,
     age: age_value,
     sex: sex_value,
     state_fips: fips.code,
@@ -98,7 +98,7 @@ function countyRow(
     state_name: stateFips.name,
     county_fips: countyFips.code,
     county_name: countyFips.name,
-    race: race_value,
+    [RACE]: race_value,
     age: age_value,
     sex: sex_value,
     above_poverty_line: Number(above_poverty),
@@ -133,12 +133,12 @@ describe("AcsPovertyProvider", () => {
     const NC_ALL_FINAL = finalRow(NC, RACE, ALL, 200, 10000);
 
     await evaluatePovertyWithAll(
-      "acs_poverty_dataset-poverty_by_race_age_sex_state",
+      "acs_poverty_dataset-poverty_by_race_state",
       rawData,
       Breakdowns.forFips(new Fips("37")),
       RACE,
       [NC_ASIAN_FINAL],
-      [NC_ASIAN_FINAL, NC_ALL_FINAL]
+      [NC_ALL_FINAL, NC_ASIAN_FINAL]
     );
   });
 
@@ -157,12 +157,12 @@ describe("AcsPovertyProvider", () => {
     const NC_ALL_FINAL = finalRow(NC, RACE, ALL, 300, 13636);
 
     await evaluatePovertyWithAll(
-      "acs_poverty_dataset-poverty_by_race_age_sex_state",
+      "acs_poverty_dataset-poverty_by_race_state",
       rawData,
       Breakdowns.forFips(new Fips("37")),
       RACE,
       [NC_ASIAN_FINAL, NC_WHITE_FINAL],
-      [NC_ASIAN_FINAL, NC_WHITE_FINAL, NC_ALL_FINAL]
+      [NC_ALL_FINAL, NC_ASIAN_FINAL, NC_WHITE_FINAL]
     );
   });
 
@@ -180,12 +180,12 @@ describe("AcsPovertyProvider", () => {
     const NC_ALL_FINAL = finalRow(NC, SEX, ALL, 200, 10000);
 
     await evaluatePovertyWithAll(
-      "acs_poverty_dataset-poverty_by_race_age_sex_state",
+      "acs_poverty_dataset-poverty_by_sex_state",
       rawData,
       Breakdowns.forFips(new Fips("37")),
       SEX,
       [NC_FEMALE_FINAL, NC_MALE_FINAL],
-      [NC_FEMALE_FINAL, NC_MALE_FINAL, NC_ALL_FINAL]
+      [NC_ALL_FINAL, NC_FEMALE_FINAL, NC_MALE_FINAL]
     );
   });
 
@@ -211,17 +211,17 @@ describe("AcsPovertyProvider", () => {
     );
     const KC_WHITE_FINAL = finalCountyRow(KING_COUNTY, RACE, WHITE, 100, 50000);
     const KC_ALL_FINAL = finalCountyRow(KING_COUNTY, RACE, ALL, 300, 13636);
-    const MARIN_ROW_FINAL = finalCountyRow(MARIN, RACE, ASIAN_NH, 1, 100);
+    const MARIN_ASIAN_ROW_FINAL = finalCountyRow(MARIN, RACE, ASIAN_NH, 1, 100);
     const MARIN_ALL_ROW_FINAL = finalCountyRow(MARIN, RACE, ALL, 1, 100);
 
     await evaluatePovertyWithAll(
-      "acs_poverty_dataset-poverty_by_race_age_sex_county",
+      "acs_poverty_dataset-poverty_by_race_county",
       rawData,
       Breakdowns.byCounty(),
       RACE,
-      [MARIN_ROW_FINAL, NC_ASIAN_FINAL, KC_WHITE_FINAL],
+      [MARIN_ASIAN_ROW_FINAL, NC_ASIAN_FINAL, KC_WHITE_FINAL],
       [
-        MARIN_ROW_FINAL,
+        MARIN_ASIAN_ROW_FINAL,
         MARIN_ALL_ROW_FINAL,
         NC_ASIAN_FINAL,
         KC_WHITE_FINAL,

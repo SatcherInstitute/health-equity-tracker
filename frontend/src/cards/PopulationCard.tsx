@@ -15,18 +15,19 @@ import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import {
+  formatFieldValue,
   MetricId,
   POPULATION_VARIABLE_CONFIG,
 } from "../data/config/MetricConfig";
 import { ALL } from "../data/utils/Constants";
 import {
-  excludeAll,
+  onlyIncludeDecadeAgeBrackets,
   onlyIncludeStandardRaces,
 } from "../data/query/BreakdownFilter";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Hidden from "@material-ui/core/Hidden";
-import { ABOUT_US_TAB_PARAM, ABOUT_US_PAGE_LINK } from "../utils/urlutils";
-import { ABOUT_US_FAQ_TAB_INDEX } from "../pages/AboutUs/AboutUsPage";
+import { TAB_PARAM, WHAT_IS_HEALTH_EQUITY_PAGE_LINK } from "../utils/urlutils";
+import { WIHE_FAQ_TAB_INDEX } from "../pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
 import Alert from "@material-ui/lab/Alert";
 
 export interface PopulationCardProps {
@@ -45,7 +46,7 @@ export function PopulationCard(props: PopulationCardProps) {
   // ones we want.
   const ageQuery = new MetricQuery(
     metricIds,
-    Breakdowns.forFips(props.fips).andAge(excludeAll())
+    Breakdowns.forFips(props.fips).andAge(onlyIncludeDecadeAgeBrackets())
   );
 
   return (
@@ -75,15 +76,6 @@ export function PopulationCard(props: PopulationCardProps) {
 
         return (
           <CardContent className={styles.PopulationCardContent}>
-            {raceQueryResponse.dataIsMissing() && (
-              <MissingDataAlert
-                dataName={POPULATION_VARIABLE_CONFIG.variableDisplayName}
-                breakdownString={
-                  BREAKDOWN_VAR_DISPLAY_NAMES["race_and_ethnicity"]
-                }
-              />
-            )}
-
             <Grid
               container
               className={styles.PopulationCard}
@@ -139,7 +131,7 @@ export function PopulationCard(props: PopulationCardProps) {
                       the definition of these categories often results in not
                       counting or miscounting people in underrepresented groups.{" "}
                       <a
-                        href={`${ABOUT_US_PAGE_LINK}?${ABOUT_US_TAB_PARAM}=${ABOUT_US_FAQ_TAB_INDEX}`}
+                        href={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_FAQ_TAB_INDEX}`}
                       >
                         Learn more
                       </a>
@@ -150,14 +142,21 @@ export function PopulationCard(props: PopulationCardProps) {
                         .getValidRowsForField("race_and_ethnicity")
                         .filter((r) => r.race_and_ethnicity !== ALL)
                         .sort((a, b) => {
-                          return b.population - a.population;
+                          return b.race_and_ethnicity - a.race_and_ethnicity;
                         })
                         .map((row) => (
-                          <Grid item className={styles.PopulationMetric}>
+                          <Grid
+                            item
+                            key={row.race_and_ethnicity}
+                            className={styles.PopulationMetric}
+                          >
                             <span>{row.race_and_ethnicity}</span>
                             <br />
                             <span className={styles.PopulationMetricValue}>
-                              {row.population_pct}%
+                              {formatFieldValue(
+                                "pct_share",
+                                row.population_pct
+                              )}
                             </span>
                           </Grid>
                         ))}
@@ -187,6 +186,7 @@ export function PopulationCard(props: PopulationCardProps) {
                           POPULATION_VARIABLE_CONFIG.variableDisplayName
                         }
                         breakdownString={BREAKDOWN_VAR_DISPLAY_NAMES["age"]}
+                        geoLevel={props.fips.getFipsTypeDisplayName()}
                       />
                     ) : (
                       <SimpleHorizontalBarChart

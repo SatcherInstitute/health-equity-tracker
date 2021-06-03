@@ -22,7 +22,7 @@ export const CovidByAge = Template.bind({});
 CovidByAge.args = {
   key: "testkey",
   fips: new Fips(USA_FIPS),
-  metricConfig: METRIC_CONFIG["covid"][0].metrics["pct_share"],
+  variableConfig: METRIC_CONFIG["covid"][0],
   breakdownVar: "age",
 };
 
@@ -30,7 +30,7 @@ export const CovidByRace = Template.bind({});
 CovidByRace.args = {
   key: "testkey",
   fips: new Fips(USA_FIPS),
-  metricConfig: METRIC_CONFIG["covid"][0].metrics["pct_share"],
+  variableConfig: METRIC_CONFIG["covid"][0],
   breakdownVar: "race_and_ethnicity",
 };
 
@@ -38,7 +38,7 @@ export const CopdByRace = Template.bind({});
 CopdByRace.args = {
   key: "testkey",
   fips: new Fips(USA_FIPS),
-  metricConfig: METRIC_CONFIG["copd"][0].metrics["pct_share"],
+  variableConfig: METRIC_CONFIG["copd"][0],
   breakdownVar: "race_and_ethnicity",
 };
 
@@ -46,7 +46,7 @@ export const HealthInsuranceByRace = Template.bind({});
 HealthInsuranceByRace.args = {
   key: "testkey",
   fips: new Fips(USA_FIPS),
-  metricConfig: METRIC_CONFIG["health_insurance"][0].metrics["pct_share"],
+  variableConfig: METRIC_CONFIG["health_insurance"][0],
   breakdownVar: "race_and_ethnicity",
 };
 
@@ -54,6 +54,6 @@ export const PovertyByRace = Template.bind({});
 PovertyByRace.args = {
   key: "testkey",
   fips: new Fips(USA_FIPS),
-  metricConfig: METRIC_CONFIG["poverty"][0].metrics["pct_share"],
+  variableConfig: METRIC_CONFIG["poverty"][0],
   breakdownVar: "race_and_ethnicity",
 };

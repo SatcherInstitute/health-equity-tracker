@@ -1,17 +1,16 @@
-import { Breakdowns } from "../query/Breakdowns";
-import { per100k } from "../utils/datasetutils";
-import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
-import VariableProvider from "./VariableProvider";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { getDataManager } from "../../utils/globals";
-import {
-  ALL,
-  ABOVE_POVERTY_COL,
-  BELOW_POVERTY_COL,
-  WHITE_NH,
-  HISPANIC,
-} from "../utils/Constants";
 import { IDataFrame, ISeries } from "data-forge";
+import { getDataManager } from "../../utils/globals";
+import { Breakdowns } from "../query/Breakdowns";
+import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import {
+  ABOVE_POVERTY_COL,
+  ALL,
+  BELOW_POVERTY_COL,
+  HISPANIC,
+  WHITE_NH,
+} from "../utils/Constants";
+import { USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
+import VariableProvider from "./VariableProvider";
 
 class AcsPovertyProvider extends VariableProvider {
   constructor() {
@@ -24,9 +23,21 @@ class AcsPovertyProvider extends VariableProvider {
   }
   // ALERT! Make sure you update DataSourceMetadata if you update dataset IDs
   getDatasetId(breakdowns: Breakdowns): string {
+    let datasetPrefix = "acs_poverty_dataset-poverty_by_";
+
+    let breakdownSelector;
+    if (breakdowns.hasOnlyAge()) {
+      breakdownSelector = "age";
+    } else if (breakdowns.hasOnlyRace()) {
+      breakdownSelector = "race";
+    } else {
+      breakdownSelector = "sex";
+    }
+
     return (
-      "acs_poverty_dataset-poverty_by_race_age_sex_" +
-      (breakdowns.geography === "county" ? "county" : "state")
+      datasetPrefix +
+      breakdownSelector +
+      (breakdowns.geography === "county" ? "_county" : "_state")
     );
   }
 
@@ -44,12 +55,6 @@ class AcsPovertyProvider extends VariableProvider {
     // We apply the geo filter right away to reduce subsequent calculation times
     df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);
-
-    // TODO: remove this code once the pipeline is run with the new race
-    // standardization changes.
-    if (!df.getColumnNames().includes("race_and_ethnicity")) {
-      df = df.renameSeries({ race: "race_and_ethnicity" });
-    }
 
     df = this.aggregateByBreakdown(df, breakdownCol);
     if (breakdowns.geography === "national") {
@@ -93,14 +98,14 @@ class AcsPovertyProvider extends VariableProvider {
 
     df = df.generateSeries({
       poverty_per_100k: (row) =>
-        per100k(row[BELOW_POVERTY_COL], row["total_pop"]),
+        this.calculations.per100k(row[BELOW_POVERTY_COL], row["total_pop"]),
     });
 
     df = df.renameSeries({
       below_poverty_line: "poverty_count",
     });
 
-    df = this.calculatePctShare(
+    df = this.calculations.calculatePctShare(
       df,
       "poverty_count",
       "poverty_pct_share",
@@ -108,7 +113,7 @@ class AcsPovertyProvider extends VariableProvider {
       ["fips"]
     );
 
-    df = this.calculatePctShare(
+    df = this.calculations.calculatePctShare(
       df,
       "total_pop",
       "poverty_population_pct",

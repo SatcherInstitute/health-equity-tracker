@@ -29,13 +29,25 @@ class Logger {
     severity: Severity,
     context?: Record<string, string>
   ) {
+    const consoleFn = this.getConsoleFn(severity);
     if (this.enableConsoleLogging) {
-      console.log("Error Reported", error, severity, context);
+      consoleFn("Error Reported", error, error.stack, severity, context);
     }
 
     if (this.enableServerLogging) {
       // TODO: implement server logging
       console.log("TODO: implement server logging");
+    }
+  }
+
+  private getConsoleFn(severity: Severity): (...args: any[]) => any {
+    switch (severity) {
+      case "INFO":
+        return console.info.bind(console);
+      case "WARNING":
+        return console.warn.bind(console);
+      case "ERROR":
+        return console.error.bind(console);
     }
   }
 }

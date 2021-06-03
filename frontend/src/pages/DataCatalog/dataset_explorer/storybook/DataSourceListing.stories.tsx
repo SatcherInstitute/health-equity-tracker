@@ -25,13 +25,11 @@ const DATASET_METADATA: MapOfDatasetMetadata = {
     id: "id",
     name: "Some Dataset",
     update_time: "March",
-    fields: [],
   },
   acs2: {
     id: "id",
     name: "Another Dataset",
     update_time: "Feburary",
-    fields: [],
   },
 };
 

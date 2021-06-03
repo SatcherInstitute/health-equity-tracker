@@ -13,9 +13,16 @@ import {
   MetricConfig,
   MetricId,
   VariableConfig,
+  getPer100kAndPctShareMetrics,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
-import { NON_HISPANIC, RACE } from "../data/utils/Constants";
+import {
+  NON_HISPANIC,
+  RACE,
+  UNKNOWN,
+  UNKNOWN_RACE,
+} from "../data/utils/Constants";
+import { Row } from "../data/utils/DatasetTypes";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
@@ -23,11 +30,12 @@ import Divider from "@material-ui/core/Divider";
 export interface TableCardProps {
   fips: Fips;
   breakdownVar: BreakdownVar;
-  metrics: MetricConfig[];
   variableConfig: VariableConfig;
 }
 
 export function TableCard(props: TableCardProps) {
+  const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
+
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     props.breakdownVar === "race_and_ethnicity"
@@ -35,7 +43,7 @@ export function TableCard(props: TableCardProps) {
       : undefined
   );
   let metricConfigs: Record<string, MetricConfig> = {};
-  props.metrics.forEach((metricConfig) => {
+  metrics.forEach((metricConfig) => {
     // We prefer to show the known breakdown metric over the vanilla metric, if
     // it is available.
     if (metricConfig.knownBreakdownComparisonMetric) {
@@ -53,7 +61,7 @@ export function TableCard(props: TableCardProps) {
   const metricIds = Object.keys(metricConfigs);
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
-  const displayingCovidData = props.metrics
+  const displayingCovidData = metrics
     .map((config) => config.metricId)
     .some((metricId) => metricId.includes("covid"));
 
@@ -61,12 +69,18 @@ export function TableCard(props: TableCardProps) {
     <CardWrapper
       queries={[query]}
       title={
-        <>{`${props.variableConfig.variableFullDisplayName} by ${
+        <>{`${props.variableConfig.variableFullDisplayName} By ${
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-        } in ${props.fips.getFullDisplayName()}`}</>
+        } In ${props.fips.getFullDisplayName()}`}</>
       }
     >
       {([queryResponse]) => {
+        const dataWithoutUnknowns = queryResponse.data.filter(
+          (row: Row) =>
+            row[props.breakdownVar] !== UNKNOWN &&
+            row[props.breakdownVar] !== UNKNOWN_RACE
+        );
+
         return (
           <>
             {queryResponse.shouldShowMissingDataMessage(metricIds) && (
@@ -76,6 +90,7 @@ export function TableCard(props: TableCardProps) {
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
+                  geoLevel={props.fips.getFipsTypeDisplayName()}
                 />
               </CardContent>
             )}
@@ -85,11 +100,11 @@ export function TableCard(props: TableCardProps) {
                 <>
                   <CardContent>
                     <Alert severity="warning">
-                      Share of Covid-19 cases for American Indian, Alaska
-                      Native, Native Hawaiian and Pacific Islander are all
-                      underrepresented because many states do not record these
-                      racial categories. The Urban Indian Health Institute
-                      publishes{" "}
+                      Share of COVID-19 cases reported for American Indian,
+                      Alaska Native, Native Hawaiian and Pacific Islander are
+                      underrepresented at the national level and in many states
+                      because these racial categories are often not recorded.
+                      The Urban Indian Health Institute publishes{" "}
                       <a
                         target="_blank"
                         rel="noopener noreferrer"
@@ -106,7 +121,7 @@ export function TableCard(props: TableCardProps) {
               )}
             {!queryResponse.dataIsMissing() && (
               <TableChart
-                data={queryResponse.data}
+                data={dataWithoutUnknowns}
                 breakdownVar={props.breakdownVar}
                 metrics={Object.values(metricConfigs)}
               />

@@ -1,11 +1,9 @@
 import { IDataFrame } from "data-forge";
-import { Breakdowns, DemographicBreakdownKey } from "../query/Breakdowns";
-import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
-import VariableProvider from "./VariableProvider";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
-import { ALL } from "../utils/Constants";
-import { maybeApplyRowReorder } from "../utils/datasetutils";
+import { Breakdowns } from "../query/Breakdowns";
+import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
+import VariableProvider from "./VariableProvider";
 
 function createNationalTotal(dataFrame: IDataFrame, breakdown: string) {
   return dataFrame
@@ -47,7 +45,6 @@ class AcsPopulationProvider extends VariableProvider {
     throw new Error("Not implemented");
   }
 
-  // TODO - only return requested metric queries, remove unrequested columns
   async getDataInternal(
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
@@ -61,35 +58,7 @@ class AcsPopulationProvider extends VariableProvider {
 
     df = this.renameTotalToAll(df, breakdownColumnName);
 
-    // Calculate totals when the dataset doesn't provide it
-    // TODO: this should be removed when Totals come from the Data Server. Note
-    // that this assumes that the categories sum to exactly the total
-    const breakdownsToSum: DemographicBreakdownKey[] = [
-      "race_and_ethnicity",
-      "age",
-      "sex",
-    ];
-    breakdownsToSum.forEach((breakdownName) => {
-      if (
-        breakdowns.demographicBreakdowns[breakdownName].enabled &&
-        df
-          .getSeries(breakdownName)
-          .where((row) => row === ALL)
-          .count() === 0
-      ) {
-        df = df
-          .concat(
-            df.pivot(["fips", "fips_name"], {
-              population: (series) => series.sum(),
-              population_pct: (series) => 100,
-              [breakdownName]: (series) => ALL,
-            })
-          )
-          .resetIndex();
-      }
-    });
-
-    df = this.calculatePctShare(
+    df = this.calculations.calculatePctShare(
       df,
       "population",
       "population_pct",
@@ -99,10 +68,9 @@ class AcsPopulationProvider extends VariableProvider {
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
-    return new MetricQueryResponse(
-      maybeApplyRowReorder(df.toArray(), breakdowns),
-      [this.getDatasetId(breakdowns)]
-    );
+    return new MetricQueryResponse(df.toArray(), [
+      this.getDatasetId(breakdowns),
+    ]);
   }
 
   private async getDataInternalWithoutPercents(

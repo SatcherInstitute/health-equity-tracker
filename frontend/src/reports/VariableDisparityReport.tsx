@@ -1,21 +1,26 @@
-import React, { useState } from "react";
 import { Grid } from "@material-ui/core";
-import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
-import { MapCard } from "../cards/MapCard";
-import { UnknownsMapCard } from "../cards/UnknownsMapCard";
-import { PopulationCard } from "../cards/PopulationCard";
-import { TableCard } from "../cards/TableCard";
+import React, { useEffect, useState, Fragment } from "react";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
+import { MapCard } from "../cards/MapCard";
+import { PopulationCard } from "../cards/PopulationCard";
 import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
-import { DropdownVarId } from "../utils/MadLibs";
+import { TableCard } from "../cards/TableCard";
+import { UnknownsMapCard } from "../cards/UnknownsMapCard";
+import { METRIC_CONFIG, VariableConfig } from "../data/config/MetricConfig";
+import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
 import { Fips } from "../data/utils/Fips";
+import { DropdownVarId } from "../utils/MadLibs";
 import {
-  METRIC_CONFIG,
-  VariableConfig,
-  getPer100kAndPctShareMetrics,
-} from "../data/config/MetricConfig";
-import ReportToggleControls from "./ui/ReportToggleControls";
+  DATA_TYPE_1_PARAM,
+  DATA_TYPE_2_PARAM,
+  DEMOGRAPHIC_PARAM,
+  getParameter,
+  psSubscribe,
+  setParameter,
+  setParameters,
+} from "../utils/urlutils";
 import NoDataAlert from "./ui/NoDataAlert";
+import ReportToggleControls from "./ui/ReportToggleControls";
 
 export interface VariableDisparityReportProps {
   key: string;
@@ -27,7 +32,7 @@ export interface VariableDisparityReportProps {
 
 export function VariableDisparityReport(props: VariableDisparityReportProps) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
-    "race_and_ethnicity"
+    getParameter(DEMOGRAPHIC_PARAM, "race_and_ethnicity")
   );
 
   // TODO Remove hard coded fail safe value
@@ -37,11 +42,54 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
       : null
   );
 
+  const setVariableConfigWithParam = (v: VariableConfig) => {
+    setParameters([
+      { name: DATA_TYPE_1_PARAM, value: v.variableId },
+      { name: DATA_TYPE_2_PARAM, value: null },
+    ]);
+    setVariableConfig(v);
+  };
+
+  const setDemoWithParam = (str: BreakdownVar) => {
+    setParameter(DEMOGRAPHIC_PARAM, str);
+    setCurrentBreakdown(str);
+  };
+
+  useEffect(() => {
+    const readParams = () => {
+      const demoParam1 = getParameter(
+        DATA_TYPE_1_PARAM,
+        undefined,
+        (val: string) => {
+          return METRIC_CONFIG[props.dropdownVarId].find(
+            (cfg) => cfg.variableId === val
+          );
+        }
+      );
+      setVariableConfig(
+        demoParam1 ? demoParam1 : METRIC_CONFIG[props.dropdownVarId][0]
+      );
+
+      const demo: BreakdownVar = getParameter(
+        DEMOGRAPHIC_PARAM,
+        "race_and_ethnicity"
+      );
+      setCurrentBreakdown(demo);
+    };
+    const psHandler = psSubscribe(readParams, "vardisp");
+    readParams();
+    return () => {
+      if (psHandler) {
+        psHandler.unsubscribe();
+      }
+    };
+  }, [props.dropdownVarId]);
+
   const breakdownIsShown = (breakdownVar: string) =>
     currentBreakdown === breakdownVar;
 
   return (
-    <Grid container xs={12} spacing={1} justify="center">
+    <Grid item container xs={12} spacing={1} justify="center">
       {!props.hidePopulationCard && (
         <Grid item xs={12}>
           <PopulationCard fips={props.fips} />
@@ -52,18 +100,18 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
 
       {variableConfig && (
         <Grid container spacing={1} justify="center">
-          <Grid container xs={12}>
+          <Grid item container xs={12}>
             <ReportToggleControls
               dropdownVarId={props.dropdownVarId}
               variableConfig={variableConfig}
-              setVariableConfig={setVariableConfig}
+              setVariableConfig={setVariableConfigWithParam}
               currentBreakdown={currentBreakdown}
-              setCurrentBreakdown={setCurrentBreakdown}
+              setCurrentBreakdown={setDemoWithParam}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <MapCard
-              metricConfig={variableConfig.metrics["per100k"]}
+              variableConfig={variableConfig}
               fips={props.fips}
               updateFipsCallback={(fips: Fips) => {
                 props.updateFipsCallback(fips);
@@ -71,22 +119,21 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               currentBreakdown={currentBreakdown}
             />
             {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-              <>
+              <Fragment key={breakdownVar}>
                 {breakdownIsShown(breakdownVar) && (
                   <TableCard
                     fips={props.fips}
                     variableConfig={variableConfig}
-                    metrics={getPer100kAndPctShareMetrics(variableConfig)}
                     breakdownVar={breakdownVar}
                   />
                 )}
-              </>
+              </Fragment>
             ))}
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             {variableConfig.metrics["pct_share"] && (
               <UnknownsMapCard
-                metricConfig={variableConfig.metrics["pct_share"]}
+                variableConfig={variableConfig}
                 fips={props.fips}
                 updateFipsCallback={(fips: Fips) => {
                   props.updateFipsCallback(fips);
@@ -95,24 +142,24 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               />
             )}
             {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-              <>
-                {breakdownIsShown(breakdownVar) &&
-                  variableConfig.metrics["pct_share"] && (
-                    <DisparityBarChartCard
-                      metricConfig={variableConfig.metrics["pct_share"]}
-                      breakdownVar={breakdownVar}
-                      fips={props.fips}
-                    />
-                  )}
+              <Fragment key={breakdownVar}>
                 {breakdownIsShown(breakdownVar) &&
                   variableConfig.metrics["per100k"] && (
                     <SimpleBarChartCard
-                      metricConfig={variableConfig.metrics["per100k"]}
+                      variableConfig={variableConfig}
                       breakdownVar={breakdownVar}
                       fips={props.fips}
                     />
                   )}
-              </>
+                {breakdownIsShown(breakdownVar) &&
+                  variableConfig.metrics["pct_share"] && (
+                    <DisparityBarChartCard
+                      variableConfig={variableConfig}
+                      breakdownVar={breakdownVar}
+                      fips={props.fips}
+                    />
+                  )}
+              </Fragment>
             ))}
           </Grid>
         </Grid>

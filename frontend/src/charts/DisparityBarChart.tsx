@@ -12,6 +12,7 @@ import {
   MULTILINE_LABEL,
   AXIS_LABEL_Y_DELTA,
   oneLineLabel,
+  addMetricDisplayColumn,
 } from "./utils";
 
 function getSpec(
@@ -24,6 +25,11 @@ function getSpec(
   darkMeasure: string,
   darkMeasureDisplayName: string,
   metricDisplayName: string,
+  // lightMetricDisplayColumnName and darkMetricDisplayColumnName are the column
+  // names to use for the display value of the metrics. These columns contain
+  // preformatted data as strings.
+  lightMetricDisplayColumnName: string,
+  darkMetricDisplayColumnName: string,
   stacked?: boolean
 ): any {
   const BAR_HEIGHT = stacked ? 40 : 10;
@@ -92,7 +98,7 @@ function getSpec(
             tooltip: {
               signal: `${oneLineLabel(
                 breakdownVar
-              )} + ', ${lightMeasureDisplayName}: ' + datum. ${lightMeasure}+'%'`,
+              )} + ', ${lightMeasureDisplayName}: ' + datum.${lightMetricDisplayColumnName}`,
             },
           },
           update: {
@@ -125,7 +131,7 @@ function getSpec(
             tooltip: {
               signal: `${oneLineLabel(
                 breakdownVar
-              )} + ', ${darkMeasureDisplayName}: ' + datum. ${darkMeasure}+'%'`,
+              )} + ', ${darkMeasureDisplayName}: ' + datum.${darkMetricDisplayColumnName}`,
             },
           },
           update: {
@@ -168,7 +174,7 @@ function getSpec(
                 : MIDDLE_OF_BAND + BAR_HEIGHT,
             },
             text: {
-              signal: `isValid(datum["${darkMeasure}"]) ? datum["${darkMeasure}"] + "${metricDisplayName}" : "" `,
+              signal: `datum.${darkMetricDisplayColumnName} + "${metricDisplayName}"`,
             },
           },
         },
@@ -274,12 +280,26 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     props.data,
     props.breakdownVar
   );
+  // Omit the % symbol because it's included in shortVegaLabel.
+  const [
+    dataWithLightMetric,
+    lightMetricDisplayColumnName,
+  ] = addMetricDisplayColumn(
+    props.lightMetric,
+    dataWithLineBreakDelimiter,
+    /* omitPctSymbol= */ true
+  );
+  const [data, darkMetricDisplayColumnName] = addMetricDisplayColumn(
+    props.darkMetric,
+    dataWithLightMetric,
+    /* omitPctSymbol= */ true
+  );
 
   return (
     <div ref={ref}>
       <Vega
         spec={getSpec(
-          dataWithLineBreakDelimiter,
+          data,
           width,
           props.breakdownVar,
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
@@ -288,6 +308,8 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           props.darkMetric.metricId,
           props.darkMetric.shortVegaLabel,
           props.metricDisplayName,
+          lightMetricDisplayColumnName,
+          darkMetricDisplayColumnName,
           props.stacked
         )}
       />
