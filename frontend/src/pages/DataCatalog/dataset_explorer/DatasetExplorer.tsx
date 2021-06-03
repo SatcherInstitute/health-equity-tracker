@@ -102,7 +102,6 @@ function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
                         </div>
                       </div>
                     ))}
-                    {/* TODO clear filters instead of reloading the page. */}
                     {viewingSubsetOfSources && (
                       <Button
                         href={DATA_CATALOG_PAGE_LINK}
