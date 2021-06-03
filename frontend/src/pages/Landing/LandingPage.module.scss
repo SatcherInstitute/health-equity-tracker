@@ -58,22 +58,20 @@
   }
 
   .HeaderText {
-    font-size: 80px;
     text-align: left;
     font-weight: 300;
     font-family: "Taviraj", serif !important;
-    line-height: 80px;
     color: $alt-green;
-    padding-bottom: 20px;
-  }
 
-  .HeaderTextMobile {
-    font-size: 50px;
-    text-align: left;
-    font-weight: 300;
-    font-family: "Taviraj", serif !important;
-    line-height: 50px;
-    color: $alt-green;
+    @media (min-width: $sm) {
+      font-size: 80px;
+      line-height: 80px;
+      padding-bottom: 20px;
+    }
+    @media (max-width: $sm) {
+      font-size: 50px;
+      line-height: 50px;
+    }
   }
 
   .HeaderSubtext {
@@ -85,7 +83,9 @@
   }
 
   .HeaderImgItem {
-    border-left: 1px solid #3e3e3e;
+    @media (min-width: $md) {
+      border-left: 1px solid #3e3e3e;
+    }
   }
 
   .HeaderImg {
@@ -259,23 +259,20 @@
   align-items: center;
 
   .NewsletterRowHeader {
-    font-size: 130px !important;
     font-family: "Taviraj", sans-serif !important;
     text-align: center;
     font-weight: 400 !important;
     color: white;
-    line-height: 120px !important;
     padding: 30px;
-  }
 
-  .NewsletterRowHeaderSmall {
-    font-size: 90px !important;
-    font-family: "Taviraj", sans-serif !important;
-    text-align: center;
-    font-weight: 400 !important;
-    color: white;
-    line-height: 80px !important;
-    padding: 30px;
+    @media (min-width: $md) {
+      font-size: 130px !important;
+      line-height: 120px !important;
+    }
+    @media (max-width: $md) {
+      font-size: 80px !important;
+      line-height: 70px !important;
+    }
   }
 
   .EmailAddressBackgroundImgContainer {
