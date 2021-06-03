@@ -86,9 +86,9 @@ function Footer() {
           </Hidden>
           <ReturnToTop />
         </Grid>
-        <Grid xs={12} className={styles.ShliLogo}>
+        <Grid xs={12}>
           <img
-            src="img/logos/SHLI_logo.png"
+            src="img/PartnerSatcher.png"
             alt="Satcher Health Leadership Institute Logo"
           />
         </Grid>
