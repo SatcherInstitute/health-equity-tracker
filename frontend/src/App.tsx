@@ -30,7 +30,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage/TermsOfServicePage";
 import { WhatIsHealthEquityPage } from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
 import MaterialTheme from "./styles/MaterialTheme";
-import { autoInitGlobals, getEnvironment } from "./utils/globals";
+import { autoInitGlobals } from "./utils/globals";
 import {
   ABOUT_US_PAGE_LINK,
   DATA_CATALOG_PAGE_LINK,
