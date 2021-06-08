@@ -41,13 +41,6 @@ export interface Environment {
   /** Whether the environment is exposed to any real users. */
   isUserFacingEnvironment(): boolean;
 
-  // TODO delete this after launch.
-  /**
-   * Whether to enable the full site content. If false, we only show a
-   * pre-launch info screen.
-   */
-  enableFullSiteContent(): boolean;
-
   /**
    * Whether to fetch the dataset as a static file from the public/tmp/
    * directory.
@@ -89,10 +82,6 @@ export class HetEnvironment implements Environment {
 
   getEnableConsoleLogging() {
     return !this.isUserFacingEnvironment() && this.deployContext !== "test";
-  }
-
-  enableFullSiteContent() {
-    return this.getEnvVariable("ENABLE_FULL_SITE_CONTENT") === "true";
   }
 
   forceFetchDatasetAsStaticFile(fileName: string) {
