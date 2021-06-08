@@ -142,10 +142,6 @@ function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  if (!getEnvironment().enableFullSiteContent()) {
-    return <PreLaunchSiteContent />;
-  }
-
   return (
     <ThemeProvider theme={MaterialTheme}>
       <CookiesProvider>
