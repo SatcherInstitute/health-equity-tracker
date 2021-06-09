@@ -51,6 +51,9 @@ WITHOUT_HEALTH_INSURANCE_COL = "without_health_insurance"
 ABOVE_POVERTY_COL = "above_poverty_line"
 BELOW_POVERTY_COL = "below_poverty_line"
 
+COPD_PCT = "copd_pct"
+DIABETES_PCT = "diabetes_pct"
+
 
 RaceTuple = namedtuple("RaceTuple", [
     "race_category_id",
