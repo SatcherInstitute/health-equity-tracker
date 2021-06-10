@@ -1,8 +1,10 @@
+import pandas as pd
+
 from ingestion.standardized_columns import Race
-from ingestion.standardized_columns as std_col
+import ingestion.standardized_columns as std_col
 
 from datasources.data_source import DataSource
-from ingestion import gcs_to_bq_util
+from ingestion import gcs_to_bq_util, constants
 
 UHC_RACE_GROUPS = [
     'American Indian/Alaska Native',
@@ -55,8 +57,14 @@ class UHCData(DataSource):
             write_breakdown_to_bq(b, df, dataset)
 
 def test():
+    df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_UHC_URL)
+
+    dataset = "my-dataset"
+    for b in ["race_and_ethnicity", "age", "sex"]:
+        write_breakdown_to_bq(b, df, dataset)
 
 def write_breakdown_to_bq(breakdown, df, dataset):
+    print("making breakdown for %s" % breakdown)
     breakdown_map = {
         "race_and_ethnicity": UHC_RACE_GROUPS,
         "age": UHC_AGE_GROUPS,
@@ -71,6 +79,7 @@ def write_breakdown_to_bq(breakdown, df, dataset):
     states = df['State Name'].drop_duplicates().to_list()
 
     for state in states:
+        print(state)
         for value in breakdown_map[breakdown]:
             if value == 'All':
                 diabetes_row = df.loc[
@@ -108,13 +117,11 @@ def write_breakdown_to_bq(breakdown, df, dataset):
             if copd_pct != -1:
                 output_row['copd_pct'] = copd_pct
 
-            if state != "United States":
-                output_row['state_fips'] = us.states.lookup(state.lower()).fips
-            else:
-                output_row['state_fips'] = "00"
+            output_row['state_fips'] = constants.STATE_NAMES_TO_FIPS[state]
 
-            output = output.append(output_row)
+            output = output.append(output_row, ignore_index=True)
 
     table_name = "uhc_%s" % breakdown
-    gcs_to_bq_util.add_dataframe_to_bq(
-        output, dataset, table_name, column_types=column_types)
+    output.to_csv("%s.csv" % table_name)
+    # gcs_to_bq_util.add_dataframe_to_bq(
+    #     output, dataset, table_name, column_types=column_types)
