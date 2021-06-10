@@ -13,19 +13,22 @@ const DefaultRSSComponent: FunctionComponent<
     direction="row"
     justify="center"
   >
-    {props.rss.items.map((item) => (
-      <Grid item xs={4} className={styles.ResourceItem}>
-        <Typography className={styles.ResourcesHeaderText} variant="h1">
-          {item.title}
-        </Typography>
-        <p>
-          <i>published on {item.pubDate}</i>
-        </p>
-        <p className={styles.MainResourceSubtitleText}>
-          <div dangerouslySetInnerHTML={{ __html: item.description }}></div>
-        </p>
-      </Grid>
-    ))}
+    {props.rss.items.map((item) => {
+      console.log(item);
+      return (
+        <Grid item xs={4} className={styles.ResourceItem}>
+          <Typography className={styles.ResourcesHeaderText} variant="h1">
+            {item.title}
+          </Typography>
+          <p>
+            <i>published on {item.pubDate}</i>
+          </p>
+          <p className={styles.MainResourceSubtitleText}>
+            <div dangerouslySetInnerHTML={{ __html: item.description }}></div>
+          </p>
+        </Grid>
+      );
+    })}
   </Grid>
 );
 
