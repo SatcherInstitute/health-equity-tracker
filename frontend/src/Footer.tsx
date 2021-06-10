@@ -86,6 +86,12 @@ function Footer() {
           </Hidden>
           <ReturnToTop />
         </Grid>
+        <Grid xs={12}>
+          <img
+            src="img/PartnerSatcher.png"
+            alt="Satcher Health Leadership Institute Logo"
+          />
+        </Grid>
       </Grid>
     </div>
   );

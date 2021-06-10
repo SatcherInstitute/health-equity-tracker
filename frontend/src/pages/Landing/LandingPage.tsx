@@ -59,29 +59,18 @@ function LandingPage() {
             alignItems="center"
           >
             <Grid item className={styles.HeaderTextItem} xs={12} sm={12} md={6}>
-              <Hidden xsDown>
-                <Typography
-                  id="main"
-                  tabIndex={-1}
-                  className={styles.HeaderText}
-                  variant="h2"
-                >
-                  Advancing
-                  <br />
-                  Health
-                  <br />
-                  Equity
-                </Typography>
-              </Hidden>
-              <Hidden smUp>
-                <Typography className={styles.HeaderTextMobile}>
-                  Advancing
-                  <br />
-                  Health
-                  <br />
-                  Equity
-                </Typography>
-              </Hidden>
+              <Typography
+                id="main"
+                tabIndex={-1}
+                className={styles.HeaderText}
+                variant="h2"
+              >
+                Advancing
+                <br />
+                Health
+                <br />
+                Equity
+              </Typography>
               <Typography className={styles.HeaderSubtext} variant="body1">
                 <p>
                   We know that the data we collect can be imperfect and at times
@@ -377,26 +366,14 @@ function LandingPage() {
             >
               <div className={styles.EmailAddressContentDiv}>
                 <Grid item>
-                  <Hidden mdUp>
-                    <Typography
-                      className={styles.NewsletterRowHeaderSmall}
-                      variant="h2"
-                    >
-                      Engage in
-                      <br />
-                      Health Equity
-                    </Typography>
-                  </Hidden>
-                  <Hidden smDown>
-                    <Typography
-                      className={styles.NewsletterRowHeader}
-                      variant="h2"
-                    >
-                      Join Our
-                      <br />
-                      Movement
-                    </Typography>
-                  </Hidden>
+                  <Typography
+                    className={styles.NewsletterRowHeader}
+                    variant="h2"
+                  >
+                    Join Our
+                    <br />
+                    Movement
+                  </Typography>
                 </Grid>
                 <Grid item>
                   <Button

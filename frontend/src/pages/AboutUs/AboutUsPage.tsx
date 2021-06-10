@@ -11,7 +11,6 @@ export const ABOUT_US_PROJECT_TAB_INDEX = 0;
 export const ABOUT_US_TEAM_TAB_INDEX = 1;
 export const ABOUT_US_CONTACT_TAB_INDEX = 2;
 
-/* TODO - Align with mocks, Clean up CSS */
 export function AboutUsPage() {
   const params = useSearchParams();
 
