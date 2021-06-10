@@ -16,7 +16,14 @@ const DefaultRSSComponent: FunctionComponent<
     {props.rss.items.map((item) => {
       console.log(item);
       return (
-        <Grid item xs={4} className={styles.ResourceItem}>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          lg={4}
+          className={styles.ResourceItem}
+          style={{ padding: "15px" }}
+        >
           <Typography className={styles.ResourcesHeaderText} variant="h1">
             {item.title}
           </Typography>
