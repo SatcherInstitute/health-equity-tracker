@@ -35,6 +35,7 @@
     "react-joyride": "^2.3.0",
     "react-material-ui-carousel": "^2.2.4",
     "react-router-dom": "^5.2.0",
+    "react-rss": "^2.0.0",
     "react-scripts": "3.4.3",
     "react-select": "^3.2.0",
     "react-table": "^7.6.3",

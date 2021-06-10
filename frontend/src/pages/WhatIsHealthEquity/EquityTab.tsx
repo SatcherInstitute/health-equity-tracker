@@ -7,6 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import FaqSection from "../ui/FaqSection";
 import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "./WhatIsHealthEquityPage";
+import DefaultRSSComponent from "./DefaultRSSComponent";
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -273,129 +274,11 @@ function EquityTab() {
                 equity
               </span>
             </Grid>
-            <Grid
-              container
-              direction="row"
-              justify="space-between"
-              alignItems="flex-start"
-            >
-              <Grid
-                item
-                xs={12}
-                sm={12}
-                md={6}
-                className={styles.NewsAndStoriesItem}
-              >
-                <img
-                  className={styles.NewsAndStoriesBigImg}
-                  src="img/pexels-august-de-richelieu-4261261 1.png"
-                  alt="Asian woman assisting a young black child with his
-                       mask"
-                />
-                <h2 className={styles.NewsAndStoriesTitleText}>
-                  Why It Matters That Information On Race, Ethnicity, Gender And
-                  Disability Are Measured Accurately And Completely
-                </h2>
-                <p className={styles.NewsAndStoriesSubtitleText}>
-                  Why ongoing data on health and wellbeing metrics could be used
-                  in targeting federal resources and programs to address
-                  inequities due to social and economic factors.{" "}
-                  <a href="https://satcherinstitute.org/hetblog2/">Read more</a>
-                </p>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={6}
-                className={styles.NewsAndStoriesItem}
-              >
-                <img
-                  className={styles.NewsAndStoriesBigImg}
-                  src="img/pexels-cottonbro-7000149 1.png"
-                  alt="Asian woman sitting while wearing a mask"
-                />
-                <h2 className={styles.NewsAndStoriesTitleText}>
-                  Back To ‘Normal’ Isn’t Good Enough
-                </h2>
-                <p className={styles.NewsAndStoriesSubtitleText}>
-                  With the anticipation of increasing distribution of COVID-19
-                  vaccines, Americans are looking forward to a “return to
-                  normal.” But the reality is that “normal” is a privilege, one
-                  that is out of reach for millions.{" "}
-                  <a href="https://www.statnews.com/2021/02/10/back-to-normal-isnt-good-enough/">
-                    Read more
-                  </a>
-                </p>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                className={styles.NewsAndStoriesItem}
-              >
-                <img
-                  className={styles.NewsAndStoriesSmallImg}
-                  src="img/pexels-alex-green-5699516 1.png"
-                  alt="Documents lying on a table"
-                />
-                <h2 className={styles.NewsAndStoriesTitleText}>
-                  Data And Technology Can Help Us Make Progress On COVID
-                  Inequities
-                </h2>
-                <p className={styles.NewsAndStoriesSubtitleText}>
-                  <a href="https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/">
-                    Read more
-                  </a>
-                </p>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                className={styles.NewsAndStoriesItem}
-              >
-                <img
-                  className={styles.NewsAndStoriesSmallImg}
-                  src="img/pexels-ketut-subiyanto-4473409 2.png"
-                  alt="Asian woman laughing with two children"
-                />
-                <h2 className={styles.NewsAndStoriesTitleText}>
-                  How Complete Are The CDC's COVID-19 Case Surveillance Datasets
-                  For Race/Ethnicity At The State And County Levels?
-                </h2>
-                <p className={styles.NewsAndStoriesSubtitleText}>
-                  <a href="https://satcherinstitute.github.io/analysis/cdc_case_data">
-                    Learn more
-                  </a>
-                </p>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                className={styles.NewsAndStoriesItem}
-              >
-                <img
-                  className={styles.NewsAndStoriesSmallImg}
-                  src="img/Screen Shot 2021-03-01 at 5.25 1.png"
-                  alt="Laptop sitting on desk and opened to the Health
-                       Equity Tracker Homepage"
-                />
-                <h2 className={styles.NewsAndStoriesTitleText}>
-                  How To Include The Social Determinants That Impact Behavioral
-                  Health In A Health Equity Tracker
-                </h2>
-                <p className={styles.NewsAndStoriesSubtitleText}>
-                  <a href="https://satcherinstitute.org/post-4840/">
-                    Learn more
-                  </a>
-                </p>
-              </Grid>
-            </Grid>
+            <DefaultRSSComponent
+              label="Default"
+              loadingComponent={() => <div>Loading default..</div>}
+              errorComponent={() => <div>Sadly, no default rss :(</div>}
+            />
           </Grid>
         </Grid>
         <Grid
