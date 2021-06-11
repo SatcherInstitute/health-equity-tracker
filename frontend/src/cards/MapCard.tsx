@@ -295,12 +295,10 @@ function MapCardWithKey(props: MapCardProps) {
                 />
                 {props.fips.isUsa() &&
                   TERRITORY_CODES.map((code) => {
-                    let fips = new Fips(code);
+                    const fips = new Fips(code);
                     return (
-                      <div style={{ width: "20%", float: "left" }}>
-                        <b style={{ fontSize: "10px" }}>
-                          {fips.getDisplayName()}
-                        </b>
+                      <div className={styles.TerritoryMap}>
+                        <b>{fips.getShortDisplayName()}</b>
                         <ChoroplethMap
                           nationalView={true}
                           useSmallSampleMessage={

@@ -83,6 +83,15 @@ class Fips {
       : STATE_FIPS_MAP[this.code];
   }
 
+  getShortDisplayName() {
+    // Northern Marina Islands
+    if (this.code === "69") {
+      return "CNMI";
+    } else {
+      return this.getDisplayName();
+    }
+  }
+
   getFullDisplayName() {
     return this.isCounty()
       ? `${COUNTY_FIPS_MAP[this.code]}, ${this.getStateDisplayName()}`
