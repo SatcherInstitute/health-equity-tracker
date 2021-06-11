@@ -84,7 +84,7 @@ function OptionsSelector(props: {
               onClose={closeAutoComplete}
               renderInput={(params) => (
                 <TextField
-                  placeholder="County, State, Territory, or United States" // TODO- update depending on what options are
+                  placeholder="County, State, Territory, or United States"
                   margin="dense"
                   variant="outlined"
                   onChange={updateTextBox}

@@ -284,7 +284,13 @@ function OurTeamTab() {
             >
               {LEADERSHIP_TEAM.map((leader) => {
                 return (
-                  <Grid item className={styles.TextProfile}>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    md={3}
+                    className={styles.TextProfile}
+                  >
                     <img
                       src={leader.imageUrl}
                       alt={leader.name}

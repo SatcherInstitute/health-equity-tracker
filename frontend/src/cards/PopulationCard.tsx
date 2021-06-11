@@ -42,8 +42,6 @@ export function PopulationCard(props: PopulationCardProps) {
     metricIds,
     Breakdowns.forFips(props.fips).andRace(onlyIncludeStandardRaces())
   );
-  // TODO when ACS by age gets more age buckets, update this to specify which
-  // ones we want.
   const ageQuery = new MetricQuery(
     metricIds,
     Breakdowns.forFips(props.fips).andAge(onlyIncludeDecadeAgeBrackets())

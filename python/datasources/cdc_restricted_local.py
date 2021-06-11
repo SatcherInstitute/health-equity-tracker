@@ -88,7 +88,7 @@ AGE_NAMES_MAPPING = {
 # very incomplete data. Note that states that have all data suppressed will
 # have case, hospitalization, and death data suppressed.
 # See https://github.com/SatcherInstitute/health-equity-tracker/issues/617.
-ALL_DATA_SUPPRESSION_STATES = ("LA", "MO", "MS", "ND", "NH", "TX", "WY")
+ALL_DATA_SUPPRESSION_STATES = ("LA", "MO", "MS", "ND", "TX", "WY")
 HOSP_DATA_SUPPRESSION_STATES = ("HI", "MD", "NE", "NM", "RI", "SD")
 DEATH_DATA_SUPPRESSION_STATES = ("HI", "MD", "NE", "NM", "RI", "SD",
                                  "WV", "DE")

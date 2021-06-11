@@ -175,7 +175,7 @@ function MapCardWithKey(props: MapCardProps) {
               open={smallMultiplesDialogOpen}
               breakdownValues={breakdownValues}
               fieldRange={queryResponse.getFieldRange(metricConfig.metricId)}
-              queryResponses={queryResponses} // TODO
+              queryResponses={queryResponses}
               metadata={metadata}
               geoData={geoData}
             />

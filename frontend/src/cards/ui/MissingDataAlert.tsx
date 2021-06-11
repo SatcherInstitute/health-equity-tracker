@@ -10,7 +10,6 @@ function MissingDataAlert(props: {
   breakdownString: string;
   geoLevel: string;
 }) {
-  // TODO: populate health equity link
   return (
     <Alert severity="warning">
       We do not currently have <b>{props.dataName}</b> broken down by{" "}
