@@ -22,7 +22,7 @@ import {
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import { getHighestN, getLowestN } from "../data/utils/datasetutils";
-import { Fips } from "../data/utils/Fips";
+import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
 import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
 import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
@@ -293,6 +293,36 @@ function MapCardWithKey(props: MapCardProps) {
                   scaleType="quantile"
                   geoData={geoData}
                 />
+                {props.fips.isUsa() &&
+                  TERRITORY_CODES.map((code) => {
+                    return (
+                      <div style={{ width: "20%", float: "left" }}>
+                        <ChoroplethMap
+                          nationalView={true}
+                          useSmallSampleMessage={
+                            !queryResponse.dataIsMissing() &&
+                            (props.variableConfig.surveyCollectedData || false)
+                          }
+                          signalListeners={signalListeners}
+                          metric={metricConfig}
+                          legendTitle={metricConfig.fullCardTitleName}
+                          data={
+                            listExpanded
+                              ? highestRatesList.concat(lowestRatesList)
+                              : dataForActiveBreakdownFilter
+                          }
+                          hideMissingDataTooltip={listExpanded}
+                          legendData={dataForActiveBreakdownFilter}
+                          hideLegend={true}
+                          showCounties={props.fips.isUsa() ? false : true}
+                          fips={new Fips(code)}
+                          scaleType="quantile"
+                          geoData={geoData}
+                          hideActions={true}
+                        />
+                      </div>
+                    );
+                  })}
                 {!queryResponse.dataIsMissing() &&
                   dataForActiveBreakdownFilter.length > 1 && (
                     <HighestLowestList

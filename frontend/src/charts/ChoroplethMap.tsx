@@ -26,6 +26,7 @@ const LEGEND_DATASET = "LEGEND_DATASET";
 const VAR_FIPS = "fips";
 
 export interface ChoroplethMapProps {
+  nationalView?: boolean;
   data: Record<string, any>[];
   // legendData is the dataset for which to calculate legend. Used to have a common legend between two maps.
   legendData?: Record<string, any>[];
@@ -280,6 +281,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     }, 0);
   }, [
     width,
+    props.nationalView,
     props.metric,
     props.legendTitle,
     props.data,
