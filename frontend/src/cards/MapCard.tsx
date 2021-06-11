@@ -295,8 +295,12 @@ function MapCardWithKey(props: MapCardProps) {
                 />
                 {props.fips.isUsa() &&
                   TERRITORY_CODES.map((code) => {
+                    let fips = new Fips(code);
                     return (
                       <div style={{ width: "20%", float: "left" }}>
+                        <b style={{ fontSize: "10px" }}>
+                          {fips.getDisplayName()}
+                        </b>
                         <ChoroplethMap
                           nationalView={true}
                           useSmallSampleMessage={
@@ -315,7 +319,7 @@ function MapCardWithKey(props: MapCardProps) {
                           legendData={dataForActiveBreakdownFilter}
                           hideLegend={true}
                           showCounties={props.fips.isUsa() ? false : true}
-                          fips={new Fips(code)}
+                          fips={fips}
                           scaleType="quantile"
                           geoData={geoData}
                           hideActions={true}
