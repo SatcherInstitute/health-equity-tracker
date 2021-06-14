@@ -71,7 +71,7 @@ def get_dataset():
     if dataset_name.endswith('.csv'):
         return Response(dataset, mimetype='text/csv', headers=headers)
 
-    return Response(generate_response(dataset), mimetype='application/json',
+    return Response(generate_response(dataset), mimetype='application/text',
                     headers=headers)
 
 
