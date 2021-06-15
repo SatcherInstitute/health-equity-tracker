@@ -22,7 +22,15 @@ import {
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import { getHighestN, getLowestN } from "../data/utils/datasetutils";
-import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
+import {
+  Fips,
+  TERRITORY_CODES,
+  AMERICAN_SAMOA,
+  GUAM,
+  NORTHERN_MARINA_ISLANDS,
+  PUERTO_RICO,
+  VIRGIN_ISLANDS,
+} from "../data/utils/Fips";
 import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
 import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
@@ -160,6 +168,32 @@ function MapCardWithKey(props: MapCardProps) {
           }
         });
 
+        const territoryMap = (fips: Fips) => (
+          <ChoroplethMap
+            useSmallSampleMessage={
+              !queryResponse.dataIsMissing() &&
+              (props.variableConfig.surveyCollectedData || false)
+            }
+            signalListeners={signalListeners}
+            metric={metricConfig}
+            legendTitle={metricConfig.fullCardTitleName}
+            data={
+              listExpanded
+                ? highestRatesList.concat(lowestRatesList)
+                : dataForActiveBreakdownFilter
+            }
+            hideMissingDataTooltip={listExpanded}
+            legendData={dataForActiveBreakdownFilter}
+            hideLegend={true}
+            hideActions={true}
+            showCounties={props.fips.isUsa() ? false : true}
+            fips={fips}
+            scaleType="quantile"
+            geoData={geoData}
+            overrideShapeWithCircle={fips.representWithCircleAtNationalLevel()}
+          />
+        );
+
         return (
           <>
             <MultiMapDialog
@@ -293,38 +327,44 @@ function MapCardWithKey(props: MapCardProps) {
                   scaleType="quantile"
                   geoData={geoData}
                 />
-                {props.fips.isUsa() &&
-                  TERRITORY_CODES.map((code) => {
-                    const fips = new Fips(code);
-                    return (
-                      <div className={styles.TerritoryMap}>
-                        <b>{fips.getShortDisplayName()}</b>
-                        <ChoroplethMap
-                          useSmallSampleMessage={
-                            !queryResponse.dataIsMissing() &&
-                            (props.variableConfig.surveyCollectedData || false)
-                          }
-                          signalListeners={signalListeners}
-                          metric={metricConfig}
-                          legendTitle={metricConfig.fullCardTitleName}
-                          data={
-                            listExpanded
-                              ? highestRatesList.concat(lowestRatesList)
-                              : dataForActiveBreakdownFilter
-                          }
-                          hideMissingDataTooltip={listExpanded}
-                          legendData={dataForActiveBreakdownFilter}
-                          hideLegend={true}
-                          hideActions={true}
-                          showCounties={props.fips.isUsa() ? false : true}
-                          fips={fips}
-                          scaleType="quantile"
-                          geoData={geoData}
-                          overrideShapeWithCircle={fips.representWithCircleAtNationalLevel()}
-                        />
-                      </div>
-                    );
-                  })}
+
+                {props.fips.isUsa() && (
+                  <div
+                    style={{ width: "100%", height: "105px", padding: "20px" }}
+                  >
+                    {[GUAM, PUERTO_RICO].map((code) => {
+                      const fips = new Fips(code);
+                      return (
+                        <div
+                          className={styles.TerritoryMap}
+                          style={{ width: "20%", paddingRight: "15px" }}
+                        >
+                          {territoryMap(fips)}
+                        </div>
+                      );
+                    })}
+                    {[
+                      AMERICAN_SAMOA,
+                      NORTHERN_MARINA_ISLANDS,
+                      VIRGIN_ISLANDS,
+                    ].map((code) => {
+                      const fips = new Fips(code);
+                      return (
+                        <div
+                          className={styles.TerritoryMap}
+                          style={{
+                            width: "50px",
+                            paddingLeft: "30px",
+                            paddingTop: "15px",
+                          }}
+                        >
+                          {territoryMap(fips)}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
                 {!queryResponse.dataIsMissing() &&
                   dataForActiveBreakdownFilter.length > 1 && (
                     <HighestLowestList

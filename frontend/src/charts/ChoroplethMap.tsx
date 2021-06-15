@@ -208,7 +208,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     * hoverColor: single color that should appear on hover
     * tooltipExpression: expression defining how to render the contents of the hover tooltip 
     */
-    const createMarks = (
+    const createShapeMarks = (
       datasetName: string,
       fillColor: any,
       hoverColor: string,
@@ -231,6 +231,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         };
       }
       let marks: any = {
+        name: datasetName + "_MARK",
         type: props.overrideShapeWithCircle ? "symbol" : "shape",
         from: { data: datasetName },
         encode: {
@@ -244,6 +245,44 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       }
       return marks;
     };
+    const createCircleTextMark = (datasetName: string) => {
+      return {
+        type: "text",
+        interactive: false,
+        from: { data: datasetName + "_MARK" },
+        encode: {
+          enter: {
+            align: { value: "center" },
+            baseline: { value: "middle" },
+            fontSize: { value: 13 },
+            fontWeight: { value: "bold" },
+            text: { field: "datum.properties.abbreviation" },
+          },
+          update: {
+            x: { field: "x" },
+            y: { field: "y" },
+          },
+        },
+      };
+    };
+    let marks = [
+      createShapeMarks(
+        /*datasetName=*/ MISSING_DATASET,
+        /*fillColor=*/ { value: UNKNOWN_GREY },
+        /*hoverColor=*/ RED_ORANGE,
+        /*tooltipExpression=*/ missingDataTooltipValue
+      ),
+      createShapeMarks(
+        /*datasetName=*/ VALID_DATASET,
+        /*fillColor=*/ [{ scale: COLOR_SCALE, field: props.metric.metricId }],
+        /*hoverColor=*/ DARK_BLUE,
+        /*tooltipExpression=*/ tooltipValue
+      ),
+    ];
+    if (props.overrideShapeWithCircle) {
+      marks.push(createCircleTextMark(VALID_DATASET));
+      marks.push(createCircleTextMark(MISSING_DATASET));
+    }
 
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
@@ -298,20 +337,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       projections: [projection],
       scales: [colorScale],
       legends: legendList,
-      marks: [
-        createMarks(
-          /*datasetName=*/ MISSING_DATASET,
-          /*fillColor=*/ { value: UNKNOWN_GREY },
-          /*hoverColor=*/ RED_ORANGE,
-          /*tooltipExpression=*/ missingDataTooltipValue
-        ),
-        createMarks(
-          /*datasetName=*/ VALID_DATASET,
-          /*fillColor=*/ [{ scale: COLOR_SCALE, field: props.metric.metricId }],
-          /*hoverColor=*/ DARK_BLUE,
-          /*tooltipExpression=*/ tooltipValue
-        ),
-      ],
+      marks: marks,
       signals: [
         {
           name: "click",

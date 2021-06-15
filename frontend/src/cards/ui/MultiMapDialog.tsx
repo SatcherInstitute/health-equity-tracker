@@ -112,7 +112,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     const fips = new Fips(code);
                     return (
                       <div className={styles.TerritoryMap}>
-                        <b>{fips.getShortDisplayName()}</b>
                         <ChoroplethMap
                           key={breakdownValue}
                           signalListeners={{ click: (...args: any) => {} }}

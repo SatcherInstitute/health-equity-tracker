@@ -142,7 +142,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     const fips = new Fips(code);
                     return (
                       <div className={styles.TerritoryMap}>
-                        <b>{fips.getShortDisplayName()}</b>
                         <ChoroplethMap
                           useSmallSampleMessage={
                             !mapQueryResponse.dataIsMissing() &&
