@@ -22,7 +22,7 @@ import {
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import { getHighestN, getLowestN } from "../data/utils/datasetutils";
-import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
+import { Fips, TERRITORY_CODES, PUERTO_RICO, GUAM } from "../data/utils/Fips";
 import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
 import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
@@ -175,7 +175,7 @@ function MapCardWithKey(props: MapCardProps) {
               open={smallMultiplesDialogOpen}
               breakdownValues={breakdownValues}
               fieldRange={queryResponse.getFieldRange(metricConfig.metricId)}
-              queryResponses={queryResponses}
+              queryResponses={queryResponses} // TODO
               metadata={metadata}
               geoData={geoData}
             />
@@ -300,7 +300,6 @@ function MapCardWithKey(props: MapCardProps) {
                       <div className={styles.TerritoryMap}>
                         <b>{fips.getShortDisplayName()}</b>
                         <ChoroplethMap
-                          nationalView={true}
                           useSmallSampleMessage={
                             !queryResponse.dataIsMissing() &&
                             (props.variableConfig.surveyCollectedData || false)
@@ -316,11 +315,14 @@ function MapCardWithKey(props: MapCardProps) {
                           hideMissingDataTooltip={listExpanded}
                           legendData={dataForActiveBreakdownFilter}
                           hideLegend={true}
+                          hideActions={true}
                           showCounties={props.fips.isUsa() ? false : true}
                           fips={fips}
                           scaleType="quantile"
                           geoData={geoData}
-                          hideActions={true}
+                          overrideShapeWithCircle={
+                            ![PUERTO_RICO, GUAM].includes(fips.code)
+                          }
                         />
                       </div>
                     );

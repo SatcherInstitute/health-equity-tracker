@@ -4,8 +4,9 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import Typography from "@material-ui/core/Typography";
 import { Grid } from "@material-ui/core";
+import { DorlingChart } from "../../charts/DorlingChart";
 import { ChoroplethMap } from "../../charts/ChoroplethMap";
-import { Fips } from "../../data/utils/Fips";
+import { Fips, TERRITORY_CODES } from "../../data/utils/Fips";
 import { Legend } from "../../charts/Legend";
 import { MapOfDatasetMetadata } from "../../data/utils/DatasetTypes";
 import { MetricConfig } from "../../data/config/MetricConfig";
@@ -106,6 +107,32 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     geoData={props.geoData}
                   />
                 )}
+                {props.metricConfig &&
+                  props.fips.isUsa() &&
+                  TERRITORY_CODES.map((code) => {
+                    const fips = new Fips(code);
+                    return (
+                      <div className={styles.TerritoryMap}>
+                        <b>{fips.getShortDisplayName()}</b>
+                        <DorlingChart
+                          key={breakdownValue}
+                          signalListeners={{ click: (...args: any) => {} }}
+                          metric={props.metricConfig}
+                          useSmallSampleMessage={props.useSmallSampleMessage}
+                          legendTitle={props.metricConfig.fullCardTitleName}
+                          legendData={props.data}
+                          data={dataForValue}
+                          hideLegend={true}
+                          hideActions={true}
+                          showCounties={props.fips.isUsa() ? false : true}
+                          fips={fips}
+                          fieldRange={props.fieldRange}
+                          scaleType="quantile"
+                          geoData={props.geoData}
+                        />
+                      </div>
+                    );
+                  })}
               </Grid>
             );
           })}

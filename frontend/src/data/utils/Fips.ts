@@ -1,6 +1,8 @@
 export const USA_DISPLAY_NAME = "United States";
 // Fake FIPS code used to represent totals in USA for convenience
 export const USA_FIPS = "00";
+export const PUERTO_RICO = "72";
+export const GUAM = "66";
 
 export const TERRITORY_CODES = [
   /*American Samoa-*/ "60",
