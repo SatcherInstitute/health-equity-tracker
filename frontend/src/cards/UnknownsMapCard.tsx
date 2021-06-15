@@ -137,32 +137,36 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   }
                   geoData={geoData}
                 />
-                {props.fips.isUsa() &&
-                  TERRITORY_CODES.map((code) => {
-                    const fips = new Fips(code);
-                    return (
-                      <div className={styles.TerritoryMap}>
-                        <ChoroplethMap
-                          useSmallSampleMessage={
-                            !mapQueryResponse.dataIsMissing() &&
-                            (props.variableConfig.surveyCollectedData || false)
-                          }
-                          signalListeners={signalListeners}
-                          metric={metricConfig}
-                          legendTitle={metricConfig.fullCardTitleName}
-                          data={unknowns}
-                          showCounties={props.fips.isUsa() ? false : true}
-                          fips={fips}
-                          scaleType="symlog"
-                          scaleColorScheme="greenblue"
-                          hideLegend={true}
-                          hideActions={true}
-                          geoData={geoData}
-                          overrideShapeWithCircle={fips.representWithCircleAtNationalLevel()}
-                        />
-                      </div>
-                    );
-                  })}
+                {props.fips.isUsa() && (
+                  <div className={styles.TerritoryCirclesContainer}>
+                    {TERRITORY_CODES.map((code) => {
+                      const fips = new Fips(code);
+                      return (
+                        <div className={styles.TerritoryCircle}>
+                          <ChoroplethMap
+                            useSmallSampleMessage={
+                              !mapQueryResponse.dataIsMissing() &&
+                              (props.variableConfig.surveyCollectedData ||
+                                false)
+                            }
+                            signalListeners={signalListeners}
+                            metric={metricConfig}
+                            legendTitle={metricConfig.fullCardTitleName}
+                            data={unknowns}
+                            showCounties={props.fips.isUsa() ? false : true}
+                            fips={fips}
+                            scaleType="symlog"
+                            scaleColorScheme="greenblue"
+                            hideLegend={true}
+                            hideActions={true}
+                            geoData={geoData}
+                            overrideShapeWithCircle={true}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </CardContent>
             )}
           </>

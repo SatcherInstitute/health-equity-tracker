@@ -49,15 +49,6 @@ class Fips {
     return this.code.length === 5;
   }
 
-  // Some island territory geographies are difficult to click on, so these territories are represented with a circle in our maps instead.
-  representWithCircleAtNationalLevel() {
-    return [
-      /*American Samoa-*/ "60",
-      /*Northern Mariana Islands-*/ "69",
-      /*Virgin Islands-*/ "78",
-    ].includes(this.code);
-  }
-
   getFipsTypeDisplayName() {
     if (this.isUsa()) {
       return "national";

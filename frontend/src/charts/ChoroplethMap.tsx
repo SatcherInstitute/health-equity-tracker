@@ -255,7 +255,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             align: { value: "center" },
             baseline: { value: "middle" },
             fontSize: { value: 13 },
-            fontWeight: { value: "bold" },
             text: { field: "datum.properties.abbreviation" },
           },
           update: {
