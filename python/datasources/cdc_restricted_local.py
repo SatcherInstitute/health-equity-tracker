@@ -84,6 +84,16 @@ AGE_NAMES_MAPPING = {
     "Missing": "Unknown",
 }
 
+# Mapping from geo and demo to relevant column(s) in the data. The demo
+# mapping also includes the values mapping for transforming demographic values
+# to their standardized form.
+GEO_COL_MAPPING = {'state': [STATE_COL], 'county': COUNTY_COLS}
+DEMOGRAPHIC_COL_MAPPING = {
+    'race': (RACE_COL, RACE_NAMES_MAPPING),
+    'sex': (SEX_COL, SEX_NAMES_MAPPING),
+    'age': (AGE_COL, AGE_NAMES_MAPPING),
+}
+
 # States that we have decided to suppress different kinds of data for, due to
 # very incomplete data. Note that states that have all data suppressed will
 # have case, hospitalization, and death data suppressed.
@@ -179,45 +189,19 @@ def standardize_data(df):
     return df
 
 
-def main():
-    dir = input("Enter the path to the CDC restricted data CSV files: ")
-    prefix = input("Enter the prefix for the CDC restricted CSV files: ")
+def process_data(files):
+    """Given a list of files which contain line item-level covid data,
+    standardizes and aggregates by race, age, and sex. Returns a map from
+    (geography, demographic) to the associated dataframe.
 
-    # Get the files in the specified directory which match the prefix.
-    matching_files = []
-    files = [
-        f for f in os.listdir(dir) if os.path.isfile(os.path.join(dir, f))]
-    for f in files:
-        filename_parts = f.split('.')
-        if (len(filename_parts) == 2 and prefix in filename_parts[0] and
-                filename_parts[1] == 'csv'):
-            matching_files.append(f)
-
-    if len(matching_files) == 0:
-        print("Unable to find any files that match the prefix!")
-        sys.exit()
-
-    print("Matching files: ")
-    for f in matching_files:
-        print(f)
-
-    # Go through the CSV files, chunking each and grouping by columns we want.
+    files: List of file paths that contain covid data.
+    """
     all_dfs = {}
     for geo in ['state', 'county']:
         for demo in ['race', 'sex', 'age']:
             all_dfs[(geo, demo)] = pd.DataFrame()
 
-    # Mapping from geo and demo to relevant column(s) in the data. The demo
-    # mapping also includes the values mapping for transforming values to their
-    # standardized form.
-    geo_col_mapping = {'state': [STATE_COL], 'county': COUNTY_COLS}
-    demographic_col_mapping = {
-        'race': (RACE_COL, RACE_NAMES_MAPPING),
-        'sex': (SEX_COL, SEX_NAMES_MAPPING),
-        'age': (AGE_COL, AGE_NAMES_MAPPING),
-    }
-
-    for f in sorted(matching_files):
+    for f in sorted(files):
         start = time.time()
 
         # Note that we read CSVs with keep_default_na = False as we want to
@@ -246,8 +230,8 @@ def main():
             # data to focus on that dimension and aggregate.
             for (geo, demo), _ in all_dfs.items():
                 # Build the columns we will group by.
-                geo_cols = geo_col_mapping[geo]
-                demog_col, demog_names_mapping = demographic_col_mapping[demo]
+                geo_cols = GEO_COL_MAPPING[geo]
+                demog_col, demog_names_mapping = DEMOGRAPHIC_COL_MAPPING[demo]
 
                 # Slice the data and aggregate for the given dimension.
                 sliced_df = df[geo_cols + [demog_col] + OUTCOME_COLS]
@@ -285,6 +269,33 @@ def main():
         all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_Y] = np.NaN
         all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_N] = np.NaN
         all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_UNKNOWN] = np.NaN
+
+    return all_dfs
+
+
+def main():
+    dir = input("Enter the path to the CDC restricted data CSV files: ")
+    prefix = input("Enter the prefix for the CDC restricted CSV files: ")
+
+    # Get the files in the specified directory which match the prefix.
+    matching_files = []
+    files = [
+        f for f in os.listdir(dir) if os.path.isfile(os.path.join(dir, f))]
+    for f in files:
+        filename_parts = f.split('.')
+        if (len(filename_parts) == 2 and prefix in filename_parts[0] and
+                filename_parts[1] == 'csv'):
+            matching_files.append(f)
+
+    if len(matching_files) == 0:
+        print("Unable to find any files that match the prefix!")
+        sys.exit()
+
+    print("Matching files: ")
+    for f in matching_files:
+        print(f)
+
+    all_dfs = process_data(matching_files)
 
     # Write the results out to CSVs.
     for (geo, demo), df in all_dfs.items():
