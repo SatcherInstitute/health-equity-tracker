@@ -4,7 +4,6 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import Typography from "@material-ui/core/Typography";
 import { Grid } from "@material-ui/core";
-import { DorlingChart } from "../../charts/DorlingChart";
 import { ChoroplethMap } from "../../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../../data/utils/Fips";
 import { Legend } from "../../charts/Legend";
@@ -114,7 +113,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     return (
                       <div className={styles.TerritoryMap}>
                         <b>{fips.getShortDisplayName()}</b>
-                        <DorlingChart
+                        <ChoroplethMap
                           key={breakdownValue}
                           signalListeners={{ click: (...args: any) => {} }}
                           metric={props.metricConfig}
@@ -129,6 +128,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                           fieldRange={props.fieldRange}
                           scaleType="quantile"
                           geoData={props.geoData}
+                          overrideShapeWithCircle={true}
                         />
                       </div>
                     );

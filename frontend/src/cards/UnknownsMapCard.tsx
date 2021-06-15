@@ -1,7 +1,7 @@
 import React from "react";
 import { CardContent } from "@material-ui/core";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
-import { Fips, TERRITORY_CODES, PUERTO_RICO, GUAM } from "../data/utils/Fips";
+import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
 import { VariableConfig } from "../data/config/MetricConfig";
 import MapBreadcrumbs from "./ui/MapBreadcrumbs";
 import { Row } from "../data/utils/DatasetTypes";
@@ -159,9 +159,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                           hideLegend={true}
                           hideActions={true}
                           geoData={geoData}
-                          overrideShapeWithCircle={
-                            ![PUERTO_RICO, GUAM].includes(fips.code)
-                          }
+                          overrideShapeWithCircle={fips.representWithCircleAtNationalLevel()}
                         />
                       </div>
                     );

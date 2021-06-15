@@ -22,7 +22,7 @@ import {
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import { getHighestN, getLowestN } from "../data/utils/datasetutils";
-import { Fips, TERRITORY_CODES, PUERTO_RICO, GUAM } from "../data/utils/Fips";
+import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
 import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
 import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
@@ -320,9 +320,7 @@ function MapCardWithKey(props: MapCardProps) {
                           fips={fips}
                           scaleType="quantile"
                           geoData={geoData}
-                          overrideShapeWithCircle={
-                            ![PUERTO_RICO, GUAM].includes(fips.code)
-                          }
+                          overrideShapeWithCircle={fips.representWithCircleAtNationalLevel()}
                         />
                       </div>
                     );

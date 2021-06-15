@@ -1,8 +1,6 @@
 export const USA_DISPLAY_NAME = "United States";
 // Fake FIPS code used to represent totals in USA for convenience
 export const USA_FIPS = "00";
-export const PUERTO_RICO = "72";
-export const GUAM = "66";
 
 export const TERRITORY_CODES = [
   /*American Samoa-*/ "60",
@@ -43,6 +41,15 @@ class Fips {
 
   isCounty() {
     return this.code.length === 5;
+  }
+
+  // Some island territory geographies are difficult to click on, so these territories are represented with a circle in our maps instead.
+  representWithCircleAtNationalLevel() {
+    return [
+      /*American Samoa-*/ "60",
+      /*Northern Mariana Islands-*/ "69",
+      /*Virgin Islands-*/ "78",
+    ].includes(this.code);
   }
 
   getFipsTypeDisplayName() {
@@ -86,9 +93,10 @@ class Fips {
   }
 
   getShortDisplayName() {
-    // Northern Marina Islands
-    if (this.code === "69") {
-      return "CNMI";
+    if (this.code === "60") {
+      return "AS"; // American Samoa
+    } else if (this.code === "69") {
+      return "CNMI"; // Northern Marina Islands
     } else {
       return this.getDisplayName();
     }
