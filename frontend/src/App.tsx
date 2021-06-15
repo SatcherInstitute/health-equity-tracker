@@ -24,6 +24,7 @@ import styles from "./App.module.scss";
 import Footer from "./Footer";
 import { AboutUsPage } from "./pages/AboutUs/AboutUsPage";
 import DataCatalogTab from "./pages/DataCatalog/DataCatalogTab";
+import BlogPage from "./pages/Blog/BlogPage";
 import ExploreDataPage from "./pages/ExploreData/ExploreDataPage";
 import LandingPage from "./pages/Landing/LandingPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -33,6 +34,7 @@ import MaterialTheme from "./styles/MaterialTheme";
 import { autoInitGlobals } from "./utils/globals";
 import {
   ABOUT_US_PAGE_LINK,
+  BLOG_PAGE_LINK,
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
   LinkWithStickyParams,
@@ -49,6 +51,7 @@ const PAGE_URL_TO_NAMES: Record<string, string> = {
   [EXPLORE_DATA_PAGE_LINK]: "Explore the Data",
   [DATA_CATALOG_PAGE_LINK]: "Downloads & Methodology",
   [ABOUT_US_PAGE_LINK]: "About Us",
+  [BLOG_PAGE_LINK]: "Blog",
 };
 
 autoInitGlobals();
@@ -106,6 +109,7 @@ function AppToolbar() {
           EXPLORE_DATA_PAGE_LINK,
           DATA_CATALOG_PAGE_LINK,
           ABOUT_US_PAGE_LINK,
+          BLOG_PAGE_LINK,
         ].map((pageUrl) => (
           <ReactRouterLinkButton
             key={pageUrl}
@@ -163,6 +167,7 @@ function App() {
               <main>
                 <Switch>
                   <Route path={ABOUT_US_PAGE_LINK} component={AboutUsPage} />
+                  <Route path={BLOG_PAGE_LINK} component={BlogPage} />
                   <Route
                     path={DATA_CATALOG_PAGE_LINK}
                     component={DataCatalogTab}

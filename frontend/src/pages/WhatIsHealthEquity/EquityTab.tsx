@@ -7,7 +7,6 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import FaqSection from "../ui/FaqSection";
 import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "./WhatIsHealthEquityPage";
-import DefaultRSSComponent from "./DefaultRSSComponent";
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -274,11 +273,6 @@ function EquityTab() {
                 equity
               </span>
             </Grid>
-            <DefaultRSSComponent
-              label="Default"
-              loadingComponent={() => <div>Loading default..</div>}
-              errorComponent={() => <div>Sadly, no default rss :(</div>}
-            />
           </Grid>
         </Grid>
         <Grid
