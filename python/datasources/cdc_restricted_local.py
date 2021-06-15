@@ -200,7 +200,7 @@ def process_data(files):
     for geo in ['state', 'county']:
         for demo in ['race', 'sex', 'age']:
             all_dfs[(geo, demo)] = pd.DataFrame()
-    
+
     for f in sorted(files):
         start = time.time()
 
