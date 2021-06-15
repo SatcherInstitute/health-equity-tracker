@@ -56,7 +56,7 @@ export interface ChoroplethMapProps {
   overrideShapeWithCircle?: boolean;
   // Instead of missing data saying "no data" use a "sample size too small" message. Used for surveyed data.
   useSmallSampleMessage: boolean;
-  // Do not show a tooltip when there isno data.
+  // Do not show a tooltip when there is no data.
   hideMissingDataTooltip?: boolean;
   // Callbacks set up so map interactions can update the React UI
   signalListeners: any;
@@ -225,7 +225,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           y: { field: "centroid[1]" },
         };
       }
-      if (!props.hideMissingDataTooltip) {
+      if (!props.hideMissingDataTooltip || datasetName !== MISSING_DATASET) {
         encodeEnter["tooltip"] = {
           signal: tooltipExpression,
         };
