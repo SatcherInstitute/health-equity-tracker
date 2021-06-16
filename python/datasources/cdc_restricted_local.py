@@ -270,8 +270,7 @@ def process_data(dir, files):
         all_dfs[key] = standardize_data(all_dfs[key])
 
         # Set hospitalization and death data for states we want to suppress to
-        # NaN. The frontend interprets NaN to mean missing data for
-        # hospitalizations and deaths.
+        # an empty string, indicating missing data.
         rows_to_modify = all_dfs[key][std_col.STATE_POSTAL_COL].isin(
             HOSP_DATA_SUPPRESSION_STATES)
         all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_Y] = ""
