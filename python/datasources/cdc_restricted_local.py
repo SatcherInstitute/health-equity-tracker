@@ -1,14 +1,18 @@
 """
 This program is intended to be run locally by someone who has access to the CDC
 restricted public surveillance data and has downloaded the latest version of
-the data from the secure GCS bucket to their local machine. It asks for the
-path and prefix of the CSV files which make up the CDC restricted data (e.g.
-"COVID_Cases_Restricted_Detailed_01312021" is the prefix for the 1/31/21 data),
-performs aggregation and standardization, and outputs the resulting CSV to the
-same path that was input. The resulting CSVs are intended to be uploaded to the
-manual-uploads GCS bucket for consumption by the ingestion pipeline.
+the data from the secure GCS bucket to their local machine. It requires as
+flags path and prefix of the CSV files which make up the CDC restricted data
+(e.g. "COVID_Cases_Restricted_Detailed_01312021" is the prefix for the 1/31/21
+data performs aggregation and standardization, and outputs the resulting CSV
+to the same path that was input. The resulting CSVs are intended to be uploaded
+to the manual-uploads GCS bucket for consumption by the ingestion pipeline.
+
+Example usage:
+python cdc_restricted_local.py --dir="/Users/vanshkumar/Downloads" --prefix="COVID_Cases_Restricted_Detailed_01312021"
 """
 
+import argparse
 import os
 import sys
 import time
@@ -17,6 +21,12 @@ import ingestion.standardized_columns as std_col
 import numpy as np
 import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
+
+
+# Command line flags for the dir and file name prefix for the data.
+parser = argparse.ArgumentParser()
+parser.add_argument("-dir", "--dir", help="Path to the CDC restricted data CSV files")
+parser.add_argument("-prefix", "--prefix", help="Prefix for the CDC restricted CSV files")
 
 # These are the columns that we want to keep from the data.
 # Geo columns (state, county) - we aggregate or groupby either state or county.
@@ -49,8 +59,8 @@ COUNTY_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 STATE_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 
 # Mappings for race, sex, and age values in the data to a standardized forms.
-# Note that these mappings cover the possible values in the data as of the
-# latest dataset. New data should be checked for schema changes.
+# Note that these mappings exhaustively cover the possible values in the data
+# as of the latest dataset. New data should be checked for schema changes.
 RACE_NAMES_MAPPING = {
     "American Indian/Alaska Native, Non-Hispanic": std_col.Race.AIAN_NH.value,
     "Asian, Non-Hispanic": std_col.Race.ASIAN_NH.value,
@@ -65,6 +75,9 @@ RACE_NAMES_MAPPING = {
 }
 
 SEX_NAMES_MAPPING = {
+    "Male": "Male",
+    "Female": "Female",
+    "Other": "Other",
     "NA": "Unknown",
     "Missing": "Unknown",
     "Unknown": "Unknown",
@@ -189,11 +202,12 @@ def standardize_data(df):
     return df
 
 
-def process_data(files):
-    """Given a list of files which contain line item-level covid data,
-    standardizes and aggregates by race, age, and sex. Returns a map from
-    (geography, demographic) to the associated dataframe.
+def process_data(dir, files):
+    """Given a directory and a list of files which contain line item-level
+    covid data, standardizes and aggregates by race, age, and sex. Returns a
+    map from (geography, demographic) to the associated dataframe.
 
+    dir: Directory in which the files live.
     files: List of file paths that contain covid data.
     """
     all_dfs = {}
@@ -256,26 +270,30 @@ def process_data(files):
         all_dfs[key] = standardize_data(all_dfs[key])
 
         # Set hospitalization and death data for states we want to suppress to
-        # NaN. The frontend interprets NaN to mean missing data for
-        # hospitalizations and deaths.
+        # an empty string, indicating missing data.
         rows_to_modify = all_dfs[key][std_col.STATE_POSTAL_COL].isin(
             HOSP_DATA_SUPPRESSION_STATES)
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_Y] = np.NaN
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_N] = np.NaN
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_UNKNOWN] = np.NaN
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_Y] = ""
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_N] = ""
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_UNKNOWN] = ""
 
         rows_to_modify = all_dfs[key][std_col.STATE_POSTAL_COL].isin(
             DEATH_DATA_SUPPRESSION_STATES)
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_Y] = np.NaN
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_N] = np.NaN
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_UNKNOWN] = np.NaN
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_Y] = ""
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_N] = ""
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_UNKNOWN] = ""
+
+        # Convert everything to string before returning & writing to CSV.
+        all_dfs[key] = all_dfs[key].astype(str)
 
     return all_dfs
 
 
 def main():
-    dir = input("Enter the path to the CDC restricted data CSV files: ")
-    prefix = input("Enter the prefix for the CDC restricted CSV files: ")
+    # Get the dir and prefix from the command line flags.
+    args = parser.parse_args()
+    dir = args.dir
+    prefix = args.prefix
 
     # Get the files in the specified directory which match the prefix.
     matching_files = []
@@ -295,7 +313,7 @@ def main():
     for f in matching_files:
         print(f)
 
-    all_dfs = process_data(matching_files)
+    all_dfs = process_data(dir, matching_files)
 
     # Write the results out to CSVs.
     for (geo, demo), df in all_dfs.items():
