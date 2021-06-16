@@ -3,7 +3,6 @@ import pandas as pd
 from pandas._testing import assert_frame_equal
 
 import datasources.cdc_restricted_local as cdc
-import ingestion.standardized_columns as col_std
 
 # TO UPDATE THE GOLDEN DATA FOR THIS TEST PLEASE RUN THE FOLLOWING:
 # python cdc_restricted_local.py --dir="../tests/data" --prefix="COVID_Cases_Restricted_Detailed_04302021"
@@ -29,6 +28,7 @@ GOLDEN_DATA = {
     ("state", "sex"): os.path.join(TEST_DIR, "cdc_restricted_by_sex_state.csv"),
     ("county", "sex"): os.path.join(TEST_DIR, "cdc_restricted_by_sex_county.csv"),
 }
+
 
 # TODO: This test should really be many smaller test functions/methods with
 # their own test data, rather than being a monolith.
