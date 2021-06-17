@@ -5,24 +5,24 @@ CA,BLACK_NH,3,2,1,0,1,0,2,Black or African American,False,Black or African Ameri
 CA,HISP,2,1,1,0,1,1,0,Hispanic or Latino,True,Hispanic or Latino
 CA,MULTI_OR_OTHER_STANDARD_NH,2,1,0,1,2,0,0,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
 CA,NHPI_NH,1,0,0,1,0,0,1,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
-CA,TOTAL,18,5,6,7,5,5,8,Total,nan,Total
+CA,TOTAL,18,5,6,7,5,5,8,Total,,Total
 CA,UNKNOWN,5,0,2,3,1,1,3,Unknown race,True,Unknown race
 CA,WHITE_NH,2,0,1,1,0,0,2,White,False,White (Non-Hispanic)
-DE,TOTAL,1,1,0,0,,,,Total,nan,Total
+DE,TOTAL,1,1,0,0,,,,Total,,Total
 DE,UNKNOWN,1,1,0,0,,,,Unknown race,True,Unknown race
 HI,AIAN_NH,1,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-HI,TOTAL,1,,,,,,,Total,nan,Total
+HI,TOTAL,1,,,,,,,Total,,Total
 MD,ASIAN_NH,1,,,,,,,Asian,False,Asian (Non-Hispanic)
-MD,TOTAL,1,,,,,,,Total,nan,Total
+MD,TOTAL,1,,,,,,,Total,,Total
 NE,BLACK_NH,1,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
-NE,TOTAL,1,,,,,,,Total,nan,Total
+NE,TOTAL,1,,,,,,,Total,,Total
 NM,MULTI_OR_OTHER_STANDARD_NH,1,,,,,,,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
-NM,TOTAL,1,,,,,,,Total,nan,Total
+NM,TOTAL,1,,,,,,,Total,,Total
 RI,NHPI_NH,1,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
-RI,TOTAL,1,,,,,,,Total,nan,Total
-SD,TOTAL,1,,,,,,,Total,nan,Total
+RI,TOTAL,1,,,,,,,Total,,Total
+SD,TOTAL,1,,,,,,,Total,,Total
 SD,WHITE_NH,1,,,,,,,White,False,White (Non-Hispanic)
 Unknown,BLACK_NH,2,1,0,1,1,0,1,Black or African American,False,Black or African American (Non-Hispanic)
-Unknown,TOTAL,2,1,0,1,1,0,1,Total,nan,Total
+Unknown,TOTAL,2,1,0,1,1,0,1,Total,,Total
 WV,HISP,1,0,1,0,,,,Hispanic or Latino,True,Hispanic or Latino
-WV,TOTAL,1,0,1,0,,,,Total,nan,Total
+WV,TOTAL,1,0,1,0,,,,Total,,Total
