@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 
 from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
@@ -43,6 +42,7 @@ UHC_DETERMINANTS_OF_HEALTH = {
 }
 
 class UHCData(DataSource):
+
 
     @staticmethod
     def get_id():
