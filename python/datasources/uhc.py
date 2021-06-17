@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
@@ -22,7 +23,7 @@ UHC_AGE_GROUPS = ['18-44', '45-64', '65+', 'All']
 
 UHC_SEX_GROUPS = ['Male', 'Female', 'All']
 
-UHC_AGE_GROUPS_TO_STANDARD = {
+UHC_RACE_GROUPS_TO_STANDARD = {
     'American Indian/Alaska Native': Race.AIAN_NH.value,
     'Asian': Race.ASIAN_NH.value,
     'Black': Race.BLACK_NH.value,
@@ -31,10 +32,15 @@ UHC_AGE_GROUPS_TO_STANDARD = {
     'Other Race': Race.OTHER_STANDARD_NH.value,
     'White': Race.WHITE_NH.value,
     'Multiracial': Race.MULTI_NH.value,
-    'All': 'All',
+    'All': Race.ALL.value,
 }
 
 BASE_UHC_URL = "https://www.americashealthrankings.org/api/v1/downloads/210"
+
+UHC_DETERMINANTS_OF_HEALTH = {
+    "Chronic Obstructive Pulmonary Disease": std_col.COPD_PCT,
+    "Diabetes": std_col.DIABETES_PCT,
+}
 
 class UHCData(DataSource):
 
@@ -48,80 +54,69 @@ class UHCData(DataSource):
 
     def upload_to_gcs(self, _, **attrs):
         raise NotImplementedError(
-            'upload_to_gcs should not be called for CDCRestrictedData')
+            'upload_to_gcs should not be called for UHCData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_UHC_URL)
+        df = gcs_to_bq_util.load_csv_as_dataframe_from_web(
+                BASE_UHC_URL, dtype={std_col.STATE_FIPS_COL: str}
+            )
 
-        for b in ["race_and_ethnicity", "age", "sex"]:
-            write_breakdown_to_bq(b, df, dataset)
+        for b in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
+            breakdown_df = self.generate_breakdown(b, df)
 
-def test():
-    df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_UHC_URL)
+            column_types = {c: 'STRING' for c in breakdown_df.columns}
+            for col in [std_col.COPD_PCT, std_col.DIABETES_PCT]:
+                column_types[col] = 'FLOAT'
 
-    dataset = "my-dataset"
-    for b in ["race_and_ethnicity", "age", "sex"]:
-        write_breakdown_to_bq(b, df, dataset)
+            if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
+                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
-def write_breakdown_to_bq(breakdown, df, dataset):
-    print("making breakdown for %s" % breakdown)
-    breakdown_map = {
-        "race_and_ethnicity": UHC_RACE_GROUPS,
-        "age": UHC_AGE_GROUPS,
-        "sex": UHC_SEX_GROUPS,
-    }
+            breakdown_df.to_csv("test_%s.csv" % b)
+            gcs_to_bq_util.add_dataframe_to_bq(
+                breakdown_df, dataset, b, column_types=column_types)
 
-    output_cols = [std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL,
-            std_col.COPD_PCT, std_col.DIABETES_PCT]
+    def generate_breakdown(self, breakdown, df):
+        breakdown_map = {
+            "race_and_ethnicity": UHC_RACE_GROUPS,
+            "age": UHC_AGE_GROUPS,
+            "sex": UHC_SEX_GROUPS,
+        }
 
-    output = pd.DataFrame(columns=output_cols)
+        output = pd.DataFrame()
+        states = df['State Name'].drop_duplicates().to_list()
 
-    states = df['State Name'].drop_duplicates().to_list()
+        for state in states:
+            for breakdown_value in breakdown_map[breakdown]:
+                output_row = {}
+                output_row['state_name'] = state
 
-    for state in states:
-        print(state)
-        for value in breakdown_map[breakdown]:
-            if value == 'All':
-                diabetes_row = df.loc[
-                    (df['State Name'] == state) &
-                    (df['Measure Name'] == ("Diabetes"))]
+                if breakdown == std_col.RACE_OR_HISPANIC_COL:
+                    output_row[std_col.RACE_CATEGORY_ID_COL] = UHC_RACE_GROUPS_TO_STANDARD[breakdown_value]
+                else:
+                    output_row[breakdown] = breakdown_value
 
-                copd_row = df.loc[
-                    (df['State Name'] == state) &
-                    (df['Measure Name'] == ("Chronic Obstructive Pulmonary Disease"))]
-            else:
-                diabetes_row = df.loc[
-                    (df['State Name'] == state) &
-                    (df['Measure Name'].str.contains("Diabetes")) &
-                    (df['Measure Name'].str.contains(value))].reset_index()
+                output_row['state_fips'] = constants.STATE_NAMES_TO_FIPS[state]
 
-                copd_row = df.loc[
-                    (df['State Name'] == state) &
-                    (df['Measure Name'].str.contains("Chronic Obstructive Pulmonary Disease")) &
-                    (df['Measure Name'].str.contains(value))].reset_index()
+                for determinent in UHC_DETERMINANTS_OF_HEALTH:
+                    if breakdown_value == 'All':
+                        output_row[UHC_DETERMINANTS_OF_HEALTH[determinent]] = df.loc[
+                            (df['State Name'] == state) &
+                            (df['Measure Name'] == determinent)]['Value'].values[0]
 
-            output_row = {}
-            output_row['state_name'] = state
+                    else:
+                        row = df.loc[
+                            (df['State Name'] == state) &
+                            (df['Measure Name'].str.contains(determinent)) &
+                            (df['Measure Name'].str.contains(breakdown_value))]
 
-            breakdown_value = value
-            if breakdown == "race_and_ethnicity":
-                breakdown_value = UHC_AGE_GROUPS_TO_STANDARD[breakdown_value]
+                        if len(row) > 0:
+                            pct = row['Value'].values[0]
+                            if pct:
+                                output_row[UHC_DETERMINANTS_OF_HEALTH[determinent]] = pct
 
-            output_row[breakdown] = breakdown_value
+                output = output.append(output_row, ignore_index=True)
 
-            diabetes_pct = diabetes_row['Value'].values[0]
-            if diabetes_pct != -1:
-                output_row['diabetes_pct'] = diabetes_pct
+        if breakdown == std_col.RACE_OR_HISPANIC_COL:
+            std_col.add_race_columns_from_category_id(output)
 
-            copd_pct = copd_row['Value'].values[0]
-            if copd_pct != -1:
-                output_row['copd_pct'] = copd_pct
-
-            output_row['state_fips'] = constants.STATE_NAMES_TO_FIPS[state]
-
-            output = output.append(output_row, ignore_index=True)
-
-    table_name = "uhc_%s" % breakdown
-    output.to_csv("%s.csv" % table_name)
-    # gcs_to_bq_util.add_dataframe_to_bq(
-    #     output, dataset, table_name, column_types=column_types)
+        return output

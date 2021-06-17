@@ -4,10 +4,9 @@ from airflow.utils.dates import days_ago  # type: ignore
 
 import util
 
-## TODO change this when i get internet
-_UHC_BASE_URL = 'https://api.census.gov/data/2019/acs/acs5'
-_UHC_WORKFLOW_ID = 'UHC'
-_UHC_DATASET_NAME = 'uhc_population'
+_UHC_BASE_URL = "https://www.americashealthrankings.org/api/v1/downloads/210"
+_UHC_WORKFLOW_ID = 'UHC_DATA'
+_UHC_DATASET_NAME = 'uhc_data'
 
 default_args = {
     'start_date': days_ago(0),
@@ -20,9 +19,9 @@ data_ingestion_dag = DAG(
     description='Ingestion configuration for UHC')
 
 uhc_bq_payload = util.generate_bq_payload(
-    _UHC_WORKFLOW_ID, _UHC_DATASET_NAME, url=_UHC_BASE_URL)
+    _UHC_WORKFLOW_ID, _UHC_DATASET_NAME)
 uhc_pop_bq_operator = util.create_bq_ingest_operator(
-    'uhc_population_to_bq', uhc_bq_payload, data_ingestion_dag)
+    'uhc_to_bq', uhc_bq_payload, data_ingestion_dag)
 
 uhc_aggregator_payload = {'dataset_name': _UHC_DATASET_NAME}
 uhc_aggregator_operator = util.create_aggregator_operator(
@@ -33,4 +32,4 @@ uhc_exporter_operator = util.create_exporter_operator(
     'uhc_exporter', uhc_exporter_payload, data_ingestion_dag)
 
 # Ingestion DAG
-uhc_pop_bq_operator >> uhc_pop_aggregator_operator >> uhc_pop_exporter_operator
+uhc_pop_bq_operator >> uhc_aggregator_operator >> uhc_exporter_operator
