@@ -38,13 +38,14 @@ test_csv_data = """Edition,Report Type,Measure Name,State Name,Rank,Value,Score,
 2020,2020 Annual,Chronic Obstructive Pulmonary Disease - Male,Alabama,47,14.1,1.34,15.5,12.6,AHR data,
 """
 
+
 def get_test_data_as_df():
     f = StringIO(test_csv_data)
     return pd.read_csv(f, dtype={'state_fips': str})
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe_from_web',
-        return_value=get_test_data_as_df())
+            return_value=get_test_data_as_df())
 @mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
             return_value=None)
 def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
