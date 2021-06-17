@@ -1,9 +1,7 @@
 from io import StringIO
 from unittest import mock
 
-import numpy as np
 import pandas as pd
-import pytest
 
 from datasources.uhc import UHCData
 
@@ -44,9 +42,11 @@ def get_test_data_as_df():
     f = StringIO(test_csv_data)
     return pd.read_csv(f, dtype={'state_fips': str})
 
+
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe_from_web',
         return_value=get_test_data_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq')
+@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
+            return_value=None)
 def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     uhc = UHCData()
     kwargs = {'filename': 'test_file.csv',
@@ -81,4 +81,3 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
         assert set(output.columns) == set(exptected_cols)
         assert output.iloc[0]["state_fips"] == "01"
         assert output.shape == (expected_len[demos[i]], len(exptected_cols))
-

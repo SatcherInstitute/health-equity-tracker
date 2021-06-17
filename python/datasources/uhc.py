@@ -41,8 +41,8 @@ UHC_DETERMINANTS_OF_HEALTH = {
     "Diabetes": std_col.DIABETES_PCT,
 }
 
-class UHCData(DataSource):
 
+class UHCData(DataSource):
 
     @staticmethod
     def get_id():
