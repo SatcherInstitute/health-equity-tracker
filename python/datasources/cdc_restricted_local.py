@@ -231,7 +231,7 @@ def add_missing_demographic_values(df, geo, demographic):
         values_to_add = sorted(list(all_demos.difference(set(demo_values))))
         for val in values_to_add:
             geo_demo_to_add.append(geo_lst + [val])
-    
+
     # Build the dataframe (as a dict) that we want to append to the original.
     df_to_append = []
     columns = list(df.columns)
