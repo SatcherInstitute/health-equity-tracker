@@ -38,7 +38,11 @@ export class DatasetCalculator {
     numDecimals: number = 1
   ): number | null {
     const decMultiplier = Math.pow(10, numDecimals);
-    return numerator == null || denominator == null || denominator === 0
+    return numerator == null ||
+      Number.isNaN(numerator) ||
+      denominator == null ||
+      Number.isNaN(denominator) ||
+      denominator === 0
       ? null
       : Math.round((100 * decMultiplier * numerator) / denominator) /
           decMultiplier;
