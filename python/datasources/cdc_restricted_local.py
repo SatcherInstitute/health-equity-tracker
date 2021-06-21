@@ -283,8 +283,9 @@ def process_data(dir, files):
         all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_N] = ""
         all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_UNKNOWN] = ""
 
-        # Convert everything to string before returning & writing to CSV.
-        all_dfs[key] = all_dfs[key].astype(str)
+        # Standardize all None/NaNs in the data to an empty string, and convert
+        # everything to string before returning & writing to CSV.
+        all_dfs[key] = all_dfs[key].fillna("").astype(str)
 
     return all_dfs
 
