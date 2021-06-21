@@ -202,6 +202,54 @@ def standardize_data(df):
     return df
 
 
+def add_missing_demographic_values(df, geo, demographic):
+    """Adds in missing demographic values for each geo in the df. For example,
+    if a given county only has WHITE, adds in empty data rows for all other
+    race/ethnicity groups.
+    See https://github.com/SatcherInstitute/health-equity-tracker/issues/841.
+
+    df: Pandas dataframe to append onto.
+    geo: Geographic level. Must be "state" or "county".
+    demographic: Demographic breakdown. Must be "race", "age", or "sex".
+    """
+    geo_cols = GEO_COL_MAPPING[geo]
+    demog_col = DEMOGRAPHIC_COL_MAPPING[demographic][0]
+    all_demos = DEMOGRAPHIC_COL_MAPPING[demographic][1].values()
+    unknown_values = ["Unknown", std_col.Race.UNKNOWN.value]
+    all_demos = set([v for v in all_demos if v not in unknown_values])
+
+    # Map from each geo to the demographic values present. Note that multiple
+    # values/columns may define each geo.
+    geo_demo_map = df.loc[:, geo_cols + [demog_col]].groupby(geo_cols)
+    geo_demo_map = geo_demo_map.agg({demog_col: list}).to_dict()[demog_col]
+
+    # List where each entry is a geo and demographic value pair that need to be
+    # added to the df. Example entry: ["06035", "LASSEN", "CA", "ASIAN_NH"].
+    geo_demo_to_add = []
+    for geo_key, demo_values in geo_demo_map.items():
+        geo_lst = [geo_key] if isinstance(geo_key, str) else list(geo_key)
+        values_to_add = sorted(list(all_demos.difference(set(demo_values))))
+        for val in values_to_add:
+            geo_demo_to_add.append(geo_lst + [val])
+
+    # Build the dataframe (as a dict) that we want to append to the original.
+    df_to_append = []
+    columns = list(df.columns)
+    for geo_demo in geo_demo_to_add:
+        row = []
+        for col in columns:
+            if col in geo_cols:
+                row.append(geo_demo[geo_cols.index(col)])
+            elif col == demog_col:
+                row.append(geo_demo[-1])
+            else:
+                row.append("")
+        df_to_append.append(row)
+
+    return pd.concat([df, pd.DataFrame(df_to_append, columns=columns)],
+                     ignore_index=True)
+
+
 def process_data(dir, files):
     """Given a directory and a list of files which contain line item-level
     covid data, standardizes and aggregates by race, age, and sex. Returns a
@@ -258,6 +306,8 @@ def process_data(dir, files):
 
     # Post-processing of the data.
     for key in all_dfs:
+        geo, demographic = key
+
         # Some brief sanity checks to make sure the data is OK.
         sanity_check_data(all_dfs[key])
 
@@ -265,6 +315,10 @@ def process_data(dir, files):
         # are added together, so we convert back to int here. We also reset the
         # index for simplicity.
         all_dfs[key] = all_dfs[key].astype(int).reset_index()
+
+        # Ensure that all geos have a row for all possible demographic values,
+        # adding the missing values in with empty data.
+        all_dfs[key] = add_missing_demographic_values(all_dfs[key], geo, demographic)
 
         # Standardize the column names and race/age/sex values.
         all_dfs[key] = standardize_data(all_dfs[key])
