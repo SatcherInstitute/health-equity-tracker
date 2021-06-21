@@ -206,7 +206,12 @@ class CdcCovidProvider extends VariableProvider {
     consumedDatasetIds = consumedDatasetIds.concat(
       acsQueryResponse.consumedDatasetIds
     );
-    if (acsQueryResponse.dataIsMissing()) {
+    // We return an empty response if the only requested metric ids are "share"
+    // metrics. These are the only metrics which don't require population data.
+    const onlyShareMetrics = metricQuery.metricIds.every((metric) =>
+      metric.includes("share")
+    );
+    if (acsQueryResponse.dataIsMissing() && !onlyShareMetrics) {
       return acsQueryResponse;
     }
     const acsPopulation = new DataFrame(acsQueryResponse.data);
