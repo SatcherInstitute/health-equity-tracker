@@ -15,7 +15,7 @@ default_args = {
 data_ingestion_dag = DAG(
     'uhc_ingestion_dag',
     default_args=default_args,
-    schedule_interval='@yearly',
+    schedule_interval=None,
     description='Ingestion configuration for UHC')
 
 uhc_bq_payload = util.generate_bq_payload(

@@ -41,6 +41,12 @@ UHC_DETERMINANTS_OF_HEALTH = {
     "Diabetes": std_col.DIABETES_PCT,
 }
 
+BREAKDOWN_MAP = {
+    "race_and_ethnicity": UHC_RACE_GROUPS,
+    "age": UHC_AGE_GROUPS,
+    "sex": UHC_SEX_GROUPS,
+}
+
 
 class UHCData(DataSource):
 
@@ -61,8 +67,8 @@ class UHCData(DataSource):
                 BASE_UHC_URL, dtype={std_col.STATE_FIPS_COL: str}
             )
 
-        for b in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
-            breakdown_df = self.generate_breakdown(b, df)
+        for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
+            breakdown_df = self.generate_breakdown(breakdown, df)
 
             column_types = {c: 'STRING' for c in breakdown_df.columns}
             for col in [std_col.COPD_PCT, std_col.DIABETES_PCT]:
@@ -71,24 +77,24 @@ class UHCData(DataSource):
             if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
                 column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
-            breakdown_df.to_csv("test_%s.csv" % b)
+            breakdown_df.to_csv("test_%s.csv" % breakdown)
             gcs_to_bq_util.add_dataframe_to_bq(
-                breakdown_df, dataset, b, column_types=column_types)
+                breakdown_df, dataset, breakdown, column_types=column_types)
 
     def generate_breakdown(self, breakdown, df):
-        breakdown_map = {
-            "race_and_ethnicity": UHC_RACE_GROUPS,
-            "age": UHC_AGE_GROUPS,
-            "sex": UHC_SEX_GROUPS,
-        }
-
-        output = pd.DataFrame()
+        output = [ ]
         states = df['State Name'].drop_duplicates().to_list()
 
+        columns = [std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL, std_col.COPD_PCT, std_col.DIABETES_PCT]
+        if breakdown == std_col.RACE_OR_HISPANIC_COL:
+            columns.append(std_col.RACE_CATEGORY_ID_COL)
+        else:
+            columns.append(breakdown)
+
         for state in states:
-            for breakdown_value in breakdown_map[breakdown]:
+            for breakdown_value in BREAKDOWN_MAP[breakdown]:
                 output_row = {}
-                output_row['state_name'] = state
+                output_row[std_col.STATE_NAME_COL] = state
 
                 if breakdown == std_col.RACE_OR_HISPANIC_COL:
                     output_row[std_col.RACE_CATEGORY_ID_COL] = UHC_RACE_GROUPS_TO_STANDARD[breakdown_value]
@@ -114,9 +120,11 @@ class UHCData(DataSource):
                             if pct:
                                 output_row[UHC_DETERMINANTS_OF_HEALTH[determinent]] = pct
 
-                output = output.append(output_row, ignore_index=True)
+                output.append(output_row)
+
+        output_df = pd.DataFrame(output, columns=columns)
 
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
-            std_col.add_race_columns_from_category_id(output)
+            std_col.add_race_columns_from_category_id(output_df)
 
-        return output
+        return output_df
