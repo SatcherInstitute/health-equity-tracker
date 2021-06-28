@@ -67,7 +67,6 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     for i in range(len(demos)):
         exptected_cols = [
             'state_name',
-            'state_fips',
             'copd_pct',
             'diabetes_pct',
             demos[i],
@@ -80,5 +79,4 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
         output = mock_bq.call_args_list[i].args[0]
         assert set(output.columns) == set(exptected_cols)
-        assert output.iloc[0]["state_fips"] == "01"
         assert output.shape == (expected_len[demos[i]], len(exptected_cols))
