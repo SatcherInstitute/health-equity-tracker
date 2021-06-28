@@ -312,20 +312,18 @@ function EquityTab() {
               >
                 <img
                   className={styles.NewsAndStoriesBigImg}
-                  src="img/pexels-cottonbro-7000149 1.png"
-                  alt="Asian woman sitting while wearing a mask"
+                  src="img/pexels-mary-taylor-5896662.jpg"
+                  alt="Two girls writing in their journals."
                 />
                 <h2 className={styles.NewsAndStoriesTitleText}>
-                  Back To ‘Normal’ Isn’t Good Enough
+                  How can we use data to inform practices to advance health
+                  equity?
                 </h2>
                 <p className={styles.NewsAndStoriesSubtitleText}>
-                  With the anticipation of increasing distribution of COVID-19
-                  vaccines, Americans are looking forward to a “return to
-                  normal.” But the reality is that “normal” is a privilege, one
-                  that is out of reach for millions.{" "}
-                  <a href="https://www.statnews.com/2021/02/10/back-to-normal-isnt-good-enough/">
-                    Read more
-                  </a>
+                  In public health, much of our work depends on having accurate
+                  data, so we know what’s happening both on the ground and at a
+                  population level.{" "}
+                  <a href="https://satcherinstitute.org/hetblog3/">Read more</a>
                 </p>
               </Grid>
               <Grid
