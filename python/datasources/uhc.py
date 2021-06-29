@@ -4,7 +4,7 @@ from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
 
 from datasources.data_source import DataSource
-from ingestion import gcs_to_bq_util, constants
+from ingestion import gcs_to_bq_util
 
 UHC_RACE_GROUPS = [
     'American Indian/Alaska Native',
@@ -79,7 +79,7 @@ class UHCData(DataSource):
                 breakdown_df, dataset, breakdown, column_types=column_types)
 
     def generate_breakdown(self, breakdown, df):
-        output = [ ]
+        output = []
         states = df['State Name'].drop_duplicates().to_list()
 
         columns = [std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL, std_col.COPD_PCT, std_col.DIABETES_PCT]
