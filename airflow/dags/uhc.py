@@ -4,7 +4,6 @@ from airflow.utils.dates import days_ago  # type: ignore
 
 import util
 
-_UHC_BASE_URL = "https://www.americashealthrankings.org/api/v1/downloads/210"
 _UHC_WORKFLOW_ID = 'UHC_DATA'
 _UHC_DATASET_NAME = 'uhc_data'
 
