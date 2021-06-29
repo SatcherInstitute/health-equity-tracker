@@ -89,6 +89,8 @@ const GOOGLE_FELLOWS = [
   {
     name: "Ken Moore",
     role: "UX Designer",
+    link: "http://kenstatus.com",
+    text: "In memoriam,",
   },
   {
     name: "Chi Pham",
@@ -315,11 +317,26 @@ function OurTeamTab() {
           <Grid item>
             <Grid container className={styles.GridSubRow}>
               {GOOGLE_FELLOWS.map((fellow) => {
-                return (
+                return fellow.link == null ? (
                   <Grid item className={styles.TextProfile}>
                     <span style={{ fontSize: "16px", fontWeight: 500 }}>
                       {fellow.name}
                     </span>
+                    <br />
+                    <span style={{ fontSize: "14px", fontWeight: 400 }}>
+                      {fellow.role}
+                    </span>
+                  </Grid>
+                ) : (
+                  <Grid item className={styles.TextProfile}>
+                    <a
+                      href={fellow.link}
+                      style={{ fontSize: "16px", fontWeight: 500 }}
+                    >
+                      {fellow.text}
+                      <br />
+                      {fellow.name}
+                    </a>
                     <br />
                     <span style={{ fontSize: "14px", fontWeight: 400 }}>
                       {fellow.role}
