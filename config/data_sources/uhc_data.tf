@@ -7,7 +7,7 @@ resource "google_bigquery_dataset" "uhc" {
 }
 
 resource "google_bigquery_routine" "bq_agg_uhc" {
-  dataset_id = google_bigquery_dataset.uhc_data.dataset_id
+  dataset_id = google_bigquery_dataset.uhc.dataset_id
   routine_id = "AGG_uhc"
   routine_type = "PROCEDURE"
   language = "SQL"

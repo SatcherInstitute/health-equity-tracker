@@ -82,7 +82,7 @@ class UHCData(DataSource):
         output = [ ]
         states = df['State Name'].drop_duplicates().to_list()
 
-        columns = [std_col.STATE_NAME_COL, std_col.COPD_PCT, std_col.DIABETES_PCT]
+        columns = [std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL, std_col.COPD_PCT, std_col.DIABETES_PCT]
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
             columns.append(std_col.RACE_CATEGORY_ID_COL)
         else:
@@ -92,6 +92,9 @@ class UHCData(DataSource):
             for breakdown_value in BREAKDOWN_MAP[breakdown]:
                 output_row = {}
                 output_row[std_col.STATE_NAME_COL] = state
+
+                if state == "United States":
+                    output_row[std_col.STATE_FIPS_COL] = "00"
 
                 if breakdown == std_col.RACE_OR_HISPANIC_COL:
                     output_row[std_col.RACE_CATEGORY_ID_COL] = UHC_RACE_GROUPS_TO_STANDARD[breakdown_value]
