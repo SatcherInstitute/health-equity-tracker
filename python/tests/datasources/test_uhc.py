@@ -13,6 +13,7 @@ TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data")
 def get_state_test_data_as_df():
     return pd.read_csv(os.path.join(TEST_DIR, 'uhc_test_state.csv'), dtype={'state_fips': str})
 
+
 def get_national_test_data_as_df():
     return pd.read_csv(os.path.join(TEST_DIR, 'uhc_test_national.csv'), dtype={'state_fips': str})
 
