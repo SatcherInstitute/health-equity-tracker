@@ -1,16 +1,20 @@
-from io import StringIO
 from unittest import mock
+import os
 
 import pandas as pd
 
 from datasources.uhc import UHCData
 
+# Current working directory.
+THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data")
+
 
 def get_state_test_data_as_df():
-    return pd.read_csv('python/tests/data/uhc_test_state.csv', dtype={'state_fips': str})
+    return pd.read_csv(os.path.join(TEST_DIR, 'uhc_test_state.csv'), dtype={'state_fips': str})
 
 def get_national_test_data_as_df():
-    return pd.read_csv('python/tests/data/uhc_test_national.csv', dtype={'state_fips': str})
+    return pd.read_csv(os.path.join(TEST_DIR, 'uhc_test_national.csv'), dtype={'state_fips': str})
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe_from_web',
