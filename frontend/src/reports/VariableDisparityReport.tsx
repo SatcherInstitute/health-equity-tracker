@@ -35,7 +35,6 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
     getParameter(DEMOGRAPHIC_PARAM, "race_and_ethnicity")
   );
 
-  // TODO Remove hard coded fail safe value
   const [variableConfig, setVariableConfig] = useState<VariableConfig | null>(
     Object.keys(METRIC_CONFIG).includes(props.dropdownVarId)
       ? METRIC_CONFIG[props.dropdownVarId][0]
