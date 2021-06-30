@@ -82,7 +82,7 @@ class UHCData(DataSource):
         output = []
         states = df['State Name'].drop_duplicates().to_list()
 
-        columns = [std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL, std_col.COPD_PCT, std_col.DIABETES_PCT]
+        columns = [std_col.STATE_NAME_COL, std_col.COPD_PCT, std_col.DIABETES_PCT]
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
             columns.append(std_col.RACE_CATEGORY_ID_COL)
         else:
@@ -93,30 +93,27 @@ class UHCData(DataSource):
                 output_row = {}
                 output_row[std_col.STATE_NAME_COL] = state
 
-                if state == "United States":
-                    output_row[std_col.STATE_FIPS_COL] = "00"
-
                 if breakdown == std_col.RACE_OR_HISPANIC_COL:
                     output_row[std_col.RACE_CATEGORY_ID_COL] = UHC_RACE_GROUPS_TO_STANDARD[breakdown_value]
                 else:
                     output_row[breakdown] = breakdown_value
 
-                for determinent in UHC_DETERMINANTS_OF_HEALTH:
+                for determinant in UHC_DETERMINANTS_OF_HEALTH:
                     if breakdown_value == 'All':
-                        output_row[UHC_DETERMINANTS_OF_HEALTH[determinent]] = df.loc[
+                        output_row[UHC_DETERMINANTS_OF_HEALTH[determinant]] = df.loc[
                             (df['State Name'] == state) &
-                            (df['Measure Name'] == determinent)]['Value'].values[0]
+                            (df['Measure Name'] == determinant)]['Value'].values[0]
 
                     else:
                         row = df.loc[
                             (df['State Name'] == state) &
-                            (df['Measure Name'].str.contains(determinent)) &
+                            (df['Measure Name'].str.contains(determinant)) &
                             (df['Measure Name'].str.contains(breakdown_value))]
 
                         if len(row) > 0:
                             pct = row['Value'].values[0]
                             if pct:
-                                output_row[UHC_DETERMINANTS_OF_HEALTH[determinent]] = pct
+                                output_row[UHC_DETERMINANTS_OF_HEALTH[determinant]] = pct
 
                 output.append(output_row)
 
