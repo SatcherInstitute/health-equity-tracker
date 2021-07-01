@@ -8,6 +8,7 @@ import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
+import { ALL } from "../data/utils/Constants";
 import { CardContent } from "@material-ui/core";
 import {
   MetricConfig,
@@ -39,7 +40,7 @@ export function TableCard(props: TableCardProps) {
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     props.breakdownVar === "race_and_ethnicity"
-      ? exclude(NON_HISPANIC)
+      ? exclude(NON_HISPANIC, ALL)
       : undefined
   );
   let metricConfigs: Record<string, MetricConfig> = {};
