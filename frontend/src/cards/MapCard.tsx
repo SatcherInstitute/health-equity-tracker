@@ -99,19 +99,12 @@ function MapCardWithKey(props: MapCardProps) {
     >
       {(queryResponses, metadata, geoData) => {
         const mapQueryResponse = queryResponses[0];
-        const alertQueryResponse = queryResponses[1];
-        console.log(alertQueryResponse);
-        console.log(
-          alertQueryResponse!.data.find(
-            (row) => row[props.currentBreakdown] == activeBreakdownFilter
-          )
-        );
+        const overallQueryResponse = queryResponses[1];
 
         const sortArgs =
           props.currentBreakdown === "age"
             ? ([new AgeSorterStrategy([ALL]).compareFn] as any)
             : [];
-
         const breakdownValues = mapQueryResponse.getUniqueFieldValues(
           props.currentBreakdown
         );
@@ -185,6 +178,8 @@ function MapCardWithKey(props: MapCardProps) {
                           newBreakdownDisplayName,
                           filterSelection
                         ) => {
+                          // This DropDownMenu instance only supports changing active breakdown filter
+                          // It doesn't support changing breakdown type
                           if (filterSelection) {
                             setActiveBreakdownFilter(filterSelection);
                           }
@@ -267,9 +262,9 @@ function MapCardWithKey(props: MapCardProps) {
                   <b>
                     {formatFieldValue(
                       metricConfig.type,
-                      alertQueryResponse!.data.find(
+                      overallQueryResponse!.data.find(
                         (row) =>
-                          row[props.currentBreakdown] == activeBreakdownFilter
+                          row[props.currentBreakdown] === activeBreakdownFilter
                       )![metricConfig.metricId]
                     )}
                   </b>{" "}
