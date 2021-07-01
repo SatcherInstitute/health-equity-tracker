@@ -41,7 +41,7 @@ export function TableCard(props: TableCardProps) {
     props.breakdownVar,
     props.breakdownVar === "race_and_ethnicity"
       ? exclude(NON_HISPANIC, ALL)
-      : undefined
+      : exclude(ALL)
   );
   let metricConfigs: Record<string, MetricConfig> = {};
   metrics.forEach((metricConfig) => {

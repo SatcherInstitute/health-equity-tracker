@@ -1,8 +1,6 @@
 import { Fips } from "../utils/Fips";
 import BreakdownFilter from "./BreakdownFilter";
 
-export const ALL_RACES_DISPLAY_NAME = "All";
-
 export type GeographicBreakdown = "national" | "state" | "county";
 
 // TODO flesh this out - would be nice to enforce more type-checking of these
@@ -41,7 +39,7 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE: Record<
   fips: "FIPs codes",
 };
 
-export interface DemographicBreakdown {
+interface DemographicBreakdown {
   // Name of the column in the returned data
   readonly columnName: BreakdownVar;
   // Whether the demographic breakdown is requested
@@ -62,7 +60,7 @@ function stringifyDemographic(breakdown: DemographicBreakdown) {
   return includeStr + breakdown.filter.values.join();
 }
 
-export function createDemographicBreakdown(
+function createDemographicBreakdown(
   columnName: BreakdownVar,
   enabled = false,
   filter?: BreakdownFilter
@@ -167,7 +165,7 @@ export class Breakdowns {
     return Breakdowns.forFips(fips);
   }
 
-  static forChildFips(fips: Fips): Breakdowns {
+  static forChildrenFips(fips: Fips): Breakdowns {
     if (fips.isCounty()) {
       return Breakdowns.byCounty().withGeoFilter(fips);
     } else if (fips.isStateOrTerritory()) {

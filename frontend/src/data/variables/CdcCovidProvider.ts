@@ -1,12 +1,7 @@
 import { DataFrame } from "data-forge";
 import { getDataManager } from "../../utils/globals";
 import { MetricId } from "../config/MetricConfig";
-import {
-  Breakdowns,
-  createDemographicBreakdown,
-  DemographicBreakdown,
-} from "../query/Breakdowns";
-import BreakdownFilter from "../query/BreakdownFilter";
+import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { joinOnCols } from "../utils/datasetutils";
 import { DC_COUNTY_FIPS, USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
@@ -163,7 +158,6 @@ class CdcCovidProvider extends VariableProvider {
         ["fips"]
       );
     });
-    console.log(df.toArray());
 
     // Calculate any share_of_known metrics that may have been requested in the query
     const shareOfUnknownMetrics = metricQuery.metricIds.filter((metricId) =>
@@ -202,38 +196,6 @@ class CdcCovidProvider extends VariableProvider {
     });
 
     const acsBreakdowns = breakdowns.copy();
-    console.log("!!!!!!!!!!!!!!!!!");
-    console.log(acsBreakdowns);
-
-    const removeAllExclusions = (breakdown: DemographicBreakdown) => {
-      console.log(breakdown.filter);
-      let filter = breakdown.filter;
-      if (breakdown.filter && !breakdown.filter.include) {
-        filter = {
-          include: breakdown.filter.include,
-          values: breakdown.filter.values.filter(
-            (value: string) => value !== "All"
-          ),
-        };
-      }
-      breakdown = createDemographicBreakdown(
-        breakdown.columnName,
-        breakdown.enabled,
-        filter
-      );
-      return breakdown;
-    };
-
-    acsBreakdowns.demographicBreakdowns = {
-      race_and_ethnicity: removeAllExclusions(
-        acsBreakdowns.demographicBreakdowns.race_and_ethnicity
-      ),
-      age: removeAllExclusions(acsBreakdowns.demographicBreakdowns.age),
-      sex: removeAllExclusions(acsBreakdowns.demographicBreakdowns.sex),
-    };
-
-    console.log("!!!!!!!!!!!!!!!!!AFTER");
-    console.log(acsBreakdowns);
     acsBreakdowns.time = false;
 
     // Get ACS population_pct data. Population data is expected to already be

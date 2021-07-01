@@ -87,7 +87,7 @@ function MapCardWithKey(props: MapCardProps) {
     );
 
   const queries = [
-    metricQuery(Breakdowns.forChildFips(props.fips)),
+    metricQuery(Breakdowns.forChildrenFips(props.fips)),
     metricQuery(Breakdowns.forFips(props.fips)),
   ];
 
@@ -234,18 +234,6 @@ function MapCardWithKey(props: MapCardProps) {
                       groups
                     </Button>
                   </Alert>
-                  <p>
-                    For this geography, the total rate of{" "}
-                    {metricConfig.metricId} for {activeBreakdownFilter} group in{" "}
-                    {props.currentBreakdown} is:
-                    {formatFieldValue(
-                      metricConfig.type,
-                      alertQueryResponse!.data.find(
-                        (row) =>
-                          row[props.currentBreakdown] == activeBreakdownFilter
-                      )![metricConfig.metricId]
-                    )}
-                  </p>
                 </CardContent>
               )}
             {metricConfig && (
@@ -274,6 +262,19 @@ function MapCardWithKey(props: MapCardProps) {
                   scaleType="quantile"
                   geoData={geoData}
                 />
+                <div className={styles.MapCardOverallText}>
+                  Overall for {props.fips.getDisplayName()}:{" "}
+                  <b>
+                    {formatFieldValue(
+                      metricConfig.type,
+                      alertQueryResponse!.data.find(
+                        (row) =>
+                          row[props.currentBreakdown] == activeBreakdownFilter
+                      )![metricConfig.metricId]
+                    )}
+                  </b>{" "}
+                  {metricConfig.shortVegaLabel}
+                </div>
                 {!mapQueryResponse.dataIsMissing() &&
                   dataForActiveBreakdownFilter.length > 1 && (
                     <HighestLowestList
