@@ -332,6 +332,8 @@ function OurTeamTab() {
                     <a
                       href={fellow.link}
                       style={{ fontSize: "16px", fontWeight: 500 }}
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       {fellow.text}
                       <br />
