@@ -257,7 +257,6 @@ function MapCardWithKey(props: MapCardProps) {
                   scaleType="quantile"
                   geoData={geoData}
                 />
-                {!mapQueryResponse.dataIsMissing() &&
                 {/* TODO(1011): remove false when territory data sources are updated */}
                 {false && props.fips.isUsa() && (
                   <div className={styles.TerritoryCirclesContainer}>
@@ -267,7 +266,7 @@ function MapCardWithKey(props: MapCardProps) {
                         <div className={styles.TerritoryCircle}>
                           <ChoroplethMap
                             useSmallSampleMessage={
-                              !queryResponse.dataIsMissing() &&
+                              !mapQueryResponse.dataIsMissing() &&
                               (props.variableConfig.surveyCollectedData ||
                                 false)
                             }
@@ -307,7 +306,7 @@ function MapCardWithKey(props: MapCardProps) {
                   </b>{" "}
                   {metricConfig.shortVegaLabel}
                 </div>
-                {!queryResponse.dataIsMissing() &&
+                {!mapQueryResponse.dataIsMissing() &&
                   dataForActiveBreakdownFilter.length > 1 && (
                     <HighestLowestList
                       variableConfig={props.variableConfig}
