@@ -22,7 +22,7 @@ import {
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import { getHighestN, getLowestN } from "../data/utils/datasetutils";
-import { Fips } from "../data/utils/Fips";
+import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
 import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
 import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
@@ -175,7 +175,7 @@ function MapCardWithKey(props: MapCardProps) {
               open={smallMultiplesDialogOpen}
               breakdownValues={breakdownValues}
               fieldRange={queryResponse.getFieldRange(metricConfig.metricId)}
-              queryResponses={queryResponses}
+              queryResponses={queryResponses} // TODO
               metadata={metadata}
               geoData={geoData}
             />
@@ -293,6 +293,42 @@ function MapCardWithKey(props: MapCardProps) {
                   scaleType="quantile"
                   geoData={geoData}
                 />
+                {/* TODO(1011): remove false when territory data sources are updated */}
+                {false && props.fips.isUsa() && (
+                  <div className={styles.TerritoryCirclesContainer}>
+                    {TERRITORY_CODES.map((code) => {
+                      const fips = new Fips(code);
+                      return (
+                        <div className={styles.TerritoryCircle}>
+                          <ChoroplethMap
+                            useSmallSampleMessage={
+                              !queryResponse.dataIsMissing() &&
+                              (props.variableConfig.surveyCollectedData ||
+                                false)
+                            }
+                            signalListeners={signalListeners}
+                            metric={metricConfig}
+                            legendTitle={metricConfig.fullCardTitleName}
+                            data={
+                              listExpanded
+                                ? highestRatesList.concat(lowestRatesList)
+                                : dataForActiveBreakdownFilter
+                            }
+                            hideMissingDataTooltip={listExpanded}
+                            legendData={dataForActiveBreakdownFilter}
+                            hideLegend={true}
+                            hideActions={true}
+                            showCounties={props.fips.isUsa() ? false : true}
+                            fips={fips}
+                            scaleType="quantile"
+                            geoData={geoData}
+                            overrideShapeWithCircle={true}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
                 {!queryResponse.dataIsMissing() &&
                   dataForActiveBreakdownFilter.length > 1 && (
                     <HighestLowestList

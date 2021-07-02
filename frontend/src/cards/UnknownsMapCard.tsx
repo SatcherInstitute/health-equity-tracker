@@ -1,7 +1,7 @@
 import React from "react";
 import { CardContent } from "@material-ui/core";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
-import { Fips } from "../data/utils/Fips";
+import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
 import { VariableConfig } from "../data/config/MetricConfig";
 import MapBreadcrumbs from "./ui/MapBreadcrumbs";
 import { Row } from "../data/utils/DatasetTypes";
@@ -137,6 +137,37 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   }
                   geoData={geoData}
                 />
+                {/* TODO(1011): remove false when territory data sources are updated */}
+                {false && props.fips.isUsa() && (
+                  <div className={styles.TerritoryCirclesContainer}>
+                    {TERRITORY_CODES.map((code) => {
+                      const fips = new Fips(code);
+                      return (
+                        <div className={styles.TerritoryCircle}>
+                          <ChoroplethMap
+                            useSmallSampleMessage={
+                              !mapQueryResponse.dataIsMissing() &&
+                              (props.variableConfig.surveyCollectedData ||
+                                false)
+                            }
+                            signalListeners={signalListeners}
+                            metric={metricConfig}
+                            legendTitle={metricConfig.fullCardTitleName}
+                            data={unknowns}
+                            showCounties={props.fips.isUsa() ? false : true}
+                            fips={fips}
+                            scaleType="symlog"
+                            scaleColorScheme="greenblue"
+                            hideLegend={true}
+                            hideActions={true}
+                            geoData={geoData}
+                            overrideShapeWithCircle={true}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </CardContent>
             )}
           </>

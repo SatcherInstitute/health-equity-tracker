@@ -137,3 +137,15 @@
 #vg-tooltip-element {
   z-index: 2000 !important;
 }
+
+.TerritoryCirclesContainer {
+  width: 100%;
+  height: 55px;
+}
+
+.TerritoryCircle {
+  float: left;
+  width: 50px;
+  padding-left: 30px;
+  padding-top: 15px;
+}

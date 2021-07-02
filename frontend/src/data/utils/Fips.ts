@@ -2,12 +2,18 @@ export const USA_DISPLAY_NAME = "United States";
 // Fake FIPS code used to represent totals in USA for convenience
 export const USA_FIPS = "00";
 
+export const AMERICAN_SAMOA = "60";
+export const GUAM = "66";
+export const NORTHERN_MARINA_ISLANDS = "69";
+export const PUERTO_RICO = "72";
+export const VIRGIN_ISLANDS = "78";
+
 export const TERRITORY_CODES = [
-  /*American Samoa-*/ "60",
-  /*Guam-*/ "66",
-  /*Northern Mariana Islands-*/ "69",
-  /*Puerto Rico-*/ "72",
-  /*Virgin Islands-*/ "78",
+  AMERICAN_SAMOA,
+  GUAM,
+  NORTHERN_MARINA_ISLANDS,
+  PUERTO_RICO,
+  VIRGIN_ISLANDS,
 ];
 
 // Fips code for District of Columbia (county).
