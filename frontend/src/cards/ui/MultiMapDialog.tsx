@@ -106,7 +106,9 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     geoData={props.geoData}
                   />
                 )}
-                {props.metricConfig &&
+                {/* TODO(1011): remove false when territory data sources are updated */}
+                {false &&
+                  props.metricConfig &&
                   props.fips.isUsa() &&
                   TERRITORY_CODES.map((code) => {
                     const fips = new Fips(code);

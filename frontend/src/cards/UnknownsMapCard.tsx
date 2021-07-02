@@ -137,7 +137,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   }
                   geoData={geoData}
                 />
-                {props.fips.isUsa() && (
+                {/* TODO(1011): remove false when territory data sources are updated */}
+                {false && props.fips.isUsa() && (
                   <div className={styles.TerritoryCirclesContainer}>
                     {TERRITORY_CODES.map((code) => {
                       const fips = new Fips(code);
