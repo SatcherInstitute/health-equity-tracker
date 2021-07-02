@@ -1,14 +1,18 @@
 """
 This program is intended to be run locally by someone who has access to the CDC
 restricted public surveillance data and has downloaded the latest version of
-the data from the secure GCS bucket to their local machine. It asks for the
-path and prefix of the CSV files which make up the CDC restricted data (e.g.
-"COVID_Cases_Restricted_Detailed_01312021" is the prefix for the 1/31/21 data),
-performs aggregation and standardization, and outputs the resulting CSV to the
-same path that was input. The resulting CSVs are intended to be uploaded to the
-manual-uploads GCS bucket for consumption by the ingestion pipeline.
+the data from the secure GCS bucket to their local machine. It requires as
+flags path and prefix of the CSV files which make up the CDC restricted data
+(e.g. "COVID_Cases_Restricted_Detailed_01312021" is the prefix for the 1/31/21
+data performs aggregation and standardization, and outputs the resulting CSV
+to the same path that was input. The resulting CSVs are intended to be uploaded
+to the manual-uploads GCS bucket for consumption by the ingestion pipeline.
+
+Example usage:
+python cdc_restricted_local.py --dir="/Users/vanshkumar/Downloads" --prefix="COVID_Cases_Restricted_Detailed_01312021"
 """
 
+import argparse
 import os
 import sys
 import time
@@ -17,6 +21,12 @@ import ingestion.standardized_columns as std_col
 import numpy as np
 import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
+
+
+# Command line flags for the dir and file name prefix for the data.
+parser = argparse.ArgumentParser()
+parser.add_argument("-dir", "--dir", help="Path to the CDC restricted data CSV files")
+parser.add_argument("-prefix", "--prefix", help="Prefix for the CDC restricted CSV files")
 
 # These are the columns that we want to keep from the data.
 # Geo columns (state, county) - we aggregate or groupby either state or county.
@@ -49,8 +59,8 @@ COUNTY_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 STATE_NAMES_MAPPING = {"Missing": "Unknown", "NA": "Unknown"}
 
 # Mappings for race, sex, and age values in the data to a standardized forms.
-# Note that these mappings cover the possible values in the data as of the
-# latest dataset. New data should be checked for schema changes.
+# Note that these mappings exhaustively cover the possible values in the data
+# as of the latest dataset. New data should be checked for schema changes.
 RACE_NAMES_MAPPING = {
     "American Indian/Alaska Native, Non-Hispanic": std_col.Race.AIAN_NH.value,
     "Asian, Non-Hispanic": std_col.Race.ASIAN_NH.value,
@@ -65,6 +75,9 @@ RACE_NAMES_MAPPING = {
 }
 
 SEX_NAMES_MAPPING = {
+    "Male": "Male",
+    "Female": "Female",
+    "Other": "Other",
     "NA": "Unknown",
     "Missing": "Unknown",
     "Unknown": "Unknown",
@@ -82,6 +95,16 @@ AGE_NAMES_MAPPING = {
     "80+ Years": "80+",
     "NA": "Unknown",
     "Missing": "Unknown",
+}
+
+# Mapping from geo and demo to relevant column(s) in the data. The demo
+# mapping also includes the values mapping for transforming demographic values
+# to their standardized form.
+GEO_COL_MAPPING = {'state': [STATE_COL], 'county': COUNTY_COLS}
+DEMOGRAPHIC_COL_MAPPING = {
+    'race': (RACE_COL, RACE_NAMES_MAPPING),
+    'sex': (SEX_COL, SEX_NAMES_MAPPING),
+    'age': (AGE_COL, AGE_NAMES_MAPPING),
 }
 
 # States that we have decided to suppress different kinds of data for, due to
@@ -179,45 +202,68 @@ def standardize_data(df):
     return df
 
 
-def main():
-    dir = input("Enter the path to the CDC restricted data CSV files: ")
-    prefix = input("Enter the prefix for the CDC restricted CSV files: ")
+def add_missing_demographic_values(df, geo, demographic):
+    """Adds in missing demographic values for each geo in the df. For example,
+    if a given county only has WHITE, adds in empty data rows for all other
+    race/ethnicity groups.
+    See https://github.com/SatcherInstitute/health-equity-tracker/issues/841.
 
-    # Get the files in the specified directory which match the prefix.
-    matching_files = []
-    files = [
-        f for f in os.listdir(dir) if os.path.isfile(os.path.join(dir, f))]
-    for f in files:
-        filename_parts = f.split('.')
-        if (len(filename_parts) == 2 and prefix in filename_parts[0] and
-                filename_parts[1] == 'csv'):
-            matching_files.append(f)
+    df: Pandas dataframe to append onto.
+    geo: Geographic level. Must be "state" or "county".
+    demographic: Demographic breakdown. Must be "race", "age", or "sex".
+    """
+    geo_cols = GEO_COL_MAPPING[geo]
+    demog_col = DEMOGRAPHIC_COL_MAPPING[demographic][0]
+    all_demos = DEMOGRAPHIC_COL_MAPPING[demographic][1].values()
+    unknown_values = ["Unknown", std_col.Race.UNKNOWN.value]
+    all_demos = set([v for v in all_demos if v not in unknown_values])
 
-    if len(matching_files) == 0:
-        print("Unable to find any files that match the prefix!")
-        sys.exit()
+    # Map from each geo to the demographic values present. Note that multiple
+    # values/columns may define each geo.
+    geo_demo_map = df.loc[:, geo_cols + [demog_col]].groupby(geo_cols)
+    geo_demo_map = geo_demo_map.agg({demog_col: list}).to_dict()[demog_col]
 
-    print("Matching files: ")
-    for f in matching_files:
-        print(f)
+    # List where each entry is a geo and demographic value pair that need to be
+    # added to the df. Example entry: ["06035", "LASSEN", "CA", "ASIAN_NH"].
+    geo_demo_to_add = []
+    for geo_key, demo_values in geo_demo_map.items():
+        geo_lst = [geo_key] if isinstance(geo_key, str) else list(geo_key)
+        values_to_add = sorted(list(all_demos.difference(set(demo_values))))
+        for val in values_to_add:
+            geo_demo_to_add.append(geo_lst + [val])
 
-    # Go through the CSV files, chunking each and grouping by columns we want.
+    # Build the dataframe (as a dict) that we want to append to the original.
+    df_to_append = []
+    columns = list(df.columns)
+    for geo_demo in geo_demo_to_add:
+        row = []
+        for col in columns:
+            if col in geo_cols:
+                row.append(geo_demo[geo_cols.index(col)])
+            elif col == demog_col:
+                row.append(geo_demo[-1])
+            else:
+                row.append("")
+        df_to_append.append(row)
+
+    return pd.concat([df, pd.DataFrame(df_to_append, columns=columns)],
+                     ignore_index=True)
+
+
+def process_data(dir, files):
+    """Given a directory and a list of files which contain line item-level
+    covid data, standardizes and aggregates by race, age, and sex. Returns a
+    map from (geography, demographic) to the associated dataframe.
+
+    dir: Directory in which the files live.
+    files: List of file paths that contain covid data.
+    """
     all_dfs = {}
     for geo in ['state', 'county']:
         for demo in ['race', 'sex', 'age']:
             all_dfs[(geo, demo)] = pd.DataFrame()
 
-    # Mapping from geo and demo to relevant column(s) in the data. The demo
-    # mapping also includes the values mapping for transforming values to their
-    # standardized form.
-    geo_col_mapping = {'state': [STATE_COL], 'county': COUNTY_COLS}
-    demographic_col_mapping = {
-        'race': (RACE_COL, RACE_NAMES_MAPPING),
-        'sex': (SEX_COL, SEX_NAMES_MAPPING),
-        'age': (AGE_COL, AGE_NAMES_MAPPING),
-    }
-
-    for f in sorted(matching_files):
+    for f in sorted(files):
         start = time.time()
 
         # Note that we read CSVs with keep_default_na = False as we want to
@@ -246,8 +292,8 @@ def main():
             # data to focus on that dimension and aggregate.
             for (geo, demo), _ in all_dfs.items():
                 # Build the columns we will group by.
-                geo_cols = geo_col_mapping[geo]
-                demog_col, demog_names_mapping = demographic_col_mapping[demo]
+                geo_cols = GEO_COL_MAPPING[geo]
+                demog_col, demog_names_mapping = DEMOGRAPHIC_COL_MAPPING[demo]
 
                 # Slice the data and aggregate for the given dimension.
                 sliced_df = df[geo_cols + [demog_col] + OUTCOME_COLS]
@@ -260,6 +306,8 @@ def main():
 
     # Post-processing of the data.
     for key in all_dfs:
+        geo, demographic = key
+
         # Some brief sanity checks to make sure the data is OK.
         sanity_check_data(all_dfs[key])
 
@@ -268,23 +316,59 @@ def main():
         # index for simplicity.
         all_dfs[key] = all_dfs[key].astype(int).reset_index()
 
+        # Ensure that all geos have a row for all possible demographic values,
+        # adding the missing values in with empty data.
+        all_dfs[key] = add_missing_demographic_values(all_dfs[key], geo, demographic)
+
         # Standardize the column names and race/age/sex values.
         all_dfs[key] = standardize_data(all_dfs[key])
 
         # Set hospitalization and death data for states we want to suppress to
-        # NaN. The frontend interprets NaN to mean missing data for
-        # hospitalizations and deaths.
+        # an empty string, indicating missing data.
         rows_to_modify = all_dfs[key][std_col.STATE_POSTAL_COL].isin(
             HOSP_DATA_SUPPRESSION_STATES)
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_Y] = np.NaN
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_N] = np.NaN
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_UNKNOWN] = np.NaN
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_Y] = ""
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_N] = ""
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_UNKNOWN] = ""
 
         rows_to_modify = all_dfs[key][std_col.STATE_POSTAL_COL].isin(
             DEATH_DATA_SUPPRESSION_STATES)
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_Y] = np.NaN
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_N] = np.NaN
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_UNKNOWN] = np.NaN
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_Y] = ""
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_N] = ""
+        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_UNKNOWN] = ""
+
+        # Standardize all None/NaNs in the data to an empty string, and convert
+        # everything to string before returning & writing to CSV.
+        all_dfs[key] = all_dfs[key].fillna("").astype(str)
+
+    return all_dfs
+
+
+def main():
+    # Get the dir and prefix from the command line flags.
+    args = parser.parse_args()
+    dir = args.dir
+    prefix = args.prefix
+
+    # Get the files in the specified directory which match the prefix.
+    matching_files = []
+    files = [
+        f for f in os.listdir(dir) if os.path.isfile(os.path.join(dir, f))]
+    for f in files:
+        filename_parts = f.split('.')
+        if (len(filename_parts) == 2 and prefix in filename_parts[0] and
+                filename_parts[1] == 'csv'):
+            matching_files.append(f)
+
+    if len(matching_files) == 0:
+        print("Unable to find any files that match the prefix!")
+        sys.exit()
+
+    print("Matching files: ")
+    for f in matching_files:
+        print(f)
+
+    all_dfs = process_data(dir, matching_files)
 
     # Write the results out to CSVs.
     for (geo, demo), df in all_dfs.items():

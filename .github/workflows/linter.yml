@@ -44,7 +44,7 @@ jobs:
       # directories containing Python code are added.
       - name: Run mypy
         run: |
-          pip install mypy
+          pip install mypy==0.902
           pip install -r data_server/requirements.txt
           pip install -r run_ingestion/requirements.txt
           pip install -r run_gcs_to_bq/requirements.txt

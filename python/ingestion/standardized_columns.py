@@ -33,6 +33,7 @@ POPULATION_COL = "population"
 INCOME_COL = "income"
 
 TOTAL_VALUE = "Total"
+ALL_VALUE = "All"
 
 # Standardized column names for Covid cases, hospitalizations, and deaths.
 COVID_CASES = "cases"
@@ -50,6 +51,9 @@ WITHOUT_HEALTH_INSURANCE_COL = "without_health_insurance"
 
 ABOVE_POVERTY_COL = "above_poverty_line"
 BELOW_POVERTY_COL = "below_poverty_line"
+
+COPD_PCT = "copd_pct"
+DIABETES_PCT = "diabetes_pct"
 
 
 RaceTuple = namedtuple("RaceTuple", [
@@ -141,6 +145,7 @@ class Race(Enum):
     # The total across races. This must always be included when the other race
     # values do not sum to 100%
     TOTAL = ("TOTAL", TOTAL_VALUE, None)
+    ALL = ("ALL", ALL_VALUE, None)
 
     # We set the enum value to the first arg, which is the race category id, or
     # a unique code that can be used to reference that race. Race category ids
