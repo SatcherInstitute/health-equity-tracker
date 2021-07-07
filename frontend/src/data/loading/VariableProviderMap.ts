@@ -1,4 +1,5 @@
 import AcsPopulationProvider from "../variables/AcsPopulationProvider";
+import UNPopulationProvider from "../variables/UNPopulationProvider";
 import VariableProvider from "../variables/VariableProvider";
 import CdcCovidProvider from "../variables/CdcCovidProvider";
 import BrfssProvider from "../variables/BrfssProvider";
@@ -12,7 +13,8 @@ export type ProviderId =
   | "acs_poverty_provider"
   | "cdc_covid_provider"
   | "covid_provider"
-  | "brfss_provider";
+  | "brfss_provider"
+  | "un_pop_provider";
 
 export default class VariableProviderMap {
   private providers: VariableProvider[];
@@ -21,9 +23,10 @@ export default class VariableProviderMap {
 
   constructor() {
     const acsProvider = new AcsPopulationProvider();
+    const unProvider = new UNPopulationProvider();
     this.providers = [
       acsProvider,
-      new CdcCovidProvider(acsProvider),
+      new CdcCovidProvider(acsProvider, unProvider),
       new BrfssProvider(acsProvider),
       new AcsHealthInsuranceProvider(),
       new AcsPovertyProvider(),
@@ -34,10 +37,9 @@ export default class VariableProviderMap {
   }
 
   private getProvidersById(): Record<ProviderId, VariableProvider> {
-    const providersById: Partial<Record<
-      ProviderId,
-      VariableProvider
-    >> = Object.fromEntries(this.providers.map((p) => [p.providerId, p]));
+    const providersById: Partial<
+      Record<ProviderId, VariableProvider>
+    > = Object.fromEntries(this.providers.map((p) => [p.providerId, p]));
     return providersById as Record<ProviderId, VariableProvider>;
   }
 

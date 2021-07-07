@@ -8,6 +8,8 @@ export const NORTHERN_MARINA_ISLANDS = "69";
 export const PUERTO_RICO = "72";
 export const VIRGIN_ISLANDS = "78";
 
+export type PopulationSource = "acs" | "un";
+
 export const TERRITORY_CODES = [
   AMERICAN_SAMOA,
   GUAM,

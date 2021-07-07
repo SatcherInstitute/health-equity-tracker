@@ -4,14 +4,26 @@ import { MetricId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { joinOnCols } from "../utils/datasetutils";
-import { DC_COUNTY_FIPS, USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
+import {
+  DC_COUNTY_FIPS,
+  USA_DISPLAY_NAME,
+  USA_FIPS,
+  GUAM,
+  VIRGIN_ISLANDS,
+  PopulationSource,
+} from "../utils/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
+import UNPopulationProvider from "./UNPopulationProvider";
 import VariableProvider from "./VariableProvider";
 
 class CdcCovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
+  private unProvider: UNPopulationProvider;
 
-  constructor(acsProvider: AcsPopulationProvider) {
+  constructor(
+    acsProvider: AcsPopulationProvider,
+    unProvider: UNPopulationProvider
+  ) {
     super("cdc_covid_provider", [
       "covid_cases",
       "covid_deaths",
@@ -33,6 +45,7 @@ class CdcCovidProvider extends VariableProvider {
       "covid_hosp_reporting_population_pct",
     ]);
     this.acsProvider = acsProvider;
+    this.unProvider = unProvider;
   }
 
   // ALERT! KEEP IN SYNC! Make sure you update DataSourceMetadata if you update dataset IDs
@@ -67,6 +80,7 @@ class CdcCovidProvider extends VariableProvider {
 
     const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
       .columnName;
+    console.log("Hhllo");
 
     df = this.renameTotalToAll(df, breakdownColumnName);
 
@@ -90,6 +104,90 @@ class CdcCovidProvider extends VariableProvider {
       covid_deaths: (value) => (isNaN(value) ? null : value),
       covid_hosp: (value) => (isNaN(value) ? null : value),
     });
+
+    const acsBreakdowns = breakdowns.copy();
+    acsBreakdowns.time = false;
+
+    console.log(acsBreakdowns);
+
+    // Get ACS population_pct data. Population data is expected to already be
+    // joined in at this point for this data.
+
+    const unPopFips = [GUAM, VIRGIN_ISLANDS];
+    let popSource: PopulationSource = "acs";
+    let supportedGeos: string[] = [];
+
+    // Get island pop data if it exists
+    if (breakdowns.geography === "state") {
+      // hacky but there should only be one fips code if
+      // its for a state
+      let fipsCode = df.getSeries("fips").toArray()[0];
+      if (unPopFips.includes(fipsCode)) {
+        popSource = "un";
+      }
+    }
+
+    const onlyShareMetrics = metricQuery.metricIds.every((metric) =>
+      metric.includes("share")
+    );
+
+    switch (popSource) {
+      case "acs":
+        const acsQueryResponse = await this.acsProvider.getData(
+          new MetricQuery(["population_pct"], acsBreakdowns)
+        );
+        consumedDatasetIds = consumedDatasetIds.concat(
+          acsQueryResponse.consumedDatasetIds
+        );
+        // We return an empty response if the only requested metric ids are "share"
+        // metrics. These are the only metrics which don't require population data.
+        if (acsQueryResponse.dataIsMissing() && !onlyShareMetrics) {
+          return acsQueryResponse;
+        }
+        const acsPopulation = new DataFrame(acsQueryResponse.data);
+        // TODO this is a weird hack - prefer left join but for some reason it's
+        // causing issues. We should really do this on the BE instead.
+        supportedGeos = acsPopulation
+          .distinct((row) => row.fips)
+          .getSeries("fips")
+          .toArray();
+
+        df = joinOnCols(
+          df,
+          acsPopulation,
+          ["fips", breakdownColumnName],
+          "left"
+        );
+        break;
+
+      case "un":
+        const unQueryResponse = await this.unProvider.getData(
+          new MetricQuery(["population", "population_pct"], acsBreakdowns)
+        );
+        consumedDatasetIds = consumedDatasetIds.concat(
+          unQueryResponse.consumedDatasetIds
+        );
+        // We return an empty response if the only requested metric ids are "share"
+        // metrics. These are the only metrics which don't require population data.
+        if (unQueryResponse.dataIsMissing() && !onlyShareMetrics) {
+          return unQueryResponse;
+        }
+        const unPopulation = new DataFrame(unQueryResponse.data);
+        // TODO this is a weird hack - prefer left join but for some reason it's
+        // causing issues. We should really do this on the BE instead.
+        supportedGeos = unPopulation
+          .distinct((row) => row.fips)
+          .getSeries("fips")
+          .toArray();
+
+        df = joinOnCols(
+          df,
+          unPopulation,
+          ["fips", breakdownColumnName],
+          "left"
+        );
+        break;
+    }
 
     df =
       breakdowns.geography === "national"
@@ -195,39 +293,9 @@ class CdcCovidProvider extends VariableProvider {
       }
     });
 
-    const acsBreakdowns = breakdowns.copy();
-    acsBreakdowns.time = false;
-
-    // Get ACS population_pct data. Population data is expected to already be
-    // joined in at this point for this data.
-    const acsQueryResponse = await this.acsProvider.getData(
-      new MetricQuery(["population_pct"], acsBreakdowns)
-    );
-    consumedDatasetIds = consumedDatasetIds.concat(
-      acsQueryResponse.consumedDatasetIds
-    );
-    // We return an empty response if the only requested metric ids are "share"
-    // metrics. These are the only metrics which don't require population data.
-    const onlyShareMetrics = metricQuery.metricIds.every((metric) =>
-      metric.includes("share")
-    );
-    if (acsQueryResponse.dataIsMissing() && !onlyShareMetrics) {
-      return acsQueryResponse;
-    }
-    const acsPopulation = new DataFrame(acsQueryResponse.data);
-
-    // TODO this is a weird hack - prefer left join but for some reason it's
-    // causing issues. We should really do this on the BE instead.
-    const supportedGeos = acsPopulation
-      .distinct((row) => row.fips)
-      .getSeries("fips")
-      .toArray();
-
     const unknowns = df
       .where((row) => row.breakdownColumnName === "Unknown")
       .where((row) => supportedGeos.includes(row.fips));
-
-    df = joinOnCols(df, acsPopulation, ["fips", breakdownColumnName], "left");
 
     const populationPctMetric: MetricId[] = [
       "covid_cases_reporting_population_pct",
