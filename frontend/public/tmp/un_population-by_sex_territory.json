@@ -1,0 +1,38 @@
+[
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "sex": "All",
+    "population": "168783"
+  },
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "sex": "Male",
+    "population": "85140"
+  },
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "sex": "Female",
+    "population": "83643"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "Virgin Islands",
+    "sex": "All",
+    "population": "104423"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "Virgin Islands",
+    "sex": "Male",
+    "population": "49601"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "Virgin Islands",
+    "sex": "Female",
+    "population": "54822"
+  }
+]
