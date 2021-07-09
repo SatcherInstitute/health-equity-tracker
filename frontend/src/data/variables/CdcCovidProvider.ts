@@ -80,7 +80,8 @@ class CdcCovidProvider extends VariableProvider {
 
     const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
       .columnName;
-    console.log("Hhllo");
+
+    console.log(breakdownColumnName);
 
     df = this.renameTotalToAll(df, breakdownColumnName);
 
@@ -122,6 +123,7 @@ class CdcCovidProvider extends VariableProvider {
       // hacky but there should only be one fips code if
       // its for a state
       let fipsCode = df.getSeries("fips").toArray()[0];
+      console.log(fipsCode);
       if (unPopFips.includes(fipsCode)) {
         popSource = "un";
       }
@@ -158,9 +160,12 @@ class CdcCovidProvider extends VariableProvider {
           ["fips", breakdownColumnName],
           "left"
         );
+
         break;
 
       case "un":
+        df = df.dropSeries(["population"]).resetIndex();
+
         const unQueryResponse = await this.unProvider.getData(
           new MetricQuery(["population", "population_pct"], acsBreakdowns)
         );
