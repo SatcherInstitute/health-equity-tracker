@@ -1,0 +1,37 @@
+[
+  {
+    "state_fips": "78",
+    "state_name": "Virgin Islands",
+    "population": "106405",
+    "race": "All",
+    "race_category_id": "ALL",
+    "race_and_ethnicity": "All"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "Virgin Islands",
+    "population": "18504",
+    "race": "Hispanic or Latino",
+    "race_category_id": "HISP",
+    "race_and_ethnicity": "Hispanic or Latino",
+    "race_includes_hispanic": true
+  },
+  {
+    "state_fips": "78",
+    "state_name": "Virgin Islands",
+    "population": "70379",
+    "race": "Black or African American",
+    "race_category_id": "BLACK_NH",
+    "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+    "race_includes_hispanic": false
+  },
+  {
+    "state_fips": "78",
+    "state_name": "Virgin Islands",
+    "population": "14352",
+    "race": "White",
+    "race_category_id": "WHITE_NH",
+    "race_and_ethnicity": "White (Non-Hispanic)",
+    "race_includes_hispanic": false
+  }
+]
