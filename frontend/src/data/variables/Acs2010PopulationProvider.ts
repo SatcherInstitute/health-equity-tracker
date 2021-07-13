@@ -4,7 +4,7 @@ import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import VariableProvider from "./VariableProvider";
 
-class UNPopulationProvider extends VariableProvider {
+class Acs2010PopulationProvider extends VariableProvider {
   constructor() {
     super("un_pop_provider", ["population", "population_pct"]);
   }
@@ -14,7 +14,7 @@ class UNPopulationProvider extends VariableProvider {
     const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
       .columnName;
 
-    return "un_population-by_" + breakdownColumnName + "_territory";
+    return "acs_2010_population-by_" + breakdownColumnName + "_territory";
   }
 
   async getDataInternal(
@@ -66,4 +66,4 @@ class UNPopulationProvider extends VariableProvider {
   }
 }
 
-export default UNPopulationProvider;
+export default Acs2010PopulationProvider;

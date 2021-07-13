@@ -13,16 +13,16 @@ import {
   PopulationSource,
 } from "../utils/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
-import UNPopulationProvider from "./UNPopulationProvider";
+import Acs2010PopulationProvider from "./Acs2010PopulationProvider";
 import VariableProvider from "./VariableProvider";
 
 class CdcCovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
-  private unProvider: UNPopulationProvider;
+  private acs2010Provider: Acs2010PopulationProvider;
 
   constructor(
     acsProvider: AcsPopulationProvider,
-    unProvider: UNPopulationProvider
+    acs2010Provider: Acs2010PopulationProvider
   ) {
     super("cdc_covid_provider", [
       "covid_cases",
@@ -45,7 +45,7 @@ class CdcCovidProvider extends VariableProvider {
       "covid_hosp_reporting_population_pct",
     ]);
     this.acsProvider = acsProvider;
-    this.unProvider = unProvider;
+    this.acs2010Provider = acs2010Provider;
   }
 
   // ALERT! KEEP IN SYNC! Make sure you update DataSourceMetadata if you update dataset IDs
@@ -125,7 +125,7 @@ class CdcCovidProvider extends VariableProvider {
       let fipsCode = df.getSeries("fips").toArray()[0];
       console.log(fipsCode);
       if (unPopFips.includes(fipsCode)) {
-        popSource = "un";
+        popSource = "acs2010";
       }
     }
 
@@ -163,10 +163,10 @@ class CdcCovidProvider extends VariableProvider {
 
         break;
 
-      case "un":
+      case "acs2010":
         df = df.dropSeries(["population"]).resetIndex();
 
-        const unQueryResponse = await this.unProvider.getData(
+        const unQueryResponse = await this.acs2010Provider.getData(
           new MetricQuery(["population", "population_pct"], acsBreakdowns)
         );
         consumedDatasetIds = consumedDatasetIds.concat(
@@ -177,17 +177,17 @@ class CdcCovidProvider extends VariableProvider {
         if (unQueryResponse.dataIsMissing() && !onlyShareMetrics) {
           return unQueryResponse;
         }
-        const unPopulation = new DataFrame(unQueryResponse.data);
+        const acs2010Population = new DataFrame(unQueryResponse.data);
         // TODO this is a weird hack - prefer left join but for some reason it's
         // causing issues. We should really do this on the BE instead.
-        supportedGeos = unPopulation
+        supportedGeos = acs2010Population
           .distinct((row) => row.fips)
           .getSeries("fips")
           .toArray();
 
         df = joinOnCols(
           df,
-          unPopulation,
+          acs2010Population,
           ["fips", breakdownColumnName],
           "left"
         );
