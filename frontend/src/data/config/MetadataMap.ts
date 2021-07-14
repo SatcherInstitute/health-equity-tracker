@@ -33,6 +33,21 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
+    id: "acs_2010",
+    data_source_name: "American Community Survey 5-year estimates from 2010",
+    data_source_link:
+      "https://www.census.gov/data/datasets/2010/dec/virgin-islands.html",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "None",
+    description: "Population percentages at the territory level.",
+    dataset_ids: [
+      "acs_2010_population-by_race_and_ethnicity_territory",
+      "acs_2010_population-by_sex_territory",
+    ],
+    downloadable: true,
+  },
+  {
     id: "cdc_restricted",
     data_source_name: "CDC Case Surveillance Restricted Access Detailed Data",
     data_source_link:
