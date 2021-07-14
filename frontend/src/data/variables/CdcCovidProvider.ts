@@ -81,8 +81,6 @@ class CdcCovidProvider extends VariableProvider {
     const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
       .columnName;
 
-    console.log(breakdownColumnName);
-
     df = this.renameTotalToAll(df, breakdownColumnName);
 
     // If requested, filter geography by state or county level. We apply the
@@ -109,8 +107,6 @@ class CdcCovidProvider extends VariableProvider {
     const acsBreakdowns = breakdowns.copy();
     acsBreakdowns.time = false;
 
-    console.log(acsBreakdowns);
-
     // Get ACS population_pct data. Population data is expected to already be
     // joined in at this point for this data.
 
@@ -123,7 +119,6 @@ class CdcCovidProvider extends VariableProvider {
       // hacky but there should only be one fips code if
       // its for a state
       let fipsCode = df.getSeries("fips").toArray()[0];
-      console.log(fipsCode);
       if (unPopFips.includes(fipsCode)) {
         popSource = "acs2010";
       }

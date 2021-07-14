@@ -48,17 +48,17 @@ class Acs2010PopulationProvider extends VariableProvider {
   private async getDataInternalWithoutPercents(
     breakdowns: Breakdowns
   ): Promise<IDataFrame> {
-    const unDataset = await getDataManager().loadDataset(
+    const acs2010Dataset = await getDataManager().loadDataset(
       this.getDatasetId(breakdowns)
     );
-    let unDataFrame = unDataset.toDataFrame();
+    let acs2010DataFrame = acs2010Dataset.toDataFrame();
 
-    // If requested, filter geography by state or county level
+    // If requested, filter geography by state or coacs2010ty level
     // We apply the geo filter right away to reduce subsequent calculation times
-    unDataFrame = this.filterByGeo(unDataFrame, breakdowns);
-    unDataFrame = this.renameGeoColumns(unDataFrame, breakdowns);
+    acs2010DataFrame = this.filterByGeo(acs2010DataFrame, breakdowns);
+    acs2010DataFrame = this.renameGeoColumns(acs2010DataFrame, breakdowns);
 
-    return unDataFrame;
+    return acs2010DataFrame;
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
