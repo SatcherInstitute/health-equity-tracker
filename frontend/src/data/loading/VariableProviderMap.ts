@@ -14,7 +14,8 @@ export type ProviderId =
   | "cdc_covid_provider"
   | "covid_provider"
   | "brfss_provider"
-  | "un_pop_provider";
+  | "acs_2010_pop_provider"
+  | "acs_national_pop_provider";
 
 export default class VariableProviderMap {
   private providers: VariableProvider[];

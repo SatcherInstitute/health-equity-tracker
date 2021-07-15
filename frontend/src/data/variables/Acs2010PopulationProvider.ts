@@ -6,7 +6,7 @@ import VariableProvider from "./VariableProvider";
 
 class Acs2010PopulationProvider extends VariableProvider {
   constructor() {
-    super("un_pop_provider", ["population", "population_pct"]);
+    super("acs_2010_pop_provider", ["population", "population_pct"]);
   }
 
   // ALERT! KEEP IN SYNC! Make sure you update DataSourceMetadata if you update dataset IDs
