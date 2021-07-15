@@ -1,0 +1,71 @@
+import { IDataFrame } from "data-forge";
+import { getDataManager } from "../../utils/globals";
+import { Breakdowns } from "../query/Breakdowns";
+import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import AcsPopulationProvider from "./AcsPopulationProvider";
+import Acs2010PopulationProvider from "./Acs2010PopulationProvider";
+import VariableProvider from "./VariableProvider";
+
+class AcsNationalPopulationProvider extends VariableProvider {
+  constructor() {
+    super("acs_national_pop_provider", ["population", "population_pct"]);
+  }
+
+  // ALERT! KEEP IN SYNC! Make sure you update DataSourceMetadata if you update dataset IDs
+  getDatasetId(breakdowns: Breakdowns): string {
+    const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
+      .columnName;
+
+    return "acs_2010_population-by_" + breakdownColumnName + "_territory";
+  }
+
+  async getDataInternal(
+    metricQuery: MetricQuery
+  ): Promise<MetricQueryResponse> {
+    const breakdowns = metricQuery.breakdowns;
+    let df = await this.getDataInternalWithoutPercents(breakdowns);
+
+    // Calculate population_pct based on total for breakdown
+    // Exactly one breakdown should be enabled per allowsBreakdowns()
+    const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
+      .columnName;
+
+    df = this.renameTotalToAll(df, breakdownColumnName);
+
+    df = this.calculations.calculatePctShare(
+      df,
+      "population",
+      "population_pct",
+      breakdownColumnName,
+      ["fips"]
+    );
+
+    df = this.applyDemographicBreakdownFilters(df, breakdowns);
+    df = this.removeUnrequestedColumns(df, metricQuery);
+    return new MetricQueryResponse(df.toArray(), [
+      this.getDatasetId(breakdowns),
+    ]);
+  }
+
+  private async getDataInternalWithoutPercents(
+    breakdowns: Breakdowns
+  ): Promise<IDataFrame> {
+    const acs2010Dataset = await getDataManager().loadDataset(
+      this.getDatasetId(breakdowns)
+    );
+    let acs2010DataFrame = acs2010Dataset.toDataFrame();
+
+    // If requested, filter geography by state or coacs2010ty level
+    // We apply the geo filter right away to reduce subsequent calculation times
+    acs2010DataFrame = this.filterByGeo(acs2010DataFrame, breakdowns);
+    acs2010DataFrame = this.renameGeoColumns(acs2010DataFrame, breakdowns);
+
+    return acs2010DataFrame;
+  }
+
+  allowsBreakdowns(breakdowns: Breakdowns): boolean {
+    return !breakdowns.time && breakdowns.hasExactlyOneDemographic();
+  }
+}
+
+export default AcsNationalPopulationProvider;
