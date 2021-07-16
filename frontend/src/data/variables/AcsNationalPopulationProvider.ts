@@ -1,5 +1,4 @@
-import { IDataFrame } from "data-forge";
-import { getDataManager } from "../../utils/globals";
+import { DataFrame } from "data-forge";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import AcsPopulationProvider from "./AcsPopulationProvider";
@@ -7,28 +6,49 @@ import Acs2010PopulationProvider from "./Acs2010PopulationProvider";
 import VariableProvider from "./VariableProvider";
 
 class AcsNationalPopulationProvider extends VariableProvider {
-  constructor() {
+  private acsProvider: AcsPopulationProvider;
+  private acs2010Provider: Acs2010PopulationProvider;
+
+  constructor(
+    acsProvider: AcsPopulationProvider,
+    acs2010Provider: Acs2010PopulationProvider
+  ) {
     super("acs_national_pop_provider", ["population", "population_pct"]);
+    this.acsProvider = acsProvider;
+    this.acs2010Provider = acs2010Provider;
   }
 
   // ALERT! KEEP IN SYNC! Make sure you update DataSourceMetadata if you update dataset IDs
   getDatasetId(breakdowns: Breakdowns): string {
-    const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
-      .columnName;
-
-    return "acs_2010_population-by_" + breakdownColumnName + "_territory";
+    return "cool_population_provider";
   }
 
   async getDataInternal(
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
-    let df = await this.getDataInternalWithoutPercents(breakdowns);
+    const acsBreakdowns = breakdowns.copy();
+    acsBreakdowns.time = false;
+
+    const acsQueryResponse = await this.acsProvider.getData(
+      new MetricQuery(["population_pct"], acsBreakdowns)
+    );
+
+    const acsPopulation = new DataFrame(acsQueryResponse.data);
 
     // Calculate population_pct based on total for breakdown
     // Exactly one breakdown should be enabled per allowsBreakdowns()
+    const acs2010QueryResponse = await this.acs2010Provider.getData(
+      new MetricQuery(["population", "population_pct"], acsBreakdowns)
+    );
+    const acs2010Population = new DataFrame(acs2010QueryResponse.data);
+
     const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
       .columnName;
+
+    let df = acsPopulation.merge(acs2010Population);
+
+    console.log(df.toArray());
 
     df = this.renameTotalToAll(df, breakdownColumnName);
 
@@ -45,22 +65,6 @@ class AcsNationalPopulationProvider extends VariableProvider {
     return new MetricQueryResponse(df.toArray(), [
       this.getDatasetId(breakdowns),
     ]);
-  }
-
-  private async getDataInternalWithoutPercents(
-    breakdowns: Breakdowns
-  ): Promise<IDataFrame> {
-    const acs2010Dataset = await getDataManager().loadDataset(
-      this.getDatasetId(breakdowns)
-    );
-    let acs2010DataFrame = acs2010Dataset.toDataFrame();
-
-    // If requested, filter geography by state or coacs2010ty level
-    // We apply the geo filter right away to reduce subsequent calculation times
-    acs2010DataFrame = this.filterByGeo(acs2010DataFrame, breakdowns);
-    acs2010DataFrame = this.renameGeoColumns(acs2010DataFrame, breakdowns);
-
-    return acs2010DataFrame;
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {

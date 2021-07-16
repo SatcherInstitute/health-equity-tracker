@@ -14,15 +14,18 @@ import {
 } from "../utils/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import Acs2010PopulationProvider from "./Acs2010PopulationProvider";
+import AcsNationalPopulationProvider from "./AcsNationalPopulationProvider";
 import VariableProvider from "./VariableProvider";
 
 class CdcCovidProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
   private acs2010Provider: Acs2010PopulationProvider;
+  private acsNationalProvider: AcsNationalPopulationProvider;
 
   constructor(
     acsProvider: AcsPopulationProvider,
-    acs2010Provider: Acs2010PopulationProvider
+    acs2010Provider: Acs2010PopulationProvider,
+    acsNationalProvider: AcsNationalPopulationProvider
   ) {
     super("cdc_covid_provider", [
       "covid_cases",
@@ -46,6 +49,7 @@ class CdcCovidProvider extends VariableProvider {
     ]);
     this.acsProvider = acsProvider;
     this.acs2010Provider = acs2010Provider;
+    this.acsNationalProvider = acsNationalProvider;
   }
 
   // ALERT! KEEP IN SYNC! Make sure you update DataSourceMetadata if you update dataset IDs
@@ -112,7 +116,6 @@ class CdcCovidProvider extends VariableProvider {
 
     const unPopFips = [GUAM, VIRGIN_ISLANDS];
     let popSource: PopulationSource = "acs";
-    let supportedGeos: string[] = [];
 
     // Get island pop data if it exists
     if (breakdowns.geography === "state") {
@@ -122,6 +125,10 @@ class CdcCovidProvider extends VariableProvider {
       if (unPopFips.includes(fipsCode)) {
         popSource = "acs2010";
       }
+    }
+
+    if (breakdowns.geography === "national") {
+      popSource = "national";
     }
 
     const onlyShareMetrics = metricQuery.metricIds.every((metric) =>
@@ -144,11 +151,6 @@ class CdcCovidProvider extends VariableProvider {
         const acsPopulation = new DataFrame(acsQueryResponse.data);
         // TODO this is a weird hack - prefer left join but for some reason it's
         // causing issues. We should really do this on the BE instead.
-        supportedGeos = acsPopulation
-          .distinct((row) => row.fips)
-          .getSeries("fips")
-          .toArray();
-
         df = joinOnCols(
           df,
           acsPopulation,
@@ -161,25 +163,20 @@ class CdcCovidProvider extends VariableProvider {
       case "acs2010":
         df = df.dropSeries(["population"]).resetIndex();
 
-        const unQueryResponse = await this.acs2010Provider.getData(
+        const acs2010QueryResponse = await this.acs2010Provider.getData(
           new MetricQuery(["population", "population_pct"], acsBreakdowns)
         );
         consumedDatasetIds = consumedDatasetIds.concat(
-          unQueryResponse.consumedDatasetIds
+          acs2010QueryResponse.consumedDatasetIds
         );
         // We return an empty response if the only requested metric ids are "share"
         // metrics. These are the only metrics which don't require population data.
-        if (unQueryResponse.dataIsMissing() && !onlyShareMetrics) {
-          return unQueryResponse;
+        if (acs2010QueryResponse.dataIsMissing() && !onlyShareMetrics) {
+          return acs2010QueryResponse;
         }
-        const acs2010Population = new DataFrame(unQueryResponse.data);
+        const acs2010Population = new DataFrame(acs2010QueryResponse.data);
         // TODO this is a weird hack - prefer left join but for some reason it's
         // causing issues. We should really do this on the BE instead.
-        supportedGeos = acs2010Population
-          .distinct((row) => row.fips)
-          .getSeries("fips")
-          .toArray();
-
         df = joinOnCols(
           df,
           acs2010Population,
@@ -187,22 +184,41 @@ class CdcCovidProvider extends VariableProvider {
           "left"
         );
         break;
-    }
 
-    df =
-      breakdowns.geography === "national"
-        ? df
-            .pivot([breakdownColumnName], {
-              fips: (series) => USA_FIPS,
-              fips_name: (series) => USA_DISPLAY_NAME,
-              covid_cases: (series) => series.sum(),
-              covid_deaths: (series) => series.sum(),
-              covid_hosp: (series) => series.sum(),
-              population: (series) =>
-                series.where((population) => !isNaN(population)).sum(),
-            })
-            .resetIndex()
-        : df;
+      case "national":
+        df = df
+          .pivot([breakdownColumnName], {
+            fips: (series) => USA_FIPS,
+            fips_name: (series) => USA_DISPLAY_NAME,
+            covid_cases: (series) => series.sum(),
+            covid_deaths: (series) => series.sum(),
+            covid_hosp: (series) => series.sum(),
+            population: (series) =>
+              series.where((population) => !isNaN(population)).sum(),
+          })
+          .resetIndex();
+
+        const acsNationalQueryResponse = await this.acsNationalProvider.getData(
+          new MetricQuery(["population", "population_pct"], acsBreakdowns)
+        );
+        consumedDatasetIds = consumedDatasetIds.concat(
+          acsNationalQueryResponse.consumedDatasetIds
+        );
+        // We return an empty response if the only requested metric ids are "share"
+        // metrics. These are the only metrics which don't require population data.
+        const acsNationalPopulation = new DataFrame(
+          acsNationalQueryResponse.data
+        );
+
+        df = joinOnCols(
+          df,
+          acsNationalPopulation,
+          ["fips", breakdownColumnName],
+          "left"
+        );
+
+        break;
+    }
 
     // If a given geo x breakdown has all unknown hospitalizations or deaths,
     // we treat it as if it has "no data," i.e. we clear the hosp/death fields.
@@ -293,10 +309,6 @@ class CdcCovidProvider extends VariableProvider {
       }
     });
 
-    const unknowns = df
-      .where((row) => row.breakdownColumnName === "Unknown")
-      .where((row) => supportedGeos.includes(row.fips));
-
     const populationPctMetric: MetricId[] = [
       "covid_cases_reporting_population_pct",
       "covid_deaths_reporting_population_pct",
@@ -313,8 +325,6 @@ class CdcCovidProvider extends VariableProvider {
     });
 
     // Must reset index or calculation is wrong. TODO how to make this less brittle?
-    df = df.concat(unknowns).resetIndex();
-
     df = df.dropSeries(["population", "population_pct"]).resetIndex();
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);

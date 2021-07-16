@@ -8,7 +8,7 @@ export const NORTHERN_MARINA_ISLANDS = "69";
 export const PUERTO_RICO = "72";
 export const VIRGIN_ISLANDS = "78";
 
-export type PopulationSource = "acs" | "acs2010";
+export type PopulationSource = "acs" | "acs2010" | "national";
 
 export const TERRITORY_CODES = [
   AMERICAN_SAMOA,
