@@ -193,8 +193,7 @@ def load_csv_as_dataframe(gcs_bucket, filename, dtype=None, chunksize=None,
     os.remove(local_path)
     return frame
 
-def load_json_as_dataframe(gcs_bucket, filename, dtype=None, chunksize=None,
-                          parse_dates=False, thousands=None):
+def load_json_as_dataframe(gcs_bucket, filename, dtype=None):
     """Loads json data from the provided gcs_bucket and filename to a DataFrame.
        Expects the data to be in csv format, with the first row as the column
        names.
@@ -204,16 +203,13 @@ def load_json_as_dataframe(gcs_bucket, filename, dtype=None, chunksize=None,
        dtype: An optional dictionary of column names to column types, as
               specified by the pandas API. Not all column types need to be
               specified; column type is auto-detected. This is useful, for
-              example, to force integer-like ids to be treated as strings
-       parse_dates: Column(s) that should be parsed and interpreted as dates.
-       thousands: str to be used as a thousands separator for parsing numbers"""
+              example, to force integer-like ids to be treated as strings"""
     client = storage.Client()
     bucket = client.get_bucket(gcs_bucket)
     blob = bucket.blob(filename)
     local_path = local_file_path(filename)
     blob.download_to_filename(local_path)
-    frame = pandas.read_json(local_path, dtype=dtype, chunksize=chunksize,
-                            parse_dates=parse_dates, thousands=thousands)
+    frame = pandas.read_json(local_path, dtype=dtype)
 
     # Warning: os.remove() will remove the directory entry but will not release
     # the file's storage until the file is no longer being used by |frame|.

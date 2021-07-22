@@ -1,0 +1,26 @@
+[
+  {
+    "state_fips": "78",
+    "state_name": "Virgin Islands",
+    "population": "106405",
+    "race_category_id": "TOTAL"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "Virgin Islands",
+    "population": "18504",
+    "race_category_id": "HISP"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "Virgin Islands",
+    "population": "70379",
+    "race_category_id": "BLACK_NH"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "Virgin Islands",
+    "population": "14352",
+    "race_category_id": "WHITE_NH"
+  }
+]

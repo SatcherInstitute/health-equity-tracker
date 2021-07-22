@@ -34,14 +34,26 @@ class ACS2010Population(DataSource):
             df = gcs_to_bq_util.load_json_as_dataframe(
                 gcs_bucket, f, dtype={'state_fips': str})
 
+            if std_col.RACE_CATEGORY_ID_COL in df.columns:
+                std_col.add_race_columns_from_category_id(df)
+
             # All columns are str, except outcome columns.
             column_types = {c: 'STRING' for c in df.columns}
+            column_types[std_col.POPULATION_COL] = 'INT64'
             if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
                 column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
             # Clean up column names.
             self.clean_frame_column_names(df)
 
-            table_name = f.replace('.csv', '')  # Table name is file name
+            table_name = f.replace('.json', '')  # Table name is file name
+            table_name = table_name.replace('acs_2010_population-', '')  # Dont need this
             gcs_to_bq_util.add_dataframe_to_bq(
                 df, dataset, table_name, column_types=column_types)
+
+def reorder_columns(df, col_order):
+    """Reorders colums based on col_order
+
+    df: dataframe to reorder
+    col_order: Desired column order"""
+    return df[col_order]
