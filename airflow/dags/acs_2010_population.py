@@ -6,7 +6,8 @@ import util
 
 _ACS_2010_POPULATION_GCS_FILENAMES = (
     'acs_2010_population-by_race_and_ethnicity_territory.json,'
-    'acs_2010_population-by_sex_territory.json'
+    'acs_2010_population-by_sex_territory.json,'
+    'acs_2010_population-by_age_territory.json'
 )
 _ACS_2010_POPULATION_WORKFLOW_ID = 'ACS_2010_POPULATION'
 _ACS_2010_POPULATION_DATASET = 'acs_2010_population'
