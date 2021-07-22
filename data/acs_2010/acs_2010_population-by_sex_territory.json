@@ -34,5 +34,23 @@
     "state_name": "Virgin Islands",
     "sex": "Female",
     "population": "55538"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "sex": "Total",
+    "population": "53883"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "sex": "Male",
+    "population": "27746"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "sex": "Female",
+    "population": "26137"
   }
 ]

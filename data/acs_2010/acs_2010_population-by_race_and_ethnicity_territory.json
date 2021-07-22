@@ -24,6 +24,54 @@
     "race_category_id": "WHITE_NH"
   },
   {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "population": "53883",
+    "race_category_id": "TOTAL"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "population": "26908",
+    "race_category_id": "ASIAN_NH"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "population": "55",
+    "race_category_id": "BLACK_NH"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "population": "18800",
+    "race_category_id": "NHPI_NH"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "population": "1117",
+    "race_category_id": "WHITE_NH"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "population": "6832",
+    "race_category_id": "MULTI_OR_OTHER_STANDARD_NH"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "population": "117",
+    "race_category_id": "OTHER_STANDARD_NH"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "population": "54",
+    "race_category_id": "HISP"
+  },
+  {
     "state_fips": "66",
     "state_name": "GUAM",
     "population": "159358",
