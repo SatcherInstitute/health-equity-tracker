@@ -4,14 +4,14 @@ export const USA_FIPS = "00";
 
 export const AMERICAN_SAMOA = "60";
 export const GUAM = "66";
-export const NORTHERN_MARINA_ISLANDS = "69";
+export const NORTHERN_MARIANA_ISLANDS = "69";
 export const PUERTO_RICO = "72";
 export const VIRGIN_ISLANDS = "78";
 
 export const TERRITORY_CODES = [
   AMERICAN_SAMOA,
   GUAM,
-  NORTHERN_MARINA_ISLANDS,
+  NORTHERN_MARIANA_ISLANDS,
   PUERTO_RICO,
   VIRGIN_ISLANDS,
 ];

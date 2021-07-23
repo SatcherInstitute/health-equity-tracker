@@ -43,6 +43,11 @@ const datasetMetadataList: DatasetMetadata[] = [
     update_time: "2010",
   },
   {
+    id: "acs_2010_population-by_age_territory",
+    name: "Population by Sex and Territory",
+    update_time: "2010",
+  },
+  {
     id: "covid_tracking_project-cases_by_race_state",
     name: "COVID-19 cases by race and state",
     update_time: "April 2021",

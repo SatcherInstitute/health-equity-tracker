@@ -44,6 +44,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     dataset_ids: [
       "acs_2010_population-by_race_and_ethnicity_territory",
       "acs_2010_population-by_sex_territory",
+      "acs_2010_population-by_age_territory",
     ],
     downloadable: true,
   },

@@ -10,7 +10,7 @@ import {
   USA_FIPS,
   GUAM,
   VIRGIN_ISLANDS,
-  NORTHERN_MARINA_ISLANDS,
+  NORTHERN_MARIANA_ISLANDS,
 } from "../utils/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import Acs2010PopulationProvider from "./Acs2010PopulationProvider";
@@ -129,7 +129,7 @@ class CdcCovidProvider extends VariableProvider {
             .resetIndex()
         : df;
 
-    const acs2010PopFips = [GUAM, VIRGIN_ISLANDS, NORTHERN_MARINA_ISLANDS];
+    const acs2010PopFips = [GUAM, VIRGIN_ISLANDS, NORTHERN_MARIANA_ISLANDS];
 
     // Get island pop data if it exists
     if (
