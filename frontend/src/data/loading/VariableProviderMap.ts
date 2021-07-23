@@ -1,6 +1,5 @@
 import AcsPopulationProvider from "../variables/AcsPopulationProvider";
 import Acs2010PopulationProvider from "../variables/Acs2010PopulationProvider";
-import AcsNationalPopulationProvider from "../variables/AcsNationalPopulationProvider";
 import VariableProvider from "../variables/VariableProvider";
 import CdcCovidProvider from "../variables/CdcCovidProvider";
 import BrfssProvider from "../variables/BrfssProvider";
@@ -26,13 +25,9 @@ export default class VariableProviderMap {
   constructor() {
     const acsProvider = new AcsPopulationProvider();
     const acs2010Provider = new Acs2010PopulationProvider();
-    const acsNationalProvider = new AcsNationalPopulationProvider(
-      acsProvider,
-      acs2010Provider
-    );
     this.providers = [
       acsProvider,
-      new CdcCovidProvider(acsProvider, acs2010Provider, acsNationalProvider),
+      new CdcCovidProvider(acsProvider, acs2010Provider),
       new BrfssProvider(acsProvider),
       new AcsHealthInsuranceProvider(),
       new AcsPovertyProvider(),
