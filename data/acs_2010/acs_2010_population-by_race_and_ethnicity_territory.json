@@ -1,25 +1,25 @@
 [
   {
     "state_fips": "78",
-    "state_name": "Virgin Islands",
+    "state_name": "U.S. Virgin Islands",
     "population": "106405",
     "race_category_id": "TOTAL"
   },
   {
     "state_fips": "78",
-    "state_name": "Virgin Islands",
+    "state_name": "U.S. Virgin Islands",
     "population": "18504",
     "race_category_id": "HISP"
   },
   {
     "state_fips": "78",
-    "state_name": "Virgin Islands",
+    "state_name": "U.S. Virgin Islands",
     "population": "70379",
     "race_category_id": "BLACK_NH"
   },
   {
     "state_fips": "78",
-    "state_name": "Virgin Islands",
+    "state_name": "U.S. Virgin Islands",
     "population": "14352",
     "race_category_id": "WHITE_NH"
   },
@@ -73,49 +73,49 @@
   },
   {
     "state_fips": "66",
-    "state_name": "GUAM",
+    "state_name": "Guam",
     "population": "159358",
     "race_category_id": "TOTAL"
   },
   {
     "state_fips": "66",
-    "state_name": "GUAM",
+    "state_name": "Guam",
     "population": "51381",
     "race_category_id": "ASIAN_NH"
   },
   {
     "state_fips": "66",
-    "state_name": "GUAM",
+    "state_name": "Guam",
     "population": "1540",
     "race_category_id": "BLACK_NH"
   },
   {
     "state_fips": "66",
-    "state_name": "GUAM",
+    "state_name": "Guam",
     "population": "78582",
     "race_category_id": "NHPI_NH"
   },
   {
     "state_fips": "66",
-    "state_name": "GUAM",
+    "state_name": "Guam",
     "population": "11321",
     "race_category_id": "WHITE_NH"
   },
   {
     "state_fips": "66",
-    "state_name": "GUAM",
+    "state_name": "Guam",
     "population": "14929",
     "race_category_id": "MULTI_OR_OTHER_STANDARD_NH"
   },
   {
     "state_fips": "66",
-    "state_name": "GUAM",
+    "state_name": "Guam",
     "population": "404",
     "race_category_id": "OTHER_STANDARD_NH"
   },
   {
     "state_fips": "66",
-    "state_name": "GUAM",
+    "state_name": "Guam",
     "population": "1201",
     "race_category_id": "HISP"
   }
