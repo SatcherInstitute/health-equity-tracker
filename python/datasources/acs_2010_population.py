@@ -50,10 +50,3 @@ class ACS2010Population(DataSource):
             table_name = table_name.replace('acs_2010_population-', '')  # Dont need this
             gcs_to_bq_util.add_dataframe_to_bq(
                 df, dataset, table_name, column_types=column_types)
-
-def reorder_columns(df, col_order):
-    """Reorders colums based on col_order
-
-    df: dataframe to reorder
-    col_order: Desired column order"""
-    return df[col_order]
