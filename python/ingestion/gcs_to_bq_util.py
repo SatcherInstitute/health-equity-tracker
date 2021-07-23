@@ -193,6 +193,7 @@ def load_csv_as_dataframe(gcs_bucket, filename, dtype=None, chunksize=None,
     os.remove(local_path)
     return frame
 
+
 def load_json_as_dataframe(gcs_bucket, filename, dtype=None):
     """Loads json data from the provided gcs_bucket and filename to a DataFrame.
        Expects the data to be in csv format, with the first row as the column
