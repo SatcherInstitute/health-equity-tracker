@@ -8,9 +8,7 @@ import {
   DC_COUNTY_FIPS,
   USA_DISPLAY_NAME,
   USA_FIPS,
-  GUAM,
-  VIRGIN_ISLANDS,
-  NORTHERN_MARIANA_ISLANDS,
+  ACS_2010_FIPS,
 } from "../utils/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import Acs2010PopulationProvider from "./Acs2010PopulationProvider";
@@ -129,15 +127,18 @@ class CdcCovidProvider extends VariableProvider {
             .resetIndex()
         : df;
 
-    const acs2010PopFips = [GUAM, VIRGIN_ISLANDS, NORTHERN_MARIANA_ISLANDS];
-
     // Get island pop data if it exists
+    const islandFips = df.getSeries("fips").toArray()[0];
     if (
-      breakdowns.geography === "state" &&
-      // hacky but there should only be one fips code if
-      // its for a state
-      acs2010PopFips.includes(df.getSeries("fips").toArray()[0])
+      (breakdowns.geography === "state" &&
+        // hacky but there should only be one fips code if
+        // its for a state
+        ACS_2010_FIPS.includes(islandFips)) ||
+      (breakdowns.geography === "county" &&
+        ACS_2010_FIPS.includes(islandFips.substring(0, 2)))
     ) {
+      // We only have territory level population data for these territories
+      acsBreakdowns.geography = "state";
       const acs2010QueryResponse = await this.acs2010Provider.getData(
         new MetricQuery(["population", "population_pct"], acsBreakdowns)
       );

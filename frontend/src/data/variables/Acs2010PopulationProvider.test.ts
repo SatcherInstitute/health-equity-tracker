@@ -5,37 +5,26 @@ import {
   resetCacheDebug,
 } from "../../utils/globals";
 import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
-import { onlyIncludeStandardRaces } from "../query/BreakdownFilter";
 import { Breakdowns } from "../query/Breakdowns";
-import {
-  createMissingDataResponse,
-  MetricQuery,
-  MetricQueryResponse,
-} from "../query/MetricQuery";
+import { createMissingDataResponse, MetricQuery } from "../query/MetricQuery";
 import {
   AGE,
   ALL,
   ASIAN_NH,
   FEMALE,
   MALE,
-  NON_HISPANIC,
   RACE,
   SEX,
   TOTAL,
-  WHITE,
   WHITE_NH,
 } from "../utils/Constants";
 import { Fips } from "../utils/Fips";
 import Acs2010PopulationProvider from "./Acs2010PopulationProvider";
 import {
   AL,
-  CHATAM,
   createWithAndWithoutAllEvaluator,
-  DURHAM,
   FipsSpec,
-  MARIN,
   NC,
-  USA,
 } from "./TestUtils";
 
 function stateRow(
@@ -47,20 +36,6 @@ function stateRow(
   return {
     state_fips: fips.code,
     state_name: fips.name,
-    [breakdownName]: breakdownValue,
-    population: population,
-  };
-}
-
-function finalPopulationCountRow(
-  fips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
-  population: number
-) {
-  return {
-    fips: fips.code,
-    fips_name: fips.name,
     [breakdownName]: breakdownValue,
     population: population,
   };
@@ -88,12 +63,6 @@ const dataFetcher = getDataFetcher() as FakeDataFetcher;
 
 const evaluatePopulationCountAndPctWithAndWithoutTotal = createWithAndWithoutAllEvaluator(
   ["population", "population_pct"],
-  dataFetcher,
-  new Acs2010PopulationProvider()
-);
-
-const evaluatePopulationCountOnlyWithAndWithoutTotal = createWithAndWithoutAllEvaluator(
-  "population",
   dataFetcher,
   new Acs2010PopulationProvider()
 );

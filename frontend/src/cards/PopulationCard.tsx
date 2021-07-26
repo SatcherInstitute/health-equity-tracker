@@ -5,7 +5,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { Fips } from "../data/utils/Fips";
+import { Fips, ACS_2010_FIPS } from "../data/utils/Fips";
 import { CardContent } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import styles from "./Card.module.scss";
@@ -37,7 +37,14 @@ export interface PopulationCardProps {
 export function PopulationCard(props: PopulationCardProps) {
   const [expanded, setExpanded] = useState(false);
 
-  const metricIds: MetricId[] = ["population", "population_pct"];
+  const metricIds: MetricId[] = ACS_2010_FIPS.includes(props.fips.code)
+    ? ["population_2010", "population_pct_2010"]
+    : ["population", "population_pct"];
+
+  const POPULATION = ACS_2010_FIPS.includes(props.fips.code)
+    ? "population_2010"
+    : "population";
+
   const raceQuery = new MetricQuery(
     metricIds,
     Breakdowns.forFips(props.fips).andRace(onlyIncludeStandardRaces())
@@ -53,8 +60,9 @@ export function PopulationCard(props: PopulationCardProps) {
         const totalPopulation = raceQueryResponse.data.find(
           (r) => r.race_and_ethnicity === ALL
         );
+
         const totalPopulationSize = totalPopulation
-          ? totalPopulation["population"].toLocaleString("en")
+          ? totalPopulation[POPULATION].toLocaleString("en")
           : "Data Missing";
 
         const CollapseButton = (

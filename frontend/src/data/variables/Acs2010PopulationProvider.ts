@@ -6,7 +6,7 @@ import VariableProvider from "./VariableProvider";
 
 class Acs2010PopulationProvider extends VariableProvider {
   constructor() {
-    super("acs_2010_pop_provider", ["population", "population_pct"]);
+    super("acs_2010_pop_provider", ["population_2010", "population_pct_2010"]);
   }
 
   // ALERT! KEEP IN SYNC! Make sure you update DataSourceMetadata if you update dataset IDs
@@ -37,6 +37,15 @@ class Acs2010PopulationProvider extends VariableProvider {
       breakdownColumnName,
       ["fips"]
     );
+
+    df = df
+      .generateSeries({ "population_2010": (row) => row["population"] })
+      .resetIndex();
+    df = df
+      .generateSeries({
+        "population_pct_2010": (row) => row["population+ct"],
+      })
+      .resetIndex();
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);

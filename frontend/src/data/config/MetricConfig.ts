@@ -30,6 +30,8 @@ export type MetricId =
   | "health_insurance_population_pct"
   | "population"
   | "population_pct"
+  | "population_2010"
+  | "population_pct_2010"
   | "poverty_count"
   | "poverty_pct_share"
   | "poverty_per_100k"

@@ -2,37 +2,64 @@
   {
     "state_fips": "66",
     "state_name": "Guam",
-    "sex": "All",
-    "population": "168783"
+    "sex": "Total",
+    "population": "159358",
+    "ingestion_ts": "2021-07-23 14:00:46.150050 UTC"
   },
   {
     "state_fips": "66",
     "state_name": "Guam",
     "sex": "Male",
-    "population": "85140"
+    "population": "81568",
+    "ingestion_ts": "2021-07-23 14:00:46.150050 UTC"
   },
   {
     "state_fips": "66",
     "state_name": "Guam",
     "sex": "Female",
-    "population": "83643"
+    "population": "77790",
+    "ingestion_ts": "2021-07-23 14:00:46.150050 UTC"
   },
   {
     "state_fips": "78",
-    "state_name": "Virgin Islands",
-    "sex": "All",
-    "population": "106405"
+    "state_name": "U.S. Virgin Islands",
+    "sex": "Total",
+    "population": "106405",
+    "ingestion_ts": "2021-07-23 14:00:46.150050 UTC"
   },
   {
     "state_fips": "78",
-    "state_name": "Virgin Islands",
+    "state_name": "U.S. Virgin Islands",
     "sex": "Male",
-    "population": "50867"
+    "population": "50867",
+    "ingestion_ts": "2021-07-23 14:00:46.150050 UTC"
   },
   {
     "state_fips": "78",
-    "state_name": "Virgin Islands",
+    "state_name": "U.S. Virgin Islands",
     "sex": "Female",
-    "population": "55538"
+    "population": "55538",
+    "ingestion_ts": "2021-07-23 14:00:46.150050 UTC"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "sex": "Total",
+    "population": "53883",
+    "ingestion_ts": "2021-07-23 14:00:46.150050 UTC"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "sex": "Male",
+    "population": "27746",
+    "ingestion_ts": "2021-07-23 14:00:46.150050 UTC"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "sex": "Female",
+    "population": "26137",
+    "ingestion_ts": "2021-07-23 14:00:46.150050 UTC"
   }
 ]

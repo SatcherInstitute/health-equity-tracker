@@ -27,6 +27,7 @@ export default class VariableProviderMap {
     const acs2010Provider = new Acs2010PopulationProvider();
     this.providers = [
       acsProvider,
+      acs2010Provider,
       new CdcCovidProvider(acsProvider, acs2010Provider),
       new BrfssProvider(acsProvider),
       new AcsHealthInsuranceProvider(),
