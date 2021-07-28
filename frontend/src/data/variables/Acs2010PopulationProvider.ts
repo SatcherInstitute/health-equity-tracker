@@ -39,11 +39,11 @@ class Acs2010PopulationProvider extends VariableProvider {
     );
 
     df = df
-      .generateSeries({ "population_2010": (row) => row["population"] })
+      .generateSeries({ population_2010: (row) => row["population"] })
       .resetIndex();
     df = df
       .generateSeries({
-        "population_pct_2010": (row) => row["population+ct"],
+        population_pct_2010: (row) => row["population_pct"],
       })
       .resetIndex();
 
