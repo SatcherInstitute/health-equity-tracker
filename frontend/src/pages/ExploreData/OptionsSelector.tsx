@@ -53,9 +53,10 @@ function OptionsSelector(props: {
         className={styles.MadLibButton}
         onClick={popover.open}
       >
-        {currentDisplayName}
+        {currentDisplayName}{" "}
         {popover.isOpen ? <ArrowDropUp /> : <ArrowDropDown />}
       </Button>
+
       <Popover
         open={popover.isOpen}
         anchorEl={popover.anchor}
@@ -72,6 +73,7 @@ function OptionsSelector(props: {
         {isFips && (
           <div className={styles.OptionsSelectorPopover}>
             <span className={styles.SearchForText}>Search for location</span>
+
             <Autocomplete
               disableClearable={true}
               options={props.options as Fips[]}
@@ -103,24 +105,66 @@ function OptionsSelector(props: {
           </div>
         )}
         {!isFips && (
-          <List>
-            {(props.options as string[][]).map((item: string[]) => {
-              const [optionId, optionDisplayName] = item;
-              return (
-                <ListItem
-                  key={optionId}
-                  button
-                  selected={optionId === props.value}
-                  onClick={() => {
-                    popover.close();
-                    props.onOptionUpdate(optionId);
-                  }}
-                >
-                  <ListItemText primary={optionDisplayName} />
-                </ListItem>
-              );
-            })}
-          </List>
+          <div className={styles.VariablesBoxPopover}>
+            <List>
+              <span className={styles.SearchForText}>COVID-19</span>
+              {(props.options as string[][]).map((item: string[]) => {
+                const [optionId, optionDisplayName] = item;
+                return (
+                  <ListItem
+                    key={optionId}
+                    button
+                    selected={optionId === props.value}
+                    onClick={() => {
+                      popover.close();
+                      props.onOptionUpdate(optionId);
+                    }}
+                  >
+                    <ListItemText primary={optionDisplayName} />
+                  </ListItem>
+                );
+              })}
+            </List>
+
+            <List>
+              <span className={styles.SearchForText}>Chronic Conditions</span>
+              {(props.options as string[][]).map((item: string[]) => {
+                const [optionId, optionDisplayName] = item;
+                return (
+                  <ListItem
+                    key={optionId}
+                    button
+                    onClick={() => {
+                      popover.close();
+                      props.onOptionUpdate(optionId);
+                    }}
+                  >
+                    <ListItemText primary={optionDisplayName} />
+                  </ListItem>
+                );
+              })}
+            </List>
+            <List>
+              <span className={styles.SearchForText}>
+                Social and Environmental
+              </span>
+              {(props.options as string[][]).map((item: string[]) => {
+                const [optionId, optionDisplayName] = item;
+                return (
+                  <ListItem
+                    key={optionId}
+                    button
+                    onClick={() => {
+                      popover.close();
+                      props.onOptionUpdate(optionId);
+                    }}
+                  >
+                    <ListItemText primary={optionDisplayName} />
+                  </ListItem>
+                );
+              })}
+            </List>
+          </div>
         )}
       </Popover>
     </>
