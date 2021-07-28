@@ -93,6 +93,26 @@ export const POPULATION_VARIABLE_CONFIG: VariableConfig = {
   },
 };
 
+export const POPULATION_VARIABLE_CONFIG_2010: VariableConfig = {
+  variableId: "population_2010",
+  variableDisplayName: "Population",
+  variableFullDisplayName: "Population",
+  metrics: {
+    count: {
+      metricId: "population_2010",
+      fullCardTitleName: "Population",
+      shortVegaLabel: "people",
+      type: "count",
+    },
+    pct_share: {
+      metricId: "population_pct_2010",
+      fullCardTitleName: populationPctTitle,
+      shortVegaLabel: populationPctShortLabel,
+      type: "pct_share",
+    },
+  },
+};
+
 /**
  * @param metricType The type of the metric to format.
  * @param value The value to format.
