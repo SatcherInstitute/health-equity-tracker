@@ -3321,6 +3321,11 @@ export const COUNTY_FIPS_MAP: Record<string, string> = {
   "56041": "Uinta",
   "56043": "Washakie",
   "56045": "Weston",
+  "66010": "Guam",
+  "69085": "Northern Islands",
+  "69100": "Rota",
+  "69110": "Saipan",
+  "69120": "Tinian",
   "72001": "Adjuntas",
   "72003": "Aguada",
   "72005": "Aguadilla",
@@ -3399,6 +3404,9 @@ export const COUNTY_FIPS_MAP: Record<string, string> = {
   "72149": "Villalba",
   "72151": "Yabucoa",
   "72153": "Yauco",
+  "78010": "St. Croix",
+  "78020": "St. John",
+  "78030": "St. Thomas",
 };
 
 export const FIPS_MAP = { ...STATE_FIPS_MAP, ...COUNTY_FIPS_MAP };
