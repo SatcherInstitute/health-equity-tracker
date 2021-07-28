@@ -18,6 +18,7 @@ import {
   formatFieldValue,
   MetricId,
   POPULATION_VARIABLE_CONFIG,
+  POPULATION_VARIABLE_CONFIG_2010,
 } from "../data/config/MetricConfig";
 import { ALL } from "../data/utils/Constants";
 import {
@@ -44,6 +45,14 @@ export function PopulationCard(props: PopulationCardProps) {
   const POPULATION = ACS_2010_FIPS.includes(props.fips.code)
     ? "population_2010"
     : "population";
+
+  const POPULATION_PCT = ACS_2010_FIPS.includes(props.fips.code)
+    ? "population_pct_2010"
+    : "population_pct";
+
+  const POP_CONFIG = ACS_2010_FIPS.includes(props.fips.code)
+    ? POPULATION_VARIABLE_CONFIG_2010
+    : POPULATION_VARIABLE_CONFIG;
 
   const raceQuery = new MetricQuery(
     metricIds,
@@ -161,7 +170,7 @@ export function PopulationCard(props: PopulationCardProps) {
                             <span className={styles.PopulationMetricValue}>
                               {formatFieldValue(
                                 "pct_share",
-                                row.population_pct
+                                row[POPULATION_PCT]
                               )}
                             </span>
                           </Grid>
@@ -176,7 +185,7 @@ export function PopulationCard(props: PopulationCardProps) {
                       data={raceQueryResponse.data.filter(
                         (r) => r.race_and_ethnicity !== ALL
                       )}
-                      metric={POPULATION_VARIABLE_CONFIG.metrics.pct_share}
+                      metric={POP_CONFIG.metrics.pct_share}
                       breakdownVar="race_and_ethnicity"
                       showLegend={false}
                       hideActions={true}
@@ -188,16 +197,14 @@ export function PopulationCard(props: PopulationCardProps) {
                     </span>
                     {ageQueryResponse.dataIsMissing() ? (
                       <MissingDataAlert
-                        dataName={
-                          POPULATION_VARIABLE_CONFIG.variableDisplayName
-                        }
+                        dataName={POP_CONFIG.variableDisplayName}
                         breakdownString={BREAKDOWN_VAR_DISPLAY_NAMES["age"]}
                         geoLevel={props.fips.getFipsTypeDisplayName()}
                       />
                     ) : (
                       <SimpleHorizontalBarChart
                         data={ageQueryResponse.data}
-                        metric={POPULATION_VARIABLE_CONFIG.metrics.pct_share}
+                        metric={POP_CONFIG.metrics.pct_share}
                         breakdownVar="age"
                         showLegend={false}
                         hideActions={true}
