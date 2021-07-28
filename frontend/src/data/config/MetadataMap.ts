@@ -40,7 +40,12 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     geographic_level: "State",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "None",
-    description: "Population percentages at the territory level.",
+    description:
+      "Population percentages at the territory level. The census " +
+      "bureau has not included population data from the U.S. Virgin Islands, " +
+      "Guam, or the Northern Mariana Islands in its 5 year ACS estimates, " +
+      "so the most up to date population estimates are from 2010. " +
+      "Interpret any metrics from these territories with caution.",
     dataset_ids: [
       "acs_2010_population-by_race_and_ethnicity_territory",
       "acs_2010_population-by_sex_territory",

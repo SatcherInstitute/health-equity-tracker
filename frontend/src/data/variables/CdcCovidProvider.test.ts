@@ -91,7 +91,7 @@ const METRIC_IDS: MetricId[] = [
 export async function evaluateWithAndWithoutAll(
   covidDatasetId: string,
   rawCovidData: any[],
-  acsDatasetId: string,
+  acsDatasetIds: string[],
   rawAcsData: any[],
   baseBreakdown: Breakdowns,
   breakdownVar: BreakdownVar,
@@ -102,15 +102,21 @@ export async function evaluateWithAndWithoutAll(
   const acs2010Provider = new Acs2010PopulationProvider();
   const cdcCovidProvider = new CdcCovidProvider(acsProvider, acs2010Provider);
 
+  for (var datasetId of acsDatasetIds) {
+    dataFetcher.setFakeDatasetLoaded(datasetId, rawAcsData);
+  }
   dataFetcher.setFakeDatasetLoaded(covidDatasetId, rawCovidData);
-  dataFetcher.setFakeDatasetLoaded(acsDatasetId, rawAcsData);
+
+  // cdc dataset needs to be first
+  let allDatasets = acsDatasetIds;
+  acsDatasetIds.unshift(covidDatasetId);
 
   // Evaluate the response with requesting "All" field
   const responseIncludingAll = await cdcCovidProvider.getData(
     new MetricQuery(METRIC_IDS, baseBreakdown.addBreakdown(breakdownVar))
   );
   expect(responseIncludingAll).toEqual(
-    new MetricQueryResponse(rowsIncludingAll, [covidDatasetId, acsDatasetId])
+    new MetricQueryResponse(rowsIncludingAll, allDatasets)
   );
 
   // Evaluate the response without requesting "All" field
@@ -121,7 +127,7 @@ export async function evaluateWithAndWithoutAll(
     )
   );
   expect(responseExcludingAll).toEqual(
-    new MetricQueryResponse(rowsExcludingAll, [covidDatasetId, acsDatasetId])
+    new MetricQueryResponse(rowsExcludingAll, allDatasets)
   );
 }
 
@@ -213,7 +219,7 @@ describe("cdcCovidProvider", () => {
     await evaluateWithAndWithoutAll(
       "cdc_restricted_data-by_race_county",
       rawCovidData,
-      "acs_population-by_race_county_std",
+      ["acs_population-by_race_county_std"],
       rawAcsData,
       Breakdowns.forFips(new Fips(CHATAM.code)),
       "race_and_ethnicity",
@@ -294,7 +300,7 @@ describe("cdcCovidProvider", () => {
     await evaluateWithAndWithoutAll(
       "cdc_restricted_data-by_age_state",
       rawCovidData,
-      "acs_population-by_age_state",
+      ["acs_population-by_age_state"],
       rawAcsData,
       Breakdowns.forFips(new Fips(NC.code)),
       "age",
@@ -375,7 +381,7 @@ describe("cdcCovidProvider", () => {
     await evaluateWithAndWithoutAll(
       "cdc_restricted_data-by_sex_state",
       rawCovidData,
-      "acs_population-by_sex_state",
+      ["acs_population-by_sex_state", "acs_2010_population-by_sex_territory"],
       rawAcsData,
       Breakdowns.national(),
       "sex",
@@ -433,7 +439,7 @@ describe("cdcCovidProvider", () => {
     await evaluateWithAndWithoutAll(
       "cdc_restricted_data-by_sex_state",
       rawCovidData,
-      "acs_2010_population-by_sex_territory",
+      ["acs_2010_population-by_sex_territory"],
       rawAcsData,
       Breakdowns.byState(),
       "sex",
@@ -551,7 +557,7 @@ describe("cdcCovidProvider", () => {
     await evaluateWithAndWithoutAll(
       "cdc_restricted_data-by_sex_state",
       rawCovidData,
-      "acs_population-by_sex_state",
+      ["acs_population-by_sex_state", "acs_2010_population-by_sex_territory"],
       rawAcsData,
       Breakdowns.national(),
       "sex",

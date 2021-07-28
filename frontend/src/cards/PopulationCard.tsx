@@ -128,6 +128,16 @@ export function PopulationCard(props: PopulationCardProps) {
               )}
             </Grid>
 
+            {props.fips.needsACS2010() && (
+              <CardContent>
+                <Alert severity="warning">
+                  Population data for U.S. Virgin Islands, Guam, and the
+                  Northern Mariana Islands is from 2010, interpret metrics with
+                  caution.
+                </Alert>
+              </CardContent>
+            )}
+
             {/* Because the Vega charts are using responsive width based on the window resizing,
                 we manually trigger a resize when the div size changes so vega chart will 
                 render with the right size. This means the vega chart won't appear until the 

@@ -177,6 +177,14 @@ class CdcCovidProvider extends VariableProvider {
       df = joinOnCols(df, acsPopulation, ["fips", breakdownColumnName], "left");
     }
 
+    if (breakdowns.geography === "national") {
+      // We get the population data for the territories from 2010, but merge
+      // it in on the backend. This way we can properly site our source.
+      const acs2010BreakdownId =
+        "acs_2010_population-by_" + breakdownColumnName + "_territory";
+      consumedDatasetIds = consumedDatasetIds.concat(acs2010BreakdownId);
+    }
+
     // If a given geo x breakdown has all unknown hospitalizations or deaths,
     // we treat it as if it has "no data," i.e. we clear the hosp/death fields.
     df = df

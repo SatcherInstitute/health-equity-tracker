@@ -47,6 +47,10 @@ class Fips {
     return this.isStateOrTerritory() && TERRITORY_CODES.includes(this.code);
   }
 
+  needsACS2010() {
+    return this.isStateOrTerritory() && ACS_2010_FIPS.includes(this.code);
+  }
+
   isCounty() {
     return this.code.length === 5;
   }
