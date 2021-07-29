@@ -1,4 +1,5 @@
 from datasources.acs_population import ACSPopulation
+from datasources.acs_2010_population import ACS2010Population
 from datasources.cdc_covid_deaths import CDCCovidDeaths
 from datasources.cdc_restricted import CDCRestrictedData
 from datasources.county_adjacency import CountyAdjacency
@@ -19,6 +20,7 @@ from datasources.uhc import UHCData
 # that data source.
 DATA_SOURCES_DICT = {
     ACSPopulation.get_id(): ACSPopulation(),
+    ACS2010Population.get_id(): ACS2010Population(),
     CDCCovidDeaths.get_id(): CDCCovidDeaths(),
     CDCRestrictedData.get_id(): CDCRestrictedData(),
     CountyAdjacency.get_id(): CountyAdjacency(),
