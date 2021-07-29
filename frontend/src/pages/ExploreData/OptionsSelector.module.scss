@@ -1,4 +1,5 @@
-.SearchForText {
+.SearchForText,
+.CategoryTitleText {
   font-size: 12pt;
   font-weight: bold;
 }
@@ -14,10 +15,18 @@
   min-width: 385px;
 }
 
+.PopoverOverride {
+  margin-right: 16px;
+}
+
 .VariablesBoxPopover {
-  padding: 20px;
-  min-width: 385px;
   display: flex;
+  flex-wrap: wrap;
+}
+
+.CategoryList {
+  padding: 20px;
+  margin-inline: 20px;
 }
 
 .MadLibButton {

@@ -1,3 +1,38 @@
+/* 
+Mock Categories and Variables
+
+COVID-19
+- COVID Outcomes
+- Vaccination Rates
+- Vaccination Hesitancy
+Chronic Conditions
+- Diabetes
+- COPD
+- Asthma
+- Cardiovascular Diseases
+Social and Environmental
+- Uninsured Individuals
+- Poverty
+- Unemployment
+- Education Rates
+- Food Insecurity
+- Social Vulnerability Index
+Mental Health
+- Depression
+- Anxiety
+- Suicidality
+- Dementia Related Disorders
+- Trauma and Stressors
+- Substance Use Disorder
+Political Determinants
+- Access to Care
+- Cost of Care
+- Gun Violence
+- Immigration Issues
+- Voter Participation
+- Policy Ranking/Grading
+ */
+
 import React, { useState } from "react";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
@@ -11,6 +46,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { usePopover } from "../../utils/usePopover";
+import { CATEGORIES_LIST } from "../../utils/MadLibs";
 
 function OptionsSelector(props: {
   value: string;
@@ -58,6 +94,7 @@ function OptionsSelector(props: {
       </Button>
 
       <Popover
+        className={styles.PopoverOverride}
         open={popover.isOpen}
         anchorEl={popover.anchor}
         onClose={popover.close}
@@ -106,64 +143,35 @@ function OptionsSelector(props: {
         )}
         {!isFips && (
           <div className={styles.VariablesBoxPopover}>
-            <List>
-              <span className={styles.SearchForText}>COVID-19</span>
-              {(props.options as string[][]).map((item: string[]) => {
-                const [optionId, optionDisplayName] = item;
-                return (
-                  <ListItem
-                    key={optionId}
-                    button
-                    selected={optionId === props.value}
-                    onClick={() => {
-                      popover.close();
-                      props.onOptionUpdate(optionId);
-                    }}
-                  >
-                    <ListItemText primary={optionDisplayName} />
-                  </ListItem>
-                );
-              })}
-            </List>
-
-            <List>
-              <span className={styles.SearchForText}>Chronic Conditions</span>
-              {(props.options as string[][]).map((item: string[]) => {
-                const [optionId, optionDisplayName] = item;
-                return (
-                  <ListItem
-                    key={optionId}
-                    button
-                    onClick={() => {
-                      popover.close();
-                      props.onOptionUpdate(optionId);
-                    }}
-                  >
-                    <ListItemText primary={optionDisplayName} />
-                  </ListItem>
-                );
-              })}
-            </List>
-            <List>
-              <span className={styles.SearchForText}>
-                Social and Environmental
-              </span>
-              {(props.options as string[][]).map((item: string[]) => {
-                const [optionId, optionDisplayName] = item;
-                return (
-                  <ListItem
-                    key={optionId}
-                    button
-                    onClick={() => {
-                      popover.close();
-                      props.onOptionUpdate(optionId);
-                    }}
-                  >
-                    <ListItemText primary={optionDisplayName} />
-                  </ListItem>
-                );
-              })}
-            </List>
+            {CATEGORIES_LIST.map((category) => {
+              return (
+                <div className={styles.CategoryList}>
+                  <List>
+                    <span className={styles.CategoryTitleText}>
+                      {category.title}
+                    </span>
+                    {(props.options as string[][]).map((item: string[]) => {
+                      const [optionId, optionDisplayName] = item;
+                      return (
+                        category.options.includes(optionId) && (
+                          <ListItem
+                            key={optionId}
+                            button
+                            selected={optionId === props.value}
+                            onClick={() => {
+                              popover.close();
+                              props.onOptionUpdate(optionId);
+                            }}
+                          >
+                            <ListItemText primary={optionDisplayName} />
+                          </ListItem>
+                        )
+                      );
+                    })}
+                  </List>
+                </div>
+              );
+            })}
           </div>
         )}
       </Popover>
