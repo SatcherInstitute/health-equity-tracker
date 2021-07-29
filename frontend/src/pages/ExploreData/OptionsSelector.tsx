@@ -46,7 +46,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { usePopover } from "../../utils/usePopover";
-import { CATEGORIES_LIST } from "../../utils/MadLibs";
+import { CATEGORIES_LIST, DropdownVarId } from "../../utils/MadLibs";
 
 function OptionsSelector(props: {
   value: string;
@@ -153,7 +153,10 @@ function OptionsSelector(props: {
                     {(props.options as string[][]).map((item: string[]) => {
                       const [optionId, optionDisplayName] = item;
                       return (
-                        category.options.includes(optionId) && (
+                        // place variables in their respective categories
+                        category.options.includes(
+                          optionId as DropdownVarId
+                        ) && (
                           <ListItem
                             key={optionId}
                             button

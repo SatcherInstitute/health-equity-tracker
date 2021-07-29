@@ -60,7 +60,7 @@ export type DropdownVarId =
   | "poverty";
 
 const DROPDOWN_VAR: Record<DropdownVarId, string> = {
-  covid: "COVID-19",
+  covid: "COVID Outcomes",
   diabetes: "Diabetes",
   copd: "COPD",
   health_insurance: "Uninsured Individuals",
@@ -68,9 +68,15 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
 };
 
 /* Update categories and assigned DropdownVarIds here */
-const CATEGORIES_LIST = [
+
+export interface Category {
+  readonly title: string;
+  readonly options: DropdownVarId[];
+}
+
+const CATEGORIES_LIST: Category[] = [
   { title: "COVID-19", options: ["covid"] },
-  { title: "Chronic Conditions", options: ["diabetes", "copd", "asthma"] },
+  { title: "Chronic Conditions", options: ["diabetes", "copd"] },
   {
     title: "Social and Environmental",
     options: ["health_insurance", "poverty"],
