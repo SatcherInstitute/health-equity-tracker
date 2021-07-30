@@ -66,7 +66,11 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Annual",
     description: "The prevalence of diabetes and COPD at the state level.",
-    dataset_ids: ["uhc_age", "uhc_race_and_ethnicity", "uhc_sex"],
+    dataset_ids: [
+      "uhc_data-age",
+      "uhc_data-race_and_ethnicity",
+      "uhc_data-sex",
+    ],
     downloadable: true,
   },
   {
