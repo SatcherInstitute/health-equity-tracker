@@ -399,7 +399,6 @@ function EquityTab() {
         <Grid
           container
           className={styles.JoinTheEffortRow}
-          direction="column"
           justify="center"
           alignItems="center"
         >
