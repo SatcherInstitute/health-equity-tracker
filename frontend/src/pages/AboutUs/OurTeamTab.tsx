@@ -45,6 +45,11 @@ const LEADERSHIP_TEAM = [
     imageUrl: "img/ZarrabiJosh.png",
   },
   {
+    name: "Ben Hammond",
+    role: "Software Engineer",
+    imageUrl: "img/HammondBen.jpg",
+  },
+  {
     name: "Maisha Standifer, PhD, MPH",
     role: "Health Policy Analyst",
     imageUrl: "img/maisha-standifer.jpg",
