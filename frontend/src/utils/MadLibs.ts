@@ -13,6 +13,12 @@ export type PhraseSegment = string | PhraseSelector;
 
 export type MadLibId = "disparity" | "comparegeos" | "comparevars";
 
+export type CategoryId =
+  | "COVID-19"
+  | "Chronic Disease"
+  | "Mental Health"
+  | "Social and Behavioral Health";
+
 export interface MadLib {
   readonly id: MadLibId;
   readonly phrase: PhraseSegment[];
@@ -57,7 +63,21 @@ export type DropdownVarId =
   | "diabetes"
   | "copd"
   | "health_insurance"
-  | "poverty";
+  | "poverty"
+  | "covid_vaxx"
+  | "covid_vaxx_hesitancy"
+  | "covid_hospital_utilization"
+  | "asthma"
+  | "cardiovascular_disease"
+  | "social_vulnerability"
+  | "highschool_graduation"
+  | "tobacco"
+  | "food_insecurity"
+  | "anxiety"
+  | "depression"
+  | "suicide"
+  | "frequent_mental_distress"
+  | "mental_health_providers";
 
 const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   covid: "COVID Outcomes",
@@ -65,24 +85,64 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   copd: "COPD",
   health_insurance: "Uninsured Individuals",
   poverty: "Poverty",
+  covid_vaxx: "COVID Vaccination",
+  covid_vaxx_hesitancy: "COVID Vaccine Hesitancy",
+  covid_hospital_utilization: "COVID Hospital Utilization",
+  asthma: "Asthma",
+  cardiovascular_disease: "Cardiovascular Disease",
+  social_vulnerability: "Social Vulnerability Index",
+  highschool_graduation: "High School Graduation Rate",
+  tobacco: "Tobacco Use",
+  food_insecurity: "Food Insecurity",
+  anxiety: "Anxiety",
+  depression: "Depression",
+  suicide: "Suicide",
+  frequent_mental_distress: "Frequent Mental Distress",
+  mental_health_providers: "Mental Health Provider Access",
 };
 
-/* Update categories and assigned DropdownVarIds here */
+/* Update categories and assigned DropdownVarIds here. Update variable and category type definitions at top of file as well. */
 
 export interface Category {
-  readonly title: string;
+  readonly title: CategoryId;
   readonly options: DropdownVarId[];
 }
 
 const CATEGORIES_LIST: Category[] = [
-  { title: "COVID-19", options: ["covid"] },
-  { title: "Chronic Conditions", options: ["diabetes", "copd"] },
   {
-    title: "Social and Environmental",
-    options: ["health_insurance", "poverty"],
+    title: "COVID-19",
+    options: [
+      "covid",
+      "covid_vaxx",
+      "covid_vaxx_hesitancy",
+      "covid_hospital_utilization",
+    ],
   },
-  // { title: 'Mental Health', options: [] },
-  // { title: 'Political Determinants', options: [] },
+  {
+    title: "Chronic Disease",
+    options: ["diabetes", "copd", "asthma", "cardiovascular_disease"],
+  },
+  {
+    title: "Social and Behavioral Health",
+    options: [
+      "health_insurance",
+      "poverty",
+      "social_vulnerability",
+      "highschool_graduation",
+      "tobacco",
+      "food_insecurity",
+    ],
+  },
+  {
+    title: "Mental Health",
+    options: [
+      "anxiety",
+      "depression",
+      "suicide",
+      "frequent_mental_distress",
+      "mental_health_providers",
+    ],
+  },
 ];
 
 const MADLIB_LIST: MadLib[] = [

@@ -1,38 +1,3 @@
-/* 
-Mock Categories and Variables
-
-COVID-19
-- COVID Outcomes
-- Vaccination Rates
-- Vaccination Hesitancy
-Chronic Conditions
-- Diabetes
-- COPD
-- Asthma
-- Cardiovascular Diseases
-Social and Environmental
-- Uninsured Individuals
-- Poverty
-- Unemployment
-- Education Rates
-- Food Insecurity
-- Social Vulnerability Index
-Mental Health
-- Depression
-- Anxiety
-- Suicidality
-- Dementia Related Disorders
-- Trauma and Stressors
-- Substance Use Disorder
-Political Determinants
-- Access to Care
-- Cost of Care
-- Gun Violence
-- Immigration Issues
-- Voter Participation
-- Policy Ranking/Grading
- */
-
 import React, { useState } from "react";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
