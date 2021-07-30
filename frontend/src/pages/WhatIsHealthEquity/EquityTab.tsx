@@ -439,7 +439,7 @@ function EquityTab() {
             content={
               <>
                 <p className={styles.JoinTheEffortStepText}>
-                  Apply to our Political Determininants of Health Learning
+                  Apply to our Political Determinants of Health Learning
                   Laboratory Fellowship. We seek to partner and support diverse
                   groups in building equitable and sustainable pathways for
                   healthy communities.
