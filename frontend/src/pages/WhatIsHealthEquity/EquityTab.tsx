@@ -398,22 +398,23 @@ function EquityTab() {
         </Grid>
         <Grid
           container
+          item
+          xs={12}
+          className={styles.FaqRow}
+          alignItems="center"
+          justify="center"
+        >
+          <Grid sm={12} md={10}>
+            <FaqSection />
+          </Grid>
+        </Grid>
+        <Grid
+          container
           className={styles.JoinTheEffortRow}
+          direction="column"
           justify="center"
           alignItems="center"
         >
-          <Grid
-            container
-            item
-            xs={12}
-            className={styles.FaqRow}
-            alignItems="center"
-            justify="center"
-          >
-            <Grid sm={12} md={10}>
-              <FaqSection />
-            </Grid>
-          </Grid>
           <Grid
             item
             className={styles.JoinTheEffortHeaderRow}
