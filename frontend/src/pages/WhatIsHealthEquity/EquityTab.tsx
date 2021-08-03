@@ -398,23 +398,23 @@ function EquityTab() {
         </Grid>
         <Grid
           container
+          item
+          xs={12}
+          className={styles.FaqRow}
+          alignItems="center"
+          justify="center"
+        >
+          <Grid sm={12} md={10}>
+            <FaqSection />
+          </Grid>
+        </Grid>
+        <Grid
+          container
           className={styles.JoinTheEffortRow}
           direction="column"
           justify="center"
           alignItems="center"
         >
-          <Grid
-            container
-            item
-            xs={12}
-            className={styles.FaqRow}
-            alignItems="center"
-            justify="center"
-          >
-            <Grid sm={12} md={10}>
-              <FaqSection />
-            </Grid>
-          </Grid>
           <Grid
             item
             className={styles.JoinTheEffortHeaderRow}
@@ -440,7 +440,7 @@ function EquityTab() {
             content={
               <>
                 <p className={styles.JoinTheEffortStepText}>
-                  Apply to our Political Determininants of Health Learning
+                  Apply to our Political Determinants of Health Learning
                   Laboratory Fellowship. We seek to partner and support diverse
                   groups in building equitable and sustainable pathways for
                   healthy communities.
