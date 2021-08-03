@@ -132,7 +132,7 @@ export function PopulationCard(props: PopulationCardProps) {
               <CardContent>
                 <Alert severity="warning">
                   Population data for U.S. Virgin Islands, Guam, and the
-                  Northern Mariana Islands is from 2010, interpret metrics with
+                  Northern Mariana Islands is from 2010; interpret metrics with
                   caution.
                 </Alert>
               </CardContent>
