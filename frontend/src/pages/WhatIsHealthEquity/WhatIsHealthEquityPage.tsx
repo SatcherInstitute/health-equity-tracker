@@ -4,19 +4,59 @@ import Tab from "@material-ui/core/Tab";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import EquityTab from "./EquityTab";
 import FaqTab from "./FaqTab";
-import { TAB_PARAM, useSearchParams } from "../../utils/urlutils";
-import ResourcesTab from './ResourcesTab';
+import {
+  TAB_PARAM,
+  useSearchParams,
+  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+} from "../../utils/urlutils";
+import ResourcesTab from "./ResourcesTab";
+import { useEffect } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 
 export const WIHE_HEALTH_EQUITY_TAB_INDEX = 0;
 export const WIHE_FAQ_TAB_INDEX = 1;
 export const WIHE_JOIN_THE_EFFORT_SECTION_ID = "join";
 
 export function WhatIsHealthEquityPage() {
+  const history = useHistory();
   const params = useSearchParams();
+  const location = useLocation();
 
   const [tabIndex, setTabIndex] = React.useState(
     params[TAB_PARAM] ? Number(params[TAB_PARAM]) : 0
   );
+
+  useEffect(() => {
+    history.push(`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${tabIndex}`);
+  }, [history, tabIndex]);
+
+  const [locationKeys, setLocationKeys] = React.useState<
+    (string | undefined)[]
+  >([]);
+
+  useEffect(() => {
+    return history.listen((location) => {
+      if (history.action === "PUSH") {
+        if (location.key) setLocationKeys([location.key]);
+      }
+
+      if (history.action === "POP") {
+        if (locationKeys[1] === location.key) {
+          setLocationKeys(([_, ...keys]) => keys);
+
+          // Handle forward event
+          console.log("forward button");
+        } else {
+          setLocationKeys((keys) => [location.key, ...keys]);
+
+          // Handle back event
+          console.log("back button");
+          // window.location.reload();
+        }
+        window.location.reload();
+      }
+    });
+  }, [history, locationKeys]);
 
   const handleChange = (event: React.ChangeEvent<{}>, newTabIndex: number) => {
     setTabIndex(newTabIndex);
@@ -41,8 +81,8 @@ export function WhatIsHealthEquityPage() {
           label="Frequently Asked Questions"
         />
         <Tab
-            className={styles.WhatIsHealthEquityTab}
-            label="Health Equity Resources"
+          className={styles.WhatIsHealthEquityTab}
+          label="Health Equity Resources"
         />
       </Tabs>
       {tabIndex === 0 && <EquityTab />}
