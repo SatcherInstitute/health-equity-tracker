@@ -11,7 +11,7 @@ import {
 } from "../../utils/urlutils";
 import ResourcesTab from "./ResourcesTab";
 import { useEffect } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export const WIHE_HEALTH_EQUITY_TAB_INDEX = 0;
 export const WIHE_FAQ_TAB_INDEX = 1;
@@ -20,19 +20,17 @@ export const WIHE_JOIN_THE_EFFORT_SECTION_ID = "join";
 export function WhatIsHealthEquityPage() {
   const history = useHistory();
   const params = useSearchParams();
-  const location = useLocation();
 
   const [tabIndex, setTabIndex] = React.useState(
     params[TAB_PARAM] ? Number(params[TAB_PARAM]) : 0
   );
+  const [locationKeys, setLocationKeys] = React.useState<
+    (string | undefined)[]
+  >([]);
 
   useEffect(() => {
     history.push(`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${tabIndex}`);
   }, [history, tabIndex]);
-
-  const [locationKeys, setLocationKeys] = React.useState<
-    (string | undefined)[]
-  >([]);
 
   useEffect(() => {
     return history.listen((location) => {
@@ -42,18 +40,14 @@ export function WhatIsHealthEquityPage() {
 
       if (history.action === "POP") {
         if (locationKeys[1] === location.key) {
-          setLocationKeys(([_, ...keys]) => keys);
-
           // Handle forward event
-          console.log("forward button");
+          setLocationKeys(([_, ...keys]) => keys);
+          window.location.reload();
         } else {
-          setLocationKeys((keys) => [location.key, ...keys]);
-
           // Handle back event
-          console.log("back button");
-          // window.location.reload();
+          setLocationKeys((keys) => [location.key, ...keys]);
+          window.location.reload();
         }
-        window.location.reload();
       }
     });
   }, [history, locationKeys]);
