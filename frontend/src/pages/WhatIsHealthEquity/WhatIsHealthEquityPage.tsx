@@ -12,6 +12,7 @@ import {
 import ResourcesTab from "./ResourcesTab";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { friendlyTabNamesWIHE } from "../../utils/urlutils";
 
 export const WIHE_HEALTH_EQUITY_TAB_INDEX = 0;
 export const WIHE_FAQ_TAB_INDEX = 1;
@@ -22,14 +23,18 @@ export function WhatIsHealthEquityPage() {
   const params = useSearchParams();
 
   const [tabIndex, setTabIndex] = React.useState(
-    params[TAB_PARAM] ? Number(params[TAB_PARAM]) : 0
+    params[TAB_PARAM]
+      ? Number(friendlyTabNamesWIHE.indexOf(params[TAB_PARAM]))
+      : 0
   );
   const [locationKeys, setLocationKeys] = React.useState<
     (string | undefined)[]
   >([]);
 
   useEffect(() => {
-    history.push(`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${tabIndex}`);
+    history.push(
+      `${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${friendlyTabNamesWIHE[tabIndex]}`
+    );
   }, [history, tabIndex]);
 
   useEffect(() => {
@@ -40,7 +45,7 @@ export function WhatIsHealthEquityPage() {
 
       if (history.action === "POP") {
         if (locationKeys[1] === location.key) {
-          // Handle forward event
+          // Handle forward event.
           setLocationKeys(([_, ...keys]) => keys);
           window.location.reload();
         } else {

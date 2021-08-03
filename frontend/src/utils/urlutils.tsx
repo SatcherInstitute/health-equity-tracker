@@ -35,6 +35,10 @@ export const DEMOGRAPHIC_PARAM = "demo";
 export const DATA_TYPE_1_PARAM = "dt1";
 export const DATA_TYPE_2_PARAM = "dt2";
 
+// define friendly tab names for query param routing on pages with sub-tab pages
+export const friendlyTabNamesWIHE = ["equity", "faq", "resources"];
+export const friendlyTabNamesAboutUs = ["project", "team", "contact"];
+
 export function LinkWithStickyParams(props: {
   to: string;
   target?: string;
