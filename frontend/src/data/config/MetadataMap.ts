@@ -34,7 +34,8 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
   },
   {
     id: "acs_2010",
-    data_source_name: "American Community Survey 5-year estimates from 2010",
+    data_source_name:
+      "American Community Survey 5-year estimates from 2010, U.S. Territories",
     data_source_link:
       "https://www.census.gov/data/datasets/2010/dec/virgin-islands.html",
     geographic_level: "State",

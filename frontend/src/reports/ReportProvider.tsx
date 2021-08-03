@@ -184,6 +184,15 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           included when viewing hospitalizations but appear as grey when viewing
           reports on deaths.
         </p>
+        <h3>Missing Population Data</h3>
+        <p>
+          The census bureau does not release population data for the{" "}
+          <b>Northern Mariana Islands</b>, <b>Guam</b>, or the{" "}
+          <b>U.S. Virgin Islands</b> in their ACS five year estimates. The last
+          reliable population numbers we could find for these territories is
+          from the 2010 census, so we use those numbers when calculating the per
+          100k COVID-19 rates nationally and for all territory level rates.
+        </p>
         <div className={styles.MissingDataContactUs}>
           <p>
             Do you have information on health outcomes at the state and local
