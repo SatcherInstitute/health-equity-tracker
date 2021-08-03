@@ -41,7 +41,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "None",
     description:
-      "Population percentages at the territory level:" +
+      "Population percentages at the territory level: " +
       "the census bureau has not included population data from " +
       "the U.S. Virgin Islands, Guam, or the Northern Mariana Islands " +
       "in its 5 year ACS estimates, so the most up to date population " +
