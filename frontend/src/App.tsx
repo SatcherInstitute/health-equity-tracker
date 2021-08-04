@@ -93,7 +93,11 @@ function AppToolbar() {
   return (
     <Toolbar className={styles.AppToolbar}>
       <ReactRouterLinkButton url="/" className={styles.AppbarLogoImg}>
-        <img src="img/AppbarLogo.png" className={styles.AppbarLogoImg} alt="" />
+        <img
+          src="img/AppbarLogo.png"
+          className={styles.AppbarLogoImg}
+          alt="Health Equity Tracker decorative logo"
+        />
       </ReactRouterLinkButton>
       <Typography variant="h1" className={styles.HomeLogo}>
         <LinkWithStickyParams to="/">
