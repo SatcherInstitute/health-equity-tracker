@@ -38,6 +38,10 @@ export const WA: FipsSpec = {
   code: "53",
   name: "Washington",
 };
+export const VI: FipsSpec = {
+  code: "78",
+  name: "Virgin Islands",
+};
 export const USA: FipsSpec = {
   code: USA_FIPS,
   name: USA_DISPLAY_NAME,

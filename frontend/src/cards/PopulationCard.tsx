@@ -5,7 +5,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { Fips } from "../data/utils/Fips";
+import { Fips, ACS_2010_FIPS } from "../data/utils/Fips";
 import { CardContent } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import styles from "./Card.module.scss";
@@ -18,6 +18,7 @@ import {
   formatFieldValue,
   MetricId,
   POPULATION_VARIABLE_CONFIG,
+  POPULATION_VARIABLE_CONFIG_2010,
 } from "../data/config/MetricConfig";
 import { ALL } from "../data/utils/Constants";
 import {
@@ -37,7 +38,22 @@ export interface PopulationCardProps {
 export function PopulationCard(props: PopulationCardProps) {
   const [expanded, setExpanded] = useState(false);
 
-  const metricIds: MetricId[] = ["population", "population_pct"];
+  const metricIds: MetricId[] = ACS_2010_FIPS.includes(props.fips.code)
+    ? ["population_2010", "population_pct_2010"]
+    : ["population", "population_pct"];
+
+  const POPULATION = ACS_2010_FIPS.includes(props.fips.code)
+    ? "population_2010"
+    : "population";
+
+  const POPULATION_PCT = ACS_2010_FIPS.includes(props.fips.code)
+    ? "population_pct_2010"
+    : "population_pct";
+
+  const POP_CONFIG = ACS_2010_FIPS.includes(props.fips.code)
+    ? POPULATION_VARIABLE_CONFIG_2010
+    : POPULATION_VARIABLE_CONFIG;
+
   const raceQuery = new MetricQuery(
     metricIds,
     Breakdowns.forFips(props.fips).andRace(onlyIncludeStandardRaces())
@@ -53,8 +69,9 @@ export function PopulationCard(props: PopulationCardProps) {
         const totalPopulation = raceQueryResponse.data.find(
           (r) => r.race_and_ethnicity === ALL
         );
+
         const totalPopulationSize = totalPopulation
-          ? totalPopulation["population"].toLocaleString("en")
+          ? totalPopulation[POPULATION].toLocaleString("en")
           : "Data Missing";
 
         const CollapseButton = (
@@ -111,6 +128,16 @@ export function PopulationCard(props: PopulationCardProps) {
               )}
             </Grid>
 
+            {props.fips.needsACS2010() && (
+              <CardContent>
+                <Alert severity="warning">
+                  Population data for U.S. Virgin Islands, Guam, and the
+                  Northern Mariana Islands is from 2010; interpret metrics with
+                  caution.
+                </Alert>
+              </CardContent>
+            )}
+
             {/* Because the Vega charts are using responsive width based on the window resizing,
                 we manually trigger a resize when the div size changes so vega chart will 
                 render with the right size. This means the vega chart won't appear until the 
@@ -153,7 +180,7 @@ export function PopulationCard(props: PopulationCardProps) {
                             <span className={styles.PopulationMetricValue}>
                               {formatFieldValue(
                                 "pct_share",
-                                row.population_pct
+                                row[POPULATION_PCT]
                               )}
                             </span>
                           </Grid>
@@ -168,7 +195,7 @@ export function PopulationCard(props: PopulationCardProps) {
                       data={raceQueryResponse.data.filter(
                         (r) => r.race_and_ethnicity !== ALL
                       )}
-                      metric={POPULATION_VARIABLE_CONFIG.metrics.pct_share}
+                      metric={POP_CONFIG.metrics.pct_share}
                       breakdownVar="race_and_ethnicity"
                       showLegend={false}
                       hideActions={true}
@@ -180,16 +207,14 @@ export function PopulationCard(props: PopulationCardProps) {
                     </span>
                     {ageQueryResponse.dataIsMissing() ? (
                       <MissingDataAlert
-                        dataName={
-                          POPULATION_VARIABLE_CONFIG.variableDisplayName
-                        }
+                        dataName={POP_CONFIG.variableDisplayName}
                         breakdownString={BREAKDOWN_VAR_DISPLAY_NAMES["age"]}
                         geoLevel={props.fips.getFipsTypeDisplayName()}
                       />
                     ) : (
                       <SimpleHorizontalBarChart
                         data={ageQueryResponse.data}
-                        metric={POPULATION_VARIABLE_CONFIG.metrics.pct_share}
+                        metric={POP_CONFIG.metrics.pct_share}
                         breakdownVar="age"
                         showLegend={false}
                         hideActions={true}
