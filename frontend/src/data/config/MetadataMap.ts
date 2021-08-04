@@ -33,6 +33,29 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
+    id: "acs_2010",
+    data_source_name:
+      "American Community Survey 5-year estimates from 2010, U.S. Territories",
+    data_source_link:
+      "https://www.census.gov/data/datasets/2010/dec/virgin-islands.html",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "None",
+    description:
+      "Population percentages at the territory level: " +
+      "the census bureau has not included population data from " +
+      "the U.S. Virgin Islands, Guam, or the Northern Mariana Islands " +
+      "in its 5 year ACS estimates, so the most up to date population " +
+      "estimates are from 2010. Interpret any metrics from " +
+      "these territories with caution.",
+    dataset_ids: [
+      "acs_2010_population-by_race_and_ethnicity_territory",
+      "acs_2010_population-by_sex_territory",
+      "acs_2010_population-by_age_territory",
+    ],
+    downloadable: true,
+  },
+  {
     id: "cdc_restricted",
     data_source_name: "CDC Case Surveillance Restricted Access Detailed Data",
     data_source_link:
