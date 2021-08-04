@@ -31,15 +31,15 @@ NorthCarolina.args = {
   fips: new Fips("37"),
 };
 
-// export const DurhamCounty = Template.bind({});
-// DurhamCounty.args = {
-//   fips: new Fips("37063"),
-// };
+export const DurhamCounty = Template.bind({});
+DurhamCounty.args = {
+  fips: new Fips("37063"),
+};
 
-// export const InvalidFips = Template.bind({});
-// InvalidFips.args = {
-//   fips: new Fips("234234"),
-// };
+export const InvalidFips = Template.bind({});
+InvalidFips.args = {
+  fips: new Fips("234234"),
+};
 
 export const VirginIslands = Template.bind({});
 VirginIslands.args = {
