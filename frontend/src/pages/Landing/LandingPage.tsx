@@ -71,19 +71,31 @@ function LandingPage() {
                 <br />
                 Equity
               </Typography>
-              <Typography className={styles.HeaderSubtext} variant="body1">
-                <p>
-                  We know that the data we collect can be imperfect and at times
-                  even worsen health inequities many people face if not reported
-                  or analyzed correctly.
-                </p>
-                <p>
-                  We work to change that narrative by identifying,
-                  understanding, and responding to health inequities in our
-                  communities in a way that will allow every person to live well
-                  and long from generation to generation.
-                </p>
-                <p>Join us in powering transformational action!</p>
+              <Typography
+                className={styles.HeaderSubtext}
+                variant="body1"
+                paragraph={true}
+              >
+                We know that the data we collect can be imperfect and at times
+                even worsen health inequities many people face if not reported
+                or analyzed correctly.
+              </Typography>
+              <Typography
+                className={styles.HeaderSubtext}
+                variant="body1"
+                paragraph={true}
+              >
+                We work to change that narrative by identifying, understanding,
+                and responding to health inequities in our communities in a way
+                that will allow every person to live well and long from
+                generation to generation.
+              </Typography>
+              <Typography
+                className={styles.HeaderSubtext}
+                variant="body1"
+                paragraph={true}
+              >
+                Join us in powering transformational action!
                 <br />
               </Typography>
               <LinkWithStickyParams
@@ -214,15 +226,22 @@ function LandingPage() {
                 className={styles.PrioritizeHealthEquityHeaderSubtext}
                 variant="body1"
               >
-                <p>
-                  We’re living through a historic moment. COVID-19 has taken a
-                  toll on everyone. But the pandemic is hitting the most
-                  marginalized, vulnerable communities the hardest.
-                </p>
-                <p>
-                  <b>People need help, and they need it now.</b>
-                </p>
-                <br />
+                We’re living through a historic moment. COVID-19 has taken a
+                toll on everyone. But the pandemic is hitting the most
+                marginalized, vulnerable communities the hardest.
+              </Typography>
+              <br />
+              <Typography
+                className={styles.PrioritizeHealthEquityHeaderSubtext}
+                variant="body1"
+              >
+                <b>People need help, and they need it now.</b>
+              </Typography>
+              <br />
+              <Typography
+                className={styles.PrioritizeHealthEquityHeaderSubtext}
+                variant="body1"
+              >
                 <ReactRouterLinkButton
                   url={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
                   className={styles.LearnMoreAboutHealthEquity}
@@ -244,7 +263,6 @@ function LandingPage() {
               direction="column"
               justify="center"
               alignItems="center"
-              xs={12}
             >
               <Grid
                 container
