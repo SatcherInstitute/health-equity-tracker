@@ -13,9 +13,9 @@ import {
 import { useHistory } from "react-router-dom";
 import { friendlyTabNamesAboutUs } from "../../utils/urlutils";
 
-export const ABOUT_US_PROJECT_TAB_INDEX = 0;
-export const ABOUT_US_TEAM_TAB_INDEX = 1;
-export const ABOUT_US_CONTACT_TAB_INDEX = 2;
+// export const ABOUT_US_PROJECT_TAB_INDEX = 0;
+// export const ABOUT_US_TEAM_TAB_INDEX = 1;
+export const ABOUT_US_CONTACT_TAB_INDEX = "contact";
 
 export function AboutUsPage() {
   const history = useHistory();

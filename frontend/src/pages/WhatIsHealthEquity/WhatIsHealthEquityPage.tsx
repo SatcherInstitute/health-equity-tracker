@@ -14,8 +14,8 @@ import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { friendlyTabNamesWIHE } from "../../utils/urlutils";
 
-export const WIHE_HEALTH_EQUITY_TAB_INDEX = 0;
-export const WIHE_FAQ_TAB_INDEX = 1;
+export const WIHE_HEALTH_EQUITY_TAB_INDEX = "equity";
+export const WIHE_FAQ_TAB_INDEX = "faq";
 export const WIHE_JOIN_THE_EFFORT_SECTION_ID = "join";
 
 export function WhatIsHealthEquityPage() {
