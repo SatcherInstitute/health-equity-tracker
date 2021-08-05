@@ -38,7 +38,7 @@ export const DATA_TYPE_2_PARAM = "dt2";
 export function LinkWithStickyParams(props: {
   to: string;
   target?: string;
-  class?: string;
+  className?: string;
   children: React.ReactNode;
 }) {
   let linkProps = { ...props };

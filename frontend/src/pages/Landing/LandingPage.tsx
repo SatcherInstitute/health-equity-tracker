@@ -100,7 +100,7 @@ function LandingPage() {
               </Typography>
               <LinkWithStickyParams
                 to={EXPLORE_DATA_PAGE_LINK}
-                class={styles.NoUnderline}
+                className={styles.NoUnderline}
               >
                 <Button
                   variant="contained"
@@ -172,7 +172,7 @@ function LandingPage() {
               <Grid item xs={12} sm={12} md={2}>
                 <LinkWithStickyParams
                   to="/whatishealthequity"
-                  class={styles.NoUnderline}
+                  className={styles.NoUnderline}
                 >
                   <Button
                     variant="contained"
@@ -352,7 +352,7 @@ function LandingPage() {
                 <br />
                 <LinkWithStickyParams
                   to={EXPLORE_DATA_PAGE_LINK}
-                  class={styles.NoUnderline}
+                  className={styles.NoUnderline}
                 >
                   <Button
                     variant="contained"
