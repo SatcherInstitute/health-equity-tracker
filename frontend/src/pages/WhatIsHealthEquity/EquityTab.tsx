@@ -82,7 +82,7 @@ function EquityTab() {
                 tabIndex={-1}
                 className={styles.HeaderText}
                 variant="h1"
-                paragraph
+                paragraph={true}
               >
                 What is Health Equity?
               </Typography>
@@ -90,7 +90,7 @@ function EquityTab() {
             <Typography
               className={styles.HeaderSubtext}
               variant="body1"
-              paragraph
+              paragraph={true}
             >
               <b>Health Equity</b> exists when all people, regardless of race,
               sex, sexual orientation, disability, socio-economic status,
@@ -101,7 +101,7 @@ function EquityTab() {
             <Typography
               className={styles.HeaderSubtext}
               variant="body1"
-              paragraph
+              paragraph={true}
             >
               Unfortunately, social and political determinants of health
               negatively affect many communities, their people, and their

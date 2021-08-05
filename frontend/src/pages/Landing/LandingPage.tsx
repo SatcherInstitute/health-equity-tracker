@@ -16,6 +16,7 @@ import {
   WIHE_HEALTH_EQUITY_TAB_INDEX,
   WIHE_JOIN_THE_EFFORT_SECTION_ID,
 } from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
+import { Box } from "@material-ui/core";
 
 function TakeALookAroundItem(props: {
   src: string;
@@ -64,6 +65,7 @@ function LandingPage() {
                 tabIndex={-1}
                 className={styles.HeaderText}
                 variant="h2"
+                paragraph={true}
               >
                 Advancing
                 <br />
@@ -98,18 +100,20 @@ function LandingPage() {
                 Join us in powering transformational action!
                 <br />
               </Typography>
-              <LinkWithStickyParams
-                to={EXPLORE_DATA_PAGE_LINK}
-                className={styles.NoUnderline}
-              >
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={styles.PrimaryButton}
+              <Box mt={5}>
+                <LinkWithStickyParams
+                  to={EXPLORE_DATA_PAGE_LINK}
+                  className={styles.NoUnderline}
                 >
-                  Explore the Health Equity Tracker
-                </Button>
-              </LinkWithStickyParams>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={styles.PrimaryButton}
+                  >
+                    Explore the Health Equity Tracker
+                  </Button>
+                </LinkWithStickyParams>
+              </Box>
             </Grid>
             <Grid item xs={12} sm={12} md={6} className={styles.HeaderImgItem}>
               <img
@@ -215,39 +219,47 @@ function LandingPage() {
               md={7}
               className={styles.PrioritizeHealthEquityTextItem}
             >
-              <Typography
-                className={styles.PrioritizeHealthEquityHeader}
-                variant="h2"
-              >
-                It's time to prioritize health equity
-              </Typography>
-              <br />
+              <Box mb={4}>
+                <Typography
+                  className={styles.PrioritizeHealthEquityHeader}
+                  variant="h2"
+                  paragraph={true}
+                >
+                  It's time to prioritize health equity
+                </Typography>
+              </Box>
+
               <Typography
                 className={styles.PrioritizeHealthEquityHeaderSubtext}
                 variant="body1"
+                paragraph={true}
               >
                 We’re living through a historic moment. COVID-19 has taken a
                 toll on everyone. But the pandemic is hitting the most
                 marginalized, vulnerable communities the hardest.
               </Typography>
-              <br />
+
               <Typography
                 className={styles.PrioritizeHealthEquityHeaderSubtext}
                 variant="body1"
+                paragraph={true}
               >
                 <b>People need help, and they need it now.</b>
               </Typography>
-              <br />
-              <Typography
-                className={styles.PrioritizeHealthEquityHeaderSubtext}
-                variant="body1"
-              >
-                <ReactRouterLinkButton
-                  url={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
-                  className={styles.LearnMoreAboutHealthEquity}
-                  displayName="Learn more about health equity"
-                />
-              </Typography>
+
+              <Box mt={5}>
+                <Typography
+                  className={styles.PrioritizeHealthEquityHeaderSubtext}
+                  variant="body1"
+                  paragraph={true}
+                >
+                  <ReactRouterLinkButton
+                    url={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+                    className={styles.LearnMoreAboutHealthEquity}
+                    displayName="Learn more about health equity"
+                  />
+                </Typography>
+              </Box>
             </Grid>
           </Grid>
 

@@ -33,7 +33,11 @@ function AimToGoItem(props: {
           </Grid>
         </Hidden>
         <Grid item>
-          <Typography className={styles.SubheaderL2Text} variant="h3" paragraph>
+          <Typography
+            className={styles.SubheaderL2Text}
+            variant="h3"
+            paragraph={true}
+          >
             {props.title}
           </Typography>
         </Grid>
@@ -76,7 +80,7 @@ function TheProjectTab() {
               tabIndex={-1}
               className={styles.HeaderText}
               variant="h2"
-              paragraph
+              paragraph={true}
             >
               We're focused on equitable data.
             </Typography>
@@ -84,7 +88,7 @@ function TheProjectTab() {
             <Typography
               className={styles.HeaderSubtext}
               variant="body1"
-              paragraph
+              paragraph={true}
             >
               Health equity can't exist without equitable data. That's why we're
               aiming to collect health equity data from across the United States
@@ -132,16 +136,16 @@ function TheProjectTab() {
               <Typography
                 className={styles.SubheaderL1Text}
                 variant="h2"
-                paragraph
+                paragraph={true}
               >
                 Where we started
               </Typography>
-              <Typography variant="body1" paragraph>
+              <Typography variant="body1" paragraph={true}>
                 Prompted by the COVID-19 pandemic, the Health Equity Tracker was
                 created in 2020 to aggregate up-to-date demographic data from
                 the hardest-hit communities.
               </Typography>
-              <Typography variant="body1" paragraph>
+              <Typography variant="body1" paragraph={true}>
                 The Health Equity Tracker aims to give a detailed view of health
                 outcomes by race, ethnicity, sex, socioeconomic status, and
                 other critical factors. Our hope is that it will help
@@ -161,14 +165,14 @@ function TheProjectTab() {
                   <Typography
                     className={styles.UnderlinedHeaderL2}
                     variant="h3"
-                    paragraph
+                    paragraph={true}
                   >
                     5 data sources
                   </Typography>
                   <Typography
                     className={styles.HeaderSubtextL3}
                     variant="body2"
-                    paragraph
+                    paragraph={true}
                   >
                     HET currently aggregates data from 5 key data sources. We’ll
                     continue adding to these initial sources.
@@ -178,14 +182,14 @@ function TheProjectTab() {
                   <Typography
                     className={styles.UnderlinedHeaderL2}
                     variant="h3"
-                    paragraph
+                    paragraph={true}
                   >
                     15 variables
                   </Typography>
                   <Typography
                     className={styles.HeaderSubtextL3}
                     variant="body2"
-                    paragraph
+                    paragraph={true}
                   >
                     Along with COVID-19 cases, hospitalizations and deaths, the
                     tracker also covers conditions like COPD, diabetes, SDOH,
