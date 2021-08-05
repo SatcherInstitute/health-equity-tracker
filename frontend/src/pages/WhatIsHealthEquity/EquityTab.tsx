@@ -104,6 +104,7 @@ function EquityTab() {
             </Typography>
             <Grid
               container
+              item
               xs={12}
               direction="row"
               justify="space-between"
@@ -177,6 +178,7 @@ function EquityTab() {
               className={styles.ResourcesContainer}
               direction="row"
               justify="space-around"
+              item
               xs={12}
             >
               <Grid item xs={12} sm={12} md={9} className={styles.ResourceItem}>
@@ -404,7 +406,7 @@ function EquityTab() {
           alignItems="center"
           justify="center"
         >
-          <Grid sm={12} md={10}>
+          <Grid item sm={12} md={10}>
             <FaqSection />
           </Grid>
         </Grid>
