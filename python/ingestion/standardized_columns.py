@@ -55,6 +55,7 @@ BELOW_POVERTY_COL = "below_poverty_line"
 COPD_PCT = "copd_pct"
 DIABETES_PCT = "diabetes_pct"
 
+FULLY_VACCINATED = "fully_vaccinated"
 
 RaceTuple = namedtuple("RaceTuple", [
     "race_category_id",
