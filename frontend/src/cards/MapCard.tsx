@@ -262,7 +262,7 @@ function MapCardWithKey(props: MapCardProps) {
                     {TERRITORY_CODES.map((code) => {
                       const fips = new Fips(code);
                       return (
-                        <div className={styles.TerritoryCircle}>
+                        <div className={styles.TerritoryCircle} key={code}>
                           <ChoroplethMap
                             useSmallSampleMessage={
                               !mapQueryResponse.dataIsMissing() &&
