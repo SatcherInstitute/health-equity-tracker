@@ -341,7 +341,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         {
           name: "click",
           value: 0,
-          on: [{ events: "*:mousedown", update: "datum" }],
+          on: [{ events: "click", update: "datum" }],
         },
       ],
     });
