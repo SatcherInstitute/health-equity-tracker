@@ -147,7 +147,6 @@ function TheProjectTab() {
                 direction="row"
                 justify="space-around"
                 alignItems="flex-start"
-                xs={12}
               >
                 <Grid item xs={12} sm={12} md={5}>
                   <Typography
@@ -190,7 +189,6 @@ function TheProjectTab() {
                     direction="row"
                     justify="space-around"
                     alignItems="flex-start"
-                    xs={12}
                   >
                     <Grid item xs={12} sm={12} md={5}>
                       <LinkWithStickyParams
