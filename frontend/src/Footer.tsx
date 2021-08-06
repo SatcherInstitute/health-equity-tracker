@@ -49,14 +49,20 @@ function Footer() {
               [
                 "FAQs",
                 `${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_FAQ_TAB_INDEX}`,
+                "Frequently Asked Questions",
               ],
               [
                 "Contact Us",
                 `${ABOUT_US_PAGE_LINK}?${TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`,
               ],
               ["Terms of Use", `${TERMS_OF_SERVICE_PAGE_LINK}`],
-            ].map(([label, link]) => (
-              <LinkGridItem key={link} text={label} link={link} />
+            ].map(([label, link, ariaLabel]) => (
+              <LinkGridItem
+                key={link}
+                text={label}
+                link={link}
+                ariaLabel={ariaLabel}
+              />
             ))}
             <Hidden smDown>
               <Grid item sm={12}>
@@ -119,7 +125,7 @@ function Logos() {
               <Grid item className={styles.SocialsIcon}>
                 <a
                   href="https://www.linkedin.com/in/satcherhealth"
-                  aria-label="Satcher Health LinkedIn"
+                  aria-label="Satcher Health on LinkedIn"
                 >
                   <LinkedInIcon />
                 </a>
@@ -127,7 +133,7 @@ function Logos() {
               <Grid item className={styles.SocialsIcon}>
                 <a
                   href="https://twitter.com/SatcherHealth"
-                  aria-label="Satcher Health Twitter"
+                  aria-label="Satcher Health on Twitter"
                 >
                   <TwitterIcon />
                 </a>
@@ -135,7 +141,7 @@ function Logos() {
               <Grid item className={styles.SocialsIcon}>
                 <a
                   href="https://www.youtube.com/channel/UC2sNXCD2KGLdyjqe6FGzMiA"
-                  aria-label="Satcher Health YouTube"
+                  aria-label="Satcher Health on YouTube"
                 >
                   <YouTubeIcon />
                 </a>
@@ -148,7 +154,11 @@ function Logos() {
   );
 }
 
-function LinkGridItem(props: { text: string; link: string }) {
+function LinkGridItem(props: {
+  text: string;
+  link: string;
+  ariaLabel: string;
+}) {
   return (
     <>
       <Hidden xsDown>
@@ -157,6 +167,7 @@ function LinkGridItem(props: { text: string; link: string }) {
             url={props.link}
             className={styles.FooterLink}
             displayName={props.text}
+            ariaLabel={props.ariaLabel}
           />
         </Grid>
       </Hidden>
