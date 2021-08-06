@@ -117,17 +117,26 @@ function Logos() {
             </span>
             <Grid container justify="center">
               <Grid item className={styles.SocialsIcon}>
-                <a href="https://www.linkedin.com/in/satcherhealth">
+                <a
+                  href="https://www.linkedin.com/in/satcherhealth"
+                  aria-label="Satcher Health LinkedIn"
+                >
                   <LinkedInIcon />
                 </a>
               </Grid>
               <Grid item className={styles.SocialsIcon}>
-                <a href="https://twitter.com/SatcherHealth">
+                <a
+                  href="https://twitter.com/SatcherHealth"
+                  aria-label="Satcher Health Twitter"
+                >
                   <TwitterIcon />
                 </a>
               </Grid>
               <Grid item className={styles.SocialsIcon}>
-                <a href="https://www.youtube.com/channel/UC2sNXCD2KGLdyjqe6FGzMiA">
+                <a
+                  href="https://www.youtube.com/channel/UC2sNXCD2KGLdyjqe6FGzMiA"
+                  aria-label="Satcher Health YouTube"
+                >
                   <YouTubeIcon />
                 </a>
               </Grid>
