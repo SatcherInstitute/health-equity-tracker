@@ -21,6 +21,7 @@ function TakeALookAroundItem(props: {
   src: string;
   alt: string;
   text: string;
+  ariaLabel: string;
 }) {
   return (
     <Grid item xs={12} sm={4} md={4} className={styles.TakeALookAroundItem}>
@@ -36,7 +37,7 @@ function TakeALookAroundItem(props: {
         </Hidden>
         <Grid item>
           <Typography className={styles.TakeALookAroundText} variant="h3">
-            <p>{props.text}</p>
+            <p aria-label={props.ariaLabel}>{props.text}</p>
           </Typography>
         </Grid>
       </Grid>
@@ -142,16 +143,19 @@ function LandingPage() {
                   src="img/HET_Fields_1_v2_1000px.gif"
                   alt="" // give blank alt text to  decorative images. Decorative dots
                   text="(1) Learn about health equity"
+                  ariaLabel="Step 1: Learn about health equity"
                 />
                 <TakeALookAroundItem
                   src="img/HET_Dots_1_v3_1000px.gif"
                   alt="" // Decorative thick lines
                   text="(2) Investigate the data"
+                  ariaLabel="Step 2: Investigate the data"
                 />
                 <TakeALookAroundItem
                   src="img/HET_Spiral_v4_1000px.gif"
                   alt="" // Decorative circular pattern
                   text="(3) Share our site and join our movement"
+                  ariaLabel="Step 3: Share our site and join our movement"
                 />
               </Grid>
             </Grid>
@@ -166,6 +170,7 @@ function LandingPage() {
                     variant="contained"
                     color="primary"
                     className={styles.PrimaryButton}
+                    aria-label="Learn More About Health Equity"
                   >
                     Learn more
                   </Button>
