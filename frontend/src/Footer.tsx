@@ -105,7 +105,7 @@ function Logos() {
           <img
             src="img/AppbarLogo.png"
             className={styles.FooterLogo}
-            alt="Health Equity Tracker decorative logo"
+            alt="Health Equity Tracker logo"
           />
         </ReactRouterLinkButton>
       </Grid>
@@ -168,6 +168,7 @@ function ReturnToTop() {
   return (
     <Grid item>
       <Button
+        aria-label="Scroll to Top"
         onClick={() => window.scrollTo(0, 0)}
         className={styles.ScrollToTopButton}
       >
