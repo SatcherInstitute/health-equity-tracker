@@ -455,7 +455,7 @@ function EquityTab() {
           <JoinTheEffortContainer
             imageUrl="img/HET_Overlapping_Lines_v4_1000px.gif"
             imageBackground="#A5CDC0"
-            imageAlt="Decorative thin lines"
+            imageAlt=""
             textTitle="Learn to create actionable solutions"
             content={
               <>
@@ -481,7 +481,7 @@ function EquityTab() {
           <JoinTheEffortContainer
             imageUrl="img/HET_Fields_1_v2_1000px.gif"
             imageBackground="#EDB2A6"
-            imageAlt="Decorative thick lines"
+            imageAlt=""
             textTitle="Give back to your community"
             content={
               <>
@@ -507,7 +507,7 @@ function EquityTab() {
           <JoinTheEffortContainer
             imageUrl="img/HET_Dots_1_v3_1000px.gif"
             imageBackground="#275141"
-            imageAlt="Decorative dots"
+            imageAlt=""
             textTitle="Sign up for our newsletter"
             content={
               <>
