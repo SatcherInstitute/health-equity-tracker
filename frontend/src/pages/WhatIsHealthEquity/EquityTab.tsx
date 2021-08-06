@@ -302,9 +302,9 @@ function EquityTab() {
                   inequities due to social and economic factors.{" "}
                   <a
                     href="https://satcherinstitute.org/hetblog2/"
-                    aria-label="Satcher Blog Post on Why Data Matters"
+                    aria-label="Read Satcher Blog Post on Why Data Matters"
                   >
-                    Learn more
+                    Read more
                   </a>
                 </p>
               </Grid>
@@ -330,9 +330,9 @@ function EquityTab() {
                   population level.{" "}
                   <a
                     href="https://satcherinstitute.org/hetblog3/"
-                    aria-label="Satcher Blog Post on Health Equity Data"
+                    aria-label="Read Satcher Blog Post on Health Equity Data"
                   >
-                    Learn more
+                    Read more
                   </a>
                 </p>
               </Grid>
@@ -355,10 +355,9 @@ function EquityTab() {
                 <p className={styles.NewsAndStoriesSubtitleText}>
                   <a
                     href="https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/"
-                    aria-label="Scientific American Article: Data And Technology Can Help Us Make Progress On COVID
-                  Inequities"
+                    aria-label="Read Scientific American Article"
                   >
-                    Learn more
+                    Read more
                   </a>
                 </p>
               </Grid>
