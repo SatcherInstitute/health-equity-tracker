@@ -300,7 +300,10 @@ function EquityTab() {
                   Why ongoing data on health and wellbeing metrics could be used
                   in targeting federal resources and programs to address
                   inequities due to social and economic factors.{" "}
-                  <a href="https://satcherinstitute.org/hetblog2/">
+                  <a
+                    href="https://satcherinstitute.org/hetblog2/"
+                    aria-label="Satcher Blog Post on Why Data Matters"
+                  >
                     Learn more
                   </a>
                 </p>
@@ -325,7 +328,10 @@ function EquityTab() {
                   In public health, much of our work depends on having accurate
                   data, so we know what’s happening both on the ground and at a
                   population level.{" "}
-                  <a href="https://satcherinstitute.org/hetblog3/">
+                  <a
+                    href="https://satcherinstitute.org/hetblog3/"
+                    aria-label="Satcher Blog Post on Health Equity Data"
+                  >
                     Learn more
                   </a>
                 </p>
@@ -347,7 +353,11 @@ function EquityTab() {
                   Inequities
                 </h2>
                 <p className={styles.NewsAndStoriesSubtitleText}>
-                  <a href="https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/">
+                  <a
+                    href="https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/"
+                    aria-label="Scientific American Article: Data And Technology Can Help Us Make Progress On COVID
+                  Inequities"
+                  >
                     Learn more
                   </a>
                 </p>
@@ -369,7 +379,10 @@ function EquityTab() {
                   For Race/Ethnicity At The State And County Levels?
                 </h2>
                 <p className={styles.NewsAndStoriesSubtitleText}>
-                  <a href="https://satcherinstitute.github.io/analysis/cdc_case_data">
+                  <a
+                    href="https://satcherinstitute.github.io/analysis/cdc_case_data"
+                    aria-label="Satcher Post on COVID Data Completeness"
+                  >
                     Learn more
                   </a>
                 </p>
@@ -392,7 +405,10 @@ function EquityTab() {
                   Health In A Health Equity Tracker
                 </h2>
                 <p className={styles.NewsAndStoriesSubtitleText}>
-                  <a href="https://satcherinstitute.org/post-4840/">
+                  <a
+                    href="https://satcherinstitute.org/post-4840/"
+                    aria-label="Satcher Post on Social Determinants of Behavior Health in the Health Equity Tracker"
+                  >
                     Learn more
                   </a>
                 </p>
@@ -452,6 +468,7 @@ function EquityTab() {
                 <p>
                   <Button
                     className={styles.ContactUsLink}
+                    aria-label="Learn More: Satcher Institute Political Determinants of Health Learning Laboratory Program"
                     href="https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/"
                   >
                     Learn More
@@ -477,6 +494,7 @@ function EquityTab() {
                 <p>
                   <Button
                     className={styles.ContactUsLink}
+                    aria-label="Sign Up - vaccine rideshare program"
                     href="https://satcherinstitute.org/uberrideshare/"
                   >
                     Sign Up
@@ -508,6 +526,7 @@ function EquityTab() {
                     variant="outlined"
                     className={styles.EmailTextField}
                     type="email"
+                    aria-label="Email Newsletter signup"
                     placeholder="Enter email address"
                   />
                   <Button
@@ -515,6 +534,7 @@ function EquityTab() {
                     color="primary"
                     variant="contained"
                     className={styles.EmailAddressFormSubmit}
+                    aria-label="Sign Up for Newsletter"
                   >
                     Sign up
                   </Button>
