@@ -15,8 +15,8 @@ BASE_CDC_URL = 'https://data.cdc.gov/resource/km4m-vcsb.csv'
 CDC_SEX_GROUPS_TO_STANDARD = {
     'Sex_Female': Sex.FEMALE,
     'Sex_Male': Sex.MALE,
-    'Sex_unknown': Race.UNKNOWN.value,
-    'US': Race.TOTAL.value,
+    'Sex_unknown': 'Unknown',
+    'US': std_col.TOTAL_VALUE,
 }
 
 CDC_RACE_GROUPS_TO_STANDARD = {
@@ -42,8 +42,8 @@ CDC_AGE_GROUPS_TO_STANDARD = {
     'Ages_50-64_yrs': '50-64',
     'Ages_65-74_yrs': '65-74',
     'Ages_75+_yrs': '75+',
-    'Age_unknown': Race.UNKNOWN.value,
-    'US': Race.TOTAL.value,
+    'Age_unknown': 'Unknown',
+    'US': std_col.TOTAL_VALUE,
 }
 
 BREAKDOWN_MAP = {
@@ -114,8 +114,3 @@ class CDCVaccinationNational(DataSource):
             std_col.add_race_columns_from_category_id(output_df)
 
         return output_df
-
-
-
-
-
