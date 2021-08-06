@@ -140,17 +140,17 @@ function LandingPage() {
               >
                 <TakeALookAroundItem
                   src="img/HET_Fields_1_v2_1000px.gif"
-                  alt="Decorative dots"
+                  alt="" // give blank alt text to  decorative images. Decorative dots
                   text="(1) Learn about health equity"
                 />
                 <TakeALookAroundItem
                   src="img/HET_Dots_1_v3_1000px.gif"
-                  alt="Decorative thick lines"
+                  alt="" // Decorative thick lines
                   text="(2) Investigate the data"
                 />
                 <TakeALookAroundItem
                   src="img/HET_Spiral_v4_1000px.gif"
-                  alt="Decorative circular pattern"
+                  alt="" // Decorative circular pattern
                   text="(3) Share our site and join our movement"
                 />
               </Grid>
@@ -370,13 +370,16 @@ function LandingPage() {
                     className={styles.NewsletterRowHeader}
                     variant="h2"
                   >
-                    Join Our
-                    <br />
-                    Movement
+                    <span aria-hidden="true">
+                      Join Our
+                      <br />
+                      Movement
+                    </span>
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Button
+                    aria-label="Join Our Movement"
                     variant="contained"
                     color="default"
                     className={styles.JoinOurMovementButton}
