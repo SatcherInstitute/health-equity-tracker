@@ -300,7 +300,9 @@ function EquityTab() {
                   Why ongoing data on health and wellbeing metrics could be used
                   in targeting federal resources and programs to address
                   inequities due to social and economic factors.{" "}
-                  <a href="https://satcherinstitute.org/hetblog2/">Read more</a>
+                  <a href="https://satcherinstitute.org/hetblog2/">
+                    Learn more
+                  </a>
                 </p>
               </Grid>
               <Grid
@@ -323,7 +325,9 @@ function EquityTab() {
                   In public health, much of our work depends on having accurate
                   data, so we know what’s happening both on the ground and at a
                   population level.{" "}
-                  <a href="https://satcherinstitute.org/hetblog3/">Read more</a>
+                  <a href="https://satcherinstitute.org/hetblog3/">
+                    Learn more
+                  </a>
                 </p>
               </Grid>
               <Grid
@@ -344,7 +348,7 @@ function EquityTab() {
                 </h2>
                 <p className={styles.NewsAndStoriesSubtitleText}>
                   <a href="https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/">
-                    Read more
+                    Learn more
                   </a>
                 </p>
               </Grid>
