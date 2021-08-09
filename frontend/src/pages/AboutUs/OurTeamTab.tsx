@@ -239,7 +239,7 @@ const PARTNERS = [
   },
   {
     imageUrl: "img/PartnerGoogle.png",
-    alt: "Google",
+    alt: "Google.org",
     url: "https://google.org",
   },
   {
@@ -327,7 +327,7 @@ function OurTeamTab() {
                     <span style={{ fontSize: "16px", fontWeight: 500 }}>
                       {fellow.name}
                     </span>
-                    <br />
+                    <br aria-hidden="true" />
                     <span style={{ fontSize: "14px", fontWeight: 400 }}>
                       {fellow.role}
                     </span>
@@ -341,7 +341,7 @@ function OurTeamTab() {
                       rel="noopener noreferrer"
                     >
                       {fellow.text}
-                      <br />
+                      <br aria-hidden="true" />
                       {fellow.name}
                     </a>
                     <br />

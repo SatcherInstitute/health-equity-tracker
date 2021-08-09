@@ -70,7 +70,7 @@ function MenuPopover(props: {
       anchorOrigin={ANCHOR_ORIGIN}
       transformOrigin={TRANSFORM_ORIGIN}
     >
-      <List>
+      <List aria-label="List of Options">
         {listItems.map((listItem: string) => renderListItem(listItem))}
       </List>
     </Popover>
