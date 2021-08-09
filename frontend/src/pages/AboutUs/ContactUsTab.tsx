@@ -82,12 +82,13 @@ function ContactUsTab() {
               <br />
               Satcher Health Leadership Institute
               <br />
-              720 Westview Drive <span aria-label="Southwest">SW</span>
+              720 Westview Drive SW
               <br />
-              Atlanta, <span aria-label="Georgia">GA</span> 30310
-              <br />
-              <br aria-hidden="true" />
-              (404) 752-8654
+              Atlanta, <span aria-label="Georgia">GA</span>{" "}
+              <span aria-label="Zip Code 3 0 3 1 0">30310</span>
+            </p>
+            <p>
+              <a href="tel:4047528654">(404) 752-8654</a>
             </p>
           </Grid>
         </Grid>

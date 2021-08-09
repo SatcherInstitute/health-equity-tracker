@@ -41,7 +41,7 @@ const LEADERSHIP_TEAM = [
   },
   {
     name: "Josh Zarrabi",
-    role: "Sr. Software Engineer",
+    role: "Senior Software Engineer",
     imageUrl: "img/ZarrabiJosh.png",
   },
   {
