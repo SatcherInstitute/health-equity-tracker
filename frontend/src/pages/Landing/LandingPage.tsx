@@ -67,9 +67,9 @@ function LandingPage() {
                 variant="h2"
               >
                 Advancing
-                <br />
+                <br aria-hidden="true" />
                 Health
-                <br />
+                <br aria-hidden="true" />
                 Equity
               </Typography>
               <Typography className={styles.HeaderSubtext} variant="body1">
@@ -262,7 +262,7 @@ function LandingPage() {
                   <img
                     className={styles.HowToStepImg}
                     src="img/het-screen-1.png"
-                    alt="Screenshot of Data Tracker - selecting mad libs"
+                    alt="Screenshot of Data Tracker example: Investigate Rates of selected option Covid-19, in selected location United States"
                   />
                 </Grid>
                 <Grid item xs={12} sm={12} md={3}>
@@ -289,7 +289,7 @@ function LandingPage() {
                   <img
                     className={styles.HowToStepImg}
                     src="img/het-screen-2.png"
-                    alt="Screenshot of Data Tracker - using filters"
+                    alt="Screenshot of Data Tracker example: Compare Rates of selected option Covid-19 between first selected location Georgia and second selected location United States"
                   />
                 </Grid>
                 <Grid item xs={12} sm={12} md={3}>

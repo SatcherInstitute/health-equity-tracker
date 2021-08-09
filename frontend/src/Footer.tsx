@@ -118,7 +118,7 @@ function Logos() {
       <Grid item className={styles.LogosRight}>
         <Grid container justify="flex-start" alignItems="flex-start">
           <Grid item>
-            <span className={styles.FooterTitleSpan}>
+            <span className={styles.FooterTitleSpan} aria-hidden="true">
               Health Equity Tracker
             </span>
             <Grid container justify="center">
