@@ -87,18 +87,19 @@ function LandingPage() {
                 <p>Join us in powering transformational action!</p>
                 <br />
               </Typography>
-              <LinkWithStickyParams
+              {/* <LinkWithStickyParams
                 to={EXPLORE_DATA_PAGE_LINK}
                 class={styles.NoUnderline}
+              > */}
+              <Button
+                variant="contained"
+                color="primary"
+                className={styles.PrimaryButton}
+                href={EXPLORE_DATA_PAGE_LINK}
               >
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={styles.PrimaryButton}
-                >
-                  Explore the Health Equity Tracker
-                </Button>
-              </LinkWithStickyParams>
+                Explore the Health Equity Tracker
+              </Button>
+              {/* </LinkWithStickyParams> */}
             </Grid>
             <Grid item xs={12} sm={12} md={6} className={styles.HeaderImgItem}>
               <img
@@ -162,19 +163,20 @@ function LandingPage() {
 
             <Grid container direction="row" justify="center">
               <Grid item xs={12} sm={12} md={2}>
-                <LinkWithStickyParams
+                {/* <LinkWithStickyParams
                   to="/whatishealthequity"
                   class={styles.NoUnderline}
+                > */}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={styles.PrimaryButton}
+                  aria-label="Learn More About Health Equity"
+                  href={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
                 >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={styles.PrimaryButton}
-                    aria-label="Learn More About Health Equity"
-                  >
-                    Learn more
-                  </Button>
-                </LinkWithStickyParams>
+                  Learn more
+                </Button>
+                {/* </LinkWithStickyParams> */}
               </Grid>
             </Grid>
           </Grid>
@@ -262,7 +264,7 @@ function LandingPage() {
                   <img
                     className={styles.HowToStepImg}
                     src="img/het-screen-1.png"
-                    alt="Screenshot of Data Tracker example: Investigate Rates of selected option Covid-19, in selected location United States"
+                    alt="Screenshot: Investigate Rates of selected option Covid-19 in selected location United States"
                   />
                 </Grid>
                 <Grid item xs={12} sm={12} md={3}>
@@ -289,7 +291,7 @@ function LandingPage() {
                   <img
                     className={styles.HowToStepImg}
                     src="img/het-screen-2.png"
-                    alt="Screenshot of Data Tracker example: Compare Rates of selected option Covid-19 between first selected location Georgia and second selected location United States"
+                    alt="Screenshot: Compare Rates of selected option Covid-19 between two selected locations"
                   />
                 </Grid>
                 <Grid item xs={12} sm={12} md={3}>
@@ -318,7 +320,7 @@ function LandingPage() {
                   <img
                     className={styles.HowToStepImg}
                     src="img/het-screen-3.png"
-                    alt="Screenshot of Data Tracker - map of the US"
+                    alt="Screenshot, Date Tracker map of Covid-19 rates per 100,000 people of all racial groups"
                   />
                 </Grid>
                 <Grid item xs={12} sm={12} md={3}>
@@ -337,18 +339,19 @@ function LandingPage() {
               <Grid item>
                 <br />
                 <br />
-                <LinkWithStickyParams
+                {/* <LinkWithStickyParams
                   to={EXPLORE_DATA_PAGE_LINK}
                   class={styles.NoUnderline}
+                > */}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={styles.PrimaryButton}
+                  href={EXPLORE_DATA_PAGE_LINK}
                 >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={styles.PrimaryButton}
-                  >
-                    Explore the Tracker
-                  </Button>
-                </LinkWithStickyParams>
+                  Explore the Tracker
+                </Button>
+                {/* </LinkWithStickyParams> */}
               </Grid>
             </Grid>
           </Grid>
