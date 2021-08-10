@@ -384,11 +384,10 @@ function EquityTab() {
                        Equity Tracker Homepage"
                 />
                 <h2 className={styles.NewsAndStoriesTitleText}>
-                  How To Include The Social Determinants That Impact Behavioral
-                  Health In A Health Equity Tracker
+                  Saving the Lives of the Invisible
                 </h2>
                 <p className={styles.NewsAndStoriesSubtitleText}>
-                  <a href="https://satcherinstitute.org/post-4840/">
+                  <a href="https://www.kennedysatcher.org/media-old/saving-the-lives-of-the-invisible/">
                     Learn more
                   </a>
                 </p>
