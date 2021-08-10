@@ -1,3 +1,4 @@
+//
 import React from "react";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -5,7 +6,7 @@ import styles from "./WhatIsHealthEquityPage.module.scss";
 import EquityTab from "./EquityTab";
 import FaqTab from "./FaqTab";
 import { TAB_PARAM, useSearchParams } from "../../utils/urlutils";
-import ResourcesTab from './ResourcesTab';
+import ResourcesTab from "./ResourcesTab";
 
 export const WIHE_HEALTH_EQUITY_TAB_INDEX = 0;
 export const WIHE_FAQ_TAB_INDEX = 1;
@@ -41,8 +42,8 @@ export function WhatIsHealthEquityPage() {
           label="Frequently Asked Questions"
         />
         <Tab
-            className={styles.WhatIsHealthEquityTab}
-            label="Health Equity Resources"
+          className={styles.WhatIsHealthEquityTab}
+          label="Health Equity Resources"
         />
       </Tabs>
       {tabIndex === 0 && <EquityTab />}
