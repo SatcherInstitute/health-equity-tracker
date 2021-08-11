@@ -292,6 +292,7 @@ function OurTeamTab() {
               {LEADERSHIP_TEAM.map((leader) => {
                 return (
                   <Grid
+                    key={leader.name}
                     item
                     xs={12}
                     sm={6}
@@ -323,7 +324,7 @@ function OurTeamTab() {
             <Grid container className={styles.GridSubRow}>
               {GOOGLE_FELLOWS.map((fellow) => {
                 return fellow.link == null ? (
-                  <Grid item className={styles.TextProfile}>
+                  <Grid item className={styles.TextProfile} key={fellow.name}>
                     <span style={{ fontSize: "16px", fontWeight: 500 }}>
                       {fellow.name}
                     </span>
@@ -333,7 +334,7 @@ function OurTeamTab() {
                     </span>
                   </Grid>
                 ) : (
-                  <Grid item className={styles.TextProfile}>
+                  <Grid item className={styles.TextProfile} key={fellow.name}>
                     <a
                       href={fellow.link}
                       style={{ fontSize: "16px", fontWeight: 500 }}
@@ -364,10 +365,10 @@ function OurTeamTab() {
 
           <Grid item xs={12}>
             <Grid container className={styles.GridSubRow}>
-              {HE_TASKFORCE.map((name) => (
-                <Grid item className={styles.TextProfile}>
+              {HE_TASKFORCE.map((taskforceName) => (
+                <Grid item className={styles.TextProfile} key={taskforceName}>
                   <span style={{ fontSize: "16px", fontWeight: 500 }}>
-                    {name}
+                    {taskforceName}
                   </span>
                 </Grid>
               ))}
@@ -384,7 +385,7 @@ function OurTeamTab() {
 
           <Grid item xs={12}>
             {PARTNERS.map((partner) => (
-              <a href={partner.url}>
+              <a href={partner.url} key={partner.url}>
                 <img
                   src={partner.imageUrl}
                   alt={partner.alt}
