@@ -533,7 +533,7 @@ function EquityTab() {
                     variant="outlined"
                     className={styles.EmailTextField}
                     type="email"
-                    aria-label="Email Newsletter signup"
+                    aria-label="Enter Email Address for Newsletter signup"
                     placeholder="Enter email address"
                   />
                   <Button
