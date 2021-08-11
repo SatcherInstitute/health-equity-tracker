@@ -158,6 +158,7 @@ function MapCardWithKey(props: MapCardProps) {
               <MapBreadcrumbs
                 fips={props.fips}
                 updateFipsCallback={props.updateFipsCallback}
+                ariaLabel={props.variableConfig.variableFullDisplayName}
               />
             </CardContent>
 
