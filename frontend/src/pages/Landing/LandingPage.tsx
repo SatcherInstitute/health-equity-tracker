@@ -6,7 +6,7 @@ import Hidden from "@material-ui/core/Hidden";
 import Typography from "@material-ui/core/Typography";
 import {
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-  LinkWithStickyParams,
+  // LinkWithStickyParams,
   EXPLORE_DATA_PAGE_LINK,
   TAB_PARAM,
   ReactRouterLinkButton,
