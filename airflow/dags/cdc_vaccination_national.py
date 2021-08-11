@@ -15,7 +15,7 @@ data_ingestion_dag = DAG(
     'cdc_vaccination_national_ingestion_dag',
     default_args=default_args,
     schedule_interval=None,
-    description='Ingestion configuration for UHC')
+    description='Ingestion configuration for CDC Vaccination National')
 
 cdc_vaccination_national_bq_payload = util.generate_bq_payload(
     _CDC_VACCINATION_NATIONAL_WORKFLOW_ID, _CDC_VACCINATION_NATIONAL_DATASET_NAME)

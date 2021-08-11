@@ -8,6 +8,7 @@ from datasources.county_names import CountyNames
 from datasources.covid_tracking_project import CovidTrackingProject
 from datasources.covid_tracking_project_metadata import CtpMetadata
 from datasources.household_income import HouseholdIncome
+from datasources.kff_vaccination import KFFVaccination
 from datasources.manual_uploads import ManualUploads
 from datasources.primary_care_access import PrimaryCareAccess
 from datasources.state_names import StateNames
@@ -30,6 +31,7 @@ DATA_SOURCES_DICT = {
     CovidTrackingProject.get_id(): CovidTrackingProject(),
     CtpMetadata.get_id(): CtpMetadata(),
     HouseholdIncome.get_id(): HouseholdIncome(),
+    KFFVaccination.get_id(): KFFVaccination(),
     ManualUploads.get_id(): ManualUploads(),
     PrimaryCareAccess.get_id(): PrimaryCareAccess(),
     StateNames.get_id(): StateNames(),

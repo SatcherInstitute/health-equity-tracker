@@ -97,6 +97,13 @@ def generate_output_row(state_row_pct_share, state_row_pct_total, state, race):
 
     return output_row
 
+def clean_state_names(df):
+    """Removes trailing whitespace from state name keys in spreadsheet in place
+
+    df: Pandas dataframe with information from KFF vaccine spreadsheets
+    """
+    df['state'] = df['state'].map(lambda state: state.strip())
+
 
 class KFFVaccination(DataSource):
 
@@ -121,6 +128,9 @@ class KFFVaccination(DataSource):
 
         percentage_of_total_df = percentage_of_total_df.rename(columns={'Unnamed: 0': 'state'})
         pct_share_df = pct_share_df.rename(columns={'Unnamed: 0': 'state'})
+
+        clean_state_names(percentage_of_total_df)
+        clean_state_names(pct_share_df)
 
         states = percentage_of_total_df['state'].drop_duplicates().to_list()
         states.remove('United States')
