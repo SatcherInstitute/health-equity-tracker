@@ -219,6 +219,15 @@ function MapCardWithKey(props: MapCardProps) {
                       onClick={() => setSmallMultiplesDialogOpen(true)}
                       color="primary"
                       className={styles.SmallMarginButton}
+                      aria-label={
+                        "Compare " +
+                        props.variableConfig.variableFullDisplayName +
+                        " across " +
+                        BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                          props.currentBreakdown
+                        ] +
+                        " groups"
+                      }
                     >
                       Compare across{" "}
                       {
