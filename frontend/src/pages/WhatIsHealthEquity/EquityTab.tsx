@@ -7,6 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import FaqSection from "../ui/FaqSection";
 import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "./WhatIsHealthEquityPage";
+import { Box } from "@material-ui/core";
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -75,35 +76,45 @@ function EquityTab() {
             </Grid>
           </Hidden>
           <Grid item xs={12} sm={12} md={8} className={styles.HeaderTextItem}>
+            <Box mb={5}>
+              <Typography
+                id="main"
+                tabIndex={-1}
+                className={styles.HeaderText}
+                variant="h1"
+                paragraph={true}
+              >
+                What is Health Equity?
+              </Typography>
+            </Box>
             <Typography
-              id="main"
-              tabIndex={-1}
-              className={styles.HeaderText}
-              variant="h1"
+              className={styles.HeaderSubtext}
+              variant="body1"
+              paragraph={true}
             >
-              What is Health Equity?
+              <b>Health Equity</b> exists when all people, regardless of race,
+              sex, sexual orientation, disability, socio-economic status,
+              geographic location, or other societal constructs have fair and
+              just access, opportunity, and resources to achieve their highest
+              potential for health.
             </Typography>
-            <br />
+            <Typography
+              className={styles.HeaderSubtext}
+              variant="body1"
+              paragraph={true}
+            >
+              Unfortunately, social and political determinants of health
+              negatively affect many communities, their people, and their
+              ability to lead healthy lives.
+            </Typography>
             <Typography className={styles.HeaderSubtext} variant="body1">
-              <p>
-                <b>Health Equity</b> exists when all people, regardless of race,
-                sex, sexual orientation, disability, socio-economic status,
-                geographic location, or other societal constructs have fair and
-                just access, opportunity, and resources to achieve their highest
-                potential for health.
-              </p>
-              <p>
-                Unfortunately, social and political determinants of health
-                negatively affect many communities, their people, and their
-                ability to lead healthy lives.
-              </p>
               <span className={styles.DefinitionSourceSpan}>
                 Health Equity Leadership & Exchange Network, 2020
               </span>
-              <br />
             </Typography>
             <Grid
               container
+              item
               xs={12}
               direction="row"
               justify="space-between"
@@ -177,6 +188,7 @@ function EquityTab() {
               className={styles.ResourcesContainer}
               direction="row"
               justify="space-around"
+              item
               xs={12}
             >
               <Grid item xs={12} sm={12} md={9} className={styles.ResourceItem}>
@@ -403,7 +415,7 @@ function EquityTab() {
           alignItems="center"
           justify="center"
         >
-          <Grid sm={12} md={10}>
+          <Grid item sm={12} md={10}>
             <FaqSection />
           </Grid>
         </Grid>
