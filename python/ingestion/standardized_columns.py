@@ -56,6 +56,8 @@ COPD_PCT = "copd_pct"
 DIABETES_PCT = "diabetes_pct"
 
 FULLY_VACCINATED = "fully_vaccinated"
+VACCINATED_PCT = "vaccinated_pct"
+VACCINATED_PCT_SHARE = "vaccinated_pct_share"
 
 RaceTuple = namedtuple("RaceTuple", [
     "race_category_id",

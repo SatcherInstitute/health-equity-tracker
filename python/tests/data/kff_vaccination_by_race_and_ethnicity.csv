@@ -1,0 +1,28 @@
+state_name,race_category_id,vaccinated_pct_share,vaccinated_pct,race,race_includes_hispanic,race_and_ethnicity
+Alabama,UNKNOWN,0.13,,Unknown race,True,Unknown race
+Alabama,ETHNICITY_UNKNOWN,0.42,,Unknown ethnicity,,Unknown ethnicity
+Alabama,WHITE,0.66,0.34,White,True,White
+Alabama,BLACK,0.25,0.34,Black or African American,True,Black or African American
+Alabama,HISP,0.05,0.3,Hispanic or Latino,True,Hispanic or Latino
+Alabama,ASIAN,0.03,0.66,Asian,True,Asian
+Alabama,AIAN,<0.01,,American Indian and Alaska Native,True,American Indian and Alaska Native
+Alabama,NHPI,<0.01,,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+Alabama,OTHER_NONSTANDARD,0.06,,Some other race*,True,Some other race*
+Arizona,UNKNOWN,0.11,,Unknown race,True,Unknown race
+Arizona,ETHNICITY_UNKNOWN,0.11,,Unknown ethnicity,,Unknown ethnicity
+Arizona,WHITE_NH,0.53,0.46,White,False,White (Non-Hispanic)
+Arizona,BLACK_NH,0.03,0.33,Black or African American,False,Black or African American (Non-Hispanic)
+Arizona,HISP,0.18,0.27,Hispanic or Latino,True,Hispanic or Latino
+Arizona,ASIAN_NH,0.04,0.59,Asian,False,Asian (Non-Hispanic)
+Arizona,AIAN_NH,0.03,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+Arizona,NHPI_NH,NR,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+Arizona,OTHER_NONSTANDARD_NH,0.19,,Some other race*,False,Some other race* (Non-Hispanic)
+Indiana,UNKNOWN,0.05,,Unknown race,True,Unknown race
+Indiana,ETHNICITY_UNKNOWN,0.07,,Unknown ethnicity,,Unknown ethnicity
+Indiana,WHITE,0.83,0.46,White,True,White
+Indiana,BLACK,0.07,0.36,Black or African American,True,Black or African American
+Indiana,HISP,0.06,0.39,Hispanic or Latino,True,Hispanic or Latino
+Indiana,ASIAN,0.04,0.67,Asian,True,Asian
+Indiana,AIAN,NR,,American Indian and Alaska Native,True,American Indian and Alaska Native
+Indiana,NHPI,NR,,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+Indiana,OTHER_NONSTANDARD,0.06,,Some other race*,True,Some other race*
