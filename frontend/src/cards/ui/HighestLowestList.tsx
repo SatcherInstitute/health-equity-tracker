@@ -31,7 +31,7 @@ export interface HighestLowestListProps {
 }
 
 /*
-   Collapsable box showing lists of geographies with the highest and lowest rates
+   Collapsible box showing lists of geographies with the highest and lowest rates
 */
 export function HighestLowestList(props: HighestLowestListProps) {
   return (
@@ -45,8 +45,8 @@ export function HighestLowestList(props: HighestLowestListProps) {
         <IconButton
           aria-label={
             props.listExpanded
-              ? "hide highest and lowest rates"
-              : "show highest and lowest rates"
+              ? `hide lists of ${props.fipsTypePluralDisplayName} with highest and lowest rates `
+              : `show lists of ${props.fipsTypePluralDisplayName} with highest and lowest rates`
           }
           onClick={() => props.setListExpanded(!props.listExpanded)}
           color="primary"
@@ -55,6 +55,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
         </IconButton>
       </div>
       <div
+        aria-hidden={true}
         className={
           props.listExpanded ? styles.ListBoxTitleExpanded : styles.ListBoxTitle
         }
