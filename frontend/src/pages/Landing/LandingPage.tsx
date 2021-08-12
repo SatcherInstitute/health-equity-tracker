@@ -101,7 +101,7 @@ function LandingPage() {
               <img
                 src="img/shutterstock_1414416191 2 (1).png"
                 className={styles.HeaderImg}
-                alt="A man and woman laying with their two children"
+                alt=""
               />
             </Grid>
           </Grid>
@@ -274,7 +274,7 @@ function LandingPage() {
                   <img
                     className={styles.HowToStepImg}
                     src="img/het-screen-1.png"
-                    alt="Example Search Screenshot: Investigate Rates of option Covid-19 in location United States"
+                    alt="Search Example Screenshot: Investigate Rates of option Covid-19 in location United States"
                   />
                 </Grid>
                 <Grid item xs={12} sm={12} md={3}>
@@ -301,7 +301,7 @@ function LandingPage() {
                   <img
                     className={styles.HowToStepImg}
                     src="img/het-screen-2.png"
-                    alt="Example Search Screenshot: Compare Rates of option Covid-19 between two locations"
+                    alt="Search Example Screenshot: Compare Rates of option Covid-19 between two locations"
                   />
                 </Grid>
                 <Grid item xs={12} sm={12} md={3}>
@@ -330,7 +330,7 @@ function LandingPage() {
                   <img
                     className={styles.HowToStepImg}
                     src="img/het-screen-3.png"
-                    alt="Example Map Screenshot, Data Tracker map of option Covid-19 rates of all racial groups"
+                    alt="Map Example Screenshot, Data Tracker map of option Covid-19 rates of all racial groups"
                   />
                 </Grid>
                 <Grid item xs={12} sm={12} md={3}>
