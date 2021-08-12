@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./HighestLowestList.module.scss";
 import AnimateHeight from "react-animate-height";
 import { Grid } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import { IconButton } from "@material-ui/core";
