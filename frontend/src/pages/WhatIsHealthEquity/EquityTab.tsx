@@ -131,7 +131,10 @@ function EquityTab() {
                 <Typography className={styles.DefinitionHeader} variant="h2">
                   Political determinants of health
                 </Typography>
-                <p className={styles.DefinitionPronunciation}>
+                <p
+                  className={styles.DefinitionPronunciation}
+                  aria-hidden="true"
+                >
                   /pəˈlidək(ə)l dəˈtərmənənts əv helTH/
                 </p>
                 <p className={styles.DefinitionText}>
@@ -154,7 +157,10 @@ function EquityTab() {
                 <Typography className={styles.DefinitionHeader} variant="h2">
                   Social determinants of health
                 </Typography>
-                <p className={styles.DefinitionPronunciation}>
+                <p
+                  className={styles.DefinitionPronunciation}
+                  aria-hidden="true"
+                >
                   /ˈsōSHəl dəˈtərmənənt əv helTH/
                 </p>
                 <p className={styles.DefinitionText}>
@@ -314,7 +320,7 @@ function EquityTab() {
                   inequities due to social and economic factors.{" "}
                   <a
                     href="https://satcherinstitute.org/hetblog2/"
-                    aria-label="Read Satcher Blog Post on Why Data Matters"
+                    aria-label="Satcher Blog Post on Why Data Matters"
                   >
                     Read more
                   </a>
@@ -330,7 +336,7 @@ function EquityTab() {
                 <img
                   className={styles.NewsAndStoriesBigImg}
                   src="img/pexels-mary-taylor-5896662.jpg"
-                  alt="Two girls writing in their journals."
+                  alt=""
                 />
                 <h2 className={styles.NewsAndStoriesTitleText}>
                   How can we use data to inform practices to advance health
@@ -342,7 +348,7 @@ function EquityTab() {
                   population level.{" "}
                   <a
                     href="https://satcherinstitute.org/hetblog3/"
-                    aria-label="Read Satcher Blog Post on Health Equity Data"
+                    aria-label="Satcher Blog Post on Health Equity Data"
                   >
                     Read more
                   </a>
@@ -358,7 +364,7 @@ function EquityTab() {
                 <img
                   className={styles.NewsAndStoriesSmallImg}
                   src="img/pexels-alex-green-5699516 1.png"
-                  alt="Documents lying on a table"
+                  alt=""
                 />
                 <h2 className={styles.NewsAndStoriesTitleText}>
                   Data And Technology Can Help Us Make Progress On COVID
@@ -408,14 +414,16 @@ function EquityTab() {
                 <img
                   className={styles.NewsAndStoriesSmallImg}
                   src="img/Screen Shot 2021-03-01 at 5.25 1.png"
-                  alt="Laptop sitting on desk and opened to the Health
-                       Equity Tracker Homepage"
+                  alt=""
                 />
                 <h2 className={styles.NewsAndStoriesTitleText}>
                   Saving the Lives of the Invisible
                 </h2>
                 <p className={styles.NewsAndStoriesSubtitleText}>
-                  <a href="https://www.kennedysatcher.org/media-old/saving-the-lives-of-the-invisible/">
+                  <a
+                    href="https://www.kennedysatcher.org/media-old/saving-the-lives-of-the-invisible/"
+                    aria-label="Kennedy Satcher Article: Saving the Lives of the Invisible"
+                  >
                     Learn more
                   </a>
                 </p>
