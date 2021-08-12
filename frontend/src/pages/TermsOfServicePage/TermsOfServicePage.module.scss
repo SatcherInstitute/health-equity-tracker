@@ -248,7 +248,14 @@
 
 .TosQuestionAndAnswer {
   padding-bottom: 20px;
-  padding-right: 250px;
+  padding-left: 0px;
+  padding-right: 25%;
+
+  // padding-right: 250px; this was causing bug on mobile
+  @media (max-width: $md) {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
   text-align: left;
 }
 
