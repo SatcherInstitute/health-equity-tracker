@@ -101,16 +101,9 @@ export function HighestLowestList(props: HighestLowestListProps) {
       </div>
       <p>All rates are reported as: {props.metricConfig.fullCardTitleName}</p>
       <p>
-        Consider the possible impact of
-        <Button
-          onClick={() =>
-            document.getElementById("missingDataInfo")?.scrollIntoView()
-          }
-          className={styles.LinkButton}
-        >
-          data reporting gaps
-        </Button>
-        when interpreting the highest and lowest rates.
+        Consider the possible impact of{" "}
+        <a href="#missingDataInfo">data reporting gaps</a> when interpreting the
+        highest and lowest rates.
       </p>
     </AnimateHeight>
   );
