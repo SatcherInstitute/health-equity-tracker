@@ -37,6 +37,7 @@ export type MetricId =
   | "poverty_per_100k"
   | "poverty_population_pct"
   | "vaccinated_pct_share"
+  | "vaccinated_share_of_known"
   | "vaccinated_per_100k"
   | "vaccine_population_pct";
 
@@ -425,7 +426,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           type: "per100k",
         },
         pct_share: {
-          metricId: "vaccinated_pct_share",
+          metricId: "vaccinated_share_of_known",
           fullCardTitleName: "Share of those who are fully vaccinated",
           shortVegaLabel: "% of fully vaccinated",
           type: "pct_share",

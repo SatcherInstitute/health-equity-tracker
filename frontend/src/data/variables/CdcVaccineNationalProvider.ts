@@ -12,6 +12,7 @@ class CdcVaccineNationalProvider extends VariableProvider {
   constructor(acsProvider: AcsPopulationProvider) {
     super("cdc_vaccine_national_provider", [
       "vaccinated_pct_share",
+      "vaccinated_share_of_known",
       "vaccinated_per_100k",
       "vaccine_population_pct",
     ]);
@@ -78,6 +79,13 @@ class CdcVaccineNationalProvider extends VariableProvider {
         "vaccinated_pct_share",
         breakdownColumnName,
         ["fips"]
+      );
+
+      df = this.calculations.calculatePctShareOfKnown(
+        df,
+        "fully_vaccinated",
+        "vaccinated_share_of_known",
+        breakdownColumnName
       );
     }
 

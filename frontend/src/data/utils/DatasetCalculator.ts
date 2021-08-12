@@ -144,6 +144,8 @@ export class DatasetCalculator {
         row[breakdownCol] !== UNKNOWN_RACE
     );
 
+    console.log(dataFrame.toArray());
+
     // Generate Total of Known Values sum to be used to calculate share_of_known
     // metrics for each breakdown value
     const knownValuesTotal = dataFrame.pivot(["fips", "fips_name"], {
@@ -151,6 +153,8 @@ export class DatasetCalculator {
       population: (series) => series.sum(),
       [breakdownCol]: (series) => ALL,
     });
+
+    console.log(knownValuesTotal.toArray());
 
     // Append calculated Total of Known Values sum to the data frame and use to calculatePctShare()
     dataFrame = dataFrame.concat(knownValuesTotal).resetIndex();
