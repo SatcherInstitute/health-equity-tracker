@@ -71,7 +71,7 @@ function EquityTab() {
               <img
                 src="img/pexels-marcus-aurelius-4063919 1.png"
                 className={styles.HeaderImg}
-                alt="A woman in a wheelchair relaxing with a cup of tea"
+                alt="A woman in a wheelchair relaxing with a cup of tea, decorative photo"
               />
             </Grid>
           </Hidden>
@@ -308,7 +308,7 @@ function EquityTab() {
                   className={styles.NewsAndStoriesBigImg}
                   src="img/pexels-august-de-richelieu-4261261 1.png"
                   alt="Asian woman assisting a young black child with his
-                       mask"
+                       mask, Decorative Photo"
                 />
                 <h2 className={styles.NewsAndStoriesTitleText}>
                   Why It Matters That Information On Race, Ethnicity, Gender And
@@ -389,7 +389,7 @@ function EquityTab() {
                 <img
                   className={styles.NewsAndStoriesSmallImg}
                   src="img/pexels-ketut-subiyanto-4473409 2.png"
-                  alt="Asian woman laughing with two children"
+                  alt="Asian woman laughing with two children, Decorative Photo"
                 />
                 <h2 className={styles.NewsAndStoriesTitleText}>
                   How Complete Are The CDC's COVID-19 Case Surveillance Datasets

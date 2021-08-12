@@ -106,7 +106,7 @@ function TheProjectTab() {
               <img
                 src="img/pexels-ketut-subiyanto-4473871 1.png"
                 className={styles.ImgHeaderGridItem}
-                alt="A woman laying with her two children"
+                alt=""
               />
             </Grid>
           </Hidden>
