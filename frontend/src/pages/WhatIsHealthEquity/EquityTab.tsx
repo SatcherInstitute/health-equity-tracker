@@ -541,7 +541,7 @@ function EquityTab() {
                     color="primary"
                     variant="contained"
                     className={styles.EmailAddressFormSubmit}
-                    aria-label="Sign Up for Newsletter"
+                    aria-label="Sign Up for Newsletter in a new window"
                   >
                     Sign up
                   </Button>
