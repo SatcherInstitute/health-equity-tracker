@@ -45,8 +45,6 @@ class CdcVaccineNationalProvider extends VariableProvider {
     const vaxData = await getDataManager().loadDataset(datasetId);
     let df = vaxData.toDataFrame();
 
-    console.log(df.toArray());
-
     const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
       .columnName;
 
@@ -102,10 +100,26 @@ class CdcVaccineNationalProvider extends VariableProvider {
     } else if (breakdowns.geography === "state") {
       df = df.generateSeries({
         vaccinated_per_100k: (row) =>
-          row.vaccinated_pct == null ? null : row.vaccinated_pct * 1000,
+          row.vaccinated_pct == null ? null : row.vaccinated_pct * 1000 * 100,
       });
 
-      console.log(df.toArray());
+      df = df
+        .generateSeries({
+          vaccinated_pct_share: (row) =>
+            row.vaccinated_pct_share == null || isNaN(row.vaccinated_pct_share)
+              ? null
+              : row.vaccinated_pct_share * 100,
+        })
+        .resetIndex();
+
+      df = df
+        .generateSeries({
+          vaccinated_share_of_known: (row) => row["vaccinated_pct_share"],
+        })
+        .resetIndex();
+
+      // df = df.generateSeries({
+      // }).reset_index()
     }
 
     df = df.dropSeries(["population"]).resetIndex();

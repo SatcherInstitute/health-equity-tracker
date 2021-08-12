@@ -18,6 +18,7 @@ import {
   ALL,
   UNKNOWN,
   UNKNOWN_RACE,
+  UNKNOWN_ETHNICITY,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import UnknownsAlert from "./ui/UnknownsAlert";
@@ -77,7 +78,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
           .filter(
             (row: Row) =>
               row[props.breakdownVar] !== UNKNOWN &&
-              row[props.breakdownVar] !== UNKNOWN_RACE
+              row[props.breakdownVar] !== UNKNOWN_RACE &&
+              row[props.breakdownVar] !== UNKNOWN_ETHNICITY
           );
 
         const dataAvailable = !queryResponse.shouldShowMissingDataMessage([
