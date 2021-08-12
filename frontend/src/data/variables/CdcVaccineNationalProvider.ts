@@ -43,6 +43,7 @@ class CdcVaccineNationalProvider extends VariableProvider {
 
     df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);
+    df = this.renameTotalToAll(df, breakdownColumnName);
 
     let acsBreakdowns = breakdowns.copy();
     acsBreakdowns.time = false;
