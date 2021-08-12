@@ -35,7 +35,10 @@ export type MetricId =
   | "poverty_count"
   | "poverty_pct_share"
   | "poverty_per_100k"
-  | "poverty_population_pct";
+  | "poverty_population_pct"
+  | "vaccinated_pct_share"
+  | "vaccinated_per_100k"
+  | "vaccine_population_pct";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -400,6 +403,34 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "poverty_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+      },
+    },
+  ],
+  vaccinated: [
+    {
+      variableId: "vaccinated",
+      variableDisplayName: "Vaccination Rates",
+      variableFullDisplayName: "Individuals fully vaccinated against COVID-19",
+      metrics: {
+        per100k: {
+          metricId: "vaccinated_per_100k",
+          fullCardTitleName:
+            "Individuals fully vaccinated against COVID-19 Per 100K People",
+          shortVegaLabel: "individuals fully vaccinated per 100K",
+          type: "per100k",
+        },
+        pct_share: {
+          metricId: "vaccinated_pct_share",
+          fullCardTitleName: "Share of those who are fully vaccinated",
+          shortVegaLabel: "% of fully vaccinated",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "vaccine_population_pct",
             fullCardTitleName: populationPctTitle,
             shortVegaLabel: populationPctShortLabel,
             type: "pct_share",
