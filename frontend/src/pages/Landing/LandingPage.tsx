@@ -274,7 +274,7 @@ function LandingPage() {
                   <img
                     className={styles.HowToStepImg}
                     src="img/het-screen-1.png"
-                    alt="Screenshot: Investigate Rates of selected option Covid-19 in selected location United States"
+                    alt="Example Search Screenshot: Investigate Rates of option Covid-19 in location United States"
                   />
                 </Grid>
                 <Grid item xs={12} sm={12} md={3}>
@@ -301,7 +301,7 @@ function LandingPage() {
                   <img
                     className={styles.HowToStepImg}
                     src="img/het-screen-2.png"
-                    alt="Screenshot: Compare Rates of selected option Covid-19 between two selected locations"
+                    alt="Example Search Screenshot: Compare Rates of option Covid-19 between two locations"
                   />
                 </Grid>
                 <Grid item xs={12} sm={12} md={3}>
@@ -330,7 +330,7 @@ function LandingPage() {
                   <img
                     className={styles.HowToStepImg}
                     src="img/het-screen-3.png"
-                    alt="Screenshot, Date Tracker map of Covid-19 rates per 100,000 people of all racial groups"
+                    alt="Example Map Screenshot, Data Tracker map of option Covid-19 rates of all racial groups"
                   />
                 </Grid>
                 <Grid item xs={12} sm={12} md={3}>
