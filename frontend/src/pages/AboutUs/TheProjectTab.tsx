@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
 import {
-  LinkWithStickyParams,
+  // LinkWithStickyParams,
   EXPLORE_DATA_PAGE_LINK,
 } from "../../utils/urlutils";
 import Hidden from "@material-ui/core/Hidden";
@@ -204,18 +204,19 @@ function TheProjectTab() {
                     alignItems="flex-start"
                   >
                     <Grid item xs={12} sm={12} md={5}>
-                      <LinkWithStickyParams
+                      {/* <LinkWithStickyParams
                         to={EXPLORE_DATA_PAGE_LINK}
                         className={styles.NoUnderline}
+                      > */}
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        className={styles.PrimaryButton}
+                        href={EXPLORE_DATA_PAGE_LINK}
                       >
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          className={styles.PrimaryButton}
-                        >
-                          Explore the data
-                        </Button>
-                      </LinkWithStickyParams>
+                        Explore the data
+                      </Button>
+                      {/* </LinkWithStickyParams> */}
                     </Grid>
                   </Grid>
                 </Grid>
@@ -236,7 +237,7 @@ function TheProjectTab() {
             </Grid>
             <AimToGoItem
               src="img/HET_Overlapping_Lines_v4_1000px.gif"
-              alt="Decorative lines"
+              alt=""
               title="Expand data"
               text="As we continue to expand our data sources and analyze the
             data, we will have more information to share on
@@ -244,7 +245,7 @@ function TheProjectTab() {
             />
             <AimToGoItem
               src="img/HET_Fields_1_v2_1000px.gif"
-              alt="Decorative thick lines"
+              alt=""
               title="Empower policy makers"
               text="We plan to develop policy templates for local, state, and
             federal policy makers, and help create actionable policies
@@ -252,7 +253,7 @@ function TheProjectTab() {
             />
             <AimToGoItem
               src="img/HET_Dots_1_v3_1000px.gif"
-              alt="Decorative dots"
+              alt=""
               title="Measure progress"
               text="It’s important to track progress, so we plan to develop
             and publish more health equity reports and analyses."
