@@ -25,6 +25,12 @@ class CdcVaccineNationalProvider extends VariableProvider {
         "cdc_vaccination_national-" +
         breakdowns.getSoleDemographicBreakdown().columnName
       );
+    } else if (
+      breakdowns.geography === "state" &&
+      breakdowns.getSoleDemographicBreakdown().columnName ===
+        "race_and_ethnicity"
+    ) {
+      return "kff_vaccination-race_and_ethnicity";
     }
 
     return "";
@@ -36,8 +42,10 @@ class CdcVaccineNationalProvider extends VariableProvider {
     const breakdowns = metricQuery.breakdowns;
 
     const datasetId = this.getDatasetId(breakdowns);
-    const brfss = await getDataManager().loadDataset(datasetId);
-    let df = brfss.toDataFrame();
+    const vaxData = await getDataManager().loadDataset(datasetId);
+    let df = vaxData.toDataFrame();
+
+    console.log(df.toArray());
 
     const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
       .columnName;
@@ -66,27 +74,38 @@ class CdcVaccineNationalProvider extends VariableProvider {
       population_pct: "vaccine_population_pct",
     });
 
-    df = df.generateSeries({
-      vaccinated_per_100k: (row) =>
-        this.calculations.per100k(row.fully_vaccinated, row.population),
-    });
+    console.log(df.toArray());
 
-    // Calculate any share_of_known metrics that may have been requested in the query
-    if (this.allowsBreakdowns(breakdowns)) {
-      df = this.calculations.calculatePctShare(
-        df,
-        "fully_vaccinated",
-        "vaccinated_pct_share",
-        breakdownColumnName,
-        ["fips"]
-      );
+    if (breakdowns.geography === "national") {
+      df = df.generateSeries({
+        vaccinated_per_100k: (row) =>
+          this.calculations.per100k(row.fully_vaccinated, row.population),
+      });
 
-      df = this.calculations.calculatePctShareOfKnown(
-        df,
-        "fully_vaccinated",
-        "vaccinated_share_of_known",
-        breakdownColumnName
-      );
+      // Calculate any share_of_known metrics that may have been requested in the query
+      if (this.allowsBreakdowns(breakdowns)) {
+        df = this.calculations.calculatePctShare(
+          df,
+          "fully_vaccinated",
+          "vaccinated_pct_share",
+          breakdownColumnName,
+          ["fips"]
+        );
+
+        df = this.calculations.calculatePctShareOfKnown(
+          df,
+          "fully_vaccinated",
+          "vaccinated_share_of_known",
+          breakdownColumnName
+        );
+      }
+    } else if (breakdowns.geography === "state") {
+      df = df.generateSeries({
+        vaccinated_per_100k: (row) =>
+          row.vaccinated_pct == null ? null : row.vaccinated_pct * 1000,
+      });
+
+      console.log(df.toArray());
     }
 
     df = df.dropSeries(["population"]).resetIndex();
@@ -101,7 +120,11 @@ class CdcVaccineNationalProvider extends VariableProvider {
       !breakdowns.time && breakdowns.hasExactlyOneDemographic();
 
     return (
-      breakdowns.geography === "national" && validDemographicBreakdownRequest
+      (breakdowns.geography === "national" ||
+        (breakdowns.geography === "state" &&
+          breakdowns.getSoleDemographicBreakdown().columnName ===
+            "race_and_ethnicity")) &&
+      validDemographicBreakdownRequest
     );
   }
 }

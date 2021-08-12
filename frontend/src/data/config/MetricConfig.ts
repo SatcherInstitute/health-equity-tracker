@@ -426,7 +426,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           type: "per100k",
         },
         pct_share: {
-          metricId: "vaccinated_share_of_known",
+          metricId: "vaccinated_pct_share",
           fullCardTitleName: "Share of those who are fully vaccinated",
           shortVegaLabel: "% of fully vaccinated",
           type: "pct_share",
@@ -434,6 +434,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             metricId: "vaccine_population_pct",
             fullCardTitleName: populationPctTitle,
             shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+          knownBreakdownComparisonMetric: {
+            metricId: "vaccinated_share_of_known",
+            fullCardTitleName: "Share Of Fully Vaccinated",
+            shortVegaLabel: "% of vaccinated",
             type: "pct_share",
           },
         },
