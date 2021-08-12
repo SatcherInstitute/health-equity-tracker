@@ -112,6 +112,7 @@ function Logos() {
             src="img/AppbarLogo.png"
             className={styles.FooterLogo}
             alt="Health Equity Tracker logo"
+            role="link"
           />
         </ReactRouterLinkButton>
       </Grid>
