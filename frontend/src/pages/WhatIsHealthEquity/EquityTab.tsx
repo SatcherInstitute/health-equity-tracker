@@ -71,7 +71,7 @@ function EquityTab() {
               <img
                 src="img/pexels-marcus-aurelius-4063919 1.png"
                 className={styles.HeaderImg}
-                alt="A woman in a wheelchair relaxing with a cup of tea, decorative photo"
+                alt="A woman in a wheelchair relaxing with a cup of tea, decorative"
               />
             </Grid>
           </Hidden>
@@ -253,8 +253,7 @@ function EquityTab() {
                       <img
                         className={styles.ResourceImg}
                         src="img/maxresdefault (1) 1.png"
-                        alt="Header for Morehouse School of Medicine
-                             National COVID-19 Resiliency Network"
+                        alt="Header for Morehouse School of Medicine National COVID-19 Resiliency Network"
                       />
                       <h2 className={styles.ResourceTitleText}>
                         Morehouse School of Medicine National COVID-19
@@ -307,8 +306,7 @@ function EquityTab() {
                 <img
                   className={styles.NewsAndStoriesBigImg}
                   src="img/pexels-august-de-richelieu-4261261 1.png"
-                  alt="Asian woman assisting a young black child with his
-                       mask, Decorative Photo"
+                  alt="Asian woman assisting a young black child with his mask, Decorative"
                 />
                 <h2 className={styles.NewsAndStoriesTitleText}>
                   Why It Matters That Information On Race, Ethnicity, Gender And
@@ -389,7 +387,7 @@ function EquityTab() {
                 <img
                   className={styles.NewsAndStoriesSmallImg}
                   src="img/pexels-ketut-subiyanto-4473409 2.png"
-                  alt="Asian woman laughing with two children, Decorative Photo"
+                  alt="Asian woman laughing with two children, Decorative"
                 />
                 <h2 className={styles.NewsAndStoriesTitleText}>
                   How Complete Are The CDC's COVID-19 Case Surveillance Datasets
