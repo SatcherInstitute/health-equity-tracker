@@ -12,7 +12,7 @@ function TermsOfServicePage(props: {
       <h1 className={styles.ScreenreaderTitleHeader}>Terms of Service</h1>
       <Grid container className={styles.Grid}>
         <Grid container className={styles.TosSection}>
-          <Grid item xs={3}>
+          <Grid item xs={12} md={3}>
             <Typography
               id="main"
               tabIndex={-1}
@@ -22,7 +22,7 @@ function TermsOfServicePage(props: {
               Privacy Policy
             </Typography>
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={12} md={9}>
             <Grid container>
               <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
                 <div className={styles.TosAnswer}>
@@ -181,12 +181,12 @@ function TermsOfServicePage(props: {
         </Grid>
 
         <Grid container className={styles.TosSection}>
-          <Grid item xs={3}>
+          <Grid item xs={12} md={3}>
             <Typography className={styles.TosHeaderText} variant="h2">
               Terms and Conditions
             </Typography>
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={12} md={9}>
             <Grid container>
               <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
                 <div className={styles.TosAnswer}>
