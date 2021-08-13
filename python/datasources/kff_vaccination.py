@@ -11,6 +11,7 @@ from ingestion import gcs_to_bq_util
 
 BASE_KFF_URL_PCT_SHARE_RACE = 'https://docs.google.com/spreadsheets/d/15TWTFIdtRgJ2mVijCChuOt_Zvwxp4xFByzFD1p6wazI/gviz/tq?tqx=out:csv'
 BASE_KFF_URL_PERCENTAGES_BY_RACE_OF_TOTAL = 'https://docs.google.com/spreadsheets/d/1kKWHZtwFWUcpoy4lLyKa0QPxlVyhDjn1Ob4g5HF4NEw/gviz/tq?tqx=out:csv'
+BASE_KFF_TOTALS_STATE = 'https://docs.google.com/spreadsheets/d/1wjdh79UOyGLF1HZ1Dr7WqDoDTxDDvA41lQQh8oPH_LU/gviz/tq?tqx=out:csv'
 
 UNKNOWN_TO_STANDARD = {
     '% of Vaccinations with Unknown Race Percent--narrow': Race.UNKNOWN.value,
@@ -122,6 +123,7 @@ class KFFVaccination(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         percentage_of_total_df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_KFF_URL_PERCENTAGES_BY_RACE_OF_TOTAL)
         pct_share_df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_KFF_URL_PCT_SHARE_RACE)
+        total_df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_KFF_TOTAL_STATE)
 
         output = []
         columns = [std_col.STATE_NAME_COL, std_col.RACE_CATEGORY_ID_COL, std_col.VACCINATED_PCT_SHARE, std_col.VACCINATED_PCT]
