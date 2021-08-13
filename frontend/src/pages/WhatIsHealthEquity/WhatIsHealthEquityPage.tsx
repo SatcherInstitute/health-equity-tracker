@@ -6,7 +6,6 @@ import EquityTab from "./EquityTab";
 import FaqTab from "./FaqTab";
 import { TAB_PARAM, useSearchParams } from "../../utils/urlutils";
 import ResourcesTab from "./ResourcesTab";
-
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useEffect } from "react";
@@ -33,9 +32,7 @@ export function WhatIsHealthEquityPage() {
 
   // when screen width changes, update tab spacing material UI attribute
   useEffect(() => {
-    setTabLayout(
-      pageIsWide ? { "centered": "true" } : { "variant": "fullWidth" }
-    );
+    setTabLayout(pageIsWide ? { centered: "true" } : { variant: "fullWidth" });
   }, [pageIsWide]);
 
   return (
