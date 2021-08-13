@@ -106,8 +106,8 @@ def generate_total_row(state_row_totals, state):
     output_row = {}
     output_row[std_col.STATE_NAME_COL] = state
     output_row[std_col.RACE_CATEGORY_ID_COL] = Race.TOTAL.value
-
     output_row[std_col.VACCINATED_PCT] = str(state_row_totals[TOTAL_KEY].values[0])
+    output_row[std_col.VACCINATED_PCT_SHARE] = "1.0"
     return output_row
 
 def clean_state_names(df):
