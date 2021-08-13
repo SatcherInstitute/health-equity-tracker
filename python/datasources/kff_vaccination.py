@@ -6,12 +6,11 @@ import ingestion.standardized_columns as std_col
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 
-
-### Source URL: https://data.cdc.gov/Vaccinations/COVID-19-Vaccination-Demographics-in-the-United-St/km4m-vcsb
-
 BASE_KFF_URL_PCT_SHARE_RACE = 'https://docs.google.com/spreadsheets/d/15TWTFIdtRgJ2mVijCChuOt_Zvwxp4xFByzFD1p6wazI/gviz/tq?tqx=out:csv'
 BASE_KFF_URL_PERCENTAGES_BY_RACE_OF_TOTAL = 'https://docs.google.com/spreadsheets/d/1kKWHZtwFWUcpoy4lLyKa0QPxlVyhDjn1Ob4g5HF4NEw/gviz/tq?tqx=out:csv'
-BASE_KFF_TOTALS_STATE = 'https://docs.google.com/spreadsheets/d/1wjdh79UOyGLF1HZ1Dr7WqDoDTxDDvA41lQQh8oPH_LU/gviz/tq?tqx=out:csv'
+BASE_KFF_URL_TOTALS_STATE = 'https://docs.google.com/spreadsheets/d/1wjdh79UOyGLF1HZ1Dr7WqDoDTxDDvA41lQQh8oPH_LU/gviz/tq?tqx=out:csv'
+
+TOTAL_KEY = 'Share of Population Fully Vaccinated Percent'
 
 UNKNOWN_TO_STANDARD = {
     '% of Vaccinations with Unknown Race Percent--narrow': Race.UNKNOWN.value,
@@ -77,10 +76,10 @@ def get_unknown_rows(df, state):
 def generate_output_row(state_row_pct_share, state_row_pct_total, state, race):
     """Generates the row with vaccine information for the given race and state
     The pct total spreadheet has a subset of races of the pct_share sheet.
-    Return an empty row if the percent share of vaccinations is less than 1%
 
     state_row_pct_share: Pandas dataframe row with percent share of vaccines per race
     state_row_pct_total: Pandas dataframe row with percent total of each race vaccinatd
+    state_row_totals: Pandas dataframe row with state vaccination totals
     state: String state name to find vaccine information of
     race: String race name to find vaccine information of
     """
@@ -96,6 +95,19 @@ def generate_output_row(state_row_pct_share, state_row_pct_total, state, race):
     if race in KFF_RACES_PCT_TOTAL:
         output_row[std_col.VACCINATED_PCT] = str(state_row_pct_total[generate_total_pct_key(race)].values[0])
 
+    return output_row
+
+def generate_total_row(state_row_totals, state):
+    """Generates the total vaccinated percentage row for a givcen state
+
+    state_row_totals: Pandas dataframe row with state vaccination totals information
+    state: String of state name
+    """
+    output_row = {}
+    output_row[std_col.STATE_NAME_COL] = state
+    output_row[std_col.RACE_CATEGORY_ID_COL] = Race.TOTAL.value
+
+    output_row[std_col.VACCINATED_PCT] = str(state_row_totals[TOTAL_KEY].values[0])
     return output_row
 
 def clean_state_names(df):
@@ -123,16 +135,18 @@ class KFFVaccination(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         percentage_of_total_df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_KFF_URL_PERCENTAGES_BY_RACE_OF_TOTAL)
         pct_share_df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_KFF_URL_PCT_SHARE_RACE)
-        total_df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_KFF_TOTAL_STATE)
+        total_df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_KFF_URL_TOTALS_STATE, dtype={TOTAL_KEY: str})
 
         output = []
         columns = [std_col.STATE_NAME_COL, std_col.RACE_CATEGORY_ID_COL, std_col.VACCINATED_PCT_SHARE, std_col.VACCINATED_PCT]
 
         percentage_of_total_df = percentage_of_total_df.rename(columns={'Unnamed: 0': 'state'})
         pct_share_df = pct_share_df.rename(columns={'Unnamed: 0': 'state'})
+        total_df = total_df.rename(columns={'Unnamed: 0': 'state'})
 
         clean_state_names(percentage_of_total_df)
         clean_state_names(pct_share_df)
+        clean_state_names(total_df)
 
         states = percentage_of_total_df['state'].drop_duplicates().to_list()
         states.remove('United States')
@@ -140,12 +154,15 @@ class KFFVaccination(DataSource):
         for state in states:
             state_row_pct_share = pct_share_df.loc[pct_share_df['state'] == state]
             state_row_pct_total = percentage_of_total_df.loc[percentage_of_total_df['state'] == state]
+            state_row_totals = total_df.loc[total_df['state'] == state]
 
             output.extend(get_unknown_rows(state_row_pct_share, state))
 
             ## Get race metrics
             for race in KFF_RACES_PCT_SHARE:
                 output.append(generate_output_row(state_row_pct_share, state_row_pct_total, state, race))
+
+            output.append(generate_total_row(state_row_totals, state))
 
         output_df = pd.DataFrame(output, columns=columns)
         std_col.add_race_columns_from_category_id(output_df)

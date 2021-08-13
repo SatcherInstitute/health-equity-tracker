@@ -13,16 +13,24 @@ TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data")
 GOLDEN_DATA = os.path.join(TEST_DIR, 'kff_vaccination_by_race_and_ethnicity.csv')
 
 def get_perecentage_of_race_test_data_as_df():
-    return pd.read_csv(os.path.join(TEST_DIR, 'kff_vaccination_percentage_of_race_test.csv'), dtype={'state_fips': str})
+    return pd.read_csv(os.path.join(TEST_DIR, 'kff_vaccination_percentage_of_race_test.csv'))
 
 def get_pct_share_race_test_data_as_df():
-    return pd.read_csv(os.path.join(TEST_DIR, 'kff_vaccination_pct_share_race_test.csv'), dtype={'state_fips': str})
+    return pd.read_csv(os.path.join(TEST_DIR, 'kff_vaccination_pct_share_race_test.csv'))
+
+def get_state_totals_test_data_as_df():
+    total_key = 'Share of Population Fully Vaccinated Percent'
+    return pd.read_csv(os.path.join(TEST_DIR, 'kff_vaccination_state_totals_test.csv'), dtype={total_key: str})
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe_from_web')
 @mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
             return_value=None)
 def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
-    mock_csv.side_effect = [get_perecentage_of_race_test_data_as_df(), get_pct_share_race_test_data_as_df()]
+    mock_csv.side_effect = [
+        get_perecentage_of_race_test_data_as_df(),
+        get_pct_share_race_test_data_as_df(),
+        get_state_totals_test_data_as_df()
+    ]
     kffVaccination = KFFVaccination()
 
     kwargs = {'filename': 'test_file.csv',
