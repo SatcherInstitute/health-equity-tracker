@@ -5,7 +5,10 @@ import styles from "./WhatIsHealthEquityPage.module.scss";
 import EquityTab from "./EquityTab";
 import FaqTab from "./FaqTab";
 import { TAB_PARAM, useSearchParams } from "../../utils/urlutils";
-import ResourcesTab from './ResourcesTab';
+import ResourcesTab from "./ResourcesTab";
+import { useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useEffect } from "react";
 
 export const WIHE_HEALTH_EQUITY_TAB_INDEX = 0;
 export const WIHE_FAQ_TAB_INDEX = 1;
@@ -13,6 +16,11 @@ export const WIHE_JOIN_THE_EFFORT_SECTION_ID = "join";
 
 export function WhatIsHealthEquityPage() {
   const params = useSearchParams();
+
+  // responsive tabs layout to fix mobile bug
+  const theme = useTheme();
+  const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
+  const [tabLayout, setTabLayout] = React.useState({});
 
   const [tabIndex, setTabIndex] = React.useState(
     params[TAB_PARAM] ? Number(params[TAB_PARAM]) : 0
@@ -22,15 +30,20 @@ export function WhatIsHealthEquityPage() {
     setTabIndex(newTabIndex);
   };
 
+  // when screen width changes, update tab spacing material UI attribute
+  useEffect(() => {
+    setTabLayout(pageIsWide ? { centered: "true" } : { variant: "fullWidth" });
+  }, [pageIsWide]);
+
   return (
     <div className={styles.WhatIsHealthEquityPage}>
       <Tabs
         tabIndex={tabIndex}
         value={tabIndex}
+        {...tabLayout}
         onChange={handleChange}
         indicatorColor="primary"
         textColor="primary"
-        centered
       >
         <Tab
           className={styles.WhatIsHealthEquityTab}
@@ -41,8 +54,8 @@ export function WhatIsHealthEquityPage() {
           label="Frequently Asked Questions"
         />
         <Tab
-            className={styles.WhatIsHealthEquityTab}
-            label="Health Equity Resources"
+          className={styles.WhatIsHealthEquityTab}
+          label="Health Equity Resources"
         />
       </Tabs>
       {tabIndex === 0 && <EquityTab />}
