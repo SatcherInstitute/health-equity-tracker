@@ -6,7 +6,6 @@ import Hidden from "@material-ui/core/Hidden";
 import Typography from "@material-ui/core/Typography";
 import {
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-  // LinkWithStickyParams,
   EXPLORE_DATA_PAGE_LINK,
   TAB_PARAM,
   ReactRouterLinkButton,
@@ -349,10 +348,6 @@ function LandingPage() {
               <Grid item>
                 <br />
                 <br />
-                {/* <LinkWithStickyParams
-                  to={EXPLORE_DATA_PAGE_LINK}
-                  class={styles.NoUnderline}
-                > */}
                 <Button
                   variant="contained"
                   color="primary"
@@ -361,7 +356,6 @@ function LandingPage() {
                 >
                   Explore the Tracker
                 </Button>
-                {/* </LinkWithStickyParams> */}
               </Grid>
             </Grid>
           </Grid>
