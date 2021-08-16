@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import FaqSection from "../ui/FaqSection";
 import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "./WhatIsHealthEquityPage";
 import { Box } from "@material-ui/core";
+import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -48,6 +49,8 @@ function JoinTheEffortContainer(props: {
 }
 
 function EquityTab() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+
   return (
     <div className={styles.WhatIsHealthEquityPage}>
       <title>What is Health Equity - Health Equity Tracker</title>
@@ -466,7 +469,11 @@ function EquityTab() {
           </Grid>
 
           <JoinTheEffortContainer
-            imageUrl="img/HET_Overlapping_Lines_v4_1000px.gif"
+            imageUrl={
+              prefersReducedMotion
+                ? "img/HET-lines-no-motion.gif"
+                : "img/HET_Overlapping_Lines_v4_1000px.gif"
+            }
             imageBackground="#A5CDC0"
             imageAlt=""
             textTitle="Learn to create actionable solutions"
@@ -492,7 +499,11 @@ function EquityTab() {
           />
 
           <JoinTheEffortContainer
-            imageUrl="img/HET_Fields_1_v2_1000px.gif"
+            imageUrl={
+              prefersReducedMotion
+                ? "img/HET-fields-no-motion.gif"
+                : "img/HET_Fields_1_v2_1000px.gif"
+            }
             imageBackground="#EDB2A6"
             imageAlt=""
             textTitle="Give back to your community"
@@ -518,7 +529,11 @@ function EquityTab() {
           />
 
           <JoinTheEffortContainer
-            imageUrl="img/HET_Dots_1_v3_1000px.gif"
+            imageUrl={
+              prefersReducedMotion
+                ? "img/HET-dots-no-motion.gif"
+                : "img/HET_Dots_1_v3_1000px.gif"
+            }
             imageBackground="#275141"
             imageAlt=""
             textTitle="Sign up for our newsletter"

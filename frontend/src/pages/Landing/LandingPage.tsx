@@ -16,6 +16,7 @@ import {
   WIHE_JOIN_THE_EFFORT_SECTION_ID,
 } from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
 import { Box } from "@material-ui/core";
+import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 
 function TakeALookAroundItem(props: {
   src: string;
@@ -46,6 +47,8 @@ function TakeALookAroundItem(props: {
 }
 
 function LandingPage() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+
   return (
     <>
       <title>Home - Health Equity Tracker</title>
@@ -136,19 +139,31 @@ function LandingPage() {
                 justify="space-around"
               >
                 <TakeALookAroundItem
-                  src="img/HET_Fields_1_v2_1000px.gif"
+                  src={
+                    prefersReducedMotion
+                      ? "img/HET-fields-no-motion.gif"
+                      : "img/HET_Fields_1_v2_1000px.gif"
+                  }
                   alt="" // give blank alt text to  decorative images. Decorative dots
                   text="(1) Learn about health equity"
                   ariaLabel="Step 1: Learn about health equity"
                 />
                 <TakeALookAroundItem
-                  src="img/HET_Dots_1_v3_1000px.gif"
+                  src={
+                    prefersReducedMotion
+                      ? "img/HET-dots-no-motion.gif"
+                      : "img/HET_Dots_1_v3_1000px.gif"
+                  }
                   alt="" // Decorative thick lines
                   text="(2) Investigate the data"
                   ariaLabel="Step 2: Investigate the data"
                 />
                 <TakeALookAroundItem
-                  src="img/HET_Spiral_v4_1000px.gif"
+                  src={
+                    prefersReducedMotion
+                      ? "img/HET-spiral-no-motion.gif"
+                      : "img/HET_Spiral_v4_1000px.gif"
+                  }
                   alt="" // Decorative circular pattern
                   text="(3) Share our site and join our movement"
                   ariaLabel="Step 3: Share our site and join our movement"
