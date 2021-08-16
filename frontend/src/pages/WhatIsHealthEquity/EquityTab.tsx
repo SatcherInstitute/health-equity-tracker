@@ -74,7 +74,7 @@ function EquityTab() {
               <img
                 src="img/pexels-marcus-aurelius-4063919 1.png"
                 className={styles.HeaderImg}
-                alt="A woman in a wheelchair relaxing with a cup of tea, decorative"
+                alt=""
               />
             </Grid>
           </Hidden>
@@ -309,7 +309,7 @@ function EquityTab() {
                 <img
                   className={styles.NewsAndStoriesBigImg}
                   src="img/pexels-august-de-richelieu-4261261 1.png"
-                  alt="Asian woman assisting a young black child with his mask, Decorative"
+                  alt=""
                 />
                 <h2 className={styles.NewsAndStoriesTitleText}>
                   Why It Matters That Information On Race, Ethnicity, Gender And

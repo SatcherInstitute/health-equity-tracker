@@ -160,7 +160,7 @@ function LandingPage() {
                       ? "img/HET-fields-no-motion.gif"
                       : "img/HET_Fields_1_v2_1000px.gif"
                   }
-                  alt="" // give blank alt text to  decorative images. Decorative dots
+                  alt=""
                   text="(1) Learn about health equity"
                   ariaLabel="Step 1: Learn about health equity"
                 />
@@ -170,7 +170,7 @@ function LandingPage() {
                       ? "img/HET-dots-no-motion.gif"
                       : "img/HET_Dots_1_v3_1000px.gif"
                   }
-                  alt="" // Decorative thick lines
+                  alt=""
                   text="(2) Investigate the data"
                   ariaLabel="Step 2: Investigate the data"
                 />
@@ -180,7 +180,7 @@ function LandingPage() {
                       ? "img/HET-spiral-no-motion.gif"
                       : "img/HET_Spiral_v4_1000px.gif"
                   }
-                  alt="" // Decorative circular pattern
+                  alt=""
                   text="(3) Share our site and join our movement"
                   ariaLabel="Step 3: Share our site and join our movement"
                 />
@@ -225,7 +225,7 @@ function LandingPage() {
                 <img
                   src="img/118172286-e3fffb80-b3c7-11eb-9553-127462881af3.png"
                   className={styles.PrioritizeHealthEquityImg}
-                  alt="Three women embracing a small baby in between them"
+                  alt=""
                 />
               </Grid>
             </Hidden>

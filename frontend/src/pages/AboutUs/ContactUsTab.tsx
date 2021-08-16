@@ -46,7 +46,7 @@ function ContactUsTab() {
               <img
                 src="img/pexels-mentatdgt-1206059 2.png"
                 className={styles.ImgContactUsHeader}
-                alt="A group of female friends hug"
+                alt=""
               />
             </Grid>
           </Hidden>
