@@ -22,7 +22,7 @@ const LEADERSHIP_TEAM = [
   {
     name: "Allyson Belton, MPH",
     role: "Coalition/Engagement",
-    imageUrl: "img/BeltonAllyson.png",
+    imageUrl: "img/Belton_Allyson.png",
   },
   {
     name: "Mahia Valle, MBA",
