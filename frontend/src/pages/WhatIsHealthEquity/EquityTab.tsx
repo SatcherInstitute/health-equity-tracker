@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import Button from "@material-ui/core/Button";
 import Hidden from "@material-ui/core/Hidden";
@@ -8,6 +8,9 @@ import Typography from "@material-ui/core/Typography";
 import FaqSection from "../ui/FaqSection";
 import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "./WhatIsHealthEquityPage";
 import { Box } from "@material-ui/core";
+import { APP_TITLE } from "../../App";
+
+export const WIHE_TITLE = "What Is Health Equity";
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -48,9 +51,12 @@ function JoinTheEffortContainer(props: {
 }
 
 function EquityTab() {
+  useEffect(() => {
+    document.title = `${WIHE_TITLE} - ${APP_TITLE}`;
+  }, []);
+
   return (
     <div className={styles.WhatIsHealthEquityPage}>
-      <title>What is Health Equity - Health Equity Tracker</title>
       <Grid container className={styles.Grid}>
         <Grid
           container

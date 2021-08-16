@@ -4,11 +4,17 @@ import styles from "./WhatIsHealthEquityPage.module.scss";
 import { Typography } from "@material-ui/core";
 import { TAB_PARAM, ABOUT_US_PAGE_LINK } from "../../utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
+import { useEffect } from "react";
+import { WIHE_TITLE } from "./EquityTab";
+import { APP_TITLE } from "../../App";
 
 function FaqTab() {
+  useEffect(() => {
+    document.title = `FAQ - ${WIHE_TITLE} - ${APP_TITLE}`;
+  }, []);
+
   return (
     <>
-      <title>FAQ - About Us - Health Equity Tracker</title>
       <h1 className={styles.ScreenreaderTitleHeader}>
         Frequently Asked Questions
       </h1>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -8,6 +8,10 @@ import {
   EXPLORE_DATA_PAGE_LINK,
 } from "../../utils/urlutils";
 import Hidden from "@material-ui/core/Hidden";
+import { ABOUT_US_TITLE } from "./AboutUsPage";
+import { APP_TITLE } from "../../App";
+
+export const PROJECT_TITLE = "The Project";
 
 function AimToGoItem(props: {
   src: string;
@@ -56,10 +60,13 @@ function AimToGoItem(props: {
 }
 
 function TheProjectTab() {
+  useEffect(() => {
+    document.title = `${PROJECT_TITLE} - ${ABOUT_US_TITLE} - ${APP_TITLE}`;
+  }, []);
+
   return (
     <>
-      <title>The Project - About Us - Health Equity Tracker</title>
-      <h1 className={styles.ScreenreaderTitleHeader}>The Project</h1>
+      <h1 className={styles.ScreenreaderTitleHeader}>{PROJECT_TITLE}</h1>
       <Grid container className={styles.Grid}>
         <Grid
           container

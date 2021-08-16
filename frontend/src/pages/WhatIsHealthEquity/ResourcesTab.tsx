@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import { Typography } from "@material-ui/core";
+import { APP_TITLE } from "../../App";
+import { WIHE_TITLE } from "./EquityTab";
+
+export const RESOURCES_TITLE = "Resources";
 
 const RESOURCES = [
   {
@@ -254,14 +258,13 @@ const RESOURCES = [
 ];
 
 function ResourcesTab() {
+  useEffect(() => {
+    document.title = `${RESOURCES_TITLE} - ${WIHE_TITLE} - ${APP_TITLE}`;
+  }, []);
+
   return (
     <>
-      <title>
-        Health Equity Resources - What Is Health Equity? - Health Equity Tracker
-      </title>
-      <h1 className={styles.ScreenreaderTitleHeader}>
-        Health Equity Resources
-      </h1>
+      <h1 className={styles.ScreenreaderTitleHeader}>{RESOURCES_TITLE}</h1>
       <Grid container className={styles.Grid}>
         <Grid container className={styles.ResourcesSection}>
           <Grid item xs={12} sm={12} md={3}>

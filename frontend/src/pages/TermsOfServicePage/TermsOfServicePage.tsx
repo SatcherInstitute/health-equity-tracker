@@ -1,15 +1,21 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./TermsOfServicePage.module.scss";
 import { Typography } from "@material-ui/core";
+import { APP_TITLE } from "../../App";
+
+export const TOS_TITLE = "Terms of Use";
 
 function TermsOfServicePage(props: {
   setTabIndexFx: Dispatch<SetStateAction<number>>;
 }) {
+  useEffect(() => {
+    document.title = `${TOS_TITLE} - ${APP_TITLE}`;
+  }, []);
+
   return (
     <>
-      <title>Terms of Service - Health Equity Tracker</title>
-      <h1 className={styles.ScreenreaderTitleHeader}>Terms of Service</h1>
+      <h1 className={styles.ScreenreaderTitleHeader}>${TOS_TITLE}</h1>
       <Grid container className={styles.Grid}>
         <Grid container className={styles.TosSection}>
           <Grid item xs={12} md={3}>

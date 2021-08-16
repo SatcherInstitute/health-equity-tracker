@@ -10,6 +10,7 @@ import { TAB_PARAM, useSearchParams } from "../../utils/urlutils";
 export const ABOUT_US_PROJECT_TAB_INDEX = 0;
 export const ABOUT_US_TEAM_TAB_INDEX = 1;
 export const ABOUT_US_CONTACT_TAB_INDEX = 2;
+export const ABOUT_US_TITLE = "About Us";
 
 export function AboutUsPage() {
   const params = useSearchParams();

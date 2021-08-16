@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { STATUS } from "react-joyride";
 import Carousel from "react-material-ui-carousel";
+import { APP_TITLE } from "../../App";
 import { Fips } from "../../data/utils/Fips";
 import ReportProvider from "../../reports/ReportProvider";
 import {
@@ -27,6 +28,8 @@ import {
 import styles from "./ExploreDataPage.module.scss";
 import { Onboarding } from "./Onboarding";
 import OptionsSelector from "./OptionsSelector";
+
+export const EXPLORE_TITLE = "Explore the Data";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -76,6 +79,8 @@ function ExploreDataPage() {
     const psSub = psSubscribe(readParams, "explore");
 
     readParams();
+
+    document.title = `${EXPLORE_TITLE} - ${APP_TITLE}`;
 
     return () => {
       if (psSub) {
@@ -143,8 +148,7 @@ function ExploreDataPage() {
         callback={onboardingCallback}
         activelyOnboarding={activelyOnboarding}
       />
-      <title>Explore the Data - Health Equity Tracker</title>
-      <h1 className={styles.ScreenreaderTitleHeader}>Explore the Data</h1>
+      <h1 className={styles.ScreenreaderTitleHeader}>{EXPLORE_TITLE}</h1>
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
         <div
           className={styles.CarouselContainer}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./DataCatalogPage.module.scss";
 import {
@@ -8,12 +8,17 @@ import {
   EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK,
 } from "../../utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
+import { APP_TITLE } from "../../App";
+export const METHODOLOGY_TITLE = "Methodology";
 
 function MethodologyTab() {
+  useEffect(() => {
+    document.title = `${METHODOLOGY_TITLE} - ${APP_TITLE}`;
+  }, []);
+
   return (
     <>
-      <title>Methodology - Health Equity Tracker</title>
-      <h1 className={styles.ScreenreaderTitleHeader}>Methodology</h1>
+      <h1 className={styles.ScreenreaderTitleHeader}>{METHODOLOGY_TITLE}</h1>
       <Grid
         container
         className={styles.Grid}

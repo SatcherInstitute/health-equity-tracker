@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
+import { ABOUT_US_TITLE } from "./AboutUsPage";
+import { APP_TITLE } from "../../App";
+
+export const TEAM_TITLE = "Our Team";
 
 const LEADERSHIP_TEAM = [
   {
@@ -255,10 +259,13 @@ const PARTNERS = [
 ];
 
 function OurTeamTab() {
+  useEffect(() => {
+    document.title = `${TEAM_TITLE} - ${ABOUT_US_TITLE} - ${APP_TITLE}`;
+  }, []);
+
   return (
     <>
-      <title>Our Team - About Us - Health Equity Tracker</title>
-      <h1 className={styles.ScreenreaderTitleHeader}>Our Team</h1>
+      <h1 className={styles.ScreenreaderTitleHeader}>{TEAM_TITLE}</h1>
       <Grid container className={styles.Grid}>
         <Grid container className={styles.GridRowHeaderText}>
           <Grid item xs={12} sm={12} md={7}>

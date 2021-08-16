@@ -42,6 +42,7 @@ import {
 } from "./utils/urlutils";
 
 const MOBILE_BREAKPOINT = 600;
+export const APP_TITLE = "Health Equity Tracker";
 
 const PAGE_URL_TO_NAMES: Record<string, string> = {
   "/": "Homepage",

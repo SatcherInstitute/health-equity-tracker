@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./LandingPage.module.scss";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -17,6 +17,9 @@ import {
   WIHE_JOIN_THE_EFFORT_SECTION_ID,
 } from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
 import { Box } from "@material-ui/core";
+import { APP_TITLE } from "../../App";
+
+export const HOME_TITLE = "Home";
 
 function TakeALookAroundItem(props: {
   src: string;
@@ -46,10 +49,13 @@ function TakeALookAroundItem(props: {
 }
 
 function LandingPage() {
+  useEffect(() => {
+    document.title = `${HOME_TITLE} - ${APP_TITLE}`;
+  }, []);
+
   return (
     <>
-      <title>Home - Health Equity Tracker</title>
-      <h1 className={styles.ScreenreaderTitleHeader}>Home Page</h1>
+      <h1 className={styles.ScreenreaderTitleHeader}>{HOME_TITLE}</h1>
       <div className={styles.LandingPage}>
         <Grid container className={styles.Grid}>
           <Grid

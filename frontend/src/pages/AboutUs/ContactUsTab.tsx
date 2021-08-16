@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./AboutUsPage.module.scss";
 import Typography from "@material-ui/core/Typography";
 import Hidden from "@material-ui/core/Hidden";
+import { ABOUT_US_TITLE } from "./AboutUsPage";
+import { APP_TITLE } from "../../App";
+
+export const CONTACT_TITLE = "Contact Us";
 
 function ContactUsTab() {
+  useEffect(() => {
+    document.title = `${CONTACT_TITLE} - ${ABOUT_US_TITLE} - ${APP_TITLE}`;
+  }, []);
+
   return (
     <>
-      <title>Contact Us - About Us - Health Equity Tracker</title>
       <h1 className={styles.ScreenreaderTitleHeader}>Contact Us</h1>
       <Grid container className={styles.Grid}>
         <Grid
