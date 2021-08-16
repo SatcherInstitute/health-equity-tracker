@@ -20,7 +20,7 @@ export const DATA_SOURCE_PRE_FILTERS = "dpf";
 // Value is index of the phrase to jump to
 export const MADLIB_PHRASE_PARAM = "mlp";
 
-// Value is a comma-separated list mapping indicies to values with : delimiter
+// Value is a comma-separated list mapping indices to values with : delimiter
 // Values are applied on top of defaults so you only need to specify those that differ
 // mls=0:1,2:5
 export const MADLIB_SELECTIONS_PARAM = "mls";
@@ -38,7 +38,7 @@ export const DATA_TYPE_2_PARAM = "dt2";
 export function LinkWithStickyParams(props: {
   to: string;
   target?: string;
-  class?: string;
+  className?: string;
   children: React.ReactNode;
 }) {
   let linkProps = { ...props };

@@ -16,6 +16,7 @@ import {
   WIHE_HEALTH_EQUITY_TAB_INDEX,
   WIHE_JOIN_THE_EFFORT_SECTION_ID,
 } from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
+import { Box } from "@material-ui/core";
 
 function TakeALookAroundItem(props: {
   src: string;
@@ -64,6 +65,7 @@ function LandingPage() {
                 tabIndex={-1}
                 className={styles.HeaderText}
                 variant="h2"
+                paragraph={true}
               >
                 Advancing
                 <br />
@@ -71,33 +73,47 @@ function LandingPage() {
                 <br />
                 Equity
               </Typography>
-              <Typography className={styles.HeaderSubtext} variant="body1">
-                <p>
-                  We know that the data we collect can be imperfect and at times
-                  even worsen health inequities many people face if not reported
-                  or analyzed correctly.
-                </p>
-                <p>
-                  We work to change that narrative by identifying,
-                  understanding, and responding to health inequities in our
-                  communities in a way that will allow every person to live well
-                  and long from generation to generation.
-                </p>
-                <p>Join us in powering transformational action!</p>
+              <Typography
+                className={styles.HeaderSubtext}
+                variant="body1"
+                paragraph={true}
+              >
+                We know that the data we collect can be imperfect and at times
+                even worsen health inequities many people face if not reported
+                or analyzed correctly.
+              </Typography>
+              <Typography
+                className={styles.HeaderSubtext}
+                variant="body1"
+                paragraph={true}
+              >
+                We work to change that narrative by identifying, understanding,
+                and responding to health inequities in our communities in a way
+                that will allow every person to live well and long from
+                generation to generation.
+              </Typography>
+              <Typography
+                className={styles.HeaderSubtext}
+                variant="body1"
+                paragraph={true}
+              >
+                Join us in powering transformational action!
                 <br />
               </Typography>
-              <LinkWithStickyParams
-                to={EXPLORE_DATA_PAGE_LINK}
-                class={styles.NoUnderline}
-              >
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={styles.PrimaryButton}
+              <Box mt={5}>
+                <LinkWithStickyParams
+                  to={EXPLORE_DATA_PAGE_LINK}
+                  className={styles.NoUnderline}
                 >
-                  Explore the Health Equity Tracker
-                </Button>
-              </LinkWithStickyParams>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={styles.PrimaryButton}
+                  >
+                    Explore the Health Equity Tracker
+                  </Button>
+                </LinkWithStickyParams>
+              </Box>
             </Grid>
             <Grid item xs={12} sm={12} md={6} className={styles.HeaderImgItem}>
               <img
@@ -160,7 +176,7 @@ function LandingPage() {
               <Grid item xs={12} sm={12} md={2}>
                 <LinkWithStickyParams
                   to="/whatishealthequity"
-                  class={styles.NoUnderline}
+                  className={styles.NoUnderline}
                 >
                   <Button
                     variant="contained"
@@ -203,32 +219,47 @@ function LandingPage() {
               md={7}
               className={styles.PrioritizeHealthEquityTextItem}
             >
-              <Typography
-                className={styles.PrioritizeHealthEquityHeader}
-                variant="h2"
-              >
-                It's time to prioritize health equity
-              </Typography>
-              <br />
+              <Box mb={4}>
+                <Typography
+                  className={styles.PrioritizeHealthEquityHeader}
+                  variant="h2"
+                  paragraph={true}
+                >
+                  It's time to prioritize health equity
+                </Typography>
+              </Box>
+
               <Typography
                 className={styles.PrioritizeHealthEquityHeaderSubtext}
                 variant="body1"
+                paragraph={true}
               >
-                <p>
-                  We’re living through a historic moment. COVID-19 has taken a
-                  toll on everyone. But the pandemic is hitting the most
-                  marginalized, vulnerable communities the hardest.
-                </p>
-                <p>
-                  <b>People need help, and they need it now.</b>
-                </p>
-                <br />
-                <ReactRouterLinkButton
-                  url={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
-                  className={styles.LearnMoreAboutHealthEquity}
-                  displayName="Learn more about health equity"
-                />
+                We’re living through a historic moment. COVID-19 has taken a
+                toll on everyone. But the pandemic is hitting the most
+                marginalized, vulnerable communities the hardest.
               </Typography>
+
+              <Typography
+                className={styles.PrioritizeHealthEquityHeaderSubtext}
+                variant="body1"
+                paragraph={true}
+              >
+                <b>People need help, and they need it now.</b>
+              </Typography>
+
+              <Box mt={5}>
+                <Typography
+                  className={styles.PrioritizeHealthEquityHeaderSubtext}
+                  variant="body1"
+                  paragraph={true}
+                >
+                  <ReactRouterLinkButton
+                    url={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+                    className={styles.LearnMoreAboutHealthEquity}
+                    displayName="Learn more about health equity"
+                  />
+                </Typography>
+              </Box>
             </Grid>
           </Grid>
 
@@ -244,7 +275,6 @@ function LandingPage() {
               direction="column"
               justify="center"
               alignItems="center"
-              xs={12}
             >
               <Grid
                 container
@@ -334,7 +364,7 @@ function LandingPage() {
                 <br />
                 <LinkWithStickyParams
                   to={EXPLORE_DATA_PAGE_LINK}
-                  class={styles.NoUnderline}
+                  className={styles.NoUnderline}
                 >
                   <Button
                     variant="contained"

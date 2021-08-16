@@ -33,13 +33,21 @@ function AimToGoItem(props: {
           </Grid>
         </Hidden>
         <Grid item>
-          <Typography className={styles.SubheaderL2Text} variant="h3">
+          <Typography
+            className={styles.SubheaderL2Text}
+            variant="h3"
+            paragraph={true}
+          >
             {props.title}
           </Typography>
         </Grid>
         <Grid item>
-          <Typography className={styles.HeaderSubtextL2} variant="body2">
-            <p>{props.text}</p>
+          <Typography
+            className={styles.HeaderSubtextL2}
+            variant="body2"
+            paragraph
+          >
+            {props.text}
           </Typography>
         </Grid>
       </Grid>
@@ -72,16 +80,19 @@ function TheProjectTab() {
               tabIndex={-1}
               className={styles.HeaderText}
               variant="h2"
+              paragraph={true}
             >
               We're focused on equitable data.
             </Typography>
             <br />
-            <Typography className={styles.HeaderSubtext} variant="body1">
-              <p>
-                Health equity can't exist without equitable data. That's why
-                we're aiming to collect health equity data from across the
-                United States and centralize it all in one place.
-              </p>
+            <Typography
+              className={styles.HeaderSubtext}
+              variant="body1"
+              paragraph={true}
+            >
+              Health equity can't exist without equitable data. That's why we're
+              aiming to collect health equity data from across the United States
+              and centralize it all in one place.
             </Typography>
           </Grid>
           <Hidden smDown>
@@ -122,22 +133,24 @@ function TheProjectTab() {
               md={5}
               className={styles.GridVerticallyAlignedItem}
             >
-              <Typography className={styles.SubheaderL1Text} variant="h2">
+              <Typography
+                className={styles.SubheaderL1Text}
+                variant="h2"
+                paragraph={true}
+              >
                 Where we started
               </Typography>
-              <Typography variant="body1">
-                <p>
-                  Prompted by the COVID-19 pandemic, the Health Equity Tracker
-                  was created in 2020 to aggregate up-to-date demographic data
-                  from the hardest-hit communities.
-                </p>
-                <p>
-                  The Health Equity Tracker aims to give a detailed view of
-                  health outcomes by race, ethnicity, sex, socioeconomic status,
-                  and other critical factors. Our hope is that it will help
-                  policymakers understand what resources and support affected
-                  communities need to be able to improve their outcomes.
-                </p>
+              <Typography variant="body1" paragraph={true}>
+                Prompted by the COVID-19 pandemic, the Health Equity Tracker was
+                created in 2020 to aggregate up-to-date demographic data from
+                the hardest-hit communities.
+              </Typography>
+              <Typography variant="body1" paragraph={true}>
+                The Health Equity Tracker aims to give a detailed view of health
+                outcomes by race, ethnicity, sex, socioeconomic status, and
+                other critical factors. Our hope is that it will help
+                policymakers understand what resources and support affected
+                communities need to be able to improve their outcomes.
               </Typography>
             </Grid>
 
@@ -147,41 +160,40 @@ function TheProjectTab() {
                 direction="row"
                 justify="space-around"
                 alignItems="flex-start"
-                xs={12}
               >
                 <Grid item xs={12} sm={12} md={5}>
                   <Typography
                     className={styles.UnderlinedHeaderL2}
                     variant="h3"
+                    paragraph={true}
                   >
                     5 data sources
                   </Typography>
                   <Typography
                     className={styles.HeaderSubtextL3}
                     variant="body2"
+                    paragraph={true}
                   >
-                    <p>
-                      HET currently aggregates data from 5 key data sources.
-                      We’ll continue adding to these initial sources.
-                    </p>
+                    HET currently aggregates data from 5 key data sources. We’ll
+                    continue adding to these initial sources.
                   </Typography>
                 </Grid>
                 <Grid item xs={12} sm={12} md={5}>
                   <Typography
                     className={styles.UnderlinedHeaderL2}
                     variant="h3"
+                    paragraph={true}
                   >
                     15 variables
                   </Typography>
                   <Typography
                     className={styles.HeaderSubtextL3}
                     variant="body2"
+                    paragraph={true}
                   >
-                    <p>
-                      Along with COVID-19 cases, hospitalizations and deaths,
-                      the tracker also covers conditions like COPD, diabetes,
-                      SDOH, and more
-                    </p>
+                    Along with COVID-19 cases, hospitalizations and deaths, the
+                    tracker also covers conditions like COPD, diabetes, SDOH,
+                    and more.
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
@@ -190,12 +202,11 @@ function TheProjectTab() {
                     direction="row"
                     justify="space-around"
                     alignItems="flex-start"
-                    xs={12}
                   >
                     <Grid item xs={12} sm={12} md={5}>
                       <LinkWithStickyParams
                         to={EXPLORE_DATA_PAGE_LINK}
-                        class={styles.NoUnderline}
+                        className={styles.NoUnderline}
                       >
                         <Button
                           variant="contained"

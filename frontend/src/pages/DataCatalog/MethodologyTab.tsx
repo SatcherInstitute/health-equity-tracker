@@ -181,7 +181,7 @@ function MethodologyTab() {
                   local level that belong in the Health Equity Tracker?
                   <br />
                   <LinkWithStickyParams
-                    class={styles.MethodologyContactUsLink}
+                    className={styles.MethodologyContactUsLink}
                     to={`${ABOUT_US_PAGE_LINK}?${TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
                   >
                     We would love to hear from you!
