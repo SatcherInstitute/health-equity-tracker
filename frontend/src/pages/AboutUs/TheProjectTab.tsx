@@ -8,6 +8,7 @@ import {
   EXPLORE_DATA_PAGE_LINK,
 } from "../../utils/urlutils";
 import Hidden from "@material-ui/core/Hidden";
+import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 
 function AimToGoItem(props: {
   src: string;
@@ -56,6 +57,8 @@ function AimToGoItem(props: {
 }
 
 function TheProjectTab() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+
   return (
     <>
       <title>The Project - About Us - Health Equity Tracker</title>
@@ -236,7 +239,11 @@ function TheProjectTab() {
               </Typography>
             </Grid>
             <AimToGoItem
-              src="img/HET_Overlapping_Lines_v4_1000px.gif"
+              src={
+                prefersReducedMotion
+                  ? "img/HET-lines-no-motion.gif"
+                  : "img/HET_Overlapping_Lines_v4_1000px.gif"
+              }
               alt=""
               title="Expand data"
               text="As we continue to expand our data sources and analyze the
@@ -244,7 +251,11 @@ function TheProjectTab() {
             disparities and the equity impact of COVID-19."
             />
             <AimToGoItem
-              src="img/HET_Fields_1_v2_1000px.gif"
+              src={
+                prefersReducedMotion
+                  ? "img/HET-fields-no-motion.gif"
+                  : "img/HET_Fields_1_v2_1000px.gif"
+              }
               alt=""
               title="Empower policy makers"
               text="We plan to develop policy templates for local, state, and
@@ -252,7 +263,11 @@ function TheProjectTab() {
             with diverse communities."
             />
             <AimToGoItem
-              src="img/HET_Dots_1_v3_1000px.gif"
+              src={
+                prefersReducedMotion
+                  ? "img/HET-dots-no-motion.gif"
+                  : "img/HET_Dots_1_v3_1000px.gif"
+              }
               alt=""
               title="Measure progress"
               text="It’s important to track progress, so we plan to develop
