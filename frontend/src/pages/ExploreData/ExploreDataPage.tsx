@@ -80,8 +80,6 @@ function ExploreDataPage() {
 
     readParams();
 
-    document.title = `${EXPLORE_TITLE} - ${APP_TITLE}`;
-
     return () => {
       if (psSub) {
         psSub.unsubscribe();
@@ -141,6 +139,10 @@ function ExploreDataPage() {
       window.removeEventListener("scroll", scrollCallBack);
     };
   }, [activelyOnboarding]);
+
+  useEffect(() => {
+    document.title = `${madLib.phrase[0]}  - ${EXPLORE_TITLE} - ${APP_TITLE}`;
+  }, [madLib]);
 
   return (
     <>
