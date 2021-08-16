@@ -85,19 +85,35 @@ function LandingPage() {
                 even worsen health inequities many people face if not reported
                 or analyzed correctly.
               </Typography>
-              {/* <LinkWithStickyParams
-                to={EXPLORE_DATA_PAGE_LINK}
-                class={styles.NoUnderline}
-              > */}
-              <Button
-                variant="contained"
-                color="primary"
-                className={styles.PrimaryButton}
-                href={EXPLORE_DATA_PAGE_LINK}
+
+              <Typography
+                className={styles.HeaderSubtext}
+                variant="body1"
+                paragraph={true}
               >
-                Explore the Health Equity Tracker
-              </Button>
-              {/* </LinkWithStickyParams> */}
+                We work to change that narrative by identifying, understanding,
+                and responding to health inequities in our communities in a way
+                that will allow every person to live well and long from
+                generation to generation.
+              </Typography>
+
+              <Typography
+                className={styles.HeaderSubtext}
+                variant="body1"
+                paragraph={true}
+              >
+                Join us in powering transformational action!
+              </Typography>
+              <Box mt={5}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={styles.PrimaryButton}
+                  href={EXPLORE_DATA_PAGE_LINK}
+                >
+                  Explore the Health Equity Tracker
+                </Button>
+              </Box>
             </Grid>
             <Grid item xs={12} sm={12} md={6} className={styles.HeaderImgItem}>
               <img
