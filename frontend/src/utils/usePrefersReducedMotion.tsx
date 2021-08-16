@@ -1,3 +1,7 @@
+/* 
+https://www.joshwcomeau.com/react/prefers-reduced-motion/
+*/
+
 import { useEffect, useState } from "react";
 
 const QUERY = "(prefers-reduced-motion: no-preference)";
