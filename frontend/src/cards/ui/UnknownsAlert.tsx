@@ -42,7 +42,9 @@ function UnknownsAlert(props: {
         props.overrideAndWithOr ? "were both" : "was"
       } known.`
     : `The ${props.displayType} below displays data for cases where ${
-        props.overrideAndWithOr ? RACE_OR_ETHNICITY : breakdownVarDisplayName
+        props.overrideAndWithOr
+          ? ` either ${RACE_OR_ETHNICITY}`
+          : breakdownVarDisplayName
       } was unknown.`;
 
   const percentageUnknown = unknowns[0][props.metricConfig.metricId];
