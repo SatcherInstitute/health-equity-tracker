@@ -104,7 +104,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               breakdownVar={props.currentBreakdown}
               displayType="map"
               known={false}
-              overrideAndWithOr={props.overrideAndWithOr}
+              overrideAndWithOr={
+                props.currentBreakdown === "race_and_ethnicity"
+              }
             />
             <CardContent>
               {mapQueryResponse.dataIsMissing() && (
