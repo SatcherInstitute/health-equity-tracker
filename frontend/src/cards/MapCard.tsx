@@ -292,23 +292,19 @@ function MapCardWithKey(props: MapCardProps) {
                     })}
                   </div>
                 )}
-                {false /* TODO(993) enable this section when updated with new copy */ && (
-                  <div className={styles.MapCardOverallText}>
-                    Overall for {props.fips.getDisplayName()}:{" "}
-                    <b>
-                      {formatFieldValue(
-                        metricConfig.type,
-                        overallQueryResponse!.data.find(
-                          (row) =>
-                            row[props.currentBreakdown] ===
-                            activeBreakdownFilter
-                        )![metricConfig.metricId]
-                      )}
-                    </b>{" "}
-                    {metricConfig.shortVegaLabel}
-                  </div>
-                )}
-                {/* TODO(993) */}
+                <div className={styles.MapCardOverallText}>
+                  Overall for {props.fips.getDisplayName()}:{" "}
+                  <b>
+                    {formatFieldValue(
+                      metricConfig.type,
+                      overallQueryResponse!.data.find(
+                        (row) =>
+                          row[props.currentBreakdown] === activeBreakdownFilter
+                      )![metricConfig.metricId]
+                    )}
+                  </b>{" "}
+                  {metricConfig.shortVegaLabel}
+                </div>
                 {!mapQueryResponse.dataIsMissing() &&
                   dataForActiveBreakdownFilter.length > 1 && (
                     <HighestLowestList
