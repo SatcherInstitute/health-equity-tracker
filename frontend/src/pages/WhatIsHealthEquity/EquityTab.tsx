@@ -9,6 +9,7 @@ import FaqSection from "../ui/FaqSection";
 import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "./WhatIsHealthEquityPage";
 import { Box } from "@material-ui/core";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
+import { Helmet } from "react-helmet";
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -53,7 +54,9 @@ function EquityTab() {
 
   return (
     <div className={styles.WhatIsHealthEquityPage}>
-      <title>What is Health Equity - Health Equity Tracker</title>
+      <Helmet>
+        <title>What is Health Equity - Health Equity Tracker</title>
+      </Helmet>
       <Grid container className={styles.Grid}>
         <Grid
           container

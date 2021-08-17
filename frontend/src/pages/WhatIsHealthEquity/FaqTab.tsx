@@ -4,11 +4,14 @@ import styles from "./WhatIsHealthEquityPage.module.scss";
 import { Typography } from "@material-ui/core";
 import { TAB_PARAM, ABOUT_US_PAGE_LINK } from "../../utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
+import { Helmet } from "react-helmet";
 
 function FaqTab() {
   return (
     <>
-      <title>FAQ - About Us - Health Equity Tracker</title>
+      <Helmet>
+        <title>FAQ - What Is Health Equity - Health Equity Tracker</title>
+      </Helmet>
       <h1 className={styles.ScreenreaderTitleHeader}>
         Frequently Asked Questions
       </h1>

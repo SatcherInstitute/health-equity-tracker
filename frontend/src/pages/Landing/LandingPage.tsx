@@ -17,6 +17,7 @@ import {
 } from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
 import { Box } from "@material-ui/core";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
+import { Helmet } from "react-helmet";
 
 function TakeALookAroundItem(props: {
   src: string;
@@ -51,7 +52,9 @@ function LandingPage() {
 
   return (
     <>
-      <title>Home - Health Equity Tracker</title>
+      <Helmet>
+        <title>Home - Health Equity Tracker</title>
+      </Helmet>
       <h1 className={styles.ScreenreaderTitleHeader}>Home Page</h1>
       <div className={styles.LandingPage}>
         <Grid container className={styles.Grid}>

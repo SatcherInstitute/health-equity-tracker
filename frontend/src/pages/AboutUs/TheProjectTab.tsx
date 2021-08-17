@@ -9,6 +9,7 @@ import {
 } from "../../utils/urlutils";
 import Hidden from "@material-ui/core/Hidden";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
+import { Helmet } from "react-helmet";
 
 function AimToGoItem(props: {
   src: string;
@@ -61,7 +62,9 @@ function TheProjectTab() {
 
   return (
     <>
-      <title>The Project - About Us - Health Equity Tracker</title>
+      <Helmet>
+        <title>The Project - About Us - Health Equity Tracker</title>
+      </Helmet>
       <h1 className={styles.ScreenreaderTitleHeader}>The Project</h1>
       <Grid container className={styles.Grid}>
         <Grid

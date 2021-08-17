@@ -8,11 +8,14 @@ import {
   EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK,
 } from "../../utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
+import { Helmet } from "react-helmet";
 
 function MethodologyTab() {
   return (
     <>
-      <title>Methodology - Health Equity Tracker</title>
+      <Helmet>
+        <title>Methodology - Health Equity Tracker</title>
+      </Helmet>
       <h1 className={styles.ScreenreaderTitleHeader}>Methodology</h1>
       <Grid
         container

@@ -2,6 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
+import { Helmet } from "react-helmet";
 
 const LEADERSHIP_TEAM = [
   {
@@ -22,7 +23,7 @@ const LEADERSHIP_TEAM = [
   {
     name: "Allyson Belton, MPH",
     role: "Coalition/Engagement",
-    imageUrl: "img/BeltonAllyson.png",
+    imageUrl: "img/Belton_Allyson.png",
   },
   {
     name: "Mahia Valle, MBA",
@@ -32,7 +33,7 @@ const LEADERSHIP_TEAM = [
   {
     name: "Shaneeta M. Johnson MD, MBA, FACS, FASMBS, ABOM",
     role: "Senior Advisor",
-    imageUrl: "img/dr-johnson.png",
+    imageUrl: "img/ShaneetaJohnson.png",
   },
   {
     name: "JC Gonzalez, MBA, PMP",
@@ -257,7 +258,9 @@ const PARTNERS = [
 function OurTeamTab() {
   return (
     <>
-      <title>Our Team - About Us - Health Equity Tracker</title>
+      <Helmet>
+        <title>Our Team - About Us - Health Equity Tracker</title>
+      </Helmet>
       <h1 className={styles.ScreenreaderTitleHeader}>Our Team</h1>
       <Grid container className={styles.Grid}>
         <Grid container className={styles.GridRowHeaderText}>

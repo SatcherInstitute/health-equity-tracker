@@ -1,6 +1,5 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "name": "Health Equity Tracker",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +19,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#0b5240",
   "background_color": "#ffffff"
 }
