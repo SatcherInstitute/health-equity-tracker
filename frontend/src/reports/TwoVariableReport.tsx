@@ -211,7 +211,7 @@ function TwoVariableReport(props: {
           updateFips: (fips: Fips) => void
         ) => (
           <UnknownsMapCard
-            useOr={true}
+            overrideAndWithOr={true}
             variableConfig={variableConfig}
             fips={fips}
             updateFipsCallback={(fips: Fips) => {

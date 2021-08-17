@@ -19,8 +19,6 @@ import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import UnknownsAlert from "./ui/UnknownsAlert";
 
-export const RACE_OR_TITLECASE = "Race Or Ethnicity";
-
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
   variableConfig: VariableConfig;
@@ -31,7 +29,7 @@ export interface UnknownsMapCardProps {
   // Updates the madlib
   updateFipsCallback: (fips: Fips) => void;
   // replaces race AND ethnicity with race OR ethnicity on unknowns map title and alerts
-  useOr?: Boolean;
+  overrideAndWithOr?: Boolean;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -66,13 +64,15 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const mapQuery = new MetricQuery([metricConfig.metricId], mapGeoBreakdowns);
   const alertQuery = new MetricQuery([metricConfig.metricId], alertBreakdown);
 
+  const RACE_OR_ETHNICITY_TITLECASE = "Race Or Ethnicity";
+
   return (
     <CardWrapper
       queries={[mapQuery, alertQuery]}
       title={
         <>{`${metricConfig.fullCardTitleName} With Unknown ${
-          props.useOr
-            ? RACE_OR_TITLECASE
+          props.overrideAndWithOr
+            ? RACE_OR_ETHNICITY_TITLECASE
             : BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
         }`}</>
       }
@@ -104,7 +104,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               breakdownVar={props.currentBreakdown}
               displayType="map"
               known={false}
-              useOr={props.useOr}
+              overrideAndWithOr={props.overrideAndWithOr}
             />
             <CardContent>
               {mapQueryResponse.dataIsMissing() && (
