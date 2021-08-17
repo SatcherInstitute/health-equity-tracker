@@ -2,14 +2,17 @@ import React, { Dispatch, SetStateAction } from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./TermsOfServicePage.module.scss";
 import { Typography } from "@material-ui/core";
+import { Helmet } from "react-helmet";
 
 function TermsOfServicePage(props: {
   setTabIndexFx: Dispatch<SetStateAction<number>>;
 }) {
   return (
     <>
-      <title>Terms of Service - Health Equity Tracker</title>
-      <h1 className={styles.ScreenreaderTitleHeader}>Terms of Service</h1>
+      <Helmet>
+        <title>Terms of Use - Health Equity Tracker</title>
+      </Helmet>
+      <h1 className={styles.ScreenreaderTitleHeader}>Terms of Use</h1>
       <Grid container className={styles.Grid}>
         <Grid container className={styles.TosSection}>
           <Grid item xs={12} md={3}>

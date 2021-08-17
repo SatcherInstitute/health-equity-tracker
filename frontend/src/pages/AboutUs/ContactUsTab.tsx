@@ -3,11 +3,14 @@ import Grid from "@material-ui/core/Grid";
 import styles from "./AboutUsPage.module.scss";
 import Typography from "@material-ui/core/Typography";
 import Hidden from "@material-ui/core/Hidden";
+import { Helmet } from "react-helmet";
 
 function ContactUsTab() {
   return (
     <>
-      <title>Contact Us - About Us - Health Equity Tracker</title>
+      <Helmet>
+        <title>Contact Us - About Us - Health Equity Tracker</title>
+      </Helmet>
       <h1 className={styles.ScreenreaderTitleHeader}>Contact Us</h1>
       <Grid container className={styles.Grid}>
         <Grid
