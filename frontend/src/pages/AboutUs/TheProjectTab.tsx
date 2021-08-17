@@ -3,10 +3,7 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
-import {
-  // LinkWithStickyParams,
-  EXPLORE_DATA_PAGE_LINK,
-} from "../../utils/urlutils";
+import { EXPLORE_DATA_PAGE_LINK } from "../../utils/urlutils";
 import Hidden from "@material-ui/core/Hidden";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet";
