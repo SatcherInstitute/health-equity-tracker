@@ -19,6 +19,8 @@ import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import UnknownsAlert from "./ui/UnknownsAlert";
 
+export const RACE_OR_TITLECASE = "Race Or Ethnicity";
+
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
   variableConfig: VariableConfig;
@@ -28,6 +30,8 @@ export interface UnknownsMapCardProps {
   fips: Fips;
   // Updates the madlib
   updateFipsCallback: (fips: Fips) => void;
+  // replaces race AND ethnicity with race OR ethnicity on unknowns map title and alerts
+  useOr?: Boolean;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -67,7 +71,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       queries={[mapQuery, alertQuery]}
       title={
         <>{`${metricConfig.fullCardTitleName} With Unknown ${
-          BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+          props.useOr
+            ? RACE_OR_TITLECASE
+            : BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
         }`}</>
       }
       loadGeographies={true}
@@ -98,6 +104,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               breakdownVar={props.currentBreakdown}
               displayType="map"
               known={false}
+              useOr={props.useOr}
             />
             <CardContent>
               {mapQueryResponse.dataIsMissing() && (

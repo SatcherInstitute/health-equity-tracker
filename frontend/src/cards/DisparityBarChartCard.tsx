@@ -103,6 +103,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 breakdownVar={props.breakdownVar}
                 displayType="chart"
                 known={true}
+                useOr={true}
               />
             )}
             {dataAvailable && dataWithoutUnknowns.length !== 0 && (

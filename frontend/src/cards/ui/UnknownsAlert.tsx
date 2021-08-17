@@ -11,12 +11,15 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
 
+export const RACE_OR = "race or ethnicity";
+
 function UnknownsAlert(props: {
   queryResponse: MetricQueryResponse;
   metricConfig: MetricConfig;
   breakdownVar: BreakdownVar;
   displayType: string; // "chart" or "map"
   known: Boolean;
+  useOr?: Boolean;
 }) {
   const unknowns = props.queryResponse
     .getValidRowsForField(props.metricConfig.metricId)
@@ -34,7 +37,9 @@ function UnknownsAlert(props: {
 
   const cardHelperText = props.known
     ? `The ${props.displayType} below only displays data for cases where ${breakdownVarDisplayName} was known.`
-    : `The ${props.displayType} below displays data for cases where ${breakdownVarDisplayName} was unknown.`;
+    : `The ${props.displayType} below displays data for cases where ${
+        props.useOr ? RACE_OR : breakdownVarDisplayName
+      } was unknown.`;
 
   const percentageUnknown = unknowns[0][props.metricConfig.metricId];
 
@@ -44,7 +49,7 @@ function UnknownsAlert(props: {
         <Alert severity="warning">
           {percentageUnknown}
           {props.metricConfig.shortVegaLabel} reported unknown{" "}
-          {breakdownVarDisplayName}.{" "}
+          {props.useOr ? RACE_OR : breakdownVarDisplayName}.{" "}
           {percentageUnknown !== 100 && cardHelperText}
         </Alert>
       </CardContent>
