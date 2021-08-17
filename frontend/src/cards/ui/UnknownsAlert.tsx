@@ -36,7 +36,11 @@ function UnknownsAlert(props: {
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar];
 
   const cardHelperText = props.known
-    ? `The ${props.displayType} below only displays data for cases where ${breakdownVarDisplayName} was known.`
+    ? `The ${
+        props.displayType
+      } below only displays data for cases where ${breakdownVarDisplayName} ${
+        props.useOr ? "were both" : "was"
+      } known.`
     : `The ${props.displayType} below displays data for cases where ${
         props.useOr ? RACE_OR : breakdownVarDisplayName
       } was unknown.`;
@@ -48,8 +52,8 @@ function UnknownsAlert(props: {
       <CardContent className={styles.SmallMarginContent}>
         <Alert severity="warning">
           {percentageUnknown}
-          {props.metricConfig.shortVegaLabel} reported unknown{" "}
-          {props.useOr ? RACE_OR : breakdownVarDisplayName}.{" "}
+          {props.metricConfig.shortVegaLabel} reported {props.useOr && "an"}{" "}
+          unknown {props.useOr ? RACE_OR : breakdownVarDisplayName}.{" "}
           {percentageUnknown !== 100 && cardHelperText}
         </Alert>
       </CardContent>
