@@ -141,7 +141,10 @@ function ExploreDataPage() {
   }, [activelyOnboarding]);
 
   useEffect(() => {
-    document.title = `${madLib.phrase[0]}  - ${EXPLORE_TITLE} - ${APP_TITLE}`;
+    const phrase: string = madLib.phrase[0] as string;
+    const words = phrase.split(" ");
+    const carouselPageTitle: string = `${words[0]} ${words[1]}`;
+    document.title = `${carouselPageTitle}  - ${EXPLORE_TITLE} - ${APP_TITLE}`;
   }, [madLib]);
 
   return (
