@@ -2,6 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import { Typography } from "@material-ui/core";
+import { Helmet } from "react-helmet";
 
 const RESOURCES = [
   {
@@ -256,9 +257,12 @@ const RESOURCES = [
 function ResourcesTab() {
   return (
     <>
-      <title>
-        Health Equity Resources - What Is Health Equity? - Health Equity Tracker
-      </title>
+      <Helmet>
+        <title>
+          Health Equity Resources - What Is Health Equity? - Health Equity
+          Tracker
+        </title>
+      </Helmet>
       <h1 className={styles.ScreenreaderTitleHeader}>
         Health Equity Resources
       </h1>

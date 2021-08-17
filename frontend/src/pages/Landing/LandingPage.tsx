@@ -17,6 +17,7 @@ import {
   WIHE_JOIN_THE_EFFORT_SECTION_ID,
 } from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
 import { Box } from "@material-ui/core";
+import { Helmet } from "react-helmet";
 
 function TakeALookAroundItem(props: {
   src: string;
@@ -48,7 +49,9 @@ function TakeALookAroundItem(props: {
 function LandingPage() {
   return (
     <>
-      <title>Home - Health Equity Tracker</title>
+      <Helmet>
+        <title>Home - Health Equity Tracker</title>
+      </Helmet>
       <h1 className={styles.ScreenreaderTitleHeader}>Home Page</h1>
       <div className={styles.LandingPage}>
         <Grid container className={styles.Grid}>
