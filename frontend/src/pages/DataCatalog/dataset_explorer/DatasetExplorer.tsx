@@ -11,6 +11,7 @@ import {
 import { WithMetadata } from "../../../data/react/WithLoadingOrErrorUI";
 import { Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
+import { Helmet } from "react-helmet";
 
 // Map of filter id to list of datasets selected by that filter, or empty list
 // for filters that don't have anything selected.
@@ -46,7 +47,9 @@ function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
 
   return (
     <>
-      <title>Data Downloads - Health Equity Tracker</title>
+      <Helmet>
+        <title>Data Downloads - Health Equity Tracker</title>
+      </Helmet>
       <h1 className={styles.ScreenreaderTitleHeader}>Data Downloads</h1>
       <div className={styles.DatasetExplorer}>
         <Grid container>
