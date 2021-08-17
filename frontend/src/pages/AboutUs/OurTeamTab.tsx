@@ -22,7 +22,7 @@ const LEADERSHIP_TEAM = [
   {
     name: "Allyson Belton, MPH",
     role: "Coalition/Engagement",
-    imageUrl: "img/BeltonAllyson.png",
+    imageUrl: "img/Belton_Allyson.png",
   },
   {
     name: "Mahia Valle, MBA",
@@ -32,7 +32,7 @@ const LEADERSHIP_TEAM = [
   {
     name: "Shaneeta M. Johnson MD, MBA, FACS, FASMBS, ABOM",
     role: "Senior Advisor",
-    imageUrl: "img/dr-johnson.png",
+    imageUrl: "img/ShaneetaJohnson.png",
   },
   {
     name: "JC Gonzalez, MBA, PMP",
