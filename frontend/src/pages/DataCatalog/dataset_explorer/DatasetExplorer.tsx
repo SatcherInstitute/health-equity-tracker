@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+// import React, { useEffect } from "react";
+import React from "react";
 import DataSourceListing from "./DataSourceListing";
 import styles from "./DatasetExplorer.module.scss";
 import { DataSourceMetadataMap } from "../../../data/config/MetadataMap";
@@ -11,7 +12,7 @@ import {
 import { WithMetadata } from "../../../data/react/WithLoadingOrErrorUI";
 import { Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
-import { APP_TITLE } from "../../../App";
+// import { APP_TITLE } from "../../../App";
 
 export const DATA_DOWNLOADS_TITLE = "Data Downloads";
 
@@ -47,12 +48,13 @@ function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
     [NAME_FILTER_ID]: props.preFilterDataSourceIds,
   };
 
-  useEffect(() => {
-    document.title = `${DATA_DOWNLOADS_TITLE} - ${APP_TITLE}`;
-  }, []);
+  // useEffect(() => {
+  //   document.title = `${DATA_DOWNLOADS_TITLE} - ${APP_TITLE}`;
+  // }, []);
 
   return (
     <>
+      <title>Data Downloads - Health Equity Tracker</title>
       <h1 className={styles.ScreenreaderTitleHeader}>{DATA_DOWNLOADS_TITLE}</h1>
       <div className={styles.DatasetExplorer}>
         <Grid container>
