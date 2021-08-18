@@ -331,6 +331,19 @@ function FaqTab() {
                   </p>
                 </div>
               </Grid>
+              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
+                <h3 className={styles.FaqQuestion} id="citation">
+                  What is the recommended citation for the Health Equity
+                  Tracker?
+                </h3>
+                <div className={styles.FaqAnswer}>
+                  <p>
+                    Health Equity Tracker. (2021). Satcher Health Leadership
+                    Institute. Morehouse School of Medicine.
+                    https://healthequitytracker.org.
+                  </p>
+                </div>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
