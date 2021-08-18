@@ -3,11 +3,9 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
-import {
-  LinkWithStickyParams,
-  EXPLORE_DATA_PAGE_LINK,
-} from "../../utils/urlutils";
+import { EXPLORE_DATA_PAGE_LINK } from "../../utils/urlutils";
 import Hidden from "@material-ui/core/Hidden";
+import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet";
 
 function AimToGoItem(props: {
@@ -57,6 +55,8 @@ function AimToGoItem(props: {
 }
 
 function TheProjectTab() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+
   return (
     <>
       <Helmet>
@@ -109,7 +109,7 @@ function TheProjectTab() {
               <img
                 src="img/pexels-ketut-subiyanto-4473871 1.png"
                 className={styles.ImgHeaderGridItem}
-                alt="A woman laying with her two children"
+                alt=""
               />
             </Grid>
           </Hidden>
@@ -207,18 +207,19 @@ function TheProjectTab() {
                     alignItems="flex-start"
                   >
                     <Grid item xs={12} sm={12} md={5}>
-                      <LinkWithStickyParams
+                      {/* <LinkWithStickyParams
                         to={EXPLORE_DATA_PAGE_LINK}
                         className={styles.NoUnderline}
+                      > */}
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        className={styles.PrimaryButton}
+                        href={EXPLORE_DATA_PAGE_LINK}
                       >
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          className={styles.PrimaryButton}
-                        >
-                          Explore the data
-                        </Button>
-                      </LinkWithStickyParams>
+                        Explore the data
+                      </Button>
+                      {/* </LinkWithStickyParams> */}
                     </Grid>
                   </Grid>
                 </Grid>
@@ -238,24 +239,36 @@ function TheProjectTab() {
               </Typography>
             </Grid>
             <AimToGoItem
-              src="img/HET_Overlapping_Lines_v4_1000px.gif"
-              alt="Decorative lines"
+              src={
+                prefersReducedMotion
+                  ? "img/HET-lines-no-motion.gif"
+                  : "img/HET_Overlapping_Lines_v4_1000px.gif"
+              }
+              alt=""
               title="Expand data"
               text="As we continue to expand our data sources and analyze the
             data, we will have more information to share on
             disparities and the equity impact of COVID-19."
             />
             <AimToGoItem
-              src="img/HET_Fields_1_v2_1000px.gif"
-              alt="Decorative thick lines"
+              src={
+                prefersReducedMotion
+                  ? "img/HET-fields-no-motion.gif"
+                  : "img/HET_Fields_1_v2_1000px.gif"
+              }
+              alt=""
               title="Empower policy makers"
               text="We plan to develop policy templates for local, state, and
             federal policy makers, and help create actionable policies
             with diverse communities."
             />
             <AimToGoItem
-              src="img/HET_Dots_1_v3_1000px.gif"
-              alt="Decorative dots"
+              src={
+                prefersReducedMotion
+                  ? "img/HET-dots-no-motion.gif"
+                  : "img/HET_Dots_1_v3_1000px.gif"
+              }
+              alt=""
               title="Measure progress"
               text="It’s important to track progress, so we plan to develop
             and publish more health equity reports and analyses."

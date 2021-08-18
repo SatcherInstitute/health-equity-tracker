@@ -49,14 +49,20 @@ function Footer() {
               [
                 "FAQs",
                 `${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_FAQ_TAB_INDEX}`,
+                "Frequently Asked Questions",
               ],
               [
                 "Contact Us",
                 `${ABOUT_US_PAGE_LINK}?${TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`,
               ],
               ["Terms of Use", `${TERMS_OF_SERVICE_PAGE_LINK}`],
-            ].map(([label, link]) => (
-              <LinkGridItem key={link} text={label} link={link} />
+            ].map(([label, link, ariaLabel]) => (
+              <LinkGridItem
+                key={link}
+                text={label}
+                link={link}
+                ariaLabel={ariaLabel}
+              />
             ))}
             <Hidden smDown>
               <Grid item sm={12}>
@@ -105,29 +111,39 @@ function Logos() {
           <img
             src="img/AppbarLogo.png"
             className={styles.FooterLogo}
-            alt="Health Equity Tracker decorative logo"
+            alt="Health Equity Tracker logo"
+            role="link"
           />
         </ReactRouterLinkButton>
       </Grid>
       <Grid item className={styles.LogosRight}>
         <Grid container justify="flex-start" alignItems="flex-start">
           <Grid item>
-            <span className={styles.FooterTitleSpan}>
+            <span className={styles.FooterTitleSpan} aria-hidden="true">
               Health Equity Tracker
             </span>
             <Grid container justify="center">
               <Grid item className={styles.SocialsIcon}>
-                <a href="https://www.linkedin.com/in/satcherhealth">
+                <a
+                  href="https://www.linkedin.com/in/satcherhealth"
+                  aria-label="Satcher Health on LinkedIn"
+                >
                   <LinkedInIcon />
                 </a>
               </Grid>
               <Grid item className={styles.SocialsIcon}>
-                <a href="https://twitter.com/SatcherHealth">
+                <a
+                  href="https://twitter.com/SatcherHealth"
+                  aria-label="Satcher Health on Twitter"
+                >
                   <TwitterIcon />
                 </a>
               </Grid>
               <Grid item className={styles.SocialsIcon}>
-                <a href="https://www.youtube.com/channel/UC2sNXCD2KGLdyjqe6FGzMiA">
+                <a
+                  href="https://www.youtube.com/channel/UC2sNXCD2KGLdyjqe6FGzMiA"
+                  aria-label="Satcher Health on YouTube"
+                >
                   <YouTubeIcon />
                 </a>
               </Grid>
@@ -139,7 +155,11 @@ function Logos() {
   );
 }
 
-function LinkGridItem(props: { text: string; link: string }) {
+function LinkGridItem(props: {
+  text: string;
+  link: string;
+  ariaLabel: string;
+}) {
   return (
     <>
       <Hidden xsDown>
@@ -148,6 +168,7 @@ function LinkGridItem(props: { text: string; link: string }) {
             url={props.link}
             className={styles.FooterLink}
             displayName={props.text}
+            ariaLabel={props.ariaLabel}
           />
         </Grid>
       </Hidden>
@@ -168,6 +189,7 @@ function ReturnToTop() {
   return (
     <Grid item>
       <Button
+        aria-label="Scroll to Top"
         onClick={() => window.scrollTo(0, 0)}
         className={styles.ScrollToTopButton}
       >

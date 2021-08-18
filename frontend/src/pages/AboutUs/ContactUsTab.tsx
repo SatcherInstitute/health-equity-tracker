@@ -35,7 +35,7 @@ function ContactUsTab() {
                 variant="h2"
               >
                 Let's move
-                <br />
+                <br aria-hidden="true" />
                 equity <b style={{ fontWeight: 400 }}>forward</b>
               </Typography>
             </Grid>
@@ -49,7 +49,7 @@ function ContactUsTab() {
               <img
                 src="img/pexels-mentatdgt-1206059 2.png"
                 className={styles.ImgContactUsHeader}
-                alt="A group of female friends hug"
+                alt=""
               />
             </Grid>
           </Hidden>
@@ -75,7 +75,8 @@ function ContactUsTab() {
           >
             <p>
               <b>For general requests:</b> please contact the Satcher Health
-              Leadership Institute at shli@msm.edu
+              Leadership Institute at{" "}
+              <a href="mailto:shli@msm.edu">shli@msm.edu</a>
             </p>
             <p>
               <b>Mailing Address:</b>
@@ -84,12 +85,13 @@ function ContactUsTab() {
               <br />
               Satcher Health Leadership Institute
               <br />
-              720 Westview Drive, SW
+              720 Westview Drive SW
               <br />
-              Atlanta, GA 30310
-              <br />
-              <br />
-              (404) 752-8654
+              Atlanta, <span aria-label="Georgia">GA</span>{" "}
+              <span aria-label="Zip Code 3 0 3 1 0">30310</span>
+            </p>
+            <p>
+              <a href="tel:4047528654">(404) 752-8654</a>
             </p>
           </Grid>
         </Grid>
