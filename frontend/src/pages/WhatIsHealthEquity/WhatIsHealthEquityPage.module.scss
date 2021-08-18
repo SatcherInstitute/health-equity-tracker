@@ -124,9 +124,9 @@
     }
 
     .DefinitionSourceSpan {
-      color: $alt-black; // $alt-grey fails a11y contrast
-      font-weight: 200;
-      font-size: smaller;
+      color: $alt-dark;
+      font-weight: 400;
+      font-size: small;
     }
   }
 }

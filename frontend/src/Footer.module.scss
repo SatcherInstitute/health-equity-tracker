@@ -51,11 +51,14 @@
 
 /** ------------------ Links - second -------------------- **/
 
-.CopyrightSpanLargerWindow {
-  color: $alt-black; // $alt-grey; failed a11y contrast
+.CopyrightSpanLargerWindow,
+.CopyrightSpanSmallerWindow {
+  color: $alt-dark; // $alt-grey; failed a11y contrast
   font-weight: 100;
   font-size: small;
+}
 
+.CopyrightSpanLargerWindow {
   float: right;
   // So it aligns with the button above it
   padding-right: 8px;
@@ -82,12 +85,6 @@
 }
 
 /** ------------------ Back to top - third -------------------- **/
-
-.CopyrightSpanSmallerWindow {
-  color: $alt-black; // $alt-grey
-  font-weight: 100;
-  font-size: small;
-}
 
 .ScrollToTopButton {
   border-radius: 30px;
