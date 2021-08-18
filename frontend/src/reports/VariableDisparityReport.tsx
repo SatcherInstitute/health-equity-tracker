@@ -132,6 +132,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           <Grid item xs={12} sm={12} md={6}>
             {variableConfig.metrics["pct_share"] && (
               <UnknownsMapCard
+                overrideAndWithOr={currentBreakdown === "race_and_ethnicity"}
                 variableConfig={variableConfig}
                 fips={props.fips}
                 updateFipsCallback={(fips: Fips) => {
