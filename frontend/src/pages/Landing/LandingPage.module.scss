@@ -274,6 +274,10 @@
       font-size: 80px !important;
       line-height: 70px !important;
     }
+    @media (max-width: $sm) {
+      font-size: 2.7rem !important;
+      line-height: 1 !important;
+    }
   }
 
   .EmailAddressBackgroundImgContainer {
