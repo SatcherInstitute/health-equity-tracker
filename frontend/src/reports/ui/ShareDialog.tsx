@@ -33,7 +33,11 @@ function ShareDialog(props: {
           <CopyToClipboard text={text} onCopy={() => setTextCopied(true)}>
             <Button startIcon={<FileCopyIcon />}>Copy link to clipboard</Button>
           </CopyToClipboard>
-          {textCopied && <span>Text copied!</span>}
+          {textCopied && (
+            <span role="alert" aria-label="Success. Press Escape Key to close">
+              Link copied!
+            </span>
+          )}
         </DialogContentText>
         <DialogContentText>
           <FormControl fullWidth>

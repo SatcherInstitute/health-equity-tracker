@@ -6,7 +6,6 @@ import Hidden from "@material-ui/core/Hidden";
 import Typography from "@material-ui/core/Typography";
 import {
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-  LinkWithStickyParams,
   EXPLORE_DATA_PAGE_LINK,
   TAB_PARAM,
   ReactRouterLinkButton,
@@ -17,6 +16,7 @@ import {
   WIHE_JOIN_THE_EFFORT_SECTION_ID,
 } from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
 import { Box } from "@material-ui/core";
+import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet";
 
 function TakeALookAroundItem(props: {
@@ -47,6 +47,8 @@ function TakeALookAroundItem(props: {
 }
 
 function LandingPage() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+
   return (
     <>
       <Helmet>
@@ -71,9 +73,9 @@ function LandingPage() {
                 paragraph={true}
               >
                 Advancing
-                <br />
+                <br aria-hidden="true" />
                 Health
-                <br />
+                <br aria-hidden="true" />
                 Equity
               </Typography>
               <Typography
@@ -85,6 +87,7 @@ function LandingPage() {
                 even worsen health inequities many people face if not reported
                 or analyzed correctly.
               </Typography>
+
               <Typography
                 className={styles.HeaderSubtext}
                 variant="body1"
@@ -95,34 +98,30 @@ function LandingPage() {
                 that will allow every person to live well and long from
                 generation to generation.
               </Typography>
+
               <Typography
                 className={styles.HeaderSubtext}
                 variant="body1"
                 paragraph={true}
               >
                 Join us in powering transformational action!
-                <br />
               </Typography>
               <Box mt={5}>
-                <LinkWithStickyParams
-                  to={EXPLORE_DATA_PAGE_LINK}
-                  className={styles.NoUnderline}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={styles.PrimaryButton}
+                  href={EXPLORE_DATA_PAGE_LINK}
                 >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={styles.PrimaryButton}
-                  >
-                    Explore the Health Equity Tracker
-                  </Button>
-                </LinkWithStickyParams>
+                  Explore the Health Equity Tracker
+                </Button>
               </Box>
             </Grid>
             <Grid item xs={12} sm={12} md={6} className={styles.HeaderImgItem}>
               <img
                 src="img/shutterstock_1414416191 2 (1).png"
                 className={styles.HeaderImg}
-                alt="A man and woman laying with their two children"
+                alt=""
               />
             </Grid>
           </Grid>
@@ -158,18 +157,30 @@ function LandingPage() {
                 justify="space-around"
               >
                 <TakeALookAroundItem
-                  src="img/HET_Fields_1_v2_1000px.gif"
-                  alt="Decorative dots"
+                  src={
+                    prefersReducedMotion
+                      ? "img/HET-fields-no-motion.gif"
+                      : "img/HET_Fields_1_v2_1000px.gif"
+                  }
+                  alt=""
                   text="(1) Learn about health equity"
                 />
                 <TakeALookAroundItem
-                  src="img/HET_Dots_1_v3_1000px.gif"
-                  alt="Decorative thick lines"
+                  src={
+                    prefersReducedMotion
+                      ? "img/HET-dots-no-motion.gif"
+                      : "img/HET_Dots_1_v3_1000px.gif"
+                  }
+                  alt=""
                   text="(2) Investigate the data"
                 />
                 <TakeALookAroundItem
-                  src="img/HET_Spiral_v4_1000px.gif"
-                  alt="Decorative circular pattern"
+                  src={
+                    prefersReducedMotion
+                      ? "img/HET-spiral-no-motion.gif"
+                      : "img/HET_Spiral_v4_1000px.gif"
+                  }
+                  alt=""
                   text="(3) Share our site and join our movement"
                 />
               </Grid>
@@ -177,18 +188,20 @@ function LandingPage() {
 
             <Grid container direction="row" justify="center">
               <Grid item xs={12} sm={12} md={2}>
-                <LinkWithStickyParams
+                {/* <LinkWithStickyParams
                   to="/whatishealthequity"
-                  className={styles.NoUnderline}
+                  class={styles.NoUnderline}
+                > */}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={styles.PrimaryButton}
+                  aria-label="Learn More About Health Equity"
+                  href={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
                 >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={styles.PrimaryButton}
-                  >
-                    Learn more
-                  </Button>
-                </LinkWithStickyParams>
+                  Learn more
+                </Button>
+                {/* </LinkWithStickyParams> */}
               </Grid>
             </Grid>
           </Grid>
@@ -211,7 +224,7 @@ function LandingPage() {
                 <img
                   src="img/118172286-e3fffb80-b3c7-11eb-9553-127462881af3.png"
                   className={styles.PrioritizeHealthEquityImg}
-                  alt="Three women embracing a small baby in between them"
+                  alt=""
                 />
               </Grid>
             </Hidden>
@@ -290,7 +303,7 @@ function LandingPage() {
                   <img
                     className={styles.HowToStepImg}
                     src="img/het-screen-1.png"
-                    alt="Screenshot of Data Tracker - selecting mad libs"
+                    alt="Search Example Screenshot: Investigate Rates of option Covid-19 in location United States"
                   />
                 </Grid>
                 <Grid item xs={12} sm={12} md={3}>
@@ -317,7 +330,7 @@ function LandingPage() {
                   <img
                     className={styles.HowToStepImg}
                     src="img/het-screen-2.png"
-                    alt="Screenshot of Data Tracker - using filters"
+                    alt="Search Example Screenshot: Compare Rates of option Covid-19 between two locations"
                   />
                 </Grid>
                 <Grid item xs={12} sm={12} md={3}>
@@ -344,7 +357,7 @@ function LandingPage() {
                   <img
                     className={styles.HowToStepImg}
                     src="img/het-screen-3.png"
-                    alt="Screenshot of Data Tracker - map of the US"
+                    alt="Map Example Screenshot, Data Tracker map of option Covid-19 rates of all racial groups"
                   />
                 </Grid>
                 <Grid item xs={12} sm={12} md={3}>
@@ -363,18 +376,14 @@ function LandingPage() {
               <Grid item>
                 <br />
                 <br />
-                <LinkWithStickyParams
-                  to={EXPLORE_DATA_PAGE_LINK}
-                  className={styles.NoUnderline}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={styles.PrimaryButton}
+                  href={EXPLORE_DATA_PAGE_LINK}
                 >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={styles.PrimaryButton}
-                  >
-                    Explore the Tracker
-                  </Button>
-                </LinkWithStickyParams>
+                  Explore the Tracker
+                </Button>
               </Grid>
             </Grid>
           </Grid>
@@ -401,13 +410,16 @@ function LandingPage() {
                     className={styles.NewsletterRowHeader}
                     variant="h2"
                   >
-                    Join Our
-                    <br />
-                    Movement
+                    <span aria-hidden="true">
+                      Join Our
+                      <br />
+                      Movement
+                    </span>
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Button
+                    aria-label="Join Our Movement"
                     variant="contained"
                     color="default"
                     className={styles.JoinOurMovementButton}

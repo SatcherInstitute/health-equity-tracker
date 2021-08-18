@@ -124,7 +124,9 @@
     }
 
     .DefinitionSourceSpan {
-      color: $alt-grey;
+      color: $alt-black; // $alt-grey fails a11y contrast
+      font-weight: 200;
+      font-size: smaller;
     }
   }
 }
@@ -307,7 +309,7 @@
   text-align: left;
   font-weight: 500;
   font-family: "DM Sans", sans-serif;
-  line-height: 5px !important;
+  line-height: 1 !important; // 5px was causing bug.
   color: $alt-black;
 }
 
