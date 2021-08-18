@@ -3,7 +3,11 @@ import { Alert } from "@material-ui/lab";
 import { Row } from "../../data/utils/DatasetTypes";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
 import { MetricConfig } from "../../data/config/MetricConfig";
-import { UNKNOWN, UNKNOWN_RACE } from "../../data/utils/Constants";
+import {
+  UNKNOWN,
+  UNKNOWN_RACE,
+  UNKNOWN_ETHNICITY,
+} from "../../data/utils/Constants";
 import styles from "../Card.module.scss";
 import { CardContent, Divider } from "@material-ui/core";
 import {
@@ -23,7 +27,8 @@ function UnknownsAlert(props: {
     .filter(
       (row: Row) =>
         row[props.breakdownVar] === UNKNOWN_RACE ||
-        row[props.breakdownVar] === UNKNOWN
+        row[props.breakdownVar] === UNKNOWN ||
+        row[props.breakdownVar] === UNKNOWN_ETHNICITY
     );
   if (unknowns.length === 0) {
     return <></>;
@@ -37,6 +42,16 @@ function UnknownsAlert(props: {
     : `The ${props.displayType} below displays data for cases where ${breakdownVarDisplayName} was unknown.`;
 
   const percentageUnknown = unknowns[0][props.metricConfig.metricId];
+
+  // In the case we have unknowns for race and ethnicity reported separately,
+  // show the higher one on the map
+  if (unknowns.length === 2) {
+    if (
+      unknowns[0][props.metricConfig.metricId] >
+      unknowns[1][props.metricConfig.metricId]
+    ) {
+    }
+  }
 
   return (
     <>

@@ -6,11 +6,11 @@ import { joinOnCols } from "../utils/datasetutils";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 
-class CdcVaccineNationalProvider extends VariableProvider {
+class VaccineProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
 
   constructor(acsProvider: AcsPopulationProvider) {
-    super("cdc_vaccine_national_provider", [
+    super("vaccine_provider", [
       "vaccinated_pct_share",
       "vaccinated_share_of_known",
       "vaccinated_per_100k",
@@ -143,4 +143,4 @@ class CdcVaccineNationalProvider extends VariableProvider {
   }
 }
 
-export default CdcVaccineNationalProvider;
+export default VaccineProvider;

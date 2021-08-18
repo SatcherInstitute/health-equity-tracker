@@ -6,14 +6,14 @@ import BrfssProvider from "../variables/BrfssProvider";
 import { MetricId } from "../config/MetricConfig";
 import AcsHealthInsuranceProvider from "../variables/AcsHealthInsuranceProvider";
 import AcsPovertyProvider from "../variables/AcsPovertyProvider";
-import CdcVaccineNationalProvider from "../variables/CdcVaccineNationalProvider";
+import VaccineProvider from "../variables/VaccineProvider";
 
 export type ProviderId =
   | "acs_health_insurance_provider"
   | "acs_pop_provider"
   | "acs_poverty_provider"
   | "cdc_covid_provider"
-  | "cdc_vaccine_national_provider"
+  | "vaccine_provider"
   | "covid_provider"
   | "brfss_provider"
   | "acs_2010_pop_provider";
@@ -33,7 +33,7 @@ export default class VariableProviderMap {
       new BrfssProvider(acsProvider),
       new AcsHealthInsuranceProvider(),
       new AcsPovertyProvider(),
-      new CdcVaccineNationalProvider(acsProvider),
+      new VaccineProvider(acsProvider),
     ];
 
     this.providersById = this.getProvidersById();
