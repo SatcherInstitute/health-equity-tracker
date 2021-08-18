@@ -23,7 +23,6 @@ function TakeALookAroundItem(props: {
   src: string;
   alt: string;
   text: string;
-  ariaLabel: string;
 }) {
   return (
     <Grid item xs={12} sm={4} md={4} className={styles.TakeALookAroundItem}>
@@ -39,7 +38,7 @@ function TakeALookAroundItem(props: {
         </Hidden>
         <Grid item>
           <Typography className={styles.TakeALookAroundText} variant="h3">
-            <p aria-label={props.ariaLabel}>{props.text}</p>
+            <p>{props.text}</p>
           </Typography>
         </Grid>
       </Grid>
@@ -165,7 +164,6 @@ function LandingPage() {
                   }
                   alt=""
                   text="(1) Learn about health equity"
-                  ariaLabel="Step 1: Learn about health equity"
                 />
                 <TakeALookAroundItem
                   src={
@@ -175,7 +173,6 @@ function LandingPage() {
                   }
                   alt=""
                   text="(2) Investigate the data"
-                  ariaLabel="Step 2: Investigate the data"
                 />
                 <TakeALookAroundItem
                   src={
@@ -185,7 +182,6 @@ function LandingPage() {
                   }
                   alt=""
                   text="(3) Share our site and join our movement"
-                  ariaLabel="Step 3: Share our site and join our movement"
                 />
               </Grid>
             </Grid>
