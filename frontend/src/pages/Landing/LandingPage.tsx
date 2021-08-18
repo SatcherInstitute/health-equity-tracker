@@ -327,9 +327,7 @@ function LandingPage() {
                     </h3>
                     <p className={styles.HowToStepTextSubheader}>
                       Where available, the tracker offers breakdowns by race and
-                      ethnicity, sex, and age. This is currently limited to the
-                      national and state level, with county-level data coming
-                      soon.
+                      ethnicity, sex, and age.
                     </p>
                   </div>
                 </Grid>
