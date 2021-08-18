@@ -100,7 +100,7 @@ function AppToolbar() {
           role="link"
         />
       </ReactRouterLinkButton>
-      <Typography variant="h1" className={styles.HomeLogo} aria-hidden="true">
+      <Typography variant="h1" className={styles.HomeLogo}>
         <LinkWithStickyParams to="/">
           Health Equity Tracker
         </LinkWithStickyParams>
