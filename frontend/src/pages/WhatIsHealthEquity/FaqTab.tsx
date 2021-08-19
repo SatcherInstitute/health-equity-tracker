@@ -5,6 +5,7 @@ import { Typography } from "@material-ui/core";
 import { TAB_PARAM, ABOUT_US_PAGE_LINK } from "../../utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
 import { Helmet } from "react-helmet";
+import { CITATION_CHICAGO } from "../DataCatalog/MethodologyTab";
 
 function FaqTab() {
   return (
@@ -337,11 +338,7 @@ function FaqTab() {
                   Tracker?
                 </h3>
                 <div className={styles.FaqAnswer}>
-                  <p>
-                    Health Equity Tracker. (2021). Satcher Health Leadership
-                    Institute. Morehouse School of Medicine.
-                    https://healthequitytracker.org.
-                  </p>
+                  <p>{CITATION_CHICAGO}</p>
                 </div>
               </Grid>
             </Grid>

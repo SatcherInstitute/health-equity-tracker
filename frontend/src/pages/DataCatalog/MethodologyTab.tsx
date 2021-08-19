@@ -10,6 +10,9 @@ import {
 import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
 import { Helmet } from "react-helmet";
 
+export const CITATION_CHICAGO =
+  "Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. https://healthequitytracker.org.";
+
 function MethodologyTab() {
   return (
     <>
@@ -26,6 +29,18 @@ function MethodologyTab() {
       >
         <Grid item xs={12} sm={12} md={9}>
           <Grid container className={styles.MethodologySection}>
+            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
+              <h2
+                id="main"
+                tabIndex={-1}
+                className={styles.MethodologyQuestion}
+              >
+                Recommended Citation for the Health Equity Tracker:
+              </h2>
+              <div className={styles.MethodologyAnswer}>
+                <p>{CITATION_CHICAGO}</p>
+              </div>
+            </Grid>
             <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
               <h2
                 id="main"
@@ -53,6 +68,7 @@ function MethodologyTab() {
                 </ul>
               </div>
             </Grid>
+
             <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
               <h2 className={styles.MethodologyQuestion}>
                 What are the limitations of the tracker?
