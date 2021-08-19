@@ -324,7 +324,11 @@ function OurTeamTab() {
             </Typography>
           </Grid>
           <Grid item>
-            <Grid container className={styles.GridSubRow}>
+            <Grid
+              container
+              justify="space-around"
+              className={styles.GridSubRow}
+            >
               {GOOGLE_FELLOWS.map((fellow) => {
                 return fellow.link == null ? (
                   <Grid item className={styles.TextProfile} key={fellow.name}>
@@ -367,7 +371,11 @@ function OurTeamTab() {
           </Grid>
 
           <Grid item xs={12}>
-            <Grid container className={styles.GridSubRow}>
+            <Grid
+              container
+              justify="space-around"
+              className={styles.GridSubRow}
+            >
               {HE_TASKFORCE.map((taskforceName) => (
                 <Grid item className={styles.TextProfile} key={taskforceName}>
                   <span style={{ fontSize: "16px", fontWeight: 500 }}>
