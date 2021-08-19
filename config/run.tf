@@ -88,7 +88,8 @@ resource "google_cloud_run_service" "data_server_service" {
 
         resources {
           limits = {
-            memory = "1G"
+            memory = "8Gi"
+            cpu = 4
           }
         }
       }

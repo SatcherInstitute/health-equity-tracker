@@ -70,7 +70,7 @@ function MenuPopover(props: {
       anchorOrigin={ANCHOR_ORIGIN}
       transformOrigin={TRANSFORM_ORIGIN}
     >
-      <List>
+      <List aria-label="List of Options">
         {listItems.map((listItem: string) => renderListItem(listItem))}
       </List>
     </Popover>
@@ -107,13 +107,14 @@ function DropDownMenu(props: {
   return (
     <>
       <div className={styles.FilterBy}>Select group:</div>
-      <Button variant="text" onClick={firstMenu.open}>
+      <Button variant="text" onClick={firstMenu.open} aria-haspopup="true">
         <u>{props.value}</u>
         <ArrowDropDown />
       </Button>
 
       <MenuPopover
         popover={firstMenu}
+        aria-expanded="true"
         items={oneLevelMenu ? Object.values(props.options)[0] : props.options}
         onClick={(event: React.MouseEvent<HTMLElement>, value: string) => {
           if (oneLevelMenu) {

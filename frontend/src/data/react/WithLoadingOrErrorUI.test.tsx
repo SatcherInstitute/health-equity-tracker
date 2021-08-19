@@ -76,7 +76,7 @@ describe("WithLoadingOrErrorUI", () => {
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
       dataFetcher.setFakeDatasetLoaded("acs_population-by_race_state_std", []);
-      dataFetcher.setFakeDatasetLoaded("uhc_race_and_ethnicity", [
+      dataFetcher.setFakeDatasetLoaded("uhc_data-race_and_ethnicity", [
         {
           state_name: "Alabama",
           race_and_ethnicity: "AmIn",
@@ -106,7 +106,7 @@ describe("WithLoadingOrErrorUI", () => {
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
       dataFetcher.setFakeDatasetLoaded("acs_population-by_race_state_std", []);
-      dataFetcher.setFakeDatasetLoaded("uhc_race_and_ethnicity", []);
+      dataFetcher.setFakeDatasetLoaded("uhc_data-race_and_ethnicity", []);
     });
 
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
@@ -126,7 +126,7 @@ describe("WithLoadingOrErrorUI", () => {
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
       dataFetcher.setFakeDatasetLoaded("acs_population-by_age_county", []);
-      dataFetcher.setFakeDatasetLoaded("uhc_race_and_ethnicity", []);
+      dataFetcher.setFakeDatasetLoaded("uhc_data-race_and_ethnicity", []);
     });
 
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(

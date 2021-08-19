@@ -1,7 +1,7 @@
 import React from "react";
 import { CardContent } from "@material-ui/core";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
-import { Fips } from "../data/utils/Fips";
+import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
 import { VariableConfig } from "../data/config/MetricConfig";
 import MapBreadcrumbs from "./ui/MapBreadcrumbs";
 import { Row } from "../data/utils/DatasetTypes";
@@ -28,6 +28,8 @@ export interface UnknownsMapCardProps {
   fips: Fips;
   // Updates the madlib
   updateFipsCallback: (fips: Fips) => void;
+  // replaces race AND ethnicity with race OR ethnicity on unknowns map title and alerts
+  overrideAndWithOr?: Boolean;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -62,12 +64,16 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const mapQuery = new MetricQuery([metricConfig.metricId], mapGeoBreakdowns);
   const alertQuery = new MetricQuery([metricConfig.metricId], alertBreakdown);
 
+  const RACE_OR_ETHNICITY_TITLECASE = "Race Or Ethnicity";
+
   return (
     <CardWrapper
       queries={[mapQuery, alertQuery]}
       title={
         <>{`${metricConfig.fullCardTitleName} With Unknown ${
-          BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+          props.overrideAndWithOr
+            ? RACE_OR_ETHNICITY_TITLECASE
+            : BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
         }`}</>
       }
       loadGeographies={true}
@@ -98,6 +104,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               breakdownVar={props.currentBreakdown}
               displayType="map"
               known={false}
+              overrideAndWithOr={
+                props.currentBreakdown === "race_and_ethnicity"
+              }
             />
             <CardContent>
               {mapQueryResponse.dataIsMissing() && (
@@ -137,6 +146,36 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   }
                   geoData={geoData}
                 />
+                {props.fips.isUsa() && (
+                  <div className={styles.TerritoryCirclesContainer}>
+                    {TERRITORY_CODES.map((code) => {
+                      const fips = new Fips(code);
+                      return (
+                        <div className={styles.TerritoryCircle}>
+                          <ChoroplethMap
+                            useSmallSampleMessage={
+                              !mapQueryResponse.dataIsMissing() &&
+                              (props.variableConfig.surveyCollectedData ||
+                                false)
+                            }
+                            signalListeners={signalListeners}
+                            metric={metricConfig}
+                            legendTitle={metricConfig.fullCardTitleName}
+                            data={unknowns}
+                            showCounties={props.fips.isUsa() ? false : true}
+                            fips={fips}
+                            scaleType="symlog"
+                            scaleColorScheme="greenblue"
+                            hideLegend={true}
+                            hideActions={true}
+                            geoData={geoData}
+                            overrideShapeWithCircle={true}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </CardContent>
             )}
           </>

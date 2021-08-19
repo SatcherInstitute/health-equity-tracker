@@ -2,17 +2,20 @@ import React, { Dispatch, SetStateAction } from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./TermsOfServicePage.module.scss";
 import { Typography } from "@material-ui/core";
+import { Helmet } from "react-helmet";
 
 function TermsOfServicePage(props: {
   setTabIndexFx: Dispatch<SetStateAction<number>>;
 }) {
   return (
     <>
-      <title>Terms of Service - Health Equity Tracker</title>
-      <h1 className={styles.ScreenreaderTitleHeader}>Terms of Service</h1>
+      <Helmet>
+        <title>Terms of Use - Health Equity Tracker</title>
+      </Helmet>
+      <h1 className={styles.ScreenreaderTitleHeader}>Terms of Use</h1>
       <Grid container className={styles.Grid}>
         <Grid container className={styles.TosSection}>
-          <Grid item xs={3}>
+          <Grid item xs={12} md={3}>
             <Typography
               id="main"
               tabIndex={-1}
@@ -22,7 +25,7 @@ function TermsOfServicePage(props: {
               Privacy Policy
             </Typography>
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={12} md={9}>
             <Grid container>
               <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
                 <div className={styles.TosAnswer}>
@@ -181,12 +184,12 @@ function TermsOfServicePage(props: {
         </Grid>
 
         <Grid container className={styles.TosSection}>
-          <Grid item xs={3}>
+          <Grid item xs={12} md={3}>
             <Typography className={styles.TosHeaderText} variant="h2">
               Terms and Conditions
             </Typography>
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={12} md={9}>
             <Grid container>
               <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
                 <div className={styles.TosAnswer}>

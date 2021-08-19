@@ -35,7 +35,6 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
     getParameter(DEMOGRAPHIC_PARAM, "race_and_ethnicity")
   );
 
-  // TODO Remove hard coded fail safe value
   const [variableConfig, setVariableConfig] = useState<VariableConfig | null>(
     Object.keys(METRIC_CONFIG).includes(props.dropdownVarId)
       ? METRIC_CONFIG[props.dropdownVarId][0]
@@ -133,6 +132,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           <Grid item xs={12} sm={12} md={6}>
             {variableConfig.metrics["pct_share"] && (
               <UnknownsMapCard
+                overrideAndWithOr={currentBreakdown === "race_and_ethnicity"}
                 variableConfig={variableConfig}
                 fips={props.fips}
                 updateFipsCallback={(fips: Fips) => {

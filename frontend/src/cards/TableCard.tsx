@@ -36,12 +36,22 @@ export interface TableCardProps {
 export function TableCard(props: TableCardProps) {
   const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
 
+  /* TODO(993) change breakdowns to exclude ALL when the map card info alert is shown
+    import { ALL } from "../data/utils/Constants";
+    Breakdowns.forFips(props.fips).addBreakdown(
+        props.breakdownVar,
+        props.breakdownVar === "race_and_ethnicity"
+        ? exclude(NON_HISPANIC, ALL)
+        : exclude(ALL)
+    )
+  */
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     props.breakdownVar === "race_and_ethnicity"
       ? exclude(NON_HISPANIC)
       : undefined
   );
+
   let metricConfigs: Record<string, MetricConfig> = {};
   metrics.forEach((metricConfig) => {
     // We prefer to show the known breakdown metric over the vanilla metric, if

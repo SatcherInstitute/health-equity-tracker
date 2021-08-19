@@ -103,6 +103,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 breakdownVar={props.breakdownVar}
                 displayType="chart"
                 known={true}
+                overrideAndWithOr={props.breakdownVar === "race_and_ethnicity"}
               />
             )}
             {dataAvailable && dataWithoutUnknowns.length !== 0 && (

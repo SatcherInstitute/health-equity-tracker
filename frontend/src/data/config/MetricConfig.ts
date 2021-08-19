@@ -30,6 +30,8 @@ export type MetricId =
   | "health_insurance_population_pct"
   | "population"
   | "population_pct"
+  | "population_2010"
+  | "population_pct_2010"
   | "poverty_count"
   | "poverty_pct_share"
   | "poverty_per_100k"
@@ -84,6 +86,26 @@ export const POPULATION_VARIABLE_CONFIG: VariableConfig = {
     },
     pct_share: {
       metricId: "population_pct",
+      fullCardTitleName: populationPctTitle,
+      shortVegaLabel: populationPctShortLabel,
+      type: "pct_share",
+    },
+  },
+};
+
+export const POPULATION_VARIABLE_CONFIG_2010: VariableConfig = {
+  variableId: "population_2010",
+  variableDisplayName: "Population",
+  variableFullDisplayName: "Population",
+  metrics: {
+    count: {
+      metricId: "population_2010",
+      fullCardTitleName: "Population",
+      shortVegaLabel: "people",
+      type: "count",
+    },
+    pct_share: {
+      metricId: "population_pct_2010",
       fullCardTitleName: populationPctTitle,
       shortVegaLabel: populationPctShortLabel,
       type: "pct_share",

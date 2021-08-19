@@ -247,9 +247,14 @@
 }
 
 .TosQuestionAndAnswer {
-  padding-bottom: 20px;
-  padding-right: 250px;
   text-align: left;
+  padding-bottom: 20px;
+  padding-left: 0px;
+  padding-right: 25%;
+  @media (max-width: $md) {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
 }
 
 .TosHeaderText {

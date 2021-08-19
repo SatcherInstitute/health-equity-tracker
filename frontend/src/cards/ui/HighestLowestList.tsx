@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./HighestLowestList.module.scss";
 import AnimateHeight from "react-animate-height";
 import { Grid } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import { IconButton } from "@material-ui/core";
@@ -31,7 +30,7 @@ export interface HighestLowestListProps {
 }
 
 /*
-   Collapsable box showing lists of geographies with the highest and lowest rates
+   Collapsible box showing lists of geographies with the highest and lowest rates
 */
 export function HighestLowestList(props: HighestLowestListProps) {
   return (
@@ -45,8 +44,8 @@ export function HighestLowestList(props: HighestLowestListProps) {
         <IconButton
           aria-label={
             props.listExpanded
-              ? "hide highest and lowest rates"
-              : "show highest and lowest rates"
+              ? `hide lists of ${props.fipsTypePluralDisplayName} with highest and lowest rates `
+              : `show lists of ${props.fipsTypePluralDisplayName} with highest and lowest rates`
           }
           onClick={() => props.setListExpanded(!props.listExpanded)}
           color="primary"
@@ -55,6 +54,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
         </IconButton>
       </div>
       <div
+        aria-hidden={true}
         className={
           props.listExpanded ? styles.ListBoxTitleExpanded : styles.ListBoxTitle
         }
@@ -100,16 +100,9 @@ export function HighestLowestList(props: HighestLowestListProps) {
       </div>
       <p>All rates are reported as: {props.metricConfig.fullCardTitleName}</p>
       <p>
-        Consider the possible impact of
-        <Button
-          onClick={() =>
-            document.getElementById("missingDataInfo")?.scrollIntoView()
-          }
-          className={styles.LinkButton}
-        >
-          data reporting gaps
-        </Button>
-        when interpreting the highest and lowest rates.
+        Consider the possible impact of{" "}
+        <a href="#missingDataInfo">data reporting gaps</a> when interpreting the
+        highest and lowest rates.
       </p>
     </AnimateHeight>
   );
