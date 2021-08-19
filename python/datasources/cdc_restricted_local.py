@@ -112,8 +112,9 @@ DEMOGRAPHIC_COL_MAPPING = {
 # have case, hospitalization, and death data suppressed.
 # See https://github.com/SatcherInstitute/health-equity-tracker/issues/617.
 ALL_DATA_SUPPRESSION_STATES = ("LA", "MO", "MS", "ND", "TX", "WY")
-HOSP_DATA_SUPPRESSION_STATES = ("HI", "NE", "SD")
-DEATH_DATA_SUPPRESSION_STATES = ("HI", "NE", "SD", "WV", "DE")
+HOSP_DATA_SUPPRESSION_STATES = ("HI", "NE", "RI", "SD")
+DEATH_DATA_SUPPRESSION_STATES = ("HI", "NE", "SD",
+                                 "WV", "DE")
 
 
 def accumulate_data(df, geo_cols, overall_df, demog_col, names_mapping):
