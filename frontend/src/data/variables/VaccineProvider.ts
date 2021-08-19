@@ -72,8 +72,6 @@ class VaccineProvider extends VariableProvider {
       population_pct: "vaccine_population_pct",
     });
 
-    console.log(df.toArray());
-
     if (breakdowns.geography === "national") {
       df = df.generateSeries({
         vaccinated_per_100k: (row) =>

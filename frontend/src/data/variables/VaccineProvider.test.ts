@@ -69,14 +69,18 @@ function finalRow(
   breakdownName: string,
   breakdownValue: string,
   vaccinated_pct: number,
-  vaccinated_pct_share: number
+  vaccinated_pct_share: number,
+  vaccinated_pct_share_of_known: number,
+  vaccine_population_pct: number
 ) {
   return {
     [breakdownName]: breakdownValue,
     fips: fips.code,
     fips_name: fips.name,
-    vaccinated_pct: vaccinated_pct,
+    vaccinated_per_100k: vaccinated_pct,
     vaccinated_pct_share: vaccinated_pct_share,
+    vaccinated_share_of_known: vaccinated_pct_share_of_known,
+    vaccine_population_pct: vaccine_population_pct,
   };
 }
 
@@ -84,26 +88,50 @@ function stateRow(
   fips: FipsSpec,
   breakdownName: string,
   breakdownValue: string,
-  copd_pct: number,
-  diabetes_pct: number
+  vaccinated_pct: number,
+  vaccinated_pct_share: number,
+  population: number
 ) {
   return [
     {
       [breakdownName]: breakdownValue,
       state_fips: fips.code,
       state_name: fips.name,
-      copd_pct: copd_pct,
-      diabetes_pct: diabetes_pct,
+      vaccinated_pct: vaccinated_pct,
+      vaccinated_pct_share: vaccinated_pct_share,
     },
     {
       state_fips: fips.code,
       state_name: fips.name,
       race_and_ethnicity: breakdownValue,
+      population: population,
     },
   ];
 }
 
-describe("BrfssProvider", () => {
+function nationalRow(
+  breakdownName: string,
+  breakdownValue: string,
+  fully_vaccinated: number,
+  population: number
+) {
+  return [
+    {
+      [breakdownName]: breakdownValue,
+      state_fips: USA.code,
+      state_name: USA.name,
+      fully_vaccinated: fully_vaccinated,
+    },
+    {
+      state_fips: USA.code,
+      state_name: USA.name,
+      race_and_ethnicity: breakdownValue,
+      population: population,
+    },
+  ];
+}
+
+describe("VaccineProvider", () => {
   beforeEach(() => {
     resetCacheDebug();
     dataFetcher.resetState();
@@ -111,158 +139,94 @@ describe("BrfssProvider", () => {
   });
 
   test("State and Race Breakdown", async () => {
-    const [AL_ASIAN_ROW, AL_ACS_ASIAN_ROW] = stateRow(
-      /*fips=*/ AL,
-      /*breakdownName=*/ RACE,
-      /*breakdownValue=*/ ASIAN_NH,
-      /*vaccinated_pct=*/ 10,
-      /*vaccinated_pct_share=*/ 20
-    );
-
     const [NC_ASIAN_ROW, NC_ACS_ASIAN_ROW] = stateRow(
-      /*fips=*/ NC,
-      /*breakdownName=*/ RACE,
-      /*breakdownValue=*/ ASIAN_NH,
-      /*copd_pct=*/ 20,
-      /*diabetes_pct=*/ 40
+      NC,
+      RACE,
+      ASIAN_NH,
+      0.15,
+      0.2,
+      10
     );
 
-    const [NC_WHITE_ROW, NC_ACS_WHITE_ROW] = stateRow(
-      /*fips=*/ NC,
-      /*breakdownName=*/ RACE,
-      /*breakdownValue=*/ WHITE_NH,
-      /*copd_pct=*/ 50,
-      /*diabetes_pct=*/ 50
-    );
+    const [NC_ALL_ROW, NC_ACS_ALL_ROW] = stateRow(NC, RACE, ALL, 0.3, 0.4, 10);
 
-    const [NC_ALL_ROW, NC_ACS_ALL_ROW] = stateRow(
-      /*fips=*/ NC,
-      /*breakdownName=*/ RACE,
-      /*breakdownValue=*/ ALL,
-      /*copd_pct=*/ 35,
-      /*diabetes_pct=*/ 45
-    );
-
-    const rawData = [AL_ASIAN_ROW, NC_ASIAN_ROW, NC_WHITE_ROW, NC_ALL_ROW];
-
-    const rawAcsData = [
-      AL_ACS_ASIAN_ROW,
-      NC_ACS_ASIAN_ROW,
-      NC_ACS_WHITE_ROW,
-      NC_ACS_ALL_ROW,
-    ];
+    const rawData = [NC_ASIAN_ROW, NC_ALL_ROW];
 
     // Create final rows with diabetes_count & diabetes_per_100k
     const NC_ASIAN_FINAL = finalRow(
       /*fips*/ NC,
       /*breakdownName*/ RACE,
       /*breakdownValue*/ ASIAN_NH,
-      /*copd_per_100k*/ 20000,
-      /*diabetes_per_100k*/ 40000,
-      /*copd_pct_share*/ 28.6,
-      /*diabetes_pct_share*/ 44.4
+      /*vaccinated_per_100k*/ 15000,
+      /*vaccinated_pct_share*/ 20,
+      /*vaccinated_pct_share_of_known*/ 20,
+      /*vaccine_population_pct*/ 100
     );
-    const NC_WHITE_FINAL = finalRow(
-      NC,
-      RACE,
-      WHITE_NH,
-      /*copd_per_100k*/ 50000,
-      /*diabetes_per_100k*/ 50000,
-      /*copd_pct_share*/ 71.4,
-      /*diabetes_pct_share*/ 55.6
-    );
+
     const NC_ALL_FINAL = finalRow(
-      NC,
-      RACE,
-      ALL,
-      /*copd_per_100k*/ 35000,
-      /*diabetes_per_100k*/ 45000,
-      /*copd_pct_share*/ 100,
-      /*diabetes_pct_share*/ 100
+      /*fips*/ NC,
+      /*breakdownName*/ RACE,
+      /*breakdownValue*/ ALL,
+      /*vaccinated_per_100k*/ 30000,
+      /*vaccinated_pct_share*/ 40,
+      /*vaccinated_pct_share_of_known*/ 40,
+      /*vaccine_population_pct*/ 100
     );
 
     await evaluateWithAndWithoutAll(
-      "uhc_data-race_and_ethnicity",
+      "kff_vaccination-race_and_ethnicity",
       rawData,
       "acs_population-by_race_state_std",
-      rawAcsData,
+      [NC_ACS_ASIAN_ROW, NC_ACS_ALL_ROW],
       Breakdowns.forFips(new Fips("37")),
       RACE,
-      [NC_ASIAN_FINAL, NC_WHITE_FINAL],
-      [NC_ALL_FINAL, NC_ASIAN_FINAL, NC_WHITE_FINAL]
+      [NC_ASIAN_FINAL],
+      [NC_ALL_FINAL, NC_ASIAN_FINAL]
     );
   });
 
   test("National and Race Breakdown", async () => {
-    const [USA_ASIAN_ROW, USA_ACS_ASIAN_ROW] = stateRow(
-      USA,
+    const [USA_ASIAN_ROW, USA_ACS_ASIAN_ROW] = nationalRow(
       RACE,
       ASIAN_NH,
-      /*copd_pct=*/ 10,
-      /*diabetes_pct=*/ 20,
-      /*population=*/ 1000
+      100,
+      1000
     );
 
-    const [USA_WHITE_ROW, USA_ACS_WHITE_ROW] = stateRow(
-      USA,
-      RACE,
-      WHITE_NH,
-      /*copd_pct=*/ 20,
-      /*diabetes_pct=*/ 40,
-      /*population=*/ 1000
-    );
+    const [USA_ALL_ROW, USA_ACS_ALL_ROW] = nationalRow(RACE, ALL, 1000, 2000);
 
-    const [USA_ALL_ROW, USA_ACS_ALL_ROW] = stateRow(
-      USA,
-      RACE,
-      ALL,
-      /*copd_pct=*/ 15,
-      /*diabetes_pct=*/ 30,
-      /*population=*/ 2000
-    );
-
-    const rawData = [USA_ALL_ROW, USA_ASIAN_ROW, USA_WHITE_ROW];
-
-    const rawAcsData = [USA_ACS_WHITE_ROW, USA_ACS_ALL_ROW, USA_ACS_ASIAN_ROW];
+    const rawData = [USA_ASIAN_ROW, USA_ALL_ROW];
 
     // Create final rows with diabetes_count & diabetes_per_100k
-    const ASIAN_FINAL = finalRow(
-      USA,
-      RACE,
-      ASIAN_NH,
-      /*copd_per_100k*/ 10000,
-      /*diabetes_per_100k*/ 20000,
-      /*copd_pct_share*/ 33.3,
-      /*diabetes_pct_share*/ 33.3
+    const USA_ASIAN_FINAL = finalRow(
+      /*fips*/ USA,
+      /*breakdownName*/ RACE,
+      /*breakdownValue*/ ASIAN_NH,
+      /*vaccinated_per_100k*/ 10000,
+      /*vaccinated_pct_share*/ 10,
+      /*vaccinated_pct_share_of_known*/ 100,
+      /*vaccine_population_pct*/ 50
     );
-    const WHITE_FINAL = finalRow(
-      USA,
-      RACE,
-      WHITE_NH,
-      /*copd_per_100k*/ 20000,
-      /*diabetes_per_100k*/ 40000,
-      /*copd_pct_share*/ 66.7,
-      /*diabetes_pct_share*/ 66.7
-    );
-    const ALL_FINAL = finalRow(
-      USA,
-      RACE,
-      ALL,
-      /*copd_per_100k*/ 15000,
-      /*diabetes_per_100k*/ 30000,
-      /*copd_pct_share*/ 100,
-      /*diabetes_pct_share*/ 100
+
+    const USA_ALL_FINAL = finalRow(
+      /*fips*/ USA,
+      /*breakdownName*/ RACE,
+      /*breakdownValue*/ ALL,
+      /*vaccinated_per_100k*/ 50000,
+      /*vaccinated_pct_share*/ 100,
+      /*vaccinated_pct_share_of_known*/ 100,
+      /*vaccine_population_pct*/ 100
     );
 
     await evaluateWithAndWithoutAll(
-      "uhc_data-race_and_ethnicity",
+      "cdc_vaccination_national-race_and_ethnicity",
       rawData,
       "acs_population-by_race_state_std",
-      rawAcsData,
+      [USA_ACS_ASIAN_ROW, USA_ACS_ALL_ROW],
       Breakdowns.national(),
       RACE,
-      [ASIAN_FINAL, WHITE_FINAL],
-      [ALL_FINAL, ASIAN_FINAL, WHITE_FINAL]
+      [USA_ASIAN_FINAL],
+      [USA_ALL_FINAL, USA_ASIAN_FINAL]
     );
   });
 });
