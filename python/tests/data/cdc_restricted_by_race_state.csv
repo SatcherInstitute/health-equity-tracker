@@ -12,14 +12,14 @@ DE,TOTAL,1,1,0,0,,,,Total,,Total
 DE,UNKNOWN,1,1,0,0,,,,Unknown race,True,Unknown race
 HI,AIAN_NH,1,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
 HI,TOTAL,1,,,,,,,Total,,Total
-MD,ASIAN_NH,1,,,,,,,Asian,False,Asian (Non-Hispanic)
-MD,TOTAL,1,,,,,,,Total,,Total
+MD,ASIAN_NH,1,0,0,1,1,0,0,Asian,False,Asian (Non-Hispanic)
+MD,TOTAL,1,0,0,1,1,0,0,Total,,Total
 NE,BLACK_NH,1,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
 NE,TOTAL,1,,,,,,,Total,,Total
-NM,MULTI_OR_OTHER_STANDARD_NH,1,,,,,,,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
-NM,TOTAL,1,,,,,,,Total,,Total
-RI,NHPI_NH,1,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
-RI,TOTAL,1,,,,,,,Total,,Total
+NM,MULTI_OR_OTHER_STANDARD_NH,1,0,1,0,0,1,0,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+NM,TOTAL,1,0,1,0,0,1,0,Total,,Total
+RI,NHPI_NH,1,,,,1,0,0,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+RI,TOTAL,1,,,,1,0,0,Total,,Total
 SD,TOTAL,1,,,,,,,Total,,Total
 SD,WHITE_NH,1,,,,,,,White,False,White (Non-Hispanic)
 Unknown,BLACK_NH,2,1,0,1,1,0,1,Black or African American,False,Black or African American (Non-Hispanic)
