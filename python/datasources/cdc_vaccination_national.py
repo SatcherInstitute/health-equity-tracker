@@ -76,7 +76,7 @@ class CDCVaccinationNational(DataSource):
             breakdown_df = self.generate_breakdown(breakdown, df)
 
             column_types = {c: 'STRING' for c in breakdown_df.columns}
-            column_types[std_col.FULLY_VACCINATED] = 'INT64'
+            column_types[std_col.VACCINATED_FIRST_DOSE] = 'INT64'
 
             if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
                 column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
@@ -87,7 +87,7 @@ class CDCVaccinationNational(DataSource):
     def generate_breakdown(self, breakdown, df):
         output = []
 
-        columns = [std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL, std_col.FULLY_VACCINATED]
+        columns = [std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL, std_col.VACCINATED_FIRST_DOSE]
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
             columns.append(std_col.RACE_CATEGORY_ID_COL)
         else:
@@ -103,8 +103,8 @@ class CDCVaccinationNational(DataSource):
             else:
                 output_row[breakdown] = standard_group
 
-            row = df.loc[df['demographic_category'] == cdc_group]['series_complete_yes']
-            output_row[std_col.FULLY_VACCINATED] = row.values[0]
+            row = df.loc[df['demographic_category'] == cdc_group]['administered_dose1']
+            output_row[std_col.VACCINATED_FIRST_DOSE] = row.values[0]
 
             output.append(output_row)
 

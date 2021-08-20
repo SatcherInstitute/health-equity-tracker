@@ -1,5 +1,5 @@
-state_name,state_fips,fully_vaccinated,sex
-United States,00,79918295,Female
-United States,00,71284815,Male
-United States,00,1321252,Unknown
-United States,00,152524362,Total
+state_name,state_fips,vaccinated_first_dose,sex
+United States,00,92627521,Female
+United States,00,82983122,Male
+United States,00,1831913,Unknown
+United States,00,177442556,Total

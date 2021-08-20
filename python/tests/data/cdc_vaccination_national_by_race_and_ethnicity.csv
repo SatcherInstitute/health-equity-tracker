@@ -1,10 +1,10 @@
-state_name,state_fips,fully_vaccinated,race_category_id,race,race_includes_hispanic,race_and_ethnicity
-United States,00,16347292,HISP,Hispanic or Latino,TRUE,Hispanic or Latino
-United States,00,965836,AIAN_NH,American Indian and Alaska Native,FALSE,American Indian and Alaska Native (Non-Hispanic)
-United States,00,6512800,ASIAN_NH,Asian,FALSE,Asian (Non-Hispanic)
-United States,00,9435284,BLACK_NH,Black or African American,FALSE,Black or African American (Non-Hispanic)
-United States,00,8429422,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,FALSE,Two or more races & Some other race (Non-Hispanic)
-United States,00,300623,NHPI_NH,Native Hawaiian and Pacific Islander,FALSE,Native Hawaiian and Pacific Islander (Non-Hispanic)
-United States,00,62179164,WHITE_NH,White,FALSE,White (Non-Hispanic)
-United States,00,48353941,UNKNOWN,Unknown race,TRUE,Unknown race
-United States,00,152524362,TOTAL,Total,,Total
+state_name,state_fips,vaccinated_first_dose,race_category_id,race,race_includes_hispanic,race_and_ethnicity
+United States,00,18444359,HISP,Hispanic or Latino,TRUE,Hispanic or Latino
+United States,00,1130683,AIAN_NH,American Indian and Alaska Native,FALSE,American Indian and Alaska Native (Non-Hispanic)
+United States,00,6760820,ASIAN_NH,Asian,FALSE,Asian (Non-Hispanic)
+United States,00,10685548,BLACK_NH,Black or African American,FALSE,Black or African American (Non-Hispanic)
+United States,00,9104150,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,FALSE,Two or more races & Some other race (Non-Hispanic)
+United States,00,345753,NHPI_NH,Native Hawaiian and Pacific Islander,FALSE,Native Hawaiian and Pacific Islander (Non-Hispanic)
+United States,00,65361450,WHITE_NH,White,FALSE,White (Non-Hispanic)
+United States,00,65609793,UNKNOWN,Unknown race,TRUE,Unknown race
+United States,00,177442556,TOTAL,Total,,Total

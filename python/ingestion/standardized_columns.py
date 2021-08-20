@@ -55,7 +55,7 @@ BELOW_POVERTY_COL = "below_poverty_line"
 COPD_PCT = "copd_pct"
 DIABETES_PCT = "diabetes_pct"
 
-FULLY_VACCINATED = "fully_vaccinated"
+VACCINATED_FIRST_DOSE = "vaccinated_first_dose"
 VACCINATED_PCT = "vaccinated_pct"
 VACCINATED_PCT_SHARE = "vaccinated_pct_share"
 
