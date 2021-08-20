@@ -59,7 +59,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
           props.listExpanded ? styles.ListBoxTitleExpanded : styles.ListBoxTitle
         }
       >
-        See{" "}
+        {!props.listExpanded ? "See " : "Viewing "}
         <span className={styles.HideOnMobile}>
           the {props.fipsTypePluralDisplayName} with the{" "}
         </span>
