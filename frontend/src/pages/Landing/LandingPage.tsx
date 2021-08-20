@@ -121,8 +121,10 @@ function LandingPage() {
               </Box>
             </Grid>
             <Grid item xs={12} sm={12} md={6} className={styles.HeaderImgItem}>
-              <LazyLoad once>
+              <LazyLoad height={700} once>
                 <img
+                  height="601"
+                  width="700"
                   src="img/shutterstock_1414416191 2 (1).png"
                   className={styles.HeaderImg}
                   alt=""
@@ -149,6 +151,7 @@ function LandingPage() {
               <Typography
                 className={styles.TakeALookAroundHeaderSubtext}
                 variant="subtitle1"
+                component="p"
               >
                 We’re working toward health equity, but can’t do it alone.
                 Please join our effort to move the needle forward.
@@ -397,7 +400,9 @@ function LandingPage() {
           </Grid>
 
           <div className={styles.FaqRow}>
-            <FaqSection />
+            <LazyLoad height={700} once>
+              <FaqSection />
+            </LazyLoad>
           </div>
 
           <Grid container className={styles.NewsletterSignUpRow}>
