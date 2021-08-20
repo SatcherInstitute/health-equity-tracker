@@ -74,9 +74,7 @@ function MethodologyTab() {
                 What are the limitations of the tracker?
               </h2>
               <div className={styles.MethodologyAnswer}>
-                <h3 className={styles.MethodologySubheaderText}>Data</h3>
-
-                <h4 className={styles.MethodologySubsubheaderText}>COVID-19</h4>
+                <h3 className={styles.MethodologySubsubheaderText}>COVID-19</h3>
                 <p>
                   For a description of some of the gaps in COVID-19 data, please
                   see the{" "}
@@ -128,9 +126,9 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
-                <h4 className={styles.MethodologySubsubheaderText}>
+                <h3 className={styles.MethodologySubsubheaderText}>
                   Diabetes & COPD
-                </h4>
+                </h3>
                 <p>
                   Diabetes & COPD data in the tracker is sourced from{" "}
                   <a href="https://www.americashealthrankings.org/explore/annual/measure/Overall_a/state/ALL">
@@ -164,24 +162,12 @@ function MethodologyTab() {
                 <h3 className={styles.MethodologySubheaderText}>
                   Visualizations
                 </h3>
-                <ul>
-                  <li>
-                    The national-level map projection and rendering software
-                    used in the tracker (
-                    <a href="https://vega.github.io/vega-lite/docs/projection.html">
-                      Vega, with the albersUsa projection
-                    </a>
-                    ) currently cannot display territories such as Puerto Rico
-                    on the national-level USA map. Searching directly for each
-                    territory displays a map for the territory itself.
-                  </li>
-                  <li>
-                    Please consider the impact of under-reporting and data gaps
-                    when exploring the visualizations. These issues may lead to
-                    incorrect conclusions, e.g. low rates in a given location
-                    may be due to under-reporting rather than absence of impact.
-                  </li>
-                </ul>
+                <p>
+                  Please consider the impact of under-reporting and data gaps
+                  when exploring the visualizations. These issues may lead to
+                  incorrect conclusions, e.g. low rates in a given location may
+                  be due to under-reporting rather than absence of impact.
+                </p>
               </div>
             </Grid>
             <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
