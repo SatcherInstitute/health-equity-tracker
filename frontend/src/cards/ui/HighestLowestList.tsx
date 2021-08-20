@@ -64,7 +64,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
       </div>
       <div className={styles.ListBoxLists}>
         <Grid container justify="space-around">
-          <Grid item>
+          <Grid item xs={12} sm={6}>
             <h4>{props.highestRatesList.length} Highest Rates</h4>
             <ul>
               {props.highestRatesList.map((row) => {
@@ -80,7 +80,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
               })}
             </ul>
           </Grid>
-          <Grid item>
+          <Grid item xs={12} sm={6}>
             <h4>{props.lowestRatesList.length} Lowest Rates</h4>
             <ul>
               {props.lowestRatesList.map((row) => {
