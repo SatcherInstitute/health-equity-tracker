@@ -112,7 +112,7 @@ function stateRow(
 function nationalRow(
   breakdownName: string,
   breakdownValue: string,
-  fully_vaccinated: number,
+  vaccinated_first_dose: number,
   population: number
 ) {
   return [
@@ -120,7 +120,7 @@ function nationalRow(
       [breakdownName]: breakdownValue,
       state_fips: USA.code,
       state_name: USA.name,
-      fully_vaccinated: fully_vaccinated,
+      vaccinated_first_dose: vaccinated_first_dose,
     },
     {
       state_fips: USA.code,

@@ -121,6 +121,13 @@ export class ApiDataFetcher implements DataFetcher {
           below_poverty_line: Number(row["below_poverty_line"]),
         };
       });
+    } else if (datasetId.startsWith("cdc_vaccination_national")) {
+      result = result.map((row: any) => {
+        return {
+          ...row,
+          vaccinated_first_dose: Number(row["vaccinated_first_dose"]),
+        };
+      });
     }
 
     // TODO - the server should drop ingestion_ts before exporting the file. At
