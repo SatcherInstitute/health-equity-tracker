@@ -242,7 +242,7 @@ function TheProjectTab() {
               src={
                 prefersReducedMotion
                   ? "img/HET-lines-no-motion.gif"
-                  : "img/HET_Overlapping_Lines_v4_1000px.gif"
+                  : "img/animations/HET-lines.gif"
               }
               alt=""
               title="Expand data"
@@ -254,7 +254,7 @@ function TheProjectTab() {
               src={
                 prefersReducedMotion
                   ? "img/HET-fields-no-motion.gif"
-                  : "img/HET_Fields_1_v2_1000px.gif"
+                  : "img/animations/HET-fields.gif"
               }
               alt=""
               title="Empower policy makers"
@@ -266,7 +266,7 @@ function TheProjectTab() {
               src={
                 prefersReducedMotion
                   ? "img/HET-dots-no-motion.gif"
-                  : "img/HET_Dots_1_v3_1000px.gif"
+                  : "img/animations/HET-dots.gif"
               }
               alt=""
               title="Measure progress"

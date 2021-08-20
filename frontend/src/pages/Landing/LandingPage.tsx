@@ -160,7 +160,7 @@ function LandingPage() {
                   src={
                     prefersReducedMotion
                       ? "img/HET-fields-no-motion.gif"
-                      : "img/HET_Fields_1_v2_1000px.gif"
+                      : "img/animations/HET-fields.gif"
                   }
                   alt=""
                   text="(1) Learn about health equity"
@@ -169,7 +169,7 @@ function LandingPage() {
                   src={
                     prefersReducedMotion
                       ? "img/HET-dots-no-motion.gif"
-                      : "img/HET_Dots_1_v3_1000px.gif"
+                      : "img/animations/HET-dots.gif"
                   }
                   alt=""
                   text="(2) Investigate the data"
@@ -178,7 +178,7 @@ function LandingPage() {
                   src={
                     prefersReducedMotion
                       ? "img/HET-spiral-no-motion.gif"
-                      : "img/HET_Spiral_v4_1000px.gif"
+                      : "img/animations/HET-spiral.gif"
                   }
                   alt=""
                   text="(3) Share our site and join our movement"
