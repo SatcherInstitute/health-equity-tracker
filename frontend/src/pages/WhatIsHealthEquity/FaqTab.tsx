@@ -5,6 +5,7 @@ import { Typography } from "@material-ui/core";
 import { TAB_PARAM, ABOUT_US_PAGE_LINK } from "../../utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
 import { Helmet } from "react-helmet";
+import { CITATION_CHICAGO } from "../DataCatalog/MethodologyTab";
 
 function FaqTab() {
   return (
@@ -329,6 +330,15 @@ function FaqTab() {
                     three dots in it. Click on that button to see a menu where
                     you can save each graph as a PNG or SVG.{" "}
                   </p>
+                </div>
+              </Grid>
+              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
+                <h3 className={styles.FaqQuestion} id="citation">
+                  What is the recommended citation for the Health Equity
+                  Tracker?
+                </h3>
+                <div className={styles.FaqAnswer}>
+                  <p>{CITATION_CHICAGO}</p>
                 </div>
               </Grid>
             </Grid>
