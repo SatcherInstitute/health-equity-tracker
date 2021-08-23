@@ -31,6 +31,8 @@ class VaccineProvider extends VariableProvider {
         "race_and_ethnicity"
     ) {
       return "kff_vaccination-race_and_ethnicity";
+    } else if (breakdowns.geography === "county") {
+      return "cdc_vaccination_county-race_and_ethnicity";
     }
 
     return "";
@@ -117,6 +119,12 @@ class VaccineProvider extends VariableProvider {
           vaccinated_share_of_known: (row) => row["vaccinated_pct_share"],
         })
         .resetIndex();
+    } else if (breakdowns.geography === "county") {
+      console.log(df.toArray());
+      df = df.generateSeries({
+        vaccinated_per_100k: (row) =>
+          this.calculations.per100k(row.vaccinated_first_dose, row.population),
+      });
     }
 
     df = df.dropSeries(["population"]).resetIndex();
@@ -133,6 +141,9 @@ class VaccineProvider extends VariableProvider {
     return (
       (breakdowns.geography === "national" ||
         (breakdowns.geography === "state" &&
+          breakdowns.getSoleDemographicBreakdown().columnName ===
+            "race_and_ethnicity") ||
+        (breakdowns.geography === "county" &&
           breakdowns.getSoleDemographicBreakdown().columnName ===
             "race_and_ethnicity")) &&
       validDemographicBreakdownRequest
