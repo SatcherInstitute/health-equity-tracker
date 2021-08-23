@@ -26,9 +26,18 @@
 
 .ListBoxTitle {
   line-height: 47px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  @media (min-width: $sm) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  @media (max-width: $sm) {
+    font-size: smaller;
+
+    .HideOnMobile {
+      display: none;
+    }
+  }
 }
 
 .ListBoxTitleExpanded {
