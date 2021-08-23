@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import Button from "@material-ui/core/Button";
 import Hidden from "@material-ui/core/Hidden";
@@ -10,6 +10,13 @@ import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "./WhatIsHealthEquityPage";
 import { Box } from "@material-ui/core";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet";
+import parse from "html-react-parser";
+import axios from "axios";
+
+export const WP_BLOG_URL = "https://het-blog.000webhostapp.com/";
+export const WP_BLOG_API = "wp-json/wp/v2/";
+export const ALL_POSTS = "posts";
+export const ALL_IMAGES_FROM = "media?parent=";
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -51,6 +58,50 @@ function JoinTheEffortContainer(props: {
 
 function EquityTab() {
   const prefersReducedMotion = usePrefersReducedMotion();
+
+  const [wordpressPosts, setWordpressPosts] = useState<any[]>([]);
+  const [featuredImages, setFeaturedImages] = useState<string[]>([]);
+
+  // populate wordpress articles array on page load
+  useEffect(() => {
+    function fetchWordpressData() {
+      try {
+        axios.get(`${WP_BLOG_URL + WP_BLOG_API + ALL_POSTS}`).then((res) => {
+          console.log(res);
+          setWordpressPosts(res.data);
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    fetchWordpressData();
+  }, []);
+
+  useEffect(() => {
+    function fetchFeaturedImages() {
+      try {
+        for (let post of wordpressPosts) {
+          // console.log(post);
+          axios
+            .get(
+              `https://het-blog.000webhostapp.com/wp-json/wp/v2/media?parent=` +
+                post.id
+            )
+            .then((res) => {
+              // console.log(res.data[0].source_url);
+              setFeaturedImages((featuredImages) => [
+                ...featuredImages,
+                res.data[0].source_url,
+              ]);
+              // console.log(featuredImages);
+            });
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    fetchFeaturedImages();
+  }, [wordpressPosts]);
 
   return (
     <div className={styles.WhatIsHealthEquityPage}>
@@ -302,6 +353,33 @@ function EquityTab() {
               justify="space-between"
               alignItems="flex-start"
             >
+              {wordpressPosts.map((post, index) => {
+                return (
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    className={styles.NewsAndStoriesItem}
+                    key={post.id}
+                  >
+                    <img
+                      className={styles.NewsAndStoriesBigImg}
+                      src={featuredImages[index]}
+                      alt=""
+                    />
+                    <h2 className={styles.NewsAndStoriesTitleText}>
+                      {parse(post.title.rendered)}
+                    </h2>
+
+                    <div className={styles.NewsAndStoriesSubtitleText}>
+                      {parse(post.excerpt.rendered)}
+                    </div>
+                  </Grid>
+                );
+              })}
+
+              {/* NEWS ARTICLE CARD  */}
               <Grid
                 item
                 xs={12}
@@ -330,6 +408,7 @@ function EquityTab() {
                   </a>
                 </p>
               </Grid>
+              {/* NEWS ARTICLE CARD  */}
               <Grid
                 item
                 xs={12}
