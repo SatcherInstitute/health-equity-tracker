@@ -40,8 +40,6 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     kffVaccination.write_to_bq('dataset', 'gcs_bucket', **kwargs)
     assert mock_bq.call_count == 1
 
-    mock_bq.call_args_list[0].args[0].to_csv('hello.csv')
-
     expected_df = pd.read_csv(GOLDEN_DATA, dtype={
         'state_fips': str,
         'vaccinated_pct_share': str,
