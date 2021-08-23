@@ -13,8 +13,8 @@ import { Helmet } from "react-helmet";
 import parse from "html-react-parser";
 import axios from "axios";
 
-export const WP_BLOG_URL = "https://het-blog.000webhostapp.com/";
-export const WP_BLOG_API = "wp-json/wp/v2/";
+export const BLOG_URL = "https://het-blog.000webhostapp.com/";
+export const WP_API = "wp-json/wp/v2/";
 export const ALL_POSTS = "posts";
 export const FEATURED_IMAGE_FROM = "media?parent=";
 
@@ -66,7 +66,7 @@ function EquityTab() {
   useEffect(() => {
     function fetchWordpressData() {
       try {
-        axios.get(`${WP_BLOG_URL + WP_BLOG_API + ALL_POSTS}`).then((res) => {
+        axios.get(`${BLOG_URL + WP_API + ALL_POSTS}`).then((res) => {
           // console.log(res);
           setWordpressPosts(res.data);
         });
@@ -83,12 +83,12 @@ function EquityTab() {
         for (let post of wordpressPosts) {
           // console.log(post);
           axios
-            .get(`${WP_BLOG_URL + WP_BLOG_API + FEATURED_IMAGE_FROM + post.id}`)
+            .get(`${BLOG_URL + WP_API + FEATURED_IMAGE_FROM + post.id}`)
             .then((res) => {
               // console.log(res.data[0].source_url);
               setFeaturedImages((featuredImages) => [
                 ...featuredImages,
-                res.data[0].source_url,
+                res.data[0]?.source_url || "",
               ]);
               // console.log(featuredImages);
             });
