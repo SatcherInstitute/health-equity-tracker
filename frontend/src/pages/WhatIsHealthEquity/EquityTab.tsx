@@ -16,7 +16,7 @@ import axios from "axios";
 export const WP_BLOG_URL = "https://het-blog.000webhostapp.com/";
 export const WP_BLOG_API = "wp-json/wp/v2/";
 export const ALL_POSTS = "posts";
-export const ALL_IMAGES_FROM = "media?parent=";
+export const FEATURED_IMAGE_FROM = "media?parent=";
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -67,7 +67,7 @@ function EquityTab() {
     function fetchWordpressData() {
       try {
         axios.get(`${WP_BLOG_URL + WP_BLOG_API + ALL_POSTS}`).then((res) => {
-          console.log(res);
+          // console.log(res);
           setWordpressPosts(res.data);
         });
       } catch (e) {
@@ -83,10 +83,7 @@ function EquityTab() {
         for (let post of wordpressPosts) {
           // console.log(post);
           axios
-            .get(
-              `https://het-blog.000webhostapp.com/wp-json/wp/v2/media?parent=` +
-                post.id
-            )
+            .get(`${WP_BLOG_URL + WP_BLOG_API + FEATURED_IMAGE_FROM + post.id}`)
             .then((res) => {
               // console.log(res.data[0].source_url);
               setFeaturedImages((featuredImages) => [
