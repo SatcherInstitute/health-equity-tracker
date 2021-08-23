@@ -1,5 +1,6 @@
 from datetime import datetime
 from datetime import timezone
+import requests
 import json
 import os
 
@@ -220,12 +221,14 @@ def load_json_as_dataframe(gcs_bucket, filename, dtype=None):
     return frame
 
 
-def load_csv_as_dataframe_from_web(url, dtype=None):
+def load_csv_as_dataframe_from_web(url, dtype=None, params=None):
     """Loads csv data from the provided url to a DataFrame.
        Expects the data to be in csv format, with the first row as the column
        names.
 
        url: url to download the csv file from"""
+
+    url = requests.Request('GET', url, params=params).prepare().url
     return pandas.read_csv(url, dtype=dtype)
 
 

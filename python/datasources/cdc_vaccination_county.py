@@ -9,7 +9,7 @@ from ingestion import gcs_to_bq_util
 
 ### Source URL: https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh
 
-BASE_CDC_URL = 'https://data.cdc.gov/resource/8xkx-amqh.json'
+BASE_CDC_URL = 'https://data.cdc.gov/resource/8xkx-amqh.csv'
 FILE_SIZE_LIMIT = 5000
 
 COUNTY_FIPS_COL = 'fips'
@@ -30,7 +30,8 @@ class CDCVaccinationCounty(DataSource):
             'upload_to_gcs should not be called for CDCVaccinationCounty')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_CDC_URL)
+        params = {"$limit": FILE_SIZE_LIMIT}
+        df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_CDC_URL, dtype={COUNTY_FIPS_COL: str}, params=params)
 
         latest_date = df['date'].max()
         df = df.loc[df['date'] == latest_date]
@@ -38,7 +39,7 @@ class CDCVaccinationCounty(DataSource):
         df = self.generate_for_bq(df)
 
         column_types = {c: 'STRING' for c in df.columns}
-        column_types[std_col.VACCINATED_FIRST_DOSE] = 'INT64'
+        column_types[std_col.VACCINATED_FIRST_DOSE] = 'FLOAT'
 
         if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
             column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
