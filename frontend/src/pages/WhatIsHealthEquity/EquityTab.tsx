@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import Button from "@material-ui/core/Button";
 import Hidden from "@material-ui/core/Hidden";
@@ -10,6 +10,9 @@ import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "./WhatIsHealthEquityPage";
 import { Box } from "@material-ui/core";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet";
+import { useEffect } from "react";
+import axios from "axios";
+import { BLOG_URL, WP_API } from "./BlogTab";
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -51,6 +54,22 @@ function JoinTheEffortContainer(props: {
 
 function EquityTab() {
   const prefersReducedMotion = usePrefersReducedMotion();
+  const [pageH1, setPageH1] = useState("What is Health Equity?");
+
+  // load dynamic copy from Wordpress Page
+  useEffect(() => {
+    function fetchWPCopy() {
+      try {
+        axios.get(`${BLOG_URL + WP_API + "pages/37"}`).then((res) => {
+          // console.log(res);
+          setPageH1(res.data.title.rendered);
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    fetchWPCopy();
+  }, []);
 
   return (
     <div className={styles.WhatIsHealthEquityPage}>
@@ -90,7 +109,7 @@ function EquityTab() {
                 variant="h1"
                 paragraph={true}
               >
-                What is Health Equity?
+                {pageH1}
               </Typography>
             </Box>
             <Typography
