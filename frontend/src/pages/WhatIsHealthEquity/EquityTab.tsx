@@ -12,7 +12,7 @@ import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet";
 import { useEffect } from "react";
 import axios from "axios";
-import { BLOG_URL, WP_API } from "./BlogTab";
+import { BLOG_URL, WP_API } from "../../utils/urlutils";
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -54,21 +54,29 @@ function JoinTheEffortContainer(props: {
 
 function EquityTab() {
   const prefersReducedMotion = usePrefersReducedMotion();
-  const [pageH1, setPageH1] = useState("What is Health Equity?");
+  const [wordpressCopy, setWordpressCopy] = useState({
+    section1_headingLevel1: "What is Health Equity?",
+    section2_headingLevel2: "Health equity resources",
+    section3_headingLevel2: "Frequently asked questions",
+    section4_headingLevel2: "How do I join the movement?",
+    section4_a_headingLevel3: "Learn to create actionable solutions",
+    section4_b_headingLevel3: "Give back to your community",
+    section4_c_headingLevel3: "Sign up for our newsletter",
+  });
 
   // load dynamic copy from Wordpress Page
   useEffect(() => {
-    function fetchWPCopy() {
+    function fetchWordpressCopy() {
       try {
         axios.get(`${BLOG_URL + WP_API + "pages/37"}`).then((res) => {
-          // console.log(res);
-          setPageH1(res.data.title.rendered);
+          console.log(res.data.acf);
+          setWordpressCopy(res.data.acf);
         });
       } catch (e) {
         console.error(e);
       }
     }
-    fetchWPCopy();
+    fetchWordpressCopy();
   }, []);
 
   return (
@@ -109,7 +117,8 @@ function EquityTab() {
                 variant="h1"
                 paragraph={true}
               >
-                {pageH1}
+                {wordpressCopy.section1_headingLevel1 ||
+                  "What is Health Equity?"}
               </Typography>
             </Box>
             <Typography
@@ -211,7 +220,8 @@ function EquityTab() {
           <Grid container className={styles.ResourcesRow} justify="center">
             <Grid item>
               <Typography className={styles.ResourcesHeaderText} variant="h1">
-                Health equity resources
+                {wordpressCopy.section2_headingLevel2 ||
+                  "Health equity resources"}
               </Typography>
             </Grid>
             <Grid
@@ -323,7 +333,8 @@ function EquityTab() {
           id={WIHE_JOIN_THE_EFFORT_SECTION_ID}
         >
           <Typography className={styles.JoinTheEffortHeaderText} variant="h2">
-            How do I join the movement?
+            {wordpressCopy.section4_headingLevel2 ||
+              "How do I join the movement?"}
           </Typography>
           <span className={styles.JoinTheEffortSubheaderText}>
             To advance health equity, we need smart, talented,
@@ -342,7 +353,10 @@ function EquityTab() {
           }
           imageBackground="#A5CDC0"
           imageAlt=""
-          textTitle="Learn to create actionable solutions"
+          textTitle={
+            wordpressCopy.section4_a_headingLevel3 ||
+            "Learn to create actionable solutions"
+          }
           content={
             <>
               <p className={styles.JoinTheEffortStepText}>
@@ -372,7 +386,10 @@ function EquityTab() {
           }
           imageBackground="#EDB2A6"
           imageAlt=""
-          textTitle="Give back to your community"
+          textTitle={
+            wordpressCopy.section4_b_headingLevel3 ||
+            "Give back to your community"
+          }
           content={
             <>
               <p className={styles.JoinTheEffortStepText}>
@@ -402,7 +419,10 @@ function EquityTab() {
           }
           imageBackground="#275141"
           imageAlt=""
-          textTitle="Sign up for our newsletter"
+          textTitle={
+            wordpressCopy.section4_c_headingLevel3 ||
+            "Sign up for our newsletter"
+          }
           content={
             <>
               <p className={styles.JoinTheEffortStepText}>
