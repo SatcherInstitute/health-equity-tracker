@@ -14,6 +14,16 @@ import { useEffect } from "react";
 import axios from "axios";
 import { BLOG_URL, WP_API } from "../../utils/urlutils";
 
+export const fallbackCopyWIHE = {
+  section1_headingLevel1: "What is Health Equity?",
+  section2_headingLevel2: "Health equity resources",
+  section3_headingLevel2: "Frequently asked questions",
+  section4_headingLevel2: "How do I join the movement?",
+  section4_a_headingLevel3: "Learn to create actionable solutions",
+  section4_b_headingLevel3: "Give back to your community",
+  section4_c_headingLevel3: "Sign up for our newsletter",
+};
+
 function JoinTheEffortContainer(props: {
   imageUrl: string;
   imageAlt: string;
@@ -54,15 +64,7 @@ function JoinTheEffortContainer(props: {
 
 function EquityTab() {
   const prefersReducedMotion = usePrefersReducedMotion();
-  const [wordpressCopy, setWordpressCopy] = useState({
-    section1_headingLevel1: "What is Health Equity?",
-    section2_headingLevel2: "Health equity resources",
-    section3_headingLevel2: "Frequently asked questions",
-    section4_headingLevel2: "How do I join the movement?",
-    section4_a_headingLevel3: "Learn to create actionable solutions",
-    section4_b_headingLevel3: "Give back to your community",
-    section4_c_headingLevel3: "Sign up for our newsletter",
-  });
+  const [wordpressCopy, setWordpressCopy] = useState(fallbackCopyWIHE);
 
   // load dynamic copy from Wordpress Page
   useEffect(() => {
@@ -118,7 +120,7 @@ function EquityTab() {
                 paragraph={true}
               >
                 {wordpressCopy.section1_headingLevel1 ||
-                  "What is Health Equity?"}
+                  fallbackCopyWIHE.section1_headingLevel1}
               </Typography>
             </Box>
             <Typography
@@ -221,7 +223,7 @@ function EquityTab() {
             <Grid item>
               <Typography className={styles.ResourcesHeaderText} variant="h1">
                 {wordpressCopy.section2_headingLevel2 ||
-                  "Health equity resources"}
+                  fallbackCopyWIHE.section2_headingLevel2}
               </Typography>
             </Grid>
             <Grid
@@ -334,7 +336,7 @@ function EquityTab() {
         >
           <Typography className={styles.JoinTheEffortHeaderText} variant="h2">
             {wordpressCopy.section4_headingLevel2 ||
-              "How do I join the movement?"}
+              fallbackCopyWIHE.section4_headingLevel2}
           </Typography>
           <span className={styles.JoinTheEffortSubheaderText}>
             To advance health equity, we need smart, talented,
@@ -355,7 +357,7 @@ function EquityTab() {
           imageAlt=""
           textTitle={
             wordpressCopy.section4_a_headingLevel3 ||
-            "Learn to create actionable solutions"
+            fallbackCopyWIHE.section4_a_headingLevel3
           }
           content={
             <>
@@ -388,7 +390,7 @@ function EquityTab() {
           imageAlt=""
           textTitle={
             wordpressCopy.section4_b_headingLevel3 ||
-            "Give back to your community"
+            fallbackCopyWIHE.section4_b_headingLevel3
           }
           content={
             <>
@@ -421,7 +423,7 @@ function EquityTab() {
           imageAlt=""
           textTitle={
             wordpressCopy.section4_c_headingLevel3 ||
-            "Sign up for our newsletter"
+            fallbackCopyWIHE.section4_c_headingLevel3
           }
           content={
             <>
