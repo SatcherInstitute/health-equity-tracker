@@ -50,14 +50,8 @@ export function WhatIsHealthEquityPage() {
           className={styles.WhatIsHealthEquityTab}
           label="What is Health Equity?"
         />
-        <Tab
-          className={styles.WhatIsHealthEquityTab}
-          label="Frequently Asked Questions"
-        />
-        <Tab
-          className={styles.WhatIsHealthEquityTab}
-          label="Health Equity Resources"
-        />
+        <Tab className={styles.WhatIsHealthEquityTab} label="FAQ" />
+        <Tab className={styles.WhatIsHealthEquityTab} label="Resources" />
         <Tab className={styles.WhatIsHealthEquityTab} label="Blog" />
       </Tabs>
       {tabIndex === 0 && <EquityTab />}
