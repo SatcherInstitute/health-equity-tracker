@@ -138,7 +138,11 @@ export function DataSourceListing(props: DataSourceListingProps) {
       <div className={styles.Footer}>
         <div className={styles.CardFooterRight}>
           {props.source_metadata.downloadable && (
-            <Button color="primary" onClick={() => setDialogIsOpen(true)}>
+            <Button
+              color="primary"
+              onClick={() => setDialogIsOpen(true)}
+              aria-label={"Download " + props.source_metadata.data_source_name}
+            >
               Download
             </Button>
           )}
@@ -147,6 +151,9 @@ export function DataSourceListing(props: DataSourceListingProps) {
             <ReactRouterLinkButton
               url="https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t"
               className={styles.DownloadListItem}
+              ariaLabel={
+                "Apply For Access to " + props.source_metadata.data_source_name
+              }
             >
               Apply For Access
             </ReactRouterLinkButton>
@@ -154,16 +161,17 @@ export function DataSourceListing(props: DataSourceListingProps) {
         </div>
         <Dialog onClose={() => setDialogIsOpen(false)} open={dialogIsOpen}>
           <DialogTitle className={styles.DialogTitle}>
+            <div className={styles.DialogTitleText}>
+              Available Breakdowns for this Data Source
+            </div>
+
             <IconButton
-              aria-label="close"
+              aria-label="close dialogue"
               className={styles.CloseDialogButton}
               onClick={() => setDialogIsOpen(false)}
             >
               <CloseIcon />
             </IconButton>
-            <div className={styles.DialogTitleText}>
-              Available Breakdowns for this Data Source
-            </div>
           </DialogTitle>
           <List>
             {props.source_metadata.dataset_ids.map((datasetId) => (

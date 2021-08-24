@@ -160,7 +160,6 @@ export function PopulationCard(props: PopulationCardProps) {
                       >
                         Learn more
                       </a>
-                      .
                     </Alert>
                     <Grid container>
                       {raceQueryResponse
@@ -175,14 +174,14 @@ export function PopulationCard(props: PopulationCardProps) {
                             key={row.race_and_ethnicity}
                             className={styles.PopulationMetric}
                           >
-                            <span>{row.race_and_ethnicity}</span>
-                            <br />
-                            <span className={styles.PopulationMetricValue}>
+                            <div>{row.race_and_ethnicity}</div>
+
+                            <div className={styles.PopulationMetricValue}>
                               {formatFieldValue(
                                 "pct_share",
                                 row[POPULATION_PCT]
                               )}
-                            </span>
+                            </div>
                           </Grid>
                         ))}
                     </Grid>
