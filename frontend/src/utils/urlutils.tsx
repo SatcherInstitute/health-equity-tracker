@@ -59,9 +59,14 @@ export function ReactRouterLinkButton(props: {
   className: string;
   displayName?: string;
   children?: React.ReactNode;
+  ariaLabel?: string;
 }) {
   return (
-    <Button href={props.url} className={props.className}>
+    <Button
+      href={props.url}
+      className={props.className}
+      aria-label={props.ariaLabel}
+    >
       {props.displayName || props.children}
     </Button>
   );

@@ -50,6 +50,7 @@ function OptionsSelector(props: {
     <>
       <Button
         variant="text"
+        aria-haspopup="true"
         className={styles.MadLibButton}
         onClick={popover.open}
       >
@@ -57,6 +58,7 @@ function OptionsSelector(props: {
         {popover.isOpen ? <ArrowDropUp /> : <ArrowDropDown />}
       </Button>
       <Popover
+        aria-expanded="true"
         open={popover.isOpen}
         anchorEl={popover.anchor}
         onClose={popover.close}

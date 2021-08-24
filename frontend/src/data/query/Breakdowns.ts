@@ -116,7 +116,7 @@ export class Breakdowns {
         breakdowns[breakdownKey] = stringifyDemographic(breakdown);
       }
     );
-    // Any fields that are not set will not be included in the string for readibility
+    // Any fields that are not set will not be included in the string for readability
     // We want to sort these to ensure that it is deterministic so that all breakdowns map to the same key
     const orderedBreakdownKeys = Object.keys(breakdowns)
       .sort()

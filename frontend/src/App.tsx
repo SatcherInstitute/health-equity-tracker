@@ -96,7 +96,8 @@ function AppToolbar() {
         <img
           src="img/AppbarLogo.png"
           className={styles.AppbarLogoImg}
-          alt="Health Equity Tracker decorative logo"
+          alt="Health Equity Tracker logo"
+          role="link"
         />
       </ReactRouterLinkButton>
       <Typography variant="h1" className={styles.HomeLogo}>

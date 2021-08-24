@@ -165,8 +165,8 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           should be interpreted with caution since the cases reported may not be
           representative of the population at large: 
           <b>
-            Connecticut, Florida, Kentucky, Maryland, Michigan, Nebraska, New
-            Mexico, Ohio, Rhode Island, West Virginia.
+            Connecticut, Florida, Kentucky, Michigan, Nebraska,  Ohio, West
+            Virginia.
           </b>
         </p>
         <h3>Missing Outcomes</h3>
@@ -178,11 +178,11 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           surveillance data, we expect this picture to become more complete over
           time and will use the Health Equity Tracker to record the progress.
           Until then, the following states appear grey when viewing COVID-19
-          maps featuring hospitalizations and deaths:{" "}
-          <b>Hawaii, Maryland, Nebraska, New Mexico, Rhode Island, </b>and{" "}
-          <b>South Dakota</b>. <b>Delaware </b>and <b>West Virginia</b> are
+          maps featuring hospitalizations and deaths: <b>Hawaii, Nebraska </b>
+          and <b>South Dakota</b>. <b>Delaware </b>and <b>West Virginia</b> are
           included when viewing hospitalizations but appear as grey when viewing
-          reports on deaths.
+          reports on deaths. <b>Rhode Island </b> appears as grey when viewing
+          reports on hospitalizations but is incluided when viewing deaths.
         </p>
         <h3>Missing Population Data</h3>
         <p>

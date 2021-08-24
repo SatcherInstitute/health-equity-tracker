@@ -77,7 +77,7 @@
   width: 131px;
 }
 .PopulationMetricValue {
-  color: #9aa0a6;
+  color: $alt-green; // #9aa0a6 failed a11y contrast
   font-size: 20px;
   line-height: 32px;
 }
