@@ -5,55 +5,43 @@ import Typography from "@material-ui/core/Typography";
 import { Helmet } from "react-helmet";
 import parse from "html-react-parser";
 import axios from "axios";
-import {
-  BLOG_URL,
-  WP_API,
-  ALL_POSTS,
-  FEATURED_IMAGE_FROM,
-} from "../../utils/urlutils";
+import { BLOG_URL, WP_API, ALL_POSTS, ALL_MEDIA } from "../../utils/urlutils";
 
 function BlogTab() {
-  const [wordpressPosts, setWordpressPosts] = useState<any[]>([]);
-  const [featuredImages, setFeaturedImages] = useState<string[]>([]);
+  const [articles, setArticles] = useState<any[]>([]);
 
-  // populate wordpress articles array on page load
+  // on page load make /media and /posts API calls into temp arrays, combine and store in state
   useEffect(() => {
-    function fetchWordpressData() {
-      try {
-        axios.get(`${BLOG_URL + WP_API + ALL_POSTS}`).then((res) => {
-          setWordpressPosts(res.data);
+    function getMedia() {
+      return axios.get(`${BLOG_URL + WP_API + ALL_MEDIA}`);
+    }
+    function getPosts() {
+      return axios.get(`${BLOG_URL + WP_API + ALL_POSTS}`);
+    }
+
+    let mediaResponse: any[] = [];
+    let postsResponse: any[] = [];
+
+    Promise.all([getMedia(), getPosts()])
+      .then((res) => {
+        mediaResponse = res[0].data;
+        postsResponse = res[1].data;
+
+        // iterate fetched posts
+        const postsWithImages = postsResponse.map((post: any) => {
+          // populate featured_media object info into each post
+          const media_info = mediaResponse.find(
+            (img) => img.id === post.featured_media
+          );
+          post = { media_info, ...post };
+          return post;
         });
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    fetchWordpressData();
+        setArticles(postsWithImages);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
-
-  // when WP articles load, populate the array of featuredImages associated with articles
-  // ! TODO this isnt ideal... has to be a better to to keep 1 array in state
-  // ! with objects containing copy and URL link
-  // ! MAYBE load /media and /posts API calls into temp arrays,
-  // ! then map media onto posts if ids match, stored mapped array into state
-  useEffect(() => {
-    function fetchFeaturedImages() {
-      try {
-        for (let post of wordpressPosts) {
-          axios
-            .get(`${BLOG_URL + WP_API + FEATURED_IMAGE_FROM + post.id}`)
-            .then((res) => {
-              setFeaturedImages((featuredImages) => [
-                ...featuredImages,
-                res.data[0].source_url || "",
-              ]);
-            });
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    fetchFeaturedImages();
-  }, [wordpressPosts]);
 
   return (
     <div className={styles.WhatIsHealthEquityPage}>
@@ -91,7 +79,7 @@ function BlogTab() {
               justify="space-between"
               alignItems="flex-start"
             >
-              {wordpressPosts.map((post, index) => {
+              {articles.map((post) => {
                 return (
                   // FETCHED BLOG POSTS
                   <Grid
@@ -104,7 +92,7 @@ function BlogTab() {
                   >
                     <img
                       className={styles.NewsAndStoriesBigImg}
-                      src={featuredImages[index]}
+                      src={post.media_info.source_url}
                       alt=""
                     />
                     <h2 className={styles.NewsAndStoriesTitleText}>

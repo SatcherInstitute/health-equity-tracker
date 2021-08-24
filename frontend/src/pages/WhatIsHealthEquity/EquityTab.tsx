@@ -71,7 +71,6 @@ function EquityTab() {
     function fetchWordpressCopy() {
       try {
         axios.get(`${BLOG_URL + WP_API + "pages/37"}`).then((res) => {
-          console.log(res.data.acf);
           setWordpressCopy(res.data.acf);
         });
       } catch (e) {
