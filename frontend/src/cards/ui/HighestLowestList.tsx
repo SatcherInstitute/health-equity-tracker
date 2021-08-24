@@ -59,8 +59,11 @@ export function HighestLowestList(props: HighestLowestListProps) {
           props.listExpanded ? styles.ListBoxTitleExpanded : styles.ListBoxTitle
         }
       >
-        See the {props.fipsTypePluralDisplayName} with the <b>highest</b> and{" "}
-        <b>lowest</b> rates
+        {!props.listExpanded ? "See " : "Viewing "}
+        <span className={styles.HideOnMobile}>
+          the {props.fipsTypePluralDisplayName} with the{" "}
+        </span>
+        <b>highest</b> and <b>lowest</b> rates
       </div>
       <div className={styles.ListBoxLists}>
         <Grid container justify="space-around">
