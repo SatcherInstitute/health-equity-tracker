@@ -21,7 +21,6 @@ function BlogTab() {
     function fetchWordpressData() {
       try {
         axios.get(`${BLOG_URL + WP_API + ALL_POSTS}`).then((res) => {
-          // console.log(res);
           setWordpressPosts(res.data);
         });
       } catch (e) {
@@ -31,20 +30,22 @@ function BlogTab() {
     fetchWordpressData();
   }, []);
 
+  // when WP articles load, populate the array of featuredImages associated with articles
+  // ! TODO this isnt ideal... has to be a better to to keep 1 array in state
+  // ! with objects containing copy and URL link
+  // ! MAYBE load /media and /posts API calls into temp arrays,
+  // ! then map media onto posts if ids match, stored mapped array into state
   useEffect(() => {
     function fetchFeaturedImages() {
       try {
         for (let post of wordpressPosts) {
-          // console.log(post);
           axios
             .get(`${BLOG_URL + WP_API + FEATURED_IMAGE_FROM + post.id}`)
             .then((res) => {
-              // console.log(res.data[0].source_url);
               setFeaturedImages((featuredImages) => [
                 ...featuredImages,
-                res.data[0]?.source_url || "",
+                res.data[0].source_url || "",
               ]);
-              // console.log(featuredImages);
             });
         }
       } catch (e) {
