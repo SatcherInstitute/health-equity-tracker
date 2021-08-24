@@ -59,22 +59,22 @@ class VaccineProvider extends VariableProvider {
 
     let consumedDatasetIds = [datasetId];
 
-    const acsQueryResponse = await this.acsProvider.getData(
-      new MetricQuery(["population", "population_pct"], acsBreakdowns)
-    );
-
-    consumedDatasetIds = consumedDatasetIds.concat(
-      acsQueryResponse.consumedDatasetIds
-    );
-
-    const acs = new DataFrame(acsQueryResponse.data);
-    df = joinOnCols(df, acs, ["fips", breakdownColumnName], "left");
-
-    df = df.renameSeries({
-      population_pct: "vaccine_population_pct",
-    });
-
     if (breakdowns.geography === "national") {
+      const acsQueryResponse = await this.acsProvider.getData(
+        new MetricQuery(["population", "population_pct"], acsBreakdowns)
+      );
+
+      consumedDatasetIds = consumedDatasetIds.concat(
+        acsQueryResponse.consumedDatasetIds
+      );
+
+      const acs = new DataFrame(acsQueryResponse.data);
+      df = joinOnCols(df, acs, ["fips", breakdownColumnName], "left");
+
+      df = df.renameSeries({
+        population_pct: "vaccine_population_pct",
+      });
+
       df = df.generateSeries({
         vaccinated_per_100k: (row) =>
           this.calculations.per100k(row.vaccinated_first_dose, row.population),
@@ -98,6 +98,20 @@ class VaccineProvider extends VariableProvider {
         );
       }
     } else if (breakdowns.geography === "state") {
+      const acsQueryResponse = await this.acsProvider.getData(
+        new MetricQuery(["population", "population_pct"], acsBreakdowns)
+      );
+
+      consumedDatasetIds = consumedDatasetIds.concat(
+        acsQueryResponse.consumedDatasetIds
+      );
+
+      const acs = new DataFrame(acsQueryResponse.data);
+      df = joinOnCols(df, acs, ["fips", breakdownColumnName], "left");
+
+      df = df.renameSeries({
+        population_pct: "vaccine_population_pct",
+      });
       df = df.generateSeries({
         vaccinated_per_100k: (row) =>
           isNaN(row.vaccinated_pct) || row.vaccinated_pct == null
@@ -120,7 +134,12 @@ class VaccineProvider extends VariableProvider {
         })
         .resetIndex();
     } else if (breakdowns.geography === "county") {
-      console.log(df.toArray());
+      // We merge this in on the backend, no need to redownload it here
+      // but we want to provide the proper citation
+      consumedDatasetIds = consumedDatasetIds.concat(
+        "acs_population-by_race_county_std"
+      );
+
       df = df.generateSeries({
         vaccinated_per_100k: (row) =>
           this.calculations.per100k(row.vaccinated_first_dose, row.population),

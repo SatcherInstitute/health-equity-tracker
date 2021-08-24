@@ -11,8 +11,8 @@ import {
   resetCacheDebug,
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
-import { FipsSpec, NC, AL, USA } from "./TestUtils";
-import { WHITE_NH, ASIAN_NH, ALL, RACE } from "../utils/Constants";
+import { FipsSpec, NC, USA, MARIN } from "./TestUtils";
+import { ASIAN_NH, ALL, RACE } from "../utils/Constants";
 import { MetricId } from "../config/MetricConfig";
 
 const METRIC_IDS: MetricId[] = [
@@ -227,6 +227,34 @@ describe("VaccineProvider", () => {
       RACE,
       [USA_ASIAN_FINAL],
       [USA_ALL_FINAL, USA_ASIAN_FINAL]
+    );
+  });
+
+  test("County and Race Breakdown", async () => {
+    const MARIN_COUNTY_ALL_ROW = {
+      [RACE]: ALL,
+      county_fips: MARIN.code,
+      county_name: MARIN.name,
+      vaccinated_first_dose: 10,
+      population: 50,
+    };
+
+    const MARIN_FINAL_ROW = {
+      [RACE]: ALL,
+      fips: MARIN.code,
+      fips_name: MARIN.name,
+      vaccinated_per_100k: 20000,
+    };
+
+    await evaluateWithAndWithoutAll(
+      "cdc_vaccination_county-race_and_ethnicity",
+      [MARIN_COUNTY_ALL_ROW],
+      "acs_population-by_race_county_std",
+      [],
+      Breakdowns.byCounty(),
+      RACE,
+      [],
+      [MARIN_FINAL_ROW]
     );
   });
 });
