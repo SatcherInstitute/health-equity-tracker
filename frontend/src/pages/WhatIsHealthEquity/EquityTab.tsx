@@ -10,13 +10,6 @@ import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "./WhatIsHealthEquityPage";
 import { Box } from "@material-ui/core";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet";
-import parse from "html-react-parser";
-import axios from "axios";
-
-export const BLOG_URL = "https://het-blog.000webhostapp.com/";
-export const WP_API = "wp-json/wp/v2/";
-export const ALL_POSTS = "posts";
-export const FEATURED_IMAGE_FROM = "media?parent=";
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -58,47 +51,6 @@ function JoinTheEffortContainer(props: {
 
 function EquityTab() {
   const prefersReducedMotion = usePrefersReducedMotion();
-
-  const [wordpressPosts, setWordpressPosts] = useState<any[]>([]);
-  const [featuredImages, setFeaturedImages] = useState<string[]>([]);
-
-  // populate wordpress articles array on page load
-  useEffect(() => {
-    function fetchWordpressData() {
-      try {
-        axios.get(`${BLOG_URL + WP_API + ALL_POSTS}`).then((res) => {
-          // console.log(res);
-          setWordpressPosts(res.data);
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    fetchWordpressData();
-  }, []);
-
-  useEffect(() => {
-    function fetchFeaturedImages() {
-      try {
-        for (let post of wordpressPosts) {
-          // console.log(post);
-          axios
-            .get(`${BLOG_URL + WP_API + FEATURED_IMAGE_FROM + post.id}`)
-            .then((res) => {
-              // console.log(res.data[0].source_url);
-              setFeaturedImages((featuredImages) => [
-                ...featuredImages,
-                res.data[0]?.source_url || "",
-              ]);
-              // console.log(featuredImages);
-            });
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    fetchFeaturedImages();
-  }, [wordpressPosts]);
 
   return (
     <div className={styles.WhatIsHealthEquityPage}>
@@ -325,331 +277,146 @@ function EquityTab() {
               </Grid>
             </Grid>
           </Grid>
-
-          <Grid
-            container
-            className={styles.NewsAndStoriesRow}
-            direction="row"
-            justify="center"
-          >
-            <Grid item>
-              <Typography
-                className={styles.NewsAndStoriesHeaderText}
-                variant="h1"
-              >
-                News and stories
-              </Typography>
-              <span className={styles.NewsAndStoriesSubheaderText}>
-                Read the latest news, posts, and stories related to health
-                equity
-              </span>
-            </Grid>
-            <Grid
-              container
-              direction="row"
-              justify="space-between"
-              alignItems="flex-start"
-            >
-              {wordpressPosts.map((post, index) => {
-                return (
-                  <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    className={styles.NewsAndStoriesItem}
-                    key={post.id}
-                  >
-                    <img
-                      className={styles.NewsAndStoriesBigImg}
-                      src={featuredImages[index]}
-                      alt=""
-                    />
-                    <h2 className={styles.NewsAndStoriesTitleText}>
-                      {parse(post.title.rendered)}
-                    </h2>
-
-                    <div className={styles.NewsAndStoriesSubtitleText}>
-                      {parse(post.excerpt.rendered)}
-                    </div>
-                  </Grid>
-                );
-              })}
-
-              {/* NEWS ARTICLE CARD  */}
-              <Grid
-                item
-                xs={12}
-                sm={12}
-                md={6}
-                className={styles.NewsAndStoriesItem}
-              >
-                <img
-                  className={styles.NewsAndStoriesBigImg}
-                  src="img/pexels-august-de-richelieu-4261261 1.png"
-                  alt=""
-                />
-                <h2 className={styles.NewsAndStoriesTitleText}>
-                  Why It Matters That Information On Race, Ethnicity, Gender And
-                  Disability Are Measured Accurately And Completely
-                </h2>
-                <p className={styles.NewsAndStoriesSubtitleText}>
-                  Why ongoing data on health and wellbeing metrics could be used
-                  in targeting federal resources and programs to address
-                  inequities due to social and economic factors.{" "}
-                  <a
-                    href="https://satcherinstitute.org/hetblog2/"
-                    aria-label="Satcher Blog Post on Why Data Matters"
-                  >
-                    Read more
-                  </a>
-                </p>
-              </Grid>
-              {/* NEWS ARTICLE CARD  */}
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={6}
-                className={styles.NewsAndStoriesItem}
-              >
-                <img
-                  className={styles.NewsAndStoriesBigImg}
-                  src="img/pexels-mary-taylor-5896662.jpg"
-                  alt=""
-                />
-                <h2 className={styles.NewsAndStoriesTitleText}>
-                  How can we use data to inform practices to advance health
-                  equity?
-                </h2>
-                <p className={styles.NewsAndStoriesSubtitleText}>
-                  In public health, much of our work depends on having accurate
-                  data, so we know what’s happening both on the ground and at a
-                  population level.{" "}
-                  <a
-                    href="https://satcherinstitute.org/hetblog3/"
-                    aria-label="Satcher Blog Post on Health Equity Data"
-                  >
-                    Read more
-                  </a>
-                </p>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                className={styles.NewsAndStoriesItem}
-              >
-                <img
-                  className={styles.NewsAndStoriesSmallImg}
-                  src="img/pexels-alex-green-5699516 1.png"
-                  alt=""
-                />
-                <h2 className={styles.NewsAndStoriesTitleText}>
-                  Data And Technology Can Help Us Make Progress On COVID
-                  Inequities
-                </h2>
-                <p className={styles.NewsAndStoriesSubtitleText}>
-                  <a
-                    href="https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/"
-                    aria-label="Read Scientific American Article"
-                  >
-                    Read more
-                  </a>
-                </p>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                className={styles.NewsAndStoriesItem}
-              >
-                <img
-                  className={styles.NewsAndStoriesSmallImg}
-                  src="img/pexels-ketut-subiyanto-4473409 2.png"
-                  alt="Asian woman laughing with two children, Decorative"
-                />
-                <h2 className={styles.NewsAndStoriesTitleText}>
-                  How Complete Are The CDC's COVID-19 Case Surveillance Datasets
-                  For Race/Ethnicity At The State And County Levels?
-                </h2>
-                <p className={styles.NewsAndStoriesSubtitleText}>
-                  <a
-                    href="https://satcherinstitute.github.io/analysis/cdc_case_data"
-                    aria-label="Satcher Post on COVID Data Completeness"
-                  >
-                    Learn more
-                  </a>
-                </p>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                className={styles.NewsAndStoriesItem}
-              >
-                <img
-                  className={styles.NewsAndStoriesSmallImg}
-                  src="img/Screen Shot 2021-03-01 at 5.25 1.png"
-                  alt=""
-                />
-                <h2 className={styles.NewsAndStoriesTitleText}>
-                  Saving the Lives of the Invisible
-                </h2>
-                <p className={styles.NewsAndStoriesSubtitleText}>
-                  <a
-                    href="https://www.kennedysatcher.org/media-old/saving-the-lives-of-the-invisible/"
-                    aria-label="Kennedy Satcher Article: Saving the Lives of the Invisible"
-                  >
-                    Learn more
-                  </a>
-                </p>
-              </Grid>
-            </Grid>
-          </Grid>
         </Grid>
+      </Grid>
+      <Grid
+        container
+        item
+        xs={12}
+        className={styles.FaqRow}
+        alignItems="center"
+        justify="center"
+      >
+        <Grid item sm={12} md={10}>
+          <FaqSection />
+        </Grid>
+      </Grid>
+      <Grid
+        container
+        className={styles.JoinTheEffortRow}
+        direction="column"
+        justify="center"
+        alignItems="center"
+      >
         <Grid
-          container
           item
-          xs={12}
-          className={styles.FaqRow}
-          alignItems="center"
-          justify="center"
+          className={styles.JoinTheEffortHeaderRow}
+          id={WIHE_JOIN_THE_EFFORT_SECTION_ID}
         >
-          <Grid item sm={12} md={10}>
-            <FaqSection />
-          </Grid>
+          <Typography className={styles.JoinTheEffortHeaderText} variant="h2">
+            How do I join the movement?
+          </Typography>
+          <span className={styles.JoinTheEffortSubheaderText}>
+            To advance health equity, we need smart, talented,
+            <br />
+            passionate folks like you on board.
+          </span>
+          <br />
+          <br />
         </Grid>
-        <Grid
-          container
-          className={styles.JoinTheEffortRow}
-          direction="column"
-          justify="center"
-          alignItems="center"
-        >
-          <Grid
-            item
-            className={styles.JoinTheEffortHeaderRow}
-            id={WIHE_JOIN_THE_EFFORT_SECTION_ID}
-          >
-            <Typography className={styles.JoinTheEffortHeaderText} variant="h2">
-              How do I join the movement?
-            </Typography>
-            <span className={styles.JoinTheEffortSubheaderText}>
-              To advance health equity, we need smart, talented,
-              <br />
-              passionate folks like you on board.
-            </span>
-            <br />
-            <br />
-          </Grid>
 
-          <JoinTheEffortContainer
-            imageUrl={
-              prefersReducedMotion
-                ? "img/HET-lines-no-motion.gif"
-                : "img/HET_Overlapping_Lines_v4_1000px.gif"
-            }
-            imageBackground="#A5CDC0"
-            imageAlt=""
-            textTitle="Learn to create actionable solutions"
-            content={
-              <>
-                <p className={styles.JoinTheEffortStepText}>
-                  Apply to our Political Determinants of Health Learning
-                  Laboratory Fellowship. We seek to partner and support diverse
-                  groups in building equitable and sustainable pathways for
-                  healthy communities.
-                </p>
-                <p>
-                  <Button
-                    className={styles.ContactUsLink}
-                    aria-label="Learn More: Satcher Institute Political Determinants of Health Learning Laboratory Program"
-                    href="https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/"
-                  >
-                    Learn More
-                  </Button>
-                </p>
-              </>
-            }
-          />
-
-          <JoinTheEffortContainer
-            imageUrl={
-              prefersReducedMotion
-                ? "img/HET-fields-no-motion.gif"
-                : "img/HET_Fields_1_v2_1000px.gif"
-            }
-            imageBackground="#EDB2A6"
-            imageAlt=""
-            textTitle="Give back to your community"
-            content={
-              <>
-                <p className={styles.JoinTheEffortStepText}>
-                  Are you a community leader interested in expanding
-                  transportation access to vaccine sites within your community?
-                  Complete our inquiry form to receive information on our
-                  vaccine rideshare efforts and opportunities.
-                </p>
-                <p>
-                  <Button
-                    className={styles.ContactUsLink}
-                    aria-label="Sign Up - vaccine rideshare program"
-                    href="https://satcherinstitute.org/uberrideshare/"
-                  >
-                    Sign Up
-                  </Button>
-                </p>
-              </>
-            }
-          />
-
-          <JoinTheEffortContainer
-            imageUrl={
-              prefersReducedMotion
-                ? "img/HET-dots-no-motion.gif"
-                : "img/HET_Dots_1_v3_1000px.gif"
-            }
-            imageBackground="#275141"
-            imageAlt=""
-            textTitle="Sign up for our newsletter"
-            content={
-              <>
-                <p className={styles.JoinTheEffortStepText}>
-                  Want updates on the latest news in health equity? Sign up for
-                  our Satcher Health Leadership Institute newsletter.
-                </p>
-                <form
-                  action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
-                  method="post"
-                  target="_blank"
+        <JoinTheEffortContainer
+          imageUrl={
+            prefersReducedMotion
+              ? "img/HET-lines-no-motion.gif"
+              : "img/HET_Overlapping_Lines_v4_1000px.gif"
+          }
+          imageBackground="#A5CDC0"
+          imageAlt=""
+          textTitle="Learn to create actionable solutions"
+          content={
+            <>
+              <p className={styles.JoinTheEffortStepText}>
+                Apply to our Political Determinants of Health Learning
+                Laboratory Fellowship. We seek to partner and support diverse
+                groups in building equitable and sustainable pathways for
+                healthy communities.
+              </p>
+              <p>
+                <Button
+                  className={styles.ContactUsLink}
+                  aria-label="Learn More: Satcher Institute Political Determinants of Health Learning Laboratory Program"
+                  href="https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/"
                 >
-                  <TextField
-                    id="Enter email address to sign up" // Accessibility label
-                    name="MERGE0"
-                    variant="outlined"
-                    className={styles.EmailTextField}
-                    type="email"
-                    aria-label="Enter Email Address for Newsletter signup"
-                    placeholder="Enter email address"
-                  />
-                  <Button
-                    type="submit"
-                    color="primary"
-                    variant="contained"
-                    className={styles.EmailAddressFormSubmit}
-                    aria-label="Sign Up for Newsletter in a new window"
-                  >
-                    Sign up
-                  </Button>
-                </form>
-              </>
-            }
-          />
-        </Grid>
+                  Learn More
+                </Button>
+              </p>
+            </>
+          }
+        />
+
+        <JoinTheEffortContainer
+          imageUrl={
+            prefersReducedMotion
+              ? "img/HET-fields-no-motion.gif"
+              : "img/HET_Fields_1_v2_1000px.gif"
+          }
+          imageBackground="#EDB2A6"
+          imageAlt=""
+          textTitle="Give back to your community"
+          content={
+            <>
+              <p className={styles.JoinTheEffortStepText}>
+                Are you a community leader interested in expanding
+                transportation access to vaccine sites within your community?
+                Complete our inquiry form to receive information on our vaccine
+                rideshare efforts and opportunities.
+              </p>
+              <p>
+                <Button
+                  className={styles.ContactUsLink}
+                  aria-label="Sign Up - vaccine rideshare program"
+                  href="https://satcherinstitute.org/uberrideshare/"
+                >
+                  Sign Up
+                </Button>
+              </p>
+            </>
+          }
+        />
+
+        <JoinTheEffortContainer
+          imageUrl={
+            prefersReducedMotion
+              ? "img/HET-dots-no-motion.gif"
+              : "img/HET_Dots_1_v3_1000px.gif"
+          }
+          imageBackground="#275141"
+          imageAlt=""
+          textTitle="Sign up for our newsletter"
+          content={
+            <>
+              <p className={styles.JoinTheEffortStepText}>
+                Want updates on the latest news in health equity? Sign up for
+                our Satcher Health Leadership Institute newsletter.
+              </p>
+              <form
+                action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
+                method="post"
+                target="_blank"
+              >
+                <TextField
+                  id="Enter email address to sign up" // Accessibility label
+                  name="MERGE0"
+                  variant="outlined"
+                  className={styles.EmailTextField}
+                  type="email"
+                  aria-label="Enter Email Address for Newsletter signup"
+                  placeholder="Enter email address"
+                />
+                <Button
+                  type="submit"
+                  color="primary"
+                  variant="contained"
+                  className={styles.EmailAddressFormSubmit}
+                  aria-label="Sign Up for Newsletter in a new window"
+                >
+                  Sign up
+                </Button>
+              </form>
+            </>
+          }
+        />
       </Grid>
     </div>
   );
