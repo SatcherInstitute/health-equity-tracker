@@ -75,7 +75,7 @@ function EquityTab() {
               className={styles.HeaderImgItem}
             >
               <img
-                src="img/pexels-marcus-aurelius-4063919 1.png"
+                src="img/stock/woman-in-wheelchair-with-tea.png"
                 className={styles.HeaderImg}
                 alt=""
               />
