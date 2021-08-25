@@ -35,6 +35,7 @@ import {
 
 // DataExplorer uses the CSS modules from About Us, so AboutUs must load first
 import AboutUsPage from "./pages/AboutUs/AboutUsPage";
+import WhatIsHealthEquityPage from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
 
 const ExploreDataPage = React.lazy(
   () => import("./pages/ExploreData/ExploreDataPage")
@@ -45,10 +46,6 @@ const LandingPage = React.lazy(() => import("./pages/Landing/LandingPage"));
 const NotFoundPage = React.lazy(() => import("./pages/NotFoundPage"));
 const TermsOfServicePage = React.lazy(
   () => import("./pages/TermsOfServicePage/TermsOfServicePage")
-);
-
-const WhatIsHealthEquityPage = React.lazy(
-  () => import("./pages/WhatIsHealthEquity/WhatIsHealthEquityPage")
 );
 
 const DataCatalogTab = React.lazy(
