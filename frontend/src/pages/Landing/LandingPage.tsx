@@ -124,15 +124,15 @@ function LandingPage() {
               </Box>
             </Grid>
             <Grid item xs={12} sm={12} md={6} className={styles.HeaderImgItem}>
-              <LazyLoad once height={700}>
-                <img
-                  height="601"
-                  width="700"
-                  src="img/stock/family-laughing.png"
-                  className={styles.HeaderImg}
-                  alt=""
-                />
-              </LazyLoad>
+              {/* <LazyLoad once height={700}> */}
+              <img
+                height="601"
+                width="700"
+                src="img/stock/family-laughing.png"
+                className={styles.HeaderImg}
+                alt=""
+              />
+              {/* </LazyLoad> */}
             </Grid>
           </Grid>
 
@@ -411,43 +411,45 @@ function LandingPage() {
           </div>
 
           <Grid container className={styles.NewsletterSignUpRow}>
-            <Grid
-              container
-              item
-              xs={12}
-              sm={12}
-              md={12}
-              direction="column"
-              justify="center"
-              alignItems="center"
-              className={styles.EmailAddressBackgroundImgContainer}
-            >
-              <div className={styles.EmailAddressContentDiv}>
-                <Grid item>
-                  <Typography
-                    className={styles.NewsletterRowHeader}
-                    variant="h2"
-                  >
-                    <span aria-hidden="true">
-                      Join Our
-                      <br />
-                      Movement
-                    </span>
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Button
-                    aria-label="Join Our Movement"
-                    variant="contained"
-                    color="default"
-                    className={styles.JoinOurMovementButton}
-                    href={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_HEALTH_EQUITY_TAB_INDEX}#${WIHE_JOIN_THE_EFFORT_SECTION_ID}`}
-                  >
-                    Click here
-                  </Button>
-                </Grid>
-              </div>
-            </Grid>
+            <LazyLoad height={700} once style={{ display: "flex" }}>
+              <Grid
+                container
+                item
+                xs={12}
+                sm={12}
+                md={12}
+                direction="column"
+                justify="center"
+                alignItems="center"
+                className={styles.EmailAddressBackgroundImgContainer}
+              >
+                <div className={styles.EmailAddressContentDiv}>
+                  <Grid item>
+                    <Typography
+                      className={styles.NewsletterRowHeader}
+                      variant="h2"
+                    >
+                      <span aria-hidden="true">
+                        Join Our
+                        <br />
+                        Movement
+                      </span>
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      aria-label="Join Our Movement"
+                      variant="contained"
+                      color="default"
+                      className={styles.JoinOurMovementButton}
+                      href={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_HEALTH_EQUITY_TAB_INDEX}#${WIHE_JOIN_THE_EFFORT_SECTION_ID}`}
+                    >
+                      Click here
+                    </Button>
+                  </Grid>
+                </div>
+              </Grid>{" "}
+            </LazyLoad>
           </Grid>
         </Grid>
       </div>

@@ -111,7 +111,7 @@ function Logos() {
       <Grid item className={styles.LogosLeft}>
         <ReactRouterLinkButton url="/" className={styles.ImageButton}>
           <img
-            src="img/AppbarLogo.png"
+            src="img/appbar/AppbarLogo.png"
             className={styles.FooterLogo}
             alt="Health Equity Tracker logo"
             role="link"

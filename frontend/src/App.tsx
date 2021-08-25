@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import MenuIcon from "@material-ui/icons/Menu";
 import { ThemeProvider } from "@material-ui/styles";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -21,7 +21,6 @@ import {
 import { CookiesProvider } from "react-cookie";
 import ReactTooltip from "react-tooltip";
 import styles from "./App.module.scss";
-import Footer from "./Footer";
 import MaterialTheme from "./styles/MaterialTheme";
 import { autoInitGlobals } from "./utils/globals";
 import {
@@ -49,10 +48,7 @@ const TermsOfServicePage = React.lazy(
 const WhatIsHealthEquityPage = React.lazy(
   () => import("./pages/WhatIsHealthEquity/WhatIsHealthEquityPage")
 );
-// import DataCatalogTab from "./pages/DataCatalog/DataCatalogTab";
-// import ExploreDataPage from "./pages/ExploreData/ExploreDataPage";
-// import TermsOfServicePage from "./pages/TermsOfServicePage/TermsOfServicePage";
-// import { WhatIsHealthEquityPage } from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
+const Footer = React.lazy(() => import("./Footer"));
 
 const MOBILE_BREAKPOINT = 600;
 
@@ -107,7 +103,7 @@ function AppToolbar() {
     <Toolbar className={styles.AppToolbar}>
       <ReactRouterLinkButton url="/" className={styles.AppbarLogoImg}>
         <img
-          src="img/AppbarLogo.png"
+          src="img/appbar/AppbarLogo.png"
           className={styles.AppbarLogoImg}
           alt="Health Equity Tracker logo"
           role="link"
@@ -165,8 +161,8 @@ function App() {
         <ReactTooltip />
         <CssBaseline />
         <div className={styles.App}>
-          <div className={styles.Content}>
-            <React.Suspense fallback={<i>loading...</i>}>
+          <Suspense fallback={<i>loading...</i>}>
+            <div className={styles.Content}>
               <Router>
                 <a className={styles.SkipMainLink} href="#main">
                   Skip to main content
@@ -212,11 +208,11 @@ function App() {
                   </Switch>
                 </main>
               </Router>
-            </React.Suspense>
-          </div>
-          <footer>
-            <Footer />
-          </footer>
+            </div>
+            <footer>
+              <Footer />
+            </footer>
+          </Suspense>
         </div>
       </CookiesProvider>
     </ThemeProvider>
