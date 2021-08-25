@@ -33,9 +33,9 @@ import {
   TERMS_OF_SERVICE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "./utils/urlutils";
-import LandingPage from "./pages/Landing/LandingPage";
-import NotFoundPage from "./pages/NotFoundPage";
 
+const LandingPage = React.lazy(() => import("./pages/Landing/LandingPage"));
+const NotFoundPage = React.lazy(() => import("./pages/NotFoundPage"));
 const AboutUsPage = React.lazy(() => import("./pages/AboutUs/AboutUsPage"));
 const DataCatalogTab = React.lazy(
   () => import("./pages/DataCatalog/DataCatalogTab")
@@ -206,24 +206,9 @@ function App() {
                       render={() => <TermsOfServicePage />}
                     />
 
-                    {/* <Route
-                    path={DATA_CATALOG_PAGE_LINK}
-                    component={DataCatalogTab}
-                  />
-                  <Route
-                    path={EXPLORE_DATA_PAGE_LINK}
-                    component={ExploreDataPage}
-                  />
-                  <Route
-                    path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
-                    component={WhatIsHealthEquityPage}
-                  />
-                  <Route
-                    path={TERMS_OF_SERVICE_PAGE_LINK}
-                    component={TermsOfServicePage}
-                  /> */}
-                    <Route exact path="/" component={LandingPage} />
-                    <Route component={NotFoundPage} />
+                    <Route exact path="/" render={() => <LandingPage />} />
+                    {/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}
+                    <Route render={() => <NotFoundPage />} />
                   </Switch>
                 </main>
               </Router>

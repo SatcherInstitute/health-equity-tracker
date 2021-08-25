@@ -30,8 +30,10 @@ function TakeALookAroundItem(props: {
       <Grid container direction="column" alignItems="center" justify="center">
         <Hidden xsDown>
           <Grid item>
-            <LazyLoad once>
+            <LazyLoad height={200} once>
               <img
+                height="500"
+                width="500"
                 className={styles.TakeALookAroundImg}
                 src={props.src}
                 alt={props.alt}
@@ -56,6 +58,7 @@ function LandingPage() {
     <>
       <Helmet>
         <title>Home - Health Equity Tracker</title>
+        <link rel="preload" as="image" href="img/stock/family-laughing.png" />
       </Helmet>
       <h1 className={styles.ScreenreaderTitleHeader}>Home Page</h1>
       <div className={styles.LandingPage}>
@@ -121,7 +124,7 @@ function LandingPage() {
               </Box>
             </Grid>
             <Grid item xs={12} sm={12} md={6} className={styles.HeaderImgItem}>
-              <LazyLoad height={700} once>
+              <LazyLoad once height={700}>
                 <img
                   height="601"
                   width="700"
@@ -224,7 +227,7 @@ function LandingPage() {
                 md={5}
                 className={styles.PrioritizeHealthEquityImgItem}
               >
-                <LazyLoad once>
+                <LazyLoad once height="811">
                   <img
                     width="557"
                     height="811"
