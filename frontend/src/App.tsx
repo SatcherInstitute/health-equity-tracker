@@ -47,10 +47,11 @@ const TermsOfServicePage = React.lazy(
 const WhatIsHealthEquityPage = React.lazy(
   () => import("./pages/WhatIsHealthEquity/WhatIsHealthEquityPage")
 );
-const AboutUsPage = React.lazy(() => import("./pages/AboutUs/AboutUsPage"));
+
 const DataCatalogTab = React.lazy(
   () => import("./pages/DataCatalog/DataCatalogTab")
 );
+const AboutUsPage = React.lazy(() => import("./pages/AboutUs/AboutUsPage"));
 
 const MOBILE_BREAKPOINT = 600;
 
