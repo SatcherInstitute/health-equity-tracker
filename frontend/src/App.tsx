@@ -164,8 +164,8 @@ function App() {
         <CssBaseline />
         <div className={styles.App}>
           <div className={styles.Content}>
-            <Suspense fallback={<i>loading...</i>}>
-              <Router>
+            <Router>
+              <Suspense fallback={<i></i>}>
                 <a className={styles.SkipMainLink} href="#main">
                   Skip to main content
                 </a>
@@ -209,11 +209,13 @@ function App() {
                     <Route render={() => <NotFoundPage />} />
                   </Switch>
                 </main>
-              </Router>
-            </Suspense>
+              </Suspense>{" "}
+            </Router>
           </div>
           <footer>
-            <Footer />
+            <Suspense fallback={<span>Loading Health Equity Tracker</span>}>
+              <Footer />
+            </Suspense>
           </footer>
         </div>
       </CookiesProvider>

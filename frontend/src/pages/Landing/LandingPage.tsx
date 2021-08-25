@@ -445,7 +445,7 @@ function LandingPage() {
                     className={styles.JoinOurMovementButton}
                     href={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_HEALTH_EQUITY_TAB_INDEX}#${WIHE_JOIN_THE_EFFORT_SECTION_ID}`}
                   >
-                    Learn How
+                    Learn How To Help
                   </Button>
                 </Grid>
               </div>
