@@ -70,7 +70,7 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   copd: "COPD",
   health_insurance: "Uninsured Individuals",
   poverty: "Poverty",
-  vaccinated: "Vaccinated",
+  vaccinated: "Individuals Vaccinated with a Single Dose",
 };
 
 const MADLIB_LIST: MadLib[] = [
