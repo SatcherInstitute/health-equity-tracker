@@ -130,6 +130,14 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               overrideAndWithOr={
                 props.currentBreakdown === "race_and_ethnicity"
               }
+              raceEthDiffMap={
+                mapQueryResponse
+                  .getValidRowsForField(props.currentBreakdown)
+                  .filter(
+                    (row: Row) =>
+                      row[props.currentBreakdown] === UNKNOWN_ETHNICITY
+                  ).length !== 0
+              }
             />
             <CardContent>
               {mapQueryResponse.dataIsMissing() && (

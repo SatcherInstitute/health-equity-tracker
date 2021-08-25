@@ -24,6 +24,7 @@ function UnknownsAlert(props: {
   displayType: string; // "chart" or "map"
   known: Boolean;
   overrideAndWithOr?: Boolean;
+  raceEthDiffMap?: Boolean;
 }) {
   const unknowns = props.queryResponse
     .getValidRowsForField(props.metricConfig.metricId)
@@ -57,6 +58,9 @@ function UnknownsAlert(props: {
           : breakdownVarDisplayName
       } was unknown.`;
 
+  const raceEthDiffMapText = `In cases where race and ethnicity are reported
+    separately, the map shows the higher of the two metrics.`;
+
   const percentageUnknown = unknowns[0][props.metricConfig.metricId];
 
   // TODO: make this text better
@@ -69,12 +73,7 @@ function UnknownsAlert(props: {
     ${unknowns[1][props.metricConfig.metricId]}${
         props.metricConfig.shortVegaLabel
       } reported an
-    ${unknowns[1][props.breakdownVar].toLowerCase()}
-    The ${
-      props.displayType
-    } below only displays data for cases where race was known for
-      metrics that only include race and data for cases where
-      ethnicity was known for metrics that only include ethnicity.`
+    ${unknowns[1][props.breakdownVar].toLowerCase()}.`
     : "";
 
   // In the case we have unknowns for race and ethnicity reported separately,
@@ -96,7 +95,8 @@ function UnknownsAlert(props: {
           {props.overrideAndWithOr
             ? RACE_OR_ETHNICITY
             : breakdownVarDisplayName}
-          . {percentageUnknown !== 100 && cardHelperText}
+          . {percentageUnknown !== 100 && cardHelperText}{" "}
+          {props.raceEthDiffMap ? raceEthDiffMapText : ""}
         </Alert>
       </CardContent>
       <Divider />
