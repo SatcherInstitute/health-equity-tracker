@@ -125,7 +125,7 @@ function LandingPage() {
                 <img
                   height="601"
                   width="700"
-                  src="img/shutterstock_1414416191 2 (1).png"
+                  src="img/hero.png"
                   className={styles.HeaderImg}
                   alt=""
                 />
