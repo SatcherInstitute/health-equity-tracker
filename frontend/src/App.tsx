@@ -33,10 +33,6 @@ import {
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "./utils/urlutils";
 
-const AboutUsPage = React.lazy(() => import("./pages/AboutUs/AboutUsPage"));
-const DataCatalogTab = React.lazy(
-  () => import("./pages/DataCatalog/DataCatalogTab")
-);
 const ExploreDataPage = React.lazy(
   () => import("./pages/ExploreData/ExploreDataPage")
 );
@@ -50,6 +46,10 @@ const TermsOfServicePage = React.lazy(
 
 const WhatIsHealthEquityPage = React.lazy(
   () => import("./pages/WhatIsHealthEquity/WhatIsHealthEquityPage")
+);
+const AboutUsPage = React.lazy(() => import("./pages/AboutUs/AboutUsPage"));
+const DataCatalogTab = React.lazy(
+  () => import("./pages/DataCatalog/DataCatalogTab")
 );
 
 const MOBILE_BREAKPOINT = 600;
