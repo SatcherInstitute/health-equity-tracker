@@ -206,7 +206,8 @@ function LandingPage() {
                   aria-label="Learn More About Health Equity"
                   href={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
                 >
-                  Learn more
+                  What is Health Equity?
+                  {/* Learn more */}
                 </Button>
               </Grid>
             </Grid>
@@ -438,13 +439,13 @@ function LandingPage() {
                 </Grid>
                 <Grid item>
                   <Button
-                    aria-label="Join Our Movement"
+                    aria-label="Join Our Movement: Learn How"
                     variant="contained"
                     color="default"
                     className={styles.JoinOurMovementButton}
                     href={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_HEALTH_EQUITY_TAB_INDEX}#${WIHE_JOIN_THE_EFFORT_SECTION_ID}`}
                   >
-                    Click here
+                    Learn How
                   </Button>
                 </Grid>
               </div>
