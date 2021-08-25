@@ -20,6 +20,7 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/react-select": "^3.1.2",
     "@types/react-table": "^7.0.29",
+    "axios": "^0.21.1",
     "data-forge": "^1.8.17",
     "env-cmd": "^10.1.0",
     "husky": "^4.3.8",
