@@ -241,7 +241,7 @@ function TheProjectTab() {
             <AimToGoItem
               src={
                 prefersReducedMotion
-                  ? "img/HET-lines-no-motion.gif"
+                  ? "img/animations/HET-lines-no-motion.gif"
                   : "img/animations/HET-lines.gif"
               }
               alt=""
@@ -253,7 +253,7 @@ function TheProjectTab() {
             <AimToGoItem
               src={
                 prefersReducedMotion
-                  ? "img/HET-fields-no-motion.gif"
+                  ? "img/animations/HET-fields-no-motion.gif"
                   : "img/animations/HET-fields.gif"
               }
               alt=""
@@ -265,7 +265,7 @@ function TheProjectTab() {
             <AimToGoItem
               src={
                 prefersReducedMotion
-                  ? "img/HET-dots-no-motion.gif"
+                  ? "img/animations/HET-dots-no-motion.gif"
                   : "img/animations/HET-dots.gif"
               }
               alt=""

@@ -474,7 +474,7 @@ function EquityTab() {
           <JoinTheEffortContainer
             imageUrl={
               prefersReducedMotion
-                ? "img/HET-lines-no-motion.gif"
+                ? "img/animations/HET-lines-no-motion.gif"
                 : "img/animations/HET-lines.gif"
             }
             imageBackground="#A5CDC0"
@@ -504,7 +504,7 @@ function EquityTab() {
           <JoinTheEffortContainer
             imageUrl={
               prefersReducedMotion
-                ? "img/HET-fields-no-motion.gif"
+                ? "img/animations/HET-fields-no-motion.gif"
                 : "img/animations/HET-fields.gif"
             }
             imageBackground="#EDB2A6"
@@ -534,7 +534,7 @@ function EquityTab() {
           <JoinTheEffortContainer
             imageUrl={
               prefersReducedMotion
-                ? "img/HET-dots-no-motion.gif"
+                ? "img/animations/HET-dots-no-motion.gif"
                 : "img/animations/HET-dots.gif"
             }
             imageBackground="#275141"

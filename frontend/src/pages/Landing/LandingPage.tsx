@@ -125,7 +125,7 @@ function LandingPage() {
                 <img
                   height="601"
                   width="700"
-                  src="img/hero.png"
+                  src="img/stock/family-laughing.png"
                   className={styles.HeaderImg}
                   alt=""
                 />
@@ -167,7 +167,7 @@ function LandingPage() {
                 <TakeALookAroundItem
                   src={
                     prefersReducedMotion
-                      ? "img/HET-fields-no-motion.gif"
+                      ? "img/animations/HET-fields-no-motion.gif"
                       : "img/animations/HET-fields.gif"
                   }
                   alt=""
@@ -176,7 +176,7 @@ function LandingPage() {
                 <TakeALookAroundItem
                   src={
                     prefersReducedMotion
-                      ? "img/HET-dots-no-motion.gif"
+                      ? "img/animations/HET-dots-no-motion.gif"
                       : "img/animations/HET-dots.gif"
                   }
                   alt=""
@@ -185,7 +185,7 @@ function LandingPage() {
                 <TakeALookAroundItem
                   src={
                     prefersReducedMotion
-                      ? "img/HET-spiral-no-motion.gif"
+                      ? "img/animations/HET-spiral-no-motion.gif"
                       : "img/animations/HET-spiral-sm.gif"
                   }
                   alt=""
@@ -226,7 +226,7 @@ function LandingPage() {
               >
                 <LazyLoad once>
                   <img
-                    src="img/118172286-e3fffb80-b3c7-11eb-9553-127462881af3.png"
+                    src="img/stock/women-baby.png"
                     className={styles.PrioritizeHealthEquityImg}
                     alt=""
                   />
@@ -308,7 +308,7 @@ function LandingPage() {
                   <LazyLoad once>
                     <img
                       className={styles.HowToStepImg}
-                      src="img/het-screen-1.png"
+                      src="img/screenshots/het-investigate-rates.png"
                       alt="Search Example Screenshot: Investigate Rates of option Covid-19 in location United States"
                     />
                   </LazyLoad>
@@ -337,7 +337,7 @@ function LandingPage() {
                   <LazyLoad once>
                     <img
                       className={styles.HowToStepImg}
-                      src="img/het-screen-2.png"
+                      src="img/screenshots/het-compare-rates.png"
                       alt="Search Example Screenshot: Compare Rates of option Covid-19 between two locations"
                     />
                   </LazyLoad>
@@ -366,7 +366,7 @@ function LandingPage() {
                   <LazyLoad once>
                     <img
                       className={styles.HowToStepImg}
-                      src="img/het-screen-3.png"
+                      src="img/screenshots/het-map.png"
                       alt="Map Example Screenshot, Data Tracker map of option Covid-19 rates of all racial groups"
                     />
                   </LazyLoad>
