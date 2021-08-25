@@ -33,6 +33,9 @@ import {
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "./utils/urlutils";
 
+// DataExplorer uses the CSS modules from About Us, so AboutUs must load first
+import AboutUsPage from "./pages/AboutUs/AboutUsPage";
+
 const ExploreDataPage = React.lazy(
   () => import("./pages/ExploreData/ExploreDataPage")
 );
@@ -51,7 +54,6 @@ const WhatIsHealthEquityPage = React.lazy(
 const DataCatalogTab = React.lazy(
   () => import("./pages/DataCatalog/DataCatalogTab")
 );
-const AboutUsPage = React.lazy(() => import("./pages/AboutUs/AboutUsPage"));
 
 const MOBILE_BREAKPOINT = 600;
 
