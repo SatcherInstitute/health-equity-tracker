@@ -163,8 +163,8 @@ function App() {
         <ReactTooltip />
         <CssBaseline />
         <div className={styles.App}>
-          <Suspense fallback={<i>loading...</i>}>
-            <div className={styles.Content}>
+          <div className={styles.Content}>
+            <Suspense fallback={<i>loading...</i>}>
               <Router>
                 <a className={styles.SkipMainLink} href="#main">
                   Skip to main content
@@ -210,11 +210,11 @@ function App() {
                   </Switch>
                 </main>
               </Router>
-            </div>
-            <footer>
-              <Footer />
-            </footer>
-          </Suspense>
+            </Suspense>
+          </div>
+          <footer>
+            <Footer />
+          </footer>
         </div>
       </CookiesProvider>
     </ThemeProvider>
