@@ -186,7 +186,7 @@ function LandingPage() {
                   src={
                     prefersReducedMotion
                       ? "img/HET-spiral-no-motion.gif"
-                      : "img/animations/HET-spiral.gif"
+                      : "img/animations/HET-spiral-sm.gif"
                   }
                   alt=""
                   text="(3) Share our site and join our movement"
