@@ -226,6 +226,8 @@ function LandingPage() {
               >
                 <LazyLoad once>
                   <img
+                    width="557"
+                    height="811"
                     src="img/stock/women-baby.png"
                     className={styles.PrioritizeHealthEquityImg}
                     alt=""

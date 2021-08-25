@@ -107,6 +107,8 @@ function TheProjectTab() {
               className={styles.GridAlignRightItem}
             >
               <img
+                width="754"
+                height="644"
                 src="img/stock/woman-kids.png"
                 className={styles.ImgHeaderGridItem}
                 alt=""

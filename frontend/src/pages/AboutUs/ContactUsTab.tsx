@@ -47,6 +47,8 @@ function ContactUsTab() {
               className={styles.GridAlignRightItem}
             >
               <img
+                width="870"
+                height="644"
                 src="img/stock/women-laughing-in-line.png"
                 className={styles.ImgContactUsHeader}
                 alt=""
