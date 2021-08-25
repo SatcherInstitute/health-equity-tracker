@@ -13,7 +13,11 @@ import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
-import { UNKNOWN, UNKNOWN_RACE } from "../data/utils/Constants";
+import {
+  UNKNOWN,
+  UNKNOWN_RACE,
+  UNKNOWN_ETHNICITY,
+} from "../data/utils/Constants";
 import styles from "./Card.module.scss";
 import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
@@ -79,13 +83,32 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       loadGeographies={true}
     >
       {([mapQueryResponse, alertQueryResponse], metadata, geoData) => {
-        const unknowns = mapQueryResponse
+        const unknownRaces = mapQueryResponse
           .getValidRowsForField(props.currentBreakdown)
           .filter(
             (row: Row) =>
               row[props.currentBreakdown] === UNKNOWN_RACE ||
               row[props.currentBreakdown] === UNKNOWN
           );
+
+        const unknownEthnicities = mapQueryResponse
+          .getValidRowsForField(props.currentBreakdown)
+          .filter(
+            (row: Row) => row[props.currentBreakdown] === UNKNOWN_ETHNICITY
+          );
+
+        // If a state provides both unknown race and ethnicity numbers
+        // use the higher one
+        const unknowns =
+          unknownEthnicities.length === 0
+            ? unknownRaces
+            : unknownRaces.map((unknownRaceRow, index) => {
+                return unknownRaceRow[metricConfig.metricId] >
+                  unknownEthnicities[index][metricConfig.metricId]
+                  ? unknownRaceRow
+                  : unknownEthnicities[index];
+              });
+
         const noUnknownValuesReported =
           !mapQueryResponse.dataIsMissing() && unknowns.length === 0;
 
