@@ -195,7 +195,7 @@ function LandingPage() {
             </Grid>
 
             <Grid container direction="row" justify="center">
-              <Grid item xs={12} sm={12} md={2}>
+              <Grid item xs={12} sm={12} md={3} lg={2}>
                 <Button
                   variant="contained"
                   color="primary"

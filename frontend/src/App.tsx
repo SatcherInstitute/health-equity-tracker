@@ -22,13 +22,6 @@ import { CookiesProvider } from "react-cookie";
 import ReactTooltip from "react-tooltip";
 import styles from "./App.module.scss";
 import Footer from "./Footer";
-import { AboutUsPage } from "./pages/AboutUs/AboutUsPage";
-import DataCatalogTab from "./pages/DataCatalog/DataCatalogTab";
-import ExploreDataPage from "./pages/ExploreData/ExploreDataPage";
-import LandingPage from "./pages/Landing/LandingPage";
-import NotFoundPage from "./pages/NotFoundPage";
-import TermsOfServicePage from "./pages/TermsOfServicePage/TermsOfServicePage";
-import { WhatIsHealthEquityPage } from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
 import MaterialTheme from "./styles/MaterialTheme";
 import { autoInitGlobals } from "./utils/globals";
 import {
@@ -40,6 +33,26 @@ import {
   TERMS_OF_SERVICE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "./utils/urlutils";
+import LandingPage from "./pages/Landing/LandingPage";
+import NotFoundPage from "./pages/NotFoundPage";
+
+const AboutUsPage = React.lazy(() => import("./pages/AboutUs/AboutUsPage"));
+const DataCatalogTab = React.lazy(
+  () => import("./pages/DataCatalog/DataCatalogTab")
+);
+const ExploreDataPage = React.lazy(
+  () => import("./pages/ExploreData/ExploreDataPage")
+);
+const TermsOfServicePage = React.lazy(
+  () => import("./pages/TermsOfServicePage/TermsOfServicePage")
+);
+const WhatIsHealthEquityPage = React.lazy(
+  () => import("./pages/WhatIsHealthEquity/WhatIsHealthEquityPage")
+);
+// import DataCatalogTab from "./pages/DataCatalog/DataCatalogTab";
+// import ExploreDataPage from "./pages/ExploreData/ExploreDataPage";
+// import TermsOfServicePage from "./pages/TermsOfServicePage/TermsOfServicePage";
+// import { WhatIsHealthEquityPage } from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
 
 const MOBILE_BREAKPOINT = 600;
 
@@ -153,22 +166,47 @@ function App() {
         <CssBaseline />
         <div className={styles.App}>
           <div className={styles.Content}>
-            <Router>
-              <a className={styles.SkipMainLink} href="#main">
-                Skip to main content
-              </a>
-              <ScrollToTop />
-              <AppBar position="static" elevation={0}>
-                {width > MOBILE_BREAKPOINT ? (
-                  <AppToolbar />
-                ) : (
-                  <MobileAppToolbar />
-                )}
-              </AppBar>
-              <main>
-                <Switch>
-                  <Route path={ABOUT_US_PAGE_LINK} component={AboutUsPage} />
-                  <Route
+            <React.Suspense fallback={<i>loading...</i>}>
+              <Router>
+                <a className={styles.SkipMainLink} href="#main">
+                  Skip to main content
+                </a>
+                <ScrollToTop />
+                <AppBar position="static" elevation={0}>
+                  {width > MOBILE_BREAKPOINT ? (
+                    <AppToolbar />
+                  ) : (
+                    <MobileAppToolbar />
+                  )}
+                </AppBar>
+                <main>
+                  <Switch>
+                    <Route
+                      path={ABOUT_US_PAGE_LINK}
+                      render={() => <AboutUsPage />}
+                    />
+
+                    <Route
+                      path={DATA_CATALOG_PAGE_LINK}
+                      render={() => <DataCatalogTab />}
+                    />
+
+                    <Route
+                      path={EXPLORE_DATA_PAGE_LINK}
+                      render={() => <ExploreDataPage />}
+                    />
+
+                    <Route
+                      path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+                      render={() => <WhatIsHealthEquityPage />}
+                    />
+
+                    <Route
+                      path={TERMS_OF_SERVICE_PAGE_LINK}
+                      render={() => <TermsOfServicePage />}
+                    />
+
+                    {/* <Route
                     path={DATA_CATALOG_PAGE_LINK}
                     component={DataCatalogTab}
                   />
@@ -183,12 +221,13 @@ function App() {
                   <Route
                     path={TERMS_OF_SERVICE_PAGE_LINK}
                     component={TermsOfServicePage}
-                  />
-                  <Route exact path="/" component={LandingPage} />
-                  <Route component={NotFoundPage} />
-                </Switch>
-              </main>
-            </Router>
+                  /> */}
+                    <Route exact path="/" component={LandingPage} />
+                    <Route component={NotFoundPage} />
+                  </Switch>
+                </main>
+              </Router>
+            </React.Suspense>
           </div>
           <footer>
             <Footer />
