@@ -33,12 +33,17 @@ function UnknownsAlert(props: {
         row[props.breakdownVar] === UNKNOWN ||
         row[props.breakdownVar] === UNKNOWN_ETHNICITY
     );
-  if (unknowns.length === 0) {
-    return <></>;
-  }
 
   const breakdownVarDisplayName =
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar];
+
+  if (unknowns.length === 0) {
+    return <></>;
+  }
+  const raceEthnicityDiff =
+    unknowns.length === 2 &&
+    unknowns[0][props.metricConfig.metricId] !==
+      unknowns[1][props.metricConfig.metricId];
 
   const cardHelperText = props.known
     ? `The ${
@@ -54,17 +59,34 @@ function UnknownsAlert(props: {
 
   const percentageUnknown = unknowns[0][props.metricConfig.metricId];
 
+  // TODO: make this text better
+  const diffRaceEthnicityText = raceEthnicityDiff
+    ? `This state reports race and ethnicity seperately.
+    ${unknowns[0][props.metricConfig.metricId]}${
+        props.metricConfig.shortVegaLabel
+      } reported an
+    ${unknowns[0][props.breakdownVar].toLowerCase()} and
+    ${unknowns[1][props.metricConfig.metricId]}${
+        props.metricConfig.shortVegaLabel
+      } reported an
+    ${unknowns[1][props.breakdownVar].toLowerCase()}
+    The ${
+      props.displayType
+    } below only displays data for cases where race was known for
+      metrics that only include race and data for cases where
+      ethnicity was known for metrics that only include ethnicity.`
+    : "";
+
   // In the case we have unknowns for race and ethnicity reported separately,
   // show the higher one on the map
-  if (unknowns.length === 2) {
-    if (
-      unknowns[0][props.metricConfig.metricId] >
-      unknowns[1][props.metricConfig.metricId]
-    ) {
-    }
-  }
-
-  return (
+  return raceEthnicityDiff ? (
+    <>
+      <CardContent className={styles.SmallMarginContent}>
+        <Alert severity="warning">{diffRaceEthnicityText}</Alert>
+      </CardContent>
+      <Divider />
+    </>
+  ) : (
     <>
       <CardContent className={styles.SmallMarginContent}>
         <Alert severity="warning">
