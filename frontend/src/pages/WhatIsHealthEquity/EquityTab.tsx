@@ -475,7 +475,7 @@ function EquityTab() {
             imageUrl={
               prefersReducedMotion
                 ? "img/HET-lines-no-motion.gif"
-                : "img/HET_Overlapping_Lines_v4_1000px.gif"
+                : "img/animations/HET-lines.gif"
             }
             imageBackground="#A5CDC0"
             imageAlt=""
@@ -505,7 +505,7 @@ function EquityTab() {
             imageUrl={
               prefersReducedMotion
                 ? "img/HET-fields-no-motion.gif"
-                : "img/HET_Fields_1_v2_1000px.gif"
+                : "img/animations/HET-fields.gif"
             }
             imageBackground="#EDB2A6"
             imageAlt=""
@@ -535,7 +535,7 @@ function EquityTab() {
             imageUrl={
               prefersReducedMotion
                 ? "img/HET-dots-no-motion.gif"
-                : "img/HET_Dots_1_v3_1000px.gif"
+                : "img/animations/HET-dots.gif"
             }
             imageBackground="#275141"
             imageAlt=""
