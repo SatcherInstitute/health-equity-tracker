@@ -33,6 +33,29 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
+    id: "acs_2010",
+    data_source_name:
+      "American Community Survey 5-year estimates from 2010, U.S. Territories",
+    data_source_link:
+      "https://www.census.gov/data/datasets/2010/dec/virgin-islands.html",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "None",
+    description:
+      "Population percentages at the territory level: " +
+      "the census bureau has not included population data from " +
+      "the U.S. Virgin Islands, Guam, or the Northern Mariana Islands " +
+      "in its 5 year ACS estimates, so the most up to date population " +
+      "estimates are from 2010. Interpret any metrics from " +
+      "these territories with caution.",
+    dataset_ids: [
+      "acs_2010_population-by_race_and_ethnicity_territory",
+      "acs_2010_population-by_sex_territory",
+      "acs_2010_population-by_age_territory",
+    ],
+    downloadable: true,
+  },
+  {
     id: "cdc_restricted",
     data_source_name: "CDC Case Surveillance Restricted Access Detailed Data",
     data_source_link:
@@ -43,8 +66,8 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "The numbers of confirmed COVID-19 deaths, cases, and hospitalizations at the state and county levels. " +
       "The data source is Centers for Disease Control and Prevention, COVID-19 Response. COVID-19 Case " +
-      "Surveillance Data Access, Summary, and Limitations (7/06/2021). The last case data included is 2 " +
-      "weeks before 7/06/2021. The CDC does not take responsibility for the scientific validity " +
+      "Surveillance Data Access, Summary, and Limitations (8/18/2021). The last case data included is 2 " +
+      "weeks before 8/18/2021. The CDC does not take responsibility for the scientific validity " +
       "or accuracy of methodology, results, statistical analyses, or conclusions presented. This " +
       "dataset is not available for download, please press the button below to apply for access.",
     dataset_ids: [

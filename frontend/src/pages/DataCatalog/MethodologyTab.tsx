@@ -8,11 +8,17 @@ import {
   EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK,
 } from "../../utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
+import { Helmet } from "react-helmet";
+
+export const CITATION_CHICAGO =
+  "Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. https://healthequitytracker.org.";
 
 function MethodologyTab() {
   return (
     <>
-      <title>Methodology - Health Equity Tracker</title>
+      <Helmet>
+        <title>Methodology - Health Equity Tracker</title>
+      </Helmet>
       <h1 className={styles.ScreenreaderTitleHeader}>Methodology</h1>
       <Grid
         container
@@ -23,6 +29,18 @@ function MethodologyTab() {
       >
         <Grid item xs={12} sm={12} md={9}>
           <Grid container className={styles.MethodologySection}>
+            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
+              <h2
+                id="main"
+                tabIndex={-1}
+                className={styles.MethodologyQuestion}
+              >
+                Recommended Citation for the Health Equity Tracker:
+              </h2>
+              <div className={styles.MethodologyAnswer}>
+                <p>{CITATION_CHICAGO}</p>
+              </div>
+            </Grid>
             <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
               <h2
                 id="main"
@@ -50,14 +68,13 @@ function MethodologyTab() {
                 </ul>
               </div>
             </Grid>
+
             <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
               <h2 className={styles.MethodologyQuestion}>
                 What are the limitations of the tracker?
               </h2>
               <div className={styles.MethodologyAnswer}>
-                <h3 className={styles.MethodologySubheaderText}>Data</h3>
-
-                <h4 className={styles.MethodologySubsubheaderText}>COVID-19</h4>
+                <h3 className={styles.MethodologySubsubheaderText}>COVID-19</h3>
                 <p>
                   For a description of some of the gaps in COVID-19 data, please
                   see the{" "}
@@ -109,9 +126,9 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
-                <h4 className={styles.MethodologySubsubheaderText}>
+                <h3 className={styles.MethodologySubsubheaderText}>
                   Diabetes & COPD
-                </h4>
+                </h3>
                 <p>
                   Diabetes & COPD data in the tracker is sourced from{" "}
                   <a href="https://www.americashealthrankings.org/explore/annual/measure/Overall_a/state/ALL">
@@ -145,24 +162,12 @@ function MethodologyTab() {
                 <h3 className={styles.MethodologySubheaderText}>
                   Visualizations
                 </h3>
-                <ul>
-                  <li>
-                    The national-level map projection and rendering software
-                    used in the tracker (
-                    <a href="https://vega.github.io/vega-lite/docs/projection.html">
-                      Vega, with the albersUsa projection
-                    </a>
-                    ) currently cannot display territories such as Puerto Rico
-                    on the national-level USA map. Searching directly for each
-                    territory displays a map for the territory itself.
-                  </li>
-                  <li>
-                    Please consider the impact of under-reporting and data gaps
-                    when exploring the visualizations. These issues may lead to
-                    incorrect conclusions, e.g. low rates in a given location
-                    may be due to under-reporting rather than absence of impact.
-                  </li>
-                </ul>
+                <p>
+                  Please consider the impact of under-reporting and data gaps
+                  when exploring the visualizations. These issues may lead to
+                  incorrect conclusions, e.g. low rates in a given location may
+                  be due to under-reporting rather than absence of impact.
+                </p>
               </div>
             </Grid>
             <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
@@ -181,7 +186,7 @@ function MethodologyTab() {
                   local level that belong in the Health Equity Tracker?
                   <br />
                   <LinkWithStickyParams
-                    class={styles.MethodologyContactUsLink}
+                    className={styles.MethodologyContactUsLink}
                     to={`${ABOUT_US_PAGE_LINK}?${TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
                   >
                     We would love to hear from you!

@@ -33,6 +33,21 @@ const datasetMetadataList: DatasetMetadata[] = [
     update_time: "2019",
   },
   {
+    id: "acs_2010_population-by_race_and_ethnicity_territory",
+    name: "Population by Race and Territory",
+    update_time: "2010",
+  },
+  {
+    id: "acs_2010_population-by_sex_territory",
+    name: "Population by Sex and Territory",
+    update_time: "2010",
+  },
+  {
+    id: "acs_2010_population-by_age_territory",
+    name: "Population by Sex and Territory",
+    update_time: "2010",
+  },
+  {
     id: "covid_tracking_project-cases_by_race_state",
     name: "COVID-19 cases by race and state",
     update_time: "April 2021",
@@ -85,32 +100,32 @@ const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "cdc_restricted_data-by_race_county",
     name: "COVID-19 deaths, cases, and hospitalizations by race and county",
-    update_time: "July 2021",
+    update_time: "August 2021",
   },
   {
     id: "cdc_restricted_data-by_race_state",
     name: "COVID-19 deaths, cases, and hospitalizations by race and state",
-    update_time: "July 2021",
+    update_time: "August 2021",
   },
   {
     id: "cdc_restricted_data-by_age_county",
     name: "COVID-19 deaths, cases, and hospitalizations by age and county",
-    update_time: "July 2021",
+    update_time: "August 2021",
   },
   {
     id: "cdc_restricted_data-by_age_state",
     name: "COVID-19 deaths, cases, and hospitalizations by age and state",
-    update_time: "July 2021",
+    update_time: "August 2021",
   },
   {
     id: "cdc_restricted_data-by_sex_county",
     name: "COVID-19 deaths, cases, and hospitalizations by sex and county",
-    update_time: "July 2021",
+    update_time: "August 2021",
   },
   {
     id: "cdc_restricted_data-by_sex_state",
     name: "COVID-19 deaths, cases, and hospitalizations by sex and state",
-    update_time: "July 2021",
+    update_time: "August 2021",
   },
   {
     id: "uhc_data-age",

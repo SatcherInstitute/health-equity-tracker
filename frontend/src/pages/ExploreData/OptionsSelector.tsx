@@ -51,6 +51,7 @@ function OptionsSelector(props: {
     <>
       <Button
         variant="text"
+        aria-haspopup="true"
         className={styles.MadLibButton}
         onClick={popover.open}
       >
@@ -60,6 +61,7 @@ function OptionsSelector(props: {
 
       <Popover
         className={styles.PopoverOverride}
+        aria-expanded="true"
         open={popover.isOpen}
         anchorEl={popover.anchor}
         onClose={popover.close}

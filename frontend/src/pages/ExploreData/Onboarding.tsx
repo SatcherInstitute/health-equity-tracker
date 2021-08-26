@@ -76,8 +76,7 @@ const ONBOARDING_STEPS = [
     "Explore further to see trends",
     <>
       Where available, the tracker offers breakdowns by race and ethnicity, sex,
-      and age. This is currently limited to the national and state level, with
-      county-level data coming soon.
+      and age.
     </>,
     /*hideCloseButton=*/ false,
     /*placement=*/ "top-start"

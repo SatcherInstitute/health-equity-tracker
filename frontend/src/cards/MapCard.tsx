@@ -158,6 +158,9 @@ function MapCardWithKey(props: MapCardProps) {
               <MapBreadcrumbs
                 fips={props.fips}
                 updateFipsCallback={props.updateFipsCallback}
+                ariaLabel={
+                  props.variableConfig.variableFullDisplayName as string
+                }
               />
             </CardContent>
 
@@ -219,6 +222,15 @@ function MapCardWithKey(props: MapCardProps) {
                       onClick={() => setSmallMultiplesDialogOpen(true)}
                       color="primary"
                       className={styles.SmallMarginButton}
+                      aria-label={
+                        "Compare " +
+                        props.variableConfig.variableFullDisplayName +
+                        " across " +
+                        BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                          props.currentBreakdown
+                        ] +
+                        " groups"
+                      }
                     >
                       Compare across{" "}
                       {
@@ -257,13 +269,12 @@ function MapCardWithKey(props: MapCardProps) {
                   scaleType="quantile"
                   geoData={geoData}
                 />
-                {/* TODO(1011): remove false when territory data sources are updated */}
-                {false && props.fips.isUsa() && (
+                {props.fips.isUsa() && (
                   <div className={styles.TerritoryCirclesContainer}>
                     {TERRITORY_CODES.map((code) => {
                       const fips = new Fips(code);
                       return (
-                        <div className={styles.TerritoryCircle}>
+                        <div className={styles.TerritoryCircle} key={code}>
                           <ChoroplethMap
                             useSmallSampleMessage={
                               !mapQueryResponse.dataIsMissing() &&
