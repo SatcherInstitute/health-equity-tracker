@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
 import { Helmet } from "react-helmet";
+import LazyLoad from "react-lazyload";
 
 const LEADERSHIP_TEAM = [
   {
@@ -302,11 +303,13 @@ function OurTeamTab() {
                     md={3}
                     className={styles.TextProfile}
                   >
-                    <img
-                      src={leader.imageUrl}
-                      alt={leader.name}
-                      className={styles.ProfileImg}
-                    />
+                    <LazyLoad offset={100} height={181} once>
+                      <img
+                        src={leader.imageUrl}
+                        alt={leader.name}
+                        className={styles.ProfileImg}
+                      />
+                    </LazyLoad>
                     <br />
                     <h4 className={styles.LeaderNameHeading}>{leader.name}</h4>
                     <span className={styles.LeaderRoleSpan}>{leader.role}</span>
@@ -397,11 +400,13 @@ function OurTeamTab() {
           <Grid item xs={12}>
             {PARTNERS.map((partner) => (
               <a href={partner.url} key={partner.url}>
-                <img
-                  src={partner.imageUrl}
-                  alt={partner.alt}
-                  className={styles.PartnerImg}
-                />
+                <LazyLoad offset={100} height={200} once>
+                  <img
+                    src={partner.imageUrl}
+                    alt={partner.alt}
+                    className={styles.PartnerImg}
+                  />
+                </LazyLoad>
               </a>
             ))}
           </Grid>

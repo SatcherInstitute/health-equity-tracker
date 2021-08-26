@@ -30,7 +30,7 @@ function TakeALookAroundItem(props: {
       <Grid container direction="column" alignItems="center" justify="center">
         <Hidden xsDown>
           <Grid item>
-            <LazyLoad height={200} once>
+            <LazyLoad height={200} offset={100} once>
               <img
                 height="500"
                 width="500"
@@ -228,7 +228,7 @@ function LandingPage() {
                 md={5}
                 className={styles.PrioritizeHealthEquityImgItem}
               >
-                <LazyLoad once height="811">
+                <LazyLoad once height="811" offset={100}>
                   <img
                     width="557"
                     height="811"
@@ -311,7 +311,7 @@ function LandingPage() {
                 alignItems="center"
               >
                 <Grid item xs={12} sm={12} md={8}>
-                  <LazyLoad once>
+                  <LazyLoad offset={100} once>
                     <img
                       className={styles.HowToStepImg}
                       src="img/screenshots/het-investigate-rates.png"
@@ -340,7 +340,7 @@ function LandingPage() {
                 alignItems="center"
               >
                 <Grid item xs={12} sm={12} md={8}>
-                  <LazyLoad once>
+                  <LazyLoad offset={100} once>
                     <img
                       className={styles.HowToStepImg}
                       src="img/screenshots/het-compare-rates.png"
@@ -369,7 +369,7 @@ function LandingPage() {
                 alignItems="center"
               >
                 <Grid item xs={12} sm={12} md={8}>
-                  <LazyLoad once>
+                  <LazyLoad offset={100} once>
                     <img
                       className={styles.HowToStepImg}
                       src="img/screenshots/het-map.png"
@@ -406,7 +406,7 @@ function LandingPage() {
           </Grid>
 
           <div className={styles.FaqRow}>
-            <LazyLoad height={700} once>
+            <LazyLoad offset={100} height={700} once>
               <FaqSection />
             </LazyLoad>
           </div>

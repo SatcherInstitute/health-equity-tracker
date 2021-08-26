@@ -7,6 +7,7 @@ import { EXPLORE_DATA_PAGE_LINK } from "../../utils/urlutils";
 import Hidden from "@material-ui/core/Hidden";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet";
+import LazyLoad from "react-lazyload";
 
 function AimToGoItem(props: {
   src: string;
@@ -24,11 +25,13 @@ function AimToGoItem(props: {
       >
         <Hidden smDown>
           <Grid item>
-            <img
-              className={styles.ImgAimToGo}
-              src={props.src}
-              alt={props.alt}
-            />
+            <LazyLoad offset={100} height={255} once>
+              <img
+                className={styles.ImgAimToGo}
+                src={props.src}
+                alt={props.alt}
+              />
+            </LazyLoad>
           </Grid>
         </Hidden>
         <Grid item>
@@ -106,13 +109,15 @@ function TheProjectTab() {
               md={7}
               className={styles.GridAlignRightItem}
             >
-              <img
-                width="754"
-                height="644"
-                src="img/stock/woman-kids.png"
-                className={styles.ImgHeaderGridItem}
-                alt=""
-              />
+              <LazyLoad offset={100} height={644} once>
+                <img
+                  width="754"
+                  height="644"
+                  src="img/stock/woman-kids.png"
+                  className={styles.ImgHeaderGridItem}
+                  alt=""
+                />
+              </LazyLoad>
             </Grid>
           </Hidden>
         </Grid>
