@@ -33,7 +33,7 @@ import {
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "./utils/urlutils";
 
-// DataExplorer uses the CSS modules from About Us, so AboutUs must load first
+// the following components make CSS modules which are imported by other components, so they must load first
 import AboutUsPage from "./pages/AboutUs/AboutUsPage";
 import WhatIsHealthEquityPage from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
 
