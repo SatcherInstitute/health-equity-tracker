@@ -27,6 +27,7 @@ import DataCatalogTab from "./pages/DataCatalog/DataCatalogTab";
 import ExploreDataPage from "./pages/ExploreData/ExploreDataPage";
 import LandingPage from "./pages/Landing/LandingPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import GetVaccinatedPage from "./pages/GetVaccinated/GetVaccinatedPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage/TermsOfServicePage";
 import { WhatIsHealthEquityPage } from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
 import MaterialTheme from "./styles/MaterialTheme";
@@ -183,6 +184,10 @@ function App() {
                   <Route
                     path={TERMS_OF_SERVICE_PAGE_LINK}
                     component={TermsOfServicePage}
+                  />
+                  <Route
+                    path={"/getvaccinated"}
+                    component={GetVaccinatedPage}
                   />
                   <Route exact path="/" component={LandingPage} />
                   <Route component={NotFoundPage} />
