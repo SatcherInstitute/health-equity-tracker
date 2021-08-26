@@ -7,13 +7,12 @@ import Typography from "@material-ui/core/Typography";
 import {
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
-  TAB_PARAM,
+  // TAB_PARAM,
   ReactRouterLinkButton,
 } from "../../utils/urlutils";
-import {
-  WIHE_HEALTH_EQUITY_TAB_INDEX,
-  WIHE_JOIN_THE_EFFORT_SECTION_ID,
-} from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
+import // WIHE_HEALTH_EQUITY_TAB_INDEX,
+// WIHE_JOIN_THE_EFFORT_SECTION_ID,
+"../WhatIsHealthEquity/WhatIsHealthEquityPage";
 import { Box } from "@material-ui/core";
 import { Helmet } from "react-helmet";
 import LazyLoad from "react-lazyload";
