@@ -1,5 +1,4 @@
 import { CardContent, Grid } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
@@ -203,7 +202,7 @@ function MapCardWithKey(props: MapCardProps) {
                       Overall for{" "}
                       {activeBreakdownFilter === "All"
                         ? ""
-                        : " selected group in"}{" "}
+                        : `${activeBreakdownFilter} in `}{" "}
                       {props.fips.getDisplayName()}:{" "}
                       <b>
                         {formatFieldValue(
@@ -215,13 +214,14 @@ function MapCardWithKey(props: MapCardProps) {
                           )![metricConfig.metricId]
                         )}
                       </b>{" "}
-                      {metricConfig.shortVegaLabel}.
-                      <Button
+                      {metricConfig.shortVegaLabel}
+                      {". "}
+                      <span
                         onClick={() => setSmallMultiplesDialogOpen(true)}
-                        color="primary"
-                        className={styles.SmallMarginButton}
+                        role="button"
+                        className={styles.VisualizeAcrossLink}
                         aria-label={
-                          "Compare " +
+                          "Visualize " +
                           props.variableConfig.variableFullDisplayName +
                           " across " +
                           BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
@@ -237,7 +237,7 @@ function MapCardWithKey(props: MapCardProps) {
                           ]
                         }{" "}
                         groups
-                      </Button>
+                      </span>
                     </p>
                   </CardContent>
                 </>
