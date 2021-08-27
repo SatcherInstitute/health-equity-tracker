@@ -32,4 +32,4 @@ cdc_vaccination_national_exporter_operator = util.create_exporter_operator(
 
 # Ingestion DAG
 (cdc_vaccination_national_bq_operator >> cdc_vaccination_national_aggregator_operator >>
-        cdc_vaccination_national_exporter_operator)
+    cdc_vaccination_national_exporter_operator)

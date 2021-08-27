@@ -16,6 +16,7 @@ GOLDEN_DATA = {
     'age': os.path.join(TEST_DIR, 'cdc_vaccination_national_by_age.csv'),
 }
 
+
 def get_state_test_data_as_df():
     return pd.read_csv(os.path.join(TEST_DIR, 'cdc_vaccination_national_test.csv'), dtype={'state_fips': str})
 
