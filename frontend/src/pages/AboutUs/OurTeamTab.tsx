@@ -2,6 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
+import { Helmet } from "react-helmet";
 
 const LEADERSHIP_TEAM = [
   {
@@ -41,7 +42,7 @@ const LEADERSHIP_TEAM = [
   },
   {
     name: "Josh Zarrabi",
-    role: "Sr. Software Engineer",
+    role: "Senior Software Engineer",
     imageUrl: "img/ZarrabiJosh.png",
   },
   {
@@ -239,7 +240,7 @@ const PARTNERS = [
   },
   {
     imageUrl: "img/PartnerGoogle.png",
-    alt: "Google",
+    alt: "Google.org",
     url: "https://google.org",
   },
   {
@@ -257,7 +258,9 @@ const PARTNERS = [
 function OurTeamTab() {
   return (
     <>
-      <title>Our Team - About Us - Health Equity Tracker</title>
+      <Helmet>
+        <title>Our Team - About Us - Health Equity Tracker</title>
+      </Helmet>
       <h1 className={styles.ScreenreaderTitleHeader}>Our Team</h1>
       <Grid container className={styles.Grid}>
         <Grid container className={styles.GridRowHeaderText}>
@@ -321,14 +324,18 @@ function OurTeamTab() {
             </Typography>
           </Grid>
           <Grid item>
-            <Grid container className={styles.GridSubRow}>
+            <Grid
+              container
+              justify="space-around"
+              className={styles.GridSubRow}
+            >
               {GOOGLE_FELLOWS.map((fellow) => {
                 return fellow.link == null ? (
                   <Grid item className={styles.TextProfile} key={fellow.name}>
                     <span style={{ fontSize: "16px", fontWeight: 500 }}>
                       {fellow.name}
                     </span>
-                    <br />
+                    <br aria-hidden="true" />
                     <span style={{ fontSize: "14px", fontWeight: 400 }}>
                       {fellow.role}
                     </span>
@@ -342,7 +349,7 @@ function OurTeamTab() {
                       rel="noopener noreferrer"
                     >
                       {fellow.text}
-                      <br />
+                      <br aria-hidden="true" />
                       {fellow.name}
                     </a>
                     <br />
@@ -364,7 +371,11 @@ function OurTeamTab() {
           </Grid>
 
           <Grid item xs={12}>
-            <Grid container className={styles.GridSubRow}>
+            <Grid
+              container
+              justify="space-around"
+              className={styles.GridSubRow}
+            >
               {HE_TASKFORCE.map((taskforceName) => (
                 <Grid item className={styles.TextProfile} key={taskforceName}>
                   <span style={{ fontSize: "16px", fontWeight: 500 }}>

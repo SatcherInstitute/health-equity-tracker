@@ -1,3 +1,5 @@
+@import "../styles/variables";
+
 .PaddedGrid {
   padding: 20px;
   text-align: left;
@@ -9,8 +11,8 @@
   .ToggleLabel {
     display: block;
     text-transform: uppercase;
-    color: #80868b;
-    font-weight: 500;
+    color: $alt-black; // #80868b failed a11y contrast
+    font-weight: 300;
     font-size: 14px;
     line-height: 16px;
     text-align: left;

@@ -5,9 +5,13 @@ import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
 import styles from "./MapBreadcrumbs.module.scss";
 
-function MapBreadcrumbs(props: { fips: Fips; updateFipsCallback: Function }) {
+function MapBreadcrumbs(props: {
+  fips: Fips;
+  updateFipsCallback: Function;
+  ariaLabel?: string;
+}) {
   return (
-    <Breadcrumbs separator="›" aria-label="breadcrumb">
+    <Breadcrumbs separator="›" aria-label={props.ariaLabel + " breadcrumb"}>
       <Crumb
         text={USA_DISPLAY_NAME}
         isClickable={!props.fips.isUsa()}

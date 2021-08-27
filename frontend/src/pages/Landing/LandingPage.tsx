@@ -6,7 +6,6 @@ import Hidden from "@material-ui/core/Hidden";
 import Typography from "@material-ui/core/Typography";
 import {
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-  LinkWithStickyParams,
   EXPLORE_DATA_PAGE_LINK,
   TAB_PARAM,
   ReactRouterLinkButton,
@@ -17,6 +16,9 @@ import {
   WIHE_JOIN_THE_EFFORT_SECTION_ID,
 } from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
 import { Box } from "@material-ui/core";
+import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
+import { Helmet } from "react-helmet";
+import LazyLoad from "react-lazyload";
 
 function TakeALookAroundItem(props: {
   src: string;
@@ -28,11 +30,13 @@ function TakeALookAroundItem(props: {
       <Grid container direction="column" alignItems="center" justify="center">
         <Hidden xsDown>
           <Grid item>
-            <img
-              className={styles.TakeALookAroundImg}
-              src={props.src}
-              alt={props.alt}
-            />
+            <LazyLoad once>
+              <img
+                className={styles.TakeALookAroundImg}
+                src={props.src}
+                alt={props.alt}
+              />
+            </LazyLoad>
           </Grid>
         </Hidden>
         <Grid item>
@@ -46,9 +50,13 @@ function TakeALookAroundItem(props: {
 }
 
 function LandingPage() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+
   return (
     <>
-      <title>Home - Health Equity Tracker</title>
+      <Helmet>
+        <title>Home - Health Equity Tracker</title>
+      </Helmet>
       <h1 className={styles.ScreenreaderTitleHeader}>Home Page</h1>
       <div className={styles.LandingPage}>
         <Grid container className={styles.Grid}>
@@ -68,9 +76,9 @@ function LandingPage() {
                 paragraph={true}
               >
                 Advancing
-                <br />
+                <br aria-hidden="true" />
                 Health
-                <br />
+                <br aria-hidden="true" />
                 Equity
               </Typography>
               <Typography
@@ -82,6 +90,7 @@ function LandingPage() {
                 even worsen health inequities many people face if not reported
                 or analyzed correctly.
               </Typography>
+
               <Typography
                 className={styles.HeaderSubtext}
                 variant="body1"
@@ -92,35 +101,35 @@ function LandingPage() {
                 that will allow every person to live well and long from
                 generation to generation.
               </Typography>
+
               <Typography
                 className={styles.HeaderSubtext}
                 variant="body1"
                 paragraph={true}
               >
                 Join us in powering transformational action!
-                <br />
               </Typography>
               <Box mt={5}>
-                <LinkWithStickyParams
-                  to={EXPLORE_DATA_PAGE_LINK}
-                  className={styles.NoUnderline}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={styles.PrimaryButton}
+                  href={EXPLORE_DATA_PAGE_LINK}
                 >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={styles.PrimaryButton}
-                  >
-                    Explore the Health Equity Tracker
-                  </Button>
-                </LinkWithStickyParams>
+                  Explore the Health Equity Tracker
+                </Button>
               </Box>
             </Grid>
             <Grid item xs={12} sm={12} md={6} className={styles.HeaderImgItem}>
-              <img
-                src="img/shutterstock_1414416191 2 (1).png"
-                className={styles.HeaderImg}
-                alt="A man and woman laying with their two children"
-              />
+              <LazyLoad height={700} once>
+                <img
+                  height="601"
+                  width="700"
+                  src="img/shutterstock_1414416191 2 (1).png"
+                  className={styles.HeaderImg}
+                  alt=""
+                />
+              </LazyLoad>
             </Grid>
           </Grid>
 
@@ -142,6 +151,7 @@ function LandingPage() {
               <Typography
                 className={styles.TakeALookAroundHeaderSubtext}
                 variant="subtitle1"
+                component="p"
               >
                 We’re working toward health equity, but can’t do it alone.
                 Please join our effort to move the needle forward.
@@ -155,18 +165,30 @@ function LandingPage() {
                 justify="space-around"
               >
                 <TakeALookAroundItem
-                  src="img/HET_Fields_1_v2_1000px.gif"
-                  alt="Decorative dots"
+                  src={
+                    prefersReducedMotion
+                      ? "img/HET-fields-no-motion.gif"
+                      : "img/animations/HET-fields.gif"
+                  }
+                  alt=""
                   text="(1) Learn about health equity"
                 />
                 <TakeALookAroundItem
-                  src="img/HET_Dots_1_v3_1000px.gif"
-                  alt="Decorative thick lines"
+                  src={
+                    prefersReducedMotion
+                      ? "img/HET-dots-no-motion.gif"
+                      : "img/animations/HET-dots.gif"
+                  }
+                  alt=""
                   text="(2) Investigate the data"
                 />
                 <TakeALookAroundItem
-                  src="img/HET_Spiral_v4_1000px.gif"
-                  alt="Decorative circular pattern"
+                  src={
+                    prefersReducedMotion
+                      ? "img/HET-spiral-no-motion.gif"
+                      : "img/animations/HET-spiral.gif"
+                  }
+                  alt=""
                   text="(3) Share our site and join our movement"
                 />
               </Grid>
@@ -174,18 +196,15 @@ function LandingPage() {
 
             <Grid container direction="row" justify="center">
               <Grid item xs={12} sm={12} md={2}>
-                <LinkWithStickyParams
-                  to="/whatishealthequity"
-                  className={styles.NoUnderline}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={styles.PrimaryButton}
+                  aria-label="Learn More About Health Equity"
+                  href={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
                 >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={styles.PrimaryButton}
-                  >
-                    Learn more
-                  </Button>
-                </LinkWithStickyParams>
+                  Learn more
+                </Button>
               </Grid>
             </Grid>
           </Grid>
@@ -205,11 +224,13 @@ function LandingPage() {
                 md={5}
                 className={styles.PrioritizeHealthEquityImgItem}
               >
-                <img
-                  src="img/118172286-e3fffb80-b3c7-11eb-9553-127462881af3.png"
-                  className={styles.PrioritizeHealthEquityImg}
-                  alt="Three women embracing a small baby in between them"
-                />
+                <LazyLoad once>
+                  <img
+                    src="img/118172286-e3fffb80-b3c7-11eb-9553-127462881af3.png"
+                    className={styles.PrioritizeHealthEquityImg}
+                    alt=""
+                  />
+                </LazyLoad>
               </Grid>
             </Hidden>
             <Grid
@@ -284,11 +305,13 @@ function LandingPage() {
                 alignItems="center"
               >
                 <Grid item xs={12} sm={12} md={8}>
-                  <img
-                    className={styles.HowToStepImg}
-                    src="img/het-screen-1.png"
-                    alt="Screenshot of Data Tracker - selecting mad libs"
-                  />
+                  <LazyLoad once>
+                    <img
+                      className={styles.HowToStepImg}
+                      src="img/het-screen-1.png"
+                      alt="Search Example Screenshot: Investigate Rates of option Covid-19 in location United States"
+                    />
+                  </LazyLoad>
                 </Grid>
                 <Grid item xs={12} sm={12} md={3}>
                   <div>
@@ -311,11 +334,13 @@ function LandingPage() {
                 alignItems="center"
               >
                 <Grid item xs={12} sm={12} md={8}>
-                  <img
-                    className={styles.HowToStepImg}
-                    src="img/het-screen-2.png"
-                    alt="Screenshot of Data Tracker - using filters"
-                  />
+                  <LazyLoad once>
+                    <img
+                      className={styles.HowToStepImg}
+                      src="img/het-screen-2.png"
+                      alt="Search Example Screenshot: Compare Rates of option Covid-19 between two locations"
+                    />
+                  </LazyLoad>
                 </Grid>
                 <Grid item xs={12} sm={12} md={3}>
                   <div>
@@ -324,9 +349,7 @@ function LandingPage() {
                     </h3>
                     <p className={styles.HowToStepTextSubheader}>
                       Where available, the tracker offers breakdowns by race and
-                      ethnicity, sex, and age. This is currently limited to the
-                      national and state level, with county-level data coming
-                      soon.
+                      ethnicity, sex, and age.
                     </p>
                   </div>
                 </Grid>
@@ -340,11 +363,13 @@ function LandingPage() {
                 alignItems="center"
               >
                 <Grid item xs={12} sm={12} md={8}>
-                  <img
-                    className={styles.HowToStepImg}
-                    src="img/het-screen-3.png"
-                    alt="Screenshot of Data Tracker - map of the US"
-                  />
+                  <LazyLoad once>
+                    <img
+                      className={styles.HowToStepImg}
+                      src="img/het-screen-3.png"
+                      alt="Map Example Screenshot, Data Tracker map of option Covid-19 rates of all racial groups"
+                    />
+                  </LazyLoad>
                 </Grid>
                 <Grid item xs={12} sm={12} md={3}>
                   <div>
@@ -362,24 +387,22 @@ function LandingPage() {
               <Grid item>
                 <br />
                 <br />
-                <LinkWithStickyParams
-                  to={EXPLORE_DATA_PAGE_LINK}
-                  className={styles.NoUnderline}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={styles.PrimaryButton}
+                  href={EXPLORE_DATA_PAGE_LINK}
                 >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={styles.PrimaryButton}
-                  >
-                    Explore the Tracker
-                  </Button>
-                </LinkWithStickyParams>
+                  Explore the Tracker
+                </Button>
               </Grid>
             </Grid>
           </Grid>
 
           <div className={styles.FaqRow}>
-            <FaqSection />
+            <LazyLoad height={700} once>
+              <FaqSection />
+            </LazyLoad>
           </div>
 
           <Grid container className={styles.NewsletterSignUpRow}>
@@ -400,13 +423,16 @@ function LandingPage() {
                     className={styles.NewsletterRowHeader}
                     variant="h2"
                   >
-                    Join Our
-                    <br />
-                    Movement
+                    <span aria-hidden="true">
+                      Join Our
+                      <br />
+                      Movement
+                    </span>
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Button
+                    aria-label="Join Our Movement"
                     variant="contained"
                     color="default"
                     className={styles.JoinOurMovementButton}

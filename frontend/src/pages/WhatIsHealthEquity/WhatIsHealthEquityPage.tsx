@@ -32,7 +32,7 @@ export function WhatIsHealthEquityPage() {
 
   // when screen width changes, update tab spacing material UI attribute
   useEffect(() => {
-    setTabLayout(pageIsWide ? { centered: "true" } : { variant: "fullWidth" });
+    setTabLayout(pageIsWide ? { centered: true } : { variant: "fullWidth" });
   }, [pageIsWide]);
 
   return (
