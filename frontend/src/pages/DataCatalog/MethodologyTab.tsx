@@ -9,6 +9,8 @@ import {
 } from "../../utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
 import { Helmet } from "react-helmet";
+import parse from "html-react-parser";
+import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
 
 export const CITATION_CHICAGO =
   "Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. https://healthequitytracker.org.";
@@ -47,25 +49,10 @@ function MethodologyTab() {
                 tabIndex={-1}
                 className={styles.MethodologyQuestion}
               >
-                How did you acquire and standardize the data?
+                {selectFaqs[4].q}
               </h2>
               <div className={styles.MethodologyAnswer}>
-                <ul>
-                  <li>
-                    Our data is retrieved via a mix of APIs and manual downloads
-                  </li>
-                  <li>
-                    Once acquired, this data is converted to tables in Google
-                    BigQuery
-                  </li>
-                  <li>
-                    During this process, values are standardized and normalized
-                    to facilitate reporting, comparison and visualization
-                  </li>
-                  <li>
-                    Sources are refreshed when update notifications are received
-                  </li>
-                </ul>
+                {<>{parse(selectFaqs[4].a)}</>}
               </div>
             </Grid>
 
