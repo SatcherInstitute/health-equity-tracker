@@ -94,6 +94,8 @@ function Footer() {
         </Grid>
         <Grid item xs={12}>
           <img
+            width="216"
+            height="60"
             src="img/PartnerSatcher.png"
             alt="Satcher Health Leadership Institute Logo"
           />
