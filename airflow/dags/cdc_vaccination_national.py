@@ -31,4 +31,5 @@ cdc_vaccination_national_exporter_operator = util.create_exporter_operator(
     'cdc_vaccination_national_exporter', cdc_vaccination_national_exporter_payload, data_ingestion_dag)
 
 # Ingestion DAG
-cdc_vaccination_national_bq_operator >> cdc_vaccination_national_aggregator_operator >> cdc_vaccination_national_exporter_operator
+(cdc_vaccination_national_bq_operator >> cdc_vaccination_national_aggregator_operator >>
+        cdc_vaccination_national_exporter_operator)

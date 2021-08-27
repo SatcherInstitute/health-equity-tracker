@@ -6,9 +6,14 @@ import ingestion.standardized_columns as std_col
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 
-BASE_KFF_URL_PCT_SHARE_RACE = 'https://docs.google.com/spreadsheets/d/15TWTFIdtRgJ2mVijCChuOt_Zvwxp4xFByzFD1p6wazI/gviz/tq?tqx=out:csv'
-BASE_KFF_URL_PERCENTAGES_BY_RACE_OF_TOTAL = 'https://docs.google.com/spreadsheets/d/1kKWHZtwFWUcpoy4lLyKa0QPxlVyhDjn1Ob4g5HF4NEw/gviz/tq?tqx=out:csv'
-BASE_KFF_URL_TOTALS_STATE = 'https://docs.google.com/spreadsheets/d/1wjdh79UOyGLF1HZ1Dr7WqDoDTxDDvA41lQQh8oPH_LU/gviz/tq?tqx=out:csv'
+BASE_KFF_URL_PCT_SHARE_RACE = ('https://docs.google.com/spreadsheets/d/'
+    '15TWTFIdtRgJ2mVijCChuOt_Zvwxp4xFByzFD1p6wazI/gviz/tq?tqx=out:csv')
+
+BASE_KFF_URL_PERCENTAGES_BY_RACE_OF_TOTAL = ('https://docs.google.com/spreadsheets/d/',
+    '1kKWHZtwFWUcpoy4lLyKa0QPxlVyhDjn1Ob4g5HF4NEw/gviz/tq?tqx=out:csv')
+
+BASE_KFF_URL_TOTALS_STATE = ('https://docs.google.com/spreadsheets/d/'
+    '1wjdh79UOyGLF1HZ1Dr7WqDoDTxDDvA41lQQh8oPH_LU/gviz/tq?tqx=out:csv')
 
 TOTAL_KEY = 'Share of Population Fully Vaccinated Percent'
 
@@ -49,11 +54,14 @@ KFF_RACES_TO_STANDARD = {
     'Other': Race.OTHER_NONSTANDARD.value
 }
 
+
 def generate_total_pct_key(race):
     return '%% of Total %s Population Vaccinated Percent--narrow' % race
 
+
 def generate_pct_share_key(race):
     return '%s %% of Vaccinations Percent--narrow' % race
+
 
 def get_unknown_rows(df, state):
     """Gets unknown race and unknown ethnicity from the df,
@@ -72,6 +80,7 @@ def get_unknown_rows(df, state):
         rows.append(output_row)
 
     return rows
+
 
 def generate_output_row(state_row_pct_share, state_row_pct_total, state, race):
     """Generates the row with vaccine information for the given race and state
@@ -97,6 +106,7 @@ def generate_output_row(state_row_pct_share, state_row_pct_total, state, race):
 
     return output_row
 
+
 def generate_total_row(state_row_totals, state):
     """Generates the total vaccinated percentage row for a givcen state
 
@@ -109,6 +119,7 @@ def generate_total_row(state_row_totals, state):
     output_row[std_col.VACCINATED_PCT] = str(state_row_totals[TOTAL_KEY].values[0])
     output_row[std_col.VACCINATED_PCT_SHARE] = "1.0"
     return output_row
+
 
 def clean_state_names(df):
     """Removes trailing whitespace from state name keys in spreadsheet in place
@@ -133,12 +144,20 @@ class KFFVaccination(DataSource):
             'upload_to_gcs should not be called for KFFVaccination')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        percentage_of_total_df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_KFF_URL_PERCENTAGES_BY_RACE_OF_TOTAL)
+        percentage_of_total_df = gcs_to_bq_util.load_csv_as_dataframe_from_web(
+            BASE_KFF_URL_PERCENTAGES_BY_RACE_OF_TOTAL
+        )
+
         pct_share_df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_KFF_URL_PCT_SHARE_RACE)
         total_df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_KFF_URL_TOTALS_STATE, dtype={TOTAL_KEY: str})
 
         output = []
-        columns = [std_col.STATE_NAME_COL, std_col.RACE_CATEGORY_ID_COL, std_col.VACCINATED_PCT_SHARE, std_col.VACCINATED_PCT]
+        columns = [
+            std_col.STATE_NAME_COL,
+            std_col.RACE_CATEGORY_ID_COL,
+            std_col.VACCINATED_PCT_SHARE,
+            std_col.VACCINATED_PCT,
+        ]
 
         percentage_of_total_df = percentage_of_total_df.rename(columns={'Unnamed: 0': 'state'})
         pct_share_df = pct_share_df.rename(columns={'Unnamed: 0': 'state'})
@@ -158,7 +177,7 @@ class KFFVaccination(DataSource):
 
             output.extend(get_unknown_rows(state_row_pct_share, state))
 
-            ## Get race metrics
+            # Get race metrics
             for race in KFF_RACES_PCT_SHARE:
                 output.append(generate_output_row(state_row_pct_share, state_row_pct_total, state, race))
 

@@ -8,8 +8,6 @@ from ingestion import gcs_to_bq_util
 from ingestion.constants import Sex
 
 
-### Source URL: https://data.cdc.gov/Vaccinations/COVID-19-Vaccination-Demographics-in-the-United-St/km4m-vcsb
-
 BASE_CDC_URL = 'https://data.cdc.gov/resource/km4m-vcsb.csv'
 
 CDC_SEX_GROUPS_TO_STANDARD = {
@@ -51,6 +49,7 @@ BREAKDOWN_MAP = {
     'sex': CDC_SEX_GROUPS_TO_STANDARD,
     'age': CDC_AGE_GROUPS_TO_STANDARD,
 }
+
 
 class CDCVaccinationNational(DataSource):
 

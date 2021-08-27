@@ -7,13 +7,12 @@ from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 
 
-### Source URL: https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh
-
 BASE_CDC_URL = 'https://data.cdc.gov/resource/8xkx-amqh.csv'
 FILE_SIZE_LIMIT = 5000
 
 COUNTY_FIPS_COL = 'fips'
 COUNTY_COL = 'recip_county'
+
 
 class CDCVaccinationCounty(DataSource):
 
@@ -50,7 +49,12 @@ class CDCVaccinationCounty(DataSource):
     def generate_for_bq(self, df):
         output = []
 
-        columns = [std_col.COUNTY_FIPS_COL, std_col.COUNTY_NAME_COL, std_col.RACE_CATEGORY_ID_COL, std_col.VACCINATED_FIRST_DOSE]
+        columns = [
+            std_col.COUNTY_FIPS_COL,
+            std_col.COUNTY_NAME_COL,
+            std_col.RACE_CATEGORY_ID_COL,
+            std_col.VACCINATED_FIRST_DOSE,
+        ]
 
         for _, row in df.iterrows():
             output_row = {}

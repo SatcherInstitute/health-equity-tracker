@@ -8,12 +8,14 @@ from datasources.cdc_vaccination_county import CDCVaccinationCounty
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data")
+TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "cdc_vaccination_county")
 
-GOLDEN_DATA = os.path.join(TEST_DIR, 'cdc_vaccination_county/cdc_vaccination_county-race_and_ethnicity.csv')
+GOLDEN_DATA = os.path.join(TEST_DIR, 'cdc_vaccination_county-race_and_ethnicity.csv')
+
 
 def get_total_vaccinations_as_df():
-    return pd.read_csv(os.path.join(TEST_DIR, 'cdc_vaccination_county/cdc_vaccination_county_test.csv'), dtype=str)
+    return pd.read_csv(os.path.join(TEST_DIR, 'cdc_vaccination_county_test.csv'), dtype=str)
+
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe_from_web',
             return_value=get_total_vaccinations_as_df())
