@@ -199,11 +199,7 @@ function MapCardWithKey(props: MapCardProps) {
                   <Divider />
                   <CardContent className={styles.SmallMarginContent}>
                     <p>
-                      Overall for{" "}
-                      {activeBreakdownFilter === "All"
-                        ? ""
-                        : `${activeBreakdownFilter} in `}{" "}
-                      {props.fips.getDisplayName()}:{" "}
+                      {/* 3002 */}
                       <b>
                         {formatFieldValue(
                           metricConfig.type,
@@ -214,8 +210,30 @@ function MapCardWithKey(props: MapCardProps) {
                           )![metricConfig.metricId]
                         )}
                       </b>{" "}
+                      {/* cases per 100k */}
                       {metricConfig.shortVegaLabel}
+                      {/* for  */}
+                      {activeBreakdownFilter !== "All" && " for"}
+                      {/* [ ages 30-39] */}
+                      {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                        props.currentBreakdown
+                      ] === "age" && ` ages ${activeBreakdownFilter}`}
+                      {/* [Asian (non Hispanic) individuals] */}
+                      {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                        props.currentBreakdown
+                      ] !== "age" &&
+                        activeBreakdownFilter !== "All" &&
+                        ` ${activeBreakdownFilter} individuals`}
+                      {console.log(activeBreakdownFilter)}
+                      {" in  "}
+                      {/* in */}
+                      {/* (the) */}
+                      {props.fips.getDisplayName() === "United States" &&
+                        "the "}
+                      {/* United States */}
+                      {props.fips.getDisplayName()}
                       {". "}
+                      {/* Compare across XYZ */}
                       <span
                         onClick={() => setSmallMultiplesDialogOpen(true)}
                         role="button"
