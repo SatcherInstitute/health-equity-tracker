@@ -2,6 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
+import { Helmet } from "react-helmet";
 
 const LEADERSHIP_TEAM = [
   {
@@ -22,7 +23,7 @@ const LEADERSHIP_TEAM = [
   {
     name: "Allyson Belton, MPH",
     role: "Coalition/Engagement",
-    imageUrl: "img/BeltonAllyson.png",
+    imageUrl: "img/Belton_Allyson.png",
   },
   {
     name: "Mahia Valle, MBA",
@@ -32,7 +33,7 @@ const LEADERSHIP_TEAM = [
   {
     name: "Shaneeta M. Johnson MD, MBA, FACS, FASMBS, ABOM",
     role: "Senior Advisor",
-    imageUrl: "img/dr-johnson.png",
+    imageUrl: "img/ShaneetaJohnson.png",
   },
   {
     name: "JC Gonzalez, MBA, PMP",
@@ -41,8 +42,13 @@ const LEADERSHIP_TEAM = [
   },
   {
     name: "Josh Zarrabi",
-    role: "Sr. Software Engineer",
+    role: "Senior Software Engineer",
     imageUrl: "img/ZarrabiJosh.png",
+  },
+  {
+    name: "Ben Hammond",
+    role: "Software Engineer",
+    imageUrl: "img/HammondBen.jpg",
   },
   {
     name: "Maisha Standifer, PhD, MPH",
@@ -234,7 +240,7 @@ const PARTNERS = [
   },
   {
     imageUrl: "img/PartnerGoogle.png",
-    alt: "Google",
+    alt: "Google.org",
     url: "https://google.org",
   },
   {
@@ -252,7 +258,9 @@ const PARTNERS = [
 function OurTeamTab() {
   return (
     <>
-      <title>Our Team - About Us - Health Equity Tracker</title>
+      <Helmet>
+        <title>Our Team - About Us - Health Equity Tracker</title>
+      </Helmet>
       <h1 className={styles.ScreenreaderTitleHeader}>Our Team</h1>
       <Grid container className={styles.Grid}>
         <Grid container className={styles.GridRowHeaderText}>
@@ -287,6 +295,7 @@ function OurTeamTab() {
               {LEADERSHIP_TEAM.map((leader) => {
                 return (
                   <Grid
+                    key={leader.name}
                     item
                     xs={12}
                     sm={6}
@@ -315,20 +324,24 @@ function OurTeamTab() {
             </Typography>
           </Grid>
           <Grid item>
-            <Grid container className={styles.GridSubRow}>
+            <Grid
+              container
+              justify="space-around"
+              className={styles.GridSubRow}
+            >
               {GOOGLE_FELLOWS.map((fellow) => {
                 return fellow.link == null ? (
-                  <Grid item className={styles.TextProfile}>
+                  <Grid item className={styles.TextProfile} key={fellow.name}>
                     <span style={{ fontSize: "16px", fontWeight: 500 }}>
                       {fellow.name}
                     </span>
-                    <br />
+                    <br aria-hidden="true" />
                     <span style={{ fontSize: "14px", fontWeight: 400 }}>
                       {fellow.role}
                     </span>
                   </Grid>
                 ) : (
-                  <Grid item className={styles.TextProfile}>
+                  <Grid item className={styles.TextProfile} key={fellow.name}>
                     <a
                       href={fellow.link}
                       style={{ fontSize: "16px", fontWeight: 500 }}
@@ -336,7 +349,7 @@ function OurTeamTab() {
                       rel="noopener noreferrer"
                     >
                       {fellow.text}
-                      <br />
+                      <br aria-hidden="true" />
                       {fellow.name}
                     </a>
                     <br />
@@ -358,11 +371,15 @@ function OurTeamTab() {
           </Grid>
 
           <Grid item xs={12}>
-            <Grid container className={styles.GridSubRow}>
-              {HE_TASKFORCE.map((name) => (
-                <Grid item className={styles.TextProfile}>
+            <Grid
+              container
+              justify="space-around"
+              className={styles.GridSubRow}
+            >
+              {HE_TASKFORCE.map((taskforceName) => (
+                <Grid item className={styles.TextProfile} key={taskforceName}>
                   <span style={{ fontSize: "16px", fontWeight: 500 }}>
-                    {name}
+                    {taskforceName}
                   </span>
                 </Grid>
               ))}
@@ -379,7 +396,7 @@ function OurTeamTab() {
 
           <Grid item xs={12}>
             {PARTNERS.map((partner) => (
-              <a href={partner.url}>
+              <a href={partner.url} key={partner.url}>
                 <img
                   src={partner.imageUrl}
                   alt={partner.alt}

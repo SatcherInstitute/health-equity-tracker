@@ -11,12 +11,15 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
 
+export const RACE_OR_ETHNICITY = "race or ethnicity";
+
 function UnknownsAlert(props: {
   queryResponse: MetricQueryResponse;
   metricConfig: MetricConfig;
   breakdownVar: BreakdownVar;
   displayType: string; // "chart" or "map"
   known: Boolean;
+  overrideAndWithOr?: Boolean;
 }) {
   const unknowns = props.queryResponse
     .getValidRowsForField(props.metricConfig.metricId)
@@ -33,8 +36,16 @@ function UnknownsAlert(props: {
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar];
 
   const cardHelperText = props.known
-    ? `The ${props.displayType} below only displays data for cases where ${breakdownVarDisplayName} was known.`
-    : `The ${props.displayType} below displays data for cases where ${breakdownVarDisplayName} was unknown.`;
+    ? `The ${
+        props.displayType
+      } below only displays data for cases where ${breakdownVarDisplayName} ${
+        props.overrideAndWithOr ? "were both" : "was"
+      } known.`
+    : `The ${props.displayType} below displays data for cases where ${
+        props.overrideAndWithOr
+          ? ` either ${RACE_OR_ETHNICITY}`
+          : breakdownVarDisplayName
+      } was unknown.`;
 
   const percentageUnknown = unknowns[0][props.metricConfig.metricId];
 
@@ -43,9 +54,12 @@ function UnknownsAlert(props: {
       <CardContent className={styles.SmallMarginContent}>
         <Alert severity="warning">
           {percentageUnknown}
-          {props.metricConfig.shortVegaLabel} reported unknown{" "}
-          {breakdownVarDisplayName}.{" "}
-          {percentageUnknown !== 100 && cardHelperText}
+          {props.metricConfig.shortVegaLabel} reported{" "}
+          {props.overrideAndWithOr && "an"} unknown{" "}
+          {props.overrideAndWithOr
+            ? RACE_OR_ETHNICITY
+            : breakdownVarDisplayName}
+          . {percentageUnknown !== 100 && cardHelperText}
         </Alert>
       </CardContent>
       <Divider />

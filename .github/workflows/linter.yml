@@ -5,7 +5,7 @@ name: Lint Code Base
 
 on:
   pull_request:
-    branches: [master]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -32,6 +32,7 @@ jobs:
       - name: Lint Code Base
         uses: github/super-linter@v3
         env:
+          DEFAULT_BRANCH: main
           VALIDATE_ALL_CODEBASE: false  # Only validate new or changed files
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_DOCKERFILE: true

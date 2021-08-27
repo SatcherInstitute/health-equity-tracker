@@ -40,3 +40,8 @@ export const InvalidFips = Template.bind({});
 InvalidFips.args = {
   fips: new Fips("234234"),
 };
+
+export const VirginIslands = Template.bind({});
+VirginIslands.args = {
+  fips: new Fips("78"),
+};

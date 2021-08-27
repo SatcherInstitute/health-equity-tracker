@@ -65,3 +65,8 @@
     padding-top: 150px;
   }
 }
+
+// override the joyride component to allow different color for "back" text and "next" background
+button[data-action="back"] {
+  color: #fff !important;
+}

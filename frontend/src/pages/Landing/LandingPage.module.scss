@@ -16,6 +16,7 @@
   font-weight: 500 !important;
   font-family: "DM Sans", sans-serif !important;
   padding: 16px 30px !important;
+  text-align: center;
 }
 
 .NoUnderline {
@@ -273,10 +274,15 @@
       font-size: 80px !important;
       line-height: 70px !important;
     }
+    @media (max-width: $sm) {
+      font-size: 2.7rem !important;
+      line-height: 1 !important;
+    }
   }
 
   .EmailAddressBackgroundImgContainer {
-    background-image: url("pexels-armin-rimoldi-5304098 1.png");
+    // background-image: url("pexels-armin-rimoldi-5304098 1.png");
+    background-image: url("join-movement-bg.jpg");
     background-position: center;
     border-radius: 30px;
     padding: 30px;
