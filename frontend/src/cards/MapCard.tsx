@@ -219,9 +219,9 @@ function MapCardWithKey(props: MapCardProps) {
                       <span
                         onClick={() => setSmallMultiplesDialogOpen(true)}
                         role="button"
-                        className={styles.VisualizeAcrossLink}
+                        className={styles.CompareAcrossLink}
                         aria-label={
-                          "Visualize " +
+                          "Compare " +
                           props.variableConfig.variableFullDisplayName +
                           " across " +
                           BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
@@ -230,7 +230,7 @@ function MapCardWithKey(props: MapCardProps) {
                           " groups"
                         }
                       >
-                        Visualize across{" "}
+                        Compare across{" "}
                         {
                           BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
                             props.currentBreakdown
