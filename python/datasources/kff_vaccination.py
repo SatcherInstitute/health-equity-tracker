@@ -7,13 +7,13 @@ from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 
 BASE_KFF_URL_PCT_SHARE_RACE = ('https://docs.google.com/spreadsheets/d/'
-        '15TWTFIdtRgJ2mVijCChuOt_Zvwxp4xFByzFD1p6wazI/gviz/tq?tqx=out:csv')
+                                '15TWTFIdtRgJ2mVijCChuOt_Zvwxp4xFByzFD1p6wazI/gviz/tq?tqx=out:csv')
 
 BASE_KFF_URL_PERCENTAGES_BY_RACE_OF_TOTAL = ('https://docs.google.com/spreadsheets/d/',
-        '1kKWHZtwFWUcpoy4lLyKa0QPxlVyhDjn1Ob4g5HF4NEw/gviz/tq?tqx=out:csv')
+                                                '1kKWHZtwFWUcpoy4lLyKa0QPxlVyhDjn1Ob4g5HF4NEw/gviz/tq?tqx=out:csv')
 
 BASE_KFF_URL_TOTALS_STATE = ('https://docs.google.com/spreadsheets/d/'
-        '1wjdh79UOyGLF1HZ1Dr7WqDoDTxDDvA41lQQh8oPH_LU/gviz/tq?tqx=out:csv')
+                                '1wjdh79UOyGLF1HZ1Dr7WqDoDTxDDvA41lQQh8oPH_LU/gviz/tq?tqx=out:csv')
 
 TOTAL_KEY = 'Share of Population Fully Vaccinated Percent'
 
