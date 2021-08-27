@@ -20,16 +20,6 @@ const LEADERSHIP_TEAM = [
     imageUrl: "img/RespressEbony.png",
   },
   {
-    name: "Maisha Standifer, PhD, MPH",
-    role: "Health Policy Analyst",
-    imageUrl: "img/maisha-standifer.jpg",
-  },
-  {
-    name: "Jammie Hopkins, DrPH, MS",
-    role: "Coalition/Engagement",
-    imageUrl: "img/jammie-hopkins.jpg",
-  },
-  {
     name: "Allyson Belton, MPH",
     role: "Coalition/Engagement",
     imageUrl: "img/BeltonAllyson.png",
@@ -40,9 +30,9 @@ const LEADERSHIP_TEAM = [
     imageUrl: "img/ValleMahia.png",
   },
   {
-    name: "Megan Douglas, JD",
-    role: "Health Policy Analyst",
-    imageUrl: "img/DouglasMegan.png",
+    name: "Shaneeta M. Johnson MD, MBA, FACS, FASMBS, ABOM",
+    role: "Senior Advisor",
+    imageUrl: "img/dr-johnson.png",
   },
   {
     name: "JC Gonzalez, MBA, PMP",
@@ -51,8 +41,23 @@ const LEADERSHIP_TEAM = [
   },
   {
     name: "Josh Zarrabi",
-    role: "Software Engineer",
+    role: "Sr. Software Engineer",
     imageUrl: "img/ZarrabiJosh.png",
+  },
+  {
+    name: "Maisha Standifer, PhD, MPH",
+    role: "Health Policy Analyst",
+    imageUrl: "img/maisha-standifer.jpg",
+  },
+  {
+    name: "Jammie Hopkins, DrPH, MS",
+    role: "Coalition/Engagement",
+    imageUrl: "img/jammie-hopkins.jpg",
+  },
+  {
+    name: "Megan Douglas, JD",
+    role: "Health Policy Analyst",
+    imageUrl: "img/DouglasMegan.png",
   },
 ];
 
@@ -84,6 +89,8 @@ const GOOGLE_FELLOWS = [
   {
     name: "Ken Moore",
     role: "UX Designer",
+    link: "http://kenstatus.com",
+    text: "In memoriam,",
   },
   {
     name: "Chi Pham",
@@ -152,56 +159,61 @@ const GOOGLE_FELLOWS = [
 ];
 
 const HE_TASKFORCE = [
-  "Ngozi Afulezi",
-  "Dr. Philip Alberti",
-  "Dr. Zinzi Bailey",
-  "Mr. Luis Belen",
-  "Dr. Coleen Boyle",
-  "Roberta Carlin",
-  "Rita Carreón",
-  "Brian Castrucci",
-  "Richard Calvin Chang",
-  "Kathy Ko Chin, M.S.",
-  "Congresswoman Donna M. Christensen, MD",
-  "Dr. Helene Clayton-Jeter",
-  "Alyssa Cobb",
-  "Robin W. Coleman",
-  "Andrea Collier",
-  "Scott Bryant Comstock, M.S.",
-  "Mary Ann Cooney",
-  "Francys Crevier, JD",
-  "Joia Crear-Perry, MD",
-  "Fernando DeMaio",
-  "Abigail Echo-Hawk",
-  "Lori Tremmel Freeman",
-  "Eduardo J. Gomez, Ph.D, M.A.",
-  "Tawara D. Goode, MA",
-  "J. Nadine Gracia",
-  "Corinne Graffunder",
-  "Dawn Hunter",
-  "Dr. Marjorie Innocent",
+  "Douglas M. Brooks",
+  "Duanne Pearson",
   "David Introcaso, PhD",
+  "Zinzi Bailey, ScD, MSPH",
+  "Abigail Echo-Hawk, MA",
+  "Luis Belén",
+  "Joia Crear-Perry, MD, FACOG",
   "Jenné Johns, MPH",
-  "Leandris Liburd",
-  "Dr. Pierluigi Mancini",
-  "Aletha Maybank, MD, MPH",
-  "Dr. Judith Monroe",
-  "Mr. Todd Moore",
-  "Elena Ong, PHN, MS",
-  "Mr. Duanne Pearson",
-  "Dr. Magda Peck",
-  "Marcos Pesquera, R.Ph., MPH",
-  "Elena Rios, MD, MSPH, FACP",
-  "Geoffrey M. Roche, MPA",
-  "Dr. Raynald Samoa",
-  "Janisse Rosario Schoepp, M.P.H., Ph.D.",
+  "Erica Taylor, PhD, MPH, MA",
   "Brian Smedley, PhD",
-  "Lauren Smith",
-  "Dr. Erica Taylor",
-  "Dr. Michael Toedt",
+  "Leandris Liburd, PhD, MPH",
+  "Rita Carreón",
+  "Dr. Raynald Samoa, MD",
+  "Janisse Rosario Schoepp, MPH, PhD",
+  "Elena Ong, PHN, MS",
+  "J. Nadine Gracia, MD, MSCE",
+  "Todd Moore, MPS",
+  "Francys Crevier, JD",
+  "Elena Rios, MD, MSPH, FACP",
+  "Coleen A. Boyle, PhD, MS hyg",
+  "Pierluigi Mancini, PhD",
+  "Judy Monroe, MD",
+  "Kathy Ko Chin, MS",
+  "Marcos Pesquera, RPh, MPH",
+  "Tawara D. Goode, MA",
+  "Brian C. Castrucci, DrPH, MA",
+  "The Honorable Donna M. Christensen, MD",
+  "Dawn M. Hunter, JD, MPH",
+  "Eduardo J. Gomez, PhD, MA",
+  "Marjorie A. Innocent, PhD",
+  "Geoffrey M. Roche, MPA",
+  "Lori Tremmel Freeman, MBA",
+  "Roberta Carlin, MS, JD",
+  "Scott Bryant Comstock, MS",
+  "Ruqaiijah A. Yearby, JD, MPH",
+  "Magda G Peck, ScD",
+  "Aletha Maybank, MD, MPH",
+  "RADM Michael Toedt, MD, FAAFP",
+  "Andrea Collier",
+  "Kimberlydawn Wisdom, MD, MS",
+  "Philip Alberti PhD",
+  "Robin W. Coleman",
+  "Corinne M. Graffunder, DrPH",
   "T'Pring Westbrook, PhD",
-  "Dr. Kimberlydawn Wisdom",
-  "Ruqaiijah A. Yearby, J.D., M.P.H.",
+  "Fernando De Maio, PhD",
+  "Mary Ann Cooney, MPH, MSN",
+  "Ngozi Afulezi, MHA",
+  "Alyssa Cobb",
+  "Lauren Smith, MD, MPH",
+  "Helene Clayton-Jeter, OD",
+  "Richard Calvin Chang, JD",
+  "Dr. Joseph Sakran, MD, MPA, MPH",
+  "Darrell LaRoche",
+  "Shavon Arline-Bradley, MPH, MDiv",
+  "Melicia Whitt-Glover, PhD, FACSM",
 ];
 
 const PARTNERS = [
@@ -274,7 +286,13 @@ function OurTeamTab() {
             >
               {LEADERSHIP_TEAM.map((leader) => {
                 return (
-                  <Grid item className={styles.TextProfile}>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    md={3}
+                    className={styles.TextProfile}
+                  >
                     <img
                       src={leader.imageUrl}
                       alt={leader.name}
@@ -299,11 +317,28 @@ function OurTeamTab() {
           <Grid item>
             <Grid container className={styles.GridSubRow}>
               {GOOGLE_FELLOWS.map((fellow) => {
-                return (
+                return fellow.link == null ? (
                   <Grid item className={styles.TextProfile}>
                     <span style={{ fontSize: "16px", fontWeight: 500 }}>
                       {fellow.name}
                     </span>
+                    <br />
+                    <span style={{ fontSize: "14px", fontWeight: 400 }}>
+                      {fellow.role}
+                    </span>
+                  </Grid>
+                ) : (
+                  <Grid item className={styles.TextProfile}>
+                    <a
+                      href={fellow.link}
+                      style={{ fontSize: "16px", fontWeight: 500 }}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {fellow.text}
+                      <br />
+                      {fellow.name}
+                    </a>
                     <br />
                     <span style={{ fontSize: "14px", fontWeight: 400 }}>
                       {fellow.role}
@@ -344,13 +379,13 @@ function OurTeamTab() {
 
           <Grid item xs={12}>
             {PARTNERS.map((partner) => (
-                <a href={partner.url}>
-                  <img
-                      src={partner.imageUrl}
-                      alt={partner.alt}
-                      className={styles.PartnerImg}
-                  />
-                </a>
+              <a href={partner.url}>
+                <img
+                  src={partner.imageUrl}
+                  alt={partner.alt}
+                  className={styles.PartnerImg}
+                />
+              </a>
             ))}
           </Grid>
         </Grid>

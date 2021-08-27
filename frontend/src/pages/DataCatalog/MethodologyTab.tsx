@@ -73,6 +73,12 @@ function MethodologyTab() {
                     incomplete and potentially skewed.
                   </li>
                   <li>
+                    When calculating national-level per100K COVID-19 rates, we
+                    do not include the population of states whose data are
+                    suppressed as part of the total population. See the 'What
+                    data are missing' section for further details.
+                  </li>
+                  <li>
                     To protect the privacy of affected individuals, COVID-19
                     data may be hidden in counties with low numbers of COVID-19
                     cases, hospitalizations and deaths.

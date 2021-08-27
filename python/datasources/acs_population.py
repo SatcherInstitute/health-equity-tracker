@@ -403,7 +403,6 @@ class ACSPopulationIngester():
                                            [SEX_COL, AGE_COL],
                                            self.county_level, POPULATION_COL)
 
-            # TODO reorder columns so population is last
             sex_by_age[RACE_CATEGORY_ID_COL] = race
             frames.append(sex_by_age)
         result = pandas.concat(frames)

@@ -26,12 +26,11 @@ import { AboutUsPage } from "./pages/AboutUs/AboutUsPage";
 import DataCatalogTab from "./pages/DataCatalog/DataCatalogTab";
 import ExploreDataPage from "./pages/ExploreData/ExploreDataPage";
 import LandingPage from "./pages/Landing/LandingPage";
-import PreLaunchSiteContent from "./pages/Landing/PreLaunchSiteContent";
 import NotFoundPage from "./pages/NotFoundPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage/TermsOfServicePage";
 import { WhatIsHealthEquityPage } from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
 import MaterialTheme from "./styles/MaterialTheme";
-import { autoInitGlobals, getEnvironment } from "./utils/globals";
+import { autoInitGlobals } from "./utils/globals";
 import {
   ABOUT_US_PAGE_LINK,
   DATA_CATALOG_PAGE_LINK,
@@ -141,10 +140,6 @@ function App() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  if (!getEnvironment().enableFullSiteContent()) {
-    return <PreLaunchSiteContent />;
-  }
 
   return (
     <ThemeProvider theme={MaterialTheme}>

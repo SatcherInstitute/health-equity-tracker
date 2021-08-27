@@ -59,32 +59,21 @@ function LandingPage() {
             alignItems="center"
           >
             <Grid item className={styles.HeaderTextItem} xs={12} sm={12} md={6}>
-              <Hidden xsDown>
-                <Typography
-                  id="main"
-                  tabIndex={-1}
-                  className={styles.HeaderText}
-                  variant="h2"
-                >
-                  Advancing
-                  <br />
-                  Health
-                  <br />
-                  Equity
-                </Typography>
-              </Hidden>
-              <Hidden smUp>
-                <Typography className={styles.HeaderTextMobile}>
-                  Advancing
-                  <br />
-                  Health
-                  <br />
-                  Equity
-                </Typography>
-              </Hidden>
+              <Typography
+                id="main"
+                tabIndex={-1}
+                className={styles.HeaderText}
+                variant="h2"
+              >
+                Advancing
+                <br />
+                Health
+                <br />
+                Equity
+              </Typography>
               <Typography className={styles.HeaderSubtext} variant="body1">
                 <p>
-                  We know that the data we collect can be flawed and at times
+                  We know that the data we collect can be imperfect and at times
                   even worsen health inequities many people face if not reported
                   or analyzed correctly.
                 </p>
@@ -226,7 +215,7 @@ function LandingPage() {
                 variant="body1"
               >
                 <p>
-                  We’re living through a historical moment. COVID-19 has taken a
+                  We’re living through a historic moment. COVID-19 has taken a
                   toll on everyone. But the pandemic is hitting the most
                   marginalized, vulnerable communities the hardest.
                 </p>
@@ -377,26 +366,14 @@ function LandingPage() {
             >
               <div className={styles.EmailAddressContentDiv}>
                 <Grid item>
-                  <Hidden mdUp>
-                    <Typography
-                      className={styles.NewsletterRowHeaderSmall}
-                      variant="h2"
-                    >
-                      Engage in
-                      <br />
-                      Health Equity
-                    </Typography>
-                  </Hidden>
-                  <Hidden smDown>
-                    <Typography
-                      className={styles.NewsletterRowHeader}
-                      variant="h2"
-                    >
-                      Join Our
-                      <br />
-                      Movement
-                    </Typography>
-                  </Hidden>
+                  <Typography
+                    className={styles.NewsletterRowHeader}
+                    variant="h2"
+                  >
+                    Join Our
+                    <br />
+                    Movement
+                  </Typography>
                 </Grid>
                 <Grid item>
                   <Button

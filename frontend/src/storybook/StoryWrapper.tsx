@@ -7,7 +7,6 @@ import MaterialTheme from "../styles/MaterialTheme";
 
 autoInitGlobals();
 
-// TODO Refactor so these aren't making real API calls
 export const StoryWrapper = (storyFn: any) => {
   return (
     <ThemeProvider theme={MaterialTheme}>

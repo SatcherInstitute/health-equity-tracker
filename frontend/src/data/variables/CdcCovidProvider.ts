@@ -84,8 +84,9 @@ class CdcCovidProvider extends VariableProvider {
       hosp_y: "covid_hosp",
     });
 
-    // For hospitalizations and deaths, NaN signifies missing data.
+    // NaN signifies missing data.
     df = df.transformSeries({
+      covid_cases: (value) => (isNaN(value) ? null : value),
       covid_deaths: (value) => (isNaN(value) ? null : value),
       covid_hosp: (value) => (isNaN(value) ? null : value),
     });
@@ -179,7 +180,6 @@ class CdcCovidProvider extends VariableProvider {
       );
     });
 
-    // TODO - calculate actual reporting values on the BE instead of just copying fields
     const populationMetric: MetricId[] = [
       "covid_cases_reporting_population",
       "covid_deaths_reporting_population",
@@ -195,7 +195,6 @@ class CdcCovidProvider extends VariableProvider {
       }
     });
 
-    // TODO How to handle territories?
     const acsBreakdowns = breakdowns.copy();
     acsBreakdowns.time = false;
 
@@ -207,7 +206,12 @@ class CdcCovidProvider extends VariableProvider {
     consumedDatasetIds = consumedDatasetIds.concat(
       acsQueryResponse.consumedDatasetIds
     );
-    if (acsQueryResponse.dataIsMissing()) {
+    // We return an empty response if the only requested metric ids are "share"
+    // metrics. These are the only metrics which don't require population data.
+    const onlyShareMetrics = metricQuery.metricIds.every((metric) =>
+      metric.includes("share")
+    );
+    if (acsQueryResponse.dataIsMissing() && !onlyShareMetrics) {
       return acsQueryResponse;
     }
     const acsPopulation = new DataFrame(acsQueryResponse.data);

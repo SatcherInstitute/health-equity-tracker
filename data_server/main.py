@@ -63,6 +63,10 @@ def get_dataset():
     headers = Headers()
     headers.add('Content-Disposition', 'attachment', filename=dataset_name)
     headers.add('Vary', 'Accept-Encoding')
+    # Allow browsers to cache datasets for 2 hours, the same as the DatasetCache
+    # TODO: If we want to make sure this stays in sync with the DatasetCache
+    # TTL, move this to a constant that's shared between them.
+    headers.add('Cache-Control', 'public, max-age=7200')
 
     if dataset_name.endswith('.csv'):
         return Response(dataset, mimetype='text/csv', headers=headers)
