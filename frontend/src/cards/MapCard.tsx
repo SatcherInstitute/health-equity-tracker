@@ -198,7 +198,7 @@ function MapCardWithKey(props: MapCardProps) {
                 <>
                   <Divider />
                   <CardContent className={styles.SmallMarginContent}>
-                    <p>
+                    <Alert severity="info">
                       {/* 3002 */}
                       <b>
                         {formatFieldValue(
@@ -217,7 +217,9 @@ function MapCardWithKey(props: MapCardProps) {
                       {/* [ ages 30-39] */}
                       {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
                         props.currentBreakdown
-                      ] === "age" && ` ages ${activeBreakdownFilter}`}
+                      ] === "age" &&
+                        activeBreakdownFilter !== "All" &&
+                        ` ages ${activeBreakdownFilter}`}
                       {/* [Asian (non Hispanic) individuals] */}
                       {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
                         props.currentBreakdown
@@ -256,7 +258,7 @@ function MapCardWithKey(props: MapCardProps) {
                         }{" "}
                         groups
                       </span>
-                    </p>
+                    </Alert>
                   </CardContent>
                 </>
               )}
