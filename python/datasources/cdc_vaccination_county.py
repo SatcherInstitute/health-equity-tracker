@@ -36,7 +36,7 @@ class CDCVaccinationCounty(DataSource):
         df = df.loc[df['date'] == latest_date]
 
         # Get rid of counties that don't provide this data
-        df = df.loc[df['administered_dose1_recip'] != "0"]
+        df = df.loc[df['administered_dose1_recip'] != 0]
 
         df = self.generate_for_bq(df)
 
