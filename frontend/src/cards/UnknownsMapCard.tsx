@@ -17,11 +17,16 @@ import {
   UNKNOWN,
   UNKNOWN_RACE,
   UNKNOWN_ETHNICITY,
+  ALL,
 } from "../data/utils/Constants";
 import styles from "./Card.module.scss";
 import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import UnknownsAlert from "./ui/UnknownsAlert";
+import {
+  LinkWithStickyParams,
+  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+} from "../utils/urlutils";
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -112,6 +117,16 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         const noUnknownValuesReported =
           !mapQueryResponse.dataIsMissing() && unknowns.length === 0;
 
+        const noDemographicInfo =
+          mapQueryResponse
+            .getValidRowsForField(props.currentBreakdown)
+            .filter((row: Row) => row[props.currentBreakdown] !== ALL)
+            .length === 0 &&
+          mapQueryResponse
+            .getValidRowsForField(props.currentBreakdown)
+            .filter((row: Row) => row[props.currentBreakdown] === ALL).length >
+            0;
+
         return (
           <>
             <CardContent className={styles.SmallMarginContent}>
@@ -149,7 +164,18 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   geoLevel={props.fips.getChildFipsTypeDisplayName()}
                 />
               )}
-              {noUnknownValuesReported && (
+              {noDemographicInfo && (
+                <Alert severity="warning">
+                  We do not currently have demographic information for{" "}
+                  <b>{metricConfig.fullCardTitleName}</b> at the{" "}
+                  <b>{props.fips.getChildFipsTypeDisplayName()}</b> level. Learn
+                  more about how this lack of data impacts{" "}
+                  <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
+                    health equity
+                  </LinkWithStickyParams>
+                </Alert>
+              )}
+              {noUnknownValuesReported && !noDemographicInfo && (
                 <Alert severity="info">
                   No unknown values for{" "}
                   {BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]} reported
