@@ -71,7 +71,7 @@ export function TableCard(props: TableCardProps) {
     <CardWrapper
       queries={[query]}
       title={
-        <>{`${props.variableConfig.metrics.per100k.fullCardTitleName} By ${
+        <>{`${props.variableConfig.variableFullDisplayName} By ${
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
         } In ${props.fips.getFullDisplayName()}`}</>
       }
