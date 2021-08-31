@@ -67,7 +67,6 @@ export function TableCard(props: TableCardProps) {
     .map((config) => config.metricId)
     .some((metricId) => metricId.includes("covid"));
 
-  console.log(props);
   return (
     <CardWrapper
       queries={[query]}
