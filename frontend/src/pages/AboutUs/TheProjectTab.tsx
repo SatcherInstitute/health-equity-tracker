@@ -170,6 +170,7 @@ function TheProjectTab() {
                 direction="row"
                 justify="space-around"
                 alignItems="flex-start"
+                spacing={3}
               >
                 <Grid item xs={12} sm={12} md={5}>
                   <Typography
@@ -214,10 +215,6 @@ function TheProjectTab() {
                     alignItems="flex-start"
                   >
                     <Grid item xs={12} sm={12} md={5}>
-                      {/* <LinkWithStickyParams
-                        to={EXPLORE_DATA_PAGE_LINK}
-                        className={styles.NoUnderline}
-                      > */}
                       <Button
                         variant="contained"
                         color="primary"
@@ -226,7 +223,6 @@ function TheProjectTab() {
                       >
                         Explore the data
                       </Button>
-                      {/* </LinkWithStickyParams> */}
                     </Grid>
                   </Grid>
                 </Grid>
@@ -312,7 +308,11 @@ function TheProjectTab() {
               justify="space-around"
             >
               <Grid item className={styles.CommittedToEthicsSubheaderItem}>
-                <Typography className={styles.SubheaderL2Text} variant="h3">
+                <Typography
+                  className={styles.SubheaderL2Text}
+                  variant="h3"
+                  align="left"
+                >
                   Transparency & Accountability
                 </Typography>
               </Grid>
@@ -335,7 +335,11 @@ function TheProjectTab() {
               justify="space-around"
             >
               <Grid item className={styles.CommittedToEthicsSubheaderItem}>
-                <Typography className={styles.SubheaderL2Text} variant="h3">
+                <Typography
+                  className={styles.SubheaderL2Text}
+                  variant="h3"
+                  align="left"
+                >
                   Community First
                 </Typography>
               </Grid>
@@ -359,7 +363,11 @@ function TheProjectTab() {
               justify="space-around"
             >
               <Grid item className={styles.CommittedToEthicsSubheaderItem}>
-                <Typography className={styles.SubheaderL2Text} variant="h3">
+                <Typography
+                  className={styles.SubheaderL2Text}
+                  variant="h3"
+                  align="left"
+                >
                   Open Access
                 </Typography>
               </Grid>
