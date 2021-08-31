@@ -197,9 +197,9 @@ function MapCardWithKey(props: MapCardProps) {
               !!dataForActiveBreakdownFilter.length && (
                 <>
                   <Divider />
-                  <CardContent className={styles.SmallMarginContent}>
+                  <CardContent>
                     <Alert severity="info">
-                      {/* 3002 */}
+                      {/* EXAMPLE TEXT OUTPUT: X (number of individuals) */}
                       <b>
                         {formatFieldValue(
                           metricConfig.type,
