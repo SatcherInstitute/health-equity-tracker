@@ -38,11 +38,14 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
     !!METRIC_CONFIG[props.dropdownVarId] &&
     METRIC_CONFIG[props.dropdownVarId].length > 1;
 
+  console.log("var config", props.variableConfig);
+
   return (
     <Grid container>
       {enableMetricToggle && (
         <Grid className={styles.ToggleBlock}>
           <span className={styles.ToggleLabel}>{DATA_TYPE_LABEL}</span>
+          {/* DATA TYPE TOGGLE */}
           <ToggleButtonGroup
             exclusive
             role="radiogroup"
@@ -80,6 +83,7 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
       <Grid item className={styles.ToggleBlock}>
         <div className={styles.ToggleLabel}>{DEMOGRAPHIC_LABEL}</div>
         <div id="onboarding-explore-trends">
+          {/* DEMOGRAPHIC TOGGLE */}
           <ToggleButtonGroup
             exclusive
             role="radiogroup"
@@ -101,6 +105,7 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
                   " " +
                   DEMOGRAPHIC_LABEL
                 }
+                disabled={props.variableConfig.variableId === "vaccinated"}
               >
                 {BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar]}
               </ToggleButton>
