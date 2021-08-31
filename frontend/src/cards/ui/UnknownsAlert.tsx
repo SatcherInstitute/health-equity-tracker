@@ -25,6 +25,7 @@ function UnknownsAlert(props: {
   known: Boolean;
   overrideAndWithOr?: Boolean;
   raceEthDiffMap?: Boolean;
+  noDemographicInfoMap?: Boolean;
 }) {
   const unknowns = props.queryResponse
     .getValidRowsForField(props.metricConfig.metricId)
@@ -63,7 +64,6 @@ function UnknownsAlert(props: {
 
   const percentageUnknown = unknowns[0][props.metricConfig.metricId];
 
-  // TODO: make this text better
   const diffRaceEthnicityText = raceEthnicityDiff
     ? `This state reports race and ethnicity seperately.
     ${unknowns[0][props.metricConfig.metricId]}${
@@ -95,8 +95,11 @@ function UnknownsAlert(props: {
           {props.overrideAndWithOr
             ? RACE_OR_ETHNICITY
             : breakdownVarDisplayName}
-          . {percentageUnknown !== 100 && cardHelperText}{" "}
-          {props.raceEthDiffMap ? raceEthDiffMapText : ""}
+          .{" "}
+          {percentageUnknown !== 100 &&
+            !props.noDemographicInfoMap &&
+            cardHelperText}{" "}
+          {props.raceEthDiffMap && raceEthDiffMapText}
         </Alert>
       </CardContent>
       <Divider />

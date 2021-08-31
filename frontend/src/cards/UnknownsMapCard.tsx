@@ -153,6 +153,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                       row[props.currentBreakdown] === UNKNOWN_ETHNICITY
                   ).length !== 0
               }
+              noDemographicInfoMap={noDemographicInfo}
             />
             <CardContent>
               {mapQueryResponse.dataIsMissing() && (
