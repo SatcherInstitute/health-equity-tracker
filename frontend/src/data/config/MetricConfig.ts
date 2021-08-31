@@ -415,22 +415,19 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
   vaccinated: [
     {
       variableId: "vaccinated",
-      variableDisplayName: "Vaccinated With at Least One Dose",
-      variableFullDisplayName:
-        "Individuals Vaccinated With At Least One Dose Of A COVID-19 Vaccine",
+      variableDisplayName: "Vaccinated",
+      variableFullDisplayName: "Vaccinated Individuals",
       metrics: {
         per100k: {
           metricId: "vaccinated_per_100k",
-          fullCardTitleName:
-            "Individuals Vaccinated With At Least One Dose Of A COVID-19 Vaccine Per 100K People",
-          shortVegaLabel: "individuals with at least one dose per 100K",
+          fullCardTitleName: "Vaccinated Individuals Per 100K People",
+          shortVegaLabel: "vaccinated individuals per 100K",
           type: "per100k",
         },
         pct_share: {
           metricId: "vaccinated_pct_share",
-          fullCardTitleName:
-            "Share Of Those Who Have Gotten At Least One Dose Of A COVID-19 Vaccine",
-          shortVegaLabel: "% of individuals with at least one dose",
+          fullCardTitleName: "Share Of Vaccinated Individuals",
+          shortVegaLabel: "% of vaccinated individuals",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "vaccine_population_pct",
@@ -440,8 +437,8 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           },
           knownBreakdownComparisonMetric: {
             metricId: "vaccinated_share_of_known",
-            fullCardTitleName: "Share Of Those With At Least A Single Dose",
-            shortVegaLabel: "% of vaccinated with at least one dose",
+            fullCardTitleName: "Share Of Vaccined Individuals",
+            shortVegaLabel: "% of vaccinated individuals",
             type: "pct_share",
           },
         },
