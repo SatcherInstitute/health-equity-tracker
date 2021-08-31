@@ -33,7 +33,7 @@ function JoinTheEffortContainer(props: {
           className={styles.JoinTheEffortImgContainer}
           style={{ backgroundColor: props.imageBackground }}
         >
-          <LazyLoad offset={100} height={500} once>
+          <LazyLoad offset={300} height={500} once>
             <img
               src={props.imageUrl}
               alt={props.imageAlt}
@@ -77,7 +77,7 @@ function EquityTab() {
               md={4}
               className={styles.HeaderImgItem}
             >
-              <LazyLoad offset={100} height={760} once>
+              <LazyLoad offset={300} height={760} once>
                 <img
                   width="397"
                   height="760"
@@ -263,7 +263,7 @@ function EquityTab() {
                   </Grid>
                   <Grid item className={styles.ResourceItem}>
                     <a href="https://ncrn.msm.edu/">
-                      <LazyLoad offset={100} height={200} once>
+                      <LazyLoad offset={300} height={200} once>
                         <img
                           className={styles.ResourceImg}
                           src="img/maxresdefault (1) 1.png"
@@ -305,7 +305,7 @@ function EquityTab() {
                 equity
               </span>
             </Grid>
-            <LazyLoad offset={100} height={700} once>
+            <LazyLoad offset={300} height={700} once>
               <Grid
                 container
                 direction="row"

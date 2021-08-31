@@ -25,7 +25,7 @@ function AimToGoItem(props: {
       >
         <Hidden smDown>
           <Grid item>
-            <LazyLoad offset={100} height={255} once>
+            <LazyLoad offset={300} height={255} once>
               <img
                 className={styles.ImgAimToGo}
                 src={props.src}
@@ -109,7 +109,7 @@ function TheProjectTab() {
               md={7}
               className={styles.GridAlignRightItem}
             >
-              <LazyLoad offset={100} height={644} once>
+              <LazyLoad offset={300} height={644} once>
                 <img
                   width="754"
                   height="644"

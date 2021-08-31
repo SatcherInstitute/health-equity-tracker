@@ -304,7 +304,7 @@ function OurTeamTab() {
                     md={3}
                     className={styles.TextProfile}
                   >
-                    <LazyLoad offset={100} height={181} once>
+                    <LazyLoad offset={300} height={181} once>
                       <img
                         src={leader.imageUrl}
                         alt={leader.name}
@@ -397,7 +397,7 @@ function OurTeamTab() {
               Partners
             </Typography>
           </Grid>
-          <LazyLoad offset={100} height={200} once>
+          <LazyLoad offset={300} height={200} once>
             <Grid item container xs={12} className={styles.GridSubRow}>
               {PARTNERS.map((partner) => (
                 <Grid
@@ -406,6 +406,7 @@ function OurTeamTab() {
                   sm={6}
                   md={4}
                   xl={2}
+                  container
                   justify="space-around"
                   key={partner.url}
                 >
