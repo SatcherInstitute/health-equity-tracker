@@ -163,35 +163,37 @@ function MapCardWithKey(props: MapCardProps) {
               />
             </CardContent>
 
-            {!mapQueryResponse.dataIsMissing() && (
-              <>
-                <Divider />
-                <CardContent className={styles.SmallMarginContent}>
-                  <Grid
-                    container
-                    justify="space-between"
-                    align-items="flex-end"
-                  >
-                    <Grid item>
-                      <DropDownMenu
-                        value={activeBreakdownFilter}
-                        options={filterOptions}
-                        onOptionUpdate={(
-                          newBreakdownDisplayName,
-                          filterSelection
-                        ) => {
-                          // This DropDownMenu instance only supports changing active breakdown filter
-                          // It doesn't support changing breakdown type
-                          if (filterSelection) {
-                            setActiveBreakdownFilter(filterSelection);
-                          }
-                        }}
-                      />
+            {/* replace hard coded vaxx string with METRIC_CONFIG["vaccinated"].variableId once available */}
+            {!mapQueryResponse.dataIsMissing() &&
+              props.variableConfig.variableId !== "vaccinated" && (
+                <>
+                  <Divider />
+                  <CardContent className={styles.SmallMarginContent}>
+                    <Grid
+                      container
+                      justify="space-between"
+                      align-items="flex-end"
+                    >
+                      <Grid item>
+                        <DropDownMenu
+                          value={activeBreakdownFilter}
+                          options={filterOptions}
+                          onOptionUpdate={(
+                            newBreakdownDisplayName,
+                            filterSelection
+                          ) => {
+                            // This DropDownMenu instance only supports changing active breakdown filter
+                            // It doesn't support changing breakdown type
+                            if (filterSelection) {
+                              setActiveBreakdownFilter(filterSelection);
+                            }
+                          }}
+                        />
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </CardContent>
-              </>
-            )}
+                  </CardContent>
+                </>
+              )}
 
             {!mapQueryResponse.dataIsMissing() &&
               !!dataForActiveBreakdownFilter.length && (

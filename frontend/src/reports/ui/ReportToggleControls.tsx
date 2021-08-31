@@ -38,8 +38,6 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
     !!METRIC_CONFIG[props.dropdownVarId] &&
     METRIC_CONFIG[props.dropdownVarId].length > 1;
 
-  console.log("var config", props.variableConfig);
-
   return (
     <Grid container>
       {enableMetricToggle && (
@@ -105,7 +103,7 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
                   " " +
                   DEMOGRAPHIC_LABEL
                 }
-                disabled={props.variableConfig.variableId === "vaccinated"}
+                disabled={props.variableConfig.variableId === "poverty"} // replace hardcoded string with METRIC_CONFIG["vaccinated"].variableId once available
               >
                 {BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar]}
               </ToggleButton>
