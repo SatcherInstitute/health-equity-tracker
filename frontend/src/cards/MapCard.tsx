@@ -237,29 +237,31 @@ function MapCardWithKey(props: MapCardProps) {
                       {/* United States */}
                       {props.fips.getDisplayName()}
                       {". "}
-                      {/* Compare across XYZ */}
-                      <span
-                        onClick={() => setSmallMultiplesDialogOpen(true)}
-                        role="button"
-                        className={styles.CompareAcrossLink}
-                        aria-label={
-                          "Compare " +
-                          props.variableConfig.variableFullDisplayName +
-                          " across " +
-                          BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                            props.currentBreakdown
-                          ] +
-                          " groups"
-                        }
-                      >
-                        Compare across{" "}
-                        {
-                          BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                            props.currentBreakdown
-                          ]
-                        }{" "}
-                        groups
-                      </span>
+                      {/* Compare across XYZ for all variables expect vaccinated */}
+                      {props.variableConfig.variableId !== "poverty" && (
+                        <span
+                          onClick={() => setSmallMultiplesDialogOpen(true)}
+                          role="button"
+                          className={styles.CompareAcrossLink}
+                          aria-label={
+                            "Compare " +
+                            props.variableConfig.variableFullDisplayName +
+                            " across " +
+                            BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                              props.currentBreakdown
+                            ] +
+                            " groups"
+                          }
+                        >
+                          Compare across{" "}
+                          {
+                            BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                              props.currentBreakdown
+                            ]
+                          }{" "}
+                          groups
+                        </span>
+                      )}
                     </Alert>
                   </CardContent>
                 </>

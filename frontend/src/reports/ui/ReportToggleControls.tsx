@@ -103,7 +103,7 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
                   " " +
                   DEMOGRAPHIC_LABEL
                 }
-                disabled={props.variableConfig.variableId === "poverty"} // replace hardcoded string with METRIC_CONFIG["vaccinated"].variableId once available
+                disabled={props.variableConfig.variableId === "vaccinated"} // replace hardcoded string with METRIC_CONFIG["vaccinated"].variableId once available
               >
                 {BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar]}
               </ToggleButton>

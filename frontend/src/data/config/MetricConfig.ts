@@ -35,7 +35,11 @@ export type MetricId =
   | "poverty_count"
   | "poverty_pct_share"
   | "poverty_per_100k"
-  | "poverty_population_pct";
+  | "poverty_population_pct"
+  | "vaccinated_pct_share"
+  | "vaccinated_share_of_known"
+  | "vaccinated_per_100k"
+  | "vaccine_population_pct";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -162,7 +166,7 @@ export function getPer100kAndPctShareMetrics(
 // TODO - strongly type key
 // TODO - count and pct_share metric types should require populationComparisonMetric
 
-// Note: metrics must be declared in a consistent order becuase the UI relies
+// Note: metrics must be declared in a consistent order because the UI relies
 // on this to build toggles.
 // TODO: make the UI consistent regardless of metric config order.
 export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
@@ -402,6 +406,39 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             metricId: "poverty_population_pct",
             fullCardTitleName: populationPctTitle,
             shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+      },
+    },
+  ],
+  vaccinated: [
+    {
+      variableId: "vaccinated",
+      variableDisplayName: "Vaccinated",
+      variableFullDisplayName: "Vaccinated Individuals",
+      metrics: {
+        per100k: {
+          metricId: "vaccinated_per_100k",
+          fullCardTitleName: "Vaccinated Individuals Per 100K People",
+          shortVegaLabel: "vaccinated individuals per 100K",
+          type: "per100k",
+        },
+        pct_share: {
+          metricId: "vaccinated_pct_share",
+          fullCardTitleName: "Share Of Vaccinated Individuals",
+          shortVegaLabel: "% of vaccinated individuals",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "vaccine_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+          knownBreakdownComparisonMetric: {
+            metricId: "vaccinated_share_of_known",
+            fullCardTitleName: "Share Of Vaccinated Individuals",
+            shortVegaLabel: "% of vaccinated individuals",
             type: "pct_share",
           },
         },
