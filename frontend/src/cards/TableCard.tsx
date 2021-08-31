@@ -67,11 +67,12 @@ export function TableCard(props: TableCardProps) {
     .map((config) => config.metricId)
     .some((metricId) => metricId.includes("covid"));
 
+  console.log(props);
   return (
     <CardWrapper
       queries={[query]}
       title={
-        <>{`${props.variableConfig.variableFullDisplayName} By ${
+        <>{`${props.variableConfig.metrics.per100k.fullCardTitleName} By ${
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
         } In ${props.fips.getFullDisplayName()}`}</>
       }
