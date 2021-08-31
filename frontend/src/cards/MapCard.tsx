@@ -1,5 +1,4 @@
 import { CardContent, Grid } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
@@ -193,7 +192,77 @@ function MapCardWithKey(props: MapCardProps) {
                 </CardContent>
               </>
             )}
-            <Divider />
+
+            {!mapQueryResponse.dataIsMissing() &&
+              !!dataForActiveBreakdownFilter.length && (
+                <>
+                  <Divider />
+                  <CardContent>
+                    <Alert severity="info">
+                      {/* EXAMPLE TEXT OUTPUT: X (number of individuals) */}
+                      <b>
+                        {formatFieldValue(
+                          metricConfig.type,
+                          overallQueryResponse!.data.find(
+                            (row) =>
+                              row[props.currentBreakdown] ===
+                              activeBreakdownFilter
+                          )![metricConfig.metricId]
+                        )}
+                      </b>{" "}
+                      {/* cases per 100k */}
+                      {metricConfig.shortVegaLabel}
+                      {/* for  */}
+                      {activeBreakdownFilter !== "All" && " for"}
+                      {/* [ ages 30-39] */}
+                      {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                        props.currentBreakdown
+                      ] === "age" &&
+                        activeBreakdownFilter !== "All" &&
+                        ` ages ${activeBreakdownFilter}`}
+                      {/* [Asian (non Hispanic) individuals] */}
+                      {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                        props.currentBreakdown
+                      ] !== "age" &&
+                        activeBreakdownFilter !== "All" &&
+                        ` ${activeBreakdownFilter} individuals`}
+                      {console.log(activeBreakdownFilter)}
+                      {" in  "}
+                      {/* in */}
+                      {/* (the) */}
+                      {props.fips.getDisplayName() === "United States" &&
+                        "the "}
+                      {/* United States */}
+                      {props.fips.getDisplayName()}
+                      {". "}
+                      {/* Compare across XYZ */}
+                      <span
+                        onClick={() => setSmallMultiplesDialogOpen(true)}
+                        role="button"
+                        className={styles.CompareAcrossLink}
+                        aria-label={
+                          "Compare " +
+                          props.variableConfig.variableFullDisplayName +
+                          " across " +
+                          BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                            props.currentBreakdown
+                          ] +
+                          " groups"
+                        }
+                      >
+                        Compare across{" "}
+                        {
+                          BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                            props.currentBreakdown
+                          ]
+                        }{" "}
+                        groups
+                      </span>
+                    </Alert>
+                  </CardContent>
+                </>
+              )}
+
             {mapQueryResponse.dataIsMissing() && (
               <CardContent>
                 <MissingDataAlert
@@ -213,7 +282,8 @@ function MapCardWithKey(props: MapCardProps) {
                   </Alert>
                 </CardContent>
               )}
-            {!mapQueryResponse.dataIsMissing() &&
+
+            {/* {!mapQueryResponse.dataIsMissing() &&
               dataForActiveBreakdownFilter.length !== 0 &&
               metricConfig && (
                 <CardContent>
@@ -240,9 +310,10 @@ function MapCardWithKey(props: MapCardProps) {
                       }{" "}
                       groups
                     </Button>
-                  </Alert>
+                    </Alert>
                 </CardContent>
-              )}
+              )} */}
+
             {metricConfig && (
               <CardContent>
                 <ChoroplethMap
@@ -304,23 +375,7 @@ function MapCardWithKey(props: MapCardProps) {
                     })}
                   </div>
                 )}
-                {false /* TODO(993) enable this section when updated with new copy */ && (
-                  <div className={styles.MapCardOverallText}>
-                    Overall for {props.fips.getDisplayName()}:{" "}
-                    <b>
-                      {formatFieldValue(
-                        metricConfig.type,
-                        overallQueryResponse!.data.find(
-                          (row) =>
-                            row[props.currentBreakdown] ===
-                            activeBreakdownFilter
-                        )![metricConfig.metricId]
-                      )}
-                    </b>{" "}
-                    {metricConfig.shortVegaLabel}
-                  </div>
-                )}
-                {/* TODO(993) */}
+
                 {!mapQueryResponse.dataIsMissing() &&
                   dataForActiveBreakdownFilter.length > 1 && (
                     <HighestLowestList
