@@ -30,8 +30,10 @@ function TakeALookAroundItem(props: {
       <Grid container direction="column" alignItems="center" justify="center">
         <Hidden xsDown>
           <Grid item>
-            <LazyLoad once>
+            <LazyLoad height={200} offset={300} once>
               <img
+                height="500"
+                width="500"
                 className={styles.TakeALookAroundImg}
                 src={props.src}
                 alt={props.alt}
@@ -56,6 +58,7 @@ function LandingPage() {
     <>
       <Helmet>
         <title>Home - Health Equity Tracker</title>
+        <link rel="preload" as="image" href="img/stock/family-laughing.png" />
       </Helmet>
       <h1 className={styles.ScreenreaderTitleHeader}>Home Page</h1>
       <div className={styles.LandingPage}>
@@ -121,15 +124,15 @@ function LandingPage() {
               </Box>
             </Grid>
             <Grid item xs={12} sm={12} md={6} className={styles.HeaderImgItem}>
-              <LazyLoad height={700} once>
-                <img
-                  height="601"
-                  width="700"
-                  src="img/shutterstock_1414416191 2 (1).png"
-                  className={styles.HeaderImg}
-                  alt=""
-                />
-              </LazyLoad>
+              {/* <LazyLoad once height={700}> */}
+              <img
+                height="601"
+                width="700"
+                src="img/stock/family-laughing.png"
+                className={styles.HeaderImg}
+                alt=""
+              />
+              {/* </LazyLoad> */}
             </Grid>
           </Grid>
 
@@ -167,7 +170,7 @@ function LandingPage() {
                 <TakeALookAroundItem
                   src={
                     prefersReducedMotion
-                      ? "img/HET-fields-no-motion.gif"
+                      ? "img/animations/HET-fields-no-motion.gif"
                       : "img/animations/HET-fields.gif"
                   }
                   alt=""
@@ -176,7 +179,7 @@ function LandingPage() {
                 <TakeALookAroundItem
                   src={
                     prefersReducedMotion
-                      ? "img/HET-dots-no-motion.gif"
+                      ? "img/animations/HET-dots-no-motion.gif"
                       : "img/animations/HET-dots.gif"
                   }
                   alt=""
@@ -185,8 +188,8 @@ function LandingPage() {
                 <TakeALookAroundItem
                   src={
                     prefersReducedMotion
-                      ? "img/HET-spiral-no-motion.gif"
-                      : "img/animations/HET-spiral.gif"
+                      ? "img/animations/HET-spiral-no-motion.gif"
+                      : "img/animations/HET-spiral-sm.gif"
                   }
                   alt=""
                   text="(3) Share our site and join our movement"
@@ -195,7 +198,7 @@ function LandingPage() {
             </Grid>
 
             <Grid container direction="row" justify="center">
-              <Grid item xs={12} sm={12} md={2}>
+              <Grid item xs={12} sm={12}>
                 <Button
                   variant="contained"
                   color="primary"
@@ -203,7 +206,8 @@ function LandingPage() {
                   aria-label="Learn More About Health Equity"
                   href={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
                 >
-                  Learn more
+                  What is Health Equity?
+                  {/* Learn more */}
                 </Button>
               </Grid>
             </Grid>
@@ -224,9 +228,11 @@ function LandingPage() {
                 md={5}
                 className={styles.PrioritizeHealthEquityImgItem}
               >
-                <LazyLoad once>
+                <LazyLoad once height="811" offset={300}>
                   <img
-                    src="img/118172286-e3fffb80-b3c7-11eb-9553-127462881af3.png"
+                    width="557"
+                    height="811"
+                    src="img/stock/women-baby.png"
                     className={styles.PrioritizeHealthEquityImg}
                     alt=""
                   />
@@ -305,10 +311,10 @@ function LandingPage() {
                 alignItems="center"
               >
                 <Grid item xs={12} sm={12} md={8}>
-                  <LazyLoad once>
+                  <LazyLoad offset={300} once>
                     <img
                       className={styles.HowToStepImg}
-                      src="img/het-screen-1.png"
+                      src="img/screenshots/het-investigate-rates.png"
                       alt="Search Example Screenshot: Investigate Rates of option Covid-19 in location United States"
                     />
                   </LazyLoad>
@@ -334,10 +340,10 @@ function LandingPage() {
                 alignItems="center"
               >
                 <Grid item xs={12} sm={12} md={8}>
-                  <LazyLoad once>
+                  <LazyLoad offset={300} once>
                     <img
                       className={styles.HowToStepImg}
-                      src="img/het-screen-2.png"
+                      src="img/screenshots/het-compare-rates.png"
                       alt="Search Example Screenshot: Compare Rates of option Covid-19 between two locations"
                     />
                   </LazyLoad>
@@ -363,10 +369,10 @@ function LandingPage() {
                 alignItems="center"
               >
                 <Grid item xs={12} sm={12} md={8}>
-                  <LazyLoad once>
+                  <LazyLoad offset={300} once>
                     <img
                       className={styles.HowToStepImg}
-                      src="img/het-screen-3.png"
+                      src="img/screenshots/het-map.png"
                       alt="Map Example Screenshot, Data Tracker map of option Covid-19 rates of all racial groups"
                     />
                   </LazyLoad>
@@ -400,7 +406,7 @@ function LandingPage() {
           </Grid>
 
           <div className={styles.FaqRow}>
-            <LazyLoad height={700} once>
+            <LazyLoad offset={300} height={700} once>
               <FaqSection />
             </LazyLoad>
           </div>
@@ -436,17 +442,17 @@ function LandingPage() {
                 </Grid>
                 <Grid item>
                   <Button
-                    aria-label="Join Our Movement"
+                    aria-label="Join Our Movement: Learn How"
                     variant="contained"
                     color="default"
                     className={styles.JoinOurMovementButton}
                     href={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_HEALTH_EQUITY_TAB_INDEX}#${WIHE_JOIN_THE_EFFORT_SECTION_ID}`}
                   >
-                    Click here
+                    Learn How To Help
                   </Button>
                 </Grid>
               </div>
-            </Grid>
+            </Grid>{" "}
           </Grid>
         </Grid>
       </div>
