@@ -174,12 +174,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "cases",
       variableDisplayName: "Cases",
-      variableFullDisplayName: "Total COVID-19 Cases",
+      variableFullDisplayName: "COVID-19 Cases",
       metrics: {
         count: {
           metricId: "covid_cases",
-          fullCardTitleName: "Total COVID-19 Cases",
-          shortVegaLabel: "total COVID-19 cases",
+          fullCardTitleName: "COVID-19 Cases",
+          shortVegaLabel: "COVID-19 cases",
           type: "count",
           populationComparisonMetric: {
             metricId: "covid_cases_reporting_population",
@@ -208,7 +208,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         per100k: {
           metricId: "covid_cases_per_100k",
-          fullCardTitleName: "Total COVID-19 Cases Per 100K People",
+          fullCardTitleName: "COVID-19 Cases Per 100K People",
           shortVegaLabel: "cases per 100K",
           type: "per100k",
         },
@@ -217,12 +217,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "deaths",
       variableDisplayName: "Deaths",
-      variableFullDisplayName: "Total COVID-19 Deaths",
+      variableFullDisplayName: "COVID-19 Deaths",
       metrics: {
         count: {
           metricId: "covid_deaths",
-          fullCardTitleName: "Total COVID-19 Deaths",
-          shortVegaLabel: "total COVID-19 Deaths",
+          fullCardTitleName: "COVID-19 Deaths",
+          shortVegaLabel: "COVID-19 Deaths",
           type: "count",
           populationComparisonMetric: {
             metricId: "covid_deaths_reporting_population",
@@ -251,7 +251,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         per100k: {
           metricId: "covid_deaths_per_100k",
-          fullCardTitleName: "Total COVID-19 Deaths Per 100K People",
+          fullCardTitleName: "COVID-19 Deaths Per 100K People",
           shortVegaLabel: "deaths per 100K",
           type: "per100k",
         },
@@ -260,12 +260,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "hospitalizations",
       variableDisplayName: "Hospitalizations",
-      variableFullDisplayName: "Total COVID-19 Hospitalizations",
+      variableFullDisplayName: "COVID-19 Hospitalizations",
       metrics: {
         count: {
           metricId: "covid_hosp",
-          fullCardTitleName: "Total COVID-19 Hospitalizations",
-          shortVegaLabel: "total COVID-19 hospitalizations",
+          fullCardTitleName: "COVID-19 Hospitalizations",
+          shortVegaLabel: "COVID-19 hospitalizations",
           type: "count",
           populationComparisonMetric: {
             metricId: "covid_hosp_reporting_population",
@@ -294,7 +294,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         per100k: {
           metricId: "covid_hosp_per_100k",
-          fullCardTitleName: "Total COVID-19 Hospitalizations Per 100K People",
+          fullCardTitleName: "COVID-19 Hospitalizations Per 100K People",
           shortVegaLabel: "hospitalizations per 100K",
           type: "per100k",
         },
