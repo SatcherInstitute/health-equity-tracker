@@ -113,7 +113,7 @@ function OptionsSelector(props: {
             {CATEGORIES_LIST.map((category) => {
               return (
                 <div className={styles.CategoryList}>
-                  <List>
+                  <List dense={true}>
                     <span className={styles.CategoryTitleText}>
                       {category.title}
                     </span>
