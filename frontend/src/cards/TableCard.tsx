@@ -26,6 +26,7 @@ import { Row } from "../data/utils/DatasetTypes";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
+import { ALL } from "../data/utils/Constants";
 
 export interface TableCardProps {
   fips: Fips;
@@ -36,20 +37,11 @@ export interface TableCardProps {
 export function TableCard(props: TableCardProps) {
   const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
 
-  /* TODO(993) change breakdowns to exclude ALL when the map card info alert is shown
-    import { ALL } from "../data/utils/Constants";
-    Breakdowns.forFips(props.fips).addBreakdown(
-        props.breakdownVar,
-        props.breakdownVar === "race_and_ethnicity"
-        ? exclude(NON_HISPANIC, ALL)
-        : exclude(ALL)
-    )
-  */
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     props.breakdownVar === "race_and_ethnicity"
-      ? exclude(NON_HISPANIC)
-      : undefined
+      ? exclude(NON_HISPANIC, ALL)
+      : exclude(ALL)
   );
 
   let metricConfigs: Record<string, MetricConfig> = {};

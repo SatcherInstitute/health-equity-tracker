@@ -151,7 +151,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     {TERRITORY_CODES.map((code) => {
                       const fips = new Fips(code);
                       return (
-                        <div className={styles.TerritoryCircle}>
+                        <div key={code} className={styles.TerritoryCircle}>
                           <ChoroplethMap
                             useSmallSampleMessage={
                               !mapQueryResponse.dataIsMissing() &&

@@ -84,7 +84,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             return (
               <Grid
                 item
-                key={breakdownValue}
+                key={`${breakdownValue}-grid-item`}
                 className={styles.SmallMultipleMap}
               >
                 <b>{breakdownValue}</b>
@@ -111,9 +111,8 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                   TERRITORY_CODES.map((code) => {
                     const fips = new Fips(code);
                     return (
-                      <div className={styles.TerritoryMap}>
+                      <div key={code} className={styles.TerritoryMap}>
                         <ChoroplethMap
-                          key={breakdownValue}
                           signalListeners={{ click: (...args: any) => {} }}
                           metric={props.metricConfig}
                           useSmallSampleMessage={props.useSmallSampleMessage}
