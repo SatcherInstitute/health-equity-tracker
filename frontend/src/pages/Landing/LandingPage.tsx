@@ -405,7 +405,11 @@ function LandingPage() {
             </LazyLoad>
           </div>
 
-          <Grid container className={styles.NewsletterSignUpRow}>
+          <Grid
+            container
+            className={styles.NewsletterSignUpRow}
+            justify="center"
+          >
             <Grid
               container
               item

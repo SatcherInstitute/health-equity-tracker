@@ -56,7 +56,7 @@ The frontend React App runs in different environments. We use configuration file
 
 Switch to the `frontend/` directory, then install dependencies using NPM.  
 
-_Note: you will need a compatible verison of Node.JS and NPM installed locally. See the "engines" field in `frontend/package.json` for the required / minimum versions of each. It's recommended to use [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm) if you need to have multiple versions of Node.JS / NPM installed on your machine._
+_Note: you will need a compatible version of Node.JS and NPM installed locally; currently we are developing with Node v14 and have experienced dependency errors with later versions. See the "engines" field in `frontend/package.json` for the required  of each. It's recommended to use [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm) if you need to have multiple versions of Node.JS / NPM installed on your machine, though members have also had success with Homebrew._
 
 ```bash
 cd frontend && npm install
