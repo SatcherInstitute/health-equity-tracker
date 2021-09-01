@@ -6,6 +6,7 @@ import { Helmet } from "react-helmet";
 import parse from "html-react-parser";
 import axios from "axios";
 import { BLOG_URL, WP_API, ALL_POSTS, ALL_MEDIA } from "../../utils/urlutils";
+import { Link } from "react-router-dom";
 
 function BlogTab() {
   const [articles, setArticles] = useState<any[]>([]);
@@ -37,6 +38,7 @@ function BlogTab() {
           return post;
         });
         setArticles(postsWithImages);
+        console.log("fetched, combined blog stuff", postsWithImages);
       })
       .catch((err) => {
         console.log(err);
@@ -90,18 +92,19 @@ function BlogTab() {
                     className={styles.NewsAndStoriesItem}
                     key={post.id}
                   >
-                    <img
-                      className={styles.NewsAndStoriesBigImg}
-                      src={post.media_info.source_url}
-                      alt=""
-                    />
-                    <h2 className={styles.NewsAndStoriesTitleText}>
-                      {parse(post.title.rendered)}
-                    </h2>
-
-                    <div className={styles.NewsAndStoriesSubtitleText}>
-                      {parse(post.excerpt.rendered)}
-                    </div>
+                    <Link to={{ pathname: `/${post.slug}`, state: { post } }}>
+                      <img
+                        className={styles.NewsAndStoriesBigImg}
+                        src={post.media_info.source_url}
+                        alt=""
+                      />
+                      <h2 className={styles.NewsAndStoriesTitleText}>
+                        {parse(post.title.rendered)}
+                      </h2>
+                    </Link>
+                    {/* <div className={styles.NewsAndStoriesSubtitleText}>
+                      {parse(post.content.rendered)}
+                    </div> */}
                   </Grid>
                 );
               })}
