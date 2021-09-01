@@ -204,6 +204,8 @@ function App() {
                       render={() => <TermsOfServicePage />}
                     />
 
+                    {/* <Route path="/blog/:slug" render={() => <BlogPostPage />} /> */}
+
                     <Route exact path="/" render={() => <LandingPage />} />
                     {/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}
                     <Route render={() => <NotFoundPage />} />

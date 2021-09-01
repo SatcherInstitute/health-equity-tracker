@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 
 function BlogTab() {
   const [articles, setArticles] = useState<any[]>([]);
+  const [fullArticle, setFullArticle] = useState<any>();
 
   // on page load make /media and /posts API calls into temp arrays, combine and store in state
   useEffect(() => {
@@ -45,6 +46,11 @@ function BlogTab() {
       });
   }, []);
 
+  useEffect(() => {
+    // TODO: onClick for each preview card should set full article
+    articles[0] && setFullArticle(articles[0]);
+  }, [articles]);
+
   return (
     <div className={styles.WhatIsHealthEquityPage}>
       <Helmet>
@@ -57,59 +63,88 @@ function BlogTab() {
           direction="column"
           justify="center"
         >
-          <Grid
-            container
-            className={styles.NewsAndStoriesRow}
-            direction="row"
-            justify="center"
-          >
-            <Grid item>
-              <Typography
-                className={styles.NewsAndStoriesHeaderText}
-                variant="h1"
-              >
-                News and stories
-              </Typography>
-              <span className={styles.NewsAndStoriesSubheaderText}>
-                Read the latest news, posts, and stories related to health
-                equity
-              </span>
-            </Grid>
+          {fullArticle && (
             <Grid
               container
+              className={styles.NewsAndStoriesRow}
               direction="row"
-              justify="space-between"
-              alignItems="flex-start"
+              justify="center"
             >
-              {articles.map((post) => {
-                return (
-                  // FETCHED BLOG POSTS
-                  <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    className={styles.NewsAndStoriesItem}
-                    key={post.id}
-                  >
-                    <Link to={{ pathname: `/${post.slug}`, state: { post } }}>
-                      <img
-                        className={styles.NewsAndStoriesBigImg}
-                        src={post.media_info.source_url}
-                        alt=""
-                      />
-                      <h2 className={styles.NewsAndStoriesTitleText}>
-                        {parse(post.title.rendered)}
-                      </h2>
-                    </Link>
-                    {/* <div className={styles.NewsAndStoriesSubtitleText}>
+              <Grid item>
+                <Typography
+                  className={styles.NewsAndStoriesHeaderText}
+                  variant="h1"
+                >
+                  {parse(fullArticle.title.rendered)}
+                </Typography>
+                <span className={styles.NewsAndStoriesSubheaderText}>
+                  Read the latest news, posts, and stories related to health
+                  equity
+                </span>
+              </Grid>
+              <Grid item>
+                <div className={styles.FullArticleContainer}>
+                  {parse(fullArticle.content.rendered)}
+                </div>
+              </Grid>
+            </Grid>
+          )}
+
+          {!fullArticle && (
+            <Grid
+              container
+              className={styles.NewsAndStoriesRow}
+              direction="row"
+              justify="center"
+            >
+              <Grid item>
+                <Typography
+                  className={styles.NewsAndStoriesHeaderText}
+                  variant="h1"
+                >
+                  News and stories
+                </Typography>
+                <span className={styles.NewsAndStoriesSubheaderText}>
+                  Read the latest news, posts, and stories related to health
+                  equity
+                </span>
+              </Grid>
+              <Grid
+                container
+                direction="row"
+                justify="space-between"
+                alignItems="flex-start"
+              >
+                {articles.map((post) => {
+                  return (
+                    // FETCHED BLOG POSTS
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      md={4}
+                      className={styles.NewsAndStoriesItem}
+                      key={post.id}
+                    >
+                      <Link to={{ pathname: `/blog/:${post.slug}` }}>
+                        <img
+                          className={styles.NewsAndStoriesBigImg}
+                          src={post.media_info.source_url}
+                          alt=""
+                        />
+                        <h2 className={styles.NewsAndStoriesTitleText}>
+                          {parse(post.title.rendered)}
+                        </h2>
+                      </Link>
+                      {/* <div className={styles.NewsAndStoriesSubtitleText}>
                       {parse(post.content.rendered)}
                     </div> */}
-                  </Grid>
-                );
-              })}
+                    </Grid>
+                  );
+                })}
+              </Grid>
             </Grid>
-          </Grid>
+          )}
         </Grid>
       </Grid>
     </div>
