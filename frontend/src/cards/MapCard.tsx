@@ -226,7 +226,6 @@ function MapCardWithKey(props: MapCardProps) {
                       ] !== "age" &&
                         activeBreakdownFilter !== "All" &&
                         ` ${activeBreakdownFilter} individuals`}
-                      {console.log(activeBreakdownFilter)}
                       {" in  "}
                       {/* in */}
                       {/* (the) */}
