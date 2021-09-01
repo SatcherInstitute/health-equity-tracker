@@ -78,39 +78,41 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
           </ToggleButtonGroup>
         </Grid>
       )}
-      <Grid item className={styles.ToggleBlock}>
-        <div className={styles.ToggleLabel}>{DEMOGRAPHIC_LABEL}</div>
-        <div id="onboarding-explore-trends">
-          {/* DEMOGRAPHIC TOGGLE */}
-          <ToggleButtonGroup
-            exclusive
-            role="radiogroup"
-            value={props.currentBreakdown}
-            onChange={(e, v) => {
-              if (v !== null) {
-                props.setCurrentBreakdown(v);
-              }
-            }}
-          >
-            {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-              <ToggleButton
-                value={breakdownVar}
-                key={breakdownVar}
-                role="radio"
-                aria-checked={breakdownVar === props.currentBreakdown}
-                aria-label={
-                  BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar] +
-                  " " +
-                  DEMOGRAPHIC_LABEL
+      {/* replace hardcoded string with METRIC_CONFIG["vaccinated"].variableId once available */}
+      {props.variableConfig.variableId !== "vaccinated" && (
+        <Grid item className={styles.ToggleBlock}>
+          <div className={styles.ToggleLabel}>{DEMOGRAPHIC_LABEL}</div>
+          <div id="onboarding-explore-trends">
+            {/* DEMOGRAPHIC TOGGLE */}
+            <ToggleButtonGroup
+              exclusive
+              role="radiogroup"
+              value={props.currentBreakdown}
+              onChange={(e, v) => {
+                if (v !== null) {
+                  props.setCurrentBreakdown(v);
                 }
-                disabled={props.variableConfig.variableId === "vaccinated"} // replace hardcoded string with METRIC_CONFIG["vaccinated"].variableId once available
-              >
-                {BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar]}
-              </ToggleButton>
-            ))}
-          </ToggleButtonGroup>
-        </div>
-      </Grid>
+              }}
+            >
+              {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+                <ToggleButton
+                  value={breakdownVar}
+                  key={breakdownVar}
+                  role="radio"
+                  aria-checked={breakdownVar === props.currentBreakdown}
+                  aria-label={
+                    BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar] +
+                    " " +
+                    DEMOGRAPHIC_LABEL
+                  }
+                >
+                  {BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar]}
+                </ToggleButton>
+              ))}
+            </ToggleButtonGroup>
+          </div>
+        </Grid>
+      )}
     </Grid>
   );
 }
