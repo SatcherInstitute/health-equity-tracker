@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import Button from "@material-ui/core/Button";
 import Hidden from "@material-ui/core/Hidden";
@@ -10,9 +10,9 @@ import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "./WhatIsHealthEquityPage";
 import { Box } from "@material-ui/core";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet";
-import { useEffect } from "react";
 import axios from "axios";
 import { BLOG_URL, WP_API } from "../../utils/urlutils";
+import LazyLoad from "react-lazyload";
 
 export const fallbackCopyWIHE = {
   section1_headingLevel1: "What is Health Equity?",
@@ -45,11 +45,13 @@ function JoinTheEffortContainer(props: {
           className={styles.JoinTheEffortImgContainer}
           style={{ backgroundColor: props.imageBackground }}
         >
-          <img
-            src={props.imageUrl}
-            alt={props.imageAlt}
-            className={styles.JoinTheEffortImg}
-          />
+          <LazyLoad offset={300} height={500} once>
+            <img
+              src={props.imageUrl}
+              alt={props.imageAlt}
+              className={styles.JoinTheEffortImg}
+            />
+          </LazyLoad>
         </Grid>
       </Hidden>
       <Grid item sm={12} md={6} className={styles.JoinTheEffortTextContainer}>
@@ -102,11 +104,15 @@ function EquityTab() {
               md={4}
               className={styles.HeaderImgItem}
             >
-              <img
-                src="img/pexels-marcus-aurelius-4063919 1.png"
-                className={styles.HeaderImg}
-                alt=""
-              />
+              <LazyLoad offset={300} height={760} once>
+                <img
+                  width="397"
+                  height="760"
+                  src="img/stock/woman-in-wheelchair-with-tea.png"
+                  className={styles.HeaderImg}
+                  alt=""
+                />
+              </LazyLoad>
             </Grid>
           </Hidden>
           <Grid item xs={12} sm={12} md={8} className={styles.HeaderTextItem}>
@@ -286,11 +292,13 @@ function EquityTab() {
                   </Grid>
                   <Grid item className={styles.ResourceItem}>
                     <a href="https://ncrn.msm.edu/">
-                      <img
-                        className={styles.ResourceImg}
-                        src="img/maxresdefault (1) 1.png"
-                        alt="Header for Morehouse School of Medicine National COVID-19 Resiliency Network"
-                      />
+                      <LazyLoad offset={300} height={200} once>
+                        <img
+                          className={styles.ResourceImg}
+                          src="img/maxresdefault (1) 1.png"
+                          alt="Header for Morehouse School of Medicine National COVID-19 Resiliency Network"
+                        />
+                      </LazyLoad>
                       <h2 className={styles.ResourceTitleText}>
                         Morehouse School of Medicine National COVID-19
                         Resiliency Network (NCRN)

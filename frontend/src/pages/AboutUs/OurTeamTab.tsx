@@ -3,67 +3,68 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
 import { Helmet } from "react-helmet";
+import LazyLoad from "react-lazyload";
 
 const LEADERSHIP_TEAM = [
   {
     name: "Daniel Dawes, JD",
     role: "Co-Principal Investigator",
-    imageUrl: "img/Daniel-E 1.png",
+    imageUrl: "img/team/Daniel-E 1.png",
   },
   {
     name: "Nelson Dunlap, JD",
     role: "Co-Principal Investigator",
-    imageUrl: "img/DunlapNelson.png",
+    imageUrl: "img/team/DunlapNelson.png",
   },
   {
     name: "Ebony Respress, MPH",
     role: "Project Director",
-    imageUrl: "img/RespressEbony.png",
+    imageUrl: "img/team/RespressEbony.png",
   },
   {
     name: "Allyson Belton, MPH",
     role: "Coalition/Engagement",
-    imageUrl: "img/Belton_Allyson.png",
+    imageUrl: "img/team/Belton_Allyson.png",
   },
   {
     name: "Mahia Valle, MBA",
     role: "Communications",
-    imageUrl: "img/ValleMahia.png",
+    imageUrl: "img/team/ValleMahia.png",
   },
   {
     name: "Shaneeta M. Johnson MD, MBA, FACS, FASMBS, ABOM",
     role: "Senior Advisor",
-    imageUrl: "img/ShaneetaJohnson.png",
+    imageUrl: "img/team/ShaneetaJohnson.png",
   },
   {
     name: "JC Gonzalez, MBA, PMP",
     role: "Product Manager",
-    imageUrl: "img/GonzalezJC.png",
+    imageUrl: "img/team/GonzalezJC.png",
   },
   {
     name: "Josh Zarrabi",
     role: "Senior Software Engineer",
-    imageUrl: "img/ZarrabiJosh.png",
+    imageUrl: "img/team/ZarrabiJosh.png",
   },
   {
     name: "Ben Hammond",
     role: "Software Engineer",
-    imageUrl: "img/HammondBen.jpg",
+    imageUrl: "img/team/HammondBen.jpg",
   },
   {
     name: "Maisha Standifer, PhD, MPH",
     role: "Health Policy Analyst",
-    imageUrl: "img/maisha-standifer.jpg",
+    imageUrl: "img/team/maisha-standifer.jpg",
   },
   {
     name: "Jammie Hopkins, DrPH, MS",
     role: "Coalition/Engagement",
-    imageUrl: "img/jammie-hopkins.jpg",
+    imageUrl: "img/team/jammie-hopkins.jpg",
   },
   {
     name: "Megan Douglas, JD",
     role: "Health Policy Analyst",
-    imageUrl: "img/DouglasMegan.png",
+    imageUrl: "img/team/DouglasMegan.png",
   },
 ];
 
@@ -264,11 +265,12 @@ function OurTeamTab() {
       <h1 className={styles.ScreenreaderTitleHeader}>Our Team</h1>
       <Grid container className={styles.Grid}>
         <Grid container className={styles.GridRowHeaderText}>
-          <Grid item xs={12} sm={12} md={7}>
+          <Grid item xs={12} sm={8} md={6} lg={10} xl={8}>
             <Typography
               id="main"
               tabIndex={-1}
               className={styles.OurTeamHeaderText}
+              align="left"
               variant="h2"
             >
               We're working towards a better tomorrow.
@@ -302,11 +304,13 @@ function OurTeamTab() {
                     md={3}
                     className={styles.TextProfile}
                   >
-                    <img
-                      src={leader.imageUrl}
-                      alt={leader.name}
-                      className={styles.ProfileImg}
-                    />
+                    <LazyLoad offset={300} height={181} once>
+                      <img
+                        src={leader.imageUrl}
+                        alt={leader.name}
+                        className={styles.ProfileImg}
+                      />
+                    </LazyLoad>
                     <br />
                     <h4 className={styles.LeaderNameHeading}>{leader.name}</h4>
                     <span className={styles.LeaderRoleSpan}>{leader.role}</span>
@@ -393,18 +397,30 @@ function OurTeamTab() {
               Partners
             </Typography>
           </Grid>
-
-          <Grid item xs={12}>
-            {PARTNERS.map((partner) => (
-              <a href={partner.url} key={partner.url}>
-                <img
-                  src={partner.imageUrl}
-                  alt={partner.alt}
-                  className={styles.PartnerImg}
-                />
-              </a>
-            ))}
-          </Grid>
+          <LazyLoad offset={300} height={200} once>
+            <Grid item container xs={12} className={styles.GridSubRow}>
+              {PARTNERS.map((partner) => (
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  xl={2}
+                  container
+                  justify="space-around"
+                  key={partner.url}
+                >
+                  <a href={partner.url}>
+                    <img
+                      src={partner.imageUrl}
+                      alt={partner.alt}
+                      className={styles.PartnerImg}
+                    />
+                  </a>
+                </Grid>
+              ))}
+            </Grid>
+          </LazyLoad>
         </Grid>
       </Grid>
     </>
