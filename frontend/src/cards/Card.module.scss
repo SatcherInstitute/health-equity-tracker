@@ -133,10 +133,13 @@
   }
 }
 
-.MapCardOverallText {
-  font-size: 15px;
-  line-height: 20px;
-  margin-top: 15px;
+.CompareAcrossLink {
+  color: $alt-green;
+  text-decoration: underline;
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.04);
+  }
 }
 
 // This ensures that vega tooltips are always visible even when in dialog elements
