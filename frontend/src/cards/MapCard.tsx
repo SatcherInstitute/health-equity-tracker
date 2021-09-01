@@ -21,7 +21,7 @@ import {
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import { getHighestN, getLowestN } from "../data/utils/datasetutils";
-import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
+import { Fips, TERRITORY_CODES, USA_DISPLAY_NAME } from "../data/utils/Fips";
 import { useAutoFocusDialog } from "../utils/useAutoFocusDialog";
 import styles from "./Card.module.scss";
 import CardWrapper from "./CardWrapper";
@@ -229,7 +229,7 @@ function MapCardWithKey(props: MapCardProps) {
                       {" in  "}
                       {/* in */}
                       {/* (the) */}
-                      {props.fips.getDisplayName() === "United States" &&
+                      {props.fips.getDisplayName() === USA_DISPLAY_NAME &&
                         "the "}
                       {/* United States */}
                       {props.fips.getDisplayName()}
@@ -281,37 +281,6 @@ function MapCardWithKey(props: MapCardProps) {
                   </Alert>
                 </CardContent>
               )}
-
-            {/* {!mapQueryResponse.dataIsMissing() &&
-              dataForActiveBreakdownFilter.length !== 0 &&
-              metricConfig && (
-                <CardContent>
-                  <Alert severity="info">
-                    <Button
-                      onClick={() => setSmallMultiplesDialogOpen(true)}
-                      color="primary"
-                      className={styles.SmallMarginButton}
-                      aria-label={
-                        "Compare " +
-                        props.variableConfig.variableFullDisplayName +
-                        " across " +
-                        BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                          props.currentBreakdown
-                        ] +
-                        " groups"
-                      }
-                    >
-                      Compare across{" "}
-                      {
-                        BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                          props.currentBreakdown
-                        ]
-                      }{" "}
-                      groups
-                    </Button>
-                    </Alert>
-                </CardContent>
-              )} */}
 
             {metricConfig && (
               <CardContent>
