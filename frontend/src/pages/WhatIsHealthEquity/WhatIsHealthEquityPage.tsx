@@ -9,6 +9,7 @@ import ResourcesTab from "./ResourcesTab";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useEffect } from "react";
+import BlogTab from "./BlogTab";
 
 export const WIHE_HEALTH_EQUITY_TAB_INDEX = 0;
 export const WIHE_FAQ_TAB_INDEX = 1;
@@ -49,18 +50,14 @@ export function WhatIsHealthEquityPage() {
           className={styles.WhatIsHealthEquityTab}
           label="What is Health Equity?"
         />
-        <Tab
-          className={styles.WhatIsHealthEquityTab}
-          label="Frequently Asked Questions"
-        />
-        <Tab
-          className={styles.WhatIsHealthEquityTab}
-          label="Health Equity Resources"
-        />
+        <Tab className={styles.WhatIsHealthEquityTab} label="FAQ" />
+        <Tab className={styles.WhatIsHealthEquityTab} label="Resources" />
+        <Tab className={styles.WhatIsHealthEquityTab} label="Blog" />
       </Tabs>
       {tabIndex === 0 && <EquityTab />}
       {tabIndex === 1 && <FaqTab />}
       {tabIndex === 2 && <ResourcesTab />}
+      {tabIndex === 3 && <BlogTab />}
     </div>
   );
 }
