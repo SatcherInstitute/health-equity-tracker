@@ -411,8 +411,11 @@ function LandingPage() {
             </LazyLoad>
           </div>
 
-          {/* Figure out how to lazy load the bg image of join our movement. was getting layour weirdness, maybe flexbox issue? */}
-          <Grid container className={styles.NewsletterSignUpRow}>
+          <Grid
+            container
+            className={styles.NewsletterSignUpRow}
+            justify="center"
+          >
             <Grid
               container
               item
