@@ -5,6 +5,7 @@ import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { joinOnCols } from "../utils/datasetutils";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
+import { ALL } from "../utils/Constants";
 
 class VaccineProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -99,7 +100,7 @@ class VaccineProvider extends VariableProvider {
       }
     } else if (breakdowns.geography === "state") {
       const acsQueryResponse = await this.acsProvider.getData(
-        new MetricQuery(["population", "population_pct"], acsBreakdowns)
+        new MetricQuery(["population_pct"], acsBreakdowns)
       );
 
       consumedDatasetIds = consumedDatasetIds.concat(
@@ -112,14 +113,20 @@ class VaccineProvider extends VariableProvider {
       df = df.renameSeries({
         population_pct: "vaccine_population_pct",
       });
-      df = df.generateSeries({
+
+      // We have to separate there because the ALL rows contain raw numbers
+      // while the other rows are pre computed
+      let totalDf = df.where((row) => row[breakdownColumnName] === ALL);
+      let nonTotalDf = df.where((row) => row[breakdownColumnName] !== ALL);
+
+      nonTotalDf = nonTotalDf.generateSeries({
         vaccinated_per_100k: (row) =>
           isNaN(row.vaccinated_pct) || row.vaccinated_pct == null
             ? null
             : row.vaccinated_pct * 1000 * 100,
       });
 
-      df = df
+      nonTotalDf = nonTotalDf
         .generateSeries({
           vaccinated_pct_share: (row) =>
             row.vaccinated_pct_share == null || isNaN(row.vaccinated_pct_share)
@@ -127,6 +134,17 @@ class VaccineProvider extends VariableProvider {
               : Math.round(row.vaccinated_pct_share * 100),
         })
         .resetIndex();
+
+      totalDf = totalDf.generateSeries({
+        vaccinated_per_100k: (row) =>
+          this.calculations.per100k(row.vaccinated_first_dose, row.population),
+      });
+
+      totalDf = totalDf.generateSeries({
+        vaccinated_pct_share: (row) => 100,
+      });
+
+      df = nonTotalDf.concat(totalDf).resetIndex();
 
       df = df
         .generateSeries({

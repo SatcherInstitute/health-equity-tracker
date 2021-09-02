@@ -90,6 +90,7 @@ function stateRow(
   breakdownValue: string,
   vaccinated_pct: number,
   vaccinated_pct_share: number,
+  vaccinated_first_dose: number,
   population: number
 ) {
   return [
@@ -99,6 +100,8 @@ function stateRow(
       state_name: fips.name,
       vaccinated_pct: vaccinated_pct,
       vaccinated_pct_share: vaccinated_pct_share,
+      vaccinated_first_dose: vaccinated_first_dose,
+      population: population,
     },
     {
       state_fips: fips.code,
@@ -145,10 +148,11 @@ describe("VaccineProvider", () => {
       ASIAN_NH,
       0.15,
       0.2,
-      10
+      0, // not used
+      100
     );
 
-    const [NC_ALL_ROW, NC_ACS_ALL_ROW] = stateRow(NC, RACE, ALL, 0.3, 0.4, 10);
+    const [NC_ALL_ROW, NC_ACS_ALL_ROW] = stateRow(NC, RACE, ALL, 0, 0, 50, 200);
 
     const rawData = [NC_ASIAN_ROW, NC_ALL_ROW];
 
@@ -160,16 +164,16 @@ describe("VaccineProvider", () => {
       /*vaccinated_per_100k*/ 15000,
       /*vaccinated_pct_share*/ 20,
       /*vaccinated_pct_share_of_known*/ 20,
-      /*vaccine_population_pct*/ 100
+      /*vaccine_population_pct*/ 50
     );
 
     const NC_ALL_FINAL = finalRow(
       /*fips*/ NC,
       /*breakdownName*/ RACE,
       /*breakdownValue*/ ALL,
-      /*vaccinated_per_100k*/ 30000,
-      /*vaccinated_pct_share*/ 40,
-      /*vaccinated_pct_share_of_known*/ 40,
+      /*vaccinated_per_100k*/ 25000,
+      /*vaccinated_pct_share*/ 100,
+      /*vaccinated_pct_share_of_known*/ 100,
       /*vaccine_population_pct*/ 100
     );
 

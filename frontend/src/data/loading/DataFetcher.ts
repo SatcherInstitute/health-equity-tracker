@@ -128,6 +128,14 @@ export class ApiDataFetcher implements DataFetcher {
           vaccinated_first_dose: Number(row["vaccinated_first_dose"]),
         };
       });
+    } else if (datasetId.startsWith("kff_vaccination")) {
+      result = result.map((row: any) => {
+        return {
+          ...row,
+          vaccinated_first_dose: Number(row["vaccinated_first_dose"]),
+          population: Number(row["population"]),
+        };
+      });
     }
 
     // TODO - the server should drop ingestion_ts before exporting the file. At
