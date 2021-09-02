@@ -1,7 +1,7 @@
 @import "../../styles/variables";
 
 .AboutUsPage {
-  text-align: left;
+  // text-align: left;
   h1 {
     font-size: 18px;
     line-height: 23px;
@@ -283,21 +283,9 @@
 
 /** ------------- OUR TEAM ------------- **/
 
-// For the "Our Team" header text at the very top of the page
+// For the  header text at the very top of the "Our Team" page
 .OurTeamHeaderText {
   font-size: 50px !important;
-  text-align: center;
-  font-weight: 300 !important;
-  font-family: "Taviraj", serif !important;
-  line-height: 50px !important;
-  color: $alt-green;
-  padding: 72px 0 20px 0;
-}
-
-// For the "Our Team" header text at the very top of the page
-.OurTeamHeaderText {
-  font-size: 50px !important;
-  text-align: center;
   font-weight: 300 !important;
   font-family: "Taviraj", serif !important;
   line-height: 50px !important;

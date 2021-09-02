@@ -7,6 +7,7 @@ import { EXPLORE_DATA_PAGE_LINK } from "../../utils/urlutils";
 import Hidden from "@material-ui/core/Hidden";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet";
+import LazyLoad from "react-lazyload";
 
 function AimToGoItem(props: {
   src: string;
@@ -24,11 +25,13 @@ function AimToGoItem(props: {
       >
         <Hidden smDown>
           <Grid item>
-            <img
-              className={styles.ImgAimToGo}
-              src={props.src}
-              alt={props.alt}
-            />
+            <LazyLoad offset={300} height={255} once>
+              <img
+                className={styles.ImgAimToGo}
+                src={props.src}
+                alt={props.alt}
+              />
+            </LazyLoad>
           </Grid>
         </Hidden>
         <Grid item>
@@ -106,11 +109,15 @@ function TheProjectTab() {
               md={7}
               className={styles.GridAlignRightItem}
             >
-              <img
-                src="img/pexels-ketut-subiyanto-4473871 1.png"
-                className={styles.ImgHeaderGridItem}
-                alt=""
-              />
+              <LazyLoad offset={300} height={644} once>
+                <img
+                  width="754"
+                  height="644"
+                  src="img/stock/woman-kids.png"
+                  className={styles.ImgHeaderGridItem}
+                  alt=""
+                />
+              </LazyLoad>
             </Grid>
           </Hidden>
         </Grid>
@@ -163,6 +170,7 @@ function TheProjectTab() {
                 direction="row"
                 justify="space-around"
                 alignItems="flex-start"
+                spacing={3}
               >
                 <Grid item xs={12} sm={12} md={5}>
                   <Typography
@@ -207,10 +215,6 @@ function TheProjectTab() {
                     alignItems="flex-start"
                   >
                     <Grid item xs={12} sm={12} md={5}>
-                      {/* <LinkWithStickyParams
-                        to={EXPLORE_DATA_PAGE_LINK}
-                        className={styles.NoUnderline}
-                      > */}
                       <Button
                         variant="contained"
                         color="primary"
@@ -219,7 +223,6 @@ function TheProjectTab() {
                       >
                         Explore the data
                       </Button>
-                      {/* </LinkWithStickyParams> */}
                     </Grid>
                   </Grid>
                 </Grid>
@@ -241,7 +244,7 @@ function TheProjectTab() {
             <AimToGoItem
               src={
                 prefersReducedMotion
-                  ? "img/HET-lines-no-motion.gif"
+                  ? "img/animations/HET-lines-no-motion.gif"
                   : "img/animations/HET-lines.gif"
               }
               alt=""
@@ -253,7 +256,7 @@ function TheProjectTab() {
             <AimToGoItem
               src={
                 prefersReducedMotion
-                  ? "img/HET-fields-no-motion.gif"
+                  ? "img/animations/HET-fields-no-motion.gif"
                   : "img/animations/HET-fields.gif"
               }
               alt=""
@@ -265,7 +268,7 @@ function TheProjectTab() {
             <AimToGoItem
               src={
                 prefersReducedMotion
-                  ? "img/HET-dots-no-motion.gif"
+                  ? "img/animations/HET-dots-no-motion.gif"
                   : "img/animations/HET-dots.gif"
               }
               alt=""
@@ -305,7 +308,11 @@ function TheProjectTab() {
               justify="space-around"
             >
               <Grid item className={styles.CommittedToEthicsSubheaderItem}>
-                <Typography className={styles.SubheaderL2Text} variant="h3">
+                <Typography
+                  className={styles.SubheaderL2Text}
+                  variant="h3"
+                  align="left"
+                >
                   Transparency & Accountability
                 </Typography>
               </Grid>
@@ -328,7 +335,11 @@ function TheProjectTab() {
               justify="space-around"
             >
               <Grid item className={styles.CommittedToEthicsSubheaderItem}>
-                <Typography className={styles.SubheaderL2Text} variant="h3">
+                <Typography
+                  className={styles.SubheaderL2Text}
+                  variant="h3"
+                  align="left"
+                >
                   Community First
                 </Typography>
               </Grid>
@@ -352,7 +363,11 @@ function TheProjectTab() {
               justify="space-around"
             >
               <Grid item className={styles.CommittedToEthicsSubheaderItem}>
-                <Typography className={styles.SubheaderL2Text} variant="h3">
+                <Typography
+                  className={styles.SubheaderL2Text}
+                  variant="h3"
+                  align="left"
+                >
                   Open Access
                 </Typography>
               </Grid>

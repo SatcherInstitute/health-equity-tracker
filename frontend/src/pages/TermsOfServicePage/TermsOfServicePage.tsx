@@ -5,7 +5,7 @@ import { Typography } from "@material-ui/core";
 import { Helmet } from "react-helmet";
 
 function TermsOfServicePage(props: {
-  setTabIndexFx: Dispatch<SetStateAction<number>>;
+  setTabIndexFx?: Dispatch<SetStateAction<number>>;
 }) {
   return (
     <>
