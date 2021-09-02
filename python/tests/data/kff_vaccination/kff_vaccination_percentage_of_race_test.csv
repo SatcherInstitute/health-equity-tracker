@@ -1,5 +1,5 @@
-"","Race Categories Include Hispanic Individuals Yes/No","% of Total White Population Vaccinated Percent--narrow","% of Total Black Population Vaccinated Percent--narrow","White to Black Ratio Rate--narrow","Percentage Point Difference Between White and Black Rate Number--narrow","% of Total Hispanic Population Vaccinated Percent--narrow","White to Hispanic Ratio Rate--narrow","Percentage Point Difference Between White and Hispanic Rate Number--narrow","% of Total Asian Population Vaccinated Percent--narrow","White to Asian Ratio Rate--narrow","Percentage Point Difference Between White and Asian Rate Number--narrow","","","","","","","","","","","",""
-"United States","","0.49","0.38","1.29","-11.02","0.43","1.15","-6.23","0.66","0.74","17.00","","","","","","","","","","","",""
-"Alabama","Yes","0.34","0.34","1.02","-0.52","0.30","1.14","-4.22","0.66","0.53","31.09","","","","","","","","","","","",""
-"Arizona ","","0.46","0.33","1.40","-13.02","0.27","1.71","-18.93","0.59","0.77","13.62","","","","","","","","","","","",""
-"Indiana","Yes","0.46","0.36","1.27","-9.82","0.39","1.17","-6.60","0.67","0.68","21.44","","","","","","","","","","","",""
+Location,Race Categories Include Hispanic Individuals,% of Total White Population Vaccinated,% of Total Black Population Vaccinated,White to Black Ratio,Percentage Point Difference Between White and Black Rate,% of Total Hispanic Population Vaccinated,White to Hispanic Ratio,Percentage Point Difference Between White and Hispanic Rate,% of Total Asian Population Vaccinated,White to Asian Ratio,Percentage Point Difference Between White and Asian Rate,Footnotes
+United States,,0.5,0.4,1.25,-10.11,0.45,1.12,-5.28,0.67,0.75,16.66,
+Alabama,Yes,0.37,0.37,1,-0.05,0.34,1.1,-3.29,0.68,0.55,30.4,1. Data for Hispanic people prior to 5/10 are not reported because the majority of ethnicity data were missing for the state.
+Arizona,,0.47,0.34,1.36,-12.5,0.29,1.63,-18.16,0.61,0.77,13.74,
+Indiana,Yes,0.47,0.37,1.26,-9.57,0.41,1.15,-6.1,0.67,0.7,20.23,

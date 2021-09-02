@@ -4,22 +4,18 @@ from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
 
 from datasources.data_source import DataSource
-from ingestion import gcs_to_bq_util
+from ingestion import gcs_to_bq_util, github_util
 
-BASE_KFF_URL_PCT_SHARE_RACE = ('https://docs.google.com/spreadsheets/d/'
-                               '15TWTFIdtRgJ2mVijCChuOt_Zvwxp4xFByzFD1p6wazI/gviz/tq?tqx=out:csv')
+BASE_KFF_URL_TOTALS_STATE = ('https://raw.githubusercontent.com/KFFData/COVID-19-Data/'
+                             'kff_master/State%20Trend%20Data/State_Trend_Data.csv')
 
-BASE_KFF_URL_PERCENTAGES_BY_RACE_OF_TOTAL = ('https://docs.google.com/spreadsheets/d/'
-                                             '1kKWHZtwFWUcpoy4lLyKa0QPxlVyhDjn1Ob4g5HF4NEw/gviz/tq?tqx=out:csv')
+BASE_GITHUB_API_URL = "https://api.github.com/repos/KFFData/COVID-19-Data/git/trees/kff_master?recursive=1"
 
-BASE_KFF_URL_TOTALS_STATE = ('https://docs.google.com/spreadsheets/d/'
-                             '1wjdh79UOyGLF1HZ1Dr7WqDoDTxDDvA41lQQh8oPH_LU/gviz/tq?tqx=out:csv')
-
-TOTAL_KEY = 'Share of Population Fully Vaccinated Percent'
+TOTAL_KEY = 'one_dose'
 
 UNKNOWN_TO_STANDARD = {
-    '% of Vaccinations with Unknown Race Percent--narrow': Race.UNKNOWN.value,
-    '% of Vaccinations with Unknown Ethnicity Percent--narrow': Race.ETHNICITY_UNKNOWN.value,
+    '% of Vaccinations with Unknown Race': Race.UNKNOWN.value,
+    '% of Vaccinations with Unknown Ethnicity': Race.ETHNICITY_UNKNOWN.value,
 }
 
 KFF_RACES_PCT_SHARE = [
@@ -55,12 +51,27 @@ KFF_RACES_TO_STANDARD = {
 }
 
 
+def get_data_url(data_type):
+    data_types_to_strings = {
+        'pct_total': 'Percent of Total Population that has Received a COVID-19 Vaccine by RaceEthnicity',
+        'pct_share': 'COVID19 Vaccinations by RE',
+    }
+    df = github_util.load_json_as_df_from_web_based_on_key(BASE_GITHUB_API_URL, "tree")
+    df = df.loc[df['path'].str.contains(data_types_to_strings[data_type])]
+    urls = df.loc[df['path'] == df['path'].max()].url
+
+    if len(urls) != 1:
+        raise ValueError("Found %d urls, should have only found 1" % len(urls))
+
+    return urls.values[0]
+
+
 def generate_total_pct_key(race):
-    return '%% of Total %s Population Vaccinated Percent--narrow' % race
+    return '%% of Total %s Population Vaccinated' % race
 
 
 def generate_pct_share_key(race):
-    return '%s %% of Vaccinations Percent--narrow' % race
+    return '%s %% of Vaccinations' % race
 
 
 def get_unknown_rows(df, state):
@@ -93,7 +104,7 @@ def generate_output_row(state_row_pct_share, state_row_pct_total, state, race):
     race: String race name to find vaccine information of
     """
     races_map = KFF_RACES_TO_STANDARD
-    if state_row_pct_share['Race Categories Include Hispanic Individuals Yes/No'].values[0] != 'Yes':
+    if state_row_pct_share['Race Categories Include Hispanic Individuals'].values[0] != 'Yes':
         races_map = KFF_RACES_TO_STANDARD_NH
 
     output_row = {}
@@ -116,17 +127,10 @@ def generate_total_row(state_row_totals, state):
     output_row = {}
     output_row[std_col.STATE_NAME_COL] = state
     output_row[std_col.RACE_CATEGORY_ID_COL] = Race.TOTAL.value
-    output_row[std_col.VACCINATED_PCT] = str(state_row_totals[TOTAL_KEY].values[0])
-    output_row[std_col.VACCINATED_PCT_SHARE] = "1.0"
+
+    latest_row = state_row_totals[state_row_totals['date'] == state_row_totals['date'].max()]
+    output_row[std_col.VACCINATED_FIRST_DOSE] = str(latest_row[TOTAL_KEY].values[0])
     return output_row
-
-
-def clean_state_names(df):
-    """Removes trailing whitespace from state name keys in spreadsheet in place
-
-    df: Pandas dataframe with information from KFF vaccine spreadsheets
-    """
-    df['state'] = df['state'].map(lambda state: state.strip())
 
 
 class KFFVaccination(DataSource):
@@ -144,11 +148,12 @@ class KFFVaccination(DataSource):
             'upload_to_gcs should not be called for KFFVaccination')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        percentage_of_total_df = gcs_to_bq_util.load_csv_as_dataframe_from_web(
-            BASE_KFF_URL_PERCENTAGES_BY_RACE_OF_TOTAL
-        )
+        percentage_of_total_url = get_data_url('pct_total')
+        percentage_of_total_df = github_util.decode_json_from_url_into_df(percentage_of_total_url)
 
-        pct_share_df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_KFF_URL_PCT_SHARE_RACE)
+        pct_share_url = get_data_url('pct_share')
+        pct_share_df = github_util.decode_json_from_url_into_df(pct_share_url)
+
         total_df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_KFF_URL_TOTALS_STATE, dtype={TOTAL_KEY: str})
 
         output = []
@@ -157,22 +162,16 @@ class KFFVaccination(DataSource):
             std_col.RACE_CATEGORY_ID_COL,
             std_col.VACCINATED_PCT_SHARE,
             std_col.VACCINATED_PCT,
+            std_col.VACCINATED_FIRST_DOSE,
         ]
 
-        percentage_of_total_df = percentage_of_total_df.rename(columns={'Unnamed: 0': 'state'})
-        pct_share_df = pct_share_df.rename(columns={'Unnamed: 0': 'state'})
-        total_df = total_df.rename(columns={'Unnamed: 0': 'state'})
-
-        clean_state_names(percentage_of_total_df)
-        clean_state_names(pct_share_df)
-        clean_state_names(total_df)
-
-        states = percentage_of_total_df['state'].drop_duplicates().to_list()
+        states = percentage_of_total_df['Location'].drop_duplicates().to_list()
         states.remove('United States')
 
+        print(total_df)
         for state in states:
-            state_row_pct_share = pct_share_df.loc[pct_share_df['state'] == state]
-            state_row_pct_total = percentage_of_total_df.loc[percentage_of_total_df['state'] == state]
+            state_row_pct_share = pct_share_df.loc[pct_share_df['Location'] == state]
+            state_row_pct_total = percentage_of_total_df.loc[percentage_of_total_df['Location'] == state]
             state_row_totals = total_df.loc[total_df['state'] == state]
 
             output.extend(get_unknown_rows(state_row_pct_share, state))
@@ -188,6 +187,7 @@ class KFFVaccination(DataSource):
 
         column_types = {c: 'STRING' for c in output_df.columns}
         column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+        column_types[std_col.VACCINATED_FIRST_DOSE] = 'INT64'
 
         gcs_to_bq_util.add_dataframe_to_bq(
             output_df, dataset, std_col.RACE_OR_HISPANIC_COL, column_types=column_types)
