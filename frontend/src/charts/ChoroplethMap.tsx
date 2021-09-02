@@ -285,7 +285,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
-      description: "A choropleth map.",
+      description: props.legendTitle,
       data: [
         {
           name: VAR_DATASET,
@@ -382,7 +382,20 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         <Vega
           spec={spec}
           width={width}
-          actions={!props.hideActions}
+          // custom 3-dot options for states, hidden on territories
+          actions={
+            !props.hideActions && {
+              export: { png: true, svg: false },
+              source: true,
+              compiled: false,
+              editor: false,
+            }
+          }
+          downloadFileName={`${
+            props.legendTitle
+          } Health Equity Tracker ${new Date().toLocaleString("default", {
+            month: "short",
+          })} ${new Date().getFullYear()}`}
           signalListeners={props.signalListeners}
         />
       )}
