@@ -5,8 +5,15 @@ import Typography from "@material-ui/core/Typography";
 import { Helmet } from "react-helmet";
 import parse from "html-react-parser";
 import axios from "axios";
-import { BLOG_URL, WP_API, ALL_POSTS, ALL_MEDIA } from "../../utils/urlutils";
+import {
+  BLOG_URL,
+  WP_API,
+  ALL_POSTS,
+  ALL_MEDIA,
+  ReactRouterLinkButton,
+} from "../../utils/urlutils";
 import { Link } from "react-router-dom";
+import { Button } from "@material-ui/core";
 
 function BlogTab() {
   const [articles, setArticles] = useState<any[]>([]);
@@ -46,10 +53,10 @@ function BlogTab() {
       });
   }, []);
 
-  useEffect(() => {
-    // TODO: onClick for each preview card should set full article
-    articles[0] && setFullArticle(articles[0]);
-  }, [articles]);
+  // useEffect(() => {
+  //   // TODO: onClick for each preview card should set full article
+  //   articles[0] && setFullArticle(articles[0]);
+  // }, [articles]);
 
   return (
     <div className={styles.WhatIsHealthEquityPage}>
@@ -63,6 +70,7 @@ function BlogTab() {
           direction="column"
           justify="center"
         >
+          {/* SEE SELECTED ARTICLE EXPANDED, PLUS ADDITIONAL LINKS TO OTHER */}
           {fullArticle && (
             <Grid
               container
@@ -90,6 +98,7 @@ function BlogTab() {
             </Grid>
           )}
 
+          {/* SEE OVERVIEW WITH IMG/TITLE CARDS  */}
           {!fullArticle && (
             <Grid
               container
@@ -126,19 +135,20 @@ function BlogTab() {
                       className={styles.NewsAndStoriesItem}
                       key={post.id}
                     >
-                      <Link to={{ pathname: `/blog/:${post.slug}` }}>
-                        <img
-                          className={styles.NewsAndStoriesBigImg}
-                          src={post.media_info.source_url}
-                          alt=""
-                        />
+                      <img
+                        className={styles.NewsAndStoriesBigImg}
+                        src={post.media_info.source_url}
+                        alt=""
+                      />
+                      <Button
+                        onClick={() => {
+                          setFullArticle(post);
+                        }}
+                      >
                         <h2 className={styles.NewsAndStoriesTitleText}>
                           {parse(post.title.rendered)}
                         </h2>
-                      </Link>
-                      {/* <div className={styles.NewsAndStoriesSubtitleText}>
-                      {parse(post.content.rendered)}
-                    </div> */}
+                      </Button>
                     </Grid>
                   );
                 })}
