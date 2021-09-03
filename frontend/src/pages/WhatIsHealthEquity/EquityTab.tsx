@@ -151,10 +151,12 @@ function EquityTab() {
                   /pəˈlidək(ə)l dəˈtərmənənts əv helTH/
                 </p>
                 <p className={styles.DefinitionText}>
-                  The creators of structural conditions and the social drivers –
-                  including poor environmental conditions, inadequate
-                  transportation, unsafe neighborhoods, and lack of healthy food
-                  options – that affect all other dynamics of health.
+                  The Political determinants of health involve the systematic
+                  process of structuring relationships, distributing resources,
+                  and administering power, operating simultaneously in ways that
+                  mutually reinforce or influence one another to shape
+                  opportunities that either advance health equity or exacerbate
+                  health inequities.
                 </p>
                 <span className={styles.DefinitionSourceSpan}>
                   Daniel Dawes, 2020

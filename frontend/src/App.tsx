@@ -213,7 +213,7 @@ function App() {
             </Router>
           </div>
           <footer>
-            <Suspense fallback={<span>Loading Health Equity Tracker</span>}>
+            <Suspense fallback={<span></span>}>
               <Footer />
             </Suspense>
           </footer>
