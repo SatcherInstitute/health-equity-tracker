@@ -1,4 +1,4 @@
--- County-level joins with ACS population tables. Fir we join with
+-- County-level joins with ACS population tables. First we join with
 -- fips_codes_all to get county names. We then join with ACS to get population
 -- for county x {race, sex, age}.
 
