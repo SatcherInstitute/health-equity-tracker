@@ -14,7 +14,7 @@ export const WIHE_HEALTH_EQUITY_TAB_INDEX = 0;
 export const WIHE_FAQ_TAB_INDEX = 1;
 export const WIHE_JOIN_THE_EFFORT_SECTION_ID = "join";
 
-export function WhatIsHealthEquityPage() {
+export default function WhatIsHealthEquityPage() {
   const params = useSearchParams();
 
   // responsive tabs layout to fix mobile bug

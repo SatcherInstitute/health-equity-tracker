@@ -105,7 +105,6 @@
     font-family: "Taviraj", serif !important;
     line-height: 40px;
     color: $alt-green;
-    padding-bottom: 20px;
   }
 
   .SubheaderL1Text {
@@ -234,7 +233,7 @@
   }
 }
 
-/** ------------- TERMS OF SERVICE AND PRIVACY POLICY ------------- **/
+/** ------------- TERMS OF SERVICE AND PRIVACY POLICY  ------------- **/
 
 .TosGrid {
   max-width: 1024px;
@@ -264,7 +263,8 @@
   font-family: "Taviraj", serif !important;
   line-height: 40px;
   color: $alt-black;
-  padding-bottom: 20px;
+  padding: 0 20px 20px 20px;
+  margin: 0 20px 20px 20px;
 }
 
 .TosQuestion {
