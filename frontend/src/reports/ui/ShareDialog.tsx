@@ -25,7 +25,6 @@ function ShareDialog(props: {
         props.setShareModalOpen(false);
         setTextCopied(false);
       }}
-      aria-labelledby="share-dialog"
     >
       <DialogTitle>{getMadLibPhraseText(props.madLib)}</DialogTitle>
       <DialogContent>
