@@ -33,7 +33,6 @@ CDC_AGE_GROUPS_TO_STANDARD = {
     'Ages_12-15_yrs': '12-15',
     'Ages_16-17_yrs': '16-17',
     'Ages_18-24_yrs': '18-24',
-    'Ages_18-29_yrs': '18-29',
     'Ages_25-39_yrs': '25-39',
     'Ages_30-39_yrs': '30-39',
     'Ages_40-49_yrs': '40-49',
