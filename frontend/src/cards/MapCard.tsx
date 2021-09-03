@@ -256,7 +256,7 @@ function MapCardWithKey(props: MapCardProps) {
                             props.currentBreakdown
                           ]
                         }{" "}
-                        groups
+                        groups.
                       </span>
                     </Alert>
                   </CardContent>
