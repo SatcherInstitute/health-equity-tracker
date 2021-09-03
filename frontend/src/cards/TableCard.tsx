@@ -21,6 +21,7 @@ import {
   RACE,
   UNKNOWN,
   UNKNOWN_RACE,
+  UNKNOWN_ETHNICITY,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import MissingDataAlert from "./ui/MissingDataAlert";
@@ -80,7 +81,8 @@ export function TableCard(props: TableCardProps) {
         const dataWithoutUnknowns = queryResponse.data.filter(
           (row: Row) =>
             row[props.breakdownVar] !== UNKNOWN &&
-            row[props.breakdownVar] !== UNKNOWN_RACE
+            row[props.breakdownVar] !== UNKNOWN_RACE &&
+            row[props.breakdownVar] !== UNKNOWN_ETHNICITY
         );
 
         return (

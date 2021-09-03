@@ -132,6 +132,9 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         className={styles.MissingDataInfo}
         ref={fieldRef}
       >
+        <h3> Notes </h3>
+        "Vaccinated Individuals" refers to a person who has gotten at least one
+        dose of a COVID-19 vaccine.
         <h1>What Data Are Missing?</h1>
         <p>Unfortunately there are crucial data missing in our sources.</p>
         <h3>Missing and Misidentified People</h3>

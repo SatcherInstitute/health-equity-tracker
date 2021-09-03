@@ -59,7 +59,8 @@ export type DropdownVarId =
   //  | "asthma"
   | "copd"
   | "health_insurance"
-  | "poverty";
+  | "poverty"
+  | "vaccinated";
 
 const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   covid: "COVID-19",
@@ -69,6 +70,7 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   copd: "COPD",
   health_insurance: "Uninsured Individuals",
   poverty: "Poverty",
+  vaccinated: "Vaccinated Individuals",
 };
 
 const MADLIB_LIST: MadLib[] = [
