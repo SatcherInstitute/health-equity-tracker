@@ -60,7 +60,7 @@ class VaccineProvider extends VariableProvider {
 
     let consumedDatasetIds = [datasetId];
 
-    if (breakdowns.geography === "national") {
+    if (breakdowns.geography === "national" && breakdownColumnName !== "age") {
       const acsQueryResponse = await this.acsProvider.getData(
         new MetricQuery(["population", "population_pct"], acsBreakdowns)
       );
@@ -98,6 +98,13 @@ class VaccineProvider extends VariableProvider {
           breakdownColumnName
         );
       }
+    } else if (
+      breakdowns.geography === "national" &&
+      breakdownColumnName === "age"
+    ) {
+      const acsQueryResponse = await this.acsProvider.getData(
+        new MetricQuery(["population"], acsBreakdowns)
+      );
     } else if (breakdowns.geography === "state") {
       const acsQueryResponse = await this.acsProvider.getData(
         new MetricQuery(["population_pct"], acsBreakdowns)
