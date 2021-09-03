@@ -51,7 +51,7 @@ export function UnknownsMapDialog(props: UnknownsMapDialogProps) {
       onClose={props.handleClose}
       maxWidth={false}
       scroll="paper"
-      aria-labelledby={`Dialog showing map of share of unknowns for ${props.metricConfig.fullCardTitleName}.`}
+      aria-label={`Dialog showing map of share of unknowns for ${props.metricConfig.fullCardTitleName}.`}
     >
       <WithMetadataAndMetrics
         queries={[query]}
