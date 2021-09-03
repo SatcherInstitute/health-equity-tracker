@@ -283,37 +283,6 @@ function MapCardWithKey(props: MapCardProps) {
                 </CardContent>
               )}
 
-            {/* {!mapQueryResponse.dataIsMissing() &&
-              dataForActiveBreakdownFilter.length !== 0 &&
-              metricConfig && (
-                <CardContent>
-                  <Alert severity="info">
-                    <Button
-                      onClick={() => setSmallMultiplesDialogOpen(true)}
-                      color="primary"
-                      className={styles.SmallMarginButton}
-                      aria-label={
-                        "Compare " +
-                        props.variableConfig.variableFullDisplayName +
-                        " across " +
-                        BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                          props.currentBreakdown
-                        ] +
-                        " groups"
-                      }
-                    >
-                      Compare across{" "}
-                      {
-                        BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                          props.currentBreakdown
-                        ]
-                      }{" "}
-                      groups
-                    </Button>
-                    </Alert>
-                </CardContent>
-              )} */}
-
             {metricConfig && (
               <CardContent>
                 <ChoroplethMap

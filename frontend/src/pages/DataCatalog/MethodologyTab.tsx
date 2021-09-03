@@ -44,11 +44,7 @@ function MethodologyTab() {
               </div>
             </Grid>
             <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2
-                id="main"
-                tabIndex={-1}
-                className={styles.MethodologyQuestion}
-              >
+              <h2 tabIndex={-1} className={styles.MethodologyQuestion}>
                 {selectFaqs[4].q}
               </h2>
               <div className={styles.MethodologyAnswer}>
