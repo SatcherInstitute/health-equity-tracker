@@ -34,7 +34,6 @@ CDC_AGE_GROUPS_TO_STANDARD = {
     'Ages_16-17_yrs': '16-17',
     'Ages_18-24_yrs': '18-24',
     'Ages_25-39_yrs': '25-39',
-    'Ages_30-39_yrs': '30-39',
     'Ages_40-49_yrs': '40-49',
     'Ages_50-64_yrs': '50-64',
     'Ages_65-74_yrs': '65-74',
@@ -47,6 +46,25 @@ BREAKDOWN_MAP = {
     'race_and_ethnicity': CDC_RACE_GROUPS_TO_STANDARD,
     'sex': CDC_SEX_GROUPS_TO_STANDARD,
     'age': CDC_AGE_GROUPS_TO_STANDARD,
+}
+
+
+# HACK: AFACT the only way to compute these numbers are by using the estimates
+# found here: https://www.census.gov/data/tables/2020/demo/popest/2020-demographic-analysis-tables.html
+
+# To save time and effort I just took these numbers from the CDC (which used the above
+# source to calculate them) and am putting them here directly.
+VACCINE_AGE_POPULATION_PCT = {
+  "12-15": 5.0,
+  "16-17": 2.5,
+  "18-24": 9.2,
+  "25-39": 20.5,
+  "40-49": 12.2,
+  "50-64": 19.4,
+  "65-74": 9.8,
+  "75+": 7.0,
+  std_col.TOTAL_VALUE: 100,
+  "Unknown": None,
 }
 
 
@@ -79,6 +97,9 @@ class CDCVaccinationNational(DataSource):
             if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
                 column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
+            if std_col.AGE_COL in breakdown_df.columns:
+                column_types[std_col.POPULATION_PCT_COL] = 'FLOAT'
+
             gcs_to_bq_util.add_dataframe_to_bq(
                 breakdown_df, dataset, breakdown, column_types=column_types)
 
@@ -91,6 +112,9 @@ class CDCVaccinationNational(DataSource):
         else:
             columns.append(breakdown)
 
+        if breakdown == std_col.AGE_COL:
+            columns.append(std_col.POPULATION_PCT_COL)
+
         for cdc_group, standard_group in BREAKDOWN_MAP[breakdown].items():
             output_row = {}
             output_row[std_col.STATE_NAME_COL] = 'United States'
@@ -100,6 +124,9 @@ class CDCVaccinationNational(DataSource):
                 output_row[std_col.RACE_CATEGORY_ID_COL] = standard_group
             else:
                 output_row[breakdown] = standard_group
+
+            if breakdown == std_col.AGE_COL:
+                output_row[std_col.POPULATION_PCT_COL] = VACCINE_AGE_POPULATION_PCT[standard_group]
 
             row = df.loc[df['demographic_category'] == cdc_group]['administered_dose1']
             output_row[std_col.VACCINATED_FIRST_DOSE] = row.values[0]

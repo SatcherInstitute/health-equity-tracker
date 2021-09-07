@@ -31,6 +31,7 @@ COUNTY_FIPS_COL = "county_fips"
 COUNTY_NAME_COL = "county_name"
 POPULATION_COL = "population"
 INCOME_COL = "income"
+POPULATION_PCT_COL = "population_pct"
 
 TOTAL_VALUE = "Total"
 ALL_VALUE = "All"

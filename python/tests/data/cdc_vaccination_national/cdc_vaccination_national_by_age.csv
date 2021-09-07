@@ -1,12 +1,11 @@
-state_name,state_fips,vaccinated_first_dose,age
-United States,00,6115788,12-15
-United States,00,3828038,16-17
-United States,00,15004800,18-24
-United States,00,35979491,25-39
-United States,00,24710051,30-39
-United States,00,25050083,40-49
-United States,00,45166817,50-64
-United States,00,27311503,65-74
-United States,00,18766583,75+
-United States,00,21434,Unknown
-United States,00,177442556,Total
+state_name,state_fips,vaccinated_first_dose,age,population_pct
+United States,00,6115788,12-15,5.0
+United States,00,3828038,16-17,2.5
+United States,00,15004800,18-24,9.2
+United States,00,35979491,25-39,20.5
+United States,00,25050083,40-49,12.2
+United States,00,45166817,50-64,19.4
+United States,00,27311503,65-74,9.8
+United States,00,18766583,75+,7.0
+United States,00,21434,Unknown,
+United States,00,177442556,Total,100
