@@ -57,7 +57,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       onClose={props.handleClose}
       maxWidth={false}
       scroll="paper"
-      aria-labelledby="Dialog showing choropleth maps of each breakdown category with the same scale."
+      aria-label="Dialog showing choropleth maps of each breakdown category with the same scale."
     >
       <DialogContent dividers={true}>
         <Typography className={styles.Title}>
