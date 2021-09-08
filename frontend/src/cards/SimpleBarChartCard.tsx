@@ -82,6 +82,10 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                   breakdownVar={props.breakdownVar}
                   metric={metricConfig}
                   showLegend={false}
+                  fipsDisplayName={
+                    props.fips.getFullDisplayName() &&
+                    ` in ${props.fips.getFullDisplayName()}`
+                  }
                 />
               </CardContent>
             )}

@@ -185,6 +185,7 @@ export interface SimpleHorizontalBarChartProps {
   breakdownVar: BreakdownVar;
   showLegend: boolean;
   hideActions?: boolean;
+  fipsDisplayName?: string;
 }
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
@@ -210,9 +211,9 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   return (
     <div ref={ref}>
       <Vega
-        // downloadFileName={`${props.darkMetric.fullCardTitleName} by ${
-        //   BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-        // } in - Health Equity Tracker`}
+        downloadFileName={`${props.metric.fullCardTitleName} by ${
+          BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+        }${props.fipsDisplayName} - Health Equity Tracker`}
         spec={getSpec(
           data,
           width,
