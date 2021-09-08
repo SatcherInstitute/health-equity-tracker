@@ -147,7 +147,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     mapQueryResponse.dataIsMissing() || unknowns.length <= 1
                   }
                   geoData={geoData}
-                  filename={getTitleText()}
+                  filename={`${getTitleText()} in ${props.fips.getFullDisplayName()}`}
                 />
                 {props.fips.isUsa() && (
                   <div className={styles.TerritoryCirclesContainer}>
