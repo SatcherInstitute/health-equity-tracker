@@ -48,7 +48,7 @@ export interface MultiMapDialogProps {
 
 /*
    MultiMapDialog is a dialog opened via the MapCard that shows one small map for each unique
-    value in a given breakdown for a particualr metric.
+    value in a given breakdown for a particular metric.
 */
 export function MultiMapDialog(props: MultiMapDialogProps) {
   return (
