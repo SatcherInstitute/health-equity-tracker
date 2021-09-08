@@ -258,6 +258,7 @@ function MapCardWithKey(props: MapCardProps) {
                         }{" "}
                         groups
                       </span>
+                      .
                     </Alert>
                   </CardContent>
                 </>
