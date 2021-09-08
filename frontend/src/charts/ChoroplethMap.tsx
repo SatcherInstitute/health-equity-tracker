@@ -61,7 +61,7 @@ export interface ChoroplethMapProps {
   // Callbacks set up so map interactions can update the React UI
   signalListeners: any;
   // use the constructed string from the Card Wrapper Title in the export as PNG filename
-  titleText?: string;
+  filename?: string;
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
@@ -393,7 +393,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
               editor: false,
             }
           }
-          downloadFileName={`${props.titleText} - Health Equity Tracker Map`}
+          downloadFileName={`${props.filename} - Health Equity Tracker Map`}
           signalListeners={props.signalListeners}
         />
       )}

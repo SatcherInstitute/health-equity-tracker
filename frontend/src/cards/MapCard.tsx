@@ -309,7 +309,7 @@ function MapCardWithKey(props: MapCardProps) {
                   fips={props.fips}
                   scaleType="quantile"
                   geoData={geoData}
-                  titleText={`${metricConfig.fullCardTitleName}${
+                  filename={`${metricConfig.fullCardTitleName}${
                     activeBreakdownFilter === "All"
                       ? ""
                       : ` for ${activeBreakdownFilter}`
