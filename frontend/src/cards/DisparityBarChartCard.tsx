@@ -116,6 +116,10 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   }
                   breakdownVar={props.breakdownVar}
                   metricDisplayName={metricConfig.shortVegaLabel}
+                  fipsDisplayName={
+                    props.fips.getFullDisplayName() &&
+                    ` in ${props.fips.getFullDisplayName()}`
+                  }
                 />
               </CardContent>
             )}

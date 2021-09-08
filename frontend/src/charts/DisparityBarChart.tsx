@@ -269,6 +269,7 @@ export interface DisparityBarChartProps {
   // Stacked will render one dark bar on top of a lighter bar
   // Not stacked will show two equally sized bars side by side
   stacked?: boolean;
+  fipsDisplayName?: string;
 }
 
 export function DisparityBarChart(props: DisparityBarChartProps) {
@@ -305,9 +306,11 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           compiled: false,
           editor: false,
         }}
-        downloadFileName={`${props.darkMetric.fullCardTitleName} by ${
-          BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-        } in - Health Equity Tracker`}
+        downloadFileName={`${
+          props.darkMetric.fullCardTitleName
+        } vs. Population by ${BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]}${
+          props.fipsDisplayName
+        }- Health Equity Tracker`}
         spec={getSpec(
           data,
           width,
