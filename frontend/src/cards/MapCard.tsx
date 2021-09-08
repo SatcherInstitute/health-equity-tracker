@@ -313,7 +313,12 @@ function MapCardWithKey(props: MapCardProps) {
                     activeBreakdownFilter === "All"
                       ? ""
                       : ` for ${activeBreakdownFilter}`
-                  } in ${props.fips.getDisplayName()}`}
+                  } in ${props.fips.getDisplayName()}${
+                    props.fips.isCounty() && ", "
+                  }${
+                    props.fips.isCounty() &&
+                    props.fips.getParentFips().getFullDisplayName()
+                  }`}
                 />
                 {/* generate additional VEGA canvases for territories on national map */}
                 {props.fips.isUsa() && (
