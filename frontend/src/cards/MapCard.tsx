@@ -309,15 +309,16 @@ function MapCardWithKey(props: MapCardProps) {
                   fips={props.fips}
                   scaleType="quantile"
                   geoData={geoData}
+                  // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
                   filename={`${metricConfig.fullCardTitleName}${
                     activeBreakdownFilter === "All"
                       ? ""
                       : ` for ${activeBreakdownFilter}`
                   } in ${props.fips.getDisplayName()}${
-                    props.fips.isCounty() && ", "
-                  }${
-                    props.fips.isCounty() &&
-                    props.fips.getParentFips().getFullDisplayName()
+                    // include the state name if the location is a county
+                    props.fips.isCounty()
+                      ? `, ${props.fips.getParentFips().getFullDisplayName()}`
+                      : ""
                   }`}
                 />
                 {/* generate additional VEGA canvases for territories on national map */}
