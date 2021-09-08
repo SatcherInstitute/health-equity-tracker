@@ -8,7 +8,7 @@ import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
 
 export type ScaleType = "quantize" | "quantile" | "symlog";
 
-const UNKNOWN_GREY = "#BDC1C6";
+export const UNKNOWN_GREY = "#BDC1C6";
 const RED_ORANGE = "#ED573F";
 const DARK_BLUE = "#255792";
 const HEIGHT_WIDTH_RATIO = 0.5;

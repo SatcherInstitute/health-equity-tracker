@@ -4,7 +4,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import Typography from "@material-ui/core/Typography";
 import { Grid } from "@material-ui/core";
-import { ChoroplethMap } from "../../charts/ChoroplethMap";
+import { ChoroplethMap, UNKNOWN_GREY } from "../../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../../data/utils/Fips";
 import { Legend } from "../../charts/Legend";
 import { MapOfDatasetMetadata } from "../../data/utils/DatasetTypes";
@@ -75,6 +75,19 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 scaleType="quantile"
                 sameDotSize={true}
               />
+              <div className={styles.NoDataBox}>
+                <div className={styles.NoDataItems}>
+                  <svg
+                    fill={UNKNOWN_GREY}
+                    width="14px"
+                    height="14px"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle cx="7px" cy="7px" r="7px" />
+                  </svg>
+                  <span className={styles.NoDataText}>No Data</span>
+                </div>
+              </div>
             </div>
           </Grid>
           {props.breakdownValues.map((breakdownValue) => {

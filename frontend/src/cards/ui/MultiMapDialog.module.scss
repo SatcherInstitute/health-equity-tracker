@@ -35,3 +35,23 @@
   font-size: 7px;
   float: left;
 }
+
+// UNKNOWN ADDED TO LEGEND
+.NoDataBox {
+  position: relative;
+}
+.NoDataItems {
+  position: absolute;
+  left: 24px;
+  top: -6px;
+  height: 20px;
+  line-height: 20px;
+}
+
+.NoDataText {
+  font-size: 10px;
+  margin-left: 5px;
+  position: inherit;
+  bottom: 3px;
+  width: 40px;
+}
