@@ -393,7 +393,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
               editor: false,
             }
           }
-          downloadFileName={`${props.filename} - Health Equity Tracker Map`}
+          downloadFileName={`${props.filename} - Health Equity Tracker`}
           signalListeners={props.signalListeners}
         />
       )}
