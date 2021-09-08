@@ -104,6 +104,9 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     hideActions={false}
                     scaleType="quantile"
                     geoData={props.geoData}
+                    filename={`${props.metricConfig.fullCardTitleName}${
+                      breakdownValue === "All" ? "" : ` for ${breakdownValue}`
+                    } in ${props.fips.getFullDisplayName}`}
                   />
                 )}
                 {props.metricConfig &&
