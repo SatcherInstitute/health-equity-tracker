@@ -210,6 +210,9 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   return (
     <div ref={ref}>
       <Vega
+        // downloadFileName={`${props.darkMetric.fullCardTitleName} by ${
+        //   BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+        // } in - Health Equity Tracker`}
         spec={getSpec(
           data,
           width,
@@ -221,7 +224,17 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           tooltipMetricDisplayColumnName,
           props.showLegend
         )}
-        actions={props.hideActions ? false : true}
+        // custom 3-dot options for states, hidden on territories
+        actions={
+          props.hideActions
+            ? false
+            : {
+                export: { png: true, svg: false },
+                source: false,
+                compiled: false,
+                editor: false,
+              }
+        }
       />
     </div>
   );

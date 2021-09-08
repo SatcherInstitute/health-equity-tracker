@@ -307,9 +307,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
         }}
         downloadFileName={`${props.darkMetric.fullCardTitleName} by ${
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-        } in - Health Equity Tracker ${new Date().toLocaleString("default", {
-          month: "short",
-        })} ${new Date().getFullYear()}`}
+        } in - Health Equity Tracker`}
         spec={getSpec(
           data,
           width,
