@@ -60,6 +60,8 @@ export interface ChoroplethMapProps {
   hideMissingDataTooltip?: boolean;
   // Callbacks set up so map interactions can update the React UI
   signalListeners: any;
+  // for details in filename and possibly map title
+  selectedGroup?: string;
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
@@ -386,16 +388,14 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           actions={
             !props.hideActions && {
               export: { png: true, svg: false },
-              source: true,
+              source: false,
               compiled: false,
               editor: false,
             }
           }
-          downloadFileName={`${
-            props.legendTitle
-          } Health Equity Tracker ${new Date().toLocaleString("default", {
-            month: "short",
-          })} ${new Date().getFullYear()}`}
+          downloadFileName={`Map of ${props.legendTitle}${
+            props.selectedGroup
+          } in ${props.fips.getDisplayName()} - Health Equity Tracker`}
           signalListeners={props.signalListeners}
         />
       )}

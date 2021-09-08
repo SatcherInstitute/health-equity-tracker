@@ -199,8 +199,9 @@ function MapCardWithKey(props: MapCardProps) {
                   <Divider />
                   <CardContent>
                     <Alert severity="info">
-                      {/* EXAMPLE TEXT OUTPUT: X (number of individuals) */}
+                      {/* EXAMPLE TEXT OUTPUT:  */}
                       <b>
+                        {/* 9,543 */}
                         {formatFieldValue(
                           metricConfig.type,
                           overallQueryResponse!.data.find(
@@ -226,7 +227,6 @@ function MapCardWithKey(props: MapCardProps) {
                       ] !== "age" &&
                         activeBreakdownFilter !== "All" &&
                         ` ${activeBreakdownFilter} individuals`}
-                      {console.log(activeBreakdownFilter)}
                       {" in  "}
                       {/* in */}
                       {/* (the) */}
@@ -235,7 +235,7 @@ function MapCardWithKey(props: MapCardProps) {
                       {/* United States */}
                       {props.fips.getDisplayName()}
                       {". "}
-                      {/* Compare across XYZ */}
+                      {/* LINK: Compare across XYZ */}
                       <span
                         onClick={() => setSmallMultiplesDialogOpen(true)}
                         role="button"
@@ -283,40 +283,14 @@ function MapCardWithKey(props: MapCardProps) {
                 </CardContent>
               )}
 
-            {/* {!mapQueryResponse.dataIsMissing() &&
-              dataForActiveBreakdownFilter.length !== 0 &&
-              metricConfig && (
-                <CardContent>
-                  <Alert severity="info">
-                    <Button
-                      onClick={() => setSmallMultiplesDialogOpen(true)}
-                      color="primary"
-                      className={styles.SmallMarginButton}
-                      aria-label={
-                        "Compare " +
-                        props.variableConfig.variableFullDisplayName +
-                        " across " +
-                        BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                          props.currentBreakdown
-                        ] +
-                        " groups"
-                      }
-                    >
-                      Compare across{" "}
-                      {
-                        BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                          props.currentBreakdown
-                        ]
-                      }{" "}
-                      groups
-                    </Button>
-                    </Alert>
-                </CardContent>
-              )} */}
-
             {metricConfig && (
               <CardContent>
                 <ChoroplethMap
+                  selectedGroup={
+                    activeBreakdownFilter === "All"
+                      ? ""
+                      : ` for ${activeBreakdownFilter}`
+                  }
                   useSmallSampleMessage={
                     !mapQueryResponse.dataIsMissing() &&
                     (props.variableConfig.surveyCollectedData || false)

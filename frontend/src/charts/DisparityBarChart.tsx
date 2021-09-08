@@ -298,6 +298,18 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   return (
     <div ref={ref}>
       <Vega
+        // custom 3-dot options for states, hidden on territories
+        actions={{
+          export: { png: true, svg: false },
+          source: false,
+          compiled: false,
+          editor: false,
+        }}
+        downloadFileName={`${props.darkMetric.fullCardTitleName} by ${
+          BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+        } in - Health Equity Tracker ${new Date().toLocaleString("default", {
+          month: "short",
+        })} ${new Date().getFullYear()}`}
         spec={getSpec(
           data,
           width,
