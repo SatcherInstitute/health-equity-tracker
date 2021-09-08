@@ -287,11 +287,6 @@ function MapCardWithKey(props: MapCardProps) {
             {metricConfig && (
               <CardContent>
                 <ChoroplethMap
-                  selectedGroup={
-                    activeBreakdownFilter === "All"
-                      ? ""
-                      : ` for ${activeBreakdownFilter}`
-                  }
                   useSmallSampleMessage={
                     !mapQueryResponse.dataIsMissing() &&
                     (props.variableConfig.surveyCollectedData || false)
@@ -314,7 +309,13 @@ function MapCardWithKey(props: MapCardProps) {
                   fips={props.fips}
                   scaleType="quantile"
                   geoData={geoData}
+                  titleText={`${metricConfig.fullCardTitleName}${
+                    activeBreakdownFilter === "All"
+                      ? ""
+                      : ` for ${activeBreakdownFilter}`
+                  } in ${props.fips.getDisplayName()}`}
                 />
+                {/* generate additional VEGA canvases for territories on national map */}
                 {props.fips.isUsa() && (
                   <div className={styles.TerritoryCirclesContainer}>
                     {TERRITORY_CODES.map((code) => {
