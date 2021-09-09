@@ -18,6 +18,8 @@ import {
 } from "./utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "./pages/AboutUs/AboutUsPage";
 import { WIHE_FAQ_TAB_INDEX } from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
+import AppbarLogo from "./assets/AppbarLogo.png";
+import PartnerSatcher from "./assets/PartnerSatcher.png";
 
 function Footer() {
   return (
@@ -96,7 +98,8 @@ function Footer() {
           <img
             width="216"
             height="60"
-            src="img/PartnerSatcher.png"
+            src={PartnerSatcher}
+            // src="img/PartnerSatcher.png"
             alt="Satcher Health Leadership Institute Logo"
           />
         </Grid>
@@ -107,50 +110,64 @@ function Footer() {
 
 function Logos() {
   return (
-    <Grid container className={styles.Logos}>
-      <Grid item className={styles.LogosLeft}>
-        <ReactRouterLinkButton url="/" className={styles.ImageButton}>
-          <img
-            src="img/appbar/AppbarLogo.png"
-            className={styles.FooterLogo}
-            alt="Health Equity Tracker logo"
-            role="link"
-          />
-        </ReactRouterLinkButton>
-      </Grid>
-      <Grid item className={styles.LogosRight}>
-        <Grid container justify="flex-start" alignItems="flex-start">
-          <Grid item>
-            <span className={styles.FooterTitleSpan} aria-hidden="true">
-              Health Equity Tracker
-            </span>
-            <Grid container justify="center">
-              <Grid item className={styles.SocialsIcon}>
-                <a
-                  href="https://www.linkedin.com/in/satcherhealth"
-                  aria-label="Satcher Health on LinkedIn"
-                >
-                  <LinkedInIcon />
-                </a>
-              </Grid>
-              <Grid item className={styles.SocialsIcon}>
-                <a
-                  href="https://twitter.com/SatcherHealth"
-                  aria-label="Satcher Health on Twitter"
-                >
-                  <TwitterIcon />
-                </a>
-              </Grid>
-              <Grid item className={styles.SocialsIcon}>
-                <a
-                  href="https://www.youtube.com/channel/UC2sNXCD2KGLdyjqe6FGzMiA"
-                  aria-label="Satcher Health on YouTube"
-                >
-                  <YouTubeIcon />
-                </a>
+    <Grid container className={styles.LogosPlusSHLI}>
+      <Grid item xs={6} container className={styles.Logos}>
+        <Grid item className={styles.LogosLeft}>
+          <ReactRouterLinkButton url="/" className={styles.ImageButton}>
+            <img
+              // src="img/appbar/AppbarLogo.png"
+              src={AppbarLogo}
+              className={styles.FooterLogo}
+              alt="Health Equity Tracker logo"
+              role="link"
+            />
+          </ReactRouterLinkButton>
+        </Grid>
+        <Grid item className={styles.LogosRight}>
+          <Grid container justify="flex-start" alignItems="flex-start">
+            <Grid item>
+              <span className={styles.FooterTitleSpan} aria-hidden="true">
+                Health Equity Tracker
+              </span>
+              <Grid container justify="center">
+                <Grid item className={styles.SocialsIcon}>
+                  <a
+                    href="https://www.linkedin.com/in/satcherhealth"
+                    aria-label="Satcher Health on LinkedIn"
+                  >
+                    <LinkedInIcon />
+                  </a>
+                </Grid>
+                <Grid item className={styles.SocialsIcon}>
+                  <a
+                    href="https://twitter.com/SatcherHealth"
+                    aria-label="Satcher Health on Twitter"
+                  >
+                    <TwitterIcon />
+                  </a>
+                </Grid>
+                <Grid item className={styles.SocialsIcon}>
+                  <a
+                    href="https://www.youtube.com/channel/UC2sNXCD2KGLdyjqe6FGzMiA"
+                    aria-label="Satcher Health on YouTube"
+                  >
+                    <YouTubeIcon />
+                  </a>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
+        </Grid>
+      </Grid>
+      <Grid container className={styles.SHLI}>
+        <Grid item xs={6}>
+          <img
+            width="216"
+            height="60"
+            src={PartnerSatcher}
+            // src="img/PartnerSatcher.png"
+            alt="Satcher Health Leadership Institute Logo"
+          />
         </Grid>
       </Grid>
     </Grid>
