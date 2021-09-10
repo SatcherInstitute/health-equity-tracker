@@ -232,6 +232,17 @@ def load_csv_as_dataframe_from_web(url, dtype=None, params=None):
     return pandas.read_csv(url, dtype=dtype)
 
 
+def load_json_as_dataframe_from_web(url, dtype=None, params=None):
+    """Loads csv data from the provided url to a DataFrame.
+       Expects the data to be in csv format, with the first row as the column
+       names.
+
+       url: url to download the csv file from"""
+
+    url = requests.Request('GET', url, params=params).prepare().url
+    return pandas.read_json(url, dtype=dtype)
+
+
 def load_values_as_json(gcs_bucket, filename):
     """Loads data from the provided gcs_bucket and filename.
        Expects the data to be in the pandas 'values' format: a list of rows,

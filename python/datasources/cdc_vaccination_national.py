@@ -44,6 +44,8 @@ BREAKDOWN_MAP = {
     'age': CDC_AGE_GROUPS_TO_STANDARD,
 }
 
+BASE_CDC_URL = "https://covid.cdc.gov/covid-data-tracker/COVIDData/getAjaxData?id=vaccination_demographic_trends_data"
+
 
 def generate_total(df, demo_col):
     total = {}
@@ -76,36 +78,22 @@ class CDCVaccinationNational(DataSource):
             'upload_to_gcs should not be called for CDCVaccinationNational')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        gcs_files = self.get_attr(attrs, 'filename')
+        df = gcs_to_bq_util.load_json_as_dataframe_from_web(BASE_CDC_URL, dtype={'census': int, 'state_fips': str})
 
-        # In this instance, we expect filename to be a string with
-        # comma-separated CSV filenames.
-        if ',' not in gcs_files:
-            raise ValueError('filename passed to write_to_bq is not a '
-                             'comma-separated list of files')
-        files = gcs_files.split(',')
-        files.remove('')
-        print("Files that will be written to BQ:", files)
+        latest_date = df['Date'].max()
+        df = df.loc[df['Date'] == latest_date]
 
-        for f in files:
-            df = gcs_to_bq_util.load_csv_as_dataframe(
-                    gcs_bucket, f, dtype={'population': int, 'state_fips': str})
+        for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL, std_col.AGE_COL]:
+            breakdown_df = self.generate_breakdown(breakdown, df)
 
-            latest_date = df['Date'].max()
-            df = df.loc[df['Date'] == latest_date]
+            column_types = {c: 'STRING' for c in breakdown_df.columns}
+            column_types[std_col.VACCINATED_FIRST_DOSE] = 'INT64'
 
-            for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL, std_col.AGE_COL]:
-                breakdown_df = self.generate_breakdown(breakdown, df)
+            if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
+                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
-                column_types = {c: 'STRING' for c in breakdown_df.columns}
-                column_types[std_col.VACCINATED_FIRST_DOSE] = 'INT64'
-                column_types[std_col.POPULATION_COL] = 'INT64'
-
-                if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
-                    column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-
-                gcs_to_bq_util.add_dataframe_to_bq(
-                    breakdown_df, dataset, breakdown, column_types=column_types)
+            gcs_to_bq_util.add_dataframe_to_bq(
+                breakdown_df, dataset, breakdown, column_types=column_types)
 
     def generate_breakdown(self, breakdown, df):
         output = []
@@ -132,18 +120,21 @@ class CDCVaccinationNational(DataSource):
             else:
                 output_row[breakdown] = standard_group
 
-            row = df.loc[df['Demographic Group'] == cdc_group]
-            print(cdc_group)
-            output_row[std_col.VACCINATED_FIRST_DOSE] = row['People with at least one dose'].values[0]
-            output_row[std_col.POPULATION_COL] = row['Census'].values[0]
+            row = df.loc[df['Demographic_category'] == cdc_group]
+            output_row[std_col.VACCINATED_FIRST_DOSE] = row['Administered_Dose1'].values[0]
+
+            # Otherwise leave it as null
+            if standard_group != "Unknown" or standard_group != Race.UNKNOWN.value:
+                output_row[std_col.POPULATION_COL] = row['census'].values[0]
 
             output.append(output_row)
 
         output_df = pd.DataFrame(output, columns=columns)
 
+        print(output_df)
+
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
             output_df = generate_total(output_df, std_col.RACE_CATEGORY_ID_COL)
-            print(output_df)
             std_col.add_race_columns_from_category_id(output_df)
         else:
             output_df = generate_total(output_df, breakdown)

@@ -18,20 +18,20 @@ GOLDEN_DATA = {
 
 
 def get_state_test_data_as_df():
-    return pd.read_csv(
-        os.path.join(TEST_DIR, 'cdc_vaccination_national_test.csv'),
-        dtype={'population': int, 'state_fips': str},
+    return pd.read_json(
+        os.path.join(TEST_DIR, 'cdc_vaccination_national_test.json'),
+        dtype={'census': int, 'state_fips': str},
     )
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe',
+@mock.patch('ingestion.gcs_to_bq_util.load_json_as_dataframe_from_web',
             return_value=get_state_test_data_as_df())
 @mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
             return_value=None)
 def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     cdcVaccination = CDCVaccinationNational()
 
-    kwargs = {'filename': 'test_file.csv,',
+    kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',
               'table_name': 'output_table'}
 
@@ -43,7 +43,6 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     expected_dfs = {}
     for key, val in GOLDEN_DATA.items():
         # Set keep_default_na=False so that empty strings are not read as NaN.
-        print(val)
         expected_dfs[key] = pd.read_csv(val, dtype={'population': int, 'state_fips': str})
 
     for i in range(len(demos)):
