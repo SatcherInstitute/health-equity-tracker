@@ -74,7 +74,6 @@ export function Sources(props: {
   return (
     <>
       {Object.keys(dataSourceMap).length > 0 && <>Sources: </>}
-      {/* TODO- add commas and "and" between the data sources */}
       {Object.keys(dataSourceMap).map((dataSourceId, idx) => (
         <Fragment key={dataSourceId}>
           <LinkWithStickyParams
