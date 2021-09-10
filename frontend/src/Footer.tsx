@@ -76,13 +76,22 @@ function Footer() {
           item
           direction="column"
           xs={12}
-          lg={1}
+          md={1}
           alignItems="center"
           justify="center"
         >
-          <ReturnToTop />
+          <Hidden smUp>
+            <Grid item container justify="center">
+              <ReturnToTop />
+            </Grid>
+          </Hidden>
         </Grid>
       </Grid>
+      <Hidden xsDown>
+        <Grid item container justify="flex-end">
+          <ReturnToTop />
+        </Grid>
+      </Hidden>
     </div>
   );
 }
@@ -190,15 +199,13 @@ function LinkGridItem(props: {
 
 function ReturnToTop() {
   return (
-    <Grid item>
-      <Button
-        aria-label="Scroll to Top"
-        onClick={() => window.scrollTo(0, 0)}
-        className={styles.ScrollToTopButton}
-      >
-        <ArrowUpwardRoundedIcon />
-      </Button>
-    </Grid>
+    <Button
+      aria-label="Scroll to Top"
+      onClick={() => window.scrollTo(0, 0)}
+      className={styles.ScrollToTopButton}
+    >
+      <ArrowUpwardRoundedIcon />
+    </Button>
   );
 }
 
