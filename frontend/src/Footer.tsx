@@ -89,13 +89,7 @@ function Footer() {
 
 function Logos() {
   return (
-    <Grid
-      item
-      container
-      spacing={2}
-      justify="center"
-      className={styles.LogosPlusSHLI}
-    >
+    <Grid item container spacing={2} justify="center">
       <Grid
         container
         item
@@ -104,12 +98,10 @@ function Logos() {
         alignItems="center"
         justify="center"
         wrap="nowrap"
-        className={styles.Logos}
       >
         <Grid item className={styles.LogosLeft}>
           <ReactRouterLinkButton url="/" className={styles.ImageButton}>
             <img
-              // src="img/appbar/AppbarLogo.png"
               src={AppbarLogo}
               className={styles.FooterLogo}
               alt="Health Equity Tracker logo"
@@ -153,22 +145,14 @@ function Logos() {
           </Grid>
         </Grid>
       </Grid>
-      <Grid
-        item
-        xs={10}
-        sm={5}
-        container
-        justify="center"
-        alignItems="center"
-        className={styles.SHLI}
-      >
-        <img
-          width="216"
-          height="60"
-          src={PartnerSatcher}
-          // src="img/PartnerSatcher.png"
-          alt="Satcher Health Leadership Institute Logo"
-        />
+      <Grid item xs={10} sm={5} container justify="center" alignItems="center">
+        <ReactRouterLinkButton url="https://satcherinstitute.org">
+          <img
+            src={PartnerSatcher}
+            alt="Satcher Health Leadership Institute Logo"
+            role="link"
+          />
+        </ReactRouterLinkButton>
       </Grid>
     </Grid>
   );
