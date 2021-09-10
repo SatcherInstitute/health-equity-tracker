@@ -8,7 +8,7 @@ import {
 import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
 
-function addPunctuation(idx: number, numSources: number) {
+function insertPunctuation(idx: number, numSources: number) {
   let punctuation = "";
   // ADD COMMAS (INCL OXFORDS) FOR THREE OR MORE SOURCES
   if (numSources > 2 && idx < numSources - 1) punctuation += ", ";
@@ -90,7 +90,7 @@ export function Sources(props: {
               {Array.from(dataSourceMap[dataSourceId].updateTimes).join(", ")})
             </>
           )}
-          {addPunctuation(idx, Object.keys(dataSourceMap).length)}
+          {insertPunctuation(idx, Object.keys(dataSourceMap).length)}
         </Fragment>
       ))}
     </>
