@@ -64,7 +64,7 @@ export function Sources(props: {
     <>
       {Object.keys(dataSourceMap).length > 0 && <>Sources: </>}
       {/* TODO- add commas and "and" between the data sources */}
-      {Object.keys(dataSourceMap).map((dataSourceId) => (
+      {Object.keys(dataSourceMap).map((dataSourceId, idx) => (
         <Fragment key={dataSourceId}>
           <LinkWithStickyParams
             target="_blank"
@@ -77,9 +77,19 @@ export function Sources(props: {
           ) : (
             <>
               (updated{" "}
-              {Array.from(dataSourceMap[dataSourceId].updateTimes).join(", ")}){" "}
+              {Array.from(dataSourceMap[dataSourceId].updateTimes).join(", ")})
             </>
           )}
+          {/* ADD COMMAS INCL OXFORDS AND OR SPACES FOR THREE OR MORE SOURCES */}
+          {Object.keys(dataSourceMap).length > 2 &&
+          idx < Object.keys(dataSourceMap).length - 1
+            ? ", "
+            : " "}
+          {/* ADD "AND" BETWEEN LAST TWO SOURCES */}
+          {Object.keys(dataSourceMap).length > 1 &&
+          idx === Object.keys(dataSourceMap).length - 2
+            ? "and "
+            : ""}
         </Fragment>
       ))}
     </>
