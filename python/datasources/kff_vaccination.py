@@ -168,7 +168,6 @@ class KFFVaccination(DataSource):
         states = percentage_of_total_df['Location'].drop_duplicates().to_list()
         states.remove('United States')
 
-        print(total_df)
         for state in states:
             state_row_pct_share = pct_share_df.loc[pct_share_df['Location'] == state]
             state_row_pct_total = percentage_of_total_df.loc[percentage_of_total_df['Location'] == state]
