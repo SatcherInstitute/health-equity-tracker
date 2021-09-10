@@ -92,6 +92,7 @@ class CDCVaccinationNational(DataSource):
 
             column_types = {c: 'STRING' for c in breakdown_df.columns}
             column_types[std_col.VACCINATED_FIRST_DOSE] = 'INT64'
+            column_types[std_col.POPULATION_COL] = 'INT64'
 
             if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
                 column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
@@ -125,7 +126,7 @@ class CDCVaccinationNational(DataSource):
                 output_row[breakdown] = standard_group
 
             row = df.loc[df['Demographic_category'] == cdc_group]
-            output_row[std_col.VACCINATED_FIRST_DOSE] = row['Administered_Dose1'].values[0]
+            output_row[std_col.VACCINATED_FIRST_DOSE] = int(row['Administered_Dose1'].values[0])
 
             # Otherwise leave it as null
             if standard_group != "Unknown" or standard_group != Race.UNKNOWN.value:
@@ -134,8 +135,6 @@ class CDCVaccinationNational(DataSource):
             output.append(output_row)
 
         output_df = pd.DataFrame(output, columns=columns)
-
-        print(output_df)
 
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
             output_df = generate_total(output_df, std_col.RACE_CATEGORY_ID_COL)
