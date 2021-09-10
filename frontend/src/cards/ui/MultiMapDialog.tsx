@@ -65,7 +65,13 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
           {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups
         </Typography>
         <Grid container justify="space-around">
-          <Grid item className={styles.SmallMultipleLegendMap}>
+          <Grid
+            xs={12}
+            sm={6}
+            md={4}
+            item
+            className={styles.SmallMultipleLegendMap}
+          >
             <b>Legend</b>
             <div className={styles.LegendDiv}>
               <Legend
@@ -83,6 +89,9 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             );
             return (
               <Grid
+                xs={12}
+                sm={6}
+                md={4}
                 item
                 key={`${breakdownValue}-grid-item`}
                 className={styles.SmallMultipleMap}
