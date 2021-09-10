@@ -119,7 +119,7 @@ def generate_output_row(state_row_pct_share, state_row_pct_total, state, race):
 
 
 def generate_total_row(state_row_totals, state):
-    """Generates the total vaccinated percentage row for a givcen state
+    """Generates the total vaccinated percentage row for a given state
 
     state_row_totals: Pandas dataframe row with state vaccination totals information
     state: String of state name
