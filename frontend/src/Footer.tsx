@@ -29,7 +29,15 @@ function Footer() {
           <Logos />
         </Grid>
 
-        <Grid item xs={12} lg={6} xl={4} className={styles.LinksContainer}>
+        <Grid
+          item
+          xs={12}
+          sm={12}
+          md={10}
+          lg={6}
+          xl={4}
+          className={styles.LinksContainer}
+        >
           <Grid
             className={styles.Links}
             justify="space-between"
@@ -76,7 +84,7 @@ function Footer() {
           item
           direction="column"
           xs={12}
-          md={1}
+          xl={1}
           alignItems="center"
           justify="center"
         >
@@ -85,13 +93,13 @@ function Footer() {
               <ReturnToTop />
             </Grid>
           </Hidden>
+          <Hidden xsDown>
+            <Grid item container justify="flex-end">
+              <ReturnToTop />
+            </Grid>
+          </Hidden>
         </Grid>
       </Grid>
-      <Hidden xsDown>
-        <Grid item container justify="flex-end">
-          <ReturnToTop />
-        </Grid>
-      </Hidden>
     </div>
   );
 }
