@@ -81,7 +81,7 @@ class CDCVaccinationNational(DataSource):
         df = gcs_to_bq_util.load_json_as_df_from_web_based_on_key(
             BASE_CDC_URL,
             "vaccination_demographic_trends_data",
-            dtype={'census': int, 'state_fips': str}
+            dtype=str
         )
 
         latest_date = df['Date'].max()
@@ -129,7 +129,7 @@ class CDCVaccinationNational(DataSource):
 
             # Otherwise leave it as null
             if standard_group != "Unknown" or standard_group != Race.UNKNOWN.value:
-                output_row[std_col.POPULATION_COL] = row['census'].values[0]
+                output_row[std_col.POPULATION_COL] = int(row['census'].values[0])
 
             output.append(output_row)
 
