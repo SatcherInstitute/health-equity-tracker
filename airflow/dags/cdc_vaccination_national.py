@@ -4,6 +4,10 @@ from airflow.utils.dates import days_ago  # type: ignore
 
 import util
 
+_CDC_VACCINATION_NATIONAL_GCS_FILENAMES = (
+    'cdc_vaccination_national_data.csv,'
+    )
+
 _CDC_VACCINATION_NATIONAL_WORKFLOW_ID = 'CDC_VACCINATION_NATIONAL'
 _CDC_VACCINATION_NATIONAL_DATASET_NAME = 'cdc_vaccination_national'
 

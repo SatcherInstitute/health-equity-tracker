@@ -8,13 +8,10 @@ from ingestion import gcs_to_bq_util
 from ingestion.constants import Sex
 
 
-BASE_CDC_URL = 'https://data.cdc.gov/resource/km4m-vcsb.csv'
-
 CDC_SEX_GROUPS_TO_STANDARD = {
     'Sex_Female': Sex.FEMALE,
     'Sex_Male': Sex.MALE,
     'Sex_unknown': 'Unknown',
-    'US': std_col.TOTAL_VALUE,
 }
 
 CDC_RACE_GROUPS_TO_STANDARD = {
@@ -26,10 +23,10 @@ CDC_RACE_GROUPS_TO_STANDARD = {
     'Race_eth_NHNHOPI': Race.NHPI_NH.value,
     'Race_eth_NHWhite': Race.WHITE_NH.value,
     'Race_eth_unknown': Race.UNKNOWN.value,
-    'US': Race.TOTAL.value,
 }
 
 CDC_AGE_GROUPS_TO_STANDARD = {
+    'Ages_<12yrs': '0-12',
     'Ages_12-15_yrs': '12-15',
     'Ages_16-17_yrs': '16-17',
     'Ages_18-24_yrs': '18-24',
@@ -39,7 +36,6 @@ CDC_AGE_GROUPS_TO_STANDARD = {
     'Ages_65-74_yrs': '65-74',
     'Ages_75+_yrs': '75+',
     'Age_unknown': 'Unknown',
-    'US': std_col.TOTAL_VALUE,
 }
 
 BREAKDOWN_MAP = {
@@ -49,23 +45,20 @@ BREAKDOWN_MAP = {
 }
 
 
-# HACK: AFACT the only way to compute these numbers are by using the estimates
-# found here: https://www.census.gov/data/tables/2020/demo/popest/2020-demographic-analysis-tables.html
+def generate_total(df, demo_col):
+    total = {}
 
-# To save time and effort I just took these numbers from the CDC (which used the above
-# source to calculate them) and am putting them here directly.
-VACCINE_AGE_POPULATION_PCT = {
-  "12-15": 5.0,
-  "16-17": 2.5,
-  "18-24": 9.2,
-  "25-39": 20.5,
-  "40-49": 12.2,
-  "50-64": 19.4,
-  "65-74": 9.8,
-  "75+": 7.0,
-  std_col.TOTAL_VALUE: 100,
-  "Unknown": None,
-}
+    total[std_col.VACCINATED_FIRST_DOSE] = df[std_col.VACCINATED_FIRST_DOSE].sum()
+    total[std_col.POPULATION_COL] = df[std_col.POPULATION_COL].sum()
+    total[std_col.STATE_NAME_COL] = 'United States'
+    total[std_col.STATE_FIPS_COL] = '00'
+    if demo_col == std_col.RACE_CATEGORY_ID_COL:  # Special case required due to later processing.
+        total[demo_col] = std_col.Race.TOTAL.value
+    else:
+        total[demo_col] = std_col.TOTAL_VALUE
+
+    df = df.append(total, ignore_index=True)
+    return df
 
 
 class CDCVaccinationNational(DataSource):
@@ -83,37 +76,51 @@ class CDCVaccinationNational(DataSource):
             'upload_to_gcs should not be called for CDCVaccinationNational')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_CDC_URL)
+        gcs_files = self.get_attr(attrs, 'filename')
 
-        latest_date = df['date'].max()
-        df = df.loc[df['date'] == latest_date]
+        # In this instance, we expect filename to be a string with
+        # comma-separated CSV filenames.
+        if ',' not in gcs_files:
+            raise ValueError('filename passed to write_to_bq is not a '
+                             'comma-separated list of files')
+        files = gcs_files.split(',')
+        files.remove('')
+        print("Files that will be written to BQ:", files)
 
-        for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL, std_col.AGE_COL]:
-            breakdown_df = self.generate_breakdown(breakdown, df)
+        for f in files:
+            df = gcs_to_bq_util.load_csv_as_dataframe(
+                    gcs_bucket, f, dtype={'population': int, 'state_fips': str})
 
-            column_types = {c: 'STRING' for c in breakdown_df.columns}
-            column_types[std_col.VACCINATED_FIRST_DOSE] = 'INT64'
+            latest_date = df['Date'].max()
+            df = df.loc[df['Date'] == latest_date]
 
-            if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
-                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+            for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL, std_col.AGE_COL]:
+                breakdown_df = self.generate_breakdown(breakdown, df)
 
-            if std_col.AGE_COL in breakdown_df.columns:
-                column_types[std_col.POPULATION_PCT_COL] = 'FLOAT'
+                column_types = {c: 'STRING' for c in breakdown_df.columns}
+                column_types[std_col.VACCINATED_FIRST_DOSE] = 'INT64'
+                column_types[std_col.POPULATION_COL] = 'INT64'
 
-            gcs_to_bq_util.add_dataframe_to_bq(
-                breakdown_df, dataset, breakdown, column_types=column_types)
+                if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
+                    column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+
+                gcs_to_bq_util.add_dataframe_to_bq(
+                    breakdown_df, dataset, breakdown, column_types=column_types)
 
     def generate_breakdown(self, breakdown, df):
         output = []
 
-        columns = [std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL, std_col.VACCINATED_FIRST_DOSE]
+        columns = [
+            std_col.STATE_NAME_COL,
+            std_col.STATE_FIPS_COL,
+            std_col.VACCINATED_FIRST_DOSE,
+            std_col.POPULATION_COL,
+        ]
+
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
             columns.append(std_col.RACE_CATEGORY_ID_COL)
         else:
             columns.append(breakdown)
-
-        if breakdown == std_col.AGE_COL:
-            columns.append(std_col.POPULATION_PCT_COL)
 
         for cdc_group, standard_group in BREAKDOWN_MAP[breakdown].items():
             output_row = {}
@@ -125,17 +132,20 @@ class CDCVaccinationNational(DataSource):
             else:
                 output_row[breakdown] = standard_group
 
-            if breakdown == std_col.AGE_COL:
-                output_row[std_col.POPULATION_PCT_COL] = VACCINE_AGE_POPULATION_PCT[standard_group]
-
-            row = df.loc[df['demographic_category'] == cdc_group]['administered_dose1']
-            output_row[std_col.VACCINATED_FIRST_DOSE] = row.values[0]
+            row = df.loc[df['Demographic Group'] == cdc_group]
+            print(cdc_group)
+            output_row[std_col.VACCINATED_FIRST_DOSE] = row['People with at least one dose'].values[0]
+            output_row[std_col.POPULATION_COL] = row['Census'].values[0]
 
             output.append(output_row)
 
         output_df = pd.DataFrame(output, columns=columns)
 
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
+            output_df = generate_total(output_df, std_col.RACE_CATEGORY_ID_COL)
+            print(output_df)
             std_col.add_race_columns_from_category_id(output_df)
+        else:
+            output_df = generate_total(output_df, breakdown)
 
         return output_df
