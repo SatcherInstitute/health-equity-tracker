@@ -56,7 +56,7 @@ def get_data_url(data_type):
         'pct_total': 'Percent of Total Population that has Received a COVID-19 Vaccine by RaceEthnicity',
         'pct_share': 'COVID19 Vaccinations by RE',
     }
-    df = github_util.load_json_as_df_from_web_based_on_key(BASE_GITHUB_API_URL, "tree")
+    df = gcs_to_bq_util.load_json_as_df_from_web_based_on_key(BASE_GITHUB_API_URL, "tree")
     df = df.loc[df['path'].str.contains(data_types_to_strings[data_type])]
     urls = df.loc[df['path'] == df['path'].max()].url
 

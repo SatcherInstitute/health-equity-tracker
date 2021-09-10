@@ -30,13 +30,13 @@ def get_state_totals_test_data_as_df():
     return pd.read_csv(os.path.join(TEST_DIR, 'kff_vaccination_state_totals_test.csv'), dtype={'one_dose': str})
 
 
-@mock.patch('ingestion.github_util.load_json_as_df_from_web_based_on_key',
+@mock.patch('ingestion.gcs_to_bq_util.load_json_as_df_from_web_based_on_key',
             return_value=get_github_file_list_as_df())
 def testGetDataUrlPctTotal(mock_json: mock.MagicMock):
     assert get_data_url('pct_total') == "some-up-to-date-url"
 
 
-@mock.patch('ingestion.github_util.load_json_as_df_from_web_based_on_key',
+@mock.patch('ingestion.gcs_to_bq_util.load_json_as_df_from_web_based_on_key',
             return_value=get_github_file_list_as_df())
 def testGetDataUrlPctShare(mock_json: mock.MagicMock):
     assert get_data_url('pct_share') == "some-other-up-to-date-url"

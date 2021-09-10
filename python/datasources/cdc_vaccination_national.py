@@ -78,7 +78,11 @@ class CDCVaccinationNational(DataSource):
             'upload_to_gcs should not be called for CDCVaccinationNational')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        df = gcs_to_bq_util.load_json_as_dataframe_from_web(BASE_CDC_URL, dtype={'census': int, 'state_fips': str})
+        df = gcs_to_bq_util.load_json_as_df_from_web_based_on_key(
+            BASE_CDC_URL,
+            "vaccination_demographic_trends_data",
+            dtype={'census': int, 'state_fips': str}
+        )
 
         latest_date = df['Date'].max()
         df = df.loc[df['Date'] == latest_date]

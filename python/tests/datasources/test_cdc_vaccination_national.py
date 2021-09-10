@@ -24,7 +24,7 @@ def get_state_test_data_as_df():
     )
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_json_as_dataframe_from_web',
+@mock.patch('ingestion.gcs_to_bq_util.load_json_as_df_from_web_based_on_key',
             return_value=get_state_test_data_as_df())
 @mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
             return_value=None)
