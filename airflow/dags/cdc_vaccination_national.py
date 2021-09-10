@@ -1,12 +1,13 @@
 # Ignore the Airflow module, it is installed in both dev and prod
 from airflow import DAG  # type: ignore
+from airflow.models import Variable
 from airflow.utils.dates import days_ago  # type: ignore
 
 import util
 
 _CDC_VACCINATION_NATIONAL_GCS_FILENAMES = (
     'cdc_vaccination_national_data.csv,'
-    )
+)
 
 _CDC_VACCINATION_NATIONAL_WORKFLOW_ID = 'CDC_VACCINATION_NATIONAL'
 _CDC_VACCINATION_NATIONAL_DATASET_NAME = 'cdc_vaccination_national'
@@ -22,7 +23,10 @@ data_ingestion_dag = DAG(
     description='Ingestion configuration for CDC Vaccination National')
 
 cdc_vaccination_national_bq_payload = util.generate_bq_payload(
-    _CDC_VACCINATION_NATIONAL_WORKFLOW_ID, _CDC_VACCINATION_NATIONAL_DATASET_NAME)
+    _CDC_VACCINATION_NATIONAL_WORKFLOW_ID,
+    _CDC_VACCINATION_NATIONAL_DATASET_NAME,
+    gcs_bucket=Variable.get('GCS_MANUAL_UPLOADS_BUCKET'),
+    filename=_CDC_VACCINATION_NATIONAL_GCS_FILENAMES)
 cdc_vaccination_national_bq_operator = util.create_bq_ingest_operator(
     'cdc_vaccination_national_to_bq', cdc_vaccination_national_bq_payload, data_ingestion_dag)
 
