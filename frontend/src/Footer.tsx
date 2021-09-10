@@ -90,16 +90,9 @@ function Footer() {
           alignItems="center"
           justify="center"
         >
-          <Hidden lgUp>
-            <Grid item container justify="center">
-              <ReturnToTop />
-            </Grid>
-          </Hidden>
-          <Hidden mdDown>
-            <Grid item container justify="center">
-              <ReturnToTop />
-            </Grid>
-          </Hidden>
+          <Grid item container justify="center">
+            <ReturnToTop />
+          </Grid>
         </Grid>
       </Grid>
     </div>
