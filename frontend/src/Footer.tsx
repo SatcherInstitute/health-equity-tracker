@@ -96,7 +96,7 @@ function Footer() {
             </Grid>
           </Hidden>
           <Hidden mdDown>
-            <Grid item container justify="flex-end">
+            <Grid item container justify="center">
               <ReturnToTop />
             </Grid>
           </Hidden>
