@@ -24,20 +24,12 @@ import PartnerSatcher from "./assets/PartnerSatcher.png";
 function Footer() {
   return (
     <div className={styles.Footer}>
-      <Grid container justify="space-between" alignItems="flex-start">
-        <Grid item xs={12} sm={12} md={4} className={styles.FooterGrid}>
+      <Grid container justify="space-around" alignItems="center">
+        <Grid item xs={12} sm={12} lg={6} xl={4} className={styles.FooterGrid}>
           <Logos />
         </Grid>
 
-        <Grid
-          item
-          xs={8}
-          sm={12}
-          md={8}
-          lg={6}
-          xl={4}
-          className={styles.LinksContainer}
-        >
+        <Grid item xs={12} lg={6} xl={4} className={styles.LinksContainer}>
           <Grid
             className={styles.Links}
             justify="space-between"
@@ -66,42 +58,29 @@ function Footer() {
                 ariaLabel={ariaLabel}
               />
             ))}
-            <Hidden smDown>
-              <Grid item sm={12}>
-                <span className={styles.CopyrightSpanLargerWindow}>
-                  Copyright 2021
-                </span>
-              </Grid>
-            </Hidden>
           </Grid>
+          <Hidden xsDown>
+            <Grid item container justify="flex-end">
+              <span className={styles.CopyrightSpan}>&copy;2021</span>
+            </Grid>
+          </Hidden>
+          <Hidden smUp>
+            <Grid item container justify="center">
+              <span className={styles.CopyrightSpan}>&copy;2021</span>
+            </Grid>
+          </Hidden>
         </Grid>
 
         <Grid
           container
           item
           direction="column"
-          md={12}
+          xs={12}
           lg={1}
           alignItems="center"
           justify="center"
         >
-          <Hidden mdUp>
-            <Grid item>
-              <span className={styles.CopyrightSpanSmallerWindow}>
-                Copyright 2021
-              </span>
-            </Grid>
-          </Hidden>
           <ReturnToTop />
-        </Grid>
-        <Grid item xs={12}>
-          <img
-            width="216"
-            height="60"
-            src={PartnerSatcher}
-            // src="img/PartnerSatcher.png"
-            alt="Satcher Health Leadership Institute Logo"
-          />
         </Grid>
       </Grid>
     </div>
@@ -110,8 +89,23 @@ function Footer() {
 
 function Logos() {
   return (
-    <Grid container className={styles.LogosPlusSHLI}>
-      <Grid item xs={6} container className={styles.Logos}>
+    <Grid
+      item
+      container
+      spacing={2}
+      justify="center"
+      className={styles.LogosPlusSHLI}
+    >
+      <Grid
+        container
+        item
+        xs={10}
+        sm={5}
+        alignItems="center"
+        justify="center"
+        wrap="nowrap"
+        className={styles.Logos}
+      >
         <Grid item className={styles.LogosLeft}>
           <ReactRouterLinkButton url="/" className={styles.ImageButton}>
             <img
@@ -125,7 +119,7 @@ function Logos() {
         </Grid>
         <Grid item className={styles.LogosRight}>
           <Grid container justify="flex-start" alignItems="flex-start">
-            <Grid item>
+            <Grid item xs={12}>
               <span className={styles.FooterTitleSpan} aria-hidden="true">
                 Health Equity Tracker
               </span>
@@ -159,16 +153,22 @@ function Logos() {
           </Grid>
         </Grid>
       </Grid>
-      <Grid container className={styles.SHLI}>
-        <Grid item xs={6}>
-          <img
-            width="216"
-            height="60"
-            src={PartnerSatcher}
-            // src="img/PartnerSatcher.png"
-            alt="Satcher Health Leadership Institute Logo"
-          />
-        </Grid>
+      <Grid
+        item
+        xs={10}
+        sm={5}
+        container
+        justify="center"
+        alignItems="center"
+        className={styles.SHLI}
+      >
+        <img
+          width="216"
+          height="60"
+          src={PartnerSatcher}
+          // src="img/PartnerSatcher.png"
+          alt="Satcher Health Leadership Institute Logo"
+        />
       </Grid>
     </Grid>
   );
