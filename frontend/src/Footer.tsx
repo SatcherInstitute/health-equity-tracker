@@ -84,16 +84,18 @@ function Footer() {
           item
           direction="column"
           xs={12}
+          md={1}
+          lg={12}
           xl={1}
           alignItems="center"
           justify="center"
         >
-          <Hidden smUp>
+          <Hidden lgUp>
             <Grid item container justify="center">
               <ReturnToTop />
             </Grid>
           </Hidden>
-          <Hidden xsDown>
+          <Hidden mdDown>
             <Grid item container justify="flex-end">
               <ReturnToTop />
             </Grid>
