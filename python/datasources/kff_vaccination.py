@@ -52,6 +52,10 @@ KFF_RACES_TO_STANDARD = {
 
 
 def get_data_url(data_type):
+    """Gets the latest url from the kff's github data repo for the given data type
+
+    data_type: string value representing which url to get from the github api; must be either 'pct_total' or 'pct_share'
+    """
     data_types_to_strings = {
         'pct_total': 'Percent of Total Population that has Received a COVID-19 Vaccine by RaceEthnicity',
         'pct_share': 'COVID19 Vaccinations by RE',

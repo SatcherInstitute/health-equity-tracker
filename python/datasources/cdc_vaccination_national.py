@@ -48,6 +48,11 @@ BASE_CDC_URL = "https://covid.cdc.gov/covid-data-tracker/COVIDData/getAjaxData?i
 
 
 def generate_total(df, demo_col):
+    """Generates a total row for a dataframe with national vaccine demographic information.
+
+    df: dataframe with national vaccine information for one demographic category
+    demo_col: the demographiv category the df has data for
+    """
     total = {}
 
     total[std_col.VACCINATED_FIRST_DOSE] = df[std_col.VACCINATED_FIRST_DOSE].sum()
