@@ -1,0 +1,10 @@
+state_name,state_fips,vaccinated_first_dose,race_category_id,race,race_includes_hispanic,race_and_ethnicity,population
+United States,00,21032125,HISP,Hispanic or Latino,TRUE,Hispanic or Latino,52218655
+United States,00,1283963,AIAN_NH,American Indian and Alaska Native,FALSE,American Indian and Alaska Native (Non-Hispanic),2341202
+United States,00,7483501,ASIAN_NH,Asian,FALSE,Asian (Non-Hispanic),17542907
+United States,00,12544295,BLACK_NH,Black or African American,FALSE,Black or African American (Non-Hispanic),37653641
+United States,00,5426568,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,FALSE,Two or more races & Some other race (Non-Hispanic),6900162
+United States,00,400335,NHPI_NH,Native Hawaiian and Pacific Islander,FALSE,Native Hawaiian and Pacific Islander (Non-Hispanic),891847
+United States,00,73567752,WHITE_NH,White,FALSE,White (Non-Hispanic),185445418
+United States,00,69064270,UNKNOWN,Unknown race,TRUE,Unknown race,0
+United States,00,190802809,TOTAL,Total,,Total,302993832

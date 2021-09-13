@@ -13,7 +13,7 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 # The raw test data in the data/ directory is available for easier updating in
 # spreadsheet form here:
 # https://docs.google.com/spreadsheets/d/1idct5vIDleqqQdXZxoyDfr5ymbxr91wRJ0oUBIx2XPU/edit?usp=sharing&resourcekey=0-BkvgsgfjcC8eEYE2tc8WVA
-TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data")
+TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "cdc_restricted")
 TEST_DATA = [
     "COVID_Cases_Restricted_Detailed_04302021_Part_1.csv",
     "COVID_Cases_Restricted_Detailed_04302021_Part_2.csv",

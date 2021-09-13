@@ -31,6 +31,7 @@ COUNTY_FIPS_COL = "county_fips"
 COUNTY_NAME_COL = "county_name"
 POPULATION_COL = "population"
 INCOME_COL = "income"
+POPULATION_PCT_COL = "population_pct"
 
 TOTAL_VALUE = "Total"
 ALL_VALUE = "All"
@@ -55,6 +56,9 @@ BELOW_POVERTY_COL = "below_poverty_line"
 COPD_PCT = "copd_pct"
 DIABETES_PCT = "diabetes_pct"
 
+VACCINATED_FIRST_DOSE = "vaccinated_first_dose"
+VACCINATED_PCT = "vaccinated_pct"
+VACCINATED_PCT_SHARE = "vaccinated_pct_share"
 
 RaceTuple = namedtuple("RaceTuple", [
     "race_category_id",
