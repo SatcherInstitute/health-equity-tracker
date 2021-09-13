@@ -124,12 +124,13 @@ function nationalRow(
       state_fips: USA.code,
       state_name: USA.name,
       vaccinated_first_dose: vaccinated_first_dose,
+      population: population,
     },
     {
       state_fips: USA.code,
       state_name: USA.name,
-      race_and_ethnicity: breakdownValue,
       population: population,
+      race_and_ethnicity: breakdownValue,
     },
   ];
 }
