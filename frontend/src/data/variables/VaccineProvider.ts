@@ -62,7 +62,7 @@ class VaccineProvider extends VariableProvider {
 
     if (breakdowns.geography === "national") {
       const acsQueryResponse = await this.acsProvider.getData(
-        new MetricQuery(["population", "population_pct"], acsBreakdowns)
+        new MetricQuery(["population_pct"], acsBreakdowns)
       );
 
       consumedDatasetIds = consumedDatasetIds.concat(

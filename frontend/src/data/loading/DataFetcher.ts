@@ -126,6 +126,7 @@ export class ApiDataFetcher implements DataFetcher {
         return {
           ...row,
           vaccinated_first_dose: Number(row["vaccinated_first_dose"]),
+          population: Number(row["population"]),
         };
       });
     } else if (datasetId.startsWith("kff_vaccination")) {

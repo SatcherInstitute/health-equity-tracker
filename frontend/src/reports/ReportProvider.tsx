@@ -187,6 +187,14 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           reports on deaths. <b>Rhode Island </b> appears as grey when viewing
           reports on hospitalizations but is incluided when viewing deaths.
         </p>
+        <h3>Missing Vaccination Data</h3>
+        <p>
+          There is no county level vaccine demographic dataset, so we show
+          county totals according to the CDC to provide context. Furthermore,
+          <b>Texas</b> does not provide vaccine demographic information to the
+          CDC, so all national vaccine numbers exclude Texas, and Texas’s
+          population isn’t counted in the national per 100k population metrics.
+        </p>
         <h3>Missing Population Data</h3>
         <p>
           The census bureau does not release population data for the{" "}

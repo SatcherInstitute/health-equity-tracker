@@ -66,8 +66,8 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "The numbers of confirmed COVID-19 deaths, cases, and hospitalizations at the state and county levels. " +
       "The data source is Centers for Disease Control and Prevention, COVID-19 Response. COVID-19 Case " +
-      "Surveillance Data Access, Summary, and Limitations (8/18/2021). The last case data included is 2 " +
-      "weeks before 8/18/2021. The CDC does not take responsibility for the scientific validity " +
+      "Surveillance Data Access, Summary, and Limitations (8/31/2021). The last case data included is 2 " +
+      "weeks before 8/31/2021. The CDC does not take responsibility for the scientific validity " +
       "or accuracy of methodology, results, statistical analyses, or conclusions presented. This " +
       "dataset is not available for download, please press the button below to apply for access.",
     dataset_ids: [
@@ -102,7 +102,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_name:
       "CDC COVID-19 Vaccination Demographics in the United States, National",
     data_source_link:
-      "https://data.cdc.gov/Vaccinations/COVID-19-Vaccination-Demographics-in-the-United-St/km4m-vcsb",
+      "https://covid.cdc.gov/covid-data-tracker/#vaccination-demographics-trends",
     geographic_level: "National",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Daily",
@@ -111,7 +111,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
       "in the United States at national level. Data represents all vaccine partners " +
       "including jurisdictional partner clinics, retail pharmacies, long-term care facilities, " +
       "dialysis centers, Federal Emergency Management Agency and Health Resources and Services " +
-      "Administration partner sites, and federal entity facilities.",
+      "Administration partner sites, and federal entity facilities. (CDC 2021)",
     dataset_ids: [
       "cdc_vaccination_national-age",
       "cdc_vaccination_national-race_and_ethnicity",
