@@ -190,7 +190,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         <h3>Missing Vaccination Data</h3>
         <p>
           There is no county level vaccine demographic dataset, so we show
-          county totals according to the CDC to provide context. Furthermore,
+          county totals according to the CDC to provide context. Furthermore,{" "}
           <b>Texas</b> does not provide vaccine demographic information to the
           CDC, so all national vaccine numbers exclude Texas, and Texas’s
           population isn’t counted in the national per 100k population metrics.
