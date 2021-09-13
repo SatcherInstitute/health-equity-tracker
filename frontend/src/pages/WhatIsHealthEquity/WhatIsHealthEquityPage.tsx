@@ -17,20 +17,10 @@ export const WIHE_FAQ_TAB_INDEX = 1;
 export const WIHE_JOIN_THE_EFFORT_SECTION_ID = "join";
 
 export default function WhatIsHealthEquityPage() {
-  // const params = useSearchParams();
-
   // responsive tabs layout to fix mobile bug
   const theme = useTheme();
   const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
   const [tabLayout, setTabLayout] = React.useState({});
-
-  // const [tabIndex, setTabIndex] = React.useState(
-  //   params[TAB_PARAM] ? Number(params[TAB_PARAM]) : 0
-  // );
-
-  // const handleChange = (event: React.ChangeEvent<{}>, newTabIndex: number) => {
-  //   setTabIndex(newTabIndex);
-  // };
 
   // when screen width changes, update tab spacing material UI attribute
   useEffect(() => {

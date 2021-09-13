@@ -12,8 +12,10 @@ import {
   ALL_MEDIA,
   ReactRouterLinkButton,
 } from "../../utils/urlutils";
-import { Link } from "react-router-dom";
+import { BrowserRouter, Link, Route } from "react-router-dom";
 import { Button } from "@material-ui/core";
+import AllPosts from "./Blog/AllPosts";
+import SinglePost from "./Blog/SinglePost";
 
 function BlogTab() {
   const [articles, setArticles] = useState<any[]>([]);
@@ -53,11 +55,6 @@ function BlogTab() {
       });
   }, []);
 
-  // useEffect(() => {
-  //   // TODO: onClick for each preview card should set full article
-  //   articles[0] && setFullArticle(articles[0]);
-  // }, [articles]);
-
   return (
     <div className={styles.WhatIsHealthEquityPage}>
       <Helmet>
@@ -70,6 +67,20 @@ function BlogTab() {
           direction="column"
           justify="center"
         >
+          <BrowserRouter>
+            <div>
+              <Route
+                component={AllPosts}
+                path="/whatishealthequity/blog/"
+                exact
+              />
+              <Route
+                component={SinglePost}
+                path="/whatishealthequity/blog/:slug"
+              />
+            </div>
+          </BrowserRouter>
+
           {/* SEE SELECTED ARTICLE EXPANDED, PLUS ADDITIONAL LINKS TO OTHER */}
           {fullArticle && (
             <Grid
