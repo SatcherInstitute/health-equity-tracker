@@ -174,7 +174,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   <b>{props.fips.getChildFipsTypeDisplayName()}</b> level. Learn
                   more about how this lack of data impacts{" "}
                   <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
-                    health equity
+                    health equity.
                   </LinkWithStickyParams>
                 </Alert>
               )}
