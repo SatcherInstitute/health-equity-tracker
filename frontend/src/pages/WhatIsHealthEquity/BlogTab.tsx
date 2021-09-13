@@ -151,15 +151,11 @@ function BlogTab() {
                         src={post.media_info.source_url}
                         alt=""
                       />
-                      <Button
-                        onClick={() => {
-                          setFullArticle(post);
-                        }}
-                      >
+                      <Link to={`/whatishealthequity/blog/${post.slug}`}>
                         <h2 className={styles.NewsAndStoriesTitleText}>
                           {parse(post.title.rendered)}
                         </h2>
-                      </Button>
+                      </Link>
                     </Grid>
                   );
                 })}
