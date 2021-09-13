@@ -60,7 +60,7 @@ class VaccineProvider extends VariableProvider {
 
     let consumedDatasetIds = [datasetId];
 
-    if (breakdowns.geography === "national" && breakdownColumnName !== "age") {
+    if (breakdowns.geography === "national") {
       const acsQueryResponse = await this.acsProvider.getData(
         new MetricQuery(["population_pct"], acsBreakdowns)
       );
