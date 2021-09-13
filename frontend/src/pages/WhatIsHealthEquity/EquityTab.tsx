@@ -124,8 +124,7 @@ function EquityTab() {
                 variant="h1"
                 paragraph={true}
               >
-                {wordpressCopy.section1_headingLevel1 ||
-                  fallbackCopyWIHE.section1_headingLevel1}
+                What Is Health Equity?
               </Typography>
             </Box>
             <Typography
