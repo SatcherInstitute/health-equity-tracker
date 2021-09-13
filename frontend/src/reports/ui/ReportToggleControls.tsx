@@ -78,8 +78,7 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
           </ToggleButtonGroup>
         </Grid>
       )}
-      {/* replace hardcoded string with METRIC_CONFIG["vaccinated"].variableId once available */}
-      {props.variableConfig.variableId !== "vaccinated" && (
+      {
         <Grid item className={styles.ToggleBlock}>
           <div className={styles.ToggleLabel}>{DEMOGRAPHIC_LABEL}</div>
           <div id="onboarding-explore-trends">
@@ -112,7 +111,7 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
             </ToggleButtonGroup>
           </div>
         </Grid>
-      )}
+      }
     </Grid>
   );
 }

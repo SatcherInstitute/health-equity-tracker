@@ -3,7 +3,11 @@ import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
-import { VariableConfig, formatFieldValue } from "../data/config/MetricConfig";
+import {
+  VariableConfig,
+  formatFieldValue,
+  METRIC_CONFIG,
+} from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
   Breakdowns,
@@ -90,6 +94,11 @@ function MapCardWithKey(props: MapCardProps) {
     metricQuery(Breakdowns.forFips(props.fips)),
   ];
 
+  // hide demographic selectors / dropdowns / links to multipmap if displaying VACCINATION at COUNTY level, as we don't have that data
+  const hideDemographicUI =
+    props.variableConfig.variableId ===
+      METRIC_CONFIG["vaccinated"][0].variableId && props.fips.isCounty();
+
   return (
     <CardWrapper
       queries={queries}
@@ -163,37 +172,35 @@ function MapCardWithKey(props: MapCardProps) {
               />
             </CardContent>
 
-            {/* replace hard coded vaxx string with METRIC_CONFIG["vaccinated"].variableId once available */}
-            {!mapQueryResponse.dataIsMissing() &&
-              props.variableConfig.variableId !== "vaccinated" && (
-                <>
-                  <Divider />
-                  <CardContent className={styles.SmallMarginContent}>
-                    <Grid
-                      container
-                      justify="space-between"
-                      align-items="flex-end"
-                    >
-                      <Grid item>
-                        <DropDownMenu
-                          value={activeBreakdownFilter}
-                          options={filterOptions}
-                          onOptionUpdate={(
-                            newBreakdownDisplayName,
-                            filterSelection
-                          ) => {
-                            // This DropDownMenu instance only supports changing active breakdown filter
-                            // It doesn't support changing breakdown type
-                            if (filterSelection) {
-                              setActiveBreakdownFilter(filterSelection);
-                            }
-                          }}
-                        />
-                      </Grid>
+            {!mapQueryResponse.dataIsMissing() && !hideDemographicUI && (
+              <>
+                <Divider />
+                <CardContent className={styles.SmallMarginContent}>
+                  <Grid
+                    container
+                    justify="space-between"
+                    align-items="flex-end"
+                  >
+                    <Grid item>
+                      <DropDownMenu
+                        value={activeBreakdownFilter}
+                        options={filterOptions}
+                        onOptionUpdate={(
+                          newBreakdownDisplayName,
+                          filterSelection
+                        ) => {
+                          // This DropDownMenu instance only supports changing active breakdown filter
+                          // It doesn't support changing breakdown type
+                          if (filterSelection) {
+                            setActiveBreakdownFilter(filterSelection);
+                          }
+                        }}
+                      />
                     </Grid>
-                  </CardContent>
-                </>
-              )}
+                  </Grid>
+                </CardContent>
+              </>
+            )}
 
             {!mapQueryResponse.dataIsMissing() &&
               !!dataForActiveBreakdownFilter.length && (
@@ -237,8 +244,8 @@ function MapCardWithKey(props: MapCardProps) {
                       {/* United States */}
                       {props.fips.getDisplayName()}
                       {". "}
-                      {/* Compare across XYZ for all variables except vaccinated */}
-                      {props.variableConfig.variableId !== "vaccinated" && (
+                      {/* Compare across XYZ for all variables except vaccinated at county level */}
+                      {!hideDemographicUI && (
                         <span
                           onClick={() => setSmallMultiplesDialogOpen(true)}
                           role="button"
