@@ -65,7 +65,7 @@ function UnknownsAlert(props: {
   const percentageUnknown = unknowns[0][props.metricConfig.metricId];
 
   const diffRaceEthnicityText = raceEthnicityDiff
-    ? `This state reports race and ethnicity seperately.
+    ? `This state reports race and ethnicity separately.
     ${unknowns[0][props.metricConfig.metricId]}${
         props.metricConfig.shortVegaLabel
       } reported an
