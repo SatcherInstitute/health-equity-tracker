@@ -102,7 +102,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_name:
       "CDC COVID-19 Vaccination Demographics in the United States, National",
     data_source_link:
-      "https://data.cdc.gov/Vaccinations/COVID-19-Vaccination-Demographics-in-the-United-St/km4m-vcsb",
+      "https://covid.cdc.gov/covid-data-tracker/#vaccination-demographics-trends",
     geographic_level: "National",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Daily",
@@ -111,7 +111,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
       "in the United States at national level. Data represents all vaccine partners " +
       "including jurisdictional partner clinics, retail pharmacies, long-term care facilities, " +
       "dialysis centers, Federal Emergency Management Agency and Health Resources and Services " +
-      "Administration partner sites, and federal entity facilities.",
+      "Administration partner sites, and federal entity facilities. (CDC 2021)",
     dataset_ids: [
       "cdc_vaccination_national-age",
       "cdc_vaccination_national-race_and_ethnicity",
