@@ -48,7 +48,7 @@ export interface MultiMapDialogProps {
 
 /*
    MultiMapDialog is a dialog opened via the MapCard that shows one small map for each unique
-    value in a given breakdown for a particualr metric.
+    value in a given breakdown for a particular metric.
 */
 export function MultiMapDialog(props: MultiMapDialogProps) {
   return (
@@ -65,7 +65,13 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
           {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups
         </Typography>
         <Grid container justify="space-around">
-          <Grid item className={styles.SmallMultipleLegendMap}>
+          <Grid
+            xs={12}
+            sm={6}
+            md={4}
+            item
+            className={styles.SmallMultipleLegendMap}
+          >
             <b>Legend</b>
             <div className={styles.LegendDiv}>
               <Legend
@@ -83,6 +89,9 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             );
             return (
               <Grid
+                xs={12}
+                sm={6}
+                md={4}
                 item
                 key={`${breakdownValue}-grid-item`}
                 className={styles.SmallMultipleMap}
@@ -104,6 +113,9 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     hideActions={false}
                     scaleType="quantile"
                     geoData={props.geoData}
+                    filename={`${props.metricConfig.fullCardTitleName}${
+                      breakdownValue === "All" ? "" : ` for ${breakdownValue}`
+                    } in ${props.fips.getFullDisplayName()}`}
                   />
                 )}
                 {props.metricConfig &&

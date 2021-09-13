@@ -28,6 +28,8 @@
   font-size: 20px;
   color: $alt-green;
   font-weight: 500;
+  display: inline-block;
+  width: max-content;
 }
 
 .FooterLogo {
@@ -36,34 +38,19 @@
   height: 30px;
 }
 
-.Logos {
-  margin: auto !important;
-  max-width: 288px;
-}
-
-.LogosLeft {
-  margin: auto !important;
-}
-
-.LogosRight {
-  padding-top: 15px;
-}
-
 /** ------------------ Links - second -------------------- **/
 
-.CopyrightSpanLargerWindow,
-.CopyrightSpanSmallerWindow {
-  color: $alt-dark; // $alt-grey; failed a11y contrast
+.CopyrightSpan {
+  color: $alt-dark;
   font-weight: 100;
   font-size: small;
-}
-
-.CopyrightSpanLargerWindow {
-  float: right;
-  // So it aligns with the button above it
-  padding-right: 8px;
-  // To get it closer to the grid above it
-  margin-top: -24px;
+  margin-bottom: 2rem;
+  @media only screen and (min-width: $sm) {
+    // So it aligns with the button above it
+    padding-right: 8px;
+    // To get it closer to the grid above it
+    margin-top: -24px;
+  }
 }
 
 .LinksContainer {
