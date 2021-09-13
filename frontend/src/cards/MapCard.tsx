@@ -238,7 +238,7 @@ function MapCardWithKey(props: MapCardProps) {
                       {props.fips.getDisplayName()}
                       {". "}
                       {/* Compare across XYZ for all variables except vaccinated */}
-                      {props.variableConfig.variableId !== "poverty" && (
+                      {props.variableConfig.variableId !== "vaccinated" && (
                         <span
                           onClick={() => setSmallMultiplesDialogOpen(true)}
                           role="button"
