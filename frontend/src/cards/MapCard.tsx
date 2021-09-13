@@ -163,35 +163,37 @@ function MapCardWithKey(props: MapCardProps) {
               />
             </CardContent>
 
-            {!mapQueryResponse.dataIsMissing() && (
-              <>
-                <Divider />
-                <CardContent className={styles.SmallMarginContent}>
-                  <Grid
-                    container
-                    justify="space-between"
-                    align-items="flex-end"
-                  >
-                    <Grid item>
-                      <DropDownMenu
-                        value={activeBreakdownFilter}
-                        options={filterOptions}
-                        onOptionUpdate={(
-                          newBreakdownDisplayName,
-                          filterSelection
-                        ) => {
-                          // This DropDownMenu instance only supports changing active breakdown filter
-                          // It doesn't support changing breakdown type
-                          if (filterSelection) {
-                            setActiveBreakdownFilter(filterSelection);
-                          }
-                        }}
-                      />
+            {/* replace hard coded vaxx string with METRIC_CONFIG["vaccinated"].variableId once available */}
+            {!mapQueryResponse.dataIsMissing() &&
+              props.variableConfig.variableId !== "vaccinated" && (
+                <>
+                  <Divider />
+                  <CardContent className={styles.SmallMarginContent}>
+                    <Grid
+                      container
+                      justify="space-between"
+                      align-items="flex-end"
+                    >
+                      <Grid item>
+                        <DropDownMenu
+                          value={activeBreakdownFilter}
+                          options={filterOptions}
+                          onOptionUpdate={(
+                            newBreakdownDisplayName,
+                            filterSelection
+                          ) => {
+                            // This DropDownMenu instance only supports changing active breakdown filter
+                            // It doesn't support changing breakdown type
+                            if (filterSelection) {
+                              setActiveBreakdownFilter(filterSelection);
+                            }
+                          }}
+                        />
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </CardContent>
-              </>
-            )}
+                  </CardContent>
+                </>
+              )}
 
             {!mapQueryResponse.dataIsMissing() &&
               !!dataForActiveBreakdownFilter.length && (
@@ -235,30 +237,31 @@ function MapCardWithKey(props: MapCardProps) {
                       {/* United States */}
                       {props.fips.getDisplayName()}
                       {". "}
-                      {/* LINK: Compare across XYZ */}
-                      <span
-                        onClick={() => setSmallMultiplesDialogOpen(true)}
-                        role="button"
-                        className={styles.CompareAcrossLink}
-                        aria-label={
-                          "Compare " +
-                          props.variableConfig.variableFullDisplayName +
-                          " across " +
-                          BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                            props.currentBreakdown
-                          ] +
-                          " groups"
-                        }
-                      >
-                        Compare across{" "}
-                        {
-                          BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                            props.currentBreakdown
-                          ]
-                        }{" "}
-                        groups
-                      </span>
-                      .
+                      {/* Compare across XYZ for all variables except vaccinated */}
+                      {props.variableConfig.variableId !== "vaccinated" && (
+                        <span
+                          onClick={() => setSmallMultiplesDialogOpen(true)}
+                          role="button"
+                          className={styles.CompareAcrossLink}
+                          aria-label={
+                            "Compare " +
+                            props.variableConfig.variableFullDisplayName +
+                            " across " +
+                            BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                              props.currentBreakdown
+                            ] +
+                            " groups"
+                          }
+                        >
+                          Compare across{" "}
+                          {
+                            BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                              props.currentBreakdown
+                            ]
+                          }{" "}
+                          groups
+                        </span>
+                      )}
                     </Alert>
                   </CardContent>
                 </>
