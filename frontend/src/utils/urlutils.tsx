@@ -62,7 +62,7 @@ export function LinkWithStickyParams(props: {
 
 export function ReactRouterLinkButton(props: {
   url: string;
-  className: string;
+  className?: string;
   displayName?: string;
   children?: React.ReactNode;
   ariaLabel?: string;
