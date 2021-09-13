@@ -269,6 +269,7 @@ export interface DisparityBarChartProps {
   // Stacked will render one dark bar on top of a lighter bar
   // Not stacked will show two equally sized bars side by side
   stacked?: boolean;
+  filename?: string;
 }
 
 export function DisparityBarChart(props: DisparityBarChartProps) {
@@ -298,6 +299,14 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   return (
     <div ref={ref}>
       <Vega
+        // custom 3-dot options for states, hidden on territories
+        actions={{
+          export: { png: true, svg: false },
+          source: false,
+          compiled: false,
+          editor: false,
+        }}
+        downloadFileName={`${props.filename} - Health Equity Tracker`}
         spec={getSpec(
           data,
           width,

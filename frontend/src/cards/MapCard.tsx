@@ -201,8 +201,9 @@ function MapCardWithKey(props: MapCardProps) {
                   <Divider />
                   <CardContent>
                     <Alert severity="info">
-                      {/* EXAMPLE TEXT OUTPUT: X (number of individuals) */}
+                      {/* EXAMPLE TEXT OUTPUT:  */}
                       <b>
+                        {/* 9,543 */}
                         {formatFieldValue(
                           metricConfig.type,
                           overallQueryResponse!.data.find(
@@ -228,7 +229,6 @@ function MapCardWithKey(props: MapCardProps) {
                       ] !== "age" &&
                         activeBreakdownFilter !== "All" &&
                         ` ${activeBreakdownFilter} individuals`}
-                      {console.log(activeBreakdownFilter)}
                       {" in  "}
                       {/* in */}
                       {/* (the) */}
@@ -237,7 +237,7 @@ function MapCardWithKey(props: MapCardProps) {
                       {/* United States */}
                       {props.fips.getDisplayName()}
                       {". "}
-                      {/* Compare across XYZ for all variables expect vaccinated */}
+                      {/* Compare across XYZ for all variables except vaccinated */}
                       {props.variableConfig.variableId !== "poverty" && (
                         <span
                           onClick={() => setSmallMultiplesDialogOpen(true)}
@@ -312,7 +312,19 @@ function MapCardWithKey(props: MapCardProps) {
                   fips={props.fips}
                   scaleType="quantile"
                   geoData={geoData}
+                  // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
+                  filename={`${metricConfig.fullCardTitleName}${
+                    activeBreakdownFilter === "All"
+                      ? ""
+                      : ` for ${activeBreakdownFilter}`
+                  } in ${props.fips.getDisplayName()}${
+                    // include the state name if the location is a county
+                    props.fips.isCounty()
+                      ? `, ${props.fips.getParentFips().getFullDisplayName()}`
+                      : ""
+                  }`}
                 />
+                {/* generate additional VEGA canvases for territories on national map */}
                 {props.fips.isUsa() && (
                   <div className={styles.TerritoryCirclesContainer}>
                     {TERRITORY_CODES.map((code) => {

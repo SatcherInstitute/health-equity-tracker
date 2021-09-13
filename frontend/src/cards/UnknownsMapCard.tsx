@@ -66,16 +66,18 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
   const RACE_OR_ETHNICITY_TITLECASE = "Race Or Ethnicity";
 
+  function getTitleText() {
+    return `${metricConfig.fullCardTitleName} With Unknown ${
+      props.overrideAndWithOr
+        ? RACE_OR_ETHNICITY_TITLECASE
+        : BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+    }`;
+  }
+
   return (
     <CardWrapper
       queries={[mapQuery, alertQuery]}
-      title={
-        <>{`${metricConfig.fullCardTitleName} With Unknown ${
-          props.overrideAndWithOr
-            ? RACE_OR_ETHNICITY_TITLECASE
-            : BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
-        }`}</>
-      }
+      title={<>{getTitleText()}</>}
       loadGeographies={true}
     >
       {([mapQueryResponse, alertQueryResponse], metadata, geoData) => {
@@ -145,13 +147,14 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     mapQueryResponse.dataIsMissing() || unknowns.length <= 1
                   }
                   geoData={geoData}
+                  filename={`${getTitleText()} in ${props.fips.getFullDisplayName()}`}
                 />
                 {props.fips.isUsa() && (
                   <div className={styles.TerritoryCirclesContainer}>
                     {TERRITORY_CODES.map((code) => {
                       const fips = new Fips(code);
                       return (
-                        <div className={styles.TerritoryCircle}>
+                        <div key={code} className={styles.TerritoryCircle}>
                           <ChoroplethMap
                             useSmallSampleMessage={
                               !mapQueryResponse.dataIsMissing() &&
