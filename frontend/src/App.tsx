@@ -32,6 +32,7 @@ import {
   TERMS_OF_SERVICE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "./utils/urlutils";
+import AppBarLogo from "./assets/AppbarLogo.png";
 
 // the following components make CSS modules which are imported by other components, so they must load first
 import AboutUsPage from "./pages/AboutUs/AboutUsPage";
@@ -105,7 +106,7 @@ function AppToolbar() {
     <Toolbar className={styles.AppToolbar}>
       <ReactRouterLinkButton url="/" className={styles.AppbarLogoImg}>
         <img
-          src="img/appbar/AppbarLogo.png"
+          src={AppBarLogo}
           className={styles.AppbarLogoImg}
           alt="Health Equity Tracker logo"
           role="link"
