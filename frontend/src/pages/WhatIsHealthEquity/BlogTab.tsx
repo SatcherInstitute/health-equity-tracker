@@ -12,8 +12,8 @@ import {
   ALL_MEDIA,
   ReactRouterLinkButton,
 } from "../../utils/urlutils";
-import { BrowserRouter, Link, Route } from "react-router-dom";
-import { Button } from "@material-ui/core";
+import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
+import { Button, Switch } from "@material-ui/core";
 import AllPosts from "./Blog/AllPosts";
 import SinglePost from "./Blog/SinglePost";
 
@@ -68,100 +68,15 @@ function BlogTab() {
           justify="center"
         >
           <BrowserRouter>
-            <div>
-              <Route
-                component={AllPosts}
-                path="/whatishealthequity/blog/"
-                exact
-              />
-              <Route
-                component={SinglePost}
-                path="/whatishealthequity/blog/:slug"
-              />
-            </div>
+            <Switch>
+              <Route exact path="/whatishealthequity/blog/">
+                <AllPosts articles={articles} />
+              </Route>
+              <Route path="/whatishealthequity/blog/:slug">
+                <SinglePost />
+              </Route>
+            </Switch>
           </BrowserRouter>
-
-          {/* SEE SELECTED ARTICLE EXPANDED, PLUS ADDITIONAL LINKS TO OTHER */}
-          {fullArticle && (
-            <Grid
-              container
-              className={styles.NewsAndStoriesRow}
-              direction="row"
-              justify="center"
-            >
-              <Grid item>
-                <Typography
-                  className={styles.NewsAndStoriesHeaderText}
-                  variant="h1"
-                >
-                  {parse(fullArticle.title.rendered)}
-                </Typography>
-                <span className={styles.NewsAndStoriesSubheaderText}>
-                  Read the latest news, posts, and stories related to health
-                  equity
-                </span>
-              </Grid>
-              <Grid item>
-                <div className={styles.FullArticleContainer}>
-                  {parse(fullArticle.content.rendered)}
-                </div>
-              </Grid>
-            </Grid>
-          )}
-
-          {/* SEE OVERVIEW WITH IMG/TITLE CARDS  */}
-          {!fullArticle && (
-            <Grid
-              container
-              className={styles.NewsAndStoriesRow}
-              direction="row"
-              justify="center"
-            >
-              <Grid item>
-                <Typography
-                  className={styles.NewsAndStoriesHeaderText}
-                  variant="h1"
-                >
-                  News and stories
-                </Typography>
-                <span className={styles.NewsAndStoriesSubheaderText}>
-                  Read the latest news, posts, and stories related to health
-                  equity
-                </span>
-              </Grid>
-              <Grid
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="flex-start"
-              >
-                {articles.map((post) => {
-                  return (
-                    // FETCHED BLOG POSTS
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      md={4}
-                      className={styles.NewsAndStoriesItem}
-                      key={post.id}
-                    >
-                      <img
-                        className={styles.NewsAndStoriesBigImg}
-                        src={post.media_info.source_url}
-                        alt=""
-                      />
-                      <Link to={`/whatishealthequity/blog/${post.slug}`}>
-                        <h2 className={styles.NewsAndStoriesTitleText}>
-                          {parse(post.title.rendered)}
-                        </h2>
-                      </Link>
-                    </Grid>
-                  );
-                })}
-              </Grid>
-            </Grid>
-          )}
         </Grid>
       </Grid>
     </div>

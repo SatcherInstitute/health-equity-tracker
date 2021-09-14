@@ -1,7 +1,58 @@
+import { Grid, Link, Typography } from "@material-ui/core";
 import React from "react";
+import styles from "../WhatIsHealthEquityPage.module.scss";
+import parse from "html-react-parser";
 
-function AllPosts() {
-  return <h1>All Posts</h1>;
+// @ts-ignore
+function AllPosts({ articles }) {
+  return (
+    <Grid
+      container
+      className={styles.NewsAndStoriesRow}
+      direction="row"
+      justify="center"
+    >
+      <Grid item>
+        <Typography className={styles.NewsAndStoriesHeaderText} variant="h1">
+          News and stories
+        </Typography>
+        <span className={styles.NewsAndStoriesSubheaderText}>
+          Read the latest news, posts, and stories related to health equity
+        </span>
+      </Grid>
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="flex-start"
+      >
+        {articles.map((post: any) => {
+          return (
+            // FETCHED BLOG POSTS
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              md={4}
+              className={styles.NewsAndStoriesItem}
+              key={post.id}
+            >
+              <img
+                className={styles.NewsAndStoriesBigImg}
+                src={post.media_info.source_url}
+                alt=""
+              />
+              <Link to={`/whatishealthequity/blog/${post.slug}`}>
+                <h2 className={styles.NewsAndStoriesTitleText}>
+                  {parse(post.title.rendered)}
+                </h2>
+              </Link>
+            </Grid>
+          );
+        })}
+      </Grid>
+    </Grid>
+  );
 }
 
 export default AllPosts;
