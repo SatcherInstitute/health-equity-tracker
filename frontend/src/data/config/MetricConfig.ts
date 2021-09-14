@@ -54,7 +54,9 @@ export type MetricType =
 export type MetricConfig = {
   metricId: MetricId;
   fullCardTitleName: string;
+  unknownsTitleName?: string | string[];
   shortVegaLabel: string;
+  unknownsVegaLabel?: string;
   type: MetricType;
   populationComparisonMetric?: MetricConfig;
 
@@ -427,7 +429,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         pct_share: {
           metricId: "vaccinated_pct_share",
           fullCardTitleName: "Share Of Vaccinated Individuals",
+          unknownsTitleName: [
+            "Share Of Vaccinated Individuals",
+            "With Unknown Demographic",
+          ],
           shortVegaLabel: "% of vaccinated individuals",
+          unknownsVegaLabel: "% unknown",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "vaccine_population_pct",

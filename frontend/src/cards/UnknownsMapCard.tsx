@@ -75,12 +75,19 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
   const RACE_OR_ETHNICITY_TITLECASE = "Race Or Ethnicity";
 
+  function getTitleTextArray() {
+    return [
+      `${metricConfig.fullCardTitleName}`,
+      `With Unknown ${
+        props.overrideAndWithOr
+          ? RACE_OR_ETHNICITY_TITLECASE
+          : BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+      }`,
+    ];
+  }
+
   function getTitleText() {
-    return `${metricConfig.fullCardTitleName} With Unknown ${
-      props.overrideAndWithOr
-        ? RACE_OR_ETHNICITY_TITLECASE
-        : BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
-    }`;
+    return getTitleTextArray().join(" ");
   }
 
   return (
@@ -193,9 +200,10 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     !mapQueryResponse.dataIsMissing() &&
                     (props.variableConfig.surveyCollectedData || false)
                   }
+                  isUnknownsMap={true}
                   signalListeners={signalListeners}
                   metric={metricConfig}
-                  legendTitle={metricConfig.fullCardTitleName}
+                  legendTitle={getTitleTextArray()}
                   data={unknowns}
                   showCounties={props.fips.isUsa() ? false : true}
                   fips={props.fips}
