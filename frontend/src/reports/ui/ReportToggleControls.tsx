@@ -43,6 +43,7 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
       {enableMetricToggle && (
         <Grid className={styles.ToggleBlock}>
           <span className={styles.ToggleLabel}>{DATA_TYPE_LABEL}</span>
+          {/* DATA TYPE TOGGLE */}
           <ToggleButtonGroup
             exclusive
             role="radiogroup"
@@ -77,37 +78,40 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
           </ToggleButtonGroup>
         </Grid>
       )}
-      <Grid item className={styles.ToggleBlock}>
-        <div className={styles.ToggleLabel}>{DEMOGRAPHIC_LABEL}</div>
-        <div id="onboarding-explore-trends">
-          <ToggleButtonGroup
-            exclusive
-            role="radiogroup"
-            value={props.currentBreakdown}
-            onChange={(e, v) => {
-              if (v !== null) {
-                props.setCurrentBreakdown(v);
-              }
-            }}
-          >
-            {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-              <ToggleButton
-                value={breakdownVar}
-                key={breakdownVar}
-                role="radio"
-                aria-checked={breakdownVar === props.currentBreakdown}
-                aria-label={
-                  BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar] +
-                  " " +
-                  DEMOGRAPHIC_LABEL
+      {
+        <Grid item className={styles.ToggleBlock}>
+          <div className={styles.ToggleLabel}>{DEMOGRAPHIC_LABEL}</div>
+          <div id="onboarding-explore-trends">
+            {/* DEMOGRAPHIC TOGGLE */}
+            <ToggleButtonGroup
+              exclusive
+              role="radiogroup"
+              value={props.currentBreakdown}
+              onChange={(e, v) => {
+                if (v !== null) {
+                  props.setCurrentBreakdown(v);
                 }
-              >
-                {BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar]}
-              </ToggleButton>
-            ))}
-          </ToggleButtonGroup>
-        </div>
-      </Grid>
+              }}
+            >
+              {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+                <ToggleButton
+                  value={breakdownVar}
+                  key={breakdownVar}
+                  role="radio"
+                  aria-checked={breakdownVar === props.currentBreakdown}
+                  aria-label={
+                    BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar] +
+                    " " +
+                    DEMOGRAPHIC_LABEL
+                  }
+                >
+                  {BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar]}
+                </ToggleButton>
+              ))}
+            </ToggleButtonGroup>
+          </div>
+        </Grid>
+      }
     </Grid>
   );
 }

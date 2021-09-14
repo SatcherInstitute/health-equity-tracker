@@ -3,7 +3,11 @@ import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
-import { VariableConfig, formatFieldValue } from "../data/config/MetricConfig";
+import {
+  VariableConfig,
+  formatFieldValue,
+  METRIC_CONFIG,
+} from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
   Breakdowns,
@@ -90,6 +94,11 @@ function MapCardWithKey(props: MapCardProps) {
     metricQuery(Breakdowns.forFips(props.fips)),
   ];
 
+  // hide demographic selectors / dropdowns / links to multipmap if displaying VACCINATION at COUNTY level, as we don't have that data
+  const hideDemographicUI =
+    props.variableConfig.variableId ===
+      METRIC_CONFIG["vaccinated"][0].variableId && props.fips.isCounty();
+
   return (
     <CardWrapper
       queries={queries}
@@ -163,7 +172,7 @@ function MapCardWithKey(props: MapCardProps) {
               />
             </CardContent>
 
-            {!mapQueryResponse.dataIsMissing() && (
+            {!mapQueryResponse.dataIsMissing() && !hideDemographicUI && (
               <>
                 <Divider />
                 <CardContent className={styles.SmallMarginContent}>
@@ -235,30 +244,31 @@ function MapCardWithKey(props: MapCardProps) {
                       {/* United States */}
                       {props.fips.getDisplayName()}
                       {". "}
-                      {/* LINK: Compare across XYZ */}
-                      <span
-                        onClick={() => setSmallMultiplesDialogOpen(true)}
-                        role="button"
-                        className={styles.CompareAcrossLink}
-                        aria-label={
-                          "Compare " +
-                          props.variableConfig.variableFullDisplayName +
-                          " across " +
-                          BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                            props.currentBreakdown
-                          ] +
-                          " groups"
-                        }
-                      >
-                        Compare across{" "}
-                        {
-                          BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                            props.currentBreakdown
-                          ]
-                        }{" "}
-                        groups
-                      </span>
-                      .
+                      {/* Compare across XYZ for all variables except vaccinated at county level */}
+                      {!hideDemographicUI && (
+                        <span
+                          onClick={() => setSmallMultiplesDialogOpen(true)}
+                          role="button"
+                          className={styles.CompareAcrossLink}
+                          aria-label={
+                            "Compare " +
+                            props.variableConfig.variableFullDisplayName +
+                            " across " +
+                            BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                              props.currentBreakdown
+                            ] +
+                            " groups"
+                          }
+                        >
+                          Compare across{" "}
+                          {
+                            BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                              props.currentBreakdown
+                            ]
+                          }{" "}
+                          groups
+                        </span>
+                      )}
                     </Alert>
                   </CardContent>
                 </>
