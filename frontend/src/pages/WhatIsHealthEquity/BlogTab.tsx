@@ -1,25 +1,19 @@
 import React, { useEffect, useState } from "react";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+// import Typography from "@material-ui/core/Typography";
 import { Helmet } from "react-helmet";
-import parse from "html-react-parser";
+// import parse from "html-react-parser";
 import axios from "axios";
-import {
-  BLOG_URL,
-  WP_API,
-  ALL_POSTS,
-  ALL_MEDIA,
-  ReactRouterLinkButton,
-} from "../../utils/urlutils";
-import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
-import { Button, Switch } from "@material-ui/core";
+import { BLOG_URL, WP_API, ALL_POSTS, ALL_MEDIA } from "../../utils/urlutils";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+// import { Button } from "@material-ui/core";
 import AllPosts from "./Blog/AllPosts";
 import SinglePost from "./Blog/SinglePost";
 
 function BlogTab() {
   const [articles, setArticles] = useState<any[]>([]);
-  const [fullArticle, setFullArticle] = useState<any>();
+  // const [fullArticle, setFullArticle] = useState<any>();
 
   // on page load make /media and /posts API calls into temp arrays, combine and store in state
   useEffect(() => {
@@ -48,7 +42,6 @@ function BlogTab() {
           return post;
         });
         setArticles(postsWithImages);
-        console.log("fetched, combined blog stuff", postsWithImages);
       })
       .catch((err) => {
         console.log(err);
@@ -73,7 +66,7 @@ function BlogTab() {
                 <AllPosts articles={articles} />
               </Route>
               <Route path="/whatishealthequity/blog/:slug">
-                <SinglePost />
+                <SinglePost articles={articles} />
               </Route>
             </Switch>
           </BrowserRouter>

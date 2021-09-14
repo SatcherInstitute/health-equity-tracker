@@ -1,5 +1,6 @@
-import { Grid, Link, Typography } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import React from "react";
+import { Link } from "react-router-dom";
 import styles from "../WhatIsHealthEquityPage.module.scss";
 import parse from "html-react-parser";
 
