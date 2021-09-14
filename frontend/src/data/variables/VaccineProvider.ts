@@ -81,6 +81,18 @@ class VaccineProvider extends VariableProvider {
           this.calculations.per100k(row.vaccinated_first_dose, row.population),
       });
 
+      // In this case we need to use the CDC provided pop numbers
+      // for the pop comparison metric
+      if (breakdownColumnName === "age") {
+        df = this.calculations.calculatePctShare(
+          df,
+          "population",
+          "vaccine_population_pct",
+          breakdownColumnName,
+          ["fips"]
+        );
+      }
+
       // Calculate any share_of_known metrics that may have been requested in the query
       if (this.allowsBreakdowns(breakdowns)) {
         df = this.calculations.calculatePctShare(
