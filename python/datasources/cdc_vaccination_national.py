@@ -26,7 +26,7 @@ CDC_RACE_GROUPS_TO_STANDARD = {
 }
 
 CDC_AGE_GROUPS_TO_STANDARD = {
-    'Ages_<12yrs': '0-12',
+    'Ages_<12yrs': '0-11',
     'Ages_12-15_yrs': '12-15',
     'Ages_16-17_yrs': '16-17',
     'Ages_18-24_yrs': '18-24',
