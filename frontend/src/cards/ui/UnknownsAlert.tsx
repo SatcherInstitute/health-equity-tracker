@@ -90,8 +90,10 @@ function UnknownsAlert(props: {
       <CardContent className={styles.SmallMarginContent}>
         <Alert severity="warning">
           {percentageUnknown}
-          {props.metricConfig.shortVegaLabel} reported{" "}
-          {props.overrideAndWithOr && "an"} unknown{" "}
+          {
+            props.metricConfig?.knownBreakdownComparisonMetric?.shortVegaLabel
+          }{" "}
+          reported {props.overrideAndWithOr && "an"} unknown{" "}
           {props.overrideAndWithOr
             ? RACE_OR_ETHNICITY
             : breakdownVarDisplayName}
