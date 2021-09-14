@@ -10,6 +10,7 @@ import {
 } from "../data/query/Breakdowns";
 import { CardContent } from "@material-ui/core";
 import {
+  METRIC_CONFIG,
   MetricConfig,
   MetricId,
   VariableConfig,
@@ -95,6 +96,11 @@ export function TableCard(props: TableCardProps) {
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
                   geoLevel={props.fips.getFipsTypeDisplayName()}
+                  noDemographicInfo={
+                    props.variableConfig.variableId ===
+                      METRIC_CONFIG["vaccinated"][0].variableId &&
+                    props.fips.isCounty()
+                  }
                 />
               </CardContent>
             )}

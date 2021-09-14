@@ -9,7 +9,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { VariableConfig } from "../data/config/MetricConfig";
+import { VariableConfig, METRIC_CONFIG } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { exclude } from "../data/query/BreakdownFilter";
@@ -94,6 +94,11 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
                   geoLevel={props.fips.getFipsTypeDisplayName()}
+                  noDemographicInfo={
+                    props.variableConfig.variableId ===
+                      METRIC_CONFIG["vaccinated"][0].variableId &&
+                    props.fips.isCounty()
+                  }
                 />
               </CardContent>
             )}
