@@ -428,8 +428,8 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         pct_share: {
           metricId: "vaccinated_pct_share",
           fullCardTitleName: "Share Of Total Vaccinated Individuals",
-          shortVegaLabel: "%",
           unknownsVegaLabel: "% unknown",
+          shortVegaLabel: "% of vaccinated",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "vaccine_population_pct",
