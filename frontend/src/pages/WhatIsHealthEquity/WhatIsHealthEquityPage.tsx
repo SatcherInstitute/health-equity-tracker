@@ -28,10 +28,7 @@ export default function WhatIsHealthEquityPage() {
         path="/"
         render={(history) => (
           <Tabs
-            // tabIndex={tabIndex}
-            // value={tabIndex}
             {...tabLayout}
-            // onChange={handleChange}
             indicatorColor="primary"
             textColor="primary"
             value={history.location.pathname}
@@ -54,18 +51,11 @@ export default function WhatIsHealthEquityPage() {
               component={Link}
               to={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/resources`}
             />
-            {/* <Tab
-              value={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/blog`}
-              label="Blog"
-              component={Link}
-              to={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/blog`}
-            /> */}
           </Tabs>
         )}
       />
 
       <Switch>
-        {/* <Route path={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/blog`} component={BlogTab} /> */}
         <Route
           path={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/faqs`}
           component={FaqTab}
