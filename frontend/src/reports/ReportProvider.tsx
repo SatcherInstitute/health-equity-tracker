@@ -182,7 +182,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           and <b>South Dakota</b>. <b>Delaware </b>and <b>West Virginia</b> are
           included when viewing hospitalizations but appear as grey when viewing
           reports on deaths. <b>Rhode Island </b> appears as grey when viewing
-          reports on hospitalizations but is incluided when viewing deaths.
+          reports on hospitalizations but is included when viewing deaths.
         </p>
         <h3>Missing Population Data</h3>
         <p>
