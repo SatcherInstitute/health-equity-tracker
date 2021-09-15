@@ -7,7 +7,7 @@ import {
   DATA_CATALOG_PAGE_LINK,
   DATA_SOURCE_PRE_FILTERS,
   useSearchParams,
-  DATA_CATALOG_METHODOLOGY_TAB,
+  METHODOLOGY_TAB,
 } from "../../utils/urlutils";
 import styles from "../AboutUs/AboutUsPage.module.scss";
 import { Link, Route, Switch } from "react-router-dom";
@@ -35,10 +35,10 @@ function DataCatalogTab() {
               to={DATA_CATALOG_PAGE_LINK}
             />
             <Tab
-              value={`${DATA_CATALOG_PAGE_LINK}${DATA_CATALOG_METHODOLOGY_TAB}`}
+              value={`${DATA_CATALOG_PAGE_LINK}${METHODOLOGY_TAB}`}
               label="Methodology"
               component={Link}
-              to={`${DATA_CATALOG_PAGE_LINK}${DATA_CATALOG_METHODOLOGY_TAB}`}
+              to={`${DATA_CATALOG_PAGE_LINK}${METHODOLOGY_TAB}`}
             />
           </Tabs>
         )}
@@ -46,7 +46,7 @@ function DataCatalogTab() {
 
       <Switch>
         <Route
-          path={`${DATA_CATALOG_PAGE_LINK}${DATA_CATALOG_METHODOLOGY_TAB}`}
+          path={`${DATA_CATALOG_PAGE_LINK}${METHODOLOGY_TAB}`}
           component={MethodologyTab}
         />
         <Route path={`${DATA_CATALOG_PAGE_LINK}/`}>

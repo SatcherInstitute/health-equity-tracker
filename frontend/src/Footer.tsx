@@ -15,7 +15,7 @@ import {
   TERMS_OF_SERVICE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   ReactRouterLinkButton,
-  WIHE_FAQ_TAB,
+  FAQ_TAB,
 } from "./utils/urlutils";
 import { ABOUT_US_CONTACT_TAB_INDEX } from "./pages/AboutUs/AboutUsPage";
 import AppbarLogo from "./assets/AppbarLogo.png";
@@ -50,7 +50,7 @@ function Footer() {
               ["Downloads and Methods", DATA_CATALOG_PAGE_LINK],
               [
                 "FAQs",
-                `${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}${WIHE_FAQ_TAB}`,
+                `${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}${FAQ_TAB}`,
                 "Frequently Asked Questions",
               ],
               [
