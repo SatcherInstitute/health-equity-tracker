@@ -120,7 +120,6 @@ function LandingPage() {
               </Box>
             </Grid>
             <Grid item xs={12} sm={12} md={6} className={styles.HeaderImgItem}>
-              {/* <LazyLoad once height={700}> */}
               <img
                 height="601"
                 width="700"
@@ -128,7 +127,6 @@ function LandingPage() {
                 className={styles.HeaderImg}
                 alt=""
               />
-              {/* </LazyLoad> */}
             </Grid>
           </Grid>
 
@@ -417,7 +415,6 @@ function LandingPage() {
               item
               xs={12}
               sm={12}
-              md={12}
               direction="column"
               justify="center"
               alignItems="center"
