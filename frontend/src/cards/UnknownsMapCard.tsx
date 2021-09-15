@@ -222,6 +222,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                       return (
                         <div key={code} className={styles.TerritoryCircle}>
                           <ChoroplethMap
+                            isUnknownsMap={true}
                             useSmallSampleMessage={
                               !mapQueryResponse.dataIsMissing() &&
                               (props.variableConfig.surveyCollectedData ||

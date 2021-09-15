@@ -73,7 +73,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   const [shouldRenderMap, setShouldRenderMap] = useState(false);
 
   const [ref, width] = useResponsiveWidth(
-    100 /* default width during intialization */
+    100 /* default width during initialization */
   );
 
   // Initial spec state is set in useEffect
