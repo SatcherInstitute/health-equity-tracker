@@ -16,8 +16,8 @@ import {
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   ReactRouterLinkButton,
   FAQ_TAB,
+  CONTACT_TAB,
 } from "./utils/urlutils";
-import { ABOUT_US_CONTACT_TAB_INDEX } from "./pages/AboutUs/AboutUsPage";
 import AppbarLogo from "./assets/AppbarLogo.png";
 import PartnerSatcher from "./assets/PartnerSatcher.png";
 
@@ -53,10 +53,7 @@ function Footer() {
                 `${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}${FAQ_TAB}`,
                 "Frequently Asked Questions",
               ],
-              [
-                "Contact Us",
-                `${ABOUT_US_PAGE_LINK}?${TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`,
-              ],
+              ["Contact Us", `${ABOUT_US_PAGE_LINK}${CONTACT_TAB}`],
               ["Terms of Use", `${TERMS_OF_SERVICE_PAGE_LINK}`],
             ].map(([label, link, ariaLabel]) => (
               <LinkGridItem

@@ -15,6 +15,7 @@ export const TERMS_OF_SERVICE_PAGE_LINK = "/termsofservice";
 // TAB URLS
 export const FAQ_TAB = "/faqs";
 export const METHODOLOGY_TAB = "/methodology";
+export const CONTACT_TAB = "/contact";
 
 // SECTION IDS
 export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
