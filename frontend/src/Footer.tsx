@@ -8,7 +8,6 @@ import YouTubeIcon from "@material-ui/icons/YouTube";
 import ArrowUpwardRoundedIcon from "@material-ui/icons/ArrowUpwardRounded";
 import { Button } from "@material-ui/core";
 import {
-  TAB_PARAM,
   ABOUT_US_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
   DATA_CATALOG_PAGE_LINK,

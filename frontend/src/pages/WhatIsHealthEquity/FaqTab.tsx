@@ -2,11 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import { Typography } from "@material-ui/core";
-import {
-  TAB_PARAM,
-  ABOUT_US_PAGE_LINK,
-  CONTACT_TAB,
-} from "../../utils/urlutils";
+import { ABOUT_US_PAGE_LINK, CONTACT_TAB } from "../../utils/urlutils";
 import { Helmet } from "react-helmet";
 import { CITATION_CHICAGO } from "../DataCatalog/MethodologyTab";
 import parse from "html-react-parser";
