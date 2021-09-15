@@ -62,9 +62,9 @@ function MethodologyTab() {
                   For a description of some of the gaps in COVID-19 data, please
                   see the{" "}
                   <a href={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}>
-                    "What Data Are Missing" section.
+                    "What Data Are Missing"
                   </a>{" "}
-                  Here, we provide further details:
+                  section. Here, we provide further details:
                 </p>
                 <ul>
                   <li>
@@ -115,32 +115,43 @@ function MethodologyTab() {
                 <p>
                   Because there is no national vaccine demographic dataset, we
                   made the decision to combine the best datasets we could find
-                  for each geographic level. For the national level numbers, we
-                  use the{" "}
-                  <a href="https://covid.cdc.gov/covid-data-tracker/#vaccination-demographics-trends">
-                    CDC vaccine demographic dataset,
-                  </a>{" "}
-                  which provides data on the race/ethnicity, sex, and age range
-                  of vaccine recipients, as well whether they have taken one or
-                  two shots. For state level we decided to use{" "}
-                  <a href="https://www.kff.org/state-category/covid-19/">
-                    the Kaiser Family Foundation COVID-19 Indicators dataset,
-                  </a>{" "}
-                  which is a hand curated dataset based on analysis from state
-                  health department websites. We decided to use this because it
-                  is the only state level demographic vaccine dataset that
-                  publishes the data in a usable format. This dataset only
-                  provides data on the race and ethnicity of vaccine recipients,
-                  and only has data on at least one shot. It does not include
-                  any data for US territories. Finally, we could not identify a
-                  dataset that provides vaccine demographics at the county
-                  level, so we decided to use the{" "}
-                  <a href="https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh">
-                    COVID-19 Vaccinations in the United States, County dataset
-                  </a>{" "}
-                  which only provides the total number of vaccinations per
-                  county to show context.
+                  for each geographic level.
                 </p>
+                <ul>
+                  <li>
+                    For the national level numbers, we use the{" "}
+                    <a href="https://covid.cdc.gov/covid-data-tracker/#vaccination-demographics-trends">
+                      CDC vaccine demographic dataset,
+                    </a>{" "}
+                    which provides data on the race/ethnicity, sex, and age
+                    range of vaccine recipients, as well whether they have taken
+                    one or two shots.{" "}
+                  </li>
+
+                  <li>
+                    For the state level we use{" "}
+                    <a href="https://www.kff.org/state-category/covid-19/">
+                      the Kaiser Family Foundation COVID-19 Indicators dataset,
+                    </a>{" "}
+                    which is a hand-curated dataset based on analysis from state
+                    health department websites. We decided to use this because
+                    it is the only state level demographic vaccine dataset that
+                    publishes the data in a usable format. This dataset only
+                    provides data on the race and ethnicity of vaccine
+                    recipients, and only has data on whether individuals have
+                    received at least one shot. It does not include any data for
+                    US territories.{" "}
+                  </li>
+                  <li>
+                    For the county level, we could not identify a dataset that
+                    provides vaccine demographics, so to show some context we
+                    use the{" "}
+                    <a href="https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh">
+                      COVID-19 Vaccinations in the United States, County dataset
+                    </a>{" "}
+                    which provides the total number of vaccinations per county.
+                  </li>
+                </ul>
                 <h4> Vaccination Population Sources </h4>
                 <ul>
                   <li>
