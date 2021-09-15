@@ -4,31 +4,18 @@ import Tab from "@material-ui/core/Tab";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import EquityTab from "./EquityTab";
 import FaqTab from "./FaqTab";
-import { TAB_PARAM, useSearchParams } from "../../utils/urlutils";
+import { WHAT_IS_HEALTH_EQUITY_PAGE_LINK } from "../../utils/urlutils";
 import ResourcesTab from "./ResourcesTab";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useEffect } from "react";
-
-export const WIHE_HEALTH_EQUITY_TAB_INDEX = 0;
-export const WIHE_FAQ_TAB_INDEX = 1;
-export const WIHE_JOIN_THE_EFFORT_SECTION_ID = "join";
+import { Link, Route, Switch } from "react-router-dom";
 
 export default function WhatIsHealthEquityPage() {
-  const params = useSearchParams();
-
   // responsive tabs layout to fix mobile bug
   const theme = useTheme();
   const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
   const [tabLayout, setTabLayout] = React.useState({});
-
-  const [tabIndex, setTabIndex] = React.useState(
-    params[TAB_PARAM] ? Number(params[TAB_PARAM]) : 0
-  );
-
-  const handleChange = (event: React.ChangeEvent<{}>, newTabIndex: number) => {
-    setTabIndex(newTabIndex);
-  };
 
   // when screen width changes, update tab spacing material UI attribute
   useEffect(() => {
@@ -37,30 +24,61 @@ export default function WhatIsHealthEquityPage() {
 
   return (
     <div className={styles.WhatIsHealthEquityPage}>
-      <Tabs
-        tabIndex={tabIndex}
-        value={tabIndex}
-        {...tabLayout}
-        onChange={handleChange}
-        indicatorColor="primary"
-        textColor="primary"
-      >
-        <Tab
-          className={styles.WhatIsHealthEquityTab}
-          label="What is Health Equity?"
+      <Route
+        path="/"
+        render={(history) => (
+          <Tabs
+            // tabIndex={tabIndex}
+            // value={tabIndex}
+            {...tabLayout}
+            // onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            value={history.location.pathname}
+          >
+            <Tab
+              value={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+              label="What Is Health Equity?"
+              component={Link}
+              to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+            />
+            <Tab
+              value={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/faqs`}
+              label="FAQs"
+              component={Link}
+              to={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/faqs`}
+            />
+            <Tab
+              value={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/resources`}
+              label="Resources"
+              component={Link}
+              to={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/resources`}
+            />
+            {/* <Tab
+              value={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/blog`}
+              label="Blog"
+              component={Link}
+              to={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/blog`}
+            /> */}
+          </Tabs>
+        )}
+      />
+
+      <Switch>
+        {/* <Route path={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/blog`} component={BlogTab} /> */}
+        <Route
+          path={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/faqs`}
+          component={FaqTab}
         />
-        <Tab
-          className={styles.WhatIsHealthEquityTab}
-          label="Frequently Asked Questions"
+        <Route
+          path={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/resources`}
+          component={ResourcesTab}
         />
-        <Tab
-          className={styles.WhatIsHealthEquityTab}
-          label="Health Equity Resources"
+        <Route
+          path={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/`}
+          component={EquityTab}
         />
-      </Tabs>
-      {tabIndex === 0 && <EquityTab />}
-      {tabIndex === 1 && <FaqTab />}
-      {tabIndex === 2 && <ResourcesTab />}
+      </Switch>
     </div>
   );
 }

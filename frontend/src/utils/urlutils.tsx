@@ -5,13 +5,20 @@ import { MadLibId, PhraseSelections } from "./MadLibs";
 
 export const STICKY_VERSION_PARAM = "sv";
 
+// PAGE URLS
 export const EXPLORE_DATA_PAGE_LINK = "/exploredata";
-export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
-  EXPLORE_DATA_PAGE_LINK + "#missingDataInfo";
 export const DATA_CATALOG_PAGE_LINK = "/datacatalog";
 export const ABOUT_US_PAGE_LINK = "/aboutus";
 export const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = "/whatishealthequity";
 export const TERMS_OF_SERVICE_PAGE_LINK = "/termsofservice";
+
+// TAB URLS
+export const WIHE_FAQ_TAB = "/faqs";
+
+// SECTION IDS
+export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
+  EXPLORE_DATA_PAGE_LINK + "#missingDataInfo";
+export const WIHE_JOIN_THE_EFFORT_SECTION_ID = "join";
 
 // Value is a comma-separated list of dataset ids. Dataset ids cannot have
 // commas in them.
