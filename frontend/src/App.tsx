@@ -29,7 +29,7 @@ import {
   EXPLORE_DATA_PAGE_LINK,
   LinkWithStickyParams,
   ReactRouterLinkButton,
-  TERMS_OF_SERVICE_PAGE_LINK,
+  TERMS_OF_USE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "./utils/urlutils";
 import AppBarLogo from "./assets/AppbarLogo.png";
@@ -45,8 +45,8 @@ const Footer = React.lazy(() => import("./Footer"));
 
 const LandingPage = React.lazy(() => import("./pages/Landing/LandingPage"));
 const NotFoundPage = React.lazy(() => import("./pages/NotFoundPage"));
-const TermsOfServicePage = React.lazy(
-  () => import("./pages/TermsOfServicePage/TermsOfServicePage")
+const TermsOfUsePage = React.lazy(
+  () => import("./pages/TermsOfUsePage/TermsOfUsePage")
 );
 
 const DataCatalogTab = React.lazy(
@@ -201,8 +201,8 @@ function App() {
                     />
 
                     <Route
-                      path={TERMS_OF_SERVICE_PAGE_LINK}
-                      render={() => <TermsOfServicePage />}
+                      path={TERMS_OF_USE_PAGE_LINK}
+                      render={() => <TermsOfUsePage />}
                     />
 
                     <Route exact path="/" render={() => <LandingPage />} />
