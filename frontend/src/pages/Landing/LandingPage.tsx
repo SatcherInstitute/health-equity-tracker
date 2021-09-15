@@ -7,14 +7,10 @@ import Typography from "@material-ui/core/Typography";
 import {
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
-  TAB_PARAM,
   ReactRouterLinkButton,
 } from "../../utils/urlutils";
 import FaqSection from "../ui/FaqSection";
-import {
-  WIHE_HEALTH_EQUITY_TAB_INDEX,
-  WIHE_JOIN_THE_EFFORT_SECTION_ID,
-} from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
+import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
 import { Box } from "@material-ui/core";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet";
@@ -446,7 +442,7 @@ function LandingPage() {
                     variant="contained"
                     color="default"
                     className={styles.JoinOurMovementButton}
-                    href={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_HEALTH_EQUITY_TAB_INDEX}#${WIHE_JOIN_THE_EFFORT_SECTION_ID}`}
+                    href={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}#${WIHE_JOIN_THE_EFFORT_SECTION_ID}`}
                   >
                     Learn How To Help
                   </Button>

@@ -12,8 +12,8 @@ import { useEffect } from "react";
 import BlogTab from "./BlogTab";
 import { Link, Route, Switch } from "react-router-dom";
 
-export const WIHE_HEALTH_EQUITY_TAB_INDEX = 0;
-export const WIHE_FAQ_TAB_INDEX = 1;
+// export const WIHE_HEALTH_EQUITY_TAB_INDEX = 0;
+export const WIHE_FAQ_TAB = "/faqs";
 export const WIHE_JOIN_THE_EFFORT_SECTION_ID = "join";
 
 export default function WhatIsHealthEquityPage() {
