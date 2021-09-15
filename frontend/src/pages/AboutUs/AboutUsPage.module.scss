@@ -57,7 +57,7 @@
   align-items: flex-start;
 }
 
-// Grid items that are centered both vertically and horizonally.
+// Grid items that are centered both vertically and horizontally.
 .GridCenteredItem {
   display: flex;
   justify-content: center;
@@ -358,12 +358,10 @@
 }
 
 .ContactUsSubheaderText {
-  font-size: 48px !important;
   font-weight: 300 !important;
   font-family: "Taviraj", sans-serif !important;
   line-height: 48px !important;
   color: $alt-green;
-  text-align: center;
 }
 
 .ImgContactUsHeader {
@@ -373,6 +371,6 @@
   max-height: 645px;
 }
 
-.ContactUsCenteredTextItem {
-  text-align: center;
+.ContactUsP {
+  margin-top: 2rem;
 }
