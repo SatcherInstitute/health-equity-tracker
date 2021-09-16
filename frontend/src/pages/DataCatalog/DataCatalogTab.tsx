@@ -45,7 +45,9 @@ function DataCatalogTab() {
       />
 
       <Switch>
-        <Route path={`${METHODOLOGY_TAB_LINK}/`} component={MethodologyTab} />
+        <Route path={`${METHODOLOGY_TAB_LINK}/`}>
+          <MethodologyTab />
+        </Route>
         <Route path={`${DATA_CATALOG_PAGE_LINK}/`}>
           <DatasetExplorer preFilterDataSourceIds={datasets} />
         </Route>

@@ -60,12 +60,15 @@ export default function WhatIsHealthEquityPage() {
       />
 
       <Switch>
-        <Route path={`${FAQ_TAB_LINK}/`} component={FaqTab} />
-        <Route path={`${RESOURCES_TAB_LINK}/`} component={ResourcesTab} />
-        <Route
-          path={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/`}
-          component={EquityTab}
-        />
+        <Route path={`${FAQ_TAB_LINK}/`}>
+          <FaqTab />
+        </Route>
+        <Route path={`${RESOURCES_TAB_LINK}/`}>
+          <ResourcesTab />
+        </Route>
+        <Route path={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/`}>
+          <EquityTab />
+        </Route>
       </Switch>
     </div>
   );
