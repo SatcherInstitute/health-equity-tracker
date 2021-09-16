@@ -350,20 +350,27 @@ function MethodologyTab() {
                     <b>Hispanic/Latino</b>: Any race(s), Hispanic/Latino.
                   </li>
                   <li>
-                    <b>Some other race (Non-Hispanic)</b>: A single race (some
-                    other race), not Hispanic/Latino. The definition of "some
-                    other race" is dependent on what other race categories exist
-                    in the dataset.
-                  </li>
-                  <li>
-                    <b>Two or more races & Some other race (Non-Hispanic)</b>:
-                    People who are either multiple races or some other race, and
-                    not Hispanic/Latino.
-                  </li>
-                  <li>
                     <b>Black or African American</b>: A single race (African
                     American), including those who identify as African American
                     and Hispanic/Latino.
+                  </li>
+                  <li>
+                    <b>Unrepresented race (Non-Hispanic)</b>: A single race not
+                    tabulated by the CDC, not Hispanic/Latino. The definition of
+                    "Unrepresented Race" is dependent on what other race
+                    categories exist in the dataset. Please note: The CDC and
+                    many other sources use the term "Some other race"; we find
+                    this term to be non-inclusive have avoided including it
+                    within our reports.
+                  </li>
+                  <li>
+                    <b>Two or more races (Non-Hispanic)</b>: Multiple races, not
+                    Hispanic/Latino.
+                  </li>
+                  <li>
+                    <b>Two or more races & Unrepresented race (Non-Hispanic)</b>
+                    : People who are either multiple races or an unrepresented
+                    race, and not Hispanic/Latino.
                   </li>
                 </ul>
               </div>

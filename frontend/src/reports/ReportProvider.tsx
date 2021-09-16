@@ -133,8 +133,21 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         ref={fieldRef}
       >
         <h3 className={styles.FootnoteLargeHeading}>Definitions </h3>
-        "Vaccinated Individual" refers to a person who has received at least one
-        dose of a COVID-19 vaccine.
+        <p>
+          <span className={styles.DefinedTerm}>"Vaccinated Individual"</span>{" "}
+          refers to a person who has received at least one dose of a COVID-19
+          vaccine.
+        </p>
+        <p>
+          <span className={styles.DefinedTerm}>"Some Other Race"</span> is the
+          category name used by the CDC to describe individuals who describe
+          themselves as belonging to a race that was not tabulated by the CDC.
+          We feel that this term is not inclusive, and have chosen to utilize
+          the term{" "}
+          <span className={styles.DefinedTerm}>"Unrepresented Race"</span>{" "}
+          instead.
+        </p>
+
         <h3 className={styles.FootnoteLargeHeading}>What Data Are Missing?</h3>
         <p>Unfortunately there are crucial data missing in our sources.</p>
         <h4>Missing and Misidentified People</h4>
