@@ -216,11 +216,13 @@
     padding: 20px 0 20px 0;
 
     .NewsAndStoriesHeaderText {
-      font-size: 52px;
+      // font-size: 52px;
+      font-size: 2.5rem;
       text-align: center;
       font-weight: 300;
       font-family: "Taviraj", serif !important;
-      line-height: 88.71px;
+      // line-height: 88.71px;
+      line-height: 170%;
       color: $alt-green;
     }
 
@@ -474,6 +476,8 @@
 /** ------------- BLOG ------------- **/
 .FullArticleContainer {
   text-align: left;
+  padding: 0px 20px 50px 20px;
+  border-bottom: 1px solid $alt-grey;
 }
 
 figure {
@@ -493,4 +497,19 @@ figure {
   margin-top: 20px !important;
   color: $alt-green !important;
   text-decoration: underline !important;
+}
+
+.PrevNextSection {
+  padding: 150px 20px 50px 20px;
+  // border-bottom: 1px solid $alt-grey;
+}
+
+.PrevNextHeaderText {
+  font-size: 1rem !important;
+  text-align: center;
+  font-weight: 300;
+  font-family: "Taviraj", serif !important;
+  line-height: 40px;
+  color: $alt-black;
+  padding-bottom: 20px;
 }
