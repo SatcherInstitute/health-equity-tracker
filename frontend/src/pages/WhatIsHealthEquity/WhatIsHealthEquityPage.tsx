@@ -5,6 +5,7 @@ import styles from "./WhatIsHealthEquityPage.module.scss";
 import EquityTab from "./EquityTab";
 import FaqTab from "./FaqTab";
 import {
+  BLOG_TAB_LINK,
   FAQ_TAB_LINK,
   RESOURCES_TAB_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
@@ -44,11 +45,12 @@ export default function WhatIsHealthEquityPage() {
               component={Link}
               to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
             />
+
             <Tab
-              value={FAQ_TAB_LINK}
-              label="FAQs"
+              value={BLOG_TAB_LINK}
+              label="Blog"
               component={Link}
-              to={FAQ_TAB_LINK}
+              to={BLOG_TAB_LINK}
             />
             <Tab
               value={RESOURCES_TAB_LINK}
@@ -56,17 +58,32 @@ export default function WhatIsHealthEquityPage() {
               component={Link}
               to={RESOURCES_TAB_LINK}
             />
+            <Tab
+              value={FAQ_TAB_LINK}
+              label="FAQs"
+              component={Link}
+              to={FAQ_TAB_LINK}
+            />
           </Tabs>
         )}
       />
 
       <Switch>
-        <Route path={`${FAQ_TAB_LINK}/`} component={FaqTab} />
-        <Route path={`${RESOURCES_TAB_LINK}/`} component={ResourcesTab} />
-        <Route
-          path={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/`}
-          component={EquityTab}
-        />
+        <Route path={`${FAQ_TAB_LINK}/`}>
+          {" "}
+          <FaqTab />{" "}
+        </Route>
+        <Route path={`${BLOG_TAB_LINK}/`}>
+          {" "}
+          <BlogTab />{" "}
+        </Route>
+        <Route path={`${RESOURCES_TAB_LINK}/`}>
+          {" "}
+          <ResourcesTab />{" "}
+        </Route>
+        <Route path={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/`}>
+          <EquityTab />
+        </Route>
       </Switch>
     </div>
   );

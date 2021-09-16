@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "../WhatIsHealthEquityPage.module.scss";
 import parse from "html-react-parser";
+import { BLOG_TAB_LINK } from "../../../utils/urlutils";
 
 // @ts-ignore
 function AllPosts({ articles }) {
@@ -43,7 +44,7 @@ function AllPosts({ articles }) {
                 src={post.media_info.source_url}
                 alt=""
               />
-              <Link to={`/whatishealthequity/blog/${post.slug}`}>
+              <Link to={`${BLOG_TAB_LINK}/${post.slug}`}>
                 <h2 className={styles.NewsAndStoriesTitleText}>
                   {parse(post.title.rendered)}
                 </h2>

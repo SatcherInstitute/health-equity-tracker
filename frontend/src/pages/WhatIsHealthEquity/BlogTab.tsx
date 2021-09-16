@@ -5,7 +5,13 @@ import Grid from "@material-ui/core/Grid";
 import { Helmet } from "react-helmet";
 // import parse from "html-react-parser";
 import axios from "axios";
-import { BLOG_URL, WP_API, ALL_POSTS, ALL_MEDIA } from "../../utils/urlutils";
+import {
+  BLOG_URL,
+  WP_API,
+  ALL_POSTS,
+  ALL_MEDIA,
+  BLOG_TAB_LINK,
+} from "../../utils/urlutils";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 // import { Button } from "@material-ui/core";
 import AllPosts from "./Blog/AllPosts";
@@ -62,10 +68,10 @@ function BlogTab() {
         >
           <BrowserRouter>
             <Switch>
-              <Route exact path="/whatishealthequity/blog/">
+              <Route exact path={`${BLOG_TAB_LINK}/`}>
                 <AllPosts articles={articles} />
               </Route>
-              <Route path="/whatishealthequity/blog/:slug">
+              <Route path={`${BLOG_TAB_LINK}/:slug`}>
                 <SinglePost articles={articles} />
               </Route>
             </Switch>

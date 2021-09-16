@@ -19,6 +19,7 @@ export const METHODOLOGY_TAB_LINK = "/methodology";
 export const CONTACT_TAB_LINK = "/contact";
 export const ABOUT_TAB_LINK = "/about";
 export const OURTEAM_TAB_LINK = "/ourteam";
+export const BLOG_TAB_LINK = "/blog";
 
 // SECTION IDS
 export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
