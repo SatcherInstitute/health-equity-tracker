@@ -42,7 +42,6 @@ import AppBarLogo from "./assets/AppbarLogo.png";
 // the following components make CSS modules which are imported by other components, so they must load first
 import AboutUsPage from "./pages/AboutUs/AboutUsPage";
 import WhatIsHealthEquityPage from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
-import FaqTab from "./pages/WhatIsHealthEquity/FaqTab";
 
 const ExploreDataPage = React.lazy(
   () => import("./pages/ExploreData/ExploreDataPage")
