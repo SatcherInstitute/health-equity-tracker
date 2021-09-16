@@ -1,10 +1,11 @@
-import { Grid, Typography } from "@material-ui/core";
+import { Box, Grid, Typography } from "@material-ui/core";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import styles from "../WhatIsHealthEquityPage.module.scss";
 import parse from "html-react-parser";
 import { useParams } from "react-router-dom";
+import { BLOG_TAB_LINK, ReactRouterLinkButton } from "../../../utils/urlutils";
 
 // @ts-ignore
 function SinglePost(props) {
@@ -42,6 +43,15 @@ function SinglePost(props) {
         <div className={styles.FullArticleContainer}>
           {fullArticle && parse(fullArticle.content.rendered)}
         </div>
+      </Grid>
+      <Grid>
+        <Box mt={10}>
+          <ReactRouterLinkButton
+            url={BLOG_TAB_LINK}
+            className={styles.FullLink}
+            displayName="See all blog posts"
+          />
+        </Box>
       </Grid>
     </Grid>
   );

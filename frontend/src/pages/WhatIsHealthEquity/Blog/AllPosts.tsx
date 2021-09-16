@@ -44,10 +44,13 @@ function AllPosts({ articles }) {
                 src={post.media_info.source_url}
                 alt=""
               />
-              <Link to={`${BLOG_TAB_LINK}/${post.slug}`}>
-                <h2 className={styles.NewsAndStoriesTitleText}>
+              <Link
+                to={`${BLOG_TAB_LINK}/${post.slug}`}
+                className={styles.NewsAndStoriesTitleLink}
+              >
+                <h3 className={styles.NewsAndStoriesTitleText}>
                   {parse(post.title.rendered)}
-                </h2>
+                </h3>
               </Link>
             </Grid>
           );
