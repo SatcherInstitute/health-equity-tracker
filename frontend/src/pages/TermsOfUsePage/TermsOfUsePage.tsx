@@ -1,10 +1,10 @@
 import React, { Dispatch, SetStateAction } from "react";
 import Grid from "@material-ui/core/Grid";
-import styles from "./TermsOfServicePage.module.scss";
+import styles from "./TermsOfUsePage.module.scss";
 import { Typography } from "@material-ui/core";
 import { Helmet } from "react-helmet";
 
-function TermsOfServicePage(props: {
+function TermsOfUsePage(props: {
   setTabIndexFx?: Dispatch<SetStateAction<number>>;
 }) {
   return (
@@ -188,4 +188,4 @@ function TermsOfServicePage(props: {
   );
 }
 
-export default TermsOfServicePage;
+export default TermsOfUsePage;

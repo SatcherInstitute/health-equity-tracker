@@ -4,17 +4,17 @@ import Tab from "@material-ui/core/Tab";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import EquityTab from "./EquityTab";
 import FaqTab from "./FaqTab";
-// import { TAB_PARAM, useSearchParams } from "../../utils/urlutils";
+import {
+  FAQ_TAB_LINK,
+  RESOURCES_TAB_LINK,
+  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+} from "../../utils/urlutils";
 import ResourcesTab from "./ResourcesTab";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useEffect } from "react";
 import BlogTab from "./BlogTab";
 import { Link, Route, Switch } from "react-router-dom";
-
-// export const WIHE_HEALTH_EQUITY_TAB_INDEX = 0;
-export const WIHE_FAQ_TAB = "/faqs";
-export const WIHE_JOIN_THE_EFFORT_SECTION_ID = "join";
 
 export default function WhatIsHealthEquityPage() {
   // responsive tabs layout to fix mobile bug
@@ -33,47 +33,40 @@ export default function WhatIsHealthEquityPage() {
         path="/"
         render={(history) => (
           <Tabs
-            // tabIndex={tabIndex}
-            // value={tabIndex}
             {...tabLayout}
-            // onChange={handleChange}
             indicatorColor="primary"
             textColor="primary"
             value={history.location.pathname}
           >
             <Tab
-              value={"/whatishealthequity"}
+              value={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
               label="What Is Health Equity?"
               component={Link}
-              to={"/whatishealthequity"}
+              to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
             />
             <Tab
-              value={"/whatishealthequity/faqs"}
+              value={FAQ_TAB_LINK}
               label="FAQs"
               component={Link}
-              to={"/whatishealthequity/faqs"}
+              to={FAQ_TAB_LINK}
             />
             <Tab
-              value={"/whatishealthequity/resources"}
+              value={RESOURCES_TAB_LINK}
               label="Resources"
               component={Link}
-              to={"/whatishealthequity/resources"}
-            />
-            <Tab
-              value={"/whatishealthequity/blog"}
-              label="Blog"
-              component={Link}
-              to={"/whatishealthequity/blog"}
+              to={RESOURCES_TAB_LINK}
             />
           </Tabs>
         )}
       />
 
       <Switch>
-        <Route path="/whatishealthequity/blog" component={BlogTab} />
-        <Route path="/whatishealthequity/faqs" component={FaqTab} />
-        <Route path="/whatishealthequity/resources" component={ResourcesTab} />
-        <Route path="/whatishealthequity/" component={EquityTab} />
+        <Route path={`${FAQ_TAB_LINK}/`} component={FaqTab} />
+        <Route path={`${RESOURCES_TAB_LINK}/`} component={ResourcesTab} />
+        <Route
+          path={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/`}
+          component={EquityTab}
+        />
       </Switch>
     </div>
   );

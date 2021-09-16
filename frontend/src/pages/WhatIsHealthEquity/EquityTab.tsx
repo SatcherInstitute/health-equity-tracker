@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import FaqSection from "../ui/FaqSection";
-import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "./WhatIsHealthEquityPage";
+import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "../../utils/urlutils";
 import { Box } from "@material-ui/core";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet";
@@ -108,7 +108,7 @@ function EquityTab() {
                 <img
                   width="397"
                   height="760"
-                  src="img/stock/woman-in-wheelchair-with-tea.png"
+                  src="/img/stock/woman-in-wheelchair-with-tea.png"
                   className={styles.HeaderImg}
                   alt=""
                 />
@@ -296,7 +296,7 @@ function EquityTab() {
                       <LazyLoad offset={300} height={200} once>
                         <img
                           className={styles.ResourceImg}
-                          src="img/maxresdefault (1) 1.png"
+                          src="/img/graphics/NCRN.png"
                           alt="Header for Morehouse School of Medicine National COVID-19 Resiliency Network"
                         />
                       </LazyLoad>

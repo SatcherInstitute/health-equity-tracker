@@ -10,11 +10,9 @@ import {
 import { Fips } from "../data/utils/Fips";
 import {
   LinkWithStickyParams,
-  ABOUT_US_PAGE_LINK,
   DATA_CATALOG_PAGE_LINK,
-  TAB_PARAM,
+  CONTACT_TAB_LINK,
 } from "../utils/urlutils";
-import { ABOUT_US_CONTACT_TAB_INDEX } from "../pages/AboutUs/AboutUsPage";
 import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import ShareIcon from "@material-ui/icons/Share";
@@ -198,9 +196,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             Do you have information on health outcomes at the state and local
             level that belong in the Health Equity Tracker?
             <br />
-            <LinkWithStickyParams
-              to={`${ABOUT_US_PAGE_LINK}?${TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
-            >
+            <LinkWithStickyParams to={`${CONTACT_TAB_LINK}`}>
               We would love to hear from you!
             </LinkWithStickyParams>
           </p>
