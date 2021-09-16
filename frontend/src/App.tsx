@@ -14,6 +14,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import React, { Suspense, useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
+  Redirect,
   Route,
   Switch,
   useLocation,
@@ -234,6 +235,10 @@ function App() {
                       path={TERMS_OF_USE_PAGE_LINK}
                       render={() => <TermsOfUsePage />}
                     />
+                    {/* redirect the old URL for possible outside links */}
+                    <Route path={`/termsofservice`}>
+                      <Redirect to={TERMS_OF_USE_PAGE_LINK} />
+                    </Route>
 
                     <Route exact path="/" render={() => <LandingPage />} />
                     {/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}
