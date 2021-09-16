@@ -12,7 +12,7 @@ import {
   LinkWithStickyParams,
   ABOUT_US_PAGE_LINK,
   DATA_CATALOG_PAGE_LINK,
-  CONTACT_TAB,
+  CONTACT_TAB_LINK,
 } from "../utils/urlutils";
 import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
@@ -197,7 +197,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             Do you have information on health outcomes at the state and local
             level that belong in the Health Equity Tracker?
             <br />
-            <LinkWithStickyParams to={`${ABOUT_US_PAGE_LINK}${CONTACT_TAB}`}>
+            <LinkWithStickyParams to={`${CONTACT_TAB_LINK}`}>
               We would love to hear from you!
             </LinkWithStickyParams>
           </p>

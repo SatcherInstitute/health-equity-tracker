@@ -14,8 +14,8 @@ import {
   TERMS_OF_USE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   ReactRouterLinkButton,
-  FAQ_TAB,
-  CONTACT_TAB,
+  FAQ_TAB_LINK,
+  CONTACT_TAB_LINK,
 } from "./utils/urlutils";
 import AppbarLogo from "./assets/AppbarLogo.png";
 import PartnerSatcher from "./assets/PartnerSatcher.png";
@@ -47,12 +47,8 @@ function Footer() {
             {[
               ["Explore Data", EXPLORE_DATA_PAGE_LINK],
               ["Downloads and Methods", DATA_CATALOG_PAGE_LINK],
-              [
-                "FAQs",
-                `${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}${FAQ_TAB}`,
-                "Frequently Asked Questions",
-              ],
-              ["Contact Us", `${ABOUT_US_PAGE_LINK}${CONTACT_TAB}`],
+              ["FAQs", `${FAQ_TAB_LINK}`, "Frequently Asked Questions"],
+              ["Contact Us", `${CONTACT_TAB_LINK}`],
               ["Terms of Use", `${TERMS_OF_USE_PAGE_LINK}`],
             ].map(([label, link, ariaLabel]) => (
               <LinkGridItem

@@ -2,7 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import { Typography } from "@material-ui/core";
-import { ABOUT_US_PAGE_LINK, CONTACT_TAB } from "../../utils/urlutils";
+import { ABOUT_US_PAGE_LINK, CONTACT_TAB_LINK } from "../../utils/urlutils";
 import { Helmet } from "react-helmet";
 import { CITATION_CHICAGO } from "../DataCatalog/MethodologyTab";
 import parse from "html-react-parser";
@@ -313,7 +313,7 @@ function FaqTab() {
                     </li>
                     <li>
                       Share your health equity story.{" "}
-                      <a href={`${ABOUT_US_PAGE_LINK}${CONTACT_TAB}`}>
+                      <a href={`${CONTACT_TAB_LINK}`}>
                         Click here to contact us
                       </a>
                     </li>

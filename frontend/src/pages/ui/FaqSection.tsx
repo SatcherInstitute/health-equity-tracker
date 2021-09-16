@@ -6,7 +6,7 @@ import { Accordion, AccordionSummary } from "@material-ui/core";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {
-  FAQ_TAB,
+  FAQ_TAB_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   ReactRouterLinkButton,
 } from "../../utils/urlutils";
@@ -60,7 +60,7 @@ function FaqSection() {
       </Grid>
       <Grid item>
         <ReactRouterLinkButton
-          url={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}${FAQ_TAB}`}
+          url={`${FAQ_TAB_LINK}`}
           className={styles.FaqLink}
           displayName="See our full FAQ page"
         />

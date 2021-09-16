@@ -25,10 +25,15 @@ import MaterialTheme from "./styles/MaterialTheme";
 import { autoInitGlobals } from "./utils/globals";
 import {
   ABOUT_US_PAGE_LINK,
+  CONTACT_TAB_LINK,
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
+  FAQ_TAB_LINK,
   LinkWithStickyParams,
+  METHODOLOGY_TAB_LINK,
+  OURTEAM_TAB_LINK,
   ReactRouterLinkButton,
+  RESOURCES_TAB_LINK,
   TERMS_OF_USE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "./utils/urlutils";
@@ -37,6 +42,7 @@ import AppBarLogo from "./assets/AppbarLogo.png";
 // the following components make CSS modules which are imported by other components, so they must load first
 import AboutUsPage from "./pages/AboutUs/AboutUsPage";
 import WhatIsHealthEquityPage from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
+import FaqTab from "./pages/WhatIsHealthEquity/FaqTab";
 
 const ExploreDataPage = React.lazy(
   () => import("./pages/ExploreData/ExploreDataPage")
@@ -186,7 +192,22 @@ function App() {
                     />
 
                     <Route
+                      path={OURTEAM_TAB_LINK}
+                      render={() => <AboutUsPage />}
+                    />
+
+                    <Route
+                      path={CONTACT_TAB_LINK}
+                      render={() => <AboutUsPage />}
+                    />
+
+                    <Route
                       path={DATA_CATALOG_PAGE_LINK}
+                      render={() => <DataCatalogTab />}
+                    />
+
+                    <Route
+                      path={METHODOLOGY_TAB_LINK}
                       render={() => <DataCatalogTab />}
                     />
 
@@ -197,6 +218,16 @@ function App() {
 
                     <Route
                       path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+                      render={() => <WhatIsHealthEquityPage />}
+                    />
+
+                    <Route
+                      path={FAQ_TAB_LINK}
+                      render={() => <WhatIsHealthEquityPage />}
+                    />
+
+                    <Route
+                      path={RESOURCES_TAB_LINK}
                       render={() => <WhatIsHealthEquityPage />}
                     />
 

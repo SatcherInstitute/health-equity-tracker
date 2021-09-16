@@ -4,7 +4,11 @@ import Tab from "@material-ui/core/Tab";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import EquityTab from "./EquityTab";
 import FaqTab from "./FaqTab";
-import { WHAT_IS_HEALTH_EQUITY_PAGE_LINK } from "../../utils/urlutils";
+import {
+  FAQ_TAB_LINK,
+  RESOURCES_TAB_LINK,
+  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+} from "../../utils/urlutils";
 import ResourcesTab from "./ResourcesTab";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -40,30 +44,24 @@ export default function WhatIsHealthEquityPage() {
               to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
             />
             <Tab
-              value={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/faqs`}
+              value={FAQ_TAB_LINK}
               label="FAQs"
               component={Link}
-              to={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/faqs`}
+              to={FAQ_TAB_LINK}
             />
             <Tab
-              value={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/resources`}
+              value={RESOURCES_TAB_LINK}
               label="Resources"
               component={Link}
-              to={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/resources`}
+              to={RESOURCES_TAB_LINK}
             />
           </Tabs>
         )}
       />
 
       <Switch>
-        <Route
-          path={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/faqs`}
-          component={FaqTab}
-        />
-        <Route
-          path={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/resources`}
-          component={ResourcesTab}
-        />
+        <Route path={`${FAQ_TAB_LINK}/`} component={FaqTab} />
+        <Route path={`${RESOURCES_TAB_LINK}/`} component={ResourcesTab} />
         <Route
           path={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/`}
           component={EquityTab}

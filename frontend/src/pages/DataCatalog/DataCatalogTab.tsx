@@ -7,7 +7,7 @@ import {
   DATA_CATALOG_PAGE_LINK,
   DATA_SOURCE_PRE_FILTERS,
   useSearchParams,
-  METHODOLOGY_TAB,
+  METHODOLOGY_TAB_LINK,
 } from "../../utils/urlutils";
 import styles from "../AboutUs/AboutUsPage.module.scss";
 import { Link, Route, Switch } from "react-router-dom";
@@ -35,20 +35,17 @@ function DataCatalogTab() {
               to={DATA_CATALOG_PAGE_LINK}
             />
             <Tab
-              value={`${DATA_CATALOG_PAGE_LINK}${METHODOLOGY_TAB}`}
+              value={`${METHODOLOGY_TAB_LINK}`}
               label="Methodology"
               component={Link}
-              to={`${DATA_CATALOG_PAGE_LINK}${METHODOLOGY_TAB}`}
+              to={`${METHODOLOGY_TAB_LINK}`}
             />
           </Tabs>
         )}
       />
 
       <Switch>
-        <Route
-          path={`${DATA_CATALOG_PAGE_LINK}${METHODOLOGY_TAB}`}
-          component={MethodologyTab}
-        />
+        <Route path={`${METHODOLOGY_TAB_LINK}/`} component={MethodologyTab} />
         <Route path={`${DATA_CATALOG_PAGE_LINK}/`}>
           <DatasetExplorer preFilterDataSourceIds={datasets} />
         </Route>
