@@ -11,9 +11,18 @@ import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
 import { Helmet } from "react-helmet";
 import parse from "html-react-parser";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
+import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 
 export const CITATION_CHICAGO =
   "Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. https://healthequitytracker.org.";
+
+export const VACCINATED_DEF = `People who have received at least one dose of a COVID-19 vaccine.`;
+export const UNREPRESENTED_RACE_DEF = `A single race not
+tabulated by the CDC, not Hispanic/Latino. The definition of
+"Unrepresented Race" is dependent on what other race
+categories exist in the dataset. Please note: The CDC and
+many other sources use the term "Some other race"; we find
+this term to be non-inclusive have avoided its usage.`;
 
 function MethodologyTab() {
   return (
@@ -319,6 +328,22 @@ function MethodologyTab() {
             </Grid>
             <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
               <h2 className={styles.MethodologyQuestion}>
+                What do the condition variables on the tracker mean?
+              </h2>
+              <div className={styles.MethodologyAnswer}>
+                <ul>
+                  <li>
+                    <b>
+                      {METRIC_CONFIG["vaccinated"][0].variableFullDisplayName}
+                    </b>
+                    {": "}
+                    {VACCINATED_DEF}
+                  </li>
+                </ul>
+              </div>
+            </Grid>
+            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
+              <h2 className={styles.MethodologyQuestion}>
                 What do the race/ethnicity groups mean?
               </h2>
               <div className={styles.MethodologyAnswer}>
@@ -355,13 +380,9 @@ function MethodologyTab() {
                     and Hispanic/Latino.
                   </li>
                   <li>
-                    <b>Unrepresented race (Non-Hispanic)</b>: A single race not
-                    tabulated by the CDC, not Hispanic/Latino. The definition of
-                    "Unrepresented Race" is dependent on what other race
-                    categories exist in the dataset. Please note: The CDC and
-                    many other sources use the term "Some other race"; we find
-                    this term to be non-inclusive have avoided including it
-                    within our reports.
+                    <b>Unrepresented race (Non-Hispanic)</b>
+                    {": "}
+                    {UNREPRESENTED_RACE_DEF}
                   </li>
                   <li>
                     <b>Two or more races (Non-Hispanic)</b>: Multiple races, not

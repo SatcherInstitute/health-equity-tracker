@@ -21,6 +21,11 @@ import ShareIcon from "@material-ui/icons/Share";
 import styles from "./Report.module.scss";
 import ShareDialog from "./ui/ShareDialog";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
+import { METRIC_CONFIG } from "../data/config/MetricConfig";
+import {
+  UNREPRESENTED_RACE_DEF,
+  VACCINATED_DEF,
+} from "../pages/DataCatalog/MethodologyTab";
 
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
   const segment = madLib.phrase[segmentIndex];
@@ -132,20 +137,16 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         className={styles.MissingDataInfo}
         ref={fieldRef}
       >
-        <h3 className={styles.FootnoteLargeHeading}>Definitions </h3>
+        <h3 className={styles.FootnoteLargeHeading}>Definitions</h3>
         <p>
-          <span className={styles.DefinedTerm}>"Vaccinated Individual"</span>{" "}
-          refers to a person who has received at least one dose of a COVID-19
-          vaccine.
+          <b>"{METRIC_CONFIG["vaccinated"][0].variableFullDisplayName}"</b>
+          {": "}
+          {VACCINATED_DEF}
         </p>
         <p>
-          <span className={styles.DefinedTerm}>"Some Other Race"</span> is the
-          category name used by the CDC to describe individuals who describe
-          themselves as belonging to a race that was not tabulated by the CDC.
-          We feel that this term is not inclusive, and have chosen to utilize
-          the term{" "}
-          <span className={styles.DefinedTerm}>"Unrepresented Race"</span>{" "}
-          instead.
+          <span className={styles.DefinedTerm}>"Unrepresented Race"</span>
+          {": "}
+          {UNREPRESENTED_RACE_DEF}
         </p>
 
         <h3 className={styles.FootnoteLargeHeading}>What Data Are Missing?</h3>
