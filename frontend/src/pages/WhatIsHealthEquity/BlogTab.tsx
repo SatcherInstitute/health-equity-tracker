@@ -66,16 +66,14 @@ function BlogTab() {
           direction="column"
           justify="center"
         >
-          <BrowserRouter>
-            <Switch>
-              <Route exact path={`${BLOG_TAB_LINK}/`}>
-                <AllPosts articles={articles} />
-              </Route>
-              <Route path={`${BLOG_TAB_LINK}/:slug`}>
-                <SinglePost articles={articles} />
-              </Route>
-            </Switch>
-          </BrowserRouter>
+          <Switch>
+            <Route path={`${BLOG_TAB_LINK}/:slug`}>
+              <SinglePost articles={articles} />
+            </Route>
+            <Route path={`${BLOG_TAB_LINK}/`}>
+              <AllPosts articles={articles} />
+            </Route>
+          </Switch>
         </Grid>
       </Grid>
     </div>
