@@ -429,7 +429,7 @@ function EquityTab() {
                 >
                   <img
                     className={styles.NewsAndStoriesSmallImg}
-                    src="/img/Screen Shot 2021-03-01 at 5.25 1.png"
+                    src="/img/graphics/laptop-HET.png"
                     alt=""
                   />
                   <h2 className={styles.NewsAndStoriesTitleText}>
