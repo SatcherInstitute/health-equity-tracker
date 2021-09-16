@@ -225,32 +225,32 @@ const HE_TASKFORCE = [
 
 const PARTNERS = [
   {
-    imageUrl: "/img/PartnerSatcher.png",
+    imageUrl: "/img/partners/PartnerSatcher.png",
     alt: "Morehouse School of Medicine Satcher Health Leadership Institute",
     url: "https://satcherinstitute.org/",
   },
   {
-    imageUrl: "/img/PartnerGilead.png",
+    imageUrl: "/img/partners/PartnerGilead.png",
     alt: "Gilead Sciences, Inc.",
     url: "https://www.gilead.com/",
   },
   {
-    imageUrl: "/img/PartnerCdc.png",
+    imageUrl: "/img/partners/PartnerCdc.png",
     alt: "United States Center for Disease Control and Prevention",
     url: "https://www.cdc.gov/",
   },
   {
-    imageUrl: "/img/PartnerGoogle.png",
+    imageUrl: "/img/partners/PartnerGoogle.png",
     alt: "Google.org",
     url: "https://google.org",
   },
   {
-    imageUrl: "/img/PartnerAARP.png",
+    imageUrl: "/img/partners/PartnerAARP.png",
     alt: "American Association of Retired Persons",
     url: "https://aarp.org",
   },
   {
-    imageUrl: "/img/PartnerAECF.png",
+    imageUrl: "/img/partners/PartnerAECF.png",
     alt: "Annie E. Casey Foundation",
     url: "https://www.aecf.org/",
   },

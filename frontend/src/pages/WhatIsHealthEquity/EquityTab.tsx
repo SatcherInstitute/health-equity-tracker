@@ -268,7 +268,7 @@ function EquityTab() {
                       <LazyLoad offset={300} height={200} once>
                         <img
                           className={styles.ResourceImg}
-                          src="/img/maxresdefault (1) 1.png"
+                          src="/img/graphics/NCRN.png"
                           alt="Header for Morehouse School of Medicine National COVID-19 Resiliency Network"
                         />
                       </LazyLoad>
@@ -323,7 +323,7 @@ function EquityTab() {
                 >
                   <img
                     className={styles.NewsAndStoriesBigImg}
-                    src="/img/pexels-august-de-richelieu-4261261 1.png"
+                    src="/img/stock/kid-gets-a-mask.png"
                     alt=""
                   />
                   <h2 className={styles.NewsAndStoriesTitleText}>
@@ -351,7 +351,7 @@ function EquityTab() {
                 >
                   <img
                     className={styles.NewsAndStoriesBigImg}
-                    src="/img/pexels-mary-taylor-5896662.jpg"
+                    src="/img/stock/girls-studying.jpg"
                     alt=""
                   />
                   <h2 className={styles.NewsAndStoriesTitleText}>
@@ -379,7 +379,7 @@ function EquityTab() {
                 >
                   <img
                     className={styles.NewsAndStoriesSmallImg}
-                    src="/img/pexels-alex-green-5699516 1.png"
+                    src="/img/stock/filling-in-forms.png"
                     alt=""
                   />
                   <h2 className={styles.NewsAndStoriesTitleText}>
@@ -404,8 +404,8 @@ function EquityTab() {
                 >
                   <img
                     className={styles.NewsAndStoriesSmallImg}
-                    src="/img/pexels-ketut-subiyanto-4473409 2.png"
-                    alt="Asian woman laughing with two children, Decorative"
+                    src="/img/stock/kids-ukulele.png"
+                    alt=""
                   />
                   <h2 className={styles.NewsAndStoriesTitleText}>
                     How Complete Are The CDC's COVID-19 Case Surveillance
