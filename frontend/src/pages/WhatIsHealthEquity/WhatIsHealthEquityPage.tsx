@@ -37,7 +37,13 @@ export default function WhatIsHealthEquityPage() {
             {...tabLayout}
             indicatorColor="primary"
             textColor="primary"
-            value={history.location.pathname}
+            // if showing a SingleArticle, don't highlight BLOG tab
+            value={
+              history.location.pathname.startsWith(BLOG_TAB_LINK) &&
+              history.location.pathname !== BLOG_TAB_LINK
+                ? false
+                : history.location.pathname
+            }
           >
             <Tab
               value={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}

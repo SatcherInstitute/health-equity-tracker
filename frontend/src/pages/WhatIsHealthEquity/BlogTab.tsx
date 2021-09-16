@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import Grid from "@material-ui/core/Grid";
-// import Typography from "@material-ui/core/Typography";
 import { Helmet } from "react-helmet";
-// import parse from "html-react-parser";
 import axios from "axios";
 import {
   BLOG_URL,
@@ -12,8 +10,7 @@ import {
   ALL_MEDIA,
   BLOG_TAB_LINK,
 } from "../../utils/urlutils";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-// import { Button } from "@material-ui/core";
+import { Route, Switch } from "react-router-dom";
 import AllPosts from "./Blog/AllPosts";
 import SinglePost from "./Blog/SinglePost";
 
