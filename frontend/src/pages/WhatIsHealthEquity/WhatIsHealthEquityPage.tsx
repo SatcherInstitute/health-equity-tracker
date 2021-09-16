@@ -70,16 +70,13 @@ export default function WhatIsHealthEquityPage() {
 
       <Switch>
         <Route path={`${FAQ_TAB_LINK}/`}>
-          {" "}
-          <FaqTab />{" "}
+          <FaqTab />
         </Route>
         <Route path={`${BLOG_TAB_LINK}/`}>
-          {" "}
-          <BlogTab />{" "}
+          <BlogTab />
         </Route>
         <Route path={`${RESOURCES_TAB_LINK}/`}>
-          {" "}
-          <ResourcesTab />{" "}
+          <ResourcesTab />
         </Route>
         <Route path={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/`}>
           <EquityTab />

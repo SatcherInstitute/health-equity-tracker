@@ -47,9 +47,15 @@ export default function AboutUsPage() {
       />
 
       <Switch>
-        <Route path={`${OURTEAM_TAB_LINK}/`} component={OurTeamTab} />
-        <Route path={`${CONTACT_TAB_LINK}/`} component={ContactUsTab} />
-        <Route path={`${ABOUT_US_PAGE_LINK}/`} component={TheProjectTab} />
+        <Route path={`${OURTEAM_TAB_LINK}/`}>
+          <OurTeamTab />
+        </Route>
+        <Route path={`${CONTACT_TAB_LINK}/`}>
+          <ContactUsTab />
+        </Route>
+        <Route path={`${ABOUT_US_PAGE_LINK}/`}>
+          <TheProjectTab />
+        </Route>
       </Switch>
     </div>
   );
