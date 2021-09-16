@@ -4,7 +4,6 @@ import styles from "./DataCatalogPage.module.scss";
 import {
   LinkWithStickyParams,
   CONTACT_TAB_LINK,
-  ABOUT_US_PAGE_LINK,
   EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK,
 } from "../../utils/urlutils";
 import { Helmet } from "react-helmet";

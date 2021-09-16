@@ -5,11 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import { Accordion, AccordionSummary } from "@material-ui/core";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import {
-  FAQ_TAB_LINK,
-  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-  ReactRouterLinkButton,
-} from "../../utils/urlutils";
+import { FAQ_TAB_LINK, ReactRouterLinkButton } from "../../utils/urlutils";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
 import parse from "html-react-parser";
 

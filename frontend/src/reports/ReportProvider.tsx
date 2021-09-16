@@ -10,7 +10,6 @@ import {
 import { Fips } from "../data/utils/Fips";
 import {
   LinkWithStickyParams,
-  ABOUT_US_PAGE_LINK,
   DATA_CATALOG_PAGE_LINK,
   CONTACT_TAB_LINK,
 } from "../utils/urlutils";

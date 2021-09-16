@@ -27,10 +27,7 @@ import {
 } from "../data/query/BreakdownFilter";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Hidden from "@material-ui/core/Hidden";
-import {
-  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-  FAQ_TAB_LINK,
-} from "../utils/urlutils";
+import { FAQ_TAB_LINK } from "../utils/urlutils";
 import Alert from "@material-ui/lab/Alert";
 
 export interface PopulationCardProps {
