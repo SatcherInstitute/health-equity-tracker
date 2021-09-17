@@ -109,6 +109,15 @@ FROM `acs_population.by_sex_age_race_county_std`
 GROUP BY state_fips, county_fips, county_name, sex, age, race_category_id, race, race_includes_hispanic, race_and_ethnicity
 ORDER BY state_fips, county_fips, county_name, sex, age, race_category_id, race, race_includes_hispanic, race_and_ethnicity;
 
+CREATE OR REPLACE TABLE acs_population.by_sex_age_race_county_decade_buckets AS
+SELECT
+  state_fips, county_fips, county_name, sex, getDecadeAgeBucket(age) AS age,
+  race_category_id, race, race_includes_hispanic, race_and_ethnicity,
+  SUM(population) AS population
+FROM `acs_population.by_sex_age_race_county_std`
+GROUP BY state_fips, county_fips, county_name, sex, age, race_category_id, race, race_includes_hispanic, race_and_ethnicity
+ORDER BY state_fips, county_fips, county_name, sex, age, race_category_id, race, race_includes_hispanic, race_and_ethnicity;
+
 -- We can base further aggregations on the above tables.
 CREATE OR REPLACE TABLE acs_population.by_age_race_state_staggered_buckets AS
 SELECT * EXCEPT(sex)
@@ -118,6 +127,11 @@ WHERE sex = "Total";
 CREATE OR REPLACE TABLE acs_population.by_age_race_county_staggered_buckets AS
 SELECT * EXCEPT(sex)
 FROM `acs_population.by_sex_age_race_county_staggered_buckets`
+WHERE sex = "Total";
+
+CREATE OR REPLACE TABLE acs_population.by_age_race_county_decade_buckets AS
+SELECT * EXCEPT(sex)
+FROM `acs_population.by_sex_age_race_county_decade_buckets`
 WHERE sex = "Total";
 
 CREATE OR REPLACE TABLE acs_population.by_sex_state AS
