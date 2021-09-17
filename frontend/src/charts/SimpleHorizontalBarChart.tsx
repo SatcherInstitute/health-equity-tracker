@@ -228,7 +228,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           props.hideActions
             ? false
             : {
-                export: { png: true, svg: false },
+                export: { png: true, svg: true },
                 source: false,
                 compiled: false,
                 editor: false,
