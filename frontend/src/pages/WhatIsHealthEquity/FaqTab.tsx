@@ -2,8 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import { Typography } from "@material-ui/core";
-import { TAB_PARAM, ABOUT_US_PAGE_LINK } from "../../utils/urlutils";
-import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
+import { CONTACT_TAB_LINK } from "../../utils/urlutils";
 import { Helmet } from "react-helmet";
 import { CITATION_CHICAGO } from "../DataCatalog/MethodologyTab";
 import parse from "html-react-parser";
@@ -314,9 +313,7 @@ function FaqTab() {
                     </li>
                     <li>
                       Share your health equity story.{" "}
-                      <a
-                        href={`${ABOUT_US_PAGE_LINK}?${TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
-                      >
+                      <a href={`${CONTACT_TAB_LINK}`}>
                         Click here to contact us
                       </a>
                     </li>
@@ -325,13 +322,15 @@ function FaqTab() {
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>
-                  How do I share the graphs?
+                  How do I share or save the visualizations (graphs, charts,
+                  maps)?
                 </h3>
                 <div className={styles.FaqAnswer}>
                   <p>
-                    Next to each graph, there is a circle-shaped button with
-                    three dots in it. Click on that button to see a menu where
-                    you can save each graph as a PNG or SVG.{" "}
+                    Next to each visualization, there is a circle-shaped button
+                    with three dots in it. Click on this button and select "Save
+                    as PNG". Please note; due to technical limitations,
+                    territories are not currently exported on the national map.
                   </p>
                 </div>
               </Grid>

@@ -9,62 +9,62 @@ const LEADERSHIP_TEAM = [
   {
     name: "Daniel Dawes, JD",
     role: "Co-Principal Investigator",
-    imageUrl: "img/team/Daniel-E 1.png",
+    imageUrl: "/img/team/Daniel-E 1.png",
   },
   {
     name: "Nelson Dunlap, JD",
     role: "Co-Principal Investigator",
-    imageUrl: "img/team/DunlapNelson.png",
+    imageUrl: "/img/team/DunlapNelson.png",
   },
   {
     name: "Ebony Respress, MPH",
     role: "Project Director",
-    imageUrl: "img/team/RespressEbony.png",
+    imageUrl: "/img/team/RespressEbony.png",
   },
   {
     name: "Allyson Belton, MPH",
     role: "Coalition/Engagement",
-    imageUrl: "img/team/Belton_Allyson.png",
+    imageUrl: "/img/team/Belton_Allyson.png",
   },
   {
     name: "Mahia Valle, MBA",
     role: "Communications",
-    imageUrl: "img/team/ValleMahia.png",
+    imageUrl: "/img/team/ValleMahia.png",
   },
   {
     name: "Shaneeta M. Johnson MD, MBA, FACS, FASMBS, ABOM",
     role: "Senior Advisor",
-    imageUrl: "img/team/ShaneetaJohnson.png",
+    imageUrl: "/img/team/ShaneetaJohnson.png",
   },
   {
     name: "JC Gonzalez, MBA, PMP",
     role: "Product Manager",
-    imageUrl: "img/team/GonzalezJC.png",
+    imageUrl: "/img/team/GonzalezJC.png",
   },
   {
     name: "Josh Zarrabi",
     role: "Senior Software Engineer",
-    imageUrl: "img/team/ZarrabiJosh.png",
+    imageUrl: "/img/team/ZarrabiJosh.png",
   },
   {
     name: "Ben Hammond",
     role: "Software Engineer",
-    imageUrl: "img/team/HammondBen.jpg",
+    imageUrl: "/img/team/HammondBen.jpg",
   },
   {
     name: "Maisha Standifer, PhD, MPH",
     role: "Health Policy Analyst",
-    imageUrl: "img/team/maisha-standifer.jpg",
+    imageUrl: "/img/team/maisha-standifer.jpg",
   },
   {
     name: "Jammie Hopkins, DrPH, MS",
     role: "Coalition/Engagement",
-    imageUrl: "img/team/jammie-hopkins.jpg",
+    imageUrl: "/img/team/jammie-hopkins.jpg",
   },
   {
     name: "Megan Douglas, JD",
     role: "Health Policy Analyst",
-    imageUrl: "img/team/DouglasMegan.png",
+    imageUrl: "/img/team/DouglasMegan.png",
   },
 ];
 
@@ -225,32 +225,32 @@ const HE_TASKFORCE = [
 
 const PARTNERS = [
   {
-    imageUrl: "img/PartnerSatcher.png",
+    imageUrl: "/img/partners/PartnerSatcher.png",
     alt: "Morehouse School of Medicine Satcher Health Leadership Institute",
     url: "https://satcherinstitute.org/",
   },
   {
-    imageUrl: "img/PartnerGilead.png",
+    imageUrl: "/img/partners/PartnerGilead.png",
     alt: "Gilead Sciences, Inc.",
     url: "https://www.gilead.com/",
   },
   {
-    imageUrl: "img/PartnerCdc.png",
+    imageUrl: "/img/partners/PartnerCdc.png",
     alt: "United States Center for Disease Control and Prevention",
     url: "https://www.cdc.gov/",
   },
   {
-    imageUrl: "img/PartnerGoogle.png",
+    imageUrl: "/img/partners/PartnerGoogle.png",
     alt: "Google.org",
     url: "https://google.org",
   },
   {
-    imageUrl: "img/PartnerAARP.png",
+    imageUrl: "/img/partners/PartnerAARP.png",
     alt: "American Association of Retired Persons",
     url: "https://aarp.org",
   },
   {
-    imageUrl: "img/PartnerAECF.png",
+    imageUrl: "/img/partners/PartnerAECF.png",
     alt: "Annie E. Casey Foundation",
     url: "https://www.aecf.org/",
   },

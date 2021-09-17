@@ -27,8 +27,7 @@ import {
 } from "../data/query/BreakdownFilter";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Hidden from "@material-ui/core/Hidden";
-import { TAB_PARAM, WHAT_IS_HEALTH_EQUITY_PAGE_LINK } from "../utils/urlutils";
-import { WIHE_FAQ_TAB_INDEX } from "../pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
+import { FAQ_TAB_LINK } from "../utils/urlutils";
 import Alert from "@material-ui/lab/Alert";
 
 export interface PopulationCardProps {
@@ -155,11 +154,7 @@ export function PopulationCard(props: PopulationCardProps) {
                       Census Bureau. While it is the standard for CDC reporting,
                       the definition of these categories often results in not
                       counting or miscounting people in underrepresented groups.{" "}
-                      <a
-                        href={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_FAQ_TAB_INDEX}`}
-                      >
-                        Learn more
-                      </a>
+                      <a href={`${FAQ_TAB_LINK}`}>Learn more</a>
                     </Alert>
                     <Grid container>
                       {raceQueryResponse
