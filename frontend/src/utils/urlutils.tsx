@@ -5,13 +5,25 @@ import { MadLibId, PhraseSelections } from "./MadLibs";
 
 export const STICKY_VERSION_PARAM = "sv";
 
+// PAGE URLS
 export const EXPLORE_DATA_PAGE_LINK = "/exploredata";
-export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
-  EXPLORE_DATA_PAGE_LINK + "#missingDataInfo";
 export const DATA_CATALOG_PAGE_LINK = "/datacatalog";
 export const ABOUT_US_PAGE_LINK = "/aboutus";
 export const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = "/whatishealthequity";
-export const TERMS_OF_SERVICE_PAGE_LINK = "/termsofservice";
+export const TERMS_OF_USE_PAGE_LINK = "/termsofuse";
+
+// TAB URLS
+export const FAQ_TAB_LINK = "/faqs";
+export const RESOURCES_TAB_LINK = "/resources";
+export const METHODOLOGY_TAB_LINK = "/methodology";
+export const CONTACT_TAB_LINK = "/contact";
+export const ABOUT_TAB_LINK = "/about";
+export const OURTEAM_TAB_LINK = "/ourteam";
+
+// SECTION IDS
+export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
+  EXPLORE_DATA_PAGE_LINK + "#missingDataInfo";
+export const WIHE_JOIN_THE_EFFORT_SECTION_ID = "join";
 
 // Value is a comma-separated list of dataset ids. Dataset ids cannot have
 // commas in them.
@@ -34,6 +46,10 @@ export const SHOW_ONBOARDING_PARAM = "onboard";
 export const DEMOGRAPHIC_PARAM = "demo";
 export const DATA_TYPE_1_PARAM = "dt1";
 export const DATA_TYPE_2_PARAM = "dt2";
+
+export function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
 export function LinkWithStickyParams(props: {
   to: string;
