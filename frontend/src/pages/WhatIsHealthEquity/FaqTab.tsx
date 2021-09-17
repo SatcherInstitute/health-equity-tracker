@@ -328,9 +328,9 @@ function FaqTab() {
                 <div className={styles.FaqAnswer}>
                   <p>
                     Next to each visualization, there is a circle-shaped button
-                    with three dots in it. Click on this button select "Save as
-                    PNG". Please note; due to technical limitations, territories
-                    are not currently exported on the national map.
+                    with three dots in it. Click on this button and select "Save
+                    as PNG". Please note; due to technical limitations,
+                    territories are not currently exported on the national map.
                   </p>
                 </div>
               </Grid>
