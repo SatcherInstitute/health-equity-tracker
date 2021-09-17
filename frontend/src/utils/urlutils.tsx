@@ -53,6 +53,9 @@ export const BLOG_URL = "https://het-blog.000webhostapp.com/";
 export const WP_API = "wp-json/wp/v2/";
 export const ALL_POSTS = "posts";
 export const ALL_MEDIA = "media";
+export function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
 export function LinkWithStickyParams(props: {
   to: string;

@@ -9,13 +9,14 @@ import {
   FAQ_TAB_LINK,
   RESOURCES_TAB_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+  useQuery,
 } from "../../utils/urlutils";
 import ResourcesTab from "./ResourcesTab";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useEffect } from "react";
 import BlogTab from "./BlogTab";
-import { Link, Route, Switch } from "react-router-dom";
+import { Link, Redirect, Route, Switch } from "react-router-dom";
 
 export default function WhatIsHealthEquityPage() {
   // responsive tabs layout to fix mobile bug
@@ -30,6 +31,14 @@ export default function WhatIsHealthEquityPage() {
 
   return (
     <div className={styles.WhatIsHealthEquityPage}>
+      {/*  intercept old FAQ via query params for backwards compatible links */}
+      {useQuery().get("tab") === "1" && (
+        <Redirect
+          to={{
+            pathname: FAQ_TAB_LINK,
+          }}
+        />
+      )}
       <Route
         path="/"
         render={(history) => (
@@ -37,13 +46,7 @@ export default function WhatIsHealthEquityPage() {
             {...tabLayout}
             indicatorColor="primary"
             textColor="primary"
-            // if showing a SingleArticle, don't highlight BLOG tab
-            value={
-              history.location.pathname.startsWith(BLOG_TAB_LINK) &&
-              history.location.pathname !== BLOG_TAB_LINK
-                ? false
-                : history.location.pathname
-            }
+            value={history.location.pathname}
           >
             <Tab
               value={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
@@ -51,24 +54,17 @@ export default function WhatIsHealthEquityPage() {
               component={Link}
               to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
             />
-
             <Tab
-              value={BLOG_TAB_LINK}
-              label="Blog"
+              value={FAQ_TAB_LINK}
+              label="FAQs"
               component={Link}
-              to={BLOG_TAB_LINK}
+              to={FAQ_TAB_LINK}
             />
             <Tab
               value={RESOURCES_TAB_LINK}
               label="Resources"
               component={Link}
               to={RESOURCES_TAB_LINK}
-            />
-            <Tab
-              value={FAQ_TAB_LINK}
-              label="FAQs"
-              component={Link}
-              to={FAQ_TAB_LINK}
             />
           </Tabs>
         )}

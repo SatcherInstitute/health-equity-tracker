@@ -14,6 +14,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import React, { Suspense, useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
+  Redirect,
   Route,
   Switch,
   useLocation,
@@ -225,6 +226,20 @@ function App() {
                       path={FAQ_TAB_LINK}
                       render={() => <WhatIsHealthEquityPage />}
                     />
+
+                    <Route
+                      path={RESOURCES_TAB_LINK}
+                      render={() => <WhatIsHealthEquityPage />}
+                    />
+
+                    <Route
+                      path={TERMS_OF_USE_PAGE_LINK}
+                      render={() => <TermsOfUsePage />}
+                    />
+                    {/* redirect the old URL for possible outside links */}
+                    <Route path={`/termsofservice`}>
+                      <Redirect to={TERMS_OF_USE_PAGE_LINK} />
+                    </Route>
 
                     <Route
                       path={RESOURCES_TAB_LINK}
