@@ -47,6 +47,10 @@ export const DEMOGRAPHIC_PARAM = "demo";
 export const DATA_TYPE_1_PARAM = "dt1";
 export const DATA_TYPE_2_PARAM = "dt2";
 
+export function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
 export function LinkWithStickyParams(props: {
   to: string;
   target?: string;

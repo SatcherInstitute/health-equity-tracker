@@ -8,12 +8,13 @@ import {
   FAQ_TAB_LINK,
   RESOURCES_TAB_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+  useQuery,
 } from "../../utils/urlutils";
 import ResourcesTab from "./ResourcesTab";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useEffect } from "react";
-import { Link, Route, Switch } from "react-router-dom";
+import { Link, Redirect, Route, Switch } from "react-router-dom";
 
 export default function WhatIsHealthEquityPage() {
   // responsive tabs layout to fix mobile bug
@@ -28,6 +29,14 @@ export default function WhatIsHealthEquityPage() {
 
   return (
     <div className={styles.WhatIsHealthEquityPage}>
+      {/*  intercept old FAQ via query params for backwards compatible links */}
+      {useQuery().get("tab") === "1" && (
+        <Redirect
+          to={{
+            pathname: FAQ_TAB_LINK,
+          }}
+        />
+      )}
       <Route
         path="/"
         render={(history) => (
