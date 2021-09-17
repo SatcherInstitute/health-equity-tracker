@@ -63,11 +63,11 @@
 }
 
 .FooterLink {
-  color: #202124 !important;
+  color: $navlink-color !important;
 
   &:link,
   &:visited {
-    color: #202124 !important;
+    color: $navlink-color !important;
     text-decoration: none !important;
   }
 }
