@@ -5,12 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import { Accordion, AccordionSummary } from "@material-ui/core";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import {
-  TAB_PARAM,
-  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-  ReactRouterLinkButton,
-} from "../../utils/urlutils";
-import { WIHE_FAQ_TAB_INDEX } from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
+import { FAQ_TAB_LINK, ReactRouterLinkButton } from "../../utils/urlutils";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
 import parse from "html-react-parser";
 
@@ -61,7 +56,7 @@ function FaqSection() {
       </Grid>
       <Grid item>
         <ReactRouterLinkButton
-          url={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_FAQ_TAB_INDEX}`}
+          url={`${FAQ_TAB_LINK}`}
           className={styles.FaqLink}
           displayName="See our full FAQ page"
         />
