@@ -1,5 +1,5 @@
 .ExploreData {
-  background-color: #f1f4f8;
+  background-color: $explore-bg-color;
   height: 100%;
 }
 
@@ -15,7 +15,7 @@
 }
 
 .CarouselContainer {
-  background: white;
+  background: $white;
   padding-bottom: 20px;
   padding-top: 20px;
   font-size: 20pt;
@@ -68,5 +68,5 @@
 
 // override the joyride component to allow different color for "back" text and "next" background
 button[data-action="back"] {
-  color: #fff !important;
+  color: $white !important;
 }

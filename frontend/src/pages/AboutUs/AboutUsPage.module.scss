@@ -314,7 +314,7 @@
 .TeamHeader {
   font-size: 28px !important;
   line-height: 26px;
-  border-bottom: 2px solid #9aa0a6;
+  border-bottom: 2px solid $team-border-color;
   margin: 25px 0 25px 0;
   font-family: "Taviraj", sans-serif !important;
   text-align: left;
@@ -355,7 +355,7 @@
 }
 
 .GreyGridItem {
-  background-color: #f9f9f9;
+  background-color: $grey-grid-color;
   padding: 70px;
 }
 
