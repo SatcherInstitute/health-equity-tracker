@@ -322,13 +322,15 @@ function FaqTab() {
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>
-                  How do I share the graphs?
+                  How do I share or save the visualizations (graphs, charts,
+                  maps)?
                 </h3>
                 <div className={styles.FaqAnswer}>
                   <p>
-                    Next to each graph, there is a circle-shaped button with
-                    three dots in it. Click on that button to see a menu where
-                    you can save each graph as a PNG or SVG.{" "}
+                    Next to each visualization, there is a circle-shaped button
+                    with three dots in it. Click on this button select "Save as
+                    PNG". Please note; due to technical limitations, territories
+                    are not currently exported on the national map.
                   </p>
                 </div>
               </Grid>
