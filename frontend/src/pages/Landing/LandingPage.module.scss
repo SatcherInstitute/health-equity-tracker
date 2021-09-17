@@ -9,7 +9,7 @@
 
 // For primary-themed buttons
 .PrimaryButton {
-  background-color: #0b5240;
+  background-color: $alt-green;
   color: white !important;
   border-radius: 40px !important;
   font-size: 18px !important;
@@ -50,7 +50,7 @@
 /** ------------- HEADER ROW ------------- **/
 
 .HeaderRow {
-  border-bottom: 1px solid #3e3e3e;
+  border-bottom: 1px solid $border-color;
 
   .HeaderTextItem {
     justify-content: center;
@@ -85,7 +85,7 @@
 
   .HeaderImgItem {
     @media (min-width: $md) {
-      border-left: 1px solid #3e3e3e;
+      border-left: 1px solid $border-color;
     }
   }
 
@@ -106,7 +106,7 @@
 .TakeALookAroundRow {
   padding: 75px 30px 75px 30px;
   align-items: center;
-  border-bottom: 1px solid #3e3e3e;
+  border-bottom: 1px solid $border-color;
 
   .TakeALookAroundHeaderText {
     font-size: 58px;
@@ -181,7 +181,7 @@
   }
 
   .PrioritizeHealthEquityImgItem {
-    border-right: 1px solid #3e3e3e;
+    border-right: 1px solid $border-color;
     display: flex;
     justify-content: center;
   }
@@ -200,8 +200,8 @@
 .HowToRow {
   padding: 120px 30px 120px 30px;
   align-items: center;
-  border-bottom: 1px solid #3e3e3e;
-  border-top: 1px solid #3e3e3e;
+  border-bottom: 1px solid $border-color;
+  border-top: 1px solid $border-color;
 
   .HowToHeaderText {
     font-size: 48px;
@@ -250,7 +250,7 @@
 .FaqRow {
   padding: 50px 30px;
   align-items: center;
-  border-bottom: 1px solid #3e3e3e;
+  border-bottom: 1px solid $border-color;
 }
 
 /** ------------- NEWSLETTER SIGN UP ROW ------------- **/
