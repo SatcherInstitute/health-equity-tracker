@@ -1,6 +1,7 @@
 import Button from "@material-ui/core/Button";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { getLogger } from "./globals";
 import { MadLibId, PhraseSelections } from "./MadLibs";
 
 export const STICKY_VERSION_PARAM = "sv";
@@ -212,7 +213,7 @@ export const psSubscribe = (
   keyPrefix = "unk"
 ): { unsubscribe: () => void } => {
   const key = keyPrefix + "_" + psCount;
-  console.log("Adding PSHandler: " + key);
+  getLogger().debugLog("Adding PSHandler: " + key);
   psSubscriptions[key] = handler;
   psCount++;
   return {
@@ -223,7 +224,7 @@ export const psSubscribe = (
 };
 
 export const psUnsubscribe = (k: string) => {
-  console.log("Removing PSHandler: " + k);
+  getLogger().debugLog("Removing PSHandler: " + k);
   delete psSubscriptions[k];
 };
 
@@ -231,7 +232,7 @@ window.onpopstate = () => {
   Object.keys(psSubscriptions).forEach((key) => {
     const handler = psSubscriptions[key];
     if (handler) {
-      console.log("Firing PSHandler: " + key);
+      getLogger().debugLog("Firing PSHandler: " + key);
       handler();
     }
   });
