@@ -2,7 +2,9 @@
 $grey-dark: #222;
 $white: #fff;
 $yellow: yellow;
+$red-orange: #ed573f;
 $blue: #07538f;
+$dark-blue: #255792;
 $green: #228b7e;
 $black: #000;
 
@@ -37,7 +39,9 @@ $xl: 1920px;
   greyDark: $grey-dark;
   white: $white;
   yellow: $yellow;
+  redOrange: $red-orange;
   blue: $blue;
+  darkBlue: $dark-blue;
   green: $green;
   black: $black;
 
@@ -47,7 +51,7 @@ $xl: 1920px;
   footerColor: $footer-color;
   exploreBgColor: $explore-bg-color;
   listboxColor: $listbox-color;
-  howToColor: $how-to-color;
+  unknownGrey: $how-to-color;
   teamBorderColor: $team-border-color;
   greyGridColor: $grey-grid-color;
   borderColor: $border-color;
