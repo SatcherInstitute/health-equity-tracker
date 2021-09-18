@@ -1,0 +1,68 @@
+// color palette
+$grey-dark: #222;
+$white: #fff;
+$yellow: yellow;
+$blue: #07538f;
+$green: #228b7e;
+$black: #000;
+
+$infobar-color: #f8e8b0;
+$report-alert: #ff9800;
+$bg-color: #e2e2e2;
+$footer-color: #edf3f0;
+$explore-bg-color: #f1f4f8;
+$listbox-color: #f1f3f4;
+$how-to-color: #bdc1c6;
+$team-border-color: #9aa0a6;
+$grey-grid-color: #f9f9f9;
+$border-color: #3e3e3e;
+$navlink-color: #202124;
+
+$alt-green: #0b5240;
+$alt-black: #383838;
+$alt-dark: #5f6368;
+$alt-grey: #bdbdbd;
+
+// default settings
+$footer-size: 490px;
+$max-width: 800px;
+
+// default material breakpoints
+$sm: 600px;
+$md: 960px;
+$lg: 1280px;
+$xl: 1920px;
+
+:export {
+  greyDark: $grey-dark;
+  white: $white;
+  yellow: $yellow;
+  blue: $blue;
+  green: $green;
+  black: $black;
+
+  infobarColor: $infobar-color;
+  reportAlert: $report-alert;
+  bgColor: $bg-color;
+  footerColor: $footer-color;
+  exploreBgColor: $explore-bg-color;
+  listboxColor: $listbox-color;
+  howToColor: $how-to-color;
+  teamBorderColor: $team-border-color;
+  greyGridColor: $grey-grid-color;
+  borderColor: $border-color;
+  navlinkColor: $navlink-color;
+
+  altGreen: $alt-green;
+  altBlack: $alt-black;
+  altDark: $alt-dark;
+  altGrey: $alt-grey;
+
+  footerSize: $footer-size;
+  maxWidth: $max-width;
+
+  sm: $sm;
+  md: $md;
+  lg: $lg;
+  xl: $xl;
+}
