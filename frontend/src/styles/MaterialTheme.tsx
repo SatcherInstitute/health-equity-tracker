@@ -1,11 +1,13 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 import "typeface-dm-sans";
+import * as sass from "./variables.module.scss";
 
 const MaterialTheme = createMuiTheme({
   palette: {
     primary: {
       light: "#91C684",
-      main: "#0B5240",
+      // @ts-ignore
+      main: sass.altGreen,
       dark: "#083f31",
     },
     secondary: {
