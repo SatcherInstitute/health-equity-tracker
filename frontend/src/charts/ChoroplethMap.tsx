@@ -5,12 +5,12 @@ import { Fips } from "../data/utils/Fips";
 import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
-import * as sass from "../styles/variables.module.scss";
+import sass from "../styles/variables.module.scss";
 
 export type ScaleType = "quantize" | "quantile" | "symlog";
 
 // import SASS variables for use in React / Vega
-// @ts-ignore
+
 const {
   unknownGrey: UNKNOWN_GREY,
   redOrange: RED_ORANGE,

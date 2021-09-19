@@ -14,6 +14,7 @@ import {
   oneLineLabel,
   addMetricDisplayColumn,
 } from "./utils";
+import sass from "../styles/variables.module.scss";
 
 function getSpec(
   data: Record<string, any>[],
@@ -34,8 +35,8 @@ function getSpec(
 ): any {
   const BAR_HEIGHT = stacked ? 40 : 10;
   const BAR_PADDING = 0.1;
-  const DARK_MEASURE_COLOR = "#0B5420";
-  const LIGHT_MEASURE_COLOR = "#91C684";
+  const DARK_MEASURE_COLOR = sass.barChartDark;
+  const LIGHT_MEASURE_COLOR = sass.barChartLight;
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 
@@ -274,7 +275,7 @@ export interface DisparityBarChartProps {
 
 export function DisparityBarChart(props: DisparityBarChartProps) {
   const [ref, width] = useResponsiveWidth(
-    100 /* default width during intialization */
+    100 /* default width during initialization */
   );
 
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(

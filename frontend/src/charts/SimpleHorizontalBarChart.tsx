@@ -14,6 +14,7 @@ import {
   oneLineLabel,
   addMetricDisplayColumn,
 } from "./utils";
+import sass from "../styles/variables.module.scss";
 
 function getSpec(
   data: Record<string, any>[],
@@ -30,7 +31,7 @@ function getSpec(
 ): any {
   const BAR_HEIGHT = 40;
   const BAR_PADDING = 0.1;
-  const MEASURE_COLOR = "#0B5240";
+  const MEASURE_COLOR = sass.altGreen;
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 
@@ -190,7 +191,7 @@ export interface SimpleHorizontalBarChartProps {
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   const [ref, width] = useResponsiveWidth(
-    100 /* default width during intialization */
+    100 /* default width during initialization */
   );
 
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
