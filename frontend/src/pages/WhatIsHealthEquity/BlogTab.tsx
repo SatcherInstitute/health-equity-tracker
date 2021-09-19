@@ -16,7 +16,6 @@ import SinglePost from "./Blog/SinglePost";
 
 function BlogTab() {
   const [articles, setArticles] = useState<any[]>([]);
-  // const [fullArticle, setFullArticle] = useState<any>();
 
   // on page load make /media and /posts API calls into temp arrays, combine and store in state
   useEffect(() => {
