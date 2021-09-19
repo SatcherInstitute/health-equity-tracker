@@ -1,4 +1,5 @@
 import React from "react";
+import Alert from "@material-ui/lab/Alert";
 import { DisparityBarChart } from "../charts/DisparityBarChart";
 import styles from "./Card.module.scss";
 import { CardContent } from "@material-ui/core";
@@ -79,6 +80,19 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               row[props.breakdownVar] !== UNKNOWN_RACE
           );
 
+        let shouldShowDoesntAddUpMessage = false;
+        if (
+          props.breakdownVar === "race_and_ethnicity" &&
+          queryResponse.data.length > 0
+        ) {
+          shouldShowDoesntAddUpMessage = true;
+          queryResponse.data.forEach((elem) => {
+            if (elem[props.breakdownVar].includes("(Non-Hispanic)")) {
+              shouldShowDoesntAddUpMessage = false;
+            }
+          });
+        }
+
         const dataAvailable = !queryResponse.shouldShowMissingDataMessage([
           metricConfig.metricId,
         ]);
@@ -118,6 +132,15 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   filename={getTitleText()}
                 />
               </CardContent>
+            )}
+            {shouldShowDoesntAddUpMessage && (
+              <Alert severity="info">
+                Population percentages on this graph add up to over 100% because
+                the racial categories reported for{" "}
+                {metricConfig.fullCardTitleName} include Hispanic as both a
+                racial and ethnicity category. As a result, Hispanic individuals
+                are counted twice.
+              </Alert>
             )}
           </>
         );

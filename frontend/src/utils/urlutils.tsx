@@ -231,7 +231,6 @@ export const psSubscribe = (
 
 export const psUnsubscribe = (k: string) => {
   getLogger().debugLog("Removing PSHandler: " + k);
-
   delete psSubscriptions[k];
 };
 
