@@ -28,8 +28,10 @@ $team-border-color: #9aa0a6;
 $grey-grid-color: #f9f9f9;
 $border-color: #3e3e3e;
 $navlink-color: #202124;
+
 $bar-chart-dark: #0b5420;
 $bar-chart-light: #91c684;
+
 $join-effort-bg1: #a5cdc0;
 $join-effort-bg2: #edb2a6;
 $join-effort-bg3: #275141;
@@ -40,6 +42,7 @@ $alt-dark: #5f6368;
 $alt-grey: #bdbdbd;
 
 // default settings
+$header-height: 600px;
 $footer-size: 490px;
 $max-width: 800px;
 
@@ -48,6 +51,9 @@ $sm: 600px;
 $md: 960px;
 $lg: 1280px;
 $xl: 1920px;
+
+// styles
+$bottom-border-style: 1px solid $border-color;
 
 :export {
   greyDark: $grey-dark;

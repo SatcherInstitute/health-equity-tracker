@@ -50,7 +50,7 @@
 /** ------------- HEADER ROW ------------- **/
 
 .HeaderRow {
-  border-bottom: 1px solid $border-color;
+  border-bottom: $bottom-border-style;
 
   .HeaderTextItem {
     justify-content: center;
@@ -92,7 +92,7 @@
   .HeaderImg {
     border-radius: 30px;
     height: auto;
-    max-height: 600px;
+    max-height: $header-height;
     width: 100%;
     max-width: 700px;
     align-items: center;
@@ -106,7 +106,7 @@
 .TakeALookAroundRow {
   padding: 75px 30px 75px 30px;
   align-items: center;
-  border-bottom: 1px solid $border-color;
+  border-bottom: $bottom-border-style;
 
   .TakeALookAroundHeaderText {
     font-size: 58px;
@@ -200,7 +200,7 @@
 .HowToRow {
   padding: 120px 30px 120px 30px;
   align-items: center;
-  border-bottom: 1px solid $border-color;
+  border-bottom: $bottom-border-style;
   border-top: 1px solid $border-color;
 
   .HowToHeaderText {
@@ -250,7 +250,7 @@
 .FaqRow {
   padding: 50px 30px;
   align-items: center;
-  border-bottom: 1px solid $border-color;
+  border-bottom: $bottom-border-style;
 }
 
 /** ------------- NEWSLETTER SIGN UP ROW ------------- **/

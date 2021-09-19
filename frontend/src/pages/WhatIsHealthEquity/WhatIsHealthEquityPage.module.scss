@@ -51,7 +51,7 @@
 /** ------------- HEADER ROW ------------- **/
 
 .HeaderRow {
-  border-bottom: 1px solid $border-color;
+  border-bottom: $bottom-border-style;
 
   .HeaderImgItem {
     align-items: center;
@@ -136,7 +136,7 @@
 .ResourcesAndNewsRow {
   padding: 75px 30px 75px 30px;
   align-items: center;
-  border-bottom: 1px solid $border-color;
+  border-bottom: $bottom-border-style;
 
   /** ------------- RESOURCES SECTION ------------- **/
 
@@ -277,7 +277,7 @@
 
 .FaqRow {
   padding: 50px 0;
-  border-bottom: 1px solid $border-color;
+  border-bottom: $bottom-border-style;
 }
 
 .FaqGrid {
@@ -376,7 +376,7 @@
   }
 
   .JoinTheEffortImgContainer {
-    width: 600px;
+    width: $sm;
     height: 720px;
     border-radius: 30px;
     display: flex;

@@ -290,7 +290,7 @@
 .HeaderImg {
   border-radius: 30px;
   height: auto;
-  max-height: 600px;
+  max-height: $header-height;
   width: 100%;
   max-width: 700px;
   align-items: center;
@@ -397,7 +397,7 @@
 .ImgContactUsHeader {
   border-radius: 30px;
   height: auto;
-  max-height: 600px;
+  max-height: $header-height;
   width: 100%;
   max-width: 700px;
   align-items: center;
