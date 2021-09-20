@@ -232,10 +232,6 @@ def load_csv_as_dataframe_from_web(url, dtype=None, params=None):
     return pandas.read_csv(url, dtype=dtype)
 
 
-def load_excel_from_web(url):
-    return 
-
-
 def load_json_as_df_from_web_based_on_key(url, key, dtype=None):
     """Loads json data from the web underneath a given key into a dataframe
 
