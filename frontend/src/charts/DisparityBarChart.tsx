@@ -301,7 +301,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
       <Vega
         // custom 3-dot options for states, hidden on territories
         actions={{
-          export: { png: true, svg: false },
+          export: { png: true, svg: true },
           source: false,
           compiled: false,
           editor: false,
