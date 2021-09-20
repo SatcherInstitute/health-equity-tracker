@@ -111,6 +111,10 @@ class VaccineProvider extends VariableProvider {
         );
       }
     } else if (breakdowns.geography === "state") {
+      df = df.generateSeries({
+        population_pct: (row) => row.population_pct * 100,
+      });
+
       df = df.renameSeries({
         population_pct: "vaccine_population_pct",
       });
