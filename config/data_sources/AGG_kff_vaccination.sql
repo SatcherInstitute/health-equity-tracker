@@ -11,7 +11,8 @@ WITH
         a.vaccinated_first_dose,
         a.race,
         a.race_includes_hispanic,
-        a.race_and_ethnicity
+        a.race_and_ethnicity,
+        a.population_pct,
     FROM `kff_vaccination.race_and_ethnicity` AS a
     LEFT JOIN `bigquery-public-data.census_utility.fips_codes_states` AS b
         ON a.state_name = b.state_name
