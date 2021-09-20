@@ -24,7 +24,7 @@ function BlogTab() {
       .then(async (posts) => {
         // @ts-ignore
         const promisesForPostsWithImages = await posts.data.map(
-          async (post) => {
+          async (post: { featured_media: any; imageUrl: any }) => {
             // add fetched imageUrl to each fetched post
             const mediaResponse = await axios.get(
               `${BLOG_URL + WP_API + ALL_MEDIA}/${post.featured_media}`
