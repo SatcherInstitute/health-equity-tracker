@@ -111,17 +111,6 @@ class VaccineProvider extends VariableProvider {
         );
       }
     } else if (breakdowns.geography === "state") {
-      const acsQueryResponse = await this.acsProvider.getData(
-        new MetricQuery(["population_pct"], acsBreakdowns)
-      );
-
-      consumedDatasetIds = consumedDatasetIds.concat(
-        acsQueryResponse.consumedDatasetIds
-      );
-
-      const acs = new DataFrame(acsQueryResponse.data);
-      df = joinOnCols(df, acs, ["fips", breakdownColumnName], "left");
-
       df = df.renameSeries({
         population_pct: "vaccine_population_pct",
       });
