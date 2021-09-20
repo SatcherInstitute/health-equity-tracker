@@ -14,6 +14,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import React, { Suspense, useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
+  Redirect,
   Route,
   Switch,
   useLocation,
@@ -25,11 +26,16 @@ import MaterialTheme from "./styles/MaterialTheme";
 import { autoInitGlobals } from "./utils/globals";
 import {
   ABOUT_US_PAGE_LINK,
+  CONTACT_TAB_LINK,
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
+  FAQ_TAB_LINK,
   LinkWithStickyParams,
+  METHODOLOGY_TAB_LINK,
+  OURTEAM_TAB_LINK,
   ReactRouterLinkButton,
-  TERMS_OF_SERVICE_PAGE_LINK,
+  RESOURCES_TAB_LINK,
+  TERMS_OF_USE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "./utils/urlutils";
 import AppBarLogo from "./assets/AppbarLogo.png";
@@ -45,8 +51,8 @@ const Footer = React.lazy(() => import("./Footer"));
 
 const LandingPage = React.lazy(() => import("./pages/Landing/LandingPage"));
 const NotFoundPage = React.lazy(() => import("./pages/NotFoundPage"));
-const TermsOfServicePage = React.lazy(
-  () => import("./pages/TermsOfServicePage/TermsOfServicePage")
+const TermsOfUsePage = React.lazy(
+  () => import("./pages/TermsOfUsePage/TermsOfUsePage")
 );
 
 const DataCatalogTab = React.lazy(
@@ -186,7 +192,22 @@ function App() {
                     />
 
                     <Route
+                      path={OURTEAM_TAB_LINK}
+                      render={() => <AboutUsPage />}
+                    />
+
+                    <Route
+                      path={CONTACT_TAB_LINK}
+                      render={() => <AboutUsPage />}
+                    />
+
+                    <Route
                       path={DATA_CATALOG_PAGE_LINK}
+                      render={() => <DataCatalogTab />}
+                    />
+
+                    <Route
+                      path={METHODOLOGY_TAB_LINK}
                       render={() => <DataCatalogTab />}
                     />
 
@@ -201,9 +222,23 @@ function App() {
                     />
 
                     <Route
-                      path={TERMS_OF_SERVICE_PAGE_LINK}
-                      render={() => <TermsOfServicePage />}
+                      path={FAQ_TAB_LINK}
+                      render={() => <WhatIsHealthEquityPage />}
                     />
+
+                    <Route
+                      path={RESOURCES_TAB_LINK}
+                      render={() => <WhatIsHealthEquityPage />}
+                    />
+
+                    <Route
+                      path={TERMS_OF_USE_PAGE_LINK}
+                      render={() => <TermsOfUsePage />}
+                    />
+                    {/* redirect the old URL for possible outside links */}
+                    <Route path={`/termsofservice`}>
+                      <Redirect to={TERMS_OF_USE_PAGE_LINK} />
+                    </Route>
 
                     <Route exact path="/" render={() => <LandingPage />} />
                     {/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}

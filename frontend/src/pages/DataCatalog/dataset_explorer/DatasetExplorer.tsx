@@ -74,8 +74,9 @@ function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
                   href={EXPLORE_DATA_PAGE_LINK}
                   className={styles.DataDownloadsExploreLink}
                 >
-                  Go explore the data dashboard.
+                  Explore the data dashboard
                 </a>
+                .
               </p>
             </Grid>
           </div>
