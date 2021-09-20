@@ -57,7 +57,7 @@ In this tracker, we are using many sources, including <a href="https://www.censu
   <li>comprehensive race and ethnicity breakdowns</li>
   <li>comprehensive sex and age breakdowns</li>
 </ul>
-<span className={styles.FaqSubheaderText}>
+<span class={styles.FaqSubheaderText}>
   Known limitations in the data
 </span>
 <ul>
@@ -328,9 +328,10 @@ function FaqTab() {
                 <div className={styles.FaqAnswer}>
                   <p>
                     Next to each visualization, there is a circle-shaped button
-                    with three dots in it. Click on this button and select "Save
-                    as PNG". Please note; due to technical limitations,
-                    territories are not currently exported on the national map.
+                    with three dots in it. Click on this button and save as PNG
+                    or SVG (SVG provides a higher-quality, scalable image). Due
+                    to technical limitations, territories are not currently
+                    exported on the national map.
                   </p>
                 </div>
               </Grid>
