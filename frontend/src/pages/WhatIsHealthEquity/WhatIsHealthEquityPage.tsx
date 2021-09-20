@@ -46,7 +46,12 @@ export default function WhatIsHealthEquityPage() {
             {...tabLayout}
             indicatorColor="primary"
             textColor="primary"
-            value={history.location.pathname}
+            value={
+              history.location.pathname.includes(BLOG_TAB_LINK) &&
+              history.location.pathname !== BLOG_TAB_LINK
+                ? false
+                : history.location.pathname
+            }
           >
             <Tab
               value={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}

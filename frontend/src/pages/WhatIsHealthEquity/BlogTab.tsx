@@ -17,33 +17,29 @@ import SinglePost from "./Blog/SinglePost";
 function BlogTab() {
   const [articles, setArticles] = useState<any[]>([]);
 
-  // on page load make /media and /posts API calls into temp arrays, combine and store in state
   useEffect(() => {
-    function getMedia() {
-      return axios.get(`${BLOG_URL + WP_API + ALL_MEDIA}`);
-    }
-    function getPosts() {
-      return axios.get(`${BLOG_URL + WP_API + ALL_POSTS}`);
-    }
-
-    let mediaResponse: any[] = [];
-    let postsResponse: any[] = [];
-
-    Promise.all([getMedia(), getPosts()])
-      .then((res) => {
-        mediaResponse = res[0].data;
-        postsResponse = res[1].data;
-
-        // iterate fetched posts
-        const postsWithImages = postsResponse.map((post: any) => {
-          // populate featured_media object info into each post
-          const media_info = mediaResponse.find(
-            (img) => img.id === post.featured_media
-          );
-          post = { media_info, ...post };
-          return post;
+    // fetch up to 10 posts
+    axios
+      .get(`${BLOG_URL + WP_API + ALL_POSTS}`)
+      .then(async (posts) => {
+        // @ts-ignore
+        const promisesForPostsWithImages = await posts.data.map(
+          async (post) => {
+            // add fetched imageUrl to each fetched post
+            const mediaResponse = await axios.get(
+              `${BLOG_URL + WP_API + ALL_MEDIA}/${post.featured_media}`
+            );
+            post.imageUrl = mediaResponse.data.source_url;
+            return post;
+          }
+        );
+        return promisesForPostsWithImages;
+      })
+      .then((promisesForPostsWithImages) => {
+        Promise.all(promisesForPostsWithImages).then((postsWithImages) => {
+          // once all image urls are fetched; update state
+          setArticles(postsWithImages);
         });
-        setArticles(postsWithImages);
       })
       .catch((err) => {
         console.log(err);

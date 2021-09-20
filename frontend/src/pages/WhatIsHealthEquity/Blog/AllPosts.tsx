@@ -41,7 +41,7 @@ function AllPosts({ articles }) {
             >
               <img
                 className={styles.NewsAndStoriesBigImg}
-                src={post.media_info.source_url}
+                src={post.imageUrl}
                 alt=""
               />
               <Link
