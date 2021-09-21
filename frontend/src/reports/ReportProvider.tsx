@@ -207,7 +207,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           categories reported by the census. So, for state reported vaccine
           numbers we rely on the Kaiser Family Foundation population
           tabulations, which only include population numbers for <b>Black</b>,{" "}
-          <b>White</b>, <b>Asian</b>, and <b>Hispanic</b>. Percent of vacinated
+          <b>White</b>, <b>Asian</b>, and <b>Hispanic</b>. Percent of vaccinated
           metrics for <b>Native Hawaiian and Pacific Islander</b>,{" "}
           <b>American Indian and Alaska Native</b>, and <b>Some Other Race</b>{" "}
           are still shown but without a population comparison metric.
