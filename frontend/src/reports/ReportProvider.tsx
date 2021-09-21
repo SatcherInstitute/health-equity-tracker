@@ -210,7 +210,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           <b>White</b>, <b>Asian</b>, and <b>Hispanic</b>. Percent of vacinated
           metrics for <b>Native Hawaiian and Pacific Islander</b>,{" "}
           <b>American Indian and Alaska Native</b>, and <b>Some Other Race</b>{" "}
-          are still shown but without a population compairson metric.
+          are still shown but without a population comparison metric.
         </p>
         <div className={styles.MissingDataContactUs}>
           <p>
