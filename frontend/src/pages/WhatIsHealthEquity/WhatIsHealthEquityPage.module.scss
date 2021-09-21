@@ -67,7 +67,8 @@
     }
   }
 
-  .HeaderTextItem {
+  .HeaderTextItem,
+  .SingleArticleHeaderTextItem {
     justify-content: center;
     padding: 104px 66px 104px 66px;
 
@@ -75,7 +76,8 @@
       border-left: 1px solid #3e3e3e;
     }
 
-    .HeaderText {
+    .HeaderText,
+    .SingleArticleHeaderText {
       font-size: 62px;
       text-align: left;
       font-weight: 300;
@@ -83,8 +85,13 @@
       line-height: 64px;
       color: $alt-green;
     }
+    .SingleArticleHeaderText {
+      font-size: 2.4rem;
+      line-height: 130%;
+    }
 
-    .HeaderSubtext {
+    .HeaderSubtext,
+    .SingleArticleHeaderSubtext {
       font-size: 20px;
       text-align: left;
       font-weight: 400;
@@ -477,7 +484,11 @@
 
 /** ------------- BLOG ------------- **/
 .FullArticleContainer {
-  padding: 0px 120px 50px 120px;
+  padding: 0px 10% 50px 10%;
+  @media (max-width: $lg) {
+    padding: 0px 15% 50px 15%;
+  }
+
   border-bottom: 1px solid $alt-grey;
 
   p {
@@ -487,6 +498,15 @@
     font-family: "Inter", sans-serif;
     line-height: 1.3rem;
     color: #383838;
+  }
+
+  h1 {
+    font-size: 1.5rem !important;
+    font-weight: 300;
+    font-family: "Taviraj", serif !important;
+    line-height: 40px;
+    color: $alt-green;
+    padding-bottom: 20px;
   }
 }
 

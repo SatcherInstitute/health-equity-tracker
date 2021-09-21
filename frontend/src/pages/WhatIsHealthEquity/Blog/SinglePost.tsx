@@ -63,11 +63,17 @@ export default function SinglePost({ articles }: { articles: any[] }) {
             )}
           </Grid>
         </Hidden>
-        <Grid item xs={12} sm={12} md={8} className={styles.HeaderTextItem}>
+        <Grid
+          item
+          xs={12}
+          sm={12}
+          md={8}
+          className={styles.SingleArticleHeaderTextItem}
+        >
           <Typography
             id="main"
             tabIndex={-1}
-            className={styles.HeaderText}
+            className={styles.SingleArticleHeaderText}
             variant="h2"
             paragraph={true}
           >
@@ -75,11 +81,10 @@ export default function SinglePost({ articles }: { articles: any[] }) {
           </Typography>
 
           <Typography
-            className={styles.HeaderSubtext}
+            className={styles.SingleArticleHeaderSubtext}
             variant="body1"
             paragraph={true}
           >
-            {console.log(fullArticle)}
             {fullArticle &&
               `Authored by ${fullArticle.acf.contributing_author}`}
           </Typography>
