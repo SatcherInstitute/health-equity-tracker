@@ -20,26 +20,29 @@ function BlogTab() {
   useEffect(() => {
     // fetch up to 10 posts
     axios
-      .get(`${BLOG_URL + WP_API + ALL_POSTS}`)
+      .get(`${BLOG_URL + WP_API + ALL_POSTS}?_embed`)
       .then(async (posts) => {
+        console.log(posts);
         // @ts-ignore
-        const promisesForPostsWithImages = await posts.data.map(
-          async (post: { featured_media: any; imageUrl: any }) => {
-            // add fetched imageUrl to each fetched post
-            const mediaResponse = await axios.get(
-              `${BLOG_URL + WP_API + ALL_MEDIA}/${post.featured_media}`
-            );
-            post.imageUrl = mediaResponse.data.source_url;
-            return post;
-          }
-        );
-        return promisesForPostsWithImages;
-      })
-      .then((promisesForPostsWithImages) => {
-        Promise.all(promisesForPostsWithImages).then((postsWithImages) => {
-          // once all image urls are fetched; update state
-          setArticles(postsWithImages);
-        });
+        setArticles(posts.data);
+        //   // @ts-ignore
+        //   const promisesForPostsWithImages = await posts.data.map(
+        //     async (post: { featured_media: any; imageUrl: any }) => {
+        //       // add fetched imageUrl to each fetched post
+        //       const mediaResponse = await axios.get(
+        //         `${BLOG_URL + WP_API + ALL_MEDIA}/${post.featured_media}`
+        //       );
+        //       post.imageUrl = mediaResponse.data.source_url;
+        //       return post;
+        //     }
+        //   );
+        //   return promisesForPostsWithImages;
+        // })
+        // .then((promisesForPostsWithImages) => {
+        //   Promise.all(promisesForPostsWithImages).then((postsWithImages) => {
+        //     // once all image urls are fetched; update state
+        //     setArticles(postsWithImages);
+        //   });
       })
       .catch((err) => {
         console.log(err);

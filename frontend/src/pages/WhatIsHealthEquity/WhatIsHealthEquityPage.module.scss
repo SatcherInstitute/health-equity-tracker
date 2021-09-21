@@ -134,7 +134,7 @@
 /** ------------- HEALTH EQUITY RESOURCES & NEWS SECTION ------------- **/
 
 .ResourcesAndNewsRow {
-  padding: 75px 30px 75px 30px;
+  // padding: 75px 30px 75px 30px;
   align-items: center;
   border-bottom: 1px solid #3e3e3e;
 
@@ -257,10 +257,12 @@
       text-decoration: none;
     }
     .NewsAndStoriesTitleText {
-      font-size: 22px;
-      font-weight: 600;
-      line-height: 26.63px;
-      margin: 15px 0 15px 0;
+      font-size: 1.5rem;
+      text-align: center;
+      font-weight: 300;
+      font-family: "Taviraj", serif !important;
+      line-height: 130%;
+      color: $alt-green;
     }
 
     .NewsAndStoriesSubtitleText {
@@ -481,12 +483,13 @@
 }
 
 figure {
-  text-align: center;
+  display: none;
+  // text-align: center;
 
-  img {
-    width: 50%;
-    height: auto;
-  }
+  // img {
+  //   width: 50%;
+  //   height: auto;
+  // }
 }
 
 .FullLink {

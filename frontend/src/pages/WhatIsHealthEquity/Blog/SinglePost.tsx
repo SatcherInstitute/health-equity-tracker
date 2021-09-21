@@ -7,6 +7,11 @@ import parse from "html-react-parser";
 import { useParams } from "react-router-dom";
 import { BLOG_TAB_LINK, ReactRouterLinkButton } from "../../../utils/urlutils";
 
+function prettyDate(dateString: string) {
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  return new Date(dateString).toLocaleDateString(undefined, options as any);
+}
+
 // @ts-ignore
 export default function SinglePost(props) {
   const [fullArticle, setFullArticle] = useState<any>();
@@ -41,22 +46,26 @@ export default function SinglePost(props) {
         alignItems="center"
       >
         <Hidden smDown>
-          <Grid container item md={6} className={styles.HeaderImgItem}>
-            <img
-              width="397"
-              height="760"
-              src="/img/stock/woman-in-wheelchair-with-tea.png"
-              className={styles.HeaderImg}
-              alt=""
-            />
+          <Grid container item md={4} className={styles.HeaderImgItem}>
+            {fullArticle && (
+              <img
+                // src="/img/stock/woman-in-wheelchair-with-tea.png"
+                src={
+                  fullArticle._embedded["wp:featuredmedia"][0].source_url ||
+                  "/img/stock/woman-in-wheelchair-with-tea.png"
+                }
+                className={styles.HeaderImg}
+                alt=""
+              />
+            )}
           </Grid>
         </Hidden>
-        <Grid item xs={12} sm={12} md={6} className={styles.HeaderTextItem}>
+        <Grid item xs={12} sm={12} md={8} className={styles.HeaderTextItem}>
           <Typography
             id="main"
             tabIndex={-1}
             className={styles.HeaderText}
-            variant="h1"
+            variant="h2"
             paragraph={true}
           >
             {fullArticle && parse(fullArticle.title.rendered)}
@@ -67,12 +76,16 @@ export default function SinglePost(props) {
             variant="body1"
             paragraph={true}
           >
-            social and political
+            {fullArticle &&
+              `Authored by ${fullArticle._embedded.author[0].name}`}
           </Typography>
+
           <Typography className={styles.HeaderSubtext} variant="body1">
-            <span className={styles.DefinitionSourceSpan}>
-              Health Equity Leadership & Exchange Network, 2020
-            </span>
+            {fullArticle && (
+              <span className={styles.DefinitionSourceSpan}>
+                Published {prettyDate(fullArticle.date)}
+              </span>
+            )}
           </Typography>
         </Grid>
       </Grid>
@@ -82,11 +95,6 @@ export default function SinglePost(props) {
         direction="row"
         justify="center"
       >
-        <Grid item>
-          <Typography className={styles.NewsAndStoriesHeaderText} variant="h1">
-            {fullArticle && parse(fullArticle.title.rendered)}
-          </Typography>
-        </Grid>
         <Grid item>
           <div className={styles.FullArticleContainer}>
             {fullArticle && parse(fullArticle.content.rendered)}
@@ -107,7 +115,7 @@ export default function SinglePost(props) {
             <ReactRouterLinkButton
               url={BLOG_TAB_LINK}
               className={styles.PrevNextHeaderText}
-              displayName="See all blog posts"
+              displayName="All Posts"
             />
           </Grid>
           <Grid item xs={4}>

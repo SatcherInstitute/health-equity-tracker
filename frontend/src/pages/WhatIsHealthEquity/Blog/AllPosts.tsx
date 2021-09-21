@@ -41,16 +41,21 @@ function AllPosts({ articles }) {
             >
               <img
                 className={styles.NewsAndStoriesBigImg}
-                src={post.imageUrl}
+                src={post._embedded["wp:featuredmedia"][0].source_url}
                 alt=""
               />
               <Link
                 to={`${BLOG_TAB_LINK}/${post.slug}`}
                 className={styles.NewsAndStoriesTitleLink}
               >
-                <h3 className={styles.NewsAndStoriesTitleText}>
+                {/* <h3 className={styles.NewsAndStoriesTitleText}> */}
+                <Typography
+                  className={styles.NewsAndStoriesTitleText}
+                  variant="h3"
+                >
                   {parse(post.title.rendered)}
-                </h3>
+                </Typography>
+                {/* </h3> */}
               </Link>
             </Grid>
           );
