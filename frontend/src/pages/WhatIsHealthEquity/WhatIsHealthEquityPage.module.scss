@@ -91,8 +91,8 @@
       color: $alt-green;
     }
     .SingleArticleHeaderText {
-      font-size: 2.4rem;
-      line-height: 130%;
+      font-size: 3.75rem;
+      line-height: 90%;
     }
 
     .HeaderSubtext,
@@ -560,9 +560,10 @@
   p > img {
     display: block;
     margin: 40px auto 0px auto;
-    width: 60%;
+    width: 40%;
     height: auto;
     // float: right;
+    // margin: 50px;
   }
 }
 
