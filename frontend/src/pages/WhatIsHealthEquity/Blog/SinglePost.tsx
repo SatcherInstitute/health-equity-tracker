@@ -7,6 +7,7 @@ import parse from "html-react-parser";
 import { useParams } from "react-router-dom";
 import { BLOG_TAB_LINK, ReactRouterLinkButton } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
+import AppbarLogo from "../../../assets/AppbarLogo.png";
 
 function prettyDate(dateString: string) {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -51,13 +52,15 @@ export default function SinglePost({ articles }: { articles: any[] }) {
       >
         <Hidden smDown>
           <Grid container item md={4} className={styles.HeaderImgItem}>
+            {console.log(fullArticle)}
             {fullArticle && (
               <img
                 src={
-                  fullArticle._embedded["wp:featuredmedia"][0].source_url ||
-                  "/img/stock/woman-in-wheelchair-with-tea.png"
+                  fullArticle._embedded["wp:featuredmedia"]
+                    ? fullArticle._embedded["wp:featuredmedia"][0].source_url
+                    : AppbarLogo
                 }
-                className={styles.HeaderImg}
+                className={styles.SingleArticleHeaderImg}
                 alt=""
               />
             )}
@@ -85,8 +88,9 @@ export default function SinglePost({ articles }: { articles: any[] }) {
             variant="body1"
             paragraph={true}
           >
-            {fullArticle &&
-              `Authored by ${fullArticle.acf.contributing_author}`}
+            {fullArticle?.acf?.contributing_author
+              ? `Authored by ${fullArticle.acf.contributing_author}`
+              : ""}
           </Typography>
 
           <Typography className={styles.HeaderSubtext} variant="body1">

@@ -5,6 +5,7 @@ import styles from "../WhatIsHealthEquityPage.module.scss";
 import parse from "html-react-parser";
 import { BLOG_TAB_LINK } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
+import AppbarLogo from "../../../assets/AppbarLogo.png";
 
 function AllPosts({ articles }: { articles: any[] }) {
   return (
@@ -32,6 +33,7 @@ function AllPosts({ articles }: { articles: any[] }) {
         alignItems="flex-start"
       >
         {articles.map((post: any) => {
+          console.log(post, "cant find img here?");
           return (
             <Grid
               item
@@ -42,8 +44,12 @@ function AllPosts({ articles }: { articles: any[] }) {
               key={post.id}
             >
               <img
-                className={styles.NewsAndStoriesBigImg}
-                src={post._embedded["wp:featuredmedia"][0].source_url}
+                className={styles.AllPostsBigImg}
+                src={
+                  post._embedded["wp:featuredmedia"]
+                    ? post._embedded["wp:featuredmedia"][0].source_url
+                    : AppbarLogo
+                }
                 alt=""
               />
               <Link

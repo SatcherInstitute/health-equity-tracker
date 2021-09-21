@@ -57,13 +57,18 @@
     align-items: center;
     justify-content: center;
 
-    .HeaderImg {
+    .HeaderImg,
+    .SingleArticleHeaderImg {
       border-radius: 30px;
       height: auto;
       width: 100%;
       max-height: 770px;
       max-width: 400px;
       padding: 10px;
+    }
+    .SingleArticleHeaderImg {
+      height: auto;
+      width: 60%;
     }
   }
 
@@ -250,10 +255,14 @@
       padding: 30px;
     }
 
-    .NewsAndStoriesBigImg {
+    .NewsAndStoriesBigImg,
+    .AllPostsBigImg {
       width: 100%;
       height: auto;
       border-radius: 30px;
+    }
+    .AllPostsBigImg {
+      width: 60%;
     }
 
     .NewsAndStoriesSmallImg {
@@ -264,6 +273,7 @@
       text-decoration: none;
     }
     .NewsAndStoriesTitleText {
+      margin-top: 5px;
       font-size: 1.5rem;
       text-align: center;
       font-weight: 300;
@@ -488,11 +498,12 @@
   @media (max-width: $lg) {
     padding: 0px 15% 50px 15%;
   }
-
+  margin: 2rem;
   border-bottom: 1px solid $alt-grey;
 
-  p {
-    font-size: 0.9rem;
+  p,
+  li {
+    font-size: 1rem;
     text-align: left;
     font-weight: 400;
     font-family: "Inter", sans-serif;
@@ -500,18 +511,47 @@
     color: #383838;
   }
 
+  blockquote > p {
+    font-size: 1.5rem;
+    line-height: normal;
+    font-family: "Taviraj", serif !important;
+    font-weight: 200;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Taviraj", serif !important;
+    color: $alt-green;
+  }
+
   h1 {
     font-size: 1.5rem !important;
     font-weight: 300;
-    font-family: "Taviraj", serif !important;
     line-height: 40px;
-    color: $alt-green;
-    padding-bottom: 20px;
+  }
+
+  ol,
+  ul,
+  blockquote {
+    text-align: left;
+  }
+
+  p > img {
+    display: block;
+    margin: 40px auto 0px auto;
+    width: 60%;
+    height: auto;
+    // float: right;
   }
 }
 
 // featured image is loaded in header separately, so hide in content HTML
-figure {
+figure,
+hr {
   display: none !important;
 }
 

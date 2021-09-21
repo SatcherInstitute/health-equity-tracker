@@ -40,6 +40,9 @@ import {
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   BLOG_URL,
   WP_API,
+  WP_EMBED_PARAM,
+  MAX_FETCH,
+  WP_PER_PAGE_PARAM,
   ALL_POSTS,
 } from "./utils/urlutils";
 import AppBarLogo from "./assets/AppbarLogo.png";
@@ -177,10 +180,16 @@ function App() {
     const savedArticles: any[] = JSON.parse(
       sessionStorage.getItem("articles") as string
     );
+    console.log("blog articles in session storage");
+    console.log(savedArticles);
     if (savedArticles === null) {
       // fetch up to 10 posts
       axios
-        .get(`${BLOG_URL + WP_API + ALL_POSTS}?_embed`)
+        .get(
+          `${
+            BLOG_URL + WP_API + ALL_POSTS
+          }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${MAX_FETCH}`
+        )
         .then(async (posts) => {
           // set in state
           setArticles(posts.data);

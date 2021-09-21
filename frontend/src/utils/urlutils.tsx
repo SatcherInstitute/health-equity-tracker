@@ -55,6 +55,10 @@ export const BLOG_URL = "https://het-blog.000webhostapp.com/";
 export const WP_API = "wp-json/wp/v2/";
 export const ALL_POSTS = "posts";
 export const ALL_MEDIA = "media";
+export const WP_EMBED_PARAM = "_embed";
+export const WP_PER_PAGE_PARAM = "per_page=";
+export const MAX_FETCH = 100;
+
 export function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
