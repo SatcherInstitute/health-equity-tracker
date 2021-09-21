@@ -38,12 +38,16 @@ import {
   RESOURCES_TAB_LINK,
   TERMS_OF_USE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+  BLOG_URL,
+  WP_API,
+  ALL_POSTS,
 } from "./utils/urlutils";
 import AppBarLogo from "./assets/AppbarLogo.png";
 
 // the following components make CSS modules which are imported by other components, so they must load first
 import AboutUsPage from "./pages/AboutUs/AboutUsPage";
 import WhatIsHealthEquityPage from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
+import axios from "axios";
 
 const ExploreDataPage = React.lazy(
   () => import("./pages/ExploreData/ExploreDataPage")
@@ -156,6 +160,7 @@ function ScrollToTop() {
 }
 
 function App() {
+  // TODO this should be used instead of the width query I added in WIHE for tab names -ben
   const [width, setWidth] = useState(window.innerWidth);
   useEffect(() => {
     function handleResize() {
@@ -163,6 +168,29 @@ function App() {
     }
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // BLOG articles from external Wordpress Headless CMS
+  // use session storage to persist
+  const [articles, setArticles] = useState<any[]>([]);
+  useEffect(() => {
+    const savedArticles: any[] = JSON.parse(
+      sessionStorage.getItem("articles") as string
+    );
+    if (savedArticles === null) {
+      // fetch up to 10 posts
+      axios
+        .get(`${BLOG_URL + WP_API + ALL_POSTS}?_embed`)
+        .then(async (posts) => {
+          // set in state
+          setArticles(posts.data);
+          // also cache in session storage
+          sessionStorage.setItem("articles", JSON.stringify(posts.data));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else setArticles(savedArticles);
   }, []);
 
   return (
@@ -219,17 +247,23 @@ function App() {
 
                     <Route
                       path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
-                      render={() => <WhatIsHealthEquityPage />}
+                      render={() => (
+                        <WhatIsHealthEquityPage articles={articles} />
+                      )}
                     />
 
                     <Route
                       path={FAQ_TAB_LINK}
-                      render={() => <WhatIsHealthEquityPage />}
+                      render={() => (
+                        <WhatIsHealthEquityPage articles={articles} />
+                      )}
                     />
 
                     <Route
                       path={RESOURCES_TAB_LINK}
-                      render={() => <WhatIsHealthEquityPage />}
+                      render={() => (
+                        <WhatIsHealthEquityPage articles={articles} />
+                      )}
                     />
 
                     <Route
@@ -243,12 +277,16 @@ function App() {
 
                     <Route
                       path={RESOURCES_TAB_LINK}
-                      render={() => <WhatIsHealthEquityPage />}
+                      render={() => (
+                        <WhatIsHealthEquityPage articles={articles} />
+                      )}
                     />
 
                     <Route
                       path={BLOG_TAB_LINK}
-                      render={() => <WhatIsHealthEquityPage />}
+                      render={() => (
+                        <WhatIsHealthEquityPage articles={articles} />
+                      )}
                     />
 
                     <Route
@@ -256,9 +294,11 @@ function App() {
                       render={() => <TermsOfUsePage />}
                     />
 
-                    {/* <Route path="/blog/:slug" render={() => <BlogPostPage />} /> */}
-
-                    <Route exact path="/" render={() => <LandingPage />} />
+                    <Route
+                      exact
+                      path="/"
+                      render={() => <LandingPage articles={articles} />}
+                    />
                     {/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}
                     <Route render={() => <NotFoundPage />} />
                   </Switch>

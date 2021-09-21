@@ -1,34 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import Grid from "@material-ui/core/Grid";
-import axios from "axios";
-import {
-  BLOG_URL,
-  WP_API,
-  ALL_POSTS,
-  BLOG_TAB_LINK,
-} from "../../utils/urlutils";
+import { BLOG_TAB_LINK } from "../../utils/urlutils";
 import { Route, Switch } from "react-router-dom";
 import AllPosts from "./Blog/AllPosts";
 import SinglePost from "./Blog/SinglePost";
 
-function BlogTab() {
-  const [articles, setArticles] = useState<any[]>([]);
-
-  useEffect(() => {
-    // fetch up to 10 posts
-    axios
-      .get(`${BLOG_URL + WP_API + ALL_POSTS}?_embed`)
-      .then(async (posts) => {
-        console.log(posts, "just fetched");
-        // @ts-ignore
-        setArticles(posts.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
+function BlogTab({ articles }: { articles: any[] }) {
   return (
     <div className={styles.WhatIsHealthEquityPage}>
       <Grid container className={styles.Grid}>

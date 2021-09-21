@@ -6,8 +6,7 @@ import parse from "html-react-parser";
 import { BLOG_TAB_LINK } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
 
-// @ts-ignore
-function AllPosts({ articles }) {
+function AllPosts({ articles }: { articles: any[] }) {
   return (
     <Grid
       container
@@ -34,7 +33,6 @@ function AllPosts({ articles }) {
       >
         {articles.map((post: any) => {
           return (
-            // FETCHED BLOG POSTS
             <Grid
               item
               xs={12}
@@ -52,14 +50,12 @@ function AllPosts({ articles }) {
                 to={`${BLOG_TAB_LINK}/${post.slug}`}
                 className={styles.NewsAndStoriesTitleLink}
               >
-                {/* <h3 className={styles.NewsAndStoriesTitleText}> */}
                 <Typography
                   className={styles.NewsAndStoriesTitleText}
                   variant="h3"
                 >
                   {parse(post.title.rendered)}
                 </Typography>
-                {/* </h3> */}
               </Link>
             </Grid>
           );

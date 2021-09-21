@@ -13,14 +13,12 @@ function prettyDate(dateString: string) {
   return new Date(dateString).toLocaleDateString(undefined, options as any);
 }
 
-// @ts-ignore
-export default function SinglePost(props) {
+export default function SinglePost({ articles }: { articles: any[] }) {
   const [fullArticle, setFullArticle] = useState<any>();
   const [prevArticle, setPrevArticle] = useState<any>();
   const [nextArticle, setNextArticle] = useState<any>();
-  const { articles } = props;
-  // @ts-ignore
-  let { slug } = useParams();
+
+  let { slug }: { slug: string } = useParams();
 
   // on page load, get prev,full, next article based on fullArticle URL slug
   useEffect(() => {
@@ -34,8 +32,8 @@ export default function SinglePost(props) {
         fullArticleIndex - 1 >= 0 ? fullArticleIndex - 1 : articles.length - 1
       ]
     );
-    setNextArticle(articles[(fullArticleIndex + 1) % props.articles.length]);
-  }, [articles, fullArticle, props.articles.length, props.fullArticle, slug]);
+    setNextArticle(articles[(fullArticleIndex + 1) % articles.length]);
+  }, [articles, fullArticle, slug]);
 
   return (
     <Grid container className={styles.Grid}>
@@ -55,7 +53,6 @@ export default function SinglePost(props) {
           <Grid container item md={4} className={styles.HeaderImgItem}>
             {fullArticle && (
               <img
-                // src="/img/stock/woman-in-wheelchair-with-tea.png"
                 src={
                   fullArticle._embedded["wp:featuredmedia"][0].source_url ||
                   "/img/stock/woman-in-wheelchair-with-tea.png"

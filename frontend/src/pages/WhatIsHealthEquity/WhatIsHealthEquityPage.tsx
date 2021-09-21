@@ -18,12 +18,16 @@ import { useEffect } from "react";
 import BlogTab from "./BlogTab";
 import { Link, Redirect, Route, Switch } from "react-router-dom";
 
-export default function WhatIsHealthEquityPage() {
-  // responsive tabs layout to fix mobile bug
+export default function WhatIsHealthEquityPage({
+  articles,
+}: {
+  articles: any[];
+}) {
   const theme = useTheme();
   const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
   const [tabLayout, setTabLayout] = React.useState({});
 
+  // TODO use existing width hook instead of duplicating here; responsive tabs layout to fix mobile bug
   // when screen width changes, update tab spacing material UI attribute
   useEffect(() => {
     setTabLayout(pageIsWide ? { centered: true } : { variant: "fullWidth" });
@@ -86,7 +90,7 @@ export default function WhatIsHealthEquityPage() {
           <FaqTab />
         </Route>
         <Route path={`${BLOG_TAB_LINK}/`}>
-          <BlogTab />
+          <BlogTab articles={articles} />
         </Route>
         <Route path={`${RESOURCES_TAB_LINK}/`}>
           <ResourcesTab />
