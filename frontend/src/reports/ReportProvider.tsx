@@ -203,14 +203,14 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           100k COVID-19 rates nationally and for all territory level rates.
         </p>
         <p>
-          State reported population categories do not always coincide with the
-          categories reported by the census. So, for state reported vaccine
-          numbers we rely on the Kaiser Family Foundation population
-          tabulations, which only include population numbers for <b>Black</b>,{" "}
+          Because state reported population categories do not always coincide
+          with the categories reported by the census, we rely on the Kaiser
+          Family Foundation population tabulations for state reported population
+          categories, which only include population numbers for <b>Black,</b>{" "}
           <b>White</b>, <b>Asian</b>, and <b>Hispanic</b>. Percent of vaccinated
           metrics for <b>Native Hawaiian and Pacific Islander</b>,{" "}
           <b>American Indian and Alaska Native</b>, and <b>Some Other Race</b>{" "}
-          are still shown but without a population comparison metric.
+          are still shown, but without a population comparison metric.
         </p>
         <div className={styles.MissingDataContactUs}>
           <p>
