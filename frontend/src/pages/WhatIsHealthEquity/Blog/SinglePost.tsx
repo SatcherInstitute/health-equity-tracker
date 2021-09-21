@@ -79,8 +79,9 @@ export default function SinglePost({ articles }: { articles: any[] }) {
             variant="body1"
             paragraph={true}
           >
+            {console.log(fullArticle)}
             {fullArticle &&
-              `Authored by ${fullArticle._embedded.author[0].name}`}
+              `Authored by ${fullArticle.acf.contributing_author}`}
           </Typography>
 
           <Typography className={styles.HeaderSubtext} variant="body1">

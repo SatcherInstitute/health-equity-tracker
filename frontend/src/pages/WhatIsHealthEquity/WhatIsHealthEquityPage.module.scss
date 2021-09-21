@@ -477,19 +477,22 @@
 
 /** ------------- BLOG ------------- **/
 .FullArticleContainer {
-  text-align: left;
-  padding: 0px 20px 50px 20px;
+  padding: 0px 120px 50px 120px;
   border-bottom: 1px solid $alt-grey;
+
+  p {
+    font-size: 0.9rem;
+    text-align: left;
+    font-weight: 400;
+    font-family: "Inter", sans-serif;
+    line-height: 1.3rem;
+    color: #383838;
+  }
 }
 
+// featured image is loaded in header separately, so hide in content HTML
 figure {
-  display: none;
-  // text-align: center;
-
-  // img {
-  //   width: 50%;
-  //   height: auto;
-  // }
+  display: none !important;
 }
 
 .FullLink {
