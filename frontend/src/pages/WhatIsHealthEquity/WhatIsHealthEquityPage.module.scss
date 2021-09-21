@@ -493,29 +493,30 @@
 }
 
 /** ------------- BLOG ------------- **/
+
 .FullArticleContainer {
+  margin: 2rem;
+  border-bottom: 1px solid $alt-grey;
   padding: 0px 10% 50px 10%;
   @media (max-width: $lg) {
     padding: 0px 15% 50px 15%;
   }
-  margin: 2rem;
-  border-bottom: 1px solid $alt-grey;
 
   p,
   li {
     font-size: 1rem;
+    line-height: normal;
     text-align: left;
     font-weight: 400;
     font-family: "Inter", sans-serif;
-    line-height: 1.3rem;
-    color: #383838;
+
+    color: $alt-black;
   }
 
   blockquote > p {
-    font-size: 1.5rem;
-    line-height: normal;
-    font-family: "Taviraj", serif !important;
+    // font-family: "Taviraj", serif !important;
     font-weight: 200;
+    font-style: italic;
   }
 
   h1,
@@ -524,14 +525,30 @@
   h4,
   h5,
   h6 {
+    font-weight: 300;
+    line-height: 100%;
     font-family: "Taviraj", serif !important;
     color: $alt-green;
+    text-align: left;
   }
 
   h1 {
+    font-size: 3.75rem !important;
+  }
+  h2 {
+    font-size: 3rem !important;
+  }
+  h3 {
+    font-size: 2.125rem !important;
+  }
+  h4 {
     font-size: 1.5rem !important;
-    font-weight: 300;
-    line-height: 40px;
+  }
+  h5 {
+    font-size: 1.25rem !important;
+  }
+  h6 {
+    font-size: 1rem !important;
   }
 
   ol,
