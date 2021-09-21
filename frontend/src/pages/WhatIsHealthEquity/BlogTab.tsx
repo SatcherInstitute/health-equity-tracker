@@ -21,7 +21,7 @@ function BlogTab() {
     axios
       .get(`${BLOG_URL + WP_API + ALL_POSTS}?_embed`)
       .then(async (posts) => {
-        console.log(posts);
+        console.log(posts, "just fetched");
         // @ts-ignore
         setArticles(posts.data);
         //   // @ts-ignore

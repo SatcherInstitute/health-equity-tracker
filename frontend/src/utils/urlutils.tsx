@@ -51,6 +51,7 @@ export const DATA_TYPE_2_PARAM = "dt2";
 
 // WORDPRESS CONFIG
 export const BLOG_URL = "https://het-blog.000webhostapp.com/";
+// export const BLOG_URL = "http://het.lovestoblog.com/"
 export const WP_API = "wp-json/wp/v2/";
 export const ALL_POSTS = "posts";
 export const ALL_MEDIA = "media";
