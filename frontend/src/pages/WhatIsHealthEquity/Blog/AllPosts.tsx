@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import styles from "../WhatIsHealthEquityPage.module.scss";
 import parse from "html-react-parser";
 import { BLOG_TAB_LINK } from "../../../utils/urlutils";
+import { Helmet } from "react-helmet";
 
 // @ts-ignore
 function AllPosts({ articles }) {
@@ -14,6 +15,9 @@ function AllPosts({ articles }) {
       direction="row"
       justify="center"
     >
+      <Helmet>
+        <title>Blog - Health Equity Tracker</title>
+      </Helmet>
       <Grid item>
         <Typography className={styles.NewsAndStoriesHeaderText} variant="h1">
           News and stories

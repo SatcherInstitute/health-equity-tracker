@@ -6,6 +6,7 @@ import styles from "../WhatIsHealthEquityPage.module.scss";
 import parse from "html-react-parser";
 import { useParams } from "react-router-dom";
 import { BLOG_TAB_LINK, ReactRouterLinkButton } from "../../../utils/urlutils";
+import { Helmet } from "react-helmet";
 
 function prettyDate(dateString: string) {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -38,6 +39,11 @@ export default function SinglePost(props) {
 
   return (
     <Grid container className={styles.Grid}>
+      <Helmet>
+        <title>{`Blog${
+          fullArticle ? " - " + parse(fullArticle.title.rendered) : ""
+        } - Health Equity Tracker`}</title>
+      </Helmet>
       <Grid
         container
         className={styles.HeaderRow}

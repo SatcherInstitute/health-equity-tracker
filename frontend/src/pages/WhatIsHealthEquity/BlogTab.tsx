@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import Grid from "@material-ui/core/Grid";
-import { Helmet } from "react-helmet";
 import axios from "axios";
 import {
   BLOG_URL,
@@ -24,24 +23,6 @@ function BlogTab() {
         console.log(posts, "just fetched");
         // @ts-ignore
         setArticles(posts.data);
-        //   // @ts-ignore
-        //   const promisesForPostsWithImages = await posts.data.map(
-        //     async (post: { featured_media: any; imageUrl: any }) => {
-        //       // add fetched imageUrl to each fetched post
-        //       const mediaResponse = await axios.get(
-        //         `${BLOG_URL + WP_API + ALL_MEDIA}/${post.featured_media}`
-        //       );
-        //       post.imageUrl = mediaResponse.data.source_url;
-        //       return post;
-        //     }
-        //   );
-        //   return promisesForPostsWithImages;
-        // })
-        // .then((promisesForPostsWithImages) => {
-        //   Promise.all(promisesForPostsWithImages).then((postsWithImages) => {
-        //     // once all image urls are fetched; update state
-        //     setArticles(postsWithImages);
-        //   });
       })
       .catch((err) => {
         console.log(err);
@@ -50,9 +31,6 @@ function BlogTab() {
 
   return (
     <div className={styles.WhatIsHealthEquityPage}>
-      <Helmet>
-        <title>Blog - Health Equity Tracker</title>
-      </Helmet>
       <Grid container className={styles.Grid}>
         <Grid
           container
