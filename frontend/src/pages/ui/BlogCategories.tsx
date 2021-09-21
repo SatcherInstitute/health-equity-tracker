@@ -28,7 +28,7 @@ export default function BlogCategories() {
           ? categories.map((categoryObject: { name: string }) => {
               return <li key={categoryObject.name}>{categoryObject.name}</li>;
             })
-          : "None Found"}
+          : ""}
       </ul>
     </div>
   );
