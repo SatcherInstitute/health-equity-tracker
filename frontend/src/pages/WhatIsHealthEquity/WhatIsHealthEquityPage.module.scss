@@ -255,14 +255,10 @@
       padding: 30px;
     }
 
-    .NewsAndStoriesBigImg,
-    .AllPostsBigImg {
+    .NewsAndStoriesBigImg {
       width: 100%;
       height: auto;
       border-radius: 30px;
-    }
-    .AllPostsBigImg {
-      width: 60%;
     }
 
     .NewsAndStoriesSmallImg {
@@ -493,6 +489,40 @@
 }
 
 /** ------------- BLOG ------------- **/
+
+.AllArticlesSection {
+  padding: 50px 20px 50px 20px;
+  border-bottom: 1px solid $alt-grey;
+}
+
+.AllArticlesHeaderText {
+  font-size: 32px !important;
+  text-align: center;
+  font-weight: 300;
+  font-family: "Taviraj", serif !important;
+  line-height: 40px;
+  color: $alt-black;
+  padding-bottom: 20px;
+}
+
+.AllPostsBigImg {
+  width: 60%;
+  height: auto;
+  border-radius: 30px;
+}
+
+.AllArticlesTitleLink {
+  text-decoration: none;
+}
+.AllArticlesTitleText {
+  margin: 5px 40px 30px 40px;
+  font-size: 1.25rem;
+  text-align: center;
+  font-weight: 300;
+  font-family: "Taviraj", serif !important;
+  line-height: 90%;
+  color: $alt-green;
+}
 
 .FullArticleContainer {
   margin: 2rem;
