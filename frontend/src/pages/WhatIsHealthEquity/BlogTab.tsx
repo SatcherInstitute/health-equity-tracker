@@ -7,7 +7,6 @@ import {
   BLOG_URL,
   WP_API,
   ALL_POSTS,
-  ALL_MEDIA,
   BLOG_TAB_LINK,
 } from "../../utils/urlutils";
 import { Route, Switch } from "react-router-dom";
