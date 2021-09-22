@@ -1,35 +1,35 @@
 import { Typography } from "@material-ui/core";
 import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { BLOG_TAB_LINK } from "../../utils/urlutils";
 import styles from "./BlogFilterList.module.scss";
 
-export default function BlogAuthors({ articles }: { articles: any[] }) {
-  const [filterItems, setFilterItems] = useState<string[]>([]);
-
-  useEffect(() => {
-    const allAuthorsSet = new Set();
-
-    articles.forEach(
-      (article) =>
-        article.acf.contributing_author &&
-        allAuthorsSet.add(article.acf.contributing_author)
-    );
-
-    setFilterItems(Array.from(allAuthorsSet) as string[]);
-  }, [articles]);
-
+export default function BlogAuthors({ authors }: { authors: string[] }) {
   return (
     <div className={styles.FilterListBox}>
       <Typography className={styles.FilterListHeader} variant="h4">
         Authors
       </Typography>
       <ul className={styles.FilterList}>
-        {filterItems.length > 0
-          ? filterItems.map((filter: string) => {
-              return <li key={filter}>{filter}</li>;
+        {authors.length > 0
+          ? authors.map((filter: string) => {
+              return (
+                <li key={filter}>
+                  <Link
+                    to={`${BLOG_TAB_LINK}?author=${filter}`}
+                    className={styles.AllArticlesTitleLink}
+                  >
+                    {filter}
+                  </Link>
+                </li>
+              );
             })
           : ""}
+        <li>
+          <Link to={BLOG_TAB_LINK} className={styles.AllArticlesTitleLink}>
+            All Posts
+          </Link>
+        </li>
       </ul>
     </div>
   );

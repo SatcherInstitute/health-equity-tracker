@@ -6,7 +6,13 @@ import { Route, Switch } from "react-router-dom";
 import AllPosts from "./Blog/AllPosts";
 import SinglePost from "./Blog/SinglePost";
 
-function BlogTab({ articles }: { articles: any[] }) {
+function BlogTab({
+  articles,
+  categories,
+}: {
+  articles: any[];
+  categories: any[];
+}) {
   return (
     <div className={styles.WhatIsHealthEquityPage}>
       <Grid container className={styles.Grid}>
@@ -18,10 +24,10 @@ function BlogTab({ articles }: { articles: any[] }) {
         >
           <Switch>
             <Route path={`${BLOG_TAB_LINK}/:slug`}>
-              <SinglePost articles={articles} />
+              <SinglePost articles={articles} categories={categories} />
             </Route>
             <Route path={`${BLOG_TAB_LINK}/`}>
-              <AllPosts articles={articles} />
+              <AllPosts articles={articles} categories={categories} />
             </Route>
           </Switch>
         </Grid>

@@ -1,15 +1,7 @@
 import { Typography } from "@material-ui/core";
-import axios from "axios";
 import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import {
-  ALL_CATEGORIES,
-  BLOG_TAB_LINK,
-  BLOG_URL,
-  WP_API,
-} from "../../utils/urlutils";
+import { BLOG_TAB_LINK } from "../../utils/urlutils";
 import styles from "./BlogFilterList.module.scss";
 
 export default function BlogCategories({ categories }: { categories: any[] }) {
@@ -19,7 +11,7 @@ export default function BlogCategories({ categories }: { categories: any[] }) {
         Categories
       </Typography>
       <ul className={styles.FilterList}>
-        {categories.length > 0
+        {categories
           ? categories.map((categoryObject: { name: string }) => {
               return (
                 <li key={categoryObject.name}>

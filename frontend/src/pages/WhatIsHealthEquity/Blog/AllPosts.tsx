@@ -1,59 +1,102 @@
 import { Grid } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../WhatIsHealthEquityPage.module.scss";
 import parse from "html-react-parser";
-import {
-  BLOG_TAB_LINK,
-  useQuery,
-  ALL_CATEGORIES,
-  BLOG_URL,
-  WP_API,
-} from "../../../utils/urlutils";
+import { BLOG_TAB_LINK, useQuery } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
 import AppbarLogo from "../../../assets/AppbarLogo.png";
 import BlogCategories from "../../ui/BlogCategories";
 import BlogAuthors from "../../ui/BlogAuthors";
-import axios from "axios";
 
-function AllPosts({ articles }: { articles: any[] }) {
-  const [categories, setCategories] = useState<any[]>([]);
-  const categoryParam = useQuery().get("category");
-  let selectedCategory: { id: any } = { id: null };
+function AllPosts({
+  articles,
+  categories,
+}: {
+  articles: any[];
+  categories: any[];
+}) {
+  const [filteredArticles, setFilteredArticles] = useState<any[]>(articles);
 
-  // filter articles by query param if present
-  if (categoryParam) {
-    selectedCategory = categories.find(
-      (category: any) => category.name === categoryParam
+  const [authors, setAuthors] = useState<string[]>([]);
+
+  const [selectedCategory, setSelectedCategory] = useState<any>({});
+
+  const [selectedAuthor, setSelectedAuthor] = useState<string>("");
+
+  // const [categoryParam, setCategoryParam] = useState<string>("");
+  // const [authorParam, setAuthorParam] = useState<string>("");
+
+  const categoryParam = useRef(useQuery().get("category"));
+  const authorParam = useRef(useQuery().get("author"));
+
+  useEffect(() => {
+    // filter articles by category query param if present
+    console.log(categoryParam, "cat param");
+    if (categoryParam.current) {
+      setSelectedCategory(
+        categories.find(
+          (category: any) => category.name === categoryParam.current
+        )
+      );
+
+      if (selectedCategory) {
+        setFilteredArticles(
+          articles.filter((article) => {
+            // console.log(article.categories, "categories");
+            // console.log(selectedCategory.id, "sel cat id");
+            return article.categories.includes(selectedCategory.id);
+          })
+        );
+      }
+    } else {
+      setFilteredArticles(articles);
+    }
+  }, [articles, categories, selectedCategory]);
+
+  useEffect(() => {
+    console.log(authorParam, "author param");
+    // filter articles by author query param if present
+    if (authorParam.current) {
+      console.log("yep");
+      setSelectedAuthor(
+        authors.find((author: string) => {
+          // console.log(author, "iterated author");
+          // console.log(authorParam, "author param");
+          return author === authorParam.current;
+        }) as string
+      );
+
+      if (selectedAuthor) {
+        setFilteredArticles(
+          articles.filter((article) => {
+            return article.acf.contributing_author === selectedAuthor;
+          })
+        );
+      }
+    }
+  }, [articles, authors, selectedAuthor]);
+
+  // extract and set authors (for ALL posts, not just filtered ones)
+  useEffect(() => {
+    const allAuthorsSet = new Set();
+
+    articles.forEach(
+      (article) =>
+        article.acf.contributing_author &&
+        allAuthorsSet.add(article.acf.contributing_author)
     );
 
-    if (selectedCategory) {
-      articles = articles.filter((article) => {
-        console.log(article.categories, "categories");
-        console.log(selectedCategory.id, "sel cat id");
-        return article.categories.includes(selectedCategory.id);
-      });
-    }
-  }
-
-  // fetch categories
-  useEffect(() => {
-    axios
-      .get(`${BLOG_URL + WP_API + ALL_CATEGORIES}`)
-      .then((categories) => {
-        // console.log(categories);
-        setCategories(categories.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    setAuthors(Array.from(allAuthorsSet) as string[]);
+  }, [articles]);
 
   return (
     <Grid container className={styles.Grid}>
       <Helmet>
         <title>Blog - Health Equity Tracker</title>
       </Helmet>
+      {console.log(articles, "all")}
+      {console.log(filteredArticles, "filtered")}
       <Grid container className={styles.AllArticlesSection}>
         <Grid
           item
@@ -64,7 +107,7 @@ function AllPosts({ articles }: { articles: any[] }) {
           alignItems="center"
         >
           <BlogCategories categories={categories} />
-          <BlogAuthors articles={articles} />
+          <BlogAuthors authors={authors} />
         </Grid>
         <Grid item xs={12} sm={12} md={9}>
           <Grid
@@ -73,7 +116,7 @@ function AllPosts({ articles }: { articles: any[] }) {
             justify="space-between"
             alignItems="flex-start"
           >
-            {articles.map((post: any) => {
+            {filteredArticles.map((post: any) => {
               return (
                 <Grid
                   item

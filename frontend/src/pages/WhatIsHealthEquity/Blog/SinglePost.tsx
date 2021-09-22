@@ -14,7 +14,13 @@ function prettyDate(dateString: string) {
   return new Date(dateString).toLocaleDateString(undefined, options as any);
 }
 
-export default function SinglePost({ articles }: { articles: any[] }) {
+export default function SinglePost({
+  articles,
+  categories,
+}: {
+  articles: any[];
+  categories: any[];
+}) {
   const [fullArticle, setFullArticle] = useState<any>();
   const [prevArticle, setPrevArticle] = useState<any>();
   const [nextArticle, setNextArticle] = useState<any>();

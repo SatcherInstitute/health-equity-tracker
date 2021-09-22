@@ -20,8 +20,10 @@ import { Link, Redirect, Route, Switch } from "react-router-dom";
 
 export default function WhatIsHealthEquityPage({
   articles,
+  categories,
 }: {
   articles: any[];
+  categories: any[];
 }) {
   const theme = useTheme();
   const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
@@ -90,7 +92,7 @@ export default function WhatIsHealthEquityPage({
           <FaqTab />
         </Route>
         <Route path={`${BLOG_TAB_LINK}/`}>
-          <BlogTab articles={articles} />
+          <BlogTab articles={articles} categories={categories} />
         </Route>
         <Route path={`${RESOURCES_TAB_LINK}/`}>
           <ResourcesTab />

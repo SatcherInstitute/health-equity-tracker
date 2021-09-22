@@ -44,6 +44,7 @@ import {
   MAX_FETCH,
   WP_PER_PAGE_PARAM,
   ALL_POSTS,
+  ALL_CATEGORIES,
 } from "./utils/urlutils";
 import AppBarLogo from "./assets/AppbarLogo.png";
 
@@ -173,17 +174,27 @@ function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // BLOG articles from external Wordpress Headless CMS
+  // BLOG articles and article categories from external Wordpress Headless CMS
   // use session storage to persist
+  const [categories, setCategories] = useState<string[]>([]);
   const [articles, setArticles] = useState<any[]>([]);
+
   useEffect(() => {
     const savedArticles: any[] = JSON.parse(
       sessionStorage.getItem("articles") as string
     );
     console.log("blog articles in session storage");
     console.log(savedArticles);
-    if (savedArticles === null) {
-      // fetch up to 10 posts
+
+    const savedArticleCategories: any[] = JSON.parse(
+      sessionStorage.getItem("articleCategories") as string
+    );
+    console.log("articleCategories in session storage");
+    console.log(savedArticleCategories);
+
+    if (savedArticleCategories === null || savedArticles === null) {
+      // fetch up to 100 posts
+      console.log("FETCHING");
       axios
         .get(
           `${
@@ -191,6 +202,7 @@ function App() {
           }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${MAX_FETCH}`
         )
         .then(async (posts) => {
+          console.log("ARTICLES");
           // set in state
           setArticles(posts.data);
           // also cache in session storage
@@ -199,7 +211,26 @@ function App() {
         .catch((err) => {
           console.log(err);
         });
-    } else setArticles(savedArticles);
+
+      // also fetch all categories (probably only getting first 10 by default ? )
+      axios
+        .get(`${BLOG_URL + WP_API + ALL_CATEGORIES}`)
+        .then((categories) => {
+          console.log("CATEGORIES");
+          setCategories(categories.data);
+          // also cache in session storage
+          sessionStorage.setItem(
+            "articleCategories",
+            JSON.stringify(categories.data)
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setArticles(savedArticles);
+      setCategories(savedArticleCategories);
+    }
   }, []);
 
   return (
@@ -257,21 +288,30 @@ function App() {
                     <Route
                       path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
                       render={() => (
-                        <WhatIsHealthEquityPage articles={articles} />
+                        <WhatIsHealthEquityPage
+                          articles={articles}
+                          categories={categories}
+                        />
                       )}
                     />
 
                     <Route
                       path={FAQ_TAB_LINK}
                       render={() => (
-                        <WhatIsHealthEquityPage articles={articles} />
+                        <WhatIsHealthEquityPage
+                          articles={articles}
+                          categories={categories}
+                        />
                       )}
                     />
 
                     <Route
                       path={RESOURCES_TAB_LINK}
                       render={() => (
-                        <WhatIsHealthEquityPage articles={articles} />
+                        <WhatIsHealthEquityPage
+                          articles={articles}
+                          categories={categories}
+                        />
                       )}
                     />
 
@@ -287,14 +327,20 @@ function App() {
                     <Route
                       path={RESOURCES_TAB_LINK}
                       render={() => (
-                        <WhatIsHealthEquityPage articles={articles} />
+                        <WhatIsHealthEquityPage
+                          articles={articles}
+                          categories={categories}
+                        />
                       )}
                     />
 
                     <Route
                       path={BLOG_TAB_LINK}
                       render={() => (
-                        <WhatIsHealthEquityPage articles={articles} />
+                        <WhatIsHealthEquityPage
+                          articles={articles}
+                          categories={categories}
+                        />
                       )}
                     />
 
@@ -306,7 +352,12 @@ function App() {
                     <Route
                       exact
                       path="/"
-                      render={() => <LandingPage articles={articles} />}
+                      render={() => (
+                        <LandingPage
+                          articles={articles}
+                          categories={categories}
+                        />
+                      )}
                     />
                     {/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}
                     <Route render={() => <NotFoundPage />} />
