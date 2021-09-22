@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "../WhatIsHealthEquityPage.module.scss";
@@ -7,6 +7,7 @@ import { BLOG_TAB_LINK } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
 import AppbarLogo from "../../../assets/AppbarLogo.png";
 import BlogCategories from "../../ui/BlogCategories";
+import BlogAuthors from "../../ui/BlogAuthors";
 
 function AllPosts({ articles }: { articles: any[] }) {
   return (
@@ -16,15 +17,8 @@ function AllPosts({ articles }: { articles: any[] }) {
       </Helmet>
       <Grid container className={styles.AllArticlesSection}>
         <Grid item xs={12} sm={12} md={3}>
-          <Typography
-            id="main"
-            tabIndex={-1}
-            className={styles.AllArticlesHeaderText}
-            variant="h2"
-          >
-            Recent Posts
-          </Typography>
           <BlogCategories />
+          <BlogAuthors articles={articles} />
         </Grid>
         <Grid item xs={12} sm={12} md={9}>
           <Grid

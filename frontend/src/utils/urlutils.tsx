@@ -56,6 +56,7 @@ export const WP_API = "wp-json/wp/v2/";
 export const ALL_POSTS = "posts";
 export const ALL_MEDIA = "media";
 export const ALL_CATEGORIES = "categories";
+export const ALL_AUTHORS = "authors";
 export const WP_EMBED_PARAM = "_embed";
 export const WP_PER_PAGE_PARAM = "per_page=";
 export const MAX_FETCH = 100;
