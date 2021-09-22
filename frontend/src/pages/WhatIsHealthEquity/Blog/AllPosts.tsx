@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Grid, Hidden } from "@material-ui/core";
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "../WhatIsHealthEquityPage.module.scss";
@@ -16,7 +16,7 @@ function AllPosts({ articles }: { articles: any[] }) {
         <title>Blog - Health Equity Tracker</title>
       </Helmet>
       <Grid container className={styles.AllArticlesSection}>
-        <Grid item xs={12} sm={12} md={3}>
+        <Grid item xs={12} md={3}>
           <BlogCategories />
           <BlogAuthors articles={articles} />
         </Grid>

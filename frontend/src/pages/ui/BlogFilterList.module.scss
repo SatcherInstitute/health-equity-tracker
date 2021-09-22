@@ -1,0 +1,26 @@
+@import "../../styles/variables";
+
+.FilterListBox {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.FilterListHeader {
+  margin-bottom: 0px;
+
+  font-size: 32px !important;
+  text-align: center;
+  font-weight: 300;
+  font-family: "Taviraj", serif !important;
+  line-height: 40px;
+  color: $alt-black;
+}
+
+.FilterList {
+  text-align: start;
+  font-size: 1rem;
+  width: 70%;
+  margin-bottom: 5rem;
+}
