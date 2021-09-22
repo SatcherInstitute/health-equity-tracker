@@ -4,14 +4,18 @@
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  align-items: center;
+  // align-items: center;
+  align-items: flex-start;
+
+  height: auto;
+  width: 80%;
 }
 
 .FilterListHeader {
   margin-bottom: 0px;
 
   font-size: 32px !important;
-  text-align: center;
+  // text-align: center;
   font-weight: 300;
   font-family: "Taviraj", serif !important;
   line-height: 40px;

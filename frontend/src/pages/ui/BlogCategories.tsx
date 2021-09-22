@@ -3,24 +3,16 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { ALL_CATEGORIES, BLOG_URL, WP_API } from "../../utils/urlutils";
+import { Link } from "react-router-dom";
+import {
+  ALL_CATEGORIES,
+  BLOG_TAB_LINK,
+  BLOG_URL,
+  WP_API,
+} from "../../utils/urlutils";
 import styles from "./BlogFilterList.module.scss";
 
-export default function BlogCategories() {
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get(`${BLOG_URL + WP_API + ALL_CATEGORIES}`)
-      .then((categories) => {
-        console.log(categories);
-        setCategories(categories.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
+export default function BlogCategories({ categories }: { categories: any[] }) {
   return (
     <div className={styles.FilterListBox}>
       <Typography className={styles.FilterListHeader} variant="h4">
@@ -29,9 +21,23 @@ export default function BlogCategories() {
       <ul className={styles.FilterList}>
         {categories.length > 0
           ? categories.map((categoryObject: { name: string }) => {
-              return <li key={categoryObject.name}>{categoryObject.name}</li>;
+              return (
+                <li key={categoryObject.name}>
+                  <Link
+                    to={`${BLOG_TAB_LINK}?category=${categoryObject.name}`}
+                    className={styles.AllArticlesTitleLink}
+                  >
+                    {categoryObject.name}
+                  </Link>
+                </li>
+              );
             })
           : ""}
+        <li>
+          <Link to={BLOG_TAB_LINK} className={styles.AllArticlesTitleLink}>
+            All Posts
+          </Link>
+        </li>
       </ul>
     </div>
   );
