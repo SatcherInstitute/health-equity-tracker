@@ -8,16 +8,13 @@ import YouTubeIcon from "@material-ui/icons/YouTube";
 import ArrowUpwardRoundedIcon from "@material-ui/icons/ArrowUpwardRounded";
 import { Button } from "@material-ui/core";
 import {
-  TAB_PARAM,
-  ABOUT_US_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
   DATA_CATALOG_PAGE_LINK,
-  TERMS_OF_SERVICE_PAGE_LINK,
-  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+  TERMS_OF_USE_PAGE_LINK,
   ReactRouterLinkButton,
+  FAQ_TAB_LINK,
+  CONTACT_TAB_LINK,
 } from "./utils/urlutils";
-import { ABOUT_US_CONTACT_TAB_INDEX } from "./pages/AboutUs/AboutUsPage";
-import { WIHE_FAQ_TAB_INDEX } from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
 import AppbarLogo from "./assets/AppbarLogo.png";
 import PartnerSatcher from "./assets/PartnerSatcher.png";
 
@@ -48,16 +45,9 @@ function Footer() {
             {[
               ["Explore Data", EXPLORE_DATA_PAGE_LINK],
               ["Downloads and Methods", DATA_CATALOG_PAGE_LINK],
-              [
-                "FAQs",
-                `${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_FAQ_TAB_INDEX}`,
-                "Frequently Asked Questions",
-              ],
-              [
-                "Contact Us",
-                `${ABOUT_US_PAGE_LINK}?${TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`,
-              ],
-              ["Terms of Use", `${TERMS_OF_SERVICE_PAGE_LINK}`],
+              ["FAQs", `${FAQ_TAB_LINK}`, "Frequently Asked Questions"],
+              ["Contact Us", `${CONTACT_TAB_LINK}`],
+              ["Terms of Use", `${TERMS_OF_USE_PAGE_LINK}`],
             ].map(([label, link, ariaLabel]) => (
               <LinkGridItem
                 key={link}

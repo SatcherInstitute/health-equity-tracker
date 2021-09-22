@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import FaqSection from "../ui/FaqSection";
-import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "./WhatIsHealthEquityPage";
+import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "../../utils/urlutils";
 import { Box } from "@material-ui/core";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet";
@@ -81,7 +81,7 @@ function EquityTab() {
                 <img
                   width="397"
                   height="760"
-                  src="img/stock/woman-in-wheelchair-with-tea.png"
+                  src="/img/stock/woman-in-wheelchair-with-tea.png"
                   className={styles.HeaderImg}
                   alt=""
                 />
@@ -268,7 +268,7 @@ function EquityTab() {
                       <LazyLoad offset={300} height={200} once>
                         <img
                           className={styles.ResourceImg}
-                          src="img/maxresdefault (1) 1.png"
+                          src="/img/graphics/NCRN.png"
                           alt="Header for Morehouse School of Medicine National COVID-19 Resiliency Network"
                         />
                       </LazyLoad>
@@ -323,7 +323,7 @@ function EquityTab() {
                 >
                   <img
                     className={styles.NewsAndStoriesBigImg}
-                    src="img/pexels-august-de-richelieu-4261261 1.png"
+                    src="/img/stock/kid-gets-a-mask.png"
                     alt=""
                   />
                   <h2 className={styles.NewsAndStoriesTitleText}>
@@ -351,7 +351,7 @@ function EquityTab() {
                 >
                   <img
                     className={styles.NewsAndStoriesBigImg}
-                    src="img/pexels-mary-taylor-5896662.jpg"
+                    src="/img/stock/girls-studying.jpg"
                     alt=""
                   />
                   <h2 className={styles.NewsAndStoriesTitleText}>
@@ -379,7 +379,7 @@ function EquityTab() {
                 >
                   <img
                     className={styles.NewsAndStoriesSmallImg}
-                    src="img/pexels-alex-green-5699516 1.png"
+                    src="/img/stock/filling-in-forms.png"
                     alt=""
                   />
                   <h2 className={styles.NewsAndStoriesTitleText}>
@@ -404,8 +404,8 @@ function EquityTab() {
                 >
                   <img
                     className={styles.NewsAndStoriesSmallImg}
-                    src="img/pexels-ketut-subiyanto-4473409 2.png"
-                    alt="Asian woman laughing with two children, Decorative"
+                    src="/img/stock/kids-ukulele.png"
+                    alt=""
                   />
                   <h2 className={styles.NewsAndStoriesTitleText}>
                     How Complete Are The CDC's COVID-19 Case Surveillance
@@ -429,7 +429,7 @@ function EquityTab() {
                 >
                   <img
                     className={styles.NewsAndStoriesSmallImg}
-                    src="img/Screen Shot 2021-03-01 at 5.25 1.png"
+                    src="/img/graphics/laptop-HET.png"
                     alt=""
                   />
                   <h2 className={styles.NewsAndStoriesTitleText}>
@@ -487,8 +487,8 @@ function EquityTab() {
           <JoinTheEffortContainer
             imageUrl={
               prefersReducedMotion
-                ? "img/animations/HET-lines-no-motion.gif"
-                : "img/animations/HET-lines.gif"
+                ? "/img/animations/HET-lines-no-motion.gif"
+                : "/img/animations/HET-lines.gif"
             }
             imageBackground="#A5CDC0"
             imageAlt=""
@@ -517,8 +517,8 @@ function EquityTab() {
           <JoinTheEffortContainer
             imageUrl={
               prefersReducedMotion
-                ? "img/animations/HET-fields-no-motion.gif"
-                : "img/animations/HET-fields.gif"
+                ? "/img/animations/HET-fields-no-motion.gif"
+                : "/img/animations/HET-fields.gif"
             }
             imageBackground="#EDB2A6"
             imageAlt=""
@@ -547,8 +547,8 @@ function EquityTab() {
           <JoinTheEffortContainer
             imageUrl={
               prefersReducedMotion
-                ? "img/animations/HET-dots-no-motion.gif"
-                : "img/animations/HET-dots.gif"
+                ? "/img/animations/HET-dots-no-motion.gif"
+                : "/img/animations/HET-dots.gif"
             }
             imageBackground="#275141"
             imageAlt=""
