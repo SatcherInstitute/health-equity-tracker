@@ -17,10 +17,11 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useEffect } from "react";
 import BlogTab from "./BlogTab";
 import { Link, Redirect, Route, Switch } from "react-router-dom";
+import { Article } from "../../utils/useFetchBlog";
 
 export interface WhatIsHealthEquityPageProps {
-  articles?: any[];
-  categories?: any[];
+  articles?: Article[];
+  categories?: string[];
 }
 
 export default function WhatIsHealthEquityPage(

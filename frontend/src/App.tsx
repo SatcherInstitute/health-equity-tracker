@@ -38,20 +38,13 @@ import {
   RESOURCES_TAB_LINK,
   TERMS_OF_USE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-  BLOG_URL,
-  WP_API,
-  WP_EMBED_PARAM,
-  MAX_FETCH,
-  WP_PER_PAGE_PARAM,
-  ALL_POSTS,
-  ALL_CATEGORIES,
 } from "./utils/urlutils";
+import useFetchBlog, { Article } from "./utils/useFetchBlog";
 import AppBarLogo from "./assets/AppbarLogo.png";
 
 // the following components make CSS modules which are imported by other components, so they must load first
 import AboutUsPage from "./pages/AboutUs/AboutUsPage";
 import WhatIsHealthEquityPage from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
-import axios from "axios";
 
 const ExploreDataPage = React.lazy(
   () => import("./pages/ExploreData/ExploreDataPage")
@@ -77,26 +70,6 @@ const PAGE_URL_TO_NAMES: Record<string, string> = {
   [DATA_CATALOG_PAGE_LINK]: "Downloads & Methodology",
   [ABOUT_US_PAGE_LINK]: "About Us",
 };
-
-export interface Article {
-  id: number;
-  date: string;
-  modified: string;
-  slug: string;
-  title: { rendered: string };
-  content: { rendered: string };
-  author: number;
-  featured_media: number;
-  sticky: boolean;
-  categories: number[];
-  acf: { contributing_author: string };
-  _embedded: {
-    author: {
-      id: number;
-    };
-    "wp:featuredmedia": { id: number; source_url: string }[];
-  };
-}
 
 autoInitGlobals();
 
@@ -194,57 +167,11 @@ function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // BLOG articles and article categories from external Wordpress Headless CMS
-  // use session storage to persist
-  const [categories, setCategories] = useState<string[]>([]);
-  const [articles, setArticles] = useState<any[]>([]);
-
-  useEffect(() => {
-    const savedArticles: Article[] = JSON.parse(
-      sessionStorage.getItem("articles") as string
-    );
-
-    const savedArticleCategories: any[] = JSON.parse(
-      sessionStorage.getItem("articleCategories") as string
-    );
-
-    if (savedArticleCategories === null || savedArticles === null) {
-      // fetch up to 100 posts
-      axios
-        .get(
-          `${
-            BLOG_URL + WP_API + ALL_POSTS
-          }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${MAX_FETCH}`
-        )
-        .then(async (posts) => {
-          // set in state
-          setArticles(posts.data);
-          // also cache in session storage
-          sessionStorage.setItem("articles", JSON.stringify(posts.data));
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-
-      // also fetch all categories (probably only getting first 10 by default ? )
-      axios
-        .get(`${BLOG_URL + WP_API + ALL_CATEGORIES}`)
-        .then((categories) => {
-          setCategories(categories.data);
-          // also cache in session storage
-          sessionStorage.setItem(
-            "articleCategories",
-            JSON.stringify(categories.data)
-          );
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      setArticles(savedArticles);
-      setCategories(savedArticleCategories);
-    }
-  }, []);
+  // fetch articles and categories from either session storage or WP server
+  const {
+    categories,
+    articles,
+  }: { categories: string[]; articles: Article[] } = useFetchBlog();
 
   return (
     <ThemeProvider theme={MaterialTheme}>
