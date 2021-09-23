@@ -183,18 +183,13 @@ function App() {
     const savedArticles: any[] = JSON.parse(
       sessionStorage.getItem("articles") as string
     );
-    console.log("blog articles in session storage");
-    console.log(savedArticles);
 
     const savedArticleCategories: any[] = JSON.parse(
       sessionStorage.getItem("articleCategories") as string
     );
-    console.log("articleCategories in session storage");
-    console.log(savedArticleCategories);
 
     if (savedArticleCategories === null || savedArticles === null) {
       // fetch up to 100 posts
-      console.log("FETCHING");
       axios
         .get(
           `${
@@ -202,7 +197,6 @@ function App() {
           }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${MAX_FETCH}`
         )
         .then(async (posts) => {
-          console.log("ARTICLES");
           // set in state
           setArticles(posts.data);
           // also cache in session storage
@@ -216,7 +210,6 @@ function App() {
       axios
         .get(`${BLOG_URL + WP_API + ALL_CATEGORIES}`)
         .then((categories) => {
-          console.log("CATEGORIES");
           setCategories(categories.data);
           // also cache in session storage
           sessionStorage.setItem(

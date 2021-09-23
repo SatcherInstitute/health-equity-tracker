@@ -627,11 +627,20 @@ hr {
   font-family: "Taviraj", serif !important;
   line-height: 40px;
   color: $alt-black;
-  padding-bottom: 20px;
+  padding: 20px !important;
+  // margin: 30px !important;
 }
 
-.PrevNextThumbnail {
+.PrevNextHeaderText > span {
+  display: block;
+}
+
+.PrevNextThumbnail,
+.LogoThumbnail {
   height: auto;
   max-width: 50%;
+}
+.PrevNextThumbnail {
   border-radius: 30px;
+  max-width: 70%;
 }

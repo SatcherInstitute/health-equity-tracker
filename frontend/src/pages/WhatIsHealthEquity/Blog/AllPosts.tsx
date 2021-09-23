@@ -1,13 +1,11 @@
 import { Grid } from "@material-ui/core";
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import styles from "../WhatIsHealthEquityPage.module.scss";
-import parse from "html-react-parser";
-import { BLOG_TAB_LINK, useQuery } from "../../../utils/urlutils";
+import { useQuery } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
-import AppbarLogo from "../../../assets/AppbarLogo.png";
 import BlogCategories from "../../ui/BlogCategories";
 import BlogAuthors from "../../ui/BlogAuthors";
+import BlogPreviewCard from "./BlogPreviewCard";
 
 export interface AllPostsProps {
   articles: any[];
@@ -33,7 +31,6 @@ function AllPosts(props: AllPostsProps) {
 
   useEffect(() => {
     // filter articles by category query param if present
-    console.log(categoryParam, "cat param");
     if (categoryParam.current) {
       setSelectedCategory(
         categories.find(
@@ -44,8 +41,6 @@ function AllPosts(props: AllPostsProps) {
       if (selectedCategory) {
         setFilteredArticles(
           articles.filter((article) => {
-            // console.log(article.categories, "categories");
-            // console.log(selectedCategory.id, "sel cat id");
             return article.categories.includes(selectedCategory.id);
           })
         );
@@ -56,14 +51,10 @@ function AllPosts(props: AllPostsProps) {
   }, [articles, categories, selectedCategory]);
 
   useEffect(() => {
-    console.log(authorParam, "author param");
     // filter articles by author query param if present
     if (authorParam.current) {
-      console.log("yep");
       setSelectedAuthor(
         authors.find((author: string) => {
-          // console.log(author, "iterated author");
-          // console.log(authorParam, "author param");
           return author === authorParam.current;
         }) as string
       );
@@ -96,8 +87,6 @@ function AllPosts(props: AllPostsProps) {
       <Helmet>
         <title>Blog - Health Equity Tracker</title>
       </Helmet>
-      {console.log(articles, "all")}
-      {console.log(filteredArticles, "filtered")}
       <Grid container className={styles.AllArticlesSection}>
         <Grid
           item
@@ -127,23 +116,7 @@ function AllPosts(props: AllPostsProps) {
                   className={styles.AllArticlesItem}
                   key={post.id}
                 >
-                  <img
-                    className={styles.AllPostsBigImg}
-                    src={
-                      post._embedded["wp:featuredmedia"]
-                        ? post._embedded["wp:featuredmedia"][0].source_url
-                        : AppbarLogo
-                    }
-                    alt=""
-                  />
-                  <Link
-                    to={`${BLOG_TAB_LINK}/${post.slug}`}
-                    className={styles.AllArticlesTitleLink}
-                  >
-                    <h3 className={styles.AllArticlesTitleText}>
-                      {parse(post.title.rendered)}
-                    </h3>
-                  </Link>
+                  <BlogPreviewCard article={post} />
                 </Grid>
               );
             })}

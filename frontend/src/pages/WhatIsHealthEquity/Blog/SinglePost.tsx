@@ -1,4 +1,4 @@
-import { Grid, Hidden, Typography } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { BLOG_TAB_LINK, ReactRouterLinkButton } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
 import AppbarLogo from "../../../assets/AppbarLogo.png";
+import BlogPreviewCard from "./BlogPreviewCard";
 
 function prettyDate(dateString: string) {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -56,7 +57,6 @@ export default function SinglePost(props: SinglePostProps) {
         alignItems="center"
       >
         <Grid container item xs={10} md={4} className={styles.HeaderImgItem}>
-          {console.log(fullArticle)}
           {fullArticle && (
             <img
               src={
@@ -119,32 +119,7 @@ export default function SinglePost(props: SinglePostProps) {
 
         <Grid container className={styles.PrevNextSection}>
           <Grid item xs={4}>
-            {prevArticle && (
-              <>
-                <ReactRouterLinkButton
-                  url={`${BLOG_TAB_LINK}/${prevArticle.slug}`}
-                  className={styles.PrevNextHeaderText}
-                >
-                  <img
-                    src={
-                      prevArticle._embedded["wp:featuredmedia"]
-                        ? prevArticle._embedded["wp:featuredmedia"][0]
-                            .source_url
-                        : AppbarLogo
-                    }
-                    className={styles.PrevNextThumbnail}
-                    alt="Article Thumbnail"
-                    role="link"
-                  />
-                </ReactRouterLinkButton>
-
-                <ReactRouterLinkButton
-                  url={`${BLOG_TAB_LINK}/${prevArticle.slug}`}
-                  className={styles.PrevNextHeaderText}
-                  displayName={`« ${parse(prevArticle.title.rendered)}`}
-                />
-              </>
-            )}
+            {prevArticle && <BlogPreviewCard article={prevArticle} />}
           </Grid>
           <Grid item xs={4}>
             <ReactRouterLinkButton
@@ -154,31 +129,7 @@ export default function SinglePost(props: SinglePostProps) {
             />
           </Grid>
           <Grid item xs={4}>
-            {nextArticle && (
-              <>
-                <ReactRouterLinkButton
-                  url={`${BLOG_TAB_LINK}/${nextArticle.slug}`}
-                  className={styles.PrevNextHeaderText}
-                >
-                  <img
-                    src={
-                      nextArticle._embedded["wp:featuredmedia"]
-                        ? nextArticle._embedded["wp:featuredmedia"][0]
-                            .source_url
-                        : AppbarLogo
-                    }
-                    className={styles.PrevNextThumbnail}
-                    alt="Article Thumbnail"
-                    role="link"
-                  />
-                </ReactRouterLinkButton>
-                <ReactRouterLinkButton
-                  url={`${BLOG_TAB_LINK}/${nextArticle.slug}`}
-                  className={styles.PrevNextHeaderText}
-                  displayName={`${parse(nextArticle.title.rendered)} »`}
-                />
-              </>
-            )}
+            {nextArticle && <BlogPreviewCard article={nextArticle} />}
           </Grid>
         </Grid>
       </Grid>
