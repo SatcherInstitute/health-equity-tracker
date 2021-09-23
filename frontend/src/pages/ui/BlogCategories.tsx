@@ -4,7 +4,13 @@ import { Link } from "react-router-dom";
 import { BLOG_TAB_LINK } from "../../utils/urlutils";
 import styles from "./BlogFilterList.module.scss";
 
-export default function BlogCategories({ categories }: { categories: any[] }) {
+export interface BlogCategoriesProps {
+  categories: any[];
+}
+
+export default function BlogCategories(props: BlogCategoriesProps) {
+  const { categories } = props;
+
   return (
     <div className={styles.FilterListBox}>
       <Typography className={styles.FilterListHeader} variant="h4">
