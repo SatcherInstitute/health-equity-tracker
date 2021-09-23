@@ -256,12 +256,18 @@ def add_missing_demographic_values(df, geo, demographic):
                      ignore_index=True)
 
 
-def age_adjust(df, pop_df):
-    
-    return df
+def age_adjust(all_dfs, population_df):
+    for key in all_dfs:
+        geo, demographic = key
+        all_dfs[(geo, demographic)] = do_age_adjustment(all_dfs[key], population_df)
+    return all_dfs
 
 
-def process_data(dir, files, population_df):
+def do_age_adjustment(df, population_df):
+    print(df)
+
+
+def process_data(dir, files):
     """Given a directory and a list of files which contain line item-level
     covid data, standardizes and aggregates by race, age, and sex. Returns a
     map from (geography, demographic) to the associated dataframe.
@@ -317,9 +323,8 @@ def process_data(dir, files, population_df):
 
     # Post-processing of the data.
     for key in all_dfs:
-        geo, demographic, _ = key
+        geo, demographic = key
 
-        all_dfs[(geo, demographic, True)] = age_adjust(all_dfs[key], population_df)
         # Some brief sanity checks to make sure the data is OK.
         sanity_check_data(all_dfs[key])
 
@@ -390,7 +395,8 @@ def main():
 
     print("Getting population data from big query")
     pop_df = get_population_df()
-    all_dfs = process_data(dir, matching_files, pop_df)
+    all_dfs = process_data(dir, matching_files)
+    all_dfs = age_adjust(all_dfs, pop_df)
 
     # Write the results out to CSVs.
     for (geo, demo), df in all_dfs.items():

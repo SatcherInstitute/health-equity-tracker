@@ -50,3 +50,5 @@ def testProcessData():
     # Test that the values are the same.
     for key in keys:
         assert_frame_equal(dfs[key], expected_dfs[key], check_like=True)
+
+def testAgeAdjustment():
