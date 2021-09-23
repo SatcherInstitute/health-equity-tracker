@@ -21,22 +21,6 @@ export const ACS_2010_FIPS = [GUAM, VIRGIN_ISLANDS, NORTHERN_MARIANA_ISLANDS];
 // Fips code for District of Columbia (county).
 export const DC_COUNTY_FIPS = "11001";
 
-// HACK: AFACT the only way to compute these numbers are by using the estimates
-// found here: https://www.census.gov/data/tables/2020/demo/popest/2020-demographic-analysis-tables.html
-//
-// To save time and effort I just took these numbers from the CDC (which used the above
-// source to calculate them) and am putting them here directly.
-export const VACCINE_AGE_POPULATION_PCT: Record<string, number> = {
-  "12-15": 5.0,
-  "16-17": 2.5,
-  "18-24": 9.2,
-  "25-39": 20.5,
-  "40-49": 12.2,
-  "50-56": 19.4,
-  "65-74": 9.8,
-  "75+": 7.0,
-};
-
 class Fips {
   code: string;
 

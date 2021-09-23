@@ -167,12 +167,12 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   geoLevel={props.fips.getChildFipsTypeDisplayName()}
                 />
               )}
+              // This will only happen for the county level
               {noDemographicInfo && (
                 <Alert severity="warning">
                   We do not currently have demographic information for{" "}
-                  <b>{metricConfig.fullCardTitleName}</b> at the{" "}
-                  <b>{props.fips.getChildFipsTypeDisplayName()}</b> level. Learn
-                  more about how this lack of data impacts{" "}
+                  <b>{metricConfig.fullCardTitleName}</b> at the <b>county</b>{" "}
+                  level. Learn more about how this lack of data impacts{" "}
                   <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
                     health equity.
                   </LinkWithStickyParams>
