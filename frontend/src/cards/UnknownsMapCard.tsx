@@ -167,7 +167,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   geoLevel={props.fips.getChildFipsTypeDisplayName()}
                 />
               )}
-              // This will only happen for the county level
               {noDemographicInfo && (
                 <Alert severity="warning">
                   We do not currently have demographic information for{" "}
