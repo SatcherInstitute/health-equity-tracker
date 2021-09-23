@@ -9,14 +9,15 @@ import AppbarLogo from "../../../assets/AppbarLogo.png";
 import BlogCategories from "../../ui/BlogCategories";
 import BlogAuthors from "../../ui/BlogAuthors";
 
-function AllPosts({
-  articles,
-  categories,
-}: {
+export interface AllPostsProps {
   articles: any[];
   categories: any[];
-}) {
-  const [filteredArticles, setFilteredArticles] = useState<any[]>(articles);
+}
+
+function AllPosts(props: AllPostsProps) {
+  const { articles, categories } = props;
+
+  const [filteredArticles, setFilteredArticles] = useState<any[]>([]);
 
   const [authors, setAuthors] = useState<string[]>([]);
 

@@ -18,13 +18,15 @@ import { useEffect } from "react";
 import BlogTab from "./BlogTab";
 import { Link, Redirect, Route, Switch } from "react-router-dom";
 
-export default function WhatIsHealthEquityPage({
-  articles,
-  categories,
-}: {
-  articles: any[];
-  categories: any[];
-}) {
+export interface WhatIsHealthEquityPageProps {
+  articles?: any[];
+  categories?: any[];
+}
+
+export default function WhatIsHealthEquityPage(
+  props: WhatIsHealthEquityPageProps
+) {
+  const { articles, categories } = props;
   const theme = useTheme();
   const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
   const [tabLayout, setTabLayout] = React.useState({});
@@ -92,7 +94,7 @@ export default function WhatIsHealthEquityPage({
           <FaqTab />
         </Route>
         <Route path={`${BLOG_TAB_LINK}/`}>
-          <BlogTab articles={articles} categories={categories} />
+          <BlogTab articles={articles!} categories={categories!} />
         </Route>
         <Route path={`${RESOURCES_TAB_LINK}/`}>
           <ResourcesTab />

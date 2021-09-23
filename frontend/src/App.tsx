@@ -287,32 +287,17 @@ function App() {
 
                     <Route
                       path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
-                      render={() => (
-                        <WhatIsHealthEquityPage
-                          articles={articles}
-                          categories={categories}
-                        />
-                      )}
+                      render={() => <WhatIsHealthEquityPage />}
                     />
 
                     <Route
                       path={FAQ_TAB_LINK}
-                      render={() => (
-                        <WhatIsHealthEquityPage
-                          articles={articles}
-                          categories={categories}
-                        />
-                      )}
+                      render={() => <WhatIsHealthEquityPage />}
                     />
 
                     <Route
                       path={RESOURCES_TAB_LINK}
-                      render={() => (
-                        <WhatIsHealthEquityPage
-                          articles={articles}
-                          categories={categories}
-                        />
-                      )}
+                      render={() => <WhatIsHealthEquityPage />}
                     />
 
                     <Route
@@ -326,12 +311,7 @@ function App() {
 
                     <Route
                       path={RESOURCES_TAB_LINK}
-                      render={() => (
-                        <WhatIsHealthEquityPage
-                          articles={articles}
-                          categories={categories}
-                        />
-                      )}
+                      render={() => <WhatIsHealthEquityPage />}
                     />
 
                     <Route
@@ -349,16 +329,7 @@ function App() {
                       render={() => <TermsOfUsePage />}
                     />
 
-                    <Route
-                      exact
-                      path="/"
-                      render={() => (
-                        <LandingPage
-                          articles={articles}
-                          categories={categories}
-                        />
-                      )}
-                    />
+                    <Route exact path="/" render={() => <LandingPage />} />
                     {/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}
                     <Route render={() => <NotFoundPage />} />
                   </Switch>

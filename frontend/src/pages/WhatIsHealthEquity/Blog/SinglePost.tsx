@@ -14,13 +14,12 @@ function prettyDate(dateString: string) {
   return new Date(dateString).toLocaleDateString(undefined, options as any);
 }
 
-export default function SinglePost({
-  articles,
-  categories,
-}: {
+export interface SinglePostProps {
   articles: any[];
-  categories: any[];
-}) {
+}
+
+export default function SinglePost(props: SinglePostProps) {
+  const { articles } = props;
   const [fullArticle, setFullArticle] = useState<any>();
   const [prevArticle, setPrevArticle] = useState<any>();
   const [nextArticle, setNextArticle] = useState<any>();

@@ -6,13 +6,14 @@ import { Route, Switch } from "react-router-dom";
 import AllPosts from "./Blog/AllPosts";
 import SinglePost from "./Blog/SinglePost";
 
-function BlogTab({
-  articles,
-  categories,
-}: {
+export interface BlogTabProps {
   articles: any[];
   categories: any[];
-}) {
+}
+
+function BlogTab(props: BlogTabProps) {
+  const { articles, categories } = props;
+
   return (
     <div className={styles.WhatIsHealthEquityPage}>
       <Grid container className={styles.Grid}>
@@ -24,7 +25,7 @@ function BlogTab({
         >
           <Switch>
             <Route path={`${BLOG_TAB_LINK}/:slug`}>
-              <SinglePost articles={articles} categories={categories} />
+              <SinglePost articles={articles} />
             </Route>
             <Route path={`${BLOG_TAB_LINK}/`}>
               <AllPosts articles={articles} categories={categories} />
