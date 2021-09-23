@@ -78,6 +78,26 @@ const PAGE_URL_TO_NAMES: Record<string, string> = {
   [ABOUT_US_PAGE_LINK]: "About Us",
 };
 
+export interface Article {
+  id: number;
+  date: string;
+  modified: string;
+  slug: string;
+  title: { rendered: string };
+  content: { rendered: string };
+  author: number;
+  featured_media: number;
+  sticky: boolean;
+  categories: number[];
+  acf: { contributing_author: string };
+  _embedded: {
+    author: {
+      id: number;
+    };
+    "wp:featuredmedia": { id: number; source_url: string }[];
+  };
+}
+
 autoInitGlobals();
 
 function MobileAppToolbar() {
@@ -180,7 +200,7 @@ function App() {
   const [articles, setArticles] = useState<any[]>([]);
 
   useEffect(() => {
-    const savedArticles: any[] = JSON.parse(
+    const savedArticles: Article[] = JSON.parse(
       sessionStorage.getItem("articles") as string
     );
 
