@@ -614,8 +614,10 @@ hr {
 }
 
 .PrevNextSection {
-  padding: 150px 20px 50px 20px;
+  padding: 50px 20px 50px 20px;
   // border-bottom: 1px solid $alt-grey;
+  display: flex;
+  align-items: center;
 }
 
 .PrevNextHeaderText {
@@ -626,4 +628,10 @@ hr {
   line-height: 40px;
   color: $alt-black;
   padding-bottom: 20px;
+}
+
+.PrevNextThumbnail {
+  height: auto;
+  max-width: 50%;
+  border-radius: 30px;
 }

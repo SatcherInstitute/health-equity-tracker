@@ -39,7 +39,7 @@ export default function SinglePost(props: SinglePostProps) {
       ]
     );
     setNextArticle(articles[(fullArticleIndex + 1) % articles.length]);
-  }, [articles, fullArticle, slug]);
+  }, [articles, slug]);
 
   return (
     <Grid container className={styles.Grid}>
@@ -125,16 +125,17 @@ export default function SinglePost(props: SinglePostProps) {
                   url={`${BLOG_TAB_LINK}/${prevArticle.slug}`}
                   className={styles.PrevNextHeaderText}
                 >
-                  {prevArticle._embedded["wp:featuredmedia"] && (
-                    <img
-                      src={
-                        prevArticle._embedded["wp:featuredmedia"][0].source_url
-                      }
-                      className={styles.PrevNextThumbnail}
-                      alt="Article Thumbnail"
-                      role="link"
-                    />
-                  )}
+                  <img
+                    src={
+                      prevArticle._embedded["wp:featuredmedia"]
+                        ? prevArticle._embedded["wp:featuredmedia"][0]
+                            .source_url
+                        : AppbarLogo
+                    }
+                    className={styles.PrevNextThumbnail}
+                    alt="Article Thumbnail"
+                    role="link"
+                  />
                 </ReactRouterLinkButton>
 
                 <ReactRouterLinkButton
@@ -159,21 +160,22 @@ export default function SinglePost(props: SinglePostProps) {
                   url={`${BLOG_TAB_LINK}/${nextArticle.slug}`}
                   className={styles.PrevNextHeaderText}
                 >
-                  {nextArticle._embedded["wp:featuredmedia"] && (
-                    <img
-                      src={
-                        nextArticle._embedded["wp:featuredmedia"][0].source_url
-                      }
-                      className={styles.PrevNextThumbnail}
-                      alt="Article Thumbnail"
-                      role="link"
-                    />
-                  )}
+                  <img
+                    src={
+                      nextArticle._embedded["wp:featuredmedia"]
+                        ? nextArticle._embedded["wp:featuredmedia"][0]
+                            .source_url
+                        : AppbarLogo
+                    }
+                    className={styles.PrevNextThumbnail}
+                    alt="Article Thumbnail"
+                    role="link"
+                  />
                 </ReactRouterLinkButton>
                 <ReactRouterLinkButton
                   url={`${BLOG_TAB_LINK}/${nextArticle.slug}`}
-                  className={styles.prevNextHeaderText}
-                  displayName={`« ${parse(nextArticle.title.rendered)}`}
+                  className={styles.PrevNextHeaderText}
+                  displayName={`${parse(nextArticle.title.rendered)} »`}
                 />
               </>
             )}
