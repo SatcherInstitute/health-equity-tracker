@@ -55,22 +55,20 @@ export default function SinglePost(props: SinglePostProps) {
         justify="center"
         alignItems="center"
       >
-        <Hidden smDown>
-          <Grid container item md={4} className={styles.HeaderImgItem}>
-            {console.log(fullArticle)}
-            {fullArticle && (
-              <img
-                src={
-                  fullArticle._embedded["wp:featuredmedia"]
-                    ? fullArticle._embedded["wp:featuredmedia"][0].source_url
-                    : AppbarLogo
-                }
-                className={styles.SingleArticleHeaderImg}
-                alt=""
-              />
-            )}
-          </Grid>
-        </Hidden>
+        <Grid container item xs={10} md={4} className={styles.HeaderImgItem}>
+          {console.log(fullArticle)}
+          {fullArticle && (
+            <img
+              src={
+                fullArticle._embedded["wp:featuredmedia"]
+                  ? fullArticle._embedded["wp:featuredmedia"][0].source_url
+                  : AppbarLogo
+              }
+              className={styles.SingleArticleHeaderImg}
+              alt=""
+            />
+          )}
+        </Grid>
         <Grid
           item
           xs={12}
@@ -122,11 +120,29 @@ export default function SinglePost(props: SinglePostProps) {
         <Grid container className={styles.PrevNextSection}>
           <Grid item xs={4}>
             {prevArticle && (
-              <ReactRouterLinkButton
-                url={`${BLOG_TAB_LINK}/${prevArticle.slug}`}
-                className={styles.PrevNextHeaderText}
-                displayName={`« ${parse(prevArticle.title.rendered)}`}
-              />
+              <>
+                <ReactRouterLinkButton
+                  url={`${BLOG_TAB_LINK}/${prevArticle.slug}`}
+                  className={styles.PrevNextHeaderText}
+                >
+                  {prevArticle._embedded["wp:featuredmedia"] && (
+                    <img
+                      src={
+                        prevArticle._embedded["wp:featuredmedia"][0].source_url
+                      }
+                      className={styles.PrevNextThumbnail}
+                      alt="Article Thumbnail"
+                      role="link"
+                    />
+                  )}
+                </ReactRouterLinkButton>
+
+                <ReactRouterLinkButton
+                  url={`${BLOG_TAB_LINK}/${prevArticle.slug}`}
+                  className={styles.PrevNextHeaderText}
+                  displayName={`« ${parse(prevArticle.title.rendered)}`}
+                />
+              </>
             )}
           </Grid>
           <Grid item xs={4}>
@@ -138,11 +154,28 @@ export default function SinglePost(props: SinglePostProps) {
           </Grid>
           <Grid item xs={4}>
             {nextArticle && (
-              <ReactRouterLinkButton
-                url={`${BLOG_TAB_LINK}/${nextArticle.slug}`}
-                className={styles.PrevNextHeaderText}
-                displayName={`${parse(nextArticle.title.rendered)} »`}
-              />
+              <>
+                <ReactRouterLinkButton
+                  url={`${BLOG_TAB_LINK}/${nextArticle.slug}`}
+                  className={styles.PrevNextHeaderText}
+                >
+                  {nextArticle._embedded["wp:featuredmedia"] && (
+                    <img
+                      src={
+                        nextArticle._embedded["wp:featuredmedia"][0].source_url
+                      }
+                      className={styles.PrevNextThumbnail}
+                      alt="Article Thumbnail"
+                      role="link"
+                    />
+                  )}
+                </ReactRouterLinkButton>
+                <ReactRouterLinkButton
+                  url={`${BLOG_TAB_LINK}/${nextArticle.slug}`}
+                  className={styles.prevNextHeaderText}
+                  displayName={`« ${parse(nextArticle.title.rendered)}`}
+                />
+              </>
             )}
           </Grid>
         </Grid>
