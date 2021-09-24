@@ -138,7 +138,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 Population percentages on this graph add up to over 100% because
                 the racial categories reported for{" "}
                 {metricConfig.fullCardTitleName} include Hispanic individuals in
-                each racial category As a result, Hispanic individuals are
+                each racial category. As a result, Hispanic individuals are
                 counted twice.
               </Alert>
             )}
