@@ -6,7 +6,7 @@ import {
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
 import { Fips, ACS_2010_FIPS } from "../data/utils/Fips";
-import { CardContent } from "@material-ui/core";
+import { Box, CardContent } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import styles from "./Card.module.scss";
 import AnimateHeight from "react-animate-height";
@@ -29,6 +29,9 @@ import MissingDataAlert from "./ui/MissingDataAlert";
 import Hidden from "@material-ui/core/Hidden";
 import { FAQ_TAB_LINK } from "../utils/urlutils";
 import Alert from "@material-ui/lab/Alert";
+
+export const POPULATION_BY_RACE = "Population by race and ethnicity";
+export const POPULATION_BY_AGE = "Population by age";
 
 export interface PopulationCardProps {
   fips: Fips;
@@ -156,7 +159,7 @@ export function PopulationCard(props: PopulationCardProps) {
                       counting or miscounting people in underrepresented groups.{" "}
                       <a href={`${FAQ_TAB_LINK}`}>Learn more</a>
                     </Alert>
-                    <Grid container>
+                    <Grid container justify="flex-start">
                       {raceQueryResponse
                         .getValidRowsForField("race_and_ethnicity")
                         .filter((r) => r.race_and_ethnicity !== ALL)
@@ -166,6 +169,9 @@ export function PopulationCard(props: PopulationCardProps) {
                         .map((row) => (
                           <Grid
                             item
+                            xs={6}
+                            sm={3}
+                            lg={1}
                             key={row.race_and_ethnicity}
                             className={styles.PopulationMetric}
                           >
@@ -181,39 +187,45 @@ export function PopulationCard(props: PopulationCardProps) {
                         ))}
                     </Grid>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <span className={styles.PopulationChartTitle}>
-                      Population by race
-                    </span>
-                    <SimpleHorizontalBarChart
-                      data={raceQueryResponse.data.filter(
-                        (r) => r.race_and_ethnicity !== ALL
-                      )}
-                      metric={POP_CONFIG.metrics.pct_share}
-                      breakdownVar="race_and_ethnicity"
-                      showLegend={false}
-                      hideActions={true}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <span className={styles.PopulationChartTitle}>
-                      Population by age
-                    </span>
-                    {ageQueryResponse.dataIsMissing() ? (
-                      <MissingDataAlert
-                        dataName={POP_CONFIG.variableDisplayName}
-                        breakdownString={BREAKDOWN_VAR_DISPLAY_NAMES["age"]}
-                        geoLevel={props.fips.getFipsTypeDisplayName()}
-                      />
-                    ) : (
+
+                  <Grid item xs={12} md={6}>
+                    <Box mt={3}>
+                      <span className={styles.PopulationChartTitle}>
+                        {POPULATION_BY_RACE}
+                      </span>
                       <SimpleHorizontalBarChart
-                        data={ageQueryResponse.data}
+                        data={raceQueryResponse.data.filter(
+                          (r) => r.race_and_ethnicity !== ALL
+                        )}
                         metric={POP_CONFIG.metrics.pct_share}
-                        breakdownVar="age"
+                        breakdownVar="race_and_ethnicity"
                         showLegend={false}
-                        hideActions={true}
+                        filename={`${POPULATION_BY_RACE} in ${props.fips.getFullDisplayName()}`}
                       />
-                    )}
+                    </Box>
+                  </Grid>
+
+                  <Grid item xs={12} md={6}>
+                    <Box m={3}>
+                      <span className={styles.PopulationChartTitle}>
+                        Population by age
+                      </span>
+                      {ageQueryResponse.dataIsMissing() ? (
+                        <MissingDataAlert
+                          dataName={POP_CONFIG.variableDisplayName}
+                          breakdownString={BREAKDOWN_VAR_DISPLAY_NAMES["age"]}
+                          geoLevel={props.fips.getFipsTypeDisplayName()}
+                        />
+                      ) : (
+                        <SimpleHorizontalBarChart
+                          data={ageQueryResponse.data}
+                          metric={POP_CONFIG.metrics.pct_share}
+                          breakdownVar="age"
+                          showLegend={false}
+                          filename={`${POPULATION_BY_AGE} in ${props.fips.getFullDisplayName()}`}
+                        />
+                      )}
+                    </Box>
                   </Grid>
                 </Grid>
                 <Hidden smUp>{CollapseButton}</Hidden>
