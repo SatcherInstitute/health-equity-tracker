@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Grid, Hidden } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import styles from "../WhatIsHealthEquityPage.module.scss";
 import { useQuery } from "../../../utils/urlutils";
@@ -81,17 +81,12 @@ function AllPosts(props: AllPostsProps) {
         <title>Blog - Health Equity Tracker</title>
       </Helmet>
       <Grid container className={styles.AllArticlesSection}>
-        <Grid
-          item
-          xs={12}
-          md={3}
-          container
-          direction="column"
-          alignItems="center"
-        >
-          <BlogCategories categories={categories} />
-          <BlogAuthors authors={authors} />
-        </Grid>
+        <Hidden smDown>
+          <Grid item md={3} container direction="column" alignItems="center">
+            <BlogCategories categories={categories} />
+            <BlogAuthors authors={authors} />
+          </Grid>
+        </Hidden>
         <Grid item xs={12} sm={12} md={9}>
           <Grid
             container
@@ -115,6 +110,25 @@ function AllPosts(props: AllPostsProps) {
             })}
           </Grid>
         </Grid>
+
+        <Hidden mdUp>
+          <Grid
+            item
+            container
+            xs={12}
+            wrap="nowrap"
+            direction="row"
+            justify="space-around"
+          >
+            <Grid item>
+              <BlogCategories categories={categories} />
+            </Grid>
+
+            <Grid item>
+              <BlogAuthors authors={authors} />
+            </Grid>
+          </Grid>
+        </Hidden>
       </Grid>
     </Grid>
   );
