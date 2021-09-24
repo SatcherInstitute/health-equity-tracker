@@ -1,5 +1,5 @@
 import { Grid } from "@material-ui/core";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../WhatIsHealthEquityPage.module.scss";
 import { useQuery } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
@@ -23,19 +23,28 @@ function AllPosts(props: AllPostsProps) {
 
   const [selectedAuthor, setSelectedAuthor] = useState<string>("");
 
-  // const [categoryParam, setCategoryParam] = useState<string>("");
-  // const [authorParam, setAuthorParam] = useState<string>("");
+  // const [categoryParam, setCategoryParam] = useState<any>("");
+  // const [authorParam, setAuthorParam] = useState<any>("");
 
-  const categoryParam = useRef(useQuery().get("category"));
-  const authorParam = useRef(useQuery().get("author"));
+  // const categoryParam = useRef(useQuery().get("category"));
+  // const authorParam = useRef(useQuery().get("author"));
+
+  // setCategoryParam(useQuery().get("category"))
+  // setAuthorParam(useQuery().get("author"))
+
+  const categoryParam = useQuery().get("category");
+  const authorParam = useQuery().get("author");
+
+  // useEffect(()=>{
+  //   console.log(selectedAuthor, authorParam, "selected: param for author");
+  //   console.log(selectedCategory, categoryParam, "selected : param for categories");
+  // },[authorParam, categoryParam, selectedAuthor, selectedCategory])
 
   useEffect(() => {
     // filter articles by category query param if present
-    if (categoryParam.current) {
+    if (categoryParam) {
       setSelectedCategory(
-        categories.find(
-          (category: any) => category.name === categoryParam.current
-        )
+        categories.find((category: any) => category.name === categoryParam)
       );
 
       if (selectedCategory) {
@@ -48,14 +57,14 @@ function AllPosts(props: AllPostsProps) {
     } else {
       setFilteredArticles(articles);
     }
-  }, [articles, categories, selectedCategory]);
+  }, [articles, categories, categoryParam, selectedCategory]);
 
   useEffect(() => {
     // filter articles by author query param if present
-    if (authorParam.current) {
+    if (authorParam) {
       setSelectedAuthor(
         authors.find((author: string) => {
-          return author === authorParam.current;
+          return author === authorParam;
         }) as string
       );
 
@@ -66,8 +75,8 @@ function AllPosts(props: AllPostsProps) {
           })
         );
       }
-    }
-  }, [articles, authors, selectedAuthor]);
+    } else setFilteredArticles(articles);
+  }, [articles, authorParam, authors, selectedAuthor]);
 
   // extract and set authors (for ALL posts, not just filtered ones)
   useEffect(() => {
