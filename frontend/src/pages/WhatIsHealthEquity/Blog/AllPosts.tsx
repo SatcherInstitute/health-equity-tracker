@@ -6,6 +6,7 @@ import { Helmet } from "react-helmet";
 import BlogCategories from "../../ui/BlogCategories";
 import BlogAuthors from "../../ui/BlogAuthors";
 import BlogPreviewCard from "./BlogPreviewCard";
+import { Article } from "../../../utils/useFetchBlog";
 
 export interface AllPostsProps {
   articles: any[];
@@ -15,30 +16,13 @@ export interface AllPostsProps {
 function AllPosts(props: AllPostsProps) {
   const { articles, categories } = props;
 
-  const [filteredArticles, setFilteredArticles] = useState<any[]>([]);
-
+  const [filteredArticles, setFilteredArticles] = useState<Article[]>([]);
   const [authors, setAuthors] = useState<string[]>([]);
-
   const [selectedCategory, setSelectedCategory] = useState<any>({});
-
   const [selectedAuthor, setSelectedAuthor] = useState<string>("");
 
-  // const [categoryParam, setCategoryParam] = useState<any>("");
-  // const [authorParam, setAuthorParam] = useState<any>("");
-
-  // const categoryParam = useRef(useQuery().get("category"));
-  // const authorParam = useRef(useQuery().get("author"));
-
-  // setCategoryParam(useQuery().get("category"))
-  // setAuthorParam(useQuery().get("author"))
-
-  const categoryParam = useQuery().get("category");
-  const authorParam = useQuery().get("author");
-
-  // useEffect(()=>{
-  //   console.log(selectedAuthor, authorParam, "selected: param for author");
-  //   console.log(selectedCategory, categoryParam, "selected : param for categories");
-  // },[authorParam, categoryParam, selectedAuthor, selectedCategory])
+  const categoryParam: string | null = useQuery().get("category");
+  const authorParam: string | null = useQuery().get("author");
 
   useEffect(() => {
     // filter articles by category query param if present
@@ -49,9 +33,9 @@ function AllPosts(props: AllPostsProps) {
 
       if (selectedCategory) {
         setFilteredArticles(
-          articles.filter((article) => {
-            return article.categories.includes(selectedCategory.id);
-          })
+          articles.filter((article) =>
+            article.categories.includes(selectedCategory.id)
+          )
         );
       }
     } else {
@@ -70,9 +54,9 @@ function AllPosts(props: AllPostsProps) {
 
       if (selectedAuthor) {
         setFilteredArticles(
-          articles.filter((article) => {
-            return article.acf.contributing_author === selectedAuthor;
-          })
+          articles.filter(
+            (article) => article.acf.contributing_author === selectedAuthor
+          )
         );
       }
     } else setFilteredArticles(articles);

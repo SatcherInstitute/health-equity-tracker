@@ -10,6 +10,9 @@ import {
   WP_PER_PAGE_PARAM,
 } from "./urlutils";
 
+export const CACHED_ARTICLES_KEY = "articles";
+export const CACHED_CATEGORIES_KEY = "articleCategories";
+
 export interface Article {
   id: number;
   date: string;
@@ -38,11 +41,11 @@ export default function useFetchBlog() {
 
   useEffect(() => {
     const savedArticles: Article[] = JSON.parse(
-      sessionStorage.getItem("articles") as string
+      sessionStorage.getItem(CACHED_ARTICLES_KEY) as string
     );
 
     const savedArticleCategories: any[] = JSON.parse(
-      sessionStorage.getItem("articleCategories") as string
+      sessionStorage.getItem(CACHED_CATEGORIES_KEY) as string
     );
 
     if (savedArticleCategories === null || savedArticles === null) {
@@ -57,7 +60,10 @@ export default function useFetchBlog() {
           // set in state
           setArticles(posts.data);
           // also cache in session storage
-          sessionStorage.setItem("articles", JSON.stringify(posts.data));
+          sessionStorage.setItem(
+            CACHED_ARTICLES_KEY,
+            JSON.stringify(posts.data)
+          );
         })
         .catch((err) => {
           console.log(err);
@@ -70,7 +76,7 @@ export default function useFetchBlog() {
           setCategories(categories.data);
           // also cache in session storage
           sessionStorage.setItem(
-            "articleCategories",
+            CACHED_CATEGORIES_KEY,
             JSON.stringify(categories.data)
           );
         })
