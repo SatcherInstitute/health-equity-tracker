@@ -50,13 +50,14 @@ export const DATA_TYPE_1_PARAM = "dt1";
 export const DATA_TYPE_2_PARAM = "dt2";
 
 // WORDPRESS CONFIG
-export const BLOG_URL = "https://het-blog.000webhostapp.com/";
+export const BLOG_URL = "http://het-blog.000webhostapp.com/";
 // export const BLOG_URL = "http://het.lovestoblog.com/"
 export const WP_API = "wp-json/wp/v2/";
 export const ALL_POSTS = "posts";
 export const ALL_MEDIA = "media";
 export const ALL_CATEGORIES = "categories";
 export const ALL_AUTHORS = "authors";
+export const ALL_PAGES = "pages"; // for dynamic copy
 export const WP_EMBED_PARAM = "_embed";
 export const WP_PER_PAGE_PARAM = "per_page=";
 export const MAX_FETCH = 100;
