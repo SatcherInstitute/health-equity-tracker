@@ -41,6 +41,10 @@ SEX_COL = 'sex'
 AGE_COL = 'age_group'
 OUTCOME_COLS = ['hosp_yn', 'death_yn']
 
+# plan for age adjustment
+# 1. do a race_and_age type situation
+# 2. age adjust based off of that
+# 3. profit
 REFERENCE_POPULATION = std_col.Race.WHITE_NH.value
 
 # Convenience list for when we group the data by county.
@@ -105,10 +109,12 @@ AGE_NAMES_MAPPING = {
 # to their standardized form.
 GEO_COL_MAPPING = {'state': [STATE_COL], 'county': COUNTY_COLS}
 DEMOGRAPHIC_COL_MAPPING = {
-    'race': (RACE_COL, RACE_NAMES_MAPPING),
-    'sex': (SEX_COL, SEX_NAMES_MAPPING),
-    'age': (AGE_COL, AGE_NAMES_MAPPING),
+    'race': ([RACE_COL], RACE_NAMES_MAPPING),
+    'sex': ([SEX_COL], SEX_NAMES_MAPPING),
+    'age': ([AGE_COL], AGE_NAMES_MAPPING),
+    'race_and_age': ([RACE_COL, AGE_COL], {**AGE_NAMES_MAPPING, **RACE_NAMES_MAPPING}),
 }
+
 
 # States that we have decided to suppress different kinds of data for, due to
 # very incomplete data. Note that states that have all data suppressed will
@@ -123,7 +129,7 @@ DEATH_DATA_SUPPRESSION_STATES = ("HI", "NE", "SD",
 bqclient = bigquery.Client()
 
 
-def accumulate_data(df, geo_cols, overall_df, demog_col, names_mapping):
+def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
     """Converts/adds columns for cases, hospitalizations, deaths. Does some
     basic standardization of dataframe elements. Groups by given groupby_cols
     and aggregates. Returns sum of the aggregated df & overall_df.
@@ -160,17 +166,18 @@ def accumulate_data(df, geo_cols, overall_df, demog_col, names_mapping):
     df = df.drop(columns=['hosp_yn', 'death_yn'])
 
     # Standardize the values in demog_col using names_mapping.
-    df = df.replace({demog_col: names_mapping})
+    for demog_col in demog_cols:
+        df = df.replace({demog_col: names_mapping})
 
     # Group by the geo and demographic columns and compute the sum/counts of
     # cases/hospitalizations/deaths. Add total rows and add to overall_df.
-    groupby_cols = geo_cols + [demog_col]
+    groupby_cols = geo_cols + demog_cols
     df = df.groupby(groupby_cols).sum().reset_index()
     totals = df.groupby(geo_cols).sum().reset_index()
-    if demog_col == RACE_COL:  # Special case required due to later processing.
-        totals[demog_col] = std_col.Race.TOTAL.value
+    if demog_cols[0] == RACE_COL:  # Special case required due to later processing.
+        totals[demog_cols[0]] = std_col.Race.TOTAL.value
     else:
-        totals[demog_col] = std_col.TOTAL_VALUE
+        totals[demog_cols[0]] = std_col.TOTAL_VALUE
     df = df.append(totals)
     df = df.set_index(groupby_cols)
 
@@ -219,7 +226,7 @@ def add_missing_demographic_values(df, geo, demographic):
     demographic: Demographic breakdown. Must be "race", "age", or "sex".
     """
     geo_cols = GEO_COL_MAPPING[geo]
-    demog_col = DEMOGRAPHIC_COL_MAPPING[demographic][0]
+    demog_col = DEMOGRAPHIC_COL_MAPPING[demographic][0][0]
     all_demos = DEMOGRAPHIC_COL_MAPPING[demographic][1].values()
     unknown_values = ["Unknown", std_col.Race.UNKNOWN.value]
     all_demos = set([v for v in all_demos if v not in unknown_values])
@@ -277,7 +284,7 @@ def process_data(dir, files):
     """
     all_dfs = {}
     for geo in ['state', 'county']:
-        for demo in ['race', 'sex', 'age']:
+        for demo in ['race', 'sex', 'age', 'race_and_age']:
             all_dfs[(geo, demo)] = pd.DataFrame()
 
     for f in sorted(files):
@@ -313,8 +320,8 @@ def process_data(dir, files):
                 demog_col, demog_names_mapping = DEMOGRAPHIC_COL_MAPPING[demo]
 
                 # Slice the data and aggregate for the given dimension.
-                sliced_df = df[geo_cols + [demog_col] + OUTCOME_COLS]
-                all_dfs[(geo, demo, False)] = accumulate_data(
+                sliced_df = df[geo_cols + demog_col + OUTCOME_COLS]
+                all_dfs[(geo, demo)] = accumulate_data(
                     sliced_df, geo_cols, all_dfs[(geo, demo)], demog_col,
                     demog_names_mapping)
 
@@ -335,7 +342,8 @@ def process_data(dir, files):
 
         # Ensure that all geos have a row for all possible demographic values,
         # adding the missing values in with empty data.
-        all_dfs[key] = add_missing_demographic_values(all_dfs[key], geo, demographic)
+        if demographic != "race_and_age":
+            all_dfs[key] = add_missing_demographic_values(all_dfs[key], geo, demographic)
 
         # Standardize the column names and race/age/sex values.
         all_dfs[key] = standardize_data(all_dfs[key])
