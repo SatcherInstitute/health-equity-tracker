@@ -126,7 +126,7 @@ DEATH_DATA_SUPPRESSION_STATES = ("HI", "NE", "SD",
                                  "WV", "DE")
 
 # Used to get the reference population data for age adjusting numbers
-bqclient = bigquery.Client()
+# bqclient = bigquery.Client()
 
 
 def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
@@ -263,17 +263,6 @@ def add_missing_demographic_values(df, geo, demographic):
                      ignore_index=True)
 
 
-def age_adjust(all_dfs, population_df):
-    for key in all_dfs:
-        geo, demographic = key
-        all_dfs[(geo, demographic)] = do_age_adjustment(all_dfs[key], population_df)
-    return all_dfs
-
-
-def do_age_adjustment(df, population_df):
-    print(df)
-
-
 def process_data(dir, files):
     """Given a directory and a list of files which contain line item-level
     covid data, standardizes and aggregates by race, age, and sex. Returns a
@@ -369,12 +358,12 @@ def process_data(dir, files):
     return all_dfs
 
 
-def get_population_df():
-    query_string = """
-SELECT *
-FROM `jzarrabi-het-infra-test-f4.acs_population.by_age_race_county_decade_buckets`
-"""
-    return bqclient.query(query_string).result().to_dataframe()
+# def get_population_df():
+#     query_string = """
+# SELECT *
+# FROM `jzarrabi-het-infra-test-f4.acs_population.by_age_race_county_decade_buckets`
+# """
+#     return bqclient.query(query_string).result().to_dataframe()
 
 
 def main():
@@ -401,10 +390,10 @@ def main():
     for f in matching_files:
         print(f)
 
-    print("Getting population data from big query")
-    pop_df = get_population_df()
+    # print("Getting population data from big query")
+    # pop_df = get_population_df()
     all_dfs = process_data(dir, matching_files)
-    all_dfs = age_adjust(all_dfs, pop_df)
+    # all_dfs = age_adjust(all_dfs, pop_df)
 
     # Write the results out to CSVs.
     for (geo, demo), df in all_dfs.items():
