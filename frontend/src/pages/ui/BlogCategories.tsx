@@ -18,14 +18,14 @@ export default function BlogCategories(props: BlogCategoriesProps) {
       </Typography>
       <ul className={styles.FilterList}>
         {categories
-          ? categories.map((categoryObject: { name: string }) => {
+          ? categories.map((category: string) => {
               return (
-                <li key={categoryObject.name}>
+                <li key={category}>
                   <Link
-                    to={`${BLOG_TAB_LINK}?category=${categoryObject.name}`}
+                    to={`${BLOG_TAB_LINK}?category=${category}`}
                     className={styles.AllArticlesTitleLink}
                   >
-                    {categoryObject.name}
+                    {category}
                   </Link>
                 </li>
               );

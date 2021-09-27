@@ -59,6 +59,7 @@ export default function useFetchBlog() {
         .then(async (posts) => {
           // set in state
           setArticles(posts.data);
+          console.log("** FETCHED **");
           // also cache in session storage
           sessionStorage.setItem(
             CACHED_ARTICLES_KEY,
@@ -74,6 +75,7 @@ export default function useFetchBlog() {
         .get(`${BLOG_URL + WP_API + ALL_CATEGORIES}`)
         .then((categories) => {
           setCategories(categories.data);
+          console.log("** FETCHED **");
           // also cache in session storage
           sessionStorage.setItem(
             CACHED_CATEGORIES_KEY,

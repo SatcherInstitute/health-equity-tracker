@@ -14,10 +14,12 @@ export interface AllPostsProps {
 }
 
 function AllPosts(props: AllPostsProps) {
-  const { articles, categories } = props;
+  console.log("rerender");
+  const { articles } = props;
 
   const [filteredArticles, setFilteredArticles] = useState<Article[]>([]);
   const [authors, setAuthors] = useState<string[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<any>({});
   const [selectedAuthor, setSelectedAuthor] = useState<string>("");
 
@@ -28,20 +30,24 @@ function AllPosts(props: AllPostsProps) {
     // filter articles by category query param if present
     if (categoryParam) {
       setSelectedCategory(
-        categories.find((category: any) => category.name === categoryParam)
+        categories.find((category: string) => {
+          return category === categoryParam;
+        }) as string
       );
 
       if (selectedCategory) {
         setFilteredArticles(
-          articles.filter((article) =>
-            article.categories.includes(selectedCategory.id)
+          articles.filter(
+            (article) =>
+              article._embedded["wp:term"] &&
+              article._embedded["wp:term"][0].some(
+                (term: { name: string }) => term.name === selectedCategory
+              )
           )
         );
       }
-    } else {
-      setFilteredArticles(articles);
-    }
-  }, [articles, categories, categoryParam, selectedCategory]);
+    } else setFilteredArticles(articles);
+  }, [articles, categoryParam, categories, selectedCategory]);
 
   useEffect(() => {
     // filter articles by author query param if present
@@ -73,6 +79,21 @@ function AllPosts(props: AllPostsProps) {
     );
 
     setAuthors(Array.from(allAuthorsSet) as string[]);
+  }, [articles]);
+
+  // extract and set categories (for ALL posts, not just filtered ones)
+  useEffect(() => {
+    const allCategoriesSet = new Set();
+
+    articles.forEach((article) => {
+      if (article._embedded["wp:term"] !== undefined) {
+        article._embedded["wp:term"][0].forEach((term: { name: string }) =>
+          allCategoriesSet.add(term.name)
+        );
+      }
+    });
+
+    setCategories(Array.from(allCategoriesSet) as string[]);
   }, [articles]);
 
   return (
