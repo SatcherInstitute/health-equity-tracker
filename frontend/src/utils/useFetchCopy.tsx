@@ -64,7 +64,7 @@ export default function useFetchCopy(requestedPageUrl: string) {
     function fetchWordpressCopy() {
       try {
         axios.get(`${BLOG_URL + WP_API + ALL_PAGES}/${id}`).then((res) => {
-          console.log(res.data.acf);
+          //   console.log(res.data.acf);
           setWordpressCopy(res.data.acf);
         });
       } catch (e) {
@@ -73,8 +73,5 @@ export default function useFetchCopy(requestedPageUrl: string) {
     }
     fetchWordpressCopy();
   }, [id]);
-
-  // console.log(wordpressCopy);
-
   return wordpressCopy;
 }

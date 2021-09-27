@@ -14,7 +14,6 @@ export interface AllPostsProps {
 }
 
 function AllPosts(props: AllPostsProps) {
-  console.log("rerender");
   const { articles } = props;
 
   const [filteredArticles, setFilteredArticles] = useState<Article[]>([]);

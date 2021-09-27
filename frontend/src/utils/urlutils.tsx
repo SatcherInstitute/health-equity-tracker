@@ -50,9 +50,11 @@ export const DATA_TYPE_1_PARAM = "dt1";
 export const DATA_TYPE_2_PARAM = "dt2";
 
 // WORDPRESS CONFIG
-export const BLOG_URL = "http://het-blog.000webhostapp.com/";
-// export const BLOG_URL = "http://het.lovestoblog.com/"
-export const WP_API = "wp-json/wp/v2/";
+// local using docker and kinsta
+export const BLOG_URL = "http://het-blog.local/";
+// free host for testing purposes
+// export const BLOG_URL" = "http://het-blog.000webhostapp.com/";
+export const WP_API = "wp-json/wp/v2/"; // "?rest_route=/wp/v2/"
 export const ALL_POSTS = "posts";
 export const ALL_MEDIA = "media";
 export const ALL_CATEGORIES = "categories";
