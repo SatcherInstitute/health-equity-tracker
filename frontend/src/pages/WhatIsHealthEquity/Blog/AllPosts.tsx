@@ -8,14 +8,7 @@ import BlogAuthors from "../../ui/BlogAuthors";
 import BlogPreviewCard from "./BlogPreviewCard";
 import { Article } from "../../../utils/useFetchBlog";
 
-export interface AllPostsProps {
-  articles: any[];
-  categories: any[];
-}
-
-function AllPosts(props: AllPostsProps) {
-  const { articles } = props;
-
+function AllPosts() {
   const [filteredArticles, setFilteredArticles] = useState<Article[]>([]);
   const [authors, setAuthors] = useState<string[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
@@ -46,7 +39,7 @@ function AllPosts(props: AllPostsProps) {
         );
       }
     } else setFilteredArticles(articles);
-  }, [articles, categoryParam, categories, selectedCategory]);
+  }, [categoryParam, categories, selectedCategory]);
 
   useEffect(() => {
     // filter articles by author query param if present
@@ -65,7 +58,7 @@ function AllPosts(props: AllPostsProps) {
         );
       }
     } else setFilteredArticles(articles);
-  }, [articles, authorParam, authors, selectedAuthor]);
+  }, [authorParam, authors, selectedAuthor]);
 
   // extract and set authors (for ALL posts, not just filtered ones)
   useEffect(() => {
@@ -78,7 +71,7 @@ function AllPosts(props: AllPostsProps) {
     );
 
     setAuthors(Array.from(allAuthorsSet) as string[]);
-  }, [articles]);
+  }, []);
 
   // extract and set categories (for ALL posts, not just filtered ones)
   useEffect(() => {
@@ -93,7 +86,7 @@ function AllPosts(props: AllPostsProps) {
     });
 
     setCategories(Array.from(allCategoriesSet) as string[]);
-  }, [articles]);
+  }, []);
 
   return (
     <Grid container className={styles.Grid}>

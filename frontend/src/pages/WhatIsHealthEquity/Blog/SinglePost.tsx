@@ -9,18 +9,15 @@ import { BLOG_TAB_LINK, ReactRouterLinkButton } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
 import AppbarLogo from "../../../assets/AppbarLogo.png";
 import BlogPreviewCard from "./BlogPreviewCard";
+import { useQueryClient, useQuery } from "react-query";
+import useFetchBlog, { ARTICLES_KEY } from "../../../utils/useFetchBlog";
 
 function prettyDate(dateString: string) {
   const options = { year: "numeric", month: "long", day: "numeric" };
   return new Date(dateString).toLocaleDateString(undefined, options as any);
 }
 
-export interface SinglePostProps {
-  articles: any[];
-}
-
-export default function SinglePost(props: SinglePostProps) {
-  const { articles } = props;
+export default function SinglePost() {
   const [fullArticle, setFullArticle] = useState<any>();
   const [prevArticle, setPrevArticle] = useState<any>();
   const [nextArticle, setNextArticle] = useState<any>();
@@ -40,7 +37,7 @@ export default function SinglePost(props: SinglePostProps) {
       ]
     );
     setNextArticle(articles[(fullArticleIndex + 1) % articles.length]);
-  }, [articles, slug]);
+  }, [slug]);
 
   return (
     <Grid container className={styles.Grid}>

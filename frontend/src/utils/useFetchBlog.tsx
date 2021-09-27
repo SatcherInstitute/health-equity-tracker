@@ -10,8 +10,8 @@ import {
   WP_PER_PAGE_PARAM,
 } from "./urlutils";
 
-export const CACHED_ARTICLES_KEY = "articles";
-export const CACHED_CATEGORIES_KEY = "articleCategories";
+export const ARTICLES_KEY = "articles";
+// export const CACHED_CATEGORIES_KEY = "articleCategories";
 
 export interface Article {
   id: number;
@@ -36,53 +36,50 @@ export interface Article {
 export default function useFetchBlog() {
   // BLOG articles and article categories from external Wordpress Headless CMS
   // use session storage to persist
-  const [categories, setCategories] = useState<string[]>([]);
+  // const [categories, setCategories] = useState<string[]>([]);
   const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {
     // const savedArticles: Article[] = JSON.parse(
     //   sessionStorage.getItem(CACHED_ARTICLES_KEY) as string
     // );
-
     // const savedArticleCategories: any[] = JSON.parse(
     //   sessionStorage.getItem(CACHED_CATEGORIES_KEY) as string
     // );
-
     // if (false || savedArticleCategories === null || savedArticles === null) {
     // fetch up to 100 posts
-    axios
-      .get(
-        `${
-          BLOG_URL + WP_API + ALL_POSTS
-        }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${MAX_FETCH}`
-      )
-      .then(async (posts) => {
-        // set in state
-        setArticles(posts.data);
-        console.log("** FETCHED **");
-        // also cache in session storage
-        sessionStorage.setItem(CACHED_ARTICLES_KEY, JSON.stringify(posts.data));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
+    // axios
+    //   .get(
+    //     `${
+    //       BLOG_URL + WP_API + ALL_POSTS
+    //     }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${MAX_FETCH}`
+    //   )
+    //   .then(async (posts) => {
+    //     // set in state
+    //     setArticles(posts.data);
+    //     console.log("** FETCHED **");
+    //     // also cache in session storage
+    //     sessionStorage.setItem(CACHED_ARTICLES_KEY, JSON.stringify(posts.data));
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
     // also fetch all categories (probably only getting first 10 by default ? )
-    axios
-      .get(`${BLOG_URL + WP_API + ALL_CATEGORIES}`)
-      .then((categories) => {
-        setCategories(categories.data);
-        console.log("** FETCHED **");
-        // also cache in session storage
-        sessionStorage.setItem(
-          CACHED_CATEGORIES_KEY,
-          JSON.stringify(categories.data)
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // axios
+    //   .get(`${BLOG_URL + WP_API + ALL_CATEGORIES}`)
+    //   .then((categories) => {
+    //     setCategories(categories.data);
+    //     console.log("** FETCHED **");
+    //     // also cache in session storage
+    //     sessionStorage.setItem(
+    //       CACHED_CATEGORIES_KEY,
+    //       JSON.stringify(categories.data)
+    //     );
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   }, []);
 
-  return { categories, articles };
+  return articles;
 }

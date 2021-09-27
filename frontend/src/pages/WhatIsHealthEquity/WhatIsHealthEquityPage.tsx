@@ -95,7 +95,7 @@ export default function WhatIsHealthEquityPage(
           <FaqTab />
         </Route>
         <Route path={`${BLOG_TAB_LINK}/`}>
-          <BlogTab articles={articles!} categories={categories!} />
+          <BlogTab />
         </Route>
         <Route path={`${RESOURCES_TAB_LINK}/`}>
           <ResourcesTab />
