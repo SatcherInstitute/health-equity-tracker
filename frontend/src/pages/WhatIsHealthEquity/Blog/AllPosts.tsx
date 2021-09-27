@@ -1,7 +1,7 @@
 import { Grid, Hidden } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import styles from "../WhatIsHealthEquityPage.module.scss";
-import { useQuery } from "../../../utils/urlutils";
+import { useUrlSearchParams } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
 import BlogCategories from "../../ui/BlogCategories";
 import BlogAuthors from "../../ui/BlogAuthors";
@@ -22,8 +22,8 @@ function AllPosts(props: AllPostsProps) {
   const [selectedCategory, setSelectedCategory] = useState<any>({});
   const [selectedAuthor, setSelectedAuthor] = useState<string>("");
 
-  const categoryParam: string | null = useQuery().get("category");
-  const authorParam: string | null = useQuery().get("author");
+  const categoryParam: string | null = useUrlSearchParams().get("category");
+  const authorParam: string | null = useUrlSearchParams().get("author");
 
   useEffect(() => {
     // filter articles by category query param if present

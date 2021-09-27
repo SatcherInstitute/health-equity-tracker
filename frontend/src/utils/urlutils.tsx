@@ -64,7 +64,7 @@ export const WP_EMBED_PARAM = "_embed";
 export const WP_PER_PAGE_PARAM = "per_page=";
 export const MAX_FETCH = 100;
 
-export function useQuery() {
+export function useUrlSearchParams() {
   return new URLSearchParams(useLocation().search);
 }
 
