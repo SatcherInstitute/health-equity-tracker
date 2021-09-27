@@ -44,10 +44,18 @@ export default function SinglePost(props: SinglePostProps) {
 
   return (
     <Grid container className={styles.Grid}>
+      {console.log(fullArticle && fullArticle)}
       <Helmet>
         <title>{`Blog${
           fullArticle ? " - " + parse(fullArticle.title.rendered) : ""
         } - Health Equity Tracker`}</title>
+        {/* if cross-posted from external site, should be input on WP as canonical_url */}
+        {fullArticle && (
+          <link
+            rel="canonical"
+            href={fullArticle.acf?.canonical_url || fullArticle.link}
+          />
+        )}
       </Helmet>
       <Grid
         container
