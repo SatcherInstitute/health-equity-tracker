@@ -15,19 +15,15 @@ import ResourcesTab from "./ResourcesTab";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useEffect } from "react";
-import BlogTab from "./BlogTab";
+import BlogTab, { Article } from "./BlogTab";
 import { Link, Redirect, Route, Switch } from "react-router-dom";
-import { Article } from "../../utils/useFetchBlog";
 
 export interface WhatIsHealthEquityPageProps {
   articles?: Article[];
   categories?: string[];
 }
 
-export default function WhatIsHealthEquityPage(
-  props: WhatIsHealthEquityPageProps
-) {
-  const { articles, categories } = props;
+export default function WhatIsHealthEquityPage() {
   const theme = useTheme();
   const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
   const [tabLayout, setTabLayout] = React.useState({});

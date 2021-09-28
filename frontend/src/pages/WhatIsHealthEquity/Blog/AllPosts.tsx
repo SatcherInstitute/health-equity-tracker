@@ -1,12 +1,17 @@
 import { Grid, Hidden } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import styles from "../WhatIsHealthEquityPage.module.scss";
-import { useUrlSearchParams } from "../../../utils/urlutils";
+import {
+  fetchBlogData,
+  useUrlSearchParams,
+  ARTICLES_KEY,
+} from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
 import BlogCategories from "../../ui/BlogCategories";
 import BlogAuthors from "../../ui/BlogAuthors";
 import BlogPreviewCard from "./BlogPreviewCard";
-import { Article } from "../../../utils/useFetchBlog";
+import { useQuery } from "react-query";
+import { Article } from "../BlogTab";
 
 function AllPosts() {
   const [filteredArticles, setFilteredArticles] = useState<Article[]>([]);
@@ -18,6 +23,11 @@ function AllPosts() {
   const categoryParam: string | null = useUrlSearchParams().get("category");
   const authorParam: string | null = useUrlSearchParams().get("author");
 
+  const { isLoading, error, data }: any = useQuery(ARTICLES_KEY, () =>
+    fetchBlogData()
+  );
+  const articles = data?.data;
+
   useEffect(() => {
     // filter articles by category query param if present
     if (categoryParam) {
@@ -27,10 +37,10 @@ function AllPosts() {
         }) as string
       );
 
-      if (selectedCategory) {
+      if (selectedCategory && articles) {
         setFilteredArticles(
           articles.filter(
-            (article) =>
+            (article: any) =>
               article._embedded["wp:term"] &&
               article._embedded["wp:term"][0].some(
                 (term: { name: string }) => term.name === selectedCategory
@@ -39,7 +49,7 @@ function AllPosts() {
         );
       }
     } else setFilteredArticles(articles);
-  }, [categoryParam, categories, selectedCategory]);
+  }, [categoryParam, categories, selectedCategory, articles]);
 
   useEffect(() => {
     // filter articles by author query param if present
@@ -53,97 +63,109 @@ function AllPosts() {
       if (selectedAuthor) {
         setFilteredArticles(
           articles.filter(
-            (article) => article.acf.contributing_author === selectedAuthor
+            (article: { acf: { contributing_author: string } }) =>
+              article.acf.contributing_author === selectedAuthor
           )
         );
       }
     } else setFilteredArticles(articles);
-  }, [authorParam, authors, selectedAuthor]);
+  }, [articles, authorParam, authors, selectedAuthor]);
 
   // extract and set authors (for ALL posts, not just filtered ones)
   useEffect(() => {
     const allAuthorsSet = new Set();
 
-    articles.forEach(
-      (article) =>
-        article.acf.contributing_author &&
-        allAuthorsSet.add(article.acf.contributing_author)
-    );
+    articles &&
+      articles.forEach(
+        (article: any) =>
+          article.acf.contributing_author &&
+          allAuthorsSet.add(article.acf.contributing_author)
+      );
 
     setAuthors(Array.from(allAuthorsSet) as string[]);
-  }, []);
+  }, [articles]);
 
   // extract and set categories (for ALL posts, not just filtered ones)
   useEffect(() => {
     const allCategoriesSet = new Set();
 
-    articles.forEach((article) => {
-      if (article._embedded["wp:term"] !== undefined) {
-        article._embedded["wp:term"][0].forEach((term: { name: string }) =>
-          allCategoriesSet.add(term.name)
-        );
-      }
-    });
+    articles &&
+      articles.forEach((article: any) => {
+        if (article._embedded["wp:term"] !== undefined) {
+          article._embedded["wp:term"][0].forEach((term: { name: string }) =>
+            allCategoriesSet.add(term.name)
+          );
+        }
+      });
 
     setCategories(Array.from(allCategoriesSet) as string[]);
-  }, []);
+  }, [articles]);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>An error has occurred: {error.message}</p>;
+
+  if (isLoading) return <i>loading...</i>;
+  if (error) return <i>Error loading blog posts. {error}</i>;
 
   return (
-    <Grid container className={styles.Grid}>
-      <Helmet>
-        <title>Blog - Health Equity Tracker</title>
-      </Helmet>
-      <Grid container className={styles.AllArticlesSection}>
-        <Hidden smDown>
-          <Grid item md={3} container direction="column" alignItems="center">
-            <BlogCategories categories={categories} />
-            <BlogAuthors authors={authors} />
-          </Grid>
-        </Hidden>
-        <Grid item xs={12} sm={12} md={9}>
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="flex-start"
-          >
-            {filteredArticles.map((post: any) => {
-              return (
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  md={4}
-                  className={styles.AllArticlesItem}
-                  key={post.id}
-                >
-                  <BlogPreviewCard article={post} />
-                </Grid>
-              );
-            })}
-          </Grid>
-        </Grid>
-
-        <Hidden mdUp>
-          <Grid
-            item
-            container
-            xs={12}
-            wrap="nowrap"
-            direction="row"
-            justify="space-around"
-          >
-            <Grid item>
+    articles && (
+      <Grid container className={styles.Grid}>
+        <Helmet>
+          <title>Blog - Health Equity Tracker</title>
+        </Helmet>
+        <Grid container className={styles.AllArticlesSection}>
+          <Hidden smDown>
+            <Grid item md={3} container direction="column" alignItems="center">
               <BlogCategories categories={categories} />
-            </Grid>
-
-            <Grid item>
               <BlogAuthors authors={authors} />
             </Grid>
+          </Hidden>
+          <Grid item xs={12} sm={12} md={9}>
+            <Grid
+              container
+              direction="row"
+              justify="space-between"
+              alignItems="flex-start"
+            >
+              {filteredArticles &&
+                filteredArticles.map((post: any) => {
+                  return (
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      md={4}
+                      className={styles.AllArticlesItem}
+                      key={post.id}
+                    >
+                      <BlogPreviewCard article={post} />
+                    </Grid>
+                  );
+                })}
+            </Grid>
           </Grid>
-        </Hidden>
+
+          <Hidden mdUp>
+            <Grid
+              item
+              container
+              xs={12}
+              wrap="nowrap"
+              direction="row"
+              justify="space-around"
+            >
+              <Grid item>
+                <BlogCategories categories={categories} />
+              </Grid>
+
+              <Grid item>
+                <BlogAuthors authors={authors} />
+              </Grid>
+            </Grid>
+          </Hidden>
+        </Grid>
       </Grid>
-    </Grid>
+    )
   );
 }
 

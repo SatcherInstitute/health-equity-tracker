@@ -5,12 +5,16 @@ import { useEffect } from "react";
 import styles from "../WhatIsHealthEquityPage.module.scss";
 import parse from "html-react-parser";
 import { useParams } from "react-router-dom";
-import { BLOG_TAB_LINK, ReactRouterLinkButton } from "../../../utils/urlutils";
+import {
+  BLOG_TAB_LINK,
+  fetchBlogData,
+  ReactRouterLinkButton,
+  ARTICLES_KEY,
+} from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
 import AppbarLogo from "../../../assets/AppbarLogo.png";
 import BlogPreviewCard from "./BlogPreviewCard";
-import { useQueryClient, useQuery } from "react-query";
-import useFetchBlog, { ARTICLES_KEY } from "../../../utils/useFetchBlog";
+import { useQuery } from "react-query";
 
 function prettyDate(dateString: string) {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -24,20 +28,28 @@ export default function SinglePost() {
 
   let { slug }: { slug: string } = useParams();
 
+  const { isLoading, error, data }: any = useQuery(ARTICLES_KEY, fetchBlogData);
+  const articles = data?.data;
+
   // on page load, get prev,full, next article based on fullArticle URL slug
   useEffect(() => {
-    const fullArticleIndex = articles.findIndex(
-      (article: any) => article.slug === slug
-    );
-    setFullArticle(articles[fullArticleIndex]);
-    // previous and next articles wrap around both ends of the array
-    setPrevArticle(
-      articles[
-        fullArticleIndex - 1 >= 0 ? fullArticleIndex - 1 : articles.length - 1
-      ]
-    );
-    setNextArticle(articles[(fullArticleIndex + 1) % articles.length]);
-  }, [slug]);
+    if (articles) {
+      const fullArticleIndex = articles.findIndex(
+        (article: any) => article.slug === slug
+      );
+      setFullArticle(articles[fullArticleIndex]);
+      // previous and next articles wrap around both ends of the array
+      setPrevArticle(
+        articles[
+          fullArticleIndex - 1 >= 0 ? fullArticleIndex - 1 : articles.length - 1
+        ]
+      );
+      setNextArticle(articles[(fullArticleIndex + 1) % articles.length]);
+    }
+  }, [articles, slug]);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>An error has occurred: {error.message}</p>;
 
   return (
     <Grid container className={styles.Grid}>

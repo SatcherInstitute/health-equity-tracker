@@ -1,4 +1,5 @@
 import Button from "@material-ui/core/Button";
+import axios from "axios";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { getLogger } from "./globals";
@@ -63,6 +64,17 @@ export const ALL_PAGES = "pages"; // for dynamic copy
 export const WP_EMBED_PARAM = "_embed";
 export const WP_PER_PAGE_PARAM = "per_page=";
 export const MAX_FETCH = 100;
+
+// REACT QUERY KEYS
+export const ARTICLES_KEY = "articles";
+
+export async function fetchBlogData() {
+  return await axios.get(
+    `${
+      BLOG_URL + WP_API + ALL_POSTS
+    }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${MAX_FETCH}`
+  );
+}
 
 export function useUrlSearchParams() {
   return new URLSearchParams(useLocation().search);
