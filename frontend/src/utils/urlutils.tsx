@@ -73,7 +73,7 @@ export const ARTICLES_KEY = "articles";
 export const DYNAMIC_COPY_KEY = "dynamic_copy";
 export const REACT_QUERY_OPTIONS = {
   cacheTime: 1000 * 60 * 60 * 24, // use as pre-fetch data before garbage collection
-  staleTime: 1000 * 60 * 1, // treat data as fresh and not trigger a refetch
+  // staleTime: 1000 * 60 * 10, // treat data as fresh and not trigger a refetch
 };
 
 export async function fetchBlogData() {

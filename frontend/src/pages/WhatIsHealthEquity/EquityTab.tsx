@@ -92,13 +92,13 @@ function EquityTab() {
   const prefersReducedMotion = usePrefersReducedMotion();
 
   let wordpressCopy;
-  const { error, data }: any = useQuery(
+  const { isLoading, error, data }: any = useQuery(
     DYNAMIC_COPY_KEY,
     () => fetchCopyData(WIHE_PAGE_ID),
     REACT_QUERY_OPTIONS
   );
   // if (isLoading) return <p>Loading...</p>;
-  if (error) wordpressCopy = WIHEFallbackCopy;
+  if (error || isLoading) wordpressCopy = WIHEFallbackCopy;
   if (data) wordpressCopy = data.data.acf;
   // const wordpressCopy = useFetchCopy(WHAT_IS_HEALTH_EQUITY_PAGE_LINK);
 
