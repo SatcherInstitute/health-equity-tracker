@@ -37,6 +37,7 @@ KFF_RACES_TO_STANDARD_NH = {
     'Asian': Race.ASIAN_NH.value,
     'American Indian or Alaska Native': Race.AIAN_NH.value,
     'Native Hawaiian or Other Pacific Islander': Race.NHPI_NH.value,
+    'AAPI': Race.API_NH.value,
     'Other': Race.OTHER_NONSTANDARD_NH.value
 }
 
@@ -47,8 +48,12 @@ KFF_RACES_TO_STANDARD = {
     'Asian': Race.ASIAN.value,
     'American Indian or Alaska Native': Race.AIAN.value,
     'Native Hawaiian or Other Pacific Islander': Race.NHPI.value,
+    'AAPI': Race.API.value,
     'Other': Race.OTHER_NONSTANDARD.value
 }
+
+AAPI_STATES = {'Arizona', 'Connecticut', 'District of Columbia', 'Michigan', 'Minnesota', 'Nevada',
+               'New Mexico', 'North Carolina', 'Oklahoma', 'South Carolina', 'Virginia'}
 
 
 def get_data_url(data_type):
@@ -113,12 +118,12 @@ def generate_output_row(state_row_pct_share, state_row_pct_total, state_row_pct_
     race: String race name to find vaccine information of
     """
     races_map = KFF_RACES_TO_STANDARD
+
     if state_row_pct_share['Race Categories Include Hispanic Individuals'].values[0] != 'Yes':
         races_map = KFF_RACES_TO_STANDARD_NH
 
     output_row = {}
     output_row[std_col.STATE_NAME_COL] = state
-    output_row[std_col.RACE_CATEGORY_ID_COL] = races_map[race]
     output_row[std_col.VACCINATED_PCT_SHARE] = str(state_row_pct_share[generate_pct_share_key(race)].values[0])
 
     if race in KFF_RACES_PCT_TOTAL:
@@ -126,6 +131,11 @@ def generate_output_row(state_row_pct_share, state_row_pct_total, state_row_pct_
         output_row[std_col.POPULATION_PCT_COL] = str(
             state_row_pct_population[generate_pct_of_population_key(race)].values[0]
         )
+
+    if race == "Asian" and state in AAPI_STATES:
+        race = 'AAPI'
+
+    output_row[std_col.RACE_CATEGORY_ID_COL] = races_map[race]
 
     return output_row
 
