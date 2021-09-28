@@ -9,25 +9,21 @@ import {
   FAQ_TAB_LINK,
   RESOURCES_TAB_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-  useQuery,
+  useUrlSearchParams,
 } from "../../utils/urlutils";
 import ResourcesTab from "./ResourcesTab";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useEffect } from "react";
-import BlogTab from "./BlogTab";
+import BlogTab, { Article } from "./BlogTab";
 import { Link, Redirect, Route, Switch } from "react-router-dom";
-import { Article } from "../../utils/useFetchBlog";
 
 export interface WhatIsHealthEquityPageProps {
   articles?: Article[];
   categories?: string[];
 }
 
-export default function WhatIsHealthEquityPage(
-  props: WhatIsHealthEquityPageProps
-) {
-  const { articles, categories } = props;
+export default function WhatIsHealthEquityPage() {
   const theme = useTheme();
   const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
   const [tabLayout, setTabLayout] = React.useState({});
@@ -41,7 +37,7 @@ export default function WhatIsHealthEquityPage(
   return (
     <div className={styles.WhatIsHealthEquityPage}>
       {/*  intercept old FAQ via query params for backwards compatible links */}
-      {useQuery().get("tab") === "1" && (
+      {useUrlSearchParams().get("tab") === "1" && (
         <Redirect
           to={{
             pathname: FAQ_TAB_LINK,
@@ -95,7 +91,7 @@ export default function WhatIsHealthEquityPage(
           <FaqTab />
         </Route>
         <Route path={`${BLOG_TAB_LINK}/`}>
-          <BlogTab articles={articles!} categories={categories!} />
+          <BlogTab />
         </Route>
         <Route path={`${RESOURCES_TAB_LINK}/`}>
           <ResourcesTab />

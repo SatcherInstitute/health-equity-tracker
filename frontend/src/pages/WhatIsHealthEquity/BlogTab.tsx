@@ -6,14 +6,27 @@ import { Route, Switch } from "react-router-dom";
 import AllPosts from "./Blog/AllPosts";
 import SinglePost from "./Blog/SinglePost";
 
-export interface BlogTabProps {
-  articles: any[];
-  categories: any[];
+export interface Article {
+  id: number;
+  date: string;
+  modified: string;
+  slug: string;
+  title: { rendered: string };
+  content: { rendered: string };
+  author: number;
+  featured_media: number;
+  sticky: boolean;
+  categoriesXYZ: number[];
+  acf: { contributing_author: string };
+  _embedded: {
+    author: {
+      id: number;
+    };
+    "wp:featuredmedia": { id: number; source_url: string }[];
+  };
 }
 
-function BlogTab(props: BlogTabProps) {
-  const { articles, categories } = props;
-
+export default function BlogTab() {
   return (
     <div className={styles.WhatIsHealthEquityPage}>
       <Grid container className={styles.Grid}>
@@ -25,10 +38,10 @@ function BlogTab(props: BlogTabProps) {
         >
           <Switch>
             <Route path={`${BLOG_TAB_LINK}/:slug`}>
-              <SinglePost articles={articles} />
+              <SinglePost />
             </Route>
             <Route path={`${BLOG_TAB_LINK}/`}>
-              <AllPosts articles={articles} categories={categories} />
+              <AllPosts />
             </Route>
           </Switch>
         </Grid>
@@ -36,5 +49,3 @@ function BlogTab(props: BlogTabProps) {
     </div>
   );
 }
-
-export default BlogTab;

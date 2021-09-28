@@ -1,4 +1,5 @@
 import Button from "@material-ui/core/Button";
+import axios from "axios";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { getLogger } from "./globals";
@@ -64,7 +65,30 @@ export const WP_EMBED_PARAM = "_embed";
 export const WP_PER_PAGE_PARAM = "per_page=";
 export const MAX_FETCH = 100;
 
-export function useQuery() {
+// PAGE IDS FOR WORDPRESS DYNAMIC COPY
+export const WIHE_PAGE_ID = 37;
+
+// REACT QUERY
+export const ARTICLES_KEY = "articles";
+export const DYNAMIC_COPY_KEY = "dynamic_copy";
+export const REACT_QUERY_OPTIONS = {
+  cacheTime: 1000 * 60 * 60 * 24, // use as pre-fetch data before garbage collection
+  // staleTime: 1000 * 60 * 10, // treat data as fresh and not trigger a refetch
+};
+
+export async function fetchBlogData() {
+  return await axios.get(
+    `${
+      BLOG_URL + WP_API + ALL_POSTS
+    }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${MAX_FETCH}`
+  );
+}
+
+export async function fetchCopyData(id: number) {
+  return await axios.get(`${BLOG_URL + WP_API + ALL_PAGES}/${id}`);
+}
+
+export function useUrlSearchParams() {
   return new URLSearchParams(useLocation().search);
 }
 

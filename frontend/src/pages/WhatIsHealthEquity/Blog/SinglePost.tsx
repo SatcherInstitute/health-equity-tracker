@@ -5,42 +5,56 @@ import { useEffect } from "react";
 import styles from "../WhatIsHealthEquityPage.module.scss";
 import parse from "html-react-parser";
 import { useParams } from "react-router-dom";
-import { BLOG_TAB_LINK, ReactRouterLinkButton } from "../../../utils/urlutils";
+import {
+  BLOG_TAB_LINK,
+  fetchBlogData,
+  ReactRouterLinkButton,
+  ARTICLES_KEY,
+  REACT_QUERY_OPTIONS,
+} from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
 import AppbarLogo from "../../../assets/AppbarLogo.png";
 import BlogPreviewCard from "./BlogPreviewCard";
+import { useQuery } from "react-query";
 
 function prettyDate(dateString: string) {
   const options = { year: "numeric", month: "long", day: "numeric" };
   return new Date(dateString).toLocaleDateString(undefined, options as any);
 }
 
-export interface SinglePostProps {
-  articles: any[];
-}
-
-export default function SinglePost(props: SinglePostProps) {
-  const { articles } = props;
+export default function SinglePost() {
   const [fullArticle, setFullArticle] = useState<any>();
   const [prevArticle, setPrevArticle] = useState<any>();
   const [nextArticle, setNextArticle] = useState<any>();
 
   let { slug }: { slug: string } = useParams();
 
+  const { isLoading, error, data }: any = useQuery(
+    ARTICLES_KEY,
+    fetchBlogData,
+    REACT_QUERY_OPTIONS
+  );
+  const articles = data?.data;
+
   // on page load, get prev,full, next article based on fullArticle URL slug
   useEffect(() => {
-    const fullArticleIndex = articles.findIndex(
-      (article: any) => article.slug === slug
-    );
-    setFullArticle(articles[fullArticleIndex]);
-    // previous and next articles wrap around both ends of the array
-    setPrevArticle(
-      articles[
-        fullArticleIndex - 1 >= 0 ? fullArticleIndex - 1 : articles.length - 1
-      ]
-    );
-    setNextArticle(articles[(fullArticleIndex + 1) % articles.length]);
+    if (articles) {
+      const fullArticleIndex = articles.findIndex(
+        (article: any) => article.slug === slug
+      );
+      setFullArticle(articles[fullArticleIndex]);
+      // previous and next articles wrap around both ends of the array
+      setPrevArticle(
+        articles[
+          fullArticleIndex - 1 >= 0 ? fullArticleIndex - 1 : articles.length - 1
+        ]
+      );
+      setNextArticle(articles[(fullArticleIndex + 1) % articles.length]);
+    }
   }, [articles, slug]);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>An error has occurred: {error.message}</p>;
 
   return (
     <Grid container className={styles.Grid}>

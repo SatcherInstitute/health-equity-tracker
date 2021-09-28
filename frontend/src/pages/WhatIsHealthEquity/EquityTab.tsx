@@ -7,14 +7,46 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import FaqSection from "../ui/FaqSection";
 import {
-  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+  DYNAMIC_COPY_KEY,
+  fetchCopyData,
+  REACT_QUERY_OPTIONS,
   WIHE_JOIN_THE_EFFORT_SECTION_ID,
+  WIHE_PAGE_ID,
 } from "../../utils/urlutils";
 import { Box } from "@material-ui/core";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
-import useFetchCopy from "../../utils/useFetchCopy";
+// import useFetchCopy from "../../utils/useFetchCopy";
 import { Helmet } from "react-helmet";
 import LazyLoad from "react-lazyload";
+import { useQuery } from "react-query";
+
+export const WIHEFallbackCopy = {
+  section2_headingLevel2: "Health equity resources --- Fallback Text",
+  section4_headingLevel2: "How do I join the movement? --- Fallback Text",
+  section4_heading2_text:
+    "To advance health equity, we need smart, talented, passionate folks like you on board. --- Fallback Text",
+  section4_a_headingLevel3:
+    "Learn to create actionable solutions --- Fallback Text",
+  section4_a_heading3_text:
+    "Apply to our Political Determinants of Health Learning Laboratory Fellowship. We seek to partner and support diverse groups in building equitable and sustainable pathways for healthy communities. --- Fallback Text",
+  section4_a_heading3_link: {
+    title: "Learn More --- Fallback Text",
+    url:
+      "https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/",
+    target: "_blank",
+  },
+  section4_b_headingLevel3: "Give back to your community --- Fallback Text",
+  section4_b_heading3_text:
+    "Are you a community leader interested in expanding transportation access to vaccine sites within your community? Complete our inquiry form to receive information on our vaccine rideshare efforts and opportunities. --- Fallback Text",
+  section4_b_heading3_link: {
+    title: "Sign Up*",
+    url: "https://satcherinstitute.org/uberrideshare/",
+    target: "_blank",
+  },
+  section4_c_headingLevel3: "Sign up for our newsletter --- Fallback Text",
+  section4_c_heading3_text:
+    "Want updates on the latest news in health equity? Sign up for our Satcher Health Leadership Institute newsletter. --- Fallback Text",
+};
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -58,7 +90,17 @@ function JoinTheEffortContainer(props: {
 
 function EquityTab() {
   const prefersReducedMotion = usePrefersReducedMotion();
-  const wordpressCopy = useFetchCopy(WHAT_IS_HEALTH_EQUITY_PAGE_LINK);
+
+  let wordpressCopy;
+  const { isLoading, error, data }: any = useQuery(
+    DYNAMIC_COPY_KEY,
+    () => fetchCopyData(WIHE_PAGE_ID),
+    REACT_QUERY_OPTIONS
+  );
+  // if (isLoading) return <p>Loading...</p>;
+  if (error || isLoading) wordpressCopy = WIHEFallbackCopy;
+  if (data) wordpressCopy = data.data.acf;
+  // const wordpressCopy = useFetchCopy(WHAT_IS_HEALTH_EQUITY_PAGE_LINK);
 
   return (
     <div className={styles.WhatIsHealthEquityPage}>
@@ -206,7 +248,7 @@ function EquityTab() {
           <Grid container className={styles.ResourcesRow} justify="center">
             <Grid item>
               <Typography className={styles.ResourcesHeaderText} variant="h1">
-                {wordpressCopy.section2_headingLevel2}
+                {wordpressCopy?.section2_headingLevel2}
               </Typography>
             </Grid>
             <Grid
@@ -320,10 +362,10 @@ function EquityTab() {
           id={WIHE_JOIN_THE_EFFORT_SECTION_ID}
         >
           <Typography className={styles.JoinTheEffortHeaderText} variant="h2">
-            {wordpressCopy.section4_headingLevel2}
+            {wordpressCopy?.section4_headingLevel2}
           </Typography>
           <span className={styles.JoinTheEffortSubheaderText}>
-            {wordpressCopy.section4_headingLevel2_text}
+            {wordpressCopy?.section4_heading2_text}
           </span>
           <br />
           <br />
@@ -337,20 +379,19 @@ function EquityTab() {
           }
           imageBackground="#A5CDC0"
           imageAlt=""
-          textTitle={wordpressCopy.section4_a_headingLevel3}
+          textTitle={wordpressCopy?.section4_a_headingLevel3}
           content={
             <>
               <p className={styles.JoinTheEffortStepText}>
-                {wordpressCopy.section4_a_heading3_text}
+                {wordpressCopy?.section4_a_heading3_text}
               </p>
-              {/* {console.log(wordpressCopy, "in WIHE")} */}
               <p>
                 <Button
                   className={styles.ContactUsLink}
-                  href={wordpressCopy.section4_a_heading3_link.url}
-                  target={wordpressCopy.section4_a_heading3_link.target}
+                  href={wordpressCopy?.section4_a_heading3_link?.url}
+                  target={wordpressCopy?.section4_a_heading3_link?.target}
                 >
-                  {wordpressCopy.section4_a_heading3_link.title}
+                  {wordpressCopy?.section4_a_heading3_link?.title}
                 </Button>
               </p>
             </>
@@ -365,7 +406,7 @@ function EquityTab() {
           }
           imageBackground="#EDB2A6"
           imageAlt=""
-          textTitle={wordpressCopy.section4_b_headingLevel3}
+          textTitle={wordpressCopy?.section4_b_headingLevel3}
           content={
             <>
               <p className={styles.JoinTheEffortStepText}>
@@ -395,7 +436,7 @@ function EquityTab() {
           }
           imageBackground="#275141"
           imageAlt=""
-          textTitle={wordpressCopy.section4_c_headingLevel3}
+          textTitle={wordpressCopy?.section4_c_headingLevel3}
           content={
             <>
               <p className={styles.JoinTheEffortStepText}>
