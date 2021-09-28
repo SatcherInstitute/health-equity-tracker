@@ -11,8 +11,6 @@ to the manual-uploads GCS bucket for consumption by the ingestion pipeline.
 Example usage:
 python cdc_restricted_local.py --dir="/Users/vanshkumar/Downloads" --prefix="COVID_Cases_Restricted_Detailed_01312021"
 """
-from google.cloud import bigquery
-
 import argparse
 import os
 import sys
@@ -40,12 +38,6 @@ RACE_COL = 'race_ethnicity_combined'
 SEX_COL = 'sex'
 AGE_COL = 'age_group'
 OUTCOME_COLS = ['hosp_yn', 'death_yn']
-
-# plan for age adjustment
-# 1. do a race_and_age type situation
-# 2. age adjust based off of that
-# 3. profit
-REFERENCE_POPULATION = std_col.Race.WHITE_NH.value
 
 # Convenience list for when we group the data by county.
 COUNTY_COLS = [COUNTY_FIPS_COL, COUNTY_COL, STATE_COL]
@@ -124,9 +116,6 @@ ALL_DATA_SUPPRESSION_STATES = ("LA", "MO", "MS", "ND", "TX", "WY")
 HOSP_DATA_SUPPRESSION_STATES = ("HI", "NE", "RI", "SD")
 DEATH_DATA_SUPPRESSION_STATES = ("HI", "NE", "SD",
                                  "WV", "DE")
-
-# Used to get the reference population data for age adjusting numbers
-# bqclient = bigquery.Client()
 
 
 def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
@@ -358,14 +347,6 @@ def process_data(dir, files):
     return all_dfs
 
 
-# def get_population_df():
-#     query_string = """
-# SELECT *
-# FROM `jzarrabi-het-infra-test-f4.acs_population.by_age_race_county_decade_buckets`
-# """
-#     return bqclient.query(query_string).result().to_dataframe()
-
-
 def main():
     # Get the dir and prefix from the command line flags.
     args = parser.parse_args()
@@ -390,10 +371,7 @@ def main():
     for f in matching_files:
         print(f)
 
-    # print("Getting population data from big query")
-    # pop_df = get_population_df()
     all_dfs = process_data(dir, matching_files)
-    # all_dfs = age_adjust(all_dfs, pop_df)
 
     # Write the results out to CSVs.
     for (geo, demo), df in all_dfs.items():
