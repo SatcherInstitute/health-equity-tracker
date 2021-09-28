@@ -5,6 +5,7 @@ import {
   fetchBlogData,
   useUrlSearchParams,
   ARTICLES_KEY,
+  REACT_QUERY_OPTIONS,
 } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
 import BlogCategories from "../../ui/BlogCategories";
@@ -23,8 +24,10 @@ function AllPosts() {
   const categoryParam: string | null = useUrlSearchParams().get("category");
   const authorParam: string | null = useUrlSearchParams().get("author");
 
-  const { isLoading, error, data }: any = useQuery(ARTICLES_KEY, () =>
-    fetchBlogData()
+  const { isLoading, error, data }: any = useQuery(
+    ARTICLES_KEY,
+    fetchBlogData,
+    REACT_QUERY_OPTIONS
   );
   const articles = data?.data;
 

@@ -39,7 +39,6 @@ import {
   TERMS_OF_USE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "./utils/urlutils";
-// import useFetchBlog, { Article } from "./utils/useFetchBlog";
 import AppBarLogo from "./assets/AppbarLogo.png";
 
 // the following components make CSS modules which are imported by other components, so they must load first

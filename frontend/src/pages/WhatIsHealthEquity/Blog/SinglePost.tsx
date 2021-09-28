@@ -10,6 +10,7 @@ import {
   fetchBlogData,
   ReactRouterLinkButton,
   ARTICLES_KEY,
+  REACT_QUERY_OPTIONS,
 } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
 import AppbarLogo from "../../../assets/AppbarLogo.png";
@@ -28,7 +29,11 @@ export default function SinglePost() {
 
   let { slug }: { slug: string } = useParams();
 
-  const { isLoading, error, data }: any = useQuery(ARTICLES_KEY, fetchBlogData);
+  const { isLoading, error, data }: any = useQuery(
+    ARTICLES_KEY,
+    fetchBlogData,
+    REACT_QUERY_OPTIONS
+  );
   const articles = data?.data;
 
   // on page load, get prev,full, next article based on fullArticle URL slug
