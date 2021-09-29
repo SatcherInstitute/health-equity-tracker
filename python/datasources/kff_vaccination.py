@@ -178,7 +178,7 @@ class KFFVaccination(DataSource):
         pct_share_df = github_util.decode_json_from_url_into_df(pct_share_url)
 
         pct_population_url = get_data_url('pct_population')
-        pct_population_df = github_util.decode_excel_from_url_into_df(pct_population_url)
+        pct_population_df = github_util.decode_json_from_url_into_df(pct_population_url)
 
         total_df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_KFF_URL_TOTALS_STATE, dtype={TOTAL_KEY: str})
 
