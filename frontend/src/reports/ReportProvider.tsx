@@ -19,6 +19,7 @@ import ShareIcon from "@material-ui/icons/Share";
 import styles from "./Report.module.scss";
 import ShareDialog from "./ui/ShareDialog";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
+import { Grid } from "@material-ui/core";
 
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
   const segment = madLib.phrase[segmentIndex];
@@ -116,13 +117,17 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             Share
           </Button>
         </div>
-        <DisclaimerAlert
-          jumpToData={() => {
-            if (fieldRef.current) {
-              fieldRef.current.scrollIntoView();
-            }
-          }}
-        />
+        <Grid container justify="center">
+          <Grid item xs={12} md={10}>
+            <DisclaimerAlert
+              jumpToData={() => {
+                if (fieldRef.current) {
+                  fieldRef.current.scrollIntoView();
+                }
+              }}
+            />
+          </Grid>
+        </Grid>
         {getReport()}
       </div>
       <div

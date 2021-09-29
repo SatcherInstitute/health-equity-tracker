@@ -88,9 +88,16 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
     currentBreakdown === breakdownVar;
 
   return (
-    <Grid item container xs={12} spacing={1} justify="center">
+    <Grid
+      item
+      container
+      xs={12}
+      alignItems="center"
+      spacing={1}
+      justify="center"
+    >
       {!props.hidePopulationCard && (
-        <Grid item xs={12} md={7}>
+        <Grid item xs={12} md={10}>
           <PopulationCard fips={props.fips} />
         </Grid>
       )}
@@ -99,7 +106,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
 
       {variableConfig && (
         <Grid container spacing={1} justify="center">
-          <Grid item container xs={12} md={7}>
+          <Grid item container xs={12} md={10}>
             <ReportToggleControls
               dropdownVarId={props.dropdownVarId}
               variableConfig={variableConfig}
@@ -108,7 +115,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               setCurrentBreakdown={setDemoWithParam}
             />
           </Grid>
-          <Grid item xs={12} sm={12} md={7}>
+          <Grid item xs={12} sm={12} md={10}>
             <MapCard
               variableConfig={variableConfig}
               fips={props.fips}
@@ -129,7 +136,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               </Fragment>
             ))}
           </Grid>
-          <Grid item xs={12} sm={12} md={7}>
+          <Grid item xs={12} sm={12} md={10}>
             {variableConfig.metrics["pct_share"] && (
               <UnknownsMapCard
                 overrideAndWithOr={currentBreakdown === "race_and_ethnicity"}
