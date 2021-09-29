@@ -1,4 +1,4 @@
-import { DataFrame } from "data-forge";
+import { DataFrame, IDataFrame } from "data-forge";
 import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
@@ -16,6 +16,7 @@ class VaccineProvider extends VariableProvider {
       "vaccinated_share_of_known",
       "vaccinated_per_100k",
       "vaccine_population_pct",
+      "acs_vaccination_population_pct",
     ]);
     this.acsProvider = acsProvider;
   }
@@ -111,6 +112,21 @@ class VaccineProvider extends VariableProvider {
         );
       }
     } else if (breakdowns.geography === "state") {
+      const acsQueryResponse = await this.acsProvider.getData(
+        new MetricQuery(["population_pct"], acsBreakdowns)
+      );
+
+      consumedDatasetIds = consumedDatasetIds.concat(
+        acsQueryResponse.consumedDatasetIds
+      );
+
+      let acs: IDataFrame = new DataFrame(acsQueryResponse.data);
+      acs = acs.renameSeries({
+        population_pct: "acs_vaccination_population_pct",
+      });
+
+      df = joinOnCols(df, acs, ["fips", breakdownColumnName], "left");
+
       df = df.generateSeries({
         population_pct: (row) => row.population_pct * 100,
       });
@@ -170,6 +186,8 @@ class VaccineProvider extends VariableProvider {
     }
 
     df = df.dropSeries(["population"]).resetIndex();
+
+    console.log(df.toArray());
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);

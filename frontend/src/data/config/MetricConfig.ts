@@ -1,4 +1,5 @@
 export type MetricId =
+  | "acs_vaccination_population_pct"
   | "brfss_population_pct"
   | "copd_pct"
   | "copd_pct_share"
@@ -64,6 +65,8 @@ export type MetricConfig = {
   // (# of Asian covid cases in the US) divided by
   // (# of covid cases in the US excluding those with unknown race/ethnicity).
   knownBreakdownComparisonMetric?: MetricConfig;
+
+  secondaryPopulationComparisonMetric?: MetricConfig;
 };
 
 export type VariableConfig = {
@@ -439,6 +442,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             metricId: "vaccinated_share_of_known",
             fullCardTitleName: "Share Of Vaccinated Individuals",
             shortVegaLabel: "% of vaccinated individuals",
+            type: "pct_share",
+          },
+          secondaryPopulationComparisonMetric: {
+            metricId: "acs_vaccination_population_pct",
+            fullCardTitleName: "Population Percentage According to ACS",
+            shortVegaLabel: "pop percentage according to acs",
             type: "pct_share",
           },
         },
