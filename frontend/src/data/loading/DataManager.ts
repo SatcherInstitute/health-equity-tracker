@@ -36,7 +36,7 @@ export abstract class ResourceCache<K, R> {
 
   private createLruCache(maxSize: number): LRU<string, R> {
     const onDispose = (key: string, resource: R) => {
-      getLogger().debugLog("Dropping " + key + " from cache.");
+      // getLogger().debugLog("Dropping " + key + " from cache.");
       if (this.getResourceSize(resource, key) > maxSize) {
         // It is recommended that if a single entry is larger than cache size,
         // it get split up into smaller chunks to avoid poor performance when
@@ -109,25 +109,25 @@ export abstract class ResourceCache<K, R> {
         return await loadingResource;
       }
 
-      getLogger().debugLog("Loading " + resourceId);
+      // getLogger().debugLog("Loading " + resourceId);
       const loadPromise = this.loadResourceInternal(key);
       this.loadingResources[resourceId] = loadPromise;
       const result = await loadPromise;
 
       this.lruCache.set(resourceId, result);
       delete this.loadingResources[resourceId];
-      getLogger().debugLog(
-        "Loaded " + resourceId + ". Cache size: " + this.lruCache.length
-      );
+      // getLogger().debugLog(
+      //   "Loaded " + resourceId + ". Cache size: " + this.lruCache.length
+      // );
 
       return result;
     } catch (e) {
       delete this.loadingResources[resourceId];
       this.failedResources.add(resourceId);
-      await getLogger().logError(e, "WARNING", {
-        error_type: "resource_load_failure",
-        resource_id: resourceId,
-      });
+      // await getLogger().logError(e, "WARNING", {
+      //   error_type: "resource_load_failure",
+      //   resource_id: resourceId,
+      // });
       throw e;
     }
   }

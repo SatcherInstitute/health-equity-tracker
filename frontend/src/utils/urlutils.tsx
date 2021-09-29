@@ -213,7 +213,7 @@ export const psSubscribe = (
   keyPrefix = "unk"
 ): { unsubscribe: () => void } => {
   const key = keyPrefix + "_" + psCount;
-  getLogger().debugLog("Adding PSHandler: " + key);
+  // getLogger().debugLog("Adding PSHandler: " + key);
   psSubscriptions[key] = handler;
   psCount++;
   return {
@@ -224,7 +224,7 @@ export const psSubscribe = (
 };
 
 export const psUnsubscribe = (k: string) => {
-  getLogger().debugLog("Removing PSHandler: " + k);
+  // getLogger().debugLog("Removing PSHandler: " + k);
   delete psSubscriptions[k];
 };
 
@@ -232,7 +232,7 @@ window.onpopstate = () => {
   Object.keys(psSubscriptions).forEach((key) => {
     const handler = psSubscriptions[key];
     if (handler) {
-      getLogger().debugLog("Firing PSHandler: " + key);
+      // getLogger().debugLog("Firing PSHandler: " + key);
       handler();
     }
   });

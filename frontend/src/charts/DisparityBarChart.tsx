@@ -30,12 +30,18 @@ function getSpec(
   // preformatted data as strings.
   lightMetricDisplayColumnName: string,
   darkMetricDisplayColumnName: string,
-  stacked?: boolean
+  stacked?: boolean,
+  // thirdMetricDisplayColumnName is the name used when we display original ACS population
+  // comparison metrics rather than the adjusted KFF number (because they aren't available)
+  thirdMeasure?: string,
+  thirdMeasureDisplayName?: string,
+  thirdMetricDisplayColumnName?: string
 ): any {
   const BAR_HEIGHT = stacked ? 40 : 10;
   const BAR_PADDING = 0.1;
   const DARK_MEASURE_COLOR = "#0B5420";
   const LIGHT_MEASURE_COLOR = "#91C684";
+  const THIRD_MEASURE_COLOR = "#cc2222";
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 
@@ -59,10 +65,16 @@ function getSpec(
     );
   }
 
-  const measureWithLargerDomain =
+  const largerOfLightOrDark =
     maxValueInField(lightMeasure) > maxValueInField(darkMeasure)
       ? lightMeasure
       : darkMeasure;
+
+  const measureWithLargerDomain =
+    maxValueInField(largerOfLightOrDark) >
+    maxValueInField(thirdMeasure as string)
+      ? largerOfLightOrDark
+      : thirdMeasure;
 
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
@@ -88,6 +100,39 @@ function getSpec(
       },
     ],
     marks: [
+      {
+        name: "thirdMeasure_bars",
+        type: "rect",
+        style: ["bar"],
+        from: { data: DATASET },
+        encode: {
+          enter: {
+            tooltip: {
+              signal: `${oneLineLabel(
+                breakdownVar
+              )} + ', ${thirdMeasureDisplayName}: ' + datum.${thirdMetricDisplayColumnName}`,
+            },
+          },
+          update: {
+            fill: { value: THIRD_MEASURE_COLOR },
+            ariaRoleDescription: { value: "bar" },
+            x: { scale: "x", field: thirdMeasure },
+            x2: { scale: "x", value: 0 },
+            y: { scale: "y", field: breakdownVar },
+            yc: {
+              scale: "y",
+              field: breakdownVar,
+              offset: stacked
+                ? STACKED_BAND_HEIGHT / 2
+                : MIDDLE_OF_BAND - SIDE_BY_SIDE_OFFSET,
+            },
+            height: {
+              scale: "y",
+              band: stacked ? 1 : SIDE_BY_SIDE_ONE_BAR_RATIO,
+            },
+          },
+        },
+      },
       {
         name: "lightMeasure_bars",
         type: "rect",
@@ -202,8 +247,12 @@ function getSpec(
       {
         name: "variables",
         type: "ordinal",
-        domain: [lightMeasureDisplayName, darkMeasureDisplayName],
-        range: [LIGHT_MEASURE_COLOR, DARK_MEASURE_COLOR],
+        domain: [
+          lightMeasureDisplayName,
+          thirdMeasureDisplayName,
+          darkMeasureDisplayName,
+        ],
+        range: [LIGHT_MEASURE_COLOR, THIRD_MEASURE_COLOR, DARK_MEASURE_COLOR],
       },
     ],
     axes: [
@@ -277,6 +326,9 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     100 /* default width during intialization */
   );
 
+  console.log(props.data, "props data");
+  console.log(props.lightMetric, "props light metric");
+
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
     props.data,
     props.breakdownVar
@@ -290,12 +342,27 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     dataWithLineBreakDelimiter,
     /* omitPctSymbol= */ true
   );
-  const [data, darkMetricDisplayColumnName] = addMetricDisplayColumn(
+  const [
+    dataWithDarkMetric,
+    darkMetricDisplayColumnName,
+  ] = addMetricDisplayColumn(
     props.darkMetric,
     dataWithLightMetric,
     /* omitPctSymbol= */ true
   );
+  // build a 3rd color to be used instead of lightMetric when data available
+  const [data, thirdMetricDisplayColumnName] = addMetricDisplayColumn(
+    {
+      fullCardTitleName: "ACS Population",
+      metricId: "acs_vaccination_population_pct",
+      shortVegaLabel: "% of population (ACS)",
+      type: "pct_share",
+    },
+    dataWithDarkMetric,
+    /* omitPctSymbol= */ true
+  );
 
+  console.log(props.lightMetric.metricId, "props.lightMetric.metricId,");
   return (
     <div ref={ref}>
       <Vega
@@ -319,7 +386,10 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           props.metricDisplayName,
           lightMetricDisplayColumnName,
           darkMetricDisplayColumnName,
-          props.stacked
+          props.stacked,
+          "acs_vaccination_population_pct",
+          "% of population (ACS)",
+          thirdMetricDisplayColumnName
         )}
       />
     </div>
