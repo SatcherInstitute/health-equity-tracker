@@ -43,6 +43,8 @@ function getSpec(
   const DARK_MEASURE_COLOR = "#0B5420";
   const LIGHT_MEASURE_COLOR = "#91C684";
   const THIRD_MEASURE_OUTLINE_COLOR = LIGHT_MEASURE_COLOR;
+  const THIRD_MEASURE_OUTLINE_WIDTH = 2.5;
+  const THIRD_MEASURE_OPACITY = 0.33;
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 
@@ -78,6 +80,7 @@ function getSpec(
         update: {
           fill: { value: LIGHT_MEASURE_COLOR },
           ariaRoleDescription: { value: "bar" },
+          strokeWidth: { value: 0 },
           x: { scale: "x", field: lightMeasure },
           x2: { scale: "x", value: 0 },
           y: { scale: "y", field: breakdownVar },
@@ -110,6 +113,7 @@ function getSpec(
         },
         update: {
           fill: { value: DARK_MEASURE_COLOR },
+          strokeWidth: { value: 0 },
           ariaRoleDescription: { value: "bar" },
           x: { scale: "x", field: darkMeasure },
           x2: { scale: "x", value: 0 },
@@ -175,8 +179,9 @@ function getSpec(
         update: {
           // @ts-ignore
           stroke: { value: THIRD_MEASURE_OUTLINE_COLOR },
+          strokeWidth: { value: THIRD_MEASURE_OUTLINE_WIDTH },
           fill: { value: LIGHT_MEASURE_COLOR },
-          fillOpacity: { value: 0.15 },
+          fillOpacity: { value: THIRD_MEASURE_OPACITY },
           ariaRoleDescription: { value: "bar" },
           x: { scale: "x", field: thirdMeasure! },
           x2: { scale: "x", value: 0 },
