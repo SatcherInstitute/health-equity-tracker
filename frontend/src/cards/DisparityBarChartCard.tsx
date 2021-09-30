@@ -45,6 +45,12 @@ export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
 function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   const metricConfig = props.variableConfig.metrics["pct_share"];
 
+  // use secondary ACS population comparison if STATE LEVEL and VACCINATION
+  const show2ndPopulationCompare =
+    props.fips.isState() &&
+    props.variableConfig.variableId ===
+      METRIC_CONFIG["vaccinated"][0].variableId;
+
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     exclude(ALL, NON_HISPANIC)
@@ -60,8 +66,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     metricIds.push(metricConfig.knownBreakdownComparisonMetric.metricId);
   }
   // KFF doesn't calculate population comparisons for some demographic groups; use ACS instead but as different color
-  if (metricConfig.secondaryPopulationComparisonMetric) {
-    metricIds.push(metricConfig.secondaryPopulationComparisonMetric.metricId);
+  if (show2ndPopulationCompare) {
+    metricIds.push(metricConfig.secondaryPopulationComparisonMetric!.metricId);
   }
 
   const query = new MetricQuery(metricIds, breakdowns);
@@ -133,13 +139,18 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
             )}
             {dataAvailable && dataWithoutUnknowns.length !== 0 && (
               <CardContent className={styles.Breadcrumbs}>
+                {console.log(
+                  "show 2nd pop before props to bar",
+                  show2ndPopulationCompare
+                )}
                 <DisparityBarChart
                   data={dataWithoutUnknowns}
                   lightMetric={metricConfig.populationComparisonMetric!}
+                  show2ndPopulationCompare={show2ndPopulationCompare}
                   thirdMetric={
-                    props.fips.isState()
+                    show2ndPopulationCompare
                       ? metricConfig.secondaryPopulationComparisonMetric
-                      : metricConfig
+                      : undefined
                   }
                   darkMetric={
                     metricConfig.knownBreakdownComparisonMetric || metricConfig

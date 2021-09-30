@@ -33,15 +33,11 @@ function getSpec(
   stacked?: boolean,
   // thirdMetricDisplayColumnName is the name used when we display original ACS population
   // comparison metrics rather than the adjusted KFF number (because they aren't available)
+  showThirdMeasure?: boolean,
   thirdMeasure?: string,
   thirdMeasureDisplayName?: string,
   thirdMetricDisplayColumnName?: string
 ): any {
-  console.log(
-    thirdMeasure,
-    thirdMeasureDisplayName,
-    thirdMetricDisplayColumnName
-  );
   const BAR_HEIGHT = stacked ? 40 : 10;
   const BAR_PADDING = 0.1;
   const DARK_MEASURE_COLOR = "#0B5420";
@@ -62,13 +58,140 @@ function getSpec(
   const SIDE_BY_SIDE_OFFSET =
     BAR_HEIGHT * SIDE_BY_SIDE_ONE_BAR_RATIO * (SIDE_BY_SIDE_FULL_BAR_RATIO / 2);
 
+  // defaults for most charts
   const LEGEND_COLORS = [LIGHT_MEASURE_COLOR, DARK_MEASURE_COLOR];
   const LEGEND_DOMAINS = [lightMeasureDisplayName, darkMeasureDisplayName];
+  const ALL_MARKS = [
+    {
+      name: "lightMeasure_bars",
+      type: "rect",
+      style: ["bar"],
+      from: { data: DATASET },
+      encode: {
+        enter: {
+          tooltip: {
+            signal: `${oneLineLabel(
+              breakdownVar
+            )} + ', ${lightMeasureDisplayName}: ' + datum.${lightMetricDisplayColumnName}`,
+          },
+        },
+        update: {
+          fill: { value: LIGHT_MEASURE_COLOR },
+          ariaRoleDescription: { value: "bar" },
+          x: { scale: "x", field: lightMeasure },
+          x2: { scale: "x", value: 0 },
+          y: { scale: "y", field: breakdownVar },
+          yc: {
+            scale: "y",
+            field: breakdownVar,
+            offset: stacked
+              ? STACKED_BAND_HEIGHT / 2
+              : MIDDLE_OF_BAND - SIDE_BY_SIDE_OFFSET,
+          },
+          height: {
+            scale: "y",
+            band: stacked ? 1 : SIDE_BY_SIDE_ONE_BAR_RATIO,
+          },
+        },
+      },
+    },
+    {
+      name: "darkMeasure_bars",
+      type: "rect",
+      style: ["bar"],
+      from: { data: DATASET },
+      encode: {
+        enter: {
+          tooltip: {
+            signal: `${oneLineLabel(
+              breakdownVar
+            )} + ', ${darkMeasureDisplayName}: ' + datum.${darkMetricDisplayColumnName}`,
+          },
+        },
+        update: {
+          fill: { value: DARK_MEASURE_COLOR },
+          ariaRoleDescription: { value: "bar" },
+          x: { scale: "x", field: darkMeasure },
+          x2: { scale: "x", value: 0 },
+          yc: {
+            scale: "y",
+            field: breakdownVar,
+            offset: stacked
+              ? STACKED_BAND_HEIGHT / 2
+              : MIDDLE_OF_BAND + SIDE_BY_SIDE_OFFSET,
+          },
+          height: {
+            scale: "y",
+            band: stacked ? THIN_RATIO : SIDE_BY_SIDE_ONE_BAR_RATIO,
+          },
+        },
+      },
+    },
+    {
+      name: "darkMeasure_text_labels",
+      type: "text",
+      style: ["text"],
+      from: { data: DATASET },
+      encode: {
+        update: {
+          align: { value: "left" },
+          baseline: { value: "middle" },
+          dx: { value: 3 },
+          fill: { value: "black" },
+          x: { scale: "x", field: darkMeasure },
+          y: { scale: "y", field: breakdownVar, band: 0.5 },
+          yc: {
+            scale: "y",
+            field: breakdownVar,
+            offset: stacked
+              ? STACKED_BAND_HEIGHT / 2
+              : MIDDLE_OF_BAND + BAR_HEIGHT,
+          },
+          text: {
+            signal: `datum.${darkMetricDisplayColumnName} + "${metricDisplayName}"`,
+          },
+        },
+      },
+    },
+  ];
 
-  if (thirdMeasure === "acs_vaccination_population_pct") {
-    console.log(thirdMeasure, "third is truthy, pushing to legend");
+  // when needed, add THIRD MEASURE to the VEGA SPEC
+  if (showThirdMeasure) {
     LEGEND_COLORS.unshift(THIRD_MEASURE_COLOR);
     LEGEND_DOMAINS.unshift(thirdMeasureDisplayName!);
+    ALL_MARKS.push({
+      name: "thirdMeasure_bars",
+      type: "rect",
+      style: ["bar"],
+      from: { data: DATASET },
+      encode: {
+        enter: {
+          tooltip: {
+            signal: `${oneLineLabel(
+              breakdownVar
+            )} + ', ${thirdMeasureDisplayName}: ' + datum.${thirdMetricDisplayColumnName}`,
+          },
+        },
+        update: {
+          fill: { value: THIRD_MEASURE_COLOR },
+          ariaRoleDescription: { value: "bar" },
+          x: { scale: "x", field: thirdMeasure! },
+          x2: { scale: "x", value: 0 },
+          y: { scale: "y", field: breakdownVar },
+          yc: {
+            scale: "y",
+            field: breakdownVar,
+            offset: stacked
+              ? STACKED_BAND_HEIGHT / 2
+              : MIDDLE_OF_BAND - SIDE_BY_SIDE_OFFSET,
+          },
+          height: {
+            scale: "y",
+            band: stacked ? 1 : SIDE_BY_SIDE_ONE_BAR_RATIO,
+          },
+        },
+      },
+    });
   }
 
   function maxValueInField(field: string) {
@@ -86,7 +209,7 @@ function getSpec(
 
   let measureWithLargerDomain;
 
-  if (thirdMeasure === "acs_vaccination_population_pct") {
+  if (showThirdMeasure) {
     measureWithLargerDomain =
       maxValueInField(largerOfLightOrDark) >
       maxValueInField(thirdMeasure as string)
@@ -119,132 +242,7 @@ function getSpec(
         update: "bandspace(domain('y').length, 0.1, 0.05) * y_step",
       },
     ],
-    marks: [
-      thirdMeasure === "acs_vaccination_population_pct" && {
-        name: "thirdMeasure_bars",
-        type: "rect",
-        style: ["bar"],
-        from: { data: DATASET },
-        encode: {
-          enter: {
-            tooltip: {
-              signal: `${oneLineLabel(
-                breakdownVar
-              )} + ', ${thirdMeasureDisplayName}: ' + datum.${thirdMetricDisplayColumnName}`,
-            },
-          },
-          update: {
-            fill: { value: THIRD_MEASURE_COLOR },
-            ariaRoleDescription: { value: "bar" },
-            x: { scale: "x", field: thirdMeasure },
-            x2: { scale: "x", value: 0 },
-            y: { scale: "y", field: breakdownVar },
-            yc: {
-              scale: "y",
-              field: breakdownVar,
-              offset: stacked
-                ? STACKED_BAND_HEIGHT / 2
-                : MIDDLE_OF_BAND - SIDE_BY_SIDE_OFFSET,
-            },
-            height: {
-              scale: "y",
-              band: stacked ? 1 : SIDE_BY_SIDE_ONE_BAR_RATIO,
-            },
-          },
-        },
-      },
-      {
-        name: "lightMeasure_bars",
-        type: "rect",
-        style: ["bar"],
-        from: { data: DATASET },
-        encode: {
-          enter: {
-            tooltip: {
-              signal: `${oneLineLabel(
-                breakdownVar
-              )} + ', ${lightMeasureDisplayName}: ' + datum.${lightMetricDisplayColumnName}`,
-            },
-          },
-          update: {
-            fill: { value: LIGHT_MEASURE_COLOR },
-            ariaRoleDescription: { value: "bar" },
-            x: { scale: "x", field: lightMeasure },
-            x2: { scale: "x", value: 0 },
-            y: { scale: "y", field: breakdownVar },
-            yc: {
-              scale: "y",
-              field: breakdownVar,
-              offset: stacked
-                ? STACKED_BAND_HEIGHT / 2
-                : MIDDLE_OF_BAND - SIDE_BY_SIDE_OFFSET,
-            },
-            height: {
-              scale: "y",
-              band: stacked ? 1 : SIDE_BY_SIDE_ONE_BAR_RATIO,
-            },
-          },
-        },
-      },
-      {
-        name: "darkMeasure_bars",
-        type: "rect",
-        style: ["bar"],
-        from: { data: DATASET },
-        encode: {
-          enter: {
-            tooltip: {
-              signal: `${oneLineLabel(
-                breakdownVar
-              )} + ', ${darkMeasureDisplayName}: ' + datum.${darkMetricDisplayColumnName}`,
-            },
-          },
-          update: {
-            fill: { value: DARK_MEASURE_COLOR },
-            ariaRoleDescription: { value: "bar" },
-            x: { scale: "x", field: darkMeasure },
-            x2: { scale: "x", value: 0 },
-            yc: {
-              scale: "y",
-              field: breakdownVar,
-              offset: stacked
-                ? STACKED_BAND_HEIGHT / 2
-                : MIDDLE_OF_BAND + SIDE_BY_SIDE_OFFSET,
-            },
-            height: {
-              scale: "y",
-              band: stacked ? THIN_RATIO : SIDE_BY_SIDE_ONE_BAR_RATIO,
-            },
-          },
-        },
-      },
-      {
-        name: "darkMeasure_text_labels",
-        type: "text",
-        style: ["text"],
-        from: { data: DATASET },
-        encode: {
-          update: {
-            align: { value: "left" },
-            baseline: { value: "middle" },
-            dx: { value: 3 },
-            fill: { value: "black" },
-            x: { scale: "x", field: darkMeasure },
-            y: { scale: "y", field: breakdownVar, band: 0.5 },
-            yc: {
-              scale: "y",
-              field: breakdownVar,
-              offset: stacked
-                ? STACKED_BAND_HEIGHT / 2
-                : MIDDLE_OF_BAND + BAR_HEIGHT,
-            },
-            text: {
-              signal: `datum.${darkMetricDisplayColumnName} + "${metricDisplayName}"`,
-            },
-          },
-        },
-      },
-    ],
+    marks: ALL_MARKS,
     scales: [
       {
         name: "x",
@@ -335,10 +333,12 @@ export interface DisparityBarChartProps {
   // Not stacked will show two equally sized bars side by side
   stacked?: boolean;
   filename?: string;
+  show2ndPopulationCompare?: boolean;
   thirdMetric?: MetricConfig;
 }
 
 export function DisparityBarChart(props: DisparityBarChartProps) {
+  console.log("third metric inside bar", props.thirdMetric);
   const [ref, width] = useResponsiveWidth(
     100 /* default width during intialization */
   );
@@ -366,11 +366,10 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   );
 
   let dataDoublePop, thirdMetricDisplayColumnName;
-  if (props.thirdMetric?.metricId === "acs_vaccination_population_pct") {
-    console.log("third metric sent in as prop", props.thirdMetric?.metricId);
+  if (props.show2ndPopulationCompare) {
     // build a 3rd color to be used instead of lightMetric when data available
     [dataDoublePop, thirdMetricDisplayColumnName] = addMetricDisplayColumn(
-      props.thirdMetric,
+      props.thirdMetric!,
       dataWithDarkMetric,
       /* omitPctSymbol= */ true
     );
@@ -378,22 +377,23 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     dataDoublePop = dataWithDarkMetric;
   }
 
-  console.log(dataDoublePop, "data right before VEGA");
-
-  // if ACS and KFF have a population comparison, use KFF. Otherwise use ACS
-  const data = dataDoublePop.map((item: any) => {
-    console.log(item);
-    if (
-      item.vaccine_population_pct > 0 &&
-      item.acs_vaccination_population_pct > 0
-    ) {
-      item.acs_vaccination_population_pct = 0;
-    }
-    return item;
-  });
+  // if using 2nd pop AND ACS and KFF both have a population comparison per item, use KFF.
+  // Otherwise use ACS
+  const data = props.show2ndPopulationCompare
+    ? dataDoublePop.map((item: any) => {
+        if (
+          item.vaccine_population_pct > 0 &&
+          item.acs_vaccination_population_pct > 0
+        ) {
+          item.acs_vaccination_population_pct = 0;
+        }
+        return item;
+      })
+    : dataDoublePop;
 
   return (
     <div ref={ref}>
+      {console.log("data into vega", data)}
       <Vega
         // custom 3-dot options for states, hidden on territories
         actions={{
@@ -416,15 +416,10 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           lightMetricDisplayColumnName,
           darkMetricDisplayColumnName,
           props.stacked,
-          props.thirdMetric?.metricId === "acs_vaccination_population_pct"
-            ? props.thirdMetric?.metricId
-            : "",
-          props.thirdMetric?.metricId === "acs_vaccination_population_pct"
-            ? props.thirdMetric?.shortVegaLabel
-            : "",
-          props.thirdMetric?.metricId === "acs_vaccination_population_pct"
-            ? thirdMetricDisplayColumnName
-            : ""
+          props.show2ndPopulationCompare,
+          props.thirdMetric?.metricId,
+          props.thirdMetric?.shortVegaLabel,
+          thirdMetricDisplayColumnName
         )}
       />
     </div>
