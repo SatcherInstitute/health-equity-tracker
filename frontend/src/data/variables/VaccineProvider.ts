@@ -186,9 +186,6 @@ class VaccineProvider extends VariableProvider {
     }
 
     df = df.dropSeries(["population"]).resetIndex();
-
-    console.log(df.toArray());
-
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);

@@ -37,11 +37,16 @@ function getSpec(
   thirdMeasureDisplayName?: string,
   thirdMetricDisplayColumnName?: string
 ): any {
+  console.log(
+    thirdMeasure,
+    thirdMeasureDisplayName,
+    thirdMetricDisplayColumnName
+  );
   const BAR_HEIGHT = stacked ? 40 : 10;
   const BAR_PADDING = 0.1;
   const DARK_MEASURE_COLOR = "#0B5420";
   const LIGHT_MEASURE_COLOR = "#91C684";
-  const THIRD_MEASURE_COLOR = "#cc2222";
+  const THIRD_MEASURE_COLOR = "#bdbdbd";
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 
@@ -57,6 +62,15 @@ function getSpec(
   const SIDE_BY_SIDE_OFFSET =
     BAR_HEIGHT * SIDE_BY_SIDE_ONE_BAR_RATIO * (SIDE_BY_SIDE_FULL_BAR_RATIO / 2);
 
+  const LEGEND_COLORS = [LIGHT_MEASURE_COLOR, DARK_MEASURE_COLOR];
+  const LEGEND_DOMAINS = [lightMeasureDisplayName, darkMeasureDisplayName];
+
+  if (thirdMeasure === "acs_vaccination_population_pct") {
+    console.log(thirdMeasure, "third is truthy, pushing to legend");
+    LEGEND_COLORS.unshift(THIRD_MEASURE_COLOR);
+    LEGEND_DOMAINS.unshift(thirdMeasureDisplayName!);
+  }
+
   function maxValueInField(field: string) {
     return Math.max(
       ...data
@@ -70,11 +84,17 @@ function getSpec(
       ? lightMeasure
       : darkMeasure;
 
-  const measureWithLargerDomain =
-    maxValueInField(largerOfLightOrDark) >
-    maxValueInField(thirdMeasure as string)
-      ? largerOfLightOrDark
-      : thirdMeasure;
+  let measureWithLargerDomain;
+
+  if (thirdMeasure) {
+    measureWithLargerDomain =
+      maxValueInField(largerOfLightOrDark) >
+      maxValueInField(thirdMeasure as string)
+        ? largerOfLightOrDark
+        : thirdMeasure;
+  } else {
+    measureWithLargerDomain = largerOfLightOrDark;
+  }
 
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
@@ -100,7 +120,7 @@ function getSpec(
       },
     ],
     marks: [
-      {
+      thirdMeasure && {
         name: "thirdMeasure_bars",
         type: "rect",
         style: ["bar"],
@@ -247,12 +267,8 @@ function getSpec(
       {
         name: "variables",
         type: "ordinal",
-        domain: [
-          lightMeasureDisplayName,
-          thirdMeasureDisplayName,
-          darkMeasureDisplayName,
-        ],
-        range: [LIGHT_MEASURE_COLOR, THIRD_MEASURE_COLOR, DARK_MEASURE_COLOR],
+        domain: LEGEND_DOMAINS,
+        range: LEGEND_COLORS,
       },
     ],
     axes: [
@@ -319,15 +335,13 @@ export interface DisparityBarChartProps {
   // Not stacked will show two equally sized bars side by side
   stacked?: boolean;
   filename?: string;
+  thirdMetric?: MetricConfig;
 }
 
 export function DisparityBarChart(props: DisparityBarChartProps) {
   const [ref, width] = useResponsiveWidth(
     100 /* default width during intialization */
   );
-
-  console.log(props.data, "props data");
-  console.log(props.lightMetric, "props light metric");
 
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
     props.data,
@@ -350,19 +364,32 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     dataWithLightMetric,
     /* omitPctSymbol= */ true
   );
-  // build a 3rd color to be used instead of lightMetric when data available
-  const [data, thirdMetricDisplayColumnName] = addMetricDisplayColumn(
-    {
-      fullCardTitleName: "ACS Population",
-      metricId: "acs_vaccination_population_pct",
-      shortVegaLabel: "% of population (ACS)",
-      type: "pct_share",
-    },
-    dataWithDarkMetric,
-    /* omitPctSymbol= */ true
-  );
 
-  console.log(props.lightMetric.metricId, "props.lightMetric.metricId,");
+  let dataDoublePop, thirdMetricDisplayColumnName;
+  if (props.thirdMetric) {
+    // build a 3rd color to be used instead of lightMetric when data available
+    [dataDoublePop, thirdMetricDisplayColumnName] = addMetricDisplayColumn(
+      props.thirdMetric,
+      dataWithDarkMetric,
+      /* omitPctSymbol= */ true
+    );
+  } else {
+    dataDoublePop = dataWithDarkMetric;
+  }
+
+  console.log(dataDoublePop, "data right before VEGA");
+
+  const data = dataDoublePop.map((item: any) => {
+    console.log(item);
+    if (
+      item.vaccine_population_pct > 0 &&
+      item.acs_vaccination_population_pct > 0
+    ) {
+      item.acs_vaccination_population_pct = 0;
+    }
+    return item;
+  });
+
   return (
     <div ref={ref}>
       <Vega
@@ -387,9 +414,9 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           lightMetricDisplayColumnName,
           darkMetricDisplayColumnName,
           props.stacked,
-          "acs_vaccination_population_pct",
-          "% of population (ACS)",
-          thirdMetricDisplayColumnName
+          props.thirdMetric?.metricId,
+          props.thirdMetric?.shortVegaLabel,
+          props.thirdMetric ? thirdMetricDisplayColumnName : ""
         )}
       />
     </div>

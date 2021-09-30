@@ -59,6 +59,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   if (metricConfig.knownBreakdownComparisonMetric) {
     metricIds.push(metricConfig.knownBreakdownComparisonMetric.metricId);
   }
+  // KFF doesn't calculate population comparisons for some demographic groups; use ACS instead but as different color
   if (metricConfig.secondaryPopulationComparisonMetric) {
     metricIds.push(metricConfig.secondaryPopulationComparisonMetric.metricId);
   }
@@ -99,8 +100,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
           });
         }
 
-        console.log(queryResponse);
-
         const dataAvailable = !queryResponse.shouldShowMissingDataMessage([
           metricConfig.metricId,
         ]);
@@ -137,6 +136,11 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 <DisparityBarChart
                   data={dataWithoutUnknowns}
                   lightMetric={metricConfig.populationComparisonMetric!}
+                  thirdMetric={
+                    props.fips.isState()
+                      ? metricConfig.secondaryPopulationComparisonMetric
+                      : metricConfig
+                  }
                   darkMetric={
                     metricConfig.knownBreakdownComparisonMetric || metricConfig
                   }

@@ -447,7 +447,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           secondaryPopulationComparisonMetric: {
             metricId: "acs_vaccination_population_pct",
             fullCardTitleName: "Population Percentage According to ACS",
-            shortVegaLabel: "pop percentage according to acs",
+            shortVegaLabel: "% of population (ACS)",
             type: "pct_share",
           },
         },
