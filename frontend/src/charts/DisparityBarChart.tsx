@@ -42,10 +42,12 @@ function getSpec(
   const BAR_PADDING = 0.1;
   const DARK_MEASURE_COLOR = "#0B5420";
   const LIGHT_MEASURE_COLOR = "#91C684";
-  const THIRD_MEASURE_OUTLINE_COLOR = LIGHT_MEASURE_COLOR;
-  const THIRD_MEASURE_OUTLINE_WIDTH = 2.5;
-  const THIRD_MEASURE_OPACITY = 0.33;
+  const THIRD_MEASURE_FILL_COLOR = "#a5cdc0";
+  // const THIRD_MEASURE_OUTLINE_COLOR = "#333333" //LIGHT_MEASURE_COLOR;
+  // const THIRD_MEASURE_OUTLINE_WIDTH = .5;
+  const THIRD_MEASURE_OPACITY = 0.5;
   const DATASET = "DATASET";
+
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 
   const THIN_RATIO = 0.3;
@@ -80,7 +82,6 @@ function getSpec(
         update: {
           fill: { value: LIGHT_MEASURE_COLOR },
           ariaRoleDescription: { value: "bar" },
-          strokeWidth: { value: 0 },
           x: { scale: "x", field: lightMeasure },
           x2: { scale: "x", value: 0 },
           y: { scale: "y", field: breakdownVar },
@@ -113,7 +114,6 @@ function getSpec(
         },
         update: {
           fill: { value: DARK_MEASURE_COLOR },
-          strokeWidth: { value: 0 },
           ariaRoleDescription: { value: "bar" },
           x: { scale: "x", field: darkMeasure },
           x2: { scale: "x", value: 0 },
@@ -161,8 +161,8 @@ function getSpec(
 
   // when needed, add THIRD MEASURE to the VEGA SPEC
   if (showThirdMeasure) {
-    // LEGEND_COLORS.unshift(THIRD_MEASURE_OUTLINE_COLOR);
-    // LEGEND_DOMAINS.unshift(thirdMeasureDisplayName!);
+    LEGEND_COLORS.unshift(THIRD_MEASURE_FILL_COLOR);
+    LEGEND_DOMAINS.unshift(thirdMeasureDisplayName!);
     ALL_MARKS.push({
       name: "thirdMeasure_bars",
       type: "rect",
@@ -178,9 +178,12 @@ function getSpec(
         },
         update: {
           // @ts-ignore
-          stroke: { value: THIRD_MEASURE_OUTLINE_COLOR },
-          strokeWidth: { value: THIRD_MEASURE_OUTLINE_WIDTH },
-          fill: { value: LIGHT_MEASURE_COLOR },
+          // stroke: { value: THIRD_MEASURE_OUTLINE_COLOR },
+          // strokeWidth: {
+          //   value: THIRD_MEASURE_OUTLINE_WIDTH
+          // },
+          fill: { value: THIRD_MEASURE_FILL_COLOR },
+          // @ts-ignore
           fillOpacity: { value: THIRD_MEASURE_OPACITY },
           ariaRoleDescription: { value: "bar" },
           x: { scale: "x", field: thirdMeasure! },
@@ -393,7 +396,11 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           item.vaccine_population_pct > 0 &&
           item.acs_vaccination_population_pct > 0
         ) {
-          item.acs_vaccination_population_pct = 0;
+          delete item.acs_vaccination_population_pct;
+          delete item.acs_vaccination_population_pct__DISPLAY_true;
+        } else {
+          delete item.vaccine_population_pct;
+          delete item.vaccine_population_pct__DISPLAY_true;
         }
         return item;
       })
