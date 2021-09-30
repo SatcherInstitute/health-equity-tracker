@@ -108,6 +108,81 @@ function MethodologyTab() {
                 </ul>
 
                 <h3 className={styles.MethodologySubsubheaderText}>
+                  COVID-19 Vaccinations
+                </h3>
+                <p>
+                  Because there is no national vaccine demographic dataset, we
+                  made the decision to combine the best datasets we could find
+                  for each geographic level. For the national level numbers, we
+                  use the{" "}
+                  <a href="https://covid.cdc.gov/covid-data-tracker/#vaccination-demographics-trends">
+                    CDC vaccine demographic dataset,
+                  </a>{" "}
+                  which provides data on the race/ethnicity, sex, and age range
+                  of vaccine recipients, as well whether they have taken one or
+                  two shots. For state level we decided to use{" "}
+                  <a href="https://www.kff.org/state-category/covid-19/">
+                    the Kaiser Family Foundation COVID-19 Indicators dataset,
+                  </a>{" "}
+                  which is a hand curated dataset based on analysis from state
+                  health department websites. We decided to use this because it
+                  is the only state level demographic vaccine dataset that
+                  publishes the data in a usable format. This dataset only
+                  provides data on the race and ethnicity of vaccine recipients,
+                  and only has data on at least one shot. It does not include
+                  any data for US territories. Finally, we could not identify a
+                  dataset that provides vaccine demographics at the county
+                  level, so we decided to use the{" "}
+                  <a href="https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh">
+                    COVID-19 Vaccinations in the United States, County dataset
+                  </a>{" "}
+                  which only provides the total number of vaccinations per
+                  county to show context.
+                </p>
+                <h4> Vaccination Population Sources </h4>
+                <ul>
+                  <li>
+                    For the state and county level we use the ACS 2019
+                    population estimations.
+                  </li>
+                  <li>
+                    For the national numbers we use the population numbers
+                    provided by the CDC, we chose to do this because they
+                    include population estimates from <b>Palau</b>,{" "}
+                    <b>Micronesia</b>, and the <b>U.S. Marshall Islands,</b>{" "}
+                    which are difficult to find estimations for. Furthermore the
+                    CDC has estimations for age ranges that the ACS numbers do
+                    not readily provide, as they use a per year population
+                    estimate from the ACS that we do not use anywhere else and
+                    have not added to our system.
+                  </li>
+                </ul>
+                <h4> Vaccination Data Limitations </h4>
+                <ul>
+                  <li>
+                    <b>Texas</b> does not report demographic-specific dose
+                    number information to CDC, so data for Texas are not
+                    represented in the figures and calculations on the national
+                    vaccine demographic page.
+                  </li>
+                  <li>
+                    Idaho provides vaccine data only for vaccine recipients who
+                    are 18 years and older in line with state laws. COVID
+                    vaccination administration data is unavailable for the
+                    Vaccinations in the US, and Vaccinations by County pages for
+                    the population aged less than 18 years. This only affects
+                    the national numbers.
+                  </li>
+                  <li>
+                    Some states report race and ethnicity separately, in which
+                    case they report unknown percentages separately. In this
+                    case, we show the higher of the two metrics on the national
+                    map of unknown cases, and display both numbers on the state
+                    page.
+                  </li>
+                </ul>
+
+                <h3 className={styles.MethodologySubsubheaderText}>
                   Diabetes & COPD
                 </h3>
                 <p>
