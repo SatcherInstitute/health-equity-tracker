@@ -52,9 +52,9 @@ export const DATA_TYPE_2_PARAM = "dt2";
 
 // WORDPRESS CONFIG
 // local using docker and kinsta
-export const BLOG_URL = "http://het-blog.local/";
+// export const BLOG_URL = "http://het-blog.local/";
 // free host for testing purposes
-// export const BLOG_URL" = "http://het-blog.000webhostapp.com/";
+export const BLOG_URL = "http://het-blog.000webhostapp.com/";
 export const WP_API = "wp-json/wp/v2/"; // "?rest_route=/wp/v2/"
 export const ALL_POSTS = "posts";
 export const ALL_MEDIA = "media";
@@ -73,10 +73,11 @@ export const ARTICLES_KEY = "articles";
 export const DYNAMIC_COPY_KEY = "dynamic_copy";
 export const REACT_QUERY_OPTIONS = {
   cacheTime: 1000 * 60 * 60 * 24, // use as pre-fetch data before garbage collection
-  // staleTime: 1000 * 60 * 10, // treat data as fresh and not trigger a refetch
+  staleTime: 1000 * 60 * 10, // treat data as fresh and not trigger a refetch
 };
 
 export async function fetchBlogData() {
+  console.log("FETCHING");
   return await axios.get(
     `${
       BLOG_URL + WP_API + ALL_POSTS
@@ -85,6 +86,7 @@ export async function fetchBlogData() {
 }
 
 export async function fetchCopyData(id: number) {
+  console.log("FETCHING");
   return await axios.get(`${BLOG_URL + WP_API + ALL_PAGES}/${id}`);
 }
 
