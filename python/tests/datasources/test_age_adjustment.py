@@ -10,6 +10,7 @@ import datasources.age_adjust as age_adjust
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "age_adjustment")
+GOLDEN_DATA = os.path.join(TEST_DIR, "cdc_restricted_by_race_county_age_adjusted.csv")
 
 
 def get_population_data_as_df():
@@ -17,27 +18,12 @@ def get_population_data_as_df():
 
 
 def get_race_and_age_data_as_df():
-    return pd.read_csv(os.path.join(TEST_DIR, "cdc_restricted_by_race_county.csv"))
+    return pd.read_csv(os.path.join(TEST_DIR, "cdc_restricted_by_race_age_county.csv"))
 
 
-# TODO: This test should really be many smaller test functions/methods with
-# their own test data, rather than being a monolith.
 def testAgeAdjust():
     # Process raw test data.
-    df = age_adjust.age_adjust(
-        )
+    df = age_adjust.age_adjust(get_race_and_age_data_as_df(), get_population_data_as_df(), "county")
+    expected_df = pd.read_csv(GOLDEN_DATA)
 
-    # Build map of expected dfs from golden data.
-    expected_dfs = {}
-    for key, val in GOLDEN_DATA.items():
-        # Set keep_default_na=False so that empty strings are not read as NaN.
-        expected_dfs[key] = pd.read_csv(val, dtype=str, keep_default_na=False)
-
-    # Test that the maps' keys are the same.
-    keys = sorted(list(dfs.keys()))
-    expected_keys = sorted(list(expected_dfs.keys()))
-    assert keys == expected_keys
-
-    # Test that the values are the same.
-    for key in keys:
-        assert_frame_equal(dfs[key], expected_dfs[key], check_like=True)
+    assert_frame_equal(df, expected_df, check_like=True)
