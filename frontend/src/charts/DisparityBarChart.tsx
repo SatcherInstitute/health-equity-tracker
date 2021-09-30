@@ -42,7 +42,7 @@ function getSpec(
   const BAR_PADDING = 0.1;
   const DARK_MEASURE_COLOR = "#0B5420";
   const LIGHT_MEASURE_COLOR = "#91C684";
-  const THIRD_MEASURE_COLOR = "#bdbdbd";
+  const THIRD_MEASURE_OUTLINE_COLOR = LIGHT_MEASURE_COLOR;
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 
@@ -157,8 +157,8 @@ function getSpec(
 
   // when needed, add THIRD MEASURE to the VEGA SPEC
   if (showThirdMeasure) {
-    LEGEND_COLORS.unshift(THIRD_MEASURE_COLOR);
-    LEGEND_DOMAINS.unshift(thirdMeasureDisplayName!);
+    // LEGEND_COLORS.unshift(THIRD_MEASURE_OUTLINE_COLOR);
+    // LEGEND_DOMAINS.unshift(thirdMeasureDisplayName!);
     ALL_MARKS.push({
       name: "thirdMeasure_bars",
       type: "rect",
@@ -173,7 +173,10 @@ function getSpec(
           },
         },
         update: {
-          fill: { value: THIRD_MEASURE_COLOR },
+          // @ts-ignore
+          stroke: { value: THIRD_MEASURE_OUTLINE_COLOR },
+          fill: { value: LIGHT_MEASURE_COLOR },
+          fillOpacity: { value: 0.15 },
           ariaRoleDescription: { value: "bar" },
           x: { scale: "x", field: thirdMeasure! },
           x2: { scale: "x", value: 0 },
@@ -340,7 +343,7 @@ export interface DisparityBarChartProps {
 export function DisparityBarChart(props: DisparityBarChartProps) {
   console.log("third metric inside bar", props.thirdMetric);
   const [ref, width] = useResponsiveWidth(
-    100 /* default width during intialization */
+    100 /* default width during initialization */
   );
 
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
