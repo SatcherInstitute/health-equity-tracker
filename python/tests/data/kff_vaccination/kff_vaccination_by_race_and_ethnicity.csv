@@ -14,7 +14,7 @@ Arizona,ETHNICITY_UNKNOWN,0.11,,,Unknown ethnicity,,Unknown ethnicity,
 Arizona,WHITE_NH,0.52,0.47,,White,FALSE,White (Non-Hispanic),0.542
 Arizona,BLACK_NH,0.03,0.34,,Black or African American,FALSE,Black or African American (Non-Hispanic),0.043
 Arizona,HISP,0.19,0.29,,Hispanic or Latino,TRUE,Hispanic or Latino,0.318
-Arizona,ASIAN_NH,0.04,0.61,,Asian,FALSE,Asian (Non-Hispanic),0.033
+Arizona,API_NH,0.04,0.61,,"Asian, Native Hawaiian, and Pacific Islander",FALSE,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)",0.033
 Arizona,AIAN_NH,0.03,,,American Indian and Alaska Native,FALSE,American Indian and Alaska Native (Non-Hispanic),
 Arizona,NHPI_NH,NR,,,Native Hawaiian and Pacific Islander,FALSE,Native Hawaiian and Pacific Islander (Non-Hispanic),
 Arizona,OTHER_NONSTANDARD_NH,0.19,,,Some other race*,FALSE,Some other race* (Non-Hispanic),
