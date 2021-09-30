@@ -82,6 +82,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               row[props.breakdownVar] !== UNKNOWN_ETHNICITY
           );
 
+        console.log(dataWithoutUnknowns);
+
         let shouldShowDoesntAddUpMessage = false;
         if (
           props.breakdownVar === "race_and_ethnicity" &&
