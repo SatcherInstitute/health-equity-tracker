@@ -150,7 +150,8 @@ def generate_total_row(state_row_totals, state):
     output_row[std_col.STATE_NAME_COL] = state
     output_row[std_col.RACE_CATEGORY_ID_COL] = Race.TOTAL.value
 
-    latest_row = state_row_totals[state_row_totals['date'] == state_row_totals['date'].max()]
+    state_row_totals = state_row_totals.loc[~state_row_totals['one_dose'].isnull()]
+    latest_row = state_row_totals.loc[state_row_totals['date'] == state_row_totals['date'].max()]
     output_row[std_col.VACCINATED_FIRST_DOSE] = str(latest_row[TOTAL_KEY].values[0])
     output_row[std_col.POPULATION_PCT_COL] = "1.0"
     return output_row
