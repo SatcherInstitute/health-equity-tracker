@@ -127,8 +127,8 @@ class Race(Enum):
 
     # Categories that are combinations of other categories
     # Currently only used in state level vaccination data
-    API = ("API", "Asian American and Pacific Islander", True)
-    API_NH = ("API_NH", "Asian American and Pacific Islander", False)
+    API = ("API", "Asian, Native Hawaiian, and Pacific Islander", True)
+    API_NH = ("API_NH", "Asian, Native Hawaiian, and Pacific Islander", False)
     # Combines AIAN and NHPI
     INDIGENOUS = ("INDIGENOUS", "Indigenous", True)
     # Combines AIAN_NH and NHPI_NH
