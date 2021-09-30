@@ -51,10 +51,12 @@ export const DATA_TYPE_1_PARAM = "dt1";
 export const DATA_TYPE_2_PARAM = "dt2";
 
 // WORDPRESS CONFIG
-// local using docker and kinsta
-// export const BLOG_URL = "http://het-blog.local/";
-// free host for testing purposes
-export const BLOG_URL = "http://het-blog.000webhostapp.com/";
+// use local using docker and kinsta in dev
+// otherwise default to free online host for Netlify testing purposes/
+export const BLOG_URL =
+  process.env.NODE_ENV === "development"
+    ? "http://het-blog.local/"
+    : "http://het-blog.000webhostapp.com/";
 export const WP_API = "wp-json/wp/v2/"; // "?rest_route=/wp/v2/"
 export const ALL_POSTS = "posts";
 export const ALL_MEDIA = "media";
@@ -77,7 +79,7 @@ export const REACT_QUERY_OPTIONS = {
 };
 
 export async function fetchBlogData() {
-  console.log("FETCHING");
+  console.log("FETCHING", BLOG_URL);
   return await axios.get(
     `${
       BLOG_URL + WP_API + ALL_POSTS
@@ -86,7 +88,7 @@ export async function fetchBlogData() {
 }
 
 export async function fetchCopyData(id: number) {
-  console.log("FETCHING");
+  console.log("FETCHING", BLOG_URL);
   return await axios.get(`${BLOG_URL + WP_API + ALL_PAGES}/${id}`);
 }
 
