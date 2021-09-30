@@ -86,7 +86,7 @@ function getSpec(
 
   let measureWithLargerDomain;
 
-  if (thirdMeasure) {
+  if (thirdMeasure === "acs_vaccination_population_pct") {
     measureWithLargerDomain =
       maxValueInField(largerOfLightOrDark) >
       maxValueInField(thirdMeasure as string)
@@ -120,7 +120,7 @@ function getSpec(
       },
     ],
     marks: [
-      thirdMeasure && {
+      thirdMeasure === "acs_vaccination_population_pct" && {
         name: "thirdMeasure_bars",
         type: "rect",
         style: ["bar"],
@@ -366,7 +366,8 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   );
 
   let dataDoublePop, thirdMetricDisplayColumnName;
-  if (props.thirdMetric) {
+  if (props.thirdMetric?.metricId === "acs_vaccination_population_pct") {
+    console.log("third metric sent in as prop", props.thirdMetric?.metricId);
     // build a 3rd color to be used instead of lightMetric when data available
     [dataDoublePop, thirdMetricDisplayColumnName] = addMetricDisplayColumn(
       props.thirdMetric,
@@ -379,6 +380,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
 
   console.log(dataDoublePop, "data right before VEGA");
 
+  // if ACS and KFF have a population comparison, use KFF. Otherwise use ACS
   const data = dataDoublePop.map((item: any) => {
     console.log(item);
     if (
@@ -414,9 +416,15 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           lightMetricDisplayColumnName,
           darkMetricDisplayColumnName,
           props.stacked,
-          props.thirdMetric?.metricId,
-          props.thirdMetric?.shortVegaLabel,
-          props.thirdMetric ? thirdMetricDisplayColumnName : ""
+          props.thirdMetric?.metricId === "acs_vaccination_population_pct"
+            ? props.thirdMetric?.metricId
+            : "",
+          props.thirdMetric?.metricId === "acs_vaccination_population_pct"
+            ? props.thirdMetric?.shortVegaLabel
+            : "",
+          props.thirdMetric?.metricId === "acs_vaccination_population_pct"
+            ? thirdMetricDisplayColumnName
+            : ""
         )}
       />
     </div>
