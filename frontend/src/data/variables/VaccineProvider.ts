@@ -116,6 +116,30 @@ class VaccineProvider extends VariableProvider {
         );
       }
     } else if (breakdowns.geography === "state") {
+      const acsQueryResponse = await this.acsProvider.getData(
+        new MetricQuery(["population_pct"], acsBreakdowns)
+      );
+
+      consumedDatasetIds = consumedDatasetIds.concat(
+        acsQueryResponse.consumedDatasetIds
+      );
+
+      const acs = new DataFrame(acsQueryResponse.data);
+      const acsOnlyAIANNHPI = acs.where(
+        (row) =>
+          row[breakdownColumnName] ===
+            "American Indian and Alaska Native (Non-Hispanic)" ||
+          row[breakdownColumnName] ===
+            "Native Hawaiian and Pacific Islander (Non-Hispanic)"
+      );
+
+      df = joinOnCols(
+        df,
+        acsOnlyAIANNHPI,
+        ["fips", breakdownColumnName],
+        "left"
+      );
+
       df = df.generateSeries({
         population_pct: (row) => row.population_pct * 100,
       });
