@@ -70,6 +70,11 @@ class VaccineProvider extends VariableProvider {
         acsQueryResponse.consumedDatasetIds
       );
 
+      // We merge this in on the backend
+      consumedDatasetIds = consumedDatasetIds.concat(
+        "acs_2010_population-by_race_and_ethnicity_territory"
+      );
+
       const acs = new DataFrame(acsQueryResponse.data);
       df = joinOnCols(df, acs, ["fips", breakdownColumnName], "left");
 
