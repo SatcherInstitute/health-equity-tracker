@@ -34,7 +34,8 @@ function getSpec(
   // TESTING place AIAL NHPI pop compare in different color columns due to ACS not KFF
   altLightMeasure?: string,
   altLightMeasureDisplayName?: string,
-  altLightMetricDisplayColumnName?: string
+  altLightMetricDisplayColumnName?: string,
+  showAltPopCompare?: boolean
 ): any {
   const BAR_HEIGHT = stacked ? 40 : 10;
   const BAR_PADDING = 0.1;
@@ -60,6 +61,8 @@ function getSpec(
   // defaults for most charts
   const LEGEND_COLORS = [LIGHT_MEASURE_COLOR, DARK_MEASURE_COLOR];
   const LEGEND_DOMAINS = [lightMeasureDisplayName, darkMeasureDisplayName];
+  const LEGEND_RANGE = [LIGHT_MEASURE_COLOR, DARK_MEASURE_COLOR];
+
   const ALL_MARKS = [
     {
       name: "lightMeasure_bars",
@@ -155,7 +158,7 @@ function getSpec(
   ];
 
   // when needed, add ALT_LIGHT MEASURE to the VEGA SPEC
-  if (altLightMeasure === "acs_covid_cases_reporting_population_pct") {
+  if (showAltPopCompare) {
     LEGEND_COLORS.unshift(ALT_LIGHT_MEASURE_COLOR);
     LEGEND_DOMAINS.unshift(altLightMeasureDisplayName!);
     ALL_MARKS.push({
@@ -259,16 +262,8 @@ function getSpec(
       {
         name: "variables",
         type: "ordinal",
-        domain: [
-          altLightMeasureDisplayName,
-          lightMeasureDisplayName,
-          darkMeasureDisplayName,
-        ],
-        range: [
-          ALT_LIGHT_MEASURE_COLOR,
-          LIGHT_MEASURE_COLOR,
-          DARK_MEASURE_COLOR,
-        ],
+        domain: LEGEND_DOMAINS,
+        range: LEGEND_COLORS,
       },
     ],
     axes: [
@@ -435,7 +430,8 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           props.stacked,
           showAltPopCompare ? "acs_covid_cases_reporting_population_pct" : "",
           showAltPopCompare ? "% of population (ACS)" : "",
-          showAltPopCompare ? altLightMetricDisplayColumnName : ""
+          showAltPopCompare ? altLightMetricDisplayColumnName : "",
+          showAltPopCompare
         )}
       />
     </div>
