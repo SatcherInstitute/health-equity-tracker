@@ -29,13 +29,6 @@ export function showAltPopCompare(props: {
   breakdownVar: string;
   variableConfig: { variableId: string };
 }) {
-  console.log(
-    "should show alt pop",
-    props.fips.isState() &&
-      props.breakdownVar === "race_and_ethnicity" &&
-      props.variableConfig.variableId ===
-        METRIC_CONFIG["vaccinated"][0].variableId
-  );
   return (
     props.fips.isState() &&
     props.breakdownVar === "race_and_ethnicity" &&

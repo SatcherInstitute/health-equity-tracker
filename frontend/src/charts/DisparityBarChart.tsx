@@ -61,7 +61,6 @@ function getSpec(
   // defaults for most charts
   const LEGEND_COLORS = [LIGHT_MEASURE_COLOR, DARK_MEASURE_COLOR];
   const LEGEND_DOMAINS = [lightMeasureDisplayName, darkMeasureDisplayName];
-  const LEGEND_RANGE = [LIGHT_MEASURE_COLOR, DARK_MEASURE_COLOR];
 
   const ALL_MARKS = [
     {
