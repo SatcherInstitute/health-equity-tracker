@@ -40,7 +40,8 @@ function getSpec(
   const BAR_PADDING = 0.1;
   const DARK_MEASURE_COLOR = "#0B5420";
   const LIGHT_MEASURE_COLOR = "#91C684";
-  const ALT_LIGHT_MEASURE_COLOR = "#cc2222";
+  const ALT_LIGHT_MEASURE_COLOR = "#89d5cc";
+  const ALT_LIGHT_MEASURE_OPACITY = 0.6;
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 
@@ -56,6 +57,9 @@ function getSpec(
   const SIDE_BY_SIDE_OFFSET =
     BAR_HEIGHT * SIDE_BY_SIDE_ONE_BAR_RATIO * (SIDE_BY_SIDE_FULL_BAR_RATIO / 2);
 
+  // defaults for most charts
+  const LEGEND_COLORS = [LIGHT_MEASURE_COLOR, DARK_MEASURE_COLOR];
+  const LEGEND_DOMAINS = [lightMeasureDisplayName, darkMeasureDisplayName];
   const ALL_MARKS = [
     {
       name: "lightMeasure_bars",
@@ -148,7 +152,13 @@ function getSpec(
         },
       },
     },
-    {
+  ];
+
+  // when needed, add ALT_LIGHT MEASURE to the VEGA SPEC
+  if (altLightMeasure === "acs_covid_cases_reporting_population_pct") {
+    LEGEND_COLORS.unshift(ALT_LIGHT_MEASURE_COLOR);
+    LEGEND_DOMAINS.unshift(altLightMeasureDisplayName!);
+    ALL_MARKS.push({
       name: "altLightMeasure_bars",
       type: "rect",
       style: ["bar"],
@@ -162,9 +172,16 @@ function getSpec(
           },
         },
         update: {
+          // @ts-ignore
+          // stroke: { value: ALT_LIGHT_MEASURE_OUTLINE_COLOR },
+          // strokeWidth: {
+          //   value: ALT_LIGHT_MEASURE_OUTLINE_WIDTH
+          // },
           fill: { value: ALT_LIGHT_MEASURE_COLOR },
+          // @ts-ignore
+          fillOpacity: { value: ALT_LIGHT_MEASURE_OPACITY },
           ariaRoleDescription: { value: "bar" },
-          x: { scale: "x", field: altLightMeasure },
+          x: { scale: "x", field: altLightMeasure! },
           x2: { scale: "x", value: 0 },
           y: { scale: "y", field: breakdownVar },
           yc: {
@@ -180,8 +197,8 @@ function getSpec(
           },
         },
       },
-    },
-  ];
+    });
+  }
 
   function maxValueInField(field: string) {
     return Math.max(
@@ -318,6 +335,7 @@ export interface DisparityBarChartProps {
   // Not stacked will show two equally sized bars side by side
   stacked?: boolean;
   filename?: string;
+  showAltPopCompare?: boolean;
 }
 
 export function DisparityBarChart(props: DisparityBarChartProps) {
@@ -325,32 +343,36 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     100 /* default width during intialization */
   );
 
+  let dataFromProps = props.data;
+
   // testing: move AIAN and NHPI into their own properties
-  const dataWithAltPopCompare = props.data.map((item) => {
-    if (
-      item["race_and_ethnicity"] ===
-        "American Indian and Alaska Native (Non-Hispanic)" ||
-      item["race_and_ethnicity"] ===
-        "Native Hawaiian and Pacific Islander (Non-Hispanic)"
-    ) {
-      const popPct = item["covid_cases_reporting_population_pct"];
-      // console.log(popPct, "popPct");
-      const itemWithAltPopCompare = { ...item };
+  const { showAltPopCompare } = props;
 
-      itemWithAltPopCompare.acs_covid_cases_reporting_population_pct = popPct;
-      // console.log(item, itemWithAltPopCompare, "old new items");
-      delete itemWithAltPopCompare.covid_cases_reporting_population_pct;
-      // console.log(item, itemWithAltPopCompare, "old new items after delete");
-      return itemWithAltPopCompare;
-    }
-    return item;
-  });
+  if (showAltPopCompare) {
+    dataFromProps = props.data.map((item) => {
+      if (
+        item["race_and_ethnicity"] ===
+          "American Indian and Alaska Native (Non-Hispanic)" ||
+        item["race_and_ethnicity"] ===
+          "Native Hawaiian and Pacific Islander (Non-Hispanic)"
+      ) {
+        const popPct = item["covid_cases_reporting_population_pct"];
+        // console.log(popPct, "popPct");
+        const itemWithAltPopCompare = { ...item };
 
-  console.log(dataWithAltPopCompare, "data with alt pop");
+        itemWithAltPopCompare.acs_covid_cases_reporting_population_pct = popPct;
+        // console.log(item, itemWithAltPopCompare, "old new items");
+        delete itemWithAltPopCompare.covid_cases_reporting_population_pct;
+        // console.log(item, itemWithAltPopCompare, "old new items after delete");
+        return itemWithAltPopCompare;
+      }
+      return item;
+    });
+  }
 
   // add *~* for line breaks in column axis labels
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
-    dataWithAltPopCompare,
+    dataFromProps,
     props.breakdownVar
   );
 
@@ -379,11 +401,13 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     type: "pct_share",
   };
 
-  const [data, altLightMetricDisplayColumnName] = addMetricDisplayColumn(
-    altLightMetric,
-    dataWithDarkMetric,
-    /* omitPctSymbol= */ true
-  );
+  const [data, altLightMetricDisplayColumnName] = showAltPopCompare
+    ? addMetricDisplayColumn(
+        altLightMetric,
+        dataWithDarkMetric,
+        /* omitPctSymbol= */ true
+      )
+    : [dataWithDarkMetric, ""];
 
   return (
     <div ref={ref}>
@@ -409,9 +433,9 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           lightMetricDisplayColumnName,
           darkMetricDisplayColumnName,
           props.stacked,
-          "acs_covid_cases_reporting_population_pct",
-          "% of population (ACS)",
-          altLightMetricDisplayColumnName
+          showAltPopCompare ? "acs_covid_cases_reporting_population_pct" : "",
+          showAltPopCompare ? "% of population (ACS)" : "",
+          showAltPopCompare ? altLightMetricDisplayColumnName : ""
         )}
       />
     </div>
