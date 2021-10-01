@@ -30,12 +30,17 @@ function getSpec(
   // preformatted data as strings.
   lightMetricDisplayColumnName: string,
   darkMetricDisplayColumnName: string,
-  stacked?: boolean
+  stacked?: boolean,
+  // TESTING place AIAL NHPI pop compare in different color columns due to ACS not KFF
+  altLightMeasure?: string,
+  altLightMeasureDisplayName?: string,
+  altLightMetricDisplayColumnName?: string
 ): any {
   const BAR_HEIGHT = stacked ? 40 : 10;
   const BAR_PADDING = 0.1;
   const DARK_MEASURE_COLOR = "#0B5420";
   const LIGHT_MEASURE_COLOR = "#91C684";
+  const ALT_LIGHT_MEASURE_COLOR = "#cc2222";
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 
@@ -50,6 +55,133 @@ function getSpec(
   const MIDDLE_OF_BAND = SIDE_BY_SIDE_BAND_HEIGHT / 2;
   const SIDE_BY_SIDE_OFFSET =
     BAR_HEIGHT * SIDE_BY_SIDE_ONE_BAR_RATIO * (SIDE_BY_SIDE_FULL_BAR_RATIO / 2);
+
+  const ALL_MARKS = [
+    {
+      name: "lightMeasure_bars",
+      type: "rect",
+      style: ["bar"],
+      from: { data: DATASET },
+      encode: {
+        enter: {
+          tooltip: {
+            signal: `${oneLineLabel(
+              breakdownVar
+            )} + ', ${lightMeasureDisplayName}: ' + datum.${lightMetricDisplayColumnName}`,
+          },
+        },
+        update: {
+          fill: { value: LIGHT_MEASURE_COLOR },
+          ariaRoleDescription: { value: "bar" },
+          x: { scale: "x", field: lightMeasure },
+          x2: { scale: "x", value: 0 },
+          y: { scale: "y", field: breakdownVar },
+          yc: {
+            scale: "y",
+            field: breakdownVar,
+            offset: stacked
+              ? STACKED_BAND_HEIGHT / 2
+              : MIDDLE_OF_BAND - SIDE_BY_SIDE_OFFSET,
+          },
+          height: {
+            scale: "y",
+            band: stacked ? 1 : SIDE_BY_SIDE_ONE_BAR_RATIO,
+          },
+        },
+      },
+    },
+    {
+      name: "darkMeasure_bars",
+      type: "rect",
+      style: ["bar"],
+      from: { data: DATASET },
+      encode: {
+        enter: {
+          tooltip: {
+            signal: `${oneLineLabel(
+              breakdownVar
+            )} + ', ${darkMeasureDisplayName}: ' + datum.${darkMetricDisplayColumnName}`,
+          },
+        },
+        update: {
+          fill: { value: DARK_MEASURE_COLOR },
+          ariaRoleDescription: { value: "bar" },
+          x: { scale: "x", field: darkMeasure },
+          x2: { scale: "x", value: 0 },
+          yc: {
+            scale: "y",
+            field: breakdownVar,
+            offset: stacked
+              ? STACKED_BAND_HEIGHT / 2
+              : MIDDLE_OF_BAND + SIDE_BY_SIDE_OFFSET,
+          },
+          height: {
+            scale: "y",
+            band: stacked ? THIN_RATIO : SIDE_BY_SIDE_ONE_BAR_RATIO,
+          },
+        },
+      },
+    },
+    {
+      name: "darkMeasure_text_labels",
+      type: "text",
+      style: ["text"],
+      from: { data: DATASET },
+      encode: {
+        update: {
+          align: { value: "left" },
+          baseline: { value: "middle" },
+          dx: { value: 3 },
+          fill: { value: "black" },
+          x: { scale: "x", field: darkMeasure },
+          y: { scale: "y", field: breakdownVar, band: 0.5 },
+          yc: {
+            scale: "y",
+            field: breakdownVar,
+            offset: stacked
+              ? STACKED_BAND_HEIGHT / 2
+              : MIDDLE_OF_BAND + BAR_HEIGHT,
+          },
+          text: {
+            signal: `datum.${darkMetricDisplayColumnName} + "${metricDisplayName}"`,
+          },
+        },
+      },
+    },
+    {
+      name: "altLightMeasure_bars",
+      type: "rect",
+      style: ["bar"],
+      from: { data: DATASET },
+      encode: {
+        enter: {
+          tooltip: {
+            signal: `${oneLineLabel(
+              breakdownVar
+            )} + ', ${altLightMeasureDisplayName}: ' + datum.${altLightMetricDisplayColumnName}`,
+          },
+        },
+        update: {
+          fill: { value: ALT_LIGHT_MEASURE_COLOR },
+          ariaRoleDescription: { value: "bar" },
+          x: { scale: "x", field: altLightMeasure },
+          x2: { scale: "x", value: 0 },
+          y: { scale: "y", field: breakdownVar },
+          yc: {
+            scale: "y",
+            field: breakdownVar,
+            offset: stacked
+              ? STACKED_BAND_HEIGHT / 2
+              : MIDDLE_OF_BAND - SIDE_BY_SIDE_OFFSET,
+          },
+          height: {
+            scale: "y",
+            band: stacked ? 1 : SIDE_BY_SIDE_ONE_BAR_RATIO,
+          },
+        },
+      },
+    },
+  ];
 
   function maxValueInField(field: string) {
     return Math.max(
@@ -87,99 +219,7 @@ function getSpec(
         update: "bandspace(domain('y').length, 0.1, 0.05) * y_step",
       },
     ],
-    marks: [
-      {
-        name: "lightMeasure_bars",
-        type: "rect",
-        style: ["bar"],
-        from: { data: DATASET },
-        encode: {
-          enter: {
-            tooltip: {
-              signal: `${oneLineLabel(
-                breakdownVar
-              )} + ', ${lightMeasureDisplayName}: ' + datum.${lightMetricDisplayColumnName}`,
-            },
-          },
-          update: {
-            fill: { value: LIGHT_MEASURE_COLOR },
-            ariaRoleDescription: { value: "bar" },
-            x: { scale: "x", field: lightMeasure },
-            x2: { scale: "x", value: 0 },
-            y: { scale: "y", field: breakdownVar },
-            yc: {
-              scale: "y",
-              field: breakdownVar,
-              offset: stacked
-                ? STACKED_BAND_HEIGHT / 2
-                : MIDDLE_OF_BAND - SIDE_BY_SIDE_OFFSET,
-            },
-            height: {
-              scale: "y",
-              band: stacked ? 1 : SIDE_BY_SIDE_ONE_BAR_RATIO,
-            },
-          },
-        },
-      },
-      {
-        name: "darkMeasure_bars",
-        type: "rect",
-        style: ["bar"],
-        from: { data: DATASET },
-        encode: {
-          enter: {
-            tooltip: {
-              signal: `${oneLineLabel(
-                breakdownVar
-              )} + ', ${darkMeasureDisplayName}: ' + datum.${darkMetricDisplayColumnName}`,
-            },
-          },
-          update: {
-            fill: { value: DARK_MEASURE_COLOR },
-            ariaRoleDescription: { value: "bar" },
-            x: { scale: "x", field: darkMeasure },
-            x2: { scale: "x", value: 0 },
-            yc: {
-              scale: "y",
-              field: breakdownVar,
-              offset: stacked
-                ? STACKED_BAND_HEIGHT / 2
-                : MIDDLE_OF_BAND + SIDE_BY_SIDE_OFFSET,
-            },
-            height: {
-              scale: "y",
-              band: stacked ? THIN_RATIO : SIDE_BY_SIDE_ONE_BAR_RATIO,
-            },
-          },
-        },
-      },
-      {
-        name: "darkMeasure_text_labels",
-        type: "text",
-        style: ["text"],
-        from: { data: DATASET },
-        encode: {
-          update: {
-            align: { value: "left" },
-            baseline: { value: "middle" },
-            dx: { value: 3 },
-            fill: { value: "black" },
-            x: { scale: "x", field: darkMeasure },
-            y: { scale: "y", field: breakdownVar, band: 0.5 },
-            yc: {
-              scale: "y",
-              field: breakdownVar,
-              offset: stacked
-                ? STACKED_BAND_HEIGHT / 2
-                : MIDDLE_OF_BAND + BAR_HEIGHT,
-            },
-            text: {
-              signal: `datum.${darkMetricDisplayColumnName} + "${metricDisplayName}"`,
-            },
-          },
-        },
-      },
-    ],
+    marks: ALL_MARKS,
     scales: [
       {
         name: "x",
@@ -202,8 +242,16 @@ function getSpec(
       {
         name: "variables",
         type: "ordinal",
-        domain: [lightMeasureDisplayName, darkMeasureDisplayName],
-        range: [LIGHT_MEASURE_COLOR, DARK_MEASURE_COLOR],
+        domain: [
+          altLightMeasureDisplayName,
+          lightMeasureDisplayName,
+          darkMeasureDisplayName,
+        ],
+        range: [
+          ALT_LIGHT_MEASURE_COLOR,
+          LIGHT_MEASURE_COLOR,
+          DARK_MEASURE_COLOR,
+        ],
       },
     ],
     axes: [
@@ -277,10 +325,35 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     100 /* default width during intialization */
   );
 
+  // testing: move AIAN and NHPI into their own properties
+  const dataWithAltPopCompare = props.data.map((item) => {
+    if (
+      item["race_and_ethnicity"] ===
+        "American Indian and Alaska Native (Non-Hispanic)" ||
+      item["race_and_ethnicity"] ===
+        "Native Hawaiian and Pacific Islander (Non-Hispanic)"
+    ) {
+      const popPct = item["covid_cases_reporting_population_pct"];
+      // console.log(popPct, "popPct");
+      const itemWithAltPopCompare = { ...item };
+
+      itemWithAltPopCompare.acs_covid_cases_reporting_population_pct = popPct;
+      // console.log(item, itemWithAltPopCompare, "old new items");
+      delete itemWithAltPopCompare.covid_cases_reporting_population_pct;
+      // console.log(item, itemWithAltPopCompare, "old new items after delete");
+      return itemWithAltPopCompare;
+    }
+    return item;
+  });
+
+  console.log(dataWithAltPopCompare, "data with alt pop");
+
+  // add *~* for line breaks in column axis labels
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
-    props.data,
+    dataWithAltPopCompare,
     props.breakdownVar
   );
+
   // Omit the % symbol because it's included in shortVegaLabel.
   const [
     dataWithLightMetric,
@@ -290,9 +363,25 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     dataWithLineBreakDelimiter,
     /* omitPctSymbol= */ true
   );
-  const [data, darkMetricDisplayColumnName] = addMetricDisplayColumn(
+  const [
+    dataWithDarkMetric,
+    darkMetricDisplayColumnName,
+  ] = addMetricDisplayColumn(
     props.darkMetric,
     dataWithLightMetric,
+    /* omitPctSymbol= */ true
+  );
+
+  const altLightMetric: MetricConfig = {
+    fullCardTitleName: "Population Share (ACS)",
+    metricId: "acs_covid_cases_reporting_population_pct",
+    shortVegaLabel: "% of population (ACS)",
+    type: "pct_share",
+  };
+
+  const [data, altLightMetricDisplayColumnName] = addMetricDisplayColumn(
+    altLightMetric,
+    dataWithDarkMetric,
     /* omitPctSymbol= */ true
   );
 
@@ -319,7 +408,10 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           props.metricDisplayName,
           lightMetricDisplayColumnName,
           darkMetricDisplayColumnName,
-          props.stacked
+          props.stacked,
+          "acs_covid_cases_reporting_population_pct",
+          "% of population (ACS)",
+          altLightMetricDisplayColumnName
         )}
       />
     </div>
