@@ -334,7 +334,7 @@ export interface DisparityBarChartProps {
 
 export function DisparityBarChart(props: DisparityBarChartProps) {
   const [ref, width] = useResponsiveWidth(
-    100 /* default width during intialization */
+    100 /* default width during initialization */
   );
 
   let dataFromProps = props.data;
