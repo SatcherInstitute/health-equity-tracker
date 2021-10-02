@@ -175,9 +175,9 @@ function getSpec(
         },
         update: {
           // @ts-ignore
-          // stroke: { value: ALT_LIGHT_MEASURE_OUTLINE_COLOR },
+          // stroke: { value: DARK_MEASURE_COLOR },
           // strokeWidth: {
-          //   value: ALT_LIGHT_MEASURE_OUTLINE_WIDTH
+          // value: ALT_LIGHT_MEASURE_OUTLINE_WIDTH
           // },
           fill: { value: ALT_LIGHT_MEASURE_COLOR },
           // @ts-ignore
@@ -339,7 +339,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
 
   let dataFromProps = props.data;
 
-  // testing: move AIAN and NHPI into their own properties
+  // move AIAN and NHPI into their own properties for STATE/RACE/VACCINE (since KFF doesnt provide pop compare metrics)
   const { showAltPopCompare } = props;
 
   if (showAltPopCompare) {
@@ -350,19 +350,17 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
         item["race_and_ethnicity"] ===
           "Native Hawaiian and Pacific Islander (Non-Hispanic)"
       ) {
-        const popPct = item["covid_cases_reporting_population_pct"];
-        // console.log(popPct, "popPct");
+        const popPct = item.vaccine_population_pct;
         const itemWithAltPopCompare = { ...item };
-
-        itemWithAltPopCompare.acs_covid_cases_reporting_population_pct = popPct;
-        // console.log(item, itemWithAltPopCompare, "old new items");
-        delete itemWithAltPopCompare.covid_cases_reporting_population_pct;
-        // console.log(item, itemWithAltPopCompare, "old new items after delete");
+        itemWithAltPopCompare.acs_vaccine_population_pct = popPct;
+        delete itemWithAltPopCompare.vaccine_population_pct;
         return itemWithAltPopCompare;
       }
       return item;
     });
   }
+
+  console.log("data after swaps", dataFromProps);
 
   // add *~* for line breaks in column axis labels
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
@@ -390,11 +388,12 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
 
   const altLightMetric: MetricConfig = {
     fullCardTitleName: "Population Share (ACS)",
-    metricId: "acs_covid_cases_reporting_population_pct",
+    metricId: "acs_vaccine_population_pct",
     shortVegaLabel: "% of population (ACS)",
     type: "pct_share",
   };
 
+  // only integrate alt light if showing alt population compare
   const [data, altLightMetricDisplayColumnName] = showAltPopCompare
     ? addMetricDisplayColumn(
         altLightMetric,
@@ -427,8 +426,8 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           lightMetricDisplayColumnName,
           darkMetricDisplayColumnName,
           props.stacked,
-          showAltPopCompare ? "acs_covid_cases_reporting_population_pct" : "",
-          showAltPopCompare ? "% of population (ACS)" : "",
+          showAltPopCompare ? altLightMetric.metricId : "",
+          showAltPopCompare ? altLightMetric.shortVegaLabel : "",
           showAltPopCompare ? altLightMetricDisplayColumnName : "",
           showAltPopCompare
         )}

@@ -40,7 +40,7 @@ export type MetricId =
   | "vaccinated_share_of_known"
   | "vaccinated_per_100k"
   | "vaccine_population_pct"
-  | "acs_covid_cases_reporting_population_pct";
+  | "acs_vaccine_population_pct";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
