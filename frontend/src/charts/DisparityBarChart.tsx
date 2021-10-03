@@ -350,11 +350,12 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
         item["race_and_ethnicity"] ===
           "Native Hawaiian and Pacific Islander (Non-Hispanic)"
       ) {
-        const popPct = item.vaccine_population_pct;
-        const itemWithAltPopCompare = { ...item };
-        itemWithAltPopCompare.acs_vaccine_population_pct = popPct;
-        delete itemWithAltPopCompare.vaccine_population_pct;
-        return itemWithAltPopCompare;
+        // add acs_ to the property name for the pop comparison
+        const {
+          vaccine_population_pct: acs_vaccine_population_pct,
+          ...itemNoPop
+        } = item;
+        return { acs_vaccine_population_pct, ...itemNoPop };
       }
       return item;
     });
