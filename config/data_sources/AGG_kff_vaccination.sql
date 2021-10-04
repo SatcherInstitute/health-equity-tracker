@@ -17,10 +17,15 @@ WITH
     LEFT JOIN `bigquery-public-data.census_utility.fips_codes_states` AS b
         ON a.state_name = b.state_name
   ),
+  all_acs as (
+      SELECT * FROM `acs_population.by_race_state_std`
+    UNION ALL
+      SELECT * FROM `acs_2010_population.by_race_and_ethnicity_territory`
+  ),
   joined_with_acs as (
       SELECT x.*, y.population
       FROM race_and_ethnicity AS x
-      LEFT JOIN `acs_population.by_race_state_std` AS y
+      LEFT JOIN `all_acs` AS y
           USING (state_fips, race_category_id)
   )
 SELECT * FROM joined_with_acs
