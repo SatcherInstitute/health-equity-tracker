@@ -93,12 +93,15 @@ export function TableChart(props: TableChartProps) {
         {group.headers.map((col, index) => (
           <TableCell
             {...col.getHeaderProps(col.getSortByToggleProps())}
-            style={{ width: "200px" }}
+            style={{ width: "200px", cursor: "pointer" }}
+            title={`Sort by ${col.render("Header")}`}
           >
             {col.render("Header")}
             <TableSortLabel
               active={col.isSorted}
               direction={col.isSortedDesc ? "desc" : "asc"}
+              hideSortIcon={false}
+              title={`Sort by ${col.render("Header")}`}
             />
           </TableCell>
         ))}
