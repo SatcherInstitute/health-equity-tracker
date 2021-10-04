@@ -135,9 +135,6 @@ export class ApiDataFetcher implements DataFetcher {
           ...row,
           vaccinated_first_dose: Number(row["vaccinated_first_dose"]),
           population: Number(row["population"]),
-          population_pct: Number(row["population_pct"]),
-          vaccinated_pct: Number(row["vaccinated_pct"]),
-          vaccinated_pct_share: Number(row["vaccinated_pct_share"]),
         };
       });
     }

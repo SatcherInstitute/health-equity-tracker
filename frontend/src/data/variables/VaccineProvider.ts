@@ -176,7 +176,12 @@ class VaccineProvider extends VariableProvider {
 
       dfNotAIANNHPI = dfNotAIANNHPI
         .generateSeries({
-          population_pct: (row) => Math.round(row.population_pct * 100),
+          population_pct: (row) =>
+            isNaN(row.population_pct) ||
+            row.population_pct == null ||
+            row.population_pct === 0
+              ? null
+              : Math.round(row.population_pct * 100),
         })
         .resetIndex();
 
