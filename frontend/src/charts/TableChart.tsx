@@ -73,7 +73,7 @@ export function TableChart(props: TableChartProps) {
       columns: memoCols,
       data: memoData,
       initialState: {
-        pageSize: 10,
+        pageSize: MAX_NUM_ROWS_WITHOUT_PAGINATION,
         sortBy: [
           {
             id: breakdownVar,
