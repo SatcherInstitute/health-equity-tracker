@@ -70,7 +70,15 @@ export function TableChart(props: TableChartProps) {
     {
       columns: memoCols,
       data: memoData,
-      initialState: { pageSize: 10 },
+      initialState: {
+        pageSize: 10,
+        sortBy: [
+          {
+            id: breakdownVar,
+            desc: false,
+          },
+        ],
+      },
     },
     useSortBy,
     usePagination
