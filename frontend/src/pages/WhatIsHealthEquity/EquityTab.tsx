@@ -433,12 +433,12 @@ function EquityTab() {
                     alt=""
                   />
                   <h2 className={styles.NewsAndStoriesTitleText}>
-                    Saving the Lives of the Invisible
+                    The Mental Fitness of Our Children
                   </h2>
                   <p className={styles.NewsAndStoriesSubtitleText}>
                     <a
-                      href="https://www.kennedysatcher.org/media-old/saving-the-lives-of-the-invisible/"
-                      aria-label="Kennedy Satcher Article: Saving the Lives of the Invisible"
+                      href="https://www.kennedysatcher.org/blog/the-mental-fitness-of-our-children"
+                      aria-label="Kennedy Satcher Article: The Mental Fitness of Our Children"
                     >
                       Learn more
                     </a>
