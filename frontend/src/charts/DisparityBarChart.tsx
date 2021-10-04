@@ -345,10 +345,8 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   if (showAltPopCompare) {
     dataFromProps = props.data.map((item) => {
       if (
-        item["race_and_ethnicity"] ===
-          "American Indian and Alaska Native (Non-Hispanic)" ||
-        item["race_and_ethnicity"] ===
-          "Native Hawaiian and Pacific Islander (Non-Hispanic)"
+        item["race_and_ethnicity"] === "American Indian and Alaska Native" ||
+        item["race_and_ethnicity"] === "Native Hawaiian and Pacific Islander"
       ) {
         // add acs_ to the property name for the pop comparison
         const {
@@ -360,8 +358,6 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
       return item;
     });
   }
-
-  console.log("data after swaps", dataFromProps);
 
   // add *~* for line breaks in column axis labels
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(

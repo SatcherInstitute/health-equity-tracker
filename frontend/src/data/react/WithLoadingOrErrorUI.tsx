@@ -136,6 +136,7 @@ export function WithMetadataAndMetricsWithKey(
   // render, but it is much easier to reason about if we require both. The
   // downside is the user is more likely to see an error if the metadata is
   // broken but the datasets aren't.
+  console.log(props);
   return (
     <WithMetadata loadingComponent={props.loadingComponent}>
       {(metadata) => (
