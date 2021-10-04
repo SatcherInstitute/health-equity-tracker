@@ -48,6 +48,12 @@ export async function evaluateWithAndWithoutAll(
     consumedDatasetIds.push(acsDatasetId);
   }
 
+  if (baseBreakdown.geography === "national") {
+    consumedDatasetIds.push(
+      "acs_2010_population-by_race_and_ethnicity_territory"
+    );
+  }
+
   expect(responseIncludingAll).toEqual(
     new MetricQueryResponse(rowsIncludingAll, consumedDatasetIds)
   );
@@ -196,7 +202,7 @@ describe("VaccineProvider", () => {
     await evaluateWithAndWithoutAll(
       "kff_vaccination-race_and_ethnicity",
       rawData,
-      "",
+      "acs_population-by_race_state_std",
       [NC_ACS_ASIAN_ROW, NC_ACS_ALL_ROW],
       Breakdowns.forFips(new Fips("37")),
       RACE,
