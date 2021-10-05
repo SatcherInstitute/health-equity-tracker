@@ -156,6 +156,21 @@ function MethodologyTab() {
                     estimate from the ACS that we do not use anywhere else and
                     have not added to our system.
                   </li>
+                  <li>
+                    To calculate the total number of vaccinations at the state
+                    level, we use the ACS 2019 estimates of each state’s
+                    population. The population counts for each demographic group
+                    at the state level are provided by the Kaiser Family
+                    Foundation, who researched exactly what the definition of
+                    each demographic group in every state is. They provided
+                    population estimates for Asian, Black, White, and Hisapnic,
+                    so we fill in the ACS 2019 estimation for American Indian
+                    and Alaska Native and Native Hawaiian and Pacific Islander.
+                    which are shown with a lighter green color on the
+                    disparities bar chart. We are unable to show a population
+                    comparison metric for “Some Other Race” because we are
+                    unsure of the definition in each state.
+                  </li>
                 </ul>
                 <h4> Vaccination Data Limitations </h4>
                 <ul>
