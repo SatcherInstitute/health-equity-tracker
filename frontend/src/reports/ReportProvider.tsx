@@ -19,6 +19,11 @@ import ShareIcon from "@material-ui/icons/Share";
 import styles from "./Report.module.scss";
 import ShareDialog from "./ui/ShareDialog";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
+import { METRIC_CONFIG } from "../data/config/MetricConfig";
+import {
+  UNREPRESENTED_RACE_DEF,
+  VACCINATED_DEF,
+} from "../pages/DataCatalog/MethodologyTab";
 
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
   const segment = madLib.phrase[segmentIndex];
@@ -130,9 +135,18 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         className={styles.MissingDataInfo}
         ref={fieldRef}
       >
-        <h3 className={styles.FootnoteLargeHeading}>Definitions </h3>
-        "Vaccinated Individual" refers to a person who has received at least one
-        dose of a COVID-19 vaccine.
+        <h3 className={styles.FootnoteLargeHeading}>Definitions</h3>
+        <p>
+          <b>"{METRIC_CONFIG["vaccinated"][0].variableFullDisplayName}"</b>
+          {": "}
+          {VACCINATED_DEF}
+        </p>
+        <p>
+          <span className={styles.DefinedTerm}>"Unrepresented Race"</span>
+          {": "}
+          {UNREPRESENTED_RACE_DEF}
+        </p>
+
         <h3 className={styles.FootnoteLargeHeading}>What Data Are Missing?</h3>
         <p>Unfortunately there are crucial data missing in our sources.</p>
         <h4>Missing and Misidentified People</h4>

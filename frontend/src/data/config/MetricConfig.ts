@@ -56,6 +56,7 @@ export type MetricConfig = {
   metricId: MetricId;
   fullCardTitleName: string;
   shortVegaLabel: string;
+  unknownsVegaLabel?: string;
   type: MetricType;
   populationComparisonMetric?: MetricConfig;
 
@@ -192,6 +193,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         pct_share: {
           metricId: "covid_cases_share",
           fullCardTitleName: "Share Of Total COVID-19 Cases",
+          unknownsVegaLabel: "% unknown",
           shortVegaLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
@@ -236,6 +238,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           metricId: "covid_deaths_share",
           fullCardTitleName: "Share Of Total COVID-19 Deaths",
           shortVegaLabel: "% of deaths",
+          unknownsVegaLabel: "% unknown",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "covid_deaths_reporting_population_pct",
@@ -279,6 +282,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           metricId: "covid_hosp_share",
           fullCardTitleName: "Share Of Total COVID-19 Hospitalizations",
           shortVegaLabel: "% of hospitalizations",
+          unknownsVegaLabel: "% unknown",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "covid_hosp_reporting_population_pct",
@@ -427,7 +431,8 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         pct_share: {
           metricId: "vaccinated_pct_share",
-          fullCardTitleName: "Share Of Vaccinated Individuals",
+          fullCardTitleName: "Share Of Total Vaccinated Individuals",
+          unknownsVegaLabel: "% unknown",
           shortVegaLabel: "% of vaccinated",
           type: "pct_share",
           populationComparisonMetric: {
@@ -438,7 +443,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           },
           knownBreakdownComparisonMetric: {
             metricId: "vaccinated_share_of_known",
-            fullCardTitleName: "Share Of Vaccinated Individuals",
+            fullCardTitleName: "Share Of Total Vaccinated Individuals",
             shortVegaLabel: "% of vaccinated individuals",
             type: "pct_share",
           },
