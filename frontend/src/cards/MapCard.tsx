@@ -141,6 +141,49 @@ function MapCardWithKey(props: MapCardProps) {
           ]]: breakdownValues,
         };
 
+        // If possible, calculate the total for the selected demographic group and dynamically generate the rest of the phrase
+        function generateDemographicTotalPhrase() {
+          const options = overallQueryResponse.data.find(
+            (row) => row[props.currentBreakdown] === activeBreakdownFilter
+          );
+
+          return options ? (
+            <>
+              <b>
+                {formatFieldValue(
+                  metricConfig.type,
+                  options[metricConfig.metricId]
+                )}
+              </b>{" "}
+              {/*} cases per 100k */}
+              {metricConfig.shortVegaLabel}
+              {/*} for  */}
+              {activeBreakdownFilter !== "All" && " for"}
+              {/*} [ ages 30-39] */}
+              {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                props.currentBreakdown
+              ] === "age" &&
+                activeBreakdownFilter !== "All" &&
+                ` ages ${activeBreakdownFilter}`}
+              {/*} [Asian (non Hispanic) individuals] */}
+              {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                props.currentBreakdown
+              ] !== "age" &&
+                activeBreakdownFilter !== "All" &&
+                ` ${activeBreakdownFilter} individuals`}
+              {" in  "}
+              {/*} in */}
+              {/*} (the) */}
+              {props.fips.getDisplayName() === "United States" && "the "}
+              {/*} United States */}
+              {props.fips.getDisplayName()}
+              {". "}
+            </>
+          ) : (
+            ""
+          );
+        }
+
         return (
           <>
             <MultiMapDialog
@@ -208,42 +251,8 @@ function MapCardWithKey(props: MapCardProps) {
                   <Divider />
                   <CardContent>
                     <Alert severity="info">
-                      {/* EXAMPLE TEXT OUTPUT:  */}
-                      <b>
-                        {/* 9,543 */}
-                        {formatFieldValue(
-                          metricConfig.type,
-                          overallQueryResponse!.data.find(
-                            (row) =>
-                              row[props.currentBreakdown] ===
-                              activeBreakdownFilter
-                          )![metricConfig.metricId]
-                        )}
-                      </b>{" "}
-                      {/* cases per 100k */}
-                      {metricConfig.shortVegaLabel}
-                      {/* for  */}
-                      {activeBreakdownFilter !== "All" && " for"}
-                      {/* [ ages 30-39] */}
-                      {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                        props.currentBreakdown
-                      ] === "age" &&
-                        activeBreakdownFilter !== "All" &&
-                        ` ages ${activeBreakdownFilter}`}
-                      {/* [Asian (non Hispanic) individuals] */}
-                      {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                        props.currentBreakdown
-                      ] !== "age" &&
-                        activeBreakdownFilter !== "All" &&
-                        ` ${activeBreakdownFilter} individuals`}
-                      {" in  "}
-                      {/* in */}
-                      {/* (the) */}
-                      {props.fips.getDisplayName() === "United States" &&
-                        "the "}
-                      {/* United States */}
-                      {props.fips.getDisplayName()}
-                      {". "}
+                      {generateDemographicTotalPhrase()}
+
                       {/* Compare across XYZ for all variables except vaccinated at county level */}
                       {!hideDemographicUI && (
                         <span
