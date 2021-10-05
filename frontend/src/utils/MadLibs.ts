@@ -55,20 +55,18 @@ export function getMadLibWithUpdatedValue(
 export type DropdownVarId =
   | "covid"
   | "diabetes"
-  //  | "obesity"
-  //  | "asthma"
   | "copd"
   | "health_insurance"
-  | "poverty";
+  | "poverty"
+  | "vaccinated";
 
 const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   covid: "COVID-19",
   diabetes: "Diabetes",
-  //  obesity: "[coming soon] obesity",
-  //  asthma: "[coming soon] asthma",
   copd: "COPD",
   health_insurance: "Uninsured Individuals",
   poverty: "Poverty",
+  vaccinated: "Vaccinated Individuals",
 };
 
 const MADLIB_LIST: MadLib[] = [
