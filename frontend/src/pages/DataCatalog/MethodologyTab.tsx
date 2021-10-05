@@ -14,7 +14,7 @@ import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 export const CITATION_CHICAGO =
   "Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. https://healthequitytracker.org.";
 
-export const VACCINATED_DEF = `People who have received at least one dose of a COVID-19 vaccine.`;
+export const VACCINATED_DEF = `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`;
 // export const UNREPRESENTED_RACE_DEF = `A single race not
 // tabulated by the CDC, not Hispanic/Latino. The definition of
 // "Unrepresented Race" is dependent on what other race
@@ -223,10 +223,13 @@ function MethodologyTab() {
                     at the state level.
                   </li>
                   <li>
-                    All vaccination data is shown as “at least one dose”, except
-                    for some states which only provide numbers of fully
-                    vaccinated individuals, in which case those numbers are
-                    shown.
+                    As there is no standardized definition for “vaccinated”, we
+                    display vaccination data as “at least one dose” which is
+                    used by most states. However, some states including{" "}
+                    <b>Arkansas</b>, <b>Illinois</b>, <b>Maine</b>,{" "}
+                    <b>New Jersey</b>, and <b>Tennessee</b>, report “Total
+                    vaccine doses administered”, in which case those numbers are
+                    being represented.
                   </li>
                 </ul>
 
