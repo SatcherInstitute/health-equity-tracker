@@ -225,8 +225,8 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           metrics for <b>Native Hawaiian and Pacific Islander</b>, and{" "}
           <b>American Indian and Alaska Native</b> are shown with a population
           comparison metric from the American Community Survey 5-year estimates,
-          and <b>Some Other Race</b> is shown without any population comparison
-          metric.
+          while <b>Some Other Race</b> is shown without any population
+          comparison metric.
         </p>
         <div className={styles.MissingDataContactUs}>
           <p>
