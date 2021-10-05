@@ -19,6 +19,7 @@ import {
   setParameter,
   setParameters,
 } from "../utils/urlutils";
+import { SINGLE_COLUMN_WIDTH } from "./ReportProvider";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
 
@@ -97,7 +98,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
       justify="center"
     >
       {!props.hidePopulationCard && (
-        <Grid item xs={12} md={10}>
+        <Grid item xs={12} md={SINGLE_COLUMN_WIDTH}>
           <PopulationCard fips={props.fips} />
         </Grid>
       )}
@@ -106,7 +107,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
 
       {variableConfig && (
         <Grid container spacing={1} justify="center">
-          <Grid item container xs={12} md={10}>
+          <Grid item container xs={12} md={SINGLE_COLUMN_WIDTH}>
             <ReportToggleControls
               dropdownVarId={props.dropdownVarId}
               variableConfig={variableConfig}
@@ -115,7 +116,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               setCurrentBreakdown={setDemoWithParam}
             />
           </Grid>
-          <Grid item xs={12} sm={12} md={10}>
+          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH}>
             <MapCard
               variableConfig={variableConfig}
               fips={props.fips}
@@ -136,7 +137,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               </Fragment>
             ))}
           </Grid>
-          <Grid item xs={12} sm={12} md={10}>
+          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH}>
             {variableConfig.metrics["pct_share"] && (
               <UnknownsMapCard
                 overrideAndWithOr={currentBreakdown === "race_and_ethnicity"}

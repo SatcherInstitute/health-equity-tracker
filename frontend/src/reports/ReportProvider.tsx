@@ -21,6 +21,8 @@ import ShareDialog from "./ui/ShareDialog";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
 import { Grid } from "@material-ui/core";
 
+export const SINGLE_COLUMN_WIDTH = 10;
+
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
   const segment = madLib.phrase[segmentIndex];
   return typeof segment === "string"
@@ -118,7 +120,15 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           </Button>
         </div>
         <Grid container justify="center">
-          <Grid item xs={12} md={10}>
+          <Grid
+            item
+            xs={12}
+            md={
+              (props.madLib.id as MadLibId) === "disparity"
+                ? SINGLE_COLUMN_WIDTH
+                : 12
+            }
+          >
             <DisclaimerAlert
               jumpToData={() => {
                 if (fieldRef.current) {
