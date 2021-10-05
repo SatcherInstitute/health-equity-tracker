@@ -12,6 +12,7 @@ import {
   LinkWithStickyParams,
   DATA_CATALOG_PAGE_LINK,
   CONTACT_TAB_LINK,
+  METHODOLOGY_TAB_LINK,
 } from "../utils/urlutils";
 import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
@@ -139,7 +140,14 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         <p>
           <b>"{METRIC_CONFIG["vaccinated"][0].variableFullDisplayName}"</b>
           {": "}
-          {VACCINATED_DEF}
+          {VACCINATED_DEF} Read more on our{" "}
+          <LinkWithStickyParams
+            className={styles.MethodologyContactUsLink}
+            to={METHODOLOGY_TAB_LINK}
+          >
+            methodology page
+          </LinkWithStickyParams>
+          .
         </p>
         {/* <p>
           <span className={styles.DefinedTerm}>"Unrepresented Race"</span>
