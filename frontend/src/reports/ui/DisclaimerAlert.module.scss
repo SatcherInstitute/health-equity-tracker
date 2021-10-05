@@ -1,11 +1,16 @@
 @import "../../styles/variables";
 
-.ReportAlert {
+.ReportAlert,
+.ReportAlertSingleColumn {
   margin: 10px;
   border: 1px solid #ff9800;
   text-align: left;
   line-height: 21px;
   font-size: 14px;
+}
+
+.ReportAlertSingleColumn {
+  margin-right: 20px;
 }
 
 .LinkButton {

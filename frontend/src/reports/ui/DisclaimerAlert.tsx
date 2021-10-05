@@ -5,12 +5,19 @@ import Button from "@material-ui/core/Button";
 import styles from "./DisclaimerAlert.module.scss";
 import FlagIcon from "@material-ui/icons/Flag";
 
-function DisclaimerAlert(props: { jumpToData: () => void }) {
+function DisclaimerAlert(props: {
+  jumpToData: () => void;
+  isSingleColumn: boolean;
+}) {
   return (
     <div>
       <Alert
         severity="warning"
-        className={styles.ReportAlert}
+        className={
+          props.isSingleColumn
+            ? styles.ReportAlertSingleColumn
+            : styles.ReportAlert
+        }
         icon={<FlagIcon />}
       >
         <AlertTitle id="onboarding-limits-in-the-data">

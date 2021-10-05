@@ -38,6 +38,7 @@ function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
 function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
   const [shareModalOpen, setShareModalOpen] = useState(false);
   const fieldRef = useRef<HTMLInputElement>(null);
+  const isSingleColumn = (props.madLib.id as MadLibId) === "disparity";
 
   function getReport() {
     // Each report has a unique key based on its props so it will create a
@@ -109,32 +110,27 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
   return (
     <>
       <div className={styles.ReportWrapper}>
-        <ShareDialog
-          madLib={props.madLib}
-          shareModalOpen={shareModalOpen}
-          setShareModalOpen={setShareModalOpen}
-        />
-        <div className={styles.ReportToolbar}>
-          <Button
-            color="primary"
-            startIcon={<ShareIcon />}
-            onClick={() => setShareModalOpen(true)}
-            data-tip="Share a Link to this Report"
-          >
-            Share
-          </Button>
-        </div>
         <Grid container justify="center">
-          <Grid
-            item
-            xs={12}
-            md={
-              (props.madLib.id as MadLibId) === "disparity"
-                ? SINGLE_COLUMN_WIDTH
-                : 12
-            }
-          >
+          <Grid item xs={12} md={isSingleColumn ? SINGLE_COLUMN_WIDTH : 12}>
+            <ShareDialog
+              madLib={props.madLib}
+              shareModalOpen={shareModalOpen}
+              setShareModalOpen={setShareModalOpen}
+            />
+            <div className={styles.ReportToolbar}>
+              <Button
+                color="primary"
+                startIcon={<ShareIcon />}
+                onClick={() => setShareModalOpen(true)}
+                data-tip="Share a Link to this Report"
+              >
+                Share
+              </Button>
+            </div>
+          </Grid>
+          <Grid item xs={12} md={isSingleColumn ? SINGLE_COLUMN_WIDTH : 12}>
             <DisclaimerAlert
+              isSingleColumn={isSingleColumn}
               jumpToData={() => {
                 if (fieldRef.current) {
                   fieldRef.current.scrollIntoView();
