@@ -55,6 +55,8 @@ KFF_RACES_TO_STANDARD = {
 AAPI_STATES = {'Arizona', 'Connecticut', 'District of Columbia', 'Michigan', 'Minnesota', 'Nevada',
                'New Mexico', 'North Carolina', 'Oklahoma', 'South Carolina', 'Virginia'}
 
+KFF_TERRITORIES = ['Guam', 'Puerto Rico', 'Northern Mariana Islands']
+
 
 def get_data_url(data_type):
     """Gets the latest url from the kff's github data repo for the given data type
@@ -215,6 +217,10 @@ class KFFVaccination(DataSource):
                 ))
 
             output.append(generate_total_row(state_row_totals, state))
+
+        for territory in KFF_TERRITORIES:
+            state_row_totals = total_df.loc[total_df['state'] == territory]
+            output.append(generate_total_row(state_row_totals, territory))
 
         output_df = pd.DataFrame(output, columns=columns)
         std_col.add_race_columns_from_category_id(output_df)
