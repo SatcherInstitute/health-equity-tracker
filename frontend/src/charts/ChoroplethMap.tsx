@@ -60,6 +60,8 @@ export interface ChoroplethMapProps {
   hideMissingDataTooltip?: boolean;
   // Callbacks set up so map interactions can update the React UI
   signalListeners: any;
+  // use the constructed string from the Card Wrapper Title in the export as PNG filename
+  filename?: string;
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
@@ -69,7 +71,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   const [shouldRenderMap, setShouldRenderMap] = useState(false);
 
   const [ref, width] = useResponsiveWidth(
-    100 /* default width during intialization */
+    100 /* default width during initialization */
   );
 
   // Initial spec state is set in useEffect
@@ -285,7 +287,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
-      description: "A choropleth map.",
+      background: "white",
+      description: props.legendTitle,
       data: [
         {
           name: VAR_DATASET,
@@ -382,7 +385,16 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         <Vega
           spec={spec}
           width={width}
-          actions={!props.hideActions}
+          // custom 3-dot options for states, hidden on territories
+          actions={
+            !props.hideActions && {
+              export: { png: true, svg: true },
+              source: false,
+              compiled: false,
+              editor: false,
+            }
+          }
+          downloadFileName={`${props.filename} - Health Equity Tracker`}
           signalListeners={props.signalListeners}
         />
       )}

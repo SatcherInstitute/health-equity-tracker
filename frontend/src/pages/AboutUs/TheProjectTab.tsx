@@ -102,19 +102,13 @@ function TheProjectTab() {
             </Typography>
           </Grid>
           <Hidden smDown>
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={7}
-              className={styles.GridAlignRightItem}
-            >
+            <Grid item xs={12} sm={12} md={7} className={styles.HeaderImgItem}>
               <LazyLoad offset={300} height={644} once>
                 <img
                   width="754"
                   height="644"
-                  src="img/stock/woman-kids.png"
-                  className={styles.ImgHeaderGridItem}
+                  src="/img/stock/woman-kids.png"
+                  className={styles.HeaderImg}
                   alt=""
                 />
               </LazyLoad>
@@ -244,8 +238,8 @@ function TheProjectTab() {
             <AimToGoItem
               src={
                 prefersReducedMotion
-                  ? "img/animations/HET-lines-no-motion.gif"
-                  : "img/animations/HET-lines.gif"
+                  ? "/img/animations/HET-lines-no-motion.gif"
+                  : "/img/animations/HET-lines.gif"
               }
               alt=""
               title="Expand data"
@@ -256,8 +250,8 @@ function TheProjectTab() {
             <AimToGoItem
               src={
                 prefersReducedMotion
-                  ? "img/animations/HET-fields-no-motion.gif"
-                  : "img/animations/HET-fields.gif"
+                  ? "/img/animations/HET-fields-no-motion.gif"
+                  : "/img/animations/HET-fields.gif"
               }
               alt=""
               title="Empower policy makers"
@@ -268,8 +262,8 @@ function TheProjectTab() {
             <AimToGoItem
               src={
                 prefersReducedMotion
-                  ? "img/animations/HET-dots-no-motion.gif"
-                  : "img/animations/HET-dots.gif"
+                  ? "/img/animations/HET-dots-no-motion.gif"
+                  : "/img/animations/HET-dots.gif"
               }
               alt=""
               title="Measure progress"

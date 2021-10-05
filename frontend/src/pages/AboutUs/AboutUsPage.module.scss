@@ -57,7 +57,7 @@
   align-items: flex-start;
 }
 
-// Grid items that are centered both vertically and horizonally.
+// Grid items that are centered both vertically and horizontally.
 .GridCenteredItem {
   display: flex;
   justify-content: center;
@@ -175,7 +175,7 @@
   align-items: center;
   border-top: 1px solid #3e3e3e;
 
-  @media (max-width: $xl) {
+  @media (min-width: $lg) {
     padding: 147px 120px 147px 120px;
   }
 
@@ -281,6 +281,23 @@
   min-height: 100px;
 }
 
+.HeaderImgItem {
+  @media (min-width: $md) {
+    border-left: 1px solid #3e3e3e;
+  }
+}
+
+.HeaderImg {
+  border-radius: 30px;
+  height: auto;
+  max-height: 600px;
+  width: 100%;
+  max-width: 700px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
 /** ------------- OUR TEAM ------------- **/
 
 // For the  header text at the very top of the "Our Team" page
@@ -358,12 +375,10 @@
 }
 
 .ContactUsSubheaderText {
-  font-size: 48px !important;
   font-weight: 300 !important;
   font-family: "Taviraj", sans-serif !important;
   line-height: 48px !important;
   color: $alt-green;
-  text-align: center;
 }
 
 .ImgContactUsHeader {
@@ -373,6 +388,23 @@
   max-height: 645px;
 }
 
-.ContactUsCenteredTextItem {
-  text-align: center;
+.HeaderImgItem {
+  @media (min-width: $md) {
+    border-left: 1px solid #3e3e3e;
+  }
+}
+
+.ImgContactUsHeader {
+  border-radius: 30px;
+  height: auto;
+  max-height: 600px;
+  width: 100%;
+  max-width: 700px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.ContactUsP {
+  margin-top: 2rem;
 }

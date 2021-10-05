@@ -1,17 +1,30 @@
 import Button from "@material-ui/core/Button";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { getLogger } from "./globals";
 import { MadLibId, PhraseSelections } from "./MadLibs";
 
 export const STICKY_VERSION_PARAM = "sv";
 
+// PAGE URLS
 export const EXPLORE_DATA_PAGE_LINK = "/exploredata";
-export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
-  EXPLORE_DATA_PAGE_LINK + "#missingDataInfo";
 export const DATA_CATALOG_PAGE_LINK = "/datacatalog";
 export const ABOUT_US_PAGE_LINK = "/aboutus";
 export const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = "/whatishealthequity";
-export const TERMS_OF_SERVICE_PAGE_LINK = "/termsofservice";
+export const TERMS_OF_USE_PAGE_LINK = "/termsofuse";
+
+// TAB URLS
+export const FAQ_TAB_LINK = "/faqs";
+export const RESOURCES_TAB_LINK = "/resources";
+export const METHODOLOGY_TAB_LINK = "/methodology";
+export const CONTACT_TAB_LINK = "/contact";
+export const ABOUT_TAB_LINK = "/about";
+export const OURTEAM_TAB_LINK = "/ourteam";
+
+// SECTION IDS
+export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
+  EXPLORE_DATA_PAGE_LINK + "#missingDataInfo";
+export const WIHE_JOIN_THE_EFFORT_SECTION_ID = "join";
 
 // Value is a comma-separated list of dataset ids. Dataset ids cannot have
 // commas in them.
@@ -35,6 +48,10 @@ export const DEMOGRAPHIC_PARAM = "demo";
 export const DATA_TYPE_1_PARAM = "dt1";
 export const DATA_TYPE_2_PARAM = "dt2";
 
+export function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
 export function LinkWithStickyParams(props: {
   to: string;
   target?: string;
@@ -56,7 +73,7 @@ export function LinkWithStickyParams(props: {
 
 export function ReactRouterLinkButton(props: {
   url: string;
-  className: string;
+  className?: string;
   displayName?: string;
   children?: React.ReactNode;
   ariaLabel?: string;
@@ -196,7 +213,7 @@ export const psSubscribe = (
   keyPrefix = "unk"
 ): { unsubscribe: () => void } => {
   const key = keyPrefix + "_" + psCount;
-  console.log("Adding PSHandler: " + key);
+  getLogger().debugLog("Adding PSHandler: " + key);
   psSubscriptions[key] = handler;
   psCount++;
   return {
@@ -207,7 +224,7 @@ export const psSubscribe = (
 };
 
 export const psUnsubscribe = (k: string) => {
-  console.log("Removing PSHandler: " + k);
+  getLogger().debugLog("Removing PSHandler: " + k);
   delete psSubscriptions[k];
 };
 
@@ -215,7 +232,7 @@ window.onpopstate = () => {
   Object.keys(psSubscriptions).forEach((key) => {
     const handler = psSubscriptions[key];
     if (handler) {
-      console.log("Firing PSHandler: " + key);
+      getLogger().debugLog("Firing PSHandler: " + key);
       handler();
     }
   });

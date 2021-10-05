@@ -7,14 +7,10 @@ import Typography from "@material-ui/core/Typography";
 import {
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
-  TAB_PARAM,
+  WIHE_JOIN_THE_EFFORT_SECTION_ID,
   ReactRouterLinkButton,
 } from "../../utils/urlutils";
 import FaqSection from "../ui/FaqSection";
-import {
-  WIHE_HEALTH_EQUITY_TAB_INDEX,
-  WIHE_JOIN_THE_EFFORT_SECTION_ID,
-} from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
 import { Box } from "@material-ui/core";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet";
@@ -58,7 +54,7 @@ function LandingPage() {
     <>
       <Helmet>
         <title>Home - Health Equity Tracker</title>
-        <link rel="preload" as="image" href="img/stock/family-laughing.png" />
+        <link rel="preload" as="image" href="/img/stock/family-laughing.png" />
       </Helmet>
       <h1 className={styles.ScreenreaderTitleHeader}>Home Page</h1>
       <div className={styles.LandingPage}>
@@ -124,15 +120,13 @@ function LandingPage() {
               </Box>
             </Grid>
             <Grid item xs={12} sm={12} md={6} className={styles.HeaderImgItem}>
-              {/* <LazyLoad once height={700}> */}
               <img
                 height="601"
                 width="700"
-                src="img/stock/family-laughing.png"
+                src="/img/stock/family-laughing.png"
                 className={styles.HeaderImg}
                 alt=""
               />
-              {/* </LazyLoad> */}
             </Grid>
           </Grid>
 
@@ -170,8 +164,8 @@ function LandingPage() {
                 <TakeALookAroundItem
                   src={
                     prefersReducedMotion
-                      ? "img/animations/HET-fields-no-motion.gif"
-                      : "img/animations/HET-fields.gif"
+                      ? "/img/animations/HET-fields-no-motion.gif"
+                      : "/img/animations/HET-fields.gif"
                   }
                   alt=""
                   text="(1) Learn about health equity"
@@ -179,8 +173,8 @@ function LandingPage() {
                 <TakeALookAroundItem
                   src={
                     prefersReducedMotion
-                      ? "img/animations/HET-dots-no-motion.gif"
-                      : "img/animations/HET-dots.gif"
+                      ? "/img/animations/HET-dots-no-motion.gif"
+                      : "/img/animations/HET-dots.gif"
                   }
                   alt=""
                   text="(2) Investigate the data"
@@ -188,8 +182,8 @@ function LandingPage() {
                 <TakeALookAroundItem
                   src={
                     prefersReducedMotion
-                      ? "img/animations/HET-spiral-no-motion.gif"
-                      : "img/animations/HET-spiral-sm.gif"
+                      ? "/img/animations/HET-spiral-no-motion.gif"
+                      : "/img/animations/HET-spiral-sm.gif"
                   }
                   alt=""
                   text="(3) Share our site and join our movement"
@@ -232,7 +226,7 @@ function LandingPage() {
                   <img
                     width="557"
                     height="811"
-                    src="img/stock/women-baby.png"
+                    src="/img/stock/women-baby.png"
                     className={styles.PrioritizeHealthEquityImg}
                     alt=""
                   />
@@ -314,7 +308,7 @@ function LandingPage() {
                   <LazyLoad offset={300} once>
                     <img
                       className={styles.HowToStepImg}
-                      src="img/screenshots/het-investigate-rates.png"
+                      src="/img/screenshots/het-investigate-rates.png"
                       alt="Search Example Screenshot: Investigate Rates of option Covid-19 in location United States"
                     />
                   </LazyLoad>
@@ -343,7 +337,7 @@ function LandingPage() {
                   <LazyLoad offset={300} once>
                     <img
                       className={styles.HowToStepImg}
-                      src="img/screenshots/het-compare-rates.png"
+                      src="/img/screenshots/het-compare-rates.png"
                       alt="Search Example Screenshot: Compare Rates of option Covid-19 between two locations"
                     />
                   </LazyLoad>
@@ -372,7 +366,7 @@ function LandingPage() {
                   <LazyLoad offset={300} once>
                     <img
                       className={styles.HowToStepImg}
-                      src="img/screenshots/het-map.png"
+                      src="/img/screenshots/het-map.png"
                       alt="Map Example Screenshot, Data Tracker map of option Covid-19 rates of all racial groups"
                     />
                   </LazyLoad>
@@ -421,7 +415,6 @@ function LandingPage() {
               item
               xs={12}
               sm={12}
-              md={12}
               direction="column"
               justify="center"
               alignItems="center"
@@ -446,7 +439,7 @@ function LandingPage() {
                     variant="contained"
                     color="default"
                     className={styles.JoinOurMovementButton}
-                    href={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_HEALTH_EQUITY_TAB_INDEX}#${WIHE_JOIN_THE_EFFORT_SECTION_ID}`}
+                    href={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}#${WIHE_JOIN_THE_EFFORT_SECTION_ID}`}
                   >
                     Learn How To Help
                   </Button>
