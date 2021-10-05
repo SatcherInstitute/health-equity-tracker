@@ -4,14 +4,12 @@ import styles from "./DataCatalogPage.module.scss";
 import {
   LinkWithStickyParams,
   CONTACT_TAB_LINK,
-  EXPLORE_DATA_PAGE_LINK,
-  WHAT_DATA_ARE_MISSING_HASH,
+  EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK,
 } from "../../utils/urlutils";
 import { Helmet } from "react-helmet";
 import parse from "html-react-parser";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
 import { METRIC_CONFIG } from "../../data/config/MetricConfig";
-import { Link } from "react-router-dom";
 
 export const CITATION_CHICAGO =
   "Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. https://healthequitytracker.org.";
@@ -71,7 +69,7 @@ function MethodologyTab() {
                   For a description of some of the gaps in COVID-19 data, please
                   see the{" "}
                   <a href={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}>
-                    "What Data Are Missing"
+                    What Data Are Missing
                   </a>{" "}
                   section. Here, we provide further details:
                 </p>
