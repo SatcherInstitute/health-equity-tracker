@@ -142,7 +142,7 @@ class VaccineProvider extends VariableProvider {
           vaccinated_pct_share: (row) =>
             row.vaccinated_pct_share == null ||
             isNaN(row.vaccinated_pct_share) ||
-            row.vaccinated_pct_share === "NR"
+            row.vaccinated_pct_share === 0
               ? null
               : Math.round(row.vaccinated_pct_share * 100),
         })
