@@ -41,8 +41,8 @@ function getSpec(
   const BAR_PADDING = 0.1;
   const DARK_MEASURE_COLOR = "#0B5420";
   const LIGHT_MEASURE_COLOR = "#91C684";
-  const ALT_LIGHT_MEASURE_COLOR = "#89d5cc";
-  const ALT_LIGHT_MEASURE_OPACITY = 0.6;
+  const ALT_LIGHT_MEASURE_COLOR = "#CBEA9D"; //"#89d5cc";
+  const ALT_LIGHT_MEASURE_OPACITY = 0.8;
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 
@@ -345,8 +345,13 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   if (showAltPopCompare) {
     dataFromProps = props.data.map((item) => {
       if (
-        item["race_and_ethnicity"] === "American Indian and Alaska Native" ||
-        item["race_and_ethnicity"] === "Native Hawaiian and Pacific Islander"
+        // some states send (Non-Hispanic)
+        item["race_and_ethnicity"].includes(
+          "American Indian and Alaska Native"
+        ) ||
+        item["race_and_ethnicity"].includes(
+          "Native Hawaiian and Pacific Islander"
+        )
       ) {
         // add acs_ to the property name for the pop comparison
         const {
