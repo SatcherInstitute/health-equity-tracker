@@ -210,7 +210,6 @@ function MapCardWithKey(props: MapCardProps) {
                     <Alert severity="info">
                       {/* EXAMPLE TEXT OUTPUT:  */}
                       <b>
-                        12345
                         {/* 9,543 */}
                         {formatFieldValue(
                           metricConfig.type,
