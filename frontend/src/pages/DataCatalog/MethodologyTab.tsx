@@ -144,9 +144,10 @@ function MethodologyTab() {
                     health department websites. It is the only state level
                     demographic vaccine dataset that publishes this data in a
                     usable format. The dataset only provides data on the race
-                    and ethnicity of vaccine recipients, and only has data on
-                    whether individuals have received at least one shot. It does
-                    not include any data for US territories.{" "}
+                    and ethnicity of vaccine recipients, and for the majority of
+                    states counts individuals who have received at least one
+                    shot as vaccinated. It does not include any data for US
+                    territories.{" "}
                   </li>
                   <li>
                     For the county level, we could not identify a dataset that
@@ -227,9 +228,9 @@ function MethodologyTab() {
                     display vaccination data as “at least one dose” which is
                     used by most states. However, some states including{" "}
                     <b>Arkansas</b>, <b>Illinois</b>, <b>Maine</b>,{" "}
-                    <b>New Jersey</b>, and <b>Tennessee</b>, report “Total
+                    <b>New Jersey</b>, and <b>Tennessee</b> report “Total
                     vaccine doses administered”, in which case those numbers are
-                    being represented.
+                    reported.
                   </li>
                 </ul>
 
