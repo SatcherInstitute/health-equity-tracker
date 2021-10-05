@@ -120,9 +120,9 @@ function MethodologyTab() {
                   COVID-19 Vaccinations
                 </h3>
                 <p>
-                  Because there is no national vaccine demographic dataset, we
-                  made the decision to combine the best datasets we could find
-                  for each geographic level.
+                  Because there is currently no national vaccine demographic
+                  dataset, we combine the best datasets we could find for each
+                  geographic level.
                 </p>
                 <ul>
                   <li>
@@ -141,13 +141,12 @@ function MethodologyTab() {
                       the Kaiser Family Foundation COVID-19 Indicators dataset,
                     </a>{" "}
                     which is a hand-curated dataset based on analysis from state
-                    health department websites. We decided to use this because
-                    it is the only state level demographic vaccine dataset that
-                    publishes the data in a usable format. This dataset only
-                    provides data on the race and ethnicity of vaccine
-                    recipients, and only has data on whether individuals have
-                    received at least one shot. It does not include any data for
-                    US territories.{" "}
+                    health department websites. It is the only state level
+                    demographic vaccine dataset that publishes this data in a
+                    usable format. The dataset only provides data on the race
+                    and ethnicity of vaccine recipients, and only has data on
+                    whether individuals have received at least one shot. It does
+                    not include any data for US territories.{" "}
                   </li>
                   <li>
                     For the county level, we could not identify a dataset that
@@ -162,10 +161,6 @@ function MethodologyTab() {
                 <h4> Vaccination Population Sources </h4>
                 <ul>
                   <li>
-                    For the state and county level we use the ACS 2019
-                    population estimations.
-                  </li>
-                  <li>
                     For the national numbers we use the population numbers
                     provided by the CDC, we chose to do this because they
                     include population estimates from <b>Palau</b>,{" "}
@@ -175,6 +170,25 @@ function MethodologyTab() {
                     not readily provide, as they use a per year population
                     estimate from the ACS that we do not use anywhere else and
                     have not added to our system.
+                  </li>
+                  <li>
+                    For the state level, to calculate the total number of
+                    vaccinations we use the ACS 2019 estimates of each state’s
+                    population. The population counts for each demographic group
+                    at the state level are provided by the Kaiser Family
+                    Foundation, who researched exactly what the definition of
+                    each demographic group in every state is. They provide
+                    population estimates for Asian, Black, White, and Hispanic,
+                    so we fill in the ACS 2019 estimation for American Indian
+                    and Alaska Native, and Native Hawaiian and Pacific Islander.
+                    These alternate population comparisons metrics shown with a
+                    different color on the disparities bar chart. We are unable
+                    to show a population comparison metric for “Some Other Race”
+                    because we are unsure of the definition in each state.
+                  </li>
+                  <li>
+                    For the county level we use the ACS 2019 population
+                    estimations.
                   </li>
                 </ul>
                 <h4> Vaccination Data Limitations </h4>
@@ -199,6 +213,19 @@ function MethodologyTab() {
                     case, we show the higher of the two metrics on the national
                     map of unknown cases, and display both numbers on the state
                     page.
+                  </li>
+                  <li>
+                    Because the Kaiser Family Foundation only collects
+                    population data for Asian, Black, White, and Hispanic
+                    demographics, the per 100k metrics is limited those four
+                    races as well. These are all we are able to show at the
+                    state level.
+                  </li>
+                  <li>
+                    All vaccination data is shown as “at least one dose”, except
+                    for some states which only provide numbers of fully
+                    vaccinated individuals, in which case those numbers are
+                    shown.
                   </li>
                 </ul>
 
