@@ -273,8 +273,8 @@ function MapCardWithKey(props: MapCardProps) {
                   </CardContent>
                 </>
               )}
-
-            {mapQueryResponse.dataIsMissing() && (
+            {(mapQueryResponse.dataIsMissing() ||
+              dataForActiveBreakdownFilter.length === 0) && (
               <CardContent>
                 <MissingDataAlert
                   dataName={metricConfig.fullCardTitleName}
@@ -285,8 +285,10 @@ function MapCardWithKey(props: MapCardProps) {
                 />
               </CardContent>
             )}
+
             {!mapQueryResponse.dataIsMissing() &&
-              dataForActiveBreakdownFilter.length === 0 && (
+              dataForActiveBreakdownFilter.length === 0 &&
+              activeBreakdownFilter !== "All" && (
                 <CardContent>
                   <Alert severity="warning">
                     No data available for filter: <b>{activeBreakdownFilter}</b>
