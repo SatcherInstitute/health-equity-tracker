@@ -192,6 +192,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         pct_share: {
           metricId: "covid_cases_share",
           fullCardTitleName: "Share Of Total COVID-19 Cases",
+          unknownsVegaLabel: "% unknown",
           shortVegaLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
@@ -236,6 +237,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           metricId: "covid_deaths_share",
           fullCardTitleName: "Share Of Total COVID-19 Deaths",
           shortVegaLabel: "% of deaths",
+          unknownsVegaLabel: "% unknown",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "covid_deaths_reporting_population_pct",
@@ -279,6 +281,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           metricId: "covid_hosp_share",
           fullCardTitleName: "Share Of Total COVID-19 Hospitalizations",
           shortVegaLabel: "% of hospitalizations",
+          unknownsVegaLabel: "% unknown",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "covid_hosp_reporting_population_pct",
