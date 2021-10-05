@@ -21,13 +21,7 @@ function ContactUsTab() {
           alignItems="center"
         >
           <Hidden smDown>
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={4}
-              className={styles.GridVerticallyAlignedItem}
-            >
+            <Grid item md={5} className={styles.GridVerticallyAlignedItem}>
               <Typography
                 id="main"
                 tabIndex={-1}
@@ -39,17 +33,11 @@ function ContactUsTab() {
                 equity <b style={{ fontWeight: 400 }}>forward</b>
               </Typography>
             </Grid>
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={8}
-              className={styles.GridAlignRightItem}
-            >
+            <Grid item md={7} className={styles.HeaderImgItem}>
               <img
                 width="870"
                 height="644"
-                src="img/stock/women-laughing-in-line.png"
+                src="/img/stock/women-laughing-in-line.png"
                 className={styles.ImgContactUsHeader}
                 alt=""
               />

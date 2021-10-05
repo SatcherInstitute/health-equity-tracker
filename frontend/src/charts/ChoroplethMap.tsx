@@ -293,6 +293,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
+      background: "white",
       description: props.legendTitle,
       data: [
         {
@@ -394,7 +395,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           // custom 3-dot options for states, hidden on territories
           actions={
             !props.hideActions && {
-              export: { png: true, svg: false },
+              export: { png: true, svg: true },
               source: false,
               compiled: false,
               editor: false,
