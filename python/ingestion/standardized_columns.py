@@ -122,8 +122,8 @@ class Race(Enum):
     # identifier in some places. Until we migrate to using race_category_id,
     # we add a * for the non-standard other so it doesn't accidentally get
     # joined with the standard other on the frontend.
-    OTHER_NONSTANDARD = ("OTHER_NONSTANDARD", "Some other race*", True)
-    OTHER_NONSTANDARD_NH = ("OTHER_NONSTANDARD_NH", "Some other race*", False)
+    OTHER_NONSTANDARD = ("OTHER_NONSTANDARD", "Some other race", True)
+    OTHER_NONSTANDARD_NH = ("OTHER_NONSTANDARD_NH", "Some other race", False)
 
     # Categories that are combinations of other categories
     # Currently only used in state level vaccination data
