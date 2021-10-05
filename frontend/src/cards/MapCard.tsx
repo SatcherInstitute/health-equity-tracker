@@ -287,8 +287,7 @@ function MapCardWithKey(props: MapCardProps) {
               </CardContent>
             )}
             {!mapQueryResponse.dataIsMissing() &&
-              dataForActiveBreakdownFilter.length === 0 &&
-              activeBreakdownFilter !== "All" && (
+              dataForActiveBreakdownFilter.length === 0 && (
                 <CardContent>
                   <Alert severity="warning">
                     No data available for filter: <b>{activeBreakdownFilter}</b>
