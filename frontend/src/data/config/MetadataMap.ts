@@ -81,6 +81,61 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: false,
   },
   {
+    id: "cdc_vaccination_county",
+    data_source_name: "CDC COVID-19 Vaccinations in the United States, County",
+    data_source_link:
+      "https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh",
+    geographic_level: "County",
+    demographic_granularity: "None",
+    update_frequency: "Daily",
+    description:
+      "Overall US COVID-19 Vaccine administration and vaccine equity data at county level " +
+      "Data represents all vaccine partners including jurisdictional partner clinics, " +
+      "retail pharmacies, long-term care facilities, dialysis centers, " +
+      "Federal Emergency Management Agency and Health Resources and Services " +
+      "Administration partner sites, and federal entity facilities.",
+    dataset_ids: ["cdc_vaccination_county-race_and_ethnicity"],
+    downloadable: true,
+  },
+  {
+    id: "cdc_vaccination_national",
+    data_source_name:
+      "CDC COVID-19 Vaccination Demographics in the United States, National",
+    data_source_link:
+      "https://covid.cdc.gov/covid-data-tracker/#vaccination-demographics-trends",
+    geographic_level: "National",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Daily",
+    description:
+      "Overall Demographic Characteristics of People Receiving COVID-19 Vaccinations " +
+      "in the United States at national level. Data represents all vaccine partners " +
+      "including jurisdictional partner clinics, retail pharmacies, long-term care facilities, " +
+      "dialysis centers, Federal Emergency Management Agency and Health Resources and Services " +
+      "Administration partner sites, and federal entity facilities. (CDC 2021)",
+    dataset_ids: [
+      "cdc_vaccination_national-age",
+      "cdc_vaccination_national-race_and_ethnicity",
+      "cdc_vaccination_national-sex",
+    ],
+    downloadable: true,
+  },
+  {
+    id: "kff_vaccination",
+    data_source_name: "Kaiser Family Foundation COVID-19 Indicators",
+    data_source_link: "https://www.kff.org/state-category/covid-19/",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity",
+    update_frequency: "Biweekly",
+    description:
+      "State level vaccination information based off of Kaiser Family Foundation " +
+      "analysis of publicly available data from state websites. Per 100k metrics are found on " +
+      "'COVID-19 Vaccinations by Race/Ethnicity', percent share metrics are found on " +
+      "'Percent of Total Population that has Received a COVID-19 Vaccine by Race/Ethnicity' " +
+      "and the All metric is found on 'COVID-19 Vaccines Delivered and Administered'",
+    dataset_ids: ["kff_vaccination-race_and_ethnicity"],
+    downloadable: true,
+  },
+  {
     id: "uhc",
     data_source_name: "America's Health Rankings",
     data_source_link:

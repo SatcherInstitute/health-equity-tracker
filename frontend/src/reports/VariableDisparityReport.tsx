@@ -107,16 +107,21 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
 
       {variableConfig && (
         <Grid container spacing={1} justify="center">
-          <Grid item container xs={12} md={SINGLE_COLUMN_WIDTH}>
-            <ReportToggleControls
-              dropdownVarId={props.dropdownVarId}
-              variableConfig={variableConfig}
-              setVariableConfig={setVariableConfigWithParam}
-              currentBreakdown={currentBreakdown}
-              setCurrentBreakdown={setDemoWithParam}
-            />
-          </Grid>
-          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH}>
+          {!(
+            props.dropdownVarId === METRIC_CONFIG["vaccinated"][0].variableId &&
+            props.fips.isCounty()
+          ) && (
+            <Grid item container xs={12} md={SINGLE_COLUMN_WIDTH}>
+              <ReportToggleControls
+                dropdownVarId={props.dropdownVarId}
+                variableConfig={variableConfig}
+                setVariableConfig={setVariableConfigWithParam}
+                currentBreakdown={currentBreakdown}
+                setCurrentBreakdown={setDemoWithParam}
+              />
+            </Grid>
+          )}
+          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH}>
             <MapCard
               variableConfig={variableConfig}
               fips={props.fips}

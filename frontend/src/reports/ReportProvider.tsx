@@ -20,6 +20,11 @@ import styles from "./Report.module.scss";
 import ShareDialog from "./ui/ShareDialog";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
 import { Grid } from "@material-ui/core";
+import { METRIC_CONFIG } from "../data/config/MetricConfig";
+import {
+  // UNREPRESENTED_RACE_DEF,
+  VACCINATED_DEF,
+} from "../pages/DataCatalog/MethodologyTab";
 
 export const SINGLE_COLUMN_WIDTH = 10;
 
@@ -140,14 +145,26 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         </Grid>
         {getReport()}
       </div>
-      <div
+      <aside
         id="missingDataInfo"
         className={styles.MissingDataInfo}
         ref={fieldRef}
       >
-        <h1>What Data Are Missing?</h1>
+        <h3 className={styles.FootnoteLargeHeading}>Definitions</h3>
+        <p>
+          <b>"{METRIC_CONFIG["vaccinated"][0].variableFullDisplayName}"</b>
+          {": "}
+          {VACCINATED_DEF}
+        </p>
+        {/* <p>
+          <span className={styles.DefinedTerm}>"Unrepresented Race"</span>
+          {": "}
+          {UNREPRESENTED_RACE_DEF}
+        </p> */}
+
+        <h3 className={styles.FootnoteLargeHeading}>What Data Are Missing?</h3>
         <p>Unfortunately there are crucial data missing in our sources.</p>
-        <h3>Missing and Misidentified People</h3>
+        <h4>Missing and Misidentified People</h4>
         <p>
           Currently, there are no required or standardized race and ethnicity
           categories for data collection across state and local jurisdictions.
@@ -160,7 +177,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           status is collected with the COVID-19 case data. Additionally, sex is
           recorded only as female, male, or other.
         </p>
-        <h3>Missing Cases</h3>
+        <h4>Missing Cases</h4>
         <p>
           For COVID-19 related reports, this tracker uses disaggregated,
           individual{" "}
@@ -169,20 +186,16 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             jurisdictions to the CDC
           </a>
           . The following states appear grey on the maps reporting COVID-19
-          cases , hospitalizations and deaths because they have not provided
-          sufficient disaggregated data to the CDC:{" "}
-          <b>
-            Louisiana, Mississippi, Missouri, North Dakota, Texas, and Wyoming
-          </b>
-          . The following states' data for COVID-19 are included, but their data
-          should be interpreted with caution since the cases reported may not be
-          representative of the population at large: 
-          <b>
-            Connecticut, Florida, Kentucky, Michigan, Nebraska,  Ohio, West
-            Virginia.
-          </b>
+          cases, hospitalizations and deaths because they have not provided
+          sufficient disaggregated data to the CDC: <b>Louisiana</b>,{" "}
+          <b>Mississippi</b>, <b>Missouri</b>, <b>North Dakota</b>, <b>Texas</b>
+          , and <b>Wyoming</b>. The following states' data for COVID-19 are
+          included, but their data should be interpreted with caution since the
+          cases reported may not be representative of the population at large: 
+          <b>Connecticut</b>, <b>Florida</b>,<b> Kentucky</b>,<b> Michigan</b>,
+          <b> Nebraska</b>,<b> Ohio</b>, <b>West Virginia</b>.
         </p>
-        <h3>Missing Outcomes</h3>
+        <h4>Missing Outcomes</h4>
         <p>
           Many COVID-19 case records are incomplete, with an unknown
           hospitalization and/or death status. This means that some states that
@@ -197,7 +210,15 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           reports on deaths. <b>Rhode Island </b> appears as grey when viewing
           reports on hospitalizations but is included when viewing deaths.
         </p>
-        <h3>Missing Population Data</h3>
+        <h4>Missing Vaccination Data</h4>
+        <p>
+          There is no county level vaccine demographic dataset, so we show
+          county totals according to the CDC to provide context. Furthermore,{" "}
+          <b>Texas</b> does not provide vaccine demographic information to the
+          CDC, so all national vaccine numbers exclude Texas, and Texas’
+          population isn’t counted in the national per 100k population metrics.
+        </p>
+        <h4>Missing Population Data</h4>
         <p>
           The census bureau does not release population data for the{" "}
           <b>Northern Mariana Islands</b>, <b>Guam</b>, or the{" "}
@@ -205,6 +226,18 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           reliable population numbers we could find for these territories is
           from the 2010 census, so we use those numbers when calculating the per
           100k COVID-19 rates nationally and for all territory level rates.
+        </p>
+        <p>
+          Because state reported population categories do not always coincide
+          with the categories reported by the census, we rely on the Kaiser
+          Family Foundation population tabulations for state reported population
+          categories, which only include population numbers for <b>Black,</b>{" "}
+          <b>White</b>, <b>Asian</b>, and <b>Hispanic</b>. Percent of vaccinated
+          metrics for <b>Native Hawaiian and Pacific Islander</b>, and{" "}
+          <b>American Indian and Alaska Native</b> are shown with a population
+          comparison metric from the American Community Survey 5-year estimates,
+          while <b>Some Other Race</b> is shown without any population
+          comparison metric.
         </p>
         <div className={styles.MissingDataContactUs}>
           <p>
@@ -221,7 +254,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             See Our Data Sources
           </Button>
         </a>
-      </div>
+      </aside>
     </>
   );
 }
