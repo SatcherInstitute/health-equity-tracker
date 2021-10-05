@@ -43,7 +43,16 @@ export async function evaluateWithAndWithoutAll(
     new MetricQuery(METRIC_IDS, baseBreakdown.addBreakdown(breakdownVar))
   );
 
-  const consumedDatasetIds = [vaccineDatasetId, acsDatasetId];
+  let consumedDatasetIds = [vaccineDatasetId];
+  if (acsDatasetId !== "") {
+    consumedDatasetIds.push(acsDatasetId);
+  }
+
+  if (baseBreakdown.geography === "national") {
+    consumedDatasetIds.push(
+      "acs_2010_population-by_race_and_ethnicity_territory"
+    );
+  }
 
   expect(responseIncludingAll).toEqual(
     new MetricQueryResponse(rowsIncludingAll, consumedDatasetIds)
@@ -91,7 +100,8 @@ function stateRow(
   vaccinated_pct: number,
   vaccinated_pct_share: number,
   vaccinated_first_dose: number,
-  population: number
+  population: number,
+  population_pct: number
 ) {
   return [
     {
@@ -102,6 +112,7 @@ function stateRow(
       vaccinated_pct_share: vaccinated_pct_share,
       vaccinated_first_dose: vaccinated_first_dose,
       population: population,
+      population_pct: population_pct,
     },
     {
       state_fips: fips.code,
@@ -150,10 +161,20 @@ describe("VaccineProvider", () => {
       0.15,
       0.2,
       0, // not used
-      100
+      100,
+      0.5
     );
 
-    const [NC_ALL_ROW, NC_ACS_ALL_ROW] = stateRow(NC, RACE, ALL, 0, 0, 50, 200);
+    const [NC_ALL_ROW, NC_ACS_ALL_ROW] = stateRow(
+      NC,
+      RACE,
+      ALL,
+      0,
+      0,
+      50,
+      200,
+      1
+    );
 
     const rawData = [NC_ASIAN_ROW, NC_ALL_ROW];
 

@@ -71,7 +71,7 @@ function UnknownsAlert(props: {
       } reported an
     ${unknowns[0][props.breakdownVar].toLowerCase()} and
     ${unknowns[1][props.metricConfig.metricId]}${
-        props.metricConfig.shortVegaLabel
+        props.metricConfig.knownBreakdownComparisonMetric!.shortVegaLabel
       } reported an
     ${unknowns[1][props.breakdownVar].toLowerCase()}.`
     : "";
@@ -91,7 +91,7 @@ function UnknownsAlert(props: {
         <Alert severity="warning">
           {percentageUnknown}
           {
-            props.metricConfig?.knownBreakdownComparisonMetric?.shortVegaLabel
+            props.metricConfig.knownBreakdownComparisonMetric!.shortVegaLabel
           }{" "}
           reported {props.overrideAndWithOr && "an"} unknown{" "}
           {props.overrideAndWithOr

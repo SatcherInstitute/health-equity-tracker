@@ -69,6 +69,11 @@ class VaccineProvider extends VariableProvider {
         acsQueryResponse.consumedDatasetIds
       );
 
+      // We merge this in on the backend
+      consumedDatasetIds = consumedDatasetIds.concat(
+        "acs_2010_population-by_race_and_ethnicity_territory"
+      );
+
       const acs = new DataFrame(acsQueryResponse.data);
       df = joinOnCols(df, acs, ["fips", breakdownColumnName], "left");
 
@@ -120,43 +125,114 @@ class VaccineProvider extends VariableProvider {
       );
 
       const acs = new DataFrame(acsQueryResponse.data);
-      df = joinOnCols(df, acs, ["fips", breakdownColumnName], "left");
+      const acsToMerge = acs
+        .where(
+          (row) =>
+            row[breakdownColumnName].includes(
+              "American Indian and Alaska Native"
+            ) ||
+            row[breakdownColumnName].includes(
+              "Native Hawaiian and Pacific Islander"
+            )
+        )
+        .resetIndex();
 
-      df = df.renameSeries({
-        population_pct: "vaccine_population_pct",
-      });
-
-      // We have to separate there because the ALL rows contain raw numbers
-      // while the other rows are pre computed
-      let totalDf = df.where((row) => row[breakdownColumnName] === ALL);
-      let nonTotalDf = df.where((row) => row[breakdownColumnName] !== ALL);
-
-      nonTotalDf = nonTotalDf.generateSeries({
-        vaccinated_per_100k: (row) =>
-          isNaN(row.vaccinated_pct) || row.vaccinated_pct == null
-            ? null
-            : row.vaccinated_pct * 1000 * 100,
-      });
-
-      nonTotalDf = nonTotalDf
+      df = df
         .generateSeries({
           vaccinated_pct_share: (row) =>
-            row.vaccinated_pct_share == null || isNaN(row.vaccinated_pct_share)
+            row.vaccinated_pct_share == null ||
+            isNaN(row.vaccinated_pct_share) ||
+            row.vaccinated_pct_share === 0
               ? null
               : Math.round(row.vaccinated_pct_share * 100),
         })
         .resetIndex();
 
-      totalDf = totalDf.generateSeries({
-        vaccinated_per_100k: (row) =>
-          this.calculations.per100k(row.vaccinated_first_dose, row.population),
-      });
+      let dfAIANNHPI = df
+        .where(
+          (row) =>
+            row[breakdownColumnName].includes(
+              "American Indian and Alaska Native"
+            ) ||
+            row[breakdownColumnName].includes(
+              "Native Hawaiian and Pacific Islander"
+            )
+        )
+        .resetIndex();
 
-      totalDf = totalDf.generateSeries({
-        vaccinated_pct_share: (row) => 100,
-      });
+      dfAIANNHPI = dfAIANNHPI.dropSeries(["population_pct"]).resetIndex();
 
-      df = nonTotalDf.concat(totalDf).resetIndex();
+      let dfNotAIANNHPI = df
+        .where(
+          (row) =>
+            !row[breakdownColumnName].includes(
+              "American Indian and Alaska Native"
+            ) &&
+            !row[breakdownColumnName].includes(
+              "Native Hawaiian and Pacific Islander"
+            )
+        )
+        .resetIndex();
+
+      dfNotAIANNHPI = dfNotAIANNHPI
+        .generateSeries({
+          population_pct: (row) =>
+            isNaN(row.population_pct) ||
+            row.population_pct == null ||
+            row.population_pct === 0
+              ? null
+              : Math.round(row.population_pct * 100),
+        })
+        .resetIndex();
+
+      dfNotAIANNHPI = dfNotAIANNHPI
+        .generateSeries({
+          vaccinated_per_100k: (row) =>
+            isNaN(row.vaccinated_pct) ||
+            row.vaccinated_pct == null ||
+            row.vaccinated_pct === 0
+              ? null
+              : Math.round(row.vaccinated_pct * 1000 * 100),
+        })
+        .resetIndex();
+
+      dfAIANNHPI = joinOnCols(
+        dfAIANNHPI,
+        acsToMerge,
+        ["fips", breakdownColumnName],
+        "left"
+      );
+
+      df = dfAIANNHPI.concat(dfNotAIANNHPI).resetIndex();
+
+      df = df
+        .renameSeries({
+          population_pct: "vaccine_population_pct",
+        })
+        .resetIndex();
+
+      // We have to separate there because the ALL rows contain raw numbers
+      // while the other rows are pre computed
+      let totalDf = df.where((row) => row[breakdownColumnName] === ALL);
+      const nonTotalDf = df.where((row) => row[breakdownColumnName] !== ALL);
+
+      totalDf = totalDf
+        .generateSeries({
+          vaccinated_per_100k: (row) =>
+            this.calculations.per100k(
+              row.vaccinated_first_dose,
+              row.population
+            ),
+        })
+        .resetIndex();
+
+      totalDf = totalDf
+        .generateSeries({
+          vaccinated_pct_share: (row) => 100,
+        })
+        .resetIndex();
+
+      df = totalDf.concat(nonTotalDf).resetIndex();
 
       df = df
         .generateSeries({
