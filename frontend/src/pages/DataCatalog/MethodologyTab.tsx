@@ -15,12 +15,12 @@ export const CITATION_CHICAGO =
   "Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. https://healthequitytracker.org.";
 
 export const VACCINATED_DEF = `People who have received at least one dose of a COVID-19 vaccine.`;
-export const UNREPRESENTED_RACE_DEF = `A single race not
-tabulated by the CDC, not Hispanic/Latino. The definition of
-"Unrepresented Race" is dependent on what other race
-categories exist in the dataset. Please note: The CDC and
-many other sources use the term "Some other race"; we find
-this term to be non-inclusive have avoided its usage.`;
+// export const UNREPRESENTED_RACE_DEF = `A single race not
+// tabulated by the CDC, not Hispanic/Latino. The definition of
+// "Unrepresented Race" is dependent on what other race
+// categories exist in the dataset. Please note: The CDC and
+// many other sources use the term "Some other race"; we find
+// this term to be non-inclusive have avoided its usage.`;
 
 function MethodologyTab() {
   return (
@@ -178,10 +178,11 @@ function MethodologyTab() {
                     at the state level are provided by the Kaiser Family
                     Foundation, who researched exactly what the definition of
                     each demographic group in every state is. They provide
-                    population estimates for Asian, Black, White, and Hispanic,
-                    so we fill in the ACS 2019 estimation for American Indian
-                    and Alaska Native, and Native Hawaiian and Pacific Islander.
-                    These alternate population comparisons metrics shown with a
+                    population estimates for <b>Asian</b>, <b>Black</b>,{" "}
+                    <b>White</b>, and <b>Hispanic</b>, so we fill in the ACS
+                    2019 estimation for <b>American Indian and Alaska Native</b>
+                    , and <b>Native Hawaiian and Pacific Islander</b>. These
+                    alternate population comparisons metrics shown with a
                     different color on the disparities bar chart. We are unable
                     to show a population comparison metric for “Some Other Race”
                     because we are unsure of the definition in each state.
@@ -200,12 +201,12 @@ function MethodologyTab() {
                     vaccine demographic page.
                   </li>
                   <li>
-                    Idaho provides vaccine data only for vaccine recipients who
-                    are 18 years and older in line with state laws. COVID
-                    vaccination administration data is unavailable for the
-                    Vaccinations in the US, and Vaccinations by County pages for
-                    the population aged less than 18 years. This only affects
-                    the national numbers.
+                    <b>Idaho</b> provides vaccine data only for vaccine
+                    recipients who are 18 years and older in line with state
+                    laws. COVID vaccination administration data is unavailable
+                    for the Vaccinations in the US, and Vaccinations by County
+                    pages for the population aged less than 18 years. This only
+                    affects the national numbers.
                   </li>
                   <li>
                     Some states report race and ethnicity separately, in which
@@ -215,11 +216,11 @@ function MethodologyTab() {
                     page.
                   </li>
                   <li>
-                    Because the Kaiser Family Foundation only collects
-                    population data for Asian, Black, White, and Hispanic
-                    demographics, the per 100k metrics is limited those four
-                    races as well. These are all we are able to show at the
-                    state level.
+                    The Kaiser Family Foundation only collects population data
+                    for <b>Asian</b>, <b>Black</b>, <b>White</b>, and{" "}
+                    <b>Hispanic</b> demographics, limiting their per 100k
+                    metrics and what demographic breakdowns we are able to show
+                    at the state level.
                   </li>
                   <li>
                     All vaccination data is shown as “at least one dose”, except
@@ -405,18 +406,24 @@ function MethodologyTab() {
                     and Hispanic/Latino.
                   </li>
                   <li>
-                    <b>Unrepresented race (Non-Hispanic)</b>
+                    {/* <b>Unrepresented race (Non-Hispanic)</b>
                     {": "}
-                    {UNREPRESENTED_RACE_DEF}
+                    {UNREPRESENTED_RACE_DEF} */}
+                    <b>Some other race (Non-Hispanic)</b>: A single race which
+                    is not otherwise represented by the data source's
+                    categorization, not Hispanic/Latino. The definition of "some
+                    other race" is dependent on what other race categories exist
+                    in the dataset.
                   </li>
                   <li>
                     <b>Two or more races (Non-Hispanic)</b>: Multiple races, not
                     Hispanic/Latino.
                   </li>
                   <li>
-                    <b>Two or more races & Unrepresented race (Non-Hispanic)</b>
-                    : People who are either multiple races or an unrepresented
-                    race, and not Hispanic/Latino.
+                    <b>Two or more races & Some other race (Non-Hispanic)</b>:
+                    People who are either multiple races or a single race not
+                    represented by the data source's categorization, and who are
+                    not Hispanic/Latino.
                   </li>
                 </ul>
               </div>

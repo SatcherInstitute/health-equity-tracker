@@ -21,7 +21,7 @@ import ShareDialog from "./ui/ShareDialog";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
 import { METRIC_CONFIG } from "../data/config/MetricConfig";
 import {
-  UNREPRESENTED_RACE_DEF,
+  // UNREPRESENTED_RACE_DEF,
   VACCINATED_DEF,
 } from "../pages/DataCatalog/MethodologyTab";
 
@@ -141,11 +141,11 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           {": "}
           {VACCINATED_DEF}
         </p>
-        <p>
+        {/* <p>
           <span className={styles.DefinedTerm}>"Unrepresented Race"</span>
           {": "}
           {UNREPRESENTED_RACE_DEF}
-        </p>
+        </p> */}
 
         <h3 className={styles.FootnoteLargeHeading}>What Data Are Missing?</h3>
         <p>Unfortunately there are crucial data missing in our sources.</p>
@@ -171,7 +171,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             jurisdictions to the CDC
           </a>
           . The following states appear grey on the maps reporting COVID-19
-          cases , hospitalizations and deaths because they have not provided
+          cases, hospitalizations and deaths because they have not provided
           sufficient disaggregated data to the CDC:{" "}
           <b>
             Louisiana, Mississippi, Missouri, North Dakota, Texas, and Wyoming
@@ -222,9 +222,11 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           Family Foundation population tabulations for state reported population
           categories, which only include population numbers for <b>Black,</b>{" "}
           <b>White</b>, <b>Asian</b>, and <b>Hispanic</b>. Percent of vaccinated
-          metrics for <b>Native Hawaiian and Pacific Islander</b>,{" "}
-          <b>American Indian and Alaska Native</b>, and <b>Some Other Race</b>{" "}
-          are still shown, but without a population comparison metric.
+          metrics for <b>Native Hawaiian and Pacific Islander</b>, and{" "}
+          <b>American Indian and Alaska Native</b> are shown with a population
+          comparison metric from the American Community Survey 5-year estimates,
+          and <b>Some Other Race</b> is shown without any population comparison
+          metric.
         </p>
         <div className={styles.MissingDataContactUs}>
           <p>
