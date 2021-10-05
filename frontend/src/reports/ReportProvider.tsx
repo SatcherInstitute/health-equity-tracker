@@ -172,17 +172,13 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           </a>
           . The following states appear grey on the maps reporting COVID-19
           cases, hospitalizations and deaths because they have not provided
-          sufficient disaggregated data to the CDC:{" "}
-          <b>
-            Louisiana, Mississippi, Missouri, North Dakota, Texas, and Wyoming
-          </b>
-          . The following states' data for COVID-19 are included, but their data
-          should be interpreted with caution since the cases reported may not be
-          representative of the population at large: 
-          <b>
-            Connecticut, Florida, Kentucky, Michigan, Nebraska,  Ohio, West
-            Virginia.
-          </b>
+          sufficient disaggregated data to the CDC: <b>Louisiana</b>,{" "}
+          <b>Mississippi</b>, <b>Missouri</b>, <b>North Dakota</b>, <b>Texas</b>
+          , and <b>Wyoming</b>. The following states' data for COVID-19 are
+          included, but their data should be interpreted with caution since the
+          cases reported may not be representative of the population at large: 
+          <b>Connecticut</b>, <b>Florida</b>,<b> Kentucky</b>,<b> Michigan</b>,
+          <b> Nebraska</b>,<b> Ohio</b>, <b>West Virginia</b>.
         </p>
         <h4>Missing Outcomes</h4>
         <p>

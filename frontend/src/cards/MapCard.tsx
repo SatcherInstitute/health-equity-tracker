@@ -94,7 +94,7 @@ function MapCardWithKey(props: MapCardProps) {
     metricQuery(Breakdowns.forFips(props.fips)),
   ];
 
-  // hide demographic selectors / dropdowns / links to multipmap if displaying VACCINATION at COUNTY level, as we don't have that data
+  // hide demographic selectors / dropdowns / links to multimap if displaying VACCINATION at COUNTY level, as we don't have that data
   const hideDemographicUI =
     props.variableConfig.variableId ===
       METRIC_CONFIG["vaccinated"][0].variableId && props.fips.isCounty();
