@@ -130,9 +130,9 @@ function MethodologyTab() {
                   publishes the data in a usable format. This dataset only
                   provides data on the race and ethnicity of vaccine recipients,
                   and only has data on at least one shot. It does not include
-                  any data for US territories. Finally, we could not identify a
-                  dataset that provides vaccine demographics at the county
-                  level, so we decided to use the{" "}
+                  any demographic data for US territories. Finally, we could not
+                  identify a dataset that provides vaccine demographics at the
+                  county level, so we decided to use the{" "}
                   <a href="https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh">
                     COVID-19 Vaccinations in the United States, County dataset
                   </a>{" "}
@@ -142,8 +142,8 @@ function MethodologyTab() {
                 <h4> Vaccination Population Sources </h4>
                 <ul>
                   <li>
-                    For the state and county level we use the ACS 2019
-                    population estimations.
+                    For the county level we use the ACS 2019 population
+                    estimations.
                   </li>
                   <li>
                     For the national numbers we use the population numbers
@@ -194,6 +194,19 @@ function MethodologyTab() {
                     case, we show the higher of the two metrics on the national
                     map of unknown cases, and display both numbers on the state
                     page.
+                  </li>
+                  <li>
+                    Because the Kaiser Family Foundation only collects
+                    population data for Asian, Black, White, and Hispanic
+                    demographics, they only provide the per 100k metric for
+                    those four races, which is all we are able to show at the
+                    state level.
+                  </li>
+                  <li>
+                    All vaccination data is shown as “at least one dose”, except
+                    for some states which only provide numbers of fully
+                    vaccinated individuals, in which case those numbers are
+                    shown.
                   </li>
                 </ul>
 
