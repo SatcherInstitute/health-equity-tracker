@@ -17,7 +17,7 @@ export type CategoryId =
   | "COVID-19"
   | "Chronic Disease"
   | "Mental Health"
-  | "Social and Behavioral Health";
+  | "Social & Political Determinants of Health";
 
 export interface MadLib {
   readonly id: MadLibId;
@@ -67,7 +67,7 @@ export type DropdownVarId =
   | "vaccinated";
 
 const DROPDOWN_VAR: Record<DropdownVarId, string> = {
-  covid: "COVID Outcomes",
+  covid: "COVID-19",
   diabetes: "Diabetes",
   copd: "COPD",
   health_insurance: "Uninsured Individuals",
@@ -85,14 +85,14 @@ export interface Category {
 const CATEGORIES_LIST: Category[] = [
   {
     title: "COVID-19",
-    options: ["covid"],
+    options: ["covid", "vaccinated"],
   },
   {
     title: "Chronic Disease",
     options: ["diabetes", "copd"],
   },
   {
-    title: "Social and Behavioral Health",
+    title: "Social & Political Determinants of Health",
     options: ["health_insurance", "poverty"],
   },
 ];
