@@ -36,6 +36,8 @@ export interface ChoroplethMapProps {
   metric: MetricConfig;
   // The geography that this map is showing
   fips: Fips;
+  // Use different labels for legend and tooltip if it's the unknowns map
+  isUnknownsMap?: boolean;
   // If true, maps will render counties, otherwise it will render states/territories
   showCounties: boolean;
   // legendData is the dataset for which to calculate legend. Used to have a common legend between two maps.
@@ -43,7 +45,7 @@ export interface ChoroplethMapProps {
   // Whether or not the legend is present
   hideLegend?: boolean;
   // If legend is present, what is the title
-  legendTitle: string;
+  legendTitle: string | string[];
   // Max/min of the data range- if present it will set the color scale at these boundaries
   fieldRange?: FieldRange;
   // Hide the action bar in the corner of a vega chart
@@ -128,8 +130,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const tooltipDatum = `format(datum.${props.metric.metricId}, ',')`;
     // TODO: would be nice to use addMetricDisplayColumn for the tooltips here
     // so that data formatting is consistent.
-    const tooltipValue = `{"${geographyName}": datum.properties.name, "${props.metric.shortVegaLabel}": ${tooltipDatum} }`;
-    const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${props.metric.shortVegaLabel}": "${noDataText}" }`;
+    const tooltipLabel =
+      props.isUnknownsMap && props.metric.unknownsVegaLabel
+        ? props.metric.unknownsVegaLabel
+        : props.metric.shortVegaLabel;
+    const tooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum} }`;
+    const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": "${noDataText}" }`;
 
     /* SET UP LEGEND */
     let legendList = [];
@@ -371,6 +377,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props.geoData,
     LEGEND_WIDTH,
     legendData,
+    props.isUnknownsMap,
   ]);
 
   return (

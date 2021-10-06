@@ -3,7 +3,11 @@ import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
-import { VariableConfig, formatFieldValue } from "../data/config/MetricConfig";
+import {
+  VariableConfig,
+  formatFieldValue,
+  METRIC_CONFIG,
+} from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
   Breakdowns,
@@ -90,6 +94,11 @@ function MapCardWithKey(props: MapCardProps) {
     metricQuery(Breakdowns.forFips(props.fips)),
   ];
 
+  // hide demographic selectors / dropdowns / links to multimap if displaying VACCINATION at COUNTY level, as we don't have that data
+  const hideDemographicUI =
+    props.variableConfig.variableId ===
+      METRIC_CONFIG["vaccinated"][0].variableId && props.fips.isCounty();
+
   return (
     <CardWrapper
       queries={queries}
@@ -132,6 +141,49 @@ function MapCardWithKey(props: MapCardProps) {
           ]]: breakdownValues,
         };
 
+        // If possible, calculate the total for the selected demographic group and dynamically generate the rest of the phrase
+        function generateDemographicTotalPhrase() {
+          const options = overallQueryResponse.data.find(
+            (row) => row[props.currentBreakdown] === activeBreakdownFilter
+          );
+
+          return options ? (
+            <>
+              <b>
+                {formatFieldValue(
+                  metricConfig.type,
+                  options[metricConfig.metricId]
+                )}
+              </b>{" "}
+              {/*} cases per 100k */}
+              {metricConfig.shortVegaLabel}
+              {/*} for  */}
+              {activeBreakdownFilter !== "All" && " for"}
+              {/*} [ ages 30-39] */}
+              {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                props.currentBreakdown
+              ] === "age" &&
+                activeBreakdownFilter !== "All" &&
+                ` ages ${activeBreakdownFilter}`}
+              {/*} [Asian (non Hispanic) individuals] */}
+              {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                props.currentBreakdown
+              ] !== "age" &&
+                activeBreakdownFilter !== "All" &&
+                ` ${activeBreakdownFilter} individuals`}
+              {" in  "}
+              {/*} in */}
+              {/*} (the) */}
+              {props.fips.getDisplayName() === "United States" && "the "}
+              {/*} United States */}
+              {props.fips.getDisplayName()}
+              {". "}
+            </>
+          ) : (
+            ""
+          );
+        }
+
         return (
           <>
             <MultiMapDialog
@@ -163,7 +215,7 @@ function MapCardWithKey(props: MapCardProps) {
               />
             </CardContent>
 
-            {!mapQueryResponse.dataIsMissing() && (
+            {!mapQueryResponse.dataIsMissing() && !hideDemographicUI && (
               <>
                 <Divider />
                 <CardContent className={styles.SmallMarginContent}>
@@ -199,72 +251,39 @@ function MapCardWithKey(props: MapCardProps) {
                   <Divider />
                   <CardContent>
                     <Alert severity="info">
-                      {/* EXAMPLE TEXT OUTPUT:  */}
-                      <b>
-                        {/* 9,543 */}
-                        {formatFieldValue(
-                          metricConfig.type,
-                          overallQueryResponse!.data.find(
-                            (row) =>
-                              row[props.currentBreakdown] ===
-                              activeBreakdownFilter
-                          )![metricConfig.metricId]
-                        )}
-                      </b>{" "}
-                      {/* cases per 100k */}
-                      {metricConfig.shortVegaLabel}
-                      {/* for  */}
-                      {activeBreakdownFilter !== "All" && " for"}
-                      {/* [ ages 30-39] */}
-                      {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                        props.currentBreakdown
-                      ] === "age" &&
-                        activeBreakdownFilter !== "All" &&
-                        ` ages ${activeBreakdownFilter}`}
-                      {/* [Asian (non Hispanic) individuals] */}
-                      {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                        props.currentBreakdown
-                      ] !== "age" &&
-                        activeBreakdownFilter !== "All" &&
-                        ` ${activeBreakdownFilter} individuals`}
-                      {" in  "}
-                      {/* in */}
-                      {/* (the) */}
-                      {props.fips.getDisplayName() === "United States" &&
-                        "the "}
-                      {/* United States */}
-                      {props.fips.getDisplayName()}
-                      {". "}
-                      {/* LINK: Compare across XYZ */}
-                      <span
-                        onClick={() => setSmallMultiplesDialogOpen(true)}
-                        role="button"
-                        className={styles.CompareAcrossLink}
-                        aria-label={
-                          "Compare " +
-                          props.variableConfig.variableFullDisplayName +
-                          " across " +
-                          BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                            props.currentBreakdown
-                          ] +
-                          " groups"
-                        }
-                      >
-                        Compare across{" "}
-                        {
-                          BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                            props.currentBreakdown
-                          ]
-                        }{" "}
-                        groups
-                      </span>
-                      .
+                      {generateDemographicTotalPhrase()}
+
+                      {/* Compare across XYZ for all variables except vaccinated at county level */}
+                      {!hideDemographicUI && (
+                        <span
+                          onClick={() => setSmallMultiplesDialogOpen(true)}
+                          role="button"
+                          className={styles.CompareAcrossLink}
+                          aria-label={
+                            "Compare " +
+                            props.variableConfig.variableFullDisplayName +
+                            " across " +
+                            BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                              props.currentBreakdown
+                            ] +
+                            " groups"
+                          }
+                        >
+                          Compare across{" "}
+                          {
+                            BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                              props.currentBreakdown
+                            ]
+                          }{" "}
+                          groups
+                        </span>
+                      )}
                     </Alert>
                   </CardContent>
                 </>
               )}
-
-            {mapQueryResponse.dataIsMissing() && (
+            {(mapQueryResponse.dataIsMissing() ||
+              dataForActiveBreakdownFilter.length === 0) && (
               <CardContent>
                 <MissingDataAlert
                   dataName={metricConfig.fullCardTitleName}
@@ -275,8 +294,10 @@ function MapCardWithKey(props: MapCardProps) {
                 />
               </CardContent>
             )}
+
             {!mapQueryResponse.dataIsMissing() &&
-              dataForActiveBreakdownFilter.length === 0 && (
+              dataForActiveBreakdownFilter.length === 0 &&
+              activeBreakdownFilter !== "All" && (
                 <CardContent>
                   <Alert severity="warning">
                     No data available for filter: <b>{activeBreakdownFilter}</b>

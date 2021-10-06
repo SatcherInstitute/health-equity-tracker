@@ -63,7 +63,8 @@ export type DropdownVarId =
   | "diabetes"
   | "copd"
   | "health_insurance"
-  | "poverty";
+  | "poverty"
+  | "vaccinated";
 
 const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   covid: "COVID Outcomes",
@@ -71,6 +72,7 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   copd: "COPD",
   health_insurance: "Uninsured Individuals",
   poverty: "Poverty",
+  vaccinated: "Vaccinated Individuals",
 };
 
 /* Update categories / DropdownVarIds here; type defs at top of file */

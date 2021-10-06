@@ -28,8 +28,8 @@ function getSpec(
   tooltipMetricDisplayColumnName: string,
   showLegend: boolean
 ): any {
-  const BAR_HEIGHT = 40;
-  const BAR_PADDING = 0.1;
+  const BAR_HEIGHT = 60;
+  const BAR_PADDING = 0.2;
   const MEASURE_COLOR = "#0B5240";
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
