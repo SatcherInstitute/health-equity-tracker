@@ -9,6 +9,7 @@ import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet";
 import LazyLoad from "react-lazyload";
 import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
+import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 
 function AimToGoItem(props: {
   src: string;
@@ -61,6 +62,11 @@ function AimToGoItem(props: {
 function TheProjectTab() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const numDataSources = Object.keys(DataSourceMetadataMap).length;
+  const metricConfigArray = Object.keys(METRIC_CONFIG);
+  let numVariables = 0;
+  for (let condition of metricConfigArray) {
+    numVariables += METRIC_CONFIG[condition].length;
+  }
 
   return (
     <>
@@ -192,16 +198,16 @@ function TheProjectTab() {
                     variant="h3"
                     paragraph={true}
                   >
-                    15 variables
+                    {`${numVariables} variables`}
                   </Typography>
                   <Typography
                     className={styles.HeaderSubtextL3}
                     variant="body2"
                     paragraph={true}
                   >
-                    Along with COVID-19 cases, hospitalizations and deaths, the
-                    tracker also covers conditions like COPD, diabetes, SDOH,
-                    and more.
+                    Along with COVID-19 cases, hospitalizations, deaths, and
+                    vaccinations, the tracker also covers conditions like COPD,
+                    diabetes, SDOH, and more.
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
