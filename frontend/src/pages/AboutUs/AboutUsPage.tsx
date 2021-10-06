@@ -4,41 +4,68 @@ import Tab from "@material-ui/core/Tab";
 import TheProjectTab from "./TheProjectTab";
 import OurTeamTab from "./OurTeamTab";
 import ContactUsTab from "./ContactUsTab";
-import { TAB_PARAM, useSearchParams } from "../../utils/urlutils";
+import {
+  ABOUT_US_PAGE_LINK,
+  CONTACT_TAB_LINK,
+  OURTEAM_TAB_LINK,
+  useQuery,
+} from "../../utils/urlutils";
 import styles from "./AboutUsPage.module.scss";
-
-export const ABOUT_US_PROJECT_TAB_INDEX = 0;
-export const ABOUT_US_TEAM_TAB_INDEX = 1;
-export const ABOUT_US_CONTACT_TAB_INDEX = 2;
+import { Link, Redirect, Route, Switch } from "react-router-dom";
 
 export default function AboutUsPage() {
-  const params = useSearchParams();
-
-  const [tabIndex, setTabIndex] = React.useState(
-    params[TAB_PARAM] ? Number(params[TAB_PARAM]) : 0
-  );
-
-  const handleChange = (event: React.ChangeEvent<{}>, newTabIndex: number) => {
-    setTabIndex(newTabIndex);
-  };
-
   return (
     <div className={styles.AboutUsPage}>
-      <Tabs
-        tabIndex={tabIndex}
-        value={tabIndex}
-        onChange={handleChange}
-        indicatorColor="primary"
-        textColor="primary"
-        centered
-      >
-        <Tab label="The Project" />
-        <Tab label="Our Team" />
-        <Tab label="Contact Us" />
-      </Tabs>
-      {tabIndex === 0 && <TheProjectTab />}
-      {tabIndex === 1 && <OurTeamTab />}
-      {tabIndex === 2 && <ContactUsTab />}
+      {/*  intercept old CONTACT via query params for backwards compatible links */}
+      {useQuery().get("tab") === "2" && (
+        <Redirect
+          to={{
+            pathname: CONTACT_TAB_LINK,
+          }}
+        />
+      )}
+      <Route
+        path="/"
+        render={(history) => (
+          <Tabs
+            indicatorColor="primary"
+            textColor="primary"
+            centered
+            value={history.location.pathname}
+          >
+            <Tab
+              value={ABOUT_US_PAGE_LINK}
+              label="The Project"
+              component={Link}
+              to={ABOUT_US_PAGE_LINK}
+            />
+            <Tab
+              value={`${OURTEAM_TAB_LINK}`}
+              label="Our Team"
+              component={Link}
+              to={`${OURTEAM_TAB_LINK}`}
+            />
+            <Tab
+              value={`${CONTACT_TAB_LINK}`}
+              label="Contact Us"
+              component={Link}
+              to={`${CONTACT_TAB_LINK}`}
+            />
+          </Tabs>
+        )}
+      />
+
+      <Switch>
+        <Route path={`${OURTEAM_TAB_LINK}/`}>
+          <OurTeamTab />
+        </Route>
+        <Route path={`${CONTACT_TAB_LINK}/`}>
+          <ContactUsTab />
+        </Route>
+        <Route path={`${ABOUT_US_PAGE_LINK}/`}>
+          <TheProjectTab />
+        </Route>
+      </Switch>
     </div>
   );
 }

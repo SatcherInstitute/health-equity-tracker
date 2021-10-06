@@ -1,0 +1,5 @@
+state_name,state_fips,vaccinated_first_dose,sex,population
+United States,00,99328174,Female,153892887
+United States,00,89560479,Male,149107431
+United States,00,1914156,Unknown,0
+United States,00,190802809,Total,303000318

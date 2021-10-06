@@ -3,11 +3,9 @@ import Grid from "@material-ui/core/Grid";
 import styles from "./DataCatalogPage.module.scss";
 import {
   LinkWithStickyParams,
-  TAB_PARAM,
-  ABOUT_US_PAGE_LINK,
+  CONTACT_TAB_LINK,
   EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK,
 } from "../../utils/urlutils";
-import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
 import { Helmet } from "react-helmet";
 import parse from "html-react-parser";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
@@ -44,11 +42,7 @@ function MethodologyTab() {
               </div>
             </Grid>
             <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2
-                id="main"
-                tabIndex={-1}
-                className={styles.MethodologyQuestion}
-              >
+              <h2 tabIndex={-1} className={styles.MethodologyQuestion}>
                 {selectFaqs[4].q}
               </h2>
               <div className={styles.MethodologyAnswer}>
@@ -174,7 +168,7 @@ function MethodologyTab() {
                   <br />
                   <LinkWithStickyParams
                     className={styles.MethodologyContactUsLink}
-                    to={`${ABOUT_US_PAGE_LINK}?${TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
+                    to={`${CONTACT_TAB_LINK}`}
                   >
                     We would love to hear from you!
                   </LinkWithStickyParams>
