@@ -8,6 +8,7 @@ import Hidden from "@material-ui/core/Hidden";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet";
 import LazyLoad from "react-lazyload";
+import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
 
 function AimToGoItem(props: {
   src: string;
@@ -59,6 +60,7 @@ function AimToGoItem(props: {
 
 function TheProjectTab() {
   const prefersReducedMotion = usePrefersReducedMotion();
+  const numDataSources = Object.keys(DataSourceMetadataMap).length;
 
   return (
     <>
@@ -172,15 +174,16 @@ function TheProjectTab() {
                     variant="h3"
                     paragraph={true}
                   >
-                    5 data sources
+                    {`${numDataSources ? numDataSources : 8} data sources`}
                   </Typography>
                   <Typography
                     className={styles.HeaderSubtextL3}
                     variant="body2"
                     paragraph={true}
                   >
-                    HET currently aggregates data from 5 key data sources. We’ll
-                    continue adding to these initial sources.
+                    HET currently aggregates data from{" "}
+                    {`${numDataSources ? numDataSources : 8}`} key data sources.
+                    We’ll continue adding to these initial sources.
                   </Typography>
                 </Grid>
                 <Grid item xs={12} sm={12} md={5}>
