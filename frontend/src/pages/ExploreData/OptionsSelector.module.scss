@@ -1,3 +1,5 @@
+@import "../../styles/variables.scss";
+
 .SearchForText,
 .CategoryTitleText {
   font-size: 12pt;
@@ -17,14 +19,14 @@
 .OptionsSelectorPopover {
   padding: 20px;
   min-width: 385px;
+  margin: 40px 0px 40px 0px;
 }
 
 .PopoverOverride {
-  margin-inline: 16px;
+  margin: 16px;
 }
 
 .CategoryList {
-  padding: 0px 40px 0px 40px;
   ul span {
     display: flex;
   }
