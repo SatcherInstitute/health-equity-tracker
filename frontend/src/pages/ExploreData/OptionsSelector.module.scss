@@ -1,6 +1,12 @@
-.SearchForText {
+.SearchForText,
+.CategoryTitleText {
   font-size: 12pt;
   font-weight: bold;
+}
+
+.CategoryTitleText {
+  margin: 16px;
+  line-height: 2rem;
 }
 
 .NoteText {
@@ -12,6 +18,23 @@
 .OptionsSelectorPopover {
   padding: 20px;
   min-width: 385px;
+}
+
+.PopoverOverride {
+  margin-right: 16px;
+}
+
+.VariablesBoxPopover {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.CategoryList {
+  padding: 0px 20px 0px 20px;
+  margin-inline: 20px;
+  ul span {
+    display: flex;
+  }
 }
 
 .MadLibButton {

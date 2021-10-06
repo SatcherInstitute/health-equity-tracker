@@ -37,7 +37,7 @@ function getSpec(
   altLightMetricDisplayColumnName?: string,
   hasAltPop?: boolean
 ): any {
-  const BAR_HEIGHT = stacked ? 40 : 10;
+  const BAR_HEIGHT = stacked ? 40 : 12;
   const BAR_PADDING = 0.1;
   const DARK_MEASURE_COLOR = "#0B5420";
   const LIGHT_MEASURE_COLOR = "#91C684";
