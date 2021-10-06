@@ -12,6 +12,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { usePopover } from "../../utils/usePopover";
 import { CATEGORIES_LIST, DropdownVarId } from "../../utils/MadLibs";
+import { Grid } from "@material-ui/core";
 
 function OptionsSelector(props: {
   value: string;
@@ -109,10 +110,17 @@ function OptionsSelector(props: {
           </div>
         )}
         {!isFips && (
-          <div className={styles.VariablesBoxPopover}>
+          <Grid container>
             {CATEGORIES_LIST.map((category) => {
               return (
-                <div className={styles.CategoryList}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  key={category.title}
+                  className={styles.CategoryList}
+                >
                   <List dense={true}>
                     <span className={styles.CategoryTitleText}>
                       {category.title}
@@ -139,10 +147,10 @@ function OptionsSelector(props: {
                       );
                     })}
                   </List>
-                </div>
+                </Grid>
               );
             })}
-          </div>
+          </Grid>
         )}
       </Popover>
     </>

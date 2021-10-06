@@ -5,8 +5,7 @@
 }
 
 .CategoryTitleText {
-  margin: 16px;
-  line-height: 2rem;
+  margin: 8px 16px 8px 16px;
 }
 
 .NoteText {
@@ -21,17 +20,11 @@
 }
 
 .PopoverOverride {
-  margin-right: 16px;
-}
-
-.VariablesBoxPopover {
-  display: flex;
-  flex-wrap: wrap;
+  margin-inline: 16px;
 }
 
 .CategoryList {
-  padding: 0px 20px 0px 20px;
-  margin-inline: 20px;
+  padding: 0px 40px 0px 40px;
   ul span {
     display: flex;
   }
