@@ -174,7 +174,7 @@ function TheProjectTab() {
                     variant="h3"
                     paragraph={true}
                   >
-                    {`${numDataSources ? numDataSources : 8} data sources`}
+                    {`${numDataSources} data sources`}
                   </Typography>
                   <Typography
                     className={styles.HeaderSubtextL3}
@@ -182,8 +182,8 @@ function TheProjectTab() {
                     paragraph={true}
                   >
                     HET currently aggregates data from{" "}
-                    {`${numDataSources ? numDataSources : 8}`} key data sources.
-                    We’ll continue adding to these initial sources.
+                    {`${numDataSources} data sources`} key data sources. We’ll
+                    continue adding to these initial sources.
                   </Typography>
                 </Grid>
                 <Grid item xs={12} sm={12} md={5}>
