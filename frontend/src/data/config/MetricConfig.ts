@@ -444,7 +444,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           knownBreakdownComparisonMetric: {
             metricId: "vaccinated_share_of_known",
             fullCardTitleName: "Share Of Total COVID-19 Vaccinations",
-            shortVegaLabel: "% of vaccinations",
+            shortVegaLabel: "% of covid-19 vaccinations",
             type: "pct_share",
           },
         },
