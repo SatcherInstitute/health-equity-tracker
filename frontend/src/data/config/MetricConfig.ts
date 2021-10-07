@@ -426,7 +426,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         per100k: {
           metricId: "vaccinated_per_100k",
           fullCardTitleName: "COVID-19 Vaccinations Per 100K People",
-          shortVegaLabel: "covid-19 vaccinations per 100K",
+          shortVegaLabel: "COVID-19 vaccinations per 100K",
           type: "per100k",
         },
         pct_share: {
@@ -444,7 +444,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           knownBreakdownComparisonMetric: {
             metricId: "vaccinated_share_of_known",
             fullCardTitleName: "Share Of Total COVID-19 Vaccinations",
-            shortVegaLabel: "% of covid-19 vaccinations",
+            shortVegaLabel: "% of COVID-19 vaccinations",
             type: "pct_share",
           },
         },
