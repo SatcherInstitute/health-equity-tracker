@@ -63,7 +63,8 @@ function UnknownsAlert(props: {
   const raceEthDiffMapText = `In cases where race and ethnicity are reported
     separately, the map shows the higher of the two metrics.`;
 
-  const percentageUnknown = unknowns[0][props.metricConfig.metricId];
+  const percentageUnknown =
+    unknowns[0] && unknowns[0][props.metricConfig?.metricId];
 
   const diffRaceEthnicityText = raceEthnicityDiff
     ? `This state reports race and ethnicity separately.
@@ -92,8 +93,8 @@ function UnknownsAlert(props: {
         <Alert severity="warning">
           {percentageUnknown}
           {"% of "}
-          {props.metricConfig.metricId ===
-          METRIC_CONFIG["vaccinated"][0].metrics.pct_share.metricId ? (
+          {props.metricConfig?.metricId ===
+          METRIC_CONFIG["vaccinations"][0].metrics.pct_share.metricId ? (
             <span
               role="button"
               onClick={() => {
@@ -102,7 +103,7 @@ function UnknownsAlert(props: {
               className={styles.ConditionDefinitionLink}
             >
               {METRIC_CONFIG[
-                "vaccinated"
+                "vaccinations"
               ][0].variableFullDisplayName.toLowerCase()}
             </span>
           ) : (
