@@ -159,7 +159,7 @@ function MapCardWithKey(props: MapCardProps) {
               </b>{" "}
               {/*} cases per 100k   NOTE: vaccinated individuals gets hyperlinked to definitions on bottom of page*/}
               {props.variableConfig.variableId ===
-              METRIC_CONFIG["vaccinations"][0].variableId ? (
+              METRIC_CONFIG["vaccinated"][0].variableId ? (
                 <span
                   role="button"
                   onClick={() => {
@@ -168,7 +168,7 @@ function MapCardWithKey(props: MapCardProps) {
                   className={styles.ConditionDefinitionLink}
                 >
                   {
-                    METRIC_CONFIG["vaccinations"][0].metrics.per100k
+                    METRIC_CONFIG["vaccinated"][0].metrics.per100k
                       .shortVegaLabel
                   }
                 </span>
