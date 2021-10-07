@@ -186,11 +186,12 @@ export interface SimpleHorizontalBarChartProps {
   showLegend: boolean;
   hideActions?: boolean;
   filename?: string;
+  jumpToDefinitions?: Function;
 }
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   const [ref, width] = useResponsiveWidth(
-    100 /* default width during intialization */
+    100 /* default width during initialization */
   );
 
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(

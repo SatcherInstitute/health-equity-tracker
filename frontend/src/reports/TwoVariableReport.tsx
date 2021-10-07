@@ -31,6 +31,7 @@ function TwoVariableReport(props: {
   fips2: Fips;
   updateFips1Callback: (fips: Fips) => void;
   updateFips2Callback: (fips: Fips) => void;
+  jumpToDefinitions: Function;
 }) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, "race_and_ethnicity")
@@ -212,6 +213,7 @@ function TwoVariableReport(props: {
           updateFips: (fips: Fips) => void
         ) => (
           <MapCard
+            jumpToDefinitions={props.jumpToDefinitions}
             variableConfig={variableConfig}
             fips={fips}
             updateFipsCallback={(fips: Fips) => {
@@ -242,6 +244,7 @@ function TwoVariableReport(props: {
               updateFips(fips);
             }}
             currentBreakdown={currentBreakdown}
+            jumpToDefinitions={props.jumpToDefinitions}
           />
         )}
       />
@@ -287,6 +290,7 @@ function TwoVariableReport(props: {
                   variableConfig={variableConfig}
                   breakdownVar={breakdownVar}
                   fips={fips}
+                  jumpToDefinitions={props.jumpToDefinitions}
                 />
               )}
             />
@@ -304,6 +308,7 @@ function TwoVariableReport(props: {
                   variableConfig={variableConfig}
                   breakdownVar={breakdownVar}
                   fips={fips}
+                  jumpToDefinitions={props.jumpToDefinitions}
                 />
               )}
             />

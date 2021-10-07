@@ -31,7 +31,6 @@ function getSpec(
   lightMetricDisplayColumnName: string,
   darkMetricDisplayColumnName: string,
   stacked?: boolean,
-  // TESTING place AIAL NHPI pop compare in different color columns due to ACS not KFF
   altLightMeasure?: string,
   altLightMeasureDisplayName?: string,
   altLightMetricDisplayColumnName?: string,
@@ -334,6 +333,7 @@ export interface DisparityBarChartProps {
   stacked?: boolean;
   filename?: string;
   showAltPopCompare?: boolean;
+  jumpToDefinitions?: Function;
 }
 
 export function DisparityBarChart(props: DisparityBarChartProps) {
@@ -351,7 +351,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   if (showAltPopCompare) {
     dataFromProps = props.data.map((item) => {
       if (
-        // some states send (Non-Hispanic)
+        // this will return regardless of the (Non-Hispanic) suffix
         item["race_and_ethnicity"].includes(
           "American Indian and Alaska Native"
         ) ||

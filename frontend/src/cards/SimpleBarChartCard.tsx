@@ -20,6 +20,7 @@ export interface SimpleBarChartCardProps {
   breakdownVar: BreakdownVar;
   variableConfig: VariableConfig;
   fips: Fips;
+  jumpToDefinitions?: Function;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
