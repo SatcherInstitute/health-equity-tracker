@@ -71,11 +71,11 @@ function UnknownsAlert(props: {
     ${unknowns[0][props.metricConfig.metricId]}${
         props.metricConfig.knownBreakdownComparisonMetric!.shortVegaLabel
       } reported an
-    ${unknowns[0][props.breakdownVar].toLowerCase()} and
+    ${unknowns[0][props.breakdownVar]} and
     ${unknowns[1][props.metricConfig.metricId]}${
         props.metricConfig.knownBreakdownComparisonMetric!.shortVegaLabel
       } reported an
-    ${unknowns[1][props.breakdownVar].toLowerCase()}.`
+    ${unknowns[1][props.breakdownVar]}.`
     : "";
 
   // In the case we have unknowns for race and ethnicity reported separately,
@@ -102,9 +102,7 @@ function UnknownsAlert(props: {
               }}
               className={styles.ConditionDefinitionLink}
             >
-              {METRIC_CONFIG[
-                "vaccinations"
-              ][0].variableFullDisplayName.toLowerCase()}
+              {METRIC_CONFIG["vaccinations"][0].variableFullDisplayName}
             </span>
           ) : (
             props.metricConfig.knownBreakdownComparisonMetric!.shortVegaLabel
