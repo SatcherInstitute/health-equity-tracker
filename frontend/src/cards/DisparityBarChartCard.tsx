@@ -42,7 +42,6 @@ export interface DisparityBarChartCardProps {
   breakdownVar: BreakdownVar;
   variableConfig: VariableConfig;
   fips: Fips;
-  jumpToDefinitions?: Function;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
@@ -138,10 +137,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 displayType="chart"
                 known={true}
                 overrideAndWithOr={props.breakdownVar === "race_and_ethnicity"}
-                jumpToDefinitions={props.jumpToDefinitions}
               />
             )}
-
             {dataAvailable && dataWithoutUnknowns.length !== 0 && (
               <CardContent className={styles.Breadcrumbs}>
                 <DisparityBarChart

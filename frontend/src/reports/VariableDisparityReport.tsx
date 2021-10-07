@@ -27,7 +27,6 @@ export interface VariableDisparityReportProps {
   dropdownVarId: DropdownVarId;
   fips: Fips;
   updateFipsCallback: Function;
-  jumpToDefinitions: Function;
   hidePopulationCard?: boolean;
 }
 
@@ -117,7 +116,6 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           )}
           <Grid item xs={12} sm={12} md={6}>
             <MapCard
-              jumpToDefinitions={props.jumpToDefinitions}
               variableConfig={variableConfig}
               fips={props.fips}
               updateFipsCallback={(fips: Fips) => {
@@ -147,7 +145,6 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                   props.updateFipsCallback(fips);
                 }}
                 currentBreakdown={currentBreakdown}
-                jumpToDefinitions={props.jumpToDefinitions}
               />
             )}
             {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -166,7 +163,6 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                       variableConfig={variableConfig}
                       breakdownVar={breakdownVar}
                       fips={props.fips}
-                      jumpToDefinitions={props.jumpToDefinitions}
                     />
                   )}
               </Fragment>

@@ -36,13 +36,6 @@ function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
 function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
   const [shareModalOpen, setShareModalOpen] = useState(false);
   const fieldRef = useRef<HTMLInputElement>(null);
-  const definitionsRef = useRef<HTMLInputElement>(null);
-
-  function jumpToDefinitions() {
-    if (definitionsRef.current) {
-      definitionsRef.current.scrollIntoView();
-    }
-  }
 
   function getReport() {
     // Each report has a unique key based on its props so it will create a
@@ -52,7 +45,6 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         const dropdownOption = getPhraseValue(props.madLib, 1);
         return (
           <VariableDisparityReport
-            jumpToDefinitions={jumpToDefinitions}
             key={dropdownOption}
             dropdownVarId={dropdownOption as DropdownVarId}
             fips={new Fips(getPhraseValue(props.madLib, 3))}
@@ -69,7 +61,6 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         const fipsCode2 = getPhraseValue(props.madLib, 5);
         return (
           <TwoVariableReport
-            jumpToDefinitions={jumpToDefinitions}
             key={compareDisparityVariable + fipsCode1 + fipsCode2}
             dropdownVarId1={compareDisparityVariable as DropdownVarId}
             dropdownVarId2={compareDisparityVariable as DropdownVarId}
@@ -106,7 +97,6 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             fips2={new Fips(fipsCode)}
             updateFips1Callback={updateFips}
             updateFips2Callback={updateFips}
-            jumpToDefinitions={jumpToDefinitions}
           />
         );
       default:
@@ -241,9 +231,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         </a>
 
         {/* DEFINITIONS */}
-        <h3 ref={definitionsRef} className={styles.FootnoteLargeHeading}>
-          Definitions
-        </h3>
+        <h3 className={styles.FootnoteLargeHeading}>Definitions</h3>
         <p>
           Across data sets and reporting agencies the definitions of specific
           terminology can vary widely. Below we have defined some of the terms

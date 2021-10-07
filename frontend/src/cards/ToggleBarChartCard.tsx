@@ -32,7 +32,6 @@ export interface ToggleBarChartCardProps {
   breakdownVar: BreakdownVar;
   variableConfig: VariableConfig;
   fips: Fips;
-  jumpToDefinitions?: Function;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required rather than relying on the card caller.
@@ -152,7 +151,6 @@ function ToggleBarChartCardWithKey(props: ToggleBarChartCardProps) {
                     darkMetric={metricConfig}
                     breakdownVar={props.breakdownVar}
                     metricDisplayName={metricConfig.shortVegaLabel}
-                    jumpToDefinitions={props.jumpToDefinitions}
                   />
                 )}
                 {metricConfig.type === "per100k" && (
@@ -161,7 +159,6 @@ function ToggleBarChartCardWithKey(props: ToggleBarChartCardProps) {
                     breakdownVar={props.breakdownVar}
                     metric={metricConfig}
                     showLegend={false}
-                    jumpToDefinitions={props.jumpToDefinitions}
                   />
                 )}
               </CardContent>

@@ -19,6 +19,7 @@ class Logger {
       if (context) {
         logInfo.push(context);
       }
+      // console.log(...logInfo);
     }
   }
 

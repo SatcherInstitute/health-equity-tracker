@@ -44,7 +44,6 @@ export interface MapCardProps {
   variableConfig: VariableConfig;
   updateFipsCallback: (fips: Fips) => void;
   currentBreakdown: BreakdownVar;
-  jumpToDefinitions?: Function;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -157,24 +156,8 @@ function MapCardWithKey(props: MapCardProps) {
                   options[metricConfig.metricId]
                 )}
               </b>{" "}
-              {/*} cases per 100k   NOTE: vaccinated individuals gets hyperlinked to definitions on bottom of page*/}
-              {props.variableConfig.variableId ===
-              METRIC_CONFIG["vaccinated"][0].variableId ? (
-                <span
-                  role="button"
-                  onClick={() => {
-                    props.jumpToDefinitions && props.jumpToDefinitions();
-                  }}
-                  className={styles.ConditionDefinitionLink}
-                >
-                  {
-                    METRIC_CONFIG["vaccinated"][0].metrics.per100k
-                      .shortVegaLabel
-                  }
-                </span>
-              ) : (
-                metricConfig.shortVegaLabel
-              )}
+              {/*} cases per 100k */}
+              {metricConfig.shortVegaLabel}
               {/*} for  */}
               {activeBreakdownFilter !== "All" && " for"}
               {/*} [ ages 30-39] */}

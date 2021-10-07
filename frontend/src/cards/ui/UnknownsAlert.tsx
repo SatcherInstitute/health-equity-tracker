@@ -2,7 +2,7 @@ import React from "react";
 import { Alert } from "@material-ui/lab";
 import { Row } from "../../data/utils/DatasetTypes";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
-import { MetricConfig, METRIC_CONFIG } from "../../data/config/MetricConfig";
+import { MetricConfig } from "../../data/config/MetricConfig";
 import {
   UNKNOWN,
   UNKNOWN_RACE,
@@ -26,7 +26,6 @@ function UnknownsAlert(props: {
   overrideAndWithOr?: Boolean;
   raceEthDiffMap?: Boolean;
   noDemographicInfoMap?: Boolean;
-  jumpToDefinitions?: Function;
 }) {
   const unknowns = props.queryResponse
     .getValidRowsForField(props.metricConfig.metricId)
@@ -68,7 +67,7 @@ function UnknownsAlert(props: {
   const diffRaceEthnicityText = raceEthnicityDiff
     ? `This state reports race and ethnicity separately.
     ${unknowns[0][props.metricConfig.metricId]}${
-        props.metricConfig.knownBreakdownComparisonMetric!.shortVegaLabel
+        props.metricConfig.shortVegaLabel
       } reported an
     ${unknowns[0][props.breakdownVar].toLowerCase()} and
     ${unknowns[1][props.metricConfig.metricId]}${
@@ -91,23 +90,9 @@ function UnknownsAlert(props: {
       <CardContent className={styles.SmallMarginContent}>
         <Alert severity="warning">
           {percentageUnknown}
-          {"% of "}
-          {props.metricConfig.metricId ===
-          METRIC_CONFIG["vaccinated"][0].metrics.pct_share.metricId ? (
-            <span
-              role="button"
-              onClick={() => {
-                props.jumpToDefinitions && props.jumpToDefinitions();
-              }}
-              className={styles.ConditionDefinitionLink}
-            >
-              {METRIC_CONFIG[
-                "vaccinated"
-              ][0].variableFullDisplayName.toLowerCase()}
-            </span>
-          ) : (
+          {
             props.metricConfig.knownBreakdownComparisonMetric!.shortVegaLabel
-          )}{" "}
+          }{" "}
           reported {props.overrideAndWithOr && "an"} unknown{" "}
           {props.overrideAndWithOr
             ? RACE_OR_ETHNICITY
