@@ -15,12 +15,15 @@ export const CITATION_CHICAGO =
   "Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. https://healthequitytracker.org.";
 
 export const VACCINATED_DEF = `For the national level, and for the majority of states, this indicates people who have received at least one dose of a COVID-19 vaccine.`;
-// export const UNREPRESENTED_RACE_DEF = `A single race not
-// tabulated by the CDC, not Hispanic/Latino. The definition of
-// "Unrepresented Race" is dependent on what other race
-// categories exist in the dataset. Please note: The CDC and
-// many other sources use the term "Some other race"; we find
-// this term to be non-inclusive have avoided its usage.`;
+export const UNREPRESENTED_RACE_DEF = (
+  <>
+    A single race not tabulated by the CDC, not Hispanic/Latino. The definition
+    of <b>Unrepresented Race</b> is dependent on what other race categories
+    exist in the dataset. Please note: The CDC and many other sources use the
+    term <b>Some other race</b>; we find this term to be non-inclusive have
+    avoided its usage.
+  </>
+);
 
 function MethodologyTab() {
   return (

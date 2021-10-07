@@ -22,7 +22,7 @@ import ShareDialog from "./ui/ShareDialog";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
 import { METRIC_CONFIG } from "../data/config/MetricConfig";
 import {
-  // UNREPRESENTED_RACE_DEF,
+  UNREPRESENTED_RACE_DEF,
   VACCINATED_DEF,
 } from "../pages/DataCatalog/MethodologyTab";
 
@@ -136,25 +136,6 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         className={styles.MissingDataInfo}
         ref={fieldRef}
       >
-        <h3 className={styles.FootnoteLargeHeading}>Definitions</h3>
-        <p>
-          <b>"{METRIC_CONFIG["vaccinated"][0].variableFullDisplayName}"</b>
-          {": "}
-          {VACCINATED_DEF} Read more on our{" "}
-          <LinkWithStickyParams
-            className={styles.MethodologyContactUsLink}
-            to={METHODOLOGY_TAB_LINK}
-          >
-            methodology page
-          </LinkWithStickyParams>
-          .
-        </p>
-        {/* <p>
-          <span className={styles.DefinedTerm}>"Unrepresented Race"</span>
-          {": "}
-          {UNREPRESENTED_RACE_DEF}
-        </p> */}
-
         <h3 className={styles.FootnoteLargeHeading}>What Data Are Missing?</h3>
         <p>Unfortunately there are crucial data missing in our sources.</p>
         <h4>Missing and Misidentified People</h4>
@@ -163,12 +144,13 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           categories for data collection across state and local jurisdictions.
           The most notable gaps exist for race and ethnic groups, physical and
           mental health status, and sex categories. Many states do not record
-          data for American Indian, Alaska Native, Native Hawaiian and Pacific
-          Islander racial categories, lumping these people into other groups.
-          Individuals who identify as Hispanic/Latino may not be recorded in
-          their respective race category. Neither disability nor mental health
-          status is collected with the COVID-19 case data. Additionally, sex is
-          recorded only as female, male, or other.
+          data for <b>American Indian</b>, <b>Alaska Native</b>,{" "}
+          <b>Native Hawaiian and Pacific Islander</b> racial categories, lumping
+          these people into other groups. Individuals who identify as{" "}
+          <b>Hispanic/Latino</b> may not be recorded in their respective race
+          category. Neither disability nor mental health status is collected
+          with the COVID-19 case data. Additionally, sex is recorded only as
+          female, male, or other.
         </p>
         <h4>Missing Cases</h4>
         <p>
@@ -247,6 +229,36 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             See Our Data Sources
           </Button>
         </a>
+
+        {/* DEFINITIONS */}
+        <h3 className={styles.FootnoteLargeHeading}>Definitions</h3>
+        <p>
+          Across data sets and reporting agencies the definitions of specific
+          terminology can vary widely. Below we have defined some of the terms
+          used on this site. For more detailed information, please read through
+          our{" "}
+          <LinkWithStickyParams
+            className={styles.MethodologyContactUsLink}
+            to={METHODOLOGY_TAB_LINK}
+          >
+            methodology page
+          </LinkWithStickyParams>
+          .
+        </p>
+        <ul>
+          <li>
+            <b>{METRIC_CONFIG["vaccinated"][0].variableFullDisplayName}</b>
+            {": "}
+            {VACCINATED_DEF}
+          </li>
+          {false && (
+            <li>
+              <span className={styles.DefinedTerm}>Unrepresented Race</span>
+              {": "}
+              {UNREPRESENTED_RACE_DEF}
+            </li>
+          )}
+        </ul>
       </aside>
     </>
   );
