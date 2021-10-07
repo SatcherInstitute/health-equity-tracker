@@ -251,6 +251,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             {": "}
             {VACCINATED_DEF}
           </li>
+          {/* TODO unwrap FALSE from <li> once we introduce our new term */}
           {false && (
             <li>
               <span className={styles.DefinedTerm}>Unrepresented Race</span>
