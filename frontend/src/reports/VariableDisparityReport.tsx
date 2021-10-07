@@ -101,7 +101,8 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
       {variableConfig && (
         <Grid container spacing={1} justify="center">
           {!(
-            props.dropdownVarId === METRIC_CONFIG["vaccinated"][0].variableId &&
+            props.dropdownVarId ===
+              METRIC_CONFIG["vaccinations"][0].variableId &&
             props.fips.isCounty()
           ) && (
             <Grid item container xs={12}>

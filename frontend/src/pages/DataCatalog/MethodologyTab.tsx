@@ -367,7 +367,7 @@ function MethodologyTab() {
                 <ul>
                   <li>
                     <b>
-                      {METRIC_CONFIG["vaccinated"][0].variableFullDisplayName}
+                      {METRIC_CONFIG["vaccinations"][0].variableFullDisplayName}
                     </b>
                     {": "}
                     {VACCINATED_DEF}

@@ -132,7 +132,7 @@ function TwoVariableReport(props: {
             <Grid container>
               {!(
                 props.dropdownVarId1 ===
-                  METRIC_CONFIG["vaccinated"][0].variableId &&
+                  METRIC_CONFIG["vaccinations"][0].variableId &&
                 props.fips1.isCounty()
               ) && (
                 <Grid item xs={12} sm={6}>
@@ -147,7 +147,7 @@ function TwoVariableReport(props: {
               )}
               {!(
                 props.dropdownVarId2 ===
-                  METRIC_CONFIG["vaccinated"][0].variableId &&
+                  METRIC_CONFIG["vaccinations"][0].variableId &&
                 props.fips2.isCounty()
               ) && (
                 <Grid item xs={12} sm={6}>
@@ -169,7 +169,7 @@ function TwoVariableReport(props: {
             <PopulationCard fips={props.fips1} />
             {!(
               props.dropdownVarId1 ===
-                METRIC_CONFIG["vaccinated"][0].variableId &&
+                METRIC_CONFIG["vaccinations"][0].variableId &&
               props.fips1.isCounty()
             ) && (
               <ReportToggleControls
@@ -185,7 +185,7 @@ function TwoVariableReport(props: {
             <PopulationCard fips={props.fips2} />
             {!(
               props.dropdownVarId2 ===
-                METRIC_CONFIG["vaccinated"][0].variableId &&
+                METRIC_CONFIG["vaccinations"][0].variableId &&
               props.fips2.isCounty()
             ) && (
               <ReportToggleControls
