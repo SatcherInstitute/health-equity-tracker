@@ -133,7 +133,8 @@
   }
 }
 
-.CompareAcrossLink {
+.CompareAcrossLink,
+.ConditionDefinitionLink {
   color: $alt-green;
   text-decoration: underline;
   &:hover {
