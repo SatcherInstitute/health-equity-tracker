@@ -130,30 +130,30 @@ const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "cdc_vaccination_county-race_and_ethnicity",
     name: "CDC COVID-19 Vaccinations in the United States, County",
-    update_time: "August 2021",
+    update_time: "October 2021",
   },
   {
     id: "cdc_vaccination_national-age",
     name:
       "CDC COVID-19 Vaccination Demographics in the United States, National",
-    update_time: "August 2021",
+    update_time: "October 2021",
   },
   {
     id: "cdc_vaccination_national-sex",
     name:
       "CDC COVID-19 Vaccination Demographics in the United States, National",
-    update_time: "August 2021",
+    update_time: "October 2021",
   },
   {
     id: "cdc_vaccination_national-race_and_ethnicity",
     name:
       "CDC COVID-19 Vaccination Demographics in the United States, National",
-    update_time: "August 2021",
+    update_time: "October 2021",
   },
   {
     id: "kff_vaccination-race_and_ethnicity",
     name: "Kaiser Family Foundation COVID-19 Indicators",
-    update_time: "August 2021",
+    update_time: "October 2021",
   },
   {
     id: "uhc_data-age",
