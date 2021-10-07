@@ -247,7 +247,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         </p>
         <ul>
           <li>
-            <b>{METRIC_CONFIG["vaccinated"][0].variableFullDisplayName}</b>
+            <b>{METRIC_CONFIG["vaccinations"][0].variableFullDisplayName}</b>
             {": "}
             {VACCINATED_DEF}
           </li>

@@ -33,7 +33,7 @@ export function showAltPopCompare(props: {
     props.fips.isState() &&
     props.breakdownVar === "race_and_ethnicity" &&
     props.variableConfig.variableId ===
-      METRIC_CONFIG["vaccinated"][0].variableId
+      METRIC_CONFIG["vaccinations"][0].variableId
   );
 }
 
@@ -123,7 +123,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   geoLevel={props.fips.getFipsTypeDisplayName()}
                   noDemographicInfo={
                     props.variableConfig.variableId ===
-                      METRIC_CONFIG["vaccinated"][0].variableId &&
+                      METRIC_CONFIG["vaccinations"][0].variableId &&
                     props.fips.isCounty()
                   }
                 />
