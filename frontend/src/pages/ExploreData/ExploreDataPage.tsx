@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Grid, Tab, Tabs } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -28,6 +28,7 @@ import styles from "./ExploreDataPage.module.scss";
 import { Onboarding } from "./Onboarding";
 import OptionsSelector from "./OptionsSelector";
 import { Helmet } from "react-helmet";
+import { Link, Route, Switch } from "react-router-dom";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -149,7 +150,7 @@ function ExploreDataPage() {
       </Helmet>
       <h1 className={styles.ScreenreaderTitleHeader}>Explore the Data</h1>
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
-        <div
+        {/* <div
           className={styles.CarouselContainer}
           id="onboarding-start-your-search"
         >
@@ -179,6 +180,7 @@ function ExploreDataPage() {
               ]);
             }}
           >
+            
             {MADLIB_LIST.map((madlib: MadLib, i) => (
               <CarouselMadLib
                 madLib={madLib}
@@ -187,10 +189,94 @@ function ExploreDataPage() {
               />
             ))}
           </Carousel>
-        </div>
-        <div className={styles.ReportContainer}>
-          <ReportProvider madLib={madLib} setMadLib={setMadLibWithParam} />
-        </div>
+        </div> */}
+
+        <Route
+          path="/"
+          render={(history) => (
+            <Tabs
+              indicatorColor="primary"
+              textColor="primary"
+              centered
+              value={history.location.pathname}
+            >
+              <Tab
+                value={`/exploredata/`}
+                label="Investigate"
+                component={Link}
+                to={`/exploredata/`}
+              />
+              <Tab
+                value={`/exploredata?mlp=comparegeos&mls=1.covid-3.13-5.00`}
+                label="Compare Locations"
+                component={Link}
+                to={`/exploredata?mlp=comparegeos&mls=1.covid-3.13-5.00`}
+              />
+              <Tab
+                value={`/exploredata?mlp=comparevars&mls=1.diabetes-3.covid-5.00`}
+                label="Compare Conditions"
+                component={Link}
+                to={`/exploredata?mlp=comparevars&mls=1.diabetes-3.covid-5.00`}
+              />
+            </Tabs>
+          )}
+        />
+
+        <Switch>
+          <Route path={`/exploredata/`}>
+            <div
+              className={styles.CarouselContainer}
+              id="onboarding-start-your-search"
+            >
+              <CarouselMadLib
+                madLib={MADLIB_LIST[0]}
+                setMadLib={setMadLibWithParam}
+              />
+            </div>
+            <div className={styles.ReportContainer}>
+              <ReportProvider
+                madLib={MADLIB_LIST[0]}
+                setMadLib={setMadLibWithParam}
+              />
+            </div>
+          </Route>
+          <Route path={`/exploredata?mlp=comparegeos&mls=1.covid-3.13-5.00`}>
+            <div
+              className={styles.CarouselContainer}
+              id="onboarding-start-your-search"
+            >
+              <CarouselMadLib
+                madLib={MADLIB_LIST[2]}
+                setMadLib={setMadLibWithParam}
+              />
+            </div>
+            <div className={styles.ReportContainer}>
+              <ReportProvider
+                madLib={MADLIB_LIST[1]}
+                setMadLib={setMadLibWithParam}
+              />
+            </div>
+          </Route>
+          <Route
+            path={`/exploredata?mlp=comparevars&mls=1.diabetes-3.covid-5.00`}
+          >
+            <div
+              className={styles.CarouselContainer}
+              id="onboarding-start-your-search"
+            >
+              <CarouselMadLib
+                madLib={MADLIB_LIST[2]}
+                setMadLib={setMadLibWithParam}
+              />
+            </div>
+            <div className={styles.ReportContainer}>
+              <ReportProvider
+                madLib={MADLIB_LIST[2]}
+                setMadLib={setMadLibWithParam}
+              />
+            </div>
+          </Route>
+        </Switch>
       </div>
     </>
   );
