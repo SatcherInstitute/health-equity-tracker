@@ -33,7 +33,15 @@
 }
 
 .MadLibButton {
-  font-size: 25px !important;
+  @media only screen and (max-width: $sm) {
+    font-size: 12pt !important;
+    line-height: 100% !important;
+  }
+  @media only screen and (min-width: $sm) {
+    font-size: 25px !important;
+    line-height: 25px !important;
+  }
+  // font-size: 25px !important;
   font-weight: normal !important;
   text-decoration: underline !important;
   text-underline-offset: 3px !important;
