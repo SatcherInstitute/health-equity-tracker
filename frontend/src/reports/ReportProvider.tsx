@@ -12,6 +12,7 @@ import {
   LinkWithStickyParams,
   DATA_CATALOG_PAGE_LINK,
   CONTACT_TAB_LINK,
+  METHODOLOGY_TAB_LINK,
 } from "../utils/urlutils";
 import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
@@ -19,6 +20,11 @@ import ShareIcon from "@material-ui/icons/Share";
 import styles from "./Report.module.scss";
 import ShareDialog from "./ui/ShareDialog";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
+import { METRIC_CONFIG } from "../data/config/MetricConfig";
+import {
+  UNREPRESENTED_RACE_DEF,
+  VACCINATED_DEF,
+} from "../pages/DataCatalog/MethodologyTab";
 
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
   const segment = madLib.phrase[segmentIndex];
@@ -30,7 +36,13 @@ function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
 function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
   const [shareModalOpen, setShareModalOpen] = useState(false);
   const fieldRef = useRef<HTMLInputElement>(null);
+  const definitionsRef = useRef<HTMLInputElement>(null);
 
+  function jumpToDefinitions() {
+    if (definitionsRef.current) {
+      definitionsRef.current.scrollIntoView();
+    }
+  }
   function getReport() {
     // Each report has a unique key based on its props so it will create a
     // new instance and reset its state when the provided props change.
@@ -39,6 +51,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         const dropdownOption = getPhraseValue(props.madLib, 1);
         return (
           <VariableDisparityReport
+            jumpToDefinitions={jumpToDefinitions}
             key={dropdownOption}
             dropdownVarId={dropdownOption as DropdownVarId}
             fips={new Fips(getPhraseValue(props.madLib, 3))}
@@ -55,6 +68,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         const fipsCode2 = getPhraseValue(props.madLib, 5);
         return (
           <TwoVariableReport
+            jumpToDefinitions={jumpToDefinitions}
             key={compareDisparityVariable + fipsCode1 + fipsCode2}
             dropdownVarId1={compareDisparityVariable as DropdownVarId}
             dropdownVarId2={compareDisparityVariable as DropdownVarId}
@@ -91,6 +105,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             fips2={new Fips(fipsCode)}
             updateFips1Callback={updateFips}
             updateFips2Callback={updateFips}
+            jumpToDefinitions={jumpToDefinitions}
           />
         );
       default:
@@ -125,27 +140,28 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         />
         {getReport()}
       </div>
-      <div
+      <aside
         id="missingDataInfo"
         className={styles.MissingDataInfo}
         ref={fieldRef}
       >
-        <h1>What Data Are Missing?</h1>
+        <h3 className={styles.FootnoteLargeHeading}>What Data Are Missing?</h3>
         <p>Unfortunately there are crucial data missing in our sources.</p>
-        <h3>Missing and Misidentified People</h3>
+        <h4>Missing and Misidentified People</h4>
         <p>
           Currently, there are no required or standardized race and ethnicity
           categories for data collection across state and local jurisdictions.
           The most notable gaps exist for race and ethnic groups, physical and
           mental health status, and sex categories. Many states do not record
-          data for American Indian, Alaska Native, Native Hawaiian and Pacific
-          Islander racial categories, lumping these people into other groups.
-          Individuals who identify as Hispanic/Latino may not be recorded in
-          their respective race category. Neither disability nor mental health
-          status is collected with the COVID-19 case data. Additionally, sex is
-          recorded only as female, male, or other.
+          data for <b>American Indian</b>, <b>Alaska Native</b>,{" "}
+          <b>Native Hawaiian and Pacific Islander</b> racial categories, lumping
+          these people into other groups. Individuals who identify as{" "}
+          <b>Hispanic/Latino</b> may not be recorded in their respective race
+          category. Neither disability nor mental health status is collected
+          with the COVID-19 case data. Additionally, sex is recorded only as
+          female, male, or other.
         </p>
-        <h3>Missing Cases</h3>
+        <h4>Missing Cases</h4>
         <p>
           For COVID-19 related reports, this tracker uses disaggregated,
           individual{" "}
@@ -154,20 +170,16 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             jurisdictions to the CDC
           </a>
           . The following states appear grey on the maps reporting COVID-19
-          cases , hospitalizations and deaths because they have not provided
-          sufficient disaggregated data to the CDC:{" "}
-          <b>
-            Louisiana, Mississippi, Missouri, North Dakota, Texas, and Wyoming
-          </b>
-          . The following states' data for COVID-19 are included, but their data
-          should be interpreted with caution since the cases reported may not be
-          representative of the population at large: 
-          <b>
-            Connecticut, Florida, Kentucky, Michigan, Nebraska,  Ohio, West
-            Virginia.
-          </b>
+          cases, hospitalizations and deaths because they have not provided
+          sufficient disaggregated data to the CDC: <b>Louisiana</b>,{" "}
+          <b>Mississippi</b>, <b>Missouri</b>, <b>North Dakota</b>, <b>Texas</b>
+          , and <b>Wyoming</b>. The following states' data for COVID-19 are
+          included, but their data should be interpreted with caution since the
+          cases reported may not be representative of the population at large: 
+          <b>Connecticut</b>, <b>Florida</b>,<b> Kentucky</b>,<b> Michigan</b>,
+          <b> Nebraska</b>,<b> Ohio</b>, <b>West Virginia</b>.
         </p>
-        <h3>Missing Outcomes</h3>
+        <h4>Missing Outcomes</h4>
         <p>
           Many COVID-19 case records are incomplete, with an unknown
           hospitalization and/or death status. This means that some states that
@@ -182,7 +194,15 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           reports on deaths. <b>Rhode Island </b> appears as grey when viewing
           reports on hospitalizations but is included when viewing deaths.
         </p>
-        <h3>Missing Population Data</h3>
+        <h4>Missing Vaccination Data</h4>
+        <p>
+          There is no county level vaccine demographic dataset, so we show
+          county totals according to the CDC to provide context. Furthermore,{" "}
+          <b>Texas</b> does not provide vaccine demographic information to the
+          CDC, so all national vaccine numbers exclude Texas, and Texas’
+          population isn’t counted in the national per 100k population metrics.
+        </p>
+        <h4>Missing Population Data</h4>
         <p>
           The census bureau does not release population data for the{" "}
           <b>Northern Mariana Islands</b>, <b>Guam</b>, or the{" "}
@@ -190,6 +210,18 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           reliable population numbers we could find for these territories is
           from the 2010 census, so we use those numbers when calculating the per
           100k COVID-19 rates nationally and for all territory level rates.
+        </p>
+        <p>
+          Because state reported population categories do not always coincide
+          with the categories reported by the census, we rely on the Kaiser
+          Family Foundation population tabulations for state reported population
+          categories, which only include population numbers for <b>Black,</b>{" "}
+          <b>White</b>, <b>Asian</b>, and <b>Hispanic</b>. Percent of vaccinated
+          metrics for <b>Native Hawaiian and Pacific Islander</b>, and{" "}
+          <b>American Indian and Alaska Native</b> are shown with a population
+          comparison metric from the American Community Survey 5-year estimates,
+          while <b>Some Other Race</b> is shown without any population
+          comparison metric.
         </p>
         <div className={styles.MissingDataContactUs}>
           <p>
@@ -206,7 +238,40 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             See Our Data Sources
           </Button>
         </a>
-      </div>
+
+        {/* DEFINITIONS */}
+        <h3 ref={definitionsRef} className={styles.FootnoteLargeHeading}>
+          Definitions
+        </h3>
+        <p>
+          Across data sets and reporting agencies the definitions of specific
+          terminology can vary widely. Below we have defined some of the terms
+          used on this site. For more detailed information, please read through
+          our{" "}
+          <LinkWithStickyParams
+            className={styles.MethodologyContactUsLink}
+            to={METHODOLOGY_TAB_LINK}
+          >
+            methodology page
+          </LinkWithStickyParams>
+          .
+        </p>
+        <ul>
+          <li>
+            <b>{METRIC_CONFIG["vaccinations"][0].variableFullDisplayName}</b>
+            {": "}
+            {VACCINATED_DEF}
+          </li>
+          {/* TODO unwrap FALSE from <li> once we introduce our new term */}
+          {false && (
+            <li>
+              <span className={styles.DefinedTerm}>Unrepresented Race</span>
+              {": "}
+              {UNREPRESENTED_RACE_DEF}
+            </li>
+          )}
+        </ul>
+      </aside>
     </>
   );
 }

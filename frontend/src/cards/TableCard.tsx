@@ -10,6 +10,7 @@ import {
 } from "../data/query/Breakdowns";
 import { CardContent } from "@material-ui/core";
 import {
+  METRIC_CONFIG,
   MetricConfig,
   MetricId,
   VariableConfig,
@@ -21,6 +22,7 @@ import {
   RACE,
   UNKNOWN,
   UNKNOWN_RACE,
+  UNKNOWN_ETHNICITY,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import MissingDataAlert from "./ui/MissingDataAlert";
@@ -80,7 +82,8 @@ export function TableCard(props: TableCardProps) {
         const dataWithoutUnknowns = queryResponse.data.filter(
           (row: Row) =>
             row[props.breakdownVar] !== UNKNOWN &&
-            row[props.breakdownVar] !== UNKNOWN_RACE
+            row[props.breakdownVar] !== UNKNOWN_RACE &&
+            row[props.breakdownVar] !== UNKNOWN_ETHNICITY
         );
 
         return (
@@ -93,6 +96,11 @@ export function TableCard(props: TableCardProps) {
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
                   geoLevel={props.fips.getFipsTypeDisplayName()}
+                  noDemographicInfo={
+                    props.variableConfig.variableId ===
+                      METRIC_CONFIG["vaccinations"][0].variableId &&
+                    props.fips.isCounty()
+                  }
                 />
               </CardContent>
             )}

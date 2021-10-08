@@ -9,9 +9,21 @@ import {
 import { Helmet } from "react-helmet";
 import parse from "html-react-parser";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
+import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 
 export const CITATION_CHICAGO =
   "Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. https://healthequitytracker.org.";
+
+export const VACCINATED_DEF = `For the national level, and for the majority of states, this indicates people who have received at least one dose of a COVID-19 vaccine.`;
+export const UNREPRESENTED_RACE_DEF = (
+  <>
+    A single race not tabulated by the CDC, not Hispanic/Latino. The definition
+    of <b>Unrepresented Race</b> is dependent on what other race categories
+    exist in the dataset. Please note: The CDC and many other sources use the
+    term <b>Some other race</b>; we find this term to be non-inclusive have
+    avoided its usage.
+  </>
+);
 
 function MethodologyTab() {
   return (
@@ -60,9 +72,9 @@ function MethodologyTab() {
                   For a description of some of the gaps in COVID-19 data, please
                   see the{" "}
                   <a href={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}>
-                    "What Data Are Missing" section.
+                    What Data Are Missing
                   </a>{" "}
-                  Here, we provide further details:
+                  section. Here, we provide further details:
                 </p>
                 <ul>
                   <li>
@@ -104,6 +116,124 @@ function MethodologyTab() {
                     particular demographic group truly has zero cases for that
                     group or whether that that locale fails to report
                     demographics correctly.
+                  </li>
+                </ul>
+
+                <h3 className={styles.MethodologySubsubheaderText}>
+                  COVID-19 Vaccinations
+                </h3>
+                <p>
+                  Because there is currently no national vaccine demographic
+                  dataset, we combine the best datasets we could find for each
+                  geographic level.
+                </p>
+                <ul>
+                  <li>
+                    For the national level numbers, we use the{" "}
+                    <a href="https://covid.cdc.gov/covid-data-tracker/#vaccination-demographics-trends">
+                      CDC vaccine demographic dataset,
+                    </a>{" "}
+                    which provides data on the race/ethnicity, sex, and age
+                    range of vaccine recipients, as well whether they have taken
+                    one or two shots.{" "}
+                  </li>
+
+                  <li>
+                    For the state level we use{" "}
+                    <a href="https://www.kff.org/state-category/covid-19/">
+                      the Kaiser Family Foundation COVID-19 Indicators dataset,
+                    </a>{" "}
+                    which is a hand-curated dataset based on analysis from state
+                    health department websites. It is the only state level
+                    demographic vaccine dataset that publishes this data in a
+                    usable format. The dataset only provides data on the race
+                    and ethnicity of vaccine recipients, and for the majority of
+                    states counts individuals who have received at least one
+                    shot as vaccinated. It does not include any data for US
+                    territories.{" "}
+                  </li>
+                  <li>
+                    For the county level, we could not identify a dataset that
+                    provides vaccine demographics, so to show some context we
+                    use the{" "}
+                    <a href="https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh">
+                      COVID-19 Vaccinations in the United States, County dataset
+                    </a>{" "}
+                    which provides the total number of vaccinations per county.
+                  </li>
+                </ul>
+                <h4> Vaccination Population Sources </h4>
+                <ul>
+                  <li>
+                    For the national numbers we use the population numbers
+                    provided by the CDC, we chose to do this because they
+                    include population estimates from <b>Palau</b>,{" "}
+                    <b>Micronesia</b>, and the <b>U.S. Marshall Islands,</b>{" "}
+                    which are difficult to find estimations for. Furthermore the
+                    CDC has estimations for age ranges that the ACS numbers do
+                    not readily provide, as they use a per year population
+                    estimate from the ACS that we do not use anywhere else and
+                    have not added to our system.
+                  </li>
+                  <li>
+                    For the state level, to calculate the total number of
+                    vaccinations we use the ACS 2019 estimates of each state’s
+                    population. The population counts for each demographic group
+                    at the state level are provided by the Kaiser Family
+                    Foundation, who researched exactly what the definition of
+                    each demographic group in every state is. They provide
+                    population estimates for <b>Asian</b>, <b>Black</b>,{" "}
+                    <b>White</b>, and <b>Hispanic</b>, so we fill in the ACS
+                    2019 estimation for <b>American Indian and Alaska Native</b>
+                    , and <b>Native Hawaiian and Pacific Islander</b>. These
+                    alternate population comparisons metrics shown with a
+                    different color on the disparities bar chart. We are unable
+                    to show a population comparison metric for “Some Other Race”
+                    because we are unsure of the definition in each state.
+                  </li>
+                  <li>
+                    For the county level we use the ACS 2019 population
+                    estimations.
+                  </li>
+                </ul>
+                <h4> Vaccination Data Limitations </h4>
+                <ul>
+                  <li>
+                    <b>Texas</b> does not report demographic-specific dose
+                    number information to CDC, so data for Texas are not
+                    represented in the figures and calculations on the national
+                    vaccine demographic page.
+                  </li>
+                  <li>
+                    <b>Idaho</b> provides vaccine data only for vaccine
+                    recipients who are 18 years and older in line with state
+                    laws. COVID vaccination administration data is unavailable
+                    for the Vaccinations in the US, and Vaccinations by County
+                    pages for the population aged less than 18 years. This only
+                    affects the national numbers.
+                  </li>
+                  <li>
+                    Some states report race and ethnicity separately, in which
+                    case they report unknown percentages separately. In this
+                    case, we show the higher of the two metrics on the national
+                    map of unknown cases, and display both numbers on the state
+                    page.
+                  </li>
+                  <li>
+                    The Kaiser Family Foundation only collects population data
+                    for <b>Asian</b>, <b>Black</b>, <b>White</b>, and{" "}
+                    <b>Hispanic</b> demographics, limiting their per 100k
+                    metrics and what demographic breakdowns we are able to show
+                    at the state level.
+                  </li>
+                  <li>
+                    As there is no standardized definition for “vaccinated”, we
+                    display vaccination data as “at least one dose” which is
+                    used by most states. However, some states including{" "}
+                    <b>Arkansas</b>, <b>Illinois</b>, <b>Maine</b>,{" "}
+                    <b>New Jersey</b>, and <b>Tennessee</b> report “Total
+                    vaccine doses administered”, in which case those numbers are
+                    reported.
                   </li>
                 </ul>
 
@@ -231,6 +361,22 @@ function MethodologyTab() {
             </Grid>
             <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
               <h2 className={styles.MethodologyQuestion}>
+                What do the condition variables on the tracker mean?
+              </h2>
+              <div className={styles.MethodologyAnswer}>
+                <ul>
+                  <li>
+                    <b>
+                      {METRIC_CONFIG["vaccinations"][0].variableFullDisplayName}
+                    </b>
+                    {": "}
+                    {VACCINATED_DEF}
+                  </li>
+                </ul>
+              </div>
+            </Grid>
+            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
+              <h2 className={styles.MethodologyQuestion}>
                 What do the race/ethnicity groups mean?
               </h2>
               <div className={styles.MethodologyAnswer}>
@@ -262,20 +408,29 @@ function MethodologyTab() {
                     <b>Hispanic/Latino</b>: Any race(s), Hispanic/Latino.
                   </li>
                   <li>
-                    <b>Some other race (Non-Hispanic)</b>: A single race (some
-                    other race), not Hispanic/Latino. The definition of "some
+                    <b>Black or African American</b>: A single race (African
+                    American), including those who identify as African American
+                    and Hispanic/Latino.
+                  </li>
+                  <li>
+                    {/* <b>Unrepresented race (Non-Hispanic)</b>
+                    {": "}
+                    {UNREPRESENTED_RACE_DEF} */}
+                    <b>Some other race (Non-Hispanic)</b>: A single race which
+                    is not otherwise represented by the data source's
+                    categorization, not Hispanic/Latino. The definition of "some
                     other race" is dependent on what other race categories exist
                     in the dataset.
                   </li>
                   <li>
-                    <b>Two or more races & Some other race (Non-Hispanic)</b>:
-                    People who are either multiple races or some other race, and
-                    not Hispanic/Latino.
+                    <b>Two or more races (Non-Hispanic)</b>: Multiple races, not
+                    Hispanic/Latino.
                   </li>
                   <li>
-                    <b>Black or African American</b>: A single race (African
-                    American), including those who identify as African American
-                    and Hispanic/Latino.
+                    <b>Two or more races & Some other race (Non-Hispanic)</b>:
+                    People who are either multiple races or a single race not
+                    represented by the data source's categorization, and who are
+                    not Hispanic/Latino.
                   </li>
                 </ul>
               </div>

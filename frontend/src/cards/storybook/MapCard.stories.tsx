@@ -32,6 +32,12 @@ CovidPer100kMap.args = {
   currentBreakdown: "race_and_ethnicity",
 };
 
+export const VaccinesPer100kMap = Template.bind({});
+VaccinesPer100kMap.args = {
+  variableConfig: METRIC_CONFIG["vaccinations"][0],
+  currentBreakdown: "race_and_ethnicity",
+};
+
 export const CopdPer100kMap = Template.bind({});
 CopdPer100kMap.args = {
   variableConfig: METRIC_CONFIG["copd"][0],
