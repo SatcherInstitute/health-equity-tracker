@@ -192,31 +192,50 @@ function ExploreDataPage() {
         <Route
           path="/"
           render={(history) => (
-            <Tabs
-              indicatorColor="primary"
-              textColor="primary"
-              centered
-              value={history.location.pathname}
-            >
-              <Tab
-                value={`/exploredata/`}
-                label="Investigate"
-                component={Link}
-                to={`/exploredata/`}
-              />
-              <Tab
-                value={`/exploredata?mlp=comparegeos&mls=1.covid-3.13-5.00`}
-                label="Compare Locations"
-                component={Link}
-                to={`/exploredata?mlp=comparegeos&mls=1.covid-3.13-5.00`}
-              />
-              <Tab
-                value={`/exploredata?mlp=comparevars&mls=1.diabetes-3.covid-5.00`}
-                label="Compare Conditions"
-                component={Link}
-                to={`/exploredata?mlp=comparevars&mls=1.diabetes-3.covid-5.00`}
-              />
-            </Tabs>
+            <div className={styles.TabBar}>
+              <Tabs
+                indicatorColor="primary"
+                textColor="primary"
+                centered
+                value={history.location.pathname}
+                onChange={(e) => {
+                  console.log(e.nativeEvent);
+                  let newState = {
+                    ...MADLIB_LIST[2],
+                    activeSelections: {
+                      ...MADLIB_LIST[2].defaultSelections,
+                    },
+                  };
+                  setMadLib(newState);
+                  setParameters([
+                    {
+                      name: MADLIB_SELECTIONS_PARAM,
+                      value: stringifyMls(newState.activeSelections),
+                    },
+                    { name: MADLIB_PHRASE_PARAM, value: MADLIB_LIST[2].id },
+                  ]);
+                }}
+              >
+                <Tab
+                  value={`/exploredata/`}
+                  label="Investigate"
+                  component={Link}
+                  to={`/exploredata/`}
+                />
+                <Tab
+                  value={`/exploredata?mlp=comparegeos&mls=1.covid-3.13-5.00`}
+                  label="Compare Locations"
+                  component={Link}
+                  to={`/exploredata?mlp=comparegeos&mls=1.covid-3.13-5.00`}
+                />
+                <Tab
+                  value={`/exploredata?mlp=comparevars&mls=1.diabetes-3.covid-5.00`}
+                  label="Compare Conditions"
+                  component={Link}
+                  to={`/exploredata?mlp=comparevars&mls=1.diabetes-3.covid-5.00`}
+                />
+              </Tabs>
+            </div>
           )}
         />
 
@@ -238,13 +257,13 @@ function ExploreDataPage() {
               />
             </div>
           </Route>
-          <Route path={`/exploredata?mlp=comparegeos&mls=1.covid-3.13-5.00`}>
+          <Route path={`/exploredata?mlp=comparegeos&mls=1.covid-3.13-5.00/`}>
             <div
               className={styles.CarouselContainer}
               id="onboarding-start-your-search"
             >
               <CarouselMadLib
-                madLib={MADLIB_LIST[2]}
+                madLib={MADLIB_LIST[1]}
                 setMadLib={setMadLibWithParam}
               />
             </div>
@@ -256,7 +275,7 @@ function ExploreDataPage() {
             </div>
           </Route>
           <Route
-            path={`/exploredata?mlp=comparevars&mls=1.diabetes-3.covid-5.00`}
+            path={`/exploredata?mlp=comparevars&mls=1.diabetes-3.covid-5.00/`}
           >
             <div
               className={styles.CarouselContainer}

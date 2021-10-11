@@ -69,6 +69,22 @@
   }
 }
 
+.TabBar {
+  background-color: white !important;
+  padding: 6px 12px;
+  overflow: hidden;
+  position: relative;
+  font-size: 0.875rem;
+  min-height: 48px;
+  text-align: center;
+  font-family: "DM Sans", sans-serif !important;
+  font-weight: 500;
+  line-height: 1.75;
+  white-space: normal;
+  letter-spacing: 0.02857em;
+  text-transform: none;
+}
+
 // override the joyride component to allow different color for "back" text and "next" background
 button[data-action="back"] {
   color: #fff !important;
