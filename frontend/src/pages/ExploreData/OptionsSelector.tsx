@@ -16,13 +16,22 @@ import { Box, Grid } from "@material-ui/core";
 
 function OptionsSelector(props: {
   value: string;
-  options: Fips[] | string[][];
+  options: Fips[] | string[][] | any;
   onOptionUpdate: (option: string) => void;
 }) {
   const popover = usePopover();
 
   const isFips =
     props.options[0] && props.options[0] instanceof Fips ? true : false;
+
+  const isDropdownMode =
+    props.options[0] &&
+    (props.options[0][0] === "comparegeos" ||
+      props.options[0][0] === "comparevars" ||
+      props.options[0][0] === "disparity");
+
+  console.log(isDropdownMode);
+
   let currentDisplayName;
   if (isFips) {
     currentDisplayName = new Fips(props.value).getFullDisplayName();
@@ -109,7 +118,7 @@ function OptionsSelector(props: {
             </span>
           </div>
         )}
-        {!isFips && (
+        {!isFips && !isDropdownMode && (
           <Box my={3} mx={6}>
             <Grid container>
               {CATEGORIES_LIST.map((category) => {
@@ -151,6 +160,32 @@ function OptionsSelector(props: {
                   </Grid>
                 );
               })}
+            </Grid>
+          </Box>
+        )}
+        {!isFips && isDropdownMode && (
+          <Box my={3} mx={6}>
+            <Grid container>
+              <Grid item xs={12} className={styles.CategoryList}>
+                <List dense={true}>
+                  {(props.options as string[][]).map((item: string[]) => {
+                    const [optionId, optionDisplayName] = item;
+                    return (
+                      <ListItem
+                        key={optionId}
+                        button
+                        selected={optionId === props.value}
+                        onClick={() => {
+                          popover.close();
+                          props.onOptionUpdate(optionId);
+                        }}
+                      >
+                        <ListItemText primary={optionDisplayName} />
+                      </ListItem>
+                    );
+                  })}
+                </List>
+              </Grid>
             </Grid>
           </Box>
         )}

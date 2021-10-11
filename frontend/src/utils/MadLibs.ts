@@ -75,6 +75,14 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   vaccinations: "COVID-19 Vaccinations",
 };
 
+export type DropdownModeId = "disparity" | "comparegeos" | "comparevars";
+
+const DROPDOWN_MODE: Record<DropdownModeId, string> = {
+  disparity: "Investigate rates of",
+  comparegeos: "Compare rates of ",
+  comparevars: "Explore relationships between",
+};
+
 /* Update categories / DropdownVarIds here; type defs at top of file */
 
 export interface Category {
@@ -100,14 +108,14 @@ const CATEGORIES_LIST: Category[] = [
 const MADLIB_LIST: MadLib[] = [
   {
     id: "disparity",
-    phrase: ["Investigate rates of", DROPDOWN_VAR, "in", FIPS_MAP],
+    phrase: [DROPDOWN_MODE, DROPDOWN_VAR, "in", FIPS_MAP],
     defaultSelections: { 1: "covid", 3: USA_FIPS },
     activeSelections: { 1: "covid", 3: USA_FIPS },
   },
   {
     id: "comparegeos",
     phrase: [
-      "Compare rates of",
+      DROPDOWN_MODE,
       DROPDOWN_VAR,
       " between ",
       FIPS_MAP,
@@ -120,7 +128,7 @@ const MADLIB_LIST: MadLib[] = [
   {
     id: "comparevars",
     phrase: [
-      "Explore relationships between",
+      DROPDOWN_MODE,
       DROPDOWN_VAR,
       " and ",
       DROPDOWN_VAR,
