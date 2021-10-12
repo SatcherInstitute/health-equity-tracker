@@ -1,8 +1,8 @@
 import json
-import pandas as pd
+import pytest
 
 from pandas.testing import assert_frame_equal
-from ingestion import census, gcs_to_bq_util, dataset_utils
+from ingestion import gcs_to_bq_util, dataset_utils
 
 _fake_race_data = [
     ['state_fips', 'state_name', 'race', 'population'],
@@ -97,3 +97,30 @@ def testGeneratePctShareCol():
     df = dataset_utils.generate_pct_share_col(df, 'population', 'pct_share', 'race', 'state_fips', 'TOTAL')
 
     assert_frame_equal(expected_df, df)
+
+
+def testGeneratePctShareColNoTotalError():
+    df = gcs_to_bq_util.values_json_to_dataframe(
+        json.dumps(_fake_race_data)).reset_index(drop=True)
+
+    df = df.loc[df['race'] != 'TOTAL']
+
+    df['population'] = df['population'].astype(int)
+
+    expected_error = r"There is no TOTAL value for this chunk of data"
+    with pytest.raises(ValueError, match=expected_error):
+        df = dataset_utils.generate_pct_share_col(df, 'population', 'pct_share', 'race', 'state_fips', 'TOTAL')
+
+
+def testGeneratePctShareColExtraTotalError():
+    df = gcs_to_bq_util.values_json_to_dataframe(
+        json.dumps(_fake_race_data)).reset_index(drop=True)
+
+    extra_row = [{'state_fips': '01', 'state_name': 'Alabama', 'race': 'TOTAL', 'population': '66'}]
+    df = df.append(extra_row, ignore_index=True)
+
+    df['population'] = df['population'].astype(int)
+
+    expected_error = r"There are multiple TOTAL values for this chunk of data, there should only be one"
+    with pytest.raises(ValueError, match=expected_error):
+        df = dataset_utils.generate_pct_share_col(df, 'population', 'pct_share', 'race', 'state_fips', 'TOTAL')

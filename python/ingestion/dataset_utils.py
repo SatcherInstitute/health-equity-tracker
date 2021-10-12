@@ -21,7 +21,7 @@ def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, geo_
             raise ValueError("There is no TOTAL value for this chunk of data")
 
         if len(total_row) > 1:
-            raise ValueError("There are multiple total values for this chunk of data, there should only be one")
+            raise ValueError("There are multiple TOTAL values for this chunk of data, there should only be one")
 
         total = total_row[raw_count_col].values[0]
         record[pct_share_col] = round((float(record[raw_count_col]) / float(total)) * 100, 2)
