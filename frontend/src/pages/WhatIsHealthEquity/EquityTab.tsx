@@ -15,7 +15,6 @@ import {
 } from "../../utils/urlutils";
 import { Box } from "@material-ui/core";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
-// import useFetchCopy from "../../utils/useFetchCopy";
 import { Helmet } from "react-helmet";
 import LazyLoad from "react-lazyload";
 import { useQuery } from "react-query";
@@ -97,10 +96,8 @@ function EquityTab() {
     () => fetchCopyData(WIHE_PAGE_ID),
     REACT_QUERY_OPTIONS
   );
-  // if (isLoading) return <p>Loading...</p>;
   if (error || isLoading) wordpressCopy = WIHEFallbackCopy;
-  if (data) wordpressCopy = data.data.acf;
-  // const wordpressCopy = useFetchCopy(WHAT_IS_HEALTH_EQUITY_PAGE_LINK);
+  if (data) wordpressCopy = data.data?.acf;
 
   return (
     <div className={styles.WhatIsHealthEquityPage}>

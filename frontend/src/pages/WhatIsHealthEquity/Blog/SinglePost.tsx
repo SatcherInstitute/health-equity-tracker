@@ -58,7 +58,6 @@ export default function SinglePost() {
 
   return (
     <Grid container className={styles.Grid}>
-      {console.log(fullArticle && fullArticle)}
       <Helmet>
         <title>{`Blog${
           fullArticle ? " - " + parse(fullArticle.title.rendered) : ""

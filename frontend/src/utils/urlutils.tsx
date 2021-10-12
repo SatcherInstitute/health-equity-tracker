@@ -71,15 +71,20 @@ export const MAX_FETCH = 100;
 export const WIHE_PAGE_ID = 37;
 
 // REACT QUERY
-export const ARTICLES_KEY = "articles";
-export const DYNAMIC_COPY_KEY = "dynamic_copy";
+export const ARTICLES_KEY = "cached_wp_articles";
+export const DYNAMIC_COPY_KEY = "cached_wp_dynamic_copy";
 export const REACT_QUERY_OPTIONS = {
-  cacheTime: 1000 * 60 * 60 * 24, // use as pre-fetch data before garbage collection
-  staleTime: 1000 * 60 * 10, // treat data as fresh and not trigger a refetch
+  cacheTime: Infinity, // 1000 * 60 * 60 * 24, // use as pre-fetch data before garbage collection
+  staleTime: 1000 * 60, // treat data as fresh and not trigger a refetch
 };
 
 export async function fetchBlogData() {
-  console.log("FETCHING from", BLOG_URL);
+  console.log(
+    "FETCHING from",
+    `${
+      BLOG_URL + WP_API + ALL_POSTS
+    }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${MAX_FETCH}`
+  );
   return await axios.get(
     `${
       BLOG_URL + WP_API + ALL_POSTS
@@ -88,8 +93,8 @@ export async function fetchBlogData() {
 }
 
 export async function fetchCopyData(id: number) {
-  console.log("FETCHING from", BLOG_URL);
-  return await axios.get(`${BLOG_URL + WP_API + ALL_PAGES}/${id}`);
+  console.log("FETCHING from", `${BLOG_URL + WP_API + ALL_PAGES}/${id}`);
+  return await axios.get(`${BLOG_URL + WP_API + ALL_PAGES}/${WIHE_PAGE_ID}`);
 }
 
 export function useUrlSearchParams() {
