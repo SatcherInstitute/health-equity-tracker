@@ -94,6 +94,6 @@ def testGeneratePctShareCol():
     expected_df['population'] = expected_df['population'].astype(int)
     expected_df['pct_share'] = expected_df['pct_share'].astype(float)
 
-    df = dataset_utils.generate_pct_share_col(df, 'population', 'pct_share', 'race', 'state_fips')
+    df = dataset_utils.generate_pct_share_col(df, 'population', 'pct_share', 'race', 'state_fips', 'TOTAL')
 
     assert_frame_equal(expected_df, df)
