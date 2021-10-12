@@ -49,23 +49,25 @@
   width: 100%;
 }
 
-// when sticky header appears after scrolling down page
-.Sticky {
-  .CarouselContainer {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1001;
-    padding-top: 5;
-    padding-bottom: 0;
-    line-height: 20pt;
-  }
-  .CarouselItem {
-    padding: 0px 55px 0px 55px;
-    transition: padding 0.2s;
-  }
-  .ReportContainer {
-    padding-top: 150px;
+// when sticky header appears after scrolling down page (not on small screens)
+@media (min-width: $md) {
+  .Sticky {
+    .CarouselContainer {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1001;
+      padding-top: 5;
+      padding-bottom: 0;
+      line-height: 20pt;
+    }
+    .CarouselItem {
+      padding: 0px 55px 0px 55px;
+      transition: padding 0.2s;
+    }
+    .ReportContainer {
+      padding-top: 150px;
+    }
   }
 }
 
