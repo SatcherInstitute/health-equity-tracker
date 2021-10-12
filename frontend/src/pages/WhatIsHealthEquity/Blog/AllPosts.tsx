@@ -124,6 +124,36 @@ function AllPosts() {
             </Grid>
           </Hidden>
           <Grid item xs={12} sm={12} md={9}>
+            {/* FEATURED "sticky" */}
+            <Grid
+              container
+              direction="row"
+              justify="space-between"
+              alignItems="flex-start"
+              className={styles.FeaturedContainer}
+            >
+              <Grid item xs={12}>
+                Featured
+              </Grid>
+              {filteredArticles &&
+                filteredArticles
+                  .filter((post) => post.sticky)
+                  .map((post: any) => {
+                    return (
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        md={4}
+                        className={styles.AllArticlesItem}
+                        key={post.id}
+                      >
+                        <BlogPreviewCard article={post} />
+                      </Grid>
+                    );
+                  })}
+            </Grid>
+            {/* NON-FEATURED POSTS */}
             <Grid
               container
               direction="row"
