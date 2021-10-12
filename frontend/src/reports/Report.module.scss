@@ -37,7 +37,19 @@
   border-radius: 8px;
 }
 
+.DefinedTerm {
+  font-weight: 600;
+}
+
 .ReportWrapper {
   width: 95%;
   margin: 20px auto;
+}
+
+.FootnoteLargeHeading {
+  font-size: 2rem;
+}
+
+.FootnoteLargeHeading:first-of-type {
+  margin-block-start: 0px;
 }

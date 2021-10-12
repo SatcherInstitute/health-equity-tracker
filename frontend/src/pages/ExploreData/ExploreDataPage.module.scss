@@ -1,3 +1,5 @@
+@import "../../styles/variables.scss";
+
 .ExploreData {
   background-color: #f1f4f8;
   height: 100%;
@@ -27,13 +29,12 @@
 
 .Carousel {
   margin: auto;
-  width: 90%;
+  width: 95%;
 }
 
+// when scrolled to top of page
 .CarouselItem {
-  padding: 40px;
-  padding-left: 50px;
-  padding-right: 50px;
+  padding: 20px 60px 20px 60px;
   margin: 20px auto;
   line-height: 50pt;
 }
@@ -48,17 +49,19 @@
   width: 100%;
 }
 
+// when sticky header appears after scrolling down page
 .Sticky {
   .CarouselContainer {
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 1001;
-    padding-top: 0;
+    padding-top: 5;
     padding-bottom: 0;
+    line-height: 20pt;
   }
   .CarouselItem {
-    padding: 10px;
+    padding: 0px 55px 0px 55px;
     transition: padding 0.2s;
   }
   .ReportContainer {

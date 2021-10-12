@@ -35,7 +35,12 @@ export type MetricId =
   | "poverty_count"
   | "poverty_pct_share"
   | "poverty_per_100k"
-  | "poverty_population_pct";
+  | "poverty_population_pct"
+  | "vaccinated_pct_share"
+  | "vaccinated_share_of_known"
+  | "vaccinated_per_100k"
+  | "vaccine_population_pct"
+  | "acs_vaccine_population_pct";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -51,6 +56,7 @@ export type MetricConfig = {
   metricId: MetricId;
   fullCardTitleName: string;
   shortVegaLabel: string;
+  unknownsVegaLabel?: string;
   type: MetricType;
   populationComparisonMetric?: MetricConfig;
 
@@ -187,6 +193,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         pct_share: {
           metricId: "covid_cases_share",
           fullCardTitleName: "Share Of Total COVID-19 Cases",
+          unknownsVegaLabel: "% unknown",
           shortVegaLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
@@ -231,6 +238,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           metricId: "covid_deaths_share",
           fullCardTitleName: "Share Of Total COVID-19 Deaths",
           shortVegaLabel: "% of deaths",
+          unknownsVegaLabel: "% unknown",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "covid_deaths_reporting_population_pct",
@@ -274,6 +282,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           metricId: "covid_hosp_share",
           fullCardTitleName: "Share Of Total COVID-19 Hospitalizations",
           shortVegaLabel: "% of hospitalizations",
+          unknownsVegaLabel: "% unknown",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "covid_hosp_reporting_population_pct",
@@ -402,6 +411,40 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             metricId: "poverty_population_pct",
             fullCardTitleName: populationPctTitle,
             shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+      },
+    },
+  ],
+  vaccinations: [
+    {
+      variableId: "vaccinations",
+      variableDisplayName: "Vaccinations",
+      variableFullDisplayName: "COVID-19 Vaccinations",
+      metrics: {
+        per100k: {
+          metricId: "vaccinated_per_100k",
+          fullCardTitleName: "COVID-19 Vaccinations Per 100K People",
+          shortVegaLabel: "COVID-19 vaccinations per 100K",
+          type: "per100k",
+        },
+        pct_share: {
+          metricId: "vaccinated_pct_share",
+          fullCardTitleName: "Share Of Total COVID-19 Vaccinations",
+          unknownsVegaLabel: "% unknown",
+          shortVegaLabel: "% of vaccinations",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "vaccine_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+          knownBreakdownComparisonMetric: {
+            metricId: "vaccinated_share_of_known",
+            fullCardTitleName: "Share Of Total COVID-19 Vaccinations",
+            shortVegaLabel: "% of COVID-19 vaccinations",
             type: "pct_share",
           },
         },
