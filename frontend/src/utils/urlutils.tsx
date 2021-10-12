@@ -74,8 +74,8 @@ export const WIHE_PAGE_ID = 37;
 export const ARTICLES_KEY = "cached_wp_articles";
 export const DYNAMIC_COPY_KEY = "cached_wp_dynamic_copy";
 export const REACT_QUERY_OPTIONS = {
-  cacheTime: Infinity, // 1000 * 60 * 60 * 24, // use as pre-fetch data before garbage collection
-  staleTime: 1000 * 60, // treat data as fresh and not trigger a refetch
+  cacheTime: Infinity, // never garbage collect, always default to cache
+  staleTime: 1000 * 60 * 10, // treat cache data as fresh and dont refetch
 };
 
 export async function fetchBlogData() {
