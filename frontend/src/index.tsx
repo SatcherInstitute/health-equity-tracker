@@ -17,12 +17,12 @@ const queryClient = new QueryClient({
   },
 });
 
-const sessionStoragePersistor = createWebStoragePersistor({
-  storage: window.sessionStorage,
+const localStoragePersistor = createWebStoragePersistor({
+  storage: window.localStorage,
 });
 persistQueryClient({
   queryClient,
-  persistor: sessionStoragePersistor,
+  persistor: localStoragePersistor,
 });
 
 ReactDOM.render(
