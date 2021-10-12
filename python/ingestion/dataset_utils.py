@@ -65,5 +65,3 @@ def add_sum_of_rows(df, breakdown_col, value_col, new_row_breakdown_val,
     result = pd.concat([df, sums])
     result = result.reset_index(drop=True)
     return result
-
-
