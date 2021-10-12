@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Grid, useMediaQuery, useTheme } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -34,16 +34,16 @@ const EXPLORE_DATA_ID = "main";
 function ExploreDataPage() {
   const params = useSearchParams();
 
-  // Set up inital mad lib values based on defaults and query params
+  // Set up initial mad lib values based on defaults and query params
   const foundIndex = MADLIB_LIST.findIndex(
     (madlib) => madlib.id === params[MADLIB_PHRASE_PARAM]
   );
-  const initalIndex = foundIndex !== -1 ? foundIndex : 0;
-  let defaultValuesWithOverrides = MADLIB_LIST[initalIndex].defaultSelections;
+  const initialIndex = foundIndex !== -1 ? foundIndex : 0;
+  let defaultValuesWithOverrides = MADLIB_LIST[initialIndex].defaultSelections;
   if (params[MADLIB_SELECTIONS_PARAM]) {
     params[MADLIB_SELECTIONS_PARAM].split(",").forEach((override) => {
       const [phraseSegmentIndex, value] = override.split(":");
-      let phraseSegments: PhraseSegment[] = MADLIB_LIST[initalIndex].phrase;
+      let phraseSegments: PhraseSegment[] = MADLIB_LIST[initialIndex].phrase;
       if (
         Object.keys(phraseSegments).includes(phraseSegmentIndex) &&
         Object.keys(phraseSegments[Number(phraseSegmentIndex)]).includes(value)
@@ -54,7 +54,7 @@ function ExploreDataPage() {
   }
 
   const [madLib, setMadLib] = useState<MadLib>({
-    ...MADLIB_LIST[initalIndex],
+    ...MADLIB_LIST[initialIndex],
     activeSelections: defaultValuesWithOverrides,
   });
 
@@ -138,6 +138,10 @@ function ExploreDataPage() {
     };
   }, [activelyOnboarding]);
 
+  // calculate page size to determine if mobile or not
+  const theme = useTheme();
+  const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
+
   return (
     <>
       <Onboarding
@@ -158,10 +162,10 @@ function ExploreDataPage() {
             NextIcon={<NavigateNextIcon id="onboarding-madlib-arrow" />}
             timeout={200}
             autoPlay={false}
-            indicators={!sticking}
+            indicators={!sticking || !pageIsWide}
             animation="slide"
             navButtonsAlwaysVisible={true}
-            index={initalIndex}
+            index={initialIndex}
             onChange={(index: number) => {
               let newState = {
                 ...MADLIB_LIST[index],
