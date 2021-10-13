@@ -55,7 +55,7 @@ function DownloadDatasetListItem(props: {
   if (props.datasetMetadata === undefined) {
     getLogger().logError(
       new Error(
-        "Dataset metdata was missing for dataset with ID: " + props.datasetId
+        "Dataset metadata was missing for dataset with ID: " + props.datasetId
       ),
       "ERROR"
     );
