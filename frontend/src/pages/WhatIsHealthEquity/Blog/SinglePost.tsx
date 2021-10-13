@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@material-ui/core";
+import { Button, Grid, Typography } from "@material-ui/core";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -16,6 +16,8 @@ import { Helmet } from "react-helmet";
 import AppbarLogo from "../../../assets/AppbarLogo.png";
 import BlogPreviewCard from "./BlogPreviewCard";
 import { useQuery } from "react-query";
+import ShareDialog from "../../../reports/ui/ShareDialog";
+import ShareIcon from "@material-ui/icons/Share";
 
 function prettyDate(dateString: string) {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -26,6 +28,7 @@ export default function SinglePost() {
   const [fullArticle, setFullArticle] = useState<any>();
   const [prevArticle, setPrevArticle] = useState<any>();
   const [nextArticle, setNextArticle] = useState<any>();
+  const [shareModalOpen, setShareModalOpen] = useState(false);
 
   let { slug }: { slug: string } = useParams();
 
@@ -124,6 +127,22 @@ export default function SinglePost() {
               </span>
             )}
           </Typography>
+
+          <ShareDialog
+            article={fullArticle}
+            shareModalOpen={shareModalOpen}
+            setShareModalOpen={setShareModalOpen}
+          />
+          <Grid container>
+            <Button
+              color="primary"
+              startIcon={<ShareIcon />}
+              onClick={() => setShareModalOpen(true)}
+              data-tip="Share this article on social media"
+            >
+              Share
+            </Button>
+          </Grid>
         </Grid>
       </Grid>
       <Grid

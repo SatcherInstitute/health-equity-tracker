@@ -8,12 +8,14 @@ import TextField from "@material-ui/core/TextField";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import React, { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { Article } from "../../pages/WhatIsHealthEquity/BlogTab";
 import { getMadLibPhraseText, MadLib } from "../../utils/MadLibs";
 
 function ShareDialog(props: {
-  madLib: MadLib;
   shareModalOpen: boolean;
   setShareModalOpen: (shareModalOpen: boolean) => void;
+  madLib?: MadLib;
+  article?: Article;
 }) {
   const [textCopied, setTextCopied] = useState(false);
   const text = window.location.href;
@@ -26,7 +28,11 @@ function ShareDialog(props: {
         setTextCopied(false);
       }}
     >
-      <DialogTitle>{getMadLibPhraseText(props.madLib)}</DialogTitle>
+      <DialogTitle>
+        {props.madLib
+          ? getMadLibPhraseText(props.madLib)
+          : props.article?.title?.rendered}
+      </DialogTitle>
       <DialogContent>
         <DialogContentText>
           <CopyToClipboard text={text} onCopy={() => setTextCopied(true)}>
