@@ -1,4 +1,11 @@
-import { Box, Card, Grid, Hidden, Typography } from "@material-ui/core";
+import {
+  Box,
+  Breadcrumbs,
+  Card,
+  Grid,
+  Hidden,
+  Typography,
+} from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import styles from "../WhatIsHealthEquityPage.module.scss";
 import {
@@ -6,7 +13,6 @@ import {
   useUrlSearchParams,
   ARTICLES_KEY,
   REACT_QUERY_OPTIONS,
-  EXPLORE_DATA_PAGE_LINK,
 } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
 import BlogCategories from "../../ui/BlogCategories";
@@ -14,36 +20,35 @@ import BlogAuthors from "../../ui/BlogAuthors";
 import BlogPreviewCard from "./BlogPreviewCard";
 import { useQuery } from "react-query";
 import { Article } from "../BlogTab";
+import { Crumb } from "../../../cards/ui/MapBreadcrumbs";
 
 function PinnedArticles({ articles }: { articles: Article[] }) {
   return (
-    <Box m={5}>
-      <Card elevation={3}>
-        <Typography
-          tabIndex={-1}
-          className={styles.FeaturedArticlesHeaderText}
-          variant="h6"
-        >
-          Featured
-        </Typography>
-        <Grid container>
-          {articles.map((post: any) => {
-            return (
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                // md={3}
-                className={styles.AllArticlesItem}
-                key={post.id}
-              >
-                <BlogPreviewCard article={post} />
-              </Grid>
-            );
-          })}
-        </Grid>
-      </Card>
-    </Box>
+    <Card elevation={3}>
+      <Typography
+        tabIndex={-1}
+        className={styles.FeaturedArticlesHeaderText}
+        variant="h6"
+      >
+        Featured
+      </Typography>
+      <Grid container>
+        {articles.map((post: any) => {
+          return (
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              // md={3}
+              className={styles.AllArticlesItem}
+              key={post.id}
+            >
+              <BlogPreviewCard article={post} />
+            </Grid>
+          );
+        })}
+      </Grid>
+    </Card>
   );
 }
 
@@ -73,6 +78,7 @@ function AllPosts() {
           return category === categoryParam;
         }) as string
       );
+      setSelectedAuthor("");
 
       if (selectedCategory && articles) {
         setFilteredArticles(
@@ -85,7 +91,10 @@ function AllPosts() {
           )
         );
       }
-    } else setFilteredArticles(articles);
+    } else {
+      setFilteredArticles(articles);
+      setSelectedCategory("");
+    }
   }, [categoryParam, categories, selectedCategory, articles]);
 
   useEffect(() => {
@@ -96,6 +105,7 @@ function AllPosts() {
           return author === authorParam;
         }) as string
       );
+      setSelectedCategory("");
 
       if (selectedAuthor) {
         setFilteredArticles(
@@ -105,7 +115,10 @@ function AllPosts() {
           )
         );
       }
-    } else setFilteredArticles(articles);
+    } else {
+      setFilteredArticles(articles);
+      setSelectedAuthor("");
+    }
   }, [articles, authorParam, authors, selectedAuthor]);
 
   // extract and set authors (for ALL posts, not just filtered ones)
@@ -138,9 +151,6 @@ function AllPosts() {
     setCategories(Array.from(allCategoriesSet) as string[]);
   }, [articles]);
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>An error has occurred: {error.message}</p>;
-
   if (isLoading) return <i>loading...</i>;
   if (error) return <i>Error loading blog posts. {error}</i>;
 
@@ -159,46 +169,71 @@ function AllPosts() {
           </Hidden>
 
           <Grid item xs={12} sm={12} md={9}>
-            <div className={styles.AllArticlesHeader}>
-              <Grid item>
-                <Typography
-                  id="main"
-                  tabIndex={-1}
-                  className={styles.AllArticlesHeaderText}
-                  variant="h2"
-                >
-                  Health Equity Tracker Blog
-                </Typography>
-              </Grid>
-              <Grid item>
-                <p className={styles.AllArticlesHeaderSubtext}>
-                  Our blog features perspectives from Health Equity Initiative's
-                  team and members, as well as guest authors. We cover
-                  cross-sectoral efforts, narratives, news, and stories of hope,
-                  healing, community engagement, and partnerships to advance
-                  health equity.
-                </p>
-                <p>
-                  To investigate inequities and compare health outcomes in your
-                  area, click on{" "}
-                  <a
-                    href={EXPLORE_DATA_PAGE_LINK}
-                    className={styles.AllArticlesExploreLink}
+            <Box m={5}>
+              <div className={styles.AllArticlesHeader}>
+                <Grid item>
+                  <Typography
+                    id="main"
+                    tabIndex={-1}
+                    className={styles.AllArticlesHeaderText}
+                    variant="h2"
                   >
-                    Explore the Data
-                  </a>
-                  .
-                </p>
-              </Grid>
-            </div>
+                    Health Equity Tracker Blog
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <p className={styles.AllArticlesHeaderSubtext}>
+                    Our blog features perspectives from Health Equity
+                    Initiative's team and members, as well as guest authors. We
+                    cover cross-sectoral efforts, narratives, news, and stories
+                    of hope, healing, community engagement, and partnerships to
+                    advance health equity.
+                  </p>
+                </Grid>
+              </div>
+            </Box>
 
             <Grid item container>
-              {/* "sticky" articles marked PIN TO TOP in wp dashboard. Only show if user hasn't applied filters */}
-              {!selectedAuthor?.length && !selectedCategory?.length && (
-                <PinnedArticles
-                  articles={articles.filter((post: Article) => post.sticky)}
-                />
-              )}
+              <Box m={5}>
+                {/* show either "sticky" articles marked PIN TO TOP or BREADCRUMBS with current filter */}
+                {selectedAuthor?.length === 0 &&
+                selectedCategory?.length === 0 ? (
+                  <PinnedArticles
+                    articles={articles.filter((post: Article) => post.sticky)}
+                  />
+                ) : (
+                  <Breadcrumbs separator="›" aria-label={"filter applied"}>
+                    <Crumb
+                      text={"Articles"}
+                      isClickable={true}
+                      onClick={() => {
+                        // props.updateFipsCallback(new Fips(USA_FIPS));
+                        console.log("!");
+                      }}
+                    />
+                    {selectedAuthor?.length > 0 && (
+                      <Crumb
+                        text={`Author: ${selectedAuthor}`}
+                        isClickable={true}
+                        onClick={() => {
+                          // props.updateFipsCallback(new Fips(USA_FIPS));
+                          console.log(selectedAuthor);
+                        }}
+                      />
+                    )}
+                    {selectedCategory?.length > 0 && (
+                      <Crumb
+                        text={`Category: ${selectedCategory}`}
+                        isClickable={true}
+                        onClick={() => {
+                          // props.updateFipsCallback(new Fips(USA_FIPS));
+                          console.log(selectedCategory);
+                        }}
+                      />
+                    )}
+                  </Breadcrumbs>
+                )}
+              </Box>
 
               {/* all posts matching client applied filters */}
               <Grid
