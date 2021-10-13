@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Grid, useMediaQuery, useTheme } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -138,6 +138,10 @@ function ExploreDataPage() {
     };
   }, [activelyOnboarding]);
 
+  // calculate page size to determine if mobile or not
+  const theme = useTheme();
+  const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
+
   return (
     <>
       <Onboarding
@@ -158,7 +162,7 @@ function ExploreDataPage() {
             NextIcon={<NavigateNextIcon id="onboarding-madlib-arrow" />}
             timeout={200}
             autoPlay={false}
-            indicators={!sticking}
+            indicators={!sticking || !pageIsWide}
             animation="slide"
             navButtonsAlwaysVisible={true}
             index={initialIndex}
