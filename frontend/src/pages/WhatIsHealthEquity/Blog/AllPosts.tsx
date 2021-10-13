@@ -152,7 +152,7 @@ function AllPosts() {
   }, [articles]);
 
   if (isLoading) return <i>loading...</i>;
-  if (error) return <i>Error loading blog posts. {error}</i>;
+  if (error) return <i>Error loading blog posts.</i>;
 
   return (
     articles && (
