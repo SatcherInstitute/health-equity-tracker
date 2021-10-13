@@ -15,7 +15,7 @@ def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, geo_
        total_val: The value representing 'ALL' or 'TOTAL'"""
 
     def calc_pct_share(record):
-        total_row = df.loc[(df[breakdown_col] == 'TOTAL') & (df[geo_col] == record[geo_col])]
+        total_row = df.loc[(df[breakdown_col] == total_val) & (df[geo_col] == record[geo_col])]
 
         if len(total_row) == 0:
             raise ValueError("There is no TOTAL value for this chunk of data")
