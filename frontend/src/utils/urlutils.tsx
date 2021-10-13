@@ -75,7 +75,7 @@ export const ARTICLES_KEY = "cached_wp_articles";
 export const DYNAMIC_COPY_KEY = "cached_wp_dynamic_copy";
 export const REACT_QUERY_OPTIONS = {
   cacheTime: Infinity, // never garbage collect, always default to cache
-  staleTime: 1000 * 60 * 10, // treat cache data as fresh and dont refetch
+  staleTime: 1000 * 30, // treat cache data as fresh and dont refetch
 };
 
 export async function fetchBlogData() {

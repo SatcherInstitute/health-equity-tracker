@@ -1,4 +1,4 @@
-import { Grid, Hidden } from "@material-ui/core";
+import { Box, Card, Grid, Hidden, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import styles from "../WhatIsHealthEquityPage.module.scss";
 import {
@@ -6,6 +6,7 @@ import {
   useUrlSearchParams,
   ARTICLES_KEY,
   REACT_QUERY_OPTIONS,
+  EXPLORE_DATA_PAGE_LINK,
 } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
 import BlogCategories from "../../ui/BlogCategories";
@@ -14,11 +15,44 @@ import BlogPreviewCard from "./BlogPreviewCard";
 import { useQuery } from "react-query";
 import { Article } from "../BlogTab";
 
+function PinnedArticles({ articles }: { articles: Article[] }) {
+  return (
+    <Box m={5}>
+      <Card elevation={3}>
+        <Typography
+          tabIndex={-1}
+          className={styles.FeaturedArticlesHeaderText}
+          variant="h6"
+        >
+          Featured
+        </Typography>
+        <Grid container>
+          {articles.map((post: any) => {
+            return (
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                // md={3}
+                className={styles.AllArticlesItem}
+                key={post.id}
+              >
+                <BlogPreviewCard article={post} />
+              </Grid>
+            );
+          })}
+        </Grid>
+      </Card>
+    </Box>
+  );
+}
+
 function AllPosts() {
+  // articles matching client applied filters (author, category, etc)
   const [filteredArticles, setFilteredArticles] = useState<Article[]>([]);
   const [authors, setAuthors] = useState<string[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<any>({});
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedAuthor, setSelectedAuthor] = useState<string>("");
 
   const categoryParam: string | null = useUrlSearchParams().get("category");
@@ -123,22 +157,58 @@ function AllPosts() {
               <BlogAuthors authors={authors} />
             </Grid>
           </Hidden>
+
           <Grid item xs={12} sm={12} md={9}>
-            {/* FEATURED "sticky" */}
-            <Grid
-              container
-              direction="row"
-              justify="space-between"
-              alignItems="flex-start"
-              className={styles.FeaturedContainer}
-            >
-              <Grid item xs={12}>
-                Featured
+            <div className={styles.AllArticlesHeader}>
+              <Grid item>
+                <Typography
+                  id="main"
+                  tabIndex={-1}
+                  className={styles.AllArticlesHeaderText}
+                  variant="h2"
+                >
+                  Health Equity Tracker Blog
+                </Typography>
               </Grid>
-              {filteredArticles &&
-                filteredArticles
-                  .filter((post) => post.sticky)
-                  .map((post: any) => {
+              <Grid item>
+                <p className={styles.AllArticlesHeaderSubtext}>
+                  Our blog features perspectives from Health Equity Initiative's
+                  team and members, as well as guest authors. We cover
+                  cross-sectoral efforts, narratives, news, and stories of hope,
+                  healing, community engagement, and partnerships to advance
+                  health equity.
+                </p>
+                <p>
+                  To investigate inequities and compare health outcomes in your
+                  area, click on{" "}
+                  <a
+                    href={EXPLORE_DATA_PAGE_LINK}
+                    className={styles.AllArticlesExploreLink}
+                  >
+                    Explore the Data
+                  </a>
+                  .
+                </p>
+              </Grid>
+            </div>
+
+            <Grid item container>
+              {/* "sticky" articles marked PIN TO TOP in wp dashboard. Only show if user hasn't applied filters */}
+              {!selectedAuthor?.length && !selectedCategory?.length && (
+                <PinnedArticles
+                  articles={articles.filter((post: Article) => post.sticky)}
+                />
+              )}
+
+              {/* all posts matching client applied filters */}
+              <Grid
+                container
+                direction="row"
+                justify="space-between"
+                alignItems="flex-start"
+              >
+                {filteredArticles &&
+                  filteredArticles.map((post: any) => {
                     return (
                       <Grid
                         item
@@ -152,32 +222,9 @@ function AllPosts() {
                       </Grid>
                     );
                   })}
-            </Grid>
-            {/* NON-FEATURED POSTS */}
-            <Grid
-              container
-              direction="row"
-              justify="space-between"
-              alignItems="flex-start"
-            >
-              {filteredArticles &&
-                filteredArticles.map((post: any) => {
-                  return (
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      md={4}
-                      className={styles.AllArticlesItem}
-                      key={post.id}
-                    >
-                      <BlogPreviewCard article={post} />
-                    </Grid>
-                  );
-                })}
+              </Grid>
             </Grid>
           </Grid>
-
           <Hidden mdUp>
             <Grid
               item

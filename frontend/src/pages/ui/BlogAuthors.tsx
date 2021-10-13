@@ -13,7 +13,7 @@ export default function BlogAuthors(props: BlogAuthorsProps) {
 
   return (
     <div className={styles.FilterListBox}>
-      <Typography className={styles.FilterListHeader} variant="h4">
+      <Typography className={styles.FilterListHeader} variant="h5">
         Authors
       </Typography>
       <ul className={styles.FilterList}>
@@ -23,7 +23,7 @@ export default function BlogAuthors(props: BlogAuthorsProps) {
                 <li key={filter}>
                   <Link
                     to={`${BLOG_TAB_LINK}?author=${filter}`}
-                    className={styles.AllArticlesTitleLink}
+                    className={styles.FilterListLink}
                   >
                     {filter}
                   </Link>
@@ -32,7 +32,7 @@ export default function BlogAuthors(props: BlogAuthorsProps) {
             })
           : ""}
         <li>
-          <Link to={BLOG_TAB_LINK} className={styles.AllArticlesTitleLink}>
+          <Link to={BLOG_TAB_LINK} className={styles.FilterListLink}>
             All Posts
           </Link>
         </li>
