@@ -1,5 +1,4 @@
-import pandas
-import os
+import pandas as pd
 
 from ingestion.standardized_columns import (HISPANIC_COL, RACE_COL,
                                             STATE_FIPS_COL, COUNTY_FIPS_COL,
@@ -11,8 +10,7 @@ from ingestion.standardized_columns import (HISPANIC_COL, RACE_COL,
                                             add_race_columns_from_category_id)
 from ingestion import url_file_to_gcs, gcs_to_bq_util, census
 from datasources.data_source import DataSource
-from ingestion.census import (get_census_params,
-                              parse_acs_metadata, fetch_acs_group,
+from ingestion.census import (get_census_params, parse_acs_metadata,
                               get_vars_for_group, standardize_frame)
 from ingestion.dataset_utils import add_sum_of_rows
 
@@ -281,7 +279,7 @@ class ACSPopulationIngester():
             lambda r: RACE_STRING_TO_CATEGORY_ID_INCLUDE_HISP[r[RACE_COL]],
             axis=1)
 
-        return pandas.concat([by_hispanic, by_race])
+        return pd.concat([by_hispanic, by_race])
 
     def get_all_races_frame(self, race_and_hispanic_frame):
         """Includes all race categories, both including and not including
@@ -295,7 +293,7 @@ class ACSPopulationIngester():
         # group, so remove from one before concatenating.
         standardized_race = standardized_race[
             standardized_race[RACE_CATEGORY_ID_COL] != Race.HISP.value]
-        all_races = pandas.concat([all_races, standardized_race])
+        all_races = pd.concat([all_races, standardized_race])
 
         # Drop extra columns before adding derived rows so they don't interfere
         # with grouping.
@@ -334,7 +332,7 @@ class ACSPopulationIngester():
 
             sex_by_age[RACE_CATEGORY_ID_COL] = race
             frames.append(sex_by_age)
-        result = pandas.concat(frames)
+        result = pd.concat(frames)
         result[AGE_COL] = result[AGE_COL].apply(rename_age_bracket)
 
         result = add_sum_of_rows(result, AGE_COL, POPULATION_COL, TOTAL_VALUE)
