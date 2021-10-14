@@ -10,6 +10,17 @@ import React, { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Article } from "../../pages/WhatIsHealthEquity/BlogTab";
 import { getMadLibPhraseText, MadLib } from "../../utils/MadLibs";
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  EmailIcon,
+  FacebookIcon,
+  LinkedinIcon,
+  TwitterIcon,
+} from "react-share";
+import parse from "html-react-parser";
 
 function ShareDialog(props: {
   shareModalOpen: boolean;
@@ -18,7 +29,16 @@ function ShareDialog(props: {
   article?: Article;
 }) {
   const [textCopied, setTextCopied] = useState(false);
-  const text = window.location.href;
+  let text = window.location.href;
+  if (process.env.NODE_ENV === "development")
+    text = text.replace(
+      "http://localhost:3000",
+      "https://healthequitytracker.org"
+    );
+
+  let title: string = "";
+  if (props.article) title = parse(props.article.title.rendered) as string;
+  if (props.madLib) title = getMadLibPhraseText(props.madLib);
 
   return (
     <Dialog
@@ -28,12 +48,42 @@ function ShareDialog(props: {
         setTextCopied(false);
       }}
     >
-      <DialogTitle>
-        {props.madLib
-          ? getMadLibPhraseText(props.madLib)
-          : props.article?.title?.rendered}
-      </DialogTitle>
+      <DialogTitle>{title}</DialogTitle>
+
       <DialogContent>
+        {/* SOCIAL SHARE BUTTONS */}
+        <FacebookShareButton url={text} hashtag={"#healthequity"}>
+          <FacebookIcon size={32} />
+        </FacebookShareButton>
+
+        <TwitterShareButton
+          url={text}
+          title={title}
+          hashtags={["healthequity"]}
+        >
+          <TwitterIcon size={32} />
+        </TwitterShareButton>
+
+        <EmailShareButton
+          subject={`Sharing from healthequitytracker.org`}
+          body={`Please see this ${
+            props.article ? "article" : "report"
+          } from the Health Equity Tracker: “${title}”
+        
+`} // KEEP THIS WEIRD SPACING FOR EMAIL LINE BREAKS!
+          url={text}
+        >
+          <EmailIcon size={32} />
+        </EmailShareButton>
+
+        <LinkedinShareButton
+          title={title}
+          source={"Health Equity Tracker"}
+          url={text}
+        >
+          <LinkedinIcon size={32} />
+        </LinkedinShareButton>
+
         <DialogContentText>
           <CopyToClipboard text={text} onCopy={() => setTextCopied(true)}>
             <Button startIcon={<FileCopyIcon />}>Copy link to clipboard</Button>
