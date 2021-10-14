@@ -1,0 +1,989 @@
+state_fips,state_name,population,race_category_id,race,race_includes_hispanic,race_and_ethnicity
+01,Alabama,25565,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+01,Alabama,22740,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+01,Alabama,66270,ASIAN,Asian,True,Asian
+01,Alabama,65410,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+01,Alabama,1299048,BLACK,Black or African American,True,Black or African American
+01,Alabama,1291524,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+01,Alabama,208626,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,92220,MULTI,Two or more races,True,Two or more races
+01,Alabama,83335,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+01,Alabama,162882,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+01,Alabama,91418,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+01,Alabama,4667624,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+01,Alabama,2238,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+01,Alabama,1603,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+01,Alabama,70662,OTHER_STANDARD,Some other race,True,Some other race
+01,Alabama,8083,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+01,Alabama,4876250,TOTAL,Total,,Total
+01,Alabama,3320247,WHITE,White,True,White
+01,Alabama,3194929,WHITE_NH,White,False,White (Non-Hispanic)
+02,Alaska,109751,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+02,Alaska,106271,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+02,Alaska,45920,ASIAN,Asian,True,Asian
+02,Alaska,44917,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+02,Alaska,24205,BLACK,Black or African American,True,Black or African American
+02,Alaska,22857,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+02,Alaska,51870,HISP,Hispanic or Latino,True,Hispanic or Latino
+02,Alaska,60665,MULTI,Two or more races,True,Two or more races
+02,Alaska,53564,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+02,Alaska,71973,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+02,Alaska,55243,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+02,Alaska,685198,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+02,Alaska,9204,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+02,Alaska,9013,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+02,Alaska,11308,OTHER_STANDARD,Some other race,True,Some other race
+02,Alaska,1679,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+02,Alaska,737068,TOTAL,Total,,Total
+02,Alaska,476015,WHITE,White,True,White
+02,Alaska,446897,WHITE_NH,White,False,White (Non-Hispanic)
+04,Arizona,317414,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+04,Arizona,276396,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+04,Arizona,233213,ASIAN,Asian,True,Asian
+04,Arizona,226597,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+04,Arizona,317462,BLACK,Black or African American,True,Black or African American
+04,Arizona,297107,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+04,Arizona,2208663,HISP,Hispanic or Latino,True,Hispanic or Latino
+04,Arizona,263037,MULTI,Two or more races,True,Two or more races
+04,Arizona,161029,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+04,Arizona,723299,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+04,Arizona,171651,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+04,Arizona,4841636,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+04,Arizona,14458,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+04,Arizona,12878,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+04,Arizona,460262,OTHER_STANDARD,Some other race,True,Some other race
+04,Arizona,10622,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+04,Arizona,7050299,TOTAL,Total,,Total
+04,Arizona,5444453,WHITE,White,True,White
+04,Arizona,3857007,WHITE_NH,White,False,White (Non-Hispanic)
+05,Arkansas,20434,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+05,Arkansas,17652,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+05,Arkansas,45504,ASIAN,Asian,True,Asian
+05,Arkansas,44927,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+05,Arkansas,459542,BLACK,Black or African American,True,Black or African American
+05,Arkansas,456899,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+05,Arkansas,224130,HISP,Hispanic or Latino,True,Hispanic or Latino
+05,Arkansas,80537,MULTI,Two or more races,True,Two or more races
+05,Arkansas,69837,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+05,Arkansas,164113,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+05,Arkansas,74695,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+05,Arkansas,2775240,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+05,Arkansas,8733,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+05,Arkansas,8614,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+05,Arkansas,83576,OTHER_STANDARD,Some other race,True,Some other race
+05,Arkansas,4858,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+05,Arkansas,2999370,TOTAL,Total,,Total
+05,Arkansas,2301044,WHITE,White,True,White
+05,Arkansas,2172453,WHITE_NH,White,False,White (Non-Hispanic)
+06,California,303998,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+06,California,140831,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+06,California,5692423,ASIAN,Asian,True,Asian
+06,California,5610931,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+06,California,2274108,BLACK,Black or African American,True,Black or African American
+06,California,2169155,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+06,California,15327688,HISP,Hispanic or Latino,True,Hispanic or Latino
+06,California,1922664,MULTI,Two or more races,True,Two or more races
+06,California,1188673,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+06,California,7404456,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+06,California,1288792,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+06,California,23955809,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+06,California,155290,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+06,California,140788,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+06,California,5481792,OTHER_STANDARD,Some other race,True,Some other race
+06,California,100119,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+06,California,39283497,TOTAL,Total,,Total
+06,California,23453222,WHITE,White,True,White
+06,California,14605312,WHITE_NH,White,False,White (Non-Hispanic)
+08,Colorado,54847,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+08,Colorado,30393,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+08,Colorado,178147,ASIAN,Asian,True,Asian
+08,Colorado,174660,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+08,Colorado,233647,BLACK,Black or African American,True,Black or African American
+08,Colorado,221526,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+08,Colorado,1208172,HISP,Hispanic or Latino,True,Hispanic or Latino
+08,Colorado,205724,MULTI,Two or more races,True,Two or more races
+08,Colorado,139336,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+08,Colorado,422491,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+08,Colorado,149659,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+08,Colorado,4402177,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+08,Colorado,8643,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+08,Colorado,7618,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+08,Colorado,216767,OTHER_STANDARD,Some other race,True,Some other race
+08,Colorado,10323,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+08,Colorado,5610349,TOTAL,Total,,Total
+08,Colorado,4712574,WHITE,White,True,White
+08,Colorado,3818321,WHITE_NH,White,False,White (Non-Hispanic)
+09,Connecticut,9955,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+09,Connecticut,5596,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+09,Connecticut,161257,ASIAN,Asian,True,Asian
+09,Connecticut,159989,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+09,Connecticut,383416,BLACK,Black or African American,True,Black or African American
+09,Connecticut,354120,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+09,Connecticut,574240,HISP,Hispanic or Latino,True,Hispanic or Latino
+09,Connecticut,119000,MULTI,Two or more races,True,Two or more races
+09,Connecticut,76401,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+09,Connecticut,305292,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+09,Connecticut,88362,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+09,Connecticut,3000834,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+09,Connecticut,1123,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+09,Connecticut,754,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+09,Connecticut,186292,OTHER_STANDARD,Some other race,True,Some other race
+09,Connecticut,11961,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+09,Connecticut,3575074,TOTAL,Total,,Total
+09,Connecticut,2714031,WHITE,White,True,White
+09,Connecticut,2392013,WHITE_NH,White,False,White (Non-Hispanic)
+10,Delaware,3729,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+10,Delaware,2825,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+10,Delaware,37009,ASIAN,Asian,True,Asian
+10,Delaware,36656,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+10,Delaware,212302,BLACK,Black or African American,True,Black or African American
+10,Delaware,207402,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+10,Delaware,88364,HISP,Hispanic or Latino,True,Hispanic or Latino
+10,Delaware,27079,MULTI,Two or more races,True,Two or more races
+10,Delaware,22738,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+10,Delaware,45429,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+10,Delaware,25174,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+10,Delaware,868884,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+10,Delaware,542,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+10,Delaware,330,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+10,Delaware,18350,OTHER_STANDARD,Some other race,True,Some other race
+10,Delaware,2436,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+10,Delaware,957248,TOTAL,Total,,Total
+10,Delaware,658237,WHITE,White,True,White
+10,Delaware,596497,WHITE_NH,White,False,White (Non-Hispanic)
+11,District of Columbia,2091,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+11,District of Columbia,1418,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+11,District of Columbia,27592,ASIAN,Asian,True,Asian
+11,District of Columbia,27188,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+11,District of Columbia,320811,BLACK,Black or African American,True,Black or African American
+11,District of Columbia,314774,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+11,District of Columbia,76191,HISP,Hispanic or Latino,True,Hispanic or Latino
+11,District of Columbia,21445,MULTI,Two or more races,True,Two or more races
+11,District of Columbia,16625,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+11,District of Columbia,55956,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+11,District of Columbia,19432,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+11,District of Columbia,616492,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+11,District of Columbia,376,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+11,District of Columbia,307,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+11,District of Columbia,34511,OTHER_STANDARD,Some other race,True,Some other race
+11,District of Columbia,2807,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+11,District of Columbia,692683,TOTAL,Total,,Total
+11,District of Columbia,285857,WHITE,White,True,White
+11,District of Columbia,253373,WHITE_NH,White,False,White (Non-Hispanic)
+12,Florida,59320,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+12,Florida,41989,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+12,Florida,571276,ASIAN,Asian,True,Asian
+12,Florida,559988,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+12,Florida,3359031,BLACK,Black or African American,True,Black or African American
+12,Florida,3202687,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+12,Florida,5346684,HISP,Hispanic or Latino,True,Hispanic or Latino
+12,Florida,572021,MULTI,Two or more races,True,Two or more races
+12,Florida,399899,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+12,Florida,1197100,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+12,Florida,473552,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+12,Florida,15554952,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+12,Florida,12653,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+12,Florida,10389,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+12,Florida,625079,OTHER_STANDARD,Some other race,True,Some other race
+12,Florida,73653,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+12,Florida,20901636,TOTAL,Total,,Total
+12,Florida,15702256,WHITE,White,True,White
+12,Florida,11266347,WHITE_NH,White,False,White (Non-Hispanic)
+13,Georgia,37440,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+13,Georgia,19382,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+13,Georgia,414481,ASIAN,Asian,True,Asian
+13,Georgia,410705,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+13,Georgia,3289020,BLACK,Black or African American,True,Black or African American
+13,Georgia,3244348,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+13,Georgia,992394,HISP,Hispanic or Latino,True,Hispanic or Latino
+13,Georgia,265912,MULTI,Two or more races,True,Two or more races
+13,Georgia,213189,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+13,Georgia,557784,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+13,Georgia,245999,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+13,Georgia,9411453,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+13,Georgia,6233,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+13,Georgia,5164,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+13,Georgia,291872,OTHER_STANDARD,Some other race,True,Some other race
+13,Georgia,32810,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+13,Georgia,10403847,TOTAL,Total,,Total
+13,Georgia,6098889,WHITE,White,True,White
+13,Georgia,5485855,WHITE_NH,White,False,White (Non-Hispanic)
+15,Hawaii,3710,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+15,Hawaii,2241,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+15,Hawaii,537355,ASIAN,Asian,True,Asian
+15,Hawaii,524609,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+15,Hawaii,26025,BLACK,Black or African American,True,Black or African American
+15,Hawaii,24377,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+15,Hawaii,149118,HISP,Hispanic or Latino,True,Hispanic or Latino
+15,Hawaii,339727,MULTI,Two or more races,True,Two or more races
+15,Hawaii,273742,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+15,Hawaii,357160,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+15,Hawaii,275917,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+15,Hawaii,1272976,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+15,Hawaii,142997,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+15,Hawaii,133110,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+15,Hawaii,17433,OTHER_STANDARD,Some other race,True,Some other race
+15,Hawaii,2175,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+15,Hawaii,1422094,TOTAL,Total,,Total
+15,Hawaii,354847,WHITE,White,True,White
+15,Hawaii,312722,WHITE_NH,White,False,White (Non-Hispanic)
+16,Idaho,23136,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+16,Idaho,19027,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+16,Idaho,24287,ASIAN,Asian,True,Asian
+16,Idaho,23061,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+16,Idaho,11918,BLACK,Black or African American,True,Black or African American
+16,Idaho,11316,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+16,Idaho,215476,HISP,Hispanic or Latino,True,Hispanic or Latino
+16,Idaho,50569,MULTI,Two or more races,True,Two or more races
+16,Idaho,37227,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+16,Idaho,110245,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+16,Idaho,38646,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+16,Idaho,1502274,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+16,Idaho,2755,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+16,Idaho,2341,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+16,Idaho,59676,OTHER_STANDARD,Some other race,True,Some other race
+16,Idaho,1419,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+16,Idaho,1717750,TOTAL,Total,,Total
+16,Idaho,1545409,WHITE,White,True,White
+16,Idaho,1407883,WHITE_NH,White,False,White (Non-Hispanic)
+17,Illinois,33460,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+17,Illinois,15108,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+17,Illinois,698524,ASIAN,Asian,True,Asian
+17,Illinois,692370,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+17,Illinois,1813590,BLACK,Black or African American,True,Black or African American
+17,Illinois,1783708,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+17,Illinois,2186387,HISP,Hispanic or Latino,True,Hispanic or Latino
+17,Illinois,328446,MULTI,Two or more races,True,Two or more races
+17,Illinois,239820,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+17,Illinois,1085677,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+17,Illinois,260300,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+17,Illinois,10584244,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+17,Illinois,4477,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+17,Illinois,2908,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+17,Illinois,757231,OTHER_STANDARD,Some other race,True,Some other race
+17,Illinois,20480,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+17,Illinois,12770631,TOTAL,Total,,Total
+17,Illinois,9134903,WHITE,White,True,White
+17,Illinois,7829850,WHITE_NH,White,False,White (Non-Hispanic)
+18,Indiana,15782,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+18,Indiana,12348,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+18,Indiana,151979,ASIAN,Asian,True,Asian
+18,Indiana,150840,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+18,Indiana,626587,BLACK,Black or African American,True,Black or African American
+18,Indiana,616545,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+18,Indiana,461850,HISP,Hispanic or Latino,True,Hispanic or Latino
+18,Indiana,169711,MULTI,Two or more races,True,Two or more races
+18,Indiana,140282,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+18,Indiana,315458,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+18,Indiana,151068,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+18,Indiana,6203853,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+18,Indiana,2506,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+18,Indiana,1981,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+18,Indiana,145747,OTHER_STANDARD,Some other race,True,Some other race
+18,Indiana,10786,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+18,Indiana,6665703,TOTAL,Total,,Total
+18,Indiana,5553391,WHITE,White,True,White
+18,Indiana,5271071,WHITE_NH,White,False,White (Non-Hispanic)
+19,Iowa,11976,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+19,Iowa,9251,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+19,Iowa,75741,ASIAN,Asian,True,Asian
+19,Iowa,75326,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+19,Iowa,116359,BLACK,Black or African American,True,Black or African American
+19,Iowa,113560,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+19,Iowa,188311,HISP,Hispanic or Latino,True,Hispanic or Latino
+19,Iowa,66585,MULTI,Two or more races,True,Two or more races
+19,Iowa,56433,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+19,Iowa,105633,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+19,Iowa,59649,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+19,Iowa,2951197,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+19,Iowa,3729,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+19,Iowa,3359,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+19,Iowa,39048,OTHER_STANDARD,Some other race,True,Some other race
+19,Iowa,3216,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+19,Iowa,3139508,TOTAL,Total,,Total
+19,Iowa,2826070,WHITE,White,True,White
+19,Iowa,2690052,WHITE_NH,White,False,White (Non-Hispanic)
+20,Kansas,24010,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+20,Kansas,19236,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+20,Kansas,85794,ASIAN,Asian,True,Asian
+20,Kansas,84850,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+20,Kansas,170291,BLACK,Black or African American,True,Black or African American
+20,Kansas,164509,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+20,Kansas,345680,HISP,Hispanic or Latino,True,Hispanic or Latino
+20,Kansas,100557,MULTI,Two or more races,True,Two or more races
+20,Kansas,83359,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+20,Kansas,172240,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+20,Kansas,85862,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+20,Kansas,2564972,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+20,Kansas,2382,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+20,Kansas,1939,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+20,Kansas,71683,OTHER_STANDARD,Some other race,True,Some other race
+20,Kansas,2503,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+20,Kansas,2910652,TOTAL,Total,,Total
+20,Kansas,2455935,WHITE,White,True,White
+20,Kansas,2208576,WHITE_NH,White,False,White (Non-Hispanic)
+21,Kentucky,9386,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+21,Kentucky,8156,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+21,Kentucky,65191,ASIAN,Asian,True,Asian
+21,Kentucky,64764,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+21,Kentucky,358928,BLACK,Black or African American,True,Black or African American
+21,Kentucky,353997,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+21,Kentucky,162994,HISP,Hispanic or Latino,True,Hispanic or Latino
+21,Kentucky,100285,MULTI,Two or more races,True,Two or more races
+21,Kentucky,88488,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+21,Kentucky,143886,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+21,Kentucky,94619,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+21,Kentucky,4286058,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+21,Kentucky,3182,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+21,Kentucky,2667,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+21,Kentucky,43601,OTHER_STANDARD,Some other race,True,Some other race
+21,Kentucky,6131,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+21,Kentucky,4449052,TOTAL,Total,,Total
+21,Kentucky,3868479,WHITE,White,True,White
+21,Kentucky,3761855,WHITE_NH,White,False,White (Non-Hispanic)
+22,Louisiana,26361,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+22,Louisiana,23892,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+22,Louisiana,80806,ASIAN,Asian,True,Asian
+22,Louisiana,80014,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+22,Louisiana,1502963,BLACK,Black or African American,True,Black or African American
+22,Louisiana,1492386,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+22,Louisiana,239164,HISP,Hispanic or Latino,True,Hispanic or Latino
+22,Louisiana,94959,MULTI,Two or more races,True,Two or more races
+22,Louisiana,82139,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+22,Louisiana,160551,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+22,Louisiana,91931,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+22,Louisiana,4425198,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+22,Louisiana,1406,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+22,Louisiana,1088,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+22,Louisiana,65592,OTHER_STANDARD,Some other race,True,Some other race
+22,Louisiana,9792,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+22,Louisiana,4664362,TOTAL,Total,,Total
+22,Louisiana,2892275,WHITE,White,True,White
+22,Louisiana,2735887,WHITE_NH,White,False,White (Non-Hispanic)
+23,Maine,8660,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+23,Maine,8017,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+23,Maine,15109,ASIAN,Asian,True,Asian
+23,Maine,14946,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+23,Maine,18468,BLACK,Black or African American,True,Black or African American
+23,Maine,17368,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+23,Maine,22100,HISP,Hispanic or Latino,True,Hispanic or Latino
+23,Maine,29796,MULTI,Two or more races,True,Two or more races
+23,Maine,26985,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+23,Maine,33337,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+23,Maine,28177,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+23,Maine,1313392,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+23,Maine,396,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+23,Maine,353,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+23,Maine,3541,OTHER_STANDARD,Some other race,True,Some other race
+23,Maine,1192,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+23,Maine,1335492,TOTAL,Total,,Total
+23,Maine,1259522,WHITE,White,True,White
+23,Maine,1244531,WHITE_NH,White,False,White (Non-Hispanic)
+24,Maryland,16762,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+24,Maryland,12002,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+24,Maryland,378126,ASIAN,Asian,True,Asian
+24,Maryland,375951,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+24,Maryland,1799094,BLACK,Black or African American,True,Black or African American
+24,Maryland,1768596,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+24,Maryland,606482,HISP,Hispanic or Latino,True,Hispanic or Latino
+24,Maryland,206692,MULTI,Two or more races,True,Two or more races
+24,Maryland,171835,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+24,Maryland,478829,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+24,Maryland,191160,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+24,Maryland,5412366,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+24,Maryland,3034,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+24,Maryland,2294,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+24,Maryland,272137,OTHER_STANDARD,Some other race,True,Some other race
+24,Maryland,19325,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+24,Maryland,6018848,TOTAL,Total,,Total
+24,Maryland,3343003,WHITE,White,True,White
+24,Maryland,3062363,WHITE_NH,White,False,White (Non-Hispanic)
+25,Massachusetts,14764,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+25,Massachusetts,9667,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+25,Massachusetts,452436,ASIAN,Asian,True,Asian
+25,Massachusetts,449793,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+25,Massachusetts,522357,BLACK,Black or African American,True,Black or African American
+25,Massachusetts,473181,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+25,Massachusetts,809179,HISP,Hispanic or Latino,True,Hispanic or Latino
+25,Massachusetts,223035,MULTI,Two or more races,True,Two or more races
+25,Massachusetts,146621,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+25,Massachusetts,509654,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+25,Massachusetts,202984,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+25,Massachusetts,6041374,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+25,Massachusetts,2804,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+25,Massachusetts,2210,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+25,Massachusetts,286619,OTHER_STANDARD,Some other race,True,Some other race
+25,Massachusetts,56363,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+25,Massachusetts,6850553,TOTAL,Total,,Total
+25,Massachusetts,5348538,WHITE,White,True,White
+25,Massachusetts,4903539,WHITE_NH,White,False,White (Non-Hispanic)
+26,Michigan,53316,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+26,Michigan,45569,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+26,Michigan,311721,ASIAN,Asian,True,Asian
+26,Michigan,310420,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+26,Michigan,1374314,BLACK,Black or African American,True,Black or African American
+26,Michigan,1358034,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+26,Michigan,507353,HISP,Hispanic or Latino,True,Hispanic or Latino
+26,Michigan,291259,MULTI,Two or more races,True,Two or more races
+26,Michigan,250188,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+26,Michigan,409060,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+26,Michigan,263840,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+26,Michigan,9457912,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+26,Michigan,3099,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+26,Michigan,2649,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+26,Michigan,117801,OTHER_STANDARD,Some other race,True,Some other race
+26,Michigan,13652,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+26,Michigan,9965265,TOTAL,Total,,Total
+26,Michigan,7813755,WHITE,White,True,White
+26,Michigan,7477400,WHITE_NH,White,False,White (Non-Hispanic)
+27,Minnesota,58011,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+27,Minnesota,52405,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+27,Minnesota,268181,ASIAN,Asian,True,Asian
+27,Minnesota,266436,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+27,Minnesota,356515,BLACK,Black or African American,True,Black or African American
+27,Minnesota,349808,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+27,Minnesota,299556,HISP,Hispanic or Latino,True,Hispanic or Latino
+27,Minnesota,165396,MULTI,Two or more races,True,Two or more races
+27,Minnesota,143089,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+27,Minnesota,269428,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+27,Minnesota,151095,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+27,Minnesota,5263822,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+27,Minnesota,2194,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+27,Minnesota,1952,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+27,Minnesota,104032,OTHER_STANDARD,Some other race,True,Some other race
+27,Minnesota,8006,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+27,Minnesota,5563378,TOTAL,Total,,Total
+27,Minnesota,4609049,WHITE,White,True,White
+27,Minnesota,4442126,WHITE_NH,White,False,White (Non-Hispanic)
+28,Mississippi,14269,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+28,Mississippi,13341,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+28,Mississippi,29605,ASIAN,Asian,True,Asian
+28,Mississippi,29466,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+28,Mississippi,1125623,BLACK,Black or African American,True,Black or African American
+28,Mississippi,1121516,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+28,Mississippi,91202,HISP,Hispanic or Latino,True,Hispanic or Latino
+28,Mississippi,40296,MULTI,Two or more races,True,Two or more races
+28,Mississippi,35086,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+28,Mississippi,71024,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+28,Mississippi,38351,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+28,Mississippi,2893216,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+28,Mississippi,680,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+28,Mississippi,615,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+28,Mississippi,30728,OTHER_STANDARD,Some other race,True,Some other race
+28,Mississippi,3265,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+28,Mississippi,2984418,TOTAL,Total,,Total
+28,Mississippi,1743217,WHITE,White,True,White
+28,Mississippi,1689927,WHITE_NH,White,False,White (Non-Hispanic)
+29,Missouri,27084,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+29,Missouri,23632,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+29,Missouri,120654,ASIAN,Asian,True,Asian
+29,Missouri,119481,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+29,Missouri,701334,BLACK,Black or African American,True,Black or African American
+29,Missouri,696379,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+29,Missouri,254791,HISP,Hispanic or Latino,True,Hispanic or Latino
+29,Missouri,160368,MULTI,Two or more races,True,Two or more races
+29,Missouri,143354,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+29,Missouri,231703,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+29,Missouri,153350,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+29,Missouri,5850119,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+29,Missouri,8231,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+29,Missouri,7376,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+29,Missouri,71335,OTHER_STANDARD,Some other race,True,Some other race
+29,Missouri,9996,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+29,Missouri,6104910,TOTAL,Total,,Total
+29,Missouri,5015904,WHITE,White,True,White
+29,Missouri,4849901,WHITE_NH,White,False,White (Non-Hispanic)
+30,Montana,66839,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+30,Montana,63738,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+30,Montana,8259,ASIAN,Asian,True,Asian
+30,Montana,8098,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+30,Montana,5303,BLACK,Black or African American,True,Black or African American
+30,Montana,4666,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+30,Montana,40314,HISP,Hispanic or Latino,True,Hispanic or Latino
+30,Montana,32161,MULTI,Two or more races,True,Two or more races
+30,Montana,27908,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+30,Montana,39237,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+30,Montana,28507,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+30,Montana,1010335,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+30,Montana,807,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+30,Montana,776,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+30,Montana,7076,OTHER_STANDARD,Some other race,True,Some other race
+30,Montana,599,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+30,Montana,1050649,TOTAL,Total,,Total
+30,Montana,930204,WHITE,White,True,White
+30,Montana,904550,WHITE_NH,White,False,White (Non-Hispanic)
+31,Nebraska,17673,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+31,Nebraska,14417,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+31,Nebraska,45655,ASIAN,Asian,True,Asian
+31,Nebraska,45303,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+31,Nebraska,92406,BLACK,Black or African American,True,Black or African American
+31,Nebraska,89872,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+31,Nebraska,208271,HISP,Hispanic or Latino,True,Hispanic or Latino
+31,Nebraska,50386,MULTI,Two or more races,True,Two or more races
+31,Nebraska,41475,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+31,Nebraska,90639,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+31,Nebraska,43490,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+31,Nebraska,1706300,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+31,Nebraska,1327,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+31,Nebraska,1107,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+31,Nebraska,40253,OTHER_STANDARD,Some other race,True,Some other race
+31,Nebraska,2015,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+31,Nebraska,1914571,TOTAL,Total,,Total
+31,Nebraska,1666871,WHITE,White,True,White
+31,Nebraska,1512111,WHITE_NH,White,False,White (Non-Hispanic)
+32,Nevada,38026,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+32,Nevada,27070,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+32,Nevada,242267,ASIAN,Asian,True,Asian
+32,Nevada,237588,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+32,Nevada,271005,BLACK,Black or African American,True,Black or African American
+32,Nevada,259802,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+32,Nevada,853041,HISP,Hispanic or Latino,True,Hispanic or Latino
+32,Nevada,146408,MULTI,Two or more races,True,Two or more races
+32,Nevada,103945,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+32,Nevada,451355,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+32,Nevada,113482,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+32,Nevada,2119341,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+32,Nevada,20022,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+32,Nevada,18162,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+32,Nevada,304947,OTHER_STANDARD,Some other race,True,Some other race
+32,Nevada,9537,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+32,Nevada,2972382,TOTAL,Total,,Total
+32,Nevada,1949707,WHITE,White,True,White
+32,Nevada,1463237,WHITE_NH,White,False,White (Non-Hispanic)
+33,New Hampshire,2036,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+33,New Hampshire,1816,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+33,New Hampshire,36180,ASIAN,Asian,True,Asian
+33,New Hampshire,35971,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+33,New Hampshire,21546,BLACK,Black or African American,True,Black or African American
+33,New Hampshire,18335,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+33,New Hampshire,50493,HISP,Hispanic or Latino,True,Hispanic or Latino
+33,New Hampshire,28281,MULTI,Two or more races,True,Two or more races
+33,New Hampshire,24751,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+33,New Hampshire,35791,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+33,New Hampshire,26234,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+33,New Hampshire,1297631,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+33,New Hampshire,443,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+33,New Hampshire,348,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+33,New Hampshire,7510,OTHER_STANDARD,Some other race,True,Some other race
+33,New Hampshire,1483,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+33,New Hampshire,1348124,TOTAL,Total,,Total
+33,New Hampshire,1252128,WHITE,White,True,White
+33,New Hampshire,1214927,WHITE_NH,White,False,White (Non-Hispanic)
+34,New Jersey,19711,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+34,New Jersey,9813,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+34,New Jersey,840168,ASIAN,Asian,True,Asian
+34,New Jersey,834073,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+34,New Jersey,1194882,BLACK,Black or African American,True,Black or African American
+34,New Jersey,1125541,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+34,New Jersey,1794736,HISP,Hispanic or Latino,True,Hispanic or Latino
+34,New Jersey,243545,MULTI,Two or more races,True,Two or more races
+34,New Jersey,157042,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+34,New Jersey,802210,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+34,New Jersey,195674,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+34,New Jersey,7083767,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+34,New Jersey,3458,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+34,New Jersey,2286,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+34,New Jersey,558665,OTHER_STANDARD,Some other race,True,Some other race
+34,New Jersey,38632,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+34,New Jersey,8878503,TOTAL,Total,,Total
+34,New Jersey,6018074,WHITE,White,True,White
+34,New Jersey,4916380,WHITE_NH,White,False,White (Non-Hispanic)
+35,New Mexico,199845,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+35,New Mexico,182874,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+35,New Mexico,32577,ASIAN,Asian,True,Asian
+35,New Mexico,30341,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+35,New Mexico,44120,BLACK,Black or African American,True,Black or African American
+35,New Mexico,37911,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+35,New Mexico,1020817,HISP,Hispanic or Latino,True,Hispanic or Latino
+35,New Mexico,68264,MULTI,Two or more races,True,Two or more races
+35,New Mexico,33198,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+35,New Mexico,248902,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+35,New Mexico,37053,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+35,New Mexico,1071637,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+35,New Mexico,1644,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+35,New Mexico,1189,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+35,New Mexico,180638,OTHER_STANDARD,Some other race,True,Some other race
+35,New Mexico,3855,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+35,New Mexico,2092454,TOTAL,Total,,Total
+35,New Mexico,1565366,WHITE,White,True,White
+35,New Mexico,782269,WHITE_NH,White,False,White (Non-Hispanic)
+36,New York,79512,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+36,New York,46034,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+36,New York,1647606,ASIAN,Asian,True,Asian
+36,New York,1633539,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+36,New York,3065471,BLACK,Black or African American,True,Black or African American
+36,New York,2790504,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+36,New York,3720983,HISP,Hispanic or Latino,True,Hispanic or Latino
+36,New York,616257,MULTI,Two or more races,True,Two or more races
+36,New York,385313,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+36,New York,2311222,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+36,New York,491758,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+36,New York,15851336,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+36,New York,8821,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+36,New York,5689,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+36,New York,1694965,OTHER_STANDARD,Some other race,True,Some other race
+36,New York,106445,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+36,New York,19572319,TOTAL,Total,,Total
+36,New York,12459687,WHITE,White,True,White
+36,New York,10883812,WHITE_NH,White,False,White (Non-Hispanic)
+37,North Carolina,123952,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+37,North Carolina,112504,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+37,North Carolina,292992,ASIAN,Asian,True,Asian
+37,North Carolina,290525,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+37,North Carolina,2200761,BLACK,Black or African American,True,Black or African American
+37,North Carolina,2165301,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+37,North Carolina,962665,HISP,Hispanic or Latino,True,Hispanic or Latino
+37,North Carolina,273276,MULTI,Two or more races,True,Two or more races
+37,North Carolina,230591,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+37,North Carolina,590039,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+37,North Carolina,253553,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+37,North Carolina,9302211,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+37,North Carolina,7213,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+37,North Carolina,5640,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+37,North Carolina,316763,OTHER_STANDARD,Some other race,True,Some other race
+37,North Carolina,22962,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+37,North Carolina,10264876,TOTAL,Total,,Total
+37,North Carolina,7049919,WHITE,White,True,White
+37,North Carolina,6474688,WHITE_NH,White,False,White (Non-Hispanic)
+38,North Dakota,40006,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+38,North Dakota,38482,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+38,North Dakota,11006,ASIAN,Asian,True,Asian
+38,North Dakota,10876,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+38,North Dakota,21985,BLACK,Black or African American,True,Black or African American
+38,North Dakota,21577,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+38,North Dakota,28317,HISP,Hispanic or Latino,True,Hispanic or Latino
+38,North Dakota,19612,MULTI,Two or more races,True,Two or more races
+38,North Dakota,16625,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+38,North Dakota,27721,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+38,North Dakota,17617,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+38,North Dakota,728400,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+38,North Dakota,863,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+38,North Dakota,863,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+38,North Dakota,8109,OTHER_STANDARD,Some other race,True,Some other race
+38,North Dakota,992,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+38,North Dakota,756717,TOTAL,Total,,Total
+38,North Dakota,655136,WHITE,White,True,White
+38,North Dakota,638985,WHITE_NH,White,False,White (Non-Hispanic)
+39,Ohio,22816,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+39,Ohio,16946,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+39,Ohio,258199,ASIAN,Asian,True,Asian
+39,Ohio,256584,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+39,Ohio,1446193,BLACK,Black or African American,True,Black or African American
+39,Ohio,1425887,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+39,Ohio,443415,HISP,Hispanic or Latino,True,Hispanic or Latino
+39,Ohio,335426,MULTI,Two or more races,True,Two or more races
+39,Ohio,292846,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+39,Ohio,448262,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+39,Ohio,312257,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+39,Ohio,11211982,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+39,Ohio,3880,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+39,Ohio,3193,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+39,Ohio,112836,OTHER_STANDARD,Some other race,True,Some other race
+39,Ohio,19411,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+39,Ohio,11655397,TOTAL,Total,,Total
+39,Ohio,9476047,WHITE,White,True,White
+39,Ohio,9197115,WHITE_NH,White,False,White (Non-Hispanic)
+40,Oklahoma,299621,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+40,Oklahoma,285402,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+40,Oklahoma,85239,ASIAN,Asian,True,Asian
+40,Oklahoma,84020,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+40,Oklahoma,286356,BLACK,Black or African American,True,Black or African American
+40,Oklahoma,280944,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+40,Oklahoma,417906,HISP,Hispanic or Latino,True,Hispanic or Latino
+40,Oklahoma,304615,MULTI,Two or more races,True,Two or more races
+40,Oklahoma,272543,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+40,Oklahoma,411324,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+40,Oklahoma,277738,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+40,Oklahoma,3514964,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+40,Oklahoma,6260,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+40,Oklahoma,5629,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+40,Oklahoma,106709,OTHER_STANDARD,Some other race,True,Some other race
+40,Oklahoma,5195,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+40,Oklahoma,3932870,TOTAL,Total,,Total
+40,Oklahoma,2844070,WHITE,White,True,White
+40,Oklahoma,2581231,WHITE_NH,White,False,White (Non-Hispanic)
+41,Oregon,48060,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+41,Oregon,38050,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+41,Oregon,180580,ASIAN,Asian,True,Asian
+41,Oregon,178412,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+41,Oregon,78679,BLACK,Black or African American,True,Black or African American
+41,Oregon,75232,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+41,Oregon,537217,HISP,Hispanic or Latino,True,Hispanic or Latino
+41,Oregon,198352,MULTI,Two or more races,True,Two or more races
+41,Oregon,153210,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+41,Oregon,324939,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+41,Oregon,159265,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+41,Oregon,3592586,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+41,Oregon,16625,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+41,Oregon,15785,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+41,Oregon,126587,OTHER_STANDARD,Some other race,True,Some other race
+41,Oregon,6055,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+41,Oregon,4129803,TOTAL,Total,,Total
+41,Oregon,3480920,WHITE,White,True,White
+41,Oregon,3125842,WHITE_NH,White,False,White (Non-Hispanic)
+42,Pennsylvania,24691,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+42,Pennsylvania,14483,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+42,Pennsylvania,436324,ASIAN,Asian,True,Asian
+42,Pennsylvania,433115,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+42,Pennsylvania,1430664,BLACK,Black or African American,True,Black or African American
+42,Pennsylvania,1363043,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+42,Pennsylvania,935216,HISP,Hispanic or Latino,True,Hispanic or Latino
+42,Pennsylvania,319874,MULTI,Two or more races,True,Two or more races
+42,Pennsylvania,245139,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+42,Pennsylvania,595051,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+42,Pennsylvania,265894,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+42,Pennsylvania,11856314,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+42,Pennsylvania,4198,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+42,Pennsylvania,2616,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+42,Pennsylvania,275177,OTHER_STANDARD,Some other race,True,Some other race
+42,Pennsylvania,20755,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+42,Pennsylvania,12791530,TOTAL,Total,,Total
+42,Pennsylvania,10300602,WHITE,White,True,White
+42,Pennsylvania,9777163,WHITE_NH,White,False,White (Non-Hispanic)
+44,Rhode Island,5277,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+44,Rhode Island,3402,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+44,Rhode Island,35958,ASIAN,Asian,True,Asian
+44,Rhode Island,35401,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+44,Rhode Island,71561,BLACK,Black or African American,True,Black or African American
+44,Rhode Island,60415,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+44,Rhode Island,163226,HISP,Hispanic or Latino,True,Hispanic or Latino
+44,Rhode Island,35221,MULTI,Two or more races,True,Two or more races
+44,Rhode Island,25194,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+44,Rhode Island,93028,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+44,Rhode Island,32694,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+44,Rhode Island,894005,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+44,Rhode Island,810,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+44,Rhode Island,661,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+44,Rhode Island,57807,OTHER_STANDARD,Some other race,True,Some other race
+44,Rhode Island,7500,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+44,Rhode Island,1057231,TOTAL,Total,,Total
+44,Rhode Island,850597,WHITE,White,True,White
+44,Rhode Island,761432,WHITE_NH,White,False,White (Non-Hispanic)
+45,South Carolina,17645,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+45,South Carolina,14748,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+45,South Carolina,78805,ASIAN,Asian,True,Asian
+45,South Carolina,78102,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+45,South Carolina,1344139,BLACK,Black or African American,True,Black or African American
+45,South Carolina,1333876,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+45,South Carolina,285458,HISP,Hispanic or Latino,True,Hispanic or Latino
+45,South Carolina,115930,MULTI,Two or more races,True,Two or more races
+45,South Carolina,99278,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+45,South Carolina,204204,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+45,South Carolina,108417,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+45,South Carolina,4735348,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+45,South Carolina,4002,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+45,South Carolina,3784,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+45,South Carolina,88274,OTHER_STANDARD,Some other race,True,Some other race
+45,South Carolina,9139,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+45,South Carolina,5020806,TOTAL,Total,,Total
+45,South Carolina,3372011,WHITE,White,True,White
+45,South Carolina,3196421,WHITE_NH,White,False,White (Non-Hispanic)
+46,South Dakota,76190,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+46,South Dakota,73396,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+46,South Dakota,12627,ASIAN,Asian,True,Asian
+46,South Dakota,12511,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+46,South Dakota,17531,BLACK,Black or African American,True,Black or African American
+46,South Dakota,17191,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+46,South Dakota,33024,HISP,Hispanic or Latino,True,Hispanic or Latino
+46,South Dakota,22837,MULTI,Two or more races,True,Two or more races
+46,South Dakota,19910,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+46,South Dakota,30067,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+46,South Dakota,20519,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+46,South Dakota,837614,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+46,South Dakota,504,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+46,South Dakota,451,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+46,South Dakota,7230,OTHER_STANDARD,Some other race,True,Some other race
+46,South Dakota,609,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+46,South Dakota,870638,TOTAL,Total,,Total
+46,South Dakota,733719,WHITE,White,True,White
+46,South Dakota,713546,WHITE_NH,White,False,White (Non-Hispanic)
+47,Tennessee,18189,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+47,Tennessee,15553,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+47,Tennessee,117600,ASIAN,Asian,True,Asian
+47,Tennessee,116563,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+47,Tennessee,1124473,BLACK,Black or African American,True,Black or African American
+47,Tennessee,1114068,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+47,Tennessee,364174,HISP,Hispanic or Latino,True,Hispanic or Latino
+47,Tennessee,147536,MULTI,Two or more races,True,Two or more races
+47,Tennessee,132259,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+47,Tennessee,240191,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+47,Tennessee,144053,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+47,Tennessee,6345182,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+47,Tennessee,3771,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+47,Tennessee,3387,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+47,Tennessee,92655,OTHER_STANDARD,Some other race,True,Some other race
+47,Tennessee,11794,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+47,Tennessee,6709356,TOTAL,Total,,Total
+47,Tennessee,5205132,WHITE,White,True,White
+47,Tennessee,4951558,WHITE_NH,White,False,White (Non-Hispanic)
+48,Texas,141425,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+48,Texas,71081,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+48,Texas,1357273,ASIAN,Asian,True,Asian
+48,Texas,1340554,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+48,Texas,3428211,BLACK,Black or African American,True,Black or African American
+48,Texas,3328707,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+48,Texas,11116881,HISP,Hispanic or Latino,True,Hispanic or Latino
+48,Texas,761411,MULTI,Two or more races,True,Two or more races
+48,Texas,481093,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+48,Texas,2405280,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+48,Texas,525558,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+48,Texas,17143975,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+48,Texas,25292,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+48,Texas,21739,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+48,Texas,1643869,OTHER_STANDARD,Some other race,True,Some other race
+48,Texas,44465,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+48,Texas,28260856,TOTAL,Total,,Total
+48,Texas,20903375,WHITE,White,True,White
+48,Texas,11856336,WHITE_NH,White,False,White (Non-Hispanic)
+49,Utah,33721,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+49,Utah,28515,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+49,Utah,71977,ASIAN,Asian,True,Asian
+49,Utah,71000,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+49,Utah,36849,BLACK,Black or African American,True,Black or African American
+49,Utah,34571,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+49,Utah,434832,HISP,Hispanic or Latino,True,Hispanic or Latino
+49,Utah,94036,MULTI,Two or more races,True,Two or more races
+49,Utah,70074,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+49,Utah,250265,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+49,Utah,75322,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+49,Utah,2662016,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+49,Utah,27554,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+49,Utah,26961,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+49,Utah,156229,OTHER_STANDARD,Some other race,True,Some other race
+49,Utah,5248,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+49,Utah,3096848,TOTAL,Total,,Total
+49,Utah,2676482,WHITE,White,True,White
+49,Utah,2425647,WHITE_NH,White,False,White (Non-Hispanic)
+50,Vermont,2132,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+50,Vermont,1807,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+50,Vermont,10461,ASIAN,Asian,True,Asian
+50,Vermont,10393,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+50,Vermont,8502,BLACK,Black or African American,True,Black or African American
+50,Vermont,7901,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+50,Vermont,12038,HISP,Hispanic or Latino,True,Hispanic or Latino
+50,Vermont,12600,MULTI,Two or more races,True,Two or more races
+50,Vermont,11780,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+50,Vermont,15010,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+50,Vermont,12538,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+50,Vermont,612275,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+50,Vermont,325,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+50,Vermont,296,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+50,Vermont,2410,OTHER_STANDARD,Some other race,True,Some other race
+50,Vermont,758,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+50,Vermont,624313,TOTAL,Total,,Total
+50,Vermont,587883,WHITE,White,True,White
+50,Vermont,579340,WHITE_NH,White,False,White (Non-Hispanic)
+51,Virginia,23873,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+51,Virginia,18092,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+51,Virginia,541133,ASIAN,Asian,True,Asian
+51,Virginia,536076,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+51,Virginia,1621592,BLACK,Black or African American,True,Black or African American
+51,Virginia,1588726,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+51,Virginia,792001,HISP,Hispanic or Latino,True,Hispanic or Latino
+51,Virginia,320275,MULTI,Two or more races,True,Two or more races
+51,Virginia,265103,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+51,Virginia,544069,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+51,Virginia,286853,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+51,Virginia,7662462,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+51,Virginia,6179,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+51,Virginia,5146,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+51,Virginia,223794,OTHER_STANDARD,Some other race,True,Some other race
+51,Virginia,21750,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+51,Virginia,8454463,TOTAL,Total,,Total
+51,Virginia,5717617,WHITE,White,True,White
+51,Virginia,5227569,WHITE_NH,White,False,White (Non-Hispanic)
+53,Washington,94449,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+53,Washington,79694,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+53,Washington,631333,ASIAN,Asian,True,Asian
+53,Washington,625682,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+53,Washington,281683,BLACK,Black or African American,True,Black or African American
+53,Washington,270704,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+53,Washington,937579,HISP,Hispanic or Latino,True,Hispanic or Latino
+53,Washington,433386,MULTI,Two or more races,True,Two or more races
+53,Washington,356353,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+53,Washington,766424,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+53,Washington,368971,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+53,Washington,6466528,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+53,Washington,49090,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+53,Washington,47532,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+53,Washington,333038,OTHER_STANDARD,Some other race,True,Some other race
+53,Washington,12618,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+53,Washington,7404107,TOTAL,Total,,Total
+53,Washington,5581128,WHITE,White,True,White
+53,Washington,5073945,WHITE_NH,White,False,White (Non-Hispanic)
+54,West Virginia,3667,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+54,West Virginia,3593,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+54,West Virginia,14523,ASIAN,Asian,True,Asian
+54,West Virginia,14319,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+54,West Virginia,66990,BLACK,Black or African American,True,Black or African American
+54,West Virginia,65848,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+54,West Virginia,28368,HISP,Hispanic or Latino,True,Hispanic or Latino
+54,West Virginia,32135,MULTI,Two or more races,True,Two or more races
+54,West Virginia,29935,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+54,West Virginia,40106,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+54,West Virginia,33227,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+54,West Virginia,1788937,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+54,West Virginia,419,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+54,West Virginia,404,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+54,West Virginia,7971,OTHER_STANDARD,Some other race,True,Some other race
+54,West Virginia,3292,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+54,West Virginia,1817305,TOTAL,Total,,Total
+54,West Virginia,1691600,WHITE,White,True,White
+54,West Virginia,1671546,WHITE_NH,White,False,White (Non-Hispanic)
+55,Wisconsin,51392,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+55,Wisconsin,46936,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+55,Wisconsin,161841,ASIAN,Asian,True,Asian
+55,Wisconsin,160706,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+55,Wisconsin,371200,BLACK,Black or African American,True,Black or African American
+55,Wisconsin,364060,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+55,Wisconsin,394392,HISP,Hispanic or Latino,True,Hispanic or Latino
+55,Wisconsin,138572,MULTI,Two or more races,True,Two or more races
+55,Wisconsin,110848,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+55,Wisconsin,256922,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+55,Wisconsin,116916,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+55,Wisconsin,5396324,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+55,Wisconsin,2400,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+55,Wisconsin,2107,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+55,Wisconsin,118350,OTHER_STANDARD,Some other race,True,Some other race
+55,Wisconsin,6068,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+55,Wisconsin,5790716,TOTAL,Total,,Total
+55,Wisconsin,4946961,WHITE,White,True,White
+55,Wisconsin,4705599,WHITE_NH,White,False,White (Non-Hispanic)
+56,Wyoming,14164,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+56,Wyoming,12547,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+56,Wyoming,5025,ASIAN,Asian,True,Asian
+56,Wyoming,4907,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+56,Wyoming,5582,BLACK,Black or African American,True,Black or African American
+56,Wyoming,5193,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+56,Wyoming,57341,HISP,Hispanic or Latino,True,Hispanic or Latino
+56,Wyoming,15521,MULTI,Two or more races,True,Two or more races
+56,Wyoming,11921,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+56,Wyoming,24353,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+56,Wyoming,12139,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+56,Wyoming,523683,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+56,Wyoming,596,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+56,Wyoming,460,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+56,Wyoming,8832,OTHER_STANDARD,Some other race,True,Some other race
+56,Wyoming,218,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+56,Wyoming,581024,TOTAL,Total,,Total
+56,Wyoming,531304,WHITE,White,True,White
+56,Wyoming,488437,WHITE_NH,White,False,White (Non-Hispanic)
+72,Puerto Rico,6838,AIAN,American Indian and Alaska Native,True,American Indian and Alaska Native
+72,Puerto Rico,118,AIAN_NH,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+72,Puerto Rico,6237,ASIAN,Asian,True,Asian
+72,Puerto Rico,2351,ASIAN_NH,Asian,False,Asian (Non-Hispanic)
+72,Puerto Rico,386676,BLACK,Black or African American,True,Black or African American
+72,Puerto Rico,3179,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
+72,Puerto Rico,3275919,HISP,Hispanic or Latino,True,Hispanic or Latino
+72,Puerto Rico,175649,MULTI,Two or more races,True,Two or more races
+72,Puerto Rico,1993,MULTI_NH,Two or more races,False,Two or more races (Non-Hispanic)
+72,Puerto Rico,730413,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
+72,Puerto Rico,5136,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+72,Puerto Rico,42528,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
+72,Puerto Rico,269,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+72,Puerto Rico,21,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+72,Puerto Rico,554764,OTHER_STANDARD,Some other race,True,Some other race
+72,Puerto Rico,3143,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
+72,Puerto Rico,3318447,TOTAL,Total,,Total
+72,Puerto Rico,2188014,WHITE,White,True,White
+72,Puerto Rico,31723,WHITE_NH,White,False,White (Non-Hispanic)

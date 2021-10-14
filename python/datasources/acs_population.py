@@ -1,4 +1,6 @@
 import pandas
+import os
+
 from ingestion.standardized_columns import (HISPANIC_COL, RACE_COL,
                                             STATE_FIPS_COL, COUNTY_FIPS_COL,
                                             STATE_NAME_COL, COUNTY_NAME_COL,
@@ -12,7 +14,7 @@ from datasources.data_source import DataSource
 from ingestion.census import (get_census_params, fetch_acs_metadata,
                               parse_acs_metadata, fetch_acs_group,
                               get_vars_for_group, standardize_frame)
-from injestion.dataset_utils import add_sum_of_rows
+from ingestion.dataset_utils import add_sum_of_rows
 
 
 # TODO pass this in from message data.
@@ -188,8 +190,8 @@ class ACSPopulationIngester():
         frames = {
             self.get_table_name_by_race(): self.get_all_races_frame(
                 race_and_hispanic_frame),
-            self.get_table_name_by_sex_age_race(): self.get_sex_by_age_and_race(
-                var_map, sex_by_age_frames)
+            # self.get_table_name_by_sex_age_race(): self.get_sex_by_age_and_race(
+            #     var_map, sex_by_age_frames)
         }
 
         for table_name, df in frames.items():
@@ -200,7 +202,7 @@ class ACSPopulationIngester():
             gcs_to_bq_util.add_dataframe_to_bq(
                 df, dataset, table_name, column_types=column_types)
 
-    def write_local_files_debug(self):
+    def write_local_files_debug(self, dest_folder):
         """Downloads and writes the tables to the local file system as csv and
            json files. This is only for debugging/convenience, and should not
            be used in production."""
@@ -234,8 +236,8 @@ class ACSPopulationIngester():
                 var_map, sex_by_age_frames)
         }
         for key, df in frames.items():
-            df.to_csv("table_" + key + ".csv", index=False)
-            df.to_json("table_" + key + ".json", orient="records")
+            df.to_csv(os.path.join(dest_folder, "table_" + key + ".csv", index=False))
+            df.to_json(os.path.join(dest_folder, "table_" + key + ".json", orient="records"))
 
     def get_table_geo_suffix(self):
         return "_county" if self.county_level else "_state"
@@ -261,7 +263,7 @@ class ACSPopulationIngester():
     def sort_race_frame(self, df):
         sort_cols = self.base_sort_by_cols.copy()
         sort_cols.append(RACE_CATEGORY_ID_COL)
-        return df.sort_values(sort_cols)
+        return df.sort_values(sort_cols).reset_index(drop=True)
 
     def sort_sex_age_race_frame(self, df):
         sort_cols = self.base_sort_by_cols.copy()
