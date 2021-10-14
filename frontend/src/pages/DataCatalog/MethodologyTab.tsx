@@ -54,7 +54,7 @@ function MethodologyTab() {
             <Grid
               item
               xs={12}
-              lg={8}
+              lg={10}
               xl={6}
               className={styles.MethodologyQuestionAndAnswer}
             >
@@ -71,7 +71,9 @@ function MethodologyTab() {
                   <Grid item container xs={12} md={8}>
                     <Box m={1}>
                       <Card elevation={3}>
-                        <Box m={1}>{CITATION_APA} </Box>
+                        <Box m={1}>
+                          <p className={styles.CitationAPA}>{CITATION_APA}</p>
+                        </Box>
                       </Card>
                     </Box>
                   </Grid>
