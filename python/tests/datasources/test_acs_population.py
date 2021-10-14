@@ -33,7 +33,7 @@ def get_acs_metadata_as_json():
 @mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
             return_value=None)
 def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_json: mock.MagicMock):
-    acsPopulationIngester = ACSPopulationIngester(False, "https://api.census.gov/data/2019/acs/acs5")
+    acsPopulationIngester = ACSPopulationIngester(False, "https://SOME-URL")
 
     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
     assert mock_bq.call_count == 1
@@ -41,6 +41,4 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_json: 
     expected_df = pd.read_csv(GOLDEN_DATA, dtype={
         'state_fips': str,
     })
-    print(mock_bq.call_args_list[0].args[0])
-    print(expected_df)
     assert_frame_equal(mock_bq.call_args_list[0].args[0], expected_df, check_like=True)

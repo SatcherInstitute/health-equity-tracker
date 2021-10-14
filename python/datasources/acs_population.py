@@ -9,9 +9,9 @@ from ingestion.standardized_columns import (HISPANIC_COL, RACE_COL,
                                             RACE_INCLUDES_HISPANIC_COL,
                                             TOTAL_VALUE,
                                             add_race_columns_from_category_id)
-from ingestion import url_file_to_gcs, gcs_to_bq_util
+from ingestion import url_file_to_gcs, gcs_to_bq_util, census
 from datasources.data_source import DataSource
-from ingestion.census import (get_census_params, fetch_acs_metadata,
+from ingestion.census import (get_census_params,
                               parse_acs_metadata, fetch_acs_group,
                               get_vars_for_group, standardize_frame)
 from ingestion.dataset_utils import add_sum_of_rows
@@ -142,7 +142,7 @@ class ACSPopulationIngester():
 
     def upload_to_gcs(self, gcs_bucket):
         """Uploads population data from census to GCS bucket."""
-        metadata = fetch_acs_metadata(self.base_acs_url)
+        metadata = census.fetch_acs_metadata(self.base_acs_url)
         var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
 
         concepts = list(SEX_BY_AGE_CONCEPTS_TO_RACE.keys())
@@ -166,7 +166,7 @@ class ACSPopulationIngester():
         dataset: The BigQuery dataset to write to
         gcs_bucket: The name of the gcs bucket to read the data from"""
         # TODO change this to have it read metadata from GCS bucket
-        metadata = fetch_acs_metadata(self.base_acs_url)
+        metadata = census.fetch_acs_metadata(self.base_acs_url)
         var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
 
         race_and_hispanic_frame = gcs_to_bq_util.load_values_as_dataframe(
@@ -206,7 +206,7 @@ class ACSPopulationIngester():
         """Downloads and writes the tables to the local file system as csv and
            json files. This is only for debugging/convenience, and should not
            be used in production."""
-        metadata = fetch_acs_metadata(self.base_acs_url)
+        metadata = census.fetch_acs_metadata(self.base_acs_url)
         var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
 
         by_hisp_and_race_json = fetch_acs_group(
