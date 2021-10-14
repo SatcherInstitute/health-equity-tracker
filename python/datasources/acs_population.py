@@ -236,8 +236,8 @@ class ACSPopulationIngester():
                 var_map, sex_by_age_frames)
         }
         for key, df in frames.items():
-            df.to_csv(os.path.join(dest_folder, "table_" + key + ".csv", index=False))
-            df.to_json(os.path.join(dest_folder, "table_" + key + ".json", orient="records"))
+            df.to_csv(os.path.join(dest_folder, "table_" + key + ".csv"), index=False)
+            df.to_json(os.path.join(dest_folder, "table_" + key + ".json"), orient="records")
 
     def get_table_geo_suffix(self):
         return "_county" if self.county_level else "_state"
