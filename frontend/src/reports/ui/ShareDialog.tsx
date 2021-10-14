@@ -42,7 +42,7 @@ function ShareDialog(props: {
   let title: string = "Health Equity Tracker";
   // let summary: any = ""
   if (props.article) {
-    title += (": " + parse(props.article.title.rendered)) as string;
+    title += ((": “" + parse(props.article.title.rendered)) as string) + "”";
     // summary = parse(props.article.excerpt.rendered)
   }
   if (props.madLib) {
