@@ -151,6 +151,8 @@ function AllPosts() {
     setCategories(Array.from(allCategoriesSet) as string[]);
   }, [articles]);
 
+  const pinnedArticles = articles?.filter((post: Article) => post?.sticky);
+
   if (isLoading) return <i>loading...</i>;
   if (error) return <i>Error loading blog posts.</i>;
 
@@ -195,13 +197,16 @@ function AllPosts() {
 
             <Grid item container>
               <Box m={5}>
-                {/* show either "sticky" articles marked PIN TO TOP or BREADCRUMBS with current filter */}
+                {/* show featured card with "sticky" articles marked PIN TO TOP if any */}
                 {selectedAuthor?.length === 0 &&
-                selectedCategory?.length === 0 ? (
-                  <PinnedArticles
-                    articles={articles.filter((post: Article) => post.sticky)}
-                  />
-                ) : (
+                  selectedCategory?.length === 0 && (
+                    <PinnedArticles articles={pinnedArticles} />
+                  )}
+
+                {/* if there is a filter in place, show the breadcrumbs */}
+                {!(
+                  selectedAuthor?.length === 0 && selectedCategory?.length === 0
+                ) && (
                   <Breadcrumbs separator="›" aria-label={"filter applied"}>
                     <Crumb
                       text={"Articles"}
@@ -216,7 +221,6 @@ function AllPosts() {
                         text={`Author: ${selectedAuthor}`}
                         isClickable={true}
                         onClick={() => {
-                          // props.updateFipsCallback(new Fips(USA_FIPS));
                           console.log(selectedAuthor);
                         }}
                       />

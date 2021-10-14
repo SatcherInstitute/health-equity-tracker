@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from "@material-ui/core";
+import { Box, Button, Grid, Typography } from "@material-ui/core";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -18,6 +18,9 @@ import BlogPreviewCard from "./BlogPreviewCard";
 import { useQuery } from "react-query";
 import ShareDialog from "../../../reports/ui/ShareDialog";
 import ShareIcon from "@material-ui/icons/Share";
+
+export const ARTICLE_DESCRIPTION =
+  "Article from the Health Equity Tracker: a free-to-use data and visualization platform that is enabling new insights into the impact of COVID-19 and other determinants of health on marginalized groups in the United States.";
 
 function prettyDate(dateString: string) {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -56,6 +59,12 @@ export default function SinglePost() {
     }
   }, [articles, slug]);
 
+  const articleImage = fullArticle?._embedded["wp:featuredmedia"]
+    ? fullArticle._embedded["wp:featuredmedia"][0].source_url
+    : "https://healthequitytracker.org/img/graphics/laptop-HET.png";
+
+  const articleUrl = fullArticle?.link || "https://healthequitytracker.org";
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>An error has occurred: {error.message}</p>;
 
@@ -72,6 +81,25 @@ export default function SinglePost() {
             href={fullArticle.acf?.canonical_url || fullArticle.link}
           />
         )}
+        <meta name="description" content={ARTICLE_DESCRIPTION} />
+
+        {/* <!-- Google / Search Engine Tags --> */}
+        <meta itemProp="name" content="Health Equity Tracker" />
+        <meta itemProp="description" content={ARTICLE_DESCRIPTION} />
+        <meta itemProp="image" content={articleImage} />
+
+        {/* <!-- Facebook Meta Tags --> */}
+        <meta property="og:url" content={articleUrl} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Health Equity Tracker" />
+        <meta property="og:description" content={ARTICLE_DESCRIPTION} />
+        <meta property="og:image" content={articleImage} />
+
+        {/* <!-- Twitter Meta Tags --> */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Health Equity Tracker" />
+        <meta name="twitter:description" content={ARTICLE_DESCRIPTION} />
+        <meta name="twitter:image" content={articleImage} />
       </Helmet>
       <Grid
         container
@@ -120,28 +148,29 @@ export default function SinglePost() {
               : ""}
           </Typography>
 
-          <Typography className={styles.HeaderSubtext} variant="body1">
-            {fullArticle && (
-              <span className={styles.DefinitionSourceSpan}>
-                Published {prettyDate(fullArticle.date)}
-              </span>
-            )}
-          </Typography>
-
           <ShareDialog
             article={fullArticle}
             shareModalOpen={shareModalOpen}
             setShareModalOpen={setShareModalOpen}
           />
-          <Grid container>
-            <Button
-              color="primary"
-              startIcon={<ShareIcon />}
-              onClick={() => setShareModalOpen(true)}
-              data-tip="Share this article on social media"
-            >
-              Share
-            </Button>
+          <Grid container alignItems="center">
+            <Typography className={styles.HeaderSubtext} variant="body1">
+              {fullArticle && (
+                <span className={styles.DefinitionSourceSpan}>
+                  Published {prettyDate(fullArticle.date)}
+                </span>
+              )}
+            </Typography>
+            <Box ml={5}>
+              <Button
+                color="primary"
+                startIcon={<ShareIcon />}
+                onClick={() => setShareModalOpen(true)}
+                data-tip="Share this article on social media"
+              >
+                Share
+              </Button>
+            </Box>
           </Grid>
         </Grid>
       </Grid>

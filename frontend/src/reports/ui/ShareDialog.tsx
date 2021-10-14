@@ -22,6 +22,8 @@ import {
 } from "react-share";
 import parse from "html-react-parser";
 
+export const SHARE_ICON_SIZE = 64;
+
 function ShareDialog(props: {
   shareModalOpen: boolean;
   setShareModalOpen: (shareModalOpen: boolean) => void;
@@ -34,11 +36,19 @@ function ShareDialog(props: {
     text = text.replace(
       "http://localhost:3000",
       "https://healthequitytracker.org"
+      // "https://deploy-preview-1106--health-equity-tracker.netlify.app"
     );
 
-  let title: string = "";
-  if (props.article) title = parse(props.article.title.rendered) as string;
-  if (props.madLib) title = getMadLibPhraseText(props.madLib);
+  let title: string = "Health Equity Tracker";
+  // let summary: any = ""
+  if (props.article) {
+    title += (": " + parse(props.article.title.rendered)) as string;
+    // summary = parse(props.article.excerpt.rendered)
+  }
+  if (props.madLib) {
+    title += ": " + getMadLibPhraseText(props.madLib);
+    // summary = "Dynamically generated location- and condition-specific visualizations."
+  }
 
   return (
     <Dialog
@@ -52,37 +62,38 @@ function ShareDialog(props: {
 
       <DialogContent>
         {/* SOCIAL SHARE BUTTONS */}
-        <FacebookShareButton url={text} hashtag={"#healthequity"}>
-          <FacebookIcon size={32} />
-        </FacebookShareButton>
 
         <TwitterShareButton
           url={text}
           title={title}
           hashtags={["healthequity"]}
+          related={["@SatcherHealth", "@MSMEDU"]}
         >
-          <TwitterIcon size={32} />
+          <TwitterIcon size={SHARE_ICON_SIZE} />
         </TwitterShareButton>
+
+        <FacebookShareButton url={text} hashtag={"#healthequity"} quote={title}>
+          <FacebookIcon size={SHARE_ICON_SIZE} />
+        </FacebookShareButton>
+
+        <LinkedinShareButton
+          title={title}
+          // summary={summary}
+          source={"Health Equity Tracker"}
+          url={text}
+        >
+          <LinkedinIcon size={SHARE_ICON_SIZE} />
+        </LinkedinShareButton>
 
         <EmailShareButton
           subject={`Sharing from healthequitytracker.org`}
-          body={`Please see this ${
-            props.article ? "article" : "report"
-          } from the Health Equity Tracker: “${title}”
+          body={`${title}
         
 `} // KEEP THIS WEIRD SPACING FOR EMAIL LINE BREAKS!
           url={text}
         >
-          <EmailIcon size={32} />
+          <EmailIcon size={SHARE_ICON_SIZE} />
         </EmailShareButton>
-
-        <LinkedinShareButton
-          title={title}
-          source={"Health Equity Tracker"}
-          url={text}
-        >
-          <LinkedinIcon size={32} />
-        </LinkedinShareButton>
 
         <DialogContentText>
           <CopyToClipboard text={text} onCopy={() => setTextCopied(true)}>

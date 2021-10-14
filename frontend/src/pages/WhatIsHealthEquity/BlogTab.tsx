@@ -13,6 +13,7 @@ export interface Article {
   slug: string;
   title: { rendered: string };
   content: { rendered: string };
+  excerpt: { rendered: string };
   author: number;
   featured_media: number;
   sticky: boolean;
