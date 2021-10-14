@@ -72,7 +72,7 @@ export default function WhatIsHealthEquityPage() {
             />
             <Tab
               value={BLOG_TAB_LINK}
-              label="Blog"
+              label="News"
               component={Link}
               to={BLOG_TAB_LINK}
             />

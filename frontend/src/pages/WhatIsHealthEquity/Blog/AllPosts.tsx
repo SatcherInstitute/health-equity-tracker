@@ -152,13 +152,13 @@ function AllPosts() {
   }, [articles]);
 
   if (isLoading) return <i>loading...</i>;
-  if (error) return <i>Error loading blog posts.</i>;
+  if (error) return <i>Error loading posts.</i>;
 
   return (
     articles && (
       <Grid container className={styles.Grid}>
         <Helmet>
-          <title>Blog - Health Equity Tracker</title>
+          <title>News - Health Equity Tracker</title>
         </Helmet>
         <Grid container className={styles.AllArticlesSection}>
           <Hidden smDown>
@@ -178,15 +178,15 @@ function AllPosts() {
                     className={styles.AllArticlesHeaderText}
                     variant="h2"
                   >
-                    Health Equity Tracker Blog
+                    News and Stories
                   </Typography>
                 </Grid>
                 <Grid item>
                   <p className={styles.AllArticlesHeaderSubtext}>
-                    Our blog features perspectives from Health Equity
-                    Initiative's team and members, as well as guest authors. We
-                    cover cross-sectoral efforts, narratives, news, and stories
-                    of hope, healing, community engagement, and partnerships to
+                    Read perspectives from Health Equity Initiative's team and
+                    members, as well as blog posts from guest authors. We cover
+                    cross-sectoral efforts, narratives, news, and stories of
+                    hope, healing, community engagement, and partnerships to
                     advance health equity.
                   </p>
                 </Grid>
