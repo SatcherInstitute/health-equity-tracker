@@ -202,43 +202,6 @@ class ACSPopulationIngester():
             gcs_to_bq_util.add_dataframe_to_bq(
                 df, dataset, table_name, column_types=column_types)
 
-    def write_local_files_debug(self, dest_folder):
-        """Downloads and writes the tables to the local file system as csv and
-           json files. This is only for debugging/convenience, and should not
-           be used in production."""
-        metadata = census.fetch_acs_metadata(self.base_acs_url)
-        var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
-
-        by_hisp_and_race_json = fetch_acs_group(
-            self.base_acs_url, HISPANIC_BY_RACE_CONCEPT, var_map, 2,
-            self.county_level)
-        sex_by_age_frames = {}
-        for concept in SEX_BY_AGE_CONCEPTS_TO_RACE:
-            json_string = fetch_acs_group(
-                self.base_acs_url, concept, var_map, 2, self.county_level)
-            frame = gcs_to_bq_util.values_json_to_dataframe(json_string)
-            sex_by_age_frames[concept] = update_col_types(frame)
-
-        race_and_hispanic_frame = gcs_to_bq_util.values_json_to_dataframe(
-            by_hisp_and_race_json)
-        race_and_hispanic_frame = update_col_types(race_and_hispanic_frame)
-        race_and_hispanic_frame = standardize_frame(
-            race_and_hispanic_frame,
-            get_vars_for_group(HISPANIC_BY_RACE_CONCEPT, var_map, 2),
-            [HISPANIC_COL, RACE_COL],
-            self.county_level,
-            POPULATION_COL)
-
-        frames = {
-            self.get_table_name_by_race(): self.get_all_races_frame(
-                race_and_hispanic_frame),
-            self.get_table_name_by_sex_age_race(): self.get_sex_by_age_and_race(
-                var_map, sex_by_age_frames)
-        }
-        for key, df in frames.items():
-            df.to_csv(os.path.join(dest_folder, "table_" + key + ".csv"), index=False)
-            df.to_json(os.path.join(dest_folder, "table_" + key + ".json"), orient="records")
-
     def get_table_geo_suffix(self):
         return "_county" if self.county_level else "_state"
 
