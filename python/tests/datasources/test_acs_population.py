@@ -53,8 +53,7 @@ def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_js
 
 @mock.patch('ingestion.census.fetch_acs_metadata',
             return_value=get_acs_metadata_as_json())
-@mock.patch('ingestion.gcs_to_bq_util.load_values_as_dataframe',
-            return_value=get_hispanic_or_latino_values_by_race_state_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_values_as_dataframe')
 @mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
             return_value=None)
 def testWriteToBqSexAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_json: mock.MagicMock):
