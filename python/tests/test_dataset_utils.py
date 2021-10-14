@@ -2,7 +2,7 @@ import json
 import pytest
 
 from pandas.testing import assert_frame_equal
-from ingestion import gcs_to_bq_util, dataset_utils  # pylint: disable=import-weirdness
+from ingestion import gcs_to_bq_util, dataset_utils  # pylint: disable=no-name-in-module
 
 _fake_race_data = [
     ['state_fips', 'state_name', 'race', 'population'],
