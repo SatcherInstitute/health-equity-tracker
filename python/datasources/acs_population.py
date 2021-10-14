@@ -190,8 +190,8 @@ class ACSPopulationIngester():
         frames = {
             self.get_table_name_by_race(): self.get_all_races_frame(
                 race_and_hispanic_frame),
-            # self.get_table_name_by_sex_age_race(): self.get_sex_by_age_and_race(
-            #     var_map, sex_by_age_frames)
+            self.get_table_name_by_sex_age_race(): self.get_sex_by_age_and_race(
+                var_map, sex_by_age_frames)
         }
 
         for table_name, df in frames.items():
@@ -271,7 +271,7 @@ class ACSPopulationIngester():
         # However, it doesn't matter how these are sorted in the backend, this
         # is just for convenience when looking at the data in BigQuery.
         sort_cols.extend([RACE_CATEGORY_ID_COL, SEX_COL, AGE_COL])
-        return df.sort_values(sort_cols)
+        return df.sort_values(sort_cols).reset_index(drop=True)
 
     def standardize_race_exclude_hispanic(self, df):
         """Standardized format using mutually exclusive groups by excluding
