@@ -14,7 +14,7 @@ import CopyToClipboard from "react-copy-to-clipboard";
 import { Box, Button, Card } from "@material-ui/core";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 
-export const CITATION_CHICAGO =
+export const CITATION_APA =
   "Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. https://healthequitytracker.org.";
 
 export const VACCINATED_DEF = `For the national level, and for the majority of states, this indicates people who have received at least one dose of a COVID-19 vaccine.`;
@@ -63,14 +63,15 @@ function MethodologyTab() {
                 tabIndex={-1}
                 className={styles.MethodologyQuestion}
               >
-                Recommended Citation for the Health Equity Tracker:
+                Recommended Citation (APA) for the Health Equity Tracker:
               </h2>
+
               <div className={styles.MethodologyAnswer}>
                 <Grid container justify="space-between" alignItems="center">
                   <Grid item container xs={12} md={8}>
                     <Box m={1}>
                       <Card elevation={3}>
-                        <Box m={1}>{CITATION_CHICAGO} </Box>
+                        <Box m={1}>{CITATION_APA} </Box>
                       </Card>
                     </Box>
                   </Grid>
@@ -86,7 +87,7 @@ function MethodologyTab() {
                     alignContent="center"
                   >
                     <CopyToClipboard
-                      text={CITATION_CHICAGO}
+                      text={CITATION_APA}
                       onCopy={() => handleCopy()}
                     >
                       <Button startIcon={<FileCopyIcon />}></Button>
