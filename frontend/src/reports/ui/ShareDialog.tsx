@@ -8,15 +8,47 @@ import TextField from "@material-ui/core/TextField";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import React, { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { Article } from "../../pages/WhatIsHealthEquity/BlogTab";
 import { getMadLibPhraseText, MadLib } from "../../utils/MadLibs";
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  EmailIcon,
+  FacebookIcon,
+  LinkedinIcon,
+  TwitterIcon,
+} from "react-share";
+import parse from "html-react-parser";
+
+export const SHARE_ICON_SIZE = 64;
 
 function ShareDialog(props: {
-  madLib: MadLib;
   shareModalOpen: boolean;
   setShareModalOpen: (shareModalOpen: boolean) => void;
+  madLib?: MadLib;
+  article?: Article;
 }) {
   const [textCopied, setTextCopied] = useState(false);
-  const text = window.location.href;
+  let text = window.location.href;
+  if (process.env.NODE_ENV === "development")
+    text = text.replace(
+      "http://localhost:3000",
+      "https://healthequitytracker.org"
+      // "https://deploy-preview-1106--health-equity-tracker.netlify.app"
+    );
+
+  let title: string = "Health Equity Tracker";
+  // let summary: any = ""
+  if (props.article) {
+    title += (": " + parse(props.article.title.rendered)) as string;
+    // summary = parse(props.article.excerpt.rendered)
+  }
+  if (props.madLib) {
+    title += ": " + getMadLibPhraseText(props.madLib);
+    // summary = "Dynamically generated location- and condition-specific visualizations."
+  }
 
   return (
     <Dialog
@@ -26,8 +58,43 @@ function ShareDialog(props: {
         setTextCopied(false);
       }}
     >
-      <DialogTitle>{getMadLibPhraseText(props.madLib)}</DialogTitle>
+      <DialogTitle>{title}</DialogTitle>
+
       <DialogContent>
+        {/* SOCIAL SHARE BUTTONS */}
+
+        <TwitterShareButton
+          url={text}
+          title={title}
+          hashtags={["healthequity"]}
+          related={["@SatcherHealth", "@MSMEDU"]}
+        >
+          <TwitterIcon size={SHARE_ICON_SIZE} />
+        </TwitterShareButton>
+
+        <FacebookShareButton url={text} hashtag={"#healthequity"} quote={title}>
+          <FacebookIcon size={SHARE_ICON_SIZE} />
+        </FacebookShareButton>
+
+        <LinkedinShareButton
+          title={title}
+          // summary={summary}
+          source={"Health Equity Tracker"}
+          url={text}
+        >
+          <LinkedinIcon size={SHARE_ICON_SIZE} />
+        </LinkedinShareButton>
+
+        <EmailShareButton
+          subject={`Sharing from healthequitytracker.org`}
+          body={`${title}
+        
+`} // KEEP THIS WEIRD SPACING FOR EMAIL LINE BREAKS!
+          url={text}
+        >
+          <EmailIcon size={SHARE_ICON_SIZE} />
+        </EmailShareButton>
+
         <DialogContentText>
           <CopyToClipboard text={text} onCopy={() => setTextCopied(true)}>
             <Button startIcon={<FileCopyIcon />}>Copy link to clipboard</Button>
