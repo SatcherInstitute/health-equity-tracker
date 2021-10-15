@@ -9,14 +9,36 @@ import FileCopyIcon from "@material-ui/icons/FileCopy";
 import React, { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { getMadLibPhraseText, MadLib } from "../../utils/MadLibs";
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  EmailIcon,
+  FacebookIcon,
+  LinkedinIcon,
+  TwitterIcon,
+} from "react-share";
+
+export const SHARE_ICON_SIZE = 64;
 
 function ShareDialog(props: {
-  madLib: MadLib;
   shareModalOpen: boolean;
   setShareModalOpen: (shareModalOpen: boolean) => void;
+  madLib?: MadLib;
 }) {
   const [textCopied, setTextCopied] = useState(false);
-  const text = window.location.href;
+  let text = window.location.href;
+  if (process.env.NODE_ENV === "development")
+    text = text.replace(
+      "http://localhost:3000",
+      "https://healthequitytracker.org"
+    );
+
+  let title: string = "Health Equity Tracker";
+  if (props.madLib) {
+    title += ": " + getMadLibPhraseText(props.madLib);
+  }
 
   return (
     <Dialog
@@ -26,17 +48,58 @@ function ShareDialog(props: {
         setTextCopied(false);
       }}
     >
-      <DialogTitle>{getMadLibPhraseText(props.madLib)}</DialogTitle>
+      <DialogTitle>{title}</DialogTitle>
+
       <DialogContent>
+        {/* SOCIAL SHARE BUTTONS */}
+
+        <TwitterShareButton
+          url={text}
+          title={title}
+          hashtags={["healthequity"]}
+          related={["@SatcherHealth", "@MSMEDU"]}
+        >
+          <TwitterIcon size={SHARE_ICON_SIZE} />
+        </TwitterShareButton>
+
+        <FacebookShareButton url={text} hashtag={"#healthequity"} quote={title}>
+          <FacebookIcon size={SHARE_ICON_SIZE} />
+        </FacebookShareButton>
+
+        <LinkedinShareButton
+          title={title}
+          // summary={summary}
+          source={"Health Equity Tracker"}
+          url={text}
+        >
+          <LinkedinIcon size={SHARE_ICON_SIZE} />
+        </LinkedinShareButton>
+
+        <EmailShareButton
+          subject={`Sharing from healthequitytracker.org`}
+          body={`${title}
+        
+`} // KEEP THIS WEIRD SPACING FOR EMAIL LINE BREAKS!
+          url={text}
+        >
+          <EmailIcon size={SHARE_ICON_SIZE} />
+        </EmailShareButton>
+
         <DialogContentText>
           <CopyToClipboard text={text} onCopy={() => setTextCopied(true)}>
-            <Button startIcon={<FileCopyIcon />}>Copy link to clipboard</Button>
+            <Button startIcon={<FileCopyIcon />}>
+              {textCopied ? (
+                <span
+                  role="alert"
+                  aria-label="Success. Press Escape Key to close"
+                >
+                  Link copied!
+                </span>
+              ) : (
+                "Copy link to clipboard"
+              )}
+            </Button>
           </CopyToClipboard>
-          {textCopied && (
-            <span role="alert" aria-label="Success. Press Escape Key to close">
-              Link copied!
-            </span>
-          )}
         </DialogContentText>
         <DialogContentText>
           <FormControl fullWidth>
