@@ -8,6 +8,8 @@ import Hidden from "@material-ui/core/Hidden";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet";
 import LazyLoad from "react-lazyload";
+import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
+import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 
 function AimToGoItem(props: {
   src: string;
@@ -59,6 +61,12 @@ function AimToGoItem(props: {
 
 function TheProjectTab() {
   const prefersReducedMotion = usePrefersReducedMotion();
+  const numDataSources = Object.keys(DataSourceMetadataMap).length;
+  // tally number of conditions (including sub-conditions like COVID)
+  const numConditions = Object.keys(METRIC_CONFIG).reduce(
+    (tally, conditionKey) => (tally += METRIC_CONFIG[conditionKey].length),
+    0
+  );
 
   return (
     <>
@@ -172,14 +180,15 @@ function TheProjectTab() {
                     variant="h3"
                     paragraph={true}
                   >
-                    5 data sources
+                    {`${numDataSources} data sources`}
                   </Typography>
                   <Typography
                     className={styles.HeaderSubtextL3}
                     variant="body2"
                     paragraph={true}
                   >
-                    HET currently aggregates data from 5 key data sources. We’ll
+                    HET currently aggregates data from{" "}
+                    {`${numDataSources} data sources`} key data sources. We’ll
                     continue adding to these initial sources.
                   </Typography>
                 </Grid>
@@ -189,7 +198,7 @@ function TheProjectTab() {
                     variant="h3"
                     paragraph={true}
                   >
-                    15 variables
+                    {numConditions} variables
                   </Typography>
                   <Typography
                     className={styles.HeaderSubtextL3}

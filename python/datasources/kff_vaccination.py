@@ -37,6 +37,7 @@ KFF_RACES_TO_STANDARD_NH = {
     'Asian': Race.ASIAN_NH.value,
     'American Indian or Alaska Native': Race.AIAN_NH.value,
     'Native Hawaiian or Other Pacific Islander': Race.NHPI_NH.value,
+    'AAPI': Race.API_NH.value,
     'Other': Race.OTHER_NONSTANDARD_NH.value
 }
 
@@ -47,8 +48,14 @@ KFF_RACES_TO_STANDARD = {
     'Asian': Race.ASIAN.value,
     'American Indian or Alaska Native': Race.AIAN.value,
     'Native Hawaiian or Other Pacific Islander': Race.NHPI.value,
+    'AAPI': Race.API.value,
     'Other': Race.OTHER_NONSTANDARD.value
 }
+
+AAPI_STATES = {'Arizona', 'Connecticut', 'District of Columbia', 'Michigan', 'Minnesota', 'Nevada',
+               'New Mexico', 'North Carolina', 'Oklahoma', 'South Carolina', 'Virginia'}
+
+KFF_TERRITORIES = ['Guam', 'Puerto Rico', 'Northern Mariana Islands']
 
 
 def get_data_url(data_type):
@@ -59,6 +66,7 @@ def get_data_url(data_type):
     data_types_to_strings = {
         'pct_total': 'Percent of Total Population that has Received a COVID-19 Vaccine by RaceEthnicity',
         'pct_share': 'COVID19 Vaccinations by RE',
+        'pct_population': 'Distribution of Vaccinations, Cases, Deaths',
     }
     df = gcs_to_bq_util.load_json_as_df_from_web_based_on_key(BASE_GITHUB_API_URL, "tree")
     df = df.loc[df['path'].str.contains(data_types_to_strings[data_type])]
@@ -76,6 +84,10 @@ def generate_total_pct_key(race):
 
 def generate_pct_share_key(race):
     return '%s %% of Vaccinations' % race
+
+
+def generate_pct_of_population_key(race):
+    return '%s Percent of Total Population' % race
 
 
 def get_unknown_rows(df, state):
@@ -97,27 +109,35 @@ def get_unknown_rows(df, state):
     return rows
 
 
-def generate_output_row(state_row_pct_share, state_row_pct_total, state, race):
+def generate_output_row(state_row_pct_share, state_row_pct_total, state_row_pct_population, state, race):
     """Generates the row with vaccine information for the given race and state
     The pct total spreadheet has a subset of races of the pct_share sheet.
 
     state_row_pct_share: Pandas dataframe row with percent share of vaccines per race
     state_row_pct_total: Pandas dataframe row with percent total of each race vaccinatd
-    state_row_totals: Pandas dataframe row with state vaccination totals
+    state_row_pct_population: Pandas dataframe row with population percentages for each race
     state: String state name to find vaccine information of
     race: String race name to find vaccine information of
     """
     races_map = KFF_RACES_TO_STANDARD
+
     if state_row_pct_share['Race Categories Include Hispanic Individuals'].values[0] != 'Yes':
         races_map = KFF_RACES_TO_STANDARD_NH
 
     output_row = {}
     output_row[std_col.STATE_NAME_COL] = state
-    output_row[std_col.RACE_CATEGORY_ID_COL] = races_map[race]
     output_row[std_col.VACCINATED_PCT_SHARE] = str(state_row_pct_share[generate_pct_share_key(race)].values[0])
 
     if race in KFF_RACES_PCT_TOTAL:
         output_row[std_col.VACCINATED_PCT] = str(state_row_pct_total[generate_total_pct_key(race)].values[0])
+        output_row[std_col.POPULATION_PCT_COL] = str(
+            state_row_pct_population[generate_pct_of_population_key(race)].values[0]
+        )
+
+    if race == "Asian" and state in AAPI_STATES:
+        race = 'AAPI'
+
+    output_row[std_col.RACE_CATEGORY_ID_COL] = races_map[race]
 
     return output_row
 
@@ -132,8 +152,10 @@ def generate_total_row(state_row_totals, state):
     output_row[std_col.STATE_NAME_COL] = state
     output_row[std_col.RACE_CATEGORY_ID_COL] = Race.TOTAL.value
 
-    latest_row = state_row_totals[state_row_totals['date'] == state_row_totals['date'].max()]
+    state_row_totals = state_row_totals.loc[~state_row_totals['one_dose'].isnull()]
+    latest_row = state_row_totals.loc[state_row_totals['date'] == state_row_totals['date'].max()]
     output_row[std_col.VACCINATED_FIRST_DOSE] = str(latest_row[TOTAL_KEY].values[0])
+    output_row[std_col.POPULATION_PCT_COL] = "1.0"
     return output_row
 
 
@@ -158,6 +180,9 @@ class KFFVaccination(DataSource):
         pct_share_url = get_data_url('pct_share')
         pct_share_df = github_util.decode_json_from_url_into_df(pct_share_url)
 
+        pct_population_url = get_data_url('pct_population')
+        pct_population_df = github_util.decode_json_from_url_into_df(pct_population_url)
+
         total_df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_KFF_URL_TOTALS_STATE, dtype={TOTAL_KEY: str})
 
         output = []
@@ -167,6 +192,7 @@ class KFFVaccination(DataSource):
             std_col.VACCINATED_PCT_SHARE,
             std_col.VACCINATED_PCT,
             std_col.VACCINATED_FIRST_DOSE,
+            std_col.POPULATION_PCT_COL,
         ]
 
         states = percentage_of_total_df['Location'].drop_duplicates().to_list()
@@ -176,14 +202,25 @@ class KFFVaccination(DataSource):
             state_row_pct_share = pct_share_df.loc[pct_share_df['Location'] == state]
             state_row_pct_total = percentage_of_total_df.loc[percentage_of_total_df['Location'] == state]
             state_row_totals = total_df.loc[total_df['state'] == state]
+            state_row_pct_population = pct_population_df.loc[pct_population_df['State'] == state]
 
             output.extend(get_unknown_rows(state_row_pct_share, state))
 
             # Get race metrics
             for race in KFF_RACES_PCT_SHARE:
-                output.append(generate_output_row(state_row_pct_share, state_row_pct_total, state, race))
+                output.append(generate_output_row(
+                    state_row_pct_share,
+                    state_row_pct_total,
+                    state_row_pct_population,
+                    state,
+                    race,
+                ))
 
             output.append(generate_total_row(state_row_totals, state))
+
+        for territory in KFF_TERRITORIES:
+            state_row_totals = total_df.loc[total_df['state'] == territory]
+            output.append(generate_total_row(state_row_totals, territory))
 
         output_df = pd.DataFrame(output, columns=columns)
         std_col.add_race_columns_from_category_id(output_df)

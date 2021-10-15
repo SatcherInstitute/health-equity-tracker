@@ -1,6 +1,13 @@
-.SearchForText {
+@import "../../styles/variables.scss";
+
+.SearchForText,
+.CategoryTitleText {
   font-size: 12pt;
   font-weight: bold;
+}
+
+.CategoryTitleText {
+  margin: 8px 16px 8px 16px;
 }
 
 .NoteText {
@@ -12,6 +19,17 @@
 .OptionsSelectorPopover {
   padding: 20px;
   min-width: 385px;
+  margin: 40px 0px 40px 0px;
+}
+
+.PopoverOverride {
+  margin: 16px;
+}
+
+.CategoryList {
+  ul span {
+    display: flex;
+  }
 }
 
 .MadLibButton {

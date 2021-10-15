@@ -31,6 +31,7 @@ function TwoVariableReport(props: {
   fips2: Fips;
   updateFips1Callback: (fips: Fips) => void;
   updateFips2Callback: (fips: Fips) => void;
+  jumpToDefinitions?: Function;
 }) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, "race_and_ethnicity")
@@ -129,24 +130,36 @@ function TwoVariableReport(props: {
           <Grid item xs={12}>
             <PopulationCard fips={props.fips1} />
             <Grid container>
-              <Grid item xs={12} sm={6}>
-                <ReportToggleControls
-                  dropdownVarId={props.dropdownVarId1}
-                  variableConfig={variableConfig1}
-                  setVariableConfig={setVariableConfigWithParam1}
-                  currentBreakdown={currentBreakdown}
-                  setCurrentBreakdown={setDemoWithParam}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <ReportToggleControls
-                  dropdownVarId={props.dropdownVarId2}
-                  variableConfig={variableConfig2}
-                  setVariableConfig={setVariableConfigWithParam2}
-                  currentBreakdown={currentBreakdown}
-                  setCurrentBreakdown={setDemoWithParam}
-                />
-              </Grid>
+              {!(
+                props.dropdownVarId1 ===
+                  METRIC_CONFIG["vaccinations"][0].variableId &&
+                props.fips1.isCounty()
+              ) && (
+                <Grid item xs={12} sm={6}>
+                  <ReportToggleControls
+                    dropdownVarId={props.dropdownVarId1}
+                    variableConfig={variableConfig1}
+                    setVariableConfig={setVariableConfigWithParam1}
+                    currentBreakdown={currentBreakdown}
+                    setCurrentBreakdown={setDemoWithParam}
+                  />
+                </Grid>
+              )}
+              {!(
+                props.dropdownVarId2 ===
+                  METRIC_CONFIG["vaccinations"][0].variableId &&
+                props.fips2.isCounty()
+              ) && (
+                <Grid item xs={12} sm={6}>
+                  <ReportToggleControls
+                    dropdownVarId={props.dropdownVarId2}
+                    variableConfig={variableConfig2}
+                    setVariableConfig={setVariableConfigWithParam2}
+                    currentBreakdown={currentBreakdown}
+                    setCurrentBreakdown={setDemoWithParam}
+                  />
+                </Grid>
+              )}
             </Grid>
           </Grid>
         </>
@@ -154,23 +167,35 @@ function TwoVariableReport(props: {
         <>
           <Grid item xs={12} sm={6}>
             <PopulationCard fips={props.fips1} />
-            <ReportToggleControls
-              dropdownVarId={props.dropdownVarId1}
-              variableConfig={variableConfig1}
-              setVariableConfig={setVariableConfigWithParam1}
-              currentBreakdown={currentBreakdown}
-              setCurrentBreakdown={setDemoWithParam}
-            />
+            {!(
+              props.dropdownVarId1 ===
+                METRIC_CONFIG["vaccinations"][0].variableId &&
+              props.fips1.isCounty()
+            ) && (
+              <ReportToggleControls
+                dropdownVarId={props.dropdownVarId1}
+                variableConfig={variableConfig1}
+                setVariableConfig={setVariableConfigWithParam1}
+                currentBreakdown={currentBreakdown}
+                setCurrentBreakdown={setDemoWithParam}
+              />
+            )}
           </Grid>
           <Grid item xs={12} sm={6}>
             <PopulationCard fips={props.fips2} />
-            <ReportToggleControls
-              dropdownVarId={props.dropdownVarId2}
-              variableConfig={variableConfig2}
-              setVariableConfig={setVariableConfigWithParam2}
-              currentBreakdown={currentBreakdown}
-              setCurrentBreakdown={setDemoWithParam}
-            />
+            {!(
+              props.dropdownVarId2 ===
+                METRIC_CONFIG["vaccinations"][0].variableId &&
+              props.fips2.isCounty()
+            ) && (
+              <ReportToggleControls
+                dropdownVarId={props.dropdownVarId2}
+                variableConfig={variableConfig2}
+                setVariableConfig={setVariableConfigWithParam2}
+                currentBreakdown={currentBreakdown}
+                setCurrentBreakdown={setDemoWithParam}
+              />
+            )}
           </Grid>
         </>
       )}
@@ -194,6 +219,7 @@ function TwoVariableReport(props: {
               updateFips(fips);
             }}
             currentBreakdown={currentBreakdown}
+            jumpToDefinitions={props.jumpToDefinitions}
           />
         )}
       />

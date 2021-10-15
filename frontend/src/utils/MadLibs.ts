@@ -13,6 +13,12 @@ export type PhraseSegment = string | PhraseSelector;
 
 export type MadLibId = "disparity" | "comparegeos" | "comparevars";
 
+export type CategoryId =
+  | "COVID-19"
+  | "Chronic Disease"
+  | "Mental Health"
+  | "Social & Political Determinants of Health";
+
 export interface MadLib {
   readonly id: MadLibId;
   readonly phrase: PhraseSegment[];
@@ -55,21 +61,41 @@ export function getMadLibWithUpdatedValue(
 export type DropdownVarId =
   | "covid"
   | "diabetes"
-  //  | "obesity"
-  //  | "asthma"
   | "copd"
   | "health_insurance"
-  | "poverty";
+  | "poverty"
+  | "vaccinations";
 
 const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   covid: "COVID-19",
   diabetes: "Diabetes",
-  //  obesity: "[coming soon] obesity",
-  //  asthma: "[coming soon] asthma",
   copd: "COPD",
   health_insurance: "Uninsured Individuals",
   poverty: "Poverty",
+  vaccinations: "COVID-19 Vaccinations",
 };
+
+/* Update categories / DropdownVarIds here; type defs at top of file */
+
+export interface Category {
+  readonly title: CategoryId;
+  readonly options: DropdownVarId[];
+}
+
+const CATEGORIES_LIST: Category[] = [
+  {
+    title: "COVID-19",
+    options: ["covid", "vaccinations"],
+  },
+  {
+    title: "Chronic Disease",
+    options: ["diabetes", "copd"],
+  },
+  {
+    title: "Social & Political Determinants of Health",
+    options: ["health_insurance", "poverty"],
+  },
+];
 
 const MADLIB_LIST: MadLib[] = [
   {
@@ -106,4 +132,4 @@ const MADLIB_LIST: MadLib[] = [
   },
 ];
 
-export { MADLIB_LIST, getMadLibPhraseText };
+export { MADLIB_LIST, getMadLibPhraseText, CATEGORIES_LIST };

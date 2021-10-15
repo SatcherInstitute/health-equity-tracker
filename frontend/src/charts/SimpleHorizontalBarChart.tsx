@@ -29,9 +29,9 @@ function getSpec(
   tooltipMetricDisplayColumnName: string,
   showLegend: boolean
 ): any {
-  const BAR_HEIGHT = 40;
-  const BAR_PADDING = 0.1;
   const MEASURE_COLOR = sass.altGreen;
+  const BAR_HEIGHT = 60;
+  const BAR_PADDING = 0.2;
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 

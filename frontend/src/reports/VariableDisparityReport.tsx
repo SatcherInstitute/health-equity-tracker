@@ -28,6 +28,7 @@ export interface VariableDisparityReportProps {
   fips: Fips;
   updateFipsCallback: Function;
   hidePopulationCard?: boolean;
+  jumpToDefinitions?: Function;
 }
 
 export function VariableDisparityReport(props: VariableDisparityReportProps) {
@@ -99,15 +100,21 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
 
       {variableConfig && (
         <Grid container spacing={1} justify="center">
-          <Grid item container xs={12}>
-            <ReportToggleControls
-              dropdownVarId={props.dropdownVarId}
-              variableConfig={variableConfig}
-              setVariableConfig={setVariableConfigWithParam}
-              currentBreakdown={currentBreakdown}
-              setCurrentBreakdown={setDemoWithParam}
-            />
-          </Grid>
+          {!(
+            props.dropdownVarId ===
+              METRIC_CONFIG["vaccinations"][0].variableId &&
+            props.fips.isCounty()
+          ) && (
+            <Grid item container xs={12}>
+              <ReportToggleControls
+                dropdownVarId={props.dropdownVarId}
+                variableConfig={variableConfig}
+                setVariableConfig={setVariableConfigWithParam}
+                currentBreakdown={currentBreakdown}
+                setCurrentBreakdown={setDemoWithParam}
+              />
+            </Grid>
+          )}
           <Grid item xs={12} sm={12} md={6}>
             <MapCard
               variableConfig={variableConfig}
@@ -116,6 +123,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                 props.updateFipsCallback(fips);
               }}
               currentBreakdown={currentBreakdown}
+              jumpToDefinitions={props.jumpToDefinitions}
             />
             {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
               <Fragment key={breakdownVar}>

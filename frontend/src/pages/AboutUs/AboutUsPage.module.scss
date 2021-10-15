@@ -175,7 +175,7 @@
   align-items: center;
   border-top: 1px solid $border-color;
 
-  @media (max-width: $xl) {
+  @media (min-width: $lg) {
     padding: 147px 120px 147px 120px;
   }
 
