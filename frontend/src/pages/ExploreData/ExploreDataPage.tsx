@@ -208,17 +208,17 @@ function CarouselMadLib(props: {
   function getOptionsFromPhraseSegement(
     phraseSegment: PhraseSegment
   ): Fips[] | string[][] {
-    // if it's FIPS options, all properties are type number, if it's CONDITION options, all properties are strings
-    return typeof Object.keys(phraseSegment)[0] === "number"
-      ? Object.keys(phraseSegment)
+    // check first option to tell if phraseSegment is FIPS or CONDITIONS
+    return isNaN(Object.keys(phraseSegment)[0] as any)
+      ? Object.entries(phraseSegment).sort((a, b) => a[0].localeCompare(b[0]))
+      : Object.keys(phraseSegment)
           .sort((a: string, b: string) => {
             if (a.length === b.length) {
               return a.localeCompare(b);
             }
             return b.length > a.length ? -1 : 1;
           })
-          .map((fipsCode) => new Fips(fipsCode))
-      : Object.entries(phraseSegment).sort((a, b) => a[0].localeCompare(b[0]));
+          .map((fipsCode) => new Fips(fipsCode));
   }
 
   return (
