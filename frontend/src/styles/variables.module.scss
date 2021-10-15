@@ -19,6 +19,7 @@ $report-alert: #ff9800;
 $standard-info: #f8f9fa;
 $standard-warning: #fff8eb;
 $toggle-color: #e1e9e7;
+
 $bg-color: #e2e2e2;
 $footer-color: #edf3f0;
 $explore-bg-color: #f1f4f8;
@@ -41,9 +42,27 @@ $alt-black: #383838;
 $alt-dark: #5f6368;
 $alt-grey: #bdbdbd;
 
+// colors from VEGA map
+$map-lightest: #cbea9d;
+$map-lighter: #acdc8e;
+$map-light: #87cc7f;
+$map-mid: #63bb6e;
+$map-dark: #42a55b;
+$map-darker: #2a8d4a;
+$map-darkest: #14763d;
+
+// roughly spaced out 7 colors from VEGA unknowns map
+$unknown-map-least: #d3eece;
+$unknown-map-lesser: #b8e3be;
+$unknown-map-less: #92d4be;
+$unknown-map-mid: #60bccb;
+$unknown-map-more: #47a8cb;
+$unknown-map-even-more: #2384b9;
+$unknown-map-most: #0b61a2;
+
 // default settings
 $header-height: 600px;
-$footer-size: 490px;
+$footer-size: 10rem;
 $max-width: 800px;
 
 // default material breakpoints
@@ -97,6 +116,22 @@ $bottom-border-style: 1px solid $border-color;
   altDark: $alt-dark;
   altGrey: $alt-grey;
 
+  mapLightest: $map-lightest;
+  mapLighter: $map-lighter;
+  mapLight: $map-light;
+  mapMid: $map-mid;
+  mapDark: $map-dark;
+  mapDarker: $map-darker;
+  mapDarkest: $map-darkest;
+
+  unknownMapLeast: $unknown-map-least;
+  unknownMapLesser: $unknown-map-lesser;
+  unknownMapLess: $unknown-map-less;
+  unknownMapMid: $unknown-map-mid;
+  unknownMapMore: $unknown-map-more;
+  unknownMapEven: $unknown-map-even-more;
+  unknownMapMost: $unknown-map-most;
+
   footerSize: $footer-size;
   maxWidth: $max-width;
 
@@ -105,3 +140,10 @@ $bottom-border-style: 1px solid $border-color;
   lg: $lg;
   xl: $xl;
 }
+
+/* 
+
+
+
+
+*/
