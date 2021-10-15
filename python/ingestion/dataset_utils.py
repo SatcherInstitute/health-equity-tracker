@@ -1,36 +1,6 @@
 import pandas as pd
 
 
-def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, geo_col, total_val):
-    """Returns a DataFrame with a percent share row based on the raw_count_col
-       Each row must have a corresponding 'TOTAL' row.
-
-       df: DataFrame to generate the `pct_share_col` for.
-       raw_count_col: String column name with the
-                      raw count to use to caculate the `pct_share_col`.
-       pct_share_col: String column name to create with the percent share.
-       breakdown_col: The name of column to calculate the percent across.
-       geo_col: The name of the column represting the geographic location;
-                either `county_fips` or `state_fips`.
-       total_val: The value representing 'ALL' or 'TOTAL'"""
-
-    def calc_pct_share(record):
-        total_row = df.loc[(df[breakdown_col] == total_val) & (df[geo_col] == record[geo_col])]
-
-        if len(total_row) == 0:
-            raise ValueError("There is no TOTAL value for this chunk of data")
-
-        if len(total_row) > 1:
-            raise ValueError("There are multiple TOTAL values for this chunk of data, there should only be one")
-
-        total = total_row[raw_count_col].values[0]
-        record[pct_share_col] = round((float(record[raw_count_col]) / float(total)) * 100, 2)
-        return record
-
-    df = df.apply(calc_pct_share, axis=1)
-    return df
-
-
 def add_sum_of_rows(df, breakdown_col, value_col, new_row_breakdown_val,
                     breakdown_vals_to_sum=None):
     """Returns a new DataFrame by appending rows by summing the values of other
