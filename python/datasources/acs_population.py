@@ -192,6 +192,13 @@ class ACSPopulationIngester():
                 var_map, sex_by_age_frames)
         }
 
+        frames['by_sex_age%s' % self.get_table_geo_suffix()] = frames[self.get_table_name_by_sex_age_race()].loc[
+                    frames[self.get_table_name_by_sex_age_race()]['race_category_id'] == 'TOTAL'][
+                            'state_fips',
+                            'state_name',
+                            get_decade_age_buckets(frames[self.ge
+
+
         for table_name, df in frames.items():
             # All breakdown columns are strings
             column_types = {c: 'STRING' for c in df.columns}
