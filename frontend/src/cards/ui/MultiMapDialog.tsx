@@ -55,8 +55,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
   const theme = useTheme();
   const pageIsWide = useMediaQuery(theme.breakpoints.up("md"));
 
-  console.log({ pageIsWide });
-
   return (
     <Dialog
       open={props.open}

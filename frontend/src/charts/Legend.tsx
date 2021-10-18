@@ -8,9 +8,15 @@ import { ORDINAL } from "vega-lite/build/src/type";
 
 const COLOR_SCALE = "color_scale";
 const DOT_SIZE_SCALE = "dot_size_scale";
+export const UNKNOWN_SCALE = "unknown_scale";
+export const GREY_DOT_SCALE = "grey_dot_scale";
 
 const RAW_VALUES = "raw_values";
 const DATASET_VALUES = "dataset_values";
+export const MISSING_PLACEHOLDER_VALUES = "missing_data";
+
+export const EQUAL_DOT_SIZE = 200;
+const LEGEND_COLOR_COUNT = 7;
 
 /*
    Legend renders a vega chart that just contains a legend.
@@ -45,7 +51,7 @@ export function Legend(props: LegendProps) {
       name: COLOR_SCALE,
       type: props.scaleType,
       domain: { data: DATASET_VALUES, field: props.metric.metricId },
-      range: { scheme: "yellowgreen", count: 7 },
+      range: { scheme: "yellowgreen", count: LEGEND_COLOR_COUNT },
     };
     if (props.fieldRange) {
       colorScale["domainMax"] = props.fieldRange.max;
@@ -53,7 +59,7 @@ export function Legend(props: LegendProps) {
     }
 
     const dotRange = props.sameDotSize
-      ? [200, 200, 200, 200, 200, 200, 200]
+      ? Array(LEGEND_COLOR_COUNT).fill(EQUAL_DOT_SIZE)
       : [70, 120, 170, 220, 270, 320, 370];
 
     setSpec({
@@ -76,7 +82,7 @@ export function Legend(props: LegendProps) {
           ],
         },
         {
-          name: "missing_data",
+          name: MISSING_PLACEHOLDER_VALUES,
           values: [{ missing: "No data" }],
         },
       ],
@@ -96,9 +102,9 @@ export function Legend(props: LegendProps) {
               orient: "left",
             },
             {
-              fill: "unknown_scale",
+              fill: UNKNOWN_SCALE,
               symbolType: "circle",
-              size: "GREY_DOT_SCALE",
+              size: GREY_DOT_SCALE,
               orient: props.direction === "vertical" ? "left" : "right",
             },
           ],
@@ -109,7 +115,7 @@ export function Legend(props: LegendProps) {
           name: COLOR_SCALE,
           type: props.scaleType,
           domain: { data: DATASET_VALUES, field: props.metric.metricId },
-          range: { scheme: "yellowgreen", count: 7 },
+          range: { scheme: "yellowgreen", count: LEGEND_COLOR_COUNT },
         },
         {
           name: DOT_SIZE_SCALE,
@@ -118,16 +124,16 @@ export function Legend(props: LegendProps) {
           range: dotRange,
         },
         {
-          name: "unknown_scale",
+          name: UNKNOWN_SCALE,
           type: ORDINAL,
-          domain: { data: "missing_data", field: "missing" },
+          domain: { data: MISSING_PLACEHOLDER_VALUES, field: "missing" },
           range: ["#BDC1C6"],
         },
         {
-          name: "GREY_DOT_SCALE",
+          name: GREY_DOT_SCALE,
           type: ORDINAL,
           domain: { data: "missing_data", field: "missing" },
-          range: [200],
+          range: [EQUAL_DOT_SIZE],
         },
       ],
     });

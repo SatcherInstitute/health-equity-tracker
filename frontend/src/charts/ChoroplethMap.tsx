@@ -5,6 +5,13 @@ import { Fips } from "../data/utils/Fips";
 import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
+import { ORDINAL } from "vega-lite/build/src/type";
+import {
+  EQUAL_DOT_SIZE,
+  GREY_DOT_SCALE,
+  MISSING_PLACEHOLDER_VALUES,
+  UNKNOWN_SCALE,
+} from "./Legend";
 
 export type ScaleType = "quantize" | "quantile" | "symlog";
 
@@ -139,7 +146,22 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     /* SET UP LEGEND */
     let legendList = [];
-    let legend: any = {
+
+    const unknownScale: any = {
+      name: UNKNOWN_SCALE,
+      type: ORDINAL,
+      domain: { data: MISSING_PLACEHOLDER_VALUES, field: "missing" },
+      range: ["#BDC1C6"],
+    };
+
+    const greyDotScale: any = {
+      name: GREY_DOT_SCALE,
+      type: ORDINAL,
+      domain: { data: "missing_data", field: "missing" },
+      range: [EQUAL_DOT_SIZE],
+    };
+
+    const legend: any = {
       fill: COLOR_SCALE,
       direction: "horizontal",
       orient: "bottom-left",
@@ -163,12 +185,18 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
       };
     }
+    const noDataLegend: any = {
+      fill: UNKNOWN_SCALE,
+      symbolType: "square",
+      size: GREY_DOT_SCALE,
+      orient: "bottom-left",
+    };
     if (!props.hideLegend) {
-      legendList.push(legend);
+      legendList.push(legend, noDataLegend);
     }
 
     /* SET UP COLOR SCALE */
-    let colorScale: any = {
+    const colorScale: any = {
       name: COLOR_SCALE,
       type: props.scaleType,
       domain: { data: LEGEND_DATASET, field: props.metric.metricId },
@@ -297,6 +325,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       description: props.legendTitle,
       data: [
         {
+          name: MISSING_PLACEHOLDER_VALUES,
+          values: [{ missing: "No data" }],
+        },
+        {
           name: VAR_DATASET,
           values: props.data,
         },
@@ -343,7 +375,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
       ],
       projections: [projection],
-      scales: [colorScale],
+      scales: [colorScale, greyDotScale, unknownScale],
       legends: legendList,
       marks: marks,
       signals: [
