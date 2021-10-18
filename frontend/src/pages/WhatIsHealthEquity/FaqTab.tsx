@@ -4,7 +4,7 @@ import styles from "./WhatIsHealthEquityPage.module.scss";
 import { Typography } from "@material-ui/core";
 import { CONTACT_TAB_LINK } from "../../utils/urlutils";
 import { Helmet } from "react-helmet";
-import { CITATION_CHICAGO } from "../DataCatalog/MethodologyTab";
+import { CITATION_APA } from "../DataCatalog/MethodologyTab";
 import parse from "html-react-parser";
 
 export const selectFaqs: any[] = [
@@ -337,11 +337,11 @@ function FaqTab() {
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion} id="citation">
-                  What is the recommended citation for the Health Equity
+                  What is the recommended citation (APA) for the Health Equity
                   Tracker?
                 </h3>
                 <div className={styles.FaqAnswer}>
-                  <p>{CITATION_CHICAGO}</p>
+                  <p>{CITATION_APA}</p>
                 </div>
               </Grid>
             </Grid>
