@@ -38,6 +38,22 @@ export interface I_globalScss {
   altDark: string;
   altGrey: string;
 
+  mapLightest: string;
+  mapLighter: string;
+  mapLight: string;
+  mapMid: string;
+  mapDark: string;
+  mapDarker: string;
+  mapDarkest: string;
+
+  unknownMapLeast: string;
+  unknownMapLesser: string;
+  unknownMapLess: string;
+  unknownMapMid: string;
+  unknownMapMore: string;
+  unknownMapEven: string;
+  unknownMapMost: string;
+
   footerSize: string;
   maxWidth: string;
 
