@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import Typography from "@material-ui/core/Typography";
-import { Grid } from "@material-ui/core";
+import { Box, Grid, useMediaQuery, useTheme } from "@material-ui/core";
 import { ChoroplethMap } from "../../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../../data/utils/Fips";
 import { Legend } from "../../charts/Legend";
@@ -51,6 +51,10 @@ export interface MultiMapDialogProps {
     value in a given breakdown for a particular metric.
 */
 export function MultiMapDialog(props: MultiMapDialogProps) {
+  // calculate page size to determine if mobile or not
+  const theme = useTheme();
+  const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
+
   return (
     <Dialog
       open={props.open}
@@ -60,29 +64,41 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       aria-label="Dialog showing choropleth maps of each breakdown category with the same scale."
     >
       <DialogContent dividers={true}>
-        <Typography className={styles.Title}>
-          {props.metricConfig.fullCardTitleName} Across All{" "}
-          {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups
-        </Typography>
-        <Grid container justify="space-around">
+        <Grid container justify="center">
           <Grid
-            xs={12}
-            sm={6}
-            md={4}
             item
-            className={styles.SmallMultipleLegendMap}
+            xs={12}
+            md={6}
+            container
+            justify={pageIsWide ? "flex-start" : "center"}
           >
-            <b>Legend</b>
-            <div className={styles.LegendDiv}>
-              <Legend
-                metric={props.metricConfig}
-                legendTitle={props.metricConfig.fullCardTitleName}
-                legendData={props.data}
-                scaleType="quantile"
-                sameDotSize={true}
-              />
-            </div>
+            <Typography className={styles.Title}>
+              {props.metricConfig.fullCardTitleName} Across All{" "}
+              {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups
+            </Typography>
           </Grid>
+          <Grid item xs={12} md={6}>
+            <Box mx={pageIsWide ? 2 : 0} my={pageIsWide ? 10 : 2}>
+              <Grid container item>
+                <Grid container justify={pageIsWide ? "center" : "flex-start"}>
+                  <b>Legend</b>
+                </Grid>
+                <Grid container justify="center">
+                  <Legend
+                    metric={props.metricConfig}
+                    legendTitle={props.metricConfig.fullCardTitleName}
+                    legendData={props.data}
+                    scaleType="quantile"
+                    sameDotSize={true}
+                    direction={pageIsWide ? "horizontal" : "vertical"}
+                  />
+                </Grid>
+              </Grid>
+            </Box>
+          </Grid>
+        </Grid>
+
+        <Grid container justify="center">
           {props.breakdownValues.map((breakdownValue) => {
             const dataForValue = props.data.filter(
               (row: Row) => row[props.breakdown] === breakdownValue

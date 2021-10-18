@@ -28,6 +28,8 @@ export interface LegendProps {
   // Whether the dots all be the same size or increase in size.
   // Size does not correlate to the range size.
   sameDotSize?: boolean;
+  // Whether legend entries stack vertical or horizontal (allows responsive design)
+  direction: string;
 }
 
 export function Legend(props: LegendProps) {
@@ -39,7 +41,6 @@ export function Legend(props: LegendProps) {
   const [spec, setSpec] = useState({});
 
   useEffect(() => {
-    console.log(props, "props");
     let colorScale: any = {
       name: COLOR_SCALE,
       type: props.scaleType,
@@ -91,11 +92,14 @@ export function Legend(props: LegendProps) {
               symbolType: "circle",
               size: DOT_SIZE_SCALE,
               format: "d",
+              direction: props.direction,
+              orient: "left",
             },
             {
               fill: "unknown_scale",
               symbolType: "circle",
               size: "GREY_DOT_SCALE",
+              orient: "right",
             },
           ],
         },
