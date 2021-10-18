@@ -42,7 +42,7 @@ function getSpec(
   const BAR_PADDING = 0.1;
   const DARK_MEASURE_COLOR = sass.barChartDark;
   const LIGHT_MEASURE_COLOR = sass.barChartLight;
-  const ALT_LIGHT_MEASURE_COLOR = sass.unknownMapMid; //"#60BCCB"; // "#CBEA9D"; //"#89d5cc";
+  const ALT_LIGHT_MEASURE_COLOR = sass.unknownMapMid;
   const ALT_LIGHT_MEASURE_OPACITY = 0.8;
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
