@@ -99,7 +99,7 @@ export function Legend(props: LegendProps) {
               fill: "unknown_scale",
               symbolType: "circle",
               size: "GREY_DOT_SCALE",
-              orient: "right",
+              orient: props.direction === "vertical" ? "left" : "right",
             },
           ],
         },
