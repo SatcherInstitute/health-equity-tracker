@@ -27,6 +27,7 @@ const GEO_ID = "id";
 const COLOR_SCALE = "COLOR_SCALE";
 const US_PROJECTION = "US_PROJECTION";
 const CIRCLE_PROJECTION = "CIRCLE_PROJECTION";
+const NO_DATA_MESSAGE = "No data";
 
 const VAR_DATASET = "VAR_DATASET";
 const LEGEND_DATASET = "LEGEND_DATASET";
@@ -132,7 +133,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     /* SET UP TOOLTIP */
     const noDataText = props.useSmallSampleMessage
       ? "Sample size too small"
-      : "No data";
+      : NO_DATA_MESSAGE;
     const geographyName = props.showCounties ? "County" : "State";
     const tooltipDatum = `format(datum.${props.metric.metricId}, ',')`;
     // TODO: would be nice to use addMetricDisplayColumn for the tooltips here
@@ -164,14 +165,15 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const legend: any = {
       fill: COLOR_SCALE,
       direction: "horizontal",
-      orient: "bottom-left",
       title: props.legendTitle,
       titleLimit: 0,
       font: "monospace",
       labelFont: "monospace",
       labelOverlap: "greedy",
       labelSeparation: 10,
-      offset: 10,
+      orient: "top",
+      offset: 15,
+
       format: "d",
     };
     if (props.metric.type === "pct_share") {
@@ -188,8 +190,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const noDataLegend: any = {
       fill: UNKNOWN_SCALE,
       symbolType: "square",
+      font: "monospace",
+      labelFont: "monospace",
+      labelOverlap: "greedy",
+      labelSeparation: 10,
+      orient: "top",
+      offset: 15,
       size: GREY_DOT_SCALE,
-      orient: "bottom-left",
     };
     if (!props.hideLegend) {
       legendList.push(legend, noDataLegend);
@@ -326,7 +333,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       data: [
         {
           name: MISSING_PLACEHOLDER_VALUES,
-          values: [{ missing: "No data" }],
+          values: [{ missing: NO_DATA_MESSAGE }],
         },
         {
           name: VAR_DATASET,
