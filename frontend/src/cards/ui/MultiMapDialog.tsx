@@ -51,9 +51,9 @@ export interface MultiMapDialogProps {
     value in a given breakdown for a particular metric.
 */
 export function MultiMapDialog(props: MultiMapDialogProps) {
-  // calculate page size to determine if mobile or not
+  // calculate page size for responsive layout
   const theme = useTheme();
-  const pageIsWide = useMediaQuery(theme.breakpoints.up("md"));
+  const pageIsWide = useMediaQuery(theme.breakpoints.up("xl"));
 
   return (
     <Dialog
@@ -64,15 +64,10 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       aria-label="Dialog showing choropleth maps of each breakdown category with the same scale."
     >
       <DialogContent dividers={true}>
-        {/* <Grid container justify="center" alignItems="center"> */}
-
-        {/* </Grid> */}
-
         <Grid container justify="center">
           <Grid
             item
             xs={12}
-            // lg={8}
             xl={6}
             container
             justify={pageIsWide ? "flex-start" : "center"}
@@ -85,7 +80,8 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
           <Grid
             item
             xs={6}
-            md={12}
+            md={4}
+            lg={3}
             xl={6}
             className={styles.SmallMultipleLegendMap}
           >
@@ -116,7 +112,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 sm={6}
                 md={4}
                 lg={3}
-                // xl={2}
                 item
                 key={`${breakdownValue}-grid-item`}
                 className={styles.SmallMultipleMap}

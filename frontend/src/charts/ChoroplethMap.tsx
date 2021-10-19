@@ -9,6 +9,7 @@ import { ORDINAL } from "vega-lite/build/src/type";
 import {
   EQUAL_DOT_SIZE,
   GREY_DOT_SCALE,
+  LEGEND_SYMBOL_TYPE,
   MISSING_PLACEHOLDER_VALUES,
   UNKNOWN_SCALE,
 } from "./Legend";
@@ -196,10 +197,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     const noDataLegend: any = {
       fill: UNKNOWN_SCALE,
-      symbolType: "circle",
+      symbolType: LEGEND_SYMBOL_TYPE,
       labelOverlap: "greedy",
       labelSeparation: 10,
       orient: "none",
+      font: "monospace",
+      labelFont: "monospace",
       legendY: Y_NO_DATA_LEGEND,
       legendX: X_NO_DATA_LEGEND,
       size: GREY_DOT_SCALE,
@@ -402,6 +405,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     // Render the Vega map asynchronously, allowing the UI to respond to user
     // interaction before Vega maps render.
+    // TODO! I'm not sure this is really working... the UI is definitely not responsive while state covid data is loading
     setTimeout(() => {
       setShouldRenderMap(true);
     }, 0);

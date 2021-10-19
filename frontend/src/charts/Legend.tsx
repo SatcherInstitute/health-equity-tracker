@@ -14,6 +14,7 @@ export const GREY_DOT_SCALE = "grey_dot_scale";
 const RAW_VALUES = "raw_values";
 const DATASET_VALUES = "dataset_values";
 export const MISSING_PLACEHOLDER_VALUES = "missing_data";
+export const LEGEND_SYMBOL_TYPE = "square";
 
 export const EQUAL_DOT_SIZE = 200;
 const LEGEND_COLOR_COUNT = 7;
@@ -95,16 +96,20 @@ export function Legend(props: LegendProps) {
             {
               fill: COLOR_SCALE,
               labelOverlap: "greedy",
-              symbolType: "circle",
+              symbolType: LEGEND_SYMBOL_TYPE,
               size: DOT_SIZE_SCALE,
               format: "d",
+              font: "monospace",
+              labelFont: "monospace",
               direction: props.direction,
               orient: "left",
             },
             {
               fill: UNKNOWN_SCALE,
-              symbolType: "circle",
+              symbolType: LEGEND_SYMBOL_TYPE,
               size: GREY_DOT_SCALE,
+              font: "monospace",
+              labelFont: "monospace",
               orient: props.direction === "vertical" ? "left" : "right",
             },
           ],
