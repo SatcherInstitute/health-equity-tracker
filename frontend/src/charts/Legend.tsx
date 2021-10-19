@@ -15,7 +15,7 @@ const RAW_VALUES = "raw_values";
 const DATASET_VALUES = "dataset_values";
 export const MISSING_PLACEHOLDER_VALUES = "missing_data";
 export const LEGEND_SYMBOL_TYPE = "square";
-export const LEGEND_TEXT_FONT = "monospace";
+export const LEGEND_TEXT_FONT = "inter";
 
 export const EQUAL_DOT_SIZE = 200;
 const LEGEND_COLOR_COUNT = 7;
