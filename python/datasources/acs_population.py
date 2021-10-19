@@ -105,33 +105,6 @@ def get_decade_age_bucket(age_range):
         return 'Unknown'
 
 
-def get_staggered_decade_age_buckets(age_range):
-    if age_range in {'0-4', '5-9'}:
-        return '0-9'
-    elif age_range in {'10-14', '15-17'}:
-        return '10-17'
-    elif age_range in {'18-19', '20-20', '21-21', '22-24'}:
-        return '18-24'
-    elif age_range in {'25-29', '30-34'}:
-        return '25-34'
-    elif age_range in {'35-44', '35-39', '40-44'}:
-        return '35-44'
-    elif age_range in {'45-54', '45-49', '50-54'}:
-        return '45-54'
-    elif age_range in {'55-64', '55-59', '60-61', '62-64'}:
-        return '55-64'
-    elif age_range in {'65-74', '65-66', '67-69', '70-74'}:
-        return '65-74'
-    elif age_range in {'75-84', '75-79', '80-84'}:
-        return '75-84'
-    elif age_range in {'85+'}:
-        return '85+'
-    elif age_range == 'Total':
-        return 'Total'
-    else:
-        return 'Unknown'
-
-
 def get_uhc_age_buckets(age_range):
     if age_range in {'18-19', '20-24', '20-20', '21-21', '22-24', '25-29', '30-34', '35-44', '35-39', '40-44'}:
         return '18-44'
@@ -273,7 +246,9 @@ class ACSPopulationIngester():
             # All breakdown columns are strings
             column_types = {c: 'STRING' for c in df.columns}
             column_types[POPULATION_COL] = 'INT64'
-            column_types[RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+            if RACE_INCLUDES_HISPANIC_COL in df.columns:
+                column_types[RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+
             gcs_to_bq_util.add_dataframe_to_bq(
                 df, dataset, table_name, column_types=column_types)
 
