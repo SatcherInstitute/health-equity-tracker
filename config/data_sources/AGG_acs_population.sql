@@ -60,34 +60,34 @@ CREATE TEMP FUNCTION getUhcAgeBuckets(x ANY TYPE) AS (
 /* GROUP BY state_fips, county_fips, county_name, sex, age */
 /* ORDER BY state_fips, county_fips, county_name, sex, age; */
 
-CREATE TEMP TABLE by_sex_age_state_big AS
-SELECT state_fips, state_name, sex, getUhcAgeBuckets(age) AS age, SUM(population) AS population
-FROM `acs_population.by_sex_age_race_state_std`
-WHERE race_category_id = "TOTAL"
-  AND getUhcAgeBuckets(age) IS NOT NULL
-GROUP BY state_fips, state_name, sex, age
-ORDER BY state_fips, state_name, sex, age;
+/* CREATE TEMP TABLE by_sex_age_state_big AS */
+/* SELECT state_fips, state_name, sex, getUhcAgeBuckets(age) AS age, SUM(population) AS population */
+/* FROM `acs_population.by_sex_age_race_state_std` */
+/* WHERE race_category_id = "TOTAL" */
+/*   AND getUhcAgeBuckets(age) IS NOT NULL */
+/* GROUP BY state_fips, state_name, sex, age */
+/* ORDER BY state_fips, state_name, sex, age; */
 
--- We can base further aggregations on the above tables. No need to filter to
--- race_category_id = "TOTAL" since the above tables have already done that.
+/* -- We can base further aggregations on the above tables. No need to filter to */
+/* -- race_category_id = "TOTAL" since the above tables have already done that. */
+/* /1* CREATE OR REPLACE TABLE acs_population.by_age_state AS *1/ */
+/* /1* SELECT * EXCEPT(sex) *1/ */
+/* /1* FROM `acs_population.by_sex_age_state` *1/ */
+/* /1* WHERE sex = "Total"; *1/ */
+
+/* /1* CREATE OR REPLACE TABLE acs_population.by_age_county AS *1/ */
+/* /1* SELECT * EXCEPT(sex) *1/ */
+/* /1* FROM `acs_population.by_sex_age_county` *1/ */
+/* /1* WHERE sex = "Total"; *1/ */
+
+/* CREATE TEMP TABLE by_age_state_big AS */
+/* SELECT * EXCEPT(sex) */
+/* FROM by_sex_age_state_big */
+/* WHERE sex = "Total"; */
+
 /* CREATE OR REPLACE TABLE acs_population.by_age_state AS */
-/* SELECT * EXCEPT(sex) */
-/* FROM `acs_population.by_sex_age_state` */
-/* WHERE sex = "Total"; */
-
-/* CREATE OR REPLACE TABLE acs_population.by_age_county AS */
-/* SELECT * EXCEPT(sex) */
-/* FROM `acs_population.by_sex_age_county` */
-/* WHERE sex = "Total"; */
-
-CREATE TEMP TABLE by_age_state_big AS
-SELECT * EXCEPT(sex)
-FROM by_sex_age_state_big
-WHERE sex = "Total";
-
-CREATE OR REPLACE TABLE acs_population.by_age_state AS
-SELECT * FROM by_age_state_big UNION DISTINCT
-SELECT * FROM acs_population.by_age_state;
+/* SELECT * FROM by_age_state_big UNION DISTINCT */
+/* SELECT * FROM acs_population.by_age_state; */
 
 -- These tables use staggered decade age buckets due to limitations with ACS
 -- age bucket availability.
@@ -120,14 +120,14 @@ SELECT * EXCEPT(sex)
 FROM `acs_population.by_sex_age_race_county_staggered_buckets`
 WHERE sex = "Total";
 
-CREATE OR REPLACE TABLE acs_population.by_sex_state AS
-SELECT * EXCEPT(race_category_id, race, race_and_ethnicity, race_includes_hispanic, age)
-FROM `acs_population.by_sex_age_race_state_std`
-WHERE race_category_id = "TOTAL"
-  AND age = "Total";
+/* CREATE OR REPLACE TABLE acs_population.by_sex_state AS */
+/* SELECT * EXCEPT(race_category_id, race, race_and_ethnicity, race_includes_hispanic, age) */
+/* FROM `acs_population.by_sex_age_race_state_std` */
+/* WHERE race_category_id = "TOTAL" */
+/*   AND age = "Total"; */
 
-CREATE OR REPLACE TABLE acs_population.by_sex_county AS
-SELECT * EXCEPT(race_category_id, race, race_and_ethnicity, race_includes_hispanic, age)
-FROM `acs_population.by_sex_age_race_county_std`
-WHERE race_category_id = "TOTAL"
-  AND age = "Total";
+/* CREATE OR REPLACE TABLE acs_population.by_sex_county AS */
+/* SELECT * EXCEPT(race_category_id, race, race_and_ethnicity, race_includes_hispanic, age) */
+/* FROM `acs_population.by_sex_age_race_county_std` */
+/* WHERE race_category_id = "TOTAL" */
+/*   AND age = "Total"; */

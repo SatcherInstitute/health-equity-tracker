@@ -261,24 +261,13 @@ class ACSPopulationIngester():
         by_sex_age_uhc = None
         if not self.county_level:
             by_sex_age_uhc = self.get_by_sex_age_uhc(frames[self.get_table_name_by_sex_age_race()])
-            print(by_sex_age_uhc)
 
         frames['by_age_%s' % self.get_geo_name()] = self.get_by_age(
-                frames['by_sex_age_%s' % self.get_geo_name()],
-                by_sex_age_uhc,
-        )
+            frames['by_sex_age_%s' % self.get_geo_name()],
+            by_sex_age_uhc)
 
-        # by_age = by_sex_age.loc[by_sex_age['sex'] == 'Total'][[
-        #     '%s_fips' % self.get_geo_name(),
-        #     '%s_name' % self.get_geo_name(),
-        #     'age'
-        # ]]
-        # frames['by_age_%s', self.get_geo_name()] = by_age
-
-        # frames['by_sex_age%s' % self.get_table_geo_suffix()] = frames[self.get_table_name_by_sex_age_race()].loc[
-        #             frames[self.get_table_name_by_sex_age_race()]['race_category_id'] == 'TOTAL'][
-        #                     'state_fips',
-        #                     'state_name',
+        frames['by_sex_%s' % self.get_geo_name()] = self.get_by_sex(
+                frames[self.get_table_name_by_sex_age_race()])
 
         for table_name, df in frames.items():
             # All breakdown columns are strings
@@ -493,9 +482,30 @@ class ACSPopulationIngester():
         by_age = by_age.sort_values(by=[
             '%s_fips' % self.get_geo_name(),
             '%s_name' % self.get_geo_name(),
+            'age',
         ]).reset_index(drop=True)
 
         return by_age
+
+    def get_by_sex(self, by_sex_age_race_frame):
+        by_sex = by_sex_age_race_frame.loc[
+                (by_sex_age_race_frame['race_category_id'] == 'TOTAL') &
+                (by_sex_age_race_frame['age'] == 'Total')]
+
+        by_sex = by_sex[[
+            '%s_fips' % self.get_geo_name(),
+            '%s_name' % self.get_geo_name(),
+            'sex',
+            'population'
+        ]].reset_index(drop=True)
+
+        by_sex = by_sex.sort_values(by=[
+            '%s_fips' % self.get_geo_name(),
+            '%s_name' % self.get_geo_name(),
+            'sex',
+        ]).reset_index(drop=True)
+
+        return by_sex
 
 
 class ACSPopulation(DataSource):
