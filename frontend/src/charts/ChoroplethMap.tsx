@@ -188,6 +188,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
       };
     }
+
     const noDataLegend: any = {
       fill: UNKNOWN_SCALE,
       symbolType: "circle",
