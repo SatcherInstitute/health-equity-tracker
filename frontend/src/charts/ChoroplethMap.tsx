@@ -89,6 +89,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
   const LEGEND_WIDTH = props.hideLegend ? 0 : 100;
 
+  const Y_NO_DATA_LEGEND = -43;
+  const X_NO_DATA_LEGEND = 240;
   // Dataset to use for computing the legend
   const legendData = props.legendData || props.data;
 
@@ -171,9 +173,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       labelFont: "monospace",
       labelOverlap: "greedy",
       labelSeparation: 10,
-      orient: "top",
+      orient: "bottom-left",
       offset: 15,
-
       format: "d",
     };
     if (props.metric.type === "pct_share") {
@@ -189,13 +190,14 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     }
     const noDataLegend: any = {
       fill: UNKNOWN_SCALE,
-      symbolType: "square",
+      symbolType: "circle",
       font: "monospace",
       labelFont: "monospace",
       labelOverlap: "greedy",
       labelSeparation: 10,
-      orient: "top",
-      offset: 15,
+      orient: "none",
+      legendY: Y_NO_DATA_LEGEND,
+      legendX: X_NO_DATA_LEGEND,
       size: GREY_DOT_SCALE,
     };
     if (!props.hideLegend) {
@@ -417,6 +419,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     LEGEND_WIDTH,
     legendData,
     props.isUnknownsMap,
+    Y_NO_DATA_LEGEND,
   ]);
 
   return (
