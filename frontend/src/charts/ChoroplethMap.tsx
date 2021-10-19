@@ -9,9 +9,11 @@ import { ORDINAL } from "vega-lite/build/src/type";
 import {
   EQUAL_DOT_SIZE,
   GREY_DOT_SCALE,
+  LEGEND_COLOR_COUNT,
   LEGEND_SYMBOL_TYPE,
   LEGEND_TEXT_FONT,
   MISSING_PLACEHOLDER_VALUES,
+  NO_DATA_MESSAGE,
   UNKNOWN_SCALE,
 } from "./Legend";
 import { useMediaQuery } from "@material-ui/core";
@@ -30,7 +32,6 @@ const GEO_ID = "id";
 const COLOR_SCALE = "COLOR_SCALE";
 const US_PROJECTION = "US_PROJECTION";
 const CIRCLE_PROJECTION = "CIRCLE_PROJECTION";
-const NO_DATA_MESSAGE = "No data";
 
 const VAR_DATASET = "VAR_DATASET";
 const LEGEND_DATASET = "LEGEND_DATASET";
@@ -227,7 +228,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       name: COLOR_SCALE,
       type: props.scaleType,
       domain: { data: LEGEND_DATASET, field: props.metric.metricId },
-      range: { scheme: props.scaleColorScheme || "yellowgreen", count: 7 },
+      range: {
+        scheme: props.scaleColorScheme || "yellowgreen",
+        count: LEGEND_COLOR_COUNT,
+      },
     };
     if (props.fieldRange) {
       colorScale["domainMax"] = props.fieldRange.max;
