@@ -25,13 +25,13 @@ export interface LegendProps {
   // Quantile or quantize scale.
   scaleType: ScaleType;
   // Whether the dots all be the same size or increase in size.
-  // Size does not corrolate to the range size.
+  // Size does not correlate to the range size.
   sameDotSize?: boolean;
 }
 
 export function Legend(props: LegendProps) {
   const [ref, width] = useResponsiveWidth(
-    100 /* default width during intialization */
+    100 /* default width during initialization */
   );
 
   // Initial spec state is set in useEffect

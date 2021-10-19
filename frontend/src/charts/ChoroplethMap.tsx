@@ -127,13 +127,18 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ? "Sample size too small"
       : "No data";
     const geographyName = props.showCounties ? "County" : "State";
-    const tooltipDatum = `format(datum.${props.metric.metricId}, ',')`;
+    const tooltipDatum =
+      props.metric.type === "per100k"
+        ? `format(datum.${props.metric.metricId}/1000, '0.3r') + 'k'`
+        : `format(datum.${props.metric.metricId}, ',')`;
+
     // TODO: would be nice to use addMetricDisplayColumn for the tooltips here
     // so that data formatting is consistent.
     const tooltipLabel =
       props.isUnknownsMap && props.metric.unknownsVegaLabel
         ? props.metric.unknownsVegaLabel
         : props.metric.shortVegaLabel;
+
     const tooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum} }`;
     const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": "${noDataText}" }`;
 
@@ -152,12 +157,23 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       offset: 10,
       format: "d",
     };
+
     if (props.metric.type === "pct_share") {
       legend["encode"] = {
         labels: {
           update: {
             text: {
               signal: `format(datum.label, '0.1r') + '%'`,
+            },
+          },
+        },
+      };
+    } else if (props.metric.type === "per100k") {
+      legend["encode"] = {
+        labels: {
+          update: {
+            text: {
+              signal: `format(datum.label/1000, '0.2r') + 'k'`,
             },
           },
         },
