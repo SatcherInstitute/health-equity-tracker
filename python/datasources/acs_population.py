@@ -477,7 +477,7 @@ class ACSPopulationIngester():
                 'population'
             ]].reset_index(drop=True)
 
-            by_age = by_age.append(by_age_uhc).drop_duplicates().reset_index(drop=True)
+            by_age = pd.concat([by_age, by_age_uhc]).drop_duplicates().reset_index(drop=True)
 
         by_age = by_age.sort_values(by=[
             '%s_fips' % self.get_geo_name(),
