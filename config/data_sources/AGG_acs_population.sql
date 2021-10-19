@@ -46,19 +46,19 @@ CREATE TEMP FUNCTION getUhcAgeBuckets(x ANY TYPE) AS (
 
 -- Ignore ingestion timestamp. These queries assume that the dataset has already
 -- been deduped and only include the latest rows.
-CREATE OR REPLACE TABLE acs_population.by_sex_age_state AS
-SELECT state_fips, state_name, sex, getDecadeAgeBucket(age) AS age, SUM(population) AS population
-FROM `acs_population.by_sex_age_race_state_std`
-WHERE race_category_id = "TOTAL"
-GROUP BY state_fips, state_name, sex, age
-ORDER BY state_fips, state_name, sex, age;
+/* CREATE OR REPLACE TABLE acs_population.by_sex_age_state AS */
+/* SELECT state_fips, state_name, sex, getDecadeAgeBucket(age) AS age, SUM(population) AS population */
+/* FROM `acs_population.by_sex_age_race_state_std` */
+/* WHERE race_category_id = "TOTAL" */
+/* GROUP BY state_fips, state_name, sex, age */
+/* ORDER BY state_fips, state_name, sex, age; */
 
-CREATE OR REPLACE TABLE acs_population.by_sex_age_county AS
-SELECT state_fips, county_fips, county_name, sex, getDecadeAgeBucket(age) AS age, SUM(population) AS population
-FROM `acs_population.by_sex_age_race_county_std`
-WHERE race_category_id = "TOTAL"
-GROUP BY state_fips, county_fips, county_name, sex, age
-ORDER BY state_fips, county_fips, county_name, sex, age;
+/* CREATE OR REPLACE TABLE acs_population.by_sex_age_county AS */
+/* SELECT state_fips, county_fips, county_name, sex, getDecadeAgeBucket(age) AS age, SUM(population) AS population */
+/* FROM `acs_population.by_sex_age_race_county_std` */
+/* WHERE race_category_id = "TOTAL" */
+/* GROUP BY state_fips, county_fips, county_name, sex, age */
+/* ORDER BY state_fips, county_fips, county_name, sex, age; */
 
 CREATE TEMP TABLE by_sex_age_state_big AS
 SELECT state_fips, state_name, sex, getUhcAgeBuckets(age) AS age, SUM(population) AS population
@@ -70,15 +70,15 @@ ORDER BY state_fips, state_name, sex, age;
 
 -- We can base further aggregations on the above tables. No need to filter to
 -- race_category_id = "TOTAL" since the above tables have already done that.
-CREATE OR REPLACE TABLE acs_population.by_age_state AS
-SELECT * EXCEPT(sex)
-FROM `acs_population.by_sex_age_state`
-WHERE sex = "Total";
+/* CREATE OR REPLACE TABLE acs_population.by_age_state AS */
+/* SELECT * EXCEPT(sex) */
+/* FROM `acs_population.by_sex_age_state` */
+/* WHERE sex = "Total"; */
 
-CREATE OR REPLACE TABLE acs_population.by_age_county AS
-SELECT * EXCEPT(sex)
-FROM `acs_population.by_sex_age_county`
-WHERE sex = "Total";
+/* CREATE OR REPLACE TABLE acs_population.by_age_county AS */
+/* SELECT * EXCEPT(sex) */
+/* FROM `acs_population.by_sex_age_county` */
+/* WHERE sex = "Total"; */
 
 CREATE TEMP TABLE by_age_state_big AS
 SELECT * EXCEPT(sex)
