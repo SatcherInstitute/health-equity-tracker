@@ -12,6 +12,7 @@ import {
   MISSING_PLACEHOLDER_VALUES,
   UNKNOWN_SCALE,
 } from "./Legend";
+import { useMediaQuery } from "@material-ui/core";
 
 export type ScaleType = "quantize" | "quantile" | "symlog";
 
@@ -84,13 +85,17 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     100 /* default width during initialization */
   );
 
+  // calculate page size to determine if tiny mobile or not
+  const pageIsTiny = useMediaQuery("(max-width:400px)");
+
+  const Y_NO_DATA_LEGEND = pageIsTiny ? -15 : -43;
+  const X_NO_DATA_LEGEND = pageIsTiny ? 15 : 230;
+
   // Initial spec state is set in useEffect
   const [spec, setSpec] = useState({});
 
   const LEGEND_WIDTH = props.hideLegend ? 0 : 100;
 
-  const Y_NO_DATA_LEGEND = -43;
-  const X_NO_DATA_LEGEND = 240;
   // Dataset to use for computing the legend
   const legendData = props.legendData || props.data;
 
@@ -192,8 +197,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const noDataLegend: any = {
       fill: UNKNOWN_SCALE,
       symbolType: "circle",
-      font: "monospace",
-      labelFont: "monospace",
       labelOverlap: "greedy",
       labelSeparation: 10,
       orient: "none",
@@ -421,6 +424,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     legendData,
     props.isUnknownsMap,
     Y_NO_DATA_LEGEND,
+    X_NO_DATA_LEGEND,
   ]);
 
   return (
