@@ -14,7 +14,6 @@ from ingestion.census import (get_census_params, parse_acs_metadata,
                               get_vars_for_group, standardize_frame)
 from ingestion.dataset_utils import add_sum_of_rows
 
-
 # TODO pass this in from message data.
 BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
 
@@ -105,7 +104,7 @@ def get_decade_age_bucket(age_range):
         return 'Unknown'
 
 
-def get_uhc_age_buckets(age_range):
+def get_uhc_age_bucket(age_range):
     if age_range in {'18-19', '20-24', '20-20', '21-21', '22-24', '25-29', '30-34', '35-44', '35-39', '40-44'}:
         return '18-44'
     elif age_range in {'45-54', '45-49', '50-54', '55-64', '55-59', '60-61', '62-64'}:
@@ -229,11 +228,11 @@ class ACSPopulationIngester():
         }
 
         frames['by_sex_age_%s' % self.get_geo_name()] = self.get_by_sex_age(
-                frames[self.get_table_name_by_sex_age_race()])
+                frames[self.get_table_name_by_sex_age_race()], get_decade_age_bucket)
 
         by_sex_age_uhc = None
         if not self.county_level:
-            by_sex_age_uhc = self.get_by_sex_age_uhc(frames[self.get_table_name_by_sex_age_race()])
+            by_sex_age_uhc = self.get_by_sex_age(frames[self.get_table_name_by_sex_age_race()], get_uhc_age_bucket)
 
         frames['by_age_%s' % self.get_geo_name()] = self.get_by_age(
             frames['by_sex_age_%s' % self.get_geo_name()],
@@ -257,6 +256,12 @@ class ACSPopulationIngester():
 
     def get_geo_name(self):
         return 'county' if self.county_level else 'state'
+
+    def get_fips_col(self):
+        return COUNTY_FIPS_COL if self.county_level else STATE_FIPS_COL
+
+    def get_geo_name_col(self):
+        return COUNTY_NAME_COL if self.county_level else STATE_NAME_COL
 
     def get_table_name_by_race(self):
         return "by_race" + self.get_table_geo_suffix() + "_std"
@@ -396,90 +401,64 @@ class ACSPopulationIngester():
         add_race_columns_from_category_id(result)
         return self.sort_sex_age_race_frame(result)
 
-    def get_by_sex_age(self, by_sex_age_race_frame):
-        by_sex_age = by_sex_age_race_frame.loc[by_sex_age_race_frame['race_category_id'] == 'TOTAL']
-        by_sex_age = by_sex_age[[
-            '%s_fips' % self.get_geo_name(),
-            '%s_name' % self.get_geo_name(),
-            'sex',
-            'age',
-            'population'
-        ]]
-        by_sex_age['age'] = by_sex_age['age'].apply(get_decade_age_bucket)
-        by_sex_age = by_sex_age.groupby([
-            '%s_fips' % self.get_geo_name(),
-            '%s_name' % self.get_geo_name(),
-            'sex',
-            'age',
-        ])['population'].sum().reset_index()
+    def get_by_sex_age(self, by_sex_age_race_frame, age_aggregator_func):
+        by_sex_age = by_sex_age_race_frame.loc[by_sex_age_race_frame[RACE_CATEGORY_ID_COL] == Race.TOTAL.value]
 
-        return by_sex_age
+        cols = [
+            STATE_FIPS_COL,
+            self.get_fips_col(),
+            self.get_geo_name_col(),
+            SEX_COL,
+            AGE_COL,
+            POPULATION_COL,
+        ]
 
-    def get_by_sex_age_uhc(self, by_sex_age_race_frame):
-        by_sex_age = by_sex_age_race_frame.loc[by_sex_age_race_frame['race_category_id'] == 'TOTAL']
-        by_sex_age = by_sex_age[[
-            '%s_fips' % self.get_geo_name(),
-            '%s_name' % self.get_geo_name(),
-            'sex',
-            'age',
-            'population'
-        ]]
-        by_sex_age['age'] = by_sex_age['age'].apply(get_uhc_age_buckets)
-        by_sex_age = by_sex_age.groupby([
-            '%s_fips' % self.get_geo_name(),
-            '%s_name' % self.get_geo_name(),
-            'sex',
-            'age',
-        ])['population'].sum().reset_index()
+        by_sex_age = by_sex_age[cols] if self.county_level else by_sex_age[cols[1:]]
+        by_sex_age[AGE_COL] = by_sex_age[AGE_COL].apply(age_aggregator_func)
+
+        groupby_cols = cols[:-1] if self.county_level else cols[1: -1]
+        by_sex_age = by_sex_age.groupby(groupby_cols)[POPULATION_COL].sum().reset_index()
 
         return by_sex_age
 
     def get_by_age(self, by_sex_age, by_sex_age_uhc=None):
-        by_age = by_sex_age.loc[by_sex_age['sex'] == 'Total']
-        by_age = by_age[[
-            '%s_fips' % self.get_geo_name(),
-            '%s_name' % self.get_geo_name(),
-            'age',
-            'population'
-        ]].reset_index(drop=True)
+        by_age = by_sex_age.loc[by_sex_age[SEX_COL] == TOTAL_VALUE]
+
+        cols = [
+            STATE_FIPS_COL,
+            self.get_fips_col(),
+            self.get_geo_name_col(),
+            AGE_COL,
+            POPULATION_COL,
+        ]
+
+        by_age = by_age[cols] if self.county_level else by_age[cols[1:]]
 
         if not self.county_level:
-            by_age_uhc = by_sex_age_uhc.loc[by_sex_age_uhc['sex'] == 'Total']
-            by_age_uhc = by_age_uhc[[
-                '%s_fips' % self.get_geo_name(),
-                '%s_name' % self.get_geo_name(),
-                'age',
-                'population'
-            ]].reset_index(drop=True)
+            by_age_uhc = by_sex_age_uhc.loc[by_sex_age_uhc[SEX_COL] == TOTAL_VALUE]
+            by_age_uhc = by_age_uhc[cols[1:]]
 
             by_age = pd.concat([by_age, by_age_uhc]).drop_duplicates().reset_index(drop=True)
 
-        by_age = by_age.sort_values(by=[
-            '%s_fips' % self.get_geo_name(),
-            '%s_name' % self.get_geo_name(),
-            'age',
-        ]).reset_index(drop=True)
-
+        by_age = by_age.sort_values(by=cols[1:-1]).reset_index(drop=True)
         return by_age
 
     def get_by_sex(self, by_sex_age_race_frame):
         by_sex = by_sex_age_race_frame.loc[
-                (by_sex_age_race_frame['race_category_id'] == 'TOTAL') &
-                (by_sex_age_race_frame['age'] == 'Total')]
+                (by_sex_age_race_frame[RACE_CATEGORY_ID_COL] == Race.TOTAL.value) &
+                (by_sex_age_race_frame[AGE_COL] == TOTAL_VALUE)]
 
-        by_sex = by_sex[[
-            '%s_fips' % self.get_geo_name(),
-            '%s_name' % self.get_geo_name(),
-            'sex',
-            'population'
-        ]].reset_index(drop=True)
+        cols = [
+            STATE_FIPS_COL,
+            self.get_fips_col(),
+            self.get_geo_name_col(),
+            SEX_COL,
+            POPULATION_COL,
+        ]
 
-        by_sex = by_sex.sort_values(by=[
-            '%s_fips' % self.get_geo_name(),
-            '%s_name' % self.get_geo_name(),
-            'sex',
-        ]).reset_index(drop=True)
+        by_sex = by_sex[cols] if self.county_level else by_sex[cols[1:]]
 
+        by_sex = by_sex.sort_values(by=cols[1:-1]).reset_index(drop=True)
         return by_sex
 
 
