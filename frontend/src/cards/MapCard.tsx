@@ -155,26 +155,26 @@ function MapCardWithKey(props: MapCardProps) {
                 {formatFieldValue(
                   metricConfig.type,
                   options[metricConfig.metricId]
+                )}{" "}
+                {/*} cases per 100k   NOTE: vaccinations term gets hyperlinked to definitions on bottom of page*/}
+                {props.variableConfig.variableId ===
+                METRIC_CONFIG["vaccinations"][0].variableId ? (
+                  <span
+                    role="button"
+                    onClick={() => {
+                      props.jumpToDefinitions && props.jumpToDefinitions();
+                    }}
+                    className={styles.ConditionDefinitionLink}
+                  >
+                    {
+                      METRIC_CONFIG["vaccinations"][0].metrics.per100k
+                        .shortVegaLabel
+                    }
+                  </span>
+                ) : (
+                  metricConfig.shortVegaLabel
                 )}
-              </b>{" "}
-              {/*} cases per 100k   NOTE: vaccinations term gets hyperlinked to definitions on bottom of page*/}
-              {props.variableConfig.variableId ===
-              METRIC_CONFIG["vaccinations"][0].variableId ? (
-                <span
-                  role="button"
-                  onClick={() => {
-                    props.jumpToDefinitions && props.jumpToDefinitions();
-                  }}
-                  className={styles.ConditionDefinitionLink}
-                >
-                  {
-                    METRIC_CONFIG["vaccinations"][0].metrics.per100k
-                      .shortVegaLabel
-                  }
-                </span>
-              ) : (
-                metricConfig.shortVegaLabel
-              )}
+              </b>
               {/*} for  */}
               {activeBreakdownFilter !== "All" && " for"}
               {/*} [ ages 30-39] */}

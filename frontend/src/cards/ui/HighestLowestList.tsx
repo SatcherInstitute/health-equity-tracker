@@ -75,8 +75,10 @@ export function HighestLowestList(props: HighestLowestListProps) {
                   <li key={row["fips_name"]}>
                     {row["fips_name"]} -{" "}
                     {formatFieldValue(
-                      props.metricConfig.type,
-                      row[props.metricConfig.metricId]
+                      /* metricType: MetricType, */ props.metricConfig.type,
+                      /* value: any, */ row[props.metricConfig.metricId],
+                      /* omitPctSymbol: boolean = false, */ false,
+                      /* convertToK: boolean = false */ true
                     )}
                   </li>
                 );
@@ -91,8 +93,10 @@ export function HighestLowestList(props: HighestLowestListProps) {
                   <li key={row["fips_name"]}>
                     {row["fips_name"]} -{" "}
                     {formatFieldValue(
-                      props.metricConfig.type,
-                      row[props.metricConfig.metricId]
+                      /* metricType: MetricType, */ props.metricConfig.type,
+                      /* value: any, */ row[props.metricConfig.metricId],
+                      /* omitPctSymbol: boolean = false, */ false,
+                      /* convertToK: boolean = false */ true
                     )}
                   </li>
                 );

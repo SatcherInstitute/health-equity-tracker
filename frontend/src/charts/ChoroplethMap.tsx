@@ -129,7 +129,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const geographyName = props.showCounties ? "County" : "State";
     const tooltipDatum =
       props.metric.type === "per100k"
-        ? `format(datum.${props.metric.metricId}/1000, '0.3r') + 'k'`
+        ? // use K units in tooltip if >1000
+          `if (datum.${props.metric.metricId} < 1000,datum.${props.metric.metricId},format(datum.${props.metric.metricId}/1000, '0.3r') + 'k')`
         : `format(datum.${props.metric.metricId}, ',')`;
 
     // TODO: would be nice to use addMetricDisplayColumn for the tooltips here
@@ -173,7 +174,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         labels: {
           update: {
             text: {
-              signal: `format(datum.label/1000, '0.2r') + 'k'`,
+              // use K units in legend when  value is >1000
+              signal: `if (datum.label < 1000, datum.label,format(datum.label/1000, '0.2r') + 'k')`,
             },
           },
         },
