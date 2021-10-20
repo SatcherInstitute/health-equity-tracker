@@ -91,7 +91,7 @@ function ShareDialog(props: {
               {textCopied ? (
                 <span
                   role="alert"
-                  aria-label="Success. Press Escape Key to close"
+                  aria-label="Link copied to clipboard. Press Escape Key to close"
                 >
                   Link copied!
                 </span>
