@@ -10,6 +10,7 @@ import { Helmet } from "react-helmet";
 import LazyLoad from "react-lazyload";
 import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
 import { METRIC_CONFIG } from "../../data/config/MetricConfig";
+import { DEMOGRAPHIC_BREAKDOWNS } from "../../data/query/Breakdowns";
 
 function AimToGoItem(props: {
   src: string;
@@ -63,10 +64,11 @@ function TheProjectTab() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const numDataSources = Object.keys(DataSourceMetadataMap).length;
   // tally number of conditions (including sub-conditions like COVID)
-  const numConditions = Object.keys(METRIC_CONFIG).reduce(
-    (tally, conditionKey) => (tally += METRIC_CONFIG[conditionKey].length),
-    0
-  );
+  const numVariables =
+    Object.keys(METRIC_CONFIG).reduce(
+      (tally, conditionKey) => (tally += METRIC_CONFIG[conditionKey].length),
+      0
+    ) * DEMOGRAPHIC_BREAKDOWNS.length;
 
   return (
     <>
@@ -198,16 +200,17 @@ function TheProjectTab() {
                     variant="h3"
                     paragraph={true}
                   >
-                    {numConditions} variables
+                    {numVariables} variables
                   </Typography>
                   <Typography
                     className={styles.HeaderSubtextL3}
                     variant="body2"
                     paragraph={true}
                   >
-                    Along with COVID-19 cases, hospitalizations and deaths, the
-                    tracker also covers conditions like COPD, diabetes, SDOH,
-                    and more.
+                    Beyond COVID-19 outcomes and vaccination rates, the tracker
+                    also covers chronic disease conditions like COPD and
+                    diabetes, along with social and political determinants of
+                    health such as uninsurance and poverty.
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
