@@ -71,7 +71,16 @@ function MenuPopover(props: {
       anchorOrigin={ANCHOR_ORIGIN}
       transformOrigin={TRANSFORM_ORIGIN}
     >
-      <Menu open={props.popover.isOpen} className={styles.GroupListMenuBox}>
+      <Menu
+        open={props.popover.isOpen}
+        className={styles.GroupListMenuBox}
+        onClose={() => {
+          props.popover.close();
+          if (props.onClose) {
+            props.onClose();
+          }
+        }}
+      >
         <List aria-label="List of Options" dense={true}>
           {listItems.map((listItem: string) => renderListItem(listItem))}
         </List>
