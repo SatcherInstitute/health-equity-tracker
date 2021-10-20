@@ -73,7 +73,7 @@ function AimToGoItem(props: {
 function TheProjectTab() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const numDataSources = Object.keys(DataSourceMetadataMap).length;
-  // tally number of conditions (including sub-conditions like COVID)
+  // tally number of conditions (including sub-conditions like COVID) x # demographic options
   const numVariables =
     Object.keys(METRIC_CONFIG).reduce(
       (tally, conditionKey) => (tally += METRIC_CONFIG[conditionKey].length),
