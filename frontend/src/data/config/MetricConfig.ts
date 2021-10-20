@@ -149,7 +149,7 @@ export function formatFieldValue(
       ? adjustedValue.toLocaleString("en", formatOptions)
       : adjustedValue;
   const suffixPercent = isPctShare && !omitPctSymbol ? "%" : "";
-  const suffixK = convertToK ? "k" : "";
+  const suffixK = convertToK ? "K" : "";
   return `${formattedValue}${suffixPercent}${suffixK}`;
 }
 

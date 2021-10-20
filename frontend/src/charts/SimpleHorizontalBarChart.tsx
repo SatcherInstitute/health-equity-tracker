@@ -101,7 +101,7 @@ function getSpec(
             y: { scale: "y", field: breakdownVar, band: 0.8 },
             // use K units on each bar if >1000
             text: {
-              signal: `if(datum.${barMetricDisplayColumnName} < 1000 ,datum.${barMetricDisplayColumnName},format(datum.${barMetricDisplayColumnName}/1000, '0.2r') + 'k')`,
+              signal: `if(datum.${barMetricDisplayColumnName} < 1000 ,datum.${barMetricDisplayColumnName},format(datum.${barMetricDisplayColumnName}/1000, '0.2r') + 'K')`,
             },
           },
         },
