@@ -21,6 +21,14 @@ export const CONTACT_TAB_LINK = "/contact";
 export const ABOUT_TAB_LINK = "/about";
 export const OURTEAM_TAB_LINK = "/ourteam";
 
+// TRACKER SETTINGS
+export const COVID_CASES_US_SETTING = "?mls=1.covid-3.00";
+export const COVID_VAX_US_SETTING = "?mls=1.vaccinations-3.00";
+export const COPD_US_SETTING = "?mls=1.copd-3.00";
+export const DIABETES_US_SETTING = "?mls=1.diabetes-3.00";
+export const UNINSURANCE_US_SETTING = "?mls=1.health_insurance-3.00";
+export const POVERTY_US_SETTING = "?mls=1.poverty-3.00";
+
 // SECTION IDS
 export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
   EXPLORE_DATA_PAGE_LINK + "#missingDataInfo";

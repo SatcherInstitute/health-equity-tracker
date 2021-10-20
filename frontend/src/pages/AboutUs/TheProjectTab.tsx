@@ -3,7 +3,17 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
-import { EXPLORE_DATA_PAGE_LINK } from "../../utils/urlutils";
+import {
+  COPD_US_SETTING,
+  COVID_CASES_US_SETTING,
+  COVID_VAX_US_SETTING,
+  DATA_CATALOG_PAGE_LINK,
+  DIABETES_US_SETTING,
+  EXPLORE_DATA_PAGE_LINK,
+  LinkWithStickyParams,
+  POVERTY_US_SETTING,
+  UNINSURANCE_US_SETTING,
+} from "../../utils/urlutils";
 import Hidden from "@material-ui/core/Hidden";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet";
@@ -190,8 +200,12 @@ function TheProjectTab() {
                     paragraph={true}
                   >
                     HET currently aggregates data from{" "}
-                    {`${numDataSources} data sources`} key data sources. We’ll
-                    continue adding to these initial sources.
+                    <LinkWithStickyParams to={DATA_CATALOG_PAGE_LINK}>
+                      {`${numDataSources}`} key data sources
+                    </LinkWithStickyParams>
+                    , including the Center for Disease Control (CDC) and the
+                    American Community Survey (ACS). We’ll continue adding to
+                    these initial sources as data access and quality improves.
                   </Typography>
                 </Grid>
                 <Grid item xs={12} sm={12} md={5}>
@@ -207,10 +221,44 @@ function TheProjectTab() {
                     variant="body2"
                     paragraph={true}
                   >
-                    Beyond COVID-19 outcomes and vaccination rates, the tracker
-                    also covers chronic disease conditions like COPD and
-                    diabetes, along with social and political determinants of
-                    health such as uninsurance and poverty.
+                    Beyond{" "}
+                    <LinkWithStickyParams
+                      to={EXPLORE_DATA_PAGE_LINK + COVID_CASES_US_SETTING}
+                    >
+                      COVID-19 outcomes
+                    </LinkWithStickyParams>{" "}
+                    and{" "}
+                    <LinkWithStickyParams
+                      to={EXPLORE_DATA_PAGE_LINK + COVID_VAX_US_SETTING}
+                    >
+                      vaccination rates
+                    </LinkWithStickyParams>
+                    , the tracker also covers chronic disease conditions like{" "}
+                    <LinkWithStickyParams
+                      to={EXPLORE_DATA_PAGE_LINK + COPD_US_SETTING}
+                    >
+                      COPD
+                    </LinkWithStickyParams>{" "}
+                    and{" "}
+                    <LinkWithStickyParams
+                      to={EXPLORE_DATA_PAGE_LINK + DIABETES_US_SETTING}
+                    >
+                      diabetes
+                    </LinkWithStickyParams>
+                    , along with social and political determinants of health
+                    such as{" "}
+                    <LinkWithStickyParams
+                      to={EXPLORE_DATA_PAGE_LINK + UNINSURANCE_US_SETTING}
+                    >
+                      uninsurance
+                    </LinkWithStickyParams>{" "}
+                    and{" "}
+                    <LinkWithStickyParams
+                      to={EXPLORE_DATA_PAGE_LINK + POVERTY_US_SETTING}
+                    >
+                      poverty
+                    </LinkWithStickyParams>
+                    .
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
