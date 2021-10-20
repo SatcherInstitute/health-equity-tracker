@@ -72,7 +72,7 @@ function MenuPopover(props: {
       transformOrigin={TRANSFORM_ORIGIN}
     >
       <Menu open={props.popover.isOpen} className={styles.GroupListMenuBox}>
-        <List aria-label="List of Options">
+        <List aria-label="List of Options" dense={true}>
           {listItems.map((listItem: string) => renderListItem(listItem))}
         </List>
       </Menu>
