@@ -100,6 +100,13 @@ function ContactUsTab() {
               Atlanta, <span aria-label="Georgia">GA</span>{" "}
               <span aria-label="Zip Code 3 0 3 1 0">30310</span>
             </p>
+
+            <p className={styles.ContactUsP}>
+              <b>To Submit Feedback:</b>
+              <br />
+              Please use our anonymous form, found by scrolling to the bottom
+              right corner of this page.
+            </p>
           </Grid>
         </Grid>
       </Grid>
