@@ -4,7 +4,7 @@ import Feedback from "feeder-react-feedback"; // import Feedback component
 import "feeder-react-feedback/dist/feeder-react-feedback.css"; // import stylesheet
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
 
-const FEEDBACK_ID = "6171bac0f80b9e0004efd9af"; // view collected feedback at feeder.sh/dashboard
+const FEEDBACK_ID = "6171cc2965b82c00045239dc"; // view collected feedback at feeder.sh/dashboard
 const BOTTOM_SCROLL_OPTIONS = {
   offset: 500,
 };
