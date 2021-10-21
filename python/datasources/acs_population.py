@@ -14,7 +14,6 @@ from ingestion.census import (get_census_params, parse_acs_metadata,
                               get_vars_for_group, standardize_frame)
 from ingestion.dataset_utils import add_sum_of_rows
 
-
 # TODO pass this in from message data.
 BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
 
@@ -78,6 +77,42 @@ RACE_STRING_TO_CATEGORY_ID_EXCLUDE_HISP = {
     "Two or more races": Race.MULTI_NH.value,
     "White alone": Race.WHITE_NH.value
 }
+
+
+def get_decade_age_bucket(age_range):
+    if age_range in {'0-4', '5-9'}:
+        return '0-9'
+    elif age_range in {'10-14', '15-17', '18-19'}:
+        return '10-19'
+    elif age_range in {'20-20', '21-21', '22-24', '25-29'}:
+        return '20-29'
+    elif age_range in {'30-34', '35-39'}:
+        return '30-39'
+    elif age_range in {'40-44', '45-49'}:
+        return '40-49'
+    elif age_range in {'50-54', '55-59'}:
+        return '50-59'
+    elif age_range in {'60-61', '62-64', '65-66', '67-69'}:
+        return '60-69'
+    elif age_range in {'70-74', '75-79'}:
+        return '70-79'
+    elif age_range in {'80-84', '85+'}:
+        return '80+'
+    elif age_range == 'Total':
+        return 'Total'
+    else:
+        return 'Unknown'
+
+
+def get_uhc_age_bucket(age_range):
+    if age_range in {'18-19', '20-24', '20-20', '21-21', '22-24', '25-29', '30-34', '35-44', '35-39', '40-44'}:
+        return '18-44'
+    elif age_range in {'45-54', '45-49', '50-54', '55-64', '55-59', '60-61', '62-64'}:
+        return '45-64'
+    elif age_range in {'65-74', '65-66', '67-69', '70-74', '75-84', '75-79', '80-84', '85+'}:
+        return '65+'
+    elif age_range == 'Total':
+        return 'Total'
 
 
 def rename_age_bracket(bracket):
@@ -192,16 +227,41 @@ class ACSPopulationIngester():
                 var_map, sex_by_age_frames)
         }
 
+        frames['by_sex_age_%s' % self.get_geo_name()] = self.get_by_sex_age(
+                frames[self.get_table_name_by_sex_age_race()], get_decade_age_bucket)
+
+        by_sex_age_uhc = None
+        if not self.county_level:
+            by_sex_age_uhc = self.get_by_sex_age(frames[self.get_table_name_by_sex_age_race()], get_uhc_age_bucket)
+
+        frames['by_age_%s' % self.get_geo_name()] = self.get_by_age(
+            frames['by_sex_age_%s' % self.get_geo_name()],
+            by_sex_age_uhc)
+
+        frames['by_sex_%s' % self.get_geo_name()] = self.get_by_sex(
+                frames[self.get_table_name_by_sex_age_race()])
+
         for table_name, df in frames.items():
             # All breakdown columns are strings
             column_types = {c: 'STRING' for c in df.columns}
             column_types[POPULATION_COL] = 'INT64'
-            column_types[RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+            if RACE_INCLUDES_HISPANIC_COL in df.columns:
+                column_types[RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+
             gcs_to_bq_util.add_dataframe_to_bq(
                 df, dataset, table_name, column_types=column_types)
 
     def get_table_geo_suffix(self):
         return "_county" if self.county_level else "_state"
+
+    def get_geo_name(self):
+        return 'county' if self.county_level else 'state'
+
+    def get_fips_col(self):
+        return COUNTY_FIPS_COL if self.county_level else STATE_FIPS_COL
+
+    def get_geo_name_col(self):
+        return COUNTY_NAME_COL if self.county_level else STATE_NAME_COL
 
     def get_table_name_by_race(self):
         return "by_race" + self.get_table_geo_suffix() + "_std"
@@ -340,6 +400,66 @@ class ACSPopulationIngester():
 
         add_race_columns_from_category_id(result)
         return self.sort_sex_age_race_frame(result)
+
+    def get_by_sex_age(self, by_sex_age_race_frame, age_aggregator_func):
+        by_sex_age = by_sex_age_race_frame.loc[by_sex_age_race_frame[RACE_CATEGORY_ID_COL] == Race.TOTAL.value]
+
+        cols = [
+            STATE_FIPS_COL,
+            self.get_fips_col(),
+            self.get_geo_name_col(),
+            SEX_COL,
+            AGE_COL,
+            POPULATION_COL,
+        ]
+
+        by_sex_age = by_sex_age[cols] if self.county_level else by_sex_age[cols[1:]]
+        by_sex_age[AGE_COL] = by_sex_age[AGE_COL].apply(age_aggregator_func)
+
+        groupby_cols = cols[:-1] if self.county_level else cols[1: -1]
+        by_sex_age = by_sex_age.groupby(groupby_cols)[POPULATION_COL].sum().reset_index()
+
+        return by_sex_age
+
+    def get_by_age(self, by_sex_age, by_sex_age_uhc=None):
+        by_age = by_sex_age.loc[by_sex_age[SEX_COL] == TOTAL_VALUE]
+
+        cols = [
+            STATE_FIPS_COL,
+            self.get_fips_col(),
+            self.get_geo_name_col(),
+            AGE_COL,
+            POPULATION_COL,
+        ]
+
+        by_age = by_age[cols] if self.county_level else by_age[cols[1:]]
+
+        if not self.county_level:
+            by_age_uhc = by_sex_age_uhc.loc[by_sex_age_uhc[SEX_COL] == TOTAL_VALUE]
+            by_age_uhc = by_age_uhc[cols[1:]]
+
+            by_age = pd.concat([by_age, by_age_uhc]).drop_duplicates().reset_index(drop=True)
+
+        by_age = by_age.sort_values(by=cols[1:-1]).reset_index(drop=True)
+        return by_age
+
+    def get_by_sex(self, by_sex_age_race_frame):
+        by_sex = by_sex_age_race_frame.loc[
+                (by_sex_age_race_frame[RACE_CATEGORY_ID_COL] == Race.TOTAL.value) &
+                (by_sex_age_race_frame[AGE_COL] == TOTAL_VALUE)]
+
+        cols = [
+            STATE_FIPS_COL,
+            self.get_fips_col(),
+            self.get_geo_name_col(),
+            SEX_COL,
+            POPULATION_COL,
+        ]
+
+        by_sex = by_sex[cols] if self.county_level else by_sex[cols[1:]]
+
+        by_sex = by_sex.sort_values(by=cols[1:-1]).reset_index(drop=True)
+        return by_sex
 
 
 class ACSPopulation(DataSource):
