@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+// import "feeder-react-feedback/dist/feeder-react-feedback.css"; // 3rd-party default styles
+import "./FeedbackOverrides.css"; // overrides to above styles
+// https://github.com/rishipr/feeder-react-feedback
 // @ts-ignore
 import Feedback from "feeder-react-feedback"; // import Feedback component
-import "feeder-react-feedback/dist/feeder-react-feedback.css"; // import stylesheet
+
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
 
 const FEEDBACK_ID = "6171cc2965b82c00045239dc"; // view collected feedback at feeder.sh/dashboard
