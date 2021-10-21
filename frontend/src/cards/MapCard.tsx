@@ -278,6 +278,9 @@ function MapCardWithKey(props: MapCardProps) {
                             setSmallMultiplesDialogOpen
                           }
                           currentBreakdown={props.currentBreakdown}
+                          currentVariable={
+                            props.variableConfig.variableFullDisplayName
+                          }
                         />
                       )}
                     </Alert>
@@ -307,6 +310,9 @@ function MapCardWithKey(props: MapCardProps) {
                     <MultiMapLink
                       setSmallMultiplesDialogOpen={setSmallMultiplesDialogOpen}
                       currentBreakdown={props.currentBreakdown}
+                      currentVariable={
+                        props.variableConfig.variableFullDisplayName
+                      }
                     />{" "}
                   </Alert>
                 </CardContent>
@@ -413,6 +419,7 @@ Generates the "COMPARES ACROSS GROUPS" button which opens the small multiples mo
 export interface MultiMapLinkProps {
   setSmallMultiplesDialogOpen: Function;
   currentBreakdown: BreakdownVar;
+  currentVariable: string;
 }
 
 function MultiMapLink(props: MultiMapLinkProps) {
@@ -423,7 +430,9 @@ function MultiMapLink(props: MultiMapLinkProps) {
       onClick={() => props.setSmallMultiplesDialogOpen(true)}
       role="button"
       className={styles.CompareAcrossLink}
-      aria-label={"Compare across " + groupTerm + " groups"}
+      aria-label={
+        "Compare " + props.currentVariable + " across " + groupTerm + " groups"
+      }
     >
       Compare across {groupTerm} groups
     </span>
