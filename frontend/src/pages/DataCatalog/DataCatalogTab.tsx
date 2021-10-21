@@ -11,6 +11,7 @@ import {
 } from "../../utils/urlutils";
 import styles from "../AboutUs/AboutUsPage.module.scss";
 import { Link, Route, Switch } from "react-router-dom";
+import FeedbackBox from "../ui/FeedbackBox";
 
 function DataCatalogTab() {
   const params = useSearchParams();
@@ -52,6 +53,7 @@ function DataCatalogTab() {
           <DatasetExplorer preFilterDataSourceIds={datasets} />
         </Route>
       </Switch>
+      <FeedbackBox />
     </div>
   );
 }

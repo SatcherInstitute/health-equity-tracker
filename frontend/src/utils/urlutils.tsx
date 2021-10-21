@@ -7,6 +7,8 @@ import { MadLibId, PhraseSelections } from "./MadLibs";
 export const STICKY_VERSION_PARAM = "sv";
 
 // PAGE URLS
+export const HET_URL = "https://healthequitytracker.org";
+
 export const EXPLORE_DATA_PAGE_LINK = "/exploredata";
 export const DATA_CATALOG_PAGE_LINK = "/datacatalog";
 export const ABOUT_US_PAGE_LINK = "/aboutus";

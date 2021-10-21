@@ -12,6 +12,7 @@ import {
 } from "../../utils/urlutils";
 import styles from "./AboutUsPage.module.scss";
 import { Link, Redirect, Route, Switch } from "react-router-dom";
+import FeedbackBox from "../ui/FeedbackBox";
 
 export default function AboutUsPage() {
   return (
@@ -66,6 +67,7 @@ export default function AboutUsPage() {
           <TheProjectTab />
         </Route>
       </Switch>
+      <FeedbackBox />
     </div>
   );
 }
