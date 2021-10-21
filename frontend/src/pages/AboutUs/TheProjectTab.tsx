@@ -10,6 +10,7 @@ import { Helmet } from "react-helmet";
 import LazyLoad from "react-lazyload";
 import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
 import { METRIC_CONFIG } from "../../data/config/MetricConfig";
+import FeedbackBox from "../ui/FeedbackBox";
 
 function AimToGoItem(props: {
   src: string;
@@ -384,6 +385,7 @@ function TheProjectTab() {
             </Grid>
           </Grid>
         </Grid>
+        <FeedbackBox />
       </Grid>
     </>
   );

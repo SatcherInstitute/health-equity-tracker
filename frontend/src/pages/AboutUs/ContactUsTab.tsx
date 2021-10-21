@@ -4,6 +4,7 @@ import styles from "./AboutUsPage.module.scss";
 import Typography from "@material-ui/core/Typography";
 import Hidden from "@material-ui/core/Hidden";
 import { Helmet } from "react-helmet";
+import FeedbackBox from "../ui/FeedbackBox";
 
 function ContactUsTab() {
   return (
@@ -109,6 +110,7 @@ function ContactUsTab() {
             </p>
           </Grid>
         </Grid>
+        <FeedbackBox alwaysShow={true} />
       </Grid>
     </>
   );

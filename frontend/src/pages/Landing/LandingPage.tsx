@@ -15,7 +15,6 @@ import { Box } from "@material-ui/core";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet";
 import LazyLoad from "react-lazyload";
-import FeedbackBox from "../ui/FeedbackBox";
 
 function TakeALookAroundItem(props: {
   src: string;
@@ -448,8 +447,6 @@ function LandingPage() {
               </div>
             </Grid>{" "}
           </Grid>
-
-          <FeedbackBox />
         </Grid>
       </div>
     </>

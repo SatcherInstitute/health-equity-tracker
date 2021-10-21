@@ -12,8 +12,8 @@ const BOTTOM_SCROLL_OPTIONS = {
   offset: 500,
 };
 
-export default function FeedbackBox() {
-  const [showFeedback, setShowFeedback] = useState(false);
+export default function FeedbackBox(props: { alwaysShow?: boolean }) {
+  const [showFeedback, setShowFeedback] = useState(props.alwaysShow || false);
 
   useBottomScrollListener(() => setShowFeedback(true), BOTTOM_SCROLL_OPTIONS);
 
