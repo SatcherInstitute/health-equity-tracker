@@ -19,6 +19,8 @@ GOLDEN_DATA_SEX_AGE = os.path.join(TEST_DIR, 'table_by_sex_age.csv')
 GOLDEN_DATA_AGE = os.path.join(TEST_DIR, 'table_by_age.csv')
 GOLDEN_DATA_SEX = os.path.join(TEST_DIR, 'table_by_sex.csv')
 
+GOLDEN_DATA_AGE_COUNTY = os.path.join(TEST_DIR, 'table_by_age_county.csv')
+
 
 def get_acs_metadata_as_json():
     with open(os.path.join(TEST_DIR, 'metadata.json')) as f:
@@ -30,8 +32,19 @@ def get_hispanic_or_latino_values_by_race_state_as_df():
             os.path.join(TEST_DIR, 'HISPANIC_OR_LATINO_ORIGIN_BY_RACE_state.json')).reset_index(drop=True)
 
 
+def get_hispanic_or_latino_values_by_race_county_as_df():
+    return gcs_to_bq_util.values_json_to_dataframe(
+            os.path.join(TEST_DIR, 'HISPANIC_OR_LATINO_ORIGIN_BY_RACE_county.json')).reset_index(drop=True)
+
+
 def get_sex_by_age_value_as_df(concept):
     filename = '%s_state.json' % concept.replace(' ', '_')
+    return gcs_to_bq_util.values_json_to_dataframe(
+            os.path.join(TEST_DIR, filename)).reset_index(drop=True)
+
+
+def get_sex_by_age_county_value_as_df(concept):
+    filename = '%s_county.json' % concept.replace(' ', '_')
     return gcs_to_bq_util.values_json_to_dataframe(
             os.path.join(TEST_DIR, filename)).reset_index(drop=True)
 
@@ -140,3 +153,27 @@ def testWriteToBqSex(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_jso
         'state_fips': str,
     })
     assert_frame_equal(mock_bq.call_args_list[4].args[0], expected_df, check_like=True)
+
+
+# Do one County level test to make sure our logic there is correct
+@mock.patch('ingestion.census.fetch_acs_metadata',
+            return_value=get_acs_metadata_as_json())
+@mock.patch('ingestion.gcs_to_bq_util.load_values_as_dataframe')
+@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
+            return_value=None)
+def testWriteToBqAgeCounty(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_json: mock.MagicMock):
+    side_effects = [get_hispanic_or_latino_values_by_race_county_as_df()]
+    for concept in SEX_BY_AGE_CONCEPTS_TO_RACE:
+        side_effects.append(get_sex_by_age_county_value_as_df(concept))
+    mock_csv.side_effect = side_effects
+
+    acsPopulationIngester = ACSPopulationIngester(True, "https://SOME-URL")
+
+    acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
+    assert mock_bq.call_count == 5
+
+    expected_df = pd.read_csv(GOLDEN_DATA_AGE_COUNTY, dtype={
+        'state_fips': str,
+        'county_fips': str,
+    })
+    assert_frame_equal(mock_bq.call_args_list[3].args[0], expected_df, check_like=True)
