@@ -145,19 +145,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ? "Sample size too small"
       : NO_DATA_MESSAGE;
 
-    /* PROPERLY LABEL THE HOVERED GEO REGION IF TERRITORY */
-    const countyOrEquivalent =
-      props.fips.isTerritory() || props.fips.getParentFips().isTerritory()
-        ? "County Equivalent"
-        : "County";
-    const stateOrTerritory = props.overrideShapeWithCircle
-      ? "Territory"
-      : "State";
-    const geographyName = props.showCounties
-      ? countyOrEquivalent
-      : stateOrTerritory;
+    const geographyName = props.showCounties ? "County" : "State";
     const tooltipDatum = `format(datum.${props.metric.metricId}, ',')`;
-    // TODO: would be nice to use addMetricDisplayColumn for the tooltips here so that data formatting is consistent.
+    // TODO: would be nice to use addMetricDisplayColumn for the tooltips here
+    // so that data formatting is consistent.
     const tooltipLabel =
       props.isUnknownsMap && props.metric.unknownsVegaLabel
         ? props.metric.unknownsVegaLabel
