@@ -195,7 +195,7 @@ function VaccineSchedulingPage() {
                   <LazyLoad once>
                     <img
                       className={styles.HowToStepImg}
-                      src="img/het-screen-1.png"
+                      src="img/screenshots/het-investigate-rates.png"
                       alt="Search Example Screenshot: Investigate Rates of option Covid-19 in location United States"
                     />
                   </LazyLoad>
@@ -224,7 +224,7 @@ function VaccineSchedulingPage() {
                   <LazyLoad once>
                     <img
                       className={styles.HowToStepImg}
-                      src="img/het-screen-2.png"
+                      src="img/screenshots/het-compare-rates.png"
                       alt="Search Example Screenshot: Compare Rates of option Covid-19 between two locations"
                     />
                   </LazyLoad>
@@ -253,7 +253,7 @@ function VaccineSchedulingPage() {
                   <LazyLoad once>
                     <img
                       className={styles.HowToStepImg}
-                      src="img/het-screen-3.png"
+                      src="img/screenshots/het-map.png"
                       alt="Map Example Screenshot, Data Tracker map of option Covid-19 rates of all racial groups"
                     />
                   </LazyLoad>
