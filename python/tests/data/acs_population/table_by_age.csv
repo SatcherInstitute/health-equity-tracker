@@ -1,0 +1,27 @@
+state_fips,state_name,age,population
+01,Alabama,0-9,594251
+01,Alabama,10-19,632942
+01,Alabama,18-44,1693332
+01,Alabama,20-29,660802
+01,Alabama,30-39,605766
+01,Alabama,40-49,605502
+01,Alabama,45-64,1281661
+01,Alabama,50-59,656313
+01,Alabama,60-69,582830
+01,Alabama,65+,804881
+01,Alabama,70-79,354740
+01,Alabama,80+,183104
+01,Alabama,Total,4876250
+72,Puerto Rico,0-9,318830
+72,Puerto Rico,10-19,421094
+72,Puerto Rico,18-44,1149869
+72,Puerto Rico,20-29,453809
+72,Puerto Rico,30-39,395035
+72,Puerto Rico,40-49,422720
+72,Puerto Rico,45-64,866496
+72,Puerto Rico,50-59,439949
+72,Puerto Rico,60-69,408689
+72,Puerto Rico,65+,653736
+72,Puerto Rico,70-79,292530
+72,Puerto Rico,80+,165791
+72,Puerto Rico,Total,3318447
