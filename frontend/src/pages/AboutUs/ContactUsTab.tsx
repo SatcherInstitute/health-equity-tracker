@@ -105,8 +105,8 @@ function ContactUsTab() {
             <p className={styles.ContactUsP}>
               <b>To Submit Feedback:</b>
               <br />
-              Please use our anonymous form, found by scrolling to the bottom
-              right corner of this page.
+              Please use our anonymous form in the bottom right corner of this
+              page.
             </p>
           </Grid>
         </Grid>

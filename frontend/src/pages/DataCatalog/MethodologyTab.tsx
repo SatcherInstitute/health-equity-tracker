@@ -14,6 +14,7 @@ import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { Box, Button, Card } from "@material-ui/core";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
+import FeedbackBox from "../ui/FeedbackBox";
 
 export const CITATION_APA = `Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
@@ -487,6 +488,7 @@ function MethodologyTab() {
             </Grid>
           </Grid>
         </Grid>
+        <FeedbackBox />
       </Grid>
     </>
   );
