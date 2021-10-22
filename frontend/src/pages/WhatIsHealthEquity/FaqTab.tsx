@@ -102,7 +102,7 @@ In this tracker, we are using many sources, including <a href="https://www.censu
       Sources are refreshed when update notifications are received
     </li>
     <li>
-    Our codebase is also publicly available and open-source; contributions are welcome via <a href="https://github.com/SatcherInstitute/health-equity-tracker">GitHub</a>.
+    The entire Health Equity Tracker codebase is publicly available and open-source; contributions are welcome via <a href="https://github.com/SatcherInstitute/health-equity-tracker">GitHub</a>.
     </li>
   </ul>
   `,
