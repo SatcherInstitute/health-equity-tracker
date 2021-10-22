@@ -36,93 +36,92 @@ function ShareDialog(props: {
     text = text.replace(
       "http://localhost:3000",
       "https://healthequitytracker.org"
-      // "https://deploy-preview-1106--health-equity-tracker.netlify.app"
     );
 
   let title: string = "Health Equity Tracker";
-  // let summary: any = ""
-  if (props.article) {
-    title += ((": “" + parse(props.article.title.rendered)) as string) + "”";
-    // summary = parse(props.article.excerpt.rendered)
-  }
   if (props.madLib) {
     title += ": " + getMadLibPhraseText(props.madLib);
-    // summary = "Dynamically generated location- and condition-specific visualizations."
   }
+  if (props.article) {
+    title += ((": “" + parse(props.article.title.rendered)) as string) + "”";
 
-  return (
-    <Dialog
-      open={props.shareModalOpen}
-      onClose={() => {
-        props.setShareModalOpen(false);
-        setTextCopied(false);
-      }}
-    >
-      <DialogTitle>{title}</DialogTitle>
+    return (
+      <Dialog
+        open={props.shareModalOpen}
+        onClose={() => {
+          props.setShareModalOpen(false);
+          setTextCopied(false);
+        }}
+      >
+        <DialogTitle>{title}</DialogTitle>
 
-      <DialogContent>
-        {/* SOCIAL SHARE BUTTONS */}
+        <DialogContent>
+          {/* SOCIAL SHARE BUTTONS */}
 
-        <TwitterShareButton
-          url={text}
-          title={title}
-          hashtags={["healthequity"]}
-          related={["@SatcherHealth", "@MSMEDU"]}
-        >
-          <TwitterIcon size={SHARE_ICON_SIZE} />
-        </TwitterShareButton>
+          <TwitterShareButton
+            url={text}
+            title={title}
+            hashtags={["healthequity"]}
+            related={["@SatcherHealth", "@MSMEDU"]}
+          >
+            <TwitterIcon size={SHARE_ICON_SIZE} />
+          </TwitterShareButton>
 
-        <FacebookShareButton url={text} hashtag={"#healthequity"} quote={title}>
-          <FacebookIcon size={SHARE_ICON_SIZE} />
-        </FacebookShareButton>
+          <FacebookShareButton
+            url={text}
+            hashtag={"#healthequity"}
+            quote={title}
+          >
+            <FacebookIcon size={SHARE_ICON_SIZE} />
+          </FacebookShareButton>
 
-        <LinkedinShareButton
-          title={title}
-          // summary={summary}
-          source={"Health Equity Tracker"}
-          url={text}
-        >
-          <LinkedinIcon size={SHARE_ICON_SIZE} />
-        </LinkedinShareButton>
+          <LinkedinShareButton
+            title={title}
+            // summary={summary}
+            source={"Health Equity Tracker"}
+            url={text}
+          >
+            <LinkedinIcon size={SHARE_ICON_SIZE} />
+          </LinkedinShareButton>
 
-        <EmailShareButton
-          subject={`Sharing from healthequitytracker.org`}
-          body={`${title}
+          <EmailShareButton
+            subject={`Sharing from healthequitytracker.org`}
+            body={`${title}
         
 `} // KEEP THIS WEIRD SPACING FOR EMAIL LINE BREAKS!
-          url={text}
-        >
-          <EmailIcon size={SHARE_ICON_SIZE} />
-        </EmailShareButton>
+            url={text}
+          >
+            <EmailIcon size={SHARE_ICON_SIZE} />
+          </EmailShareButton>
 
-        <DialogContentText>
-          <CopyToClipboard text={text} onCopy={() => setTextCopied(true)}>
-            <Button startIcon={<FileCopyIcon />}>
-              {textCopied ? (
-                <span
-                  role="alert"
-                  aria-label="Success. Press Escape Key to close"
-                >
-                  Link copied!
-                </span>
-              ) : (
-                "Copy link to clipboard"
-              )}
-            </Button>
-          </CopyToClipboard>
-        </DialogContentText>
-        <DialogContentText>
-          <FormControl fullWidth>
-            <TextField
-              id="report-link"
-              variant="outlined"
-              defaultValue={text}
-            />
-          </FormControl>
-        </DialogContentText>
-      </DialogContent>
-    </Dialog>
-  );
+          <DialogContentText>
+            <CopyToClipboard text={text} onCopy={() => setTextCopied(true)}>
+              <Button startIcon={<FileCopyIcon />}>
+                {textCopied ? (
+                  <span
+                    role="alert"
+                    aria-label="Link copied to clipboard. Press Escape Key to close"
+                  >
+                    Link copied!
+                  </span>
+                ) : (
+                  "Copy link to clipboard"
+                )}
+              </Button>
+            </CopyToClipboard>
+          </DialogContentText>
+          <DialogContentText>
+            <FormControl fullWidth>
+              <TextField
+                id="report-link"
+                variant="outlined"
+                defaultValue={text}
+              />
+            </FormControl>
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
+    );
+  }
 }
-
 export default ShareDialog;
