@@ -13,7 +13,7 @@ def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, tota
        total_val: The value representing 'ALL' or 'TOTAL'"""
 
     def calc_pct_share(record, total_value):
-        record[pct_share_col] = round((float(record[raw_count_col]) / float(total)) * 100, 2)
+        record[pct_share_col] = round((float(record[raw_count_col]) / float(total)) * 100, 1)
         return record
 
     groupby_cols = list(df.columns)
