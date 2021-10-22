@@ -1,0 +1,11 @@
+state_fips,county_fips,county_name,age,population
+17,17051,"Fayette County, Illinois",0-9,2303
+17,17051,"Fayette County, Illinois",10-19,2582
+17,17051,"Fayette County, Illinois",20-29,2782
+17,17051,"Fayette County, Illinois",30-39,2678
+17,17051,"Fayette County, Illinois",40-49,2633
+17,17051,"Fayette County, Illinois",50-59,3135
+17,17051,"Fayette County, Illinois",60-69,2490
+17,17051,"Fayette County, Illinois",70-79,1978
+17,17051,"Fayette County, Illinois",80+,984
+17,17051,"Fayette County, Illinois",Total,21565
