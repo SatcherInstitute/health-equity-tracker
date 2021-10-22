@@ -22,6 +22,7 @@ import {
 import { CookiesProvider } from "react-cookie";
 import ReactTooltip from "react-tooltip";
 import styles from "./App.module.scss";
+import GetVaccinatedPage from "./pages/GetVaccinated/GetVaccinatedPage";
 import MaterialTheme from "./styles/MaterialTheme";
 import { autoInitGlobals } from "./utils/globals";
 import {
@@ -229,6 +230,10 @@ function App() {
                     <Route
                       path={RESOURCES_TAB_LINK}
                       render={() => <WhatIsHealthEquityPage />}
+                    />
+                    <Route
+                      path={"/getvaccinated"}
+                      render={() => <GetVaccinatedPage />}
                     />
 
                     <Route
