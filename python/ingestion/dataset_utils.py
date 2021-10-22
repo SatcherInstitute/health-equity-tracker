@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, geo_col, total_val):
+def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, total_val):
     """Returns a DataFrame with a percent share row based on the raw_count_col
        Each row must have a corresponding 'TOTAL' row.
 
@@ -10,8 +10,6 @@ def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, geo_
                       raw count to use to caculate the `pct_share_col`.
        pct_share_col: String column name to create with the percent share.
        breakdown_col: The name of column to calculate the percent across.
-       geo_col: The name of the column represting the geographic location;
-                either `county_fips` or `state_fips`.
        total_val: The value representing 'ALL' or 'TOTAL'"""
 
     def calc_pct_share(record, total_value):

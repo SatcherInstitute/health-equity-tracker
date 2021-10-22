@@ -94,7 +94,7 @@ def testGeneratePctShareCol():
     expected_df['population'] = expected_df['population'].astype(int)
     expected_df['pct_share'] = expected_df['pct_share'].astype(float)
 
-    df = dataset_utils.generate_pct_share_col(df, 'population', 'pct_share', 'race', 'state_fips', 'TOTAL')
+    df = dataset_utils.generate_pct_share_col(df, 'population', 'pct_share', 'race', 'TOTAL')
 
     assert_frame_equal(expected_df, df)
 
@@ -109,7 +109,7 @@ def testGeneratePctShareColNoTotalError():
 
     expected_error = r"There is no TOTAL value for this chunk of data"
     with pytest.raises(ValueError, match=expected_error):
-        df = dataset_utils.generate_pct_share_col(df, 'population', 'pct_share', 'race', 'state_fips', 'TOTAL')
+        df = dataset_utils.generate_pct_share_col(df, 'population', 'pct_share', 'race', 'TOTAL')
 
 
 def testGeneratePctShareColExtraTotalError():
@@ -123,4 +123,4 @@ def testGeneratePctShareColExtraTotalError():
 
     expected_error = r"There are multiple TOTAL values for this chunk of data, there should only be one"
     with pytest.raises(ValueError, match=expected_error):
-        df = dataset_utils.generate_pct_share_col(df, 'population', 'pct_share', 'race', 'state_fips', 'TOTAL')
+        df = dataset_utils.generate_pct_share_col(df, 'population', 'pct_share', 'race', 'TOTAL')

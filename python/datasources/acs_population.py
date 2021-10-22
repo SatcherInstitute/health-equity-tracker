@@ -377,7 +377,7 @@ class ACSPopulationIngester():
 
         all_races = generate_pct_share_col(
             all_races, POPULATION_COL, POPULATION_PCT_COL,
-            RACE_CATEGORY_ID_COL, self.get_fips_col(), Race.TOTAL.value)
+            RACE_CATEGORY_ID_COL, Race.TOTAL.value)
 
         add_race_columns_from_category_id(all_races)
         return self.sort_race_frame(all_races)
@@ -448,7 +448,7 @@ class ACSPopulationIngester():
             by_age = pd.concat([by_age, by_age_uhc]).drop_duplicates().reset_index(drop=True)
 
         by_age = generate_pct_share_col(
-            by_age, POPULATION_COL, POPULATION_PCT_COL, AGE_COL, self.get_fips_col(), TOTAL_VALUE)
+            by_age, POPULATION_COL, POPULATION_PCT_COL, AGE_COL, TOTAL_VALUE)
 
         by_age = by_age.sort_values(by=cols[1:-1]).reset_index(drop=True)
         return by_age
@@ -469,7 +469,7 @@ class ACSPopulationIngester():
         by_sex = by_sex[cols] if self.county_level else by_sex[cols[1:]]
 
         by_sex = generate_pct_share_col(
-            by_sex, POPULATION_COL, POPULATION_PCT_COL, SEX_COL, self.get_fips_col(), TOTAL_VALUE)
+            by_sex, POPULATION_COL, POPULATION_PCT_COL, SEX_COL, TOTAL_VALUE)
 
         by_sex = by_sex.sort_values(by=cols[1:-1]).reset_index(drop=True)
         return by_sex
