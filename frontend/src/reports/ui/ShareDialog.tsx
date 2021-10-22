@@ -19,6 +19,7 @@ import {
   LinkedinIcon,
   TwitterIcon,
 } from "react-share";
+import { Box } from "@material-ui/core";
 
 export const SHARE_ICON_SIZE = 64;
 
@@ -101,7 +102,7 @@ function ShareDialog(props: {
             </Button>
           </CopyToClipboard>
         </DialogContentText>
-        <DialogContentText>
+        <Box mb={2}>
           <FormControl fullWidth>
             <TextField
               id="report-link"
@@ -109,7 +110,7 @@ function ShareDialog(props: {
               defaultValue={text}
             />
           </FormControl>
-        </DialogContentText>
+        </Box>
       </DialogContent>
     </Dialog>
   );
