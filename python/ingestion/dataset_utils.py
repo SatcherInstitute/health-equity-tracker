@@ -14,8 +14,18 @@ def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, geo_
                 either `county_fips` or `state_fips`.
        total_val: The value representing 'ALL' or 'TOTAL'"""
 
-    def calc_pct_share(record):
-        total_row = df.loc[(df[breakdown_col] == total_val) & (df[geo_col] == record[geo_col])]
+    def calc_pct_share(record, total_value):
+        record[pct_share_col] = round((float(record[raw_count_col]) / float(total)) * 100, 2)
+        return record
+
+    groupby_cols = list(df.columns)
+    groupby_cols.remove(breakdown_col)
+    groupby_cols.remove(raw_count_col)
+
+    with_pct_share = []
+    grouped = df.groupby(groupby_cols)
+    for _, group_df in grouped:
+        total_row = group_df.loc[(group_df[breakdown_col] == total_val)]
 
         if len(total_row) == 0:
             raise ValueError("There is no TOTAL value for this chunk of data")
@@ -24,11 +34,9 @@ def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, geo_
             raise ValueError("There are multiple TOTAL values for this chunk of data, there should only be one")
 
         total = total_row[raw_count_col].values[0]
-        record[pct_share_col] = round((float(record[raw_count_col]) / float(total)) * 100, 2)
-        return record
+        with_pct_share.append(group_df.reset_index(drop=True).apply(calc_pct_share, args=(total,), axis=1))
 
-    df = df.apply(calc_pct_share, axis=1)
-    return df
+    return pd.concat(with_pct_share).reset_index(drop=True)
 
 
 def add_sum_of_rows(df, breakdown_col, value_col, new_row_breakdown_val,

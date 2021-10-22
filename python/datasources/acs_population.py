@@ -248,6 +248,9 @@ class ACSPopulationIngester():
             if RACE_INCLUDES_HISPANIC_COL in df.columns:
                 column_types[RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
+            if POPULATION_PCT_COL in df.columns:
+                column_types[POPULATION_PCT_COL] = 'FLOAT'
+
             gcs_to_bq_util.add_dataframe_to_bq(
                 df, dataset, table_name, column_types=column_types)
 
