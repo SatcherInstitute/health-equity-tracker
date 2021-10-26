@@ -13,6 +13,7 @@ import {
   useUrlSearchParams,
   ARTICLES_KEY,
   REACT_QUERY_OPTIONS,
+  BLOG_TAB_LINK,
 } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
 import BlogCategories from "../../ui/BlogCategories";
@@ -21,9 +22,13 @@ import BlogPreviewCard from "./BlogPreviewCard";
 import { useQuery } from "react-query";
 import { Article } from "../BlogTab";
 import { Crumb } from "../../../cards/ui/MapBreadcrumbs";
+import { FALLBACK_BLOG_POSTS } from "./FallbackArticles.js";
+import { useHistory } from "react-router";
+
+export const ARTICLES_TERM = "Articles";
 
 function PinnedArticles({ articles }: { articles: Article[] }) {
-  return (
+  return articles.length ? (
     <Card elevation={3}>
       <Typography
         tabIndex={-1}
@@ -49,7 +54,7 @@ function PinnedArticles({ articles }: { articles: Article[] }) {
         })}
       </Grid>
     </Card>
-  );
+  ) : null;
 }
 
 function AllPosts() {
@@ -60,6 +65,8 @@ function AllPosts() {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedAuthor, setSelectedAuthor] = useState<string>("");
 
+  const history = useHistory();
+
   const categoryParam: string | null = useUrlSearchParams().get("category");
   const authorParam: string | null = useUrlSearchParams().get("author");
 
@@ -68,7 +75,12 @@ function AllPosts() {
     fetchBlogData,
     REACT_QUERY_OPTIONS
   );
-  const articles = data?.data;
+
+  let articles: Article[] = [];
+  if (data) articles = data!.data;
+  else if (error || isLoading) {
+    articles = FALLBACK_BLOG_POSTS as any[];
+  }
 
   useEffect(() => {
     // filter articles by category query param if present
@@ -153,8 +165,8 @@ function AllPosts() {
 
   const pinnedArticles = articles?.filter((post: Article) => post?.sticky);
 
-  if (isLoading) return <i>loading...</i>;
-  if (error) return <i>Error loading posts.</i>;
+  // if (isLoading) return <i>loading...</i>;
+  // if (error) return <i>Error loading posts.</i>;
 
   return (
     articles && (
@@ -209,30 +221,22 @@ function AllPosts() {
                 ) && (
                   <Breadcrumbs separator="›" aria-label={"filter applied"}>
                     <Crumb
-                      text={"Articles"}
+                      text={ARTICLES_TERM}
                       isClickable={true}
                       onClick={() => {
-                        // props.updateFipsCallback(new Fips(USA_FIPS));
-                        console.log("!");
+                        history.push(BLOG_TAB_LINK);
                       }}
                     />
                     {selectedAuthor?.length > 0 && (
                       <Crumb
                         text={`Author: ${selectedAuthor}`}
-                        isClickable={true}
-                        onClick={() => {
-                          console.log(selectedAuthor);
-                        }}
+                        isClickable={false}
                       />
                     )}
                     {selectedCategory?.length > 0 && (
                       <Crumb
                         text={`Category: ${selectedCategory}`}
-                        isClickable={true}
-                        onClick={() => {
-                          // props.updateFipsCallback(new Fips(USA_FIPS));
-                          console.log(selectedCategory);
-                        }}
+                        isClickable={false}
                       />
                     )}
                   </Breadcrumbs>
@@ -261,6 +265,12 @@ function AllPosts() {
                       </Grid>
                     );
                   })}
+              </Grid>
+              <Grid container justify="center">
+                {isLoading && <i>Loading recent articles...</i>}
+                {error && !isLoading && (
+                  <i>Problem loading; displaying only saved articles.</i>
+                )}
               </Grid>
             </Grid>
           </Grid>

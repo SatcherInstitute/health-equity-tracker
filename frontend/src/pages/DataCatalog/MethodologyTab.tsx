@@ -32,7 +32,6 @@ function MethodologyTab() {
   const [textCopied, setTextCopied] = useState(false);
 
   function handleCopy() {
-    console.log("copied");
     setTextCopied(true);
   }
 

@@ -18,6 +18,8 @@ import BlogPreviewCard from "./BlogPreviewCard";
 import { useQuery } from "react-query";
 import ShareDialog from "../../../reports/ui/ShareDialog";
 import ShareIcon from "@material-ui/icons/Share";
+import { Article } from "../BlogTab";
+import { FALLBACK_BLOG_POSTS } from "./FallbackArticles";
 
 export const ARTICLE_DESCRIPTION =
   "Article from the Health Equity Tracker: a free-to-use data and visualization platform that is enabling new insights into the impact of COVID-19 and other determinants of health on marginalized groups in the United States.";
@@ -40,7 +42,10 @@ export default function SinglePost() {
     fetchBlogData,
     REACT_QUERY_OPTIONS
   );
-  const articles = data?.data;
+  let articles: Article[] = [];
+
+  if (data) articles = data.data;
+  if (error || isLoading) articles = FALLBACK_BLOG_POSTS as any[];
 
   // on page load, get prev,full, next article based on fullArticle URL slug
   useEffect(() => {
@@ -64,9 +69,6 @@ export default function SinglePost() {
     : "https://healthequitytracker.org/img/graphics/laptop-HET.png";
 
   const articleUrl = fullArticle?.link || "https://healthequitytracker.org";
-
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>An error has occurred: {error.message}</p>;
 
   return (
     <Grid container className={styles.Grid}>
