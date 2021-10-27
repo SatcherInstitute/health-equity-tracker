@@ -165,9 +165,6 @@ function AllPosts() {
 
   const pinnedArticles = articles?.filter((post: Article) => post?.sticky);
 
-  // if (isLoading) return <i>loading...</i>;
-  // if (error) return <i>Error loading posts.</i>;
-
   return (
     articles && (
       <Grid container className={styles.Grid}>
@@ -267,10 +264,8 @@ function AllPosts() {
                   })}
               </Grid>
               <Grid container justify="center">
-                {isLoading && <i>Loading recent articles...</i>}
-                {error && !isLoading && (
-                  <i>Problem loading; displaying only saved articles.</i>
-                )}
+                {isLoading && <i>Updating articles...</i>}
+                {error && !isLoading && <i>Problem updating articles.</i>}
               </Grid>
             </Grid>
           </Grid>
