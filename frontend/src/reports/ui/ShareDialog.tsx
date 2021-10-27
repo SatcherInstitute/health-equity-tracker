@@ -20,7 +20,7 @@ function ShareDialog(props: {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   function handleCopy() {
-    enqueueSnackbar("Link Copied! Press Escape Key to close");
+    enqueueSnackbar("Link Copied! Press Escape to return to the tracker.");
   }
 
   return (
