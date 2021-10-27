@@ -6,37 +6,37 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
-import React, { useState } from "react";
+import React from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { getMadLibPhraseText, MadLib } from "../../utils/MadLibs";
+import { useSnackbar } from "notistack";
 
 function ShareDialog(props: {
   madLib: MadLib;
   shareModalOpen: boolean;
   setShareModalOpen: (shareModalOpen: boolean) => void;
 }) {
-  const [textCopied, setTextCopied] = useState(false);
   const text = window.location.href;
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+  function handleCopy() {
+    enqueueSnackbar("Link Copied! Press Escape Key to close");
+  }
 
   return (
     <Dialog
       open={props.shareModalOpen}
       onClose={() => {
         props.setShareModalOpen(false);
-        setTextCopied(false);
+        closeSnackbar();
       }}
     >
       <DialogTitle>{getMadLibPhraseText(props.madLib)}</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          <CopyToClipboard text={text} onCopy={() => setTextCopied(true)}>
+          <CopyToClipboard text={text} onCopy={() => handleCopy()}>
             <Button startIcon={<FileCopyIcon />}>Copy link to clipboard</Button>
           </CopyToClipboard>
-          {textCopied && (
-            <span role="alert" aria-label="Success. Press Escape Key to close">
-              Link copied!
-            </span>
-          )}
         </DialogContentText>
         <DialogContentText>
           <FormControl fullWidth>
