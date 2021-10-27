@@ -189,18 +189,24 @@ export default function SinglePost() {
         </Grid>
 
         <Grid container className={styles.PrevNextSection}>
-          <Grid item xs={4}>
-            {prevArticle && <BlogPreviewCard article={prevArticle} />}
+          <Grid item xs={12} md={4}>
+            {prevArticle && (
+              <BlogPreviewCard article={prevArticle} arrow={"prev"} />
+            )}
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} md={4}>
             <ReactRouterLinkButton
               url={BLOG_TAB_LINK}
               className={styles.PrevNextHeaderText}
               displayName="All Posts"
             />
           </Grid>
-          <Grid item xs={4}>
-            {nextArticle && <BlogPreviewCard article={nextArticle} />}
+          <Grid item xs={12} md={4}>
+            {nextArticle && (
+              <>
+                <BlogPreviewCard article={nextArticle} arrow={"next"} />
+              </>
+            )}
           </Grid>
         </Grid>
       </Grid>
@@ -212,8 +218,7 @@ export default function SinglePost() {
       >
         <Grid item>
           <p className={styles.EmailSignupBlogText}>
-            Want updates on the latest news in health equity? Sign up for our
-            Satcher Health Leadership Institute newsletter.
+            Sign up for our Satcher Health Leadership Institute newsletter.
           </p>
         </Grid>
         <Grid item container justify="center" alignItems="center">
