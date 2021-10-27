@@ -11,6 +11,8 @@ import {
   ReactRouterLinkButton,
   ARTICLES_KEY,
   REACT_QUERY_OPTIONS,
+  CONTACT_TAB_LINK,
+  LinkWithStickyParams,
 } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
 import AppbarLogo from "../../../assets/AppbarLogo.png";
@@ -218,7 +220,15 @@ export default function SinglePost() {
       >
         <Grid item>
           <p className={styles.EmailSignupBlogText}>
-            Sign up for our Satcher Health Leadership Institute newsletter.
+            Please{" "}
+            <LinkWithStickyParams to={CONTACT_TAB_LINK}>
+              contact us
+            </LinkWithStickyParams>{" "}
+            with any questions or concerns.
+          </p>
+          <p className={styles.EmailSignupBlogText}>
+            For more information about health equity, please sign up for our
+            Satcher Health Leadership Institute newsletter.
           </p>
         </Grid>
         <Grid item container justify="center" alignItems="center">
