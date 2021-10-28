@@ -178,7 +178,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       name: UNKNOWN_SCALE,
       type: ORDINAL,
       domain: { data: MISSING_PLACEHOLDER_VALUES, field: "missing" },
-      range: ["#BDC1C6"],
+      range: [sass.unknownGrey],
     };
 
     const greyDotScale: any = {

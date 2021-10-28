@@ -5,7 +5,7 @@ import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 import { ScaleType } from "./ChoroplethMap";
 import { ORDINAL } from "vega-lite/build/src/type";
-
+import sass from "../styles/variables.module.scss";
 const COLOR_SCALE = "color_scale";
 const DOT_SIZE_SCALE = "dot_size_scale";
 export const UNKNOWN_SCALE = "unknown_scale";
@@ -134,7 +134,7 @@ export function Legend(props: LegendProps) {
           name: UNKNOWN_SCALE,
           type: ORDINAL,
           domain: { data: MISSING_PLACEHOLDER_VALUES, field: "missing" },
-          range: ["#BDC1C6"],
+          range: [sass.unknownGrey],
         },
         {
           name: GREY_DOT_SCALE,
