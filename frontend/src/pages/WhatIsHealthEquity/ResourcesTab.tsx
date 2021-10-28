@@ -94,6 +94,10 @@ const RESOURCES = [
       "https://www.medicalnewstoday.com/articles/the-impact-of-historical-trauma-on-american-indian-health-equity",
   },
   {
+    name: "National COVID-19 Resiliency Network (NCRN)",
+    url: "https://ncrn.msm.edu",
+  },
+  {
     name: "COVID-19 and Equity*- APHA",
     url:
       "https://www.apha.org/topics-and-issues/communicable-disease/coronavirus/equity",
