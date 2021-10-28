@@ -426,15 +426,22 @@ function MultiMapLink(props: MultiMapLinkProps) {
   const groupTerm =
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown];
   return (
-    <span
-      onClick={() => props.setSmallMultiplesDialogOpen(true)}
-      role="button"
-      className={styles.CompareAcrossLink}
-      aria-label={
-        "Compare " + props.currentVariable + " across " + groupTerm + " groups"
-      }
-    >
-      Compare across {groupTerm} groups
-    </span>
+    <>
+      <span
+        onClick={() => props.setSmallMultiplesDialogOpen(true)}
+        role="button"
+        className={styles.CompareAcrossLink}
+        aria-label={
+          "Compare " +
+          props.currentVariable +
+          " across " +
+          groupTerm +
+          " groups"
+        }
+      >
+        Compare across {groupTerm} groups
+      </span>
+      .
+    </>
   );
 }
