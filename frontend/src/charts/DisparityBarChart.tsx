@@ -15,6 +15,7 @@ import {
   addMetricDisplayColumn,
 } from "./utils";
 import sass from "../styles/variables.module.scss";
+import { LEGEND_TEXT_FONT } from "./Legend";
 
 function getSpec(
   data: Record<string, any>[],
@@ -320,6 +321,8 @@ function getSpec(
         fill: "variables",
         orient: "top",
         padding: 4,
+        font: LEGEND_TEXT_FONT,
+        labelFont: LEGEND_TEXT_FONT,
       },
     ],
   };
