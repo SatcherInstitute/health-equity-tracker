@@ -6,7 +6,11 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import FaqSection from "../ui/FaqSection";
-import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "./WhatIsHealthEquityPage";
+import { WIHE_JOIN_THE_EFFORT_SECTION_ID } from "../../utils/urlutils";
+import { Box } from "@material-ui/core";
+import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
+import { Helmet } from "react-helmet";
+import LazyLoad from "react-lazyload";
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -29,11 +33,13 @@ function JoinTheEffortContainer(props: {
           className={styles.JoinTheEffortImgContainer}
           style={{ backgroundColor: props.imageBackground }}
         >
-          <img
-            src={props.imageUrl}
-            alt={props.imageAlt}
-            className={styles.JoinTheEffortImg}
-          />
+          <LazyLoad offset={300} height={500} once>
+            <img
+              src={props.imageUrl}
+              alt={props.imageAlt}
+              className={styles.JoinTheEffortImg}
+            />
+          </LazyLoad>
         </Grid>
       </Hidden>
       <Grid item sm={12} md={6} className={styles.JoinTheEffortTextContainer}>
@@ -47,9 +53,13 @@ function JoinTheEffortContainer(props: {
 }
 
 function EquityTab() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+
   return (
     <div className={styles.WhatIsHealthEquityPage}>
-      <title>What is Health Equity - Health Equity Tracker</title>
+      <Helmet>
+        <title>What is Health Equity - Health Equity Tracker</title>
+      </Helmet>
       <Grid container className={styles.Grid}>
         <Grid
           container
@@ -67,43 +77,57 @@ function EquityTab() {
               md={4}
               className={styles.HeaderImgItem}
             >
-              <img
-                src="img/pexels-marcus-aurelius-4063919 1.png"
-                className={styles.HeaderImg}
-                alt="A woman in a wheelchair relaxing with a cup of tea"
-              />
+              <LazyLoad offset={300} height={760} once>
+                <img
+                  width="397"
+                  height="760"
+                  src="/img/stock/woman-in-wheelchair-with-tea.png"
+                  className={styles.HeaderImg}
+                  alt=""
+                />
+              </LazyLoad>
             </Grid>
           </Hidden>
           <Grid item xs={12} sm={12} md={8} className={styles.HeaderTextItem}>
+            <Box mb={5}>
+              <Typography
+                id="main"
+                tabIndex={-1}
+                className={styles.HeaderText}
+                variant="h1"
+                paragraph={true}
+              >
+                What is Health Equity?
+              </Typography>
+            </Box>
             <Typography
-              id="main"
-              tabIndex={-1}
-              className={styles.HeaderText}
-              variant="h1"
+              className={styles.HeaderSubtext}
+              variant="body1"
+              paragraph={true}
             >
-              What is Health Equity?
+              <b>Health Equity</b> exists when all people, regardless of race,
+              sex, sexual orientation, disability, socio-economic status,
+              geographic location, or other societal constructs have fair and
+              just access, opportunity, and resources to achieve their highest
+              potential for health.
             </Typography>
-            <br />
+            <Typography
+              className={styles.HeaderSubtext}
+              variant="body1"
+              paragraph={true}
+            >
+              Unfortunately, social and political determinants of health
+              negatively affect many communities, their people, and their
+              ability to lead healthy lives.
+            </Typography>
             <Typography className={styles.HeaderSubtext} variant="body1">
-              <p>
-                <b>Health Equity</b> exists when all people, regardless of race,
-                sex, sexual orientation, disability, socio-economic status,
-                geographic location, or other societal constructs have fair and
-                just access, opportunity, and resources to achieve their highest
-                potential for health.
-              </p>
-              <p>
-                Unfortunately, social and political determinants of health
-                negatively affect many communities, their people, and their
-                ability to lead healthy lives.
-              </p>
               <span className={styles.DefinitionSourceSpan}>
                 Health Equity Leadership & Exchange Network, 2020
               </span>
-              <br />
             </Typography>
             <Grid
               container
+              item
               xs={12}
               direction="row"
               justify="space-between"
@@ -120,14 +144,19 @@ function EquityTab() {
                 <Typography className={styles.DefinitionHeader} variant="h2">
                   Political determinants of health
                 </Typography>
-                <p className={styles.DefinitionPronunciation}>
+                <p
+                  className={styles.DefinitionPronunciation}
+                  aria-hidden="true"
+                >
                   /pəˈlidək(ə)l dəˈtərmənənts əv helTH/
                 </p>
                 <p className={styles.DefinitionText}>
-                  The creators of structural conditions and the social drivers –
-                  including poor environmental conditions, inadequate
-                  transportation, unsafe neighborhoods, and lack of healthy food
-                  options – that affect all other dynamics of health.
+                  The Political determinants of health involve the systematic
+                  process of structuring relationships, distributing resources,
+                  and administering power, operating simultaneously in ways that
+                  mutually reinforce or influence one another to shape
+                  opportunities that either advance health equity or exacerbate
+                  health inequities.
                 </p>
                 <span className={styles.DefinitionSourceSpan}>
                   Daniel Dawes, 2020
@@ -143,7 +172,10 @@ function EquityTab() {
                 <Typography className={styles.DefinitionHeader} variant="h2">
                   Social determinants of health
                 </Typography>
-                <p className={styles.DefinitionPronunciation}>
+                <p
+                  className={styles.DefinitionPronunciation}
+                  aria-hidden="true"
+                >
                   /ˈsōSHəl dəˈtərmənənt əv helTH/
                 </p>
                 <p className={styles.DefinitionText}>
@@ -177,6 +209,7 @@ function EquityTab() {
               className={styles.ResourcesContainer}
               direction="row"
               justify="space-around"
+              item
               xs={12}
             >
               <Grid item xs={12} sm={12} md={9} className={styles.ResourceItem}>
@@ -232,12 +265,13 @@ function EquityTab() {
                   </Grid>
                   <Grid item className={styles.ResourceItem}>
                     <a href="https://ncrn.msm.edu/">
-                      <img
-                        className={styles.ResourceImg}
-                        src="img/maxresdefault (1) 1.png"
-                        alt="Header for Morehouse School of Medicine
-                             National COVID-19 Resiliency Network"
-                      />
+                      <LazyLoad offset={300} height={200} once>
+                        <img
+                          className={styles.ResourceImg}
+                          src="/img/graphics/NCRN.png"
+                          alt="Header for Morehouse School of Medicine National COVID-19 Resiliency Network"
+                        />
+                      </LazyLoad>
                       <h2 className={styles.ResourceTitleText}>
                         Morehouse School of Medicine National COVID-19
                         Resiliency Network (NCRN)
@@ -273,129 +307,157 @@ function EquityTab() {
                 equity
               </span>
             </Grid>
-            <Grid
-              container
-              direction="row"
-              justify="space-between"
-              alignItems="flex-start"
-            >
+            <LazyLoad offset={300} height={700} once>
               <Grid
-                item
-                xs={12}
-                sm={12}
-                md={6}
-                className={styles.NewsAndStoriesItem}
+                container
+                direction="row"
+                justify="space-between"
+                alignItems="flex-start"
               >
-                <img
-                  className={styles.NewsAndStoriesBigImg}
-                  src="img/pexels-august-de-richelieu-4261261 1.png"
-                  alt="Asian woman assisting a young black child with his
-                       mask"
-                />
-                <h2 className={styles.NewsAndStoriesTitleText}>
-                  Why It Matters That Information On Race, Ethnicity, Gender And
-                  Disability Are Measured Accurately And Completely
-                </h2>
-                <p className={styles.NewsAndStoriesSubtitleText}>
-                  Why ongoing data on health and wellbeing metrics could be used
-                  in targeting federal resources and programs to address
-                  inequities due to social and economic factors.{" "}
-                  <a href="https://satcherinstitute.org/hetblog2/">Read more</a>
-                </p>
+                <Grid
+                  item
+                  xs={12}
+                  sm={12}
+                  md={6}
+                  className={styles.NewsAndStoriesItem}
+                >
+                  <img
+                    className={styles.NewsAndStoriesBigImg}
+                    src="/img/stock/kid-gets-a-mask.png"
+                    alt=""
+                  />
+                  <h2 className={styles.NewsAndStoriesTitleText}>
+                    Why It Matters That Information On Race, Ethnicity, Gender
+                    And Disability Are Measured Accurately And Completely
+                  </h2>
+                  <p className={styles.NewsAndStoriesSubtitleText}>
+                    Why ongoing data on health and wellbeing metrics could be
+                    used in targeting federal resources and programs to address
+                    inequities due to social and economic factors.{" "}
+                    <a
+                      href="https://satcherinstitute.org/hetblog2/"
+                      aria-label="Satcher Blog Post on Why Data Matters"
+                    >
+                      Read more
+                    </a>
+                  </p>
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={6}
+                  className={styles.NewsAndStoriesItem}
+                >
+                  <img
+                    className={styles.NewsAndStoriesBigImg}
+                    src="/img/stock/girls-studying.jpg"
+                    alt=""
+                  />
+                  <h2 className={styles.NewsAndStoriesTitleText}>
+                    How can we use data to inform practices to advance health
+                    equity?
+                  </h2>
+                  <p className={styles.NewsAndStoriesSubtitleText}>
+                    In public health, much of our work depends on having
+                    accurate data, so we know what’s happening both on the
+                    ground and at a population level.{" "}
+                    <a
+                      href="https://satcherinstitute.org/hetblog3/"
+                      aria-label="Satcher Blog Post on Health Equity Data"
+                    >
+                      Read more
+                    </a>
+                  </p>
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  className={styles.NewsAndStoriesItem}
+                >
+                  <img
+                    className={styles.NewsAndStoriesSmallImg}
+                    src="/img/stock/filling-in-forms.png"
+                    alt=""
+                  />
+                  <h2 className={styles.NewsAndStoriesTitleText}>
+                    Data And Technology Can Help Us Make Progress On COVID
+                    Inequities
+                  </h2>
+                  <p className={styles.NewsAndStoriesSubtitleText}>
+                    <a
+                      href="https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/"
+                      aria-label="Read Scientific American Article"
+                    >
+                      Read more
+                    </a>
+                  </p>
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  className={styles.NewsAndStoriesItem}
+                >
+                  <img
+                    className={styles.NewsAndStoriesSmallImg}
+                    src="/img/stock/kids-ukulele.png"
+                    alt=""
+                  />
+                  <h2 className={styles.NewsAndStoriesTitleText}>
+                    How Complete Are The CDC's COVID-19 Case Surveillance
+                    Datasets For Race/Ethnicity At The State And County Levels?
+                  </h2>
+                  <p className={styles.NewsAndStoriesSubtitleText}>
+                    <a
+                      href="https://satcherinstitute.github.io/analysis/cdc_case_data"
+                      aria-label="Satcher Post on COVID Data Completeness"
+                    >
+                      Learn more
+                    </a>
+                  </p>
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  className={styles.NewsAndStoriesItem}
+                >
+                  <img
+                    className={styles.NewsAndStoriesSmallImg}
+                    src="/img/graphics/laptop-HET.png"
+                    alt=""
+                  />
+                  <h2 className={styles.NewsAndStoriesTitleText}>
+                    The Mental Fitness of Our Children
+                  </h2>
+                  <p className={styles.NewsAndStoriesSubtitleText}>
+                    <a
+                      href="https://www.kennedysatcher.org/blog/the-mental-fitness-of-our-children"
+                      aria-label="Kennedy Satcher Article: The Mental Fitness of Our Children"
+                    >
+                      Learn more
+                    </a>
+                  </p>
+                </Grid>
               </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={6}
-                className={styles.NewsAndStoriesItem}
-              >
-                <img
-                  className={styles.NewsAndStoriesBigImg}
-                  src="img/pexels-cottonbro-7000149 1.png"
-                  alt="Asian woman sitting while wearing a mask"
-                />
-                <h2 className={styles.NewsAndStoriesTitleText}>
-                  Back To ‘Normal’ Isn’t Good Enough
-                </h2>
-                <p className={styles.NewsAndStoriesSubtitleText}>
-                  With the anticipation of increasing distribution of COVID-19
-                  vaccines, Americans are looking forward to a “return to
-                  normal.” But the reality is that “normal” is a privilege, one
-                  that is out of reach for millions.{" "}
-                  <a href="https://www.statnews.com/2021/02/10/back-to-normal-isnt-good-enough/">
-                    Read more
-                  </a>
-                </p>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                className={styles.NewsAndStoriesItem}
-              >
-                <img
-                  className={styles.NewsAndStoriesSmallImg}
-                  src="img/pexels-alex-green-5699516 1.png"
-                  alt="Documents lying on a table"
-                />
-                <h2 className={styles.NewsAndStoriesTitleText}>
-                  Data And Technology Can Help Us Make Progress On COVID
-                  Inequities
-                </h2>
-                <p className={styles.NewsAndStoriesSubtitleText}>
-                  <a href="https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/">
-                    Read more
-                  </a>
-                </p>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                className={styles.NewsAndStoriesItem}
-              >
-                <img
-                  className={styles.NewsAndStoriesSmallImg}
-                  src="img/pexels-ketut-subiyanto-4473409 2.png"
-                  alt="Asian woman laughing with two children"
-                />
-                <h2 className={styles.NewsAndStoriesTitleText}>
-                  How Complete Are The CDC's COVID-19 Case Surveillance Datasets
-                  For Race/Ethnicity At The State And County Levels?
-                </h2>
-                <p className={styles.NewsAndStoriesSubtitleText}>
-                  <a href="https://satcherinstitute.github.io/analysis/cdc_case_data">
-                    Learn more
-                  </a>
-                </p>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                className={styles.NewsAndStoriesItem}
-              >
-                <img
-                  className={styles.NewsAndStoriesSmallImg}
-                  src="img/Screen Shot 2021-03-01 at 5.25 1.png"
-                  alt="Laptop sitting on desk and opened to the Health
-                       Equity Tracker Homepage"
-                />
-                <h2 className={styles.NewsAndStoriesTitleText}>
-                  How To Include The Social Determinants That Impact Behavioral
-                  Health In A Health Equity Tracker
-                </h2>
-                <p className={styles.NewsAndStoriesSubtitleText}>
-                  <a href="https://satcherinstitute.org/post-4840/">
-                    Learn more
-                  </a>
-                </p>
-              </Grid>
-            </Grid>
+            </LazyLoad>
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          item
+          xs={12}
+          className={styles.FaqRow}
+          alignItems="center"
+          justify="center"
+        >
+          <Grid item sm={12} md={10}>
+            <FaqSection />
           </Grid>
         </Grid>
         <Grid
@@ -405,18 +467,6 @@ function EquityTab() {
           justify="center"
           alignItems="center"
         >
-          <Grid
-            container
-            item
-            xs={12}
-            className={styles.FaqRow}
-            alignItems="center"
-            justify="center"
-          >
-            <Grid sm={12} md={10}>
-              <FaqSection />
-            </Grid>
-          </Grid>
           <Grid
             item
             className={styles.JoinTheEffortHeaderRow}
@@ -435,14 +485,18 @@ function EquityTab() {
           </Grid>
 
           <JoinTheEffortContainer
-            imageUrl="img/HET_Overlapping_Lines_v4_1000px.gif"
+            imageUrl={
+              prefersReducedMotion
+                ? "/img/animations/HET-lines-no-motion.gif"
+                : "/img/animations/HET-lines.gif"
+            }
             imageBackground="#A5CDC0"
-            imageAlt="Decorative thin lines"
+            imageAlt=""
             textTitle="Learn to create actionable solutions"
             content={
               <>
                 <p className={styles.JoinTheEffortStepText}>
-                  Apply to our Political Determininants of Health Learning
+                  Apply to our Political Determinants of Health Learning
                   Laboratory Fellowship. We seek to partner and support diverse
                   groups in building equitable and sustainable pathways for
                   healthy communities.
@@ -450,9 +504,10 @@ function EquityTab() {
                 <p>
                   <Button
                     className={styles.ContactUsLink}
+                    aria-label="Apply: Satcher Institute Political Determinants of Health Learning Laboratory Program"
                     href="https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/"
                   >
-                    Learn More
+                    Apply to Fellowship
                   </Button>
                 </p>
               </>
@@ -460,9 +515,13 @@ function EquityTab() {
           />
 
           <JoinTheEffortContainer
-            imageUrl="img/HET_Fields_1_v2_1000px.gif"
+            imageUrl={
+              prefersReducedMotion
+                ? "/img/animations/HET-fields-no-motion.gif"
+                : "/img/animations/HET-fields.gif"
+            }
             imageBackground="#EDB2A6"
-            imageAlt="Decorative thick lines"
+            imageAlt=""
             textTitle="Give back to your community"
             content={
               <>
@@ -475,9 +534,10 @@ function EquityTab() {
                 <p>
                   <Button
                     className={styles.ContactUsLink}
+                    aria-label="Sign Up - vaccine rideshare program"
                     href="https://satcherinstitute.org/uberrideshare/"
                   >
-                    Sign Up
+                    Vaccination Rideshare Info
                   </Button>
                 </p>
               </>
@@ -485,9 +545,13 @@ function EquityTab() {
           />
 
           <JoinTheEffortContainer
-            imageUrl="img/HET_Dots_1_v3_1000px.gif"
+            imageUrl={
+              prefersReducedMotion
+                ? "/img/animations/HET-dots-no-motion.gif"
+                : "/img/animations/HET-dots.gif"
+            }
             imageBackground="#275141"
-            imageAlt="Decorative dots"
+            imageAlt=""
             textTitle="Sign up for our newsletter"
             content={
               <>
@@ -506,6 +570,7 @@ function EquityTab() {
                     variant="outlined"
                     className={styles.EmailTextField}
                     type="email"
+                    aria-label="Enter Email Address for Newsletter signup"
                     placeholder="Enter email address"
                   />
                   <Button
@@ -513,6 +578,7 @@ function EquityTab() {
                     color="primary"
                     variant="contained"
                     className={styles.EmailAddressFormSubmit}
+                    aria-label="Sign Up for Newsletter in a new window"
                   >
                     Sign up
                   </Button>

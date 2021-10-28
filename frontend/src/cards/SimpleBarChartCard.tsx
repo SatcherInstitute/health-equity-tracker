@@ -43,14 +43,13 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
 
   const query = new MetricQuery([metricConfig.metricId], breakdowns);
 
+  function getTitleText() {
+    return `${metricConfig.fullCardTitleName} By ${
+      BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+    } In ${props.fips.getFullDisplayName()}`;
+  }
   function CardTitle() {
-    return (
-      <>
-        {metricConfig.fullCardTitleName} By{" "}
-        <b>{BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]}</b> In{" "}
-        {props.fips.getFullDisplayName()}
-      </>
-    );
+    return <>{getTitleText()}</>;
   }
 
   return (
@@ -82,6 +81,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                   breakdownVar={props.breakdownVar}
                   metric={metricConfig}
                   showLegend={false}
+                  filename={getTitleText()}
                 />
               </CardContent>
             )}

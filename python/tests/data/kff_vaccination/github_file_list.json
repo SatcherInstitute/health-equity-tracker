@@ -1,0 +1,40 @@
+[
+  {
+    "path": "01/02/2021Percent of Total Population that has Received a COVID-19 Vaccine by RaceEthnicity",
+    "mode": "100644",
+    "type": "blob",
+    "sha": "0262c9e6f28e2223d139581bea382ed538c87850",
+    "size": 24486,
+    "url": "some-old-url"
+  },
+  {
+    "path": "01/04/2021Percent of Total Population that has Received a COVID-19 Vaccine by RaceEthnicity",
+    "mode": "040000",
+    "type": "tree",
+    "sha": "ef13c95955d7d31150c369686b2f359f1a22c31e",
+    "url": "some-up-to-date-url"
+  },
+  {
+    "path": "01/02/2021COVID19 Vaccinations by RE",
+    "mode": "100644",
+    "type": "blob",
+    "sha": "0262c9e6f28e2223d139581bea382ed538c87850",
+    "size": 24486,
+    "url": "some-other-old-url"
+  },
+  {
+    "path": "01/04/2021COVID19 Vaccinations by RE",
+    "mode": "040000",
+    "type": "tree",
+    "sha": "ef13c95955d7d31150c369686b2f359f1a22c31e",
+    "url": "some-other-up-to-date-url"
+  },
+  {
+    "path": "some-other-pattern",
+    "mode": "100644",
+    "type": "blob",
+    "sha": "bba64fa37358899262fe88ec5c134f5fef67b5d0",
+    "size": 2411,
+    "url": "https://api.github.com/repos/KFFData/COVID-19-Data/git/blobs/bba64fa37358899262fe88ec5c134f5fef67b5d0"
+  }
+]

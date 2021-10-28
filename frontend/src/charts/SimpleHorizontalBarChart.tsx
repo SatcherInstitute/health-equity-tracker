@@ -28,8 +28,8 @@ function getSpec(
   tooltipMetricDisplayColumnName: string,
   showLegend: boolean
 ): any {
-  const BAR_HEIGHT = 40;
-  const BAR_PADDING = 0.1;
+  const BAR_HEIGHT = 60;
+  const BAR_PADDING = 0.2;
   const MEASURE_COLOR = "#0B5240";
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
@@ -185,6 +185,7 @@ export interface SimpleHorizontalBarChartProps {
   breakdownVar: BreakdownVar;
   showLegend: boolean;
   hideActions?: boolean;
+  filename?: string;
 }
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
@@ -210,6 +211,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   return (
     <div ref={ref}>
       <Vega
+        downloadFileName={`${props.filename} - Health Equity Tracker`}
         spec={getSpec(
           data,
           width,
@@ -221,7 +223,17 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           tooltipMetricDisplayColumnName,
           props.showLegend
         )}
-        actions={props.hideActions ? false : true}
+        // custom 3-dot options for states, hidden on territories
+        actions={
+          props.hideActions
+            ? false
+            : {
+                export: { png: true, svg: true },
+                source: false,
+                compiled: false,
+                editor: false,
+              }
+        }
       />
     </div>
   );

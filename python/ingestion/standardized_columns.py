@@ -31,8 +31,10 @@ COUNTY_FIPS_COL = "county_fips"
 COUNTY_NAME_COL = "county_name"
 POPULATION_COL = "population"
 INCOME_COL = "income"
+POPULATION_PCT_COL = "population_pct"
 
 TOTAL_VALUE = "Total"
+ALL_VALUE = "All"
 
 # Standardized column names for Covid cases, hospitalizations, and deaths.
 COVID_CASES = "cases"
@@ -51,6 +53,12 @@ WITHOUT_HEALTH_INSURANCE_COL = "without_health_insurance"
 ABOVE_POVERTY_COL = "above_poverty_line"
 BELOW_POVERTY_COL = "below_poverty_line"
 
+COPD_PCT = "copd_pct"
+DIABETES_PCT = "diabetes_pct"
+
+VACCINATED_FIRST_DOSE = "vaccinated_first_dose"
+VACCINATED_PCT = "vaccinated_pct"
+VACCINATED_PCT_SHARE = "vaccinated_pct_share"
 
 RaceTuple = namedtuple("RaceTuple", [
     "race_category_id",
@@ -114,12 +122,13 @@ class Race(Enum):
     # identifier in some places. Until we migrate to using race_category_id,
     # we add a * for the non-standard other so it doesn't accidentally get
     # joined with the standard other on the frontend.
-    OTHER_NONSTANDARD = ("OTHER_NONSTANDARD", "Some other race*", True)
-    OTHER_NONSTANDARD_NH = ("OTHER_NONSTANDARD_NH", "Some other race*", False)
+    OTHER_NONSTANDARD = ("OTHER_NONSTANDARD", "Some other race", True)
+    OTHER_NONSTANDARD_NH = ("OTHER_NONSTANDARD_NH", "Some other race", False)
 
     # Categories that are combinations of other categories
-    API = ("API", "Asian and Pacific Islander", True)
-    API_NH = ("API_NH", "Asian and Pacific Islander", False)
+    # Currently only used in state level vaccination data
+    API = ("API", "Asian, Native Hawaiian, and Pacific Islander", True)
+    API_NH = ("API_NH", "Asian, Native Hawaiian, and Pacific Islander", False)
     # Combines AIAN and NHPI
     INDIGENOUS = ("INDIGENOUS", "Indigenous", True)
     # Combines AIAN_NH and NHPI_NH
@@ -141,6 +150,7 @@ class Race(Enum):
     # The total across races. This must always be included when the other race
     # values do not sum to 100%
     TOTAL = ("TOTAL", TOTAL_VALUE, None)
+    ALL = ("ALL", ALL_VALUE, None)
 
     # We set the enum value to the first arg, which is the race category id, or
     # a unique code that can be used to reference that race. Race category ids

@@ -10,6 +10,7 @@ import {
 } from "../data/query/Breakdowns";
 import { CardContent } from "@material-ui/core";
 import {
+  METRIC_CONFIG,
   MetricConfig,
   MetricId,
   VariableConfig,
@@ -21,11 +22,13 @@ import {
   RACE,
   UNKNOWN,
   UNKNOWN_RACE,
+  UNKNOWN_ETHNICITY,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
+import { ALL } from "../data/utils/Constants";
 
 export interface TableCardProps {
   fips: Fips;
@@ -39,9 +42,10 @@ export function TableCard(props: TableCardProps) {
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     props.breakdownVar === "race_and_ethnicity"
-      ? exclude(NON_HISPANIC)
-      : undefined
+      ? exclude(NON_HISPANIC, ALL)
+      : exclude(ALL)
   );
+
   let metricConfigs: Record<string, MetricConfig> = {};
   metrics.forEach((metricConfig) => {
     // We prefer to show the known breakdown metric over the vanilla metric, if
@@ -78,7 +82,8 @@ export function TableCard(props: TableCardProps) {
         const dataWithoutUnknowns = queryResponse.data.filter(
           (row: Row) =>
             row[props.breakdownVar] !== UNKNOWN &&
-            row[props.breakdownVar] !== UNKNOWN_RACE
+            row[props.breakdownVar] !== UNKNOWN_RACE &&
+            row[props.breakdownVar] !== UNKNOWN_ETHNICITY
         );
 
         return (
@@ -91,6 +96,11 @@ export function TableCard(props: TableCardProps) {
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
                   geoLevel={props.fips.getFipsTypeDisplayName()}
+                  noDemographicInfo={
+                    props.variableConfig.variableId ===
+                      METRIC_CONFIG["vaccinations"][0].variableId &&
+                    props.fips.isCounty()
+                  }
                 />
               </CardContent>
             )}

@@ -1,7 +1,7 @@
 import React from "react";
 import { CardContent } from "@material-ui/core";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
-import { Fips } from "../data/utils/Fips";
+import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
 import { VariableConfig } from "../data/config/MetricConfig";
 import MapBreadcrumbs from "./ui/MapBreadcrumbs";
 import { Row } from "../data/utils/DatasetTypes";
@@ -13,11 +13,20 @@ import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
-import { UNKNOWN, UNKNOWN_RACE } from "../data/utils/Constants";
+import {
+  UNKNOWN,
+  UNKNOWN_RACE,
+  UNKNOWN_ETHNICITY,
+  ALL,
+} from "../data/utils/Constants";
 import styles from "./Card.module.scss";
 import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import UnknownsAlert from "./ui/UnknownsAlert";
+import {
+  LinkWithStickyParams,
+  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+} from "../utils/urlutils";
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -28,6 +37,8 @@ export interface UnknownsMapCardProps {
   fips: Fips;
   // Updates the madlib
   updateFipsCallback: (fips: Fips) => void;
+  // replaces race AND ethnicity with race OR ethnicity on unknowns map title and alerts
+  overrideAndWithOr?: Boolean;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -62,26 +73,69 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const mapQuery = new MetricQuery([metricConfig.metricId], mapGeoBreakdowns);
   const alertQuery = new MetricQuery([metricConfig.metricId], alertBreakdown);
 
+  const RACE_OR_ETHNICITY_TITLECASE = "Race Or Ethnicity";
+
+  function getTitleTextArray() {
+    return [
+      `${metricConfig.fullCardTitleName}`,
+      `With Unknown ${
+        props.overrideAndWithOr
+          ? RACE_OR_ETHNICITY_TITLECASE
+          : BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+      }`,
+    ];
+  }
+
+  function getTitleText() {
+    return getTitleTextArray().join(" ");
+  }
+
   return (
     <CardWrapper
       queries={[mapQuery, alertQuery]}
-      title={
-        <>{`${metricConfig.fullCardTitleName} With Unknown ${
-          BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
-        }`}</>
-      }
+      title={<>{getTitleText()}</>}
       loadGeographies={true}
     >
       {([mapQueryResponse, alertQueryResponse], metadata, geoData) => {
-        const unknowns = mapQueryResponse
+        const unknownRaces = mapQueryResponse
           .getValidRowsForField(props.currentBreakdown)
           .filter(
             (row: Row) =>
               row[props.currentBreakdown] === UNKNOWN_RACE ||
               row[props.currentBreakdown] === UNKNOWN
           );
+
+        const unknownEthnicities = mapQueryResponse
+          .getValidRowsForField(props.currentBreakdown)
+          .filter(
+            (row: Row) => row[props.currentBreakdown] === UNKNOWN_ETHNICITY
+          );
+
+        // If a state provides both unknown race and ethnicity numbers
+        // use the higher one
+        const unknowns =
+          unknownEthnicities.length === 0
+            ? unknownRaces
+            : unknownRaces.map((unknownRaceRow, index) => {
+                return unknownRaceRow[metricConfig.metricId] >
+                  unknownEthnicities[index][metricConfig.metricId] ||
+                  unknownEthnicities[index][metricConfig.metricId] == null
+                  ? unknownRaceRow
+                  : unknownEthnicities[index];
+              });
+
         const noUnknownValuesReported =
           !mapQueryResponse.dataIsMissing() && unknowns.length === 0;
+
+        const noDemographicInfo =
+          mapQueryResponse
+            .getValidRowsForField(props.currentBreakdown)
+            .filter((row: Row) => row[props.currentBreakdown] !== ALL)
+            .length === 0 &&
+          mapQueryResponse
+            .getValidRowsForField(props.currentBreakdown)
+            .filter((row: Row) => row[props.currentBreakdown] === ALL).length >
+            0;
 
         return (
           <>
@@ -98,6 +152,18 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               breakdownVar={props.currentBreakdown}
               displayType="map"
               known={false}
+              overrideAndWithOr={
+                props.currentBreakdown === "race_and_ethnicity"
+              }
+              raceEthDiffMap={
+                mapQueryResponse
+                  .getValidRowsForField(props.currentBreakdown)
+                  .filter(
+                    (row: Row) =>
+                      row[props.currentBreakdown] === UNKNOWN_ETHNICITY
+                  ).length !== 0
+              }
+              noDemographicInfoMap={noDemographicInfo}
             />
             <CardContent>
               {mapQueryResponse.dataIsMissing() && (
@@ -109,7 +175,17 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   geoLevel={props.fips.getChildFipsTypeDisplayName()}
                 />
               )}
-              {noUnknownValuesReported && (
+              {noDemographicInfo && (
+                <Alert severity="warning">
+                  We do not currently have demographic information for{" "}
+                  <b>{metricConfig.fullCardTitleName}</b> at the <b>county</b>{" "}
+                  level. Learn more about how this lack of data impacts{" "}
+                  <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
+                    health equity.
+                  </LinkWithStickyParams>
+                </Alert>
+              )}
+              {noUnknownValuesReported && !noDemographicInfo && (
                 <Alert severity="info">
                   No unknown values for{" "}
                   {BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]} reported
@@ -124,9 +200,10 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     !mapQueryResponse.dataIsMissing() &&
                     (props.variableConfig.surveyCollectedData || false)
                   }
+                  isUnknownsMap={true}
                   signalListeners={signalListeners}
                   metric={metricConfig}
-                  legendTitle={metricConfig.fullCardTitleName}
+                  legendTitle={getTitleTextArray()}
                   data={unknowns}
                   showCounties={props.fips.isUsa() ? false : true}
                   fips={props.fips}
@@ -136,7 +213,39 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     mapQueryResponse.dataIsMissing() || unknowns.length <= 1
                   }
                   geoData={geoData}
+                  filename={`${getTitleText()} in ${props.fips.getFullDisplayName()}`}
                 />
+                {props.fips.isUsa() && (
+                  <div className={styles.TerritoryCirclesContainer}>
+                    {TERRITORY_CODES.map((code) => {
+                      const fips = new Fips(code);
+                      return (
+                        <div key={code} className={styles.TerritoryCircle}>
+                          <ChoroplethMap
+                            isUnknownsMap={true}
+                            useSmallSampleMessage={
+                              !mapQueryResponse.dataIsMissing() &&
+                              (props.variableConfig.surveyCollectedData ||
+                                false)
+                            }
+                            signalListeners={signalListeners}
+                            metric={metricConfig}
+                            legendTitle={metricConfig.fullCardTitleName}
+                            data={unknowns}
+                            showCounties={props.fips.isUsa() ? false : true}
+                            fips={fips}
+                            scaleType="symlog"
+                            scaleColorScheme="greenblue"
+                            hideLegend={true}
+                            hideActions={true}
+                            geoData={geoData}
+                            overrideShapeWithCircle={true}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </CardContent>
             )}
           </>

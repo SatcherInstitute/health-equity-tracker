@@ -1,4 +1,5 @@
 import React from "react";
+import Alert from "@material-ui/lab/Alert";
 import { DisparityBarChart } from "../charts/DisparityBarChart";
 import styles from "./Card.module.scss";
 import { CardContent } from "@material-ui/core";
@@ -9,7 +10,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { VariableConfig } from "../data/config/MetricConfig";
+import { VariableConfig, METRIC_CONFIG } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { exclude } from "../data/query/BreakdownFilter";
@@ -18,9 +19,23 @@ import {
   ALL,
   UNKNOWN,
   UNKNOWN_RACE,
+  UNKNOWN_ETHNICITY,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import UnknownsAlert from "./ui/UnknownsAlert";
+
+export function showAltPopCompare(props: {
+  fips: { isState: () => any };
+  breakdownVar: string;
+  variableConfig: { variableId: string };
+}) {
+  return (
+    props.fips.isState() &&
+    props.breakdownVar === "race_and_ethnicity" &&
+    props.variableConfig.variableId ===
+      METRIC_CONFIG["vaccinations"][0].variableId
+  );
+}
 
 export interface DisparityBarChartCardProps {
   key?: string;
@@ -59,14 +74,13 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   }
   const query = new MetricQuery(metricIds, breakdowns);
 
+  function getTitleText() {
+    return `${metricConfig.fullCardTitleName} vs. Population By ${
+      BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+    } In ${props.fips.getFullDisplayName()}`;
+  }
   function CardTitle() {
-    return (
-      <>
-        {metricConfig.fullCardTitleName} vs. Population By{" "}
-        {BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]} In{" "}
-        {props.fips.getFullDisplayName()}
-      </>
-    );
+    return <>{getTitleText()}</>;
   }
 
   return (
@@ -77,8 +91,22 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
           .filter(
             (row: Row) =>
               row[props.breakdownVar] !== UNKNOWN &&
-              row[props.breakdownVar] !== UNKNOWN_RACE
+              row[props.breakdownVar] !== UNKNOWN_RACE &&
+              row[props.breakdownVar] !== UNKNOWN_ETHNICITY
           );
+
+        let shouldShowDoesntAddUpMessage = false;
+        if (
+          props.breakdownVar === "race_and_ethnicity" &&
+          queryResponse.data.length > 0
+        ) {
+          shouldShowDoesntAddUpMessage = true;
+          queryResponse.data.forEach((elem) => {
+            if (elem[props.breakdownVar].includes("(Non-Hispanic)")) {
+              shouldShowDoesntAddUpMessage = false;
+            }
+          });
+        }
 
         const dataAvailable = !queryResponse.shouldShowMissingDataMessage([
           metricConfig.metricId,
@@ -93,6 +121,11 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
                   geoLevel={props.fips.getFipsTypeDisplayName()}
+                  noDemographicInfo={
+                    props.variableConfig.variableId ===
+                      METRIC_CONFIG["vaccinations"][0].variableId &&
+                    props.fips.isCounty()
+                  }
                 />
               </CardContent>
             )}
@@ -103,6 +136,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 breakdownVar={props.breakdownVar}
                 displayType="chart"
                 known={true}
+                overrideAndWithOr={props.breakdownVar === "race_and_ethnicity"}
               />
             )}
             {dataAvailable && dataWithoutUnknowns.length !== 0 && (
@@ -115,8 +149,19 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   }
                   breakdownVar={props.breakdownVar}
                   metricDisplayName={metricConfig.shortVegaLabel}
+                  filename={getTitleText()}
+                  showAltPopCompare={showAltPopCompare(props)}
                 />
               </CardContent>
+            )}
+            {shouldShowDoesntAddUpMessage && (
+              <Alert severity="info">
+                Population percentages on this graph add up to over 100% because
+                the racial categories reported for{" "}
+                {metricConfig.fullCardTitleName} include Hispanic individuals in
+                each racial category. As a result, Hispanic individuals are
+                counted twice.
+              </Alert>
             )}
           </>
         );

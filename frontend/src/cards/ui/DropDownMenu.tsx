@@ -8,6 +8,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Popover, { PopoverOrigin } from "@material-ui/core/Popover";
 import { usePopover, PopoverElements } from "../../utils/usePopover";
 import styles from "./DropDownMenu.module.scss";
+import { Menu } from "@material-ui/core";
 
 const ANCHOR_ORIGIN: PopoverOrigin = {
   vertical: "top",
@@ -70,9 +71,20 @@ function MenuPopover(props: {
       anchorOrigin={ANCHOR_ORIGIN}
       transformOrigin={TRANSFORM_ORIGIN}
     >
-      <List>
-        {listItems.map((listItem: string) => renderListItem(listItem))}
-      </List>
+      <Menu
+        open={props.popover.isOpen}
+        className={styles.GroupListMenuBox}
+        onClose={() => {
+          props.popover.close();
+          if (props.onClose) {
+            props.onClose();
+          }
+        }}
+      >
+        <List aria-label="List of Options" dense={true}>
+          {listItems.map((listItem: string) => renderListItem(listItem))}
+        </List>
+      </Menu>
     </Popover>
   );
 }
@@ -103,17 +115,17 @@ function DropDownMenu(props: {
   );
 
   const oneLevelMenu = Object.keys(props.options).length === 1;
-
   return (
     <>
       <div className={styles.FilterBy}>Select group:</div>
-      <Button variant="text" onClick={firstMenu.open}>
+      <Button variant="text" onClick={firstMenu.open} aria-haspopup="true">
         <u>{props.value}</u>
         <ArrowDropDown />
       </Button>
 
       <MenuPopover
         popover={firstMenu}
+        aria-expanded="true"
         items={oneLevelMenu ? Object.values(props.options)[0] : props.options}
         onClick={(event: React.MouseEvent<HTMLElement>, value: string) => {
           if (oneLevelMenu) {

@@ -11,9 +11,10 @@ import Typography from "@material-ui/core/Typography";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import MenuIcon from "@material-ui/icons/Menu";
 import { ThemeProvider } from "@material-ui/styles";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
+  Redirect,
   Route,
   Switch,
   useLocation,
@@ -21,25 +22,42 @@ import {
 import { CookiesProvider } from "react-cookie";
 import ReactTooltip from "react-tooltip";
 import styles from "./App.module.scss";
-import Footer from "./Footer";
-import { AboutUsPage } from "./pages/AboutUs/AboutUsPage";
-import DataCatalogTab from "./pages/DataCatalog/DataCatalogTab";
-import ExploreDataPage from "./pages/ExploreData/ExploreDataPage";
-import LandingPage from "./pages/Landing/LandingPage";
-import NotFoundPage from "./pages/NotFoundPage";
-import TermsOfServicePage from "./pages/TermsOfServicePage/TermsOfServicePage";
-import { WhatIsHealthEquityPage } from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
 import MaterialTheme from "./styles/MaterialTheme";
 import { autoInitGlobals } from "./utils/globals";
 import {
   ABOUT_US_PAGE_LINK,
+  CONTACT_TAB_LINK,
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
+  FAQ_TAB_LINK,
   LinkWithStickyParams,
+  METHODOLOGY_TAB_LINK,
+  OURTEAM_TAB_LINK,
   ReactRouterLinkButton,
-  TERMS_OF_SERVICE_PAGE_LINK,
+  RESOURCES_TAB_LINK,
+  TERMS_OF_USE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "./utils/urlutils";
+import AppBarLogo from "./assets/AppbarLogo.png";
+
+// the following components make CSS modules which are imported by other components, so they must load first
+import AboutUsPage from "./pages/AboutUs/AboutUsPage";
+import WhatIsHealthEquityPage from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
+
+const ExploreDataPage = React.lazy(
+  () => import("./pages/ExploreData/ExploreDataPage")
+);
+const Footer = React.lazy(() => import("./Footer"));
+
+const LandingPage = React.lazy(() => import("./pages/Landing/LandingPage"));
+const NotFoundPage = React.lazy(() => import("./pages/NotFoundPage"));
+const TermsOfUsePage = React.lazy(
+  () => import("./pages/TermsOfUsePage/TermsOfUsePage")
+);
+
+const DataCatalogTab = React.lazy(
+  () => import("./pages/DataCatalog/DataCatalogTab")
+);
 
 const MOBILE_BREAKPOINT = 600;
 
@@ -93,7 +111,12 @@ function AppToolbar() {
   return (
     <Toolbar className={styles.AppToolbar}>
       <ReactRouterLinkButton url="/" className={styles.AppbarLogoImg}>
-        <img src="img/AppbarLogo.png" className={styles.AppbarLogoImg} alt="" />
+        <img
+          src={AppBarLogo}
+          className={styles.AppbarLogoImg}
+          alt="Health Equity Tracker logo"
+          role="link"
+        />
       </ReactRouterLinkButton>
       <Typography variant="h1" className={styles.HomeLogo}>
         <LinkWithStickyParams to="/">
@@ -149,44 +172,86 @@ function App() {
         <div className={styles.App}>
           <div className={styles.Content}>
             <Router>
-              <a className={styles.SkipMainLink} href="#main">
-                Skip to main content
-              </a>
-              <ScrollToTop />
-              <AppBar position="static" elevation={0}>
-                {width > MOBILE_BREAKPOINT ? (
-                  <AppToolbar />
-                ) : (
-                  <MobileAppToolbar />
-                )}
-              </AppBar>
-              <main>
-                <Switch>
-                  <Route path={ABOUT_US_PAGE_LINK} component={AboutUsPage} />
-                  <Route
-                    path={DATA_CATALOG_PAGE_LINK}
-                    component={DataCatalogTab}
-                  />
-                  <Route
-                    path={EXPLORE_DATA_PAGE_LINK}
-                    component={ExploreDataPage}
-                  />
-                  <Route
-                    path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
-                    component={WhatIsHealthEquityPage}
-                  />
-                  <Route
-                    path={TERMS_OF_SERVICE_PAGE_LINK}
-                    component={TermsOfServicePage}
-                  />
-                  <Route exact path="/" component={LandingPage} />
-                  <Route component={NotFoundPage} />
-                </Switch>
-              </main>
+              <Suspense fallback={<i></i>}>
+                <a className={styles.SkipMainLink} href="#main">
+                  Skip to main content
+                </a>
+                <ScrollToTop />
+                <AppBar position="static" elevation={0}>
+                  {width > MOBILE_BREAKPOINT ? (
+                    <AppToolbar />
+                  ) : (
+                    <MobileAppToolbar />
+                  )}
+                </AppBar>
+                <main>
+                  <Switch>
+                    <Route
+                      path={ABOUT_US_PAGE_LINK}
+                      render={() => <AboutUsPage />}
+                    />
+
+                    <Route
+                      path={OURTEAM_TAB_LINK}
+                      render={() => <AboutUsPage />}
+                    />
+
+                    <Route
+                      path={CONTACT_TAB_LINK}
+                      render={() => <AboutUsPage />}
+                    />
+
+                    <Route
+                      path={DATA_CATALOG_PAGE_LINK}
+                      render={() => <DataCatalogTab />}
+                    />
+
+                    <Route
+                      path={METHODOLOGY_TAB_LINK}
+                      render={() => <DataCatalogTab />}
+                    />
+
+                    <Route
+                      path={EXPLORE_DATA_PAGE_LINK}
+                      render={() => <ExploreDataPage />}
+                    />
+
+                    <Route
+                      path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+                      render={() => <WhatIsHealthEquityPage />}
+                    />
+
+                    <Route
+                      path={FAQ_TAB_LINK}
+                      render={() => <WhatIsHealthEquityPage />}
+                    />
+
+                    <Route
+                      path={RESOURCES_TAB_LINK}
+                      render={() => <WhatIsHealthEquityPage />}
+                    />
+
+                    <Route
+                      path={TERMS_OF_USE_PAGE_LINK}
+                      render={() => <TermsOfUsePage />}
+                    />
+                    {/* redirect the old URL for possible outside links */}
+                    <Route path={`/termsofservice`}>
+                      <Redirect to={TERMS_OF_USE_PAGE_LINK} />
+                    </Route>
+
+                    <Route exact path="/" render={() => <LandingPage />} />
+                    {/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}
+                    <Route render={() => <NotFoundPage />} />
+                  </Switch>
+                </main>
+              </Suspense>{" "}
             </Router>
           </div>
           <footer>
-            <Footer />
+            <Suspense fallback={<span></span>}>
+              <Footer />
+            </Suspense>
           </footer>
         </div>
       </CookiesProvider>

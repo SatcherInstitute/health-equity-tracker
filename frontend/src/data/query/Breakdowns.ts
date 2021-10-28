@@ -1,8 +1,6 @@
 import { Fips } from "../utils/Fips";
 import BreakdownFilter from "./BreakdownFilter";
 
-export const ALL_RACES_DISPLAY_NAME = "All races";
-
 export type GeographicBreakdown = "national" | "state" | "county";
 
 // TODO flesh this out - would be nice to enforce more type-checking of these
@@ -118,7 +116,7 @@ export class Breakdowns {
         breakdowns[breakdownKey] = stringifyDemographic(breakdown);
       }
     );
-    // Any fields that are not set will not be included in the string for readibility
+    // Any fields that are not set will not be included in the string for readability
     // We want to sort these to ensure that it is deterministic so that all breakdowns map to the same key
     const orderedBreakdownKeys = Object.keys(breakdowns)
       .sort()
@@ -165,6 +163,16 @@ export class Breakdowns {
       return Breakdowns.byState();
     }
     return Breakdowns.forFips(fips);
+  }
+
+  static forChildrenFips(fips: Fips): Breakdowns {
+    if (fips.isCounty()) {
+      return Breakdowns.byCounty().withGeoFilter(fips);
+    } else if (fips.isStateOrTerritory()) {
+      return Breakdowns.byCounty().withGeoFilter(fips);
+    } else {
+      return Breakdowns.byState();
+    }
   }
 
   addBreakdown(

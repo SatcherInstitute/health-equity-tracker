@@ -33,6 +33,29 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
+    id: "acs_2010",
+    data_source_name:
+      "American Community Survey 5-year estimates from 2010, U.S. Territories",
+    data_source_link:
+      "https://www.census.gov/data/datasets/2010/dec/virgin-islands.html",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "None",
+    description:
+      "Population percentages at the territory level: " +
+      "the census bureau has not included population data from " +
+      "the U.S. Virgin Islands, Guam, or the Northern Mariana Islands " +
+      "in its 5 year ACS estimates, so the most up to date population " +
+      "estimates are from 2010. Interpret any metrics from " +
+      "these territories with caution.",
+    dataset_ids: [
+      "acs_2010_population-by_race_and_ethnicity_territory",
+      "acs_2010_population-by_sex_territory",
+      "acs_2010_population-by_age_territory",
+    ],
+    downloadable: true,
+  },
+  {
     id: "cdc_restricted",
     data_source_name: "CDC Case Surveillance Restricted Access Detailed Data",
     data_source_link:
@@ -43,8 +66,8 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "The numbers of confirmed COVID-19 deaths, cases, and hospitalizations at the state and county levels. " +
       "The data source is Centers for Disease Control and Prevention, COVID-19 Response. COVID-19 Case " +
-      "Surveillance Data Access, Summary, and Limitations (6/07/2021). The last case data included is 2 " +
-      "weeks before 6/07/2021. The CDC does not take responsibility for the scientific validity " +
+      "Surveillance Data Access, Summary, and Limitations (8/31/2021). The last case data included is 2 " +
+      "weeks before 8/31/2021. The CDC does not take responsibility for the scientific validity " +
       "or accuracy of methodology, results, statistical analyses, or conclusions presented. This " +
       "dataset is not available for download, please press the button below to apply for access.",
     dataset_ids: [
@@ -58,6 +81,61 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: false,
   },
   {
+    id: "cdc_vaccination_county",
+    data_source_name: "CDC COVID-19 Vaccinations in the United States, County",
+    data_source_link:
+      "https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh",
+    geographic_level: "County",
+    demographic_granularity: "None",
+    update_frequency: "Daily",
+    description:
+      "Overall US COVID-19 Vaccine administration and vaccine equity data at county level " +
+      "Data represents all vaccine partners including jurisdictional partner clinics, " +
+      "retail pharmacies, long-term care facilities, dialysis centers, " +
+      "Federal Emergency Management Agency and Health Resources and Services " +
+      "Administration partner sites, and federal entity facilities.",
+    dataset_ids: ["cdc_vaccination_county-race_and_ethnicity"],
+    downloadable: true,
+  },
+  {
+    id: "cdc_vaccination_national",
+    data_source_name:
+      "CDC COVID-19 Vaccination Demographics in the United States, National",
+    data_source_link:
+      "https://covid.cdc.gov/covid-data-tracker/#vaccination-demographics-trends",
+    geographic_level: "National",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Daily",
+    description:
+      "Overall Demographic Characteristics of People Receiving COVID-19 Vaccinations " +
+      "in the United States at national level. Data represents all vaccine partners " +
+      "including jurisdictional partner clinics, retail pharmacies, long-term care facilities, " +
+      "dialysis centers, Federal Emergency Management Agency and Health Resources and Services " +
+      "Administration partner sites, and federal entity facilities. (CDC 2021)",
+    dataset_ids: [
+      "cdc_vaccination_national-age",
+      "cdc_vaccination_national-race_and_ethnicity",
+      "cdc_vaccination_national-sex",
+    ],
+    downloadable: true,
+  },
+  {
+    id: "kff_vaccination",
+    data_source_name: "Kaiser Family Foundation COVID-19 Indicators",
+    data_source_link: "https://www.kff.org/state-category/covid-19/",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity",
+    update_frequency: "Biweekly",
+    description:
+      "State level vaccination information based off of Kaiser Family Foundation " +
+      "analysis of publicly available data from state websites. Per 100k metrics are found on " +
+      "'COVID-19 Vaccinations by Race/Ethnicity', percent share metrics are found on " +
+      "'Percent of Total Population that has Received a COVID-19 Vaccine by Race/Ethnicity' " +
+      "and the All metric is found on 'COVID-19 Vaccines Delivered and Administered'",
+    dataset_ids: ["kff_vaccination-race_and_ethnicity"],
+    downloadable: true,
+  },
+  {
     id: "uhc",
     data_source_name: "America's Health Rankings",
     data_source_link:
@@ -66,7 +144,11 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Annual",
     description: "The prevalence of diabetes and COPD at the state level.",
-    dataset_ids: ["uhc_age", "uhc_race_and_ethnicity", "uhc_sex"],
+    dataset_ids: [
+      "uhc_data-age",
+      "uhc_data-race_and_ethnicity",
+      "uhc_data-sex",
+    ],
     downloadable: true,
   },
   {

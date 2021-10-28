@@ -3,11 +3,14 @@ import Grid from "@material-ui/core/Grid";
 import styles from "./AboutUsPage.module.scss";
 import Typography from "@material-ui/core/Typography";
 import Hidden from "@material-ui/core/Hidden";
+import { Helmet } from "react-helmet";
 
 function ContactUsTab() {
   return (
     <>
-      <title>Contact Us - About Us - Health Equity Tracker</title>
+      <Helmet>
+        <title>Contact Us - About Us - Health Equity Tracker</title>
+      </Helmet>
       <h1 className={styles.ScreenreaderTitleHeader}>Contact Us</h1>
       <Grid container className={styles.Grid}>
         <Grid
@@ -18,13 +21,7 @@ function ContactUsTab() {
           alignItems="center"
         >
           <Hidden smDown>
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={4}
-              className={styles.GridVerticallyAlignedItem}
-            >
+            <Grid item md={5} className={styles.GridVerticallyAlignedItem}>
               <Typography
                 id="main"
                 tabIndex={-1}
@@ -32,21 +29,17 @@ function ContactUsTab() {
                 variant="h2"
               >
                 Let's move
-                <br />
+                <br aria-hidden="true" />
                 equity <b style={{ fontWeight: 400 }}>forward</b>
               </Typography>
             </Grid>
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={8}
-              className={styles.GridAlignRightItem}
-            >
+            <Grid item md={7} className={styles.HeaderImgItem}>
               <img
-                src="img/pexels-mentatdgt-1206059 2.png"
+                width="870"
+                height="644"
+                src="/img/stock/women-laughing-in-line.png"
                 className={styles.ImgContactUsHeader}
-                alt="A group of female friends hug"
+                alt=""
               />
             </Grid>
           </Hidden>
@@ -58,8 +51,12 @@ function ContactUsTab() {
           justify="center"
           alignItems="center"
         >
-          <Grid item xs={12} sm={12} md={8}>
-            <Typography className={styles.ContactUsSubheaderText} variant="h3">
+          <Grid item xs={12} sm={12} md={8} lg={6}>
+            <Typography
+              className={styles.ContactUsSubheaderText}
+              variant="h4"
+              paragraph={true}
+            >
               Thank you for your interest in the Health Equity Tracker
             </Typography>
           </Grid>
@@ -67,26 +64,41 @@ function ContactUsTab() {
             item
             xs={12}
             sm={12}
-            md={5}
+            md={7}
             className={styles.ContactUsCenteredTextItem}
           >
-            <p>
-              <b>For general requests:</b> please contact the Satcher Health
-              Leadership Institute at shli@msm.edu
+            <p className={styles.ContactUsP}>
+              <b>For General Requests:</b>
+              <br />
+              Please contact the{" "}
+              <a href="https://satcherinstitute.org/">
+                Satcher Health Leadership Institute
+              </a>{" "}
+              at <a href="mailto:shli@msm.edu">shli@msm.edu</a>
             </p>
-            <p>
+            <p className={styles.ContactUsP}>
+              <b>For Media Inquiries:</b>
+              <br />
+              Please contact Mahia Valle, Senior Communications Specialist, at{" "}
+              <a href="mailto:mvalle@msm.edu">mvalle@msm.edu</a>
+            </p>
+            <p className={styles.ContactUsP}>
+              <b>Phone:</b>
+              <br />
+              <a href="tel:4047528654">(404) 752-8654</a>
+            </p>
+
+            <p className={styles.ContactUsP}>
               <b>Mailing Address:</b>
               <br />
               Morehouse School of Medicine
               <br />
               Satcher Health Leadership Institute
               <br />
-              720 Westview Drive, SW
+              720 Westview Drive SW
               <br />
-              Atlanta, GA 30310
-              <br />
-              <br />
-              (404) 752-8654
+              Atlanta, <span aria-label="Georgia">GA</span>{" "}
+              <span aria-label="Zip Code 3 0 3 1 0">30310</span>
             </p>
           </Grid>
         </Grid>

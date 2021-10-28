@@ -90,7 +90,10 @@ export class ApiDataFetcher implements DataFetcher {
 
     // TODO remove these once we figure out how to make BQ export integers as
     // integers
-    if (datasetId.startsWith("acs_population")) {
+    if (
+      datasetId.startsWith("acs_population") ||
+      datasetId.startsWith("acs_2010_population")
+    ) {
       result = result.map((row: any) => {
         return { ...row, population: Number(row["population"]) };
       });
@@ -116,6 +119,22 @@ export class ApiDataFetcher implements DataFetcher {
           ...row,
           above_poverty_line: Number(row["above_poverty_line"]),
           below_poverty_line: Number(row["below_poverty_line"]),
+        };
+      });
+    } else if (datasetId.startsWith("cdc_vaccination_national")) {
+      result = result.map((row: any) => {
+        return {
+          ...row,
+          vaccinated_first_dose: Number(row["vaccinated_first_dose"]),
+          population: Number(row["population"]),
+        };
+      });
+    } else if (datasetId.startsWith("kff_vaccination")) {
+      result = result.map((row: any) => {
+        return {
+          ...row,
+          vaccinated_first_dose: Number(row["vaccinated_first_dose"]),
+          population: Number(row["population"]),
         };
       });
     }

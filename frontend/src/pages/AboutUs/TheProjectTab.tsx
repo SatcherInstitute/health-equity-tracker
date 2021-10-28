@@ -4,10 +4,23 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
 import {
-  LinkWithStickyParams,
+  COPD_US_SETTING,
+  COVID_CASES_US_SETTING,
+  COVID_VAX_US_SETTING,
+  DATA_CATALOG_PAGE_LINK,
+  DIABETES_US_SETTING,
   EXPLORE_DATA_PAGE_LINK,
+  LinkWithStickyParams,
+  POVERTY_US_SETTING,
+  UNINSURANCE_US_SETTING,
 } from "../../utils/urlutils";
 import Hidden from "@material-ui/core/Hidden";
+import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
+import { Helmet } from "react-helmet";
+import LazyLoad from "react-lazyload";
+import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
+import { METRIC_CONFIG } from "../../data/config/MetricConfig";
+import { DEMOGRAPHIC_BREAKDOWNS } from "../../data/query/Breakdowns";
 
 function AimToGoItem(props: {
   src: string;
@@ -25,21 +38,31 @@ function AimToGoItem(props: {
       >
         <Hidden smDown>
           <Grid item>
-            <img
-              className={styles.ImgAimToGo}
-              src={props.src}
-              alt={props.alt}
-            />
+            <LazyLoad offset={300} height={255} once>
+              <img
+                className={styles.ImgAimToGo}
+                src={props.src}
+                alt={props.alt}
+              />
+            </LazyLoad>
           </Grid>
         </Hidden>
         <Grid item>
-          <Typography className={styles.SubheaderL2Text} variant="h3">
+          <Typography
+            className={styles.SubheaderL2Text}
+            variant="h3"
+            paragraph={true}
+          >
             {props.title}
           </Typography>
         </Grid>
         <Grid item>
-          <Typography className={styles.HeaderSubtextL2} variant="body2">
-            <p>{props.text}</p>
+          <Typography
+            className={styles.HeaderSubtextL2}
+            variant="body2"
+            paragraph
+          >
+            {props.text}
           </Typography>
         </Grid>
       </Grid>
@@ -48,9 +71,20 @@ function AimToGoItem(props: {
 }
 
 function TheProjectTab() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const numDataSources = Object.keys(DataSourceMetadataMap).length;
+  // tally number of conditions (including sub-conditions like COVID) x # demographic options
+  const numVariables =
+    Object.keys(METRIC_CONFIG).reduce(
+      (tally, conditionKey) => (tally += METRIC_CONFIG[conditionKey].length),
+      0
+    ) * DEMOGRAPHIC_BREAKDOWNS.length;
+
   return (
     <>
-      <title>The Project - About Us - Health Equity Tracker</title>
+      <Helmet>
+        <title>The Project - About Us - Health Equity Tracker</title>
+      </Helmet>
       <h1 className={styles.ScreenreaderTitleHeader}>The Project</h1>
       <Grid container className={styles.Grid}>
         <Grid
@@ -72,31 +106,32 @@ function TheProjectTab() {
               tabIndex={-1}
               className={styles.HeaderText}
               variant="h2"
+              paragraph={true}
             >
               We're focused on equitable data.
             </Typography>
             <br />
-            <Typography className={styles.HeaderSubtext} variant="body1">
-              <p>
-                Health equity can't exist without equitable data. That's why
-                we're aiming to collect health equity data from across the
-                United States and centralize it all in one place.
-              </p>
+            <Typography
+              className={styles.HeaderSubtext}
+              variant="body1"
+              paragraph={true}
+            >
+              Health equity can't exist without equitable data. That's why we're
+              aiming to collect health equity data from across the United States
+              and centralize it all in one place.
             </Typography>
           </Grid>
           <Hidden smDown>
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={7}
-              className={styles.GridAlignRightItem}
-            >
-              <img
-                src="img/pexels-ketut-subiyanto-4473871 1.png"
-                className={styles.ImgHeaderGridItem}
-                alt="A woman laying with her two children"
-              />
+            <Grid item xs={12} sm={12} md={7} className={styles.HeaderImgItem}>
+              <LazyLoad offset={300} height={644} once>
+                <img
+                  width="754"
+                  height="644"
+                  src="/img/stock/woman-kids.png"
+                  className={styles.HeaderImg}
+                  alt=""
+                />
+              </LazyLoad>
             </Grid>
           </Hidden>
         </Grid>
@@ -122,22 +157,24 @@ function TheProjectTab() {
               md={5}
               className={styles.GridVerticallyAlignedItem}
             >
-              <Typography className={styles.SubheaderL1Text} variant="h2">
+              <Typography
+                className={styles.SubheaderL1Text}
+                variant="h2"
+                paragraph={true}
+              >
                 Where we started
               </Typography>
-              <Typography variant="body1">
-                <p>
-                  Prompted by the COVID-19 pandemic, the Health Equity Tracker
-                  was created in 2020 to aggregate up-to-date demographic data
-                  from the hardest-hit communities.
-                </p>
-                <p>
-                  The Health Equity Tracker aims to give a detailed view of
-                  health outcomes by race, ethnicity, sex, socioeconomic status,
-                  and other critical factors. Our hope is that it will help
-                  policymakers understand what resources and support affected
-                  communities need to be able to improve their outcomes.
-                </p>
+              <Typography variant="body1" paragraph={true}>
+                Prompted by the COVID-19 pandemic, the Health Equity Tracker was
+                created in 2020 to aggregate up-to-date demographic data from
+                the hardest-hit communities.
+              </Typography>
+              <Typography variant="body1" paragraph={true}>
+                The Health Equity Tracker aims to give a detailed view of health
+                outcomes by race, ethnicity, sex, socioeconomic status, and
+                other critical factors. Our hope is that it will help
+                policymakers understand what resources and support affected
+                communities need to be able to improve their outcomes.
               </Typography>
             </Grid>
 
@@ -147,41 +184,81 @@ function TheProjectTab() {
                 direction="row"
                 justify="space-around"
                 alignItems="flex-start"
-                xs={12}
+                spacing={3}
               >
                 <Grid item xs={12} sm={12} md={5}>
                   <Typography
                     className={styles.UnderlinedHeaderL2}
                     variant="h3"
+                    paragraph={true}
                   >
-                    5 data sources
+                    {`${numDataSources} data sources`}
                   </Typography>
                   <Typography
                     className={styles.HeaderSubtextL3}
                     variant="body2"
+                    paragraph={true}
                   >
-                    <p>
-                      HET currently aggregates data from 5 key data sources.
-                      We’ll continue adding to these initial sources.
-                    </p>
+                    HET currently aggregates data from{" "}
+                    <LinkWithStickyParams to={DATA_CATALOG_PAGE_LINK}>
+                      {`${numDataSources}`} key data sources
+                    </LinkWithStickyParams>
+                    , including the Center for Disease Control (CDC) and the
+                    American Community Survey (ACS). We’ll continue adding to
+                    these initial sources as data access and quality improves.
                   </Typography>
                 </Grid>
                 <Grid item xs={12} sm={12} md={5}>
                   <Typography
                     className={styles.UnderlinedHeaderL2}
                     variant="h3"
+                    paragraph={true}
                   >
-                    15 variables
+                    {numVariables} variables
                   </Typography>
                   <Typography
                     className={styles.HeaderSubtextL3}
                     variant="body2"
+                    paragraph={true}
                   >
-                    <p>
-                      Along with COVID-19 cases, hospitalizations and deaths,
-                      the tracker also covers conditions like COPD, diabetes,
-                      SDOH, and more
-                    </p>
+                    Beyond{" "}
+                    <LinkWithStickyParams
+                      to={EXPLORE_DATA_PAGE_LINK + COVID_CASES_US_SETTING}
+                    >
+                      COVID-19 outcomes
+                    </LinkWithStickyParams>{" "}
+                    and{" "}
+                    <LinkWithStickyParams
+                      to={EXPLORE_DATA_PAGE_LINK + COVID_VAX_US_SETTING}
+                    >
+                      vaccination rates
+                    </LinkWithStickyParams>
+                    , the tracker also covers chronic disease conditions like{" "}
+                    <LinkWithStickyParams
+                      to={EXPLORE_DATA_PAGE_LINK + COPD_US_SETTING}
+                    >
+                      COPD
+                    </LinkWithStickyParams>{" "}
+                    and{" "}
+                    <LinkWithStickyParams
+                      to={EXPLORE_DATA_PAGE_LINK + DIABETES_US_SETTING}
+                    >
+                      diabetes
+                    </LinkWithStickyParams>
+                    , along with social and political determinants of health
+                    such as{" "}
+                    <LinkWithStickyParams
+                      to={EXPLORE_DATA_PAGE_LINK + UNINSURANCE_US_SETTING}
+                    >
+                      uninsurance
+                    </LinkWithStickyParams>{" "}
+                    and{" "}
+                    <LinkWithStickyParams
+                      to={EXPLORE_DATA_PAGE_LINK + POVERTY_US_SETTING}
+                    >
+                      poverty
+                    </LinkWithStickyParams>
+                    .
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
@@ -190,21 +267,16 @@ function TheProjectTab() {
                     direction="row"
                     justify="space-around"
                     alignItems="flex-start"
-                    xs={12}
                   >
                     <Grid item xs={12} sm={12} md={5}>
-                      <LinkWithStickyParams
-                        to={EXPLORE_DATA_PAGE_LINK}
-                        class={styles.NoUnderline}
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        className={styles.PrimaryButton}
+                        href={EXPLORE_DATA_PAGE_LINK}
                       >
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          className={styles.PrimaryButton}
-                        >
-                          Explore the data
-                        </Button>
-                      </LinkWithStickyParams>
+                        Explore the data
+                      </Button>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -224,24 +296,36 @@ function TheProjectTab() {
               </Typography>
             </Grid>
             <AimToGoItem
-              src="img/HET_Overlapping_Lines_v4_1000px.gif"
-              alt="Decorative lines"
+              src={
+                prefersReducedMotion
+                  ? "/img/animations/HET-lines-no-motion.gif"
+                  : "/img/animations/HET-lines.gif"
+              }
+              alt=""
               title="Expand data"
               text="As we continue to expand our data sources and analyze the
             data, we will have more information to share on
             disparities and the equity impact of COVID-19."
             />
             <AimToGoItem
-              src="img/HET_Fields_1_v2_1000px.gif"
-              alt="Decorative thick lines"
+              src={
+                prefersReducedMotion
+                  ? "/img/animations/HET-fields-no-motion.gif"
+                  : "/img/animations/HET-fields.gif"
+              }
+              alt=""
               title="Empower policy makers"
               text="We plan to develop policy templates for local, state, and
             federal policy makers, and help create actionable policies
             with diverse communities."
             />
             <AimToGoItem
-              src="img/HET_Dots_1_v3_1000px.gif"
-              alt="Decorative dots"
+              src={
+                prefersReducedMotion
+                  ? "/img/animations/HET-dots-no-motion.gif"
+                  : "/img/animations/HET-dots.gif"
+              }
+              alt=""
               title="Measure progress"
               text="It’s important to track progress, so we plan to develop
             and publish more health equity reports and analyses."
@@ -278,7 +362,11 @@ function TheProjectTab() {
               justify="space-around"
             >
               <Grid item className={styles.CommittedToEthicsSubheaderItem}>
-                <Typography className={styles.SubheaderL2Text} variant="h3">
+                <Typography
+                  className={styles.SubheaderL2Text}
+                  variant="h3"
+                  align="left"
+                >
                   Transparency & Accountability
                 </Typography>
               </Grid>
@@ -301,7 +389,11 @@ function TheProjectTab() {
               justify="space-around"
             >
               <Grid item className={styles.CommittedToEthicsSubheaderItem}>
-                <Typography className={styles.SubheaderL2Text} variant="h3">
+                <Typography
+                  className={styles.SubheaderL2Text}
+                  variant="h3"
+                  align="left"
+                >
                   Community First
                 </Typography>
               </Grid>
@@ -325,7 +417,11 @@ function TheProjectTab() {
               justify="space-around"
             >
               <Grid item className={styles.CommittedToEthicsSubheaderItem}>
-                <Typography className={styles.SubheaderL2Text} variant="h3">
+                <Typography
+                  className={styles.SubheaderL2Text}
+                  variant="h3"
+                  align="left"
+                >
                   Open Access
                 </Typography>
               </Grid>
