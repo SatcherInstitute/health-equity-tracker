@@ -28,6 +28,7 @@ import { Tooltip } from "@material-ui/core";
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
+import styles from "./TableChart.module.scss";
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20;
 
@@ -127,6 +128,7 @@ export function TableChart(props: TableChartProps) {
           ) : (
             <TableCell {...cell.getCellProps()}>
               {cell.render("Cell")}
+              {index === 1 && <Unit100k />}
             </TableCell>
           )
         )}
@@ -179,4 +181,8 @@ export function TableChart(props: TableChartProps) {
       )}
     </>
   );
+}
+
+function Unit100k() {
+  return <span className={styles.Unit100k}> / 100k</span>;
 }
