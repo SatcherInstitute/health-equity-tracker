@@ -43,7 +43,12 @@ export function TableChart(props: TableChartProps) {
   let columns = metrics.map((metricConfig) => {
     return {
       Header: metricConfig.fullCardTitleName,
-      Cell: (a: any) => formatFieldValue(metricConfig.type, a.value),
+      Cell: (a: any) =>
+        formatFieldValue(
+          /* metricType: MetricType, */ metricConfig.type,
+          /*   value: any, */ a.value,
+          /*   omitPctSymbol: boolean = false */ true
+        ),
       accessor: metricConfig.metricId,
     };
   });
@@ -128,7 +133,7 @@ export function TableChart(props: TableChartProps) {
           ) : (
             <TableCell {...cell.getCellProps()}>
               {cell.render("Cell")}
-              {index === 1 && <Unit100k />}
+              <Units column={index} />
             </TableCell>
           )
         )}
@@ -183,6 +188,13 @@ export function TableChart(props: TableChartProps) {
   );
 }
 
-function Unit100k() {
-  return <span className={styles.Unit100k}> / 100k</span>;
+interface UnitsProps {
+  column: number;
+}
+function Units(props: UnitsProps) {
+  if (!props.column) return null;
+
+  return (
+    <span className={styles.Unit}>{props.column === 1 ? ` /100k` : `%`}</span>
+  );
 }
