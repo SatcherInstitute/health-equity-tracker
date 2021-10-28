@@ -1,5 +1,13 @@
+@import "../../styles/variables.scss";
+
 .FilterBy {
   line-height: 36px;
   float: left;
   font-size: 16px;
+}
+
+.GroupListMenuBox {
+  @media (max-width: $sm) {
+    margin: 2%;
+  }
 }
