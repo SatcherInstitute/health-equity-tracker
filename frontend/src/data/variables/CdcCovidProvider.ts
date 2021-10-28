@@ -5,8 +5,8 @@ import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { joinOnCols } from "../utils/datasetutils";
 import { DC_COUNTY_FIPS, USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
+import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
-import Acs2010PopulationProvider from "./Acs2010PopulationProvider";
 import VariableProvider from "./VariableProvider";
 
 class CdcCovidProvider extends VariableProvider {
@@ -108,6 +108,9 @@ class CdcCovidProvider extends VariableProvider {
             .resetIndex()
         : df;
 
+    const acsDatasetId = GetAcsDatasetId(breakdowns);
+    consumedDatasetIds = consumedDatasetIds.concat(acsDatasetId);
+
     // TODO: Move this merge to the backend
     if (breakdowns.geography === "national") {
       const onlyShareMetrics = metricQuery.metricIds.every((metric) =>
@@ -119,9 +122,6 @@ class CdcCovidProvider extends VariableProvider {
 
       const acsQueryResponse = await this.acsProvider.getData(
         new MetricQuery(["population_pct"], acsBreakdowns)
-      );
-      consumedDatasetIds = consumedDatasetIds.concat(
-        acsQueryResponse.consumedDatasetIds
       );
       // We return an empty response if the only requested metric ids are "share"
       // metrics. These are the only metrics which don't require population data.
