@@ -5,6 +5,18 @@ import { Fips } from "../data/utils/Fips";
 import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
+import { ORDINAL } from "vega-lite/build/src/type";
+import {
+  EQUAL_DOT_SIZE,
+  GREY_DOT_SCALE,
+  LEGEND_COLOR_COUNT,
+  LEGEND_SYMBOL_TYPE,
+  LEGEND_TEXT_FONT,
+  MISSING_PLACEHOLDER_VALUES,
+  NO_DATA_MESSAGE,
+  UNKNOWN_SCALE,
+} from "./Legend";
+import { useMediaQuery } from "@material-ui/core";
 
 export type ScaleType = "quantize" | "quantile" | "symlog";
 
@@ -76,6 +88,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     100 /* default width during initialization */
   );
 
+  // calculate page size to determine if tiny mobile or not
+  const pageIsTiny = useMediaQuery("(max-width:400px)");
+
+  const Y_NO_DATA_LEGEND = pageIsTiny ? -15 : -43;
+  const X_NO_DATA_LEGEND = pageIsTiny ? 15 : 230;
+
   // Initial spec state is set in useEffect
   const [spec, setSpec] = useState({});
 
@@ -125,7 +143,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     /* SET UP TOOLTIP */
     const noDataText = props.useSmallSampleMessage
       ? "Sample size too small"
-      : "No data";
+      : NO_DATA_MESSAGE;
 
     /* PROPERLY LABEL THE HOVERED GEO REGION IF TERRITORY */
     const countyOrEquivalent =
@@ -149,17 +167,32 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     /* SET UP LEGEND */
     let legendList = [];
-    let legend: any = {
+
+    const unknownScale: any = {
+      name: UNKNOWN_SCALE,
+      type: ORDINAL,
+      domain: { data: MISSING_PLACEHOLDER_VALUES, field: "missing" },
+      range: ["#BDC1C6"],
+    };
+
+    const greyDotScale: any = {
+      name: GREY_DOT_SCALE,
+      type: ORDINAL,
+      domain: { data: "missing_data", field: "missing" },
+      range: [EQUAL_DOT_SIZE],
+    };
+
+    const legend: any = {
       fill: COLOR_SCALE,
       direction: "horizontal",
-      orient: "bottom-left",
       title: props.legendTitle,
       titleLimit: 0,
-      font: "monospace",
-      labelFont: "monospace",
+      font: LEGEND_TEXT_FONT,
+      labelFont: LEGEND_TEXT_FONT,
       labelOverlap: "greedy",
       labelSeparation: 10,
-      offset: 10,
+      orient: "bottom-left",
+      offset: 15,
       format: "d",
     };
     if (props.metric.type === "pct_share") {
@@ -173,16 +206,32 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
       };
     }
+
+    const noDataLegend: any = {
+      fill: UNKNOWN_SCALE,
+      symbolType: LEGEND_SYMBOL_TYPE,
+      labelOverlap: "greedy",
+      labelSeparation: 10,
+      orient: "none",
+      font: LEGEND_TEXT_FONT,
+      labelFont: LEGEND_TEXT_FONT,
+      legendY: Y_NO_DATA_LEGEND,
+      legendX: X_NO_DATA_LEGEND,
+      size: GREY_DOT_SCALE,
+    };
     if (!props.hideLegend) {
-      legendList.push(legend);
+      legendList.push(legend, noDataLegend);
     }
 
     /* SET UP COLOR SCALE */
-    let colorScale: any = {
+    const colorScale: any = {
       name: COLOR_SCALE,
       type: props.scaleType,
       domain: { data: LEGEND_DATASET, field: props.metric.metricId },
-      range: { scheme: props.scaleColorScheme || "yellowgreen", count: 7 },
+      range: {
+        scheme: props.scaleColorScheme || "yellowgreen",
+        count: LEGEND_COLOR_COUNT,
+      },
     };
     if (props.fieldRange) {
       colorScale["domainMax"] = props.fieldRange.max;
@@ -307,6 +356,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       description: props.legendTitle,
       data: [
         {
+          name: MISSING_PLACEHOLDER_VALUES,
+          values: [{ missing: NO_DATA_MESSAGE }],
+        },
+        {
           name: VAR_DATASET,
           values: props.data,
         },
@@ -353,7 +406,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
       ],
       projections: [projection],
-      scales: [colorScale],
+      scales: [colorScale, greyDotScale, unknownScale],
       legends: legendList,
       marks: marks,
       signals: [
@@ -367,6 +420,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     // Render the Vega map asynchronously, allowing the UI to respond to user
     // interaction before Vega maps render.
+    // TODO! I'm not sure this is really working... the UI is definitely not responsive while state covid data is loading
     setTimeout(() => {
       setShouldRenderMap(true);
     }, 0);
@@ -388,6 +442,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     LEGEND_WIDTH,
     legendData,
     props.isUnknownsMap,
+    Y_NO_DATA_LEGEND,
+    X_NO_DATA_LEGEND,
+    props,
   ]);
 
   return (
