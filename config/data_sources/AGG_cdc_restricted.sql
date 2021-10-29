@@ -24,9 +24,9 @@ WITH
     WHERE a.state_postal != "Unknown"
   ),
   all_acs as (
-      SELECT * FROM `acs_population.by_race_state_std`
+      SELECT state_fips, state_name, population, race_category_id, race, race_includes_hispanic, race_and_ethnicity FROM `acs_population.by_race_state_std`
     UNION ALL
-      SELECT * FROM `acs_2010_population.by_race_and_ethnicity_territory`
+      SELECT state_fips, state_name, population, race_category_id, race, race_includes_hispanic, race_and_ethnicity FROM `acs_2010_population.by_race_and_ethnicity_territory`
   ),
   joined_with_acs as (
       SELECT x.*, y.population
@@ -53,9 +53,9 @@ WITH
     WHERE a.state_postal != "Unknown"
   ),
   all_acs as (
-      SELECT * FROM `acs_population.by_sex_state`
+      SELECT state_fips, state_name, sex, population FROM `acs_population.by_sex_state`
     UNION ALL
-      SELECT * FROM `acs_2010_population.by_sex_territory`
+      SELECT state_fips, state_name, sex, population FROM `acs_2010_population.by_sex_territory`
   ),
   joined_with_acs as (
       SELECT x.*, y.population
@@ -82,7 +82,7 @@ WITH
     WHERE a.state_postal != "Unknown"
   ),
   all_acs as (
-      SELECT * FROM `acs_population.by_age_state`
+      SELECT state_fips, state_name, age, population FROM `acs_population.by_age_state`
     UNION ALL
       SELECT state_fips, state_name, age, population FROM `acs_2010_population.by_age_territory`
   ),
