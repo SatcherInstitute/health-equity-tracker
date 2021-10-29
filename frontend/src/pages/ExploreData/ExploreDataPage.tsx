@@ -17,7 +17,6 @@ import {
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
   parseMls,
-  psSubscribe,
   setParameter,
   setParameters,
   SHOW_ONBOARDING_PARAM,
@@ -29,29 +28,20 @@ import { Onboarding } from "./Onboarding";
 import OptionsSelector from "./OptionsSelector";
 import { Helmet } from "react-helmet";
 
+const CACHE_KEY_CAROUSEL_SETTING = "carouselSetting";
+const DEFAULT_CAROUSEL_SETTING = 0;
+
 const EXPLORE_DATA_ID = "main";
 
 function ExploreDataPage() {
   const params = useSearchParams();
 
-  // Set up initial mad lib values based on defaults and query params
-  const foundIndex = MADLIB_LIST.findIndex(
-    (madlib) => madlib.id === params[MADLIB_PHRASE_PARAM]
-  );
-  const initialIndex = foundIndex !== -1 ? foundIndex : 0;
+  // look for carousel setting in sessionStorage
+  const initialIndex = sessionStorage.getItem(CACHE_KEY_CAROUSEL_SETTING)
+    ? JSON.parse(sessionStorage.getItem(CACHE_KEY_CAROUSEL_SETTING) as string)
+    : DEFAULT_CAROUSEL_SETTING;
+
   let defaultValuesWithOverrides = MADLIB_LIST[initialIndex].defaultSelections;
-  if (params[MADLIB_SELECTIONS_PARAM]) {
-    params[MADLIB_SELECTIONS_PARAM].split(",").forEach((override) => {
-      const [phraseSegmentIndex, value] = override.split(":");
-      let phraseSegments: PhraseSegment[] = MADLIB_LIST[initialIndex].phrase;
-      if (
-        Object.keys(phraseSegments).includes(phraseSegmentIndex) &&
-        Object.keys(phraseSegments[Number(phraseSegmentIndex)]).includes(value)
-      ) {
-        defaultValuesWithOverrides[Number(phraseSegmentIndex)] = value;
-      }
-    });
-  }
 
   const [madLib, setMadLib] = useState<MadLib>({
     ...MADLIB_LIST[initialIndex],
@@ -60,7 +50,7 @@ function ExploreDataPage() {
 
   useEffect(() => {
     const readParams = () => {
-      let index = getParameter(MADLIB_PHRASE_PARAM, 0, (str) => {
+      let index = getParameter(MADLIB_PHRASE_PARAM, initialIndex, (str) => {
         return MADLIB_LIST.findIndex((ele) => ele.id === str);
       });
       let selection = getParameter(
@@ -69,21 +59,14 @@ function ExploreDataPage() {
         parseMls
       );
 
-      setMadLib({
+      setMadLibWithParam({
         ...MADLIB_LIST[index],
         activeSelections: selection,
       });
     };
-    const psSub = psSubscribe(readParams, "explore");
 
     readParams();
-
-    return () => {
-      if (psSub) {
-        psSub.unsubscribe();
-      }
-    };
-  }, []);
+  }, [initialIndex]);
 
   const setMadLibWithParam = (ml: MadLib) => {
     setParameter(MADLIB_SELECTIONS_PARAM, stringifyMls(ml.activeSelections));
@@ -167,13 +150,21 @@ function ExploreDataPage() {
             navButtonsAlwaysVisible={true}
             index={initialIndex}
             onChange={(index: number) => {
+              // cache new carousel setting
+              sessionStorage.setItem(
+                CACHE_KEY_CAROUSEL_SETTING,
+                JSON.stringify(index)
+              );
+              // build madlib carousel settings
               let newState = {
                 ...MADLIB_LIST[index],
                 activeSelections: {
                   ...MADLIB_LIST[index].defaultSelections,
                 },
               };
+              // set the carousel madlib
               setMadLib(newState);
+              // set the URL params
               setParameters([
                 {
                   name: MADLIB_SELECTIONS_PARAM,

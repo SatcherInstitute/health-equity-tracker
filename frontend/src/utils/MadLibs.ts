@@ -114,7 +114,7 @@ const freshDisparitySettings = { 1: "covid", 3: USA_FIPS };
 const freshCompareGeosSettings = { 1: "covid", 3: GEORGIA_FIPS, 5: USA_FIPS };
 const freshCompareVarsSettings = { 1: "diabetes", 3: "covid", 5: USA_FIPS };
 
-// if settings are cached, use them; otherwise use fresh settings
+// if variable/geo settings are cached, use them; otherwise use fresh settings
 const disparitySettings = sessionStorage.getItem(CACHE_KEY_DISPARITY)
   ? JSON.parse(sessionStorage.getItem(CACHE_KEY_DISPARITY) as string)
   : freshDisparitySettings;
