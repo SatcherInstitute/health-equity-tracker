@@ -58,7 +58,7 @@ export function getMadLibWithUpdatedValue(
   updatePhraseSelections[phraseSegementIndex] = newValue;
 
   // cache the new tracker settings for retrieval if user navigates off and back onto the tracker
-  localStorage.setItem(
+  sessionStorage.setItem(
     originalMadLib.id,
     JSON.stringify(updatePhraseSelections)
   );
@@ -115,14 +115,14 @@ const freshCompareGeosSettings = { 1: "covid", 3: GEORGIA_FIPS, 5: USA_FIPS };
 const freshCompareVarsSettings = { 1: "diabetes", 3: "covid", 5: USA_FIPS };
 
 // if settings are cached, use them; otherwise use fresh settings
-const disparitySettings = localStorage.getItem(CACHE_KEY_DISPARITY)
-  ? JSON.parse(localStorage.getItem(CACHE_KEY_DISPARITY) as string)
+const disparitySettings = sessionStorage.getItem(CACHE_KEY_DISPARITY)
+  ? JSON.parse(sessionStorage.getItem(CACHE_KEY_DISPARITY) as string)
   : freshDisparitySettings;
-const compareGeosSettings = localStorage.getItem(CACHE_KEY_COMPAREGEOS)
-  ? JSON.parse(localStorage.getItem(CACHE_KEY_COMPAREGEOS) as string)
+const compareGeosSettings = sessionStorage.getItem(CACHE_KEY_COMPAREGEOS)
+  ? JSON.parse(sessionStorage.getItem(CACHE_KEY_COMPAREGEOS) as string)
   : freshCompareGeosSettings;
-const compareVarsSettings = localStorage.getItem(CACHE_KEY_COMPAREVARS)
-  ? JSON.parse(localStorage.getItem(CACHE_KEY_COMPAREVARS) as string)
+const compareVarsSettings = sessionStorage.getItem(CACHE_KEY_COMPAREVARS)
+  ? JSON.parse(sessionStorage.getItem(CACHE_KEY_COMPAREVARS) as string)
   : freshCompareVarsSettings;
 
 const MADLIB_LIST: MadLib[] = [
