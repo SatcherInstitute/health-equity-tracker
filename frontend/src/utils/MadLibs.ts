@@ -1,5 +1,9 @@
 import { FIPS_MAP, USA_FIPS } from "../data/utils/Fips";
 
+const CACHE_KEY_DISPARITY = "disparity";
+const CACHE_KEY_COMPAREGEOS = "comparegeos";
+const CACHE_KEY_COMPAREVARS = "comparevars";
+
 // Map of phrase segment index to its selected value
 export type PhraseSelections = Record<number, string>;
 
@@ -52,6 +56,13 @@ export function getMadLibWithUpdatedValue(
     ...originalMadLib.activeSelections,
   };
   updatePhraseSelections[phraseSegementIndex] = newValue;
+
+  // cache the new tracker settings for retrieval if user navigates off and back onto the tracker
+  localStorage.setItem(
+    originalMadLib.id,
+    JSON.stringify(updatePhraseSelections)
+  );
+
   return {
     ...originalMadLib,
     activeSelections: updatePhraseSelections,
@@ -97,12 +108,29 @@ const CATEGORIES_LIST: Category[] = [
   },
 ];
 
+// default settings if user hasn't selected anything and nothing is cached
+const GEORGIA_FIPS = "13";
+const freshDisparitySettings = { 1: "covid", 3: USA_FIPS };
+const freshCompareGeosSettings = { 1: "covid", 3: GEORGIA_FIPS, 5: USA_FIPS };
+const freshCompareVarsSettings = { 1: "diabetes", 3: "covid", 5: USA_FIPS };
+
+// if settings are cached, use them; otherwise use fresh settings
+const disparitySettings = localStorage.getItem(CACHE_KEY_DISPARITY)
+  ? JSON.parse(localStorage.getItem(CACHE_KEY_DISPARITY) as string)
+  : freshDisparitySettings;
+const compareGeosSettings = localStorage.getItem(CACHE_KEY_COMPAREGEOS)
+  ? JSON.parse(localStorage.getItem(CACHE_KEY_COMPAREGEOS) as string)
+  : freshCompareGeosSettings;
+const compareVarsSettings = localStorage.getItem(CACHE_KEY_COMPAREVARS)
+  ? JSON.parse(localStorage.getItem(CACHE_KEY_COMPAREVARS) as string)
+  : freshCompareVarsSettings;
+
 const MADLIB_LIST: MadLib[] = [
   {
     id: "disparity",
     phrase: ["Investigate rates of", DROPDOWN_VAR, "in", FIPS_MAP],
-    defaultSelections: { 1: "covid", 3: USA_FIPS },
-    activeSelections: { 1: "covid", 3: USA_FIPS },
+    defaultSelections: disparitySettings,
+    activeSelections: disparitySettings,
   },
   {
     id: "comparegeos",
@@ -114,8 +142,8 @@ const MADLIB_LIST: MadLib[] = [
       " and ",
       FIPS_MAP,
     ],
-    defaultSelections: { 1: "covid", 3: "13", 5: USA_FIPS }, // 13 is Georgia
-    activeSelections: { 1: "covid", 3: "13", 5: USA_FIPS }, // 13 is Georgia
+    defaultSelections: compareGeosSettings,
+    activeSelections: compareGeosSettings,
   },
   {
     id: "comparevars",
@@ -127,8 +155,8 @@ const MADLIB_LIST: MadLib[] = [
       " in ",
       FIPS_MAP,
     ],
-    defaultSelections: { 1: "diabetes", 3: "covid", 5: USA_FIPS }, // 13 is Georgia
-    activeSelections: { 1: "diabetes", 3: "covid", 5: USA_FIPS }, // 13 is Georgia
+    defaultSelections: compareVarsSettings,
+    activeSelections: compareVarsSettings,
   },
 ];
 
