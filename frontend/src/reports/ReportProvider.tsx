@@ -190,11 +190,10 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           Until then, the following states appear grey when viewing COVID-19
           maps featuring hospitalizations and deaths: <b>Hawaii</b>,{" "}
           <b>Nebraska</b>, <b>South Dakota</b>, and <b>Wyoming</b>.{" "}
-          <b>Delaware</b>, and <b>West Virginia</b>
-          are included when viewing hospitalizations but appear as grey when
-          viewing reports on deaths. <b>Rhode Island </b> appears as grey when
-          viewing reports on hospitalizations but is included when viewing
-          deaths.
+          <b>Delaware</b> and <b>West Virginia</b> are included when viewing
+          hospitalizations but appear as grey when viewing reports on deaths.{" "}
+          <b>Rhode Island</b> appears as grey when viewing reports on
+          hospitalizations but is included when viewing deaths.
         </p>
         <h4>Missing Vaccination Data</h4>
         <p>
