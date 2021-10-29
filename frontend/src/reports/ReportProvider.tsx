@@ -189,7 +189,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           time and will use the Health Equity Tracker to record the progress.
           Until then, the following states appear grey when viewing COVID-19
           maps featuring hospitalizations and deaths: <b>Hawaii, Nebraska </b>
-          and <b>South Dakota</b>. <b>Delaware </b>, <b>West Virginia</b>, and{" "}
+          and <b>South Dakota</b>. <b>Delaware</b>, <b>West Virginia</b>, and{" "}
           <b>Wyoming</b> are included when viewing hospitalizations but appear
           as grey when viewing reports on deaths. <b>Rhode Island </b> appears
           as grey when viewing reports on hospitalizations but is included when
