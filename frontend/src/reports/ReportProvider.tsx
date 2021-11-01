@@ -172,10 +172,10 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           . The following states appear grey on the maps reporting COVID-19
           cases, hospitalizations and deaths because they have not provided
           sufficient disaggregated data to the CDC: <b>Louisiana</b>,{" "}
-          <b>Mississippi</b>, <b>Missouri</b>, <b>North Dakota</b>, <b>Texas</b>
-          , and <b>Wyoming</b>. The following states' data for COVID-19 are
-          included, but their data should be interpreted with caution since the
-          cases reported may not be representative of the population at large: 
+          <b>Mississippi</b>, <b>Missouri</b>, <b>North Dakota</b>, and{" "}
+          <b>Texas</b>. The following states' data for COVID-19 are included,
+          but their data should be interpreted with caution since the cases
+          reported may not be representative of the population at large: 
           <b>Connecticut</b>, <b>Florida</b>,<b> Kentucky</b>,<b> Michigan</b>,
           <b> Nebraska</b>,<b> Ohio</b>, <b>West Virginia</b>.
         </p>
@@ -188,11 +188,12 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           surveillance data, we expect this picture to become more complete over
           time and will use the Health Equity Tracker to record the progress.
           Until then, the following states appear grey when viewing COVID-19
-          maps featuring hospitalizations and deaths: <b>Hawaii, Nebraska </b>
-          and <b>South Dakota</b>. <b>Delaware </b>and <b>West Virginia</b> are
-          included when viewing hospitalizations but appear as grey when viewing
-          reports on deaths. <b>Rhode Island </b> appears as grey when viewing
-          reports on hospitalizations but is included when viewing deaths.
+          maps featuring hospitalizations and deaths: <b>Hawaii</b>,{" "}
+          <b>Nebraska</b>, <b>South Dakota</b>, and <b>Wyoming</b>.{" "}
+          <b>Delaware</b> and <b>West Virginia</b> are included when viewing
+          hospitalizations but appear as grey when viewing reports on deaths.{" "}
+          <b>Rhode Island</b> appears as grey when viewing reports on
+          hospitalizations but is included when viewing deaths.
         </p>
         <h4>Missing Vaccination Data</h4>
         <p>
