@@ -4,7 +4,12 @@ import { MetricId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { joinOnCols } from "../utils/datasetutils";
-import { DC_COUNTY_FIPS, USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
+import {
+  DC_COUNTY_FIPS,
+  USA_DISPLAY_NAME,
+  USA_FIPS,
+  ACS_2010_FIPS,
+} from "../utils/Fips";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
@@ -108,8 +113,22 @@ class CdcCovidProvider extends VariableProvider {
             .resetIndex()
         : df;
 
-    const acsDatasetId = GetAcsDatasetId(breakdowns);
-    consumedDatasetIds = consumedDatasetIds.concat(acsDatasetId);
+    // TODO: Allow for population sources to have multiple sources
+    // so we don't have to do this weirdness
+    const stateFips = df.getSeries("fips").toArray()[0];
+    if (
+      breakdowns.geography === "state" &&
+      // hacky but there should only be one fips code if
+      // its for a state
+      ACS_2010_FIPS.includes(stateFips)
+    ) {
+      const acs2010BreakdownId =
+        "acs_2010_population-by_" + breakdownColumnName + "_territory";
+      consumedDatasetIds = consumedDatasetIds.concat(acs2010BreakdownId);
+    } else {
+      const acsDatasetId = GetAcsDatasetId(breakdowns);
+      consumedDatasetIds = consumedDatasetIds.concat(acsDatasetId);
+    }
 
     // TODO: Move this merge to the backend
     if (breakdowns.geography === "national") {
@@ -123,6 +142,7 @@ class CdcCovidProvider extends VariableProvider {
       const acsQueryResponse = await this.acsProvider.getData(
         new MetricQuery(["population_pct"], acsBreakdowns)
       );
+
       // We return an empty response if the only requested metric ids are "share"
       // metrics. These are the only metrics which don't require population data.
       if (acsQueryResponse.dataIsMissing() && !onlyShareMetrics) {
