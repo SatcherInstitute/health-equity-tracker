@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { VariableDisparityReport } from "./VariableDisparityReport";
 import TwoVariableReport from "./TwoVariableReport";
 import {
@@ -33,16 +33,34 @@ function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
     : madLib.activeSelections[segmentIndex];
 }
 
-function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
+interface ReportProviderProps {
+  madLib: MadLib;
+  setMadLib: Function;
+  doScrollToData?: boolean;
+}
+
+function ReportProvider(props: ReportProviderProps) {
   const [shareModalOpen, setShareModalOpen] = useState(false);
   const fieldRef = useRef<HTMLInputElement>(null);
   const definitionsRef = useRef<HTMLInputElement>(null);
 
+  // internal page links
   function jumpToDefinitions() {
     if (definitionsRef.current) {
       definitionsRef.current.scrollIntoView();
     }
   }
+  function jumpToData() {
+    if (fieldRef.current) {
+      fieldRef.current.scrollIntoView();
+    }
+  }
+
+  // handle incoming #missingDataLink link request, only on page load
+  useEffect(() => {
+    if (props.doScrollToData) jumpToData();
+  }, [props.doScrollToData]);
+
   function getReport() {
     // Each report has a unique key based on its props so it will create a
     // new instance and reset its state when the provided props change.
@@ -131,19 +149,13 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             Share
           </Button>
         </div>
-        <DisclaimerAlert
-          jumpToData={() => {
-            if (fieldRef.current) {
-              fieldRef.current.scrollIntoView();
-            }
-          }}
-        />
+        <DisclaimerAlert jumpToData={jumpToData} />
         {getReport()}
       </div>
       <aside
-        id="missingDataInfo"
+        id="missingDataInfo" // used by components on same page
+        ref={fieldRef} // used by components on other pages
         className={styles.MissingDataInfo}
-        ref={fieldRef}
       >
         <h3 className={styles.FootnoteLargeHeading}>What Data Are Missing?</h3>
         <p>Unfortunately there are crucial data missing in our sources.</p>
