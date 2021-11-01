@@ -47,12 +47,12 @@ function ReportProvider(props: ReportProviderProps) {
   // internal page links
   function jumpToDefinitions() {
     if (definitionsRef.current) {
-      definitionsRef.current.scrollIntoView();
+      definitionsRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }
   function jumpToData() {
     if (fieldRef.current) {
-      fieldRef.current.scrollIntoView();
+      fieldRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }
 
@@ -70,6 +70,7 @@ function ReportProvider(props: ReportProviderProps) {
         return (
           <VariableDisparityReport
             jumpToDefinitions={jumpToDefinitions}
+            jumpToData={jumpToData}
             key={dropdownOption}
             dropdownVarId={dropdownOption as DropdownVarId}
             fips={new Fips(getPhraseValue(props.madLib, 3))}
@@ -87,6 +88,7 @@ function ReportProvider(props: ReportProviderProps) {
         return (
           <TwoVariableReport
             jumpToDefinitions={jumpToDefinitions}
+            jumpToData={jumpToData}
             key={compareDisparityVariable + fipsCode1 + fipsCode2}
             dropdownVarId1={compareDisparityVariable as DropdownVarId}
             dropdownVarId2={compareDisparityVariable as DropdownVarId}
@@ -114,6 +116,8 @@ function ReportProvider(props: ReportProviderProps) {
           );
         return (
           <TwoVariableReport
+            jumpToDefinitions={jumpToDefinitions}
+            jumpToData={jumpToData}
             key={
               compareDisparityVariable1 + compareDisparityVariable2 + fipsCode
             }
@@ -123,7 +127,6 @@ function ReportProvider(props: ReportProviderProps) {
             fips2={new Fips(fipsCode)}
             updateFips1Callback={updateFips}
             updateFips2Callback={updateFips}
-            jumpToDefinitions={jumpToDefinitions}
           />
         );
       default:

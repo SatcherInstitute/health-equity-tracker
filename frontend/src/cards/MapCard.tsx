@@ -45,6 +45,7 @@ export interface MapCardProps {
   updateFipsCallback: (fips: Fips) => void;
   currentBreakdown: BreakdownVar;
   jumpToDefinitions?: Function;
+  jumpToData?: Function;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -402,6 +403,7 @@ function MapCardWithKey(props: MapCardProps) {
                       highestRatesList={highestRatesList}
                       lowestRatesList={lowestRatesList}
                       fipsTypePluralDisplayName={props.fips.getPluralChildFipsTypeDisplayName()}
+                      jumpToData={props.jumpToData}
                     />
                   )}
               </CardContent>
