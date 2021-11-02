@@ -63,6 +63,11 @@ const RESOURCES = [
       "https://www.preventioninstitute.org/tools/tools-general/health-equity-toolkit#:~:text=The%20Health%20Equity%20and%20Prevention%20Primer%20(HEPP)%20is%20a%20web,%2C%20and%20multi%2Dsector%20engagement.",
   },
   {
+    name:
+      "AAMC: Advancing Health Equity: A Guide to Language, Narrative and Concepts",
+    url: "https://www.aamchealthjustice.org/narrative-guide",
+  },
+  {
     name: "APIAHF: Health Equity",
     url: "https://www.apiahf.org/",
   },
