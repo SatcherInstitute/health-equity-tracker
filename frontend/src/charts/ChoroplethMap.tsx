@@ -5,6 +5,7 @@ import { Fips } from "../data/utils/Fips";
 import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
+import sass from "../styles/variables.module.scss";
 import { ORDINAL } from "vega-lite/build/src/type";
 import {
   EQUAL_DOT_SIZE,
@@ -20,9 +21,14 @@ import { useMediaQuery } from "@material-ui/core";
 
 export type ScaleType = "quantize" | "quantile" | "symlog";
 
-const UNKNOWN_GREY = "#BDC1C6";
-const RED_ORANGE = "#ED573F";
-const DARK_BLUE = "#255792";
+// import SASS variables for use in React / Vega
+
+const {
+  unknownGrey: UNKNOWN_GREY,
+  redOrange: RED_ORANGE,
+  darkBlue: DARK_BLUE,
+} = sass;
+
 const HEIGHT_WIDTH_RATIO = 0.5;
 
 const MISSING_DATASET = "MISSING_DATASET";
@@ -172,7 +178,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       name: UNKNOWN_SCALE,
       type: ORDINAL,
       domain: { data: MISSING_PLACEHOLDER_VALUES, field: "missing" },
-      range: ["#BDC1C6"],
+      range: [sass.unknownGrey],
     };
 
     const greyDotScale: any = {

@@ -1,4 +1,4 @@
-@import "../../styles/variables";
+@import "../../styles/variables.module";
 
 .AboutUsPage {
   // text-align: left;
@@ -173,7 +173,7 @@
 // Grid rows with outlines.
 .GridOutlinedRow {
   align-items: center;
-  border-top: 1px solid #3e3e3e;
+  border-top: 1px solid $border-color;
 
   @media (min-width: $lg) {
     padding: 147px 120px 147px 120px;
@@ -251,7 +251,7 @@
 .UnderlinedHeaderL2 {
   font-size: 28px !important;
   line-height: 26px;
-  border-bottom: 1.5px solid #0b5240;
+  border-bottom: 1.5px solid $alt-green;
   margin: 25px 0 25px 0;
   font-family: "Taviraj", serif !important;
   text-align: left;
@@ -283,14 +283,14 @@
 
 .HeaderImgItem {
   @media (min-width: $md) {
-    border-left: 1px solid #3e3e3e;
+    border-left: 1px solid $border-color;
   }
 }
 
 .HeaderImg {
   border-radius: 30px;
   height: auto;
-  max-height: 600px;
+  max-height: $header-height;
   width: 100%;
   max-width: 700px;
   align-items: center;
@@ -314,7 +314,7 @@
 .TeamHeader {
   font-size: 28px !important;
   line-height: 26px;
-  border-bottom: 2px solid #9aa0a6;
+  border-bottom: 2px solid $team-border-color;
   margin: 25px 0 25px 0;
   font-family: "Taviraj", sans-serif !important;
   text-align: left;
@@ -355,7 +355,7 @@
 }
 
 .GreyGridItem {
-  background-color: #f9f9f9;
+  background-color: $grey-grid-color;
   padding: 70px;
 }
 
@@ -390,14 +390,14 @@
 
 .HeaderImgItem {
   @media (min-width: $md) {
-    border-left: 1px solid #3e3e3e;
+    border-left: 1px solid $border-color;
   }
 }
 
 .ImgContactUsHeader {
   border-radius: 30px;
   height: auto;
-  max-height: 600px;
+  max-height: $header-height;
   width: 100%;
   max-width: 700px;
   align-items: center;

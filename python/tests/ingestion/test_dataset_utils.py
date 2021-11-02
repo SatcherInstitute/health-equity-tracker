@@ -6,10 +6,11 @@ from ingestion import gcs_to_bq_util, dataset_utils  # pylint: disable=no-name-i
 
 _fake_race_data = [
     ['state_fips', 'state_name', 'race', 'population'],
-    ['01', 'Alabama', 'Asian alone', '66'],
-    ['01', 'Alabama', 'Some other race alone', '70'],
-    ['01', 'Alabama', 'Two or more races', '92'],
-    ['01', 'Alabama', 'TOTAL', '228'],
+    ['01', 'Alabama', 'Asian alone', '660'],
+    ['01', 'Alabama', 'Some other race alone', '700'],
+    ['01', 'Alabama', 'Two or more races', '919'],
+    ['01', 'Alabama', 'An underespresented race', '1'],
+    ['01', 'Alabama', 'TOTAL', '2280'],
     ['02', 'Alaska', 'Asian alone', '45'],
     ['02', 'Alaska', 'Some other race alone', '11'],
     ['02', 'Alaska', 'Two or more races', '60'],
@@ -22,10 +23,11 @@ _fake_race_data = [
 
 _expected_pct_share_data = [
     ['state_fips', 'state_name', 'race', 'population', 'pct_share'],
-    ['01', 'Alabama', 'Asian alone', '66', '28.9'],
-    ['01', 'Alabama', 'Some other race alone', '70', '30.7'],
-    ['01', 'Alabama', 'Two or more races', '92', '40.4'],
-    ['01', 'Alabama', 'TOTAL', '228', '100'],
+    ['01', 'Alabama', 'Asian alone', '660', '28.9'],
+    ['01', 'Alabama', 'Some other race alone', '700', '30.7'],
+    ['01', 'Alabama', 'Two or more races', '919', '40.3'],
+    ['01', 'Alabama', 'An underespresented race', '1', '.04'],
+    ['01', 'Alabama', 'TOTAL', '2280', '100'],
     ['02', 'Alaska', 'Asian alone', '45', '38.8'],
     ['02', 'Alaska', 'Some other race alone', '11', '9.5'],
     ['02', 'Alaska', 'Two or more races', '60', '51.7'],
