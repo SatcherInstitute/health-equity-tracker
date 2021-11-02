@@ -49,3 +49,7 @@
 .FootnoteLargeHeading {
   font-size: 2rem;
 }
+
+.FootnoteLargeHeading:first-of-type {
+  margin-block-start: 0px;
+}

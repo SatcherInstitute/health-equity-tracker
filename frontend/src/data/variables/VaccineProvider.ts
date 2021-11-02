@@ -125,6 +125,7 @@ class VaccineProvider extends VariableProvider {
       );
 
       const acs = new DataFrame(acsQueryResponse.data);
+      // Only get what we need to merge
       const acsToMerge = acs
         .where(
           (row) =>
@@ -148,6 +149,8 @@ class VaccineProvider extends VariableProvider {
         })
         .resetIndex();
 
+      // We only want to merge the ACS data onto these two
+      // demographic categories.
       let dfAIANNHPI = df
         .where(
           (row) =>
@@ -162,6 +165,17 @@ class VaccineProvider extends VariableProvider {
 
       dfAIANNHPI = dfAIANNHPI.dropSeries(["population_pct"]).resetIndex();
 
+      dfAIANNHPI = joinOnCols(
+        dfAIANNHPI,
+        acsToMerge,
+        ["fips", breakdownColumnName],
+        "left"
+      );
+
+      // We need to manipulate the population data and
+      // generate the per 100k numbers for
+      // Asian, Black, White and Hispanic because
+      // the kff is providing those numbers
       let dfNotAIANNHPI = df
         .where(
           (row) =>
@@ -196,13 +210,7 @@ class VaccineProvider extends VariableProvider {
         })
         .resetIndex();
 
-      dfAIANNHPI = joinOnCols(
-        dfAIANNHPI,
-        acsToMerge,
-        ["fips", breakdownColumnName],
-        "left"
-      );
-
+      // Combine the separated datasets back together
       df = dfAIANNHPI.concat(dfNotAIANNHPI).resetIndex();
 
       df = df

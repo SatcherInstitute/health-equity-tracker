@@ -11,6 +11,8 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { usePopover } from "../../utils/usePopover";
+import { CATEGORIES_LIST, DropdownVarId } from "../../utils/MadLibs";
+import { Box, Grid } from "@material-ui/core";
 
 function OptionsSelector(props: {
   value: string;
@@ -54,10 +56,12 @@ function OptionsSelector(props: {
         className={styles.MadLibButton}
         onClick={popover.open}
       >
-        {currentDisplayName}
+        {currentDisplayName}{" "}
         {popover.isOpen ? <ArrowDropUp /> : <ArrowDropDown />}
       </Button>
+
       <Popover
+        className={styles.PopoverOverride}
         aria-expanded="true"
         open={popover.isOpen}
         anchorEl={popover.anchor}
@@ -74,6 +78,7 @@ function OptionsSelector(props: {
         {isFips && (
           <div className={styles.OptionsSelectorPopover}>
             <span className={styles.SearchForText}>Search for location</span>
+
             <Autocomplete
               disableClearable={true}
               options={props.options as Fips[]}
@@ -105,24 +110,49 @@ function OptionsSelector(props: {
           </div>
         )}
         {!isFips && (
-          <List>
-            {(props.options as string[][]).map((item: string[]) => {
-              const [optionId, optionDisplayName] = item;
-              return (
-                <ListItem
-                  key={optionId}
-                  button
-                  selected={optionId === props.value}
-                  onClick={() => {
-                    popover.close();
-                    props.onOptionUpdate(optionId);
-                  }}
-                >
-                  <ListItemText primary={optionDisplayName} />
-                </ListItem>
-              );
-            })}
-          </List>
+          <Box my={3} mx={6}>
+            <Grid container>
+              {CATEGORIES_LIST.map((category) => {
+                return (
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    key={category.title}
+                    className={styles.CategoryList}
+                  >
+                    <List dense={true}>
+                      <span className={styles.CategoryTitleText}>
+                        {category.title}
+                      </span>
+                      {(props.options as string[][]).map((item: string[]) => {
+                        const [optionId, optionDisplayName] = item;
+                        return (
+                          // place variables in their respective categories
+                          category.options.includes(
+                            optionId as DropdownVarId
+                          ) && (
+                            <ListItem
+                              key={optionId}
+                              button
+                              selected={optionId === props.value}
+                              onClick={() => {
+                                popover.close();
+                                props.onOptionUpdate(optionId);
+                              }}
+                            >
+                              <ListItemText primary={optionDisplayName} />
+                            </ListItem>
+                          )
+                        );
+                      })}
+                    </List>
+                  </Grid>
+                );
+              })}
+            </Grid>
+          </Box>
         )}
       </Popover>
     </>

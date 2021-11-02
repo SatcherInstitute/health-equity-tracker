@@ -12,6 +12,7 @@ import {
   LinkWithStickyParams,
   DATA_CATALOG_PAGE_LINK,
   CONTACT_TAB_LINK,
+  METHODOLOGY_TAB_LINK,
 } from "../utils/urlutils";
 import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
@@ -20,11 +21,11 @@ import styles from "./Report.module.scss";
 import ShareDialog from "./ui/ShareDialog";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
 import { Grid } from "@material-ui/core";
-import { METRIC_CONFIG } from "../data/config/MetricConfig";
 import {
   // UNREPRESENTED_RACE_DEF,
   VACCINATED_DEF,
 } from "../pages/DataCatalog/MethodologyTab";
+import { METRIC_CONFIG } from "../data/config/MetricConfig";
 
 export const SINGLE_COLUMN_WIDTH = 10;
 
@@ -39,7 +40,13 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
   const [shareModalOpen, setShareModalOpen] = useState(false);
   const fieldRef = useRef<HTMLInputElement>(null);
   const isSingleColumn = (props.madLib.id as MadLibId) === "disparity";
+  const definitionsRef = useRef<HTMLInputElement>(null);
 
+  function jumpToDefinitions() {
+    if (definitionsRef.current) {
+      definitionsRef.current.scrollIntoView();
+    }
+  }
   function getReport() {
     // Each report has a unique key based on its props so it will create a
     // new instance and reset its state when the provided props change.
@@ -48,6 +55,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         const dropdownOption = getPhraseValue(props.madLib, 1);
         return (
           <VariableDisparityReport
+            jumpToDefinitions={jumpToDefinitions}
             key={dropdownOption}
             dropdownVarId={dropdownOption as DropdownVarId}
             fips={new Fips(getPhraseValue(props.madLib, 3))}
@@ -64,6 +72,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         const fipsCode2 = getPhraseValue(props.madLib, 5);
         return (
           <TwoVariableReport
+            jumpToDefinitions={jumpToDefinitions}
             key={compareDisparityVariable + fipsCode1 + fipsCode2}
             dropdownVarId1={compareDisparityVariable as DropdownVarId}
             dropdownVarId2={compareDisparityVariable as DropdownVarId}
@@ -100,6 +109,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             fips2={new Fips(fipsCode)}
             updateFips1Callback={updateFips}
             updateFips2Callback={updateFips}
+            jumpToDefinitions={jumpToDefinitions}
           />
         );
       default:
@@ -146,18 +156,6 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         className={styles.MissingDataInfo}
         ref={fieldRef}
       >
-        <h3 className={styles.FootnoteLargeHeading}>Definitions</h3>
-        <p>
-          <b>"{METRIC_CONFIG["vaccinated"][0].variableFullDisplayName}"</b>
-          {": "}
-          {VACCINATED_DEF}
-        </p>
-        {/* <p>
-          <span className={styles.DefinedTerm}>"Unrepresented Race"</span>
-          {": "}
-          {UNREPRESENTED_RACE_DEF}
-        </p> */}
-
         <h3 className={styles.FootnoteLargeHeading}>What Data Are Missing?</h3>
         <p>Unfortunately there are crucial data missing in our sources.</p>
         <h4>Missing and Misidentified People</h4>
@@ -166,12 +164,13 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           categories for data collection across state and local jurisdictions.
           The most notable gaps exist for race and ethnic groups, physical and
           mental health status, and sex categories. Many states do not record
-          data for American Indian, Alaska Native, Native Hawaiian and Pacific
-          Islander racial categories, lumping these people into other groups.
-          Individuals who identify as Hispanic/Latino may not be recorded in
-          their respective race category. Neither disability nor mental health
-          status is collected with the COVID-19 case data. Additionally, sex is
-          recorded only as female, male, or other.
+          data for <b>American Indian</b>, <b>Alaska Native</b>,{" "}
+          <b>Native Hawaiian and Pacific Islander</b> racial categories, lumping
+          these people into other groups. Individuals who identify as{" "}
+          <b>Hispanic/Latino</b> may not be recorded in their respective race
+          category. Neither disability nor mental health status is collected
+          with the COVID-19 case data. Additionally, sex is recorded only as
+          female, male, or other.
         </p>
         <h4>Missing Cases</h4>
         <p>
@@ -184,10 +183,10 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           . The following states appear grey on the maps reporting COVID-19
           cases, hospitalizations and deaths because they have not provided
           sufficient disaggregated data to the CDC: <b>Louisiana</b>,{" "}
-          <b>Mississippi</b>, <b>Missouri</b>, <b>North Dakota</b>, <b>Texas</b>
-          , and <b>Wyoming</b>. The following states' data for COVID-19 are
-          included, but their data should be interpreted with caution since the
-          cases reported may not be representative of the population at large: 
+          <b>Mississippi</b>, <b>Missouri</b>, <b>North Dakota</b>, and{" "}
+          <b>Texas</b>. The following states' data for COVID-19 are included,
+          but their data should be interpreted with caution since the cases
+          reported may not be representative of the population at large: 
           <b>Connecticut</b>, <b>Florida</b>,<b> Kentucky</b>,<b> Michigan</b>,
           <b> Nebraska</b>,<b> Ohio</b>, <b>West Virginia</b>.
         </p>
@@ -200,11 +199,12 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           surveillance data, we expect this picture to become more complete over
           time and will use the Health Equity Tracker to record the progress.
           Until then, the following states appear grey when viewing COVID-19
-          maps featuring hospitalizations and deaths: <b>Hawaii, Nebraska </b>
-          and <b>South Dakota</b>. <b>Delaware </b>and <b>West Virginia</b> are
-          included when viewing hospitalizations but appear as grey when viewing
-          reports on deaths. <b>Rhode Island </b> appears as grey when viewing
-          reports on hospitalizations but is included when viewing deaths.
+          maps featuring hospitalizations and deaths: <b>Hawaii</b>,{" "}
+          <b>Nebraska</b>, <b>South Dakota</b>, and <b>Wyoming</b>.{" "}
+          <b>Delaware</b> and <b>West Virginia</b> are included when viewing
+          hospitalizations but appear as grey when viewing reports on deaths.{" "}
+          <b>Rhode Island</b> appears as grey when viewing reports on
+          hospitalizations but is included when viewing deaths.
         </p>
         <h4>Missing Vaccination Data</h4>
         <p>
@@ -250,6 +250,31 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             See Our Data Sources
           </Button>
         </a>
+
+        {/* DEFINITIONS */}
+        <h3 ref={definitionsRef} className={styles.FootnoteLargeHeading}>
+          Definitions
+        </h3>
+        <p>
+          Across data sets and reporting agencies the definitions of specific
+          terminology can vary widely. Below we have defined some of the terms
+          used on this site. For more detailed information, please read through
+          our{" "}
+          <LinkWithStickyParams
+            className={styles.MethodologyContactUsLink}
+            to={METHODOLOGY_TAB_LINK}
+          >
+            methodology page
+          </LinkWithStickyParams>
+          .
+        </p>
+        <ul>
+          <li>
+            <b>{METRIC_CONFIG["vaccinations"][0].variableFullDisplayName}</b>
+            {": "}
+            {VACCINATED_DEF}
+          </li>
+        </ul>
       </aside>
     </>
   );

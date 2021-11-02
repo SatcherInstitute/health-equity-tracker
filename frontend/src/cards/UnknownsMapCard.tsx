@@ -118,7 +118,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             ? unknownRaces
             : unknownRaces.map((unknownRaceRow, index) => {
                 return unknownRaceRow[metricConfig.metricId] >
-                  unknownEthnicities[index][metricConfig.metricId]
+                  unknownEthnicities[index][metricConfig.metricId] ||
+                  unknownEthnicities[index][metricConfig.metricId] == null
                   ? unknownRaceRow
                   : unknownEthnicities[index];
               });

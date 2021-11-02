@@ -98,7 +98,7 @@ export function TableCard(props: TableCardProps) {
                   geoLevel={props.fips.getFipsTypeDisplayName()}
                   noDemographicInfo={
                     props.variableConfig.variableId ===
-                      METRIC_CONFIG["vaccinated"][0].variableId &&
+                      METRIC_CONFIG["vaccinations"][0].variableId &&
                     props.fips.isCounty()
                   }
                 />

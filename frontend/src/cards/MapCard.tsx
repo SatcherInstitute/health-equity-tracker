@@ -22,6 +22,7 @@ import {
   NON_HISPANIC,
   UNKNOWN,
   UNKNOWN_RACE,
+  UNKNOWN_ETHNICITY,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import { getHighestN, getLowestN } from "../data/utils/datasetutils";
@@ -43,6 +44,7 @@ export interface MapCardProps {
   variableConfig: VariableConfig;
   updateFipsCallback: (fips: Fips) => void;
   currentBreakdown: BreakdownVar;
+  jumpToDefinitions?: Function;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -84,7 +86,7 @@ function MapCardWithKey(props: MapCardProps) {
         .addBreakdown(
           props.currentBreakdown,
           props.currentBreakdown === "race_and_ethnicity"
-            ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE)
+            ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE, UNKNOWN_ETHNICITY)
             : exclude(UNKNOWN)
         )
     );
@@ -97,7 +99,7 @@ function MapCardWithKey(props: MapCardProps) {
   // hide demographic selectors / dropdowns / links to multimap if displaying VACCINATION at COUNTY level, as we don't have that data
   const hideDemographicUI =
     props.variableConfig.variableId ===
-      METRIC_CONFIG["vaccinated"][0].variableId && props.fips.isCounty();
+      METRIC_CONFIG["vaccinations"][0].variableId && props.fips.isCounty();
 
   return (
     <CardWrapper
@@ -140,6 +142,65 @@ function MapCardWithKey(props: MapCardProps) {
             props.currentBreakdown
           ]]: breakdownValues,
         };
+
+        // If possible, calculate the total for the selected demographic group and dynamically generate the rest of the phrase
+        function generateDemographicTotalPhrase() {
+          const options = overallQueryResponse.data.find(
+            (row) => row[props.currentBreakdown] === activeBreakdownFilter
+          );
+
+          return options ? (
+            <>
+              <b>
+                {formatFieldValue(
+                  metricConfig.type,
+                  options[metricConfig.metricId]
+                )}
+              </b>{" "}
+              {/*} cases per 100k   NOTE: vaccinations term gets hyperlinked to definitions on bottom of page*/}
+              {props.variableConfig.variableId ===
+              METRIC_CONFIG["vaccinations"][0].variableId ? (
+                <span
+                  role="button"
+                  onClick={() => {
+                    props.jumpToDefinitions && props.jumpToDefinitions();
+                  }}
+                  className={styles.ConditionDefinitionLink}
+                >
+                  {
+                    METRIC_CONFIG["vaccinations"][0].metrics.per100k
+                      .shortVegaLabel
+                  }
+                </span>
+              ) : (
+                metricConfig.shortVegaLabel
+              )}
+              {/*} for  */}
+              {activeBreakdownFilter !== "All" && " for"}
+              {/*} [ ages 30-39] */}
+              {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                props.currentBreakdown
+              ] === "age" &&
+                activeBreakdownFilter !== "All" &&
+                ` ages ${activeBreakdownFilter}`}
+              {/*} [Asian (non Hispanic) individuals] */}
+              {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                props.currentBreakdown
+              ] !== "age" &&
+                activeBreakdownFilter !== "All" &&
+                ` ${activeBreakdownFilter} individuals`}
+              {" in  "}
+              {/*} in */}
+              {/*} (the) */}
+              {props.fips.getDisplayName() === "United States" && "the "}
+              {/*} United States */}
+              {props.fips.getDisplayName()}
+              {". "}
+            </>
+          ) : (
+            ""
+          );
+        }
 
         return (
           <>
@@ -208,66 +269,19 @@ function MapCardWithKey(props: MapCardProps) {
                   <Divider />
                   <CardContent>
                     <Alert severity="info">
-                      {/* EXAMPLE TEXT OUTPUT:  */}
-                      <b>
-                        {/* 9,543 */}
-                        {formatFieldValue(
-                          metricConfig.type,
-                          overallQueryResponse!.data.find(
-                            (row) =>
-                              row[props.currentBreakdown] ===
-                              activeBreakdownFilter
-                          )![metricConfig.metricId]
-                        )}
-                      </b>{" "}
-                      {/* cases per 100k */}
-                      {metricConfig.shortVegaLabel}
-                      {/* for  */}
-                      {activeBreakdownFilter !== "All" && " for"}
-                      {/* [ ages 30-39] */}
-                      {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                        props.currentBreakdown
-                      ] === "age" &&
-                        activeBreakdownFilter !== "All" &&
-                        ` ages ${activeBreakdownFilter}`}
-                      {/* [Asian (non Hispanic) individuals] */}
-                      {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                        props.currentBreakdown
-                      ] !== "age" &&
-                        activeBreakdownFilter !== "All" &&
-                        ` ${activeBreakdownFilter} individuals`}
-                      {" in  "}
-                      {/* in */}
-                      {/* (the) */}
-                      {props.fips.getDisplayName() === "United States" &&
-                        "the "}
-                      {/* United States */}
-                      {props.fips.getDisplayName()}
-                      {". "}
+                      {generateDemographicTotalPhrase()}
+
                       {/* Compare across XYZ for all variables except vaccinated at county level */}
                       {!hideDemographicUI && (
-                        <span
-                          onClick={() => setSmallMultiplesDialogOpen(true)}
-                          role="button"
-                          className={styles.CompareAcrossLink}
-                          aria-label={
-                            "Compare " +
-                            props.variableConfig.variableFullDisplayName +
-                            " across " +
-                            BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                              props.currentBreakdown
-                            ] +
-                            " groups"
+                        <MultiMapLink
+                          setSmallMultiplesDialogOpen={
+                            setSmallMultiplesDialogOpen
                           }
-                        >
-                          Compare across{" "}
-                          {
-                            BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                              props.currentBreakdown
-                            ]
-                          }{" "}
-                          groups
-                        </span>
+                          currentBreakdown={props.currentBreakdown}
+                          currentVariable={
+                            props.variableConfig.variableFullDisplayName
+                          }
+                        />
                       )}
                     </Alert>
                   </CardContent>
@@ -292,6 +306,14 @@ function MapCardWithKey(props: MapCardProps) {
                 <CardContent>
                   <Alert severity="warning">
                     No data available for filter: <b>{activeBreakdownFilter}</b>
+                    .{" "}
+                    <MultiMapLink
+                      setSmallMultiplesDialogOpen={setSmallMultiplesDialogOpen}
+                      currentBreakdown={props.currentBreakdown}
+                      currentVariable={
+                        props.variableConfig.variableFullDisplayName
+                      }
+                    />{" "}
                   </Alert>
                 </CardContent>
               )}
@@ -388,5 +410,38 @@ function MapCardWithKey(props: MapCardProps) {
         );
       }}
     </CardWrapper>
+  );
+}
+
+/* 
+Generates the "COMPARES ACROSS GROUPS" button which opens the small multiples modal
+*/
+export interface MultiMapLinkProps {
+  setSmallMultiplesDialogOpen: Function;
+  currentBreakdown: BreakdownVar;
+  currentVariable: string;
+}
+
+function MultiMapLink(props: MultiMapLinkProps) {
+  const groupTerm =
+    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown];
+  return (
+    <>
+      <span
+        onClick={() => props.setSmallMultiplesDialogOpen(true)}
+        role="button"
+        className={styles.CompareAcrossLink}
+        aria-label={
+          "Compare " +
+          props.currentVariable +
+          " across " +
+          groupTerm +
+          " groups"
+        }
+      >
+        Compare across {groupTerm} groups
+      </span>
+      .
+    </>
   );
 }

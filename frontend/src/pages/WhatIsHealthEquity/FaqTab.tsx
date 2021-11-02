@@ -4,7 +4,7 @@ import styles from "./WhatIsHealthEquityPage.module.scss";
 import { Typography } from "@material-ui/core";
 import { CONTACT_TAB_LINK } from "../../utils/urlutils";
 import { Helmet } from "react-helmet";
-import { CITATION_CHICAGO } from "../DataCatalog/MethodologyTab";
+import { CITATION_APA } from "../DataCatalog/MethodologyTab";
 import parse from "html-react-parser";
 
 export const selectFaqs: any[] = [
@@ -88,20 +88,23 @@ In this tracker, we are using many sources, including <a href="https://www.censu
     q: `How did you acquire and standardize the data?`,
     a: `
   <ul>
-              <li>
-              In an effort to be fully transparent, all data is retrieved from publicly sourced APIs and manual downloads 
-              </li>
-              <li>
-                Once acquired, this data is converted to tables in Google BigQuery
-              </li>
-              <li>
-                During this process, values are standardized and normalized to
-                facilitate reporting, comparison and visualization
-              </li>
-              <li>
-                Sources are refreshed when update notifications are received
-              </li>
-            </ul>
+    <li>
+    In an effort to be fully transparent, all data is retrieved from publicly sourced APIs and manual downloads 
+    </li>
+    <li>
+      Once acquired, this data is converted to tables in Google BigQuery
+    </li>
+    <li>
+      During this process, values are standardized and normalized to
+      facilitate reporting, comparison and visualization
+    </li>
+    <li>
+      Sources are refreshed when update notifications are received
+    </li>
+    <li>
+    The entire Health Equity Tracker codebase is publicly available and open-source; contributions are welcome via <a href="https://github.com/SatcherInstitute/health-equity-tracker">GitHub</a>.
+    </li>
+  </ul>
   `,
   },
 ];
@@ -337,11 +340,11 @@ function FaqTab() {
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion} id="citation">
-                  What is the recommended citation for the Health Equity
+                  What is the recommended citation (APA) for the Health Equity
                   Tracker?
                 </h3>
                 <div className={styles.FaqAnswer}>
-                  <p>{CITATION_CHICAGO}</p>
+                  <p>{CITATION_APA}</p>
                 </div>
               </Grid>
             </Grid>

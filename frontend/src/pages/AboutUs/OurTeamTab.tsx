@@ -8,7 +8,7 @@ import LazyLoad from "react-lazyload";
 const LEADERSHIP_TEAM = [
   {
     name: "Daniel Dawes, JD",
-    role: "Co-Principal Investigator",
+    role: "Principal Investigator",
     imageUrl: "/img/team/Daniel-E 1.png",
   },
   {

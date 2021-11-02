@@ -14,6 +14,7 @@ import {
   oneLineLabel,
   addMetricDisplayColumn,
 } from "./utils";
+import { LEGEND_TEXT_FONT } from "./Legend";
 
 function getSpec(
   data: Record<string, any>[],
@@ -37,7 +38,7 @@ function getSpec(
   altLightMetricDisplayColumnName?: string,
   hasAltPop?: boolean
 ): any {
-  const BAR_HEIGHT = stacked ? 40 : 10;
+  const BAR_HEIGHT = stacked ? 40 : 12;
   const BAR_PADDING = 0.1;
   const DARK_MEASURE_COLOR = "#0B5420";
   const LIGHT_MEASURE_COLOR = "#91C684";
@@ -319,6 +320,8 @@ function getSpec(
         fill: "variables",
         orient: "top",
         padding: 4,
+        font: LEGEND_TEXT_FONT,
+        labelFont: LEGEND_TEXT_FONT,
       },
     ],
   };
