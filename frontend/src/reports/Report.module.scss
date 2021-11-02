@@ -1,4 +1,4 @@
-@import "../styles/variables";
+@import "../styles/variables.module";
 
 .PaddedGrid {
   padding: 20px;
@@ -11,7 +11,7 @@
   .ToggleLabel {
     display: block;
     text-transform: uppercase;
-    color: $alt-black; // #80868b failed a11y contrast
+    color: $alt-black;
     font-weight: 300;
     font-size: 14px;
     line-height: 16px;
@@ -32,7 +32,7 @@
 }
 
 .MissingDataContactUs {
-  background-color: #f8e8b0;
+  background-color: $infobar-color;
   padding: 2px 10px 2px 10px;
   border-radius: 8px;
 }

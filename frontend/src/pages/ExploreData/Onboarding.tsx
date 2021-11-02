@@ -1,5 +1,7 @@
 import React from "react";
 import Joyride from "react-joyride";
+// import { isSpreadAssignment } from "typescript";
+import sass from "../../styles/variables.module.scss";
 
 export function Onboarding(props: {
   callback: (data: any) => void;
@@ -19,10 +21,10 @@ export function Onboarding(props: {
       run={props.activelyOnboarding}
       styles={{
         options: {
-          arrowColor: "#0B5240",
-          backgroundColor: "#0B5240",
-          primaryColor: "#0B5240",
-          textColor: "#fff",
+          arrowColor: sass.altGreen,
+          backgroundColor: sass.altGreen,
+          primaryColor: sass.altGreen,
+          textColor: sass.white,
           width: 900,
           zIndex: 1000,
         },
