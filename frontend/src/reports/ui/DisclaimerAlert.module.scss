@@ -1,9 +1,9 @@
-@import "../../styles/variables";
+@import "../../styles/variables.module";
 
 .ReportAlert,
 .ReportAlertSingleColumn {
   margin: 10px;
-  border: 1px solid #ff9800;
+  border: 1px solid $report-alert;
   text-align: left;
   line-height: 21px;
   font-size: 14px;
