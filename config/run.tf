@@ -36,6 +36,7 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
 
   template {
     spec {
+      timeout_seconds = 600
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.gcs_to_bq_image_name, var.gcs_to_bq_image_digest)
         env {
@@ -55,7 +56,8 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
 
         resources {
           limits = {
-            memory = "4G"
+            memory = "8Gi"
+            cpu = 4
           }
         }
       }

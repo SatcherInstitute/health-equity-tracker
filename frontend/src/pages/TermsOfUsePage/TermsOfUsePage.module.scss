@@ -1,4 +1,4 @@
-@import "../../styles/variables";
+@import "../../styles/variables.module";
 
 // For styles Grid-wide
 .Grid {
@@ -9,7 +9,7 @@
 
 // For primary-themed buttons
 .PrimaryButton {
-  background-color: #0b5240;
+  background-color: $alt-green;
   color: white !important;
   border-radius: 40px;
   height: 52px;
@@ -85,7 +85,7 @@
 
 // Grid rows that have outlines and an image in one cell.
 .GridOutlinedImgRow {
-  border-top: 1px solid #3e3e3e;
+  border-top: 1px solid $border-color;
 
   .ImgHeaderGridItem {
     width: 760px;
@@ -176,7 +176,7 @@
 .GridOutlinedRow {
   padding: 147px 120px 147px 120px;
   align-items: center;
-  border-top: 1px solid #3e3e3e;
+  border-top: 1px solid $border-color;
 
   .GridVerticallyAlignedItem {
     justify-content: center;
