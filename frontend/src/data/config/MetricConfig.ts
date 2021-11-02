@@ -130,19 +130,27 @@ export const POPULATION_VARIABLE_CONFIG_2010: VariableConfig = {
 export function formatFieldValue(
   metricType: MetricType,
   value: any,
-  omitPctSymbol: boolean = false
+  omitPctSymbol: boolean = false,
+  convertToK: boolean = false
 ): string {
   if (value === null || value === undefined) {
     return "";
   }
+  if (value < 1000) convertToK = false;
   const isPctShare = metricType === "pct_share";
-  const formatOptions = isPctShare ? { minimumFractionDigits: 1 } : {};
+  const formatOptions =
+    isPctShare || convertToK
+      ? { minimumFractionDigits: 1, maximumFractionDigits: 1 }
+      : {};
+
+  const adjustedValue = convertToK ? value / 1000 : value;
   const formattedValue =
-    typeof value === "number"
-      ? value.toLocaleString("en", formatOptions)
-      : value;
-  const suffix = isPctShare && !omitPctSymbol ? "%" : "";
-  return `${formattedValue}${suffix}`;
+    typeof adjustedValue === "number"
+      ? adjustedValue.toLocaleString("en", formatOptions)
+      : adjustedValue;
+  const suffixPercent = isPctShare && !omitPctSymbol ? "%" : "";
+  const suffixK = convertToK ? "K" : "";
+  return `${formattedValue}${suffixPercent}${suffixK}`;
 }
 
 export function getPer100kAndPctShareMetrics(

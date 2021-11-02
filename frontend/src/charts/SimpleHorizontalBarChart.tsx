@@ -23,10 +23,8 @@ function getSpec(
   breakdownVarDisplayName: string,
   measure: string,
   measureDisplayName: string,
-  // Column names to use for the display value of the metric. These columns
-  // contains preformatted data as strings.
-  barMetricDisplayColumnName: string,
-  tooltipMetricDisplayColumnName: string,
+  barMetricDisplayColumnName: string, // points to the raw data, which is formatted using VEGA to K units
+  tooltipMetricDisplayColumnName: string, // contains preformatted data as strings
   showLegend: boolean
 ): any {
   const MEASURE_COLOR = sass.altGreen;
@@ -44,6 +42,7 @@ function getSpec(
         },
       ]
     : [];
+
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     background: "white",
@@ -101,7 +100,10 @@ function getSpec(
             fill: { value: "black" },
             x: { scale: "x", field: measure },
             y: { scale: "y", field: breakdownVar, band: 0.8 },
-            text: { signal: `datum.${barMetricDisplayColumnName}` },
+            // use K units on each bar if >1000
+            text: {
+              signal: `if(datum.${barMetricDisplayColumnName} < 1000 ,datum.${barMetricDisplayColumnName},format(datum.${barMetricDisplayColumnName}/1000, '0.2r') + 'K')`,
+            },
           },
         },
       },
@@ -200,7 +202,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   );
   const [
     dataWithDisplayCol,
-    barMetricDisplayColumnName,
+    // barMetricDisplayColumnName,
   ] = addMetricDisplayColumn(props.metric, dataWithLineBreakDelimiter);
   // Omit the % symbol for the tooltip because it's included in shortVegaLabel.
   const [data, tooltipMetricDisplayColumnName] = addMetricDisplayColumn(
@@ -220,7 +222,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
           props.metric.metricId,
           props.metric.shortVegaLabel,
-          barMetricDisplayColumnName,
+          props.metric.metricId, // use instead of barMetricDisplayColumnName as we need raw number value for later conversion to K units
           tooltipMetricDisplayColumnName,
           props.showLegend
         )}

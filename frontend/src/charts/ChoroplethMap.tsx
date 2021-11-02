@@ -150,6 +150,11 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const noDataText = props.useSmallSampleMessage
       ? "Sample size too small"
       : NO_DATA_MESSAGE;
+    const tooltipDatum =
+      props.metric.type === "per100k"
+        ? // use K units in tooltip if >1000
+          `if (datum.${props.metric.metricId} < 1000,datum.${props.metric.metricId},format(datum.${props.metric.metricId}/1000, '0.3r') + 'K')`
+        : `format(datum.${props.metric.metricId}, ',')`;
 
     /* PROPERLY LABEL THE HOVERED GEO REGION IF TERRITORY */
     const countyOrEquivalent =
@@ -162,12 +167,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const geographyName = props.showCounties
       ? countyOrEquivalent
       : stateOrTerritory;
-    const tooltipDatum = `format(datum.${props.metric.metricId}, ',')`;
     // TODO: would be nice to use addMetricDisplayColumn for the tooltips here so that data formatting is consistent.
     const tooltipLabel =
       props.isUnknownsMap && props.metric.unknownsVegaLabel
         ? props.metric.unknownsVegaLabel
         : props.metric.shortVegaLabel;
+
     const tooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum} }`;
     const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": "${noDataText}" }`;
 
@@ -201,12 +206,24 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       offset: 15,
       format: "d",
     };
+
     if (props.metric.type === "pct_share") {
       legend["encode"] = {
         labels: {
           update: {
             text: {
               signal: `format(datum.label, '0.1r') + '%'`,
+            },
+          },
+        },
+      };
+    } else if (props.metric.type === "per100k") {
+      legend["encode"] = {
+        labels: {
+          update: {
+            text: {
+              // use K units in legend when  value is >1000
+              signal: `if (datum.label < 1000, datum.label,format(datum.label/1000, '0.2r') + 'K')`,
             },
           },
         },
