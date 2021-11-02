@@ -14,6 +14,8 @@ import {
   oneLineLabel,
   addMetricDisplayColumn,
 } from "./utils";
+import sass from "../styles/variables.module.scss";
+import { LEGEND_TEXT_FONT } from "./Legend";
 
 function getSpec(
   data: Record<string, any>[],
@@ -39,9 +41,9 @@ function getSpec(
 ): any {
   const BAR_HEIGHT = stacked ? 40 : 12;
   const BAR_PADDING = 0.1;
-  const DARK_MEASURE_COLOR = "#0B5420";
-  const LIGHT_MEASURE_COLOR = "#91C684";
-  const ALT_LIGHT_MEASURE_COLOR = "#60BCCB"; // "#CBEA9D"; //"#89d5cc";
+  const DARK_MEASURE_COLOR = sass.barChartDark;
+  const LIGHT_MEASURE_COLOR = sass.barChartLight;
+  const ALT_LIGHT_MEASURE_COLOR = sass.unknownMapMid;
   const ALT_LIGHT_MEASURE_OPACITY = 0.8;
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
@@ -319,6 +321,8 @@ function getSpec(
         fill: "variables",
         orient: "top",
         padding: 4,
+        font: LEGEND_TEXT_FONT,
+        labelFont: LEGEND_TEXT_FONT,
       },
     ],
   };

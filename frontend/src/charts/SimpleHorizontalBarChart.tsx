@@ -14,6 +14,7 @@ import {
   oneLineLabel,
   addMetricDisplayColumn,
 } from "./utils";
+import sass from "../styles/variables.module.scss";
 
 function getSpec(
   data: Record<string, any>[],
@@ -26,9 +27,9 @@ function getSpec(
   tooltipMetricDisplayColumnName: string, // contains preformatted data as strings
   showLegend: boolean
 ): any {
+  const MEASURE_COLOR = sass.altGreen;
   const BAR_HEIGHT = 60;
   const BAR_PADDING = 0.2;
-  const MEASURE_COLOR = "#0B5240";
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 
