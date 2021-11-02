@@ -13,7 +13,7 @@ def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, tota
        total_val: The value representing 'ALL' or 'TOTAL'"""
 
     def calc_pct_share(record, total_value):
-        record[pct_share_col] = percent_avoid_rouding_to_zero(record[raw_count_col], total)
+        record[pct_share_col] = percent_avoid_rounding_to_zero(record[raw_count_col], total)
         return record
 
     groupby_cols = list(df.columns)
@@ -37,11 +37,11 @@ def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, tota
     return pd.concat(with_pct_share).reset_index(drop=True)
 
 
-def percent_avoid_rouding_to_zero(numerator, denominator, default_decimals=1, max_decimals=2):
+def percent_avoid_rounding_to_zero(numerator, denominator, default_decimals=1, max_decimals=2):
     """Calculates percentage to `default_decimals` number of decimal places. If
        the percentage would round to 0, calculates with more decimal places until
-       either it doesn't round to 0, or until `max_decimals`. `defaultDecimals`
-       and `maxd_decimals` should be >= 0 and `max_decimals` should be >=
+       either it doesn't round to 0, or until `max_decimals`. `default_decimals`
+       and `max_decimals` should be >= 0 and `max_decimals` should be >=
        `default_decimals`. """
 
     decimals = default_decimals
