@@ -30,14 +30,6 @@ class Acs2010PopulationProvider extends VariableProvider {
 
     df = this.renameTotalToAll(df, breakdownColumnName);
 
-    df = this.calculations.calculatePctShare(
-      df,
-      "population",
-      "population_pct",
-      breakdownColumnName,
-      ["fips"]
-    );
-
     df = df
       .generateSeries({ population_2010: (row) => row["population"] })
       .resetIndex();
