@@ -74,17 +74,17 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "acs_health_insurance-health_insurance_by_sex_age_state",
-    name: "Health Insurance by sex, age and state",
+    name: "Health insurance by sex, age and state",
     update_time: "2019",
   },
   {
     id: "acs_health_insurance-health_insurance_by_race_age_state",
-    name: "Health Insurance by race, age and state",
+    name: "Health insurance by race, age and state",
     update_time: "2019",
   },
   {
     id: "acs_health_insurance-health_insurance_by_race_age_county",
-    name: "Health Insurance by race, age and county",
+    name: "Health insurance by race, age and county",
     update_time: "2019",
   },
   {
