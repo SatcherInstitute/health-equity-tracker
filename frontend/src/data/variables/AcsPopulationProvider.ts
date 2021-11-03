@@ -62,13 +62,16 @@ class AcsPopulationProvider extends VariableProvider {
 
     df = this.renameTotalToAll(df, breakdownColumnName);
 
-    df = this.calculations.calculatePctShare(
-      df,
-      "population",
-      "population_pct",
-      breakdownColumnName,
-      ["fips"]
-    );
+    //TODO: Get rid of this once the aggregation is moved to the backend
+    if (breakdowns.geography === "national") {
+      df = this.calculations.calculatePctShare(
+        df,
+        "population",
+        "population_pct",
+        breakdownColumnName,
+        ["fips"]
+      );
+    }
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
@@ -90,6 +93,7 @@ class AcsPopulationProvider extends VariableProvider {
     acsDataFrame = this.filterByGeo(acsDataFrame, breakdowns);
     acsDataFrame = this.renameGeoColumns(acsDataFrame, breakdowns);
 
+    //TODO: Move this to the backend
     return breakdowns.geography === "national"
       ? createNationalTotal(
           acsDataFrame,
