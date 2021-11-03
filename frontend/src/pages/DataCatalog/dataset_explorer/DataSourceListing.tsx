@@ -162,10 +162,8 @@ export function DataSourceListing(props: DataSourceListingProps) {
           <DialogTitle className={styles.DialogTitle}>
             <Grid container justify="space-between" alignItems="center">
               <Grid item xs={10} md={11}>
-                <div className={styles.DialogTitleText}>
-                  Available Breakdowns for{" "}
-                  {props.source_metadata.data_source_name}
-                </div>
+                Available Breakdowns for{" "}
+                {props.source_metadata.data_source_name}
               </Grid>
 
               <Grid item xs={2} md={1}>
