@@ -29,7 +29,7 @@ export interface VariableDisparityReportProps {
   updateFipsCallback: Function;
   hidePopulationCard?: boolean;
   jumpToDefinitions?: Function;
-  jumpToData?: Function;
+  jumpToData: Function;
 }
 
 export function VariableDisparityReport(props: VariableDisparityReportProps) {

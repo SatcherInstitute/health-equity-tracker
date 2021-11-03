@@ -28,7 +28,7 @@ export interface HighestLowestListProps {
   // List of rows with lowest rates
   lowestRatesList: Row[];
   // to scroll user to bottom text box about Missing Data
-  jumpToData?: Function;
+  jumpToData: Function;
 }
 
 /*
@@ -107,7 +107,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
       <p>
         Consider the possible impact of{" "}
         <Button
-          onClick={() => props.jumpToData!()}
+          onClick={() => props.jumpToData()}
           className={styles.LinkButton}
         >
           data reporting gaps

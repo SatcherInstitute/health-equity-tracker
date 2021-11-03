@@ -45,7 +45,7 @@ export interface MapCardProps {
   updateFipsCallback: (fips: Fips) => void;
   currentBreakdown: BreakdownVar;
   jumpToDefinitions?: Function;
-  jumpToData?: Function;
+  jumpToData: Function;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
