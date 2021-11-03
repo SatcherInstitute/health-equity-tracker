@@ -21,7 +21,8 @@ function covidAndAcsRows(
   cases: number | null,
   deaths: number | null,
   hosp: number | null,
-  population: number
+  population: number,
+  population_pct: number
 ) {
   return [
     {
@@ -38,6 +39,7 @@ function covidAndAcsRows(
       state_name: fips.name,
       race_and_ethnicity: race,
       population: population,
+      population_pct: population_pct,
     },
   ];
 }
@@ -48,7 +50,8 @@ function covidAndCountyAcsRows(
   cases: number | null,
   deaths: number | null,
   hosp: number | null,
-  population: number
+  population: number,
+  population_pct: number
 ) {
   return [
     {
@@ -65,6 +68,7 @@ function covidAndCountyAcsRows(
       county_name: fips.name,
       race_and_ethnicity: race,
       population: population,
+      population_pct: population_pct,
     },
   ];
 }
@@ -131,7 +135,8 @@ describe("CovidProvider", () => {
       10,
       1,
       5,
-      2000
+      2000,
+      2
     );
     const [CHATAM_all_ROW, CHATAM_ACS_all_ROW] = covidAndCountyAcsRows(
       CHATAM,
@@ -139,7 +144,8 @@ describe("CovidProvider", () => {
       200,
       500,
       1000,
-      100000
+      100000,
+      100
     );
     const [DURHAM_WHITE_ROW, DURHAM_ACS_WHITE_ROW] = covidAndCountyAcsRows(
       DURHAM,
@@ -147,7 +153,8 @@ describe("CovidProvider", () => {
       10,
       1,
       5,
-      2000
+      2000,
+      100
     );
     const [DURHAM_all_ROW, DURHAM_ACS_all_ROW] = covidAndCountyAcsRows(
       DURHAM,
@@ -155,7 +162,8 @@ describe("CovidProvider", () => {
       10,
       1,
       5,
-      2000
+      2000,
+      100
     );
 
     const rawCovidData = [
@@ -212,7 +220,8 @@ describe("CovidProvider", () => {
       /*cases=*/ 10,
       /*hosp=*/ 1,
       /*death=*/ 5,
-      /*population=*/ 2000
+      /*population=*/ 2000,
+      2
     );
     const [AL_all_ROW, AL_ACS_all_ROW] = covidAndAcsRows(
       AL,
@@ -220,7 +229,8 @@ describe("CovidProvider", () => {
       /*cases=*/ 10,
       /*hosp=*/ 1,
       /*death=*/ 5,
-      /*population=*/ 2000
+      /*population=*/ 2000,
+      100
     );
     const [NC_WHITE_ROW, NC_ACS_WHITE_ROW] = covidAndAcsRows(
       NC,
@@ -228,7 +238,8 @@ describe("CovidProvider", () => {
       /*cases=*/ 10,
       /*hosp=*/ 1,
       /*death=*/ 5,
-      /*population=*/ 2000
+      /*population=*/ 2000,
+      2
     );
     const [NC_all_ROW, NC_ACS_all_ROW] = covidAndAcsRows(
       NC,
@@ -236,7 +247,8 @@ describe("CovidProvider", () => {
       /*cases=*/ 200,
       /*hosp=*/ 500,
       /*death=*/ 1000,
-      /*population=*/ 100000
+      /*population=*/ 100000,
+      100
     );
 
     const rawCovidData = [NC_all_ROW, NC_WHITE_ROW, AL_all_ROW, AL_WHITE_ROW];
@@ -287,7 +299,8 @@ describe("CovidProvider", () => {
       /*cases=*/ 200,
       /*death=*/ 500,
       /*hosp=*/ 1000,
-      /*population=*/ 100000
+      /*population=*/ 100000,
+      100
     );
     const [AL_all_ROW, AL_ACS_all_ROW] = covidAndAcsRows(
       AL,
@@ -295,7 +308,8 @@ describe("CovidProvider", () => {
       /*cases=*/ 100,
       /*death=*/ 200,
       /*hosp=*/ 1000,
-      /*population=*/ 80000
+      /*population=*/ 80000,
+      100
     );
     const [NC_WHITE_ROW, NC_ACS_WHITE_ROW] = covidAndAcsRows(
       NC,
@@ -303,7 +317,8 @@ describe("CovidProvider", () => {
       /*cases=*/ 240,
       /*death=*/ 80,
       /*hosp=*/ 34,
-      /*population=*/ 50000
+      /*population=*/ 50000,
+      29
     );
     const [AL_WHITE_ROW, AL_ACS_WHITE_ROW] = covidAndAcsRows(
       AL,
@@ -311,7 +326,8 @@ describe("CovidProvider", () => {
       /*cases=*/ 730,
       /*death=*/ 250,
       /*hosp=*/ 45,
-      /*population=*/ 60000
+      /*population=*/ 60000,
+      50
     );
 
     const rawCovidData = [NC_all_ROW, NC_WHITE_ROW, AL_all_ROW, AL_WHITE_ROW];
