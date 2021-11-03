@@ -39,6 +39,7 @@ function stateRow(
     state_name: fips.name,
     [breakdownName]: breakdownValue,
     population: population,
+    population_pct: population_pct,
   };
 }
 
