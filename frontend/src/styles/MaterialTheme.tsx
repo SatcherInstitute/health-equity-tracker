@@ -1,17 +1,18 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 import "typeface-dm-sans";
+import sass from "./variables.module.scss";
 
 const MaterialTheme = createMuiTheme({
   palette: {
     primary: {
-      light: "#91C684",
-      main: "#0B5240",
-      dark: "#083f31",
+      light: sass.barChartLight,
+      main: sass.altGreen,
+      dark: sass.darkGreen,
     },
     secondary: {
-      light: "#89D5CC",
-      main: "#228B7E",
-      dark: "#167B6F",
+      light: sass.secondaryLight,
+      main: sass.secondaryMain,
+      dark: sass.secondaryDark,
     },
   },
   Typography: {
@@ -24,10 +25,10 @@ const MaterialTheme = createMuiTheme({
           fontFamily: '"Inter", serif',
         },
         ".MuiAlert-standardInfo	.MuiAlert-icon": {
-          color: "#0B5240 !important",
+          color: `${sass.altGreen} !important`,
         },
         ".MuiAlert-standardWarning	.MuiAlert-icon": {
-          color: "#D85C47 !important",
+          color: `${sass.alertColor} !important`,
         },
       },
     },
@@ -40,7 +41,7 @@ const MaterialTheme = createMuiTheme({
     MuiTabs: {
       root: {
         marginTop: "40px",
-        borderBottom: "1px solid #3e3e3e",
+        borderBottom: `1px solid ${sass.borderColor}`,
       },
     },
     MuiButton: {
@@ -49,7 +50,7 @@ const MaterialTheme = createMuiTheme({
         fontFamily: '"Inter", serif',
       },
       containedPrimary: {
-        color: "#ffffff !important",
+        color: `${sass.white} !important`,
       },
     },
     MuiPaper: {
@@ -66,13 +67,13 @@ const MaterialTheme = createMuiTheme({
         fontWeight: "normal",
         fontSize: "14px",
         lineHeight: "16px",
-        background: "white",
-        border: "1px solid #BDC1C6 !important",
-        color: "black",
+        background: sass.white,
+        border: `1px solid ${sass.unknownGrey} !important`,
+        color: sass.black,
         textTransform: "none",
         "&$selected": {
-          backgroundColor: "#E1E9E7",
-          color: "#0B5240",
+          backgroundColor: sass.toggleColor,
+          color: sass.altGreen,
         },
       },
     },
@@ -81,13 +82,13 @@ const MaterialTheme = createMuiTheme({
         fontFamily: '"Inter", serif',
       },
       standardInfo: {
-        backgroundColor: "#F8F9FA !important",
-        color: "#00000 !important",
+        backgroundColor: `${sass.standardInfo} !important`,
+        color: `${sass.black} !important`,
         textAlign: "left",
       },
       standardWarning: {
-        backgroundColor: "#FFF8EB !important",
-        color: "#00000 !important",
+        backgroundColor: `${sass.standardWarning} !important`,
+        color: `${sass.black} !important`,
         textAlign: "left",
       },
       standardError: {

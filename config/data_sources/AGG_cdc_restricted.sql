@@ -24,12 +24,12 @@ WITH
     WHERE a.state_postal != "Unknown"
   ),
   all_acs as (
-      SELECT state_fips, state_name, population, race_category_id, race, race_includes_hispanic, race_and_ethnicity FROM `acs_population.by_race_state_std`
+      SELECT state_fips, state_name, population, population_pct, race_category_id, race, race_includes_hispanic, race_and_ethnicity FROM `acs_population.by_race_state_std`
     UNION ALL
-      SELECT state_fips, state_name, population, race_category_id, race, race_includes_hispanic, race_and_ethnicity FROM `acs_2010_population.by_race_and_ethnicity_territory`
+      SELECT state_fips, state_name, population, population_pct, race_category_id, race, race_includes_hispanic, race_and_ethnicity FROM `acs_2010_population.by_race_and_ethnicity_territory`
   ),
   joined_with_acs as (
-      SELECT x.*, y.population
+      SELECT x.*, y.population, y.population_pct
       FROM cdc_restricted_race_state AS x
       LEFT JOIN `all_acs` AS y
           USING (state_fips, race_category_id)
@@ -53,12 +53,12 @@ WITH
     WHERE a.state_postal != "Unknown"
   ),
   all_acs as (
-      SELECT state_fips, state_name, sex, population FROM `acs_population.by_sex_state`
+      SELECT state_fips, state_name, sex, population, population_pct FROM `acs_population.by_sex_state`
     UNION ALL
-      SELECT state_fips, state_name, sex, population FROM `acs_2010_population.by_sex_territory`
+      SELECT state_fips, state_name, sex, population, population_pct FROM `acs_2010_population.by_sex_territory`
   ),
   joined_with_acs as (
-      SELECT x.*, y.population
+      SELECT x.*, y.population, y.population_pct
       FROM cdc_restricted_sex_state AS x
       LEFT JOIN `all_acs` AS y
           USING (state_fips, sex)
@@ -82,12 +82,12 @@ WITH
     WHERE a.state_postal != "Unknown"
   ),
   all_acs as (
-      SELECT state_fips, state_name, age, population FROM `acs_population.by_age_state`
+      SELECT state_fips, state_name, age, population, population_pct FROM `acs_population.by_age_state`
     UNION ALL
-      SELECT state_fips, state_name, age, population FROM `acs_2010_population.by_age_territory`
+      SELECT state_fips, state_name, age, population, population_pct FROM `acs_2010_population.by_age_territory`
   ),
   joined_with_acs as (
-      SELECT x.*, y.population
+      SELECT x.*, y.population, y.population_pct
       FROM cdc_restricted_age_state AS x
       LEFT JOIN `all_acs` AS y
           USING (state_fips, age)
@@ -128,7 +128,7 @@ WITH
       WHERE a.county_fips != ""
   ),
   joined_with_acs as (
-      SELECT x.*, y.population
+      SELECT x.*, y.population, y.population_pct
       FROM cdc_restricted_race_county AS x
       LEFT JOIN `acs_population.by_race_county_std` AS y
           USING (county_fips, state_fips, race_category_id)
@@ -158,7 +158,7 @@ WITH
       WHERE a.county_fips != ""
   ),
   joined_with_acs as (
-      SELECT x.*, y.population
+      SELECT x.*, y.population, y.population_pct
       FROM cdc_restricted_sex_county AS x
       LEFT JOIN `acs_population.by_sex_county` AS y
           USING (county_fips, state_fips, sex)
@@ -188,7 +188,7 @@ WITH
       WHERE a.county_fips != ""
   ),
   joined_with_acs as (
-      SELECT x.*, y.population
+      SELECT x.*, y.population, y.population_pct
       FROM cdc_restricted_age_county AS x
       LEFT JOIN `acs_population.by_age_county` AS y
           USING (county_fips, state_fips, age)
