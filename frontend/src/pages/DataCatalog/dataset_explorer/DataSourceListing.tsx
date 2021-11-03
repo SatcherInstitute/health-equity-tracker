@@ -22,7 +22,7 @@ import Alert from "@material-ui/lab/Alert";
 import ListItemText from "@material-ui/core/ListItemText";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import GetAppIcon from "@material-ui/icons/GetApp";
-import { IconButton } from "@material-ui/core";
+import { Grid, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 
 type LoadStatus = "loading" | "unloaded" | "error" | "loaded";
@@ -55,7 +55,7 @@ function DownloadDatasetListItem(props: {
   if (props.datasetMetadata === undefined) {
     getLogger().logError(
       new Error(
-        "Dataset metdata was missing for dataset with ID: " + props.datasetId
+        "Dataset metadata was missing for dataset with ID: " + props.datasetId
       ),
       "ERROR"
     );
@@ -129,7 +129,6 @@ export function DataSourceListing(props: DataSourceListingProps) {
             </td>
             <td>{props.source_metadata.update_frequency}</td>
           </tr>
-          {/* TODO - do we want to add all the dataset latest update times? */}
         </tbody>
       </table>
       <div className={styles.Description}>
@@ -161,17 +160,24 @@ export function DataSourceListing(props: DataSourceListingProps) {
         </div>
         <Dialog onClose={() => setDialogIsOpen(false)} open={dialogIsOpen}>
           <DialogTitle className={styles.DialogTitle}>
-            <div className={styles.DialogTitleText}>
-              Available Breakdowns for this Data Source
-            </div>
+            <Grid container justify="space-between" alignItems="center">
+              <Grid item xs={10} md={11}>
+                <div className={styles.DialogTitleText}>
+                  Available Breakdowns for{" "}
+                  {props.source_metadata.data_source_name}
+                </div>
+              </Grid>
 
-            <IconButton
-              aria-label="close dialogue"
-              className={styles.CloseDialogButton}
-              onClick={() => setDialogIsOpen(false)}
-            >
-              <CloseIcon />
-            </IconButton>
+              <Grid item xs={2} md={1}>
+                <IconButton
+                  aria-label="close dialogue"
+                  className={styles.CloseDialogButton}
+                  onClick={() => setDialogIsOpen(false)}
+                >
+                  <CloseIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
           </DialogTitle>
           <List>
             {props.source_metadata.dataset_ids.map((datasetId) => (
