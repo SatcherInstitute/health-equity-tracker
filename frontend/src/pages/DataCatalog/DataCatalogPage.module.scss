@@ -1,4 +1,4 @@
-@import "../../styles/variables";
+@import "../../styles/variables.module";
 
 .DataCatalogPage {
   margin: auto;
@@ -72,7 +72,7 @@
 }
 
 .MethodologyInfoBar {
-  background-color: #f8e8b0;
+  background-color: $infobar-color;
   padding: 2px 10px 2px 10px;
   border-radius: 8px;
 }

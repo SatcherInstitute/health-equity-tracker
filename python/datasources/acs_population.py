@@ -6,13 +6,13 @@ from ingestion.standardized_columns import (HISPANIC_COL, RACE_COL,
                                             POPULATION_COL, AGE_COL, SEX_COL,
                                             Race, RACE_CATEGORY_ID_COL,
                                             RACE_INCLUDES_HISPANIC_COL,
-                                            TOTAL_VALUE,
+                                            TOTAL_VALUE, POPULATION_PCT_COL,
                                             add_race_columns_from_category_id)
 from ingestion import url_file_to_gcs, gcs_to_bq_util, census
 from datasources.data_source import DataSource
 from ingestion.census import (get_census_params, parse_acs_metadata,
                               get_vars_for_group, standardize_frame)
-from ingestion.dataset_utils import add_sum_of_rows
+from ingestion.dataset_utils import add_sum_of_rows, generate_pct_share_col
 
 # TODO pass this in from message data.
 BASE_ACS_URL = "https://api.census.gov/data/2019/acs/acs5"
@@ -248,6 +248,9 @@ class ACSPopulationIngester():
             if RACE_INCLUDES_HISPANIC_COL in df.columns:
                 column_types[RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
+            if POPULATION_PCT_COL in df.columns:
+                column_types[POPULATION_PCT_COL] = 'FLOAT'
+
             gcs_to_bq_util.add_dataframe_to_bq(
                 df, dataset, table_name, column_types=column_types)
 
@@ -372,6 +375,10 @@ class ACSPopulationIngester():
             Race.MULTI_OR_OTHER_STANDARD.value,
             [Race.MULTI.value, Race.OTHER_STANDARD.value])
 
+        all_races = generate_pct_share_col(
+            all_races, POPULATION_COL, POPULATION_PCT_COL,
+            RACE_CATEGORY_ID_COL, Race.TOTAL.value)
+
         add_race_columns_from_category_id(all_races)
         return self.sort_race_frame(all_races)
 
@@ -440,6 +447,9 @@ class ACSPopulationIngester():
 
             by_age = pd.concat([by_age, by_age_uhc]).drop_duplicates().reset_index(drop=True)
 
+        by_age = generate_pct_share_col(
+            by_age, POPULATION_COL, POPULATION_PCT_COL, AGE_COL, TOTAL_VALUE)
+
         by_age = by_age.sort_values(by=cols[1:-1]).reset_index(drop=True)
         return by_age
 
@@ -457,6 +467,9 @@ class ACSPopulationIngester():
         ]
 
         by_sex = by_sex[cols] if self.county_level else by_sex[cols[1:]]
+
+        by_sex = generate_pct_share_col(
+            by_sex, POPULATION_COL, POPULATION_PCT_COL, SEX_COL, TOTAL_VALUE)
 
         by_sex = by_sex.sort_values(by=cols[1:-1]).reset_index(drop=True)
         return by_sex

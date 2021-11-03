@@ -11,6 +11,7 @@ import { Box } from "@material-ui/core";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet";
 import LazyLoad from "react-lazyload";
+import sass from "../../styles/variables.module.scss";
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -490,7 +491,7 @@ function EquityTab() {
                 ? "/img/animations/HET-lines-no-motion.gif"
                 : "/img/animations/HET-lines.gif"
             }
-            imageBackground="#A5CDC0"
+            imageBackground={sass.joinEffortBg1}
             imageAlt=""
             textTitle="Learn to create actionable solutions"
             content={
@@ -520,7 +521,7 @@ function EquityTab() {
                 ? "/img/animations/HET-fields-no-motion.gif"
                 : "/img/animations/HET-fields.gif"
             }
-            imageBackground="#EDB2A6"
+            imageBackground={sass.joinEffortBg2}
             imageAlt=""
             textTitle="Give back to your community"
             content={
@@ -550,7 +551,7 @@ function EquityTab() {
                 ? "/img/animations/HET-dots-no-motion.gif"
                 : "/img/animations/HET-dots.gif"
             }
-            imageBackground="#275141"
+            imageBackground={sass.joinEffortBg3}
             imageAlt=""
             textTitle="Sign up for our newsletter"
             content={
