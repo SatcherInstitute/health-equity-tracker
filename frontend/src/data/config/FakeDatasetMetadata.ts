@@ -4,47 +4,47 @@ import { DataSourceMetadataMap, GEOGRAPHIES_DATASET_ID } from "./MetadataMap";
 const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "acs_population-by_race_county_std",
-    name: "Population by Race and County",
+    name: "Population by race and county",
     update_time: "2019",
   },
   {
     id: "acs_population-by_race_state_std",
-    name: "Population by Race and State",
+    name: "Population by race and state",
     update_time: "2019",
   },
   {
     id: "acs_population-by_age_state",
-    name: "Population by Age and State",
+    name: "Population by age and state",
     update_time: "2019",
   },
   {
     id: "acs_population-by_age_county",
-    name: "Population by Age and County",
+    name: "Population by age and county",
     update_time: "2019",
   },
   {
     id: "acs_population-by_sex_state",
-    name: "Population by Sex and State",
+    name: "Population by sex and state",
     update_time: "2019",
   },
   {
     id: "acs_population-by_sex_county",
-    name: "Population by Sex and County",
+    name: "Population by sex and county",
     update_time: "2019",
   },
   {
     id: "acs_2010_population-by_race_and_ethnicity_territory",
-    name: "Population by Race and Territory",
+    name: "Population by race and territory",
     update_time: "2010",
   },
   {
     id: "acs_2010_population-by_sex_territory",
-    name: "Population by Sex and Territory",
+    name: "Population by sex and territory",
     update_time: "2010",
   },
   {
     id: "acs_2010_population-by_age_territory",
-    name: "Population by Sex and Territory",
+    name: "Population by sex and territory",
     update_time: "2010",
   },
   {
@@ -69,32 +69,32 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "acs_health_insurance-health_insurance_by_sex_age_county",
-    name: "Health Insurance By Sex, Age and County",
+    name: "Health insurance by sex, age and county",
     update_time: "2019",
   },
   {
     id: "acs_health_insurance-health_insurance_by_sex_age_state",
-    name: "Health Insurance By Sex, Age and State",
+    name: "Health Insurance by sex, age and state",
     update_time: "2019",
   },
   {
     id: "acs_health_insurance-health_insurance_by_race_age_state",
-    name: "Health Insurance By Race, Age and State",
+    name: "Health Insurance by race, age and state",
     update_time: "2019",
   },
   {
     id: "acs_health_insurance-health_insurance_by_race_age_county",
-    name: "Health Insurance By Race, Age and County",
+    name: "Health Insurance by race, age and county",
     update_time: "2019",
   },
   {
     id: "acs_poverty_dataset-poverty_by_race_age_sex_state",
-    name: "Poverty By Race, Age, Sex, and State",
+    name: "Poverty by race, age, sex, and state",
     update_time: "2019",
   },
   {
     id: "acs_poverty_dataset-poverty_by_race_age_sex_county",
-    name: "Poverty By Race, Age, Sex, and County",
+    name: "Poverty by race, age, sex, and county",
     update_time: "2019",
   },
   {
@@ -129,7 +129,7 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "cdc_vaccination_county-race_and_ethnicity",
-    name: "CDC COVID-19 Vaccinations in the United States, County",
+    name: "COVID-19 vaccinations by county",
     update_time: "October 2021",
   },
   {
@@ -149,22 +149,22 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "kff_vaccination-race_and_ethnicity",
-    name: "Kaiser Family Foundation COVID-19 Indicators",
+    name: "COVID-19 indicators",
     update_time: "October 2021",
   },
   {
     id: "uhc_data-age",
-    name: "COPD and Diabetes prevalence by age and state",
+    name: "COPD and diabetes prevalence by age and state",
     update_time: "2019",
   },
   {
     id: "uhc_data-race_and_ethnicity",
-    name: "COPD and Diabetes prevalence by race and state",
+    name: "COPD and diabetes prevalence by race and state",
     update_time: "2019",
   },
   {
     id: "uhc_data-sex",
-    name: "COPD and Diabetes prevalence by sex and state",
+    name: "COPD and diabetes prevalence by sex and state",
     update_time: "2019",
   },
   {

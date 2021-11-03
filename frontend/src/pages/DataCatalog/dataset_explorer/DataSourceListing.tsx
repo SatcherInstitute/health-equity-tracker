@@ -22,6 +22,7 @@ import Alert from "@material-ui/lab/Alert";
 import ListItemText from "@material-ui/core/ListItemText";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import GetAppIcon from "@material-ui/icons/GetApp";
+import OpenInNewIcon from "@material-ui/icons/OpenInNew";
 import { Grid, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 
@@ -154,7 +155,8 @@ export function DataSourceListing(props: DataSourceListingProps) {
                 "Apply For Access to " + props.source_metadata.data_source_name
               }
             >
-              Apply For Access
+              Apply For Access{"  "}
+              <OpenInNewIcon />
             </ReactRouterLinkButton>
           )}
         </div>
@@ -162,8 +164,14 @@ export function DataSourceListing(props: DataSourceListingProps) {
           <DialogTitle className={styles.DialogTitle}>
             <Grid container justify="space-between" alignItems="center">
               <Grid item xs={10} sm={11}>
-                Available Breakdowns for{" "}
-                {props.source_metadata.data_source_name}
+                <Typography
+                  variant="body1"
+                  className={styles.DatasetTitle}
+                  align="left"
+                >
+                  Available breakdowns as CSV files for{" "}
+                  {props.source_metadata.data_source_name}
+                </Typography>
               </Grid>
 
               <Grid item xs={2} sm={1}>
