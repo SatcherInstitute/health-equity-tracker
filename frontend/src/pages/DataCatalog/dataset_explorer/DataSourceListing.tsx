@@ -161,12 +161,12 @@ export function DataSourceListing(props: DataSourceListingProps) {
         <Dialog onClose={() => setDialogIsOpen(false)} open={dialogIsOpen}>
           <DialogTitle className={styles.DialogTitle}>
             <Grid container justify="space-between" alignItems="center">
-              <Grid item xs={10} md={11}>
+              <Grid item xs={10} sm={11}>
                 Available Breakdowns for{" "}
                 {props.source_metadata.data_source_name}
               </Grid>
 
-              <Grid item xs={2} md={1}>
+              <Grid item xs={2} sm={1}>
                 <IconButton
                   aria-label="close dialogue"
                   className={styles.CloseDialogButton}
