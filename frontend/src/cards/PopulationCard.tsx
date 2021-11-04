@@ -66,7 +66,7 @@ export function PopulationCard(props: PopulationCardProps) {
   );
 
   return (
-    <CardWrapper queries={[raceQuery, ageQuery]}>
+    <CardWrapper queries={[raceQuery, ageQuery]} isPopulationCard={true}>
       {([raceQueryResponse, ageQueryResponse]) => {
         const totalPopulation = raceQueryResponse.data.find(
           (r) => r.race_and_ethnicity === ALL
