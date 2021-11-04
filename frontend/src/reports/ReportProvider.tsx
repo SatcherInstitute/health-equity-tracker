@@ -184,7 +184,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         <h4>Missing Outcomes</h4>
         <p>
           Many COVID-19 case records are incomplete, with an unknown
-          hospitalization and/or death status. This means that some states that
+          hospitalization and/or death status. This means that some states which
           report disaggregated COVID-19 case data still do not provide a
           complete picture of its overall impact. Due to the nature of
           surveillance data, we expect this picture to become more complete over
@@ -194,8 +194,8 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           states appear grey when viewing COVID-19 maps featuring
           hospitalizations and deaths: <b>Hawaii</b>, <b>Nebraska</b>,{" "}
           <b>South Dakota</b>, and <b>Wyoming</b>. <b>Delaware</b> is included
-          when viewing hospitalizations, but not deaths. <b>Rhode Island</b> is
-          included when viewing deaths, but not hospitalizations.
+          when viewing hospitalizations, but not deaths, and <b>Rhode Island</b>{" "}
+          is included when viewing deaths, but not hospitalizations.
         </p>
         <h4>Missing Vaccination Data</h4>
         <p>
