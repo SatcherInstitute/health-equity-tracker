@@ -17,7 +17,6 @@ class VaccineProvider extends VariableProvider {
       "vaccinated_share_of_known",
       "vaccinated_per_100k",
       "vaccine_population_pct",
-      "acs_vaccination_population_pct",
     ]);
     this.acsProvider = acsProvider;
   }
@@ -137,6 +136,17 @@ class VaccineProvider extends VariableProvider {
             row.population_pct === 0
               ? null
               : Math.round(row.population_pct * 100),
+        })
+        .resetIndex();
+
+      df = df
+        .generateSeries({
+          vaccinated_per_100k: (row) =>
+            isNaN(row.vaccinated_pct) ||
+            row.vaccinated_pct == null ||
+            row.vaccinated_pct === 0
+              ? null
+              : Math.round(row.vaccinated_pct * 1000 * 100),
         })
         .resetIndex();
 
