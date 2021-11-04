@@ -448,6 +448,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             type: "pct_share",
           },
         },
+        otherPopulationComparisonMetric: {
+          metricId: "acs_vaccine_population_pct",
+          fullCardTitleName: "Share Of Total COVID-19 Vaccinations",
+          shortVegaLabel: "% of COVID-19 vaccinations",
+          type: "pct_share",
+        },
       },
     },
   ],

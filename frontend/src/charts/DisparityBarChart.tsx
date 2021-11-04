@@ -364,11 +364,6 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
         )
       ) {
         hasAltPop = true;
-        const {
-          vaccine_population_pct: acs_vaccine_population_pct,
-          ...itemNoPop
-        } = item;
-        return { acs_vaccine_population_pct, ...itemNoPop };
       }
       return item;
     });

@@ -12,6 +12,7 @@ class VaccineProvider extends VariableProvider {
 
   constructor(acsProvider: AcsPopulationProvider) {
     super("vaccine_provider", [
+      "acs_vaccine_population_pct",
       "vaccinated_pct_share",
       "vaccinated_share_of_known",
       "vaccinated_per_100k",
@@ -116,28 +117,7 @@ class VaccineProvider extends VariableProvider {
         );
       }
     } else if (breakdowns.geography === "state") {
-      const acsQueryResponse = await this.acsProvider.getData(
-        new MetricQuery(["population_pct"], acsBreakdowns)
-      );
-
-      consumedDatasetIds = consumedDatasetIds.concat(
-        acsQueryResponse.consumedDatasetIds
-      );
-
-      const acs = new DataFrame(acsQueryResponse.data);
-      // Only get what we need to merge
-      const acsToMerge = acs
-        .where(
-          (row) =>
-            row[breakdownColumnName].includes(
-              "American Indian and Alaska Native"
-            ) ||
-            row[breakdownColumnName].includes(
-              "Native Hawaiian and Pacific Islander"
-            )
-        )
-        .resetIndex();
-
+      console.log(df.toArray());
       df = df
         .generateSeries({
           vaccinated_pct_share: (row) =>
@@ -149,46 +129,7 @@ class VaccineProvider extends VariableProvider {
         })
         .resetIndex();
 
-      // We only want to merge the ACS data onto these two
-      // demographic categories.
-      let dfAIANNHPI = df
-        .where(
-          (row) =>
-            row[breakdownColumnName].includes(
-              "American Indian and Alaska Native"
-            ) ||
-            row[breakdownColumnName].includes(
-              "Native Hawaiian and Pacific Islander"
-            )
-        )
-        .resetIndex();
-
-      dfAIANNHPI = dfAIANNHPI.dropSeries(["population_pct"]).resetIndex();
-
-      dfAIANNHPI = joinOnCols(
-        dfAIANNHPI,
-        acsToMerge,
-        ["fips", breakdownColumnName],
-        "left"
-      );
-
-      // We need to manipulate the population data and
-      // generate the per 100k numbers for
-      // Asian, Black, White and Hispanic because
-      // the kff is providing those numbers
-      let dfNotAIANNHPI = df
-        .where(
-          (row) =>
-            !row[breakdownColumnName].includes(
-              "American Indian and Alaska Native"
-            ) &&
-            !row[breakdownColumnName].includes(
-              "Native Hawaiian and Pacific Islander"
-            )
-        )
-        .resetIndex();
-
-      dfNotAIANNHPI = dfNotAIANNHPI
+      df = df
         .generateSeries({
           population_pct: (row) =>
             isNaN(row.population_pct) ||
@@ -198,20 +139,6 @@ class VaccineProvider extends VariableProvider {
               : Math.round(row.population_pct * 100),
         })
         .resetIndex();
-
-      dfNotAIANNHPI = dfNotAIANNHPI
-        .generateSeries({
-          vaccinated_per_100k: (row) =>
-            isNaN(row.vaccinated_pct) ||
-            row.vaccinated_pct == null ||
-            row.vaccinated_pct === 0
-              ? null
-              : Math.round(row.vaccinated_pct * 1000 * 100),
-        })
-        .resetIndex();
-
-      // Combine the seperated datasets back together
-      df = dfAIANNHPI.concat(dfNotAIANNHPI).resetIndex();
 
       df = df
         .renameSeries({
@@ -247,6 +174,8 @@ class VaccineProvider extends VariableProvider {
           vaccinated_share_of_known: (row) => row["vaccinated_pct_share"],
         })
         .resetIndex();
+
+      console.log(df.toArray());
     } else if (breakdowns.geography === "county") {
       // We merge this in on the backend, no need to redownload it here
       // but we want to provide the proper citation
