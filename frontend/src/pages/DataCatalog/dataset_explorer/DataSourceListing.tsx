@@ -75,7 +75,7 @@ function DownloadDatasetListItem(props: {
           <ListItemIcon>{getIcon()}</ListItemIcon>
           <ListItemText
             className={styles.DownloadListItemText}
-            primary={props.datasetMetadata.name}
+            primary={props.datasetMetadata.name + ".csv"}
             secondary={"Last updated: " + props.datasetMetadata.update_time}
           />
         </>
@@ -169,7 +169,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
                   className={styles.DatasetTitle}
                   align="left"
                 >
-                  Available breakdowns as CSV files for{" "}
+                  Available breakdowns for{" "}
                   {props.source_metadata.data_source_name}
                 </Typography>
               </Grid>
