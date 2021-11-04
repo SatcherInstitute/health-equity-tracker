@@ -58,7 +58,16 @@ function ReportProvider(props: ReportProviderProps) {
 
   // handle incoming #missingDataLink link request, only on page load
   useEffect(() => {
-    if (props.doScrollToData) jumpToData();
+    if (props.doScrollToData) {
+      jumpToData();
+      // remove hash from URL
+      // eslint-disable-next-line no-restricted-globals
+      history.pushState(
+        "",
+        document.title,
+        window.location.pathname + window.location.search
+      );
+    }
   }, [props.doScrollToData]);
 
   function getReport() {
