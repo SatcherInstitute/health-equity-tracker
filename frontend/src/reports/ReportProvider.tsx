@@ -156,8 +156,8 @@ function ReportProvider(props: ReportProviderProps) {
         {getReport()}
       </div>
       <aside
-        id="missingDataInfo" // used by components on same page
-        ref={fieldRef} // used by components on other pages
+        id="missingDataInfo"
+        ref={fieldRef}
         className={styles.MissingDataInfo}
       >
         <h3 className={styles.FootnoteLargeHeading}>What Data Are Missing?</h3>
