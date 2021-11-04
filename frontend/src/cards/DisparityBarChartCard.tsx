@@ -58,11 +58,6 @@ export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
 function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   const metricConfig = props.variableConfig.metrics["pct_share"];
 
-  const otherPopulationCompairsonMetric =
-    props.variableConfig.metrics["otherPopulationCompairsonMetric"];
-  console.log(otherPopulationCompairsonMetric);
-
-  console.log(metricConfig);
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     exclude(ALL, NON_HISPANIC)
@@ -77,6 +72,10 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   if (metricConfig.knownBreakdownComparisonMetric) {
     metricIds.push(metricConfig.knownBreakdownComparisonMetric.metricId);
   }
+  if (metricConfig.secondaryPopulationComparisonMetric) {
+    metricIds.push(metricConfig.secondaryPopulationComparisonMetric.metricId);
+  }
+
   const query = new MetricQuery(metricIds, breakdowns);
 
   function getTitleText() {
@@ -112,6 +111,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
             }
           });
         }
+
+        console.log(queryResponse);
 
         const dataAvailable = !queryResponse.shouldShowMissingDataMessage([
           metricConfig.metricId,

@@ -17,6 +17,7 @@ class VaccineProvider extends VariableProvider {
       "vaccinated_share_of_known",
       "vaccinated_per_100k",
       "vaccine_population_pct",
+      "acs_vaccination_population_pct",
     ]);
     this.acsProvider = acsProvider;
   }
@@ -117,7 +118,6 @@ class VaccineProvider extends VariableProvider {
         );
       }
     } else if (breakdowns.geography === "state") {
-      console.log(df.toArray());
       df = df
         .generateSeries({
           vaccinated_pct_share: (row) =>
@@ -174,8 +174,6 @@ class VaccineProvider extends VariableProvider {
           vaccinated_share_of_known: (row) => row["vaccinated_pct_share"],
         })
         .resetIndex();
-
-      console.log(df.toArray());
     } else if (breakdowns.geography === "county") {
       // We merge this in on the backend, no need to redownload it here
       // but we want to provide the proper citation
