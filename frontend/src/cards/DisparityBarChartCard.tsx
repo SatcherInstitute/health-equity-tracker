@@ -90,8 +90,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   return (
     <CardWrapper queries={[query]} title={<CardTitle />}>
       {([queryResponse]) => {
-        console.log(queryResponse);
-        console.log(metricConfig.metricId);
         const dataWithoutUnknowns = queryResponse
           .getValidRowsForField(metricConfig.metricId)
           .filter(
@@ -100,8 +98,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               row[props.breakdownVar] !== UNKNOWN_RACE &&
               row[props.breakdownVar] !== UNKNOWN_ETHNICITY
           );
-
-        console.log(dataWithoutUnknowns);
 
         let shouldShowDoesntAddUpMessage = false;
         if (

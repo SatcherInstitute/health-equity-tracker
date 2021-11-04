@@ -349,8 +349,6 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   let dataFromProps = props.data;
   const { showAltPopCompare } = props;
 
-  console.log(dataFromProps);
-
   // some states don't have any NHPI AIAN won't need alt light on vega even if they fit criteria
   let hasAltPop = false;
 
@@ -366,8 +364,14 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
         )
       ) {
         hasAltPop = true;
+        // remove KFF value
+        const { vaccine_population_pct, ...itemWithoutKFF } = item;
+        return itemWithoutKFF;
+      } else {
+        // remove ACS value
+        const { acs_vaccine_population_pct, ...itemWithoutACS } = item;
+        return itemWithoutACS;
       }
-      return item;
     });
   }
 
