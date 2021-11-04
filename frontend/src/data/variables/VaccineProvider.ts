@@ -3,6 +3,7 @@ import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { joinOnCols } from "../utils/datasetutils";
+import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 import { ALL } from "../utils/Constants";
@@ -155,6 +156,9 @@ class VaccineProvider extends VariableProvider {
           population_pct: "vaccine_population_pct",
         })
         .resetIndex();
+
+      const acsDatasetId = GetAcsDatasetId(breakdowns);
+      consumedDatasetIds = consumedDatasetIds.concat(acsDatasetId);
 
       // We have to separate there because the ALL rows contain raw numbers
       // while the other rows are pre computed
