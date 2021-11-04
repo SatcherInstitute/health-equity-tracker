@@ -134,17 +134,17 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "cdc_vaccination_national-age",
-    name: "Demographics by age",
+    name: "COVID-19 vaccination demographics by age",
     update_time: "October 2021",
   },
   {
     id: "cdc_vaccination_national-sex",
-    name: "Demographics by sex",
+    name: "COVID-19 vaccination demographics by sex",
     update_time: "October 2021",
   },
   {
     id: "cdc_vaccination_national-race_and_ethnicity",
-    name: "Demographics by race",
+    name: "COVID-19 vaccination demographics by race",
     update_time: "October 2021",
   },
   {
