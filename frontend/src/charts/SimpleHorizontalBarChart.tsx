@@ -94,6 +94,13 @@ function getSpec(
         style: ["text"],
         from: { data: DATASET },
         encode: {
+          enter: {
+            tooltip: {
+              signal: `${oneLineLabel(
+                breakdownVar
+              )} + ', ${measureDisplayName}: ' + datum.${tooltipMetricDisplayColumnName}`,
+            },
+          },
           update: {
             align: { signal: `if(datum.${measure} > 6000, "right", "left")` },
             baseline: { value: "middle" },
