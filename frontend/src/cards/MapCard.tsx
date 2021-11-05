@@ -37,6 +37,8 @@ import MissingDataAlert from "./ui/MissingDataAlert";
 import { MultiMapDialog } from "./ui/MultiMapDialog";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
+/* minimize layout shift */
+const PRELOAD_HEIGHT = 833;
 
 export interface MapCardProps {
   key?: string;
@@ -107,7 +109,7 @@ function MapCardWithKey(props: MapCardProps) {
       queries={queries}
       title={<>{metricConfig.fullCardTitleName}</>}
       loadGeographies={true}
-      minHeight={833}
+      minHeight={PRELOAD_HEIGHT}
     >
       {(queryResponses, metadata, geoData) => {
         const mapQueryResponse = queryResponses[0];
