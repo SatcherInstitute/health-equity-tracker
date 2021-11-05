@@ -25,6 +25,7 @@ import {
   UNREPRESENTED_RACE_DEF,
   VACCINATED_DEF,
 } from "../pages/DataCatalog/MethodologyTab";
+import { Link } from "react-router-dom";
 
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
   const segment = madLib.phrase[segmentIndex];
@@ -183,18 +184,18 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         <h4>Missing Outcomes</h4>
         <p>
           Many COVID-19 case records are incomplete, with an unknown
-          hospitalization and/or death status. This means that some states that
+          hospitalization and/or death status. This means that some states which
           report disaggregated COVID-19 case data still do not provide a
           complete picture of its overall impact. Due to the nature of
           surveillance data, we expect this picture to become more complete over
           time and will use the Health Equity Tracker to record the progress.
-          Until then, the following states appear grey when viewing COVID-19
-          maps featuring hospitalizations and deaths: <b>Hawaii</b>,{" "}
-          <b>Nebraska</b>, <b>South Dakota</b>, and <b>Wyoming</b>.{" "}
-          <b>Delaware</b> is included when viewing hospitalizations but appears
-          as grey when viewing reports on deaths. <b>Rhode Island</b> appears as
-          grey when viewing reports on hospitalizations but is included when
-          viewing deaths.
+          Until then, in accordance with our{" "}
+          <Link to={METHODOLOGY_TAB_LINK}>methodology</Link>, the following
+          states appear grey when viewing COVID-19 maps featuring
+          hospitalizations and deaths: <b>Hawaii</b>, <b>Nebraska</b>,{" "}
+          <b>South Dakota</b>, and <b>Wyoming</b>. <b>Delaware</b> is included
+          when viewing hospitalizations, but not deaths, and <b>Rhode Island</b>{" "}
+          is included when viewing deaths, but not hospitalizations.
         </p>
         <h4>Missing Vaccination Data</h4>
         <p>
