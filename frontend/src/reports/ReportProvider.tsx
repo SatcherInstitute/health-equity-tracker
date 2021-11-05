@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { VariableDisparityReport } from "./VariableDisparityReport";
 import TwoVariableReport from "./TwoVariableReport";
 import {
@@ -34,16 +34,43 @@ function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
     : madLib.activeSelections[segmentIndex];
 }
 
-function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
+interface ReportProviderProps {
+  madLib: MadLib;
+  setMadLib: Function;
+  doScrollToData?: boolean;
+}
+
+function ReportProvider(props: ReportProviderProps) {
   const [shareModalOpen, setShareModalOpen] = useState(false);
   const fieldRef = useRef<HTMLInputElement>(null);
   const definitionsRef = useRef<HTMLInputElement>(null);
 
+  // internal page links
   function jumpToDefinitions() {
     if (definitionsRef.current) {
-      definitionsRef.current.scrollIntoView();
+      definitionsRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }
+  function jumpToData() {
+    if (fieldRef.current) {
+      fieldRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+
+  // handle incoming #missingDataLink link request, only on page load
+  useEffect(() => {
+    if (props.doScrollToData) {
+      jumpToData();
+      // remove hash from URL
+      // eslint-disable-next-line no-restricted-globals
+      history.pushState(
+        "",
+        document.title,
+        window.location.pathname + window.location.search
+      );
+    }
+  }, [props.doScrollToData]);
+
   function getReport() {
     // Each report has a unique key based on its props so it will create a
     // new instance and reset its state when the provided props change.
@@ -53,6 +80,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         return (
           <VariableDisparityReport
             jumpToDefinitions={jumpToDefinitions}
+            jumpToData={jumpToData}
             key={dropdownOption}
             dropdownVarId={dropdownOption as DropdownVarId}
             fips={new Fips(getPhraseValue(props.madLib, 3))}
@@ -70,6 +98,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         return (
           <TwoVariableReport
             jumpToDefinitions={jumpToDefinitions}
+            jumpToData={jumpToData}
             key={compareDisparityVariable + fipsCode1 + fipsCode2}
             dropdownVarId1={compareDisparityVariable as DropdownVarId}
             dropdownVarId2={compareDisparityVariable as DropdownVarId}
@@ -97,6 +126,8 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           );
         return (
           <TwoVariableReport
+            jumpToDefinitions={jumpToDefinitions}
+            jumpToData={jumpToData}
             key={
               compareDisparityVariable1 + compareDisparityVariable2 + fipsCode
             }
@@ -106,7 +137,6 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             fips2={new Fips(fipsCode)}
             updateFips1Callback={updateFips}
             updateFips2Callback={updateFips}
-            jumpToDefinitions={jumpToDefinitions}
           />
         );
       default:
@@ -132,19 +162,13 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             Share
           </Button>
         </div>
-        <DisclaimerAlert
-          jumpToData={() => {
-            if (fieldRef.current) {
-              fieldRef.current.scrollIntoView();
-            }
-          }}
-        />
+        <DisclaimerAlert jumpToData={jumpToData} />
         {getReport()}
       </div>
       <aside
         id="missingDataInfo"
-        className={styles.MissingDataInfo}
         ref={fieldRef}
+        className={styles.MissingDataInfo}
       >
         <h3 className={styles.FootnoteLargeHeading}>What Data Are Missing?</h3>
         <p>Unfortunately there are crucial data missing in our sources.</p>
