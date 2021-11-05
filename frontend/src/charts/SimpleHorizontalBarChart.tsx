@@ -95,13 +95,17 @@ function getSpec(
         from: { data: DATASET },
         encode: {
           update: {
-            align: { value: "right" },
+            align: { signal: `if(datum.${measure} > 6000, "right", "left")` },
             baseline: { value: "middle" },
-            dx: { value: -3 },
-            fill: { value: "white" },
+            dx: { signal: `if(datum.${measure} > 6000, -3, 3)` },
+            fill: {
+              signal: `if(datum.${measure} > 6000, "white", "black")`,
+            },
             x: { scale: "x", field: measure },
             y: { scale: "y", field: breakdownVar, band: 0.8 },
-            text: { signal: `datum.${barMetricDisplayColumnName}+' per 100k'` },
+            text: {
+              signal: `datum.${tooltipMetricDisplayColumnName}+" per 100k"`,
+            },
           },
         },
       },
