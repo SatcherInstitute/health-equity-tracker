@@ -95,6 +95,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       queries={[mapQuery, alertQuery]}
       title={<>{getTitleText()}</>}
       loadGeographies={true}
+      minHeight={748}
     >
       {([mapQueryResponse, alertQueryResponse], metadata, geoData) => {
         const unknownRaces = mapQueryResponse

@@ -84,7 +84,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   }
 
   return (
-    <CardWrapper queries={[query]} title={<CardTitle />}>
+    <CardWrapper queries={[query]} title={<CardTitle />} minHeight={719}>
       {([queryResponse]) => {
         const dataWithoutUnknowns = queryResponse
           .getValidRowsForField(metricConfig.metricId)

@@ -53,7 +53,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   }
 
   return (
-    <CardWrapper queries={[query]} title={<CardTitle />}>
+    <CardWrapper queries={[query]} title={<CardTitle />} minHeight={668}>
       {([queryResponse]) => {
         return (
           <>

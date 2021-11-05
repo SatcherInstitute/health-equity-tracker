@@ -15,8 +15,8 @@ import { Sources } from "./ui/Sources";
 import { MapOfDatasetMetadata } from "../data/utils/DatasetTypes";
 
 function CardWrapper(props: {
-  // to prevent all cards except population should get a large min-height
-  isPopulationCard?: boolean;
+  // prevent layout shift as component loads
+  minHeight?: number;
   title?: JSX.Element;
   // To have an info icon that opens additional info, pass a Popover such as <RaceInfoPopoverContent />
   infoPopover?: JSX.Element;
@@ -67,9 +67,8 @@ function CardWrapper(props: {
   const loadingComponent = (
     <Card
       raised={true}
-      className={
-        props.isPopulationCard ? styles.ChartCardPopulation : styles.ChartCard
-      }
+      className={styles.ChartCard}
+      style={{ minHeight: props.minHeight }}
     >
       {optionalTitle}
       <CardContent>
@@ -88,11 +87,8 @@ function CardWrapper(props: {
         return (
           <Card
             raised={true}
-            className={
-              props.isPopulationCard
-                ? styles.ChartCardPopulation
-                : styles.ChartCard
-            }
+            className={styles.ChartCard}
+            style={{ minHeight: props.minHeight }}
           >
             {optionalTitle}
             {props.children(queryResponses, metadata, geoData)}

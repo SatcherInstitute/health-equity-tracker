@@ -71,6 +71,7 @@ export function TableCard(props: TableCardProps) {
 
   return (
     <CardWrapper
+      minHeight={698}
       queries={[query]}
       title={
         <>{`${props.variableConfig.variableFullDisplayName} By ${
