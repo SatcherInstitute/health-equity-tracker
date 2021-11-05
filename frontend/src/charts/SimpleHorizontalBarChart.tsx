@@ -95,13 +95,13 @@ function getSpec(
         from: { data: DATASET },
         encode: {
           update: {
-            align: { value: "left" },
+            align: { value: "right" },
             baseline: { value: "middle" },
-            dx: { value: 3 },
-            fill: { value: "black" },
+            dx: { value: -3 },
+            fill: { value: "white" },
             x: { scale: "x", field: measure },
             y: { scale: "y", field: breakdownVar, band: 0.8 },
-            text: { signal: `datum.${barMetricDisplayColumnName}` },
+            text: { signal: `datum.${barMetricDisplayColumnName}+' per 100k'` },
           },
         },
       },
