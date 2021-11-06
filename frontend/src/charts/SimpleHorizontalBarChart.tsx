@@ -27,7 +27,8 @@ function getSpec(
   // contains preformatted data as strings.
   barMetricDisplayColumnName: string,
   tooltipMetricDisplayColumnName: string,
-  showLegend: boolean
+  showLegend: boolean,
+  barLabelBreakpoint: number
 ): any {
   const MEASURE_COLOR = sass.altGreen;
   const BAR_HEIGHT = 60;
@@ -102,11 +103,15 @@ function getSpec(
             },
           },
           update: {
-            align: { signal: `if(datum.${measure} > 6000, "right", "left")` },
+            align: {
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}, "right", "left")`,
+            },
             baseline: { value: "middle" },
-            dx: { signal: `if(datum.${measure} > 6000, -3, 3)` },
+            dx: {
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -3, 3)`,
+            },
             fill: {
-              signal: `if(datum.${measure} > 6000, "white", "black")`,
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}, "white", "black")`,
             },
             x: { scale: "x", field: measure },
             y: { scale: "y", field: breakdownVar, band: 0.8 },
@@ -220,6 +225,9 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     /* omitPctSymbol= */ true
   );
 
+  const barLabelBreakpoint =
+    Math.max(...props.data.map((row) => row[props.metric.metricId])) / 3;
+
   return (
     <div ref={ref}>
       <Vega
@@ -233,7 +241,8 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           props.metric.shortVegaLabel,
           barMetricDisplayColumnName,
           tooltipMetricDisplayColumnName,
-          props.showLegend
+          props.showLegend,
+          barLabelBreakpoint
         )}
         // custom 3-dot options for states, hidden on territories
         actions={
