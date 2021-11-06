@@ -16,6 +16,8 @@ import {
 } from "./utils";
 import sass from "../styles/variables.module.scss";
 
+const LABEL_SWAP_CUTOFF_PERCENT = 33; // bar labels will be outside if below this %, or inside bar if above
+
 function getSpec(
   data: Record<string, any>[],
   width: number,
@@ -226,7 +228,8 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   );
 
   const barLabelBreakpoint =
-    Math.max(...props.data.map((row) => row[props.metric.metricId])) / 3;
+    Math.max(...props.data.map((row) => row[props.metric.metricId])) *
+    (LABEL_SWAP_CUTOFF_PERCENT / 100);
 
   return (
     <div ref={ref}>

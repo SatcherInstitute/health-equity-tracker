@@ -17,6 +17,8 @@ import {
 import sass from "../styles/variables.module.scss";
 import { LEGEND_TEXT_FONT } from "./Legend";
 
+const LABEL_SWAP_CUTOFF_PERCENT = 50; // bar labels will be outside if below this %, or inside bar if above
+
 function getSpec(
   data: Record<string, any>[],
   width: number,
@@ -32,6 +34,7 @@ function getSpec(
   // preformatted data as strings.
   lightMetricDisplayColumnName: string,
   darkMetricDisplayColumnName: string,
+  barLabelBreakpoint: number,
   stacked?: boolean,
   // TESTING place AIAL NHPI pop compare in different color columns due to ACS not KFF
   altLightMeasure?: string,
@@ -137,10 +140,19 @@ function getSpec(
       from: { data: DATASET },
       encode: {
         update: {
-          align: { value: "left" },
+          align: {
+            signal: `if(datum.${darkMeasure} > ${barLabelBreakpoint}, "right", "left")`,
+          },
+          // align: { value: "left" },
           baseline: { value: "middle" },
-          dx: { value: 3 },
-          fill: { value: "black" },
+          dx: {
+            signal: `if(datum.${darkMeasure} > ${barLabelBreakpoint}, -3, 3)`,
+          },
+          fill: {
+            signal: `if(datum.${darkMeasure} > ${barLabelBreakpoint}, "white", "black")`,
+          },
+          // dx: { value: 3 },
+          // fill: { value: "black" },
           x: { scale: "x", field: darkMeasure },
           y: { scale: "y", field: breakdownVar, band: 0.5 },
           yc: {
@@ -414,6 +426,10 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
       )
     : [dataWithDarkMetric, ""];
 
+  const barLabelBreakpoint =
+    Math.max(...props.data.map((row) => row[props.darkMetric.metricId])) *
+    (LABEL_SWAP_CUTOFF_PERCENT / 100);
+
   return (
     <div ref={ref}>
       <Vega
@@ -437,6 +453,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           props.metricDisplayName,
           lightMetricDisplayColumnName,
           darkMetricDisplayColumnName,
+          barLabelBreakpoint,
           props.stacked,
           hasAltPop ? altLightMetric.metricId : "",
           hasAltPop ? altLightMetric.shortVegaLabel : "",
