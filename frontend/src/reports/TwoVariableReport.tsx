@@ -32,6 +32,7 @@ function TwoVariableReport(props: {
   updateFips1Callback: (fips: Fips) => void;
   updateFips2Callback: (fips: Fips) => void;
   jumpToDefinitions?: Function;
+  jumpToData: Function;
 }) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, "race_and_ethnicity")
@@ -220,6 +221,7 @@ function TwoVariableReport(props: {
             }}
             currentBreakdown={currentBreakdown}
             jumpToDefinitions={props.jumpToDefinitions}
+            jumpToData={props.jumpToData}
           />
         )}
       />

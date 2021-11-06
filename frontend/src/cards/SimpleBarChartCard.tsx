@@ -15,6 +15,9 @@ import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 
+/* minimize layout shift */
+const PRELOAD_HEIGHT = 668;
+
 export interface SimpleBarChartCardProps {
   key?: string;
   breakdownVar: BreakdownVar;
@@ -53,7 +56,11 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   }
 
   return (
-    <CardWrapper queries={[query]} title={<CardTitle />}>
+    <CardWrapper
+      queries={[query]}
+      title={<CardTitle />}
+      minHeight={PRELOAD_HEIGHT}
+    >
       {([queryResponse]) => {
         return (
           <>

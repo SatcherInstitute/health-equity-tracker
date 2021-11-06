@@ -15,6 +15,8 @@ import { Sources } from "./ui/Sources";
 import { MapOfDatasetMetadata } from "../data/utils/DatasetTypes";
 
 function CardWrapper(props: {
+  // prevent layout shift as component loads
+  minHeight?: number;
   title?: JSX.Element;
   // To have an info icon that opens additional info, pass a Popover such as <RaceInfoPopoverContent />
   infoPopover?: JSX.Element;
@@ -63,7 +65,11 @@ function CardWrapper(props: {
   ) : null;
 
   const loadingComponent = (
-    <Card raised={true} className={styles.ChartCard}>
+    <Card
+      raised={true}
+      className={styles.ChartCard}
+      style={{ minHeight: props.minHeight }}
+    >
       {optionalTitle}
       <CardContent>
         <CircularProgress />
@@ -79,7 +85,11 @@ function CardWrapper(props: {
     >
       {(metadata, queryResponses, geoData) => {
         return (
-          <Card raised={true} className={styles.ChartCard}>
+          <Card
+            raised={true}
+            className={styles.ChartCard}
+            style={{ minHeight: props.minHeight }}
+          >
             {optionalTitle}
             {props.children(queryResponses, metadata, geoData)}
             {!props.hideFooter && props.queries && (

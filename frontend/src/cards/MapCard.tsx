@@ -37,6 +37,8 @@ import MissingDataAlert from "./ui/MissingDataAlert";
 import { MultiMapDialog } from "./ui/MultiMapDialog";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
+/* minimize layout shift */
+const PRELOAD_HEIGHT = 833;
 
 export interface MapCardProps {
   key?: string;
@@ -45,6 +47,7 @@ export interface MapCardProps {
   updateFipsCallback: (fips: Fips) => void;
   currentBreakdown: BreakdownVar;
   jumpToDefinitions?: Function;
+  jumpToData: Function;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -106,6 +109,7 @@ function MapCardWithKey(props: MapCardProps) {
       queries={queries}
       title={<>{metricConfig.fullCardTitleName}</>}
       loadGeographies={true}
+      minHeight={PRELOAD_HEIGHT}
     >
       {(queryResponses, metadata, geoData) => {
         const mapQueryResponse = queryResponses[0];
@@ -402,6 +406,7 @@ function MapCardWithKey(props: MapCardProps) {
                       highestRatesList={highestRatesList}
                       lowestRatesList={lowestRatesList}
                       fipsTypePluralDisplayName={props.fips.getPluralChildFipsTypeDisplayName()}
+                      jumpToData={props.jumpToData}
                     />
                   )}
               </CardContent>

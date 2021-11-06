@@ -153,6 +153,8 @@ function Logos() {
             src={PartnerSatcher}
             alt="Satcher Health Leadership Institute Logo"
             role="link"
+            height={60}
+            width={216}
           />
         </ReactRouterLinkButton>
       </Grid>
