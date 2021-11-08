@@ -85,11 +85,7 @@ function CardWrapper(props: {
     >
       {(metadata, queryResponses, geoData) => {
         return (
-          <Card
-            raised={true}
-            className={styles.ChartCard}
-            style={{ minHeight: props.minHeight }}
-          >
+          <Card raised={true} className={styles.ChartCard}>
             {optionalTitle}
             {props.children(queryResponses, metadata, geoData)}
             {!props.hideFooter && props.queries && (
