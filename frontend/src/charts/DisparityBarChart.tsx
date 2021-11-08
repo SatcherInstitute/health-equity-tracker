@@ -304,7 +304,6 @@ function getSpec(
         title: pageIsTiny
           ? [`${lightMeasureDisplayName}`, `vs.`, `${darkMeasureDisplayName}`]
           : `${lightMeasureDisplayName} vs. ${darkMeasureDisplayName}`,
-        // titleAnchor: pageIsTiny ? "end" : "null",
         labelFlush: true,
         labelOverlap: true,
         tickCount: { signal: `ceil(width/${BAR_HEIGHT})` },
@@ -333,8 +332,10 @@ function getSpec(
     legends: [
       {
         fill: "variables",
-        orient: "top",
-        padding: 4,
+        orient: pageIsTiny ? "none" : "top",
+        // legendX and legendY are ignored when orient isn't "none"
+        legendX: -20,
+        legendY: -35,
         font: LEGEND_TEXT_FONT,
         labelFont: LEGEND_TEXT_FONT,
       },
