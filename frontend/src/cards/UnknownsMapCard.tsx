@@ -28,6 +28,9 @@ import {
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "../utils/urlutils";
 
+/* minimize layout shift */
+const PRELOAD_HEIGHT = 748;
+
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
   variableConfig: VariableConfig;
@@ -95,6 +98,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       queries={[mapQuery, alertQuery]}
       title={<>{getTitleText()}</>}
       loadGeographies={true}
+      minHeight={PRELOAD_HEIGHT}
     >
       {([mapQueryResponse, alertQueryResponse], metadata, geoData) => {
         const unknownRaces = mapQueryResponse

@@ -1,4 +1,4 @@
-@import "../../../styles/variables";
+@import "../../../styles/variables.module";
 
 .FlexRow {
   display: flex;
@@ -63,19 +63,4 @@
 .DownloadIcon {
   height: 24px !important;
   width: 24px !important;
-}
-
-.DialogTitle {
-  min-width: 485px !important;
-  padding: 10px 24px 0px 24px !important;
-}
-
-.DialogTitleText {
-  // Same height as close button
-  line-height: 48px !important;
-  float: left;
-}
-
-.CloseDialogButton {
-  float: right;
 }
