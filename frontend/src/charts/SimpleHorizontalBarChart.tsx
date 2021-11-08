@@ -15,7 +15,7 @@ import {
   addMetricDisplayColumn,
 } from "./utils";
 import sass from "../styles/variables.module.scss";
-import { useMediaQuery, useTheme } from "@material-ui/core";
+import { useMediaQuery } from "@material-ui/core";
 
 const LABEL_SWAP_CUTOFF_PERCENT = 66; // bar labels will be outside if below this %, or inside bar if above
 
@@ -123,6 +123,7 @@ function getSpec(
             x: { scale: "x", field: measure },
             y: { scale: "y", field: breakdownVar, band: 0.8 },
             text: {
+              // on smallest screens send an array of strings to place on multiple lines
               signal: `[datum.${tooltipMetricDisplayColumnName}${
                 pageIsTiny ? ",' per 100k'" : "+' per 100k'"
               }]`,

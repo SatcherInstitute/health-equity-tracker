@@ -16,6 +16,7 @@ import {
 } from "./utils";
 import sass from "../styles/variables.module.scss";
 import { LEGEND_TEXT_FONT } from "./Legend";
+import { useMediaQuery } from "@material-ui/core";
 
 const LABEL_SWAP_CUTOFF_PERCENT = 66; // bar labels will be outside if below this %, or inside bar if above
 
@@ -35,6 +36,7 @@ function getSpec(
   lightMetricDisplayColumnName: string,
   darkMetricDisplayColumnName: string,
   barLabelBreakpoint: number,
+  pageIsTiny: boolean,
   stacked?: boolean,
   // place AIAL NHPI pop compare in different color columns due to ACS not KFF
   altLightMeasure?: string,
@@ -143,7 +145,6 @@ function getSpec(
           align: {
             signal: `if(datum.${darkMeasure} > ${barLabelBreakpoint}, "right", "left")`,
           },
-          // align: { value: "left" },
           baseline: { value: "middle" },
           dx: {
             signal: `if(datum.${darkMeasure} > ${barLabelBreakpoint}, -3, 3)`,
@@ -151,8 +152,6 @@ function getSpec(
           fill: {
             signal: `if(datum.${darkMeasure} > ${barLabelBreakpoint}, "white", "black")`,
           },
-          // dx: { value: 3 },
-          // fill: { value: "black" },
           x: { scale: "x", field: darkMeasure },
           y: { scale: "y", field: breakdownVar, band: 0.5 },
           yc: {
@@ -302,7 +301,10 @@ function getSpec(
         scale: "x",
         orient: "bottom",
         grid: false,
-        title: `${lightMeasureDisplayName} vs. ${darkMeasureDisplayName} `,
+        title: pageIsTiny
+          ? [`${lightMeasureDisplayName}`, `vs.`, `${darkMeasureDisplayName}`]
+          : `${lightMeasureDisplayName} vs. ${darkMeasureDisplayName}`,
+        // titleAnchor: pageIsTiny ? "end" : "null",
         labelFlush: true,
         labelOverlap: true,
         tickCount: { signal: `ceil(width/${BAR_HEIGHT})` },
@@ -356,6 +358,9 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   const [ref, width] = useResponsiveWidth(
     100 /* default width during initialization */
   );
+
+  // calculate page size to determine if tiny mobile or not
+  const pageIsTiny = useMediaQuery("(max-width:500px)");
 
   // move AIAN and NHPI into their own properties for STATE/RACE/VACCINE (since KFF doesnt provide pop compare metrics)
   let dataFromProps = props.data;
@@ -454,6 +459,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           lightMetricDisplayColumnName,
           darkMetricDisplayColumnName,
           barLabelBreakpoint,
+          pageIsTiny,
           props.stacked,
           hasAltPop ? altLightMetric.metricId : "",
           hasAltPop ? altLightMetric.shortVegaLabel : "",
