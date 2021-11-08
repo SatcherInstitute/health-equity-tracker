@@ -15,8 +15,9 @@ import {
   addMetricDisplayColumn,
 } from "./utils";
 import sass from "../styles/variables.module.scss";
+import { useMediaQuery, useTheme } from "@material-ui/core";
 
-const LABEL_SWAP_CUTOFF_PERCENT = 33; // bar labels will be outside if below this %, or inside bar if above
+const LABEL_SWAP_CUTOFF_PERCENT = 66; // bar labels will be outside if below this %, or inside bar if above
 
 function getSpec(
   data: Record<string, any>[],
@@ -30,7 +31,8 @@ function getSpec(
   barMetricDisplayColumnName: string,
   tooltipMetricDisplayColumnName: string,
   showLegend: boolean,
-  barLabelBreakpoint: number
+  barLabelBreakpoint: number,
+  pageIsTiny: boolean
 ): any {
   const MEASURE_COLOR = sass.altGreen;
   const BAR_HEIGHT = 60;
@@ -110,7 +112,10 @@ function getSpec(
             },
             baseline: { value: "middle" },
             dx: {
-              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -3, 3)`,
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5, 5)`,
+            },
+            dy: {
+              signal: pageIsTiny ? -20 : 0,
             },
             fill: {
               signal: `if(datum.${measure} > ${barLabelBreakpoint}, "white", "black")`,
@@ -118,7 +123,9 @@ function getSpec(
             x: { scale: "x", field: measure },
             y: { scale: "y", field: breakdownVar, band: 0.8 },
             text: {
-              signal: `datum.${tooltipMetricDisplayColumnName}+" per 100k"`,
+              signal: `[datum.${tooltipMetricDisplayColumnName}${
+                pageIsTiny ? ",' per 100k'" : "+' per 100k'"
+              }]`,
             },
           },
         },
@@ -170,6 +177,7 @@ function getSpec(
         orient: "bottom",
         grid: false,
         title: measureDisplayName,
+        titleAnchor: pageIsTiny ? "end" : "null",
         labelFlush: true,
         labelOverlap: true,
         tickCount: { signal: "ceil(width/40)" },
@@ -212,6 +220,9 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     100 /* default width during initialization */
   );
 
+  // calculate page size to determine if tiny mobile or not
+  const pageIsTiny = useMediaQuery("(max-width:400px)");
+
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
     props.data,
     props.breakdownVar
@@ -245,7 +256,8 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           barMetricDisplayColumnName,
           tooltipMetricDisplayColumnName,
           props.showLegend,
-          barLabelBreakpoint
+          barLabelBreakpoint,
+          pageIsTiny
         )}
         // custom 3-dot options for states, hidden on territories
         actions={
