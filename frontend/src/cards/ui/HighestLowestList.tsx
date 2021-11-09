@@ -73,12 +73,12 @@ export function HighestLowestList(props: HighestLowestListProps) {
               {props.highestRatesList.map((row) => {
                 return (
                   <li key={row["fips_name"]}>
-                    <b>{row["fips_name"]}:</b>{" "}
+                    {row["fips_name"]}:{" "}
                     {formatFieldValue(
                       props.metricConfig.type,
                       row[props.metricConfig.metricId]
                     )}{" "}
-                    <span className={styles.Unit}>/100k</span>
+                    <span className={styles.Unit}>per 100k</span>
                   </li>
                 );
               })}
@@ -90,12 +90,12 @@ export function HighestLowestList(props: HighestLowestListProps) {
               {props.lowestRatesList.map((row) => {
                 return (
                   <li key={row["fips_name"]}>
-                    <b>{row["fips_name"]}:</b>{" "}
+                    {row["fips_name"]}:{" "}
                     {formatFieldValue(
                       props.metricConfig.type,
                       row[props.metricConfig.metricId]
                     )}{" "}
-                    <span className={styles.Unit}>/100k</span>
+                    <span className={styles.Unit}>per 100k</span>
                   </li>
                 );
               })}

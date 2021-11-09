@@ -195,6 +195,8 @@ function Units(props: UnitsProps) {
   if (!props.column) return null;
 
   return (
-    <span className={styles.Unit}>{props.column === 1 ? ` /100k` : `%`}</span>
+    <span className={styles.Unit}>
+      {props.column === 1 ? ` per 100k` : `%`}
+    </span>
   );
 }
