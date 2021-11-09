@@ -138,7 +138,7 @@ function getSpec(
         type: "linear",
         domain: { data: DATASET, field: measure },
         range: [0, { signal: "width" }],
-        nice: true,
+        nice: !pageIsTiny, //on desktop, extend x-axis to a "nice" value
         zero: true,
       },
       {
