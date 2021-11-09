@@ -42,6 +42,7 @@
     "react-table": "^7.6.3",
     "react-tooltip": "^4.2.17",
     "react-vega": "^7.4.2",
+    "sass": "^1.43.4",
     "typeface-dm-sans": "^1.1.13",
     "typeface-hind": "^1.1.13",
     "typeface-montserrat": "^1.1.13",
