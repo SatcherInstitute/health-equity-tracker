@@ -103,7 +103,9 @@ export function HighestLowestList(props: HighestLowestListProps) {
           </Grid>
         </Grid>
       </div>
-      <p>All rates are reported as: {props.metricConfig.fullCardTitleName}</p>
+      <p>
+        All rates are reported as: <b>{props.metricConfig.fullCardTitleName}</b>
+      </p>
       <p>
         Consider the possible impact of{" "}
         <a href="#missingDataInfo">data reporting gaps</a> when interpreting the
