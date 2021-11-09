@@ -69,6 +69,9 @@ function getSpec(
   const LEGEND_COLORS = [LIGHT_MEASURE_COLOR, DARK_MEASURE_COLOR];
   const LEGEND_DOMAINS = [lightMeasureDisplayName, darkMeasureDisplayName];
 
+  const useVaxAbbreviation =
+    pageIsTiny && darkMeasure === "vaccinated_share_of_known";
+
   const ALL_MARKS = [
     {
       name: "lightMeasure_bars",
@@ -162,7 +165,9 @@ function getSpec(
               : MIDDLE_OF_BAND + BAR_HEIGHT,
           },
           text: {
-            signal: `datum.${darkMetricDisplayColumnName} + "${metricDisplayName}"`,
+            signal: `datum.${darkMetricDisplayColumnName} + "${
+              useVaxAbbreviation ? "% of vax" : metricDisplayName
+            }"`,
           },
         },
       },
