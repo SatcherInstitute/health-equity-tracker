@@ -21,7 +21,7 @@ export default function FeedbackBox(props: { alwaysShow?: boolean }) {
     <Feedback
       projectId={FEEDBACK_ID}
       email={false}
-      feedbackTypes={["General", "Problem", "Idea"]}
+      feedbackTypes={["1", "2", "3", "4", "5", "6"]}
       hoverBorderColor={"#0b5240"}
       postSubmitButtonMsg="Thank you for helping us advance health equity"
       primaryColor={"#0b5240"}
