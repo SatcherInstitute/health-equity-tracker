@@ -32,6 +32,7 @@
     "prettier": "^2.2.1",
     "react": "^16.14.0",
     "react-animate-height": "^2.0.23",
+    "react-bottom-scroll-listener": "^5.0.0",
     "react-cookie": "^4.0.3",
     "react-copy-to-clipboard": "^5.0.3",
     "react-dom": "^16.14.0",
