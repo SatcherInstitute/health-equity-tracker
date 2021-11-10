@@ -20,13 +20,22 @@ export default function FeedbackBox(props: { alwaysShow?: boolean }) {
       projectId={FEEDBACK_ID}
       email={false}
       feedbackTypes={[
-        "General/Professional",
+        "General/Professional Interest",
         "COVID-19/Vaccination Data",
-        "Social/Political Determinants (SPDOH)",
+        "Social/Political Determinants",
         "Behavioral/Mental Health",
-        "Academic",
+        "Academic Interest",
         "Professional/Advocacy",
         "Legal/Policy Support",
+        "Other (please specify below)",
+      ]}
+      interestTypes={[
+        "Community Engagement",
+        "Non-Profit",
+        "Legal/Political",
+        "Medical/Clinical",
+        "Academic/Student",
+        "Academic/Teaching",
         "Other (please specify below)",
       ]}
       hoverBorderColor={"#0b5240"}
