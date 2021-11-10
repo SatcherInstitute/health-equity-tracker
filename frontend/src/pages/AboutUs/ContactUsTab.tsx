@@ -4,6 +4,7 @@ import styles from "./AboutUsPage.module.scss";
 import Typography from "@material-ui/core/Typography";
 import Hidden from "@material-ui/core/Hidden";
 import { Helmet } from "react-helmet";
+import FeedbackBox from "../ui/FeedbackBox";
 
 function ContactUsTab() {
   return (
@@ -100,8 +101,16 @@ function ContactUsTab() {
               Atlanta, <span aria-label="Georgia">GA</span>{" "}
               <span aria-label="Zip Code 3 0 3 1 0">30310</span>
             </p>
+
+            <p className={styles.ContactUsP}>
+              <b>To Submit Feedback:</b>
+              <br />
+              Please use our anonymous form in the bottom right corner of this
+              page.
+            </p>
           </Grid>
         </Grid>
+        <FeedbackBox alwaysShow={true} />
       </Grid>
     </>
   );

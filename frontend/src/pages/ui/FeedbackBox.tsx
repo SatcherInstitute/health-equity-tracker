@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-// import "feeder-react-feedback/dist/feeder-react-feedback.css"; // 3rd-party default styles
-import "./FeedbackOverrides.css"; // overrides to above styles
-// https://github.com/rishipr/feeder-react-feedback
 // @ts-ignore
-import Feedback from "feeder-react-feedback"; // import Feedback component
+import Feedback from "@benhammondmusic/feeder-react-feedback";
+import "@benhammondmusic/feeder-react-feedback/dist/feeder-react-feedback.css"; // import stylesheet
 
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
 
@@ -21,7 +19,16 @@ export default function FeedbackBox(props: { alwaysShow?: boolean }) {
     <Feedback
       projectId={FEEDBACK_ID}
       email={false}
-      feedbackTypes={["1", "2", "3", "4", "5", "6"]}
+      feedbackTypes={[
+        "General/Professional",
+        "COVID-19/Vaccination Data",
+        "Social/Political Determinants (SPDOH)",
+        "Behavioral/Mental Health",
+        "Academic",
+        "Professional/Advocacy",
+        "Legal/Policy Support",
+        "Other (please specify below)",
+      ]}
       hoverBorderColor={"#0b5240"}
       postSubmitButtonMsg="Thank you for helping us advance health equity"
       primaryColor={"#0b5240"}
