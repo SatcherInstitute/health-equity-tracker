@@ -165,11 +165,11 @@ function ReportProvider(props: ReportProviderProps) {
                 Share
               </Button>
             </div>
+            <DisclaimerAlert
+              jumpToData={jumpToData}
+              isSingleColumn={isSingleColumn}
+            />
           </Grid>
-          <DisclaimerAlert
-            jumpToData={jumpToData}
-            isSingleColumn={isSingleColumn}
-          />
         </Grid>
 
         {getReport()}
