@@ -7,18 +7,17 @@
   font-family: "Inter", serif;
 }
 
-// For primary-themed buttons
 .PrimaryButton {
   background-color: #0b5240;
   color: white;
-  border-radius: 40px;
-  height: 52px;
-  width: 220px;
-  font-size: 18px;
-  font-weight: 500;
+  border-radius: 40px !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
   font-family: "DM Sans", sans-serif !important;
   text-decoration: none;
-  padding: 10px 30px 10px 30px;
+  padding: 16px 30px !important;
+  margin: 2rem !important;
+  text-align: center;
 }
 
 // For major links, in primary colors
@@ -540,11 +539,12 @@
 }
 
 .FullArticleContainer {
+  width: 100vw;
   margin: 2rem;
   border-bottom: 1px solid $alt-grey;
-  padding: 0px 10% 50px 10%;
-  @media (max-width: $lg) {
-    padding: 0px 15% 50px 15%;
+  padding: 0px 15% 50px 15%;
+  @media (min-width: $lg) {
+    padding: 0px 10% 50px 10%;
   }
 
   p,

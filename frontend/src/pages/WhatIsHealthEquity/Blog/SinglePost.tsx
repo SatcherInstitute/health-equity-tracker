@@ -186,7 +186,22 @@ export default function SinglePost() {
       >
         <Grid item>
           <div className={styles.FullArticleContainer}>
-            {fullArticle && parse(fullArticle.content.rendered)}
+            {fullArticle ? parse(fullArticle.content.rendered) : <></>}
+            {fullArticle?.acf?.full_article_url ? (
+              <Button
+                variant="contained"
+                color="primary"
+                className={styles.PrimaryButton}
+                href={fullArticle.acf.full_article_url}
+              >
+                Continue Reading
+                {fullArticle?.acf?.friendly_site_name
+                  ? ` on ${fullArticle.acf.friendly_site_name}`
+                  : ""}
+              </Button>
+            ) : (
+              <></>
+            )}
           </div>
         </Grid>
 
