@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@benhammondmusic/feeder-react-feedback": "^1.0.16",
+    "@benhammondmusic/feeder-react-feedback": "^1.0.30",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
@@ -23,7 +23,6 @@
     "@types/react-table": "^7.0.29",
     "data-forge": "^1.8.17",
     "env-cmd": "^10.1.0",
-    "feeder-react-feedback": "^0.0.6",
     "html-react-parser": "^1.2.8",
     "husky": "^4.3.8",
     "lint-staged": "^10.5.4",

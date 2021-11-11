@@ -25,9 +25,8 @@ export default function FeedbackBox(props: { alwaysShow?: boolean }) {
         "Social/Political Determinants",
         "Behavioral/Mental Health",
         "Academic Interest",
-        "Professional/Advocacy",
+        "Advocacy",
         "Legal/Policy Support",
-        "Other (please specify below)",
       ]}
       interestTypes={[
         "Community Engagement",
