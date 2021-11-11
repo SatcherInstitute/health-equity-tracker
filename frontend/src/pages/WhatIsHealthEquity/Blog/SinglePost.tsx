@@ -20,6 +20,7 @@ import BlogPreviewCard from "./BlogPreviewCard";
 import { useQuery } from "react-query";
 import ShareDialog from "../../../reports/ui/ShareDialog";
 import ShareIcon from "@material-ui/icons/Share";
+import OpenInNewIcon from "@material-ui/icons/OpenInNew";
 import { Article } from "../BlogTab";
 import { FALLBACK_BLOG_POSTS } from "./FallbackArticles";
 
@@ -197,7 +198,8 @@ export default function SinglePost() {
                 Continue Reading
                 {fullArticle?.acf?.friendly_site_name
                   ? ` on ${fullArticle.acf.friendly_site_name}`
-                  : ""}
+                  : ""}{" "}
+                <OpenInNewIcon />
               </Button>
             ) : (
               <></>

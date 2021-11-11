@@ -147,7 +147,7 @@
 .ResourcesAndNewsRow {
   // padding: 75px 30px 75px 30px;
   align-items: center;
-  border-bottom: $bottom-border-style;
+  // border-bottom: $bottom-border-style;
 
   /** ------------- RESOURCES SECTION ------------- **/
 
@@ -559,7 +559,6 @@
   }
 
   blockquote > p {
-    // font-family: "Taviraj", serif !important;
     font-weight: 200;
     font-style: italic;
   }
@@ -607,8 +606,6 @@
     margin: 40px auto 0px auto;
     width: 40%;
     height: auto;
-    // float: right;
-    // margin: 50px;
   }
 }
 
@@ -629,8 +626,6 @@ hr {
 }
 
 .PrevNextSection {
-  padding: 50px 20px 50px 20px;
-  margin: 2rem;
   border-bottom: 1px solid $alt-grey;
   display: flex;
   align-items: center;
@@ -644,7 +639,6 @@ hr {
   line-height: 40px;
   color: $alt-black;
   padding: 20px !important;
-  // margin: 30px !important;
 }
 
 .PrevNextHeaderText > span {
