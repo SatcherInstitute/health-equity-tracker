@@ -13,7 +13,7 @@ const BOTTOM_SCROLL_OPTIONS = {
 
 export default function FeedbackBox(props: { alwaysShow?: boolean }) {
   // If cookie is in place, this is a return user and therefor eligible for feedback
-  const [cookies, setCookie] = useCookies();
+  const [cookies] = useCookies();
   const isReturnUser = cookies.skipOnboarding;
   const [showFeedback, setShowFeedback] = useState(props.alwaysShow || false);
 
@@ -24,21 +24,17 @@ export default function FeedbackBox(props: { alwaysShow?: boolean }) {
       projectId={FEEDBACK_ID}
       email={false}
       feedbackTypes={[
-        "General/Professional Interest",
+        "General/Other Interest (please specify below)",
         "COVID-19/Vaccination Data",
-        "Social/Political Determinants",
-        "Behavioral/Mental Health",
-        "Academic Interest",
-        "Advocacy",
-        "Legal/Policy Support",
+        "Chronic Disease Data",
+        "Social/Political Determinants Data",
+        "Behavioral/Mental Health Data",
       ]}
       interestTypes={[
-        "Community Engagement",
-        "Non-Profit",
+        "Non-Profit/Community Engagement",
         "Legal/Political",
         "Medical/Clinical",
-        "Academic/Student",
-        "Academic/Teaching",
+        "Academic",
         "Other (please specify below)",
       ]}
       hoverBorderColor={"#0b5240"}
