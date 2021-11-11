@@ -30,6 +30,7 @@ export interface VariableDisparityReportProps {
   updateFipsCallback: Function;
   hidePopulationCard?: boolean;
   jumpToDefinitions?: Function;
+  jumpToData: Function;
 }
 
 export function VariableDisparityReport(props: VariableDisparityReportProps) {
@@ -132,6 +133,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               }}
               currentBreakdown={currentBreakdown}
               jumpToDefinitions={props.jumpToDefinitions}
+              jumpToData={props.jumpToData}
             />
             {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
               <Fragment key={breakdownVar}>

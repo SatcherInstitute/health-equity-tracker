@@ -18,7 +18,7 @@ function download(filename: string, content: string) {
 async function downloadDataset(datasetId: string) {
   try {
     const dataset = await getDataManager().loadDataset(datasetId);
-    download(dataset.metadata.name + ".csv", dataset.toCsvString());
+    download("HET - " + dataset.metadata.name + ".csv", dataset.toCsvString());
     return true;
   } catch (e) {
     return false;
