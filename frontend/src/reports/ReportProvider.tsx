@@ -26,6 +26,7 @@ import {
   VACCINATED_DEF,
 } from "../pages/DataCatalog/MethodologyTab";
 import { Link } from "react-router-dom";
+import FeedbackBox from "../pages/ui/FeedbackBox";
 
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
   const segment = madLib.phrase[segmentIndex];
@@ -299,6 +300,7 @@ function ReportProvider(props: ReportProviderProps) {
           )}
         </ul>
       </aside>
+      <FeedbackBox />
     </>
   );
 }

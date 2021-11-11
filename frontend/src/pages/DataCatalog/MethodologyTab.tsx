@@ -488,7 +488,6 @@ function MethodologyTab() {
             </Grid>
           </Grid>
         </Grid>
-        <FeedbackBox />
       </Grid>
     </>
   );
