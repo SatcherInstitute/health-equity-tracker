@@ -18,6 +18,7 @@ import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet";
 import LazyLoad from "react-lazyload";
 import { useQuery } from "react-query";
+import sass from "../../styles/variables.module.scss";
 
 export const WIHEFallbackCopy = {
   section2_headingLevel2: "Health equity resources --- Fallback Text",
@@ -374,7 +375,7 @@ function EquityTab() {
               ? "img/HET-lines-no-motion.gif"
               : "img/animations/HET-lines.gif"
           }
-          imageBackground="#A5CDC0"
+          imageBackground={sass.joinEffortBg1}
           imageAlt=""
           textTitle={wordpressCopy?.section4_a_headingLevel3}
           content={
@@ -401,7 +402,7 @@ function EquityTab() {
               ? "img/HET-fields-no-motion.gif"
               : "img/animations/HET-fields.gif"
           }
-          imageBackground="#EDB2A6"
+          imageBackground={sass.joinEffortBg2}
           imageAlt=""
           textTitle={wordpressCopy?.section4_b_headingLevel3}
           content={
@@ -431,7 +432,7 @@ function EquityTab() {
               ? "img/HET-dots-no-motion.gif"
               : "img/animations/HET-dots.gif"
           }
-          imageBackground="#275141"
+          imageBackground={sass.joinEffortBg3}
           imageAlt=""
           textTitle={wordpressCopy?.section4_c_headingLevel3}
           content={

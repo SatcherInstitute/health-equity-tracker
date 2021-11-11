@@ -1,4 +1,4 @@
-@import "styles/variables";
+@import "styles/variables.module";
 @import url("https://fonts.googleapis.com/css2?family=Taviraj:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Taviraj:wght@400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap");
@@ -11,7 +11,7 @@
   text-align: center;
   position: relative;
   min-height: 100%;
-  background-color: white;
+  background-color: $white;
 }
 
 // For the "Skip to Main Content" link for screenreader users
@@ -26,8 +26,8 @@
 
   &:focus,
   &:active {
-    color: #fff;
-    background-color: #000;
+    color: $white;
+    background-color: $black;
     left: auto;
     top: auto;
     width: 30%;
@@ -36,7 +36,7 @@
     margin: 10px 35%;
     padding: 5px;
     border-radius: 15px;
-    border: 4px solid yellow;
+    border: 4px solid $yellow;
     text-align: center;
     font-size: 1.2em;
     z-index: 999;
@@ -49,8 +49,8 @@
 }
 
 .AppToolbar {
-  background-color: white;
-  border-bottom: 1px solid black;
+  background-color: $white;
+  border-bottom: 1px solid $black;
   min-height: 65px;
 }
 
@@ -61,7 +61,7 @@
 }
 
 .MenuIconForMobile {
-  color: white;
+  color: $white;
 }
 
 .HomeLogo {
@@ -80,7 +80,7 @@
 }
 
 .NavLink {
-  color: #202124 !important;
+  color: $navlink-color !important;
   margin: 0 5px 0 5px !important;
   padding: 6px 16px !important;
   font-family: "DM Sans", sans-serif !important;
@@ -90,7 +90,7 @@
   a,
   &:link,
   &:visited {
-    color: #202124 !important;
+    color: $navlink-color !important;
     text-decoration: none !important;
   }
 }
