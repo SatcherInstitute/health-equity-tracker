@@ -4,6 +4,7 @@ import Feedback from "@benhammondmusic/feeder-react-feedback";
 import "@benhammondmusic/feeder-react-feedback/dist/feeder-react-feedback.css"; // import stylesheet
 
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
+import { useCookies } from "react-cookie";
 
 const FEEDBACK_ID = "6171cc2965b82c00045239dc"; // view collected feedback at feeder.sh/dashboard
 const BOTTOM_SCROLL_OPTIONS = {
@@ -11,11 +12,14 @@ const BOTTOM_SCROLL_OPTIONS = {
 };
 
 export default function FeedbackBox(props: { alwaysShow?: boolean }) {
+  // If cookie is in place, this is a return user and therefor eligible for feedback
+  const [cookies, setCookie] = useCookies();
+  const isReturnUser = cookies.skipOnboarding;
   const [showFeedback, setShowFeedback] = useState(props.alwaysShow || false);
 
   useBottomScrollListener(() => setShowFeedback(true), BOTTOM_SCROLL_OPTIONS);
 
-  return showFeedback ? (
+  return showFeedback && isReturnUser ? (
     <Feedback
       projectId={FEEDBACK_ID}
       email={false}
