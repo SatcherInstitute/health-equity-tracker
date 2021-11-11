@@ -5,6 +5,7 @@ import { Fips } from "../data/utils/Fips";
 import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
+import sass from "../styles/variables.module.scss";
 import { ORDINAL } from "vega-lite/build/src/type";
 import {
   EQUAL_DOT_SIZE,
@@ -20,10 +21,12 @@ import { useMediaQuery } from "@material-ui/core";
 
 export type ScaleType = "quantize" | "quantile" | "symlog";
 
-const UNKNOWN_GREY = "#BDC1C6";
-const RED_ORANGE = "#ED573F";
-const DARK_BLUE = "#255792";
-const HEIGHT_WIDTH_RATIO = 0.5;
+// import SASS variables for use in React / Vega
+const {
+  unknownGrey: UNKNOWN_GREY,
+  redOrange: RED_ORANGE,
+  darkBlue: DARK_BLUE,
+} = sass;
 
 const MISSING_DATASET = "MISSING_DATASET";
 const VALID_DATASET = "VALID_DATASET";
@@ -91,8 +94,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery("(max-width:400px)");
 
-  const Y_NO_DATA_LEGEND = pageIsTiny ? -15 : -43;
-  const X_NO_DATA_LEGEND = pageIsTiny ? 15 : 230;
+  const yOffsetNoDataLegend = pageIsTiny ? -15 : -43;
+  const xOffsetNoDataLegend = pageIsTiny ? 15 : 230;
+  const heightWidthRatio = pageIsTiny ? 1 : 0.5;
 
   // Initial spec state is set in useEffect
   const [spec, setSpec] = useState({});
@@ -172,7 +176,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       name: UNKNOWN_SCALE,
       type: ORDINAL,
       domain: { data: MISSING_PLACEHOLDER_VALUES, field: "missing" },
-      range: ["#BDC1C6"],
+      range: [sass.unknownGrey],
     };
 
     const greyDotScale: any = {
@@ -210,13 +214,11 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const noDataLegend: any = {
       fill: UNKNOWN_SCALE,
       symbolType: LEGEND_SYMBOL_TYPE,
-      labelOverlap: "greedy",
-      labelSeparation: 10,
       orient: "none",
       font: LEGEND_TEXT_FONT,
       labelFont: LEGEND_TEXT_FONT,
-      legendY: Y_NO_DATA_LEGEND,
-      legendX: X_NO_DATA_LEGEND,
+      legendY: yOffsetNoDataLegend,
+      legendX: xOffsetNoDataLegend,
       size: GREY_DOT_SCALE,
     };
     if (!props.hideLegend) {
@@ -258,12 +260,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
               : "albersUsa",
           fit: { signal: "data('" + GEO_DATASET + "')" },
           size: {
-            signal:
-              "[" +
-              (width! - LEGEND_WIDTH) +
-              ", " +
-              width! * HEIGHT_WIDTH_RATIO +
-              "]",
+            signal: "[" + width! + ", " + width! * heightWidthRatio + "]",
           },
         };
 
@@ -442,16 +439,17 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     LEGEND_WIDTH,
     legendData,
     props.isUnknownsMap,
-    Y_NO_DATA_LEGEND,
-    X_NO_DATA_LEGEND,
+    yOffsetNoDataLegend,
+    xOffsetNoDataLegend,
     props,
+    heightWidthRatio,
   ]);
 
   return (
     <div
       ref={ref}
       style={{
-        width: "90%",
+        width: "95%",
         margin: "auto",
       }}
     >

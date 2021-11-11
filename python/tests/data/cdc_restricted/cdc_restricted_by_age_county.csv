@@ -31,8 +31,6 @@ county_fips,county_name,state_postal,age,cases,hosp_y,hosp_n,hosp_unknown,death_
 46005,BEADLE,SD,Total,1,,,,,,
 47037,DAVIDSON,MD,10-19,1,0,0,1,1,0,0
 47037,DAVIDSON,MD,Total,1,0,0,1,1,0,0
-54061,MONONGALIA,WV,60-69,1,0,1,0,,,
-54061,MONONGALIA,WV,Total,1,0,1,0,,,
 56005,CAMPBELL,WY,0-9,1,,,,,,
 56005,CAMPBELL,WY,Total,1,,,,,,
 ,Unknown,Unknown,0-9,,,,,,,
@@ -105,14 +103,6 @@ county_fips,county_name,state_postal,age,cases,hosp_y,hosp_n,hosp_unknown,death_
 47037,DAVIDSON,MD,60-69,,,,,,,
 47037,DAVIDSON,MD,70-79,,,,,,,
 47037,DAVIDSON,MD,80+,,,,,,,
-54061,MONONGALIA,WV,0-9,,,,,,,
-54061,MONONGALIA,WV,10-19,,,,,,,
-54061,MONONGALIA,WV,20-29,,,,,,,
-54061,MONONGALIA,WV,30-39,,,,,,,
-54061,MONONGALIA,WV,40-49,,,,,,,
-54061,MONONGALIA,WV,50-59,,,,,,,
-54061,MONONGALIA,WV,70-79,,,,,,,
-54061,MONONGALIA,WV,80+,,,,,,,
 56005,CAMPBELL,WY,10-19,,,,,,,
 56005,CAMPBELL,WY,20-29,,,,,,,
 56005,CAMPBELL,WY,30-39,,,,,,,

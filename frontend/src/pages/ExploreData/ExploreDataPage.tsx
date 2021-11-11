@@ -23,18 +23,24 @@ import {
   SHOW_ONBOARDING_PARAM,
   stringifyMls,
   useSearchParams,
+  WHAT_DATA_ARE_MISSING_ID,
 } from "../../utils/urlutils";
 import styles from "./ExploreDataPage.module.scss";
 import { Onboarding } from "./Onboarding";
 import OptionsSelector from "./OptionsSelector";
 import { Helmet } from "react-helmet";
+import { useLocation } from "react-router-dom";
 
 const EXPLORE_DATA_ID = "main";
 
 function ExploreDataPage() {
-  const params = useSearchParams();
+  // handle incoming link to MISSING DATA sections
+  const location: any = useLocation();
+  const doScrollToData: boolean =
+    location?.hash === `#${WHAT_DATA_ARE_MISSING_ID}`;
 
   // Set up initial mad lib values based on defaults and query params
+  const params = useSearchParams();
   const foundIndex = MADLIB_LIST.findIndex(
     (madlib) => madlib.id === params[MADLIB_PHRASE_PARAM]
   );
@@ -193,7 +199,11 @@ function ExploreDataPage() {
           </Carousel>
         </div>
         <div className={styles.ReportContainer}>
-          <ReportProvider madLib={madLib} setMadLib={setMadLibWithParam} />
+          <ReportProvider
+            madLib={madLib}
+            setMadLib={setMadLibWithParam}
+            doScrollToData={doScrollToData}
+          />
         </div>
       </div>
     </>

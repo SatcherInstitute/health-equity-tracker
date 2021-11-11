@@ -11,8 +11,8 @@ state_fips,state_name,population,population_pct,race_category_id,race,race_inclu
 01,Alabama,162882,3.3,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
 01,Alabama,91418,1.9,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
 01,Alabama,4667624,95.7,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
-01,Alabama,2238,0.0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
-01,Alabama,1603,0.0,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+01,Alabama,2238,0.05,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+01,Alabama,1603,0.03,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
 01,Alabama,70662,1.4,OTHER_STANDARD,Some other race,True,Some other race
 01,Alabama,8083,0.2,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)
 01,Alabama,4876250,100.0,TOTAL,Total,,Total
@@ -30,7 +30,7 @@ state_fips,state_name,population,population_pct,race_category_id,race,race_inclu
 72,Puerto Rico,730413,22.0,MULTI_OR_OTHER_STANDARD,Two or more races & Some other race,True,Two or more races & Some other race
 72,Puerto Rico,5136,0.2,MULTI_OR_OTHER_STANDARD_NH,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
 72,Puerto Rico,42528,1.3,NH,Not Hispanic or Latino,False,Not Hispanic or Latino
-72,Puerto Rico,269,0.0,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
+72,Puerto Rico,269,0.01,NHPI,Native Hawaiian and Pacific Islander,True,Native Hawaiian and Pacific Islander
 72,Puerto Rico,21,0.0,NHPI_NH,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
 72,Puerto Rico,554764,16.7,OTHER_STANDARD,Some other race,True,Some other race
 72,Puerto Rico,3143,0.1,OTHER_STANDARD_NH,Some other race,False,Some other race (Non-Hispanic)

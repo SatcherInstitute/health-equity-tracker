@@ -14,6 +14,7 @@ import CopyToClipboard from "react-copy-to-clipboard";
 import { Box, Button, Card } from "@material-ui/core";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import { useSnackbar } from "notistack";
+import { Link } from "react-router-dom";
 
 export const CITATION_APA =
   "Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. https://healthequitytracker.org.";
@@ -111,9 +112,9 @@ function MethodologyTab() {
                 <p>
                   For a description of some of the gaps in COVID-19 data, please
                   see the{" "}
-                  <a href={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}>
+                  <Link to={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}>
                     What Data Are Missing
-                  </a>{" "}
+                  </Link>{" "}
                   section. Here, we provide further details:
                 </p>
                 <ul>
