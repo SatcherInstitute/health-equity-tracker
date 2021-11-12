@@ -17,8 +17,14 @@ export interface Article {
   author: number;
   featured_media: number;
   sticky: boolean;
+  link: string;
   categories: number[];
-  acf: { contributing_author: string };
+  acf: {
+    contributing_author: string;
+    canonical_url: string;
+    full_article_url: string;
+    friendly_site_name: string;
+  };
   _embedded: {
     author: {
       id: number;

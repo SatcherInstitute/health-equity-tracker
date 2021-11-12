@@ -33,7 +33,7 @@ function prettyDate(dateString: string) {
 }
 
 export default function SinglePost() {
-  const [fullArticle, setFullArticle] = useState<any>();
+  const [fullArticle, setFullArticle] = useState<Article>();
   const [prevArticle, setPrevArticle] = useState<any>();
   const [nextArticle, setNextArticle] = useState<any>();
   const [shareModalOpen, setShareModalOpen] = useState(false);
@@ -160,7 +160,7 @@ export default function SinglePost() {
           />
           <Grid container alignItems="center">
             <Typography className={styles.HeaderSubtext} variant="body1">
-              {fullArticle && (
+              {fullArticle?.date && (
                 <span className={styles.DefinitionSourceSpan}>
                   Published {prettyDate(fullArticle.date)}
                 </span>
@@ -204,6 +204,18 @@ export default function SinglePost() {
             ) : (
               <></>
             )}
+
+            <Box mt={5}>
+              <Typography className={styles.HeaderSubtext} variant="body1">
+                {fullArticle?.acf?.canonical_url && (
+                  <span className={styles.ReprintNotice}>
+                    Note: this article was originally published on{" "}
+                    <a href={fullArticle?.acf?.canonical_url}>another site</a>,
+                    and is reprinted here with permission from the author.
+                  </span>
+                )}
+              </Typography>
+            </Box>
           </div>
         </Grid>
 

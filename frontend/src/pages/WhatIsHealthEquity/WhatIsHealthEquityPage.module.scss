@@ -607,6 +607,12 @@
     width: 40%;
     height: auto;
   }
+
+  .ReprintNotice {
+    font-style: italic;
+    font-size: small;
+    font-weight: 100;
+  }
 }
 
 // featured image is loaded in header separately, so hide in content HTML
