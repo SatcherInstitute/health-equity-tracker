@@ -151,6 +151,10 @@ export default function SinglePost() {
             {fullArticle?.acf?.contributing_author
               ? `Authored by ${fullArticle.acf.contributing_author}`
               : ""}
+            {fullArticle?.acf?.contributing_author &&
+            fullArticle?.acf?.post_nominals
+              ? `, ${fullArticle.acf.post_nominals}`
+              : ""}
           </Typography>
 
           <ShareDialog

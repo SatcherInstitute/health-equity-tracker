@@ -21,6 +21,7 @@ export interface Article {
   categories: number[];
   acf: {
     contributing_author: string;
+    post_nominals: string;
     canonical_url: string;
     full_article_url: string;
     friendly_site_name: string;
