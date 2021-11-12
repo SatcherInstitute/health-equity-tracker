@@ -98,7 +98,7 @@
 
     .DefinitionsItem {
       padding: 1rem 1rem 1rem 0;
-      @media only screen and (min-width: 960px) {
+      @media only screen and (min-width: $md) {
         padding: 1rem;
       }
     }
