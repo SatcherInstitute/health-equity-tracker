@@ -17,7 +17,7 @@ export interface Article {
   author: number;
   featured_media: number;
   sticky: boolean;
-  categoriesXYZ: number[];
+  categories: number[];
   acf: { contributing_author: string };
   _embedded: {
     author: {

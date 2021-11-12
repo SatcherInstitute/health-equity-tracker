@@ -104,7 +104,9 @@ function AllPosts() {
         );
       }
     } else {
-      setFilteredArticles(articles);
+      setFilteredArticles(
+        articles.filter((article: Article) => !article.sticky)
+      );
       setSelectedCategory("");
     }
   }, [categoryParam, categories, selectedCategory, articles]);
@@ -122,18 +124,20 @@ function AllPosts() {
       if (selectedAuthor) {
         setFilteredArticles(
           articles.filter(
-            (article: { acf: { contributing_author: string } }) =>
+            (article: Article) =>
               article.acf.contributing_author === selectedAuthor
           )
         );
       }
     } else {
-      setFilteredArticles(articles);
+      setFilteredArticles(
+        articles.filter((article: Article) => !article.sticky)
+      );
       setSelectedAuthor("");
     }
   }, [articles, authorParam, authors, selectedAuthor]);
 
-  // extract and set authors (for ALL posts, not just filtered ones)
+  // extract and populate list of authors (from ALL posts, not just filtered ones)
   useEffect(() => {
     const allAuthorsSet = new Set();
 
@@ -147,7 +151,7 @@ function AllPosts() {
     setAuthors(Array.from(allAuthorsSet) as string[]);
   }, [articles]);
 
-  // extract and set categories (for ALL posts, not just filtered ones)
+  // extract and populate list of categories (from ALL posts, not just filtered ones)
   useEffect(() => {
     const allCategoriesSet = new Set();
 
@@ -163,6 +167,7 @@ function AllPosts() {
     setCategories(Array.from(allCategoriesSet) as string[]);
   }, [articles]);
 
+  // featured "sticky" articles
   const pinnedArticles = articles?.filter((post: Article) => post?.sticky);
 
   return (
