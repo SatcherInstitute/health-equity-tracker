@@ -156,11 +156,7 @@ function EquityTab() {
               just access, opportunity, and resources to achieve their highest
               potential for health.
             </Typography>
-            <Typography
-              className={styles.HeaderSubtext}
-              variant="body1"
-              paragraph={true}
-            >
+            <Typography className={styles.HeaderSubtext} variant="body1">
               Unfortunately, social and political determinants of health
               negatively affect many communities, their people, and their
               ability to lead healthy lives.
@@ -189,12 +185,6 @@ function EquityTab() {
                 <Typography className={styles.DefinitionHeader} variant="h2">
                   Political determinants of health
                 </Typography>
-                <p
-                  className={styles.DefinitionPronunciation}
-                  aria-hidden="true"
-                >
-                  /pəˈlidək(ə)l dəˈtərmənənts əv helTH/
-                </p>
                 <p className={styles.DefinitionText}>
                   The Political determinants of health involve the systematic
                   process of structuring relationships, distributing resources,
@@ -217,12 +207,6 @@ function EquityTab() {
                 <Typography className={styles.DefinitionHeader} variant="h2">
                   Social determinants of health
                 </Typography>
-                <p
-                  className={styles.DefinitionPronunciation}
-                  aria-hidden="true"
-                >
-                  /ˈsōSHəl dəˈtərmənənt əv helTH/
-                </p>
                 <p className={styles.DefinitionText}>
                   The conditions in the environments in which people are born,
                   live, learn, work, play, worship, and age that affect a wide
