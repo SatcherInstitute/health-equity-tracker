@@ -1,38 +1,38 @@
 import { Typography } from "@material-ui/core";
 import React from "react";
 import { Link } from "react-router-dom";
-import { BLOG_TAB_LINK } from "../../utils/urlutils";
-import styles from "./BlogFilterList.module.scss";
+import { NEWS_TAB_LINK } from "../../utils/urlutils";
+import styles from "./NewsFilterList.module.scss";
 
-export interface BlogAuthorsProps {
-  authors: string[];
+export interface NewsCategoriesProps {
+  categories: any[];
 }
 
-export default function BlogAuthors(props: BlogAuthorsProps) {
-  const { authors } = props;
+export default function NewsCategories(props: NewsCategoriesProps) {
+  const { categories } = props;
 
   return (
     <div className={styles.FilterListBox}>
       <Typography className={styles.FilterListHeader} variant="h5">
-        Authors
+        Categories
       </Typography>
       <ul className={styles.FilterList}>
-        {authors.length > 0
-          ? authors.map((filter: string) => {
+        {categories
+          ? categories.map((category: string) => {
               return (
-                <li key={filter}>
+                <li key={category}>
                   <Link
-                    to={`${BLOG_TAB_LINK}?author=${filter}`}
+                    to={`${NEWS_TAB_LINK}?category=${category}`}
                     className={styles.FilterListLink}
                   >
-                    {filter}
+                    {category}
                   </Link>
                 </li>
               );
             })
           : ""}
         <li>
-          <Link to={BLOG_TAB_LINK} className={styles.FilterListLink}>
+          <Link to={NEWS_TAB_LINK} className={styles.FilterListLink}>
             All Posts
           </Link>
         </li>

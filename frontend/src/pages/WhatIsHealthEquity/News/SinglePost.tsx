@@ -6,8 +6,8 @@ import styles from "../WhatIsHealthEquityPage.module.scss";
 import parse from "html-react-parser";
 import { useParams } from "react-router-dom";
 import {
-  BLOG_TAB_LINK,
-  fetchBlogData,
+  NEWS_TAB_LINK,
+  fetchNewsData,
   ReactRouterLinkButton,
   ARTICLES_KEY,
   REACT_QUERY_OPTIONS,
@@ -16,13 +16,13 @@ import {
 } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
 import AppbarLogo from "../../../assets/AppbarLogo.png";
-import BlogPreviewCard from "./BlogPreviewCard";
+import NewsPreviewCard from "./NewsPreviewCard";
 import { useQuery } from "react-query";
 import ShareDialog from "../../../reports/ui/ShareDialog";
 import ShareIcon from "@material-ui/icons/Share";
 import OpenInNewIcon from "@material-ui/icons/OpenInNew";
-import { Article } from "../BlogTab";
-import { FALLBACK_BLOG_POSTS } from "./FallbackArticles";
+import { Article } from "../NewsTab";
+import { FALLBACK_NEWS_POSTS } from "./FallbackArticles";
 
 export const ARTICLE_DESCRIPTION =
   "Article from the Health Equity Tracker: a free-to-use data and visualization platform that is enabling new insights into the impact of COVID-19 and other determinants of health on marginalized groups in the United States.";
@@ -34,21 +34,21 @@ function prettyDate(dateString: string) {
 
 export default function SinglePost() {
   const [fullArticle, setFullArticle] = useState<Article>();
-  const [prevArticle, setPrevArticle] = useState<any>();
-  const [nextArticle, setNextArticle] = useState<any>();
+  const [prevArticle, setPrevArticle] = useState<Article>();
+  const [nextArticle, setNextArticle] = useState<Article>();
   const [shareModalOpen, setShareModalOpen] = useState(false);
 
   let { slug }: { slug: string } = useParams();
 
-  const { isLoading, error, data }: any = useQuery(
+  const { isLoading, error, data } = useQuery(
     ARTICLES_KEY,
-    fetchBlogData,
+    fetchNewsData,
     REACT_QUERY_OPTIONS
   );
   let articles: Article[] = [];
 
   if (data) articles = data.data;
-  if (error || isLoading) articles = FALLBACK_BLOG_POSTS as any[];
+  if (error || isLoading) articles = FALLBACK_NEWS_POSTS as any[];
 
   // on page load, get prev,full, next article based on fullArticle URL slug
   useEffect(() => {
@@ -76,7 +76,7 @@ export default function SinglePost() {
   return (
     <Grid container className={styles.Grid}>
       <Helmet>
-        <title>{`Blog${
+        <title>{`News${
           fullArticle ? " - " + parse(fullArticle.title.rendered) : ""
         } - Health Equity Tracker`}</title>
         {/* if cross-posted from external site, should be input on WP as canonical_url */}
@@ -146,7 +146,7 @@ export default function SinglePost() {
           <Typography
             className={styles.SingleArticleHeaderSubtext}
             variant="body1"
-            paragraph={true}
+            // paragraph={true}
           >
             {fullArticle?.acf?.contributing_author
               ? `Authored by ${fullArticle.acf.contributing_author}`
@@ -222,12 +222,12 @@ export default function SinglePost() {
         <Grid container className={styles.PrevNextSection}>
           <Grid item xs={12} md={4}>
             {prevArticle && (
-              <BlogPreviewCard article={prevArticle} arrow={"prev"} />
+              <NewsPreviewCard article={prevArticle} arrow={"prev"} />
             )}
           </Grid>
           <Grid item xs={12} md={4}>
             <ReactRouterLinkButton
-              url={BLOG_TAB_LINK}
+              url={NEWS_TAB_LINK}
               className={styles.PrevNextHeaderText}
               displayName="All Posts"
             />
@@ -235,7 +235,7 @@ export default function SinglePost() {
           <Grid item xs={12} md={4}>
             {nextArticle && (
               <>
-                <BlogPreviewCard article={nextArticle} arrow={"next"} />
+                <NewsPreviewCard article={nextArticle} arrow={"next"} />
               </>
             )}
           </Grid>
@@ -245,17 +245,17 @@ export default function SinglePost() {
         container
         direction="column"
         justify="center"
-        className={styles.BlogEmailSignup}
+        className={styles.NewsEmailSignup}
       >
         <Grid item>
-          <p className={styles.EmailSignupBlogText}>
+          <p className={styles.EmailSignupNewsText}>
             Please{" "}
             <LinkWithStickyParams to={CONTACT_TAB_LINK}>
               contact us
             </LinkWithStickyParams>{" "}
             with any questions or concerns.
           </p>
-          <p className={styles.EmailSignupBlogText}>
+          <p className={styles.EmailSignupNewsText}>
             For more information about health equity, please sign up for our
             Satcher Health Leadership Institute newsletter.
           </p>
@@ -270,7 +270,7 @@ export default function SinglePost() {
               id="Enter email address to sign up" // Accessibility label
               name="MERGE0"
               variant="outlined"
-              className={styles.BlogEmailTextField}
+              className={styles.NewsEmailTextField}
               type="email"
               aria-label="Enter Email Address for Newsletter signup"
               placeholder="Enter email address"
@@ -279,7 +279,7 @@ export default function SinglePost() {
               type="submit"
               color="primary"
               variant="contained"
-              className={styles.BlogEmailAddressFormSubmit}
+              className={styles.NewsEmailAddressFormSubmit}
               aria-label="Sign Up for Newsletter in a new window"
             >
               Sign up

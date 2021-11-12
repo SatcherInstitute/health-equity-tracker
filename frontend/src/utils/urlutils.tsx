@@ -21,7 +21,7 @@ export const METHODOLOGY_TAB_LINK = "/methodology";
 export const CONTACT_TAB_LINK = "/contact";
 export const ABOUT_TAB_LINK = "/about";
 export const OURTEAM_TAB_LINK = "/ourteam";
-export const BLOG_TAB_LINK = "/blog";
+export const NEWS_TAB_LINK = "/news";
 
 // TRACKER SETTINGS
 export const COVID_CASES_US_SETTING = "?mls=1.covid-3.00";
@@ -62,7 +62,7 @@ export const DATA_TYPE_2_PARAM = "dt2";
 // WORDPRESS CONFIG
 // use local using docker and kinsta in dev
 // otherwise default to free online host for Netlify testing purposes/
-export const BLOG_URL =
+export const NEWS_URL =
   process.env.NODE_ENV === "development"
     ? "http://het-blog.local/"
     : "https://het-blog.000webhostapp.com/";
@@ -87,23 +87,23 @@ export const REACT_QUERY_OPTIONS = {
   staleTime: 1000 * 5, // treat cache data as fresh and dont refetch
 };
 
-export async function fetchBlogData() {
+export async function fetchNewsData() {
   console.log(
     "FETCHING from",
     `${
-      BLOG_URL + WP_API + ALL_POSTS
+      NEWS_URL + WP_API + ALL_POSTS
     }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${MAX_FETCH}`
   );
   return await axios.get(
     `${
-      BLOG_URL + WP_API + ALL_POSTS
+      NEWS_URL + WP_API + ALL_POSTS
     }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${MAX_FETCH}`
   );
 }
 
 export async function fetchCopyData(id: number) {
-  console.log("FETCHING from", `${BLOG_URL + WP_API + ALL_PAGES}/${id}`);
-  return await axios.get(`${BLOG_URL + WP_API + ALL_PAGES}/${WIHE_PAGE_ID}`);
+  console.log("FETCHING from", `${NEWS_URL + WP_API + ALL_PAGES}/${id}`);
+  return await axios.get(`${NEWS_URL + WP_API + ALL_PAGES}/${WIHE_PAGE_ID}`);
 }
 
 export function useUrlSearchParams() {
@@ -237,14 +237,14 @@ export function getParameter<T1>(
   }
 }
 
-let kvSeperator = ".";
-let partsSeperator = "-";
+let kvSeparator = ".";
+let partsSeparator = "-";
 
 export const parseMls = (param: string) => {
-  let parts = param.split(partsSeperator);
+  let parts = param.split(partsSeparator);
   let selection: PhraseSelections = {};
   parts.forEach((part) => {
-    let p = part.split(kvSeperator);
+    let p = part.split(kvSeparator);
     selection[Number(p[0])] = p[1];
   });
 
@@ -255,10 +255,10 @@ export const stringifyMls = (selection: PhraseSelections): string => {
   let kvPair: Array<string> = [];
 
   Object.keys(selection).forEach((key: any) => {
-    kvPair.push(key + kvSeperator + selection[key]);
+    kvPair.push(key + kvSeparator + selection[key]);
   });
 
-  return kvPair.join(partsSeperator);
+  return kvPair.join(partsSeparator);
 };
 
 export type PSEventHandler = () => void;

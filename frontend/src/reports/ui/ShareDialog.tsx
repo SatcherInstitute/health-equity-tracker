@@ -8,7 +8,7 @@ import TextField from "@material-ui/core/TextField";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import React, { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Article } from "../../pages/WhatIsHealthEquity/BlogTab";
+import { Article } from "../../pages/WhatIsHealthEquity/NewsTab";
 import { getMadLibPhraseText, MadLib } from "../../utils/MadLibs";
 import {
   EmailShareButton,

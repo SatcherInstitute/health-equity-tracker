@@ -1,23 +1,23 @@
 import React from "react";
-import { BLOG_TAB_LINK, ReactRouterLinkButton } from "../../../utils/urlutils";
+import { NEWS_TAB_LINK, ReactRouterLinkButton } from "../../../utils/urlutils";
 import styles from "../WhatIsHealthEquityPage.module.scss";
 import AppbarLogo from "../../../assets/AppbarLogo.png";
 import parse from "html-react-parser";
-import { Article } from "../BlogTab";
+import { Article } from "../NewsTab";
 import { Box, Grid } from "@material-ui/core";
 
-export interface BlogPreviewCardProps {
+export interface NewsPreviewCardProps {
   article: Article;
   arrow?: "prev" | "next";
 }
 
-export default function BlogPreviewCard(props: BlogPreviewCardProps) {
+export default function NewsPreviewCard(props: NewsPreviewCardProps) {
   const { article } = props;
 
   return (
     <ReactRouterLinkButton
-      url={`${BLOG_TAB_LINK}/${article.slug}`}
-      className={styles.PrevNextHeaderText}
+      url={`${NEWS_TAB_LINK}/${article.slug}`}
+      className={styles.NewsPreviewHeaderText}
     >
       <Grid container wrap="nowrap" justify="space-evenly">
         <Grid
@@ -51,7 +51,7 @@ export default function BlogPreviewCard(props: BlogPreviewCardProps) {
             }
             className={
               article._embedded["wp:featuredmedia"]
-                ? styles.PrevNextThumbnail
+                ? styles.NewsPreviewThumbnail
                 : styles.LogoThumbnail
             }
             alt="Article Thumbnail"

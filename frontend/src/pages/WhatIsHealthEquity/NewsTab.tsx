@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import Grid from "@material-ui/core/Grid";
-import { BLOG_TAB_LINK } from "../../utils/urlutils";
+import { NEWS_TAB_LINK } from "../../utils/urlutils";
 import { Route, Switch } from "react-router-dom";
-import AllPosts from "./Blog/AllPosts";
-import SinglePost from "./Blog/SinglePost";
+import AllPosts from "./News/AllPosts";
+import SinglePost from "./News/SinglePost";
 
 export interface Article {
   id: number;
@@ -33,7 +33,7 @@ export interface Article {
   };
 }
 
-export default function BlogTab() {
+export default function NewsTab() {
   return (
     <div className={styles.WhatIsHealthEquityPage}>
       <Grid container className={styles.Grid}>
@@ -44,10 +44,10 @@ export default function BlogTab() {
           justify="center"
         >
           <Switch>
-            <Route path={`${BLOG_TAB_LINK}/:slug`}>
+            <Route path={`${NEWS_TAB_LINK}/:slug`}>
               <SinglePost />
             </Route>
-            <Route path={`${BLOG_TAB_LINK}/`}>
+            <Route path={`${NEWS_TAB_LINK}/`}>
               <AllPosts />
             </Route>
           </Switch>

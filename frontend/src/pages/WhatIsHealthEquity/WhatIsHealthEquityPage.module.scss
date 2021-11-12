@@ -74,32 +74,47 @@
   .HeaderTextItem,
   .SingleArticleHeaderTextItem {
     justify-content: center;
-    padding: 104px 66px 104px 66px;
-
+    padding: 2rem 15%;
     @media (min-width: $md) {
       border-left: 1px solid $border-color;
+      padding: 104px 66px 104px 66px;
     }
 
-    .HeaderText,
-    .SingleArticleHeaderText {
-      font-size: 62px;
+    .HeaderText {
+      font-size: 3.75rem;
       text-align: left;
       font-weight: 300;
       font-family: "Taviraj", serif !important;
-      line-height: 64px;
-      color: $alt-green;
-    }
-    .SingleArticleHeaderText {
-      font-size: 3.75rem;
-      line-height: 90%;
+      line-height: 100%;
+      color: #0b5240;
     }
 
-    .HeaderSubtext,
-    .SingleArticleHeaderSubtext {
+    .SingleArticleHeaderText {
+      text-align: left;
+      font-weight: 300;
+      font-family: "Taviraj", serif !important;
+      color: $alt-green;
+      padding-bottom: 1rem;
+      font-size: 2.125rem;
+      line-height: 100%;
+
+      @media (min-width: $md) {
+        font-size: 3rem;
+      }
+    }
+
+    .HeaderSubtext {
       font-size: 20px;
       text-align: left;
       font-weight: 400;
       line-height: 30px;
+      font-family: "Inter", sans-serif !important;
+    }
+    .SingleArticleHeaderSubtext {
+      font-size: 1rem;
+      text-align: left;
+      font-weight: 400;
+      line-height: 100%;
       font-family: "Inter", sans-serif !important;
     }
 
@@ -487,7 +502,7 @@
   padding: 7px 0;
 }
 
-/** ------------- BLOG ------------- **/
+/** ------------- NEWS ------------- **/
 
 .AllArticlesSection {
   padding: 50px 20px 50px 20px;
@@ -504,11 +519,11 @@
   text-align: center;
   font-weight: 300;
   font-family: "Taviraj", serif !important;
-  color: $alt-black;
+  color: $alt-green;
 }
 
 .AllArticlesHeaderText {
-  padding-bottom: 20px;
+  font-size: 3rem !important;
 }
 
 .AllArticlesHeaderSubtext {
@@ -536,6 +551,13 @@
   font-family: "Taviraj", serif !important;
   line-height: 90%;
   color: $alt-green;
+}
+
+// for mobile filter section
+.Divider {
+  border-top: 1px solid $alt-grey;
+  padding: 1rem;
+  margin-top: 4rem;
 }
 
 .FullArticleContainer {
@@ -637,27 +659,27 @@ hr {
   align-items: center;
 }
 
-.PrevNextHeaderText {
+.NewsPreviewHeaderText {
   font-size: 1rem !important;
   text-align: center;
-  font-weight: 300;
+  font-weight: 100 !important;
   font-family: "Taviraj", serif !important;
-  line-height: 40px;
+  line-height: 150% !important;
   color: $alt-black;
-  padding: 20px !important;
+  padding: 1rem !important;
 }
 
-.PrevNextHeaderText > span {
+.NewsPreviewHeaderText > span {
   display: block;
 }
 
-.PrevNextThumbnail,
+.NewsPreviewThumbnail,
 .LogoThumbnail {
   height: auto;
   max-width: 50%;
 }
-.PrevNextThumbnail {
-  border-radius: 30px;
+.NewsPreviewThumbnail {
+  border-radius: 10%;
   max-width: 50%;
 }
 
@@ -665,11 +687,11 @@ hr {
   font-size: 3rem;
 }
 
-.BlogEmailSignup {
+.NewsEmailSignup {
   margin: 2rem;
 }
 
-.BlogEmailTextField,
-.BlogEmailAddressFormSubmit {
+.NewsEmailTextField,
+.NewsEmailAddressFormSubmit {
   line-height: 2.7rem !important;
 }

@@ -1,4 +1,4 @@
-export const FALLBACK_BLOG_POSTS = [
+export const FALLBACK_NEWS_POSTS = [
   {
     id: 18,
     date: "2021-08-23T18:22:32",
@@ -127,12 +127,9 @@ export const FALLBACK_BLOG_POSTS = [
           link: "https://het-blog.000webhostapp.com/author/admin",
           slug: "admin",
           avatar_urls: {
-            24:
-              "https://secure.gravatar.com/avatar/b2c4daa62d14b00436a97e1b71bef193?s=24&d=mm&r=g",
-            48:
-              "https://secure.gravatar.com/avatar/b2c4daa62d14b00436a97e1b71bef193?s=48&d=mm&r=g",
-            96:
-              "https://secure.gravatar.com/avatar/b2c4daa62d14b00436a97e1b71bef193?s=96&d=mm&r=g",
+            24: "https://secure.gravatar.com/avatar/b2c4daa62d14b00436a97e1b71bef193?s=24&d=mm&r=g",
+            48: "https://secure.gravatar.com/avatar/b2c4daa62d14b00436a97e1b71bef193?s=48&d=mm&r=g",
+            96: "https://secure.gravatar.com/avatar/b2c4daa62d14b00436a97e1b71bef193?s=96&d=mm&r=g",
           },
           acf: false,
           _links: {
@@ -473,12 +470,9 @@ export const FALLBACK_BLOG_POSTS = [
           link: "https://het-blog.000webhostapp.com/author/admin",
           slug: "admin",
           avatar_urls: {
-            24:
-              "https://secure.gravatar.com/avatar/b2c4daa62d14b00436a97e1b71bef193?s=24&d=mm&r=g",
-            48:
-              "https://secure.gravatar.com/avatar/b2c4daa62d14b00436a97e1b71bef193?s=48&d=mm&r=g",
-            96:
-              "https://secure.gravatar.com/avatar/b2c4daa62d14b00436a97e1b71bef193?s=96&d=mm&r=g",
+            24: "https://secure.gravatar.com/avatar/b2c4daa62d14b00436a97e1b71bef193?s=24&d=mm&r=g",
+            48: "https://secure.gravatar.com/avatar/b2c4daa62d14b00436a97e1b71bef193?s=48&d=mm&r=g",
+            96: "https://secure.gravatar.com/avatar/b2c4daa62d14b00436a97e1b71bef193?s=96&d=mm&r=g",
           },
           acf: false,
           _links: {
@@ -829,12 +823,9 @@ export const FALLBACK_BLOG_POSTS = [
           link: "https://het-blog.000webhostapp.com/author/admin",
           slug: "admin",
           avatar_urls: {
-            24:
-              "https://secure.gravatar.com/avatar/b2c4daa62d14b00436a97e1b71bef193?s=24&d=mm&r=g",
-            48:
-              "https://secure.gravatar.com/avatar/b2c4daa62d14b00436a97e1b71bef193?s=48&d=mm&r=g",
-            96:
-              "https://secure.gravatar.com/avatar/b2c4daa62d14b00436a97e1b71bef193?s=96&d=mm&r=g",
+            24: "https://secure.gravatar.com/avatar/b2c4daa62d14b00436a97e1b71bef193?s=24&d=mm&r=g",
+            48: "https://secure.gravatar.com/avatar/b2c4daa62d14b00436a97e1b71bef193?s=48&d=mm&r=g",
+            96: "https://secure.gravatar.com/avatar/b2c4daa62d14b00436a97e1b71bef193?s=96&d=mm&r=g",
           },
           acf: false,
           _links: {

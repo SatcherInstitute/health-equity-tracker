@@ -5,7 +5,7 @@ import styles from "./WhatIsHealthEquityPage.module.scss";
 import EquityTab from "./EquityTab";
 import FaqTab from "./FaqTab";
 import {
-  BLOG_TAB_LINK,
+  NEWS_TAB_LINK,
   FAQ_TAB_LINK,
   RESOURCES_TAB_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
@@ -15,7 +15,7 @@ import ResourcesTab from "./ResourcesTab";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useEffect } from "react";
-import BlogTab, { Article } from "./BlogTab";
+import NewsTab, { Article } from "./NewsTab";
 import { Link, Redirect, Route, Switch } from "react-router-dom";
 
 export interface WhatIsHealthEquityPageProps {
@@ -52,8 +52,8 @@ export default function WhatIsHealthEquityPage() {
             indicatorColor="primary"
             textColor="primary"
             value={
-              history.location.pathname.includes(BLOG_TAB_LINK) &&
-              history.location.pathname !== BLOG_TAB_LINK
+              history.location.pathname.includes(NEWS_TAB_LINK) &&
+              history.location.pathname !== NEWS_TAB_LINK
                 ? false
                 : history.location.pathname
             }
@@ -71,10 +71,10 @@ export default function WhatIsHealthEquityPage() {
               to={FAQ_TAB_LINK}
             />
             <Tab
-              value={BLOG_TAB_LINK}
+              value={NEWS_TAB_LINK}
               label="News"
               component={Link}
-              to={BLOG_TAB_LINK}
+              to={NEWS_TAB_LINK}
             />
             <Tab
               value={RESOURCES_TAB_LINK}
@@ -90,8 +90,8 @@ export default function WhatIsHealthEquityPage() {
         <Route path={`${FAQ_TAB_LINK}/`}>
           <FaqTab />
         </Route>
-        <Route path={`${BLOG_TAB_LINK}/`}>
-          <BlogTab />
+        <Route path={`${NEWS_TAB_LINK}/`}>
+          <NewsTab />
         </Route>
         <Route path={`${RESOURCES_TAB_LINK}/`}>
           <ResourcesTab />

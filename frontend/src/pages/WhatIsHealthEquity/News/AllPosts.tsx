@@ -9,20 +9,20 @@ import {
 import React, { useEffect, useState } from "react";
 import styles from "../WhatIsHealthEquityPage.module.scss";
 import {
-  fetchBlogData,
+  fetchNewsData,
   useUrlSearchParams,
   ARTICLES_KEY,
   REACT_QUERY_OPTIONS,
-  BLOG_TAB_LINK,
+  NEWS_TAB_LINK,
 } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
-import BlogCategories from "../../ui/BlogCategories";
-import BlogAuthors from "../../ui/BlogAuthors";
-import BlogPreviewCard from "./BlogPreviewCard";
+import NewsCategories from "../../ui/NewsCategories";
+import NewsAuthors from "../../ui/NewsAuthors";
+import NewsPreviewCard from "./NewsPreviewCard";
 import { useQuery } from "react-query";
-import { Article } from "../BlogTab";
+import { Article } from "../NewsTab";
 import { Crumb } from "../../../cards/ui/MapBreadcrumbs";
-import { FALLBACK_BLOG_POSTS } from "./FallbackArticles.js";
+import { FALLBACK_NEWS_POSTS } from "./FallbackArticles.js";
 import { useHistory } from "react-router";
 
 export const ARTICLES_TERM = "Articles";
@@ -35,7 +35,7 @@ function PinnedArticles({ articles }: { articles: Article[] }) {
         className={styles.FeaturedArticlesHeaderText}
         variant="h6"
       >
-        Featured
+        Featured:
       </Typography>
       <Grid container>
         {articles.map((post: any) => {
@@ -44,11 +44,11 @@ function PinnedArticles({ articles }: { articles: Article[] }) {
               item
               xs={12}
               sm={6}
-              // md={3}
+              // lg={6}
               className={styles.AllArticlesItem}
               key={post.id}
             >
-              <BlogPreviewCard article={post} />
+              <NewsPreviewCard article={post} />
             </Grid>
           );
         })}
@@ -72,14 +72,14 @@ function AllPosts() {
 
   const { isLoading, error, data }: any = useQuery(
     ARTICLES_KEY,
-    fetchBlogData,
+    fetchNewsData,
     REACT_QUERY_OPTIONS
   );
 
   let articles: Article[] = [];
   if (data) articles = data!.data;
   else if (error || isLoading) {
-    articles = FALLBACK_BLOG_POSTS as any[];
+    articles = FALLBACK_NEWS_POSTS as any[];
   }
 
   useEffect(() => {
@@ -179,13 +179,13 @@ function AllPosts() {
         <Grid container className={styles.AllArticlesSection}>
           <Hidden smDown>
             <Grid item md={3} container direction="column" alignItems="center">
-              <BlogCategories categories={categories} />
-              <BlogAuthors authors={authors} />
+              <NewsCategories categories={categories} />
+              <NewsAuthors authors={authors} />
             </Grid>
           </Hidden>
 
           <Grid item xs={12} sm={12} md={9}>
-            <Box m={5}>
+            <Box mx={5}>
               <div className={styles.AllArticlesHeader}>
                 <Grid item>
                   <Typography
@@ -226,7 +226,7 @@ function AllPosts() {
                       text={ARTICLES_TERM}
                       isClickable={true}
                       onClick={() => {
-                        history.push(BLOG_TAB_LINK);
+                        history.push(NEWS_TAB_LINK);
                       }}
                     />
                     {selectedAuthor?.length > 0 && (
@@ -259,11 +259,11 @@ function AllPosts() {
                         item
                         xs={12}
                         sm={6}
-                        md={4}
+                        // md={4}
                         className={styles.AllArticlesItem}
                         key={post.id}
                       >
-                        <BlogPreviewCard article={post} />
+                        <NewsPreviewCard article={post} />
                       </Grid>
                     );
                   })}
@@ -278,17 +278,21 @@ function AllPosts() {
             <Grid
               item
               container
-              xs={12}
-              wrap="nowrap"
+              // wrap="nowrap"
               direction="row"
               justify="space-around"
+              alignContent="center"
+              // alignItems="center"
             >
-              <Grid item>
-                <BlogCategories categories={categories} />
+              <Grid item xs={12}>
+                <div className={styles.Divider}></div>
+              </Grid>
+              <Grid item xs={12} sm={6} container justify="center">
+                <NewsCategories categories={categories} />
               </Grid>
 
-              <Grid item>
-                <BlogAuthors authors={authors} />
+              <Grid item xs={12} sm={6} container justify="center">
+                <NewsAuthors authors={authors} />
               </Grid>
             </Grid>
           </Hidden>
