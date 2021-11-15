@@ -22,10 +22,47 @@ import NewsPreviewCard from "./NewsPreviewCard";
 import { useQuery } from "react-query";
 import { Article } from "../NewsTab";
 import { Crumb } from "../../../cards/ui/MapBreadcrumbs";
-import { FALLBACK_NEWS_POSTS } from "./FallbackArticles.js";
 import { useHistory } from "react-router";
+import { Skeleton } from "@material-ui/lab";
 
 export const ARTICLES_TERM = "Articles";
+
+function ArticlesSkeleton(props: { doPulse: boolean }) {
+  return (
+    <Grid spacing={1} justify="space-between" container>
+      <Grid item xs={12} sm={5}>
+        <Skeleton
+          animation={props.doPulse && "wave"}
+          variant="rect"
+          height={130}
+        ></Skeleton>
+        <Skeleton animation={false} variant="text" height={24}></Skeleton>
+        <Skeleton
+          animation={props.doPulse && "wave"}
+          variant="text"
+          height={24}
+        ></Skeleton>
+      </Grid>
+      <Grid item xs={12} sm={5}>
+        <Skeleton
+          animation={props.doPulse && "wave"}
+          variant="rect"
+          height={130}
+        ></Skeleton>
+        <Skeleton
+          animation={props.doPulse && "wave"}
+          variant="text"
+          height={24}
+        ></Skeleton>
+        <Skeleton
+          animation={props.doPulse && "wave"}
+          variant="text"
+          height={24}
+        ></Skeleton>
+      </Grid>
+    </Grid>
+  );
+}
 
 function PinnedArticles({ articles }: { articles: Article[] }) {
   return articles.length ? (
@@ -44,7 +81,6 @@ function PinnedArticles({ articles }: { articles: Article[] }) {
               item
               xs={12}
               sm={6}
-              // lg={6}
               className={styles.AllArticlesItem}
               key={post.id}
             >
@@ -78,9 +114,6 @@ function AllPosts() {
 
   let articles: Article[] = [];
   if (data) articles = data!.data;
-  else if (error || isLoading) {
-    articles = FALLBACK_NEWS_POSTS as any[];
-  }
 
   useEffect(() => {
     // filter articles by category query param if present
@@ -268,9 +301,23 @@ function AllPosts() {
                     );
                   })}
               </Grid>
-              <Grid container justify="center">
-                {isLoading && <i>Updating articles...</i>}
-                {error && !isLoading && <i>Problem updating articles.</i>}
+              <Grid container direction="column" justify="center">
+                {isLoading && (
+                  <>
+                    <ArticlesSkeleton doPulse={true} />
+                    <Box mt={5}>
+                      <i>Updating articles...</i>
+                    </Box>
+                  </>
+                )}
+                {error && !isLoading && (
+                  <>
+                    <ArticlesSkeleton doPulse={false} />
+                    <Box mt={5}>
+                      <i>Problem updating articles.</i>
+                    </Box>
+                  </>
+                )}
               </Grid>
             </Grid>
           </Grid>

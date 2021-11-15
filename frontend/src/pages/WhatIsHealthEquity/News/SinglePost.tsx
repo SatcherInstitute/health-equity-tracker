@@ -1,4 +1,11 @@
-import { Box, Button, Grid, TextField, Typography } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Grid,
+  Hidden,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -21,7 +28,7 @@ import ShareDialog from "../../../reports/ui/ShareDialog";
 import ShareIcon from "@material-ui/icons/Share";
 import OpenInNewIcon from "@material-ui/icons/OpenInNew";
 import { Article } from "../NewsTab";
-import { FALLBACK_NEWS_POSTS } from "./FallbackArticles";
+import hetLogo from "../../../assets/AppbarLogo.png";
 
 export const ARTICLE_DESCRIPTION =
   "Article from the Health Equity Tracker: a free-to-use data and visualization platform that is enabling new insights into the impact of COVID-19 and other determinants of health on marginalized groups in the United States.";
@@ -39,15 +46,10 @@ export default function SinglePost() {
 
   let { slug }: { slug: string } = useParams();
 
-  const { isLoading, error, data } = useQuery(
-    ARTICLES_KEY,
-    fetchNewsData,
-    REACT_QUERY_OPTIONS
-  );
+  const { data } = useQuery(ARTICLES_KEY, fetchNewsData, REACT_QUERY_OPTIONS);
   let articles: Article[] = [];
 
   if (data) articles = data.data;
-  if (error || isLoading) articles = FALLBACK_NEWS_POSTS as any[];
 
   // on page load, get prev,full, next article based on fullArticle URL slug
   useEffect(() => {
@@ -114,7 +116,7 @@ export default function SinglePost() {
         justify="center"
         alignItems="center"
       >
-        {fullArticle?._embedded?.["wp:featuredmedia"]?.[0]?.source_url && (
+        {fullArticle?._embedded?.["wp:featuredmedia"]?.[0]?.source_url ? (
           <Grid container item xs={10} md={4} className={styles.HeaderImgItem}>
             <img
               src={fullArticle._embedded["wp:featuredmedia"][0].source_url}
@@ -122,6 +124,22 @@ export default function SinglePost() {
               alt=""
             />
           </Grid>
+        ) : (
+          <Hidden smDown>
+            <Grid
+              container
+              item
+              xs={10}
+              md={4}
+              className={styles.HeaderImgItem}
+            >
+              <img
+                src={hetLogo}
+                className={styles.SingleArticleHeaderImg}
+                alt=""
+              />
+            </Grid>
+          </Hidden>
         )}
         <Grid
           item
