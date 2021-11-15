@@ -29,6 +29,7 @@ import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import { ALL } from "../data/utils/Constants";
+import { showAltPopCompare } from "./DisparityBarChartCard";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 698;
@@ -38,6 +39,11 @@ export interface TableCardProps {
   breakdownVar: BreakdownVar;
   variableConfig: VariableConfig;
 }
+
+export const NeverShowProperties = [
+  METRIC_CONFIG.vaccinations[0]?.metrics?.pct_share
+    ?.secondaryPopulationComparisonMetric,
+];
 
 export function TableCard(props: TableCardProps) {
   const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
@@ -64,6 +70,11 @@ export function TableCard(props: TableCardProps) {
       metricConfigs[metricConfig.populationComparisonMetric.metricId] =
         metricConfig.populationComparisonMetric;
     }
+
+    if (metricConfig.secondaryPopulationComparisonMetric) {
+      metricConfigs[metricConfig.secondaryPopulationComparisonMetric.metricId] =
+        metricConfig.secondaryPopulationComparisonMetric;
+    }
   });
   const metricIds = Object.keys(metricConfigs);
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
@@ -83,12 +94,27 @@ export function TableCard(props: TableCardProps) {
       }
     >
       {([queryResponse]) => {
-        const dataWithoutUnknowns = queryResponse.data.filter(
+        let dataWithoutUnknowns = queryResponse.data.filter(
           (row: Row) =>
             row[props.breakdownVar] !== UNKNOWN &&
             row[props.breakdownVar] !== UNKNOWN_RACE &&
             row[props.breakdownVar] !== UNKNOWN_ETHNICITY
         );
+
+        if (showAltPopCompare(props)) {
+          // This should only happen in the vaccine kff state case
+          dataWithoutUnknowns = dataWithoutUnknowns.map((item) => {
+            return {
+              fips: item["fips"],
+              fips_name: item["fips_name"],
+              race_and_ethnicity: item["race_and_ethnicity"],
+              vaccinated_per_100k: item["vaccinated_per_100k"],
+              vaccinated_share_of_known: item["vaccinated_share_of_known"],
+              vaccine_population_pct:
+                item.vaccine_population_pct || item.acs_vaccine_population_pct,
+            };
+          });
+        }
 
         return (
           <>
@@ -133,11 +159,14 @@ export function TableCard(props: TableCardProps) {
                   <Divider />
                 </>
               )}
+
             {!queryResponse.dataIsMissing() && (
               <TableChart
                 data={dataWithoutUnknowns}
                 breakdownVar={props.breakdownVar}
-                metrics={Object.values(metricConfigs)}
+                metrics={Object.values(metricConfigs).filter(
+                  (colName) => !NeverShowProperties.includes(colName)
+                )}
               />
             )}
           </>
