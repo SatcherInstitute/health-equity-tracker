@@ -11,7 +11,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import styles from "./News.module.scss";
 import parse from "html-react-parser";
-import { useParams } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 import {
   NEWS_TAB_LINK,
   fetchNewsData,
@@ -29,6 +29,7 @@ import ShareIcon from "@material-ui/icons/Share";
 import OpenInNewIcon from "@material-ui/icons/OpenInNew";
 import { Article } from "../NewsTab";
 import hetLogo from "../../../assets/AppbarLogo.png";
+import { Skeleton } from "@material-ui/lab";
 
 export const ARTICLE_DESCRIPTION =
   "Article from the Health Equity Tracker: a free-to-use data and visualization platform that is enabling new insights into the impact of COVID-19 and other determinants of health on marginalized groups in the United States.";
@@ -46,7 +47,11 @@ export default function SinglePost() {
 
   let { slug }: { slug: string } = useParams();
 
-  const { data } = useQuery(ARTICLES_KEY, fetchNewsData, REACT_QUERY_OPTIONS);
+  const { data, isLoading, error } = useQuery(
+    ARTICLES_KEY,
+    fetchNewsData,
+    REACT_QUERY_OPTIONS
+  );
   let articles: Article[] = [];
 
   if (data) articles = data.data;
@@ -77,55 +82,54 @@ export default function SinglePost() {
   const articleCategories = fullArticle?._embedded?.["wp:term"]?.[0];
 
   return (
-    <Grid container className={styles.Grid}>
-      <Helmet>
-        <title>{`News${
-          fullArticle ? " - " + parse(fullArticle.title.rendered) : ""
-        } - Health Equity Tracker`}</title>
-        {/* if cross-posted from external site, should be input on WP as canonical_url */}
-        {fullArticle && (
-          <link
-            rel="canonical"
-            href={fullArticle.acf?.canonical_url || fullArticle.link}
-          />
-        )}
-        <meta name="description" content={ARTICLE_DESCRIPTION} />
-
-        {/* <!-- Google / Search Engine Tags --> */}
-        <meta itemProp="name" content="Health Equity Tracker" />
-        <meta itemProp="description" content={ARTICLE_DESCRIPTION} />
-        <meta itemProp="image" content={articleImage} />
-
-        {/* <!-- Facebook Meta Tags --> */}
-        <meta property="og:url" content={articleUrl} />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Health Equity Tracker" />
-        <meta property="og:description" content={ARTICLE_DESCRIPTION} />
-        <meta property="og:image" content={articleImage} />
-
-        {/* <!-- Twitter Meta Tags --> */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Health Equity Tracker" />
-        <meta name="twitter:description" content={ARTICLE_DESCRIPTION} />
-        <meta name="twitter:image" content={articleImage} />
-      </Helmet>
-      <Grid
-        container
-        className={styles.HeaderRow}
-        direction="row"
-        justify="center"
-        alignItems="center"
-      >
-        {fullArticle?._embedded?.["wp:featuredmedia"]?.[0]?.source_url ? (
-          <Grid container item xs={10} md={4} className={styles.HeaderImgItem}>
-            <img
-              src={fullArticle._embedded["wp:featuredmedia"][0].source_url}
-              className={styles.SingleArticleHeaderImg}
-              alt=""
+    <>
+      {error && (
+        <Redirect
+          to={{
+            pathname: "/404",
+          }}
+        />
+      )}
+      <Grid container className={styles.Grid}>
+        <Helmet>
+          <title>{`News${
+            fullArticle ? " - " + parse(fullArticle.title.rendered) : ""
+          } - Health Equity Tracker`}</title>
+          {/* if cross-posted from external site, should be input on WP as canonical_url */}
+          {fullArticle && (
+            <link
+              rel="canonical"
+              href={fullArticle.acf?.canonical_url || fullArticle.link}
             />
-          </Grid>
-        ) : (
-          <Hidden smDown>
+          )}
+          <meta name="description" content={ARTICLE_DESCRIPTION} />
+
+          {/* <!-- Google / Search Engine Tags --> */}
+          <meta itemProp="name" content="Health Equity Tracker" />
+          <meta itemProp="description" content={ARTICLE_DESCRIPTION} />
+          <meta itemProp="image" content={articleImage} />
+
+          {/* <!-- Facebook Meta Tags --> */}
+          <meta property="og:url" content={articleUrl} />
+          <meta property="og:type" content="website" />
+          <meta property="og:title" content="Health Equity Tracker" />
+          <meta property="og:description" content={ARTICLE_DESCRIPTION} />
+          <meta property="og:image" content={articleImage} />
+
+          {/* <!-- Twitter Meta Tags --> */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content="Health Equity Tracker" />
+          <meta name="twitter:description" content={ARTICLE_DESCRIPTION} />
+          <meta name="twitter:image" content={articleImage} />
+        </Helmet>
+        <Grid
+          container
+          className={styles.HeaderRow}
+          direction="row"
+          justify="center"
+          alignItems="center"
+        >
+          {fullArticle?._embedded?.["wp:featuredmedia"]?.[0]?.source_url ? (
             <Grid
               container
               item
@@ -134,187 +138,229 @@ export default function SinglePost() {
               className={styles.HeaderImgItem}
             >
               <img
-                src={hetLogo}
+                src={fullArticle._embedded["wp:featuredmedia"][0].source_url}
                 className={styles.SingleArticleHeaderImg}
                 alt=""
               />
             </Grid>
-          </Hidden>
-        )}
-        <Grid
-          item
-          xs={12}
-          sm={12}
-          md={8}
-          className={styles.SingleArticleHeaderTextItem}
-        >
-          <Typography
-            className={styles.SingleArticleHeaderText}
-            variant="h2"
-            paragraph={true}
+          ) : (
+            <Hidden smDown>
+              <Grid
+                container
+                item
+                xs={10}
+                md={4}
+                className={styles.HeaderImgItem}
+              >
+                {isLoading && (
+                  <Skeleton
+                    width={300}
+                    height={300}
+                    animation="wave"
+                  ></Skeleton>
+                )}
+                {error && (
+                  <Skeleton
+                    width={300}
+                    height={300}
+                    animation={false}
+                  ></Skeleton>
+                )}
+                {fullArticle && (
+                  <img
+                    src={hetLogo}
+                    className={styles.SingleArticleHeaderImg}
+                    alt=""
+                  />
+                )}
+              </Grid>
+            </Hidden>
+          )}
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={8}
+            className={styles.SingleArticleHeaderTextItem}
           >
-            {fullArticle && parse(fullArticle.title.rendered)}
-          </Typography>
+            <Typography
+              className={styles.SingleArticleHeaderText}
+              variant="h2"
+              paragraph={true}
+            >
+              {isLoading ? (
+                <Skeleton></Skeleton>
+              ) : (
+                parse(fullArticle?.title?.rendered || "")
+              )}
+            </Typography>
 
-          <Typography
-            className={styles.SingleArticleDetailText}
-            variant="body1"
-          >
-            {fullArticle?.acf?.contributing_author
-              ? `Authored by ${fullArticle.acf.contributing_author}`
-              : ""}
-            {fullArticle?.acf?.contributing_author &&
-            fullArticle?.acf?.post_nominals
-              ? `, ${fullArticle.acf.post_nominals}`
-              : ""}
-          </Typography>
-
-          <Typography
-            className={styles.SingleArticleDetailText}
-            variant="body1"
-          >
-            {fullArticle?.date && <>Published {prettyDate(fullArticle.date)}</>}
-          </Typography>
-
-          {articleCategories ? (
             <Typography
               className={styles.SingleArticleDetailText}
               variant="body1"
             >
-              Categorized under:{" "}
-              {articleCategories.map((categoryChunk) => (
-                <span key={categoryChunk.id}>{categoryChunk.name} </span>
-              ))}
+              {fullArticle?.acf?.contributing_author ? (
+                `Authored by ${fullArticle.acf.contributing_author}`
+              ) : (
+                <Skeleton></Skeleton>
+              )}
+              {fullArticle?.acf?.contributing_author &&
+              fullArticle?.acf?.post_nominals
+                ? `, ${fullArticle.acf.post_nominals}`
+                : ""}
             </Typography>
-          ) : (
-            <></>
-          )}
 
-          <Box textAlign="end">
-            <ShareDialog
-              article={fullArticle}
-              shareModalOpen={shareModalOpen}
-              setShareModalOpen={setShareModalOpen}
-            />
-            <Button
-              color="primary"
-              startIcon={<ShareIcon />}
-              onClick={() => setShareModalOpen(true)}
-              data-tip="Share this article on social media"
+            <Typography
+              className={styles.SingleArticleDetailText}
+              variant="body1"
             >
-              Share
-            </Button>
-          </Box>
-        </Grid>
-      </Grid>
-      <Grid
-        container
-        className={styles.NewsAndStoriesRow}
-        direction="row"
-        justify="center"
-      >
-        <Grid item>
-          <div className={styles.FullArticleContainer}>
-            {fullArticle ? parse(fullArticle.content.rendered) : <></>}
-            {fullArticle?.acf?.full_article_url ? (
-              <Button
-                variant="contained"
-                color="primary"
-                className={styles.PrimaryButton}
-                href={fullArticle.acf.full_article_url}
+              {fullArticle?.date ? (
+                <>Published {prettyDate(fullArticle.date)}</>
+              ) : (
+                <Skeleton width="50%"></Skeleton>
+              )}
+            </Typography>
+
+            {articleCategories ? (
+              <Typography
+                className={styles.SingleArticleDetailText}
+                variant="body1"
               >
-                Continue Reading
-                {fullArticle?.acf?.friendly_site_name
-                  ? ` on ${fullArticle.acf.friendly_site_name}`
-                  : ""}{" "}
-                <OpenInNewIcon />
-              </Button>
+                Categorized under:{" "}
+                {articleCategories.map((categoryChunk) => (
+                  <span key={categoryChunk.id}>{categoryChunk.name} </span>
+                ))}
+              </Typography>
             ) : (
               <></>
             )}
 
-            <Box mt={5}>
-              <Typography className={styles.HeaderSubtext} variant="body1">
-                {fullArticle?.acf?.canonical_url && (
-                  <span className={styles.ReprintNotice}>
-                    Note: this article was originally published on{" "}
-                    <a href={fullArticle?.acf?.canonical_url}>another site</a>,
-                    and is reprinted here with permission from the author.
-                  </span>
-                )}
-              </Typography>
+            <Box textAlign="end">
+              <ShareDialog
+                article={fullArticle}
+                shareModalOpen={shareModalOpen}
+                setShareModalOpen={setShareModalOpen}
+              />
+              <Button
+                color="primary"
+                startIcon={<ShareIcon />}
+                onClick={() => setShareModalOpen(true)}
+                data-tip="Share this article on social media"
+              >
+                Share
+              </Button>
             </Box>
-          </div>
+          </Grid>
         </Grid>
+        <Grid
+          container
+          className={styles.NewsAndStoriesRow}
+          direction="row"
+          justify="center"
+        >
+          <Grid item>
+            <div className={styles.FullArticleContainer}>
+              {fullArticle ? parse(fullArticle.content.rendered) : <></>}
+              {fullArticle?.acf?.full_article_url ? (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={styles.PrimaryButton}
+                  href={fullArticle.acf.full_article_url}
+                >
+                  Continue Reading
+                  {fullArticle?.acf?.friendly_site_name
+                    ? ` on ${fullArticle.acf.friendly_site_name}`
+                    : ""}{" "}
+                  <OpenInNewIcon />
+                </Button>
+              ) : (
+                <></>
+              )}
 
-        <Grid container className={styles.PrevNextSection}>
-          <Grid item xs={12} md={4}>
-            {prevArticle && (
-              <NewsPreviewCard article={prevArticle} arrow={"prev"} />
-            )}
+              <Box mt={5}>
+                <Typography className={styles.HeaderSubtext} variant="body1">
+                  {fullArticle?.acf?.canonical_url && (
+                    <span className={styles.ReprintNotice}>
+                      Note: this article was originally published on{" "}
+                      <a href={fullArticle?.acf?.canonical_url}>another site</a>
+                      , and is reprinted here with permission from the author.
+                    </span>
+                  )}
+                </Typography>
+              </Box>
+            </div>
           </Grid>
-          <Grid item xs={12} md={4}>
-            <ReactRouterLinkButton
-              url={NEWS_TAB_LINK}
-              className={styles.PrevNextHeaderText}
-              displayName="All Posts"
-            />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            {nextArticle && (
-              <>
-                <NewsPreviewCard article={nextArticle} arrow={"next"} />
-              </>
-            )}
+
+          <Grid container className={styles.PrevNextSection}>
+            <Grid item xs={12} md={4}>
+              {prevArticle && (
+                <NewsPreviewCard article={prevArticle} arrow={"prev"} />
+              )}
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <ReactRouterLinkButton
+                url={NEWS_TAB_LINK}
+                className={styles.PrevNextHeaderText}
+                displayName="All Posts"
+              />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              {nextArticle && (
+                <>
+                  <NewsPreviewCard article={nextArticle} arrow={"next"} />
+                </>
+              )}
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
-      <Grid
-        container
-        direction="column"
-        justify="center"
-        className={styles.NewsEmailSignup}
-      >
-        <Grid item>
-          <p className={styles.EmailSignupNewsText}>
-            Please{" "}
-            <LinkWithStickyParams to={CONTACT_TAB_LINK}>
-              contact us
-            </LinkWithStickyParams>{" "}
-            with any questions or concerns.
-          </p>
-          <p className={styles.EmailSignupNewsText}>
-            For more information about health equity, please sign up for our
-            Satcher Health Leadership Institute newsletter.
-          </p>
-        </Grid>
-        <Grid item container justify="center" alignItems="center">
-          <form
-            action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
-            method="post"
-            target="_blank"
-          >
-            <TextField
-              id="Enter email address to sign up" // Accessibility label
-              name="MERGE0"
-              variant="outlined"
-              className={styles.NewsEmailTextField}
-              type="email"
-              aria-label="Enter Email Address for Newsletter signup"
-              placeholder="Enter email address"
-            />
-            <Button
-              type="submit"
-              color="primary"
-              variant="contained"
-              className={styles.NewsEmailAddressFormSubmit}
-              aria-label="Sign Up for Newsletter in a new window"
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          className={styles.NewsEmailSignup}
+        >
+          <Grid item>
+            <p className={styles.EmailSignupNewsText}>
+              Please{" "}
+              <LinkWithStickyParams to={CONTACT_TAB_LINK}>
+                contact us
+              </LinkWithStickyParams>{" "}
+              with any questions or concerns.
+            </p>
+            <p className={styles.EmailSignupNewsText}>
+              For more information about health equity, please sign up for our
+              Satcher Health Leadership Institute newsletter.
+            </p>
+          </Grid>
+          <Grid item container justify="center" alignItems="center">
+            <form
+              action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
+              method="post"
+              target="_blank"
             >
-              Sign up
-            </Button>
-          </form>
+              <TextField
+                id="Enter email address to sign up" // Accessibility label
+                name="MERGE0"
+                variant="outlined"
+                className={styles.NewsEmailTextField}
+                type="email"
+                aria-label="Enter Email Address for Newsletter signup"
+                placeholder="Enter email address"
+              />
+              <Button
+                type="submit"
+                color="primary"
+                variant="contained"
+                className={styles.NewsEmailAddressFormSubmit}
+                aria-label="Sign Up for Newsletter in a new window"
+              >
+                Sign up
+              </Button>
+            </form>
+          </Grid>
         </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 }
