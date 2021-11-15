@@ -30,8 +30,9 @@ export const UNINSURANCE_US_SETTING = "?mls=1.health_insurance-3.00";
 export const POVERTY_US_SETTING = "?mls=1.poverty-3.00";
 
 // SECTION IDS
+export const WHAT_DATA_ARE_MISSING_ID = "missingDataInfo";
 export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
-  EXPLORE_DATA_PAGE_LINK + "#missingDataInfo";
+  EXPLORE_DATA_PAGE_LINK + "#" + WHAT_DATA_ARE_MISSING_ID;
 export const WIHE_JOIN_THE_EFFORT_SECTION_ID = "join";
 
 // Value is a comma-separated list of dataset ids. Dataset ids cannot have

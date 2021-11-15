@@ -364,14 +364,13 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
         )
       ) {
         hasAltPop = true;
-        // remove KFF value
-        const { vaccine_population_pct, ...itemWithoutKFF } = item;
-        return itemWithoutKFF;
-      } else {
-        // remove ACS value
-        const { acs_vaccine_population_pct, ...itemWithoutACS } = item;
-        return itemWithoutACS;
+        const {
+          vaccine_population_pct: acs_vaccine_population_pct,
+          ...itemNoPop
+        } = item;
+        return { acs_vaccine_population_pct, ...itemNoPop };
       }
+      return item;
     });
   }
 

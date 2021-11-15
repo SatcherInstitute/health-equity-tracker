@@ -32,6 +32,8 @@ import Alert from "@material-ui/lab/Alert";
 
 export const POPULATION_BY_RACE = "Population by race and ethnicity";
 export const POPULATION_BY_AGE = "Population by age";
+/* minimize layout shift */
+const PRELOAD_HEIGHT = 139;
 
 export interface PopulationCardProps {
   fips: Fips;
@@ -66,7 +68,7 @@ export function PopulationCard(props: PopulationCardProps) {
   );
 
   return (
-    <CardWrapper queries={[raceQuery, ageQuery]}>
+    <CardWrapper minHeight={PRELOAD_HEIGHT} queries={[raceQuery, ageQuery]}>
       {([raceQueryResponse, ageQueryResponse]) => {
         const totalPopulation = raceQueryResponse.data.find(
           (r) => r.race_and_ethnicity === ALL
