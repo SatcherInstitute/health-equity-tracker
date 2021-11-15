@@ -81,6 +81,7 @@ function OptionsSelector(props: {
 
             <Autocomplete
               disableClearable={true}
+              autoHighlight={true}
               options={props.options as Fips[]}
               clearOnEscape={true}
               getOptionLabel={(fips) => fips.getFullDisplayName()}
