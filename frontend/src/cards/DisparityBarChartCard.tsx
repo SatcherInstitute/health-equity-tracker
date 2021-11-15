@@ -24,6 +24,9 @@ import {
 import { Row } from "../data/utils/DatasetTypes";
 import UnknownsAlert from "./ui/UnknownsAlert";
 
+/* minimize layout shift */
+const PRELOAD_HEIGHT = 719;
+
 export function showAltPopCompare(props: {
   fips: { isState: () => any };
   breakdownVar: string;
@@ -88,7 +91,11 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   }
 
   return (
-    <CardWrapper queries={[query]} title={<CardTitle />}>
+    <CardWrapper
+      queries={[query]}
+      title={<CardTitle />}
+      minHeight={PRELOAD_HEIGHT}
+    >
       {([queryResponse]) => {
         const dataWithoutUnknowns = queryResponse
           .getValidRowsForField(metricConfig.metricId)
