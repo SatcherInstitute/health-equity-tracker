@@ -40,9 +40,7 @@ function OptionsSelector(props: {
 
   const [autoCompleteOpen, setAutoCompleteOpen] = useState(false);
   const openAutoComplete = () => {
-    if (textBoxValue.length >= 1) {
-      setAutoCompleteOpen(true);
-    }
+    setAutoCompleteOpen(true);
   };
   const closeAutoComplete = () => {
     setAutoCompleteOpen(false);
@@ -83,6 +81,7 @@ function OptionsSelector(props: {
               disableClearable={true}
               autoHighlight={true}
               options={props.options as Fips[]}
+              groupBy={(option) => option.getParentFips().getDisplayName()}
               clearOnEscape={true}
               getOptionLabel={(fips) => fips.getFullDisplayName()}
               getOptionSelected={(fips) => fips.code === props.value}
