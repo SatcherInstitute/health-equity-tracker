@@ -1,31 +1,31 @@
 import { Typography } from "@material-ui/core";
 import React from "react";
 import { Link } from "react-router-dom";
-import { NEWS_TAB_LINK } from "../../utils/urlutils";
-import styles from "./NewsFilterList.module.scss";
+import { NEWS_TAB_LINK } from "../../../utils/urlutils";
+import styles from "./News.module.scss";
 
-export interface NewsAuthorsProps {
-  authors: string[];
+export interface NewsCategoriesProps {
+  categories: any[];
 }
 
-export default function NewsAuthors(props: NewsAuthorsProps) {
-  const { authors } = props;
+export default function NewsCategories(props: NewsCategoriesProps) {
+  const { categories } = props;
 
   return (
     <div className={styles.FilterListBox}>
       <Typography className={styles.FilterListHeader} variant="h5">
-        Authors
+        Categories
       </Typography>
       <ul className={styles.FilterList}>
-        {authors.length > 0
-          ? authors.map((filter: string) => {
+        {categories
+          ? categories.map((category: string) => {
               return (
-                <li key={filter}>
+                <li key={category}>
                   <Link
-                    to={`${NEWS_TAB_LINK}?author=${filter}`}
+                    to={`${NEWS_TAB_LINK}?category=${category}`}
                     className={styles.FilterListLink}
                   >
-                    {filter}
+                    {category}
                   </Link>
                 </li>
               );

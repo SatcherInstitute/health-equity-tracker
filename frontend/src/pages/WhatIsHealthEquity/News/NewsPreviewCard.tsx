@@ -1,6 +1,6 @@
 import React from "react";
 import { NEWS_TAB_LINK, ReactRouterLinkButton } from "../../../utils/urlutils";
-import styles from "../WhatIsHealthEquityPage.module.scss";
+import styles from "./News.module.scss";
 import AppbarLogo from "../../../assets/AppbarLogo.png";
 import parse from "html-react-parser";
 import { Article } from "../NewsTab";

@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import styles from "../WhatIsHealthEquityPage.module.scss";
+import styles from "./News.module.scss";
 import {
   fetchNewsData,
   useUrlSearchParams,
@@ -16,8 +16,8 @@ import {
   NEWS_TAB_LINK,
 } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
-import NewsCategories from "../../ui/NewsCategories";
-import NewsAuthors from "../../ui/NewsAuthors";
+import NewsCategories from "./NewsCategories";
+import NewsAuthors from "./NewsAuthors";
 import NewsPreviewCard from "./NewsPreviewCard";
 import { useQuery } from "react-query";
 import { Article } from "../NewsTab";

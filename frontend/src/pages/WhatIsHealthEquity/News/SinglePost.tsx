@@ -2,7 +2,7 @@ import { Box, Button, Grid, TextField, Typography } from "@material-ui/core";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import styles from "../WhatIsHealthEquityPage.module.scss";
+import styles from "./News.module.scss";
 import parse from "html-react-parser";
 import { useParams } from "react-router-dom";
 import {
@@ -165,7 +165,7 @@ export default function SinglePost() {
           <Grid container alignItems="center">
             <Typography className={styles.HeaderSubtext} variant="body1">
               {fullArticle?.date && (
-                <span className={styles.DefinitionSourceSpan}>
+                <span className={styles.PublishedText}>
                   Published {prettyDate(fullArticle.date)}
                 </span>
               )}
