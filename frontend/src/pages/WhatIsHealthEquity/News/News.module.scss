@@ -53,10 +53,11 @@
       font-family: "Inter", sans-serif !important;
     }
 
-    .PublishedText {
+    .SingleArticleDetailText {
       color: $alt-dark;
       font-weight: 400;
       font-size: small;
+      text-align: start;
     }
   }
 }
@@ -233,11 +234,8 @@ hr {
 .NewsPreviewThumbnail,
 .LogoThumbnail {
   height: auto;
-  max-width: 50%;
-}
-.NewsPreviewThumbnail {
+  max-width: 40%;
   border-radius: 10%;
-  max-width: 50%;
 }
 
 .PrevNextArrow {

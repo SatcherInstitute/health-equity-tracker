@@ -134,8 +134,6 @@ export default function SinglePost() {
           className={styles.SingleArticleHeaderTextItem}
         >
           <Typography
-            id="main"
-            tabIndex={-1}
             className={styles.SingleArticleHeaderText}
             variant="h2"
             paragraph={true}
@@ -144,9 +142,8 @@ export default function SinglePost() {
           </Typography>
 
           <Typography
-            className={styles.SingleArticleHeaderSubtext}
+            className={styles.SingleArticleDetailText}
             variant="body1"
-            // paragraph={true}
           >
             {fullArticle?.acf?.contributing_author
               ? `Authored by ${fullArticle.acf.contributing_author}`
@@ -157,30 +154,28 @@ export default function SinglePost() {
               : ""}
           </Typography>
 
-          <ShareDialog
-            article={fullArticle}
-            shareModalOpen={shareModalOpen}
-            setShareModalOpen={setShareModalOpen}
-          />
-          <Grid container alignItems="center">
-            <Typography className={styles.HeaderSubtext} variant="body1">
-              {fullArticle?.date && (
-                <span className={styles.PublishedText}>
-                  Published {prettyDate(fullArticle.date)}
-                </span>
-              )}
-            </Typography>
-            <Box ml={5}>
-              <Button
-                color="primary"
-                startIcon={<ShareIcon />}
-                onClick={() => setShareModalOpen(true)}
-                data-tip="Share this article on social media"
-              >
-                Share
-              </Button>
-            </Box>
-          </Grid>
+          <Typography
+            className={styles.SingleArticleDetailText}
+            variant="body1"
+          >
+            {fullArticle?.date && <>Published {prettyDate(fullArticle.date)}</>}
+          </Typography>
+
+          <Box textAlign="end">
+            <ShareDialog
+              article={fullArticle}
+              shareModalOpen={shareModalOpen}
+              setShareModalOpen={setShareModalOpen}
+            />
+            <Button
+              color="primary"
+              startIcon={<ShareIcon />}
+              onClick={() => setShareModalOpen(true)}
+              data-tip="Share this article on social media"
+            >
+              Share
+            </Button>
+          </Box>
         </Grid>
       </Grid>
       <Grid
