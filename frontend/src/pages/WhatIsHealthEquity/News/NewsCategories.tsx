@@ -5,10 +5,12 @@ import { NEWS_TAB_LINK } from "../../../utils/urlutils";
 import styles from "./News.module.scss";
 
 export interface NewsCategoriesProps {
-  categories: any[];
+  categories: string[];
 }
 
-export default function NewsCategories(props: NewsCategoriesProps) {
+export default function NewsCategories(
+  props: NewsCategoriesProps
+): JSX.Element {
   const { categories } = props;
 
   return (

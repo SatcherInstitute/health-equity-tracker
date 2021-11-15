@@ -31,6 +31,7 @@ export interface Article {
       id: number;
     };
     "wp:featuredmedia": { id: number; source_url: string }[];
+    "wp:term": { 0: { id: number; name: string; link: string }[] };
   };
 }
 

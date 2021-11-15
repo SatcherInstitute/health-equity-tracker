@@ -15,7 +15,6 @@ import {
   LinkWithStickyParams,
 } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
-import AppbarLogo from "../../../assets/AppbarLogo.png";
 import NewsPreviewCard from "./NewsPreviewCard";
 import { useQuery } from "react-query";
 import ShareDialog from "../../../reports/ui/ShareDialog";
@@ -73,6 +72,8 @@ export default function SinglePost() {
 
   const articleUrl = fullArticle?.link || "https://healthequitytracker.org";
 
+  const articleCategories = fullArticle?._embedded?.["wp:term"]?.[0];
+
   return (
     <Grid container className={styles.Grid}>
       <Helmet>
@@ -113,19 +114,15 @@ export default function SinglePost() {
         justify="center"
         alignItems="center"
       >
-        <Grid container item xs={10} md={4} className={styles.HeaderImgItem}>
-          {fullArticle && (
+        {fullArticle?._embedded?.["wp:featuredmedia"]?.[0]?.source_url && (
+          <Grid container item xs={10} md={4} className={styles.HeaderImgItem}>
             <img
-              src={
-                fullArticle._embedded["wp:featuredmedia"]
-                  ? fullArticle._embedded["wp:featuredmedia"][0].source_url
-                  : AppbarLogo
-              }
+              src={fullArticle._embedded["wp:featuredmedia"][0].source_url}
               className={styles.SingleArticleHeaderImg}
               alt=""
             />
-          )}
-        </Grid>
+          </Grid>
+        )}
         <Grid
           item
           xs={12}
@@ -160,6 +157,20 @@ export default function SinglePost() {
           >
             {fullArticle?.date && <>Published {prettyDate(fullArticle.date)}</>}
           </Typography>
+
+          {articleCategories ? (
+            <Typography
+              className={styles.SingleArticleDetailText}
+              variant="body1"
+            >
+              Categorized under:{" "}
+              {articleCategories.map((categoryChunk) => (
+                <span key={categoryChunk.id}>{categoryChunk.name} </span>
+              ))}
+            </Typography>
+          ) : (
+            <></>
+          )}
 
           <Box textAlign="end">
             <ShareDialog
