@@ -14,7 +14,6 @@ import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { Box, Button, Card } from "@material-ui/core";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
-import FeedbackBox from "../ui/FeedbackBox";
 import { Link } from "react-router-dom";
 
 export const CITATION_APA = `Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
