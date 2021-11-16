@@ -97,30 +97,30 @@
     }
 
     .DefinitionsItem {
-      padding: 10px;
+      padding: 1rem 1rem 1rem 0;
+      @media only screen and (min-width: $md) {
+        padding: 1rem;
+      }
+    }
+    .DefinitionsItem:first-of-type {
+      padding-left: 0;
     }
 
     .DefinitionHeader {
       font-size: 22px;
       font-weight: 400;
-      line-height: 54px;
+      line-height: 150%;
       color: $alt-green;
       font-family: "Taviraj", sans-serif !important;
       margin: 0px !important;
-    }
-
-    .DefinitionPronunciation {
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 26px;
-      color: $alt-dark;
-      margin: 0px;
+      padding-top: 1rem;
     }
 
     .DefinitionText {
       font-size: 14px;
       font-weight: 400;
       line-height: 24px;
+      margin-block: 0.5rem;
     }
 
     .DefinitionSourceSpan {
