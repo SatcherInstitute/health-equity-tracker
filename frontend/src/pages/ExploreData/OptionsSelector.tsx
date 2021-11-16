@@ -103,6 +103,7 @@ function OptionsSelector(props: {
                   placeholder="County, State, Territory, or United States"
                   margin="dense"
                   variant="outlined"
+                  autoFocus={true}
                   onChange={updateTextBox}
                   {...params}
                 />
