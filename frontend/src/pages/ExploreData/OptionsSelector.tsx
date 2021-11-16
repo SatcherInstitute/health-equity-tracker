@@ -46,6 +46,15 @@ function OptionsSelector(props: {
     setAutoCompleteOpen(false);
   };
 
+  function getGroupName(option: Fips): string {
+    if (option.isUsa()) return "National";
+    if (option.isState()) return "States";
+    if (option.isTerritory()) return "Territories";
+    return `${option.getParentFips().getDisplayName()} ${
+      option.getParentFips().isTerritory() ? " County Equivalents" : " Counties"
+    }`;
+  }
+
   return (
     <>
       <Button
@@ -81,7 +90,7 @@ function OptionsSelector(props: {
               disableClearable={true}
               autoHighlight={true}
               options={props.options as Fips[]}
-              groupBy={(option) => option.getParentFips().getDisplayName()}
+              groupBy={(option) => getGroupName(option)}
               clearOnEscape={true}
               getOptionLabel={(fips) => fips.getFullDisplayName()}
               getOptionSelected={(fips) => fips.code === props.value}
