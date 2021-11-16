@@ -3,7 +3,7 @@
 // establish the API types.
 
 import { MapOfDatasetMetadata, Row } from "../utils/DatasetTypes";
-import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
+import { DatasetMetadataMap } from "../config/DatasetMetadata";
 import { Environment } from "../../utils/Environment";
 import { DataFrame } from "data-forge";
 import { GEOGRAPHIES_DATASET_ID } from "../config/MetadataMap";
@@ -149,6 +149,6 @@ export class ApiDataFetcher implements DataFetcher {
 
   async getMetadata(): Promise<MapOfDatasetMetadata> {
     // TODO replace with real API call.
-    return FakeDatasetMetadataMap;
+    return DatasetMetadataMap;
   }
 }

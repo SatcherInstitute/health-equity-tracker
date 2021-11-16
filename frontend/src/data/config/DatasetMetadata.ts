@@ -174,7 +174,7 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
 ];
 
-export const FakeDatasetMetadataMap: Record<
+export const DatasetMetadataMap: Record<
   string,
   DatasetMetadata
 > = Object.fromEntries(
