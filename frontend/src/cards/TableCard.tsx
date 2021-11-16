@@ -30,6 +30,9 @@ import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import { ALL } from "../data/utils/Constants";
 
+/* minimize layout shift */
+const PRELOAD_HEIGHT = 698;
+
 export interface TableCardProps {
   fips: Fips;
   breakdownVar: BreakdownVar;
@@ -71,6 +74,7 @@ export function TableCard(props: TableCardProps) {
 
   return (
     <CardWrapper
+      minHeight={PRELOAD_HEIGHT}
       queries={[query]}
       title={
         <>{`${props.variableConfig.variableFullDisplayName} By ${
