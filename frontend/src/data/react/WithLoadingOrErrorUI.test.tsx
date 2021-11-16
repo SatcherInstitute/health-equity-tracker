@@ -4,7 +4,7 @@ import { DatasetMetadata, Row } from "../utils/DatasetTypes";
 import { act } from "react-dom/test-utils";
 import { MetricQuery } from "../query/MetricQuery";
 import { Breakdowns } from "../query/Breakdowns";
-import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
+import { DatasetMetadataMap } from "../config/DatasetMetadata";
 import { WithMetrics } from "./WithLoadingOrErrorUI";
 import {
   autoInitGlobals,
@@ -17,7 +17,7 @@ import { excludeAll } from "../query/BreakdownFilter";
 const STATE_NAMES_ID = "state_names";
 const ANOTHER_FAKE_DATASET_ID = "fake_dataset_2";
 const fakeMetadata = {
-  ...FakeDatasetMetadataMap,
+  ...DatasetMetadataMap,
   [STATE_NAMES_ID]: {} as DatasetMetadata,
   [ANOTHER_FAKE_DATASET_ID]: {} as DatasetMetadata,
 };
