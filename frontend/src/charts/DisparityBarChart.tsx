@@ -16,6 +16,9 @@ import {
 } from "./utils";
 import sass from "../styles/variables.module.scss";
 import { LEGEND_TEXT_FONT } from "./Legend";
+import { useMediaQuery } from "@material-ui/core";
+
+const LABEL_SWAP_CUTOFF_PERCENT = 66; // bar labels will be outside if below this %, or inside bar if above
 
 function getSpec(
   data: Record<string, any>[],
@@ -32,8 +35,10 @@ function getSpec(
   // preformatted data as strings.
   lightMetricDisplayColumnName: string,
   darkMetricDisplayColumnName: string,
+  barLabelBreakpoint: number,
+  pageIsTiny: boolean,
   stacked?: boolean,
-  // TESTING place AIAL NHPI pop compare in different color columns due to ACS not KFF
+  // place AIAL NHPI pop compare in different color columns due to ACS not KFF
   altLightMeasure?: string,
   altLightMeasureDisplayName?: string,
   altLightMetricDisplayColumnName?: string,
@@ -137,10 +142,16 @@ function getSpec(
       from: { data: DATASET },
       encode: {
         update: {
-          align: { value: "left" },
+          align: {
+            signal: `if(datum.${darkMeasure} > ${barLabelBreakpoint}, "right", "left")`,
+          },
           baseline: { value: "middle" },
-          dx: { value: 3 },
-          fill: { value: "black" },
+          dx: {
+            signal: `if(datum.${darkMeasure} > ${barLabelBreakpoint}, -3, 3)`,
+          },
+          fill: {
+            signal: `if(datum.${darkMeasure} > ${barLabelBreakpoint}, "white", "black")`,
+          },
           x: { scale: "x", field: darkMeasure },
           y: { scale: "y", field: breakdownVar, band: 0.5 },
           yc: {
@@ -251,7 +262,7 @@ function getSpec(
         type: "linear",
         domain: { data: DATASET, field: measureWithLargerDomain },
         range: [0, { signal: "width" }],
-        nice: true,
+        nice: !pageIsTiny, //on desktop, extend x-axis to a "nice" value
         zero: true,
       },
       {
@@ -290,7 +301,9 @@ function getSpec(
         scale: "x",
         orient: "bottom",
         grid: false,
-        title: `${lightMeasureDisplayName} vs. ${darkMeasureDisplayName} `,
+        title: pageIsTiny
+          ? [`${lightMeasureDisplayName}`, `vs.`, `${darkMeasureDisplayName}`]
+          : `${lightMeasureDisplayName} vs. ${darkMeasureDisplayName}`,
         labelFlush: true,
         labelOverlap: true,
         tickCount: { signal: `ceil(width/${BAR_HEIGHT})` },
@@ -319,8 +332,10 @@ function getSpec(
     legends: [
       {
         fill: "variables",
-        orient: "top",
-        padding: 4,
+        orient: pageIsTiny ? "none" : "top",
+        // legendX and legendY are ignored when orient isn't "none"
+        legendX: -20,
+        legendY: -35,
         font: LEGEND_TEXT_FONT,
         labelFont: LEGEND_TEXT_FONT,
       },
@@ -344,6 +359,9 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   const [ref, width] = useResponsiveWidth(
     100 /* default width during initialization */
   );
+
+  // calculate page size to determine if tiny mobile or not
+  const pageIsTiny = useMediaQuery("(max-width:500px)");
 
   // move AIAN and NHPI into their own properties for STATE/RACE/VACCINE (since KFF doesnt provide pop compare metrics)
   let dataFromProps = props.data;
@@ -414,6 +432,10 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
       )
     : [dataWithDarkMetric, ""];
 
+  const barLabelBreakpoint =
+    Math.max(...props.data.map((row) => row[props.darkMetric.metricId])) *
+    (LABEL_SWAP_CUTOFF_PERCENT / 100);
+
   return (
     <div ref={ref}>
       <Vega
@@ -437,6 +459,8 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           props.metricDisplayName,
           lightMetricDisplayColumnName,
           darkMetricDisplayColumnName,
+          barLabelBreakpoint,
+          pageIsTiny,
           props.stacked,
           hasAltPop ? altLightMetric.metricId : "",
           hasAltPop ? altLightMetric.shortVegaLabel : "",
