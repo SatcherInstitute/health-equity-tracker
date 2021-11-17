@@ -60,12 +60,10 @@ export const DATA_TYPE_1_PARAM = "dt1";
 export const DATA_TYPE_2_PARAM = "dt2";
 
 // WORDPRESS CONFIG
-// use local using docker and kinsta in dev
-// otherwise default to free online host for Netlify testing purposes/
-export const NEWS_URL =
-  process.env.NODE_ENV === "development"
-    ? "http://het-blog.local/"
-    : "https://het-blog.000webhostapp.com/";
+export const NEWS_URL = "https://benham36.dreamhosters.com/";
+// "http://het-blog.local/" // Kinsta / Docker local WP server
+// "https://het-blog.000webhostapp.com/"; // Free hosting used for testing
+
 export const WP_API = "wp-json/wp/v2/"; // "?rest_route=/wp/v2/"
 export const ALL_POSTS = "posts";
 export const ALL_MEDIA = "media";
