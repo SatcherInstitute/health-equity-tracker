@@ -1,6 +1,6 @@
 import { Breakdowns } from "../query/Breakdowns";
 import { Fips } from "../utils/Fips";
-import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
+import { DatasetMetadataMap } from "../config/DatasetMetadata";
 import {
   autoInitGlobals,
   getDataFetcher,
@@ -122,7 +122,7 @@ describe("AcsHealthInsuranceProvider", () => {
   beforeEach(() => {
     resetCacheDebug();
     dataFetcher.resetState();
-    dataFetcher.setFakeMetadataLoaded(FakeDatasetMetadataMap);
+    dataFetcher.setFakeMetadataLoaded(DatasetMetadataMap);
   });
 
   test("State and Race Breakdown", async () => {

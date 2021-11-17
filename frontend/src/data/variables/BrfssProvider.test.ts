@@ -3,7 +3,7 @@ import AcsPopulationProvider from "./AcsPopulationProvider";
 import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { Fips } from "../utils/Fips";
-import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
+import { DatasetMetadataMap } from "../config/DatasetMetadata";
 import { excludeAll } from "../query/BreakdownFilter";
 import {
   autoInitGlobals,
@@ -111,7 +111,7 @@ describe("BrfssProvider", () => {
   beforeEach(() => {
     resetCacheDebug();
     dataFetcher.resetState();
-    dataFetcher.setFakeMetadataLoaded(FakeDatasetMetadataMap);
+    dataFetcher.setFakeMetadataLoaded(DatasetMetadataMap);
   });
 
   test("State and Race Breakdown", async () => {
