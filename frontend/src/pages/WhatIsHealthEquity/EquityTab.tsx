@@ -20,7 +20,29 @@ import LazyLoad from "react-lazyload";
 import { useQuery } from "react-query";
 import sass from "../../styles/variables.module.scss";
 
-export const WIHEFallbackCopy = {
+interface WIHEWordpressCopy {
+  section2_headingLevel2: string;
+  section4_headingLevel2: string;
+  section4_heading2_text: string;
+  section4_a_headingLevel3: string;
+  section4_a_heading3_text: string;
+  section4_a_heading3_link: {
+    title: string;
+    url: string;
+    target: string;
+  };
+  section4_b_headingLevel3: string;
+  section4_b_heading3_text: string;
+  section4_b_heading3_link: {
+    title: string;
+    url: string;
+    target: string;
+  };
+  section4_c_headingLevel3: string;
+  section4_c_heading3_text: string;
+}
+
+export const WIHEFallbackCopy: WIHEWordpressCopy = {
   section2_headingLevel2: "Health equity resources --- Fallback Text",
   section4_headingLevel2: "How do I join the movement? --- Fallback Text",
   section4_heading2_text:
@@ -422,8 +444,7 @@ function EquityTab() {
           content={
             <>
               <p className={styles.JoinTheEffortStepText}>
-                Want updates on the latest news in health equity? Sign up for
-                our Satcher Health Leadership Institute newsletter.
+                {wordpressCopy?.section4_c_heading3_text}
               </p>
               <form
                 action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
