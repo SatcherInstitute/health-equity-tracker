@@ -57,7 +57,7 @@
     .SingleArticleDetailText {
       color: $alt-dark;
       font-weight: 400;
-      font-size: small;
+      font-size: 1rem;
       text-align: start;
     }
   }
@@ -120,18 +120,19 @@
 }
 
 .FullArticleContainer {
-  width: 100vw;
+  width: 50vw;
+  max-width: $max-width;
   margin: 2rem;
   border-bottom: 1px solid $alt-grey;
-  padding: 0px 15% 50px 15%;
-  @media (min-width: $lg) {
-    padding: 0px 10% 50px 10%;
-  }
+  padding: 2rem;
+  // @media (min-width: $md) {
+  //   padding: 0px 25% 50px 25%;
+  // }
 
   p,
   li {
-    font-size: 1rem;
-    line-height: normal;
+    font-size: 1.2rem;
+    line-height: 150%;
     text-align: left;
     font-weight: 400;
     font-family: "Inter", sans-serif;
