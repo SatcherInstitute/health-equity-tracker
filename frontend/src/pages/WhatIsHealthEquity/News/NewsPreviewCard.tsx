@@ -5,6 +5,7 @@ import AppbarLogo from "../../../assets/AppbarLogo.png";
 import parse from "html-react-parser";
 import { Article } from "../NewsTab";
 import { Box, Grid } from "@material-ui/core";
+import LazyLoad from "react-lazyload";
 
 export interface NewsPreviewCardProps {
   article: Article;
@@ -43,21 +44,22 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
           alignItems="center"
           justify="center"
         >
-          <img
-            width="200"
-            height="150"
-            src={
-              article?._embedded?.["wp:featuredmedia"]?.[0]?.media_details
-                ?.sizes?.medium?.source_url || AppbarLogo
-            }
-            className={
-              article._embedded["wp:featuredmedia"]
-                ? styles.NewsPreviewThumbnail
-                : styles.LogoThumbnail
-            }
-            alt="Article Thumbnail"
-            role="link"
-          />
+          <LazyLoad once height={100} offset={300}>
+            <img
+              height="100"
+              src={
+                article?._embedded?.["wp:featuredmedia"]?.[0]?.media_details
+                  ?.sizes?.medium?.source_url || AppbarLogo
+              }
+              className={
+                article._embedded["wp:featuredmedia"]
+                  ? styles.NewsPreviewThumbnail
+                  : styles.LogoThumbnail
+              }
+              alt="Article Thumbnail"
+              role="link"
+            />
+          </LazyLoad>
 
           <Box mx={1}>
             <span>{`${parse(article.title.rendered)}`}</span>

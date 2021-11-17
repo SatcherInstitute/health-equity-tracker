@@ -43,31 +43,30 @@ interface WIHEWordpressCopy {
 }
 
 export const WIHEFallbackCopy: WIHEWordpressCopy = {
-  section2_headingLevel2: "Health equity resources --- Fallback Text",
-  section4_headingLevel2: "How do I join the movement? --- Fallback Text",
+  section2_headingLevel2: "Health equity resources",
+  section4_headingLevel2: "How do I join the movement?",
   section4_heading2_text:
-    "To advance health equity, we need smart, talented, passionate folks like you on board. --- Fallback Text",
-  section4_a_headingLevel3:
-    "Learn to create actionable solutions --- Fallback Text",
+    "To advance health equity, we need smart, talented, passionate folks like you on board.",
+  section4_a_headingLevel3: "Learn to create actionable solutions",
   section4_a_heading3_text:
-    "Apply to our Political Determinants of Health Learning Laboratory Fellowship. We seek to partner and support diverse groups in building equitable and sustainable pathways for healthy communities. --- Fallback Text",
+    "Apply to our Political Determinants of Health Learning Laboratory Fellowship. We seek to partner and support diverse groups in building equitable and sustainable pathways for healthy communities.",
   section4_a_heading3_link: {
-    title: "Learn More --- Fallback Text",
+    title: "Learn More",
     url:
       "https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/",
     target: "_blank",
   },
-  section4_b_headingLevel3: "Give back to your community --- Fallback Text",
+  section4_b_headingLevel3: "Give back to your community",
   section4_b_heading3_text:
-    "Are you a community leader interested in expanding transportation access to vaccine sites within your community? Complete our inquiry form to receive information on our vaccine rideshare efforts and opportunities. --- Fallback Text",
+    "Are you a community leader interested in expanding transportation access to vaccine sites within your community? Complete our inquiry form to receive information on our vaccine rideshare efforts and opportunities.",
   section4_b_heading3_link: {
     title: "Sign Up*",
     url: "https://satcherinstitute.org/uberrideshare/",
     target: "_blank",
   },
-  section4_c_headingLevel3: "Sign up for our newsletter --- Fallback Text",
+  section4_c_headingLevel3: "Sign up for our newsletter",
   section4_c_heading3_text:
-    "Want updates on the latest news in health equity? Sign up for our Satcher Health Leadership Institute newsletter. --- Fallback Text",
+    "Want updates on the latest news in health equity? Sign up for our Satcher Health Leadership Institute newsletter.",
 };
 
 function JoinTheEffortContainer(props: {
@@ -113,13 +112,12 @@ function JoinTheEffortContainer(props: {
 function EquityTab() {
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  let wordpressCopy;
-  const { isLoading, error, data }: any = useQuery(
+  let wordpressCopy: WIHEWordpressCopy = WIHEFallbackCopy;
+  const { data }: any = useQuery(
     DYNAMIC_COPY_KEY,
     () => fetchCopyData(WIHE_PAGE_ID),
     REACT_QUERY_OPTIONS
   );
-  if (error || isLoading) wordpressCopy = WIHEFallbackCopy;
   if (data) wordpressCopy = data.data?.acf;
 
   return (
