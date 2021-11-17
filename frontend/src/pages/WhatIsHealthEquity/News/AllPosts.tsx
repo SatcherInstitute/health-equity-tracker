@@ -30,12 +30,12 @@ export const ARTICLES_TERM = "Articles";
 const NUM_OF_LOADING_SKELETONS = 6;
 
 /* 
-Creates several loading indicator elements as blog content is fetched
+displays several loading indicator elements while blog content is fetched
 */
 function ArticlesSkeleton(props: { doPulse: boolean }) {
   return (
     <Grid spacing={1} justify="space-between" container>
-      {[...Array(NUM_OF_LOADING_SKELETONS)].map((i) => {
+      {[...Array(NUM_OF_LOADING_SKELETONS)].map((_, i) => {
         return (
           <Grid
             item

@@ -120,14 +120,17 @@
 }
 
 .FullArticleContainer {
-  width: 50vw;
+  width: 100vw;
   max-width: $max-width;
   margin: 2rem;
   border-bottom: 1px solid $alt-grey;
   padding: 2rem;
-  // @media (min-width: $md) {
-  //   padding: 0px 25% 50px 25%;
-  // }
+  @media (min-width: $sm) {
+    width: 75vw;
+  }
+  @media (min-width: $md) {
+    width: 50vw;
+  }
 
   p,
   li {
