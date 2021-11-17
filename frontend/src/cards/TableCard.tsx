@@ -40,7 +40,7 @@ export interface TableCardProps {
   variableConfig: VariableConfig;
 }
 
-export const NeverShowProperties = [
+export const NEVER_SHOW_PROPERTIES = [
   METRIC_CONFIG.vaccinations[0]?.metrics?.pct_share
     ?.secondaryPopulationComparisonMetric,
 ];
@@ -165,7 +165,7 @@ export function TableCard(props: TableCardProps) {
                 data={dataWithoutUnknowns}
                 breakdownVar={props.breakdownVar}
                 metrics={Object.values(metricConfigs).filter(
-                  (colName) => !NeverShowProperties.includes(colName)
+                  (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
                 )}
               />
             )}
