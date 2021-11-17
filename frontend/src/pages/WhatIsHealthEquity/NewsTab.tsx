@@ -30,7 +30,24 @@ export interface Article {
     author: {
       id: number;
     };
-    "wp:featuredmedia": { id: number; source_url: string }[];
+    "wp:featuredmedia": {
+      id: number;
+      alt_text: string;
+      source_url: string;
+      media_details: {
+        sizes: {
+          medium: {
+            source_url: string;
+          };
+          large: {
+            source_url: string;
+          };
+          full: {
+            source_url: string;
+          };
+        };
+      };
+    }[];
     "wp:term": { 0: { id: number; name: string; link: string }[] };
   };
 }

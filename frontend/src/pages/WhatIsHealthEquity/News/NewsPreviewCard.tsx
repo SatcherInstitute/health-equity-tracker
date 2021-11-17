@@ -45,9 +45,8 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
         >
           <img
             src={
-              article._embedded["wp:featuredmedia"]
-                ? article._embedded["wp:featuredmedia"][0].source_url
-                : AppbarLogo
+              article?._embedded?.["wp:featuredmedia"]?.[0]?.media_details
+                ?.sizes?.medium?.source_url || AppbarLogo
             }
             className={
               article._embedded["wp:featuredmedia"]

@@ -243,7 +243,7 @@ function AllPosts() {
               </div>
             </Box>
 
-            <Grid item container>
+            <Grid item container justify="center">
               <Box m={5}>
                 {/* show featured card with "sticky" articles marked PIN TO TOP if any */}
                 {selectedAuthor?.length === 0 &&
@@ -293,7 +293,6 @@ function AllPosts() {
                         item
                         xs={12}
                         sm={6}
-                        // md={4}
                         className={styles.AllArticlesItem}
                         key={post.id}
                       >
@@ -326,11 +325,9 @@ function AllPosts() {
             <Grid
               item
               container
-              // wrap="nowrap"
               direction="row"
               justify="space-around"
               alignContent="center"
-              // alignItems="center"
             >
               <Grid item xs={12}>
                 <div className={styles.Divider}></div>

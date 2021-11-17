@@ -1,4 +1,12 @@
-import { Box, Button, Grid, Hidden, Typography } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Grid,
+  Hidden,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@material-ui/core";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -21,7 +29,6 @@ import OpenInNewIcon from "@material-ui/icons/OpenInNew";
 import { Article } from "../NewsTab";
 import hetLogo from "../../../assets/AppbarLogo.png";
 import { Skeleton } from "@material-ui/lab";
-import NewsletterSignupSection from "../../ui/SignupSection";
 import SignupSection from "../../ui/SignupSection";
 
 export const ARTICLE_DESCRIPTION =
@@ -66,13 +73,19 @@ export default function SinglePost() {
     }
   }, [articles, slug]);
 
-  const articleImage = fullArticle?._embedded["wp:featuredmedia"]
-    ? fullArticle._embedded["wp:featuredmedia"][0].source_url
-    : "https://healthequitytracker.org/img/graphics/laptop-HET.png";
-
   const articleUrl = fullArticle?.link || "https://healthequitytracker.org";
 
   const articleCategories = fullArticle?._embedded?.["wp:term"]?.[0];
+
+  // get the large version of the image if available, if not try for the full version
+  const articleImage =
+    fullArticle?._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes
+      ?.large?.source_url ||
+    fullArticle?._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes
+      ?.full?.source_url;
+
+  const articleImageAltText =
+    fullArticle?._embedded?.["wp:featuredmedia"]?.[0]?.alt_text || "";
 
   return (
     <>
@@ -100,20 +113,17 @@ export default function SinglePost() {
           {/* <!-- Google / Search Engine Tags --> */}
           <meta itemProp="name" content="Health Equity Tracker" />
           <meta itemProp="description" content={ARTICLE_DESCRIPTION} />
-          <meta itemProp="image" content={articleImage} />
 
           {/* <!-- Facebook Meta Tags --> */}
           <meta property="og:url" content={articleUrl} />
           <meta property="og:type" content="website" />
           <meta property="og:title" content="Health Equity Tracker" />
           <meta property="og:description" content={ARTICLE_DESCRIPTION} />
-          <meta property="og:image" content={articleImage} />
 
           {/* <!-- Twitter Meta Tags --> */}
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content="Health Equity Tracker" />
           <meta name="twitter:description" content={ARTICLE_DESCRIPTION} />
-          <meta name="twitter:image" content={articleImage} />
         </Helmet>
         <Grid
           container
@@ -122,53 +132,22 @@ export default function SinglePost() {
           justify="center"
           alignItems="center"
         >
-          {fullArticle?._embedded?.["wp:featuredmedia"]?.[0]?.source_url ? (
-            <Grid
-              container
-              item
-              xs={10}
-              md={4}
-              className={styles.HeaderImgItem}
-            >
+          <Grid container item xs={10} md={4} className={styles.HeaderImgItem}>
+            {isLoading && (
+              <Skeleton width={300} height={300} animation="wave"></Skeleton>
+            )}
+            {error && (
+              <Skeleton width={300} height={300} animation={false}></Skeleton>
+            )}
+            {!isLoading && !error && (
               <img
-                src={fullArticle._embedded["wp:featuredmedia"][0].source_url}
-                className={styles.SingleArticleHeaderImg}
-                alt=""
+                src={articleImage}
+                className={styles.SingleArticleHeaderImg || hetLogo}
+                alt={articleImageAltText}
               />
-            </Grid>
-          ) : (
-            <Hidden smDown>
-              <Grid
-                container
-                item
-                xs={10}
-                md={4}
-                className={styles.HeaderImgItem}
-              >
-                {isLoading && (
-                  <Skeleton
-                    width={300}
-                    height={300}
-                    animation="wave"
-                  ></Skeleton>
-                )}
-                {error && (
-                  <Skeleton
-                    width={300}
-                    height={300}
-                    animation={false}
-                  ></Skeleton>
-                )}
-                {fullArticle && (
-                  <img
-                    src={hetLogo}
-                    className={styles.SingleArticleHeaderImg}
-                    alt=""
-                  />
-                )}
-              </Grid>
-            </Hidden>
-          )}
+            )}
+          </Grid>
+
           <Grid
             item
             xs={12}
@@ -255,18 +234,20 @@ export default function SinglePost() {
             <div className={styles.FullArticleContainer}>
               {fullArticle ? parse(fullArticle.content.rendered) : <></>}
               {fullArticle?.acf?.full_article_url ? (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={styles.PrimaryButton}
-                  href={fullArticle.acf.full_article_url}
-                >
-                  Continue Reading
-                  {fullArticle?.acf?.friendly_site_name
-                    ? ` on ${fullArticle.acf.friendly_site_name}`
-                    : ""}{" "}
-                  <OpenInNewIcon />
-                </Button>
+                <Box mt={5}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={styles.FullLink}
+                    href={fullArticle.acf.full_article_url}
+                  >
+                    Continue Reading
+                    {fullArticle?.acf?.friendly_site_name
+                      ? ` on ${fullArticle.acf.friendly_site_name}`
+                      : ""}{" "}
+                    <OpenInNewIcon />
+                  </Button>
+                </Box>
               ) : (
                 <></>
               )}
