@@ -129,7 +129,7 @@ function TwoVariableReport(props: {
       {props.fips1.code === props.fips2.code ? (
         <>
           <Grid item xs={12}>
-            <PopulationCard fips={props.fips1} />
+            <PopulationCard jumpToData={props.jumpToData} fips={props.fips1} />
             <Grid container>
               {!(
                 props.dropdownVarId1 ===
@@ -167,7 +167,7 @@ function TwoVariableReport(props: {
       ) : (
         <>
           <Grid item xs={12} sm={6}>
-            <PopulationCard fips={props.fips1} />
+            <PopulationCard jumpToData={props.jumpToData} fips={props.fips1} />
             {!(
               props.dropdownVarId1 ===
                 METRIC_CONFIG["vaccinations"][0].variableId &&
@@ -183,7 +183,7 @@ function TwoVariableReport(props: {
             )}
           </Grid>
           <Grid item xs={12} sm={6}>
-            <PopulationCard fips={props.fips2} />
+            <PopulationCard jumpToData={props.jumpToData} fips={props.fips2} />
             {!(
               props.dropdownVarId2 ===
                 METRIC_CONFIG["vaccinations"][0].variableId &&
