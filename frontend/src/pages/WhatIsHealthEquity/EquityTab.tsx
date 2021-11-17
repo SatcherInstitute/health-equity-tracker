@@ -11,6 +11,7 @@ import { Box } from "@material-ui/core";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet";
 import LazyLoad from "react-lazyload";
+import sass from "../../styles/variables.module.scss";
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -111,11 +112,7 @@ function EquityTab() {
               just access, opportunity, and resources to achieve their highest
               potential for health.
             </Typography>
-            <Typography
-              className={styles.HeaderSubtext}
-              variant="body1"
-              paragraph={true}
-            >
+            <Typography className={styles.HeaderSubtext} variant="body1">
               Unfortunately, social and political determinants of health
               negatively affect many communities, their people, and their
               ability to lead healthy lives.
@@ -144,12 +141,6 @@ function EquityTab() {
                 <Typography className={styles.DefinitionHeader} variant="h2">
                   Political determinants of health
                 </Typography>
-                <p
-                  className={styles.DefinitionPronunciation}
-                  aria-hidden="true"
-                >
-                  /pəˈlidək(ə)l dəˈtərmənənts əv helTH/
-                </p>
                 <p className={styles.DefinitionText}>
                   The Political determinants of health involve the systematic
                   process of structuring relationships, distributing resources,
@@ -172,12 +163,6 @@ function EquityTab() {
                 <Typography className={styles.DefinitionHeader} variant="h2">
                   Social determinants of health
                 </Typography>
-                <p
-                  className={styles.DefinitionPronunciation}
-                  aria-hidden="true"
-                >
-                  /ˈsōSHəl dəˈtərmənənt əv helTH/
-                </p>
                 <p className={styles.DefinitionText}>
                   The conditions in the environments in which people are born,
                   live, learn, work, play, worship, and age that affect a wide
@@ -490,7 +475,7 @@ function EquityTab() {
                 ? "/img/animations/HET-lines-no-motion.gif"
                 : "/img/animations/HET-lines.gif"
             }
-            imageBackground="#A5CDC0"
+            imageBackground={sass.joinEffortBg1}
             imageAlt=""
             textTitle="Learn to create actionable solutions"
             content={
@@ -520,7 +505,7 @@ function EquityTab() {
                 ? "/img/animations/HET-fields-no-motion.gif"
                 : "/img/animations/HET-fields.gif"
             }
-            imageBackground="#EDB2A6"
+            imageBackground={sass.joinEffortBg2}
             imageAlt=""
             textTitle="Give back to your community"
             content={
@@ -550,7 +535,7 @@ function EquityTab() {
                 ? "/img/animations/HET-dots-no-motion.gif"
                 : "/img/animations/HET-dots.gif"
             }
-            imageBackground="#275141"
+            imageBackground={sass.joinEffortBg3}
             imageAlt=""
             textTitle="Sign up for our newsletter"
             content={

@@ -1,4 +1,4 @@
-@import "styles/variables";
+@import "styles/variables.module";
 
 /** ------------------ Footer styles -------------------- **/
 
@@ -6,10 +6,9 @@
   width: 100%;
   background: $footer-color;
   position: absolute;
-  bottom: 0;
-  max-height: $footer-size;
   margin: auto;
   padding: 50px 10px;
+  min-height: 170px;
 }
 
 .FooterGrid {
@@ -63,11 +62,11 @@
 }
 
 .FooterLink {
-  color: #202124 !important;
+  color: $navlink-color !important;
 
   &:link,
   &:visited {
-    color: #202124 !important;
+    color: $navlink-color !important;
     text-decoration: none !important;
   }
 }

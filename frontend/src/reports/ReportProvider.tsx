@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { VariableDisparityReport } from "./VariableDisparityReport";
 import TwoVariableReport from "./TwoVariableReport";
 import {
@@ -25,6 +25,7 @@ import {
   UNREPRESENTED_RACE_DEF,
   VACCINATED_DEF,
 } from "../pages/DataCatalog/MethodologyTab";
+import { Link } from "react-router-dom";
 
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
   const segment = madLib.phrase[segmentIndex];
@@ -33,16 +34,43 @@ function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
     : madLib.activeSelections[segmentIndex];
 }
 
-function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
+interface ReportProviderProps {
+  madLib: MadLib;
+  setMadLib: Function;
+  doScrollToData?: boolean;
+}
+
+function ReportProvider(props: ReportProviderProps) {
   const [shareModalOpen, setShareModalOpen] = useState(false);
   const fieldRef = useRef<HTMLInputElement>(null);
   const definitionsRef = useRef<HTMLInputElement>(null);
 
+  // internal page links
   function jumpToDefinitions() {
     if (definitionsRef.current) {
-      definitionsRef.current.scrollIntoView();
+      definitionsRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }
+  function jumpToData() {
+    if (fieldRef.current) {
+      fieldRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+
+  // handle incoming #missingDataLink link request, only on page load
+  useEffect(() => {
+    if (props.doScrollToData) {
+      jumpToData();
+      // remove hash from URL
+      // eslint-disable-next-line no-restricted-globals
+      history.pushState(
+        "",
+        document.title,
+        window.location.pathname + window.location.search
+      );
+    }
+  }, [props.doScrollToData]);
+
   function getReport() {
     // Each report has a unique key based on its props so it will create a
     // new instance and reset its state when the provided props change.
@@ -52,6 +80,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         return (
           <VariableDisparityReport
             jumpToDefinitions={jumpToDefinitions}
+            jumpToData={jumpToData}
             key={dropdownOption}
             dropdownVarId={dropdownOption as DropdownVarId}
             fips={new Fips(getPhraseValue(props.madLib, 3))}
@@ -69,6 +98,7 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
         return (
           <TwoVariableReport
             jumpToDefinitions={jumpToDefinitions}
+            jumpToData={jumpToData}
             key={compareDisparityVariable + fipsCode1 + fipsCode2}
             dropdownVarId1={compareDisparityVariable as DropdownVarId}
             dropdownVarId2={compareDisparityVariable as DropdownVarId}
@@ -96,6 +126,8 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           );
         return (
           <TwoVariableReport
+            jumpToDefinitions={jumpToDefinitions}
+            jumpToData={jumpToData}
             key={
               compareDisparityVariable1 + compareDisparityVariable2 + fipsCode
             }
@@ -105,7 +137,6 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             fips2={new Fips(fipsCode)}
             updateFips1Callback={updateFips}
             updateFips2Callback={updateFips}
-            jumpToDefinitions={jumpToDefinitions}
           />
         );
       default:
@@ -131,19 +162,13 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
             Share
           </Button>
         </div>
-        <DisclaimerAlert
-          jumpToData={() => {
-            if (fieldRef.current) {
-              fieldRef.current.scrollIntoView();
-            }
-          }}
-        />
+        <DisclaimerAlert jumpToData={jumpToData} />
         {getReport()}
       </div>
       <aside
         id="missingDataInfo"
-        className={styles.MissingDataInfo}
         ref={fieldRef}
+        className={styles.MissingDataInfo}
       >
         <h3 className={styles.FootnoteLargeHeading}>What Data Are Missing?</h3>
         <p>Unfortunately there are crucial data missing in our sources.</p>
@@ -173,26 +198,28 @@ function ReportProvider(props: { madLib: MadLib; setMadLib: Function }) {
           cases, hospitalizations and deaths because they have not provided
           sufficient disaggregated data to the CDC: <b>Louisiana</b>,{" "}
           <b>Mississippi</b>, <b>Missouri</b>, <b>North Dakota</b>, <b>Texas</b>
-          , and <b>Wyoming</b>. The following states' data for COVID-19 are
-          included, but their data should be interpreted with caution since the
-          cases reported may not be representative of the population at large: 
-          <b>Connecticut</b>, <b>Florida</b>,<b> Kentucky</b>,<b> Michigan</b>,
-          <b> Nebraska</b>,<b> Ohio</b>, <b>West Virginia</b>.
+          , and <b>West Virginia</b>. The following states' data for COVID-19
+          are included, but their data should be interpreted with caution since
+          the cases reported may not be representative of the population at
+          large: 
+          <b>Connecticut</b>, <b>Florida</b>, <b>Kentucky</b>, <b>Michigan</b>,{" "}
+          <b>Nebraska</b>, and <b>Ohio</b>.
         </p>
         <h4>Missing Outcomes</h4>
         <p>
           Many COVID-19 case records are incomplete, with an unknown
-          hospitalization and/or death status. This means that some states that
+          hospitalization and/or death status. This means that some states which
           report disaggregated COVID-19 case data still do not provide a
           complete picture of its overall impact. Due to the nature of
           surveillance data, we expect this picture to become more complete over
           time and will use the Health Equity Tracker to record the progress.
-          Until then, the following states appear grey when viewing COVID-19
-          maps featuring hospitalizations and deaths: <b>Hawaii, Nebraska </b>
-          and <b>South Dakota</b>. <b>Delaware </b>and <b>West Virginia</b> are
-          included when viewing hospitalizations but appear as grey when viewing
-          reports on deaths. <b>Rhode Island </b> appears as grey when viewing
-          reports on hospitalizations but is included when viewing deaths.
+          Until then, in accordance with our{" "}
+          <Link to={METHODOLOGY_TAB_LINK}>methodology</Link>, the following
+          states appear grey when viewing COVID-19 maps featuring
+          hospitalizations and deaths: <b>Hawaii</b>, <b>Nebraska</b>,{" "}
+          <b>South Dakota</b>, and <b>Wyoming</b>. <b>Delaware</b> is included
+          when viewing hospitalizations, but not deaths, and <b>Rhode Island</b>{" "}
+          is included when viewing deaths, but not hospitalizations.
         </p>
         <h4>Missing Vaccination Data</h4>
         <p>

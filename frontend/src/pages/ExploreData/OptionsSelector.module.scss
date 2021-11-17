@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@import "../../styles/variables.module.scss";
 
 .SearchForText,
 .CategoryTitleText {
@@ -19,7 +19,6 @@
 .OptionsSelectorPopover {
   padding: 20px;
   min-width: 385px;
-  margin: 40px 0px 40px 0px;
 }
 
 .PopoverOverride {

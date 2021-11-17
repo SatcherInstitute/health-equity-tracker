@@ -37,6 +37,8 @@ import MissingDataAlert from "./ui/MissingDataAlert";
 import { MultiMapDialog } from "./ui/MultiMapDialog";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
+/* minimize layout shift */
+const PRELOAD_HEIGHT = 833;
 
 export interface MapCardProps {
   key?: string;
@@ -45,6 +47,7 @@ export interface MapCardProps {
   updateFipsCallback: (fips: Fips) => void;
   currentBreakdown: BreakdownVar;
   jumpToDefinitions?: Function;
+  jumpToData: Function;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -106,6 +109,7 @@ function MapCardWithKey(props: MapCardProps) {
       queries={queries}
       title={<>{metricConfig.fullCardTitleName}</>}
       loadGeographies={true}
+      minHeight={PRELOAD_HEIGHT}
     >
       {(queryResponses, metadata, geoData) => {
         const mapQueryResponse = queryResponses[0];
@@ -273,28 +277,15 @@ function MapCardWithKey(props: MapCardProps) {
 
                       {/* Compare across XYZ for all variables except vaccinated at county level */}
                       {!hideDemographicUI && (
-                        <span
-                          onClick={() => setSmallMultiplesDialogOpen(true)}
-                          role="button"
-                          className={styles.CompareAcrossLink}
-                          aria-label={
-                            "Compare " +
-                            props.variableConfig.variableFullDisplayName +
-                            " across " +
-                            BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                              props.currentBreakdown
-                            ] +
-                            " groups"
+                        <MultiMapLink
+                          setSmallMultiplesDialogOpen={
+                            setSmallMultiplesDialogOpen
                           }
-                        >
-                          Compare across{" "}
-                          {
-                            BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                              props.currentBreakdown
-                            ]
-                          }{" "}
-                          groups
-                        </span>
+                          currentBreakdown={props.currentBreakdown}
+                          currentVariable={
+                            props.variableConfig.variableFullDisplayName
+                          }
+                        />
                       )}
                     </Alert>
                   </CardContent>
@@ -319,6 +310,14 @@ function MapCardWithKey(props: MapCardProps) {
                 <CardContent>
                   <Alert severity="warning">
                     No data available for filter: <b>{activeBreakdownFilter}</b>
+                    .{" "}
+                    <MultiMapLink
+                      setSmallMultiplesDialogOpen={setSmallMultiplesDialogOpen}
+                      currentBreakdown={props.currentBreakdown}
+                      currentVariable={
+                        props.variableConfig.variableFullDisplayName
+                      }
+                    />{" "}
                   </Alert>
                 </CardContent>
               )}
@@ -407,6 +406,7 @@ function MapCardWithKey(props: MapCardProps) {
                       highestRatesList={highestRatesList}
                       lowestRatesList={lowestRatesList}
                       fipsTypePluralDisplayName={props.fips.getPluralChildFipsTypeDisplayName()}
+                      jumpToData={props.jumpToData}
                     />
                   )}
               </CardContent>
@@ -415,5 +415,38 @@ function MapCardWithKey(props: MapCardProps) {
         );
       }}
     </CardWrapper>
+  );
+}
+
+/* 
+Generates the "COMPARES ACROSS GROUPS" button which opens the small multiples modal
+*/
+export interface MultiMapLinkProps {
+  setSmallMultiplesDialogOpen: Function;
+  currentBreakdown: BreakdownVar;
+  currentVariable: string;
+}
+
+function MultiMapLink(props: MultiMapLinkProps) {
+  const groupTerm =
+    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown];
+  return (
+    <>
+      <span
+        onClick={() => props.setSmallMultiplesDialogOpen(true)}
+        role="button"
+        className={styles.CompareAcrossLink}
+        aria-label={
+          "Compare " +
+          props.currentVariable +
+          " across " +
+          groupTerm +
+          " groups"
+        }
+      >
+        Compare across {groupTerm} groups
+      </span>
+      .
+    </>
   );
 }

@@ -1,7 +1,7 @@
-@import "../styles/variables";
+@import "../styles/variables.module";
 
 .Banner {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: $black;
+  color: $white;
   padding: 7px;
 }
