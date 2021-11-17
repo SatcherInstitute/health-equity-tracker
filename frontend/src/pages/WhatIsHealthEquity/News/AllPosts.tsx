@@ -27,40 +27,48 @@ import { Skeleton } from "@material-ui/lab";
 import SignupSection from "../../ui/SignupSection";
 
 export const ARTICLES_TERM = "Articles";
+const NUM_OF_LOADING_SKELETONS = 6;
 
+/* 
+Creates several loading indicator elements as blog content is fetched
+*/
 function ArticlesSkeleton(props: { doPulse: boolean }) {
   return (
     <Grid spacing={1} justify="space-between" container>
-      <Grid item xs={12} sm={5}>
-        <Skeleton
-          animation={props.doPulse && "wave"}
-          variant="rect"
-          height={130}
-        ></Skeleton>
-        <Skeleton animation={false} variant="text" height={24}></Skeleton>
-        <Skeleton
-          animation={props.doPulse && "wave"}
-          variant="text"
-          height={24}
-        ></Skeleton>
-      </Grid>
-      <Grid item xs={12} sm={5}>
-        <Skeleton
-          animation={props.doPulse && "wave"}
-          variant="rect"
-          height={130}
-        ></Skeleton>
-        <Skeleton
-          animation={props.doPulse && "wave"}
-          variant="text"
-          height={24}
-        ></Skeleton>
-        <Skeleton
-          animation={props.doPulse && "wave"}
-          variant="text"
-          height={24}
-        ></Skeleton>
-      </Grid>
+      {[...Array(NUM_OF_LOADING_SKELETONS)].map((i) => {
+        return (
+          <Grid
+            item
+            xs={12}
+            sm={5}
+            container
+            direction="column"
+            alignItems="center"
+            key={i}
+          >
+            <Skeleton
+              animation={props.doPulse && "wave"}
+              variant="rect"
+              height={100}
+              width={150}
+            ></Skeleton>
+            <Skeleton
+              animation={false}
+              variant="text"
+              height={36}
+              width={250}
+            ></Skeleton>
+            <Box mb={5}>
+              <Skeleton
+                animation={props.doPulse && "wave"}
+                variant="text"
+                height={36}
+                width={175}
+              ></Skeleton>
+            </Box>
+          </Grid>
+        );
+      })}
     </Grid>
   );
 }
