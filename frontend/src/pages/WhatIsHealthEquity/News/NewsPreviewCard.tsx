@@ -44,6 +44,8 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
           justify="center"
         >
           <img
+            width="200"
+            height="150"
             src={
               article?._embedded?.["wp:featuredmedia"]?.[0]?.media_details
                 ?.sizes?.medium?.source_url || AppbarLogo
