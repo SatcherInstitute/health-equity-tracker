@@ -94,7 +94,7 @@ class Fips {
     if (!this.isCounty()) return STATE_FIPS_MAP[this.code];
     // COUNTY EQUIVALENTS (FROM TERRITORIES)
     if (this.getParentFips().isTerritory())
-      return `${COUNTY_FIPS_MAP[this.code]} [County Equivalent]`;
+      return `${COUNTY_FIPS_MAP[this.code]}`;
     // COUNTIES (with the word COUNTY added as needed)
     const optionalCounty =
       COUNTY_FIPS_MAP[this.code].includes("Borough") ||
