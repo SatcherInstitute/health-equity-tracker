@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  Grid,
-  Hidden,
-  TextField,
-  Typography,
-} from "@material-ui/core";
+import { Box, Button, Grid, Hidden, Typography } from "@material-ui/core";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -18,8 +11,6 @@ import {
   ReactRouterLinkButton,
   ARTICLES_KEY,
   REACT_QUERY_OPTIONS,
-  CONTACT_TAB_LINK,
-  LinkWithStickyParams,
 } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet";
 import NewsPreviewCard from "./NewsPreviewCard";
@@ -30,6 +21,8 @@ import OpenInNewIcon from "@material-ui/icons/OpenInNew";
 import { Article } from "../NewsTab";
 import hetLogo from "../../../assets/AppbarLogo.png";
 import { Skeleton } from "@material-ui/lab";
+import NewsletterSignupSection from "../../ui/SignupSection";
+import SignupSection from "../../ui/SignupSection";
 
 export const ARTICLE_DESCRIPTION =
   "Article from the Health Equity Tracker: a free-to-use data and visualization platform that is enabling new insights into the impact of COVID-19 and other determinants of health on marginalized groups in the United States.";
@@ -314,52 +307,7 @@ export default function SinglePost() {
             </Grid>
           </Grid>
         </Grid>
-        <Grid
-          container
-          direction="column"
-          justify="center"
-          className={styles.NewsEmailSignup}
-        >
-          <Grid item>
-            <p className={styles.EmailSignupNewsText}>
-              Please{" "}
-              <LinkWithStickyParams to={CONTACT_TAB_LINK}>
-                contact us
-              </LinkWithStickyParams>{" "}
-              with any questions or concerns.
-            </p>
-            <p className={styles.EmailSignupNewsText}>
-              For more information about health equity, please sign up for our
-              Satcher Health Leadership Institute newsletter.
-            </p>
-          </Grid>
-          <Grid item container justify="center" alignItems="center">
-            <form
-              action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
-              method="post"
-              target="_blank"
-            >
-              <TextField
-                id="Enter email address to sign up" // Accessibility label
-                name="MERGE0"
-                variant="outlined"
-                className={styles.NewsEmailTextField}
-                type="email"
-                aria-label="Enter Email Address for Newsletter signup"
-                placeholder="Enter email address"
-              />
-              <Button
-                type="submit"
-                color="primary"
-                variant="contained"
-                className={styles.NewsEmailAddressFormSubmit}
-                aria-label="Sign Up for Newsletter in a new window"
-              >
-                Sign up
-              </Button>
-            </form>
-          </Grid>
-        </Grid>
+        <SignupSection />
       </Grid>
     </>
   );
