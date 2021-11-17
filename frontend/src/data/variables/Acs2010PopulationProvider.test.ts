@@ -4,7 +4,7 @@ import {
   getDataFetcher,
   resetCacheDebug,
 } from "../../utils/globals";
-import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
+import { DatasetMetadataMap } from "../config/DatasetMetadata";
 import { Breakdowns } from "../query/Breakdowns";
 import { createMissingDataResponse, MetricQuery } from "../query/MetricQuery";
 import {
@@ -73,7 +73,7 @@ describe("Acs2010PopulationProvider", () => {
   beforeEach(() => {
     resetCacheDebug();
     dataFetcher.resetState();
-    dataFetcher.setFakeMetadataLoaded(FakeDatasetMetadataMap);
+    dataFetcher.setFakeMetadataLoaded(DatasetMetadataMap);
   });
 
   test("Invalid Breakdown", async () => {

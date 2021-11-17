@@ -202,8 +202,8 @@ function ReportProvider(props: ReportProviderProps) {
           are included, but their data should be interpreted with caution since
           the cases reported may not be representative of the population at
           large: 
-          <b>Connecticut</b>, <b>Florida</b>,<b> Kentucky</b>,<b> Michigan</b>,
-          <b> Nebraska</b>,<b> Ohio</b>.
+          <b>Connecticut</b>, <b>Florida</b>, <b>Kentucky</b>, <b>Michigan</b>,{" "}
+          <b>Nebraska</b>, and <b>Ohio</b>.
         </p>
         <h4>Missing Outcomes</h4>
         <p>
