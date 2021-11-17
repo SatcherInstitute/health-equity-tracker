@@ -27,7 +27,6 @@ import {
 } from "../data/query/BreakdownFilter";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Hidden from "@material-ui/core/Hidden";
-import { FAQ_TAB_LINK } from "../utils/urlutils";
 import Alert from "@material-ui/lab/Alert";
 
 export const POPULATION_BY_RACE = "Population by race and ethnicity";
@@ -37,6 +36,7 @@ const PRELOAD_HEIGHT = 139;
 
 export interface PopulationCardProps {
   fips: Fips;
+  jumpToData: Function;
 }
 
 export function PopulationCard(props: PopulationCardProps) {
@@ -158,8 +158,13 @@ export function PopulationCard(props: PopulationCardProps) {
                       These racial categories are defined by the ACS and US
                       Census Bureau. While it is the standard for CDC reporting,
                       the definition of these categories often results in not
-                      counting or miscounting people in underrepresented groups.{" "}
-                      <a href={`${FAQ_TAB_LINK}`}>Learn more</a>
+                      counting or miscounting people in underrepresented groups.
+                      <Button
+                        onClick={() => props.jumpToData()}
+                        className={styles.InfoLinkButton}
+                      >
+                        Read about missing data.
+                      </Button>
                     </Alert>
                     <Grid container justify="flex-start">
                       {raceQueryResponse
