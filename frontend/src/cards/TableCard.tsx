@@ -40,6 +40,8 @@ export interface TableCardProps {
   variableConfig: VariableConfig;
 }
 
+// We need to get this property, but we want to show it as
+// part of the "population_pct" column, and not as its own column
 export const NEVER_SHOW_PROPERTIES = [
   METRIC_CONFIG.vaccinations[0]?.metrics?.pct_share
     ?.secondaryPopulationComparisonMetric,
