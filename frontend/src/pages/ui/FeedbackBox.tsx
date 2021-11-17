@@ -23,6 +23,7 @@ export default function FeedbackBox(props: { alwaysShow?: boolean }) {
     <Feedback
       projectId={FEEDBACK_ID}
       email={false}
+      feedbackPrompt={"What brings you to the Health Equity Tracker?"}
       feedbackTypes={[
         "General/Other Interest (please specify below)",
         "COVID-19/Vaccination Data",
@@ -30,6 +31,7 @@ export default function FeedbackBox(props: { alwaysShow?: boolean }) {
         "Social/Political Determinants Data",
         "Behavioral/Mental Health Data",
       ]}
+      interestPrompt={"What field are you in?"}
       interestTypes={[
         "Non-Profit/Community Engagement",
         "Legal/Political",
@@ -37,6 +39,7 @@ export default function FeedbackBox(props: { alwaysShow?: boolean }) {
         "Academic",
         "Other (please specify below)",
       ]}
+      textboxPrompt={"Did you get what you needed today?"}
       hoverBorderColor={"#0b5240"}
       postSubmitButtonMsg="Thank you for helping us advance health equity"
       primaryColor={"#0b5240"}
