@@ -67,6 +67,18 @@
 
 .PopulationAlert {
   margin: 10px;
+
+  .InfoLinkButton {
+    font-size: 0.875rem !important;
+    font-family: "Inter", serif !important;
+    font-weight: 400 !important;
+    line-height: 1.43 !important;
+    letter-spacing: 0.01071em !important;
+    text-decoration: underline !important;
+    color: $alt-green !important;
+    padding: 0 5px !important;
+    margin-top: -2px !important; // To align with the <p> text better
+  }
 }
 
 .PopulationMetric {
