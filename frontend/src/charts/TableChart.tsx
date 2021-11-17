@@ -28,6 +28,7 @@ import { Tooltip } from "@material-ui/core";
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
+import styles from "./TableChart.module.scss";
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20;
 
@@ -42,7 +43,12 @@ export function TableChart(props: TableChartProps) {
   let columns = metrics.map((metricConfig) => {
     return {
       Header: metricConfig.fullCardTitleName,
-      Cell: (a: any) => formatFieldValue(metricConfig.type, a.value),
+      Cell: (a: any) =>
+        formatFieldValue(
+          /* metricType: MetricType, */ metricConfig.type,
+          /*   value: any, */ a.value,
+          /*   omitPctSymbol: boolean = false */ true
+        ),
       accessor: metricConfig.metricId,
     };
   });
@@ -127,6 +133,7 @@ export function TableChart(props: TableChartProps) {
           ) : (
             <TableCell {...cell.getCellProps()}>
               {cell.render("Cell")}
+              <Units column={index} />
             </TableCell>
           )
         )}
@@ -178,5 +185,18 @@ export function TableChart(props: TableChartProps) {
         </TableContainer>
       )}
     </>
+  );
+}
+
+interface UnitsProps {
+  column: number;
+}
+function Units(props: UnitsProps) {
+  if (!props.column) return null;
+
+  return (
+    <span className={styles.Unit}>
+      {props.column === 1 ? ` per 100k` : `%`}
+    </span>
   );
 }

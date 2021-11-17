@@ -130,27 +130,27 @@ const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "cdc_vaccination_county-race_and_ethnicity",
     name: "COVID-19 Vaccinations by County",
-    update_time: "October 2021",
+    update_time: "November 2021",
   },
   {
     id: "cdc_vaccination_national-age",
     name: "COVID-19 Vaccination Demographics by Age",
-    update_time: "October 2021",
+    update_time: "November 2021",
   },
   {
     id: "cdc_vaccination_national-sex",
     name: "COVID-19 Vaccination Demographics by Sex",
-    update_time: "October 2021",
+    update_time: "November 2021",
   },
   {
     id: "cdc_vaccination_national-race_and_ethnicity",
     name: "COVID-19 Vaccination Demographics by Race",
-    update_time: "October 2021",
+    update_time: "November 2021",
   },
   {
     id: "kff_vaccination-race_and_ethnicity",
     name: "COVID-19 Indicators",
-    update_time: "October 2021",
+    update_time: "November 2021",
   },
   {
     id: "uhc_data-age",
@@ -174,7 +174,7 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
 ];
 
-export const FakeDatasetMetadataMap: Record<
+export const DatasetMetadataMap: Record<
   string,
   DatasetMetadata
 > = Object.fromEntries(
