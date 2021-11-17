@@ -106,14 +106,15 @@ export function TableCard(props: TableCardProps) {
         if (showAltPopCompare(props)) {
           // This should only happen in the vaccine kff state case
           dataWithoutUnknowns = dataWithoutUnknowns.map((item) => {
+            const {
+              vaccine_population_pct,
+              acs_vaccine_population_pct,
+              ...restOfItem
+            } = item;
             return {
-              fips: item["fips"],
-              fips_name: item["fips_name"],
-              race_and_ethnicity: item["race_and_ethnicity"],
-              vaccinated_per_100k: item["vaccinated_per_100k"],
-              vaccinated_share_of_known: item["vaccinated_share_of_known"],
               vaccine_population_pct:
-                item.vaccine_population_pct || item.acs_vaccine_population_pct,
+                vaccine_population_pct || acs_vaccine_population_pct,
+              ...restOfItem,
             };
           });
         }
