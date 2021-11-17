@@ -144,6 +144,8 @@ export default function SinglePost() {
                 src={articleImage}
                 className={styles.SingleArticleHeaderImg || hetLogo}
                 alt={articleImageAltText}
+                width={200}
+                height={100}
               />
             )}
           </Grid>
