@@ -18,12 +18,12 @@ WITH
         ON a.state_name = b.state_name
   ),
   all_acs as (
-      SELECT * FROM `acs_population.by_race_state_std`
+      SELECT state_fips, state_name, population, population_pct, race_category_id, race, race_includes_hispanic, race_and_ethnicity FROM `acs_population.by_race_state_std`
     UNION ALL
-      SELECT * FROM `acs_2010_population.by_race_and_ethnicity_territory`
+      SELECT state_fips, state_name, population, population_pct, race_category_id, race, race_includes_hispanic, race_and_ethnicity FROM `acs_2010_population.by_race_and_ethnicity_territory`
   ),
   joined_with_acs as (
-      SELECT x.*, y.population
+      SELECT x.*, y.population, y.population_pct as acs_vaccine_population_pct
       FROM race_and_ethnicity AS x
       LEFT JOIN `all_acs` AS y
           USING (state_fips, race_category_id)
