@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Grid,
-  Hidden,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@material-ui/core";
+import { Box, Button, Grid, Typography } from "@material-ui/core";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
