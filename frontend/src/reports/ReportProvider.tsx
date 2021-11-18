@@ -18,7 +18,16 @@ import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import ShareIcon from "@material-ui/icons/Share";
 import styles from "./Report.module.scss";
-import ShareDialog from "./ui/ShareDialog";
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  EmailIcon,
+  FacebookIcon,
+  LinkedinIcon,
+  TwitterIcon,
+} from "react-share";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
 import { METRIC_CONFIG } from "../data/config/MetricConfig";
 import {
@@ -26,6 +35,11 @@ import {
   VACCINATED_DEF,
 } from "../pages/DataCatalog/MethodologyTab";
 import { Link } from "react-router-dom";
+import { Grid, Typography } from "@material-ui/core";
+
+export const SHARE_ICON_SIZE = 32;
+export const text = "Test Text";
+export const title = "Test Title";
 
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
   const segment = madLib.phrase[segmentIndex];
@@ -147,21 +161,56 @@ function ReportProvider(props: ReportProviderProps) {
   return (
     <>
       <div className={styles.ReportWrapper}>
-        <ShareDialog
+        {/* <ShareDialog
           madLib={props.madLib}
           shareModalOpen={shareModalOpen}
           setShareModalOpen={setShareModalOpen}
-        />
-        <div className={styles.ReportToolbar}>
-          <Button
+        /> */}
+
+        <Grid container>
+          {/* SOCIAL SHARE BUTTONS */}
+          <b>Share:</b>{" "}
+          <TwitterShareButton
+            url={text}
+            title={title}
+            hashtags={["healthequity"]}
+            related={["@SatcherHealth", "@MSMEDU"]}
+          >
+            <TwitterIcon size={SHARE_ICON_SIZE} />
+          </TwitterShareButton>
+          <FacebookShareButton
+            url={text}
+            hashtag={"#healthequity"}
+            quote={title}
+          >
+            <FacebookIcon size={SHARE_ICON_SIZE} />
+          </FacebookShareButton>
+          <LinkedinShareButton
+            title={title}
+            // summary={summary}
+            source={"Health Equity Tracker"}
+            url={text}
+          >
+            <LinkedinIcon size={SHARE_ICON_SIZE} />
+          </LinkedinShareButton>
+          <EmailShareButton
+            subject={`Sharing from healthequitytracker.org`}
+            body={`${title}
+        
+`} // KEEP THIS WEIRD SPACING FOR EMAIL LINE BREAKS!
+            url={text}
+          >
+            <EmailIcon size={SHARE_ICON_SIZE} />
+          </EmailShareButton>
+          {/* <Button
             color="primary"
             startIcon={<ShareIcon />}
             onClick={() => setShareModalOpen(true)}
             data-tip="Share a Link to this Report"
           >
             Share
-          </Button>
-        </div>
+          </Button> */}
+        </Grid>
         <DisclaimerAlert jumpToData={jumpToData} />
         {getReport()}
       </div>
