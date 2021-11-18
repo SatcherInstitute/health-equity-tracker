@@ -63,6 +63,7 @@ function MenuPopover(props: {
 
   return (
     <Popover
+      className={styles.GroupListMenuBox}
       open={props.popover.isOpen}
       anchorEl={props.popover.anchor}
       onClose={() => {
@@ -119,36 +120,34 @@ function DropDownMenu(props: {
         <ArrowDropDown />
       </Button>
 
-      <div className={styles.GroupListMenuBox}>
-        <MenuPopover
-          popover={firstMenu}
-          aria-expanded="true"
-          items={oneLevelMenu ? Object.values(props.options)[0] : props.options}
-          onClick={(event: React.MouseEvent<HTMLElement>, value: string) => {
-            if (oneLevelMenu) {
-              props.onOptionUpdate(undefined, value);
-              firstMenu.close();
-            } else {
-              setFirstMenuSelection(value);
-              secondMenu.open(event);
-            }
-          }}
-        />
-
-        <MenuPopover
-          popover={secondMenu}
-          items={props.options[firstMenuSelection]}
-          onClick={(
-            unused_event: React.MouseEvent<HTMLElement>,
-            value: string
-          ) => {
+      <MenuPopover
+        popover={firstMenu}
+        aria-expanded="true"
+        items={oneLevelMenu ? Object.values(props.options)[0] : props.options}
+        onClick={(event: React.MouseEvent<HTMLElement>, value: string) => {
+          if (oneLevelMenu) {
+            props.onOptionUpdate(undefined, value);
             firstMenu.close();
-            secondMenu.close();
-            props.onOptionUpdate(firstMenuSelection, value);
-          }}
-          onClose={firstMenu.close}
-        />
-      </div>
+          } else {
+            setFirstMenuSelection(value);
+            secondMenu.open(event);
+          }
+        }}
+      />
+
+      <MenuPopover
+        popover={secondMenu}
+        items={props.options[firstMenuSelection]}
+        onClick={(
+          unused_event: React.MouseEvent<HTMLElement>,
+          value: string
+        ) => {
+          firstMenu.close();
+          secondMenu.close();
+          props.onOptionUpdate(firstMenuSelection, value);
+        }}
+        onClose={firstMenu.close}
+      />
     </>
   );
 }
