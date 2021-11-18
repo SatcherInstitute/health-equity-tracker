@@ -8,16 +8,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Popover, { PopoverOrigin } from "@material-ui/core/Popover";
 import { usePopover, PopoverElements } from "../../utils/usePopover";
 import styles from "./DropDownMenu.module.scss";
-import { Menu } from "@material-ui/core";
-
-const ANCHOR_ORIGIN: PopoverOrigin = {
-  vertical: "top",
-  horizontal: "right",
-};
-const TRANSFORM_ORIGIN: PopoverOrigin = {
-  vertical: "top",
-  horizontal: "left",
-};
+import { useMediaQuery, useTheme } from "@material-ui/core";
 
 function MenuPopover(props: {
   popover: PopoverElements;
@@ -27,6 +18,18 @@ function MenuPopover(props: {
   // Optional additional actions to do when the popover is closed
   onClose?: () => void;
 }) {
+  // calculate page size for responsive layout
+  const theme = useTheme();
+  const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
+  const anchorOrigin: PopoverOrigin = {
+    vertical: "top",
+    horizontal: "right",
+  };
+  const transformOrigin: PopoverOrigin = {
+    vertical: "top",
+    horizontal: pageIsWide ? "left" : "center",
+  };
+
   const hasChildren = !Array.isArray(props.items);
   const listItems: string[] = hasChildren
     ? Object.keys(props.items)
@@ -68,23 +71,16 @@ function MenuPopover(props: {
           props.onClose();
         }
       }}
-      anchorOrigin={ANCHOR_ORIGIN}
-      transformOrigin={TRANSFORM_ORIGIN}
+      anchorOrigin={anchorOrigin}
+      transformOrigin={transformOrigin}
     >
-      <Menu
-        open={props.popover.isOpen}
+      <List
+        aria-label="List of Options"
+        dense={true}
         className={styles.GroupListMenuBox}
-        onClose={() => {
-          props.popover.close();
-          if (props.onClose) {
-            props.onClose();
-          }
-        }}
       >
-        <List aria-label="List of Options" dense={true}>
-          {listItems.map((listItem: string) => renderListItem(listItem))}
-        </List>
-      </Menu>
+        {listItems.map((listItem: string) => renderListItem(listItem))}
+      </List>
     </Popover>
   );
 }
@@ -123,34 +119,36 @@ function DropDownMenu(props: {
         <ArrowDropDown />
       </Button>
 
-      <MenuPopover
-        popover={firstMenu}
-        aria-expanded="true"
-        items={oneLevelMenu ? Object.values(props.options)[0] : props.options}
-        onClick={(event: React.MouseEvent<HTMLElement>, value: string) => {
-          if (oneLevelMenu) {
-            props.onOptionUpdate(undefined, value);
-            firstMenu.close();
-          } else {
-            setFirstMenuSelection(value);
-            secondMenu.open(event);
-          }
-        }}
-      />
+      <div className={styles.GroupListMenuBox}>
+        <MenuPopover
+          popover={firstMenu}
+          aria-expanded="true"
+          items={oneLevelMenu ? Object.values(props.options)[0] : props.options}
+          onClick={(event: React.MouseEvent<HTMLElement>, value: string) => {
+            if (oneLevelMenu) {
+              props.onOptionUpdate(undefined, value);
+              firstMenu.close();
+            } else {
+              setFirstMenuSelection(value);
+              secondMenu.open(event);
+            }
+          }}
+        />
 
-      <MenuPopover
-        popover={secondMenu}
-        items={props.options[firstMenuSelection]}
-        onClick={(
-          unused_event: React.MouseEvent<HTMLElement>,
-          value: string
-        ) => {
-          firstMenu.close();
-          secondMenu.close();
-          props.onOptionUpdate(firstMenuSelection, value);
-        }}
-        onClose={firstMenu.close}
-      />
+        <MenuPopover
+          popover={secondMenu}
+          items={props.options[firstMenuSelection]}
+          onClick={(
+            unused_event: React.MouseEvent<HTMLElement>,
+            value: string
+          ) => {
+            firstMenu.close();
+            secondMenu.close();
+            props.onOptionUpdate(firstMenuSelection, value);
+          }}
+          onClose={firstMenu.close}
+        />
+      </div>
     </>
   );
 }
