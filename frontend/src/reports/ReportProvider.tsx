@@ -178,9 +178,7 @@ function ReportProvider(props: ReportProviderProps) {
           <Grid item>
             {/* SOCIAL SHARE BUTTONS */}
             <TwitterShareButton
-              url={
-                "https://deploy-preview-1224--health-equity-tracker.netlify.app/share_tracker.html"
-              }
+              url={text}
               title={title}
               hashtags={["healthequity"]}
               related={["@SatcherHealth", "@MSMEDU"]}
@@ -190,9 +188,7 @@ function ReportProvider(props: ReportProviderProps) {
             </TwitterShareButton>
 
             <FacebookShareButton
-              url={
-                "https://deploy-preview-1224--health-equity-tracker.netlify.app/share_tracker.html"
-              }
+              url={text}
               hashtag={"#healthequity"}
               quote={title}
               aria-label={"Share to Facebook"}
@@ -203,9 +199,7 @@ function ReportProvider(props: ReportProviderProps) {
             <LinkedinShareButton
               title={title}
               source={"Health Equity Tracker"}
-              url={
-                "https://deploy-preview-1224--health-equity-tracker.netlify.app/share_tracker.html"
-              }
+              url={text}
               aria-label={"Share to LinkedIn"}
             >
               <LinkedinIcon {...shareIconProps} />
