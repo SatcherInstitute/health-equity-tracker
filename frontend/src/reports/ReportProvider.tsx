@@ -61,6 +61,8 @@ interface ReportProviderProps {
 }
 
 function ReportProvider(props: ReportProviderProps) {
+  console.log(props);
+
   const fieldRef = useRef<HTMLInputElement>(null);
   const definitionsRef = useRef<HTMLInputElement>(null);
 
