@@ -6,6 +6,7 @@ import {
   getMadLibWithUpdatedValue,
   DropdownVarId,
   MadLibId,
+  getMadLibPhraseText,
 } from "../utils/MadLibs";
 import { Fips } from "../data/utils/Fips";
 import {
@@ -44,9 +45,6 @@ export const shareIconProps = {
   alt: "alt text",
 };
 
-const text = "sample text";
-const title = "sample title";
-
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
   const segment = madLib.phrase[segmentIndex];
   return typeof segment === "string"
@@ -61,7 +59,15 @@ interface ReportProviderProps {
 }
 
 function ReportProvider(props: ReportProviderProps) {
-  console.log(props);
+  let title: string = `Health Equity Tracker${
+    props.madLib ? ": " + getMadLibPhraseText(props.madLib) : ""
+  }`;
+  let text = window.location.href;
+  if (process.env.NODE_ENV === "development")
+    text = text.replace(
+      "http://localhost:3000",
+      "https://healthequitytracker.org"
+    );
 
   const fieldRef = useRef<HTMLInputElement>(null);
   const definitionsRef = useRef<HTMLInputElement>(null);
@@ -172,7 +178,9 @@ function ReportProvider(props: ReportProviderProps) {
           <Grid item>
             {/* SOCIAL SHARE BUTTONS */}
             <TwitterShareButton
-              url={text}
+              url={
+                "https://deploy-preview-1224--health-equity-tracker.netlify.app/share_tracker.html"
+              }
               title={title}
               hashtags={["healthequity"]}
               related={["@SatcherHealth", "@MSMEDU"]}
@@ -182,7 +190,9 @@ function ReportProvider(props: ReportProviderProps) {
             </TwitterShareButton>
 
             <FacebookShareButton
-              url={text}
+              url={
+                "https://deploy-preview-1224--health-equity-tracker.netlify.app/share_tracker.html"
+              }
               hashtag={"#healthequity"}
               quote={title}
               aria-label={"Share to Facebook"}
@@ -193,7 +203,9 @@ function ReportProvider(props: ReportProviderProps) {
             <LinkedinShareButton
               title={title}
               source={"Health Equity Tracker"}
-              url={text}
+              url={
+                "https://deploy-preview-1224--health-equity-tracker.netlify.app/share_tracker.html"
+              }
               aria-label={"Share to LinkedIn"}
             >
               <LinkedinIcon {...shareIconProps} />
