@@ -33,20 +33,27 @@ function OptionsSelector(props: {
     currentDisplayName = chosenOption ? chosenOption[1] : "";
   }
 
-  const [textBoxValue, setTextBoxValue] = useState("");
+  const [, setTextBoxValue] = useState("");
   const updateTextBox = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTextBoxValue(event.target.value);
   };
 
   const [autoCompleteOpen, setAutoCompleteOpen] = useState(false);
   const openAutoComplete = () => {
-    if (textBoxValue.length >= 1) {
-      setAutoCompleteOpen(true);
-    }
+    setAutoCompleteOpen(true);
   };
   const closeAutoComplete = () => {
     setAutoCompleteOpen(false);
   };
+
+  function getGroupName(option: Fips): string {
+    if (option.isUsa()) return "National";
+    if (option.isState()) return "States";
+    if (option.isTerritory()) return "Territories";
+    return `${option.getParentFips().getDisplayName()} ${
+      option.getParentFips().isTerritory() ? " County Equivalents" : " Counties"
+    }`;
+  }
 
   return (
     <>
@@ -81,7 +88,9 @@ function OptionsSelector(props: {
 
             <Autocomplete
               disableClearable={true}
+              autoHighlight={true}
               options={props.options as Fips[]}
+              groupBy={(option) => getGroupName(option)}
               clearOnEscape={true}
               getOptionLabel={(fips) => fips.getFullDisplayName()}
               getOptionSelected={(fips) => fips.code === props.value}
@@ -94,6 +103,7 @@ function OptionsSelector(props: {
                   placeholder="County, State, Territory, or United States"
                   margin="dense"
                   variant="outlined"
+                  autoFocus={true}
                   onChange={updateTextBox}
                   {...params}
                 />
