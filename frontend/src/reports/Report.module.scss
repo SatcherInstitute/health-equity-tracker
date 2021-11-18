@@ -21,10 +21,9 @@
   }
 }
 
-.ReportToolbar {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+.ShareLabel {
+  font-weight: 500;
+  color: $alt-green;
 }
 
 .MissingDataInfo {

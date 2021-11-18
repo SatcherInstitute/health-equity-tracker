@@ -9,19 +9,7 @@ import FileCopyIcon from "@material-ui/icons/FileCopy";
 import React, { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { getMadLibPhraseText, MadLib } from "../../utils/MadLibs";
-import {
-  EmailShareButton,
-  FacebookShareButton,
-  LinkedinShareButton,
-  TwitterShareButton,
-  EmailIcon,
-  FacebookIcon,
-  LinkedinIcon,
-  TwitterIcon,
-} from "react-share";
 import { Box } from "@material-ui/core";
-
-export const SHARE_ICON_SIZE = 64;
 
 function ShareDialog(props: {
   shareModalOpen: boolean;
@@ -52,40 +40,6 @@ function ShareDialog(props: {
       <DialogTitle>{title}</DialogTitle>
 
       <DialogContent>
-        {/* SOCIAL SHARE BUTTONS */}
-
-        <TwitterShareButton
-          url={text}
-          title={title}
-          hashtags={["healthequity"]}
-          related={["@SatcherHealth", "@MSMEDU"]}
-        >
-          <TwitterIcon size={SHARE_ICON_SIZE} />
-        </TwitterShareButton>
-
-        <FacebookShareButton url={text} hashtag={"#healthequity"} quote={title}>
-          <FacebookIcon size={SHARE_ICON_SIZE} />
-        </FacebookShareButton>
-
-        <LinkedinShareButton
-          title={title}
-          // summary={summary}
-          source={"Health Equity Tracker"}
-          url={text}
-        >
-          <LinkedinIcon size={SHARE_ICON_SIZE} />
-        </LinkedinShareButton>
-
-        <EmailShareButton
-          subject={`Sharing from healthequitytracker.org`}
-          body={`${title}
-        
-`} // KEEP THIS WEIRD SPACING FOR EMAIL LINE BREAKS!
-          url={text}
-        >
-          <EmailIcon size={SHARE_ICON_SIZE} />
-        </EmailShareButton>
-
         <DialogContentText>
           <CopyToClipboard text={text} onCopy={() => setTextCopied(true)}>
             <Button startIcon={<FileCopyIcon />}>
