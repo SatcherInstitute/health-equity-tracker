@@ -321,7 +321,6 @@ function MapCardWithKey(props: MapCardProps) {
                   </Alert>
                 </CardContent>
               )}
-
             {metricConfig && dataForActiveBreakdownFilter.length ? (
               <CardContent>
                 <ChoroplethMap
