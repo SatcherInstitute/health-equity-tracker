@@ -117,7 +117,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 className={styles.SmallMultipleMap}
               >
                 <b>{breakdownValue}</b>
-                {props.metricConfig && (
+                {props.metricConfig && dataForValue.length ? (
                   <ChoroplethMap
                     key={breakdownValue}
                     signalListeners={{ click: (...args: any) => {} }}
@@ -137,9 +137,12 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                       breakdownValue === "All" ? "" : ` for ${breakdownValue}`
                     } in ${props.fips.getFullDisplayName()}`}
                   />
+                ) : (
+                  <></>
                 )}
                 {props.metricConfig &&
-                  props.fips.isUsa() &&
+                props.fips.isUsa() &&
+                dataForValue.length ? (
                   TERRITORY_CODES.map((code) => {
                     const fips = new Fips(code);
                     return (
@@ -162,7 +165,10 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                         />
                       </div>
                     );
-                  })}
+                  })
+                ) : (
+                  <></>
+                )}
               </Grid>
             );
           })}

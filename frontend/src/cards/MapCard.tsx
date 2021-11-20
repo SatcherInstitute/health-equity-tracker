@@ -322,7 +322,7 @@ function MapCardWithKey(props: MapCardProps) {
                 </CardContent>
               )}
 
-            {metricConfig && (
+            {metricConfig && dataForActiveBreakdownFilter.length ? (
               <CardContent>
                 <ChoroplethMap
                   useSmallSampleMessage={
@@ -410,6 +410,8 @@ function MapCardWithKey(props: MapCardProps) {
                     />
                   )}
               </CardContent>
+            ) : (
+              <></>
             )}
           </>
         );
