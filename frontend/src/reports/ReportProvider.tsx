@@ -6,7 +6,6 @@ import {
   getMadLibWithUpdatedValue,
   DropdownVarId,
   MadLibId,
-  getMadLibPhraseText,
 } from "../utils/MadLibs";
 import { Fips } from "../data/utils/Fips";
 import {
@@ -25,25 +24,7 @@ import {
   VACCINATED_DEF,
 } from "../pages/DataCatalog/MethodologyTab";
 import { Link } from "react-router-dom";
-import {
-  EmailShareButton,
-  FacebookShareButton,
-  LinkedinShareButton,
-  TwitterShareButton,
-  EmailIcon,
-  FacebookIcon,
-  LinkedinIcon,
-  TwitterIcon,
-} from "react-share";
-import sass from "../styles/variables.module.scss";
-import { Grid } from "@material-ui/core";
-
-export const shareIconProps = {
-  iconFillColor: sass.altGreen,
-  bgStyle: { fill: "none" },
-  size: 32,
-  alt: "alt text",
-};
+import ShareButtons from "./ui/ShareButtons";
 
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
   const segment = madLib.phrase[segmentIndex];
@@ -59,16 +40,6 @@ interface ReportProviderProps {
 }
 
 function ReportProvider(props: ReportProviderProps) {
-  let title: string = `Health Equity Tracker${
-    props.madLib ? ": " + getMadLibPhraseText(props.madLib) : ""
-  }`;
-  let text = window.location.href;
-  if (process.env.NODE_ENV === "development")
-    text = text.replace(
-      "http://localhost:3000",
-      "https://healthequitytracker.org"
-    );
-
   const fieldRef = useRef<HTMLInputElement>(null);
   const definitionsRef = useRef<HTMLInputElement>(null);
 
@@ -174,51 +145,7 @@ function ReportProvider(props: ReportProviderProps) {
   return (
     <>
       <div className={styles.ReportWrapper}>
-        <Grid container spacing={3} justify={"flex-end"} alignItems={"center"}>
-          <Grid item>
-            {/* SOCIAL SHARE BUTTONS */}
-            <TwitterShareButton
-              url={text}
-              title={title}
-              hashtags={["healthequity"]}
-              related={["@SatcherHealth", "@MSMEDU"]}
-              aria-label={"Share to Twitter"}
-            >
-              <TwitterIcon {...shareIconProps} />
-            </TwitterShareButton>
-
-            <FacebookShareButton
-              url={text}
-              hashtag={"#healthequity"}
-              quote={title}
-              aria-label={"Share to Facebook"}
-            >
-              <FacebookIcon {...shareIconProps} />
-            </FacebookShareButton>
-
-            <LinkedinShareButton
-              title={title}
-              source={"Health Equity Tracker"}
-              url={text}
-              aria-label={"Share to LinkedIn"}
-            >
-              <LinkedinIcon {...shareIconProps} />
-            </LinkedinShareButton>
-
-            <EmailShareButton
-              aria-label={"Share by email"}
-              subject={`Sharing from healthequitytracker.org`}
-              body={`${title}
-                
-              
-`} // KEEP THIS WEIRD SPACING FOR EMAIL LINE BREAKS!
-              url={text}
-            >
-              <EmailIcon {...shareIconProps} />
-            </EmailShareButton>
-          </Grid>
-        </Grid>
-
+        <ShareButtons madLib={props.madLib} />
         <DisclaimerAlert jumpToData={jumpToData} />
         {getReport()}
       </div>
