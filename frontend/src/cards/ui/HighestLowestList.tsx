@@ -56,6 +56,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
         </IconButton>
       </div>
       <div
+        onClick={() => props.setListExpanded(!props.listExpanded)}
         aria-hidden={true}
         className={
           props.listExpanded ? styles.ListBoxTitleExpanded : styles.ListBoxTitle
