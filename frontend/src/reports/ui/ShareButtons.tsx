@@ -32,7 +32,7 @@ function ShareButtons(props: ShareButtonProps) {
   if (process.env.NODE_ENV === "development")
     text = text.replace(
       "http://localhost:3000",
-      "https://healthequitytracker.org"
+      "https://deploy-preview-1106--health-equity-tracker.netlify.app"
     );
 
   let title: string = "Health Equity Tracker";

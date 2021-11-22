@@ -34,7 +34,6 @@ export default function SinglePost() {
   const [fullArticle, setFullArticle] = useState<Article>();
   const [prevArticle, setPrevArticle] = useState<Article>();
   const [nextArticle, setNextArticle] = useState<Article>();
-  const [shareModalOpen, setShareModalOpen] = useState(false);
 
   let { slug }: { slug: string } = useParams();
 
