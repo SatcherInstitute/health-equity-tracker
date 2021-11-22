@@ -63,7 +63,7 @@ export default function SinglePost() {
     }
   }, [articles, slug]);
 
-  const articleUrl = fullArticle?.link || "https://healthequitytracker.org";
+  // const articleUrl = fullArticle?.link || "https://healthequitytracker.org";
 
   const articleCategories = fullArticle?._embedded?.["wp:term"]?.[0];
 
