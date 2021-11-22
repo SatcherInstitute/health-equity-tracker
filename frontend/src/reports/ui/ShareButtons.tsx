@@ -13,6 +13,8 @@ import { Grid } from "@material-ui/core";
 import { getMadLibPhraseText, MadLib } from "../../utils/MadLibs";
 import styles from "./ShareButtons.module.scss";
 import sass from "../../styles/variables.module.scss";
+import { Article } from "../../pages/WhatIsHealthEquity/NewsTab";
+import parse from "html-react-parser";
 
 export const shareIconAttributes = {
   iconFillColor: sass.altGreen,
@@ -21,13 +23,11 @@ export const shareIconAttributes = {
 };
 
 export interface ShareButtonProps {
-  madLib: MadLib;
+  madLib?: MadLib;
+  article?: Article;
 }
 
 function ShareButtons(props: ShareButtonProps) {
-  let title: string = `Health Equity Tracker${
-    props.madLib ? ": " + getMadLibPhraseText(props.madLib) : ""
-  }`;
   let text = window.location.href;
   if (process.env.NODE_ENV === "development")
     text = text.replace(
@@ -35,8 +35,20 @@ function ShareButtons(props: ShareButtonProps) {
       "https://healthequitytracker.org"
     );
 
+  let title: string = "Health Equity Tracker";
+  if (props.madLib) {
+    title += ": " + getMadLibPhraseText(props.madLib);
+  }
+  if (props.article) {
+    title += ((": “" + parse(props.article.title.rendered)) as string) + "”";
+  }
+
   return (
-    <Grid container justify={"flex-end"} alignItems={"center"}>
+    <Grid
+      container
+      justify={props.madLib ? "flex-end" : "flex-start"}
+      alignItems={"center"}
+    >
       <Grid item>
         <p className={styles.ShareLabel}>Share:</p>
       </Grid>

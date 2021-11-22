@@ -15,13 +15,12 @@ import {
 import { Helmet } from "react-helmet";
 import NewsPreviewCard from "./NewsPreviewCard";
 import { useQuery } from "react-query";
-import ShareDialog from "../../../reports/ui/ShareDialog";
-import ShareIcon from "@material-ui/icons/Share";
 import OpenInNewIcon from "@material-ui/icons/OpenInNew";
 import { Article } from "../NewsTab";
 import hetLogo from "../../../assets/AppbarLogo.png";
 import { Skeleton } from "@material-ui/lab";
 import SignupSection from "../../ui/SignupSection";
+import ShareButtons from "../../../reports/ui/ShareButtons";
 
 export const ARTICLE_DESCRIPTION =
   "Article from the Health Equity Tracker: a free-to-use data and visualization platform that is enabling new insights into the impact of COVID-19 and other determinants of health on marginalized groups in the United States.";
@@ -201,21 +200,7 @@ export default function SinglePost() {
               <></>
             )}
 
-            <Box textAlign="end">
-              <ShareDialog
-                article={fullArticle}
-                shareModalOpen={shareModalOpen}
-                setShareModalOpen={setShareModalOpen}
-              />
-              <Button
-                color="primary"
-                startIcon={<ShareIcon />}
-                onClick={() => setShareModalOpen(true)}
-                data-tip="Share this article on social media"
-              >
-                Share
-              </Button>
-            </Box>
+            <ShareButtons article={fullArticle} />
           </Grid>
         </Grid>
         <Grid
