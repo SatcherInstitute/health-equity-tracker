@@ -99,21 +99,6 @@ export default function SinglePost() {
             />
           )}
           <meta name="description" content={ARTICLE_DESCRIPTION} />
-
-          {/* <!-- Google / Search Engine Tags --> */}
-          <meta itemProp="name" content="Health Equity Tracker" />
-          <meta itemProp="description" content={ARTICLE_DESCRIPTION} />
-
-          {/* <!-- Facebook Meta Tags --> */}
-          <meta property="og:url" content={articleUrl} />
-          <meta property="og:type" content="website" />
-          <meta property="og:title" content="Health Equity Tracker" />
-          <meta property="og:description" content={ARTICLE_DESCRIPTION} />
-
-          {/* <!-- Twitter Meta Tags --> */}
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="Health Equity Tracker" />
-          <meta name="twitter:description" content={ARTICLE_DESCRIPTION} />
         </Helmet>
         <Grid
           container
