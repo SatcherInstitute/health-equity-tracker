@@ -14,7 +14,7 @@ function MissingDataAlert(props: {
   return (
     <Alert severity="warning">
       We do not currently have
-      {props.noDemographicInfo ? "demographic information for" : ""}{" "}
+      {props.noDemographicInfo ? " demographic information for " : " "}
       <b>{props.dataName}</b> {props.noDemographicInfo ? "" : "broken down by"}
       {props.noDemographicInfo ? "" : <b> {props.breakdownString} </b>}
       at the {props.geoLevel ? <b>{props.geoLevel}</b> : "selected"} level.
