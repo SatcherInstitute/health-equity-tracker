@@ -1,4 +1,5 @@
-import { Box, Button, Grid, Typography } from "@material-ui/core";
+import { Box, Button, Grid, Typography, Link } from "@material-ui/core";
+
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -149,7 +150,15 @@ export default function SinglePost() {
               variant="body1"
             >
               {fullArticle?.acf?.contributing_author ? (
-                `Authored by ${fullArticle.acf.contributing_author}`
+                <>
+                  Authored by{" "}
+                  <Link
+                    className={styles.FilterLink}
+                    onClick={() => console.log("click")}
+                  >
+                    {fullArticle.acf.contributing_author}
+                  </Link>
+                </>
               ) : (
                 <Skeleton></Skeleton>
               )}
@@ -176,8 +185,13 @@ export default function SinglePost() {
                 variant="body1"
               >
                 Categorized under:{" "}
-                {articleCategories.map((categoryChunk) => (
-                  <span key={categoryChunk.id}>{categoryChunk.name} </span>
+                {articleCategories.map((categoryChunk, i) => (
+                  <>
+                    <Link className={styles.CategoryTag} key={categoryChunk.id}>
+                      {categoryChunk.name}
+                    </Link>
+                    {i < articleCategories.length - 1 ? ", " : ""}
+                  </>
                 ))}
               </Typography>
             ) : (

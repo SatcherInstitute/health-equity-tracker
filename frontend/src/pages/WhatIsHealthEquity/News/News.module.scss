@@ -57,8 +57,16 @@
     .SingleArticleDetailText {
       color: $alt-dark;
       font-weight: 400;
-      font-size: 1rem;
+      font-size: 0.9rem;
       text-align: start;
+
+      a {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+
+      // .CategoryTag {
+      // }
     }
   }
 }
