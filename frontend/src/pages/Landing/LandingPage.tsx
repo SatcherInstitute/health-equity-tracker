@@ -13,7 +13,7 @@ import {
 import FaqSection from "../ui/FaqSection";
 import { Box } from "@material-ui/core";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
-import { Helmet, HelmetProvider } from "react-helmet-async";
+import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
 
 function TakeALookAroundItem(props: {
@@ -51,7 +51,7 @@ function LandingPage() {
   const prefersReducedMotion = usePrefersReducedMotion();
 
   return (
-    <HelmetProvider>
+    <>
       <Helmet>
         <title>Home - Health Equity Tracker</title>
         <link rel="preload" as="image" href="/img/stock/family-laughing.png" />
@@ -449,7 +449,7 @@ function LandingPage() {
           </Grid>
         </Grid>
       </div>
-    </HelmetProvider>
+    </>
   );
 }
 

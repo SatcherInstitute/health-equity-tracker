@@ -6,7 +6,7 @@ import {
   CONTACT_TAB_LINK,
   EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK,
 } from "../../utils/urlutils";
-import { Helmet, HelmetProvider } from "react-helmet-async";
+import { Helmet } from "react-helmet-async";
 import parse from "html-react-parser";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
 import { METRIC_CONFIG } from "../../data/config/MetricConfig";
@@ -37,7 +37,7 @@ function MethodologyTab() {
   }
 
   return (
-    <HelmetProvider>
+    <>
       <Helmet>
         <title>Methodology - Health Equity Tracker</title>
       </Helmet>
@@ -488,7 +488,7 @@ function MethodologyTab() {
           </Grid>
         </Grid>
       </Grid>
-    </HelmetProvider>
+    </>
   );
 }
 

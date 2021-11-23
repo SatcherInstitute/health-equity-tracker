@@ -2,7 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import { Typography } from "@material-ui/core";
-import { Helmet, HelmetProvider } from "react-helmet-async";
+import { Helmet } from "react-helmet-async";
 
 const RESOURCES = [
   {
@@ -265,7 +265,7 @@ const RESOURCES = [
 
 function ResourcesTab() {
   return (
-    <HelmetProvider>
+    <>
       <Helmet>
         <title>
           Health Equity Resources - What Is Health Equity? - Health Equity
@@ -305,7 +305,7 @@ function ResourcesTab() {
           </Grid>
         </Grid>
       </Grid>
-    </HelmetProvider>
+    </>
   );
 }
 

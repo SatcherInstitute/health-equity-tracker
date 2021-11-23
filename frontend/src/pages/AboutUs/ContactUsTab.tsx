@@ -3,11 +3,11 @@ import Grid from "@material-ui/core/Grid";
 import styles from "./AboutUsPage.module.scss";
 import Typography from "@material-ui/core/Typography";
 import Hidden from "@material-ui/core/Hidden";
-import { Helmet, HelmetProvider } from "react-helmet-async";
+import { Helmet } from "react-helmet-async";
 
 function ContactUsTab() {
   return (
-    <HelmetProvider>
+    <>
       <Helmet>
         <title>Contact Us - About Us - Health Equity Tracker</title>
       </Helmet>
@@ -103,7 +103,7 @@ function ContactUsTab() {
           </Grid>
         </Grid>
       </Grid>
-    </HelmetProvider>
+    </>
   );
 }
 
