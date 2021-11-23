@@ -26,6 +26,7 @@ import MaterialTheme from "./styles/MaterialTheme";
 import { autoInitGlobals } from "./utils/globals";
 import {
   ABOUT_US_PAGE_LINK,
+  NEWS_TAB_LINK,
   CONTACT_TAB_LINK,
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
@@ -155,6 +156,7 @@ function ScrollToTop() {
 }
 
 function App() {
+  // TODO this should be used instead of the width query I added in WIHE for tab names -ben
   const [width, setWidth] = useState(window.innerWidth);
   useEffect(() => {
     function handleResize() {
@@ -239,6 +241,21 @@ function App() {
                     <Route path={`/termsofservice`}>
                       <Redirect to={TERMS_OF_USE_PAGE_LINK} />
                     </Route>
+
+                    <Route
+                      path={RESOURCES_TAB_LINK}
+                      render={() => <WhatIsHealthEquityPage />}
+                    />
+
+                    <Route
+                      path={NEWS_TAB_LINK}
+                      render={() => <WhatIsHealthEquityPage />}
+                    />
+
+                    <Route
+                      path={TERMS_OF_USE_PAGE_LINK}
+                      render={() => <TermsOfUsePage />}
+                    />
 
                     <Route exact path="/" render={() => <LandingPage />} />
                     {/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}

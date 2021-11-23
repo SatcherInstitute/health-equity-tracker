@@ -47,7 +47,11 @@ function TakeALookAroundItem(props: {
   );
 }
 
-function LandingPage() {
+export interface LandingPageProps {
+  articles?: any[];
+}
+
+function LandingPage(props: LandingPageProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
 
   return (

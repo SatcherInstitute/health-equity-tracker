@@ -1,0 +1,280 @@
+@import "../../../styles/variables.module.scss";
+
+/** ------------- HEADER ROW ------------- **/
+
+.HeaderRow {
+  border-bottom: $bottom-border-style;
+
+  .HeaderImgItem {
+    align-items: center;
+    justify-content: center;
+
+    .SingleArticleHeaderImg {
+      border-radius: 30px;
+      height: auto;
+      width: 60%;
+      object-fit: contain;
+      max-height: 300px;
+      max-width: 400px;
+      margin-top: 2rem;
+      @media only screen and (min-width: $md) {
+        max-height: 770px;
+        margin-top: 0;
+      }
+    }
+  }
+
+  .SingleArticleHeaderTextItem {
+    justify-content: center;
+    padding: 2rem 15%;
+    @media (min-width: $md) {
+      border-left: 1px solid $border-color;
+      padding: 104px 66px 104px 66px;
+    }
+
+    .SingleArticleHeaderText {
+      text-align: left;
+      font-weight: 300;
+      font-family: "Taviraj", serif !important;
+      color: $alt-green;
+      padding-bottom: 1rem;
+      font-size: 2.125rem;
+      line-height: 100%;
+
+      @media (min-width: $md) {
+        font-size: 3rem;
+      }
+    }
+
+    .SingleArticleHeaderSubtext {
+      font-size: 1rem;
+      text-align: left;
+      font-weight: 400;
+      line-height: 100%;
+      font-family: "Inter", sans-serif !important;
+    }
+
+    .SingleArticleDetailText {
+      color: $alt-dark;
+      font-weight: 400;
+      font-size: 0.9rem;
+      text-align: start;
+
+      a {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+
+      // .CategoryTag {
+      // }
+    }
+  }
+}
+
+.AllArticlesSection {
+  padding: 50px 20px 50px 20px;
+  border-bottom: 1px solid $alt-grey;
+}
+
+.FeaturedContainer {
+  background-color: $bg-color;
+  border-radius: 20px;
+}
+
+.AllArticlesHeaderText,
+.FeaturedArticlesHeaderText {
+  text-align: center;
+  font-weight: 300;
+  font-family: "Taviraj", serif !important;
+  color: $alt-green;
+}
+
+.AllArticlesHeaderText {
+  font-size: 3rem !important;
+}
+
+.AllArticlesHeaderSubtext {
+  font-size: 20px;
+  text-align: left;
+  font-weight: 300;
+  line-height: 24px;
+  font-family: "Inter", sans-serif !important;
+}
+
+.AllPostsBigImg {
+  width: 60%;
+  height: auto;
+  border-radius: 30px;
+}
+
+.AllArticlesTitleLink {
+  text-decoration: none;
+}
+.AllArticlesTitleText {
+  margin: 5px 40px 30px 40px;
+  font-size: 1.25rem;
+  text-align: center;
+  font-weight: 300;
+  font-family: "Taviraj", serif !important;
+  line-height: 90%;
+  color: $alt-green;
+}
+
+// for mobile filter section
+.Divider {
+  border-top: 1px solid $alt-grey;
+  padding: 1rem;
+  margin-top: 4rem;
+}
+
+.FullArticleContainer {
+  width: 100vw;
+  max-width: $max-width;
+  margin: 2rem;
+  border-bottom: 1px solid $alt-grey;
+  padding: 2rem;
+  @media (min-width: $sm) {
+    width: 75vw;
+  }
+  @media (min-width: $md) {
+    width: 50vw;
+  }
+
+  p,
+  li {
+    font-size: 1.2rem;
+    line-height: 150%;
+    text-align: left;
+    font-weight: 400;
+    font-family: "Inter", sans-serif;
+
+    color: $alt-black;
+  }
+
+  blockquote > p {
+    font-weight: 200;
+    font-style: italic;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 300;
+    line-height: 100%;
+    font-family: "Taviraj", serif !important;
+    color: $alt-green;
+    text-align: left;
+  }
+
+  h1 {
+    font-size: 3.75rem !important;
+  }
+  h2 {
+    font-size: 3rem !important;
+  }
+  h3 {
+    font-size: 2.125rem !important;
+  }
+  h4 {
+    font-size: 1.5rem !important;
+  }
+  h5 {
+    font-size: 1.25rem !important;
+  }
+  h6 {
+    font-size: 1rem !important;
+  }
+
+  ol,
+  ul,
+  blockquote {
+    text-align: left;
+  }
+
+  p > img {
+    display: block;
+    margin: 40px auto 0px auto;
+    width: 40%;
+    height: auto;
+  }
+
+  .ReprintNotice {
+    font-style: italic;
+    font-size: small;
+    font-weight: 100;
+  }
+}
+
+// featured image is loaded in header separately, so hide in content HTML
+figure,
+hr {
+  display: none !important;
+}
+
+.FullLink {
+  background-color: $alt-green;
+  color: white !important;
+  border-radius: 40px !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  font-family: "DM Sans", sans-serif !important;
+  padding: 16px 30px !important;
+  text-align: center;
+}
+
+.PrevNextSection {
+  border-bottom: 1px solid $alt-grey;
+  display: flex;
+  align-items: center;
+}
+
+.NewsPreviewHeaderText {
+  font-size: 1.2rem !important;
+  text-align: center;
+  font-weight: 200 !important;
+  font-family: "Taviraj", serif !important;
+  line-height: 120% !important;
+  padding: 1rem !important;
+}
+
+.NewsPreviewHeaderText > span {
+  display: block;
+}
+
+.NewsPreviewThumbnail,
+.LogoThumbnail {
+  max-height: 100px;
+  width: auto;
+  border-radius: 10%;
+}
+
+.PrevNextArrow {
+  font-size: 3rem;
+}
+
+.FilterListBox {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  height: auto;
+  width: 70%;
+}
+
+.FilterListHeader {
+  margin-bottom: 0px;
+  font-weight: 300;
+  font-family: "Taviraj", serif !important;
+  line-height: 40px;
+  color: $alt-black;
+}
+
+.FilterList {
+  text-align: start;
+  font-size: 1rem;
+  width: 80%;
+  margin-bottom: 5rem;
+}
