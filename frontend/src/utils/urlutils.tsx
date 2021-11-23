@@ -86,12 +86,6 @@ export const REACT_QUERY_OPTIONS = {
 };
 
 export async function fetchNewsData() {
-  console.log(
-    "FETCHING from",
-    `${
-      NEWS_URL + WP_API + ALL_POSTS
-    }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${MAX_FETCH}`
-  );
   return await axios.get(
     `${
       NEWS_URL + WP_API + ALL_POSTS
@@ -99,8 +93,7 @@ export async function fetchNewsData() {
   );
 }
 
-export async function fetchCopyData(id: number) {
-  console.log("FETCHING from", `${NEWS_URL + WP_API + ALL_PAGES}/${id}`);
+export async function fetchCopyData() {
   return await axios.get(`${NEWS_URL + WP_API + ALL_PAGES}/${WIHE_PAGE_ID}`);
 }
 

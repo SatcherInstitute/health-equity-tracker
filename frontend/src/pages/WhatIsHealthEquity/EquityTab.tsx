@@ -11,7 +11,6 @@ import {
   fetchCopyData,
   REACT_QUERY_OPTIONS,
   WIHE_JOIN_THE_EFFORT_SECTION_ID,
-  WIHE_PAGE_ID,
 } from "../../utils/urlutils";
 import { Box } from "@material-ui/core";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
@@ -115,7 +114,7 @@ function EquityTab() {
   let wordpressCopy: WIHEWordpressCopy = WIHEFallbackCopy;
   const { data }: any = useQuery(
     DYNAMIC_COPY_KEY,
-    () => fetchCopyData(WIHE_PAGE_ID),
+    () => fetchCopyData(),
     REACT_QUERY_OPTIONS
   );
   if (data) wordpressCopy = data.data?.acf;
