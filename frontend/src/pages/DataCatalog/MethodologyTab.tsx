@@ -133,7 +133,7 @@ function MethodologyTab() {
                     incomplete and potentially skewed.
                   </li>
                   <li>
-                    When calculating national-level per100K COVID-19 rates, we
+                    When calculating national-level per100k COVID-19 rates, we
                     do not include the population of states whose data are
                     suppressed as part of the total population. See the 'What
                     data are missing' section for further details.
@@ -373,9 +373,9 @@ function MethodologyTab() {
                 </p>
                 <ul>
                   <li>
-                    <b>Total COVID-19 cases per 100K people</b>: The total rate
+                    <b>Total COVID-19 cases per 100k people</b>: The total rate
                     of occurrence of COVID-19 cases expressed per 100,000 people
-                    (i.e. 10,000 per 100K implies a 10% occurrence rate). This
+                    (i.e. 10,000 per 100k implies a 10% occurrence rate). This
                     metric normalizes for population size, allowing for
                     comparisons across demographic groups. This metric is
                     rounded to the nearest integer in the tracker.
