@@ -185,7 +185,7 @@ function AllPosts() {
 
     articles &&
       articles.forEach(
-        (article: any) =>
+        (article: Article) =>
           article.acf.contributing_author &&
           allAuthorsSet.add(article.acf.contributing_author)
       );

@@ -154,7 +154,7 @@ export default function SinglePost() {
                   Authored by{" "}
                   <Link
                     className={styles.FilterLink}
-                    onClick={() => console.log("click")}
+                    href={`${NEWS_TAB_LINK}?author=${fullArticle.acf.contributing_author}`}
                   >
                     {fullArticle.acf.contributing_author}
                   </Link>
@@ -187,7 +187,11 @@ export default function SinglePost() {
                 Categorized under:{" "}
                 {articleCategories.map((categoryChunk, i) => (
                   <>
-                    <Link className={styles.CategoryTag} key={categoryChunk.id}>
+                    <Link
+                      className={styles.CategoryTag}
+                      key={categoryChunk.id}
+                      href={`${NEWS_TAB_LINK}?category=${categoryChunk.name}`}
+                    >
                       {categoryChunk.name}
                     </Link>
                     {i < articleCategories.length - 1 ? ", " : ""}
