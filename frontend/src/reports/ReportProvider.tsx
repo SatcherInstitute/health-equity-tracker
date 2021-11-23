@@ -6,6 +6,7 @@ import {
   getMadLibWithUpdatedValue,
   DropdownVarId,
   MadLibId,
+  getMadLibPhraseText,
 } from "../utils/MadLibs";
 import { Fips } from "../data/utils/Fips";
 import {
@@ -26,6 +27,7 @@ import {
   VACCINATED_DEF,
 } from "../pages/DataCatalog/MethodologyTab";
 import { Link } from "react-router-dom";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
   const segment = madLib.phrase[segmentIndex];
@@ -145,7 +147,12 @@ function ReportProvider(props: ReportProviderProps) {
   }
 
   return (
-    <>
+    <HelmetProvider>
+      <Helmet>
+        <title>
+          {getMadLibPhraseText(props.madLib)} - Health Equity Tracker
+        </title>
+      </Helmet>
       <div className={styles.ReportWrapper}>
         <ShareDialog
           madLib={props.madLib}
@@ -299,7 +306,7 @@ function ReportProvider(props: ReportProviderProps) {
           )}
         </ul>
       </aside>
-    </>
+    </HelmetProvider>
   );
 }
 

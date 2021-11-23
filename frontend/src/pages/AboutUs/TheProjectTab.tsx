@@ -16,7 +16,7 @@ import {
 } from "../../utils/urlutils";
 import Hidden from "@material-ui/core/Hidden";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
 import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
 import { METRIC_CONFIG } from "../../data/config/MetricConfig";
@@ -81,7 +81,7 @@ function TheProjectTab() {
     ) * DEMOGRAPHIC_BREAKDOWNS.length;
 
   return (
-    <>
+    <HelmetProvider>
       <Helmet>
         <title>The Project - About Us - Health Equity Tracker</title>
       </Helmet>
@@ -436,7 +436,7 @@ function TheProjectTab() {
           </Grid>
         </Grid>
       </Grid>
-    </>
+    </HelmetProvider>
   );
 }
 

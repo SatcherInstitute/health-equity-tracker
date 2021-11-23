@@ -2,7 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
 
 const LEADERSHIP_TEAM = [
@@ -258,7 +258,7 @@ const PARTNERS = [
 
 function OurTeamTab() {
   return (
-    <>
+    <HelmetProvider>
       <Helmet>
         <title>Our Team - About Us - Health Equity Tracker</title>
       </Helmet>
@@ -423,7 +423,7 @@ function OurTeamTab() {
           </LazyLoad>
         </Grid>
       </Grid>
-    </>
+    </HelmetProvider>
   );
 }
 export default OurTeamTab;

@@ -2,13 +2,13 @@ import React, { Dispatch, SetStateAction } from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./TermsOfUsePage.module.scss";
 import { Typography } from "@material-ui/core";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 function TermsOfUsePage(props: {
   setTabIndexFx?: Dispatch<SetStateAction<number>>;
 }) {
   return (
-    <>
+    <HelmetProvider>
       <Helmet>
         <title>Terms of Use - Health Equity Tracker</title>
       </Helmet>
@@ -184,7 +184,7 @@ function TermsOfUsePage(props: {
           </Grid>
         </Grid>
       </Grid>
-    </>
+    </HelmetProvider>
   );
 }
 

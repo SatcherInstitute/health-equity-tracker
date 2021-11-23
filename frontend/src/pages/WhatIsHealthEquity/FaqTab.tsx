@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import { Typography } from "@material-ui/core";
 import { CONTACT_TAB_LINK, DATA_CATALOG_PAGE_LINK } from "../../utils/urlutils";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import { CITATION_APA } from "../DataCatalog/MethodologyTab";
 import parse from "html-react-parser";
 
@@ -118,7 +118,7 @@ Specific information on update frequencies by source can be found on our <a href
 
 function FaqTab() {
   return (
-    <>
+    <HelmetProvider>
       <Helmet>
         <title>FAQ - What Is Health Equity - Health Equity Tracker</title>
       </Helmet>
@@ -358,7 +358,7 @@ function FaqTab() {
           </Grid>
         </Grid>
       </Grid>
-    </>
+    </HelmetProvider>
   );
 }
 
