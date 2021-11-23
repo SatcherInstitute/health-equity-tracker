@@ -186,16 +186,15 @@ export default function SinglePost() {
               >
                 Categorized under:{" "}
                 {articleCategories.map((categoryChunk, i) => (
-                  <>
+                  <span key={categoryChunk.id}>
                     <Link
                       className={styles.CategoryTag}
-                      key={categoryChunk.id}
                       href={`${NEWS_TAB_LINK}?category=${categoryChunk.name}`}
                     >
                       {categoryChunk.name}
                     </Link>
                     {i < articleCategories.length - 1 ? ", " : ""}
-                  </>
+                  </span>
                 ))}
               </Typography>
             ) : (
