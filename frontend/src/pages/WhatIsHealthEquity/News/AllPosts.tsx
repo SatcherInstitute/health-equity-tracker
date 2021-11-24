@@ -15,7 +15,7 @@ import {
   REACT_QUERY_OPTIONS,
   NEWS_TAB_LINK,
 } from "../../../utils/urlutils";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import NewsCategories from "./NewsCategories";
 import NewsAuthors from "./NewsAuthors";
 import NewsPreviewCard from "./NewsPreviewCard";

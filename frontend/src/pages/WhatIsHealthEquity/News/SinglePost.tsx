@@ -13,7 +13,7 @@ import {
   ARTICLES_KEY,
   REACT_QUERY_OPTIONS,
 } from "../../../utils/urlutils";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import NewsPreviewCard from "./NewsPreviewCard";
 import { useQuery } from "react-query";
 import OpenInNewIcon from "@material-ui/icons/OpenInNew";
