@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction } from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./TermsOfUsePage.module.scss";
 import { Typography } from "@material-ui/core";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 function TermsOfUsePage(props: {
   setTabIndexFx?: Dispatch<SetStateAction<number>>;

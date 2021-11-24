@@ -13,7 +13,7 @@ import {
 import FaqSection from "../ui/FaqSection";
 import { Box } from "@material-ui/core";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
 
 function TakeALookAroundItem(props: {

@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import { Typography } from "@material-ui/core";
 import { CONTACT_TAB_LINK, DATA_CATALOG_PAGE_LINK } from "../../utils/urlutils";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { CITATION_APA } from "../DataCatalog/MethodologyTab";
 import parse from "html-react-parser";
 

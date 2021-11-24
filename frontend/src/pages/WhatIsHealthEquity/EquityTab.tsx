@@ -14,7 +14,7 @@ import {
 } from "../../utils/urlutils";
 import { Box } from "@material-ui/core";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
 import { useQuery } from "react-query";
 import sass from "../../styles/variables.module.scss";
