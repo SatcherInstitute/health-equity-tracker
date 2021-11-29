@@ -25,17 +25,17 @@ export default function FeedbackBox(props: { alwaysShow?: boolean }) {
       email={false}
       feedbackPrompt={"What brings you to the Health Equity Tracker?"}
       feedbackTypes={[
-        "General/Other Interest (please specify below)",
-        "COVID-19/Vaccination Data",
+        "General Health Equity / Other (please specify below)",
+        "COVID-19 / Vaccination Data",
         "Chronic Disease Data",
-        "Social/Political Determinants Data",
+        "Social / Political Determinants Data",
         "Behavioral/Mental Health Data",
       ]}
       interestPrompt={"What field are you in?"}
       interestTypes={[
-        "Non-Profit/Community Engagement",
-        "Legal/Political",
-        "Medical/Clinical",
+        "Non-Profit / Community Engagement",
+        "Legal / Political/Governmental",
+        "Medical / Clinical",
         "Academic",
         "Other (please specify below)",
       ]}
