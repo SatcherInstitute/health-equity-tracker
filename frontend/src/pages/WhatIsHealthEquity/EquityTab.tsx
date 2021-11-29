@@ -18,6 +18,7 @@ import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
 import { useQuery } from "react-query";
 import sass from "../../styles/variables.module.scss";
+import { externalUrls } from "../../utils/externalUrls";
 
 interface WIHEWordpressCopy {
   section2_headingLevel2: string;
@@ -444,7 +445,7 @@ function EquityTab() {
                 {wordpressCopy?.section4_c_heading3_text}
               </p>
               <form
-                action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
+                action={externalUrls.newsletterSignup}
                 method="post"
                 target="_blank"
               >
