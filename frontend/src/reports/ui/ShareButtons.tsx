@@ -25,15 +25,10 @@ export interface ShareButtonProps {
 }
 
 function ShareButtons(props: ShareButtonProps) {
-  let title: string = `Health Equity Tracker${
+  const title: string = `Health Equity Tracker${
     props.madLib ? ": " + getMadLibPhraseText(props.madLib) : ""
   }`;
-  let text = window.location.href;
-  if (process.env.NODE_ENV === "development")
-    text = text.replace(
-      "http://localhost:3000",
-      "https://healthequitytracker.org"
-    );
+  const sharedUrl: string = window.location.href;
 
   return (
     <Grid container justify={"flex-end"} alignItems={"center"}>
@@ -43,7 +38,7 @@ function ShareButtons(props: ShareButtonProps) {
       <Grid item>
         {/* SOCIAL SHARE BUTTONS */}
         <TwitterShareButton
-          url={text}
+          url={sharedUrl}
           title={title}
           hashtags={["healthequity"]}
           related={["@SatcherHealth", "@MSMEDU"]}
@@ -53,7 +48,7 @@ function ShareButtons(props: ShareButtonProps) {
         </TwitterShareButton>
 
         <FacebookShareButton
-          url={text}
+          url={sharedUrl}
           hashtag={"#healthequity"}
           quote={title}
           aria-label={"Share to Facebook"}
@@ -64,7 +59,7 @@ function ShareButtons(props: ShareButtonProps) {
         <LinkedinShareButton
           title={title}
           source={"Health Equity Tracker"}
-          url={text}
+          url={sharedUrl}
           aria-label={"Share to LinkedIn"}
         >
           <LinkedinIcon {...shareIconAttributes} />
@@ -74,10 +69,9 @@ function ShareButtons(props: ShareButtonProps) {
           aria-label={"Share by email"}
           subject={`Sharing from healthequitytracker.org`}
           body={`${title}
-            
         
-    `} // KEEP THIS WEIRD SPACING FOR EMAIL LINE BREAKS!
-          url={text}
+`} // KEEP THIS WEIRD SPACING FOR EMAIL LINE BREAKS!
+          url={sharedUrl}
         >
           <EmailIcon {...shareIconAttributes} />
         </EmailShareButton>
