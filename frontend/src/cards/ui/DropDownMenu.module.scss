@@ -7,7 +7,6 @@
 }
 
 .GroupListMenuBox {
-  @media (max-width: $sm) {
-    margin: 2%;
-  }
+  max-width: 95vw;
+  overflow-x: auto;
 }

@@ -101,7 +101,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
     >
       {!props.hidePopulationCard && (
         <Grid item xs={12} md={SINGLE_COLUMN_WIDTH}>
-          <PopulationCard fips={props.fips} />
+          <PopulationCard jumpToData={props.jumpToData} fips={props.fips} />
         </Grid>
       )}
 
