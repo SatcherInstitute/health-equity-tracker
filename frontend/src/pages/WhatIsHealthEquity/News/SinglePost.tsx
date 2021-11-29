@@ -238,7 +238,7 @@ export default function SinglePost() {
                     <span className={styles.ReprintNotice}>
                       Note: this article was originally published on{" "}
                       <a href={fullArticle?.acf?.canonical_url}>another site</a>
-                      , and is reprinted here with permission from the author.
+                      , and is reprinted here with permission.
                     </span>
                   )}
                 </Typography>
