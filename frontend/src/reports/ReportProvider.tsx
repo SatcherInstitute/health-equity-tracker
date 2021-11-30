@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { VariableDisparityReport } from "./VariableDisparityReport";
 import TwoVariableReport from "./TwoVariableReport";
 import {
@@ -17,9 +17,7 @@ import {
 } from "../utils/urlutils";
 import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
-import ShareIcon from "@material-ui/icons/Share";
 import styles from "./Report.module.scss";
-import ShareDialog from "./ui/ShareDialog";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
 import { METRIC_CONFIG } from "../data/config/MetricConfig";
 import {
@@ -27,6 +25,7 @@ import {
   VACCINATED_DEF,
 } from "../pages/DataCatalog/MethodologyTab";
 import { Link } from "react-router-dom";
+import ShareButtons from "./ui/ShareButtons";
 import { Helmet } from "react-helmet-async";
 
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
@@ -43,7 +42,6 @@ interface ReportProviderProps {
 }
 
 function ReportProvider(props: ReportProviderProps) {
-  const [shareModalOpen, setShareModalOpen] = useState(false);
   const fieldRef = useRef<HTMLInputElement>(null);
   const definitionsRef = useRef<HTMLInputElement>(null);
 
@@ -154,21 +152,7 @@ function ReportProvider(props: ReportProviderProps) {
         </title>
       </Helmet>
       <div className={styles.ReportWrapper}>
-        <ShareDialog
-          madLib={props.madLib}
-          shareModalOpen={shareModalOpen}
-          setShareModalOpen={setShareModalOpen}
-        />
-        <div className={styles.ReportToolbar}>
-          <Button
-            color="primary"
-            startIcon={<ShareIcon />}
-            onClick={() => setShareModalOpen(true)}
-            data-tip="Share a Link to this Report"
-          >
-            Share
-          </Button>
-        </div>
+        <ShareButtons madLib={props.madLib} />
         <DisclaimerAlert jumpToData={jumpToData} />
         {getReport()}
       </div>
