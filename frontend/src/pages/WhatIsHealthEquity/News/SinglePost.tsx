@@ -4,7 +4,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import styles from "./News.module.scss";
-import parse from "html-react-parser";
+// import parse from "html-react-parser";
 import { Redirect, useParams } from "react-router-dom";
 import {
   NEWS_TAB_LINK,
@@ -29,6 +29,10 @@ export const ARTICLE_DESCRIPTION =
 function prettyDate(dateString: string) {
   const options = { year: "numeric", month: "long", day: "numeric" };
   return new Date(dateString).toLocaleDateString(undefined, options as any);
+}
+
+function getHtml(item: any) {
+  return <div dangerouslySetInnerHTML={{ __html: item || "" }}></div>;
 }
 
 export default function SinglePost() {
@@ -90,7 +94,7 @@ export default function SinglePost() {
       <Grid container className={styles.Grid}>
         <Helmet>
           <title>{`News${
-            fullArticle ? " - " + parse(fullArticle.title.rendered) : ""
+            fullArticle ? " - " + getHtml(fullArticle.title.rendered) : ""
           } - Health Equity Tracker`}</title>
           {/* if cross-posted from external site, should be input on WP as canonical_url */}
           {fullArticle && (
@@ -141,7 +145,11 @@ export default function SinglePost() {
               {isLoading ? (
                 <Skeleton></Skeleton>
               ) : (
-                parse(fullArticle?.title?.rendered || "")
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: fullArticle?.title?.rendered || "",
+                  }}
+                ></span>
               )}
             </Typography>
 
@@ -159,8 +167,10 @@ export default function SinglePost() {
                     {fullArticle.acf.contributing_author}
                   </Link>
                 </>
-              ) : (
+              ) : isLoading ? (
                 <Skeleton></Skeleton>
+              ) : (
+                <></>
               )}
               {fullArticle?.acf?.contributing_author &&
               fullArticle?.acf?.post_nominals
@@ -212,7 +222,7 @@ export default function SinglePost() {
         >
           <Grid item>
             <div className={styles.FullArticleContainer}>
-              {fullArticle ? parse(fullArticle.content.rendered) : <></>}
+              {fullArticle ? getHtml(fullArticle.content.rendered) : <></>}
               {fullArticle?.acf?.full_article_url ? (
                 <Box mt={5}>
                   <Button

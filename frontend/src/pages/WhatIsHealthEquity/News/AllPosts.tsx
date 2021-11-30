@@ -318,7 +318,9 @@ function AllPosts() {
                         className={styles.AllArticlesItem}
                         key={post.id}
                       >
-                        <NewsPreviewCard article={post} />
+                        <Box my={2}>
+                          <NewsPreviewCard article={post} />
+                        </Box>
                       </Grid>
                     );
                   })}

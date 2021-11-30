@@ -208,8 +208,8 @@
   }
 }
 
-// featured image is loaded in header separately, so hide in content HTML
-figure,
+// hide featured image since already in header; hide HRs; show youtube embed <figure>
+figure > img,
 hr {
   display: none !important;
 }
