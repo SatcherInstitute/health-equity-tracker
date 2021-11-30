@@ -285,46 +285,58 @@ To upload to BigQuery from your local development environment, use [these setup 
 
 Before deploying, make sure you have installed Terraform and a Docker client (e.g. Docker Desktop). See [Set up](#Set-up) above.
 
-1. Create your own `terraform.tfvars` file in the same directory as the other terraform files. For each variable declared in `prototype_variables.tf` that doesn't have a default, add your own for testing. Typically your own variables should be unique and can just be prefixed with your name or ldap. There are some that have specific requirements like project ids, code paths, and image paths.
-2. Configure docker to use credentials through gcloud.
-   `gcloud auth configure-docker`
-3. On the command line, navigate to your project directory and initialize terraform.  
+* Edit the `config/example.tfvars` file and rename it to `config/terraform.tfvars`
 
-   ```bash
-   cd path/to/your/project
-   terraform init
-   ```
+* Login to glcoud
 
-4. Build and push your Docker images to Google Container Registry. This step uses the `run_ingestion` service as an example, but you will need to repeat this step for any service you've made changes to.
-   - Select any unique identifier for `your-ingestion-image-name`.
-   - Run:
-   ```bash
-   # Build the images locally
-   docker build -t gcr.io/<project-id>/<your-ingestion-image-name> -f run_ingestion/Dockerfile .
+```bash
+$ gcloud auth application-default login
+```
 
-   # Upload the image to Google Container Registry
-   docker push gcr.io/<project-id>/<your-ingestion-image-name>
-   ```
-   - Note that the frontend `docker build` command must append:
-   `--build-arg="DEPLOY_CONTEXT=development"`
+* Login to docker
 
-5. Deploy via Terraform.
+```bash
+$ gcloud auth configure-docker
+```
 
-   ```bash
-   # Get the latest image digests
-   export TF_VAR_ingestion_image_name=$(gcloud container images describe gcr.io/<project-id>/<your-ingestion-image-name> \
-   --format="value(image_summary.digest)")
-   # ... repeat for every service that was re-built and pushed in step 4.
+* Build and push docker images
 
-   # Switch to the config directory to deploy to terraform
-   cd config
+```bash
+$ ./push_images
+```
 
-   # Deploy via terraform, providing the paths to the latest images so it knows to redeploy
-   # Append the appropriate environment variables for each service that was re-built and pushed in step 4.
-   terraform apply -var="ingestion_image_name=<your-ingestion-image-name>@$TF_VAR_ingestion_image_name"
-   ```
+* Setup your cloud environemnt with `terraform`
 
-   Alternatively, if you aren't familiar with bash or are on Windows, you can run the above `gcloud container images describe` commands manually and copy/paste the output into your tfvars file for the `ingestion_image_name` and `gcs_to_bq_image_name` variables.
+```bash
+$ pushd config
+$   terraform apply --var-file digest.tfvars
+$ popd
+```
+
+* Configure the airflow server
+
+```bash
+$ pushd airflow
+$   ./upload-dags.sh
+$   ./update-environment-variables.sh
+$ popd
+```
+
+## To test changes to python code:
+
+* Build and push docker images
+
+```bash
+$ ./push_images
+```
+
+* Setup your cloud environemnt with `terraform`
+
+```bash
+$ pushd config
+$   terraform config --var-file digest.tfvars
+$ popd
+```
 
 6. To redeploy, e.g. after making changes to a Cloud Run service, repeat steps 4-5. Make sure you run the docker commands from your base project dir and the terraform commands from the `config/` directory.
 
