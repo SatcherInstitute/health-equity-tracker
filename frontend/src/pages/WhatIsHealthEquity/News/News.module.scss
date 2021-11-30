@@ -261,7 +261,7 @@ hr {
   flex-wrap: nowrap;
   align-items: flex-start;
   height: auto;
-  width: 70%;
+  width: 90%;
 }
 
 .FilterListHeader {
@@ -275,6 +275,12 @@ hr {
 .FilterList {
   text-align: start;
   font-size: 1rem;
-  width: 80%;
+  width: 100%;
   margin-bottom: 5rem;
+  list-style: none;
+  padding-inline-start: 1rem;
+
+  a {
+    text-decoration: none;
+  }
 }
