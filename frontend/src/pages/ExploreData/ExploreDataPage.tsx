@@ -28,7 +28,6 @@ import {
 import styles from "./ExploreDataPage.module.scss";
 import { Onboarding } from "./Onboarding";
 import OptionsSelector from "./OptionsSelector";
-import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
 
 const EXPLORE_DATA_ID = "main";
@@ -154,9 +153,7 @@ function ExploreDataPage() {
         callback={onboardingCallback}
         activelyOnboarding={activelyOnboarding}
       />
-      <Helmet>
-        <title>Explore the Data - Health Equity Tracker</title>
-      </Helmet>
+
       <h1 className={styles.ScreenreaderTitleHeader}>Explore the Data</h1>
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
         <div

@@ -7,7 +7,7 @@ import {
   EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK,
   HET_URL,
 } from "../../utils/urlutils";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import parse from "html-react-parser";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
 import { METRIC_CONFIG } from "../../data/config/MetricConfig";

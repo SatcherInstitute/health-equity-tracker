@@ -16,7 +16,7 @@ import {
 } from "../../utils/urlutils";
 import Hidden from "@material-ui/core/Hidden";
 import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
 import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
 import { METRIC_CONFIG } from "../../data/config/MetricConfig";
