@@ -14,6 +14,8 @@ import {
   ARTICLES_KEY,
   REACT_QUERY_OPTIONS,
   NEWS_TAB_LINK,
+  CONTACT_TAB_LINK,
+  LinkWithStickyParams,
 } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet-async";
 import NewsCategories from "./NewsCategories";
@@ -241,11 +243,23 @@ function AllPosts() {
                 </Grid>
                 <Grid item>
                   <p className={styles.AllArticlesHeaderSubtext}>
-                    Read perspectives from Health Equity Initiative's team and
-                    members, as well as blog posts from guest authors. We cover
-                    cross-sectoral efforts, narratives, news, and stories of
-                    hope, healing, community engagement, and partnerships to
-                    advance health equity.
+                    We believe in the power of storytelling. The Health Equity
+                    Tracker is designed to enable transformative change through
+                    data, but we know that is only part of the picture. Here,
+                    you will find news and stories from the Satcher Health
+                    Leadership Institute, partners, guest authors, and other
+                    contributors that go beyond the numbers to share insights
+                    and analysis into the Health Equity movement.
+                  </p>
+
+                  <p className={styles.AllArticlesHeaderSubtext}>
+                    Health Equity is fundamentally about empowering voices to be
+                    heard, and experiences to be seen and shared. To share your
+                    Health Equity news and stories, please{" "}
+                    <LinkWithStickyParams to={CONTACT_TAB_LINK}>
+                      contact us
+                    </LinkWithStickyParams>
+                    .
                   </p>
                 </Grid>
               </div>

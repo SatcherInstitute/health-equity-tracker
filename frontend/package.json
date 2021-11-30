@@ -39,7 +39,6 @@
     "react-joyride": "^2.3.0",
     "react-lazyload": "^3.2.0",
     "react-material-ui-carousel": "^2.2.4",
-    "react-query": "^3.26.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-share": "^4.4.0",
@@ -109,6 +108,7 @@
     "@storybook/node-logger": "^6.2.8",
     "@storybook/preset-create-react-app": "^3.1.7",
     "@storybook/react": "^6.2.8",
-    "@types/react-lazyload": "^3.1.1"
+    "@types/react-lazyload": "^3.1.1",
+    "react-query": "^3.33.7"
   }
 }
