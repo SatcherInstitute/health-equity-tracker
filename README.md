@@ -309,7 +309,7 @@ $ ./push_images
 
 ```bash
 $ pushd config
-$   terraform config --var-file digest.tfvars
+$   terraform apply --var-file digest.tfvars
 $ popd
 ```
 
