@@ -322,7 +322,7 @@ $   ./update-environment-variables.sh
 $ popd
 ```
 
-## After making a change to any of the python code all you have to do to test it is
+## To test changes to python code:
 
 * Build and push docker images
 
