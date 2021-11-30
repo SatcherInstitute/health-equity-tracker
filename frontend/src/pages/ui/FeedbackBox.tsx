@@ -34,7 +34,7 @@ export default function FeedbackBox(props: { alwaysShow?: boolean }) {
       interestPrompt={"What field are you in?"}
       interestTypes={[
         "Non-Profit / Community Engagement",
-        "Legal / Political/Governmental",
+        "Legal / Political / Governmental",
         "Medical / Clinical",
         "Academic",
         "Other (please specify below)",
