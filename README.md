@@ -12,28 +12,28 @@ To contribute to this project:
 
 1. [Fork the repository on github](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo)
 2. On your development machine, clone your forked repo and add the official repo as a remote.
-    - Tip: by convention, the official repo is added with the name `upstream`. This can be done with the command `git remote add upstream git@github.com:SatcherInstitute/<repo>.git`
+    - Tip: our development team keeps the remote name `origin` for the original repo, and uses a different name for our forked remote like `josh` or `ben`.
 
 When you're ready to make changes:
 
 1. Pull the latest changes from the official repo.
-    - Tip: If your official remote is named `upstream`, run `git pull upstream master`
+    - Tip: If your official remote is named `origin`, run `git pull origin main`
 2. Create a local branch, make changes, and commit to your local branch. Repeat until changes are ready for review.
 3. [Optional] Rebase your commits so you have few commits with clear commit messages.
 4. Push your branch to your remote fork, use the github UI to open a pull request (PR), and add reviewer(s).
 5. Push new commits to your remote branch as you respond to reviewer comments.
     - Note: once a PR is under review, don't rebase changes you've already pushed to the PR. This can confuse reviewers.
-6. When ready to submit, use the "Squash and merge" option. This maintains linear history and ensures your entire PR is merged as a single commit, while being simple to use in most cases. If there are conflicts, pull the latest changes from master, merge them into your PR, and try again.
+6. When ready to submit, use the "Squash and merge" option (found under the submit button dropdown options). This maintains linear history and ensures your entire PR is merged as a single commit, while being simple to use in most cases. If there are conflicts, pull the latest changes from main, merge them into your PR, and try again.
 
 Note that there are a few downsides to "Squash and merge"
 
 - The official repo will not show commits from collaborators if the PR is a collaborative branch.
 - Working off the same branch or a dependent branch duplicates commits on the dependent branch and can cause repeated merge conflicts. To work around this, if you have a PR `my_branch_1` and you want to start work on a new PR that is dependent on `my_branch_1`, you can do the following:
   1. Create a new local branch `my_branch_2` based on `my_branch_1`. Continue to develop on `my_branch_2`.
-  2. If `my_branch_1` is updated (including by merging changes from master), switch to `my_branch_2` and run `git rebase -i my_branch_1` to incorporate the changes into `my_branch_2` while maintaining the the branch dependency.
+  2. If `my_branch_1` is updated (including by merging changes from main), switch to `my_branch_2` and run `git rebase -i my_branch_1` to incorporate the changes into `my_branch_2` while maintaining the the branch dependency.
   3. When review is done, squash and merge `my_branch_1`. Don't delete `my_branch_1`yet.
-  4. From local client, go to master branch and pull from master to update the local master branch with the squashed change.
-  5. From local client, run `git rebase --onto master my_branch_1 my_branch_2`. This tells git to move all the commits between `my_branch_1` and `my_branch_2` onto master. You can now delete `my_branch_1`.
+  4. From local client, go to main branch and pull from main to update the local main branch with the squashed change.
+  5. From local client, run `git rebase --onto main my_branch_1 my_branch_2`. This tells git to move all the commits between `my_branch_1` and `my_branch_2` onto main. You can now delete `my_branch_1`.
 
 Read more about the forking workflow [here](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow). For details on "Squash and merge" see [here](https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/about-merge-methods-on-github#squashing-your-merge-commits)
 
@@ -44,7 +44,7 @@ The frontend consists of
 2. `health-equity-tracker/frontend_server/`: A lightweight server that serves the React app as static files and forwards data requests to the data server.
 3. `health-equity-tracker/data_server/`: A data server that responds to data requests by serving data files that have been exported from the data pipeline.
 
-In addition, we have a Storybook project that also lives in `health-equity-tracker/frontend/`. Storybook is a library that allows us to explore and develop UI components in isolation. Stories for each UI component are contained in the same directory as the component in a subfolder called "storybook". The current master branch version of Storybook can be seen here: https://het-storybook.netlify.app
+In addition, we have a Storybook project that also lives in `health-equity-tracker/frontend/`. Storybook is a library that allows us to explore and develop UI components in isolation. Stories for each UI component are contained in the same directory as the component in a subfolder called "storybook". The current main branch version of Storybook can be seen here: https://het-storybook.netlify.app
 
 ### Frontend React App Environments
 
@@ -56,7 +56,7 @@ The frontend React App runs in different environments. We use configuration file
 
 Switch to the `frontend/` directory, then install dependencies using NPM.  
 
-_Note: you will need a compatible version of Node.JS and NPM installed locally; currently we are developing with Node v14 and have experienced dependency errors with later versions. See the "engines" field in `frontend/package.json` for the required  of each. It's recommended to use [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm) if you need to have multiple versions of Node.JS / NPM installed on your machine, though members have also had success with Homebrew._
+_Note: you will need a compatible version of Node.JS and NPM installed locally; see the "engines" field in `frontend/package.json` for the required  of each. It's recommended to use [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm) if you need to have multiple versions of Node.JS / NPM installed on your machine, though members have also had success with Homebrew._
 
 ```bash
 cd frontend && npm install
