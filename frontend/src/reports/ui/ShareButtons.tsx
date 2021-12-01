@@ -14,7 +14,6 @@ import { getMadLibPhraseText, MadLib } from "../../utils/MadLibs";
 import styles from "./ShareButtons.module.scss";
 import sass from "../../styles/variables.module.scss";
 import { Article } from "../../pages/WhatIsHealthEquity/NewsTab";
-import parse from "html-react-parser";
 import { getHtml } from "../../pages/WhatIsHealthEquity/News/SinglePost";
 
 export const shareIconAttributes = {

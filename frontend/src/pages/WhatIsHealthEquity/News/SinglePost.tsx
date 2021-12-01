@@ -31,7 +31,7 @@ function prettyDate(dateString: string) {
   return new Date(dateString).toLocaleDateString(undefined, options as any);
 }
 
-function getHtml(item: any) {
+export function getHtml(item: any) {
   return <div dangerouslySetInnerHTML={{ __html: item || "" }}></div>;
 }
 
