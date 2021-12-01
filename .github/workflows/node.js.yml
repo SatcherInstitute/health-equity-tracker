@@ -12,6 +12,9 @@ defaults:
   run:
     working-directory: frontend
 
+env: 
+  REACT_APP_FEEDBACK_ID: ${{ secrets.REACT_APP_FEEDBACK_ID }}
+
 jobs:
   build:
 
@@ -24,5 +27,5 @@ jobs:
       with:
         node-version: 16.13.0
     - run: npm install
-    - run: npm run build
+    - run: npm run build -Parg1=$REACT_APP_FEEDBACK_ID
     - run: npm test
