@@ -60,7 +60,8 @@ export const DATA_TYPE_1_PARAM = "dt1";
 export const DATA_TYPE_2_PARAM = "dt2";
 
 // WORDPRESS CONFIG
-export const NEWS_URL = "https://benham36.dreamhosters.com/";
+export const NEWS_URL = "https://hetblog.dreamhosters.com/";
+// "https://benham36.dreamhosters.com/"; Ben's paid dreamhost account
 // "http://het-blog.local/" // Kinsta / Docker local WP server
 // "https://het-blog.000webhostapp.com/"; // Free hosting used for testing
 
