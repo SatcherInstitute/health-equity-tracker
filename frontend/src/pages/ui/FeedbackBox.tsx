@@ -5,6 +5,7 @@ import "@benhammondmusic/feeder-react-feedback/dist/feeder-react-feedback.css"; 
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
 import { useCookies } from "react-cookie";
 import useClickAway from "../../utils/useClickAway";
+import sass from "../../styles/variables.module.scss";
 
 const FEEDBACK_ID = process.env.REACT_APP_FEEDBACK_ID; // view collected feedback at feeder.sh/dashboard
 const BOTTOM_SCROLL_OPTIONS = {
@@ -18,13 +19,14 @@ export default function FeedbackBox(props: { alwaysShow?: boolean }) {
   const [showFeedback, setShowFeedback] = useState(props.alwaysShow || false);
   useBottomScrollListener(() => setShowFeedback(true), BOTTOM_SCROLL_OPTIONS);
 
-  // allow user to close feedback modal by clicking outside
+  // allow user to close (actually rerender) feedback modal by clicking outside
   const clickAwayRef: any = useRef();
-  useClickAway(clickAwayRef, () => console.log("***"));
+  const [clickAwayChildKey] = useClickAway(clickAwayRef);
 
   return showFeedback && isReturnUser ? (
     <div ref={clickAwayRef}>
       <Feedback
+        key={clickAwayChildKey}
         projectId={FEEDBACK_ID}
         email={false}
         feedbackPrompt={"What brings you to the Health Equity Tracker?"}
@@ -46,8 +48,8 @@ export default function FeedbackBox(props: { alwaysShow?: boolean }) {
         textboxPrompt={"Did you get what you needed today?"}
         hoverBorderColor={"#0b5240"}
         postSubmitButtonMsg="Thank you for helping us advance health equity"
-        primaryColor={"#0b5240"}
-        textColor={"#FFFFFF"}
+        primaryColor={sass.altGreen}
+        textColor={sass.white}
       />
     </div>
   ) : (
