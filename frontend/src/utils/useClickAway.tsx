@@ -31,5 +31,5 @@ export default function useClickAway(ref: any) {
     };
   }, [ref, childKey, setChildKey]);
 
-  return [childKey, setChildKey];
+  return [`clickAwayChild-${childKey}`, setChildKey];
 }
