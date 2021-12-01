@@ -24,7 +24,7 @@ jobs:
       with:
         node-version: 16.13.0
     - run: npm install
-    - run: base64 -i .env.production
+    - run: base64 -i .env.prod
     - run: echo ${{ secrets.REACT_APP_FEEDBACK_ID }} | base64 -d > .env.prod
     - run: npm run build
     - run: npm test
