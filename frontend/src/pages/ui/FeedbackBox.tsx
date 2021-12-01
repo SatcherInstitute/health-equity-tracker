@@ -21,6 +21,7 @@ export default function FeedbackBox(props: { alwaysShow?: boolean }) {
   useBottomScrollListener(() => setShowFeedback(true), BOTTOM_SCROLL_OPTIONS);
 
   // allow user to close (by rerendering to default closed state) feedback modal by clicking anywhere outside of it
+
   const clickAwayRef: any = useRef();
   const [clickAwayChildKey] = useClickAway(clickAwayRef);
 
@@ -47,7 +48,7 @@ export default function FeedbackBox(props: { alwaysShow?: boolean }) {
           "Other (please specify below)",
         ]}
         textboxPrompt={"Did you get what you needed today?"}
-        hoverBorderColor={"#0b5240"}
+        hoverBorderColor={sass.altGreen}
         postSubmitButtonMsg="Thank you for helping us advance health equity"
         primaryColor={sass.altGreen}
         textColor={sass.white}
