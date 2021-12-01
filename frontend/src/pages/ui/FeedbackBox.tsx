@@ -7,6 +7,7 @@ import { useBottomScrollListener } from "react-bottom-scroll-listener";
 import { useCookies } from "react-cookie";
 
 const FEEDBACK_ID = process.env.REACT_APP_FEEDBACK_ID; // view collected feedback at feeder.sh/dashboard
+console.log("FEEDBACK ID", FEEDBACK_ID);
 const BOTTOM_SCROLL_OPTIONS = {
   offset: 500,
 };
