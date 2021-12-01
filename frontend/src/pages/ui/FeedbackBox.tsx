@@ -20,7 +20,7 @@ export default function FeedbackBox(props: { alwaysShow?: boolean }) {
   const [showFeedback, setShowFeedback] = useState(props.alwaysShow || false);
   useBottomScrollListener(() => setShowFeedback(true), BOTTOM_SCROLL_OPTIONS);
 
-  // allow user to close (actually rerender) feedback modal by clicking outside
+  // allow user to close (by rerendering to default closed state) feedback modal by clicking anywhere outside of it
   const clickAwayRef: any = useRef();
   const [clickAwayChildKey] = useClickAway(clickAwayRef);
 
