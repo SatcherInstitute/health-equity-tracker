@@ -16,8 +16,8 @@ export type MadLibId = "disparity" | "comparegeos" | "comparevars";
 export type CategoryId =
   | "COVID-19"
   | "Chronic Disease"
-  | "Mental Health"
-  | "Social & Political Determinants of Health";
+  | "Behavioral Health"
+  | "Social & Political Determinants";
 
 export interface MadLib {
   readonly id: MadLibId;
@@ -64,7 +64,8 @@ export type DropdownVarId =
   | "copd"
   | "health_insurance"
   | "poverty"
-  | "vaccinations";
+  | "vaccinations"
+  | "anxiety";
 
 const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   covid: "COVID-19",
@@ -73,6 +74,7 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   health_insurance: "Uninsured Individuals",
   poverty: "Poverty",
   vaccinations: "COVID-19 Vaccinations",
+  anxiety: "Anxiety",
 };
 
 /* Update categories / DropdownVarIds here; type defs at top of file */
@@ -92,8 +94,12 @@ const CATEGORIES_LIST: Category[] = [
     options: ["diabetes", "copd"],
   },
   {
-    title: "Social & Political Determinants of Health",
+    title: "Social & Political Determinants",
     options: ["health_insurance", "poverty"],
+  },
+  {
+    title: "Behavioral Health",
+    options: ["anxiety"],
   },
 ];
 

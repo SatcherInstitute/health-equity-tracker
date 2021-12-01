@@ -40,7 +40,10 @@ export type MetricId =
   | "vaccinated_pct_share"
   | "vaccinated_share_of_known"
   | "vaccinated_per_100k"
-  | "vaccine_population_pct";
+  | "vaccine_population_pct"
+  | "anxiety_pct"
+  | "anxiety_pct_share"
+  | "anxiety_per_100k";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -303,6 +306,34 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           metricId: "covid_hosp_per_100k",
           fullCardTitleName: "COVID-19 Hospitalizations Per 100k People",
           shortVegaLabel: "hospitalizations per 100k",
+          type: "per100k",
+        },
+      },
+    },
+  ],
+  anxiety: [
+    {
+      variableId: "cases",
+      variableDisplayName: "Cases",
+      variableFullDisplayName: "Anxiety Cases",
+      surveyCollectedData: true,
+      metrics: {
+        pct_share: {
+          metricId: "anxiety_pct_share",
+          fullCardTitleName: "Share Of Total Anxiety Cases",
+          shortVegaLabel: "% of cases",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "brfss_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+        per100k: {
+          metricId: "anxiety_per_100k",
+          fullCardTitleName: "Anxiety Cases Per 100k People",
+          shortVegaLabel: "anxiety cases per 100k",
           type: "per100k",
         },
       },

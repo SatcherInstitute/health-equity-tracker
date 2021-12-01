@@ -21,6 +21,9 @@ class BrfssProvider extends VariableProvider {
       "diabetes_pct",
       "diabetes_pct_share",
       "diabetes_per_100k",
+      "anxiety_pct",
+      "anxiety_pct_share",
+      "anxiety_per_100k",
     ]);
     this.acsProvider = acsProvider;
   }
@@ -74,6 +77,8 @@ class BrfssProvider extends VariableProvider {
         this.calculations.estimateTotal(row.diabetes_pct, row.population),
       estimated_total_copd: (row) =>
         this.calculations.estimateTotal(row.copd_pct, row.population),
+      estimated_total_anxiety: (row) =>
+        this.calculations.estimateTotal(row.anxiety_pct, row.population),
     });
 
     df = df.renameSeries({
@@ -85,11 +90,17 @@ class BrfssProvider extends VariableProvider {
         row.diabetes_pct == null ? null : row.diabetes_pct * 1000,
       copd_per_100k: (row) =>
         row.copd_pct == null ? null : row.copd_pct * 1000,
+      anxiety_per_100k: (row) =>
+        row.anxiety_pct == null ? null : row.anxiety_pct * 1000,
     });
 
     // Calculate any share_of_known metrics that may have been requested in the query
     if (this.allowsBreakdowns(breakdowns)) {
-      ["estimated_total_diabetes", "estimated_total_copd"].forEach((col) => {
+      [
+        "estimated_total_diabetes",
+        "estimated_total_copd",
+        "estimated_total_anxiety",
+      ].forEach((col) => {
         df = this.calculations.calculatePctShare(
           df,
           col,
@@ -105,6 +116,7 @@ class BrfssProvider extends VariableProvider {
         "population",
         "estimated_total_copd",
         "estimated_total_diabetes",
+        "estimated_total_anxiety",
       ])
       .resetIndex();
 
