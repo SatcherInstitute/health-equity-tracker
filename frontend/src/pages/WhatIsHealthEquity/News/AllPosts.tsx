@@ -139,7 +139,7 @@ function AllPosts() {
       if (selectedCategory && articles) {
         setFilteredArticles(
           articles.filter(
-            (article: any) =>
+            (article: Article) =>
               article._embedded["wp:term"] &&
               article._embedded["wp:term"][0].some(
                 (term: { name: string }) => term.name === selectedCategory
@@ -153,7 +153,7 @@ function AllPosts() {
       );
       setSelectedCategory("");
     }
-  }, [categoryParam, categories, selectedCategory, articles]);
+  }, [articles, categories, categoryParam, selectedCategory]);
 
   useEffect(() => {
     // filter articles by author query param if present
@@ -200,7 +200,7 @@ function AllPosts() {
     const allCategoriesSet = new Set();
 
     articles &&
-      articles.forEach((article: any) => {
+      articles.forEach((article: Article) => {
         if (article._embedded["wp:term"] !== undefined) {
           article._embedded["wp:term"][0].forEach((term: { name: string }) =>
             allCategoriesSet.add(term.name)
