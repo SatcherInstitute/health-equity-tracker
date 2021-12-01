@@ -15,6 +15,7 @@ import styles from "./ShareButtons.module.scss";
 import sass from "../../styles/variables.module.scss";
 import { Article } from "../../pages/WhatIsHealthEquity/NewsTab";
 import parse from "html-react-parser";
+import { getHtml } from "../../pages/WhatIsHealthEquity/News/SinglePost";
 
 export const shareIconAttributes = {
   iconFillColor: sass.altGreen,
@@ -28,19 +29,13 @@ export interface ShareButtonProps {
 }
 
 function ShareButtons(props: ShareButtonProps) {
-  let text = window.location.href;
-  if (process.env.NODE_ENV === "development")
-    text = text.replace(
-      "http://localhost:3000",
-      "https://deploy-preview-1106--health-equity-tracker.netlify.app"
-    );
-
+  let sharedUrl: string = window.location.href;
   let title: string = "Health Equity Tracker";
   if (props.madLib) {
     title += ": " + getMadLibPhraseText(props.madLib);
   }
   if (props.article) {
-    title += ((": “" + parse(props.article.title.rendered)) as string) + "”";
+    title += ((": “" + getHtml(props.article.title.rendered)) as string) + "”";
   }
 
   return (
@@ -55,7 +50,7 @@ function ShareButtons(props: ShareButtonProps) {
       <Grid item>
         {/* SOCIAL SHARE BUTTONS */}
         <TwitterShareButton
-          url={text}
+          url={sharedUrl}
           title={title}
           hashtags={["healthequity"]}
           related={["@SatcherHealth", "@MSMEDU"]}
@@ -65,7 +60,7 @@ function ShareButtons(props: ShareButtonProps) {
         </TwitterShareButton>
 
         <FacebookShareButton
-          url={text}
+          url={sharedUrl}
           hashtag={"#healthequity"}
           quote={title}
           aria-label={"Share to Facebook"}
@@ -76,7 +71,7 @@ function ShareButtons(props: ShareButtonProps) {
         <LinkedinShareButton
           title={title}
           source={"Health Equity Tracker"}
-          url={text}
+          url={sharedUrl}
           aria-label={"Share to LinkedIn"}
         >
           <LinkedinIcon {...shareIconAttributes} />
@@ -86,10 +81,9 @@ function ShareButtons(props: ShareButtonProps) {
           aria-label={"Share by email"}
           subject={`Sharing from healthequitytracker.org`}
           body={`${title}
-            
         
-    `} // KEEP THIS WEIRD SPACING FOR EMAIL LINE BREAKS!
-          url={text}
+`} // KEEP THIS WEIRD SPACING FOR EMAIL LINE BREAKS!
+          url={sharedUrl}
         >
           <EmailIcon {...shareIconAttributes} />
         </EmailShareButton>
