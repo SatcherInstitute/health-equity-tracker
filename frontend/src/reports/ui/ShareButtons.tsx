@@ -14,7 +14,7 @@ import { getMadLibPhraseText, MadLib } from "../../utils/MadLibs";
 import styles from "./ShareButtons.module.scss";
 import sass from "../../styles/variables.module.scss";
 import { Article } from "../../pages/WhatIsHealthEquity/NewsTab";
-import { getHtml } from "../../pages/WhatIsHealthEquity/News/SinglePost";
+import { getHtml } from "../../utils/urlutils";
 
 export const shareIconAttributes = {
   iconFillColor: sass.altGreen,

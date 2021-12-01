@@ -7,7 +7,7 @@ import {
   EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK,
 } from "../../utils/urlutils";
 import { Helmet } from "react-helmet-async";
-import parse from "html-react-parser";
+import { getHtml } from "../../utils/urlutils";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
 import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 import CopyToClipboard from "react-copy-to-clipboard";
@@ -108,7 +108,7 @@ function MethodologyTab() {
                 {selectFaqs[4].q}
               </h2>
               <div className={styles.MethodologyAnswer}>
-                {<>{parse(selectFaqs[4].a)}</>}
+                {<>{getHtml(selectFaqs[4].a)}</>}
               </div>
             </Grid>
 

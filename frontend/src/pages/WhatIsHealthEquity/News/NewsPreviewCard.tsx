@@ -2,7 +2,7 @@ import React from "react";
 import { NEWS_TAB_LINK, ReactRouterLinkButton } from "../../../utils/urlutils";
 import styles from "./News.module.scss";
 import AppbarLogo from "../../../assets/AppbarLogo.png";
-import parse from "html-react-parser";
+import { getHtml } from "../../../utils/urlutils";
 import { Article } from "../NewsTab";
 import { Box, Grid } from "@material-ui/core";
 import LazyLoad from "react-lazyload";
@@ -61,9 +61,7 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
             />
           </LazyLoad>
 
-          <Box mx={1}>
-            <span>{`${parse(article.title.rendered)}`}</span>
-          </Box>
+          <Box mx={1}>{getHtml(article.title.rendered, true)}</Box>
         </Grid>
 
         <Grid

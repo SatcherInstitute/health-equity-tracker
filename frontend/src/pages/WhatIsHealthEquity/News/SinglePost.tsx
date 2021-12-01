@@ -4,7 +4,6 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import styles from "./News.module.scss";
-// import parse from "html-react-parser";
 import { Redirect, useParams } from "react-router-dom";
 import {
   NEWS_TAB_LINK,
@@ -22,6 +21,7 @@ import hetLogo from "../../../assets/AppbarLogo.png";
 import { Skeleton } from "@material-ui/lab";
 import SignupSection from "../../ui/SignupSection";
 import ShareButtons from "../../../reports/ui/ShareButtons";
+import { getHtml } from "../../../utils/urlutils";
 
 export const ARTICLE_DESCRIPTION =
   "Article from the Health Equity Tracker: a free-to-use data and visualization platform that is enabling new insights into the impact of COVID-19 and other determinants of health on marginalized groups in the United States.";
@@ -29,10 +29,6 @@ export const ARTICLE_DESCRIPTION =
 function prettyDate(dateString: string) {
   const options = { year: "numeric", month: "long", day: "numeric" };
   return new Date(dateString).toLocaleDateString(undefined, options as any);
-}
-
-export function getHtml(item: any) {
-  return <div dangerouslySetInnerHTML={{ __html: item || "" }}></div>;
 }
 
 export default function SinglePost() {

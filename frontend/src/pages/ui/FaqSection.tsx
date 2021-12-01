@@ -7,7 +7,7 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { FAQ_TAB_LINK, ReactRouterLinkButton } from "../../utils/urlutils";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
-import parse from "html-react-parser";
+import { getHtml } from "../../utils/urlutils";
 
 function Question(props: {
   questionText: string;
@@ -49,7 +49,7 @@ function FaqSection() {
               questionText={faq.q}
               ariaControls={`panel${index + 1}-content`}
               id={`panel${index + 1}-header`}
-              answer={<>{parse(faq.a)}</>}
+              answer={<>{getHtml(faq.a)}</>}
             />
           );
         })}

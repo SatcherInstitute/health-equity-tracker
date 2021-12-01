@@ -287,3 +287,15 @@ window.onpopstate = () => {
     }
   });
 };
+
+/* 
+Dumps a string of HTML into a div (unless second argument of asSpan = true is sent in)
+*/
+export function getHtml(item: any, asSpan?: boolean) {
+  console.log(item, asSpan);
+  return asSpan ? (
+    <span dangerouslySetInnerHTML={{ __html: item || "" }}></span>
+  ) : (
+    <div dangerouslySetInnerHTML={{ __html: item || "" }}></div>
+  );
+}
