@@ -7,7 +7,8 @@ import { useCookies } from "react-cookie";
 import useClickAway from "../../utils/useClickAway";
 import sass from "../../styles/variables.module.scss";
 
-const FEEDBACK_ID = process.env.REACT_APP_FEEDBACK_ID; // view collected feedback at feeder.sh/dashboard
+const TEST_FEEDER_ID = "6171cc2965b82c00045239dc"; // this is a test account; we can create a new ID for our real dashboard account once secrets are working
+const FEEDBACK_ID = process.env.REACT_APP_FEEDBACK_ID || TEST_FEEDER_ID; // view collected feedback at feeder.sh/dashboard
 const BOTTOM_SCROLL_OPTIONS = {
   offset: 500,
 };
