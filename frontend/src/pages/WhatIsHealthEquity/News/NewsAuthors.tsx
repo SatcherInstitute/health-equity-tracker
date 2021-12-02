@@ -13,7 +13,7 @@ export default function NewsAuthors(props: NewsAuthorsProps) {
 
   return (
     <div className={styles.FilterListBox}>
-      <Typography className={styles.FilterListHeader} variant="h3">
+      <Typography className={styles.FilterListHeader} variant="h2">
         Authors
       </Typography>
       <ul className={styles.FilterList}>
