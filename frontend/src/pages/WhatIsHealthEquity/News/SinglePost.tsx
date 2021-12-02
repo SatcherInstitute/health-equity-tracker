@@ -90,7 +90,7 @@ export default function SinglePost() {
       <Grid container className={styles.Grid}>
         <Helmet>
           <title>{`News${
-            fullArticle ? " - " + getHtml(fullArticle.title.rendered) : ""
+            fullArticle ? ` - ${fullArticle?.title?.rendered}` : ""
           } - Health Equity Tracker`}</title>
           {/* if cross-posted from external site, should be input on WP as canonical_url */}
           {fullArticle && (

@@ -57,7 +57,7 @@
     .SingleArticleDetailText {
       color: $alt-dark;
       font-weight: 400;
-      font-size: 0.9rem;
+      font-size: 1rem;
       text-align: start;
 
       a {
@@ -128,6 +128,7 @@
 }
 
 .FullArticleContainer {
+  overflow-wrap: anywhere;
   width: 100vw;
   max-width: $max-width;
   margin: 2rem;
@@ -138,6 +139,11 @@
   }
   @media (min-width: $md) {
     width: 50vw;
+  }
+
+  hr {
+    margin-block: 3rem;
+    width: 50%;
   }
 
   p,
@@ -194,34 +200,42 @@
     text-align: left;
   }
 
-  p > img {
+  img {
     display: block;
     margin: 40px auto 0px auto;
-    width: 40%;
+    width: 100%;
     height: auto;
   }
 
   .ReprintNotice {
     font-style: italic;
-    font-size: small;
+    font-size: 0.875rem;
     font-weight: 100;
   }
 }
 
 // hide featured image since already in header; hide HRs; show youtube embed <figure>
-figure > img,
-hr {
+:global(.wp-block-post-featured-image) {
   display: none !important;
 }
 
-figure > div > iframe {
-  max-width: 50vw;
-  margin-left: 0;
+// set youtube video container to proper aspect ratio
+:global(.wp-block-embed-youtube .wp-block-embed__wrapper) {
+  margin-block: 3rem;
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
 }
 
-figure {
-  padding: 0;
-  margin: 0;
+// fill iframe to above container
+:global(.wp-block-embed-youtube .wp-block-embed__wrapper) > iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 20px;
 }
 
 .FullLink {
