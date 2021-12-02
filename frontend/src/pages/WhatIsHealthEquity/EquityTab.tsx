@@ -12,6 +12,7 @@ import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
 import sass from "../../styles/variables.module.scss";
+import { externalUrls } from "../../utils/externalUrls";
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -556,7 +557,7 @@ function EquityTab() {
                     for our Satcher Health Leadership Institute newsletter.
                   </p>
                   <form
-                    action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
+                    action={externalUrls.newsletterSignup}
                     method="post"
                     target="_blank"
                   >
