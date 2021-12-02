@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction } from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./TermsOfUsePage.module.scss";
 import { Typography } from "@material-ui/core";
+import { HET_URL } from "../../utils/urlutils";
 import { Helmet } from "react-helmet-async";
 
 function TermsOfUsePage(props: {
@@ -48,15 +49,15 @@ function TermsOfUsePage(props: {
                 <div className={styles.TosAnswer}>
                   <p>
                     In general, you can visit official MSM web sites, such as
-                    the Health Equity Tracker (www.healthequitytracker.org)
-                    without revealing any personal information. If you choose to
-                    provide us with any personal information by sending an email
-                    or by filling out a form with your personal information and
-                    submitting it through a MSM web site, we use that
-                    information to respond to your message and to help us
-                    provide you with information or material that you request.
-                    We do not give, share, sell or transfer any personal
-                    information to a third party unless required by law.
+                    the Health Equity Tracker ({HET_URL}) without revealing any
+                    personal information. If you choose to provide us with any
+                    personal information by sending an email or by filling out a
+                    form with your personal information and submitting it
+                    through a MSM web site, we use that information to respond
+                    to your message and to help us provide you with information
+                    or material that you request. We do not give, share, sell or
+                    transfer any personal information to a third party unless
+                    required by law.
                   </p>
                 </div>
               </Grid>

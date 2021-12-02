@@ -5,6 +5,7 @@ import {
   LinkWithStickyParams,
   CONTACT_TAB_LINK,
   EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK,
+  HET_URL,
 } from "../../utils/urlutils";
 import { Helmet } from "react-helmet-async";
 import parse from "html-react-parser";
@@ -15,8 +16,7 @@ import { Box, Button, Card } from "@material-ui/core";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import { Link } from "react-router-dom";
 
-export const CITATION_APA =
-  "Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. https://healthequitytracker.org.";
+export const CITATION_APA = `Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
 export const VACCINATED_DEF = `For the national level, and for the majority of states, this indicates people who have received at least one dose of a COVID-19 vaccine.`;
 export const UNREPRESENTED_RACE_DEF = (
