@@ -131,6 +131,7 @@
   overflow-wrap: anywhere;
   width: 100vw;
   max-width: $max-width;
+  min-height: $preload-article-height;
   margin: 2rem;
   border-bottom: 1px solid $alt-grey;
   padding: 2rem;

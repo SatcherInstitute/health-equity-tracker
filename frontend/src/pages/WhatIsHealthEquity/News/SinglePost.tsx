@@ -217,7 +217,7 @@ export default function SinglePost() {
           justify="center"
         >
           <Grid item>
-            <div className={styles.FullArticleContainer}>
+            <article className={styles.FullArticleContainer}>
               {fullArticle ? getHtml(fullArticle.content.rendered) : <></>}
               {fullArticle?.acf?.full_article_url ? (
                 <Box mt={5}>
@@ -249,7 +249,7 @@ export default function SinglePost() {
                   )}
                 </Typography>
               </Box>
-            </div>
+            </article>
           </Grid>
 
           <Grid container className={styles.PrevNextSection}>
