@@ -25,6 +25,7 @@ import {
   VACCINATED_DEF,
 } from "../pages/DataCatalog/MethodologyTab";
 import { Link } from "react-router-dom";
+import FeedbackBox from "../pages/ui/FeedbackBox";
 import ShareButtons from "./ui/ShareButtons";
 import { Helmet } from "react-helmet-async";
 
@@ -290,6 +291,7 @@ function ReportProvider(props: ReportProviderProps) {
           )}
         </ul>
       </aside>
+      <FeedbackBox />
     </>
   );
 }

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@benhammondmusic/feeder-react-feedback": "^1.0.44",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
@@ -29,6 +30,7 @@
     "prettier": "^2.2.1",
     "react": "^16.14.0",
     "react-animate-height": "^2.0.23",
+    "react-bottom-scroll-listener": "^5.0.0",
     "react-cookie": "^4.0.3",
     "react-copy-to-clipboard": "^5.0.3",
     "react-dom": "^16.14.0",
