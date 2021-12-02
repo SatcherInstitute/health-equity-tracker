@@ -256,13 +256,14 @@
   align-items: center;
 }
 
-.NewsPreviewHeaderText {
+.NewsPreviewHeaderText h3 {
   font-size: 1.2rem !important;
   text-align: center;
   font-weight: 200 !important;
   font-family: "Taviraj", serif !important;
   line-height: 120% !important;
   padding: 1rem !important;
+  margin: 0;
 }
 
 .NewsPreviewHeaderText > span {
@@ -290,11 +291,12 @@
 }
 
 .FilterListHeader {
+  font-size: 1.5rem !important;
   margin-bottom: 0px;
   font-weight: 300;
   font-family: "Taviraj", serif !important;
   line-height: 40px;
-  color: $alt-black;
+  color: $alt-green;
 }
 
 .FilterList {
@@ -307,5 +309,6 @@
 
   a {
     text-decoration: none;
+    color: $alt-black;
   }
 }

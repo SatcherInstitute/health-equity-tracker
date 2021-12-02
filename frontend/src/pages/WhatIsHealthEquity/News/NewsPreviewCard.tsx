@@ -61,7 +61,9 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
             />
           </LazyLoad>
 
-          <Box mx={1}>{getHtml(article.title.rendered, true)}</Box>
+          <Box mx={1}>
+            <h3>{getHtml(article.title.rendered, true)}</h3>
+          </Box>
         </Grid>
 
         <Grid

@@ -15,7 +15,7 @@ export default function NewsCategories(
 
   return (
     <div className={styles.FilterListBox}>
-      <Typography className={styles.FilterListHeader} variant="h5">
+      <Typography className={styles.FilterListHeader} variant="h3">
         Categories
       </Typography>
       <ul className={styles.FilterList}>
