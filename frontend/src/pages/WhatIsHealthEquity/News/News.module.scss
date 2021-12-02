@@ -214,6 +214,16 @@ hr {
   display: none !important;
 }
 
+figure > div > iframe {
+  max-width: 50vw;
+  margin-left: 0;
+}
+
+figure {
+  padding: 0;
+  margin: 0;
+}
+
 .FullLink {
   background-color: $alt-green;
   color: white !important;
