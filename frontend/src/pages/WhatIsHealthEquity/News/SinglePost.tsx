@@ -22,6 +22,7 @@ import { Skeleton } from "@material-ui/lab";
 import SignupSection from "../../ui/SignupSection";
 import ShareButtons from "../../../reports/ui/ShareButtons";
 import { getHtml } from "../../../utils/urlutils";
+import LazyLoad from "react-lazyload";
 
 export const ARTICLE_DESCRIPTION =
   "Article from the Health Equity Tracker: a free-to-use data and visualization platform that is enabling new insights into the impact of COVID-19 and other determinants of health on marginalized groups in the United States.";
@@ -251,28 +252,29 @@ export default function SinglePost() {
               </Box>
             </article>
           </Grid>
-
-          <Grid container className={styles.PrevNextSection}>
-            <Grid item xs={12} md={4}>
-              {prevArticle && (
-                <NewsPreviewCard article={prevArticle} arrow={"prev"} />
-              )}
+          <LazyLoad offset={300} height={300} once>
+            <Grid container className={styles.PrevNextSection}>
+              <Grid item xs={12} md={4}>
+                {prevArticle && (
+                  <NewsPreviewCard article={prevArticle} arrow={"prev"} />
+                )}
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <ReactRouterLinkButton
+                  url={NEWS_TAB_LINK}
+                  className={styles.PrevNextHeaderText}
+                  displayName="All Posts"
+                />
+              </Grid>
+              <Grid item xs={12} md={4}>
+                {nextArticle && (
+                  <>
+                    <NewsPreviewCard article={nextArticle} arrow={"next"} />
+                  </>
+                )}
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={4}>
-              <ReactRouterLinkButton
-                url={NEWS_TAB_LINK}
-                className={styles.PrevNextHeaderText}
-                displayName="All Posts"
-              />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              {nextArticle && (
-                <>
-                  <NewsPreviewCard article={nextArticle} arrow={"next"} />
-                </>
-              )}
-            </Grid>
-          </Grid>
+          </LazyLoad>
         </Grid>
         <SignupSection />
       </Grid>
