@@ -6,6 +6,7 @@ import { CONTACT_TAB_LINK, DATA_CATALOG_PAGE_LINK } from "../../utils/urlutils";
 import { Helmet } from "react-helmet-async";
 import { CITATION_APA } from "../DataCatalog/MethodologyTab";
 import { getHtml } from "../../utils/urlutils";
+import FeedbackBox from "../ui/FeedbackBox";
 
 export const selectFaqs: any[] = [
   {
@@ -372,6 +373,7 @@ function FaqTab() {
           </Grid>
         </Grid>
       </Grid>
+      <FeedbackBox />
     </>
   );
 }
