@@ -65,7 +65,8 @@ export type DropdownVarId =
   | "health_insurance"
   | "poverty"
   | "vaccinations"
-  | "anxiety";
+  | "anxiety"
+  | "frequent_mental_distress";
 
 const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   covid: "COVID-19",
@@ -75,6 +76,7 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   poverty: "Poverty",
   vaccinations: "COVID-19 Vaccinations",
   anxiety: "Anxiety",
+  frequent_mental_distress: "Frequent Mental Distress",
 };
 
 /* Update categories / DropdownVarIds here; type defs at top of file */
@@ -99,7 +101,7 @@ const CATEGORIES_LIST: Category[] = [
   },
   {
     title: "Behavioral Health",
-    options: ["anxiety"],
+    options: ["anxiety", "frequent_mental_distress"],
   },
 ];
 

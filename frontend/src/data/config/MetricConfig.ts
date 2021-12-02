@@ -43,7 +43,10 @@ export type MetricId =
   | "vaccine_population_pct"
   | "anxiety_pct"
   | "anxiety_pct_share"
-  | "anxiety_per_100k";
+  | "anxiety_per_100k"
+  | "frequent_mental_distress_pct"
+  | "frequent_mental_distress_pct_share"
+  | "frequent_mental_distress_per_100k";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -334,6 +337,34 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           metricId: "anxiety_per_100k",
           fullCardTitleName: "Anxiety Cases Per 100k People",
           shortVegaLabel: "anxiety cases per 100k",
+          type: "per100k",
+        },
+      },
+    },
+  ],
+  frequent_mental_distress: [
+    {
+      variableId: "cases",
+      variableDisplayName: "Cases",
+      variableFullDisplayName: "Frequent Mental Distress Cases",
+      surveyCollectedData: true,
+      metrics: {
+        pct_share: {
+          metricId: "frequent_mental_distress_pct_share",
+          fullCardTitleName: "Share Of Total Frequent Mental Distress Cases",
+          shortVegaLabel: "% of cases",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "brfss_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+        per100k: {
+          metricId: "frequent_mental_distress_per_100k",
+          fullCardTitleName: "Frequent Mental Distress Cases Per 100k People",
+          shortVegaLabel: "Frequent Mental Distress cases per 100k",
           type: "per100k",
         },
       },

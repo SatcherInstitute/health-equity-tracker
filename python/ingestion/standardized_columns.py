@@ -26,7 +26,7 @@ AGE_COL = "age"
 SEX_COL = "sex"
 STATE_FIPS_COL = "state_fips"
 STATE_NAME_COL = "state_name"
-STATE_POSTAL_COL = "state_postal"  # State 2-letter postal abberviation.
+STATE_POSTAL_COL = "state_postal"  # State 2-letter postal abbreviation.
 COUNTY_FIPS_COL = "county_fips"
 COUNTY_NAME_COL = "county_name"
 POPULATION_COL = "population"
@@ -53,9 +53,13 @@ WITHOUT_HEALTH_INSURANCE_COL = "without_health_insurance"
 ABOVE_POVERTY_COL = "above_poverty_line"
 BELOW_POVERTY_COL = "below_poverty_line"
 
+# Standardized names for UHC columns
 COPD_PCT = "copd_pct"
 DIABETES_PCT = "diabetes_pct"
+ANXIETY_PCT = "anxiety_pct"
+FREQUENT_MENTAL_DISTRESS_PCT = "frequent_mental_distress"
 
+# Standardized for Vaccination columns
 VACCINATED_FIRST_DOSE = "vaccinated_first_dose"
 VACCINATED_PCT = "vaccinated_pct"
 VACCINATED_PCT_SHARE = "vaccinated_pct_share"
