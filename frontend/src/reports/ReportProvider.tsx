@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { VariableDisparityReport } from "./VariableDisparityReport";
 import TwoVariableReport from "./TwoVariableReport";
 import {
@@ -6,6 +6,7 @@ import {
   getMadLibWithUpdatedValue,
   DropdownVarId,
   MadLibId,
+  getMadLibPhraseText,
 } from "../utils/MadLibs";
 import { Fips } from "../data/utils/Fips";
 import {
@@ -16,14 +17,14 @@ import {
 } from "../utils/urlutils";
 import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
-import ShareIcon from "@material-ui/icons/Share";
 import styles from "./Report.module.scss";
-import ShareDialog from "./ui/ShareDialog";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
-import { Grid } from "@material-ui/core";
 import { VACCINATED_DEF } from "../pages/DataCatalog/MethodologyTab";
 import { METRIC_CONFIG } from "../data/config/MetricConfig";
 import { Link } from "react-router-dom";
+import FeedbackBox from "../pages/ui/FeedbackBox";
+import ShareButtons from "./ui/ShareButtons";
+import { Helmet } from "react-helmet-async";
 
 export const SINGLE_COLUMN_WIDTH = 10;
 
@@ -41,7 +42,6 @@ interface ReportProviderProps {
 }
 
 function ReportProvider(props: ReportProviderProps) {
-  const [shareModalOpen, setShareModalOpen] = useState(false);
   const fieldRef = useRef<HTMLInputElement>(null);
   const isSingleColumn = (props.madLib.id as MadLibId) === "disparity";
   const definitionsRef = useRef<HTMLInputElement>(null);
@@ -147,31 +147,17 @@ function ReportProvider(props: ReportProviderProps) {
 
   return (
     <>
+      <Helmet>
+        <title>
+          {getMadLibPhraseText(props.madLib)} - Health Equity Tracker
+        </title>
+      </Helmet>
       <div className={styles.ReportWrapper}>
-        <Grid container justify="center">
-          <Grid item xs={12} md={isSingleColumn ? SINGLE_COLUMN_WIDTH : 12}>
-            <ShareDialog
-              madLib={props.madLib}
-              shareModalOpen={shareModalOpen}
-              setShareModalOpen={setShareModalOpen}
-            />
-            <div className={styles.ReportToolbar}>
-              <Button
-                color="primary"
-                startIcon={<ShareIcon />}
-                onClick={() => setShareModalOpen(true)}
-                data-tip="Share a Link to this Report"
-              >
-                Share
-              </Button>
-            </div>
-            <DisclaimerAlert
-              jumpToData={jumpToData}
-              isSingleColumn={isSingleColumn}
-            />
-          </Grid>
-        </Grid>
-
+        <ShareButtons madLib={props.madLib} />
+        <DisclaimerAlert
+          jumpToData={jumpToData}
+          isSingleColumn={isSingleColumn}
+        />
         {getReport()}
       </div>
       <aside
@@ -300,6 +286,7 @@ function ReportProvider(props: ReportProviderProps) {
           </li>
         </ul>
       </aside>
+      <FeedbackBox />
     </>
   );
 }
