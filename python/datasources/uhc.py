@@ -39,7 +39,6 @@ BASE_UHC_URL = "https://www.americashealthrankings.org/api/v1/downloads/210"
 UHC_DETERMINANTS_OF_HEALTH = {
     "Chronic Obstructive Pulmonary Disease": std_col.COPD_PCT,
     "Diabetes": std_col.DIABETES_PCT,
-    "Anxiety": std_col.ANXIETY_PCT,
     "Frequent Mental Distress": std_col.FREQUENT_MENTAL_DISTRESS_PCT,
 }
 
@@ -71,7 +70,7 @@ class UHCData(DataSource):
             breakdown_df = self.generate_breakdown(breakdown, df)
 
             column_types = {c: 'STRING' for c in breakdown_df.columns}
-            for col in [std_col.COPD_PCT, std_col.DIABETES_PCT, std_col.ANXIETY_PCT, std_col.FREQUENT_MENTAL_DISTRESS_PCT]:
+            for col in [std_col.COPD_PCT, std_col.DIABETES_PCT, std_col.FREQUENT_MENTAL_DISTRESS_PCT]:
                 column_types[col] = 'FLOAT'
 
             if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
@@ -84,7 +83,7 @@ class UHCData(DataSource):
         output = []
         states = df['State Name'].drop_duplicates().to_list()
 
-        columns = [std_col.STATE_NAME_COL, std_col.COPD_PCT, std_col.DIABETES_PCT, std_col.ANXIETY_PCT, std_col.FREQUENT_MENTAL_DISTRESS_PCT]
+        columns = [std_col.STATE_NAME_COL, std_col.COPD_PCT, std_col.DIABETES_PCT, std_col.FREQUENT_MENTAL_DISTRESS_PCT]
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
             columns.append(std_col.RACE_CATEGORY_ID_COL)
         else:
