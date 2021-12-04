@@ -42,8 +42,8 @@ UHC_DETERMINANTS_OF_HEALTH = {
     "Frequent Mental Distress": std_col.FREQUENT_MENTAL_DISTRESS_PCT,
     "Depression": std_col.DEPRESSION_PCT,
     "Suicide": std_col.SUICIDE_PCT,
-    "Use of Illicit Opioids": std_col.illicit_opioid_use_PCT,
-    "Non-Medical Drug Use": std_col.NON_MEDICAL_DRUG_USE_PCT,
+    "Illicit Opioid Use": std_col.illicit_opioid_use_PCT,
+    "Non-medical Drug Use": std_col.NON_MEDICAL_DRUG_USE_PCT,
     "Excessive Drinking": std_col.EXCESSIVE_DRINKING_PCT,
     
 }

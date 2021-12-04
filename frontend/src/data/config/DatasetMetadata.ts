@@ -154,17 +154,20 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "uhc_data-age",
-    name: "COPD and Diabetes Prevalence by Age and State",
+    name:
+      "COPD, Diabetes, Depression, Suicide, Illicit Opioid Use, Non-medical Drug Use and Excessive Drinking Prevalence by Age and State",
     update_time: "2019",
   },
   {
     id: "uhc_data-race_and_ethnicity",
-    name: "COPD and Diabetes Prevalence by Race and State",
+    name:
+      "COPD, Diabetes, Depression, Suicide, Illicit Opioid Use, Non-medical Drug Use and Excessive Drinking  Prevalence by Race and State",
     update_time: "2019",
   },
   {
     id: "uhc_data-sex",
-    name: "COPD and Diabetes Prevalence by Sex and State",
+    name:
+      "COPD, Diabetes, Depression, Suicide, Illicit Opioid Use, Non-medical Drug Use and Excessive Drinking  Prevalence by Sex and State",
     update_time: "2019",
   },
   {

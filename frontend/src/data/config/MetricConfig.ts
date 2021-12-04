@@ -442,12 +442,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "cases",
       variableDisplayName: "Cases",
-      variableFullDisplayName: "Use of Illicit Opioids Cases",
+      variableFullDisplayName: "Illicit Opioid Use Cases",
       surveyCollectedData: true,
       metrics: {
         pct_share: {
           metricId: "illicit_opioid_use_pct_share",
-          fullCardTitleName: "Share Of Total Use of Illicit Opioids",
+          fullCardTitleName: "Share Of Total Illicit Opioid Use",
           shortVegaLabel: "% of all illicit opioid usage",
           type: "pct_share",
           populationComparisonMetric: {
@@ -459,7 +459,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         per100k: {
           metricId: "illicit_opioid_use_per_100k",
-          fullCardTitleName: "Use of Illicit Opioids Per 100k People",
+          fullCardTitleName: "Illicit Opioid Use Per 100k People",
           shortVegaLabel: "Illicit opioid use per 100k",
           type: "per100k",
         },
