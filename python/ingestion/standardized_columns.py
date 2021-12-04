@@ -57,7 +57,7 @@ BELOW_POVERTY_COL = "below_poverty_line"
 COPD_PCT = "copd_pct"
 DIABETES_PCT = "diabetes_pct"
 ANXIETY_PCT = "anxiety_pct"
-FREQUENT_MENTAL_DISTRESS_PCT = "frequent_mental_distress"
+FREQUENT_MENTAL_DISTRESS_PCT = "frequent_mental_distress_pct"
 
 # Standardized for Vaccination columns
 VACCINATED_FIRST_DOSE = "vaccinated_first_dose"

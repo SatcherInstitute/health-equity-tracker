@@ -101,6 +101,10 @@ class UHCData(DataSource):
 
                 for determinant in UHC_DETERMINANTS_OF_HEALTH:
                     if breakdown_value == 'All':
+                        print(determinant)
+                        print(df.loc[
+                            (df['State Name'] == state) &
+                            (df['Measure Name'] == determinant)]['Value'].values[0])
                         output_row[UHC_DETERMINANTS_OF_HEALTH[determinant]] = df.loc[
                             (df['State Name'] == state) &
                             (df['Measure Name'] == determinant)]['Value'].values[0]
