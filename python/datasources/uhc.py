@@ -40,6 +40,12 @@ UHC_DETERMINANTS_OF_HEALTH = {
     "Chronic Obstructive Pulmonary Disease": std_col.COPD_PCT,
     "Diabetes": std_col.DIABETES_PCT,
     "Frequent Mental Distress": std_col.FREQUENT_MENTAL_DISTRESS_PCT,
+    "Depression": std_col.DEPRESSION_PCT,
+    "Suicide": std_col.SUICIDE_PCT,
+    "Use of Illicit Opioids": std_col.illicit_opioid_use_PCT,
+    "Non-Medical Drug Use": std_col.NON_MEDICAL_DRUG_USE_PCT,
+    "Excessive Drinking": std_col.EXCESSIVE_DRINKING_PCT,
+    
 }
 
 BREAKDOWN_MAP = {
@@ -68,9 +74,8 @@ class UHCData(DataSource):
 
         for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
             breakdown_df = self.generate_breakdown(breakdown, df)
-
             column_types = {c: 'STRING' for c in breakdown_df.columns}
-            for col in [std_col.COPD_PCT, std_col.DIABETES_PCT, std_col.FREQUENT_MENTAL_DISTRESS_PCT]:
+            for col in [std_col.COPD_PCT, std_col.DIABETES_PCT, std_col.FREQUENT_MENTAL_DISTRESS_PCT,std_col.DEPRESSION_PCT,std_col.SUICIDE_PCT,std_col.illicit_opioid_use_PCT,std_col.NON_MEDICAL_DRUG_USE_PCT,std_col.EXCESSIVE_DRINKING_PCT]:
                 column_types[col] = 'FLOAT'
 
             if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
@@ -83,7 +88,7 @@ class UHCData(DataSource):
         output = []
         states = df['State Name'].drop_duplicates().to_list()
 
-        columns = [std_col.STATE_NAME_COL, std_col.COPD_PCT, std_col.DIABETES_PCT, std_col.FREQUENT_MENTAL_DISTRESS_PCT]
+        columns = [std_col.STATE_NAME_COL, std_col.COPD_PCT, std_col.DIABETES_PCT, std_col.FREQUENT_MENTAL_DISTRESS_PCT,std_col.DEPRESSION_PCT,std_col.SUICIDE_PCT,std_col.illicit_opioid_use_PCT,std_col.NON_MEDICAL_DRUG_USE_PCT,std_col.EXCESSIVE_DRINKING_PCT]
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
             columns.append(std_col.RACE_CATEGORY_ID_COL)
         else:

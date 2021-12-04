@@ -41,12 +41,24 @@ export type MetricId =
   | "vaccinated_share_of_known"
   | "vaccinated_per_100k"
   | "vaccine_population_pct"
-  | "anxiety_pct"
-  | "anxiety_pct_share"
-  | "anxiety_per_100k"
   | "frequent_mental_distress_pct"
   | "frequent_mental_distress_pct_share"
-  | "frequent_mental_distress_per_100k";
+  | "frequent_mental_distress_per_100k"
+  | "depression_pct"
+  | "depression_pct_share"
+  | "depression_per_100k"
+  | "suicide_pct"
+  | "suicide_pct_share"
+  | "suicide_per_100k"
+  | "illicit_opioid_use_pct"
+  | "illicit_opioid_use_pct_share"
+  | "illicit_opioid_use_per_100k"
+  | "non_medical_drug_use_pct"
+  | "non_medical_drug_use_pct_share"
+  | "non_medical_drug_use_per_100k"
+  | "excessive_drinking_pct"
+  | "excessive_drinking_pct_share"
+  | "excessive_drinking_per_100k";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -314,17 +326,17 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       },
     },
   ],
-  anxiety: [
+  suicide: [
     {
       variableId: "cases",
       variableDisplayName: "Cases",
-      variableFullDisplayName: "Anxiety Cases",
+      variableFullDisplayName: "Suicides",
       surveyCollectedData: true,
       metrics: {
         pct_share: {
-          metricId: "anxiety_pct_share",
-          fullCardTitleName: "Share Of Total Anxiety Cases",
-          shortVegaLabel: "% of cases",
+          metricId: "suicide_pct_share",
+          fullCardTitleName: "Share Of Total Suicides",
+          shortVegaLabel: "% of suicides",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "brfss_population_pct",
@@ -334,9 +346,121 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           },
         },
         per100k: {
-          metricId: "anxiety_per_100k",
-          fullCardTitleName: "Anxiety Cases Per 100k People",
-          shortVegaLabel: "anxiety cases per 100k",
+          metricId: "suicide_per_100k",
+          fullCardTitleName: "Suicides Per 100k People",
+          shortVegaLabel: "suicide per 100k",
+          type: "per100k",
+        },
+      },
+    },
+  ],
+  depression: [
+    {
+      variableId: "cases",
+      variableDisplayName: "Cases",
+      variableFullDisplayName: "Depression Cases",
+      surveyCollectedData: true,
+      metrics: {
+        pct_share: {
+          metricId: "depression_pct_share",
+          fullCardTitleName: "Share Of Total Depression",
+          shortVegaLabel: "% of depression cases",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "brfss_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+        per100k: {
+          metricId: "depression_per_100k",
+          fullCardTitleName: "Depression Per 100k People",
+          shortVegaLabel: "depression per 100k",
+          type: "per100k",
+        },
+      },
+    },
+  ],
+  excessive_drinking: [
+    {
+      variableId: "cases",
+      variableDisplayName: "Cases",
+      variableFullDisplayName: "Excessive Drinking Cases",
+      surveyCollectedData: true,
+      metrics: {
+        pct_share: {
+          metricId: "excessive_drinking_pct_share",
+          fullCardTitleName: "Share Of Total Excessive Drinking",
+          shortVegaLabel: "% of all excessive drinking cases",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "brfss_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+        per100k: {
+          metricId: "excessive_drinking_per_100k",
+          fullCardTitleName: "Excessive Drinking Per 100k People",
+          shortVegaLabel: "excessive drinking per 100k",
+          type: "per100k",
+        },
+      },
+    },
+  ],
+  non_medical_drug_use: [
+    {
+      variableId: "cases",
+      variableDisplayName: "Cases",
+      variableFullDisplayName: "Non-medical Drug Use Cases",
+      surveyCollectedData: true,
+      metrics: {
+        pct_share: {
+          metricId: "non_medical_drug_use_pct_share",
+          fullCardTitleName: "Share Of Total Non-medical Drug Use",
+          shortVegaLabel: "% of non-medical drug use case",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "brfss_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+        per100k: {
+          metricId: "non_medical_drug_use_per_100k",
+          fullCardTitleName: "Non-medical Drug Use Per 100k People",
+          shortVegaLabel: "Non-medical drug use per 100k",
+          type: "per100k",
+        },
+      },
+    },
+  ],
+  illicit_opioid_use: [
+    {
+      variableId: "cases",
+      variableDisplayName: "Cases",
+      variableFullDisplayName: "Use of Illicit Opioids Cases",
+      surveyCollectedData: true,
+      metrics: {
+        pct_share: {
+          metricId: "illicit_opioid_use_pct_share",
+          fullCardTitleName: "Share Of Total Use of Illicit Opioids",
+          shortVegaLabel: "% of all illicit opioid usage",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "brfss_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+        per100k: {
+          metricId: "illicit_opioid_use_per_100k",
+          fullCardTitleName: "Use of Illicit Opioids Per 100k People",
+          shortVegaLabel: "Illicit opioid use per 100k",
           type: "per100k",
         },
       },

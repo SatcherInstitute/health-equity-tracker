@@ -21,9 +21,21 @@ class BrfssProvider extends VariableProvider {
       "diabetes_pct",
       "diabetes_pct_share",
       "diabetes_per_100k",
-      "anxiety_pct",
-      "anxiety_pct_share",
-      "anxiety_per_100k",
+      "depression_pct",
+      "depression_pct_share",
+      "depression_per_100k",
+      "suicide_pct",
+      "suicide_pct_share",
+      "suicide_per_100k",
+      "illicit_opioid_use_pct",
+      "illicit_opioid_use_pct_share",
+      "illicit_opioid_use_per_100k",
+      "non_medical_drug_use_pct",
+      "non_medical_drug_use_pct_share",
+      "non_medical_drug_use_per_100k",
+      "excessive_drinking_pct",
+      "excessive_drinking_pct_share",
+      "excessive_drinking_per_100k",
       "frequent_mental_distress_pct",
       "frequent_mental_distress_pct_share",
       "frequent_mental_distress_per_100k",
@@ -80,8 +92,25 @@ class BrfssProvider extends VariableProvider {
         this.calculations.estimateTotal(row.diabetes_pct, row.population),
       estimated_total_copd: (row) =>
         this.calculations.estimateTotal(row.copd_pct, row.population),
-      estimated_total_anxiety: (row) =>
-        this.calculations.estimateTotal(row.anxiety_pct, row.population),
+      estimated_total_suicide: (row) =>
+        this.calculations.estimateTotal(row.suicide_pct, row.population),
+      estimated_total_depression: (row) =>
+        this.calculations.estimateTotal(row.depression_pct, row.population),
+      estimated_total_illicit_opioid_use: (row) =>
+        this.calculations.estimateTotal(
+          row.illicit_opioid_use_pct,
+          row.population
+        ),
+      estimated_total_non_medical_drug_use: (row) =>
+        this.calculations.estimateTotal(
+          row.non_medical_drug_use_pct,
+          row.population
+        ),
+      estimated_total_excessive_drinking: (row) =>
+        this.calculations.estimateTotal(
+          row.excessive_drinking_pct,
+          row.population
+        ),
       estimated_total_frequent_mental_distress: (row) =>
         this.calculations.estimateTotal(
           row.frequent_mental_distress_pct,
@@ -98,8 +127,22 @@ class BrfssProvider extends VariableProvider {
         row.diabetes_pct == null ? null : row.diabetes_pct * 1000,
       copd_per_100k: (row) =>
         row.copd_pct == null ? null : row.copd_pct * 1000,
-      anxiety_per_100k: (row) =>
-        row.anxiety_pct == null ? null : row.anxiety_pct * 1000,
+      depression_per_100k: (row) =>
+        row.depression_pct == null ? null : row.depression_pct * 1000,
+      suicide_per_100k: (row) =>
+        row.suicide_pct == null ? null : row.suicide_pct * 1000,
+      illicit_opioid_use_per_100k: (row) =>
+        row.illicit_opioid_use_pct == null
+          ? null
+          : row.illicit_opioid_use_pct * 1000,
+      non_medical_drug_use_per_100k: (row) =>
+        row.non_medical_drug_use_pct == null
+          ? null
+          : row.non_medical_drug_use_pct * 1000,
+      excessive_drinking_per_100k: (row) =>
+        row.excessive_drinking_pct == null
+          ? null
+          : row.excessive_drinking_pct * 1000,
       frequent_mental_distress_per_100k: (row) =>
         row.frequent_mental_distress_pct == null
           ? null
@@ -111,7 +154,11 @@ class BrfssProvider extends VariableProvider {
       [
         "estimated_total_diabetes",
         "estimated_total_copd",
-        "estimated_total_anxiety",
+        "estimated_total_depression",
+        "estimated_total_suicide",
+        "estimated_total_illicit_opioid_use",
+        "estimated_total_non_medical_drug_use",
+        "estimated_total_excessive_drinking",
         "estimated_total_frequent_mental_distress",
       ].forEach((col) => {
         df = this.calculations.calculatePctShare(
@@ -129,7 +176,11 @@ class BrfssProvider extends VariableProvider {
         "population",
         "estimated_total_copd",
         "estimated_total_diabetes",
-        "estimated_total_anxiety",
+        "estimated_total_depression",
+        "estimated_total_suicide",
+        "estimated_total_illicit_opioid_use",
+        "estimated_total_non_medical_drug_use",
+        "estimated_total_excessive_drinking",
         "estimated_total_frequent_mental_distress",
       ])
       .resetIndex();

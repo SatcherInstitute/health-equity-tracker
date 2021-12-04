@@ -65,7 +65,11 @@ export type DropdownVarId =
   | "health_insurance"
   | "poverty"
   | "vaccinations"
-  | "anxiety"
+  | "depression"
+  | "suicide"
+  | "illicit_opioid_use"
+  | "non_medical_drug_use"
+  | "excessive_drinking"
   | "frequent_mental_distress";
 
 const DROPDOWN_VAR: Record<DropdownVarId, string> = {
@@ -75,7 +79,11 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   health_insurance: "Uninsured Individuals",
   poverty: "Poverty",
   vaccinations: "COVID-19 Vaccinations",
-  anxiety: "Anxiety",
+  depression: "Depression",
+  suicide: "Suicide",
+  illicit_opioid_use: "Use of Illicit Opioids",
+  non_medical_drug_use: "Non-Medical Drug Use",
+  excessive_drinking: "Excessive Drinking",
   frequent_mental_distress: "Frequent Mental Distress",
 };
 
@@ -101,7 +109,14 @@ const CATEGORIES_LIST: Category[] = [
   },
   {
     title: "Behavioral Health",
-    options: ["anxiety", "frequent_mental_distress"],
+    options: [
+      "depression",
+      "suicide",
+      "non_medical_drug_use",
+      "illicit_opioid_use",
+      "excessive_drinking",
+      "frequent_mental_distress",
+    ],
   },
 ];
 
