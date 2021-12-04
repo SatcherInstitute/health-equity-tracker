@@ -117,7 +117,7 @@ class BrfssProvider extends VariableProvider {
         df = this.calculations.calculatePctShare(
           df,
           col,
-          col.split("_")[2] + "_pct_share",
+          col.replace("estimated_total_", "") + "_pct_share",
           breakdownColumnName,
           ["fips"]
         );
