@@ -305,7 +305,7 @@ $ gcloud auth configure-docker
 $ ./push_images
 ```
 
-* Setup your cloud environemnt with `terraform`
+* Setup your cloud environment with `terraform`
 
 ```bash
 $ pushd config
@@ -330,7 +330,7 @@ $ popd
 $ ./push_images
 ```
 
-* Setup your cloud environemnt with `terraform`
+* Setup your cloud environment with `terraform`
 
 ```bash
 $ pushd config
