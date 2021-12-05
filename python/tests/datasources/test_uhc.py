@@ -40,7 +40,11 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
             'copd_pct',
             'diabetes_pct',
             'frequent_mental_distress_pct',
-            'depression_pct', 'suicide', 'illicit_opioid_use', 'non_medical_drug_use', 'excessive_drinking',
+            'depression_pct', 
+            'suicide_pct', 
+            'illicit_opioid_use_pct', 
+            'non_medical_drug_use_pct', 
+            'excessive_drinking_pct',
             demos[i],
         ]
 
@@ -50,5 +54,7 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
             expected_cols.append('race_category_id')
 
         output = mock_bq.call_args_list[i].args[0]
+        print (set(output.columns))
+        print (set(expected_cols))
         assert set(output.columns) == set(expected_cols)
         assert output.shape == (expected_len[demos[i]], len(expected_cols))
