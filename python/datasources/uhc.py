@@ -80,7 +80,13 @@ class UHCData(DataSource):
         for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
             breakdown_df = self.generate_breakdown(breakdown, df)
             column_types = {c: 'STRING' for c in breakdown_df.columns}
-            for col in [std_col.COPD_PCT, std_col.DIABETES_PCT, std_col.FREQUENT_MENTAL_DISTRESS_PCT, std_col.DEPRESSION_PCT, std_col.SUICIDE_PCT, std_col.ILLICIT_OPIOID_USE_PCT, std_col.NON_MEDICAL_DRUG_USE_PCT, std_col.EXCESSIVE_DRINKING_PCT]:
+            for col in [std_col.COPD_PCT,
+                        std_col.DIABETES_PCT,
+                        std_col.FREQUENT_MENTAL_DISTRESS_PCT,
+                        std_col.DEPRESSION_PCT, std_col.SUICIDE_PCT,
+                        std_col.ILLICIT_OPIOID_USE_PCT,
+                        std_col.NON_MEDICAL_DRUG_USE_PCT,
+                        std_col.EXCESSIVE_DRINKING_PCT]:
                 column_types[col] = 'FLOAT'
 
             if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
@@ -108,17 +114,23 @@ class UHCData(DataSource):
                 output_row[std_col.STATE_NAME_COL] = state
 
                 if breakdown == std_col.RACE_OR_HISPANIC_COL:
-                    output_row[std_col.RACE_CATEGORY_ID_COL] = UHC_RACE_GROUPS_TO_STANDARD[breakdown_value]
+                    output_row[std_col.RACE_CATEGORY_ID_COL] = \
+                    UHC_RACE_GROUPS_TO_STANDARD[breakdown_value]
                 else:
                     output_row[breakdown] = breakdown_value
 
+                #  use .contains() rather than == to account for conditions that use
+                # multiple wordings like "Use of Illicit Opioids" / "Illicit Opioid Use".
+                # ! Need to confirm this doesn't cause any false positives,
+                # ! where one determinant name might occur within another's name.
+                # For example, we can't just use "Opioid" since there are rows
+                # with the names "Non-medical Use of Prescription Opioids"
+                # and "Use of Other Illicit Drugs (excludes opioids and cannabis)"
                 for determinant in UHC_DETERMINANTS_OF_HEALTH:
                     if breakdown_value == 'All':
-                        output_row[UHC_DETERMINANTS_OF_HEALTH[determinant]] = df.loc[(df['State Name'] == state) &
-                                                                                     # use .contains() rather than == to account for conditions that use multiple wordings like "Use of Illicit Opioids" / "Illicit Opioid Use".
-                                                                                     # ! Need to confirm this doesn't cause any false positives, where one determinant name might occur within another's name.
-                                                                                     # ! For example, we can't just use "Opioid" since there are rows with the names "Non-medical Use of Prescription Opioids" and Use of Other Illicit Drugs (excludes opioids and cannabis)
-                                                                                     (df['Measure Name'].str.contains(determinant))]['Value'].values[0]
+                        output_row[UHC_DETERMINANTS_OF_HEALTH[determinant]] = \
+                            df.loc[(df['State Name'] == state) & \
+                            (df['Measure Name'].str.contains(determinant))]['Value'].values[0]
 
                     else:
                         row = df.loc[
