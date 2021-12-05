@@ -161,13 +161,13 @@ const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "uhc_data-race_and_ethnicity",
     name:
-      "COPD, Diabetes, Depression, Suicide, Illicit Opioid Use, Non-medical Drug Use and Excessive Drinking  Prevalence by Race and State",
+      "COPD, Diabetes, Depression, Suicide, Illicit Opioid Use, Non-medical Drug Use and Excessive Drinking Prevalence by Race and State",
     update_time: "2019",
   },
   {
     id: "uhc_data-sex",
     name:
-      "COPD, Diabetes, Depression, Suicide, Illicit Opioid Use, Non-medical Drug Use and Excessive Drinking  Prevalence by Sex and State",
+      "COPD, Diabetes, Depression, Suicide, Illicit Opioid Use, Non-medical Drug Use and Excessive Drinking Prevalence by Sex and State",
     update_time: "2019",
   },
   {
