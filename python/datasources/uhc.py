@@ -59,7 +59,6 @@ BREAKDOWN_MAP = {
     "sex": UHC_SEX_GROUPS,
 }
 
-
 class UHCData(DataSource):
 
     @staticmethod
@@ -76,7 +75,7 @@ class UHCData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_UHC_URL)
-
+        
         for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
             breakdown_df = self.generate_breakdown(breakdown, df)
             column_types = {c: 'STRING' for c in breakdown_df.columns}
