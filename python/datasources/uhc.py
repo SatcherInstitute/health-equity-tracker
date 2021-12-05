@@ -18,6 +18,7 @@ UHC_RACE_GROUPS = [
     'All',
 ]
 
+# ! should ALL UHC variables use the same age buckets (and races?). There are different buckets used in the CSV (for suicide for example)
 UHC_AGE_GROUPS = ['18-44', '45-64', '65+', 'All']
 
 UHC_SEX_GROUPS = ['Male', 'Female', 'All']
@@ -42,7 +43,8 @@ UHC_DETERMINANTS_OF_HEALTH = {
     "Frequent Mental Distress": std_col.FREQUENT_MENTAL_DISTRESS_PCT,
     "Depression": std_col.DEPRESSION_PCT,
     "Suicide": std_col.SUICIDE_PCT,
-    "Illicit Opioid Use": std_col.illicit_opioid_use_PCT,
+    # ! FIX: the csv contains both "Use of Illicit Opioids" AND "Illicit Opioid Use"; we need to merge these
+    "Illicit Opioid Use": std_col.illicit_opioid_use_PCT, 
     "Non-medical Drug Use": std_col.NON_MEDICAL_DRUG_USE_PCT,
     "Excessive Drinking": std_col.EXCESSIVE_DRINKING_PCT,
     

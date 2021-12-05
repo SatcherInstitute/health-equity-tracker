@@ -23,7 +23,7 @@ function images::build() {
   docker build -t "gcr.io/${project_id}/data-server-service" -f data_server/Dockerfile .
   docker build -t "gcr.io/${project_id}/exporter-service" -f exporter/Dockerfile .
   docker build -t "gcr.io/${project_id}/aggregator-service" -f aggregator/Dockerfile .
-  docker build -t "gcr.io/${project_id}/frontend-service" -f frontend_server/Dockerfile . --build-arg="DEPLOY_CONTEXT=development"
+  # docker build -t "gcr.io/${project_id}/frontend-service" -f frontend_server/Dockerfile . --build-arg="DEPLOY_CONTEXT=development"
 }
 
 function images::push() {
