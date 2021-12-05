@@ -43,7 +43,11 @@ UHC_DETERMINANTS_OF_HEALTH = {
     "Frequent Mental Distress": std_col.FREQUENT_MENTAL_DISTRESS_PCT,
     "Depression": std_col.DEPRESSION_PCT,
     "Suicide": std_col.SUICIDE_PCT,
-    "Illicit Opioid": std_col.ILLICIT_OPIOID_USE_PCT,  # both wordings
+    # NOTE: the endpoint CSV uses multiple wordings:
+    # "Illicit Opioid Use" for rows without demographic breakdown
+    # "Use of Illicit Opioids" for rows with demographic breakdowns
+    # We'll use "Illicit Opioid" since it is contained by both wordings
+    "Illicit Opioid": std_col.ILLICIT_OPIOID_USE_PCT,  
     "Non-medical Drug Use": std_col.NON_MEDICAL_DRUG_USE_PCT,
     "Excessive Drinking": std_col.EXCESSIVE_DRINKING_PCT,
     
@@ -107,12 +111,11 @@ class UHCData(DataSource):
 
                 for determinant in UHC_DETERMINANTS_OF_HEALTH:
                     if breakdown_value == 'All':
-                        print(determinant)
-                        print(df.loc[
-                            (df['State Name'] == state) &
-                            (df['Measure Name'] == determinant)])
                         output_row[UHC_DETERMINANTS_OF_HEALTH[determinant]] = df.loc[
                             (df['State Name'] == state) &
+                            # use .contains() rather than == to account for conditions that use multiple wordings like "Use of Illicit Opioids" / "Illicit Opioid Use". 
+                            # ! Need to confirm this doesn't cause any false positives, where one determinant name might occur within another's name. 
+                            # ! For example, we can't just use "Opioid" since there are rows with the names "Non-medical Use of Prescription Opioids" and Use of Other Illicit Drugs (excludes opioids and cannabis)
                             (df['Measure Name'].str.contains(determinant))]['Value'].values[0]
 
                     else:
