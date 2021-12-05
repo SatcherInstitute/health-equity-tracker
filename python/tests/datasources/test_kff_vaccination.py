@@ -76,5 +76,5 @@ def testWriteToBq(
         'vaccinated_first_dose': str,
         'population_pct': str,
     })
-    
+
     assert_frame_equal(mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
