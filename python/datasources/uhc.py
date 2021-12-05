@@ -18,9 +18,12 @@ UHC_RACE_GROUPS = [
     'All',
 ]
 
-# ! should ALL UHC variables use the same age buckets (and races?).
-# There are different buckets used in the CSV (for suicide for example)
+# ! fix age buckets
+# COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking
 UHC_AGE_GROUPS = ['18-44', '45-64', '65+', 'All']
+# Suicide
+UHC_AGE_GROUPS_MORE = ['15-24', '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '85+', 'All']
+# No Age Breakdowns for: Illicit Opioid, Non-medical Drug
 
 UHC_SEX_GROUPS = ['Male', 'Female', 'All']
 
