@@ -115,7 +115,7 @@ class UHCData(DataSource):
 
                 if breakdown == std_col.RACE_OR_HISPANIC_COL:
                     output_row[std_col.RACE_CATEGORY_ID_COL] = \
-                    UHC_RACE_GROUPS_TO_STANDARD[breakdown_value]
+                        UHC_RACE_GROUPS_TO_STANDARD[breakdown_value]
                 else:
                     output_row[breakdown] = breakdown_value
 
@@ -129,8 +129,8 @@ class UHCData(DataSource):
                 for determinant in UHC_DETERMINANTS_OF_HEALTH:
                     if breakdown_value == 'All':
                         output_row[UHC_DETERMINANTS_OF_HEALTH[determinant]] = \
-                            df.loc[(df['State Name'] == state) & \
-                            (df['Measure Name'].str.contains(determinant))]['Value'].values[0]
+                            df.loc[(df['State Name'] == state) &
+                                   (df['Measure Name'].str.contains(determinant))]['Value'].values[0]
 
                     else:
                         row = df.loc[

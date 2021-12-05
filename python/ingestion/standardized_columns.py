@@ -76,6 +76,7 @@ RaceTuple = namedtuple("RaceTuple", [
     "race_and_ethnicity"
 ])
 
+
 @unique
 class Race(Enum):
     # These categories are one format of standard categories used in ACS data,
