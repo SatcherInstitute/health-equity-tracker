@@ -198,8 +198,8 @@ function ReportProvider(props: ReportProviderProps) {
         <p>
           In accordance with our{" "}
           <Link to={METHODOLOGY_TAB_LINK}>methodology</Link>, we suppress this
-          incomplete data by rendering some states grey for certain COVID-19
-          data types, as outlined below:
+          incomplete data and render some states grey for certain COVID-19 data
+          types, as outlined below:
         </p>
         <ul>
           <li>
@@ -218,9 +218,9 @@ function ReportProvider(props: ReportProviderProps) {
           </li>
         </ul>
         <p>
-          Note: The following states' data for COVID-19 <i>are</i> included, but
-          should be interpreted with caution since the cases reported may not be
-          representative of the population at large.
+          Note: The following states' case data for COVID-19 <i>are</i>{" "}
+          included, but should be interpreted with caution since the cases
+          reported may not be representative of the population at large.
         </p>
         <ul>
           <li>
