@@ -9,6 +9,10 @@ HI,Male,1,,,,,,
 HI,Total,1,,,,,,
 MD,Female,1,0,0,1,1,0,0
 MD,Total,1,0,0,1,1,0,0
+MO,Male,1,,,,,,
+MO,Total,1,,,,,,
+ND,Total,1,0,0,1,1,0,0
+ND,Unknown,1,0,0,1,1,0,0
 NE,Female,1,,,,,,
 NE,Total,1,,,,,,
 NM,Total,1,0,1,0,0,1,0
@@ -29,6 +33,11 @@ HI,Female,,,,,,,
 HI,Other,,,,,,,
 MD,Male,,,,,,,
 MD,Other,,,,,,,
+MO,Female,,,,,,,
+MO,Other,,,,,,,
+ND,Female,,,,,,,
+ND,Male,,,,,,,
+ND,Other,,,,,,,
 NE,Male,,,,,,,
 NE,Other,,,,,,,
 NM,Female,,,,,,,
