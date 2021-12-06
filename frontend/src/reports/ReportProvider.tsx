@@ -189,11 +189,10 @@ function ReportProvider(props: ReportProviderProps) {
           . The following states appear grey on the maps reporting COVID-19
           cases, hospitalizations and deaths because they have not provided
           sufficient disaggregated data to the CDC: <b>Louisiana</b>,{" "}
-          <b>Mississippi</b>, <b>Missouri</b>, <b>North Dakota</b>, <b>Texas</b>
-          , and <b>West Virginia</b>. The following states' data for COVID-19
-          are included, but their data should be interpreted with caution since
-          the cases reported may not be representative of the population at
-          large: 
+          <b>Mississippi</b>, <b>Texas</b>, and <b>West Virginia</b>. The
+          following states' data for COVID-19 are included, but their data
+          should be interpreted with caution since the cases reported may not be
+          representative of the population at large: 
           <b>Connecticut</b>, <b>Florida</b>, <b>Kentucky</b>, <b>Michigan</b>,{" "}
           <b>Nebraska</b>, and <b>Ohio</b>.
         </p>
@@ -208,10 +207,11 @@ function ReportProvider(props: ReportProviderProps) {
           Until then, in accordance with our{" "}
           <Link to={METHODOLOGY_TAB_LINK}>methodology</Link>, the following
           states appear grey when viewing COVID-19 maps featuring
-          hospitalizations and deaths: <b>Hawaii</b>, <b>Nebraska</b>,{" "}
-          <b>South Dakota</b>, and <b>Wyoming</b>. <b>Delaware</b> is included
-          when viewing hospitalizations, but not deaths, and <b>Rhode Island</b>{" "}
-          is included when viewing deaths, but not hospitalizations.
+          hospitalizations and deaths: <b>Hawaii</b>, <b>Missouri</b>,{" "}
+          <b>Nebraska</b>, <b>South Dakota</b>, and <b>Wyoming</b>.{" "}
+          <b>Delaware</b> is included when viewing hospitalizations, but not
+          deaths, and <b>Rhode Island</b> is included when viewing deaths, but
+          not hospitalizations.
         </p>
         <h4>Missing Vaccination Data</h4>
         <p>
