@@ -196,6 +196,7 @@ function ReportProvider(props: ReportProviderProps) {
           <b>Connecticut</b>, <b>Florida</b>, <b>Kentucky</b>, <b>Michigan</b>,{" "}
           <b>Nebraska</b>, and <b>Ohio</b>.
         </p>
+
         <h4>Missing Outcomes</h4>
         <p>
           Many COVID-19 case records are incomplete, with an unknown
@@ -205,14 +206,23 @@ function ReportProvider(props: ReportProviderProps) {
           surveillance data, we expect this picture to become more complete over
           time and will use the Health Equity Tracker to record the progress.
           Until then, in accordance with our{" "}
-          <Link to={METHODOLOGY_TAB_LINK}>methodology</Link>, the following
-          states appear grey when viewing COVID-19 maps featuring
-          hospitalizations and deaths: <b>Hawaii</b>, <b>Missouri</b>,{" "}
-          <b>Nebraska</b>, <b>South Dakota</b>, and <b>Wyoming</b>.{" "}
-          <b>Delaware</b> is included when viewing hospitalizations, but not
-          deaths, and <b>Rhode Island</b> is included when viewing deaths, but
-          not hospitalizations.
+          <Link to={METHODOLOGY_TAB_LINK}>methodology</Link>, we will suppress
+          this incomplete data by rendering some states grey for certain
+          COVID-19 data types, as outlined below.
         </p>
+        <ul>
+          <li>
+            Hospitalizations: <b>Rhode Island</b>
+          </li>
+          <li>
+            Deaths: <b>Delaware</b>
+          </li>
+          <li>
+            Hospitalizations and deaths: <b>Hawaii</b>, <b>Missouri</b>,{" "}
+            <b>Nebraska</b>, <b>South Dakota</b>, <b>Wyoming</b>
+          </li>
+        </ul>
+
         <h4>Missing Vaccination Data</h4>
         <p>
           There is no county level vaccine demographic dataset, so we show
