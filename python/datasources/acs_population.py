@@ -105,14 +105,36 @@ def get_decade_age_bucket(age_range):
 
 
 def get_uhc_age_bucket(age_range):
-    if age_range in {'18-19', '20-24', '20-20', '21-21', '22-24', '25-29', '30-34', '35-44', '35-39', '40-44'}:
+    if age_range == 'Total':
+        return 'Total'
+    # buckets for COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking
+    elif age_range in {'18-19', '20-24', '20-20', '21-21', '22-24',
+                       '25-29', '30-34', '35-44', '35-39', '40-44'}:
         return '18-44'
     elif age_range in {'45-54', '45-49', '50-54', '55-64', '55-59', '60-61', '62-64'}:
         return '45-64'
     elif age_range in {'65-74', '65-66', '67-69', '70-74', '75-84', '75-79', '80-84', '85+'}:
         return '65+'
-    elif age_range == 'Total':
-        return 'Total'
+    # buckets for Suicide
+    elif age_range in {'15-17', '18-19', '20-20', '21-21', '22-24'}:
+        return '15-24'
+    elif age_range in {'25-29', '30-34'}:
+        return '25-34'
+    elif age_range in {'35-39', '40-44'}:
+        return '35-44'
+    elif age_range in {'45-49', '50-54'}:
+        return '45-54'
+    elif age_range in {'55-59', '60-61', '62-64'}:
+        return '55-64'
+    elif age_range in {'65-66', '67-69', '70-74'}:
+        return '65-74'
+    elif age_range in {'75-79', '80-84'}:
+        return '75-84'
+    elif age_range in {'85+'}:
+        return '85+'
+    # No Age Breakdowns for: Illicit Opioid, Non-medical Drug
+    else:
+        return 'Unknown'
 
 
 def rename_age_bracket(bracket):
@@ -409,7 +431,8 @@ class ACSPopulationIngester():
         return self.sort_sex_age_race_frame(result)
 
     def get_by_sex_age(self, by_sex_age_race_frame, age_aggregator_func):
-        by_sex_age = by_sex_age_race_frame.loc[by_sex_age_race_frame[RACE_CATEGORY_ID_COL] == Race.TOTAL.value]
+        by_sex_age = by_sex_age_race_frame.loc[by_sex_age_race_frame[RACE_CATEGORY_ID_COL]
+                                               == Race.TOTAL.value]
 
         cols = [
             STATE_FIPS_COL,

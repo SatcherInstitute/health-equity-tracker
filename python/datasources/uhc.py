@@ -19,10 +19,9 @@ UHC_RACE_GROUPS = [
 ]
 
 # ! fix age buckets
-# COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking
-UHC_AGE_GROUPS = ['18-44', '45-64', '65+', 'All']
-# Suicide
-UHC_AGE_GROUPS_MORE = ['15-24', '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '85+', 'All']
+# COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking / # Suicide
+UHC_AGE_GROUPS = ['18-44', '45-64', '65+', 'All', '15-24',
+                  '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '85+']
 # No Age Breakdowns for: Illicit Opioid, Non-medical Drug
 
 UHC_SEX_GROUPS = ['Male', 'Female', 'All']
@@ -83,6 +82,7 @@ class UHCData(DataSource):
         for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
             breakdown_df = self.generate_breakdown(breakdown, df)
             column_types = {c: 'STRING' for c in breakdown_df.columns}
+
             for col in [std_col.COPD_PCT,
                         std_col.DIABETES_PCT,
                         std_col.FREQUENT_MENTAL_DISTRESS_PCT,
@@ -112,6 +112,7 @@ class UHCData(DataSource):
             columns.append(breakdown)
 
         for state in states:
+
             for breakdown_value in BREAKDOWN_MAP[breakdown]:
                 output_row = {}
                 output_row[std_col.STATE_NAME_COL] = state
