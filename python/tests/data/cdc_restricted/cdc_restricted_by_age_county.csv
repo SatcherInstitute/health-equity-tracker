@@ -21,10 +21,14 @@ county_fips,county_name,state_postal,age,cases,hosp_y,hosp_n,hosp_unknown,death_
 10003,NEW CASTLE,DE,Total,1,1,0,0,,,
 15003,HONOLULU,HI,0-9,1,,,,,,
 15003,HONOLULU,HI,Total,1,,,,,,
+29077,GREENE,MO,0-9,1,,,,,,
+29077,GREENE,MO,Total,1,,,,,,
 31001,ADAMS,NE,20-29,1,,,,,,
 31001,ADAMS,NE,Total,1,,,,,,
 35001,BERNALILLO,NM,30-39,1,0,1,0,0,1,0
 35001,BERNALILLO,NM,Total,1,0,1,0,0,1,0
+38015,BURLEIGH,ND,10-19,1,0,0,1,1,0,0
+38015,BURLEIGH,ND,Total,1,0,0,1,1,0,0
 44007,PROVIDENCE,RI,40-49,1,,,,1,0,0
 44007,PROVIDENCE,RI,Total,1,,,,1,0,0
 46005,BEADLE,SD,50-59,1,,,,,,
@@ -63,6 +67,14 @@ county_fips,county_name,state_postal,age,cases,hosp_y,hosp_n,hosp_unknown,death_
 15003,HONOLULU,HI,60-69,,,,,,,
 15003,HONOLULU,HI,70-79,,,,,,,
 15003,HONOLULU,HI,80+,,,,,,,
+29077,GREENE,MO,10-19,,,,,,,
+29077,GREENE,MO,20-29,,,,,,,
+29077,GREENE,MO,30-39,,,,,,,
+29077,GREENE,MO,40-49,,,,,,,
+29077,GREENE,MO,50-59,,,,,,,
+29077,GREENE,MO,60-69,,,,,,,
+29077,GREENE,MO,70-79,,,,,,,
+29077,GREENE,MO,80+,,,,,,,
 31001,ADAMS,NE,0-9,,,,,,,
 31001,ADAMS,NE,10-19,,,,,,,
 31001,ADAMS,NE,30-39,,,,,,,
@@ -79,6 +91,14 @@ county_fips,county_name,state_postal,age,cases,hosp_y,hosp_n,hosp_unknown,death_
 35001,BERNALILLO,NM,60-69,,,,,,,
 35001,BERNALILLO,NM,70-79,,,,,,,
 35001,BERNALILLO,NM,80+,,,,,,,
+38015,BURLEIGH,ND,0-9,,,,,,,
+38015,BURLEIGH,ND,20-29,,,,,,,
+38015,BURLEIGH,ND,30-39,,,,,,,
+38015,BURLEIGH,ND,40-49,,,,,,,
+38015,BURLEIGH,ND,50-59,,,,,,,
+38015,BURLEIGH,ND,60-69,,,,,,,
+38015,BURLEIGH,ND,70-79,,,,,,,
+38015,BURLEIGH,ND,80+,,,,,,,
 44007,PROVIDENCE,RI,0-9,,,,,,,
 44007,PROVIDENCE,RI,10-19,,,,,,,
 44007,PROVIDENCE,RI,20-29,,,,,,,
