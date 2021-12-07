@@ -99,7 +99,7 @@ export class MetricQueryResponse {
       return [];
     }
     const set = new Set<string>();
-    this.data.forEach((row) => {
+    this.getValidRowsForField(fieldName).forEach((row) => {
       set.add(row[fieldName]);
     });
     return Array.from(set);
