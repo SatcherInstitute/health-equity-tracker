@@ -197,7 +197,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                 </Alert>
               )}
             </CardContent>
-            {!noUnknownValuesReported && (
+            {!noUnknownValuesReported && unknowns.length ? (
               <CardContent>
                 <ChoroplethMap
                   useSmallSampleMessage={
@@ -219,7 +219,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   geoData={geoData}
                   filename={`${getTitleText()} in ${props.fips.getFullDisplayName()}`}
                 />
-                {props.fips.isUsa() && (
+                {props.fips.isUsa() && unknowns.length ? (
                   <div className={styles.TerritoryCirclesContainer}>
                     {TERRITORY_CODES.map((code) => {
                       const fips = new Fips(code);
@@ -249,8 +249,12 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                       );
                     })}
                   </div>
+                ) : (
+                  <></>
                 )}
               </CardContent>
+            ) : (
+              <></>
             )}
           </>
         );
