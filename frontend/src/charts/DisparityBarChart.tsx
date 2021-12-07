@@ -14,6 +14,11 @@ import {
   oneLineLabel,
   addMetricDisplayColumn,
 } from "./utils";
+import sass from "../styles/variables.module.scss";
+import { LEGEND_TEXT_FONT } from "./Legend";
+import { useMediaQuery } from "@material-ui/core";
+
+const LABEL_SWAP_CUTOFF_PERCENT = 66; // bar labels will be outside if below this %, or inside bar if above
 
 function getSpec(
   data: Record<string, any>[],
@@ -30,12 +35,21 @@ function getSpec(
   // preformatted data as strings.
   lightMetricDisplayColumnName: string,
   darkMetricDisplayColumnName: string,
-  stacked?: boolean
+  barLabelBreakpoint: number,
+  pageIsTiny: boolean,
+  stacked?: boolean,
+  // place AIAL NHPI pop compare in different color columns due to ACS not KFF
+  altLightMeasure?: string,
+  altLightMeasureDisplayName?: string,
+  altLightMetricDisplayColumnName?: string,
+  hasAltPop?: boolean
 ): any {
-  const BAR_HEIGHT = stacked ? 40 : 10;
+  const BAR_HEIGHT = stacked ? 40 : 12;
   const BAR_PADDING = 0.1;
-  const DARK_MEASURE_COLOR = "#0B5420";
-  const LIGHT_MEASURE_COLOR = "#91C684";
+  const DARK_MEASURE_COLOR = sass.barChartDark;
+  const LIGHT_MEASURE_COLOR = sass.barChartLight;
+  const ALT_LIGHT_MEASURE_COLOR = sass.unknownMapMid;
+  const ALT_LIGHT_MEASURE_OPACITY = 0.8;
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 
@@ -51,6 +65,152 @@ function getSpec(
   const SIDE_BY_SIDE_OFFSET =
     BAR_HEIGHT * SIDE_BY_SIDE_ONE_BAR_RATIO * (SIDE_BY_SIDE_FULL_BAR_RATIO / 2);
 
+  // defaults for most charts
+  const LEGEND_COLORS = [LIGHT_MEASURE_COLOR, DARK_MEASURE_COLOR];
+  const LEGEND_DOMAINS = [lightMeasureDisplayName, darkMeasureDisplayName];
+
+  const ALL_MARKS = [
+    {
+      name: "lightMeasure_bars",
+      type: "rect",
+      style: ["bar"],
+      from: { data: DATASET },
+      encode: {
+        enter: {
+          tooltip: {
+            signal: `${oneLineLabel(
+              breakdownVar
+            )} + ', ${lightMeasureDisplayName}: ' + datum.${lightMetricDisplayColumnName}`,
+          },
+        },
+        update: {
+          fill: { value: LIGHT_MEASURE_COLOR },
+          ariaRoleDescription: { value: "bar" },
+          x: { scale: "x", field: lightMeasure },
+          x2: { scale: "x", value: 0 },
+          y: { scale: "y", field: breakdownVar },
+          yc: {
+            scale: "y",
+            field: breakdownVar,
+            offset: stacked
+              ? STACKED_BAND_HEIGHT / 2
+              : MIDDLE_OF_BAND - SIDE_BY_SIDE_OFFSET,
+          },
+          height: {
+            scale: "y",
+            band: stacked ? 1 : SIDE_BY_SIDE_ONE_BAR_RATIO,
+          },
+        },
+      },
+    },
+    {
+      name: "darkMeasure_bars",
+      type: "rect",
+      style: ["bar"],
+      from: { data: DATASET },
+      encode: {
+        enter: {
+          tooltip: {
+            signal: `${oneLineLabel(
+              breakdownVar
+            )} + ', ${darkMeasureDisplayName}: ' + datum.${darkMetricDisplayColumnName}`,
+          },
+        },
+        update: {
+          fill: { value: DARK_MEASURE_COLOR },
+          ariaRoleDescription: { value: "bar" },
+          x: { scale: "x", field: darkMeasure },
+          x2: { scale: "x", value: 0 },
+          yc: {
+            scale: "y",
+            field: breakdownVar,
+            offset: stacked
+              ? STACKED_BAND_HEIGHT / 2
+              : MIDDLE_OF_BAND + SIDE_BY_SIDE_OFFSET,
+          },
+          height: {
+            scale: "y",
+            band: stacked ? THIN_RATIO : SIDE_BY_SIDE_ONE_BAR_RATIO,
+          },
+        },
+      },
+    },
+    {
+      name: "darkMeasure_text_labels",
+      type: "text",
+      style: ["text"],
+      from: { data: DATASET },
+      encode: {
+        update: {
+          align: {
+            signal: `if(datum.${darkMeasure} > ${barLabelBreakpoint}, "right", "left")`,
+          },
+          baseline: { value: "middle" },
+          dx: {
+            signal: `if(datum.${darkMeasure} > ${barLabelBreakpoint}, -3, 3)`,
+          },
+          fill: {
+            signal: `if(datum.${darkMeasure} > ${barLabelBreakpoint}, "white", "black")`,
+          },
+          x: { scale: "x", field: darkMeasure },
+          y: { scale: "y", field: breakdownVar, band: 0.5 },
+          yc: {
+            scale: "y",
+            field: breakdownVar,
+            offset: stacked
+              ? STACKED_BAND_HEIGHT / 2
+              : MIDDLE_OF_BAND + BAR_HEIGHT,
+          },
+          text: {
+            signal: `datum.${darkMetricDisplayColumnName} + "${metricDisplayName}"`,
+          },
+        },
+      },
+    },
+  ];
+
+  // when needed, add ALT_LIGHT MEASURE to the VEGA SPEC
+  if (hasAltPop) {
+    LEGEND_COLORS.splice(1, 0, ALT_LIGHT_MEASURE_COLOR);
+    LEGEND_DOMAINS[0] = `${lightMeasureDisplayName} (KFF)`;
+    LEGEND_DOMAINS.splice(1, 0, altLightMeasureDisplayName!);
+    ALL_MARKS.push({
+      name: "altLightMeasure_bars",
+      type: "rect",
+      style: ["bar"],
+      from: { data: DATASET },
+      encode: {
+        enter: {
+          tooltip: {
+            signal: `${oneLineLabel(
+              breakdownVar
+            )} + ', ${altLightMeasureDisplayName}: ' + datum.${altLightMetricDisplayColumnName}`,
+          },
+        },
+        update: {
+          fill: { value: ALT_LIGHT_MEASURE_COLOR },
+          // @ts-ignore
+          fillOpacity: { value: ALT_LIGHT_MEASURE_OPACITY },
+          ariaRoleDescription: { value: "bar" },
+          x: { scale: "x", field: altLightMeasure! },
+          x2: { scale: "x", value: 0 },
+          y: { scale: "y", field: breakdownVar },
+          yc: {
+            scale: "y",
+            field: breakdownVar,
+            offset: stacked
+              ? STACKED_BAND_HEIGHT / 2
+              : MIDDLE_OF_BAND - SIDE_BY_SIDE_OFFSET,
+          },
+          height: {
+            scale: "y",
+            band: stacked ? 1 : SIDE_BY_SIDE_ONE_BAR_RATIO,
+          },
+        },
+      },
+    });
+  }
+
   function maxValueInField(field: string) {
     return Math.max(
       ...data
@@ -59,10 +219,18 @@ function getSpec(
     );
   }
 
-  const measureWithLargerDomain =
+  let measureWithLargerDomain =
     maxValueInField(lightMeasure) > maxValueInField(darkMeasure)
       ? lightMeasure
       : darkMeasure;
+
+  if (hasAltPop) {
+    measureWithLargerDomain =
+      maxValueInField(measureWithLargerDomain) >
+      maxValueInField(altLightMeasure!)
+        ? measureWithLargerDomain
+        : altLightMeasure!;
+  }
 
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
@@ -87,106 +255,14 @@ function getSpec(
         update: "bandspace(domain('y').length, 0.1, 0.05) * y_step",
       },
     ],
-    marks: [
-      {
-        name: "lightMeasure_bars",
-        type: "rect",
-        style: ["bar"],
-        from: { data: DATASET },
-        encode: {
-          enter: {
-            tooltip: {
-              signal: `${oneLineLabel(
-                breakdownVar
-              )} + ', ${lightMeasureDisplayName}: ' + datum.${lightMetricDisplayColumnName}`,
-            },
-          },
-          update: {
-            fill: { value: LIGHT_MEASURE_COLOR },
-            ariaRoleDescription: { value: "bar" },
-            x: { scale: "x", field: lightMeasure },
-            x2: { scale: "x", value: 0 },
-            y: { scale: "y", field: breakdownVar },
-            yc: {
-              scale: "y",
-              field: breakdownVar,
-              offset: stacked
-                ? STACKED_BAND_HEIGHT / 2
-                : MIDDLE_OF_BAND - SIDE_BY_SIDE_OFFSET,
-            },
-            height: {
-              scale: "y",
-              band: stacked ? 1 : SIDE_BY_SIDE_ONE_BAR_RATIO,
-            },
-          },
-        },
-      },
-      {
-        name: "darkMeasure_bars",
-        type: "rect",
-        style: ["bar"],
-        from: { data: DATASET },
-        encode: {
-          enter: {
-            tooltip: {
-              signal: `${oneLineLabel(
-                breakdownVar
-              )} + ', ${darkMeasureDisplayName}: ' + datum.${darkMetricDisplayColumnName}`,
-            },
-          },
-          update: {
-            fill: { value: DARK_MEASURE_COLOR },
-            ariaRoleDescription: { value: "bar" },
-            x: { scale: "x", field: darkMeasure },
-            x2: { scale: "x", value: 0 },
-            yc: {
-              scale: "y",
-              field: breakdownVar,
-              offset: stacked
-                ? STACKED_BAND_HEIGHT / 2
-                : MIDDLE_OF_BAND + SIDE_BY_SIDE_OFFSET,
-            },
-            height: {
-              scale: "y",
-              band: stacked ? THIN_RATIO : SIDE_BY_SIDE_ONE_BAR_RATIO,
-            },
-          },
-        },
-      },
-      {
-        name: "darkMeasure_text_labels",
-        type: "text",
-        style: ["text"],
-        from: { data: DATASET },
-        encode: {
-          update: {
-            align: { value: "left" },
-            baseline: { value: "middle" },
-            dx: { value: 3 },
-            fill: { value: "black" },
-            x: { scale: "x", field: darkMeasure },
-            y: { scale: "y", field: breakdownVar, band: 0.5 },
-            yc: {
-              scale: "y",
-              field: breakdownVar,
-              offset: stacked
-                ? STACKED_BAND_HEIGHT / 2
-                : MIDDLE_OF_BAND + BAR_HEIGHT,
-            },
-            text: {
-              signal: `datum.${darkMetricDisplayColumnName} + "${metricDisplayName}"`,
-            },
-          },
-        },
-      },
-    ],
+    marks: ALL_MARKS,
     scales: [
       {
         name: "x",
         type: "linear",
         domain: { data: DATASET, field: measureWithLargerDomain },
         range: [0, { signal: "width" }],
-        nice: true,
+        nice: !pageIsTiny, //on desktop, extend x-axis to a "nice" value
         zero: true,
       },
       {
@@ -202,8 +278,8 @@ function getSpec(
       {
         name: "variables",
         type: "ordinal",
-        domain: [lightMeasureDisplayName, darkMeasureDisplayName],
-        range: [LIGHT_MEASURE_COLOR, DARK_MEASURE_COLOR],
+        domain: LEGEND_DOMAINS,
+        range: LEGEND_COLORS,
       },
     ],
     axes: [
@@ -225,7 +301,9 @@ function getSpec(
         scale: "x",
         orient: "bottom",
         grid: false,
-        title: `${lightMeasureDisplayName} vs. ${darkMeasureDisplayName} `,
+        title: pageIsTiny
+          ? [`${lightMeasureDisplayName}`, `vs.`, `${darkMeasureDisplayName}`]
+          : `${lightMeasureDisplayName} vs. ${darkMeasureDisplayName}`,
         labelFlush: true,
         labelOverlap: true,
         tickCount: { signal: `ceil(width/${BAR_HEIGHT})` },
@@ -254,8 +332,12 @@ function getSpec(
     legends: [
       {
         fill: "variables",
-        orient: "top",
-        padding: 4,
+        orient: pageIsTiny ? "none" : "top",
+        // legendX and legendY are ignored when orient isn't "none"
+        legendX: -20,
+        legendY: -35,
+        font: LEGEND_TEXT_FONT,
+        labelFont: LEGEND_TEXT_FONT,
       },
     ],
   };
@@ -270,17 +352,53 @@ export interface DisparityBarChartProps {
   // Not stacked will show two equally sized bars side by side
   stacked?: boolean;
   filename?: string;
+  showAltPopCompare?: boolean;
 }
 
 export function DisparityBarChart(props: DisparityBarChartProps) {
   const [ref, width] = useResponsiveWidth(
-    100 /* default width during intialization */
+    100 /* default width during initialization */
   );
 
+  // calculate page size to determine if tiny mobile or not
+  const pageIsTiny = useMediaQuery("(max-width:500px)");
+
+  // move AIAN and NHPI into their own properties for STATE/RACE/VACCINE (since KFF doesnt provide pop compare metrics)
+  let dataFromProps = props.data;
+  const { showAltPopCompare } = props;
+
+  // some states don't have any NHPI AIAN won't need alt light on vega even if they fit criteria
+  let hasAltPop = false;
+
+  if (showAltPopCompare) {
+    dataFromProps = props.data.map((item) => {
+      if (
+        // some states send (Non-Hispanic)
+        item["race_and_ethnicity"].includes(
+          "American Indian and Alaska Native"
+        ) ||
+        item["race_and_ethnicity"].includes(
+          "Native Hawaiian and Pacific Islander"
+        )
+      ) {
+        hasAltPop = true;
+        // remove KFF value
+        const { vaccine_population_pct, ...itemWithoutKFF } = item;
+        return itemWithoutKFF;
+      } else {
+        // remove ACS value
+        const { acs_vaccine_population_pct, ...itemWithoutACS } = item;
+        return itemWithoutACS;
+      }
+    });
+  }
+
+  // add *~* for line breaks in column axis labels
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
-    props.data,
+    dataFromProps,
     props.breakdownVar
   );
+
   // Omit the % symbol because it's included in shortVegaLabel.
   const [
     dataWithLightMetric,
@@ -290,11 +408,34 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     dataWithLineBreakDelimiter,
     /* omitPctSymbol= */ true
   );
-  const [data, darkMetricDisplayColumnName] = addMetricDisplayColumn(
+  const [
+    dataWithDarkMetric,
+    darkMetricDisplayColumnName,
+  ] = addMetricDisplayColumn(
     props.darkMetric,
     dataWithLightMetric,
     /* omitPctSymbol= */ true
   );
+
+  const altLightMetric: MetricConfig = {
+    fullCardTitleName: "Population Share (ACS)",
+    metricId: "acs_vaccine_population_pct",
+    shortVegaLabel: "% of population (ACS)",
+    type: "pct_share",
+  };
+
+  // only some maps need alt light
+  const [data, altLightMetricDisplayColumnName] = hasAltPop
+    ? addMetricDisplayColumn(
+        altLightMetric,
+        dataWithDarkMetric,
+        /* omitPctSymbol= */ true
+      )
+    : [dataWithDarkMetric, ""];
+
+  const barLabelBreakpoint =
+    Math.max(...props.data.map((row) => row[props.darkMetric.metricId])) *
+    (LABEL_SWAP_CUTOFF_PERCENT / 100);
 
   return (
     <div ref={ref}>
@@ -319,7 +460,13 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           props.metricDisplayName,
           lightMetricDisplayColumnName,
           darkMetricDisplayColumnName,
-          props.stacked
+          barLabelBreakpoint,
+          pageIsTiny,
+          props.stacked,
+          hasAltPop ? altLightMetric.metricId : "",
+          hasAltPop ? altLightMetric.shortVegaLabel : "",
+          hasAltPop ? altLightMetricDisplayColumnName : "",
+          hasAltPop
         )}
       />
     </div>

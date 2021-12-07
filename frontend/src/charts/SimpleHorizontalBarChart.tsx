@@ -14,6 +14,10 @@ import {
   oneLineLabel,
   addMetricDisplayColumn,
 } from "./utils";
+import sass from "../styles/variables.module.scss";
+import { useMediaQuery } from "@material-ui/core";
+
+const LABEL_SWAP_CUTOFF_PERCENT = 66; // bar labels will be outside if below this %, or inside bar if above
 
 function getSpec(
   data: Record<string, any>[],
@@ -26,11 +30,13 @@ function getSpec(
   // contains preformatted data as strings.
   barMetricDisplayColumnName: string,
   tooltipMetricDisplayColumnName: string,
-  showLegend: boolean
+  showLegend: boolean,
+  barLabelBreakpoint: number,
+  pageIsTiny: boolean
 ): any {
-  const BAR_HEIGHT = 40;
-  const BAR_PADDING = 0.1;
-  const MEASURE_COLOR = "#0B5240";
+  const MEASURE_COLOR = sass.altGreen;
+  const BAR_HEIGHT = 60;
+  const BAR_PADDING = 0.2;
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 
@@ -93,14 +99,35 @@ function getSpec(
         style: ["text"],
         from: { data: DATASET },
         encode: {
+          enter: {
+            tooltip: {
+              signal: `${oneLineLabel(
+                breakdownVar
+              )} + ', ${measureDisplayName}: ' + datum.${tooltipMetricDisplayColumnName}`,
+            },
+          },
           update: {
-            align: { value: "left" },
+            align: {
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}, "right", "left")`,
+            },
             baseline: { value: "middle" },
-            dx: { value: 3 },
-            fill: { value: "black" },
+            dx: {
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5, 5)`,
+            },
+            dy: {
+              signal: pageIsTiny ? -20 : 0,
+            },
+            fill: {
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}, "white", "black")`,
+            },
             x: { scale: "x", field: measure },
             y: { scale: "y", field: breakdownVar, band: 0.8 },
-            text: { signal: `datum.${barMetricDisplayColumnName}` },
+            text: {
+              // on smallest screens send an array of strings to place on multiple lines
+              signal: `[datum.${tooltipMetricDisplayColumnName}${
+                pageIsTiny ? ",' per 100k'" : "+' per 100k'"
+              }]`,
+            },
           },
         },
       },
@@ -111,7 +138,7 @@ function getSpec(
         type: "linear",
         domain: { data: DATASET, field: measure },
         range: [0, { signal: "width" }],
-        nice: true,
+        nice: !pageIsTiny, //on desktop, extend x-axis to a "nice" value
         zero: true,
       },
       {
@@ -151,6 +178,7 @@ function getSpec(
         orient: "bottom",
         grid: false,
         title: measureDisplayName,
+        titleAnchor: pageIsTiny ? "end" : "null",
         labelFlush: true,
         labelOverlap: true,
         tickCount: { signal: "ceil(width/40)" },
@@ -190,8 +218,11 @@ export interface SimpleHorizontalBarChartProps {
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   const [ref, width] = useResponsiveWidth(
-    100 /* default width during intialization */
+    100 /* default width during initialization */
   );
+
+  // calculate page size to determine if tiny mobile or not
+  const pageIsTiny = useMediaQuery("(max-width:400px)");
 
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
     props.data,
@@ -208,6 +239,10 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     /* omitPctSymbol= */ true
   );
 
+  const barLabelBreakpoint =
+    Math.max(...props.data.map((row) => row[props.metric.metricId])) *
+    (LABEL_SWAP_CUTOFF_PERCENT / 100);
+
   return (
     <div ref={ref}>
       <Vega
@@ -221,7 +256,9 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           props.metric.shortVegaLabel,
           barMetricDisplayColumnName,
           tooltipMetricDisplayColumnName,
-          props.showLegend
+          props.showLegend,
+          barLabelBreakpoint,
+          pageIsTiny
         )}
         // custom 3-dot options for states, hidden on territories
         actions={

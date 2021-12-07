@@ -28,6 +28,9 @@ import { Tooltip } from "@material-ui/core";
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
+import styles from "./TableChart.module.scss";
+
+export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20;
 
 export interface TableChartProps {
   data: Readonly<Record<string, any>>[];
@@ -40,7 +43,12 @@ export function TableChart(props: TableChartProps) {
   let columns = metrics.map((metricConfig) => {
     return {
       Header: metricConfig.fullCardTitleName,
-      Cell: (a: any) => formatFieldValue(metricConfig.type, a.value),
+      Cell: (a: any) =>
+        formatFieldValue(
+          /* metricType: MetricType, */ metricConfig.type,
+          /*   value: any, */ a.value,
+          /*   omitPctSymbol: boolean = false */ true
+        ),
       accessor: metricConfig.metricId,
     };
   });
@@ -70,7 +78,15 @@ export function TableChart(props: TableChartProps) {
     {
       columns: memoCols,
       data: memoData,
-      initialState: { pageSize: 10 },
+      initialState: {
+        pageSize: MAX_NUM_ROWS_WITHOUT_PAGINATION,
+        sortBy: [
+          {
+            id: breakdownVar,
+            desc: false,
+          },
+        ],
+      },
     },
     useSortBy,
     usePagination
@@ -83,12 +99,18 @@ export function TableChart(props: TableChartProps) {
         {group.headers.map((col, index) => (
           <TableCell
             {...col.getHeaderProps(col.getSortByToggleProps())}
-            style={{ width: "200px" }}
+            style={{ width: "200px", cursor: "pointer" }}
+            title={
+              col.isSorted
+                ? `Toggle Sort Direction`
+                : `Sort by ${col.render("Header")}`
+            }
           >
             {col.render("Header")}
             <TableSortLabel
               active={col.isSorted}
               direction={col.isSortedDesc ? "desc" : "asc"}
+              hideSortIcon={false}
             />
           </TableCell>
         ))}
@@ -111,6 +133,7 @@ export function TableChart(props: TableChartProps) {
           ) : (
             <TableCell {...cell.getCellProps()}>
               {cell.render("Cell")}
+              <Units column={index} />
             </TableCell>
           )
         )}
@@ -136,7 +159,7 @@ export function TableChart(props: TableChartProps) {
               ))}
             </TableBody>
             {/* If the number of rows is less than the smallest page size, we can hide pagination */}
-            {props.data.length > 5 && (
+            {props.data.length > MAX_NUM_ROWS_WITHOUT_PAGINATION && (
               <TableFooter>
                 <TableRow>
                   <TablePagination
@@ -149,7 +172,11 @@ export function TableChart(props: TableChartProps) {
                     onChangeRowsPerPage={(event) => {
                       setPageSize(Number(event.target.value));
                     }}
-                    rowsPerPageOptions={[5, 10, 25, 50, 100]} // If changed, update pagination condition above
+                    rowsPerPageOptions={[
+                      MAX_NUM_ROWS_WITHOUT_PAGINATION,
+                      MAX_NUM_ROWS_WITHOUT_PAGINATION * 2,
+                      MAX_NUM_ROWS_WITHOUT_PAGINATION * 5,
+                    ]} // If changed, update pagination condition above
                   />
                 </TableRow>
               </TableFooter>
@@ -158,5 +185,18 @@ export function TableChart(props: TableChartProps) {
         </TableContainer>
       )}
     </>
+  );
+}
+
+interface UnitsProps {
+  column: number;
+}
+function Units(props: UnitsProps) {
+  if (!props.column) return null;
+
+  return (
+    <span className={styles.Unit}>
+      {props.column === 1 ? ` per 100k` : `%`}
+    </span>
   );
 }

@@ -10,7 +10,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { VariableConfig } from "../data/config/MetricConfig";
+import { VariableConfig, METRIC_CONFIG } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { exclude } from "../data/query/BreakdownFilter";
@@ -19,9 +19,26 @@ import {
   ALL,
   UNKNOWN,
   UNKNOWN_RACE,
+  UNKNOWN_ETHNICITY,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import UnknownsAlert from "./ui/UnknownsAlert";
+
+/* minimize layout shift */
+const PRELOAD_HEIGHT = 719;
+
+export function showAltPopCompare(props: {
+  fips: { isState: () => any };
+  breakdownVar: string;
+  variableConfig: { variableId: string };
+}) {
+  return (
+    props.fips.isState() &&
+    props.breakdownVar === "race_and_ethnicity" &&
+    props.variableConfig.variableId ===
+      METRIC_CONFIG["vaccinations"][0].variableId
+  );
+}
 
 export interface DisparityBarChartCardProps {
   key?: string;
@@ -58,6 +75,10 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   if (metricConfig.knownBreakdownComparisonMetric) {
     metricIds.push(metricConfig.knownBreakdownComparisonMetric.metricId);
   }
+  if (metricConfig.secondaryPopulationComparisonMetric) {
+    metricIds.push(metricConfig.secondaryPopulationComparisonMetric.metricId);
+  }
+
   const query = new MetricQuery(metricIds, breakdowns);
 
   function getTitleText() {
@@ -70,14 +91,19 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   }
 
   return (
-    <CardWrapper queries={[query]} title={<CardTitle />}>
+    <CardWrapper
+      queries={[query]}
+      title={<CardTitle />}
+      minHeight={PRELOAD_HEIGHT}
+    >
       {([queryResponse]) => {
         const dataWithoutUnknowns = queryResponse
           .getValidRowsForField(metricConfig.metricId)
           .filter(
             (row: Row) =>
               row[props.breakdownVar] !== UNKNOWN &&
-              row[props.breakdownVar] !== UNKNOWN_RACE
+              row[props.breakdownVar] !== UNKNOWN_RACE &&
+              row[props.breakdownVar] !== UNKNOWN_ETHNICITY
           );
 
         let shouldShowDoesntAddUpMessage = false;
@@ -106,6 +132,11 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
                   geoLevel={props.fips.getFipsTypeDisplayName()}
+                  noDemographicInfo={
+                    props.variableConfig.variableId ===
+                      METRIC_CONFIG["vaccinations"][0].variableId &&
+                    props.fips.isCounty()
+                  }
                 />
               </CardContent>
             )}
@@ -130,6 +161,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   breakdownVar={props.breakdownVar}
                   metricDisplayName={metricConfig.shortVegaLabel}
                   filename={getTitleText()}
+                  showAltPopCompare={showAltPopCompare(props)}
                 />
               </CardContent>
             )}

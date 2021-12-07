@@ -3,7 +3,7 @@
 // establish the API types.
 
 import { MapOfDatasetMetadata, Row } from "../utils/DatasetTypes";
-import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
+import { DatasetMetadataMap } from "../config/DatasetMetadata";
 import { Environment } from "../../utils/Environment";
 import { DataFrame } from "data-forge";
 import { GEOGRAPHIES_DATASET_ID } from "../config/MetadataMap";
@@ -121,6 +121,22 @@ export class ApiDataFetcher implements DataFetcher {
           below_poverty_line: Number(row["below_poverty_line"]),
         };
       });
+    } else if (datasetId.startsWith("cdc_vaccination_national")) {
+      result = result.map((row: any) => {
+        return {
+          ...row,
+          vaccinated_first_dose: Number(row["vaccinated_first_dose"]),
+          population: Number(row["population"]),
+        };
+      });
+    } else if (datasetId.startsWith("kff_vaccination")) {
+      result = result.map((row: any) => {
+        return {
+          ...row,
+          vaccinated_first_dose: Number(row["vaccinated_first_dose"]),
+          population: Number(row["population"]),
+        };
+      });
     }
 
     // TODO - the server should drop ingestion_ts before exporting the file. At
@@ -133,6 +149,6 @@ export class ApiDataFetcher implements DataFetcher {
 
   async getMetadata(): Promise<MapOfDatasetMetadata> {
     // TODO replace with real API call.
-    return FakeDatasetMetadataMap;
+    return DatasetMetadataMap;
   }
 }

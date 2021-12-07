@@ -8,15 +8,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Popover, { PopoverOrigin } from "@material-ui/core/Popover";
 import { usePopover, PopoverElements } from "../../utils/usePopover";
 import styles from "./DropDownMenu.module.scss";
-
-const ANCHOR_ORIGIN: PopoverOrigin = {
-  vertical: "top",
-  horizontal: "right",
-};
-const TRANSFORM_ORIGIN: PopoverOrigin = {
-  vertical: "top",
-  horizontal: "left",
-};
+import { useMediaQuery, useTheme } from "@material-ui/core";
 
 function MenuPopover(props: {
   popover: PopoverElements;
@@ -26,6 +18,18 @@ function MenuPopover(props: {
   // Optional additional actions to do when the popover is closed
   onClose?: () => void;
 }) {
+  // calculate page size for responsive layout
+  const theme = useTheme();
+  const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
+  const anchorOrigin: PopoverOrigin = {
+    vertical: "top",
+    horizontal: "right",
+  };
+  const transformOrigin: PopoverOrigin = {
+    vertical: "top",
+    horizontal: pageIsWide ? "left" : "center",
+  };
+
   const hasChildren = !Array.isArray(props.items);
   const listItems: string[] = hasChildren
     ? Object.keys(props.items)
@@ -59,6 +63,7 @@ function MenuPopover(props: {
 
   return (
     <Popover
+      className={styles.GroupListMenuBox}
       open={props.popover.isOpen}
       anchorEl={props.popover.anchor}
       onClose={() => {
@@ -67,10 +72,14 @@ function MenuPopover(props: {
           props.onClose();
         }
       }}
-      anchorOrigin={ANCHOR_ORIGIN}
-      transformOrigin={TRANSFORM_ORIGIN}
+      anchorOrigin={anchorOrigin}
+      transformOrigin={transformOrigin}
     >
-      <List aria-label="List of Options">
+      <List
+        aria-label="List of Options"
+        dense={true}
+        className={styles.GroupListMenuBox}
+      >
         {listItems.map((listItem: string) => renderListItem(listItem))}
       </List>
     </Popover>
@@ -103,7 +112,6 @@ function DropDownMenu(props: {
   );
 
   const oneLevelMenu = Object.keys(props.options).length === 1;
-
   return (
     <>
       <div className={styles.FilterBy}>Select group:</div>

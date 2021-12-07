@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Grid, useMediaQuery, useTheme } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -23,27 +23,32 @@ import {
   SHOW_ONBOARDING_PARAM,
   stringifyMls,
   useSearchParams,
+  WHAT_DATA_ARE_MISSING_ID,
 } from "../../utils/urlutils";
 import styles from "./ExploreDataPage.module.scss";
 import { Onboarding } from "./Onboarding";
 import OptionsSelector from "./OptionsSelector";
-import { Helmet } from "react-helmet";
+import { useLocation } from "react-router-dom";
 
 const EXPLORE_DATA_ID = "main";
 
 function ExploreDataPage() {
-  const params = useSearchParams();
+  // handle incoming link to MISSING DATA sections
+  const location: any = useLocation();
+  const doScrollToData: boolean =
+    location?.hash === `#${WHAT_DATA_ARE_MISSING_ID}`;
 
-  // Set up inital mad lib values based on defaults and query params
+  // Set up initial mad lib values based on defaults and query params
+  const params = useSearchParams();
   const foundIndex = MADLIB_LIST.findIndex(
     (madlib) => madlib.id === params[MADLIB_PHRASE_PARAM]
   );
-  const initalIndex = foundIndex !== -1 ? foundIndex : 0;
-  let defaultValuesWithOverrides = MADLIB_LIST[initalIndex].defaultSelections;
+  const initialIndex = foundIndex !== -1 ? foundIndex : 0;
+  let defaultValuesWithOverrides = MADLIB_LIST[initialIndex].defaultSelections;
   if (params[MADLIB_SELECTIONS_PARAM]) {
     params[MADLIB_SELECTIONS_PARAM].split(",").forEach((override) => {
       const [phraseSegmentIndex, value] = override.split(":");
-      let phraseSegments: PhraseSegment[] = MADLIB_LIST[initalIndex].phrase;
+      let phraseSegments: PhraseSegment[] = MADLIB_LIST[initialIndex].phrase;
       if (
         Object.keys(phraseSegments).includes(phraseSegmentIndex) &&
         Object.keys(phraseSegments[Number(phraseSegmentIndex)]).includes(value)
@@ -54,7 +59,7 @@ function ExploreDataPage() {
   }
 
   const [madLib, setMadLib] = useState<MadLib>({
-    ...MADLIB_LIST[initalIndex],
+    ...MADLIB_LIST[initialIndex],
     activeSelections: defaultValuesWithOverrides,
   });
 
@@ -138,15 +143,17 @@ function ExploreDataPage() {
     };
   }, [activelyOnboarding]);
 
+  // calculate page size to determine if mobile or not
+  const theme = useTheme();
+  const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
+
   return (
     <>
       <Onboarding
         callback={onboardingCallback}
         activelyOnboarding={activelyOnboarding}
       />
-      <Helmet>
-        <title>Explore the Data - Health Equity Tracker</title>
-      </Helmet>
+
       <h1 className={styles.ScreenreaderTitleHeader}>Explore the Data</h1>
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
         <div
@@ -158,10 +165,10 @@ function ExploreDataPage() {
             NextIcon={<NavigateNextIcon id="onboarding-madlib-arrow" />}
             timeout={200}
             autoPlay={false}
-            indicators={!sticking}
+            indicators={!sticking || !pageIsWide}
             animation="slide"
             navButtonsAlwaysVisible={true}
-            index={initalIndex}
+            index={initialIndex}
             onChange={(index: number) => {
               let newState = {
                 ...MADLIB_LIST[index],
@@ -189,7 +196,11 @@ function ExploreDataPage() {
           </Carousel>
         </div>
         <div className={styles.ReportContainer}>
-          <ReportProvider madLib={madLib} setMadLib={setMadLibWithParam} />
+          <ReportProvider
+            madLib={madLib}
+            setMadLib={setMadLibWithParam}
+            doScrollToData={doScrollToData}
+          />
         </div>
       </div>
     </>
@@ -204,17 +215,17 @@ function CarouselMadLib(props: {
   function getOptionsFromPhraseSegement(
     phraseSegment: PhraseSegment
   ): Fips[] | string[][] {
-    // TODO -don't use this hack to figure out if its a FIPS or not
-    return Object.keys(phraseSegment).length > 20
-      ? Object.keys(phraseSegment)
+    // check first option to tell if phraseSegment is FIPS or CONDITIONS
+    return isNaN(Object.keys(phraseSegment)[0] as any)
+      ? Object.entries(phraseSegment).sort((a, b) => a[0].localeCompare(b[0]))
+      : Object.keys(phraseSegment)
           .sort((a: string, b: string) => {
             if (a.length === b.length) {
               return a.localeCompare(b);
             }
             return b.length > a.length ? -1 : 1;
           })
-          .map((fipsCode) => new Fips(fipsCode))
-      : Object.entries(phraseSegment).sort((a, b) => a[0].localeCompare(b[0]));
+          .map((fipsCode) => new Fips(fipsCode));
   }
 
   return (

@@ -2,10 +2,35 @@ import { DataSourceMetadata } from "../utils/DatasetTypes";
 
 export const GEOGRAPHIES_DATASET_ID = "geographies";
 
-// ALERT!!! Keep this file in sync with FakeDatasetMetadata while it is present
-// All dataset IDs should be in the FakeDatasetMetadata
+// ALERT!!! Keep this file in sync with DatasetMetadata while it is present
+// All dataset IDs should be in the DatasetMetadata
 
 const dataSourceMetadataList: DataSourceMetadata[] = [
+  {
+    id: "cdc_restricted",
+    data_source_name: "CDC Case Surveillance Restricted Access Detailed Data",
+    data_source_link:
+      "https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Biweekly",
+    description:
+      "The numbers of confirmed COVID-19 deaths, cases, and hospitalizations at the state and county levels. " +
+      "The data source is Centers for Disease Control and Prevention, COVID-19 Response. COVID-19 Case " +
+      "Surveillance Data Access, Summary, and Limitations (11/30/2021). The last case data included is 2 " +
+      "weeks before 11/30/2021. The CDC does not take responsibility for the scientific validity " +
+      "or accuracy of methodology, results, statistical analyses, or conclusions presented. This " +
+      "dataset is not available for download; please click the link below to apply for access.",
+    dataset_ids: [
+      "cdc_restricted_data-by_race_county",
+      "cdc_restricted_data-by_race_state",
+      "cdc_restricted_data-by_age_county",
+      "cdc_restricted_data-by_age_state",
+      "cdc_restricted_data-by_sex_county",
+      "cdc_restricted_data-by_sex_state",
+    ],
+    downloadable: false,
+  },
   {
     id: "acs",
     data_source_name: "American Community Survey 5-year estimates",
@@ -56,29 +81,59 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
-    id: "cdc_restricted",
-    data_source_name: "CDC Case Surveillance Restricted Access Detailed Data",
+    id: "cdc_vaccination_county",
+    data_source_name: "CDC COVID-19 Vaccinations in the United States, County",
     data_source_link:
-      "https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t",
-    geographic_level: "State",
+      "https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh",
+    geographic_level: "County",
+    demographic_granularity: "None",
+    update_frequency: "Daily",
+    description:
+      "Overall US COVID-19 Vaccine administration and vaccine equity data at county level " +
+      "Data represents all vaccine partners including jurisdictional partner clinics, " +
+      "retail pharmacies, long-term care facilities, dialysis centers, " +
+      "Federal Emergency Management Agency and Health Resources and Services " +
+      "Administration partner sites, and federal entity facilities.",
+    dataset_ids: ["cdc_vaccination_county-race_and_ethnicity"],
+    downloadable: true,
+  },
+  {
+    id: "cdc_vaccination_national",
+    data_source_name:
+      "CDC COVID-19 Vaccination Demographics in the United States, National",
+    data_source_link:
+      "https://covid.cdc.gov/covid-data-tracker/#vaccination-demographics-trends",
+    geographic_level: "National",
     demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Daily",
+    description:
+      "Overall Demographic Characteristics of People Receiving COVID-19 Vaccinations " +
+      "in the United States at national level. Data represents all vaccine partners " +
+      "including jurisdictional partner clinics, retail pharmacies, long-term care facilities, " +
+      "dialysis centers, Federal Emergency Management Agency and Health Resources and Services " +
+      "Administration partner sites, and federal entity facilities. (CDC 2021)",
+    dataset_ids: [
+      "cdc_vaccination_national-age",
+      "cdc_vaccination_national-race_and_ethnicity",
+      "cdc_vaccination_national-sex",
+    ],
+    downloadable: true,
+  },
+  {
+    id: "kff_vaccination",
+    data_source_name: "Kaiser Family Foundation COVID-19 Indicators",
+    data_source_link: "https://www.kff.org/state-category/covid-19/",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity",
     update_frequency: "Biweekly",
     description:
-      "The numbers of confirmed COVID-19 deaths, cases, and hospitalizations at the state and county levels. " +
-      "The data source is Centers for Disease Control and Prevention, COVID-19 Response. COVID-19 Case " +
-      "Surveillance Data Access, Summary, and Limitations (8/31/2021). The last case data included is 2 " +
-      "weeks before 8/31/2021. The CDC does not take responsibility for the scientific validity " +
-      "or accuracy of methodology, results, statistical analyses, or conclusions presented. This " +
-      "dataset is not available for download, please press the button below to apply for access.",
-    dataset_ids: [
-      "cdc_restricted_data-by_race_county",
-      "cdc_restricted_data-by_race_state",
-      "cdc_restricted_data-by_age_county",
-      "cdc_restricted_data-by_age_state",
-      "cdc_restricted_data-by_sex_county",
-      "cdc_restricted_data-by_sex_state",
-    ],
-    downloadable: false,
+      "State level vaccination information based off of Kaiser Family Foundation " +
+      "analysis of publicly available data from state websites. Per 100k metrics are found on " +
+      "'COVID-19 Vaccinations by Race/Ethnicity', percent share metrics are found on " +
+      "'Percent of Total Population that has Received a COVID-19 Vaccine by Race/Ethnicity' " +
+      "and the All metric is found on 'COVID-19 Vaccines Delivered and Administered'",
+    dataset_ids: ["kff_vaccination-race_and_ethnicity"],
+    downloadable: true,
   },
   {
     id: "uhc",

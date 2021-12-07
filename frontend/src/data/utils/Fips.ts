@@ -90,15 +90,25 @@ class Fips {
   }
 
   getDisplayName() {
-    return this.isCounty()
-      ? `${COUNTY_FIPS_MAP[this.code]}`
-      : STATE_FIPS_MAP[this.code];
+    // USA or STATE
+    if (!this.isCounty()) return STATE_FIPS_MAP[this.code];
+    // COUNTY EQUIVALENTS (FROM TERRITORIES)
+    if (this.getParentFips().isTerritory())
+      return `${COUNTY_FIPS_MAP[this.code]}`;
+    // COUNTIES (with the word COUNTY added as needed)
+    const optionalCounty =
+      COUNTY_FIPS_MAP[this.code].includes("Borough") ||
+      COUNTY_FIPS_MAP[this.code].includes("Area") ||
+      COUNTY_FIPS_MAP[this.code].includes("District")
+        ? ""
+        : " County";
+    return `${COUNTY_FIPS_MAP[this.code]}${optionalCounty}`;
   }
 
   getFullDisplayName() {
-    return this.isCounty()
-      ? `${COUNTY_FIPS_MAP[this.code]}, ${this.getStateDisplayName()}`
-      : STATE_FIPS_MAP[this.code];
+    return `${this.getDisplayName()}${
+      this.isCounty() ? ", " + this.getStateDisplayName() : ""
+    }`;
   }
 
   getStateFipsCode() {

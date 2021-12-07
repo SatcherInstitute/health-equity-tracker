@@ -2,10 +2,11 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import { Typography } from "@material-ui/core";
-import { CONTACT_TAB_LINK } from "../../utils/urlutils";
-import { Helmet } from "react-helmet";
-import { CITATION_CHICAGO } from "../DataCatalog/MethodologyTab";
+import { CONTACT_TAB_LINK, DATA_CATALOG_PAGE_LINK } from "../../utils/urlutils";
+import { Helmet } from "react-helmet-async";
+import { CITATION_APA } from "../DataCatalog/MethodologyTab";
 import parse from "html-react-parser";
+import FeedbackBox from "../ui/FeedbackBox";
 
 export const selectFaqs: any[] = [
   {
@@ -39,7 +40,14 @@ ethnic, and other population groups, and communities (CDC).`,
     q: "What data sources did you use? Why?",
     a: `
 <p>
-In this tracker, we are using many sources, including <a href="https://www.census.gov/data/developers/data-sets/acs-5year.html">American Community Survey 5-year estimates (2015-2019)</a>, <a href="https://www.cdc.gov/brfss/index.html">CDC’s BRFSS data set</a>, and <a href="https://covidtracking.com/race">COVID Tracking Project’s Racial Data Tracker</a>. Some sources are “real-time”, like case data, but other important data, such as information around social determinants of health can lag from weeks to years. For the moment, this is our best representation of how the country is doing based on publicly available information.
+
+
+
+In this tracker, we are using many sources, including 
+<a href="https://www.census.gov/data/developers/data-sets/acs-5year.html">American Community Survey 5-year estimates (2015-2019)</a> 
+and the <a href="https://www.cdc.gov/brfss/index.html">CDC’s BRFSS data set</a>. Some sources are updated bi-weekly, 
+while other important data (such as information around social determinants of health) can lag from weeks to years. 
+Specific information on update frequencies by source can be found on our <a href="${DATA_CATALOG_PAGE_LINK}">Data Downloads</a> page.
 </p>
 `,
   },
@@ -88,20 +96,23 @@ In this tracker, we are using many sources, including <a href="https://www.censu
     q: `How did you acquire and standardize the data?`,
     a: `
   <ul>
-              <li>
-              In an effort to be fully transparent, all data is retrieved from publicly sourced APIs and manual downloads 
-              </li>
-              <li>
-                Once acquired, this data is converted to tables in Google BigQuery
-              </li>
-              <li>
-                During this process, values are standardized and normalized to
-                facilitate reporting, comparison and visualization
-              </li>
-              <li>
-                Sources are refreshed when update notifications are received
-              </li>
-            </ul>
+    <li>
+    In an effort to be fully transparent, all data is retrieved from publicly sourced APIs and manual downloads 
+    </li>
+    <li>
+      Once acquired, this data is converted to tables in Google BigQuery
+    </li>
+    <li>
+      During this process, values are standardized and normalized to
+      facilitate reporting, comparison and visualization
+    </li>
+    <li>
+      Sources are refreshed when update notifications are received
+    </li>
+    <li>
+    The entire Health Equity Tracker codebase is publicly available and open-source; contributions are welcome via <a href="https://github.com/SatcherInstitute/health-equity-tracker">GitHub</a>.
+    </li>
+  </ul>
   `,
   },
 ];
@@ -337,17 +348,18 @@ function FaqTab() {
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion} id="citation">
-                  What is the recommended citation for the Health Equity
+                  What is the recommended citation (APA) for the Health Equity
                   Tracker?
                 </h3>
                 <div className={styles.FaqAnswer}>
-                  <p>{CITATION_CHICAGO}</p>
+                  <p>{CITATION_APA}</p>
                 </div>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
+      <FeedbackBox />
     </>
   );
 }

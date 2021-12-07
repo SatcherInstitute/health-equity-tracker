@@ -10,6 +10,7 @@ import {
 } from "../data/query/Breakdowns";
 import { CardContent } from "@material-ui/core";
 import {
+  METRIC_CONFIG,
   MetricConfig,
   MetricId,
   VariableConfig,
@@ -21,18 +22,30 @@ import {
   RACE,
   UNKNOWN,
   UNKNOWN_RACE,
+  UNKNOWN_ETHNICITY,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import { ALL } from "../data/utils/Constants";
+import { showAltPopCompare } from "./DisparityBarChartCard";
+
+/* minimize layout shift */
+const PRELOAD_HEIGHT = 698;
 
 export interface TableCardProps {
   fips: Fips;
   breakdownVar: BreakdownVar;
   variableConfig: VariableConfig;
 }
+
+// We need to get this property, but we want to show it as
+// part of the "population_pct" column, and not as its own column
+export const NEVER_SHOW_PROPERTIES = [
+  METRIC_CONFIG.vaccinations[0]?.metrics?.pct_share
+    ?.secondaryPopulationComparisonMetric,
+];
 
 export function TableCard(props: TableCardProps) {
   const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
@@ -59,6 +72,11 @@ export function TableCard(props: TableCardProps) {
       metricConfigs[metricConfig.populationComparisonMetric.metricId] =
         metricConfig.populationComparisonMetric;
     }
+
+    if (metricConfig.secondaryPopulationComparisonMetric) {
+      metricConfigs[metricConfig.secondaryPopulationComparisonMetric.metricId] =
+        metricConfig.secondaryPopulationComparisonMetric;
+    }
   });
   const metricIds = Object.keys(metricConfigs);
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
@@ -69,6 +87,7 @@ export function TableCard(props: TableCardProps) {
 
   return (
     <CardWrapper
+      minHeight={PRELOAD_HEIGHT}
       queries={[query]}
       title={
         <>{`${props.variableConfig.variableFullDisplayName} By ${
@@ -77,11 +96,28 @@ export function TableCard(props: TableCardProps) {
       }
     >
       {([queryResponse]) => {
-        const dataWithoutUnknowns = queryResponse.data.filter(
+        let dataWithoutUnknowns = queryResponse.data.filter(
           (row: Row) =>
             row[props.breakdownVar] !== UNKNOWN &&
-            row[props.breakdownVar] !== UNKNOWN_RACE
+            row[props.breakdownVar] !== UNKNOWN_RACE &&
+            row[props.breakdownVar] !== UNKNOWN_ETHNICITY
         );
+
+        if (showAltPopCompare(props)) {
+          // This should only happen in the vaccine kff state case
+          dataWithoutUnknowns = dataWithoutUnknowns.map((item) => {
+            const {
+              vaccine_population_pct,
+              acs_vaccine_population_pct,
+              ...restOfItem
+            } = item;
+            return {
+              vaccine_population_pct:
+                vaccine_population_pct || acs_vaccine_population_pct,
+              ...restOfItem,
+            };
+          });
+        }
 
         return (
           <>
@@ -93,6 +129,11 @@ export function TableCard(props: TableCardProps) {
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
                   geoLevel={props.fips.getFipsTypeDisplayName()}
+                  noDemographicInfo={
+                    props.variableConfig.variableId ===
+                      METRIC_CONFIG["vaccinations"][0].variableId &&
+                    props.fips.isCounty()
+                  }
                 />
               </CardContent>
             )}
@@ -121,11 +162,14 @@ export function TableCard(props: TableCardProps) {
                   <Divider />
                 </>
               )}
+
             {!queryResponse.dataIsMissing() && (
               <TableChart
                 data={dataWithoutUnknowns}
                 breakdownVar={props.breakdownVar}
-                metrics={Object.values(metricConfigs)}
+                metrics={Object.values(metricConfigs).filter(
+                  (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
+                )}
               />
             )}
           </>
