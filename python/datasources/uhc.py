@@ -18,10 +18,12 @@ UHC_RACE_GROUPS = [
     'All',
 ]
 
-# ! fix age buckets
-# COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking / # Suicide
-UHC_AGE_GROUPS = ['18-44', '45-64', '65+', 'All', '15-24',
-                  '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '85+']
+# COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking
+UHC_AGE_GROUPS_FEW = ['18-44', '45-64', '65+']
+# Suicide
+UHC_AGE_GROUPS_MORE = ['15-24',
+                       '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '85+']
+UHC_AGE_GROUPS = ['All', *UHC_AGE_GROUPS_FEW, *UHC_AGE_GROUPS_MORE]
 # No Age Breakdowns for: Illicit Opioid, Non-medical Drug
 
 UHC_SEX_GROUPS = ['Male', 'Female', 'All']
@@ -40,19 +42,19 @@ UHC_RACE_GROUPS_TO_STANDARD = {
 
 BASE_UHC_URL = "https://www.americashealthrankings.org/api/v1/downloads/210"
 
-UHC_DETERMINANTS_OF_HEALTH = {
+UHC_DETERMINANTS_OF_HEALTH_FEW = {
     "Chronic Obstructive Pulmonary Disease": std_col.COPD_PCT,
     "Diabetes": std_col.DIABETES_PCT,
     "Frequent Mental Distress": std_col.FREQUENT_MENTAL_DISTRESS_PCT,
     "Depression": std_col.DEPRESSION_PCT,
-    "Suicide": std_col.SUICIDE_PCT,
-    # NOTE: the endpoint CSV uses multiple wordings :
-    # "Illicit Opioid Use" for rows without demographic breakdown
-    # "Use of Illicit Opioids" for rows with demographic breakdowns
-    # We'll use "Illicit Opioid" since it is contained by both wordings
-    "Illicit Opioid": std_col.ILLICIT_OPIOID_USE_PCT,
     "Non-medical Drug Use": std_col.NON_MEDICAL_DRUG_USE_PCT,
     "Excessive Drinking": std_col.EXCESSIVE_DRINKING_PCT,
+    # "Illicit Opioid Use" and "Use of Illicit Opioids"
+    "Illicit Opioid": std_col.ILLICIT_OPIOID_USE_PCT,
+}
+
+UHC_DETERMINANTS_OF_HEALTH_MORE = {
+    "Suicide": std_col.SUICIDE_PCT,
 }
 
 BREAKDOWN_MAP = {
@@ -123,14 +125,19 @@ class UHCData(DataSource):
                 else:
                     output_row[breakdown] = breakdown_value
 
-                #  use .contains() rather than == to account for conditions that use
-                # multiple wordings like "Use of Illicit Opioids" / "Illicit Opioid Use".
-                # ! Need to confirm this doesn't cause any false positives,
-                # ! where one determinant name might occur within another's name.
-                # For example, we can't just use "Opioid" since there are rows
-                # with the names "Non-medical Use of Prescription Opioids"
-                # and "Use of Other Illicit Drugs (excludes opioids and cannabis)"
+                # use select determinants based on the iterated age bucket
+                if breakdown_value in [UHC_AGE_GROUPS_MORE]:
+                    UHC_DETERMINANTS_OF_HEALTH = UHC_DETERMINANTS_OF_HEALTH_MORE
+                elif breakdown_value in [UHC_AGE_GROUPS_FEW]:
+                    UHC_DETERMINANTS_OF_HEALTH = UHC_DETERMINANTS_OF_HEALTH_FEW
+                # for age="All" or any race/sex breakdown, use every determinant
+                else:
+                    UHC_DETERMINANTS_OF_HEALTH = {**UHC_DETERMINANTS_OF_HEALTH_FEW, **UHC_DETERMINANTS_OF_HEALTH_MORE}
+
+                print(breakdown, breakdown_value, UHC_DETERMINANTS_OF_HEALTH)
+
                 for determinant in UHC_DETERMINANTS_OF_HEALTH:
+                    print(determinant)
                     if breakdown_value == 'All':
                         output_row[UHC_DETERMINANTS_OF_HEALTH[determinant]] = \
                             df.loc[(df['State Name'] == state) &
