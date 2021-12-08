@@ -9,6 +9,26 @@ import { USA_FIPS } from "../utils/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 
+// COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking
+export const UHC_AGE_GROUPS_FEW = ["18-44", "45-64", "65+"];
+// Suicide
+export const UHC_AGE_GROUPS_MORE = [
+  "15-24",
+  "25-34",
+  "35-44",
+  "45-54",
+  "55-64",
+  "65-74",
+  "75-84",
+  "85+",
+];
+export const UHC_AGE_GROUPS = [
+  "All",
+  ...UHC_AGE_GROUPS_FEW,
+  ...UHC_AGE_GROUPS_MORE,
+];
+// No Age Breakdowns for: Illicit Opioid, Non-medical Drug
+
 class BrfssProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
 
@@ -24,9 +44,9 @@ class BrfssProvider extends VariableProvider {
       "depression_pct",
       "depression_pct_share",
       "depression_per_100k",
-      "suicide_pct",
-      "suicide_pct_share",
-      "suicide_per_100k",
+      // "suicide_pct",
+      // "suicide_pct_share",
+      // "suicide_per_100k",
       "illicit_opioid_use_pct",
       "illicit_opioid_use_pct_share",
       "illicit_opioid_use_per_100k",

@@ -120,7 +120,11 @@ export function TableChart(props: TableChartProps) {
 
   /** Component for the table's data rows **/
   function TableDataRow({ row }: { row: Row<any> }) {
+    console.log(row);
+
     prepareRow(row);
+
+    console.log(row);
     return (
       <TableRow {...row.getRowProps()}>
         {row.cells.map((cell, index) =>
