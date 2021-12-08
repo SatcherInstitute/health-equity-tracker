@@ -29,6 +29,7 @@ import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
 import styles from "./TableChart.module.scss";
+// import { UHC_AGE_GROUPS_FEW, UHC_AGE_GROUPS_MORE } from "../data/variables/BrfssProvider";
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20;
 
@@ -39,7 +40,13 @@ export interface TableChartProps {
 }
 
 export function TableChart(props: TableChartProps) {
-  const { data, metrics, breakdownVar } = props;
+  let { data, metrics, breakdownVar } = props;
+
+  // remove rows that dont contain 100k results
+  if (breakdownVar === "age") {
+    data = data.filter((item) => item[metrics[0].metricId] !== undefined);
+  }
+
   let columns = metrics.map((metricConfig) => {
     return {
       Header: metricConfig.fullCardTitleName,
@@ -120,11 +127,8 @@ export function TableChart(props: TableChartProps) {
 
   /** Component for the table's data rows **/
   function TableDataRow({ row }: { row: Row<any> }) {
-    console.log(row);
-
     prepareRow(row);
 
-    console.log(row);
     return (
       <TableRow {...row.getRowProps()}>
         {row.cells.map((cell, index) =>
