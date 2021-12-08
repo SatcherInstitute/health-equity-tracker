@@ -127,6 +127,8 @@ function nationalRow(
   breakdownName: string,
   breakdownValue: string,
   vaccinated_first_dose: number,
+  vaccinated_share_of_known: number,
+  vaccinated_per_100k: number,
   population: number
 ) {
   return [
@@ -135,7 +137,8 @@ function nationalRow(
       state_fips: USA.code,
       state_name: USA.name,
       vaccinated_first_dose: vaccinated_first_dose,
-      population: population,
+      vaccinated_share_of_known: vaccinated_share_of_known,
+      vaccinated_per_100k: vaccinated_per_100k,
     },
     {
       state_fips: USA.code,
@@ -215,11 +218,20 @@ describe("VaccineProvider", () => {
     const [USA_ASIAN_ROW, USA_ACS_ASIAN_ROW] = nationalRow(
       RACE,
       ASIAN_NH,
+      1000,
       100,
-      1000
+      10000,
+      50
     );
 
-    const [USA_ALL_ROW, USA_ACS_ALL_ROW] = nationalRow(RACE, ALL, 1000, 2000);
+    const [USA_ALL_ROW, USA_ACS_ALL_ROW] = nationalRow(
+      RACE,
+      ALL,
+      1000,
+      100,
+      50000,
+      100
+    );
 
     const rawData = [USA_ASIAN_ROW, USA_ALL_ROW];
 
@@ -229,7 +241,7 @@ describe("VaccineProvider", () => {
       /*breakdownName*/ RACE,
       /*breakdownValue*/ ASIAN_NH,
       /*vaccinated_per_100k*/ 10000,
-      /*vaccinated_pct_share*/ 10,
+      /*vaccinated_pct_share*/ 100,
       /*vaccinated_pct_share_of_known*/ 100,
       /*vaccine_population_pct*/ 50
     );
