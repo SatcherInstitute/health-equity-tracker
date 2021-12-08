@@ -207,6 +207,7 @@ export function PopulationCard(props: PopulationCardProps) {
                         metric={POP_CONFIG.metrics.pct_share}
                         breakdownVar="race_and_ethnicity"
                         showLegend={false}
+                        usePercentSuffix={true}
                         filename={`${POPULATION_BY_RACE} in ${props.fips.getFullDisplayName()}`}
                       />
                     </Box>
@@ -229,6 +230,7 @@ export function PopulationCard(props: PopulationCardProps) {
                           metric={POP_CONFIG.metrics.pct_share}
                           breakdownVar="age"
                           showLegend={false}
+                          usePercentSuffix={true}
                           filename={`${POPULATION_BY_AGE} in ${props.fips.getFullDisplayName()}`}
                         />
                       )}
