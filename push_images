@@ -3,6 +3,54 @@
 set -eu
 set -o pipefail
 
+function main() {
+  local build_frontend
+  local project_id
+
+  while [[ "${#}" != 0 ]]; do
+      case "${1}" in
+        --help|-h)
+          shift 1
+          usage
+          exit 0
+          ;;
+
+        --build-frontned|-b)
+          build_frontend="true"
+          shift 1
+          ;;
+
+        "")
+          shift 1
+          ;;
+
+        *)
+          print::message "unknown argument \"${1}\""
+          exit 1
+
+      esac
+    done
+
+  project_id=$(gcloud config get-value project)
+
+  images::build "${project_id}" "${build_frontend}"
+  images::push "${project_id}" "${build_frontend}"
+  digest::write "${project_id}"
+
+  print::message "Success !!"
+}
+
+
+function usage() {
+  cat <<-USAGE
+push_images.sh [OPTIONS]
+Builds and pushes images to google container storage. For testing puroposes.
+OPTIONS
+  --help            -h  prints the command usage
+  --build_frontend  -b  builds the frontend image, slows down the script a bit and is prone to failure
+USAGE
+}
+
 function print::message() {
   local blue reset message
   blue="\033[0;34m"
@@ -13,22 +61,26 @@ function print::message() {
 }
 
 function images::build() {
-  local project_id
+  local project_id build_frontend
   project_id="${1}"
+  build_frontend="${2}"
 
   print::message "Building Images Locally"
-
   docker build -t "gcr.io/${project_id}/ingestion-service" -f run_ingestion/Dockerfile .
   docker build -t "gcr.io/${project_id}/gcs-to-bq-service" -f run_gcs_to_bq/Dockerfile .
   docker build -t "gcr.io/${project_id}/data-server-service" -f data_server/Dockerfile .
   docker build -t "gcr.io/${project_id}/exporter-service" -f exporter/Dockerfile .
   docker build -t "gcr.io/${project_id}/aggregator-service" -f aggregator/Dockerfile .
-  docker build -t "gcr.io/${project_id}/frontend-service" -f frontend_server/Dockerfile . --build-arg="DEPLOY_CONTEXT=development"
+
+  if [[ -n "${build_frontend}" ]]; then
+    docker build -t "gcr.io/${project_id}/frontend-service" -f frontend_server/Dockerfile . --build-arg="DEPLOY_CONTEXT=development"
+  fi
 }
 
 function images::push() {
   local project_id
   project_id="${1}"
+  build_frontend="${2}"
 
   print::message "Pushing Images to gcr.io/${project_id}"
 
@@ -37,7 +89,10 @@ function images::push() {
   docker push "gcr.io/${project_id}/data-server-service"
   docker push "gcr.io/${project_id}/exporter-service"
   docker push "gcr.io/${project_id}/aggregator-service"
-  docker push "gcr.io/${project_id}/frontend-service"
+
+  if [[ -n "${build_frontend}" ]]; then
+    docker push "gcr.io/${project_id}/frontend-service"
+  fi
 }
 
 function digest::write() {
@@ -63,17 +118,6 @@ function digest::write() {
   echo "exporter_image_digest=\"${exporter_digest}\"" >> "${digest_file}"
   echo "aggregator_image_digest=\"${aggregator_digest}\"" >> "${digest_file}"
   echo "frontend_image_digest=\"${frontend_digest}\"" >> "${digest_file}"
-}
-
-function main() {
-  local project_id
-  project_id=$(gcloud config get-value project)
-
-  images::build "${project_id}"
-  images::push "${project_id}"
-  digest::write "${project_id}"
-
-  print::message "Success !!"
 }
 
 main "${@:-}"
