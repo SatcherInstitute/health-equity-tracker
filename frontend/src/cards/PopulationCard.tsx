@@ -143,8 +143,8 @@ export function PopulationCard(props: PopulationCardProps) {
             )}
 
             {/* Because the Vega charts are using responsive width based on the window resizing,
-                we manually trigger a resize when the div size changes so vega chart will 
-                render with the right size. This means the vega chart won't appear until the 
+                we manually trigger a resize when the div size changes so vega chart will
+                render with the right size. This means the vega chart won't appear until the
                 AnimateHeight is finished expanding */}
             {!raceQueryResponse.dataIsMissing() && (
               <AnimateHeight
