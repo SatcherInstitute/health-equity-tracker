@@ -147,37 +147,6 @@ function MapCardWithKey(props: MapCardProps) {
           ]]: breakdownValues,
         };
 
-        // console.log(BREAKDOWN_VAR_DISPLAY_NAMES);
-        // console.log(props.currentBreakdown);
-        // console.log(BREAKDOWN_VAR_DISPLAY_NAMES[
-        //   props.currentBreakdown
-        // ]);
-        // console.log([BREAKDOWN_VAR_DISPLAY_NAMES[
-        //   props.currentBreakdown
-        // ]]);
-        // console.log({
-        //   [BREAKDOWN_VAR_DISPLAY_NAMES[
-        //     props.currentBreakdown
-        //   ]]: breakdownValues,
-        // });
-
-        // map through overallQueryResponse.data
-        // return value of [{breakdown}] (eg [race_and_ethnicity]) where condition_100k > 0
-
-        // const groupsWithData = overallQueryResponse.data.map((groupItem) => {
-        //   return groupItem["race_and_ethnicity"]
-        // })
-        // console.log(mapQueryResponse.getValidRowsForField(
-        //   metricConfig.metricId
-        // ));
-
-        // console.log(groupsWithData);
-        // console.log(overallQueryResponse.data);
-        // console.log(breakdownValues);
-        // console.log(props);
-        // console.log(filterOptions);
-        // console.log(populatedFilterOptions);
-
         // If possible, calculate the total for the selected demographic group and dynamically generate the rest of the phrase
         function generateDemographicTotalPhrase() {
           const options = overallQueryResponse.data.find(
@@ -449,7 +418,7 @@ function MapCardWithKey(props: MapCardProps) {
   );
 }
 
-/*
+/* 
 Generates the "COMPARES ACROSS GROUPS" button which opens the small multiples modal
 */
 export interface MultiMapLinkProps {
