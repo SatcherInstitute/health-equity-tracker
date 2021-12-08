@@ -21,7 +21,6 @@ function main() {
           ;;
 
         "")
-          echo "Here"
           shift 1
           ;;
 
