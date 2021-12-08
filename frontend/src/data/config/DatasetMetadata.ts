@@ -100,52 +100,52 @@ const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "cdc_restricted_data-by_race_county",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and County",
-    update_time: "October 2021",
+    update_time: "December 2021",
   },
   {
     id: "cdc_restricted_data-by_race_state",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and State",
-    update_time: "October 2021",
+    update_time: "December 2021",
   },
   {
     id: "cdc_restricted_data-by_age_county",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Age and County",
-    update_time: "October 2021",
+    update_time: "December 2021",
   },
   {
     id: "cdc_restricted_data-by_age_state",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Age and State",
-    update_time: "October 2021",
+    update_time: "December 2021",
   },
   {
     id: "cdc_restricted_data-by_sex_county",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Sex and County",
-    update_time: "October 2021",
+    update_time: "December 2021",
   },
   {
     id: "cdc_restricted_data-by_sex_state",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Sex and State",
-    update_time: "October 2021",
+    update_time: "December 2021",
   },
   {
     id: "cdc_vaccination_county-race_and_ethnicity",
     name: "COVID-19 Vaccinations by County",
-    update_time: "November 2021",
+    update_time: "December 2021",
   },
   {
     id: "cdc_vaccination_national-age",
     name: "COVID-19 Vaccination Demographics by Age",
-    update_time: "November 2021",
+    update_time: "December 2021",
   },
   {
     id: "cdc_vaccination_national-sex",
     name: "COVID-19 Vaccination Demographics by Sex",
-    update_time: "November 2021",
+    update_time: "December 2021",
   },
   {
     id: "cdc_vaccination_national-race_and_ethnicity",
     name: "COVID-19 Vaccination Demographics by Race",
-    update_time: "November 2021",
+    update_time: "December 2021",
   },
   {
     id: "kff_vaccination-race_and_ethnicity",
