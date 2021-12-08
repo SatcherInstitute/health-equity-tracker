@@ -216,10 +216,7 @@ function ReportProvider(props: ReportProviderProps) {
         <h4>Missing Vaccination Data</h4>
         <p>
           There is no county level vaccine demographic dataset, so we show
-          county totals according to the CDC to provide context. Furthermore,{" "}
-          <b>Texas</b> does not provide vaccine demographic information to the
-          CDC, so all national vaccine numbers exclude Texas, and Texas’
-          population isn’t counted in the national per 100k population metrics.
+          county totals according to the CDC to provide context.
         </p>
         <h4>Missing Population Data</h4>
         <p>
