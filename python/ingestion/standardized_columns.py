@@ -67,6 +67,8 @@ FREQUENT_MENTAL_DISTRESS_PCT = "frequent_mental_distress_pct"
 # Standardized for Vaccination columns
 VACCINATED_FIRST_DOSE = "vaccinated_first_dose"
 VACCINATED_PCT = "vaccinated_pct"
+VACCINATED_SHARE_OF_KNOWN = "vaccinated_share_of_known"
+VACCINATED_PER_100K = "vaccinated_per_100k"
 VACCINATED_PCT_SHARE = "vaccinated_pct_share"
 
 RaceTuple = namedtuple("RaceTuple", [

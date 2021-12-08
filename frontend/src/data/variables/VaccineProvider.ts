@@ -63,60 +63,33 @@ class VaccineProvider extends VariableProvider {
     let consumedDatasetIds = [datasetId];
 
     if (breakdowns.geography === "national") {
-      const acsQueryResponse = await this.acsProvider.getData(
-        new MetricQuery(["population_pct"], acsBreakdowns)
-      );
+      if (breakdownColumnName !== "age") {
+        const acsQueryResponse = await this.acsProvider.getData(
+          new MetricQuery(["population_pct"], acsBreakdowns)
+        );
 
-      consumedDatasetIds = consumedDatasetIds.concat(
-        acsQueryResponse.consumedDatasetIds
-      );
+        consumedDatasetIds = consumedDatasetIds.concat(
+          acsQueryResponse.consumedDatasetIds
+        );
 
-      // We merge this in on the backend
-      consumedDatasetIds = consumedDatasetIds.concat(
-        "acs_2010_population-by_race_and_ethnicity_territory"
-      );
+        // We merge this in on the backend
+        consumedDatasetIds = consumedDatasetIds.concat(
+          "acs_2010_population-by_race_and_ethnicity_territory"
+        );
 
-      const acs = new DataFrame(acsQueryResponse.data);
-      df = joinOnCols(df, acs, ["fips", breakdownColumnName], "left");
+        const acs = new DataFrame(acsQueryResponse.data);
+        df = joinOnCols(df, acs, ["fips", breakdownColumnName], "left");
+      }
 
       df = df.renameSeries({
         population_pct: "vaccine_population_pct",
       });
 
-      df = df.generateSeries({
-        vaccinated_per_100k: (row) =>
-          this.calculations.per100k(row.vaccinated_first_dose, row.population),
-      });
-
-      // In this case we need to use the CDC provided pop numbers
-      // for the pop comparison metric
-      if (breakdownColumnName === "age") {
-        df = this.calculations.calculatePctShare(
-          df,
-          "population",
-          "vaccine_population_pct",
-          breakdownColumnName,
-          ["fips"]
-        );
-      }
-
-      // Calculate any share_of_known metrics that may have been requested in the query
-      if (this.allowsBreakdowns(breakdowns)) {
-        df = this.calculations.calculatePctShare(
-          df,
-          "vaccinated_first_dose",
-          "vaccinated_pct_share",
-          breakdownColumnName,
-          ["fips"]
-        );
-
-        df = this.calculations.calculatePctShareOfKnown(
-          df,
-          "vaccinated_first_dose",
-          "vaccinated_share_of_known",
-          breakdownColumnName
-        );
-      }
+      df = df
+        .generateSeries({
+          vaccinated_pct_share: (row) => row["vaccinated_share_of_known"],
+        })
+        .resetIndex();
     } else if (breakdowns.geography === "state") {
       df = df
         .generateSeries({
