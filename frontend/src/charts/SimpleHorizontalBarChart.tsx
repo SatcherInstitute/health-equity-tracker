@@ -17,7 +17,10 @@ import {
 import sass from "../styles/variables.module.scss";
 import { useMediaQuery } from "@material-ui/core";
 
-const LABEL_SWAP_CUTOFF_PERCENT = 66; // determine where (out of 100) to flip labels inside/outside the bar
+// determine where (out of 100) to flip labels inside/outside the bar
+const LABEL_SWAP_CUTOFF_PERCENT = 66;
+
+// nested quotation mark format needed for Vega
 const SINGLE_LINE_100K = ",' per 100k'";
 const MULTI_LINE_100K = "+' per 100k'";
 const SINGLE_LINE_PERCENT = "+'%'";
