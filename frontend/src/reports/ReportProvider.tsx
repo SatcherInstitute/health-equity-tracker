@@ -200,7 +200,7 @@ function ReportProvider(props: ReportProviderProps) {
             <b>Texas</b>, and <b>West Virginia</b>. The following states' data
             for COVID-19 are included, but their data should be interpreted with
             caution since the cases reported may not be representative of the
-            population at large: 
+            population at large:
             <b>Connecticut</b>, <b>Florida</b>, <b>Kentucky</b>, <b>Michigan</b>
             , <b>Nebraska</b>, and <b>Ohio</b>.
           </p>
@@ -273,19 +273,7 @@ function ReportProvider(props: ReportProviderProps) {
           <h3 ref={definitionsRef} className={styles.FootnoteLargeHeading}>
             Definitions
           </h3>
-          <p>
-            Across data sets and reporting agencies the definitions of specific
-            terminology can vary widely. Below we have defined some of the terms
-            used on this site. For more detailed information, please read
-            through our{" "}
-            <LinkWithStickyParams
-              className={styles.MethodologyContactUsLink}
-              to={METHODOLOGY_TAB_LINK}
-            >
-              methodology page
-            </LinkWithStickyParams>
-            .
-          </p>
+
           <ul>
             <li>
               <b>{METRIC_CONFIG["vaccinations"][0].variableFullDisplayName}</b>
