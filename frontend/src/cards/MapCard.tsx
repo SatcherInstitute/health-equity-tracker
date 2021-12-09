@@ -115,13 +115,22 @@ function MapCardWithKey(props: MapCardProps) {
         const mapQueryResponse = queryResponses[0];
         const overallQueryResponse = queryResponses[1];
 
+        const rowsWithData = overallQueryResponse.data.filter((item) => {
+          return item[metricConfig.metricId] !== undefined;
+        });
+
+        const breakdownValues = rowsWithData.map((row) => {
+          return row[props.currentBreakdown];
+        });
+
         const sortArgs =
           props.currentBreakdown === "age"
             ? ([new AgeSorterStrategy([ALL]).compareFn] as any)
             : [];
-        const breakdownValues = mapQueryResponse.getUniqueFieldValues(
-          props.currentBreakdown
-        );
+        // const breakdownValues = mapQueryResponse.getUniqueFieldValues(
+        //   props.currentBreakdown
+        // );
+
         breakdownValues.sort.apply(breakdownValues, sortArgs);
 
         const dataForActiveBreakdownFilter = mapQueryResponse
@@ -419,7 +428,7 @@ function MapCardWithKey(props: MapCardProps) {
   );
 }
 
-/* 
+/*
 Generates the "COMPARES ACROSS GROUPS" button which opens the small multiples modal
 */
 export interface MultiMapLinkProps {
