@@ -96,12 +96,19 @@ export function TableCard(props: TableCardProps) {
       }
     >
       {([queryResponse]) => {
-        let dataWithoutUnknowns = queryResponse.data.filter(
-          (row: Row) =>
+        let dataWithoutUnknowns = queryResponse.data.filter((row: Row) => {
+          console.log(
+            props.variableConfig.metrics.per100k.metricId,
+            ": ",
+            row[props.variableConfig.metrics.per100k.metricId]
+          );
+          return (
             row[props.breakdownVar] !== UNKNOWN &&
             row[props.breakdownVar] !== UNKNOWN_RACE &&
             row[props.breakdownVar] !== UNKNOWN_ETHNICITY
-        );
+          ); //&&
+          // row[props.variableConfig.metrics.per100k.metricId] !== undefined
+        });
 
         if (showAltPopCompare(props)) {
           // This should only happen in the vaccine kff state case

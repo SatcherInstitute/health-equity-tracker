@@ -42,11 +42,6 @@ export interface TableChartProps {
 export function TableChart(props: TableChartProps) {
   let { data, metrics, breakdownVar } = props;
 
-  // remove rows that dont contain 100k results
-  if (breakdownVar === "age") {
-    data = data.filter((item) => item[metrics[0].metricId] !== undefined);
-  }
-
   let columns = metrics.map((metricConfig) => {
     return {
       Header: metricConfig.fullCardTitleName,
