@@ -28,6 +28,7 @@ import { Link } from "react-router-dom";
 import FeedbackBox from "../pages/ui/FeedbackBox";
 import ShareButtons from "./ui/ShareButtons";
 import { Helmet } from "react-helmet-async";
+import { externalUrls } from "../utils/externalUrls";
 
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
   const segment = madLib.phrase[segmentIndex];
@@ -178,41 +179,56 @@ function ReportProvider(props: ReportProviderProps) {
           with the COVID-19 case data. Additionally, sex is recorded only as
           female, male, or other.
         </p>
-        <h4>Missing Cases</h4>
+
+        <h4>Missing and Suppressed COVID Data</h4>
         <p>
           For COVID-19 related reports, this tracker uses disaggregated,
           individual{" "}
-          <a href="https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/about-us-cases-deaths.html">
+          <a href={externalUrls.cdcCovidDataInfo}>
             case level data reported by states, territories, and other
             jurisdictions to the CDC
           </a>
-          . The following states appear grey on the maps reporting COVID-19
-          cases, hospitalizations and deaths because they have not provided
-          sufficient disaggregated data to the CDC: <b>Louisiana</b>,{" "}
-          <b>Mississippi</b>, <b>Texas</b>, and <b>West Virginia</b>. The
-          following states' data for COVID-19 are included, but their data
-          should be interpreted with caution since the cases reported may not be
-          representative of the population at large: 
-          <b>Connecticut</b>, <b>Florida</b>, <b>Kentucky</b>, <b>Michigan</b>,{" "}
-          <b>Nebraska</b>, and <b>Ohio</b>.
+          . Many of these case records are insufficiently disaggregated, report
+          an unknown hospitalization and/or death status, otherwise fail to
+          provide a complete picture of COVID-19 and its overall impact. Due to
+          the nature of surveillance data, we expect this data to become more
+          complete over time and will use the Health Equity Tracker to record
+          that progress.
         </p>
-        <h4>Missing Outcomes</h4>
         <p>
-          Many COVID-19 case records are incomplete, with an unknown
-          hospitalization and/or death status. This means that some states which
-          report disaggregated COVID-19 case data still do not provide a
-          complete picture of its overall impact. Due to the nature of
-          surveillance data, we expect this picture to become more complete over
-          time and will use the Health Equity Tracker to record the progress.
-          Until then, in accordance with our{" "}
-          <Link to={METHODOLOGY_TAB_LINK}>methodology</Link>, the following
-          states appear grey when viewing COVID-19 maps featuring
-          hospitalizations and deaths: <b>Hawaii</b>, <b>Missouri</b>,{" "}
-          <b>Nebraska</b>, <b>South Dakota</b>, and <b>Wyoming</b>.{" "}
-          <b>Delaware</b> is included when viewing hospitalizations, but not
-          deaths, and <b>Rhode Island</b> is included when viewing deaths, but
-          not hospitalizations.
+          In accordance with our{" "}
+          <Link to={METHODOLOGY_TAB_LINK}>methodology</Link>, we suppress this
+          incomplete data and render some states grey for certain COVID-19 data
+          types, as outlined below:
         </p>
+        <ul>
+          <li>
+            Cases, hospitalizations and deaths: <b>Louisiana</b>,{" "}
+            <b>Mississippi</b>, <b>Texas</b>, <b>West Virginia</b>
+          </li>
+          <li>
+            Hospitalizations and deaths: <b>Hawaii</b>, <b>Missouri</b>,{" "}
+            <b>Nebraska</b>, <b>South Dakota</b>, <b>Wyoming</b>
+          </li>
+          <li>
+            Hospitalizations: <b>Rhode Island</b>
+          </li>
+          <li>
+            Deaths: <b>Delaware</b>
+          </li>
+        </ul>
+        <p>
+          Note: The following states' case data for COVID-19 <i>are</i>{" "}
+          included, but should be interpreted with caution since the cases
+          reported may not be representative of the population at large.
+        </p>
+        <ul>
+          <li>
+            Cases (interpret with caution): <b>Connecticut</b>, <b>Florida</b>,{" "}
+            <b>Kentucky</b>, <b>Michigan</b>, <b>Nebraska</b>, and <b>Ohio</b>.
+          </li>
+        </ul>
+
         <h4>Missing Vaccination Data</h4>
         <p>
           There is no county level vaccine demographic dataset, so we show
