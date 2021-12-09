@@ -105,9 +105,9 @@ export function TableCard(props: TableCardProps) {
           return (
             row[props.breakdownVar] !== UNKNOWN &&
             row[props.breakdownVar] !== UNKNOWN_RACE &&
-            row[props.breakdownVar] !== UNKNOWN_ETHNICITY
-          ); //&&
-          // row[props.variableConfig.metrics.per100k.metricId] !== undefined
+            row[props.breakdownVar] !== UNKNOWN_ETHNICITY &&
+            row[props.variableConfig.metrics.per100k.metricId] !== undefined
+          );
         });
 
         if (showAltPopCompare(props)) {
