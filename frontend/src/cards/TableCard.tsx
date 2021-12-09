@@ -97,11 +97,6 @@ export function TableCard(props: TableCardProps) {
     >
       {([queryResponse]) => {
         let dataWithoutUnknowns = queryResponse.data.filter((row: Row) => {
-          console.log(
-            props.variableConfig.metrics.per100k.metricId,
-            ": ",
-            row[props.variableConfig.metrics.per100k.metricId]
-          );
           return (
             row[props.breakdownVar] !== UNKNOWN &&
             row[props.breakdownVar] !== UNKNOWN_RACE &&
