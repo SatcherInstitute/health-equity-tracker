@@ -127,14 +127,11 @@ class UHCData(DataSource):
 
                 # use select determinants based on the iterated age bucket
                 if breakdown_value in UHC_AGE_GROUPS_MORE:
-                    # print(breakdown_value, "in more")
                     UHC_DETERMINANTS_OF_HEALTH = UHC_DETERMINANTS_OF_HEALTH_MORE
                 elif breakdown_value in UHC_AGE_GROUPS_FEW:
-                    # print(breakdown_value, "in few")
                     UHC_DETERMINANTS_OF_HEALTH = UHC_DETERMINANTS_OF_HEALTH_FEW
                 # for age="All" or any race/sex breakdown, use every determinant
                 else:
-                    # print(breakdown_value, "not in either subset of age groups")
                     UHC_DETERMINANTS_OF_HEALTH = {
                         **UHC_DETERMINANTS_OF_HEALTH_FEW, **UHC_DETERMINANTS_OF_HEALTH_MORE}
 
