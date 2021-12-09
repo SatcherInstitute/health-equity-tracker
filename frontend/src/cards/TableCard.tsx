@@ -30,6 +30,12 @@ import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import { ALL } from "../data/utils/Constants";
 import { showAltPopCompare } from "./DisparityBarChartCard";
+import {
+  UHC_AGE_GROUPS_MORE,
+  UHC_AGE_GROUPS_FEW,
+  UHC_DETERMINANTS_FEW,
+  UHC_DETERMINANTS_MORE,
+} from "../data/variables/BrfssProvider";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 698;
@@ -50,11 +56,26 @@ export const NEVER_SHOW_PROPERTIES = [
 export function TableCard(props: TableCardProps) {
   const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
 
+  // create a list of demographic groups to exclude from the table
+  let exclusionList = [ALL];
+  if (props.breakdownVar === "race_and_ethnicity") {
+    exclusionList.push(NON_HISPANIC);
+  }
+  if (
+    UHC_DETERMINANTS_FEW.includes(props.variableConfig.metrics.per100k.metricId)
+  ) {
+    exclusionList.push(...UHC_AGE_GROUPS_MORE);
+  } else if (
+    UHC_DETERMINANTS_MORE.includes(
+      props.variableConfig.metrics.per100k.metricId
+    )
+  ) {
+    exclusionList.push(...UHC_AGE_GROUPS_FEW);
+  }
+
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
-    props.breakdownVar === "race_and_ethnicity"
-      ? exclude(NON_HISPANIC, ALL)
-      : exclude(ALL)
+    exclude(...exclusionList)
   );
 
   let metricConfigs: Record<string, MetricConfig> = {};
@@ -100,8 +121,7 @@ export function TableCard(props: TableCardProps) {
           return (
             row[props.breakdownVar] !== UNKNOWN &&
             row[props.breakdownVar] !== UNKNOWN_RACE &&
-            row[props.breakdownVar] !== UNKNOWN_ETHNICITY &&
-            row[props.variableConfig.metrics.per100k.metricId] !== undefined
+            row[props.breakdownVar] !== UNKNOWN_ETHNICITY
           );
         });
 

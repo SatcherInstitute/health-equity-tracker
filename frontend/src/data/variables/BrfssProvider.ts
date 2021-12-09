@@ -1,5 +1,6 @@
 import { DataFrame } from "data-forge";
 import { getDataManager } from "../../utils/globals";
+import { MetricId } from "../config/MetricConfig";
 import { exclude } from "../query/BreakdownFilter";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
@@ -29,36 +30,45 @@ export const UHC_AGE_GROUPS = [
 ];
 // No Age Breakdowns for: Illicit Opioid, Non-medical Drug
 
+export const UHC_DETERMINANTS_FEW: MetricId[] = [
+  "brfss_population_pct",
+  "copd_pct",
+  "copd_pct_share",
+  "copd_per_100k",
+  "diabetes_pct",
+  "diabetes_pct_share",
+  "diabetes_per_100k",
+  "depression_pct",
+  "depression_pct_share",
+  "depression_per_100k",
+  "illicit_opioid_use_pct",
+  "illicit_opioid_use_pct_share",
+  "illicit_opioid_use_per_100k",
+  "non_medical_drug_use_pct",
+  "non_medical_drug_use_pct_share",
+  "non_medical_drug_use_per_100k",
+  "excessive_drinking_pct",
+  "excessive_drinking_pct_share",
+  "excessive_drinking_per_100k",
+  "frequent_mental_distress_pct",
+  "frequent_mental_distress_pct_share",
+  "frequent_mental_distress_per_100k",
+];
+
+export const UHC_DETERMINANTS_MORE: MetricId[] = [
+  "suicide_pct",
+  "suicide_pct_share",
+  "suicide_per_100k",
+];
+
 class BrfssProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
 
   constructor(acsProvider: AcsPopulationProvider) {
     super("brfss_provider", [
       "brfss_population_pct",
-      "copd_pct",
-      "copd_pct_share",
-      "copd_per_100k",
-      "diabetes_pct",
-      "diabetes_pct_share",
-      "diabetes_per_100k",
-      "depression_pct",
-      "depression_pct_share",
-      "depression_per_100k",
-      "suicide_pct",
-      "suicide_pct_share",
-      "suicide_per_100k",
-      "illicit_opioid_use_pct",
-      "illicit_opioid_use_pct_share",
-      "illicit_opioid_use_per_100k",
-      "non_medical_drug_use_pct",
-      "non_medical_drug_use_pct_share",
-      "non_medical_drug_use_per_100k",
-      "excessive_drinking_pct",
-      "excessive_drinking_pct_share",
-      "excessive_drinking_per_100k",
-      "frequent_mental_distress_pct",
-      "frequent_mental_distress_pct_share",
-      "frequent_mental_distress_per_100k",
+      ...UHC_DETERMINANTS_FEW,
+      ...UHC_DETERMINANTS_MORE,
     ]);
     this.acsProvider = acsProvider;
   }
