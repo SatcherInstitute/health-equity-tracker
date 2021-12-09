@@ -55,23 +55,16 @@ export const NEVER_SHOW_PROPERTIES = [
 
 export function TableCard(props: TableCardProps) {
   const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
+  const current100k = props.variableConfig.metrics.per100k.metricId;
 
-  // create a list of demographic groups to exclude from the table
+  // choose demographic groups to exclude from the table
   let exclusionList = [ALL];
-  if (props.breakdownVar === "race_and_ethnicity") {
+  props.breakdownVar === "race_and_ethnicity" &&
     exclusionList.push(NON_HISPANIC);
-  }
-  if (
-    UHC_DETERMINANTS_FEW.includes(props.variableConfig.metrics.per100k.metricId)
-  ) {
+  UHC_DETERMINANTS_FEW.includes(current100k) &&
     exclusionList.push(...UHC_AGE_GROUPS_MORE);
-  } else if (
-    UHC_DETERMINANTS_MORE.includes(
-      props.variableConfig.metrics.per100k.metricId
-    )
-  ) {
+  UHC_DETERMINANTS_MORE.includes(current100k) &&
     exclusionList.push(...UHC_AGE_GROUPS_FEW);
-  }
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
