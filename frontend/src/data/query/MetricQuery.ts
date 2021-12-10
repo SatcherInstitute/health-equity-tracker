@@ -94,16 +94,17 @@ export class MetricQueryResponse {
     return data;
   }
 
-  // getUniqueFieldValues(fieldName: string): string[] {
-  //   if (this.isFieldMissing(fieldName)) {
-  //     return [];
-  //   }
-  //   const set = new Set<string>();
-  //   this.getValidRowsForField(fieldName).forEach((row) => {
-  //     set.add(row[fieldName]);
-  //   });
-  //   return Array.from(set);
-  // }
+  // ! Consider deleting this function; it was only used to populate the dropdown demographic group selector on the 100k map card; but to eliminate data-less options that filtering is now done in MapCard.tsx (lines 118-124)
+  getUniqueFieldValues(fieldName: string): string[] {
+    if (this.isFieldMissing(fieldName)) {
+      return [];
+    }
+    const set = new Set<string>();
+    this.getValidRowsForField(fieldName).forEach((row) => {
+      set.add(row[fieldName]);
+    });
+    return Array.from(set);
+  }
 
   // Returns true if any of requested fields are missing or failure occurred
   shouldShowMissingDataMessage(fields: string[]): boolean {
