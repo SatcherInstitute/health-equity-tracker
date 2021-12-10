@@ -49,8 +49,12 @@ UHC_DETERMINANTS_OF_HEALTH_FEW = {
     "Depression": std_col.DEPRESSION_PCT,
     "Non-medical Drug Use": std_col.NON_MEDICAL_DRUG_USE_PCT,
     "Excessive Drinking": std_col.EXCESSIVE_DRINKING_PCT,
-    # "Illicit Opioid Use" and "Use of Illicit Opioids"
-    "Illicit Opioid": std_col.ILLICIT_OPIOID_USE_PCT,
+    "Illicit Opioid Use": std_col.ILLICIT_OPIOID_USE_PCT,  # all
+}
+
+ALIASES = {
+    # with breakdown
+    "Illicit Opioid Use": "Use of Illicit Opioids"
 }
 
 UHC_DETERMINANTS_OF_HEALTH_MORE = {
@@ -136,16 +140,27 @@ class UHCData(DataSource):
                         **UHC_DETERMINANTS_OF_HEALTH_FEW, **UHC_DETERMINANTS_OF_HEALTH_MORE}
 
                 for determinant in UHC_DETERMINANTS_OF_HEALTH:
+
                     if breakdown_value == 'All':
+
                         output_row[UHC_DETERMINANTS_OF_HEALTH[determinant]] = \
                             df.loc[(df['State Name'] == state) &
-                                   (df['Measure Name'].str.contains(determinant))]['Value'].values[0]
+                                   (df['Measure Name'] == determinant)]['Value'].values[0]
 
                     else:
+                        #
+                        print("------")
+                        print(determinant)
+                        print(ALIASES.get(determinant, determinant))
+
+                        # extract determinant and demographic breakdown value
+                        df_determinant, df_breakdown_value = df['Measure Name'][1].split(
+                            " - ")
+
                         row = df.loc[
                             (df['State Name'] == state) &
-                            (df['Measure Name'].str.contains(determinant)) &
-                            (df['Measure Name'].str.contains(breakdown_value))]
+                            (df['Measure Name'] == df_determinant) &
+                            (df['Measure Name'] == df_breakdown_value)]
 
                         if len(row) > 0:
                             pct = row['Value'].values[0]
