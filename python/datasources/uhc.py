@@ -148,12 +148,7 @@ class UHCData(DataSource):
                                    (df['Measure Name'] == determinant)]['Value'].values[0]
 
                     else:
-                        #
-                        print("------")
-                        print(determinant)
-                        print(ALIASES.get(determinant, determinant))
-
-                        # extract determinant and demographic breakdown value
+                        # extract precise determinant and demographic breakdown value
                         df_determinant, df_breakdown_value = df['Measure Name'][1].split(
                             " - ")
 
@@ -165,7 +160,9 @@ class UHCData(DataSource):
                         if len(row) > 0:
                             pct = row['Value'].values[0]
                             if pct:
-                                output_row[UHC_DETERMINANTS_OF_HEALTH[determinant]] = pct
+                                # use determinant's alias if it exists
+                                output_row[UHC_DETERMINANTS_OF_HEALTH[ALIASES.get(
+                                    determinant, determinant)]] = pct
 
                 output.append(output_row)
 
