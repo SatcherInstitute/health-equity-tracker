@@ -110,13 +110,12 @@ export function TableCard(props: TableCardProps) {
       }
     >
       {([queryResponse]) => {
-        let dataWithoutUnknowns = queryResponse.data.filter((row: Row) => {
-          return (
+        let dataWithoutUnknowns = queryResponse.data.filter(
+          (row: Row) =>
             row[props.breakdownVar] !== UNKNOWN &&
             row[props.breakdownVar] !== UNKNOWN_RACE &&
             row[props.breakdownVar] !== UNKNOWN_ETHNICITY
-          );
-        });
+        );
 
         if (showAltPopCompare(props)) {
           // This should only happen in the vaccine kff state case
