@@ -31,10 +31,10 @@ import Divider from "@material-ui/core/Divider";
 import { ALL } from "../data/utils/Constants";
 import { showAltPopCompare } from "./DisparityBarChartCard";
 import {
-  UHC_AGE_GROUPS_MORE,
-  UHC_AGE_GROUPS_FEW,
-  UHC_DETERMINANTS_FEW,
-  UHC_DETERMINANTS_MORE,
+  UHC_STANDARD_AGE_GROUPS,
+  UHC_DECADE_PLUS_5_AGE_GROUPS,
+  UHC_STANDARD_AGE_DETERMINANTS,
+  UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
 } from "../data/variables/BrfssProvider";
 
 /* minimize layout shift */
@@ -61,10 +61,10 @@ export function TableCard(props: TableCardProps) {
   let exclusionList = [ALL];
   props.breakdownVar === "race_and_ethnicity" &&
     exclusionList.push(NON_HISPANIC);
-  UHC_DETERMINANTS_FEW.includes(current100k) &&
-    exclusionList.push(...UHC_AGE_GROUPS_MORE);
-  UHC_DETERMINANTS_MORE.includes(current100k) &&
-    exclusionList.push(...UHC_AGE_GROUPS_FEW);
+  UHC_STANDARD_AGE_DETERMINANTS.includes(current100k) &&
+    exclusionList.push(...UHC_STANDARD_AGE_GROUPS);
+  UHC_DECADE_PLUS_5_AGE_DETERMINANTS.includes(current100k) &&
+    exclusionList.push(...UHC_DECADE_PLUS_5_AGE_GROUPS);
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,

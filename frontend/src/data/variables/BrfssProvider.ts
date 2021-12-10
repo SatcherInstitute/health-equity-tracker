@@ -11,9 +11,9 @@ import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 
 // COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking
-export const UHC_AGE_GROUPS_FEW = ["18-44", "45-64", "65+"];
+export const UHC_DECADE_PLUS_5_AGE_GROUPS = ["18-44", "45-64", "65+"];
 // Suicide
-export const UHC_AGE_GROUPS_MORE = [
+export const UHC_STANDARD_AGE_GROUPS = [
   "15-24",
   "25-34",
   "35-44",
@@ -25,12 +25,12 @@ export const UHC_AGE_GROUPS_MORE = [
 ];
 export const UHC_AGE_GROUPS = [
   "All",
-  ...UHC_AGE_GROUPS_FEW,
-  ...UHC_AGE_GROUPS_MORE,
+  ...UHC_DECADE_PLUS_5_AGE_GROUPS,
+  ...UHC_STANDARD_AGE_GROUPS,
 ];
 // No Age Breakdowns for: Illicit Opioid, Non-medical Drug
 
-export const UHC_DETERMINANTS_FEW: MetricId[] = [
+export const UHC_STANDARD_AGE_DETERMINANTS: MetricId[] = [
   "brfss_population_pct",
   "copd_pct",
   "copd_pct_share",
@@ -55,7 +55,7 @@ export const UHC_DETERMINANTS_FEW: MetricId[] = [
   "frequent_mental_distress_per_100k",
 ];
 
-export const UHC_DETERMINANTS_MORE: MetricId[] = [
+export const UHC_DECADE_PLUS_5_AGE_DETERMINANTS: MetricId[] = [
   "suicide_pct",
   "suicide_pct_share",
   "suicide_per_100k",
@@ -67,8 +67,8 @@ class BrfssProvider extends VariableProvider {
   constructor(acsProvider: AcsPopulationProvider) {
     super("brfss_provider", [
       "brfss_population_pct",
-      ...UHC_DETERMINANTS_FEW,
-      ...UHC_DETERMINANTS_MORE,
+      ...UHC_STANDARD_AGE_DETERMINANTS,
+      ...UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
     ]);
     this.acsProvider = acsProvider;
   }

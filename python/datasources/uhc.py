@@ -19,11 +19,11 @@ UHC_RACE_GROUPS = [
 ]
 
 # COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking
-UHC_AGE_GROUPS_FEW = ['18-44', '45-64', '65+']
+UHC_DECADE_PLUS_5_AGE_GROUPS = ['18-44', '45-64', '65+']
 # Suicide
-UHC_AGE_GROUPS_MORE = ['15-24',
+UHC_STANDARD_AGE_GROUPS = ['15-24',
                        '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '85+']
-UHC_AGE_GROUPS = ['All', *UHC_AGE_GROUPS_FEW, *UHC_AGE_GROUPS_MORE]
+UHC_AGE_GROUPS = ['All', *UHC_DECADE_PLUS_5_AGE_GROUPS, *UHC_STANDARD_AGE_GROUPS]
 # No Age Breakdowns for: Illicit Opioid, Non-medical Drug
 
 UHC_SEX_GROUPS = ['Male', 'Female', 'All']
@@ -42,7 +42,7 @@ UHC_RACE_GROUPS_TO_STANDARD = {
 
 BASE_UHC_URL = "https://www.americashealthrankings.org/api/v1/downloads/210"
 
-UHC_DETERMINANTS_OF_HEALTH_FEW = {
+UHC_STANDARD_AGE_DETERMINANTS = {
     "Chronic Obstructive Pulmonary Disease": std_col.COPD_PCT,
     "Diabetes": std_col.DIABETES_PCT,
     "Frequent Mental Distress": std_col.FREQUENT_MENTAL_DISTRESS_PCT,
@@ -57,7 +57,7 @@ ALIASES = {
     "Illicit Opioid Use": "Use of Illicit Opioids"
 }
 
-UHC_DETERMINANTS_OF_HEALTH_MORE = {
+UHC_DECADE_PLUS_5_AGE_DETERMINANTS = {
     "Suicide": std_col.SUICIDE_PCT,
 }
 
@@ -130,14 +130,14 @@ class UHCData(DataSource):
                     output_row[breakdown] = breakdown_value
 
                 # use select determinants based on the iterated age bucket
-                if breakdown_value in UHC_AGE_GROUPS_MORE:
-                    UHC_DETERMINANTS_OF_HEALTH = UHC_DETERMINANTS_OF_HEALTH_MORE
-                elif breakdown_value in UHC_AGE_GROUPS_FEW:
-                    UHC_DETERMINANTS_OF_HEALTH = UHC_DETERMINANTS_OF_HEALTH_FEW
+                if breakdown_value in UHC_STANDARD_AGE_GROUPS:
+                    UHC_DETERMINANTS_OF_HEALTH = UHC_DECADE_PLUS_5_AGE_DETERMINANTS
+                elif breakdown_value in UHC_DECADE_PLUS_5_AGE_GROUPS:
+                    UHC_DETERMINANTS_OF_HEALTH = UHC_STANDARD_AGE_DETERMINANTS
                 # for age="All" or any race/sex breakdown, use every determinant
                 else:
                     UHC_DETERMINANTS_OF_HEALTH = {
-                        **UHC_DETERMINANTS_OF_HEALTH_FEW, **UHC_DETERMINANTS_OF_HEALTH_MORE}
+                        **UHC_STANDARD_AGE_DETERMINANTS, **UHC_DECADE_PLUS_5_AGE_DETERMINANTS}
 
                 for determinant in UHC_DETERMINANTS_OF_HEALTH:
 
