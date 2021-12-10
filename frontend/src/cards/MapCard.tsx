@@ -127,6 +127,7 @@ function MapCardWithKey(props: MapCardProps) {
           props.currentBreakdown === "age"
             ? ([new AgeSorterStrategy([ALL]).compareFn] as any)
             : [];
+
         // const breakdownValues = mapQueryResponse.getUniqueFieldValues(
         //   props.currentBreakdown
         // );
