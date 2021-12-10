@@ -29,16 +29,23 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     expected_len = {
         'race_and_ethnicity': 9,
-        'age': 4,
+        'age': 12,
         'sex': 3,
     }
 
     demos = ['race_and_ethnicity', 'age', 'sex']
+
     for i in range(len(demos)):
         expected_cols = [
             'state_name',
             'copd_pct',
             'diabetes_pct',
+            'frequent_mental_distress_pct',
+            'depression_pct',
+            'illicit_opioid_use_pct',
+            'suicide_pct',
+            'non_medical_drug_use_pct',
+            'excessive_drinking_pct',
             demos[i],
         ]
 
