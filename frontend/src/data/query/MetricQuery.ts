@@ -94,16 +94,16 @@ export class MetricQueryResponse {
     return data;
   }
 
-  getUniqueFieldValues(fieldName: string): string[] {
-    if (this.isFieldMissing(fieldName)) {
-      return [];
-    }
-    const set = new Set<string>();
-    this.data.forEach((row) => {
-      set.add(row[fieldName]);
-    });
-    return Array.from(set);
-  }
+  // getUniqueFieldValues(fieldName: string): string[] {
+  //   if (this.isFieldMissing(fieldName)) {
+  //     return [];
+  //   }
+  //   const set = new Set<string>();
+  //   this.getValidRowsForField(fieldName).forEach((row) => {
+  //     set.add(row[fieldName]);
+  //   });
+  //   return Array.from(set);
+  // }
 
   // Returns true if any of requested fields are missing or failure occurred
   shouldShowMissingDataMessage(fields: string[]): boolean {

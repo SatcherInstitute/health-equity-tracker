@@ -30,6 +30,12 @@ import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import { ALL } from "../data/utils/Constants";
 import { showAltPopCompare } from "./DisparityBarChartCard";
+import {
+  UHC_STANDARD_AGE_GROUPS,
+  UHC_DECADE_PLUS_5_AGE_GROUPS,
+  UHC_STANDARD_AGE_DETERMINANTS,
+  UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
+} from "../data/variables/BrfssProvider";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 698;
@@ -49,12 +55,20 @@ export const NEVER_SHOW_PROPERTIES = [
 
 export function TableCard(props: TableCardProps) {
   const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
+  const current100k = props.variableConfig.metrics.per100k.metricId;
+
+  // choose demographic groups to exclude from the table
+  let exclusionList = [ALL];
+  props.breakdownVar === "race_and_ethnicity" &&
+    exclusionList.push(NON_HISPANIC);
+  UHC_STANDARD_AGE_DETERMINANTS.includes(current100k) &&
+    exclusionList.push(...UHC_STANDARD_AGE_GROUPS);
+  UHC_DECADE_PLUS_5_AGE_DETERMINANTS.includes(current100k) &&
+    exclusionList.push(...UHC_DECADE_PLUS_5_AGE_GROUPS);
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
-    props.breakdownVar === "race_and_ethnicity"
-      ? exclude(NON_HISPANIC, ALL)
-      : exclude(ALL)
+    exclude(...exclusionList)
   );
 
   let metricConfigs: Record<string, MetricConfig> = {};
