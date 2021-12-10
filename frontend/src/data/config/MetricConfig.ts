@@ -376,7 +376,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         per100k: {
           metricId: "depression_per_100k",
           fullCardTitleName: "Rates of Depression",
-          shortVegaLabel: "depression per 100k",
+          shortVegaLabel: "cases of depression per 100k",
           type: "per100k",
         },
       },
@@ -404,7 +404,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         per100k: {
           metricId: "excessive_drinking_per_100k",
           fullCardTitleName: "Rates of Excessive Drinking",
-          shortVegaLabel: "excessive drinking per 100k",
+          shortVegaLabel: "cases of excessive drinking per 100k",
           type: "per100k",
         },
       },
@@ -432,7 +432,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         per100k: {
           metricId: "non_medical_drug_use_per_100k",
           fullCardTitleName: "Non-medical Drug Use Per 100k People",
-          shortVegaLabel: "non-medical drug use per 100k",
+          shortVegaLabel: "cases of non-medical drug use per 100k",
           type: "per100k",
         },
       },
@@ -460,7 +460,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         per100k: {
           metricId: "illicit_opioid_use_per_100k",
           fullCardTitleName: "Rates of Illicit Opioid Use",
-          shortVegaLabel: "illicit opioid use per 100k",
+          shortVegaLabel: "cases of illicit opioid use per 100k",
           type: "per100k",
         },
       },
@@ -586,7 +586,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         per100k: {
           metricId: "poverty_per_100k",
           fullCardTitleName: "Rates of Poverty",
-          shortVegaLabel: "poverty per 100k",
+          shortVegaLabel: "cases of poverty per 100k",
           type: "per100k",
         },
         pct_share: {
