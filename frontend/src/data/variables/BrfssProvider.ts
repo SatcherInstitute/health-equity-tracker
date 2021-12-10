@@ -153,14 +153,16 @@ class BrfssProvider extends VariableProvider {
     });
 
     df = df.generateSeries({
+      // these determinants are already per 100k
+      suicide_per_100k: (row) =>
+        row.suicide_pct == null ? null : row.suicide_pct,
+      // these determinants are percentages and need to be converted to per 100k
       diabetes_per_100k: (row) =>
         row.diabetes_pct == null ? null : row.diabetes_pct * 1000,
       copd_per_100k: (row) =>
         row.copd_pct == null ? null : row.copd_pct * 1000,
       depression_per_100k: (row) =>
         row.depression_pct == null ? null : row.depression_pct * 1000,
-      suicide_per_100k: (row) =>
-        row.suicide_pct == null ? null : row.suicide_pct * 1000,
       illicit_opioid_use_per_100k: (row) =>
         row.illicit_opioid_use_pct == null
           ? null
