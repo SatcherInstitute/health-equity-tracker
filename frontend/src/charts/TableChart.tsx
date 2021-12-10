@@ -29,7 +29,6 @@ import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
 import styles from "./TableChart.module.scss";
-// import { UHC_DECADE_PLUS_5_AGE_GROUPS, UHC_STANDARD_AGE_GROUPS } from "../data/variables/BrfssProvider";
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20;
 
