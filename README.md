@@ -1,4 +1,4 @@
-# Health Equity Tracker 
+# Health Equity Tracker
 
 Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satcher Health Leadership Institute, Morehouse School of Medicine.
 
@@ -54,7 +54,7 @@ The frontend React App runs in different environments. We use configuration file
 
 #### One Time Setup
 
-Switch to the `frontend/` directory, then install dependencies using NPM.  
+Switch to the `frontend/` directory, then install dependencies using NPM.
 
 _Note: you will need a compatible version of Node.JS and NPM installed locally; see the "engines" field in `frontend/package.json` for the required  of each. It's recommended to use [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm) if you need to have multiple versions of Node.JS / NPM installed on your machine, though members have also had success with Homebrew._
 
@@ -164,8 +164,8 @@ Don't do this unless there's a strong need to. See https://create-react-app.dev/
 
 ## One-time development setup
 
-Install Cloud SDK ([Quickstart](https://cloud.google.com/sdk/docs/quickstart))  
-Install Terraform ([Getting started](https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/gcp-get-started))  
+Install Cloud SDK ([Quickstart](https://cloud.google.com/sdk/docs/quickstart))
+Install Terraform ([Getting started](https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/gcp-get-started))
 Install Docker Desktop ([Get Docker](https://docs.docker.com/get-docker/))
 
 `gcloud config set project <project-id>`
@@ -226,7 +226,7 @@ When adding a new python root-level python directory, be sure to update `.github
    - Run `cd <service_directory>`, then `pip-compile requirements.in` where `<service_directory>` is the root-level directory for the service. This will generate a `requirements.txt` file.
    - Run `pip install -r requirements.txt` to ensure your local environment has the dependencies, or run `pip install <new_dep>` directly. Note, you'll first need to have followed the python environment setup described above [Python environment setup](#python-environment-setup).
 
-1. Update the requirements.txt for unit tests  
+1. Update the requirements.txt for unit tests
 `pip-compile python/tests/requirements.in -o python/tests/requirements.txt`
 
 ### Adding an internal dependency
@@ -290,36 +290,36 @@ Before deploying, make sure you have installed Terraform and a Docker client (e.
 * Login to glcoud
 
 ```bash
-$ gcloud auth application-default login
+gcloud auth application-default login
 ```
 
 * Login to docker
 
 ```bash
-$ gcloud auth configure-docker
+gcloud auth configure-docker
 ```
 
 * Build and push docker images
 
 ```bash
-$ ./push_images
+./push_images
 ```
 
 * Setup your cloud environment with `terraform`
 
 ```bash
-$ pushd config
-$   terraform apply --var-file digest.tfvars
-$ popd
+pushd config
+  terraform apply --var-file digest.tfvars
+popd
 ```
 
 * Configure the airflow server
 
 ```bash
-$ pushd airflow
-$   ./upload-dags.sh
-$   ./update-environment-variables.sh
-$ popd
+pushd airflow
+  ./upload-dags.sh
+  ./update-environment-variables.sh
+popd
 ```
 
 ## To test changes to python code:
@@ -327,15 +327,15 @@ $ popd
 * Build and push docker images
 
 ```bash
-$ ./push_images
+./push_images
 ```
 
 * Setup your cloud environment with `terraform`
 
 ```bash
-$ pushd config
-$   terraform apply --var-file digest.tfvars
-$ popd
+pushd config
+  terraform apply --var-file digest.tfvars
+popd
 ```
 
 6. To redeploy, e.g. after making changes to a Cloud Run service, repeat steps 4-5. Make sure you run the docker commands from your base project dir and the terraform commands from the `config/` directory.
@@ -362,7 +362,7 @@ You can then set the `ingestion_image_name` variable in your tfvars file to `<yo
 
 ### A note on Airflow DAGS
 
-All files in the airflows/dags directory will be uploaded to the test airflow environment. Please only put DAG files in this directory. 
+All files in the airflows/dags directory will be uploaded to the test airflow environment. Please only put DAG files in this directory.
 
 # License
 
