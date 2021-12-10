@@ -79,6 +79,9 @@ RACE_STRING_TO_CATEGORY_ID_EXCLUDE_HISP = {
 }
 
 
+# This only works for the "Total" race category, because ACS provides more
+# granular age buckets when looking at all races than when breaking down by
+# race.
 def get_decade_age_bucket(age_range):
     if age_range in {'0-4', '5-9'}:
         return '0-9'
