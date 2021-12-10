@@ -160,7 +160,7 @@ class UHCData(DataSource):
                         if len(row) > 0:
                             pct = row['Value'].values[0]
                             if pct:
-                                # use determinant's alias if it exists
+                                # use determinant name or alias
                                 output_row[UHC_DETERMINANTS_OF_HEALTH[ALIASES.get(
                                     determinant, determinant)]] = pct
 

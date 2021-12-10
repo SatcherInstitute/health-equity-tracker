@@ -17,7 +17,7 @@ export type CategoryId =
   | "COVID-19"
   | "Chronic Disease"
   | "Behavioral Health"
-  | "Social & Political Determinants";
+  | "Social & Political Determinants of Health";
 
 export interface MadLib {
   readonly id: MadLibId;
@@ -104,7 +104,7 @@ const CATEGORIES_LIST: Category[] = [
     options: ["diabetes", "copd"],
   },
   {
-    title: "Social & Political Determinants",
+    title: "Social & Political Determinants of Health",
     options: ["health_insurance", "poverty"],
   },
   {
