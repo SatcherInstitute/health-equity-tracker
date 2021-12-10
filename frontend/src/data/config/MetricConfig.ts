@@ -558,7 +558,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "health_insurance_per_100k",
-          fullCardTitleName: "Rates of Uninsured Individuals",
+          fullCardTitleName: "Rates of Uninsurance",
           shortVegaLabel: "uninsured individuals per 100k",
           type: "per100k",
         },

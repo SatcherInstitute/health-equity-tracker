@@ -39,7 +39,7 @@ export interface TableChartProps {
 }
 
 export function TableChart(props: TableChartProps) {
-  let { data, metrics, breakdownVar } = props;
+  const { data, metrics, breakdownVar } = props;
 
   let columns = metrics.map((metricConfig) => {
     return {
