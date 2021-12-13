@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import Typography from "@material-ui/core/Typography";
-import { Grid, useMediaQuery, useTheme } from "@material-ui/core";
+import { Box, Grid, useMediaQuery, useTheme } from "@material-ui/core";
 import { ChoroplethMap } from "../../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../../data/utils/Fips";
 import { Legend } from "../../charts/Legend";
@@ -138,7 +138,16 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     } in ${props.fips.getFullDisplayName()}`}
                   />
                 ) : (
-                  <></>
+                  <Grid
+                    container
+                    direction="column"
+                    alignItems="center"
+                    justify="center"
+                  >
+                    <Box my={5}>
+                      <i>Data unavailable</i>
+                    </Box>
+                  </Grid>
                 )}
                 {props.metricConfig &&
                 props.fips.isUsa() &&
