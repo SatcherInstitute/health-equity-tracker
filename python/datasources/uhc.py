@@ -141,6 +141,8 @@ class UHCData(DataSource):
 
                 for determinant in UHC_DETERMINANTS_OF_HEALTH:
 
+                    print(state, " | ", breakdown_value, " | ", determinant)
+
                     if breakdown_value == 'All':
 
                         output_row[UHC_DETERMINANTS_OF_HEALTH[determinant]] = \
@@ -148,6 +150,8 @@ class UHCData(DataSource):
                                    (df['Measure Name'] == determinant)]['Value'].values[0]
 
                     else:
+
+
                         # extract precise determinant and demographic breakdown value
                         df_determinant, df_breakdown_value = df['Measure Name'][1].split(
                             " - ")

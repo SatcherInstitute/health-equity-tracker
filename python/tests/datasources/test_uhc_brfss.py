@@ -11,63 +11,25 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "uhc_brfss")
 
 GOLDEN_DATA = {
-    'race_and_ethnicity': os.path.join(TEST_DIR, 'uhc_test_output_race_and_ethnicity.csv'),
-    'sex': os.path.join(TEST_DIR, 'uhc_test_output_sex.csv'),
-    'age': os.path.join(TEST_DIR, 'uhc_test_output_age.csv')}
+    'race_and_ethnicity': os.path.join(TEST_DIR, 'uhc_test_output_race_and_ethnicity.json'),
+    'sex': os.path.join(TEST_DIR, 'uhc_test_output_sex.json'),
+    'age': os.path.join(TEST_DIR, 'uhc_test_output_age.json')}
 
 
 def get_test_data_as_df():
     return pd.read_csv(os.path.join(TEST_DIR, 'uhc_test_input.csv'),
-                       dtype={"state_fips": str,
-                              "state_name": str,
-                              "copd_pct": str,
-                              "diabetes_pct": str,
-                              "frequent_mental_distr,ess_pct": str,
-                              "depression_pct": str,
-                              "suicide_pct": str,
-                              "illicit_opioid_use_pct": str,
-                              "non_medical_drug_use_pct": str,
-                              "excessive_drinking_pct": str,
-                              "age": str,
-                              "sex": str,
-                              "race_category_id": str})
+                       dtype={"State Name": str,
+                              "Measure Name": str,
+                              "Value": float,
+                              })
 
 
-# def get_test_data_by_sex_as_df():
-#     return pd.read_csv(os.path.join(TEST_DIR, 'uhc_test_input.csv'),
-#                        dtype={"state_fips": str,
-#                               "state_name": str,
-#                               "copd_pct": str,
-#                               "diabetes_pct": str,
-#                               "frequent_mental_distr,ess_pct": str,
-#                               "depression_pct": str,
-#                               "suicide_pct": str,
-#                               "illicit_opioid_use_pct": str,
-#                               "non_medical_drug_use_pct": str,
-#                               "excessive_drinking_pct": str,
-#                               "sex": str})
-
-
-# def get_test_data_by_race_and_ethnicity_as_df():
-#     return pd.read_csv(os.path.join(TEST_DIR, 'uhc_test_input.csv'),
-#                        dtype={"state_fips": str,
-#                               "state_name": str,
-#                               "copd_pct": str,
-#                               "diabetes_pct": str,
-#                               "frequent_mental_distr,ess_pct": str,
-#                               "depression_pct": str,
-#                               "suicide_pct": str,
-#                               "illicit_opioid_use_pct": str,
-#                               "non_medical_drug_use_pct": str,
-#                               "excessive_drinking_pct": str,
-#                               "race_category_id": str})
-
-
-@mock.patch('ingestion.gcs_to_bq_util.load_json_as_df_from_web',
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe_from_web',
             return_value=get_test_data_as_df())
 @mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
             return_value=None)
 def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
+
     uhc_data = UHCData()
 
     kwargs = {'filename': 'test_file.csv',
@@ -75,21 +37,94 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
               'table_name': 'output_table'}
 
     uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+
     assert mock_bq.call_count == 3
 
-    demos = ['race_and_ethnicity', 'sex', 'age']
+    # expected_dfs = {}
+    # for key, val in GOLDEN_DATA.items():
 
-    expected_dfs = {}
-    for key, val in GOLDEN_DATA.items():
-        # Set keep_default_na=False so that empty strings are not read as NaN.
-        expected_dfs[key] = pd.read_csv(val, dtype={
-            # 'population_pct': str,
-            'state_fips': str
-        })
+    #     # Set keep_default_na=False so that empty strings are not read as NaN.
+    #     expected_dfs[key] = pd.read_json(val, dtype={
+    #         # 'population_pct': str,
+    #         'state_fips': str,
+    #         "copd_pct": str,
+    #         "diabetes_pct": str,
+    #         "frequent_mental_distress_pct": str,
+    #         "depression_pct": str,
+    #         "suicide_pct": str,
+    #         "illicit_opioid_use_pct": str,
+    #         "non_medical_drug_use_pct": str,
+    #         "excessive_drinking_pct": str,
+    #     })
 
-    for i in range(len(demos)):
-        print(mock_bq.call_args_list[i].args[0].columns)
-        print(expected_dfs[demos[i]].columns)
+    # TEST BY AGE
 
-        assert_frame_equal(
-            mock_bq.call_args_list[i].args[0], expected_dfs[demos[i]], check_like=True)
+    expected_df_age = pd.read_json(GOLDEN_DATA["age"], dtype={
+        'state_name': str,
+        "copd_pct": float,
+        "diabetes_pct": float,
+        "frequent_mental_distress_pct": float,
+        "depression_pct": float,
+        "suicide_pct": float,
+        "illicit_opioid_use_pct": float,
+        "non_medical_drug_use_pct": float,
+        "excessive_drinking_pct": float,
+        "age": str
+    }
+    )
+
+    print("MOCK OUTPUT---")
+    print(mock_bq.call_args_list[1].args[0]["copd_pct"])
+    print("EXPECTED---")
+    print(expected_df_age["copd_pct"])
+    assert_frame_equal(
+        mock_bq.call_args_list[1].args[0], expected_df_age, check_like=True)
+
+    # # TEST BY SEX
+
+    # expected_df_age = pd.read_json(GOLDEN_DATA["sex"], dtype={
+    #     'state_name': str,
+    #     "copd_pct": str,
+    #     "diabetes_pct": str,
+    #     "frequent_mental_distress_pct": str,
+    #     "depression_pct": str,
+    #     "suicide_pct": str,
+    #     "illicit_opioid_use_pct": str,
+    #     "non_medical_drug_use_pct": str,
+    #     "excessive_drinking_pct": str,
+    #     "sex": str
+    # }
+    # )
+
+    # print("MOCK OUTPUT---")
+
+    # print("EXPECTED---")
+
+    # assert_frame_equal(
+    #     mock_bq.call_args_list[2].args[0], expected_df_sex, check_like=True)
+
+    # # TEST BY RACE
+
+    # expected_df_race_and_ethnicity = pd.read_json(GOLDEN_DATA["race_and_ethnicity"], dtype={
+    #     'state_name': str,
+    #     "copd_pct": str,
+    #     "diabetes_pct": str,
+    #     "frequent_mental_distress_pct": str,
+    #     "depression_pct": str,
+    #     "suicide_pct": str,
+    #     "illicit_opioid_use_pct": str,
+    #     "non_medical_drug_use_pct": str,
+    #     "excessive_drinking_pct": str,
+    #     'race_category_id': str,
+    #     'race': str,
+    #     'race_includes_hispanic': bool,
+    #     'race_and_ethnicity': str
+    # }
+    # )
+
+    # print("MOCK OUTPUT---")
+
+    # print("EXPECTED---")
+
+    # assert_frame_equal(
+    #     mock_bq.call_args_list[0].args[0], expected_df_race_and_ethnicity, check_like=True)
