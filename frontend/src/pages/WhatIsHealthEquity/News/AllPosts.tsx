@@ -130,7 +130,7 @@ function AllPosts() {
   if (data) articles = data!.data;
   if (HIDE_DEV_POSTS)
     articles = articles.filter(
-      (article) => article.acf.preview_on_dev === false
+      (article) => article.acf.preview_on_dev !== true
     );
 
   useEffect(() => {
