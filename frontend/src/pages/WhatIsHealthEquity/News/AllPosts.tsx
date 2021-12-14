@@ -31,7 +31,7 @@ import SignupSection from "../../ui/SignupSection";
 export const ARTICLES_TERM = "Articles";
 const NUM_OF_LOADING_SKELETONS = 6;
 
-console.log(window.location.hostname);
+const HIDE_DEV_POSTS = window.location.hostname === "healthequitytracker.org";
 
 /*
 displays several loading indicator elements while blog content is fetched
@@ -128,6 +128,10 @@ function AllPosts() {
   let articles: Article[] = [];
 
   if (data) articles = data!.data;
+  if (HIDE_DEV_POSTS)
+    articles = articles.filter(
+      (article) => article.acf.preview_on_dev === false
+    );
 
   useEffect(() => {
     // filter articles by category query param if present

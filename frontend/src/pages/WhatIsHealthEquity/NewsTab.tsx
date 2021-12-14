@@ -25,6 +25,7 @@ export interface Article {
     canonical_url: string;
     full_article_url: string;
     friendly_site_name: string;
+    preview_on_dev: boolean;
   };
   _embedded: {
     author: {
