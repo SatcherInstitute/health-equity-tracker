@@ -23,7 +23,8 @@ UHC_STANDARD_AGE_GROUPS = ['18-44', '45-64', '65+']
 # Suicide
 UHC_DECADE_PLUS_5_AGE_GROUPS = [
     '15-24', '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '85+']
-UHC_AGE_GROUPS = ['All', *UHC_DECADE_PLUS_5_AGE_GROUPS, *UHC_STANDARD_AGE_GROUPS]
+UHC_AGE_GROUPS = ['All', *UHC_DECADE_PLUS_5_AGE_GROUPS,
+                  *UHC_STANDARD_AGE_GROUPS]
 # No Age Breakdowns for: Illicit Opioid, Non-medical Drug
 
 UHC_SEX_GROUPS = ['Male', 'Female', 'All']
@@ -40,7 +41,7 @@ UHC_RACE_GROUPS_TO_STANDARD = {
     'All': Race.ALL.value,
 }
 
-BASE_UHC_URL = "https://www.americashealthrankings.org/api/v1/downloads/210"
+BASE_UHC_URL = "https://www.ZZZamericashealthrankings.org/api/v1/downloads/210"
 
 UHC_STANDARD_AGE_DETERMINANTS = {
     "Chronic Obstructive Pulmonary Disease": std_col.COPD_PCT,
@@ -49,7 +50,7 @@ UHC_STANDARD_AGE_DETERMINANTS = {
     "Depression": std_col.DEPRESSION_PCT,
     "Non-medical Drug Use": std_col.NON_MEDICAL_DRUG_USE_PCT,
     "Excessive Drinking": std_col.EXCESSIVE_DRINKING_PCT,
-    "Illicit Opioid Use": std_col.ILLICIT_OPIOID_USE_PCT,  # all
+    "Illicit Opioid": std_col.ILLICIT_OPIOID_USE_PCT,  # all
 }
 
 ALIASES = {
@@ -60,6 +61,9 @@ ALIASES = {
 UHC_DECADE_PLUS_5_AGE_DETERMINANTS = {
     "Suicide": std_col.SUICIDE_PCT,
 }
+
+# UHC_DETERMINANTS_OF_HEALTH = {
+#     **UHC_STANDARD_AGE_DETERMINANTS, **UHC_DECADE_PLUS_5_AGE_DETERMINANTS}
 
 BREAKDOWN_MAP = {
     "race_and_ethnicity": UHC_RACE_GROUPS,
@@ -131,44 +135,43 @@ class UHCData(DataSource):
 
                 # use select determinants based on the iterated age bucket
                 if breakdown_value in UHC_STANDARD_AGE_GROUPS:
-                    UHC_DETERMINANTS_OF_HEALTH = UHC_DECADE_PLUS_5_AGE_DETERMINANTS
-                elif breakdown_value in UHC_DECADE_PLUS_5_AGE_GROUPS:
                     UHC_DETERMINANTS_OF_HEALTH = UHC_STANDARD_AGE_DETERMINANTS
+                elif breakdown_value in UHC_DECADE_PLUS_5_AGE_GROUPS:
+                    UHC_DETERMINANTS_OF_HEALTH = UHC_DECADE_PLUS_5_AGE_DETERMINANTS
                 # for age="All" or any race/sex breakdown, use every determinant
                 else:
                     UHC_DETERMINANTS_OF_HEALTH = {
                         **UHC_STANDARD_AGE_DETERMINANTS, **UHC_DECADE_PLUS_5_AGE_DETERMINANTS}
 
                 for determinant in UHC_DETERMINANTS_OF_HEALTH:
+                    print(determinant)
 
                     if breakdown_value == 'All':
 
                         output_row[UHC_DETERMINANTS_OF_HEALTH[determinant]] = \
                             df.loc[(df['State Name'] == state) &
-                                   (df['Measure Name'] == determinant)]['Value'].values[0]
+                                   (df['Measure Name'].str.contains(determinant))]['Value'].values[0]
 
                     else:
                         # extract precise determinant and demographic breakdown value
-                        df_determinant, df_breakdown_value = df['Measure Name'][1].split(
-                            " - ")
 
                         row = df.loc[
                             (df['State Name'] == state) &
-                            (df['Measure Name'] == df_determinant) &
-                            (df['Measure Name'] == df_breakdown_value)]
+                            (df['Measure Name'].str.contains(determinant)) &
+                            (df['Measure Name'].str.contains(breakdown_value))]
 
                         if len(row) > 0:
+
                             pct = row['Value'].values[0]
                             if pct:
                                 # use determinant name or alias
-                                output_row[UHC_DETERMINANTS_OF_HEALTH[ALIASES.get(
-                                    determinant, determinant)]] = pct
+                                output_row[UHC_DETERMINANTS_OF_HEALTH[determinant]] = pct
 
                 output.append(output_row)
 
-        output_df = pd.DataFrame(output, columns=columns)
+            output_df = pd.DataFrame(output, columns=columns)
 
-        if breakdown == std_col.RACE_OR_HISPANIC_COL:
-            std_col.add_race_columns_from_category_id(output_df)
+            if breakdown == std_col.RACE_OR_HISPANIC_COL:
+                std_col.add_race_columns_from_category_id(output_df)
 
-        return output_df
+            return output_df
