@@ -59,7 +59,7 @@ ALIASES = {
 }
 
 UHC_DECADE_PLUS_5_AGE_DETERMINANTS = {
-    "Suicide": std_col.SUICIDE_PCT,
+    "Suicide": std_col.SUICIDE_PER_100K,
 }
 
 # UHC_DETERMINANTS_OF_HEALTH = {
@@ -96,7 +96,7 @@ class UHCData(DataSource):
             for col in [std_col.COPD_PCT,
                         std_col.DIABETES_PCT,
                         std_col.FREQUENT_MENTAL_DISTRESS_PCT,
-                        std_col.DEPRESSION_PCT, std_col.SUICIDE_PCT,
+                        std_col.DEPRESSION_PCT, std_col.SUICIDE_PER_100K,
                         std_col.ILLICIT_OPIOID_USE_PCT,
                         std_col.NON_MEDICAL_DRUG_USE_PCT,
                         std_col.EXCESSIVE_DRINKING_PCT]:
@@ -114,7 +114,7 @@ class UHCData(DataSource):
 
         columns = [std_col.STATE_NAME_COL, std_col.COPD_PCT, std_col.DIABETES_PCT,
                    std_col.FREQUENT_MENTAL_DISTRESS_PCT, std_col.DEPRESSION_PCT,
-                   std_col.SUICIDE_PCT, std_col.ILLICIT_OPIOID_USE_PCT,
+                   std_col.SUICIDE_PER_100K, std_col.ILLICIT_OPIOID_USE_PCT,
                    std_col.NON_MEDICAL_DRUG_USE_PCT, std_col.EXCESSIVE_DRINKING_PCT]
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
             columns.append(std_col.RACE_CATEGORY_ID_COL)

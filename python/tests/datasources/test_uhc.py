@@ -43,7 +43,7 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
             'frequent_mental_distress_pct',
             'depression_pct',
             'illicit_opioid_use_pct',
-            'suicide_pct',
+            'suicide_per_100k',
             'non_medical_drug_use_pct',
             'excessive_drinking_pct',
             demos[i],

@@ -55,7 +55,6 @@ BELOW_POVERTY_COL = "below_poverty_line"
 
 # Standardized names for UHC columns
 DEPRESSION_PCT = "depression_pct"
-SUICIDE_PCT = "suicide_pct"
 ILLICIT_OPIOID_USE_PCT = "illicit_opioid_use_pct"
 NON_MEDICAL_DRUG_USE_PCT = "non_medical_drug_use_pct"
 EXCESSIVE_DRINKING_PCT = "excessive_drinking_pct"
@@ -63,6 +62,7 @@ COPD_PCT = "copd_pct"
 DIABETES_PCT = "diabetes_pct"
 ANXIETY_PCT = "anxiety_pct"
 FREQUENT_MENTAL_DISTRESS_PCT = "frequent_mental_distress_pct"
+SUICIDE_PER_100K = "suicide_per_100k"
 
 # Standardized for Vaccination columns
 VACCINATED_FIRST_DOSE = "vaccinated_first_dose"
