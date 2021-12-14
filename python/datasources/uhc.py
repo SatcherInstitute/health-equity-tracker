@@ -40,7 +40,7 @@ UHC_RACE_GROUPS_TO_STANDARD = {
     'All': Race.ALL.value,
 }
 
-BASE_UHC_URL = "https://www.americashealthrankings.org/api/v1/downloads/210"
+BASE_UHC_URL = "https://www.ZZZamericashealthrankings.org/api/v1/downloads/210"
 
 UHC_STANDARD_AGE_DETERMINANTS = {
     "Chronic Obstructive Pulmonary Disease": std_col.COPD_PCT,
@@ -149,24 +149,36 @@ class UHCData(DataSource):
                             df.loc[(df['State Name'] == state) &
                                    (df['Measure Name'] == determinant)]['Value'].values[0]
 
+                        print(
+                            "in all", output_row[UHC_DETERMINANTS_OF_HEALTH[determinant]])
+
                     else:
-
-
                         # extract precise determinant and demographic breakdown value
                         df_determinant, df_breakdown_value = df['Measure Name'][1].split(
                             " - ")
+
+                        print(df['State Name'], )
 
                         row = df.loc[
                             (df['State Name'] == state) &
                             (df['Measure Name'] == df_determinant) &
                             (df['Measure Name'] == df_breakdown_value)]
 
+                        print("matching brk row")
+                        print(row)
+
                         if len(row) > 0:
+
+                            print("df det", df_determinant,
+                                  "df brk",  df_breakdown_value)
                             pct = row['Value'].values[0]
                             if pct:
                                 # use determinant name or alias
                                 output_row[UHC_DETERMINANTS_OF_HEALTH[ALIASES.get(
                                     determinant, determinant)]] = pct
+
+                            print("in brkdown", pct)
+
 
                 output.append(output_row)
 

@@ -17,6 +17,7 @@ GOLDEN_DATA = {
 
 
 def get_test_data_as_df():
+    print("reading: ", os.path.join(TEST_DIR, 'uhc_test_input.csv'))
     return pd.read_csv(os.path.join(TEST_DIR, 'uhc_test_input.csv'),
                        dtype={"State Name": str,
                               "Measure Name": str,
@@ -74,9 +75,9 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     )
 
     print("MOCK OUTPUT---")
-    print(mock_bq.call_args_list[1].args[0]["copd_pct"])
+    print(mock_bq.call_args_list[1].args[0].to_string())
     print("EXPECTED---")
-    print(expected_df_age["copd_pct"])
+    print(expected_df_age.to_string())
     assert_frame_equal(
         mock_bq.call_args_list[1].args[0], expected_df_age, check_like=True)
 
