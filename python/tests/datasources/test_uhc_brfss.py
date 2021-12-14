@@ -41,40 +41,34 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     assert mock_bq.call_count == 3
 
-    # expected_dtype = {
-    #     'state_name': str,
-    #     "diabetes_pct": float,
-    #     "copd_pct": float,
-    #     "frequent_mental_distress_pct": float,
-    #     "depression_pct": float,
-    #     "suicide_per_100k": float,
-    #     "illicit_opioid_use_pct": float,
-    #     "non_medical_drug_use_pct": float,
-    #     "excessive_drinking_pct": float,
-    # }
+    expected_dtype = {
+        'state_name': str,
+        "diabetes_pct": float,
+        "copd_pct": float,
+        "frequent_mental_distress_pct": float,
+        "depression_pct": float,
+        "suicide_per_100k": float,
+        "illicit_opioid_use_pct": float,
+        "non_medical_drug_use_pct": float,
+        "excessive_drinking_pct": float,
+    }
 
     demographics = ['race_and_ethnicity', 'age', 'sex']
 
     for i in range(len(demographics)):
 
         # add column type for each demographic file
-        # expected_dtype[demographics[i]] = str
+        expected_dtype[demographics[i]] = str
 
         # by race gets some extra columns
-        # if demographics[i] == 'race_and_ethnicity':
-        #     expected_dtype['race'] = str
-        #     expected_dtype['race_includes_hispanic'] = object
-        #     expected_dtype['race_category_id'] = str
-
-
-
         if demographics[i] == 'race_and_ethnicity':
-            # read in the test output file as a dataframe with expected columns/types
-            expected_df = pd.read_json(
-                GOLDEN_DATA[demographics[i]], dtype={"race_includes_hispanic": object})
-        else:
-            expected_df = pd.read_json(
-                GOLDEN_DATA[demographics[i]])
+            expected_dtype['race'] = str
+            expected_dtype['race_includes_hispanic'] = object
+            expected_dtype['race_category_id'] = str
+
+        # read in the test output file as a dataframe with expected columns/types
+        expected_df = pd.read_json(
+            GOLDEN_DATA[demographics[i]], dtype={**expected_dtype})
 
         print(mock_bq.call_args_list[i].args[0].to_string())
         print(expected_df.to_string())
