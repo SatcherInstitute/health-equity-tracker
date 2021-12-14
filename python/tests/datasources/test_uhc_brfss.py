@@ -55,18 +55,18 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     demographics = ['race_and_ethnicity', 'age', 'sex']
 
-    for i, demographic in enumerate(demographics):
+    for i in range(len(demographics)):
 
         # by race gets some extra columns
-        if demographic == 'race_and_ethnicity':
+        if demographics[i] == 'race_and_ethnicity':
             expected_dtype['race'] = str,
             expected_dtype['race_includes_hispanic'] = object
             expected_dtype['race_category_id'] = str
 
         # read in the test output file as a dataframe with expected columns/types
-        expected_df = pd.read_json(GOLDEN_DATA[demographic], dtype={
+        expected_df = pd.read_json(GOLDEN_DATA[demographics[i]], dtype={
             **expected_dtype,
-            demographic: str
+            demographics[i]: str
         })
 
         # output created in mocked load_csv_as_dataframe_from_web() should be the same as the expected df
