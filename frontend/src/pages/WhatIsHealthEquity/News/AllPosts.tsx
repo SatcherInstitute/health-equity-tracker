@@ -31,7 +31,7 @@ import SignupSection from "../../ui/SignupSection";
 export const ARTICLES_TERM = "Articles";
 const NUM_OF_LOADING_SKELETONS = 6;
 
-const HIDE_DEV_POSTS = window.location.hostname === "healthequitytracker.org";
+const HIDE_DEV_POSTS = window.location.hostname.includes("netlify");
 
 /*
 displays several loading indicator elements while blog content is fetched
