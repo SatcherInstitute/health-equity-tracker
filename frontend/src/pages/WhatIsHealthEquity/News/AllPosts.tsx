@@ -31,7 +31,8 @@ import SignupSection from "../../ui/SignupSection";
 export const ARTICLES_TERM = "Articles";
 const NUM_OF_LOADING_SKELETONS = 6;
 
-const HIDE_DEV_POSTS = window.location.hostname.includes("netlify");
+// set flag based on dev / prod
+const HIDE_DEV_POSTS = window.location.hostname === "healthequitytracker.org";
 
 /*
 displays several loading indicator elements while blog content is fetched
@@ -128,6 +129,8 @@ function AllPosts() {
   let articles: Article[] = [];
 
   if (data) articles = data!.data;
+
+  // hide PREVIEW ON DEV posts if this is PROD
   if (HIDE_DEV_POSTS)
     articles = articles.filter(
       (article) => article.acf.preview_on_dev !== true
