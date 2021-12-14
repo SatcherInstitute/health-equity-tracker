@@ -62,8 +62,8 @@ UHC_DECADE_PLUS_5_AGE_DETERMINANTS = {
     "Suicide": std_col.SUICIDE_PCT,
 }
 
-UHC_DETERMINANTS_OF_HEALTH = {
-    **UHC_STANDARD_AGE_DETERMINANTS, **UHC_DECADE_PLUS_5_AGE_DETERMINANTS}
+# UHC_DETERMINANTS_OF_HEALTH = {
+#     **UHC_STANDARD_AGE_DETERMINANTS, **UHC_DECADE_PLUS_5_AGE_DETERMINANTS}
 
 BREAKDOWN_MAP = {
     "race_and_ethnicity": UHC_RACE_GROUPS,
@@ -122,57 +122,6 @@ class UHCData(DataSource):
             columns.append(breakdown)
 
         for state in states:
-            for breakdown_value in BREAKDOWN_MAP[breakdown]:
-                output_row = {}
-                output_row[std_col.STATE_NAME_COL] = state
-
-                if breakdown == std_col.RACE_OR_HISPANIC_COL:
-                    output_row[std_col.RACE_CATEGORY_ID_COL] = UHC_RACE_GROUPS_TO_STANDARD[breakdown_value]
-                else:
-                    output_row[breakdown] = breakdown_value
-
-                for determinant in UHC_DETERMINANTS_OF_HEALTH:
-                    if breakdown_value == 'All':
-                        output_row[UHC_DETERMINANTS_OF_HEALTH[determinant]] = df.loc[
-                            (df['State Name'] == state) &
-                            (df['Measure Name'] == determinant)]['Value'].values[0]
-
-                    else:
-                        row = df.loc[
-                            (df['State Name'] == state) &
-                            (df['Measure Name'].str.contains(determinant)) &
-                            (df['Measure Name'].str.contains(breakdown_value))]
-
-                        if len(row) > 0:
-                            pct = row['Value'].values[0]
-                            if pct:
-                                output_row[UHC_DETERMINANTS_OF_HEALTH[determinant]] = pct
-
-                output.append(output_row)
-
-        output_df = pd.DataFrame(output, columns=columns)
-
-        if breakdown == std_col.RACE_OR_HISPANIC_COL:
-            std_col.add_race_columns_from_category_id(output_df)
-
-        return output_df
-
-
-"""
-    def generate_breakdown(self, breakdown, df):
-        output = []
-        states = df['State Name'].drop_duplicates().to_list()
-
-        columns = [std_col.STATE_NAME_COL, std_col.COPD_PCT, std_col.DIABETES_PCT,
-                   std_col.FREQUENT_MENTAL_DISTRESS_PCT, std_col.DEPRESSION_PCT,
-                   std_col.SUICIDE_PCT, std_col.ILLICIT_OPIOID_USE_PCT,
-                   std_col.NON_MEDICAL_DRUG_USE_PCT, std_col.EXCESSIVE_DRINKING_PCT]
-        if breakdown == std_col.RACE_OR_HISPANIC_COL:
-            columns.append(std_col.RACE_CATEGORY_ID_COL)
-        else:
-            columns.append(breakdown)
-
-        for state in states:
 
             for breakdown_value in BREAKDOWN_MAP[breakdown]:
                 output_row = {}
@@ -194,7 +143,10 @@ class UHCData(DataSource):
                     UHC_DETERMINANTS_OF_HEALTH = {
                         **UHC_STANDARD_AGE_DETERMINANTS, **UHC_DECADE_PLUS_5_AGE_DETERMINANTS}
 
+                # print(breakdown_value, UHC_DETERMINANTS_OF_HEALTH)
+
                 for determinant in UHC_DETERMINANTS_OF_HEALTH:
+                    print(determinant)
 
                     if breakdown_value == 'All':
 
@@ -203,18 +155,25 @@ class UHCData(DataSource):
                                    (df['Measure Name'] == determinant)]['Value'].values[0]
 
                     else:
-
                         # extract precise determinant and demographic breakdown value
                         df_determinant, df_breakdown_value = df['Measure Name'][1].split(
                             " - ")
+                        print(df_determinant, df_breakdown_value)
+
+                        # determinant = ALIASES.get(
+                        #     determinant, determinant)
 
                         row = df.loc[
                             (df['State Name'] == state) &
-                            (df_determinant == ALIASES.get(
-                                determinant, determinant)) &
+                            (df_determinant == determinant) &
                             (df_breakdown_value == breakdown_value)]
 
+
+
+
                         if len(row) > 0:
+                            print("yay?")
+                            print(row)
                             pct = row['Value'].values[0]
                             if pct:
                                 # use determinant name or alias
@@ -222,10 +181,9 @@ class UHCData(DataSource):
 
                 output.append(output_row)
 
-        output_df = pd.DataFrame(output, columns=columns)
+            output_df = pd.DataFrame(output, columns=columns)
 
-        if breakdown == std_col.RACE_OR_HISPANIC_COL:
-            std_col.add_race_columns_from_category_id(output_df)
+            if breakdown == std_col.RACE_OR_HISPANIC_COL:
+                std_col.add_race_columns_from_category_id(output_df)
 
-        return output_df
- """
+            return output_df
