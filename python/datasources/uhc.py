@@ -50,7 +50,7 @@ UHC_STANDARD_AGE_DETERMINANTS = {
     "Depression": std_col.DEPRESSION_PCT,
     "Non-medical Drug Use": std_col.NON_MEDICAL_DRUG_USE_PCT,
     "Excessive Drinking": std_col.EXCESSIVE_DRINKING_PCT,
-    "Illicit Opioid Use": std_col.ILLICIT_OPIOID_USE_PCT,  # all
+    "Illicit Opioid": std_col.ILLICIT_OPIOID_USE_PCT,  # all
 }
 
 ALIASES = {

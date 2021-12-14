@@ -17,7 +17,6 @@ GOLDEN_DATA = {
 
 
 def get_test_data_as_df():
-    print("reading: ", os.path.join(TEST_DIR, 'uhc_test_input.csv'))
     return pd.read_csv(os.path.join(TEST_DIR, 'uhc_test_input.csv'),
                        dtype={"State Name": str,
                               "Measure Name": str,
@@ -33,6 +32,7 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     uhc_data = UHCData()
 
+    # pretend arguments required by bigQuery
     kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',
               'table_name': 'output_table'}
@@ -41,9 +41,7 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     assert mock_bq.call_count == 3
 
-    # TEST BY AGE
-
-    expected_df_age = pd.read_json(GOLDEN_DATA["age"], dtype={
+    expected_dtype = {
         'state_name': str,
         "diabetes_pct": float,
         "copd_pct": float,
@@ -53,62 +51,24 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
         "illicit_opioid_use_pct": float,
         "non_medical_drug_use_pct": float,
         "excessive_drinking_pct": float,
-        "age": str
     }
-    )
 
-    print("MOCK OUTPUT---")
-    print(mock_bq.call_args_list[1].args[0].to_string())
-    print("EXPECTED---")
-    print(expected_df_age.to_string())
-    assert_frame_equal(
-        mock_bq.call_args_list[1].args[0], expected_df_age, check_like=True)
+    demographics = ['race_and_ethnicity', 'age', 'sex']
 
-    # # TEST BY SEX
+    for i, demographic in enumerate(demographics):
 
-    # expected_df_age = pd.read_json(GOLDEN_DATA["sex"], dtype={
-    #     'state_name': str,
-    #     "copd_pct": str,
-    #     "diabetes_pct": str,
-    #     "frequent_mental_distress_pct": str,
-    #     "depression_pct": str,
-    #     "suicide_pct": str,
-    #     "illicit_opioid_use_pct": str,
-    #     "non_medical_drug_use_pct": str,
-    #     "excessive_drinking_pct": str,
-    #     "sex": str
-    # }
-    # )
+        # by race gets some extra columns
+        if demographic == 'race_and_ethnicity':
+            expected_dtype['race'] = str,
+            expected_dtype['race_includes_hispanic'] = object
+            expected_dtype['race_category_id'] = str
 
-    # print("MOCK OUTPUT---")
+        # read in the test output file as a dataframe with expected columns/types
+        expected_df = pd.read_json(GOLDEN_DATA[demographic], dtype={
+            **expected_dtype,
+            demographic: str
+        })
 
-    # print("EXPECTED---")
-
-    # assert_frame_equal(
-    #     mock_bq.call_args_list[2].args[0], expected_df_sex, check_like=True)
-
-    # # TEST BY RACE
-
-    # expected_df_race_and_ethnicity = pd.read_json(GOLDEN_DATA["race_and_ethnicity"], dtype={
-    #     'state_name': str,
-    #     "copd_pct": str,
-    #     "diabetes_pct": str,
-    #     "frequent_mental_distress_pct": str,
-    #     "depression_pct": str,
-    #     "suicide_pct": str,
-    #     "illicit_opioid_use_pct": str,
-    #     "non_medical_drug_use_pct": str,
-    #     "excessive_drinking_pct": str,
-    #     'race_category_id': str,
-    #     'race': str,
-    #     'race_includes_hispanic': bool,
-    #     'race_and_ethnicity': str
-    # }
-    # )
-
-    # print("MOCK OUTPUT---")
-
-    # print("EXPECTED---")
-
-    # assert_frame_equal(
-    #     mock_bq.call_args_list[0].args[0], expected_df_race_and_ethnicity, check_like=True)
+        # output created in mocked load_csv_as_dataframe_from_web() should be the same as the expected df
+        assert_frame_equal(
+            mock_bq.call_args_list[i].args[0], expected_df, check_like=True)
