@@ -31,7 +31,9 @@ import SignupSection from "../../ui/SignupSection";
 export const ARTICLES_TERM = "Articles";
 const NUM_OF_LOADING_SKELETONS = 6;
 
-/* 
+console.log(window.location.hostname);
+
+/*
 displays several loading indicator elements while blog content is fetched
 */
 function ArticlesSkeleton(props: { doPulse: boolean }) {
@@ -124,6 +126,7 @@ function AllPosts() {
   );
 
   let articles: Article[] = [];
+
   if (data) articles = data!.data;
 
   useEffect(() => {
