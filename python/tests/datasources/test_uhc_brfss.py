@@ -66,6 +66,8 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
         #     expected_dtype['race_includes_hispanic'] = object
         #     expected_dtype['race_category_id'] = str
 
+
+
         if demographics[i] == 'race_and_ethnicity':
             # read in the test output file as a dataframe with expected columns/types
             expected_df = pd.read_json(
@@ -74,8 +76,8 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
             expected_df = pd.read_json(
                 GOLDEN_DATA[demographics[i]])
 
-        # print(mock_bq.call_args_list[i].args[0].to_string())
-        # print(expected_df.to_string())
+        print(mock_bq.call_args_list[i].args[0].to_string())
+        print(expected_df.to_string())
 
         # output created in mocked load_csv_as_dataframe_from_web() should be the same as the expected df
         assert_frame_equal(

@@ -165,9 +165,9 @@ class UHCData(DataSource):
 
                 output.append(output_row)
 
-            output_df = pd.DataFrame(output, columns=columns)
+        output_df = pd.DataFrame(output, columns=columns)
 
-            if breakdown == std_col.RACE_OR_HISPANIC_COL:
-                std_col.add_race_columns_from_category_id(output_df)
+        if breakdown == std_col.RACE_OR_HISPANIC_COL:
+            std_col.add_race_columns_from_category_id(output_df)
 
-            return output_df
+        return output_df
