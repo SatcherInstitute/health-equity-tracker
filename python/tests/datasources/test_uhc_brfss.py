@@ -41,29 +41,12 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     assert mock_bq.call_count == 3
 
-    # expected_dfs = {}
-    # for key, val in GOLDEN_DATA.items():
-
-    #     # Set keep_default_na=False so that empty strings are not read as NaN.
-    #     expected_dfs[key] = pd.read_json(val, dtype={
-    #         # 'population_pct': str,
-    #         'state_fips': str,
-    #         "copd_pct": str,
-    #         "diabetes_pct": str,
-    #         "frequent_mental_distress_pct": str,
-    #         "depression_pct": str,
-    #         "suicide_pct": str,
-    #         "illicit_opioid_use_pct": str,
-    #         "non_medical_drug_use_pct": str,
-    #         "excessive_drinking_pct": str,
-    #     })
-
     # TEST BY AGE
 
     expected_df_age = pd.read_json(GOLDEN_DATA["age"], dtype={
         'state_name': str,
-        "copd_pct": float,
         "diabetes_pct": float,
+        "copd_pct": float,
         "frequent_mental_distress_pct": float,
         "depression_pct": float,
         "suicide_pct": float,
