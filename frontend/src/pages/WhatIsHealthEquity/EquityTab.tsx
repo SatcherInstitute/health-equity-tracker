@@ -433,8 +433,8 @@ function EquityTab() {
         <JoinTheEffortContainer
           imageUrl={
             prefersReducedMotion
-              ? "img/HET-dots-no-motion.gif"
-              : "img/animations/HET-dots.gif"
+              ? "img/animations/HET-dots-no-motion.gif"
+              : "img/animations/animations/HET-dots.gif"
           }
           imageBackground={sass.joinEffortBg3}
           imageAlt=""
