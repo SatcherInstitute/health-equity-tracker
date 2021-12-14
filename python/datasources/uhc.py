@@ -62,9 +62,6 @@ UHC_DECADE_PLUS_5_AGE_DETERMINANTS = {
     "Suicide": std_col.SUICIDE_PER_100K,
 }
 
-# UHC_DETERMINANTS_OF_HEALTH = {
-#     **UHC_STANDARD_AGE_DETERMINANTS, **UHC_DECADE_PLUS_5_AGE_DETERMINANTS}
-
 BREAKDOWN_MAP = {
     "race_and_ethnicity": UHC_RACE_GROUPS,
     "age": UHC_AGE_GROUPS,
@@ -144,7 +141,6 @@ class UHCData(DataSource):
                         **UHC_STANDARD_AGE_DETERMINANTS, **UHC_DECADE_PLUS_5_AGE_DETERMINANTS}
 
                 for determinant in UHC_DETERMINANTS_OF_HEALTH:
-                    print(determinant)
 
                     if breakdown_value == 'All':
 
