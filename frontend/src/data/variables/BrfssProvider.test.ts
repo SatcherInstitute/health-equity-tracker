@@ -57,10 +57,10 @@ export async function evaluateWithAndWithoutAll(
 
   const consumedDatasetIds = ["uhc_data-race_and_ethnicity", acsDatasetId];
 
-  console.log("RESPONSE INCL ALL 1", responseIncludingAll.data[1]);
+  console.log("RESPONSE INCL ALL 2", responseIncludingAll.data[2]);
   console.log(
-    "new MetricQ from FINAL 1",
-    new MetricQueryResponse(rowsIncludingAll, consumedDatasetIds).data[1]
+    "new MetricQ from FINAL 2",
+    new MetricQueryResponse(rowsIncludingAll, consumedDatasetIds).data[2]
   );
 
   expect(responseIncludingAll).toEqual(
@@ -337,14 +337,14 @@ describe("BrfssProvider", () => {
       USA,
       RACE,
       WHITE_NH,
-      /*copd_pct=*/ 20,
-      /*diabetes_pct=*/ 20,
-      /* depression_pct */ 20,
-      /* excessive_drinking_pct */ 20,
-      /* frequent_mental_distress_pct */ 20,
-      /* illicit_opioid_use_pct */ 20,
-      /* non_medical_drug_use_pct */ 20,
-      /* suicide_per_100k */ 20,
+      /*copd_pct=*/ 30,
+      /*diabetes_pct=*/ 30,
+      /* depression_pct */ 30,
+      /* excessive_drinking_pct */ 30,
+      /* frequent_mental_distress_pct */ 30,
+      /* illicit_opioid_use_pct */ 30,
+      /* non_medical_drug_use_pct */ 30,
+      /* suicide_per_100k */ 30,
       /*population=*/ 100_000
     );
 
@@ -352,14 +352,14 @@ describe("BrfssProvider", () => {
       USA,
       RACE,
       ALL,
-      /*copd_pct=*/ 5,
-      /*diabetes_pct=*/ 5,
-      /* depression_pct */ 5,
-      /* excessive_drinking_pct */ 5,
-      /* frequent_mental_distress_pct */ 5,
-      /* illicit_opioid_use_pct */ 5,
-      /* non_medical_drug_use_pct */ 5,
-      /* suicide_per_100k */ 5,
+      /*copd_pct=*/ 10,
+      /*diabetes_pct=*/ 10,
+      /* depression_pct */ 10,
+      /* excessive_drinking_pct */ 10,
+      /* frequent_mental_distress_pct */ 10,
+      /* illicit_opioid_use_pct */ 10,
+      /* non_medical_drug_use_pct */ 10,
+      /* suicide_per_100k */ 10,
       /*population=*/ 500_000
     );
 
@@ -380,48 +380,48 @@ describe("BrfssProvider", () => {
       /* illicit_opioid_use_per_100k */ 10_000,
       /* non_medical_drug_use_per_100k */ 10_000,
       /* suicide_per_100k */ 10,
-      /*copd_pct_share*/ 40,
-      /*diabetes_pct_share*/ 40,
-      /* depression_pct_share */ 40,
-      /* excessive_drinking_pct_share */ 40,
-      /* frequent_mental_distress_pct_share */ 40,
-      /* illicit_opioid_use_pct_share */ 40,
-      /* non_medical_drug_use_pct_share */ 40,
-      /* suicide_pct_share */ 40
+      /*copd_pct_share*/ 20,
+      /*diabetes_pct_share*/ 20,
+      /* depression_pct_share */ 20,
+      /* excessive_drinking_pct_share */ 20,
+      /* frequent_mental_distress_pct_share */ 20,
+      /* illicit_opioid_use_pct_share */ 20,
+      /* non_medical_drug_use_pct_share */ 20,
+      /* suicide_pct_share */ 20
     );
     const WHITE_FINAL = finalRow(
       USA,
       RACE,
       WHITE_NH,
-      /*copd_per_100k*/ 20_000,
-      /*diabetes_per_100k*/ 20_000,
-      /* depression_per_100k */ 20_000,
-      /* excessive_drinking_per_100k */ 20_000,
-      /* frequent_mental_distress_per_100k */ 20_000,
-      /* illicit_opioid_use_per_100k */ 20_000,
-      /* non_medical_drug_use_per_100k */ 20_000,
-      /* suicide_per_100k */ 20,
-      /*copd_pct_share*/ 80,
-      /*diabetes_pct_share*/ 80,
-      /* depression_pct_share */ 80,
-      /* excessive_drinking_pct_share */ 80,
-      /* frequent_mental_distress_pct_share */ 80,
-      /* illicit_opioid_use_pct_share */ 80,
-      /* non_medical_drug_use_pct_share */ 80,
-      /* suicide_pct_share */ 80
+      /*copd_per_100k*/ 30_000,
+      /*diabetes_per_100k*/ 30_000,
+      /* depression_per_100k */ 30_000,
+      /* excessive_drinking_per_100k */ 30_000,
+      /* frequent_mental_distress_per_100k */ 30_000,
+      /* illicit_opioid_use_per_100k */ 30_000,
+      /* non_medical_drug_use_per_100k */ 30_000,
+      /* suicide_per_100k */ 30,
+      /*copd_pct_share*/ 60,
+      /*diabetes_pct_share*/ 60,
+      /* depression_pct_share */ 60,
+      /* excessive_drinking_pct_share */ 60,
+      /* frequent_mental_distress_pct_share */ 60,
+      /* illicit_opioid_use_pct_share */ 60,
+      /* non_medical_drug_use_pct_share */ 60,
+      /* suicide_pct_share */ 60
     );
     const ALL_FINAL = finalRow(
       USA,
       RACE,
       ALL,
-      /*copd_per_100k*/ 5_000,
-      /*diabetes_per_100k*/ 5_000,
-      /* depression_per_100k */ 5_000,
-      /* excessive_drinking_per_100k */ 5_000,
-      /* frequent_mental_distress_per_100k */ 5_000,
-      /* illicit_opioid_use_per_100k */ 5_000,
-      /* non_medical_drug_use_per_100k */ 5_000,
-      /* suicide_per_100k */ 5,
+      /*copd_per_100k*/ 10_000,
+      /*diabetes_per_100k*/ 10_000,
+      /* depression_per_100k */ 10_000,
+      /* excessive_drinking_per_100k */ 10_000,
+      /* frequent_mental_distress_per_100k */ 10_000,
+      /* illicit_opioid_use_per_100k */ 10_000,
+      /* non_medical_drug_use_per_100k */ 10_000,
+      /* suicide_per_100k */ 10,
       /*copd_pct_share*/ 100,
       /*diabetes_pct_share*/ 100,
       /* depression_pct_share */ 100,
