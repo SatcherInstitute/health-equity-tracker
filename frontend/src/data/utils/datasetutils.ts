@@ -1,4 +1,5 @@
 import { IDataFrame } from "data-forge";
+import { MetricId } from "../config/MetricConfig";
 import { Row } from "./DatasetTypes";
 
 /**
@@ -147,21 +148,17 @@ export const getLowestN = (
 ): Row[] => {
   return data
     .filter((row: Row) => !isNaN(row[fieldName]) && row[fieldName] != null)
-    .sort((rowA: Row, rowB: Row) =>
-      rowA[fieldName] > rowB[fieldName] ? 1 : -1
-    )
+    .sort((rowA: Row, rowB: Row) => rowA[fieldName] - rowB[fieldName])
     .slice(0, listSize);
 };
 
 export const getHighestN = (
   data: Row[],
-  fieldName: string,
+  fieldName: MetricId,
   listSize: number
 ): Row[] => {
   return data
     .filter((row: Row) => !isNaN(row[fieldName]) && row[fieldName] != null)
-    .sort((rowA: Row, rowB: Row) =>
-      rowA[fieldName] <= rowB[fieldName] ? 1 : -1
-    )
+    .sort((rowA: Row, rowB: Row) => rowB[fieldName] - rowA[fieldName])
     .slice(0, listSize);
 };
