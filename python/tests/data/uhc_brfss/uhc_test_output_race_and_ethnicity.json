@@ -131,7 +131,7 @@
         "non_medical_drug_use_pct": "12.0",
         "excessive_drinking_pct": "13.6",
         "race": "All",
-        "race_includes_hispanic": "",
+        "race_includes_hispanic": null,
         "race_and_ethnicity": "All"
     }
 ]
