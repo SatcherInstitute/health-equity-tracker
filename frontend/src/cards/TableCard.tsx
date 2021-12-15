@@ -23,17 +23,19 @@ import {
   UNKNOWN,
   UNKNOWN_RACE,
   UNKNOWN_ETHNICITY,
+  DECADE_AGE_BUCKETS,
+  STANDARD_RACES,
+  ALL,
+  BROAD_AGE_BUCKETS,
+  DECADE_PLUS_5_AGE_BUCKETS,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
-import { ALL } from "../data/utils/Constants";
 import { showAltPopCompare } from "./DisparityBarChartCard";
 import {
-  UHC_STANDARD_AGE_GROUPS,
-  UHC_DECADE_PLUS_5_AGE_GROUPS,
-  UHC_STANDARD_AGE_DETERMINANTS,
+  UHC_BROAD_AGE_DETERMINANTS,
   UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
 } from "../data/variables/BrfssProvider";
 
@@ -61,10 +63,10 @@ export function TableCard(props: TableCardProps) {
   let exclusionList = [ALL];
   props.breakdownVar === "race_and_ethnicity" &&
     exclusionList.push(NON_HISPANIC);
-  UHC_STANDARD_AGE_DETERMINANTS.includes(current100k) &&
-    exclusionList.push(...UHC_STANDARD_AGE_GROUPS);
+  UHC_BROAD_AGE_DETERMINANTS.includes(current100k) &&
+    exclusionList.push(...BROAD_AGE_BUCKETS);
   UHC_DECADE_PLUS_5_AGE_DETERMINANTS.includes(current100k) &&
-    exclusionList.push(...UHC_DECADE_PLUS_5_AGE_GROUPS);
+    exclusionList.push(...DECADE_PLUS_5_AGE_BUCKETS);
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,

@@ -30,7 +30,7 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
   fips: "FIPS Code",
 };
 
-// union type of capitalized display names, eg "Race and Ethnicity" | "Age" | "Sex"
+// union type of values (capitalized display names), eg "Race and Ethnicity" | "Age" | "Sex"
 export type BreakdownVarDisplayName = typeof BREAKDOWN_VAR_DISPLAY_NAMES[keyof typeof BREAKDOWN_VAR_DISPLAY_NAMES];
 
 export const BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE: Record<

@@ -4,33 +4,26 @@ import { MetricId } from "../config/MetricConfig";
 import { exclude } from "../query/BreakdownFilter";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { NON_HISPANIC } from "../utils/Constants";
+import {
+  BROAD_AGE_BUCKETS,
+  DECADE_PLUS_5_AGE_BUCKETS,
+  NON_HISPANIC,
+} from "../utils/Constants";
 import { joinOnCols } from "../utils/datasetutils";
 import { USA_FIPS } from "../utils/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 
-// COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking
-export const UHC_DECADE_PLUS_5_AGE_GROUPS = ["18-44", "45-64", "65+"];
-// Suicide
-export const UHC_STANDARD_AGE_GROUPS = [
-  "15-24",
-  "25-34",
-  "35-44",
-  "45-54",
-  "55-64",
-  "65-74",
-  "75-84",
-  "85+",
-];
-export const UHC_AGE_GROUPS = [
+export const UHC_AGE_BUCKETS = [
   "All",
-  ...UHC_DECADE_PLUS_5_AGE_GROUPS,
-  ...UHC_STANDARD_AGE_GROUPS,
+  // Suicide
+  ...DECADE_PLUS_5_AGE_BUCKETS,
+  // COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking
+  ...BROAD_AGE_BUCKETS,
+  // No Age Breakdowns for: Illicit Opioid, Non-medical Drug
 ];
-// No Age Breakdowns for: Illicit Opioid, Non-medical Drug
 
-export const UHC_STANDARD_AGE_DETERMINANTS: MetricId[] = [
+export const UHC_BROAD_AGE_DETERMINANTS: MetricId[] = [
   "brfss_population_pct",
   "copd_pct",
   "copd_pct_share",
@@ -66,7 +59,7 @@ class BrfssProvider extends VariableProvider {
   constructor(acsProvider: AcsPopulationProvider) {
     super("brfss_provider", [
       "brfss_population_pct",
-      ...UHC_STANDARD_AGE_DETERMINANTS,
+      ...UHC_BROAD_AGE_DETERMINANTS,
       ...UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
     ]);
     this.acsProvider = acsProvider;

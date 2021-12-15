@@ -363,7 +363,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery("(max-width:500px)");
 
-  // move AIAN and NHPI into their own properties for STATE/RACE/VACCINE (since KFF doesnt provide pop compare metrics)
+  // move AIAN and NHPI into their own properties for STATE/RACE/VACCINE (since KFF doesn't provide pop compare metrics)
   let dataFromProps = props.data;
   const { showAltPopCompare } = props;
 
