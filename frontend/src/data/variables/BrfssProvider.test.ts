@@ -278,6 +278,8 @@ describe("BrfssProvider", () => {
       /* non_medical_drug_use_pct_share */ 25,
       /* suicide_pct_share */ 25
     );
+
+    // * ALL should expect 100% share
     const NC_ALL_FINAL = finalRow(
       NC,
       RACE,
@@ -313,6 +315,10 @@ describe("BrfssProvider", () => {
   });
 
   test("National and Race Breakdown", async () => {
+    /*
+    FAKE INPUT DATA TO FEED INTO BRFSS PROVIDER
+    */
+
     const [USA_ASIAN_ROW, USA_ACS_ASIAN_ROW] = stateRow(
       USA,
       RACE,
@@ -362,7 +368,12 @@ describe("BrfssProvider", () => {
 
     const rawAcsData = [USA_ACS_WHITE_ROW, USA_ACS_ALL_ROW, USA_ACS_ASIAN_ROW];
 
-    // Create final rows
+    /*
+
+    FAKE OUTPUT DATA (should match the result of processing input data through BRFSS PROVIDER)
+
+    */
+
     const ASIAN_FINAL = finalRow(
       USA,
       RACE,
@@ -405,6 +416,8 @@ describe("BrfssProvider", () => {
       /* non_medical_drug_use_pct_share */ 60,
       /* suicide_pct_share */ 60
     );
+
+    // * ALL should expect 100% share
     const ALL_FINAL = finalRow(
       USA,
       RACE,
