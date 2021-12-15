@@ -341,7 +341,7 @@ function MapCardWithKey(props: MapCardProps) {
                   }
                   signalListeners={signalListeners}
                   metric={metricConfig}
-                  legendTitle={metricConfig.fullCardTitleName}
+                  legendTitle={metricConfig.shortVegaLabel}
                   data={
                     listExpanded
                       ? highestRatesList.concat(lowestRatesList)

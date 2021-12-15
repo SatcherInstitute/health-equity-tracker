@@ -374,7 +374,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         per100k: {
           metricId: "depression_per_100k",
-          fullCardTitleName: "Rates of Depression",
+          fullCardTitleName: "Cases of Depression Per 100k People",
           shortVegaLabel: "cases of depression per 100k",
           type: "per100k",
         },
@@ -402,7 +402,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         per100k: {
           metricId: "excessive_drinking_per_100k",
-          fullCardTitleName: "Rates of Excessive Drinking",
+          fullCardTitleName: "Cases of Excessive Drinking Per 100k People",
           shortVegaLabel: "cases of excessive drinking per 100k",
           type: "per100k",
         },
@@ -458,7 +458,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         per100k: {
           metricId: "illicit_opioid_use_per_100k",
-          fullCardTitleName: "Rates of Illicit Opioid Use",
+          fullCardTitleName: "Cases of Illicit Opioid Use Per 100k People",
           shortVegaLabel: "cases of illicit opioid use per 100k",
           type: "per100k",
         },
@@ -486,8 +486,8 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         per100k: {
           metricId: "frequent_mental_distress_per_100k",
-          fullCardTitleName: "Rates of Frequent Mental Distress",
-          shortVegaLabel: "frequent mental distress per 100k",
+          fullCardTitleName: "Frequent Mental Distress Cases Per 100k People",
+          shortVegaLabel: "frequent mental distress cases per 100k",
           type: "per100k",
         },
       },
@@ -514,7 +514,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         per100k: {
           metricId: "diabetes_per_100k",
-          fullCardTitleName: "Rates of Diabetes",
+          fullCardTitleName: "Diabetes Cases Per 100k People",
           shortVegaLabel: "diabetes per 100k",
           type: "per100k",
         },
@@ -542,7 +542,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         per100k: {
           metricId: "copd_per_100k",
-          fullCardTitleName: "Rates of COPD",
+          fullCardTitleName: "Cases of COPD Per 100k People",
           shortVegaLabel: "COPD per 100k",
           type: "per100k",
         },
@@ -557,7 +557,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "health_insurance_per_100k",
-          fullCardTitleName: "Rates of Uninsurance",
+          fullCardTitleName: "Uninsured Per 100k People",
           shortVegaLabel: "uninsured individuals per 100k",
           type: "per100k",
         },
@@ -584,7 +584,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "poverty_per_100k",
-          fullCardTitleName: "Rates of Poverty",
+          fullCardTitleName: "Cases of Poverty Per 100k People",
           shortVegaLabel: "cases of poverty per 100k",
           type: "per100k",
         },
@@ -611,7 +611,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "vaccinated_per_100k",
-          fullCardTitleName: "Rates of COVID-19 Vaccination",
+          fullCardTitleName: "COVID-19 Vaccinations Per 100k People",
           shortVegaLabel: "COVID-19 vaccinations per 100k",
           type: "per100k",
         },
