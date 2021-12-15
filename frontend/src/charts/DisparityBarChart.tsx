@@ -17,7 +17,6 @@ import {
 import sass from "../styles/variables.module.scss";
 import { LEGEND_TEXT_FONT } from "./Legend";
 import { useMediaQuery } from "@material-ui/core";
-
 const LABEL_SWAP_CUTOFF_PERCENT = 66; // bar labels will be outside if below this %, or inside bar if above
 
 function getSpec(

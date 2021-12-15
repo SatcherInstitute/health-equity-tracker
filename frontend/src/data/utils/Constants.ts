@@ -22,8 +22,9 @@ export const UNKNOWN_RACE = "Unknown race";
 export const UNKNOWN_HL = "Unknown Hispanic or Latino";
 export const UNKNOWN_ETHNICITY = "Unknown ethnicity";
 
-export const ABOVE_POVERTY_COL = "above_poverty_line";
-export const BELOW_POVERTY_COL = "below_poverty_line";
+export const SEX_GROUPS = [MALE, FEMALE, UNKNOWN, ALL];
+
+export type SexGroup = typeof SEX_GROUPS[number];
 
 export const STANDARD_RACES = [
   "American Indian and Alaska Native (Non-Hispanic)",
@@ -36,6 +37,19 @@ export const STANDARD_RACES = [
   "White (Non-Hispanic)",
   ALL,
 ];
+
+export const RACE_GROUPS = [
+  ...STANDARD_RACES,
+  UNKNOWN_RACE,
+  UNKNOWN_HL,
+  UNKNOWN_ETHNICITY,
+  UNKNOWN,
+  WHITE,
+  NON_HISPANIC,
+  TWO_OR_MORE,
+];
+
+export type RaceAndEthnicityGroup = typeof RACE_GROUPS[number];
 
 export const DECADE_AGE_BUCKETS = [
   "0-9",
@@ -70,3 +84,10 @@ export const AGE_BUCKETS = [
 ];
 
 export type AgeBucket = typeof AGE_BUCKETS[number];
+
+export type DemographicGroup = AgeBucket | SexGroup | RaceAndEthnicityGroup;
+
+/* DETERMINANT SPECIFIC CONSTS */
+
+export const ABOVE_POVERTY_COL = "above_poverty_line";
+export const BELOW_POVERTY_COL = "below_poverty_line";
