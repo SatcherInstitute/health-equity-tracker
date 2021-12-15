@@ -17,7 +17,13 @@ import {
 import sass from "../styles/variables.module.scss";
 import { useMediaQuery } from "@material-ui/core";
 
-const LABEL_SWAP_CUTOFF_PERCENT = 66; // bar labels will be outside if below this %, or inside bar if above
+// determine where (out of 100) to flip labels inside/outside the bar
+const LABEL_SWAP_CUTOFF_PERCENT = 66;
+
+// nested quotation mark format needed for Vega
+const SINGLE_LINE_100K = ",' per 100k'";
+const MULTI_LINE_100K = "+' per 100k'";
+const SINGLE_LINE_PERCENT = "+'%'";
 
 function getSpec(
   data: Record<string, any>[],
@@ -32,13 +38,21 @@ function getSpec(
   tooltipMetricDisplayColumnName: string,
   showLegend: boolean,
   barLabelBreakpoint: number,
-  pageIsTiny: boolean
+  pageIsTiny: boolean,
+  usePercentSuffix: boolean
 ): any {
   const MEASURE_COLOR = sass.altGreen;
   const BAR_HEIGHT = 60;
   const BAR_PADDING = 0.2;
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
+
+  // create proper datum suffix, either % or single/multi line 100k
+  const barLabelSuffix = usePercentSuffix
+    ? SINGLE_LINE_PERCENT
+    : pageIsTiny
+    ? SINGLE_LINE_100K
+    : MULTI_LINE_100K;
 
   const legends = showLegend
     ? [
@@ -124,9 +138,7 @@ function getSpec(
             y: { scale: "y", field: breakdownVar, band: 0.8 },
             text: {
               // on smallest screens send an array of strings to place on multiple lines
-              signal: `[datum.${tooltipMetricDisplayColumnName}${
-                pageIsTiny ? ",' per 100k'" : "+' per 100k'"
-              }]`,
+              signal: `[datum.${tooltipMetricDisplayColumnName}${barLabelSuffix}]`,
             },
           },
         },
@@ -214,6 +226,7 @@ export interface SimpleHorizontalBarChartProps {
   showLegend: boolean;
   hideActions?: boolean;
   filename?: string;
+  usePercentSuffix?: boolean;
 }
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
@@ -258,7 +271,8 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           tooltipMetricDisplayColumnName,
           props.showLegend,
           barLabelBreakpoint,
-          pageIsTiny
+          pageIsTiny,
+          props.usePercentSuffix || false
         )}
         // custom 3-dot options for states, hidden on territories
         actions={
