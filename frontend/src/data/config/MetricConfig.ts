@@ -47,7 +47,6 @@ export type MetricId =
   | "depression_pct"
   | "depression_pct_share"
   | "depression_per_100k"
-  | "suicide_pct"
   | "suicide_pct_share"
   | "suicide_per_100k"
   | "illicit_opioid_use_pct"

@@ -56,7 +56,6 @@ export const UHC_STANDARD_AGE_DETERMINANTS: MetricId[] = [
 ];
 
 export const UHC_DECADE_PLUS_5_AGE_DETERMINANTS: MetricId[] = [
-  "suicide_pct",
   "suicide_pct_share",
   "suicide_per_100k",
 ];
@@ -123,7 +122,7 @@ class BrfssProvider extends VariableProvider {
       estimated_total_copd: (row) =>
         this.calculations.estimateTotal(row.copd_pct, row.population),
       estimated_total_suicide: (row) =>
-        this.calculations.estimateTotal(row.suicide_pct, row.population),
+        this.calculations.estimateTotal(row.suicide_per_100k, row.population),
       estimated_total_depression: (row) =>
         this.calculations.estimateTotal(row.depression_pct, row.population),
       estimated_total_illicit_opioid_use: (row) =>
@@ -155,7 +154,7 @@ class BrfssProvider extends VariableProvider {
     df = df.generateSeries({
       // these determinants are already per 100k
       suicide_per_100k: (row) =>
-        row.suicide_pct == null ? null : row.suicide_pct,
+        row.suicide_per_100k == null ? null : row.suicide_per_100k,
       // these determinants are percentages and need to be converted to per 100k
       diabetes_per_100k: (row) =>
         row.diabetes_pct == null ? null : row.diabetes_pct * 1000,
