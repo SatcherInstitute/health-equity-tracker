@@ -59,19 +59,19 @@ describe("MetricQueryResponse", () => {
   });
 
   test("getUniqueFieldValues()", async () => {
+    const targetMetric = "covid_cases";
+
     expect(
-      metricQueryResponse.getUniqueFieldValues("race_and_ethnicity")
-    ).toEqual([
-      "White",
-      "White (Non-Hispanic)",
-      "Asian",
-      "Asian (Non-Hispanic)",
-    ]);
-    expect(metricQueryResponse.getUniqueFieldValues("fips")).toEqual([
-      "01",
-      "02",
-    ]);
-    expect(metricQueryResponse.getUniqueFieldValues("invalid")).toEqual([]);
+      metricQueryResponse.getFieldValues("race_and_ethnicity", targetMetric)
+    ).toEqual({
+      noData: ["Asian (Non-Hispanic)"],
+      withData: ["White", "White (Non-Hispanic)", "Asian"],
+    });
+
+    expect(metricQueryResponse.getFieldValues("fips", targetMetric)).toEqual({
+      noData: ["01"],
+      withData: ["01", "02"],
+    });
   });
 
   test("fieldHasMissingValues()", async () => {

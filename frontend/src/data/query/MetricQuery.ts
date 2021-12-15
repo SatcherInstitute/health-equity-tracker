@@ -1,4 +1,4 @@
-import { Breakdowns } from "./Breakdowns";
+import { Breakdowns, BreakdownVar } from "./Breakdowns";
 import { Row, FieldRange } from "../utils/DatasetTypes";
 import { MetricId } from "../config/MetricConfig";
 
@@ -94,16 +94,35 @@ export class MetricQueryResponse {
     return data;
   }
 
-  // ! Consider deleting this function; it was only used to populate the dropdown demographic group selector on the 100k map card; but to eliminate data-less options that filtering is now done in MapCard.tsx (lines 118-124)
-  getUniqueFieldValues(fieldName: string): string[] {
+  // ! Add custom type for return [] instead of string ["15-24", "65+"]
+  // Generate two arrays of demographic groups, with and without data in the target metric field
+  getFieldValues(
+    fieldName: BreakdownVar,
+    targetMetric: MetricId
+  ): { withData: string[]; noData: string[] } {
     if (this.isFieldMissing(fieldName)) {
-      return [];
+      return {
+        withData: [],
+        noData: [],
+      };
     }
-    const set = new Set<string>();
+
+    const populatedSet = new Set<string>();
+    const unpopulatedSet = new Set<string>();
+
     this.getValidRowsForField(fieldName).forEach((row) => {
-      set.add(row[fieldName]);
+      // set.add(row[fieldName]);
+      if (!targetMetric) populatedSet.add(row[fieldName]);
+      else {
+        row[targetMetric]
+          ? populatedSet.add(row[fieldName])
+          : unpopulatedSet.add(row[fieldName]);
+      }
     });
-    return Array.from(set);
+    return {
+      withData: Array.from(populatedSet),
+      noData: Array.from(unpopulatedSet),
+    };
   }
 
   // Returns true if any of requested fields are missing or failure occurred

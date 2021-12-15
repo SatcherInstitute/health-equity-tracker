@@ -18,7 +18,9 @@ export const DEMOGRAPHIC_BREAKDOWNS = [
   "sex",
   "age",
 ] as const;
-export type DemographicBreakdownKey = typeof DEMOGRAPHIC_BREAKDOWNS[number]; // union type of array
+
+// union type of array
+export type DemographicBreakdownKey = typeof DEMOGRAPHIC_BREAKDOWNS[number];
 
 export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
   race_and_ethnicity: "Race And Ethnicity",
@@ -27,6 +29,9 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
   date: "Date",
   fips: "FIPS Code",
 };
+
+// union type of capitalized display names, eg "Race and Ethnicity" | "Age" | "Sex"
+export type BreakdownVarDisplayName = typeof BREAKDOWN_VAR_DISPLAY_NAMES[keyof typeof BREAKDOWN_VAR_DISPLAY_NAMES];
 
 export const BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE: Record<
   BreakdownVar,

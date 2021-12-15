@@ -14,6 +14,7 @@ import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  BreakdownVarDisplayName,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
 import { AgeSorterStrategy } from "../data/sorting/AgeSorterStrategy";
@@ -112,7 +113,9 @@ function MapCardWithKey(props: MapCardProps) {
       minHeight={PRELOAD_HEIGHT}
     >
       {(queryResponses, metadata, geoData) => {
+        // contains data rows for sub-geos (if viewing US, this data will be STATE level)
         const mapQueryResponse = queryResponses[0];
+        // contains data rows current level (if viewing US, this data will be US level)
         const overallQueryResponse = queryResponses[1];
 
         const sortArgs =
@@ -120,19 +123,19 @@ function MapCardWithKey(props: MapCardProps) {
             ? ([new AgeSorterStrategy([ALL]).compareFn] as any)
             : [];
 
-        // const breakdownValues = mapQueryResponse.getUniqueFieldValues(
-        //   props.currentBreakdown
-        // );
+        /*
+         * fieldName: BreakdownVar (one of "age", "sex", etc)
+         * relevantMetric: results placed in withData[] or noData[] based on if rows have a value in this metric)
+         */
+        const fieldValues = mapQueryResponse.getFieldValues(
+          props.currentBreakdown,
+          metricConfig.metricId
+        );
 
-        const rowsWithData = overallQueryResponse.data.filter((item) => {
-          return item[metricConfig.metricId] !== undefined;
-        });
-
-        const breakdownValues = rowsWithData.map((row) => {
-          return row[props.currentBreakdown];
-        });
-
-        breakdownValues.sort.apply(breakdownValues, sortArgs);
+        const breakdownValues = fieldValues.withData.sort.apply(
+          fieldValues.withData,
+          sortArgs
+        );
 
         const dataForActiveBreakdownFilter = mapQueryResponse
           .getValidRowsForField(metricConfig.metricId)
@@ -152,7 +155,7 @@ function MapCardWithKey(props: MapCardProps) {
         );
 
         // Create and populate a map of breakdown display name to options
-        const filterOptions: Record<string, string[]> = {
+        const filterOptions: Record<BreakdownVarDisplayName, string[]> = {
           [BREAKDOWN_VAR_DISPLAY_NAMES[
             props.currentBreakdown
           ]]: breakdownValues,
