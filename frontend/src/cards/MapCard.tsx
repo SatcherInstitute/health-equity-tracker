@@ -24,6 +24,7 @@ import {
   UNKNOWN,
   UNKNOWN_RACE,
   UNKNOWN_ETHNICITY,
+  DemographicGroup,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import { getHighestN, getLowestN } from "../data/utils/datasetutils";
@@ -73,9 +74,10 @@ function MapCardWithKey(props: MapCardProps) {
   };
 
   const [listExpanded, setListExpanded] = useState(false);
-  const [activeBreakdownFilter, setActiveBreakdownFilter] = useState<string>(
-    ALL
-  );
+  const [
+    activeBreakdownFilter,
+    setActiveBreakdownFilter,
+  ] = useState<DemographicGroup>(ALL);
 
   const [
     smallMultiplesDialogOpen,
@@ -155,7 +157,10 @@ function MapCardWithKey(props: MapCardProps) {
         );
 
         // Create and populate a map of breakdown display name to options
-        const filterOptions: Record<BreakdownVarDisplayName, string[]> = {
+        const filterOptions: Record<
+          BreakdownVarDisplayName,
+          DemographicGroup[]
+        > = {
           [BREAKDOWN_VAR_DISPLAY_NAMES[
             props.currentBreakdown
           ]]: breakdownValues,
@@ -271,7 +276,9 @@ function MapCardWithKey(props: MapCardProps) {
                           // This DropDownMenu instance only supports changing active breakdown filter
                           // It doesn't support changing breakdown type
                           if (filterSelection) {
-                            setActiveBreakdownFilter(filterSelection);
+                            setActiveBreakdownFilter(
+                              filterSelection as DemographicGroup
+                            );
                           }
                         }}
                       />

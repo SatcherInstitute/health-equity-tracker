@@ -104,7 +104,7 @@ function DropDownMenu(props: {
   options: Record<string, DemographicGroup[]>;
   // Update parent component with a newly selected value.
   onOptionUpdate: (
-    category: string | undefined,
+    category: DemographicGroup | undefined,
     filterSelection: string | undefined
   ) => void;
 }) {
@@ -152,7 +152,7 @@ function DropDownMenu(props: {
         ) => {
           firstMenu.close();
           secondMenu.close();
-          props.onOptionUpdate(firstMenuSelection, value);
+          props.onOptionUpdate(firstMenuSelection as DemographicGroup, value);
         }}
         onClose={firstMenu.close}
       />
