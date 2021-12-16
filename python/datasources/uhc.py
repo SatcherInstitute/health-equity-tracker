@@ -173,7 +173,7 @@ class UHCData(DataSource):
                             space_or_ages += "Ages "
                         measure_name = (
                             f"{ALIASES.get(determinant, determinant)}"
-                            f"-{space_or_ages}"
+                            f" -{space_or_ages}"
                             f"{breakdown_value}"
                         )
 
