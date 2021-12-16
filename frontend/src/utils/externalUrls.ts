@@ -1,4 +1,4 @@
-type linkName =
+export type LinkName =
   | "newsletterSignup"
   | "cdcCovidDataInfo"
   | "shliTwitter"
@@ -15,7 +15,7 @@ type linkName =
   | "hetGitHub"
   | "uihiBestPractice";
 
-export const url: Record<linkName, string> = {
+export const url: Record<LinkName, string> = {
   newsletterSignup:
     "https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&",
   cdcCovidDataInfo:
