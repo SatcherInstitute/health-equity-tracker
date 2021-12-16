@@ -135,7 +135,9 @@ export function TableCard(props: TableCardProps) {
 
         return (
           <>
-            {queryResponse.shouldShowMissingDataMessage(metricIds) && (
+            {queryResponse.shouldShowMissingDataMessage(
+              metricIds as MetricId[]
+            ) && (
               <CardContent>
                 <MissingDataAlert
                   dataName={props.variableConfig.variableFullDisplayName + " "}

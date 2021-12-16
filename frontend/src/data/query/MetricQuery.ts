@@ -1,6 +1,7 @@
 import { Breakdowns, BreakdownVar } from "./Breakdowns";
 import { Row, FieldRange } from "../utils/DatasetTypes";
 import { MetricId } from "../config/MetricConfig";
+import { DemographicGroup } from "../utils/Constants";
 
 export class MetricQuery {
   readonly metricIds: MetricId[];
@@ -61,12 +62,12 @@ export class MetricQueryResponse {
     return this.missingDataMessage !== undefined;
   }
 
-  isFieldMissing(fieldName: string): boolean {
+  isFieldMissing(fieldName: BreakdownVar | MetricId): boolean {
     return this.invalidValues[fieldName] === this.data.length;
   }
 
   // Calculate numerical range for a field or return undefined if not applicable
-  getFieldRange(fieldName: string): FieldRange | undefined {
+  getFieldRange(fieldName: MetricId): FieldRange | undefined {
     const fieldValues = this.data
       .filter((row) => !isNaN(row[fieldName]))
       .map((row) => row[fieldName]);
@@ -80,26 +81,26 @@ export class MetricQueryResponse {
   }
 
   // Filters rows to those for which the requested field has a valid value
-  getValidRowsForField(fieldName: string) {
+  getValidRowsForField(fieldName: BreakdownVar | MetricId) {
     return this.data.filter(
       (row: Row) => row[fieldName] !== undefined && row[fieldName] !== null
     );
   }
 
-  getValidRowsForFields(fieldNames: string[]) {
+  //! Is this method ever used?
+  getValidRowsForFields(fieldNames: BreakdownVar[] | MetricId[]) {
     let data = this.data;
-    fieldNames.forEach((name) => {
+    fieldNames.forEach((name: BreakdownVar | MetricId) => {
       data = this.getValidRowsForField(name);
     });
     return data;
   }
 
-  // ! Add custom type for return [] instead of string ["15-24", "65+"]
   // Generate two arrays of demographic groups, with and without data in the target metric field
   getFieldValues(
     fieldName: BreakdownVar,
     targetMetric: MetricId
-  ): { withData: string[]; noData: string[] } {
+  ): { withData: DemographicGroup[]; noData: DemographicGroup[] } {
     if (this.isFieldMissing(fieldName)) {
       return {
         withData: [],
@@ -107,8 +108,8 @@ export class MetricQueryResponse {
       };
     }
 
-    const populatedSet = new Set<string>();
-    const unpopulatedSet = new Set<string>();
+    const populatedSet = new Set<DemographicGroup>();
+    const unpopulatedSet = new Set<DemographicGroup>();
 
     this.getValidRowsForField(fieldName).forEach((row) => {
       // set.add(row[fieldName]);
@@ -126,10 +127,9 @@ export class MetricQueryResponse {
   }
 
   // Returns true if any of requested fields are missing or failure occurred
-  shouldShowMissingDataMessage(fields: string[]): boolean {
+  shouldShowMissingDataMessage(fields: MetricId[]): boolean {
     return (
-      this.dataIsMissing() ||
-      fields.some((field: string) => this.isFieldMissing(field))
+      this.dataIsMissing() || fields.some((field) => this.isFieldMissing(field))
     );
   }
 }

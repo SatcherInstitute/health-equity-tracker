@@ -28,7 +28,7 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
   sex: "Sex",
   date: "Date",
   fips: "FIPS Code",
-};
+} as const;
 
 // union type of values (capitalized display names), eg "Race and Ethnicity" | "Age" | "Sex"
 export type BreakdownVarDisplayName = typeof BREAKDOWN_VAR_DISPLAY_NAMES[keyof typeof BREAKDOWN_VAR_DISPLAY_NAMES];
