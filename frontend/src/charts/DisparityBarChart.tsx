@@ -5,6 +5,7 @@ import { useResponsiveWidth } from "../utils/useResponsiveWidth";
 import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
+  BreakdownVarDisplayName,
 } from "../data/query/Breakdowns";
 import { MetricConfig } from "../data/config/MetricConfig";
 import {
@@ -22,8 +23,8 @@ const LABEL_SWAP_CUTOFF_PERCENT = 66; // bar labels will be outside if below thi
 function getSpec(
   data: Record<string, any>[],
   width: number,
-  breakdownVar: string,
-  breakdownVarDisplayName: string,
+  breakdownVar: BreakdownVar,
+  breakdownVarDisplayName: BreakdownVarDisplayName,
   lightMeasure: string,
   lightMeasureDisplayName: string,
   darkMeasure: string,
@@ -42,7 +43,7 @@ function getSpec(
   altLightMeasureDisplayName?: string,
   altLightMetricDisplayColumnName?: string,
   hasAltPop?: boolean
-): any {
+): Object {
   const BAR_HEIGHT = stacked ? 40 : 12;
   const BAR_PADDING = 0.1;
   const DARK_MEASURE_COLOR = sass.barChartDark;
