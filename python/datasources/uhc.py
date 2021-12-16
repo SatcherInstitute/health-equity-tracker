@@ -19,12 +19,25 @@ UHC_RACE_GROUPS = [
 ]
 
 # COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking
-BROAD_AGE_GROUPS = ['18-44', '45-64', '65+']
+BROAD_AGE_GROUPS = [
+    '18-44',
+    '45-64',
+    '65+']
 # Suicide
 PLUS_5_AGE_GROUPS = [
-    '15-24', '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '85+']
-UHC_AGE_GROUPS = ['All', *PLUS_5_AGE_GROUPS,
-              *BROAD_AGE_GROUPS]
+    '15-24',
+    '25-34',
+    '35-44',
+    '45-54',
+    '55-64',
+    '65-74',
+    '75-84',
+    '85+']
+UHC_AGE_GROUPS = [
+    'All',
+    *PLUS_5_AGE_GROUPS,
+    *BROAD_AGE_GROUPS
+]
 # No Age Breakdowns for: Illicit Opioid, Non-medical Drug
 
 UHC_SEX_GROUPS = ['Male', 'Female', 'All']
