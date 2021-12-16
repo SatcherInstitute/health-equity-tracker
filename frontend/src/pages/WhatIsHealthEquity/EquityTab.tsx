@@ -210,7 +210,7 @@ function EquityTab() {
                     className={styles.ResourceVideoEmbed}
                     width="100%"
                     height="633px"
-                    src="https://www.youtube.com/embed/mux1c73fJ78"
+                    src={externalUrls.youtubeAllegoryOfTheOrchard}
                     title="YouTube video player -
                           The Allegory of the Orchard"
                     frameBorder="0"
@@ -240,7 +240,7 @@ function EquityTab() {
                         className={styles.ResourceVideoEmbed}
                         width="100%"
                         height="180px"
-                        src="https://www.youtube.com/embed/cmMutvgQIcU"
+                        src={externalUrls.youtubeJessicasStory}
                         title="YouTube video player -
                               Jessica's Story"
                         frameBorder="0"
@@ -257,7 +257,7 @@ function EquityTab() {
                       </p>
                     </Grid>
                     <Grid item className={styles.ResourceItem}>
-                      <a href="https://ncrn.msm.edu/">
+                      <a href={externalUrls.ncrn}>
                         <LazyLoad offset={300} height={200} once>
                           <img
                             className={styles.ResourceImg}
@@ -502,7 +502,7 @@ function EquityTab() {
                     <Button
                       className={styles.ContactUsLink}
                       aria-label="Apply: Satcher Institute Political Determinants of Health Learning Laboratory Program"
-                      href="https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/"
+                      href={externalUrls.shliPdohLab}
                     >
                       Apply to Fellowship
                     </Button>
@@ -532,7 +532,7 @@ function EquityTab() {
                     <Button
                       className={styles.ContactUsLink}
                       aria-label="Sign Up - vaccine rideshare program"
-                      href="https://satcherinstitute.org/uberrideshare/"
+                      href={externalUrls.shliUber}
                     >
                       Vaccination Rideshare Info
                     </Button>
