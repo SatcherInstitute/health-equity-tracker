@@ -50,12 +50,13 @@ UHC_STANDARD_AGE_DETERMINANTS = {
     "Depression": std_col.DEPRESSION_PCT,
     "Non-medical Drug Use": std_col.NON_MEDICAL_DRUG_USE_PCT,
     "Excessive Drinking": std_col.EXCESSIVE_DRINKING_PCT,
-    "Illicit Opioid": std_col.ILLICIT_OPIOID_USE_PCT,  # all
+    "Illicit Opioid Use": std_col.ILLICIT_OPIOID_USE_PCT,  # all
 }
 
+# When parsing Measure Names from rows with a demographic breakdown
+# these aliases will be used instead of the determinant string above
 ALIASES = {
-    # with breakdown
-    "Illicit Opioid Use": "Use of Illicit Opioids"
+    "Illicit Opioid Use": "Use of Illicit Opioids"  # with breakdown
 }
 
 UHC_DECADE_PLUS_5_AGE_DETERMINANTS = {
@@ -146,21 +147,26 @@ class UHCData(DataSource):
 
                         output_row[UHC_DETERMINANTS_OF_HEALTH[determinant]] = \
                             df.loc[(df['State Name'] == state) &
-                                   (df['Measure Name'].str.contains(determinant))]['Value'].values[0]
+                                   (df['Measure Name'] == determinant)]['Value'].values[0]
 
                     else:
-                        # extract precise determinant and demographic breakdown value
+
+                        # For rows with demographic breakdown, the determinant and breakdown group are in a single field
+                        # We build that string to perfectly match the field, using any alias for the determinant as needed
+
+                        space_or_ages = " "
+                        if breakdown == std_col.AGE_COL:
+                            space_or_ages += "Ages "
+                        measure_name = f"{ALIASES.get(determinant, determinant)} -{space_or_ages}{breakdown_value}"
 
                         row = df.loc[
                             (df['State Name'] == state) &
-                            (df['Measure Name'].str.contains(determinant)) &
-                            (df['Measure Name'].str.contains(breakdown_value))]
+                            (df['Measure Name'] == measure_name)]
 
                         if len(row) > 0:
 
                             pct = row['Value'].values[0]
                             if pct:
-                                # use determinant name or alias
                                 output_row[UHC_DETERMINANTS_OF_HEALTH[determinant]] = pct
 
                 output.append(output_row)
