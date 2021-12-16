@@ -9,9 +9,12 @@ type linkName =
   | "youtubeJessicasStory"
   | "ncrn"
   | "shliPdohLab"
-  | "shliUber";
+  | "shliUber"
+  | "acs5"
+  | "cdcBrfss"
+  | "hetGitHub";
 
-export const externalUrls: Record<linkName, string> = {
+export const url: Record<linkName, string> = {
   newsletterSignup:
     "https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&",
   cdcCovidDataInfo:
@@ -26,4 +29,7 @@ export const externalUrls: Record<linkName, string> = {
   shliPdohLab:
     "https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/",
   shliUber: "https://satcherinstitute.org/uberrideshare/",
+  acs5: "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+  cdcBrfss: "https://www.cdc.gov/brfss/index.html",
+  hetGitHub: "https://github.com/SatcherInstitute/health-equity-tracker",
 };
