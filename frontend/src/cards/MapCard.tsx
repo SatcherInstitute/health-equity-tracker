@@ -125,13 +125,9 @@ function MapCardWithKey(props: MapCardProps) {
             ? ([new AgeSorterStrategy([ALL]).compareFn] as any)
             : [];
 
-        /*
-         * fieldName: BreakdownVar (one of "age", "sex", etc)
-         * relevantMetric: results placed in withData[] or noData[] based on if rows have a value in this metric)
-         */
         const fieldValues = mapQueryResponse.getFieldValues(
-          props.currentBreakdown,
-          metricConfig.metricId
+          /* fieldName: BreakdownVar */ props.currentBreakdown,
+          /* relevantMetric: MetricId */ metricConfig.metricId
         );
 
         const breakdownValues = fieldValues.withData.sort.apply(
