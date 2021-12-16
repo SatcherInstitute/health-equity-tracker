@@ -19,15 +19,15 @@ RACE_GROUPS = [
 ]
 
 # COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking
-UHC_STANDARD_AGE_GROUPS = ['18-44', '45-64', '65+']
+BROAD_AGE_GROUPS = ['18-44', '45-64', '65+']
 # Suicide
-UHC_DECADE_PLUS_5_AGE_GROUPS = [
+PLUS_5_AGE_GROUPS = [
     '15-24', '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '85+']
-UHC_AGE_GROUPS = ['All', *UHC_DECADE_PLUS_5_AGE_GROUPS,
-                  *UHC_STANDARD_AGE_GROUPS]
+AGE_GROUPS = ['All', *PLUS_5_AGE_GROUPS,
+              *BROAD_AGE_GROUPS]
 # No Age Breakdowns for: Illicit Opioid, Non-medical Drug
 
-UHC_SEX_GROUPS = ['Male', 'Female', 'All']
+SEX_GROUPS = ['Male', 'Female', 'All']
 
 RACE_GROUPS_TO_STANDARD = {
     'American Indian/Alaska Native': Race.AIAN_NH.value,
@@ -65,8 +65,8 @@ PLUS_5_AGE_DETERMINANTS = {
 
 BREAKDOWN_MAP = {
     "race_and_ethnicity": RACE_GROUPS,
-    "age": UHC_AGE_GROUPS,
-    "sex": UHC_SEX_GROUPS,
+    "age": AGE_GROUPS,
+    "sex": SEX_GROUPS,
 }
 
 
@@ -139,17 +139,17 @@ class UHCData(DataSource):
                     output_row[breakdown] = breakdown_value
 
                 # use select determinants based on the iterated age bucket
-                if breakdown_value in UHC_STANDARD_AGE_GROUPS:
-                    DETERMINANTS = BROAD_AGE_DETERMINANTS
-                elif breakdown_value in UHC_DECADE_PLUS_5_AGE_GROUPS:
-                    DETERMINANTS = \
+                if breakdown_value in BROAD_AGE_GROUPS:
+                    determinants = BROAD_AGE_DETERMINANTS
+                elif breakdown_value in PLUS_5_AGE_GROUPS:
+                    determinants = \
                         PLUS_5_AGE_DETERMINANTS
                 # for age="All" or any race/sex breakdown, use all determinants
                 else:
-                    DETERMINANTS = {
+                    determinants = {
                         **BROAD_AGE_DETERMINANTS, **PLUS_5_AGE_DETERMINANTS}
 
-                for determinant in DETERMINANTS:
+                for determinant in determinants:
 
                     if breakdown_value == 'All':
 
@@ -159,7 +159,7 @@ class UHCData(DataSource):
                             (df['Measure Name'] == determinant)]
 
                         # extract and output the value
-                        output_row[DETERMINANTS[determinant]
+                        output_row[determinants[determinant]
                                    ] = matched_row['Value'].values[0]
 
                     else:
@@ -184,7 +184,7 @@ class UHCData(DataSource):
                         if len(matched_row) > 0:
                             pct = matched_row['Value'].values[0]
                             if pct:
-                                output_row[DETERMINANTS[determinant]] = pct
+                                output_row[determinants[determinant]] = pct
 
                 output.append(output_row)
 
