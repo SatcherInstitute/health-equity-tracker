@@ -143,8 +143,8 @@ export function PopulationCard(props: PopulationCardProps) {
             )}
 
             {/* Because the Vega charts are using responsive width based on the window resizing,
-                we manually trigger a resize when the div size changes so vega chart will 
-                render with the right size. This means the vega chart won't appear until the 
+                we manually trigger a resize when the div size changes so vega chart will
+                render with the right size. This means the vega chart won't appear until the
                 AnimateHeight is finished expanding */}
             {!raceQueryResponse.dataIsMissing() && (
               <AnimateHeight
@@ -207,6 +207,7 @@ export function PopulationCard(props: PopulationCardProps) {
                         metric={POP_CONFIG.metrics.pct_share}
                         breakdownVar="race_and_ethnicity"
                         showLegend={false}
+                        usePercentSuffix={true}
                         filename={`${POPULATION_BY_RACE} in ${props.fips.getFullDisplayName()}`}
                       />
                     </Box>
@@ -229,6 +230,7 @@ export function PopulationCard(props: PopulationCardProps) {
                           metric={POP_CONFIG.metrics.pct_share}
                           breakdownVar="age"
                           showLegend={false}
+                          usePercentSuffix={true}
                           filename={`${POPULATION_BY_AGE} in ${props.fips.getFullDisplayName()}`}
                         />
                       )}
