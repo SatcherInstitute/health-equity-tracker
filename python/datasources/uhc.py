@@ -6,7 +6,7 @@ import ingestion.standardized_columns as std_col
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 
-RACE_GROUPS = [
+UHC_RACE_GROUPS = [
     'American Indian/Alaska Native',
     'Asian',
     'Black',
@@ -23,11 +23,11 @@ BROAD_AGE_GROUPS = ['18-44', '45-64', '65+']
 # Suicide
 PLUS_5_AGE_GROUPS = [
     '15-24', '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '85+']
-AGE_GROUPS = ['All', *PLUS_5_AGE_GROUPS,
+UHC_AGE_GROUPS = ['All', *PLUS_5_AGE_GROUPS,
               *BROAD_AGE_GROUPS]
 # No Age Breakdowns for: Illicit Opioid, Non-medical Drug
 
-SEX_GROUPS = ['Male', 'Female', 'All']
+UHC_SEX_GROUPS = ['Male', 'Female', 'All']
 
 RACE_GROUPS_TO_STANDARD = {
     'American Indian/Alaska Native': Race.AIAN_NH.value,
@@ -64,9 +64,9 @@ PLUS_5_AGE_DETERMINANTS = {
 }
 
 BREAKDOWN_MAP = {
-    "race_and_ethnicity": RACE_GROUPS,
-    "age": AGE_GROUPS,
-    "sex": SEX_GROUPS,
+    "race_and_ethnicity": UHC_RACE_GROUPS,
+    "age": UHC_AGE_GROUPS,
+    "sex": UHC_SEX_GROUPS,
 }
 
 
