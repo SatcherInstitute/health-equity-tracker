@@ -28,7 +28,7 @@ import { Link } from "react-router-dom";
 import FeedbackBox from "../pages/ui/FeedbackBox";
 import ShareButtons from "./ui/ShareButtons";
 import { Helmet } from "react-helmet-async";
-import { url } from "../utils/url";
+import { url } from "../utils/externalUrls";
 
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
   const segment = madLib.phrase[segmentIndex];
