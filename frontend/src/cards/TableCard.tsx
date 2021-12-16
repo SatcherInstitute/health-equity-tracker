@@ -73,8 +73,7 @@ export function TableCard(props: TableCardProps) {
 
   let metricConfigs: Record<string, MetricConfig> = {};
   metrics.forEach((metricConfig) => {
-    // We prefer to show the known breakdown metric over the vanilla metric, if
-    // it is available.
+    // We prefer known breakdown metric if available.
     if (metricConfig.knownBreakdownComparisonMetric) {
       metricConfigs[metricConfig.knownBreakdownComparisonMetric.metricId] =
         metricConfig.knownBreakdownComparisonMetric;
