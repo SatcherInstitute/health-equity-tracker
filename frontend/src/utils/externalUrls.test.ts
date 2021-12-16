@@ -5,8 +5,12 @@
 import { LinkName, urlMap } from "./externalUrls";
 import axios from "axios";
 
+// it can take a long time to check every external URL
+export const TWO_MINUTES = 120_000;
 export const SUCCESS_CODE = 200;
-export const TWO_MINUTES = 120_000; // it can take a long time to check every external URL
+
+// skip some URLs (like linkedin) that block traffic / error out
+export const UNTESTABLE_URLS = [urlMap.shliLinkedIn];
 
 describe("ExternalUrls", () => {
   test("Links use HTTPS", () => {
@@ -40,9 +44,7 @@ describe("ExternalUrls", () => {
 
       for (const urlName in urlMap) {
         const testUrl = urlMap[urlName as LinkName];
-
-        // skip LinkedIn
-        if (testUrl.includes("linkedin.com")) continue;
+        if (UNTESTABLE_URLS.includes(testUrl)) continue;
 
         const urlStatus = await getStatus(testUrl);
         expect(urlStatus).toEqual(SUCCESS_CODE);
