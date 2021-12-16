@@ -19,7 +19,15 @@ export type LinkName =
   | "cdc"
   | "googleOrg"
   | "aarp"
-  | "aecf";
+  | "aecf"
+  | "shliGitHubSuppressCovidCases"
+  | "shliGitHubSuppressCovidDeaths"
+  | "cdcVaxTrends"
+  | "cdcVaxCounty"
+  | "cdcCovidRestricted"
+  | "kffCovid"
+  | "amr"
+  | "amrMethodology";
 
 export const urlMap: Record<LinkName, string> = {
   newsletterSignup:
@@ -47,4 +55,19 @@ export const urlMap: Record<LinkName, string> = {
   googleOrg: "https://google.org",
   aarp: "https://aarp.org",
   aecf: "https://www.aecf.org/",
+  shliGitHubSuppressCovidCases:
+    "https://satcherinstitute.github.io/analysis/cdc_case_data",
+  shliGitHubSuppressCovidDeaths:
+    "https://satcherinstitute.github.io/analysis/cdc_death_data",
+  cdcVaxTrends:
+    "https://covid.cdc.gov/covid-data-tracker/#vaccination-demographics-trends",
+  kffCovid: "https://www.kff.org/state-category/covid-19/",
+  cdcVaxCounty:
+    "https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh",
+  amr:
+    "https://www.americashealthrankings.org/explore/annual/measure/Overall_a/state/ALL",
+  amrMethodology:
+    "https://www.americashealthrankings.org/about/methodology/data-sources-and-measures",
+  cdcCovidRestricted:
+    "https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t",
 };
