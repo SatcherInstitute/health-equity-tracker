@@ -12,7 +12,8 @@ type linkName =
   | "shliUber"
   | "acs5"
   | "cdcBrfss"
-  | "hetGitHub";
+  | "hetGitHub"
+  | "uihiBestPractice";
 
 export const url: Record<linkName, string> = {
   newsletterSignup:
@@ -32,4 +33,6 @@ export const url: Record<linkName, string> = {
   acs5: "https://www.census.gov/data/developers/data-sets/acs-5year.html",
   cdcBrfss: "https://www.cdc.gov/brfss/index.html",
   hetGitHub: "https://github.com/SatcherInstitute/health-equity-tracker",
+  uihiBestPractice:
+    "https://www.uihi.org/resources/best-practices-for-american-indian-and-alaska-native-data-collection/",
 };
