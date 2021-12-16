@@ -29,3 +29,7 @@ config/.terraform.lock.hcl
 config/.terraform/
 
 *.json
+
+python/data_server/build/
+python/datasources/build/
+python/ingestion/build/
