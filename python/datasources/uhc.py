@@ -153,7 +153,7 @@ class UHCData(DataSource):
 
                     if breakdown_value == 'All':
 
-                        # find the specific row that matches current nested iterations
+                        # find row that matches current nested iterations
                         matched_row = df.loc[
                             (df['State Name'] == state) &
                             (df['Measure Name'] == determinant)]
@@ -164,13 +164,18 @@ class UHCData(DataSource):
 
                     else:
 
-                        # For rows with demographic breakdown, the determinant and breakdown group are in a single field
-                        # We build that string to perfectly match the field, using any alias for the determinant as needed
-
+                        # For rows with demographic breakdown, the determinant
+                        # and breakdown group are in a single field
+                        # We build that string to perfectly match the field,
+                        # using any alias for the determinant as needed
                         space_or_ages = " "
                         if breakdown == std_col.AGE_COL:
                             space_or_ages += "Ages "
-                        measure_name = f"{ALIASES.get(determinant, determinant)} -{space_or_ages}{breakdown_value}"
+                        measure_name = (
+                            f"{ALIASES.get(determinant, determinant)}"
+                            f"-{space_or_ages}"
+                            f"{breakdown_value}"
+                        )
 
                         matched_row = df.loc[
                             (df['State Name'] == state) &
