@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
 import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
+import { urlMap } from "../../utils/externalUrls";
 
 const LEADERSHIP_TEAM = [
   {
@@ -96,7 +97,7 @@ const GOOGLE_FELLOWS = [
   {
     name: "Ken Moore",
     role: "UX Designer",
-    link: "http://kenstatus.com",
+    link: urlMap.kenMemoriam,
     text: "In memoriam,",
   },
   {
@@ -227,32 +228,32 @@ const PARTNERS = [
   {
     imageUrl: "/img/partners/PartnerSatcher.png",
     alt: "Morehouse School of Medicine Satcher Health Leadership Institute",
-    url: "https://satcherinstitute.org/",
+    url: urlMap.shli,
   },
   {
     imageUrl: "/img/partners/PartnerGilead.png",
     alt: "Gilead Sciences, Inc.",
-    url: "https://www.gilead.com/",
+    url: urlMap.gilead,
   },
   {
     imageUrl: "/img/partners/PartnerCdc.png",
     alt: "United States Center for Disease Control and Prevention",
-    url: "https://www.cdc.gov/",
+    url: urlMap.cdc,
   },
   {
     imageUrl: "/img/partners/PartnerGoogle.png",
     alt: "Google.org",
-    url: "https://google.org",
+    url: urlMap.googleOrg,
   },
   {
     imageUrl: "/img/partners/PartnerAARP.png",
     alt: "American Association of Retired Persons",
-    url: "https://aarp.org",
+    url: urlMap.aarp,
   },
   {
     imageUrl: "/img/partners/PartnerAECF.png",
     alt: "Annie E. Casey Foundation",
-    url: "https://www.aecf.org/",
+    url: urlMap.aecf,
   },
 ];
 

@@ -1,9 +1,9 @@
-import { LinkName, url as externalUrlMap } from "./externalUrls";
+import { LinkName, urlMap } from "./externalUrls";
 
 describe("ExternalUrls", () => {
   test("Links all use HTTPS", () => {
-    for (const urlName in externalUrlMap) {
-      const testUrl = externalUrlMap[urlName as LinkName];
+    for (const urlName in urlMap) {
+      const testUrl = urlMap[urlName as LinkName];
       expect(testUrl).toContain("https://");
     }
   });

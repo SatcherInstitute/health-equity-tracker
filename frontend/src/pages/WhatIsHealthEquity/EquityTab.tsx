@@ -12,7 +12,7 @@ import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
 import sass from "../../styles/variables.module.scss";
-import { url } from "../../utils/externalUrls";
+import { urlMap } from "../../utils/externalUrls";
 
 function JoinTheEffortContainer(props: {
   imageUrl: string;
@@ -210,7 +210,7 @@ function EquityTab() {
                     className={styles.ResourceVideoEmbed}
                     width="100%"
                     height="633px"
-                    src={url.youtubeAllegoryOfTheOrchard}
+                    src={urlMap.youtubeAllegoryOfTheOrchard}
                     title="YouTube video player -
                           The Allegory of the Orchard"
                     frameBorder="0"
@@ -240,7 +240,7 @@ function EquityTab() {
                         className={styles.ResourceVideoEmbed}
                         width="100%"
                         height="180px"
-                        src={url.youtubeJessicasStory}
+                        src={urlMap.youtubeJessicasStory}
                         title="YouTube video player -
                               Jessica's Story"
                         frameBorder="0"
@@ -257,7 +257,7 @@ function EquityTab() {
                       </p>
                     </Grid>
                     <Grid item className={styles.ResourceItem}>
-                      <a href={url.ncrn}>
+                      <a href={urlMap.ncrn}>
                         <LazyLoad offset={300} height={200} once>
                           <img
                             className={styles.ResourceImg}
@@ -502,7 +502,7 @@ function EquityTab() {
                     <Button
                       className={styles.ContactUsLink}
                       aria-label="Apply: Satcher Institute Political Determinants of Health Learning Laboratory Program"
-                      href={url.shliPdohLab}
+                      href={urlMap.shliPdohLab}
                     >
                       Apply to Fellowship
                     </Button>
@@ -532,7 +532,7 @@ function EquityTab() {
                     <Button
                       className={styles.ContactUsLink}
                       aria-label="Sign Up - vaccine rideshare program"
-                      href={url.shliUber}
+                      href={urlMap.shliUber}
                     >
                       Vaccination Rideshare Info
                     </Button>
@@ -557,7 +557,7 @@ function EquityTab() {
                     for our Satcher Health Leadership Institute newsletter.
                   </p>
                   <form
-                    action={url.newsletterSignup}
+                    action={urlMap.newsletterSignup}
                     method="post"
                     target="_blank"
                   >

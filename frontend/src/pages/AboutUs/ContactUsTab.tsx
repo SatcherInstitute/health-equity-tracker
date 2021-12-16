@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import Hidden from "@material-ui/core/Hidden";
 import FeedbackBox from "../ui/FeedbackBox";
 import { Helmet } from "react-helmet-async";
-import { url } from "../../utils/externalUrls";
+import { urlMap } from "../../utils/externalUrls";
 
 function ContactUsTab() {
   return (
@@ -73,8 +73,9 @@ function ContactUsTab() {
               <b>For General Requests:</b>
               <br />
               Please contact the{" "}
-              <a href={url.shli}>Satcher Health Leadership Institute</a> at{" "}
-              <a href="mailto:shli@msm.edu">shli@msm.edu</a>
+              <a href={urlMap.shli}>
+                Satcher Health Leadership Institute
+              </a> at <a href="mailto:shli@msm.edu">shli@msm.edu</a>
             </p>
             <p className={styles.ContactUsP}>
               <b>For Media Inquiries:</b>

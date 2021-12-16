@@ -28,7 +28,7 @@ import { Link } from "react-router-dom";
 import FeedbackBox from "../pages/ui/FeedbackBox";
 import ShareButtons from "./ui/ShareButtons";
 import { Helmet } from "react-helmet-async";
-import { url } from "../utils/externalUrls";
+import { urlMap } from "../utils/externalUrls";
 
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
   const segment = madLib.phrase[segmentIndex];
@@ -184,7 +184,7 @@ function ReportProvider(props: ReportProviderProps) {
         <p>
           For COVID-19 related reports, this tracker uses disaggregated,
           individual{" "}
-          <a href={url.cdcCovidDataInfo}>
+          <a href={urlMap.cdcCovidDataInfo}>
             case level data reported by states, territories, and other
             jurisdictions to the CDC
           </a>

@@ -13,9 +13,15 @@ export type LinkName =
   | "acs5"
   | "cdcBrfss"
   | "hetGitHub"
-  | "uihiBestPractice";
+  | "uihiBestPractice"
+  | "kenMemoriam"
+  | "gilead"
+  | "cdc"
+  | "googleOrg"
+  | "aarp"
+  | "aecf";
 
-export const url: Record<LinkName, string> = {
+export const urlMap: Record<LinkName, string> = {
   newsletterSignup:
     "https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&",
   cdcCovidDataInfo:
@@ -35,4 +41,10 @@ export const url: Record<LinkName, string> = {
   hetGitHub: "https://github.com/SatcherInstitute/health-equity-tracker",
   uihiBestPractice:
     "https://www.uihi.org/resources/best-practices-for-american-indian-and-alaska-native-data-collection/",
+  kenMemoriam: "https://kenstatus.com",
+  gilead: "https://www.gilead.com/",
+  cdc: "https://www.cdc.gov/",
+  googleOrg: "https://google.org",
+  aarp: "https://aarp.org",
+  aecf: "https://www.aecf.org/",
 };

@@ -17,7 +17,7 @@ import {
 } from "./utils/urlutils";
 import AppbarLogo from "./assets/AppbarLogo.png";
 import PartnerSatcher from "./assets/PartnerSatcher.png";
-import { url } from "./utils/externalUrls";
+import { urlMap } from "./utils/externalUrls";
 
 function Footer() {
   return (
@@ -121,7 +121,7 @@ function Logos() {
               <Grid container justify="center">
                 <Grid item className={styles.SocialsIcon}>
                   <a
-                    href={url.shliLinkedIn}
+                    href={urlMap.shliLinkedIn}
                     aria-label="Satcher Health on LinkedIn"
                   >
                     <LinkedInIcon />
@@ -129,7 +129,7 @@ function Logos() {
                 </Grid>
                 <Grid item className={styles.SocialsIcon}>
                   <a
-                    href={url.shliTwitter}
+                    href={urlMap.shliTwitter}
                     aria-label="Satcher Health on Twitter"
                   >
                     <TwitterIcon />
@@ -137,7 +137,7 @@ function Logos() {
                 </Grid>
                 <Grid item className={styles.SocialsIcon}>
                   <a
-                    href={url.shliYoutube}
+                    href={urlMap.shliYoutube}
                     aria-label="Satcher Health on YouTube"
                   >
                     <YouTubeIcon />
@@ -149,7 +149,7 @@ function Logos() {
         </Grid>
       </Grid>
       <Grid item xs={10} sm={5} container justify="center" alignItems="center">
-        <ReactRouterLinkButton url={url.shli}>
+        <ReactRouterLinkButton url={urlMap.shli}>
           <img
             src={PartnerSatcher}
             alt="Satcher Health Leadership Institute Logo"
