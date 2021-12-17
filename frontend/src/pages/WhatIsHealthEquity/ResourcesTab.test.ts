@@ -5,9 +5,8 @@
 import { RESOURCES } from "./ResourcesTab";
 import axios from "axios";
 import {
-  TWO_MINUTES,
+  WAIT_FOR_URL_STATUSES,
   SUCCESS_CODE,
-  UNTESTABLE_URLS,
   getTestableUrls,
 } from "../../utils/externalUrls.test";
 
@@ -16,8 +15,8 @@ const testUrls = getTestableUrls(RESOURCES.map((resource) => resource.url));
 
 describe("Resource Urls", () => {
   test("Links use HTTPS", () => {
-    for (const resource of RESOURCES) {
-      const testUrl = resource.url;
+    for (const testUrl of testUrls) {
+      console.log(testUrl);
       expect(testUrl.slice(0, 8)).toEqual("https://");
     }
   });
@@ -41,16 +40,14 @@ describe("Resource Urls", () => {
         }
       }
 
-      for (const resource of RESOURCES) {
-        const testUrl = resource.url;
-        if (UNTESTABLE_URLS.includes(testUrl)) continue;
-
+      for (const testUrl of testUrls) {
         const urlStatus = await getStatus(testUrl);
+        console.log(testUrl, urlStatus);
         expect(urlStatus).toEqual(SUCCESS_CODE);
       }
 
       //! MAYBE use Promise.All to await multiple promises ?
     },
-    TWO_MINUTES
+    WAIT_FOR_URL_STATUSES
   );
 });

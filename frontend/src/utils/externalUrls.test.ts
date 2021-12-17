@@ -6,7 +6,7 @@ import { urlMap } from "./externalUrls";
 import axios from "axios";
 
 // it can take a long time to check every external URL
-export const TWO_MINUTES = 120_000;
+export const WAIT_FOR_URL_STATUSES = 5 * 60 * 1000;
 export const SUCCESS_CODE = 200;
 
 // skip some URLs (like linkedin) that block traffic / error out
@@ -28,6 +28,7 @@ const testUrls: string[] = getTestableUrls(Object.values(urlMap));
 describe("ExternalUrls", () => {
   test("Links use HTTPS", () => {
     for (const testUrl of testUrls) {
+      console.log(testUrl);
       expect(testUrl.slice(0, 8)).toEqual("https://");
     }
   });
@@ -53,11 +54,12 @@ describe("ExternalUrls", () => {
 
       for (const testUrl of testUrls) {
         const urlStatus = await getStatus(testUrl);
+        console.log(testUrl, urlStatus);
         expect(urlStatus).toEqual(SUCCESS_CODE);
       }
 
       //! MAYBE use Promise.All to await multiple promises ?
     },
-    TWO_MINUTES
+    WAIT_FOR_URL_STATUSES
   );
 });

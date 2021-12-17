@@ -5,21 +5,21 @@
 import { GOOGLE_FELLOWS, PARTNERS } from "./OurTeamTab";
 import axios from "axios";
 import {
-  TWO_MINUTES,
+  WAIT_FOR_URL_STATUSES,
   SUCCESS_CODE,
-  UNTESTABLE_URLS,
+  getTestableUrls,
 } from "../../utils/externalUrls.test";
 
 // Collect all URLS
-let testUrls: string[] = [];
+const allUrls: string[] = [];
 for (const fellow of GOOGLE_FELLOWS) {
-  if (fellow.link && !UNTESTABLE_URLS.includes(fellow.link))
-    testUrls.push(fellow.link);
+  if (fellow.link) allUrls.push(fellow.link);
 }
 for (const partner of PARTNERS) {
-  if (partner.url && !UNTESTABLE_URLS.includes(partner.url))
-    testUrls.push(partner.url);
+  if (partner.url) allUrls.push(partner.url);
 }
+
+const testUrls = getTestableUrls(allUrls);
 
 describe("ExternalUrls", () => {
   // Links must use HTTPS (unless they've been whitelisted in UNTESTABLE_LINKS)
@@ -51,11 +51,12 @@ describe("ExternalUrls", () => {
 
       for (const testUrl of testUrls) {
         const urlStatus = await getStatus(testUrl);
+        console.log(testUrl, urlStatus);
         expect(urlStatus).toEqual(SUCCESS_CODE);
       }
 
       //! MAYBE use Promise.All to await multiple promises ?
     },
-    TWO_MINUTES
+    WAIT_FOR_URL_STATUSES
   );
 });
