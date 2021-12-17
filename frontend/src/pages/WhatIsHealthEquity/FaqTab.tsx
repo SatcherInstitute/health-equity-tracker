@@ -9,7 +9,12 @@ import parse from "html-react-parser";
 import FeedbackBox from "../ui/FeedbackBox";
 import { urlMap } from "../../utils/externalUrls";
 
-export const selectFaqs: any[] = [
+export interface qAndA {
+  q: string;
+  a: string;
+}
+
+export const selectFaqs: qAndA[] = [
   {
     q: "What is health equity? Why is it important?",
     a: `
