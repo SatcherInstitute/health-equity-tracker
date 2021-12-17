@@ -49,6 +49,8 @@ describe("ExternalUrls", () => {
         const urlStatus = await getStatus(testUrl);
         expect(urlStatus).toEqual(SUCCESS_CODE);
       }
+
+      //! MAYBE use Promise.All to await multiple promises ?
     },
     TWO_MINUTES
   );
