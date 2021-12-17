@@ -4,7 +4,6 @@ import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
 import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
-import { urlMap } from "../../utils/externalUrls";
 
 const LEADERSHIP_TEAM = [
   {
@@ -69,7 +68,7 @@ const LEADERSHIP_TEAM = [
   },
 ];
 
-const GOOGLE_FELLOWS = [
+export const GOOGLE_FELLOWS = [
   {
     name: "Chelsea Seabron",
     role: "Google.org Manager",
@@ -97,7 +96,7 @@ const GOOGLE_FELLOWS = [
   {
     name: "Ken Moore",
     role: "UX Designer",
-    link: urlMap.kenMemoriam,
+    link: "https://kenstatus.com",
     text: "In memoriam,",
   },
   {
@@ -224,36 +223,36 @@ const HE_TASKFORCE = [
   "Melicia Whitt-Glover, PhD, FACSM",
 ];
 
-const PARTNERS = [
+export const PARTNERS = [
   {
     imageUrl: "/img/partners/PartnerSatcher.png",
     alt: "Morehouse School of Medicine Satcher Health Leadership Institute",
-    url: urlMap.shli,
+    url: "https://satcherinstitute.org/",
   },
   {
     imageUrl: "/img/partners/PartnerGilead.png",
     alt: "Gilead Sciences, Inc.",
-    url: urlMap.gilead,
+    url: "https://www.gilead.com/",
   },
   {
     imageUrl: "/img/partners/PartnerCdc.png",
     alt: "United States Center for Disease Control and Prevention",
-    url: urlMap.cdc,
+    url: "https://www.cdc.gov/",
   },
   {
     imageUrl: "/img/partners/PartnerGoogle.png",
     alt: "Google.org",
-    url: urlMap.googleOrg,
+    url: "https://google.org",
   },
   {
     imageUrl: "/img/partners/PartnerAARP.png",
     alt: "American Association of Retired Persons",
-    url: urlMap.aarp,
+    url: "https://aarp.org",
   },
   {
     imageUrl: "/img/partners/PartnerAECF.png",
     alt: "Annie E. Casey Foundation",
-    url: urlMap.aecf,
+    url: "https://www.aecf.org/",
   },
 ];
 
