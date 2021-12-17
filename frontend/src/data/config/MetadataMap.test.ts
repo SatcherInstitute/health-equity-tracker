@@ -4,8 +4,7 @@ describe("Test Data Source URLs", () => {
   test("Links all use HTTPS", () => {
     for (const source in dataSourceMetadataList) {
       const testUrl = dataSourceMetadataList[source].data_source_link;
-      const requiredPrefix = "https://";
-      expect(testUrl).toMatch(new RegExp(`^${requiredPrefix}?`));
+      expect(testUrl.slice(0, 8)).toEqual("https://");
     }
   });
 });

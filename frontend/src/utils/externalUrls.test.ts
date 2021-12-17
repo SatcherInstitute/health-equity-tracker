@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 
-import { LinkName, urlMap } from "./externalUrls";
+import { urlMap } from "./externalUrls";
 import axios from "axios";
 
 // it can take a long time to check every external URL
@@ -12,23 +12,31 @@ export const SUCCESS_CODE = 200;
 // skip some URLs (like linkedin) that block traffic / error out
 export const UNTESTABLE_URLS = [urlMap.shliLinkedIn];
 
+// skip some URLs we know don't provide HTTPS
+export const KNOWN_INSECURE_URLS = ["http://www.rootsofhealthinequity.org/"];
+
+export function getTestableUrls(allUrls: string[]): string[] {
+  return allUrls.filter(
+    (url) =>
+      !KNOWN_INSECURE_URLS.includes(url) && !UNTESTABLE_URLS.includes(url)
+  );
+}
+
+// collect Urls
+const testUrls: string[] = getTestableUrls(Object.values(urlMap));
+
 describe("ExternalUrls", () => {
   test("Links use HTTPS", () => {
-    for (const urlName in urlMap) {
-      const testUrl = urlMap[urlName as LinkName];
-      const requiredPrefix = "https://";
-
-      expect(testUrl).toMatch(new RegExp(`^${requiredPrefix}?`));
+    for (const testUrl of testUrls) {
+      expect(testUrl.slice(0, 8)).toEqual("https://");
     }
   });
 
   test("No Duplicate Links", () => {
-    // All Urls
-    const testUrlsArray = Object.values(urlMap);
     // Remove duplicate by making into a set
-    const testUrlsSet = new Set(testUrlsArray);
+    const testUrlsSet = new Set(testUrls);
     // Converting to set shouldn't change the total number of URLs
-    expect(testUrlsArray.length).toEqual(testUrlsSet.size);
+    expect(testUrls.length).toEqual(testUrlsSet.size);
   });
 
   test(
@@ -43,10 +51,7 @@ describe("ExternalUrls", () => {
         }
       }
 
-      for (const urlName in urlMap) {
-        const testUrl = urlMap[urlName as LinkName];
-        if (UNTESTABLE_URLS.includes(testUrl)) continue;
-
+      for (const testUrl of testUrls) {
         const urlStatus = await getStatus(testUrl);
         expect(urlStatus).toEqual(SUCCESS_CODE);
       }

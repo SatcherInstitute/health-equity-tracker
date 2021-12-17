@@ -4,40 +4,29 @@
 
 import { RESOURCES } from "./ResourcesTab";
 import axios from "axios";
+import {
+  TWO_MINUTES,
+  SUCCESS_CODE,
+  UNTESTABLE_URLS,
+  getTestableUrls,
+} from "../../utils/externalUrls.test";
 
-// it can take a long time to check every external URL
-export const TWO_MINUTES = 120_000;
-export const SUCCESS_CODE = 200;
-
-// skip some URLs (like linkedin) that block traffic / error out
-export const UNTESTABLE_URLS = [RESOURCES[0].url];
-
-// skip some URLs we know don't provide HTTPS
-export const KNOWN_INSECURE_RESOURCES = [
-  RESOURCES.find(
-    (resource) =>
-      resource.name === "Roots of Health Inequity free, web-based course"
-  ),
-];
+// All Resources Urls
+const testUrls = getTestableUrls(RESOURCES.map((resource) => resource.url));
 
 describe("Resource Urls", () => {
   test("Links use HTTPS", () => {
     for (const resource of RESOURCES) {
-      if (KNOWN_INSECURE_RESOURCES.includes(resource)) continue;
-
       const testUrl = resource.url;
-      const requiredPrefix = "https://";
-      expect(testUrl).toMatch(new RegExp(`^${requiredPrefix}?`));
+      expect(testUrl.slice(0, 8)).toEqual("https://");
     }
   });
 
   test("No Duplicate Links", () => {
-    // All Urls
-    const testUrlsArray = Object.values(RESOURCES);
     // Remove duplicate by making into a set
-    const testUrlsSet = new Set(testUrlsArray);
+    const testUrlsSet = new Set(testUrls);
     // Converting to set shouldn't change the total number of URLs
-    expect(testUrlsArray.length).toEqual(testUrlsSet.size);
+    expect(testUrls.length).toEqual(testUrlsSet.size);
   });
 
   test(
