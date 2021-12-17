@@ -17,6 +17,7 @@ describe("ExternalUrls", () => {
     for (const urlName in urlMap) {
       const testUrl = urlMap[urlName as LinkName];
       const requiredPrefix = "https://";
+
       expect(testUrl).toMatch(new RegExp(`^${requiredPrefix}?`));
     }
   });
