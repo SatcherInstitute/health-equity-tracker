@@ -11,6 +11,7 @@ import {
   MadLib,
   MADLIB_LIST,
   PhraseSegment,
+  PhraseSelections,
 } from "../../utils/MadLibs";
 import {
   getParameter,
@@ -148,7 +149,7 @@ function ExploreDataPage() {
   const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
 
   // madlib carousel position changes (disparity, comparevars, compare geos)
-  const handleCarouselChange = (index: number) => {
+  const handleCarouselChange = (carouselIndex: number) => {
     // Extract values from the CURRENT madlib
     const var1 = madLib.activeSelections[1];
     const geo1 =
@@ -157,26 +158,16 @@ function ExploreDataPage() {
         : madLib.activeSelections[3];
 
     // default settings
-    let updatedMadLib;
     const var2 = var1 === "covid" ? "vaccinations" : "covid";
     const geo2 = geo1 === "00" ? "13" : "00"; // default to US or Georgia
 
     // Construct UPDATED madlib based on the future carousel Madlib shape
-    switch (MADLIB_LIST[index].id) {
-      case "disparity":
-        updatedMadLib = { 1: var1, 3: geo1 };
-        break;
-
-      case "comparegeos":
-        updatedMadLib = { 1: var1, 3: geo1, 5: geo2 };
-        break;
-
-      case "comparevars":
-        updatedMadLib = { 1: var1, 3: var2, 5: geo1 };
-    }
+    let updatedMadLib: PhraseSelections = { 1: var1, 3: geo1 }; // disparity "Investigate Rates"
+    if (carouselIndex === 1) updatedMadLib = { 1: var1, 3: geo1, 5: geo2 }; // comparegeos "Compare Rates"
+    if (carouselIndex === 2) updatedMadLib = { 1: var1, 3: var2, 5: geo1 }; // comparevars "Explore Relationships"
 
     setMadLib({
-      ...MADLIB_LIST[index],
+      ...MADLIB_LIST[carouselIndex],
       activeSelections: updatedMadLib,
     });
     setParameters([
@@ -186,7 +177,7 @@ function ExploreDataPage() {
       },
       {
         name: MADLIB_PHRASE_PARAM,
-        value: MADLIB_LIST[index].id,
+        value: MADLIB_LIST[carouselIndex].id,
       },
     ]);
   };
