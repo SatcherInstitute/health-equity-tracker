@@ -14,12 +14,6 @@ export type LinkName =
   | "cdcBrfss"
   | "hetGitHub"
   | "uihiBestPractice"
-  | "kenMemoriam"
-  | "gilead"
-  | "cdc"
-  | "googleOrg"
-  | "aarp"
-  | "aecf"
   | "shliGitHubSuppressCovidCases"
   | "shliGitHubSuppressCovidDeaths"
   | "cdcVaxTrends"
@@ -49,12 +43,6 @@ export const urlMap: Record<LinkName, string> = {
   hetGitHub: "https://github.com/SatcherInstitute/health-equity-tracker",
   uihiBestPractice:
     "https://www.uihi.org/resources/best-practices-for-american-indian-and-alaska-native-data-collection/",
-  kenMemoriam: "https://kenstatus.com",
-  gilead: "https://www.gilead.com/",
-  cdc: "https://www.cdc.gov/",
-  googleOrg: "https://google.org",
-  aarp: "https://aarp.org",
-  aecf: "https://www.aecf.org/",
   shliGitHubSuppressCovidCases:
     "https://satcherinstitute.github.io/analysis/cdc_case_data",
   shliGitHubSuppressCovidDeaths:

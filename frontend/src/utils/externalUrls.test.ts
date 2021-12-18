@@ -15,6 +15,7 @@ export const UNTESTABLE_URLS = [urlMap.shliLinkedIn];
 // skip some URLs we know don't provide HTTPS
 export const KNOWN_INSECURE_URLS = ["http://www.rootsofhealthinequity.org/"];
 
+// accepts an array of urls found on the site, filters out known untestable or insecure sites
 export function getTestableUrls(allUrls: string[]): string[] {
   return allUrls.filter(
     (url) =>
@@ -22,44 +23,29 @@ export function getTestableUrls(allUrls: string[]): string[] {
   );
 }
 
-// collect Urls
+// accepts a url string and returns an awaited status code
+export async function getStatus(url: string): Promise<number> {
+  try {
+    const response = await axios.get(url);
+    return response.status;
+  } catch (error) {
+    console.error(error);
+    return 0;
+  }
+}
+
 const testUrls: string[] = getTestableUrls(Object.values(urlMap));
 
-describe("ExternalUrls", () => {
-  test("Links use HTTPS", () => {
-    for (const testUrl of testUrls) {
-      console.log(testUrl);
-      expect(testUrl.slice(0, 8)).toEqual("https://");
-    }
-  });
-
-  test("No Duplicate Links", () => {
-    // Remove duplicate by making into a set
-    const testUrlsSet = new Set(testUrls);
-    // Converting to set shouldn't change the total number of URLs
-    expect(testUrls.length).toEqual(testUrlsSet.size);
-  });
-
-  test(
-    "Links return SUCCESS status code",
+describe.each(testUrls)("External URL %s", (testUrl) => {
+  test.concurrent(
+    `should return 200 (SUCCESS)`,
     async () => {
-      async function getStatus(url: string) {
-        try {
-          const response = await axios.get(url);
-          return response.status;
-        } catch (error) {
-          console.error(error);
-        }
-      }
-
-      for (const testUrl of testUrls) {
-        const urlStatus = await getStatus(testUrl);
-        console.log(testUrl, urlStatus);
-        expect(urlStatus).toEqual(SUCCESS_CODE);
-      }
-
-      //! MAYBE use Promise.All to await multiple promises ?
+      const urlStatus = await getStatus(testUrl);
+      expect(urlStatus).toEqual(SUCCESS_CODE);
     },
     WAIT_FOR_URL_STATUSES
   );
+  test("should use HTTPS", () => {
+    expect(testUrl.slice(0, 8)).toEqual("https://");
+  });
 });

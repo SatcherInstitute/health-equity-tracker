@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
 import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
+import { urlMap } from "../../utils/externalUrls";
 
 const LEADERSHIP_TEAM = [
   {
@@ -227,7 +228,7 @@ export const PARTNERS = [
   {
     imageUrl: "/img/partners/PartnerSatcher.png",
     alt: "Morehouse School of Medicine Satcher Health Leadership Institute",
-    url: "https://satcherinstitute.org/",
+    url: urlMap.shli,
   },
   {
     imageUrl: "/img/partners/PartnerGilead.png",
