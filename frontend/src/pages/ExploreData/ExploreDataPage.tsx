@@ -228,11 +228,11 @@ function ExploreDataPage() {
             onChange={handleCarouselChange}
           >
             {/* carousel settings same length as MADLIB_LIST, but fill each with madlib constructed earlier */}
-            {MADLIB_LIST.map((_, i) => (
+            {MADLIB_LIST.map((madLibShape) => (
               <CarouselMadLib
                 madLib={madLib}
                 setMadLib={setMadLibWithParam}
-                key={`carousel_setting_${i}`}
+                key={madLibShape.id}
               />
             ))}
           </Carousel>
