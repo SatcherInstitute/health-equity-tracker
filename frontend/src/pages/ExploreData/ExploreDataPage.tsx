@@ -147,26 +147,14 @@ function ExploreDataPage() {
   const theme = useTheme();
   const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
 
-  // switch between madlib carousel modes (disparity, comparevars, compare geos)
+  // madlib carousel position changes (disparity, comparevars, compare geos)
   const handleCarouselChange = (index: number) => {
     // Extract values from the CURRENT madlib
     const var1 = madLib.activeSelections[1];
-    let geo1;
-
-    switch (madLib.id) {
-      case "disparity":
-        geo1 = madLib.activeSelections[3];
-        break;
-
-      case "comparegeos":
-        geo1 = madLib.activeSelections[3];
-        // currentGeo2 = madLib.activeSelections[5];
-        break;
-
-      case "comparevars":
-        // currentVar2 = madLib.activeSelections[3];
-        geo1 = madLib.activeSelections[5];
-    }
+    const geo1 =
+      madLib.id === "comparevars"
+        ? madLib.activeSelections[5]
+        : madLib.activeSelections[3];
 
     // default settings
     let updatedMadLib;
