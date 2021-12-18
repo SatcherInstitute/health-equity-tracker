@@ -174,11 +174,11 @@ function App() {
           <div className={styles.App}>
             <div className={styles.Content}>
               <Router>
-                <Suspense fallback={<i></i>}>
+                <header>
                   <a className={styles.SkipMainLink} href="#main">
                     Skip to main content
                   </a>
-                  <ScrollToTop />
+
                   <AppBar position="static" elevation={0}>
                     {width > MOBILE_BREAKPOINT ? (
                       <AppToolbar />
@@ -186,6 +186,9 @@ function App() {
                       <MobileAppToolbar />
                     )}
                   </AppBar>
+                </header>
+                <ScrollToTop />
+                <Suspense fallback={<></>}>
                   <main>
                     <Switch>
                       <Route
