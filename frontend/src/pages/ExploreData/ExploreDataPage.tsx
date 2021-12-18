@@ -147,6 +147,64 @@ function ExploreDataPage() {
   const theme = useTheme();
   const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
 
+  // switch between madlib carousel modes (disparity, comparevars, compare geos)
+  const handleCarouselChange = (index: number) => {
+    // Extract values from the CURRENT madlib
+    const var1 = madLib.activeSelections[1];
+    let currentVar2, currentGeo1, currentGeo2;
+
+    switch (madLib.id) {
+      case "disparity":
+        currentGeo1 = madLib.activeSelections[3];
+        break;
+
+      case "comparegeos":
+        currentGeo1 = madLib.activeSelections[3];
+        currentGeo2 = madLib.activeSelections[5];
+        break;
+
+      case "comparevars":
+        currentVar2 = madLib.activeSelections[3];
+        currentGeo1 = madLib.activeSelections[5];
+    }
+
+    // retain current  or use defaults / alternate defaults (to avoid duplicate selections)
+    let updatedMadLib;
+    const updatedGeo1 = currentGeo1;
+    const updatedVar2 =
+      currentVar2 || var1 === "covid" ? "vaccinations" : "covid";
+    const updatedGeo2 = currentGeo2 || currentGeo1 === "13" ? "00" : "13";
+
+    // Construct updated madlib based on the future carousel setting
+    switch (MADLIB_LIST[index].id) {
+      case "disparity":
+        updatedMadLib = { 1: var1, 3: updatedGeo1 };
+        break;
+
+      case "comparegeos":
+        updatedMadLib = { 1: var1, 3: updatedGeo1, 5: updatedGeo2 };
+        break;
+
+      case "comparevars":
+        updatedMadLib = { 1: var1, 3: updatedVar2, 5: updatedGeo1 };
+    }
+
+    setMadLib({
+      ...MADLIB_LIST[index],
+      activeSelections: updatedMadLib,
+    });
+    setParameters([
+      {
+        name: MADLIB_SELECTIONS_PARAM,
+        value: stringifyMls(updatedMadLib),
+      },
+      {
+        name: MADLIB_PHRASE_PARAM,
+        value: MADLIB_LIST[index].id,
+      },
+    ]);
+  };
+
   return (
     <>
       <Onboarding
@@ -169,24 +227,9 @@ function ExploreDataPage() {
             animation="slide"
             navButtonsAlwaysVisible={true}
             index={initialIndex}
-            onChange={(index: number) => {
-              let newState = {
-                ...MADLIB_LIST[index],
-                activeSelections: {
-                  ...MADLIB_LIST[index].defaultSelections,
-                },
-              };
-              setMadLib(newState);
-              setParameters([
-                {
-                  name: MADLIB_SELECTIONS_PARAM,
-                  value: stringifyMls(newState.activeSelections),
-                },
-                { name: MADLIB_PHRASE_PARAM, value: MADLIB_LIST[index].id },
-              ]);
-            }}
+            onChange={handleCarouselChange}
           >
-            {MADLIB_LIST.map((madlib: MadLib, i) => (
+            {MADLIB_LIST.map((_madlib: MadLib, i) => (
               <CarouselMadLib
                 madLib={madLib}
                 setMadLib={setMadLibWithParam}
