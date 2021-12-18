@@ -151,42 +151,40 @@ function ExploreDataPage() {
   const handleCarouselChange = (index: number) => {
     // Extract values from the CURRENT madlib
     const var1 = madLib.activeSelections[1];
-    let currentVar2, currentGeo1, currentGeo2;
+    let geo1;
 
     switch (madLib.id) {
       case "disparity":
-        currentGeo1 = madLib.activeSelections[3];
+        geo1 = madLib.activeSelections[3];
         break;
 
       case "comparegeos":
-        currentGeo1 = madLib.activeSelections[3];
-        currentGeo2 = madLib.activeSelections[5];
+        geo1 = madLib.activeSelections[3];
+        // currentGeo2 = madLib.activeSelections[5];
         break;
 
       case "comparevars":
-        currentVar2 = madLib.activeSelections[3];
-        currentGeo1 = madLib.activeSelections[5];
+        // currentVar2 = madLib.activeSelections[3];
+        geo1 = madLib.activeSelections[5];
     }
 
-    // retain current  or use defaults / alternate defaults (to avoid duplicate selections)
+    // default settings
     let updatedMadLib;
-    const updatedGeo1 = currentGeo1;
-    const updatedVar2 =
-      currentVar2 || var1 === "covid" ? "vaccinations" : "covid";
-    const updatedGeo2 = currentGeo2 || currentGeo1 === "13" ? "00" : "13";
+    const var2 = var1 === "covid" ? "vaccinations" : "covid";
+    const geo2 = geo1 === "00" ? "13" : "00"; // default to US or Georgia
 
-    // Construct updated madlib based on the future carousel setting
+    // Construct UPDATED madlib based on the future carousel Madlib shape
     switch (MADLIB_LIST[index].id) {
       case "disparity":
-        updatedMadLib = { 1: var1, 3: updatedGeo1 };
+        updatedMadLib = { 1: var1, 3: geo1 };
         break;
 
       case "comparegeos":
-        updatedMadLib = { 1: var1, 3: updatedGeo1, 5: updatedGeo2 };
+        updatedMadLib = { 1: var1, 3: geo1, 5: geo2 };
         break;
 
       case "comparevars":
-        updatedMadLib = { 1: var1, 3: updatedVar2, 5: updatedGeo1 };
+        updatedMadLib = { 1: var1, 3: var2, 5: geo1 };
     }
 
     setMadLib({
