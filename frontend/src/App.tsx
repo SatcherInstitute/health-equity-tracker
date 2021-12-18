@@ -12,6 +12,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import MenuIcon from "@material-ui/icons/Menu";
 import { ThemeProvider } from "@material-ui/styles";
 import React, { Suspense, useEffect, useState } from "react";
+
 import {
   BrowserRouter as Router,
   Redirect,
