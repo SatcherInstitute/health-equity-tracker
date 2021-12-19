@@ -173,12 +173,11 @@ function App() {
           <CssBaseline />
           <div className={styles.App}>
             <div className={styles.Content}>
+              <a className={styles.SkipMainLink} href="#main">
+                Skip to main content
+              </a>
               <Router>
                 <header>
-                  <a className={styles.SkipMainLink} href="#main">
-                    Skip to main content
-                  </a>
-
                   <AppBar position="static" elevation={0}>
                     {width > MOBILE_BREAKPOINT ? (
                       <AppToolbar />
