@@ -3,9 +3,6 @@ import BreakdownFilter from "./BreakdownFilter";
 
 export type GeographicBreakdown = "national" | "state" | "county";
 
-// TODO flesh this out - would be nice to enforce more type-checking of these
-// column names throughout the codebase, for example with a StandardizedRow type
-// or an enum/constants that can be referenced.
 export type BreakdownVar =
   | "race_and_ethnicity"
   | "age"
