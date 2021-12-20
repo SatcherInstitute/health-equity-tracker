@@ -11,8 +11,18 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { usePopover } from "../../utils/usePopover";
-import { CATEGORIES_LIST, DropdownVarId } from "../../utils/MadLibs";
+import {
+  CATEGORIES_LIST,
+  DropdownModeId,
+  DropdownVarId,
+} from "../../utils/MadLibs";
 import { Box, Grid } from "@material-ui/core";
+
+const DROPDOWN_MODE_HELPER_TEXT: Record<DropdownModeId, string> = {
+  disparity: "",
+  comparegeos: "(two locations)",
+  comparevars: "(two conditions)",
+};
 
 function OptionsSelector(props: {
   value: string;
@@ -25,12 +35,9 @@ function OptionsSelector(props: {
     props.options[0] && props.options[0] instanceof Fips ? true : false;
 
   const isDropdownMode =
-    props.options[0] &&
-    (props.options[0][0] === "comparegeos" ||
-      props.options[0][0] === "comparevars" ||
-      props.options[0][0] === "disparity");
-
-  console.log(isDropdownMode);
+    props.options?.[0][0] === "comparegeos" ||
+    props.options?.[0][0] === "comparevars" ||
+    props.options?.[0][0] === "disparity";
 
   let currentDisplayName;
   if (isFips) {
@@ -180,6 +187,10 @@ function OptionsSelector(props: {
                 <List dense={true}>
                   {(props.options as string[][]).map((item: string[]) => {
                     const [optionId, optionDisplayName] = item;
+                    const helperText = isDropdownMode
+                      ? DROPDOWN_MODE_HELPER_TEXT[optionId as DropdownModeId]
+                      : "";
+
                     return (
                       <ListItem
                         key={optionId}
@@ -190,7 +201,10 @@ function OptionsSelector(props: {
                           props.onOptionUpdate(optionId);
                         }}
                       >
-                        <ListItemText primary={optionDisplayName} />
+                        <ListItemText
+                          primary={optionDisplayName}
+                          secondary={helperText}
+                        />
                       </ListItem>
                     );
                   })}
