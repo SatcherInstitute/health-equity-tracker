@@ -19,16 +19,7 @@ import { urlMap } from "../../utils/externalUrls";
 
 export const CITATION_APA = `Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
-export const VACCINATED_DEF = `For the national level, and for the majority of states, this indicates people who have received at least one dose of a COVID-19 vaccine.`;
-export const UNREPRESENTED_RACE_DEF = (
-  <>
-    A single race not tabulated by the CDC, not Hispanic/Latino. The definition
-    of <b>Unrepresented Race</b> is dependent on what other race categories
-    exist in the dataset. Please note: The CDC and many other sources use the
-    term <b>Some other race</b>; we find this term to be non-inclusive have
-    avoided its usage.
-  </>
-);
+export const VACCINATED_DEF = `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`;
 
 function MethodologyTab() {
   const [textCopied, setTextCopied] = useState(false);
