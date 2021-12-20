@@ -15,6 +15,15 @@ import {
   addMetricDisplayColumn,
 } from "./utils";
 import sass from "../styles/variables.module.scss";
+import { useMediaQuery } from "@material-ui/core";
+
+// determine where (out of 100) to flip labels inside/outside the bar
+const LABEL_SWAP_CUTOFF_PERCENT = 66;
+
+// nested quotation mark format needed for Vega
+const SINGLE_LINE_100K = ",' per 100k'";
+const MULTI_LINE_100K = "+' per 100k'";
+const SINGLE_LINE_PERCENT = "+'%'";
 
 function getSpec(
   data: Record<string, any>[],
@@ -27,13 +36,23 @@ function getSpec(
   // contains preformatted data as strings.
   barMetricDisplayColumnName: string,
   tooltipMetricDisplayColumnName: string,
-  showLegend: boolean
+  showLegend: boolean,
+  barLabelBreakpoint: number,
+  pageIsTiny: boolean,
+  usePercentSuffix: boolean
 ): any {
   const MEASURE_COLOR = sass.altGreen;
   const BAR_HEIGHT = 60;
   const BAR_PADDING = 0.2;
   const DATASET = "DATASET";
   const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
+
+  // create proper datum suffix, either % or single/multi line 100k
+  const barLabelSuffix = usePercentSuffix
+    ? SINGLE_LINE_PERCENT
+    : pageIsTiny
+    ? SINGLE_LINE_100K
+    : MULTI_LINE_100K;
 
   const legends = showLegend
     ? [
@@ -94,14 +113,33 @@ function getSpec(
         style: ["text"],
         from: { data: DATASET },
         encode: {
+          enter: {
+            tooltip: {
+              signal: `${oneLineLabel(
+                breakdownVar
+              )} + ', ${measureDisplayName}: ' + datum.${tooltipMetricDisplayColumnName}`,
+            },
+          },
           update: {
-            align: { value: "left" },
+            align: {
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}, "right", "left")`,
+            },
             baseline: { value: "middle" },
-            dx: { value: 3 },
-            fill: { value: "black" },
+            dx: {
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5, 5)`,
+            },
+            dy: {
+              signal: pageIsTiny ? -20 : 0,
+            },
+            fill: {
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}, "white", "black")`,
+            },
             x: { scale: "x", field: measure },
             y: { scale: "y", field: breakdownVar, band: 0.8 },
-            text: { signal: `datum.${barMetricDisplayColumnName}` },
+            text: {
+              // on smallest screens send an array of strings to place on multiple lines
+              signal: `[datum.${tooltipMetricDisplayColumnName}${barLabelSuffix}]`,
+            },
           },
         },
       },
@@ -112,7 +150,7 @@ function getSpec(
         type: "linear",
         domain: { data: DATASET, field: measure },
         range: [0, { signal: "width" }],
-        nice: true,
+        nice: !pageIsTiny, //on desktop, extend x-axis to a "nice" value
         zero: true,
       },
       {
@@ -152,6 +190,7 @@ function getSpec(
         orient: "bottom",
         grid: false,
         title: measureDisplayName,
+        titleAnchor: pageIsTiny ? "end" : "null",
         labelFlush: true,
         labelOverlap: true,
         tickCount: { signal: "ceil(width/40)" },
@@ -187,12 +226,16 @@ export interface SimpleHorizontalBarChartProps {
   showLegend: boolean;
   hideActions?: boolean;
   filename?: string;
+  usePercentSuffix?: boolean;
 }
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   const [ref, width] = useResponsiveWidth(
     100 /* default width during initialization */
   );
+
+  // calculate page size to determine if tiny mobile or not
+  const pageIsTiny = useMediaQuery("(max-width:400px)");
 
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
     props.data,
@@ -209,6 +252,10 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     /* omitPctSymbol= */ true
   );
 
+  const barLabelBreakpoint =
+    Math.max(...props.data.map((row) => row[props.metric.metricId])) *
+    (LABEL_SWAP_CUTOFF_PERCENT / 100);
+
   return (
     <div ref={ref}>
       <Vega
@@ -222,7 +269,10 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           props.metric.shortVegaLabel,
           barMetricDisplayColumnName,
           tooltipMetricDisplayColumnName,
-          props.showLegend
+          props.showLegend,
+          barLabelBreakpoint,
+          pageIsTiny,
+          props.usePercentSuffix || false
         )}
         // custom 3-dot options for states, hidden on territories
         actions={

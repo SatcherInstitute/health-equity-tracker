@@ -232,6 +232,15 @@ def load_csv_as_dataframe_from_web(url, dtype=None, params=None):
     return pandas.read_csv(url, dtype=dtype)
 
 
+def load_json_as_df_from_web(url, dtype=None, params=None):
+    """Loads json data from the web underneath a given key into a dataframe
+
+    url: url to download the json from
+    key: key in the json in which all data underneath will be loaded into the dataframe"""
+    url = requests.Request('GET', url, params=params).prepare().url
+    return pandas.read_json(url, dtype=dtype)
+
+
 def load_json_as_df_from_web_based_on_key(url, key, dtype=None):
     """Loads json data from the web underneath a given key into a dataframe
 

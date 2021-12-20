@@ -5,8 +5,9 @@ import {
   LinkWithStickyParams,
   CONTACT_TAB_LINK,
   EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK,
+  HET_URL,
 } from "../../utils/urlutils";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import parse from "html-react-parser";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
 import { METRIC_CONFIG } from "../../data/config/MetricConfig";
@@ -16,19 +17,9 @@ import FileCopyIcon from "@material-ui/icons/FileCopy";
 import { useSnackbar } from "notistack";
 import { Link } from "react-router-dom";
 
-export const CITATION_APA =
-  "Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. https://healthequitytracker.org.";
+export const CITATION_APA = `Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
-export const VACCINATED_DEF = `For the national level, and for the majority of states, this indicates people who have received at least one dose of a COVID-19 vaccine.`;
-export const UNREPRESENTED_RACE_DEF = (
-  <>
-    A single race not tabulated by the CDC, not Hispanic/Latino. The definition
-    of <b>Unrepresented Race</b> is dependent on what other race categories
-    exist in the dataset. Please note: The CDC and many other sources use the
-    term <b>Some other race</b>; we find this term to be non-inclusive have
-    avoided its usage.
-  </>
-);
+export const VACCINATED_DEF = `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`;
 
 function MethodologyTab() {
   const { enqueueSnackbar } = useSnackbar();
@@ -124,7 +115,7 @@ function MethodologyTab() {
                     incomplete and potentially skewed.
                   </li>
                   <li>
-                    When calculating national-level per100K COVID-19 rates, we
+                    When calculating national-level per100k COVID-19 rates, we
                     do not include the population of states whose data are
                     suppressed as part of the total population. See the 'What
                     data are missing' section for further details.
@@ -364,9 +355,9 @@ function MethodologyTab() {
                 </p>
                 <ul>
                   <li>
-                    <b>Total COVID-19 cases per 100K people</b>: The total rate
+                    <b>Total COVID-19 cases per 100k people</b>: The total rate
                     of occurrence of COVID-19 cases expressed per 100,000 people
-                    (i.e. 10,000 per 100K implies a 10% occurrence rate). This
+                    (i.e. 10,000 per 100k implies a 10% occurrence rate). This
                     metric normalizes for population size, allowing for
                     comparisons across demographic groups. This metric is
                     rounded to the nearest integer in the tracker.

@@ -56,6 +56,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
         </IconButton>
       </div>
       <div
+        onClick={() => props.setListExpanded(!props.listExpanded)}
         aria-hidden={true}
         className={
           props.listExpanded ? styles.ListBoxTitleExpanded : styles.ListBoxTitle
@@ -75,11 +76,12 @@ export function HighestLowestList(props: HighestLowestListProps) {
               {props.highestRatesList.map((row) => {
                 return (
                   <li key={row["fips_name"]}>
-                    {row["fips_name"]} -{" "}
+                    {row["fips_name"]}:{" "}
                     {formatFieldValue(
                       props.metricConfig.type,
                       row[props.metricConfig.metricId]
-                    )}
+                    )}{" "}
+                    <span className={styles.Unit}>per 100k</span>
                   </li>
                 );
               })}
@@ -91,11 +93,12 @@ export function HighestLowestList(props: HighestLowestListProps) {
               {props.lowestRatesList.map((row) => {
                 return (
                   <li key={row["fips_name"]}>
-                    {row["fips_name"]} -{" "}
+                    {row["fips_name"]}:{" "}
                     {formatFieldValue(
                       props.metricConfig.type,
                       row[props.metricConfig.metricId]
-                    )}
+                    )}{" "}
+                    <span className={styles.Unit}>per 100k</span>
                   </li>
                 );
               })}
@@ -103,7 +106,9 @@ export function HighestLowestList(props: HighestLowestListProps) {
           </Grid>
         </Grid>
       </div>
-      <p>All rates are reported as: {props.metricConfig.fullCardTitleName}</p>
+      <p>
+        All rates are reported as: <b>{props.metricConfig.fullCardTitleName}</b>
+      </p>
       <p>
         Consider the possible impact of
         <Button

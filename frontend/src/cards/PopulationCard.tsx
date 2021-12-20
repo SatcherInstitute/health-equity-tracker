@@ -27,7 +27,6 @@ import {
 } from "../data/query/BreakdownFilter";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Hidden from "@material-ui/core/Hidden";
-import { FAQ_TAB_LINK } from "../utils/urlutils";
 import Alert from "@material-ui/lab/Alert";
 
 export const POPULATION_BY_RACE = "Population by race and ethnicity";
@@ -37,6 +36,7 @@ const PRELOAD_HEIGHT = 139;
 
 export interface PopulationCardProps {
   fips: Fips;
+  jumpToData: Function;
 }
 
 export function PopulationCard(props: PopulationCardProps) {
@@ -143,8 +143,8 @@ export function PopulationCard(props: PopulationCardProps) {
             )}
 
             {/* Because the Vega charts are using responsive width based on the window resizing,
-                we manually trigger a resize when the div size changes so vega chart will 
-                render with the right size. This means the vega chart won't appear until the 
+                we manually trigger a resize when the div size changes so vega chart will
+                render with the right size. This means the vega chart won't appear until the
                 AnimateHeight is finished expanding */}
             {!raceQueryResponse.dataIsMissing() && (
               <AnimateHeight
@@ -158,8 +158,13 @@ export function PopulationCard(props: PopulationCardProps) {
                       These racial categories are defined by the ACS and US
                       Census Bureau. While it is the standard for CDC reporting,
                       the definition of these categories often results in not
-                      counting or miscounting people in underrepresented groups.{" "}
-                      <a href={`${FAQ_TAB_LINK}`}>Learn more</a>
+                      counting or miscounting people in underrepresented groups.
+                      <Button
+                        onClick={() => props.jumpToData()}
+                        className={styles.InfoLinkButton}
+                      >
+                        Read about missing data.
+                      </Button>
                     </Alert>
                     <Grid container justify="flex-start">
                       {raceQueryResponse
@@ -202,6 +207,7 @@ export function PopulationCard(props: PopulationCardProps) {
                         metric={POP_CONFIG.metrics.pct_share}
                         breakdownVar="race_and_ethnicity"
                         showLegend={false}
+                        usePercentSuffix={true}
                         filename={`${POPULATION_BY_RACE} in ${props.fips.getFullDisplayName()}`}
                       />
                     </Box>
@@ -224,6 +230,7 @@ export function PopulationCard(props: PopulationCardProps) {
                           metric={POP_CONFIG.metrics.pct_share}
                           breakdownVar="age"
                           showLegend={false}
+                          usePercentSuffix={true}
                           filename={`${POPULATION_BY_AGE} in ${props.fips.getFullDisplayName()}`}
                         />
                       )}

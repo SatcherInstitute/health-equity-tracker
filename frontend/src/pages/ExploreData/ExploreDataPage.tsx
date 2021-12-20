@@ -9,6 +9,7 @@ import ReportProvider from "../../reports/ReportProvider";
 import {
   getMadLibWithUpdatedValue,
   MadLib,
+  MadLibId,
   MADLIB_LIST,
   PhraseSegment,
 } from "../../utils/MadLibs";
@@ -28,7 +29,6 @@ import {
 import styles from "./ExploreDataPage.module.scss";
 import { Onboarding } from "./Onboarding";
 import OptionsSelector from "./OptionsSelector";
-import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
 
 const EXPLORE_DATA_ID = "main";
@@ -147,6 +147,7 @@ function ExploreDataPage() {
   // calculate page size to determine if mobile or not
   const theme = useTheme();
   const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
+  const isSingleColumn = (madLib.id as MadLibId) === "disparity";
 
   return (
     <>
@@ -154,9 +155,7 @@ function ExploreDataPage() {
         callback={onboardingCallback}
         activelyOnboarding={activelyOnboarding}
       />
-      <Helmet>
-        <title>Explore the Data - Health Equity Tracker</title>
-      </Helmet>
+
       <h1 className={styles.ScreenreaderTitleHeader}>Explore the Data</h1>
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
         <div
@@ -200,6 +199,7 @@ function ExploreDataPage() {
         </div>
         <div className={styles.ReportContainer}>
           <ReportProvider
+            isSingleColumn={isSingleColumn}
             madLib={madLib}
             setMadLib={setMadLibWithParam}
             doScrollToData={doScrollToData}
@@ -232,12 +232,7 @@ function CarouselMadLib(props: {
   }
 
   return (
-    <Grid
-      container
-      spacing={1}
-      justify="center"
-      className={styles.CarouselItem}
-    >
+    <Grid container justify="center" className={styles.CarouselItem}>
       {props.madLib.phrase.map(
         (phraseSegment: PhraseSegment, index: number) => (
           <React.Fragment key={index}>

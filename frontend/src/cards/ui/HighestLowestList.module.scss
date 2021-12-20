@@ -22,6 +22,7 @@
   size: 14px;
   text-align: left;
   margin-right: 50px;
+  cursor: pointer;
 }
 
 .ListBoxTitle {
@@ -58,4 +59,12 @@
   color: $alt-green !important;
   padding: 0 5px !important;
   margin-top: -2px !important; // To align with the <p> text better
+}
+
+.Unit {
+  font-size: 0.7rem;
+  font-weight: 100;
+  font-stretch: ultra-condensed, extra-condensed, condensed;
+  margin-left: 0.075rem;
+  letter-spacing: -0.04rem;
 }
