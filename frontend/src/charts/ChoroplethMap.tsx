@@ -415,8 +415,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ],
     });
 
-    // Render the Vega map asynchronously, allowing the UI to respond to user
-    // interaction before Vega maps render.
+    // Render the Vega map asynchronously, allowing the UI to respond to user interaction before Vega maps render.
     // TODO! I'm not sure this is really working... the UI is definitely not responsive while state covid data is loading
     setTimeout(() => {
       setShouldRenderMap(true);
