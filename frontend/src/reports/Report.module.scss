@@ -1,5 +1,17 @@
 @import "../styles/variables.module";
 
+.OneColumnReportWrapper {
+  width: 100%;
+  max-width: $explore-data-max-width;
+  margin: 0 auto;
+}
+
+.TwoColumnReportWrapper {
+  width: 100%;
+  max-width: calc(2 * $explore-data-max-width);
+  margin: 0 auto;
+}
+
 .PaddedGrid {
   padding: 20px;
   text-align: left;
@@ -21,11 +33,19 @@
   }
 }
 
-.MissingDataInfo {
-  background-color: white;
-  text-align: left;
-  padding: 10%;
+.MissingDataContainer {
+  margin-top: 5rem;
+  width: 100%;
+  background-color: $white;
   min-height: 900px;
+  display: flex;
+  justify-content: center;
+}
+
+.MissingDataInfo {
+  margin: 5rem;
+  max-width: $explore-data-max-width;
+  text-align: left;
 }
 
 .MissingDataContactUs {
