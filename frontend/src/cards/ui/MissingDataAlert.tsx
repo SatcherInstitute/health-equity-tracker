@@ -11,7 +11,16 @@ function MissingDataAlert(props: {
   geoLevel: string;
   noDemographicInfo?: boolean;
 }) {
-  return (
+  return props.noDemographicInfo ? (
+    <Alert severity="warning">
+      We do not currently have demographic information for{" "}
+      <b>{props.dataName}</b> at the <b>{props.geoLevel}</b> level. Learn more
+      about how this lack of data impacts{" "}
+      <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
+        health equity.
+      </LinkWithStickyParams>
+    </Alert>
+  ) : (
     <Alert severity="warning">
       We do not currently have
       {props.noDemographicInfo ? " demographic information for " : " "}
