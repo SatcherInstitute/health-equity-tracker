@@ -35,7 +35,7 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     demos = ['race_and_ethnicity', 'age', 'sex']
     for i in range(len(demos)):
-        exptected_cols = [
+        expected_cols = [
             'state_name',
             'copd_pct',
             'diabetes_pct',
@@ -43,10 +43,10 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
         ]
 
         if demos[i] == 'race_and_ethnicity':
-            exptected_cols.append('race')
-            exptected_cols.append('race_includes_hispanic')
-            exptected_cols.append('race_category_id')
+            expected_cols.append('race')
+            expected_cols.append('race_includes_hispanic')
+            expected_cols.append('race_category_id')
 
         output = mock_bq.call_args_list[i].args[0]
-        assert set(output.columns) == set(exptected_cols)
-        assert output.shape == (expected_len[demos[i]], len(exptected_cols))
+        assert set(output.columns) == set(expected_cols)
+        assert output.shape == (expected_len[demos[i]], len(expected_cols))

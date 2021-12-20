@@ -2,7 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
 
 const LEADERSHIP_TEAM = [

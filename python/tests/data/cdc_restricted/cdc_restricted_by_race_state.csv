@@ -14,6 +14,10 @@ HI,AIAN_NH,1,,,,,,,American Indian and Alaska Native,False,American Indian and A
 HI,TOTAL,1,,,,,,,Total,,Total
 MD,ASIAN_NH,1,0,0,1,1,0,0,Asian,False,Asian (Non-Hispanic)
 MD,TOTAL,1,0,0,1,1,0,0,Total,,Total
+MO,AIAN_NH,1,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+MO,TOTAL,1,,,,,,,Total,,Total
+ND,AIAN_NH,1,0,0,1,1,0,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+ND,TOTAL,1,0,0,1,1,0,0,Total,,Total
 NE,BLACK_NH,1,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
 NE,TOTAL,1,,,,,,,Total,,Total
 NM,MULTI_OR_OTHER_STANDARD_NH,1,0,1,0,0,1,0,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
@@ -45,6 +49,18 @@ MD,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino
 MD,MULTI_OR_OTHER_STANDARD_NH,,,,,,,,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
 MD,NHPI_NH,,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
 MD,WHITE_NH,,,,,,,,White,False,White (Non-Hispanic)
+MO,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
+MO,BLACK_NH,,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
+MO,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino
+MO,MULTI_OR_OTHER_STANDARD_NH,,,,,,,,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+MO,NHPI_NH,,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+MO,WHITE_NH,,,,,,,,White,False,White (Non-Hispanic)
+ND,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
+ND,BLACK_NH,,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
+ND,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino
+ND,MULTI_OR_OTHER_STANDARD_NH,,,,,,,,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+ND,NHPI_NH,,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+ND,WHITE_NH,,,,,,,,White,False,White (Non-Hispanic)
 NE,AIAN_NH,,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
 NE,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
 NE,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino

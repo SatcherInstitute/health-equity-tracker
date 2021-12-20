@@ -17,8 +17,8 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "The numbers of confirmed COVID-19 deaths, cases, and hospitalizations at the state and county levels. " +
       "The data source is Centers for Disease Control and Prevention, COVID-19 Response. COVID-19 Case " +
-      "Surveillance Data Access, Summary, and Limitations (10/25/2021). The last case data included is 2 " +
-      "weeks before 10/25/2021. The CDC does not take responsibility for the scientific validity " +
+      "Surveillance Data Access, Summary, and Limitations (11/30/2021). The last case data included is 2 " +
+      "weeks before 11/30/2021. The CDC does not take responsibility for the scientific validity " +
       "or accuracy of methodology, results, statistical analyses, or conclusions presented. This " +
       "dataset is not available for download; please click the link below to apply for access.",
     dataset_ids: [
@@ -102,7 +102,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_name:
       "CDC COVID-19 Vaccination Demographics in the United States, National",
     data_source_link:
-      "https://covid.cdc.gov/covid-data-tracker/#vaccination-demographics-trends",
+      "https://data.cdc.gov/Vaccinations/COVID-19-Vaccination-Demographics-in-the-United-St/km4m-vcsb",
     geographic_level: "National",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Daily",
