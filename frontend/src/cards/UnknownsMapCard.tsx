@@ -128,7 +128,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   : unknownEthnicities[index];
               });
 
-        // remove the undefined values from suppressed states
+        // remove the undefined values from suppressed geos
         const unknowns = unknownsUnfiltered.filter(
           (unknown) => unknown[metricConfig.metricId] !== undefined
         );
