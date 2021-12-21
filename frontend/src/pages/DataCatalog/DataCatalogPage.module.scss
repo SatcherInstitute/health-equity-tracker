@@ -1,9 +1,5 @@
 @import "../../styles/variables.module";
 
-.test {
-  background-color: pink;
-}
-
 .DataCatalogPage {
   margin: auto;
   max-width: $max-width;
@@ -63,16 +59,17 @@
   color: $alt-black;
 }
 
-.MethodologySubheaderText {
-  font-weight: 700;
-  font-family: "Inter", sans-serif !important;
-  font-size: 1.17em;
-}
+// .MethodologySubheaderText {
+//   background-color: pink;
+//   font-weight: 700;
+//   font-family: "Inter", sans-serif !important;
+//   font-size: 1rem;
+// }
 
 .MethodologySubsubheaderText {
   font-weight: 550;
   font-family: "Inter", sans-serif !important;
-  font-size: 1.1em;
+  font-size: 1rem;
 }
 
 .MethodologyInfoBar {

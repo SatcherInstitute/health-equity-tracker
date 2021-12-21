@@ -311,7 +311,7 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
-                <h3 className={styles.MethodologySubheaderText}>
+                <h3 className={styles.MethodologySubsubheaderText}>
                   Visualizations
                 </h3>
                 <p>
@@ -473,7 +473,6 @@ function MethodologyTab() {
                     represented by the data source's categorization, and who are
                     not Hispanic/Latino.
                   </li>
-                  <div className={styles.test}>test this</div>
                 </ul>
               </div>
             </Grid>
