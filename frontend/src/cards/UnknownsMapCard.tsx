@@ -117,7 +117,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
         // If a state provides both unknown race and ethnicity numbers
         // use the higher one
-        const unknowns =
+        const unknownsUnfiltered =
           unknownEthnicities.length === 0
             ? unknownRaces
             : unknownRaces.map((unknownRaceRow, index) => {
@@ -127,6 +127,11 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   ? unknownRaceRow
                   : unknownEthnicities[index];
               });
+
+        // remove the undefined values from suppressed states
+        const unknowns = unknownsUnfiltered.filter(
+          (unknown) => unknown[metricConfig.metricId] !== undefined
+        );
 
         const noUnknownValuesReported =
           !mapQueryResponse.dataIsMissing() && unknowns.length === 0;
