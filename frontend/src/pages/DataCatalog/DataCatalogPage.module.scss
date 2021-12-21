@@ -1,5 +1,9 @@
 @import "../../styles/variables.module";
 
+.test {
+  background-color: pink;
+}
+
 .DataCatalogPage {
   margin: auto;
   max-width: $max-width;
@@ -30,7 +34,7 @@
 }
 
 .MethodologyHeaderText {
-  font-size: 32px !important;
+  font-size: 2rem !important;
   text-align: center;
   font-weight: 300;
   font-family: "Taviraj", serif !important;
@@ -40,7 +44,7 @@
 }
 
 .MethodologyQuestion {
-  font-size: 18px !important;
+  font-size: 1.125rem !important;
   text-align: left;
   font-weight: 500;
   font-family: "DM Sans", sans-serif;
@@ -51,7 +55,7 @@
 }
 
 .MethodologyAnswer {
-  font-size: 14px;
+  font-size: 0.875rem;
   text-align: left;
   font-weight: 400;
   font-family: "Inter", sans-serif;

@@ -39,13 +39,13 @@
 
   .TotalPopulationKey {
     font-weight: 400;
-    font-size: 24px;
+    font-size: 1.5rem;
     line-height: 57px;
     padding-right: 7px;
   }
 
   .TotalPopulationValue {
-    font-size: 32px;
+    font-size: 2rem;
     line-height: 57px;
     color: $alt-green;
   }
@@ -54,7 +54,7 @@
     line-height: 40px;
     padding-right: 20px;
     font-weight: 500;
-    font-size: 32px;
+    font-size: 2rem;
     line-height: 57px;
   }
   .VerticalDivider {
@@ -83,14 +83,14 @@
 
 .PopulationMetric {
   padding: 10px;
-  font-size: 12px;
+  font-size: 0.75rem;
   line-height: 16px;
   // Smallest width at which current standardized strings all fit on 3 lines
   width: 131px;
 }
 .PopulationMetricValue {
   color: $alt-green;
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 32px;
 }
 
@@ -98,7 +98,7 @@
   text-align: left;
   padding-bottom: 10px !important;
   padding-top: 10px !important;
-  font-size: 12px;
+  font-size: 0.75rem;
   line-height: 16px;
 }
 
@@ -119,14 +119,14 @@
   text-decoration: underline !important;
   text-decoration-style: dashed !important;
   text-underline-offset: 3px !important;
-  font-size: 16px !important;
+  font-size: 1rem !important;
   line-height: 20px !important;
 }
 
 .BarChartCardPopover {
   width: 300px;
   h1 {
-    font-size: 14px;
+    font-size: 0.875rem;
     line-height: 20px;
   }
 }

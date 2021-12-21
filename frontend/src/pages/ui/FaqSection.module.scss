@@ -1,7 +1,7 @@
 @import "../../styles/variables.module";
 
 .FaqHeader {
-  font-size: 54px !important;
+  font-size: 3.375rem !important;
   text-align: left;
   font-weight: 400;
   font-family: "Taviraj", serif !important;
@@ -15,7 +15,7 @@
 }
 
 .FaqQuestion {
-  font-size: 28px !important;
+  font-size: 1.75rem !important;
   text-align: left;
   font-weight: 300 !important;
   font-family: "Taviraj", sans-serif !important;
@@ -24,7 +24,7 @@
 }
 
 .FaqAnswer {
-  font-size: 14px;
+  font-size: 0.875rem;
   text-align: left;
   font-weight: 400;
   font-family: "Inter", sans-serif;
@@ -40,7 +40,7 @@
 .FaqLink {
   font-family: "Inter", sans-serif !important;
   font-weight: 500 !important;
-  font-size: 24px !important;
+  font-size: 1.5rem !important;
   line-height: 28px !important;
   margin-top: 20px !important;
   color: $alt-green !important;
