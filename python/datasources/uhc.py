@@ -34,7 +34,7 @@ UHC_RACE_GROUPS_TO_STANDARD = {
     'All': Race.ALL.value,
 }
 
-BASE_UHC_URL = "https://www.americashealthrankings.org/api/v1/downloads/210"
+BASE_UHC_URL = "https://www.americashealthrankings.org/api/v1/downloads/251"
 
 UHC_DETERMINANTS_OF_HEALTH = {
     "Chronic Obstructive Pulmonary Disease": std_col.COPD_PCT,
