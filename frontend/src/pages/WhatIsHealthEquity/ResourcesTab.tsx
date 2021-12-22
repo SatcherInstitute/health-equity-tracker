@@ -4,7 +4,12 @@ import styles from "./WhatIsHealthEquityPage.module.scss";
 import { Typography } from "@material-ui/core";
 import { Helmet } from "react-helmet-async";
 
-const RESOURCES = [
+export interface Resource {
+  name: string;
+  url: string;
+}
+
+export const RESOURCES: Resource[] = [
   {
     name: "Health Equity Guide",
     url: "https://healthequityguide.org/",
@@ -123,7 +128,7 @@ const RESOURCES = [
       "https://nimhd.blogs.govdelivery.com/2018/10/11/tackling-health-disparities-among-latinos-in-the-united-states/",
   },
   {
-    name: "Hispanic/Lainto- Minority Health",
+    name: "Hispanic/Latino- Minority Health",
     url: "https://minorityhealth.hhs.gov/omh/browse.aspx?lvl=3&lvlid=64",
   },
   {
@@ -156,7 +161,7 @@ const RESOURCES = [
   },
   {
     name:
-      "How to use data to inform community health assessment and planning: NACCHO's Mobiling for Action through Planning and Partnerships (MAPP) framework",
+      "How to use data to inform community health assessment and planning: NACCHO's Mobilizing for Action through Planning and Partnerships (MAPP) framework",
     url:
       "https://www.naccho.org/programs/public-health-infrastructure/performance-improvement/community-health-assessment/mapp",
   },

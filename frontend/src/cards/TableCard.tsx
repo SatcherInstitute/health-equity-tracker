@@ -36,6 +36,7 @@ import {
   UHC_BROAD_AGE_DETERMINANTS,
   UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
 } from "../data/variables/BrfssProvider";
+import { urlMap } from "../utils/externalUrls";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 698;
@@ -166,7 +167,7 @@ export function TableCard(props: TableCardProps) {
                       <a
                         target="_blank"
                         rel="noopener noreferrer"
-                        href="https://www.uihi.org/resources/best-practices-for-american-indian-and-alaska-native-data-collection/"
+                        href={urlMap.uihiBestPractice}
                       >
                         guidelines for American Indian and Alaska Native Data
                         Collection
