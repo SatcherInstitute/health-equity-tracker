@@ -54,7 +54,9 @@ RACE_GROUPS_TO_STANDARD = {
     'All': Race.ALL.value,
 }
 
-BASE_UHC_URL = "https://www.americashealthrankings.org/api/v1/downloads/210"
+# BASE_UHC_URL =
+# "https://www.americashealthrankings.org/api/v1/downloads/210" # 2020
+BASE_UHC_URL = "https://www.americashealthrankings.org/api/v1/downloads/251"
 
 BROAD_AGE_DETERMINANTS = {
     "Chronic Obstructive Pulmonary Disease": std_col.COPD_PCT,
@@ -68,8 +70,13 @@ BROAD_AGE_DETERMINANTS = {
 
 # When parsing Measure Names from rows with a demographic breakdown
 # these aliases will be used instead of the determinant string above
-ALIASES = {
-    "Illicit Opioid Use": "Use of Illicit Opioids"  # with breakdown
+ALIASES_ALL = {
+    "Non-medical Drug Use": "Non-medical Drug Use - Past Year"
+}
+
+ALIASES_WITH_DEMO = {
+    "Illicit Opioid Use": "Use of Illicit Opioids"
+
 }
 
 PLUS_5_AGE_DETERMINANTS = {
@@ -169,7 +176,12 @@ class UHCData(DataSource):
                         # find row that matches current nested iterations
                         matched_row = df.loc[
                             (df['State Name'] == state) &
-                            (df['Measure Name'] == determinant)]
+                            (df['Measure Name'] ==
+                             ALIASES_ALL.get(determinant, determinant))
+                        ]
+
+                        print(breakdown, breakdown_value,
+                              state, determinant)
 
                         # extract and output the value
                         output_row[determinants[determinant]
@@ -185,7 +197,7 @@ class UHCData(DataSource):
                         if breakdown == std_col.AGE_COL:
                             space_or_ages += "Ages "
                         measure_name = (
-                            f"{ALIASES.get(determinant, determinant)}"
+                            f"{ALIASES_WITH_DEMO.get(determinant, determinant)}"
                             f" -{space_or_ages}"
                             f"{breakdown_value}"
                         )
