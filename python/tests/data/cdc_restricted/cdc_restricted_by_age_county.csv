@@ -21,8 +21,8 @@ county_fips,county_name,state_postal,age,cases,hosp_y,hosp_n,hosp_unknown,death_
 10003,NEW CASTLE,DE,Total,1,1,0,0,,,
 15003,HONOLULU,HI,0-9,1,,,,,,
 15003,HONOLULU,HI,Total,1,,,,,,
-29077,GREENE,MO,0-9,1,,,,,,
-29077,GREENE,MO,Total,1,,,,,,
+29077,GREENE,MO,0-9,1,0,1,0,0,0,1
+29077,GREENE,MO,Total,1,0,1,0,0,0,1
 31001,ADAMS,NE,20-29,1,,,,,,
 31001,ADAMS,NE,Total,1,,,,,,
 35001,BERNALILLO,NM,30-39,1,0,1,0,0,1,0
@@ -35,8 +35,8 @@ county_fips,county_name,state_postal,age,cases,hosp_y,hosp_n,hosp_unknown,death_
 46005,BEADLE,SD,Total,1,,,,,,
 47037,DAVIDSON,MD,10-19,1,0,0,1,1,0,0
 47037,DAVIDSON,MD,Total,1,0,0,1,1,0,0
-56005,CAMPBELL,WY,0-9,1,,,,,,
-56005,CAMPBELL,WY,Total,1,,,,,,
+56005,CAMPBELL,WY,0-9,1,0,1,0,0,1,0
+56005,CAMPBELL,WY,Total,1,0,1,0,0,1,0
 ,Unknown,Unknown,0-9,,,,,,,
 ,Unknown,Unknown,10-19,,,,,,,
 ,Unknown,Unknown,20-29,,,,,,,

@@ -12,6 +12,7 @@ import {
   MadLibId,
   MADLIB_LIST,
   PhraseSegment,
+  PhraseSelections,
 } from "../../utils/MadLibs";
 import {
   getParameter,
@@ -149,6 +150,39 @@ function ExploreDataPage() {
   const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
   const isSingleColumn = (madLib.id as MadLibId) === "disparity";
 
+  const handleCarouselChange = (carouselMode: number) => {
+    // Extract values from the CURRENT madlib
+    const var1 = madLib.activeSelections[1];
+    const geo1 =
+      madLib.id === "comparevars"
+        ? madLib.activeSelections[5]
+        : madLib.activeSelections[3];
+
+    // default non-duplicate settings for compare modes
+    const var2 = var1 === "covid" ? "vaccinations" : "covid";
+    const geo2 = geo1 === "00" ? "13" : "00"; // default to US or Georgia
+
+    // Construct UPDATED madlib based on the future carousel Madlib shape
+    let updatedMadLib: PhraseSelections = { 1: var1, 3: geo1 }; // disparity "Investigate Rates"
+    if (carouselMode === 1) updatedMadLib = { 1: var1, 3: geo1, 5: geo2 }; // comparegeos "Compare Rates"
+    if (carouselMode === 2) updatedMadLib = { 1: var1, 3: var2, 5: geo1 }; // comparevars "Explore Relationships"
+
+    setMadLib({
+      ...MADLIB_LIST[carouselMode],
+      activeSelections: updatedMadLib,
+    });
+    setParameters([
+      {
+        name: MADLIB_SELECTIONS_PARAM,
+        value: stringifyMls(updatedMadLib),
+      },
+      {
+        name: MADLIB_PHRASE_PARAM,
+        value: MADLIB_LIST[carouselMode].id,
+      },
+    ]);
+  };
+
   return (
     <>
       <Onboarding
@@ -171,28 +205,14 @@ function ExploreDataPage() {
             animation="slide"
             navButtonsAlwaysVisible={true}
             index={initialIndex}
-            onChange={(index: number) => {
-              let newState = {
-                ...MADLIB_LIST[index],
-                activeSelections: {
-                  ...MADLIB_LIST[index].defaultSelections,
-                },
-              };
-              setMadLib(newState);
-              setParameters([
-                {
-                  name: MADLIB_SELECTIONS_PARAM,
-                  value: stringifyMls(newState.activeSelections),
-                },
-                { name: MADLIB_PHRASE_PARAM, value: MADLIB_LIST[index].id },
-              ]);
-            }}
+            onChange={handleCarouselChange}
           >
-            {MADLIB_LIST.map((madlib: MadLib, i) => (
+            {/* carousel settings same length as MADLIB_LIST, but fill each with madlib constructed earlier */}
+            {MADLIB_LIST.map((madLibShape) => (
               <CarouselMadLib
                 madLib={madLib}
                 setMadLib={setMadLibWithParam}
-                key={i}
+                key={madLibShape.id}
               />
             ))}
           </Carousel>
