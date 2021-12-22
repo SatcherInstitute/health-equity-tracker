@@ -77,7 +77,11 @@ ALIASES_WITH_DEMO = {
 
 }
 
+# note: suicide uses distinct age buckets
+# and is the only one that reports as "per 100k"
+# directly from the source
 PLUS_5_AGE_DETERMINANTS = {
+
     "Suicide": std_col.SUICIDE_PER_100K,
 }
 
