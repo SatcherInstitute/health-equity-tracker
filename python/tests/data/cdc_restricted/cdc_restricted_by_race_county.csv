@@ -19,8 +19,8 @@ county_fips,county_name,state_postal,race_category_id,cases,hosp_y,hosp_n,hosp_u
 10003,NEW CASTLE,DE,UNKNOWN,1,1,0,0,,,,Unknown race,True,Unknown race
 15003,HONOLULU,HI,AIAN_NH,1,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
 15003,HONOLULU,HI,TOTAL,1,,,,,,,Total,,Total
-29077,GREENE,MO,AIAN_NH,1,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-29077,GREENE,MO,TOTAL,1,,,,,,,Total,,Total
+29077,GREENE,MO,AIAN_NH,1,0,1,0,0,0,1,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+29077,GREENE,MO,TOTAL,1,0,1,0,0,0,1,Total,,Total
 31001,ADAMS,NE,BLACK_NH,1,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
 31001,ADAMS,NE,TOTAL,1,,,,,,,Total,,Total
 35001,BERNALILLO,NM,MULTI_OR_OTHER_STANDARD_NH,1,0,1,0,0,1,0,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
@@ -33,8 +33,8 @@ county_fips,county_name,state_postal,race_category_id,cases,hosp_y,hosp_n,hosp_u
 46005,BEADLE,SD,WHITE_NH,1,,,,,,,White,False,White (Non-Hispanic)
 47037,DAVIDSON,MD,ASIAN_NH,1,0,0,1,1,0,0,Asian,False,Asian (Non-Hispanic)
 47037,DAVIDSON,MD,TOTAL,1,0,0,1,1,0,0,Total,,Total
-56005,CAMPBELL,WY,AIAN_NH,1,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-56005,CAMPBELL,WY,TOTAL,1,,,,,,,Total,,Total
+56005,CAMPBELL,WY,AIAN_NH,1,0,1,0,0,1,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+56005,CAMPBELL,WY,TOTAL,1,0,1,0,0,1,0,Total,,Total
 ,Unknown,Unknown,AIAN_NH,,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
 ,Unknown,Unknown,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
 ,Unknown,Unknown,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino

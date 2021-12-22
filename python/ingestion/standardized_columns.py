@@ -26,7 +26,7 @@ AGE_COL = "age"
 SEX_COL = "sex"
 STATE_FIPS_COL = "state_fips"
 STATE_NAME_COL = "state_name"
-STATE_POSTAL_COL = "state_postal"  # State 2-letter postal abberviation.
+STATE_POSTAL_COL = "state_postal"  # State 2-letter postal abbreviation.
 COUNTY_FIPS_COL = "county_fips"
 COUNTY_NAME_COL = "county_name"
 POPULATION_COL = "population"
@@ -58,6 +58,8 @@ DIABETES_PCT = "diabetes_pct"
 
 VACCINATED_FIRST_DOSE = "vaccinated_first_dose"
 VACCINATED_PCT = "vaccinated_pct"
+VACCINATED_SHARE_OF_KNOWN = "vaccinated_share_of_known"
+VACCINATED_PER_100K = "vaccinated_per_100k"
 VACCINATED_PCT_SHARE = "vaccinated_pct_share"
 
 RaceTuple = namedtuple("RaceTuple", [
