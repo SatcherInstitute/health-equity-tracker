@@ -69,7 +69,7 @@
   margin: 10px;
 
   .InfoLinkButton {
-    font-size: 0.875rem !important;
+    font-size: $small !important;
     font-family: "Inter", serif !important;
     font-weight: 400 !important;
     line-height: 1.43 !important;
@@ -83,14 +83,14 @@
 
 .PopulationMetric {
   padding: 10px;
-  font-size: 0.75rem;
-  line-height: 16px;
+  font-size: $small;
+  line-height: 1rem;
   // Smallest width at which current standardized strings all fit on 3 lines
   width: 131px;
 }
 .PopulationMetricValue {
   color: $alt-green;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   line-height: 32px;
 }
 
@@ -98,7 +98,7 @@
   text-align: left;
   padding-bottom: 10px !important;
   padding-top: 10px !important;
-  font-size: 0.75rem;
+  font-size: $smallest;
   line-height: 16px;
 }
 
@@ -126,7 +126,7 @@
 .BarChartCardPopover {
   width: 300px;
   h1 {
-    font-size: 0.875rem;
+    font-size: $small;
     line-height: 20px;
   }
 }

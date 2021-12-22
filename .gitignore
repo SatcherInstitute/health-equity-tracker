@@ -13,6 +13,9 @@ venv
 airflow-logs
 *.iml
 .idea/
+/python/datasources/build/
+/python/data_server/build/
+/python/ingestion/build/
 
 node_modules/
 /frontend_server/build/

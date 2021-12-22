@@ -38,7 +38,7 @@
     border-radius: 15px;
     border: 4px solid $yellow;
     text-align: center;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     z-index: 999;
   }
 }
@@ -85,7 +85,7 @@
   padding: 6px 16px !important;
   font-family: "DM Sans", sans-serif !important;
   font-weight: 500 !important;
-  font-size: 0.875rem !important;
+  font-size: $small !important;
 
   a,
   &:link,
