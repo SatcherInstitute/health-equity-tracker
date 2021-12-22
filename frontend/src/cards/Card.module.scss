@@ -39,13 +39,13 @@
 
   .TotalPopulationKey {
     font-weight: 400;
-    font-size: 1.5rem;
+    font-size: $smallestHeader;
     line-height: 57px;
     padding-right: 7px;
   }
 
   .TotalPopulationValue {
-    font-size: 2rem;
+    font-size: $header;
     line-height: 57px;
     color: $alt-green;
   }
@@ -54,7 +54,7 @@
     line-height: 40px;
     padding-right: 20px;
     font-weight: 500;
-    font-size: 2rem;
+    font-size: $header;
     line-height: 57px;
   }
   .VerticalDivider {

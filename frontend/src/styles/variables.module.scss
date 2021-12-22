@@ -63,61 +63,20 @@ $unknown-map-even-more: #2384b9;
 $unknown-map-most: #0b61a2;
 
 // font settings
-$madlib-line-height: 50pt;
-$madlib: clamp(1.5rem, 2vw, 3.625rem);
+$madlib: clamp(1.5rem, 2vw, 3.125rem);
+
+$logo: 20px;
 
 $smallest: 0.75rem;
 $small: 0.875rem;
 $text: 1rem;
-
-/*
-1rem x15
-1.125rem x13
-1.25rem x14
-1.375 x4
-1.5rem x7
-1.625 x4
-1.75 x7
-2rem x11
-3 x9
-3.125 x7
-3.625 x3
-5 x3
-
-REPLACED WITH REM:
-16px
-20px
-24px
-32px
-12px
-14px
-18px
-7px->8px
-50px
-36px
-30px
-48px
-25px->24px
-28px
-80px
-58px
-130px
-54px
-62px
-22px
-44px
-35px->34px
-26px
-20pt
-12pt
-10pt
-
-small
-smaller
-
-1rem = 16px
-
-*/
+$title: 1.125rem;
+$smallestHeader: 1.5rem;
+$smallHeader: 1.75rem;
+$header: 2rem;
+$bigHeader: 3rem;
+$biggerHeader: 3.125rem;
+$biggestHeader: 5rem;
 
 // default settings
 $header-height: 600px;

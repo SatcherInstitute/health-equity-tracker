@@ -38,7 +38,7 @@
     border-radius: 15px;
     border: 4px solid $yellow;
     text-align: center;
-    font-size: 1.5rem;
+    font-size: $smallestHeader;
     z-index: 999;
   }
 }
@@ -65,7 +65,7 @@
 }
 
 .HomeLogo {
-  font-size: 1.25rem !important;
+  font-size: $logo !important;
   font-weight: 500 !important;
   flex-grow: 1;
   text-align: left;

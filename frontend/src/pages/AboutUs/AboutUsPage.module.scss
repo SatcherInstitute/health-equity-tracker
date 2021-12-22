@@ -97,7 +97,7 @@
   }
 
   .HeaderText {
-    font-size: 3.125rem;
+    font-size: $biggerHeader;
     text-align: left;
     font-weight: 300;
     font-family: "Taviraj", serif !important;
@@ -109,7 +109,7 @@
   .SubheaderL1Text {
     font-family: "Taviraj", sans-serif;
     font-weight: 300;
-    font-size: 2rem;
+    font-size: $header;
     line-height: 61.42px;
     padding: 10px 0 10px 0;
   }
@@ -117,7 +117,7 @@
   .SubheaderL2Text {
     font-family: "Taviraj", sans-serif;
     font-weight: 300;
-    font-size: 1.75rem;
+    font-size: $smallHeader;
     line-height: 30px;
     padding: 10px 0 10px 0;
   }
@@ -152,7 +152,7 @@
   justify-content: center;
 
   .HeaderText {
-    font-size: 3rem;
+    font-size: $bigHeader;
     text-align: center;
     font-weight: 300;
     font-family: "Taviraj", serif !important;
@@ -195,7 +195,7 @@
   }
 
   .HeaderText {
-    font-size: 3rem;
+    font-size: $bigHeader;
     text-align: center;
     font-weight: 300;
     font-family: "Taviraj", serif !important;
@@ -207,7 +207,7 @@
   .SubheaderL1Text {
     font-family: "Taviraj", sans-serif;
     font-weight: 300;
-    font-size: 2rem;
+    font-size: $header;
     line-height: 61.42px;
     padding: 0 0 10px 0;
   }
@@ -215,7 +215,7 @@
   .SubheaderL2Text {
     font-family: "Taviraj", sans-serif;
     font-weight: 300;
-    font-size: 1.5rem;
+    font-size: $smallestHeader;
     line-height: 25px;
     padding: 30px 0 0 0;
   }
@@ -249,7 +249,7 @@
 
 // Underlined Header H2
 .UnderlinedHeaderL2 {
-  font-size: 1.75rem !important;
+  font-size: $smallHeader !important;
   line-height: 26px;
   border-bottom: 1.5px solid $alt-green;
   margin: 25px 0 25px 0;
@@ -302,7 +302,7 @@
 
 // For the  header text at the very top of the "Our Team" page
 .OurTeamHeaderText {
-  font-size: 3.125rem !important;
+  font-size: $biggerHeader !important;
   font-weight: 300 !important;
   font-family: "Taviraj", serif !important;
   line-height: 50px !important;
@@ -312,7 +312,7 @@
 
 // For headers denoting each subgroup on the team
 .TeamHeader {
-  font-size: 1.75rem !important;
+  font-size: $smallHeader !important;
   line-height: 26px;
   border-bottom: 2px solid $team-border-color;
   margin: 25px 0 25px 0;
@@ -359,15 +359,10 @@
   padding: 70px;
 }
 
-.MajorLink {
-  color: $alt-green;
-  font-weight: 600;
-}
-
 /** ------------- CONTACT US ------------- **/
 
 .ContactUsHeaderText {
-  font-size: 3.125rem !important;
+  font-size: $biggerHeader !important;
   font-weight: 300 !important;
   font-family: "Taviraj", sans-serif !important;
   line-height: 50px !important;
