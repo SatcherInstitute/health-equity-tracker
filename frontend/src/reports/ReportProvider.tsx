@@ -214,8 +214,8 @@ function ReportProvider(props: ReportProviderProps) {
               <b>Mississippi</b>, <b>Texas</b>, <b>West Virginia</b>
             </li>
             <li>
-              Hospitalizations and deaths: <b>Hawaii</b>, <b>Missouri</b>,{" "}
-              <b>Nebraska</b>, <b>South Dakota</b>, <b>Wyoming</b>
+              Hospitalizations and deaths: <b>Hawaii</b>, <b>Nebraska</b>,{" "}
+              <b>South Dakota</b>
             </li>
             <li>
               Hospitalizations: <b>Rhode Island</b>
