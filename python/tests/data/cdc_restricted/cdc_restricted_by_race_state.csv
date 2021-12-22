@@ -14,8 +14,8 @@ HI,AIAN_NH,1,,,,,,,American Indian and Alaska Native,False,American Indian and A
 HI,TOTAL,1,,,,,,,Total,,Total
 MD,ASIAN_NH,1,0,0,1,1,0,0,Asian,False,Asian (Non-Hispanic)
 MD,TOTAL,1,0,0,1,1,0,0,Total,,Total
-MO,AIAN_NH,1,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-MO,TOTAL,1,,,,,,,Total,,Total
+MO,AIAN_NH,1,0,1,0,0,0,1,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+MO,TOTAL,1,0,1,0,0,0,1,Total,,Total
 ND,AIAN_NH,1,0,0,1,1,0,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
 ND,TOTAL,1,0,0,1,1,0,0,Total,,Total
 NE,BLACK_NH,1,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
@@ -28,8 +28,8 @@ SD,TOTAL,1,,,,,,,Total,,Total
 SD,WHITE_NH,1,,,,,,,White,False,White (Non-Hispanic)
 Unknown,BLACK_NH,2,1,0,1,1,0,1,Black or African American,False,Black or African American (Non-Hispanic)
 Unknown,TOTAL,2,1,0,1,1,0,1,Total,,Total
-WY,AIAN_NH,1,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
-WY,TOTAL,1,,,,,,,Total,,Total
+WY,AIAN_NH,1,0,1,0,0,1,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+WY,TOTAL,1,0,1,0,0,1,0,Total,,Total
 DE,AIAN_NH,,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
 DE,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
 DE,BLACK_NH,,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
