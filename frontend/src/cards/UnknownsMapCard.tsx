@@ -23,10 +23,6 @@ import styles from "./Card.module.scss";
 import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import UnknownsAlert from "./ui/UnknownsAlert";
-import {
-  LinkWithStickyParams,
-  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-} from "../utils/urlutils";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 748;
