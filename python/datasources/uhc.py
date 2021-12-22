@@ -54,8 +54,6 @@ RACE_GROUPS_TO_STANDARD = {
     'All': Race.ALL.value,
 }
 
-# BASE_UHC_URL =
-# "https://www.americashealthrankings.org/api/v1/downloads/210" # 2020
 BASE_UHC_URL = "https://www.americashealthrankings.org/api/v1/downloads/251"
 
 BROAD_AGE_DETERMINANTS = {
