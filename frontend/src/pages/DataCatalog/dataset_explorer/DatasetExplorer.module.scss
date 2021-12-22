@@ -11,23 +11,6 @@
   text-align: center;
 }
 
-.FilterContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.FilterTitle {
-  padding: 5px;
-  font-size: large;
-}
-
-.Filter {
-  text-align: left;
-  flex-grow: 1;
-  padding: 5px;
-}
-
 .DatasetListItem {
   padding: 5px;
   width: 100%;
@@ -65,7 +48,7 @@
 }
 
 .DataDownloadsHeaderSubtext {
-  font-size: 0.875rem;
+  font-size: $small;
   line-height: 20px;
   font-weight: 400;
   font-family: "Inter", sans-serif !important;
