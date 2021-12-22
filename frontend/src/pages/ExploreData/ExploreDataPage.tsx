@@ -252,14 +252,19 @@ function CarouselMadLib(props: {
   }
 
   return (
-    <Grid container justify="center" className={styles.CarouselItem}>
+    <Grid
+      container
+      justify="center"
+      alignItems="center"
+      className={styles.CarouselItem}
+    >
       {props.madLib.phrase.map(
         (phraseSegment: PhraseSegment, index: number) => (
           <React.Fragment key={index}>
             {typeof phraseSegment === "string" ? (
               <Grid item>{phraseSegment}</Grid>
             ) : (
-              <Grid item>
+              <Grid item className={styles.MadLibSelect}>
                 <OptionsSelector
                   key={index}
                   value={props.madLib.activeSelections[index]}

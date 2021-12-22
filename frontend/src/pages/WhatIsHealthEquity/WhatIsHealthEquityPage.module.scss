@@ -144,7 +144,7 @@
     padding: 20px 0 20px 0;
 
     .ResourcesHeaderText {
-      font-size: 3.25rem;
+      font-size: 3.125rem;
       text-align: center;
       font-weight: 300;
       font-family: "Taviraj", serif !important;
@@ -216,7 +216,7 @@
     padding: 20px 0 20px 0;
 
     .NewsAndStoriesHeaderText {
-      font-size: 3.25rem;
+      font-size: 3.125rem;
       text-align: center;
       font-weight: 300;
       font-family: "Taviraj", serif !important;
@@ -343,7 +343,7 @@
     padding: 60px 0;
 
     .JoinTheEffortHeaderText {
-      font-size: 3.25rem;
+      font-size: 3.125rem;
       text-align: center;
       font-weight: 300;
       font-family: "Taviraj", serif !important;
@@ -425,14 +425,14 @@
   }
 }
 
-/** ------------- RESOURCES ------------- **/
+/** ------------- RESOURCES TAB ------------- **/
 
-.ResourcesSection {
+.ResourcesTabSection {
   padding: 50px 20px 50px 20px;
   border-bottom: 1px solid $alt-grey;
 }
 
-.ResourcesHeaderText {
+.ResourcesTabHeaderText {
   font-size: 2rem !important;
   text-align: center;
   font-weight: 300;
@@ -442,10 +442,10 @@
   padding-bottom: 20px;
 }
 
-.ResourcesList {
+.ResourcesTabList {
   text-align: left;
 }
 
-.ResourcesListItem {
+.ResourcesTabListItem {
   padding: 7px 0;
 }

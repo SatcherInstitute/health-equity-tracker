@@ -64,11 +64,11 @@ $unknown-map-most: #0b61a2;
 
 // font settings
 $madlib-line-height: 50pt;
+$madlib: clamp(1.5rem, 2vw, 3.625rem);
 
 $smallest: 0.75rem;
 $small: 0.875rem;
 $text: 1rem;
-
 
 /*
 1rem x15
@@ -77,13 +77,10 @@ $text: 1rem;
 1.375 x4
 1.5rem x7
 1.625 x4
-1.75 x4
-1.875 x3
-2rem x7
-2.25 x4
+1.75 x7
+2rem x11
 3 x9
-3.125 x4
-3.25 x3
+3.125 x7
 3.625 x3
 5 x3
 
