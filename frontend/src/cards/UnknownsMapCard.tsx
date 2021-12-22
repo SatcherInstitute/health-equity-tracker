@@ -141,6 +141,12 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             .filter((row: Row) => row[props.currentBreakdown] === ALL).length >
             0;
 
+        const unknownsSuppressed =
+          !noUnknownValuesReported &&
+          unknowns.every(
+            (unknown: Row) => unknown[metricConfig.metricId] === undefined
+          );
+
         return (
           <>
             <CardContent className={styles.SmallMarginContent}>
@@ -170,7 +176,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               noDemographicInfoMap={noDemographicInfo}
             />
             <CardContent>
-              {mapQueryResponse.dataIsMissing() && (
+              {(mapQueryResponse.dataIsMissing() || unknownsSuppressed) && (
                 <MissingDataAlert
                   dataName={metricConfig.fullCardTitleName}
                   breakdownString={
@@ -179,25 +185,17 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   geoLevel={props.fips.getChildFipsTypeDisplayName()}
                 />
               )}
-              {noDemographicInfo && (
-                <Alert severity="warning">
-                  We do not currently have demographic information for{" "}
-                  <b>{metricConfig.fullCardTitleName}</b> at the <b>county</b>{" "}
-                  level. Learn more about how this lack of data impacts{" "}
-                  <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
-                    health equity.
-                  </LinkWithStickyParams>
-                </Alert>
-              )}
-              {noUnknownValuesReported && !noDemographicInfo && (
-                <Alert severity="info">
-                  No unknown values for{" "}
-                  {BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]} reported
-                  in this dataset.
-                </Alert>
-              )}
+              {noUnknownValuesReported &&
+                !noDemographicInfo &&
+                !unknownsSuppressed && (
+                  <Alert severity="info">
+                    No unknown values for{" "}
+                    {BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]}{" "}
+                    reported in this dataset.
+                  </Alert>
+                )}
             </CardContent>
-            {!noUnknownValuesReported && unknowns.length ? (
+            {!noUnknownValuesReported && !unknownsSuppressed ? (
               <CardContent>
                 <ChoroplethMap
                   useSmallSampleMessage={
