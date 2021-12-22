@@ -184,7 +184,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   geoLevel={props.fips.getChildFipsTypeDisplayName()}
                 />
               )}
-              {noDemographicInfo && (
+              {(noDemographicInfo || noUnknownValuesReported) && (
                 <Alert severity="warning">
                   We do not currently have demographic information for{" "}
                   <b>{metricConfig.fullCardTitleName}</b> at the <b>county</b>{" "}
@@ -194,7 +194,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   </LinkWithStickyParams>
                 </Alert>
               )}
-              {noUnknownValuesReported && !noDemographicInfo && (
+              {noUnknownValuesReported && unknowns.length !== 0 && (
                 <Alert severity="info">
                   No unknown values for{" "}
                   {BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]} reported
