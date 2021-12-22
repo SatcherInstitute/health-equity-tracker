@@ -68,11 +68,11 @@ BROAD_AGE_DETERMINANTS = {
 
 # When parsing Measure Names from rows with a demographic breakdown
 # these aliases will be used instead of the determinant string above
-ALT_ROWS_WITHOUT_DEMOGRAPHIC = {
+ALT_ROWS_ALL = {
     "Non-medical Drug Use": "Non-medical Drug Use - Past Year"
 }
 
-ALT_ROWS_WITH_DEMOGRAPHIC = {
+ALT_ROWS_WITH_DEMO = {
     "Illicit Opioid Use": "Use of Illicit Opioids"
 
 }
@@ -179,7 +179,7 @@ class UHCData(DataSource):
                         matched_row = df.loc[
                             (df['State Name'] == state) &
                             (df['Measure Name'] ==
-                             ALT_MEASURE_FOR_NO_DEMOGRAPHIC_ROWS.get(determinant, determinant))
+                             ALT_ROWS_ALL.get(determinant, determinant))
                         ]
 
                         print(breakdown, breakdown_value,
@@ -199,7 +199,7 @@ class UHCData(DataSource):
                         if breakdown == std_col.AGE_COL:
                             space_or_ages += "Ages "
                         measure_name = (
-                            f"{ALT_ROWS_WITHOUT_DEMOGRAPHIC.get(determinant, determinant)}"
+                            f"{ALT_ROWS_WITH_DEMO.get(determinant, determinant)}"
                             f" -{space_or_ages}"
                             f"{breakdown_value}"
                         )
