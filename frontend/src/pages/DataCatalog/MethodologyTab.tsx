@@ -10,7 +10,7 @@ import {
 import { Helmet } from "react-helmet-async";
 import parse from "html-react-parser";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
-import { METRIC_CONFIG } from "../../data/config/MetricConfig";
+import { METRIC_CONFIG, VariableConfig } from "../../data/config/MetricConfig";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { Box, Button, Card } from "@material-ui/core";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
@@ -19,7 +19,13 @@ import { urlMap } from "../../utils/externalUrls";
 
 export const CITATION_APA = `Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
-export const VACCINATED_DEF = `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`;
+let flatVariablesArray: VariableConfig[] = [];
+
+for (const variable in METRIC_CONFIG) {
+  METRIC_CONFIG[variable].forEach((varDataType) =>
+    flatVariablesArray.push(varDataType)
+  );
+}
 
 function MethodologyTab() {
   const [textCopied, setTextCopied] = useState(false);
@@ -396,13 +402,23 @@ function MethodologyTab() {
               </h2>
               <div className={styles.MethodologyAnswer}>
                 <ul>
-                  <li>
+                  {flatVariablesArray.map((variable) => {
+                    return (
+                      <li>
+                        <b>{variable.variableFullDisplayName}</b>
+                        {": "}
+                        {variable.variableDefinition}
+                      </li>
+                    );
+                  })}
+
+                  {/* <li>
                     <b>
                       {METRIC_CONFIG["vaccinations"][0].variableFullDisplayName}
                     </b>
                     {": "}
                     {VACCINATED_DEF}
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             </Grid>

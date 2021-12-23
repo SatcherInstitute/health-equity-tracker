@@ -19,7 +19,7 @@ import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import styles from "./Report.module.scss";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
-import { VACCINATED_DEF } from "../pages/DataCatalog/MethodologyTab";
+// import { VACCINATED_DEF } from "../pages/DataCatalog/MethodologyTab";
 import { METRIC_CONFIG } from "../data/config/MetricConfig";
 import { Link } from "react-router-dom";
 import FeedbackBox from "../pages/ui/FeedbackBox";
@@ -316,11 +316,11 @@ function ReportProvider(props: ReportProviderProps) {
           </h3>
 
           <ul>
-            <li>
+            {/* <li>
               <b>{METRIC_CONFIG["vaccinations"][0].variableFullDisplayName}</b>
               {": "}
               {VACCINATED_DEF}
-            </li>
+            </li> */}
           </ul>
         </aside>
       </div>

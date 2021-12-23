@@ -74,6 +74,7 @@ export type VariableConfig = {
   variableId: string; // TODO - strongly type key
   variableDisplayName: string;
   variableFullDisplayName: string;
+  variableDefinition: string;
   metrics: Record<string, MetricConfig>; // TODO - strongly type key
   surveyCollectedData?: boolean;
 };
@@ -85,6 +86,7 @@ export const POPULATION_VARIABLE_CONFIG: VariableConfig = {
   variableId: "population",
   variableDisplayName: "Population",
   variableFullDisplayName: "Population",
+  variableDefinition: ``,
   metrics: {
     count: {
       metricId: "population",
@@ -105,6 +107,7 @@ export const POPULATION_VARIABLE_CONFIG_2010: VariableConfig = {
   variableId: "population_2010",
   variableDisplayName: "Population",
   variableFullDisplayName: "Population",
+  variableDefinition: ``,
   metrics: {
     count: {
       metricId: "population_2010",
@@ -179,6 +182,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "COVID-19 Cases",
+      variableDefinition: ``,
       metrics: {
         count: {
           metricId: "covid_cases",
@@ -223,6 +227,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "deaths",
       variableDisplayName: "Deaths",
       variableFullDisplayName: "COVID-19 Deaths",
+      variableDefinition: ``,
       metrics: {
         count: {
           metricId: "covid_deaths",
@@ -267,6 +272,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "hospitalizations",
       variableDisplayName: "Hospitalizations",
       variableFullDisplayName: "COVID-19 Hospitalizations",
+      variableDefinition: ``,
       metrics: {
         count: {
           metricId: "covid_hosp",
@@ -313,6 +319,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "Diabetes Cases",
+      variableDefinition: ``,
       surveyCollectedData: true,
       metrics: {
         pct_share: {
@@ -341,6 +348,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "COPD Cases",
+      variableDefinition: ``,
       surveyCollectedData: true,
       metrics: {
         pct_share: {
@@ -369,6 +377,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "health_coverage",
       variableDisplayName: "Uninsured Individuals",
       variableFullDisplayName: "Uninsured Individuals",
+      variableDefinition: ``,
       metrics: {
         per100k: {
           metricId: "health_insurance_per_100k",
@@ -396,6 +405,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "poverty",
       variableDisplayName: "Poverty",
       variableFullDisplayName: "Individuals Below The Poverty Line",
+      variableDefinition: ``,
       metrics: {
         per100k: {
           metricId: "poverty_per_100k",
@@ -424,6 +434,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "vaccinations",
       variableDisplayName: "Vaccinations",
       variableFullDisplayName: "COVID-19 Vaccinations",
+      variableDefinition: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
       metrics: {
         per100k: {
           metricId: "vaccinated_per_100k",
