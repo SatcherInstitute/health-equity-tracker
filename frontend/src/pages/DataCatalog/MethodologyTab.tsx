@@ -10,23 +10,13 @@ import {
 import { Helmet } from "react-helmet-async";
 import parse from "html-react-parser";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
-import { METRIC_CONFIG, VariableConfig } from "../../data/config/MetricConfig";
+import { flatVariables } from "../../data/config/MetricConfig";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { Box, Button, Card } from "@material-ui/core";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import { Link } from "react-router-dom";
 import { urlMap } from "../../utils/externalUrls";
-
 export const CITATION_APA = `Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
-
-// some variables like COVID contain sub data types
-// easiest to flatten these out for displaying definitions
-let flatVariablesArray: VariableConfig[] = [];
-for (const variable in METRIC_CONFIG) {
-  METRIC_CONFIG[variable].forEach((varDataType) =>
-    flatVariablesArray.push(varDataType)
-  );
-}
 
 function MethodologyTab() {
   const [textCopied, setTextCopied] = useState(false);
@@ -403,23 +393,18 @@ function MethodologyTab() {
               </h2>
               <div className={styles.MethodologyAnswer}>
                 <ul>
-                  {flatVariablesArray.map((variable) => {
+                  {flatVariables.map((variable) => {
                     return (
-                      <li>
+                      <li key={`li-${variable.variableFullDisplayName}`}>
                         <b>{variable.variableFullDisplayName}</b>
                         {": "}
-                        {variable.variableDefinition}
+                        {variable.variableDefinition.text}{" "}
+                        <a href={variable.variableDefinition.url}>
+                          {variable.variableDefinition.sourceName}
+                        </a>
                       </li>
                     );
                   })}
-
-                  {/* <li>
-                    <b>
-                      {METRIC_CONFIG["vaccinations"][0].variableFullDisplayName}
-                    </b>
-                    {": "}
-                    {VACCINATED_DEF}
-                  </li> */}
                 </ul>
               </div>
             </Grid>
