@@ -314,9 +314,13 @@ function ReportProvider(props: ReportProviderProps) {
             Definitions
           </h3>
 
-          <div>
-            <VariableDefinition var1={getPhraseValue(props.madLib, 1)} />
-          </div>
+          {/* Selected Dropdown Variable */}
+          <VariableDefinition variable={getPhraseValue(props.madLib, 1)} />
+
+          {/* 2nd Selected Dropdown Variable (if applicable) */}
+          {props.madLib.id === "comparevars" && (
+            <VariableDefinition variable={getPhraseValue(props.madLib, 3)} />
+          )}
         </aside>
       </div>
 
@@ -327,13 +331,13 @@ function ReportProvider(props: ReportProviderProps) {
 
 export default ReportProvider;
 
-function VariableDefinition(props: { var1: string }) {
-  return METRIC_CONFIG[props.var1].length > 1 ? (
+function VariableDefinition(props: { variable: string }) {
+  return METRIC_CONFIG[props.variable].length > 1 ? (
     <div>
       <ul>
-        {METRIC_CONFIG[props.var1].map((subVar) => {
+        {METRIC_CONFIG[props.variable].map((subVar) => {
           return (
-            <li>
+            <li key={subVar.variableFullDisplayName}>
               <b>{subVar.variableFullDisplayName}</b>
               {": "}
               {subVar.variableDefinition.text}
@@ -346,9 +350,9 @@ function VariableDefinition(props: { var1: string }) {
     <div>
       <ul>
         <li>
-          <b>{METRIC_CONFIG[props.var1][0].variableFullDisplayName}</b>
+          <b>{METRIC_CONFIG[props.variable][0].variableFullDisplayName}</b>
           {": "}
-          {METRIC_CONFIG[props.var1][0].variableDefinition.text}
+          {METRIC_CONFIG[props.variable][0].variableDefinition.text}
         </li>
       </ul>
     </div>
