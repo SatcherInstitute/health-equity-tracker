@@ -19,7 +19,6 @@ import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import styles from "./Report.module.scss";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
-// import { VACCINATED_DEF } from "../pages/DataCatalog/MethodologyTab";
 import { METRIC_CONFIG } from "../data/config/MetricConfig";
 import { Link } from "react-router-dom";
 import FeedbackBox from "../pages/ui/FeedbackBox";
@@ -315,13 +314,9 @@ function ReportProvider(props: ReportProviderProps) {
             Definitions
           </h3>
 
-          <ul>
-            {/* <li>
-              <b>{METRIC_CONFIG["vaccinations"][0].variableFullDisplayName}</b>
-              {": "}
-              {VACCINATED_DEF}
-            </li> */}
-          </ul>
+          <div>
+            <VariableDefinition var1={getPhraseValue(props.madLib, 1)} />
+          </div>
         </aside>
       </div>
 
@@ -331,3 +326,31 @@ function ReportProvider(props: ReportProviderProps) {
 }
 
 export default ReportProvider;
+
+function VariableDefinition(props: { var1: string }) {
+  return METRIC_CONFIG[props.var1].length > 1 ? (
+    <div>
+      <ul>
+        {METRIC_CONFIG[props.var1].map((subVar) => {
+          return (
+            <li>
+              <b>{subVar.variableFullDisplayName}</b>
+              {": "}
+              {subVar.variableDefinition.text}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  ) : (
+    <div>
+      <ul>
+        <li>
+          <b>{METRIC_CONFIG[props.var1][0].variableFullDisplayName}</b>
+          {": "}
+          {METRIC_CONFIG[props.var1][0].variableDefinition.text}
+        </li>
+      </ul>
+    </div>
+  );
+}
