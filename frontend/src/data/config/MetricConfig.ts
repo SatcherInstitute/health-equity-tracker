@@ -75,6 +75,7 @@ export type VariableConfig = {
   variableDisplayName: string;
   variableFullDisplayName: string;
   variableDefinition: string;
+  variableDefinitionSource: string;
   metrics: Record<string, MetricConfig>; // TODO - strongly type key
   surveyCollectedData?: boolean;
 };
@@ -87,6 +88,7 @@ export const POPULATION_VARIABLE_CONFIG: VariableConfig = {
   variableDisplayName: "Population",
   variableFullDisplayName: "Population",
   variableDefinition: ``,
+  variableDefinitionSource: ``,
   metrics: {
     count: {
       metricId: "population",
@@ -108,6 +110,7 @@ export const POPULATION_VARIABLE_CONFIG_2010: VariableConfig = {
   variableDisplayName: "Population",
   variableFullDisplayName: "Population",
   variableDefinition: ``,
+  variableDefinitionSource: ``,
   metrics: {
     count: {
       metricId: "population_2010",
@@ -183,6 +186,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableDisplayName: "Cases",
       variableFullDisplayName: "COVID-19 Cases",
       variableDefinition: ``,
+      variableDefinitionSource: ``,
       metrics: {
         count: {
           metricId: "covid_cases",
@@ -228,6 +232,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableDisplayName: "Deaths",
       variableFullDisplayName: "COVID-19 Deaths",
       variableDefinition: ``,
+      variableDefinitionSource: ``,
       metrics: {
         count: {
           metricId: "covid_deaths",
@@ -273,6 +278,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableDisplayName: "Hospitalizations",
       variableFullDisplayName: "COVID-19 Hospitalizations",
       variableDefinition: ``,
+      variableDefinitionSource: ``,
       metrics: {
         count: {
           metricId: "covid_hosp",
@@ -319,7 +325,9 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "Diabetes Cases",
-      variableDefinition: ``,
+      variableDefinition: `Percentage of adults who reported being told by a health professional that they have diabetes (excluding prediabetes and gestational diabetes)`,
+      variableDefinitionSource:
+        "https://www.americashealthrankings.org/explore/annual/measure/Diabetes/state/ALL?edition-year=2021",
       surveyCollectedData: true,
       metrics: {
         pct_share: {
@@ -348,7 +356,9 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "COPD Cases",
-      variableDefinition: ``,
+      variableDefinition: `Percentage of adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis`,
+      variableDefinitionSource:
+        "https://www.americashealthrankings.org/explore/annual/measure/COPD/state/ALL?edition-year=2021",
       surveyCollectedData: true,
       metrics: {
         pct_share: {
@@ -378,6 +388,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableDisplayName: "Uninsured Individuals",
       variableFullDisplayName: "Uninsured Individuals",
       variableDefinition: ``,
+      variableDefinitionSource: ``,
       metrics: {
         per100k: {
           metricId: "health_insurance_per_100k",
@@ -406,6 +417,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableDisplayName: "Poverty",
       variableFullDisplayName: "Individuals Below The Poverty Line",
       variableDefinition: ``,
+      variableDefinitionSource: ``,
       metrics: {
         per100k: {
           metricId: "poverty_per_100k",
@@ -435,6 +447,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableDisplayName: "Vaccinations",
       variableFullDisplayName: "COVID-19 Vaccinations",
       variableDefinition: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
+      variableDefinitionSource: ``,
       metrics: {
         per100k: {
           metricId: "vaccinated_per_100k",

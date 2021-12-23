@@ -19,8 +19,9 @@ import { urlMap } from "../../utils/externalUrls";
 
 export const CITATION_APA = `Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
+// some variables like COVID contain sub data types
+// easiest to flatten these out for displaying definitions
 let flatVariablesArray: VariableConfig[] = [];
-
 for (const variable in METRIC_CONFIG) {
   METRIC_CONFIG[variable].forEach((varDataType) =>
     flatVariablesArray.push(varDataType)
