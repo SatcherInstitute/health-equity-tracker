@@ -14,7 +14,7 @@
   border-radius: 40px;
   height: 52px;
   width: 220px;
-  font-size: 1.125rem;
+  font-size: $title;
   font-weight: 500;
   font-family: "DM Sans", sans-serif !important;
   text-decoration: none;
@@ -25,7 +25,7 @@
 .MajorLink {
   color: $alt-green;
   font-weight: 600;
-  font-size: 1.625rem;
+  font-size: $smallestHeader;
   line-height: 31.47px;
 }
 
@@ -77,7 +77,7 @@
     }
 
     .HeaderSubtext {
-      font-size: 1.125rem;
+      font-size: $title;
       text-align: left;
       font-weight: 400;
       line-height: 30px;
@@ -99,7 +99,7 @@
     }
 
     .DefinitionHeader {
-      font-size: 1.125rem;
+      font-size: $title;
       font-weight: 400;
       line-height: 150%;
       color: $alt-green;
@@ -118,7 +118,7 @@
     .DefinitionSourceSpan {
       color: $alt-dark;
       font-weight: 400;
-      font-size: 0.875rem;
+      font-size: $small;
     }
   }
 }
@@ -181,21 +181,21 @@
     }
 
     .MainResourceSubtitleText {
-      font-size: 1.125rem;
+      font-size: $title;
       font-weight: 400;
       line-height: 26px;
       margin: 0px;
     }
 
     .ResourceTitleText {
-      font-size: 1.125rem;
+      font-size: $title;
       font-weight: 600;
       line-height: 26.63px;
       margin: 15px 0 15px 0;
     }
 
     .ResourceSubtitleText {
-      font-size: 1rem;
+      font-size: $text;
       font-weight: 400;
       line-height: 22px;
       margin: 0px;
@@ -217,7 +217,7 @@
     }
 
     .NewsAndStoriesSubheaderText {
-      font-size: 1.125rem;
+      font-size: $title;
       text-align: left;
       font-weight: 300;
       line-height: 24px;
@@ -245,14 +245,14 @@
     }
 
     .NewsAndStoriesTitleText {
-      font-size: 1.125rem;
+      font-size: $title;
       font-weight: 600;
       line-height: 26.63px;
       margin: 15px 0 15px 0;
     }
 
     .NewsAndStoriesSubtitleText {
-      font-size: 1rem;
+      font-size: $text;
       font-weight: 400;
       line-height: 22px;
       margin: 0px;
@@ -297,7 +297,7 @@
 }
 
 .FaqQuestion {
-  font-size: 1.125rem !important;
+  font-size: $title !important;
   text-align: left;
   font-weight: 500;
   font-family: "DM Sans", sans-serif;
@@ -346,7 +346,7 @@
     .JoinTheEffortSubheaderText {
       font-family: "Inter", sans-serif;
       font-weight: 400;
-      font-size: 1.125rem;
+      font-size: $title;
       line-height: 30px;
       margin: 0px;
     }
@@ -392,7 +392,7 @@
   }
 
   .JoinTheEffortStepText {
-    font-size: 1.125rem !important;
+    font-size: $title !important;
     font-weight: 400 !important;
     line-height: 30px !important;
     font-family: "DM Sans", sans-serif !important;
@@ -411,7 +411,7 @@
   .ContactUsLink {
     color: $alt-green !important;
     font-weight: 500 !important;
-    font-size: 1.625rem !important;
+    font-size: $smallestHeader !important;
     line-height: 31.47px !important;
     text-decoration: underline !important;
   }

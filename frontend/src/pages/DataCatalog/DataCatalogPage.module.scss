@@ -40,7 +40,7 @@
 }
 
 .MethodologyQuestion {
-  font-size: 1.125rem !important;
+  font-size: $title !important;
   text-align: left;
   font-weight: 500;
   font-family: "DM Sans", sans-serif;
@@ -62,7 +62,7 @@
 .MethodologySubsubheaderText {
   font-weight: 550;
   font-family: "Inter", sans-serif !important;
-  font-size: 1rem;
+  font-size: $text;
 }
 
 .MethodologyInfoBar {

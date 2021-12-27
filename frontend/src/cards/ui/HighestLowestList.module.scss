@@ -33,7 +33,7 @@
     white-space: nowrap;
   }
   @media (max-width: $sm) {
-    font-size: 0.7rem;
+    font-size: $smallest;
 
     .HideOnMobile {
       display: none;

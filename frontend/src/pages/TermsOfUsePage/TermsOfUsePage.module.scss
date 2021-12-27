@@ -14,7 +14,7 @@
   border-radius: 40px;
   height: 52px;
   width: 220px;
-  font-size: 1.125rem;
+  font-size: $title;
   font-weight: 500;
   font-family: "DM Sans", sans-serif !important;
   text-decoration: none;
@@ -124,7 +124,7 @@
   }
 
   .HeaderSubtext {
-    font-size: 1.125rem;
+    font-size: $title;
     text-align: left;
     font-weight: 300;
     line-height: 24px;
@@ -132,7 +132,7 @@
   }
 
   .HeaderSubtextL2 {
-    font-size: 1rem;
+    font-size: $text;
     text-align: left;
     font-weight: 300;
     line-height: 22px;
@@ -164,7 +164,7 @@
   }
 
   .HeaderSubtext {
-    font-size: 1.125rem;
+    font-size: $title;
     text-align: left;
     font-weight: 300;
     line-height: 24px;
@@ -209,7 +209,7 @@
   }
 
   .HeaderSubtext {
-    font-size: 1.125rem;
+    font-size: $title;
     text-align: left;
     font-weight: 300;
     line-height: 24px;
@@ -217,7 +217,7 @@
   }
 
   .HeaderSubtextL2 {
-    font-size: 1rem;
+    font-size: $text;
     text-align: left;
     font-weight: 300;
     line-height: 22px;
@@ -268,7 +268,7 @@
 }
 
 .TosQuestion {
-  font-size: 1.125rem !important;
+  font-size: $title !important;
   font-weight: 500;
   font-family: "DM Sans", sans-serif;
   line-height: 23.44px;
