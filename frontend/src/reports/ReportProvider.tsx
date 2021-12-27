@@ -29,16 +29,20 @@ import { urlMap } from "../utils/externalUrls";
 export const SINGLE_COLUMN_WIDTH = 12;
 
 function VariableDefinition(props: { variable: string }) {
-  return METRIC_CONFIG[props.variable].length > 1 ? (
+  const condition = METRIC_CONFIG[props.variable];
+  return condition.length > 1 ? (
     <div>
       <ul>
-        {METRIC_CONFIG[props.variable].map((subVar) => {
+        {condition.map((subVar) => {
           return (
             subVar.variableDefinition.text && (
               <li key={subVar.variableFullDisplayName}>
                 <b>{subVar.variableFullDisplayName}</b>
                 {": "}
                 {subVar.variableDefinition.text}
+                <a href={subVar.variableDefinition.url}>
+                  {subVar.variableDefinition.sourceName}
+                </a>
               </li>
             )
           );
@@ -48,11 +52,14 @@ function VariableDefinition(props: { variable: string }) {
   ) : (
     <div>
       <ul>
-        {METRIC_CONFIG[props.variable][0].variableDefinition.text && (
+        {condition[0].variableDefinition.text && (
           <li>
-            <b>{METRIC_CONFIG[props.variable][0].variableFullDisplayName}</b>
+            <b>{condition[0].variableFullDisplayName}</b>
             {": "}
-            {METRIC_CONFIG[props.variable][0].variableDefinition.text}
+            {condition[0].variableDefinition.text}{" "}
+            <a href={condition[0].variableDefinition.url}>
+              {condition[0].variableDefinition.sourceName}
+            </a>
           </li>
         )}
       </ul>

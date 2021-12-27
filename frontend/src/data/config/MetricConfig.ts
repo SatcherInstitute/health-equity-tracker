@@ -360,6 +360,11 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "Suicides",
+      variableDefinition: {
+        text: `Deaths due to intentional self-harm per 100,000 population.`,
+        sourceName: `America's Health Rankings`,
+        url: `https://www.americashealthrankings.org/explore/annual/measure/Suicide/state/ALL?edition-year=2021`,
+      },
       surveyCollectedData: true,
       metrics: {
         pct_share: {
@@ -388,6 +393,11 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "Depression Cases",
+      variableDefinition: {
+        text: `Percentage of adults who reported being told by a health professional that they have a depressive disorder including depression, major depression, minor depression or dysthymia.`,
+        sourceName: `America's Health Rankings`,
+        url: `https://www.americashealthrankings.org/explore/annual/measure/Depression_a/state/ALL?edition-year=2021`,
+      },
       surveyCollectedData: true,
       metrics: {
         pct_share: {
@@ -416,6 +426,11 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "Excessive Drinking Cases",
+      variableDefinition: {
+        text: `Percentage of adults who reported binge drinking (four or more [females] or five or more [males] drinks on one occasion in the past 30 days) or heavy drinking (eight or more [females] or 15 or more [males] drinks per week).`,
+        sourceName: `America's Health Rankings`,
+        url: `https://www.americashealthrankings.org/explore/annual/measure/ExcessDrink/state/ALL?edition-year=2021`,
+      },
       surveyCollectedData: true,
       metrics: {
         pct_share: {
@@ -444,6 +459,11 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "Non-medical Drug Use Cases",
+      variableDefinition: {
+        text: `Percentage of adults who reported using prescription drugs non-medically (including pain relievers, stimulants, sedatives) or illicit drugs (excluding cannabis) in the last 12 months.`,
+        sourceName: `America's Health Rankings`,
+        url: `https://www.americashealthrankings.org/explore/annual/measure/drug_use/state/ALL?edition-year=2021`,
+      },
       surveyCollectedData: true,
       metrics: {
         pct_share: {
@@ -472,6 +492,11 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "Illicit Opioid Use Cases",
+      variableDefinition: {
+        text: ``,
+        sourceName: `America's Health Rankings`,
+        url: ``,
+      },
       surveyCollectedData: true,
       metrics: {
         pct_share: {
@@ -500,6 +525,11 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "Frequent Mental Distress Cases",
+      variableDefinition: {
+        text: `Percentage of adults who reported their mental health was not good 14 or more days in the past 30 days.`,
+        sourceName: `America's Health Rankings`,
+        url: `https://www.americashealthrankings.org/explore/annual/measure/mental_distress/state/ALL?edition-year=2021`,
+      },
       surveyCollectedData: true,
       metrics: {
         pct_share: {
