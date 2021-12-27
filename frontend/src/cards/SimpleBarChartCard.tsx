@@ -67,7 +67,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
             {queryResponse.shouldShowMissingDataMessage([
               metricConfig.metricId,
             ]) && (
-              <CardContent className={styles.Breadcrumbs}>
+              <CardContent>
                 <MissingDataAlert
                   dataName={metricConfig.fullCardTitleName}
                   breakdownString={
@@ -80,7 +80,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
             {!queryResponse.shouldShowMissingDataMessage([
               metricConfig.metricId,
             ]) && (
-              <CardContent className={styles.Breadcrumbs}>
+              <CardContent>
                 <SimpleHorizontalBarChart
                   data={queryResponse.getValidRowsForField(
                     metricConfig.metricId

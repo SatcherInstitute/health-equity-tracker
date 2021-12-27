@@ -5,11 +5,6 @@
   font-weight: bold !important;
 }
 
-.TableContainer {
-  max-height: 500px;
-  overflow-y: scroll;
-}
-
 .ChartCard {
   margin: 10px;
 }
@@ -21,12 +16,6 @@
 }
 .PopulationCardContent {
   padding: 16px 16px 0 16px !important;
-}
-
-.SmallMarginButton {
-  padding: 0 5px !important;
-  margin-top: -2px !important; // To align with surrounding text
-  text-decoration: underline !important;
 }
 
 .PopulationCard {
@@ -67,7 +56,7 @@
 .PopulationChartTitle {
   text-align: left;
   font-weight: bold !important;
-  font-size: 1rem;
+  font-size: $small;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 400;
   line-height: 1.5;
@@ -119,39 +108,6 @@
   padding: 3px !important;
   margin: 0px !important;
   min-width: unset !important;
-}
-
-.TermInfoButton {
-  padding: 3px !important;
-  margin: 0px !important;
-  min-width: unset !important;
-  text-decoration: underline !important;
-  text-decoration-style: dashed !important;
-  text-underline-offset: 3px !important;
-  font-size: $text !important;
-  line-height: 20px !important;
-}
-
-.BarChartCardPopover {
-  width: 300px;
-  h1 {
-    font-size: $small;
-    line-height: 20px;
-  }
-}
-
-.CardTitlePopover {
-  width: 300px;
-  background-color: black;
-  color: white;
-  padding: 10px;
-
-  a:link,
-  a:active,
-  a:hover,
-  a:visited {
-    color: white;
-  }
 }
 
 .CompareAcrossLink,
