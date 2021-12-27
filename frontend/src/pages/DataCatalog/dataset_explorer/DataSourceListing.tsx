@@ -162,7 +162,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
           )}
         </div>
         <Dialog onClose={() => setDialogIsOpen(false)} open={dialogIsOpen}>
-          <DialogTitle className={styles.DialogTitle}>
+          <DialogTitle>
             <Grid container justify="space-between" alignItems="center">
               <Grid item xs={10} sm={11}>
                 <Typography
@@ -178,7 +178,6 @@ export function DataSourceListing(props: DataSourceListingProps) {
               <Grid item xs={2} sm={1}>
                 <IconButton
                   aria-label="close dialogue"
-                  className={styles.CloseDialogButton}
                   onClick={() => setDialogIsOpen(false)}
                 >
                   <CloseIcon />
