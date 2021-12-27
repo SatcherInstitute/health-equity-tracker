@@ -28,6 +28,38 @@ import { urlMap } from "../utils/externalUrls";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
+function VariableDefinition(props: { variable: string }) {
+  return METRIC_CONFIG[props.variable].length > 1 ? (
+    <div>
+      <ul>
+        {METRIC_CONFIG[props.variable].map((subVar) => {
+          return (
+            subVar.variableDefinition.text && (
+              <li key={subVar.variableFullDisplayName}>
+                <b>{subVar.variableFullDisplayName}</b>
+                {": "}
+                {subVar.variableDefinition.text}
+              </li>
+            )
+          );
+        })}
+      </ul>
+    </div>
+  ) : (
+    <div>
+      <ul>
+        {METRIC_CONFIG[props.variable][0].variableDefinition.text && (
+          <li>
+            <b>{METRIC_CONFIG[props.variable][0].variableFullDisplayName}</b>
+            {": "}
+            {METRIC_CONFIG[props.variable][0].variableDefinition.text}
+          </li>
+        )}
+      </ul>
+    </div>
+  );
+}
+
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
   const segment = madLib.phrase[segmentIndex];
   return typeof segment === "string"
@@ -330,31 +362,3 @@ function ReportProvider(props: ReportProviderProps) {
 }
 
 export default ReportProvider;
-
-function VariableDefinition(props: { variable: string }) {
-  return METRIC_CONFIG[props.variable].length > 1 ? (
-    <div>
-      <ul>
-        {METRIC_CONFIG[props.variable].map((subVar) => {
-          return (
-            <li key={subVar.variableFullDisplayName}>
-              <b>{subVar.variableFullDisplayName}</b>
-              {": "}
-              {subVar.variableDefinition.text}
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  ) : (
-    <div>
-      <ul>
-        <li>
-          <b>{METRIC_CONFIG[props.variable][0].variableFullDisplayName}</b>
-          {": "}
-          {METRIC_CONFIG[props.variable][0].variableDefinition.text}
-        </li>
-      </ul>
-    </div>
-  );
-}
