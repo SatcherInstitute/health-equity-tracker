@@ -7,8 +7,14 @@ import { Helmet } from "react-helmet-async";
 import { CITATION_APA } from "../DataCatalog/MethodologyTab";
 import parse from "html-react-parser";
 import FeedbackBox from "../ui/FeedbackBox";
+import { urlMap } from "../../utils/externalUrls";
 
-export const selectFaqs: any[] = [
+export interface qAndA {
+  q: string;
+  a: string;
+}
+
+export const selectFaqs: qAndA[] = [
   {
     q: "What is health equity? Why is it important?",
     a: `
@@ -43,10 +49,10 @@ ethnic, and other population groups, and communities (CDC).`,
 
 
 
-In this tracker, we are using many sources, including 
-<a href="https://www.census.gov/data/developers/data-sets/acs-5year.html">American Community Survey 5-year estimates (2015-2019)</a> 
-and the <a href="https://www.cdc.gov/brfss/index.html">CDC’s BRFSS data set</a>. Some sources are updated bi-weekly, 
-while other important data (such as information around social determinants of health) can lag from weeks to years. 
+In this tracker, we are using many sources, including
+<a href=${urlMap.acs5}>American Community Survey 5-year estimates (2015-2019)</a>
+and the <a href=${urlMap.cdcBrfss}>CDC’s BRFSS data set</a>. Some sources are updated bi-weekly,
+while other important data (such as information around social determinants of health) can lag from weeks to years.
 Specific information on update frequencies by source can be found on our <a href="${DATA_CATALOG_PAGE_LINK}">Data Downloads</a> page.
 </p>
 `,
@@ -97,7 +103,7 @@ Specific information on update frequencies by source can be found on our <a href
     a: `
   <ul>
     <li>
-    In an effort to be fully transparent, all data is retrieved from publicly sourced APIs and manual downloads 
+    In an effort to be fully transparent, all data is retrieved from publicly sourced APIs and manual downloads
     </li>
     <li>
       Once acquired, this data is converted to tables in Google BigQuery
@@ -110,7 +116,7 @@ Specific information on update frequencies by source can be found on our <a href
       Sources are refreshed when update notifications are received
     </li>
     <li>
-    The entire Health Equity Tracker codebase is publicly available and open-source; contributions are welcome via <a href="https://github.com/SatcherInstitute/health-equity-tracker">GitHub</a>.
+    The entire Health Equity Tracker codebase is publicly available and open-source; contributions are welcome via <a href=${urlMap.hetGitHub}>GitHub</a>.
     </li>
   </ul>
   `,
