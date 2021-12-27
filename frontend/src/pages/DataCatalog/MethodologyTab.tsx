@@ -10,14 +10,12 @@ import {
 import { Helmet } from "react-helmet-async";
 import parse from "html-react-parser";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
-import { METRIC_CONFIG } from "../../data/config/MetricConfig";
+import { flatVariables } from "../../data/config/MetricConfig";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { Box, Button, Card } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { Card } from "@material-ui/core";
 import { urlMap } from "../../utils/externalUrls";
-
 export const CITATION_APA = `Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
-
-export const VACCINATED_DEF = `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`;
 
 function MethodologyTab() {
   return (
@@ -359,13 +357,20 @@ function MethodologyTab() {
               </h2>
               <div className={styles.MethodologyAnswer}>
                 <ul>
-                  <li>
-                    <b>
-                      {METRIC_CONFIG["vaccinations"][0].variableFullDisplayName}
-                    </b>
-                    {": "}
-                    {VACCINATED_DEF}
-                  </li>
+                  {flatVariables.map((variable) => {
+                    return (
+                      variable.variableDefinition.text && (
+                        <li key={`li-${variable.variableFullDisplayName}`}>
+                          <b>{variable.variableFullDisplayName}</b>
+                          {": "}
+                          {variable.variableDefinition.text}{" "}
+                          <a href={variable.variableDefinition.url}>
+                            {variable.variableDefinition.sourceName}
+                          </a>
+                        </li>
+                      )
+                    );
+                  })}
                 </ul>
               </div>
             </Grid>

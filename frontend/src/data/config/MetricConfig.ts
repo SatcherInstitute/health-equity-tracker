@@ -91,6 +91,11 @@ export type VariableConfig = {
   variableId: string; // TODO - strongly type key
   variableDisplayName: string;
   variableFullDisplayName: string;
+  variableDefinition: {
+    text: string;
+    sourceName: string;
+    url: string;
+  };
   metrics: Record<string, MetricConfig>; // TODO - strongly type key
   surveyCollectedData?: boolean;
 };
@@ -102,6 +107,11 @@ export const POPULATION_VARIABLE_CONFIG: VariableConfig = {
   variableId: "population",
   variableDisplayName: "Population",
   variableFullDisplayName: "Population",
+  variableDefinition: {
+    text: ``,
+    sourceName: ``,
+    url: ``,
+  },
   metrics: {
     count: {
       metricId: "population",
@@ -122,6 +132,11 @@ export const POPULATION_VARIABLE_CONFIG_2010: VariableConfig = {
   variableId: "population_2010",
   variableDisplayName: "Population",
   variableFullDisplayName: "Population",
+  variableDefinition: {
+    text: ``,
+    sourceName: ``,
+    url: ``,
+  },
   metrics: {
     count: {
       metricId: "population_2010",
@@ -196,6 +211,11 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "COVID-19 Cases",
+      variableDefinition: {
+        text: ``,
+        sourceName: ``,
+        url: ``,
+      },
       metrics: {
         count: {
           metricId: "covid_cases",
@@ -240,6 +260,11 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "deaths",
       variableDisplayName: "Deaths",
       variableFullDisplayName: "COVID-19 Deaths",
+      variableDefinition: {
+        text: ``,
+        sourceName: ``,
+        url: ``,
+      },
       metrics: {
         count: {
           metricId: "covid_deaths",
@@ -284,6 +309,11 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "hospitalizations",
       variableDisplayName: "Hospitalizations",
       variableFullDisplayName: "COVID-19 Hospitalizations",
+      variableDefinition: {
+        text: ``,
+        sourceName: ``,
+        url: ``,
+      },
       metrics: {
         count: {
           metricId: "covid_hosp",
@@ -497,7 +527,13 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "cases",
       variableDisplayName: "Cases",
-      variableFullDisplayName: "Diabetes Cases",
+      variableFullDisplayName: "Diabetes",
+      variableDefinition: {
+        text: `Percentage of adults who reported being told by a health professional that they have diabetes (excluding prediabetes and gestational diabetes).`,
+        sourceName: "America's Health Rankings",
+        url:
+          "https://www.americashealthrankings.org/explore/annual/measure/Diabetes/state/ALL?edition-year=2021",
+      },
       surveyCollectedData: true,
       metrics: {
         pct_share: {
@@ -525,7 +561,13 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "cases",
       variableDisplayName: "Cases",
-      variableFullDisplayName: "COPD Cases",
+      variableFullDisplayName: "COPD",
+      variableDefinition: {
+        text: `Percentage of adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.`,
+        sourceName: `America's Health Rankings`,
+        url:
+          "https://www.americashealthrankings.org/explore/annual/measure/COPD/state/ALL?edition-year=2021",
+      },
       surveyCollectedData: true,
       metrics: {
         pct_share: {
@@ -554,6 +596,11 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "health_coverage",
       variableDisplayName: "Uninsured Individuals",
       variableFullDisplayName: "Uninsured Individuals",
+      variableDefinition: {
+        text: ``,
+        sourceName: ``,
+        url: ``,
+      },
       metrics: {
         per100k: {
           metricId: "health_insurance_per_100k",
@@ -581,6 +628,11 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "poverty",
       variableDisplayName: "Poverty",
       variableFullDisplayName: "Individuals Below The Poverty Line",
+      variableDefinition: {
+        text: ``,
+        sourceName: ``,
+        url: ``,
+      },
       metrics: {
         per100k: {
           metricId: "poverty_per_100k",
@@ -608,6 +660,11 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "vaccinations",
       variableDisplayName: "Vaccinations",
       variableFullDisplayName: "COVID-19 Vaccinations",
+      variableDefinition: {
+        text: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
+        sourceName: ``,
+        url: ``,
+      },
       metrics: {
         per100k: {
           metricId: "vaccinated_per_100k",
@@ -644,3 +701,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     },
   ],
 };
+
+// some variables like COVID contain sub data types
+// simpler to map over a flat array
+export let flatVariables: VariableConfig[] = [];
+for (const variable in METRIC_CONFIG) {
+  METRIC_CONFIG[variable].forEach((varDataType) =>
+    flatVariables.push(varDataType)
+  );
+}

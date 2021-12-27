@@ -19,7 +19,6 @@ import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import styles from "./Report.module.scss";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
-import { VACCINATED_DEF } from "../pages/DataCatalog/MethodologyTab";
 import { METRIC_CONFIG } from "../data/config/MetricConfig";
 import { Link } from "react-router-dom";
 import FeedbackBox from "../pages/ui/FeedbackBox";
@@ -28,6 +27,38 @@ import { Helmet } from "react-helmet-async";
 import { urlMap } from "../utils/externalUrls";
 
 export const SINGLE_COLUMN_WIDTH = 12;
+
+function VariableDefinition(props: { variable: string }) {
+  return METRIC_CONFIG[props.variable].length > 1 ? (
+    <div>
+      <ul>
+        {METRIC_CONFIG[props.variable].map((subVar) => {
+          return (
+            subVar.variableDefinition.text && (
+              <li key={subVar.variableFullDisplayName}>
+                <b>{subVar.variableFullDisplayName}</b>
+                {": "}
+                {subVar.variableDefinition.text}
+              </li>
+            )
+          );
+        })}
+      </ul>
+    </div>
+  ) : (
+    <div>
+      <ul>
+        {METRIC_CONFIG[props.variable][0].variableDefinition.text && (
+          <li>
+            <b>{METRIC_CONFIG[props.variable][0].variableFullDisplayName}</b>
+            {": "}
+            {METRIC_CONFIG[props.variable][0].variableDefinition.text}
+          </li>
+        )}
+      </ul>
+    </div>
+  );
+}
 
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
   const segment = madLib.phrase[segmentIndex];
@@ -315,13 +346,13 @@ function ReportProvider(props: ReportProviderProps) {
             Definitions
           </h3>
 
-          <ul>
-            <li>
-              <b>{METRIC_CONFIG["vaccinations"][0].variableFullDisplayName}</b>
-              {": "}
-              {VACCINATED_DEF}
-            </li>
-          </ul>
+          {/* Selected Dropdown Variable */}
+          <VariableDefinition variable={getPhraseValue(props.madLib, 1)} />
+
+          {/* 2nd Selected Dropdown Variable (if applicable) */}
+          {props.madLib.id === "comparevars" && (
+            <VariableDefinition variable={getPhraseValue(props.madLib, 3)} />
+          )}
         </aside>
       </div>
 
