@@ -151,7 +151,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               />
             )}
             {dataAvailable && dataWithoutUnknowns.length !== 0 && (
-              <CardContent className={styles.Breadcrumbs}>
+              <CardContent>
                 <DisparityBarChart
                   data={dataWithoutUnknowns}
                   lightMetric={metricConfig.populationComparisonMetric!}

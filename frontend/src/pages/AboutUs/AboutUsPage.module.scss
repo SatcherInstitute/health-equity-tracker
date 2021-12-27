@@ -26,10 +26,6 @@
   padding: 10px 30px;
 }
 
-.NoUnderline {
-  text-decoration: none !important;
-}
-
 // For the title of the page read off by screenreaders in an h1
 .ScreenreaderTitleHeader {
   left: -999px;
@@ -39,30 +35,6 @@
   height: 1px;
   overflow: hidden;
   z-index: -999;
-}
-
-/** ------------- GRID ITEM POSITIONING ------------- **/
-
-// Grid Item with content aligned to the bottom-right.
-.GridAlignRightItem {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-}
-
-// Grid Item with content aligned to the bottom-left
-.GridAlignLeftItem {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-
-// Grid items that are centered both vertically and horizontally.
-.GridCenteredItem {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 25px;
 }
 
 /** ------------- TYPES OF GRID ROWS ------------- **/
@@ -84,13 +56,6 @@
 
 // Grid rows that have outlines and an image in one cell.
 .GridOutlinedImgRow {
-  .ImgHeaderGridItem {
-    width: 100%;
-    height: auto;
-    max-width: 760px;
-    max-height: 645px;
-  }
-
   .GridVerticallyAlignedItem {
     justify-content: center;
     padding: 25px;
@@ -352,11 +317,6 @@
 // For partner images at the bottom of the page
 .PartnerImg {
   padding: 10px;
-}
-
-.GreyGridItem {
-  background-color: $grey-grid-color;
-  padding: 70px;
 }
 
 /** ------------- CONTACT US ------------- **/
