@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./DataCatalogPage.module.scss";
 import {
@@ -11,10 +11,8 @@ import { Helmet } from "react-helmet-async";
 import parse from "html-react-parser";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
 import { METRIC_CONFIG } from "../../data/config/MetricConfig";
-import CopyToClipboard from "react-copy-to-clipboard";
-import { Box, Button, Card } from "@material-ui/core";
-import FileCopyIcon from "@material-ui/icons/FileCopy";
 import { Link } from "react-router-dom";
+import { Card } from "@material-ui/core";
 import { urlMap } from "../../utils/externalUrls";
 
 export const CITATION_APA = `Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
@@ -22,12 +20,6 @@ export const CITATION_APA = `Health Equity Tracker. (2021). Satcher Health Leade
 export const VACCINATED_DEF = `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`;
 
 function MethodologyTab() {
-  const [textCopied, setTextCopied] = useState(false);
-
-  function handleCopy() {
-    setTextCopied(true);
-  }
-
   return (
     <>
       <Helmet>
@@ -59,40 +51,9 @@ function MethodologyTab() {
               </h2>
 
               <div className={styles.MethodologyAnswer}>
-                <Grid container justify="space-between" alignItems="center">
-                  <Grid item container xs={12} md={8}>
-                    <Box m={1}>
-                      <Card elevation={3}>
-                        <Box m={1}>
-                          <p className={styles.CitationAPA}>{CITATION_APA}</p>
-                        </Box>
-                      </Card>
-                    </Box>
-                  </Grid>
-
-                  <Grid
-                    xs={12}
-                    md={3}
-                    item
-                    container
-                    direction="column"
-                    justify="center"
-                    alignItems="center"
-                    alignContent="center"
-                  >
-                    <CopyToClipboard
-                      text={CITATION_APA}
-                      onCopy={() => handleCopy()}
-                    >
-                      <Button startIcon={<FileCopyIcon />}></Button>
-                    </CopyToClipboard>
-                    {textCopied ? (
-                      <i role="alert">Citation copied</i>
-                    ) : (
-                      "Copy to clipboard"
-                    )}
-                  </Grid>
-                </Grid>
+                <Card elevation={3}>
+                  <p className={styles.CitationAPA}>{CITATION_APA}</p>
+                </Card>
               </div>
             </Grid>
             <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
