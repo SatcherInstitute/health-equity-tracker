@@ -1,6 +1,5 @@
 import React from "react";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
-import styles from "./Card.module.scss";
 import { CardContent } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
