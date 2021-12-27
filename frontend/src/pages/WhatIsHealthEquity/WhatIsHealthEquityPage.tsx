@@ -28,7 +28,7 @@ export default function WhatIsHealthEquityPage() {
   }, [pageIsWide]);
 
   return (
-    <div className={styles.WhatIsHealthEquityPage}>
+    <div>
       {/*  intercept old FAQ via query params for backwards compatible links */}
       {useQuery().get("tab") === "1" && (
         <Redirect

@@ -59,7 +59,7 @@ function EquityTab() {
 
   return (
     <>
-      <div className={styles.WhatIsHealthEquityPage}>
+      <div>
         <Helmet>
           <title>What is Health Equity - Health Equity Tracker</title>
         </Helmet>

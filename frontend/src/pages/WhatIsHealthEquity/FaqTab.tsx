@@ -93,8 +93,7 @@ Specific information on update frequencies by source can be found on our <a href
   <li>
     We typically refresh our data sources with newly available
     data within a few days. Seeking the latest information? A direct link is provided for each of our <a href="/datacatalog">
-    data sources
-  </a>.
+    data sources</a>.
   </li>
 </ul>
   `,
