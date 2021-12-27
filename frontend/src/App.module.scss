@@ -14,6 +14,10 @@
   background-color: $white;
 }
 
+.FallbackPage {
+  min-height: 100vh;
+}
+
 // For the "Skip to Main Content" link for screenreader users
 .SkipMainLink {
   left: -999px;
