@@ -166,7 +166,7 @@ export function PopulationCard(props: PopulationCardProps) {
                         Read about missing data.
                       </Button>
                     </Alert>
-                    <Grid container justify="flex-start">
+                    <Grid container justify="space-between">
                       {raceQueryResponse
                         .getValidRowsForField("race_and_ethnicity")
                         .filter((r) => r.race_and_ethnicity !== ALL)

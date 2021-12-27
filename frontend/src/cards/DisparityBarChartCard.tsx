@@ -125,7 +125,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
         return (
           <>
             {!dataAvailable && (
-              <CardContent className={styles.Breadcrumbs}>
+              <CardContent>
                 <MissingDataAlert
                   dataName={metricConfig.fullCardTitleName}
                   breakdownString={
