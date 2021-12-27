@@ -19,10 +19,6 @@
   text-align: center;
 }
 
-.NoUnderline {
-  text-decoration: none;
-}
-
 .LearnMoreAboutHealthEquity {
   font-weight: 500 !important;
   font-size: $smallestHeader !important;
@@ -282,17 +278,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-  }
-
-  .NewsletterForm {
-    background: white;
-    border-radius: 5px !important;
-    padding: 10px;
-  }
-
-  .NewsletterEmailSubmitInput {
-    height: 56px !important;
-    margin-left: 5px;
   }
 
   .JoinOurMovementButton {
