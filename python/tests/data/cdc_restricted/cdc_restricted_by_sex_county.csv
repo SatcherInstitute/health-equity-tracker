@@ -12,8 +12,8 @@ county_fips,county_name,state_postal,sex,cases,hosp_y,hosp_n,hosp_unknown,death_
 10003,NEW CASTLE,DE,Unknown,1,1,0,0,,,
 15003,HONOLULU,HI,Male,1,,,,,,
 15003,HONOLULU,HI,Total,1,,,,,,
-29077,GREENE,MO,Male,1,,,,,,
-29077,GREENE,MO,Total,1,,,,,,
+29077,GREENE,MO,Male,1,0,1,0,0,0,1
+29077,GREENE,MO,Total,1,0,1,0,0,0,1
 31001,ADAMS,NE,Female,1,,,,,,
 31001,ADAMS,NE,Total,1,,,,,,
 35001,BERNALILLO,NM,Total,1,0,1,0,0,1,0
@@ -26,8 +26,8 @@ county_fips,county_name,state_postal,sex,cases,hosp_y,hosp_n,hosp_unknown,death_
 46005,BEADLE,SD,Total,1,,,,,,
 47037,DAVIDSON,MD,Female,1,0,0,1,1,0,0
 47037,DAVIDSON,MD,Total,1,0,0,1,1,0,0
-56005,CAMPBELL,WY,Male,1,,,,,,
-56005,CAMPBELL,WY,Total,1,,,,,,
+56005,CAMPBELL,WY,Male,1,0,1,0,0,1,0
+56005,CAMPBELL,WY,Total,1,0,1,0,0,1,0
 ,Unknown,Unknown,Male,,,,,,,
 ,Unknown,Unknown,Other,,,,,,,
 06035,LASSEN,CA,Female,,,,,,,
