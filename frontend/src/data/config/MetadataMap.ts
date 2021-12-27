@@ -5,7 +5,7 @@ export const GEOGRAPHIES_DATASET_ID = "geographies";
 // ALERT!!! Keep this file in sync with DatasetMetadata while it is present
 // All dataset IDs should be in the DatasetMetadata
 
-const dataSourceMetadataList: DataSourceMetadata[] = [
+export const dataSourceMetadataList: DataSourceMetadata[] = [
   {
     id: "cdc_restricted",
     data_source_name: "CDC Case Surveillance Restricted Access Detailed Data",
