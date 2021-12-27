@@ -12,6 +12,7 @@ import parse from "html-react-parser";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
 import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 import { Link } from "react-router-dom";
+import { Card } from "@material-ui/core";
 import { urlMap } from "../../utils/externalUrls";
 
 export const CITATION_APA = `Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
@@ -43,7 +44,9 @@ function MethodologyTab() {
               </h2>
 
               <div className={styles.MethodologyAnswer}>
-                <p className={styles.CitationAPA}>{CITATION_APA}</p>
+                <Card elevation={3}>
+                  <p className={styles.CitationAPA}>{CITATION_APA}</p>
+                </Card>
               </div>
             </Grid>
             <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
