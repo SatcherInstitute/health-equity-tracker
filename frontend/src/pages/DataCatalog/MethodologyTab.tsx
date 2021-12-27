@@ -395,14 +395,16 @@ function MethodologyTab() {
                 <ul>
                   {flatVariables.map((variable) => {
                     return (
-                      <li key={`li-${variable.variableFullDisplayName}`}>
-                        <b>{variable.variableFullDisplayName}</b>
-                        {": "}
-                        {variable.variableDefinition.text}{" "}
-                        <a href={variable.variableDefinition.url}>
-                          {variable.variableDefinition.sourceName}
-                        </a>
-                      </li>
+                      variable.variableDefinition.text && (
+                        <li key={`li-${variable.variableFullDisplayName}`}>
+                          <b>{variable.variableFullDisplayName}</b>
+                          {": "}
+                          {variable.variableDefinition.text}{" "}
+                          <a href={variable.variableDefinition.url}>
+                            {variable.variableDefinition.sourceName}
+                          </a>
+                        </li>
+                      )
                     );
                   })}
                 </ul>
