@@ -36,7 +36,6 @@ function MethodologyTab() {
       <h1 className={styles.ScreenreaderTitleHeader}>Methodology</h1>
       <Grid
         container
-        className={styles.Grid}
         direction="column"
         justify="space-around"
         alignItems="center"
@@ -327,10 +326,7 @@ function MethodologyTab() {
                   Do you have information on health outcomes at the state and
                   local level that belong in the Health Equity Tracker?
                   <br />
-                  <LinkWithStickyParams
-                    className={styles.MethodologyContactUsLink}
-                    to={`${CONTACT_TAB_LINK}`}
-                  >
+                  <LinkWithStickyParams to={`${CONTACT_TAB_LINK}`}>
                     We would love to hear from you!
                   </LinkWithStickyParams>
                 </p>
