@@ -323,27 +323,30 @@ function ReportProvider(props: ReportProviderProps) {
 }
 
 /*
-Display heading and one or more definitions based on the selected condition(s)
+Display heading and condition definition(s) based on the tracker madlib settings
 */
 function DefinitionsBox(props: { madLib: MadLib }) {
-  // get current selected condition(s)
+  // get selected condition
   const condition1array: VariableConfig[] =
     METRIC_CONFIG[getPhraseValue(props.madLib, 1)];
+  // get 2nd condition if in compare var mode
   const condition2array: VariableConfig[] =
     props.madLib.id === "comparevars"
       ? METRIC_CONFIG[getPhraseValue(props.madLib, 3)]
       : [];
 
+  // make a list of conditions, including #2 if it's present and unique
   const selectedConditions: VariableConfig[] =
     condition2array.length && condition2array !== condition1array
       ? [...condition1array, ...condition2array]
       : condition1array;
 
+  // filter out conditions that don't have a definition (yet)
   const definedConditions = selectedConditions.filter(
     (condition) => condition?.variableDefinition
   );
 
-  // if definitions don't exist then dont render component
+  // dont render anything if there are no definitions to show
   if (definedConditions.length === 0) return <></>;
 
   return (
