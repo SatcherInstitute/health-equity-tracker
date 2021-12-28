@@ -154,9 +154,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             <Divider />
 
             {/* PERCENT REPORTING UNKNOWN ALERT */}
-            {mapQueryResponse.dataIsMissing() ? (
-              <></>
-            ) : (
+            {!mapQueryResponse.dataIsMissing() && (
               <UnknownsAlert
                 queryResponse={alertQueryResponse}
                 metricConfig={metricConfig}
@@ -189,18 +187,16 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                 />
               )}
               {noUnknownValuesReported &&
-              !noDemographicInfo &&
-              !unknownsSuppressed ? (
-                <Alert severity="info">
-                  No unknown values for{" "}
-                  {BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]} reported
-                  in this dataset.
-                </Alert>
-              ) : (
-                <></>
-              )}
+                !noDemographicInfo &&
+                !unknownsSuppressed && (
+                  <Alert severity="info">
+                    No unknown values for{" "}
+                    {BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]}{" "}
+                    reported in this dataset.
+                  </Alert>
+                )}
             </CardContent>
-            {!noUnknownValuesReported && !unknownsSuppressed ? (
+            {!noUnknownValuesReported && !unknownsSuppressed && (
               <CardContent>
                 <ChoroplethMap
                   useSmallSampleMessage={
@@ -256,8 +252,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   <></>
                 )}
               </CardContent>
-            ) : (
-              <></>
             )}
           </>
         );
