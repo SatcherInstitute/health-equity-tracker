@@ -97,7 +97,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 className={styles.SmallMultipleMap}
               >
                 <b>{breakdownValue}</b>
-                {props.metricConfig && dataForValue.length && (
+                {props.metricConfig && dataForValue.length ? (
                   <ChoroplethMap
                     key={breakdownValue}
                     signalListeners={{ click: (...args: any) => {} }}
@@ -117,12 +117,14 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                       breakdownValue === "All" ? "" : ` for ${breakdownValue}`
                     } in ${props.fips.getFullDisplayName()}`}
                   />
+                ) : (
+                  <></>
                 )}
 
                 {/* TERRITORIES (IF NATIONAL VIEW) */}
                 {props.metricConfig &&
-                  props.fips.isUsa() &&
-                  dataForValue.length &&
+                props.fips.isUsa() &&
+                dataForValue.length ? (
                   TERRITORY_CODES.map((code) => {
                     const fips = new Fips(code);
                     return (
@@ -145,7 +147,10 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                         />
                       </div>
                     );
-                  })}
+                  })
+                ) : (
+                  <></>
+                )}
               </Grid>
             );
           })}
@@ -178,25 +183,29 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
         </Grid>
 
         {/* Missing Groups */}
-        <Grid item container justify="center" xs={12} xl={7}>
-          <Box my={3}>
-            <Alert severity="warning">
-              <Grid container justify="flex-start">
-                <p className={styles.NoDataWarning}>
-                  No {props.metricConfig.shortVegaLabel} data reported at the{" "}
-                  {props.fips.getFipsTypeDisplayName()} level for the following
-                  groups:{" "}
-                  {props.breakdownValuesNoData.map((group, i) => (
-                    <span key={group}>
-                      <b>{group}</b>
-                      {i < props.breakdownValuesNoData.length - 1 && "; "}
-                    </span>
-                  ))}
-                </p>
-              </Grid>
-            </Alert>
-          </Box>
-        </Grid>
+        {props.breakdownValuesNoData.length ? (
+          <Grid item container justify="center" xs={12} xl={7}>
+            <Box my={3}>
+              <Alert severity="warning">
+                <Grid container justify="flex-start">
+                  <p className={styles.NoDataWarning}>
+                    No {props.metricConfig.shortVegaLabel} data reported at the{" "}
+                    {props.fips.getFipsTypeDisplayName()} level for the
+                    following groups:{" "}
+                    {props.breakdownValuesNoData.map((group, i) => (
+                      <span key={group}>
+                        <b>{group}</b>
+                        {i < props.breakdownValuesNoData.length - 1 && "; "}
+                      </span>
+                    ))}
+                  </p>
+                </Grid>
+              </Alert>
+            </Box>
+          </Grid>
+        ) : (
+          <></>
+        )}
       </DialogContent>
 
       {/* MODAL FOOTER */}
