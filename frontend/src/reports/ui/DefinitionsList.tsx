@@ -3,7 +3,7 @@ import React from "react";
 
 export default function DefinitionsList(props: {
   definedConditions: VariableConfig[];
-}) {
+}): JSX.Element {
   return (
     <ul>
       {props.definedConditions.map((condition: VariableConfig) => (
