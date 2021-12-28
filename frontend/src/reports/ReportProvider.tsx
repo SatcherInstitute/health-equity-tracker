@@ -338,8 +338,8 @@ function DefinitionsBox(props: { madLib: MadLib }) {
       (condition) => condition.variableDefinition.text === ""
     )
   ) {
-    if (!condition2array) return <></>;
     if (
+      !condition2array ||
       condition2array.every(
         (condition) => condition.variableDefinition.text === ""
       )
