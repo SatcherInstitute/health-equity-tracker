@@ -124,7 +124,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
         ]);
         return (
           <>
-            {" "}
             {dataAvailable ? (
               <UnknownsAlert
                 metricConfig={metricConfig}
