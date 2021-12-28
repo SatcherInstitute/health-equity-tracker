@@ -182,9 +182,6 @@ class UHCData(DataSource):
                              ALT_ROWS_ALL.get(determinant, determinant))
                         ]
 
-                        print(breakdown, breakdown_value,
-                              state, determinant)
-
                         # extract and output the value
                         output_row[determinants[determinant]
                                    ] = matched_row['Value'].values[0]
