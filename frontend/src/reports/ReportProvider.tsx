@@ -25,40 +25,9 @@ import FeedbackBox from "../pages/ui/FeedbackBox";
 import ShareButtons from "./ui/ShareButtons";
 import { Helmet } from "react-helmet-async";
 import { urlMap } from "../utils/externalUrls";
+import { Box } from "@material-ui/core";
 
 export const SINGLE_COLUMN_WIDTH = 12;
-
-function VariableDefinition(props: { variable: string }) {
-  return METRIC_CONFIG[props.variable].length > 1 ? (
-    <div>
-      <ul>
-        {METRIC_CONFIG[props.variable].map((subVar) => {
-          return (
-            subVar.variableDefinition.text && (
-              <li key={subVar.variableFullDisplayName}>
-                <b>{subVar.variableFullDisplayName}</b>
-                {": "}
-                {subVar.variableDefinition.text}
-              </li>
-            )
-          );
-        })}
-      </ul>
-    </div>
-  ) : (
-    <div>
-      <ul>
-        {METRIC_CONFIG[props.variable][0].variableDefinition.text && (
-          <li>
-            <b>{METRIC_CONFIG[props.variable][0].variableFullDisplayName}</b>
-            {": "}
-            {METRIC_CONFIG[props.variable][0].variableDefinition.text}
-          </li>
-        )}
-      </ul>
-    </div>
-  );
-}
 
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
   const segment = madLib.phrase[segmentIndex];
@@ -341,23 +310,80 @@ function ReportProvider(props: ReportProviderProps) {
             </Button>
           </a>
 
-          {/* DEFINITIONS */}
-          <h3 ref={definitionsRef} className={styles.FootnoteLargeHeading}>
-            Definitions
-          </h3>
-
-          {/* Selected Dropdown Variable */}
-          <VariableDefinition variable={getPhraseValue(props.madLib, 1)} />
-
-          {/* 2nd Selected Dropdown Variable (if applicable) */}
-          {props.madLib.id === "comparevars" && (
-            <VariableDefinition variable={getPhraseValue(props.madLib, 3)} />
-          )}
+          <div ref={definitionsRef}>
+            <DefinitionsBox madLib={props.madLib} />
+          </div>
         </aside>
       </div>
 
       <FeedbackBox />
     </>
+  );
+}
+
+/*
+Display heading and one or more definitions based on the selected condition(s)
+*/
+function DefinitionsBox(props: { madLib: MadLib }) {
+  // get current selected condition(s)
+  const condition1array = METRIC_CONFIG[getPhraseValue(props.madLib, 1)];
+  const condition2array =
+    props.madLib.id === "comparevars"
+      ? METRIC_CONFIG[getPhraseValue(props.madLib, 3)]
+      : null;
+
+  // if definitions don't exist then dont render component
+  if (
+    condition1array.every(
+      (condition) => condition.variableDefinition.text === ""
+    )
+  ) {
+    if (!condition2array) return <></>;
+    if (
+      condition2array.every(
+        (condition) => condition.variableDefinition.text === ""
+      )
+    )
+      return <></>;
+  }
+
+  return (
+    <Box mt={5}>
+      <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
+      <ul>
+        {/* FIRST CONDITION DEF(S) */}
+        {condition1array.some(
+          (condition) => condition.variableDefinition.text !== ""
+        ) &&
+          condition1array.map((condition) => (
+            <li key={condition.variableFullDisplayName}>
+              <b>{condition.variableFullDisplayName}</b>
+              {": "}
+              {condition.variableDefinition.text}{" "}
+              <a href={condition.variableDefinition.url}>
+                {condition.variableDefinition.sourceName}
+              </a>
+            </li>
+          ))}
+
+        {/* SECOND CONDITION DEF(S) if in COMPARE VAR VIEW */}
+        {condition2array &&
+          condition2array !== condition1array &&
+          condition2array.some(
+            (condition) => condition.variableDefinition.text !== ""
+          ) &&
+          condition2array.map((condition) => (
+            <li key={condition.variableFullDisplayName}>
+              <b>{condition.variableFullDisplayName}</b>
+              {": "}
+              {condition.variableDefinition.text}{" "}
+              <a href={condition.variableDefinition.url}>
+                {condition.variableDefinition.sourceName}
+              </a>
+            </li>
+          ))}
+      </ul>
+    </Box>
   );
 }
 
