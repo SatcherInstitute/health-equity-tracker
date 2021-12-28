@@ -517,12 +517,3 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     },
   ],
 };
-
-// some variables like COVID contain sub data types
-// simpler to map over a flat array
-export let flatVariables: VariableConfig[] = [];
-for (const variable in METRIC_CONFIG) {
-  METRIC_CONFIG[variable].forEach((varDataType) =>
-    flatVariables.push(varDataType)
-  );
-}

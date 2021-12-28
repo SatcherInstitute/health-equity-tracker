@@ -10,11 +10,14 @@ import {
 import { Helmet } from "react-helmet-async";
 import parse from "html-react-parser";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
-import { flatVariables } from "../../data/config/MetricConfig";
+import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 import { Link } from "react-router-dom";
 import { Card } from "@material-ui/core";
 import { urlMap } from "../../utils/externalUrls";
+
 export const CITATION_APA = `Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
+
+const allConditions = Object.values(METRIC_CONFIG).flat();
 
 function MethodologyTab() {
   return (
@@ -354,15 +357,15 @@ function MethodologyTab() {
               </h2>
               <div className={styles.MethodologyAnswer}>
                 <ul>
-                  {flatVariables.map((variable) => {
+                  {allConditions.map((condition) => {
                     return (
-                      variable.variableDefinition.text && (
-                        <li key={`li-${variable.variableFullDisplayName}`}>
-                          <b>{variable.variableFullDisplayName}</b>
+                      condition.variableDefinition.text && (
+                        <li key={`li-${condition.variableFullDisplayName}`}>
+                          <b>{condition.variableFullDisplayName}</b>
                           {": "}
-                          {variable.variableDefinition.text}{" "}
-                          <a href={variable.variableDefinition.url}>
-                            {variable.variableDefinition.sourceName}
+                          {condition.variableDefinition.text}{" "}
+                          <a href={condition.variableDefinition.url}>
+                            {condition.variableDefinition.sourceName}
                           </a>
                         </li>
                       )
