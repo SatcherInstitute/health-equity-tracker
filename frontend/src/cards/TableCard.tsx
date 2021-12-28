@@ -79,7 +79,7 @@ export function TableCard(props: TableCardProps) {
         metricConfig.secondaryPopulationComparisonMetric;
     }
   });
-  const metricIds = Object.keys(metricConfigs);
+  const metricIds = Object.keys(metricConfigs) as MetricId[];
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
   const displayingCovidData = metrics

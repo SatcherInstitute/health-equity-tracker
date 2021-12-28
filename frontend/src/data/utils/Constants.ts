@@ -22,5 +22,72 @@ export const UNKNOWN_RACE = "Unknown race";
 export const UNKNOWN_HL = "Unknown Hispanic or Latino";
 export const UNKNOWN_ETHNICITY = "Unknown ethnicity";
 
+export const SEX_GROUPS = [MALE, FEMALE, UNKNOWN, ALL] as const;
+
+type SexGroup = typeof SEX_GROUPS[number];
+
+export const STANDARD_RACES = [
+  "American Indian and Alaska Native (Non-Hispanic)",
+  "Asian (Non-Hispanic)",
+  "Black or African American (Non-Hispanic)",
+  "Hispanic or Latino",
+  "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+  "Some other race (Non-Hispanic)",
+  "Two or more races (Non-Hispanic)",
+  "White (Non-Hispanic)",
+  ALL,
+] as const;
+
+export const RACE_GROUPS = [
+  ...STANDARD_RACES,
+  UNKNOWN_RACE,
+  UNKNOWN_HL,
+  UNKNOWN_ETHNICITY,
+  UNKNOWN,
+  WHITE,
+  NON_HISPANIC,
+  TWO_OR_MORE,
+] as const;
+
+type RaceAndEthnicityGroup = typeof RACE_GROUPS[number];
+
+export const DECADE_AGE_BUCKETS = [
+  "0-9",
+  "10-19",
+  "20-29",
+  "30-39",
+  "40-49",
+  "50-59",
+  "60-69",
+  "70-79",
+  "80+",
+] as const;
+
+export const DECADE_PLUS_5_AGE_BUCKETS = [
+  "15-24",
+  "25-34",
+  "35-44",
+  "45-54",
+  "55-64",
+  "65-74",
+  "75-84",
+  "85+",
+] as const;
+
+export const BROAD_AGE_BUCKETS = ["18-44", "45-64", "65+"] as const;
+
+export const AGE_BUCKETS = [
+  "All",
+  ...DECADE_AGE_BUCKETS,
+  ...DECADE_PLUS_5_AGE_BUCKETS,
+  ...BROAD_AGE_BUCKETS,
+] as const;
+
+type AgeBucket = typeof AGE_BUCKETS[number];
+
+export type DemographicGroup = AgeBucket | SexGroup | RaceAndEthnicityGroup;
+
+/* DETERMINANT SPECIFIC CONSTANTS */
+
 export const ABOVE_POVERTY_COL = "above_poverty_line";
 export const BELOW_POVERTY_COL = "below_poverty_line";

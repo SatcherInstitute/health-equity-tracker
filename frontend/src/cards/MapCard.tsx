@@ -14,6 +14,7 @@ import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  BreakdownVarDisplayName,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
 import { AgeSorterStrategy } from "../data/sorting/AgeSorterStrategy";
@@ -23,6 +24,7 @@ import {
   UNKNOWN,
   UNKNOWN_RACE,
   UNKNOWN_ETHNICITY,
+  DemographicGroup,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import { getHighestN, getLowestN } from "../data/utils/datasetutils";
@@ -72,9 +74,10 @@ function MapCardWithKey(props: MapCardProps) {
   };
 
   const [listExpanded, setListExpanded] = useState(false);
-  const [activeBreakdownFilter, setActiveBreakdownFilter] = useState<string>(
-    ALL
-  );
+  const [
+    activeBreakdownFilter,
+    setActiveBreakdownFilter,
+  ] = useState<DemographicGroup>(ALL);
 
   const [
     smallMultiplesDialogOpen,
@@ -112,23 +115,32 @@ function MapCardWithKey(props: MapCardProps) {
       minHeight={PRELOAD_HEIGHT}
     >
       {(queryResponses, metadata, geoData) => {
+        // contains data rows for sub-geos (if viewing US, this data will be STATE level)
         const mapQueryResponse = queryResponses[0];
+        // contains data rows current level (if viewing US, this data will be US level)
         const overallQueryResponse = queryResponses[1];
 
         const sortArgs =
           props.currentBreakdown === "age"
             ? ([new AgeSorterStrategy([ALL]).compareFn] as any)
             : [];
-        const breakdownValues = mapQueryResponse.getUniqueFieldValues(
-          props.currentBreakdown
+
+        const fieldValues = mapQueryResponse.getFieldValues(
+          /* fieldName: BreakdownVar */ props.currentBreakdown,
+          /* relevantMetric: MetricId */ metricConfig.metricId
         );
-        breakdownValues.sort.apply(breakdownValues, sortArgs);
+
+        const breakdownValues = fieldValues.withData.sort.apply(
+          fieldValues.withData,
+          sortArgs
+        );
 
         const dataForActiveBreakdownFilter = mapQueryResponse
           .getValidRowsForField(metricConfig.metricId)
           .filter(
             (row: Row) => row[props.currentBreakdown] === activeBreakdownFilter
           );
+
         const highestRatesList = getHighestN(
           dataForActiveBreakdownFilter,
           metricConfig.metricId,
@@ -141,7 +153,10 @@ function MapCardWithKey(props: MapCardProps) {
         );
 
         // Create and populate a map of breakdown display name to options
-        const filterOptions: Record<string, string[]> = {
+        const filterOptions: Record<
+          BreakdownVarDisplayName,
+          DemographicGroup[]
+        > = {
           [BREAKDOWN_VAR_DISPLAY_NAMES[
             props.currentBreakdown
           ]]: breakdownValues,
@@ -226,6 +241,7 @@ function MapCardWithKey(props: MapCardProps) {
               queryResponses={queryResponses}
               metadata={metadata}
               geoData={geoData}
+              breakdownValuesNoData={fieldValues.noData}
             />
             <CardContent className={styles.SmallMarginContent}>
               <MapBreadcrumbs
@@ -257,7 +273,9 @@ function MapCardWithKey(props: MapCardProps) {
                           // This DropDownMenu instance only supports changing active breakdown filter
                           // It doesn't support changing breakdown type
                           if (filterSelection) {
-                            setActiveBreakdownFilter(filterSelection);
+                            setActiveBreakdownFilter(
+                              filterSelection as DemographicGroup
+                            );
                           }
                         }}
                       />
@@ -330,7 +348,7 @@ function MapCardWithKey(props: MapCardProps) {
                   }
                   signalListeners={signalListeners}
                   metric={metricConfig}
-                  legendTitle={metricConfig.fullCardTitleName}
+                  legendTitle={metricConfig.shortVegaLabel}
                   data={
                     listExpanded
                       ? highestRatesList.concat(lowestRatesList)
@@ -419,7 +437,7 @@ function MapCardWithKey(props: MapCardProps) {
   );
 }
 
-/* 
+/*
 Generates the "COMPARES ACROSS GROUPS" button which opens the small multiples modal
 */
 export interface MultiMapLinkProps {

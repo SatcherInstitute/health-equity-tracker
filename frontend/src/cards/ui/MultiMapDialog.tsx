@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import Typography from "@material-ui/core/Typography";
-import { Grid, useMediaQuery, useTheme } from "@material-ui/core";
+import { Box, Grid, useMediaQuery, useTheme } from "@material-ui/core";
 import { ChoroplethMap } from "../../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../../data/utils/Fips";
 import { Legend } from "../../charts/Legend";
@@ -17,6 +17,7 @@ import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
+import { Alert } from "@material-ui/lab";
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -41,6 +42,7 @@ export interface MultiMapDialogProps {
   queryResponses: MetricQueryResponse[];
   // Metadata required for the source footer
   metadata: MapOfDatasetMetadata;
+  breakdownValuesNoData: any[];
   // Geography data, in topojson format. Must include both states and counties.
   // If not provided, defaults to directly loading /tmp/geographies.json
   geoData?: Record<string, any>;
@@ -65,6 +67,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
     >
       <DialogContent dividers={true}>
         <Grid container justify="center">
+          {/* Modal Title */}
           <Grid
             item
             xs={12}
@@ -77,31 +80,8 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups
             </Typography>
           </Grid>
-          <Grid
-            item
-            xs={6}
-            md={4}
-            lg={3}
-            xl={6}
-            className={styles.SmallMultipleLegendMap}
-          >
-            <Grid container item>
-              <Grid container justify="center">
-                <b>Legend</b>
-              </Grid>
-              <Grid container justify="center">
-                <Legend
-                  metric={props.metricConfig}
-                  legendTitle={props.metricConfig.fullCardTitleName}
-                  legendData={props.data}
-                  scaleType="quantile"
-                  sameDotSize={true}
-                  direction={pageIsWide ? "horizontal" : "vertical"}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
 
+          {/* Multiples Maps */}
           {props.breakdownValues.map((breakdownValue) => {
             const dataForValue = props.data.filter(
               (row: Row) => row[props.breakdown] === breakdownValue
@@ -117,7 +97,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 className={styles.SmallMultipleMap}
               >
                 <b>{breakdownValue}</b>
-                {props.metricConfig && dataForValue.length ? (
+                {props.metricConfig && dataForValue.length && (
                   <ChoroplethMap
                     key={breakdownValue}
                     signalListeners={{ click: (...args: any) => {} }}
@@ -137,12 +117,12 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                       breakdownValue === "All" ? "" : ` for ${breakdownValue}`
                     } in ${props.fips.getFullDisplayName()}`}
                   />
-                ) : (
-                  <></>
                 )}
+
+                {/* TERRITORIES (IF NATIONAL VIEW) */}
                 {props.metricConfig &&
-                props.fips.isUsa() &&
-                dataForValue.length ? (
+                  props.fips.isUsa() &&
+                  dataForValue.length &&
                   TERRITORY_CODES.map((code) => {
                     const fips = new Fips(code);
                     return (
@@ -165,15 +145,61 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                         />
                       </div>
                     );
-                  })
-                ) : (
-                  <></>
-                )}
+                  })}
               </Grid>
             );
           })}
+
+          {/* Legend */}
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={4}
+            lg={3}
+            className={styles.SmallMultipleLegendMap}
+          >
+            <Grid container item>
+              <Grid container justify="center">
+                <b>Legend</b>
+              </Grid>
+              <Grid container justify="center">
+                <Legend
+                  metric={props.metricConfig}
+                  legendTitle={props.metricConfig.fullCardTitleName}
+                  legendData={props.data}
+                  scaleType="quantile"
+                  sameDotSize={true}
+                  direction={pageIsWide ? "horizontal" : "vertical"}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+
+        {/* Missing Groups */}
+        <Grid item container justify="center" xs={12} xl={7}>
+          <Box my={3}>
+            <Alert severity="warning">
+              <Grid container justify="flex-start">
+                <p className={styles.NoDataWarning}>
+                  No {props.metricConfig.shortVegaLabel} data reported at the{" "}
+                  {props.fips.getFipsTypeDisplayName()} level for the following
+                  groups:{" "}
+                  {props.breakdownValuesNoData.map((group, i) => (
+                    <span key={group}>
+                      <b>{group}</b>
+                      {i < props.breakdownValuesNoData.length - 1 && "; "}
+                    </span>
+                  ))}
+                </p>
+              </Grid>
+            </Alert>
+          </Box>
         </Grid>
       </DialogContent>
+
+      {/* MODAL FOOTER */}
       <div>
         <div className={styles.FooterButtonContainer}>
           <Button onClick={props.handleClose} color="primary">

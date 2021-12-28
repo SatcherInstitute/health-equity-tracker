@@ -1,13 +1,39 @@
 import { DataFrame } from "data-forge";
 import { getDataManager } from "../../utils/globals";
+import { MetricId } from "../config/MetricConfig";
 import { exclude } from "../query/BreakdownFilter";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { NON_HISPANIC } from "../utils/Constants";
+import {
+  BROAD_AGE_BUCKETS,
+  DECADE_PLUS_5_AGE_BUCKETS,
+  NON_HISPANIC,
+} from "../utils/Constants";
 import { joinOnCols } from "../utils/datasetutils";
 import { USA_FIPS } from "../utils/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
+
+export const UHC_AGE_BUCKETS = [
+  "All",
+  // Suicide
+  ...DECADE_PLUS_5_AGE_BUCKETS,
+  // COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking
+  ...BROAD_AGE_BUCKETS,
+  // No Age Breakdowns for: Illicit Opioid, Non-medical Drug
+];
+
+export const UHC_BROAD_AGE_DETERMINANTS: MetricId[] = [
+  "brfss_population_pct",
+  "copd_pct",
+  "copd_pct_share",
+  "copd_per_100k",
+  "diabetes_pct",
+  "diabetes_pct_share",
+  "diabetes_per_100k",
+];
+
+export const UHC_DECADE_PLUS_5_AGE_DETERMINANTS: MetricId[] = [];
 
 class BrfssProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -15,12 +41,8 @@ class BrfssProvider extends VariableProvider {
   constructor(acsProvider: AcsPopulationProvider) {
     super("brfss_provider", [
       "brfss_population_pct",
-      "copd_pct",
-      "copd_pct_share",
-      "copd_per_100k",
-      "diabetes_pct",
-      "diabetes_pct_share",
-      "diabetes_per_100k",
+      ...UHC_BROAD_AGE_DETERMINANTS,
+      ...UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
     ]);
     this.acsProvider = acsProvider;
   }
@@ -81,6 +103,7 @@ class BrfssProvider extends VariableProvider {
     });
 
     df = df.generateSeries({
+      // these determinants are percentages and need to be converted to per 100k
       diabetes_per_100k: (row) =>
         row.diabetes_pct == null ? null : row.diabetes_pct * 1000,
       copd_per_100k: (row) =>
@@ -93,7 +116,7 @@ class BrfssProvider extends VariableProvider {
         df = this.calculations.calculatePctShare(
           df,
           col,
-          col.split("_")[2] + "_pct_share",
+          col.replace("estimated_total_", "") + "_pct_share",
           breakdownColumnName,
           ["fips"]
         );
