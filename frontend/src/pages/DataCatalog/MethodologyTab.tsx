@@ -14,10 +14,13 @@ import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 import { Link } from "react-router-dom";
 import { Card } from "@material-ui/core";
 import { urlMap } from "../../utils/externalUrls";
+import DefinitionsList from "../../reports/ui/DefinitionsList";
 
 export const CITATION_APA = `Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
-const allConditions = Object.values(METRIC_CONFIG).flat();
+const definedConditions = Object.values(METRIC_CONFIG)
+  .flat()
+  .filter((c) => c.variableDefinition.text);
 
 function MethodologyTab() {
   return (
@@ -356,22 +359,7 @@ function MethodologyTab() {
                 What do the condition variables on the tracker mean?
               </h2>
               <div className={styles.MethodologyAnswer}>
-                <ul>
-                  {allConditions.map((condition) => {
-                    return (
-                      condition.variableDefinition.text && (
-                        <li key={`li-${condition.variableFullDisplayName}`}>
-                          <b>{condition.variableFullDisplayName}</b>
-                          {": "}
-                          {condition.variableDefinition.text}{" "}
-                          <a href={condition.variableDefinition.url}>
-                            {condition.variableDefinition.sourceName}
-                          </a>
-                        </li>
-                      )
-                    );
-                  })}
-                </ul>
+                <DefinitionsList definedConditions={definedConditions} />
               </div>
             </Grid>
             <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>

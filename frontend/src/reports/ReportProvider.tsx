@@ -19,13 +19,14 @@ import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import styles from "./Report.module.scss";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
-import { METRIC_CONFIG } from "../data/config/MetricConfig";
+import { METRIC_CONFIG, VariableConfig } from "../data/config/MetricConfig";
 import { Link } from "react-router-dom";
 import FeedbackBox from "../pages/ui/FeedbackBox";
 import ShareButtons from "./ui/ShareButtons";
 import { Helmet } from "react-helmet-async";
 import { urlMap } from "../utils/externalUrls";
 import { Box } from "@material-ui/core";
+import DefinitionsList from "./ui/DefinitionsList";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
@@ -326,63 +327,29 @@ Display heading and one or more definitions based on the selected condition(s)
 */
 function DefinitionsBox(props: { madLib: MadLib }) {
   // get current selected condition(s)
-  const condition1array = METRIC_CONFIG[getPhraseValue(props.madLib, 1)];
-  const condition2array =
+  const condition1array: VariableConfig[] =
+    METRIC_CONFIG[getPhraseValue(props.madLib, 1)];
+  const condition2array: VariableConfig[] =
     props.madLib.id === "comparevars"
       ? METRIC_CONFIG[getPhraseValue(props.madLib, 3)]
-      : null;
+      : [];
+
+  const selectedConditions: VariableConfig[] =
+    condition2array.length && condition2array !== condition1array
+      ? [...condition1array, ...condition2array]
+      : condition1array;
+
+  const definedConditions = selectedConditions.filter(
+    (condition) => condition.variableDefinition.text
+  );
 
   // if definitions don't exist then dont render component
-  if (
-    condition1array.every(
-      (condition) => condition.variableDefinition.text === ""
-    )
-  ) {
-    if (
-      !condition2array ||
-      condition2array.every(
-        (condition) => condition.variableDefinition.text === ""
-      )
-    )
-      return <></>;
-  }
+  if (definedConditions.length === 0) return <></>;
 
   return (
     <Box mt={5}>
       <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
-      <ul>
-        {/* FIRST CONDITION DEF(S) */}
-        {condition1array.some(
-          (condition) => condition.variableDefinition.text !== ""
-        ) &&
-          condition1array.map((condition) => (
-            <li key={condition.variableFullDisplayName}>
-              <b>{condition.variableFullDisplayName}</b>
-              {": "}
-              {condition.variableDefinition.text}{" "}
-              <a href={condition.variableDefinition.url}>
-                {condition.variableDefinition.sourceName}
-              </a>
-            </li>
-          ))}
-
-        {/* SECOND CONDITION DEF(S) if in COMPARE VAR VIEW */}
-        {condition2array &&
-          condition2array !== condition1array &&
-          condition2array.some(
-            (condition) => condition.variableDefinition.text !== ""
-          ) &&
-          condition2array.map((condition) => (
-            <li key={condition.variableFullDisplayName}>
-              <b>{condition.variableFullDisplayName}</b>
-              {": "}
-              {condition.variableDefinition.text}{" "}
-              <a href={condition.variableDefinition.url}>
-                {condition.variableDefinition.sourceName}
-              </a>
-            </li>
-          ))}
-      </ul>
+      <DefinitionsList definedConditions={definedConditions} />
     </Box>
   );
 }
