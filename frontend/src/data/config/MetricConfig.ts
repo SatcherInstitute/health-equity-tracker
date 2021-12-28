@@ -74,7 +74,7 @@ export type VariableConfig = {
   variableId: string; // TODO - strongly type key
   variableDisplayName: string;
   variableFullDisplayName: string;
-  variableDefinition: {
+  variableDefinition?: {
     text: string;
     sourceName: string;
     url: string;
@@ -90,11 +90,6 @@ export const POPULATION_VARIABLE_CONFIG: VariableConfig = {
   variableId: "population",
   variableDisplayName: "Population",
   variableFullDisplayName: "Population",
-  variableDefinition: {
-    text: ``,
-    sourceName: ``,
-    url: ``,
-  },
   metrics: {
     count: {
       metricId: "population",
@@ -115,11 +110,6 @@ export const POPULATION_VARIABLE_CONFIG_2010: VariableConfig = {
   variableId: "population_2010",
   variableDisplayName: "Population",
   variableFullDisplayName: "Population",
-  variableDefinition: {
-    text: ``,
-    sourceName: ``,
-    url: ``,
-  },
   metrics: {
     count: {
       metricId: "population_2010",

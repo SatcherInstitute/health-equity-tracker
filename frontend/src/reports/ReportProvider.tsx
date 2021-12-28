@@ -340,7 +340,7 @@ function DefinitionsBox(props: { madLib: MadLib }) {
       : condition1array;
 
   const definedConditions = selectedConditions.filter(
-    (condition) => condition.variableDefinition.text
+    (condition) => condition.variableDefinition?.text
   );
 
   // if definitions don't exist then dont render component
