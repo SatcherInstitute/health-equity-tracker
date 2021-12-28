@@ -1,3 +1,4 @@
+import { MetricId } from "../config/MetricConfig";
 import { MetricQueryResponse } from "../query/MetricQuery";
 
 let metricQueryResponse: MetricQueryResponse;
@@ -52,10 +53,9 @@ describe("MetricQueryResponse", () => {
       min: 2,
       max: 12,
     });
-    expect(metricQueryResponse.getFieldRange("race_and_ethnicity")).toEqual(
-      undefined
-    );
-    expect(metricQueryResponse.getFieldRange("invalid")).toEqual(undefined);
+    expect(
+      metricQueryResponse.getFieldRange("race_and_ethnicity" as MetricId)
+    ).toEqual(undefined);
   });
 
   test("getUniqueFieldValues()", async () => {
@@ -69,7 +69,7 @@ describe("MetricQueryResponse", () => {
     });
 
     expect(metricQueryResponse.getFieldValues("fips", targetMetric)).toEqual({
-      noData: ["01"],
+      noData: [],
       withData: ["01", "02"],
     });
   });
@@ -80,6 +80,5 @@ describe("MetricQueryResponse", () => {
       invalid: 6,
     });
     expect(metricQueryResponse.isFieldMissing("covid_cases")).toEqual(false);
-    expect(metricQueryResponse.isFieldMissing("invalid")).toEqual(true);
   });
 });
