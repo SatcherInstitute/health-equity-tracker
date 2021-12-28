@@ -183,7 +183,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
         </Grid>
 
         {/* Missing Groups */}
-        {props.breakdownValuesNoData.length ? (
+        {props.breakdownValuesNoData.length > 0 && (
           <Grid item container justify="center" xs={12} xl={7}>
             <Box my={3}>
               <Alert severity="warning">
@@ -203,8 +203,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               </Alert>
             </Box>
           </Grid>
-        ) : (
-          <></>
         )}
       </DialogContent>
 

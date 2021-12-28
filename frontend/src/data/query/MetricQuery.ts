@@ -125,8 +125,6 @@ export class MetricQueryResponse {
         : noData.push(group);
     });
 
-    console.log(withData);
-    console.log(noData);
     return {
       withData,
       noData,
