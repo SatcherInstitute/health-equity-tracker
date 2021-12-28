@@ -262,7 +262,9 @@ function CarouselMadLib(props: {
         (phraseSegment: PhraseSegment, index: number) => (
           <React.Fragment key={index}>
             {typeof phraseSegment === "string" ? (
-              <Grid item>{phraseSegment}</Grid>
+              <Grid item className={styles.MadLibSelect}>
+                {phraseSegment}
+              </Grid>
             ) : (
               <Grid item className={styles.MadLibSelect}>
                 <OptionsSelector
