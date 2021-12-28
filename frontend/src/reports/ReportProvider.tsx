@@ -19,53 +19,16 @@ import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import styles from "./Report.module.scss";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
-import { METRIC_CONFIG } from "../data/config/MetricConfig";
+import { METRIC_CONFIG, VariableConfig } from "../data/config/MetricConfig";
 import { Link } from "react-router-dom";
 import FeedbackBox from "../pages/ui/FeedbackBox";
 import ShareButtons from "./ui/ShareButtons";
 import { Helmet } from "react-helmet-async";
 import { urlMap } from "../utils/externalUrls";
+import { Box } from "@material-ui/core";
+import DefinitionsList from "./ui/DefinitionsList";
 
 export const SINGLE_COLUMN_WIDTH = 12;
-
-function VariableDefinition(props: { variable: string }) {
-  const condition = METRIC_CONFIG[props.variable];
-  return condition.length > 1 ? (
-    <div>
-      <ul>
-        {condition.map((subVar) => {
-          return (
-            subVar.variableDefinition.text && (
-              <li key={subVar.variableFullDisplayName}>
-                <b>{subVar.variableFullDisplayName}</b>
-                {": "}
-                {subVar.variableDefinition.text}
-                <a href={subVar.variableDefinition.url}>
-                  {subVar.variableDefinition.sourceName}
-                </a>
-              </li>
-            )
-          );
-        })}
-      </ul>
-    </div>
-  ) : (
-    <div>
-      <ul>
-        {condition[0].variableDefinition.text && (
-          <li>
-            <b>{condition[0].variableFullDisplayName}</b>
-            {": "}
-            {condition[0].variableDefinition.text}{" "}
-            <a href={condition[0].variableDefinition.url}>
-              {condition[0].variableDefinition.sourceName}
-            </a>
-          </li>
-        )}
-      </ul>
-    </div>
-  );
-}
 
 function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
   const segment = madLib.phrase[segmentIndex];
@@ -348,23 +311,46 @@ function ReportProvider(props: ReportProviderProps) {
             </Button>
           </a>
 
-          {/* DEFINITIONS */}
-          <h3 ref={definitionsRef} className={styles.FootnoteLargeHeading}>
-            Definitions
-          </h3>
-
-          {/* Selected Dropdown Variable */}
-          <VariableDefinition variable={getPhraseValue(props.madLib, 1)} />
-
-          {/* 2nd Selected Dropdown Variable (if applicable) */}
-          {props.madLib.id === "comparevars" && (
-            <VariableDefinition variable={getPhraseValue(props.madLib, 3)} />
-          )}
+          <div ref={definitionsRef}>
+            <DefinitionsBox madLib={props.madLib} />
+          </div>
         </aside>
       </div>
 
       <FeedbackBox />
     </>
+  );
+}
+
+/*
+Display heading and one or more definitions based on the selected condition(s)
+*/
+function DefinitionsBox(props: { madLib: MadLib }) {
+  // get current selected condition(s)
+  const condition1array: VariableConfig[] =
+    METRIC_CONFIG[getPhraseValue(props.madLib, 1)];
+  const condition2array: VariableConfig[] =
+    props.madLib.id === "comparevars"
+      ? METRIC_CONFIG[getPhraseValue(props.madLib, 3)]
+      : [];
+
+  const selectedConditions: VariableConfig[] =
+    condition2array.length && condition2array !== condition1array
+      ? [...condition1array, ...condition2array]
+      : condition1array;
+
+  const definedConditions = selectedConditions.filter(
+    (condition) => condition?.variableDefinition
+  );
+
+  // if definitions don't exist then dont render component
+  if (definedConditions.length === 0) return <></>;
+
+  return (
+    <Box mt={5}>
+      <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
+      <DefinitionsList definedConditions={definedConditions} />
+    </Box>
   );
 }
 
