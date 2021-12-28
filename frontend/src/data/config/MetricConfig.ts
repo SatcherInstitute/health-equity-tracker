@@ -184,11 +184,6 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "COVID-19 Cases",
-      variableDefinition: {
-        text: ``,
-        sourceName: ``,
-        url: ``,
-      },
       metrics: {
         count: {
           metricId: "covid_cases",
@@ -233,11 +228,6 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "deaths",
       variableDisplayName: "Deaths",
       variableFullDisplayName: "COVID-19 Deaths",
-      variableDefinition: {
-        text: ``,
-        sourceName: ``,
-        url: ``,
-      },
       metrics: {
         count: {
           metricId: "covid_deaths",
@@ -282,11 +272,6 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "hospitalizations",
       variableDisplayName: "Hospitalizations",
       variableFullDisplayName: "COVID-19 Hospitalizations",
-      variableDefinition: {
-        text: ``,
-        sourceName: ``,
-        url: ``,
-      },
       metrics: {
         count: {
           metricId: "covid_hosp",
@@ -401,11 +386,6 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "health_coverage",
       variableDisplayName: "Uninsured Individuals",
       variableFullDisplayName: "Uninsured Individuals",
-      variableDefinition: {
-        text: ``,
-        sourceName: ``,
-        url: ``,
-      },
       metrics: {
         per100k: {
           metricId: "health_insurance_per_100k",
@@ -433,11 +413,6 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "poverty",
       variableDisplayName: "Poverty",
       variableFullDisplayName: "Individuals Below The Poverty Line",
-      variableDefinition: {
-        text: ``,
-        sourceName: ``,
-        url: ``,
-      },
       metrics: {
         per100k: {
           metricId: "poverty_per_100k",
