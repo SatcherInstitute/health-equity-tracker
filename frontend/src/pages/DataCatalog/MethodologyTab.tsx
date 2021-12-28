@@ -20,7 +20,7 @@ export const CITATION_APA = `Health Equity Tracker. (2021). Satcher Health Leade
 
 const definedConditions = Object.values(METRIC_CONFIG)
   .flat()
-  .filter((c) => c.variableDefinition?.text);
+  .filter((c) => c?.variableDefinition);
 
 function MethodologyTab() {
   return (
