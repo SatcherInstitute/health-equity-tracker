@@ -256,7 +256,7 @@
     color: white;
     padding: 30px;
 
-    font-size: clamp(3rem, 5vw, 5rem) !important;
+    font-size: clamp($bigHeader, 5vw, $biggestHeader) !important;
     line-height: 1.5 !important;
   }
 
