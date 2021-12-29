@@ -26,6 +26,7 @@ function UnknownsAlert(props: {
   overrideAndWithOr?: Boolean;
   raceEthDiffMap?: Boolean;
   noDemographicInfoMap?: Boolean;
+  showUnknownsMap?: Boolean;
 }) {
   const unknowns = props.queryResponse
     .getValidRowsForField(props.metricConfig.metricId)
@@ -76,6 +77,14 @@ function UnknownsAlert(props: {
     ${unknowns[1][props.breakdownVar].toLowerCase()}.`
     : "";
 
+  const showCardHelperText =
+    /* for DISPARITY CHART  */ (props.displayType === "chart" &&
+      percentageUnknown !== 100 &&
+      !props.noDemographicInfoMap) ||
+    /* for UNKNOWNS MAP */ (percentageUnknown !== 100 &&
+      percentageUnknown !== 0 &&
+      props.showUnknownsMap);
+
   // In the case we have unknowns for race and ethnicity reported separately,
   // show the higher one on the map
   return raceEthnicityDiff ? (
@@ -97,11 +106,8 @@ function UnknownsAlert(props: {
           {props.overrideAndWithOr
             ? RACE_OR_ETHNICITY
             : breakdownVarDisplayName}
-          .{" "}
-          {percentageUnknown !== 100 &&
-            !props.noDemographicInfoMap &&
-            cardHelperText}{" "}
-          {props.raceEthDiffMap && raceEthDiffMapText}
+          . {showCardHelperText ? cardHelperText : <></>}{" "}
+          {props.raceEthDiffMap ? raceEthDiffMapText : <></>}
         </Alert>
       </CardContent>
       <Divider />

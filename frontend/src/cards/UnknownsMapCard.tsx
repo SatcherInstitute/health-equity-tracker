@@ -124,13 +124,10 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   : unknownEthnicities[index];
               });
 
-        // this flag is in place when we expect data to be missing
         const dataIsMissing = mapQueryResponse.dataIsMissing();
-
-        // the unknowns array is empty (can be because nothing is unknown like the BRFSS survey, or can be because nothing is reported)
         const unknownsArrayEmpty = unknowns.length === 0;
 
-        // there is data for ALL but not by demographic groups
+        // there is some data but only for ALL but not by demographic groups
         const noDemographicInfo =
           mapQueryResponse
             .getValidRowsForField(props.currentBreakdown)
@@ -141,34 +138,28 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             .filter((row: Row) => row[props.currentBreakdown] === ALL).length >
             0;
 
-        // this is the result of our suppressing states with too low COVID numbers
+        // when suppressing states with too low COVID numbers
         const unknownsUndefined =
           unknowns.length > 0 &&
           unknowns.every(
             (unknown: Row) => unknown[metricConfig.metricId] === undefined
           );
 
-        console.log({ unknowns });
-        console.log({ dataIsMissing });
-        console.log({ unknownsArrayEmpty });
-        console.log({ noDemographicInfo });
-        console.log({ unknownsUndefined });
-
-        // show MISSING DATA ALERT if we expect the unknowns array to be empty,
+        // show MISSING DATA ALERT if we expect the unknowns array to be empty (breakdowns/data unavailable),
         // or if the unknowns are undefined (eg COVID suppressed states)
         const showMissingDataAlert =
           (unknownsArrayEmpty && dataIsMissing) ||
           (!unknownsArrayEmpty && unknownsUndefined) ||
           noDemographicInfo;
 
-        // show NO UNKNOWNS INFO BOX when everything is known, (eg the BRFSS survey)
+        // show NO UNKNOWNS INFO BOX for an expected empty array of UNKNOWNS (eg the BRFSS survey)
         const showNoUnknownsInfo =
           unknownsArrayEmpty &&
           !dataIsMissing &&
           !unknownsUndefined &&
           !noDemographicInfo;
 
-        // show the UNKNOWNS MAP when there is actually unknowns data and it's not undefined/suppressed
+        // show the UNKNOWNS MAP when there is unknowns data and it's not undefined/suppressed
         const showUnknownsMap = !unknownsArrayEmpty && !unknownsUndefined;
 
         return (
@@ -200,6 +191,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   ).length !== 0
               }
               noDemographicInfoMap={noDemographicInfo}
+              showUnknownsMap={showUnknownsMap}
             />
 
             <CardContent>
