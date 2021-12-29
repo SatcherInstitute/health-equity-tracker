@@ -160,7 +160,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
           !noDemographicInfo;
 
         // show the UNKNOWNS MAP when there is unknowns data and it's not undefined/suppressed
-        const showUnknownsMap = !unknownsArrayEmpty && !unknownsUndefined;
+        const showingVisualization = !unknownsArrayEmpty && !unknownsUndefined;
 
         return (
           <>
@@ -191,7 +191,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   ).length !== 0
               }
               noDemographicInfoMap={noDemographicInfo}
-              showUnknownsMap={showUnknownsMap}
+              showingVisualization={showingVisualization}
+              fips={props.fips}
             />
 
             <CardContent>
@@ -215,7 +216,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                 </Alert>
               )}
             </CardContent>
-            {showUnknownsMap && (
+            {showingVisualization && (
               <CardContent>
                 <ChoroplethMap
                   useSmallSampleMessage={
