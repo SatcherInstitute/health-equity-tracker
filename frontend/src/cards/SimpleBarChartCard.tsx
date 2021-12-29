@@ -63,36 +63,27 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     >
       {([queryResponse]) => {
         return (
-          <>
+          <CardContent className={styles.Breadcrumbs}>
             {queryResponse.shouldShowMissingDataMessage([
               metricConfig.metricId,
-            ]) && (
-              <CardContent className={styles.Breadcrumbs}>
-                <MissingDataAlert
-                  dataName={metricConfig.fullCardTitleName}
-                  breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-                  }
-                  geoLevel={props.fips.getFipsTypeDisplayName()}
-                />
-              </CardContent>
+            ]) ? (
+              <MissingDataAlert
+                dataName={metricConfig.fullCardTitleName}
+                breakdownString={
+                  BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+                }
+                geoLevel={props.fips.getFipsTypeDisplayName()}
+              />
+            ) : (
+              <SimpleHorizontalBarChart
+                data={queryResponse.getValidRowsForField(metricConfig.metricId)}
+                breakdownVar={props.breakdownVar}
+                metric={metricConfig}
+                showLegend={false}
+                filename={getTitleText()}
+              />
             )}
-            {!queryResponse.shouldShowMissingDataMessage([
-              metricConfig.metricId,
-            ]) && (
-              <CardContent className={styles.Breadcrumbs}>
-                <SimpleHorizontalBarChart
-                  data={queryResponse.getValidRowsForField(
-                    metricConfig.metricId
-                  )}
-                  breakdownVar={props.breakdownVar}
-                  metric={metricConfig}
-                  showLegend={false}
-                  filename={getTitleText()}
-                />
-              </CardContent>
-            )}
-          </>
+          </CardContent>
         );
       }}
     </CardWrapper>
