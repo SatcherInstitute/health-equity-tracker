@@ -108,11 +108,10 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
           );
 
         // include a note about percents adding to over 100%
-        // if race options include hispanic  twice (eg "White" and "Hispanic" can both include Hispanic people)
+        // if race options include hispanic twice (eg "White" and "Hispanic" can both include Hispanic people)
         // also require at least some data to be available to avoid showing info on suppressed/undefined states
         const shouldShowDoesntAddUpMessage =
           props.breakdownVar === "race_and_ethnicity" &&
-          queryResponse.data.length > 0 &&
           queryResponse.data.every(
             (row) =>
               !row[props.breakdownVar].includes("(Non-Hispanic)") ||
