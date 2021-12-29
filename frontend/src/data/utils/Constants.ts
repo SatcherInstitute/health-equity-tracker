@@ -38,8 +38,19 @@ export const STANDARD_RACES = [
   ALL,
 ] as const;
 
+export const NON_STANDARD_RACES = [
+  "American Indian and Alaska Native",
+  "Asian",
+  "Black or African American",
+  "Native Hawaiian and Pacific Islander",
+  "Some other race",
+  "Two or more races",
+  "White",
+] as const;
+
 export const RACE_GROUPS = [
   ...STANDARD_RACES,
+  ...NON_STANDARD_RACES,
   UNKNOWN_RACE,
   UNKNOWN_HL,
   UNKNOWN_ETHNICITY,

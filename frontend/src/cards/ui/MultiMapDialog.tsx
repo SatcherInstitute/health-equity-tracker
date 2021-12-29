@@ -18,6 +18,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
 import { Alert } from "@material-ui/lab";
+import { DemographicGroup } from "../../data/utils/Constants";
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -42,7 +43,7 @@ export interface MultiMapDialogProps {
   queryResponses: MetricQueryResponse[];
   // Metadata required for the source footer
   metadata: MapOfDatasetMetadata;
-  breakdownValuesNoData: any[];
+  breakdownValuesNoData: DemographicGroup[];
   // Geography data, in topojson format. Must include both states and counties.
   // If not provided, defaults to directly loading /tmp/geographies.json
   geoData?: Record<string, any>;
