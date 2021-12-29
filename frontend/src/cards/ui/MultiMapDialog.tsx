@@ -71,7 +71,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
           <Grid
             item
             xs={12}
-            xl={6}
             container
             justify={pageIsWide ? "flex-start" : "center"}
           >
@@ -156,41 +155,43 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
           })}
 
           {/* Legend */}
+
           <Grid
             item
             xs={12}
             sm={6}
             md={4}
             lg={3}
+            xl={12}
             className={styles.SmallMultipleLegendMap}
           >
-            <Grid container item>
-              <Grid container justify="center">
-                <b>Legend</b>
+            <Box mt={pageIsWide ? 10 : 0}>
+              <Grid container item>
+                <Grid container justify="center">
+                  <b>Legend</b>
+                </Grid>
+                <Grid container justify="center">
+                  <Legend
+                    metric={props.metricConfig}
+                    legendTitle={props.metricConfig.fullCardTitleName}
+                    legendData={props.data}
+                    scaleType="quantile"
+                    sameDotSize={true}
+                    direction={pageIsWide ? "horizontal" : "vertical"}
+                  />
+                </Grid>
               </Grid>
-              <Grid container justify="center">
-                <Legend
-                  metric={props.metricConfig}
-                  legendTitle={props.metricConfig.fullCardTitleName}
-                  legendData={props.data}
-                  scaleType="quantile"
-                  sameDotSize={true}
-                  direction={pageIsWide ? "horizontal" : "vertical"}
-                />
-              </Grid>
-            </Grid>
+            </Box>
           </Grid>
-        </Grid>
 
-        {/* Missing Groups */}
-        {props.breakdownValuesNoData.length > 0 && (
-          <Grid item container justify="center" xs={12} xl={7}>
-            <Box my={3}>
-              <Alert severity="warning">
-                <Grid container justify="flex-start">
+          {/* Missing Groups */}
+          {props.breakdownValuesNoData.length > 0 && (
+            <Grid item container justify="center" xs={12} xl={7}>
+              <Box my={3}>
+                <Alert severity="warning">
                   <p className={styles.NoDataWarning}>
                     No {props.metricConfig.shortVegaLabel} data reported at the{" "}
-                    {props.fips.getFipsTypeDisplayName()} level for the
+                    {props.fips.getChildFipsTypeDisplayName()} level for the
                     following groups:{" "}
                     {props.breakdownValuesNoData.map((group, i) => (
                       <span key={group}>
@@ -199,11 +200,11 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                       </span>
                     ))}
                   </p>
-                </Grid>
-              </Alert>
-            </Box>
-          </Grid>
-        )}
+                </Alert>
+              </Box>
+            </Grid>
+          )}
+        </Grid>
       </DialogContent>
 
       {/* MODAL FOOTER */}
