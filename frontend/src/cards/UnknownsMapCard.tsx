@@ -148,22 +148,25 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             (unknown: Row) => unknown[metricConfig.metricId] === undefined
           );
 
-        // console.log({ unknowns });
-        // console.log({ dataIsMissing });
-        // console.log({ unknownsArrayEmpty });
-        // console.log({ noDemographicInfo });
-        // console.log({ unknownsUndefined });
+        console.log({ unknowns });
+        console.log({ dataIsMissing });
+        console.log({ unknownsArrayEmpty });
+        console.log({ noDemographicInfo });
+        console.log({ unknownsUndefined });
 
-        /* Logic for UNKNOWN MAP CARD components */
-
-        // show MISSING DATA ALERT if we expect the unknowns array to be empty, or if the unknowns are undefined (eg COVID suppressed states)
+        // show MISSING DATA ALERT if we expect the unknowns array to be empty,
+        // or if the unknowns are undefined (eg COVID suppressed states)
         const showMissingDataAlert =
           (unknownsArrayEmpty && dataIsMissing) ||
-          (!unknownsArrayEmpty && unknownsUndefined);
+          (!unknownsArrayEmpty && unknownsUndefined) ||
+          noDemographicInfo;
 
         // show NO UNKNOWNS INFO BOX when everything is known, (eg the BRFSS survey)
         const showNoUnknownsInfo =
-          unknownsArrayEmpty && !dataIsMissing && !unknownsUndefined;
+          unknownsArrayEmpty &&
+          !dataIsMissing &&
+          !unknownsUndefined &&
+          !noDemographicInfo;
 
         // show the UNKNOWNS MAP when there is actually unknowns data and it's not undefined/suppressed
         const showUnknownsMap = !unknownsArrayEmpty && !unknownsUndefined;
