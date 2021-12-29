@@ -168,8 +168,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
             )}
             {shouldShowDoesntAddUpMessage && (
               <Alert severity="info">
-                Population percentages on this graph may add up to over 100%
-                because the racial categories reported for{" "}
+                Population percentages on this graph add up to over 100% because
+                the racial categories reported for{" "}
                 {metricConfig.fullCardTitleName} in{" "}
                 {props.fips.getFullDisplayName()} include Hispanic individuals
                 in each racial category. As a result, Hispanic individuals are
