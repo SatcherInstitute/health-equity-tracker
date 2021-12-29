@@ -150,7 +150,7 @@ const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "kff_vaccination-race_and_ethnicity",
     name: "COVID-19 Indicators",
-    update_time: "November 2021",
+    update_time: "December 2021",
   },
   {
     id: "uhc_data-age",
