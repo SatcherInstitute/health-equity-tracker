@@ -133,6 +133,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 displayType="chart"
                 known={true}
                 overrideAndWithOr={props.breakdownVar === "race_and_ethnicity"}
+                fips={props.fips}
               />
             ) : (
               <CardContent className={styles.Breadcrumbs}>

@@ -14,6 +14,7 @@ import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
+import { Fips } from "../../data/utils/Fips";
 
 export const RACE_OR_ETHNICITY = "race or ethnicity";
 
@@ -26,6 +27,8 @@ function UnknownsAlert(props: {
   overrideAndWithOr?: Boolean;
   raceEthDiffMap?: Boolean;
   noDemographicInfoMap?: Boolean;
+  showingVisualization?: Boolean;
+  fips: Fips;
 }) {
   const unknowns = props.queryResponse
     .getValidRowsForField(props.metricConfig.metricId)
@@ -76,6 +79,14 @@ function UnknownsAlert(props: {
     ${unknowns[1][props.breakdownVar].toLowerCase()}.`
     : "";
 
+  const showCardHelperText =
+    /* for DISPARITY CHART  */ (props.displayType === "chart" &&
+      percentageUnknown !== 100 &&
+      !props.noDemographicInfoMap) ||
+    /* for UNKNOWNS MAP */ (percentageUnknown !== 100 &&
+      percentageUnknown !== 0 &&
+      props.showingVisualization);
+
   // In the case we have unknowns for race and ethnicity reported separately,
   // show the higher one on the map
   return raceEthnicityDiff ? (
@@ -90,18 +101,16 @@ function UnknownsAlert(props: {
       <CardContent className={styles.SmallMarginContent}>
         <Alert severity="warning">
           {percentageUnknown}
-          {
-            props.metricConfig.knownBreakdownComparisonMetric!.shortVegaLabel
-          }{" "}
-          reported {props.overrideAndWithOr && "an"} unknown{" "}
+          {props.metricConfig.knownBreakdownComparisonMetric!.shortVegaLabel}
+          {" in "}
+          {props.fips.getDisplayName()}
+          {" reported "}
+          {props.overrideAndWithOr && "an"} unknown{" "}
           {props.overrideAndWithOr
             ? RACE_OR_ETHNICITY
             : breakdownVarDisplayName}
-          .{" "}
-          {percentageUnknown !== 100 &&
-            !props.noDemographicInfoMap &&
-            cardHelperText}{" "}
-          {props.raceEthDiffMap && raceEthDiffMapText}
+          . {showCardHelperText ? cardHelperText : <></>}{" "}
+          {props.raceEthDiffMap ? raceEthDiffMapText : <></>}
         </Alert>
       </CardContent>
       <Divider />
