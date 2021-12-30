@@ -58,8 +58,6 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "acs_poverty_dataset-poverty_by_race_county",
       "acs_poverty_dataset-poverty_by_sex_state",
       "acs_poverty_dataset-poverty_by_sex_county",
-      "acs_poverty_dataset-poverty_by_race_age_sex_state",
-      "acs_poverty_dataset-poverty_by_race_age_sex_county",
     ],
     downloadable: true,
   },
