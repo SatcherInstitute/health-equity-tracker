@@ -44,7 +44,7 @@ class AcsPopulationProvider extends VariableProvider {
     super("acs_pop_provider", ["population", "population_pct"]);
   }
 
-  // ALERT! KEEP IN SYNC! Make sure you update DataSourceMetadata if you update dataset IDs
+  // ALERT! KEEP IN SYNC! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts if you update dataset IDs
   getDatasetId(breakdowns: Breakdowns): string {
     return GetAcsDatasetId(breakdowns);
   }
