@@ -222,7 +222,7 @@ export function PopulationCard(props: PopulationCardProps) {
                         <MissingDataAlert
                           dataName={POP_CONFIG.variableDisplayName}
                           breakdownString={BREAKDOWN_VAR_DISPLAY_NAMES["age"]}
-                          geoLevel={props.fips.getFipsTypeDisplayName()}
+                          fips={props.fips}
                         />
                       ) : (
                         <SimpleHorizontalBarChart

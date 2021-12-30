@@ -4,29 +4,39 @@ import {
   LinkWithStickyParams,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "../../utils/urlutils";
+import { Fips } from "../../data/utils/Fips";
 
 function MissingDataAlert(props: {
   dataName: string;
   breakdownString: string;
-  geoLevel: string;
   noDemographicInfo?: boolean;
+  isMapCard?: boolean;
+  fips: Fips;
 }) {
   // conditionally render the statement based on props
-  const demoPhrase = props.noDemographicInfo
+  const demographicPhrase = props.noDemographicInfo
     ? " demographic information for "
     : " ";
   const breakdownPhrase = props.noDemographicInfo
     ? " "
     : ` broken down by ${props.breakdownString} `;
-  const geo = props.geoLevel || "city"; // if no props.geoLevel, it's coming from a county view, meaning the level down would be city
+
+  // if it's a map that refers to a lower geo-level,
+  // use the supplied child level unless it's a county level
+  // report, in which case the map would be of cities
+  const geoPhrase = props.isMapCard
+    ? `at the ${props.fips.getChildFipsTypeDisplayName() || "city"} level `
+    : "";
 
   return (
     <Alert severity="warning">
       We do not currently have
-      {demoPhrase}
+      {demographicPhrase}
       <b>{props.dataName}</b>
       {breakdownPhrase}
-      at the <b>{geo}</b> level. Learn more about how this lack of data impacts{" "}
+      {geoPhrase}
+      for {props.fips.getDisplayName()}. Learn more about how this lack of data
+      impacts{" "}
       <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
         health equity
       </LinkWithStickyParams>

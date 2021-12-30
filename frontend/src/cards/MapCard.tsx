@@ -299,7 +299,8 @@ function MapCardWithKey(props: MapCardProps) {
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
                   }
-                  geoLevel={props.fips.getChildFipsTypeDisplayName()}
+                  isMapCard={true}
+                  fips={props.fips}
                 />
               </CardContent>
             )}
@@ -419,7 +420,7 @@ function MapCardWithKey(props: MapCardProps) {
   );
 }
 
-/* 
+/*
 Generates the "COMPARES ACROSS GROUPS" button which opens the small multiples modal
 */
 export interface MultiMapLinkProps {
