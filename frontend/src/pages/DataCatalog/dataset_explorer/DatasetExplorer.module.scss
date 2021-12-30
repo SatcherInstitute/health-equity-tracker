@@ -11,23 +11,6 @@
   text-align: center;
 }
 
-.FilterContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.FilterTitle {
-  padding: 5px;
-  font-size: large;
-}
-
-.Filter {
-  text-align: left;
-  flex-grow: 1;
-  padding: 5px;
-}
-
 .DatasetListItem {
   padding: 5px;
   width: 100%;
@@ -44,10 +27,6 @@
   flex-direction: row;
 }
 
-.Table {
-  padding: 5px;
-}
-
 /** ------------- DATA DOWNLOADS ------------- **/
 
 .DatasetHeader {
@@ -55,7 +34,7 @@
 }
 
 .DataDownloadsHeaderText {
-  font-size: 32px !important;
+  font-size: $header !important;
   line-height: 32px !important;
   font-weight: 400;
   font-family: "Taviraj", sans-serif !important;
@@ -65,7 +44,7 @@
 }
 
 .DataDownloadsHeaderSubtext {
-  font-size: 14px;
+  font-size: $small;
   line-height: 20px;
   font-weight: 400;
   font-family: "Inter", sans-serif !important;

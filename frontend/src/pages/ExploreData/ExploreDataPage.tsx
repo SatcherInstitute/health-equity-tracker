@@ -92,6 +92,11 @@ function ExploreDataPage() {
     };
   }, []);
 
+  /* scroll to top on any changes to the madlib settings */
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [madLib]);
+
   const setMadLibWithParam = (ml: MadLib) => {
     setParameter(MADLIB_SELECTIONS_PARAM, stringifyMls(ml.activeSelections));
     setMadLib(ml);
@@ -252,14 +257,21 @@ function CarouselMadLib(props: {
   }
 
   return (
-    <Grid container justify="center" className={styles.CarouselItem}>
+    <Grid
+      container
+      justify="center"
+      alignItems="center"
+      className={styles.CarouselItem}
+    >
       {props.madLib.phrase.map(
         (phraseSegment: PhraseSegment, index: number) => (
           <React.Fragment key={index}>
             {typeof phraseSegment === "string" ? (
-              <Grid item>{phraseSegment}</Grid>
+              <Grid item className={styles.MadLibSelect}>
+                {phraseSegment}
+              </Grid>
             ) : (
-              <Grid item>
+              <Grid item className={styles.MadLibSelect}>
                 <OptionsSelector
                   key={index}
                   value={props.madLib.activeSelections[index]}

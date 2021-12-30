@@ -14,9 +14,9 @@ function TermsOfUsePage(props: {
         <title>Terms of Use - Health Equity Tracker</title>
       </Helmet>
       <h1 className={styles.ScreenreaderTitleHeader}>Terms of Use</h1>
-      <Grid container className={styles.Grid}>
-        <Grid container className={styles.TosSection}>
-          <Grid item xs={12} md={3}>
+      <Grid container>
+        <Grid container className={styles.TosSection} justify="center">
+          <Grid item xs={12} md={3} xl={12}>
             <Typography
               id="main"
               tabIndex={-1}
@@ -26,11 +26,11 @@ function TermsOfUsePage(props: {
               Terms and Conditions
             </Typography>
           </Grid>
-          <Grid item xs={12} md={9}>
+          <Grid item xs={12} md={9} xl={12} className={styles.TosContent}>
             <Grid container>
-              <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-                <h3 className={styles.TosQuestion}>Privacy Policy</h3>
-                <div className={styles.TosAnswer}>
+              <Grid item xs={12} className={styles.TosChunk}>
+                <h3 className={styles.TosChunkHeader}>Privacy Policy</h3>
+                <div className={styles.TosChunkDetails}>
                   <p>
                     Morehouse School of Medicine’s (MSM) Health Equity Tracker
                     (HET) is committed to protecting your online privacy. The
@@ -42,11 +42,11 @@ function TermsOfUsePage(props: {
                   </p>
                 </div>
               </Grid>
-              <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-                <h3 className={styles.TosQuestion}>
+              <Grid item xs={12} className={styles.TosChunk}>
+                <h3 className={styles.TosChunkHeader}>
                   Personally Provided Information
                 </h3>
-                <div className={styles.TosAnswer}>
+                <div className={styles.TosChunkDetails}>
                   <p>
                     In general, you can visit official MSM web sites, such as
                     the Health Equity Tracker ({HET_URL}) without revealing any
@@ -61,11 +61,11 @@ function TermsOfUsePage(props: {
                   </p>
                 </div>
               </Grid>
-              <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-                <h3 className={styles.TosQuestion}>
+              <Grid item xs={12} className={styles.TosChunk}>
+                <h3 className={styles.TosChunkHeader}>
                   Email and Phone Communications
                 </h3>
-                <div className={styles.TosAnswer}>
+                <div className={styles.TosChunkDetails}>
                   <p>
                     Email communication that you send to us via contact forms on
                     our sites or through phone calls may be shared with a
@@ -76,11 +76,11 @@ function TermsOfUsePage(props: {
                   </p>
                 </div>
               </Grid>
-              <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-                <h3 className={styles.TosQuestion}>
+              <Grid item xs={12} className={styles.TosChunk}>
+                <h3 className={styles.TosChunkHeader}>
                   Collection of Technical Information
                 </h3>
-                <div className={styles.TosAnswer}>
+                <div className={styles.TosChunkDetails}>
                   <p>
                     MSM and the HET use IP addresses (the Internet address of
                     your computer) to help diagnose problems with our servers
@@ -107,9 +107,9 @@ function TermsOfUsePage(props: {
                   </p>
                 </div>
               </Grid>
-              <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-                <h3 className={styles.TosQuestion}>Security</h3>
-                <div className={styles.TosAnswer}>
+              <Grid item xs={12} className={styles.TosChunk}>
+                <h3 className={styles.TosChunkHeader}>Security</h3>
+                <div className={styles.TosChunkDetails}>
                   <p>
                     While no computing environment can be 100% secure, it is
                     MSM’s goal to maintain as secure a technical environment as
@@ -121,9 +121,9 @@ function TermsOfUsePage(props: {
                   </p>
                 </div>
               </Grid>
-              <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-                <h3 className={styles.TosQuestion}>Links to Other Sites</h3>
-                <div className={styles.TosAnswer}>
+              <Grid item xs={12} className={styles.TosChunk}>
+                <h3 className={styles.TosChunkHeader}>Links to Other Sites</h3>
+                <div className={styles.TosChunkDetails}>
                   <p>
                     Please note that some pages within MSM web site, for the
                     convenience of users, are linked to web sites not managed by
@@ -134,11 +134,11 @@ function TermsOfUsePage(props: {
                   </p>
                 </div>
               </Grid>
-              <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-                <h3 className={styles.TosQuestion}>
+              <Grid item xs={12} className={styles.TosChunk}>
+                <h3 className={styles.TosChunkHeader}>
                   Changes to our Privacy Policy
                 </h3>
-                <div className={styles.TosAnswer}>
+                <div className={styles.TosChunkDetails}>
                   <p>
                     We may change the terms and conditions of our Privacy Policy
                     at any time by posting revisions on the MSM and HET web
@@ -151,9 +151,9 @@ function TermsOfUsePage(props: {
                   </p>
                 </div>
               </Grid>
-              <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-                <h3 className={styles.TosQuestion}>Complaint Process</h3>
-                <div className={styles.TosAnswer}>
+              <Grid item xs={12} className={styles.TosChunk}>
+                <h3 className={styles.TosChunkHeader}>Complaint Process</h3>
+                <div className={styles.TosChunkDetails}>
                   <p>
                     If you have a complaint or problem with the HET website, or
                     if you believe your privacy rights have been violated from
@@ -164,9 +164,9 @@ function TermsOfUsePage(props: {
                   </p>
                 </div>
               </Grid>
-              <Grid item xs={12} className={styles.TosQuestionAndAnswer}>
-                <h3 className={styles.TosQuestion}>Disclaimer</h3>
-                <div className={styles.TosAnswer}>
+              <Grid item xs={12} className={styles.TosChunk}>
+                <h3 className={styles.TosChunkHeader}>Disclaimer</h3>
+                <div className={styles.TosChunkDetails}>
                   <p>
                     No data protection method or combination of methods can be
                     guaranteed as completely secure. MSM nor HET are responsible
