@@ -281,12 +281,12 @@ function ResourcesTab() {
         Health Equity Resources
       </h1>
       <Grid container className={styles.Grid}>
-        <Grid container className={styles.ResourcesSection}>
+        <Grid container className={styles.ResourcesTabSection}>
           <Grid item xs={12} sm={12} md={3}>
             <Typography
               id="main"
               tabIndex={-1}
-              className={styles.ResourcesHeaderText}
+              className={styles.ResourcesTabHeaderText}
               variant="h2"
             >
               Resources
@@ -295,10 +295,10 @@ function ResourcesTab() {
           <Grid item xs={12} sm={12} md={9}>
             <Grid container>
               <Grid item>
-                <ul className={styles.ResourcesList}>
+                <ul className={styles.ResourcesTabList}>
                   {RESOURCES.map((resource) => (
                     <li
-                      className={styles.ResourcesListItem}
+                      className={styles.ResourcesTabListItem}
                       key={resource.name}
                     >
                       <a href={resource.url}>{resource.name}</a>

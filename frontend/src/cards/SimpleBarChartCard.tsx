@@ -1,6 +1,5 @@
 import React from "react";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
-import styles from "./Card.module.scss";
 import { CardContent } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
@@ -63,7 +62,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     >
       {([queryResponse]) => {
         return (
-          <CardContent className={styles.Breadcrumbs}>
+          <CardContent>
             {queryResponse.shouldShowMissingDataMessage([
               metricConfig.metricId,
             ]) ? (

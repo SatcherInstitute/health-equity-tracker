@@ -1,10 +1,5 @@
 @import "../../styles/variables.module";
 
-.DataCatalogPage {
-  margin: auto;
-  max-width: $max-width;
-}
-
 // For the title of the page read off by screenreaders in an h1
 .ScreenreaderTitleHeader {
   left: -999px;
@@ -17,30 +12,19 @@
 }
 
 /** ------------------ METHODOLOGY -------------------- **/
-.MethodologyGrid {
-  max-width: 1024px;
-}
 
 .MethodologySection {
   padding: 50px 20px 50px 20px;
+  margin: auto;
+  max-width: $max-width;
 }
 
 .MethodologyQuestionAndAnswer {
   padding-bottom: 20px;
 }
 
-.MethodologyHeaderText {
-  font-size: 32px !important;
-  text-align: center;
-  font-weight: 300;
-  font-family: "Taviraj", serif !important;
-  line-height: 40px;
-  color: $alt-black;
-  padding-bottom: 20px;
-}
-
 .MethodologyQuestion {
-  font-size: 18px !important;
+  font-size: $title !important;
   text-align: left;
   font-weight: 500;
   font-family: "DM Sans", sans-serif;
@@ -51,7 +35,7 @@
 }
 
 .MethodologyAnswer {
-  font-size: 14px;
+  font-size: $small;
   text-align: left;
   font-weight: 400;
   font-family: "Inter", sans-serif;
@@ -59,16 +43,10 @@
   color: $alt-black;
 }
 
-.MethodologySubheaderText {
-  font-weight: 700;
-  font-family: "Inter", sans-serif !important;
-  font-size: 1.17em;
-}
-
 .MethodologySubsubheaderText {
   font-weight: 550;
   font-family: "Inter", sans-serif !important;
-  font-size: 1.1em;
+  font-size: $text;
 }
 
 .MethodologyInfoBar {

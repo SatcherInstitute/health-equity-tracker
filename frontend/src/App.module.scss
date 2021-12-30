@@ -42,7 +42,7 @@
     border-radius: 15px;
     border: 4px solid $yellow;
     text-align: center;
-    font-size: 1.2em;
+    font-size: $smallestHeader;
     z-index: 999;
   }
 }
@@ -69,7 +69,7 @@
 }
 
 .HomeLogo {
-  font-size: 1.25rem !important;
+  font-size: $logo !important;
   font-weight: 500 !important;
   flex-grow: 1;
   text-align: left;
@@ -89,7 +89,7 @@
   padding: 6px 16px !important;
   font-family: "DM Sans", sans-serif !important;
   font-weight: 500 !important;
-  font-size: 0.875rem !important;
+  font-size: $small !important;
 
   a,
   &:link,

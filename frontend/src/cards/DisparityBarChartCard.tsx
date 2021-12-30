@@ -1,7 +1,6 @@
 import React from "react";
 import Alert from "@material-ui/lab/Alert";
 import { DisparityBarChart } from "../charts/DisparityBarChart";
-import styles from "./Card.module.scss";
 import { CardContent } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
@@ -136,7 +135,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 fips={props.fips}
               />
             ) : (
-              <CardContent className={styles.Breadcrumbs}>
+              <CardContent>
                 <MissingDataAlert
                   dataName={metricConfig.fullCardTitleName}
                   breakdownString={
@@ -152,7 +151,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               </CardContent>
             )}
             {dataAvailable && dataWithoutUnknowns.length !== 0 && (
-              <CardContent className={styles.Breadcrumbs}>
+              <CardContent>
                 <DisparityBarChart
                   data={dataWithoutUnknowns}
                   lightMetric={metricConfig.populationComparisonMetric!}
