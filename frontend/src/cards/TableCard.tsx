@@ -30,6 +30,7 @@ import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import { ALL } from "../data/utils/Constants";
 import { showAltPopCompare } from "./DisparityBarChartCard";
+import { urlMap } from "../utils/externalUrls";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 698;
@@ -151,7 +152,7 @@ export function TableCard(props: TableCardProps) {
                       <a
                         target="_blank"
                         rel="noopener noreferrer"
-                        href="https://www.uihi.org/resources/best-practices-for-american-indian-and-alaska-native-data-collection/"
+                        href={urlMap.uihiBestPractice}
                       >
                         guidelines for American Indian and Alaska Native Data
                         Collection
