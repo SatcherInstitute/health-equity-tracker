@@ -1,11 +1,11 @@
 @import "../../styles/variables.module";
 
 .ReportAlert {
-  margin: 10px;
+  margin: 0 10px 10px 10px;
   border: 1px solid $report-alert;
   text-align: left;
   line-height: 21px;
-  font-size: 14px;
+  font-size: $small;
 }
 
 .LinkButton {

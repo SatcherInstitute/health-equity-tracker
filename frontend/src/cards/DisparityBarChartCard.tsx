@@ -1,7 +1,6 @@
 import React from "react";
 import Alert from "@material-ui/lab/Alert";
 import { DisparityBarChart } from "../charts/DisparityBarChart";
-import styles from "./Card.module.scss";
 import { CardContent } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
@@ -20,6 +19,7 @@ import {
   UNKNOWN,
   UNKNOWN_RACE,
   UNKNOWN_ETHNICITY,
+  HISPANIC,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import UnknownsAlert from "./ui/UnknownsAlert";
@@ -106,26 +106,36 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               row[props.breakdownVar] !== UNKNOWN_ETHNICITY
           );
 
-        let shouldShowDoesntAddUpMessage = false;
-        if (
+        // include a note about percents adding to over 100%
+        // if race options include hispanic twice (eg "White" and "Hispanic" can both include Hispanic people)
+        // also require at least some data to be available to avoid showing info on suppressed/undefined states
+        const shouldShowDoesntAddUpMessage =
           props.breakdownVar === "race_and_ethnicity" &&
-          queryResponse.data.length > 0
-        ) {
-          shouldShowDoesntAddUpMessage = true;
-          queryResponse.data.forEach((elem) => {
-            if (elem[props.breakdownVar].includes("(Non-Hispanic)")) {
-              shouldShowDoesntAddUpMessage = false;
-            }
-          });
-        }
+          queryResponse.data.every(
+            (row) =>
+              !row[props.breakdownVar].includes("(Non-Hispanic)") ||
+              row[props.breakdownVar] === HISPANIC
+          ) &&
+          queryResponse.data.some((row) => row[metricConfig.metricId]);
 
         const dataAvailable = !queryResponse.shouldShowMissingDataMessage([
           metricConfig.metricId,
         ]);
         return (
           <>
-            {!dataAvailable && (
-              <CardContent className={styles.Breadcrumbs}>
+            {/* Display either UnknownsAlert OR MissingDataAlert */}
+            {dataAvailable ? (
+              <UnknownsAlert
+                metricConfig={metricConfig}
+                queryResponse={queryResponse}
+                breakdownVar={props.breakdownVar}
+                displayType="chart"
+                known={true}
+                overrideAndWithOr={props.breakdownVar === "race_and_ethnicity"}
+                fips={props.fips}
+              />
+            ) : (
+              <CardContent>
                 <MissingDataAlert
                   dataName={metricConfig.fullCardTitleName}
                   breakdownString={
@@ -140,18 +150,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 />
               </CardContent>
             )}
-            {dataAvailable && (
-              <UnknownsAlert
-                metricConfig={metricConfig}
-                queryResponse={queryResponse}
-                breakdownVar={props.breakdownVar}
-                displayType="chart"
-                known={true}
-                overrideAndWithOr={props.breakdownVar === "race_and_ethnicity"}
-              />
-            )}
             {dataAvailable && dataWithoutUnknowns.length !== 0 && (
-              <CardContent className={styles.Breadcrumbs}>
+              <CardContent>
                 <DisparityBarChart
                   data={dataWithoutUnknowns}
                   lightMetric={metricConfig.populationComparisonMetric!}
@@ -169,8 +169,9 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               <Alert severity="info">
                 Population percentages on this graph add up to over 100% because
                 the racial categories reported for{" "}
-                {metricConfig.fullCardTitleName} include Hispanic individuals in
-                each racial category. As a result, Hispanic individuals are
+                {metricConfig.fullCardTitleName} in{" "}
+                {props.fips.getFullDisplayName()} include Hispanic individuals
+                in each racial category. As a result, Hispanic individuals are
                 counted twice.
               </Alert>
             )}
