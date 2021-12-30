@@ -184,6 +184,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "COVID-19 Cases",
+      variableDefinition: {
+        text: `A COVID-19 case is an individual who has been determined to have COVID-19 using a set of criteria known as a case definition. Cases can be classified as suspect, probable, or confirmed. CDC counts include probable and confirmed cases and deaths. Suspect cases and deaths are excluded.`,
+        sourceName: "CDC",
+        url:
+          "https://www.cdc.gov/coronavirus/2019-ncov/covid-data/faq-surveillance.html",
+      },
       metrics: {
         count: {
           metricId: "covid_cases",
@@ -228,6 +234,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "deaths",
       variableDisplayName: "Deaths",
       variableFullDisplayName: "COVID-19 Deaths",
+      variableDefinition: {
+        text: `The mortality rate is the number of people who died due to COVID-19 divided by the total number of people in the population.`,
+        sourceName: "CDC",
+        url:
+          "https://www.cdc.gov/coronavirus/2019-ncov/covid-data/faq-surveillance.html",
+      },
       metrics: {
         count: {
           metricId: "covid_deaths",
@@ -381,11 +393,23 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       },
     },
   ],
+
   health_insurance: [
     {
       variableId: "health_coverage",
       variableDisplayName: "Uninsured Individuals",
       variableFullDisplayName: "Uninsured Individuals",
+      variableDefinition: {
+        text: `Health insurance coverage in the ACS and other Census Bureau surveys define coverage to
+        include plans and programs that provide comprehensive health coverage. Plans that provide
+        insurance only for specific conditions or situations such as cancer and long-term care policies
+        are not considered comprehensive health coverage. Likewise, other types of insurance like
+        dental, vision, life, and disability insurance are not considered comprehensive health
+        insurance coverage.`,
+        sourceName: `United States Census Bureau`,
+        url:
+          "https://www2.census.gov/programs-surveys/acs/tech_docs/subject_definitions/2019_ACSSubjectDefinitions.pdf",
+      },
       metrics: {
         per100k: {
           metricId: "health_insurance_per_100k",
@@ -413,6 +437,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "poverty",
       variableDisplayName: "Poverty",
       variableFullDisplayName: "Individuals Below The Poverty Line",
+      variableDefinition: {
+        text: `Following the Office of Management and Budget's (OMB) Statistical Policy Directive 14, the Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the family's threshold, then that family and every individual in it is considered in poverty. The official poverty thresholds do not vary geographically, but they are updated for inflation using the Consumer Price Index (CPI-U). The official poverty definition uses money income before taxes and does not include capital gains or noncash benefits (such as public housing, Medicaid, and food stamps).`,
+        sourceName: `United States Census Bureau`,
+        url:
+          "https://www.census.gov/topics/income-poverty/poverty/guidance/poverty-measures.html",
+      },
       metrics: {
         per100k: {
           metricId: "poverty_per_100k",
