@@ -4,24 +4,11 @@ import { MetricId } from "../config/MetricConfig";
 import { exclude } from "../query/BreakdownFilter";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import {
-  BROAD_AGE_BUCKETS,
-  DECADE_PLUS_5_AGE_BUCKETS,
-  NON_HISPANIC,
-} from "../utils/Constants";
+import { NON_HISPANIC } from "../utils/Constants";
 import { joinOnCols } from "../utils/datasetutils";
 import { USA_FIPS } from "../utils/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
-
-export const UHC_AGE_BUCKETS = [
-  "All",
-  // Suicide
-  ...DECADE_PLUS_5_AGE_BUCKETS,
-  // COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking
-  ...BROAD_AGE_BUCKETS,
-  // No Age Breakdowns for: Illicit Opioid, Non-medical Drug
-];
 
 export const UHC_BROAD_AGE_DETERMINANTS: MetricId[] = [
   "brfss_population_pct",
