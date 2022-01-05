@@ -1,40 +1,32 @@
-// Constant strings to be used in tests and elsewhere
-
-// TODO add values for the other categories. Maybe convert to an enum.
+// MULTIUSE TERMS
 export const ALL = "All";
 export const TOTAL = "Total";
+export const UNKNOWN = "Unknown";
+
+// RACE AND ETHNICITY DEMOGRAPHIC TERMS
 export const RACE = "race_and_ethnicity";
+
+// specific vars for tests
 export const WHITE_NH = "White (Non-Hispanic)";
 export const WHITE = "White";
 export const ASIAN_NH = "Asian (Non-Hispanic)";
 export const HISPANIC = "Hispanic or Latino";
 export const NON_HISPANIC = "Not Hispanic or Latino";
 export const TWO_OR_MORE = "Two or more races";
-
-export const AGE = "age";
-export const FORTY_TO_FORTY_NINE = "40-49";
-
-export const SEX = "sex";
-export const MALE = "Male";
-export const FEMALE = "Female";
-export const UNKNOWN = "Unknown";
 export const UNKNOWN_RACE = "Unknown race";
 export const UNKNOWN_HL = "Unknown Hispanic or Latino";
 export const UNKNOWN_ETHNICITY = "Unknown ethnicity";
 
-export const SEX_GROUPS = [MALE, FEMALE, UNKNOWN, ALL] as const;
-
-type SexGroup = typeof SEX_GROUPS[number];
-
+// GROUPED RACE DEMOGRAPHICS
 export const STANDARD_RACES = [
   "American Indian and Alaska Native (Non-Hispanic)",
-  "Asian (Non-Hispanic)",
+  ASIAN_NH,
   "Black or African American (Non-Hispanic)",
-  "Hispanic or Latino",
+  HISPANIC,
   "Native Hawaiian and Pacific Islander (Non-Hispanic)",
   "Some other race (Non-Hispanic)",
   "Two or more races (Non-Hispanic)",
-  "White (Non-Hispanic)",
+  WHITE_NH,
   ALL,
 ] as const;
 
@@ -44,8 +36,8 @@ export const NON_STANDARD_RACES = [
   "Black or African American",
   "Native Hawaiian and Pacific Islander",
   "Some other race",
-  "Two or more races",
-  "White",
+  TWO_OR_MORE,
+  WHITE,
 ] as const;
 
 export const COMBINED_RACES = [
@@ -69,6 +61,10 @@ export const RACE_GROUPS = [
 ] as const;
 
 type RaceAndEthnicityGroup = typeof RACE_GROUPS[number];
+
+// AGE DEMOGRAPHIC TERMS
+export const AGE = "age";
+export const FORTY_TO_FORTY_NINE = "40-49"; // for tests
 
 export const DECADE_AGE_BUCKETS = [
   "0-9",
@@ -117,6 +113,15 @@ export const AGE_BUCKETS = [
 ] as const;
 
 type AgeBucket = typeof AGE_BUCKETS[number];
+
+// SEX DEMOGRAPHIC TERMS
+export const SEX = "sex";
+export const MALE = "Male";
+export const FEMALE = "Female";
+
+export const SEX_GROUPS = [MALE, FEMALE, UNKNOWN, ALL] as const;
+
+type SexGroup = typeof SEX_GROUPS[number];
 
 export type DemographicGroup = AgeBucket | SexGroup | RaceAndEthnicityGroup;
 
