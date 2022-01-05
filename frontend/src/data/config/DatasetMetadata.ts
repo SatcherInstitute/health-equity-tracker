@@ -88,13 +88,33 @@ const datasetMetadataList: DatasetMetadata[] = [
     update_time: "2019",
   },
   {
-    id: "acs_poverty_dataset-poverty_by_race_age_sex_state",
-    name: "Poverty by Race, Age, Sex, and State",
+    id: "acs_poverty_dataset-poverty_by_race_state",
+    name: "Poverty by Race and State",
     update_time: "2019",
   },
   {
-    id: "acs_poverty_dataset-poverty_by_race_age_sex_county",
-    name: "Poverty by Race, Age, Sex, and County",
+    id: "acs_poverty_dataset-poverty_by_race_county",
+    name: "Poverty by Race and County",
+    update_time: "2019",
+  },
+  {
+    id: "acs_poverty_dataset-poverty_by_sex_state",
+    name: "Poverty by Sex and State",
+    update_time: "2019",
+  },
+  {
+    id: "acs_poverty_dataset-poverty_by_sex_county",
+    name: "Poverty by Sex and County",
+    update_time: "2019",
+  },
+  {
+    id: "acs_poverty_dataset-poverty_by_age_state",
+    name: "Poverty by Age and State",
+    update_time: "2019",
+  },
+  {
+    id: "acs_poverty_dataset-poverty_by_age_county",
+    name: "Poverty by Age and County",
     update_time: "2019",
   },
   {
