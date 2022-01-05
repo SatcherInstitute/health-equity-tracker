@@ -6,7 +6,7 @@ export const UNKNOWN = "Unknown";
 // RACE AND ETHNICITY DEMOGRAPHIC TERMS
 export const RACE = "race_and_ethnicity";
 
-// specific vars for tests
+// select, specific vars
 export const WHITE_NH = "White (Non-Hispanic)";
 export const WHITE = "White";
 export const ASIAN_NH = "Asian (Non-Hispanic)";
