@@ -235,7 +235,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableDisplayName: "Deaths",
       variableFullDisplayName: "COVID-19 Deaths",
       variableDefinition: {
-        text: `The mortality rate is the number of people who died due to COVID-19 divided by the total number of people in the population.`,
+        text: `The number of people who died due to COVID-19.`,
         sourceName: "CDC",
         url:
           "https://www.cdc.gov/coronavirus/2019-ncov/covid-data/faq-surveillance.html",
@@ -331,7 +331,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableDisplayName: "Cases",
       variableFullDisplayName: "Diabetes",
       variableDefinition: {
-        text: `Percentage of adults who reported being told by a health professional that they have diabetes (excluding prediabetes and gestational diabetes).`,
+        text: `Adults who reported being told by a health professional that they have diabetes (excluding prediabetes and gestational diabetes).`,
         sourceName: "America's Health Rankings",
         url:
           "https://www.americashealthrankings.org/explore/annual/measure/Diabetes/state/ALL?edition-year=2021",
@@ -365,7 +365,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableDisplayName: "Cases",
       variableFullDisplayName: "COPD",
       variableDefinition: {
-        text: `Percentage of adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.`,
+        text: `Adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.`,
         sourceName: `America's Health Rankings`,
         url:
           "https://www.americashealthrankings.org/explore/annual/measure/COPD/state/ALL?edition-year=2021",
