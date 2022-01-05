@@ -48,6 +48,14 @@ export const NON_STANDARD_RACES = [
   "White",
 ] as const;
 
+export const COMBINED_RACES = [
+  // combinations of other categories
+  // Currently only used in state level vaccination data
+  "Asian, Native Hawaiian, and Pacific Islander",
+  "Indigenous",
+  "Two or more races & Some other race",
+];
+
 export const RACE_GROUPS = [
   ...STANDARD_RACES,
   ...NON_STANDARD_RACES,
@@ -87,11 +95,25 @@ export const DECADE_PLUS_5_AGE_BUCKETS = [
 
 export const BROAD_AGE_BUCKETS = ["18-44", "45-64", "65+"] as const;
 
+export const CDC_AGE_BUCKETS = [
+  "5-11",
+  "12-17",
+  "18-24",
+  "25-39",
+  "40-49",
+  "50-64",
+  "65-74",
+  "75+",
+  "Unknown",
+  "Total",
+];
+
 export const AGE_BUCKETS = [
   "All",
   ...DECADE_AGE_BUCKETS,
   ...DECADE_PLUS_5_AGE_BUCKETS,
   ...BROAD_AGE_BUCKETS,
+  ...CDC_AGE_BUCKETS,
 ] as const;
 
 type AgeBucket = typeof AGE_BUCKETS[number];
