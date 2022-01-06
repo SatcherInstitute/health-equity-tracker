@@ -92,8 +92,8 @@ Specific information on update frequencies by source can be found on our <a href
   </li>
   <li>
     We typically refresh our data sources with newly available
-    data within a few days. Seeking the latest information? Please
-    navigate to the data sources directly.
+    data within a few days. Seeking the latest information? A direct link is provided for each of our <a href="/datacatalog">
+    data sources</a>.
   </li>
 </ul>
   `,
@@ -157,9 +157,6 @@ function FaqTab() {
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>{selectFaqs[3].q}</h3>
                 <div className={styles.FaqAnswer}>{parse(selectFaqs[3].a)}</div>
-                <a href="/datacatalog" className={styles.MajorLink}>
-                  See Data Sources
-                </a>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>

@@ -1,7 +1,6 @@
 import React from "react";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import styles from "./WhatIsHealthEquityPage.module.scss";
 import EquityTab from "./EquityTab";
 import FaqTab from "./FaqTab";
 import {
@@ -28,7 +27,7 @@ export default function WhatIsHealthEquityPage() {
   }, [pageIsWide]);
 
   return (
-    <div className={styles.WhatIsHealthEquityPage}>
+    <div>
       {/*  intercept old FAQ via query params for backwards compatible links */}
       {useQuery().get("tab") === "1" && (
         <Redirect

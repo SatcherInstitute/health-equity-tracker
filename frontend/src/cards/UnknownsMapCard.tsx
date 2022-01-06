@@ -124,9 +124,10 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   : unknownEthnicities[index];
               });
 
-        const noUnknownValuesReported =
-          !mapQueryResponse.dataIsMissing() && unknowns.length === 0;
+        const dataIsMissing = mapQueryResponse.dataIsMissing();
+        const unknownsArrayEmpty = unknowns.length === 0;
 
+        // there is some data but only for ALL but not by demographic groups
         const noDemographicInfo =
           mapQueryResponse
             .getValidRowsForField(props.currentBreakdown)
@@ -137,11 +138,29 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             .filter((row: Row) => row[props.currentBreakdown] === ALL).length >
             0;
 
-        const unknownsSuppressed =
-          !noUnknownValuesReported &&
+        // when suppressing states with too low COVID numbers
+        const unknownsUndefined =
+          unknowns.length > 0 &&
           unknowns.every(
             (unknown: Row) => unknown[metricConfig.metricId] === undefined
           );
+
+        // show MISSING DATA ALERT if we expect the unknowns array to be empty (breakdowns/data unavailable),
+        // or if the unknowns are undefined (eg COVID suppressed states)
+        const showMissingDataAlert =
+          (unknownsArrayEmpty && dataIsMissing) ||
+          (!unknownsArrayEmpty && unknownsUndefined) ||
+          noDemographicInfo;
+
+        // show NO UNKNOWNS INFO BOX for an expected empty array of UNKNOWNS (eg the BRFSS survey)
+        const showNoUnknownsInfo =
+          unknownsArrayEmpty &&
+          !dataIsMissing &&
+          !unknownsUndefined &&
+          !noDemographicInfo;
+
+        // show the UNKNOWNS MAP when there is unknowns data and it's not undefined/suppressed
+        const showingVisualization = !unknownsArrayEmpty && !unknownsUndefined;
 
         return (
           <>
@@ -152,6 +171,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               />
             </CardContent>
             <Divider />
+
+            {/* PERCENT REPORTING UNKNOWN ALERT - contains its own logic and divider/styling */}
             <UnknownsAlert
               queryResponse={alertQueryResponse}
               metricConfig={metricConfig}
@@ -170,9 +191,13 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   ).length !== 0
               }
               noDemographicInfoMap={noDemographicInfo}
+              showingVisualization={showingVisualization}
+              fips={props.fips}
             />
+
             <CardContent>
-              {(mapQueryResponse.dataIsMissing() || unknownsSuppressed) && (
+              {/* MISSING DATA ALERT */}
+              {showMissingDataAlert && (
                 <MissingDataAlert
                   dataName={metricConfig.fullCardTitleName}
                   breakdownString={
@@ -181,17 +206,17 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   geoLevel={props.fips.getChildFipsTypeDisplayName()}
                 />
               )}
-              {noUnknownValuesReported &&
-                !noDemographicInfo &&
-                !unknownsSuppressed && (
-                  <Alert severity="info">
-                    No unknown values for{" "}
-                    {BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]}{" "}
-                    reported in this dataset.
-                  </Alert>
-                )}
+
+              {/* NO UNKNOWNS INFO BOX */}
+              {showNoUnknownsInfo && (
+                <Alert severity="info">
+                  No unknown values for{" "}
+                  {BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]} reported
+                  in this dataset.
+                </Alert>
+              )}
             </CardContent>
-            {!noUnknownValuesReported && !unknownsSuppressed ? (
+            {showingVisualization && (
               <CardContent>
                 <ChoroplethMap
                   useSmallSampleMessage={
@@ -247,8 +272,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   <></>
                 )}
               </CardContent>
-            ) : (
-              <></>
             )}
           </>
         );
