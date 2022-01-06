@@ -74,11 +74,7 @@ export type VariableConfig = {
   variableId: string; // TODO - strongly type key
   variableDisplayName: string;
   variableFullDisplayName: string;
-  variableDefinition?: {
-    text: string;
-    sourceName: string;
-    url: string;
-  };
+  variableDefinition?: string;
   metrics: Record<string, MetricConfig>; // TODO - strongly type key
   surveyCollectedData?: boolean;
 };
@@ -184,12 +180,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "COVID-19 Cases",
-      variableDefinition: {
-        text: `A COVID-19 case is an individual who has been determined to have COVID-19 using a set of criteria known as a case definition. Cases can be classified as suspect, probable, or confirmed. CDC counts include probable and confirmed cases and deaths. Suspect cases and deaths are excluded.`,
-        sourceName: "CDC",
-        url:
-          "https://www.cdc.gov/coronavirus/2019-ncov/covid-data/faq-surveillance.html",
-      },
+      variableDefinition: `A COVID-19 case is an individual who has been determined to have COVID-19 using a set of criteria known as a case definition. Cases can be classified as suspect, probable, or confirmed. CDC counts include probable and confirmed cases and deaths. Suspect cases and deaths are excluded.`,
       metrics: {
         count: {
           metricId: "covid_cases",
@@ -234,12 +225,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "deaths",
       variableDisplayName: "Deaths",
       variableFullDisplayName: "COVID-19 Deaths",
-      variableDefinition: {
-        text: `The number of people who died due to COVID-19.`,
-        sourceName: "CDC",
-        url:
-          "https://www.cdc.gov/coronavirus/2019-ncov/covid-data/faq-surveillance.html",
-      },
+      variableDefinition: `The number of people who died due to COVID-19.`,
       metrics: {
         count: {
           metricId: "covid_deaths",
@@ -330,12 +316,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "Diabetes",
-      variableDefinition: {
-        text: `Adults who reported being told by a health professional that they have diabetes (excluding prediabetes and gestational diabetes).`,
-        sourceName: "America's Health Rankings",
-        url:
-          "https://www.americashealthrankings.org/explore/annual/measure/Diabetes/state/ALL?edition-year=2021",
-      },
+      variableDefinition: `Adults who reported being told by a health professional that they have diabetes (excluding prediabetes and gestational diabetes).`,
       surveyCollectedData: true,
       metrics: {
         pct_share: {
@@ -364,12 +345,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "COPD",
-      variableDefinition: {
-        text: `Adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.`,
-        sourceName: `America's Health Rankings`,
-        url:
-          "https://www.americashealthrankings.org/explore/annual/measure/COPD/state/ALL?edition-year=2021",
-      },
+      variableDefinition: `Adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.`,
       surveyCollectedData: true,
       metrics: {
         pct_share: {
@@ -399,17 +375,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "health_coverage",
       variableDisplayName: "Uninsured Individuals",
       variableFullDisplayName: "Uninsured Individuals",
-      variableDefinition: {
-        text: `Health insurance coverage in the ACS and other Census Bureau surveys define coverage to
+      variableDefinition: `Health insurance coverage in the ACS and other Census Bureau surveys define coverage to
         include plans and programs that provide comprehensive health coverage. Plans that provide
         insurance only for specific conditions or situations such as cancer and long-term care policies
         are not considered comprehensive health coverage. Likewise, other types of insurance like
         dental, vision, life, and disability insurance are not considered comprehensive health
         insurance coverage.`,
-        sourceName: `United States Census Bureau`,
-        url:
-          "https://www2.census.gov/programs-surveys/acs/tech_docs/subject_definitions/2019_ACSSubjectDefinitions.pdf",
-      },
       metrics: {
         per100k: {
           metricId: "health_insurance_per_100k",
@@ -437,12 +408,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "poverty",
       variableDisplayName: "Poverty",
       variableFullDisplayName: "Individuals Below The Poverty Line",
-      variableDefinition: {
-        text: `Following the Office of Management and Budget's (OMB) Statistical Policy Directive 14, the Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the family's threshold, then that family and every individual in it is considered in poverty. The official poverty thresholds do not vary geographically, but they are updated for inflation using the Consumer Price Index (CPI-U). The official poverty definition uses money income before taxes and does not include capital gains or noncash benefits (such as public housing, Medicaid, and food stamps).`,
-        sourceName: `United States Census Bureau`,
-        url:
-          "https://www.census.gov/topics/income-poverty/poverty/guidance/poverty-measures.html",
-      },
+      variableDefinition: `Following the Office of Management and Budget's (OMB) Statistical Policy Directive 14, the Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the family's threshold, then that family and every individual in it is considered in poverty. The official poverty thresholds do not vary geographically, but they are updated for inflation using the Consumer Price Index (CPI-U). The official poverty definition uses money income before taxes and does not include capital gains or noncash benefits (such as public housing, Medicaid, and food stamps).`,
       metrics: {
         per100k: {
           metricId: "poverty_per_100k",
@@ -471,11 +437,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "vaccinations",
       variableDisplayName: "Vaccinations",
       variableFullDisplayName: "COVID-19 Vaccinations",
-      variableDefinition: {
-        text: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
-        sourceName: ``,
-        url: ``,
-      },
+      variableDefinition: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
       metrics: {
         per100k: {
           metricId: "vaccinated_per_100k",

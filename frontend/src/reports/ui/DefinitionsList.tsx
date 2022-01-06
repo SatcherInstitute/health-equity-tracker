@@ -10,10 +10,7 @@ export default function DefinitionsList(props: {
         <li key={condition.variableFullDisplayName}>
           <b>{condition.variableFullDisplayName}</b>
           {": "}
-          {condition.variableDefinition?.text}{" "}
-          <a href={condition.variableDefinition?.url}>
-            {condition.variableDefinition?.sourceName}
-          </a>
+          {condition.variableDefinition}
         </li>
       ))}
     </ul>
