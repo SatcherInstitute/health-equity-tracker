@@ -348,7 +348,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableDisplayName: "Cases",
       variableFullDisplayName: "Suicides",
       variableDefinition: {
-        text: `Deaths due to intentional self-harm per 100,000 population.`,
+        text: `Deaths due to intentional self-harm.`,
         sourceName: `America's Health Rankings`,
         url: `https://www.americashealthrankings.org/explore/annual/measure/Suicide/state/ALL?edition-year=2021`,
       },
