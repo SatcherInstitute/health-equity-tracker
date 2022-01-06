@@ -68,6 +68,7 @@ export type DropdownVarId =
   | "depression"
   | "suicide"
   | "illicit_opioid_use"
+  | "non_medical_rx_opioid_use"
   | "non_medical_drug_use"
   | "excessive_drinking"
   | "frequent_mental_distress";
@@ -83,6 +84,7 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   suicide: "Suicide",
   illicit_opioid_use: "Illicit Opioid Use",
   non_medical_drug_use: "Non-medical Drug Use",
+  non_medical_rx_opioid_use: "Non-medical Prescription Opioid Use",
   excessive_drinking: "Excessive Drinking",
   frequent_mental_distress: "Frequent Mental Distress",
 };
@@ -116,6 +118,7 @@ const CATEGORIES_LIST: Category[] = [
       "illicit_opioid_use",
       "excessive_drinking",
       "frequent_mental_distress",
+      "non_medical_rx_opioid_use",
     ],
   },
 ];

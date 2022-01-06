@@ -9,6 +9,7 @@
     "suicide_per_100k": "13.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -22,6 +23,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "23.4",
     "age": "18-44"
   },
@@ -35,6 +37,7 @@
     "suicide_per_100k": "17.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -48,6 +51,7 @@
     "suicide_per_100k": "18.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -61,6 +65,7 @@
     "suicide_per_100k": "19.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -74,6 +79,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "15.5",
     "age": "45-64"
   },
@@ -87,6 +93,7 @@
     "suicide_per_100k": "19.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -100,6 +107,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "7.4",
     "age": "65+"
   },
@@ -113,6 +121,7 @@
     "suicide_per_100k": "15.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -126,6 +135,7 @@
     "suicide_per_100k": "18.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -139,6 +149,7 @@
     "suicide_per_100k": "20.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -152,6 +163,7 @@
     "suicide_per_100k": "14.5",
     "illicit_opioid_use_pct": "1.2",
     "non_medical_drug_use_pct": "12.0",
+    "non_medical_rx_opioid_use_pct": "5.2",
     "excessive_drinking_pct": "17.6",
     "age": "All"
   },
@@ -165,6 +177,7 @@
     "suicide_per_100k": "14.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -178,6 +191,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "21.5",
     "age": "18-44"
   },
@@ -191,6 +205,7 @@
     "suicide_per_100k": "19.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -204,6 +219,7 @@
     "suicide_per_100k": "26.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -217,6 +233,7 @@
     "suicide_per_100k": "22.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -230,6 +247,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "12.5",
     "age": "45-64"
   },
@@ -243,6 +261,7 @@
     "suicide_per_100k": "18.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -256,6 +275,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "3.6",
     "age": "65+"
   },
@@ -269,6 +289,7 @@
     "suicide_per_100k": "16.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -282,6 +303,7 @@
     "suicide_per_100k": "19.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -295,6 +317,7 @@
     "suicide_per_100k": "25.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -308,6 +331,7 @@
     "suicide_per_100k": "16.5",
     "illicit_opioid_use_pct": "1.4",
     "non_medical_drug_use_pct": "13.1",
+    "non_medical_rx_opioid_use_pct": "6.5",
     "excessive_drinking_pct": "14.3",
     "age": "All"
   },
@@ -321,6 +345,7 @@
     "suicide_per_100k": "56.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -334,6 +359,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "24.7",
     "age": "18-44"
   },
@@ -347,6 +373,7 @@
     "suicide_per_100k": "43.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -360,6 +387,7 @@
     "suicide_per_100k": "31.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -373,6 +401,7 @@
     "suicide_per_100k": "30.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -386,6 +415,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "17.0",
     "age": "45-64"
   },
@@ -399,6 +429,7 @@
     "suicide_per_100k": "27.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -412,6 +443,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "10.5",
     "age": "65+"
   },
@@ -425,6 +457,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -438,6 +471,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -451,6 +485,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -464,6 +499,7 @@
     "suicide_per_100k": "28.6",
     "illicit_opioid_use_pct": "2.4",
     "non_medical_drug_use_pct": "14.1",
+    "non_medical_rx_opioid_use_pct": "9.0",
     "excessive_drinking_pct": "19.7",
     "age": "All"
   },
@@ -477,6 +513,7 @@
     "suicide_per_100k": "15.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -490,6 +527,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "21.1",
     "age": "18-44"
   },
@@ -503,6 +541,7 @@
     "suicide_per_100k": "25.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -516,6 +555,7 @@
     "suicide_per_100k": "21.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -529,6 +569,7 @@
     "suicide_per_100k": "27.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -542,6 +583,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "16.1",
     "age": "45-64"
   },
@@ -555,6 +597,7 @@
     "suicide_per_100k": "25.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -568,6 +611,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "7.4",
     "age": "65+"
   },
@@ -581,6 +625,7 @@
     "suicide_per_100k": "20.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -594,6 +639,7 @@
     "suicide_per_100k": "30.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -607,6 +653,7 @@
     "suicide_per_100k": "41.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -620,6 +667,7 @@
     "suicide_per_100k": "19.6",
     "illicit_opioid_use_pct": "1.6",
     "non_medical_drug_use_pct": "13.1",
+    "non_medical_rx_opioid_use_pct": "6.0",
     "excessive_drinking_pct": "16.3",
     "age": "All"
   },
@@ -633,6 +681,7 @@
     "suicide_per_100k": "21.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -646,6 +695,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "23.1",
     "age": "18-44"
   },
@@ -659,6 +709,7 @@
     "suicide_per_100k": "23.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -672,6 +723,7 @@
     "suicide_per_100k": "23.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -685,6 +737,7 @@
     "suicide_per_100k": "25.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -698,6 +751,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "14.4",
     "age": "45-64"
   },
@@ -711,6 +765,7 @@
     "suicide_per_100k": "24.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -724,6 +779,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "5.3",
     "age": "65+"
   },
@@ -737,6 +793,7 @@
     "suicide_per_100k": "14.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -750,6 +807,7 @@
     "suicide_per_100k": "19.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -763,6 +821,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -776,6 +835,7 @@
     "suicide_per_100k": "18.4",
     "illicit_opioid_use_pct": "0.6",
     "non_medical_drug_use_pct": "11.2",
+    "non_medical_rx_opioid_use_pct": "4.8",
     "excessive_drinking_pct": "16.1",
     "age": "All"
   },
@@ -789,6 +849,7 @@
     "suicide_per_100k": "9.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -802,6 +863,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "23.9",
     "age": "18-44"
   },
@@ -815,6 +877,7 @@
     "suicide_per_100k": "12.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -828,6 +891,7 @@
     "suicide_per_100k": "12.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -841,6 +905,7 @@
     "suicide_per_100k": "14.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -854,6 +919,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "14.3",
     "age": "45-64"
   },
@@ -867,6 +933,7 @@
     "suicide_per_100k": "17.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -880,6 +947,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "9.4",
     "age": "65+"
   },
@@ -893,6 +961,7 @@
     "suicide_per_100k": "13.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -906,6 +975,7 @@
     "suicide_per_100k": "17.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -919,6 +989,7 @@
     "suicide_per_100k": "21.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -932,6 +1003,7 @@
     "suicide_per_100k": "11.3",
     "illicit_opioid_use_pct": "1.2",
     "non_medical_drug_use_pct": "12.7",
+    "non_medical_rx_opioid_use_pct": "5.9",
     "excessive_drinking_pct": "18.0",
     "age": "All"
   },
@@ -945,6 +1017,7 @@
     "suicide_per_100k": "25.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -958,6 +1031,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "26.8",
     "age": "18-44"
   },
@@ -971,6 +1045,7 @@
     "suicide_per_100k": "29.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -984,6 +1059,7 @@
     "suicide_per_100k": "28.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -997,6 +1073,7 @@
     "suicide_per_100k": "29.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -1010,6 +1087,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "16.0",
     "age": "45-64"
   },
@@ -1023,6 +1101,7 @@
     "suicide_per_100k": "29.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -1036,6 +1115,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "8.1",
     "age": "65+"
   },
@@ -1049,6 +1129,7 @@
     "suicide_per_100k": "19.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -1062,6 +1143,7 @@
     "suicide_per_100k": "30.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -1075,6 +1157,7 @@
     "suicide_per_100k": "24.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -1088,6 +1171,7 @@
     "suicide_per_100k": "22.6",
     "illicit_opioid_use_pct": "1.7",
     "non_medical_drug_use_pct": "16.2",
+    "non_medical_rx_opioid_use_pct": "5.7",
     "excessive_drinking_pct": "19.7",
     "age": "All"
   },
@@ -1101,6 +1185,7 @@
     "suicide_per_100k": "9.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -1114,6 +1199,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "22.0",
     "age": "18-44"
   },
@@ -1127,6 +1213,7 @@
     "suicide_per_100k": "15.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -1140,6 +1227,7 @@
     "suicide_per_100k": "12.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -1153,6 +1241,7 @@
     "suicide_per_100k": "19.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -1166,6 +1255,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "15.0",
     "age": "45-64"
   },
@@ -1179,6 +1269,7 @@
     "suicide_per_100k": "17.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -1192,6 +1283,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "8.1",
     "age": "65+"
   },
@@ -1205,6 +1297,7 @@
     "suicide_per_100k": "11.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -1218,6 +1311,7 @@
     "suicide_per_100k": "15.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -1231,6 +1325,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -1244,6 +1339,7 @@
     "suicide_per_100k": "11.9",
     "illicit_opioid_use_pct": "0.6",
     "non_medical_drug_use_pct": "8.9",
+    "non_medical_rx_opioid_use_pct": "3.6",
     "excessive_drinking_pct": "16.3",
     "age": "All"
   },
@@ -1257,6 +1353,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -1270,6 +1367,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "22.0",
     "age": "18-44"
   },
@@ -1283,6 +1381,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -1296,6 +1395,7 @@
     "suicide_per_100k": "17.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -1309,6 +1409,7 @@
     "suicide_per_100k": "21.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -1322,6 +1423,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "14.8",
     "age": "45-64"
   },
@@ -1335,6 +1437,7 @@
     "suicide_per_100k": "16.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -1348,6 +1451,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "7.3",
     "age": "65+"
   },
@@ -1361,6 +1465,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -1374,6 +1479,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -1387,6 +1493,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -1400,6 +1507,7 @@
     "suicide_per_100k": "11.4",
     "illicit_opioid_use_pct": "2.5",
     "non_medical_drug_use_pct": "10.6",
+    "non_medical_rx_opioid_use_pct": "4.9",
     "excessive_drinking_pct": "15.9",
     "age": "All"
   },
@@ -1413,6 +1521,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -1426,6 +1535,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "32.4",
     "age": "18-44"
   },
@@ -1439,6 +1549,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -1452,6 +1563,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -1465,6 +1577,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -1478,6 +1591,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "16.1",
     "age": "45-64"
   },
@@ -1491,6 +1605,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -1504,6 +1619,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "7.4",
     "age": "65+"
   },
@@ -1517,6 +1633,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -1530,6 +1647,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -1543,6 +1661,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -1556,6 +1675,7 @@
     "suicide_per_100k": "6.5",
     "illicit_opioid_use_pct": "3.6",
     "non_medical_drug_use_pct": "18.7",
+    "non_medical_rx_opioid_use_pct": "7.2",
     "excessive_drinking_pct": "24.4",
     "age": "All"
   },
@@ -1569,6 +1689,7 @@
     "suicide_per_100k": "12.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -1582,6 +1703,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "20.4",
     "age": "18-44"
   },
@@ -1595,6 +1717,7 @@
     "suicide_per_100k": "16.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -1608,6 +1731,7 @@
     "suicide_per_100k": "16.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -1621,6 +1745,7 @@
     "suicide_per_100k": "22.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -1634,6 +1759,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "15.7",
     "age": "45-64"
   },
@@ -1647,6 +1773,7 @@
     "suicide_per_100k": "25.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -1660,6 +1787,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "7.8",
     "age": "65+"
   },
@@ -1673,6 +1801,7 @@
     "suicide_per_100k": "18.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -1686,6 +1815,7 @@
     "suicide_per_100k": "21.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -1699,6 +1829,7 @@
     "suicide_per_100k": "27.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -1712,6 +1843,7 @@
     "suicide_per_100k": "15.5",
     "illicit_opioid_use_pct": "1.2",
     "non_medical_drug_use_pct": "14.5",
+    "non_medical_rx_opioid_use_pct": "6.4",
     "excessive_drinking_pct": "15.5",
     "age": "All"
   },
@@ -1725,6 +1857,7 @@
     "suicide_per_100k": "13.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -1738,6 +1871,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "20.9",
     "age": "18-44"
   },
@@ -1751,6 +1885,7 @@
     "suicide_per_100k": "19.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -1764,6 +1899,7 @@
     "suicide_per_100k": "19.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -1777,6 +1913,7 @@
     "suicide_per_100k": "21.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -1790,6 +1927,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "14.0",
     "age": "45-64"
   },
@@ -1803,6 +1941,7 @@
     "suicide_per_100k": "17.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -1816,6 +1955,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "6.1",
     "age": "65+"
   },
@@ -1829,6 +1969,7 @@
     "suicide_per_100k": "17.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -1842,6 +1983,7 @@
     "suicide_per_100k": "19.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -1855,6 +1997,7 @@
     "suicide_per_100k": "21.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -1868,6 +2011,7 @@
     "suicide_per_100k": "15.1",
     "illicit_opioid_use_pct": "1.8",
     "non_medical_drug_use_pct": "16.2",
+    "non_medical_rx_opioid_use_pct": "7.5",
     "excessive_drinking_pct": "15.7",
     "age": "All"
   },
@@ -1881,6 +2025,7 @@
     "suicide_per_100k": "13.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -1894,6 +2039,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "24.1",
     "age": "18-44"
   },
@@ -1907,6 +2053,7 @@
     "suicide_per_100k": "24.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -1920,6 +2067,7 @@
     "suicide_per_100k": "19.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -1933,6 +2081,7 @@
     "suicide_per_100k": "25.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -1946,6 +2095,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "15.6",
     "age": "45-64"
   },
@@ -1959,6 +2109,7 @@
     "suicide_per_100k": "14.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -1972,6 +2123,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "8.5",
     "age": "65+"
   },
@@ -1985,6 +2137,7 @@
     "suicide_per_100k": "17.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -1998,6 +2151,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -2011,6 +2165,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -2024,6 +2179,7 @@
     "suicide_per_100k": "15.8",
     "illicit_opioid_use_pct": "2.3",
     "non_medical_drug_use_pct": "12.0",
+    "non_medical_rx_opioid_use_pct": "5.3",
     "excessive_drinking_pct": "17.6",
     "age": "All"
   },
@@ -2037,6 +2193,7 @@
     "suicide_per_100k": "21.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -2050,6 +2207,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "21.0",
     "age": "18-44"
   },
@@ -2063,6 +2221,7 @@
     "suicide_per_100k": "22.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -2076,6 +2235,7 @@
     "suicide_per_100k": "28.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -2089,6 +2249,7 @@
     "suicide_per_100k": "24.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -2102,6 +2263,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "15.8",
     "age": "45-64"
   },
@@ -2115,6 +2277,7 @@
     "suicide_per_100k": "24.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -2128,6 +2291,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "7.1",
     "age": "65+"
   },
@@ -2141,6 +2305,7 @@
     "suicide_per_100k": "22.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -2154,6 +2319,7 @@
     "suicide_per_100k": "38.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -2167,6 +2333,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -2180,6 +2347,7 @@
     "suicide_per_100k": "21.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": "10.4",
+    "non_medical_rx_opioid_use_pct": "3.8",
     "excessive_drinking_pct": "16.3",
     "age": "All"
   },
@@ -2193,6 +2361,7 @@
     "suicide_per_100k": "10.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -2206,6 +2375,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "19.6",
     "age": "18-44"
   },
@@ -2219,6 +2389,7 @@
     "suicide_per_100k": "13.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -2232,6 +2403,7 @@
     "suicide_per_100k": "14.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -2245,6 +2417,7 @@
     "suicide_per_100k": "15.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -2258,6 +2431,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "14.3",
     "age": "45-64"
   },
@@ -2271,6 +2445,7 @@
     "suicide_per_100k": "15.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -2284,6 +2459,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "5.3",
     "age": "65+"
   },
@@ -2297,6 +2473,7 @@
     "suicide_per_100k": "12.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -2310,6 +2487,7 @@
     "suicide_per_100k": "13.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -2323,6 +2501,7 @@
     "suicide_per_100k": "14.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -2336,6 +2515,7 @@
     "suicide_per_100k": "11.3",
     "illicit_opioid_use_pct": "0.9",
     "non_medical_drug_use_pct": "12.0",
+    "non_medical_rx_opioid_use_pct": "5.1",
     "excessive_drinking_pct": "14.8",
     "age": "All"
   },
@@ -2349,6 +2529,7 @@
     "suicide_per_100k": "12.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -2362,6 +2543,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "23.2",
     "age": "18-44"
   },
@@ -2375,6 +2557,7 @@
     "suicide_per_100k": "20.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -2388,6 +2571,7 @@
     "suicide_per_100k": "18.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -2401,6 +2585,7 @@
     "suicide_per_100k": "20.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -2414,6 +2599,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "15.9",
     "age": "45-64"
   },
@@ -2427,6 +2613,7 @@
     "suicide_per_100k": "17.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -2440,6 +2627,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "6.3",
     "age": "65+"
   },
@@ -2453,6 +2641,7 @@
     "suicide_per_100k": "15.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -2466,6 +2655,7 @@
     "suicide_per_100k": "17.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -2479,6 +2669,7 @@
     "suicide_per_100k": "21.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -2492,6 +2683,7 @@
     "suicide_per_100k": "14.6",
     "illicit_opioid_use_pct": "1.0",
     "non_medical_drug_use_pct": "9.9",
+    "non_medical_rx_opioid_use_pct": "4.9",
     "excessive_drinking_pct": "17.1",
     "age": "All"
   },
@@ -2505,6 +2697,7 @@
     "suicide_per_100k": "17.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -2518,6 +2711,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "32.2",
     "age": "18-44"
   },
@@ -2531,6 +2725,7 @@
     "suicide_per_100k": "26.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -2544,6 +2739,7 @@
     "suicide_per_100k": "22.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -2557,6 +2753,7 @@
     "suicide_per_100k": "22.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -2570,6 +2767,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "20.8",
     "age": "45-64"
   },
@@ -2583,6 +2781,7 @@
     "suicide_per_100k": "22.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -2596,6 +2795,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "7.2",
     "age": "65+"
   },
@@ -2609,6 +2809,7 @@
     "suicide_per_100k": "13.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -2622,6 +2823,7 @@
     "suicide_per_100k": "16.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -2635,6 +2837,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -2648,6 +2851,7 @@
     "suicide_per_100k": "17.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": "12.5",
+    "non_medical_rx_opioid_use_pct": "3.7",
     "excessive_drinking_pct": "22.8",
     "age": "All"
   },
@@ -2661,6 +2865,7 @@
     "suicide_per_100k": "20.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -2674,6 +2879,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "25.5",
     "age": "18-44"
   },
@@ -2687,6 +2893,7 @@
     "suicide_per_100k": "27.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -2700,6 +2907,7 @@
     "suicide_per_100k": "29.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -2713,6 +2921,7 @@
     "suicide_per_100k": "20.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -2726,6 +2935,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "16.8",
     "age": "45-64"
   },
@@ -2739,6 +2949,7 @@
     "suicide_per_100k": "17.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -2752,6 +2963,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "5.9",
     "age": "65+"
   },
@@ -2765,6 +2977,7 @@
     "suicide_per_100k": "17.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -2778,6 +2991,7 @@
     "suicide_per_100k": "16.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -2791,6 +3005,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -2804,6 +3019,7 @@
     "suicide_per_100k": "18.3",
     "illicit_opioid_use_pct": "1.5",
     "non_medical_drug_use_pct": "12.5",
+    "non_medical_rx_opioid_use_pct": "5.0",
     "excessive_drinking_pct": "18.4",
     "age": "All"
   },
@@ -2817,6 +3033,7 @@
     "suicide_per_100k": "14.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -2830,6 +3047,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "23.0",
     "age": "18-44"
   },
@@ -2843,6 +3061,7 @@
     "suicide_per_100k": "21.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -2856,6 +3075,7 @@
     "suicide_per_100k": "26.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -2869,6 +3089,7 @@
     "suicide_per_100k": "21.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -2882,6 +3103,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "13.0",
     "age": "45-64"
   },
@@ -2895,6 +3117,7 @@
     "suicide_per_100k": "23.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -2908,6 +3131,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "5.3",
     "age": "65+"
   },
@@ -2921,6 +3145,7 @@
     "suicide_per_100k": "19.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -2934,6 +3159,7 @@
     "suicide_per_100k": "14.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -2947,6 +3173,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -2960,6 +3187,7 @@
     "suicide_per_100k": "17.0",
     "illicit_opioid_use_pct": "1.3",
     "non_medical_drug_use_pct": "15.0",
+    "non_medical_rx_opioid_use_pct": "5.3",
     "excessive_drinking_pct": "15.8",
     "age": "All"
   },
@@ -2973,6 +3201,7 @@
     "suicide_per_100k": "16.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -2986,6 +3215,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "27.5",
     "age": "18-44"
   },
@@ -2999,6 +3229,7 @@
     "suicide_per_100k": "15.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -3012,6 +3243,7 @@
     "suicide_per_100k": "21.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -3025,6 +3257,7 @@
     "suicide_per_100k": "23.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -3038,6 +3271,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "18.7",
     "age": "45-64"
   },
@@ -3051,6 +3285,7 @@
     "suicide_per_100k": "20.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -3064,6 +3299,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "8.8",
     "age": "65+"
   },
@@ -3077,6 +3313,7 @@
     "suicide_per_100k": "15.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -3090,6 +3327,7 @@
     "suicide_per_100k": "17.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -3103,6 +3341,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -3116,6 +3355,7 @@
     "suicide_per_100k": "15.4",
     "illicit_opioid_use_pct": "1.0",
     "non_medical_drug_use_pct": "11.0",
+    "non_medical_rx_opioid_use_pct": "4.2",
     "excessive_drinking_pct": "20.6",
     "age": "All"
   },
@@ -3129,6 +3369,7 @@
     "suicide_per_100k": "17.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -3142,6 +3383,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "24.0",
     "age": "18-44"
   },
@@ -3155,6 +3397,7 @@
     "suicide_per_100k": "25.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -3168,6 +3411,7 @@
     "suicide_per_100k": "26.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -3181,6 +3425,7 @@
     "suicide_per_100k": "33.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -3194,6 +3439,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "16.2",
     "age": "45-64"
   },
@@ -3207,6 +3453,7 @@
     "suicide_per_100k": "19.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -3220,6 +3467,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "8.1",
     "age": "65+"
   },
@@ -3233,6 +3481,7 @@
     "suicide_per_100k": "21.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -3246,6 +3495,7 @@
     "suicide_per_100k": "24.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -3259,6 +3509,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -3272,6 +3523,7 @@
     "suicide_per_100k": "19.8",
     "illicit_opioid_use_pct": "0.9",
     "non_medical_drug_use_pct": "9.0",
+    "non_medical_rx_opioid_use_pct": "2.7",
     "excessive_drinking_pct": "17.0",
     "age": "All"
   },
@@ -3285,6 +3537,7 @@
     "suicide_per_100k": "10.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -3298,6 +3551,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "18.1",
     "age": "18-44"
   },
@@ -3311,6 +3565,7 @@
     "suicide_per_100k": "13.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -3324,6 +3579,7 @@
     "suicide_per_100k": "12.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -3337,6 +3593,7 @@
     "suicide_per_100k": "14.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -3350,6 +3607,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "12.5",
     "age": "45-64"
   },
@@ -3363,6 +3621,7 @@
     "suicide_per_100k": "15.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -3376,6 +3635,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "6.8",
     "age": "65+"
   },
@@ -3389,6 +3649,7 @@
     "suicide_per_100k": "12.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -3402,6 +3663,7 @@
     "suicide_per_100k": "12.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -3415,6 +3677,7 @@
     "suicide_per_100k": "19.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -3428,6 +3691,7 @@
     "suicide_per_100k": "10.8",
     "illicit_opioid_use_pct": "1.4",
     "non_medical_drug_use_pct": "11.8",
+    "non_medical_rx_opioid_use_pct": "5.6",
     "excessive_drinking_pct": "13.8",
     "age": "All"
   },
@@ -3441,6 +3705,7 @@
     "suicide_per_100k": "7.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -3454,6 +3719,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "22.8",
     "age": "18-44"
   },
@@ -3467,6 +3733,7 @@
     "suicide_per_100k": "10.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -3480,6 +3747,7 @@
     "suicide_per_100k": "11.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -3493,6 +3761,7 @@
     "suicide_per_100k": "13.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -3506,6 +3775,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "18.5",
     "age": "45-64"
   },
@@ -3519,6 +3789,7 @@
     "suicide_per_100k": "16.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -3532,6 +3803,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "9.7",
     "age": "65+"
   },
@@ -3545,6 +3817,7 @@
     "suicide_per_100k": "9.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -3558,6 +3831,7 @@
     "suicide_per_100k": "8.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -3571,6 +3845,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -3584,6 +3859,7 @@
     "suicide_per_100k": "9.1",
     "illicit_opioid_use_pct": "0.7",
     "non_medical_drug_use_pct": "7.3",
+    "non_medical_rx_opioid_use_pct": "3.2",
     "excessive_drinking_pct": "18.5",
     "age": "All"
   },
@@ -3597,6 +3873,7 @@
     "suicide_per_100k": "13.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -3610,6 +3887,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "25.1",
     "age": "18-44"
   },
@@ -3623,6 +3901,7 @@
     "suicide_per_100k": "19.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -3636,6 +3915,7 @@
     "suicide_per_100k": "18.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -3649,6 +3929,7 @@
     "suicide_per_100k": "21.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -3662,6 +3943,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "18.6",
     "age": "45-64"
   },
@@ -3675,6 +3957,7 @@
     "suicide_per_100k": "19.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -3688,6 +3971,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "7.3",
     "age": "65+"
   },
@@ -3701,6 +3985,7 @@
     "suicide_per_100k": "13.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -3714,6 +3999,7 @@
     "suicide_per_100k": "19.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -3727,6 +4013,7 @@
     "suicide_per_100k": "16.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -3740,6 +4027,7 @@
     "suicide_per_100k": "14.7",
     "illicit_opioid_use_pct": "0.9",
     "non_medical_drug_use_pct": "10.3",
+    "non_medical_rx_opioid_use_pct": "4.9",
     "excessive_drinking_pct": "18.8",
     "age": "All"
   },
@@ -3753,6 +4041,7 @@
     "suicide_per_100k": "15.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -3766,6 +4055,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "26.7",
     "age": "18-44"
   },
@@ -3779,6 +4069,7 @@
     "suicide_per_100k": "19.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -3792,6 +4083,7 @@
     "suicide_per_100k": "18.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -3805,6 +4097,7 @@
     "suicide_per_100k": "21.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -3818,6 +4111,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "19.2",
     "age": "45-64"
   },
@@ -3831,6 +4125,7 @@
     "suicide_per_100k": "20.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -3844,6 +4139,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "8.1",
     "age": "65+"
   },
@@ -3857,6 +4153,7 @@
     "suicide_per_100k": "13.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -3870,6 +4167,7 @@
     "suicide_per_100k": "13.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -3883,6 +4181,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -3896,6 +4195,7 @@
     "suicide_per_100k": "14.8",
     "illicit_opioid_use_pct": "0.6",
     "non_medical_drug_use_pct": "8.4",
+    "non_medical_rx_opioid_use_pct": "3.4",
     "excessive_drinking_pct": "20.1",
     "age": "All"
   },
@@ -3909,6 +4209,7 @@
     "suicide_per_100k": "13.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -3922,6 +4223,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "22.4",
     "age": "18-44"
   },
@@ -3935,6 +4237,7 @@
     "suicide_per_100k": "21.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -3948,6 +4251,7 @@
     "suicide_per_100k": "21.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -3961,6 +4265,7 @@
     "suicide_per_100k": "15.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -3974,6 +4279,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "12.9",
     "age": "45-64"
   },
@@ -3987,6 +4293,7 @@
     "suicide_per_100k": "21.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -4000,6 +4307,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "4.3",
     "age": "65+"
   },
@@ -4013,6 +4321,7 @@
     "suicide_per_100k": "13.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -4026,6 +4335,7 @@
     "suicide_per_100k": "20.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -4039,6 +4349,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -4052,6 +4363,7 @@
     "suicide_per_100k": "14.9",
     "illicit_opioid_use_pct": "1.2",
     "non_medical_drug_use_pct": "9.2",
+    "non_medical_rx_opioid_use_pct": "4.5",
     "excessive_drinking_pct": "15.2",
     "age": "All"
   },
@@ -4065,6 +4377,7 @@
     "suicide_per_100k": "20.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -4078,6 +4391,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "26.0",
     "age": "18-44"
   },
@@ -4091,6 +4405,7 @@
     "suicide_per_100k": "23.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -4104,6 +4419,7 @@
     "suicide_per_100k": "25.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -4117,6 +4433,7 @@
     "suicide_per_100k": "25.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -4130,6 +4447,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "16.7",
     "age": "45-64"
   },
@@ -4143,6 +4461,7 @@
     "suicide_per_100k": "24.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -4156,6 +4475,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "6.7",
     "age": "65+"
   },
@@ -4169,6 +4489,7 @@
     "suicide_per_100k": "15.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -4182,6 +4503,7 @@
     "suicide_per_100k": "20.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -4195,6 +4517,7 @@
     "suicide_per_100k": "22.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -4208,6 +4531,7 @@
     "suicide_per_100k": "18.6",
     "illicit_opioid_use_pct": "1.0",
     "non_medical_drug_use_pct": "13.2",
+    "non_medical_rx_opioid_use_pct": "5.9",
     "excessive_drinking_pct": "18.5",
     "age": "All"
   },
@@ -4221,6 +4545,7 @@
     "suicide_per_100k": "36.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -4234,6 +4559,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "30.4",
     "age": "18-44"
   },
@@ -4247,6 +4573,7 @@
     "suicide_per_100k": "35.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -4260,6 +4587,7 @@
     "suicide_per_100k": "30.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -4273,6 +4601,7 @@
     "suicide_per_100k": "34.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -4286,6 +4615,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "20.1",
     "age": "45-64"
   },
@@ -4299,6 +4629,7 @@
     "suicide_per_100k": "29.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -4312,6 +4643,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "8.7",
     "age": "65+"
   },
@@ -4325,6 +4657,7 @@
     "suicide_per_100k": "28.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -4338,6 +4671,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -4351,6 +4685,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -4364,6 +4699,7 @@
     "suicide_per_100k": "27.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": "8.2",
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "21.7",
     "age": "All"
   },
@@ -4377,6 +4713,7 @@
     "suicide_per_100k": "15.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -4390,6 +4727,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "30.0",
     "age": "18-44"
   },
@@ -4403,6 +4741,7 @@
     "suicide_per_100k": "16.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -4416,6 +4755,7 @@
     "suicide_per_100k": "25.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -4429,6 +4769,7 @@
     "suicide_per_100k": "25.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -4442,6 +4783,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "19.6",
     "age": "45-64"
   },
@@ -4455,6 +4797,7 @@
     "suicide_per_100k": "23.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -4468,6 +4811,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "7.2",
     "age": "65+"
   },
@@ -4481,6 +4825,7 @@
     "suicide_per_100k": "16.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -4494,6 +4839,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -4507,6 +4853,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -4520,6 +4867,7 @@
     "suicide_per_100k": "16.5",
     "illicit_opioid_use_pct": "0.9",
     "non_medical_drug_use_pct": "7.7",
+    "non_medical_rx_opioid_use_pct": "3.4",
     "excessive_drinking_pct": "21.7",
     "age": "All"
   },
@@ -4533,6 +4881,7 @@
     "suicide_per_100k": "17.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -4546,6 +4895,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "24.8",
     "age": "18-44"
   },
@@ -4559,6 +4909,7 @@
     "suicide_per_100k": "25.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -4572,6 +4923,7 @@
     "suicide_per_100k": "21.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -4585,6 +4937,7 @@
     "suicide_per_100k": "26.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -4598,6 +4951,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "17.1",
     "age": "45-64"
   },
@@ -4611,6 +4965,7 @@
     "suicide_per_100k": "27.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -4624,6 +4979,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "8.5",
     "age": "65+"
   },
@@ -4637,6 +4993,7 @@
     "suicide_per_100k": "26.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -4650,6 +5007,7 @@
     "suicide_per_100k": "39.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -4663,6 +5021,7 @@
     "suicide_per_100k": "46.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -4676,6 +5035,7 @@
     "suicide_per_100k": "21.0",
     "illicit_opioid_use_pct": "1.7",
     "non_medical_drug_use_pct": "17.2",
+    "non_medical_rx_opioid_use_pct": "7.1",
     "excessive_drinking_pct": "18.7",
     "age": "All"
   },
@@ -4689,6 +5049,7 @@
     "suicide_per_100k": "16.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -4702,6 +5063,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "24.7",
     "age": "18-44"
   },
@@ -4715,6 +5077,7 @@
     "suicide_per_100k": "27.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -4728,6 +5091,7 @@
     "suicide_per_100k": "20.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -4741,6 +5105,7 @@
     "suicide_per_100k": "23.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -4754,6 +5119,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "17.0",
     "age": "45-64"
   },
@@ -4767,6 +5133,7 @@
     "suicide_per_100k": "21.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -4780,6 +5147,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "10.2",
     "age": "65+"
   },
@@ -4793,6 +5161,7 @@
     "suicide_per_100k": "19.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -4806,6 +5175,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -4819,6 +5189,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -4832,6 +5203,7 @@
     "suicide_per_100k": "18.2",
     "illicit_opioid_use_pct": "2.5",
     "non_medical_drug_use_pct": "7.6",
+    "non_medical_rx_opioid_use_pct": "2.4",
     "excessive_drinking_pct": "18.4",
     "age": "All"
   },
@@ -4845,6 +5217,7 @@
     "suicide_per_100k": "7.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -4858,6 +5231,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "23.4",
     "age": "18-44"
   },
@@ -4871,6 +5245,7 @@
     "suicide_per_100k": "9.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -4884,6 +5259,7 @@
     "suicide_per_100k": "10.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -4897,6 +5273,7 @@
     "suicide_per_100k": "11.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -4910,6 +5287,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "16.2",
     "age": "45-64"
   },
@@ -4923,6 +5301,7 @@
     "suicide_per_100k": "14.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -4936,6 +5315,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "8.3",
     "age": "65+"
   },
@@ -4949,6 +5329,7 @@
     "suicide_per_100k": "8.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -4962,6 +5343,7 @@
     "suicide_per_100k": "8.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -4975,6 +5357,7 @@
     "suicide_per_100k": "10.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -4988,6 +5371,7 @@
     "suicide_per_100k": "8.4",
     "illicit_opioid_use_pct": "0.5",
     "non_medical_drug_use_pct": "9.6",
+    "non_medical_rx_opioid_use_pct": "3.8",
     "excessive_drinking_pct": "17.6",
     "age": "All"
   },
@@ -5001,6 +5385,7 @@
     "suicide_per_100k": "29.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -5014,6 +5399,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "23.0",
     "age": "18-44"
   },
@@ -5027,6 +5413,7 @@
     "suicide_per_100k": "33.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -5040,6 +5427,7 @@
     "suicide_per_100k": "29.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -5053,6 +5441,7 @@
     "suicide_per_100k": "30.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -5066,6 +5455,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "13.9",
     "age": "45-64"
   },
@@ -5079,6 +5469,7 @@
     "suicide_per_100k": "28.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -5092,6 +5483,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "5.5",
     "age": "65+"
   },
@@ -5105,6 +5497,7 @@
     "suicide_per_100k": "22.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -5118,6 +5511,7 @@
     "suicide_per_100k": "27.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -5131,6 +5525,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -5144,6 +5539,7 @@
     "suicide_per_100k": "24.7",
     "illicit_opioid_use_pct": "0.7",
     "non_medical_drug_use_pct": "13.0",
+    "non_medical_rx_opioid_use_pct": "4.3",
     "excessive_drinking_pct": "15.9",
     "age": "All"
   },
@@ -5157,6 +5553,7 @@
     "suicide_per_100k": "9.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -5170,6 +5567,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "21.6",
     "age": "18-44"
   },
@@ -5183,6 +5581,7 @@
     "suicide_per_100k": "9.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -5196,6 +5595,7 @@
     "suicide_per_100k": "10.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -5209,6 +5609,7 @@
     "suicide_per_100k": "11.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -5222,6 +5623,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "15.9",
     "age": "45-64"
   },
@@ -5235,6 +5637,7 @@
     "suicide_per_100k": "12.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -5248,6 +5651,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "7.9",
     "age": "65+"
   },
@@ -5261,6 +5665,7 @@
     "suicide_per_100k": "9.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -5274,6 +5679,7 @@
     "suicide_per_100k": "9.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -5287,6 +5693,7 @@
     "suicide_per_100k": "9.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -5300,6 +5707,7 @@
     "suicide_per_100k": "8.6",
     "illicit_opioid_use_pct": "1.5",
     "non_medical_drug_use_pct": "12.0",
+    "non_medical_rx_opioid_use_pct": "5.8",
     "excessive_drinking_pct": "16.7",
     "age": "All"
   },
@@ -5313,6 +5721,7 @@
     "suicide_per_100k": "12.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -5326,6 +5735,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "22.6",
     "age": "18-44"
   },
@@ -5339,6 +5749,7 @@
     "suicide_per_100k": "15.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -5352,6 +5763,7 @@
     "suicide_per_100k": "17.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -5365,6 +5777,7 @@
     "suicide_per_100k": "17.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -5378,6 +5791,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "13.1",
     "age": "45-64"
   },
@@ -5391,6 +5805,7 @@
     "suicide_per_100k": "15.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -5404,6 +5819,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "6.4",
     "age": "65+"
   },
@@ -5417,6 +5833,7 @@
     "suicide_per_100k": "14.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -5430,6 +5847,7 @@
     "suicide_per_100k": "17.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -5443,6 +5861,7 @@
     "suicide_per_100k": "19.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -5456,6 +5875,7 @@
     "suicide_per_100k": "12.9",
     "illicit_opioid_use_pct": "1.3",
     "non_medical_drug_use_pct": "10.5",
+    "non_medical_rx_opioid_use_pct": "4.6",
     "excessive_drinking_pct": "15.8",
     "age": "All"
   },
@@ -5469,6 +5889,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -5482,6 +5903,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "30.5",
     "age": "18-44"
   },
@@ -5495,6 +5917,7 @@
     "suicide_per_100k": "26.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -5508,6 +5931,7 @@
     "suicide_per_100k": "21.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -5521,6 +5945,7 @@
     "suicide_per_100k": "32.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -5534,6 +5959,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "19.8",
     "age": "45-64"
   },
@@ -5547,6 +5973,7 @@
     "suicide_per_100k": "24.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -5560,6 +5987,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "7.5",
     "age": "65+"
   },
@@ -5573,6 +6001,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -5586,6 +6015,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -5599,6 +6029,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -5612,6 +6043,7 @@
     "suicide_per_100k": "18.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": "7.1",
+    "non_medical_rx_opioid_use_pct": "5.1",
     "excessive_drinking_pct": "22.4",
     "age": "All"
   },
@@ -5625,6 +6057,7 @@
     "suicide_per_100k": "14.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -5638,6 +6071,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "23.4",
     "age": "18-44"
   },
@@ -5651,6 +6085,7 @@
     "suicide_per_100k": "19.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -5664,6 +6099,7 @@
     "suicide_per_100k": "21.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -5677,6 +6113,7 @@
     "suicide_per_100k": "20.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -5690,6 +6127,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "17.1",
     "age": "45-64"
   },
@@ -5703,6 +6141,7 @@
     "suicide_per_100k": "18.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -5716,6 +6155,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "7.8",
     "age": "65+"
   },
@@ -5729,6 +6169,7 @@
     "suicide_per_100k": "15.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -5742,6 +6183,7 @@
     "suicide_per_100k": "19.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -5755,6 +6197,7 @@
     "suicide_per_100k": "17.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -5768,6 +6211,7 @@
     "suicide_per_100k": "15.4",
     "illicit_opioid_use_pct": "1.0",
     "non_medical_drug_use_pct": "10.5",
+    "non_medical_rx_opioid_use_pct": "4.4",
     "excessive_drinking_pct": "17.7",
     "age": "All"
   },
@@ -5781,6 +6225,7 @@
     "suicide_per_100k": "22.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -5794,6 +6239,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "17.8",
     "age": "18-44"
   },
@@ -5807,6 +6253,7 @@
     "suicide_per_100k": "25.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -5820,6 +6267,7 @@
     "suicide_per_100k": "28.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -5833,6 +6281,7 @@
     "suicide_per_100k": "27.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -5846,6 +6295,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "11.3",
     "age": "45-64"
   },
@@ -5859,6 +6309,7 @@
     "suicide_per_100k": "26.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -5872,6 +6323,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "4.9",
     "age": "65+"
   },
@@ -5885,6 +6337,7 @@
     "suicide_per_100k": "22.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -5898,6 +6351,7 @@
     "suicide_per_100k": "19.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -5911,6 +6365,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -5924,6 +6379,7 @@
     "suicide_per_100k": "21.0",
     "illicit_opioid_use_pct": "1.3",
     "non_medical_drug_use_pct": "17.2",
+    "non_medical_rx_opioid_use_pct": "8.4",
     "excessive_drinking_pct": "12.8",
     "age": "All"
   },
@@ -5937,6 +6393,7 @@
     "suicide_per_100k": "21.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -5950,6 +6407,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "25.5",
     "age": "18-44"
   },
@@ -5963,6 +6421,7 @@
     "suicide_per_100k": "25.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -5976,6 +6435,7 @@
     "suicide_per_100k": "22.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -5989,6 +6449,7 @@
     "suicide_per_100k": "32.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -6002,6 +6463,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "16.7",
     "age": "45-64"
   },
@@ -6015,6 +6477,7 @@
     "suicide_per_100k": "25.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -6028,6 +6491,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "8.0",
     "age": "65+"
   },
@@ -6041,6 +6505,7 @@
     "suicide_per_100k": "23.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -6054,6 +6519,7 @@
     "suicide_per_100k": "25.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -6067,6 +6533,7 @@
     "suicide_per_100k": "42.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -6080,6 +6547,7 @@
     "suicide_per_100k": "21.2",
     "illicit_opioid_use_pct": "0.9",
     "non_medical_drug_use_pct": "17.2",
+    "non_medical_rx_opioid_use_pct": "5.2",
     "excessive_drinking_pct": "18.6",
     "age": "All"
   },
@@ -6093,6 +6561,7 @@
     "suicide_per_100k": "11.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -6106,6 +6575,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "26.9",
     "age": "18-44"
   },
@@ -6119,6 +6589,7 @@
     "suicide_per_100k": "17.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -6132,6 +6603,7 @@
     "suicide_per_100k": "19.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -6145,6 +6617,7 @@
     "suicide_per_100k": "21.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -6158,6 +6631,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "18.0",
     "age": "45-64"
   },
@@ -6171,6 +6645,7 @@
     "suicide_per_100k": "19.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -6184,6 +6659,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "6.1",
     "age": "65+"
   },
@@ -6197,6 +6673,7 @@
     "suicide_per_100k": "15.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -6210,6 +6687,7 @@
     "suicide_per_100k": "18.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -6223,6 +6701,7 @@
     "suicide_per_100k": "19.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -6236,6 +6715,7 @@
     "suicide_per_100k": "14.5",
     "illicit_opioid_use_pct": "1.0",
     "non_medical_drug_use_pct": "10.6",
+    "non_medical_rx_opioid_use_pct": "4.3",
     "excessive_drinking_pct": "18.8",
     "age": "All"
   },
@@ -6249,6 +6729,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -6262,6 +6743,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "22.5",
     "age": "18-44"
   },
@@ -6275,6 +6757,7 @@
     "suicide_per_100k": "16.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -6288,6 +6771,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -6301,6 +6785,7 @@
     "suicide_per_100k": "19.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -6314,6 +6799,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "15.4",
     "age": "45-64"
   },
@@ -6327,6 +6813,7 @@
     "suicide_per_100k": "20.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -6340,6 +6827,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "7.7",
     "age": "65+"
   },
@@ -6353,6 +6841,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -6366,6 +6855,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -6379,6 +6869,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -6392,6 +6883,7 @@
     "suicide_per_100k": "11.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": "8.3",
+    "non_medical_rx_opioid_use_pct": "2.2",
     "excessive_drinking_pct": "16.8",
     "age": "All"
   },
@@ -6405,6 +6897,7 @@
     "suicide_per_100k": "16.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -6418,6 +6911,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "23.5",
     "age": "18-44"
   },
@@ -6431,6 +6925,7 @@
     "suicide_per_100k": "21.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -6444,6 +6939,7 @@
     "suicide_per_100k": "22.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -6457,6 +6953,7 @@
     "suicide_per_100k": "22.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -6470,6 +6967,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "16.2",
     "age": "45-64"
   },
@@ -6483,6 +6981,7 @@
     "suicide_per_100k": "19.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -6496,6 +6995,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "8.0",
     "age": "65+"
   },
@@ -6509,6 +7009,7 @@
     "suicide_per_100k": "15.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -6522,6 +7023,7 @@
     "suicide_per_100k": "22.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -6535,6 +7037,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -6548,6 +7051,7 @@
     "suicide_per_100k": "16.5",
     "illicit_opioid_use_pct": "1.0",
     "non_medical_drug_use_pct": "10.3",
+    "non_medical_rx_opioid_use_pct": "4.4",
     "excessive_drinking_pct": "17.4",
     "age": "All"
   },
@@ -6561,6 +7065,7 @@
     "suicide_per_100k": "36.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -6574,6 +7079,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "26.0",
     "age": "18-44"
   },
@@ -6587,6 +7093,7 @@
     "suicide_per_100k": "33.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -6600,6 +7107,7 @@
     "suicide_per_100k": "21.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -6613,6 +7121,7 @@
     "suicide_per_100k": "27.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -6626,6 +7135,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "18.3",
     "age": "45-64"
   },
@@ -6639,6 +7149,7 @@
     "suicide_per_100k": "21.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -6652,6 +7163,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "8.0",
     "age": "65+"
   },
@@ -6665,6 +7177,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -6678,6 +7191,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -6691,6 +7205,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -6704,6 +7219,7 @@
     "suicide_per_100k": "21.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": "8.9",
+    "non_medical_rx_opioid_use_pct": "3.6",
     "excessive_drinking_pct": "19.4",
     "age": "All"
   },
@@ -6717,6 +7233,7 @@
     "suicide_per_100k": "15.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -6730,6 +7247,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "24.1",
     "age": "18-44"
   },
@@ -6743,6 +7261,7 @@
     "suicide_per_100k": "20.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -6756,6 +7275,7 @@
     "suicide_per_100k": "24.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -6769,6 +7289,7 @@
     "suicide_per_100k": "23.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -6782,6 +7303,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "11.8",
     "age": "45-64"
   },
@@ -6795,6 +7317,7 @@
     "suicide_per_100k": "22.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -6808,6 +7331,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "4.3",
     "age": "65+"
   },
@@ -6821,6 +7345,7 @@
     "suicide_per_100k": "21.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -6834,6 +7359,7 @@
     "suicide_per_100k": "26.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -6847,6 +7373,7 @@
     "suicide_per_100k": "18.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -6860,6 +7387,7 @@
     "suicide_per_100k": "17.8",
     "illicit_opioid_use_pct": "0.9",
     "non_medical_drug_use_pct": "13.0",
+    "non_medical_rx_opioid_use_pct": "5.9",
     "excessive_drinking_pct": "15.6",
     "age": "All"
   },
@@ -6873,6 +7401,7 @@
     "suicide_per_100k": "15.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -6886,6 +7415,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "24.3",
     "age": "18-44"
   },
@@ -6899,6 +7429,7 @@
     "suicide_per_100k": "16.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -6912,6 +7443,7 @@
     "suicide_per_100k": "16.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -6925,6 +7457,7 @@
     "suicide_per_100k": "17.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -6938,6 +7471,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "14.3",
     "age": "45-64"
   },
@@ -6951,6 +7485,7 @@
     "suicide_per_100k": "17.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -6964,6 +7499,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "8.0",
     "age": "65+"
   },
@@ -6977,6 +7513,7 @@
     "suicide_per_100k": "16.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -6990,6 +7527,7 @@
     "suicide_per_100k": "17.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -7003,6 +7541,7 @@
     "suicide_per_100k": "20.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -7016,6 +7555,7 @@
     "suicide_per_100k": "13.9",
     "illicit_opioid_use_pct": "1.1",
     "non_medical_drug_use_pct": "11.3",
+    "non_medical_rx_opioid_use_pct": "5.1",
     "excessive_drinking_pct": "18.2",
     "age": "All"
   },
@@ -7029,6 +7569,7 @@
     "suicide_per_100k": "26.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -7042,6 +7583,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "16.5",
     "age": "18-44"
   },
@@ -7055,6 +7597,7 @@
     "suicide_per_100k": "25.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -7068,6 +7611,7 @@
     "suicide_per_100k": "31.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -7081,6 +7625,7 @@
     "suicide_per_100k": "28.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -7094,6 +7639,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "9.0",
     "age": "45-64"
   },
@@ -7107,6 +7653,7 @@
     "suicide_per_100k": "30.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -7120,6 +7667,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "2.7",
     "age": "65+"
   },
@@ -7133,6 +7681,7 @@
     "suicide_per_100k": "13.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -7146,6 +7695,7 @@
     "suicide_per_100k": "23.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -7159,6 +7709,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -7172,6 +7723,7 @@
     "suicide_per_100k": "21.5",
     "illicit_opioid_use_pct": "1.6",
     "non_medical_drug_use_pct": "11.2",
+    "non_medical_rx_opioid_use_pct": "4.3",
     "excessive_drinking_pct": "12.1",
     "age": "All"
   },
@@ -7185,6 +7737,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -7198,6 +7751,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "29.0",
     "age": "18-44"
   },
@@ -7211,6 +7765,7 @@
     "suicide_per_100k": "28.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -7224,6 +7779,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -7237,6 +7793,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -7250,6 +7807,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "19.3",
     "age": "45-64"
   },
@@ -7263,6 +7821,7 @@
     "suicide_per_100k": "23.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -7276,6 +7835,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "7.2",
     "age": "65+"
   },
@@ -7289,6 +7849,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -7302,6 +7863,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -7315,6 +7877,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -7328,6 +7891,7 @@
     "suicide_per_100k": "17.0",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": "4.7",
+    "non_medical_rx_opioid_use_pct": "3.4",
     "excessive_drinking_pct": "20.3",
     "age": "All"
   },
@@ -7341,6 +7905,7 @@
     "suicide_per_100k": "14.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -7354,6 +7919,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "22.0",
     "age": "18-44"
   },
@@ -7367,6 +7933,7 @@
     "suicide_per_100k": "16.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -7380,6 +7947,7 @@
     "suicide_per_100k": "15.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -7393,6 +7961,7 @@
     "suicide_per_100k": "16.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -7406,6 +7975,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "14.2",
     "age": "45-64"
   },
@@ -7419,6 +7989,7 @@
     "suicide_per_100k": "17.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -7432,6 +8003,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "6.4",
     "age": "65+"
   },
@@ -7445,6 +8017,7 @@
     "suicide_per_100k": "12.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -7458,6 +8031,7 @@
     "suicide_per_100k": "23.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -7471,6 +8045,7 @@
     "suicide_per_100k": "20.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -7484,6 +8059,7 @@
     "suicide_per_100k": "13.3",
     "illicit_opioid_use_pct": "1.4",
     "non_medical_drug_use_pct": "11.1",
+    "non_medical_rx_opioid_use_pct": "5.1",
     "excessive_drinking_pct": "16.1",
     "age": "All"
   },
@@ -7497,6 +8073,7 @@
     "suicide_per_100k": "16.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -7510,6 +8087,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "23.1",
     "age": "18-44"
   },
@@ -7523,6 +8101,7 @@
     "suicide_per_100k": "17.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -7536,6 +8115,7 @@
     "suicide_per_100k": "19.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -7549,6 +8129,7 @@
     "suicide_per_100k": "24.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -7562,6 +8143,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "15.1",
     "age": "45-64"
   },
@@ -7575,6 +8157,7 @@
     "suicide_per_100k": "23.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -7588,6 +8171,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "7.6",
     "age": "65+"
   },
@@ -7601,6 +8185,7 @@
     "suicide_per_100k": "18.9",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -7614,6 +8199,7 @@
     "suicide_per_100k": "25.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -7627,6 +8213,7 @@
     "suicide_per_100k": "23.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -7640,6 +8227,7 @@
     "suicide_per_100k": "16.6",
     "illicit_opioid_use_pct": "2.1",
     "non_medical_drug_use_pct": "13.5",
+    "non_medical_rx_opioid_use_pct": "5.7",
     "excessive_drinking_pct": "17.2",
     "age": "All"
   },
@@ -7653,6 +8241,7 @@
     "suicide_per_100k": "17.5",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -7666,6 +8255,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "18.0",
     "age": "18-44"
   },
@@ -7679,6 +8269,7 @@
     "suicide_per_100k": "27.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -7692,6 +8283,7 @@
     "suicide_per_100k": "34.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -7705,6 +8297,7 @@
     "suicide_per_100k": "19.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -7718,6 +8311,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "11.0",
     "age": "45-64"
   },
@@ -7731,6 +8325,7 @@
     "suicide_per_100k": "18.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -7744,6 +8339,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "4.3",
     "age": "65+"
   },
@@ -7757,6 +8353,7 @@
     "suicide_per_100k": "15.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -7770,6 +8367,7 @@
     "suicide_per_100k": "20.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -7783,6 +8381,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -7796,6 +8395,7 @@
     "suicide_per_100k": "18.4",
     "illicit_opioid_use_pct": "3.4",
     "non_medical_drug_use_pct": "14.1",
+    "non_medical_rx_opioid_use_pct": "6.2",
     "excessive_drinking_pct": "12.1",
     "age": "All"
   },
@@ -7809,6 +8409,7 @@
     "suicide_per_100k": "14.6",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -7822,6 +8423,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "31.9",
     "age": "18-44"
   },
@@ -7835,6 +8437,7 @@
     "suicide_per_100k": "16.7",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -7848,6 +8451,7 @@
     "suicide_per_100k": "18.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -7861,6 +8465,7 @@
     "suicide_per_100k": "20.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -7874,6 +8479,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "23.6",
     "age": "45-64"
   },
@@ -7887,6 +8493,7 @@
     "suicide_per_100k": "18.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -7900,6 +8507,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "11.8",
     "age": "65+"
   },
@@ -7913,6 +8521,7 @@
     "suicide_per_100k": "16.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -7926,6 +8535,7 @@
     "suicide_per_100k": "16.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -7939,6 +8549,7 @@
     "suicide_per_100k": "16.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -7952,6 +8563,7 @@
     "suicide_per_100k": "14.4",
     "illicit_opioid_use_pct": "1.2",
     "non_medical_drug_use_pct": "8.7",
+    "non_medical_rx_opioid_use_pct": "4.0",
     "excessive_drinking_pct": "24.4",
     "age": "All"
   },
@@ -7965,6 +8577,7 @@
     "suicide_per_100k": "28.2",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "15-24"
   },
@@ -7978,6 +8591,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "26.3",
     "age": "18-44"
   },
@@ -7991,6 +8605,7 @@
     "suicide_per_100k": "31.4",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "25-34"
   },
@@ -8004,6 +8619,7 @@
     "suicide_per_100k": "43.1",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "35-44"
   },
@@ -8017,6 +8633,7 @@
     "suicide_per_100k": "42.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "45-54"
   },
@@ -8030,6 +8647,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "14.0",
     "age": "45-64"
   },
@@ -8043,6 +8661,7 @@
     "suicide_per_100k": "34.3",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "55-64"
   },
@@ -8056,6 +8675,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "6.5",
     "age": "65+"
   },
@@ -8069,6 +8689,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "65-74"
   },
@@ -8082,6 +8703,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "75-84"
   },
@@ -8095,6 +8717,7 @@
     "suicide_per_100k": null,
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": null,
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": null,
     "age": "85+"
   },
@@ -8108,6 +8731,7 @@
     "suicide_per_100k": "29.8",
     "illicit_opioid_use_pct": null,
     "non_medical_drug_use_pct": "7.7",
+    "non_medical_rx_opioid_use_pct": null,
     "excessive_drinking_pct": "17.9",
     "age": "All"
   }

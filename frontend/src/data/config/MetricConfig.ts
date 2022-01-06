@@ -55,6 +55,9 @@ export type MetricId =
   | "non_medical_drug_use_pct"
   | "non_medical_drug_use_pct_share"
   | "non_medical_drug_use_per_100k"
+  | "non_medical_rx_opioid_use_pct"
+  | "non_medical_rx_opioid_use_pct_share"
+  | "non_medical_rx_opioid_use_per_100k"
   | "excessive_drinking_pct"
   | "excessive_drinking_pct_share"
   | "excessive_drinking_per_100k";
@@ -469,6 +472,41 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           metricId: "non_medical_drug_use_per_100k",
           fullCardTitleName: "Non-medical Drug Use Per 100k People",
           shortVegaLabel: "cases of non-medical drug use per 100k",
+          type: "per100k",
+        },
+      },
+    },
+  ],
+  non_medical_rx_opioid_use: [
+    {
+      variableId: "cases",
+      variableDisplayName: "Cases",
+      variableFullDisplayName: "Cases of Non-medical Prescription Opioid Use ",
+      variableDefinition: {
+        text: `...`,
+        sourceName: `America's Health Rankings`,
+        url: `https://www.americashealthrankings.org/explore/annual/measure/drug_use/state/ALL?edition-year=2021`,
+      },
+      surveyCollectedData: true,
+      metrics: {
+        pct_share: {
+          metricId: "non_medical_rx_opioid_use_pct_share",
+          fullCardTitleName:
+            "Share Of Total Non-medical Prescription Opioid Use",
+          shortVegaLabel: "% of cases",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "brfss_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+        per100k: {
+          metricId: "non_medical_rx_opioid_use_per_100k",
+          fullCardTitleName:
+            "Non-medical Prescription Opioid Use Per 100k People",
+          shortVegaLabel: "cases of non-medical rx opioid use per 100k",
           type: "per100k",
         },
       },
