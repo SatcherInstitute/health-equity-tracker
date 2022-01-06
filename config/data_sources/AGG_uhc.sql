@@ -13,6 +13,7 @@ WITH
         a.suicide_per_100k,
         a.illicit_opioid_use_pct,
         a.non_medical_drug_use_pct,
+        a.non_medical_rx_opioid_use_pct,
         a.excessive_drinking_pct,
         a.race,
         a.race_includes_hispanic,
@@ -39,6 +40,7 @@ WITH
         a.suicide_per_100k,
         a.illicit_opioid_use_pct,
         a.non_medical_drug_use_pct,
+        a.non_medical_rx_opioid_use_pct,
         a.excessive_drinking_pct,
         a.age,
     FROM `uhc_data.age` AS a
@@ -63,6 +65,7 @@ WITH
         a.suicide_per_100k,
         a.illicit_opioid_use_pct,
         a.non_medical_drug_use_pct,
+        a.non_medical_rx_opioid_use_pct,
         a.excessive_drinking_pct,
         a.sex,
     FROM `uhc_data.sex` AS a
