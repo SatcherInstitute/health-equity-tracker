@@ -38,7 +38,7 @@ UHC_AGE_GROUPS = [
     *PLUS_5_AGE_GROUPS,
     *BROAD_AGE_GROUPS
 ]
-# No Age Breakdowns for: Illicit Opioid, Non-medical Drug
+# No Age Breakdowns for: Non-medical Drug (including Illicit Opioid, Non-Medical Rx Opioid)
 
 UHC_SEX_GROUPS = ['Male', 'Female', 'All']
 
@@ -61,9 +61,11 @@ BROAD_AGE_DETERMINANTS = {
     "Diabetes": std_col.DIABETES_PCT,
     "Frequent Mental Distress": std_col.FREQUENT_MENTAL_DISTRESS_PCT,
     "Depression": std_col.DEPRESSION_PCT,
-    "Non-medical Drug Use": std_col.NON_MEDICAL_DRUG_USE_PCT,
     "Excessive Drinking": std_col.EXCESSIVE_DRINKING_PCT,
-    "Illicit Opioid Use": std_col.ILLICIT_OPIOID_USE_PCT,  # all
+    "Non-medical Drug Use": std_col.NON_MEDICAL_DRUG_USE_PCT,
+    # NOTE: both opioid conditions below are subsets of Non-medical Drug Use above
+    "Illicit Opioid Use": std_col.ILLICIT_OPIOID_USE_PCT,
+    "Non-medical Use of Prescription Opioids": std_col.NON_MEDICAL_RX_OPIOID_USE_PCT,
 }
 
 # When parsing Measure Names from rows with a demographic breakdown
@@ -118,8 +120,10 @@ class UHCData(DataSource):
             for col in [std_col.COPD_PCT,
                         std_col.DIABETES_PCT,
                         std_col.FREQUENT_MENTAL_DISTRESS_PCT,
-                        std_col.DEPRESSION_PCT, std_col.SUICIDE_PER_100K,
+                        std_col.DEPRESSION_PCT,
+                        std_col.SUICIDE_PER_100K,
                         std_col.ILLICIT_OPIOID_USE_PCT,
+                        std_col.NON_MEDICAL_RX_OPIOID_USE_PCT,
                         std_col.NON_MEDICAL_DRUG_USE_PCT,
                         std_col.EXCESSIVE_DRINKING_PCT]:
                 column_types[col] = 'FLOAT'
@@ -141,6 +145,7 @@ class UHCData(DataSource):
                    std_col.DEPRESSION_PCT,
                    std_col.SUICIDE_PER_100K,
                    std_col.ILLICIT_OPIOID_USE_PCT,
+                   std_col.NON_MEDICAL_RX_OPIOID_USE_PCT,
                    std_col.NON_MEDICAL_DRUG_USE_PCT,
                    std_col.EXCESSIVE_DRINKING_PCT]
         if breakdown == std_col.RACE_OR_HISPANIC_COL:

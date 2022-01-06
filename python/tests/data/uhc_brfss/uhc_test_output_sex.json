@@ -7,7 +7,7 @@
         "depression_pct": "16.1",
         "suicide_per_100k": "27.2",
         "illicit_opioid_use_pct": "1.7",
-        "non_medical_opioid_use_pct": null,
+        "non_medical_rx_opioid_use_pct": "5.9",
         "non_medical_drug_use_pct": "14.0",
         "excessive_drinking_pct": "19.1",
         "sex": "Male"
@@ -20,7 +20,7 @@
         "depression_pct": "30.3",
         "suicide_per_100k": "6.9",
         "illicit_opioid_use_pct": "1.2",
-        "non_medical_opioid_use_pct": null,
+        "non_medical_rx_opioid_use_pct": "7.1",
         "non_medical_drug_use_pct": "12.3",
         "excessive_drinking_pct": "10.0",
         "sex": "Female"
@@ -33,7 +33,7 @@
         "depression_pct": "23.5",
         "suicide_per_100k": "16.5",
         "illicit_opioid_use_pct": "1.4",
-        "non_medical_opioid_use_pct": null,
+        "non_medical_rx_opioid_use_pct": "6.5",
         "non_medical_drug_use_pct": "13.1",
         "excessive_drinking_pct": "14.3",
         "sex": "All"

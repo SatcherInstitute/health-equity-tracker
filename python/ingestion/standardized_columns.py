@@ -56,6 +56,7 @@ BELOW_POVERTY_COL = "below_poverty_line"
 # Standardized names for UHC columns
 DEPRESSION_PCT = "depression_pct"
 ILLICIT_OPIOID_USE_PCT = "illicit_opioid_use_pct"
+NON_MEDICAL_RX_OPIOID_USE_PCT = "non_medical_rx_opioid_use_pct"
 NON_MEDICAL_DRUG_USE_PCT = "non_medical_drug_use_pct"
 EXCESSIVE_DRINKING_PCT = "excessive_drinking_pct"
 COPD_PCT = "copd_pct"
