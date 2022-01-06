@@ -20,7 +20,7 @@ export const UHC_AGE_BUCKETS = [
   ...DECADE_PLUS_5_AGE_BUCKETS,
   // COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking
   ...BROAD_AGE_BUCKETS,
-  // No Age Breakdowns for: Illicit Opioid, Non-medical Drug
+  // No Age Breakdowns for: Non-medical Drug (incl Illicit Opioid, Non-medical Rx Opioid)
 ];
 
 export const UHC_BROAD_AGE_DETERMINANTS: MetricId[] = [
@@ -37,6 +37,9 @@ export const UHC_BROAD_AGE_DETERMINANTS: MetricId[] = [
   "illicit_opioid_use_pct",
   "illicit_opioid_use_pct_share",
   "illicit_opioid_use_per_100k",
+  "non_medical_rx_opioid_use_pct",
+  "non_medical_rx_opioid_use_pct_share",
+  "non_medical_rx_opioid_use_per_100k",
   "non_medical_drug_use_pct",
   "non_medical_drug_use_pct_share",
   "non_medical_drug_use_per_100k",
@@ -128,6 +131,11 @@ class BrfssProvider extends VariableProvider {
           row.non_medical_drug_use_pct,
           row.population
         ),
+      estimated_total_non_medical_rx_opioid_use: (row) =>
+        this.calculations.estimateTotal(
+          row.non_medical_rx_opioid_use_pct,
+          row.population
+        ),
       estimated_total_excessive_drinking: (row) =>
         this.calculations.estimateTotal(
           row.excessive_drinking_pct,
@@ -163,6 +171,10 @@ class BrfssProvider extends VariableProvider {
         row.non_medical_drug_use_pct == null
           ? null
           : row.non_medical_drug_use_pct * 1000,
+      non_medical_rx_opioid_use_per_100k: (row) =>
+        row.non_medical_rx_opioid_use_pct == null
+          ? null
+          : row.non_medical_rx_opioid_use_pct * 1000,
       excessive_drinking_per_100k: (row) =>
         row.excessive_drinking_pct == null
           ? null
@@ -182,6 +194,7 @@ class BrfssProvider extends VariableProvider {
         "estimated_total_suicide",
         "estimated_total_illicit_opioid_use",
         "estimated_total_non_medical_drug_use",
+        "estimated_total_non_medical_rx_opioid_use",
         "estimated_total_excessive_drinking",
         "estimated_total_frequent_mental_distress",
       ].forEach((col) => {
@@ -204,6 +217,7 @@ class BrfssProvider extends VariableProvider {
         "estimated_total_suicide",
         "estimated_total_illicit_opioid_use",
         "estimated_total_non_medical_drug_use",
+        "estimated_total_non_medical_rx_opioid_use",
         "estimated_total_excessive_drinking",
         "estimated_total_frequent_mental_distress",
       ])
