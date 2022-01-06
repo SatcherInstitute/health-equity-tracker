@@ -352,7 +352,7 @@ function MethodologyTab() {
               <div className={styles.MethodologyAnswer}>
                 <DefinitionsList definedConditions={definedConditions} />
                 <p>
-                  Links to the original sources of data and their definintions
+                  Links to the original sources of data and their definitions
                   can be found on our{" "}
                   <Link to={DATA_TAB_LINK}>Data Downloads</Link> page.
                 </p>
