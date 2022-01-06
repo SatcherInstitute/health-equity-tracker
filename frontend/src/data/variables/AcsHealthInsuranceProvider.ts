@@ -16,7 +16,7 @@ class AcsHealthInsuranceProvider extends VariableProvider {
     ]);
   }
 
-  // ALERT! KEEP IN SYNC! Make sure you update DataSourceMetadata if you update dataset IDs
+  // ALERT! KEEP IN SYNC! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts if you update dataset IDs
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.hasOnlySex() || breakdowns.hasOnlyAge()) {
       return breakdowns.geography === "county"

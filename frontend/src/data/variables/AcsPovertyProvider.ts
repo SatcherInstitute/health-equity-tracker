@@ -21,18 +21,14 @@ class AcsPovertyProvider extends VariableProvider {
       "poverty_population_pct",
     ]);
   }
-  // ALERT! Make sure you update DataSourceMetadata if you update dataset IDs
+  // ALERT! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts AND  if you update dataset IDs
   getDatasetId(breakdowns: Breakdowns): string {
     let datasetPrefix = "acs_poverty_dataset-poverty_by_";
 
     let breakdownSelector;
-    if (breakdowns.hasOnlyAge()) {
-      breakdownSelector = "age";
-    } else if (breakdowns.hasOnlyRace()) {
-      breakdownSelector = "race";
-    } else {
-      breakdownSelector = "sex";
-    }
+    if (breakdowns.hasOnlyAge()) breakdownSelector = "age";
+    if (breakdowns.hasOnlyRace()) breakdownSelector = "race";
+    if (breakdowns.hasOnlySex()) breakdownSelector = "sex";
 
     return (
       datasetPrefix +
@@ -130,7 +126,7 @@ class AcsPovertyProvider extends VariableProvider {
   aggregateByBreakdown(df: IDataFrame, breakdownCol: string) {
     let breakdown_cols = ["race_and_ethnicity", "age", "sex"];
 
-    //Get all collumns minus the breakdown cols and the summation cols.
+    //Get all columns minus the breakdown cols and the summation cols.
     let default_cols = df
       .getColumnNames()
       .filter(

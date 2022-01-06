@@ -1,17 +1,5 @@
 @import "../../../styles/variables.module";
 
-.FlexRow {
-  display: flex;
-  flex-direction: row;
-  padding: 3px;
-}
-
-.FlexCol {
-  display: flex;
-  flex-direction: column;
-  padding: 3px;
-}
-
 .Description {
   text-align: left;
   line-height: 20px;
@@ -23,7 +11,7 @@
 }
 
 .DatasetTitle {
-  font-size: 20px;
+  font-size: $title;
   font-family: "Taviraj", serif !important;
 }
 
