@@ -38,16 +38,16 @@
       font-family: "Taviraj", serif !important;
       color: $alt-green;
       padding-bottom: 1rem;
-      font-size: 2.125rem;
+      font-size: $header;
       line-height: 100%;
 
       @media (min-width: $md) {
-        font-size: 3rem;
+        font-size: $bigHeader;
       }
     }
 
     .SingleArticleHeaderSubtext {
-      font-size: 1rem;
+      font-size: $text;
       text-align: left;
       font-weight: 400;
       line-height: 100%;
@@ -57,7 +57,7 @@
     .SingleArticleDetailText {
       color: $alt-dark;
       font-weight: 400;
-      font-size: 1rem;
+      font-size: $text;
       text-align: start;
 
       a {
@@ -90,11 +90,11 @@
 }
 
 .AllArticlesHeaderText {
-  font-size: 3rem !important;
+  font-size: $bigHeader !important;
 }
 
 .AllArticlesHeaderSubtext {
-  font-size: 20px;
+  font-size: $title;
   text-align: left;
   font-weight: 300;
   line-height: 24px;
@@ -112,7 +112,7 @@
 }
 .AllArticlesTitleText {
   margin: 5px 40px 30px 40px;
-  font-size: 1.25rem;
+  font-size: $title;
   text-align: center;
   font-weight: 300;
   font-family: "Taviraj", serif !important;
@@ -149,7 +149,7 @@
 
   p,
   li {
-    font-size: 1.2rem;
+    font-size: $title;
     line-height: 150%;
     text-align: left;
     font-weight: 400;
@@ -177,22 +177,22 @@
   }
 
   h1 {
-    font-size: 3.75rem !important;
+    font-size: $biggerHeader !important;
   }
   h2 {
-    font-size: 3rem !important;
+    font-size: $bigHeader !important;
   }
   h3 {
-    font-size: 2.125rem !important;
+    font-size: $header !important;
   }
   h4 {
-    font-size: 1.5rem !important;
+    font-size: $smallestHeader !important;
   }
   h5 {
-    font-size: 1.25rem !important;
+    font-size: $title !important;
   }
   h6 {
-    font-size: 1rem !important;
+    font-size: $text !important;
   }
 
   ol,
@@ -210,8 +210,8 @@
 
   .ReprintNotice {
     font-style: italic;
-    font-size: 0.875rem;
-    font-weight: 100;
+    font-size: $small;
+    font-weight: 300;
   }
 }
 
@@ -243,7 +243,7 @@
   background-color: $alt-green;
   color: white !important;
   border-radius: 40px !important;
-  font-size: 18px !important;
+  font-size: $title !important;
   font-weight: 500 !important;
   font-family: "DM Sans", sans-serif !important;
   padding: 16px 30px !important;
@@ -258,7 +258,7 @@
 
 .NewsPreviewHeaderText h2,
 .NewsPreviewHeaderText h3 {
-  font-size: 1.2rem !important;
+  font-size: $title !important;
   text-align: center;
   font-weight: 200 !important;
   font-family: "Taviraj", serif !important;
@@ -279,7 +279,7 @@
 }
 
 .PrevNextArrow {
-  font-size: 3rem;
+  font-size: $bigHeader;
 }
 
 .FilterListBox {
@@ -292,7 +292,7 @@
 }
 
 .FilterListHeader {
-  font-size: 1.5rem !important;
+  font-size: $smallestHeader !important;
   margin-bottom: 0px;
   font-weight: 300;
   font-family: "Taviraj", serif !important;
@@ -302,7 +302,7 @@
 
 .FilterList {
   text-align: start;
-  font-size: 1rem;
+  font-size: $text;
   width: 100%;
   margin-bottom: 5rem;
   list-style: none;

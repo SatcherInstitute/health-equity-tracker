@@ -247,20 +247,6 @@ function App() {
                       />
 
                       <Route
-                        path={TERMS_OF_USE_PAGE_LINK}
-                        render={() => <TermsOfUsePage />}
-                      />
-                      {/* redirect the old URL for possible outside links */}
-                      <Route path={`/termsofservice`}>
-                        <Redirect to={TERMS_OF_USE_PAGE_LINK} />
-                      </Route>
-
-                      <Route
-                        path={RESOURCES_TAB_LINK}
-                        render={() => <WhatIsHealthEquityPage />}
-                      />
-
-                      <Route
                         path={NEWS_TAB_LINK}
                         render={() => <WhatIsHealthEquityPage />}
                       />
@@ -269,6 +255,12 @@ function App() {
                         path={TERMS_OF_USE_PAGE_LINK}
                         render={() => <TermsOfUsePage />}
                       />
+
+                      {/* redirect the old URL for possible outside links */}
+                      <Route path={`/termsofservice`}>
+                        <Redirect to={TERMS_OF_USE_PAGE_LINK} />
+                      </Route>
+
                       <Route exact path="/" render={() => <LandingPage />} />
                       {/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}
                       <Route render={() => <NotFoundPage />} />

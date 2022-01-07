@@ -121,448 +121,361 @@ function EquityTab() {
   if (data) wordpressCopy = data.data?.acf;
 
   return (
-    <>
-      <div>
-        <Helmet>
-          <title>What is Health Equity - Health Equity Tracker</title>
-        </Helmet>
-        <Grid container className={styles.Grid}>
-          <Grid
-            container
-            className={styles.HeaderRow}
-            direction="row"
-            justify="center"
-            alignItems="center"
-          >
-            <Hidden smDown>
+    <div className={styles.WhatIsHealthEquityPage}>
+      <Helmet>
+        <title>What is Health Equity - Health Equity Tracker</title>
+      </Helmet>
+      <Grid container className={styles.Grid}>
+        <Grid
+          container
+          className={styles.HeaderRow}
+          direction="row"
+          justify="center"
+          alignItems="center"
+        >
+          <Hidden smDown>
+            <Grid
+              container
+              item
+              xs={12}
+              sm={12}
+              md={4}
+              className={styles.HeaderImgItem}
+            >
+              <LazyLoad offset={300} height={760} once>
+                <img
+                  width="397"
+                  height="760"
+                  src="/img/stock/woman-in-wheelchair-with-tea.png"
+                  className={styles.HeaderImg}
+                  alt=""
+                />
+              </LazyLoad>
+            </Grid>
+          </Hidden>
+          <Grid item xs={12} sm={12} md={8} className={styles.HeaderTextItem}>
+            <Box mb={5}>
+              <Typography
+                id="main"
+                tabIndex={-1}
+                className={styles.HeaderText}
+                variant="h1"
+                paragraph={true}
+              >
+                What is Health Equity?
+              </Typography>
+            </Box>
+            <Typography
+              className={styles.HeaderSubtext}
+              variant="body1"
+              paragraph={true}
+            >
+              <b>Health Equity</b> exists when all people, regardless of race,
+              sex, sexual orientation, disability, socio-economic status,
+              geographic location, or other societal constructs have fair and
+              just access, opportunity, and resources to achieve their highest
+              potential for health.
+            </Typography>
+            <Typography className={styles.HeaderSubtext} variant="body1">
+              Unfortunately, social and political determinants of health
+              negatively affect many communities, their people, and their
+              ability to lead healthy lives.
+            </Typography>
+            <Typography className={styles.HeaderSubtext} variant="body1">
+              <span className={styles.DefinitionSourceSpan}>
+                Health Equity Leadership & Exchange Network, 2020
+              </span>
+            </Typography>
+            <Grid
+              container
+              item
+              xs={12}
+              direction="row"
+              justify="space-between"
+              alignItems="flex-start"
+              className={styles.DefinitionsContainer}
+            >
+              {/* PDOH */}
               <Grid
-                container
                 item
                 xs={12}
                 sm={12}
-                md={4}
-                className={styles.HeaderImgItem}
+                md={6}
+                className={styles.DefinitionsItem}
               >
-                <LazyLoad offset={300} height={760} once>
-                  <img
-                    width="397"
-                    height="760"
-                    src="/img/stock/woman-in-wheelchair-with-tea.png"
-                    className={styles.HeaderImg}
-                    alt=""
-                  />
-                </LazyLoad>
-              </Grid>
-            </Hidden>
-            <Grid item xs={12} sm={12} md={8} className={styles.HeaderTextItem}>
-              <Box mb={5}>
-                <Typography
-                  id="main"
-                  tabIndex={-1}
-                  className={styles.HeaderText}
-                  variant="h1"
-                  paragraph={true}
-                >
-                  What is Health Equity?
+                <Typography className={styles.DefinitionHeader} variant="h2">
+                  Political determinants of health
                 </Typography>
-              </Box>
-
-              <Typography
-                className={styles.HeaderSubtext}
-                variant="body1"
-                paragraph={true}
-              >
-                <b>Health Equity</b> exists when all people, regardless of race,
-                sex, sexual orientation, disability, socio-economic status,
-                geographic location, or other societal constructs have fair and
-                just access, opportunity, and resources to achieve their highest
-                potential for health.
-              </Typography>
-              <Typography className={styles.HeaderSubtext} variant="body1">
-                Unfortunately, social and political determinants of health
-                negatively affect many communities, their people, and their
-                ability to lead healthy lives.
-              </Typography>
-              <Typography className={styles.HeaderSubtext} variant="body1">
+                <p className={styles.DefinitionText}>
+                  The Political determinants of health involve the systematic
+                  process of structuring relationships, distributing resources,
+                  and administering power, operating simultaneously in ways that
+                  mutually reinforce or influence one another to shape
+                  opportunities that either advance health equity or exacerbate
+                  health inequities.
+                </p>
                 <span className={styles.DefinitionSourceSpan}>
-                  Health Equity Leadership & Exchange Network, 2020
+                  Daniel Dawes, 2020
                 </span>
-              </Typography>
+              </Grid>
+
+              {/* SDOH */}
               <Grid
-                container
                 item
                 xs={12}
-                direction="row"
-                justify="space-between"
-                alignItems="flex-start"
-                className={styles.DefinitionsContainer}
+                sm={12}
+                md={6}
+                className={styles.DefinitionsItem}
               >
+                <Typography className={styles.DefinitionHeader} variant="h2">
+                  Social determinants of health
+                </Typography>
+                <p className={styles.DefinitionText}>
+                  The conditions in the environments in which people are born,
+                  live, learn, work, play, worship, and age that affect a wide
+                  range of health, functioning, and quality-of-life outcomes and
+                  risks.
+                </p>
+                <span className={styles.DefinitionSourceSpan}>
+                  Healthy People 2020, CDC
+                </span>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid
+          container
+          className={styles.ResourcesAndNewsRow}
+          direction="column"
+          justify="center"
+        >
+          <Grid container className={styles.ResourcesRow} justify="center">
+            <Grid item>
+              <Typography className={styles.ResourcesHeaderText} variant="h1">
+                {wordpressCopy?.section2_headingLevel2}
+              </Typography>
+            </Grid>
+            <Grid
+              container
+              className={styles.ResourcesContainer}
+              direction="row"
+              justify="space-around"
+              item
+              xs={12}
+            >
+              <Grid item xs={12} sm={12} md={9} className={styles.ResourceItem}>
+                <iframe
+                  className={styles.ResourceVideoEmbed}
+                  width="100%"
+                  height="633px"
+                  src="https://www.youtube.com/embed/mux1c73fJ78"
+                  title="YouTube video player -
+                          The Allegory of the Orchard"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write;
+                          encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+                <h2 className={styles.MainResourceTitleText}>
+                  Learn about the Political Determinants of Health through the{" "}
+                  <b>Allegory of the Orchard</b>
+                </h2>
+                <p className={styles.MainResourceSubtitleText}>
+                  Girding all health determinants is one that rarely gets
+                  addressed but which has power over all aspects of health:
+                  political determinants of health.
+                </p>
+              </Grid>
+              <Grid item xs={12} sm={12} md={3}>
                 <Grid
-                  item
-                  xs={12}
-                  sm={12}
-                  md={6}
-                  className={styles.DefinitionsItem}
+                  container
+                  direction="column"
+                  alignItems="center"
+                  justify="space-evenly"
                 >
-                  <Typography className={styles.DefinitionHeader} variant="h2">
-                    Political determinants of health
-                  </Typography>
-                  <p className={styles.DefinitionText}>
-                    The Political determinants of health involve the systematic
-                    process of structuring relationships, distributing
-                    resources, and administering power, operating simultaneously
-                    in ways that mutually reinforce or influence one another to
-                    shape opportunities that either advance health equity or
-                    exacerbate health inequities.
-                  </p>
-                  <span className={styles.DefinitionSourceSpan}>
-                    Daniel Dawes, 2020
-                  </span>
-                </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  sm={12}
-                  md={6}
-                  className={styles.DefinitionsItem}
-                >
-                  <Typography className={styles.DefinitionHeader} variant="h2">
-                    Social determinants of health
-                  </Typography>
-                  <p className={styles.DefinitionText}>
-                    The conditions in the environments in which people are born,
-                    live, learn, work, play, worship, and age that affect a wide
-                    range of health, functioning, and quality-of-life outcomes
-                    and risks.
-                  </p>
-                  <span className={styles.DefinitionSourceSpan}>
-                    Healthy People 2020, CDC
-                  </span>
-                  <Grid
-                    item
-                    xs={12}
-                    sm={12}
-                    md={9}
-                    className={styles.ResourceItem}
-                  >
+                  <Grid item className={styles.ResourceItem}>
                     <iframe
                       className={styles.ResourceVideoEmbed}
                       width="100%"
-                      height="633px"
-                      src={urlMap.youtubeAllegoryOfTheOrchard}
+                      height="180px"
+                      src="https://www.youtube.com/embed/cmMutvgQIcU"
                       title="YouTube video player -
-                          The Allegory of the Orchard"
+                              Jessica's Story"
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write;
-                          encrypted-media; gyroscope; picture-in-picture"
+                              encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     ></iframe>
-                    <h2 className={styles.MainResourceTitleText}>
-                      Learn about the Political Determinants of Health through
-                      the <b>Allegory of the Orchard</b>
+                    <h2 className={styles.ResourceTitleText}>
+                      Jessica's Story
                     </h2>
-                    <p className={styles.MainResourceSubtitleText}>
-                      Girding all health determinants is one that rarely gets
-                      addressed but which has power over all aspects of health:
-                      political determinants of health.
+                    <p className={styles.ResourceSubtitleText}>
+                      How political determinants of health operate and the
+                      impact they have on BIPOC communities.
                     </p>
                   </Grid>
-                  <Grid item xs={12} sm={12} md={3}>
-                    <Grid
-                      container
-                      direction="column"
-                      alignItems="center"
-                      justify="space-evenly"
-                    >
-                      <Grid item className={styles.ResourceItem}>
-                        <iframe
-                          className={styles.ResourceVideoEmbed}
-                          width="100%"
-                          height="180px"
-                          src={urlMap.youtubeJessicasStory}
-                          title="YouTube video player -
-                              Jessica's Story"
-                          frameBorder="0"
-                          allow="accelerometer; autoplay; clipboard-write;
-                              encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                        ></iframe>
-                        <h2 className={styles.ResourceTitleText}>
-                          Jessica's Story
-                        </h2>
-                        <p className={styles.ResourceSubtitleText}>
-                          How political determinants of health operate and the
-                          impact they have on BIPOC communities.
-                        </p>
-                      </Grid>
-                      <Grid item className={styles.ResourceItem}>
-                        <a href={urlMap.ncrn}>
-                          <LazyLoad offset={300} height={200} once>
-                            <img
-                              className={styles.ResourceImg}
-                              src="/img/graphics/NCRN.png"
-                              alt="Header for Morehouse School of Medicine National COVID-19 Resiliency Network"
-                            />
-                          </LazyLoad>
-                          <h2 className={styles.ResourceTitleText}>
-                            Morehouse School of Medicine National COVID-19
-                            Resiliency Network (NCRN)
-                          </h2>
-                          <p className={styles.ResourceSubtitleText}>
-                            We provide awareness and linkage to critical health
-                            information and services, helping families recover
-                            from difficulties that may have been caused or
-                            worsened by the Coronavirus (COVID-19) pandemic.
-                          </p>
-                        </a>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-
-          <Grid
-            container
-            className={styles.ResourcesAndNewsRow}
-            direction="column"
-            justify="center"
-          >
-            <Grid container className={styles.ResourcesRow} justify="center">
-              <Grid item>
-                <Typography className={styles.ResourcesHeaderText} variant="h1">
-                  {wordpressCopy?.section2_headingLevel2}
-                </Typography>
-              </Grid>
-              <Grid
-                container
-                className={styles.ResourcesContainer}
-                direction="row"
-                justify="space-around"
-                item
-                xs={12}
-              >
-                <Grid
-                  item
-                  xs={12}
-                  sm={12}
-                  md={9}
-                  className={styles.ResourceItem}
-                >
-                  <iframe
-                    className={styles.ResourceVideoEmbed}
-                    width="100%"
-                    height="633px"
-                    src="https://www.youtube.com/embed/mux1c73fJ78"
-                    title="YouTube video player -
-                          The Allegory of the Orchard"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write;
-                          encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                  <h2 className={styles.MainResourceTitleText}>
-                    Learn about the Political Determinants of Health through the{" "}
-                    <b>Allegory of the Orchard</b>
-                  </h2>
-                  <p className={styles.MainResourceSubtitleText}>
-                    Girding all health determinants is one that rarely gets
-                    addressed but which has power over all aspects of health:
-                    political determinants of health.
-                  </p>
-                </Grid>
-                <Grid item xs={12} sm={12} md={3}>
-                  <Grid
-                    container
-                    direction="column"
-                    alignItems="center"
-                    justify="space-evenly"
-                  >
-                    <Grid item className={styles.ResourceItem}>
-                      <iframe
-                        className={styles.ResourceVideoEmbed}
-                        width="100%"
-                        height="180px"
-                        src="https://www.youtube.com/embed/cmMutvgQIcU"
-                        title="YouTube video player -
-                              Jessica's Story"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write;
-                              encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
+                  <Grid item className={styles.ResourceItem}>
+                    <a href={urlMap.ncrn}>
+                      <LazyLoad offset={300} height={200} once>
+                        <img
+                          className={styles.ResourceImg}
+                          src="/img/graphics/NCRN.png"
+                          alt="Header for Morehouse School of Medicine National COVID-19 Resiliency Network"
+                        />
+                      </LazyLoad>
                       <h2 className={styles.ResourceTitleText}>
-                        Jessica's Story
+                        Morehouse School of Medicine National COVID-19
+                        Resiliency Network (NCRN)
                       </h2>
                       <p className={styles.ResourceSubtitleText}>
-                        How political determinants of health operate and the
-                        impact they have on BIPOC communities.
+                        We provide awareness and linkage to critical health
+                        information and services, helping families recover from
+                        difficulties that may have been caused or worsened by
+                        the Coronavirus (COVID-19) pandemic.
                       </p>
-                    </Grid>
-                    <Grid item className={styles.ResourceItem}>
-                      <a href="https://ncrn.msm.edu/">
-                        <LazyLoad offset={300} height={200} once>
-                          <img
-                            className={styles.ResourceImg}
-                            src="/img/graphics/NCRN.png"
-                            alt="Header for Morehouse School of Medicine National COVID-19 Resiliency Network"
-                          />
-                        </LazyLoad>
-                        <h2 className={styles.ResourceTitleText}>
-                          Morehouse School of Medicine National COVID-19
-                          Resiliency Network (NCRN)
-                        </h2>
-                        <p className={styles.ResourceSubtitleText}>
-                          We provide awareness and linkage to critical health
-                          information and services, helping families recover
-                          from difficulties that may have been caused or
-                          worsened by the Coronavirus (COVID-19) pandemic.
-                        </p>
-                      </a>
-                    </Grid>
+                    </a>
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
+      </Grid>
+      <Grid
+        container
+        item
+        xs={12}
+        className={styles.FaqRow}
+        alignItems="center"
+        justify="center"
+      >
+        <Grid item sm={12} md={10}>
+          <FaqSection />
+        </Grid>
+      </Grid>
+      <Grid
+        container
+        className={styles.JoinTheEffortRow}
+        direction="column"
+        justify="center"
+        alignItems="center"
+      >
         <Grid
-          container
           item
-          xs={12}
-          className={styles.FaqRow}
-          alignItems="center"
-          justify="center"
+          className={styles.JoinTheEffortHeaderRow}
+          id={WIHE_JOIN_THE_EFFORT_SECTION_ID}
         >
-          <Grid item sm={12} md={10}>
-            <FaqSection />
-          </Grid>
+          <Typography className={styles.JoinTheEffortHeaderText} variant="h2">
+            {wordpressCopy?.section4_headingLevel2}
+          </Typography>
+          <span className={styles.JoinTheEffortSubheaderText}>
+            {wordpressCopy?.section4_heading2_text}
+          </span>
+          <br />
+          <br />
         </Grid>
-        <Grid
-          container
-          className={styles.JoinTheEffortRow}
-          direction="column"
-          justify="center"
-          alignItems="center"
-        >
-          <Grid
-            item
-            className={styles.JoinTheEffortHeaderRow}
-            id={WIHE_JOIN_THE_EFFORT_SECTION_ID}
-          >
-            <Typography className={styles.JoinTheEffortHeaderText} variant="h2">
-              {wordpressCopy?.section4_headingLevel2}
-            </Typography>
-            <span className={styles.JoinTheEffortSubheaderText}>
-              {wordpressCopy?.section4_heading2_text}
-            </span>
-            <br />
-            <br />
-          </Grid>
 
-          <JoinTheEffortContainer
-            imageUrl={
-              prefersReducedMotion
-                ? "img/HET-lines-no-motion.gif"
-                : "img/animations/HET-lines.gif"
-            }
-            imageBackground={sass.joinEffortBg1}
-            imageAlt=""
-            textTitle={wordpressCopy?.section4_a_headingLevel3}
-            content={
-              <>
-                <p className={styles.JoinTheEffortStepText}>
-                  {wordpressCopy?.section4_a_heading3_text}
-                </p>
-                <p>
-                  <Button
-                    className={styles.ContactUsLink}
-                    href={wordpressCopy?.section4_a_heading3_link?.url}
-                    target={wordpressCopy?.section4_a_heading3_link?.target}
-                  >
-                    {wordpressCopy?.section4_a_heading3_link?.title}
-                  </Button>
-                </p>
-              </>
-            }
-          />
-
-          <JoinTheEffortContainer
-            imageUrl={
-              prefersReducedMotion
-                ? "img/HET-fields-no-motion.gif"
-                : "img/animations/HET-fields.gif"
-            }
-            imageBackground={sass.joinEffortBg2}
-            imageAlt=""
-            textTitle={wordpressCopy?.section4_b_headingLevel3}
-            content={
-              <>
-                <p className={styles.JoinTheEffortStepText}>
-                  Are you a community leader interested in expanding
-                  transportation access to vaccine sites within your community?
-                  Complete our inquiry form to receive information on our
-                  vaccine rideshare efforts and opportunities.
-                </p>
-                <p>
-                  <Button
-                    className={styles.ContactUsLink}
-                    aria-label="Sign Up - vaccine rideshare program"
-                    href={urlMap.shliUber}
-                  >
-                    Sign Up
-                  </Button>
-                </p>
-              </>
-            }
-          />
-
-          <JoinTheEffortContainer
-            imageUrl={
-              prefersReducedMotion
-                ? "img/animations/HET-dots-no-motion.gif"
-                : "img/animations/animations/HET-dots.gif"
-            }
-            imageBackground={sass.joinEffortBg3}
-            imageAlt=""
-            textTitle={wordpressCopy?.section4_c_headingLevel3}
-            content={
-              <>
-                <p className={styles.JoinTheEffortStepText}>
-                  {wordpressCopy?.section4_c_heading3_text}
-                </p>
-                <form
-                  action={urlMap.newsletterSignup}
-                  method="post"
-                  target="_blank"
+        <JoinTheEffortContainer
+          imageUrl={
+            prefersReducedMotion
+              ? "img/HET-lines-no-motion.gif"
+              : "img/animations/HET-lines.gif"
+          }
+          imageBackground={sass.joinEffortBg1}
+          imageAlt=""
+          textTitle={wordpressCopy?.section4_a_headingLevel3}
+          content={
+            <>
+              <p className={styles.JoinTheEffortStepText}>
+                {wordpressCopy?.section4_a_heading3_text}
+              </p>
+              <p>
+                <Button
+                  className={styles.ContactUsLink}
+                  href={wordpressCopy?.section4_a_heading3_link?.url}
+                  target={wordpressCopy?.section4_a_heading3_link?.target}
                 >
-                  <TextField
-                    id="Enter email address to sign up" // Accessibility label
-                    name="MERGE0"
-                    variant="outlined"
-                    className={styles.EmailTextField}
-                    type="email"
-                    aria-label="Enter Email Address for Newsletter signup"
-                    placeholder="Enter email address"
-                  />
-                  <Button
-                    type="submit"
-                    color="primary"
-                    variant="contained"
-                    className={styles.EmailAddressFormSubmit}
-                    aria-label="Sign Up for Newsletter in a new window"
-                  >
-                    Sign up
-                  </Button>
-                </form>
-              </>
-            }
-          />
-        </Grid>
-      </div>
-    </>
+                  {wordpressCopy?.section4_a_heading3_link?.title}
+                </Button>
+              </p>
+            </>
+          }
+        />
+
+        <JoinTheEffortContainer
+          imageUrl={
+            prefersReducedMotion
+              ? "img/HET-fields-no-motion.gif"
+              : "img/animations/HET-fields.gif"
+          }
+          imageBackground={sass.joinEffortBg2}
+          imageAlt=""
+          textTitle={wordpressCopy?.section4_b_headingLevel3}
+          content={
+            <>
+              <p className={styles.JoinTheEffortStepText}>
+                Are you a community leader interested in expanding
+                transportation access to vaccine sites within your community?
+                Complete our inquiry form to receive information on our vaccine
+                rideshare efforts and opportunities.
+              </p>
+              <p>
+                <Button
+                  className={styles.ContactUsLink}
+                  aria-label="Sign Up - vaccine rideshare program"
+                  href="https://satcherinstitute.org/uberrideshare/"
+                >
+                  Sign Up
+                </Button>
+              </p>
+            </>
+          }
+        />
+
+        <JoinTheEffortContainer
+          imageUrl={
+            prefersReducedMotion
+              ? "img/HET-dots-no-motion.gif"
+              : "img/animations/HET-dots.gif"
+          }
+          imageBackground={sass.joinEffortBg3}
+          imageAlt=""
+          textTitle={wordpressCopy?.section4_c_headingLevel3}
+          content={
+            <>
+              <p className={styles.JoinTheEffortStepText}>
+                {wordpressCopy?.section4_c_heading3_text}
+              </p>
+              <form
+                action={urlMap.newsletterSignup}
+                method="post"
+                target="_blank"
+              >
+                <TextField
+                  id="Enter email address to sign up" // Accessibility label
+                  name="MERGE0"
+                  variant="outlined"
+                  className={styles.EmailTextField}
+                  type="email"
+                  aria-label="Enter Email Address for Newsletter signup"
+                  placeholder="Enter email address"
+                />
+                <Button
+                  type="submit"
+                  color="primary"
+                  variant="contained"
+                  className={styles.EmailAddressFormSubmit}
+                  aria-label="Sign Up for Newsletter in a new window"
+                >
+                  Sign up
+                </Button>
+              </form>
+            </>
+          }
+        />
+      </Grid>
+    </div>
   );
 }
-
 export default EquityTab;
