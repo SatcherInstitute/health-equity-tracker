@@ -235,9 +235,9 @@ function MethodologyTab() {
                   Behavioral Risk Factor Surveillance System (BRFSS)
                 </h3>
                 <p>
-                  Diabetes, COPD, Depression, Suicide, Illicit Opioid Use,
-                  Non-medical Drug Use, Frequent Mental Distress, and Excessive
-                  Drinking data in the tracker is sourced from{" "}
+                  COPD, Diabetes, Depression, Excessive Drinking, Non-medical
+                  Drug Use including both Illicit and Non-medical Prescription
+                  Opioid Use, and Suicide data in the tracker is sourced from{" "}
                   <a href={urlMap.cdcBrfss}>America's Health Rankings</a>, who
                   in turn source their data from the{" "}
                   <a href="https://www.cdc.gov/brfss/index.html">
