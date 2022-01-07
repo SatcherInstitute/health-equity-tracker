@@ -80,7 +80,7 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   vaccinations: "COVID-19 Vaccinations",
   depression: "Depression",
   suicide: "Suicide",
-  drug_misuse: "Drug and Opioid Misuse",
+  drug_misuse: "Opioid and Other Substance Misuse",
   excessive_drinking: "Excessive Drinking",
   frequent_mental_distress: "Frequent Mental Distress",
 };
