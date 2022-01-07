@@ -7,35 +7,6 @@
   font-family: "Inter", serif;
 }
 
-.PrimaryButton {
-  background-color: $alt-green;
-  color: white;
-  border-radius: 40px !important;
-  font-size: 18px !important;
-  font-weight: 500 !important;
-  font-family: "DM Sans", sans-serif !important;
-  text-decoration: none;
-  padding: 16px 30px !important;
-  margin: 2rem !important;
-  text-align: center;
-}
-
-// For major links, in primary colors
-.MajorLink {
-  color: $alt-green;
-  font-weight: 600;
-  font-size: 26px;
-  line-height: 31.47px;
-}
-
-// For minor links, in black
-.MinorLink {
-  color: black;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 28px;
-}
-
 // For the title of the page read off by screenreaders in an h1
 .ScreenreaderTitleHeader {
   left: -999px;
@@ -75,7 +46,7 @@
     }
 
     .HeaderText {
-      font-size: 3.75rem;
+      font-size: $biggerHeader;
       text-align: left;
       font-weight: 300;
       font-family: "Taviraj", serif !important;
@@ -84,7 +55,7 @@
     }
 
     .HeaderSubtext {
-      font-size: 20px;
+      font-size: $title;
       text-align: left;
       font-weight: 400;
       line-height: 30px;
@@ -106,7 +77,7 @@
     }
 
     .DefinitionHeader {
-      font-size: 22px;
+      font-size: $title;
       font-weight: 400;
       line-height: 150%;
       color: $alt-green;
@@ -116,7 +87,7 @@
     }
 
     .DefinitionText {
-      font-size: 14px;
+      font-size: $small;
       font-weight: 400;
       line-height: 24px;
       margin-block: 0.5rem;
@@ -125,7 +96,7 @@
     .DefinitionSourceSpan {
       color: $alt-dark;
       font-weight: 400;
-      font-size: small;
+      font-size: $small;
     }
   }
 }
@@ -143,7 +114,7 @@
     padding: 20px 0 20px 0;
 
     .ResourcesHeaderText {
-      font-size: 52px;
+      font-size: $biggerHeader;
       text-align: center;
       font-weight: 300;
       font-family: "Taviraj", serif !important;
@@ -181,28 +152,28 @@
     }
 
     .MainResourceTitleText {
-      font-size: 28px;
+      font-size: $smallHeader;
       font-weight: 500;
       line-height: 33.89px;
       margin: 15px 0 15px 0;
     }
 
     .MainResourceSubtitleText {
-      font-size: 18px;
+      font-size: $title;
       font-weight: 400;
       line-height: 26px;
       margin: 0px;
     }
 
     .ResourceTitleText {
-      font-size: 22px;
+      font-size: $title;
       font-weight: 600;
       line-height: 26.63px;
       margin: 15px 0 15px 0;
     }
 
     .ResourceSubtitleText {
-      font-size: 16px;
+      font-size: $text;
       font-weight: 400;
       line-height: 22px;
       margin: 0px;
@@ -215,8 +186,7 @@
     padding: 20px 0 20px 0;
 
     .NewsAndStoriesHeaderText {
-      // font-size: 52px;
-      font-size: 2.5rem;
+      font-size: $biggerHeader;
       text-align: center;
       font-weight: 300;
       font-family: "Taviraj", serif !important;
@@ -226,7 +196,7 @@
     }
 
     .NewsAndStoriesSubheaderText {
-      font-size: 18px;
+      font-size: $title;
       text-align: left;
       font-weight: 300;
       line-height: 24px;
@@ -256,17 +226,17 @@
       text-decoration: none;
     }
     .NewsAndStoriesTitleText {
-      margin-top: 5px;
-      font-size: 1.5rem;
       text-align: center;
       font-weight: 300;
       font-family: "Taviraj", serif !important;
       line-height: 130%;
       color: $alt-green;
+      font-size: $title;
+      margin: 15px 0 15px 0;
     }
 
     .NewsAndStoriesSubtitleText {
-      font-size: 16px;
+      font-size: $text;
       font-weight: 400;
       line-height: 22px;
       margin: 0px;
@@ -286,10 +256,6 @@
   border-bottom: $bottom-border-style;
 }
 
-.FaqGrid {
-  max-width: 1024px;
-}
-
 .FaqSection {
   padding: 50px 20px 50px 20px;
   border-bottom: 1px solid $alt-grey;
@@ -301,7 +267,7 @@
 }
 
 .FaqHeaderText {
-  font-size: 32px !important;
+  font-size: $header !important;
   text-align: center;
   font-weight: 300;
   font-family: "Taviraj", serif !important;
@@ -311,7 +277,7 @@
 }
 
 .FaqQuestion {
-  font-size: 18px !important;
+  font-size: $title !important;
   text-align: left;
   font-weight: 500;
   font-family: "DM Sans", sans-serif;
@@ -320,18 +286,12 @@
 }
 
 .FaqAnswer {
-  font-size: 14px;
+  font-size: $small;
   text-align: left;
   font-weight: 400;
   font-family: "Inter", sans-serif;
   line-height: 20px;
   color: $alt-black;
-
-  .FaqContactUsButton {
-    border: none;
-    text-decoration: underline;
-    background-color: transparent;
-  }
 }
 
 .FaqSubheaderText {
@@ -349,7 +309,7 @@
     padding: 60px 0;
 
     .JoinTheEffortHeaderText {
-      font-size: 52px;
+      font-size: $biggerHeader;
       text-align: center;
       font-weight: 300;
       font-family: "Taviraj", serif !important;
@@ -360,7 +320,7 @@
     .JoinTheEffortSubheaderText {
       font-family: "Inter", sans-serif;
       font-weight: 400;
-      font-size: 20px;
+      font-size: $title;
       line-height: 30px;
       margin: 0px;
     }
@@ -398,7 +358,7 @@
   }
 
   .JoinTheEffortStepHeaderText {
-    font-size: 44px !important;
+    font-size: $bigHeader !important;
     font-weight: 400 !important;
     line-height: 50px !important;
     font-family: "Taviraj", sans-serif !important;
@@ -406,7 +366,7 @@
   }
 
   .JoinTheEffortStepText {
-    font-size: 22px !important;
+    font-size: $title !important;
     font-weight: 400 !important;
     line-height: 30px !important;
     font-family: "DM Sans", sans-serif !important;
@@ -422,43 +382,24 @@
     margin-left: 5px;
   }
 
-  .SocialsDiv {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    color: $alt-green;
-    padding: 10px 0 10px 0;
-  }
-
-  .SocialsIcon {
-    color: $alt-green;
-    font-size: 35px;
-  }
-
-  .CopyIcon {
-    color: $alt-green;
-    height: 35px;
-  }
-
   .ContactUsLink {
     color: $alt-green !important;
     font-weight: 500 !important;
-    font-size: 26px !important;
+    font-size: $smallestHeader !important;
     line-height: 31.47px !important;
     text-decoration: underline !important;
   }
 }
 
-/** ------------- RESOURCES ------------- **/
+/** ------------- RESOURCES TAB ------------- **/
 
-.ResourcesSection {
+.ResourcesTabSection {
   padding: 50px 20px 50px 20px;
   border-bottom: 1px solid $alt-grey;
 }
 
-.ResourcesHeaderText {
-  font-size: 32px !important;
+.ResourcesTabHeaderText {
+  font-size: $header !important;
   text-align: center;
   font-weight: 300;
   font-family: "Taviraj", serif !important;
@@ -467,11 +408,11 @@
   padding-bottom: 20px;
 }
 
-.ResourcesList {
+.ResourcesTabList {
   text-align: left;
 }
 
-.ResourcesListItem {
+.ResourcesTabListItem {
   padding: 7px 0;
 }
 

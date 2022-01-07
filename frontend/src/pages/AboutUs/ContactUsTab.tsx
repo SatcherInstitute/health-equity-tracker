@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import Hidden from "@material-ui/core/Hidden";
 import FeedbackBox from "../ui/FeedbackBox";
 import { Helmet } from "react-helmet-async";
+import { urlMap } from "../../utils/externalUrls";
 
 function ContactUsTab() {
   return (
@@ -61,21 +62,14 @@ function ContactUsTab() {
               Thank you for your interest in the Health Equity Tracker
             </Typography>
           </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={7}
-            className={styles.ContactUsCenteredTextItem}
-          >
+          <Grid item xs={12} sm={12} md={7}>
             <p className={styles.ContactUsP}>
               <b>For General Requests:</b>
               <br />
               Please contact the{" "}
-              <a href="https://satcherinstitute.org/">
+              <a href={urlMap.shli}>
                 Satcher Health Leadership Institute
-              </a>{" "}
-              at <a href="mailto:shli@msm.edu">shli@msm.edu</a>
+              </a> at <a href="mailto:shli@msm.edu">shli@msm.edu</a>
             </p>
             <p className={styles.ContactUsP}>
               <b>For Media Inquiries:</b>

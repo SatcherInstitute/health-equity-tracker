@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./DataCatalogPage.module.scss";
 import {
@@ -11,22 +11,15 @@ import { Helmet } from "react-helmet-async";
 import { getHtml } from "../../utils/urlutils";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
 import { METRIC_CONFIG } from "../../data/config/MetricConfig";
-import CopyToClipboard from "react-copy-to-clipboard";
-import { Box, Button, Card } from "@material-ui/core";
-import FileCopyIcon from "@material-ui/icons/FileCopy";
 import { Link } from "react-router-dom";
+import { Card } from "@material-ui/core";
+import { urlMap } from "../../utils/externalUrls";
 
 export const CITATION_APA = `Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
 export const VACCINATED_DEF = `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`;
 
 function MethodologyTab() {
-  const [textCopied, setTextCopied] = useState(false);
-
-  function handleCopy() {
-    setTextCopied(true);
-  }
-
   return (
     <>
       <Helmet>
@@ -35,20 +28,13 @@ function MethodologyTab() {
       <h1 className={styles.ScreenreaderTitleHeader}>Methodology</h1>
       <Grid
         container
-        className={styles.Grid}
         direction="column"
         justify="space-around"
         alignItems="center"
       >
-        <Grid item xs={12} sm={12} md={9}>
+        <Grid item>
           <Grid container className={styles.MethodologySection}>
-            <Grid
-              item
-              xs={12}
-              lg={10}
-              xl={6}
-              className={styles.MethodologyQuestionAndAnswer}
-            >
+            <Grid item className={styles.MethodologyQuestionAndAnswer}>
               <h2
                 id="main"
                 tabIndex={-1}
@@ -58,40 +44,9 @@ function MethodologyTab() {
               </h2>
 
               <div className={styles.MethodologyAnswer}>
-                <Grid container justify="space-between" alignItems="center">
-                  <Grid item container xs={12} md={8}>
-                    <Box m={1}>
-                      <Card elevation={3}>
-                        <Box m={1}>
-                          <p className={styles.CitationAPA}>{CITATION_APA}</p>
-                        </Box>
-                      </Card>
-                    </Box>
-                  </Grid>
-
-                  <Grid
-                    xs={12}
-                    md={3}
-                    item
-                    container
-                    direction="column"
-                    justify="center"
-                    alignItems="center"
-                    alignContent="center"
-                  >
-                    <CopyToClipboard
-                      text={CITATION_APA}
-                      onCopy={() => handleCopy()}
-                    >
-                      <Button startIcon={<FileCopyIcon />}></Button>
-                    </CopyToClipboard>
-                    {textCopied ? (
-                      <i role="alert">Citation copied</i>
-                    ) : (
-                      "Copy to clipboard"
-                    )}
-                  </Grid>
-                </Grid>
+                <Card elevation={3}>
+                  <p className={styles.CitationAPA}>{CITATION_APA}</p>
+                </Card>
               </div>
             </Grid>
             <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
@@ -142,14 +97,8 @@ function MethodologyTab() {
                     for a state are suppressed if the aggregate counts for that
                     state are &lt; 5% of the source being used for comparison.
                     These analyses are available for{" "}
-                    <a href="https://satcherinstitute.github.io/analysis/cdc_case_data">
-                      cases
-                    </a>{" "}
-                    and{" "}
-                    <a href="https://satcherinstitute.github.io/analysis/cdc_death_data">
-                      deaths
-                    </a>
-                    .
+                    <a href={urlMap.shliGitHubSuppressCovidCases}>cases</a> and{" "}
+                    <a href={urlMap.shliGitHubSuppressCovidDeaths}>deaths</a>.
                   </li>
                   <li>
                     The underlying data is reported at the case-level, so we
@@ -171,7 +120,7 @@ function MethodologyTab() {
                 <ul>
                   <li>
                     For the national level numbers, we use the{" "}
-                    <a href="https://covid.cdc.gov/covid-data-tracker/#vaccination-demographics-trends">
+                    <a href={urlMap.cdcVaxTrends}>
                       CDC vaccine demographic dataset,
                     </a>{" "}
                     which provides data on the race/ethnicity, sex, and age
@@ -181,7 +130,7 @@ function MethodologyTab() {
 
                   <li>
                     For the state level we use{" "}
-                    <a href="https://www.kff.org/state-category/covid-19/">
+                    <a href={urlMap.kffCovid}>
                       the Kaiser Family Foundation COVID-19 Indicators dataset,
                     </a>{" "}
                     which is a hand-curated dataset based on analysis from state
@@ -197,7 +146,7 @@ function MethodologyTab() {
                     For the county level, we could not identify a dataset that
                     provides vaccine demographics, so to show some context we
                     use the{" "}
-                    <a href="https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh">
+                    <a href={urlMap.cdcVaxCounty}>
                       COVID-19 Vaccinations in the United States, County dataset
                     </a>{" "}
                     which provides the total number of vaccinations per county.
@@ -283,11 +232,9 @@ function MethodologyTab() {
                 </h3>
                 <p>
                   Diabetes & COPD data in the tracker is sourced from{" "}
-                  <a href="https://www.americashealthrankings.org/explore/annual/measure/Overall_a/state/ALL">
-                    America's Health Rankings
-                  </a>
-                  , who in turn source their diabetes & COPD data from the{" "}
-                  <a href="https://www.cdc.gov/brfss/index.html">
+                  <a href={urlMap.amr}>America's Health Rankings</a>, who in
+                  turn source their diabetes & COPD data from the{" "}
+                  <a href={urlMap.cdcBrfss}>
                     Behavioral Risk Factor Surveillance System (BRFSS)
                   </a>
                   , a survey run by the CDC.
@@ -298,11 +245,8 @@ function MethodologyTab() {
                     respondents to provide a statistically meaningful estimate
                     of disease prevalence, especially for smaller and typically
                     marginalized racial groups. Please see the{" "}
-                    <a href="https://www.americashealthrankings.org/about/methodology/data-sources-and-measures">
-                      methodology page
-                    </a>{" "}
-                    of America's Health Rankings for details on data
-                    suppression.
+                    <a href={urlMap.amrMethodology}>methodology page</a> of
+                    America's Health Rankings for details on data suppression.
                   </li>
                   <li>
                     BRFSS data broken down by race and ethnicity is not
@@ -311,7 +255,7 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
-                <h3 className={styles.MethodologySubheaderText}>
+                <h3 className={styles.MethodologySubsubheaderText}>
                   Visualizations
                 </h3>
                 <p>
@@ -337,10 +281,7 @@ function MethodologyTab() {
                   Do you have information on health outcomes at the state and
                   local level that belong in the Health Equity Tracker?
                   <br />
-                  <LinkWithStickyParams
-                    className={styles.MethodologyContactUsLink}
-                    to={`${CONTACT_TAB_LINK}`}
-                  >
+                  <LinkWithStickyParams to={`${CONTACT_TAB_LINK}`}>
                     We would love to hear from you!
                   </LinkWithStickyParams>
                 </p>

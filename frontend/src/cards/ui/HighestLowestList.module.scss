@@ -33,7 +33,7 @@
     white-space: nowrap;
   }
   @media (max-width: $sm) {
-    font-size: smaller;
+    font-size: $smallest;
 
     .HideOnMobile {
       display: none;
@@ -62,8 +62,8 @@
 }
 
 .Unit {
-  font-size: 0.7rem;
-  font-weight: 100;
+  font-size: $smallest;
+  font-weight: 200;
   font-stretch: ultra-condensed, extra-condensed, condensed;
   margin-left: 0.075rem;
   letter-spacing: -0.04rem;

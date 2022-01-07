@@ -35,8 +35,8 @@ function Question(props: {
 
 function FaqSection() {
   return (
-    <Grid container className={styles.FaqRow}>
-      <Grid item xs={12}>
+    <Grid container>
+      <Grid item>
         <Typography className={styles.FaqHeader} variant="h1">
           Frequently asked questions
         </Typography>

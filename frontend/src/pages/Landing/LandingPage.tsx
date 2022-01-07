@@ -61,7 +61,7 @@ function LandingPage(props: LandingPageProps) {
         <link rel="preload" as="image" href="/img/stock/family-laughing.png" />
       </Helmet>
       <h1 className={styles.ScreenreaderTitleHeader}>Home Page</h1>
-      <div className={styles.LandingPage}>
+      <div>
         <Grid container className={styles.Grid}>
           <Grid
             container

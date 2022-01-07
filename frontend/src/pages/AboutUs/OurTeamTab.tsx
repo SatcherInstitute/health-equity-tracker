@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
 import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
+import { urlMap } from "../../utils/externalUrls";
 
 const LEADERSHIP_TEAM = [
   {
@@ -68,7 +69,7 @@ const LEADERSHIP_TEAM = [
   },
 ];
 
-const GOOGLE_FELLOWS = [
+export const GOOGLE_FELLOWS = [
   {
     name: "Chelsea Seabron",
     role: "Google.org Manager",
@@ -96,7 +97,7 @@ const GOOGLE_FELLOWS = [
   {
     name: "Ken Moore",
     role: "UX Designer",
-    link: "http://kenstatus.com",
+    link: "https://kenstatus.com",
     text: "In memoriam,",
   },
   {
@@ -223,11 +224,11 @@ const HE_TASKFORCE = [
   "Melicia Whitt-Glover, PhD, FACSM",
 ];
 
-const PARTNERS = [
+export const PARTNERS = [
   {
     imageUrl: "/img/partners/PartnerSatcher.png",
     alt: "Morehouse School of Medicine Satcher Health Leadership Institute",
-    url: "https://satcherinstitute.org/",
+    url: urlMap.shli,
   },
   {
     imageUrl: "/img/partners/PartnerGilead.png",
