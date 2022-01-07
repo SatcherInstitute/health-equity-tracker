@@ -245,7 +245,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "deaths",
       variableDisplayName: "Deaths",
       variableFullDisplayName: "COVID-19 Deaths",
-      variableDefinition: `The number of people who died due to COVID-19.`,
+      variableDefinition: `People who died due to COVID-19.`,
       metrics: {
         count: {
           metricId: "covid_deaths",
@@ -290,6 +290,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "hospitalizations",
       variableDisplayName: "Hospitalizations",
       variableFullDisplayName: "COVID-19 Hospitalizations",
+      variableDefinition: `People who were hospitalized with/due to confirmed cases of COVID-19.`,
       metrics: {
         count: {
           metricId: "covid_hosp",
@@ -331,6 +332,49 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       },
     },
   ],
+
+  vaccinations: [
+    {
+      variableId: "vaccinations",
+      variableDisplayName: "Vaccinations",
+      variableFullDisplayName: "COVID-19 Vaccinations",
+      variableDefinition: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
+      metrics: {
+        per100k: {
+          metricId: "vaccinated_per_100k",
+          fullCardTitleName: "COVID-19 Vaccinations Per 100k People",
+          shortVegaLabel: "COVID-19 vaccinations per 100k",
+          type: "per100k",
+        },
+        pct_share: {
+          metricId: "vaccinated_pct_share",
+          fullCardTitleName: "Share Of All COVID-19 Vaccinations",
+          unknownsVegaLabel: "% unknown",
+          shortVegaLabel: "% of vaccinations",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "vaccine_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+          knownBreakdownComparisonMetric: {
+            metricId: "vaccinated_share_of_known",
+            fullCardTitleName: "Share Of All COVID-19 Vaccinations",
+            shortVegaLabel: "% of COVID-19 vaccinations",
+            type: "pct_share",
+          },
+          secondaryPopulationComparisonMetric: {
+            metricId: "acs_vaccine_population_pct",
+            fullCardTitleName: "Population Percentage According to ACS",
+            shortVegaLabel: "pop percentage according to acs",
+            type: "pct_share",
+          },
+        },
+      },
+    },
+  ],
+
   suicide: [
     {
       variableId: "cases",
@@ -421,9 +465,9 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
   drug_misuse: [
     {
       variableId: "non_medical_drug_use",
-      variableDisplayName: "All Non-medical Drugs",
-      variableFullDisplayName: "Non-medical Drug Use Cases",
-      variableDefinition: `Adults who reported using prescription drugs non-medically (including pain relievers, stimulants, sedatives) or illicit drugs (excluding cannabis) in the last 12 months.`,
+      variableDisplayName: "Non-medical Drugs",
+      variableFullDisplayName: "Non-medical Drug Use",
+      variableDefinition: `Adults who reported using prescription drugs non-medically (including pain relievers, stimulants, sedatives) or illicit drugs (excluding cannabis) in the last 12 months. Note: This data type includes both of the other opioid-related data types: “Non-medical Use of Prescription Opioids” and “Use of Illicit Opioids”.`,
       surveyCollectedData: true,
       metrics: {
         pct_share: {
@@ -449,8 +493,8 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "non_medical_rx_opioid_use",
       variableDisplayName: "Non-medical Prescription Opioids",
-      variableFullDisplayName: "Cases of Non-medical Prescription Opioid Use ",
-      variableDefinition: `...`,
+      variableFullDisplayName: "Non-medical Prescription Opioid Use",
+      variableDefinition: `Adults who reported using illicit opioids. Note: This is a subset of the “Non-medical Drug Use” data type.`,
       surveyCollectedData: true,
       metrics: {
         pct_share: {
@@ -478,8 +522,8 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "illicit_opioid_use",
       variableDisplayName: "Illicit Opioids",
-      variableFullDisplayName: "Illicit Opioid Use Cases",
-      variableDefinition: `Adults who reported using illicit opioids.`,
+      variableFullDisplayName: "Illicit Opioid Use",
+      variableDefinition: `Adults who reported using prescription opioids non-medically. Note: This is a subset of the “Non-medical Drug Use” data type.`,
       surveyCollectedData: true,
       metrics: {
         pct_share: {
@@ -647,47 +691,6 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             metricId: "poverty_population_pct",
             fullCardTitleName: populationPctTitle,
             shortVegaLabel: populationPctShortLabel,
-            type: "pct_share",
-          },
-        },
-      },
-    },
-  ],
-  vaccinations: [
-    {
-      variableId: "vaccinations",
-      variableDisplayName: "Vaccinations",
-      variableFullDisplayName: "COVID-19 Vaccinations",
-      variableDefinition: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
-      metrics: {
-        per100k: {
-          metricId: "vaccinated_per_100k",
-          fullCardTitleName: "COVID-19 Vaccinations Per 100k People",
-          shortVegaLabel: "COVID-19 vaccinations per 100k",
-          type: "per100k",
-        },
-        pct_share: {
-          metricId: "vaccinated_pct_share",
-          fullCardTitleName: "Share Of All COVID-19 Vaccinations",
-          unknownsVegaLabel: "% unknown",
-          shortVegaLabel: "% of vaccinations",
-          type: "pct_share",
-          populationComparisonMetric: {
-            metricId: "vaccine_population_pct",
-            fullCardTitleName: populationPctTitle,
-            shortVegaLabel: populationPctShortLabel,
-            type: "pct_share",
-          },
-          knownBreakdownComparisonMetric: {
-            metricId: "vaccinated_share_of_known",
-            fullCardTitleName: "Share Of All COVID-19 Vaccinations",
-            shortVegaLabel: "% of COVID-19 vaccinations",
-            type: "pct_share",
-          },
-          secondaryPopulationComparisonMetric: {
-            metricId: "acs_vaccine_population_pct",
-            fullCardTitleName: "Population Percentage According to ACS",
-            shortVegaLabel: "pop percentage according to acs",
             type: "pct_share",
           },
         },
