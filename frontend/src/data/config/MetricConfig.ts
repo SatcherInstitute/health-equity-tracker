@@ -311,6 +311,49 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       },
     },
   ],
+
+  vaccinations: [
+    {
+      variableId: "vaccinations",
+      variableDisplayName: "Vaccinations",
+      variableFullDisplayName: "COVID-19 Vaccinations",
+      variableDefinition: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
+      metrics: {
+        per100k: {
+          metricId: "vaccinated_per_100k",
+          fullCardTitleName: "COVID-19 Vaccinations Per 100k People",
+          shortVegaLabel: "COVID-19 vaccinations per 100k",
+          type: "per100k",
+        },
+        pct_share: {
+          metricId: "vaccinated_pct_share",
+          fullCardTitleName: "Share Of Total COVID-19 Vaccinations",
+          unknownsVegaLabel: "% unknown",
+          shortVegaLabel: "% of vaccinations",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "vaccine_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+          knownBreakdownComparisonMetric: {
+            metricId: "vaccinated_share_of_known",
+            fullCardTitleName: "Share Of Total COVID-19 Vaccinations",
+            shortVegaLabel: "% of COVID-19 vaccinations",
+            type: "pct_share",
+          },
+          secondaryPopulationComparisonMetric: {
+            metricId: "acs_vaccine_population_pct",
+            fullCardTitleName: "Population Percentage According to ACS",
+            shortVegaLabel: "pop percentage according to acs",
+            type: "pct_share",
+          },
+        },
+      },
+    },
+  ],
+
   diabetes: [
     {
       variableId: "cases",
@@ -426,47 +469,6 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             metricId: "poverty_population_pct",
             fullCardTitleName: populationPctTitle,
             shortVegaLabel: populationPctShortLabel,
-            type: "pct_share",
-          },
-        },
-      },
-    },
-  ],
-  vaccinations: [
-    {
-      variableId: "vaccinations",
-      variableDisplayName: "Vaccinations",
-      variableFullDisplayName: "COVID-19 Vaccinations",
-      variableDefinition: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
-      metrics: {
-        per100k: {
-          metricId: "vaccinated_per_100k",
-          fullCardTitleName: "COVID-19 Vaccinations Per 100k People",
-          shortVegaLabel: "COVID-19 vaccinations per 100k",
-          type: "per100k",
-        },
-        pct_share: {
-          metricId: "vaccinated_pct_share",
-          fullCardTitleName: "Share Of Total COVID-19 Vaccinations",
-          unknownsVegaLabel: "% unknown",
-          shortVegaLabel: "% of vaccinations",
-          type: "pct_share",
-          populationComparisonMetric: {
-            metricId: "vaccine_population_pct",
-            fullCardTitleName: populationPctTitle,
-            shortVegaLabel: populationPctShortLabel,
-            type: "pct_share",
-          },
-          knownBreakdownComparisonMetric: {
-            metricId: "vaccinated_share_of_known",
-            fullCardTitleName: "Share Of Total COVID-19 Vaccinations",
-            shortVegaLabel: "% of COVID-19 vaccinations",
-            type: "pct_share",
-          },
-          secondaryPopulationComparisonMetric: {
-            metricId: "acs_vaccine_population_pct",
-            fullCardTitleName: "Population Percentage According to ACS",
-            shortVegaLabel: "pop percentage according to acs",
             type: "pct_share",
           },
         },
