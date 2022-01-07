@@ -18,8 +18,7 @@ import {
   LinkWithStickyParams,
 } from "../../../utils/urlutils";
 import { Helmet } from "react-helmet-async";
-import NewsCategories from "./NewsCategories";
-import NewsAuthors from "./NewsAuthors";
+import ArticleFilters from "./ArticleFilters";
 import NewsPreviewCard from "./NewsPreviewCard";
 import { useQuery } from "react-query";
 import { Article } from "../NewsTab";
@@ -233,8 +232,11 @@ function AllPosts() {
         <Grid container className={styles.AllArticlesSection}>
           <Hidden smDown>
             <Grid item md={3} container direction="column" alignItems="center">
-              <NewsCategories categories={categories} />
-              <NewsAuthors authors={authors} />
+              <ArticleFilters
+                filterType={"category"}
+                filterOptions={categories}
+              />
+              <ArticleFilters filterType={"author"} filterOptions={authors} />
             </Grid>
           </Hidden>
 
@@ -367,11 +369,14 @@ function AllPosts() {
                 <div className={styles.Divider}></div>
               </Grid>
               <Grid item xs={12} sm={6} container justify="center">
-                <NewsCategories categories={categories} />
+                <ArticleFilters
+                  filterType={"category"}
+                  filterOptions={categories}
+                />
               </Grid>
 
               <Grid item xs={12} sm={6} container justify="center">
-                <NewsAuthors authors={authors} />
+                <ArticleFilters filterType={"author"} filterOptions={authors} />
               </Grid>
             </Grid>
           </Hidden>
