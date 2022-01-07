@@ -6,6 +6,7 @@ import {
   CONTACT_TAB_LINK,
   EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK,
   HET_URL,
+  DATA_TAB_LINK,
 } from "../../utils/urlutils";
 import { Helmet } from "react-helmet-async";
 import parse from "html-react-parser";
@@ -352,6 +353,11 @@ function MethodologyTab() {
               </h2>
               <div className={styles.MethodologyAnswer}>
                 <DefinitionsList definedConditions={definedConditions} />
+                <p>
+                  Links to the original sources of data and their definitions
+                  can be found on our{" "}
+                  <Link to={DATA_TAB_LINK}>Data Downloads</Link> page.
+                </p>
               </div>
             </Grid>
             <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
