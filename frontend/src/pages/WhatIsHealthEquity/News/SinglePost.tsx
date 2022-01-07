@@ -20,12 +20,11 @@ import { Article } from "../NewsTab";
 import hetLogo from "../../../assets/AppbarLogo.png";
 import { Skeleton } from "@material-ui/lab";
 import SignupSection from "../../ui/SignupSection";
-import ShareButtons from "../../../reports/ui/ShareButtons";
+import ShareButtons, {
+  ARTICLE_DESCRIPTION,
+} from "../../../reports/ui/ShareButtons";
 import { getHtml } from "../../../utils/urlutils";
 import LazyLoad from "react-lazyload";
-
-export const ARTICLE_DESCRIPTION =
-  "Article from the Health Equity Tracker: a free-to-use data and visualization platform that is enabling new insights into the impact of COVID-19 and other determinants of health on marginalized groups in the United States.";
 
 function prettyDate(dateString: string) {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -39,6 +38,7 @@ export default function SinglePost() {
 
   let { slug }: { slug: string } = useParams();
 
+  // FETCH ARTICLES
   const { data, isLoading, error } = useQuery(
     ARTICLES_KEY,
     fetchNewsData,
@@ -64,8 +64,6 @@ export default function SinglePost() {
       setNextArticle(articles[(fullArticleIndex + 1) % articles.length]);
     }
   }, [articles, slug]);
-
-  // const articleUrl = fullArticle?.link || "https://healthequitytracker.org";
 
   const articleCategories = fullArticle?._embedded?.["wp:term"]?.[0];
 
@@ -102,6 +100,8 @@ export default function SinglePost() {
           )}
           <meta name="description" content={ARTICLE_DESCRIPTION} />
         </Helmet>
+
+        {/* HEADER ROW */}
         <Grid
           container
           className={styles.HeaderRow}
@@ -109,6 +109,7 @@ export default function SinglePost() {
           justify="center"
           alignItems="center"
         >
+          {/* IMAGE SECTION OF HEADER OR LOADING INDICATOR */}
           <Grid container item xs={10} md={4} className={styles.HeaderImgItem}>
             {isLoading && (
               <Skeleton width={300} height={300} animation="wave"></Skeleton>
@@ -127,6 +128,7 @@ export default function SinglePost() {
             )}
           </Grid>
 
+          {/* TEXT SECTION OF HEADER */}
           <Grid
             item
             xs={12}
@@ -134,6 +136,7 @@ export default function SinglePost() {
             md={8}
             className={styles.SingleArticleHeaderTextItem}
           >
+            {/* ARTICLE TITLE OR LOADING INDICATOR */}
             <Typography
               className={styles.SingleArticleHeaderText}
               variant="h2"
@@ -142,14 +145,11 @@ export default function SinglePost() {
               {isLoading ? (
                 <Skeleton></Skeleton>
               ) : (
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: fullArticle?.title?.rendered || "",
-                  }}
-                ></span>
+                getHtml(fullArticle?.title?.rendered || "")
               )}
             </Typography>
 
+            {/* AUTHOR(S) OR LOADING OR NOTHING */}
             <Typography
               className={styles.SingleArticleDetailText}
               variant="body1"
@@ -169,12 +169,14 @@ export default function SinglePost() {
               ) : (
                 <></>
               )}
+
               {fullArticle?.acf?.contributing_author &&
               fullArticle?.acf?.post_nominals
                 ? `, ${fullArticle.acf.post_nominals}`
                 : ""}
             </Typography>
 
+            {/* PUBLISH DATE WITH LOADING INDICATOR */}
             <Typography
               className={styles.SingleArticleDetailText}
               variant="body1"
@@ -186,7 +188,8 @@ export default function SinglePost() {
               )}
             </Typography>
 
-            {articleCategories ? (
+            {/* OPTIONAL ARTICLE CATEGORIES */}
+            {articleCategories && (
               <Typography
                 className={styles.SingleArticleDetailText}
                 variant="body1"
@@ -204,13 +207,14 @@ export default function SinglePost() {
                   </span>
                 ))}
               </Typography>
-            ) : (
-              <></>
             )}
 
+            {/* SOCIAL MEDIA ICONS */}
             <ShareButtons article={fullArticle} />
           </Grid>
         </Grid>
+
+        {/* ARTICLE CONTENT SECTION */}
         <Grid
           container
           className={styles.NewsAndStoriesRow}
@@ -219,8 +223,11 @@ export default function SinglePost() {
         >
           <Grid item>
             <article className={styles.FullArticleContainer}>
-              {fullArticle ? getHtml(fullArticle.content.rendered) : <></>}
-              {fullArticle?.acf?.full_article_url ? (
+              {/* RENDER WP ARTICLE HTML */}
+              {fullArticle && getHtml(fullArticle.content?.rendered)}
+
+              {/* OPTIONALLY RENDER CONTINUE READING BUTTON */}
+              {fullArticle?.acf?.full_article_url && (
                 <Box mt={5}>
                   <Button
                     variant="contained"
@@ -235,10 +242,9 @@ export default function SinglePost() {
                     <OpenInNewIcon />
                   </Button>
                 </Box>
-              ) : (
-                <></>
               )}
 
+              {/* OPTIONALLY RENDER REPRINT NOTICE */}
               <Box mt={5}>
                 <Typography className={styles.HeaderSubtext} variant="body1">
                   {fullArticle?.acf?.canonical_url && (
@@ -252,6 +258,8 @@ export default function SinglePost() {
               </Box>
             </article>
           </Grid>
+
+          {/* PREV / NEXT ARTICLES NAV */}
           <LazyLoad offset={300} height={300} once>
             <Grid container className={styles.PrevNextSection}>
               <Grid item xs={12} md={4}>
@@ -277,6 +285,7 @@ export default function SinglePost() {
           </LazyLoad>
         </Grid>
 
+        {/* EMAIL SIGNUP  */}
         <SignupSection />
       </Grid>
     </>

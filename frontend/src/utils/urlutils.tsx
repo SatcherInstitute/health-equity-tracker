@@ -63,10 +63,6 @@ export const DATA_TYPE_2_PARAM = "dt2";
 
 // WORDPRESS CONFIG
 export const NEWS_URL = "https://hetblog.dreamhosters.com/";
-// "https://benham36.dreamhosters.com/"; Ben's paid dreamhost account
-// "http://het-blog.local/" // Kinsta / Docker local WP server
-// "https://het-blog.000webhostapp.com/"; // Free hosting used for testing
-
 export const WP_API = "wp-json/wp/v2/"; // "?rest_route=/wp/v2/"
 export const ALL_POSTS = "posts";
 export const ALL_MEDIA = "media";
@@ -78,7 +74,7 @@ export const WP_PER_PAGE_PARAM = "per_page=";
 export const MAX_FETCH = 100;
 
 // PAGE IDS FOR WORDPRESS DYNAMIC COPY
-export const WIHE_PAGE_ID = 37;
+export const WIHE_PAGE_ID = 37; // hard coded id where dynamic copy is stored
 
 // REACT QUERY
 export const ARTICLES_KEY = "cached_wp_articles";
@@ -290,13 +286,16 @@ window.onpopstate = () => {
   });
 };
 
-/* 
-Dumps a string of HTML into a div (unless second argument of asSpan = true is sent in)
+/*
+Dumps a string of HTML into a div (or string with optional boolean)
 */
-export function getHtml(item: any, asSpan?: boolean) {
-  return asSpan ? (
-    <span dangerouslySetInnerHTML={{ __html: item || "" }}></span>
-  ) : (
-    <div dangerouslySetInnerHTML={{ __html: item || "" }}></div>
-  );
+export function getHtml(item: any, asString?: boolean) {
+  // if div is needed
+  if (!asString)
+    return <div dangerouslySetInnerHTML={{ __html: item || "" }}></div>;
+
+  // if only string is needed, create an HTML element and then extract the text
+  const span = document.createElement("span");
+  span.innerHTML = item;
+  return span.textContent || span.innerText;
 }

@@ -16,6 +16,9 @@ import sass from "../../styles/variables.module.scss";
 import { Article } from "../../pages/WhatIsHealthEquity/NewsTab";
 import { getHtml } from "../../utils/urlutils";
 
+export const ARTICLE_DESCRIPTION =
+  "Article from the Health Equity Tracker: a free-to-use data and visualization platform that is enabling new insights into the impact of COVID-19 and other determinants of health on marginalized groups in the United States.";
+
 export const shareIconAttributes = {
   iconFillColor: sass.altGreen,
   bgStyle: { fill: "none" },
@@ -34,7 +37,8 @@ function ShareButtons(props: ShareButtonProps) {
     title += ": " + getMadLibPhraseText(props.madLib);
   }
   if (props.article) {
-    title += ((": “" + getHtml(props.article.title.rendered)) as string) + "”";
+    title +=
+      ((": “" + getHtml(props.article.title.rendered, true)) as string) + "”";
   }
 
   return (
@@ -80,7 +84,7 @@ function ShareButtons(props: ShareButtonProps) {
           aria-label={"Share by email"}
           subject={`Sharing from healthequitytracker.org`}
           body={`${title}
-        
+
 `} // KEEP THIS WEIRD SPACING FOR EMAIL LINE BREAKS!
           url={sharedUrl}
         >
