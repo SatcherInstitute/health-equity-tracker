@@ -160,19 +160,6 @@
     font-style: italic;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-weight: 300;
-    line-height: 110%;
-    font-family: "Taviraj", serif !important;
-    color: $alt-green;
-    text-align: left;
-  }
-
   h1 {
     font-size: $biggerHeader !important;
   }
@@ -192,19 +179,33 @@
     font-size: $text !important;
   }
 
-  h3 a {
-    background-color: $alt-green;
-    color: white !important;
-    border-radius: 40px !important;
-    font-size: $title !important;
-    font-weight: 500 !important;
-    font-family: "DM Sans", sans-serif !important;
-    padding: 16px 30px !important;
-    text-align: center;
-    text-decoration: none;
-    display: block;
-    max-width: 400px;
-    margin: 40px auto 0px auto;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 300;
+    line-height: 110%;
+    font-family: "Taviraj", serif !important;
+    color: $alt-green;
+    text-align: left;
+
+    // For Heading "Buttons"
+    a {
+      background-color: $alt-green;
+      color: white !important;
+      border-radius: 40px !important;
+      font-weight: 500 !important;
+      font-family: "DM Sans", sans-serif !important;
+      padding: 16px 30px !important;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+      max-width: 400px;
+      margin: 40px auto 0px auto;
+      font-size: $smallestHeader !important;
+    }
   }
 
   ol,
