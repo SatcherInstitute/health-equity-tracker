@@ -49,6 +49,9 @@ export type MetricId =
   | "depression_per_100k"
   | "suicide_pct_share"
   | "suicide_per_100k"
+  | "excessive_drinking_pct"
+  | "excessive_drinking_pct_share"
+  | "excessive_drinking_per_100k"
   | "illicit_opioid_use_pct"
   | "illicit_opioid_use_pct_share"
   | "illicit_opioid_use_per_100k"
@@ -57,10 +60,7 @@ export type MetricId =
   | "non_medical_drug_use_per_100k"
   | "non_medical_rx_opioid_use_pct"
   | "non_medical_rx_opioid_use_pct_share"
-  | "non_medical_rx_opioid_use_per_100k"
-  | "excessive_drinking_pct"
-  | "excessive_drinking_pct_share"
-  | "excessive_drinking_per_100k";
+  | "non_medical_rx_opioid_use_per_100k";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -444,10 +444,10 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       },
     },
   ],
-  non_medical_drug_use: [
+  drug_misuse: [
     {
-      variableId: "cases",
-      variableDisplayName: "Cases",
+      variableId: "non_medical_drug_use",
+      variableDisplayName: "All Non-medical Drugs",
       variableFullDisplayName: "Non-medical Drug Use Cases",
       variableDefinition: {
         text: `Adults who reported using prescription drugs non-medically (including pain relievers, stimulants, sedatives) or illicit drugs (excluding cannabis) in the last 12 months.`,
@@ -476,11 +476,9 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
       },
     },
-  ],
-  non_medical_rx_opioid_use: [
     {
-      variableId: "cases",
-      variableDisplayName: "Cases",
+      variableId: "non_medical_rx_opioid_use",
+      variableDisplayName: "Non-medical Prescription Opioids",
       variableFullDisplayName: "Cases of Non-medical Prescription Opioid Use ",
       variableDefinition: {
         text: `...`,
@@ -511,11 +509,9 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
       },
     },
-  ],
-  illicit_opioid_use: [
     {
-      variableId: "cases",
-      variableDisplayName: "Cases",
+      variableId: "illicit_opioid_use",
+      variableDisplayName: "Illicit Opioids",
       variableFullDisplayName: "Illicit Opioid Use Cases",
       variableDefinition: {
         text: `Adults who reported using illicit opioids.`,
@@ -545,6 +541,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       },
     },
   ],
+
   frequent_mental_distress: [
     {
       variableId: "cases",

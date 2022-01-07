@@ -67,9 +67,7 @@ export type DropdownVarId =
   | "vaccinations"
   | "depression"
   | "suicide"
-  | "illicit_opioid_use"
-  | "non_medical_rx_opioid_use"
-  | "non_medical_drug_use"
+  | "drug_misuse"
   | "excessive_drinking"
   | "frequent_mental_distress";
 
@@ -82,9 +80,7 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   vaccinations: "COVID-19 Vaccinations",
   depression: "Depression",
   suicide: "Suicide",
-  illicit_opioid_use: "Illicit Opioid Use",
-  non_medical_drug_use: "Non-medical Drug Use",
-  non_medical_rx_opioid_use: "Non-medical Prescription Opioid Use",
+  drug_misuse: "Drug and Opioid Misuse",
   excessive_drinking: "Excessive Drinking",
   frequent_mental_distress: "Frequent Mental Distress",
 };
@@ -114,11 +110,9 @@ const CATEGORIES_LIST: Category[] = [
     options: [
       "depression",
       "suicide",
-      "non_medical_drug_use",
-      "illicit_opioid_use",
+      "drug_misuse",
       "excessive_drinking",
       "frequent_mental_distress",
-      "non_medical_rx_opioid_use",
     ],
   },
 ];
