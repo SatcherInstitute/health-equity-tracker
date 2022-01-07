@@ -39,7 +39,7 @@
       color: $alt-green;
       padding-bottom: 1rem;
       font-size: $header;
-      line-height: 100%;
+      line-height: 110%;
 
       @media (min-width: $md) {
         font-size: $bigHeader;
@@ -64,9 +64,6 @@
         cursor: pointer;
         text-decoration: underline;
       }
-
-      // .CategoryTag {
-      // }
     }
   }
 }
@@ -170,7 +167,7 @@
   h5,
   h6 {
     font-weight: 300;
-    line-height: 100%;
+    line-height: 110%;
     font-family: "Taviraj", serif !important;
     color: $alt-green;
     text-align: left;
@@ -193,6 +190,21 @@
   }
   h6 {
     font-size: $text !important;
+  }
+
+  h3 a {
+    background-color: $alt-green;
+    color: white !important;
+    border-radius: 40px !important;
+    font-size: $title !important;
+    font-weight: 500 !important;
+    font-family: "DM Sans", sans-serif !important;
+    padding: 16px 30px !important;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    max-width: 400px;
+    margin: 40px auto 0px auto;
   }
 
   ol,
@@ -280,6 +292,7 @@
 
 .PrevNextArrow {
   font-size: $bigHeader;
+  font-family: "Taviraj", serif !important;
 }
 
 .FilterListBox {
