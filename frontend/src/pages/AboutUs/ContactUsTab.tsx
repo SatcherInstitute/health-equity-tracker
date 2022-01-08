@@ -62,13 +62,7 @@ function ContactUsTab() {
               Thank you for your interest in the Health Equity Tracker
             </Typography>
           </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={7}
-            className={styles.ContactUsCenteredTextItem}
-          >
+          <Grid item xs={12} sm={12} md={7}>
             <p className={styles.ContactUsP}>
               <b>For General Requests:</b>
               <br />

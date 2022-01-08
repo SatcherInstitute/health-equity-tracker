@@ -24,7 +24,7 @@
 
 .FooterTitleSpan {
   font-family: "DM Sans", sans-serif !important;
-  font-size: 20px;
+  font-size: $title;
   color: $alt-green;
   font-weight: 500;
   display: inline-block;
@@ -41,8 +41,8 @@
 
 .CopyrightSpan {
   color: $alt-dark;
-  font-weight: 100;
-  font-size: small;
+  font-weight: 200;
+  font-size: $small;
   margin-bottom: 2rem;
   @media only screen and (min-width: $sm) {
     // So it aligns with the button above it

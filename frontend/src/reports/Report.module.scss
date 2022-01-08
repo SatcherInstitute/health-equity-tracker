@@ -12,11 +12,6 @@
   margin: 0 auto;
 }
 
-.PaddedGrid {
-  padding: 20px;
-  text-align: left;
-}
-
 .ToggleBlock {
   padding-left: 15px;
 
@@ -25,7 +20,7 @@
     text-transform: uppercase;
     color: $alt-black;
     font-weight: 300;
-    font-size: 14px;
+    font-size: $small;
     line-height: 16px;
     text-align: left;
     padding-top: 10px;
@@ -54,17 +49,8 @@
   border-radius: 8px;
 }
 
-.DefinedTerm {
-  font-weight: 600;
-}
-
-.ReportWrapper {
-  width: 95%;
-  margin: 20px auto;
-}
-
 .FootnoteLargeHeading {
-  font-size: 2rem;
+  font-size: $header;
 }
 
 .FootnoteLargeHeading:first-of-type {

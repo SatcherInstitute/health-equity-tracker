@@ -2,7 +2,7 @@
 
 .SearchForText,
 .CategoryTitleText {
-  font-size: 12pt;
+  font-size: $text;
   font-weight: bold;
 }
 
@@ -11,7 +11,7 @@
 }
 
 .NoteText {
-  font-size: 10pt;
+  font-size: $small;
   color: grey;
   font-style: italic;
 }
@@ -32,9 +32,16 @@
 }
 
 .MadLibButton {
-  font-size: 25px !important;
   font-weight: normal !important;
   text-decoration: underline !important;
   text-underline-offset: 3px !important;
-  margin-bottom: 3px !important;
+  padding-block: 0 !important;
+  line-height: $madLibLineHeight;
+  font-size: $title;
+  @media (min-width: $sm) {
+    font-size: $smallestHeader;
+  }
+  @media (min-width: $lg) {
+    font-size: $smallerHeader;
+  }
 }

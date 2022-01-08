@@ -102,8 +102,8 @@ function Logos() {
         justify="center"
         wrap="nowrap"
       >
-        <Grid item className={styles.LogosLeft}>
-          <ReactRouterLinkButton url="/" className={styles.ImageButton}>
+        <Grid item>
+          <ReactRouterLinkButton url="/">
             <img
               src={AppbarLogo}
               className={styles.FooterLogo}
@@ -112,7 +112,7 @@ function Logos() {
             />
           </ReactRouterLinkButton>
         </Grid>
-        <Grid item className={styles.LogosRight}>
+        <Grid item>
           <Grid container justify="flex-start" alignItems="flex-start">
             <Grid item xs={12}>
               <span className={styles.FooterTitleSpan} aria-hidden="true">

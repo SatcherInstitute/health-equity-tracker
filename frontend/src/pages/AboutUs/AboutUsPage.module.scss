@@ -3,7 +3,7 @@
 .AboutUsPage {
   // text-align: left;
   h1 {
-    font-size: 18px;
+    font-size: $title;
     line-height: 23px;
   }
 }
@@ -20,14 +20,10 @@
   border-radius: 40px !important;
   height: 52px;
   width: 220px;
-  font-size: 18px !important;
+  font-size: $title !important;
   font-weight: 500;
   font-family: "DM Sans", sans-serif !important;
   padding: 10px 30px;
-}
-
-.NoUnderline {
-  text-decoration: none !important;
 }
 
 // For the title of the page read off by screenreaders in an h1
@@ -39,30 +35,6 @@
   height: 1px;
   overflow: hidden;
   z-index: -999;
-}
-
-/** ------------- GRID ITEM POSITIONING ------------- **/
-
-// Grid Item with content aligned to the bottom-right.
-.GridAlignRightItem {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-}
-
-// Grid Item with content aligned to the bottom-left
-.GridAlignLeftItem {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-
-// Grid items that are centered both vertically and horizontally.
-.GridCenteredItem {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 25px;
 }
 
 /** ------------- TYPES OF GRID ROWS ------------- **/
@@ -84,20 +56,13 @@
 
 // Grid rows that have outlines and an image in one cell.
 .GridOutlinedImgRow {
-  .ImgHeaderGridItem {
-    width: 100%;
-    height: auto;
-    max-width: 760px;
-    max-height: 645px;
-  }
-
   .GridVerticallyAlignedItem {
     justify-content: center;
     padding: 25px;
   }
 
   .HeaderText {
-    font-size: 50px;
+    font-size: $biggerHeader;
     text-align: left;
     font-weight: 300;
     font-family: "Taviraj", serif !important;
@@ -109,7 +74,7 @@
   .SubheaderL1Text {
     font-family: "Taviraj", sans-serif;
     font-weight: 300;
-    font-size: 36px;
+    font-size: $header;
     line-height: 61.42px;
     padding: 10px 0 10px 0;
   }
@@ -117,13 +82,13 @@
   .SubheaderL2Text {
     font-family: "Taviraj", sans-serif;
     font-weight: 300;
-    font-size: 30px;
+    font-size: $smallHeader;
     line-height: 30px;
     padding: 10px 0 10px 0;
   }
 
   .HeaderSubtext {
-    font-size: 20px;
+    font-size: $title;
     text-align: left;
     font-weight: 300;
     line-height: 24px;
@@ -131,7 +96,7 @@
   }
 
   .HeaderSubtextL2 {
-    font-size: 16px;
+    font-size: $text;
     text-align: left;
     font-weight: 300;
     line-height: 22px;
@@ -139,7 +104,7 @@
   }
 
   .HeaderSubtextL3 {
-    font-size: 14px;
+    font-size: $small;
     text-align: left;
     font-weight: 400;
     line-height: 20px;
@@ -152,7 +117,7 @@
   justify-content: center;
 
   .HeaderText {
-    font-size: 48px;
+    font-size: $bigHeader;
     text-align: center;
     font-weight: 300;
     font-family: "Taviraj", serif !important;
@@ -162,7 +127,7 @@
   }
 
   .HeaderSubtext {
-    font-size: 20px;
+    font-size: $title;
     text-align: left;
     font-weight: 300;
     line-height: 24px;
@@ -195,7 +160,7 @@
   }
 
   .HeaderText {
-    font-size: 48px;
+    font-size: $bigHeader;
     text-align: center;
     font-weight: 300;
     font-family: "Taviraj", serif !important;
@@ -207,7 +172,7 @@
   .SubheaderL1Text {
     font-family: "Taviraj", sans-serif;
     font-weight: 300;
-    font-size: 36px;
+    font-size: $header;
     line-height: 61.42px;
     padding: 0 0 10px 0;
   }
@@ -215,13 +180,13 @@
   .SubheaderL2Text {
     font-family: "Taviraj", sans-serif;
     font-weight: 300;
-    font-size: 25px;
+    font-size: $smallestHeader;
     line-height: 25px;
     padding: 30px 0 0 0;
   }
 
   .HeaderSubtext {
-    font-size: 20px;
+    font-size: $title;
     text-align: left;
     font-weight: 300;
     line-height: 24px;
@@ -229,7 +194,7 @@
   }
 
   .HeaderSubtextL2 {
-    font-size: 16px;
+    font-size: $text;
     text-align: left;
     font-weight: 300;
     line-height: 22px;
@@ -237,7 +202,7 @@
   }
 
   .HeaderSubtextL3 {
-    font-size: 14px;
+    font-size: $small;
     text-align: left;
     font-weight: 400;
     line-height: 20px;
@@ -249,7 +214,7 @@
 
 // Underlined Header H2
 .UnderlinedHeaderL2 {
-  font-size: 28px !important;
+  font-size: $smallHeader !important;
   line-height: 26px;
   border-bottom: 1.5px solid $alt-green;
   margin: 25px 0 25px 0;
@@ -302,7 +267,7 @@
 
 // For the  header text at the very top of the "Our Team" page
 .OurTeamHeaderText {
-  font-size: 50px !important;
+  font-size: $biggerHeader !important;
   font-weight: 300 !important;
   font-family: "Taviraj", serif !important;
   line-height: 50px !important;
@@ -312,7 +277,7 @@
 
 // For headers denoting each subgroup on the team
 .TeamHeader {
-  font-size: 28px !important;
+  font-size: $smallHeader !important;
   line-height: 26px;
   border-bottom: 2px solid $team-border-color;
   margin: 25px 0 25px 0;
@@ -338,14 +303,14 @@
 
 // For the leader name heading
 .LeaderNameHeading {
-  font-size: 16px;
+  font-size: $text;
   font-weight: 500;
   margin: 2px 0;
 }
 
 // For the leader role span
 .LeaderRoleSpan {
-  font-size: 14px;
+  font-size: $small;
   font-weight: 400;
 }
 
@@ -354,20 +319,10 @@
   padding: 10px;
 }
 
-.GreyGridItem {
-  background-color: $grey-grid-color;
-  padding: 70px;
-}
-
-.MajorLink {
-  color: $alt-green;
-  font-weight: 600;
-}
-
 /** ------------- CONTACT US ------------- **/
 
 .ContactUsHeaderText {
-  font-size: 50px !important;
+  font-size: $biggerHeader !important;
   font-weight: 300 !important;
   font-family: "Taviraj", sans-serif !important;
   line-height: 50px !important;
