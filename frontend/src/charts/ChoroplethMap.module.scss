@@ -1,0 +1,6 @@
+@import "../styles/variables.module";
+
+.ScreenReaderOnly {
+  position: absolute;
+  left: -9999px;
+}
