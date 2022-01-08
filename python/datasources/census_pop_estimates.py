@@ -10,11 +10,11 @@ BASE_POPULATION_URL = ('https://www2.census.gov/programs-surveys/popest/'
                        'datasets/2010-2019/counties/asrh/cc-est2019-alldata.csv')
 
 RACES_MAP = {'NHWA': Race.WHITE_NH.value, 'NHBA': Race.BLACK_NH.value, 'NHIA': Race.AIAN_NH.value,
-             'NHAA': Race.ASIAN_NH.value, 'NHNA': Race.NHPI_NH.value}
+             'NHAA': Race.ASIAN_NH.value, 'NHNA': Race.NHPI_NH.value, 'H': Race.HISP.value}
 
 
 AGES_MAP = {
-    '0-9': (1, 2), '10-19': (3, 4), '20-29': (5, 6),
+    'All': (0, ), '0-9': (1, 2), '10-19': (3, 4), '20-29': (5, 6),
     '30-39': (7, 8), '40-49': (9, 10), '50-59': (11, 12),
     '60-69': (13, 14), '70-79': (15, 16), '80+': (17, 18)}
 
@@ -93,6 +93,11 @@ def generate_state_pop_data(df):
     return new_df
 
 
-def get_all_data():
+def update_test_data():
     df = pd.read_csv(BASE_POPULATION_URL, encoding="ISO-8859-1", dtype={'STATE': str, 'STNAME': str})
-    generate_state_pop_data(df).to_csv('all-pop.csv', index=False)
+    df = generate_state_pop_data(df)
+
+    df = df.loc[(df[std_col.STATE_NAME_COL].isin({'Alabama', 'Wyoming'})) &
+                (df[std_col.RACE_CATEGORY_ID_COL].isin({'WHITE_NH', 'BLACK_NH', 'HISP'}))]
+
+    df.to_csv('python/tests/data/age_adjustment/census_pop_estimates.csv', index=False)
