@@ -221,6 +221,9 @@ function ExploreDataPage() {
             indicatorIconButtonProps={{
               "aria-label": "Report Type",
             }}
+            activeIndicatorIconButtonProps={{
+              "aria-label": "Current Selection: Report Type",
+            }}
             // ! TODO We really should be able to indicate Forward/Backward vs just "Switch"
             navButtonsProps={{
               "aria-label": "Change Report Type",
