@@ -445,33 +445,47 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     heightWidthRatio,
   ]);
 
-  return (
-    <div
-      ref={ref}
-      style={{
-        width: "95%",
-        margin: "auto",
-      }}
-    >
-      <span className={styles.ScreenReaderOnly}>{props.filename}</span>
+  // Generate an accessible description of the map content for screen-reader users
+  let screenReaderText = `Map of ${props.fips.getDisplayName()} showing ${
+    props.legendTitle
+  } `;
+  if (!props.fips.isCounty())
+    screenReaderText += ` by ${props.fips.getChildFipsTypeDisplayName()}`;
 
-      {shouldRenderMap && (
-        <Vega
-          spec={spec}
-          width={width}
-          // custom 3-dot options for states, hidden on territories
-          actions={
-            !props.hideActions && {
-              export: { png: true, svg: true },
-              source: false,
-              compiled: false,
-              editor: false,
-            }
-          }
-          downloadFileName={`${props.filename} - Health Equity Tracker`}
-          signalListeners={props.signalListeners}
-        />
+  return (
+    <>
+      {/* alt-text */}
+      {!props.overrideShapeWithCircle && (
+        <span className={styles.ScreenReaderOnly}>{screenReaderText}</span>
       )}
-    </div>
+
+      {/* Visual map for screen users */}
+      <div
+        aria-hidden="true"
+        ref={ref}
+        style={{
+          width: "95%",
+          margin: "auto",
+        }}
+      >
+        {shouldRenderMap && (
+          <Vega
+            spec={spec}
+            width={width}
+            // custom 3-dot options for states, hidden on territories
+            actions={
+              !props.hideActions && {
+                export: { png: true, svg: true },
+                source: false,
+                compiled: false,
+                editor: false,
+              }
+            }
+            downloadFileName={`${props.filename} - Health Equity Tracker`}
+            signalListeners={props.signalListeners}
+          />
+        )}
+      </div>
+    </>
   );
 }
