@@ -17,6 +17,7 @@ import {
 import sass from "../styles/variables.module.scss";
 import { LEGEND_TEXT_FONT } from "./Legend";
 import { useMediaQuery } from "@material-ui/core";
+import styles from "./Chart.module.scss";
 
 const LABEL_SWAP_CUTOFF_PERCENT = 66; // bar labels will be outside if below this %, or inside bar if above
 
@@ -438,37 +439,45 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     (LABEL_SWAP_CUTOFF_PERCENT / 100);
 
   return (
-    <div ref={ref}>
-      <Vega
-        // custom 3-dot options for states, hidden on territories
-        actions={{
-          export: { png: true, svg: true },
-          source: false,
-          compiled: false,
-          editor: false,
-        }}
-        downloadFileName={`${props.filename} - Health Equity Tracker`}
-        spec={getSpec(
-          data,
-          width,
-          props.breakdownVar,
-          BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
-          props.lightMetric.metricId,
-          props.lightMetric.shortVegaLabel,
-          props.darkMetric.metricId,
-          props.darkMetric.shortVegaLabel,
-          props.metricDisplayName,
-          lightMetricDisplayColumnName,
-          darkMetricDisplayColumnName,
-          barLabelBreakpoint,
-          pageIsTiny,
-          props.stacked,
-          hasAltPop ? altLightMetric.metricId : "",
-          hasAltPop ? altLightMetric.shortVegaLabel : "",
-          hasAltPop ? altLightMetricDisplayColumnName : "",
-          hasAltPop
-        )}
-      />
-    </div>
+    <>
+      {/* alt-text */}
+      <span className={styles.ScreenReaderOnly}>
+        Comparison bar chart showing {props.filename}
+      </span>
+
+      {/* Visual Chart comparing population total to share of condition, per demographic group */}
+      <div ref={ref} aria-hidden="true">
+        <Vega
+          // custom 3-dot options for states, hidden on territories
+          actions={{
+            export: { png: true, svg: true },
+            source: false,
+            compiled: false,
+            editor: false,
+          }}
+          downloadFileName={`${props.filename} - Health Equity Tracker`}
+          spec={getSpec(
+            data,
+            width,
+            props.breakdownVar,
+            BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
+            props.lightMetric.metricId,
+            props.lightMetric.shortVegaLabel,
+            props.darkMetric.metricId,
+            props.darkMetric.shortVegaLabel,
+            props.metricDisplayName,
+            lightMetricDisplayColumnName,
+            darkMetricDisplayColumnName,
+            barLabelBreakpoint,
+            pageIsTiny,
+            props.stacked,
+            hasAltPop ? altLightMetric.metricId : "",
+            hasAltPop ? altLightMetric.shortVegaLabel : "",
+            hasAltPop ? altLightMetricDisplayColumnName : "",
+            hasAltPop
+          )}
+        />
+      </div>
+    </>
   );
 }

@@ -100,6 +100,11 @@ export function TableChart(props: TableChartProps) {
           <TableCell
             {...col.getHeaderProps(col.getSortByToggleProps())}
             style={{ width: "200px", cursor: "pointer" }}
+            title={
+              col.isSorted
+                ? `Reverse Sort Direction`
+                : `Sort table by this column`
+            }
           >
             {col.render("Header")}
             <TableSortLabel
@@ -108,8 +113,8 @@ export function TableChart(props: TableChartProps) {
               hideSortIcon={false}
               aria-label={
                 col.isSorted
-                  ? `Toggle Sort Direction`
-                  : `Sort by ${col.render("Header")}`
+                  ? `Reverse Sort Direction`
+                  : `Sort table by this column`
               }
             />
           </TableCell>
