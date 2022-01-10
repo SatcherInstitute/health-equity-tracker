@@ -203,10 +203,22 @@ function ExploreDataPage() {
         >
           <Carousel
             className={styles.Carousel}
-            NextIcon={<NavigateNextIcon id="onboarding-madlib-arrow" />}
+            NextIcon={
+              <NavigateNextIcon
+                aria-hidden="true"
+                id="onboarding-madlib-arrow"
+              />
+            }
             timeout={200}
             autoPlay={false}
             indicators={!sticking || !pageIsWide}
+            indicatorIconButtonProps={{
+              "aria-label": "Report Type",
+            }}
+            // ! TODO We really should be able to indicate Forward/Backward vs just "Switch"
+            navButtonsProps={{
+              "aria-label": "Change Report Type",
+            }}
             animation="slide"
             navButtonsAlwaysVisible={true}
             index={initialIndex}
