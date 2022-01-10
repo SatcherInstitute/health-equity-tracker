@@ -7,6 +7,7 @@ import Carousel from "react-material-ui-carousel";
 import { Fips } from "../../data/utils/Fips";
 import ReportProvider from "../../reports/ReportProvider";
 import {
+  getMadLibPhraseText,
   getMadLibWithUpdatedValue,
   MadLib,
   MadLibId,
@@ -31,6 +32,7 @@ import styles from "./ExploreDataPage.module.scss";
 import { Onboarding } from "./Onboarding";
 import OptionsSelector from "./OptionsSelector";
 import { useLocation } from "react-router-dom";
+import { srSpeak } from "../../utils/a11yutils";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -92,9 +94,13 @@ function ExploreDataPage() {
     };
   }, []);
 
-  /* scroll to top on any changes to the madlib settings */
+  /* on any changes to the madlib settings */
   useEffect(() => {
+    // scroll browser screen to top
     window.scrollTo({ top: 0, behavior: "smooth" });
+
+    // A11y - create then delete an invisible element to alert the user the mode has changed
+    srSpeak(`Now viewing report: ${getMadLibPhraseText(madLib)}`);
   }, [madLib]);
 
   const setMadLibWithParam = (ml: MadLib) => {

@@ -449,9 +449,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     <>
       {/* alt-text */}
       {!props.overrideShapeWithCircle && (
-        <span className={styles.ScreenReaderOnly}>
-          Map showing {props.filename}
-        </span>
+        <span className={styles.srOnly}>Map showing {props.filename}</span>
       )}
 
       {/* Visual map for screen users */}

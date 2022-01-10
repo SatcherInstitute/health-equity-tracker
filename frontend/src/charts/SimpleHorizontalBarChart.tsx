@@ -260,9 +260,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   return (
     <>
       {/* alt-text */}
-      <span className={styles.ScreenReaderOnly}>
-        Bar chart showing {props.filename}
-      </span>
+      <span className={styles.srOnly}>Bar chart showing {props.filename}</span>
 
       {/* Visual chart for screen users */}
       <div aria-hidden="true" ref={ref}>

@@ -441,7 +441,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   return (
     <>
       {/* alt-text */}
-      <span className={styles.ScreenReaderOnly}>
+      <span className={styles.srOnly}>
         Comparison bar chart showing {props.filename}
       </span>
 

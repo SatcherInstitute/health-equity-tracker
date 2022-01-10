@@ -134,7 +134,7 @@ export function TableChart(props: TableChartProps) {
               <Tooltip title="No data available">
                 <WarningRoundedIcon />
               </Tooltip>
-              <span className={styles.ScreenReaderOnly}>No Data Available</span>
+              <span className={styles.srOnly}>No Data Available</span>
             </TableCell>
           ) : (
             <TableCell {...cell.getCellProps()}>
