@@ -38,11 +38,15 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
     !!METRIC_CONFIG[props.dropdownVarId] &&
     METRIC_CONFIG[props.dropdownVarId].length > 1;
 
+  console.log(props);
+
   return (
     <Grid container>
       {enableMetricToggle && (
         <Grid className={styles.ToggleBlock}>
-          <span className={styles.ToggleLabel}>{DATA_TYPE_LABEL}</span>
+          <div className={styles.ToggleLabel}>
+            {props.dropdownVarId + " " + DATA_TYPE_LABEL}
+          </div>
           {/* DATA TYPE TOGGLE */}
           <ToggleButtonGroup
             exclusive
