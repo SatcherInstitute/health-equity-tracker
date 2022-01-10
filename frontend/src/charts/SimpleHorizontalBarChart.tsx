@@ -16,6 +16,7 @@ import {
 } from "./utils";
 import sass from "../styles/variables.module.scss";
 import { useMediaQuery } from "@material-ui/core";
+import styles from "./Chart.module.scss";
 
 // determine where (out of 100) to flip labels inside/outside the bar
 const LABEL_SWAP_CUTOFF_PERCENT = 66;
@@ -257,35 +258,43 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     (LABEL_SWAP_CUTOFF_PERCENT / 100);
 
   return (
-    <div ref={ref}>
-      <Vega
-        downloadFileName={`${props.filename} - Health Equity Tracker`}
-        spec={getSpec(
-          data,
-          width,
-          props.breakdownVar,
-          BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
-          props.metric.metricId,
-          props.metric.shortVegaLabel,
-          barMetricDisplayColumnName,
-          tooltipMetricDisplayColumnName,
-          props.showLegend,
-          barLabelBreakpoint,
-          pageIsTiny,
-          props.usePercentSuffix || false
-        )}
-        // custom 3-dot options for states, hidden on territories
-        actions={
-          props.hideActions
-            ? false
-            : {
-                export: { png: true, svg: true },
-                source: false,
-                compiled: false,
-                editor: false,
-              }
-        }
-      />
-    </div>
+    <>
+      {/* alt-text */}
+      <span className={styles.ScreenReaderOnly}>
+        Bar chart showing {props.filename}
+      </span>
+
+      {/* Visual chart for screen users */}
+      <div aria-hidden="true" ref={ref}>
+        <Vega
+          downloadFileName={`${props.filename} - Health Equity Tracker`}
+          spec={getSpec(
+            data,
+            width,
+            props.breakdownVar,
+            BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
+            props.metric.metricId,
+            props.metric.shortVegaLabel,
+            barMetricDisplayColumnName,
+            tooltipMetricDisplayColumnName,
+            props.showLegend,
+            barLabelBreakpoint,
+            pageIsTiny,
+            props.usePercentSuffix || false
+          )}
+          // custom 3-dot options for states, hidden on territories
+          actions={
+            props.hideActions
+              ? false
+              : {
+                  export: { png: true, svg: true },
+                  source: false,
+                  compiled: false,
+                  editor: false,
+                }
+          }
+        />
+      </div>
+    </>
   );
 }

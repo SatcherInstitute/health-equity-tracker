@@ -445,18 +445,11 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     heightWidthRatio,
   ]);
 
-  // Generate an accessible description of the map content for screen-reader users
-  let screenReaderText = `Map of ${props.fips.getDisplayName()} showing ${
-    props.legendTitle
-  } `;
-  if (!props.fips.isCounty())
-    screenReaderText += ` by ${props.fips.getChildFipsTypeDisplayName()}`;
-
   return (
     <>
       {/* alt-text */}
       {!props.overrideShapeWithCircle && (
-        <span className={styles.ScreenReaderOnly}>{screenReaderText}</span>
+        <span className={styles.ScreenReaderOnly}>Map of {props.filename}</span>
       )}
 
       {/* Visual map for screen users */}
