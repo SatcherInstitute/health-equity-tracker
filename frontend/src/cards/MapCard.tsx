@@ -147,30 +147,6 @@ function MapCardWithKey(props: MapCardProps) {
           ]]: breakdownValues,
         };
 
-        function generateDemographicGroupWording() {
-          let wording = "";
-          /* for  */
-          if (activeBreakdownFilter !== "All") wording += " for";
-
-          /* [ ages 30-39] */
-          if (
-            BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown] ===
-              "age" &&
-            activeBreakdownFilter !== "All"
-          )
-            wording += ` ages ${activeBreakdownFilter}`;
-
-          /* [Asian (non Hispanic) individuals] */
-          if (
-            BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown] !==
-              "age" &&
-            activeBreakdownFilter !== "All"
-          )
-            wording += ` ${activeBreakdownFilter} individuals`;
-
-          return wording;
-        }
-
         // If possible, calculate the total for the selected demographic group and dynamically generate the rest of the phrase
         function generateDemographicTotalPhrase() {
           const options = overallQueryResponse.data.find(
@@ -203,8 +179,20 @@ function MapCardWithKey(props: MapCardProps) {
               ) : (
                 metricConfig.shortVegaLabel
               )}
-              {/* for [ ages 30-39] [Asian (non Hispanic) individuals] */}
-              {generateDemographicGroupWording()}
+              {/*} for  */}
+              {activeBreakdownFilter !== "All" && " for"}
+              {/*} [ ages 30-39] */}
+              {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                props.currentBreakdown
+              ] === "age" &&
+                activeBreakdownFilter !== "All" &&
+                ` ages ${activeBreakdownFilter}`}
+              {/*} [Asian (non Hispanic) individuals] */}
+              {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                props.currentBreakdown
+              ] !== "age" &&
+                activeBreakdownFilter !== "All" &&
+                ` ${activeBreakdownFilter} individuals`}
               {" in  "}
               {/*} in */}
               {/*} (the) */}

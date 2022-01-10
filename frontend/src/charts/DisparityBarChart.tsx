@@ -440,11 +440,6 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
 
   return (
     <>
-      {/* alt-text */}
-      <span className={styles.srOnly}>
-        Comparison bar chart showing {props.filename}
-      </span>
-
       {/* Visual Chart comparing population total to share of condition, per demographic group */}
       <div ref={ref} aria-hidden="true">
         <Vega
@@ -478,6 +473,11 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           )}
         />
       </div>
+
+      {/* alt-text */}
+      <span className={styles.srOnly}>
+        Comparison bar chart showing {props.filename}
+      </span>
     </>
   );
 }

@@ -447,12 +447,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
   return (
     <>
-      {/* alt-text */}
-      {!props.overrideShapeWithCircle && (
-        <span className={styles.srOnly}>Map showing {props.filename}</span>
-      )}
-
-      {/* Visual map for screen users */}
+      {/* Visual map */}
       <div
         aria-hidden="true"
         ref={ref}
@@ -479,6 +474,11 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           />
         )}
       </div>
+
+      {/* alt-text */}
+      {!props.overrideShapeWithCircle && (
+        <span className={styles.srOnly}>Map showing {props.filename}</span>
+      )}
     </>
   );
 }

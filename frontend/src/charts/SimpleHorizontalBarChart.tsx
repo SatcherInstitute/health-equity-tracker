@@ -259,10 +259,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
 
   return (
     <>
-      {/* alt-text */}
-      <span className={styles.srOnly}>Bar chart showing {props.filename}</span>
-
-      {/* Visual chart for screen users */}
+      {/* Visual chart */}
       <div aria-hidden="true" ref={ref}>
         <Vega
           downloadFileName={`${props.filename} - Health Equity Tracker`}
@@ -293,6 +290,9 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           }
         />
       </div>
+
+      {/* alt-text */}
+      <span className={styles.srOnly}>Bar chart showing {props.filename}</span>
     </>
   );
 }
