@@ -1,4 +1,5 @@
-@import "../../styles/variables.module.scss";
+@use "../../styles/globals.scss";
+@import "../../styles/variables.module";
 
 .ExploreData {
   background-color: $explore-bg-color;

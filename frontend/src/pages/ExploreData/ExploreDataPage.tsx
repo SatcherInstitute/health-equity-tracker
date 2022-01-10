@@ -203,11 +203,7 @@ function ExploreDataPage() {
         >
           <Carousel
             className={styles.Carousel}
-            NextIcon={
-              <>
-                <NavigateNextIcon id="onboarding-madlib-arrow" />
-              </>
-            }
+            NextIcon={<NavigateNextIcon id="onboarding-madlib-arrow" />}
             timeout={200}
             autoPlay={false}
             indicators={!sticking || !pageIsWide}
