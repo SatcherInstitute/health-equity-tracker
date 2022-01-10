@@ -18,7 +18,7 @@ import {
   UNKNOWN_SCALE,
 } from "./Legend";
 import { useMediaQuery } from "@material-ui/core";
-import styles from "./ChoroplethMap.module.scss";
+import styles from "./Chart.module.scss";
 
 export type ScaleType = "quantize" | "quantile" | "symlog";
 
