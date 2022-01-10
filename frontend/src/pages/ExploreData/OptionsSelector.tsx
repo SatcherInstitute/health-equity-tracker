@@ -132,10 +132,13 @@ function OptionsSelector(props: {
                     key={category.title}
                     className={styles.CategoryList}
                   >
-                    <List dense={true}>
-                      <span className={styles.CategoryTitleText}>
-                        {category.title}
-                      </span>
+                    <h3
+                      className={styles.CategoryTitleText}
+                      aria-label={category.title + " options"}
+                    >
+                      {category.title}
+                    </h3>
+                    <List dense={true} role="submenu">
                       {(props.options as string[][]).map((item: string[]) => {
                         const [optionId, optionDisplayName] = item;
                         return (
@@ -144,6 +147,7 @@ function OptionsSelector(props: {
                             optionId as DropdownVarId
                           ) && (
                             <ListItem
+                              role="menuitem"
                               key={optionId}
                               button
                               selected={optionId === props.value}
