@@ -1,0 +1,14 @@
+@import "../styles/variables.module";
+
+.Unit {
+  font-size: $smallest;
+  font-weight: 100;
+  font-stretch: ultra-condensed, extra-condensed, condensed;
+  margin-left: 0.075rem;
+  letter-spacing: -0.04rem;
+}
+
+.ScreenReaderOnly {
+  position: absolute;
+  left: -9999px;
+}
