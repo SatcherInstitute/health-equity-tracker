@@ -1,20 +1,20 @@
-/* srSpeak(text, priority)
-  text: the message to be vocalised
-  priority (non mandatory): "polite" (by default) or "assertive" */
+/* srSpeak(text)
+  text: the ALERT message to be read aloud by screen reader
+  */
 
 export function srSpeak(text: string) {
-  const el = document.createElement("div");
+  const tempElement = document.createElement("div");
   const id = "speak-" + Date.now();
-  el.setAttribute("id", id);
-  el.setAttribute("role", "alert");
-  el.classList.add("srOnly");
-  document.body.appendChild(el);
+  tempElement.setAttribute("id", id);
+  tempElement.setAttribute("role", "alert");
+  tempElement.classList.add("srOnly");
+  document.body.appendChild(tempElement);
 
   window.setTimeout(function () {
-    el.innerHTML = text;
+    tempElement.innerHTML = text;
   }, 100);
 
   window.setTimeout(function () {
-    document.body.removeChild(el);
+    document.body.removeChild(tempElement);
   }, 1000);
 }
