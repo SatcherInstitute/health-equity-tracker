@@ -21,7 +21,7 @@ function MissingDataAlert(props: {
   const geo = props.geoLevel || "city"; // if no props.geoLevel, it's coming from a county view, meaning the level down would be city
 
   return (
-    <Alert severity="warning">
+    <Alert severity="warning" role="note">
       We do not currently have
       {demoPhrase}
       <b>{props.dataName}</b>

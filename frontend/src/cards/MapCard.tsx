@@ -272,7 +272,7 @@ function MapCardWithKey(props: MapCardProps) {
                 <>
                   <Divider />
                   <CardContent>
-                    <Alert severity="info" role="complementary">
+                    <Alert severity="info" role="note">
                       {generateDemographicTotalPhrase()}
 
                       {/* Compare across XYZ for all variables except vaccinated at county level */}
@@ -308,7 +308,7 @@ function MapCardWithKey(props: MapCardProps) {
               dataForActiveBreakdownFilter.length === 0 &&
               activeBreakdownFilter !== "All" && (
                 <CardContent>
-                  <Alert severity="warning">
+                  <Alert severity="warning" role="note">
                     No data available for filter: <b>{activeBreakdownFilter}</b>
                     .{" "}
                     <MultiMapLink

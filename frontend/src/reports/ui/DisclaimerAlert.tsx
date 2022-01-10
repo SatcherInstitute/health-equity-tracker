@@ -12,6 +12,7 @@ function DisclaimerAlert(props: { jumpToData: () => void }) {
         severity="warning"
         className={styles.ReportAlert}
         icon={<FlagIcon />}
+        role="note"
       >
         <AlertTitle id="onboarding-limits-in-the-data">
           Major gaps in the data

@@ -92,14 +92,16 @@ function UnknownsAlert(props: {
   return raceEthnicityDiff ? (
     <>
       <CardContent className={styles.SmallMarginContent}>
-        <Alert severity="warning">{diffRaceEthnicityText}</Alert>
+        <Alert severity="warning" role="note">
+          {diffRaceEthnicityText}
+        </Alert>
       </CardContent>
       <Divider />
     </>
   ) : (
     <>
       <CardContent className={styles.SmallMarginContent}>
-        <Alert severity="warning">
+        <Alert severity="warning" role="note">
           {percentageUnknown}
           {props.metricConfig.knownBreakdownComparisonMetric!.shortVegaLabel}
           {" in "}

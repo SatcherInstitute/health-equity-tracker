@@ -134,7 +134,7 @@ export function PopulationCard(props: PopulationCardProps) {
 
             {props.fips.needsACS2010() && (
               <CardContent>
-                <Alert severity="warning">
+                <Alert severity="warning" role="note">
                   Population data for U.S. Virgin Islands, Guam, and the
                   Northern Mariana Islands is from 2010; interpret metrics with
                   caution.
@@ -154,7 +154,11 @@ export function PopulationCard(props: PopulationCardProps) {
               >
                 <Grid container>
                   <Grid item xs={12}>
-                    <Alert severity="info" className={styles.PopulationAlert}>
+                    <Alert
+                      severity="info"
+                      role="note"
+                      className={styles.PopulationAlert}
+                    >
                       These racial categories are defined by the ACS and US
                       Census Bureau. While it is the standard for CDC reporting,
                       the definition of these categories often results in not
