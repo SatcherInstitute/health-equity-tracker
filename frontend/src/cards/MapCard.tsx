@@ -272,7 +272,7 @@ function MapCardWithKey(props: MapCardProps) {
                 <>
                   <Divider />
                   <CardContent>
-                    <Alert severity="info">
+                    <Alert severity="info" role="complementary">
                       {generateDemographicTotalPhrase()}
 
                       {/* Compare across XYZ for all variables except vaccinated at county level */}
@@ -419,7 +419,7 @@ function MapCardWithKey(props: MapCardProps) {
   );
 }
 
-/* 
+/*
 Generates the "COMPARES ACROSS GROUPS" button which opens the small multiples modal
 */
 export interface MultiMapLinkProps {
