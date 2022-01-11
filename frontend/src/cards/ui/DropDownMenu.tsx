@@ -134,7 +134,7 @@ function DropDownMenu(props: DropDownMenuProps) {
             ? (Object.values(props.options)[0] as DemographicGroup[])
             : (props.options as Record<string, DemographicGroup[]>)
         }
-        onClick={(event: React.MouseEvent<HTMLElement>, value: string) => {
+        onClick={(event: React.MouseEvent<HTMLElement>, value) => {
           if (oneLevelMenu) {
             props.onOptionUpdate(undefined, value);
             firstMenu.close();
@@ -145,6 +145,7 @@ function DropDownMenu(props: DropDownMenuProps) {
         }}
       />
 
+      {/* sub-menu feature: not currently in use */}
       <MenuPopover
         popover={secondMenu}
         items={props.options[firstMenuSelection] as DemographicGroup[]}
