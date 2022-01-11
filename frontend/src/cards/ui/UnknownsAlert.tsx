@@ -15,21 +15,24 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
 import { Fips } from "../../data/utils/Fips";
+import { VisualizationType } from "../../charts/utils";
 
 export const RACE_OR_ETHNICITY = "race or ethnicity";
 
-function UnknownsAlert(props: {
+interface UnknownsAlertProps {
   queryResponse: MetricQueryResponse;
   metricConfig: MetricConfig;
   breakdownVar: BreakdownVar;
-  displayType: string; // "chart" or "map"
+  displayType: VisualizationType;
   known: Boolean;
   overrideAndWithOr?: Boolean;
   raceEthDiffMap?: Boolean;
   noDemographicInfoMap?: Boolean;
   showingVisualization?: Boolean;
   fips: Fips;
-}) {
+}
+
+function UnknownsAlert(props: UnknownsAlertProps) {
   const unknowns = props.queryResponse
     .getValidRowsForField(props.metricConfig.metricId)
     .filter(

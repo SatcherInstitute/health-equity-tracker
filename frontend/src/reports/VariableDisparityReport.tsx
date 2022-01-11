@@ -7,6 +7,7 @@ import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
 import { TableCard } from "../cards/TableCard";
 import { UnknownsMapCard } from "../cards/UnknownsMapCard";
 import {
+  DropdownVarId,
   METRIC_CONFIG,
   VariableConfig,
   VAXX,
@@ -14,7 +15,6 @@ import {
 import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
 import { RACE } from "../data/utils/Constants";
 import { Fips } from "../data/utils/Fips";
-import { DropdownVarId } from "../utils/MadLibs";
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,

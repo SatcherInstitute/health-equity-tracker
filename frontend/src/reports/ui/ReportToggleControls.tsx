@@ -2,8 +2,11 @@ import React from "react";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import { Grid } from "@material-ui/core";
-import { DropdownVarId } from "../../utils/MadLibs";
-import { METRIC_CONFIG, VariableConfig } from "../../data/config/MetricConfig";
+import {
+  DropdownVarId,
+  METRIC_CONFIG,
+  VariableConfig,
+} from "../../data/config/MetricConfig";
 import styles from "../Report.module.scss";
 import {
   BreakdownVar,

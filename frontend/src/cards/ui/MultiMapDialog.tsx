@@ -28,7 +28,7 @@ export interface MultiMapDialogProps {
   // Demographic breakdown upon which we're dividing the data, i.e. "age"
   breakdown: BreakdownVar;
   // Unique values for breakdown, each one will have it's own map
-  breakdownValues: string[];
+  breakdownValues: DemographicGroup[];
   // Geographic region of maps
   fips: Fips;
   // Data that populates maps

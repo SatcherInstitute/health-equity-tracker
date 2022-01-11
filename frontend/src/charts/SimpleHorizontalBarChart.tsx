@@ -4,9 +4,10 @@ import { Row } from "../data/utils/DatasetTypes";
 import { useResponsiveWidth } from "../utils/useResponsiveWidth";
 import {
   BreakdownVar,
+  BreakdownVarDisplayName,
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
-import { MetricConfig } from "../data/config/MetricConfig";
+import { MetricConfig, MetricId } from "../data/config/MetricConfig";
 import {
   addLineBreakDelimitersToField,
   MULTILINE_LABEL,
@@ -26,11 +27,11 @@ const MULTI_LINE_100K = "+' per 100k'";
 const SINGLE_LINE_PERCENT = "+'%'";
 
 function getSpec(
-  data: Record<string, any>[],
+  data: Row[],
   width: number,
-  breakdownVar: string,
-  breakdownVarDisplayName: string,
-  measure: string,
+  breakdownVar: BreakdownVar,
+  breakdownVarDisplayName: BreakdownVarDisplayName,
+  measure: MetricId,
   measureDisplayName: string,
   // Column names to use for the display value of the metric. These columns
   // contains preformatted data as strings.

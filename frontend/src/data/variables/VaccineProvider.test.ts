@@ -75,8 +75,8 @@ const dataFetcher = getDataFetcher() as FakeDataFetcher;
 
 function finalRow(
   fips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   vaccinated_pct: number,
   vaccinated_pct_share: number,
   vaccinated_pct_share_of_known: number,
@@ -95,8 +95,8 @@ function finalRow(
 
 function stateRow(
   fips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   vaccinated_pct: number,
   vaccinated_pct_share: number,
   vaccinated_first_dose: number,
@@ -124,8 +124,8 @@ function stateRow(
 }
 
 function nationalRow(
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   vaccinated_first_dose: number,
   vaccinated_share_of_known: number,
   vaccinated_per_100k: number,

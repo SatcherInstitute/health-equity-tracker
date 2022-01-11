@@ -1,3 +1,13 @@
+//  IDs for the selectable conditions in the madlib
+export type DropdownVarId =
+  | "covid"
+  | "diabetes"
+  | "copd"
+  | "health_insurance"
+  | "poverty"
+  | "vaccinations";
+
+// IDs for the sub-data types (if any) for theDropDownId
 export type VariableId =
   | "population"
   | "population_2010"

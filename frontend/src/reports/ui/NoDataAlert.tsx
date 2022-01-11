@@ -4,6 +4,7 @@ import { Grid } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 
 function NoDataAlert(props: { dropdownVarId: string }) {
+  console.log(props);
   return (
     <Grid item xs={5}>
       <Alert style={{ margin: "20px" }} severity="error">

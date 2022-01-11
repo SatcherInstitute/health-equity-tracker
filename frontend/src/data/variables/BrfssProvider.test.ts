@@ -65,8 +65,8 @@ const dataFetcher = getDataFetcher() as FakeDataFetcher;
 
 function finalRow(
   fips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   copd_per_100k: number,
   diabetes_per_100k: number,
   copd_pct_share: number,
@@ -84,8 +84,8 @@ function finalRow(
 
 function stateRow(
   fips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   copd_pct: number,
   diabetes_pct: number,
   population: number

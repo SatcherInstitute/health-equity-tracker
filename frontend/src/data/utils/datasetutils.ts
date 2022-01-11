@@ -106,7 +106,7 @@ export type JoinType = "inner" | "left" | "outer";
 export function joinOnCols(
   df1: IDataFrame,
   df2: IDataFrame,
-  cols: string[],
+  cols: BreakdownVar[],
   joinType: JoinType = "inner"
 ): IDataFrame {
   const keySelector = (row: any) => {
@@ -145,7 +145,7 @@ export function getLatestDate(df: IDataFrame): Date {
 
 export const getLowestN = (
   data: Row[],
-  fieldName: string,
+  fieldName: MetricId,
   listSize: number
 ): Row[] => {
   return data

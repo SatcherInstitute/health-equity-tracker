@@ -33,8 +33,8 @@ export const KING_COUNTY: FipsSpec = {
 
 function finalRow(
   fips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   below_poverty_level_count: number,
   below_poverty_level_per_100k: number
 ) {
@@ -50,8 +50,8 @@ function finalRow(
 
 function finalCountyRow(
   countyFips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   below_poverty_level: number,
   below_poverty_level_per_100k: number
 ) {

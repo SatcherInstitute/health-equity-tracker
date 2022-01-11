@@ -1,3 +1,4 @@
+import { DropdownVarId } from "../data/config/MetricConfig";
 import { FIPS_MAP, USA_FIPS } from "../data/utils/Fips";
 
 // Map of phrase segment index to its selected value
@@ -46,7 +47,7 @@ function getMadLibPhraseText(madLib: MadLib): string {
 export function getMadLibWithUpdatedValue(
   originalMadLib: MadLib,
   phraseSegementIndex: number,
-  newValue: string
+  newValue: DropdownVarId | string // condition or numeric-string FIPS code
 ) {
   let updatePhraseSelections: PhraseSelections = {
     ...originalMadLib.activeSelections,
@@ -57,14 +58,6 @@ export function getMadLibWithUpdatedValue(
     activeSelections: updatePhraseSelections,
   };
 }
-
-export type DropdownVarId =
-  | "covid"
-  | "diabetes"
-  | "copd"
-  | "health_insurance"
-  | "poverty"
-  | "vaccinations";
 
 const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   covid: "COVID-19",
