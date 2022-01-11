@@ -44,7 +44,7 @@ function MenuPopover(props: MenuPopoverProps): JSX.Element {
     ? Object.keys(props.items)
     : (props.items as DemographicGroup[]);
 
-  const renderListItem = (listItem: string) => {
+  const renderListItem = (listItem: string | DemographicGroup) => {
     if (
       hasChildren &&
       (props.items as Record<string, DemographicGroup[]>)[listItem].length === 0
@@ -156,7 +156,7 @@ function DropDownMenu(props: DropDownMenuProps) {
         items={props.options[firstMenuSelection] as DemographicGroup[]}
         onClick={(
           unused_event: React.MouseEvent<HTMLElement>,
-          value: string
+          value: DemographicGroup
         ) => {
           firstMenu.close();
           secondMenu.close();
