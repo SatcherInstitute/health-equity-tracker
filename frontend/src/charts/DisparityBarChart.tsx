@@ -472,7 +472,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           hasAltPop ? altLightMetric.shortVegaLabel : "",
           hasAltPop ? altLightMetricDisplayColumnName : "",
           hasAltPop,
-          `Bar Chart ${props.filename ? `showing ${props.filename}` : ""}`
+          props.filename
         )}
       />
     </div>
