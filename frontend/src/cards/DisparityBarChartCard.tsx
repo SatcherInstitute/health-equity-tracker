@@ -19,7 +19,6 @@ import {
   UNKNOWN,
   UNKNOWN_RACE,
   UNKNOWN_ETHNICITY,
-  HISPANIC,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import UnknownsAlert from "./ui/UnknownsAlert";
@@ -114,7 +113,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
           queryResponse.data.every(
             (row) =>
               !row[props.breakdownVar].includes("(Non-Hispanic)") ||
-              row[props.breakdownVar] === HISPANIC
+              row[props.breakdownVar] === "Hispanic or Latino"
           ) &&
           queryResponse.data.some((row) => row[metricConfig.metricId]);
 

@@ -2,15 +2,12 @@ import { IDataFrame, ISeries } from "data-forge";
 import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import {
-  ABOVE_POVERTY_COL,
-  ALL,
-  BELOW_POVERTY_COL,
-  HISPANIC,
-  WHITE_NH,
-} from "../utils/Constants";
+import { ALL, HISPANIC, WHITE_NH } from "../utils/Constants";
 import { USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
+
+export const ABOVE_POVERTY_COL = "above_poverty_line";
+export const BELOW_POVERTY_COL = "below_poverty_line";
 
 class AcsPovertyProvider extends VariableProvider {
   constructor() {

@@ -1,71 +1,103 @@
+/*
+Constant terms for demographic breakdowns and group options
+Arrays to sort through distinct groupings
+Converts to types for TS checking
+*/
+
+// DEMOGRAPHIC BREAKDOWN CATEGORY TERMS
+export const RACE = "race_and_ethnicity";
+export const AGE = "age";
+export const SEX = "sex";
+
 // MULTIUSE TERMS
 export const ALL = "All";
 export const TOTAL = "Total";
 export const UNKNOWN = "Unknown";
 
-// RACE AND ETHNICITY DEMOGRAPHIC TERMS
-export const RACE = "race_and_ethnicity";
-
-// select, specific vars
-export const WHITE_NH = "White (Non-Hispanic)";
-export const WHITE = "White";
-export const ASIAN_NH = "Asian (Non-Hispanic)";
-export const HISPANIC = "Hispanic or Latino";
+// ETHNICITY
 export const NON_HISPANIC = "Not Hispanic or Latino";
-export const TWO_OR_MORE = "Two or more races";
+
+// UNKNOWNS
 export const UNKNOWN_RACE = "Unknown race";
 export const UNKNOWN_HL = "Unknown Hispanic or Latino";
 export const UNKNOWN_ETHNICITY = "Unknown ethnicity";
 
-// GROUPED RACE DEMOGRAPHICS
+// STANDARD RACE GROUPS AND ARRAY
+export const AIAN_NH = "American Indian and Alaska Native (Non-Hispanic)";
+export const ASIAN_NH = "Asian (Non-Hispanic)";
+export const BLACK_NH = "Black or African American (Non-Hispanic)";
+export const HISPANIC = "Hispanic or Latino";
+export const NHPI_NH = "Native Hawaiian and Pacific Islander (Non-Hispanic)";
+export const OTHER_STANDARD_NH = "Some other race (Non-Hispanic)";
+export const MULTI_NH = "Two or more races (Non-Hispanic)";
+export const WHITE_NH = "White (Non-Hispanic)";
+
 export const STANDARD_RACES = [
-  "American Indian and Alaska Native (Non-Hispanic)",
+  AIAN_NH,
   ASIAN_NH,
-  "Black or African American (Non-Hispanic)",
+  BLACK_NH,
   HISPANIC,
-  "Native Hawaiian and Pacific Islander (Non-Hispanic)",
-  "Some other race (Non-Hispanic)",
-  "Two or more races (Non-Hispanic)",
+  NHPI_NH,
+  OTHER_STANDARD_NH,
+  MULTI_NH,
   WHITE_NH,
   ALL,
 ] as const;
 
+// NON-STANDARD RACE GROUPS AND ARRAY
+export const AIAN = "American Indian and Alaska Native";
+export const ASIAN = "Asian";
+export const BLACK = "Black or African American";
+export const NHPI = "Native Hawaiian and Pacific Islander";
+export const MULTI = "Two or more races";
+export const WHITE = "White";
+export const OTHER_STANDARD = "Some other race";
+
 export const NON_STANDARD_RACES = [
-  "American Indian and Alaska Native",
-  "Asian",
-  "Black or African American",
-  "Native Hawaiian and Pacific Islander",
-  "Some other race",
-  TWO_OR_MORE,
+  AIAN,
+  ASIAN,
+  BLACK,
+  NHPI,
+  MULTI,
   WHITE,
+  OTHER_STANDARD,
 ] as const;
 
-export const COMBINED_RACES = [
-  // combinations of other categories
-  // Currently only used in state level vaccination data
-  "Asian, Native Hawaiian, and Pacific Islander",
-  "Indigenous",
-  "Two or more races & Some other race",
-];
+// COMBINATION RACE GROUPS AND (UNUSED) ARRAY
+export const API = "Asian, Native Hawaiian, and Pacific Islander";
+export const API_NH =
+  "Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic";
+export const INDIGENOUS = "Indigenous"; // Combines AIAN and NHPI
+export const INDIGENOUS_NH = "Indigenous (Non-Hispanic)";
+export const MULTI_OR_OTHER_STANDARD = "Two or more races & Some other race";
+export const MULTI_OR_OTHER_STANDARD_NH =
+  "Two or more races & Some other race (Non-Hispanic)";
 
+export const COMBINED_RACES = [
+  API,
+  API_NH,
+  INDIGENOUS,
+  INDIGENOUS_NH,
+  MULTI_OR_OTHER_STANDARD,
+  MULTI_OR_OTHER_STANDARD_NH,
+] as const;
+
+// COLLECT ALL RACE/ETH DEMOGRAPHIC GROUP OPTIONS INTO SINGLE ARRAY
 export const RACE_GROUPS = [
   ...STANDARD_RACES,
   ...NON_STANDARD_RACES,
+  ...COMBINED_RACES,
   UNKNOWN_RACE,
   UNKNOWN_HL,
   UNKNOWN_ETHNICITY,
   UNKNOWN,
-  WHITE,
   NON_HISPANIC,
-  TWO_OR_MORE,
 ] as const;
 
-type RaceAndEthnicityGroup = typeof RACE_GROUPS[number];
+// ENUMERATE THOSE PROPERTIES TO CREATE A RACE-GROUP TYPE
+export type RaceAndEthnicityGroup = typeof RACE_GROUPS[number];
 
-// AGE DEMOGRAPHIC TERMS
-export const AGE = "age";
-export const FORTY_TO_FORTY_NINE = "40-49"; // for tests
-
+// AGE DEMOGRAPHIC  GROUP OPTIONS
 export const DECADE_AGE_BUCKETS = [
   "0-9",
   "10-19",
@@ -104,6 +136,7 @@ export const CDC_AGE_BUCKETS = [
   "Total",
 ];
 
+// COMBINE ALL AGE GROUP OPTIONS INTO A SINGLE ARRAY
 export const AGE_BUCKETS = [
   "All",
   ...DECADE_AGE_BUCKETS,
@@ -112,20 +145,15 @@ export const AGE_BUCKETS = [
   ...CDC_AGE_BUCKETS,
 ] as const;
 
-type AgeBucket = typeof AGE_BUCKETS[number];
+// ENUMERATE THOSE PROPERTIES TO CREATE AN AGE-GROUP TYPE
+export type AgeBucket = typeof AGE_BUCKETS[number];
 
 // SEX DEMOGRAPHIC TERMS
-export const SEX = "sex";
 export const MALE = "Male";
 export const FEMALE = "Female";
-
 export const SEX_GROUPS = [MALE, FEMALE, UNKNOWN, ALL] as const;
+// CREATE SEX-GROUP TYPE
+export type SexGroup = typeof SEX_GROUPS[number];
 
-type SexGroup = typeof SEX_GROUPS[number];
-
+// CREATE A DEMOGRAPHIC GROUP TYPE INCL ALL SEX/AGE/RACE OPTIONS
 export type DemographicGroup = AgeBucket | SexGroup | RaceAndEthnicityGroup;
-
-/* DETERMINANT SPECIFIC CONSTANTS */
-
-export const ABOVE_POVERTY_COL = "above_poverty_line";
-export const BELOW_POVERTY_COL = "below_poverty_line";

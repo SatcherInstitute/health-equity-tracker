@@ -14,13 +14,15 @@ import { NC, AL, DURHAM, CHATAM, VI, USA } from "./TestUtils";
 import {
   WHITE_NH,
   ALL,
-  FORTY_TO_FORTY_NINE,
   FEMALE,
   MALE,
   UNKNOWN,
+  AgeBucket,
 } from "../utils/Constants";
 import { MetricId } from "../config/MetricConfig";
 import { excludeAll } from "../query/BreakdownFilter";
+
+const FORTY_TO_FORTY_NINE: AgeBucket = "40-49";
 
 const METRIC_IDS: MetricId[] = [
   "covid_cases",
