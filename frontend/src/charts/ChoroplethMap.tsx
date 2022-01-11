@@ -427,7 +427,30 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     setTimeout(() => {
       setShouldRenderMap(true);
     }, 0);
-  }, [width, props.metric, props.legendTitle, props.data, props.fips, props.hideLegend, props.showCounties, props.fieldRange, props.scaleType, props.scaleColorScheme, props.useSmallSampleMessage, props.hideMissingDataTooltip, props.overrideShapeWithCircle, props.geoData, LEGEND_WIDTH, legendData, props.isUnknownsMap, yOffsetNoDataLegend, xOffsetNoDataLegend, props, heightWidthRatio, altText]);
+  }, [
+    width,
+    props.metric,
+    props.legendTitle,
+    props.data,
+    props.fips,
+    props.hideLegend,
+    props.showCounties,
+    props.fieldRange,
+    props.scaleType,
+    props.scaleColorScheme,
+    props.useSmallSampleMessage,
+    props.hideMissingDataTooltip,
+    props.overrideShapeWithCircle,
+    props.geoData,
+    LEGEND_WIDTH,
+    legendData,
+    props.isUnknownsMap,
+    yOffsetNoDataLegend,
+    xOffsetNoDataLegend,
+    props,
+    heightWidthRatio,
+    altText,
+  ]);
 
   return (
     <div
