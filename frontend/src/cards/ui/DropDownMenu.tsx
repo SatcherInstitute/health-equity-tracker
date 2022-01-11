@@ -90,13 +90,7 @@ function MenuPopover(props: {
   );
 }
 
-/*
-   DropDownMenu is a dropdown menu with one or two levels of menu items.
-   For example you can have:
-     * Dropdown with one level listing all race options
-     * Dropdown with one level to select race and a second level listing all race options
-*/
-function DropDownMenu(props: {
+export interface DropDownMenuProps {
   // Dropdown's currently selected option.
   value: DemographicGroup;
   // Map of first level menu option to submenu options.
@@ -105,9 +99,17 @@ function DropDownMenu(props: {
   // Update parent component with a newly selected value.
   onOptionUpdate: (
     category: DemographicGroup | undefined,
-    filterSelection: string | undefined
+    filterSelection: DemographicGroup
   ) => void;
-}) {
+}
+
+/*
+   DropDownMenu is a dropdown menu with one or two levels of menu items.
+   For example you can have:
+     * Dropdown with one level listing all race options
+     * Dropdown with one level to select race and a second level listing all race options
+*/
+function DropDownMenu(props: DropDownMenuProps) {
   const firstMenu = usePopover();
   const secondMenu = usePopover();
 
