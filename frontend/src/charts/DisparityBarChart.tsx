@@ -43,7 +43,8 @@ function getSpec(
   altLightMeasure?: string,
   altLightMeasureDisplayName?: string,
   altLightMetricDisplayColumnName?: string,
-  hasAltPop?: boolean
+  hasAltPop?: boolean,
+  filename?: string
 ): any {
   const BAR_HEIGHT = stacked ? 40 : 12;
   const BAR_PADDING = 0.1;
@@ -236,6 +237,9 @@ function getSpec(
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     background: "white",
+    description: `Comparison Bar Chart ${
+      filename ? `showing ${filename}` : ""
+    }`,
     padding: 5,
     autosize: { resize: true, type: "fit-x" },
     width: width - WIDTH_PADDING_FOR_SNOWMAN_MENU,
@@ -439,45 +443,38 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     (LABEL_SWAP_CUTOFF_PERCENT / 100);
 
   return (
-    <>
-      {/* Visual Chart comparing population total to share of condition, per demographic group */}
-      <div ref={ref} aria-hidden="true">
-        <Vega
-          // custom 3-dot options for states, hidden on territories
-          actions={{
-            export: { png: true, svg: true },
-            source: false,
-            compiled: false,
-            editor: false,
-          }}
-          downloadFileName={`${props.filename} - Health Equity Tracker`}
-          spec={getSpec(
-            data,
-            width,
-            props.breakdownVar,
-            BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
-            props.lightMetric.metricId,
-            props.lightMetric.shortVegaLabel,
-            props.darkMetric.metricId,
-            props.darkMetric.shortVegaLabel,
-            props.metricDisplayName,
-            lightMetricDisplayColumnName,
-            darkMetricDisplayColumnName,
-            barLabelBreakpoint,
-            pageIsTiny,
-            props.stacked,
-            hasAltPop ? altLightMetric.metricId : "",
-            hasAltPop ? altLightMetric.shortVegaLabel : "",
-            hasAltPop ? altLightMetricDisplayColumnName : "",
-            hasAltPop
-          )}
-        />
-      </div>
-
-      {/* alt-text */}
-      <span className={styles.srOnly}>
-        Comparison bar chart showing {props.filename}
-      </span>
-    </>
+    <div ref={ref}>
+      <Vega
+        // custom 3-dot options for states, hidden on territories
+        actions={{
+          export: { png: true, svg: true },
+          source: false,
+          compiled: false,
+          editor: false,
+        }}
+        downloadFileName={`${props.filename} - Health Equity Tracker`}
+        spec={getSpec(
+          data,
+          width,
+          props.breakdownVar,
+          BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
+          props.lightMetric.metricId,
+          props.lightMetric.shortVegaLabel,
+          props.darkMetric.metricId,
+          props.darkMetric.shortVegaLabel,
+          props.metricDisplayName,
+          lightMetricDisplayColumnName,
+          darkMetricDisplayColumnName,
+          barLabelBreakpoint,
+          pageIsTiny,
+          props.stacked,
+          hasAltPop ? altLightMetric.metricId : "",
+          hasAltPop ? altLightMetric.shortVegaLabel : "",
+          hasAltPop ? altLightMetricDisplayColumnName : "",
+          hasAltPop,
+          `Bar Chart ${props.filename ? `showing ${props.filename}` : ""}`
+        )}
+      />
+    </div>
   );
 }

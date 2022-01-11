@@ -22,7 +22,6 @@ import styles from "./Chart.module.scss";
 
 export type ScaleType = "quantize" | "quantile" | "symlog";
 
-// import SASS variables for use in React / Vega
 const {
   unknownGrey: UNKNOWN_GREY,
   redOrange: RED_ORANGE,
@@ -351,7 +350,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
       background: "white",
-      description: props.legendTitle,
+      description: `Map showing ${props.filename}`,
       data: [
         {
           name: MISSING_PLACEHOLDER_VALUES,
@@ -446,39 +445,30 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   ]);
 
   return (
-    <>
-      {/* Visual map */}
-      <div
-        aria-hidden="true"
-        ref={ref}
-        style={{
-          width: "95%",
-          margin: "auto",
-        }}
-      >
-        {shouldRenderMap && (
-          <Vega
-            spec={spec}
-            width={width}
-            // custom 3-dot options for states, hidden on territories
-            actions={
-              !props.hideActions && {
-                export: { png: true, svg: true },
-                source: false,
-                compiled: false,
-                editor: false,
-              }
+    <div
+      ref={ref}
+      style={{
+        width: "95%",
+        margin: "auto",
+      }}
+    >
+      {shouldRenderMap && (
+        <Vega
+          spec={spec}
+          width={width}
+          // custom 3-dot options for states, hidden on territories
+          actions={
+            !props.hideActions && {
+              export: { png: true, svg: true },
+              source: false,
+              compiled: false,
+              editor: false,
             }
-            downloadFileName={`${props.filename} - Health Equity Tracker`}
-            signalListeners={props.signalListeners}
-          />
-        )}
-      </div>
-
-      {/* alt-text */}
-      {!props.overrideShapeWithCircle && (
-        <span className={styles.srOnly}>Map showing {props.filename}</span>
+          }
+          downloadFileName={`${props.filename} - Health Equity Tracker`}
+          signalListeners={props.signalListeners}
+        />
       )}
-    </>
+    </div>
   );
 }

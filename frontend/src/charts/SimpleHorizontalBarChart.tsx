@@ -40,7 +40,8 @@ function getSpec(
   showLegend: boolean,
   barLabelBreakpoint: number,
   pageIsTiny: boolean,
-  usePercentSuffix: boolean
+  usePercentSuffix: boolean,
+  filename: string
 ): any {
   const MEASURE_COLOR = sass.altGreen;
   const BAR_HEIGHT = 60;
@@ -67,6 +68,7 @@ function getSpec(
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     background: "white",
+    description: filename,
     padding: 5,
     autosize: { resize: true, type: "fit-x" },
     width: width - WIDTH_PADDING_FOR_SNOWMAN_MENU,
@@ -258,41 +260,36 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     (LABEL_SWAP_CUTOFF_PERCENT / 100);
 
   return (
-    <>
-      {/* Visual chart */}
-      <div aria-hidden="true" ref={ref}>
-        <Vega
-          downloadFileName={`${props.filename} - Health Equity Tracker`}
-          spec={getSpec(
-            data,
-            width,
-            props.breakdownVar,
-            BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
-            props.metric.metricId,
-            props.metric.shortVegaLabel,
-            barMetricDisplayColumnName,
-            tooltipMetricDisplayColumnName,
-            props.showLegend,
-            barLabelBreakpoint,
-            pageIsTiny,
-            props.usePercentSuffix || false
-          )}
-          // custom 3-dot options for states, hidden on territories
-          actions={
-            props.hideActions
-              ? false
-              : {
-                  export: { png: true, svg: true },
-                  source: false,
-                  compiled: false,
-                  editor: false,
-                }
-          }
-        />
-      </div>
-
-      {/* alt-text */}
-      <span className={styles.srOnly}>Bar chart showing {props.filename}</span>
-    </>
+    <div ref={ref}>
+      <Vega
+        downloadFileName={`${props.filename} - Health Equity Tracker`}
+        spec={getSpec(
+          data,
+          width,
+          props.breakdownVar,
+          BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
+          props.metric.metricId,
+          props.metric.shortVegaLabel,
+          barMetricDisplayColumnName,
+          tooltipMetricDisplayColumnName,
+          props.showLegend,
+          barLabelBreakpoint,
+          pageIsTiny,
+          props.usePercentSuffix || false,
+          `Bar Chart ${props.filename ? `showing ${props.filename}` : ""}`
+        )}
+        // custom 3-dot options for states, hidden on territories
+        actions={
+          props.hideActions
+            ? false
+            : {
+                export: { png: true, svg: true },
+                source: false,
+                compiled: false,
+                editor: false,
+              }
+        }
+      />
+    </div>
   );
 }
