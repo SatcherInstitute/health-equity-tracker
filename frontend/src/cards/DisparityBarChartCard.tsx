@@ -24,21 +24,10 @@ import {
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import UnknownsAlert from "./ui/UnknownsAlert";
+import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 719;
-
-export function showAltPopCompare(props: {
-  fips: { isState: () => any };
-  breakdownVar: string;
-  variableConfig: { variableId: string };
-}) {
-  return (
-    props.fips.isState() &&
-    props.breakdownVar === RACE &&
-    props.variableConfig.variableId === VAXX
-  );
-}
 
 export interface DisparityBarChartCardProps {
   key?: string;
@@ -160,7 +149,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   breakdownVar={props.breakdownVar}
                   metricDisplayName={metricConfig.shortVegaLabel}
                   filename={getTitleText()}
-                  showAltPopCompare={showAltPopCompare(props)}
+                  showAltPopCompare={shouldShowAltPopCompare(props)}
                 />
               </CardContent>
             )}

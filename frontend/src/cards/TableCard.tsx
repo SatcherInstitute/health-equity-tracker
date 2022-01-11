@@ -30,8 +30,8 @@ import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import { ALL } from "../data/utils/Constants";
-import { showAltPopCompare } from "./DisparityBarChartCard";
 import { urlMap } from "../utils/externalUrls";
+import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 698;
@@ -103,7 +103,7 @@ export function TableCard(props: TableCardProps) {
             row[props.breakdownVar] !== UNKNOWN_ETHNICITY
         );
 
-        if (showAltPopCompare(props)) {
+        if (shouldShowAltPopCompare(props)) {
           // This should only happen in the vaccine kff state case
           dataWithoutUnknowns = dataWithoutUnknowns.map((item) => {
             const {

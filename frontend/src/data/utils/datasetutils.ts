@@ -1,5 +1,7 @@
 import { IDataFrame } from "data-forge";
-import { MetricId } from "../config/MetricConfig";
+import { MetricId, VariableId, VAXX } from "../config/MetricConfig";
+import { BreakdownVar } from "../query/Breakdowns";
+import { RACE } from "./Constants";
 import { Row } from "./DatasetTypes";
 
 /**
@@ -162,3 +164,20 @@ export const getHighestN = (
     .sort((rowA: Row, rowB: Row) => rowB[fieldName] - rowA[fieldName])
     .slice(0, listSize);
 };
+
+/*
+Analyzes state and determines if the 2nd population source should be used
+*/
+export interface ShouldShowAltPopCompareI {
+  fips: { isState: () => boolean };
+  breakdownVar: BreakdownVar;
+  variableConfig: { variableId: VariableId };
+}
+
+export function shouldShowAltPopCompare(fromProps: ShouldShowAltPopCompareI) {
+  return (
+    fromProps.fips.isState() &&
+    fromProps.breakdownVar === RACE &&
+    fromProps.variableConfig.variableId === VAXX
+  );
+}
