@@ -2,7 +2,7 @@ import { IDataFrame, ISeries } from "data-forge";
 import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { ALL, HISPANIC, WHITE_NH } from "../utils/Constants";
+import { ALL, HISPANIC, RACE, WHITE_NH } from "../utils/Constants";
 import { USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 
@@ -65,7 +65,7 @@ class AcsPovertyProvider extends VariableProvider {
     df = df.where(
       (row) =>
         //We remove these races because they are subsets
-        row["race_and_ethnicity"] !== WHITE_NH
+        row[RACE] !== WHITE_NH
     );
 
     // Calculate totals where dataset doesn't provide it
@@ -74,7 +74,7 @@ class AcsPovertyProvider extends VariableProvider {
       .where(
         (row) =>
           //We remove these races because they are subsets
-          row["race_and_ethnicity"] !== HISPANIC
+          row[RACE] !== HISPANIC
       )
       .pivot(["fips", "fips_name"], {
         above_poverty_line: (series: ISeries) => series.sum(),
@@ -121,7 +121,7 @@ class AcsPovertyProvider extends VariableProvider {
   }
 
   aggregateByBreakdown(df: IDataFrame, breakdownCol: string) {
-    let breakdown_cols = ["race_and_ethnicity", "age", "sex"];
+    let breakdown_cols = [RACE, "age", "sex"];
 
     //Get all columns minus the breakdown cols and the summation cols.
     let default_cols = df

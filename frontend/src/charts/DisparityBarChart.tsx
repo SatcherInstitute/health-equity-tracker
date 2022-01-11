@@ -374,12 +374,8 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     dataFromProps = props.data.map((item) => {
       if (
         // some states send (Non-Hispanic)
-        item["race_and_ethnicity"].includes(
-          "American Indian and Alaska Native"
-        ) ||
-        item["race_and_ethnicity"].includes(
-          "Native Hawaiian and Pacific Islander"
-        )
+        item[RACE].includes("American Indian and Alaska Native") ||
+        item[RACE].includes("Native Hawaiian and Pacific Islander")
       ) {
         hasAltPop = true;
         // remove KFF value

@@ -179,9 +179,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               breakdownVar={props.currentBreakdown}
               displayType="map"
               known={false}
-              overrideAndWithOr={
-                props.currentBreakdown === "race_and_ethnicity"
-              }
+              overrideAndWithOr={props.currentBreakdown === RACE}
               raceEthDiffMap={
                 mapQueryResponse
                   .getValidRowsForField(props.currentBreakdown)

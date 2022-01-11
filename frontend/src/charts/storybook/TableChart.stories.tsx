@@ -33,5 +33,5 @@ ShareOfCovidAndPopulation.args = {
     METRIC_CONFIG["covid"][0].metrics["pct_share"],
     POPULATION_VARIABLE_CONFIG.metrics.pct_share,
   ],
-  breakdownVar: "race_and_ethnicity",
+  breakdownVar: RACE,
 };

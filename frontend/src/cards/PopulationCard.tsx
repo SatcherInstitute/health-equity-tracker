@@ -20,7 +20,7 @@ import {
   POPULATION_VARIABLE_CONFIG,
   POPULATION_VARIABLE_CONFIG_2010,
 } from "../data/config/MetricConfig";
-import { ALL } from "../data/utils/Constants";
+import { ALL, RACE } from "../data/utils/Constants";
 import {
   onlyIncludeDecadeAgeBrackets,
   onlyIncludeStandardRaces,
@@ -168,7 +168,7 @@ export function PopulationCard(props: PopulationCardProps) {
                     </Alert>
                     <Grid container justify="space-between">
                       {raceQueryResponse
-                        .getValidRowsForField("race_and_ethnicity")
+                        .getValidRowsForField(RACE)
                         .filter((r) => r.race_and_ethnicity !== ALL)
                         .sort((a, b) => {
                           return b.race_and_ethnicity - a.race_and_ethnicity;
@@ -205,7 +205,7 @@ export function PopulationCard(props: PopulationCardProps) {
                           (r) => r.race_and_ethnicity !== ALL
                         )}
                         metric={POP_CONFIG.metrics.pct_share}
-                        breakdownVar="race_and_ethnicity"
+                        breakdownVar={RACE}
                         showLegend={false}
                         usePercentSuffix={true}
                         filename={`${POPULATION_BY_RACE} in ${props.fips.getFullDisplayName()}`}

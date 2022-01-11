@@ -53,9 +53,7 @@ export function TableCard(props: TableCardProps) {
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
-    props.breakdownVar === "race_and_ethnicity"
-      ? exclude(NON_HISPANIC, ALL)
-      : exclude(ALL)
+    props.breakdownVar === RACE ? exclude(NON_HISPANIC, ALL) : exclude(ALL)
   );
 
   let metricConfigs: Record<string, MetricConfig> = {};

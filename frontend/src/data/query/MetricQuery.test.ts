@@ -53,17 +53,15 @@ describe("MetricQueryResponse", () => {
       min: 2,
       max: 12,
     });
-    expect(
-      metricQueryResponse.getFieldRange("race_and_ethnicity" as MetricId)
-    ).toEqual(undefined);
+    expect(metricQueryResponse.getFieldRange(RACE as MetricId)).toEqual(
+      undefined
+    );
   });
 
   test("getUniqueFieldValues()", async () => {
     const targetMetric = "covid_cases";
 
-    expect(
-      metricQueryResponse.getFieldValues("race_and_ethnicity", targetMetric)
-    ).toEqual({
+    expect(metricQueryResponse.getFieldValues(RACE, targetMetric)).toEqual({
       noData: ["Asian (Non-Hispanic)"],
       withData: ["White", "White (Non-Hispanic)", "Asian"],
     });

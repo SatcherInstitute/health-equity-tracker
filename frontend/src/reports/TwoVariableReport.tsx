@@ -35,7 +35,7 @@ function TwoVariableReport(props: {
   jumpToData: Function;
 }) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
-    getParameter(DEMOGRAPHIC_PARAM, "race_and_ethnicity")
+    getParameter(DEMOGRAPHIC_PARAM, RACE)
   );
 
   const [variableConfig1, setVariableConfig1] = useState<VariableConfig | null>(
@@ -85,10 +85,7 @@ function TwoVariableReport(props: {
         }
       );
 
-      const demo: BreakdownVar = getParameter(
-        DEMOGRAPHIC_PARAM,
-        "race_and_ethnicity"
-      );
+      const demo: BreakdownVar = getParameter(DEMOGRAPHIC_PARAM, RACE);
       setVariableConfig1(
         demoParam1 ? demoParam1 : METRIC_CONFIG[props.dropdownVarId1][0]
       );
@@ -274,7 +271,7 @@ function TwoVariableReport(props: {
           updateFips: (fips: Fips) => void
         ) => (
           <UnknownsMapCard
-            overrideAndWithOr={currentBreakdown === "race_and_ethnicity"}
+            overrideAndWithOr={currentBreakdown === RACE}
             variableConfig={variableConfig}
             fips={fips}
             updateFipsCallback={(fips: Fips) => {

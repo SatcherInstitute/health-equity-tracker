@@ -25,6 +25,7 @@ import {
   UNKNOWN_RACE,
   UNKNOWN_ETHNICITY,
   DemographicGroup,
+  RACE,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import { getHighestN, getLowestN } from "../data/utils/datasetutils";
@@ -91,7 +92,7 @@ function MapCardWithKey(props: MapCardProps) {
         .copy()
         .addBreakdown(
           props.currentBreakdown,
-          props.currentBreakdown === "race_and_ethnicity"
+          props.currentBreakdown === RACE
             ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE, UNKNOWN_ETHNICITY)
             : exclude(UNKNOWN)
         )

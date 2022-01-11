@@ -31,7 +31,7 @@ CovidByRace.args = {
   key: "testkey",
   fips: new Fips(USA_FIPS),
   variableConfig: METRIC_CONFIG["covid"][0],
-  breakdownVar: "race_and_ethnicity",
+  breakdownVar: RACE,
 };
 
 export const CopdByRace = Template.bind({});
@@ -39,5 +39,5 @@ CopdByRace.args = {
   key: "testkey",
   fips: new Fips(USA_FIPS),
   variableConfig: METRIC_CONFIG["copd"][0],
-  breakdownVar: "race_and_ethnicity",
+  breakdownVar: RACE,
 };

@@ -31,11 +31,11 @@ const Template: Story<UnknownsMapCardProps> = (args) => (
 export const CovidPercentShareMap = Template.bind({});
 CovidPercentShareMap.args = {
   variableConfig: METRIC_CONFIG["covid"][0],
-  currentBreakdown: "race_and_ethnicity",
+  currentBreakdown: RACE,
 };
 
 export const VaccinePercentShareMap = Template.bind({});
 VaccinePercentShareMap.args = {
   variableConfig: METRIC_CONFIG["vaccinations"][0],
-  currentBreakdown: "race_and_ethnicity",
+  currentBreakdown: RACE,
 };

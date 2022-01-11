@@ -35,7 +35,7 @@ export interface VariableDisparityReportProps {
 
 export function VariableDisparityReport(props: VariableDisparityReportProps) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
-    getParameter(DEMOGRAPHIC_PARAM, "race_and_ethnicity")
+    getParameter(DEMOGRAPHIC_PARAM, RACE)
   );
 
   const [variableConfig, setVariableConfig] = useState<VariableConfig | null>(
@@ -72,10 +72,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
         demoParam1 ? demoParam1 : METRIC_CONFIG[props.dropdownVarId][0]
       );
 
-      const demo: BreakdownVar = getParameter(
-        DEMOGRAPHIC_PARAM,
-        "race_and_ethnicity"
-      );
+      const demo: BreakdownVar = getParameter(DEMOGRAPHIC_PARAM, RACE);
       setCurrentBreakdown(demo);
     };
     const psHandler = psSubscribe(readParams, "vardisp");
@@ -160,7 +157,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH}>
             {variableConfig.metrics["pct_share"] && (
               <UnknownsMapCard
-                overrideAndWithOr={currentBreakdown === "race_and_ethnicity"}
+                overrideAndWithOr={currentBreakdown === RACE}
                 variableConfig={variableConfig}
                 fips={props.fips}
                 updateFipsCallback={(fips: Fips) => {

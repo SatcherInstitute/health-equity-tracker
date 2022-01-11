@@ -18,6 +18,7 @@ import {
   MALE,
   UNKNOWN,
   AgeBucket,
+  RACE,
 } from "../utils/Constants";
 import { MetricId } from "../config/MetricConfig";
 import { excludeAll } from "../query/BreakdownFilter";
@@ -169,7 +170,7 @@ describe("cdcCovidProvider", () => {
       ["acs_population-by_race_county_std"],
       [],
       Breakdowns.forFips(new Fips(CHATAM.code)),
-      "race_and_ethnicity",
+      RACE,
       [CHATAM_WHITE_FINAL_ROW],
       [CHATAM_ALL_FINAL_ROW, CHATAM_WHITE_FINAL_ROW]
     );
