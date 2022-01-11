@@ -1,4 +1,5 @@
 import { DataFrame, IDataFrame } from "data-forge";
+import { RACE } from "./Constants";
 import { DatasetCalculator } from "./DatasetCalculator";
 
 describe("Dataset Calculator", () => {

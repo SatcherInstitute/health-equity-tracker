@@ -1,5 +1,6 @@
 import { MetricId } from "../config/MetricConfig";
 import { MetricQueryResponse } from "../query/MetricQuery";
+import { RACE } from "../utils/Constants";
 
 let metricQueryResponse: MetricQueryResponse;
 
