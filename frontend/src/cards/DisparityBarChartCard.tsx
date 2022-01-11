@@ -9,7 +9,11 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { VariableConfig, METRIC_CONFIG } from "../data/config/MetricConfig";
+import {
+  VariableConfig,
+  METRIC_CONFIG,
+  VAXX,
+} from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { exclude } from "../data/query/BreakdownFilter";
@@ -24,8 +28,6 @@ import {
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import UnknownsAlert from "./ui/UnknownsAlert";
-
-const VAXX = METRIC_CONFIG["vaccinations"][0].variableId;
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 719;

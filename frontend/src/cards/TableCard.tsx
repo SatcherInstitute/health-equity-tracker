@@ -15,6 +15,7 @@ import {
   MetricId,
   VariableConfig,
   getPer100kAndPctShareMetrics,
+  VAXX,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
@@ -129,8 +130,7 @@ export function TableCard(props: TableCardProps) {
                   }
                   geoLevel={props.fips.getFipsTypeDisplayName()}
                   noDemographicInfo={
-                    props.variableConfig.variableId ===
-                      METRIC_CONFIG["vaccinations"][0].variableId &&
+                    props.variableConfig.variableId === VAXX &&
                     props.fips.isCounty()
                   }
                 />

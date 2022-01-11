@@ -6,8 +6,13 @@ import { PopulationCard } from "../cards/PopulationCard";
 import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
 import { TableCard } from "../cards/TableCard";
 import { UnknownsMapCard } from "../cards/UnknownsMapCard";
-import { METRIC_CONFIG, VariableConfig } from "../data/config/MetricConfig";
+import {
+  METRIC_CONFIG,
+  VariableConfig,
+  VAXX,
+} from "../data/config/MetricConfig";
 import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
+import { RACE } from "../data/utils/Constants";
 import { Fips } from "../data/utils/Fips";
 import { DropdownVarId } from "../utils/MadLibs";
 import {
@@ -107,11 +112,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
       {variableConfig && (
         <Grid container spacing={1} justify="center">
           {/* DEMOGRAPHIC / DATA TYPE TOGGLE(S) */}
-          {!(
-            props.dropdownVarId ===
-              METRIC_CONFIG["vaccinations"][0].variableId &&
-            props.fips.isCounty()
-          ) && (
+          {!(props.dropdownVarId === VAXX && props.fips.isCounty()) && (
             <Grid item container xs={12} md={SINGLE_COLUMN_WIDTH}>
               <ReportToggleControls
                 dropdownVarId={props.dropdownVarId}

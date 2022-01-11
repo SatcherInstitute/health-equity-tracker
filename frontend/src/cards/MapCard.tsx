@@ -7,6 +7,7 @@ import {
   VariableConfig,
   formatFieldValue,
   METRIC_CONFIG,
+  VAXX,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
@@ -105,8 +106,7 @@ function MapCardWithKey(props: MapCardProps) {
 
   // hide demographic selectors / dropdowns / links to multimap if displaying VACCINATION at COUNTY level, as we don't have that data
   const hideDemographicUI =
-    props.variableConfig.variableId ===
-      METRIC_CONFIG["vaccinations"][0].variableId && props.fips.isCounty();
+    props.variableConfig.variableId === VAXX && props.fips.isCounty();
 
   return (
     <CardWrapper
@@ -178,8 +178,7 @@ function MapCardWithKey(props: MapCardProps) {
                 )}
               </b>{" "}
               {/*} cases per 100k   NOTE: vaccinations term gets hyperlinked to definitions on bottom of page*/}
-              {props.variableConfig.variableId ===
-              METRIC_CONFIG["vaccinations"][0].variableId ? (
+              {props.variableConfig.variableId === VAXX ? (
                 <span
                   role="button"
                   onClick={() => {

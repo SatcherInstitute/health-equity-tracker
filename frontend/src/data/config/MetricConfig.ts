@@ -10,6 +10,9 @@ export type VariableId =
   | "poverty"
   | "vaccinations";
 
+// consts for simpler code
+export const VAXX: VariableId = "vaccinations";
+
 export type MetricId =
   | "acs_vaccine_population_pct"
   | "brfss_population_pct"

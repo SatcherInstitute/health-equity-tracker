@@ -4,6 +4,7 @@ import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 import { MapCard, MapCardProps } from "../MapCard";
 import { Fips, USA_FIPS } from "../../data/utils/Fips";
 import { StoryWrapper } from "../../storybook/StoryWrapper";
+import { RACE } from "../../data/utils/Constants";
 
 export default {
   title: "Cards/MapCard",

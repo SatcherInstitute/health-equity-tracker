@@ -6,8 +6,13 @@ import { PopulationCard } from "../cards/PopulationCard";
 import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
 import { TableCard } from "../cards/TableCard";
 import { UnknownsMapCard } from "../cards/UnknownsMapCard";
-import { METRIC_CONFIG, VariableConfig } from "../data/config/MetricConfig";
+import {
+  METRIC_CONFIG,
+  VariableConfig,
+  VAXX,
+} from "../data/config/MetricConfig";
 import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
+import { RACE } from "../data/utils/Constants";
 import { Fips } from "../data/utils/Fips";
 import { DropdownVarId } from "../utils/MadLibs";
 import {
@@ -132,11 +137,7 @@ function TwoVariableReport(props: {
 
             {/* 2 SETS OF DEMOGRAPHIC AND DATA TYPE TOGGLES */}
             <Grid container>
-              {!(
-                props.dropdownVarId1 ===
-                  METRIC_CONFIG["vaccinations"][0].variableId &&
-                props.fips1.isCounty()
-              ) && (
+              {!(props.dropdownVarId1 === VAXX && props.fips1.isCounty()) && (
                 <Grid item xs={12} sm={6}>
                   <ReportToggleControls
                     dropdownVarId={props.dropdownVarId1}
@@ -147,11 +148,7 @@ function TwoVariableReport(props: {
                   />
                 </Grid>
               )}
-              {!(
-                props.dropdownVarId2 ===
-                  METRIC_CONFIG["vaccinations"][0].variableId &&
-                props.fips2.isCounty()
-              ) && (
+              {!(props.dropdownVarId2 === VAXX && props.fips2.isCounty()) && (
                 <Grid item xs={12} sm={6}>
                   <ReportToggleControls
                     dropdownVarId={props.dropdownVarId2}
@@ -170,11 +167,7 @@ function TwoVariableReport(props: {
           <Grid item xs={12} sm={6}>
             {/* FIRST POPULATION CARD FOR COMPARE RATES REPORT */}
             <PopulationCard jumpToData={props.jumpToData} fips={props.fips1} />
-            {!(
-              props.dropdownVarId1 ===
-                METRIC_CONFIG["vaccinations"][0].variableId &&
-              props.fips1.isCounty()
-            ) && (
+            {!(props.dropdownVarId1 === VAXX && props.fips1.isCounty()) && (
               /* FIRST TOGGLE(S) FOR COMPARE RATES REPORT */
               <ReportToggleControls
                 dropdownVarId={props.dropdownVarId1}
@@ -188,11 +181,7 @@ function TwoVariableReport(props: {
           <Grid item xs={12} sm={6}>
             {/* SECOND POPULATION CARD FOR COMPARE RATES REPORT */}
             <PopulationCard jumpToData={props.jumpToData} fips={props.fips2} />
-            {!(
-              props.dropdownVarId2 ===
-                METRIC_CONFIG["vaccinations"][0].variableId &&
-              props.fips2.isCounty()
-            ) && (
+            {!(props.dropdownVarId2 === VAXX && props.fips2.isCounty()) && (
               /* SECOND TOGGLE(S) FOR COMPARE RATES REPORT */
               <ReportToggleControls
                 dropdownVarId={props.dropdownVarId2}
