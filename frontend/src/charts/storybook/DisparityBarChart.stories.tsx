@@ -9,6 +9,7 @@ import {
   DisparityBarChartProps,
 } from "../DisparityBarChart";
 import { StoryWrapper } from "../../storybook/StoryWrapper";
+import { RACE } from "../../data/utils/Constants";
 
 export default {
   title: "Charts/DisparityBarChart",

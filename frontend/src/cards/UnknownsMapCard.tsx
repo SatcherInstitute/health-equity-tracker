@@ -18,6 +18,7 @@ import {
   UNKNOWN_RACE,
   UNKNOWN_ETHNICITY,
   ALL,
+  RACE,
 } from "../data/utils/Constants";
 import styles from "./Card.module.scss";
 import Divider from "@material-ui/core/Divider";

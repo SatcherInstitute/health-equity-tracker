@@ -6,6 +6,7 @@ import {
   SimpleHorizontalBarChartProps,
 } from "../SimpleHorizontalBarChart";
 import { StoryWrapper } from "../../storybook/StoryWrapper";
+import { RACE } from "../../data/utils/Constants";
 
 export default {
   title: "Charts/SimpleHorizontalBarChart",
