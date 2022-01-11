@@ -307,7 +307,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         encode: {
           enter: encodeEnter,
           update: { fill: fillColor },
-          hover: { fill: { value: hoverColor } },
+          hover: {
+            fill: { value: hoverColor },
+            cursor: { value: "pointer" },
+          },
         },
       };
       if (!props.overrideShapeWithCircle) {
@@ -356,7 +359,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
       background: "white",
-      description: altText,
+      description: props.overrideShapeWithCircle
+        ? `Territory: ${props.fips.getDisplayName()}`
+        : altText,
       data: [
         {
           name: MISSING_PLACEHOLDER_VALUES,
