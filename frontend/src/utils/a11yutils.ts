@@ -1,20 +1,24 @@
-/* srSpeak(text)
-  text: the ALERT message to be read aloud by screen reader
-  */
-
-export function srSpeak(text: string) {
-  const tempElement = document.createElement("div");
+/*
+Temporarily creates a hidden HTML element with role="alert"
+causing screen readers to announce an important update
+*/
+export function srSpeak(message: string) {
+  const temp = document.createElement("div");
+  // unique ID
   const id = "speak-" + Date.now();
-  tempElement.setAttribute("id", id);
-  tempElement.setAttribute("role", "alert");
-  tempElement.classList.add("srOnly");
-  document.body.appendChild(tempElement);
+  temp.setAttribute("id", id);
+  temp.setAttribute("role", "alert");
+  // hide from browsers
+  temp.classList.add("srOnly");
+  document.body.appendChild(temp);
 
+  // render
   window.setTimeout(function () {
-    tempElement.innerHTML = text;
+    temp.innerHTML = message;
   }, 100);
 
+  // remove
   window.setTimeout(function () {
-    document.body.removeChild(tempElement);
+    document.body.removeChild(temp);
   }, 1000);
 }
