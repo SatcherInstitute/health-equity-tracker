@@ -16,7 +16,6 @@ import {
 } from "./utils";
 import sass from "../styles/variables.module.scss";
 import { useMediaQuery } from "@material-ui/core";
-import styles from "./Chart.module.scss";
 
 // determine where (out of 100) to flip labels inside/outside the bar
 const LABEL_SWAP_CUTOFF_PERCENT = 66;
