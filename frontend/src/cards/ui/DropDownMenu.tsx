@@ -12,16 +12,21 @@ import { useMediaQuery, useTheme } from "@material-ui/core";
 import { DemographicGroup } from "../../data/utils/Constants";
 import { BreakdownVarDisplayName } from "../../data/query/Breakdowns";
 
-function MenuPopover(props: {
+interface MenuPopoverProps {
   popover: PopoverElements;
   // Map type indicates items are first level menu items, array indicates second level
   items:
     | Record<BreakdownVarDisplayName, DemographicGroup[]>
     | DemographicGroup[];
-  onClick: (event: React.MouseEvent<HTMLElement>, value: string) => void;
+  onClick: (
+    event: React.MouseEvent<HTMLElement>,
+    value: DemographicGroup
+  ) => void;
   // Optional additional actions to do when the popover is closed
   onClose?: () => void;
-}): JSX.Element {
+}
+
+function MenuPopover(props: MenuPopoverProps): JSX.Element {
   // calculate page size for responsive layout
   const theme = useTheme();
   const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
@@ -42,7 +47,7 @@ function MenuPopover(props: {
   const renderListItem = (listItem: string) => {
     if (
       hasChildren &&
-      (props.items as Record<string, string[]>)[listItem].length === 0
+      (props.items as Record<string, DemographicGroup[]>)[listItem].length === 0
     ) {
       return (
         <ListItem key={listItem} button disabled>
