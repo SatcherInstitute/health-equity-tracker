@@ -8,8 +8,8 @@ import { Row } from "./DatasetTypes";
  * Reshapes the data frame by creating a new column for each value in
  * newColNames, and using the values from newColValues, grouping by
  * groupedByCol. For example, if you have a dataset with columns: "fips_name",
- * RACE, and "population", calling:
- *     reshapeRowsToCols(df, "population", RACE, "fips_name");
+ * "race_and_ethnicity", and "population", calling:
+ *     reshapeRowsToCols(df, "population", "race_and_ethnicity", "fips_name");
  * will convert this to a data frame with a "fips_name" column and a population
  * column for each race. You can optionally rename the columns using
  * colNameGenerator.
@@ -43,9 +43,9 @@ export function reshapeRowsToCols(
  * with a "fips_name" column and a population column for each race, calling:
  *     reshapeColsToRows(
  *         df, ["Black", "White", "Hispanic", ...], "population",
- *         RACE);
+ *         "race_and_ethnicity");
  * will convert it to a dataset with columns: "fips_name",
- * RACE, and "population"
+ * "race_and_ethnicity", and "population"
  * @param df
  * @param cols
  * @param newCol
