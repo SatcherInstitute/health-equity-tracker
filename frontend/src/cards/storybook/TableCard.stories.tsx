@@ -4,6 +4,7 @@ import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 import { TableCard, TableCardProps } from "../TableCard";
 import { Fips, USA_FIPS } from "../../data/utils/Fips";
 import { StoryWrapper } from "../../storybook/StoryWrapper";
+import { RACE } from "../../data/utils/Constants";
 
 export default {
   title: "Cards/TableCard",
