@@ -106,11 +106,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   const legendData = props.legendData || props.data;
 
   // Generate meaningful alt text
-  const altText = `Map showing ${props.filename}${
-    !props.fips.isCounty()
-      ? ` across ${props.fips.getPluralChildFipsTypeDisplayName()}`
-      : ""
-  }`;
+  const altText = props.overrideShapeWithCircle
+    ? `Territory: ${props.fips.getDisplayName()}`
+    : `Map showing ${props.filename}${
+        !props.fips.isCounty()
+          ? ` across ${props.fips.getPluralChildFipsTypeDisplayName()}`
+          : ""
+      }`;
 
   useEffect(() => {
     const geoData = props.geoData
@@ -359,9 +361,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
       background: "white",
-      description: props.overrideShapeWithCircle
-        ? `Territory: ${props.fips.getDisplayName()}`
-        : altText,
+      description: altText,
       data: [
         {
           name: MISSING_PLACEHOLDER_VALUES,
