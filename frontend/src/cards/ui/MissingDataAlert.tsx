@@ -4,13 +4,19 @@ import {
   LinkWithStickyParams,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "../../utils/urlutils";
+import {
+  BreakdownVarDisplayName,
+  GeographicBreakdown,
+} from "../../data/query/Breakdowns";
 
-function MissingDataAlert(props: {
+interface MissingDataAlertProps {
   dataName: string;
-  breakdownString: string;
-  geoLevel: string;
+  breakdownString: BreakdownVarDisplayName;
+  geoLevel: GeographicBreakdown | "";
   noDemographicInfo?: boolean;
-}) {
+}
+
+function MissingDataAlert(props: MissingDataAlertProps) {
   // conditionally render the statement based on props
   const demoPhrase = props.noDemographicInfo
     ? " demographic information for "
