@@ -9,11 +9,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import {
-  VariableConfig,
-  METRIC_CONFIG,
-  VAXX,
-} from "../data/config/MetricConfig";
+import { VariableConfig, VAXX } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { exclude } from "../data/query/BreakdownFilter";

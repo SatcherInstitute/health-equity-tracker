@@ -6,6 +6,7 @@ import {
 } from "../../data/config/MetricConfig";
 import { TableChart, TableChartProps } from "../TableChart";
 import { StoryWrapper } from "../../storybook/StoryWrapper";
+import { RACE } from "../../data/utils/Constants";
 
 export default {
   title: "Charts/TableChart",
