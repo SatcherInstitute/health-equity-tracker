@@ -27,6 +27,7 @@ const MULTI_LINE_100K = "+' per 100k'";
 const SINGLE_LINE_PERCENT = "+'%'";
 
 function getSpec(
+  altText: string,
   data: Record<string, any>[],
   width: number,
   breakdownVar: string,
@@ -40,8 +41,7 @@ function getSpec(
   showLegend: boolean,
   barLabelBreakpoint: number,
   pageIsTiny: boolean,
-  usePercentSuffix: boolean,
-  filename: string
+  usePercentSuffix: boolean
 ): any {
   const MEASURE_COLOR = sass.altGreen;
   const BAR_HEIGHT = 60;
@@ -68,7 +68,7 @@ function getSpec(
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     background: "white",
-    description: filename,
+    description: altText,
     padding: 5,
     autosize: { resize: true, type: "fit-x" },
     width: width - WIDTH_PADDING_FOR_SNOWMAN_MENU,
@@ -264,6 +264,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
       <Vega
         downloadFileName={`${props.filename} - Health Equity Tracker`}
         spec={getSpec(
+          /* altText: string */ `Bar Chart showing ${props.filename}`,
           data,
           width,
           props.breakdownVar,
@@ -275,8 +276,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           props.showLegend,
           barLabelBreakpoint,
           pageIsTiny,
-          props.usePercentSuffix || false,
-          `Bar Chart ${props.filename ? `showing ${props.filename}` : ""}`
+          props.usePercentSuffix || false
         )}
         // custom 3-dot options for states, hidden on territories
         actions={

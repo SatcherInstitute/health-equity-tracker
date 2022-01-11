@@ -106,6 +106,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   // Dataset to use for computing the legend
   const legendData = props.legendData || props.data;
 
+  // Generate meaningful alt text
+  const altText = `Map showing ${props.filename}${
+    !props.fips.isCounty()
+      ? ` across ${props.fips.getPluralChildFipsTypeDisplayName()}`
+      : ""
+  }`;
+
   useEffect(() => {
     const geoData = props.geoData
       ? { values: props.geoData }
@@ -350,7 +357,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
       background: "white",
-      description: `Map showing ${props.filename}`,
+      description: altText,
       data: [
         {
           name: MISSING_PLACEHOLDER_VALUES,
@@ -420,29 +427,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     setTimeout(() => {
       setShouldRenderMap(true);
     }, 0);
-  }, [
-    width,
-    props.metric,
-    props.legendTitle,
-    props.data,
-    props.fips,
-    props.hideLegend,
-    props.showCounties,
-    props.fieldRange,
-    props.scaleType,
-    props.scaleColorScheme,
-    props.useSmallSampleMessage,
-    props.hideMissingDataTooltip,
-    props.overrideShapeWithCircle,
-    props.geoData,
-    LEGEND_WIDTH,
-    legendData,
-    props.isUnknownsMap,
-    yOffsetNoDataLegend,
-    xOffsetNoDataLegend,
-    props,
-    heightWidthRatio,
-  ]);
+  }, [width, props.metric, props.legendTitle, props.data, props.fips, props.hideLegend, props.showCounties, props.fieldRange, props.scaleType, props.scaleColorScheme, props.useSmallSampleMessage, props.hideMissingDataTooltip, props.overrideShapeWithCircle, props.geoData, LEGEND_WIDTH, legendData, props.isUnknownsMap, yOffsetNoDataLegend, xOffsetNoDataLegend, props, heightWidthRatio, altText]);
 
   return (
     <div

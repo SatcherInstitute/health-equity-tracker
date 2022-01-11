@@ -22,6 +22,7 @@ import styles from "./Chart.module.scss";
 const LABEL_SWAP_CUTOFF_PERCENT = 66; // bar labels will be outside if below this %, or inside bar if above
 
 function getSpec(
+  altText: string,
   data: Record<string, any>[],
   width: number,
   breakdownVar: string,
@@ -43,8 +44,7 @@ function getSpec(
   altLightMeasure?: string,
   altLightMeasureDisplayName?: string,
   altLightMetricDisplayColumnName?: string,
-  hasAltPop?: boolean,
-  filename?: string
+  hasAltPop?: boolean
 ): any {
   const BAR_HEIGHT = stacked ? 40 : 12;
   const BAR_PADDING = 0.1;
@@ -237,9 +237,7 @@ function getSpec(
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     background: "white",
-    description: `Comparison Bar Chart ${
-      filename ? `showing ${filename}` : ""
-    }`,
+    description: altText,
     padding: 5,
     autosize: { resize: true, type: "fit-x" },
     width: width - WIDTH_PADDING_FOR_SNOWMAN_MENU,
@@ -353,10 +351,11 @@ export interface DisparityBarChartProps {
   darkMetric: MetricConfig;
   breakdownVar: BreakdownVar;
   metricDisplayName: string;
+  filename: string;
+  // Note: STACKED currently not used
   // Stacked will render one dark bar on top of a lighter bar
   // Not stacked will show two equally sized bars side by side
   stacked?: boolean;
-  filename?: string;
   showAltPopCompare?: boolean;
 }
 
@@ -454,6 +453,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
         }}
         downloadFileName={`${props.filename} - Health Equity Tracker`}
         spec={getSpec(
+          `Comparison bar chart showing ${props.filename}`,
           data,
           width,
           props.breakdownVar,
@@ -471,8 +471,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           hasAltPop ? altLightMetric.metricId : "",
           hasAltPop ? altLightMetric.shortVegaLabel : "",
           hasAltPop ? altLightMetricDisplayColumnName : "",
-          hasAltPop,
-          props.filename
+          hasAltPop
         )}
       />
     </div>
