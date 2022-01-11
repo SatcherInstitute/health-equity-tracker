@@ -38,8 +38,6 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
     !!METRIC_CONFIG[props.dropdownVarId] &&
     METRIC_CONFIG[props.dropdownVarId].length > 1;
 
-  console.log(props);
-
   return (
     <Grid container>
       {enableMetricToggle && (
