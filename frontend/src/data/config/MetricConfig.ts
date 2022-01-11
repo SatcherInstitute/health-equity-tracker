@@ -1,3 +1,15 @@
+export type VariableId =
+  | "population"
+  | "population_2010"
+  | "cases"
+  | "deaths"
+  | "hospitalizations"
+  | "cases"
+  | "cases"
+  | "health_coverage"
+  | "poverty"
+  | "vaccinations";
+
 export type MetricId =
   | "acs_vaccine_population_pct"
   | "brfss_population_pct"
@@ -71,7 +83,7 @@ export type MetricConfig = {
 };
 
 export type VariableConfig = {
-  variableId: string; // TODO - strongly type key
+  variableId: VariableId;
   variableDisplayName: string;
   variableFullDisplayName: string;
   metrics: Record<string, MetricConfig>; // TODO - strongly type key

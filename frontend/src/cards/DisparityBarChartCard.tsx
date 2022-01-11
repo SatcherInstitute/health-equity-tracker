@@ -19,9 +19,13 @@ import {
   UNKNOWN,
   UNKNOWN_RACE,
   UNKNOWN_ETHNICITY,
+  RACE,
+  HISPANIC,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import UnknownsAlert from "./ui/UnknownsAlert";
+
+const VAXX = METRIC_CONFIG["vaccinations"][0].variableId;
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 719;
@@ -33,9 +37,8 @@ export function showAltPopCompare(props: {
 }) {
   return (
     props.fips.isState() &&
-    props.breakdownVar === "race_and_ethnicity" &&
-    props.variableConfig.variableId ===
-      METRIC_CONFIG["vaccinations"][0].variableId
+    props.breakdownVar === RACE &&
+    props.variableConfig.variableId === VAXX
   );
 }
 
@@ -109,11 +112,11 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
         // if race options include hispanic twice (eg "White" and "Hispanic" can both include Hispanic people)
         // also require at least some data to be available to avoid showing info on suppressed/undefined states
         const shouldShowDoesntAddUpMessage =
-          props.breakdownVar === "race_and_ethnicity" &&
+          props.breakdownVar === RACE &&
           queryResponse.data.every(
             (row) =>
               !row[props.breakdownVar].includes("(Non-Hispanic)") ||
-              row[props.breakdownVar] === "Hispanic or Latino"
+              row[props.breakdownVar] === HISPANIC
           ) &&
           queryResponse.data.some((row) => row[metricConfig.metricId]);
 
@@ -130,7 +133,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 breakdownVar={props.breakdownVar}
                 displayType="chart"
                 known={true}
-                overrideAndWithOr={props.breakdownVar === "race_and_ethnicity"}
+                overrideAndWithOr={props.breakdownVar === RACE}
                 fips={props.fips}
               />
             ) : (
@@ -142,8 +145,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   }
                   geoLevel={props.fips.getFipsTypeDisplayName()}
                   noDemographicInfo={
-                    props.variableConfig.variableId ===
-                      METRIC_CONFIG["vaccinations"][0].variableId &&
+                    props.variableConfig.variableId === VAXX &&
                     props.fips.isCounty()
                   }
                 />
