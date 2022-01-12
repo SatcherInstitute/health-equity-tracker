@@ -10,7 +10,7 @@ from datasources.census_pop_estimates import CensusPopEstimates
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "census_pop_estimates")
 
-GOLDEN_DATA = os.path.join(TEST_DIR, 'census_pop_estimates-race_ethnicity_state.csv')
+GOLDEN_DATA = os.path.join(TEST_DIR, 'census_pop_estimates-race_ethnicity_age_state.csv')
 
 
 def get_pop_estimates_as_df():

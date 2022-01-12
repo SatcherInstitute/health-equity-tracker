@@ -94,10 +94,7 @@ def generate_state_pop_data(df):
 
 
 def update_test_data():
-    df = pd.read_csv(BASE_POPULATION_URL, encoding="ISO-8859-1", dtype={'STATE': str, 'STNAME': str})
+    df = pd.read_csv('python/tests/data/census_pop_estimates/census_pop_estimates.csv', dtype={'STATE': str, 'STNAME': str})
     df = generate_state_pop_data(df)
 
-    df = df.loc[(df[std_col.STATE_NAME_COL].isin({'Alabama', 'Wyoming'})) &
-                (df[std_col.RACE_CATEGORY_ID_COL].isin({'WHITE_NH', 'BLACK_NH', 'HISP'}))]
-
-    df.to_csv('python/tests/data/age_adjustment/census_pop_estimates.csv', index=False)
+    df.to_csv('python/tests/data/census_pop_estimates/census_pop_estimates-race_ethnicity_age_state.csv', index=False)
