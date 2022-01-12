@@ -138,7 +138,7 @@ export abstract class ResourceCache<K, R> {
 
   protected abstract getResourceSize(resource: R, id: string): number;
 }
-
+//
 export class MetadataCache extends ResourceCache<string, MapOfDatasetMetadata> {
   static METADATA_KEY = "all_metadata";
 
