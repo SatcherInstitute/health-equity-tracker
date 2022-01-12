@@ -220,6 +220,7 @@ function ExploreDataPage() {
             indicators={!sticking || !pageIsWide}
             indicatorIconButtonProps={{
               "aria-label": "Report Type",
+              style: { padding: "4px" },
             }}
             activeIndicatorIconButtonProps={{
               "aria-label": "Current Selection: Report Type",
