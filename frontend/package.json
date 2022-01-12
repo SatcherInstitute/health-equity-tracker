@@ -45,7 +45,7 @@
     "typeface-dm-sans": "^1.1.13",
     "typeface-hind": "^1.1.13",
     "typeface-montserrat": "^1.1.13",
-    "typescript": "^3.9.9",
+    "typescript": "^4.5.4",
     "vega": "^5.20.2",
     "vega-lite": "^4.17.0"
   },
