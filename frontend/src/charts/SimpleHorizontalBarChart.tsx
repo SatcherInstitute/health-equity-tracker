@@ -85,6 +85,7 @@ function getSpec(
     ],
     marks: [
       {
+        // chart bars
         name: "measure_bars",
         type: "rect",
         style: ["bar"],
@@ -108,10 +109,31 @@ function getSpec(
         },
       },
       {
+        // ALT TEXT: invisible, verbose labels
+        name: "measure_a11y_text_labels",
+        type: "text",
+        from: { data: DATASET },
+        encode: {
+          update: {
+            y: { scale: "y", field: breakdownVar, band: 0.8 },
+            opacity: {
+              signal: "0",
+            },
+            text: {
+              signal: `${oneLineLabel(
+                breakdownVar
+              )} + ': ' + datum.${tooltipMetricDisplayColumnName} + ', ${measureDisplayName}'`,
+            },
+          },
+        },
+      },
+      {
         name: "measure_text_labels",
         type: "text",
         style: ["text"],
         from: { data: DATASET },
+        // prevent screen reader from reading these duplicate, less helpful labels
+        aria: false,
         encode: {
           enter: {
             tooltip: {
@@ -259,6 +281,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   return (
     <div ref={ref}>
       <Vega
+        renderer="svg"
         downloadFileName={`${props.filename} - Health Equity Tracker`}
         spec={getSpec(
           data,

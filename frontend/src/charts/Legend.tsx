@@ -157,7 +157,7 @@ export function Legend(props: LegendProps) {
 
   return (
     <div ref={ref}>
-      <Vega spec={spec} width={width} actions={false} />
+      <Vega renderer="svg" spec={spec} width={width} actions={false} />
     </div>
   );
 }

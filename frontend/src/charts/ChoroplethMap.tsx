@@ -265,12 +265,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         };
 
     /* DEFINE HOW TO CREATE A MARK ON THE UI */
-    /** 
+    /**
     Function creating the Vega marks that appear on the chart (geographies or circles).
     * datasetName: name of the dataset the marks should correspond to
     * fillColor: schema defining how marks are filled - either a scale or static value.
     * hoverColor: single color that should appear on hover
-    * tooltipExpression: expression defining how to render the contents of the hover tooltip 
+    * tooltipExpression: expression defining how to render the contents of the hover tooltip
     */
     const createShapeMarks = (
       datasetName: string,
@@ -454,6 +454,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     >
       {shouldRenderMap && (
         <Vega
+          renderer="svg"
           spec={spec}
           width={width}
           // custom 3-dot options for states, hidden on territories
