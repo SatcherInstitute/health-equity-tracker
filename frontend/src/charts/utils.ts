@@ -2,12 +2,14 @@ import { formatFieldValue, MetricConfig } from "../data/config/MetricConfig";
 import { Row } from "../data/utils/DatasetTypes";
 
 const MAX_LINE_LENGTH = 20;
-export const DELIMITER = "…";
+
+// ! this is a NON BREAKABLE SPACE CHARACTER that shouldn't occur in the data labels and can therefor be used as a delimiter &nbsp
+export const DELIMITER = " ";
 
 // Returns a Vega Expression to create an array of the multiple lines in the label
 export const MULTILINE_LABEL = `split(datum.value, '${DELIMITER}')`;
 
-// Returns a Vega Expression to create teplace delimiter token with a space for displaying the label on one label
+// Returns a Vega Expression to create replace delimiter token with a normal space for displaying the label on single line label
 export function oneLineLabel(field: string) {
   return `join(split(datum.${field}, '${DELIMITER}'), ' ')`;
 }

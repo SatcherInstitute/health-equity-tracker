@@ -71,6 +71,38 @@ function getSpec(
 
   const ALL_MARKS = [
     {
+      // ALT TEXT: verbose, invisible text for screen readers showing % vs %pop
+      name: "alt_text_labels",
+      type: "text",
+      style: ["text"],
+      from: { data: DATASET },
+      encode: {
+        update: {
+          y: { scale: "y", field: breakdownVar, band: 0.5 },
+          opacity: {
+            signal: "0",
+          },
+          text: {
+            signal: `
+                ${oneLineLabel(breakdownVar)}
+                +
+                ': '
+                +
+                if(datum.${altLightMeasure} == null, datum.${lightMetricDisplayColumnName}, datum.${altLightMetricDisplayColumnName})
+                +
+                '${lightMeasureDisplayName}'
+                +
+                ' vs. '
+                +
+                datum.${darkMetricDisplayColumnName}
+                +
+                '${darkMeasureDisplayName}'
+                `,
+          },
+        },
+      },
+    },
+    {
       name: "lightMeasure_bars",
       type: "rect",
       style: ["bar"],
@@ -137,6 +169,8 @@ function getSpec(
     },
     {
       name: "darkMeasure_text_labels",
+      // prevent screen reader from reading these duplicate, less helpful labels
+      aria: false,
       type: "text",
       style: ["text"],
       from: { data: DATASET },
@@ -176,6 +210,8 @@ function getSpec(
     LEGEND_DOMAINS.splice(1, 0, altLightMeasureDisplayName!);
     ALL_MARKS.push({
       name: "altLightMeasure_bars",
+      // prevent screen reader from reading these duplicate, less helpful labels
+      aria: false,
       type: "rect",
       style: ["bar"],
       from: { data: DATASET },
@@ -441,7 +477,6 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     <div ref={ref}>
       <Vega
         renderer="svg"
-        // custom 3-dot options for states, hidden on territories
         actions={{
           export: { png: true, svg: true },
           source: false,

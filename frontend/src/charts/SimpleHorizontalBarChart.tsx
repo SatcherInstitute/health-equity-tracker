@@ -122,7 +122,7 @@ function getSpec(
             text: {
               signal: `${oneLineLabel(
                 breakdownVar
-              )} + ': ' + datum.${tooltipMetricDisplayColumnName} + ', ${measureDisplayName}'`,
+              )} + ': ' + datum.${tooltipMetricDisplayColumnName} + ' ${measureDisplayName}'`,
             },
           },
         },
