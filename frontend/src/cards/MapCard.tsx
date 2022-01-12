@@ -2,6 +2,7 @@ import { CardContent, Grid } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import React, { useState } from "react";
+import A11yTable from "../charts/A11yTable";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import {
   VariableConfig,
@@ -323,6 +324,12 @@ function MapCardWithKey(props: MapCardProps) {
               )}
             {metricConfig && dataForActiveBreakdownFilter.length ? (
               <CardContent>
+                <A11yTable
+                  data={dataForActiveBreakdownFilter}
+                  caption={metricConfig.fullCardTitleName}
+                  currentMetric={metricConfig}
+                  fips={props.fips}
+                />
                 <ChoroplethMap
                   useSmallSampleMessage={
                     !mapQueryResponse.dataIsMissing() &&
