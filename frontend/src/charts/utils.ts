@@ -4,6 +4,8 @@ import { Row } from "../data/utils/DatasetTypes";
 const MAX_LINE_LENGTH = 20;
 export const DELIMITER = "*~*";
 
+export const ORDINAL = "ordinal";
+
 // Returns a Vega Expression to create an array of the multiple lines in the label
 export const MULTILINE_LABEL = `split(datum.value, '${DELIMITER}')`;
 
@@ -19,6 +21,8 @@ export function addLineBreakDelimitersToField(
   rawData: Row[],
   field: string
 ): Row[] {
+  console.log(rawData);
+
   return rawData.map((data) => {
     let lines = [];
     let currentLine = "";
@@ -54,6 +58,8 @@ export function addMetricDisplayColumn(
   data: Row[],
   omitPctSymbol: boolean = false
 ): [Row[], string] {
+  console.log(data);
+
   const displayColName = metric.metricId + "__DISPLAY_" + String(omitPctSymbol);
   const newData = data.map((row) => {
     return {

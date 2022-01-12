@@ -37,7 +37,7 @@
     "react-lazyload": "^3.2.0",
     "react-material-ui-carousel": "^2.2.4",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3",
+    "react-scripts": "^5.0.0",
     "react-share": "^4.4.0",
     "react-table": "^7.7.0",
     "react-vega": "^7.4.4",
@@ -46,8 +46,7 @@
     "typeface-hind": "^1.1.13",
     "typeface-montserrat": "^1.1.13",
     "typescript": "^4.5.4",
-    "vega": "^5.20.2",
-    "vega-lite": "^4.17.0"
+    "vega": "^5.20.2"
   },
   "scripts": {
     "start": "react-scripts start",
