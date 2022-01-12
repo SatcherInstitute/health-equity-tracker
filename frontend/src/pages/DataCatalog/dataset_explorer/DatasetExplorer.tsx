@@ -50,7 +50,7 @@ function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
       <Helmet>
         <title>Data Downloads - Health Equity Tracker</title>
       </Helmet>
-      <h1 className={styles.ScreenreaderTitleHeader}>Data Downloads</h1>
+      <h2 className={styles.ScreenreaderTitleHeader}>Data Downloads</h2>
       <div className={styles.DatasetExplorer}>
         <Grid container>
           <div className={styles.DatasetHeader}>

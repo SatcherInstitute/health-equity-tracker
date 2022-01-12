@@ -25,7 +25,7 @@ function MethodologyTab() {
       <Helmet>
         <title>Methodology - Health Equity Tracker</title>
       </Helmet>
-      <h1 className={styles.ScreenreaderTitleHeader}>Methodology</h1>
+      <h2 className={styles.ScreenreaderTitleHeader}>Methodology</h2>
       <Grid
         container
         direction="column"

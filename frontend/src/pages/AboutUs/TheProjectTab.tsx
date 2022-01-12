@@ -86,7 +86,7 @@ function TheProjectTab() {
       <Helmet>
         <title>The Project - About Us - Health Equity Tracker</title>
       </Helmet>
-      <h1 className={styles.ScreenreaderTitleHeader}>The Project</h1>
+      <h2 className={styles.ScreenreaderTitleHeader}>The Project</h2>
       <Grid container className={styles.Grid}>
         <Grid
           container

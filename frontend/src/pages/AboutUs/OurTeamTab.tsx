@@ -263,7 +263,7 @@ function OurTeamTab() {
       <Helmet>
         <title>Our Team - About Us - Health Equity Tracker</title>
       </Helmet>
-      <h1 className={styles.ScreenreaderTitleHeader}>Our Team</h1>
+      <h2 className={styles.ScreenreaderTitleHeader}>Our Team</h2>
       <Grid container className={styles.Grid}>
         <Grid container className={styles.GridRowHeaderText}>
           <Grid item xs={12} sm={8} md={6} lg={10} xl={8}>

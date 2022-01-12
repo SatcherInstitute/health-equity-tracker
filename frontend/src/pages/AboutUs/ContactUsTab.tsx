@@ -13,7 +13,7 @@ function ContactUsTab() {
       <Helmet>
         <title>Contact Us - About Us - Health Equity Tracker</title>
       </Helmet>
-      <h1 className={styles.ScreenreaderTitleHeader}>Contact Us</h1>
+      <h2 className={styles.ScreenreaderTitleHeader}>Contact Us</h2>
       <Grid container className={styles.Grid}>
         <Grid
           container

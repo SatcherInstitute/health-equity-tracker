@@ -201,7 +201,9 @@ function ExploreDataPage() {
         activelyOnboarding={activelyOnboarding}
       />
 
-      <h1 className={styles.ScreenreaderTitleHeader}>Explore the Data</h1>
+      <h2 className={styles.ScreenreaderTitleHeader}>
+        {getMadLibPhraseText(madLib)}
+      </h2>
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
         <div
           className={styles.CarouselContainer}
@@ -279,21 +281,14 @@ function CarouselMadLib(props: {
   }
 
   return (
-    <Grid
-      container
-      justify="center"
-      alignItems="center"
-      className={styles.CarouselItem}
-    >
-      {props.madLib.phrase.map(
-        (phraseSegment: PhraseSegment, index: number) => (
-          <React.Fragment key={index}>
-            {typeof phraseSegment === "string" ? (
-              <Grid item className={styles.MadLibSelect}>
-                {phraseSegment}
-              </Grid>
-            ) : (
-              <Grid item className={styles.MadLibSelect}>
+    <Grid container justify="center" alignItems="center">
+      <div className={styles.CarouselItem}>
+        {props.madLib.phrase.map(
+          (phraseSegment: PhraseSegment, index: number) => (
+            <React.Fragment key={index}>
+              {typeof phraseSegment === "string" ? (
+                <span>{phraseSegment}</span>
+              ) : (
                 <OptionsSelector
                   key={index}
                   value={props.madLib.activeSelections[index]}
@@ -304,11 +299,11 @@ function CarouselMadLib(props: {
                   }
                   options={getOptionsFromPhraseSegement(phraseSegment)}
                 />
-              </Grid>
-            )}
-          </React.Fragment>
-        )
-      )}
+              )}
+            </React.Fragment>
+          )
+        )}
+      </div>
     </Grid>
   );
 }

@@ -13,7 +13,7 @@ function TermsOfUsePage(props: {
       <Helmet>
         <title>Terms of Use - Health Equity Tracker</title>
       </Helmet>
-      <h1 className={styles.ScreenreaderTitleHeader}>Terms of Use</h1>
+      <h2 className={styles.ScreenreaderTitleHeader}>Terms of Use</h2>
       <Grid container>
         <Grid container className={styles.TosSection} justify="center">
           <Grid item xs={12} md={3} xl={12}>
