@@ -21,8 +21,6 @@ export function addLineBreakDelimitersToField(
   rawData: Row[],
   field: string
 ): Row[] {
-  console.log(rawData);
-
   return rawData.map((data) => {
     let lines = [];
     let currentLine = "";
@@ -58,8 +56,6 @@ export function addMetricDisplayColumn(
   data: Row[],
   omitPctSymbol: boolean = false
 ): [Row[], string] {
-  console.log(data);
-
   const displayColName = metric.metricId + "__DISPLAY_" + String(omitPctSymbol);
   const newData = data.map((row) => {
     return {
