@@ -101,8 +101,9 @@ export function DataSourceListing(props: DataSourceListingProps) {
       elevation={3}
       className={styles.DataSourceListing}
       data-testid={props.source_metadata.id}
+      component={"article"}
     >
-      <Typography variant="h5" className={styles.DatasetTitle} align="left">
+      <Typography variant="h4" className={styles.DatasetTitle} align="left">
         <Link
           href={props.source_metadata.data_source_link}
           target="_blank"

@@ -46,6 +46,7 @@
   // Generic grid subrow with no special styling
   .GridSubRow {
     padding: 20px 0 20px 0;
+    list-style: none;
   }
 }
 
@@ -301,15 +302,15 @@
   height: auto;
 }
 
-// For the leader name heading
-.LeaderNameHeading {
+// For the name heading
+.MemberName {
   font-size: $text;
   font-weight: 500;
   margin: 2px 0;
 }
 
-// For the leader role span
-.LeaderRoleSpan {
+// For the role
+.MemberRole {
   font-size: $small;
   font-weight: 400;
 }

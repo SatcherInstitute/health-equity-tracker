@@ -59,7 +59,7 @@ function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
                 id="main"
                 tabIndex={-1}
                 className={styles.DataDownloadsHeaderText}
-                variant="h2"
+                variant="h3"
               >
                 View and download Health Equity Tracker data sources
               </Typography>
