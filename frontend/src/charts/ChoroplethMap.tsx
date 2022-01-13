@@ -296,6 +296,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       }
       let marks: any = {
         name: datasetName + "_MARK",
+        aria: false,
         type: props.overrideShapeWithCircle ? "symbol" : "shape",
         from: { data: datasetName },
         encode: {
@@ -313,6 +314,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       return {
         type: "text",
         interactive: false,
+        aria: false,
         from: { data: datasetName + "_MARK" },
         encode: {
           enter: {
@@ -343,14 +345,16 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ),
     ];
     if (props.overrideShapeWithCircle) {
+      // Visible Territory Abbreviations
       marks.push(createCircleTextMark(VALID_DATASET));
       marks.push(createCircleTextMark(MISSING_DATASET));
     } else {
+      // ALT TEXT: verbose, invisible text for screen readers showing valid data (incl territories)
       marks.push({
-        // ALT TEXT: verbose, invisible text for screen readers showing valid data (incl territories)
         name: "alt_text_labels",
         type: "text",
         style: ["text"],
+        role: "list-item",
         from: { data: VAR_DATASET },
         encode: {
           update: {
@@ -375,10 +379,18 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       });
     }
 
+    const altText =
+      props.overrideShapeWithCircle || props.fips.isCounty()
+        ? props.fips.getDisplayName()
+        : `${props.filename}. Showing data from ${
+            props.data.length
+          } ${props.fips.getPluralChildFipsTypeDisplayName()}`;
+
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
       background: "white",
-      description: props.legendTitle,
+      aria: !props.overrideShapeWithCircle,
+      description: altText,
       data: [
         {
           name: MISSING_PLACEHOLDER_VALUES,

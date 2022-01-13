@@ -61,10 +61,11 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       onClose={props.handleClose}
       maxWidth={false}
       scroll="paper"
-      aria-label="Dialog showing choropleth maps of each breakdown category with the same scale."
+      aria-label="Dialog showing multiple maps for each demographic group."
+      aria-labelledby="modalTitle"
     >
       <DialogContent dividers={true}>
-        <Grid container justify="center">
+        <Grid container justify="center" component="ul">
           <Grid
             item
             xs={12}
@@ -72,7 +73,11 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             container
             justify={pageIsWide ? "flex-start" : "center"}
           >
-            <Typography className={styles.Title}>
+            <Typography
+              id="modalTitle"
+              aria-hidden={true}
+              className={styles.Title}
+            >
               {props.metricConfig.fullCardTitleName} Across All{" "}
               {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups
             </Typography>
@@ -86,12 +91,13 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             className={styles.SmallMultipleLegendMap}
           >
             <Grid container item>
-              <Grid container justify="center">
+              <Grid container justify="center" aria-hidden={true}>
                 <b>Legend</b>
               </Grid>
               <Grid container justify="center">
                 <Legend
                   metric={props.metricConfig}
+                  description={"Consistent legend for all displayed maps"}
                   legendTitle={props.metricConfig.fullCardTitleName}
                   legendData={props.data}
                   scaleType="quantile"
@@ -115,6 +121,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 item
                 key={`${breakdownValue}-grid-item`}
                 className={styles.SmallMultipleMap}
+                component="li"
               >
                 <b>{breakdownValue}</b>
                 {props.metricConfig && dataForValue.length ? (
@@ -130,7 +137,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     showCounties={props.fips.isUsa() ? false : true}
                     fips={props.fips}
                     fieldRange={props.fieldRange}
-                    hideActions={false}
+                    hideActions={true}
                     scaleType="quantile"
                     geoData={props.geoData}
                     filename={`${props.metricConfig.fullCardTitleName}${

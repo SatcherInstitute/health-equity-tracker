@@ -39,6 +39,8 @@ export interface LegendProps {
   sameDotSize?: boolean;
   // Whether legend entries stack vertical or horizontal (allows responsive design)
   direction: string;
+  // Alt text
+  description: string;
 }
 
 export function Legend(props: LegendProps) {
@@ -67,6 +69,7 @@ export function Legend(props: LegendProps) {
 
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
+      description: props.description,
       background: "white",
       padding: 5,
       data: [
