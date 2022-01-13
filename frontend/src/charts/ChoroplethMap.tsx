@@ -345,6 +345,34 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     if (props.overrideShapeWithCircle) {
       marks.push(createCircleTextMark(VALID_DATASET));
       marks.push(createCircleTextMark(MISSING_DATASET));
+    } else {
+      marks.push({
+        // ALT TEXT: verbose, invisible text for screen readers showing valid data (incl territories)
+        name: "alt_text_labels",
+        type: "text",
+        style: ["text"],
+        from: { data: VAR_DATASET },
+        encode: {
+          update: {
+            opacity: {
+              signal: "0",
+            },
+            text: {
+              signal: `
+              datum.fips_name
+              +
+              ': '
+              +
+              ${tooltipDatum}
+              +
+              ' '
+              +
+              '${tooltipLabel}'
+                  `,
+            },
+          },
+        },
+      });
     }
 
     setSpec({
@@ -415,6 +443,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ],
     });
 
+    console.log(props);
     // Render the Vega map asynchronously, allowing the UI to respond to user interaction before Vega maps render.
     // TODO! I'm not sure this is really working... the UI is definitely not responsive while state covid data is loading
     setTimeout(() => {
@@ -444,6 +473,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     heightWidthRatio,
   ]);
 
+  console.log(spec);
   return (
     <div
       ref={ref}
