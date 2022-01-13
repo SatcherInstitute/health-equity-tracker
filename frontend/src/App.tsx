@@ -20,7 +20,6 @@ import {
   useLocation,
 } from "react-router-dom";
 import { CookiesProvider } from "react-cookie";
-import ReactTooltip from "react-tooltip";
 import styles from "./App.module.scss";
 import MaterialTheme from "./styles/MaterialTheme";
 import { autoInitGlobals } from "./utils/globals";
@@ -170,7 +169,6 @@ function App() {
     <HelmetProvider>
       <ThemeProvider theme={MaterialTheme}>
         <CookiesProvider>
-          <ReactTooltip />
           <CssBaseline />
           <div className={styles.App}>
             <div className={styles.Content}>
