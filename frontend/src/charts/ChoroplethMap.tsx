@@ -6,7 +6,6 @@ import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
 import sass from "../styles/variables.module.scss";
-import { ORDINAL } from "vega-lite/build/src/type";
 import {
   EQUAL_DOT_SIZE,
   GREY_DOT_SCALE,
@@ -18,6 +17,7 @@ import {
   UNKNOWN_SCALE,
 } from "./Legend";
 import { useMediaQuery } from "@material-ui/core";
+import { ORDINAL } from "./utils";
 
 export type ScaleType = "quantize" | "quantile" | "symlog";
 
