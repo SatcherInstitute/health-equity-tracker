@@ -379,12 +379,14 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       });
     }
 
-    const altText =
-      props.overrideShapeWithCircle || props.fips.isCounty()
-        ? props.fips.getDisplayName()
-        : `${props.filename}. Showing data from ${
-            props.data.length
-          } ${props.fips.getPluralChildFipsTypeDisplayName()}`;
+    let altText = props.overrideShapeWithCircle
+      ? props.fips.getDisplayName()
+      : `${props.filename}`;
+
+    if (!props.fips.isCounty())
+      altText += `. Showing data from ${
+        props.data.length
+      } ${props.fips.getPluralChildFipsTypeDisplayName()}`;
 
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
