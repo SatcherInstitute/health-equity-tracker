@@ -3,8 +3,8 @@ import { Row } from "../data/utils/DatasetTypes";
 
 const MAX_LINE_LENGTH = 20;
 
-// ! this is a NON BREAKABLE SPACE CHARACTER that shouldn't occur in the data labels and can therefor be used as a delimiter &nbsp
-export const DELIMITER = " ";
+// ! &nbsp&nbsp NON BREAKABLE SPACES that shouldn't occur in the data labels and can therefor be used as a delimiter that reads naturally on a screen reader &nbsp
+export const DELIMITER = "  ";
 
 // Returns a Vega Expression to create an array of the multiple lines in the label
 export const MULTILINE_LABEL = `split(datum.value, '${DELIMITER}')`;
