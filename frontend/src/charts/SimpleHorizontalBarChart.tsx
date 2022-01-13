@@ -39,7 +39,8 @@ function getSpec(
   showLegend: boolean,
   barLabelBreakpoint: number,
   pageIsTiny: boolean,
-  usePercentSuffix: boolean
+  usePercentSuffix: boolean,
+  altText: string
 ): any {
   const MEASURE_COLOR = sass.altGreen;
   const BAR_HEIGHT = 60;
@@ -54,6 +55,8 @@ function getSpec(
     ? SINGLE_LINE_100K
     : MULTI_LINE_100K;
 
+  console.log(data);
+
   const legends = showLegend
     ? [
         {
@@ -65,9 +68,9 @@ function getSpec(
     : [];
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
+    description: altText,
     background: "white",
-    padding: 5,
-    autosize: { resize: true, type: "fit-x" },
+    autosize: { resize: false, type: "fit-x" },
     width: width - WIDTH_PADDING_FOR_SNOWMAN_MENU,
     style: "cell",
     data: [
@@ -87,8 +90,10 @@ function getSpec(
       {
         // chart bars
         name: "measure_bars",
+        interactive: false,
         type: "rect",
         style: ["bar"],
+        description: data.length + " items",
         from: { data: DATASET },
         encode: {
           enter: {
@@ -100,7 +105,6 @@ function getSpec(
           },
           update: {
             fill: { value: MEASURE_COLOR },
-            ariaRoleDescription: { value: "bar" },
             x: { scale: "x", field: measure },
             x2: { scale: "x", value: 0 },
             y: { scale: "y", field: breakdownVar },
@@ -263,10 +267,8 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     props.data,
     props.breakdownVar
   );
-  const [
-    dataWithDisplayCol,
-    barMetricDisplayColumnName,
-  ] = addMetricDisplayColumn(props.metric, dataWithLineBreakDelimiter);
+  const [dataWithDisplayCol, barMetricDisplayColumnName] =
+    addMetricDisplayColumn(props.metric, dataWithLineBreakDelimiter);
   // Omit the % symbol for the tooltip because it's included in shortVegaLabel.
   const [data, tooltipMetricDisplayColumnName] = addMetricDisplayColumn(
     props.metric,
@@ -284,20 +286,23 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
         renderer="svg"
         downloadFileName={`${props.filename} - Health Equity Tracker`}
         spec={getSpec(
-          data,
-          width,
-          props.breakdownVar,
-          BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
-          props.metric.metricId,
-          props.metric.shortVegaLabel,
-          barMetricDisplayColumnName,
-          tooltipMetricDisplayColumnName,
-          props.showLegend,
-          barLabelBreakpoint,
-          pageIsTiny,
-          props.usePercentSuffix || false
+          /* data: Record<string, any>[], */ data,
+          /* width: number, */ width,
+          /* breakdownVar: string, */ props.breakdownVar,
+          /* breakdownVarDisplayName: string, */ BREAKDOWN_VAR_DISPLAY_NAMES[
+            props.breakdownVar
+          ],
+          /* measure: string, */ props.metric.metricId,
+          /* measureDisplayName: string, */ props.metric.shortVegaLabel,
+          /* barMetricDisplayColumnName: string, */ barMetricDisplayColumnName,
+          /* tooltipMetricDisplayColumnName: string, */ tooltipMetricDisplayColumnName,
+          /* showLegend: boolean, */ props.showLegend,
+          /* barLabelBreakpoint: number, */ barLabelBreakpoint,
+          /* pageIsTiny: boolean, */ pageIsTiny,
+          /* usePercentSuffix: boolean, */ props.usePercentSuffix || false,
+          /* altText: string */ "Bar chart " + props.filename
         )}
-        // custom 3-dot options for states, hidden on territories
+        // custom 3-dot options menu
         actions={
           props.hideActions
             ? false
