@@ -83,7 +83,24 @@ function getSpec(
             signal: "0",
           },
           text: {
-            signal: `
+            signal: !hasAltPop
+              ? // NORMAL
+                `${oneLineLabel(breakdownVar)}
+              +
+                ': '
+                +
+                datum.${lightMetricDisplayColumnName}
+                +
+                '${lightMeasureDisplayName}'
+                +
+                ' vs. '
+                +
+                datum.${darkMetricDisplayColumnName}
+                +
+                '${darkMeasureDisplayName}'
+              `
+              : // FOR GEOS WITH ALT POPULATIONS
+                `
                 ${oneLineLabel(breakdownVar)}
                 +
                 ': '
