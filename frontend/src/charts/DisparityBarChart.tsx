@@ -37,6 +37,7 @@ function getSpec(
   darkMetricDisplayColumnName: string,
   barLabelBreakpoint: number,
   pageIsTiny: boolean,
+  altText: string,
   stacked?: boolean,
   // place AIAL NHPI pop compare in different color columns due to ACS not KFF
   altLightMeasure?: string,
@@ -76,6 +77,7 @@ function getSpec(
       type: "text",
       style: ["text"],
       from: { data: DATASET },
+      description: `${data.length} items`,
       encode: {
         update: {
           y: { scale: "y", field: breakdownVar, band: 0.5 },
@@ -121,6 +123,7 @@ function getSpec(
     },
     {
       name: "lightMeasure_bars",
+      aria: false,
       type: "rect",
       style: ["bar"],
       from: { data: DATASET },
@@ -156,6 +159,7 @@ function getSpec(
       name: "darkMeasure_bars",
       type: "rect",
       style: ["bar"],
+      aria: false,
       from: { data: DATASET },
       encode: {
         enter: {
@@ -288,6 +292,7 @@ function getSpec(
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     background: "white",
+    description: altText,
     padding: 5,
     autosize: { resize: true, type: "fit-x" },
     width: width - WIDTH_PADDING_FOR_SNOWMAN_MENU,
@@ -453,22 +458,18 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   );
 
   // Omit the % symbol because it's included in shortVegaLabel.
-  const [
-    dataWithLightMetric,
-    lightMetricDisplayColumnName,
-  ] = addMetricDisplayColumn(
-    props.lightMetric,
-    dataWithLineBreakDelimiter,
-    /* omitPctSymbol= */ true
-  );
-  const [
-    dataWithDarkMetric,
-    darkMetricDisplayColumnName,
-  ] = addMetricDisplayColumn(
-    props.darkMetric,
-    dataWithLightMetric,
-    /* omitPctSymbol= */ true
-  );
+  const [dataWithLightMetric, lightMetricDisplayColumnName] =
+    addMetricDisplayColumn(
+      props.lightMetric,
+      dataWithLineBreakDelimiter,
+      /* omitPctSymbol= */ true
+    );
+  const [dataWithDarkMetric, darkMetricDisplayColumnName] =
+    addMetricDisplayColumn(
+      props.darkMetric,
+      dataWithLightMetric,
+      /* omitPctSymbol= */ true
+    );
 
   const altLightMetric: MetricConfig = {
     fullCardTitleName: "Population Share (ACS)",
@@ -515,6 +516,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           darkMetricDisplayColumnName,
           barLabelBreakpoint,
           pageIsTiny,
+          /* altText: string, */ "Comparison Bar Chart " + props.filename,
           props.stacked,
           hasAltPop ? altLightMetric.metricId : "",
           hasAltPop ? altLightMetric.shortVegaLabel : "",
