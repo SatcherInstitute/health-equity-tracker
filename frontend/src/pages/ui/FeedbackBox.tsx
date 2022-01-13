@@ -26,7 +26,7 @@ export default function FeedbackBox(props: { alwaysShow?: boolean }) {
   const [clickAwayChildKey] = useClickAway(clickAwayRef);
 
   return showFeedback && isReturnUser ? (
-    <div ref={clickAwayRef}>
+    <div ref={clickAwayRef} aria-hidden={true}>
       <Feedback
         key={clickAwayChildKey}
         projectId={FEEDBACK_ID}

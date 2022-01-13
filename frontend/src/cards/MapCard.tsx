@@ -72,14 +72,11 @@ function MapCardWithKey(props: MapCardProps) {
   };
 
   const [listExpanded, setListExpanded] = useState(false);
-  const [activeBreakdownFilter, setActiveBreakdownFilter] = useState<string>(
-    ALL
-  );
+  const [activeBreakdownFilter, setActiveBreakdownFilter] =
+    useState<string>(ALL);
 
-  const [
-    smallMultiplesDialogOpen,
-    setSmallMultiplesDialogOpen,
-  ] = useAutoFocusDialog();
+  const [smallMultiplesDialogOpen, setSmallMultiplesDialogOpen] =
+    useAutoFocusDialog();
 
   const metricQuery = (geographyBreakdown: Breakdowns) =>
     new MetricQuery(
@@ -142,9 +139,8 @@ function MapCardWithKey(props: MapCardProps) {
 
         // Create and populate a map of breakdown display name to options
         const filterOptions: Record<string, string[]> = {
-          [BREAKDOWN_VAR_DISPLAY_NAMES[
-            props.currentBreakdown
-          ]]: breakdownValues,
+          [BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]]:
+            breakdownValues,
         };
 
         // If possible, calculate the total for the selected demographic group and dynamically generate the rest of the phrase
@@ -419,7 +415,7 @@ function MapCardWithKey(props: MapCardProps) {
   );
 }
 
-/* 
+/*
 Generates the "COMPARES ACROSS GROUPS" button which opens the small multiples modal
 */
 export interface MultiMapLinkProps {
@@ -447,7 +443,7 @@ function MultiMapLink(props: MultiMapLinkProps) {
       >
         Compare across {groupTerm} groups
       </span>
-      .
+      <span aria-hidden={true}>.</span>
     </>
   );
 }

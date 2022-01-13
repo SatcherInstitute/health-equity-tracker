@@ -516,7 +516,8 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
           darkMetricDisplayColumnName,
           barLabelBreakpoint,
           pageIsTiny,
-          /* altText: string, */ "Comparison Bar Chart " + props.filename,
+          /* altText: string, */ "Comparison Bar Chart showing " +
+            props.filename,
           props.stacked,
           hasAltPop ? altLightMetric.metricId : "",
           hasAltPop ? altLightMetric.shortVegaLabel : "",

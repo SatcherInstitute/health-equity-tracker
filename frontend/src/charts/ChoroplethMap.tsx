@@ -381,10 +381,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     let altText = props.overrideShapeWithCircle
       ? props.fips.getDisplayName()
-      : `${props.filename}`;
+      : `Map showing ${props.filename}`;
 
-    if (!props.fips.isCounty())
-      altText += `. Showing data from ${
+    if (!props.fips.isCounty() && !props.overrideShapeWithCircle)
+      altText += `: including data from ${
         props.data.length
       } ${props.fips.getPluralChildFipsTypeDisplayName()}`;
 

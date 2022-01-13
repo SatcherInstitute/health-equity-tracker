@@ -100,14 +100,11 @@ export function TableChart(props: TableChartProps) {
           <TableCell
             {...col.getHeaderProps(col.getSortByToggleProps())}
             style={{ width: "200px", cursor: "pointer" }}
-            title={
-              col.isSorted
-                ? `Toggle Sort Direction`
-                : `Sort by ${col.render("Header")}`
-            }
+            title={`${col.render("Header")}. Click to sort by this column`}
           >
             {col.render("Header")}
             <TableSortLabel
+              aria-label={`Sort by ${col.render("Header")}`}
               active={col.isSorted}
               direction={col.isSortedDesc ? "desc" : "asc"}
               hideSortIcon={false}
