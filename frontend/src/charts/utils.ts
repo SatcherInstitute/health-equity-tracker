@@ -4,6 +4,8 @@ import { Row } from "../data/utils/DatasetTypes";
 const MAX_LINE_LENGTH = 20;
 export const DELIMITER = "*~*";
 
+export const ORDINAL = "ordinal";
+
 // Returns a Vega Expression to create an array of the multiple lines in the label
 export const MULTILINE_LABEL = `split(datum.value, '${DELIMITER}')`;
 
