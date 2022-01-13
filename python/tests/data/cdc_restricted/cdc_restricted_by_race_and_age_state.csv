@@ -22,6 +22,10 @@ HI,AIAN_NH,0-9,1,,,,,,,American Indian and Alaska Native,False,American Indian a
 HI,TOTAL,,1,,,,,,,Total,,Total
 MD,ASIAN_NH,10-19,1,0,0,1,1,0,0,Asian,False,Asian (Non-Hispanic)
 MD,TOTAL,,1,0,0,1,1,0,0,Total,,Total
+MO,AIAN_NH,0-9,1,0,1,0,0,0,1,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+MO,TOTAL,,1,0,1,0,0,0,1,Total,,Total
+ND,AIAN_NH,10-19,1,0,0,1,1,0,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+ND,TOTAL,,1,0,0,1,1,0,0,Total,,Total
 NE,BLACK_NH,20-29,1,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
 NE,TOTAL,,1,,,,,,,Total,,Total
 NM,MULTI_OR_OTHER_STANDARD_NH,30-39,1,0,1,0,0,1,0,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
@@ -33,5 +37,5 @@ SD,WHITE_NH,50-59,1,,,,,,,White,False,White (Non-Hispanic)
 Unknown,BLACK_NH,30-39,1,0,0,1,0,0,1,Black or African American,False,Black or African American (Non-Hispanic)
 Unknown,BLACK_NH,40-49,1,1,0,0,1,0,0,Black or African American,False,Black or African American (Non-Hispanic)
 Unknown,TOTAL,,2,1,0,1,1,0,1,Total,,Total
-WV,HISP,60-69,1,0,1,0,,,,Hispanic or Latino,True,Hispanic or Latino
-WV,TOTAL,,1,0,1,0,,,,Total,,Total
+WY,AIAN_NH,0-9,1,0,1,0,0,1,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+WY,TOTAL,,1,0,1,0,0,1,0,Total,,Total

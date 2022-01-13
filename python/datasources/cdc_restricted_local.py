@@ -107,7 +107,6 @@ DEMOGRAPHIC_COL_MAPPING = {
     'race_and_age': ([RACE_COL, AGE_COL], {**AGE_NAMES_MAPPING, **RACE_NAMES_MAPPING}),
 }
 
-
 # States that we have decided to suppress different kinds of data for, due to
 # very incomplete data. Note that states that have all data suppressed will
 # have case, hospitalization, and death data suppressed.
@@ -259,10 +258,22 @@ def process_data(dir, files):
     dir: Directory in which the files live.
     files: List of file paths that contain covid data.
     """
+
+    all_demographic_combos = [
+        ("state", "race"),
+        ("county", "race"),
+        ("state", "age"),
+        ("county", "age"),
+        ("state", "sex"),
+        ("county", "sex"),
+
+        # for age adjustment
+        ("state", "race_and_age"),
+    ]
+
     all_dfs = {}
-    for geo in ['state', 'county']:
-        for demo in ['race', 'sex', 'age', 'race_and_age']:
-            all_dfs[(geo, demo)] = pd.DataFrame()
+    for combo in all_demographic_combos:
+        all_dfs[combo] = pd.DataFrame()
 
     for f in sorted(files):
         start = time.time()
