@@ -34,4 +34,5 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     expected_df = pd.read_csv(GOLDEN_DATA, dtype={
         'state_fips': str,
     })
+
     assert_frame_equal(mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
