@@ -37,7 +37,7 @@ function TwoVariableReport(props: {
   fips2: Fips;
   updateFips1Callback: (fips: Fips) => void;
   updateFips2Callback: (fips: Fips) => void;
-  jumpToDefinitions?: Function;
+  jumpToDefinitions: Function;
   jumpToData: Function;
 }) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(

@@ -34,7 +34,7 @@ export interface VariableDisparityReportProps {
   fips: Fips;
   updateFipsCallback: Function;
   hidePopulationCard?: boolean;
-  jumpToDefinitions?: Function;
+  jumpToDefinitions: Function;
   jumpToData: Function;
 }
 

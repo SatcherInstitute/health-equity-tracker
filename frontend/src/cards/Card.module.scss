@@ -112,7 +112,11 @@
 
 .CompareAcrossLink,
 .ConditionDefinitionLink {
+  padding: 1px;
+  border: none;
+  background-color: inherit;
   color: $alt-green;
+  outline: none !important;
   text-decoration: underline;
   &:hover {
     cursor: pointer;

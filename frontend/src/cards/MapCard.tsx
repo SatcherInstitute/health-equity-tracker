@@ -6,7 +6,6 @@ import { ChoroplethMap } from "../charts/ChoroplethMap";
 import {
   VariableConfig,
   formatFieldValue,
-  METRIC_CONFIG,
   VAXX,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
@@ -50,7 +49,7 @@ export interface MapCardProps {
   variableConfig: VariableConfig;
   updateFipsCallback: (fips: Fips) => void;
   currentBreakdown: BreakdownVar;
-  jumpToDefinitions?: Function;
+  jumpToDefinitions: Function;
   jumpToData: Function;
 }
 
@@ -177,23 +176,17 @@ function MapCardWithKey(props: MapCardProps) {
                   options[metricConfig.metricId]
                 )}
               </b>{" "}
-              {/*} cases per 100k   NOTE: vaccinations term gets hyperlinked to definitions on bottom of page*/}
-              {props.variableConfig.variableId === VAXX ? (
-                <span
-                  role="button"
-                  onClick={() => {
-                    props.jumpToDefinitions && props.jumpToDefinitions();
-                  }}
-                  className={styles.ConditionDefinitionLink}
-                >
-                  {
-                    METRIC_CONFIG["vaccinations"][0].metrics.per100k
-                      .shortVegaLabel
-                  }
-                </span>
-              ) : (
-                metricConfig.shortVegaLabel
-              )}
+              {/*} HYPERLINKED TO BOTTOM DEFINITION {condition} cases per 100k  */}
+              <a
+                href="#definitionsList"
+                onClick={(e) => {
+                  e.preventDefault();
+                  props.jumpToDefinitions();
+                }}
+                className={styles.ConditionDefinitionLink}
+              >
+                {metricConfig?.fullCardTitleName}
+              </a>
               {/*} for  */}
               {activeBreakdownFilter !== "All" && " for"}
               {/*} [ ages 30-39] */}
@@ -449,12 +442,13 @@ function MultiMapLink(props: MultiMapLinkProps) {
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown];
   return (
     <>
-      <span
+      <a
+        href="#multi"
         onClick={() => props.setSmallMultiplesDialogOpen(true)}
         role="button"
         className={styles.CompareAcrossLink}
         aria-label={
-          "Compare " +
+          "Open modal to Compare " +
           props.currentVariable +
           " across " +
           groupTerm +
@@ -462,7 +456,7 @@ function MultiMapLink(props: MultiMapLinkProps) {
         }
       >
         Compare across {groupTerm} groups
-      </span>
+      </a>
       .
     </>
   );
