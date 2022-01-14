@@ -136,8 +136,7 @@ function getSpec(
         type: "text",
         style: ["text"],
         from: { data: DATASET },
-        // prevent screen reader from reading these duplicate, less helpful labels
-        aria: false,
+        aria: false, // this data accessible in alt_text_labels
         encode: {
           enter: {
             tooltip: {
@@ -267,8 +266,10 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     props.data,
     props.breakdownVar
   );
-  const [dataWithDisplayCol, barMetricDisplayColumnName] =
-    addMetricDisplayColumn(props.metric, dataWithLineBreakDelimiter);
+  const [
+    dataWithDisplayCol,
+    barMetricDisplayColumnName,
+  ] = addMetricDisplayColumn(props.metric, dataWithLineBreakDelimiter);
   // Omit the % symbol for the tooltip because it's included in shortVegaLabel.
   const [data, tooltipMetricDisplayColumnName] = addMetricDisplayColumn(
     props.metric,
