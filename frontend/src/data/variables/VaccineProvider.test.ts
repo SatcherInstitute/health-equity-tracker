@@ -12,7 +12,7 @@ import {
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import { FipsSpec, NC, USA, MARIN } from "./TestUtils";
-import { ASIAN_NH, ALL, RACE } from "../utils/Constants";
+import { ASIAN_NH, ALL, RACE, DemographicGroup } from "../utils/Constants";
 import { MetricId } from "../config/MetricConfig";
 
 const METRIC_IDS: MetricId[] = [
