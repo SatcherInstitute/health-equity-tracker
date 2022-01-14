@@ -6,7 +6,7 @@ import {
 } from "../../utils/globals";
 import { DatasetMetadataMap } from "../config/DatasetMetadata";
 import { onlyIncludeStandardRaces } from "../query/BreakdownFilter";
-import { Breakdowns } from "../query/Breakdowns";
+import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
 import {
   createMissingDataResponse,
   MetricQuery,
@@ -16,6 +16,7 @@ import {
   AGE,
   ALL,
   ASIAN_NH,
+  DemographicGroup,
   FEMALE,
   MALE,
   NON_HISPANIC,

@@ -1,4 +1,4 @@
-import { Breakdowns } from "../query/Breakdowns";
+import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
 import { Fips } from "../utils/Fips";
 import { DatasetMetadataMap } from "../config/DatasetMetadata";
 import {
@@ -16,6 +16,7 @@ import {
   MALE,
   FEMALE,
   SEX,
+  DemographicGroup,
 } from "../utils/Constants";
 import AcsPovertyProvider from "./AcsPovertyProvider";
 
