@@ -60,6 +60,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
 
   return (
     <Dialog
+      className={styles.MultiMapBox}
       open={props.open}
       onClose={props.handleClose}
       maxWidth={false}

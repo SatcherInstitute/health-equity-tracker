@@ -236,6 +236,7 @@ function MapCardWithKey(props: MapCardProps) {
               geoData={geoData}
               breakdownValuesNoData={fieldValues.noData}
             />
+
             <CardContent className={styles.SmallMarginContent}>
               <MapBreadcrumbs
                 fips={props.fips}
