@@ -200,6 +200,5 @@ function Units(props: UnitsProps) {
       ? " per 100K"
       : props.metric[props.column - 1].shortVegaLabel;
 
-  console.log(props);
   return <span className={styles.Unit}>{unit}</span>;
 }
