@@ -129,12 +129,12 @@ export function TableCard(props: TableCardProps) {
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
-                  geoLevel={props.fips.getFipsTypeDisplayName()}
                   noDemographicInfo={
                     props.variableConfig.variableId ===
                       METRIC_CONFIG["vaccinations"][0].variableId &&
                     props.fips.isCounty()
                   }
+                  fips={props.fips}
                 />
               </CardContent>
             )}

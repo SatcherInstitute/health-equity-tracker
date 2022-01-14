@@ -291,7 +291,8 @@ function MapCardWithKey(props: MapCardProps) {
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
                   }
-                  geoLevel={props.fips.getChildFipsTypeDisplayName()}
+                  isMapCard={true}
+                  fips={props.fips}
                 />
               </CardContent>
             )}
