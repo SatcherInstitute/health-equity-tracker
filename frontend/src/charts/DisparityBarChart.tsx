@@ -72,7 +72,7 @@ function getSpec(
 
   const ALL_MARKS = [
     {
-      // ALT TEXT: verbose, invisible text for screen readers showing % vs %pop
+      // ALT TEXT: verbose, invisible text for screen readers conveying "%"" vs "%pop"
       name: "alt_text_labels",
       type: "text",
       style: ["text"],
@@ -190,8 +190,7 @@ function getSpec(
     },
     {
       name: "darkMeasure_text_labels",
-      // prevent screen reader from reading these duplicate, less helpful labels
-      aria: false,
+      aria: false, // this data accessible in alt_text_labels
       type: "text",
       style: ["text"],
       from: { data: DATASET },
@@ -231,8 +230,7 @@ function getSpec(
     LEGEND_DOMAINS.splice(1, 0, altLightMeasureDisplayName!);
     ALL_MARKS.push({
       name: "altLightMeasure_bars",
-      // prevent screen reader from reading these duplicate, less helpful labels
-      aria: false,
+      aria: false, // this data accessible in alt_text_labels
       type: "rect",
       style: ["bar"],
       from: { data: DATASET },
@@ -415,7 +413,7 @@ export interface DisparityBarChartProps {
 
 export function DisparityBarChart(props: DisparityBarChartProps) {
   const [ref, width] = useResponsiveWidth(
-    100 /* default width during initialization */
+    /* default width during initialization */ 100
   );
 
   // calculate page size to determine if tiny mobile or not
@@ -451,25 +449,29 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     });
   }
 
-  // add *~* for line breaks in column axis labels
+  // add delimiter for line breaks in column axis labels
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
     dataFromProps,
     props.breakdownVar
   );
 
   // Omit the % symbol because it's included in shortVegaLabel.
-  const [dataWithLightMetric, lightMetricDisplayColumnName] =
-    addMetricDisplayColumn(
-      props.lightMetric,
-      dataWithLineBreakDelimiter,
-      /* omitPctSymbol= */ true
-    );
-  const [dataWithDarkMetric, darkMetricDisplayColumnName] =
-    addMetricDisplayColumn(
-      props.darkMetric,
-      dataWithLightMetric,
-      /* omitPctSymbol= */ true
-    );
+  const [
+    dataWithLightMetric,
+    lightMetricDisplayColumnName,
+  ] = addMetricDisplayColumn(
+    props.lightMetric,
+    dataWithLineBreakDelimiter,
+    /* omitPctSymbol= */ true
+  );
+  const [
+    dataWithDarkMetric,
+    darkMetricDisplayColumnName,
+  ] = addMetricDisplayColumn(
+    props.darkMetric,
+    dataWithLightMetric,
+    /* omitPctSymbol= */ true
+  );
 
   const altLightMetric: MetricConfig = {
     fullCardTitleName: "Population Share (ACS)",

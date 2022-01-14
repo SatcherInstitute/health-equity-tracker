@@ -61,7 +61,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       onClose={props.handleClose}
       maxWidth={false}
       scroll="paper"
-      aria-label="Dialog showing multiple maps for each demographic group."
       aria-labelledby="modalTitle"
     >
       <DialogContent dividers={true}>
