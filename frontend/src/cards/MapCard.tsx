@@ -444,7 +444,7 @@ function MultiMapLink(props: MultiMapLinkProps) {
   return (
     <>
       <a
-        href="#multi"
+        href="#multiMap"
         onClick={() => props.setSmallMultiplesDialogOpen(true)}
         role="button"
         className={styles.CompareAcrossLink}
