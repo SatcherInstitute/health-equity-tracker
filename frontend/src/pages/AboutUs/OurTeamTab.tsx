@@ -269,7 +269,6 @@ function OurTeamTab() {
           <Grid item xs={12} sm={8} md={6} lg={10} xl={8}>
             <Typography
               id="main"
-              tabIndex={-1}
               className={styles.OurTeamHeaderText}
               align="left"
               variant="h2"
@@ -352,7 +351,6 @@ function OurTeamTab() {
                   >
                     {fellow.link && (
                       <a
-                        tabIndex={-1}
                         className={styles.MemberName}
                         href={fellow.link}
                         target="_blank"

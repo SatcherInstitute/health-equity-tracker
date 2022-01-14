@@ -1,15 +1,5 @@
+@use "../../styles/globals.scss";
 @import "../../styles/variables.module";
-
-// For the title of the page read off by screenreaders in an h1
-.ScreenreaderTitleHeader {
-  left: -999px;
-  position: absolute;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  z-index: -999;
-}
 
 /** ------------- TERMS OF USE AND PRIVACY POLICY  ------------- **/
 
@@ -21,6 +11,8 @@
 
 .TosContent {
   max-width: $max-width;
+  list-style: none;
+  padding-left: 0;
 }
 
 .TosChunk {
@@ -28,6 +20,12 @@
   padding-bottom: 20px;
   padding-left: 40px;
   padding-right: 40px;
+
+  font-size: $small;
+  font-weight: 400;
+  font-family: "Inter", sans-serif;
+  line-height: 20px;
+  color: $alt-black;
 }
 
 .TosHeaderText {
@@ -52,11 +50,6 @@
   margin: 0px;
 }
 
-.TosChunkDetails {
-  font-size: $small;
-  text-align: left;
-  font-weight: 400;
-  font-family: "Inter", sans-serif;
-  line-height: 20px;
-  color: $alt-black;
-}
+// .TosChunkDetails {
+
+// }

@@ -72,7 +72,6 @@ function LandingPage() {
           <Grid item className={styles.HeaderTextItem} xs={12} sm={12} md={6}>
             <Typography
               id="main"
-              tabIndex={-1}
               className={styles.HeaderText}
               variant="h2"
               paragraph={true}

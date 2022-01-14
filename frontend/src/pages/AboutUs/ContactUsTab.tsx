@@ -26,7 +26,6 @@ function ContactUsTab() {
             <Grid item md={5} className={styles.GridVerticallyAlignedItem}>
               <Typography
                 id="main"
-                tabIndex={-1}
                 className={styles.ContactUsHeaderText}
                 variant="h2"
               >

@@ -70,7 +70,7 @@ function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
             >
               Explore the data dashboard
             </a>
-            .
+            <span aria-hidden={true}>.</span>
           </p>
         </div>
         <ul className={styles.DatasetList}>

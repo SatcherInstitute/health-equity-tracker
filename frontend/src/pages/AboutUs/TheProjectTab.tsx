@@ -257,7 +257,7 @@ function TheProjectTab() {
                     >
                       poverty
                     </LinkWithStickyParams>
-                    .
+                    <span aria-hidden={true}>.</span>
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
