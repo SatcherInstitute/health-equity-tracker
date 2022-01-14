@@ -21,12 +21,11 @@ function MissingDataAlert(props: {
     ? " "
     : ` broken down by ${props.breakdownString} `;
 
-  // if it's a map that refers to a lower geo-level,
-  // use the supplied child level unless it's a county level
-  // report, in which case the map would be of cities
-  const geoPhrase = props.isMapCard
-    ? `at the ${props.fips.getChildFipsTypeDisplayName() || "city"} level `
-    : "";
+  // the geo level data is needed from to create a map
+  const geoPhrase =
+    !props.isMapCard || props.fips.isCounty()
+      ? ""
+      : `within ${props.fips.getDisplayName()}`;
 
   return (
     <Alert severity="warning">
