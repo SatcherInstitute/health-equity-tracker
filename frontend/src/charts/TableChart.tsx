@@ -133,7 +133,7 @@ export function TableChart(props: TableChartProps) {
           ) : (
             <TableCell {...cell.getCellProps()}>
               {cell.render("Cell")}
-              <Units column={index} />
+              <Units column={index} metric={props.metrics} />
             </TableCell>
           )
         )}
@@ -190,13 +190,16 @@ export function TableChart(props: TableChartProps) {
 
 interface UnitsProps {
   column: number;
+  metric: MetricConfig[];
 }
 function Units(props: UnitsProps) {
   if (!props.column) return null;
 
-  return (
-    <span className={styles.Unit}>
-      {props.column === 1 ? ` per 100k` : `%`}
-    </span>
-  );
+  const unit =
+    props.column === 1
+      ? " per 100K"
+      : props.metric[props.column - 1].shortVegaLabel;
+
+  console.log(props);
+  return <span className={styles.Unit}>{unit}</span>;
 }
