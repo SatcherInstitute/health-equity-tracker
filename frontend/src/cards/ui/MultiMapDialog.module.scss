@@ -1,8 +1,16 @@
 @import "../../styles/variables.module";
 
+.MultiMapBox {
+  z-index: 100000001 !important; // to prioritize over FeedbackBox
+}
+
 .SmallMultipleMap {
   width: 300px;
   padding: 15px;
+}
+
+.NoDataWarning {
+  margin: 0 !important;
 }
 
 .SmallMultipleLegendMap {

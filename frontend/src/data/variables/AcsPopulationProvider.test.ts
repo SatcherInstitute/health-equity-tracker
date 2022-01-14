@@ -6,7 +6,7 @@ import {
 } from "../../utils/globals";
 import { DatasetMetadataMap } from "../config/DatasetMetadata";
 import { onlyIncludeStandardRaces } from "../query/BreakdownFilter";
-import { Breakdowns } from "../query/Breakdowns";
+import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
 import {
   createMissingDataResponse,
   MetricQuery,
@@ -16,6 +16,7 @@ import {
   AGE,
   ALL,
   ASIAN_NH,
+  DemographicGroup,
   FEMALE,
   MALE,
   NON_HISPANIC,
@@ -40,8 +41,8 @@ import {
 
 function countyRow(
   fips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   population: number,
   population_pct: number
 ) {
@@ -57,8 +58,8 @@ function countyRow(
 
 function stateRow(
   fips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   population: number,
   population_pct: number
 ) {
@@ -73,8 +74,8 @@ function stateRow(
 
 function finalPopulationCountRow(
   fips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   population: number
 ) {
   return {
@@ -87,8 +88,8 @@ function finalPopulationCountRow(
 
 function finalPopulationCountAndPctRow(
   fips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   population: number,
   population_pct: number
 ) {

@@ -15,6 +15,7 @@ import {
   MetricId,
   VariableConfig,
   getPer100kAndPctShareMetrics,
+  VAXX,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
@@ -29,8 +30,8 @@ import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import { ALL } from "../data/utils/Constants";
-import { showAltPopCompare } from "./DisparityBarChartCard";
 import { urlMap } from "../utils/externalUrls";
+import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 698;
@@ -53,9 +54,7 @@ export function TableCard(props: TableCardProps) {
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
-    props.breakdownVar === "race_and_ethnicity"
-      ? exclude(NON_HISPANIC, ALL)
-      : exclude(ALL)
+    props.breakdownVar === RACE ? exclude(NON_HISPANIC, ALL) : exclude(ALL)
   );
 
   let metricConfigs: Record<string, MetricConfig> = {};
@@ -79,7 +78,7 @@ export function TableCard(props: TableCardProps) {
         metricConfig.secondaryPopulationComparisonMetric;
     }
   });
-  const metricIds = Object.keys(metricConfigs);
+  const metricIds = Object.keys(metricConfigs) as MetricId[];
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
   const displayingCovidData = metrics
@@ -104,7 +103,7 @@ export function TableCard(props: TableCardProps) {
             row[props.breakdownVar] !== UNKNOWN_ETHNICITY
         );
 
-        if (showAltPopCompare(props)) {
+        if (shouldShowAltPopCompare(props)) {
           // This should only happen in the vaccine kff state case
           dataWithoutUnknowns = dataWithoutUnknowns.map((item) => {
             const {
@@ -130,8 +129,7 @@ export function TableCard(props: TableCardProps) {
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
                   noDemographicInfo={
-                    props.variableConfig.variableId ===
-                      METRIC_CONFIG["vaccinations"][0].variableId &&
+                    props.variableConfig.variableId === VAXX &&
                     props.fips.isCounty()
                   }
                   fips={props.fips}

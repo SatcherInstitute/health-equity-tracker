@@ -1,5 +1,8 @@
 import { formatFieldValue, MetricConfig } from "../data/config/MetricConfig";
+import { BreakdownVar } from "../data/query/Breakdowns";
 import { Row } from "../data/utils/DatasetTypes";
+
+export type VisualizationType = "chart" | "map";
 
 const MAX_LINE_LENGTH = 20;
 export const DELIMITER = "*~*";
@@ -19,7 +22,7 @@ export const AXIS_LABEL_Y_DELTA = `length(${MULTILINE_LABEL}) == 2 ? -3 : length
 
 export function addLineBreakDelimitersToField(
   rawData: Row[],
-  field: string
+  field: BreakdownVar
 ): Row[] {
   return rawData.map((data) => {
     let lines = [];
@@ -67,5 +70,6 @@ export function addMetricDisplayColumn(
       ),
     };
   });
+
   return [newData, displayColName];
 }

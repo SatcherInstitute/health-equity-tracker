@@ -2,7 +2,7 @@ import { ISeries } from "data-forge";
 import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { ALL, HISPANIC, WHITE_NH } from "../utils/Constants";
+import { ALL, HISPANIC, RACE, WHITE_NH } from "../utils/Constants";
 import { USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
 
@@ -83,7 +83,7 @@ class AcsHealthInsuranceProvider extends VariableProvider {
     df = df.where(
       (row) =>
         //We remove these races because they are subsets
-        row["race_and_ethnicity"] !== WHITE_NH
+        row[RACE] !== WHITE_NH
     );
 
     let totalPivot: { [key: string]: (series: ISeries) => any } = {
@@ -102,7 +102,7 @@ class AcsHealthInsuranceProvider extends VariableProvider {
       .where(
         (row) =>
           //We remove these races because they are subsets
-          row["race_and_ethnicity"] !== HISPANIC
+          row[RACE] !== HISPANIC
       )
       .pivot(["fips", "fips_name"], totalPivot)
       .resetIndex();
