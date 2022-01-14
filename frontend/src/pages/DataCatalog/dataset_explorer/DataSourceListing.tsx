@@ -164,12 +164,18 @@ export function DataSourceListing(props: DataSourceListingProps) {
         </div>
         <Dialog onClose={() => setDialogIsOpen(false)} open={dialogIsOpen}>
           <DialogTitle>
-            <Grid container justify="space-between" alignItems="center">
+            <Grid
+              container
+              justify="space-between"
+              alignItems="center"
+              component="header"
+            >
               <Grid item xs={10} sm={11}>
                 <Typography
                   variant="body1"
                   className={styles.DatasetTitle}
                   align="left"
+                  component="h3"
                 >
                   Available breakdowns for{" "}
                   {props.source_metadata.data_source_name}
