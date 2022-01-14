@@ -75,15 +75,11 @@ function MapCardWithKey(props: MapCardProps) {
   };
 
   const [listExpanded, setListExpanded] = useState(false);
-  const [
-    activeBreakdownFilter,
-    setActiveBreakdownFilter,
-  ] = useState<DemographicGroup>(ALL);
+  const [activeBreakdownFilter, setActiveBreakdownFilter] =
+    useState<DemographicGroup>(ALL);
 
-  const [
-    smallMultiplesDialogOpen,
-    setSmallMultiplesDialogOpen,
-  ] = useAutoFocusDialog();
+  const [smallMultiplesDialogOpen, setSmallMultiplesDialogOpen] =
+    useAutoFocusDialog();
 
   const metricQuery = (geographyBreakdown: Breakdowns) =>
     new MetricQuery(
@@ -157,9 +153,8 @@ function MapCardWithKey(props: MapCardProps) {
           BreakdownVarDisplayName,
           DemographicGroup[]
         > = {
-          [BREAKDOWN_VAR_DISPLAY_NAMES[
-            props.currentBreakdown
-          ]]: breakdownValues,
+          [BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]]:
+            breakdownValues,
         };
 
         // If possible, calculate the total for the selected demographic group and dynamically generate the rest of the phrase
@@ -309,7 +304,8 @@ function MapCardWithKey(props: MapCardProps) {
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
                   }
-                  geoLevel={props.fips.getChildFipsTypeDisplayName()}
+                  isMapCard={true}
+                  fips={props.fips}
                 />
               </CardContent>
             )}

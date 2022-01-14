@@ -130,11 +130,11 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
-                  geoLevel={props.fips.getFipsTypeDisplayName()}
                   noDemographicInfo={
                     props.variableConfig.variableId === VAXX &&
                     props.fips.isCounty()
                   }
+                  fips={props.fips}
                 />
               </CardContent>
             )}
