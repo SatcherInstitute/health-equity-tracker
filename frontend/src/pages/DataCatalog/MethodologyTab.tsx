@@ -39,7 +39,7 @@ function MethodologyTab() {
               className={styles.MethodologyQuestionAndAnswer}
               component="article"
             >
-              <h3 id="main" tabIndex={0} className={styles.MethodologyQuestion}>
+              <h3 id="main" className={styles.MethodologyQuestion}>
                 Recommended Citation (APA) for the Health Equity Tracker:
               </h3>
 
@@ -54,9 +54,7 @@ function MethodologyTab() {
               className={styles.MethodologyQuestionAndAnswer}
               component="article"
             >
-              <h3 tabIndex={0} className={styles.MethodologyQuestion}>
-                {selectFaqs[4].q}
-              </h3>
+              <h3 className={styles.MethodologyQuestion}>{selectFaqs[4].q}</h3>
               <div className={styles.MethodologyAnswer}>
                 {<>{parse(selectFaqs[4].a)}</>}
               </div>
@@ -67,7 +65,7 @@ function MethodologyTab() {
               className={styles.MethodologyQuestionAndAnswer}
               component="article"
             >
-              <h3 tabIndex={0} className={styles.MethodologyQuestion}>
+              <h3 className={styles.MethodologyQuestion}>
                 What are the limitations of the tracker?
               </h3>
               <div className={styles.MethodologyAnswer}>
@@ -285,7 +283,7 @@ function MethodologyTab() {
               className={styles.MethodologyQuestionAndAnswer}
               component="article"
             >
-              <h3 tabIndex={0} className={styles.MethodologyQuestion}>
+              <h3 className={styles.MethodologyQuestion}>
                 What data is missing?
               </h3>
               <div className={styles.MethodologyAnswer}>
@@ -310,7 +308,7 @@ function MethodologyTab() {
               className={styles.MethodologyQuestionAndAnswer}
               component="article"
             >
-              <h3 tabIndex={0} className={styles.MethodologyQuestion}>
+              <h3 className={styles.MethodologyQuestion}>
                 What do the metrics on the tracker mean?
               </h3>
               <div className={styles.MethodologyAnswer}>
@@ -368,7 +366,7 @@ function MethodologyTab() {
               className={styles.MethodologyQuestionAndAnswer}
               component="article"
             >
-              <h3 tabIndex={0} className={styles.MethodologyQuestion}>
+              <h3 className={styles.MethodologyQuestion}>
                 What do the condition variables on the tracker mean?
               </h3>
               <div className={styles.MethodologyAnswer}>
@@ -388,7 +386,7 @@ function MethodologyTab() {
               className={styles.MethodologyQuestionAndAnswer}
               component="article"
             >
-              <h3 tabIndex={0} className={styles.MethodologyQuestion}>
+              <h3 className={styles.MethodologyQuestion}>
                 What do the race/ethnicity groups mean?
               </h3>
               <div className={styles.MethodologyAnswer}>

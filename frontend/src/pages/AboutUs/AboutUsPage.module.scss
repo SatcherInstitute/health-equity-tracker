@@ -86,6 +86,7 @@
     font-size: $smallHeader;
     line-height: 30px;
     padding: 10px 0 10px 0;
+    text-align: left !important;
   }
 
   .HeaderSubtext {
@@ -183,7 +184,8 @@
     font-weight: 300;
     font-size: $smallestHeader;
     line-height: 25px;
-    padding: 30px 0 0 0;
+    padding: 30px 0 1rem 0;
+    text-align: left;
   }
 
   .HeaderSubtext {
@@ -227,8 +229,14 @@
 /** ------------- THE PROJECT ------------- **/
 
 // For each item in the "Where We Aim To Go" section
-.AimToGoItem {
-  padding: 0 15px 0 15px;
+.GoalList {
+  display: flex;
+  padding-left: 0;
+}
+
+.GoalListItem {
+  padding: 0 1.5rem 0 1.5rem;
+  list-style: none;
 }
 
 // For each image in the "Where We Aim To Go" section
