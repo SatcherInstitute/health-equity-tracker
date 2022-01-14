@@ -204,7 +204,7 @@ function Units(props: UnitsProps) {
 
   const unit =
     props.column === 1
-      ? "per 100k"
+      ? "per 100k"
       : props.metric[props.column - 1].shortVegaLabel;
 
   // inline vs block
