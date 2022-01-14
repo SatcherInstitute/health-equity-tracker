@@ -1,3 +1,4 @@
+@use "../../styles/globals.scss";
 @import "../../styles/variables.module";
 
 .ListBox {
@@ -59,12 +60,4 @@
   color: $alt-green !important;
   padding: 0 5px !important;
   margin-top: -2px !important; // To align with the <p> text better
-}
-
-.Unit {
-  font-size: $smallest;
-  font-weight: 200;
-  font-stretch: ultra-condensed, extra-condensed, condensed;
-  margin-left: 0.075rem;
-  letter-spacing: -0.04rem;
 }

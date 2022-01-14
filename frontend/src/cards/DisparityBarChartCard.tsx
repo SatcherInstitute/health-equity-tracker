@@ -154,7 +154,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               </CardContent>
             )}
             {shouldShowDoesntAddUpMessage && (
-              <Alert severity="info">
+              <Alert severity="info" role="note">
                 Population percentages on this graph add up to over 100% because
                 the racial categories reported for{" "}
                 {metricConfig.fullCardTitleName} in{" "}

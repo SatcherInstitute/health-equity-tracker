@@ -64,11 +64,12 @@ autoInitGlobals();
 
 const dataFetcher = getDataFetcher() as FakeDataFetcher;
 
-const evaluatePopulationCountAndPctWithAndWithoutTotal = createWithAndWithoutAllEvaluator(
-  ["population", "population_pct"],
-  dataFetcher,
-  new Acs2010PopulationProvider()
-);
+const evaluatePopulationCountAndPctWithAndWithoutTotal =
+  createWithAndWithoutAllEvaluator(
+    ["population", "population_pct"],
+    dataFetcher,
+    new Acs2010PopulationProvider()
+  );
 
 describe("Acs2010PopulationProvider", () => {
   beforeEach(() => {

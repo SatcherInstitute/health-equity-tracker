@@ -27,6 +27,7 @@ const MULTI_LINE_100K = "+' per 100k'";
 const SINGLE_LINE_PERCENT = "+'%'";
 
 function getSpec(
+  altText: string,
   data: Row[],
   width: number,
   breakdownVar: BreakdownVar,
@@ -67,6 +68,7 @@ function getSpec(
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     background: "white",
+    description: altText,
     padding: 5,
     autosize: { resize: true, type: "fit-x" },
     width: width - WIDTH_PADDING_FOR_SNOWMAN_MENU,
@@ -242,10 +244,8 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     props.data,
     props.breakdownVar
   );
-  const [
-    dataWithDisplayCol,
-    barMetricDisplayColumnName,
-  ] = addMetricDisplayColumn(props.metric, dataWithLineBreakDelimiter);
+  const [dataWithDisplayCol, barMetricDisplayColumnName] =
+    addMetricDisplayColumn(props.metric, dataWithLineBreakDelimiter);
   // Omit the % symbol for the tooltip because it's included in shortVegaLabel.
   const [data, tooltipMetricDisplayColumnName] = addMetricDisplayColumn(
     props.metric,
@@ -262,6 +262,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
       <Vega
         downloadFileName={`${props.filename} - Health Equity Tracker`}
         spec={getSpec(
+          /* altText: string */ `Bar Chart showing ${props.filename}`,
           data,
           width,
           props.breakdownVar,

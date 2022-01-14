@@ -112,11 +112,12 @@ function countyRow(
   };
 }
 
-const evaluateHealthInsuranceWithAndWithoutTotal = createWithAndWithoutAllEvaluator(
-  /*metricIds=*/ ["health_insurance_count", "health_insurance_per_100k"],
-  dataFetcher,
-  new AcsHealthInsuranceProvider()
-);
+const evaluateHealthInsuranceWithAndWithoutTotal =
+  createWithAndWithoutAllEvaluator(
+    /*metricIds=*/ ["health_insurance_count", "health_insurance_per_100k"],
+    dataFetcher,
+    new AcsHealthInsuranceProvider()
+  );
 
 //TODO: Add more tests for breakdown by SEX.
 describe("AcsHealthInsuranceProvider", () => {

@@ -7,6 +7,7 @@ import Carousel from "react-material-ui-carousel";
 import { Fips } from "../../data/utils/Fips";
 import ReportProvider from "../../reports/ReportProvider";
 import {
+  getMadLibPhraseText,
   getMadLibWithUpdatedValue,
   MadLib,
   MadLibId,
@@ -31,6 +32,7 @@ import styles from "./ExploreDataPage.module.scss";
 import { Onboarding } from "./Onboarding";
 import OptionsSelector from "./OptionsSelector";
 import { useLocation } from "react-router-dom";
+import { srSpeak } from "../../utils/a11yutils";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -91,11 +93,6 @@ function ExploreDataPage() {
       }
     };
   }, []);
-
-  /* scroll to top on any changes to the madlib settings */
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [madLib]);
 
   const setMadLibWithParam = (ml: MadLib) => {
     setParameter(MADLIB_SELECTIONS_PARAM, stringifyMls(ml.activeSelections));
@@ -188,6 +185,15 @@ function ExploreDataPage() {
     ]);
   };
 
+  /* on any changes to the madlib settings */
+  useEffect(() => {
+    // scroll browser screen to top
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    // A11y - create then delete an invisible alert that the report mode has changed
+    srSpeak(`Now viewing report: ${getMadLibPhraseText(madLib)}`);
+  }, [madLib]);
+
   return (
     <>
       <Onboarding
@@ -195,7 +201,9 @@ function ExploreDataPage() {
         activelyOnboarding={activelyOnboarding}
       />
 
-      <h1 className={styles.ScreenreaderTitleHeader}>Explore the Data</h1>
+      <h2 className={styles.ScreenreaderTitleHeader}>
+        {getMadLibPhraseText(madLib)}
+      </h2>
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
         <div
           className={styles.CarouselContainer}
@@ -203,10 +211,26 @@ function ExploreDataPage() {
         >
           <Carousel
             className={styles.Carousel}
-            NextIcon={<NavigateNextIcon id="onboarding-madlib-arrow" />}
+            NextIcon={
+              <NavigateNextIcon
+                aria-hidden="true"
+                id="onboarding-madlib-arrow"
+              />
+            }
             timeout={200}
             autoPlay={false}
             indicators={!sticking || !pageIsWide}
+            indicatorIconButtonProps={{
+              "aria-label": "Report Type",
+              style: { padding: "4px" },
+            }}
+            activeIndicatorIconButtonProps={{
+              "aria-label": "Current Selection: Report Type",
+            }}
+            // ! TODO We really should be able to indicate Forward/Backward vs just "Switch"
+            navButtonsProps={{
+              "aria-label": "Change Report Type",
+            }}
             animation="slide"
             navButtonsAlwaysVisible={true}
             index={initialIndex}
@@ -257,21 +281,14 @@ function CarouselMadLib(props: {
   }
 
   return (
-    <Grid
-      container
-      justify="center"
-      alignItems="center"
-      className={styles.CarouselItem}
-    >
-      {props.madLib.phrase.map(
-        (phraseSegment: PhraseSegment, index: number) => (
-          <React.Fragment key={index}>
-            {typeof phraseSegment === "string" ? (
-              <Grid item className={styles.MadLibSelect}>
-                {phraseSegment}
-              </Grid>
-            ) : (
-              <Grid item className={styles.MadLibSelect}>
+    <Grid container justify="center" alignItems="center">
+      <div className={styles.CarouselItem}>
+        {props.madLib.phrase.map(
+          (phraseSegment: PhraseSegment, index: number) => (
+            <React.Fragment key={index}>
+              {typeof phraseSegment === "string" ? (
+                <span>{phraseSegment}</span>
+              ) : (
                 <OptionsSelector
                   key={index}
                   value={props.madLib.activeSelections[index]}
@@ -282,11 +299,11 @@ function CarouselMadLib(props: {
                   }
                   options={getOptionsFromPhraseSegement(phraseSegment)}
                 />
-              </Grid>
-            )}
-          </React.Fragment>
-        )
-      )}
+              )}
+            </React.Fragment>
+          )
+        )}
+      </div>
     </Grid>
   );
 }

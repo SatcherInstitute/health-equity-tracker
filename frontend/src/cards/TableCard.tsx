@@ -141,7 +141,7 @@ export function TableCard(props: TableCardProps) {
               props.breakdownVar === RACE && (
                 <>
                   <CardContent>
-                    <Alert severity="warning">
+                    <Alert severity="warning" role="note">
                       Share of COVID-19 cases reported for American Indian,
                       Alaska Native, Native Hawaiian and Pacific Islander are
                       underrepresented at the national level and in many states

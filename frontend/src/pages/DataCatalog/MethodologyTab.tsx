@@ -29,7 +29,7 @@ function MethodologyTab() {
       <Helmet>
         <title>Methodology - Health Equity Tracker</title>
       </Helmet>
-      <h1 className={styles.ScreenreaderTitleHeader}>Methodology</h1>
+      <h2 className={styles.ScreenreaderTitleHeader}>Methodology</h2>
       <Grid
         container
         direction="column"
@@ -38,14 +38,14 @@ function MethodologyTab() {
       >
         <Grid item>
           <Grid container className={styles.MethodologySection}>
-            <Grid item className={styles.MethodologyQuestionAndAnswer}>
-              <h2
-                id="main"
-                tabIndex={-1}
-                className={styles.MethodologyQuestion}
-              >
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 id="main" className={styles.MethodologyQuestion}>
                 Recommended Citation (APA) for the Health Equity Tracker:
-              </h2>
+              </h3>
 
               <div className={styles.MethodologyAnswer}>
                 <Card elevation={3}>
@@ -53,21 +53,27 @@ function MethodologyTab() {
                 </Card>
               </div>
             </Grid>
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2 tabIndex={-1} className={styles.MethodologyQuestion}>
-                {selectFaqs[4].q}
-              </h2>
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>{selectFaqs[4].q}</h3>
               <div className={styles.MethodologyAnswer}>
                 {<>{parse(selectFaqs[4].a)}</>}
               </div>
             </Grid>
 
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2 className={styles.MethodologyQuestion}>
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>
                 What are the limitations of the tracker?
-              </h2>
+              </h3>
               <div className={styles.MethodologyAnswer}>
-                <h3 className={styles.MethodologySubsubheaderText}>COVID-19</h3>
+                <h4 className={styles.MethodologySubsubheaderText}>COVID-19</h4>
                 <p>
                   For a description of some of the gaps in COVID-19 data, please
                   see the{" "}
@@ -113,9 +119,9 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
-                <h3 className={styles.MethodologySubsubheaderText}>
+                <h4 className={styles.MethodologySubsubheaderText}>
                   COVID-19 Vaccinations
-                </h3>
+                </h4>
                 <p>
                   Because there is currently no national vaccine demographic
                   dataset, we combine the best datasets we could find for each
@@ -156,7 +162,10 @@ function MethodologyTab() {
                     which provides the total number of vaccinations per county.
                   </li>
                 </ul>
-                <h4> Vaccination Population Sources </h4>
+                <h4 className={styles.MethodologySubsubheaderText}>
+                  {" "}
+                  Vaccination Population Sources{" "}
+                </h4>
                 <ul>
                   <li>
                     For the national numbers we use the population numbers
@@ -190,7 +199,10 @@ function MethodologyTab() {
                     estimations.
                   </li>
                 </ul>
-                <h4> Vaccination Data Limitations </h4>
+                <h4 className={styles.MethodologySubsubheaderText}>
+                  {" "}
+                  Vaccination Data Limitations{" "}
+                </h4>
                 <ul>
                   <li>
                     <b>Texas</b> does not report demographic-specific dose
@@ -231,9 +243,9 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
-                <h3 className={styles.MethodologySubsubheaderText}>
+                <h4 className={styles.MethodologySubsubheaderText}>
                   Diabetes & COPD
-                </h3>
+                </h4>
                 <p>
                   Diabetes & COPD data in the tracker is sourced from{" "}
                   <a href={urlMap.amr}>America's Health Rankings</a>, who in
@@ -259,9 +271,9 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
-                <h3 className={styles.MethodologySubsubheaderText}>
+                <h4 className={styles.MethodologySubsubheaderText}>
                   Visualizations
-                </h3>
+                </h4>
                 <p>
                   Please consider the impact of under-reporting and data gaps
                   when exploring the visualizations. These issues may lead to
@@ -270,10 +282,14 @@ function MethodologyTab() {
                 </p>
               </div>
             </Grid>
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2 className={styles.MethodologyQuestion}>
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>
                 What data is missing?
-              </h2>
+              </h3>
               <div className={styles.MethodologyAnswer}>
                 <p>
                   Our tracker will expand to include additional health
@@ -291,10 +307,14 @@ function MethodologyTab() {
                 </p>
               </div>
             </Grid>
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2 className={styles.MethodologyQuestion}>
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>
                 What do the metrics on the tracker mean?
-              </h2>
+              </h3>
               <div className={styles.MethodologyAnswer}>
                 <p>
                   None of the metrics/data shown on the tracker are
@@ -345,10 +365,14 @@ function MethodologyTab() {
                 </ul>
               </div>
             </Grid>
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2 className={styles.MethodologyQuestion}>
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>
                 What do the condition variables on the tracker mean?
-              </h2>
+              </h3>
               <div className={styles.MethodologyAnswer}>
                 <DefinitionsList definedConditions={definedConditions} />
                 <p>
@@ -358,10 +382,14 @@ function MethodologyTab() {
                 </p>
               </div>
             </Grid>
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2 className={styles.MethodologyQuestion}>
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>
                 What do the race/ethnicity groups mean?
-              </h2>
+              </h3>
               <div className={styles.MethodologyAnswer}>
                 <p>
                   The combined race/ethnicity groups shown on the tracker can be

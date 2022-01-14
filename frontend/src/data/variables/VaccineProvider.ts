@@ -49,8 +49,8 @@ class VaccineProvider extends VariableProvider {
     const vaxData = await getDataManager().loadDataset(datasetId);
     let df = vaxData.toDataFrame();
 
-    const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
-      .columnName;
+    const breakdownColumnName =
+      breakdowns.getSoleDemographicBreakdown().columnName;
 
     df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);

@@ -33,7 +33,8 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
 } as const;
 
 // union type of values (capitalized display names), eg "Race and Ethnicity" | "Age" | "Sex"
-export type BreakdownVarDisplayName = typeof BREAKDOWN_VAR_DISPLAY_NAMES[keyof typeof BREAKDOWN_VAR_DISPLAY_NAMES];
+export type BreakdownVarDisplayName =
+  typeof BREAKDOWN_VAR_DISPLAY_NAMES[keyof typeof BREAKDOWN_VAR_DISPLAY_NAMES];
 
 export const BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE: Record<
   BreakdownVar,
