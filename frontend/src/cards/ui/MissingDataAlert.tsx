@@ -4,15 +4,18 @@ import {
   LinkWithStickyParams,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "../../utils/urlutils";
+import { BreakdownVarDisplayName } from "../../data/query/Breakdowns";
 import { Fips } from "../../data/utils/Fips";
 
-function MissingDataAlert(props: {
+interface MissingDataAlertProps {
   dataName: string;
-  breakdownString: string;
+  breakdownString: BreakdownVarDisplayName;
   noDemographicInfo?: boolean;
   isMapCard?: boolean;
   fips: Fips;
-}) {
+}
+
+function MissingDataAlert(props: MissingDataAlertProps) {
   // conditionally render the statement based on props
   const demographicPhrase = props.noDemographicInfo
     ? " demographic information for "
@@ -39,7 +42,7 @@ function MissingDataAlert(props: {
       <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
         health equity
       </LinkWithStickyParams>
-      .
+      <span aria-hidden="true">.</span>
     </Alert>
   );
 }
