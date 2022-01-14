@@ -4,10 +4,7 @@ import {
   LinkWithStickyParams,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "../../utils/urlutils";
-import {
-  BreakdownVarDisplayName,
-  GeographicBreakdown,
-} from "../../data/query/Breakdowns";
+import { BreakdownVarDisplayName } from "../../data/query/Breakdowns";
 import { Fips } from "../../data/utils/Fips";
 
 interface MissingDataAlertProps {
