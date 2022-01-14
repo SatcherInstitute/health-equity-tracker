@@ -19,6 +19,7 @@ export const TERMS_OF_USE_PAGE_LINK = "/termsofuse";
 export const FAQ_TAB_LINK = "/faqs";
 export const RESOURCES_TAB_LINK = "/resources";
 export const METHODOLOGY_TAB_LINK = "/methodology";
+export const DATA_TAB_LINK = "/datacatalog";
 export const CONTACT_TAB_LINK = "/contact";
 export const ABOUT_TAB_LINK = "/about";
 export const OURTEAM_TAB_LINK = "/ourteam";
