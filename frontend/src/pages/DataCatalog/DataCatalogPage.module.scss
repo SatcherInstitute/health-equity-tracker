@@ -20,18 +20,16 @@
 }
 
 .MethodologyQuestionAndAnswer {
-  padding-bottom: 20px;
+  padding-bottom: 2rem;
 }
 
 .MethodologyQuestion {
-  font-size: $title !important;
+  font-size: $smallestHeader;
   text-align: left;
   font-weight: 500;
-  font-family: "DM Sans", sans-serif;
+  font-family: "Taviraj", serif !important ;
   line-height: 23.44px !important;
   color: $alt-black;
-  padding-top: 10px;
-  padding-bottom: 15px;
 }
 
 .MethodologyAnswer {
