@@ -73,7 +73,7 @@ function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
             .
           </p>
         </div>
-        <div className={styles.DatasetList}>
+        <ul className={styles.DatasetList}>
           <WithMetadata>
             {(datasetMetadata) => {
               const filteredDatasets = getFilteredSources(
@@ -89,15 +89,13 @@ function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
               return (
                 <>
                   {filteredDatasets.map((source_id, index) => (
-                    <div className={styles.Dataset} key={index}>
-                      <div className={styles.DatasetListItem}>
-                        <DataSourceListing
-                          key={DataSourceMetadataMap[source_id].id}
-                          source_metadata={DataSourceMetadataMap[source_id]}
-                          dataset_metadata={datasetMetadata}
-                        />
-                      </div>
-                    </div>
+                    <li className={styles.DatasetListItem} key={index}>
+                      <DataSourceListing
+                        key={DataSourceMetadataMap[source_id].id}
+                        source_metadata={DataSourceMetadataMap[source_id]}
+                        dataset_metadata={datasetMetadata}
+                      />
+                    </li>
                   ))}
                   {viewingSubsetOfSources && (
                     <Button
@@ -112,7 +110,7 @@ function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
               );
             }}
           </WithMetadata>
-        </div>
+        </ul>
       </Grid>
     </HelmetProvider>
   );
