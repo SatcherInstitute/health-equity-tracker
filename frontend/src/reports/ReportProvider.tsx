@@ -19,13 +19,14 @@ import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import styles from "./Report.module.scss";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
-import { VACCINATED_DEF } from "../pages/DataCatalog/MethodologyTab";
-import { METRIC_CONFIG } from "../data/config/MetricConfig";
+import { METRIC_CONFIG, VariableConfig } from "../data/config/MetricConfig";
 import { Link } from "react-router-dom";
 import FeedbackBox from "../pages/ui/FeedbackBox";
 import ShareButtons from "./ui/ShareButtons";
 import { Helmet } from "react-helmet-async";
 import { urlMap } from "../utils/externalUrls";
+import { Box } from "@material-ui/core";
+import DefinitionsList from "./ui/DefinitionsList";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
@@ -310,23 +311,49 @@ function ReportProvider(props: ReportProviderProps) {
             </Button>
           </a>
 
-          {/* DEFINITIONS */}
-          <h3 ref={definitionsRef} className={styles.FootnoteLargeHeading}>
-            Definitions
-          </h3>
-
-          <ul>
-            <li>
-              <b>{METRIC_CONFIG["vaccinations"][0].variableFullDisplayName}</b>
-              {": "}
-              {VACCINATED_DEF}
-            </li>
-          </ul>
+          <div ref={definitionsRef}>
+            <DefinitionsBox madLib={props.madLib} />
+          </div>
         </aside>
       </div>
 
       <FeedbackBox />
     </>
+  );
+}
+
+/*
+Display heading and condition definition(s) based on the tracker madlib settings
+*/
+function DefinitionsBox(props: { madLib: MadLib }) {
+  // get selected condition (array because some conditions like COVID contain multiple sub-conditions)
+  const condition1array: VariableConfig[] =
+    METRIC_CONFIG[getPhraseValue(props.madLib, 1)];
+  // get 2nd condition if in compare var mode
+  const condition2array: VariableConfig[] =
+    props.madLib.id === "comparevars"
+      ? METRIC_CONFIG[getPhraseValue(props.madLib, 3)]
+      : [];
+
+  // make a list of conditions and sub-conditions, including #2 if it's unique
+  const selectedConditions: VariableConfig[] =
+    condition2array.length && condition2array !== condition1array
+      ? [...condition1array, ...condition2array]
+      : condition1array;
+
+  // filter out conditions that don't have a definition
+  const definedConditions = selectedConditions.filter(
+    (condition) => condition?.variableDefinition
+  );
+
+  // dont render anything if there are no definitions to show
+  if (definedConditions.length === 0) return <></>;
+
+  return (
+    <Box mt={5}>
+      <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
+      <DefinitionsList definedConditions={definedConditions} />
+    </Box>
   );
 }
 
