@@ -204,7 +204,6 @@ function LandingPage() {
                 href={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
               >
                 What is Health Equity?
-                {/* Learn more */}
               </Button>
             </Grid>
           </Grid>
@@ -288,7 +287,12 @@ function LandingPage() {
           </Grid>
         </Grid>
 
-        <Grid container className={styles.HowToRow} component="article">
+        <Grid
+          container
+          className={styles.HowToRow}
+          component="article"
+          justify="center"
+        >
           <Grid item xs={12}>
             <Typography
               className={styles.HowToHeaderText}
@@ -396,20 +400,17 @@ function LandingPage() {
                 </LazyLoad>
               </Grid>
             </Grid>
-
-            <Grid item>
-              <br />
-              <br />
-              <Button
-                variant="contained"
-                color="primary"
-                className={styles.PrimaryButton}
-                href={EXPLORE_DATA_PAGE_LINK}
-              >
-                Explore the Tracker
-              </Button>
-            </Grid>
           </Grid>
+          <Box mt={7}>
+            <Button
+              variant="contained"
+              color="primary"
+              className={styles.PrimaryButton}
+              href={EXPLORE_DATA_PAGE_LINK}
+            >
+              Explore the Tracker
+            </Button>
+          </Box>
         </Grid>
 
         <div className={styles.FaqRow}>
