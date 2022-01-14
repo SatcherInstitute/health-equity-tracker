@@ -73,7 +73,7 @@ export const MULTI_OR_OTHER_STANDARD = "Two or more races & Some other race";
 export const MULTI_OR_OTHER_STANDARD_NH =
   "Two or more races & Some other race (Non-Hispanic)";
 
-export const COMBINED_RACES = [
+export const COMBINATION_RACES = [
   API,
   API_NH,
   INDIGENOUS,
@@ -86,7 +86,7 @@ export const COMBINED_RACES = [
 export const RACE_GROUPS = [
   ...STANDARD_RACES,
   ...NON_STANDARD_RACES,
-  ...COMBINED_RACES,
+  ...COMBINATION_RACES,
   UNKNOWN_RACE,
   UNKNOWN_HL,
   UNKNOWN_ETHNICITY,
