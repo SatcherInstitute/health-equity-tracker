@@ -193,6 +193,10 @@
   border-bottom: $bottom-border-style;
   border-top: 1px solid $border-color;
 
+  ul {
+    padding-inline-start: 0px;
+  }
+
   .HowToHeaderText {
     font-size: $bigHeader;
     text-align: center;
@@ -222,7 +226,10 @@
     font-weight: 600;
     font-size: $smallestHeader;
     line-height: 34px;
-    text-align: left;
+    text-align: center;
+    @media only screen and (min-width: $md) {
+      text-align: left;
+    }
   }
 
   .HowToStepTextSubheader {
@@ -231,7 +238,10 @@
     font-size: $text;
     line-height: 26px;
     letter-spacing: 0.1px;
-    text-align: left;
+    text-align: center;
+    @media only screen and (min-width: $md) {
+      text-align: left;
+    }
   }
 }
 
