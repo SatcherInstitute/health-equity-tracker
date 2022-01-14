@@ -1,3 +1,28 @@
+//  IDs for the selectable conditions in the madlib
+export type DropdownVarId =
+  | "covid"
+  | "diabetes"
+  | "copd"
+  | "health_insurance"
+  | "poverty"
+  | "vaccinations";
+
+// IDs for the sub-data types (if any) for theDropDownId
+export type VariableId =
+  | "population"
+  | "population_2010"
+  | "cases"
+  | "deaths"
+  | "hospitalizations"
+  | "cases"
+  | "cases"
+  | "health_coverage"
+  | "poverty"
+  | "vaccinations";
+
+// consts for simpler code
+export const VAXX: VariableId = "vaccinations";
+
 export type MetricId =
   | "acs_vaccine_population_pct"
   | "brfss_population_pct"
@@ -71,7 +96,7 @@ export type MetricConfig = {
 };
 
 export type VariableConfig = {
-  variableId: string; // TODO - strongly type key
+  variableId: VariableId;
   variableDisplayName: string;
   variableFullDisplayName: string;
   variableDefinition?: string;

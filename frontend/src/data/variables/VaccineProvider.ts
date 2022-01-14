@@ -6,7 +6,7 @@ import { joinOnCols } from "../utils/datasetutils";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
-import { ALL } from "../utils/Constants";
+import { ALL, RACE } from "../utils/Constants";
 
 class VaccineProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -30,8 +30,7 @@ class VaccineProvider extends VariableProvider {
       );
     } else if (
       breakdowns.geography === "state" &&
-      breakdowns.getSoleDemographicBreakdown().columnName ===
-        "race_and_ethnicity"
+      breakdowns.getSoleDemographicBreakdown().columnName === RACE
     ) {
       return "kff_vaccination-race_and_ethnicity";
     } else if (breakdowns.geography === "county") {
@@ -188,11 +187,9 @@ class VaccineProvider extends VariableProvider {
     return (
       (breakdowns.geography === "national" ||
         (breakdowns.geography === "state" &&
-          breakdowns.getSoleDemographicBreakdown().columnName ===
-            "race_and_ethnicity") ||
+          breakdowns.getSoleDemographicBreakdown().columnName === RACE) ||
         (breakdowns.geography === "county" &&
-          breakdowns.getSoleDemographicBreakdown().columnName ===
-            "race_and_ethnicity")) &&
+          breakdowns.getSoleDemographicBreakdown().columnName === RACE)) &&
       validDemographicBreakdownRequest
     );
   }

@@ -12,7 +12,13 @@ import {
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import { FipsSpec, NC, AL, USA } from "./TestUtils";
-import { WHITE_NH, ASIAN_NH, ALL, RACE } from "../utils/Constants";
+import {
+  WHITE_NH,
+  ASIAN_NH,
+  ALL,
+  RACE,
+  DemographicGroup,
+} from "../utils/Constants";
 import { MetricId } from "../config/MetricConfig";
 
 const METRIC_IDS: MetricId[] = [
@@ -65,8 +71,8 @@ const dataFetcher = getDataFetcher() as FakeDataFetcher;
 
 function finalRow(
   fips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   copd_per_100k: number,
   diabetes_per_100k: number,
   copd_pct_share: number,
@@ -84,8 +90,8 @@ function finalRow(
 
 function stateRow(
   fips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   copd_pct: number,
   diabetes_pct: number,
   population: number

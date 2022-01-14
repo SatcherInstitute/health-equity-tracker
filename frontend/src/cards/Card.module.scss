@@ -110,21 +110,6 @@
   min-width: unset !important;
 }
 
-.CompareAcrossLink,
-.ConditionDefinitionLink {
-  color: $alt-green;
-  text-decoration: underline;
-  &:hover {
-    cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.04);
-  }
-}
-
-// This ensures that vega tooltips are always visible even when in dialog elements
-#vg-tooltip-element {
-  z-index: 2000 !important;
-}
-
 .TerritoryCirclesContainer {
   width: 100%;
   height: 55px;
