@@ -36,7 +36,7 @@ function MissingDataAlert(props: MissingDataAlertProps) {
       <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
         health equity
       </LinkWithStickyParams>
-      .
+      <span aria-hidden="true">.</span>
     </Alert>
   );
 }
