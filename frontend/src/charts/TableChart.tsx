@@ -39,7 +39,7 @@ export interface TableChartProps {
 }
 
 export function TableChart(props: TableChartProps) {
-  const wrap100kUnit = useMediaQuery("(max-width:700px)");
+  const wrap100kUnit = useMediaQuery("(max-width:500px)");
 
   const { data, metrics, breakdownVar } = props;
   let columns = metrics.map((metricConfig) => {
@@ -207,6 +207,7 @@ function Units(props: UnitsProps) {
       ? "per 100k"
       : props.metric[props.column - 1].shortVegaLabel;
 
+  // inline vs block
   return props.wrap100kUnit && props.column === 1 ? (
     <p className={styles.Unit}>{unit}</p>
   ) : (
