@@ -21,11 +21,11 @@ function MissingDataAlert(props: {
     ? " "
     : ` broken down by ${props.breakdownString} `;
 
-  // the geo level data is needed from to create a map
+  // supply name of lower level geo needed to create map
   const geoPhrase =
-    !props.isMapCard || props.fips.isCounty()
-      ? ""
-      : `within ${props.fips.getDisplayName()}`;
+    props.isMapCard && !props.fips.isCounty()
+      ? `at the ${props.fips.getChildFipsTypeDisplayName()} level `
+      : "";
 
   return (
     <Alert severity="warning">
