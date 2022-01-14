@@ -23,7 +23,6 @@ function DisclaimerAlert(props: { jumpToData: () => void }) {
         in the United States.
         <span
           onClick={(e) => {
-            e.preventDefault();
             props.jumpToData();
           }}
           className={styles.LinkButton}
