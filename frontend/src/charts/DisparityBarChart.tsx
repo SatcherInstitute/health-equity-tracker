@@ -375,7 +375,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   if (showAltPopCompare) {
     dataFromProps = props.data.map((item) => {
       if (
-        // if matches either with or without Hispanic
+        // AIAN, NHPI (with and without Hispanic) require use of alternate population source
         item[RACE].includes(AIAN) ||
         item[RACE].includes(NHPI)
       ) {
@@ -448,26 +448,25 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
         downloadFileName={`${props.filename} - Health Equity Tracker`}
         spec={getSpec(
           /* data: Record<string, any>[] */ data,
-          /* width: number */ width,
-          /* breakdownVar: BreakdownVar */ props.breakdownVar,
-          /* breakdownVarDisplayName: BreakdownVarDisplayName */ BREAKDOWN_VAR_DISPLAY_NAMES[
+          /* width */ width,
+          /* breakdownVar */ props.breakdownVar,
+          /* breakdownVarDisplayName */ BREAKDOWN_VAR_DISPLAY_NAMES[
             props.breakdownVar
           ],
-          /* lightMeasure: MetricId */ props.lightMetric.metricId,
-          /* lightMeasureDisplayName: string */ props.lightMetric
-            .shortVegaLabel,
-          /* darkMeasure: MetricId */ props.darkMetric.metricId,
-          /* darkMeasureDisplayName: string, */ props.darkMetric.shortVegaLabel,
-          /* metricDisplayName: string */ props.metricDisplayName,
-          /* lightMetricDisplayColumnName: string, */ lightMetricDisplayColumnName,
-          /* darkMetricDisplayColumnName: string, */ darkMetricDisplayColumnName,
-          /* barLabelBreakpoint: number, */ barLabelBreakpoint,
-          /* pageIsTiny: boolean, */ pageIsTiny,
-          /* stacked?: boolean, */ props.stacked,
-          /* altLightMeasure?: MetricId, */ hasAltPop
+          /* lightMeasure */ props.lightMetric.metricId,
+          /* lightMeasureDisplayName */ props.lightMetric.shortVegaLabel,
+          /* darkMeasure */ props.darkMetric.metricId,
+          /* darkMeasureDisplayName, */ props.darkMetric.shortVegaLabel,
+          /* metricDisplayName */ props.metricDisplayName,
+          /* lightMetricDisplayColumnName, */ lightMetricDisplayColumnName,
+          /* darkMetricDisplayColumnName, */ darkMetricDisplayColumnName,
+          /* barLabelBreakpoint, */ barLabelBreakpoint,
+          /* pageIsTiny, */ pageIsTiny,
+          /* stacked?, */ props.stacked,
+          /* altLightMeasure?, */ hasAltPop
             ? altLightMetric.metricId
             : undefined,
-          /* altLightMeasureDisplayName?: string, */ hasAltPop
+          /* altLightMeasureDisplayName?, */ hasAltPop
             ? altLightMetric.shortVegaLabel
             : "",
           /* altLightMetricDisplayColumnName?: string, */ hasAltPop
