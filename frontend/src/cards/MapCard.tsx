@@ -46,7 +46,7 @@ export interface MapCardProps {
   variableConfig: VariableConfig;
   updateFipsCallback: (fips: Fips) => void;
   currentBreakdown: BreakdownVar;
-  jumpToDefinitions?: Function;
+  jumpToDefinitions: Function;
   jumpToData: Function;
 }
 
@@ -161,24 +161,16 @@ function MapCardWithKey(props: MapCardProps) {
                   options[metricConfig.metricId]
                 )}
               </b>{" "}
-              {/*} cases per 100k   NOTE: vaccinations term gets hyperlinked to definitions on bottom of page*/}
-              {props.variableConfig.variableId ===
-              METRIC_CONFIG["vaccinations"][0].variableId ? (
-                <span
-                  role="button"
-                  onClick={() => {
-                    props.jumpToDefinitions && props.jumpToDefinitions();
-                  }}
-                  className={styles.ConditionDefinitionLink}
-                >
-                  {
-                    METRIC_CONFIG["vaccinations"][0].metrics.per100k
-                      .shortVegaLabel
-                  }
-                </span>
-              ) : (
-                metricConfig.shortVegaLabel
-              )}
+              {/*} HYPERLINKED TO BOTTOM DEFINITION {condition} cases per 100k  */}
+              <span
+                role="button"
+                onClick={() => {
+                  props.jumpToDefinitions();
+                }}
+                className={styles.ConditionDefinitionLink}
+              >
+                {metricConfig?.fullCardTitleName}
+              </span>
               {/*} for  */}
               {activeBreakdownFilter !== "All" && " for"}
               {/*} [ ages 30-39] */}
@@ -419,7 +411,7 @@ function MapCardWithKey(props: MapCardProps) {
   );
 }
 
-/* 
+/*
 Generates the "COMPARES ACROSS GROUPS" button which opens the small multiples modal
 */
 export interface MultiMapLinkProps {

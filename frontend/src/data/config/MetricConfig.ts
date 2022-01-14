@@ -74,6 +74,7 @@ export type VariableConfig = {
   variableId: string; // TODO - strongly type key
   variableDisplayName: string;
   variableFullDisplayName: string;
+  variableDefinition?: string;
   metrics: Record<string, MetricConfig>; // TODO - strongly type key
   surveyCollectedData?: boolean;
 };
@@ -179,6 +180,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "COVID-19 Cases",
+      variableDefinition: `A COVID-19 case is an individual who has been determined to have COVID-19 using a set of criteria known as a case definition. Cases can be classified as suspect, probable, or confirmed. CDC counts include probable and confirmed cases and deaths. Suspect cases and deaths are excluded.`,
       metrics: {
         count: {
           metricId: "covid_cases",
@@ -223,6 +225,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "deaths",
       variableDisplayName: "Deaths",
       variableFullDisplayName: "COVID-19 Deaths",
+      variableDefinition: `The number of people who died due to COVID-19.`,
       metrics: {
         count: {
           metricId: "covid_deaths",
@@ -308,122 +311,13 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       },
     },
   ],
-  diabetes: [
-    {
-      variableId: "cases",
-      variableDisplayName: "Cases",
-      variableFullDisplayName: "Diabetes Cases",
-      surveyCollectedData: true,
-      metrics: {
-        pct_share: {
-          metricId: "diabetes_pct_share",
-          fullCardTitleName: "Share Of Total Diabetes Cases",
-          shortVegaLabel: "% of cases",
-          type: "pct_share",
-          populationComparisonMetric: {
-            metricId: "brfss_population_pct",
-            fullCardTitleName: populationPctTitle,
-            shortVegaLabel: populationPctShortLabel,
-            type: "pct_share",
-          },
-        },
-        per100k: {
-          metricId: "diabetes_per_100k",
-          fullCardTitleName: "Diabetes Cases Per 100k People",
-          shortVegaLabel: "diabetes cases per 100k",
-          type: "per100k",
-        },
-      },
-    },
-  ],
-  copd: [
-    {
-      variableId: "cases",
-      variableDisplayName: "Cases",
-      variableFullDisplayName: "COPD Cases",
-      surveyCollectedData: true,
-      metrics: {
-        pct_share: {
-          metricId: "copd_pct_share",
-          fullCardTitleName: "Share Of Total COPD Cases",
-          shortVegaLabel: "% of cases",
-          type: "pct_share",
-          populationComparisonMetric: {
-            metricId: "brfss_population_pct",
-            fullCardTitleName: populationPctTitle,
-            shortVegaLabel: populationPctShortLabel,
-            type: "pct_share",
-          },
-        },
-        per100k: {
-          metricId: "copd_per_100k",
-          fullCardTitleName: "COPD Cases Per 100k People",
-          shortVegaLabel: "COPD cases per 100k",
-          type: "per100k",
-        },
-      },
-    },
-  ],
-  health_insurance: [
-    {
-      variableId: "health_coverage",
-      variableDisplayName: "Uninsured Individuals",
-      variableFullDisplayName: "Uninsured Individuals",
-      metrics: {
-        per100k: {
-          metricId: "health_insurance_per_100k",
-          fullCardTitleName: "Uninsured Individuals Per 100k People",
-          shortVegaLabel: "uninsured individuals per 100k",
-          type: "per100k",
-        },
-        pct_share: {
-          metricId: "health_insurance_pct_share",
-          fullCardTitleName: "Share Of Uninsured Individuals",
-          shortVegaLabel: "% of uninsured",
-          type: "pct_share",
-          populationComparisonMetric: {
-            metricId: "health_insurance_population_pct",
-            fullCardTitleName: populationPctTitle,
-            shortVegaLabel: populationPctShortLabel,
-            type: "pct_share",
-          },
-        },
-      },
-    },
-  ],
-  poverty: [
-    {
-      variableId: "poverty",
-      variableDisplayName: "Poverty",
-      variableFullDisplayName: "Individuals Below The Poverty Line",
-      metrics: {
-        per100k: {
-          metricId: "poverty_per_100k",
-          fullCardTitleName:
-            "Individuals Below The Poverty Line Per 100k People",
-          shortVegaLabel: "individuals below the poverty line per 100k",
-          type: "per100k",
-        },
-        pct_share: {
-          metricId: "poverty_pct_share",
-          fullCardTitleName: "Share Of Poverty",
-          shortVegaLabel: "% of impoverished",
-          type: "pct_share",
-          populationComparisonMetric: {
-            metricId: "poverty_population_pct",
-            fullCardTitleName: populationPctTitle,
-            shortVegaLabel: populationPctShortLabel,
-            type: "pct_share",
-          },
-        },
-      },
-    },
-  ],
+
   vaccinations: [
     {
       variableId: "vaccinations",
       variableDisplayName: "Vaccinations",
       variableFullDisplayName: "COVID-19 Vaccinations",
+      variableDefinition: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
       metrics: {
         per100k: {
           metricId: "vaccinated_per_100k",
@@ -453,6 +347,128 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             metricId: "acs_vaccine_population_pct",
             fullCardTitleName: "Population Percentage According to ACS",
             shortVegaLabel: "pop percentage according to acs",
+            type: "pct_share",
+          },
+        },
+      },
+    },
+  ],
+
+  diabetes: [
+    {
+      variableId: "cases",
+      variableDisplayName: "Cases",
+      variableFullDisplayName: "Diabetes",
+      variableDefinition: `Adults who reported being told by a health professional that they have diabetes (excluding prediabetes and gestational diabetes).`,
+      surveyCollectedData: true,
+      metrics: {
+        pct_share: {
+          metricId: "diabetes_pct_share",
+          fullCardTitleName: "Share Of Total Diabetes Cases",
+          shortVegaLabel: "% of cases",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "brfss_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+        per100k: {
+          metricId: "diabetes_per_100k",
+          fullCardTitleName: "Diabetes Cases Per 100k People",
+          shortVegaLabel: "diabetes cases per 100k",
+          type: "per100k",
+        },
+      },
+    },
+  ],
+  copd: [
+    {
+      variableId: "cases",
+      variableDisplayName: "Cases",
+      variableFullDisplayName: "COPD",
+      variableDefinition: `Adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.`,
+      surveyCollectedData: true,
+      metrics: {
+        pct_share: {
+          metricId: "copd_pct_share",
+          fullCardTitleName: "Share Of Total COPD Cases",
+          shortVegaLabel: "% of cases",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "brfss_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+        per100k: {
+          metricId: "copd_per_100k",
+          fullCardTitleName: "COPD Cases Per 100k People",
+          shortVegaLabel: "COPD cases per 100k",
+          type: "per100k",
+        },
+      },
+    },
+  ],
+
+  health_insurance: [
+    {
+      variableId: "health_coverage",
+      variableDisplayName: "Uninsured Individuals",
+      variableFullDisplayName: "Uninsured Individuals",
+      variableDefinition: `Health insurance coverage in the ACS and other Census Bureau surveys define coverage to
+        include plans and programs that provide comprehensive health coverage. Plans that provide
+        insurance only for specific conditions or situations such as cancer and long-term care policies
+        are not considered comprehensive health coverage. Likewise, other types of insurance like
+        dental, vision, life, and disability insurance are not considered comprehensive health
+        insurance coverage.`,
+      metrics: {
+        per100k: {
+          metricId: "health_insurance_per_100k",
+          fullCardTitleName: "Uninsured Individuals Per 100k People",
+          shortVegaLabel: "uninsured individuals per 100k",
+          type: "per100k",
+        },
+        pct_share: {
+          metricId: "health_insurance_pct_share",
+          fullCardTitleName: "Share Of Uninsured Individuals",
+          shortVegaLabel: "% of uninsured",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "health_insurance_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+      },
+    },
+  ],
+  poverty: [
+    {
+      variableId: "poverty",
+      variableDisplayName: "Poverty",
+      variableFullDisplayName: "Individuals Below The Poverty Line",
+      variableDefinition: `Following the Office of Management and Budget's (OMB) Statistical Policy Directive 14, the Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the family's threshold, then that family and every individual in it is considered in poverty. The official poverty thresholds do not vary geographically, but they are updated for inflation using the Consumer Price Index (CPI-U). The official poverty definition uses money income before taxes and does not include capital gains or noncash benefits (such as public housing, Medicaid, and food stamps).`,
+      metrics: {
+        per100k: {
+          metricId: "poverty_per_100k",
+          fullCardTitleName:
+            "Individuals Below The Poverty Line Per 100k People",
+          shortVegaLabel: "individuals below the poverty line per 100k",
+          type: "per100k",
+        },
+        pct_share: {
+          metricId: "poverty_pct_share",
+          fullCardTitleName: "Share Of Poverty",
+          shortVegaLabel: "% of impoverished",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "poverty_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
             type: "pct_share",
           },
         },
