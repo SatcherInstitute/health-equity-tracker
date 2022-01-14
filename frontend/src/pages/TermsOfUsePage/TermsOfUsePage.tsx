@@ -1,13 +1,11 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./TermsOfUsePage.module.scss";
 import { Typography } from "@material-ui/core";
 import { HET_URL } from "../../utils/urlutils";
 import { Helmet } from "react-helmet-async";
 
-function TermsOfUsePage(props: {
-  setTabIndexFx?: Dispatch<SetStateAction<number>>;
-}) {
+function TermsOfUsePage() {
   return (
     <>
       <Helmet>
