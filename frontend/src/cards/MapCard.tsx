@@ -6,7 +6,7 @@ import { ChoroplethMap } from "../charts/ChoroplethMap";
 import {
   VariableConfig,
   formatFieldValue,
-  VAXX,
+  METRIC_CONFIG,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
@@ -14,7 +14,6 @@ import {
   BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
-  BreakdownVarDisplayName,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
 import { AgeSorterStrategy } from "../data/sorting/AgeSorterStrategy";
@@ -24,8 +23,6 @@ import {
   UNKNOWN,
   UNKNOWN_RACE,
   UNKNOWN_ETHNICITY,
-  DemographicGroup,
-  RACE,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import { getHighestN, getLowestN } from "../data/utils/datasetutils";
@@ -76,7 +73,7 @@ function MapCardWithKey(props: MapCardProps) {
 
   const [listExpanded, setListExpanded] = useState(false);
   const [activeBreakdownFilter, setActiveBreakdownFilter] =
-    useState<DemographicGroup>(ALL);
+    useState<string>(ALL);
 
   const [smallMultiplesDialogOpen, setSmallMultiplesDialogOpen] =
     useAutoFocusDialog();
@@ -88,7 +85,7 @@ function MapCardWithKey(props: MapCardProps) {
         .copy()
         .addBreakdown(
           props.currentBreakdown,
-          props.currentBreakdown === RACE
+          props.currentBreakdown === "race_and_ethnicity"
             ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE, UNKNOWN_ETHNICITY)
             : exclude(UNKNOWN)
         )
@@ -101,7 +98,8 @@ function MapCardWithKey(props: MapCardProps) {
 
   // hide demographic selectors / dropdowns / links to multimap if displaying VACCINATION at COUNTY level, as we don't have that data
   const hideDemographicUI =
-    props.variableConfig.variableId === VAXX && props.fips.isCounty();
+    props.variableConfig.variableId ===
+      METRIC_CONFIG["vaccinations"][0].variableId && props.fips.isCounty();
 
   return (
     <CardWrapper
@@ -111,32 +109,23 @@ function MapCardWithKey(props: MapCardProps) {
       minHeight={PRELOAD_HEIGHT}
     >
       {(queryResponses, metadata, geoData) => {
-        // contains data rows for sub-geos (if viewing US, this data will be STATE level)
         const mapQueryResponse = queryResponses[0];
-        // contains data rows current level (if viewing US, this data will be US level)
         const overallQueryResponse = queryResponses[1];
 
         const sortArgs =
           props.currentBreakdown === "age"
             ? ([new AgeSorterStrategy([ALL]).compareFn] as any)
             : [];
-
-        const fieldValues = mapQueryResponse.getFieldValues(
-          /* fieldName: BreakdownVar */ props.currentBreakdown,
-          /* relevantMetric: MetricId */ metricConfig.metricId
+        const breakdownValues = mapQueryResponse.getUniqueFieldValues(
+          props.currentBreakdown
         );
-
-        const breakdownValues = fieldValues.withData.sort.apply(
-          fieldValues.withData,
-          sortArgs
-        );
+        breakdownValues.sort.apply(breakdownValues, sortArgs);
 
         const dataForActiveBreakdownFilter = mapQueryResponse
           .getValidRowsForField(metricConfig.metricId)
           .filter(
             (row: Row) => row[props.currentBreakdown] === activeBreakdownFilter
           );
-
         const highestRatesList = getHighestN(
           dataForActiveBreakdownFilter,
           metricConfig.metricId,
@@ -149,10 +138,7 @@ function MapCardWithKey(props: MapCardProps) {
         );
 
         // Create and populate a map of breakdown display name to options
-        const filterOptions: Record<
-          BreakdownVarDisplayName,
-          DemographicGroup[]
-        > = {
+        const filterOptions: Record<string, string[]> = {
           [BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]]:
             breakdownValues,
         };
@@ -172,16 +158,15 @@ function MapCardWithKey(props: MapCardProps) {
                 )}
               </b>{" "}
               {/*} HYPERLINKED TO BOTTOM DEFINITION {condition} cases per 100k  */}
-              <a
-                href="#definitionsList"
-                onClick={(e) => {
-                  e.preventDefault();
+              <span
+                role="button"
+                onClick={() => {
                   props.jumpToDefinitions();
                 }}
                 className={styles.ConditionDefinitionLink}
               >
                 {metricConfig?.fullCardTitleName}
-              </a>
+              </span>
               {/*} for  */}
               {activeBreakdownFilter !== "All" && " for"}
               {/*} [ ages 30-39] */}
@@ -229,9 +214,7 @@ function MapCardWithKey(props: MapCardProps) {
               queryResponses={queryResponses}
               metadata={metadata}
               geoData={geoData}
-              breakdownValuesNoData={fieldValues.noData}
             />
-
             <CardContent className={styles.SmallMarginContent}>
               <MapBreadcrumbs
                 fips={props.fips}
@@ -277,7 +260,7 @@ function MapCardWithKey(props: MapCardProps) {
                 <>
                   <Divider />
                   <CardContent>
-                    <Alert severity="info">
+                    <Alert severity="info" role="note">
                       {generateDemographicTotalPhrase()}
 
                       {/* Compare across XYZ for all variables except vaccinated at county level */}
@@ -314,7 +297,7 @@ function MapCardWithKey(props: MapCardProps) {
               dataForActiveBreakdownFilter.length === 0 &&
               activeBreakdownFilter !== "All" && (
                 <CardContent>
-                  <Alert severity="warning">
+                  <Alert severity="warning" role="note">
                     No data available for filter: <b>{activeBreakdownFilter}</b>
                     .{" "}
                     <MultiMapLink
@@ -336,7 +319,7 @@ function MapCardWithKey(props: MapCardProps) {
                   }
                   signalListeners={signalListeners}
                   metric={metricConfig}
-                  legendTitle={metricConfig.shortVegaLabel}
+                  legendTitle={metricConfig.fullCardTitleName}
                   data={
                     listExpanded
                       ? highestRatesList.concat(lowestRatesList)
@@ -439,13 +422,12 @@ function MultiMapLink(props: MultiMapLinkProps) {
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown];
   return (
     <>
-      <a
-        href="#multiMap"
+      <span
         onClick={() => props.setSmallMultiplesDialogOpen(true)}
         role="button"
         className={styles.CompareAcrossLink}
         aria-label={
-          "Open modal to Compare " +
+          "Compare " +
           props.currentVariable +
           " across " +
           groupTerm +
@@ -453,7 +435,7 @@ function MultiMapLink(props: MultiMapLinkProps) {
         }
       >
         Compare across {groupTerm} groups
-      </a>
+      </span>
       .
     </>
   );

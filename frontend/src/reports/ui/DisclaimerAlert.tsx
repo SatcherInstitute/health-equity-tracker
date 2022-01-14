@@ -1,6 +1,7 @@
 import React from "react";
 import Alert from "@material-ui/lab/Alert";
 import AlertTitle from "@material-ui/lab/AlertTitle";
+import Button from "@material-ui/core/Button";
 import styles from "./DisclaimerAlert.module.scss";
 import FlagIcon from "@material-ui/icons/Flag";
 
@@ -21,14 +22,12 @@ function DisclaimerAlert(props: { jumpToData: () => void }) {
         but there are major known gaps in the data. We're working to close these
         gaps which, in turn, will help us create more effective health policies
         in the United States.
-        <span
-          onClick={(e) => {
-            props.jumpToData();
-          }}
+        <Button
+          onClick={() => props.jumpToData()}
           className={styles.LinkButton}
         >
           Read more about missing and misidentified people.
-        </span>
+        </Button>
       </Alert>
     </div>
   );
