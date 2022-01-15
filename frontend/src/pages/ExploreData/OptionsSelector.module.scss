@@ -32,10 +32,9 @@
 }
 
 .MadLibButton {
-  font-weight: normal !important;
-  text-decoration: underline !important;
   text-underline-offset: 3px !important;
-  padding-block: 0 !important;
+  text-decoration: underline !important;
+  padding: 0 0.25rem 5px 0.6rem !important;
   line-height: $madLibLineHeight;
   font-size: $title;
   @media (min-width: $sm) {
@@ -44,4 +43,5 @@
   @media (min-width: $lg) {
     font-size: $smallerHeader;
   }
+  font-weight: inherit !important;
 }

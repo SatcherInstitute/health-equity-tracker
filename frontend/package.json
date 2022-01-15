@@ -37,7 +37,7 @@
     "react-helmet-async": "^1.2.2",
     "react-joyride": "^2.3.2",
     "react-lazyload": "^3.2.0",
-    "react-material-ui-carousel": "^2.2.4",
+    "react-material-ui-carousel": "^2.3.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^5.0.0",
     "react-share": "^4.4.0",

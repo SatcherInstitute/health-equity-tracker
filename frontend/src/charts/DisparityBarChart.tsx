@@ -4,9 +4,10 @@ import { Row } from "../data/utils/DatasetTypes";
 import { useResponsiveWidth } from "../utils/useResponsiveWidth";
 import {
   BreakdownVar,
+  BreakdownVarDisplayName,
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
-import { MetricConfig } from "../data/config/MetricConfig";
+import { MetricConfig, MetricId } from "../data/config/MetricConfig";
 import {
   addLineBreakDelimitersToField,
   MULTILINE_LABEL,
@@ -17,17 +18,19 @@ import {
 import sass from "../styles/variables.module.scss";
 import { LEGEND_TEXT_FONT } from "./Legend";
 import { useMediaQuery } from "@material-ui/core";
+import { AIAN, NHPI, RACE } from "../data/utils/Constants";
 
 const LABEL_SWAP_CUTOFF_PERCENT = 66; // bar labels will be outside if below this %, or inside bar if above
 
 function getSpec(
+  altText: string,
   data: Record<string, any>[],
   width: number,
-  breakdownVar: string,
-  breakdownVarDisplayName: string,
-  lightMeasure: string,
+  breakdownVar: BreakdownVar,
+  breakdownVarDisplayName: BreakdownVarDisplayName,
+  lightMeasure: MetricId,
   lightMeasureDisplayName: string,
-  darkMeasure: string,
+  darkMeasure: MetricId,
   darkMeasureDisplayName: string,
   metricDisplayName: string,
   // lightMetricDisplayColumnName and darkMetricDisplayColumnName are the column
@@ -37,10 +40,9 @@ function getSpec(
   darkMetricDisplayColumnName: string,
   barLabelBreakpoint: number,
   pageIsTiny: boolean,
-  altText: string,
   stacked?: boolean,
   // place AIAL NHPI pop compare in different color columns due to ACS not KFF
-  altLightMeasure?: string,
+  altLightMeasure?: MetricId,
   altLightMeasureDisplayName?: string,
   altLightMetricDisplayColumnName?: string,
   hasAltPop?: boolean
@@ -266,7 +268,7 @@ function getSpec(
     });
   }
 
-  function maxValueInField(field: string) {
+  function maxValueInField(field: MetricId) {
     return Math.max(
       ...data
         .map((row) => row[field])
@@ -289,8 +291,8 @@ function getSpec(
 
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
-    background: "white",
     description: altText,
+    background: sass.white,
     padding: 5,
     autosize: { resize: true, type: "fit-x" },
     width: width - WIDTH_PADDING_FOR_SNOWMAN_MENU,
@@ -404,10 +406,11 @@ export interface DisparityBarChartProps {
   darkMetric: MetricConfig;
   breakdownVar: BreakdownVar;
   metricDisplayName: string;
+  filename: string;
+  // Note: STACKED currently not used
   // Stacked will render one dark bar on top of a lighter bar
   // Not stacked will show two equally sized bars side by side
   stacked?: boolean;
-  filename?: string;
   showAltPopCompare?: boolean;
 }
 
@@ -429,13 +432,9 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   if (showAltPopCompare) {
     dataFromProps = props.data.map((item) => {
       if (
-        // some states send (Non-Hispanic)
-        item["race_and_ethnicity"].includes(
-          "American Indian and Alaska Native"
-        ) ||
-        item["race_and_ethnicity"].includes(
-          "Native Hawaiian and Pacific Islander"
-        )
+        // AIAN, NHPI (with and without Hispanic) require use of alternate population source
+        item[RACE].includes(AIAN) ||
+        item[RACE].includes(NHPI)
       ) {
         hasAltPop = true;
         // remove KFF value
@@ -456,22 +455,18 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   );
 
   // Omit the % symbol because it's included in shortVegaLabel.
-  const [
-    dataWithLightMetric,
-    lightMetricDisplayColumnName,
-  ] = addMetricDisplayColumn(
-    props.lightMetric,
-    dataWithLineBreakDelimiter,
-    /* omitPctSymbol= */ true
-  );
-  const [
-    dataWithDarkMetric,
-    darkMetricDisplayColumnName,
-  ] = addMetricDisplayColumn(
-    props.darkMetric,
-    dataWithLightMetric,
-    /* omitPctSymbol= */ true
-  );
+  const [dataWithLightMetric, lightMetricDisplayColumnName] =
+    addMetricDisplayColumn(
+      props.lightMetric,
+      dataWithLineBreakDelimiter,
+      /* omitPctSymbol= */ true
+    );
+  const [dataWithDarkMetric, darkMetricDisplayColumnName] =
+    addMetricDisplayColumn(
+      props.darkMetric,
+      dataWithLightMetric,
+      /* omitPctSymbol= */ true
+    );
 
   const altLightMetric: MetricConfig = {
     fullCardTitleName: "Population Share (ACS)",
@@ -505,26 +500,33 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
         }}
         downloadFileName={`${props.filename} - Health Equity Tracker`}
         spec={getSpec(
-          data,
-          width,
-          props.breakdownVar,
-          BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
-          props.lightMetric.metricId,
-          props.lightMetric.shortVegaLabel,
-          props.darkMetric.metricId,
-          props.darkMetric.shortVegaLabel,
-          props.metricDisplayName,
-          lightMetricDisplayColumnName,
-          darkMetricDisplayColumnName,
-          barLabelBreakpoint,
-          pageIsTiny,
-          /* altText: string, */ "Comparison Bar Chart showing " +
-            props.filename,
-          props.stacked,
-          hasAltPop ? altLightMetric.metricId : "",
-          hasAltPop ? altLightMetric.shortVegaLabel : "",
-          hasAltPop ? altLightMetricDisplayColumnName : "",
-          hasAltPop
+          /* altText  */ `Comparison bar chart showing ${props.filename}`,
+          /* data  */ data,
+          /* width */ width,
+          /* breakdownVar */ props.breakdownVar,
+          /* breakdownVarDisplayName */ BREAKDOWN_VAR_DISPLAY_NAMES[
+            props.breakdownVar
+          ],
+          /* lightMeasure */ props.lightMetric.metricId,
+          /* lightMeasureDisplayName */ props.lightMetric.shortVegaLabel,
+          /* darkMeasure */ props.darkMetric.metricId,
+          /* darkMeasureDisplayName, */ props.darkMetric.shortVegaLabel,
+          /* metricDisplayName */ props.metricDisplayName,
+          /* lightMetricDisplayColumnName, */ lightMetricDisplayColumnName,
+          /* darkMetricDisplayColumnName, */ darkMetricDisplayColumnName,
+          /* barLabelBreakpoint, */ barLabelBreakpoint,
+          /* pageIsTiny, */ pageIsTiny,
+          /* stacked?, */ props.stacked,
+          /* altLightMeasure?, */ hasAltPop
+            ? altLightMetric.metricId
+            : undefined,
+          /* altLightMeasureDisplayName?, */ hasAltPop
+            ? altLightMetric.shortVegaLabel
+            : "",
+          /* altLightMetricDisplayColumnName?: string, */ hasAltPop
+            ? altLightMetricDisplayColumnName
+            : "",
+          /* hasAltPop?: boolean */ hasAltPop
         )}
       />
     </div>

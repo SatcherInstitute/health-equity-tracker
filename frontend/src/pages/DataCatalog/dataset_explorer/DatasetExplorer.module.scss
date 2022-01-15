@@ -1,3 +1,4 @@
+@use "../../../styles/globals.scss";
 @import "../../../styles/variables.module";
 
 .DatasetExplorer {
@@ -11,20 +12,20 @@
   text-align: center;
 }
 
+.DatasetList {
+  width: 100%;
+  list-style: none;
+  padding-inline-start: 0;
+}
+
 .DatasetListItem {
   padding: 5px;
   width: 100%;
-}
-
-.DatasetList {
-  width: 100%;
-}
-
-.Dataset {
   padding-bottom: 3px;
   padding-top: 3px;
   display: flex;
   flex-direction: row;
+  width: 100%;
 }
 
 /** ------------- DATA DOWNLOADS ------------- **/
@@ -54,15 +55,4 @@
     text-decoration: underline;
     background-color: transparent;
   }
-}
-
-// For the title of the page read off by screenreaders in an h1
-.ScreenreaderTitleHeader {
-  left: -999px;
-  position: absolute;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  z-index: -999;
 }

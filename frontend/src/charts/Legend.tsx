@@ -37,10 +37,10 @@ export interface LegendProps {
   // Whether the dots all be the same size or increase in size.
   // Size does not correlate to the range size.
   sameDotSize?: boolean;
-  // Whether legend entries stack vertical or horizontal (allows responsive design)
-  direction: string;
   // Alt text
   description: string;
+  // Whether legend entries stack vertical or horizontal (allows responsive design)
+  direction: "horizontal" | "vertical";
 }
 
 export function Legend(props: LegendProps) {
@@ -70,7 +70,7 @@ export function Legend(props: LegendProps) {
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
       description: props.description,
-      background: "white",
+      background: sass.white,
       padding: 5,
       data: [
         {

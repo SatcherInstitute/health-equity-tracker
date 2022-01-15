@@ -1,4 +1,6 @@
+import { MetricId } from "../config/MetricConfig";
 import { MetricQueryResponse } from "../query/MetricQuery";
+import { RACE } from "../utils/Constants";
 
 let metricQueryResponse: MetricQueryResponse;
 
@@ -52,26 +54,23 @@ describe("MetricQueryResponse", () => {
       min: 2,
       max: 12,
     });
-    expect(metricQueryResponse.getFieldRange("race_and_ethnicity")).toEqual(
+    expect(metricQueryResponse.getFieldRange(RACE as MetricId)).toEqual(
       undefined
     );
-    expect(metricQueryResponse.getFieldRange("invalid")).toEqual(undefined);
   });
 
   test("getUniqueFieldValues()", async () => {
-    expect(
-      metricQueryResponse.getUniqueFieldValues("race_and_ethnicity")
-    ).toEqual([
-      "White",
-      "White (Non-Hispanic)",
-      "Asian",
-      "Asian (Non-Hispanic)",
-    ]);
-    expect(metricQueryResponse.getUniqueFieldValues("fips")).toEqual([
-      "01",
-      "02",
-    ]);
-    expect(metricQueryResponse.getUniqueFieldValues("invalid")).toEqual([]);
+    const targetMetric = "covid_cases";
+
+    expect(metricQueryResponse.getFieldValues(RACE, targetMetric)).toEqual({
+      noData: ["Asian (Non-Hispanic)"],
+      withData: ["White", "White (Non-Hispanic)", "Asian"],
+    });
+
+    expect(metricQueryResponse.getFieldValues("fips", targetMetric)).toEqual({
+      noData: [],
+      withData: ["01", "02"],
+    });
   });
 
   test("fieldHasMissingValues()", async () => {
@@ -80,6 +79,5 @@ describe("MetricQueryResponse", () => {
       invalid: 6,
     });
     expect(metricQueryResponse.isFieldMissing("covid_cases")).toEqual(false);
-    expect(metricQueryResponse.isFieldMissing("invalid")).toEqual(true);
   });
 });

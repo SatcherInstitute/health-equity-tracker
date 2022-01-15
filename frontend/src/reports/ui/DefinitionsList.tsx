@@ -5,7 +5,7 @@ export default function DefinitionsList(props: {
   definedConditions: VariableConfig[];
 }): JSX.Element {
   return (
-    <ul>
+    <ul id="definitionsList">
       {props.definedConditions.map((condition: VariableConfig) => (
         <li key={condition.variableFullDisplayName}>
           <b>{condition.variableFullDisplayName}</b>

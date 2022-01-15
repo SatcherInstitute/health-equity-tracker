@@ -102,7 +102,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
       className={styles.DataSourceListing}
       data-testid={props.source_metadata.id}
     >
-      <Typography variant="h5" className={styles.DatasetTitle} align="left">
+      <Typography variant="h4" className={styles.DatasetTitle} align="left">
         <Link
           href={props.source_metadata.data_source_link}
           target="_blank"
@@ -133,42 +133,47 @@ export function DataSourceListing(props: DataSourceListingProps) {
           </tr>
         </tbody>
       </table>
-      <div className={styles.Description}>
-        {props.source_metadata.description}
-      </div>
-      <div className={styles.Footer}>
-        <div className={styles.CardFooterRight}>
-          {props.source_metadata.downloadable && (
-            <Button
-              color="primary"
-              onClick={() => setDialogIsOpen(true)}
-              aria-label={"Download " + props.source_metadata.data_source_name}
-            >
-              Download
-            </Button>
-          )}
-          {/* CDC restricted data is not downloadable. */}
-          {props.source_metadata.id === "cdc_restricted" && (
-            <ReactRouterLinkButton
-              url={urlMap.cdcCovidRestricted}
-              className={styles.DownloadListItem}
-              ariaLabel={
-                "Apply For Access to " + props.source_metadata.data_source_name
-              }
-            >
-              Apply For Access{"  "}
-              <OpenInNewIcon />
-            </ReactRouterLinkButton>
-          )}
-        </div>
+      <p className={styles.Description}>{props.source_metadata.description}</p>
+      <footer className={styles.Footer}>
+        {props.source_metadata.downloadable && (
+          <Button
+            color="primary"
+            onClick={() => setDialogIsOpen(true)}
+            className={styles.DownloadListItem}
+            aria-label={"Download " + props.source_metadata.data_source_name}
+          >
+            Download
+          </Button>
+        )}
+        {/* CDC restricted data is not downloadable. */}
+        {props.source_metadata.id === "cdc_restricted" && (
+          <ReactRouterLinkButton
+            url={urlMap.cdcCovidRestricted}
+            className={styles.DownloadListItem}
+            ariaLabel={
+              "Apply For Access to " + props.source_metadata.data_source_name
+            }
+          >
+            Apply For Access{"  "}
+            <OpenInNewIcon />
+          </ReactRouterLinkButton>
+        )}
+
+        {/* MODAL WITH DOWNLOADABLE FILES */}
         <Dialog onClose={() => setDialogIsOpen(false)} open={dialogIsOpen}>
           <DialogTitle>
-            <Grid container justify="space-between" alignItems="center">
+            <Grid
+              container
+              justify="space-between"
+              alignItems="center"
+              component="header"
+            >
               <Grid item xs={10} sm={11}>
                 <Typography
                   variant="body1"
                   className={styles.DatasetTitle}
                   align="left"
+                  component="h3"
                 >
                   Available breakdowns for{" "}
                   {props.source_metadata.data_source_name}
@@ -195,7 +200,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
             ))}
           </List>
         </Dialog>
-      </div>
+      </footer>
     </Card>
   );
 }

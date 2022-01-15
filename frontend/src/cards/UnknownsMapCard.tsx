@@ -18,6 +18,7 @@ import {
   UNKNOWN_RACE,
   UNKNOWN_ETHNICITY,
   ALL,
+  RACE,
 } from "../data/utils/Constants";
 import styles from "./Card.module.scss";
 import Divider from "@material-ui/core/Divider";
@@ -179,9 +180,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               breakdownVar={props.currentBreakdown}
               displayType="map"
               known={false}
-              overrideAndWithOr={
-                props.currentBreakdown === "race_and_ethnicity"
-              }
+              overrideAndWithOr={props.currentBreakdown === RACE}
               raceEthDiffMap={
                 mapQueryResponse
                   .getValidRowsForField(props.currentBreakdown)
@@ -203,13 +202,14 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
                   }
-                  geoLevel={props.fips.getChildFipsTypeDisplayName()}
+                  isMapCard={true}
+                  fips={props.fips}
                 />
               )}
 
               {/* NO UNKNOWNS INFO BOX */}
               {showNoUnknownsInfo && (
-                <Alert severity="info">
+                <Alert severity="info" role="note">
                   No unknown values for{" "}
                   {BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]} reported
                   in this dataset.
