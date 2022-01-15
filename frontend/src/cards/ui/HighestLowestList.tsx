@@ -116,13 +116,16 @@ export function HighestLowestList(props: HighestLowestListProps) {
             <b>{props.metricConfig.fullCardTitleName}</b>
           </p>
           <p>
-            Consider the possible impact of
-            <Button
-              onClick={() => props.jumpToData()}
-              className={styles.LinkButton}
+            Consider the possible impact of{" "}
+            <a
+              href="#missingDataInfo"
+              onClick={(e) => {
+                e.preventDefault();
+                props.jumpToData();
+              }}
             >
               data reporting gaps
-            </Button>
+            </a>{" "}
             when interpreting the highest and lowest rates.
           </p>
         </>
