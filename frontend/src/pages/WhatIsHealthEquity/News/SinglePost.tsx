@@ -32,7 +32,6 @@ function prettyDate(dateString: string) {
 }
 
 export default function SinglePost() {
-  let articles: Article[] = [];
   const [fullArticle, setFullArticle] = useState<Article>();
   const [prevArticle, setPrevArticle] = useState<Article>();
   const [nextArticle, setNextArticle] = useState<Article>();
@@ -46,24 +45,24 @@ export default function SinglePost() {
     REACT_QUERY_OPTIONS
   );
 
-  if (data) articles = data.data;
-
   // on page load, get prev,full, next article based on fullArticle URL slug
   useEffect(() => {
-    if (articles) {
-      const fullArticleIndex = articles.findIndex(
-        (article: any) => article.slug === slug
+    if (data?.data) {
+      const fullArticleIndex = data.data.findIndex(
+        (article: Article) => article.slug === slug
       );
-      setFullArticle(articles[fullArticleIndex]);
+      setFullArticle(data.data[fullArticleIndex]);
       // previous and next articles wrap around both ends of the array
       setPrevArticle(
-        articles[
-          fullArticleIndex - 1 >= 0 ? fullArticleIndex - 1 : articles.length - 1
+        data.data[
+          fullArticleIndex - 1 >= 0
+            ? fullArticleIndex - 1
+            : data.data.length - 1
         ]
       );
-      setNextArticle(articles[(fullArticleIndex + 1) % articles.length]);
+      setNextArticle(data.data[(fullArticleIndex + 1) % data.data.length]);
     }
-  }, [articles, slug]);
+  }, [data?.data, slug]);
 
   const articleCategories = fullArticle?._embedded?.["wp:term"]?.[0];
 
