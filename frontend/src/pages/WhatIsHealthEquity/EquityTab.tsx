@@ -359,16 +359,181 @@ function EquityTab() {
                 </Grid>
               </Grid>
             </Grid>
+
+            <Grid
+              container
+              className={styles.NewsAndStoriesRow}
+              direction="row"
+              justify="center"
+            >
+              <Grid item>
+                <Typography
+                  className={styles.NewsAndStoriesHeaderText}
+                  variant="h3"
+                >
+                  News and stories
+                </Typography>
+                <span className={styles.NewsAndStoriesSubheaderText}>
+                  Read the latest news, posts, and stories related to health
+                  equity
+                </span>
+              </Grid>
+              <LazyLoad offset={300} height={700} once>
+                <Grid
+                  container
+                  direction="row"
+                  justify="space-between"
+                  alignItems="flex-start"
+                >
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    className={styles.NewsAndStoriesItem}
+                    component="article"
+                  >
+                    <img
+                      className={styles.NewsAndStoriesBigImg}
+                      src="/img/stock/kid-gets-a-mask.png"
+                      alt=""
+                    />
+                    <h4 className={styles.NewsAndStoriesTitleText}>
+                      Why It Matters That Information On Race, Ethnicity, Gender
+                      And Disability Are Measured Accurately And Completely
+                    </h4>
+                    <p className={styles.NewsAndStoriesSubtitleText}>
+                      Why ongoing data on health and wellbeing metrics could be
+                      used in targeting federal resources and programs to
+                      address inequities due to social and economic factors.{" "}
+                      <a
+                        href="https://satcherinstitute.org/hetblog2/"
+                        aria-label="Satcher Blog Post on Why Data Matters"
+                      >
+                        Read more
+                      </a>
+                    </p>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    md={6}
+                    className={styles.NewsAndStoriesItem}
+                    component="article"
+                  >
+                    <img
+                      className={styles.NewsAndStoriesBigImg}
+                      src="/img/stock/girls-studying.jpg"
+                      alt=""
+                    />
+                    <h4 className={styles.NewsAndStoriesTitleText}>
+                      How can we use data to inform practices to advance health
+                      equity?
+                    </h4>
+                    <p className={styles.NewsAndStoriesSubtitleText}>
+                      In public health, much of our work depends on having
+                      accurate data, so we know what’s happening both on the
+                      ground and at a population level.{" "}
+                      <a
+                        href="https://satcherinstitute.org/hetblog3/"
+                        aria-label="Satcher Blog Post on Health Equity Data"
+                      >
+                        Read more
+                      </a>
+                    </p>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    className={styles.NewsAndStoriesItem}
+                    component="article"
+                  >
+                    <img
+                      className={styles.NewsAndStoriesSmallImg}
+                      src="/img/stock/filling-in-forms.png"
+                      alt=""
+                    />
+                    <h4 className={styles.NewsAndStoriesTitleText}>
+                      Data And Technology Can Help Us Make Progress On COVID
+                      Inequities
+                    </h4>
+                    <p className={styles.NewsAndStoriesSubtitleText}>
+                      <a
+                        href="https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/"
+                        aria-label="Read Scientific American Article"
+                      >
+                        Read more
+                      </a>
+                    </p>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    className={styles.NewsAndStoriesItem}
+                    component="article"
+                  >
+                    <img
+                      className={styles.NewsAndStoriesSmallImg}
+                      src="/img/stock/kids-ukulele.png"
+                      alt=""
+                    />
+                    <h4 className={styles.NewsAndStoriesTitleText}>
+                      How Complete Are The CDC's COVID-19 Case Surveillance
+                      Datasets For Race/Ethnicity At The State And County
+                      Levels?
+                    </h4>
+                    <p className={styles.NewsAndStoriesSubtitleText}>
+                      <a
+                        href="https://satcherinstitute.github.io/analysis/cdc_case_data"
+                        aria-label="Satcher Post on COVID Data Completeness"
+                      >
+                        Learn more
+                      </a>
+                    </p>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    className={styles.NewsAndStoriesItem}
+                    component="article"
+                  >
+                    <img
+                      className={styles.NewsAndStoriesSmallImg}
+                      src="/img/graphics/laptop-HET.png"
+                      alt=""
+                    />
+                    <h4 className={styles.NewsAndStoriesTitleText}>
+                      The Mental Fitness of Our Children
+                    </h4>
+                    <p className={styles.NewsAndStoriesSubtitleText}>
+                      <a
+                        href="https://www.kennedysatcher.org/blog/the-mental-fitness-of-our-children"
+                        aria-label="Kennedy Satcher Article: The Mental Fitness of Our Children"
+                      >
+                        Learn more
+                      </a>
+                    </p>
+                  </Grid>
+                </Grid>
+              </LazyLoad>
+            </Grid>
           </Grid>
-        </Grid>
-        <Grid
-          container
-          className={styles.FaqRow}
-          alignItems="center"
-          justify="center"
-        >
-          <Grid item sm={12} md={10}>
-            <FaqSection />
+          <Grid
+            container
+            className={styles.FaqRow}
+            alignItems="center"
+            justify="center"
+          >
+            <Grid item sm={12} md={10}>
+              <FaqSection />
+            </Grid>
           </Grid>
         </Grid>
         <Grid

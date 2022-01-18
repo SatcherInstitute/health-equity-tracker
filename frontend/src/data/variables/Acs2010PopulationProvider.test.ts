@@ -5,12 +5,13 @@ import {
   resetCacheDebug,
 } from "../../utils/globals";
 import { DatasetMetadataMap } from "../config/DatasetMetadata";
-import { Breakdowns } from "../query/Breakdowns";
+import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
 import { createMissingDataResponse, MetricQuery } from "../query/MetricQuery";
 import {
   AGE,
   ALL,
   ASIAN_NH,
+  DemographicGroup,
   FEMALE,
   MALE,
   RACE,
@@ -29,8 +30,8 @@ import {
 
 function stateRow(
   fips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   population: number,
   population_pct: number
 ) {
@@ -45,8 +46,8 @@ function stateRow(
 
 function finalPopulationCountAndPctRow(
   fips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   population: number,
   population_pct: number
 ) {

@@ -6,7 +6,6 @@ import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
 import sass from "../styles/variables.module.scss";
-import { ORDINAL } from "vega-lite/build/src/type";
 import {
   EQUAL_DOT_SIZE,
   GREY_DOT_SCALE,
@@ -18,10 +17,10 @@ import {
   UNKNOWN_SCALE,
 } from "./Legend";
 import { useMediaQuery } from "@material-ui/core";
+import { ORDINAL } from "./utils";
 
 export type ScaleType = "quantize" | "quantile" | "symlog";
 
-// import SASS variables for use in React / Vega
 const {
   unknownGrey: UNKNOWN_GREY,
   redOrange: RED_ORANGE,
@@ -105,6 +104,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
   // Dataset to use for computing the legend
   const legendData = props.legendData || props.data;
+
+  // Generate meaningful alt text
+  const altText = `Map showing ${props.filename}${
+    !props.fips.isCounty()
+      ? ` across ${props.fips.getPluralChildFipsTypeDisplayName()}`
+      : ""
+  }`;
 
   useEffect(() => {
     const geoData = props.geoData
@@ -265,12 +271,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         };
 
     /* DEFINE HOW TO CREATE A MARK ON THE UI */
-    /** 
+    /**
     Function creating the Vega marks that appear on the chart (geographies or circles).
     * datasetName: name of the dataset the marks should correspond to
     * fillColor: schema defining how marks are filled - either a scale or static value.
     * hoverColor: single color that should appear on hover
-    * tooltipExpression: expression defining how to render the contents of the hover tooltip 
+    * tooltipExpression: expression defining how to render the contents of the hover tooltip
     */
     const createShapeMarks = (
       datasetName: string,
@@ -301,7 +307,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         encode: {
           enter: encodeEnter,
           update: { fill: fillColor },
-          hover: { fill: { value: hoverColor } },
+          hover: {
+            fill: { value: hoverColor },
+            cursor: { value: "pointer" },
+          },
         },
       };
       if (!props.overrideShapeWithCircle) {
@@ -350,7 +359,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
       background: "white",
-      description: props.legendTitle,
+      description: props.overrideShapeWithCircle
+        ? `Territory: ${props.fips.getDisplayName()}`
+        : altText,
       data: [
         {
           name: MISSING_PLACEHOLDER_VALUES,
@@ -442,6 +453,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     xOffsetNoDataLegend,
     props,
     heightWidthRatio,
+    altText,
   ]);
 
   return (

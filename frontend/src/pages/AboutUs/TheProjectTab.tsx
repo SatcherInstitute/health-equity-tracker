@@ -23,50 +23,45 @@ import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 import FeedbackBox from "../ui/FeedbackBox";
 import { DEMOGRAPHIC_BREAKDOWNS } from "../../data/query/Breakdowns";
 
-function AimToGoItem(props: {
-  src: string;
-  alt: string;
+function GoalListItem(props: {
+  src?: string;
+  alt?: string;
   title: string;
   text: string;
 }) {
   return (
-    <Grid item xs={12} sm={12} md={4} className={styles.AimToGoItem}>
-      <Grid
-        container
-        direction="column"
-        alignItems="flex-start"
-        justify="flex-start"
-      >
+    <Grid
+      container
+      direction="column"
+      justify="flex-start"
+      item
+      sm={12}
+      md={4}
+      className={styles.GoalListItem}
+      component="li"
+    >
+      {props.src && (
         <Hidden smDown>
-          <Grid item>
-            <LazyLoad offset={300} height={255} once>
-              <img
-                className={styles.ImgAimToGo}
-                src={props.src}
-                alt={props.alt}
-              />
-            </LazyLoad>
-          </Grid>
+          <LazyLoad offset={300} height={255} once>
+            <img
+              className={styles.ImgAimToGo}
+              src={props.src}
+              alt={props.alt}
+            />
+          </LazyLoad>
         </Hidden>
-        <Grid item>
-          <Typography
-            className={styles.SubheaderL2Text}
-            variant="h3"
-            paragraph={true}
-          >
-            {props.title}
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Typography
-            className={styles.HeaderSubtextL2}
-            variant="body2"
-            paragraph
-          >
-            {props.text}
-          </Typography>
-        </Grid>
-      </Grid>
+      )}
+      <Typography
+        className={styles.SubheaderL2Text}
+        variant="h3"
+        paragraph={true}
+        component="h4"
+      >
+        {props.title}
+      </Typography>
+      <Typography className={styles.HeaderSubtextL2} variant="body2" paragraph>
+        {props.text}
+      </Typography>
     </Grid>
   );
 }
@@ -86,14 +81,15 @@ function TheProjectTab() {
       <Helmet>
         <title>The Project - About Us - Health Equity Tracker</title>
       </Helmet>
-      <h1 className={styles.ScreenreaderTitleHeader}>The Project</h1>
-      <Grid container className={styles.Grid}>
+      <h2 className={styles.ScreenreaderTitleHeader}>The Project</h2>
+      <Grid container className={styles.Grid} component="section">
         <Grid
           container
           className={styles.GridOutlinedImgRow}
           direction="row"
           justify="center"
           alignItems="center"
+          component="header"
         >
           <Grid
             item
@@ -104,14 +100,13 @@ function TheProjectTab() {
           >
             <Typography
               id="main"
-              tabIndex={-1}
               className={styles.HeaderText}
               variant="h2"
               paragraph={true}
+              component="h3"
             >
               We're focused on equitable data.
             </Typography>
-            <br />
             <Typography
               className={styles.HeaderSubtext}
               variant="body1"
@@ -162,6 +157,7 @@ function TheProjectTab() {
                 className={styles.SubheaderL1Text}
                 variant="h2"
                 paragraph={true}
+                component="h3"
               >
                 Where we started
               </Typography>
@@ -192,6 +188,7 @@ function TheProjectTab() {
                     className={styles.UnderlinedHeaderL2}
                     variant="h3"
                     paragraph={true}
+                    component="h4"
                   >
                     {`${numDataSources} data sources`}
                   </Typography>
@@ -214,6 +211,7 @@ function TheProjectTab() {
                     className={styles.UnderlinedHeaderL2}
                     variant="h3"
                     paragraph={true}
+                    component="h4"
                   >
                     {numVariables} variables
                   </Typography>
@@ -259,7 +257,7 @@ function TheProjectTab() {
                     >
                       poverty
                     </LinkWithStickyParams>
-                    .
+                    <span aria-hidden={true}>.</span>
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
@@ -292,45 +290,51 @@ function TheProjectTab() {
             justify="space-around"
           >
             <Grid item xs={12}>
-              <Typography className={styles.SubheaderL1Text} variant="h2">
+              <Typography
+                className={styles.SubheaderL1Text}
+                variant="h2"
+                component="h3"
+              >
                 Where we aim to go
               </Typography>
             </Grid>
-            <AimToGoItem
-              src={
-                prefersReducedMotion
-                  ? "/img/animations/HET-lines-no-motion.gif"
-                  : "/img/animations/HET-lines.gif"
-              }
-              alt=""
-              title="Expand data"
-              text="As we continue to expand our data sources and analyze the
+            <Grid container component="ul" className={styles.GoalList}>
+              <GoalListItem
+                src={
+                  prefersReducedMotion
+                    ? "/img/animations/HET-lines-no-motion.gif"
+                    : "/img/animations/HET-lines.gif"
+                }
+                alt=""
+                title="Expand data"
+                text="As we continue to expand our data sources and analyze the
             data, we will have more information to share on
             disparities and the equity impact of COVID-19."
-            />
-            <AimToGoItem
-              src={
-                prefersReducedMotion
-                  ? "/img/animations/HET-fields-no-motion.gif"
-                  : "/img/animations/HET-fields.gif"
-              }
-              alt=""
-              title="Empower policy makers"
-              text="We plan to develop policy templates for local, state, and
+              />
+              <GoalListItem
+                src={
+                  prefersReducedMotion
+                    ? "/img/animations/HET-fields-no-motion.gif"
+                    : "/img/animations/HET-fields.gif"
+                }
+                alt=""
+                title="Empower policy makers"
+                text="We plan to develop policy templates for local, state, and
             federal policy makers, and help create actionable policies
             with diverse communities."
-            />
-            <AimToGoItem
-              src={
-                prefersReducedMotion
-                  ? "/img/animations/HET-dots-no-motion.gif"
-                  : "/img/animations/HET-dots.gif"
-              }
-              alt=""
-              title="Measure progress"
-              text="It’s important to track progress, so we plan to develop
+              />
+              <GoalListItem
+                src={
+                  prefersReducedMotion
+                    ? "/img/animations/HET-dots-no-motion.gif"
+                    : "/img/animations/HET-dots.gif"
+                }
+                alt=""
+                title="Measure progress"
+                text="It’s important to track progress, so we plan to develop
             and publish more health equity reports and analyses."
-            />
+              />
+            </Grid>
           </Grid>
         </Grid>
 
@@ -340,12 +344,6 @@ function TheProjectTab() {
           direction="row"
           justify="space-around"
         >
-          <Grid item xs={12}>
-            <Typography className={styles.HeaderText} variant="h2">
-              <i>We are committed to the following ethics</i>
-            </Typography>
-          </Grid>
-
           <Grid
             container
             item
@@ -353,86 +351,33 @@ function TheProjectTab() {
             justify="space-around"
             alignItems="flex-start"
           >
-            <Grid
-              container
-              item
-              xs={12}
-              sm={12}
-              md={3}
-              direction="column"
-              justify="space-around"
+            <Typography
+              className={styles.HeaderText}
+              variant="h2"
+              component="h3"
             >
-              <Grid item className={styles.CommittedToEthicsSubheaderItem}>
-                <Typography
-                  className={styles.SubheaderL2Text}
-                  variant="h3"
-                  align="left"
-                >
-                  Transparency & Accountability
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography className={styles.HeaderSubtext} variant="body2">
-                  We partner closely with diverse communities and are clear
-                  about who interprets the data and how that shapes the overall
-                  health narrative
-                </Typography>
-              </Grid>
-            </Grid>
-
-            <Grid
-              container
-              item
-              xs={12}
-              sm={12}
-              md={3}
-              direction="column"
-              justify="space-around"
-            >
-              <Grid item className={styles.CommittedToEthicsSubheaderItem}>
-                <Typography
-                  className={styles.SubheaderL2Text}
-                  variant="h3"
-                  align="left"
-                >
-                  Community First
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography className={styles.HeaderSubtext} variant="body2">
-                  People and communities drive our work. By making sure we
-                  collect data from underserved populations, we can help
-                  highlight what policy changes are needed to boost these
-                  communities.
-                </Typography>
-              </Grid>
-            </Grid>
-
-            <Grid
-              container
-              item
-              xs={12}
-              sm={12}
-              md={3}
-              direction="column"
-              justify="space-around"
-            >
-              <Grid item className={styles.CommittedToEthicsSubheaderItem}>
-                <Typography
-                  className={styles.SubheaderL2Text}
-                  variant="h3"
-                  align="left"
-                >
-                  Open Access
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography className={styles.HeaderSubtext} variant="body2">
-                  We ensure community leaders partner with us and play an active
-                  role in determining what data to use in making policy
-                  recommendations
-                </Typography>
-              </Grid>
+              <i>We are committed to the following ethics</i>
+            </Typography>
+            <Grid container component="ul" className={styles.GoalList}>
+              <GoalListItem
+                title="Transparency & Accountability"
+                text="We partner closely with diverse communities and are clear
+                about who interprets the data and how that shapes the overall
+                health narrative."
+              />
+              <GoalListItem
+                title="Community First"
+                text="People and communities drive our work. By making sure we
+                collect data from underserved populations, we can help
+                highlight what policy changes are needed to boost these
+                communities."
+              />
+              <GoalListItem
+                title="Open Access"
+                text="We ensure community leaders partner with us and play an active
+                role in determining what data to use in making policy
+                recommendations."
+              />
             </Grid>
           </Grid>
         </Grid>

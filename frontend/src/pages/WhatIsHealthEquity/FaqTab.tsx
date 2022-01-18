@@ -129,9 +129,9 @@ function FaqTab() {
       <Helmet>
         <title>FAQ - What Is Health Equity - Health Equity Tracker</title>
       </Helmet>
-      <h1 className={styles.ScreenreaderTitleHeader}>
+      <h2 className={styles.ScreenreaderTitleHeader}>
         Frequently Asked Questions
-      </h1>
+      </h2>
       <Grid container className={styles.Grid}>
         <Grid container className={styles.FaqSection}>
           <Grid item xs={12} sm={12} md={3}>

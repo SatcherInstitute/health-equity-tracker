@@ -72,8 +72,10 @@ class Fips {
   getChildFipsTypeDisplayName() {
     if (this.isUsa()) {
       return "state/territory";
-    } else if (this.isStateOrTerritory()) {
+    } else if (this.isState()) {
       return "county";
+    } else if (this.isTerritory()) {
+      return "county equivalent";
     } else {
       return "";
     }
@@ -82,8 +84,10 @@ class Fips {
   getPluralChildFipsTypeDisplayName() {
     if (this.isUsa()) {
       return "states/territories";
-    } else if (this.isStateOrTerritory()) {
+    } else if (this.isState()) {
       return "counties";
+    } else if (this.isTerritory()) {
+      return "county equivalents";
     } else {
       return "";
     }

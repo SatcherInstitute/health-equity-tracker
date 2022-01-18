@@ -124,7 +124,7 @@ export abstract class ResourceCache<K, R> {
     } catch (e) {
       delete this.loadingResources[resourceId];
       this.failedResources.add(resourceId);
-      await getLogger().logError(e, "WARNING", {
+      await getLogger().logError(e as Error, "WARNING", {
         error_type: "resource_load_failure",
         resource_id: resourceId,
       });
