@@ -124,6 +124,18 @@
   margin-top: 4rem;
 }
 
+.AllArticlesBreadCrumbs {
+  display: inline;
+  text-decoration: none;
+  padding: 6px 16px;
+  font-size: $small;
+  font-family: "Inter", serif;
+  font-weight: 500;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  text-transform: none;
+}
+
 .FullArticleContainer {
   overflow-wrap: anywhere;
   width: 100vw;

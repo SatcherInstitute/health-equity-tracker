@@ -234,7 +234,6 @@ function AllPosts(props: any) {
               <Grid item>
                 <Typography
                   id="main"
-                  tabIndex={-1}
                   className={styles.AllArticlesHeaderText}
                   variant="h2"
                 >
@@ -273,47 +272,23 @@ function AllPosts(props: any) {
                   <PinnedArticles articles={pinnedArticles} />
                 )}
 
-              {/* if there is a filter in place, show them */}
+              {/* if there is a filter in place, show breadcrumbs type menu */}
               {(selectedAuthor || selectedCategory) && (
                 <>
-                  <Link to={NEWS_TAB_LINK}>{ARTICLES_TERM}</Link>
-                  {" › "}
+                  <Link
+                    className={styles.AllArticlesBreadCrumbs}
+                    to={NEWS_TAB_LINK}
+                  >
+                    {ARTICLES_TERM}
+                  </Link>
+                  <span className={styles.AllArticlesBreadCrumbs}> › </span>
                 </>
               )}
-
-              {selectedAuthor?.length > 0 && <b>Author: {selectedAuthor}</b>}
-              {selectedCategory?.length > 0 && (
-                <b>Category: {selectedCategory}</b>
-              )}
-
-              {/* //     <Crumb
-                  //       text={`Author: ${selectedAuthor}`}
-                  //       isClickable={false}
-                  //     />
-                  //   )
-
-
-                // <Breadcrumbs separator="›" aria-label={"filter applied"}>
-                //   <Crumb
-                //     text={ARTICLES_TERM}
-                //     isClickable={true}
-                //     onClick={() => {
-                //       props.history.push({NEWS_TAB_LINK});
-                //     }}
-                //   />
-                //   {selectedAuthor?.length > 0 && (
-                //     <Crumb
-                //       text={`Author: ${selectedAuthor}`}
-                //       isClickable={false}
-                //     />
-                //   )}
-                //   {selectedCategory?.length > 0 && (
-                //     <Crumb
-                //       text={`Category: ${selectedCategory}`}
-                //       isClickable={false}
-                //     />
-                //   )}
-                // </Breadcrumbs> */}
+              <span className={styles.AllArticlesBreadCrumbs}>
+                {selectedAuthor?.length > 0 && `Author: ${selectedAuthor}`}
+                {selectedCategory?.length > 0 &&
+                  `Category: ${selectedCategory}`}
+              </span>
             </Box>
 
             {/* all posts matching client applied filters */}
