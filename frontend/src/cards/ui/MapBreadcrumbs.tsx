@@ -35,7 +35,7 @@ function MapBreadcrumbs(props: {
   );
 }
 
-export function Crumb(props: {
+function Crumb(props: {
   text: string;
   isClickable: boolean;
   onClick?: () => void;

@@ -156,7 +156,6 @@ function ScrollToTop() {
 }
 
 function App() {
-  // TODO this should be used instead of the width query I added in WIHE for tab names -ben
   const [width, setWidth] = useState(window.innerWidth);
   useEffect(() => {
     function handleResize() {
