@@ -1,3 +1,8 @@
+/**
+ * @jest-environment jsdom
+ */
+
+import axios from "axios";
 import {
   ALL_PAGES,
   ALL_POSTS,
@@ -8,11 +13,17 @@ import {
   WP_EMBED_PARAM,
   WP_PER_PAGE_PARAM,
 } from "../../../utils/urlutils";
-import {
-  WAIT_FOR_URL_STATUSES,
-  SUCCESS_CODE,
-  getStatus,
-} from "../../../utils/externalUrls.test";
+
+// accepts a url string and returns an awaited status code
+export async function getResponse(url: string): Promise<any> {
+  try {
+    const response = await axios.get(url);
+    return response;
+  } catch (error) {
+    console.error(url, "Error getting response");
+    return 0;
+  }
+}
 
 const wordpressArticlesEndpoint = `${
   NEWS_URL + WP_API + ALL_POSTS
@@ -21,18 +32,32 @@ const wordpressDynamicCopyEndpoint = `${
   NEWS_URL + WP_API + ALL_PAGES
 }/${WIHE_PAGE_ID}`;
 
-const testUrls = [wordpressArticlesEndpoint, wordpressDynamicCopyEndpoint];
+const testEndpoints = [wordpressArticlesEndpoint, wordpressDynamicCopyEndpoint];
 
-describe.each(testUrls)("Resources URL %s", (testUrl) => {
-  test.concurrent(
-    `should return 200 (SUCCESS)`,
+describe.each(testEndpoints)(
+  "Headless Wordpress API Endpoint %s",
+  (endpoint) => {
+    test.concurrent(
+      `should return 200 (SUCCESS)`,
+      async () => {
+        const urlResponse = await getResponse(endpoint);
+        expect(urlResponse.status).toEqual(200);
+      },
+      5 * 60 * 1000
+    );
+    test("should use HTTPS", () => {
+      expect(endpoint.slice(0, 8)).toEqual("https://");
+    });
+  }
+);
+
+describe("Article array retrieved from Headless Wordpress", () => {
+  test(
+    "Should not be empty",
     async () => {
-      const urlStatus = await getStatus(testUrl);
-      expect(urlStatus).toEqual(SUCCESS_CODE);
+      const urlResponse = await getResponse(wordpressArticlesEndpoint);
+      expect(urlResponse.data.length).toBeGreaterThan(0);
     },
-    WAIT_FOR_URL_STATUSES
+    5 * 60 * 1000
   );
-  test("should use HTTPS", () => {
-    expect(testUrl.slice(0, 8)).toEqual("https://");
-  });
 });
