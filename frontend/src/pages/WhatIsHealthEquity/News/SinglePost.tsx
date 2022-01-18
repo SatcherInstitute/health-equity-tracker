@@ -110,6 +110,7 @@ export default function SinglePost() {
           alignItems="center"
         >
           {/* IMAGE SECTION OF HEADER OR LOADING INDICATOR */}
+
           <Grid container item xs={10} md={4} className={styles.HeaderImgItem}>
             {isLoading && (
               <Skeleton width={300} height={300} animation="wave"></Skeleton>
