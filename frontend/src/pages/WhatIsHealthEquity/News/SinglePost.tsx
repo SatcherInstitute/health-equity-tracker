@@ -141,6 +141,7 @@ export default function SinglePost() {
               className={styles.SingleArticleHeaderText}
               variant="h2"
               paragraph={true}
+              component="div"
             >
               {isLoading ? (
                 <Skeleton></Skeleton>
