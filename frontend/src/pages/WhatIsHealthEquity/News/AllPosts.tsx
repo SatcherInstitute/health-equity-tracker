@@ -1,11 +1,4 @@
-import {
-  Box,
-  Breadcrumbs,
-  Card,
-  Grid,
-  Hidden,
-  Typography,
-} from "@material-ui/core";
+import { Box, Card, Grid, Hidden, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import styles from "./News.module.scss";
 import {
@@ -22,10 +15,9 @@ import ArticleFilters from "./ArticleFilters";
 import NewsPreviewCard from "./NewsPreviewCard";
 import { useQuery } from "react-query";
 import { Article } from "../NewsTab";
-import { Crumb } from "../../../cards/ui/MapBreadcrumbs";
 import { Skeleton } from "@material-ui/lab";
 import SignupSection from "../../ui/SignupSection";
-import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const ARTICLES_TERM = "Articles";
 const NUM_OF_LOADING_SKELETONS = 6;
@@ -111,7 +103,7 @@ function PinnedArticles({ articles }: { articles: Article[] }) {
   );
 }
 
-function AllPosts() {
+function AllPosts(props: any) {
   // articles matching client applied filters (author, category, etc)
   const [filteredArticles, setFilteredArticles] = useState<Article[]>([]);
   const [authors, setAuthors] = useState<string[]>([]);
@@ -281,32 +273,47 @@ function AllPosts() {
                   <PinnedArticles articles={pinnedArticles} />
                 )}
 
-              {/* if there is a filter in place, show the breadcrumbs */}
-              {!(
-                selectedAuthor?.length === 0 && selectedCategory?.length === 0
-              ) && (
-                <Breadcrumbs separator="›" aria-label={"filter applied"}>
-                  <Crumb
-                    text={ARTICLES_TERM}
-                    isClickable={true}
-                    onClick={() => {
-                      return <Redirect to={NEWS_TAB_LINK} />;
-                    }}
-                  />
-                  {selectedAuthor?.length > 0 && (
-                    <Crumb
-                      text={`Author: ${selectedAuthor}`}
-                      isClickable={false}
-                    />
-                  )}
-                  {selectedCategory?.length > 0 && (
-                    <Crumb
-                      text={`Category: ${selectedCategory}`}
-                      isClickable={false}
-                    />
-                  )}
-                </Breadcrumbs>
+              {/* if there is a filter in place, show them */}
+              {(selectedAuthor || selectedCategory) && (
+                <>
+                  <Link to={NEWS_TAB_LINK}>{ARTICLES_TERM}</Link>
+                  {" › "}
+                </>
               )}
+
+              {selectedAuthor?.length > 0 && <b>Author: {selectedAuthor}</b>}
+              {selectedCategory?.length > 0 && (
+                <b>Category: {selectedCategory}</b>
+              )}
+
+              {/* //     <Crumb
+                  //       text={`Author: ${selectedAuthor}`}
+                  //       isClickable={false}
+                  //     />
+                  //   )
+
+
+                // <Breadcrumbs separator="›" aria-label={"filter applied"}>
+                //   <Crumb
+                //     text={ARTICLES_TERM}
+                //     isClickable={true}
+                //     onClick={() => {
+                //       props.history.push({NEWS_TAB_LINK});
+                //     }}
+                //   />
+                //   {selectedAuthor?.length > 0 && (
+                //     <Crumb
+                //       text={`Author: ${selectedAuthor}`}
+                //       isClickable={false}
+                //     />
+                //   )}
+                //   {selectedCategory?.length > 0 && (
+                //     <Crumb
+                //       text={`Category: ${selectedCategory}`}
+                //       isClickable={false}
+                //     />
+                //   )}
+                // </Breadcrumbs> */}
             </Box>
 
             {/* all posts matching client applied filters */}
