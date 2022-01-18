@@ -44,7 +44,7 @@ function ShareButtons(props: ShareButtonProps) {
   return (
     <Grid
       container
-      justify={props.madLib ? "flex-end" : "flex-start"}
+      justifyContent={props.madLib ? "flex-end" : "flex-start"}
       alignItems={"center"}
     >
       <Grid item>

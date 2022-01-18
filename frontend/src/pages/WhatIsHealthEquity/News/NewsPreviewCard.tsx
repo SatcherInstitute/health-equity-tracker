@@ -20,14 +20,14 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
       url={`${NEWS_TAB_LINK}/${article.slug}`}
       className={styles.NewsPreviewHeaderText}
     >
-      <Grid container wrap="nowrap" justify="space-evenly">
+      <Grid container wrap="nowrap" justifyContent="space-evenly">
         <Grid
           item
           xs={1}
           container
           direction="column"
           alignItems="center"
-          justify="center"
+          justifyContent="center"
         >
           {props.arrow === "prev" ? (
             <span className={styles.PrevNextArrow}>«</span>
@@ -42,7 +42,7 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
           container
           direction="column"
           alignItems="center"
-          justify="center"
+          justifyContent="center"
         >
           <LazyLoad once height={100} offset={300}>
             <img
@@ -72,7 +72,7 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
           container
           direction="column"
           alignItems="center"
-          justify="center"
+          justifyContent="center"
         >
           {props.arrow === "next" ? (
             <span className={styles.PrevNextArrow}>»</span>

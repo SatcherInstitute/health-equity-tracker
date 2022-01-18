@@ -61,7 +61,7 @@ export default function NewsTab() {
           container
           className={styles.ResourcesAndNewsRow}
           direction="column"
-          justify="center"
+          justifyContent="center"
         >
           <Switch>
             <Route path={`${NEWS_TAB_LINK}/:slug`}>

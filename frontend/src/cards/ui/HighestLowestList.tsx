@@ -73,7 +73,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
       {props.listExpanded && (
         <>
           <div className={styles.ListBoxLists}>
-            <Grid container justify="space-around">
+            <Grid container justifyContent="space-around">
               <Grid item xs={12} sm={6}>
                 <h4>{props.highestRatesList.length} Highest Rates</h4>
                 <ul>

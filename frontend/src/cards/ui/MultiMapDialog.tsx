@@ -68,13 +68,13 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       aria-label="Dialog showing choropleth maps of each breakdown category with the same scale."
     >
       <DialogContent dividers={true}>
-        <Grid container justify="center">
+        <Grid container justifyContent="center">
           {/* Modal Title */}
           <Grid
             item
             xs={12}
             container
-            justify={pageIsWide ? "flex-start" : "center"}
+            justifyContent={pageIsWide ? "flex-start" : "center"}
           >
             <Typography className={styles.Title}>
               {props.metricConfig.fullCardTitleName} Across All{" "}
@@ -169,10 +169,10 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
           >
             <Box mt={pageIsWide ? 10 : 0}>
               <Grid container item>
-                <Grid container justify="center">
+                <Grid container justifyContent="center">
                   <b>Legend</b>
                 </Grid>
-                <Grid container justify="center">
+                <Grid container justifyContent="center">
                   <Legend
                     metric={props.metricConfig}
                     legendTitle={props.metricConfig.fullCardTitleName}
@@ -188,7 +188,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
 
           {/* Missing Groups */}
           {props.breakdownValuesNoData.length > 0 && (
-            <Grid item container justify="center" xs={12} xl={7}>
+            <Grid item container justifyContent="center" xs={12} xl={7}>
               <Box my={3}>
                 <Alert severity="warning">
                   <p className={styles.NoDataWarning}>

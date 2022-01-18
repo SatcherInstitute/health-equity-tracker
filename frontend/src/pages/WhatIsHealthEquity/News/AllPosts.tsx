@@ -23,9 +23,9 @@ import NewsPreviewCard from "./NewsPreviewCard";
 import { useQuery } from "react-query";
 import { Article } from "../NewsTab";
 import { Crumb } from "../../../cards/ui/MapBreadcrumbs";
-import { useHistory } from "react-router";
 import { Skeleton } from "@material-ui/lab";
 import SignupSection from "../../ui/SignupSection";
+import { Redirect } from "react-router-dom";
 
 export const ARTICLES_TERM = "Articles";
 const NUM_OF_LOADING_SKELETONS = 6;
@@ -38,7 +38,7 @@ displays several loading indicator elements while blog content is fetched
 */
 function ArticlesSkeleton(props: { doPulse: boolean }) {
   return (
-    <Grid spacing={1} justify="space-between" container>
+    <Grid spacing={1} justifyContent="space-between" container>
       {[...Array(NUM_OF_LOADING_SKELETONS)].map((_, i) => {
         return (
           <Grid
@@ -80,11 +80,7 @@ function ArticlesSkeleton(props: { doPulse: boolean }) {
 function PinnedArticles({ articles }: { articles: Article[] }) {
   return articles.length ? (
     <Card elevation={3}>
-      <Typography
-        tabIndex={-1}
-        className={styles.FeaturedArticlesHeaderText}
-        variant="h6"
-      >
+      <Typography className={styles.FeaturedArticlesHeaderText} variant="h6">
         Featured:
       </Typography>
       <Grid container>
@@ -113,8 +109,6 @@ function AllPosts() {
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedAuthor, setSelectedAuthor] = useState<string>("");
-
-  const history = useHistory();
 
   const categoryParam: string | null = useUrlSearchParams().get("category");
   const authorParam: string | null = useUrlSearchParams().get("author");
@@ -277,7 +271,7 @@ function AllPosts() {
               </div>
             </Box>
 
-            <Grid item container justify="center">
+            <Grid item container justifyContent="center">
               <Box m={5}>
                 {/* show featured card with "sticky" articles marked PIN TO TOP if any */}
                 {selectedAuthor?.length === 0 &&
@@ -294,7 +288,7 @@ function AllPosts() {
                       text={ARTICLES_TERM}
                       isClickable={true}
                       onClick={() => {
-                        history.push(NEWS_TAB_LINK);
+                        return <Redirect to={NEWS_TAB_LINK} />;
                       }}
                     />
                     {selectedAuthor?.length > 0 && (
@@ -317,7 +311,7 @@ function AllPosts() {
               <Grid
                 container
                 direction="row"
-                justify="space-between"
+                justifyContent="space-between"
                 alignItems="flex-start"
               >
                 {filteredArticles &&
@@ -337,7 +331,7 @@ function AllPosts() {
                     );
                   })}
               </Grid>
-              <Grid container direction="column" justify="center">
+              <Grid container direction="column" justifyContent="center">
                 {isLoading && (
                   <>
                     <ArticlesSkeleton doPulse={true} />
@@ -362,20 +356,20 @@ function AllPosts() {
               item
               container
               direction="row"
-              justify="space-around"
+              justifyContent="space-around"
               alignContent="center"
             >
               <Grid item xs={12}>
                 <div className={styles.Divider}></div>
               </Grid>
-              <Grid item xs={12} sm={6} container justify="center">
+              <Grid item xs={12} sm={6} container justifyContent="center">
                 <ArticleFilters
                   filterType={"category"}
                   filterOptions={categories}
                 />
               </Grid>
 
-              <Grid item xs={12} sm={6} container justify="center">
+              <Grid item xs={12} sm={6} container justifyContent="center">
                 <ArticleFilters filterType={"author"} filterOptions={authors} />
               </Grid>
             </Grid>

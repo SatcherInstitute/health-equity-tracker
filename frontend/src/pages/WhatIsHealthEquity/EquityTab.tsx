@@ -52,8 +52,7 @@ export const WIHEFallbackCopy: WIHEWordpressCopy = {
     "Apply to our Political Determinants of Health Learning Laboratory Fellowship. We seek to partner and support diverse groups in building equitable and sustainable pathways for healthy communities.",
   section4_a_heading3_link: {
     title: "Learn More",
-    url:
-      "https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/",
+    url: "https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/",
     target: "_blank",
   },
   section4_b_headingLevel3: "Give back to your community",
@@ -79,7 +78,7 @@ function JoinTheEffortContainer(props: {
   return (
     <Grid
       container
-      justify="space-around"
+      justifyContent="space-around"
       className={styles.JoinTheEffortItemContainer}
     >
       <Hidden smDown>
@@ -135,7 +134,7 @@ function EquityTab() {
             container
             className={styles.HeaderRow}
             direction="row"
-            justify="center"
+            justifyContent="center"
             alignItems="center"
           >
             <Hidden smDown>
@@ -196,7 +195,7 @@ function EquityTab() {
                 item
                 xs={12}
                 direction="row"
-                justify="space-between"
+                justifyContent="space-between"
                 alignItems="flex-start"
                 className={styles.DefinitionsContainer}
               >
@@ -261,9 +260,13 @@ function EquityTab() {
             container
             className={styles.ResourcesAndNewsRow}
             direction="column"
-            justify="center"
+            justifyContent="center"
           >
-            <Grid container className={styles.ResourcesRow} justify="center">
+            <Grid
+              container
+              className={styles.ResourcesRow}
+              justifyContent="center"
+            >
               <Grid item>
                 <Typography className={styles.ResourcesHeaderText} variant="h3">
                   {wordpressCopy?.section2_headingLevel2}
@@ -273,7 +276,7 @@ function EquityTab() {
                 container
                 className={styles.ResourcesContainer}
                 direction="row"
-                justify="space-around"
+                justifyContent="space-around"
                 item
                 xs={12}
               >
@@ -311,7 +314,7 @@ function EquityTab() {
                     container
                     direction="column"
                     alignItems="center"
-                    justify="space-evenly"
+                    justifyContent="space-evenly"
                   >
                     <Grid item className={styles.ResourceItem}>
                       <iframe
@@ -364,7 +367,7 @@ function EquityTab() {
               container
               className={styles.NewsAndStoriesRow}
               direction="row"
-              justify="center"
+              justifyContent="center"
             >
               <Grid item>
                 <Typography
@@ -382,7 +385,7 @@ function EquityTab() {
                 <Grid
                   container
                   direction="row"
-                  justify="space-between"
+                  justifyContent="space-between"
                   alignItems="flex-start"
                 >
                   <Grid
@@ -529,7 +532,7 @@ function EquityTab() {
             container
             className={styles.FaqRow}
             alignItems="center"
-            justify="center"
+            justifyContent="center"
           >
             <Grid item sm={12} md={10}>
               <FaqSection />
@@ -540,7 +543,7 @@ function EquityTab() {
           container
           className={styles.JoinTheEffortRow}
           direction="column"
-          justify="center"
+          justifyContent="center"
           alignItems="center"
         >
           <Grid

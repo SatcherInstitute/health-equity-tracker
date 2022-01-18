@@ -8,7 +8,7 @@ export default function SignupSection() {
     <Grid
       container
       direction="column"
-      justify="center"
+      justifyContent="center"
       className={styles.NewsEmailSignup}
     >
       <Grid item>
@@ -24,7 +24,7 @@ export default function SignupSection() {
           Satcher Health Leadership Institute newsletter.
         </p>
       </Grid>
-      <Grid item container justify="center" alignItems="center">
+      <Grid item container justifyContent="center" alignItems="center">
         <form
           action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
           method="post"

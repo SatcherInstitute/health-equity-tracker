@@ -43,47 +43,44 @@ export default function WhatIsHealthEquityPage() {
           }}
         />
       )}
-      <Route
-        path="/"
-        render={(history) => (
-          <Tabs
-            {...tabLayout}
-            indicatorColor="primary"
-            textColor="primary"
-            value={
-              history.location.pathname.includes(NEWS_TAB_LINK) &&
-              history.location.pathname !== NEWS_TAB_LINK
-                ? false
-                : history.location.pathname
-            }
-          >
-            <Tab
-              value={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
-              label="What Is Health Equity?"
-              component={Link}
-              to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
-            />
-            <Tab
-              value={FAQ_TAB_LINK}
-              label="FAQs"
-              component={Link}
-              to={FAQ_TAB_LINK}
-            />
-            <Tab
-              value={NEWS_TAB_LINK}
-              label="News"
-              component={Link}
-              to={NEWS_TAB_LINK}
-            />
-            <Tab
-              value={RESOURCES_TAB_LINK}
-              label="Resources"
-              component={Link}
-              to={RESOURCES_TAB_LINK}
-            />
-          </Tabs>
-        )}
-      />
+      <Route path="/">
+        <Tabs
+          {...tabLayout}
+          indicatorColor="primary"
+          textColor="primary"
+          value={
+            window.location.pathname.includes(NEWS_TAB_LINK) &&
+            window.location.pathname !== NEWS_TAB_LINK
+              ? false
+              : window.location.pathname
+          }
+        >
+          <Tab
+            value={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+            label="What Is Health Equity?"
+            component={Link}
+            to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+          />
+          <Tab
+            value={FAQ_TAB_LINK}
+            label="FAQs"
+            component={Link}
+            to={FAQ_TAB_LINK}
+          />
+          <Tab
+            value={NEWS_TAB_LINK}
+            label="News"
+            component={Link}
+            to={NEWS_TAB_LINK}
+          />
+          <Tab
+            value={RESOURCES_TAB_LINK}
+            label="Resources"
+            component={Link}
+            to={RESOURCES_TAB_LINK}
+          />
+        </Tabs>
+      </Route>
 
       <Switch>
         <Route path={`${FAQ_TAB_LINK}/`}>

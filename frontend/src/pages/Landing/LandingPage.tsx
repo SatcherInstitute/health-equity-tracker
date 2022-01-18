@@ -23,7 +23,12 @@ function TakeALookAroundItem(props: {
 }) {
   return (
     <Grid item xs={12} sm={4} md={4} className={styles.TakeALookAroundItem}>
-      <Grid container direction="column" alignItems="center" justify="center">
+      <Grid
+        container
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+      >
         <Hidden xsDown>
           <Grid item>
             <LazyLoad height={200} offset={300} once>
@@ -70,7 +75,7 @@ function LandingPage(props: LandingPageProps) {
           container
           className={styles.HeaderRow}
           direction="row"
-          justify="center"
+          justifyContent="center"
           alignItems="center"
         >
           <Grid item className={styles.HeaderTextItem} xs={12} sm={12} md={6}>
@@ -140,7 +145,7 @@ function LandingPage(props: LandingPageProps) {
         <Grid
           container
           className={styles.TakeALookAroundRow}
-          justify="flex-start"
+          justifyContent="flex-start"
           align-items="center"
         >
           <Grid item xs={12}>
@@ -167,7 +172,7 @@ function LandingPage(props: LandingPageProps) {
               container
               className={styles.TakeALookAroundItemRow}
               direction="row"
-              justify="space-around"
+              justifyContent="space-around"
             >
               <TakeALookAroundItem
                 src={
@@ -199,7 +204,7 @@ function LandingPage(props: LandingPageProps) {
             </Grid>
           </Grid>
 
-          <Grid container direction="row" justify="center">
+          <Grid container direction="row" justifyContent="center">
             <Grid item xs={12} sm={12}>
               <Button
                 variant="contained"
@@ -217,7 +222,7 @@ function LandingPage(props: LandingPageProps) {
           container
           className={styles.PrioritizeHealthEquityRow}
           direction="row"
-          justify="center"
+          justifyContent="center"
           alignItems="center"
         >
           <Hidden smDown>
@@ -295,7 +300,7 @@ function LandingPage(props: LandingPageProps) {
           container
           className={styles.HowToRow}
           component="article"
-          justify="center"
+          justifyContent="center"
         >
           <Grid item xs={12}>
             <Typography
@@ -310,7 +315,7 @@ function LandingPage(props: LandingPageProps) {
           <Grid
             container
             direction="column"
-            justify="center"
+            justifyContent="center"
             alignItems="center"
             component="ul"
           >
@@ -318,7 +323,7 @@ function LandingPage(props: LandingPageProps) {
               container
               className={styles.HowToStepContainer}
               direction="row"
-              justify="space-around"
+              justifyContent="space-around"
               alignItems="center"
               component="li"
             >
@@ -346,7 +351,7 @@ function LandingPage(props: LandingPageProps) {
               container
               className={styles.HowToStepContainer}
               direction="row"
-              justify="space-around"
+              justifyContent="space-around"
               alignItems="center"
               component="li"
             >
@@ -377,7 +382,7 @@ function LandingPage(props: LandingPageProps) {
               container
               className={styles.HowToStepContainer}
               direction="row"
-              justify="space-around"
+              justifyContent="space-around"
               alignItems="center"
               component="li"
             >
@@ -423,14 +428,18 @@ function LandingPage(props: LandingPageProps) {
           </LazyLoad>
         </div>
 
-        <Grid container className={styles.NewsletterSignUpRow} justify="center">
+        <Grid
+          container
+          className={styles.NewsletterSignUpRow}
+          justifyContent="center"
+        >
           <Grid
             container
             item
             xs={12}
             sm={12}
             direction="column"
-            justify="center"
+            justifyContent="center"
             alignItems="center"
             className={styles.EmailAddressBackgroundImgContainer}
           >

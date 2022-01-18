@@ -32,11 +32,12 @@ function prettyDate(dateString: string) {
 }
 
 export default function SinglePost() {
+  let articles: Article[] = [];
   const [fullArticle, setFullArticle] = useState<Article>();
   const [prevArticle, setPrevArticle] = useState<Article>();
   const [nextArticle, setNextArticle] = useState<Article>();
 
-  let { slug }: { slug: string } = useParams();
+  let { slug }: { slug?: string } = useParams();
 
   // FETCH ARTICLES
   const { data, isLoading, error } = useQuery(
@@ -44,7 +45,6 @@ export default function SinglePost() {
     fetchNewsData,
     REACT_QUERY_OPTIONS
   );
-  let articles: Article[] = [];
 
   if (data) articles = data.data;
 
@@ -106,7 +106,7 @@ export default function SinglePost() {
           container
           className={styles.HeaderRow}
           direction="row"
-          justify="center"
+          justifyContent="center"
           alignItems="center"
         >
           {/* IMAGE SECTION OF HEADER OR LOADING INDICATOR */}
@@ -221,7 +221,7 @@ export default function SinglePost() {
           container
           className={styles.NewsAndStoriesRow}
           direction="row"
-          justify="center"
+          justifyContent="center"
         >
           <Grid item>
             <article className={styles.FullArticleContainer}>

@@ -108,9 +108,8 @@ function ExploreDataPage() {
   if (params[SHOW_ONBOARDING_PARAM] === "false") {
     showOnboarding = false;
   }
-  const [activelyOnboarding, setActivelyOnboarding] = useState<boolean>(
-    showOnboarding
-  );
+  const [activelyOnboarding, setActivelyOnboarding] =
+    useState<boolean>(showOnboarding);
   const onboardingCallback = (data: any) => {
     if ([STATUS.FINISHED, STATUS.SKIPPED].includes(data.status)) {
       setActivelyOnboarding(false);
@@ -281,7 +280,7 @@ function CarouselMadLib(props: {
   }
 
   return (
-    <Grid container justify="center" alignItems="center">
+    <Grid container justifyContent="center" alignItems="center">
       <div className={styles.CarouselItem}>
         {props.madLib.phrase.map(
           (phraseSegment: PhraseSegment, index: number) => (
