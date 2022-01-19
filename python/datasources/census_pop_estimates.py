@@ -94,7 +94,8 @@ def generate_state_pop_data(df):
 
 
 def update_test_data():
-    df = pd.read_csv('python/tests/data/census_pop_estimates/census_pop_estimates.csv', dtype={'STATE': str, 'STNAME': str})
+    est_file = 'python/tests/data/census_pop_estimates/census_pop_estimates.csv'
+    df = pd.read_csv(est_file, dtype={'STATE': str, 'STNAME': str})
     df = generate_state_pop_data(df)
 
     df.to_csv('python/tests/data/census_pop_estimates/census_pop_estimates-race_ethnicity_age_state.csv', index=False)

@@ -34,7 +34,8 @@ def testAgeAdjust():
     expected_deaths_df = pd.read_json(EXPECTED_DEATHS_JSON)
     pop_data = get_population_data_as_df()
 
-    df = age_adjust.age_adjust(expected_deaths_df, pop_data)
+    df = age_adjust.age_adjust_from_expected(expected_deaths_df, pop_data)
     expected_df = pd.read_json(AGE_ADJUST_JSON)
 
     assert_frame_equal(df, expected_df, check_like=True)
+

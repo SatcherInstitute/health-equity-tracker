@@ -8,15 +8,6 @@ REFERENCE_POPULATION = std_col.Race.WHITE_NH.value
 AGE_ADJUST_RACES = {std_col.Race.WHITE_NH.value, std_col.Race.BLACK_NH.value, std_col.Race.HISP.value,
                     std_col.Race.AIAN_NH.value, std_col.Race.NHPI_NH.value, std_col.Race.ASIAN_NH.value}
 
-# def get_population_df():
-#     bqclient = bigquery.Client()
-
-#     query_string = """
-# SELECT *
-# FROM `jzarrabi-het-infra-test-f4.acs_population.by_age_race_county_decade_buckets`
-# """
-#     return bqclient.query(query_string).result().to_dataframe()
-
 
 def get_race_age_covid_df():
     bqclient = bigquery.Client()
@@ -60,7 +51,7 @@ def get_expected_deaths(race_and_age_df, population_df):
     return df
 
 
-def age_adjust(df, population_df):
+def age_adjust_from_expected(df, population_df):
 
     def get_age_adjusted_rate(row):
         ref_pop_size = population_df.loc[
@@ -85,11 +76,6 @@ def age_adjust(df, population_df):
     return df[needed_cols]
 
 
-def age_adjust_states():
-    pop_data = pd.read_csv('all-pop.csv', dtype={'state_fips': str})
-    covid_data = get_race_age_covid_df()
-
-    df = get_expected_deaths(covid_data, pop_data)
-    df = age_adjust(df, pop_data)
-
-    df.to_json('age-adjusted-all.json', orient='records')
+def do_age_adjustment(race_and_age_df, population_df):
+    expected_deaths = get_expected_deaths(race_and_age_df, population_df)
+    return age_adjust_from_expected(expected_deaths, population_df)
