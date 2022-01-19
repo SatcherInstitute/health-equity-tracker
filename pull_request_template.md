@@ -1,5 +1,10 @@
 <!--- Provide a general summary of your changes in the Title above -->
 
+## Preview Link
+<!--- Come back and edit this link after saving the PR -->
+<!--- Replace 1234 with this PR's actual number  -->
+> [Click to demo updates](https://deploy-preview-1234--health-equity-tracker.netlify.app/)
+
 ## Description
 <!--- Describe your changes in detail -->
 
