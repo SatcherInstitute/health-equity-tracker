@@ -9,8 +9,15 @@
 }
 
 .LinkButton {
-  text-decoration: underline !important;
-  color: $alt-green !important;
-  padding: 0 5px !important;
-  margin-top: -2px !important; // To align with the <p> text better
+  overflow-wrap: break-word !important;
+  padding: 1px;
+  border: none;
+  background-color: inherit;
+  color: $alt-green;
+  outline: none !important;
+  text-decoration: underline;
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.04);
+  }
 }

@@ -4,8 +4,8 @@ import { useResponsiveWidth } from "../utils/useResponsiveWidth";
 import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 import { ScaleType } from "./ChoroplethMap";
-import { ORDINAL } from "vega-lite/build/src/type";
 import sass from "../styles/variables.module.scss";
+import { ORDINAL } from "./utils";
 const COLOR_SCALE = "color_scale";
 const DOT_SIZE_SCALE = "dot_size_scale";
 export const UNKNOWN_SCALE = "unknown_scale";
@@ -38,7 +38,7 @@ export interface LegendProps {
   // Size does not correlate to the range size.
   sameDotSize?: boolean;
   // Whether legend entries stack vertical or horizontal (allows responsive design)
-  direction: string;
+  direction: "horizontal" | "vertical";
 }
 
 export function Legend(props: LegendProps) {
@@ -67,7 +67,7 @@ export function Legend(props: LegendProps) {
 
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
-      background: "white",
+      background: sass.white,
       padding: 5,
       data: [
         {

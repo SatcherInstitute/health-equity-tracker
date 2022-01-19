@@ -111,10 +111,10 @@ def get_unknown_rows(df, state):
 
 def generate_output_row(state_row_pct_share, state_row_pct_total, state_row_pct_population, state, race):
     """Generates the row with vaccine information for the given race and state
-    The pct total spreadheet has a subset of races of the pct_share sheet.
+    The pct total spreadsheet has a subset of races of the pct_share sheet.
 
     state_row_pct_share: Pandas dataframe row with percent share of vaccines per race
-    state_row_pct_total: Pandas dataframe row with percent total of each race vaccinatd
+    state_row_pct_total: Pandas dataframe row with percent total of each race vaccinated
     state_row_pct_population: Pandas dataframe row with population percentages for each race
     state: String state name to find vaccine information of
     race: String race name to find vaccine information of

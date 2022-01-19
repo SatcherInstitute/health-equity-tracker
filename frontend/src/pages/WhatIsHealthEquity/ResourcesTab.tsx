@@ -277,9 +277,9 @@ function ResourcesTab() {
           Tracker
         </title>
       </Helmet>
-      <h1 className={styles.ScreenreaderTitleHeader}>
+      <h2 className={styles.ScreenreaderTitleHeader}>
         Health Equity Resources
-      </h1>
+      </h2>
       <Grid container className={styles.Grid}>
         <Grid container className={styles.ResourcesTabSection}>
           <Grid item xs={12} sm={12} md={3}>

@@ -1,4 +1,4 @@
-import { ALL } from "../utils/Constants";
+import { ALL, DemographicGroup } from "../utils/Constants";
 
 /**
  * Specifies a set of filters to apply to a breakdown. When `include` is true,
@@ -34,11 +34,15 @@ const DECADE_AGE_BRACKETS = [
   "80+",
 ];
 
-export function exclude(...valuesToExclude: string[]): BreakdownFilter {
+export function exclude(
+  ...valuesToExclude: DemographicGroup[]
+): BreakdownFilter {
   return { include: false, values: [...valuesToExclude] };
 }
 
-export function onlyInclude(...valuesToInclude: string[]): BreakdownFilter {
+export function onlyInclude(
+  ...valuesToInclude: DemographicGroup[]
+): BreakdownFilter {
   return { include: true, values: [...valuesToInclude] };
 }
 

@@ -1,3 +1,4 @@
+@use "../../styles/globals.scss";
 @import "../../styles/variables.module";
 
 .AboutUsPage {
@@ -26,17 +27,6 @@
   padding: 10px 30px;
 }
 
-// For the title of the page read off by screenreaders in an h1
-.ScreenreaderTitleHeader {
-  left: -999px;
-  position: absolute;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  z-index: -999;
-}
-
 /** ------------- TYPES OF GRID ROWS ------------- **/
 
 // Generic grid row with no special styling
@@ -46,6 +36,7 @@
   // Generic grid subrow with no special styling
   .GridSubRow {
     padding: 20px 0 20px 0;
+    list-style: none;
   }
 }
 
@@ -85,6 +76,7 @@
     font-size: $smallHeader;
     line-height: 30px;
     padding: 10px 0 10px 0;
+    text-align: left !important;
   }
 
   .HeaderSubtext {
@@ -182,7 +174,8 @@
     font-weight: 300;
     font-size: $smallestHeader;
     line-height: 25px;
-    padding: 30px 0 0 0;
+    padding: 30px 0 1rem 0;
+    text-align: left;
   }
 
   .HeaderSubtext {
@@ -226,8 +219,14 @@
 /** ------------- THE PROJECT ------------- **/
 
 // For each item in the "Where We Aim To Go" section
-.AimToGoItem {
-  padding: 0 15px 0 15px;
+.GoalList {
+  display: flex;
+  padding-left: 0;
+}
+
+.GoalListItem {
+  padding: 0 1.5rem 0 1.5rem;
+  list-style: none;
 }
 
 // For each image in the "Where We Aim To Go" section
@@ -301,15 +300,15 @@
   height: auto;
 }
 
-// For the leader name heading
-.LeaderNameHeading {
+// For the name heading
+.MemberName {
   font-size: $text;
   font-weight: 500;
   margin: 2px 0;
 }
 
-// For the leader role span
-.LeaderRoleSpan {
+// For the role
+.MemberRole {
   font-size: $small;
   font-weight: 400;
 }

@@ -13,7 +13,7 @@ function ContactUsTab() {
       <Helmet>
         <title>Contact Us - About Us - Health Equity Tracker</title>
       </Helmet>
-      <h1 className={styles.ScreenreaderTitleHeader}>Contact Us</h1>
+      <h2 className={styles.ScreenreaderTitleHeader}>Contact Us</h2>
       <Grid container className={styles.Grid}>
         <Grid
           container
@@ -26,7 +26,6 @@ function ContactUsTab() {
             <Grid item md={5} className={styles.GridVerticallyAlignedItem}>
               <Typography
                 id="main"
-                tabIndex={-1}
                 className={styles.ContactUsHeaderText}
                 variant="h2"
               >

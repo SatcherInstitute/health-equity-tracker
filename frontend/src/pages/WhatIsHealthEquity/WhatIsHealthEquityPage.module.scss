@@ -1,3 +1,4 @@
+@use "../../styles/globals.scss";
 @import "../../styles/variables.module";
 
 // For styles Grid-wide
@@ -5,17 +6,6 @@
   margin: auto;
   max-width: 1440px;
   font-family: "Inter", serif;
-}
-
-// For the title of the page read off by screenreaders in an h1
-.ScreenreaderTitleHeader {
-  left: -999px;
-  position: absolute;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  z-index: -999;
 }
 
 /** ------------- HEADER ROW ------------- **/
@@ -307,8 +297,9 @@
       text-align: center;
       font-weight: 300;
       font-family: "Taviraj", serif !important;
-      line-height: 88.71px;
+      line-height: 120%;
       color: $alt-green;
+      margin-bottom: 1rem;
     }
 
     .JoinTheEffortSubheaderText {

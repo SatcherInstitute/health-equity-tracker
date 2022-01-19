@@ -14,13 +14,16 @@ import { NC, AL, DURHAM, CHATAM, VI, USA } from "./TestUtils";
 import {
   WHITE_NH,
   ALL,
-  FORTY_TO_FORTY_NINE,
   FEMALE,
   MALE,
   UNKNOWN,
+  AgeBucket,
+  RACE,
 } from "../utils/Constants";
 import { MetricId } from "../config/MetricConfig";
 import { excludeAll } from "../query/BreakdownFilter";
+
+const FORTY_TO_FORTY_NINE: AgeBucket = "40-49";
 
 const METRIC_IDS: MetricId[] = [
   "covid_cases",
@@ -167,7 +170,7 @@ describe("cdcCovidProvider", () => {
       ["acs_population-by_race_county_std"],
       [],
       Breakdowns.forFips(new Fips(CHATAM.code)),
-      "race_and_ethnicity",
+      RACE,
       [CHATAM_WHITE_FINAL_ROW],
       [CHATAM_ALL_FINAL_ROW, CHATAM_WHITE_FINAL_ROW]
     );

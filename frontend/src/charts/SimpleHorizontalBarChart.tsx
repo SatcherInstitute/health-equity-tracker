@@ -4,9 +4,10 @@ import { Row } from "../data/utils/DatasetTypes";
 import { useResponsiveWidth } from "../utils/useResponsiveWidth";
 import {
   BreakdownVar,
+  BreakdownVarDisplayName,
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
-import { MetricConfig } from "../data/config/MetricConfig";
+import { MetricConfig, MetricId } from "../data/config/MetricConfig";
 import {
   addLineBreakDelimitersToField,
   MULTILINE_LABEL,
@@ -26,11 +27,12 @@ const MULTI_LINE_100K = "+' per 100k'";
 const SINGLE_LINE_PERCENT = "+'%'";
 
 function getSpec(
-  data: Record<string, any>[],
+  altText: string,
+  data: Row[],
   width: number,
-  breakdownVar: string,
-  breakdownVarDisplayName: string,
-  measure: string,
+  breakdownVar: BreakdownVar,
+  breakdownVarDisplayName: BreakdownVarDisplayName,
+  measure: MetricId,
   measureDisplayName: string,
   // Column names to use for the display value of the metric. These columns
   // contains preformatted data as strings.
@@ -66,6 +68,7 @@ function getSpec(
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     background: "white",
+    description: altText,
     padding: 5,
     autosize: { resize: true, type: "fit-x" },
     width: width - WIDTH_PADDING_FOR_SNOWMAN_MENU,
@@ -241,10 +244,8 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     props.data,
     props.breakdownVar
   );
-  const [
-    dataWithDisplayCol,
-    barMetricDisplayColumnName,
-  ] = addMetricDisplayColumn(props.metric, dataWithLineBreakDelimiter);
+  const [dataWithDisplayCol, barMetricDisplayColumnName] =
+    addMetricDisplayColumn(props.metric, dataWithLineBreakDelimiter);
   // Omit the % symbol for the tooltip because it's included in shortVegaLabel.
   const [data, tooltipMetricDisplayColumnName] = addMetricDisplayColumn(
     props.metric,
@@ -261,6 +262,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
       <Vega
         downloadFileName={`${props.filename} - Health Equity Tracker`}
         spec={getSpec(
+          /* altText: string */ `Bar Chart showing ${props.filename}`,
           data,
           width,
           props.breakdownVar,
