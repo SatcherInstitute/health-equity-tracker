@@ -3,7 +3,7 @@
 ## Preview Link
 <!--- Come back and edit this link after saving the PR -->
 <!--- Replace 1234 with this PR's actual number  -->
-> [Click to demo updates](https://deploy-preview-1234--health-equity-tracker.netlify.app/)
+> [Click to demo updates](https://deploy-preview-1234--health-equity-tracker.netlify.app/) <-- Update this link once you have PR# 
 
 ## Description
 <!--- Describe your changes in detail -->
