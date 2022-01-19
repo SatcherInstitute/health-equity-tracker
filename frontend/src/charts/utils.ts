@@ -4,6 +4,9 @@ import { Row } from "../data/utils/DatasetTypes";
 
 export type VisualizationType = "chart" | "map";
 
+export const PADDING_FOR_ACTIONS_MENU = 55;
+export const PADDING_FOR_VEGA = 15;
+
 const MAX_LINE_LENGTH = 20;
 
 // ! &nbsp&nbsp NON BREAKABLE SPACES that shouldn't occur in the data labels and can therefor be used as a delimiter that reads naturally on a screen reader &nbsp

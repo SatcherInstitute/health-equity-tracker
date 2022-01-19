@@ -14,6 +14,8 @@ import {
   AXIS_LABEL_Y_DELTA,
   oneLineLabel,
   addMetricDisplayColumn,
+  PADDING_FOR_ACTIONS_MENU,
+  PADDING_FOR_VEGA,
 } from "./utils";
 import sass from "../styles/variables.module.scss";
 import { LEGEND_TEXT_FONT } from "./Legend";
@@ -54,7 +56,6 @@ function getSpec(
   const ALT_LIGHT_MEASURE_COLOR = sass.unknownMapMid;
   const ALT_LIGHT_MEASURE_OPACITY = 0.8;
   const DATASET = "DATASET";
-  const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 
   const THIN_RATIO = 0.3;
   const STACKED_BAND_HEIGHT = BAR_HEIGHT - BAR_HEIGHT * BAR_PADDING;
@@ -293,9 +294,9 @@ function getSpec(
     $schema: "https://vega.github.io/schema/vega/v5.json",
     description: altText,
     background: sass.white,
-    padding: 5,
-    autosize: { resize: true, type: "fit-x" },
-    width: width - WIDTH_PADDING_FOR_SNOWMAN_MENU,
+    autosize: { resize: false, type: "fit-x" },
+    padding: PADDING_FOR_VEGA,
+    width: width - PADDING_FOR_ACTIONS_MENU,
     style: "cell",
     data: [
       {

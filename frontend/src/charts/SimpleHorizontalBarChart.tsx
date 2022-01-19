@@ -14,6 +14,8 @@ import {
   AXIS_LABEL_Y_DELTA,
   oneLineLabel,
   addMetricDisplayColumn,
+  PADDING_FOR_ACTIONS_MENU,
+  PADDING_FOR_VEGA,
 } from "./utils";
 import sass from "../styles/variables.module.scss";
 import { useMediaQuery } from "@material-ui/core";
@@ -47,7 +49,6 @@ function getSpec(
   const BAR_HEIGHT = 60;
   const BAR_PADDING = 0.2;
   const DATASET = "DATASET";
-  const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 
   // create proper datum suffix, either % or single/multi line 100k
   const barLabelSuffix = usePercentSuffix
@@ -55,8 +56,6 @@ function getSpec(
     : pageIsTiny
     ? SINGLE_LINE_100K
     : MULTI_LINE_100K;
-
-  console.log(data);
 
   const legends = showLegend
     ? [
@@ -72,8 +71,8 @@ function getSpec(
     description: altText,
     background: "white",
     autosize: { resize: false, type: "fit-x" },
-    padding: 5,
-    width: width - WIDTH_PADDING_FOR_SNOWMAN_MENU,
+    padding: PADDING_FOR_VEGA,
+    width: width - PADDING_FOR_ACTIONS_MENU,
     style: "cell",
     data: [
       {

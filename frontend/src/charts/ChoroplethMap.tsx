@@ -501,7 +501,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     <div
       ref={ref}
       style={{
-        width: "95%",
+        width: "94%",
         margin: "auto",
       }}
     >
