@@ -244,10 +244,8 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     props.data,
     props.breakdownVar
   );
-  const [
-    dataWithDisplayCol,
-    barMetricDisplayColumnName,
-  ] = addMetricDisplayColumn(props.metric, dataWithLineBreakDelimiter);
+  const [dataWithDisplayCol, barMetricDisplayColumnName] =
+    addMetricDisplayColumn(props.metric, dataWithLineBreakDelimiter);
   // Omit the % symbol for the tooltip because it's included in shortVegaLabel.
   const [data, tooltipMetricDisplayColumnName] = addMetricDisplayColumn(
     props.metric,

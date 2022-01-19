@@ -401,22 +401,18 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   );
 
   // Omit the % symbol because it's included in shortVegaLabel.
-  const [
-    dataWithLightMetric,
-    lightMetricDisplayColumnName,
-  ] = addMetricDisplayColumn(
-    props.lightMetric,
-    dataWithLineBreakDelimiter,
-    /* omitPctSymbol= */ true
-  );
-  const [
-    dataWithDarkMetric,
-    darkMetricDisplayColumnName,
-  ] = addMetricDisplayColumn(
-    props.darkMetric,
-    dataWithLightMetric,
-    /* omitPctSymbol= */ true
-  );
+  const [dataWithLightMetric, lightMetricDisplayColumnName] =
+    addMetricDisplayColumn(
+      props.lightMetric,
+      dataWithLineBreakDelimiter,
+      /* omitPctSymbol= */ true
+    );
+  const [dataWithDarkMetric, darkMetricDisplayColumnName] =
+    addMetricDisplayColumn(
+      props.darkMetric,
+      dataWithLightMetric,
+      /* omitPctSymbol= */ true
+    );
 
   const altLightMetric: MetricConfig = {
     fullCardTitleName: "Population Share (ACS)",
