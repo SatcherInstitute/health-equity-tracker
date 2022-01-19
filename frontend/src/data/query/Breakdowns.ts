@@ -1,7 +1,12 @@
 import { Fips } from "../utils/Fips";
 import BreakdownFilter from "./BreakdownFilter";
 
-export type GeographicBreakdown = "national" | "state" | "county";
+export type GeographicBreakdown =
+  | "national"
+  | "state"
+  | "county"
+  | "territory"
+  | "state/territory";
 
 export type BreakdownVar =
   | "race_and_ethnicity"
@@ -28,7 +33,8 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
 } as const;
 
 // union type of values (capitalized display names), eg "Race and Ethnicity" | "Age" | "Sex"
-export type BreakdownVarDisplayName = typeof BREAKDOWN_VAR_DISPLAY_NAMES[keyof typeof BREAKDOWN_VAR_DISPLAY_NAMES];
+export type BreakdownVarDisplayName =
+  typeof BREAKDOWN_VAR_DISPLAY_NAMES[keyof typeof BREAKDOWN_VAR_DISPLAY_NAMES];
 
 export const BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE: Record<
   BreakdownVar,
@@ -265,6 +271,10 @@ export class Breakdowns {
       case "county":
         return !!this.filterFips && this.filterFips.isCounty();
       case "state":
+        return !!this.filterFips && this.filterFips.isStateOrTerritory();
+      case "territory":
+        return !!this.filterFips && this.filterFips.isStateOrTerritory();
+      case "state/territory":
         return !!this.filterFips && this.filterFips.isStateOrTerritory();
       case "national":
         return !this.filterFips || this.filterFips.isUsa();

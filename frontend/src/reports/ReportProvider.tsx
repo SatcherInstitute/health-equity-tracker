@@ -4,7 +4,6 @@ import TwoVariableReport from "./TwoVariableReport";
 import {
   MadLib,
   getMadLibWithUpdatedValue,
-  DropdownVarId,
   MadLibId,
   getMadLibPhraseText,
 } from "../utils/MadLibs";
@@ -19,7 +18,11 @@ import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import styles from "./Report.module.scss";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
-import { METRIC_CONFIG, VariableConfig } from "../data/config/MetricConfig";
+import {
+  METRIC_CONFIG,
+  VariableConfig,
+  DropdownVarId,
+} from "../data/config/MetricConfig";
 import { Link } from "react-router-dom";
 import FeedbackBox from "../pages/ui/FeedbackBox";
 import ShareButtons from "./ui/ShareButtons";

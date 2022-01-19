@@ -15,6 +15,7 @@ import {
   MetricId,
   VariableConfig,
   getPer100kAndPctShareMetrics,
+  VAXX,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
@@ -31,12 +32,12 @@ import { Row } from "../data/utils/DatasetTypes";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
-import { showAltPopCompare } from "./DisparityBarChartCard";
 import {
   UHC_BROAD_AGE_DETERMINANTS,
   UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
 } from "../data/variables/BrfssProvider";
 import { urlMap } from "../utils/externalUrls";
+import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 698;
@@ -92,7 +93,7 @@ export function TableCard(props: TableCardProps) {
         metricConfig.secondaryPopulationComparisonMetric;
     }
   });
-  const metricIds = Object.keys(metricConfigs);
+  const metricIds = Object.keys(metricConfigs) as MetricId[];
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
   const displayingCovidData = metrics
@@ -117,7 +118,7 @@ export function TableCard(props: TableCardProps) {
             row[props.breakdownVar] !== UNKNOWN_ETHNICITY
         );
 
-        if (showAltPopCompare(props)) {
+        if (shouldShowAltPopCompare(props)) {
           // This should only happen in the vaccine kff state case
           dataWithoutUnknowns = dataWithoutUnknowns.map((item) => {
             const {
@@ -144,12 +145,11 @@ export function TableCard(props: TableCardProps) {
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
-                  geoLevel={props.fips.getFipsTypeDisplayName()}
                   noDemographicInfo={
-                    props.variableConfig.variableId ===
-                      METRIC_CONFIG["vaccinations"][0].variableId &&
+                    props.variableConfig.variableId === VAXX &&
                     props.fips.isCounty()
                   }
+                  fips={props.fips}
                 />
               </CardContent>
             )}
@@ -158,7 +158,7 @@ export function TableCard(props: TableCardProps) {
               props.breakdownVar === RACE && (
                 <>
                   <CardContent>
-                    <Alert severity="warning">
+                    <Alert severity="warning" role="note">
                       Share of COVID-19 cases reported for American Indian,
                       Alaska Native, Native Hawaiian and Pacific Islander are
                       underrepresented at the national level and in many states

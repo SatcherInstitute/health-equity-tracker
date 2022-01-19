@@ -1,4 +1,9 @@
-import { ALL, DECADE_AGE_BUCKETS, STANDARD_RACES } from "../utils/Constants";
+import {
+  DemographicGroup,
+  ALL,
+  DECADE_AGE_BUCKETS,
+  STANDARD_RACES,
+} from "../utils/Constants";
 
 /**
  * Specifies a set of filters to apply to a breakdown. When `include` is true,
@@ -10,11 +15,15 @@ export default interface BreakdownFilter {
   readonly include: boolean;
 }
 
-export function exclude(...valuesToExclude: string[]): BreakdownFilter {
+export function exclude(
+  ...valuesToExclude: DemographicGroup[]
+): BreakdownFilter {
   return { include: false, values: [...valuesToExclude] };
 }
 
-export function onlyInclude(...valuesToInclude: string[]): BreakdownFilter {
+export function onlyInclude(
+  ...valuesToInclude: DemographicGroup[]
+): BreakdownFilter {
   return { include: true, values: [...valuesToInclude] };
 }
 

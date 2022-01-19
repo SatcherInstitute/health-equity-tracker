@@ -12,16 +12,21 @@ import { useMediaQuery, useTheme } from "@material-ui/core";
 import { DemographicGroup } from "../../data/utils/Constants";
 import { BreakdownVarDisplayName } from "../../data/query/Breakdowns";
 
-function MenuPopover(props: {
+interface MenuPopoverProps {
   popover: PopoverElements;
   // Map type indicates items are first level menu items, array indicates second level
   items:
     | Record<BreakdownVarDisplayName, DemographicGroup[]>
     | DemographicGroup[];
-  onClick: (event: React.MouseEvent<HTMLElement>, value: string) => void;
+  onClick: (
+    event: React.MouseEvent<HTMLElement>,
+    value: DemographicGroup
+  ) => void;
   // Optional additional actions to do when the popover is closed
   onClose?: () => void;
-}): JSX.Element {
+}
+
+function MenuPopover(props: MenuPopoverProps): JSX.Element {
   // calculate page size for responsive layout
   const theme = useTheme();
   const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
@@ -39,10 +44,10 @@ function MenuPopover(props: {
     ? Object.keys(props.items)
     : (props.items as DemographicGroup[]);
 
-  const renderListItem = (listItem: string) => {
+  const renderListItem = (listItem: string | DemographicGroup) => {
     if (
       hasChildren &&
-      (props.items as Record<string, string[]>)[listItem].length === 0
+      (props.items as Record<string, DemographicGroup[]>)[listItem].length === 0
     ) {
       return (
         <ListItem key={listItem} button disabled>
@@ -90,13 +95,7 @@ function MenuPopover(props: {
   );
 }
 
-/*
-   DropDownMenu is a dropdown menu with one or two levels of menu items.
-   For example you can have:
-     * Dropdown with one level listing all race options
-     * Dropdown with one level to select race and a second level listing all race options
-*/
-function DropDownMenu(props: {
+export interface DropDownMenuProps {
   // Dropdown's currently selected option.
   value: DemographicGroup;
   // Map of first level menu option to submenu options.
@@ -105,9 +104,17 @@ function DropDownMenu(props: {
   // Update parent component with a newly selected value.
   onOptionUpdate: (
     category: DemographicGroup | undefined,
-    filterSelection: string | undefined
+    filterSelection: DemographicGroup
   ) => void;
-}) {
+}
+
+/*
+   DropDownMenu is a dropdown menu with one or two levels of menu items.
+   For example you can have:
+     * Dropdown with one level listing all race options
+     * Dropdown with one level to select race and a second level listing all race options
+*/
+function DropDownMenu(props: DropDownMenuProps) {
   const firstMenu = usePopover();
   const secondMenu = usePopover();
 
@@ -132,7 +139,7 @@ function DropDownMenu(props: {
             ? (Object.values(props.options)[0] as DemographicGroup[])
             : (props.options as Record<string, DemographicGroup[]>)
         }
-        onClick={(event: React.MouseEvent<HTMLElement>, value: string) => {
+        onClick={(event: React.MouseEvent<HTMLElement>, value) => {
           if (oneLevelMenu) {
             props.onOptionUpdate(undefined, value);
             firstMenu.close();
@@ -143,12 +150,13 @@ function DropDownMenu(props: {
         }}
       />
 
+      {/* sub-menu feature: not currently in use */}
       <MenuPopover
         popover={secondMenu}
         items={props.options[firstMenuSelection] as DemographicGroup[]}
         onClick={(
           unused_event: React.MouseEvent<HTMLElement>,
-          value: string
+          value: DemographicGroup
         ) => {
           firstMenu.close();
           secondMenu.close();

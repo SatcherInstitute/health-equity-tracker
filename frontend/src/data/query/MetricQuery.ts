@@ -108,21 +108,26 @@ export class MetricQueryResponse {
       };
     }
 
-    const populatedSet = new Set<DemographicGroup>();
-    const unpopulatedSet = new Set<DemographicGroup>();
+    const withData: DemographicGroup[] = [];
+    const noData: DemographicGroup[] = [];
 
-    this.getValidRowsForField(fieldName).forEach((row) => {
-      // set.add(row[fieldName]);
-      if (!targetMetric) populatedSet.add(row[fieldName]);
-      else {
-        row[targetMetric]
-          ? populatedSet.add(row[fieldName])
-          : unpopulatedSet.add(row[fieldName]);
-      }
+    const validRows = this.getValidRowsForField(fieldName);
+    const groupOptions = new Set<DemographicGroup>(
+      validRows.map((row) => row[fieldName])
+    );
+
+    groupOptions.forEach((group) => {
+      const validRowsPerGroup = validRows.filter(
+        (row) => row[fieldName] === group
+      );
+      validRowsPerGroup.some((row) => row[targetMetric])
+        ? withData.push(group)
+        : noData.push(group);
     });
+
     return {
-      withData: Array.from(populatedSet),
-      noData: Array.from(unpopulatedSet),
+      withData,
+      noData,
     };
   }
 

@@ -1,3 +1,31 @@
+//  IDs for the selectable conditions in the madlib
+export type DropdownVarId =
+  | "covid"
+  | "diabetes"
+  | "copd"
+  | "health_insurance"
+  | "poverty"
+  | "vaccinations";
+
+// IDs for the sub-data types (if any) for theDropDownId
+export type VariableId =
+  | "population"
+  | "population_2010"
+  | "cases"
+  | "deaths"
+  | "hospitalizations"
+  | "cases"
+  | "cases"
+  | "health_coverage"
+  | "poverty"
+  | "vaccinations"
+  | "non_medical_drug_use"
+  | "non_medical_rx_opioid_use"
+  | "illicit_opioid_use";
+
+// consts for simpler code
+export const VAXX: VariableId = "vaccinations";
+
 export type MetricId =
   | "acs_vaccine_population_pct"
   | "brfss_population_pct"
@@ -91,7 +119,7 @@ export type MetricConfig = {
 };
 
 export type VariableConfig = {
-  variableId: string; // TODO - strongly type key
+  variableId: VariableId;
   variableDisplayName: string;
   variableFullDisplayName: string;
   variableDefinition?: string;
@@ -245,7 +273,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "deaths",
       variableDisplayName: "Deaths",
       variableFullDisplayName: "COVID-19 Deaths",
-      variableDefinition: `People who died due to COVID-19.`,
+      variableDefinition: `The number of people who died due to COVID-19.`,
       metrics: {
         count: {
           metricId: "covid_deaths",
@@ -348,7 +376,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         pct_share: {
           metricId: "vaccinated_pct_share",
-          fullCardTitleName: "Share Of All COVID-19 Vaccinations",
+          fullCardTitleName: "Share Of Total COVID-19 Vaccinations",
           unknownsVegaLabel: "% unknown",
           shortVegaLabel: "% of vaccinations",
           type: "pct_share",
@@ -360,7 +388,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           },
           knownBreakdownComparisonMetric: {
             metricId: "vaccinated_share_of_known",
-            fullCardTitleName: "Share Of All COVID-19 Vaccinations",
+            fullCardTitleName: "Share Of Total COVID-19 Vaccinations",
             shortVegaLabel: "% of COVID-19 vaccinations",
             type: "pct_share",
           },

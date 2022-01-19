@@ -28,7 +28,7 @@ import { Tooltip } from "@material-ui/core";
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
-import styles from "./TableChart.module.scss";
+import styles from "./Chart.module.scss";
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20;
 
@@ -103,8 +103,8 @@ export function TableChart(props: TableChartProps) {
             style={{ width: "200px", cursor: "pointer" }}
             title={
               col.isSorted
-                ? `Toggle Sort Direction`
-                : `Sort by ${col.render("Header")}`
+                ? `Reverse Sort Direction`
+                : `Sort table by this column`
             }
           >
             {col.render("Header")}
@@ -112,6 +112,11 @@ export function TableChart(props: TableChartProps) {
               active={col.isSorted}
               direction={col.isSortedDesc ? "desc" : "asc"}
               hideSortIcon={false}
+              aria-label={
+                col.isSorted
+                  ? `Reverse Sort Direction`
+                  : `Sort table by this column`
+              }
             />
           </TableCell>
         ))}
@@ -131,6 +136,9 @@ export function TableChart(props: TableChartProps) {
               <Tooltip title="No data available">
                 <WarningRoundedIcon />
               </Tooltip>
+              <span className={styles.ScreenreaderTitleHeader}>
+                No Data Available
+              </span>
             </TableCell>
           ) : (
             <TableCell {...cell.getCellProps()}>

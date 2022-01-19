@@ -6,10 +6,15 @@ import { PopulationCard } from "../cards/PopulationCard";
 import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
 import { TableCard } from "../cards/TableCard";
 import { UnknownsMapCard } from "../cards/UnknownsMapCard";
-import { METRIC_CONFIG, VariableConfig } from "../data/config/MetricConfig";
+import {
+  DropdownVarId,
+  METRIC_CONFIG,
+  VariableConfig,
+  VAXX,
+} from "../data/config/MetricConfig";
 import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
+import { RACE } from "../data/utils/Constants";
 import { Fips } from "../data/utils/Fips";
-import { DropdownVarId } from "../utils/MadLibs";
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
@@ -35,7 +40,7 @@ export interface VariableDisparityReportProps {
 
 export function VariableDisparityReport(props: VariableDisparityReportProps) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
-    getParameter(DEMOGRAPHIC_PARAM, "race_and_ethnicity")
+    getParameter(DEMOGRAPHIC_PARAM, RACE)
   );
 
   const [variableConfig, setVariableConfig] = useState<VariableConfig | null>(
@@ -72,10 +77,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
         demoParam1 ? demoParam1 : METRIC_CONFIG[props.dropdownVarId][0]
       );
 
-      const demo: BreakdownVar = getParameter(
-        DEMOGRAPHIC_PARAM,
-        "race_and_ethnicity"
-      );
+      const demo: BreakdownVar = getParameter(DEMOGRAPHIC_PARAM, RACE);
       setCurrentBreakdown(demo);
     };
     const psHandler = psSubscribe(readParams, "vardisp");
@@ -110,11 +112,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
       {variableConfig && (
         <Grid container spacing={1} justify="center">
           {/* DEMOGRAPHIC / DATA TYPE TOGGLE(S) */}
-          {!(
-            props.dropdownVarId ===
-              METRIC_CONFIG["vaccinations"][0].variableId &&
-            props.fips.isCounty()
-          ) && (
+          {!(props.dropdownVarId === VAXX && props.fips.isCounty()) && (
             <Grid item container xs={12} md={SINGLE_COLUMN_WIDTH}>
               <ReportToggleControls
                 dropdownVarId={props.dropdownVarId}
@@ -160,7 +158,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH}>
             {variableConfig.metrics["pct_share"] && (
               <UnknownsMapCard
-                overrideAndWithOr={currentBreakdown === "race_and_ethnicity"}
+                overrideAndWithOr={currentBreakdown === RACE}
                 variableConfig={variableConfig}
                 fips={props.fips}
                 updateFipsCallback={(fips: Fips) => {
