@@ -76,7 +76,13 @@ function ArticlesSkeleton(props: { doPulse: boolean }) {
   );
 }
 
-function PinnedArticles({ articles }: { articles: Article[] }) {
+interface PinnedArticlesProps {
+  articles: Article[];
+}
+
+function PinnedArticles(props: PinnedArticlesProps) {
+  const { articles } = props;
+
   return articles?.length > 0 ? (
     <Card elevation={3}>
       <Typography className={styles.FeaturedArticlesHeaderText} variant="h6">
@@ -103,7 +109,7 @@ function PinnedArticles({ articles }: { articles: Article[] }) {
   );
 }
 
-function AllPosts(props: any) {
+function AllPosts() {
   // articles matching client applied filters (author, category, etc)
   const [filteredArticles, setFilteredArticles] = useState<Article[]>([]);
   const [authors, setAuthors] = useState<string[]>([]);
