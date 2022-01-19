@@ -2,10 +2,35 @@ import { DataSourceMetadata } from "../utils/DatasetTypes";
 
 export const GEOGRAPHIES_DATASET_ID = "geographies";
 
-// ALERT!!! Keep this file in sync with FakeDatasetMetadata while it is present
-// All dataset IDs should be in the FakeDatasetMetadata
+// ALERT!!! Keep this file in sync with DatasetMetadata while it is present
+// All dataset IDs should be in the DatasetMetadata
 
-const dataSourceMetadataList: DataSourceMetadata[] = [
+export const dataSourceMetadataList: DataSourceMetadata[] = [
+  {
+    id: "cdc_restricted",
+    data_source_name: "CDC Case Surveillance Restricted Access Detailed Data",
+    data_source_link:
+      "https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "Biweekly",
+    description:
+      "The numbers of confirmed COVID-19 deaths, cases, and hospitalizations at the state and county levels. " +
+      "The data source is Centers for Disease Control and Prevention, COVID-19 Response. COVID-19 Case " +
+      "Surveillance Data Access, Summary, and Limitations (01/10/2022). The last case data included is 2 " +
+      "weeks before 01/10/2022. The CDC does not take responsibility for the scientific validity " +
+      "or accuracy of methodology, results, statistical analyses, or conclusions presented. This " +
+      "dataset is not available for download; please click the link below to apply for access.",
+    dataset_ids: [
+      "cdc_restricted_data-by_race_county",
+      "cdc_restricted_data-by_race_state",
+      "cdc_restricted_data-by_age_county",
+      "cdc_restricted_data-by_age_state",
+      "cdc_restricted_data-by_sex_county",
+      "cdc_restricted_data-by_sex_state",
+    ],
+    downloadable: false,
+  },
   {
     id: "acs",
     data_source_name: "American Community Survey 5-year estimates",
@@ -27,8 +52,12 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
       "acs_health_insurance-health_insurance_by_sex_age_state",
       "acs_health_insurance-health_insurance_by_race_age_state",
       "acs_health_insurance-health_insurance_by_race_age_county",
-      "acs_poverty_dataset-poverty_by_race_age_sex_state",
-      "acs_poverty_dataset-poverty_by_race_age_sex_county",
+      "acs_poverty_dataset-poverty_by_age_state",
+      "acs_poverty_dataset-poverty_by_age_county",
+      "acs_poverty_dataset-poverty_by_race_state",
+      "acs_poverty_dataset-poverty_by_race_county",
+      "acs_poverty_dataset-poverty_by_sex_state",
+      "acs_poverty_dataset-poverty_by_sex_county",
     ],
     downloadable: true,
   },
@@ -56,31 +85,6 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
-    id: "cdc_restricted",
-    data_source_name: "CDC Case Surveillance Restricted Access Detailed Data",
-    data_source_link:
-      "https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t",
-    geographic_level: "State",
-    demographic_granularity: "Race/ethnicity, age, sex",
-    update_frequency: "Biweekly",
-    description:
-      "The numbers of confirmed COVID-19 deaths, cases, and hospitalizations at the state and county levels. " +
-      "The data source is Centers for Disease Control and Prevention, COVID-19 Response. COVID-19 Case " +
-      "Surveillance Data Access, Summary, and Limitations (8/31/2021). The last case data included is 2 " +
-      "weeks before 8/31/2021. The CDC does not take responsibility for the scientific validity " +
-      "or accuracy of methodology, results, statistical analyses, or conclusions presented. This " +
-      "dataset is not available for download, please press the button below to apply for access.",
-    dataset_ids: [
-      "cdc_restricted_data-by_race_county",
-      "cdc_restricted_data-by_race_state",
-      "cdc_restricted_data-by_age_county",
-      "cdc_restricted_data-by_age_state",
-      "cdc_restricted_data-by_sex_county",
-      "cdc_restricted_data-by_sex_state",
-    ],
-    downloadable: false,
-  },
-  {
     id: "cdc_vaccination_county",
     data_source_name: "CDC COVID-19 Vaccinations in the United States, County",
     data_source_link:
@@ -102,7 +106,7 @@ const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_name:
       "CDC COVID-19 Vaccination Demographics in the United States, National",
     data_source_link:
-      "https://covid.cdc.gov/covid-data-tracker/#vaccination-demographics-trends",
+      "https://data.cdc.gov/Vaccinations/COVID-19-Vaccination-Demographics-in-the-United-St/km4m-vcsb",
     geographic_level: "National",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Daily",

@@ -15,34 +15,38 @@ function createNationalTotal(dataFrame: IDataFrame, breakdown: string) {
     .resetIndex();
 }
 
+export function GetAcsDatasetId(breakdowns: Breakdowns): string {
+  if (breakdowns.hasOnlySex()) {
+    return breakdowns.geography === "county"
+      ? "acs_population-by_sex_county"
+      : "acs_population-by_sex_state";
+  }
+  // Note: this assumes all age buckets are included in the same dataset. If
+  // we use multiple datasets for different age buckets we will need to check
+  // the filters the age breakdown is requesting and select the dataset based
+  // on which filters are applied (or select a default one). It is preferrable
+  // to have the dataset include all breakdowns.
+  if (breakdowns.hasOnlyAge()) {
+    return breakdowns.geography === "county"
+      ? "acs_population-by_age_county"
+      : "acs_population-by_age_state";
+  }
+  if (breakdowns.hasOnlyRace()) {
+    return breakdowns.geography === "county"
+      ? "acs_population-by_race_county_std"
+      : "acs_population-by_race_state_std";
+  }
+  throw new Error("Not implemented");
+}
+
 class AcsPopulationProvider extends VariableProvider {
   constructor() {
     super("acs_pop_provider", ["population", "population_pct"]);
   }
 
-  // ALERT! KEEP IN SYNC! Make sure you update DataSourceMetadata if you update dataset IDs
+  // ALERT! KEEP IN SYNC! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts if you update dataset IDs
   getDatasetId(breakdowns: Breakdowns): string {
-    if (breakdowns.hasOnlySex()) {
-      return breakdowns.geography === "county"
-        ? "acs_population-by_sex_county"
-        : "acs_population-by_sex_state";
-    }
-    // Note: this assumes all age buckets are included in the same dataset. If
-    // we use multiple datasets for different age buckets we will need to check
-    // the filters the age breakdown is requesting and select the dataset based
-    // on which filters are applied (or select a default one). It is preferrable
-    // to have the dataset include all breakdowns.
-    if (breakdowns.hasOnlyAge()) {
-      return breakdowns.geography === "county"
-        ? "acs_population-by_age_county"
-        : "acs_population-by_age_state";
-    }
-    if (breakdowns.hasOnlyRace()) {
-      return breakdowns.geography === "county"
-        ? "acs_population-by_race_county_std"
-        : "acs_population-by_race_state_std";
-    }
-    throw new Error("Not implemented");
+    return GetAcsDatasetId(breakdowns);
   }
 
   async getDataInternal(
@@ -58,13 +62,16 @@ class AcsPopulationProvider extends VariableProvider {
 
     df = this.renameTotalToAll(df, breakdownColumnName);
 
-    df = this.calculations.calculatePctShare(
-      df,
-      "population",
-      "population_pct",
-      breakdownColumnName,
-      ["fips"]
-    );
+    //TODO: Get rid of this once the aggregation is moved to the backend
+    if (breakdowns.geography === "national") {
+      df = this.calculations.calculatePctShare(
+        df,
+        "population",
+        "population_pct",
+        breakdownColumnName,
+        ["fips"]
+      );
+    }
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
@@ -86,6 +93,7 @@ class AcsPopulationProvider extends VariableProvider {
     acsDataFrame = this.filterByGeo(acsDataFrame, breakdowns);
     acsDataFrame = this.renameGeoColumns(acsDataFrame, breakdowns);
 
+    //TODO: Move this to the backend
     return breakdowns.geography === "national"
       ? createNationalTotal(
           acsDataFrame,

@@ -6,10 +6,16 @@ import { PopulationCard } from "../cards/PopulationCard";
 import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
 import { TableCard } from "../cards/TableCard";
 import { UnknownsMapCard } from "../cards/UnknownsMapCard";
-import { METRIC_CONFIG, VariableConfig } from "../data/config/MetricConfig";
+import {
+  DropdownVarId,
+  METRIC_CONFIG,
+  VariableConfig,
+  VariableId,
+  VAXX,
+} from "../data/config/MetricConfig";
 import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
+import { RACE } from "../data/utils/Constants";
 import { Fips } from "../data/utils/Fips";
-import { DropdownVarId } from "../utils/MadLibs";
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
@@ -31,10 +37,11 @@ function TwoVariableReport(props: {
   fips2: Fips;
   updateFips1Callback: (fips: Fips) => void;
   updateFips2Callback: (fips: Fips) => void;
-  jumpToDefinitions?: Function;
+  jumpToDefinitions: Function;
+  jumpToData: Function;
 }) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
-    getParameter(DEMOGRAPHIC_PARAM, "race_and_ethnicity")
+    getParameter(DEMOGRAPHIC_PARAM, RACE)
   );
 
   const [variableConfig1, setVariableConfig1] = useState<VariableConfig | null>(
@@ -68,7 +75,7 @@ function TwoVariableReport(props: {
       const demoParam1 = getParameter(
         DATA_TYPE_1_PARAM,
         undefined,
-        (val: string) => {
+        (val: VariableId) => {
           return METRIC_CONFIG[props.dropdownVarId1].find(
             (cfg) => cfg.variableId === val
           );
@@ -77,17 +84,14 @@ function TwoVariableReport(props: {
       const demoParam2 = getParameter(
         DATA_TYPE_2_PARAM,
         undefined,
-        (val: string) => {
+        (val: VariableId) => {
           return METRIC_CONFIG[props.dropdownVarId2].find(
             (cfg) => cfg.variableId === val
           );
         }
       );
 
-      const demo: BreakdownVar = getParameter(
-        DEMOGRAPHIC_PARAM,
-        "race_and_ethnicity"
-      );
+      const demo: BreakdownVar = getParameter(DEMOGRAPHIC_PARAM, RACE);
       setVariableConfig1(
         demoParam1 ? demoParam1 : METRIC_CONFIG[props.dropdownVarId1][0]
       );
@@ -125,16 +129,16 @@ function TwoVariableReport(props: {
 
   return (
     <Grid container spacing={1} alignItems="flex-start">
+      {/* POPULATION CARD(S) AND 2 SETS OF TOGGLE CONTROLS */}
       {props.fips1.code === props.fips2.code ? (
         <>
           <Grid item xs={12}>
-            <PopulationCard fips={props.fips1} />
+            {/*  SINGLE POPULATION CARD FOR EXPLORE RELATIONSHIPS REPORT */}
+            <PopulationCard jumpToData={props.jumpToData} fips={props.fips1} />
+
+            {/* 2 SETS OF DEMOGRAPHIC AND DATA TYPE TOGGLES */}
             <Grid container>
-              {!(
-                props.dropdownVarId1 ===
-                  METRIC_CONFIG["vaccinations"][0].variableId &&
-                props.fips1.isCounty()
-              ) && (
+              {!(props.dropdownVarId1 === VAXX && props.fips1.isCounty()) && (
                 <Grid item xs={12} sm={6}>
                   <ReportToggleControls
                     dropdownVarId={props.dropdownVarId1}
@@ -145,11 +149,7 @@ function TwoVariableReport(props: {
                   />
                 </Grid>
               )}
-              {!(
-                props.dropdownVarId2 ===
-                  METRIC_CONFIG["vaccinations"][0].variableId &&
-                props.fips2.isCounty()
-              ) && (
+              {!(props.dropdownVarId2 === VAXX && props.fips2.isCounty()) && (
                 <Grid item xs={12} sm={6}>
                   <ReportToggleControls
                     dropdownVarId={props.dropdownVarId2}
@@ -166,12 +166,10 @@ function TwoVariableReport(props: {
       ) : (
         <>
           <Grid item xs={12} sm={6}>
-            <PopulationCard fips={props.fips1} />
-            {!(
-              props.dropdownVarId1 ===
-                METRIC_CONFIG["vaccinations"][0].variableId &&
-              props.fips1.isCounty()
-            ) && (
+            {/* FIRST POPULATION CARD FOR COMPARE RATES REPORT */}
+            <PopulationCard jumpToData={props.jumpToData} fips={props.fips1} />
+            {!(props.dropdownVarId1 === VAXX && props.fips1.isCounty()) && (
+              /* FIRST TOGGLE(S) FOR COMPARE RATES REPORT */
               <ReportToggleControls
                 dropdownVarId={props.dropdownVarId1}
                 variableConfig={variableConfig1}
@@ -182,12 +180,10 @@ function TwoVariableReport(props: {
             )}
           </Grid>
           <Grid item xs={12} sm={6}>
-            <PopulationCard fips={props.fips2} />
-            {!(
-              props.dropdownVarId2 ===
-                METRIC_CONFIG["vaccinations"][0].variableId &&
-              props.fips2.isCounty()
-            ) && (
+            {/* SECOND POPULATION CARD FOR COMPARE RATES REPORT */}
+            <PopulationCard jumpToData={props.jumpToData} fips={props.fips2} />
+            {!(props.dropdownVarId2 === VAXX && props.fips2.isCounty()) && (
+              /* SECOND TOGGLE(S) FOR COMPARE RATES REPORT */
               <ReportToggleControls
                 dropdownVarId={props.dropdownVarId2}
                 variableConfig={variableConfig2}
@@ -200,6 +196,7 @@ function TwoVariableReport(props: {
         </>
       )}
 
+      {/* SIDE-BY-SIDE 100K MAP CARDS */}
       <RowOfTwoOptionalMetrics
         variableConfig1={variableConfig1}
         variableConfig2={variableConfig2}
@@ -220,10 +217,37 @@ function TwoVariableReport(props: {
             }}
             currentBreakdown={currentBreakdown}
             jumpToDefinitions={props.jumpToDefinitions}
+            jumpToData={props.jumpToData}
           />
         )}
       />
 
+      {/* SIDE-BY-SIDE 100K BAR GRAPH CARDS */}
+      {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
+        !breakdownIsShown(breakdownVar) ? null : (
+          <Fragment key={breakdownVar}>
+            <RowOfTwoOptionalMetrics
+              variableConfig1={variableConfig1}
+              variableConfig2={variableConfig2}
+              fips1={props.fips1}
+              fips2={props.fips2}
+              createCard={(
+                variableConfig: VariableConfig,
+                fips: Fips,
+                unusedUpdateFips: (fips: Fips) => void
+              ) => (
+                <SimpleBarChartCard
+                  variableConfig={variableConfig}
+                  breakdownVar={breakdownVar}
+                  fips={fips}
+                />
+              )}
+            />
+          </Fragment>
+        )
+      )}
+
+      {/* SIDE-BY-SIDE UNKNOWNS MAP CARDS */}
       <RowOfTwoOptionalMetrics
         variableConfig1={variableConfig1}
         variableConfig2={variableConfig2}
@@ -237,7 +261,7 @@ function TwoVariableReport(props: {
           updateFips: (fips: Fips) => void
         ) => (
           <UnknownsMapCard
-            overrideAndWithOr={currentBreakdown === "race_and_ethnicity"}
+            overrideAndWithOr={currentBreakdown === RACE}
             variableConfig={variableConfig}
             fips={fips}
             updateFipsCallback={(fips: Fips) => {
@@ -248,6 +272,32 @@ function TwoVariableReport(props: {
         )}
       />
 
+      {/* SIDE-BY-SIDE DISPARITY BAR GRAPH (COMPARE TO POPULATION) CARDS */}
+      {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
+        !breakdownIsShown(breakdownVar) ? null : (
+          <Fragment key={breakdownVar}>
+            <RowOfTwoOptionalMetrics
+              variableConfig1={variableConfig1}
+              variableConfig2={variableConfig2}
+              fips1={props.fips1}
+              fips2={props.fips2}
+              createCard={(
+                variableConfig: VariableConfig,
+                fips: Fips,
+                unusedUpdateFips: (fips: Fips) => void
+              ) => (
+                <DisparityBarChartCard
+                  variableConfig={variableConfig}
+                  breakdownVar={breakdownVar}
+                  fips={fips}
+                />
+              )}
+            />
+          </Fragment>
+        )
+      )}
+
+      {/* SIDE-BY-SIDE DATA TABLE CARDS */}
       {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
         !breakdownIsShown(breakdownVar) ? null : (
           <RowOfTwoOptionalMetrics
@@ -270,46 +320,6 @@ function TwoVariableReport(props: {
               />
             )}
           />
-        )
-      )}
-      {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
-        !breakdownIsShown(breakdownVar) ? null : (
-          <Fragment key={breakdownVar}>
-            <RowOfTwoOptionalMetrics
-              variableConfig1={variableConfig1}
-              variableConfig2={variableConfig2}
-              fips1={props.fips1}
-              fips2={props.fips2}
-              createCard={(
-                variableConfig: VariableConfig,
-                fips: Fips,
-                unusedUpdateFips: (fips: Fips) => void
-              ) => (
-                <SimpleBarChartCard
-                  variableConfig={variableConfig}
-                  breakdownVar={breakdownVar}
-                  fips={fips}
-                />
-              )}
-            />
-            <RowOfTwoOptionalMetrics
-              variableConfig1={variableConfig1}
-              variableConfig2={variableConfig2}
-              fips1={props.fips1}
-              fips2={props.fips2}
-              createCard={(
-                variableConfig: VariableConfig,
-                fips: Fips,
-                unusedUpdateFips: (fips: Fips) => void
-              ) => (
-                <DisparityBarChartCard
-                  variableConfig={variableConfig}
-                  breakdownVar={breakdownVar}
-                  fips={fips}
-                />
-              )}
-            />
-          </Fragment>
         )
       )}
     </Grid>

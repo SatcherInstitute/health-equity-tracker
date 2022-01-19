@@ -1,128 +1,85 @@
-import React, { useState } from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./DataCatalogPage.module.scss";
 import {
   LinkWithStickyParams,
   CONTACT_TAB_LINK,
   EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK,
+  HET_URL,
+  DATA_TAB_LINK,
 } from "../../utils/urlutils";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import parse from "html-react-parser";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
 import { METRIC_CONFIG } from "../../data/config/MetricConfig";
-import CopyToClipboard from "react-copy-to-clipboard";
-import { Box, Button, Card } from "@material-ui/core";
-import FileCopyIcon from "@material-ui/icons/FileCopy";
+import { Link } from "react-router-dom";
+import { Card } from "@material-ui/core";
+import { urlMap } from "../../utils/externalUrls";
+import DefinitionsList from "../../reports/ui/DefinitionsList";
 
-export const CITATION_APA =
-  "Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. https://healthequitytracker.org.";
+export const CITATION_APA = `Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
-export const VACCINATED_DEF = `For the national level, and for the majority of states, this indicates people who have received at least one dose of a COVID-19 vaccine.`;
-export const UNREPRESENTED_RACE_DEF = (
-  <>
-    A single race not tabulated by the CDC, not Hispanic/Latino. The definition
-    of <b>Unrepresented Race</b> is dependent on what other race categories
-    exist in the dataset. Please note: The CDC and many other sources use the
-    term <b>Some other race</b>; we find this term to be non-inclusive have
-    avoided its usage.
-  </>
-);
+const definedConditions = Object.values(METRIC_CONFIG)
+  .flat()
+  .filter((c) => c?.variableDefinition);
 
 function MethodologyTab() {
-  const [textCopied, setTextCopied] = useState(false);
-
-  function handleCopy() {
-    setTextCopied(true);
-  }
-
   return (
     <>
       <Helmet>
         <title>Methodology - Health Equity Tracker</title>
       </Helmet>
-      <h1 className={styles.ScreenreaderTitleHeader}>Methodology</h1>
+      <h2 className={styles.ScreenreaderTitleHeader}>Methodology</h2>
       <Grid
         container
-        className={styles.Grid}
         direction="column"
         justify="space-around"
         alignItems="center"
       >
-        <Grid item xs={12} sm={12} md={9}>
+        <Grid item>
           <Grid container className={styles.MethodologySection}>
             <Grid
               item
-              xs={12}
-              lg={10}
-              xl={6}
               className={styles.MethodologyQuestionAndAnswer}
+              component="article"
             >
-              <h2
-                id="main"
-                tabIndex={-1}
-                className={styles.MethodologyQuestion}
-              >
+              <h3 id="main" className={styles.MethodologyQuestion}>
                 Recommended Citation (APA) for the Health Equity Tracker:
-              </h2>
+              </h3>
 
               <div className={styles.MethodologyAnswer}>
-                <Grid container justify="space-between" alignItems="center">
-                  <Grid item container xs={12} md={8}>
-                    <Box m={1}>
-                      <Card elevation={3}>
-                        <Box m={1}>
-                          <p className={styles.CitationAPA}>{CITATION_APA}</p>
-                        </Box>
-                      </Card>
-                    </Box>
-                  </Grid>
-
-                  <Grid
-                    xs={12}
-                    md={3}
-                    item
-                    container
-                    direction="column"
-                    justify="center"
-                    alignItems="center"
-                    alignContent="center"
-                  >
-                    <CopyToClipboard
-                      text={CITATION_APA}
-                      onCopy={() => handleCopy()}
-                    >
-                      <Button startIcon={<FileCopyIcon />}></Button>
-                    </CopyToClipboard>
-                    {textCopied ? (
-                      <i role="alert">Citation copied</i>
-                    ) : (
-                      "Copy to clipboard"
-                    )}
-                  </Grid>
-                </Grid>
+                <Card elevation={3}>
+                  <p className={styles.CitationAPA}>{CITATION_APA}</p>
+                </Card>
               </div>
             </Grid>
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2 tabIndex={-1} className={styles.MethodologyQuestion}>
-                {selectFaqs[4].q}
-              </h2>
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>{selectFaqs[4].q}</h3>
               <div className={styles.MethodologyAnswer}>
                 {<>{parse(selectFaqs[4].a)}</>}
               </div>
             </Grid>
 
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2 className={styles.MethodologyQuestion}>
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>
                 What are the limitations of the tracker?
-              </h2>
+              </h3>
               <div className={styles.MethodologyAnswer}>
-                <h3 className={styles.MethodologySubsubheaderText}>COVID-19</h3>
+                <h4 className={styles.MethodologySubsubheaderText}>COVID-19</h4>
                 <p>
                   For a description of some of the gaps in COVID-19 data, please
                   see the{" "}
-                  <a href={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}>
+                  <Link to={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}>
                     What Data Are Missing
-                  </a>{" "}
+                  </Link>{" "}
                   section. Here, we provide further details:
                 </p>
                 <ul>
@@ -132,7 +89,7 @@ function MethodologyTab() {
                     incomplete and potentially skewed.
                   </li>
                   <li>
-                    When calculating national-level per100K COVID-19 rates, we
+                    When calculating national-level per100k COVID-19 rates, we
                     do not include the population of states whose data are
                     suppressed as part of the total population. See the 'What
                     data are missing' section for further details.
@@ -150,14 +107,8 @@ function MethodologyTab() {
                     for a state are suppressed if the aggregate counts for that
                     state are &lt; 5% of the source being used for comparison.
                     These analyses are available for{" "}
-                    <a href="https://satcherinstitute.github.io/analysis/cdc_case_data">
-                      cases
-                    </a>{" "}
-                    and{" "}
-                    <a href="https://satcherinstitute.github.io/analysis/cdc_death_data">
-                      deaths
-                    </a>
-                    .
+                    <a href={urlMap.shliGitHubSuppressCovidCases}>cases</a> and{" "}
+                    <a href={urlMap.shliGitHubSuppressCovidDeaths}>deaths</a>.
                   </li>
                   <li>
                     The underlying data is reported at the case-level, so we
@@ -168,9 +119,9 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
-                <h3 className={styles.MethodologySubsubheaderText}>
+                <h4 className={styles.MethodologySubsubheaderText}>
                   COVID-19 Vaccinations
-                </h3>
+                </h4>
                 <p>
                   Because there is currently no national vaccine demographic
                   dataset, we combine the best datasets we could find for each
@@ -179,7 +130,7 @@ function MethodologyTab() {
                 <ul>
                   <li>
                     For the national level numbers, we use the{" "}
-                    <a href="https://covid.cdc.gov/covid-data-tracker/#vaccination-demographics-trends">
+                    <a href={urlMap.cdcVaxTrends}>
                       CDC vaccine demographic dataset,
                     </a>{" "}
                     which provides data on the race/ethnicity, sex, and age
@@ -189,7 +140,7 @@ function MethodologyTab() {
 
                   <li>
                     For the state level we use{" "}
-                    <a href="https://www.kff.org/state-category/covid-19/">
+                    <a href={urlMap.kffCovid}>
                       the Kaiser Family Foundation COVID-19 Indicators dataset,
                     </a>{" "}
                     which is a hand-curated dataset based on analysis from state
@@ -205,13 +156,16 @@ function MethodologyTab() {
                     For the county level, we could not identify a dataset that
                     provides vaccine demographics, so to show some context we
                     use the{" "}
-                    <a href="https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh">
+                    <a href={urlMap.cdcVaxCounty}>
                       COVID-19 Vaccinations in the United States, County dataset
                     </a>{" "}
                     which provides the total number of vaccinations per county.
                   </li>
                 </ul>
-                <h4> Vaccination Population Sources </h4>
+                <h4 className={styles.MethodologySubsubheaderText}>
+                  {" "}
+                  Vaccination Population Sources{" "}
+                </h4>
                 <ul>
                   <li>
                     For the national numbers we use the population numbers
@@ -245,7 +199,10 @@ function MethodologyTab() {
                     estimations.
                   </li>
                 </ul>
-                <h4> Vaccination Data Limitations </h4>
+                <h4 className={styles.MethodologySubsubheaderText}>
+                  {" "}
+                  Vaccination Data Limitations{" "}
+                </h4>
                 <ul>
                   <li>
                     <b>Texas</b> does not report demographic-specific dose
@@ -286,16 +243,14 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
-                <h3 className={styles.MethodologySubsubheaderText}>
+                <h4 className={styles.MethodologySubsubheaderText}>
                   Diabetes & COPD
-                </h3>
+                </h4>
                 <p>
                   Diabetes & COPD data in the tracker is sourced from{" "}
-                  <a href="https://www.americashealthrankings.org/explore/annual/measure/Overall_a/state/ALL">
-                    America's Health Rankings
-                  </a>
-                  , who in turn source their diabetes & COPD data from the{" "}
-                  <a href="https://www.cdc.gov/brfss/index.html">
+                  <a href={urlMap.amr}>America's Health Rankings</a>, who in
+                  turn source their diabetes & COPD data from the{" "}
+                  <a href={urlMap.cdcBrfss}>
                     Behavioral Risk Factor Surveillance System (BRFSS)
                   </a>
                   , a survey run by the CDC.
@@ -306,11 +261,8 @@ function MethodologyTab() {
                     respondents to provide a statistically meaningful estimate
                     of disease prevalence, especially for smaller and typically
                     marginalized racial groups. Please see the{" "}
-                    <a href="https://www.americashealthrankings.org/about/methodology/data-sources-and-measures">
-                      methodology page
-                    </a>{" "}
-                    of America's Health Rankings for details on data
-                    suppression.
+                    <a href={urlMap.amrMethodology}>methodology page</a> of
+                    America's Health Rankings for details on data suppression.
                   </li>
                   <li>
                     BRFSS data broken down by race and ethnicity is not
@@ -319,9 +271,9 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
-                <h3 className={styles.MethodologySubheaderText}>
+                <h4 className={styles.MethodologySubsubheaderText}>
                   Visualizations
-                </h3>
+                </h4>
                 <p>
                   Please consider the impact of under-reporting and data gaps
                   when exploring the visualizations. These issues may lead to
@@ -330,10 +282,14 @@ function MethodologyTab() {
                 </p>
               </div>
             </Grid>
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2 className={styles.MethodologyQuestion}>
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>
                 What data is missing?
-              </h2>
+              </h3>
               <div className={styles.MethodologyAnswer}>
                 <p>
                   Our tracker will expand to include additional health
@@ -345,19 +301,20 @@ function MethodologyTab() {
                   Do you have information on health outcomes at the state and
                   local level that belong in the Health Equity Tracker?
                   <br />
-                  <LinkWithStickyParams
-                    className={styles.MethodologyContactUsLink}
-                    to={`${CONTACT_TAB_LINK}`}
-                  >
+                  <LinkWithStickyParams to={`${CONTACT_TAB_LINK}`}>
                     We would love to hear from you!
                   </LinkWithStickyParams>
                 </p>
               </div>
             </Grid>
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2 className={styles.MethodologyQuestion}>
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>
                 What do the metrics on the tracker mean?
-              </h2>
+              </h3>
               <div className={styles.MethodologyAnswer}>
                 <p>
                   None of the metrics/data shown on the tracker are
@@ -372,9 +329,9 @@ function MethodologyTab() {
                 </p>
                 <ul>
                   <li>
-                    <b>Total COVID-19 cases per 100K people</b>: The total rate
+                    <b>Total COVID-19 cases per 100k people</b>: The total rate
                     of occurrence of COVID-19 cases expressed per 100,000 people
-                    (i.e. 10,000 per 100K implies a 10% occurrence rate). This
+                    (i.e. 10,000 per 100k implies a 10% occurrence rate). This
                     metric normalizes for population size, allowing for
                     comparisons across demographic groups. This metric is
                     rounded to the nearest integer in the tracker.
@@ -408,26 +365,31 @@ function MethodologyTab() {
                 </ul>
               </div>
             </Grid>
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2 className={styles.MethodologyQuestion}>
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>
                 What do the condition variables on the tracker mean?
-              </h2>
+              </h3>
               <div className={styles.MethodologyAnswer}>
-                <ul>
-                  <li>
-                    <b>
-                      {METRIC_CONFIG["vaccinations"][0].variableFullDisplayName}
-                    </b>
-                    {": "}
-                    {VACCINATED_DEF}
-                  </li>
-                </ul>
+                <DefinitionsList definedConditions={definedConditions} />
+                <p>
+                  Links to the original sources of data and their definitions
+                  can be found on our{" "}
+                  <Link to={DATA_TAB_LINK}>Data Downloads</Link> page.
+                </p>
               </div>
             </Grid>
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2 className={styles.MethodologyQuestion}>
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>
                 What do the race/ethnicity groups mean?
-              </h2>
+              </h3>
               <div className={styles.MethodologyAnswer}>
                 <p>
                   The combined race/ethnicity groups shown on the tracker can be

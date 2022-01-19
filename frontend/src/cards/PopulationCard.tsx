@@ -20,21 +20,23 @@ import {
   POPULATION_VARIABLE_CONFIG,
   POPULATION_VARIABLE_CONFIG_2010,
 } from "../data/config/MetricConfig";
-import { ALL } from "../data/utils/Constants";
+import { ALL, RACE } from "../data/utils/Constants";
 import {
   onlyIncludeDecadeAgeBrackets,
   onlyIncludeStandardRaces,
 } from "../data/query/BreakdownFilter";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Hidden from "@material-ui/core/Hidden";
-import { FAQ_TAB_LINK } from "../utils/urlutils";
 import Alert from "@material-ui/lab/Alert";
 
 export const POPULATION_BY_RACE = "Population by race and ethnicity";
 export const POPULATION_BY_AGE = "Population by age";
+/* minimize layout shift */
+const PRELOAD_HEIGHT = 139;
 
 export interface PopulationCardProps {
   fips: Fips;
+  jumpToData: Function;
 }
 
 export function PopulationCard(props: PopulationCardProps) {
@@ -66,7 +68,7 @@ export function PopulationCard(props: PopulationCardProps) {
   );
 
   return (
-    <CardWrapper queries={[raceQuery, ageQuery]}>
+    <CardWrapper minHeight={PRELOAD_HEIGHT} queries={[raceQuery, ageQuery]}>
       {([raceQueryResponse, ageQueryResponse]) => {
         const totalPopulation = raceQueryResponse.data.find(
           (r) => r.race_and_ethnicity === ALL
@@ -132,7 +134,7 @@ export function PopulationCard(props: PopulationCardProps) {
 
             {props.fips.needsACS2010() && (
               <CardContent>
-                <Alert severity="warning">
+                <Alert severity="warning" role="note">
                   Population data for U.S. Virgin Islands, Guam, and the
                   Northern Mariana Islands is from 2010; interpret metrics with
                   caution.
@@ -141,8 +143,8 @@ export function PopulationCard(props: PopulationCardProps) {
             )}
 
             {/* Because the Vega charts are using responsive width based on the window resizing,
-                we manually trigger a resize when the div size changes so vega chart will 
-                render with the right size. This means the vega chart won't appear until the 
+                we manually trigger a resize when the div size changes so vega chart will
+                render with the right size. This means the vega chart won't appear until the
                 AnimateHeight is finished expanding */}
             {!raceQueryResponse.dataIsMissing() && (
               <AnimateHeight
@@ -152,16 +154,25 @@ export function PopulationCard(props: PopulationCardProps) {
               >
                 <Grid container>
                   <Grid item xs={12}>
-                    <Alert severity="info" className={styles.PopulationAlert}>
+                    <Alert
+                      severity="info"
+                      role="note"
+                      className={styles.PopulationAlert}
+                    >
                       These racial categories are defined by the ACS and US
                       Census Bureau. While it is the standard for CDC reporting,
                       the definition of these categories often results in not
-                      counting or miscounting people in underrepresented groups.{" "}
-                      <a href={`${FAQ_TAB_LINK}`}>Learn more</a>
+                      counting or miscounting people in underrepresented groups.
+                      <Button
+                        onClick={() => props.jumpToData()}
+                        className={styles.InfoLinkButton}
+                      >
+                        Read about missing data.
+                      </Button>
                     </Alert>
-                    <Grid container justify="flex-start">
+                    <Grid container justify="space-between">
                       {raceQueryResponse
-                        .getValidRowsForField("race_and_ethnicity")
+                        .getValidRowsForField(RACE)
                         .filter((r) => r.race_and_ethnicity !== ALL)
                         .sort((a, b) => {
                           return b.race_and_ethnicity - a.race_and_ethnicity;
@@ -198,8 +209,9 @@ export function PopulationCard(props: PopulationCardProps) {
                           (r) => r.race_and_ethnicity !== ALL
                         )}
                         metric={POP_CONFIG.metrics.pct_share}
-                        breakdownVar="race_and_ethnicity"
+                        breakdownVar={RACE}
                         showLegend={false}
+                        usePercentSuffix={true}
                         filename={`${POPULATION_BY_RACE} in ${props.fips.getFullDisplayName()}`}
                       />
                     </Box>
@@ -214,7 +226,7 @@ export function PopulationCard(props: PopulationCardProps) {
                         <MissingDataAlert
                           dataName={POP_CONFIG.variableDisplayName}
                           breakdownString={BREAKDOWN_VAR_DISPLAY_NAMES["age"]}
-                          geoLevel={props.fips.getFipsTypeDisplayName()}
+                          fips={props.fips}
                         />
                       ) : (
                         <SimpleHorizontalBarChart
@@ -222,6 +234,7 @@ export function PopulationCard(props: PopulationCardProps) {
                           metric={POP_CONFIG.metrics.pct_share}
                           breakdownVar="age"
                           showLegend={false}
+                          usePercentSuffix={true}
                           filename={`${POPULATION_BY_AGE} in ${props.fips.getFullDisplayName()}`}
                         />
                       )}

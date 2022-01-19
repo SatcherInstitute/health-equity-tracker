@@ -7,6 +7,8 @@ import { MadLibId, PhraseSelections } from "./MadLibs";
 export const STICKY_VERSION_PARAM = "sv";
 
 // PAGE URLS
+export const HET_URL = "https://healthequitytracker.org";
+
 export const EXPLORE_DATA_PAGE_LINK = "/exploredata";
 export const DATA_CATALOG_PAGE_LINK = "/datacatalog";
 export const ABOUT_US_PAGE_LINK = "/aboutus";
@@ -17,6 +19,7 @@ export const TERMS_OF_USE_PAGE_LINK = "/termsofuse";
 export const FAQ_TAB_LINK = "/faqs";
 export const RESOURCES_TAB_LINK = "/resources";
 export const METHODOLOGY_TAB_LINK = "/methodology";
+export const DATA_TAB_LINK = "/datacatalog";
 export const CONTACT_TAB_LINK = "/contact";
 export const ABOUT_TAB_LINK = "/about";
 export const OURTEAM_TAB_LINK = "/ourteam";
@@ -30,8 +33,9 @@ export const UNINSURANCE_US_SETTING = "?mls=1.health_insurance-3.00";
 export const POVERTY_US_SETTING = "?mls=1.poverty-3.00";
 
 // SECTION IDS
+export const WHAT_DATA_ARE_MISSING_ID = "missingDataInfo";
 export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
-  EXPLORE_DATA_PAGE_LINK + "#missingDataInfo";
+  EXPLORE_DATA_PAGE_LINK + "#" + WHAT_DATA_ARE_MISSING_ID;
 export const WIHE_JOIN_THE_EFFORT_SECTION_ID = "join";
 
 // Value is a comma-separated list of dataset ids. Dataset ids cannot have
@@ -187,14 +191,14 @@ export function getParameter<T1>(
   }
 }
 
-let kvSeperator = ".";
-let partsSeperator = "-";
+let kvSeparator = ".";
+let partsSeparator = "-";
 
 export const parseMls = (param: string) => {
-  let parts = param.split(partsSeperator);
+  let parts = param.split(partsSeparator);
   let selection: PhraseSelections = {};
   parts.forEach((part) => {
-    let p = part.split(kvSeperator);
+    let p = part.split(kvSeparator);
     selection[Number(p[0])] = p[1];
   });
 
@@ -205,10 +209,10 @@ export const stringifyMls = (selection: PhraseSelections): string => {
   let kvPair: Array<string> = [];
 
   Object.keys(selection).forEach((key: any) => {
-    kvPair.push(key + kvSeperator + selection[key]);
+    kvPair.push(key + kvSeparator + selection[key]);
   });
 
-  return kvPair.join(partsSeperator);
+  return kvPair.join(partsSeparator);
 };
 
 export type PSEventHandler = () => void;

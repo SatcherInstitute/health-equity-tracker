@@ -1,4 +1,30 @@
+//  IDs for the selectable conditions in the madlib
+export type DropdownVarId =
+  | "covid"
+  | "diabetes"
+  | "copd"
+  | "health_insurance"
+  | "poverty"
+  | "vaccinations";
+
+// IDs for the sub-data types (if any) for theDropDownId
+export type VariableId =
+  | "population"
+  | "population_2010"
+  | "cases"
+  | "deaths"
+  | "hospitalizations"
+  | "cases"
+  | "cases"
+  | "health_coverage"
+  | "poverty"
+  | "vaccinations";
+
+// consts for simpler code
+export const VAXX: VariableId = "vaccinations";
+
 export type MetricId =
+  | "acs_vaccine_population_pct"
   | "brfss_population_pct"
   | "copd_pct"
   | "copd_pct_share"
@@ -39,8 +65,7 @@ export type MetricId =
   | "vaccinated_pct_share"
   | "vaccinated_share_of_known"
   | "vaccinated_per_100k"
-  | "vaccine_population_pct"
-  | "acs_vaccine_population_pct";
+  | "vaccine_population_pct";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -66,12 +91,15 @@ export type MetricConfig = {
   // (# of Asian covid cases in the US) divided by
   // (# of covid cases in the US excluding those with unknown race/ethnicity).
   knownBreakdownComparisonMetric?: MetricConfig;
+
+  secondaryPopulationComparisonMetric?: MetricConfig;
 };
 
 export type VariableConfig = {
-  variableId: string; // TODO - strongly type key
+  variableId: VariableId;
   variableDisplayName: string;
   variableFullDisplayName: string;
+  variableDefinition?: string;
   metrics: Record<string, MetricConfig>; // TODO - strongly type key
   surveyCollectedData?: boolean;
 };
@@ -177,6 +205,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "COVID-19 Cases",
+      variableDefinition: `A COVID-19 case is an individual who has been determined to have COVID-19 using a set of criteria known as a case definition. Cases can be classified as suspect, probable, or confirmed. CDC counts include probable and confirmed cases and deaths. Suspect cases and deaths are excluded.`,
       metrics: {
         count: {
           metricId: "covid_cases",
@@ -211,8 +240,8 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         per100k: {
           metricId: "covid_cases_per_100k",
-          fullCardTitleName: "COVID-19 Cases Per 100K People",
-          shortVegaLabel: "cases per 100K",
+          fullCardTitleName: "COVID-19 Cases Per 100k People",
+          shortVegaLabel: "cases per 100k",
           type: "per100k",
         },
       },
@@ -221,6 +250,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "deaths",
       variableDisplayName: "Deaths",
       variableFullDisplayName: "COVID-19 Deaths",
+      variableDefinition: `The number of people who died due to COVID-19.`,
       metrics: {
         count: {
           metricId: "covid_deaths",
@@ -255,8 +285,8 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         per100k: {
           metricId: "covid_deaths_per_100k",
-          fullCardTitleName: "COVID-19 Deaths Per 100K People",
-          shortVegaLabel: "deaths per 100K",
+          fullCardTitleName: "COVID-19 Deaths Per 100k People",
+          shortVegaLabel: "deaths per 100k",
           type: "per100k",
         },
       },
@@ -299,18 +329,62 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         per100k: {
           metricId: "covid_hosp_per_100k",
-          fullCardTitleName: "COVID-19 Hospitalizations Per 100K People",
-          shortVegaLabel: "hospitalizations per 100K",
+          fullCardTitleName: "COVID-19 Hospitalizations Per 100k People",
+          shortVegaLabel: "hospitalizations per 100k",
           type: "per100k",
         },
       },
     },
   ],
+
+  vaccinations: [
+    {
+      variableId: "vaccinations",
+      variableDisplayName: "Vaccinations",
+      variableFullDisplayName: "COVID-19 Vaccinations",
+      variableDefinition: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
+      metrics: {
+        per100k: {
+          metricId: "vaccinated_per_100k",
+          fullCardTitleName: "COVID-19 Vaccinations Per 100k People",
+          shortVegaLabel: "COVID-19 vaccinations per 100k",
+          type: "per100k",
+        },
+        pct_share: {
+          metricId: "vaccinated_pct_share",
+          fullCardTitleName: "Share Of Total COVID-19 Vaccinations",
+          unknownsVegaLabel: "% unknown",
+          shortVegaLabel: "% of vaccinations",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "vaccine_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+          knownBreakdownComparisonMetric: {
+            metricId: "vaccinated_share_of_known",
+            fullCardTitleName: "Share Of Total COVID-19 Vaccinations",
+            shortVegaLabel: "% of COVID-19 vaccinations",
+            type: "pct_share",
+          },
+          secondaryPopulationComparisonMetric: {
+            metricId: "acs_vaccine_population_pct",
+            fullCardTitleName: "Population Percentage According to ACS",
+            shortVegaLabel: "pop percentage according to acs",
+            type: "pct_share",
+          },
+        },
+      },
+    },
+  ],
+
   diabetes: [
     {
       variableId: "cases",
       variableDisplayName: "Cases",
-      variableFullDisplayName: "Diabetes Cases",
+      variableFullDisplayName: "Diabetes",
+      variableDefinition: `Adults who reported being told by a health professional that they have diabetes (excluding prediabetes and gestational diabetes).`,
       surveyCollectedData: true,
       metrics: {
         pct_share: {
@@ -327,8 +401,8 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         per100k: {
           metricId: "diabetes_per_100k",
-          fullCardTitleName: "Diabetes Cases Per 100K People",
-          shortVegaLabel: "diabetes cases per 100K",
+          fullCardTitleName: "Diabetes Cases Per 100k People",
+          shortVegaLabel: "diabetes cases per 100k",
           type: "per100k",
         },
       },
@@ -338,7 +412,8 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "cases",
       variableDisplayName: "Cases",
-      variableFullDisplayName: "COPD Cases",
+      variableFullDisplayName: "COPD",
+      variableDefinition: `Adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.`,
       surveyCollectedData: true,
       metrics: {
         pct_share: {
@@ -355,23 +430,30 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         per100k: {
           metricId: "copd_per_100k",
-          fullCardTitleName: "COPD Cases Per 100K People",
-          shortVegaLabel: "COPD cases per 100K",
+          fullCardTitleName: "COPD Cases Per 100k People",
+          shortVegaLabel: "COPD cases per 100k",
           type: "per100k",
         },
       },
     },
   ],
+
   health_insurance: [
     {
       variableId: "health_coverage",
       variableDisplayName: "Uninsured Individuals",
       variableFullDisplayName: "Uninsured Individuals",
+      variableDefinition: `Health insurance coverage in the ACS and other Census Bureau surveys define coverage to
+        include plans and programs that provide comprehensive health coverage. Plans that provide
+        insurance only for specific conditions or situations such as cancer and long-term care policies
+        are not considered comprehensive health coverage. Likewise, other types of insurance like
+        dental, vision, life, and disability insurance are not considered comprehensive health
+        insurance coverage.`,
       metrics: {
         per100k: {
           metricId: "health_insurance_per_100k",
-          fullCardTitleName: "Uninsured Individuals Per 100K People",
-          shortVegaLabel: "uninsured individuals per 100K",
+          fullCardTitleName: "Uninsured Individuals Per 100k People",
+          shortVegaLabel: "uninsured individuals per 100k",
           type: "per100k",
         },
         pct_share: {
@@ -394,12 +476,13 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "poverty",
       variableDisplayName: "Poverty",
       variableFullDisplayName: "Individuals Below The Poverty Line",
+      variableDefinition: `Following the Office of Management and Budget's (OMB) Statistical Policy Directive 14, the Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the family's threshold, then that family and every individual in it is considered in poverty. The official poverty thresholds do not vary geographically, but they are updated for inflation using the Consumer Price Index (CPI-U). The official poverty definition uses money income before taxes and does not include capital gains or noncash benefits (such as public housing, Medicaid, and food stamps).`,
       metrics: {
         per100k: {
           metricId: "poverty_per_100k",
           fullCardTitleName:
-            "Individuals Below The Poverty Line Per 100K People",
-          shortVegaLabel: "individuals below the poverty line per 100K",
+            "Individuals Below The Poverty Line Per 100k People",
+          shortVegaLabel: "individuals below the poverty line per 100k",
           type: "per100k",
         },
         pct_share: {
@@ -411,40 +494,6 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             metricId: "poverty_population_pct",
             fullCardTitleName: populationPctTitle,
             shortVegaLabel: populationPctShortLabel,
-            type: "pct_share",
-          },
-        },
-      },
-    },
-  ],
-  vaccinations: [
-    {
-      variableId: "vaccinations",
-      variableDisplayName: "Vaccinations",
-      variableFullDisplayName: "COVID-19 Vaccinations",
-      metrics: {
-        per100k: {
-          metricId: "vaccinated_per_100k",
-          fullCardTitleName: "COVID-19 Vaccinations Per 100K People",
-          shortVegaLabel: "COVID-19 vaccinations per 100K",
-          type: "per100k",
-        },
-        pct_share: {
-          metricId: "vaccinated_pct_share",
-          fullCardTitleName: "Share Of Total COVID-19 Vaccinations",
-          unknownsVegaLabel: "% unknown",
-          shortVegaLabel: "% of vaccinations",
-          type: "pct_share",
-          populationComparisonMetric: {
-            metricId: "vaccine_population_pct",
-            fullCardTitleName: populationPctTitle,
-            shortVegaLabel: populationPctShortLabel,
-            type: "pct_share",
-          },
-          knownBreakdownComparisonMetric: {
-            metricId: "vaccinated_share_of_known",
-            fullCardTitleName: "Share Of Total COVID-19 Vaccinations",
-            shortVegaLabel: "% of COVID-19 vaccinations",
             type: "pct_share",
           },
         },

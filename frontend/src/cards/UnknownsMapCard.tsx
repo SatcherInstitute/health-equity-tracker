@@ -18,15 +18,15 @@ import {
   UNKNOWN_RACE,
   UNKNOWN_ETHNICITY,
   ALL,
+  RACE,
 } from "../data/utils/Constants";
 import styles from "./Card.module.scss";
 import Divider from "@material-ui/core/Divider";
 import Alert from "@material-ui/lab/Alert";
 import UnknownsAlert from "./ui/UnknownsAlert";
-import {
-  LinkWithStickyParams,
-  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-} from "../utils/urlutils";
+
+/* minimize layout shift */
+const PRELOAD_HEIGHT = 748;
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -95,6 +95,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       queries={[mapQuery, alertQuery]}
       title={<>{getTitleText()}</>}
       loadGeographies={true}
+      minHeight={PRELOAD_HEIGHT}
     >
       {([mapQueryResponse, alertQueryResponse], metadata, geoData) => {
         const unknownRaces = mapQueryResponse
@@ -124,9 +125,10 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   : unknownEthnicities[index];
               });
 
-        const noUnknownValuesReported =
-          !mapQueryResponse.dataIsMissing() && unknowns.length === 0;
+        const dataIsMissing = mapQueryResponse.dataIsMissing();
+        const unknownsArrayEmpty = unknowns.length === 0;
 
+        // there is some data but only for ALL but not by demographic groups
         const noDemographicInfo =
           mapQueryResponse
             .getValidRowsForField(props.currentBreakdown)
@@ -137,6 +139,30 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             .filter((row: Row) => row[props.currentBreakdown] === ALL).length >
             0;
 
+        // when suppressing states with too low COVID numbers
+        const unknownsUndefined =
+          unknowns.length > 0 &&
+          unknowns.every(
+            (unknown: Row) => unknown[metricConfig.metricId] === undefined
+          );
+
+        // show MISSING DATA ALERT if we expect the unknowns array to be empty (breakdowns/data unavailable),
+        // or if the unknowns are undefined (eg COVID suppressed states)
+        const showMissingDataAlert =
+          (unknownsArrayEmpty && dataIsMissing) ||
+          (!unknownsArrayEmpty && unknownsUndefined) ||
+          noDemographicInfo;
+
+        // show NO UNKNOWNS INFO BOX for an expected empty array of UNKNOWNS (eg the BRFSS survey)
+        const showNoUnknownsInfo =
+          unknownsArrayEmpty &&
+          !dataIsMissing &&
+          !unknownsUndefined &&
+          !noDemographicInfo;
+
+        // show the UNKNOWNS MAP when there is unknowns data and it's not undefined/suppressed
+        const showingVisualization = !unknownsArrayEmpty && !unknownsUndefined;
+
         return (
           <>
             <CardContent className={styles.SmallMarginContent}>
@@ -146,15 +172,15 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               />
             </CardContent>
             <Divider />
+
+            {/* PERCENT REPORTING UNKNOWN ALERT - contains its own logic and divider/styling */}
             <UnknownsAlert
               queryResponse={alertQueryResponse}
               metricConfig={metricConfig}
               breakdownVar={props.currentBreakdown}
               displayType="map"
               known={false}
-              overrideAndWithOr={
-                props.currentBreakdown === "race_and_ethnicity"
-              }
+              overrideAndWithOr={props.currentBreakdown === RACE}
               raceEthDiffMap={
                 mapQueryResponse
                   .getValidRowsForField(props.currentBreakdown)
@@ -164,36 +190,33 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   ).length !== 0
               }
               noDemographicInfoMap={noDemographicInfo}
+              showingVisualization={showingVisualization}
+              fips={props.fips}
             />
+
             <CardContent>
-              {mapQueryResponse.dataIsMissing() && (
+              {/* MISSING DATA ALERT */}
+              {showMissingDataAlert && (
                 <MissingDataAlert
                   dataName={metricConfig.fullCardTitleName}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
                   }
-                  geoLevel={props.fips.getChildFipsTypeDisplayName()}
+                  isMapCard={true}
+                  fips={props.fips}
                 />
               )}
-              {noDemographicInfo && (
-                <Alert severity="warning">
-                  We do not currently have demographic information for{" "}
-                  <b>{metricConfig.fullCardTitleName}</b> at the <b>county</b>{" "}
-                  level. Learn more about how this lack of data impacts{" "}
-                  <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
-                    health equity.
-                  </LinkWithStickyParams>
-                </Alert>
-              )}
-              {noUnknownValuesReported && !noDemographicInfo && (
-                <Alert severity="info">
+
+              {/* NO UNKNOWNS INFO BOX */}
+              {showNoUnknownsInfo && (
+                <Alert severity="info" role="note">
                   No unknown values for{" "}
                   {BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]} reported
                   in this dataset.
                 </Alert>
               )}
             </CardContent>
-            {!noUnknownValuesReported && (
+            {showingVisualization && (
               <CardContent>
                 <ChoroplethMap
                   useSmallSampleMessage={
@@ -215,7 +238,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   geoData={geoData}
                   filename={`${getTitleText()} in ${props.fips.getFullDisplayName()}`}
                 />
-                {props.fips.isUsa() && (
+                {props.fips.isUsa() && unknowns.length ? (
                   <div className={styles.TerritoryCirclesContainer}>
                     {TERRITORY_CODES.map((code) => {
                       const fips = new Fips(code);
@@ -245,6 +268,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                       );
                     })}
                   </div>
+                ) : (
+                  <></>
                 )}
               </CardContent>
             )}

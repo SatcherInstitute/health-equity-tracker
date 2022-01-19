@@ -1,5 +1,5 @@
 @import "~normalize.css";
-@import "variables";
+@import "./variables.module.scss";
 @import "mixins";
 
 * {
@@ -26,11 +26,7 @@ body {
   background: white;
 }
 
-#vg-tooltip-element {
-  z-index: 2000 !important;
-}
-
 a:link,
 a:visited {
-  color: #0b5240;
+  color: $alt-green;
 }

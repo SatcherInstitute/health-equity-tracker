@@ -3,15 +3,17 @@ import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { joinOnCols } from "../utils/datasetutils";
+import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
-import { ALL } from "../utils/Constants";
+import { ALL, RACE } from "../utils/Constants";
 
 class VaccineProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
 
   constructor(acsProvider: AcsPopulationProvider) {
     super("vaccine_provider", [
+      "acs_vaccine_population_pct",
       "vaccinated_pct_share",
       "vaccinated_share_of_known",
       "vaccinated_per_100k",
@@ -28,8 +30,7 @@ class VaccineProvider extends VariableProvider {
       );
     } else if (
       breakdowns.geography === "state" &&
-      breakdowns.getSoleDemographicBreakdown().columnName ===
-        "race_and_ethnicity"
+      breakdowns.getSoleDemographicBreakdown().columnName === RACE
     ) {
       return "kff_vaccination-race_and_ethnicity";
     } else if (breakdowns.geography === "county") {
@@ -48,8 +49,8 @@ class VaccineProvider extends VariableProvider {
     const vaxData = await getDataManager().loadDataset(datasetId);
     let df = vaxData.toDataFrame();
 
-    const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
-      .columnName;
+    const breakdownColumnName =
+      breakdowns.getSoleDemographicBreakdown().columnName;
 
     df = this.filterByGeo(df, breakdowns);
     df = this.renameGeoColumns(df, breakdowns);
@@ -61,83 +62,34 @@ class VaccineProvider extends VariableProvider {
     let consumedDatasetIds = [datasetId];
 
     if (breakdowns.geography === "national") {
-      const acsQueryResponse = await this.acsProvider.getData(
-        new MetricQuery(["population_pct"], acsBreakdowns)
-      );
+      if (breakdownColumnName !== "age") {
+        const acsQueryResponse = await this.acsProvider.getData(
+          new MetricQuery(["population_pct"], acsBreakdowns)
+        );
 
-      consumedDatasetIds = consumedDatasetIds.concat(
-        acsQueryResponse.consumedDatasetIds
-      );
+        consumedDatasetIds = consumedDatasetIds.concat(
+          acsQueryResponse.consumedDatasetIds
+        );
 
-      // We merge this in on the backend
-      consumedDatasetIds = consumedDatasetIds.concat(
-        "acs_2010_population-by_race_and_ethnicity_territory"
-      );
+        // We merge this in on the backend
+        consumedDatasetIds = consumedDatasetIds.concat(
+          "acs_2010_population-by_race_and_ethnicity_territory"
+        );
 
-      const acs = new DataFrame(acsQueryResponse.data);
-      df = joinOnCols(df, acs, ["fips", breakdownColumnName], "left");
+        const acs = new DataFrame(acsQueryResponse.data);
+        df = joinOnCols(df, acs, ["fips", breakdownColumnName], "left");
+      }
 
       df = df.renameSeries({
         population_pct: "vaccine_population_pct",
       });
 
-      df = df.generateSeries({
-        vaccinated_per_100k: (row) =>
-          this.calculations.per100k(row.vaccinated_first_dose, row.population),
-      });
-
-      // In this case we need to use the CDC provided pop numbers
-      // for the pop comparison metric
-      if (breakdownColumnName === "age") {
-        df = this.calculations.calculatePctShare(
-          df,
-          "population",
-          "vaccine_population_pct",
-          breakdownColumnName,
-          ["fips"]
-        );
-      }
-
-      // Calculate any share_of_known metrics that may have been requested in the query
-      if (this.allowsBreakdowns(breakdowns)) {
-        df = this.calculations.calculatePctShare(
-          df,
-          "vaccinated_first_dose",
-          "vaccinated_pct_share",
-          breakdownColumnName,
-          ["fips"]
-        );
-
-        df = this.calculations.calculatePctShareOfKnown(
-          df,
-          "vaccinated_first_dose",
-          "vaccinated_share_of_known",
-          breakdownColumnName
-        );
-      }
-    } else if (breakdowns.geography === "state") {
-      const acsQueryResponse = await this.acsProvider.getData(
-        new MetricQuery(["population_pct"], acsBreakdowns)
-      );
-
-      consumedDatasetIds = consumedDatasetIds.concat(
-        acsQueryResponse.consumedDatasetIds
-      );
-
-      const acs = new DataFrame(acsQueryResponse.data);
-      // Only get what we need to merge
-      const acsToMerge = acs
-        .where(
-          (row) =>
-            row[breakdownColumnName].includes(
-              "American Indian and Alaska Native"
-            ) ||
-            row[breakdownColumnName].includes(
-              "Native Hawaiian and Pacific Islander"
-            )
-        )
+      df = df
+        .generateSeries({
+          vaccinated_pct_share: (row) => row["vaccinated_share_of_known"],
+        })
         .resetIndex();
-
+    } else if (breakdowns.geography === "state") {
       df = df
         .generateSeries({
           vaccinated_pct_share: (row) =>
@@ -149,46 +101,7 @@ class VaccineProvider extends VariableProvider {
         })
         .resetIndex();
 
-      // We only want to merge the ACS data onto these two
-      // demographic categories.
-      let dfAIANNHPI = df
-        .where(
-          (row) =>
-            row[breakdownColumnName].includes(
-              "American Indian and Alaska Native"
-            ) ||
-            row[breakdownColumnName].includes(
-              "Native Hawaiian and Pacific Islander"
-            )
-        )
-        .resetIndex();
-
-      dfAIANNHPI = dfAIANNHPI.dropSeries(["population_pct"]).resetIndex();
-
-      dfAIANNHPI = joinOnCols(
-        dfAIANNHPI,
-        acsToMerge,
-        ["fips", breakdownColumnName],
-        "left"
-      );
-
-      // We need to manipulate the population data and
-      // generate the per 100k numbers for
-      // Asian, Black, White and Hispanic because
-      // the kff is providing those numbers
-      let dfNotAIANNHPI = df
-        .where(
-          (row) =>
-            !row[breakdownColumnName].includes(
-              "American Indian and Alaska Native"
-            ) &&
-            !row[breakdownColumnName].includes(
-              "Native Hawaiian and Pacific Islander"
-            )
-        )
-        .resetIndex();
-
-      dfNotAIANNHPI = dfNotAIANNHPI
+      df = df
         .generateSeries({
           population_pct: (row) =>
             isNaN(row.population_pct) ||
@@ -199,7 +112,7 @@ class VaccineProvider extends VariableProvider {
         })
         .resetIndex();
 
-      dfNotAIANNHPI = dfNotAIANNHPI
+      df = df
         .generateSeries({
           vaccinated_per_100k: (row) =>
             isNaN(row.vaccinated_pct) ||
@@ -210,14 +123,14 @@ class VaccineProvider extends VariableProvider {
         })
         .resetIndex();
 
-      // Combine the seperated datasets back together
-      df = dfAIANNHPI.concat(dfNotAIANNHPI).resetIndex();
-
       df = df
         .renameSeries({
           population_pct: "vaccine_population_pct",
         })
         .resetIndex();
+
+      const acsDatasetId = GetAcsDatasetId(breakdowns);
+      consumedDatasetIds = consumedDatasetIds.concat(acsDatasetId);
 
       // We have to separate there because the ALL rows contain raw numbers
       // while the other rows are pre computed
@@ -274,11 +187,9 @@ class VaccineProvider extends VariableProvider {
     return (
       (breakdowns.geography === "national" ||
         (breakdowns.geography === "state" &&
-          breakdowns.getSoleDemographicBreakdown().columnName ===
-            "race_and_ethnicity") ||
+          breakdowns.getSoleDemographicBreakdown().columnName === RACE) ||
         (breakdowns.geography === "county" &&
-          breakdowns.getSoleDemographicBreakdown().columnName ===
-            "race_and_ethnicity")) &&
+          breakdowns.getSoleDemographicBreakdown().columnName === RACE)) &&
       validDemographicBreakdownRequest
     );
   }

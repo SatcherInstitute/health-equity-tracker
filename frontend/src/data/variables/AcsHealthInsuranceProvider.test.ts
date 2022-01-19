@@ -1,6 +1,6 @@
-import { Breakdowns } from "../query/Breakdowns";
+import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
 import { Fips } from "../utils/Fips";
-import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
+import { DatasetMetadataMap } from "../config/DatasetMetadata";
 import {
   autoInitGlobals,
   getDataFetcher,
@@ -22,6 +22,7 @@ import {
   RACE,
   WHITE,
   HISPANIC,
+  DemographicGroup,
 } from "../utils/Constants";
 import AcsHealthInsuranceProvider from "./AcsHealthInsuranceProvider";
 
@@ -39,8 +40,8 @@ export const KING_COUNTY: FipsSpec = {
 
 function finalRow(
   fips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   without_health_insurance: number,
   health_insurance_per_100k: number
 ) {
@@ -57,8 +58,8 @@ function finalRow(
 function finalCountyRow(
   stateFips: FipsSpec,
   countyFips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   without_health_insurance: number,
   health_insurance_per_100k: number
 ) {
@@ -74,8 +75,8 @@ function finalCountyRow(
 
 function stateRow(
   fips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   with_health_insurance: string,
   without_health_insurance: string,
   total_health_insurance: string
@@ -93,8 +94,8 @@ function stateRow(
 function countyRow(
   stateFips: FipsSpec,
   countyFips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   with_health_insurance: string,
   without_health_insurance: string,
   total_health_insurance: string
@@ -111,18 +112,19 @@ function countyRow(
   };
 }
 
-const evaluateHealthInsuranceWithAndWithoutTotal = createWithAndWithoutAllEvaluator(
-  /*metricIds=*/ ["health_insurance_count", "health_insurance_per_100k"],
-  dataFetcher,
-  new AcsHealthInsuranceProvider()
-);
+const evaluateHealthInsuranceWithAndWithoutTotal =
+  createWithAndWithoutAllEvaluator(
+    /*metricIds=*/ ["health_insurance_count", "health_insurance_per_100k"],
+    dataFetcher,
+    new AcsHealthInsuranceProvider()
+  );
 
 //TODO: Add more tests for breakdown by SEX.
 describe("AcsHealthInsuranceProvider", () => {
   beforeEach(() => {
     resetCacheDebug();
     dataFetcher.resetState();
-    dataFetcher.setFakeMetadataLoaded(FakeDatasetMetadataMap);
+    dataFetcher.setFakeMetadataLoaded(DatasetMetadataMap);
   });
 
   test("State and Race Breakdown", async () => {

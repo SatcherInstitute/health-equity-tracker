@@ -4,13 +4,14 @@ import {
   getDataFetcher,
   resetCacheDebug,
 } from "../../utils/globals";
-import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
-import { Breakdowns } from "../query/Breakdowns";
+import { DatasetMetadataMap } from "../config/DatasetMetadata";
+import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
 import { createMissingDataResponse, MetricQuery } from "../query/MetricQuery";
 import {
   AGE,
   ALL,
   ASIAN_NH,
+  DemographicGroup,
   FEMALE,
   MALE,
   RACE,
@@ -29,22 +30,24 @@ import {
 
 function stateRow(
   fips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
-  population: number
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
+  population: number,
+  population_pct: number
 ) {
   return {
     state_fips: fips.code,
     state_name: fips.name,
     [breakdownName]: breakdownValue,
     population: population,
+    population_pct: population_pct,
   };
 }
 
 function finalPopulationCountAndPctRow(
   fips: FipsSpec,
-  breakdownName: string,
-  breakdownValue: string,
+  breakdownName: BreakdownVar,
+  breakdownValue: DemographicGroup,
   population: number,
   population_pct: number
 ) {
@@ -61,17 +64,18 @@ autoInitGlobals();
 
 const dataFetcher = getDataFetcher() as FakeDataFetcher;
 
-const evaluatePopulationCountAndPctWithAndWithoutTotal = createWithAndWithoutAllEvaluator(
-  ["population", "population_pct"],
-  dataFetcher,
-  new Acs2010PopulationProvider()
-);
+const evaluatePopulationCountAndPctWithAndWithoutTotal =
+  createWithAndWithoutAllEvaluator(
+    ["population", "population_pct"],
+    dataFetcher,
+    new Acs2010PopulationProvider()
+  );
 
 describe("Acs2010PopulationProvider", () => {
   beforeEach(() => {
     resetCacheDebug();
     dataFetcher.resetState();
-    dataFetcher.setFakeMetadataLoaded(FakeDatasetMetadataMap);
+    dataFetcher.setFakeMetadataLoaded(DatasetMetadataMap);
   });
 
   test("Invalid Breakdown", async () => {
@@ -89,11 +93,11 @@ describe("Acs2010PopulationProvider", () => {
 
   test("State and Race Breakdown", async () => {
     const rawData = [
-      stateRow(AL, RACE, ALL, 2),
-      stateRow(AL, RACE, ASIAN_NH, 2),
-      stateRow(NC, RACE, ALL, 20),
-      stateRow(NC, RACE, ASIAN_NH, 5),
-      stateRow(NC, RACE, WHITE_NH, 15),
+      stateRow(AL, RACE, ALL, 2, 100),
+      stateRow(AL, RACE, ASIAN_NH, 2, 100),
+      stateRow(NC, RACE, ALL, 20, 100),
+      stateRow(NC, RACE, ASIAN_NH, 5, 25),
+      stateRow(NC, RACE, WHITE_NH, 15, 75),
     ];
 
     const NC_ALL_FINAL = finalPopulationCountAndPctRow(NC, RACE, ALL, 20, 100);
@@ -124,11 +128,11 @@ describe("Acs2010PopulationProvider", () => {
 
   test("State and Age Breakdown", async () => {
     const rawData = [
-      stateRow(AL, AGE, "10-19", 2),
-      stateRow(AL, AGE, TOTAL, 2),
-      stateRow(NC, AGE, "0-9", 15),
-      stateRow(NC, AGE, "10-19", 10),
-      stateRow(NC, AGE, TOTAL, 25),
+      stateRow(AL, AGE, "10-19", 2, 100),
+      stateRow(AL, AGE, TOTAL, 2, 100),
+      stateRow(NC, AGE, "0-9", 15, 60),
+      stateRow(NC, AGE, "10-19", 10, 40),
+      stateRow(NC, AGE, TOTAL, 25, 100),
     ];
 
     const NC_AGE_0_9_FINAL = finalPopulationCountAndPctRow(
@@ -159,11 +163,11 @@ describe("Acs2010PopulationProvider", () => {
 
   test("State and Sex Breakdown", async () => {
     const rawData = [
-      stateRow(AL, SEX, MALE, 2),
-      stateRow(AL, SEX, TOTAL, 2),
-      stateRow(NC, SEX, MALE, 15),
-      stateRow(NC, SEX, FEMALE, 10),
-      stateRow(NC, SEX, TOTAL, 25),
+      stateRow(AL, SEX, MALE, 2, 100),
+      stateRow(AL, SEX, TOTAL, 2, 100),
+      stateRow(NC, SEX, MALE, 15, 60),
+      stateRow(NC, SEX, FEMALE, 10, 40),
+      stateRow(NC, SEX, TOTAL, 25, 100),
     ];
 
     const NC_MALE_FINAL = finalPopulationCountAndPctRow(NC, SEX, MALE, 15, 60);

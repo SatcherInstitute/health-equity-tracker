@@ -1,4 +1,5 @@
-@import "../../styles/variables";
+@use "../../styles/globals.scss";
+@import "../../styles/variables.module";
 
 // For styles Grid-wide
 .Grid {
@@ -9,48 +10,27 @@
 
 // For primary-themed buttons
 .PrimaryButton {
-  background-color: #0b5240;
+  background-color: $alt-green;
   color: white !important;
   border-radius: 40px !important;
-  font-size: 18px !important;
+  font-size: $title !important;
   font-weight: 500 !important;
   font-family: "DM Sans", sans-serif !important;
   padding: 16px 30px !important;
   text-align: center;
 }
 
-.NoUnderline {
-  text-decoration: none;
-}
-
-// For major links, in primary colors
-.MajorLink {
-  color: $alt-green;
-  font-weight: 600;
-}
-
 .LearnMoreAboutHealthEquity {
   font-weight: 500 !important;
-  font-size: 24px !important;
+  font-size: $smallestHeader !important;
   line-height: 28px !important;
   text-decoration: underline !important;
-}
-
-// For the title of the page read off by screenreaders in an h1
-.ScreenreaderTitleHeader {
-  left: -999px;
-  position: absolute;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  z-index: -999;
 }
 
 /** ------------- HEADER ROW ------------- **/
 
 .HeaderRow {
-  border-bottom: 1px solid #3e3e3e;
+  border-bottom: $bottom-border-style;
 
   .HeaderTextItem {
     justify-content: center;
@@ -65,18 +45,18 @@
     color: $alt-green;
 
     @media (min-width: $sm) {
-      font-size: 80px;
+      font-size: $biggestHeader;
       line-height: 80px;
       padding-bottom: 20px;
     }
     @media (max-width: $sm) {
-      font-size: 50px;
+      font-size: $biggerHeader;
       line-height: 50px;
     }
   }
 
   .HeaderSubtext {
-    font-size: 16px;
+    font-size: $text;
     text-align: left;
     font-weight: 400;
     line-height: 24px;
@@ -85,14 +65,14 @@
 
   .HeaderImgItem {
     @media (min-width: $md) {
-      border-left: 1px solid #3e3e3e;
+      border-left: 1px solid $border-color;
     }
   }
 
   .HeaderImg {
     border-radius: 30px;
     height: auto;
-    max-height: 600px;
+    max-height: $header-height;
     width: 100%;
     max-width: 700px;
     align-items: center;
@@ -106,10 +86,10 @@
 .TakeALookAroundRow {
   padding: 75px 30px 75px 30px;
   align-items: center;
-  border-bottom: 1px solid #3e3e3e;
+  border-bottom: $bottom-border-style;
 
   .TakeALookAroundHeaderText {
-    font-size: 58px;
+    font-size: $biggerHeader;
     text-align: center;
     font-weight: 400;
     font-family: "Taviraj", serif !important;
@@ -119,7 +99,7 @@
   }
 
   .TakeALookAroundHeaderSubtext {
-    font-size: 18px;
+    font-size: $title;
     text-align: center;
     font-weight: 400;
     line-height: 26px;
@@ -144,7 +124,7 @@
   }
 
   .TakeALookAroundText {
-    font-size: 20px;
+    font-size: $title;
     text-align: center;
     font-weight: 400;
     line-height: 24.2px;
@@ -162,7 +142,7 @@
     text-align: left !important;
 
     .PrioritizeHealthEquityHeader {
-      font-size: 58px;
+      font-size: $biggerHeader;
       text-align: left;
       font-weight: 400;
       font-family: "Taviraj", serif !important;
@@ -172,7 +152,7 @@
     }
 
     .PrioritizeHealthEquityHeaderSubtext {
-      font-size: 18px;
+      font-size: $title;
       text-align: left;
       font-weight: 400;
       line-height: 26px;
@@ -181,7 +161,7 @@
   }
 
   .PrioritizeHealthEquityImgItem {
-    border-right: 1px solid #3e3e3e;
+    border-right: 1px solid $border-color;
     display: flex;
     justify-content: center;
   }
@@ -200,11 +180,15 @@
 .HowToRow {
   padding: 120px 30px 120px 30px;
   align-items: center;
-  border-bottom: 1px solid #3e3e3e;
-  border-top: 1px solid #3e3e3e;
+  border-bottom: $bottom-border-style;
+  border-top: 1px solid $border-color;
+
+  ul {
+    padding-inline-start: 0px;
+  }
 
   .HowToHeaderText {
-    font-size: 48px;
+    font-size: $bigHeader;
     text-align: center;
     font-weight: 300;
     font-family: "Taviraj", serif !important;
@@ -214,7 +198,7 @@
   }
 
   .HowToStepContainer {
-    border: 1px solid #bdc1c6;
+    border: 1px solid $how-to-color;
     border-radius: 30px;
     box-sizing: border-box;
     padding: 10px;
@@ -230,18 +214,24 @@
   .HowToStepTextHeader {
     font-family: "DM Sans", sans-serif !important;
     font-weight: 600;
-    font-size: 24px;
+    font-size: $smallestHeader;
     line-height: 34px;
-    text-align: left;
+    text-align: center;
+    @media only screen and (min-width: $md) {
+      text-align: left;
+    }
   }
 
   .HowToStepTextSubheader {
     font-family: "Inter", sans-serif !important;
     font-weight: 400;
-    font-size: 16px;
+    font-size: $text;
     line-height: 26px;
     letter-spacing: 0.1px;
-    text-align: left;
+    text-align: center;
+    @media only screen and (min-width: $md) {
+      text-align: left;
+    }
   }
 }
 
@@ -250,7 +240,7 @@
 .FaqRow {
   padding: 50px 30px;
   align-items: center;
-  border-bottom: 1px solid #3e3e3e;
+  border-bottom: $bottom-border-style;
 }
 
 /** ------------- NEWSLETTER SIGN UP ROW ------------- **/
@@ -266,18 +256,8 @@
     color: white;
     padding: 30px;
 
-    @media (min-width: $md) {
-      font-size: 130px !important;
-      line-height: 120px !important;
-    }
-    @media (max-width: $md) {
-      font-size: 80px !important;
-      line-height: 70px !important;
-    }
-    @media (max-width: $sm) {
-      font-size: 2.7rem !important;
-      line-height: 1 !important;
-    }
+    font-size: clamp($bigHeader, 5vw, $biggestHeader) !important;
+    line-height: 1.5 !important;
   }
 
   .EmailAddressBackgroundImgContainer {
@@ -300,20 +280,9 @@
     justify-content: space-around;
   }
 
-  .NewsletterForm {
-    background: white;
-    border-radius: 5px !important;
-    padding: 10px;
-  }
-
-  .NewsletterEmailSubmitInput {
-    height: 56px !important;
-    margin-left: 5px;
-  }
-
   .JoinOurMovementButton {
     border-radius: 40px !important;
-    font-size: 18px !important;
+    font-size: $title !important;
     font-weight: 500 !important;
     font-family: "DM Sans", sans-serif !important;
     padding: 16px 30px !important;

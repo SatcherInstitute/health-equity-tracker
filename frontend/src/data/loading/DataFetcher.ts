@@ -3,7 +3,7 @@
 // establish the API types.
 
 import { MapOfDatasetMetadata, Row } from "../utils/DatasetTypes";
-import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
+import { DatasetMetadataMap } from "../config/DatasetMetadata";
 import { Environment } from "../../utils/Environment";
 import { DataFrame } from "data-forge";
 import { GEOGRAPHIES_DATASET_ID } from "../config/MetadataMap";
@@ -126,7 +126,10 @@ export class ApiDataFetcher implements DataFetcher {
         return {
           ...row,
           vaccinated_first_dose: Number(row["vaccinated_first_dose"]),
-          population: Number(row["population"]),
+          vaccinated_per_100k:
+            row["vaccinated_per_100k"] == null
+              ? null
+              : Number(row["vaccinated_per_100k"]),
         };
       });
     } else if (datasetId.startsWith("kff_vaccination")) {
@@ -149,6 +152,6 @@ export class ApiDataFetcher implements DataFetcher {
 
   async getMetadata(): Promise<MapOfDatasetMetadata> {
     // TODO replace with real API call.
-    return FakeDatasetMetadataMap;
+    return DatasetMetadataMap;
   }
 }

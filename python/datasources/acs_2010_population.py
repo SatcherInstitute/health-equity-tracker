@@ -2,6 +2,17 @@ import ingestion.standardized_columns as std_col
 
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
+from ingestion.dataset_utils import generate_pct_share_col
+from ingestion.standardized_columns import Race
+
+
+def get_breakdown_col(df):
+    if std_col.RACE_CATEGORY_ID_COL in df.columns:
+        return std_col.RACE_CATEGORY_ID_COL
+    elif std_col.SEX_COL in df.columns:
+        return std_col.SEX_COL
+    elif std_col.AGE_COL in df.columns:
+        return std_col.AGE_COL
 
 
 class ACS2010Population(DataSource):
@@ -34,12 +45,19 @@ class ACS2010Population(DataSource):
             df = gcs_to_bq_util.load_json_as_dataframe(
                 gcs_bucket, f, dtype={'state_fips': str})
 
+            total_val = (
+                Race.TOTAL.value if get_breakdown_col(df) == std_col.RACE_CATEGORY_ID_COL else std_col.TOTAL_VALUE)
+
+            df = generate_pct_share_col(df, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL,
+                                        get_breakdown_col(df), total_val)
+
             if std_col.RACE_CATEGORY_ID_COL in df.columns:
                 std_col.add_race_columns_from_category_id(df)
 
             # All columns are str, except outcome columns.
             column_types = {c: 'STRING' for c in df.columns}
             column_types[std_col.POPULATION_COL] = 'INT64'
+            column_types[std_col.POPULATION_PCT_COL] = 'FLOAT'
             if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
                 column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 

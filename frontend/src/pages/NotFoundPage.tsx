@@ -1,5 +1,5 @@
 import React from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 function NotFoundPage() {
   return (
@@ -7,9 +7,7 @@ function NotFoundPage() {
       <Helmet>
         <title>Page Not Found - 404</title>
       </Helmet>
-      <h1 id="main" tabIndex={-1}>
-        Page Not Found - 404
-      </h1>
+      <h1 id="main">Page Not Found - 404</h1>
     </>
   );
 }

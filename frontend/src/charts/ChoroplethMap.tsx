@@ -5,7 +5,7 @@ import { Fips } from "../data/utils/Fips";
 import { MetricConfig } from "../data/config/MetricConfig";
 import { FieldRange } from "../data/utils/DatasetTypes";
 import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
-import { ORDINAL } from "vega-lite/build/src/type";
+import sass from "../styles/variables.module.scss";
 import {
   EQUAL_DOT_SIZE,
   GREY_DOT_SCALE,
@@ -17,13 +17,15 @@ import {
   UNKNOWN_SCALE,
 } from "./Legend";
 import { useMediaQuery } from "@material-ui/core";
+import { ORDINAL } from "./utils";
 
 export type ScaleType = "quantize" | "quantile" | "symlog";
 
-const UNKNOWN_GREY = "#BDC1C6";
-const RED_ORANGE = "#ED573F";
-const DARK_BLUE = "#255792";
-const HEIGHT_WIDTH_RATIO = 0.5;
+const {
+  unknownGrey: UNKNOWN_GREY,
+  redOrange: RED_ORANGE,
+  darkBlue: DARK_BLUE,
+} = sass;
 
 const MISSING_DATASET = "MISSING_DATASET";
 const VALID_DATASET = "VALID_DATASET";
@@ -91,8 +93,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery("(max-width:400px)");
 
-  const Y_NO_DATA_LEGEND = pageIsTiny ? -15 : -43;
-  const X_NO_DATA_LEGEND = pageIsTiny ? 15 : 230;
+  const yOffsetNoDataLegend = pageIsTiny ? -15 : -43;
+  const xOffsetNoDataLegend = pageIsTiny ? 15 : 230;
+  const heightWidthRatio = pageIsTiny ? 1 : 0.5;
 
   // Initial spec state is set in useEffect
   const [spec, setSpec] = useState({});
@@ -101,6 +104,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
   // Dataset to use for computing the legend
   const legendData = props.legendData || props.data;
+
+  // Generate meaningful alt text
+  const altText = `Map showing ${props.filename}${
+    !props.fips.isCounty()
+      ? ` across ${props.fips.getPluralChildFipsTypeDisplayName()}`
+      : ""
+  }`;
 
   useEffect(() => {
     const geoData = props.geoData
@@ -172,7 +182,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       name: UNKNOWN_SCALE,
       type: ORDINAL,
       domain: { data: MISSING_PLACEHOLDER_VALUES, field: "missing" },
-      range: ["#BDC1C6"],
+      range: [sass.unknownGrey],
     };
 
     const greyDotScale: any = {
@@ -210,13 +220,11 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const noDataLegend: any = {
       fill: UNKNOWN_SCALE,
       symbolType: LEGEND_SYMBOL_TYPE,
-      labelOverlap: "greedy",
-      labelSeparation: 10,
       orient: "none",
       font: LEGEND_TEXT_FONT,
       labelFont: LEGEND_TEXT_FONT,
-      legendY: Y_NO_DATA_LEGEND,
-      legendX: X_NO_DATA_LEGEND,
+      legendY: yOffsetNoDataLegend,
+      legendX: xOffsetNoDataLegend,
       size: GREY_DOT_SCALE,
     };
     if (!props.hideLegend) {
@@ -258,22 +266,17 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
               : "albersUsa",
           fit: { signal: "data('" + GEO_DATASET + "')" },
           size: {
-            signal:
-              "[" +
-              (width! - LEGEND_WIDTH) +
-              ", " +
-              width! * HEIGHT_WIDTH_RATIO +
-              "]",
+            signal: "[" + width! + ", " + width! * heightWidthRatio + "]",
           },
         };
 
     /* DEFINE HOW TO CREATE A MARK ON THE UI */
-    /** 
+    /**
     Function creating the Vega marks that appear on the chart (geographies or circles).
     * datasetName: name of the dataset the marks should correspond to
     * fillColor: schema defining how marks are filled - either a scale or static value.
     * hoverColor: single color that should appear on hover
-    * tooltipExpression: expression defining how to render the contents of the hover tooltip 
+    * tooltipExpression: expression defining how to render the contents of the hover tooltip
     */
     const createShapeMarks = (
       datasetName: string,
@@ -304,7 +307,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         encode: {
           enter: encodeEnter,
           update: { fill: fillColor },
-          hover: { fill: { value: hoverColor } },
+          hover: {
+            fill: { value: hoverColor },
+            cursor: { value: "pointer" },
+          },
         },
       };
       if (!props.overrideShapeWithCircle) {
@@ -353,7 +359,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
       background: "white",
-      description: props.legendTitle,
+      description: props.overrideShapeWithCircle
+        ? `Territory: ${props.fips.getDisplayName()}`
+        : altText,
       data: [
         {
           name: MISSING_PLACEHOLDER_VALUES,
@@ -418,8 +426,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ],
     });
 
-    // Render the Vega map asynchronously, allowing the UI to respond to user
-    // interaction before Vega maps render.
+    // Render the Vega map asynchronously, allowing the UI to respond to user interaction before Vega maps render.
     // TODO! I'm not sure this is really working... the UI is definitely not responsive while state covid data is loading
     setTimeout(() => {
       setShouldRenderMap(true);
@@ -442,16 +449,18 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     LEGEND_WIDTH,
     legendData,
     props.isUnknownsMap,
-    Y_NO_DATA_LEGEND,
-    X_NO_DATA_LEGEND,
+    yOffsetNoDataLegend,
+    xOffsetNoDataLegend,
     props,
+    heightWidthRatio,
+    altText,
   ]);
 
   return (
     <div
       ref={ref}
       style={{
-        width: "90%",
+        width: "95%",
         margin: "auto",
       }}
     >

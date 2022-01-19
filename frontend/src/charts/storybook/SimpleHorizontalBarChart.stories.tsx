@@ -6,6 +6,7 @@ import {
   SimpleHorizontalBarChartProps,
 } from "../SimpleHorizontalBarChart";
 import { StoryWrapper } from "../../storybook/StoryWrapper";
+import { RACE } from "../../data/utils/Constants";
 
 export default {
   title: "Charts/SimpleHorizontalBarChart",
@@ -24,6 +25,6 @@ Example1.args = {
     { covid_cases_share: 0.8, race_and_ethnicity: "Race 2" },
   ],
   metric: METRIC_CONFIG["covid"][0].metrics["pct_share"],
-  breakdownVar: "race_and_ethnicity",
+  breakdownVar: RACE,
   showLegend: true,
 };

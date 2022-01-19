@@ -20,11 +20,11 @@ GOLDEN_DATA = {
 def get_state_test_data_as_df():
     return pd.read_json(
         os.path.join(TEST_DIR, 'cdc_vaccination_national_test.json'),
-        dtype={'census': int, 'state_fips': str},
+        dtype={'state_fips': str, 'administered_dose1_pct': float},
     )
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_json_as_df_from_web_based_on_key',
+@mock.patch('ingestion.gcs_to_bq_util.load_json_as_df_from_web',
             return_value=get_state_test_data_as_df())
 @mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
             return_value=None)
@@ -43,7 +43,13 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     expected_dfs = {}
     for key, val in GOLDEN_DATA.items():
         # Set keep_default_na=False so that empty strings are not read as NaN.
-        expected_dfs[key] = pd.read_csv(val, dtype={'population': int, 'state_fips': str})
+        expected_dfs[key] = pd.read_csv(val, dtype={
+            'population_pct': str,
+            'state_fips': str
+        })
 
     for i in range(len(demos)):
+        print(mock_bq.call_args_list[i].args[0].columns)
+        print(expected_dfs[demos[i]].columns)
+
         assert_frame_equal(mock_bq.call_args_list[i].args[0], expected_dfs[demos[i]], check_like=True)

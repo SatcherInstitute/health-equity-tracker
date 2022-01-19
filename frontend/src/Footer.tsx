@@ -17,6 +17,7 @@ import {
 } from "./utils/urlutils";
 import AppbarLogo from "./assets/AppbarLogo.png";
 import PartnerSatcher from "./assets/PartnerSatcher.png";
+import { urlMap } from "./utils/externalUrls";
 
 function Footer() {
   return (
@@ -101,8 +102,8 @@ function Logos() {
         justify="center"
         wrap="nowrap"
       >
-        <Grid item className={styles.LogosLeft}>
-          <ReactRouterLinkButton url="/" className={styles.ImageButton}>
+        <Grid item>
+          <ReactRouterLinkButton url="/">
             <img
               src={AppbarLogo}
               className={styles.FooterLogo}
@@ -111,7 +112,7 @@ function Logos() {
             />
           </ReactRouterLinkButton>
         </Grid>
-        <Grid item className={styles.LogosRight}>
+        <Grid item>
           <Grid container justify="flex-start" alignItems="flex-start">
             <Grid item xs={12}>
               <span className={styles.FooterTitleSpan} aria-hidden="true">
@@ -120,7 +121,7 @@ function Logos() {
               <Grid container justify="center">
                 <Grid item className={styles.SocialsIcon}>
                   <a
-                    href="https://www.linkedin.com/in/satcherhealth"
+                    href={urlMap.shliLinkedIn}
                     aria-label="Satcher Health on LinkedIn"
                   >
                     <LinkedInIcon />
@@ -128,7 +129,7 @@ function Logos() {
                 </Grid>
                 <Grid item className={styles.SocialsIcon}>
                   <a
-                    href="https://twitter.com/SatcherHealth"
+                    href={urlMap.shliTwitter}
                     aria-label="Satcher Health on Twitter"
                   >
                     <TwitterIcon />
@@ -136,7 +137,7 @@ function Logos() {
                 </Grid>
                 <Grid item className={styles.SocialsIcon}>
                   <a
-                    href="https://www.youtube.com/channel/UC2sNXCD2KGLdyjqe6FGzMiA"
+                    href={urlMap.shliYoutube}
                     aria-label="Satcher Health on YouTube"
                   >
                     <YouTubeIcon />
@@ -148,11 +149,13 @@ function Logos() {
         </Grid>
       </Grid>
       <Grid item xs={10} sm={5} container justify="center" alignItems="center">
-        <ReactRouterLinkButton url="https://satcherinstitute.org">
+        <ReactRouterLinkButton url={urlMap.shli}>
           <img
             src={PartnerSatcher}
             alt="Satcher Health Leadership Institute Logo"
             role="link"
+            height={60}
+            width={216}
           />
         </ReactRouterLinkButton>
       </Grid>

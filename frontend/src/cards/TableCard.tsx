@@ -15,6 +15,7 @@ import {
   MetricId,
   VariableConfig,
   getPer100kAndPctShareMetrics,
+  VAXX,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
@@ -29,6 +30,11 @@ import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import { ALL } from "../data/utils/Constants";
+import { urlMap } from "../utils/externalUrls";
+import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
+
+/* minimize layout shift */
+const PRELOAD_HEIGHT = 698;
 
 export interface TableCardProps {
   fips: Fips;
@@ -36,14 +42,19 @@ export interface TableCardProps {
   variableConfig: VariableConfig;
 }
 
+// We need to get this property, but we want to show it as
+// part of the "population_pct" column, and not as its own column
+export const NEVER_SHOW_PROPERTIES = [
+  METRIC_CONFIG.vaccinations[0]?.metrics?.pct_share
+    ?.secondaryPopulationComparisonMetric,
+];
+
 export function TableCard(props: TableCardProps) {
   const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
-    props.breakdownVar === "race_and_ethnicity"
-      ? exclude(NON_HISPANIC, ALL)
-      : exclude(ALL)
+    props.breakdownVar === RACE ? exclude(NON_HISPANIC, ALL) : exclude(ALL)
   );
 
   let metricConfigs: Record<string, MetricConfig> = {};
@@ -61,8 +72,13 @@ export function TableCard(props: TableCardProps) {
       metricConfigs[metricConfig.populationComparisonMetric.metricId] =
         metricConfig.populationComparisonMetric;
     }
+
+    if (metricConfig.secondaryPopulationComparisonMetric) {
+      metricConfigs[metricConfig.secondaryPopulationComparisonMetric.metricId] =
+        metricConfig.secondaryPopulationComparisonMetric;
+    }
   });
-  const metricIds = Object.keys(metricConfigs);
+  const metricIds = Object.keys(metricConfigs) as MetricId[];
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
   const displayingCovidData = metrics
@@ -71,6 +87,7 @@ export function TableCard(props: TableCardProps) {
 
   return (
     <CardWrapper
+      minHeight={PRELOAD_HEIGHT}
       queries={[query]}
       title={
         <>{`${props.variableConfig.variableFullDisplayName} By ${
@@ -79,12 +96,28 @@ export function TableCard(props: TableCardProps) {
       }
     >
       {([queryResponse]) => {
-        const dataWithoutUnknowns = queryResponse.data.filter(
+        let dataWithoutUnknowns = queryResponse.data.filter(
           (row: Row) =>
             row[props.breakdownVar] !== UNKNOWN &&
             row[props.breakdownVar] !== UNKNOWN_RACE &&
             row[props.breakdownVar] !== UNKNOWN_ETHNICITY
         );
+
+        if (shouldShowAltPopCompare(props)) {
+          // This should only happen in the vaccine kff state case
+          dataWithoutUnknowns = dataWithoutUnknowns.map((item) => {
+            const {
+              vaccine_population_pct,
+              acs_vaccine_population_pct,
+              ...restOfItem
+            } = item;
+            return {
+              vaccine_population_pct:
+                vaccine_population_pct || acs_vaccine_population_pct,
+              ...restOfItem,
+            };
+          });
+        }
 
         return (
           <>
@@ -95,12 +128,11 @@ export function TableCard(props: TableCardProps) {
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
-                  geoLevel={props.fips.getFipsTypeDisplayName()}
                   noDemographicInfo={
-                    props.variableConfig.variableId ===
-                      METRIC_CONFIG["vaccinations"][0].variableId &&
+                    props.variableConfig.variableId === VAXX &&
                     props.fips.isCounty()
                   }
+                  fips={props.fips}
                 />
               </CardContent>
             )}
@@ -109,7 +141,7 @@ export function TableCard(props: TableCardProps) {
               props.breakdownVar === RACE && (
                 <>
                   <CardContent>
-                    <Alert severity="warning">
+                    <Alert severity="warning" role="note">
                       Share of COVID-19 cases reported for American Indian,
                       Alaska Native, Native Hawaiian and Pacific Islander are
                       underrepresented at the national level and in many states
@@ -118,7 +150,7 @@ export function TableCard(props: TableCardProps) {
                       <a
                         target="_blank"
                         rel="noopener noreferrer"
-                        href="https://www.uihi.org/resources/best-practices-for-american-indian-and-alaska-native-data-collection/"
+                        href={urlMap.uihiBestPractice}
                       >
                         guidelines for American Indian and Alaska Native Data
                         Collection
@@ -129,11 +161,14 @@ export function TableCard(props: TableCardProps) {
                   <Divider />
                 </>
               )}
+
             {!queryResponse.dataIsMissing() && (
               <TableChart
                 data={dataWithoutUnknowns}
                 breakdownVar={props.breakdownVar}
-                metrics={Object.values(metricConfigs)}
+                metrics={Object.values(metricConfigs).filter(
+                  (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
+                )}
               />
             )}
           </>

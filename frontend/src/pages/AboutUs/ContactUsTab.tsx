@@ -3,7 +3,9 @@ import Grid from "@material-ui/core/Grid";
 import styles from "./AboutUsPage.module.scss";
 import Typography from "@material-ui/core/Typography";
 import Hidden from "@material-ui/core/Hidden";
-import { Helmet } from "react-helmet";
+import FeedbackBox from "../ui/FeedbackBox";
+import { Helmet } from "react-helmet-async";
+import { urlMap } from "../../utils/externalUrls";
 
 function ContactUsTab() {
   return (
@@ -11,7 +13,7 @@ function ContactUsTab() {
       <Helmet>
         <title>Contact Us - About Us - Health Equity Tracker</title>
       </Helmet>
-      <h1 className={styles.ScreenreaderTitleHeader}>Contact Us</h1>
+      <h2 className={styles.ScreenreaderTitleHeader}>Contact Us</h2>
       <Grid container className={styles.Grid}>
         <Grid
           container
@@ -24,7 +26,6 @@ function ContactUsTab() {
             <Grid item md={5} className={styles.GridVerticallyAlignedItem}>
               <Typography
                 id="main"
-                tabIndex={-1}
                 className={styles.ContactUsHeaderText}
                 variant="h2"
               >
@@ -60,21 +61,14 @@ function ContactUsTab() {
               Thank you for your interest in the Health Equity Tracker
             </Typography>
           </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={7}
-            className={styles.ContactUsCenteredTextItem}
-          >
+          <Grid item xs={12} sm={12} md={7}>
             <p className={styles.ContactUsP}>
               <b>For General Requests:</b>
               <br />
               Please contact the{" "}
-              <a href="https://satcherinstitute.org/">
+              <a href={urlMap.shli}>
                 Satcher Health Leadership Institute
-              </a>{" "}
-              at <a href="mailto:shli@msm.edu">shli@msm.edu</a>
+              </a> at <a href="mailto:shli@msm.edu">shli@msm.edu</a>
             </p>
             <p className={styles.ContactUsP}>
               <b>For Media Inquiries:</b>
@@ -100,8 +94,16 @@ function ContactUsTab() {
               Atlanta, <span aria-label="Georgia">GA</span>{" "}
               <span aria-label="Zip Code 3 0 3 1 0">30310</span>
             </p>
+
+            <p className={styles.ContactUsP}>
+              <b>To Submit Feedback:</b>
+              <br />
+              Please use our anonymous form in the bottom right corner of this
+              page.
+            </p>
           </Grid>
         </Grid>
+        <FeedbackBox alwaysShow={true} />
       </Grid>
     </>
   );

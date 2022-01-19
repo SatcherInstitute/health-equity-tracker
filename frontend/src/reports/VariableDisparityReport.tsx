@@ -6,10 +6,15 @@ import { PopulationCard } from "../cards/PopulationCard";
 import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
 import { TableCard } from "../cards/TableCard";
 import { UnknownsMapCard } from "../cards/UnknownsMapCard";
-import { METRIC_CONFIG, VariableConfig } from "../data/config/MetricConfig";
+import {
+  DropdownVarId,
+  METRIC_CONFIG,
+  VariableConfig,
+  VAXX,
+} from "../data/config/MetricConfig";
 import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
+import { RACE } from "../data/utils/Constants";
 import { Fips } from "../data/utils/Fips";
-import { DropdownVarId } from "../utils/MadLibs";
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
@@ -19,6 +24,7 @@ import {
   setParameter,
   setParameters,
 } from "../utils/urlutils";
+import { SINGLE_COLUMN_WIDTH } from "./ReportProvider";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
 
@@ -28,12 +34,13 @@ export interface VariableDisparityReportProps {
   fips: Fips;
   updateFipsCallback: Function;
   hidePopulationCard?: boolean;
-  jumpToDefinitions?: Function;
+  jumpToDefinitions: Function;
+  jumpToData: Function;
 }
 
 export function VariableDisparityReport(props: VariableDisparityReportProps) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
-    getParameter(DEMOGRAPHIC_PARAM, "race_and_ethnicity")
+    getParameter(DEMOGRAPHIC_PARAM, RACE)
   );
 
   const [variableConfig, setVariableConfig] = useState<VariableConfig | null>(
@@ -70,10 +77,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
         demoParam1 ? demoParam1 : METRIC_CONFIG[props.dropdownVarId][0]
       );
 
-      const demo: BreakdownVar = getParameter(
-        DEMOGRAPHIC_PARAM,
-        "race_and_ethnicity"
-      );
+      const demo: BreakdownVar = getParameter(DEMOGRAPHIC_PARAM, RACE);
       setCurrentBreakdown(demo);
     };
     const psHandler = psSubscribe(readParams, "vardisp");
@@ -89,10 +93,17 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
     currentBreakdown === breakdownVar;
 
   return (
-    <Grid item container xs={12} spacing={1} justify="center">
+    <Grid
+      item
+      container
+      xs={12}
+      alignItems="center"
+      spacing={1}
+      justify="center"
+    >
       {!props.hidePopulationCard && (
-        <Grid item xs={12}>
-          <PopulationCard fips={props.fips} />
+        <Grid item xs={12} md={SINGLE_COLUMN_WIDTH}>
+          <PopulationCard jumpToData={props.jumpToData} fips={props.fips} />
         </Grid>
       )}
 
@@ -100,12 +111,9 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
 
       {variableConfig && (
         <Grid container spacing={1} justify="center">
-          {!(
-            props.dropdownVarId ===
-              METRIC_CONFIG["vaccinations"][0].variableId &&
-            props.fips.isCounty()
-          ) && (
-            <Grid item container xs={12}>
+          {/* DEMOGRAPHIC / DATA TYPE TOGGLE(S) */}
+          {!(props.dropdownVarId === VAXX && props.fips.isCounty()) && (
+            <Grid item container xs={12} md={SINGLE_COLUMN_WIDTH}>
               <ReportToggleControls
                 dropdownVarId={props.dropdownVarId}
                 variableConfig={variableConfig}
@@ -115,7 +123,9 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               />
             </Grid>
           )}
-          <Grid item xs={12} sm={12} md={6}>
+
+          {/* 100k MAP CARD */}
+          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH}>
             <MapCard
               variableConfig={variableConfig}
               fips={props.fips}
@@ -124,31 +134,12 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               }}
               currentBreakdown={currentBreakdown}
               jumpToDefinitions={props.jumpToDefinitions}
+              jumpToData={props.jumpToData}
             />
-            {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-              <Fragment key={breakdownVar}>
-                {breakdownIsShown(breakdownVar) && (
-                  <TableCard
-                    fips={props.fips}
-                    variableConfig={variableConfig}
-                    breakdownVar={breakdownVar}
-                  />
-                )}
-              </Fragment>
-            ))}
           </Grid>
-          <Grid item xs={12} sm={12} md={6}>
-            {variableConfig.metrics["pct_share"] && (
-              <UnknownsMapCard
-                overrideAndWithOr={currentBreakdown === "race_and_ethnicity"}
-                variableConfig={variableConfig}
-                fips={props.fips}
-                updateFipsCallback={(fips: Fips) => {
-                  props.updateFipsCallback(fips);
-                }}
-                currentBreakdown={currentBreakdown}
-              />
-            )}
+
+          {/* 100K BAR CHART CARD */}
+          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH}>
             {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
               <Fragment key={breakdownVar}>
                 {breakdownIsShown(breakdownVar) &&
@@ -159,6 +150,29 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                       fips={props.fips}
                     />
                   )}
+              </Fragment>
+            ))}
+          </Grid>
+
+          {/* UNKNOWNS MAP CARD */}
+          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH}>
+            {variableConfig.metrics["pct_share"] && (
+              <UnknownsMapCard
+                overrideAndWithOr={currentBreakdown === RACE}
+                variableConfig={variableConfig}
+                fips={props.fips}
+                updateFipsCallback={(fips: Fips) => {
+                  props.updateFipsCallback(fips);
+                }}
+                currentBreakdown={currentBreakdown}
+              />
+            )}
+          </Grid>
+
+          {/* DISPARITY BAR CHART COMPARE VS POPULATION */}
+          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH}>
+            {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+              <Fragment key={breakdownVar}>
                 {breakdownIsShown(breakdownVar) &&
                   variableConfig.metrics["pct_share"] && (
                     <DisparityBarChartCard
@@ -167,6 +181,21 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                       fips={props.fips}
                     />
                   )}
+              </Fragment>
+            ))}
+          </Grid>
+
+          {/* DATA TABLE CARD */}
+          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH}>
+            {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+              <Fragment key={breakdownVar}>
+                {breakdownIsShown(breakdownVar) && (
+                  <TableCard
+                    fips={props.fips}
+                    variableConfig={variableConfig}
+                    breakdownVar={breakdownVar}
+                  />
+                )}
               </Fragment>
             ))}
           </Grid>

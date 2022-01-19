@@ -11,8 +11,9 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { usePopover } from "../../utils/usePopover";
-import { CATEGORIES_LIST, DropdownVarId } from "../../utils/MadLibs";
+import { CATEGORIES_LIST } from "../../utils/MadLibs";
 import { Box, Grid } from "@material-ui/core";
+import { DropdownVarId } from "../../data/config/MetricConfig";
 
 function OptionsSelector(props: {
   value: string;
@@ -33,20 +34,27 @@ function OptionsSelector(props: {
     currentDisplayName = chosenOption ? chosenOption[1] : "";
   }
 
-  const [textBoxValue, setTextBoxValue] = useState("");
+  const [, setTextBoxValue] = useState("");
   const updateTextBox = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTextBoxValue(event.target.value);
   };
 
   const [autoCompleteOpen, setAutoCompleteOpen] = useState(false);
   const openAutoComplete = () => {
-    if (textBoxValue.length >= 1) {
-      setAutoCompleteOpen(true);
-    }
+    setAutoCompleteOpen(true);
   };
   const closeAutoComplete = () => {
     setAutoCompleteOpen(false);
   };
+
+  function getGroupName(option: Fips): string {
+    if (option.isUsa()) return "National";
+    if (option.isState()) return "States";
+    if (option.isTerritory()) return "Territories";
+    return `${option.getParentFips().getDisplayName()} ${
+      option.getParentFips().isTerritory() ? " County Equivalents" : " Counties"
+    }`;
+  }
 
   return (
     <>
@@ -81,7 +89,9 @@ function OptionsSelector(props: {
 
             <Autocomplete
               disableClearable={true}
+              autoHighlight={true}
               options={props.options as Fips[]}
+              groupBy={(option) => getGroupName(option)}
               clearOnEscape={true}
               getOptionLabel={(fips) => fips.getFullDisplayName()}
               getOptionSelected={(fips) => fips.code === props.value}
@@ -94,6 +104,7 @@ function OptionsSelector(props: {
                   placeholder="County, State, Territory, or United States"
                   margin="dense"
                   variant="outlined"
+                  autoFocus={true}
                   onChange={updateTextBox}
                   {...params}
                 />
@@ -122,10 +133,13 @@ function OptionsSelector(props: {
                     key={category.title}
                     className={styles.CategoryList}
                   >
-                    <List dense={true}>
-                      <span className={styles.CategoryTitleText}>
-                        {category.title}
-                      </span>
+                    <h3
+                      className={styles.CategoryTitleText}
+                      aria-label={category.title + " options"}
+                    >
+                      {category.title}
+                    </h3>
+                    <List dense={true} role="submenu">
                       {(props.options as string[][]).map((item: string[]) => {
                         const [optionId, optionDisplayName] = item;
                         return (
@@ -134,6 +148,7 @@ function OptionsSelector(props: {
                             optionId as DropdownVarId
                           ) && (
                             <ListItem
+                              role="menuitem"
                               key={optionId}
                               button
                               selected={optionId === props.value}

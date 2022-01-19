@@ -20,7 +20,6 @@ import {
   useLocation,
 } from "react-router-dom";
 import { CookiesProvider } from "react-cookie";
-import ReactTooltip from "react-tooltip";
 import styles from "./App.module.scss";
 import MaterialTheme from "./styles/MaterialTheme";
 import { autoInitGlobals } from "./utils/globals";
@@ -39,10 +38,12 @@ import {
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "./utils/urlutils";
 import AppBarLogo from "./assets/AppbarLogo.png";
+import { HelmetProvider } from "react-helmet-async";
 
 // the following components make CSS modules which are imported by other components, so they must load first
 import AboutUsPage from "./pages/AboutUs/AboutUsPage";
 import WhatIsHealthEquityPage from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
+import { Box, CircularProgress } from "@material-ui/core";
 
 const ExploreDataPage = React.lazy(
   () => import("./pages/ExploreData/ExploreDataPage")
@@ -165,97 +166,108 @@ function App() {
   }, []);
 
   return (
-    <ThemeProvider theme={MaterialTheme}>
-      <CookiesProvider>
-        <ReactTooltip />
-        <CssBaseline />
-        <div className={styles.App}>
-          <div className={styles.Content}>
-            <Router>
-              <Suspense fallback={<i></i>}>
-                <a className={styles.SkipMainLink} href="#main">
-                  Skip to main content
-                </a>
+    <HelmetProvider>
+      <ThemeProvider theme={MaterialTheme}>
+        <CookiesProvider>
+          <CssBaseline />
+          <div className={styles.App}>
+            <div className={styles.Content}>
+              <a className={styles.SkipMainLink} href="#main">
+                Skip to main content
+              </a>
+              <Router>
+                <header>
+                  <AppBar position="static" elevation={0}>
+                    {width > MOBILE_BREAKPOINT ? (
+                      <AppToolbar />
+                    ) : (
+                      <MobileAppToolbar />
+                    )}
+                  </AppBar>
+                </header>
                 <ScrollToTop />
-                <AppBar position="static" elevation={0}>
-                  {width > MOBILE_BREAKPOINT ? (
-                    <AppToolbar />
-                  ) : (
-                    <MobileAppToolbar />
-                  )}
-                </AppBar>
-                <main>
-                  <Switch>
-                    <Route
-                      path={ABOUT_US_PAGE_LINK}
-                      render={() => <AboutUsPage />}
-                    />
+                <Suspense
+                  fallback={
+                    <div className={styles.FallbackPage}>
+                      <Box mt={10}>
+                        <CircularProgress />
+                      </Box>
+                    </div>
+                  }
+                >
+                  <main>
+                    <Switch>
+                      <Route
+                        path={ABOUT_US_PAGE_LINK}
+                        render={() => <AboutUsPage />}
+                      />
 
-                    <Route
-                      path={OURTEAM_TAB_LINK}
-                      render={() => <AboutUsPage />}
-                    />
+                      <Route
+                        path={OURTEAM_TAB_LINK}
+                        render={() => <AboutUsPage />}
+                      />
 
-                    <Route
-                      path={CONTACT_TAB_LINK}
-                      render={() => <AboutUsPage />}
-                    />
+                      <Route
+                        path={CONTACT_TAB_LINK}
+                        render={() => <AboutUsPage />}
+                      />
 
-                    <Route
-                      path={DATA_CATALOG_PAGE_LINK}
-                      render={() => <DataCatalogTab />}
-                    />
+                      <Route
+                        path={DATA_CATALOG_PAGE_LINK}
+                        render={() => <DataCatalogTab />}
+                      />
 
-                    <Route
-                      path={METHODOLOGY_TAB_LINK}
-                      render={() => <DataCatalogTab />}
-                    />
+                      <Route
+                        path={METHODOLOGY_TAB_LINK}
+                        render={() => <DataCatalogTab />}
+                      />
 
-                    <Route
-                      path={EXPLORE_DATA_PAGE_LINK}
-                      render={() => <ExploreDataPage />}
-                    />
+                      <Route
+                        path={EXPLORE_DATA_PAGE_LINK}
+                        render={() => <ExploreDataPage />}
+                      />
 
-                    <Route
-                      path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
-                      render={() => <WhatIsHealthEquityPage />}
-                    />
+                      <Route
+                        path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+                        render={() => <WhatIsHealthEquityPage />}
+                      />
 
-                    <Route
-                      path={FAQ_TAB_LINK}
-                      render={() => <WhatIsHealthEquityPage />}
-                    />
+                      <Route
+                        path={FAQ_TAB_LINK}
+                        render={() => <WhatIsHealthEquityPage />}
+                      />
 
-                    <Route
-                      path={RESOURCES_TAB_LINK}
-                      render={() => <WhatIsHealthEquityPage />}
-                    />
+                      <Route
+                        path={RESOURCES_TAB_LINK}
+                        render={() => <WhatIsHealthEquityPage />}
+                      />
 
-                    <Route
-                      path={TERMS_OF_USE_PAGE_LINK}
-                      render={() => <TermsOfUsePage />}
-                    />
-                    {/* redirect the old URL for possible outside links */}
-                    <Route path={`/termsofservice`}>
-                      <Redirect to={TERMS_OF_USE_PAGE_LINK} />
-                    </Route>
+                      <Route
+                        path={TERMS_OF_USE_PAGE_LINK}
+                        render={() => <TermsOfUsePage />}
+                      />
+                      {/* redirect the old URL for possible outside links */}
+                      <Route path={`/termsofservice`}>
+                        <Redirect to={TERMS_OF_USE_PAGE_LINK} />
+                      </Route>
 
-                    <Route exact path="/" render={() => <LandingPage />} />
-                    {/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}
-                    <Route render={() => <NotFoundPage />} />
-                  </Switch>
-                </main>
-              </Suspense>{" "}
-            </Router>
+                      <Route exact path="/" render={() => <LandingPage />} />
+                      {/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}
+                      <Route render={() => <NotFoundPage />} />
+                    </Switch>
+                  </main>
+                </Suspense>{" "}
+              </Router>
+            </div>
+            <footer>
+              <Suspense fallback={<span></span>}>
+                <Footer />
+              </Suspense>
+            </footer>
           </div>
-          <footer>
-            <Suspense fallback={<span></span>}>
-              <Footer />
-            </Suspense>
-          </footer>
-        </div>
-      </CookiesProvider>
-    </ThemeProvider>
+        </CookiesProvider>
+      </ThemeProvider>
+    </HelmetProvider>
   );
 }
 

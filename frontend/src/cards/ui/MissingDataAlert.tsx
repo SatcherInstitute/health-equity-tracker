@@ -4,25 +4,45 @@ import {
   LinkWithStickyParams,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "../../utils/urlutils";
+import { BreakdownVarDisplayName } from "../../data/query/Breakdowns";
+import { Fips } from "../../data/utils/Fips";
 
-function MissingDataAlert(props: {
+interface MissingDataAlertProps {
   dataName: string;
-  breakdownString: string;
-  geoLevel: string;
+  breakdownString: BreakdownVarDisplayName;
   noDemographicInfo?: boolean;
-}) {
+  isMapCard?: boolean;
+  fips: Fips;
+}
+
+function MissingDataAlert(props: MissingDataAlertProps) {
+  // conditionally render the statement based on props
+  const demographicPhrase = props.noDemographicInfo
+    ? " demographic information for "
+    : " ";
+  const breakdownPhrase = props.noDemographicInfo
+    ? " "
+    : ` broken down by ${props.breakdownString} `;
+
+  // supply name of lower level geo needed to create map
+  const geoPhrase =
+    props.isMapCard && !props.fips.isCounty()
+      ? `at the ${props.fips.getChildFipsTypeDisplayName()} level `
+      : "";
+
   return (
-    <Alert severity="warning">
+    <Alert severity="warning" role="note">
       We do not currently have
-      {props.noDemographicInfo ? "demographic information for" : ""}{" "}
-      <b>{props.dataName}</b> {props.noDemographicInfo ? "" : "broken down by"}
-      {props.noDemographicInfo ? "" : <b> {props.breakdownString} </b>}
-      at the {props.geoLevel ? <b>{props.geoLevel}</b> : "selected"} level.
-      Learn more about how this lack of data impacts{" "}
+      {demographicPhrase}
+      <b>{props.dataName}</b>
+      {breakdownPhrase}
+      {geoPhrase}
+      for {props.fips.getDisplayName()}. Learn more about how this lack of data
+      impacts{" "}
       <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
         health equity
       </LinkWithStickyParams>
-      .
+      <span aria-hidden="true">.</span>
     </Alert>
   );
 }

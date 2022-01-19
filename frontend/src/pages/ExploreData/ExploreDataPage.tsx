@@ -7,10 +7,13 @@ import Carousel from "react-material-ui-carousel";
 import { Fips } from "../../data/utils/Fips";
 import ReportProvider from "../../reports/ReportProvider";
 import {
+  getMadLibPhraseText,
   getMadLibWithUpdatedValue,
   MadLib,
+  MadLibId,
   MADLIB_LIST,
   PhraseSegment,
+  PhraseSelections,
 } from "../../utils/MadLibs";
 import {
   getParameter,
@@ -23,18 +26,24 @@ import {
   SHOW_ONBOARDING_PARAM,
   stringifyMls,
   useSearchParams,
+  WHAT_DATA_ARE_MISSING_ID,
 } from "../../utils/urlutils";
 import styles from "./ExploreDataPage.module.scss";
 import { Onboarding } from "./Onboarding";
 import OptionsSelector from "./OptionsSelector";
-import { Helmet } from "react-helmet";
+import { useLocation } from "react-router-dom";
+import { srSpeak } from "../../utils/a11yutils";
 
 const EXPLORE_DATA_ID = "main";
 
 function ExploreDataPage() {
-  const params = useSearchParams();
+  // handle incoming link to MISSING DATA sections
+  const location: any = useLocation();
+  const doScrollToData: boolean =
+    location?.hash === `#${WHAT_DATA_ARE_MISSING_ID}`;
 
   // Set up initial mad lib values based on defaults and query params
+  const params = useSearchParams();
   const foundIndex = MADLIB_LIST.findIndex(
     (madlib) => madlib.id === params[MADLIB_PHRASE_PARAM]
   );
@@ -141,6 +150,49 @@ function ExploreDataPage() {
   // calculate page size to determine if mobile or not
   const theme = useTheme();
   const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
+  const isSingleColumn = (madLib.id as MadLibId) === "disparity";
+
+  const handleCarouselChange = (carouselMode: number) => {
+    // Extract values from the CURRENT madlib
+    const var1 = madLib.activeSelections[1];
+    const geo1 =
+      madLib.id === "comparevars"
+        ? madLib.activeSelections[5]
+        : madLib.activeSelections[3];
+
+    // default non-duplicate settings for compare modes
+    const var2 = var1 === "covid" ? "vaccinations" : "covid";
+    const geo2 = geo1 === "00" ? "13" : "00"; // default to US or Georgia
+
+    // Construct UPDATED madlib based on the future carousel Madlib shape
+    let updatedMadLib: PhraseSelections = { 1: var1, 3: geo1 }; // disparity "Investigate Rates"
+    if (carouselMode === 1) updatedMadLib = { 1: var1, 3: geo1, 5: geo2 }; // comparegeos "Compare Rates"
+    if (carouselMode === 2) updatedMadLib = { 1: var1, 3: var2, 5: geo1 }; // comparevars "Explore Relationships"
+
+    setMadLib({
+      ...MADLIB_LIST[carouselMode],
+      activeSelections: updatedMadLib,
+    });
+    setParameters([
+      {
+        name: MADLIB_SELECTIONS_PARAM,
+        value: stringifyMls(updatedMadLib),
+      },
+      {
+        name: MADLIB_PHRASE_PARAM,
+        value: MADLIB_LIST[carouselMode].id,
+      },
+    ]);
+  };
+
+  /* on any changes to the madlib settings */
+  useEffect(() => {
+    // scroll browser screen to top
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    // A11y - create then delete an invisible alert that the report mode has changed
+    srSpeak(`Now viewing report: ${getMadLibPhraseText(madLib)}`);
+  }, [madLib]);
 
   return (
     <>
@@ -148,10 +200,10 @@ function ExploreDataPage() {
         callback={onboardingCallback}
         activelyOnboarding={activelyOnboarding}
       />
-      <Helmet>
-        <title>Explore the Data - Health Equity Tracker</title>
-      </Helmet>
-      <h1 className={styles.ScreenreaderTitleHeader}>Explore the Data</h1>
+
+      <h2 className={styles.ScreenreaderTitleHeader}>
+        {getMadLibPhraseText(madLib)}
+      </h2>
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
         <div
           className={styles.CarouselContainer}
@@ -159,41 +211,48 @@ function ExploreDataPage() {
         >
           <Carousel
             className={styles.Carousel}
-            NextIcon={<NavigateNextIcon id="onboarding-madlib-arrow" />}
+            NextIcon={
+              <NavigateNextIcon
+                aria-hidden="true"
+                id="onboarding-madlib-arrow"
+              />
+            }
             timeout={200}
             autoPlay={false}
             indicators={!sticking || !pageIsWide}
+            indicatorIconButtonProps={{
+              "aria-label": "Report Type",
+              style: { padding: "4px" },
+            }}
+            activeIndicatorIconButtonProps={{
+              "aria-label": "Current Selection: Report Type",
+            }}
+            // ! TODO We really should be able to indicate Forward/Backward vs just "Switch"
+            navButtonsProps={{
+              "aria-label": "Change Report Type",
+            }}
             animation="slide"
             navButtonsAlwaysVisible={true}
             index={initialIndex}
-            onChange={(index: number) => {
-              let newState = {
-                ...MADLIB_LIST[index],
-                activeSelections: {
-                  ...MADLIB_LIST[index].defaultSelections,
-                },
-              };
-              setMadLib(newState);
-              setParameters([
-                {
-                  name: MADLIB_SELECTIONS_PARAM,
-                  value: stringifyMls(newState.activeSelections),
-                },
-                { name: MADLIB_PHRASE_PARAM, value: MADLIB_LIST[index].id },
-              ]);
-            }}
+            onChange={handleCarouselChange}
           >
-            {MADLIB_LIST.map((madlib: MadLib, i) => (
+            {/* carousel settings same length as MADLIB_LIST, but fill each with madlib constructed earlier */}
+            {MADLIB_LIST.map((madLibShape) => (
               <CarouselMadLib
                 madLib={madLib}
                 setMadLib={setMadLibWithParam}
-                key={i}
+                key={madLibShape.id}
               />
             ))}
           </Carousel>
         </div>
         <div className={styles.ReportContainer}>
-          <ReportProvider madLib={madLib} setMadLib={setMadLibWithParam} />
+          <ReportProvider
+            isSingleColumn={isSingleColumn}
+            madLib={madLib}
+            setMadLib={setMadLibWithParam}
+            doScrollToData={doScrollToData}
+          />
         </div>
       </div>
     </>
@@ -222,19 +281,14 @@ function CarouselMadLib(props: {
   }
 
   return (
-    <Grid
-      container
-      spacing={1}
-      justify="center"
-      className={styles.CarouselItem}
-    >
-      {props.madLib.phrase.map(
-        (phraseSegment: PhraseSegment, index: number) => (
-          <React.Fragment key={index}>
-            {typeof phraseSegment === "string" ? (
-              <Grid item>{phraseSegment}</Grid>
-            ) : (
-              <Grid item>
+    <Grid container justify="center" alignItems="center">
+      <div className={styles.CarouselItem}>
+        {props.madLib.phrase.map(
+          (phraseSegment: PhraseSegment, index: number) => (
+            <React.Fragment key={index}>
+              {typeof phraseSegment === "string" ? (
+                <span>{phraseSegment}</span>
+              ) : (
                 <OptionsSelector
                   key={index}
                   value={props.madLib.activeSelections[index]}
@@ -245,11 +299,11 @@ function CarouselMadLib(props: {
                   }
                   options={getOptionsFromPhraseSegement(phraseSegment)}
                 />
-              </Grid>
-            )}
-          </React.Fragment>
-        )
-      )}
+              )}
+            </React.Fragment>
+          )
+        )}
+      </div>
     </Grid>
   );
 }

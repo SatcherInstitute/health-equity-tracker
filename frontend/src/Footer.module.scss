@@ -1,4 +1,4 @@
-@import "styles/variables";
+@import "styles/variables.module";
 
 /** ------------------ Footer styles -------------------- **/
 
@@ -8,6 +8,7 @@
   position: absolute;
   margin: auto;
   padding: 50px 10px;
+  min-height: 170px;
 }
 
 .FooterGrid {
@@ -23,7 +24,7 @@
 
 .FooterTitleSpan {
   font-family: "DM Sans", sans-serif !important;
-  font-size: 20px;
+  font-size: $title;
   color: $alt-green;
   font-weight: 500;
   display: inline-block;
@@ -40,8 +41,8 @@
 
 .CopyrightSpan {
   color: $alt-dark;
-  font-weight: 100;
-  font-size: small;
+  font-weight: 200;
+  font-size: $small;
   margin-bottom: 2rem;
   @media only screen and (min-width: $sm) {
     // So it aligns with the button above it
@@ -61,11 +62,11 @@
 }
 
 .FooterLink {
-  color: #202124 !important;
+  color: $navlink-color !important;
 
   &:link,
   &:visited {
-    color: #202124 !important;
+    color: $navlink-color !important;
     text-decoration: none !important;
   }
 }

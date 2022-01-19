@@ -49,126 +49,143 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: "covid_tracking_project-cases_by_race_state",
-    name: "COVID-19 cases by race and state",
+    name: "COVID-19 Cases by Race and State",
     update_time: "April 2021",
   },
   {
     id: "covid_tracking_project-deaths_by_race_state",
-    name: "COVID-19 deaths by race and state",
+    name: "COVID-19 Deaths by Race and State",
     update_time: "April 2021",
   },
   {
     id: "covid_tracking_project-hospitalizations_by_race_state",
-    name: "COVID-19 hospitalizations by race and state",
+    name: "COVID-19 Hospitalizations by Race and State",
     update_time: "April 2021",
   },
   {
     id: "covid_tracking_project-tests_by_race_state",
-    name: "COVID-19 tests by race and state",
+    name: "COVID-19 Tests by Race and State",
     update_time: "April 2021",
   },
   {
     id: "acs_health_insurance-health_insurance_by_sex_age_county",
-    name: "Health Insurance By Sex, Age and County",
+    name: "Health Insurance by Sex, Age and County",
     update_time: "2019",
   },
   {
     id: "acs_health_insurance-health_insurance_by_sex_age_state",
-    name: "Health Insurance By Sex, Age and State",
+    name: "Health Insurance by Sex, Age and State",
     update_time: "2019",
   },
   {
     id: "acs_health_insurance-health_insurance_by_race_age_state",
-    name: "Health Insurance By Race, Age and State",
+    name: "Health Insurance by Race, Age and State",
     update_time: "2019",
   },
   {
     id: "acs_health_insurance-health_insurance_by_race_age_county",
-    name: "Health Insurance By Race, Age and County",
+    name: "Health Insurance by Race, Age and County",
     update_time: "2019",
   },
   {
-    id: "acs_poverty_dataset-poverty_by_race_age_sex_state",
-    name: "Poverty By Race, Age, Sex, and State",
+    id: "acs_poverty_dataset-poverty_by_race_state",
+    name: "Poverty by Race and State",
     update_time: "2019",
   },
   {
-    id: "acs_poverty_dataset-poverty_by_race_age_sex_county",
-    name: "Poverty By Race, Age, Sex, and County",
+    id: "acs_poverty_dataset-poverty_by_race_county",
+    name: "Poverty by Race and County",
+    update_time: "2019",
+  },
+  {
+    id: "acs_poverty_dataset-poverty_by_sex_state",
+    name: "Poverty by Sex and State",
+    update_time: "2019",
+  },
+  {
+    id: "acs_poverty_dataset-poverty_by_sex_county",
+    name: "Poverty by Sex and County",
+    update_time: "2019",
+  },
+  {
+    id: "acs_poverty_dataset-poverty_by_age_state",
+    name: "Poverty by Age and State",
+    update_time: "2019",
+  },
+  {
+    id: "acs_poverty_dataset-poverty_by_age_county",
+    name: "Poverty by Age and County",
     update_time: "2019",
   },
   {
     id: "cdc_restricted_data-by_race_county",
-    name: "COVID-19 deaths, cases, and hospitalizations by race and county",
-    update_time: "August 2021",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and County",
+    update_time: "January 2022",
   },
   {
     id: "cdc_restricted_data-by_race_state",
-    name: "COVID-19 deaths, cases, and hospitalizations by race and state",
-    update_time: "August 2021",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and State",
+    update_time: "January 2022",
   },
   {
     id: "cdc_restricted_data-by_age_county",
-    name: "COVID-19 deaths, cases, and hospitalizations by age and county",
-    update_time: "August 2021",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Age and County",
+    update_time: "January 2022",
   },
   {
     id: "cdc_restricted_data-by_age_state",
-    name: "COVID-19 deaths, cases, and hospitalizations by age and state",
-    update_time: "August 2021",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Age and State",
+    update_time: "January 2022",
   },
   {
     id: "cdc_restricted_data-by_sex_county",
-    name: "COVID-19 deaths, cases, and hospitalizations by sex and county",
-    update_time: "August 2021",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Sex and County",
+    update_time: "January 2022",
   },
   {
     id: "cdc_restricted_data-by_sex_state",
-    name: "COVID-19 deaths, cases, and hospitalizations by sex and state",
-    update_time: "August 2021",
+    name: "COVID-19 Deaths, Cases, and Hospitalizations by Sex and State",
+    update_time: "January 2022",
   },
   {
     id: "cdc_vaccination_county-race_and_ethnicity",
-    name: "CDC COVID-19 Vaccinations in the United States, County",
-    update_time: "October 2021",
+    name: "COVID-19 Vaccinations by County",
+    update_time: "December 2021",
   },
   {
     id: "cdc_vaccination_national-age",
-    name:
-      "CDC COVID-19 Vaccination Demographics in the United States, National",
-    update_time: "October 2021",
+    name: "COVID-19 Vaccination Demographics by Age",
+    update_time: "December 2021",
   },
   {
     id: "cdc_vaccination_national-sex",
-    name:
-      "CDC COVID-19 Vaccination Demographics in the United States, National",
-    update_time: "October 2021",
+    name: "COVID-19 Vaccination Demographics by Sex",
+    update_time: "December 2021",
   },
   {
     id: "cdc_vaccination_national-race_and_ethnicity",
-    name:
-      "CDC COVID-19 Vaccination Demographics in the United States, National",
-    update_time: "October 2021",
+    name: "COVID-19 Vaccination Demographics by Race",
+    update_time: "December 2021",
   },
   {
     id: "kff_vaccination-race_and_ethnicity",
-    name: "Kaiser Family Foundation COVID-19 Indicators",
-    update_time: "October 2021",
+    name: "COVID-19 Indicators",
+    update_time: "December 2021",
   },
   {
     id: "uhc_data-age",
-    name: "COPD and Diabetes prevalence by age and state",
-    update_time: "2019",
+    name: "COPD and Diabetes Prevalence by Age and State",
+    update_time: "2021",
   },
   {
     id: "uhc_data-race_and_ethnicity",
-    name: "COPD and Diabetes prevalence by race and state",
-    update_time: "2019",
+    name: "COPD and Diabetes Prevalence by Race and State",
+    update_time: "2021",
   },
   {
     id: "uhc_data-sex",
-    name: "COPD and Diabetes prevalence by sex and state",
-    update_time: "2019",
+    name: "COPD and Diabetes Prevalence by Sex and State",
+    update_time: "2021",
   },
   {
     id: GEOGRAPHIES_DATASET_ID,
@@ -177,7 +194,7 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
 ];
 
-export const FakeDatasetMetadataMap: Record<
+export const DatasetMetadataMap: Record<
   string,
   DatasetMetadata
 > = Object.fromEntries(

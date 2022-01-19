@@ -2,9 +2,14 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import { Typography } from "@material-ui/core";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
-const RESOURCES = [
+export interface Resource {
+  name: string;
+  url: string;
+}
+
+export const RESOURCES: Resource[] = [
   {
     name: "Health Equity Guide",
     url: "https://healthequityguide.org/",
@@ -63,6 +68,11 @@ const RESOURCES = [
       "https://www.preventioninstitute.org/tools/tools-general/health-equity-toolkit#:~:text=The%20Health%20Equity%20and%20Prevention%20Primer%20(HEPP)%20is%20a%20web,%2C%20and%20multi%2Dsector%20engagement.",
   },
   {
+    name:
+      "AAMC: Advancing Health Equity: A Guide to Language, Narrative and Concepts",
+    url: "https://www.aamchealthjustice.org/narrative-guide",
+  },
+  {
     name: "APIAHF: Health Equity",
     url: "https://www.apiahf.org/",
   },
@@ -118,7 +128,7 @@ const RESOURCES = [
       "https://nimhd.blogs.govdelivery.com/2018/10/11/tackling-health-disparities-among-latinos-in-the-united-states/",
   },
   {
-    name: "Hispanic/Lainto- Minority Health",
+    name: "Hispanic/Latino- Minority Health",
     url: "https://minorityhealth.hhs.gov/omh/browse.aspx?lvl=3&lvlid=64",
   },
   {
@@ -151,7 +161,7 @@ const RESOURCES = [
   },
   {
     name:
-      "How to use data to inform community health assessment and planning: NACCHO's Mobiling for Action through Planning and Partnerships (MAPP) framework",
+      "How to use data to inform community health assessment and planning: NACCHO's Mobilizing for Action through Planning and Partnerships (MAPP) framework",
     url:
       "https://www.naccho.org/programs/public-health-infrastructure/performance-improvement/community-health-assessment/mapp",
   },
@@ -267,16 +277,16 @@ function ResourcesTab() {
           Tracker
         </title>
       </Helmet>
-      <h1 className={styles.ScreenreaderTitleHeader}>
+      <h2 className={styles.ScreenreaderTitleHeader}>
         Health Equity Resources
-      </h1>
+      </h2>
       <Grid container className={styles.Grid}>
-        <Grid container className={styles.ResourcesSection}>
+        <Grid container className={styles.ResourcesTabSection}>
           <Grid item xs={12} sm={12} md={3}>
             <Typography
               id="main"
               tabIndex={-1}
-              className={styles.ResourcesHeaderText}
+              className={styles.ResourcesTabHeaderText}
               variant="h2"
             >
               Resources
@@ -285,10 +295,10 @@ function ResourcesTab() {
           <Grid item xs={12} sm={12} md={9}>
             <Grid container>
               <Grid item>
-                <ul className={styles.ResourcesList}>
+                <ul className={styles.ResourcesTabList}>
                   {RESOURCES.map((resource) => (
                     <li
-                      className={styles.ResourcesListItem}
+                      className={styles.ResourcesTabListItem}
                       key={resource.name}
                     >
                       <a href={resource.url}>{resource.name}</a>
