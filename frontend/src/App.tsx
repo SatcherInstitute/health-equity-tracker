@@ -197,53 +197,43 @@ function App() {
                   <main>
                     <Switch>
                       <Route path={ABOUT_US_PAGE_LINK}>
-                        {" "}
-                        <AboutUsPage />{" "}
+                        <AboutUsPage />
                       </Route>
 
                       <Route path={OURTEAM_TAB_LINK}>
-                        {" "}
-                        <AboutUsPage />{" "}
+                        <AboutUsPage />
                       </Route>
 
                       <Route path={CONTACT_TAB_LINK}>
-                        {" "}
-                        <AboutUsPage />{" "}
+                        <AboutUsPage />
                       </Route>
 
                       <Route path={DATA_CATALOG_PAGE_LINK}>
-                        {" "}
-                        <DataCatalogTab />{" "}
+                        <DataCatalogTab />
                       </Route>
 
                       <Route path={METHODOLOGY_TAB_LINK}>
-                        {" "}
-                        <DataCatalogTab />{" "}
+                        <DataCatalogTab />
                       </Route>
 
                       <Route path={EXPLORE_DATA_PAGE_LINK}>
-                        {" "}
-                        <ExploreDataPage />{" "}
+                        <ExploreDataPage />
                       </Route>
 
                       <Route path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
-                        {" "}
-                        <WhatIsHealthEquityPage />{" "}
+                        <WhatIsHealthEquityPage />
                       </Route>
 
                       <Route path={FAQ_TAB_LINK}>
-                        {" "}
-                        <WhatIsHealthEquityPage />{" "}
+                        <WhatIsHealthEquityPage />
                       </Route>
 
                       <Route path={RESOURCES_TAB_LINK}>
-                        {" "}
-                        <WhatIsHealthEquityPage />{" "}
+                        <WhatIsHealthEquityPage />
                       </Route>
 
                       <Route path={TERMS_OF_USE_PAGE_LINK}>
-                        {" "}
-                        <TermsOfUsePage />{" "}
+                        <TermsOfUsePage />
                       </Route>
 
                       {/* redirect the old URL for possible outside links */}
@@ -261,7 +251,7 @@ function App() {
                       </Route>
                     </Switch>
                   </main>
-                </Suspense>{" "}
+                </Suspense>
               </Router>
             </div>
             <footer>
