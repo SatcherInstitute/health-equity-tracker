@@ -69,7 +69,7 @@ function getSpec(
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
     description: altText,
-    background: "white",
+    background: sass.white,
     autosize: { resize: false, type: "fit-x" },
     padding: PADDING_FOR_VEGA,
     width: width - PADDING_FOR_ACTIONS_MENU,
@@ -286,21 +286,21 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
         renderer="svg"
         downloadFileName={`${props.filename} - Health Equity Tracker`}
         spec={getSpec(
-          /* altText: string */ `Bar Chart showing ${props.filename}`,
-          /* data: Record<string, any>[], */ data,
-          /* width: number, */ width,
-          /* breakdownVar: string, */ props.breakdownVar,
-          /* breakdownVarDisplayName: string, */ BREAKDOWN_VAR_DISPLAY_NAMES[
+          /* altText  */ `Bar Chart showing ${props.filename}`,
+          /* data  */ data,
+          /* width  */ width,
+          /* breakdownVar  */ props.breakdownVar,
+          /* breakdownVarDisplayName  */ BREAKDOWN_VAR_DISPLAY_NAMES[
             props.breakdownVar
           ],
-          /* measure: string, */ props.metric.metricId,
-          /* measureDisplayName: string, */ props.metric.shortVegaLabel,
-          /* barMetricDisplayColumnName: string, */ barMetricDisplayColumnName,
-          /* tooltipMetricDisplayColumnName: string, */ tooltipMetricDisplayColumnName,
-          /* showLegend: boolean, */ props.showLegend,
-          /* barLabelBreakpoint: number, */ barLabelBreakpoint,
-          /* pageIsTiny: boolean, */ pageIsTiny,
-          /* usePercentSuffix: boolean, */ props.usePercentSuffix || false
+          /* measure  */ props.metric.metricId,
+          /* measureDisplayName  */ props.metric.shortVegaLabel,
+          /* barMetricDisplayColumnName  */ barMetricDisplayColumnName,
+          /* tooltipMetricDisplayColumnName  */ tooltipMetricDisplayColumnName,
+          /* showLegend  */ props.showLegend,
+          /* barLabelBreakpoint  */ barLabelBreakpoint,
+          /* pageIsTiny  */ pageIsTiny,
+          /* usePercentSuffix  */ props.usePercentSuffix || false
         )}
         // custom 3-dot options menu
         actions={
