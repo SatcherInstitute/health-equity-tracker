@@ -1,15 +1,5 @@
+@use "../../styles/globals.scss";
 @import "../../styles/variables.module";
-
-// For the title of the page read off by screenreaders in an h1
-.ScreenreaderTitleHeader {
-  left: -999px;
-  position: absolute;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  z-index: -999;
-}
 
 /** ------------------ METHODOLOGY -------------------- **/
 
@@ -20,18 +10,16 @@
 }
 
 .MethodologyQuestionAndAnswer {
-  padding-bottom: 20px;
+  padding-bottom: 1.5rem;
 }
 
 .MethodologyQuestion {
-  font-size: $title !important;
+  font-size: $smallestHeader;
   text-align: left;
   font-weight: 500;
-  font-family: "DM Sans", sans-serif;
+  font-family: "Taviraj", serif !important ;
   line-height: 23.44px !important;
   color: $alt-black;
-  padding-top: 10px;
-  padding-bottom: 15px;
 }
 
 .MethodologyAnswer {

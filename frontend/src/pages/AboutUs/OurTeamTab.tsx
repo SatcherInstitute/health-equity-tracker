@@ -263,27 +263,31 @@ function OurTeamTab() {
       <Helmet>
         <title>Our Team - About Us - Health Equity Tracker</title>
       </Helmet>
-      <h1 className={styles.ScreenreaderTitleHeader}>Our Team</h1>
+      <h2 className={styles.ScreenreaderTitleHeader}>Our Team</h2>
       <Grid container className={styles.Grid}>
         <Grid container className={styles.GridRowHeaderText}>
           <Grid item xs={12} sm={8} md={6} lg={10} xl={8}>
             <Typography
               id="main"
-              tabIndex={-1}
               className={styles.OurTeamHeaderText}
               align="left"
               variant="h2"
+              component="h3"
             >
               We're working towards a better tomorrow.
             </Typography>
-            <Typography className={styles.HeaderSubtext} variant="subtitle1">
+            <Typography
+              className={styles.HeaderSubtext}
+              variant="subtitle1"
+              component="p"
+            >
               We strongly support breaking down systemic barriers in order to
               achieve a more healthy, equitable, and inclusive society.
             </Typography>
           </Grid>
         </Grid>
 
-        <Grid container className={styles.GridRow}>
+        <Grid container className={styles.GridRow} component={"section"}>
           <Grid item xs={12}>
             <Typography variant="h3" align="left" className={styles.TeamHeader}>
               Leadership Team
@@ -294,6 +298,7 @@ function OurTeamTab() {
               container
               justify="space-around"
               className={styles.GridSubRow}
+              component="ul"
             >
               {LEADERSHIP_TEAM.map((leader) => {
                 return (
@@ -304,17 +309,18 @@ function OurTeamTab() {
                     sm={6}
                     md={3}
                     className={styles.TextProfile}
+                    component="li"
                   >
                     <LazyLoad offset={300} height={181} once>
                       <img
                         src={leader.imageUrl}
-                        alt={leader.name}
+                        alt=""
                         className={styles.ProfileImg}
                       />
                     </LazyLoad>
-                    <br />
-                    <h4 className={styles.LeaderNameHeading}>{leader.name}</h4>
-                    <span className={styles.LeaderRoleSpan}>{leader.role}</span>
+
+                    <div className={styles.MemberName}>{leader.name}</div>
+                    <div className={styles.MemberRole}>{leader.role}</div>
                   </Grid>
                 );
               })}
@@ -322,7 +328,7 @@ function OurTeamTab() {
           </Grid>
         </Grid>
 
-        <Grid container className={styles.GridRow}>
+        <Grid container className={styles.GridRow} component={"section"}>
           <Grid item xs={12}>
             <Typography variant="h3" align="left" className={styles.TeamHeader}>
               Google.org Fellows
@@ -333,34 +339,30 @@ function OurTeamTab() {
               container
               justify="space-around"
               className={styles.GridSubRow}
+              component="ul"
             >
               {GOOGLE_FELLOWS.map((fellow) => {
-                return fellow.link == null ? (
-                  <Grid item className={styles.TextProfile} key={fellow.name}>
-                    <span style={{ fontSize: "16px", fontWeight: 500 }}>
-                      {fellow.name}
-                    </span>
-                    <br aria-hidden="true" />
-                    <span style={{ fontSize: "14px", fontWeight: 400 }}>
-                      {fellow.role}
-                    </span>
-                  </Grid>
-                ) : (
-                  <Grid item className={styles.TextProfile} key={fellow.name}>
-                    <a
-                      href={fellow.link}
-                      style={{ fontSize: "16px", fontWeight: 500 }}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {fellow.text}
-                      <br aria-hidden="true" />
-                      {fellow.name}
-                    </a>
-                    <br />
-                    <span style={{ fontSize: "14px", fontWeight: 400 }}>
-                      {fellow.role}
-                    </span>
+                return (
+                  <Grid
+                    item
+                    className={styles.TextProfile}
+                    key={fellow.name}
+                    component="li"
+                  >
+                    {fellow.link && (
+                      <a
+                        className={styles.MemberName}
+                        href={fellow.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {fellow.text}
+                      </a>
+                    )}
+
+                    <div className={styles.MemberName}>{fellow.name}</div>
+
+                    <div className={styles.MemberRole}>{fellow.role}</div>
                   </Grid>
                 );
               })}
@@ -368,7 +370,7 @@ function OurTeamTab() {
           </Grid>
         </Grid>
 
-        <Grid container className={styles.GridRow}>
+        <Grid container className={styles.GridRow} component={"section"}>
           <Grid item xs={12}>
             <Typography variant="h3" align="left" className={styles.TeamHeader}>
               Health Equity Task Force
@@ -380,26 +382,36 @@ function OurTeamTab() {
               container
               justify="space-around"
               className={styles.GridSubRow}
+              component="ul"
             >
               {HE_TASKFORCE.map((taskforceName) => (
-                <Grid item className={styles.TextProfile} key={taskforceName}>
-                  <span style={{ fontSize: "16px", fontWeight: 500 }}>
-                    {taskforceName}
-                  </span>
+                <Grid
+                  item
+                  className={styles.TextProfile}
+                  key={taskforceName}
+                  component="li"
+                >
+                  <span className={styles.MemberName}>{taskforceName}</span>
                 </Grid>
               ))}
             </Grid>
           </Grid>
         </Grid>
 
-        <Grid container className={styles.GridRow}>
+        <Grid container className={styles.GridRow} component={"section"}>
           <Grid item xs={12}>
             <Typography variant="h3" align="left" className={styles.TeamHeader}>
               Partners
             </Typography>
           </Grid>
           <LazyLoad offset={300} height={200} once>
-            <Grid item container xs={12} className={styles.GridSubRow}>
+            <Grid
+              item
+              container
+              xs={12}
+              className={styles.GridSubRow}
+              component="ul"
+            >
               {PARTNERS.map((partner) => (
                 <Grid
                   item
@@ -410,6 +422,7 @@ function OurTeamTab() {
                   container
                   justify="space-around"
                   key={partner.url}
+                  component="li"
                 >
                   <a href={partner.url}>
                     <img

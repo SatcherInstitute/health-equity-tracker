@@ -69,7 +69,7 @@ function ShareButtons(props: ShareButtonProps) {
           aria-label={"Share by email"}
           subject={`Sharing from healthequitytracker.org`}
           body={`${title}
-        
+
 `} // KEEP THIS WEIRD SPACING FOR EMAIL LINE BREAKS!
           url={sharedUrl}
         >

@@ -31,7 +31,7 @@ function MissingDataAlert(props: MissingDataAlertProps) {
       : "";
 
   return (
-    <Alert severity="warning">
+    <Alert severity="warning" role="note">
       We do not currently have
       {demographicPhrase}
       <b>{props.dataName}</b>

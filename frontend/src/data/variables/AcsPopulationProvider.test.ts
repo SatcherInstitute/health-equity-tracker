@@ -106,17 +106,19 @@ autoInitGlobals();
 
 const dataFetcher = getDataFetcher() as FakeDataFetcher;
 
-const evaluatePopulationCountAndPctWithAndWithoutTotal = createWithAndWithoutAllEvaluator(
-  ["population", "population_pct"],
-  dataFetcher,
-  new AcsPopulationProvider()
-);
+const evaluatePopulationCountAndPctWithAndWithoutTotal =
+  createWithAndWithoutAllEvaluator(
+    ["population", "population_pct"],
+    dataFetcher,
+    new AcsPopulationProvider()
+  );
 
-const evaluatePopulationCountOnlyWithAndWithoutTotal = createWithAndWithoutAllEvaluator(
-  "population",
-  dataFetcher,
-  new AcsPopulationProvider()
-);
+const evaluatePopulationCountOnlyWithAndWithoutTotal =
+  createWithAndWithoutAllEvaluator(
+    "population",
+    dataFetcher,
+    new AcsPopulationProvider()
+  );
 
 describe("AcsPopulationProvider", () => {
   beforeEach(() => {

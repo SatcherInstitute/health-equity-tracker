@@ -21,7 +21,6 @@ import { ORDINAL } from "./utils";
 
 export type ScaleType = "quantize" | "quantile" | "symlog";
 
-// import SASS variables for use in React / Vega
 const {
   unknownGrey: UNKNOWN_GREY,
   redOrange: RED_ORANGE,
@@ -105,6 +104,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
   // Dataset to use for computing the legend
   const legendData = props.legendData || props.data;
+
+  // Generate meaningful alt text
+  const altText = `Map showing ${props.filename}${
+    !props.fips.isCounty()
+      ? ` across ${props.fips.getPluralChildFipsTypeDisplayName()}`
+      : ""
+  }`;
 
   useEffect(() => {
     const geoData = props.geoData
@@ -301,7 +307,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         encode: {
           enter: encodeEnter,
           update: { fill: fillColor },
-          hover: { fill: { value: hoverColor } },
+          hover: {
+            fill: { value: hoverColor },
+            cursor: { value: "pointer" },
+          },
         },
       };
       if (!props.overrideShapeWithCircle) {
@@ -350,7 +359,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
       background: "white",
-      description: props.legendTitle,
+      description: props.overrideShapeWithCircle
+        ? `Territory: ${props.fips.getDisplayName()}`
+        : altText,
       data: [
         {
           name: MISSING_PLACEHOLDER_VALUES,
@@ -442,6 +453,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     xOffsetNoDataLegend,
     props,
     heightWidthRatio,
+    altText,
   ]);
 
   return (

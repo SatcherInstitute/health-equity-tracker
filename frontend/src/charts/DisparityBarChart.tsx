@@ -23,6 +23,7 @@ import { AIAN, NHPI, RACE } from "../data/utils/Constants";
 const LABEL_SWAP_CUTOFF_PERCENT = 66; // bar labels will be outside if below this %, or inside bar if above
 
 function getSpec(
+  altText: string,
   data: Record<string, any>[],
   width: number,
   breakdownVar: BreakdownVar,
@@ -236,6 +237,7 @@ function getSpec(
 
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
+    description: altText,
     background: sass.white,
     padding: 5,
     autosize: { resize: true, type: "fit-x" },
@@ -350,10 +352,11 @@ export interface DisparityBarChartProps {
   darkMetric: MetricConfig;
   breakdownVar: BreakdownVar;
   metricDisplayName: string;
+  filename: string;
+  // Note: STACKED currently not used
   // Stacked will render one dark bar on top of a lighter bar
   // Not stacked will show two equally sized bars side by side
   stacked?: boolean;
-  filename?: string;
   showAltPopCompare?: boolean;
 }
 
@@ -398,22 +401,18 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   );
 
   // Omit the % symbol because it's included in shortVegaLabel.
-  const [
-    dataWithLightMetric,
-    lightMetricDisplayColumnName,
-  ] = addMetricDisplayColumn(
-    props.lightMetric,
-    dataWithLineBreakDelimiter,
-    /* omitPctSymbol= */ true
-  );
-  const [
-    dataWithDarkMetric,
-    darkMetricDisplayColumnName,
-  ] = addMetricDisplayColumn(
-    props.darkMetric,
-    dataWithLightMetric,
-    /* omitPctSymbol= */ true
-  );
+  const [dataWithLightMetric, lightMetricDisplayColumnName] =
+    addMetricDisplayColumn(
+      props.lightMetric,
+      dataWithLineBreakDelimiter,
+      /* omitPctSymbol= */ true
+    );
+  const [dataWithDarkMetric, darkMetricDisplayColumnName] =
+    addMetricDisplayColumn(
+      props.darkMetric,
+      dataWithLightMetric,
+      /* omitPctSymbol= */ true
+    );
 
   const altLightMetric: MetricConfig = {
     fullCardTitleName: "Population Share (ACS)",
@@ -447,6 +446,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
         }}
         downloadFileName={`${props.filename} - Health Equity Tracker`}
         spec={getSpec(
+          `Comparison bar chart showing ${props.filename}`,
           /* data: Record<string, any>[] */ data,
           /* width */ width,
           /* breakdownVar */ props.breakdownVar,

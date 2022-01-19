@@ -209,7 +209,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
               {/* NO UNKNOWNS INFO BOX */}
               {showNoUnknownsInfo && (
-                <Alert severity="info">
+                <Alert severity="info" role="note">
                   No unknown values for{" "}
                   {BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]} reported
                   in this dataset.

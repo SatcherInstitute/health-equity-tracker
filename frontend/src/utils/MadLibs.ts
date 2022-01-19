@@ -102,9 +102,9 @@ const MADLIB_LIST: MadLib[] = [
     phrase: [
       "Compare rates of",
       DROPDOWN_VAR,
-      " between ",
+      "between",
       FIPS_MAP,
-      " and ",
+      "and",
       FIPS_MAP,
     ],
     defaultSelections: { 1: "covid", 3: "13", 5: USA_FIPS }, // 13 is Georgia
@@ -115,9 +115,9 @@ const MADLIB_LIST: MadLib[] = [
     phrase: [
       "Explore relationships between",
       DROPDOWN_VAR,
-      " and ",
+      "and",
       DROPDOWN_VAR,
-      " in ",
+      "in",
       FIPS_MAP,
     ],
     defaultSelections: { 1: "diabetes", 3: "covid", 5: USA_FIPS }, // 13 is Georgia
