@@ -4,7 +4,6 @@ import { Row } from "../data/utils/DatasetTypes";
 import { useResponsiveWidth } from "../utils/useResponsiveWidth";
 import {
   BreakdownVar,
-  BreakdownVarDisplayName,
   BREAKDOWN_VAR_DISPLAY_NAMES,
   BreakdownVarDisplayName,
 } from "../data/query/Breakdowns";

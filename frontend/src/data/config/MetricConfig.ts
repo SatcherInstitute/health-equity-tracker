@@ -5,7 +5,12 @@ export type DropdownVarId =
   | "copd"
   | "health_insurance"
   | "poverty"
-  | "vaccinations";
+  | "vaccinations"
+  | "depression"
+  | "suicide"
+  | "drug_misuse"
+  | "frequent_mental_distress"
+  | "excessive_drinking";
 
 // IDs for the sub-data types (if any) for theDropDownId
 export type VariableId =
