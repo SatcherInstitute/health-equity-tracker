@@ -174,7 +174,7 @@ export function TableChart(props: TableChartProps) {
                     count={memoData.length}
                     rowsPerPage={pageSize}
                     page={pageIndex}
-                    onChangePage={(event, newPage) => {
+                    onPageChange={(event, newPage) => {
                       gotoPage(newPage);
                     }}
                     onChangeRowsPerPage={(event) => {
