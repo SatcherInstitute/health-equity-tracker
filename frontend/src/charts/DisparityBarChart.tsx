@@ -14,6 +14,8 @@ import {
   AXIS_LABEL_Y_DELTA,
   oneLineLabel,
   addMetricDisplayColumn,
+  PADDING_FOR_ACTIONS_MENU,
+  PADDING_FOR_VEGA,
 } from "./utils";
 import sass from "../styles/variables.module.scss";
 import { LEGEND_TEXT_FONT } from "./Legend";
@@ -54,7 +56,6 @@ function getSpec(
   const ALT_LIGHT_MEASURE_COLOR = sass.unknownMapMid;
   const ALT_LIGHT_MEASURE_OPACITY = 0.8;
   const DATASET = "DATASET";
-  const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 
   const THIN_RATIO = 0.3;
   const STACKED_BAND_HEIGHT = BAR_HEIGHT - BAR_HEIGHT * BAR_PADDING;
@@ -74,7 +75,58 @@ function getSpec(
 
   const ALL_MARKS = [
     {
+      // ALT TEXT: verbose, invisible text for screen readers conveying "%"" vs "%pop"
+      name: "alt_text_labels",
+      type: "text",
+      style: ["text"],
+      from: { data: DATASET },
+      description: `${data.length} items`,
+      encode: {
+        update: {
+          y: { scale: "y", field: breakdownVar, band: 0.5 },
+          opacity: {
+            signal: "0",
+          },
+          text: {
+            signal: !hasAltPop
+              ? // NORMAL
+                `${oneLineLabel(breakdownVar)}
+              +
+                ': '
+                +
+                datum.${lightMetricDisplayColumnName}
+                +
+                '${lightMeasureDisplayName}'
+                +
+                ' vs. '
+                +
+                datum.${darkMetricDisplayColumnName}
+                +
+                '${darkMeasureDisplayName}'
+              `
+              : // FOR GEOS WITH ALT POPULATIONS
+                `
+                ${oneLineLabel(breakdownVar)}
+                +
+                ': '
+                +
+                if(datum.${altLightMeasure} == null, datum.${lightMetricDisplayColumnName}, datum.${altLightMetricDisplayColumnName})
+                +
+                '${lightMeasureDisplayName}'
+                +
+                ' vs. '
+                +
+                datum.${darkMetricDisplayColumnName}
+                +
+                '${darkMeasureDisplayName}'
+                `,
+          },
+        },
+      },
+    },
+    {
       name: "lightMeasure_bars",
+      aria: false,
       type: "rect",
       style: ["bar"],
       from: { data: DATASET },
@@ -110,6 +162,7 @@ function getSpec(
       name: "darkMeasure_bars",
       type: "rect",
       style: ["bar"],
+      aria: false,
       from: { data: DATASET },
       encode: {
         enter: {
@@ -140,6 +193,7 @@ function getSpec(
     },
     {
       name: "darkMeasure_text_labels",
+      aria: false, // this data accessible in alt_text_labels
       type: "text",
       style: ["text"],
       from: { data: DATASET },
@@ -179,6 +233,7 @@ function getSpec(
     LEGEND_DOMAINS.splice(1, 0, altLightMeasureDisplayName!);
     ALL_MARKS.push({
       name: "altLightMeasure_bars",
+      aria: false, // this data accessible in alt_text_labels
       type: "rect",
       style: ["bar"],
       from: { data: DATASET },
@@ -239,9 +294,9 @@ function getSpec(
     $schema: "https://vega.github.io/schema/vega/v5.json",
     description: altText,
     background: sass.white,
-    padding: 5,
-    autosize: { resize: true, type: "fit-x" },
-    width: width - WIDTH_PADDING_FOR_SNOWMAN_MENU,
+    autosize: { resize: false, type: "fit-x" },
+    padding: PADDING_FOR_VEGA,
+    width: width - PADDING_FOR_ACTIONS_MENU,
     style: "cell",
     data: [
       {
@@ -362,7 +417,7 @@ export interface DisparityBarChartProps {
 
 export function DisparityBarChart(props: DisparityBarChartProps) {
   const [ref, width] = useResponsiveWidth(
-    100 /* default width during initialization */
+    /* default width during initialization */ 100
   );
 
   // calculate page size to determine if tiny mobile or not
@@ -394,7 +449,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     });
   }
 
-  // add *~* for line breaks in column axis labels
+  // add delimiter for line breaks in column axis labels
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
     dataFromProps,
     props.breakdownVar
@@ -437,7 +492,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   return (
     <div ref={ref}>
       <Vega
-        // custom 3-dot options for states, hidden on territories
+        renderer="svg"
         actions={{
           export: { png: true, svg: true },
           source: false,
@@ -446,8 +501,8 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
         }}
         downloadFileName={`${props.filename} - Health Equity Tracker`}
         spec={getSpec(
-          `Comparison bar chart showing ${props.filename}`,
-          /* data: Record<string, any>[] */ data,
+          /* altText  */ `Comparison bar chart showing ${props.filename}`,
+          /* data  */ data,
           /* width */ width,
           /* breakdownVar */ props.breakdownVar,
           /* breakdownVarDisplayName */ BREAKDOWN_VAR_DISPLAY_NAMES[

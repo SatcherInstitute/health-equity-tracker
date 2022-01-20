@@ -6,17 +6,3 @@
   text-align: left;
   font-size: $small;
 }
-
-.LinkButton {
-  overflow-wrap: break-word !important;
-  padding: 1px;
-  border: none;
-  background-color: inherit;
-  color: $alt-green;
-  outline: none !important;
-  text-decoration: underline;
-  &:hover {
-    cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.04);
-  }
-}

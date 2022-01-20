@@ -298,24 +298,27 @@ function ReportProvider(props: ReportProviderProps) {
             population comparison metric.
           </p>
 
+          <Button
+            className={styles.SeeOurDataSourcesButton}
+            href={DATA_CATALOG_PAGE_LINK}
+            color="primary"
+            endIcon={<ArrowForward />}
+          >
+            See Our Data Sources
+          </Button>
+
+          <div ref={definitionsRef}>
+            <DefinitionsBox madLib={props.madLib} />
+          </div>
+
           <div className={styles.MissingDataContactUs}>
             <p>
               Do you have information on health outcomes at the state and local
               level that belong in the Health Equity Tracker?
-              <br />
               <LinkWithStickyParams to={`${CONTACT_TAB_LINK}`}>
                 We would love to hear from you!
               </LinkWithStickyParams>
             </p>
-          </div>
-          <a href={DATA_CATALOG_PAGE_LINK}>
-            <Button color="primary" endIcon={<ArrowForward />}>
-              See Our Data Sources
-            </Button>
-          </a>
-
-          <div ref={definitionsRef}>
-            <DefinitionsBox madLib={props.madLib} />
           </div>
         </aside>
       </div>
