@@ -108,9 +108,8 @@ function ExploreDataPage() {
   if (params[SHOW_ONBOARDING_PARAM] === "false") {
     showOnboarding = false;
   }
-  const [activelyOnboarding, setActivelyOnboarding] = useState<boolean>(
-    showOnboarding
-  );
+  const [activelyOnboarding, setActivelyOnboarding] =
+    useState<boolean>(showOnboarding);
   const onboardingCallback = (data: any) => {
     if ([STATUS.FINISHED, STATUS.SKIPPED].includes(data.status)) {
       setActivelyOnboarding(false);
