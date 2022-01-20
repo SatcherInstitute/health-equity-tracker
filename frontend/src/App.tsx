@@ -116,7 +116,6 @@ function AppToolbar() {
           src={AppBarLogo}
           className={styles.AppbarLogoImg}
           alt="Health Equity Tracker logo"
-          role="link"
         />
       </ReactRouterLinkButton>
       <Typography variant="h1" className={styles.HomeLogo}>
@@ -197,66 +196,62 @@ function App() {
                 >
                   <main>
                     <Switch>
-                      <Route
-                        path={ABOUT_US_PAGE_LINK}
-                        render={() => <AboutUsPage />}
-                      />
+                      <Route path={ABOUT_US_PAGE_LINK}>
+                        <AboutUsPage />
+                      </Route>
 
-                      <Route
-                        path={OURTEAM_TAB_LINK}
-                        render={() => <AboutUsPage />}
-                      />
+                      <Route path={OURTEAM_TAB_LINK}>
+                        <AboutUsPage />
+                      </Route>
 
-                      <Route
-                        path={CONTACT_TAB_LINK}
-                        render={() => <AboutUsPage />}
-                      />
+                      <Route path={CONTACT_TAB_LINK}>
+                        <AboutUsPage />
+                      </Route>
 
-                      <Route
-                        path={DATA_CATALOG_PAGE_LINK}
-                        render={() => <DataCatalogTab />}
-                      />
+                      <Route path={DATA_CATALOG_PAGE_LINK}>
+                        <DataCatalogTab />
+                      </Route>
 
-                      <Route
-                        path={METHODOLOGY_TAB_LINK}
-                        render={() => <DataCatalogTab />}
-                      />
+                      <Route path={METHODOLOGY_TAB_LINK}>
+                        <DataCatalogTab />
+                      </Route>
 
-                      <Route
-                        path={EXPLORE_DATA_PAGE_LINK}
-                        render={() => <ExploreDataPage />}
-                      />
+                      <Route path={EXPLORE_DATA_PAGE_LINK}>
+                        <ExploreDataPage />
+                      </Route>
 
-                      <Route
-                        path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
-                        render={() => <WhatIsHealthEquityPage />}
-                      />
+                      <Route path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
+                        <WhatIsHealthEquityPage />
+                      </Route>
 
-                      <Route
-                        path={FAQ_TAB_LINK}
-                        render={() => <WhatIsHealthEquityPage />}
-                      />
+                      <Route path={FAQ_TAB_LINK}>
+                        <WhatIsHealthEquityPage />
+                      </Route>
 
-                      <Route
-                        path={RESOURCES_TAB_LINK}
-                        render={() => <WhatIsHealthEquityPage />}
-                      />
+                      <Route path={RESOURCES_TAB_LINK}>
+                        <WhatIsHealthEquityPage />
+                      </Route>
 
-                      <Route
-                        path={TERMS_OF_USE_PAGE_LINK}
-                        render={() => <TermsOfUsePage />}
-                      />
+                      <Route path={TERMS_OF_USE_PAGE_LINK}>
+                        <TermsOfUsePage />
+                      </Route>
+
                       {/* redirect the old URL for possible outside links */}
                       <Route path={`/termsofservice`}>
                         <Redirect to={TERMS_OF_USE_PAGE_LINK} />
                       </Route>
 
-                      <Route exact path="/" render={() => <LandingPage />} />
+                      <Route path="/">
+                        <LandingPage />
+                      </Route>
+
                       {/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}
-                      <Route render={() => <NotFoundPage />} />
+                      <Route>
+                        <NotFoundPage />
+                      </Route>
                     </Switch>
                   </main>
-                </Suspense>{" "}
+                </Suspense>
               </Router>
             </div>
             <footer>
