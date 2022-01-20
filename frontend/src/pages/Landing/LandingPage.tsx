@@ -81,7 +81,7 @@ function LandingPage() {
               <br aria-hidden="true" />
               Health
               <br aria-hidden="true" />
-              Equity
+              Equity. TEST!
             </Typography>
             <Typography
               className={styles.HeaderSubtext}
