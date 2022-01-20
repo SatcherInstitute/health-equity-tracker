@@ -20,30 +20,27 @@ function DataCatalogTab() {
     : [];
   return (
     <div className={styles.AboutUsPage}>
-      <Route
-        path="/"
-        render={(history) => (
-          <Tabs
-            centered
-            indicatorColor="primary"
-            textColor="primary"
-            value={history.location.pathname}
-          >
-            <Tab
-              value={DATA_CATALOG_PAGE_LINK}
-              label="Data Downloads"
-              component={Link}
-              to={DATA_CATALOG_PAGE_LINK}
-            />
-            <Tab
-              value={`${METHODOLOGY_TAB_LINK}`}
-              label="Methodology"
-              component={Link}
-              to={`${METHODOLOGY_TAB_LINK}`}
-            />
-          </Tabs>
-        )}
-      />
+      <Route path="/">
+        <Tabs
+          centered
+          indicatorColor="primary"
+          textColor="primary"
+          value={window.location.pathname}
+        >
+          <Tab
+            value={DATA_CATALOG_PAGE_LINK}
+            label="Data Downloads"
+            component={Link}
+            to={DATA_CATALOG_PAGE_LINK}
+          />
+          <Tab
+            value={`${METHODOLOGY_TAB_LINK}`}
+            label="Methodology"
+            component={Link}
+            to={`${METHODOLOGY_TAB_LINK}`}
+          />
+        </Tabs>
+      </Route>
 
       <Switch>
         <Route path={`${METHODOLOGY_TAB_LINK}/`}>
