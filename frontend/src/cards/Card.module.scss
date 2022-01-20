@@ -19,11 +19,9 @@
 }
 
 .PopulationCard {
-  $populationTitleHeight: 57px;
+  $populationTitleHeight: 57px; // specific heigh to vertically align all population card header text
 
-  h1 {
-    text-align: left;
-  }
+  h1,
   span {
     text-align: left;
   }

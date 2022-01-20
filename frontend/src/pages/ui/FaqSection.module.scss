@@ -5,13 +5,13 @@
   text-align: left;
   font-weight: 400;
   font-family: "Taviraj", serif !important;
-  line-height: 64px !important;
   color: $alt-green;
   padding-bottom: 20px;
 }
 
 .FaqListItem {
   list-style: none;
+  margin: 0px !important;
 }
 
 .FaqQAItem {
@@ -19,11 +19,14 @@
 }
 
 .FaqQuestion {
-  font-size: $smallHeader !important;
+  font-size: $title !important;
+  @media only screen and (min-width: $sm) {
+    font-size: $smallHeader !important;
+  }
   text-align: left;
   font-weight: 300 !important;
   font-family: "Taviraj", sans-serif !important;
-  line-height: 68px !important;
+  line-height: $lhSuperLoose !important;
   color: $alt-black;
 }
 
@@ -32,7 +35,6 @@
   text-align: left;
   font-weight: 400;
   font-family: "Inter", sans-serif;
-  line-height: 20px;
   color: $alt-black;
 }
 
@@ -40,7 +42,6 @@
   font-family: "Inter", sans-serif !important;
   font-weight: 500 !important;
   font-size: $smallestHeader !important;
-  line-height: 28px !important;
   margin-top: 20px !important;
   color: $alt-green !important;
   text-decoration: underline !important;

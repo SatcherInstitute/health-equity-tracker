@@ -22,7 +22,7 @@ function Question(props: {
         aria-controls={props.ariaControls}
         id={props.id}
       >
-        <Typography className={styles.FaqQuestion} variant="h2">
+        <Typography className={styles.FaqQuestion} variant="h2" component="h4">
           {props.questionText}
         </Typography>
       </AccordionSummary>
