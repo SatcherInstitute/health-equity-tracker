@@ -499,14 +499,18 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     altText,
   ]);
 
-  return (
-    <div
-      ref={ref}
-      style={{
-        width: "94%",
+  const mapStyle = pageIsTiny
+    ? {
+        width: "90%",
+        marginRight: PADDING_FOR_ACTIONS_MENU,
+      }
+    : {
+        width: "75%",
         margin: "auto",
-      }}
-    >
+      };
+
+  return (
+    <div ref={ref} style={mapStyle}>
       {shouldRenderMap && (
         <Vega
           renderer="svg"

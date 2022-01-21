@@ -38,7 +38,10 @@
 }
 
 .MissingDataInfo {
-  margin: 5rem;
+  margin: 2rem;
+  @media only screen and (min-width: $sm) {
+    margin: 4rem;
+  }
   max-width: $explore-data-max-width;
   text-align: left;
 }
