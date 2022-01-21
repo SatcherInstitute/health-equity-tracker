@@ -99,7 +99,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
       xs={12}
       alignItems="center"
       spacing={1}
-      justify="center"
+      justifyContent="center"
     >
       {!props.hidePopulationCard && (
         <Grid item xs={12} md={SINGLE_COLUMN_WIDTH}>
@@ -110,7 +110,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
       {!variableConfig && <NoDataAlert dropdownVarId={props.dropdownVarId} />}
 
       {variableConfig && (
-        <Grid container spacing={1} justify="center">
+        <Grid container spacing={1} justifyContent="center">
           {/* DEMOGRAPHIC / DATA TYPE TOGGLE(S) */}
           {!(props.dropdownVarId === VAXX && props.fips.isCounty()) && (
             <Grid item container xs={12} md={SINGLE_COLUMN_WIDTH}>

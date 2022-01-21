@@ -33,7 +33,7 @@ function GoalListItem(props: {
     <Grid
       container
       direction="column"
-      justify="flex-start"
+      justifyContent="flex-start"
       item
       sm={12}
       md={4}
@@ -87,7 +87,7 @@ function TheProjectTab() {
           container
           className={styles.GridOutlinedImgRow}
           direction="row"
-          justify="center"
+          justifyContent="center"
           alignItems="center"
           component="header"
         >
@@ -136,14 +136,14 @@ function TheProjectTab() {
           container
           className={styles.GridOutlinedRow}
           direction="row"
-          justify="center"
+          justifyContent="center"
           alignItems="center"
         >
           <Grid
             container
             className={styles.GridSubRow}
             direction="row"
-            justify="space-around"
+            justifyContent="space-around"
             alignItems="center"
           >
             <Grid
@@ -179,7 +179,7 @@ function TheProjectTab() {
               <Grid
                 container
                 direction="row"
-                justify="space-around"
+                justifyContent="space-around"
                 alignItems="flex-start"
                 spacing={3}
               >
@@ -264,7 +264,7 @@ function TheProjectTab() {
                   <Grid
                     container
                     direction="row"
-                    justify="space-around"
+                    justifyContent="space-around"
                     alignItems="flex-start"
                   >
                     <Grid item xs={12} sm={12} md={5}>
@@ -287,7 +287,7 @@ function TheProjectTab() {
             container
             className={styles.GridSubRow}
             direction="row"
-            justify="space-around"
+            justifyContent="space-around"
           >
             <Grid item xs={12}>
               <Typography
@@ -342,13 +342,13 @@ function TheProjectTab() {
           container
           className={styles.GridOutlinedRow}
           direction="row"
-          justify="space-around"
+          justifyContent="space-around"
         >
           <Grid
             container
             item
             className={styles.GridSubRow}
-            justify="space-around"
+            justifyContent="space-around"
             alignItems="flex-start"
           >
             <Typography

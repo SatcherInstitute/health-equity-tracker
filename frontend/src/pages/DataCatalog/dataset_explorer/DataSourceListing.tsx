@@ -164,7 +164,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
           <DialogTitle>
             <Grid
               container
-              justify="space-between"
+              justifyContent="space-between"
               alignItems="center"
               component="header"
             >

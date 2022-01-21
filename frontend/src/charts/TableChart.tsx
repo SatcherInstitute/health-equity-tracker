@@ -97,7 +97,7 @@ export function TableChart(props: TableChartProps) {
     return (
       <TableRow {...group.getHeaderGroupProps()}>
         {group.headers.map((col, index) => (
-          <TableCell style={{ width: "200px" }}>
+          <TableCell key={col.id} style={{ width: "200px" }}>
             {col.render("Header")}
             <TableSortLabel hideSortIcon={true} />
           </TableCell>

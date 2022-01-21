@@ -19,7 +19,7 @@ function ContactUsTab() {
           container
           className={styles.GridOutlinedImgRow}
           direction="row"
-          justify="center"
+          justifyContent="center"
           alignItems="center"
         >
           <Hidden smDown>
@@ -49,7 +49,7 @@ function ContactUsTab() {
         <Grid
           container
           className={styles.GridOutlinedRow}
-          justify="center"
+          justifyContent="center"
           alignItems="center"
         >
           <Grid item xs={12} sm={12} md={8} lg={6}>

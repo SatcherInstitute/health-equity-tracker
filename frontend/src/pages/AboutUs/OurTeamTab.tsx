@@ -296,7 +296,7 @@ function OurTeamTab() {
           <Grid item>
             <Grid
               container
-              justify="space-around"
+              justifyContent="space-around"
               className={styles.GridSubRow}
               component="ul"
             >
@@ -337,7 +337,7 @@ function OurTeamTab() {
           <Grid item>
             <Grid
               container
-              justify="space-around"
+              justifyContent="space-around"
               className={styles.GridSubRow}
               component="ul"
             >
@@ -380,7 +380,7 @@ function OurTeamTab() {
           <Grid item xs={12}>
             <Grid
               container
-              justify="space-around"
+              justifyContent="space-around"
               className={styles.GridSubRow}
               component="ul"
             >
@@ -420,7 +420,7 @@ function OurTeamTab() {
                   md={4}
                   xl={2}
                   container
-                  justify="space-around"
+                  justifyContent="space-around"
                   key={partner.url}
                   component="li"
                 >
