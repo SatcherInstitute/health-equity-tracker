@@ -130,6 +130,7 @@ def testWriteToBqAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_jso
     expected_df = pd.read_csv(GOLDEN_DATA_AGE, dtype={
         'state_fips': str,
     })
+
     assert_frame_equal(mock_bq.call_args_list[3].args[0], expected_df, check_like=True)
 
 
@@ -176,4 +177,5 @@ def testWriteToBqAgeCounty(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mo
         'state_fips': str,
         'county_fips': str,
     })
+
     assert_frame_equal(mock_bq.call_args_list[3].args[0], expected_df, check_like=True)

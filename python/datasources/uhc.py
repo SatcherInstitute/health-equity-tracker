@@ -18,11 +18,31 @@ UHC_RACE_GROUPS = [
     'All',
 ]
 
-UHC_AGE_GROUPS = ['18-44', '45-64', '65+', 'All']
+# COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking
+BROAD_AGE_GROUPS = [
+    '18-44',
+    '45-64',
+    '65+']
+# Suicide
+PLUS_5_AGE_GROUPS = [
+    '15-24',
+    '25-34',
+    '35-44',
+    '45-54',
+    '55-64',
+    '65-74',
+    '75-84',
+    '85+']
+UHC_AGE_GROUPS = [
+    'All',
+    *PLUS_5_AGE_GROUPS,
+    *BROAD_AGE_GROUPS
+]
+# No Age Breakdowns for: Non-medical Drug (including Illicit Opioid, Non-Medical Rx Opioid)
 
 UHC_SEX_GROUPS = ['Male', 'Female', 'All']
 
-UHC_RACE_GROUPS_TO_STANDARD = {
+RACE_GROUPS_TO_STANDARD = {
     'American Indian/Alaska Native': Race.AIAN_NH.value,
     'Asian': Race.ASIAN_NH.value,
     'Black': Race.BLACK_NH.value,
@@ -36,9 +56,35 @@ UHC_RACE_GROUPS_TO_STANDARD = {
 
 BASE_UHC_URL = "https://www.americashealthrankings.org/api/v1/downloads/251"
 
-UHC_DETERMINANTS_OF_HEALTH = {
+BROAD_AGE_DETERMINANTS = {
     "Chronic Obstructive Pulmonary Disease": std_col.COPD_PCT,
     "Diabetes": std_col.DIABETES_PCT,
+    "Frequent Mental Distress": std_col.FREQUENT_MENTAL_DISTRESS_PCT,
+    "Depression": std_col.DEPRESSION_PCT,
+    "Excessive Drinking": std_col.EXCESSIVE_DRINKING_PCT,
+    "Non-medical Drug Use": std_col.NON_MEDICAL_DRUG_USE_PCT,
+    # NOTE: both opioid conditions below are subsets of Non-medical Drug Use above
+    "Illicit Opioid Use": std_col.ILLICIT_OPIOID_USE_PCT,
+    "Non-medical Use of Prescription Opioids": std_col.NON_MEDICAL_RX_OPIOID_USE_PCT,
+}
+
+# When parsing Measure Names from rows with a demographic breakdown
+# these aliases will be used instead of the determinant string above
+ALT_ROWS_ALL = {
+    "Non-medical Drug Use": "Non-medical Drug Use - Past Year"
+}
+
+ALT_ROWS_WITH_DEMO = {
+    "Illicit Opioid Use": "Use of Illicit Opioids"
+
+}
+
+# note: suicide uses distinct age buckets
+# and is the only one that reports as "per 100k"
+# directly from the source
+PLUS_5_AGE_DETERMINANTS = {
+
+    "Suicide": std_col.SUICIDE_PER_100K,
 }
 
 BREAKDOWN_MAP = {
@@ -65,11 +111,21 @@ class UHCData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_UHC_URL)
 
-        for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
+        for breakdown in [std_col.RACE_OR_HISPANIC_COL,
+                          std_col.AGE_COL,
+                          std_col.SEX_COL]:
             breakdown_df = self.generate_breakdown(breakdown, df)
-
             column_types = {c: 'STRING' for c in breakdown_df.columns}
-            for col in [std_col.COPD_PCT, std_col.DIABETES_PCT]:
+
+            for col in [std_col.COPD_PCT,
+                        std_col.DIABETES_PCT,
+                        std_col.FREQUENT_MENTAL_DISTRESS_PCT,
+                        std_col.DEPRESSION_PCT,
+                        std_col.SUICIDE_PER_100K,
+                        std_col.ILLICIT_OPIOID_USE_PCT,
+                        std_col.NON_MEDICAL_RX_OPIOID_USE_PCT,
+                        std_col.NON_MEDICAL_DRUG_USE_PCT,
+                        std_col.EXCESSIVE_DRINKING_PCT]:
                 column_types[col] = 'FLOAT'
 
             if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
@@ -82,38 +138,82 @@ class UHCData(DataSource):
         output = []
         states = df['State Name'].drop_duplicates().to_list()
 
-        columns = [std_col.STATE_NAME_COL, std_col.COPD_PCT, std_col.DIABETES_PCT]
+        columns = [std_col.STATE_NAME_COL,
+                   std_col.COPD_PCT,
+                   std_col.DIABETES_PCT,
+                   std_col.FREQUENT_MENTAL_DISTRESS_PCT,
+                   std_col.DEPRESSION_PCT,
+                   std_col.SUICIDE_PER_100K,
+                   std_col.ILLICIT_OPIOID_USE_PCT,
+                   std_col.NON_MEDICAL_RX_OPIOID_USE_PCT,
+                   std_col.NON_MEDICAL_DRUG_USE_PCT,
+                   std_col.EXCESSIVE_DRINKING_PCT]
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
             columns.append(std_col.RACE_CATEGORY_ID_COL)
         else:
             columns.append(breakdown)
 
         for state in states:
+
             for breakdown_value in BREAKDOWN_MAP[breakdown]:
                 output_row = {}
                 output_row[std_col.STATE_NAME_COL] = state
 
                 if breakdown == std_col.RACE_OR_HISPANIC_COL:
-                    output_row[std_col.RACE_CATEGORY_ID_COL] = UHC_RACE_GROUPS_TO_STANDARD[breakdown_value]
+                    output_row[std_col.RACE_CATEGORY_ID_COL] = \
+                        RACE_GROUPS_TO_STANDARD[breakdown_value]
                 else:
                     output_row[breakdown] = breakdown_value
 
-                for determinant in UHC_DETERMINANTS_OF_HEALTH:
+                # use select determinants based on the iterated age bucket
+                if breakdown_value in BROAD_AGE_GROUPS:
+                    determinants = BROAD_AGE_DETERMINANTS
+                elif breakdown_value in PLUS_5_AGE_GROUPS:
+                    determinants = \
+                        PLUS_5_AGE_DETERMINANTS
+                # for age="All" or any race/sex breakdown, use all determinants
+                else:
+                    determinants = {
+                        **BROAD_AGE_DETERMINANTS, **PLUS_5_AGE_DETERMINANTS}
+
+                for determinant in determinants:
+
                     if breakdown_value == 'All':
-                        output_row[UHC_DETERMINANTS_OF_HEALTH[determinant]] = df.loc[
+
+                        # find row that matches current nested iterations
+                        matched_row = df.loc[
                             (df['State Name'] == state) &
-                            (df['Measure Name'] == determinant)]['Value'].values[0]
+                            (df['Measure Name'] ==
+                             ALT_ROWS_ALL.get(determinant, determinant))
+                        ]
+
+                        # extract and output the value
+                        output_row[determinants[determinant]
+                                   ] = matched_row['Value'].values[0]
 
                     else:
-                        row = df.loc[
-                            (df['State Name'] == state) &
-                            (df['Measure Name'].str.contains(determinant)) &
-                            (df['Measure Name'].str.contains(breakdown_value))]
 
-                        if len(row) > 0:
-                            pct = row['Value'].values[0]
+                        # For rows with demographic breakdown, the determinant
+                        # and breakdown group are in a single field
+                        # We build that string to perfectly match the field,
+                        # using any alias for the determinant as needed
+                        space_or_ages = " "
+                        if breakdown == std_col.AGE_COL:
+                            space_or_ages += "Ages "
+                        measure_name = (
+                            f"{ALT_ROWS_WITH_DEMO.get(determinant, determinant)}"
+                            f" -{space_or_ages}"
+                            f"{breakdown_value}"
+                        )
+
+                        matched_row = df.loc[
+                            (df['State Name'] == state) &
+                            (df['Measure Name'] == measure_name)]
+
+                        if len(matched_row) > 0:
+                            pct = matched_row['Value'].values[0]
                             if pct:
-                                output_row[UHC_DETERMINANTS_OF_HEALTH[determinant]] = pct
+                                output_row[determinants[determinant]] = pct
 
                 output.append(output_row)
 
