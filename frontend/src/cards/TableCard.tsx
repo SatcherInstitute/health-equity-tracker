@@ -32,6 +32,7 @@ import Divider from "@material-ui/core/Divider";
 import { ALL } from "../data/utils/Constants";
 import { urlMap } from "../utils/externalUrls";
 import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
+import styles from "./Card.module.scss";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 698;
@@ -163,13 +164,15 @@ export function TableCard(props: TableCardProps) {
               )}
 
             {!queryResponse.dataIsMissing() && (
-              <TableChart
-                data={dataWithoutUnknowns}
-                breakdownVar={props.breakdownVar}
-                metrics={Object.values(metricConfigs).filter(
-                  (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
-                )}
-              />
+              <div className={styles.TableChart}>
+                <TableChart
+                  data={dataWithoutUnknowns}
+                  breakdownVar={props.breakdownVar}
+                  metrics={Object.values(metricConfigs).filter(
+                    (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
+                  )}
+                />
+              </div>
             )}
           </>
         );
