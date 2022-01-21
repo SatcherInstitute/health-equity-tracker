@@ -27,7 +27,8 @@ def get_pct_share_race_test_data_as_df():
 
 
 def get_state_totals_test_data_as_df():
-    return pd.read_csv(os.path.join(TEST_DIR, 'kff_vaccination_state_totals_test.csv'), dtype={'one_dose': str})
+    return pd.read_csv(os.path.join(TEST_DIR, 'kff_vaccination_state_totals_test.csv'),
+                       dtype={'one_dose': str})
 
 
 def get_population_numbers_as_df():
@@ -76,4 +77,5 @@ def testWriteToBq(
         'vaccinated_first_dose': str,
         'population_pct': str,
     })
+
     assert_frame_equal(mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
