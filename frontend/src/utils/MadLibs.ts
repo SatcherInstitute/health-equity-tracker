@@ -68,7 +68,7 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   vaccinations: "COVID-19 Vaccinations",
   depression: "Depression",
   suicide: "Suicide",
-  drug_misuse: "Opioid and Other Substance Misuse",
+  substance: "Opioid and Other Substance Misuse",
   excessive_drinking: "Excessive Drinking",
   frequent_mental_distress: "Frequent Mental Distress",
 };
@@ -98,7 +98,7 @@ const CATEGORIES_LIST: Category[] = [
     options: [
       "depression",
       "suicide",
-      "drug_misuse",
+      "substance",
       "excessive_drinking",
       "frequent_mental_distress",
     ],

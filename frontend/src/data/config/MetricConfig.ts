@@ -8,7 +8,7 @@ export type DropdownVarId =
   | "vaccinations"
   | "depression"
   | "suicide"
-  | "drug_misuse"
+  | "substance"
   | "frequent_mental_distress"
   | "excessive_drinking";
 
@@ -495,7 +495,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       },
     },
   ],
-  drug_misuse: [
+  substance: [
     {
       variableId: "non_medical_drug_use",
       variableDisplayName: "Non-medical Drugs",
