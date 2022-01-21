@@ -4,7 +4,7 @@
 <!--- Come back and edit this link after saving the PR -->
 <!--- Replace 1234 with this PR's actual number  -->
 <a width="50" href="https://deploy-preview-1234--health-equity-tracker.netlify.app/">
-  <img src="https://healthequitytracker.org/img/graphics/het-share.png" alt="" /><br />
+  <img src="https://healthequitytracker.org/img/appbar/AppbarLogo.png" alt="" /><br />
 Click to demo updates </a><-- Update this link once you have PR# 
 
 ## Description
