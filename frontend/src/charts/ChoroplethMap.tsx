@@ -17,7 +17,7 @@ import {
   UNKNOWN_SCALE,
 } from "./Legend";
 import { useMediaQuery } from "@material-ui/core";
-import { ORDINAL } from "./utils";
+import { ORDINAL, PADDING_FOR_ACTIONS_MENU } from "./utils";
 
 export type ScaleType = "quantize" | "quantile" | "symlog";
 
@@ -87,7 +87,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   const [shouldRenderMap, setShouldRenderMap] = useState(false);
 
   const [ref, width] = useResponsiveWidth(
-    100 /* default width during initialization */
+    90 /* default width during initialization */
   );
 
   // calculate page size to determine if tiny mobile or not
@@ -370,6 +370,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             opacity: {
               signal: "0",
             },
+            fontSize: { value: 0 },
             text: {
               signal: `
               datum.fips_name
@@ -403,6 +404,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       description: props.overrideShapeWithCircle
         ? `Territory: ${props.fips.getDisplayName()}`
         : altText,
+      // autosize: { resize: true, type: "fit-x" },
       data: [
         {
           name: MISSING_PLACEHOLDER_VALUES,

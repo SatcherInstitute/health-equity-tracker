@@ -15,7 +15,6 @@ import {
   oneLineLabel,
   addMetricDisplayColumn,
   PADDING_FOR_ACTIONS_MENU,
-  PADDING_FOR_VEGA,
 } from "./utils";
 import sass from "../styles/variables.module.scss";
 import { useMediaQuery } from "@material-ui/core";
@@ -70,8 +69,7 @@ function getSpec(
     $schema: "https://vega.github.io/schema/vega/v5.json",
     description: altText,
     background: sass.white,
-    autosize: { resize: false, type: "fit-x" },
-    padding: PADDING_FOR_VEGA,
+    autosize: { resize: true, type: "fit-x" },
     width: width - PADDING_FOR_ACTIONS_MENU,
     style: "cell",
     data: [
@@ -124,6 +122,7 @@ function getSpec(
             opacity: {
               signal: "0",
             },
+            fontSize: { value: 0 },
             text: {
               signal: `${oneLineLabel(
                 breakdownVar
