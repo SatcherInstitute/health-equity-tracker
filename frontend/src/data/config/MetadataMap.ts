@@ -147,7 +147,8 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     geographic_level: "State",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Annual",
-    description: "The prevalence of diabetes and COPD at the state level.",
+    description:
+      "The prevalence of COPD, diabetes, depression, excessive drinking, non-medical drug use including both illicit and non-medical prescription opioid use, and suicide at the state level.",
     dataset_ids: [
       "uhc_data-age",
       "uhc_data-race_and_ethnicity",

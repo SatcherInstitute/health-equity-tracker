@@ -121,7 +121,7 @@ function OptionsSelector(props: {
           </div>
         )}
         {!isFips && (
-          <Box my={3} mx={6}>
+          <Box my={3} mx={3}>
             <Grid container>
               {CATEGORIES_LIST.map((category) => {
                 return (
@@ -129,7 +129,7 @@ function OptionsSelector(props: {
                     item
                     xs={12}
                     sm={6}
-                    md={4}
+                    lg={3}
                     key={category.title}
                     className={styles.CategoryList}
                   >

@@ -244,13 +244,15 @@ function MethodologyTab() {
                 </ul>
 
                 <h4 className={styles.MethodologySubsubheaderText}>
-                  Diabetes & COPD
+                  Behavioral Risk Factor Surveillance System (BRFSS)
                 </h4>
                 <p>
-                  Diabetes & COPD data in the tracker is sourced from{" "}
-                  <a href={urlMap.amr}>America's Health Rankings</a>, who in
-                  turn source their diabetes & COPD data from the{" "}
-                  <a href={urlMap.cdcBrfss}>
+                  COPD, Diabetes, Depression, Excessive Drinking, Non-medical
+                  Drug Use including both Illicit and Non-medical Prescription
+                  Opioid Use, and Suicide data in the tracker is sourced from{" "}
+                  <a href={urlMap.cdcBrfss}>America's Health Rankings</a>, who
+                  in turn source their data from the{" "}
+                  <a href="https://www.cdc.gov/brfss/index.html">
                     Behavioral Risk Factor Surveillance System (BRFSS)
                   </a>
                   , a survey run by the CDC.
@@ -266,8 +268,8 @@ function MethodologyTab() {
                   </li>
                   <li>
                     BRFSS data broken down by race and ethnicity is not
-                    available at the county level, so the tracker does not
-                    display diabetes or COPD data at the county level either.
+                    available at the county level, limiting the tracker to
+                    national and state levels for these conditions.
                   </li>
                 </ul>
 

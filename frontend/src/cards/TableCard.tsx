@@ -24,12 +24,18 @@ import {
   UNKNOWN,
   UNKNOWN_RACE,
   UNKNOWN_ETHNICITY,
+  ALL,
+  BROAD_AGE_BUCKETS,
+  DECADE_PLUS_5_AGE_BUCKETS,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
-import { ALL } from "../data/utils/Constants";
+import {
+  UHC_BROAD_AGE_DETERMINANTS,
+  UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
+} from "../data/variables/BrfssProvider";
 import { urlMap } from "../utils/externalUrls";
 import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
 
@@ -51,16 +57,25 @@ export const NEVER_SHOW_PROPERTIES = [
 
 export function TableCard(props: TableCardProps) {
   const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
+  const current100k = props.variableConfig.metrics.per100k.metricId;
+
+  // choose demographic groups to exclude from the table
+  let exclusionList = [ALL];
+  props.breakdownVar === "race_and_ethnicity" &&
+    exclusionList.push(NON_HISPANIC);
+  UHC_BROAD_AGE_DETERMINANTS.includes(current100k) &&
+    exclusionList.push(...DECADE_PLUS_5_AGE_BUCKETS);
+  UHC_DECADE_PLUS_5_AGE_DETERMINANTS.includes(current100k) &&
+    exclusionList.push(...BROAD_AGE_BUCKETS);
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
-    props.breakdownVar === RACE ? exclude(NON_HISPANIC, ALL) : exclude(ALL)
+    exclude(...exclusionList)
   );
 
   let metricConfigs: Record<string, MetricConfig> = {};
   metrics.forEach((metricConfig) => {
-    // We prefer to show the known breakdown metric over the vanilla metric, if
-    // it is available.
+    // We prefer known breakdown metric if available.
     if (metricConfig.knownBreakdownComparisonMetric) {
       metricConfigs[metricConfig.knownBreakdownComparisonMetric.metricId] =
         metricConfig.knownBreakdownComparisonMetric;
@@ -121,7 +136,9 @@ export function TableCard(props: TableCardProps) {
 
         return (
           <>
-            {queryResponse.shouldShowMissingDataMessage(metricIds) && (
+            {queryResponse.shouldShowMissingDataMessage(
+              metricIds as MetricId[]
+            ) && (
               <CardContent>
                 <MissingDataAlert
                   dataName={props.variableConfig.variableFullDisplayName + " "}
