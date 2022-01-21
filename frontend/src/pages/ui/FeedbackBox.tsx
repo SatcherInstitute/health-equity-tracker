@@ -17,7 +17,7 @@ const BOTTOM_SCROLL_OPTIONS = {
 export default function FeedbackBox(props: { alwaysShow?: boolean }) {
   // calculate page size for responsive layout, dont show feedback box on mobile as it breaks iOS links
   const theme = useTheme();
-  const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
+  const pageIsWide = useMediaQuery(theme.breakpoints.up("lg"));
 
   // If cookie is in place, this is a return user and therefor eligible for feedback
   const [cookies] = useCookies();
