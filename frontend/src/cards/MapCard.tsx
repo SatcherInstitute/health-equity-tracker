@@ -454,7 +454,7 @@ function MultiMapLink(props: MultiMapLinkProps) {
       >
         Compare across {groupTerm} groups
       </a>
-      .
+      <span aria-hidden={true}>.</span>
     </>
   );
 }

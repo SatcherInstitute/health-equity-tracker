@@ -27,7 +27,6 @@ function DisclaimerAlert(props: { jumpToData: () => void }) {
             e.preventDefault();
             props.jumpToData();
           }}
-          className={styles.LinkButton}
         >
           Read more about missing and misidentified people
         </a>
