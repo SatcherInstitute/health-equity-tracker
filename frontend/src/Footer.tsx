@@ -19,6 +19,10 @@ import AppbarLogo from "./assets/AppbarLogo.png";
 import PartnerSatcher from "./assets/PartnerSatcher.png";
 import { urlMap } from "./utils/externalUrls";
 
+export function currentYear(): number {
+  return new Date().getFullYear();
+}
+
 function Footer() {
   return (
     <div className={styles.Footer}>
@@ -60,12 +64,16 @@ function Footer() {
           </Grid>
           <Hidden xsDown>
             <Grid item container justifyContent="flex-end">
-              <span className={styles.CopyrightSpan}>&copy;2021</span>
+              <span className={styles.CopyrightSpan}>
+                &copy;{currentYear()}
+              </span>
             </Grid>
           </Hidden>
           <Hidden smUp>
             <Grid item container justifyContent="center">
-              <span className={styles.CopyrightSpan}>&copy;2021</span>
+              <span className={styles.CopyrightSpan}>
+                &copy;{currentYear()}
+              </span>
             </Grid>
           </Hidden>
         </Grid>
