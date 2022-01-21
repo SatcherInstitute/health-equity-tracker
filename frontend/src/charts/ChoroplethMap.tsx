@@ -404,7 +404,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       description: props.overrideShapeWithCircle
         ? `Territory: ${props.fips.getDisplayName()}`
         : altText,
-      // autosize: { resize: true, type: "fit-x" },
       data: [
         {
           name: MISSING_PLACEHOLDER_VALUES,
