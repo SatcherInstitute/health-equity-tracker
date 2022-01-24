@@ -163,7 +163,7 @@ class BrfssProvider extends VariableProvider {
         df = this.calculations.calculatePctShare(
           df,
           col,
-          col.split("_")[2] + "_pct_share",
+          col.replace("estimated_total_", "") + "_pct_share", // remove prefix & add suffix
           breakdownColumnName,
           ["fips"]
         );
@@ -187,6 +187,7 @@ class BrfssProvider extends VariableProvider {
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
+
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
   }
 

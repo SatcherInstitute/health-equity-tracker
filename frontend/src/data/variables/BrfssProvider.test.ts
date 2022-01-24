@@ -176,13 +176,13 @@ describe("BrfssProvider", () => {
       /*fips=*/ AL,
       /*breakdownName=*/ RACE,
       /*breakdownValue=*/ ASIAN_NH,
-      /*copd_per_100k=*/ 10000,
-      /*diabetes_per_100k=*/ 10000,
-      /* depression_per_100k */ 10000,
-      /* excessive_drinking_per_100k */ 10000,
-      /* frequent_mental_distress_per_100k */ 10000,
-      /* illicit_opioid_use_per_100k */ 10000,
-      /* non_medical_drug_use_per_100k */ 10000,
+      /*copd_per_100k=*/ 10_000,
+      /*diabetes_per_100k=*/ 10_000,
+      /* depression_per_100k */ 10_000,
+      /* excessive_drinking_per_100k */ 10_000,
+      /* frequent_mental_distress_per_100k */ 10_000,
+      /* illicit_opioid_use_per_100k */ 10_000,
+      /* non_medical_drug_use_per_100k */ 10_000,
       /* suicide_per_100k */ 10,
       /*population=*/ 1000
     );
@@ -191,13 +191,13 @@ describe("BrfssProvider", () => {
       /*fips=*/ NC,
       /*breakdownName=*/ RACE,
       /*breakdownValue=*/ ASIAN_NH,
-      /*copd_per_100k=*/ 15000,
-      /*diabetes_per_100k=*/ 15000,
-      /* depression_per_100k */ 15000,
-      /* excessive_drinking_per_100k */ 15000,
-      /* frequent_mental_distress_per_100k */ 15000,
-      /* illicit_opioid_use_per_100k */ 15000,
-      /* non_medical_drug_use_per_100k */ 15000,
+      /*copd_per_100k=*/ 15_000,
+      /*diabetes_per_100k=*/ 15_000,
+      /* depression_per_100k */ 15_000,
+      /* excessive_drinking_per_100k */ 15_000,
+      /* frequent_mental_distress_per_100k */ 15_000,
+      /* illicit_opioid_use_per_100k */ 15_000,
+      /* non_medical_drug_use_per_100k */ 15_000,
       /* suicide_per_100k */ 15,
       /*population=*/ 1_000
     );
@@ -206,13 +206,13 @@ describe("BrfssProvider", () => {
       /*fips=*/ NC,
       /*breakdownName=*/ RACE,
       /*breakdownValue=*/ WHITE_NH,
-      /*copd_per_100k=*/ 25000,
-      /*diabetes_per_100k=*/ 25000,
-      /* depression_per_100k */ 25000,
-      /* excessive_drinking_per_100k */ 25000,
-      /* frequent_mental_distress_per_100k */ 25000,
-      /* illicit_opioid_use_per_100k */ 25000,
-      /* non_medical_drug_use_per_100k */ 25000,
+      /*copd_per_100k=*/ 25_000,
+      /*diabetes_per_100k=*/ 25_000,
+      /* depression_per_100k */ 25_000,
+      /* excessive_drinking_per_100k */ 25_000,
+      /* frequent_mental_distress_per_100k */ 25_000,
+      /* illicit_opioid_use_per_100k */ 25_000,
+      /* non_medical_drug_use_per_100k */ 25_000,
       /* suicide_per_100k */ 25,
       /*population=*/ 1_000
     );
@@ -221,13 +221,13 @@ describe("BrfssProvider", () => {
       /*fips=*/ NC,
       /*breakdownName=*/ RACE,
       /*breakdownValue=*/ ALL,
-      /*copd_per_100k=*/ 20000,
-      /*diabetes_per_100k=*/ 20000,
-      /* depression_per_100k */ 20000,
-      /* excessive_drinking_per_100k */ 20000,
-      /* frequent_mental_distress_per_100k */ 20000,
-      /* illicit_opioid_use_per_100k */ 20000,
-      /* non_medical_drug_use_per_100k */ 20000,
+      /*copd_per_100k=*/ 20_000,
+      /*diabetes_per_100k=*/ 20_000,
+      /* depression_per_100k */ 20_000,
+      /* excessive_drinking_per_100k */ 20_000,
+      /* frequent_mental_distress_per_100k */ 20_000,
+      /* illicit_opioid_use_per_100k */ 20_000,
+      /* non_medical_drug_use_per_100k */ 20_000,
       /* suicide_per_100k */ 20,
       /*population=*/ 5_000
     );
@@ -285,7 +285,7 @@ describe("BrfssProvider", () => {
       /* suicide_pct_share */ 25
     );
 
-    // * ALL should expect 100% share
+    // * ALL should be 100% share
     const NC_ALL_FINAL = finalRow(
       NC,
       RACE,
@@ -329,13 +329,13 @@ describe("BrfssProvider", () => {
       USA,
       RACE,
       ASIAN_NH,
-      /*copd_per_100k=*/ 10000,
-      /*diabetes_per_100k=*/ 10000,
-      /* depression_per_100k */ 10000,
-      /* excessive_drinking_per_100k */ 10000,
-      /* frequent_mental_distress_per_100k */ 10000,
-      /* illicit_opioid_use_per_100k */ 10000,
-      /* non_medical_drug_use_per_100k */ 10000,
+      /*copd_per_100k=*/ 10_000,
+      /*diabetes_per_100k=*/ 10_000,
+      /* depression_per_100k */ 10_000,
+      /* excessive_drinking_per_100k */ 10_000,
+      /* frequent_mental_distress_per_100k */ 10_000,
+      /* illicit_opioid_use_per_100k */ 10_000,
+      /* non_medical_drug_use_per_100k */ 10_000,
       /* suicide_per_100k */ 10,
       /*population=*/ 100_000
     );
@@ -344,13 +344,13 @@ describe("BrfssProvider", () => {
       USA,
       RACE,
       WHITE_NH,
-      /*copd_per_100k=*/ 30000,
-      /*diabetes_per_100k=*/ 30000,
-      /* depression_per_100k */ 30000,
-      /* excessive_drinking_per_100k */ 30000,
-      /* frequent_mental_distress_per_100k */ 30000,
-      /* illicit_opioid_use_per_100k */ 30000,
-      /* non_medical_drug_use_per_100k */ 30000,
+      /*copd_per_100k=*/ 30_000,
+      /*diabetes_per_100k=*/ 30_000,
+      /* depression_per_100k */ 30_000,
+      /* excessive_drinking_per_100k */ 30_000,
+      /* frequent_mental_distress_per_100k */ 30_000,
+      /* illicit_opioid_use_per_100k */ 30_000,
+      /* non_medical_drug_use_per_100k */ 30_000,
       /* suicide_per_100k */ 30,
       /*population=*/ 100_000
     );
@@ -359,13 +359,13 @@ describe("BrfssProvider", () => {
       USA,
       RACE,
       ALL,
-      /*copd_per_100k=*/ 10000,
-      /*diabetes_per_100k=*/ 10000,
-      /* depression_per_100k */ 10000,
-      /* excessive_drinking_per_100k */ 10000,
-      /* frequent_mental_distress_per_100k */ 10000,
-      /* illicit_opioid_use_per_100k */ 10000,
-      /* non_medical_drug_use_per_100k */ 10000,
+      /*copd_per_100k=*/ 10_000,
+      /*diabetes_per_100k=*/ 10_000,
+      /* depression_per_100k */ 10_000,
+      /* excessive_drinking_per_100k */ 10_000,
+      /* frequent_mental_distress_per_100k */ 10_000,
+      /* illicit_opioid_use_per_100k */ 10_000,
+      /* non_medical_drug_use_per_100k */ 10_000,
       /* suicide_per_100k */ 10,
       /*population=*/ 500_000
     );
@@ -423,7 +423,7 @@ describe("BrfssProvider", () => {
       /* suicide_pct_share */ 60
     );
 
-    // * ALL should expect 100% share
+    // * ALL should be 100% share
     const ALL_FINAL = finalRow(
       USA,
       RACE,
