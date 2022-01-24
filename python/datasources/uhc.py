@@ -217,7 +217,7 @@ class UHCData(DataSource):
                         if len(matched_row) > 0:
                             pct = matched_row['Value'].values[0]
                             if pct:
-                                # original data is a %, convert to per100k
+                                # if data is a %, convert to per100k
                                 if determinant in PCT_AGE_DETERMINANTS:
                                     output_row[determinants[determinant]
                                                ] = pct * 1000
