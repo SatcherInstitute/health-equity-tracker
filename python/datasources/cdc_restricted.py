@@ -1,4 +1,3 @@
-import os
 import ingestion.standardized_columns as std_col
 import pandas as pd
 
@@ -6,7 +5,7 @@ from datasources.data_source import DataSource
 from datasources import age_adjust
 from ingestion import gcs_to_bq_util
 
-AGE_ADJUST_FILES = ('cdc_restricted_by_race_and_age_state.csv',)
+AGE_ADJUST_FILES = {'cdc_restricted_by_race_and_age_state.csv': 'cdc_restricted-by_race.csv'}
 
 
 class CDCRestrictedData(DataSource):
@@ -34,13 +33,22 @@ class CDCRestrictedData(DataSource):
         files = gcs_files.split(',')
         print("Files that will be written to BQ:", files)
 
-        dfs = []
+        table_names_to_dfs = {}
 
-        for age_adjust_file in AGE_ADJUST_FILES:
-            if age_adjust_file not in AGE_ADJUST_FILES:
-                raise ValueError('File needed for age adjustment not included: ', age_adjust_file)
+        for with_race_age_file, only_race_file in AGE_ADJUST_FILES.items():
+            with_race_age_df = gcs_to_bq_util.load_csv_as_dataframe(
+                gcs_bucket, with_race_age_file, dtype={'state_fips': str})
 
-            dfs.append(age_adjust.do_age_adjustment(age_adjust_file, age_adjust.get_race_age_covid_df()))
+            pop_df = gcs_to_bq_util.load_dataframe_from_bigquery('census_pop_estimates', 'race_and_ethnicity')
+            age_adjusted_df = age_adjust.do_age_adjustment(with_race_age_df, pop_df)
+
+            only_race_df = gcs_to_bq_util.load_csv_as_dataframe(
+                gcs_bucket, only_race_file, dtype={'state_fips': str})
+
+            table_name = only_race_file.replace('.csv', '')
+            table_name = '%s-with_age_adjust' % table_name
+
+            table_names_to_dfs[table_name] = merge_age_adjusted(only_race_df, age_adjusted_df)
 
         # For each of the files, we load it as a dataframe and add it as a
         # table in the BigQuery dataset. We expect that all aggregation and
@@ -51,11 +59,17 @@ class CDCRestrictedData(DataSource):
                     std_col.COVID_DEATH_UNKNOWN]
 
         for f in files:
-            # Explicitly specify county_fips is a string.
-            dfs.append(gcs_to_bq_util.load_csv_as_dataframe(
-                gcs_bucket, f, dtype={'county_fips': str}))
+            if f in AGE_ADJUST_FILES:
+                continue
 
-        for df in dfs:
+            table_name = f.replace('.csv', '')  # Table name is file name
+            print(table_name)
+
+            # Explicitly specify county_fips is a string.
+            table_names_to_dfs[table_name] = gcs_to_bq_util.load_csv_as_dataframe(
+                gcs_bucket, f, dtype={'county_fips': str})
+
+        for table_name, df in table_names_to_dfs.items():
             # All columns are str, except outcome columns.
             column_types = {c: 'STRING' for c in df.columns}
             for col in int_cols:
@@ -67,10 +81,12 @@ class CDCRestrictedData(DataSource):
             # Clean up column names.
             self.clean_frame_column_names(df)
 
-            table_name = f.replace('.csv', '')  # Table name is file name
             gcs_to_bq_util.add_dataframe_to_bq(
                 df, dataset, table_name, column_types=column_types)
 
 
 def merge_age_adjusted(df, age_adjusted_df):
-    return pd.merge(df, age_adjusted_df, on=df.columns)
+    merge_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
+    merge_cols.extend(std_col.RACE_COLUMNS)
+
+    return pd.merge(df, age_adjusted_df, how='left', on=merge_cols)

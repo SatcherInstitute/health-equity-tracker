@@ -12,7 +12,6 @@ _CDC_RESTRICTED_GCS_FILENAMES = (
     'cdc_restricted_by_sex_county.csv,'
     'cdc_restricted_by_sex_state.csv,'
     'cdc_restricted_by_race_and_age_state.csv,'
-    'cdc_restricted_by_race_and_age_county.csv'
 )
 _CDC_RESTRICTED_WORKFLOW_ID = 'CDC_RESTRICTED_DATA'
 _CDC_RESTRICTED_DATASET = 'cdc_restricted_data'
