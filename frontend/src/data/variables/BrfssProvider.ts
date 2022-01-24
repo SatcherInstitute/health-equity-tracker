@@ -25,28 +25,20 @@ export const UHC_AGE_BUCKETS = [
 
 export const UHC_BROAD_AGE_DETERMINANTS: MetricId[] = [
   "brfss_population_pct",
-  "copd_pct",
   "copd_pct_share",
   "copd_per_100k",
-  "diabetes_pct",
   "diabetes_pct_share",
   "diabetes_per_100k",
-  "depression_pct",
   "depression_pct_share",
   "depression_per_100k",
-  "illicit_opioid_use_pct",
   "illicit_opioid_use_pct_share",
   "illicit_opioid_use_per_100k",
-  "non_medical_rx_opioid_use_pct",
   "non_medical_rx_opioid_use_pct_share",
   "non_medical_rx_opioid_use_per_100k",
-  "non_medical_drug_use_pct",
   "non_medical_drug_use_pct_share",
   "non_medical_drug_use_per_100k",
-  "excessive_drinking_pct",
   "excessive_drinking_pct_share",
   "excessive_drinking_per_100k",
-  "frequent_mental_distress_pct",
   "frequent_mental_distress_pct_share",
   "frequent_mental_distress_per_100k",
 ];
@@ -114,75 +106,45 @@ class BrfssProvider extends VariableProvider {
 
     df = df.generateSeries({
       estimated_total_diabetes: (row) =>
-        this.calculations.estimateTotal(row.diabetes_pct, row.population),
+        this.calculations.estimateTotal(row.diabetes_per_100k, row.population),
       estimated_total_copd: (row) =>
-        this.calculations.estimateTotal(row.copd_pct, row.population),
+        this.calculations.estimateTotal(row.copd_per_100k, row.population),
       estimated_total_suicide: (row) =>
         this.calculations.estimateTotal(row.suicide_per_100k, row.population),
       estimated_total_depression: (row) =>
-        this.calculations.estimateTotal(row.depression_pct, row.population),
+        this.calculations.estimateTotal(
+          row.depression_per_100k,
+          row.population
+        ),
       estimated_total_illicit_opioid_use: (row) =>
         this.calculations.estimateTotal(
-          row.illicit_opioid_use_pct,
+          row.illicit_opioid_use_per_100k,
           row.population
         ),
       estimated_total_non_medical_drug_use: (row) =>
         this.calculations.estimateTotal(
-          row.non_medical_drug_use_pct,
+          row.non_medical_drug_use_per_100k,
           row.population
         ),
       estimated_total_non_medical_rx_opioid_use: (row) =>
         this.calculations.estimateTotal(
-          row.non_medical_rx_opioid_use_pct,
+          row.non_medical_rx_opioid_use_per_100k,
           row.population
         ),
       estimated_total_excessive_drinking: (row) =>
         this.calculations.estimateTotal(
-          row.excessive_drinking_pct,
+          row.excessive_drinking_per_100k,
           row.population
         ),
       estimated_total_frequent_mental_distress: (row) =>
         this.calculations.estimateTotal(
-          row.frequent_mental_distress_pct,
+          row.frequent_mental_distress_per_100k,
           row.population
         ),
     });
 
     df = df.renameSeries({
       population_pct: "brfss_population_pct",
-    });
-
-    df = df.generateSeries({
-      // these determinants are already per 100k
-      suicide_per_100k: (row) =>
-        row.suicide_per_100k == null ? null : row.suicide_per_100k,
-      // these determinants are percentages and need to be converted to per 100k
-      diabetes_per_100k: (row) =>
-        row.diabetes_pct == null ? null : row.diabetes_pct * 1000,
-      copd_per_100k: (row) =>
-        row.copd_pct == null ? null : row.copd_pct * 1000,
-      depression_per_100k: (row) =>
-        row.depression_pct == null ? null : row.depression_pct * 1000,
-      illicit_opioid_use_per_100k: (row) =>
-        row.illicit_opioid_use_pct == null
-          ? null
-          : row.illicit_opioid_use_pct * 1000,
-      non_medical_drug_use_per_100k: (row) =>
-        row.non_medical_drug_use_pct == null
-          ? null
-          : row.non_medical_drug_use_pct * 1000,
-      non_medical_rx_opioid_use_per_100k: (row) =>
-        row.non_medical_rx_opioid_use_pct == null
-          ? null
-          : row.non_medical_rx_opioid_use_pct * 1000,
-      excessive_drinking_per_100k: (row) =>
-        row.excessive_drinking_pct == null
-          ? null
-          : row.excessive_drinking_pct * 1000,
-      frequent_mental_distress_per_100k: (row) =>
-        row.frequent_mental_distress_pct == null
-          ? null
-          : row.frequent_mental_distress_pct * 1000,
     });
 
     // Calculate any share_of_known metrics that may have been requested in the query
