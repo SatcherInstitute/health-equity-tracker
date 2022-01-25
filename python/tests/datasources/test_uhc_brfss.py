@@ -20,7 +20,6 @@ def get_test_data_as_df():
     return pd.read_csv(os.path.join(TEST_DIR, 'uhc_test_input.csv'),
                        dtype={"State Name": str,
                               "Measure Name": str,
-                              "Value": float,
                               })
 
 
@@ -43,15 +42,15 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     expected_dtype = {
         'state_name': str,
-        "diabetes_per_100k": float,
-        "copd_per_100k": float,
-        "frequent_mental_distress_per_100k": float,
-        "depression_per_100k": float,
+        "diabetes_per_100k": int,
+        "copd_per_100k": int,
+        "frequent_mental_distress_per_100k": int,
+        "depression_per_100k": int,
         "suicide_per_100k": float,
-        "illicit_opioid_use_per_100k": float,
-        "non_medical_rx_opioid_use_per_100k": float,
-        "non_medical_drug_use_per_100k": float,
-        "excessive_drinking_per_100k": float,
+        "illicit_opioid_use_per_100k": int,
+        "non_medical_rx_opioid_use_per_100k": int,
+        "non_medical_drug_use_per_100k": int,
+        "excessive_drinking_per_100k": int,
     }
 
     demographics = ['race_and_ethnicity', 'age', 'sex']
@@ -72,5 +71,9 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
             GOLDEN_DATA[demographics[i]], dtype=expected_dtype)
 
         # output created in mocked load_csv_as_dataframe_from_web() should be the same as the expected df
+
+        print(mock_bq.call_args_list[i].args[0].to_string())
+        print("exp", expected_df.to_string())
+
         assert_frame_equal(
             mock_bq.call_args_list[i].args[0], expected_df, check_like=True)

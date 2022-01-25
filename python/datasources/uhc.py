@@ -1,3 +1,4 @@
+from cmath import nan
 import pandas as pd
 
 from ingestion.standardized_columns import Race
@@ -76,14 +77,12 @@ ALT_ROWS_ALL = {
 
 ALT_ROWS_WITH_DEMO = {
     "Illicit Opioid Use": "Use of Illicit Opioids"
-
 }
 
 # note: suicide uses distinct age buckets
 # and is the only one that reports as "per 100k"
 # directly from the source
-PER100K_AGE_DETERMINANTS = {
-
+PER_100K_AGE_DETERMINANTS = {
     "Suicide": std_col.SUICIDE_PER_100K,
 }
 
@@ -117,15 +116,11 @@ class UHCData(DataSource):
             breakdown_df = self.generate_breakdown(breakdown, df)
             column_types = {c: 'STRING' for c in breakdown_df.columns}
 
-            for col in [std_col.COPD_PER_100K,
-                        std_col.DIABETES_PER_100K,
-                        std_col.FREQUENT_MENTAL_DISTRESS_PER_100K,
-                        std_col.DEPRESSION_PER_100K,
-                        std_col.SUICIDE_PER_100K,
-                        std_col.ILLICIT_OPIOID_USE_PER_100K,
-                        std_col.NON_MEDICAL_RX_OPIOID_USE_PER_100K,
-                        std_col.NON_MEDICAL_DRUG_USE_PER_100K,
-                        std_col.EXCESSIVE_DRINKING_PER_100K]:
+            # set column types: only per100k data will be precise and need float
+            for col in PCT_AGE_DETERMINANTS.values():
+                column_types[col] = 'INT'
+
+            for col in PER_100K_AGE_DETERMINANTS.values():
                 column_types[col] = 'FLOAT'
 
             if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
@@ -138,16 +133,8 @@ class UHCData(DataSource):
         output = []
         states = df['State Name'].drop_duplicates().to_list()
 
-        columns = [std_col.STATE_NAME_COL,
-                   std_col.COPD_PER_100K,
-                   std_col.DIABETES_PER_100K,
-                   std_col.FREQUENT_MENTAL_DISTRESS_PER_100K,
-                   std_col.DEPRESSION_PER_100K,
-                   std_col.SUICIDE_PER_100K,
-                   std_col.ILLICIT_OPIOID_USE_PER_100K,
-                   std_col.NON_MEDICAL_RX_OPIOID_USE_PER_100K,
-                   std_col.NON_MEDICAL_DRUG_USE_PER_100K,
-                   std_col.EXCESSIVE_DRINKING_PER_100K]
+        columns = [std_col.STATE_NAME_COL, *PCT_AGE_DETERMINANTS.values(),
+                   *PER_100K_AGE_DETERMINANTS.values()]
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
             columns.append(std_col.RACE_CATEGORY_ID_COL)
         else:
@@ -170,11 +157,11 @@ class UHCData(DataSource):
                     determinants = PCT_AGE_DETERMINANTS
                 elif breakdown_value in PLUS_5_AGE_GROUPS:
                     determinants = \
-                        PER100K_AGE_DETERMINANTS
+                        PER_100K_AGE_DETERMINANTS
                 # for age="All" or any race/sex breakdown, use all determinants
                 else:
                     determinants = {
-                        **PCT_AGE_DETERMINANTS, **PER100K_AGE_DETERMINANTS}
+                        **PCT_AGE_DETERMINANTS, **PER_100K_AGE_DETERMINANTS}
 
                 for determinant in determinants:
 
@@ -187,13 +174,14 @@ class UHCData(DataSource):
                              ALT_ROWS_ALL.get(determinant, determinant))
                         ]
 
-                        # extract and output the value (converting % to /100k as needed)
+                        target_value = matched_row['Value'].values[0]
+
                         if determinant in PCT_AGE_DETERMINANTS:
                             output_row[determinants[determinant]
-                                       ] = matched_row['Value'].values[0] * 1000
-                        elif determinant in PER100K_AGE_DETERMINANTS:
+                                       ] = int(target_value * 1000) if not pd.isna(target_value) else None
+                        elif determinant in PER_100K_AGE_DETERMINANTS:
                             output_row[determinants[determinant]
-                                       ] = matched_row['Value'].values[0]
+                                       ] = target_value
 
                     else:
 
@@ -215,14 +203,17 @@ class UHCData(DataSource):
                             (df['Measure Name'] == measure_name)]
 
                         if len(matched_row) > 0:
+
                             pct = matched_row['Value'].values[0]
-                            if pct:
-                                # if data is a %, convert to per100k
-                                if determinant in PCT_AGE_DETERMINANTS:
-                                    output_row[determinants[determinant]
-                                               ] = pct * 1000
-                                elif determinant in PER100K_AGE_DETERMINANTS:
-                                    output_row[determinants[determinant]] = pct
+
+                            if determinant in PCT_AGE_DETERMINANTS:
+                                print(determinant, pct, int(pct * 1000)
+                                      if not pd.isna(pct) else nan)
+
+                                output_row[determinants[determinant]
+                                           ] = int(pct * 1000) if not pd.isna(pct) else None
+                            elif determinant in PER_100K_AGE_DETERMINANTS:
+                                output_row[determinants[determinant]] = pct
 
                 output.append(output_row)
 
