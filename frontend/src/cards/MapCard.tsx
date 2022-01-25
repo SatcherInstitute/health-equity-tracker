@@ -262,9 +262,7 @@ function MapCardWithKey(props: MapCardProps) {
                           // This DropDownMenu instance only supports changing active breakdown filter
                           // It doesn't support changing breakdown type
                           if (filterSelection) {
-                            setActiveBreakdownFilter(
-                              filterSelection as DemographicGroup
-                            );
+                            setActiveBreakdownFilter(filterSelection);
                           }
                         }}
                       />

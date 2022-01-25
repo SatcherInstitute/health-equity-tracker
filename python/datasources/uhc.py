@@ -56,16 +56,16 @@ RACE_GROUPS_TO_STANDARD = {
 
 BASE_UHC_URL = "https://www.americashealthrankings.org/api/v1/downloads/251"
 
-BROAD_AGE_DETERMINANTS = {
-    "Chronic Obstructive Pulmonary Disease": std_col.COPD_PCT,
-    "Diabetes": std_col.DIABETES_PCT,
-    "Frequent Mental Distress": std_col.FREQUENT_MENTAL_DISTRESS_PCT,
-    "Depression": std_col.DEPRESSION_PCT,
-    "Excessive Drinking": std_col.EXCESSIVE_DRINKING_PCT,
-    "Non-medical Drug Use": std_col.NON_MEDICAL_DRUG_USE_PCT,
+PCT_AGE_DETERMINANTS = {
+    "Chronic Obstructive Pulmonary Disease": std_col.COPD_PER_100K,
+    "Diabetes": std_col.DIABETES_PER_100K,
+    "Frequent Mental Distress": std_col.FREQUENT_MENTAL_DISTRESS_PER_100K,
+    "Depression": std_col.DEPRESSION_PER_100K,
+    "Excessive Drinking": std_col.EXCESSIVE_DRINKING_PER_100K,
+    "Non-medical Drug Use": std_col.NON_MEDICAL_DRUG_USE_PER_100K,
     # NOTE: both opioid conditions below are subsets of Non-medical Drug Use above
-    "Illicit Opioid Use": std_col.ILLICIT_OPIOID_USE_PCT,
-    "Non-medical Use of Prescription Opioids": std_col.NON_MEDICAL_RX_OPIOID_USE_PCT,
+    "Illicit Opioid Use": std_col.ILLICIT_OPIOID_USE_PER_100K,
+    "Non-medical Use of Prescription Opioids": std_col.NON_MEDICAL_RX_OPIOID_USE_PER_100K,
 }
 
 # When parsing Measure Names from rows with a demographic breakdown
@@ -82,7 +82,7 @@ ALT_ROWS_WITH_DEMO = {
 # note: suicide uses distinct age buckets
 # and is the only one that reports as "per 100k"
 # directly from the source
-PLUS_5_AGE_DETERMINANTS = {
+PER100K_AGE_DETERMINANTS = {
 
     "Suicide": std_col.SUICIDE_PER_100K,
 }
@@ -117,15 +117,15 @@ class UHCData(DataSource):
             breakdown_df = self.generate_breakdown(breakdown, df)
             column_types = {c: 'STRING' for c in breakdown_df.columns}
 
-            for col in [std_col.COPD_PCT,
-                        std_col.DIABETES_PCT,
-                        std_col.FREQUENT_MENTAL_DISTRESS_PCT,
-                        std_col.DEPRESSION_PCT,
+            for col in [std_col.COPD_PER_100K,
+                        std_col.DIABETES_PER_100K,
+                        std_col.FREQUENT_MENTAL_DISTRESS_PER_100K,
+                        std_col.DEPRESSION_PER_100K,
                         std_col.SUICIDE_PER_100K,
-                        std_col.ILLICIT_OPIOID_USE_PCT,
-                        std_col.NON_MEDICAL_RX_OPIOID_USE_PCT,
-                        std_col.NON_MEDICAL_DRUG_USE_PCT,
-                        std_col.EXCESSIVE_DRINKING_PCT]:
+                        std_col.ILLICIT_OPIOID_USE_PER_100K,
+                        std_col.NON_MEDICAL_RX_OPIOID_USE_PER_100K,
+                        std_col.NON_MEDICAL_DRUG_USE_PER_100K,
+                        std_col.EXCESSIVE_DRINKING_PER_100K]:
                 column_types[col] = 'FLOAT'
 
             if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
@@ -139,15 +139,15 @@ class UHCData(DataSource):
         states = df['State Name'].drop_duplicates().to_list()
 
         columns = [std_col.STATE_NAME_COL,
-                   std_col.COPD_PCT,
-                   std_col.DIABETES_PCT,
-                   std_col.FREQUENT_MENTAL_DISTRESS_PCT,
-                   std_col.DEPRESSION_PCT,
+                   std_col.COPD_PER_100K,
+                   std_col.DIABETES_PER_100K,
+                   std_col.FREQUENT_MENTAL_DISTRESS_PER_100K,
+                   std_col.DEPRESSION_PER_100K,
                    std_col.SUICIDE_PER_100K,
-                   std_col.ILLICIT_OPIOID_USE_PCT,
-                   std_col.NON_MEDICAL_RX_OPIOID_USE_PCT,
-                   std_col.NON_MEDICAL_DRUG_USE_PCT,
-                   std_col.EXCESSIVE_DRINKING_PCT]
+                   std_col.ILLICIT_OPIOID_USE_PER_100K,
+                   std_col.NON_MEDICAL_RX_OPIOID_USE_PER_100K,
+                   std_col.NON_MEDICAL_DRUG_USE_PER_100K,
+                   std_col.EXCESSIVE_DRINKING_PER_100K]
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
             columns.append(std_col.RACE_CATEGORY_ID_COL)
         else:
@@ -167,14 +167,14 @@ class UHCData(DataSource):
 
                 # use select determinants based on the iterated age bucket
                 if breakdown_value in BROAD_AGE_GROUPS:
-                    determinants = BROAD_AGE_DETERMINANTS
+                    determinants = PCT_AGE_DETERMINANTS
                 elif breakdown_value in PLUS_5_AGE_GROUPS:
                     determinants = \
-                        PLUS_5_AGE_DETERMINANTS
+                        PER100K_AGE_DETERMINANTS
                 # for age="All" or any race/sex breakdown, use all determinants
                 else:
                     determinants = {
-                        **BROAD_AGE_DETERMINANTS, **PLUS_5_AGE_DETERMINANTS}
+                        **PCT_AGE_DETERMINANTS, **PER100K_AGE_DETERMINANTS}
 
                 for determinant in determinants:
 
@@ -187,9 +187,13 @@ class UHCData(DataSource):
                              ALT_ROWS_ALL.get(determinant, determinant))
                         ]
 
-                        # extract and output the value
-                        output_row[determinants[determinant]
-                                   ] = matched_row['Value'].values[0]
+                        # extract and output the value (converting % to /100k as needed)
+                        if determinant in PCT_AGE_DETERMINANTS:
+                            output_row[determinants[determinant]
+                                       ] = matched_row['Value'].values[0] * 1000
+                        elif determinant in PER100K_AGE_DETERMINANTS:
+                            output_row[determinants[determinant]
+                                       ] = matched_row['Value'].values[0]
 
                     else:
 
@@ -213,7 +217,12 @@ class UHCData(DataSource):
                         if len(matched_row) > 0:
                             pct = matched_row['Value'].values[0]
                             if pct:
-                                output_row[determinants[determinant]] = pct
+                                # if data is a %, convert to per100k
+                                if determinant in PCT_AGE_DETERMINANTS:
+                                    output_row[determinants[determinant]
+                                               ] = pct * 1000
+                                elif determinant in PER100K_AGE_DETERMINANTS:
+                                    output_row[determinants[determinant]] = pct
 
                 output.append(output_row)
 
