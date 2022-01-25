@@ -98,11 +98,11 @@ export function PopulationCard(props: PopulationCardProps) {
             <Grid
               container
               className={styles.PopulationCard}
-              justify="space-between"
+              justifyContent="space-between"
               alignItems="center"
             >
               <Grid item>
-                <Grid container justify="flex-start" alignItems="center">
+                <Grid container justifyContent="flex-start" alignItems="center">
                   <Grid item>
                     <div className={styles.PopulationCardTitle}>
                       {props.fips.getFullDisplayName()}
@@ -170,7 +170,7 @@ export function PopulationCard(props: PopulationCardProps) {
                         Read about missing data.
                       </Button>
                     </Alert>
-                    <Grid container justify="space-between">
+                    <Grid container justifyContent="space-between">
                       {raceQueryResponse
                         .getValidRowsForField(RACE)
                         .filter((r) => r.race_and_ethnicity !== ALL)

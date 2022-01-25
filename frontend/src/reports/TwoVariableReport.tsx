@@ -111,14 +111,14 @@ function TwoVariableReport(props: {
 
   if (variableConfig1 === null) {
     return (
-      <Grid container spacing={1} alignItems="center" justify="center">
+      <Grid container spacing={1} alignItems="center" justifyContent="center">
         <NoDataAlert dropdownVarId={props.dropdownVarId1} />
       </Grid>
     );
   }
   if (variableConfig2 === null) {
     return (
-      <Grid container spacing={1} alignItems="center" justify="center">
+      <Grid container spacing={1} alignItems="center" justifyContent="center">
         <NoDataAlert dropdownVarId={props.dropdownVarId2} />
       </Grid>
     );

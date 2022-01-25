@@ -280,7 +280,7 @@ function CarouselMadLib(props: {
   }
 
   return (
-    <Grid container justify="center" alignItems="center">
+    <Grid container justifyContent="center" alignItems="center">
       <div className={styles.CarouselItem}>
         {props.madLib.phrase.map(
           (phraseSegment: PhraseSegment, index: number) => (
