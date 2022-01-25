@@ -231,6 +231,18 @@ export const RESOURCES: Resource[] = [
     url: "https://hsrc.himmelfarb.gwu.edu/cgi/viewcontent.cgi?article=1224&context=sphhs_policy_facpubs",
   },
   {
+    name: "National Survey on Drug Use and Health (NSDUH)",
+    url: "https://www.samhsa.gov/data/data-we-collect/nsduh-national-survey-drug-use-and-health",
+  },
+  {
+    name: "National Strategy for Suicide Prevention Implementation Assessment Report (NSSP)",
+    url: "https://store.samhsa.gov/product/National-Strategy-for-Suicide-Prevention-Implementation-Assessment-Report/sma17-5051",
+  },
+  {
+    name: "Agency for Healthcare Research and Quality (AHRQ)",
+    url: "https://hsrc.himmelfarb.gwu.edu/cgi/viewcontent.cgi?article=1224&context=sphhs_policy_facpubs",
+  },
+  {
     name: "Satcher Health Leadership Institute",
     url: "https://satcherinstitute.org/",
   },
