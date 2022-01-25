@@ -40,7 +40,6 @@ export interface TableChartProps {
 
 export function TableChart(props: TableChartProps) {
   const { data, metrics, breakdownVar } = props;
-
   let columns = metrics.map((metricConfig) => {
     return {
       Header: metricConfig.fullCardTitleName,
@@ -110,7 +109,6 @@ export function TableChart(props: TableChartProps) {
   /** Component for the table's data rows **/
   function TableDataRow({ row }: { row: Row<any> }) {
     prepareRow(row);
-
     return (
       <TableRow {...row.getRowProps()}>
         {row.cells.map((cell, index) =>
