@@ -137,7 +137,7 @@ class BrfssProvider extends VariableProvider {
         df = this.calculations.calculatePctShare(
           df,
           col,
-          col.replace("estimated_total_", "") + "_pct_share", // remove prefix & add suffix
+          col.replace("estimated_total_", "") + "_pct_share", // removes prefix & add suffix
           breakdownColumnName,
           ["fips"]
         );
