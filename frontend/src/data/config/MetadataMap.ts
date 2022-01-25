@@ -176,7 +176,5 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
   },
 ];
 
-export const DataSourceMetadataMap: Record<
-  string,
-  DataSourceMetadata
-> = Object.fromEntries(dataSourceMetadataList.map((m) => [m.id, m]));
+export const DataSourceMetadataMap: Record<string, DataSourceMetadata> =
+  Object.fromEntries(dataSourceMetadataList.map((m) => [m.id, m]));
