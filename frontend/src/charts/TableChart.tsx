@@ -99,26 +99,9 @@ export function TableChart(props: TableChartProps) {
     return (
       <TableRow {...group.getHeaderGroupProps()}>
         {group.headers.map((col, index) => (
-          <TableCell
-            {...col.getHeaderProps(col.getSortByToggleProps())}
-            style={{ width: "200px", cursor: "pointer" }}
-            title={
-              col.isSorted
-                ? `Reverse Sort Direction`
-                : `Sort table by this column`
-            }
-          >
+          <TableCell style={{ width: "200px" }}>
             {col.render("Header")}
-            <TableSortLabel
-              active={col.isSorted}
-              direction={col.isSortedDesc ? "desc" : "asc"}
-              hideSortIcon={false}
-              aria-label={
-                col.isSorted
-                  ? `Reverse Sort Direction`
-                  : `Sort table by this column`
-              }
-            />
+            <TableSortLabel hideSortIcon={true} />
           </TableCell>
         ))}
       </TableRow>
@@ -180,7 +163,7 @@ export function TableChart(props: TableChartProps) {
                     count={memoData.length}
                     rowsPerPage={pageSize}
                     page={pageIndex}
-                    onChangePage={(event, newPage) => {
+                    onPageChange={(event, newPage) => {
                       gotoPage(newPage);
                     }}
                     onChangeRowsPerPage={(event) => {

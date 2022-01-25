@@ -14,6 +14,8 @@ import {
   AXIS_LABEL_Y_DELTA,
   oneLineLabel,
   addMetricDisplayColumn,
+  PADDING_FOR_ACTIONS_MENU,
+  PADDING_FOR_VEGA,
 } from "./utils";
 import sass from "../styles/variables.module.scss";
 import { useMediaQuery } from "@material-ui/core";
@@ -47,7 +49,6 @@ function getSpec(
   const BAR_HEIGHT = 60;
   const BAR_PADDING = 0.2;
   const DATASET = "DATASET";
-  const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
 
   // create proper datum suffix, either % or single/multi line 100k
   const barLabelSuffix = usePercentSuffix
@@ -67,11 +68,11 @@ function getSpec(
     : [];
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
-    background: "white",
     description: altText,
-    padding: 5,
-    autosize: { resize: true, type: "fit-x" },
-    width: width - WIDTH_PADDING_FOR_SNOWMAN_MENU,
+    background: sass.white,
+    autosize: { resize: false, type: "fit-x" },
+    padding: PADDING_FOR_VEGA,
+    width: width - PADDING_FOR_ACTIONS_MENU,
     style: "cell",
     data: [
       {
@@ -88,9 +89,12 @@ function getSpec(
     ],
     marks: [
       {
+        // chart bars
         name: "measure_bars",
+        interactive: false,
         type: "rect",
         style: ["bar"],
+        description: data.length + " items",
         from: { data: DATASET },
         encode: {
           enter: {
@@ -102,7 +106,6 @@ function getSpec(
           },
           update: {
             fill: { value: MEASURE_COLOR },
-            ariaRoleDescription: { value: "bar" },
             x: { scale: "x", field: measure },
             x2: { scale: "x", value: 0 },
             y: { scale: "y", field: breakdownVar },
@@ -111,10 +114,30 @@ function getSpec(
         },
       },
       {
+        // ALT TEXT: invisible, verbose labels
+        name: "measure_a11y_text_labels",
+        type: "text",
+        from: { data: DATASET },
+        encode: {
+          update: {
+            y: { scale: "y", field: breakdownVar, band: 0.8 },
+            opacity: {
+              signal: "0",
+            },
+            text: {
+              signal: `${oneLineLabel(
+                breakdownVar
+              )} + ': ' + datum.${tooltipMetricDisplayColumnName} + ' ${measureDisplayName}'`,
+            },
+          },
+        },
+      },
+      {
         name: "measure_text_labels",
         type: "text",
         style: ["text"],
         from: { data: DATASET },
+        aria: false, // this data accessible in alt_text_labels
         encode: {
           enter: {
             tooltip: {
@@ -260,23 +283,26 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   return (
     <div ref={ref}>
       <Vega
+        renderer="svg"
         downloadFileName={`${props.filename} - Health Equity Tracker`}
         spec={getSpec(
-          /* altText: string */ `Bar Chart showing ${props.filename}`,
-          data,
-          width,
-          props.breakdownVar,
-          BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
-          props.metric.metricId,
-          props.metric.shortVegaLabel,
-          barMetricDisplayColumnName,
-          tooltipMetricDisplayColumnName,
-          props.showLegend,
-          barLabelBreakpoint,
-          pageIsTiny,
-          props.usePercentSuffix || false
+          /* altText  */ `Bar Chart showing ${props.filename}`,
+          /* data  */ data,
+          /* width  */ width,
+          /* breakdownVar  */ props.breakdownVar,
+          /* breakdownVarDisplayName  */ BREAKDOWN_VAR_DISPLAY_NAMES[
+            props.breakdownVar
+          ],
+          /* measure  */ props.metric.metricId,
+          /* measureDisplayName  */ props.metric.shortVegaLabel,
+          /* barMetricDisplayColumnName  */ barMetricDisplayColumnName,
+          /* tooltipMetricDisplayColumnName  */ tooltipMetricDisplayColumnName,
+          /* showLegend  */ props.showLegend,
+          /* barLabelBreakpoint  */ barLabelBreakpoint,
+          /* pageIsTiny  */ pageIsTiny,
+          /* usePercentSuffix  */ props.usePercentSuffix || false
         )}
-        // custom 3-dot options for states, hidden on territories
+        // custom 3-dot options menu
         actions={
           props.hideActions
             ? false

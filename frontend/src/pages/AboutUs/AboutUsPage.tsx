@@ -24,36 +24,33 @@ export default function AboutUsPage() {
           }}
         />
       )}
-      <Route
-        path="/"
-        render={(history) => (
-          <Tabs
-            indicatorColor="primary"
-            textColor="primary"
-            centered
-            value={history.location.pathname}
-          >
-            <Tab
-              value={ABOUT_US_PAGE_LINK}
-              label="The Project"
-              component={Link}
-              to={ABOUT_US_PAGE_LINK}
-            />
-            <Tab
-              value={`${OURTEAM_TAB_LINK}`}
-              label="Our Team"
-              component={Link}
-              to={`${OURTEAM_TAB_LINK}`}
-            />
-            <Tab
-              value={`${CONTACT_TAB_LINK}`}
-              label="Contact Us"
-              component={Link}
-              to={`${CONTACT_TAB_LINK}`}
-            />
-          </Tabs>
-        )}
-      />
+      <Route path="/">
+        <Tabs
+          indicatorColor="primary"
+          textColor="primary"
+          centered
+          value={window.location.pathname}
+        >
+          <Tab
+            value={ABOUT_US_PAGE_LINK}
+            label="The Project"
+            component={Link}
+            to={ABOUT_US_PAGE_LINK}
+          />
+          <Tab
+            value={`${OURTEAM_TAB_LINK}`}
+            label="Our Team"
+            component={Link}
+            to={`${OURTEAM_TAB_LINK}`}
+          />
+          <Tab
+            value={`${CONTACT_TAB_LINK}`}
+            label="Contact Us"
+            component={Link}
+            to={`${CONTACT_TAB_LINK}`}
+          />
+        </Tabs>
+      </Route>
 
       <Switch>
         <Route path={`${OURTEAM_TAB_LINK}/`}>

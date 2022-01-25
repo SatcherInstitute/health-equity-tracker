@@ -79,6 +79,7 @@
   border: none;
 
   &:focus {
+    // use a grey "bubble" background on focus instead of default outline
     outline: none;
   }
 }

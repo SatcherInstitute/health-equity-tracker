@@ -36,36 +36,33 @@ export default function WhatIsHealthEquityPage() {
           }}
         />
       )}
-      <Route
-        path="/"
-        render={(history) => (
-          <Tabs
-            {...tabLayout}
-            indicatorColor="primary"
-            textColor="primary"
-            value={history.location.pathname}
-          >
-            <Tab
-              value={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
-              label="What Is Health Equity?"
-              component={Link}
-              to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
-            />
-            <Tab
-              value={FAQ_TAB_LINK}
-              label="FAQs"
-              component={Link}
-              to={FAQ_TAB_LINK}
-            />
-            <Tab
-              value={RESOURCES_TAB_LINK}
-              label="Resources"
-              component={Link}
-              to={RESOURCES_TAB_LINK}
-            />
-          </Tabs>
-        )}
-      />
+      <Route path="/">
+        <Tabs
+          {...tabLayout}
+          indicatorColor="primary"
+          textColor="primary"
+          value={window.location.pathname}
+        >
+          <Tab
+            value={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+            label="What Is Health Equity?"
+            component={Link}
+            to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+          />
+          <Tab
+            value={FAQ_TAB_LINK}
+            label="FAQs"
+            component={Link}
+            to={FAQ_TAB_LINK}
+          />
+          <Tab
+            value={RESOURCES_TAB_LINK}
+            label="Resources"
+            component={Link}
+            to={RESOURCES_TAB_LINK}
+          />
+        </Tabs>
+      </Route>
 
       <Switch>
         <Route path={`${FAQ_TAB_LINK}/`}>
