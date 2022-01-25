@@ -24,7 +24,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
   BreakdownVar,
 } from "../data/query/Breakdowns";
-import { Tooltip } from "@material-ui/core";
+import { Tooltip, useMediaQuery } from "@material-ui/core";
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
@@ -39,6 +39,8 @@ export interface TableChartProps {
 }
 
 export function TableChart(props: TableChartProps) {
+  const wrap100kUnit = useMediaQuery("(max-width:500px)");
+
   const { data, metrics, breakdownVar } = props;
   let columns = metrics.map((metricConfig) => {
     return {
@@ -113,7 +115,7 @@ export function TableChart(props: TableChartProps) {
       <TableRow {...row.getRowProps()}>
         {row.cells.map((cell, index) =>
           cell.value == null ? (
-            <TableCell {...cell.getCellProps()} style={{ width: "200px" }}>
+            <TableCell {...cell.getCellProps()}>
               <Tooltip title="No data available">
                 <WarningRoundedIcon />
               </Tooltip>
@@ -124,7 +126,11 @@ export function TableChart(props: TableChartProps) {
           ) : (
             <TableCell {...cell.getCellProps()}>
               {cell.render("Cell")}
-              <Units column={index} />
+              <Units
+                column={index}
+                metric={props.metrics}
+                wrap100kUnit={wrap100kUnit}
+              />
             </TableCell>
           )
         )}
@@ -181,13 +187,21 @@ export function TableChart(props: TableChartProps) {
 
 interface UnitsProps {
   column: number;
+  metric: MetricConfig[];
+  wrap100kUnit: boolean;
 }
 function Units(props: UnitsProps) {
   if (!props.column) return null;
 
-  return (
-    <span className={styles.Unit}>
-      {props.column === 1 ? ` per 100k` : `%`}
-    </span>
+  const unit =
+    props.column === 1
+      ? "per 100k"
+      : props.metric[props.column - 1].shortVegaLabel;
+
+  // inline vs block
+  return props.wrap100kUnit && props.column === 1 ? (
+    <p className={styles.Unit}>{unit}</p>
+  ) : (
+    <span className={styles.Unit}>{unit}</span>
   );
 }
