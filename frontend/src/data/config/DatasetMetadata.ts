@@ -194,16 +194,14 @@ const datasetMetadataList: DatasetMetadata[] = [
   },
 ];
 
-export const DatasetMetadataMap: Record<
-  string,
-  DatasetMetadata
-> = Object.fromEntries(
-  datasetMetadataList.map((m) => {
-    let metadataWithSource = m;
-    const dataSource = Object.values(DataSourceMetadataMap).find((metadata) =>
-      metadata.dataset_ids.includes(m.id)
-    );
-    metadataWithSource.source_id = dataSource ? dataSource.id : "error";
-    return [m.id, metadataWithSource];
-  })
-);
+export const DatasetMetadataMap: Record<string, DatasetMetadata> =
+  Object.fromEntries(
+    datasetMetadataList.map((m) => {
+      let metadataWithSource = m;
+      const dataSource = Object.values(DataSourceMetadataMap).find((metadata) =>
+        metadata.dataset_ids.includes(m.id)
+      );
+      metadataWithSource.source_id = dataSource ? dataSource.id : "error";
+      return [m.id, metadataWithSource];
+    })
+  );
