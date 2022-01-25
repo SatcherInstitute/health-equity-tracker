@@ -75,14 +75,14 @@ export class DatasetCalculator {
 
   /** Finds expected value of an ailment based on a population sample. */
   estimateTotal(
-    sample_percentage: number,
+    sample_per100k: number,
     total_population: number
   ): number | null {
-    return sample_percentage == null ||
+    return sample_per100k == null ||
       total_population == null ||
       total_population === 0
       ? null
-      : Math.round((sample_percentage / 100) * total_population);
+      : Math.round((sample_per100k / 100_000) * total_population);
   }
 
   /**
