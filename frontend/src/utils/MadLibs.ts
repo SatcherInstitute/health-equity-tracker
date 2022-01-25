@@ -17,7 +17,7 @@ export type MadLibId = "disparity" | "comparegeos" | "comparevars";
 export type CategoryId =
   | "COVID-19"
   | "Chronic Disease"
-  | "Mental Health"
+  | "Behavioral Health"
   | "Social & Political Determinants of Health";
 
 export interface MadLib {

@@ -208,18 +208,18 @@ describe("BrfssProvider", () => {
       /*breakdownName*/ RACE,
       /*breakdownValue*/ ASIAN_NH,
       /*copd_per_100k*/ 20000,
-      /*diabetes_per_100k*/ 40000,
-      /*copd_pct_share*/ 28.6,
-      /*diabetes_pct_share*/ 44.4
+      /*diabetes_per_100k*/ 15000,
+      /*copd_pct_share*/ 15,
+      /*diabetes_pct_share*/ 15
     );
     const NC_WHITE_FINAL = finalRow(
       NC,
       RACE,
       WHITE_NH,
       /*copd_per_100k*/ 50000,
-      /*diabetes_per_100k*/ 50000,
-      /*copd_pct_share*/ 71.4,
-      /*diabetes_pct_share*/ 55.6
+      /*diabetes_per_100k*/ 25000,
+      /*copd_pct_share*/ 25,
+      /*diabetes_pct_share*/ 25
     );
 
     // * ALL should be 100% share
@@ -228,7 +228,7 @@ describe("BrfssProvider", () => {
       RACE,
       ALL,
       /*copd_per_100k*/ 35000,
-      /*diabetes_per_100k*/ 45000,
+      /*diabetes_per_100k*/ 20000,
       /*copd_pct_share*/ 100,
       /*diabetes_pct_share*/ 100
     );
@@ -301,18 +301,18 @@ describe("BrfssProvider", () => {
       RACE,
       ASIAN_NH,
       /*copd_per_100k*/ 10000,
-      /*diabetes_per_100k*/ 20000,
-      /*copd_pct_share*/ 33.3,
-      /*diabetes_pct_share*/ 33.3
+      /*diabetes_per_100k*/ 10000,
+      /*copd_pct_share*/ 20,
+      /*diabetes_pct_share*/ 20
     );
     const WHITE_FINAL = finalRow(
       USA,
       RACE,
       WHITE_NH,
       /*copd_per_100k*/ 20000,
-      /*diabetes_per_100k*/ 40000,
-      /*copd_pct_share*/ 66.7,
-      /*diabetes_pct_share*/ 66.7
+      /*diabetes_per_100k*/ 30000,
+      /*copd_pct_share*/ 60,
+      /*diabetes_pct_share*/ 60
     );
 
     // * ALL should be 100% share
@@ -321,7 +321,7 @@ describe("BrfssProvider", () => {
       RACE,
       ALL,
       /*copd_per_100k*/ 15000,
-      /*diabetes_per_100k*/ 30000,
+      /*diabetes_per_100k*/ 10000,
       /*copd_pct_share*/ 100,
       /*diabetes_pct_share*/ 100
     );

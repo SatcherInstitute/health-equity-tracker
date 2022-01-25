@@ -19,8 +19,9 @@ export type VariableId =
   | "cases"
   | "deaths"
   | "hospitalizations"
-  | "cases"
-  | "cases"
+  | "non_medical_drug_use"
+  | "non_medical_rx_opioid_use"
+  | "illicit_opioid_use"
   | "health_coverage"
   | "poverty"
   | "vaccinations";
