@@ -43,15 +43,15 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     expected_dtype = {
         'state_name': str,
-        "diabetes_pct": float,
-        "copd_pct": float,
-        "frequent_mental_distress_pct": float,
-        "depression_pct": float,
+        "diabetes_per_100k": float,
+        "copd_per_100k": float,
+        "frequent_mental_distress_per_100k": float,
+        "depression_per_100k": float,
         "suicide_per_100k": float,
-        "illicit_opioid_use_pct": float,
-        "non_medical_rx_opioid_use_pct": float,
-        "non_medical_drug_use_pct": float,
-        "excessive_drinking_pct": float,
+        "illicit_opioid_use_per_100k": float,
+        "non_medical_rx_opioid_use_per_100k": float,
+        "non_medical_drug_use_per_100k": float,
+        "excessive_drinking_per_100k": float,
     }
 
     demographics = ['race_and_ethnicity', 'age', 'sex']

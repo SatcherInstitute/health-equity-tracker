@@ -22,22 +22,9 @@ import {
 import { MetricId } from "../config/MetricConfig";
 
 const METRIC_IDS: MetricId[] = [
-  "copd_per_100k",
   "diabetes_per_100k",
-  "depression_per_100k",
-  "excessive_drinking_per_100k",
-  "frequent_mental_distress_per_100k",
-  "illicit_opioid_use_per_100k",
-  "non_medical_drug_use_per_100k",
-  "suicide_per_100k",
-  "copd_pct_share",
   "diabetes_pct_share",
-  "depression_pct_share",
-  "excessive_drinking_pct_share",
-  "frequent_mental_distress_pct_share",
-  "illicit_opioid_use_pct_share",
-  "non_medical_drug_use_pct_share",
-  "suicide_pct_share",
+  "copd_pct_share",
 ];
 
 export async function evaluateWithAndWithoutAll(
@@ -47,8 +34,8 @@ export async function evaluateWithAndWithoutAll(
   rawAcsData: any[],
   baseBreakdown: Breakdowns,
   breakdownVar: BreakdownVar,
-  rowsExcludingAll: any[] /* from FINAL arrays */,
-  rowsIncludingAll: any[] /* from FINAL arrays */
+  rowsExcludingAll: any[],
+  rowsIncludingAll: any[]
 ) {
   const acsProvider = new AcsPopulationProvider();
   const brfssProvider = new BrfssProvider(acsProvider);
@@ -74,7 +61,6 @@ export async function evaluateWithAndWithoutAll(
       baseBreakdown.addBreakdown(breakdownVar, excludeAll())
     )
   );
-
   expect(responseExcludingAll).toEqual(
     new MetricQueryResponse(rowsExcludingAll, consumedDatasetIds)
   );
@@ -89,41 +75,16 @@ function finalRow(
   breakdownValue: DemographicGroup,
   copd_per_100k: number,
   diabetes_per_100k: number,
-  depression_per_100k: number,
-  excessive_drinking_per_100k: number,
-  frequent_mental_distress_per_100k: number,
-  illicit_opioid_use_per_100k: number,
-  non_medical_drug_use_per_100k: number,
-  suicide_per_100k: number,
   copd_pct_share: number,
-  diabetes_pct_share: number,
-  depression_pct_share: number,
-  excessive_drinking_pct_share: number,
-  frequent_mental_distress_pct_share: number,
-  illicit_opioid_use_pct_share: number,
-  non_medical_drug_use_pct_share: number,
-  suicide_pct_share: number
+  diabetes_pct_share: number
 ) {
   return {
     [breakdownName]: breakdownValue,
     fips: fips.code,
     fips_name: fips.name,
-    copd_per_100k,
-    diabetes_per_100k,
-    depression_per_100k,
-    excessive_drinking_per_100k,
-    frequent_mental_distress_per_100k,
-    illicit_opioid_use_per_100k,
-    non_medical_drug_use_per_100k,
-    suicide_per_100k,
-    copd_pct_share,
-    diabetes_pct_share,
-    depression_pct_share,
-    excessive_drinking_pct_share,
-    frequent_mental_distress_pct_share,
-    illicit_opioid_use_pct_share,
-    non_medical_drug_use_pct_share,
-    suicide_pct_share,
+    diabetes_per_100k: diabetes_per_100k,
+    copd_pct_share: copd_pct_share,
+    diabetes_pct_share: diabetes_pct_share,
   };
 }
 
@@ -241,48 +202,24 @@ describe("BrfssProvider", () => {
       NC_ACS_ALL_ROW,
     ];
 
-    // Create final rows
+    // Create final rows with diabetes_count & diabetes_per_100k
     const NC_ASIAN_FINAL = finalRow(
       /*fips*/ NC,
       /*breakdownName*/ RACE,
       /*breakdownValue*/ ASIAN_NH,
-      /*copd_per_100k*/ 15_000,
-      /*diabetes_per_100k*/ 15_000,
-      /* depression_per_100k */ 15_000,
-      /* excessive_drinking_per_100k */ 15_000,
-      /* frequent_mental_distress_per_100k */ 15_000,
-      /* illicit_opioid_use_per_100k */ 15_000,
-      /* non_medical_drug_use_per_100k */ 15_000,
-      /* suicide_per_100k */ 15,
-      /*copd_pct_share*/ 15,
-      /*diabetes_pct_share*/ 15,
-      /* depression_pct_share */ 15,
-      /* excessive_drinking_pct_share */ 15,
-      /* frequent_mental_distress_pct_share */ 15,
-      /* illicit_opioid_use_pct_share */ 15,
-      /* non_medical_drug_use_pct_share */ 15,
-      /* suicide_pct_share */ 15
+      /*copd_per_100k*/ 20000,
+      /*diabetes_per_100k*/ 40000,
+      /*copd_pct_share*/ 28.6,
+      /*diabetes_pct_share*/ 44.4
     );
     const NC_WHITE_FINAL = finalRow(
       NC,
       RACE,
       WHITE_NH,
-      /*copd_per_100k*/ 25_000,
-      /*diabetes_per_100k*/ 25_000,
-      /* depression_per_100k */ 25_000,
-      /* excessive_drinking_per_100k */ 25_000,
-      /* frequent_mental_distress_per_100k */ 25_000,
-      /* illicit_opioid_use_per_100k */ 25_000,
-      /* non_medical_drug_use_per_100k */ 25_000,
-      /* suicide_per_100k */ 25,
-      /*copd_pct_share*/ 25,
-      /*diabetes_pct_share*/ 25,
-      /* depression_pct_share */ 25,
-      /* excessive_drinking_pct_share */ 25,
-      /* frequent_mental_distress_pct_share */ 25,
-      /* illicit_opioid_use_pct_share */ 25,
-      /* non_medical_drug_use_pct_share */ 25,
-      /* suicide_pct_share */ 25
+      /*copd_per_100k*/ 50000,
+      /*diabetes_per_100k*/ 50000,
+      /*copd_pct_share*/ 71.4,
+      /*diabetes_pct_share*/ 55.6
     );
 
     // * ALL should be 100% share
@@ -290,22 +227,10 @@ describe("BrfssProvider", () => {
       NC,
       RACE,
       ALL,
-      /*copd_per_100k*/ 20_000,
-      /*diabetes_per_100k*/ 20_000,
-      /* depression_per_100k */ 20_000,
-      /* excessive_drinking_per_100k */ 20_000,
-      /* frequent_mental_distress_per_100k */ 20_000,
-      /* illicit_opioid_use_per_100k */ 20_000,
-      /* non_medical_drug_use_per_100k */ 20_000,
-      /* suicide_per_100k */ 20,
+      /*copd_per_100k*/ 35000,
+      /*diabetes_per_100k*/ 45000,
       /*copd_pct_share*/ 100,
-      /*diabetes_pct_share*/ 100,
-      /* depression_pct_share */ 100,
-      /* excessive_drinking_pct_share */ 100,
-      /* frequent_mental_distress_pct_share */ 100,
-      /* illicit_opioid_use_pct_share */ 100,
-      /* non_medical_drug_use_pct_share */ 100,
-      /* suicide_pct_share */ 100
+      /*diabetes_pct_share*/ 100
     );
 
     await evaluateWithAndWithoutAll(
@@ -321,10 +246,6 @@ describe("BrfssProvider", () => {
   });
 
   test("National and Race Breakdown", async () => {
-    /*
-    FAKE INPUT DATA TO FEED INTO BRFSS PROVIDER
-    */
-
     const [USA_ASIAN_ROW, USA_ACS_ASIAN_ROW] = stateRow(
       USA,
       RACE,
@@ -374,53 +295,24 @@ describe("BrfssProvider", () => {
 
     const rawAcsData = [USA_ACS_WHITE_ROW, USA_ACS_ALL_ROW, USA_ACS_ASIAN_ROW];
 
-    /*
-
-    FAKE OUTPUT DATA (should match the result of processing input data through BRFSS PROVIDER)
-
-    */
-
+    // Create final rows with diabetes_count & diabetes_per_100k
     const ASIAN_FINAL = finalRow(
       USA,
       RACE,
       ASIAN_NH,
-      /*copd_per_100k*/ 10_000,
-      /*diabetes_per_100k*/ 10_000,
-      /* depression_per_100k */ 10_000,
-      /* excessive_drinking_per_100k */ 10_000,
-      /* frequent_mental_distress_per_100k */ 10_000,
-      /* illicit_opioid_use_per_100k */ 10_000,
-      /* non_medical_drug_use_per_100k */ 10_000,
-      /* suicide_per_100k */ 10,
-      /*copd_pct_share*/ 20,
-      /*diabetes_pct_share*/ 20,
-      /* depression_pct_share */ 20,
-      /* excessive_drinking_pct_share */ 20,
-      /* frequent_mental_distress_pct_share */ 20,
-      /* illicit_opioid_use_pct_share */ 20,
-      /* non_medical_drug_use_pct_share */ 20,
-      /* suicide_pct_share */ 20
+      /*copd_per_100k*/ 10000,
+      /*diabetes_per_100k*/ 20000,
+      /*copd_pct_share*/ 33.3,
+      /*diabetes_pct_share*/ 33.3
     );
     const WHITE_FINAL = finalRow(
       USA,
       RACE,
       WHITE_NH,
-      /*copd_per_100k*/ 30_000,
-      /*diabetes_per_100k*/ 30_000,
-      /* depression_per_100k */ 30_000,
-      /* excessive_drinking_per_100k */ 30_000,
-      /* frequent_mental_distress_per_100k */ 30_000,
-      /* illicit_opioid_use_per_100k */ 30_000,
-      /* non_medical_drug_use_per_100k */ 30_000,
-      /* suicide_per_100k */ 30,
-      /*copd_pct_share*/ 60,
-      /*diabetes_pct_share*/ 60,
-      /* depression_pct_share */ 60,
-      /* excessive_drinking_pct_share */ 60,
-      /* frequent_mental_distress_pct_share */ 60,
-      /* illicit_opioid_use_pct_share */ 60,
-      /* non_medical_drug_use_pct_share */ 60,
-      /* suicide_pct_share */ 60
+      /*copd_per_100k*/ 20000,
+      /*diabetes_per_100k*/ 40000,
+      /*copd_pct_share*/ 66.7,
+      /*diabetes_pct_share*/ 66.7
     );
 
     // * ALL should be 100% share
@@ -428,33 +320,21 @@ describe("BrfssProvider", () => {
       USA,
       RACE,
       ALL,
-      /*copd_per_100k*/ 10_000,
-      /*diabetes_per_100k*/ 10_000,
-      /* depression_per_100k */ 10_000,
-      /* excessive_drinking_per_100k */ 10_000,
-      /* frequent_mental_distress_per_100k */ 10_000,
-      /* illicit_opioid_use_per_100k */ 10_000,
-      /* non_medical_drug_use_per_100k */ 10_000,
-      /* suicide_per_100k */ 10,
+      /*copd_per_100k*/ 15000,
+      /*diabetes_per_100k*/ 30000,
       /*copd_pct_share*/ 100,
-      /*diabetes_pct_share*/ 100,
-      /* depression_pct_share */ 100,
-      /* excessive_drinking_pct_share */ 100,
-      /* frequent_mental_distress_pct_share */ 100,
-      /* illicit_opioid_use_pct_share */ 100,
-      /* non_medical_drug_use_pct_share */ 100,
-      /* suicide_pct_share */ 100
+      /*diabetes_pct_share*/ 100
     );
 
     await evaluateWithAndWithoutAll(
-      /* brfssDatasetId: string, */ "uhc_data-race_and_ethnicity",
-      /* rawCovidData: any[], */ rawData,
-      /* acsDatasetId: string, */ "acs_population-by_race_state_std",
-      /* rawAcsData: any[], */ rawAcsData,
-      /* baseBreakdown: Breakdowns, */ Breakdowns.national(),
-      /* breakdownVar: BreakdownVar, */ RACE,
-      /* rowsExcludingAll: any[], */ [ASIAN_FINAL, WHITE_FINAL],
-      /* rowsIncludingAll: any[] */ [ALL_FINAL, ASIAN_FINAL, WHITE_FINAL]
+      "uhc_data-race_and_ethnicity",
+      rawData,
+      "acs_population-by_race_state_std",
+      rawAcsData,
+      Breakdowns.national(),
+      RACE,
+      [ASIAN_FINAL, WHITE_FINAL],
+      [ALL_FINAL, ASIAN_FINAL, WHITE_FINAL]
     );
   });
 });

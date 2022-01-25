@@ -4,24 +4,11 @@ import { MetricId } from "../config/MetricConfig";
 import { exclude } from "../query/BreakdownFilter";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import {
-  BROAD_AGE_BUCKETS,
-  DECADE_PLUS_5_AGE_BUCKETS,
-  NON_HISPANIC,
-} from "../utils/Constants";
+import { NON_HISPANIC } from "../utils/Constants";
 import { joinOnCols } from "../utils/datasetutils";
 import { USA_FIPS } from "../utils/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
-
-export const UHC_AGE_BUCKETS = [
-  "All",
-  // Suicide
-  ...DECADE_PLUS_5_AGE_BUCKETS,
-  // COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking
-  ...BROAD_AGE_BUCKETS,
-  // No Age Breakdowns for: Non-medical Drug (incl Illicit Opioid, Non-medical Rx Opioid)
-];
 
 export const UHC_BROAD_AGE_DETERMINANTS: MetricId[] = [
   "brfss_population_pct",
@@ -43,10 +30,7 @@ export const UHC_BROAD_AGE_DETERMINANTS: MetricId[] = [
   "frequent_mental_distress_per_100k",
 ];
 
-export const UHC_DECADE_PLUS_5_AGE_DETERMINANTS: MetricId[] = [
-  "suicide_pct_share",
-  "suicide_per_100k",
-];
+export const UHC_DECADE_PLUS_5_AGE_DETERMINANTS: MetricId[] = [];
 
 class BrfssProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;
@@ -149,17 +133,7 @@ class BrfssProvider extends VariableProvider {
 
     // Calculate any share_of_known metrics that may have been requested in the query
     if (this.allowsBreakdowns(breakdowns)) {
-      [
-        "estimated_total_diabetes",
-        "estimated_total_copd",
-        "estimated_total_depression",
-        "estimated_total_suicide",
-        "estimated_total_illicit_opioid_use",
-        "estimated_total_non_medical_drug_use",
-        "estimated_total_non_medical_rx_opioid_use",
-        "estimated_total_excessive_drinking",
-        "estimated_total_frequent_mental_distress",
-      ].forEach((col) => {
+      ["estimated_total_diabetes", "estimated_total_copd"].forEach((col) => {
         df = this.calculations.calculatePctShare(
           df,
           col,
@@ -175,13 +149,6 @@ class BrfssProvider extends VariableProvider {
         "population",
         "estimated_total_copd",
         "estimated_total_diabetes",
-        "estimated_total_depression",
-        "estimated_total_suicide",
-        "estimated_total_illicit_opioid_use",
-        "estimated_total_non_medical_drug_use",
-        "estimated_total_non_medical_rx_opioid_use",
-        "estimated_total_excessive_drinking",
-        "estimated_total_frequent_mental_distress",
       ])
       .resetIndex();
 
