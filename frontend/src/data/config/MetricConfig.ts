@@ -509,7 +509,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         per100k: {
           metricId: "non_medical_drug_use_per_100k",
-          fullCardTitleName: "Non-medical Drug Use Per 100k People",
+          fullCardTitleName: "Cases of Non-medical Drug Use Per 100k People",
           shortVegaLabel: "cases of non-medical drug use per 100k",
           type: "per100k",
         },
@@ -538,7 +538,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         per100k: {
           metricId: "non_medical_rx_opioid_use_per_100k",
           fullCardTitleName:
-            "Non-medical Prescription Opioid Use Per 100k People",
+            "Cases of Non-medical Prescription Opioid Use Per 100k People",
           shortVegaLabel: "cases of non-medical rx opioid use per 100k",
           type: "per100k",
         },
