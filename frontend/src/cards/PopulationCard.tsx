@@ -163,12 +163,13 @@ export function PopulationCard(props: PopulationCardProps) {
                       Census Bureau. While it is the standard for CDC reporting,
                       the definition of these categories often results in not
                       counting or miscounting people in underrepresented groups.
-                      <Button
+                      <a
+                        href="#missingDataInfo"
                         onClick={() => props.jumpToData()}
-                        className={styles.InfoLinkButton}
                       >
-                        Read about missing data.
-                      </Button>
+                        Read about missing data
+                      </a>
+                      .
                     </Alert>
                     <Grid container justifyContent="space-between">
                       {raceQueryResponse

@@ -76,11 +76,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             container
             justify={pageIsWide ? "flex-start" : "center"}
           >
-            <Typography
-              id="modalTitle"
-              aria-hidden={true}
-              className={styles.Title}
-            >
+            <Typography id="modalTitle" variant="h6" component="h2">
               {props.metricConfig.fullCardTitleName} Across All{" "}
               {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups
             </Typography>

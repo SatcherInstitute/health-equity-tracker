@@ -34,7 +34,7 @@
   text-underline-offset: 3px !important;
   text-decoration: underline !important;
   padding: 0 0.25rem 5px 0.6rem !important;
-  line-height: $madLibLineHeight;
+  line-height: $lhLoose;
   font-size: $title;
   @media (min-width: $sm) {
     font-size: $smallestHeader;

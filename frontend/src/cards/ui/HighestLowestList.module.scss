@@ -5,29 +5,25 @@
   margin-top: 15px;
   background: $listbox-color;
   border-radius: 8px;
-  size: 14px;
-  line-height: 20px;
   text-align: left;
   p {
-    padding: 16px;
+    padding: 1rem;
     margin: 0;
   }
   h4 {
-    line-height: 0;
+    margin: 0;
   }
 }
 
 .ListBoxTitle,
 .ListBoxTitleExpanded {
   padding-left: 16px;
-  size: 14px;
   text-align: left;
-  margin-right: 50px;
   cursor: pointer;
 }
 
 .ListBoxTitle {
-  line-height: 47px;
+  line-height: 47px; // specific height to vertically center text on collapse/expand arrow
   @media (min-width: $sm) {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -43,7 +39,6 @@
 }
 
 .ListBoxTitleExpanded {
-  line-height: 20px;
   padding: 14px 0 14px 16px;
 }
 
