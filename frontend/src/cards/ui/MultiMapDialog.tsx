@@ -68,7 +68,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       aria-labelledby="modalTitle"
     >
       <DialogContent dividers={true}>
-        <Grid container justify="center" component="ul">
+        <Grid container justifyContent="center" component="ul">
           {/* Modal Title */}
           <Grid
             item
@@ -76,11 +76,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             container
             justify={pageIsWide ? "flex-start" : "center"}
           >
-            <Typography
-              id="modalTitle"
-              aria-hidden={true}
-              className={styles.Title}
-            >
+            <Typography id="modalTitle" variant="h6" component="h2">
               {props.metricConfig.fullCardTitleName} Across All{" "}
               {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups
             </Typography>
@@ -174,10 +170,10 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
           >
             <Box mt={pageIsWide ? 10 : 0}>
               <Grid container item>
-                <Grid container justify="center">
+                <Grid container justifyContent="center">
                   <b>Legend</b>
                 </Grid>
-                <Grid container justify="center">
+                <Grid container justifyContent="center">
                   <Legend
                     metric={props.metricConfig}
                     legendTitle={props.metricConfig.fullCardTitleName}
@@ -194,7 +190,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
 
           {/* Missing Groups */}
           {props.breakdownValuesNoData.length > 0 && (
-            <Grid item container justify="center" xs={12} xl={7}>
+            <Grid item container justifyContent="center" xs={12} xl={7}>
               <Box my={3}>
                 <Alert severity="warning">
                   <p className={styles.NoDataWarning}>

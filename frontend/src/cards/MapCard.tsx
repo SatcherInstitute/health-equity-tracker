@@ -248,7 +248,7 @@ function MapCardWithKey(props: MapCardProps) {
                 <CardContent className={styles.SmallMarginContent}>
                   <Grid
                     container
-                    justify="space-between"
+                    justifyContent="space-between"
                     align-items="flex-end"
                   >
                     <Grid item>

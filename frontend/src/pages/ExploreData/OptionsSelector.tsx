@@ -104,7 +104,6 @@ function OptionsSelector(props: {
                   placeholder="County, State, Territory, or United States"
                   margin="dense"
                   variant="outlined"
-                  autoFocus={true}
                   onChange={updateTextBox}
                   {...params}
                 />
@@ -139,7 +138,7 @@ function OptionsSelector(props: {
                     >
                       {category.title}
                     </h3>
-                    <List dense={true} role="submenu">
+                    <List dense={true} role="menu">
                       {(props.options as string[][]).map((item: string[]) => {
                         const [optionId, optionDisplayName] = item;
                         return (

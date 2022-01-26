@@ -31,7 +31,7 @@ function ShareButtons(props: ShareButtonProps) {
   const sharedUrl: string = window.location.href;
 
   return (
-    <Grid container justify={"flex-end"} alignItems={"center"}>
+    <Grid container justifyContent="flex-end" alignItems="center">
       <Grid item>
         <p className={styles.ShareLabel}>Share:</p>
       </Grid>

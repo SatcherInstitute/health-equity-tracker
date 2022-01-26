@@ -19,9 +19,9 @@
 }
 
 .PopulationCard {
-  h1 {
-    text-align: left;
-  }
+  $populationTitleHeight: 57px; // specific heigh to vertically align all population card header text
+
+  h1,
   span {
     text-align: left;
   }
@@ -29,25 +29,24 @@
   .TotalPopulationKey {
     font-weight: 400;
     font-size: $smallestHeader;
-    line-height: 57px;
+    line-height: $populationTitleHeight;
     padding-right: 7px;
   }
 
   .TotalPopulationValue {
-    font-size: $header;
-    line-height: 57px;
+    font-size: $smallestHeader;
+    line-height: $populationTitleHeight;
     color: $alt-green;
   }
 
   .PopulationCardTitle {
-    line-height: 40px;
     padding-right: 20px;
     font-weight: 500;
     font-size: $header;
-    line-height: 57px;
+    line-height: $populationTitleHeight;
   }
   .VerticalDivider {
-    height: 57px;
+    height: $populationTitleHeight;
     border-right: 1px solid grey;
     margin-left: 20px;
     float: right;
@@ -59,7 +58,6 @@
   font-size: $small;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 400;
-  line-height: 1.5;
   letter-spacing: 0.00938em;
 }
 
@@ -70,7 +68,6 @@
     font-size: $small !important;
     font-family: "Inter", serif !important;
     font-weight: 400 !important;
-    line-height: 1.43 !important;
     letter-spacing: 0.01071em !important;
     text-decoration: underline !important;
     color: $alt-green !important;
@@ -82,14 +79,12 @@
 .PopulationMetric {
   padding: 10px;
   font-size: $small;
-  line-height: 1rem;
   // Smallest width at which current standardized strings all fit on 3 lines
   width: 131px;
 }
 .PopulationMetricValue {
   color: $alt-green;
   font-size: $title;
-  line-height: 32px;
 }
 
 .CardFooter {
@@ -97,7 +92,6 @@
   padding-bottom: 10px !important;
   padding-top: 10px !important;
   font-size: $smallest;
-  line-height: 16px;
 }
 
 .CardInfoPopover {

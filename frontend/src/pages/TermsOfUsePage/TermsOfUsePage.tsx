@@ -11,7 +11,7 @@ function TermsOfUsePage() {
       <Helmet>
         <title>Terms of Use - Health Equity Tracker</title>
       </Helmet>
-      <Grid container className={styles.TosSection} justify="center">
+      <Grid container className={styles.TosSection} justifyContent="center">
         <Grid item xs={12} md={3} xl={12} component={"header"}>
           <Typography id="main" className={styles.TosHeaderText} variant="h2">
             Terms of Use

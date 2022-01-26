@@ -21,7 +21,6 @@
     color: $alt-black;
     font-weight: 300;
     font-size: $small;
-    line-height: 16px;
     text-align: left;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -38,7 +37,10 @@
 }
 
 .MissingDataInfo {
-  margin: 5rem;
+  margin: 2rem;
+  @media only screen and (min-width: $sm) {
+    margin: 4rem;
+  }
   max-width: $explore-data-max-width;
   text-align: left;
 }
@@ -48,6 +50,11 @@
   background-color: $infobar-color;
   padding: 2px 10px 2px 10px;
   border-radius: 8px;
+
+  p {
+    text-align: center;
+    padding: 1rem 2rem;
+  }
 }
 
 .FootnoteLargeHeading {
