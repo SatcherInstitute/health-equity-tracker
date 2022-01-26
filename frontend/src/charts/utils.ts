@@ -4,8 +4,7 @@ import { Row } from "../data/utils/DatasetTypes";
 
 export type VisualizationType = "chart" | "map";
 
-export const PADDING_FOR_ACTIONS_MENU = 55;
-export const PADDING_FOR_VEGA = 15;
+export const PADDING_FOR_ACTIONS_MENU = 30;
 
 const MAX_LINE_LENGTH = 20;
 

@@ -32,6 +32,10 @@ import styles from "./Chart.module.scss";
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20;
 
+const cellStyle = {
+  width: "200px",
+};
+
 export interface TableChartProps {
   data: Readonly<Record<string, any>>[];
   breakdownVar: BreakdownVar;
@@ -99,7 +103,7 @@ export function TableChart(props: TableChartProps) {
     return (
       <TableRow {...group.getHeaderGroupProps()}>
         {group.headers.map((col, index) => (
-          <TableCell style={{ width: "200px" }}>
+          <TableCell key={col.id} style={cellStyle}>
             {col.render("Header")}
             <TableSortLabel hideSortIcon={true} />
           </TableCell>
@@ -115,7 +119,7 @@ export function TableChart(props: TableChartProps) {
       <TableRow {...row.getRowProps()}>
         {row.cells.map((cell, index) =>
           cell.value == null ? (
-            <TableCell {...cell.getCellProps()}>
+            <TableCell {...cell.getCellProps()} style={cellStyle}>
               <Tooltip title="No data available">
                 <WarningRoundedIcon />
               </Tooltip>

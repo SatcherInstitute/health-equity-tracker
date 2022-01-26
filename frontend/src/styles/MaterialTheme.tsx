@@ -1,8 +1,8 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 import "typeface-dm-sans";
 import sass from "./variables.module.scss";
 
-const MaterialTheme = createMuiTheme({
+const MaterialTheme = createTheme({
   palette: {
     primary: {
       light: sass.barChartLight,

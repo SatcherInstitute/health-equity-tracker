@@ -19,7 +19,7 @@ function ContactUsTab() {
           container
           className={styles.GridOutlinedImgRow}
           direction="row"
-          justify="center"
+          justifyContent="center"
           alignItems="center"
         >
           <Hidden smDown>
@@ -49,7 +49,7 @@ function ContactUsTab() {
         <Grid
           container
           className={styles.GridOutlinedRow}
-          justify="center"
+          justifyContent="center"
           alignItems="center"
         >
           <Grid item xs={12} sm={12} md={8} lg={6}>
@@ -93,13 +93,6 @@ function ContactUsTab() {
               <br />
               Atlanta, <span aria-label="Georgia">GA</span>{" "}
               <span aria-label="Zip Code 3 0 3 1 0">30310</span>
-            </p>
-
-            <p className={styles.ContactUsP}>
-              <b>To Submit Feedback:</b>
-              <br />
-              Please use our anonymous form in the bottom right corner of this
-              page.
             </p>
           </Grid>
         </Grid>
