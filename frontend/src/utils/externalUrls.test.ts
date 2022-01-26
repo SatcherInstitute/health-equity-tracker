@@ -10,7 +10,10 @@ export const WAIT_FOR_URL_STATUSES = 5 * 60 * 1000;
 export const SUCCESS_CODE = 200;
 
 // skip some URLs (like linkedin) that block traffic / error out
-export const UNTESTABLE_URLS = [urlMap.shliLinkedIn];
+export const UNTESTABLE_URLS = [
+  urlMap.shliLinkedIn,
+  "https://www.bloomberg.com/graphics/covid-vaccine-tracker-global-distribution/us-vaccine-demographics.html",
+];
 
 // skip some URLs we know don't provide HTTPS
 export const KNOWN_INSECURE_URLS = ["http://www.rootsofhealthinequity.org/"];
