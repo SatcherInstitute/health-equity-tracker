@@ -17,7 +17,7 @@ import {
   UNKNOWN_SCALE,
 } from "./Legend";
 import { useMediaQuery } from "@material-ui/core";
-import { ORDINAL } from "./utils";
+import { ORDINAL, PADDING_FOR_ACTIONS_MENU } from "./utils";
 
 export type ScaleType = "quantize" | "quantile" | "symlog";
 
@@ -87,7 +87,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   const [shouldRenderMap, setShouldRenderMap] = useState(false);
 
   const [ref, width] = useResponsiveWidth(
-    100 /* default width during initialization */
+    90 /* default width during initialization */
   );
 
   // calculate page size to determine if tiny mobile or not
@@ -302,6 +302,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       }
       let marks: any = {
         name: datasetName + "_MARK",
+        aria: false,
         type: props.overrideShapeWithCircle ? "symbol" : "shape",
         from: { data: datasetName },
         encode: {
@@ -322,6 +323,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       return {
         type: "text",
         interactive: false,
+        aria: false,
         from: { data: datasetName + "_MARK" },
         encode: {
           enter: {
@@ -352,13 +354,53 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ),
     ];
     if (props.overrideShapeWithCircle) {
+      // Visible Territory Abbreviations
       marks.push(createCircleTextMark(VALID_DATASET));
       marks.push(createCircleTextMark(MISSING_DATASET));
+    } else {
+      // ALT TEXT: verbose, invisible text for screen readers showing valid data (incl territories)
+      marks.push({
+        name: "alt_text_labels",
+        type: "text",
+        style: ["text"],
+        role: "list-item",
+        from: { data: VAR_DATASET },
+        encode: {
+          update: {
+            opacity: {
+              signal: "0",
+            },
+            fontSize: { value: 0 },
+            text: {
+              signal: `
+              datum.fips_name
+              +
+              ': '
+              +
+              ${tooltipDatum}
+              +
+              ' '
+              +
+              '${tooltipLabel}'
+                  `,
+            },
+          },
+        },
+      });
     }
+
+    let altText = props.overrideShapeWithCircle
+      ? props.fips.getDisplayName()
+      : `Map showing ${props.filename}`;
+
+    if (!props.fips.isCounty() && !props.overrideShapeWithCircle)
+      altText += `: including data from ${
+        props.data.length
+      } ${props.fips.getPluralChildFipsTypeDisplayName()}`;
 
     setSpec({
       $schema: "https://vega.github.io/schema/vega/v5.json",
-      background: "white",
+      background: sass.white,
       description: props.overrideShapeWithCircle
         ? `Territory: ${props.fips.getDisplayName()}`
         : altText,
@@ -456,16 +498,21 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     altText,
   ]);
 
-  return (
-    <div
-      ref={ref}
-      style={{
-        width: "95%",
+  const mapStyle = pageIsTiny
+    ? {
+        width: "90%",
+        marginRight: PADDING_FOR_ACTIONS_MENU,
+      }
+    : {
+        width: "75%",
         margin: "auto",
-      }}
-    >
+      };
+
+  return (
+    <div ref={ref} style={mapStyle}>
       {shouldRenderMap && (
         <Vega
+          renderer="svg"
           spec={spec}
           width={width}
           // custom 3-dot options for states, hidden on territories

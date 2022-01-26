@@ -16,8 +16,9 @@ import { Link } from "react-router-dom";
 import { Card } from "@material-ui/core";
 import { urlMap } from "../../utils/externalUrls";
 import DefinitionsList from "../../reports/ui/DefinitionsList";
+import { currentYear } from "../../Footer";
 
-export const CITATION_APA = `Health Equity Tracker. (2021). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
+export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
 const definedConditions = Object.values(METRIC_CONFIG)
   .flat()

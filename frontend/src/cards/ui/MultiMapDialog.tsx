@@ -65,10 +65,10 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       onClose={props.handleClose}
       maxWidth={false}
       scroll="paper"
-      aria-label="Dialog showing choropleth maps of each breakdown category with the same scale."
+      aria-labelledby="modalTitle"
     >
       <DialogContent dividers={true}>
-        <Grid container justifyContent="center">
+        <Grid container justifyContent="center" component="ul">
           {/* Modal Title */}
           <Grid
             item
@@ -76,7 +76,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             container
             justifyContent={pageIsWide ? "flex-start" : "center"}
           >
-            <Typography className={styles.Title}>
+            <Typography id="modalTitle" variant="h6" component="h2">
               {props.metricConfig.fullCardTitleName} Across All{" "}
               {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups
             </Typography>
@@ -96,6 +96,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 item
                 key={`${breakdownValue}-grid-item`}
                 className={styles.SmallMultipleMap}
+                component="li"
               >
                 <b>{breakdownValue}</b>
                 {props.metricConfig && dataForValue.length ? (
@@ -111,7 +112,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     showCounties={props.fips.isUsa() ? false : true}
                     fips={props.fips}
                     fieldRange={props.fieldRange}
-                    hideActions={false}
+                    hideActions={true}
                     scaleType="quantile"
                     geoData={props.geoData}
                     filename={`${props.metricConfig.fullCardTitleName}${
@@ -180,6 +181,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     scaleType="quantile"
                     sameDotSize={true}
                     direction={pageIsWide ? "horizontal" : "vertical"}
+                    description={"Consistent legend for all displayed maps"}
                   />
                 </Grid>
               </Grid>

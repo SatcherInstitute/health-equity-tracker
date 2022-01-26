@@ -19,6 +19,10 @@ import AppbarLogo from "./assets/AppbarLogo.png";
 import PartnerSatcher from "./assets/PartnerSatcher.png";
 import { urlMap } from "./utils/externalUrls";
 
+export function currentYear(): number {
+  return new Date().getFullYear();
+}
+
 function Footer() {
   return (
     <div className={styles.Footer}>
@@ -58,14 +62,20 @@ function Footer() {
               />
             ))}
           </Grid>
+          {/* DESKTOP */}
           <Hidden xsDown>
             <Grid item container justifyContent="flex-end">
-              <span className={styles.CopyrightSpan}>&copy;2021</span>
+              <span className={styles.CopyrightSpan}>
+                &copy;{currentYear()}
+              </span>
             </Grid>
           </Hidden>
+          {/* MOBILE */}
           <Hidden smUp>
             <Grid item container justifyContent="center">
-              <span className={styles.CopyrightSpan}>&copy;2021</span>
+              <span className={styles.CopyrightSpan}>
+                &copy;{currentYear()}
+              </span>
             </Grid>
           </Hidden>
         </Grid>
@@ -108,7 +118,6 @@ function Logos() {
               src={AppbarLogo}
               className={styles.FooterLogo}
               alt="Health Equity Tracker logo"
-              role="link"
             />
           </ReactRouterLinkButton>
         </Grid>
@@ -160,7 +169,6 @@ function Logos() {
           <img
             src={PartnerSatcher}
             alt="Satcher Health Leadership Institute Logo"
-            role="link"
             height={60}
             width={216}
           />

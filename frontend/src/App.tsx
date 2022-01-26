@@ -256,7 +256,7 @@ function App() {
                       </Route>
                     </Switch>
                   </main>
-                </Suspense>{" "}
+                </Suspense>
               </Router>
             </div>
             <footer>

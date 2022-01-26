@@ -125,13 +125,25 @@ function DropDownMenu(props: DropDownMenuProps) {
   const oneLevelMenu = Object.keys(props.options).length === 1;
   return (
     <>
-      <div className={styles.FilterBy}>Select group:</div>
-      <Button variant="text" onClick={firstMenu.open} aria-haspopup="true">
+      <label
+        className={styles.FilterBy}
+        htmlFor="groupDropdownLabel"
+        aria-hidden={true}
+      >
+        Select demographic group:
+      </label>
+      <Button
+        variant="text"
+        onClick={firstMenu.open}
+        aria-haspopup="true"
+        id="groupDropdownLabel"
+      >
         <u>{props.value}</u>
         <ArrowDropDown />
       </Button>
 
       <MenuPopover
+        aria-labelledby="#groupDropdownLabel"
         popover={firstMenu}
         aria-expanded="true"
         items={

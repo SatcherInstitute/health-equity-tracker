@@ -1,14 +1,6 @@
 @use "../../styles/globals.scss";
 @import "../../styles/variables.module";
 
-.AboutUsPage {
-  // text-align: left;
-  h1 {
-    font-size: $title;
-    line-height: 23px;
-  }
-}
-
 // For styles Grid-wide
 .Grid {
   margin: auto;
@@ -57,7 +49,6 @@
     text-align: left;
     font-weight: 300;
     font-family: "Taviraj", serif !important;
-    line-height: 50px;
     color: $alt-green;
     padding-bottom: 20px;
   }
@@ -66,7 +57,6 @@
     font-family: "Taviraj", sans-serif;
     font-weight: 300;
     font-size: $header;
-    line-height: 61.42px;
     padding: 10px 0 10px 0;
   }
 
@@ -74,7 +64,6 @@
     font-family: "Taviraj", sans-serif;
     font-weight: 300;
     font-size: $smallHeader;
-    line-height: 30px;
     padding: 10px 0 10px 0;
     text-align: left !important;
   }
@@ -83,7 +72,6 @@
     font-size: $title;
     text-align: left;
     font-weight: 300;
-    line-height: 24px;
     font-family: "Inter", sans-serif !important;
   }
 
@@ -91,7 +79,6 @@
     font-size: $text;
     text-align: left;
     font-weight: 300;
-    line-height: 22px;
     font-family: "Inter", sans-serif !important;
   }
 
@@ -99,7 +86,6 @@
     font-size: $small;
     text-align: left;
     font-weight: 400;
-    line-height: 20px;
     font-family: "Inter", sans-serif !important;
   }
 }
@@ -113,7 +99,6 @@
     text-align: center;
     font-weight: 300;
     font-family: "Taviraj", serif !important;
-    line-height: 40px;
     color: $alt-green;
     padding-bottom: 20px;
   }
@@ -122,7 +107,6 @@
     font-size: $title;
     text-align: left;
     font-weight: 300;
-    line-height: 24px;
     font-family: "Inter", serif !important;
   }
 }
@@ -156,7 +140,6 @@
     text-align: center;
     font-weight: 300;
     font-family: "Taviraj", serif !important;
-    line-height: 40px;
     color: $alt-green;
     padding-bottom: 20px;
   }
@@ -165,7 +148,6 @@
     font-family: "Taviraj", sans-serif;
     font-weight: 300;
     font-size: $header;
-    line-height: 61.42px;
     padding: 0 0 10px 0;
   }
 
@@ -173,7 +155,6 @@
     font-family: "Taviraj", sans-serif;
     font-weight: 300;
     font-size: $smallestHeader;
-    line-height: 25px;
     padding: 30px 0 1rem 0;
     text-align: left;
   }
@@ -182,7 +163,6 @@
     font-size: $title;
     text-align: left;
     font-weight: 300;
-    line-height: 24px;
     font-family: "Inter", serif !important;
   }
 
@@ -190,7 +170,6 @@
     font-size: $text;
     text-align: left;
     font-weight: 300;
-    line-height: 22px;
     font-family: "Inter", sans-serif !important;
   }
 
@@ -198,17 +177,15 @@
     font-size: $small;
     text-align: left;
     font-weight: 400;
-    line-height: 20px;
     font-family: "Inter", sans-serif !important;
   }
 }
 
 /** ------------- HEADERS ------------- **/
 
-// Underlined Header H2
+// Underlined Header
 .UnderlinedHeaderL2 {
   font-size: $smallHeader !important;
-  line-height: 26px;
   border-bottom: 1.5px solid $alt-green;
   margin: 25px 0 25px 0;
   font-family: "Taviraj", serif !important;
@@ -269,7 +246,7 @@
   font-size: $biggerHeader !important;
   font-weight: 300 !important;
   font-family: "Taviraj", serif !important;
-  line-height: 50px !important;
+  line-height: $lhTight !important;
   color: $alt-green;
   padding: 72px 0 20px 0;
 }
@@ -277,7 +254,6 @@
 // For headers denoting each subgroup on the team
 .TeamHeader {
   font-size: $smallHeader !important;
-  line-height: 26px;
   border-bottom: 2px solid $team-border-color;
   margin: 25px 0 25px 0;
   font-family: "Taviraj", sans-serif !important;
@@ -324,14 +300,13 @@
   font-size: $biggerHeader !important;
   font-weight: 300 !important;
   font-family: "Taviraj", sans-serif !important;
-  line-height: 50px !important;
+  line-height: $lhNormal !important;
   color: $alt-green;
 }
 
 .ContactUsSubheaderText {
   font-weight: 300 !important;
   font-family: "Taviraj", sans-serif !important;
-  line-height: 48px !important;
   color: $alt-green;
 }
 

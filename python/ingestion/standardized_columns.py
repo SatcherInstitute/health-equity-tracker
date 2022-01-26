@@ -53,9 +53,19 @@ WITHOUT_HEALTH_INSURANCE_COL = "without_health_insurance"
 ABOVE_POVERTY_COL = "above_poverty_line"
 BELOW_POVERTY_COL = "below_poverty_line"
 
-COPD_PCT = "copd_pct"
-DIABETES_PCT = "diabetes_pct"
+# Standardized names for UHC columns
+DEPRESSION_PER_100K = "depression_per_100k"
+ILLICIT_OPIOID_USE_PER_100K = "illicit_opioid_use_per_100k"
+NON_MEDICAL_RX_OPIOID_USE_PER_100K = "non_medical_rx_opioid_use_per_100k"
+NON_MEDICAL_DRUG_USE_PER_100K = "non_medical_drug_use_per_100k"
+EXCESSIVE_DRINKING_PER_100K = "excessive_drinking_per_100k"
+COPD_PER_100K = "copd_per_100k"
+DIABETES_PER_100K = "diabetes_per_100k"
+ANXIETY_PER_100K = "anxiety_per_100k"
+FREQUENT_MENTAL_DISTRESS_PER_100K = "frequent_mental_distress_per_100k"
+SUICIDE_PER_100K = "suicide_per_100k"
 
+# Standardized for Vaccination columns
 VACCINATED_FIRST_DOSE = "vaccinated_first_dose"
 VACCINATED_PCT = "vaccinated_pct"
 VACCINATED_SHARE_OF_KNOWN = "vaccinated_share_of_known"

@@ -550,6 +550,10 @@ function EquityTab() {
             item
             className={styles.JoinTheEffortHeaderRow}
             id={WIHE_JOIN_THE_EFFORT_SECTION_ID}
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
           >
             <Typography
               className={styles.JoinTheEffortHeaderText}

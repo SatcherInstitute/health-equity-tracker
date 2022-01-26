@@ -48,7 +48,7 @@
       font-size: $title;
       text-align: left;
       font-weight: 400;
-      line-height: 30px;
+      line-height: $lhLoose;
       font-family: "Inter", sans-serif !important;
     }
 
@@ -69,7 +69,7 @@
     .DefinitionHeader {
       font-size: $title;
       font-weight: 400;
-      line-height: 150%;
+      line-height: $lhLoose;
       color: $alt-green;
       font-family: "Taviraj", sans-serif !important;
       margin: 0px !important;
@@ -79,7 +79,7 @@
     .DefinitionText {
       font-size: $small;
       font-weight: 400;
-      line-height: 24px;
+      line-height: $lhLoose;
       margin-block: 0.5rem;
     }
 
@@ -106,7 +106,7 @@
       text-align: center;
       font-weight: 300;
       font-family: "Taviraj", serif !important;
-      line-height: 88.71px;
+      line-height: $lhLoose;
       color: $alt-green;
     }
 
@@ -142,28 +142,24 @@
     .MainResourceTitleText {
       font-size: $smallHeader;
       font-weight: 500;
-      line-height: 33.89px;
       margin: 15px 0 15px 0;
     }
 
     .MainResourceSubtitleText {
       font-size: $title;
       font-weight: 400;
-      line-height: 26px;
       margin: 0px;
     }
 
     .ResourceTitleText {
       font-size: $title;
       font-weight: 600;
-      line-height: 26.63px;
       margin: 15px 0 15px 0;
     }
 
     .ResourceSubtitleText {
       font-size: $text;
       font-weight: 400;
-      line-height: 22px;
       margin: 0px;
     }
   }
@@ -178,7 +174,7 @@
       text-align: center;
       font-weight: 300;
       font-family: "Taviraj", serif !important;
-      line-height: 170%;
+      line-height: $lhLoose;
       color: $alt-green;
     }
 
@@ -186,7 +182,6 @@
       font-size: $title;
       text-align: left;
       font-weight: 300;
-      line-height: 24px;
       font-family: "Inter", sans-serif !important;
       color: $black !important;
     }
@@ -225,7 +220,6 @@
     .NewsAndStoriesSubtitleText {
       font-size: $text;
       font-weight: 400;
-      line-height: 22px;
       margin: 0px;
 
       a {
@@ -258,7 +252,6 @@
   text-align: center;
   font-weight: 300;
   font-family: "Taviraj", serif !important;
-  line-height: 40px;
   color: $alt-black;
   padding-bottom: 20px;
 }
@@ -268,7 +261,6 @@
   text-align: left;
   font-weight: 500;
   font-family: "DM Sans", sans-serif;
-  line-height: 1 !important; // 5px was causing bug.
   color: $alt-black;
 }
 
@@ -277,7 +269,6 @@
   text-align: left;
   font-weight: 400;
   font-family: "Inter", sans-serif;
-  line-height: 20px;
   color: $alt-black;
 }
 
@@ -300,7 +291,6 @@
       text-align: center;
       font-weight: 300;
       font-family: "Taviraj", serif !important;
-      line-height: 120%;
       color: $alt-green;
       margin-bottom: 1rem;
     }
@@ -309,7 +299,7 @@
       font-family: "Inter", sans-serif;
       font-weight: 400;
       font-size: $title;
-      line-height: 30px;
+      line-height: $lhLoose;
       margin: 0px;
     }
   }
@@ -348,7 +338,6 @@
   .JoinTheEffortStepHeaderText {
     font-size: $bigHeader !important;
     font-weight: 400 !important;
-    line-height: 50px !important;
     font-family: "Taviraj", sans-serif !important;
     padding: 10px 0 10px 0;
   }
@@ -356,7 +345,7 @@
   .JoinTheEffortStepText {
     font-size: $title !important;
     font-weight: 400 !important;
-    line-height: 30px !important;
+    line-height: $lhLoose;
     font-family: "DM Sans", sans-serif !important;
     padding: 10px 0 10px 0;
   }
@@ -374,7 +363,6 @@
     color: $alt-green !important;
     font-weight: 500 !important;
     font-size: $smallestHeader !important;
-    line-height: 31.47px !important;
     text-decoration: underline !important;
   }
 }
@@ -391,7 +379,6 @@
   text-align: center;
   font-weight: 300;
   font-family: "Taviraj", serif !important;
-  line-height: 40px;
   color: $alt-black;
   padding-bottom: 20px;
 }

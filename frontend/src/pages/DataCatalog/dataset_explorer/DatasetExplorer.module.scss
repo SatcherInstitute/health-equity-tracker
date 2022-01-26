@@ -35,8 +35,7 @@
 }
 
 .DataDownloadsHeaderText {
-  font-size: $header !important;
-  line-height: 32px !important;
+  font-size: $smallHeader !important;
   font-weight: 400;
   font-family: "Taviraj", sans-serif !important;
   text-align: center;
@@ -46,7 +45,6 @@
 
 .DataDownloadsHeaderSubtext {
   font-size: $small;
-  line-height: 20px;
   font-weight: 400;
   font-family: "Inter", sans-serif !important;
   color: $alt-black;
