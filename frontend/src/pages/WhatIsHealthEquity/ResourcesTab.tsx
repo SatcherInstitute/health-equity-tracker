@@ -31,11 +31,11 @@ export const RESOURCES: Resource[] = [
     url: "https://onlinepublichealth.gwu.edu/resources/equity-vs-equality/",
   },
   {
-    name: "Social determinants of health -WHO",
+    name: "Social determinants of health - WHO",
     url: "https://www.who.int/health-topics/social-determinants-of-health#tab=tab_1",
   },
   {
-    name: "Equity- WHO",
+    name: "Equity - WHO",
     url: "https://www.who.int/healthsystems/topics/equity/en/",
   },
   {
@@ -47,7 +47,7 @@ export const RESOURCES: Resource[] = [
     url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3222512/",
   },
   {
-    name: "Health Equity CDC",
+    name: "Health Equity - CDC",
     url: "https://www.cdc.gov/chronicdisease/healthequity/index.htm",
   },
   {
@@ -83,11 +83,11 @@ export const RESOURCES: Resource[] = [
     url: "https://in.nau.edu/cair/ai-health-equity-and-disparities/",
   },
   {
-    name: "Indigenous Health Equity- UIHI",
+    name: "Indigenous Health Equity - UIHI",
     url: "https://www.uihi.org/resources/indigenous-health-equity/",
   },
   {
-    name: "Racialization as a Barrier to Achieving Health Equity for Native...",
+    name: "Racialization as a Barrier to Achieving Health Equity for Native Americans",
     url: "https://journalofethics.ama-assn.org/article/racialization-barrier-achieving-health-equity-native-americans/2020-10",
   },
   {
@@ -99,7 +99,7 @@ export const RESOURCES: Resource[] = [
     url: "https://ncrn.msm.edu",
   },
   {
-    name: "COVID-19 and Equity*- APHA",
+    name: "COVID-19 and Equity - APHA",
     url: "https://www.apha.org/topics-and-issues/communicable-disease/coronavirus/equity",
   },
   {
@@ -107,7 +107,7 @@ export const RESOURCES: Resource[] = [
     url: "https://www.apha.org/events-and-meetings/apha-calendar/webinar-events/2020/covid-19-and-health-equity",
   },
   {
-    name: "Investing in Latino Leadership for Health Equity and Justice...",
+    name: "Investing in Latino Leadership for Health Equity and Justice",
     url: "https://www.gih.org/publication/investing-in-latino-leadership-for-health-equity-and-justice/",
   },
   {
@@ -115,7 +115,7 @@ export const RESOURCES: Resource[] = [
     url: "https://nimhd.blogs.govdelivery.com/2018/10/11/tackling-health-disparities-among-latinos-in-the-united-states/",
   },
   {
-    name: "Hispanic/Latino- Minority Health",
+    name: "Hispanic/Latino - Minority Health",
     url: "https://minorityhealth.hhs.gov/omh/browse.aspx?lvl=3&lvlid=64",
   },
   {
@@ -131,7 +131,7 @@ export const RESOURCES: Resource[] = [
     url: "https://pubmed.ncbi.nlm.nih.gov/21563622/",
   },
   {
-    name: "Roots of Health Inequity free, web-based course",
+    name: "Roots of Health Inequity - Free, web-based course",
     url: "http://www.rootsofhealthinequity.org/",
   },
   {
@@ -139,7 +139,7 @@ export const RESOURCES: Resource[] = [
     url: "https://www.youtube.com/watch?v=2k5XPbEB4H0",
   },
   {
-    name: "NACCHO Health Equity and Social Justice Resources and Trainings",
+    name: "NACCHO - Health Equity and Social Justice Resources and Trainings",
     url: "https://www.naccho.org/programs/public-health-infrastructure/health-equity",
   },
   {
@@ -207,7 +207,7 @@ export const RESOURCES: Resource[] = [
     url: "https://www.tfah.org/initiatives/health-equity/",
   },
   {
-    name: "TFAH Health Equity Webinar Series",
+    name: "TFAH - Health Equity Webinar Series",
     url: "https://www.tfah.org/article/tfah-webinar-series-on-achieving-health-equity-through-collaborations-innovative-funding-and-leadership/",
   },
   {
@@ -227,7 +227,19 @@ export const RESOURCES: Resource[] = [
     url: "https://www.ama-assn.org/delivering-care/health-equity/medical-justice-advocacy-fellowship",
   },
   {
-    name: "THE ECONOMIC BURDEN OF HEALTH INEQUALITIES IN THE UNITED STATES",
+    name: "The Economic Burden Of Health Inequalities In The United States",
+    url: "https://hsrc.himmelfarb.gwu.edu/cgi/viewcontent.cgi?article=1224&context=sphhs_policy_facpubs",
+  },
+  {
+    name: "National Survey on Drug Use and Health (NSDUH)",
+    url: "https://www.samhsa.gov/data/data-we-collect/nsduh-national-survey-drug-use-and-health",
+  },
+  {
+    name: "National Strategy for Suicide Prevention Implementation Assessment Report (NSSP)",
+    url: "https://store.samhsa.gov/product/National-Strategy-for-Suicide-Prevention-Implementation-Assessment-Report/sma17-5051",
+  },
+  {
+    name: "Agency for Healthcare Research and Quality (AHRQ)",
     url: "https://hsrc.himmelfarb.gwu.edu/cgi/viewcontent.cgi?article=1224&context=sphhs_policy_facpubs",
   },
   {
