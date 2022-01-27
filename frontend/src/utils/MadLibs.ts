@@ -84,19 +84,22 @@ export interface Category {
 const CATEGORIES_LIST: Category[] = [
   {
     title: "COVID-19",
+    definition: "",
     options: ["covid", "vaccinations"],
-    definition: "Test 1 2 3",
   },
   {
     title: "Chronic Disease",
+    definition: "",
     options: ["diabetes", "copd"],
   },
   {
     title: "Social & Political Determinants of Health",
+    definition: "",
     options: ["health_insurance", "poverty"],
   },
   {
     title: "Behavioral Health",
+    definition: "",
     options: [
       "depression",
       "suicide",

@@ -1,4 +1,3 @@
-import { VariableConfig } from "../../data/config/MetricConfig";
 import React from "react";
 
 export default function DefinitionsList(props: {
@@ -21,7 +20,10 @@ export default function DefinitionsList(props: {
       {props.definedConditions.map((category: any) => {
         return (
           <>
-            <b>{category.categoryTitle}</b>: {category.categoryDefinition}
+            <b>{category.categoryTitle}</b>
+            {category.categoryDefinition && (
+              <p>{category.categoryDefinition}</p>
+            )}
             <ul>
               {category.categoryConditions.map((conditions: any) => {
                 console.log(conditions);

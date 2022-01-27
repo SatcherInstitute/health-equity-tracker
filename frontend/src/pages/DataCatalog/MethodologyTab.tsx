@@ -26,7 +26,7 @@ const definedConditions = CATEGORIES_LIST.map((category) => {
   return {
     // category title, category definition, and array of condition names / definitions
     categoryTitle: category.title,
-    categoryDefinition: category.definition || "n/a",
+    categoryDefinition: category.definition,
     categoryConditions: [
       category.options
         .map((option) => {
