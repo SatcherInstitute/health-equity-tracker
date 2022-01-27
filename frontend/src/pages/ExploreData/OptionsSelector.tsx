@@ -11,8 +11,9 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { usePopover } from "../../utils/usePopover";
-import { CATEGORIES_LIST, DropdownVarId } from "../../utils/MadLibs";
+import { CATEGORIES_LIST } from "../../utils/MadLibs";
 import { Box, Grid } from "@material-ui/core";
+import { DropdownVarId } from "../../data/config/MetricConfig";
 
 function OptionsSelector(props: {
   value: string;
@@ -103,7 +104,6 @@ function OptionsSelector(props: {
                   placeholder="County, State, Territory, or United States"
                   margin="dense"
                   variant="outlined"
-                  autoFocus={true}
                   onChange={updateTextBox}
                   {...params}
                 />
@@ -132,10 +132,13 @@ function OptionsSelector(props: {
                     key={category.title}
                     className={styles.CategoryList}
                   >
-                    <List dense={true}>
-                      <span className={styles.CategoryTitleText}>
-                        {category.title}
-                      </span>
+                    <h3
+                      className={styles.CategoryTitleText}
+                      aria-label={category.title + " options"}
+                    >
+                      {category.title}
+                    </h3>
+                    <List dense={true} role="menu">
                       {(props.options as string[][]).map((item: string[]) => {
                         const [optionId, optionDisplayName] = item;
                         return (
@@ -144,6 +147,7 @@ function OptionsSelector(props: {
                             optionId as DropdownVarId
                           ) && (
                             <ListItem
+                              role="menuitem"
                               key={optionId}
                               button
                               selected={optionId === props.value}

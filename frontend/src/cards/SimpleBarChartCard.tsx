@@ -71,7 +71,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                 breakdownString={
                   BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                 }
-                geoLevel={props.fips.getFipsTypeDisplayName()}
+                fips={props.fips}
               />
             ) : (
               <SimpleHorizontalBarChart

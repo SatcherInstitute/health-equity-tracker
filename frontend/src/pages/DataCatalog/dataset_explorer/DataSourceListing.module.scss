@@ -2,12 +2,12 @@
 
 .Description {
   text-align: left;
-  line-height: 20px;
 }
 
 .DataSourceListing {
   padding: 20px;
   padding-bottom: 10px;
+  width: 100%;
 }
 
 .DatasetTitle {
@@ -19,6 +19,9 @@
   height: 29px;
   margin-bottom: 0px;
   margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
 
   Button {
     min-width: 10px;
@@ -42,10 +45,6 @@
 .DownloadListItem {
   padding-right: 24px !important;
   padding-left: 24px !important;
-}
-
-.DownloadListItemText {
-  line-height: 24px;
 }
 
 .DownloadIcon {

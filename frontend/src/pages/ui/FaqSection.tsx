@@ -16,13 +16,13 @@ function Question(props: {
   answer: JSX.Element;
 }) {
   return (
-    <Accordion>
+    <Accordion component="li" className={styles.FaqListItem}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls={props.ariaControls}
         id={props.id}
       >
-        <Typography className={styles.FaqQuestion} variant="h2">
+        <Typography className={styles.FaqQuestion} variant="h2" component="h4">
           {props.questionText}
         </Typography>
       </AccordionSummary>
@@ -35,13 +35,13 @@ function Question(props: {
 
 function FaqSection() {
   return (
-    <Grid container>
+    <Grid container component="article">
       <Grid item>
-        <Typography className={styles.FaqHeader} variant="h1">
+        <Typography className={styles.FaqHeader} variant="h1" component="h3">
           Frequently asked questions
         </Typography>
       </Grid>
-      <Grid item xs={12} className={styles.FaqQAItem}>
+      <Grid item xs={12} className={styles.FaqQAItem} component="ul">
         {selectFaqs.map((faq, index) => {
           return (
             <Question

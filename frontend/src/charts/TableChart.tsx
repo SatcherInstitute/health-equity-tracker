@@ -24,13 +24,17 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
   BreakdownVar,
 } from "../data/query/Breakdowns";
-import { Tooltip } from "@material-ui/core";
+import { Tooltip, useMediaQuery } from "@material-ui/core";
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
-import styles from "./TableChart.module.scss";
+import styles from "./Chart.module.scss";
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20;
+
+const cellStyle = {
+  width: "200px",
+};
 
 export interface TableChartProps {
   data: Readonly<Record<string, any>>[];
@@ -39,6 +43,8 @@ export interface TableChartProps {
 }
 
 export function TableChart(props: TableChartProps) {
+  const wrap100kUnit = useMediaQuery("(max-width:500px)");
+
   const { data, metrics, breakdownVar } = props;
   let columns = metrics.map((metricConfig) => {
     return {
@@ -97,21 +103,9 @@ export function TableChart(props: TableChartProps) {
     return (
       <TableRow {...group.getHeaderGroupProps()}>
         {group.headers.map((col, index) => (
-          <TableCell
-            {...col.getHeaderProps(col.getSortByToggleProps())}
-            style={{ width: "200px", cursor: "pointer" }}
-            title={
-              col.isSorted
-                ? `Toggle Sort Direction`
-                : `Sort by ${col.render("Header")}`
-            }
-          >
+          <TableCell key={col.id} style={cellStyle}>
             {col.render("Header")}
-            <TableSortLabel
-              active={col.isSorted}
-              direction={col.isSortedDesc ? "desc" : "asc"}
-              hideSortIcon={false}
-            />
+            <TableSortLabel hideSortIcon={true} />
           </TableCell>
         ))}
       </TableRow>
@@ -125,15 +119,22 @@ export function TableChart(props: TableChartProps) {
       <TableRow {...row.getRowProps()}>
         {row.cells.map((cell, index) =>
           cell.value == null ? (
-            <TableCell {...cell.getCellProps()} style={{ width: "200px" }}>
+            <TableCell {...cell.getCellProps()} style={cellStyle}>
               <Tooltip title="No data available">
                 <WarningRoundedIcon />
               </Tooltip>
+              <span className={styles.ScreenreaderTitleHeader}>
+                No Data Available
+              </span>
             </TableCell>
           ) : (
             <TableCell {...cell.getCellProps()}>
               {cell.render("Cell")}
-              <Units column={index} />
+              <Units
+                column={index}
+                metric={props.metrics}
+                wrap100kUnit={wrap100kUnit}
+              />
             </TableCell>
           )
         )}
@@ -166,7 +167,7 @@ export function TableChart(props: TableChartProps) {
                     count={memoData.length}
                     rowsPerPage={pageSize}
                     page={pageIndex}
-                    onChangePage={(event, newPage) => {
+                    onPageChange={(event, newPage) => {
                       gotoPage(newPage);
                     }}
                     onChangeRowsPerPage={(event) => {
@@ -190,13 +191,21 @@ export function TableChart(props: TableChartProps) {
 
 interface UnitsProps {
   column: number;
+  metric: MetricConfig[];
+  wrap100kUnit: boolean;
 }
 function Units(props: UnitsProps) {
   if (!props.column) return null;
 
-  return (
-    <span className={styles.Unit}>
-      {props.column === 1 ? ` per 100k` : `%`}
-    </span>
+  const unit =
+    props.column === 1
+      ? "per 100k"
+      : props.metric[props.column - 1].shortVegaLabel;
+
+  // inline vs block
+  return props.wrap100kUnit && props.column === 1 ? (
+    <p className={styles.Unit}>{unit}</p>
+  ) : (
+    <span className={styles.Unit}>{unit}</span>
   );
 }

@@ -9,7 +9,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { VariableConfig, METRIC_CONFIG } from "../data/config/MetricConfig";
+import { VariableConfig, VAXX } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { exclude } from "../data/query/BreakdownFilter";
@@ -19,26 +19,15 @@ import {
   UNKNOWN,
   UNKNOWN_RACE,
   UNKNOWN_ETHNICITY,
+  RACE,
   HISPANIC,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import UnknownsAlert from "./ui/UnknownsAlert";
+import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 719;
-
-export function showAltPopCompare(props: {
-  fips: { isState: () => any };
-  breakdownVar: string;
-  variableConfig: { variableId: string };
-}) {
-  return (
-    props.fips.isState() &&
-    props.breakdownVar === "race_and_ethnicity" &&
-    props.variableConfig.variableId ===
-      METRIC_CONFIG["vaccinations"][0].variableId
-  );
-}
 
 export interface DisparityBarChartCardProps {
   key?: string;
@@ -110,7 +99,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
         // if race options include hispanic twice (eg "White" and "Hispanic" can both include Hispanic people)
         // also require at least some data to be available to avoid showing info on suppressed/undefined states
         const shouldShowDoesntAddUpMessage =
-          props.breakdownVar === "race_and_ethnicity" &&
+          props.breakdownVar === RACE &&
           queryResponse.data.every(
             (row) =>
               !row[props.breakdownVar].includes("(Non-Hispanic)") ||
@@ -131,7 +120,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 breakdownVar={props.breakdownVar}
                 displayType="chart"
                 known={true}
-                overrideAndWithOr={props.breakdownVar === "race_and_ethnicity"}
+                overrideAndWithOr={props.breakdownVar === RACE}
                 fips={props.fips}
               />
             ) : (
@@ -141,12 +130,11 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
-                  geoLevel={props.fips.getFipsTypeDisplayName()}
                   noDemographicInfo={
-                    props.variableConfig.variableId ===
-                      METRIC_CONFIG["vaccinations"][0].variableId &&
+                    props.variableConfig.variableId === VAXX &&
                     props.fips.isCounty()
                   }
+                  fips={props.fips}
                 />
               </CardContent>
             )}
@@ -161,12 +149,12 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   breakdownVar={props.breakdownVar}
                   metricDisplayName={metricConfig.shortVegaLabel}
                   filename={getTitleText()}
-                  showAltPopCompare={showAltPopCompare(props)}
+                  showAltPopCompare={shouldShowAltPopCompare(props)}
                 />
               </CardContent>
             )}
             {shouldShowDoesntAddUpMessage && (
-              <Alert severity="info">
+              <Alert severity="info" role="note">
                 Population percentages on this graph add up to over 100% because
                 the racial categories reported for{" "}
                 {metricConfig.fullCardTitleName} in{" "}

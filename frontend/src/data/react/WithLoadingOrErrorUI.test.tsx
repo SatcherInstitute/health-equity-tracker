@@ -60,7 +60,7 @@ describe("WithLoadingOrErrorUI", () => {
 
   test("WithMetrics: Loads metrics", async () => {
     const query = new MetricQuery(
-      "copd_pct",
+      "copd_per_100k",
       Breakdowns.byState().andRace(excludeAll())
     );
 
@@ -69,7 +69,7 @@ describe("WithLoadingOrErrorUI", () => {
       <WithMetricsWrapperApp
         query={query}
         displayRow={(row: Row) =>
-          `${row.race_and_ethnicity}: ${row.copd_pct}. `
+          `${row.race_and_ethnicity}: ${row.copd_per_100k}. `
         }
       />
     );
@@ -80,24 +80,32 @@ describe("WithLoadingOrErrorUI", () => {
         {
           state_name: "Alabama",
           race_and_ethnicity: "AmIn",
-          copd_pct: 20,
+          copd_per_100k: 20000,
         },
-        { state_name: "Alabama", race_and_ethnicity: "Asian", copd_pct: 1 },
-        { state_name: "Alabama", race_and_ethnicity: "All", copd_pct: 1 },
+        {
+          state_name: "Alabama",
+          race_and_ethnicity: "Asian",
+          copd_per_100k: 1000,
+        },
+        {
+          state_name: "Alabama",
+          race_and_ethnicity: "All",
+          copd_per_100k: 1000,
+        },
       ]);
     });
 
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
-      "Loaded 2 rows. AmIn: 20. Asian: 1."
+      "Loaded 2 rows. AmIn: 20000. Asian: 1000."
     );
     expect(dataFetcher.getNumLoadDatasetCalls()).toBe(2);
   });
 
-  // TODO - one succesful dataset, one bad dataset
+  // TODO - one successful dataset, one bad dataset
 
   test("WithMetrics: Loaded metrics have no rows", async () => {
     const query = new MetricQuery(
-      "diabetes_pct",
+      "diabetes_per_100k",
       Breakdowns.national().andRace()
     );
 
@@ -117,7 +125,7 @@ describe("WithLoadingOrErrorUI", () => {
 
   test("WithMetrics: Unsupported breakdown", async () => {
     const query = new MetricQuery(
-      "diabetes_pct",
+      "diabetes_per_100k",
       Breakdowns.byCounty().andAge()
     );
 

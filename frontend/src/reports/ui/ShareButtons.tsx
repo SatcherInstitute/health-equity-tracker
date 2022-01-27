@@ -31,7 +31,7 @@ function ShareButtons(props: ShareButtonProps) {
   const sharedUrl: string = window.location.href;
 
   return (
-    <Grid container justify={"flex-end"} alignItems={"center"}>
+    <Grid container justifyContent="flex-end" alignItems="center">
       <Grid item>
         <p className={styles.ShareLabel}>Share:</p>
       </Grid>
@@ -69,7 +69,7 @@ function ShareButtons(props: ShareButtonProps) {
           aria-label={"Share by email"}
           subject={`Sharing from healthequitytracker.org`}
           body={`${title}
-        
+
 `} // KEEP THIS WEIRD SPACING FOR EMAIL LINE BREAKS!
           url={sharedUrl}
         >

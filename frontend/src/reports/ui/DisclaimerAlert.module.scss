@@ -4,13 +4,5 @@
   margin: 0 10px 10px 10px;
   border: 1px solid $report-alert;
   text-align: left;
-  line-height: 21px;
   font-size: $small;
-}
-
-.LinkButton {
-  text-decoration: underline !important;
-  color: $alt-green !important;
-  padding: 0 5px !important;
-  margin-top: -2px !important; // To align with the <p> text better
 }

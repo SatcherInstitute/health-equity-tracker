@@ -2,8 +2,11 @@ import React from "react";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import { Grid } from "@material-ui/core";
-import { DropdownVarId } from "../../utils/MadLibs";
-import { METRIC_CONFIG, VariableConfig } from "../../data/config/MetricConfig";
+import {
+  DropdownVarId,
+  METRIC_CONFIG,
+  VariableConfig,
+} from "../../data/config/MetricConfig";
 import styles from "../Report.module.scss";
 import {
   BreakdownVar,
@@ -42,11 +45,12 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
     <Grid container>
       {enableMetricToggle && (
         <Grid className={styles.ToggleBlock}>
-          <span className={styles.ToggleLabel}>{DATA_TYPE_LABEL}</span>
+          <div className={styles.ToggleLabel}>
+            {props.dropdownVarId + " " + DATA_TYPE_LABEL}
+          </div>
           {/* DATA TYPE TOGGLE */}
           <ToggleButtonGroup
             exclusive
-            role="radiogroup"
             value={props.variableConfig.variableId}
             onChange={(e, variableId) => {
               if (variableId !== null && METRIC_CONFIG[props.dropdownVarId]) {
@@ -63,10 +67,6 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
                 <ToggleButton
                   value={variable.variableId}
                   key={key}
-                  role="radio"
-                  aria-checked={
-                    variable.variableId === props.variableConfig.variableId
-                  }
                   aria-label={
                     variable.variableDisplayName + " " + DATA_TYPE_LABEL
                   }
@@ -85,7 +85,6 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
             {/* DEMOGRAPHIC TOGGLE */}
             <ToggleButtonGroup
               exclusive
-              role="radiogroup"
               value={props.currentBreakdown}
               onChange={(e, v) => {
                 if (v !== null) {
@@ -97,8 +96,6 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
                 <ToggleButton
                   value={breakdownVar}
                   key={breakdownVar}
-                  role="radio"
-                  aria-checked={breakdownVar === props.currentBreakdown}
                   aria-label={
                     BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar] +
                     " " +

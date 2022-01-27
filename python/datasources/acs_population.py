@@ -107,15 +107,39 @@ def get_decade_age_bucket(age_range):
         return 'Unknown'
 
 
-def get_uhc_age_bucket(age_range):
-    if age_range in {'18-19', '20-24', '20-20', '21-21', '22-24', '25-29', '30-34', '35-44', '35-39', '40-44'}:
+def get_uhc_standard_age_bucket(age_range):
+    if age_range == 'Total':
+        return 'Total'
+    # buckets for COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking
+    elif age_range in {'18-19', '20-24', '20-20', '21-21', '22-24',
+                       '25-29', '30-34', '35-44', '35-39', '40-44'}:
         return '18-44'
     elif age_range in {'45-54', '45-49', '50-54', '55-64', '55-59', '60-61', '62-64'}:
         return '45-64'
     elif age_range in {'65-74', '65-66', '67-69', '70-74', '75-84', '75-79', '80-84', '85+'}:
         return '65+'
-    elif age_range == 'Total':
+
+
+def get_uhc_decade_plus_5_age_bucket(age_range):
+    if age_range == 'Total':
         return 'Total'
+    # buckets for Suicide
+    elif age_range in {'15-17', '18-19', '20-20', '21-21', '22-24'}:
+        return '15-24'
+    elif age_range in {'25-29', '30-34'}:
+        return '25-34'
+    elif age_range in {'35-39', '40-44'}:
+        return '35-44'
+    elif age_range in {'45-49', '50-54'}:
+        return '45-54'
+    elif age_range in {'55-59', '60-61', '62-64'}:
+        return '55-64'
+    elif age_range in {'65-66', '67-69', '70-74'}:
+        return '65-74'
+    elif age_range in {'75-79', '80-84'}:
+        return '75-84'
+    elif age_range in {'85+'}:
+        return '85+'
 
 
 def rename_age_bracket(bracket):
@@ -233,13 +257,17 @@ class ACSPopulationIngester():
         frames['by_sex_age_%s' % self.get_geo_name()] = self.get_by_sex_age(
                 frames[self.get_table_name_by_sex_age_race()], get_decade_age_bucket)
 
-        by_sex_age_uhc = None
+        by_sex_standard_age_uhc = None
+        by_sex_decade_plus_5_age_uhc = None
         if not self.county_level:
-            by_sex_age_uhc = self.get_by_sex_age(frames[self.get_table_name_by_sex_age_race()], get_uhc_age_bucket)
+            by_sex_standard_age_uhc = self.get_by_sex_age(
+                frames[self.get_table_name_by_sex_age_race()], get_uhc_standard_age_bucket)
+            by_sex_decade_plus_5_age_uhc = self.get_by_sex_age(
+                frames[self.get_table_name_by_sex_age_race()], get_uhc_decade_plus_5_age_bucket)
 
         frames['by_age_%s' % self.get_geo_name()] = self.get_by_age(
             frames['by_sex_age_%s' % self.get_geo_name()],
-            by_sex_age_uhc)
+            by_sex_standard_age_uhc, by_sex_decade_plus_5_age_uhc)
 
         frames['by_sex_%s' % self.get_geo_name()] = self.get_by_sex(
                 frames[self.get_table_name_by_sex_age_race()])
@@ -412,7 +440,8 @@ class ACSPopulationIngester():
         return self.sort_sex_age_race_frame(result)
 
     def get_by_sex_age(self, by_sex_age_race_frame, age_aggregator_func):
-        by_sex_age = by_sex_age_race_frame.loc[by_sex_age_race_frame[RACE_CATEGORY_ID_COL] == Race.TOTAL.value]
+        by_sex_age = by_sex_age_race_frame.loc[by_sex_age_race_frame[RACE_CATEGORY_ID_COL]
+                                               == Race.TOTAL.value]
 
         cols = [
             STATE_FIPS_COL,
@@ -431,7 +460,7 @@ class ACSPopulationIngester():
 
         return by_sex_age
 
-    def get_by_age(self, by_sex_age, by_sex_age_uhc=None):
+    def get_by_age(self, by_sex_age, by_sex_standard_age_uhc=None, by_sex_decade_plus_5_age_uhc=None):
         by_age = by_sex_age.loc[by_sex_age[SEX_COL] == TOTAL_VALUE]
 
         cols = [
@@ -445,10 +474,15 @@ class ACSPopulationIngester():
         by_age = by_age[cols] if self.county_level else by_age[cols[1:]]
 
         if not self.county_level:
-            by_age_uhc = by_sex_age_uhc.loc[by_sex_age_uhc[SEX_COL] == TOTAL_VALUE]
-            by_age_uhc = by_age_uhc[cols[1:]]
+            by_standard_age_uhc = by_sex_standard_age_uhc.loc[
+                by_sex_standard_age_uhc[SEX_COL] == TOTAL_VALUE]
+            by_standard_age_uhc = by_standard_age_uhc[cols[1:]]
+            by_decade_plus_5_age_uhc = by_sex_decade_plus_5_age_uhc.loc[
+                by_sex_decade_plus_5_age_uhc[SEX_COL] == TOTAL_VALUE]
+            by_decade_plus_5_age_uhc = by_decade_plus_5_age_uhc[cols[1:]]
 
-            by_age = pd.concat([by_age, by_age_uhc]).drop_duplicates().reset_index(drop=True)
+            by_age = pd.concat([by_age, by_standard_age_uhc, by_decade_plus_5_age_uhc]
+                               ).drop_duplicates().reset_index(drop=True)
 
         by_age = generate_pct_share_col(
             by_age, POPULATION_COL, POPULATION_PCT_COL, AGE_COL, TOTAL_VALUE)

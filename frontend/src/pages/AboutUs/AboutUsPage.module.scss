@@ -1,12 +1,5 @@
+@use "../../styles/globals.scss";
 @import "../../styles/variables.module";
-
-.AboutUsPage {
-  // text-align: left;
-  h1 {
-    font-size: $title;
-    line-height: 23px;
-  }
-}
 
 // For styles Grid-wide
 .Grid {
@@ -26,17 +19,6 @@
   padding: 10px 30px;
 }
 
-// For the title of the page read off by screenreaders in an h1
-.ScreenreaderTitleHeader {
-  left: -999px;
-  position: absolute;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  z-index: -999;
-}
-
 /** ------------- TYPES OF GRID ROWS ------------- **/
 
 // Generic grid row with no special styling
@@ -46,6 +28,7 @@
   // Generic grid subrow with no special styling
   .GridSubRow {
     padding: 20px 0 20px 0;
+    list-style: none;
   }
 }
 
@@ -66,7 +49,6 @@
     text-align: left;
     font-weight: 300;
     font-family: "Taviraj", serif !important;
-    line-height: 50px;
     color: $alt-green;
     padding-bottom: 20px;
   }
@@ -75,7 +57,6 @@
     font-family: "Taviraj", sans-serif;
     font-weight: 300;
     font-size: $header;
-    line-height: 61.42px;
     padding: 10px 0 10px 0;
   }
 
@@ -83,15 +64,14 @@
     font-family: "Taviraj", sans-serif;
     font-weight: 300;
     font-size: $smallHeader;
-    line-height: 30px;
     padding: 10px 0 10px 0;
+    text-align: left !important;
   }
 
   .HeaderSubtext {
     font-size: $title;
     text-align: left;
     font-weight: 300;
-    line-height: 24px;
     font-family: "Inter", sans-serif !important;
   }
 
@@ -99,7 +79,6 @@
     font-size: $text;
     text-align: left;
     font-weight: 300;
-    line-height: 22px;
     font-family: "Inter", sans-serif !important;
   }
 
@@ -107,7 +86,6 @@
     font-size: $small;
     text-align: left;
     font-weight: 400;
-    line-height: 20px;
     font-family: "Inter", sans-serif !important;
   }
 }
@@ -121,7 +99,6 @@
     text-align: center;
     font-weight: 300;
     font-family: "Taviraj", serif !important;
-    line-height: 40px;
     color: $alt-green;
     padding-bottom: 20px;
   }
@@ -130,7 +107,6 @@
     font-size: $title;
     text-align: left;
     font-weight: 300;
-    line-height: 24px;
     font-family: "Inter", serif !important;
   }
 }
@@ -164,7 +140,6 @@
     text-align: center;
     font-weight: 300;
     font-family: "Taviraj", serif !important;
-    line-height: 40px;
     color: $alt-green;
     padding-bottom: 20px;
   }
@@ -173,7 +148,6 @@
     font-family: "Taviraj", sans-serif;
     font-weight: 300;
     font-size: $header;
-    line-height: 61.42px;
     padding: 0 0 10px 0;
   }
 
@@ -181,15 +155,14 @@
     font-family: "Taviraj", sans-serif;
     font-weight: 300;
     font-size: $smallestHeader;
-    line-height: 25px;
-    padding: 30px 0 0 0;
+    padding: 30px 0 1rem 0;
+    text-align: left;
   }
 
   .HeaderSubtext {
     font-size: $title;
     text-align: left;
     font-weight: 300;
-    line-height: 24px;
     font-family: "Inter", serif !important;
   }
 
@@ -197,7 +170,6 @@
     font-size: $text;
     text-align: left;
     font-weight: 300;
-    line-height: 22px;
     font-family: "Inter", sans-serif !important;
   }
 
@@ -205,17 +177,15 @@
     font-size: $small;
     text-align: left;
     font-weight: 400;
-    line-height: 20px;
     font-family: "Inter", sans-serif !important;
   }
 }
 
 /** ------------- HEADERS ------------- **/
 
-// Underlined Header H2
+// Underlined Header
 .UnderlinedHeaderL2 {
   font-size: $smallHeader !important;
-  line-height: 26px;
   border-bottom: 1.5px solid $alt-green;
   margin: 25px 0 25px 0;
   font-family: "Taviraj", serif !important;
@@ -226,8 +196,14 @@
 /** ------------- THE PROJECT ------------- **/
 
 // For each item in the "Where We Aim To Go" section
-.AimToGoItem {
-  padding: 0 15px 0 15px;
+.GoalList {
+  display: flex;
+  padding-left: 0;
+}
+
+.GoalListItem {
+  padding: 0 1.5rem 0 1.5rem;
+  list-style: none;
 }
 
 // For each image in the "Where We Aim To Go" section
@@ -270,7 +246,7 @@
   font-size: $biggerHeader !important;
   font-weight: 300 !important;
   font-family: "Taviraj", serif !important;
-  line-height: 50px !important;
+  line-height: $lhTight !important;
   color: $alt-green;
   padding: 72px 0 20px 0;
 }
@@ -278,7 +254,6 @@
 // For headers denoting each subgroup on the team
 .TeamHeader {
   font-size: $smallHeader !important;
-  line-height: 26px;
   border-bottom: 2px solid $team-border-color;
   margin: 25px 0 25px 0;
   font-family: "Taviraj", sans-serif !important;
@@ -301,15 +276,15 @@
   height: auto;
 }
 
-// For the leader name heading
-.LeaderNameHeading {
+// For the name heading
+.MemberName {
   font-size: $text;
   font-weight: 500;
   margin: 2px 0;
 }
 
-// For the leader role span
-.LeaderRoleSpan {
+// For the role
+.MemberRole {
   font-size: $small;
   font-weight: 400;
 }
@@ -325,14 +300,13 @@
   font-size: $biggerHeader !important;
   font-weight: 300 !important;
   font-family: "Taviraj", sans-serif !important;
-  line-height: 50px !important;
+  line-height: $lhNormal !important;
   color: $alt-green;
 }
 
 .ContactUsSubheaderText {
   font-weight: 300 !important;
   font-family: "Taviraj", sans-serif !important;
-  line-height: 48px !important;
   color: $alt-green;
 }
 
