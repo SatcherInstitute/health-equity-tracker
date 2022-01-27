@@ -148,8 +148,8 @@ def load_values_as_dataframe(gcs_bucket, filename):
     return load_values_blob_as_dataframe(blob)
 
 
-def values_json_to_dataframe(json_string):
-    frame = pandas.read_json(json_string, orient='values')
+def values_json_to_dataframe(json_string, dtype=None):
+    frame = pandas.read_json(json_string, orient='values', dtype=dtype)
     frame.rename(columns=frame.iloc[0], inplace=True)
     frame.drop([0], inplace=True)
     return frame
