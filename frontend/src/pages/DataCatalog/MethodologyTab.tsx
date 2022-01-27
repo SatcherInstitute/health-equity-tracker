@@ -17,12 +17,33 @@ import { Card } from "@material-ui/core";
 import { urlMap } from "../../utils/externalUrls";
 import DefinitionsList from "../../reports/ui/DefinitionsList";
 import { currentYear } from "../../Footer";
+import { CATEGORIES_LIST } from "../../utils/MadLibs";
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
-const definedConditions = Object.values(METRIC_CONFIG)
-  .flat()
-  .filter((c) => c?.variableDefinition);
+const definedConditions = CATEGORIES_LIST.map((category) => {
+  // for every category
+  return {
+    // category title, category definition, and array of condition names / definitions
+    categoryTitle: category.title,
+    categoryDefinition: category.definition || "n/a",
+    categoryConditions: [
+      category.options
+        .map((option) => {
+          return METRIC_CONFIG[option].map((condition) => {
+            return {
+              conditionName: condition.variableFullDisplayName,
+              conditionDefinition: condition.variableDefinition,
+            };
+          });
+          // flatten all conditions and sub data types into single level array
+        })
+        .flat(),
+    ],
+  };
+});
+
+console.log(definedConditions);
 
 function MethodologyTab() {
   return (

@@ -78,12 +78,14 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
 export interface Category {
   readonly title: CategoryId;
   readonly options: DropdownVarId[];
+  readonly definition?: string;
 }
 
 const CATEGORIES_LIST: Category[] = [
   {
     title: "COVID-19",
     options: ["covid", "vaccinations"],
+    definition: "Test 1 2 3",
   },
   {
     title: "Chronic Disease",
