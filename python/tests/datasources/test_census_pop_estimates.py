@@ -5,16 +5,21 @@ import pandas as pd
 from pandas._testing import assert_frame_equal
 
 from datasources.census_pop_estimates import CensusPopEstimates
+from datasources.census_pop_estimates import generate_national_pop_data
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "census_pop_estimates")
 
-GOLDEN_DATA = os.path.join(TEST_DIR, 'census_pop_estimates-race_ethnicity_age_state.csv')
+STATE_POP_DATA = os.path.join(TEST_DIR, 'census_pop_estimates-race_ethnicity_age_state.csv')
+NATIONAL_POP_DATA = os.path.join(TEST_DIR, 'census_pop_estimates-race_ethnicity_age_national.csv')
 
 
 def get_pop_estimates_as_df():
-    return pd.read_csv(os.path.join(TEST_DIR, 'census_pop_estimates.csv'), dtype={'STATE': str, 'STNAME': str})
+    return pd.read_csv(os.path.join(TEST_DIR, 'census_pop_estimates.csv'), dtype={
+        'STATE': str,
+        'STNAME': str,
+    })
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe_from_web',
@@ -31,8 +36,25 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     censusPopEstimates.write_to_bq('dataset', 'gcs_bucket', **kwargs)
     assert mock_bq.call_count == 1
 
-    expected_df = pd.read_csv(GOLDEN_DATA, dtype={
+    expected_df = pd.read_csv(STATE_POP_DATA, dtype={
         'state_fips': str,
     })
 
     assert_frame_equal(mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
+
+
+def testGenerateNationalPopData():
+    state_df = pd.read_csv(STATE_POP_DATA, dtype={
+        'state_fips': str,
+    })
+
+    national_df = pd.read_csv(NATIONAL_POP_DATA, dtype={
+        'state_fips': str,
+    })
+
+    df = generate_national_pop_data(state_df, [])
+
+    print(df.columns)
+    print(national_df.columns)
+
+    assert_frame_equal(df, national_df, check_like=True)

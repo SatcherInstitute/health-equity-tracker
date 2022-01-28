@@ -41,7 +41,7 @@ class CensusPopEstimates(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_POPULATION_URL, encoding="ISO-8859-1")
-        df = generate_state_pop_data(df)
+        state_df = generate_state_pop_data(df)
 
         column_types = {c: 'STRING' for c in df.columns}
 
@@ -49,7 +49,7 @@ class CensusPopEstimates(DataSource):
             column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
         gcs_to_bq_util.add_dataframe_to_bq(
-                df, dataset, "race_and_ethnicity", column_types=column_types)
+            state_df, dataset, "race_and_ethnicity", column_types=column_types)
 
 
 def generate_state_pop_data(df):
@@ -91,6 +91,22 @@ def generate_state_pop_data(df):
     std_col.add_race_columns_from_category_id(new_df)
 
     return new_df
+
+
+def generate_national_pop_data(state_df, states_to_exclude):
+    df = state_df.loc[~state_df[std_col.STATE_FIPS_COL].isin(states_to_exclude)]
+
+    groupby_cols = list(std_col.RACE_COLUMNS)
+    groupby_cols.append(std_col.AGE_COL)
+    df = df.groupby(groupby_cols).sum().reset_index()
+
+    df[std_col.STATE_FIPS_COL] = '00'
+    df[std_col.STATE_NAME_COL] = 'United States'
+
+    needed_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.POPULATION_COL]
+    needed_cols.extend(groupby_cols)
+
+    return df[needed_cols].sort_values([std_col.AGE_COL, std_col.RACE_CATEGORY_ID_COL]).reset_index(drop=True)
 
 
 def update_test_data():
