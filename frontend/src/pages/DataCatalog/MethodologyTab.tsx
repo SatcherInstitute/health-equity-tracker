@@ -17,33 +17,8 @@ import { Card } from "@material-ui/core";
 import { urlMap } from "../../utils/externalUrls";
 import DefinitionsList from "../../reports/ui/DefinitionsList";
 import { currentYear } from "../../Footer";
-import { CATEGORIES_LIST } from "../../utils/MadLibs";
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
-
-const definedConditions = CATEGORIES_LIST.map((category) => {
-  // for every category
-  return {
-    // category title, category definition, and array of condition names / definitions
-    categoryTitle: category.title,
-    categoryDefinition: category.definition,
-    categoryConditions: [
-      category.options
-        .map((option) => {
-          return METRIC_CONFIG[option].map((condition) => {
-            return {
-              conditionName: condition.variableFullDisplayName,
-              conditionDefinition: condition.variableDefinition,
-            };
-          });
-          // flatten all conditions and sub data types into single level array
-        })
-        .flat(),
-    ],
-  };
-});
-
-console.log(definedConditions);
 
 function MethodologyTab() {
   return (
@@ -396,7 +371,9 @@ function MethodologyTab() {
                 What do the condition variables on the tracker mean?
               </h3>
               <div className={styles.MethodologyAnswer}>
-                <DefinitionsList definedConditions={definedConditions} />
+                <DefinitionsList
+                  variablesToDefine={Object.entries(METRIC_CONFIG)}
+                />
                 <p>
                   Links to the original sources of data and their definitions
                   can be found on our{" "}

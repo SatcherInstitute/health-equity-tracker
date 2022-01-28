@@ -1,44 +1,63 @@
-import React from "react";
+/* 
+Receives list of variableObjects for which definitions should be displayed;
+retrieves and sorts them into their parent categories (with optional category definitions)
+*/
 
-export default function DefinitionsList(props: {
-  definedConditions: any; //VariableConfig[];
-}): JSX.Element {
-  // return (
-  //   <ul id="definitionsList">
-  //     {props.definedConditions.map((condition: VariableConfig) => (
-  //       <li key={condition.variableFullDisplayName}>
-  //         <b>{condition.variableFullDisplayName}</b>
-  //         {": "}
-  //         {condition.variableDefinition}
-  //       </li>
-  //     ))}
-  //   </ul>
-  // );
+import React from "react";
+import { DropdownVarId, VariableConfig } from "../../data/config/MetricConfig";
+import { CATEGORIES_LIST, Category } from "../../utils/MadLibs";
+
+export interface DefinitionsListProps {
+  variablesToDefine: [string, VariableConfig[]][];
+}
+
+export default function DefinitionsList(
+  props: DefinitionsListProps
+): JSX.Element {
+  // collect relevant categories
+  let relevantCategoriesSet: Set<Category> = new Set();
+  props.variablesToDefine.forEach((variable) => {
+    const matchingCategory = CATEGORIES_LIST.find((category) =>
+      category.options.includes(variable[0] as DropdownVarId)
+    );
+    console.log(matchingCategory);
+    matchingCategory && relevantCategoriesSet.add(matchingCategory);
+  });
+  const relevantCategories: Category[] = Array.from(relevantCategoriesSet);
 
   return (
     <div id="definitionsList">
-      {props.definedConditions.map((category: any) => {
+      {/* for each category */}
+      {relevantCategories.map((category: Category) => {
+        // sort requested variables into their categories
+        const variablesForThisCategory = props.variablesToDefine.filter(
+          (variable: any) => category.options.includes(variable[0])
+        );
+
         return (
-          <>
-            <b>{category.categoryTitle}</b>
-            {category.categoryDefinition && (
-              <p>{category.categoryDefinition}</p>
-            )}
+          <div key={category.title}>
+            {/* display category name and optional category definition */}
+            <b>{category.title}</b>
+            {category.definition && <p>{category.definition}</p>}
+
             <ul>
-              {category.categoryConditions.map((conditions: any) => {
-                console.log(conditions);
-                return conditions.map((condition: any) => {
-                  return (
-                    <li key={condition.conditionName}>
-                      <b>{condition.conditionName}</b>
-                      {": "}
-                      {condition.conditionDefinition}
-                    </li>
-                  );
-                });
-              })}
+              {
+                // for all matching conditions
+                variablesForThisCategory.map((variable) => {
+                  // list their data types and definitions
+                  return variable[1].map((dataType: VariableConfig) => {
+                    return (
+                      <li>
+                        <b>{dataType.variableFullDisplayName}</b>
+                        {": "}
+                        {dataType.variableDefinition}
+                      </li>
+                    );
+                  });
+                })
+              }
             </ul>
-          </>
+          </div>
         );
       })}
     </div>
