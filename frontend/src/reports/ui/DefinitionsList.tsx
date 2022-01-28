@@ -1,6 +1,6 @@
 /* 
-Receives list of variableObjects for which definitions should be displayed;
-retrieves and sorts them into their parent categories (with optional category definitions)
+Receives list of variable objects for which definitions should be displayed;
+Retrieves their parent categories (with optional category definitions)
 */
 
 import React from "react";
@@ -20,7 +20,6 @@ export default function DefinitionsList(
     const matchingCategory = CATEGORIES_LIST.find((category) =>
       category.options.includes(variable[0] as DropdownVarId)
     );
-    console.log(matchingCategory);
     matchingCategory && relevantCategoriesSet.add(matchingCategory);
   });
   const relevantCategories: Category[] = Array.from(relevantCategoriesSet);
