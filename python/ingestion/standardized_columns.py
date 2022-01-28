@@ -74,14 +74,15 @@ VACCINATED_SHARE_OF_KNOWN = "vaccinated_share_of_known"
 VACCINATED_PER_100K = "vaccinated_per_100k"
 VACCINATED_PCT_SHARE = "vaccinated_pct_share"
 
-RACE_COLUMNS = [
+
+RaceTuple = namedtuple("RaceTuple", [
     "race_category_id",
     "race",
     "race_includes_hispanic",
     "race_and_ethnicity"
-]
+])
 
-RaceTuple = namedtuple("RaceTuple", RACE_COLUMNS)
+RACE_COLUMNS = RaceTuple._fields
 
 
 @unique
