@@ -275,7 +275,7 @@ function TwoVariableReport(props: {
 
       {/* SIDE-BY-SIDE DISPARITY BAR GRAPH (COMPARE TO POPULATION) CARDS */}
 
-      {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar, i) =>
+      {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
         !breakdownIsShown(breakdownVar) ? null : (
           <Fragment key={breakdownVar}>
             <RowOfTwoOptionalMetrics
