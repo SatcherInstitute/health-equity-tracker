@@ -115,9 +115,7 @@ def age_adjust_from_expected(df):
             ][std_col.COVID_DEATH_Y].values[0])
 
         if ref_pop_expected_deaths == 0:
-            print("Slipping state %s because reference expected deaths is zero" % row[std_col.STATE_NAME_COL])
-
-            return -1
+            return 0
 
         return round(row['expected_deaths'] / ref_pop_expected_deaths, 2)
 
