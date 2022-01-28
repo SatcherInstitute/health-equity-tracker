@@ -84,22 +84,26 @@ export interface Category {
 const CATEGORIES_LIST: Category[] = [
   {
     title: "COVID-19",
-    definition: "",
+    definition:
+      "This is a sample definition for COVID-19. This is a sample definition for COVID-19. This is a sample definition for COVID-19. This is a sample definition for COVID-19. This is a sample definition for COVID-19.This is a sample definition for COVID-19.",
     options: ["covid", "vaccinations"],
   },
   {
     title: "Chronic Disease",
-    definition: "",
+    definition:
+      "This is a sample definition for Chronic Disease. This is a sample definition for Chronic Disease. This is a sample definition for Chronic Disease. This is a sample definition for Chronic Disease. This is a sample definition for Chronic Disease.This is a sample definition for Chronic Disease.",
     options: ["diabetes", "copd"],
   },
   {
     title: "Social & Political Determinants of Health",
-    definition: "",
+    definition:
+      "This is a sample definition for Determinants of. This is a sample definition for Determinants of. This is a sample definition for Determinants of. This is a sample definition for Determinants of. This is a sample definition for Determinants of.This is a sample definition for Determinants of.",
     options: ["health_insurance", "poverty"],
   },
   {
     title: "Behavioral Health",
-    definition: "",
+    definition:
+      "This is a sample definition for Behavioral Health. This is a sample definition for Behavioral Health. This is a sample definition for Behavioral Health. This is a sample definition for Behavioral Health. This is a sample definition for Behavioral Health.This is a sample definition for Behavioral Health.",
     options: [
       "depression",
       "suicide",
