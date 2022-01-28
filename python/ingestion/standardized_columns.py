@@ -45,6 +45,8 @@ COVID_DEATH_Y = "death_y"
 COVID_DEATH_N = "death_n"
 COVID_DEATH_UNKNOWN = "death_unknown"
 
+COVID_DEATH_RATIO_AGE_ADJUSTED = "death_ratio_age_adjusted"
+
 # Standard Health Insurance Population Cols
 TOTAL_HEALTH_INSURANCE_COL = "total_health_insurance"
 WITH_HEALTH_INSURANCE_COL = "with_health_insurance"

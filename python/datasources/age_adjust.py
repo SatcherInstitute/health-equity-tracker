@@ -106,16 +106,20 @@ def get_expected_deaths(race_and_age_df, population_df):
     return df
 
 
-def age_adjust_from_expected(df, population_df):
+def age_adjust_from_expected(df):
 
     def get_age_adjusted_rate(row):
-        ref_pop_size = float(population_df.loc[
-                (population_df[std_col.RACE_CATEGORY_ID_COL] == REFERENCE_POPULATION) &
-                (population_df[std_col.AGE_COL] == std_col.ALL_VALUE) &
-                (population_df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
-            ][std_col.POPULATION_COL].values[0])
+        ref_pop_expected_deaths = float(df.loc[
+                (df[std_col.RACE_CATEGORY_ID_COL] == REFERENCE_POPULATION) &
+                (df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
+            ][std_col.COVID_DEATH_Y].values[0])
 
-        return per_100k(row['expected_deaths'] / ref_pop_size)
+        if ref_pop_expected_deaths == 0:
+            print("Slipping state %s because reference expected deaths is zero" % row[std_col.STATE_NAME_COL])
+
+            return -1
+
+        return round(row['expected_deaths'] / ref_pop_expected_deaths, 2)
 
     groupby_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
     groupby_cols.extend(std_col.RACE_COLUMNS)
@@ -123,14 +127,14 @@ def age_adjust_from_expected(df, population_df):
     grouped = df.groupby(groupby_cols)
     df = grouped.sum().reset_index()
 
-    df['age_adjusted_deaths_per_100k'] = df.apply(get_age_adjusted_rate, axis=1)
+    df[std_col.COVID_DEATH_RATIO_AGE_ADJUSTED] = df.apply(get_age_adjusted_rate, axis=1)
 
     needed_cols = groupby_cols
-    needed_cols.append('age_adjusted_deaths_per_100k')
+    needed_cols.append(std_col.COVID_DEATH_RATIO_AGE_ADJUSTED)
 
     return df[needed_cols]
 
 
 def do_age_adjustment(race_and_age_df, population_df):
     expected_deaths = get_expected_deaths(race_and_age_df, population_df)
-    return age_adjust_from_expected(expected_deaths, population_df)
+    return age_adjust_from_expected(expected_deaths)
