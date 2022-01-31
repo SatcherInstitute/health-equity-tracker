@@ -16,7 +16,10 @@ export const UNTESTABLE_URLS = [
 ];
 
 // skip some URLs we know don't provide HTTPS
-export const KNOWN_INSECURE_URLS = ["http://www.rootsofhealthinequity.org/"];
+export const KNOWN_INSECURE_URLS = [
+  "http://www.rootsofhealthinequity.org/",
+  "https://www.press.jhu.edu/newsroom/political-determinants-health", // Remove this when they fix their cert chain
+];
 
 // accepts an array of urls found on the site, filters out known untestable or insecure sites
 export function getTestableUrls(allUrls: string[]): string[] {
