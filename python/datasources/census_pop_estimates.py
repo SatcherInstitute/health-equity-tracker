@@ -43,7 +43,7 @@ class CensusPopEstimates(DataSource):
         df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_POPULATION_URL, encoding="ISO-8859-1")
         state_df = generate_state_pop_data(df)
 
-        column_types = {c: 'STRING' for c in df.columns}
+        column_types = {c: 'STRING' for c in state_df.columns}
 
         if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
             column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'

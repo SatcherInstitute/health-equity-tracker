@@ -54,7 +54,4 @@ def testGenerateNationalPopData():
 
     df = generate_national_pop_data(state_df, [])
 
-    print(df.columns)
-    print(national_df.columns)
-
     assert_frame_equal(df, national_df, check_like=True)
