@@ -12,6 +12,8 @@ county_fips,county_name,state_postal,sex,cases,hosp_y,hosp_n,hosp_unknown,death_
 10003,NEW CASTLE,DE,Unknown,1,1,0,0,,,
 15003,HONOLULU,HI,Male,1,,,,,,
 15003,HONOLULU,HI,Total,1,,,,,,
+22097,ST. LANDRY,LA,Male,1,1,0,0,0,0,1
+22097,ST. LANDRY,LA,Total,1,1,0,0,0,0,1
 29077,GREENE,MO,Male,1,0,1,0,0,0,1
 29077,GREENE,MO,Total,1,0,1,0,0,0,1
 31001,ADAMS,NE,Female,1,,,,,,
@@ -38,6 +40,8 @@ county_fips,county_name,state_postal,sex,cases,hosp_y,hosp_n,hosp_unknown,death_
 10003,NEW CASTLE,DE,Other,,,,,,,
 15003,HONOLULU,HI,Female,,,,,,,
 15003,HONOLULU,HI,Other,,,,,,,
+22097,ST. LANDRY,LA,Female,,,,,,,
+22097,ST. LANDRY,LA,Other,,,,,,,
 29077,GREENE,MO,Female,,,,,,,
 29077,GREENE,MO,Other,,,,,,,
 31001,ADAMS,NE,Male,,,,,,,

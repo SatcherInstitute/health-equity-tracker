@@ -21,6 +21,8 @@ county_fips,county_name,state_postal,age,cases,hosp_y,hosp_n,hosp_unknown,death_
 10003,NEW CASTLE,DE,Total,1,1,0,0,,,
 15003,HONOLULU,HI,0-9,1,,,,,,
 15003,HONOLULU,HI,Total,1,,,,,,
+22097,ST. LANDRY,LA,0-9,1,1,0,0,0,0,1
+22097,ST. LANDRY,LA,Total,1,1,0,0,0,0,1
 29077,GREENE,MO,0-9,1,0,1,0,0,0,1
 29077,GREENE,MO,Total,1,0,1,0,0,0,1
 31001,ADAMS,NE,20-29,1,,,,,,
@@ -67,6 +69,14 @@ county_fips,county_name,state_postal,age,cases,hosp_y,hosp_n,hosp_unknown,death_
 15003,HONOLULU,HI,60-69,,,,,,,
 15003,HONOLULU,HI,70-79,,,,,,,
 15003,HONOLULU,HI,80+,,,,,,,
+22097,ST. LANDRY,LA,10-19,,,,,,,
+22097,ST. LANDRY,LA,20-29,,,,,,,
+22097,ST. LANDRY,LA,30-39,,,,,,,
+22097,ST. LANDRY,LA,40-49,,,,,,,
+22097,ST. LANDRY,LA,50-59,,,,,,,
+22097,ST. LANDRY,LA,60-69,,,,,,,
+22097,ST. LANDRY,LA,70-79,,,,,,,
+22097,ST. LANDRY,LA,80+,,,,,,,
 29077,GREENE,MO,10-19,,,,,,,
 29077,GREENE,MO,20-29,,,,,,,
 29077,GREENE,MO,30-39,,,,,,,
