@@ -71,7 +71,7 @@ def generate_state_pop_data(df):
     for std_age, census_age in AGES_MAP.items():
         age_df = df.loc[df['AGEGRP'].isin(census_age)]
         age_df = age_df.groupby(['STATE', 'STNAME']).sum().reset_index()
-        age_df['age'] = std_age
+        age_df[std_col.AGE_COL] = std_age
 
         for state_fips in age_df['STATE'].drop_duplicates().to_list():
             state_name = age_df.loc[age_df['STATE'] == state_fips]['STNAME'].drop_duplicates().to_list()[0]

@@ -28,6 +28,10 @@ GOLDEN_DATA = {
     ("county", "age"): os.path.join(TEST_DIR, "cdc_restricted_by_age_county.csv"),
     ("state", "sex"): os.path.join(TEST_DIR, "cdc_restricted_by_sex_state.csv"),
     ("county", "sex"): os.path.join(TEST_DIR, "cdc_restricted_by_sex_county.csv"),
+    ("national", "race"): os.path.join(TEST_DIR, "cdc_restricted_by_race_national.csv"),
+    ("national", "race_and_age"): os.path.join(TEST_DIR, "cdc_restricted_by_race_and_age_national.csv"),
+    ("national", "age"): os.path.join(TEST_DIR, "cdc_restricted_by_age_national.csv"),
+    ("national", "sex"): os.path.join(TEST_DIR, "cdc_restricted_by_sex_national.csv"),
 }
 
 

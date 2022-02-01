@@ -1,0 +1,12 @@
+state_fips,state_name,cases,death_y,hosp_y,age
+00,United States,4,0,1,0-9
+00,United States,3,2,0,10-19
+00,United States,4,1,1,20-29
+00,United States,4,1,0,30-39
+00,United States,4,3,2,40-49
+00,United States,2,0,0,50-59
+00,United States,1,0,1,60-69
+00,United States,3,0,2,70-79
+00,United States,2,1,0,80+
+00,United States,30,9,7,Total
+00,United States,3,1,0,Unknown

@@ -250,6 +250,27 @@ def add_missing_demographic_values(df, geo, demographic):
                      ignore_index=True)
 
 
+def generate_national_dataset(df, groupby_cols):
+    df = df.replace("", 0)
+    df = df.astype({std_col.COVID_CASES: "int64", std_col.COVID_DEATH_Y: "int64", std_col.COVID_HOSP_Y: "int64"})
+    df = df.groupby(groupby_cols).sum().reset_index()
+    df = df.astype(str)
+
+    df[std_col.STATE_FIPS_COL] = '00'
+    df[std_col.STATE_NAME_COL] = 'United States'
+
+    needed_cols = [
+        std_col.STATE_FIPS_COL,
+        std_col.STATE_NAME_COL,
+        std_col.COVID_CASES,
+        std_col.COVID_DEATH_Y,
+        std_col.COVID_HOSP_Y,
+    ]
+
+    needed_cols.extend(groupby_cols)
+    return df[needed_cols].reset_index(drop=True)
+
+
 def process_data(dir, files):
     """Given a directory and a list of files which contain line item-level
     covid data, standardizes and aggregates by race, age, and sex. Returns a
@@ -353,6 +374,21 @@ def process_data(dir, files):
         # Standardize all None/NaNs in the data to an empty string, and convert
         # everything to string before returning & writing to CSV.
         all_dfs[key] = all_dfs[key].fillna("").astype(str)
+
+    for key in list(all_dfs.keys()):
+        print(key)
+        geo, demographic = key
+
+        if geo == 'state':
+            demo_to_groupby_cols = {
+                'race': list(std_col.RACE_COLUMNS),
+                'age': [std_col.AGE_COL],
+                'sex': [std_col.SEX_COL],
+                'race_and_age': list(std_col.RACE_COLUMNS) + [std_col.AGE_COL],
+            }
+
+            all_dfs[('national', demographic)] = generate_national_dataset(
+                    all_dfs[key], demo_to_groupby_cols[demographic])
 
     return all_dfs
 
