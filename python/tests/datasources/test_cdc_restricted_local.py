@@ -5,7 +5,8 @@ from pandas._testing import assert_frame_equal
 import datasources.cdc_restricted_local as cdc
 
 # TO UPDATE THE GOLDEN DATA FOR THIS TEST PLEASE RUN THE FOLLOWING:
-# python cdc_restricted_local.py --dir="../tests/data" --prefix="COVID_Cases_Restricted_Detailed_04302021"
+# python cdc_restricted_local.py --dir="../tests/data/cdc_retricted_local" \
+#       --prefix="COVID_Cases_Restricted_Detailed_04302021"
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -35,23 +36,75 @@ GOLDEN_DATA = {
 }
 
 
-# TODO: This test should really be many smaller test functions/methods with
-# their own test data, rather than being a monolith.
-def testProcessData():
-    # Process raw test data.
+def testKeyMap():
+    # Test that the maps' keys are the same.
     dfs = cdc.process_data(TEST_DIR, TEST_DATA)
-
-    # Build map of expected dfs from golden data.
     expected_dfs = {}
     for key, val in GOLDEN_DATA.items():
         # Set keep_default_na=False so that empty strings are not read as NaN.
         expected_dfs[key] = pd.read_csv(val, dtype=str, keep_default_na=False)
 
-    # Test that the maps' keys are the same.
     keys = sorted(list(dfs.keys()))
     expected_keys = sorted(list(expected_dfs.keys()))
     assert keys == expected_keys
 
-    # Test that the values are the same.
-    for key in keys:
-        assert_frame_equal(dfs[key], expected_dfs[key], check_like=True)
+
+def run_test(key):
+    dfs = cdc.process_data(TEST_DIR, TEST_DATA)
+    expected_df = pd.read_csv(GOLDEN_DATA[key], dtype=str, keep_default_na=False)
+    assert_frame_equal(dfs[key], expected_df, check_like=True)
+
+
+def testStateRace():
+    key = ('state', 'race')
+    run_test(key)
+
+
+def testCountyRace():
+    key = ('county', 'race')
+    run_test(key)
+
+
+def testStateRaceAndAge():
+    key = ('state', 'race_and_age')
+    run_test(key)
+
+
+def testStateAge():
+    key = ('state', 'age')
+    run_test(key)
+
+
+def testCountyAge():
+    key = ('county', 'age')
+    run_test(key)
+
+
+def testStateSex():
+    key = ('state', 'sex')
+    run_test(key)
+
+
+def testCountySex():
+    key = ('county', 'sex')
+    run_test(key)
+
+
+def testNationalRace():
+    key = ('national', 'race')
+    run_test(key)
+
+
+def testNationalRaceAndAge():
+    key = ('national', 'race_and_age')
+    run_test(key)
+
+
+def testNationalAge():
+    key = ('national', 'age')
+    run_test(key)
+
+
+def testNationalSex():
+    key = ('national', 'sex')
+    run_test(key)
