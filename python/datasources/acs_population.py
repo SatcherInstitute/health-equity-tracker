@@ -173,7 +173,7 @@ def update_col_types(frame):
         if col != "NAME" and col != "state" and col != "county":
             colTypes[col] = "int64"
         else:
-            colTypes["state"] = "string"
+            colTypes["state"] = str
     frame = frame.astype(colTypes)
     return frame
 

@@ -7,6 +7,8 @@ DE,Total,1,1,0,0,,,
 DE,Unknown,1,1,0,0,,,
 HI,Male,1,,,,,,
 HI,Total,1,,,,,,
+LA,Male,1,1,0,0,0,0,1
+LA,Total,1,1,0,0,0,0,1
 MD,Female,1,0,0,1,1,0,0
 MD,Total,1,0,0,1,1,0,0
 MO,Male,1,0,1,0,0,0,1
@@ -31,6 +33,8 @@ DE,Male,,,,,,,
 DE,Other,,,,,,,
 HI,Female,,,,,,,
 HI,Other,,,,,,,
+LA,Female,,,,,,,
+LA,Other,,,,,,,
 MD,Male,,,,,,,
 MD,Other,,,,,,,
 MO,Female,,,,,,,

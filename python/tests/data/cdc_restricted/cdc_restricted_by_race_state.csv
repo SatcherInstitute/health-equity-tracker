@@ -12,6 +12,8 @@ DE,TOTAL,1,1,0,0,,,,Total,,Total
 DE,UNKNOWN,1,1,0,0,,,,Unknown race,True,Unknown race
 HI,AIAN_NH,1,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
 HI,TOTAL,1,,,,,,,Total,,Total
+LA,AIAN_NH,1,1,0,0,0,0,1,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+LA,TOTAL,1,1,0,0,0,0,1,Total,,Total
 MD,ASIAN_NH,1,0,0,1,1,0,0,Asian,False,Asian (Non-Hispanic)
 MD,TOTAL,1,0,0,1,1,0,0,Total,,Total
 MO,AIAN_NH,1,0,1,0,0,0,1,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
@@ -43,6 +45,12 @@ HI,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino
 HI,MULTI_OR_OTHER_STANDARD_NH,,,,,,,,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
 HI,NHPI_NH,,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
 HI,WHITE_NH,,,,,,,,White,False,White (Non-Hispanic)
+LA,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
+LA,BLACK_NH,,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
+LA,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino
+LA,MULTI_OR_OTHER_STANDARD_NH,,,,,,,,Two or more races & Some other race,False,Two or more races & Some other race (Non-Hispanic)
+LA,NHPI_NH,,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+LA,WHITE_NH,,,,,,,,White,False,White (Non-Hispanic)
 MD,AIAN_NH,,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
 MD,BLACK_NH,,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
 MD,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino
