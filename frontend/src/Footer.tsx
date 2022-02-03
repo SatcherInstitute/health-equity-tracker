@@ -62,6 +62,7 @@ function Footer() {
               />
             ))}
           </Grid>
+          {/* DESKTOP */}
           <Hidden xsDown>
             <Grid item container justifyContent="flex-end">
               <span className={styles.CopyrightSpan}>
@@ -69,6 +70,7 @@ function Footer() {
               </span>
             </Grid>
           </Hidden>
+          {/* MOBILE */}
           <Hidden smUp>
             <Grid item container justifyContent="center">
               <span className={styles.CopyrightSpan}>
