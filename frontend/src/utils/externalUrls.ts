@@ -21,7 +21,8 @@ export type LinkName =
   | "cdcCovidRestricted"
   | "kffCovid"
   | "amr"
-  | "amrMethodology";
+  | "amrMethodology"
+  | "lifeline";
 
 export const urlMap: Record<LinkName, string> = {
   newsletterSignup:
@@ -52,10 +53,10 @@ export const urlMap: Record<LinkName, string> = {
   kffCovid: "https://www.kff.org/state-category/covid-19/",
   cdcVaxCounty:
     "https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh",
-  amr:
-    "https://www.americashealthrankings.org/explore/annual/measure/Overall_a/state/ALL",
+  amr: "https://www.americashealthrankings.org/explore/annual/measure/Overall_a/state/ALL",
   amrMethodology:
     "https://www.americashealthrankings.org/about/methodology/data-sources-and-measures",
   cdcCovidRestricted:
     "https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t",
+  lifeline: "https://suicidepreventionlifeline.org/",
 };

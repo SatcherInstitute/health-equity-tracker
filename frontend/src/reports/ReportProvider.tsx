@@ -30,6 +30,7 @@ import { Helmet } from "react-helmet-async";
 import { urlMap } from "../utils/externalUrls";
 import { Box } from "@material-ui/core";
 import DefinitionsList from "./ui/DefinitionsList";
+import LifelineAlert from "./ui/LifelineAlert";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
@@ -163,6 +164,7 @@ function ReportProvider(props: ReportProviderProps) {
       </Helmet>
       <div className={reportWrapper}>
         <ShareButtons madLib={props.madLib} />
+        <LifelineAlert />
         <DisclaimerAlert jumpToData={jumpToData} />
         {getReport()}
       </div>
