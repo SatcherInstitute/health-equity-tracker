@@ -29,10 +29,10 @@
 
   .HeaderTextItem {
     justify-content: center;
-    padding: 104px 66px 104px 66px;
-
+    padding: 2rem 15%;
     @media (min-width: $md) {
       border-left: 1px solid $border-color;
+      padding: 104px 66px 104px 66px;
     }
 
     .HeaderText {
@@ -40,6 +40,7 @@
       text-align: left;
       font-weight: 300;
       font-family: "Taviraj", serif !important;
+      line-height: 100%;
       color: $alt-green;
     }
 
@@ -93,9 +94,7 @@
 /** ------------- HEALTH EQUITY RESOURCES & NEWS SECTION ------------- **/
 
 .ResourcesAndNewsRow {
-  padding: 75px 30px 75px 30px;
   align-items: center;
-  border-bottom: $bottom-border-style;
 
   /** ------------- RESOURCES SECTION ------------- **/
 
@@ -125,7 +124,7 @@
 
       a {
         text-decoration: none;
-        color: black;
+        color: $black;
       }
     }
 
@@ -184,7 +183,7 @@
       text-align: left;
       font-weight: 300;
       font-family: "Inter", sans-serif !important;
-      color: black !important;
+      color: $black !important;
     }
 
     .NewsAndStoriesItem {
@@ -205,10 +204,16 @@
       width: 100%;
       border-radius: 30px;
     }
-
+    .NewsAndStoriesTitleLink {
+      text-decoration: none;
+    }
     .NewsAndStoriesTitleText {
+      text-align: center;
+      font-weight: 300;
+      font-family: "Taviraj", serif !important;
+      line-height: 130%;
+      color: $alt-green;
       font-size: $title;
-      font-weight: 600;
       margin: 15px 0 15px 0;
     }
 
@@ -219,7 +224,7 @@
 
       a {
         text-decoration: underline;
-        color: black;
+        color: $black;
       }
     }
   }
@@ -346,9 +351,9 @@
   }
 
   .EmailTextField {
+    height: 56px;
     width: 260px;
   }
-
   .EmailAddressFormSubmit {
     height: 56px;
     margin-left: 5px;
@@ -385,3 +390,5 @@
 .ResourcesTabListItem {
   padding: 7px 0;
 }
+
+/** ------------- NEWS ------------- **/

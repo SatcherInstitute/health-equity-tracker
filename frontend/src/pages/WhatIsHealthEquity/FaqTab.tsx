@@ -5,7 +5,7 @@ import { Typography } from "@material-ui/core";
 import { CONTACT_TAB_LINK, DATA_CATALOG_PAGE_LINK } from "../../utils/urlutils";
 import { Helmet } from "react-helmet-async";
 import { CITATION_APA } from "../DataCatalog/MethodologyTab";
-import parse from "html-react-parser";
+import { getHtml } from "../../utils/urlutils";
 import FeedbackBox from "../ui/FeedbackBox";
 import { urlMap } from "../../utils/externalUrls";
 
@@ -148,15 +148,24 @@ function FaqTab() {
             <Grid container>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>{selectFaqs[4].q}</h3>
-                <div className={styles.FaqAnswer}>{parse(selectFaqs[4].a)}</div>
+                <div className={styles.FaqAnswer}>
+                  {getHtml(selectFaqs[4].a)}
+                </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>{selectFaqs[2].q}</h3>
-                <div className={styles.FaqAnswer}>{parse(selectFaqs[2].a)}</div>
+                <div className={styles.FaqAnswer}>
+                  {getHtml(selectFaqs[2].a)}
+                </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>{selectFaqs[3].q}</h3>
-                <div className={styles.FaqAnswer}>{parse(selectFaqs[3].a)}</div>
+                <div className={styles.FaqAnswer}>
+                  {getHtml(selectFaqs[3].a)}
+                </div>
+                <a href="/datacatalog" className={styles.MajorLink}>
+                  See Data Sources
+                </a>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>
@@ -250,12 +259,20 @@ function FaqTab() {
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>{parse(selectFaqs[0].q)}</h3>
-                <div className={styles.FaqAnswer}>{parse(selectFaqs[0].a)}</div>
+                <h3 className={styles.FaqQuestion}>
+                  {getHtml(selectFaqs[0].q)}
+                </h3>
+                <div className={styles.FaqAnswer}>
+                  {getHtml(selectFaqs[0].a)}
+                </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>{parse(selectFaqs[1].q)}</h3>
-                <div className={styles.FaqAnswer}>{parse(selectFaqs[1].a)}</div>
+                <h3 className={styles.FaqQuestion}>
+                  {getHtml(selectFaqs[1].q)}
+                </h3>
+                <div className={styles.FaqAnswer}>
+                  {getHtml(selectFaqs[1].a)}
+                </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>
