@@ -35,7 +35,7 @@ export async function getStatus(url: string): Promise<number> {
     const response = await axios.get(url);
     return response.status;
   } catch (error) {
-    console.error(url, "Error getting response code");
+    console.error(error);
     return 0;
   }
 }

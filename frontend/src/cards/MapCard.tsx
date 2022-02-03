@@ -279,6 +279,7 @@ function MapCardWithKey(props: MapCardProps) {
                   <CardContent>
                     <Alert severity="info" role="note">
                       {generateDemographicTotalPhrase()}
+
                       {/* Compare across XYZ for all variables except vaccinated at county level */}
                       {!hideDemographicUI && (
                         <MultiMapLink

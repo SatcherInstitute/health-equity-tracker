@@ -25,7 +25,6 @@ import MaterialTheme from "./styles/MaterialTheme";
 import { autoInitGlobals } from "./utils/globals";
 import {
   ABOUT_US_PAGE_LINK,
-  NEWS_TAB_LINK,
   CONTACT_TAB_LINK,
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
@@ -230,10 +229,6 @@ function App() {
                       </Route>
 
                       <Route path={RESOURCES_TAB_LINK}>
-                        <WhatIsHealthEquityPage />
-                      </Route>
-
-                      <Route path={NEWS_TAB_LINK}>
                         <WhatIsHealthEquityPage />
                       </Route>
 

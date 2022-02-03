@@ -74,7 +74,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             item
             xs={12}
             container
-            justifyContent={pageIsWide ? "flex-start" : "center"}
+            justify={pageIsWide ? "flex-start" : "center"}
           >
             <Typography id="modalTitle" variant="h6" component="h2">
               {props.metricConfig.fullCardTitleName} Across All{" "}
