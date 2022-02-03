@@ -120,7 +120,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     name: "PDOH - JHU PRESS",
-    url: "https://www.press.jhu.edu/news/blog/political-determinants-health",
+    url: "https://www.press.jhu.edu/newsroom/political-determinants-health",
   },
   {
     name: "The Economic Case for Health Equity - ASTHO",
