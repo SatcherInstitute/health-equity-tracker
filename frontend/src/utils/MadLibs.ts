@@ -1,4 +1,8 @@
-import { DropdownVarId } from "../data/config/MetricConfig";
+import {
+  DropdownVarId,
+  METRIC_CONFIG,
+  VariableConfig,
+} from "../data/config/MetricConfig";
 import { FIPS_MAP, USA_FIPS } from "../data/utils/Fips";
 
 // Map of phrase segment index to its selected value
@@ -57,6 +61,29 @@ export function getMadLibWithUpdatedValue(
     ...originalMadLib,
     activeSelections: updatePhraseSelections,
   };
+}
+
+export function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
+  const segment = madLib.phrase[segmentIndex];
+  return typeof segment === "string"
+    ? segment
+    : madLib.activeSelections[segmentIndex];
+}
+
+/* Returns an array of all currently selected conditions. 
+If a condition contains multiple data types, they are
+treated as individual items  */
+export function getSelectedConditions(madLib: MadLib) {
+  const condition1array: VariableConfig[] =
+    METRIC_CONFIG[getPhraseValue(madLib, 1)];
+  // get 2nd condition if in compare var mode
+  const condition2array: VariableConfig[] =
+    madLib.id === "comparevars" ? METRIC_CONFIG[getPhraseValue(madLib, 3)] : [];
+
+  // make a list of conditions and sub-conditions, including #2 if it's unique
+  return condition2array.length && condition2array !== condition1array
+    ? [...condition1array, ...condition2array]
+    : condition1array;
 }
 
 const DROPDOWN_VAR: Record<DropdownVarId, string> = {

@@ -6,6 +6,8 @@ import {
   getMadLibWithUpdatedValue,
   MadLibId,
   getMadLibPhraseText,
+  getPhraseValue,
+  getSelectedConditions,
 } from "../utils/MadLibs";
 import { Fips } from "../data/utils/Fips";
 import {
@@ -18,11 +20,7 @@ import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import styles from "./Report.module.scss";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
-import {
-  METRIC_CONFIG,
-  VariableConfig,
-  DropdownVarId,
-} from "../data/config/MetricConfig";
+import { DropdownVarId, VariableConfig } from "../data/config/MetricConfig";
 import { Link } from "react-router-dom";
 import FeedbackBox from "../pages/ui/FeedbackBox";
 import ShareButtons from "./ui/ShareButtons";
@@ -34,13 +32,6 @@ import LifelineAlert from "./ui/LifelineAlert";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
-function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
-  const segment = madLib.phrase[segmentIndex];
-  return typeof segment === "string"
-    ? segment
-    : madLib.activeSelections[segmentIndex];
-}
-
 interface ReportProviderProps {
   isSingleColumn: boolean;
   madLib: MadLib;
@@ -49,6 +40,12 @@ interface ReportProviderProps {
 }
 
 function ReportProvider(props: ReportProviderProps) {
+  const selectedConditions = getSelectedConditions(props.madLib);
+  // if suicide is a selected condition, show lifeline phone number
+  const showLifeLine = selectedConditions.some(
+    (condition: VariableConfig) => condition?.variableId === "suicides"
+  );
+
   const fieldRef = useRef<HTMLInputElement>(null);
   const definitionsRef = useRef<HTMLInputElement>(null);
 
@@ -164,7 +161,7 @@ function ReportProvider(props: ReportProviderProps) {
       </Helmet>
       <div className={reportWrapper}>
         <ShareButtons madLib={props.madLib} />
-        <LifelineAlert />
+        {showLifeLine && <LifelineAlert />}
         <DisclaimerAlert jumpToData={jumpToData} />
         {getReport()}
       </div>
@@ -310,7 +307,7 @@ function ReportProvider(props: ReportProviderProps) {
           </Button>
 
           <div ref={definitionsRef}>
-            <DefinitionsBox madLib={props.madLib} />
+            <DefinitionsBox selectedConditions={selectedConditions} />
           </div>
 
           <div className={styles.MissingDataContactUs}>
@@ -332,24 +329,9 @@ function ReportProvider(props: ReportProviderProps) {
 /*
 Display heading and condition definition(s) based on the tracker madlib settings
 */
-function DefinitionsBox(props: { madLib: MadLib }) {
-  // get selected condition (array because some conditions like COVID contain multiple sub-conditions)
-  const condition1array: VariableConfig[] =
-    METRIC_CONFIG[getPhraseValue(props.madLib, 1)];
-  // get 2nd condition if in compare var mode
-  const condition2array: VariableConfig[] =
-    props.madLib.id === "comparevars"
-      ? METRIC_CONFIG[getPhraseValue(props.madLib, 3)]
-      : [];
-
-  // make a list of conditions and sub-conditions, including #2 if it's unique
-  const selectedConditions: VariableConfig[] =
-    condition2array.length && condition2array !== condition1array
-      ? [...condition1array, ...condition2array]
-      : condition1array;
-
+function DefinitionsBox(props: { selectedConditions: VariableConfig[] }) {
   // filter out conditions that don't have a definition
-  const definedConditions = selectedConditions.filter(
+  const definedConditions = props.selectedConditions.filter(
     (condition) => condition?.variableDefinition
   );
 
