@@ -123,6 +123,14 @@ export const DECADE_PLUS_5_AGE_BUCKETS = [
 
 export const BROAD_AGE_BUCKETS = ["18-44", "45-64", "65+"] as const;
 
+export const VOTER_AGE_BUCKETS = [
+  "18-24",
+  "25-34",
+  "35-44",
+  "45-54",
+  "55-64",
+] as const;
+
 export const CDC_AGE_BUCKETS = [
   "5-11",
   "12-17",

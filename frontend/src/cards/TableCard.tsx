@@ -27,14 +27,15 @@ import {
   ALL,
   BROAD_AGE_BUCKETS,
   DECADE_PLUS_5_AGE_BUCKETS,
+  VOTER_AGE_BUCKETS,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import {
-  UHC_BROAD_AGE_DETERMINANTS,
   UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
+  UHC_VOTER_AGE_DETERMINANTS,
 } from "../data/variables/BrfssProvider";
 import { urlMap } from "../utils/externalUrls";
 import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
@@ -64,10 +65,10 @@ export function TableCard(props: TableCardProps) {
   let exclusionList = [ALL];
   props.breakdownVar === "race_and_ethnicity" &&
     exclusionList.push(NON_HISPANIC);
-  UHC_BROAD_AGE_DETERMINANTS.includes(current100k) &&
-    exclusionList.push(...DECADE_PLUS_5_AGE_BUCKETS);
+  UHC_VOTER_AGE_DETERMINANTS.includes(current100k) &&
+    exclusionList.push(...DECADE_PLUS_5_AGE_BUCKETS, ...BROAD_AGE_BUCKETS);
   UHC_DECADE_PLUS_5_AGE_DETERMINANTS.includes(current100k) &&
-    exclusionList.push(...BROAD_AGE_BUCKETS);
+    exclusionList.push(...VOTER_AGE_BUCKETS, ...BROAD_AGE_BUCKETS);
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
