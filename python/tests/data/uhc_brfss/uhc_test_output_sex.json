@@ -10,11 +10,11 @@
         "non_medical_rx_opioid_use_per_100k": "5900",
         "non_medical_drug_use_per_100k": "14000",
         "excessive_drinking_per_100k": "19100",
-        "preventable_hospitalizations_per_100k": null,
-        "avoided_care_per_100k": null,
-        "chronic_kidney_disease_per_100k": null,
-        "cardiovascular_diseases_per_100k": null,
-        "asthma_per_100k": null,
+        "preventable_hospitalizations_per_100k": "4527",
+        "avoided_care_per_100k": "11500",
+        "chronic_kidney_disease_per_100k": "3600",
+        "cardiovascular_diseases_per_100k": "12200",
+        "asthma_per_100k": "6900",
         "sex": "Male"
     },
     {
@@ -28,11 +28,11 @@
         "non_medical_rx_opioid_use_per_100k": "7100",
         "non_medical_drug_use_per_100k": "12300",
         "excessive_drinking_per_100k": "10000",
-        "preventable_hospitalizations_per_100k": null,
-        "avoided_care_per_100k": null,
-        "chronic_kidney_disease_per_100k": null,
-        "cardiovascular_diseases_per_100k": null,
-        "asthma_per_100k": null,
+        "preventable_hospitalizations_per_100k": "5251",
+        "avoided_care_per_100k": "14500",
+        "chronic_kidney_disease_per_100k": "4400",
+        "cardiovascular_diseases_per_100k": "9900",
+        "asthma_per_100k": "10900",
         "sex": "Female"
     },
     {
@@ -46,11 +46,11 @@
         "non_medical_rx_opioid_use_per_100k": "6500",
         "non_medical_drug_use_per_100k": "13100",
         "excessive_drinking_per_100k": "14300",
-        "preventable_hospitalizations_per_100k": null,
-        "avoided_care_per_100k": null,
-        "chronic_kidney_disease_per_100k": null,
-        "cardiovascular_diseases_per_100k": null,
-        "asthma_per_100k": null,
+        "preventable_hospitalizations_per_100k": "4912",
+        "avoided_care_per_100k": "13100",
+        "chronic_kidney_disease_per_100k": "4000",
+        "cardiovascular_diseases_per_100k": "11000",
+        "asthma_per_100k": "9000",
         "sex": "All"
     }
 ]

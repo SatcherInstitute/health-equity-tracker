@@ -63,6 +63,9 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     for i in range(len(demographics)):
 
+        # confirm column names are the same
+        # assert set(mock_bq.call_args_list[i].args[0].columns) == set(expected_df.columns)
+
         # add column type for each demographic file
         expected_dtype[demographics[i]] = str
 
