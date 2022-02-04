@@ -45,6 +45,9 @@ function ReportProvider(props: ReportProviderProps) {
   const showLifeLine = selectedConditions.some(
     (condition: VariableConfig) => condition?.variableId === "suicides"
   );
+  const definedConditions = selectedConditions.filter(
+    (condition) => condition?.variableDefinition
+  );
 
   const fieldRef = useRef<HTMLInputElement>(null);
   const definitionsRef = useRef<HTMLInputElement>(null);
@@ -306,8 +309,14 @@ function ReportProvider(props: ReportProviderProps) {
             See Our Data Sources
           </Button>
 
+          {/* Display condition definition(s) based on the tracker madlib settings */}
           <div ref={definitionsRef}>
-            <DefinitionsBox selectedConditions={selectedConditions} />
+            {definedConditions.length > 0 && (
+              <Box mt={5}>
+                <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
+                <DefinitionsList definedConditions={definedConditions} />
+              </Box>
+            )}
           </div>
 
           <div className={styles.MissingDataContactUs}>
@@ -323,26 +332,6 @@ function ReportProvider(props: ReportProviderProps) {
 
       <FeedbackBox />
     </>
-  );
-}
-
-/*
-Display heading and condition definition(s) based on the tracker madlib settings
-*/
-function DefinitionsBox(props: { selectedConditions: VariableConfig[] }) {
-  // filter out conditions that don't have a definition
-  const definedConditions = props.selectedConditions.filter(
-    (condition) => condition?.variableDefinition
-  );
-
-  // dont render anything if there are no definitions to show
-  if (definedConditions.length === 0) return <></>;
-
-  return (
-    <Box mt={5}>
-      <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
-      <DefinitionsList definedConditions={definedConditions} />
-    </Box>
   );
 }
 
