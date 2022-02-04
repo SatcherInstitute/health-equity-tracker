@@ -10,7 +10,7 @@ import { USA_FIPS } from "../utils/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 
-export const UHC_BROAD_AGE_DETERMINANTS: MetricId[] = [
+export const UHC_DETERMINANTS: MetricId[] = [
   "brfss_population_pct",
   "copd_pct_share",
   "copd_per_100k",
@@ -28,11 +28,26 @@ export const UHC_BROAD_AGE_DETERMINANTS: MetricId[] = [
   "excessive_drinking_per_100k",
   "frequent_mental_distress_pct_share",
   "frequent_mental_distress_per_100k",
+  "preventable_hospitalizations_pct_share",
+  "preventable_hospitalizations_per_100k",
+  "avoided_care_pct_share",
+  "avoided_care_per_100k",
+  "chronic_kidney_disease_pct_share",
+  "chronic_kidney_disease_per_100k",
+  "cardiovascular_diseases_pct_share",
+  "cardiovascular_diseases_per_100k",
+  "asthma_pct_share",
+  "asthma_per_100k",
 ];
 
 export const UHC_DECADE_PLUS_5_AGE_DETERMINANTS: MetricId[] = [
   "suicide_pct_share",
   "suicide_per_100k",
+];
+
+export const UHC_VOTER_AGE_DETERMINANTS: MetricId[] = [
+  "voter_participation_pres_pct_share",
+  "voter_participation_pres_per_100k",
 ];
 
 class BrfssProvider extends VariableProvider {
@@ -41,7 +56,8 @@ class BrfssProvider extends VariableProvider {
   constructor(acsProvider: AcsPopulationProvider) {
     super("brfss_provider", [
       "brfss_population_pct",
-      ...UHC_BROAD_AGE_DETERMINANTS,
+      ...UHC_DETERMINANTS,
+      ...UHC_VOTER_AGE_DETERMINANTS,
       ...UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
     ]);
     this.acsProvider = acsProvider;
@@ -128,6 +144,33 @@ class BrfssProvider extends VariableProvider {
           row.frequent_mental_distress_per_100k,
           row.population
         ),
+      estimated_total_preventable_hospitalizations: (row) =>
+        this.calculations.estimateTotal(
+          row.preventable_hospitalizations_per_100k,
+          row.population
+        ),
+      estimated_total_avoided_care: (row) =>
+        this.calculations.estimateTotal(
+          row.avoided_care_per_100k,
+          row.population
+        ),
+      estimated_total_chronic_kidney_disease: (row) =>
+        this.calculations.estimateTotal(
+          row.chronic_kidney_disease_per_100k,
+          row.population
+        ),
+      estimated_total_cardiovascular_diseases: (row) =>
+        this.calculations.estimateTotal(
+          row.cardiovascular_diseases_per_100k,
+          row.population
+        ),
+      estimated_total_asthma: (row) =>
+        this.calculations.estimateTotal(row.asthma_per_100k, row.population),
+      estimated_total_voter_participation_pres: (row) =>
+        this.calculations.estimateTotal(
+          row.voter_participation_pres_per_100k,
+          row.population
+        ),
     });
 
     df = df.renameSeries({
@@ -146,6 +189,12 @@ class BrfssProvider extends VariableProvider {
         "estimated_total_non_medical_rx_opioid_use",
         "estimated_total_excessive_drinking",
         "estimated_total_frequent_mental_distress",
+        "estimated_total_preventable_hospitalizations",
+        "estimated_total_avoided_care",
+        "estimated_total_chronic_kidney_disease",
+        "estimated_total_cardiovascular_diseases",
+        "estimated_total_asthma",
+        "estimated_total_voter_participation_pres",
       ].forEach((col) => {
         df = this.calculations.calculatePctShare(
           df,
@@ -169,6 +218,12 @@ class BrfssProvider extends VariableProvider {
         "estimated_total_non_medical_rx_opioid_use",
         "estimated_total_excessive_drinking",
         "estimated_total_frequent_mental_distress",
+        "estimated_total_preventable_hospitalizations",
+        "estimated_total_avoided_care",
+        "estimated_total_chronic_kidney_disease",
+        "estimated_total_cardiovascular_diseases",
+        "estimated_total_asthma",
+        "estimated_total_voter_participation_pres",
       ])
       .resetIndex();
 

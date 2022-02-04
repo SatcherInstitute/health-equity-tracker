@@ -83,7 +83,19 @@ export type MetricId =
   | "non_medical_drug_use_pct_share"
   | "non_medical_drug_use_per_100k"
   | "non_medical_rx_opioid_use_pct_share"
-  | "non_medical_rx_opioid_use_per_100k";
+  | "non_medical_rx_opioid_use_per_100k"
+  | "preventable_hospitalizations_pct_share"
+  | "preventable_hospitalizations_per_100k"
+  | "avoided_care_pct_share"
+  | "avoided_care_per_100k"
+  | "chronic_kidney_disease_pct_share"
+  | "chronic_kidney_disease_per_100k"
+  | "cardiovascular_diseases_pct_share"
+  | "cardiovascular_diseases_per_100k"
+  | "asthma_pct_share"
+  | "asthma_per_100k"
+  | "voter_participation_pres_pct_share"
+  | "voter_participation_pres_per_100k";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.

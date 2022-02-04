@@ -133,6 +133,16 @@ export class ApiDataFetcher implements DataFetcher {
             row["suicide_per_100k"] == null
               ? null
               : Number(row["suicide_per_100k"]),
+          preventable_hospitalizations_per_100k:
+            Number(row["preventable_hospitalizations_per_100k"]) || null,
+          avoided_care_per_100k: Number(row["avoided_care_per_100k"]) || null,
+          chronic_kidney_disease_per_100k:
+            Number(row["chronic_kidney_disease_per_100k"]) || null,
+          cardiovascular_diseases_per_100k:
+            Number(row["cardiovascular_diseases_per_100k"]) || null,
+          asthma_per_100k: Number(row["asthma_per_100k"]) || null,
+          voter_participation_pres_per_100k:
+            Number(row["voter_participation_pres_per_100k"]) || null,
         };
       });
     } else if (datasetId.startsWith("cdc_restricted")) {
