@@ -10,6 +10,11 @@
     "non_medical_rx_opioid_use_per_100k": "6500",
     "non_medical_drug_use_per_100k": "13100",
     "excessive_drinking_per_100k": "14300",
+    "preventable_hospitalizations": null,
+    "avoided_care": null,
+    "chronic_kidney_disease": null,
+    "cardiovascular_diseases": null,
+    "asthma": null,
     "age": "All"
   },
   {
@@ -23,6 +28,11 @@
     "non_medical_rx_opioid_use_per_100k": null,
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": null,
+    "preventable_hospitalizations": null,
+    "avoided_care": null,
+    "chronic_kidney_disease": null,
+    "cardiovascular_diseases": null,
+    "asthma": null,
     "age": "15-24"
   },
   {
@@ -36,6 +46,11 @@
     "non_medical_rx_opioid_use_per_100k": null,
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": null,
+    "preventable_hospitalizations": null,
+    "avoided_care": null,
+    "chronic_kidney_disease": null,
+    "cardiovascular_diseases": null,
+    "asthma": null,
     "age": "25-34"
   },
   {
@@ -49,6 +64,11 @@
     "non_medical_rx_opioid_use_per_100k": null,
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": null,
+    "preventable_hospitalizations": null,
+    "avoided_care": null,
+    "chronic_kidney_disease": null,
+    "cardiovascular_diseases": null,
+    "asthma": null,
     "age": "35-44"
   },
   {
@@ -62,6 +82,11 @@
     "non_medical_rx_opioid_use_per_100k": null,
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": null,
+    "preventable_hospitalizations": null,
+    "avoided_care": null,
+    "chronic_kidney_disease": null,
+    "cardiovascular_diseases": null,
+    "asthma": null,
     "age": "45-54"
   },
   {
@@ -75,6 +100,11 @@
     "non_medical_rx_opioid_use_per_100k": null,
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": null,
+    "preventable_hospitalizations": null,
+    "avoided_care": null,
+    "chronic_kidney_disease": null,
+    "cardiovascular_diseases": null,
+    "asthma": null,
     "age": "55-64"
   },
   {
@@ -88,6 +118,11 @@
     "non_medical_rx_opioid_use_per_100k": null,
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": null,
+    "preventable_hospitalizations": null,
+    "avoided_care": null,
+    "chronic_kidney_disease": null,
+    "cardiovascular_diseases": null,
+    "asthma": null,
     "age": "65-74"
   },
   {
@@ -101,6 +136,11 @@
     "non_medical_rx_opioid_use_per_100k": null,
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": null,
+    "preventable_hospitalizations": null,
+    "avoided_care": null,
+    "chronic_kidney_disease": null,
+    "cardiovascular_diseases": null,
+    "asthma": null,
     "age": "75-84"
   },
   {
@@ -114,6 +154,11 @@
     "non_medical_rx_opioid_use_per_100k": null,
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": null,
+    "preventable_hospitalizations": null,
+    "avoided_care": null,
+    "chronic_kidney_disease": null,
+    "cardiovascular_diseases": null,
+    "asthma": null,
     "age": "85+"
   },
   {
@@ -127,6 +172,11 @@
     "non_medical_rx_opioid_use_per_100k": null,
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": "21500",
+    "preventable_hospitalizations": null,
+    "avoided_care": null,
+    "chronic_kidney_disease": null,
+    "cardiovascular_diseases": null,
+    "asthma": null,
     "age": "18-44"
   },
   {
@@ -140,6 +190,11 @@
     "non_medical_rx_opioid_use_per_100k": null,
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": "12500",
+    "preventable_hospitalizations": null,
+    "avoided_care": null,
+    "chronic_kidney_disease": null,
+    "cardiovascular_diseases": null,
+    "asthma": null,
     "age": "45-64"
   },
   {
@@ -153,6 +208,11 @@
     "non_medical_rx_opioid_use_per_100k": null,
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": "3600",
+    "preventable_hospitalizations": null,
+    "avoided_care": null,
+    "chronic_kidney_disease": null,
+    "cardiovascular_diseases": null,
+    "asthma": null,
     "age": "65+"
   }
 ]
