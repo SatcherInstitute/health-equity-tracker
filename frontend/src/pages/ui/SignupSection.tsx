@@ -1,5 +1,6 @@
 import { Button, Grid, TextField } from "@material-ui/core";
 import React from "react";
+import { urlMap } from "../../utils/externalUrls";
 import { CONTACT_TAB_LINK, LinkWithStickyParams } from "../../utils/urlutils";
 import styles from "./SignupSection.module.scss";
 
@@ -25,11 +26,7 @@ export default function SignupSection() {
         </p>
       </Grid>
       <Grid item container justifyContent="center" alignItems="center">
-        <form
-          action="https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&"
-          method="post"
-          target="_blank"
-        >
+        <form action={urlMap.newsletterSignup} method="post" target="_blank">
           <TextField
             id="Enter email address to sign up" // Accessibility label
             name="MERGE0"
