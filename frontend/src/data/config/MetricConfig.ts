@@ -10,7 +10,13 @@ export type DropdownVarId =
   | "suicide"
   | "substance"
   | "frequent_mental_distress"
-  | "excessive_drinking";
+  | "excessive_drinking"
+  | "preventable_hospitalizations"
+  | "avoided_care"
+  | "chronic_kidney_disease"
+  | "cardiovascular_diseases"
+  | "asthma"
+  | "voter_participation_pres";
 
 // IDs for the sub-data types (if any) for theDropDownId
 export type VariableId =

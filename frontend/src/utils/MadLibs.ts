@@ -18,6 +18,7 @@ export type CategoryId =
   | "COVID-19"
   | "Chronic Disease"
   | "Behavioral Health"
+  | "Legal & Civic Engagement"
   | "Social & Political Determinants of Health";
 
 export interface MadLib {
@@ -71,6 +72,12 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   substance: "Opioid and Other Substance Misuse",
   excessive_drinking: "Excessive Drinking",
   frequent_mental_distress: "Frequent Mental Distress",
+  preventable_hospitalizations: "Preventable Hospitalizations",
+  avoided_care: "Avoided Care Due to Cost",
+  chronic_kidney_disease: "Chronic Kidney Disease",
+  cardiovascular_diseases: "Cardiovascular Diseases",
+  asthma: "Asthma",
+  voter_participation_pres: "Voter Participation (Presidential)",
 };
 
 /* Update categories / DropdownVarIds here; type defs at top of file */
@@ -82,16 +89,23 @@ export interface Category {
 
 const CATEGORIES_LIST: Category[] = [
   {
-    title: "COVID-19",
-    options: ["covid", "vaccinations"],
+    title: "Social & Political Determinants of Health",
+    options: [
+      "health_insurance",
+      "poverty",
+      "preventable_hospitalizations",
+      "avoided_care",
+    ],
   },
   {
     title: "Chronic Disease",
-    options: ["diabetes", "copd"],
-  },
-  {
-    title: "Social & Political Determinants of Health",
-    options: ["health_insurance", "poverty"],
+    options: [
+      "diabetes",
+      "copd",
+      "asthma",
+      "cardiovascular_diseases",
+      "chronic_kidney_disease",
+    ],
   },
   {
     title: "Behavioral Health",
@@ -102,6 +116,15 @@ const CATEGORIES_LIST: Category[] = [
       "excessive_drinking",
       "frequent_mental_distress",
     ],
+  },
+
+  {
+    title: "COVID-19",
+    options: ["covid", "vaccinations"],
+  },
+  {
+    title: "Legal & Civic Engagement",
+    options: ["voter_participation_pres"],
   },
 ];
 
