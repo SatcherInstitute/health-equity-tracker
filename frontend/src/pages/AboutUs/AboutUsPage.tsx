@@ -8,7 +8,7 @@ import {
   ABOUT_US_PAGE_LINK,
   CONTACT_TAB_LINK,
   OURTEAM_TAB_LINK,
-  useQuery,
+  useUrlSearchParams,
 } from "../../utils/urlutils";
 import styles from "./AboutUsPage.module.scss";
 import { Link, Redirect, Route, Switch } from "react-router-dom";
@@ -17,7 +17,7 @@ export default function AboutUsPage() {
   return (
     <div className={styles.AboutUsPage}>
       {/*  intercept old CONTACT via query params for backwards compatible links */}
-      {useQuery().get("tab") === "2" && (
+      {useUrlSearchParams().get("tab") === "2" && (
         <Redirect
           to={{
             pathname: CONTACT_TAB_LINK,

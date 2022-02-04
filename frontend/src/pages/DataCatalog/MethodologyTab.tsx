@@ -9,7 +9,7 @@ import {
   DATA_TAB_LINK,
 } from "../../utils/urlutils";
 import { Helmet } from "react-helmet-async";
-import parse from "html-react-parser";
+import { getHtml } from "../../utils/urlutils";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
 import { METRIC_CONFIG } from "../../data/config/MetricConfig";
 import { Link } from "react-router-dom";
@@ -61,7 +61,7 @@ function MethodologyTab() {
             >
               <h3 className={styles.MethodologyQuestion}>{selectFaqs[4].q}</h3>
               <div className={styles.MethodologyAnswer}>
-                {<>{parse(selectFaqs[4].a)}</>}
+                {<>{getHtml(selectFaqs[4].a)}</>}
               </div>
             </Grid>
 
