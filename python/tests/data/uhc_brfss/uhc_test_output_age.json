@@ -11,10 +11,10 @@
     "non_medical_drug_use_per_100k": "13100",
     "excessive_drinking_per_100k": "14300",
     "preventable_hospitalizations_per_100k": null,
-    "avoided_care_per_100k": null,
-    "chronic_kidney_disease_per_100k": null,
-    "cardiovascular_diseases_per_100k": null,
-    "asthma_per_100k": null,
+    "avoided_care_per_100k": "13100",
+    "chronic_kidney_disease_per_100k": "4000",
+    "cardiovascular_diseases_per_100k": "11000",
+    "asthma_per_100k": "9000",
     "age": "All"
   },
   {
@@ -173,10 +173,10 @@
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": "21500",
     "preventable_hospitalizations_per_100k": null,
-    "avoided_care_per_100k": null,
-    "chronic_kidney_disease_per_100k": null,
-    "cardiovascular_diseases_per_100k": null,
-    "asthma_per_100k": null,
+    "avoided_care_per_100k": "18200",
+    "chronic_kidney_disease_per_100k": "1300",
+    "cardiovascular_diseases_per_100k": "2400",
+    "asthma_per_100k": "9200",
     "age": "18-44"
   },
   {
@@ -191,10 +191,10 @@
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": "12500",
     "preventable_hospitalizations_per_100k": null,
-    "avoided_care_per_100k": null,
-    "chronic_kidney_disease_per_100k": null,
-    "cardiovascular_diseases_per_100k": null,
-    "asthma_per_100k": null,
+    "avoided_care_per_100k": "12500",
+    "chronic_kidney_disease_per_100k": "5500",
+    "cardiovascular_diseases_per_100k": "13300",
+    "asthma_per_100k": "9300",
     "age": "45-64"
   },
   {
@@ -209,10 +209,10 @@
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": "3600",
     "preventable_hospitalizations_per_100k": null,
-    "avoided_care_per_100k": null,
-    "chronic_kidney_disease_per_100k": null,
-    "cardiovascular_diseases_per_100k": null,
-    "asthma_per_100k": null,
+    "avoided_care_per_100k": "3900",
+    "chronic_kidney_disease_per_100k": "7000",
+    "cardiovascular_diseases_per_100k": "24200",
+    "asthma_per_100k": "8100",
     "age": "65+"
   }
 ]
