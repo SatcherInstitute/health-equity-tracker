@@ -10,11 +10,11 @@
         "non_medical_rx_opioid_use_per_100k": "5900",
         "non_medical_drug_use_per_100k": "14000",
         "excessive_drinking_per_100k": "19100",
-        "preventable_hospitalizations": null,
-        "avoided_care": null,
-        "chronic_kidney_disease": null,
-        "cardiovascular_diseases": null,
-        "asthma": null,
+        "preventable_hospitalizations_per_100k": null,
+        "avoided_care_per_100k": null,
+        "chronic_kidney_disease_per_100k": null,
+        "cardiovascular_diseases_per_100k": null,
+        "asthma_per_100k": null,
         "sex": "Male"
     },
     {
@@ -28,11 +28,11 @@
         "non_medical_rx_opioid_use_per_100k": "7100",
         "non_medical_drug_use_per_100k": "12300",
         "excessive_drinking_per_100k": "10000",
-        "preventable_hospitalizations": null,
-        "avoided_care": null,
-        "chronic_kidney_disease": null,
-        "cardiovascular_diseases": null,
-        "asthma": null,
+        "preventable_hospitalizations_per_100k": null,
+        "avoided_care_per_100k": null,
+        "chronic_kidney_disease_per_100k": null,
+        "cardiovascular_diseases_per_100k": null,
+        "asthma_per_100k": null,
         "sex": "Female"
     },
     {
@@ -46,11 +46,11 @@
         "non_medical_rx_opioid_use_per_100k": "6500",
         "non_medical_drug_use_per_100k": "13100",
         "excessive_drinking_per_100k": "14300",
-        "preventable_hospitalizations": null,
-        "avoided_care": null,
-        "chronic_kidney_disease": null,
-        "cardiovascular_diseases": null,
-        "asthma": null,
+        "preventable_hospitalizations_per_100k": null,
+        "avoided_care_per_100k": null,
+        "chronic_kidney_disease_per_100k": null,
+        "cardiovascular_diseases_per_100k": null,
+        "asthma_per_100k": null,
         "sex": "All"
     }
 ]
