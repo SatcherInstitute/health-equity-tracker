@@ -22,38 +22,38 @@ HISPANIC_BY_RACE_CONCEPT = "HISPANIC OR LATINO ORIGIN BY RACE"
 
 
 GROUPS = {
-  # Hispanic/latino separate. When doing it this way, we don't get sex/age
-  # breakdowns. This is the best way to get cannonical race/ethnicity categories
-  "B03002": HISPANIC_BY_RACE_CONCEPT,
+    # Hispanic/latino separate. When doing it this way, we don't get sex/age
+    # breakdowns. This is the best way to get canonical race/ethnicity categories
+    "B03002": HISPANIC_BY_RACE_CONCEPT,
 
-  # By sex and age, for various races.
-  "B01001": "SEX BY AGE",
-  "B01001A": "SEX BY AGE (WHITE ALONE)",
-  "B01001B": "SEX BY AGE (BLACK OR AFRICAN AMERICAN ALONE)",
-  "B01001C": "SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)",
-  "B01001D": "SEX BY AGE (ASIAN ALONE)",
-  "B01001E": "SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)",
-  "B01001F": "SEX BY AGE (SOME OTHER RACE ALONE)",
-  "B01001G": "SEX BY AGE (TWO OR MORE RACES)",
-  "B01001H": "SEX BY AGE (WHITE ALONE, NOT HISPANIC OR LATINO)",
-  "B01001I": "SEX BY AGE (HISPANIC OR LATINO)"
+    # By sex and age, for various races.
+    "B01001": "SEX BY AGE",
+    "B01001A": "SEX BY AGE (WHITE ALONE)",
+    "B01001B": "SEX BY AGE (BLACK OR AFRICAN AMERICAN ALONE)",
+    "B01001C": "SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)",
+    "B01001D": "SEX BY AGE (ASIAN ALONE)",
+    "B01001E": "SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)",
+    "B01001F": "SEX BY AGE (SOME OTHER RACE ALONE)",
+    "B01001G": "SEX BY AGE (TWO OR MORE RACES)",
+    "B01001H": "SEX BY AGE (WHITE ALONE, NOT HISPANIC OR LATINO)",
+    "B01001I": "SEX BY AGE (HISPANIC OR LATINO)"
 }
 
 
 SEX_BY_AGE_CONCEPTS_TO_RACE = {
-  # These include Hispanic/Latino, so they're not standardized categories.
-  "SEX BY AGE": Race.TOTAL.value,
-  "SEX BY AGE (WHITE ALONE)": Race.WHITE.value,
-  "SEX BY AGE (BLACK OR AFRICAN AMERICAN ALONE)": Race.BLACK.value,
-  "SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)": Race.AIAN.value,
-  "SEX BY AGE (ASIAN ALONE)": Race.ASIAN.value,
-  "SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)": Race.NHPI.value,
-  "SEX BY AGE (SOME OTHER RACE ALONE)": Race.OTHER_STANDARD.value,
-  "SEX BY AGE (TWO OR MORE RACES)": Race.MULTI.value,
-  "SEX BY AGE (HISPANIC OR LATINO)": Race.HISP.value,
+    # These include Hispanic/Latino, so they're not standardized categories.
+    "SEX BY AGE": Race.TOTAL.value,
+    "SEX BY AGE (WHITE ALONE)": Race.WHITE.value,
+    "SEX BY AGE (BLACK OR AFRICAN AMERICAN ALONE)": Race.BLACK.value,
+    "SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)": Race.AIAN.value,
+    "SEX BY AGE (ASIAN ALONE)": Race.ASIAN.value,
+    "SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)": Race.NHPI.value,
+    "SEX BY AGE (SOME OTHER RACE ALONE)": Race.OTHER_STANDARD.value,
+    "SEX BY AGE (TWO OR MORE RACES)": Race.MULTI.value,
+    "SEX BY AGE (HISPANIC OR LATINO)": Race.HISP.value,
 
-  # Doesn't include Hispanic/Latino
-  "SEX BY AGE (WHITE ALONE, NOT HISPANIC OR LATINO)": Race.WHITE_NH.value
+    # Doesn't include Hispanic/Latino
+    "SEX BY AGE (WHITE ALONE, NOT HISPANIC OR LATINO)": Race.WHITE_NH.value
 }
 
 
@@ -140,6 +140,22 @@ def get_uhc_decade_plus_5_age_bucket(age_range):
         return '75-84'
     elif age_range in {'85+'}:
         return '85+'
+
+
+def get_uhc_voter_age_bucket(age_range):
+    if age_range == 'Total':
+        return 'Total'
+    # buckets for Voter Participation (Presidential)
+    elif age_range in {'18-19', '20-20', '21-21', '22-24'}:
+        return '18-24'
+    elif age_range in {'25-29', '30-34'}:
+        return '25-34'
+    elif age_range in {'35-39', '40-44'}:
+        return '35-44'
+    elif age_range in {'45-49', '50-54'}:
+        return '45-54'
+    elif age_range in {'55-59', '60-61', '62-64'}:
+        return '55-64'
 
 
 def rename_age_bracket(bracket):
@@ -255,22 +271,25 @@ class ACSPopulationIngester():
         }
 
         frames['by_sex_age_%s' % self.get_geo_name()] = self.get_by_sex_age(
-                frames[self.get_table_name_by_sex_age_race()], get_decade_age_bucket)
+            frames[self.get_table_name_by_sex_age_race()], get_decade_age_bucket)
 
         by_sex_standard_age_uhc = None
         by_sex_decade_plus_5_age_uhc = None
+        by_sex_voter_age_uhc = None
         if not self.county_level:
             by_sex_standard_age_uhc = self.get_by_sex_age(
                 frames[self.get_table_name_by_sex_age_race()], get_uhc_standard_age_bucket)
             by_sex_decade_plus_5_age_uhc = self.get_by_sex_age(
                 frames[self.get_table_name_by_sex_age_race()], get_uhc_decade_plus_5_age_bucket)
+            by_sex_voter_age_uhc = self.get_by_sex_age(
+                frames[self.get_table_name_by_sex_age_race()], get_uhc_voter_age_bucket)
 
         frames['by_age_%s' % self.get_geo_name()] = self.get_by_age(
             frames['by_sex_age_%s' % self.get_geo_name()],
-            by_sex_standard_age_uhc, by_sex_decade_plus_5_age_uhc)
+            by_sex_standard_age_uhc, by_sex_decade_plus_5_age_uhc, by_sex_voter_age_uhc)
 
         frames['by_sex_%s' % self.get_geo_name()] = self.get_by_sex(
-                frames[self.get_table_name_by_sex_age_race()])
+            frames[self.get_table_name_by_sex_age_race()])
 
         for table_name, df in frames.items():
             # All breakdown columns are strings
@@ -456,11 +475,16 @@ class ACSPopulationIngester():
         by_sex_age[AGE_COL] = by_sex_age[AGE_COL].apply(age_aggregator_func)
 
         groupby_cols = cols[:-1] if self.county_level else cols[1: -1]
-        by_sex_age = by_sex_age.groupby(groupby_cols)[POPULATION_COL].sum().reset_index()
+        by_sex_age = by_sex_age.groupby(
+            groupby_cols)[POPULATION_COL].sum().reset_index()
 
         return by_sex_age
 
-    def get_by_age(self, by_sex_age, by_sex_standard_age_uhc=None, by_sex_decade_plus_5_age_uhc=None):
+    def get_by_age(self,
+                   by_sex_age,
+                   by_sex_standard_age_uhc=None,
+                   by_sex_decade_plus_5_age_uhc=None,
+                   by_sex_voter_age_uhc=None):
         by_age = by_sex_age.loc[by_sex_age[SEX_COL] == TOTAL_VALUE]
 
         cols = [
@@ -480,8 +504,14 @@ class ACSPopulationIngester():
             by_decade_plus_5_age_uhc = by_sex_decade_plus_5_age_uhc.loc[
                 by_sex_decade_plus_5_age_uhc[SEX_COL] == TOTAL_VALUE]
             by_decade_plus_5_age_uhc = by_decade_plus_5_age_uhc[cols[1:]]
+            by_voter_age_uhc = by_sex_voter_age_uhc.loc[
+                by_sex_voter_age_uhc[SEX_COL] == TOTAL_VALUE]
+            by_voter_age_uhc = by_voter_age_uhc[cols[1:]]
 
-            by_age = pd.concat([by_age, by_standard_age_uhc, by_decade_plus_5_age_uhc]
+            by_age = pd.concat([by_age,
+                                by_standard_age_uhc,
+                                by_decade_plus_5_age_uhc,
+                                by_voter_age_uhc]
                                ).drop_duplicates().reset_index(drop=True)
 
         by_age = generate_pct_share_col(
@@ -492,8 +522,8 @@ class ACSPopulationIngester():
 
     def get_by_sex(self, by_sex_age_race_frame):
         by_sex = by_sex_age_race_frame.loc[
-                (by_sex_age_race_frame[RACE_CATEGORY_ID_COL] == Race.TOTAL.value) &
-                (by_sex_age_race_frame[AGE_COL] == TOTAL_VALUE)]
+            (by_sex_age_race_frame[RACE_CATEGORY_ID_COL] == Race.TOTAL.value) &
+            (by_sex_age_race_frame[AGE_COL] == TOTAL_VALUE)]
 
         cols = [
             STATE_FIPS_COL,
