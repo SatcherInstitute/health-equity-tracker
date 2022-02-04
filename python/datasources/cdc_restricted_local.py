@@ -251,10 +251,13 @@ def add_missing_demographic_values(df, geo, demographic):
 
 
 def generate_national_dataset(df, groupby_cols):
-    df = df.replace("", 0)
-    df = df.astype({std_col.COVID_CASES: "int64", std_col.COVID_DEATH_Y: "int64", std_col.COVID_HOSP_Y: "int64"})
+    # This is hacky but I think we have to do this because everything comes
+    # from big query as a string.
+    int_cols = [std_col.COVID_CASES, std_col.COVID_DEATH_Y, std_col.COVID_HOSP_Y]
+    df[int_cols] = df[int_cols].replace("", 0)
+    df[int_cols] = df[int_cols].astype(int)
+
     df = df.groupby(groupby_cols).sum().reset_index()
-    df = df.astype(str)
 
     df[std_col.STATE_FIPS_COL] = '00'
     df[std_col.STATE_NAME_COL] = 'United States'
@@ -374,21 +377,6 @@ def process_data(dir, files):
         # Standardize all None/NaNs in the data to an empty string, and convert
         # everything to string before returning & writing to CSV.
         all_dfs[key] = all_dfs[key].fillna("").astype(str)
-
-    for key in list(all_dfs.keys()):
-        print(key)
-        geo, demographic = key
-
-        if geo == 'state':
-            demo_to_groupby_cols = {
-                'race': list(std_col.RACE_COLUMNS),
-                'age': [std_col.AGE_COL],
-                'sex': [std_col.SEX_COL],
-                'race_and_age': list(std_col.RACE_COLUMNS) + [std_col.AGE_COL],
-            }
-
-            all_dfs[('national', demographic)] = generate_national_dataset(
-                    all_dfs[key], demo_to_groupby_cols[demographic])
 
     return all_dfs
 

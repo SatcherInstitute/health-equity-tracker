@@ -93,8 +93,8 @@ def generate_state_pop_data(df):
     return new_df
 
 
-def generate_national_pop_data(state_df, states_to_exclude):
-    df = state_df.loc[~state_df[std_col.STATE_FIPS_COL].isin(states_to_exclude)]
+def generate_national_pop_data(state_df, states_to_include):
+    df = state_df.loc[state_df[std_col.STATE_FIPS_COL].isin(states_to_include)]
 
     groupby_cols = list(std_col.RACE_COLUMNS)
     groupby_cols.append(std_col.AGE_COL)
@@ -105,7 +105,7 @@ def generate_national_pop_data(state_df, states_to_exclude):
 
     needed_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.POPULATION_COL]
     needed_cols.extend(groupby_cols)
-
+    df[std_col.STATE_FIPS_COL] = df[std_col.STATE_FIPS_COL].astype(str)
     return df[needed_cols].sort_values([std_col.AGE_COL, std_col.RACE_CATEGORY_ID_COL]).reset_index(drop=True)
 
 

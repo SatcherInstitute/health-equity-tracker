@@ -1,6 +1,0 @@
-state_fips,state_name,cases,death_y,hosp_y,sex
-00,United States,9,3,3,Female
-00,United States,10,1,2,Male
-00,United States,0,0,0,Other
-00,United States,30,9,7,Total
-00,United States,11,5,2,Unknown

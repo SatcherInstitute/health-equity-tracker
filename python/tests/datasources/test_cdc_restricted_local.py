@@ -2,6 +2,7 @@ import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
 
+import ingestion.standardized_columns as std_col
 import datasources.cdc_restricted_local as cdc
 
 # TO UPDATE THE GOLDEN DATA FOR THIS TEST PLEASE RUN THE FOLLOWING:
@@ -29,11 +30,10 @@ GOLDEN_DATA = {
     ("county", "age"): os.path.join(TEST_DIR, "cdc_restricted_by_age_county.csv"),
     ("state", "sex"): os.path.join(TEST_DIR, "cdc_restricted_by_sex_state.csv"),
     ("county", "sex"): os.path.join(TEST_DIR, "cdc_restricted_by_sex_county.csv"),
-    ("national", "race"): os.path.join(TEST_DIR, "cdc_restricted_by_race_national.csv"),
-    ("national", "race_and_age"): os.path.join(TEST_DIR, "cdc_restricted_by_race_and_age_national.csv"),
-    ("national", "age"): os.path.join(TEST_DIR, "cdc_restricted_by_age_national.csv"),
-    ("national", "sex"): os.path.join(TEST_DIR, "cdc_restricted_by_sex_national.csv"),
 }
+
+
+GOLDEN_DATA_NATIONAL = os.path.join(TEST_DIR, "cdc_restricted_by_race_and_age_national.csv")
 
 
 def testKeyMap():
@@ -52,6 +52,8 @@ def testKeyMap():
 def run_test(key):
     dfs = cdc.process_data(TEST_DIR, TEST_DATA)
     expected_df = pd.read_csv(GOLDEN_DATA[key], dtype=str, keep_default_na=False)
+
+    assert set(dfs[key].columns) == set(expected_df.columns)
     assert_frame_equal(dfs[key], expected_df, check_like=True)
 
 
@@ -90,21 +92,15 @@ def testCountySex():
     run_test(key)
 
 
-def testNationalRace():
-    key = ('national', 'race')
-    run_test(key)
+def testGenerateNationalDataset():
+    race_age_state = GOLDEN_DATA[('state', 'race_and_age')]
+    race_age_state_df = pd.read_csv(race_age_state, keep_default_na=False)
 
+    groupby_cols = list(std_col.RACE_COLUMNS) + [std_col.AGE_COL]
+    national_df = cdc.generate_national_dataset(race_age_state_df, groupby_cols)
+    expected_df = pd.read_csv(GOLDEN_DATA_NATIONAL, dtype={
+        std_col.STATE_FIPS_COL: str,
+        std_col.COVID_CASES: int,
+    }, keep_default_na=False)
 
-def testNationalRaceAndAge():
-    key = ('national', 'race_and_age')
-    run_test(key)
-
-
-def testNationalAge():
-    key = ('national', 'age')
-    run_test(key)
-
-
-def testNationalSex():
-    key = ('national', 'sex')
-    run_test(key)
+    assert_frame_equal(expected_df, national_df, check_like=True)

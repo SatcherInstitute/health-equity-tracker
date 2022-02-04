@@ -1,6 +1,9 @@
 import ingestion.standardized_columns as std_col
 import pandas as pd
 
+import datasources.census_pop_estimates as census_pop_estimates
+import datasources.cdc_restricted_local as cdc_restricted_local
+
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 
@@ -8,9 +11,6 @@ REFERENCE_POPULATION = std_col.Race.WHITE_NH.value
 
 AGE_ADJUST_RACES = {std_col.Race.WHITE_NH.value, std_col.Race.BLACK_NH.value, std_col.Race.HISP.value,
                     std_col.Race.AIAN_NH.value, std_col.Race.NHPI_NH.value, std_col.Race.ASIAN_NH.value}
-
-
-AGE_ADJUST_MAP = {'by_race_age_state': 'by_race_state'}
 
 
 class AgeAdjustCDCRestricted(DataSource):
@@ -30,18 +30,32 @@ class AgeAdjustCDCRestricted(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         table_names_to_dfs = {}
 
-        for with_race_age, only_race in AGE_ADJUST_MAP.items():
+        for geo in ['state', 'national']:
+            with_race_age = 'by_race_age_state'
             with_race_age_df = gcs_to_bq_util.load_dataframe_from_bigquery('cdc_restricted_data', with_race_age)
 
             pop_df = gcs_to_bq_util.load_dataframe_from_bigquery('census_pop_estimates', 'race_and_ethnicity')
+            if geo == 'national':
+                states_to_include = set(with_race_age_df[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
+                pop_df = census_pop_estimates.generate_national_pop_data(pop_df, states_to_include)
+
+                groupby_cols = list(std_col.RACE_COLUMNS) + [std_col.AGE_COL]
+                with_race_age_df = cdc_restricted_local.generate_national_dataset(with_race_age_df, groupby_cols)
+
+                print(with_race_age_df.dtypes)
+                print(with_race_age_df['death_y'])
+
+                with_race_age_df = with_race_age_df.astype({'death_y': int})
+
             age_adjusted_df = do_age_adjustment(with_race_age_df, pop_df)
 
+            only_race = 'by_race_%s' % geo
             only_race_df = gcs_to_bq_util.load_dataframe_from_bigquery('cdc_restricted_data', only_race)
 
-            table_name = only_race.replace('.csv', '')
-            table_name = '%s-with_age_adjust' % table_name
+            table_name = '%s-with_age_adjust' % only_race
+            thing = merge_age_adjusted(only_race_df, age_adjusted_df)
 
-            table_names_to_dfs[table_name] = merge_age_adjusted(only_race_df, age_adjusted_df)
+            table_names_to_dfs[table_name] = thing
 
         # For each of the files, we load it as a dataframe and add it as a
         # table in the BigQuery dataset. We expect that all aggregation and
@@ -71,17 +85,16 @@ def merge_age_adjusted(df, age_adjusted_df):
     merge_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
     merge_cols.extend(std_col.RACE_COLUMNS)
 
+    df = df.reset_index(drop=True)
+    age_adjusted_df = age_adjusted_df.reset_index(drop=True)
+
     return pd.merge(df, age_adjusted_df, how='left', on=merge_cols)
-
-
-def per_100k(rate):
-    return round(rate * 1000 * 100, 2)
 
 
 def get_expected_deaths(race_and_age_df, population_df):
 
     def get_expected_death_rate(row):
-        true_death_rate = float(row['death_y']) / float(row['population'])
+        true_death_rate = float(row[std_col.COVID_DEATH_Y]) / float(row[std_col.POPULATION_COL])
 
         ref_pop_size = float(population_df.loc[
                 (population_df[std_col.RACE_CATEGORY_ID_COL] == REFERENCE_POPULATION) &
@@ -117,7 +130,9 @@ def age_adjust_from_expected(df):
         if ref_pop_expected_deaths == 0:
             return 0
 
-        return round(row['expected_deaths'] / ref_pop_expected_deaths, 2)
+        thing = round(row['expected_deaths'] / ref_pop_expected_deaths, 2)
+
+        return thing
 
     groupby_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
     groupby_cols.extend(std_col.RACE_COLUMNS)
