@@ -23,8 +23,8 @@ BROAD_AGE_GROUPS = [
     '18-44',
     '45-64',
     '65+']
-# Suicide
-PLUS_5_AGE_GROUPS = [
+
+SUICIDE_AGE_GROUPS = [
     '15-24',
     '25-34',
     '35-44',
@@ -33,11 +33,23 @@ PLUS_5_AGE_GROUPS = [
     '65-74',
     '75-84',
     '85+']
-UHC_AGE_GROUPS = [
+
+VOTER_AGE_GROUPS = [
+    '18-24',
+    '25-34',
+    '35-44',
+    '45-54',
+    '55-64',
+    '65-74']
+
+# single list of all unique age group options
+UHC_AGE_GROUPS = list(dict.fromkeys([
     'All',
-    *PLUS_5_AGE_GROUPS,
+    *SUICIDE_AGE_GROUPS,
+    *VOTER_AGE_GROUPS,
     *BROAD_AGE_GROUPS
-]
+]))
+
 # No Age Breakdowns for: Non-medical Drug (including Illicit Opioid, Non-Medical Rx Opioid)
 
 UHC_SEX_GROUPS = ['Male', 'Female', 'All']
@@ -56,7 +68,7 @@ RACE_GROUPS_TO_STANDARD = {
 
 BASE_UHC_URL = "https://www.americashealthrankings.org/api/v1/downloads/251"
 
-PCT_AGE_DETERMINANTS = {
+UHC_DETERMINANTS = {
     "Chronic Obstructive Pulmonary Disease": std_col.COPD_PER_100K,
     "Diabetes": std_col.DIABETES_PER_100K,
     "Frequent Mental Distress": std_col.FREQUENT_MENTAL_DISTRESS_PER_100K,
@@ -69,8 +81,10 @@ PCT_AGE_DETERMINANTS = {
     "Asthma": std_col.ASTHMA_PER_100K,
     "Cardiovascular Diseases": std_col.CARDIOVASCULAR_PER_100K,
     "Chronic Kidney Disease": std_col.CHRONIC_KIDNEY_PER_100K,
-    "Avoided Care Due to Cost": std_col.AVOIDED_CARE_PER_100K
-
+    "Avoided Care Due to Cost": std_col.AVOIDED_CARE_PER_100K,
+    "Voter Participation (Presidential)": std_col.VOTER_PARTICIPATION_PRES_PER_100K,
+    "Suicide": std_col.SUICIDE_PER_100K,
+    "Preventable Hospitalizations": std_col.PREVENTABLE_HOSP_PER_100K
 }
 
 # When parsing Measure Names from rows with a demographic breakdown
@@ -81,18 +95,20 @@ ALT_ROWS_ALL = {
 
 ALT_ROWS_WITH_DEMO = {
     "Illicit Opioid Use": "Use of Illicit Opioids"
-
 }
 
-# reported as "per 100k" from AHR source
-PER100K_AGE_DETERMINANTS = {
-    # note: suicide also uses distinct age buckets
+PER100K_DETERMINANTS = {
     "Suicide": std_col.SUICIDE_PER_100K,
     "Preventable Hospitalizations": std_col.PREVENTABLE_HOSP_PER_100K
 }
 
-ALL_DETERMINANT_COLS = [*PER100K_AGE_DETERMINANTS.values(), *
-                        PCT_AGE_DETERMINANTS.values()]
+PLUS_5_AGE_DETERMINANTS = {
+    "Suicide": std_col.SUICIDE_PER_100K,
+}
+
+VOTER_AGE_DETERMINANTS = {
+    "Voter Participation (Presidential)": std_col.VOTER_PARTICIPATION_PRES_PER_100K,
+}
 
 BREAKDOWN_MAP = {
     "race_and_ethnicity": UHC_RACE_GROUPS,
@@ -124,7 +140,7 @@ class UHCData(DataSource):
             breakdown_df = self.generate_breakdown(breakdown, df)
             column_types = {c: 'STRING' for c in breakdown_df.columns}
 
-            for col in ALL_DETERMINANT_COLS:
+            for col in UHC_DETERMINANTS.values():
                 column_types[col] = 'FLOAT'
 
             if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
@@ -138,7 +154,7 @@ class UHCData(DataSource):
         states = df['State Name'].drop_duplicates().to_list()
 
         columns = [std_col.STATE_NAME_COL,
-                   *ALL_DETERMINANT_COLS]
+                   *UHC_DETERMINANTS.values()]
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
             columns.append(std_col.RACE_CATEGORY_ID_COL)
         else:
@@ -156,21 +172,9 @@ class UHCData(DataSource):
                 else:
                     output_row[breakdown] = breakdown_value
 
-                # use select determinants based on the iterated age bucket
-                if breakdown_value in BROAD_AGE_GROUPS:
-                    determinants = PCT_AGE_DETERMINANTS
-                elif breakdown_value in PLUS_5_AGE_GROUPS:
-                    determinants = \
-                        PER100K_AGE_DETERMINANTS
-                # for age="All" or any race/sex breakdown, use all determinants
-                else:
-                    determinants = {
-                        **PCT_AGE_DETERMINANTS, **PER100K_AGE_DETERMINANTS}
-
-                for determinant in determinants:
+                for determinant in UHC_DETERMINANTS:
 
                     if breakdown_value == 'All':
-
                         # find row that matches current nested iterations
                         matched_row = df.loc[
                             (df['State Name'] == state) &
@@ -178,16 +182,14 @@ class UHCData(DataSource):
                              ALT_ROWS_ALL.get(determinant, determinant))
                         ]
 
-                        # extract and output the value (converting % to /100k as needed)
-                        if determinant in PCT_AGE_DETERMINANTS:
-                            output_row[determinants[determinant]
-                                       ] = matched_row['Value'].values[0] * 1000
-                        elif determinant in PER100K_AGE_DETERMINANTS:
-                            output_row[determinants[determinant]
+                        if determinant in PER100K_DETERMINANTS:
+                            output_row[UHC_DETERMINANTS[determinant]
                                        ] = matched_row['Value'].values[0]
+                        else:
+                            output_row[UHC_DETERMINANTS[determinant]
+                                       ] = matched_row['Value'].values[0] * 1000
 
                     else:
-
                         # For rows with demographic breakdown, the determinant
                         # and breakdown group are in a single field
                         # We build that string to perfectly match the field,
@@ -208,12 +210,12 @@ class UHCData(DataSource):
                         if len(matched_row) > 0:
                             pct = matched_row['Value'].values[0]
                             if pct:
-                                # if data is a %, convert to per100k
-                                if determinant in PCT_AGE_DETERMINANTS:
-                                    output_row[determinants[determinant]
-                                               ] = pct * 1000
-                                elif determinant in PER100K_AGE_DETERMINANTS:
-                                    output_row[determinants[determinant]] = pct
+                                if determinant in PER100K_DETERMINANTS:
+                                    output_row[UHC_DETERMINANTS[determinant]
+                                               ] = matched_row['Value'].values[0]
+                                else:
+                                    output_row[UHC_DETERMINANTS[determinant]
+                                               ] = matched_row['Value'].values[0] * 1000
 
                 output.append(output_row)
 

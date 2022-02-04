@@ -56,14 +56,15 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
         "avoided_care_per_100k": float,
         "chronic_kidney_disease_per_100k": float,
         "cardiovascular_diseases_per_100k": float,
-        "asthma_per_100k": float
+        "asthma_per_100k": float,
+        "voter_participation_pres_per_100k": float
     }
 
     demographics = ['race_and_ethnicity', 'age', 'sex']
 
     for i in range(len(demographics)):
 
-        # confirm column names are the same
+        # TODO! confirm column names are the same
         # assert set(mock_bq.call_args_list[i].args[0].columns) == set(expected_df.columns)
 
         # add column type for each demographic file
@@ -78,14 +79,6 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
         # read in the test output file as a dataframe with expected columns/types
         expected_df = pd.read_json(
             GOLDEN_DATA[demographics[i]], dtype=expected_dtype)
-
-        # print("^^^^")
-        # print("MOCKED")
-        # print(mock_bq.call_args_list[i].args[0])
-        # expected_df.to_csv("expected.csv")
-        # print("EXPECTED")
-        # print(expected_df)
-        # print("^^^^")
 
         # output created in mocked load_csv_as_dataframe_from_web() should be the same as the expected df
         assert_frame_equal(
