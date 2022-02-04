@@ -52,6 +52,11 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
         "non_medical_rx_opioid_use_per_100k": float,
         "non_medical_drug_use_per_100k": float,
         "excessive_drinking_per_100k": float,
+        "preventable_hospitalizations": float,
+        "avoided_care": float,
+        "chronic_kidney_disease": float,
+        "cardiovascular_diseases": float,
+        "asthma": float
     }
 
     demographics = ['race_and_ethnicity', 'age', 'sex']
