@@ -66,6 +66,11 @@ PCT_AGE_DETERMINANTS = {
     # NOTE: both opioid conditions below are subsets of Non-medical Drug Use above
     "Illicit Opioid Use": std_col.ILLICIT_OPIOID_USE_PER_100K,
     "Non-medical Use of Prescription Opioids": std_col.NON_MEDICAL_RX_OPIOID_USE_PER_100K,
+    "Asthma": std_col.ASTHMA_PER_100K,
+    "Cardiovascular Diseases": std_col.CARDIOVASCULAR_PER_100K,
+    "Chronic Kidney Disease": std_col.CHRONIC_KIDNEY_PER_100K,
+    "Avoided Care Due to Cost": std_col.AVOIDED_CARE_PER_100K
+
 }
 
 # When parsing Measure Names from rows with a demographic breakdown
@@ -79,13 +84,15 @@ ALT_ROWS_WITH_DEMO = {
 
 }
 
-# note: suicide uses distinct age buckets
-# and is the only one that reports as "per 100k"
-# directly from the source
+# reported as "per 100k" from AHR source
 PER100K_AGE_DETERMINANTS = {
-
+    # note: suicide also uses distinct age buckets
     "Suicide": std_col.SUICIDE_PER_100K,
+    "Preventable Hospitalizations": std_col.PREVENTABLE_HOSP_PER_100K
 }
+
+ALL_DETERMINANT_COLS = [*PER100K_AGE_DETERMINANTS.values(), *
+                        PCT_AGE_DETERMINANTS.values()]
 
 BREAKDOWN_MAP = {
     "race_and_ethnicity": UHC_RACE_GROUPS,
@@ -117,15 +124,7 @@ class UHCData(DataSource):
             breakdown_df = self.generate_breakdown(breakdown, df)
             column_types = {c: 'STRING' for c in breakdown_df.columns}
 
-            for col in [std_col.COPD_PER_100K,
-                        std_col.DIABETES_PER_100K,
-                        std_col.FREQUENT_MENTAL_DISTRESS_PER_100K,
-                        std_col.DEPRESSION_PER_100K,
-                        std_col.SUICIDE_PER_100K,
-                        std_col.ILLICIT_OPIOID_USE_PER_100K,
-                        std_col.NON_MEDICAL_RX_OPIOID_USE_PER_100K,
-                        std_col.NON_MEDICAL_DRUG_USE_PER_100K,
-                        std_col.EXCESSIVE_DRINKING_PER_100K]:
+            for col in ALL_DETERMINANT_COLS:
                 column_types[col] = 'FLOAT'
 
             if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
@@ -139,15 +138,7 @@ class UHCData(DataSource):
         states = df['State Name'].drop_duplicates().to_list()
 
         columns = [std_col.STATE_NAME_COL,
-                   std_col.COPD_PER_100K,
-                   std_col.DIABETES_PER_100K,
-                   std_col.FREQUENT_MENTAL_DISTRESS_PER_100K,
-                   std_col.DEPRESSION_PER_100K,
-                   std_col.SUICIDE_PER_100K,
-                   std_col.ILLICIT_OPIOID_USE_PER_100K,
-                   std_col.NON_MEDICAL_RX_OPIOID_USE_PER_100K,
-                   std_col.NON_MEDICAL_DRUG_USE_PER_100K,
-                   std_col.EXCESSIVE_DRINKING_PER_100K]
+                   *ALL_DETERMINANT_COLS]
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
             columns.append(std_col.RACE_CATEGORY_ID_COL)
         else:

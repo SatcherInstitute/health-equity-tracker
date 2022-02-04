@@ -64,6 +64,11 @@ DIABETES_PER_100K = "diabetes_per_100k"
 ANXIETY_PER_100K = "anxiety_per_100k"
 FREQUENT_MENTAL_DISTRESS_PER_100K = "frequent_mental_distress_per_100k"
 SUICIDE_PER_100K = "suicide_per_100k"
+PREVENTABLE_HOSP_PER_100K = "preventable_hosp_per_100k"
+AVOIDED_CARE_PER_100K = "avoided_care_per_100k"
+CHRONIC_KIDNEY_PER_100K = "chronic_kidney_disease_per_100k"
+CARDIOVASCULAR_PER_100K = "cardiovascular_diseases_per_100k"
+ASTHMA_PER_100K = "asthma_per_100k"
 
 # Standardized for Vaccination columns
 VACCINATED_FIRST_DOSE = "vaccinated_first_dose"
