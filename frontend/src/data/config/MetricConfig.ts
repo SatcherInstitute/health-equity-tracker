@@ -20,6 +20,7 @@ export type DropdownVarId =
 
 // IDs for the sub-data types (if any) for theDropDownId
 export type VariableId =
+  | DropdownVarId
   | "population"
   | "population_2010"
   | "cases"
@@ -28,9 +29,7 @@ export type VariableId =
   | "non_medical_drug_use"
   | "non_medical_rx_opioid_use"
   | "illicit_opioid_use"
-  | "health_coverage"
-  | "poverty"
-  | "vaccinations";
+  | "health_coverage";
 
 // consts for simpler code
 export const VAXX: VariableId = "vaccinations";
@@ -730,6 +729,177 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "poverty_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+      },
+    },
+  ],
+  preventable_hospitalizations: [
+    {
+      variableId: "preventable_hospitalizations",
+      variableDisplayName: "Preventable Hospitalizations",
+      variableFullDisplayName: "Cases of Preventable Hospitalization",
+      variableDefinition: `Discharges following hospitalization for diabetes with short- or long-term complications, uncontrolled diabetes without complications, diabetes with lower-extremity amputation, chronic obstructive pulmonary disease, angina without a procedure, asthma, hypertension, heart failure, dehydration, bacterial pneumonia or urinary tract infection per 100,000 Medicare beneficiaries ages 18 and older continuously enrolled in Medicare fee-for-service Part A.`,
+      metrics: {
+        per100k: {
+          metricId: "preventable_hospitalizations_per_100k",
+          fullCardTitleName: "Preventable Hospitalizations Per 100k People",
+          shortVegaLabel: "preventable hospitalizations per 100k",
+          type: "per100k",
+        },
+        pct_share: {
+          metricId: "preventable_hospitalizations_pct_share",
+          fullCardTitleName: "Share Of Preventable Hospitalizations",
+          shortVegaLabel: "% of hospitalizations",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "brfss_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+      },
+    },
+  ],
+  avoided_care: [
+    {
+      variableId: "avoided_care",
+      variableDisplayName: "Avoided Care",
+      variableFullDisplayName: "Individuals Who Avoided Care Due to Cost",
+      variableDefinition: `Adults who reported a time in the past 12 months when they needed to see a doctor but could not because of cost.`,
+      metrics: {
+        per100k: {
+          metricId: "avoided_care_per_100k",
+          fullCardTitleName:
+            "Individuals Who Avoided Care Due to Cost Per 100k People",
+          shortVegaLabel: "individuals who avoided care per 100k",
+          type: "per100k",
+        },
+        pct_share: {
+          metricId: "avoided_care_pct_share",
+          fullCardTitleName: "Share Of Care Avoidance Due to Cost",
+          shortVegaLabel: "% of avoidance",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "brfss_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+      },
+    },
+  ],
+  asthma: [
+    {
+      variableId: "asthma",
+      variableDisplayName: "Asthma",
+      variableFullDisplayName: "Asthma Cases",
+      variableDefinition: `Adults who reported being told by a health professional that they currently have asthma.`,
+      metrics: {
+        per100k: {
+          metricId: "asthma_per_100k",
+          fullCardTitleName: "Individuals with Asthma Per 100k People",
+          shortVegaLabel: "asthma per 100k",
+          type: "per100k",
+        },
+        pct_share: {
+          metricId: "asthma_pct_share",
+          fullCardTitleName: "Share Of All Asthma Cases",
+          shortVegaLabel: "% of cases",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "brfss_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+      },
+    },
+  ],
+  cardiovascular_diseases: [
+    {
+      variableId: "cardiovascular_diseases",
+      variableDisplayName: "Cardiovascular Diseases",
+      variableFullDisplayName: "Cases of Cardiovascular Diseases",
+      variableDefinition: `Adults who reported being told by a health professional that they had angina or coronary heart disease; a heart attack or myocardial infarction; or a stroke.`,
+      metrics: {
+        per100k: {
+          metricId: "cardiovascular_diseases_per_100k",
+          fullCardTitleName: "Cases of Cardiovascular Diseases Per 100k People",
+          shortVegaLabel: "cases of cardiovascular diseases",
+          type: "per100k",
+        },
+        pct_share: {
+          metricId: "cardiovascular_diseases_pct_share",
+          fullCardTitleName: "Share Of Cardiovascular Disease Cases",
+          shortVegaLabel: "% of cases",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "brfss_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+      },
+    },
+  ],
+  chronic_kidney_disease: [
+    {
+      variableId: "chronic_kidney_disease",
+      variableDisplayName: "Chronic Kidney Disease",
+      variableFullDisplayName: "Cases of Chronic Kidney Disease",
+      variableDefinition: `Adults who reported being told by a health professional that they have kidney disease not including kidney stones, bladder infection or incontinence.`,
+      metrics: {
+        per100k: {
+          metricId: "chronic_kidney_disease_per_100k",
+          fullCardTitleName: "Cases of Chronic Kidney Disease Per 100k People",
+          shortVegaLabel: "cases of chronic kidney disease per 100k",
+          type: "per100k",
+        },
+        pct_share: {
+          metricId: "chronic_kidney_disease_pct_share",
+          fullCardTitleName: "Share Of Chronic All Kidney Disease Cases",
+          shortVegaLabel: "% of cases",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "brfss_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortVegaLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+      },
+    },
+  ],
+  voter_participation_pres: [
+    {
+      variableId: "voter_participation_pres",
+      variableDisplayName: "Voter Participation",
+      variableFullDisplayName: "Voter Participation (Presidential Election)",
+      variableDefinition: `U.S. citizens ages 18 and older who voted in the last presidential national election.`,
+      metrics: {
+        per100k: {
+          metricId: "voter_participation_pres_per_100k",
+          fullCardTitleName:
+            "Voter Participation (Presidential) Per 100k People",
+          shortVegaLabel:
+            "individuals who voted in the last presidential election per 100k",
+          type: "per100k",
+        },
+        pct_share: {
+          metricId: "voter_participation_pres_pct_share",
+          fullCardTitleName: "Share Of Presidential Voter Participation",
+          shortVegaLabel: "% of voters",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "brfss_population_pct",
             fullCardTitleName: populationPctTitle,
             shortVegaLabel: populationPctShortLabel,
             type: "pct_share",
