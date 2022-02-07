@@ -741,7 +741,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "preventable_hospitalizations",
       variableDisplayName: "Preventable Hospitalizations",
-      variableFullDisplayName: "Cases of Preventable Hospitalization",
+      variableFullDisplayName: "Preventable Hospitalizations",
       variableDefinition: `Discharges following hospitalization for diabetes with short- or long-term complications, uncontrolled diabetes without complications, diabetes with lower-extremity amputation, chronic obstructive pulmonary disease, angina without a procedure, asthma, hypertension, heart failure, dehydration, bacterial pneumonia or urinary tract infection per 100,000 Medicare beneficiaries ages 18 and older continuously enrolled in Medicare fee-for-service Part A.`,
       metrics: {
         per100k: {
@@ -752,7 +752,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         pct_share: {
           metricId: "preventable_hospitalizations_pct_share",
-          fullCardTitleName: "Share Of Preventable Hospitalizations",
+          fullCardTitleName: "Share Of All Preventable Hospitalizations",
           shortVegaLabel: "% of hospitalizations",
           type: "pct_share",
           populationComparisonMetric: {
@@ -769,7 +769,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "avoided_care",
       variableDisplayName: "Avoided Care",
-      variableFullDisplayName: "Individuals Who Avoided Care Due to Cost",
+      variableFullDisplayName: "Care Avoidance Due to Cost",
       variableDefinition: `Adults who reported a time in the past 12 months when they needed to see a doctor but could not because of cost.`,
       metrics: {
         per100k: {
@@ -781,7 +781,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         pct_share: {
           metricId: "avoided_care_pct_share",
-          fullCardTitleName: "Share Of Care Avoidance Due to Cost",
+          fullCardTitleName: "Share Of All Care Avoidance Due to Cost",
           shortVegaLabel: "% of avoidance",
           type: "pct_share",
           populationComparisonMetric: {
@@ -837,7 +837,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         pct_share: {
           metricId: "cardiovascular_diseases_pct_share",
-          fullCardTitleName: "Share Of Cardiovascular Disease Cases",
+          fullCardTitleName: "Share Of All Cases of Cardiovascular Diseases",
           shortVegaLabel: "% of cases",
           type: "pct_share",
           populationComparisonMetric: {
@@ -888,14 +888,13 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         per100k: {
           metricId: "voter_participation_pres_per_100k",
           fullCardTitleName:
-            "Voter Participation (Presidential) Per 100k People",
-          shortVegaLabel:
-            "individuals who voted in the last presidential election per 100k",
+            "Rates of Voter Participation (Presidential) Per 100k People",
+          shortVegaLabel: "voters in the last presidential election per 100k",
           type: "per100k",
         },
         pct_share: {
           metricId: "voter_participation_pres_pct_share",
-          fullCardTitleName: "Share Of Presidential Voter Participation",
+          fullCardTitleName: "Share Of All Voter Participation (Presidential)",
           shortVegaLabel: "% of voters",
           type: "pct_share",
           populationComparisonMetric: {

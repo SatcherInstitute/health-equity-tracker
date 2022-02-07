@@ -14,6 +14,7 @@ export type PhraseSegment = string | PhraseSelector;
 
 export type MadLibId = "disparity" | "comparegeos" | "comparevars";
 
+// wording used for determinant categories in the selectable dropdown on /exploredata
 export type CategoryId =
   | "COVID-19"
   | "Chronic Disease"
@@ -60,6 +61,7 @@ export function getMadLibWithUpdatedValue(
   };
 }
 
+// Wording used for selectable Determinants on /exploredata
 const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   covid: "COVID-19",
   diabetes: "Diabetes",
@@ -72,12 +74,12 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   substance: "Opioid and Other Substance Misuse",
   excessive_drinking: "Excessive Drinking",
   frequent_mental_distress: "Frequent Mental Distress",
-  preventable_hospitalizations: "Preventable Hospitalizations",
-  avoided_care: "Avoided Care Due to Cost",
+  preventable_hospitalizations: "Preventable Hospitalization",
+  avoided_care: "Care Avoidance Due to Cost",
   chronic_kidney_disease: "Chronic Kidney Disease",
   cardiovascular_diseases: "Cardiovascular Diseases",
   asthma: "Asthma",
-  voter_participation_pres: "Voter Participation (Presidential)",
+  voter_participation_pres: "Voter Participation",
 };
 
 /* Update categories / DropdownVarIds here; type defs at top of file */
@@ -88,6 +90,14 @@ export interface Category {
 }
 
 const CATEGORIES_LIST: Category[] = [
+  {
+    title: "COVID-19",
+    options: ["covid", "vaccinations"],
+  },
+  {
+    title: "Legal & Civic Engagement",
+    options: ["voter_participation_pres"],
+  },
   {
     title: "Social & Political Determinants of Health",
     options: [
@@ -116,15 +126,6 @@ const CATEGORIES_LIST: Category[] = [
       "excessive_drinking",
       "frequent_mental_distress",
     ],
-  },
-
-  {
-    title: "COVID-19",
-    options: ["covid", "vaccinations"],
-  },
-  {
-    title: "Legal & Civic Engagement",
-    options: ["voter_participation_pres"],
   },
 ];
 
