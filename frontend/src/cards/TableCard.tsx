@@ -65,10 +65,20 @@ export function TableCard(props: TableCardProps) {
   let exclusionList = [ALL];
   props.breakdownVar === "race_and_ethnicity" &&
     exclusionList.push(NON_HISPANIC);
-  UHC_VOTER_AGE_DETERMINANTS.includes(current100k) &&
-    exclusionList.push(...DECADE_PLUS_5_AGE_BUCKETS, ...BROAD_AGE_BUCKETS);
-  UHC_DECADE_PLUS_5_AGE_DETERMINANTS.includes(current100k) &&
-    exclusionList.push(...VOTER_AGE_BUCKETS, ...BROAD_AGE_BUCKETS);
+  if (UHC_VOTER_AGE_DETERMINANTS.includes(current100k)) {
+    // dont exclude voter  age brackets which are shared by decade_plus
+    const NON_SHARED_BUCKETS = DECADE_PLUS_5_AGE_BUCKETS.filter(
+      (bucket) => !VOTER_AGE_BUCKETS.includes(bucket as any)
+    );
+    exclusionList.push(...NON_SHARED_BUCKETS, ...BROAD_AGE_BUCKETS);
+  }
+  if (UHC_DECADE_PLUS_5_AGE_DETERMINANTS.includes(current100k)) {
+    // dont exclude decade_plus age brackets which are shared by voter
+    const NON_SHARED_BUCKETS = VOTER_AGE_BUCKETS.filter(
+      (bucket) => !DECADE_PLUS_5_AGE_BUCKETS.includes(bucket as any)
+    );
+    exclusionList.push(...NON_SHARED_BUCKETS, ...BROAD_AGE_BUCKETS);
+  }
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
