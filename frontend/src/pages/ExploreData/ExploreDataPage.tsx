@@ -36,7 +36,7 @@ import { useLocation } from "react-router-dom";
 import { srSpeak } from "../../utils/a11yutils";
 import { urlMap } from "../../utils/externalUrls";
 import { VariableConfig } from "../../data/config/MetricConfig";
-import PhoneIcon from "@material-ui/icons/Phone";
+// import PhoneIcon from "@material-ui/icons/Phone";
 
 const EXPLORE_DATA_ID = "main";
 
