@@ -33,6 +33,7 @@ import { Onboarding } from "./Onboarding";
 import OptionsSelector from "./OptionsSelector";
 import { useLocation } from "react-router-dom";
 import { srSpeak } from "../../utils/a11yutils";
+import { urlMap } from "../../utils/externalUrls";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -244,6 +245,9 @@ function ExploreDataPage() {
               />
             ))}
           </Carousel>
+          <p className={styles.LifelineSticky}>
+            <a href={urlMap.lifeline}>suicidepreventionlifeline.org</a>
+          </p>
         </div>
         <div className={styles.ReportContainer}>
           <ReportProvider

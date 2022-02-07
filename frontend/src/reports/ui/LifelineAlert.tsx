@@ -14,9 +14,7 @@ function LifelineAlert() {
         icon={<PhoneIcon />}
         role="note"
       >
-        <AlertTitle id="onboarding-limits-in-the-data">
-          National Suicide Prevention Lifeline
-        </AlertTitle>
+        <AlertTitle>National Suicide Prevention Lifeline</AlertTitle>
         The Lifeline provides 24/7, free and confidential support for people in
         distress, prevention and crisis resources for you or your loved ones,
         and best practices for professionals in the United States. If you need

@@ -38,6 +38,10 @@
   width: 100%;
 }
 
+.LifelineSticky {
+  display: none;
+}
+
 // when sticky header appears after scrolling down page (not on small screens)
 @media (min-width: $md) {
   .Sticky {
@@ -56,6 +60,10 @@
     }
     .ReportContainer {
       padding-top: 150px;
+    }
+    .LifelineSticky {
+      display: flex;
+      justify-content: center;
     }
   }
 }
