@@ -15,11 +15,16 @@ function LifelineAlert() {
         role="note"
       >
         <AlertTitle>National Suicide Prevention Lifeline</AlertTitle>
-        The Lifeline provides 24/7, free and confidential support for people in
-        distress, prevention and crisis resources for you or your loved ones,
-        and best practices for professionals in the United States. If you need
-        help, call <a href="tel:1-800-273-8255">1-800-273-TALK (8255)</a> or
-        visit <a href={urlMap.lifeline}>suicidepreventionlifeline.org</a>.
+        <p>
+          <b>
+            If you or a loved one is experiencing an emergency,{" "}
+            <a href="tel:911">call 911</a> or go to your nearest emergency room.
+          </b>{" "}
+          For 24/7, free and confidential support, prevention and crisis
+          resources, and professional best practices, call{" "}
+          <a href="tel:1-800-273-8255">1-800-273-TALK (8255)</a> or visit{" "}
+          <a href={urlMap.lifeline}>suicidepreventionlifeline.org</a>.
+        </p>
       </Alert>
     </div>
   );

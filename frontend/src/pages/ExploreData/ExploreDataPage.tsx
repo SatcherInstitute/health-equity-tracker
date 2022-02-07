@@ -9,6 +9,7 @@ import ReportProvider from "../../reports/ReportProvider";
 import {
   getMadLibPhraseText,
   getMadLibWithUpdatedValue,
+  getSelectedConditions,
   MadLib,
   MadLibId,
   MADLIB_LIST,
@@ -34,6 +35,8 @@ import OptionsSelector from "./OptionsSelector";
 import { useLocation } from "react-router-dom";
 import { srSpeak } from "../../utils/a11yutils";
 import { urlMap } from "../../utils/externalUrls";
+import { VariableConfig } from "../../data/config/MetricConfig";
+import PhoneIcon from "@material-ui/icons/Phone";
 
 const EXPLORE_DATA_ID = "main";
 
@@ -42,6 +45,8 @@ function ExploreDataPage() {
   const location: any = useLocation();
   const doScrollToData: boolean =
     location?.hash === `#${WHAT_DATA_ARE_MISSING_ID}`;
+
+  const [showStickyLifeline, setShowStickyLifeline] = useState(false);
 
   // Set up initial mad lib values based on defaults and query params
   const params = useSearchParams();
@@ -192,6 +197,13 @@ function ExploreDataPage() {
 
     // A11y - create then delete an invisible alert that the report mode has changed
     srSpeak(`Now viewing report: ${getMadLibPhraseText(madLib)}`);
+
+    // hide/display the sticky suicide lifeline link based on selected condition
+    setShowStickyLifeline(
+      getSelectedConditions(madLib).some(
+        (condition: VariableConfig) => condition?.variableId === "suicides"
+      )
+    );
   }, [madLib]);
 
   return (
@@ -245,9 +257,12 @@ function ExploreDataPage() {
               />
             ))}
           </Carousel>
-          <p className={styles.LifelineSticky}>
-            <a href={urlMap.lifeline}>suicidepreventionlifeline.org</a>
-          </p>
+          {showStickyLifeline && (
+            <p className={styles.LifelineSticky}>
+              {/* <PhoneIcon /> */}
+              <a href={urlMap.lifeline}>suicidepreventionlifeline.org</a>
+            </p>
+          )}
         </div>
         <div className={styles.ReportContainer}>
           <ReportProvider

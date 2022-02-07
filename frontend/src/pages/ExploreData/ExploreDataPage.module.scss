@@ -64,6 +64,10 @@
     .LifelineSticky {
       display: flex;
       justify-content: center;
+      svg {
+        color: $alt-green;
+        font-size: $title;
+      }
     }
   }
 }
