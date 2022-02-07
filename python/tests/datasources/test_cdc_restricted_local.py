@@ -6,7 +6,7 @@ import ingestion.standardized_columns as std_col
 import datasources.cdc_restricted_local as cdc
 
 # TO UPDATE THE GOLDEN DATA FOR THIS TEST PLEASE RUN THE FOLLOWING:
-# python cdc_restricted_local.py --dir="../tests/data/cdc_retricted_local" \
+# python cdc_restricted_local.py --dir="../tests/data/cdc_restricted_local" \
 #       --prefix="COVID_Cases_Restricted_Detailed_04302021"
 
 # Current working directory.

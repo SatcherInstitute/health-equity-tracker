@@ -6,6 +6,7 @@ from pandas._testing import assert_frame_equal
 
 from datasources.census_pop_estimates import CensusPopEstimates
 from datasources.census_pop_estimates import generate_national_pop_data
+import ingestion.standardized_columns as std_col
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -52,6 +53,7 @@ def testGenerateNationalPopData():
         'state_fips': str,
     })
 
-    df = generate_national_pop_data(state_df, [])
+    states_to_include = state_df[std_col.STATE_FIPS_COL].drop_duplicates().to_list()
+    df = generate_national_pop_data(state_df, states_to_include)
 
     assert_frame_equal(df, national_df, check_like=True)

@@ -20,6 +20,8 @@ DE,TOTAL,,1,1,0,0,,,,Total,,Total
 DE,UNKNOWN,70-79,1,1,0,0,,,,Unknown race,True,Unknown race
 HI,AIAN_NH,0-9,1,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
 HI,TOTAL,,1,,,,,,,Total,,Total
+LA,AIAN_NH,0-9,1,1,0,0,0,0,1,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+LA,TOTAL,,1,1,0,0,0,0,1,Total,,Total
 MD,ASIAN_NH,10-19,1,0,0,1,1,0,0,Asian,False,Asian (Non-Hispanic)
 MD,TOTAL,,1,0,0,1,1,0,0,Total,,Total
 MO,AIAN_NH,0-9,1,0,1,0,0,0,1,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
