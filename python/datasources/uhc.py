@@ -35,9 +35,9 @@ SUICIDE_AGE_GROUPS = [
     '75-84',
     '85+']
 
-# NOTE UHC has an extra space which we remove later
+
 VOTER_AGE_GROUPS = [
-    '18-24 ',
+    '18-24 ',  # NOTE csv has typo extra space which we remove later
     '25-34',
     '35-44',
     '45-64']
@@ -110,6 +110,7 @@ PLUS_5_AGE_DETERMINANTS = {
 VOTER_AGE_DETERMINANTS = {
     "Voter Participation (Presidential)": std_col.VOTER_PARTICIPATION_PRES_PER_100K,
 }
+
 
 BREAKDOWN_MAP = {
     "race_and_ethnicity": UHC_RACE_GROUPS,
