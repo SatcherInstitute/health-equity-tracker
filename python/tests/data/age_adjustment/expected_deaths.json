@@ -10,7 +10,6 @@
     "race_includes_hispanic": false,
     "race_and_ethnicity": "Black or African American (Non-Hispanic)",
     "age": "0-29",
-    "population": 200000,
     "expected_deaths": 60.0
   },
   {
@@ -24,7 +23,6 @@
     "race_includes_hispanic": false,
     "race_and_ethnicity": "Black or African American (Non-Hispanic)",
     "age": "30-59",
-    "population": 300000,
     "expected_deaths": 533.33
   },
   {
@@ -38,7 +36,6 @@
     "race_includes_hispanic": false,
     "race_and_ethnicity": "Black or African American (Non-Hispanic)",
     "age": "60+",
-    "population": 60000,
     "expected_deaths": 2666.67
   },
   {
@@ -52,7 +49,6 @@
     "race_includes_hispanic": true,
     "race_and_ethnicity": "Hispanic or Latino",
     "age": "0-29",
-    "population": 10000,
     "expected_deaths": 600
   },
   {
@@ -66,7 +62,6 @@
     "race_includes_hispanic": true,
     "race_and_ethnicity": "Hispanic or Latino",
     "age": "30-59",
-    "population": 60000,
     "expected_deaths": 1333.33
   },
   {
@@ -80,7 +75,6 @@
     "race_includes_hispanic": true,
     "race_and_ethnicity": "Hispanic or Latino",
     "age": "60+",
-    "population": 6000,
     "expected_deaths": 16666.67
   },
   {
@@ -94,7 +88,6 @@
     "race_includes_hispanic": false,
     "race_and_ethnicity": "White (Non-Hispanic)",
     "age": "0-29",
-    "population": 600000,
     "expected_deaths": 50
   },
   {
@@ -108,7 +101,6 @@
     "race_includes_hispanic": false,
     "race_and_ethnicity": "White (Non-Hispanic)",
     "age": "30-59",
-    "population": 800000,
     "expected_deaths": 500
   },
   {
@@ -122,7 +114,6 @@
     "race_includes_hispanic": false,
     "race_and_ethnicity": "White (Non-Hispanic)",
     "age": "60+",
-    "population": 200000,
     "expected_deaths": 5000
   }
 ]

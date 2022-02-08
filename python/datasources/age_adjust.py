@@ -42,20 +42,19 @@ class AgeAdjustCDCRestricted(DataSource):
                 groupby_cols = list(std_col.RACE_COLUMNS) + [std_col.AGE_COL]
                 with_race_age_df = cdc_restricted_local.generate_national_dataset(with_race_age_df, groupby_cols)
 
-                print(with_race_age_df.dtypes)
-                print(with_race_age_df['death_y'])
-
                 with_race_age_df = with_race_age_df.astype({'death_y': int})
 
             age_adjusted_df = do_age_adjustment(with_race_age_df, pop_df)
 
             only_race = 'by_race_%s' % geo
-            only_race_df = gcs_to_bq_util.load_dataframe_from_bigquery('cdc_restricted_data', only_race)
-
             table_name = '%s-with_age_adjust' % only_race
-            thing = merge_age_adjusted(only_race_df, age_adjusted_df)
 
-            table_names_to_dfs[table_name] = thing
+            # TODO: Get rid of this when we do all national calculations on the backend
+            if geo == 'state':
+                only_race_df = gcs_to_bq_util.load_dataframe_from_bigquery('cdc_restricted_data', only_race)
+                table_names_to_dfs[table_name] = merge_age_adjusted(only_race_df, age_adjusted_df)
+            else:
+                table_names_to_dfs[table_name] = age_adjusted_df
 
         # For each of the files, we load it as a dataframe and add it as a
         # table in the BigQuery dataset. We expect that all aggregation and
@@ -94,7 +93,13 @@ def merge_age_adjusted(df, age_adjusted_df):
 def get_expected_deaths(race_and_age_df, population_df):
 
     def get_expected_death_rate(row):
-        true_death_rate = float(row[std_col.COVID_DEATH_Y]) / float(row[std_col.POPULATION_COL])
+        this_pop_size = float(population_df.loc[
+                (population_df[std_col.RACE_CATEGORY_ID_COL] == row[std_col.RACE_CATEGORY_ID_COL]) &
+                (population_df[std_col.AGE_COL] == row[std_col.AGE_COL]) &
+                (population_df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
+            ][std_col.POPULATION_COL].values[0])
+
+        true_death_rate = float(row[std_col.COVID_DEATH_Y]) / this_pop_size
 
         ref_pop_size = float(population_df.loc[
                 (population_df[std_col.RACE_CATEGORY_ID_COL] == REFERENCE_POPULATION) &
@@ -107,8 +112,7 @@ def get_expected_deaths(race_and_age_df, population_df):
     on_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.AGE_COL]
     on_cols.extend(std_col.RACE_COLUMNS)
 
-    df = pd.merge(race_and_age_df, population_df, how='left', on=on_cols)
-
+    df = race_and_age_df
     states_with_pop = set(population_df[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
     df = df.loc[df[std_col.AGE_COL] != "UNKNOWN"].reset_index(drop=True)
     df = df.loc[df[std_col.RACE_CATEGORY_ID_COL].isin(AGE_ADJUST_RACES)].reset_index(drop=True)
@@ -119,7 +123,7 @@ def get_expected_deaths(race_and_age_df, population_df):
     return df
 
 
-def age_adjust_from_expected(df):
+def age_adjust_from_expected(df, population_df):
 
     def get_age_adjusted_rate(row):
         ref_pop_expected_deaths = float(df.loc[
@@ -130,9 +134,7 @@ def age_adjust_from_expected(df):
         if ref_pop_expected_deaths == 0:
             return 0
 
-        thing = round(row['expected_deaths'] / ref_pop_expected_deaths, 2)
-
-        return thing
+        return round(row['expected_deaths'] / ref_pop_expected_deaths, 2)
 
     groupby_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
     groupby_cols.extend(std_col.RACE_COLUMNS)
@@ -150,4 +152,4 @@ def age_adjust_from_expected(df):
 
 def do_age_adjustment(race_and_age_df, population_df):
     expected_deaths = get_expected_deaths(race_and_age_df, population_df)
-    return age_adjust_from_expected(expected_deaths)
+    return age_adjust_from_expected(expected_deaths, population_df)

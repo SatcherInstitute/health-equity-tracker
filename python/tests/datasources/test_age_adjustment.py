@@ -46,13 +46,17 @@ def testExpectedDeaths():
     df = age_adjust.get_expected_deaths(covid_data, pop_data)
     expected_df = pd.read_json(EXPECTED_DEATHS_JSON, dtype={'state_fips': str})
 
+    print(df.to_string())
+    print(expected_df.to_string())
+
     assert_frame_equal(df, expected_df, check_like=True)
 
 
 def testAgeAdjust():
     expected_deaths_df = pd.read_json(EXPECTED_DEATHS_JSON, dtype={'state_fips': str})
+    pop_data = get_census_pop_estimates_as_df()
 
-    df = age_adjust.age_adjust_from_expected(expected_deaths_df)
+    df = age_adjust.age_adjust_from_expected(expected_deaths_df, pop_data)
     expected_df = pd.read_json(AGE_ADJUST_JSON, dtype={'state_fips': str})
 
     assert_frame_equal(df, expected_df, check_like=True)
@@ -69,7 +73,6 @@ def testWriteToBqState(mock_bq: mock.MagicMock, mock_df: mock.MagicMock):
         get_cdc_restricted_by_race_state_as_df(),
         get_cdc_restricted_by_race_age_state_as_df(),
         get_census_pop_estimates_as_df(),
-        get_cdc_restricted_by_race_national_as_df(),
     ]
 
     age_adjust = AgeAdjustCDCRestricted()
@@ -99,7 +102,6 @@ def testWriteToBqNational(mock_bq: mock.MagicMock, mock_df: mock.MagicMock):
         get_cdc_restricted_by_race_state_as_df(),
         get_cdc_restricted_by_race_age_state_as_df(),
         get_census_pop_estimates_as_df(),
-        get_cdc_restricted_by_race_national_as_df(),
     ]
 
     age_adjust = AgeAdjustCDCRestricted()

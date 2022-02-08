@@ -98,6 +98,8 @@ def generate_national_pop_data(state_df, states_to_include):
 
     groupby_cols = list(std_col.RACE_COLUMNS)
     groupby_cols.append(std_col.AGE_COL)
+
+    df[std_col.POPULATION_COL] = df[std_col.POPULATION_COL].astype(int)
     df = df.groupby(groupby_cols).sum().reset_index()
 
     df[std_col.STATE_FIPS_COL] = '00'

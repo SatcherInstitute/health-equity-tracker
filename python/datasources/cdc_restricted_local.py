@@ -254,6 +254,7 @@ def generate_national_dataset(df, groupby_cols):
     # This is hacky but I think we have to do this because everything comes
     # from big query as a string.
     int_cols = [std_col.COVID_CASES, std_col.COVID_DEATH_Y, std_col.COVID_HOSP_Y]
+    df[int_cols] = df[int_cols].fillna(0)
     df[int_cols] = df[int_cols].replace("", 0)
     df[int_cols] = df[int_cols].astype(int)
 
