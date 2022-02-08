@@ -29,12 +29,16 @@ import {
   DECADE_PLUS_5_AGE_BUCKETS,
   VOTER_AGE_BUCKETS,
   AGE_BUCKETS,
+  ASIAN_NH,
+  NHPI_NH,
+  API_NH,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import {
+  UHC_API_NH_DETERMINANTS,
   UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
   UHC_VOTER_AGE_DETERMINANTS,
 } from "../data/variables/BrfssProvider";
@@ -66,6 +70,11 @@ export function TableCard(props: TableCardProps) {
   let exclusionList = [ALL];
   if (props.breakdownVar === "race_and_ethnicity") {
     exclusionList.push(NON_HISPANIC);
+
+    // use either API or ASIAN + NHPI
+    UHC_API_NH_DETERMINANTS.includes(current100k)
+      ? exclusionList.push(ASIAN_NH, NHPI_NH)
+      : exclusionList.push(API_NH);
   } else if (props.breakdownVar === "age") {
     // get correct age buckets for this determinant
     let determinantBuckets: any[] = [];
@@ -195,6 +204,7 @@ export function TableCard(props: TableCardProps) {
 
             {!queryResponse.dataIsMissing() && (
               <div className={styles.TableChart}>
+                {console.log(">>>", dataWithoutUnknowns)}
                 <TableChart
                   data={dataWithoutUnknowns}
                   breakdownVar={props.breakdownVar}

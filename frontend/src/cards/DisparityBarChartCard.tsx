@@ -140,6 +140,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
             )}
             {dataAvailable && dataWithoutUnknowns.length !== 0 && (
               <CardContent>
+                {console.log(dataWithoutUnknowns)}
                 <DisparityBarChart
                   data={dataWithoutUnknowns}
                   lightMetric={metricConfig.populationComparisonMetric!}
