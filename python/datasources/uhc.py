@@ -34,13 +34,12 @@ SUICIDE_AGE_GROUPS = [
     '75-84',
     '85+']
 
+# NOTE UHC has an extra space which we remove later
 VOTER_AGE_GROUPS = [
-    '18-24',
+    '18-24 ',
     '25-34',
     '35-44',
-    '45-54',
-    '55-64',
-    '65-74']
+    '45-64']
 
 # single list of all unique age group options
 UHC_AGE_GROUPS = list(dict.fromkeys([
@@ -161,7 +160,6 @@ class UHCData(DataSource):
             columns.append(breakdown)
 
         for state in states:
-
             for breakdown_value in BREAKDOWN_MAP[breakdown]:
                 output_row = {}
                 output_row[std_col.STATE_NAME_COL] = state
@@ -170,7 +168,7 @@ class UHCData(DataSource):
                     output_row[std_col.RACE_CATEGORY_ID_COL] = \
                         RACE_GROUPS_TO_STANDARD[breakdown_value]
                 else:
-                    output_row[breakdown] = breakdown_value
+                    output_row[breakdown] = breakdown_value.strip()
 
                 for determinant in UHC_DETERMINANTS:
 
@@ -211,6 +209,7 @@ class UHCData(DataSource):
                             pct = matched_row['Value'].values[0]
                             if pct:
                                 if determinant in PER100K_DETERMINANTS:
+
                                     output_row[UHC_DETERMINANTS[determinant]
                                                ] = matched_row['Value'].values[0]
                                 else:
