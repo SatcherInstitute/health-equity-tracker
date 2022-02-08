@@ -9,6 +9,7 @@ from ingestion import gcs_to_bq_util
 UHC_RACE_GROUPS = [
     'American Indian/Alaska Native',
     'Asian',
+    'Asian/Pacific Islander',
     'Black',
     'Hawaiian/Pacific Islander',
     'Hispanic',
@@ -56,6 +57,7 @@ UHC_SEX_GROUPS = ['Male', 'Female', 'All']
 RACE_GROUPS_TO_STANDARD = {
     'American Indian/Alaska Native': Race.AIAN_NH.value,
     'Asian': Race.ASIAN_NH.value,
+    'Asian/Pacific Islander': Race.API_NH.value,
     'Black': Race.BLACK_NH.value,
     'Hispanic': Race.HISP.value,
     'Hawaiian/Pacific Islander': Race.NHPI_NH.value,
@@ -161,6 +163,7 @@ class UHCData(DataSource):
 
         for state in states:
             for breakdown_value in BREAKDOWN_MAP[breakdown]:
+
                 output_row = {}
                 output_row[std_col.STATE_NAME_COL] = state
 
