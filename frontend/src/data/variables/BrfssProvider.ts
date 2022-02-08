@@ -104,8 +104,15 @@ class BrfssProvider extends VariableProvider {
       acsQueryResponse.consumedDatasetIds
     );
 
+    console.log("BRFSS START");
+
     const acs = new DataFrame(acsQueryResponse.data);
+
+    console.log("BRFSS DONE MAKING FRAME");
+
     df = joinOnCols(df, acs, ["fips", breakdownColumnName], "left");
+
+    console.log("BRFSS DONE JOINING ON FIPS");
 
     df = df.generateSeries({
       estimated_total_diabetes: (row) =>
@@ -173,9 +180,13 @@ class BrfssProvider extends VariableProvider {
         ),
     });
 
+    console.log("BRFSS DONE ESTIMATING");
+
     df = df.renameSeries({
       population_pct: "brfss_population_pct",
     });
+
+    console.log("BRFSS DONE RENAMING POP");
 
     // Calculate any share_of_known metrics that may have been requested in the query
     if (this.allowsBreakdowns(breakdowns)) {
@@ -206,6 +217,8 @@ class BrfssProvider extends VariableProvider {
       });
     }
 
+    console.log("BRFSS DONE NAME CHANGING");
+
     df = df
       .dropSeries([
         "population",
@@ -227,8 +240,15 @@ class BrfssProvider extends VariableProvider {
       ])
       .resetIndex();
 
+    console.log("BRFSS DONE DROPPING");
+
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
+
+    console.log("BRFSS DONE APPLYING FILTERS");
+
     df = this.removeUnrequestedColumns(df, metricQuery);
+
+    console.log("BRFSS DONE REMOVING UNREQ COLUMNS");
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
   }
