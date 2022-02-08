@@ -888,7 +888,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         per100k: {
           metricId: "voter_participation_pres_per_100k",
           fullCardTitleName:
-            "Rates of Voter Participation (Presidential) Per 100k People",
+            "Participating Voters (Presidential) Per 100k People",
           shortVegaLabel: "voters in the last presidential election per 100k",
           type: "per100k",
         },

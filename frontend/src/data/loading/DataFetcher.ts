@@ -101,38 +101,20 @@ export class ApiDataFetcher implements DataFetcher {
       result = result.map((row: any) => {
         return {
           ...row,
-          copd_per_100k:
-            row["copd_per_100k"] == null ? null : Number(row["copd_per_100k"]),
-          diabetes_per_100k:
-            row["copd_per_100k"] == null ? null : Number(row["copd_per_100k"]),
-          depression_per_100k:
-            row["depression_per_100k"] == null
-              ? null
-              : Number(row["depression_per_100k"]),
+          copd_per_100k: Number(row["copd_per_100k"]) || null,
+          diabetes_per_100k: Number(row["copd_per_100k"]) || null,
+          depression_per_100k: Number(row["depression_per_100k"]) || null,
           illicit_opioid_use_per_100k:
-            row["illicit_opioid_use_per_100k"] == null
-              ? null
-              : Number(row["illicit_opioid_use_per_100k"]),
+            Number(row["illicit_opioid_use_per_100k"]) || null,
           non_medical_rx_opioid_use_per_100k:
-            row["non_medical_rx_opioid_use_per_100k"] == null
-              ? null
-              : Number(row["non_medical_rx_opioid_use_per_100k"]),
+            Number(row["non_medical_rx_opioid_use_per_100k"]) || null,
           non_medical_drug_use_per_100k:
-            row["non_medical_drug_use_per_100k"] == null
-              ? null
-              : Number(row["non_medical_drug_use_per_100k"]),
+            Number(row["non_medical_drug_use_per_100k"]) || null,
           excessive_drinking_per_100k:
-            row["excessive_drinking_per_100k"] == null
-              ? null
-              : Number(row["excessive_drinking_per_100k"]),
+            Number(row["excessive_drinking_per_100k"]) || null,
           frequent_mental_distress_per_100k:
-            row["frequent_mental_distress_per_100k"] == null
-              ? null
-              : Number(row["frequent_mental_distress_per_100k"]),
-          suicide_per_100k:
-            row["suicide_per_100k"] == null
-              ? null
-              : Number(row["suicide_per_100k"]),
+            Number(row["frequent_mental_distress_per_100k"]) || null,
+          suicide_per_100k: Number(row["suicide_per_100k"]) || null,
           preventable_hospitalizations_per_100k:
             Number(row["preventable_hospitalizations_per_100k"]) || null,
           avoided_care_per_100k: Number(row["avoided_care_per_100k"]) || null,

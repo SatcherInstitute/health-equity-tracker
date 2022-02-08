@@ -127,8 +127,8 @@ export const VOTER_AGE_BUCKETS = [
   "18-24",
   "25-34",
   "35-44",
-  "45-54",
-  "55-64",
+  "45-64",
+  "65+",
 ] as const;
 
 export const CDC_AGE_BUCKETS = [
