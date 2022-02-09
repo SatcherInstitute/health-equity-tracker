@@ -424,6 +424,10 @@ class ACSPopulationIngester():
             all_races, RACE_CATEGORY_ID_COL, POPULATION_COL,
             Race.MULTI_OR_OTHER_STANDARD.value,
             [Race.MULTI.value, Race.OTHER_STANDARD.value])
+        all_races = add_sum_of_rows(
+            all_races, RACE_CATEGORY_ID_COL, POPULATION_COL,
+            Race.API_NH.value,
+            [Race.ASIAN_NH.value, Race.NHPI_NH.value])
 
         all_races = generate_pct_share_col(
             all_races, POPULATION_COL, POPULATION_PCT_COL,
