@@ -61,6 +61,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     metricConfig.metricId,
     metricConfig.populationComparisonMetric!.metricId,
   ];
+
   if (metricConfig.knownBreakdownComparisonMetric) {
     metricIds.push(metricConfig.knownBreakdownComparisonMetric.metricId);
   }
@@ -140,7 +141,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
             )}
             {dataAvailable && dataWithoutUnknowns.length !== 0 && (
               <CardContent>
-                {console.log(dataWithoutUnknowns)}
                 <DisparityBarChart
                   data={dataWithoutUnknowns}
                   lightMetric={metricConfig.populationComparisonMetric!}

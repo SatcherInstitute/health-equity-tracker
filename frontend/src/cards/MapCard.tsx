@@ -126,8 +126,6 @@ function MapCardWithKey(props: MapCardProps) {
           /* relevantMetric: MetricId */ metricConfig.metricId
         );
 
-        console.log("$$", fieldValues);
-
         const breakdownValues = fieldValues.withData.sort.apply(
           fieldValues.withData,
           sortArgs

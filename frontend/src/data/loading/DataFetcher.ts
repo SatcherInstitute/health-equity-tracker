@@ -91,8 +91,6 @@ export class ApiDataFetcher implements DataFetcher {
     // TODO remove these once we figure out how to make BQ export integers as
     // integers
 
-    console.log("DATA FETCHER");
-
     if (
       datasetId.startsWith("acs_population") ||
       datasetId.startsWith("acs_2010_population")
@@ -205,8 +203,6 @@ export class ApiDataFetcher implements DataFetcher {
         };
       });
     }
-
-    console.log("DATA FETCHER DONE PLACING ");
 
     // TODO - the server should drop ingestion_ts before exporting the file. At
     // that point we can drop this code.
