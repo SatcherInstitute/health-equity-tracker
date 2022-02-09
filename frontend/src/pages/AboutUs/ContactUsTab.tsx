@@ -7,8 +7,6 @@ import FeedbackBox from "../ui/FeedbackBox";
 import { Helmet } from "react-helmet-async";
 import { urlMap } from "../../utils/externalUrls";
 
-console.log("*");
-
 function ContactUsTab() {
   return (
     <>
