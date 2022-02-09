@@ -32,9 +32,11 @@ class AgeAdjustCDCRestricted(DataSource):
 
         for geo in ['state', 'national']:
             with_race_age = 'by_race_age_state'
-            with_race_age_df = gcs_to_bq_util.load_dataframe_from_bigquery('cdc_restricted_data', with_race_age)
+            with_race_age_df = gcs_to_bq_util.load_dataframe_from_bigquery(
+                    'cdc_restricted_data', with_race_age, dtype={'state_fips': str})
 
-            pop_df = gcs_to_bq_util.load_dataframe_from_bigquery('census_pop_estimates', 'race_and_ethnicity')
+            pop_df = gcs_to_bq_util.load_dataframe_from_bigquery(
+                    'census_pop_estimates', 'race_and_ethnicity', dtype={'state_fips': str})
             if geo == 'national':
                 states_to_include = set(with_race_age_df[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
                 pop_df = census_pop_estimates.generate_national_pop_data(pop_df, states_to_include)

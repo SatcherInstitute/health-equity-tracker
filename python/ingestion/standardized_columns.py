@@ -1,5 +1,6 @@
 from enum import Enum, unique
-from collections import namedtuple import pandas
+from collections import namedtuple
+import pandas
 
 # The name of the column for a unique string id for the race category. Should be
 # semi-human readable. See Race enum below for values.

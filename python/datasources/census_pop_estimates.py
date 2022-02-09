@@ -41,7 +41,9 @@ class CensusPopEstimates(DataSource):
             'upload_to_gcs should not be called for CensusPopEstimates')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_POPULATION_URL, encoding="ISO-8859-1")
+        df = gcs_to_bq_util.load_csv_as_dataframe_from_web(
+                BASE_POPULATION_URL, dtype={'STATE': str, 'COUNTY': str}, encoding="ISO-8859-1")
+
         state_df = generate_state_pop_data(df)
 
         column_types = {c: 'STRING' for c in state_df.columns}

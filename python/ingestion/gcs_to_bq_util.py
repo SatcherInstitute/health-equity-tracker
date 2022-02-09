@@ -251,7 +251,7 @@ def load_json_as_df_from_web_based_on_key(url, key, dtype=None):
     return pandas.DataFrame(jsn[key], dtype=dtype)
 
 
-def load_dataframe_from_bigquery(dataset, table_name, project=None):
+def load_dataframe_from_bigquery(dataset, table_name, project=None, dtype=None):
     """Loads data from a big query table into a dataframe.
 
        dataset: The BigQuery dataset to write to.
@@ -260,7 +260,7 @@ def load_dataframe_from_bigquery(dataset, table_name, project=None):
     table_id = client.dataset(dataset).table(table_name)
     table = client.get_table(table_id)
 
-    return client.list_rows(table).to_dataframe()
+    return client.list_rows(table).to_dataframe(dtypes=dtype)
 
 
 def load_values_as_json(gcs_bucket, filename):
