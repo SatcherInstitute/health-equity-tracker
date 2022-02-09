@@ -17,6 +17,7 @@ import sys
 import time
 
 import ingestion.standardized_columns as std_col
+import ingestion.constants as constants
 import numpy as np
 import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
@@ -250,18 +251,24 @@ def add_missing_demographic_values(df, geo, demographic):
                      ignore_index=True)
 
 
-def generate_national_dataset(df, groupby_cols):
+def generate_national_dataset(state_df, groupby_cols):
+    """Generates a national level dataset from the state_df.
+       Returns a national level dataframe
+
+       state_df: state level dataframe
+       groupy_cols: list of columns to group on"""
+
     # This is hacky but I think we have to do this because everything comes
     # from big query as a string.
     int_cols = [std_col.COVID_CASES, std_col.COVID_DEATH_Y, std_col.COVID_HOSP_Y]
-    df[int_cols] = df[int_cols].fillna(0)
-    df[int_cols] = df[int_cols].replace("", 0)
-    df[int_cols] = df[int_cols].astype(int)
+    state_df[int_cols] = state_df[int_cols].fillna(0)
+    state_df[int_cols] = state_df[int_cols].replace("", 0)
+    state_df[int_cols] = state_df[int_cols].astype(int)
 
-    df = df.groupby(groupby_cols).sum().reset_index()
+    df = state_df.groupby(groupby_cols).sum().reset_index()
 
-    df[std_col.STATE_FIPS_COL] = '00'
-    df[std_col.STATE_NAME_COL] = 'United States'
+    df[std_col.STATE_FIPS_COL] = constants.US_FIPS
+    df[std_col.STATE_NAME_COL] = constants.US_NAME
 
     needed_cols = [
         std_col.STATE_FIPS_COL,

@@ -81,6 +81,12 @@ class AgeAdjustCDCRestricted(DataSource):
 
 
 def merge_age_adjusted(df, age_adjusted_df):
+    """Merges the age adjusted death rate into the standard COVID dataset.
+       Returns a dataframe with all needed COVID info for the frontend.
+
+       df: a dataframe with covid date without age adjusted numbers
+       age_adjusted_df: a dataframe with age adjusted covid numbers"""
+
     merge_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
     merge_cols.extend(std_col.RACE_COLUMNS)
 
@@ -91,6 +97,12 @@ def merge_age_adjusted(df, age_adjusted_df):
 
 
 def get_expected_deaths(race_and_age_df, population_df):
+    """Calculates the age adjusted expected deaths of each racial group.
+       I made this function to break up the age adjustment into smaller, more easily testable pieces.
+       Returns a dataframe meant to be used in memory.
+
+       race_and_age_df: a dataframe with covid deaths broken down by race and age
+       population_df: a dataframe with population broken down by race and age"""
 
     def get_expected_death_rate(row):
         this_pop_size = float(population_df.loc[
@@ -124,6 +136,12 @@ def get_expected_deaths(race_and_age_df, population_df):
 
 
 def age_adjust_from_expected(df, population_df):
+    """Calculates the age adjusted death rate against the standard population
+       when given a dataframe with the expected deaths from each racial group.
+       Returns a dataframe with the age adjusted death rate.
+
+       df: dataframe with an 'expected_deaths' field
+       population_df: a dataframe with population broken down by race and age"""
 
     def get_age_adjusted_rate(row):
         ref_pop_expected_deaths = float(df.loc[
@@ -151,5 +169,12 @@ def age_adjust_from_expected(df, population_df):
 
 
 def do_age_adjustment(race_and_age_df, population_df):
+    """Runs the age adjustment end to end.
+       Returns a dataframe with the ahe adjusted death rate compared to the
+       standard population.
+
+       race_and_age_df: a dataframe with covid deaths broken down by race and age
+       population_df: a dataframe with population broken down by race and age"""
+
     expected_deaths = get_expected_deaths(race_and_age_df, population_df)
     return age_adjust_from_expected(expected_deaths, population_df)

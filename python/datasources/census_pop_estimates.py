@@ -3,6 +3,7 @@ from datasources.data_source import DataSource
 
 from ingestion import gcs_to_bq_util
 import ingestion.standardized_columns as std_col
+import ingestion.constants as constants
 
 import pandas as pd
 
@@ -53,6 +54,13 @@ class CensusPopEstimates(DataSource):
 
 
 def generate_state_pop_data(df):
+    """Generates the state level race and age population data for the latest
+       year in the copunty population dataset.
+       Returns a state level dataframe with age/race population numbers for the
+       needed racial groups.
+
+       df: the raw census county population estimates."""
+
     # Only get estimates from 2019
     df = df.loc[df['YEAR'] == YEAR_2019].reset_index(drop=True)
 
@@ -87,13 +95,19 @@ def generate_state_pop_data(df):
                 new_df.append(pop_row)
 
     new_df = pd.DataFrame(new_df)
-    new_df = new_df.sort_values(['state_name', 'age']).reset_index(drop=True)
+    new_df = new_df.sort_values([std_col.STATE_NAME_COL, std_col.AGE_COL]).reset_index(drop=True)
     std_col.add_race_columns_from_category_id(new_df)
 
     return new_df
 
 
 def generate_national_pop_data(state_df, states_to_include):
+    """Returns a national level population dataframe that includes the given states.
+       Meant to be called from other files to generate the data when we know the needed states.
+
+       state_df: the state level population dataframe
+       states_to_include: the list of state fips codes we want to include in the national total"""
+
     df = state_df.loc[state_df[std_col.STATE_FIPS_COL].isin(states_to_include)]
 
     groupby_cols = list(std_col.RACE_COLUMNS)
@@ -102,18 +116,10 @@ def generate_national_pop_data(state_df, states_to_include):
     df[std_col.POPULATION_COL] = df[std_col.POPULATION_COL].astype(int)
     df = df.groupby(groupby_cols).sum().reset_index()
 
-    df[std_col.STATE_FIPS_COL] = '00'
-    df[std_col.STATE_NAME_COL] = 'United States'
+    df[std_col.STATE_FIPS_COL] = constants.US_FIPS
+    df[std_col.STATE_NAME_COL] = constants.US_NAME
 
     needed_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.POPULATION_COL]
     needed_cols.extend(groupby_cols)
     df[std_col.STATE_FIPS_COL] = df[std_col.STATE_FIPS_COL].astype(str)
     return df[needed_cols].sort_values([std_col.AGE_COL, std_col.RACE_CATEGORY_ID_COL]).reset_index(drop=True)
-
-
-def update_test_data():
-    est_file = 'python/tests/data/census_pop_estimates/census_pop_estimates.csv'
-    df = pd.read_csv(est_file, dtype={'STATE': str, 'STNAME': str})
-    df = generate_state_pop_data(df)
-
-    df.to_csv('python/tests/data/census_pop_estimates/census_pop_estimates-race_ethnicity_age_state.csv', index=False)
