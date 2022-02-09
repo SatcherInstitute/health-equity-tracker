@@ -41,16 +41,11 @@ import {
 import AppBarLogo from "./assets/AppbarLogo.png";
 import { HelmetProvider } from "react-helmet-async";
 
-// import AboutUsPage from "./pages/AboutUs/AboutUsPage";
-// the following components make CSS modules which are imported by other components, so they must load first
-// import WhatIsHealthEquityPage from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
 import { Box, CircularProgress } from "@material-ui/core";
 
-// the following components make CSS modules which are imported by other components, so they must load first
 const WhatIsHealthEquityPage = React.lazy(
   () => import("./pages/WhatIsHealthEquity/WhatIsHealthEquityPage")
 );
-
 const AboutUsPage = React.lazy(() => import("./pages/AboutUs/AboutUsPage"));
 const ExploreDataPage = React.lazy(
   () => import("./pages/ExploreData/ExploreDataPage")
