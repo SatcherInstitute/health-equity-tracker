@@ -43,10 +43,11 @@ import { HelmetProvider } from "react-helmet-async";
 
 import { Box, CircularProgress } from "@material-ui/core";
 
-const WhatIsHealthEquityPage = React.lazy(
-  () => import("./pages/WhatIsHealthEquity/WhatIsHealthEquityPage")
-);
-const AboutUsPage = React.lazy(() => import("./pages/AboutUs/AboutUsPage"));
+// these make CSS modules which are imported by other components,
+// so they must load first and not be lazy loaded
+import AboutUsPage from "./pages/AboutUs/AboutUsPage";
+import WhatIsHealthEquityPage from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
+
 const ExploreDataPage = React.lazy(
   () => import("./pages/ExploreData/ExploreDataPage")
 );
