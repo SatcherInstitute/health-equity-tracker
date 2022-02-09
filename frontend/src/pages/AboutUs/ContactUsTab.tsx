@@ -7,12 +7,11 @@ import FeedbackBox from "../ui/FeedbackBox";
 import { Helmet } from "react-helmet-async";
 import { urlMap } from "../../utils/externalUrls";
 
-console.log("load contact us");
+console.log("*");
 
 function ContactUsTab() {
   return (
     <>
-      {console.log("inside contact us render")}
       <Helmet>
         <title>Contact Us - About Us - Health Equity Tracker</title>
       </Helmet>
