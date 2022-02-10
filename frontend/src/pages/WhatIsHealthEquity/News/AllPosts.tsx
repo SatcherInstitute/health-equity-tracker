@@ -23,6 +23,7 @@ export const ARTICLES_TERM = "Articles";
 const NUM_OF_LOADING_SKELETONS = 6;
 
 // hide selected posts on production but not dev so authors can use dev for a preview
+/* 
 function hidePostsOnProd(articles: Article[]) {
   if (window.location.hostname === "healthequitytracker.org")
     return (articles = articles.filter(
@@ -30,7 +31,8 @@ function hidePostsOnProd(articles: Article[]) {
     ));
 
   return articles;
-}
+} 
+*/
 
 /*
 displays several loading indicator elements while blog content is fetched
