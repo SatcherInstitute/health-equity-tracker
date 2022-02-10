@@ -336,10 +336,10 @@ function AllPosts() {
               )}
               {error && !isLoading && (
                 <>
-                  <ArticlesSkeleton doPulse={false} />
                   <Box mt={5}>
                     <i>Problem updating articles.</i>
                   </Box>
+                  <ArticlesSkeleton doPulse={false} />
                 </>
               )}
             </Grid>
