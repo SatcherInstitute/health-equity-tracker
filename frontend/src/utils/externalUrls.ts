@@ -1,6 +1,7 @@
 export type LinkName =
   | "newsletterSignup"
   | "cdcCovidDataInfo"
+  | "cdcWonder"
   | "shliTwitter"
   | "shliLinkedIn"
   | "shliYoutube"
@@ -11,6 +12,7 @@ export type LinkName =
   | "shliPdohLab"
   | "shliUber"
   | "acs5"
+  | "censusVoting"
   | "cdcBrfss"
   | "hetGitHub"
   | "uihiBestPractice"
@@ -26,8 +28,10 @@ export type LinkName =
 export const urlMap: Record<LinkName, string> = {
   newsletterSignup:
     "https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&",
+  censusVoting: "https://www.census.gov/topics/public-sector/voting.html",
   cdcCovidDataInfo:
     "https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/about-us-cases-deaths.html",
+  cdcWonder: "https://wonder.cdc.gov/mcd.html",
   shliLinkedIn: "https://www.linkedin.com/in/satcherhealth",
   shliTwitter: "https://twitter.com/SatcherHealth",
   shliYoutube: "https://www.youtube.com/channel/UC2sNXCD2KGLdyjqe6FGzMiA",
@@ -52,8 +56,7 @@ export const urlMap: Record<LinkName, string> = {
   kffCovid: "https://www.kff.org/state-category/covid-19/",
   cdcVaxCounty:
     "https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh",
-  amr:
-    "https://www.americashealthrankings.org/explore/annual/measure/Overall_a/state/ALL",
+  amr: "https://www.americashealthrankings.org/explore/annual/measure/Overall_a/state/ALL",
   amrMethodology:
     "https://www.americashealthrankings.org/about/methodology/data-sources-and-measures",
   cdcCovidRestricted:

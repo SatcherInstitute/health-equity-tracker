@@ -251,11 +251,13 @@ function MethodologyTab() {
                   Multiple chronic disease, behavioral health, and social
                   determinants of health in the tracker are sourced from{" "}
                   <a href={urlMap.amr}>America's Health Rankings</a>, who in
-                  turn source their diabetes & COPD data from the{" "}
+                  turn source the majority of their data from the{" "}
                   <a href={urlMap.cdcBrfss}>
                     Behavioral Risk Factor Surveillance System (BRFSS)
                   </a>
-                  , a survey run by the CDC.
+                  , a survey run by the CDC, along with supplemental data from{" "}
+                  <a href={urlMap.cdcWonder}>CDC WONDER</a> and the{" "}
+                  <a href={urlMap.censusVoting}>US Census</a>.
                 </p>
                 <ul>
                   <li>
