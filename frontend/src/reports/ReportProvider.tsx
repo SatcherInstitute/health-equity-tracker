@@ -7,7 +7,6 @@ import {
   MadLibId,
   getMadLibPhraseText,
   getPhraseValue,
-  getSelectedConditions,
 } from "../utils/MadLibs";
 import { Fips } from "../data/utils/Fips";
 import {
@@ -20,7 +19,11 @@ import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import styles from "./Report.module.scss";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
-import { DropdownVarId, VariableConfig } from "../data/config/MetricConfig";
+import {
+  DropdownVarId,
+  METRIC_CONFIG,
+  VariableConfig,
+} from "../data/config/MetricConfig";
 import { Link } from "react-router-dom";
 import FeedbackBox from "../pages/ui/FeedbackBox";
 import ShareButtons from "./ui/ShareButtons";
@@ -35,18 +38,23 @@ export const SINGLE_COLUMN_WIDTH = 12;
 interface ReportProviderProps {
   isSingleColumn: boolean;
   madLib: MadLib;
+  selectedConditions: VariableConfig[];
+  showLifeLineAlert: boolean;
   setMadLib: Function;
   doScrollToData?: boolean;
 }
 
 function ReportProvider(props: ReportProviderProps) {
-  const selectedConditions = getSelectedConditions(props.madLib);
-  // if suicide is a selected condition, show lifeline phone number
-  const showLifeLine = selectedConditions.some(
-    (condition: VariableConfig) => condition?.variableId === "suicides"
-  );
-  const definedConditions = selectedConditions.filter(
+  // only show determinants that have definitions
+  const definedConditions = props.selectedConditions.filter(
     (condition) => condition?.variableDefinition
+  );
+
+  // create a subset of MetricConfig (with top level string + datatype array)
+  // that matches only the selected, defined conditions
+  const metricConfigSubset = Object.entries(METRIC_CONFIG).filter(
+    (dataTypeArray) =>
+      dataTypeArray[1].some((dataType) => definedConditions.includes(dataType))
   );
 
   const fieldRef = useRef<HTMLInputElement>(null);
@@ -164,7 +172,7 @@ function ReportProvider(props: ReportProviderProps) {
       </Helmet>
       <div className={reportWrapper}>
         <ShareButtons madLib={props.madLib} />
-        {showLifeLine && <LifelineAlert />}
+        {props.showLifeLineAlert && <LifelineAlert />}
         <DisclaimerAlert jumpToData={jumpToData} />
         {getReport()}
       </div>
@@ -314,7 +322,7 @@ function ReportProvider(props: ReportProviderProps) {
             {definedConditions.length > 0 && (
               <Box mt={5}>
                 <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
-                <DefinitionsList definedConditions={definedConditions} />
+                <DefinitionsList variablesToDefine={metricConfigSubset} />
               </Box>
             )}
           </div>
