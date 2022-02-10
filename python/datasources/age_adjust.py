@@ -37,8 +37,11 @@ class AgeAdjustCDCRestricted(DataSource):
 
             pop_df = gcs_to_bq_util.load_dataframe_from_bigquery(
                     'census_pop_estimates', 'race_and_ethnicity', dtype={'state_fips': str})
+
             if geo == 'national':
+                with_race_age_df = with_race_age_df.loc[~with_race_age_df[std_col.COVID_DEATH_Y].isna()]
                 states_to_include = set(with_race_age_df[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
+
                 pop_df = census_pop_estimates.generate_national_pop_data(pop_df, states_to_include)
 
                 groupby_cols = list(std_col.RACE_COLUMNS) + [std_col.AGE_COL]
