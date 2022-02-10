@@ -20,10 +20,6 @@ import { currentYear } from "../../Footer";
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
-const definedConditions = Object.values(METRIC_CONFIG)
-  .flat()
-  .filter((c) => c?.variableDefinition);
-
 function MethodologyTab() {
   return (
     <>
@@ -375,7 +371,9 @@ function MethodologyTab() {
                 What do the condition variables on the tracker mean?
               </h3>
               <div className={styles.MethodologyAnswer}>
-                <DefinitionsList definedConditions={definedConditions} />
+                <DefinitionsList
+                  variablesToDefine={Object.entries(METRIC_CONFIG)}
+                />
                 <p>
                   Links to the original sources of data and their definitions
                   can be found on our{" "}

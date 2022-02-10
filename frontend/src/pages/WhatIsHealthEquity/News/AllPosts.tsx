@@ -22,16 +22,6 @@ import { Link } from "react-router-dom";
 export const ARTICLES_TERM = "Articles";
 const NUM_OF_LOADING_SKELETONS = 6;
 
-// hide selected posts on production but not dev so authors can use dev for a preview
-function hidePostsOnProd(articles: Article[]) {
-  if (window.location.hostname === "healthequitytracker.org")
-    return (articles = articles.filter(
-      (article) => article.acf.hide_on_production !== true
-    ));
-
-  return articles;
-}
-
 /*
 displays several loading indicator elements while blog content is fetched
 */
@@ -148,10 +138,9 @@ function AllPosts() {
         );
       }
     } else {
-      const visibleArticles = hidePostsOnProd(data?.data);
-      if (visibleArticles?.length > 0)
+      if (data?.data?.length > 0)
         setFilteredArticles(
-          visibleArticles.filter((article: Article) => !article.sticky)
+          data.data.filter((article: Article) => !article.sticky)
         );
       setSelectedCategory("");
     }
@@ -176,10 +165,9 @@ function AllPosts() {
         );
       }
     } else {
-      const visibleArticles = hidePostsOnProd(data?.data);
-      if (visibleArticles?.length > 0)
+      if (data?.data?.length > 0)
         setFilteredArticles(
-          visibleArticles.filter((article: Article) => !article.sticky)
+          data.data.filter((article: Article) => !article.sticky)
         );
       setSelectedAuthor("");
     }
@@ -332,10 +320,10 @@ function AllPosts() {
               )}
               {error && !isLoading && (
                 <>
-                  <ArticlesSkeleton doPulse={false} />
                   <Box mt={5}>
                     <i>Problem updating articles.</i>
                   </Box>
+                  <ArticlesSkeleton doPulse={false} />
                 </>
               )}
             </Grid>
