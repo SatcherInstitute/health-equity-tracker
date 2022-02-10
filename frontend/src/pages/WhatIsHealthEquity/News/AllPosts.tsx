@@ -148,7 +148,8 @@ function AllPosts() {
         );
       }
     } else {
-      const visibleArticles = hidePostsOnProd(data?.data);
+      // const visibleArticles = hidePostsOnProd(data?.data);
+      const visibleArticles = data?.data;
       if (visibleArticles?.length > 0)
         setFilteredArticles(
           visibleArticles.filter((article: Article) => !article.sticky)
@@ -176,7 +177,8 @@ function AllPosts() {
         );
       }
     } else {
-      const visibleArticles = hidePostsOnProd(data?.data);
+      // const visibleArticles = hidePostsOnProd(data?.data);
+      const visibleArticles = data?.data;
       if (visibleArticles?.length > 0)
         setFilteredArticles(
           visibleArticles.filter((article: Article) => !article.sticky)
