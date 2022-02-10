@@ -164,7 +164,8 @@ def accumulate_data(df, geo_cols, overall_df, demog_col, names_mapping):
         totals[demog_col] = std_col.Race.TOTAL.value
     else:
         totals[demog_col] = std_col.TOTAL_VALUE
-    df = df.append(totals)
+
+    df = pd.concat([df, totals])
     df = df.set_index(groupby_cols)
 
     if not overall_df.empty:
