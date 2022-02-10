@@ -66,11 +66,6 @@ def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_js
         'state_fips': str,
     })
 
-    # print("from test input")
-    # print(mock_bq.call_args_list[0].args[0])
-    # print("in test output table")
-    # print(expected_df)
-
     assert_frame_equal(
         mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
 

@@ -23,6 +23,7 @@ def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, tota
 
     with_pct_share = []
     grouped = df.groupby(groupby_cols)
+
     for _, group_df in grouped:
         total_row = group_df.loc[(group_df[breakdown_col] == total_val)]
 
