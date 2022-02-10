@@ -62,12 +62,12 @@ export default function WhatIsHealthEquityPage() {
             component={Link}
             to={FAQ_TAB_LINK}
           />
-          <Tab
+          {/* <Tab
             value={NEWS_TAB_LINK}
             label="News"
             component={Link}
             to={NEWS_TAB_LINK}
-          />
+          /> */}
           <Tab
             value={RESOURCES_TAB_LINK}
             label="Resources"
