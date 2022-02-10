@@ -22,7 +22,6 @@ export default function WhatIsHealthEquityPage() {
   const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
   const [tabLayout, setTabLayout] = React.useState({});
 
-  // TODO use existing width hook instead of duplicating here; responsive tabs layout to fix mobile bug
   // when screen width changes, update tab spacing material UI attribute
   useEffect(() => {
     setTabLayout(pageIsWide ? { centered: true } : { variant: "fullWidth" });
@@ -62,12 +61,12 @@ export default function WhatIsHealthEquityPage() {
             component={Link}
             to={FAQ_TAB_LINK}
           />
-          {/* <Tab
+          <Tab
             value={NEWS_TAB_LINK}
             label="News"
             component={Link}
             to={NEWS_TAB_LINK}
-          /> */}
+          />
           <Tab
             value={RESOURCES_TAB_LINK}
             label="Resources"
