@@ -201,7 +201,7 @@ export function setParameters(paramMap: ParamKeyValue[]) {
 }
 
 const defaultHandler = <T extends unknown>(inp: string | null): T => {
-  return (inp as unknown) as T;
+  return inp as unknown as T;
 };
 
 export function removeParamAndReturnValue<T1>(

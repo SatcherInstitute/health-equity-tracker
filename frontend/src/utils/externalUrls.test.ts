@@ -13,6 +13,7 @@ export const SUCCESS_CODE = 200;
 export const UNTESTABLE_URLS = [
   urlMap.shliLinkedIn,
   "https://www.bloomberg.com/graphics/covid-vaccine-tracker-global-distribution/us-vaccine-demographics.html",
+  "https://www.who.int/healthsystems/topics/equity/en/",
 ];
 
 // skip some URLs we know don't provide HTTPS
