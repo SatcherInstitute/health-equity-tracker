@@ -20,10 +20,6 @@ import { currentYear } from "../../Footer";
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
-const definedConditions = Object.values(METRIC_CONFIG)
-  .flat()
-  .filter((c) => c?.variableDefinition);
-
 function MethodologyTab() {
   return (
     <>
@@ -375,7 +371,9 @@ function MethodologyTab() {
                 What do the condition variables on the tracker mean?
               </h3>
               <div className={styles.MethodologyAnswer}>
-                <DefinitionsList definedConditions={definedConditions} />
+                <DefinitionsList
+                  variablesToDefine={Object.entries(METRIC_CONFIG)}
+                />
                 <p>
                   Links to the original sources of data and their definitions
                   can be found on our{" "}
@@ -425,22 +423,24 @@ function MethodologyTab() {
                     and Hispanic/Latino.
                   </li>
                   <li>
-                    {/* <b>Unrepresented race (Non-Hispanic)</b>
-                    {": "}
-                    {UNREPRESENTED_RACE_DEF} */}
-                    <b>Some other race (Non-Hispanic)</b>: A single race which
-                    is not otherwise represented by the data source's
-                    categorization, not Hispanic/Latino. The definition of "some
-                    other race" is dependent on what other race categories exist
-                    in the dataset.
+                    <b>Unrepresented race (Non-Hispanic)</b>: A single race not
+                    tabulated by the CDC, not of Hispanic/Latino ethnicity.
+                    Individuals not identifying as one of the distinct races
+                    listed in the source data, or multiracial individuals, are
+                    grouped together as “Some other race”. This is a problem as
+                    it obscures racial identity for many individuals. In our
+                    effort to take transformative action towards achieving
+                    health equity the Satcher Health Leadership Institute has
+                    decided to rename this category to highlight it as a health
+                    equity issue.
                   </li>
                   <li>
                     <b>Two or more races (Non-Hispanic)</b>: Multiple races, not
                     Hispanic/Latino.
                   </li>
                   <li>
-                    <b>Two or more races & Some other race (Non-Hispanic)</b>:
-                    People who are either multiple races or a single race not
+                    <b>Two or more races & Unrepresented race (Non-Hispanic)</b>
+                    : People who are either multiple races or a single race not
                     represented by the data source's categorization, and who are
                     not Hispanic/Latino.
                   </li>

@@ -1,5 +1,6 @@
 import { Grid } from "@material-ui/core";
 import React, { useEffect, useState, Fragment } from "react";
+import LazyLoad from "react-lazyload";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { MapCard } from "../cards/MapCard";
 import { PopulationCard } from "../cards/PopulationCard";
@@ -147,18 +148,20 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             id="simpleBarChartCard"
           >
-            {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-              <Fragment key={breakdownVar}>
-                {breakdownIsShown(breakdownVar) &&
-                  variableConfig.metrics["per100k"] && (
-                    <SimpleBarChartCard
-                      variableConfig={variableConfig}
-                      breakdownVar={breakdownVar}
-                      fips={props.fips}
-                    />
-                  )}
-              </Fragment>
-            ))}
+            <LazyLoad offset={300} height={750} once>
+              {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+                <Fragment key={breakdownVar}>
+                  {breakdownIsShown(breakdownVar) &&
+                    variableConfig.metrics["per100k"] && (
+                      <SimpleBarChartCard
+                        variableConfig={variableConfig}
+                        breakdownVar={breakdownVar}
+                        fips={props.fips}
+                      />
+                    )}
+                </Fragment>
+              ))}
+            </LazyLoad>
           </Grid>
 
           {/* UNKNOWNS MAP CARD */}
@@ -169,17 +172,19 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             id="unknownsMapCard"
           >
-            {variableConfig.metrics["pct_share"] && (
-              <UnknownsMapCard
-                overrideAndWithOr={currentBreakdown === RACE}
-                variableConfig={variableConfig}
-                fips={props.fips}
-                updateFipsCallback={(fips: Fips) => {
-                  props.updateFipsCallback(fips);
-                }}
-                currentBreakdown={currentBreakdown}
-              />
-            )}
+            <LazyLoad offset={300} height={750} once>
+              {variableConfig.metrics["pct_share"] && (
+                <UnknownsMapCard
+                  overrideAndWithOr={currentBreakdown === RACE}
+                  variableConfig={variableConfig}
+                  fips={props.fips}
+                  updateFipsCallback={(fips: Fips) => {
+                    props.updateFipsCallback(fips);
+                  }}
+                  currentBreakdown={currentBreakdown}
+                />
+              )}
+            </LazyLoad>
           </Grid>
 
           {/* DISPARITY BAR CHART COMPARE VS POPULATION */}
@@ -190,33 +195,37 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             id="disparityBarChartCard"
           >
-            {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-              <Fragment key={breakdownVar}>
-                {breakdownIsShown(breakdownVar) &&
-                  variableConfig.metrics["pct_share"] && (
-                    <DisparityBarChartCard
-                      variableConfig={variableConfig}
-                      breakdownVar={breakdownVar}
-                      fips={props.fips}
-                    />
-                  )}
-              </Fragment>
-            ))}
+            <LazyLoad offset={300} height={750} once>
+              {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+                <Fragment key={breakdownVar}>
+                  {breakdownIsShown(breakdownVar) &&
+                    variableConfig.metrics["pct_share"] && (
+                      <DisparityBarChartCard
+                        variableConfig={variableConfig}
+                        breakdownVar={breakdownVar}
+                        fips={props.fips}
+                      />
+                    )}
+                </Fragment>
+              ))}
+            </LazyLoad>
           </Grid>
 
           {/* DATA TABLE CARD */}
           <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="tableCard">
-            {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-              <Fragment key={breakdownVar}>
-                {breakdownIsShown(breakdownVar) && (
-                  <TableCard
-                    fips={props.fips}
-                    variableConfig={variableConfig}
-                    breakdownVar={breakdownVar}
-                  />
-                )}
-              </Fragment>
-            ))}
+            <LazyLoad offset={300} height={750} once>
+              {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+                <Fragment key={breakdownVar}>
+                  {breakdownIsShown(breakdownVar) && (
+                    <TableCard
+                      fips={props.fips}
+                      variableConfig={variableConfig}
+                      breakdownVar={breakdownVar}
+                    />
+                  )}
+                </Fragment>
+              ))}
+            </LazyLoad>
           </Grid>
         </Grid>
       )}

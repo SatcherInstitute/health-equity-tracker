@@ -93,7 +93,7 @@ class Race(Enum):
     NHPI = ("NHPI", "Native Hawaiian and Pacific Islander", True)
     MULTI = ("MULTI", "Two or more races", True)
     WHITE = ("WHITE", "White", True)
-    OTHER_STANDARD = ("OTHER_STANDARD", "Some other race", True)
+    OTHER_STANDARD = ("OTHER_STANDARD", "Unrepresented race", True)
 
     # These categories are another format of standard categories used in ACS
     # data, where categories are mutually exclusive and exclude Hispanic/Latino.
@@ -108,7 +108,7 @@ class Race(Enum):
     MULTI_NH = ("MULTI_NH", "Two or more races", False)
     WHITE_NH = ("WHITE_NH", "White", False)
     HISP = ("HISP", "Hispanic or Latino", True)
-    OTHER_STANDARD_NH = ("OTHER_STANDARD_NH", "Some other race", False)
+    OTHER_STANDARD_NH = ("OTHER_STANDARD_NH", "Unrepresented race", False)
 
     # Below are special values that have slightly different characteristics.
 
@@ -134,8 +134,8 @@ class Race(Enum):
     # identifier in some places. Until we migrate to using race_category_id,
     # we add a * for the non-standard other so it doesn't accidentally get
     # joined with the standard other on the frontend.
-    OTHER_NONSTANDARD = ("OTHER_NONSTANDARD", "Some other race", True)
-    OTHER_NONSTANDARD_NH = ("OTHER_NONSTANDARD_NH", "Some other race", False)
+    OTHER_NONSTANDARD = ("OTHER_NONSTANDARD", "Unrepresented race", True)
+    OTHER_NONSTANDARD_NH = ("OTHER_NONSTANDARD_NH", "Unrepresented race", False)
 
     # Categories that are combinations of other categories
     # Currently only used in state level vaccination data
@@ -147,11 +147,11 @@ class Race(Enum):
     INDIGENOUS_NH = ("INDIGENOUS_NH", "Indigenous", False)
     MULTI_OR_OTHER_STANDARD = (
         "MULTI_OR_OTHER_STANDARD",
-        "Two or more races & Some other race",
+        "Two or more races & Unrepresented race",
         True)
     MULTI_OR_OTHER_STANDARD_NH = (
         "MULTI_OR_OTHER_STANDARD_NH",
-        "Two or more races & Some other race",
+        "Two or more races & Unrepresented race",
         False)
 
     # When the race is unknown. Different from ETHNICITY_UNKNOWN, which
