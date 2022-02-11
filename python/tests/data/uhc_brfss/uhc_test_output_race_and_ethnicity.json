@@ -171,9 +171,9 @@
         "cardiovascular_diseases_per_100k": null,
         "asthma_per_100k": null,
         "voter_participation_pres_per_100k": null,
-        "race": "Some other race",
+        "race": "Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Some other race (Non-Hispanic)"
+        "race_and_ethnicity": "Unrepresented race (Non-Hispanic)"
     },
     {
         "state_name": "Alabama",
