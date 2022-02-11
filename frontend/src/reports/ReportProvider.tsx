@@ -26,6 +26,7 @@ import { Helmet } from "react-helmet-async";
 import { urlMap } from "../utils/externalUrls";
 import { Box } from "@material-ui/core";
 import DefinitionsList from "./ui/DefinitionsList";
+import LazyLoad from "react-lazyload";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
@@ -340,7 +341,9 @@ function DefinitionsBox(props: { madLib: MadLib }) {
   return (
     <Box mt={5}>
       <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
-      <DefinitionsList variablesToDefine={selectedVariables} />
+      <LazyLoad offset={300} height={350} once>
+        <DefinitionsList variablesToDefine={selectedVariables} />
+      </LazyLoad>
     </Box>
   );
 }

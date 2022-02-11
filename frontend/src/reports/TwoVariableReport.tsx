@@ -1,5 +1,6 @@
 import { Grid } from "@material-ui/core";
 import React, { useEffect, useState, Fragment } from "react";
+import LazyLoad from "react-lazyload";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { MapCard } from "../cards/MapCard";
 import { PopulationCard } from "../cards/PopulationCard";
@@ -349,26 +350,30 @@ function RowOfTwoOptionalMetrics(props: {
   return (
     <>
       <Grid item xs={12} sm={6}>
-        {props.variableConfig1 && (
-          <>
-            {props.createCard(
-              props.variableConfig1,
-              props.fips1,
-              props.updateFips1 || unusedFipsCallback
-            )}
-          </>
-        )}
+        <LazyLoad offset={300} height={750} once>
+          {props.variableConfig1 && (
+            <>
+              {props.createCard(
+                props.variableConfig1,
+                props.fips1,
+                props.updateFips1 || unusedFipsCallback
+              )}
+            </>
+          )}
+        </LazyLoad>
       </Grid>
       <Grid item xs={12} sm={6}>
-        {props.variableConfig2 && (
-          <>
-            {props.createCard(
-              props.variableConfig2,
-              props.fips2,
-              props.updateFips2 || unusedFipsCallback
-            )}
-          </>
-        )}
+        <LazyLoad offset={300} height={750} once>
+          {props.variableConfig2 && (
+            <>
+              {props.createCard(
+                props.variableConfig2,
+                props.fips2,
+                props.updateFips2 || unusedFipsCallback
+              )}
+            </>
+          )}
+        </LazyLoad>
       </Grid>
     </>
   );
