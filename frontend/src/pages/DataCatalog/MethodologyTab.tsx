@@ -423,22 +423,24 @@ function MethodologyTab() {
                     and Hispanic/Latino.
                   </li>
                   <li>
-                    {/* <b>Unrepresented race (Non-Hispanic)</b>
-                    {": "}
-                    {UNREPRESENTED_RACE_DEF} */}
-                    <b>Some other race (Non-Hispanic)</b>: A single race which
-                    is not otherwise represented by the data source's
-                    categorization, not Hispanic/Latino. The definition of "some
-                    other race" is dependent on what other race categories exist
-                    in the dataset.
+                    <b>Unrepresented race (Non-Hispanic)</b>: A single race not
+                    tabulated by the CDC, not of Hispanic/Latino ethnicity.
+                    Individuals not identifying as one of the distinct races
+                    listed in the source data, or multiracial individuals, are
+                    grouped together as “Some other race”. This is a problem as
+                    it obscures racial identity for many individuals. In our
+                    effort to take transformative action towards achieving
+                    health equity the Satcher Health Leadership Institute has
+                    decided to rename this category to highlight it as a health
+                    equity issue.
                   </li>
                   <li>
                     <b>Two or more races (Non-Hispanic)</b>: Multiple races, not
                     Hispanic/Latino.
                   </li>
                   <li>
-                    <b>Two or more races & Some other race (Non-Hispanic)</b>:
-                    People who are either multiple races or a single race not
+                    <b>Two or more races & Unrepresented race (Non-Hispanic)</b>
+                    : People who are either multiple races or a single race not
                     represented by the data source's categorization, and who are
                     not Hispanic/Latino.
                   </li>
