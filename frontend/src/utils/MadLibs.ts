@@ -87,19 +87,23 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
 export interface Category {
   readonly title: CategoryId;
   readonly options: DropdownVarId[];
+  readonly definition?: string;
 }
 
 const CATEGORIES_LIST: Category[] = [
   {
     title: "COVID-19",
+    definition: "",
     options: ["covid", "vaccinations"],
   },
   {
     title: "Political Determinants of Health",
+    definition: "",
     options: ["voter_participation_pres"],
   },
   {
     title: "Social Determinants of Health",
+    definition: "",
     options: [
       "health_insurance",
       "poverty",
@@ -109,6 +113,7 @@ const CATEGORIES_LIST: Category[] = [
   },
   {
     title: "Chronic Disease",
+    definition: "",
     options: [
       "diabetes",
       "copd",
@@ -119,6 +124,7 @@ const CATEGORIES_LIST: Category[] = [
   },
   {
     title: "Behavioral Health",
+    definition: "",
     options: [
       "depression",
       "suicide",
