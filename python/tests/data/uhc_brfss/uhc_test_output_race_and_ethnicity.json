@@ -107,9 +107,9 @@
         "non_medical_rx_opioid_use_per_100k": "42600",
         "non_medical_drug_use_per_100k": "63200",
         "excessive_drinking_per_100k": null,
-        "race": "Some other race",
+        "race": "Unrepresented race",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Some other race (Non-Hispanic)"
+        "race_and_ethnicity": "Unrepresented race (Non-Hispanic)"
     },
     {
         "state_name": "Alabama",

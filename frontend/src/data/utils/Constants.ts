@@ -28,7 +28,7 @@ export const ASIAN_NH = "Asian (Non-Hispanic)";
 export const BLACK_NH = "Black or African American (Non-Hispanic)";
 export const HISPANIC = "Hispanic or Latino";
 export const NHPI_NH = "Native Hawaiian and Pacific Islander (Non-Hispanic)";
-export const OTHER_STANDARD_NH = "Some other race (Non-Hispanic)";
+export const OTHER_STANDARD_NH = "Unrepresented race (Non-Hispanic)";
 export const MULTI_NH = "Two or more races (Non-Hispanic)";
 export const WHITE_NH = "White (Non-Hispanic)";
 
@@ -51,7 +51,7 @@ export const BLACK = "Black or African American";
 export const NHPI = "Native Hawaiian and Pacific Islander";
 export const MULTI = "Two or more races";
 export const WHITE = "White";
-export const OTHER_STANDARD = "Some other race";
+export const OTHER_STANDARD = "Unrepresented race";
 
 export const NON_STANDARD_RACES = [
   AIAN,
@@ -69,9 +69,9 @@ export const API_NH =
   "Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic";
 export const INDIGENOUS = "Indigenous"; // Combines AIAN and NHPI
 export const INDIGENOUS_NH = "Indigenous (Non-Hispanic)";
-export const MULTI_OR_OTHER_STANDARD = "Two or more races & Some other race";
+export const MULTI_OR_OTHER_STANDARD = "Two or more races & Unrepresented race";
 export const MULTI_OR_OTHER_STANDARD_NH =
-  "Two or more races & Some other race (Non-Hispanic)";
+  "Two or more races & Unrepresented race (Non-Hispanic)";
 
 export const COMBINATION_RACES = [
   API,
