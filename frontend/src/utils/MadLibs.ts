@@ -9,7 +9,6 @@ export type PhraseSelector = Record<string, string>;
 
 // Each phrase segment of the mad lib is either a string of text
 // or a map of IDs to string options that can fill in a blank
-
 export type PhraseSegment = string | PhraseSelector;
 
 export type MadLibId = "disparity" | "comparegeos" | "comparevars";
@@ -81,8 +80,6 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   asthma: "Asthma",
   voter_participation_pres: "Voter Participation",
 };
-
-/* Update categories / DropdownVarIds here; type defs at top of file */
 
 export interface Category {
   readonly title: CategoryId;
