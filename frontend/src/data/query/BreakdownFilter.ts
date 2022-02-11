@@ -16,7 +16,7 @@ const STANDARD_RACES = [
   "Black or African American (Non-Hispanic)",
   "Hispanic or Latino",
   "Native Hawaiian and Pacific Islander (Non-Hispanic)",
-  "Some other race (Non-Hispanic)",
+  "Unrepresented race (Non-Hispanic)",
   "Two or more races (Non-Hispanic)",
   "White (Non-Hispanic)",
   ALL,
