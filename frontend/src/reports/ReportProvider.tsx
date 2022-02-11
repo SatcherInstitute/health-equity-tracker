@@ -32,6 +32,7 @@ import { urlMap } from "../utils/externalUrls";
 import { Box } from "@material-ui/core";
 import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
+import LazyLoad from "react-lazyload";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
@@ -322,7 +323,9 @@ function ReportProvider(props: ReportProviderProps) {
             {definedConditions.length > 0 && (
               <Box mt={5}>
                 <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
-                <DefinitionsList variablesToDefine={metricConfigSubset} />
+                <LazyLoad offset={300} height={181} once>
+                  <DefinitionsList variablesToDefine={metricConfigSubset} />
+                </LazyLoad>
               </Box>
             )}
           </div>

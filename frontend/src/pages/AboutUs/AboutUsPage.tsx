@@ -1,9 +1,6 @@
 import React from "react";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import TheProjectTab from "./TheProjectTab";
-import OurTeamTab from "./OurTeamTab";
-import ContactUsTab from "./ContactUsTab";
 import {
   ABOUT_US_PAGE_LINK,
   CONTACT_TAB_LINK,
@@ -12,6 +9,9 @@ import {
 } from "../../utils/urlutils";
 import styles from "./AboutUsPage.module.scss";
 import { Link, Redirect, Route, Switch } from "react-router-dom";
+import OurTeamTab from "./OurTeamTab";
+import ContactUsTab from "./ContactUsTab";
+import TheProjectTab from "./TheProjectTab";
 
 export default function AboutUsPage() {
   return (
@@ -38,16 +38,16 @@ export default function AboutUsPage() {
             to={ABOUT_US_PAGE_LINK}
           />
           <Tab
-            value={`${OURTEAM_TAB_LINK}`}
+            value={OURTEAM_TAB_LINK}
             label="Our Team"
             component={Link}
-            to={`${OURTEAM_TAB_LINK}`}
+            to={OURTEAM_TAB_LINK}
           />
           <Tab
-            value={`${CONTACT_TAB_LINK}`}
+            value={CONTACT_TAB_LINK}
             label="Contact Us"
             component={Link}
-            to={`${CONTACT_TAB_LINK}`}
+            to={CONTACT_TAB_LINK}
           />
         </Tabs>
       </Route>
