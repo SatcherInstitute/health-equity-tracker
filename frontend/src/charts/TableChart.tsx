@@ -105,7 +105,6 @@ export function TableChart(props: TableChartProps) {
         {group.headers.map((col, index) => (
           <TableCell key={col.id} style={cellStyle}>
             {col.render("Header")}
-            <TableSortLabel hideSortIcon={true} />
           </TableCell>
         ))}
       </TableRow>
