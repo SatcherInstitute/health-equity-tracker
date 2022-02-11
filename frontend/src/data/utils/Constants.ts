@@ -66,7 +66,7 @@ export const NON_STANDARD_RACES = [
 // COMBINATION RACE GROUPS AND (UNUSED) ARRAY
 export const API = "Asian, Native Hawaiian, and Pacific Islander";
 export const API_NH =
-  "Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic";
+  "Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)";
 export const INDIGENOUS = "Indigenous"; // Combines AIAN and NHPI
 export const INDIGENOUS_NH = "Indigenous (Non-Hispanic)";
 export const MULTI_OR_OTHER_STANDARD = "Two or more races & Some other race";
