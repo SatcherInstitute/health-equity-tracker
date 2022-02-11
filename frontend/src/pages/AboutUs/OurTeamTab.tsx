@@ -248,7 +248,7 @@ export const PARTNERS = [
   {
     imageUrl: "/img/partners/PartnerAARP.png",
     alt: "American Association of Retired Persons",
-    url: "https://aarp.org",
+    url: "https://www.aarp.org",
   },
   {
     imageUrl: "/img/partners/PartnerAECF.png",

@@ -22,38 +22,38 @@ HISPANIC_BY_RACE_CONCEPT = "HISPANIC OR LATINO ORIGIN BY RACE"
 
 
 GROUPS = {
-  # Hispanic/latino separate. When doing it this way, we don't get sex/age
-  # breakdowns. This is the best way to get cannonical race/ethnicity categories
-  "B03002": HISPANIC_BY_RACE_CONCEPT,
+    # Hispanic/latino separate. When doing it this way, we don't get sex/age
+    # breakdowns. This is the best way to get canonical race/ethnicity categories
+    "B03002": HISPANIC_BY_RACE_CONCEPT,
 
-  # By sex and age, for various races.
-  "B01001": "SEX BY AGE",
-  "B01001A": "SEX BY AGE (WHITE ALONE)",
-  "B01001B": "SEX BY AGE (BLACK OR AFRICAN AMERICAN ALONE)",
-  "B01001C": "SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)",
-  "B01001D": "SEX BY AGE (ASIAN ALONE)",
-  "B01001E": "SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)",
-  "B01001F": "SEX BY AGE (SOME OTHER RACE ALONE)",
-  "B01001G": "SEX BY AGE (TWO OR MORE RACES)",
-  "B01001H": "SEX BY AGE (WHITE ALONE, NOT HISPANIC OR LATINO)",
-  "B01001I": "SEX BY AGE (HISPANIC OR LATINO)"
+    # By sex and age, for various races.
+    "B01001": "SEX BY AGE",
+    "B01001A": "SEX BY AGE (WHITE ALONE)",
+    "B01001B": "SEX BY AGE (BLACK OR AFRICAN AMERICAN ALONE)",
+    "B01001C": "SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)",
+    "B01001D": "SEX BY AGE (ASIAN ALONE)",
+    "B01001E": "SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)",
+    "B01001F": "SEX BY AGE (SOME OTHER RACE ALONE)",
+    "B01001G": "SEX BY AGE (TWO OR MORE RACES)",
+    "B01001H": "SEX BY AGE (WHITE ALONE, NOT HISPANIC OR LATINO)",
+    "B01001I": "SEX BY AGE (HISPANIC OR LATINO)"
 }
 
 
 SEX_BY_AGE_CONCEPTS_TO_RACE = {
-  # These include Hispanic/Latino, so they're not standardized categories.
-  "SEX BY AGE": Race.TOTAL.value,
-  "SEX BY AGE (WHITE ALONE)": Race.WHITE.value,
-  "SEX BY AGE (BLACK OR AFRICAN AMERICAN ALONE)": Race.BLACK.value,
-  "SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)": Race.AIAN.value,
-  "SEX BY AGE (ASIAN ALONE)": Race.ASIAN.value,
-  "SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)": Race.NHPI.value,
-  "SEX BY AGE (SOME OTHER RACE ALONE)": Race.OTHER_STANDARD.value,
-  "SEX BY AGE (TWO OR MORE RACES)": Race.MULTI.value,
-  "SEX BY AGE (HISPANIC OR LATINO)": Race.HISP.value,
+    # These include Hispanic/Latino, so they're not standardized categories.
+    "SEX BY AGE": Race.TOTAL.value,
+    "SEX BY AGE (WHITE ALONE)": Race.WHITE.value,
+    "SEX BY AGE (BLACK OR AFRICAN AMERICAN ALONE)": Race.BLACK.value,
+    "SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)": Race.AIAN.value,
+    "SEX BY AGE (ASIAN ALONE)": Race.ASIAN.value,
+    "SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)": Race.NHPI.value,
+    "SEX BY AGE (SOME OTHER RACE ALONE)": Race.OTHER_STANDARD.value,
+    "SEX BY AGE (TWO OR MORE RACES)": Race.MULTI.value,
+    "SEX BY AGE (HISPANIC OR LATINO)": Race.HISP.value,
 
-  # Doesn't include Hispanic/Latino
-  "SEX BY AGE (WHITE ALONE, NOT HISPANIC OR LATINO)": Race.WHITE_NH.value
+    # Doesn't include Hispanic/Latino
+    "SEX BY AGE (WHITE ALONE, NOT HISPANIC OR LATINO)": Race.WHITE_NH.value
 }
 
 
@@ -255,7 +255,7 @@ class ACSPopulationIngester():
         }
 
         frames['by_sex_age_%s' % self.get_geo_name()] = self.get_by_sex_age(
-                frames[self.get_table_name_by_sex_age_race()], get_decade_age_bucket)
+            frames[self.get_table_name_by_sex_age_race()], get_decade_age_bucket)
 
         by_sex_standard_age_uhc = None
         by_sex_decade_plus_5_age_uhc = None
@@ -270,7 +270,7 @@ class ACSPopulationIngester():
             by_sex_standard_age_uhc, by_sex_decade_plus_5_age_uhc)
 
         frames['by_sex_%s' % self.get_geo_name()] = self.get_by_sex(
-                frames[self.get_table_name_by_sex_age_race()])
+            frames[self.get_table_name_by_sex_age_race()])
 
         for table_name, df in frames.items():
             # All breakdown columns are strings
@@ -456,7 +456,8 @@ class ACSPopulationIngester():
         by_sex_age[AGE_COL] = by_sex_age[AGE_COL].apply(age_aggregator_func)
 
         groupby_cols = cols[:-1] if self.county_level else cols[1: -1]
-        by_sex_age = by_sex_age.groupby(groupby_cols)[POPULATION_COL].sum().reset_index()
+        by_sex_age = by_sex_age.groupby(
+            groupby_cols)[POPULATION_COL].sum().reset_index()
 
         return by_sex_age
 
@@ -492,8 +493,8 @@ class ACSPopulationIngester():
 
     def get_by_sex(self, by_sex_age_race_frame):
         by_sex = by_sex_age_race_frame.loc[
-                (by_sex_age_race_frame[RACE_CATEGORY_ID_COL] == Race.TOTAL.value) &
-                (by_sex_age_race_frame[AGE_COL] == TOTAL_VALUE)]
+            (by_sex_age_race_frame[RACE_CATEGORY_ID_COL] == Race.TOTAL.value) &
+            (by_sex_age_race_frame[AGE_COL] == TOTAL_VALUE)]
 
         cols = [
             STATE_FIPS_COL,
