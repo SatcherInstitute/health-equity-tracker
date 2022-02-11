@@ -771,6 +771,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableDisplayName: "Avoided Care",
       variableFullDisplayName: "Care Avoidance Due to Cost",
       variableDefinition: `Adults who reported a time in the past 12 months when they needed to see a doctor but could not because of cost.`,
+      surveyCollectedData: true,
       metrics: {
         per100k: {
           metricId: "avoided_care_per_100k",
@@ -799,6 +800,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "asthma",
       variableDisplayName: "Asthma",
       variableFullDisplayName: "Asthma Cases",
+      surveyCollectedData: true,
       variableDefinition: `Adults who reported being told by a health professional that they currently have asthma.`,
       metrics: {
         per100k: {
@@ -827,6 +829,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "cardiovascular_diseases",
       variableDisplayName: "Cardiovascular Diseases",
       variableFullDisplayName: "Cases of Cardiovascular Diseases",
+      surveyCollectedData: true,
       variableDefinition: `Adults who reported being told by a health professional that they had angina or coronary heart disease; a heart attack or myocardial infarction; or a stroke.`,
       metrics: {
         per100k: {
@@ -854,6 +857,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     {
       variableId: "chronic_kidney_disease",
       variableDisplayName: "Chronic Kidney Disease",
+      surveyCollectedData: true,
       variableFullDisplayName: "Cases of Chronic Kidney Disease",
       variableDefinition: `Adults who reported being told by a health professional that they have kidney disease not including kidney stones, bladder infection or incontinence.`,
       metrics: {
@@ -883,6 +887,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "voter_participation_pres",
       variableDisplayName: "Voter Participation",
       variableFullDisplayName: "Voter Participation (Presidential Election)",
+      surveyCollectedData: true,
       variableDefinition: `U.S. citizens ages 18 and older who voted in the last presidential national election.`,
       metrics: {
         per100k: {
