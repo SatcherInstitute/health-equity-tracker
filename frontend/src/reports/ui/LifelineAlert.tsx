@@ -17,8 +17,8 @@ function LifelineAlert() {
         <AlertTitle>National Suicide Prevention Lifeline</AlertTitle>
         <p>
           <b>
-            If you or a loved one is experiencing an emergency,{" "}
-            <a href="tel:911">call 911</a> or go to your nearest emergency room.
+            If you or a loved one is experiencing an emergency, call 911 or go
+            to your nearest emergency room.
           </b>{" "}
           For 24/7, free and confidential support, prevention and crisis
           resources, and professional best practices, call{" "}
