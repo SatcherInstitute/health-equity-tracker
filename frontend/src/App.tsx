@@ -190,7 +190,7 @@ function App() {
                   fallback={
                     <div className={styles.FallbackPage}>
                       <Box mt={10}>
-                        <CircularProgress />
+                        <CircularProgress aria-label="loading" />
                       </Box>
                     </div>
                   }

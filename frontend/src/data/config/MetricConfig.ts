@@ -29,7 +29,10 @@ export type VariableId =
   | "non_medical_drug_use"
   | "non_medical_rx_opioid_use"
   | "illicit_opioid_use"
-  | "health_coverage";
+  | "health_coverage"
+  | "poverty"
+  | "vaccinations"
+  | "suicides";
 
 // consts for simpler code
 export const VAXX: VariableId = "vaccinations";
@@ -416,7 +419,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
 
   suicide: [
     {
-      variableId: "cases",
+      variableId: "suicides",
       variableDisplayName: "Cases",
       variableFullDisplayName: "Suicides",
       variableDefinition: `Deaths due to intentional self-harm.`,
