@@ -72,7 +72,7 @@ function CardWrapper(props: {
     >
       {optionalTitle}
       <CardContent>
-        <CircularProgress />
+        <CircularProgress aria-label="loading" />
       </CardContent>
     </Card>
   );
