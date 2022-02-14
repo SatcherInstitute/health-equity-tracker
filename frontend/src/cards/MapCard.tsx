@@ -328,6 +328,7 @@ function MapCardWithKey(props: MapCardProps) {
               )}
             {metricConfig && dataForActiveBreakdownFilter.length ? (
               <CardContent>
+                {console.log(dataForActiveBreakdownFilter)}
                 <ChoroplethMap
                   useSmallSampleMessage={
                     !mapQueryResponse.dataIsMissing() &&

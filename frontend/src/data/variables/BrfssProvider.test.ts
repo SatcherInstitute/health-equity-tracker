@@ -48,8 +48,8 @@ const METRIC_IDS: MetricId[] = [
   "avoided_care_pct_share",
   "preventable_hospitalizations_per_100k",
   "preventable_hospitalizations_pct_share",
-  "voter_participation_pres_per_100k",
-  "voter_participation_pres_pct_share",
+  "voter_participation_per_100k",
+  "voter_participation_pct_share",
 ];
 
 export async function evaluateWithAndWithoutAll(
@@ -111,7 +111,7 @@ function finalRow(
   chronic_kidney_disease_per_100k: number,
   avoided_care_per_100k: number,
   preventable_hospitalizations_per_100k: number,
-  voter_participation_pres_per_100k: number,
+  voter_participation_per_100k: number,
   copd_pct_share: number,
   diabetes_pct_share: number,
   depression_pct_share: number,
@@ -125,7 +125,7 @@ function finalRow(
   chronic_kidney_disease_pct_share: number,
   avoided_care_pct_share: number,
   preventable_hospitalizations_pct_share: number,
-  voter_participation_pres_pct_share: number
+  voter_participation_pct_share: number
 ) {
   return {
     [breakdownName]: breakdownValue,
@@ -144,7 +144,7 @@ function finalRow(
     chronic_kidney_disease_per_100k,
     avoided_care_per_100k,
     preventable_hospitalizations_per_100k,
-    voter_participation_pres_per_100k,
+    voter_participation_per_100k,
     copd_pct_share,
     diabetes_pct_share,
     depression_pct_share,
@@ -158,7 +158,7 @@ function finalRow(
     chronic_kidney_disease_pct_share,
     avoided_care_pct_share,
     preventable_hospitalizations_pct_share,
-    voter_participation_pres_pct_share,
+    voter_participation_pct_share,
   };
 }
 
@@ -179,7 +179,7 @@ function stateRow(
   chronic_kidney_disease_per_100k: number,
   avoided_care_per_100k: number,
   preventable_hospitalizations_per_100k: number,
-  voter_participation_pres_per_100k: number,
+  voter_participation_per_100k: number,
   population: number
 ) {
   return [
@@ -200,7 +200,7 @@ function stateRow(
       chronic_kidney_disease_per_100k,
       avoided_care_per_100k,
       preventable_hospitalizations_per_100k,
-      voter_participation_pres_per_100k,
+      voter_participation_per_100k,
     },
     {
       state_fips: fips.code,
@@ -236,7 +236,7 @@ describe("BrfssProvider", () => {
       /* chronic_kidney_disease_per_100k, */ 10_000,
       /* avoided_care_per_100k, */ 10_000,
       /* preventable_hospitalizations_per_100k, */ 10_000,
-      /* voter_participation_pres_per_100k, */ 10_000,
+      /* voter_participation_per_100k, */ 10_000,
       /*population=*/ 1000
     );
 
@@ -257,7 +257,7 @@ describe("BrfssProvider", () => {
       /* chronic_kidney_disease_per_100k, */ 15_000,
       /* avoided_care_per_100k, */ 15_000,
       /* preventable_hospitalizations_per_100k, */ 15_000,
-      /* voter_participation_pres_per_100k, */ 15_000,
+      /* voter_participation_per_100k, */ 15_000,
       /*population=*/ 1_000
     );
 
@@ -278,7 +278,7 @@ describe("BrfssProvider", () => {
       /* chronic_kidney_disease_per_100k, */ 25_000,
       /* avoided_care_per_100k, */ 25_000,
       /* preventable_hospitalizations_per_100k, */ 25_000,
-      /* voter_participation_pres_per_100k, */ 25_000,
+      /* voter_participation_per_100k, */ 25_000,
       /*population=*/ 1_000
     );
 
@@ -299,7 +299,7 @@ describe("BrfssProvider", () => {
       /* chronic_kidney_disease_per_100k, */ 20_000,
       /* avoided_care_per_100k, */ 20_000,
       /* preventable_hospitalizations_per_100k, */ 20_000,
-      /* voter_participation_pres_per_100k, */ 20_000,
+      /* voter_participation_per_100k, */ 20_000,
       /*population=*/ 5_000
     );
 
@@ -330,7 +330,7 @@ describe("BrfssProvider", () => {
       /* chronic_kidney_disease_per_100k, */ 15_000,
       /* avoided_care_per_100k, */ 15_000,
       /* preventable_hospitalizations_per_100k, */ 15_000,
-      /* voter_participation_pres_per_100k, */ 15_000,
+      /* voter_participation_per_100k, */ 15_000,
 
       /*copd_pct_share*/ 15,
       /*diabetes_pct_share*/ 15,
@@ -345,7 +345,7 @@ describe("BrfssProvider", () => {
       /* chronic_kidney_disease_pct_share, */ 15,
       /* avoided_care_pct_share, */ 15,
       /* preventable_hospitalizations_pct_share, */ 15,
-      /* voter_participation_pres_pct_share, */ 15
+      /* voter_participation_pct_share, */ 15
     );
     const NC_WHITE_FINAL = finalRow(
       NC,
@@ -364,7 +364,7 @@ describe("BrfssProvider", () => {
       /* chronic_kidney_disease_per_100k, */ 25_000,
       /* avoided_care_per_100k, */ 25_000,
       /* preventable_hospitalizations_per_100k, */ 25_000,
-      /* voter_participation_pres_per_100k, */ 25_000,
+      /* voter_participation_per_100k, */ 25_000,
 
       /*copd_pct_share*/ 25,
       /*diabetes_pct_share*/ 25,
@@ -379,7 +379,7 @@ describe("BrfssProvider", () => {
       /* chronic_kidney_disease_pct_share, */ 25,
       /* avoided_care_pct_share, */ 25,
       /* preventable_hospitalizations_pct_share, */ 25,
-      /* voter_participation_pres_pct_share, */ 25
+      /* voter_participation_pct_share, */ 25
     );
 
     // * ALL should be 100% share
@@ -400,7 +400,7 @@ describe("BrfssProvider", () => {
       /* chronic_kidney_disease_per_100k, */ 20_000,
       /* avoided_care_per_100k, */ 20_000,
       /* preventable_hospitalizations_per_100k, */ 20_000,
-      /* voter_participation_pres_per_100k, */ 20_000,
+      /* voter_participation_per_100k, */ 20_000,
 
       /*copd_pct_share*/ 100,
       /*diabetes_pct_share*/ 100,
@@ -415,7 +415,7 @@ describe("BrfssProvider", () => {
       /* chronic_kidney_disease_pct_share, */ 100,
       /* avoided_care_pct_share, */ 100,
       /* preventable_hospitalizations_pct_share, */ 100,
-      /* voter_participation_pres_pct_share, */ 100
+      /* voter_participation_pct_share, */ 100
     );
 
     await evaluateWithAndWithoutAll(
@@ -448,7 +448,7 @@ describe("BrfssProvider", () => {
       /* chronic_kidney_disease_per_100k, */ 10_000,
       /* avoided_care_per_100k, */ 10_000,
       /* preventable_hospitalizations_per_100k, */ 10_000,
-      /* voter_participation_pres_per_100k, */ 10_000,
+      /* voter_participation_per_100k, */ 10_000,
       /*population=*/ 100_000
     );
 
@@ -469,7 +469,7 @@ describe("BrfssProvider", () => {
       /* chronic_kidney_disease_per_100k, */ 30_000,
       /* avoided_care_per_100k, */ 30_000,
       /* preventable_hospitalizations_per_100k, */ 30_000,
-      /* voter_participation_pres_per_100k, */ 30_000,
+      /* voter_participation_per_100k, */ 30_000,
       /*population=*/ 100_000
     );
 
@@ -490,7 +490,7 @@ describe("BrfssProvider", () => {
       /* chronic_kidney_disease_per_100k, */ 10_000,
       /* avoided_care_per_100k, */ 10_000,
       /* preventable_hospitalizations_per_100k, */ 10_000,
-      /* voter_participation_pres_per_100k, */ 10_000,
+      /* voter_participation_per_100k, */ 10_000,
       /*population=*/ 500_000
     );
 
@@ -516,7 +516,7 @@ describe("BrfssProvider", () => {
       /* chronic_kidney_disease_per_100k, */ 10_000,
       /* avoided_care_per_100k, */ 10_000,
       /* preventable_hospitalizations_per_100k, */ 10_000,
-      /* voter_participation_pres_per_100k, */ 10_000,
+      /* voter_participation_per_100k, */ 10_000,
 
       /*copd_pct_share*/ 20,
       /*diabetes_pct_share*/ 20,
@@ -531,7 +531,7 @@ describe("BrfssProvider", () => {
       /* chronic_kidney_disease_pct_share, */ 20,
       /* avoided_care_pct_share, */ 20,
       /* preventable_hospitalizations_pct_share, */ 20,
-      /* voter_participation_pres_pct_share, */ 20
+      /* voter_participation_pct_share, */ 20
     );
     const WHITE_FINAL = finalRow(
       USA,
@@ -550,7 +550,7 @@ describe("BrfssProvider", () => {
       /* chronic_kidney_disease_per_100k, */ 30_000,
       /* avoided_care_per_100k, */ 30_000,
       /* preventable_hospitalizations_per_100k, */ 30_000,
-      /* voter_participation_pres_per_100k, */ 30_000,
+      /* voter_participation_per_100k, */ 30_000,
 
       /*copd_pct_share*/ 60,
       /*diabetes_pct_share*/ 60,
@@ -565,7 +565,7 @@ describe("BrfssProvider", () => {
       /* chronic_kidney_disease_pct_share, */ 60,
       /* avoided_care_pct_share, */ 60,
       /* preventable_hospitalizations_pct_share, */ 60,
-      /* voter_participation_pres_pct_share, */ 60
+      /* voter_participation_pct_share, */ 60
     );
 
     // * ALL should be 100% share
@@ -586,7 +586,7 @@ describe("BrfssProvider", () => {
       /* chronic_kidney_disease_per_100k, */ 10_000,
       /* avoided_care_per_100k, */ 10_000,
       /* preventable_hospitalizations_per_100k, */ 10_000,
-      /* voter_participation_pres_per_100k, */ 10_000,
+      /* voter_participation_per_100k, */ 10_000,
 
       /*copd_pct_share*/ 100,
       /*diabetes_pct_share*/ 100,
@@ -601,7 +601,7 @@ describe("BrfssProvider", () => {
       /* chronic_kidney_disease_pct_share, */ 100,
       /* avoided_care_pct_share, */ 100,
       /* preventable_hospitalizations_pct_share, */ 100,
-      /* voter_participation_pres_pct_share, */ 100
+      /* voter_participation_pct_share, */ 100
     );
 
     await evaluateWithAndWithoutAll(

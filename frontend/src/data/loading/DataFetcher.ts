@@ -154,10 +154,10 @@ export class ApiDataFetcher implements DataFetcher {
             row["asthma_per_100k"] == null
               ? null
               : Number(row["asthma_per_100k"]),
-          voter_participation_pres_per_100k:
-            row["voter_participation_pres_per_100k"] == null
+          voter_participation_per_100k:
+            row["voter_participation_per_100k"] == null
               ? null
-              : Number(row["voter_participation_pres_per_100k"]),
+              : Number(row["voter_participation_per_100k"]),
         };
       });
     } else if (datasetId.startsWith("cdc_restricted")) {

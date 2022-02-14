@@ -16,7 +16,7 @@ export type DropdownVarId =
   | "chronic_kidney_disease"
   | "cardiovascular_diseases"
   | "asthma"
-  | "voter_participation_pres";
+  | "voter_participation";
 
 // IDs for the sub-data types (if any) for theDropDownId
 export type VariableId =
@@ -99,8 +99,8 @@ export type MetricId =
   | "cardiovascular_diseases_per_100k"
   | "asthma_pct_share"
   | "asthma_per_100k"
-  | "voter_participation_pres_pct_share"
-  | "voter_participation_pres_per_100k";
+  | "voter_participation_pct_share"
+  | "voter_participation_per_100k";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -882,24 +882,24 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       },
     },
   ],
-  voter_participation_pres: [
+  voter_participation: [
     {
-      variableId: "voter_participation_pres",
+      variableId: "voter_participation",
       variableDisplayName: "Voter Participation",
-      variableFullDisplayName: "Voter Participation (Presidential Election)",
+      variableFullDisplayName: "Voter Participation",
       surveyCollectedData: true,
-      variableDefinition: `U.S. citizens ages 18 and older who voted in the last presidential national election.`,
+      variableDefinition: `U.S. citizens ages 18 and older who voted in the last presidential and/or midterm national election.`,
       metrics: {
         per100k: {
-          metricId: "voter_participation_pres_per_100k",
-          fullCardTitleName:
-            "Participating Voters (Presidential) Per 100k People",
-          shortVegaLabel: "voters in the last presidential election per 100k",
+          metricId: "voter_participation_per_100k",
+          fullCardTitleName: "Participating Voters Per 100k People",
+          shortVegaLabel:
+            "voters in the last presidential and/or national election per 100k",
           type: "per100k",
         },
         pct_share: {
-          metricId: "voter_participation_pres_pct_share",
-          fullCardTitleName: "Share Of All Voter Participation (Presidential)",
+          metricId: "voter_participation_pct_share",
+          fullCardTitleName: "Share Of All Voter Participation",
           shortVegaLabel: "% of voters",
           type: "pct_share",
           populationComparisonMetric: {

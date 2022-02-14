@@ -46,8 +46,8 @@ export const UHC_DECADE_PLUS_5_AGE_DETERMINANTS: MetricId[] = [
 ];
 
 export const UHC_VOTER_AGE_DETERMINANTS: MetricId[] = [
-  "voter_participation_pres_pct_share",
-  "voter_participation_pres_per_100k",
+  "voter_participation_pct_share",
+  "voter_participation_per_100k",
 ];
 
 export const UHC_API_NH_DETERMINANTS: MetricId[] = [
@@ -172,9 +172,9 @@ class BrfssProvider extends VariableProvider {
         ),
       estimated_total_asthma: (row) =>
         this.calculations.estimateTotal(row.asthma_per_100k, row.population),
-      estimated_total_voter_participation_pres: (row) =>
+      estimated_total_voter_participation: (row) =>
         this.calculations.estimateTotal(
-          row.voter_participation_pres_per_100k,
+          row.voter_participation_per_100k,
           row.population
         ),
     });
@@ -200,7 +200,7 @@ class BrfssProvider extends VariableProvider {
         "estimated_total_chronic_kidney_disease",
         "estimated_total_cardiovascular_diseases",
         "estimated_total_asthma",
-        "estimated_total_voter_participation_pres",
+        "estimated_total_voter_participation",
       ].forEach((col) => {
         df = this.calculations.calculatePctShare(
           df,
@@ -229,7 +229,7 @@ class BrfssProvider extends VariableProvider {
         "estimated_total_chronic_kidney_disease",
         "estimated_total_cardiovascular_diseases",
         "estimated_total_asthma",
-        "estimated_total_voter_participation_pres",
+        "estimated_total_voter_participation",
       ])
       .resetIndex();
 

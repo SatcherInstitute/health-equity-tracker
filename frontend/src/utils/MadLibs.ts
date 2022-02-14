@@ -78,7 +78,7 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   chronic_kidney_disease: "Chronic Kidney Disease",
   cardiovascular_diseases: "Cardiovascular Diseases",
   asthma: "Asthma",
-  voter_participation_pres: "Voter Participation",
+  voter_participation: "Voter Participation",
 };
 
 export interface Category {
@@ -96,7 +96,7 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: "Political Determinants of Health",
     definition: "",
-    options: ["voter_participation_pres"],
+    options: ["voter_participation"],
   },
   {
     title: "Social Determinants of Health",
