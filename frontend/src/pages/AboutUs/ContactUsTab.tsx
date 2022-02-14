@@ -91,8 +91,7 @@ function ContactUsTab() {
               <br />
               720 Westview Drive SW
               <br />
-              Atlanta, <span aria-label="Georgia">GA</span>{" "}
-              <span aria-label="Zip Code 3 0 3 1 0">30310</span>
+              Atlanta, Georgia 30310
             </p>
           </Grid>
         </Grid>

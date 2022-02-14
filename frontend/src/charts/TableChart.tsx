@@ -13,7 +13,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableFooter from "@material-ui/core/TableFooter";
 import TablePagination from "@material-ui/core/TablePagination";
-import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Paper from "@material-ui/core/Paper";
 import {
   MetricConfig,
@@ -105,7 +104,6 @@ export function TableChart(props: TableChartProps) {
         {group.headers.map((col, index) => (
           <TableCell key={col.id} style={cellStyle}>
             {col.render("Header")}
-            <TableSortLabel hideSortIcon={true} />
           </TableCell>
         ))}
       </TableRow>
