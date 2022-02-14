@@ -891,13 +891,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableDisplayName: "Voter Participation",
       variableFullDisplayName: "Voter Participation",
       surveyCollectedData: true,
-      variableDefinition: `U.S. citizens ages 18 and older who voted in the last presidential and/or midterm national election.`,
+      variableDefinition: `Average rate of U.S. citizens ages 18 and older who voted in the last presidential and the last midterm national elections`,
       metrics: {
         per100k: {
           metricId: "voter_participation_per_100k",
           fullCardTitleName: "Participating Voters Per 100k People",
-          shortVegaLabel:
-            "voters in the last presidential and/or national election per 100k",
+          shortVegaLabel: "voters per 100k",
           type: "per100k",
         },
         pct_share: {
