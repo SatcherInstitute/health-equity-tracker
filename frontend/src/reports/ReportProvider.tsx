@@ -6,6 +6,7 @@ import {
   getMadLibWithUpdatedValue,
   MadLibId,
   getMadLibPhraseText,
+  getPhraseValue,
 } from "../utils/MadLibs";
 import { Fips } from "../data/utils/Fips";
 import {
@@ -18,7 +19,11 @@ import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import styles from "./Report.module.scss";
 import DisclaimerAlert from "./ui/DisclaimerAlert";
-import { METRIC_CONFIG, DropdownVarId } from "../data/config/MetricConfig";
+import {
+  DropdownVarId,
+  METRIC_CONFIG,
+  VariableConfig,
+} from "../data/config/MetricConfig";
 import { Link } from "react-router-dom";
 import FeedbackBox from "../pages/ui/FeedbackBox";
 import ShareButtons from "./ui/ShareButtons";
@@ -26,25 +31,33 @@ import { Helmet } from "react-helmet-async";
 import { urlMap } from "../utils/externalUrls";
 import { Box } from "@material-ui/core";
 import DefinitionsList from "./ui/DefinitionsList";
+import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
 
 export const SINGLE_COLUMN_WIDTH = 12;
 
-function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
-  const segment = madLib.phrase[segmentIndex];
-  return typeof segment === "string"
-    ? segment
-    : madLib.activeSelections[segmentIndex];
-}
-
 interface ReportProviderProps {
   isSingleColumn: boolean;
   madLib: MadLib;
+  selectedConditions: VariableConfig[];
+  showLifeLineAlert: boolean;
   setMadLib: Function;
   doScrollToData?: boolean;
 }
 
 function ReportProvider(props: ReportProviderProps) {
+  // only show determinants that have definitions
+  const definedConditions = props.selectedConditions.filter(
+    (condition) => condition?.variableDefinition
+  );
+
+  // create a subset of MetricConfig (with top level string + datatype array)
+  // that matches only the selected, defined conditions
+  const metricConfigSubset = Object.entries(METRIC_CONFIG).filter(
+    (dataTypeArray) =>
+      dataTypeArray[1].some((dataType) => definedConditions.includes(dataType))
+  );
+
   const fieldRef = useRef<HTMLInputElement>(null);
   const definitionsRef = useRef<HTMLInputElement>(null);
 
@@ -160,6 +173,7 @@ function ReportProvider(props: ReportProviderProps) {
       </Helmet>
       <div className={reportWrapper}>
         <ShareButtons madLib={props.madLib} />
+        {props.showLifeLineAlert && <LifelineAlert />}
         <DisclaimerAlert jumpToData={jumpToData} />
         {getReport()}
       </div>
@@ -304,8 +318,16 @@ function ReportProvider(props: ReportProviderProps) {
             See Our Data Sources
           </Button>
 
+          {/* Display condition definition(s) based on the tracker madlib settings */}
           <div ref={definitionsRef}>
-            <DefinitionsBox madLib={props.madLib} />
+            {definedConditions.length > 0 && (
+              <Box mt={5}>
+                <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
+                <LazyLoad offset={300} height={181} once>
+                  <DefinitionsList variablesToDefine={metricConfigSubset} />
+                </LazyLoad>
+              </Box>
+            )}
           </div>
 
           <div className={styles.MissingDataContactUs}>
@@ -321,30 +343,6 @@ function ReportProvider(props: ReportProviderProps) {
 
       <FeedbackBox />
     </>
-  );
-}
-
-/*
-Display heading and condition definition(s) based on the tracker madlib settings
-*/
-function DefinitionsBox(props: { madLib: MadLib }) {
-  // Show Definitions for Selected Condition(s) and their respective Categories
-  const var1 = props.madLib.activeSelections["1"];
-  const var2 =
-    props.madLib.id === "comparevars"
-      ? props.madLib.activeSelections["3"]
-      : undefined;
-  const selectedVariables = Object.entries(METRIC_CONFIG).filter(
-    (variable) => variable[0] === var1 || variable[0] === var2
-  );
-
-  return (
-    <Box mt={5}>
-      <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
-      <LazyLoad offset={300} height={350} once>
-        <DefinitionsList variablesToDefine={selectedVariables} />
-      </LazyLoad>
-    </Box>
   );
 }
 
