@@ -15,7 +15,7 @@
     "chronic_kidney_disease_per_100k": "4000",
     "cardiovascular_diseases_per_100k": "11000",
     "asthma_per_100k": "9000",
-    "voter_participation_pres_per_100k": "60500",
+    "voter_participation_per_100k": "55600",
     "age": "All"
   },
   {
@@ -34,7 +34,7 @@
     "chronic_kidney_disease_per_100k": null,
     "cardiovascular_diseases_per_100k": null,
     "asthma_per_100k": null,
-    "voter_participation_pres_per_100k": null,
+    "voter_participation_per_100k": null,
     "age": "15-24"
   },
   {
@@ -53,7 +53,7 @@
     "chronic_kidney_disease_per_100k": null,
     "cardiovascular_diseases_per_100k": null,
     "asthma_per_100k": null,
-    "voter_participation_pres_per_100k": "53700",
+    "voter_participation_per_100k": "53700",
     "age": "25-34"
   },
   {
@@ -72,7 +72,7 @@
     "chronic_kidney_disease_per_100k": null,
     "cardiovascular_diseases_per_100k": null,
     "asthma_per_100k": null,
-    "voter_participation_pres_per_100k": "60000",
+    "voter_participation_per_100k": "60000",
     "age": "35-44"
   },
   {
@@ -91,7 +91,7 @@
     "chronic_kidney_disease_per_100k": null,
     "cardiovascular_diseases_per_100k": null,
     "asthma_per_100k": null,
-    "voter_participation_pres_per_100k": null,
+    "voter_participation_per_100k": null,
     "age": "45-54"
   },
   {
@@ -110,7 +110,7 @@
     "chronic_kidney_disease_per_100k": null,
     "cardiovascular_diseases_per_100k": null,
     "asthma_per_100k": null,
-    "voter_participation_pres_per_100k": null,
+    "voter_participation_per_100k": null,
     "age": "55-64"
   },
   {
@@ -129,7 +129,7 @@
     "chronic_kidney_disease_per_100k": null,
     "cardiovascular_diseases_per_100k": null,
     "asthma_per_100k": null,
-    "voter_participation_pres_per_100k": null,
+    "voter_participation_per_100k": null,
     "age": "65-74"
   },
   {
@@ -148,7 +148,7 @@
     "chronic_kidney_disease_per_100k": null,
     "cardiovascular_diseases_per_100k": null,
     "asthma_per_100k": null,
-    "voter_participation_pres_per_100k": null,
+    "voter_participation_per_100k": null,
     "age": "75-84"
   },
   {
@@ -167,7 +167,7 @@
     "chronic_kidney_disease_per_100k": null,
     "cardiovascular_diseases_per_100k": null,
     "asthma_per_100k": null,
-    "voter_participation_pres_per_100k": null,
+    "voter_participation_per_100k": null,
     "age": "85+"
   },
   {
@@ -186,7 +186,7 @@
     "chronic_kidney_disease_per_100k": null,
     "cardiovascular_diseases_per_100k": null,
     "asthma_per_100k": null,
-    "voter_participation_pres_per_100k": "45400",
+    "voter_participation_per_100k": "45400",
     "age": "18-24"
   },
   {
@@ -205,7 +205,7 @@
     "chronic_kidney_disease_per_100k": "5500",
     "cardiovascular_diseases_per_100k": "13300",
     "asthma_per_100k": "9300",
-    "voter_participation_pres_per_100k": "66200",
+    "voter_participation_per_100k": "66200",
     "age": "45-64"
   },
   {
@@ -224,7 +224,7 @@
     "chronic_kidney_disease_per_100k": "1300",
     "cardiovascular_diseases_per_100k": "2400",
     "asthma_per_100k": "9200",
-    "voter_participation_pres_per_100k": null,
+    "voter_participation_per_100k": null,
     "age": "18-44"
   },
   {
@@ -243,7 +243,7 @@
     "chronic_kidney_disease_per_100k": "7000",
     "cardiovascular_diseases_per_100k": "24200",
     "asthma_per_100k": "8100",
-    "voter_participation_pres_per_100k": null,
+    "voter_participation_per_100k": "64800",
     "age": "65+"
   }
 ]

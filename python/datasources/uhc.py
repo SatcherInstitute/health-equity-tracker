@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
@@ -83,19 +84,34 @@ UHC_DETERMINANTS = {
     "Cardiovascular Diseases": std_col.CARDIOVASCULAR_PER_100K,
     "Chronic Kidney Disease": std_col.CHRONIC_KIDNEY_PER_100K,
     "Avoided Care Due to Cost": std_col.AVOIDED_CARE_PER_100K,
-    "Voter Participation (Presidential)": std_col.VOTER_PARTICIPATION_PRES_PER_100K,
     "Suicide": std_col.SUICIDE_PER_100K,
-    "Preventable Hospitalizations": std_col.PREVENTABLE_HOSP_PER_100K
+    "Preventable Hospitalizations": std_col.PREVENTABLE_HOSP_PER_100K,
+    # NOTE: all three get averaged into 1 column: voting_participation
+    # "Voter Participation (Presidential)": std_col.VOTER_PARTICIPATION_PRES_PER_100K,
+    # "Voter Participation (Midterm)": std_col.VOTER_PARTICIPATION_MID_PER_100K,
+    # "Voter Participation - Ages 65+ (Midterm)": std_col.VOTER_PARTICIPATION_MID_65_PER_100K,
+    "Voter Participation": std_col.VOTER_PARTICIPATION_PER_100K,
+
+    # VOTER PARTICIPATION
+    # pres: state total ALL + by age (missing 65+) + by sex + by race
+    # midterm: state total ALL + by age (missing 65+)
+    # 65+ midterm: only 65+ age tracker
+    # average: not using, expect to compare state totals and confirm they match
+
+
+
 }
 
 # When parsing Measure Names from rows with a demographic breakdown
 # these aliases will be used instead of the determinant string above
 ALT_ROWS_ALL = {
-    "Non-medical Drug Use": "Non-medical Drug Use - Past Year"
+    "Non-medical Drug Use": "Non-medical Drug Use - Past Year",
+    "Voter Participation": "Voter Participation (Presidential)"
 }
 
 ALT_ROWS_WITH_DEMO = {
-    "Illicit Opioid Use": "Use of Illicit Opioids"
+    "Illicit Opioid Use": "Use of Illicit Opioids",
+    "Voter Participation": "Voter Participation (Presidential)"
 }
 
 PER100K_DETERMINANTS = {
@@ -108,7 +124,7 @@ PLUS_5_AGE_DETERMINANTS = {
 }
 
 VOTER_AGE_DETERMINANTS = {
-    "Voter Participation (Presidential)": std_col.VOTER_PARTICIPATION_PRES_PER_100K,
+    "Voter Participation": std_col.VOTER_PARTICIPATION_PRES_PER_100K,
 }
 
 
@@ -184,9 +200,27 @@ class UHCData(DataSource):
                              ALT_ROWS_ALL.get(determinant, determinant))
                         ]
 
-                        if determinant in PER100K_DETERMINANTS:
+                        # TOTAL voter_participation is avg of pres and midterm data
+                        if determinant in VOTER_AGE_DETERMINANTS:
+
+                            matched_row_midterm = df.loc[
+                                (df['State Name'] == state) &
+                                (df['Measure Name'] ==
+                                 "Voter Participation (Midterm)")
+                            ]
+
+                            pres_all_value = matched_row['Value'].values[0]
+                            mid_all_value = matched_row_midterm['Value'].values[0]
+                            average_value = np.nanmean(
+                                [pres_all_value, mid_all_value])
+
+                            output_row[std_col.VOTER_PARTICIPATION_PER_100K] = average_value * 1000
+
+                        # already per 100k
+                        elif determinant in PER100K_DETERMINANTS:
                             output_row[UHC_DETERMINANTS[determinant]
                                        ] = matched_row['Value'].values[0]
+                        # converted from % to per 100k
                         else:
                             output_row[UHC_DETERMINANTS[determinant]
                                        ] = matched_row['Value'].values[0] * 1000
@@ -209,13 +243,49 @@ class UHCData(DataSource):
                             (df['State Name'] == state) &
                             (df['Measure Name'] == measure_name)]
 
-                        if len(matched_row) > 0:
+                        # BY AGE voter participation is avg of pres and midterm
+                        if determinant in VOTER_AGE_DETERMINANTS and breakdown == std_col.AGE_COL:
+
+                            # get midterm for voting ages other than 65+
+                            if breakdown_value in VOTER_AGE_GROUPS:
+                                measure_name = (
+                                    f"Voter Participation (Midterm) - Ages "
+                                    f"{breakdown_value}"
+                                )
+
+                            # or get midterm for 65+ (different format)
+                            elif breakdown_value == "65+":
+                                measure_name = "Voter Participation - Ages 65+ (Midterm)"
+
+                            # skip midterm calc for all other age groups
+                            else:
+                                continue
+
+                            pres_breakdown_value, mid_breakdown_value = np.nan, np.nan
+
+                            if len(matched_row) > 0:
+                                pres_breakdown_value = matched_row['Value'].values[0]
+
+                            matched_row_midterm = df.loc[
+                                (df['State Name'] == state) &
+                                (df['Measure Name'] == measure_name)]
+
+                            if len(matched_row_midterm) > 0:
+                                mid_breakdown_value = matched_row_midterm['Value'].values[0]
+
+                            average_value = np.nanmean(
+                                [pres_breakdown_value, mid_breakdown_value])
+
+                            output_row[std_col.VOTER_PARTICIPATION_PER_100K] = average_value * 1000
+
+                        # for other determinants besides VOTER
+                        elif len(matched_row) > 0:
                             pct = matched_row['Value'].values[0]
                             if pct:
                                 if determinant in PER100K_DETERMINANTS:
-
                                     output_row[UHC_DETERMINANTS[determinant]
                                                ] = matched_row['Value'].values[0]
+                                # convert from % to per 100k
                                 else:
                                     output_row[UHC_DETERMINANTS[determinant]
                                                ] = matched_row['Value'].values[0] * 1000
