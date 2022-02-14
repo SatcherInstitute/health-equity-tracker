@@ -225,7 +225,7 @@ function TheProjectTab() {
                     <LinkWithStickyParams
                       to={EXPLORE_DATA_PAGE_LINK + COVID_VAX_US_SETTING}
                     >
-                      vaccinations
+                      vaccinations,
                     </LinkWithStickyParams>{" "}
                     cases, deaths, and{" "}
                     <LinkWithStickyParams
