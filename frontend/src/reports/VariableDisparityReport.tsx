@@ -103,7 +103,8 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
       justifyContent="center"
     >
       {!props.hidePopulationCard && (
-        <Grid item xs={12} md={SINGLE_COLUMN_WIDTH}>
+        // POPULATION CARD
+        <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="populationCard">
           <PopulationCard jumpToData={props.jumpToData} fips={props.fips} />
         </Grid>
       )}
@@ -126,7 +127,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           )}
 
           {/* 100k MAP CARD */}
-          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH}>
+          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="mapCard">
             <MapCard
               variableConfig={variableConfig}
               fips={props.fips}
@@ -140,7 +141,13 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           </Grid>
 
           {/* 100K BAR CHART CARD */}
-          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={SINGLE_COLUMN_WIDTH}
+            id="simpleBarChartCard"
+          >
             <LazyLoad offset={300} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>
@@ -158,7 +165,13 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           </Grid>
 
           {/* UNKNOWNS MAP CARD */}
-          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={SINGLE_COLUMN_WIDTH}
+            id="unknownsMapCard"
+          >
             <LazyLoad offset={300} height={750} once>
               {variableConfig.metrics["pct_share"] && (
                 <UnknownsMapCard
@@ -175,7 +188,13 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           </Grid>
 
           {/* DISPARITY BAR CHART COMPARE VS POPULATION */}
-          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={SINGLE_COLUMN_WIDTH}
+            id="disparityBarChartCard"
+          >
             <LazyLoad offset={300} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>
@@ -193,7 +212,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           </Grid>
 
           {/* DATA TABLE CARD */}
-          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH}>
+          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="tableCard">
             <LazyLoad offset={300} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>
