@@ -86,10 +86,6 @@ UHC_DETERMINANTS = {
     "Avoided Care Due to Cost": std_col.AVOIDED_CARE_PER_100K,
     "Suicide": std_col.SUICIDE_PER_100K,
     "Preventable Hospitalizations": std_col.PREVENTABLE_HOSP_PER_100K,
-    # NOTE: all three get averaged into 1 column: voting_participation
-    # "Voter Participation (Presidential)": std_col.VOTER_PARTICIPATION_PRES_PER_100K,
-    # "Voter Participation (Midterm)": std_col.VOTER_PARTICIPATION_MID_PER_100K,
-    # "Voter Participation - Ages 65+ (Midterm)": std_col.VOTER_PARTICIPATION_MID_65_PER_100K,
     "Voter Participation": std_col.VOTER_PARTICIPATION_PER_100K,
 
     # VOTER PARTICIPATION
@@ -124,7 +120,7 @@ PLUS_5_AGE_DETERMINANTS = {
 }
 
 VOTER_AGE_DETERMINANTS = {
-    "Voter Participation": std_col.VOTER_PARTICIPATION_PRES_PER_100K,
+    "Voter Participation": std_col.VOTER_PARTICIPATION_PER_100K,
 }
 
 

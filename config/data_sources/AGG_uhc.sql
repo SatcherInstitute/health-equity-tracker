@@ -20,7 +20,7 @@ WITH
         a.chronic_kidney_disease_per_100k,
         a.cardiovascular_diseases_per_100k,
         a.asthma_per_100k,
-        a.voter_participation_pres_per_100k,
+        a.voter_participation_per_100k,
         a.race,
         a.race_includes_hispanic,
         a.race_and_ethnicity
@@ -53,7 +53,7 @@ WITH
         a.chronic_kidney_disease_per_100k,
         a.cardiovascular_diseases_per_100k,
         a.asthma_per_100k,
-        a.voter_participation_pres_per_100k,
+        a.voter_participation_per_100k,
         a.age,
     FROM `uhc_data.age` AS a
     LEFT JOIN `bigquery-public-data.census_utility.fips_codes_states` AS b
@@ -84,7 +84,7 @@ WITH
         a.chronic_kidney_disease_per_100k,
         a.cardiovascular_diseases_per_100k,
         a.asthma_per_100k,
-        a.voter_participation_pres_per_100k,
+        a.voter_participation_per_100k,
         a.sex,
     FROM `uhc_data.sex` AS a
     LEFT JOIN `bigquery-public-data.census_utility.fips_codes_states` AS b
