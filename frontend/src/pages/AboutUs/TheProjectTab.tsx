@@ -5,12 +5,13 @@ import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
 import {
   COPD_US_SETTING,
-  COVID_CASES_US_SETTING,
+  COVID_HOSP_NY_COUNTY_SETTING,
   COVID_VAX_US_SETTING,
   DATA_CATALOG_PAGE_LINK,
   DIABETES_US_SETTING,
   EXPLORE_DATA_PAGE_LINK,
   LinkWithStickyParams,
+  OPIOID_US_SETTING,
   POVERTY_US_SETTING,
   UNINSURANCE_US_SETTING,
 } from "../../utils/urlutils";
@@ -220,17 +221,17 @@ function TheProjectTab() {
                     variant="body2"
                     paragraph={true}
                   >
-                    Beyond{" "}
-                    <LinkWithStickyParams
-                      to={EXPLORE_DATA_PAGE_LINK + COVID_CASES_US_SETTING}
-                    >
-                      COVID-19 outcomes
-                    </LinkWithStickyParams>{" "}
-                    and{" "}
+                    In addition to COVID-19{" "}
                     <LinkWithStickyParams
                       to={EXPLORE_DATA_PAGE_LINK + COVID_VAX_US_SETTING}
                     >
-                      vaccination rates
+                      vaccinations,
+                    </LinkWithStickyParams>{" "}
+                    cases, deaths, and{" "}
+                    <LinkWithStickyParams
+                      to={EXPLORE_DATA_PAGE_LINK + COVID_HOSP_NY_COUNTY_SETTING}
+                    >
+                      hospitalizations by race to the county level
                     </LinkWithStickyParams>
                     , the tracker also covers chronic disease conditions like{" "}
                     <LinkWithStickyParams
@@ -244,8 +245,13 @@ function TheProjectTab() {
                     >
                       diabetes
                     </LinkWithStickyParams>
-                    , along with social and political determinants of health
-                    such as{" "}
+                    , behavioral health indicators such as{" "}
+                    <LinkWithStickyParams
+                      to={EXPLORE_DATA_PAGE_LINK + OPIOID_US_SETTING}
+                    >
+                      opioid and other substance misuse
+                    </LinkWithStickyParams>
+                    , and social and political determinants of health including{" "}
                     <LinkWithStickyParams
                       to={EXPLORE_DATA_PAGE_LINK + UNINSURANCE_US_SETTING}
                     >
