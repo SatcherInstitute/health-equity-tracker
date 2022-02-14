@@ -442,16 +442,15 @@ function LandingPage() {
             <div className={styles.EmailAddressContentDiv}>
               <Grid item>
                 <Typography className={styles.NewsletterRowHeader} variant="h2">
-                  <span aria-hidden="true">
+                  <span>
                     Join Our
-                    <br />
+                    <br aria-hidden="true" />
                     Movement
                   </span>
                 </Typography>
               </Grid>
               <Grid item>
                 <Button
-                  aria-label="Join Our Movement: Learn How to Help"
                   variant="contained"
                   color="default"
                   className={styles.JoinOurMovementButton}
