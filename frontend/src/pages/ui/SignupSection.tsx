@@ -33,6 +33,7 @@ export default function SignupSection() {
             variant="outlined"
             className={styles.NewsEmailTextField}
             type="email"
+            role="textbox"
             aria-label="Enter Email Address for Newsletter signup"
             placeholder="Enter email address"
           />
