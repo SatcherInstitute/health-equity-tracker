@@ -99,6 +99,8 @@ if (!getBooleanEnvVar("DISABLE_BASIC_AUTH")) {
   }));
 }
 
+app.use(compression())
+
 // Serve static files from the build directory.
 app.use(express.static(path.join(__dirname, 'build')));
 
