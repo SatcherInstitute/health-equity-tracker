@@ -156,24 +156,24 @@ def age_adjust_from_expected(df):
        df: dataframe with an 'expected_deaths' and 'expected_hosps' field"""
 
     def get_age_adjusted_death_rate(row):
-        ref_pop_expected_deaths = float(df.loc[
+        ref_pop_expected_deaths = df.loc[
                 (df[std_col.RACE_CATEGORY_ID_COL] == REFERENCE_POPULATION) &
                 (df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
-            ][std_col.COVID_DEATH_Y].values[0])
+            ][std_col.COVID_DEATH_Y].values[0]
 
-        if ref_pop_expected_deaths == 0:
-            return 0
+        if not ref_pop_expected_deaths:
+            return None
 
-        return round(row['expected_deaths'] / ref_pop_expected_deaths, 2)
+        return round(row['expected_deaths'] / float(ref_pop_expected_deaths), 2)
 
     def get_age_adjusted_hosp_rate(row):
-        ref_pop_expected_hosp = float(df.loc[
+        ref_pop_expected_hosp = df.loc[
                 (df[std_col.RACE_CATEGORY_ID_COL] == REFERENCE_POPULATION) &
                 (df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
-            ][std_col.COVID_HOSP_Y].values[0])
+            ][std_col.COVID_HOSP_Y].values[0]
 
-        if ref_pop_expected_hosp == 0:
-            return 0
+        if not ref_pop_expected_hosp:
+            return None
 
         return round(row['expected_hosps'] / ref_pop_expected_hosp, 2)
 
