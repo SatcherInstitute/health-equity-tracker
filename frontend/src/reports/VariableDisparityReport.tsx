@@ -5,8 +5,9 @@ import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { MapCard } from "../cards/MapCard";
 import { PopulationCard } from "../cards/PopulationCard";
 import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
-import { TableCard } from "../cards/TableCard";
+import { AgeAdjustedTableCard } from "../cards/AgeAdjustedTableCard";
 import { UnknownsMapCard } from "../cards/UnknownsMapCard";
+import { TableCard } from "../cards/TableCard";
 import {
   DropdownVarId,
   METRIC_CONFIG,
@@ -218,6 +219,23 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                 <Fragment key={breakdownVar}>
                   {breakdownIsShown(breakdownVar) && (
                     <TableCard
+                      fips={props.fips}
+                      variableConfig={variableConfig}
+                      breakdownVar={breakdownVar}
+                    />
+                  )}
+                </Fragment>
+              ))}
+            </LazyLoad>
+          </Grid>
+
+          {/* AGE ADJUSTED TABLE CARD */}
+          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="ageAdjustedTableCard">
+            <LazyLoad offset={300} height={350} once>
+              {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+                <Fragment key={breakdownVar}>
+                  {breakdownIsShown(breakdownVar) && (
+                    <AgeAdjustedTableCard
                       fips={props.fips}
                       variableConfig={variableConfig}
                       breakdownVar={breakdownVar}
