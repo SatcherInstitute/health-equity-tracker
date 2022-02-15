@@ -1,5 +1,5 @@
 import pandas as pd
-import numpy as np
+import numpy as np  # type: ignore
 
 from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
