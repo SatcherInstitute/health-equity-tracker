@@ -35,6 +35,8 @@ const HOST = '0.0.0.0';
 
 const app = express();
 
+app.use(compression())
+
 // Add Authorization header for all requests that are proxied to the data server.
 // TODO: The token can be cached and only refreshed when needed
 app.use('/api', (req, res, next) => {
@@ -96,8 +98,6 @@ if (!getBooleanEnvVar("DISABLE_BASIC_AUTH")) {
     realm: 'Health Equity Tracker',
   }));
 }
-
-app.use(compression())
 
 // Serve static files from the build directory.
 app.use(express.static(path.join(__dirname, 'build')));
