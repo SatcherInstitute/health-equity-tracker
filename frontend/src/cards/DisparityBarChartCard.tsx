@@ -61,7 +61,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     metricConfig.metricId,
     metricConfig.populationComparisonMetric!.metricId,
   ];
-
   if (metricConfig.knownBreakdownComparisonMetric) {
     metricIds.push(metricConfig.knownBreakdownComparisonMetric.metricId);
   }
