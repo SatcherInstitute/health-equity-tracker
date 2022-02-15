@@ -39,15 +39,13 @@ class AgeAdjustCDCRestricted(DataSource):
                     'census_pop_estimates', 'race_and_ethnicity', dtype={'state_fips': str})
 
             if geo == 'national':
-                with_race_age_df = with_race_age_df.loc[~with_race_age_df[std_col.COVID_DEATH_Y].isna()]
+                with_race_age_df = with_race_age_df.loc[~with_race_age_df[std_col.COVID_CASES].isna()]
                 states_to_include = set(with_race_age_df[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
 
                 pop_df = census_pop_estimates.generate_national_pop_data(pop_df, states_to_include)
 
                 groupby_cols = list(std_col.RACE_COLUMNS) + [std_col.AGE_COL]
                 with_race_age_df = cdc_restricted_local.generate_national_dataset(with_race_age_df, groupby_cols)
-
-                with_race_age_df = with_race_age_df.astype({'death_y': int})
 
             age_adjusted_df = do_age_adjustment(with_race_age_df, pop_df)
 
@@ -101,7 +99,7 @@ def merge_age_adjusted(df, age_adjusted_df):
     return pd.merge(df, age_adjusted_df, how='left', on=merge_cols)
 
 
-def get_expected_deaths(race_and_age_df, population_df):
+def get_expected_deaths_and_hospitalizations(race_and_age_df, population_df):
     """Calculates the age adjusted expected deaths of each racial group.
        I made this function to break up the age adjustment into smaller, more easily testable pieces.
        Returns a dataframe meant to be used in memory.
@@ -109,14 +107,12 @@ def get_expected_deaths(race_and_age_df, population_df):
        race_and_age_df: a dataframe with covid deaths broken down by race and age
        population_df: a dataframe with population broken down by race and age"""
 
-    def get_expected_death_rate(row):
+    def get_expected_rate(row):
         this_pop_size = float(population_df.loc[
                 (population_df[std_col.RACE_CATEGORY_ID_COL] == row[std_col.RACE_CATEGORY_ID_COL]) &
                 (population_df[std_col.AGE_COL] == row[std_col.AGE_COL]) &
                 (population_df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
             ][std_col.POPULATION_COL].values[0])
-
-        true_death_rate = float(row[std_col.COVID_DEATH_Y]) / this_pop_size
 
         ref_pop_size = float(population_df.loc[
                 (population_df[std_col.RACE_CATEGORY_ID_COL] == REFERENCE_POPULATION) &
@@ -124,7 +120,19 @@ def get_expected_deaths(race_and_age_df, population_df):
                 (population_df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
             ][std_col.POPULATION_COL].values[0])
 
-        return round(true_death_rate * ref_pop_size, 2)
+        if not row[std_col.COVID_DEATH_Y]:
+            row['expected_deaths'] = None
+        else:
+            true_death_rate = float(row[std_col.COVID_DEATH_Y]) / this_pop_size
+            row['expected_deaths'] = round(true_death_rate * ref_pop_size, 2)
+
+        if not row[std_col.COVID_HOSP_Y]:
+            row['expected_hosps'] = None
+        else:
+            true_hosp_rate = float(row[std_col.COVID_HOSP_Y]) / this_pop_size
+            row['expected_hosps'] = round(true_hosp_rate * ref_pop_size, 2)
+
+        return row
 
     on_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.AGE_COL]
     on_cols.extend(std_col.RACE_COLUMNS)
@@ -135,20 +143,19 @@ def get_expected_deaths(race_and_age_df, population_df):
     df = df.loc[df[std_col.RACE_CATEGORY_ID_COL].isin(AGE_ADJUST_RACES)].reset_index(drop=True)
     df = df.loc[df[std_col.STATE_FIPS_COL].isin(states_with_pop)].reset_index(drop=True)
 
-    df['expected_deaths'] = df.apply(get_expected_death_rate, axis=1)
+    df = df.apply(get_expected_rate, axis=1)
 
     return df
 
 
-def age_adjust_from_expected(df, population_df):
+def age_adjust_from_expected(df):
     """Calculates the age adjusted death rate against the standard population
        when given a dataframe with the expected deaths from each racial group.
        Returns a dataframe with the age adjusted death rate.
 
-       df: dataframe with an 'expected_deaths' field
-       population_df: a dataframe with population broken down by race and age"""
+       df: dataframe with an 'expected_deaths' and 'expected_hosps' field"""
 
-    def get_age_adjusted_rate(row):
+    def get_age_adjusted_death_rate(row):
         ref_pop_expected_deaths = float(df.loc[
                 (df[std_col.RACE_CATEGORY_ID_COL] == REFERENCE_POPULATION) &
                 (df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
@@ -159,16 +166,28 @@ def age_adjust_from_expected(df, population_df):
 
         return round(row['expected_deaths'] / ref_pop_expected_deaths, 2)
 
+    def get_age_adjusted_hosp_rate(row):
+        ref_pop_expected_hosp = float(df.loc[
+                (df[std_col.RACE_CATEGORY_ID_COL] == REFERENCE_POPULATION) &
+                (df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
+            ][std_col.COVID_HOSP_Y].values[0])
+
+        if ref_pop_expected_hosp == 0:
+            return 0
+
+        return round(row['expected_hosps'] / ref_pop_expected_hosp, 2)
+
     groupby_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
     groupby_cols.extend(std_col.RACE_COLUMNS)
 
     grouped = df.groupby(groupby_cols)
     df = grouped.sum().reset_index()
 
-    df[std_col.COVID_DEATH_RATIO_AGE_ADJUSTED] = df.apply(get_age_adjusted_rate, axis=1)
+    df[std_col.COVID_DEATH_RATIO_AGE_ADJUSTED] = df.apply(get_age_adjusted_death_rate, axis=1)
+    df[std_col.COVID_HOSP_RATIO_AGE_ADJUSTED] = df.apply(get_age_adjusted_hosp_rate, axis=1)
 
     needed_cols = groupby_cols
-    needed_cols.append(std_col.COVID_DEATH_RATIO_AGE_ADJUSTED)
+    needed_cols.extend([std_col.COVID_DEATH_RATIO_AGE_ADJUSTED, std_col.COVID_HOSP_RATIO_AGE_ADJUSTED])
 
     return df[needed_cols]
 
@@ -181,5 +200,5 @@ def do_age_adjustment(race_and_age_df, population_df):
        race_and_age_df: a dataframe with covid deaths broken down by race and age
        population_df: a dataframe with population broken down by race and age"""
 
-    expected_deaths = get_expected_deaths(race_and_age_df, population_df)
-    return age_adjust_from_expected(expected_deaths, population_df)
+    expected = get_expected_deaths_and_hospitalizations(race_and_age_df, population_df)
+    return age_adjust_from_expected(expected)

@@ -6,7 +6,8 @@
     "race": "Black or African American",
     "race_includes_hispanic": false,
     "race_and_ethnicity": "Black or African American (Non-Hispanic)",
-    "death_ratio_age_adjusted": 0.59
+    "death_ratio_age_adjusted": 0.59,
+    "hosp_ratio_age_adjusted": 0.59
   },
   {
     "state_fips": "01",
@@ -15,7 +16,8 @@
     "race": "Hispanic or Latino",
     "race_includes_hispanic": true,
     "race_and_ethnicity": "Hispanic or Latino",
-    "death_ratio_age_adjusted": 3.35
+    "death_ratio_age_adjusted": 3.35,
+    "hosp_ratio_age_adjusted": 3.35
   },
   {
     "state_fips": "01",
@@ -24,6 +26,7 @@
     "race": "White",
     "race_includes_hispanic": false,
     "race_and_ethnicity": "White (Non-Hispanic)",
-    "death_ratio_age_adjusted": 1
+    "death_ratio_age_adjusted": 1,
+    "hosp_ratio_age_adjusted": 1
   }
 ]
