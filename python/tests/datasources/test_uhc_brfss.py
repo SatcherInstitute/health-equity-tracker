@@ -81,8 +81,5 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
             GOLDEN_DATA[demographics[i]], dtype=expected_dtype)
 
         # output created in mocked load_csv_as_dataframe_from_web() should be the same as the expected df
-        # print("test")
-        # print(mock_bq.call_args_list[i].args[0])
-        # print(expected_df.to_string())
         assert_frame_equal(
             mock_bq.call_args_list[i].args[0], expected_df, check_like=True)
