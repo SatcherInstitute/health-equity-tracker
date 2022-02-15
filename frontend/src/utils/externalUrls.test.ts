@@ -30,16 +30,28 @@ export function getTestableUrls(allUrls: string[]): string[] {
 // accepts a url string and returns an awaited status code
 export async function getStatus(url: string): Promise<number> {
   try {
-    const response = await axios.get(url, {
+    const responseWithHeader = await axios.get(url, {
       headers: {
         "User-Agent":
           "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:15.0) Gecko/20100101 Firefox/15.0.1",
       },
     });
-    return response.status;
+    return responseWithHeader.status;
   } catch (error) {
-    console.error(url, "Error getting response code");
-    return 0;
+    console.error(
+      url,
+      "Error getting response code with headers, trying without..."
+    );
+    try {
+      const response = await axios.get(url);
+      return response.status;
+    } catch {
+      console.error(
+        url,
+        "Another error getting response code without headers. Run again, or manually test URL and place in the untestable array"
+      );
+      return 0;
+    }
   }
 }
 
