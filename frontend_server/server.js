@@ -1,7 +1,6 @@
 'use strict';
 
 const express = require('express');
-const compression = require('compression')
 const path = require('path');
 const basicAuth = require('express-basic-auth');
 const { createProxyMiddleware } = require('http-proxy-middleware');
@@ -57,7 +56,7 @@ app.use('/api', (req, res, next) => {
         // request is sent, overwrite the Authorization header with the bearer token from the service 
         // account and delete the Authorization_DataServer header. 
         req.headers["Authorization_DataServer"] = `bearer ${token}`;
-        next();
+        next(); 
       })
       .catch(next);
   } else {
@@ -78,7 +77,7 @@ const apiProxyOptions = {
     // Replace the basic auth header with the service account token.
     proxyReq.setHeader('Authorization', proxyReq.getHeader('Authorization_DataServer'));
     proxyReq.removeHeader('Authorization_DataServer');
-  }
+ }
 };
 const apiProxy = createProxyMiddleware(apiProxyOptions);
 app.use('/api', apiProxy);
@@ -96,8 +95,6 @@ if (!getBooleanEnvVar("DISABLE_BASIC_AUTH")) {
     realm: 'Health Equity Tracker',
   }));
 }
-
-app.use(compression())
 
 // Serve static files from the build directory.
 app.use(express.static(path.join(__dirname, 'build')));
