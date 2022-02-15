@@ -92,7 +92,7 @@ UHC_DETERMINANTS = {
     # pres: state total ALL + by age (missing 65+) + by sex + by race
     # midterm: state total ALL + by age (missing 65+)
     # 65+ midterm: only 65+ age tracker
-    # average: not using, expect to compare state totals and confirm they match
+    # average: not using, state totals from AHR match our state totals
 
 
 
@@ -119,9 +119,7 @@ PLUS_5_AGE_DETERMINANTS = {
     "Suicide": std_col.SUICIDE_PER_100K,
 }
 
-VOTER_AGE_DETERMINANTS = {
-    "Voter Participation": std_col.VOTER_PARTICIPATION_PER_100K,
-}
+AVERAGED_DETERMINANTS = ["Voter Participation"]
 
 
 BREAKDOWN_MAP = {
@@ -197,7 +195,7 @@ class UHCData(DataSource):
                         ]
 
                         # TOTAL voter_participation is avg of pres and midterm data
-                        if determinant in VOTER_AGE_DETERMINANTS:
+                        if determinant in AVERAGED_DETERMINANTS:
 
                             matched_row_midterm = df.loc[
                                 (df['State Name'] == state) &
@@ -240,7 +238,7 @@ class UHCData(DataSource):
                             (df['Measure Name'] == measure_name)]
 
                         # BY AGE voter participation is avg of pres and midterm
-                        if determinant in VOTER_AGE_DETERMINANTS and breakdown == std_col.AGE_COL:
+                        if determinant in AVERAGED_DETERMINANTS and breakdown == std_col.AGE_COL:
 
                             # get midterm for voting ages other than 65+
                             if breakdown_value in VOTER_AGE_GROUPS:
