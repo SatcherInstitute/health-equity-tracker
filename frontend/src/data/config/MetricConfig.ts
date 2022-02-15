@@ -891,7 +891,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableDisplayName: "Voter Participation",
       variableFullDisplayName: "Voter Participation",
       surveyCollectedData: true,
-      variableDefinition: `Average rate of U.S. citizens ages 18 and older who voted in the last presidential and the last midterm national elections`,
+      variableDefinition: `U.S. citizens ages 18 and older who voted in either the last presidential election, the last midterm national election, or the average of both where that data is available.`,
       metrics: {
         per100k: {
           metricId: "voter_participation_per_100k",
