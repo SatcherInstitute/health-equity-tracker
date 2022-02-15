@@ -389,8 +389,8 @@ function LandingPage() {
                   </h4>
                   <p className={styles.HowToStepTextSubheader}>
                     The interactive maps and graphs are a great way to
-                    investigate the data more closely. If a state or county is
-                    gray, that means there’s no data currently available.
+                    investigate the data more closely, currently reporting
+                    COVID-19 cases by race at the state and county level.
                   </p>
                 </div>
               </Grid>
@@ -442,16 +442,15 @@ function LandingPage() {
             <div className={styles.EmailAddressContentDiv}>
               <Grid item>
                 <Typography className={styles.NewsletterRowHeader} variant="h2">
-                  <span aria-hidden="true">
+                  <span>
                     Join Our
-                    <br />
+                    <br aria-hidden="true" />
                     Movement
                   </span>
                 </Typography>
               </Grid>
               <Grid item>
                 <Button
-                  aria-label="Join Our Movement: Learn How to Help"
                   variant="contained"
                   color="default"
                   className={styles.JoinOurMovementButton}

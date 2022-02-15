@@ -27,12 +27,15 @@ export const OURTEAM_TAB_LINK = "/ourteam";
 export const NEWS_TAB_LINK = "/news";
 
 // TRACKER SETTINGS
-export const COVID_CASES_US_SETTING = "?mls=1.covid-3.00";
+export const COVID_HOSP_NY_COUNTY_SETTING =
+  "?dt1=hospitalizations&mls=1.covid-3.36061";
 export const COVID_VAX_US_SETTING = "?mls=1.vaccinations-3.00";
 export const COPD_US_SETTING = "?mls=1.copd-3.00";
 export const DIABETES_US_SETTING = "?mls=1.diabetes-3.00";
 export const UNINSURANCE_US_SETTING = "?mls=1.health_insurance-3.00";
 export const POVERTY_US_SETTING = "?mls=1.poverty-3.00";
+export const OPIOID_US_SETTING =
+  "?dt1=non_medical_drug_use&mls=1.substance-3.00";
 
 // SECTION IDS
 export const WHAT_DATA_ARE_MISSING_ID = "missingDataInfo";

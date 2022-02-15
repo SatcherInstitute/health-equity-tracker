@@ -1,0 +1,8 @@
+@import "../../styles/variables.module";
+
+.ReportAlert {
+  margin: 0 10px 10px 10px;
+  border: 1px solid $secondary-main;
+  text-align: left;
+  font-size: $small;
+}

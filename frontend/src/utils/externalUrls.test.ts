@@ -12,15 +12,12 @@ export const SUCCESS_CODE = 200;
 // skip some URLs (like linkedin) that block traffic / error out
 export const UNTESTABLE_URLS = [
   urlMap.shliLinkedIn,
-  "https://www.bloomberg.com/graphics/covid-vaccine-tracker-global-distribution/us-vaccine-demographics.html",
+  urlMap.shliTwitter,
   "https://www.who.int/healthsystems/topics/equity/en/",
 ];
 
 // skip some URLs we know don't provide HTTPS
-export const KNOWN_INSECURE_URLS = [
-  "http://www.rootsofhealthinequity.org/",
-  "https://www.press.jhu.edu/newsroom/political-determinants-health", // Remove this when they fix their cert chain
-];
+export const KNOWN_INSECURE_URLS = ["http://www.rootsofhealthinequity.org/"];
 
 // accepts an array of urls found on the site, filters out known untestable or insecure sites
 export function getTestableUrls(allUrls: string[]): string[] {
@@ -33,7 +30,12 @@ export function getTestableUrls(allUrls: string[]): string[] {
 // accepts a url string and returns an awaited status code
 export async function getStatus(url: string): Promise<number> {
   try {
-    const response = await axios.get(url);
+    const response = await axios.get(url, {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:15.0) Gecko/20100101 Firefox/15.0.1",
+      },
+    });
     return response.status;
   } catch (error) {
     console.error(url, "Error getting response code");
