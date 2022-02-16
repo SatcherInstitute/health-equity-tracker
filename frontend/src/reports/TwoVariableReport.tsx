@@ -1,6 +1,7 @@
 import { Grid } from "@material-ui/core";
 import React, { useEffect, useState, Fragment } from "react";
 import LazyLoad from "react-lazyload";
+import { AgeAdjustedTableCard } from "../cards/AgeAdjustedTableCard";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { MapCard } from "../cards/MapCard";
 import { PopulationCard } from "../cards/PopulationCard";
@@ -8,6 +9,7 @@ import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
 import { TableCard } from "../cards/TableCard";
 import { UnknownsMapCard } from "../cards/UnknownsMapCard";
 import {
+  AGE_ADJUSTED_VARIABLE_IDS,
   DropdownVarId,
   METRIC_CONFIG,
   VariableConfig,
@@ -129,6 +131,16 @@ function TwoVariableReport(props: {
 
   const breakdownIsShown = (breakdownVar: string) =>
     currentBreakdown === breakdownVar;
+
+  const showAgeAdjusted1 =
+    variableConfig1 &&
+    !props.fips1.isCounty() &&
+    AGE_ADJUSTED_VARIABLE_IDS.includes(variableConfig1.variableId);
+
+  const showAgeAdjusted2 =
+    variableConfig2 &&
+    !props.fips2.isCounty() &&
+    AGE_ADJUSTED_VARIABLE_IDS.includes(variableConfig2.variableId);
 
   return (
     <Grid container spacing={1} alignItems="flex-start">
@@ -329,6 +341,26 @@ function TwoVariableReport(props: {
           />
         )
       )}
+
+      {/* SIDE-BY-SIDE AGE-ADJUSTED TABLE CARDS */}
+      {(showAgeAdjusted1 || showAgeAdjusted2) && (
+        <RowOfTwoOptionalMetrics
+          id="ageAdjustedTableCard"
+          variableConfig1={showAgeAdjusted1 ? variableConfig1 : undefined}
+          variableConfig2={showAgeAdjusted2 ? variableConfig2 : undefined}
+          fips1={props.fips1}
+          fips2={props.fips2}
+          updateFips1={props.updateFips1Callback}
+          updateFips2={props.updateFips2Callback}
+          createCard={(
+            variableConfig: VariableConfig,
+            fips: Fips,
+            updateFips: (fips: Fips) => void
+          ) => (
+            <AgeAdjustedTableCard fips={fips} variableConfig={variableConfig} />
+          )}
+        />
+      )}
     </Grid>
   );
 }
@@ -347,6 +379,8 @@ function RowOfTwoOptionalMetrics(props: {
     updateFips: (fips: Fips) => void
   ) => JSX.Element;
 }) {
+  console.log(props);
+
   if (!props.variableConfig1 && !props.variableConfig2) {
     return <></>;
   }
@@ -357,7 +391,7 @@ function RowOfTwoOptionalMetrics(props: {
   return (
     <>
       <Grid item xs={12} sm={6} id={props.id}>
-        <LazyLoad offset={300} height={750} once>
+        <LazyLoad offset={300} height={350} once>
           {props.variableConfig1 && (
             <>
               {props.createCard(
@@ -370,7 +404,7 @@ function RowOfTwoOptionalMetrics(props: {
         </LazyLoad>
       </Grid>
       <Grid item xs={12} sm={6}>
-        <LazyLoad offset={300} height={750} once>
+        <LazyLoad offset={300} height={350} once>
           {props.variableConfig2 && (
             <>
               {props.createCard(

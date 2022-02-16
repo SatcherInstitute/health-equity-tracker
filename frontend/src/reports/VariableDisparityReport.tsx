@@ -97,6 +97,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
 
   const showAgeAdjusted =
     variableConfig &&
+    !props.fips.isCounty() &&
     AGE_ADJUSTED_VARIABLE_IDS.includes(variableConfig.variableId);
 
   return (

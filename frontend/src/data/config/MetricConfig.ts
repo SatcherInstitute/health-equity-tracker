@@ -47,12 +47,14 @@ export type MetricId =
   | "covid_deaths_reporting_population_pct"
   | "covid_deaths_share"
   | "covid_deaths_share_of_known"
+  | "covid_deaths_age_adjusted_ratio"
   | "covid_hosp"
   | "covid_hosp_per_100k"
   | "covid_hosp_reporting_population"
   | "covid_hosp_reporting_population_pct"
   | "covid_hosp_share"
   | "covid_hosp_share_of_known"
+  | "covid_hosp_age_adjusted_ratio"
   | "diabetes_pct_share"
   | "diabetes_per_100k"
   | "health_insurance_count"
@@ -94,7 +96,8 @@ export type MetricType =
   | "pct_share_to_pop_ratio"
   | "per100k"
   | "percentile"
-  | "index";
+  | "index"
+  | "ratio";
 
 export type MetricConfig = {
   metricId: MetricId;
@@ -195,6 +198,8 @@ export function formatFieldValue(
 export function getPer100kAndPctShareMetrics(
   variableConfig: VariableConfig
 ): MetricConfig[] {
+  console.log(variableConfig);
+
   let tableFields: MetricConfig[] = [];
   if (variableConfig) {
     if (variableConfig.metrics["per100k"]) {
@@ -217,8 +222,8 @@ export function getAgeAdjustedRatioMetric(
 ): MetricConfig[] {
   let tableFields: MetricConfig[] = [];
   if (variableConfig) {
-    if (variableConfig.metrics["ratio_age_adjusted"]) {
-      tableFields.push(variableConfig.metrics["ratio_age_adjusted"]);
+    if (variableConfig.metrics["age_adjusted_ratio"]) {
+      tableFields.push(variableConfig.metrics["age_adjusted_ratio"]);
     }
   }
   return tableFields;
@@ -320,6 +325,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           shortVegaLabel: "deaths per 100k",
           type: "per100k",
         },
+        age_adjusted_ratio: {
+          metricId: "covid_deaths_age_adjusted_ratio",
+          fullCardTitleName: "Age-Adjusted Ratio of COVID-19 Deaths",
+          shortVegaLabel: "ratio for deaths",
+          type: "ratio", // ×
+        },
       },
     },
     {
@@ -363,6 +374,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           fullCardTitleName: "COVID-19 Hospitalizations Per 100k People",
           shortVegaLabel: "hospitalizations per 100k",
           type: "per100k",
+        },
+        age_adjusted_ratio: {
+          metricId: "covid_hosp_age_adjusted_ratio",
+          fullCardTitleName: "Age-Adjusted Ratio of COVID-19 Hospitalizations",
+          shortVegaLabel: "ratio for hospitalizations",
+          type: "ratio", // ×
         },
       },
     },

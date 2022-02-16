@@ -42,6 +42,8 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   // const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
   const metrics = getAgeAdjustedRatioMetric(props.variableConfig);
 
+  console.log(metrics);
+
   // choose demographic groups to exclude from the table
   const exclusionList = [ALL, NON_HISPANIC];
 
@@ -73,17 +75,14 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const metricIds = Object.keys(metricConfigs) as MetricId[];
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
-  const displayingCovidData = metrics
-    .map((config) => config.metricId)
-    .some((metricId) => metricId.includes("covid"));
-
+  console.log(props);
   return (
     <CardWrapper
       minHeight={PRELOAD_HEIGHT}
       queries={[query]}
       title={
-        <>{`Age-Adjusted Ratios for ${
-          props.variableConfig.variableFullDisplayName
+        <>{`${
+          props.variableConfig.metrics.age_adjusted_ratio.fullCardTitleName
         } in ${props.fips.getFullDisplayName()}`}</>
       }
     >
@@ -108,7 +107,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                 />
               </CardContent>
             )}
-            {!queryResponse.dataIsMissing() && displayingCovidData && (
+            {!queryResponse.dataIsMissing() && (
               <>
                 <CardContent>
                   <Alert severity="warning" role="note">
