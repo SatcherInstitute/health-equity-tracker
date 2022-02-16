@@ -14,7 +14,6 @@ import {
   MetricId,
   VariableConfig,
   getPer100kAndPctShareMetrics,
-  VAXX,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
@@ -97,11 +96,11 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
       minHeight={PRELOAD_HEIGHT}
       queries={[query]}
       title={
-        <>{`Age Adjusted Ratio of ${
+        <>{`Age-Adjusted ${
           props.variableConfig.variableFullDisplayName
-        } By ${
+        } Ratios By ${
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-        } In ${props.fips.getFullDisplayName()}`}</>
+        } in ${props.fips.getFullDisplayName()}`}</>
       }
     >
       {([queryResponse]) => {
@@ -122,10 +121,6 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                   dataName={props.variableConfig.variableFullDisplayName + " "}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-                  }
-                  noDemographicInfo={
-                    props.variableConfig.variableId === VAXX &&
-                    props.fips.isCounty()
                   }
                   fips={props.fips}
                 />
