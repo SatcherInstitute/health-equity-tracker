@@ -212,6 +212,18 @@ export function getPer100kAndPctShareMetrics(
   return tableFields;
 }
 
+export function getAgeAdjustedRatioMetric(
+  variableConfig: VariableConfig
+): MetricConfig[] {
+  let tableFields: MetricConfig[] = [];
+  if (variableConfig) {
+    if (variableConfig.metrics["ratio_age_adjusted"]) {
+      tableFields.push(variableConfig.metrics["ratio_age_adjusted"]);
+    }
+  }
+  return tableFields;
+}
+
 // TODO - strongly type key
 // TODO - count and pct_share metric types should require populationComparisonMetric
 

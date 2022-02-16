@@ -51,6 +51,8 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
       : null
   );
 
+  console.log(variableConfig);
+
   const setVariableConfigWithParam = (v: VariableConfig) => {
     setParameters([
       { name: DATA_TYPE_1_PARAM, value: v.variableId },

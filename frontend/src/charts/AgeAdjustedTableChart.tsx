@@ -23,7 +23,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
   BreakdownVar,
 } from "../data/query/Breakdowns";
-import { Tooltip, useMediaQuery } from "@material-ui/core";
+import { Tooltip } from "@material-ui/core";
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
@@ -42,9 +42,12 @@ export interface AgeAdjustedTableChartProps {
 }
 
 export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
-  const wrap100kUnit = useMediaQuery("(max-width:500px)");
-
   const { data, metrics, breakdownVar } = props;
+
+  console.log(data);
+  console.log(metrics);
+  console.log(breakdownVar);
+
   let columns = metrics.map((metricConfig) => {
     return {
       Header: metricConfig.fullCardTitleName,
@@ -128,11 +131,6 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
           ) : (
             <TableCell {...cell.getCellProps()}>
               {cell.render("Cell")}
-              <Units
-                column={index}
-                metric={props.metrics}
-                wrap100kUnit={wrap100kUnit}
-              />
             </TableCell>
           )
         )}
@@ -184,26 +182,5 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
         </TableContainer>
       )}
     </>
-  );
-}
-
-interface UnitsProps {
-  column: number;
-  metric: MetricConfig[];
-  wrap100kUnit: boolean;
-}
-function Units(props: UnitsProps) {
-  if (!props.column) return null;
-
-  const unit =
-    props.column === 1
-      ? "per 100k"
-      : props.metric[props.column - 1].shortVegaLabel;
-
-  // inline vs block
-  return props.wrap100kUnit && props.column === 1 ? (
-    <p className={styles.Unit}>{unit}</p>
-  ) : (
-    <span className={styles.Unit}>{unit}</span>
   );
 }

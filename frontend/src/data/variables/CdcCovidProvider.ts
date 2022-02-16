@@ -71,8 +71,8 @@ class CdcCovidProvider extends VariableProvider {
     let consumedDatasetIds = [datasetId];
     let df = covidDataset.toDataFrame();
 
-    const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
-      .columnName;
+    const breakdownColumnName =
+      breakdowns.getSoleDemographicBreakdown().columnName;
 
     df = this.renameTotalToAll(df, breakdownColumnName);
 
@@ -222,13 +222,13 @@ class CdcCovidProvider extends VariableProvider {
       ].includes(metricId)
     );
     shareOfUnknownMetrics.forEach((shareOfUnknownColumnName) => {
-      const rawCountColunn = shareOfUnknownColumnName.slice(
+      const rawCountColumn = shareOfUnknownColumnName.slice(
         0,
         -"_share_of_known".length
       );
       df = this.calculations.calculatePctShareOfKnown(
         df,
-        rawCountColunn,
+        rawCountColumn,
         shareOfUnknownColumnName,
         breakdownColumnName
       );

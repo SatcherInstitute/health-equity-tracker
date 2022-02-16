@@ -13,7 +13,7 @@ import {
   MetricConfig,
   MetricId,
   VariableConfig,
-  getPer100kAndPctShareMetrics,
+  getAgeAdjustedRatioMetric,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
@@ -47,7 +47,8 @@ export interface AgeAdjustedTableCardProps {
 }
 
 export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
-  const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
+  // const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
+  const metrics = getAgeAdjustedRatioMetric(props.variableConfig);
   const current100k = props.variableConfig.metrics.per100k.metricId;
 
   // choose demographic groups to exclude from the table
@@ -96,9 +97,9 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
       minHeight={PRELOAD_HEIGHT}
       queries={[query]}
       title={
-        <>{`Age-Adjusted ${
+        <>{`Age-Adjusted Ratios for ${
           props.variableConfig.variableFullDisplayName
-        } Ratios By ${
+        } By ${
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
         } in ${props.fips.getFullDisplayName()}`}</>
       }
