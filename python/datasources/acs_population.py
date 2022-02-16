@@ -145,7 +145,7 @@ def get_uhc_decade_plus_5_age_bucket(age_range):
 def get_uhc_voter_age_bucket(age_range):
     if age_range == 'Total':
         return 'Total'
-    # buckets for Voter Participation (Presidential)
+    # buckets for Voter Participation
     elif age_range in {'18-19', '20-20', '21-21', '22-24'}:
         return '18-24'
     elif age_range in {'25-29', '30-34'}:
