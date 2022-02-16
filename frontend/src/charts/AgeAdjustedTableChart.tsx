@@ -19,15 +19,13 @@ import {
   MetricId,
   formatFieldValue,
 } from "../data/config/MetricConfig";
-import {
-  BREAKDOWN_VAR_DISPLAY_NAMES,
-  BreakdownVar,
-} from "../data/query/Breakdowns";
+import { BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/query/Breakdowns";
 import { Tooltip } from "@material-ui/core";
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
 import styles from "./Chart.module.scss";
+import { RACE } from "../data/utils/Constants";
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20;
 
@@ -37,16 +35,14 @@ const cellStyle = {
 
 export interface AgeAdjustedTableChartProps {
   data: Readonly<Record<string, any>>[];
-  breakdownVar: BreakdownVar;
   metrics: MetricConfig[];
 }
 
 export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
-  const { data, metrics, breakdownVar } = props;
+  const { data, metrics } = props;
 
   console.log(data);
   console.log(metrics);
-  console.log(breakdownVar);
 
   let columns = metrics.map((metricConfig) => {
     return {
@@ -62,9 +58,9 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
   });
   columns = [
     {
-      Header: BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar],
+      Header: BREAKDOWN_VAR_DISPLAY_NAMES[RACE],
       Cell: (cell: any) => cell.value,
-      accessor: breakdownVar as MetricId,
+      accessor: RACE as MetricId,
     },
   ].concat(columns);
 
@@ -90,7 +86,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
         pageSize: MAX_NUM_ROWS_WITHOUT_PAGINATION,
         sortBy: [
           {
-            id: breakdownVar,
+            id: RACE,
             desc: false,
           },
         ],

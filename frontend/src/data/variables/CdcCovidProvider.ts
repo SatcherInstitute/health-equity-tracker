@@ -200,6 +200,9 @@ class CdcCovidProvider extends VariableProvider {
           this.calculations.per100k(row.covid_deaths, row.population),
         covid_hosp_per_100k: (row) =>
           this.calculations.per100k(row.covid_hosp, row.population),
+        // placeholder ratios
+        covid_hosp_age_adjusted_ratio: (row) => "10x",
+        covid_death_age_adjusted_ratio: (row) => "20x",
       })
       .resetIndex();
 

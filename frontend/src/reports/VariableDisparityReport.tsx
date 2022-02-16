@@ -9,6 +9,7 @@ import { AgeAdjustedTableCard } from "../cards/AgeAdjustedTableCard";
 import { UnknownsMapCard } from "../cards/UnknownsMapCard";
 import { TableCard } from "../cards/TableCard";
 import {
+  AGE_ADJUSTED_VARIABLE_IDS,
   DropdownVarId,
   METRIC_CONFIG,
   VariableConfig,
@@ -50,8 +51,6 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
       ? METRIC_CONFIG[props.dropdownVarId][0]
       : null
   );
-
-  console.log(variableConfig);
 
   const setVariableConfigWithParam = (v: VariableConfig) => {
     setParameters([
@@ -95,6 +94,10 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
 
   const breakdownIsShown = (breakdownVar: string) =>
     currentBreakdown === breakdownVar;
+
+  const showAgeAdjusted =
+    variableConfig &&
+    AGE_ADJUSTED_VARIABLE_IDS.includes(variableConfig.variableId);
 
   return (
     <Grid
@@ -232,21 +235,21 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           </Grid>
 
           {/* AGE ADJUSTED TABLE CARD */}
-          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="ageAdjustedTableCard">
-            <LazyLoad offset={300} height={350} once>
-              {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-                <Fragment key={breakdownVar}>
-                  {breakdownIsShown(breakdownVar) && (
-                    <AgeAdjustedTableCard
-                      fips={props.fips}
-                      variableConfig={variableConfig}
-                      breakdownVar={breakdownVar}
-                    />
-                  )}
-                </Fragment>
-              ))}
-            </LazyLoad>
-          </Grid>
+          {showAgeAdjusted && (
+            <Grid
+              item
+              xs={12}
+              md={SINGLE_COLUMN_WIDTH}
+              id="ageAdjustedTableCard"
+            >
+              <LazyLoad offset={300} height={350} once>
+                <AgeAdjustedTableCard
+                  fips={props.fips}
+                  variableConfig={variableConfig}
+                />
+              </LazyLoad>
+            </Grid>
+          )}
         </Grid>
       )}
     </Grid>
