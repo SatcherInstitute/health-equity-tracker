@@ -192,7 +192,7 @@ export function shouldShowAltPopCompare(fromProps: ShouldShowAltPopCompareI) {
 /*
 Analyzes tracker settings and determines if AGE-ADJUSTED TABLE CARD should be rendered
 
-Currently only for:
+Currently only should display for:
 - COVID deaths or hospitalizations
 - NOT county level report
 - by RACE toggle selected

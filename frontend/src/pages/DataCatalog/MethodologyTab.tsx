@@ -314,9 +314,14 @@ function MethodologyTab() {
               </h3>
               <div className={styles.MethodologyAnswer}>
                 <p>
-                  None of the metrics/data shown on the tracker are
-                  age-adjusted. Showing non-adjusted data can mask disparities
-                  and are we working to use age-adjusted data instead.
+                  Currently, we are able to calculate age-adjusted ratios of
+                  disparate impact for COVID deaths and hospitalizations, and we
+                  present the findings in a distinct, age-adjusted table. All of
+                  the other data shown on the tracker, including all maps and
+                  charts, are not age-adjusted. Showing non-adjusted data can
+                  mask disparities, and we are working to expand our analysis to
+                  provide a more equitable view of the impact to racial and
+                  ethnic minorities.
                 </p>
                 <p>
                   In the definitions below, we use COVID-19 Cases as the
