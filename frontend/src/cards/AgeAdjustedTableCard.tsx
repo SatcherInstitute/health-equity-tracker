@@ -27,7 +27,6 @@ import { Row } from "../data/utils/DatasetTypes";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
-import { urlMap } from "../utils/externalUrls";
 import styles from "./Card.module.scss";
 
 /* minimize layout shift */
@@ -95,7 +94,11 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
             {!queryResponse.dataIsMissing() && (
               <>
                 <CardContent>
-                  <Alert severity="warning" role="note">
+                  <Alert severity="info" role="note">
+                    This is a brief note explaining what age-adjustment is, and
+                    why we do it.
+                  </Alert>
+                  {/* <Alert severity="warning" role="note">
                     Share of COVID-19 cases reported for American Indian, Alaska
                     Native, Native Hawaiian and Pacific Islander are
                     underrepresented at the national level and in many states
@@ -110,7 +113,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                       Collection
                     </a>
                     .
-                  </Alert>
+                  </Alert>  */}
                 </CardContent>
                 <Divider />
               </>
