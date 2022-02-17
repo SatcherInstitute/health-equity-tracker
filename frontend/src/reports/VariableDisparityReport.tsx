@@ -9,7 +9,6 @@ import { AgeAdjustedTableCard } from "../cards/AgeAdjustedTableCard";
 import { UnknownsMapCard } from "../cards/UnknownsMapCard";
 import { TableCard } from "../cards/TableCard";
 import {
-  AGE_ADJUSTED_VARIABLE_IDS,
   DropdownVarId,
   METRIC_CONFIG,
   VariableConfig,
@@ -30,6 +29,7 @@ import {
 import { SINGLE_COLUMN_WIDTH } from "./ReportProvider";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
+import { shouldShowAgeAdjusted } from "../data/utils/datasetutils";
 
 export interface VariableDisparityReportProps {
   key: string;
@@ -92,13 +92,14 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
     };
   }, [props.dropdownVarId]);
 
-  const breakdownIsShown = (breakdownVar: string) =>
+  const breakdownIsShown = (breakdownVar: BreakdownVar) =>
     currentBreakdown === breakdownVar;
 
   const showAgeAdjusted =
     variableConfig &&
-    !props.fips.isCounty() &&
-    AGE_ADJUSTED_VARIABLE_IDS.includes(variableConfig.variableId);
+    shouldShowAgeAdjusted(variableConfig, currentBreakdown, props.fips);
+
+  console.log(variableConfig, currentBreakdown, props.fips);
 
   return (
     <Grid

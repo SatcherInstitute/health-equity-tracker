@@ -9,7 +9,6 @@ import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
 import { TableCard } from "../cards/TableCard";
 import { UnknownsMapCard } from "../cards/UnknownsMapCard";
 import {
-  AGE_ADJUSTED_VARIABLE_IDS,
   DropdownVarId,
   METRIC_CONFIG,
   VariableConfig,
@@ -18,6 +17,7 @@ import {
 } from "../data/config/MetricConfig";
 import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
 import { RACE } from "../data/utils/Constants";
+import { shouldShowAgeAdjusted } from "../data/utils/datasetutils";
 import { Fips } from "../data/utils/Fips";
 import {
   DATA_TYPE_1_PARAM,
@@ -130,15 +130,14 @@ function TwoVariableReport(props: {
   const breakdownIsShown = (breakdownVar: string) =>
     currentBreakdown === breakdownVar;
 
+  // NOTE: currently tracker doesn't allow for two different breakdowns in compare report
   const showAgeAdjusted1 =
     variableConfig1 &&
-    !props.fips1.isCounty() &&
-    AGE_ADJUSTED_VARIABLE_IDS.includes(variableConfig1.variableId);
+    shouldShowAgeAdjusted(variableConfig1, currentBreakdown, props.fips1);
 
   const showAgeAdjusted2 =
     variableConfig2 &&
-    !props.fips2.isCounty() &&
-    AGE_ADJUSTED_VARIABLE_IDS.includes(variableConfig2.variableId);
+    shouldShowAgeAdjusted(variableConfig2, currentBreakdown, props.fips2);
 
   return (
     <Grid container spacing={1} alignItems="flex-start">

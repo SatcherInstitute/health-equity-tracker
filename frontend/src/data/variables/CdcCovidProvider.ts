@@ -194,6 +194,7 @@ class CdcCovidProvider extends VariableProvider {
         ),
     });
 
+    // Calculate Population and correct typing for Age-Adjusted Ratios
     df = df
       .generateSeries({
         covid_cases_per_100k: (row) =>
@@ -203,8 +204,14 @@ class CdcCovidProvider extends VariableProvider {
         covid_hosp_per_100k: (row) =>
           this.calculations.per100k(row.covid_hosp, row.population),
         // placeholder ratios
-        covid_hosp_age_adjusted_ratio: (row) => "10x",
-        covid_deaths_age_adjusted_ratio: (row) => "20x",
+        covid_hosp_age_adjusted_ratio: (row) =>
+          row.covid_hosp_age_adjusted_ratio == null
+            ? "(MOCK HOSP) 10x"
+            : row.covid_hosp_age_adjusted_ratio,
+        covid_deaths_age_adjusted_ratio: (row) =>
+          row.covid_deaths_age_adjusted_ratio == null
+            ? "(MOCK DEATHS) 5x"
+            : row.covid_deaths_age_adjusted_ratio,
       })
       .resetIndex();
 
