@@ -206,11 +206,11 @@ class CdcCovidProvider extends VariableProvider {
         // placeholder ratios
         covid_hosp_age_adjusted_ratio: (row) =>
           row.covid_hosp_age_adjusted_ratio == null
-            ? "(MOCK HOSP) 10x"
+            ? null
             : row.covid_hosp_age_adjusted_ratio,
         covid_deaths_age_adjusted_ratio: (row) =>
           row.covid_deaths_age_adjusted_ratio == null
-            ? "(MOCK DEATHS) 5x"
+            ? null
             : row.covid_deaths_age_adjusted_ratio,
       })
       .resetIndex();

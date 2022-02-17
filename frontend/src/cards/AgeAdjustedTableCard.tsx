@@ -3,10 +3,7 @@ import { AgeAdjustedTableChart } from "../charts/AgeAdjustedTableChart";
 import CardWrapper from "./CardWrapper";
 import { MetricQuery } from "../data/query/MetricQuery";
 import { Fips } from "../data/utils/Fips";
-import {
-  Breakdowns,
-  BREAKDOWN_VAR_DISPLAY_NAMES,
-} from "../data/query/Breakdowns";
+import { Breakdowns } from "../data/query/Breakdowns";
 import { CardContent } from "@material-ui/core";
 import {
   MetricConfig,
@@ -24,7 +21,6 @@ import {
   ALL,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
-import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import styles from "./Card.module.scss";
@@ -38,7 +34,6 @@ export interface AgeAdjustedTableCardProps {
 }
 
 export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
-  // const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
   const metrics = getAgeAdjustedRatioMetric(props.variableConfig);
 
   // choose demographic groups to exclude from the table
@@ -76,17 +71,6 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
 
         return (
           <>
-            {queryResponse.shouldShowMissingDataMessage(
-              metricIds as MetricId[]
-            ) && (
-              <CardContent>
-                <MissingDataAlert
-                  dataName={props.variableConfig.variableFullDisplayName + " "}
-                  breakdownString={BREAKDOWN_VAR_DISPLAY_NAMES[RACE]}
-                  fips={props.fips}
-                />
-              </CardContent>
-            )}
             {!queryResponse.dataIsMissing() && (
               <>
                 <CardContent>
@@ -106,16 +90,13 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                   </Alert>
                 </CardContent>
                 <Divider />
+                <div className={styles.TableChart}>
+                  <AgeAdjustedTableChart
+                    data={dataWithoutUnknowns}
+                    metrics={Object.values(metricConfigs)}
+                  />
+                </div>
               </>
-            )}
-
-            {!queryResponse.dataIsMissing() && (
-              <div className={styles.TableChart}>
-                <AgeAdjustedTableChart
-                  data={dataWithoutUnknowns}
-                  metrics={Object.values(metricConfigs)}
-                />
-              </div>
             )}
           </>
         );
