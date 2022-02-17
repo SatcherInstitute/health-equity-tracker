@@ -99,8 +99,6 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
     variableConfig &&
     shouldShowAgeAdjusted(variableConfig, currentBreakdown, props.fips);
 
-  console.log(variableConfig, currentBreakdown, props.fips);
-
   return (
     <Grid
       item
