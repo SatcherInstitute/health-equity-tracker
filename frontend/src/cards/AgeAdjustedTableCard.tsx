@@ -95,25 +95,19 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               <>
                 <CardContent>
                   <Alert severity="info" role="note">
-                    This is a brief note explaining what age-adjustment is, and
-                    why we do it.
-                  </Alert>
-                  {/* <Alert severity="warning" role="note">
-                    Share of COVID-19 cases reported for American Indian, Alaska
-                    Native, Native Hawaiian and Pacific Islander are
-                    underrepresented at the national level and in many states
-                    because these racial categories are often not recorded. The
-                    Urban Indian Health Institute publishes{" "}
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href={urlMap.uihiBestPractice}
-                    >
-                      guidelines for American Indian and Alaska Native Data
-                      Collection
+                    Age-adjustment is a technique to remove the effect of
+                    differences in the underlying age distribution of two
+                    populations (in our case, racial groups compared to White,
+                    Non-Hispanic individuals) when comparing rates of incidence.
+                    This is extremely important for conditions where age is a
+                    large risk factor, e.g. the risk of dying with Covid
+                    increases non-linearly with age. Age-adjustment allows us to
+                    compute rates that are normalized for age, painting a more
+                    accurate picture of health inequities.{" "}
+                    <a href="https://healthequitytracker.org">
+                      Learn how we calculated these age-adjusted ratios
                     </a>
-                    .
-                  </Alert>  */}
+                  </Alert>
                 </CardContent>
                 <Divider />
               </>
