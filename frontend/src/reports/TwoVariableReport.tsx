@@ -58,8 +58,6 @@ function TwoVariableReport(props: {
       : null
   );
 
-  console.log(variableConfig1, variableConfig2);
-
   const setVariableConfigWithParam1 = (v: VariableConfig) => {
     setParameter(DATA_TYPE_1_PARAM, v.variableId);
     setVariableConfig1(v);
@@ -379,8 +377,6 @@ function RowOfTwoOptionalMetrics(props: {
     updateFips: (fips: Fips) => void
   ) => JSX.Element;
 }) {
-  console.log(props);
-
   if (!props.variableConfig1 && !props.variableConfig2) {
     return <></>;
   }

@@ -42,8 +42,6 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   // const metrics = getPer100kAndPctShareMetrics(props.variableConfig);
   const metrics = getAgeAdjustedRatioMetric(props.variableConfig);
 
-  console.log(metrics);
-
   // choose demographic groups to exclude from the table
   const exclusionList = [ALL, NON_HISPANIC];
 
@@ -54,45 +52,32 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
 
   let metricConfigs: Record<string, MetricConfig> = {};
   metrics.forEach((metricConfig) => {
-    // We prefer known breakdown metric if available.
-    if (metricConfig.knownBreakdownComparisonMetric) {
-      metricConfigs[metricConfig.knownBreakdownComparisonMetric.metricId] =
-        metricConfig.knownBreakdownComparisonMetric;
-    } else {
-      metricConfigs[metricConfig.metricId] = metricConfig;
-    }
-
-    if (metricConfig.populationComparisonMetric) {
-      metricConfigs[metricConfig.populationComparisonMetric.metricId] =
-        metricConfig.populationComparisonMetric;
-    }
-
-    if (metricConfig.secondaryPopulationComparisonMetric) {
-      metricConfigs[metricConfig.secondaryPopulationComparisonMetric.metricId] =
-        metricConfig.secondaryPopulationComparisonMetric;
-    }
+    metricConfigs[metricConfig.metricId] = metricConfig;
   });
+
   const metricIds = Object.keys(metricConfigs) as MetricId[];
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
-  console.log(props);
   return (
     <CardWrapper
       minHeight={PRELOAD_HEIGHT}
       queries={[query]}
       title={
-        <>{`${
-          props.variableConfig.metrics.age_adjusted_ratio.fullCardTitleName
-        } in ${props.fips.getFullDisplayName()}`}</>
+        <>
+          {`
+      ${props.variableConfig.metrics.age_adjusted_ratio.fullCardTitleName}
+         in ${props.fips.getFullDisplayName()}`}
+        </>
       }
     >
       {([queryResponse]) => {
-        let dataWithoutUnknowns = queryResponse.data.filter(
-          (row: Row) =>
+        let dataWithoutUnknowns = queryResponse.data.filter((row: Row) => {
+          return (
             row[RACE] !== UNKNOWN &&
             row[RACE] !== UNKNOWN_RACE &&
             row[RACE] !== UNKNOWN_ETHNICITY
-        );
+          );
+        });
 
         return (
           <>

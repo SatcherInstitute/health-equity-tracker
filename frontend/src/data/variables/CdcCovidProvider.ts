@@ -37,6 +37,8 @@ class CdcCovidProvider extends VariableProvider {
       "covid_cases_reporting_population_pct",
       "covid_deaths_reporting_population_pct",
       "covid_hosp_reporting_population_pct",
+      "covid_deaths_age_adjusted_ratio",
+      "covid_hosp_age_adjusted_ratio",
     ]);
     this.acsProvider = acsProvider;
   }
@@ -202,7 +204,7 @@ class CdcCovidProvider extends VariableProvider {
           this.calculations.per100k(row.covid_hosp, row.population),
         // placeholder ratios
         covid_hosp_age_adjusted_ratio: (row) => "10x",
-        covid_death_age_adjusted_ratio: (row) => "20x",
+        covid_deaths_age_adjusted_ratio: (row) => "20x",
       })
       .resetIndex();
 

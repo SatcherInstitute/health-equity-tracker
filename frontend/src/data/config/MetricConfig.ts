@@ -198,8 +198,6 @@ export function formatFieldValue(
 export function getPer100kAndPctShareMetrics(
   variableConfig: VariableConfig
 ): MetricConfig[] {
-  console.log(variableConfig);
-
   let tableFields: MetricConfig[] = [];
   if (variableConfig) {
     if (variableConfig.metrics["per100k"]) {
