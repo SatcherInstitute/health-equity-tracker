@@ -317,11 +317,11 @@ function MethodologyTab() {
                   Currently, we are able to calculate age-adjusted ratios of
                   disparate impact for COVID deaths and hospitalizations, and we
                   present the findings in a distinct, age-adjusted table. All of
-                  the other data shown on the tracker, including all maps and
-                  charts, are not age-adjusted. Showing non-adjusted data can
-                  mask disparities, and we are working to expand our analysis to
-                  provide a more equitable view of the impact to racial and
-                  ethnic minorities.
+                  the other data shown on the tracker, including visualizations
+                  for all condition variables, are not age-adjusted. Showing
+                  non-adjusted data can mask disparities, and we are working to
+                  expand our analysis to provide a more equitable view of the
+                  impact to racial and ethnic minorities.
                 </p>
                 <p>
                   In the definitions below, we use COVID-19 Cases as the
