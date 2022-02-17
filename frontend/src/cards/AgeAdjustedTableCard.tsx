@@ -57,18 +57,14 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const metricIds = Object.keys(metricConfigs) as MetricId[];
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
 
+  const cardTitle = (
+    <>{`Age-Adjusted Ratio of ${
+      props.variableConfig.variableFullDisplayName
+    } in ${props.fips.getFullDisplayName()}`}</>
+  );
+
   return (
-    <CardWrapper
-      minHeight={PRELOAD_HEIGHT}
-      queries={[query]}
-      title={
-        <>
-          {`
-      ${props.variableConfig.metrics.age_adjusted_ratio.fullCardTitleName}
-         in ${props.fips.getFullDisplayName()}`}
-        </>
-      }
-    >
+    <CardWrapper minHeight={PRELOAD_HEIGHT} queries={[query]} title={cardTitle}>
       {([queryResponse]) => {
         let dataWithoutUnknowns = queryResponse.data.filter((row: Row) => {
           return (
