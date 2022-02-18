@@ -257,34 +257,7 @@ function ReportProvider(props: ReportProviderProps) {
             There is no county level vaccine demographic dataset, so we show
             county totals according to the CDC to provide context.
           </p>
-          <h4>Missing Population Data</h4>
-          <p>
-            The census bureau does not release population data for the{" "}
-            <b>Northern Mariana Islands</b>, <b>Guam</b>, or the{" "}
-            <b>U.S. Virgin Islands</b> in their ACS five year estimates. The
-            last reliable population numbers we could find for these territories
-            is from the 2010 census, so we use those numbers when calculating
-            the per 100k COVID-19 rates nationally and for all territory level
-            rates.
-          </p>
-          <p>
-            Because state reported population categories do not always coincide
-            with the categories reported by the census, we rely on the Kaiser
-            Family Foundation population tabulations for state reported
-            population categories, which only include population numbers for{" "}
-            <b>Black,</b> <b>White</b>, <b>Asian</b>, and <b>Hispanic</b>.
-            Percent of vaccinated metrics for{" "}
-            <b>Native Hawaiian and Pacific Islander</b>, and{" "}
-            <b>American Indian and Alaska Native</b> are shown with a population
-            comparison metric from the American Community Survey 5-year
-            estimates, while <b>Some Other Race</b> is shown without any
-            population comparison metric.
-          </p>
 
-          <p>
-            There is no county level vaccine demographic dataset, so we show
-            county totals according to the CDC to provide context.
-          </p>
           <h4>Missing Population Data</h4>
           <p>
             The census bureau does not release population data for the{" "}
@@ -305,7 +278,7 @@ function ReportProvider(props: ReportProviderProps) {
             <b>Native Hawaiian and Pacific Islander</b>, and{" "}
             <b>American Indian and Alaska Native</b> are shown with a population
             comparison metric from the American Community Survey 5-year
-            estimates, while <b>Some Other Race</b> is shown without any
+            estimates, while <b>Unrepresented race</b> is shown without any
             population comparison metric.
           </p>
 
