@@ -27,14 +27,20 @@ import {
   ALL,
   BROAD_AGE_BUCKETS,
   DECADE_PLUS_5_AGE_BUCKETS,
+  VOTER_AGE_BUCKETS,
+  AGE_BUCKETS,
+  ASIAN_NH,
+  NHPI_NH,
+  API_NH,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import {
-  UHC_BROAD_AGE_DETERMINANTS,
+  UHC_API_NH_DETERMINANTS,
   UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
+  UHC_VOTER_AGE_DETERMINANTS,
 } from "../data/variables/BrfssProvider";
 import { urlMap } from "../utils/externalUrls";
 import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
@@ -62,12 +68,28 @@ export function TableCard(props: TableCardProps) {
 
   // choose demographic groups to exclude from the table
   let exclusionList = [ALL];
-  props.breakdownVar === "race_and_ethnicity" &&
+  if (props.breakdownVar === "race_and_ethnicity") {
     exclusionList.push(NON_HISPANIC);
-  UHC_BROAD_AGE_DETERMINANTS.includes(current100k) &&
-    exclusionList.push(...DECADE_PLUS_5_AGE_BUCKETS);
-  UHC_DECADE_PLUS_5_AGE_DETERMINANTS.includes(current100k) &&
-    exclusionList.push(...BROAD_AGE_BUCKETS);
+
+    // use either API or ASIAN + NHPI
+    UHC_API_NH_DETERMINANTS.includes(current100k)
+      ? exclusionList.push(ASIAN_NH, NHPI_NH)
+      : exclusionList.push(API_NH);
+  } else if (props.breakdownVar === "age") {
+    // get correct age buckets for this determinant
+    let determinantBuckets: any[] = [];
+    if (UHC_DECADE_PLUS_5_AGE_DETERMINANTS.includes(current100k))
+      determinantBuckets.push(...DECADE_PLUS_5_AGE_BUCKETS);
+    else if (UHC_VOTER_AGE_DETERMINANTS.includes(current100k))
+      determinantBuckets.push(...VOTER_AGE_BUCKETS);
+    else determinantBuckets.push(...BROAD_AGE_BUCKETS);
+
+    // remove all of the other age groups
+    const irrelevantAgeBuckets = AGE_BUCKETS.filter(
+      (bucket) => !determinantBuckets.includes(bucket)
+    );
+    exclusionList.push(...irrelevantAgeBuckets);
+  }
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
