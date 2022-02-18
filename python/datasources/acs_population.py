@@ -110,7 +110,7 @@ def get_decade_age_bucket(age_range):
 def get_uhc_standard_age_bucket(age_range):
     if age_range == 'Total':
         return 'Total'
-    # buckets for most UHC / AHR determinants
+    # buckets for COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking
     elif age_range in {'18-19', '20-24', '20-20', '21-21', '22-24',
                        '25-29', '30-34', '35-44', '35-39', '40-44'}:
         return '18-44'

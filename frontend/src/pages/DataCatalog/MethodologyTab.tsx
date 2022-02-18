@@ -241,19 +241,16 @@ function MethodologyTab() {
                 </ul>
 
                 <h4 className={styles.MethodologySubsubheaderText}>
-                  America's Health Rankings
+                  Diabetes & COPD
                 </h4>
                 <p>
-                  Multiple chronic disease, behavioral health, and social
-                  determinants of health in the tracker are sourced from{" "}
+                  Diabetes & COPD data in the tracker is sourced from{" "}
                   <a href={urlMap.amr}>America's Health Rankings</a>, who in
-                  turn source the majority of their data from the{" "}
+                  turn source their diabetes & COPD data from the{" "}
                   <a href={urlMap.cdcBrfss}>
                     Behavioral Risk Factor Surveillance System (BRFSS)
                   </a>
-                  , a survey run by the CDC, along with supplemental data from{" "}
-                  <a href={urlMap.cdcWonder}>CDC WONDER</a> and the{" "}
-                  <a href={urlMap.censusVoting}>US Census</a>.
+                  , a survey run by the CDC.
                 </p>
                 <ul>
                   <li>
@@ -267,7 +264,7 @@ function MethodologyTab() {
                   <li>
                     BRFSS data broken down by race and ethnicity is not
                     available at the county level, so the tracker does not
-                    display these conditions at the county level either.
+                    display diabetes or COPD data at the county level either.
                   </li>
                 </ul>
 
