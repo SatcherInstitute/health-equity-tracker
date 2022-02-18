@@ -242,7 +242,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               md={SINGLE_COLUMN_WIDTH}
               id="ageAdjustedTableCard"
             >
-              <LazyLoad offset={300} height={350} once>
+              <LazyLoad offset={300} height={850} once>
                 <AgeAdjustedTableCard
                   fips={props.fips}
                   variableConfig={variableConfig}

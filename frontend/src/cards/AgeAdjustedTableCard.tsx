@@ -26,7 +26,7 @@ import Divider from "@material-ui/core/Divider";
 import styles from "./Card.module.scss";
 
 /* minimize layout shift */
-const PRELOAD_HEIGHT = 298;
+const PRELOAD_HEIGHT = 800;
 
 export interface AgeAdjustedTableCardProps {
   fips: Fips;

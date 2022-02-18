@@ -386,7 +386,7 @@ function RowOfTwoOptionalMetrics(props: {
   return (
     <>
       <Grid item xs={12} sm={6} id={props.id}>
-        <LazyLoad offset={300} height={350} once>
+        <LazyLoad offset={300} height={600} once>
           {props.variableConfig1 && (
             <>
               {props.createCard(
@@ -399,7 +399,7 @@ function RowOfTwoOptionalMetrics(props: {
         </LazyLoad>
       </Grid>
       <Grid item xs={12} sm={6}>
-        <LazyLoad offset={300} height={350} once>
+        <LazyLoad offset={300} height={600} once>
           {props.variableConfig2 && (
             <>
               {props.createCard(
