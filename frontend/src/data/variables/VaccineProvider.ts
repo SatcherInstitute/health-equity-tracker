@@ -18,6 +18,7 @@ class VaccineProvider extends VariableProvider {
       "vaccinated_share_of_known",
       "vaccinated_per_100k",
       "vaccine_population_pct",
+      "vaccinated_age_adjusted_ratio",
     ]);
     this.acsProvider = acsProvider;
   }
