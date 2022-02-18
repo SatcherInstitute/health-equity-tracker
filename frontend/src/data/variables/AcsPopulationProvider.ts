@@ -24,7 +24,7 @@ export function GetAcsDatasetId(breakdowns: Breakdowns): string {
   // Note: this assumes all age buckets are included in the same dataset. If
   // we use multiple datasets for different age buckets we will need to check
   // the filters the age breakdown is requesting and select the dataset based
-  // on which filters are applied (or select a default one). It is preferrable
+  // on which filters are applied (or select a default one). It is preferable
   // to have the dataset include all breakdowns.
   if (breakdowns.hasOnlyAge()) {
     return breakdowns.geography === "county"
@@ -57,8 +57,8 @@ class AcsPopulationProvider extends VariableProvider {
 
     // Calculate population_pct based on total for breakdown
     // Exactly one breakdown should be enabled per allowsBreakdowns()
-    const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
-      .columnName;
+    const breakdownColumnName =
+      breakdowns.getSoleDemographicBreakdown().columnName;
 
     df = this.renameTotalToAll(df, breakdownColumnName);
 

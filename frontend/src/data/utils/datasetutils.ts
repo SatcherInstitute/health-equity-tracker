@@ -1,6 +1,6 @@
 import { IDataFrame } from "data-forge";
 import {
-  AGE_ADJUSTED_VARIABLE_IDS,
+  // AGE_ADJUSTED_VARIABLE_IDS,
   MetricId,
   VariableConfig,
   VariableId,
@@ -202,10 +202,11 @@ export function shouldShowAgeAdjusted(
   currentBreakdown: BreakdownVar,
   fips: Fips
 ) {
-  return (
-    variableConfig &&
-    currentBreakdown === RACE &&
-    !fips.isCounty() &&
-    AGE_ADJUSTED_VARIABLE_IDS.includes(variableConfig.variableId)
-  );
+  return true;
+  //  (
+  //   variableConfig &&
+  //   currentBreakdown === RACE &&
+  //   !fips.isCounty() &&
+  //   AGE_ADJUSTED_VARIABLE_IDS.includes(variableConfig.variableId)
+  // );
 }

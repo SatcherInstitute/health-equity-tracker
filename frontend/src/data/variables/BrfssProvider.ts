@@ -14,40 +14,53 @@ export const UHC_DETERMINANTS: MetricId[] = [
   "brfss_population_pct",
   "copd_pct_share",
   "copd_per_100k",
+  "copd_age_adjusted_ratio",
   "diabetes_pct_share",
   "diabetes_per_100k",
+  "diabetes_age_adjusted_ratio",
   "depression_pct_share",
   "depression_per_100k",
+  "depression_age_adjusted_ratio",
   "illicit_opioid_use_pct_share",
   "illicit_opioid_use_per_100k",
+  "illicit_opioid_use_age_adjusted_ratio",
   "non_medical_rx_opioid_use_pct_share",
   "non_medical_rx_opioid_use_per_100k",
+  "non_medical_drug_use_age_adjusted_ratio",
   "non_medical_drug_use_pct_share",
   "non_medical_drug_use_per_100k",
+  "non_medical_rx_opioid_use_age_adjusted_ratio",
   "excessive_drinking_pct_share",
   "excessive_drinking_per_100k",
   "frequent_mental_distress_pct_share",
   "frequent_mental_distress_per_100k",
   "preventable_hospitalizations_pct_share",
   "preventable_hospitalizations_per_100k",
+  "preventable_hospitalizations_age_adjusted_ratio",
   "avoided_care_pct_share",
   "avoided_care_per_100k",
+  "avoided_care_age_adjusted_ratio",
   "chronic_kidney_disease_pct_share",
   "chronic_kidney_disease_per_100k",
+  "chronic_kidney_disease_age_adjusted_ratio",
   "cardiovascular_diseases_pct_share",
   "cardiovascular_diseases_per_100k",
+  "cardiovascular_diseases_age_adjusted_ratio",
   "asthma_pct_share",
   "asthma_per_100k",
+  "asthma_age_adjusted_ratio",
 ];
 
 export const UHC_DECADE_PLUS_5_AGE_DETERMINANTS: MetricId[] = [
   "suicide_pct_share",
   "suicide_per_100k",
+  "suicide_age_adjusted_ratio",
 ];
 
 export const UHC_VOTER_AGE_DETERMINANTS: MetricId[] = [
   "voter_participation_pct_share",
   "voter_participation_per_100k",
+  "voter_participation_age_adjusted_ratio",
 ];
 
 export const UHC_API_NH_DETERMINANTS: MetricId[] = [
@@ -112,6 +125,11 @@ class BrfssProvider extends VariableProvider {
     const acs = new DataFrame(acsQueryResponse.data);
 
     df = joinOnCols(df, acs, ["fips", breakdownColumnName], "left");
+
+    // // Add test Age Adjusted Ratio fields
+    // df = df.generateSeries({
+    //   diabetes_age_adjusted_ratio: (row) => "TEST 2x",
+    // })
 
     df = df.generateSeries({
       estimated_total_diabetes: (row) =>

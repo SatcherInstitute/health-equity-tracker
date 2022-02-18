@@ -42,12 +42,14 @@ export type MetricId =
   | "brfss_population_pct"
   | "copd_pct_share"
   | "copd_per_100k"
+  | "copd_age_adjusted_ratio"
   | "covid_cases"
   | "covid_cases_per_100k"
   | "covid_cases_reporting_population"
   | "covid_cases_reporting_population_pct"
   | "covid_cases_share"
   | "covid_cases_share_of_known"
+  | "covid_cases_age_adjusted_ratio"
   | "covid_deaths"
   | "covid_deaths_per_100k"
   | "covid_deaths_reporting_population"
@@ -64,10 +66,12 @@ export type MetricId =
   | "covid_hosp_age_adjusted_ratio"
   | "diabetes_pct_share"
   | "diabetes_per_100k"
+  | "diabetes_age_adjusted_ratio"
   | "health_insurance_count"
   | "health_insurance_pct_share"
   | "health_insurance_per_100k"
   | "health_insurance_population_pct"
+  | "health_insurance_age_adjusted_ratio"
   | "population"
   | "population_pct"
   | "population_2010"
@@ -76,36 +80,51 @@ export type MetricId =
   | "poverty_pct_share"
   | "poverty_per_100k"
   | "poverty_population_pct"
+  | "poverty_age_adjusted_ratio"
   | "vaccinated_pct_share"
   | "vaccinated_share_of_known"
   | "vaccinated_per_100k"
   | "vaccine_population_pct"
+  | "vaccinated_age_adjusted_ratio"
   | "frequent_mental_distress_pct_share"
   | "frequent_mental_distress_per_100k"
+  | "frequent_mental_distress_age_adjusted_ratio"
   | "depression_pct_share"
   | "depression_per_100k"
+  | "depression_age_adjusted_ratio"
   | "suicide_pct_share"
   | "suicide_per_100k"
+  | "suicide_age_adjusted_ratio"
   | "excessive_drinking_pct_share"
   | "excessive_drinking_per_100k"
+  | "excessive_drinking_age_adjusted_ratio"
   | "illicit_opioid_use_pct_share"
   | "illicit_opioid_use_per_100k"
+  | "illicit_opioid_use_age_adjusted_ratio"
   | "non_medical_drug_use_pct_share"
   | "non_medical_drug_use_per_100k"
+  | "non_medical_drug_use_age_adjusted_ratio"
   | "non_medical_rx_opioid_use_pct_share"
   | "non_medical_rx_opioid_use_per_100k"
+  | "non_medical_rx_opioid_use_age_adjusted_ratio"
   | "preventable_hospitalizations_pct_share"
   | "preventable_hospitalizations_per_100k"
+  | "preventable_hospitalizations_age_adjusted_ratio"
   | "avoided_care_pct_share"
   | "avoided_care_per_100k"
+  | "avoided_care_age_adjusted_ratio"
   | "chronic_kidney_disease_pct_share"
   | "chronic_kidney_disease_per_100k"
+  | "chronic_kidney_disease_age_adjusted_ratio"
   | "cardiovascular_diseases_pct_share"
   | "cardiovascular_diseases_per_100k"
+  | "cardiovascular_diseases_age_adjusted_ratio"
   | "asthma_pct_share"
   | "asthma_per_100k"
+  | "asthma_age_adjusted_ratio"
   | "voter_participation_pct_share"
-  | "voter_participation_per_100k";
+  | "voter_participation_per_100k"
+  | "voter_participation_age_adjusted_ratio";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -297,6 +316,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           shortVegaLabel: "cases per 100k",
           type: "per100k",
         },
+        age_adjusted_ratio: {
+          metricId: "covid_cases_age_adjusted_ratio",
+          fullCardTitleName: "Age-Adjusted Ratio of COVID-19 Cases",
+          shortVegaLabel: "ratio for cases",
+          type: "ratio", // ×
+        },
       },
     },
     {
@@ -415,6 +440,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           shortVegaLabel: "COVID-19 vaccinations per 100k",
           type: "per100k",
         },
+        age_adjusted_ratio: {
+          metricId: "vaccinated_age_adjusted_ratio",
+          fullCardTitleName: "Age-Adjusted Ratio of Vaccinations",
+          shortVegaLabel: "ratio",
+          type: "ratio", // ×
+        },
         pct_share: {
           metricId: "vaccinated_pct_share",
           fullCardTitleName: "Share Of Total COVID-19 Vaccinations",
@@ -470,6 +501,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           shortVegaLabel: "suicides per 100k",
           type: "per100k",
         },
+        age_adjusted_ratio: {
+          metricId: "suicide_age_adjusted_ratio",
+          fullCardTitleName: "Age-Adjusted Ratio of Suicide",
+          shortVegaLabel: "ratio",
+          type: "ratio", // ×
+        },
       },
     },
   ],
@@ -498,6 +535,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           fullCardTitleName: "Cases of Depression Per 100k People",
           shortVegaLabel: "cases of depression per 100k",
           type: "per100k",
+        },
+        age_adjusted_ratio: {
+          metricId: "depression_age_adjusted_ratio",
+          fullCardTitleName: "Age-Adjusted Ratio of Depression Cases",
+          shortVegaLabel: "ratio",
+          type: "ratio", // ×
         },
       },
     },
@@ -528,6 +571,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           shortVegaLabel: "cases of excessive drinking per 100k",
           type: "per100k",
         },
+        age_adjusted_ratio: {
+          metricId: "excessive_drinking_age_adjusted_ratio",
+          fullCardTitleName: "Age-Adjusted Ratio of Excessive Drinking",
+          shortVegaLabel: "ratio",
+          type: "ratio", // ×
+        },
       },
     },
   ],
@@ -556,6 +605,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           fullCardTitleName: "Cases of Non-medical Drug Use Per 100k People",
           shortVegaLabel: "cases of non-medical drug use per 100k",
           type: "per100k",
+        },
+        age_adjusted_ratio: {
+          metricId: "non_medical_drug_use_age_adjusted_ratio",
+          fullCardTitleName: "Age-Adjusted Ratio of Non-medical Drug Use",
+          shortVegaLabel: "ratio",
+          type: "ratio", // ×
         },
       },
     },
@@ -586,6 +641,13 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           shortVegaLabel: "cases of non-medical rx opioid use per 100k",
           type: "per100k",
         },
+        age_adjusted_ratio: {
+          metricId: "non_medical_rx_opioid_use_age_adjusted_ratio",
+          fullCardTitleName:
+            "Age-Adjusted Ratio of Non-medical Prescription Opioid Use",
+          shortVegaLabel: "ratio",
+          type: "ratio", // ×
+        },
       },
     },
     {
@@ -612,6 +674,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           fullCardTitleName: "Cases of Illicit Opioid Use Per 100k People",
           shortVegaLabel: "cases of illicit opioid use per 100k",
           type: "per100k",
+        },
+        age_adjusted_ratio: {
+          metricId: "illicit_opioid_use_age_adjusted_ratio",
+          fullCardTitleName: "Age-Adjusted Ratio of Illicit Opioid Use",
+          shortVegaLabel: "ratio",
+          type: "ratio", // ×
         },
       },
     },
@@ -643,6 +711,13 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           shortVegaLabel: "frequent mental distress cases per 100k",
           type: "per100k",
         },
+        age_adjusted_ratio: {
+          metricId: "frequent_mental_distress_age_adjusted_ratio",
+          fullCardTitleName:
+            "Age-Adjusted Ratio of Frequent Mental Distress Cases",
+          shortVegaLabel: "ratio",
+          type: "ratio", // ×
+        },
       },
     },
   ],
@@ -672,6 +747,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           shortVegaLabel: "diabetes cases per 100k",
           type: "per100k",
         },
+        age_adjusted_ratio: {
+          metricId: "diabetes_age_adjusted_ratio",
+          fullCardTitleName: "Age-Adjusted Ratio of Diabetes Cases",
+          shortVegaLabel: "ratio for cases",
+          type: "ratio", // ×
+        },
       },
     },
   ],
@@ -700,6 +781,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           fullCardTitleName: "COPD Cases Per 100k People",
           shortVegaLabel: "COPD cases per 100k",
           type: "per100k",
+        },
+        age_adjusted_ratio: {
+          metricId: "copd_age_adjusted_ratio",
+          fullCardTitleName: "Age-Adjusted Ratio of COPD Cases",
+          shortVegaLabel: "ratio for cases",
+          type: "ratio", // ×
         },
       },
     },
@@ -735,6 +822,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             type: "pct_share",
           },
         },
+        age_adjusted_ratio: {
+          metricId: "health_insurance_age_adjusted_ratio",
+          fullCardTitleName: "Age-Adjusted Ratio of Uninsurance",
+          shortVegaLabel: "ratio for cases",
+          type: "ratio", // ×
+        },
       },
     },
   ],
@@ -764,6 +857,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             type: "pct_share",
           },
         },
+        age_adjusted_ratio: {
+          metricId: "poverty_age_adjusted_ratio",
+          fullCardTitleName: "Age-Adjusted Ratio of Poverty",
+          shortVegaLabel: "ratio for cases",
+          type: "ratio", // ×
+        },
       },
     },
   ],
@@ -791,6 +890,13 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             shortVegaLabel: populationPctShortLabel,
             type: "pct_share",
           },
+        },
+        age_adjusted_ratio: {
+          metricId: "preventable_hospitalizations_age_adjusted_ratio",
+          fullCardTitleName:
+            "Age-Adjusted Ratio of Preventable Hospitalizations",
+          shortVegaLabel: "ratio for cases",
+          type: "ratio", // ×
         },
       },
     },
@@ -822,6 +928,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             type: "pct_share",
           },
         },
+        age_adjusted_ratio: {
+          metricId: "avoided_care_age_adjusted_ratio",
+          fullCardTitleName: "Age-Adjusted Ratio of Care Avoidance",
+          shortVegaLabel: "ratio",
+          type: "ratio", // ×
+        },
       },
     },
   ],
@@ -850,6 +962,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             shortVegaLabel: populationPctShortLabel,
             type: "pct_share",
           },
+        },
+        age_adjusted_ratio: {
+          metricId: "asthma_age_adjusted_ratio",
+          fullCardTitleName: "Age-Adjusted Ratio of Asthma Cases",
+          shortVegaLabel: "ratio for cases",
+          type: "ratio", // ×
         },
       },
     },
@@ -880,6 +998,13 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             type: "pct_share",
           },
         },
+        age_adjusted_ratio: {
+          metricId: "cardiovascular_diseases_age_adjusted_ratio",
+          fullCardTitleName:
+            "Age-Adjusted Ratio of Cases of Cardiovascular Diseases",
+          shortVegaLabel: "ratio for cases",
+          type: "ratio", // ×
+        },
       },
     },
   ],
@@ -909,6 +1034,13 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             type: "pct_share",
           },
         },
+        age_adjusted_ratio: {
+          metricId: "chronic_kidney_disease_age_adjusted_ratio",
+          fullCardTitleName:
+            "Age-Adjusted Ratio of Chronic Kidney Disease Cases",
+          shortVegaLabel: "ratio for cases",
+          type: "ratio", // ×
+        },
       },
     },
   ],
@@ -937,6 +1069,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             shortVegaLabel: populationPctShortLabel,
             type: "pct_share",
           },
+        },
+        age_adjusted_ratio: {
+          metricId: "voter_participation_age_adjusted_ratio",
+          fullCardTitleName: "Age-Adjusted Ratio of Voter Participation",
+          shortVegaLabel: "ratio",
+          type: "ratio", // ×
         },
       },
     },
