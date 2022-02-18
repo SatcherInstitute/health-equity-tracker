@@ -257,6 +257,7 @@ function ReportProvider(props: ReportProviderProps) {
             There is no county level vaccine demographic dataset, so we show
             county totals according to the CDC to provide context.
           </p>
+
           <h4>Missing Population Data</h4>
           <p>
             The census bureau does not release population data for the{" "}
@@ -279,11 +280,6 @@ function ReportProvider(props: ReportProviderProps) {
             comparison metric from the American Community Survey 5-year
             estimates, while <b>Unrepresented race</b> is shown without any
             population comparison metric.
-          </p>
-
-          <p>
-            There is no county level vaccine demographic dataset, so we show
-            county totals according to the CDC to provide context.
           </p>
 
           <Button
