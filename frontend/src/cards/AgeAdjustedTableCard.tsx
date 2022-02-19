@@ -3,7 +3,10 @@ import { AgeAdjustedTableChart } from "../charts/AgeAdjustedTableChart";
 import CardWrapper from "./CardWrapper";
 import { MetricQuery } from "../data/query/MetricQuery";
 import { Fips } from "../data/utils/Fips";
-import { Breakdowns } from "../data/query/Breakdowns";
+import {
+  Breakdowns,
+  BREAKDOWN_VAR_DISPLAY_NAMES,
+} from "../data/query/Breakdowns";
 import { CardContent } from "@material-ui/core";
 import {
   MetricConfig,
@@ -24,6 +27,7 @@ import { Row } from "../data/utils/DatasetTypes";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import styles from "./Card.module.scss";
+import MissingDataAlert from "./ui/MissingDataAlert";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 800;
@@ -62,12 +66,15 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     <CardWrapper minHeight={PRELOAD_HEIGHT} queries={[query]} title={cardTitle}>
       {([queryResponse]) => {
         let dataWithoutUnknowns = queryResponse.data.filter((row: Row) => {
+          console.log(row);
           return (
             row[RACE] !== UNKNOWN &&
             row[RACE] !== UNKNOWN_RACE &&
             row[RACE] !== UNKNOWN_ETHNICITY
           );
         });
+
+        console.log(dataWithoutUnknowns);
 
         return (
           <>
@@ -90,12 +97,28 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                   </Alert>
                 </CardContent>
                 <Divider />
-                <div className={styles.TableChart}>
-                  <AgeAdjustedTableChart
-                    data={dataWithoutUnknowns}
-                    metrics={Object.values(metricConfigs)}
-                  />
-                </div>
+
+                {queryResponse.shouldShowMissingDataMessage(
+                  metricIds as MetricId[]
+                ) ? (
+                  <CardContent>
+                    <MissingDataAlert
+                      dataName={
+                        props.variableConfig.metrics.age_adjusted_ratio
+                          .fullCardTitleName + " "
+                      }
+                      breakdownString={BREAKDOWN_VAR_DISPLAY_NAMES[RACE]}
+                      fips={props.fips}
+                    />
+                  </CardContent>
+                ) : (
+                  <div className={styles.TableChart}>
+                    <AgeAdjustedTableChart
+                      data={dataWithoutUnknowns}
+                      metrics={Object.values(metricConfigs)}
+                    />
+                  </div>
+                )}
               </>
             )}
           </>

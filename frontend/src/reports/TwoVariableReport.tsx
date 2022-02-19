@@ -17,7 +17,6 @@ import {
 } from "../data/config/MetricConfig";
 import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
 import { RACE } from "../data/utils/Constants";
-import { shouldShowAgeAdjusted } from "../data/utils/datasetutils";
 import { Fips } from "../data/utils/Fips";
 import {
   DATA_TYPE_1_PARAM,
@@ -129,15 +128,6 @@ function TwoVariableReport(props: {
 
   const breakdownIsShown = (breakdownVar: string) =>
     currentBreakdown === breakdownVar;
-
-  // NOTE: currently tracker doesn't allow for two different breakdowns in compare report
-  const showAgeAdjusted1 =
-    variableConfig1 &&
-    shouldShowAgeAdjusted(variableConfig1, currentBreakdown, props.fips1);
-
-  const showAgeAdjusted2 =
-    variableConfig2 &&
-    shouldShowAgeAdjusted(variableConfig2, currentBreakdown, props.fips2);
 
   return (
     <Grid container spacing={1} alignItems="flex-start">
@@ -340,24 +330,23 @@ function TwoVariableReport(props: {
       )}
 
       {/* SIDE-BY-SIDE AGE-ADJUSTED TABLE CARDS */}
-      {(showAgeAdjusted1 || showAgeAdjusted2) && (
-        <RowOfTwoOptionalMetrics
-          id="ageAdjustedTableCard"
-          variableConfig1={showAgeAdjusted1 ? variableConfig1 : undefined}
-          variableConfig2={showAgeAdjusted2 ? variableConfig2 : undefined}
-          fips1={props.fips1}
-          fips2={props.fips2}
-          updateFips1={props.updateFips1Callback}
-          updateFips2={props.updateFips2Callback}
-          createCard={(
-            variableConfig: VariableConfig,
-            fips: Fips,
-            updateFips: (fips: Fips) => void
-          ) => (
-            <AgeAdjustedTableCard fips={fips} variableConfig={variableConfig} />
-          )}
-        />
-      )}
+
+      <RowOfTwoOptionalMetrics
+        id="ageAdjustedTableCard"
+        variableConfig1={variableConfig1}
+        variableConfig2={variableConfig2}
+        fips1={props.fips1}
+        fips2={props.fips2}
+        updateFips1={props.updateFips1Callback}
+        updateFips2={props.updateFips2Callback}
+        createCard={(
+          variableConfig: VariableConfig,
+          fips: Fips,
+          updateFips: (fips: Fips) => void
+        ) => (
+          <AgeAdjustedTableCard fips={fips} variableConfig={variableConfig} />
+        )}
+      />
     </Grid>
   );
 }

@@ -2,14 +2,12 @@ import { IDataFrame } from "data-forge";
 import {
   // AGE_ADJUSTED_VARIABLE_IDS,
   MetricId,
-  VariableConfig,
   VariableId,
   VAXX,
 } from "../config/MetricConfig";
 import { BreakdownVar } from "../query/Breakdowns";
 import { RACE } from "./Constants";
 import { Row } from "./DatasetTypes";
-import { Fips } from "./Fips";
 
 /**
  * Reshapes the data frame by creating a new column for each value in
@@ -187,26 +185,4 @@ export function shouldShowAltPopCompare(fromProps: ShouldShowAltPopCompareI) {
     fromProps.breakdownVar === RACE &&
     fromProps.variableConfig.variableId === VAXX
   );
-}
-
-/*
-Analyzes tracker settings and determines if AGE-ADJUSTED TABLE CARD should be rendered
-
-Currently only should display for:
-- COVID deaths or hospitalizations
-- NOT county level report
-- by RACE toggle selected
-*/
-export function shouldShowAgeAdjusted(
-  variableConfig: VariableConfig,
-  currentBreakdown: BreakdownVar,
-  fips: Fips
-) {
-  return true;
-  //  (
-  //   variableConfig &&
-  //   currentBreakdown === RACE &&
-  //   !fips.isCounty() &&
-  //   AGE_ADJUSTED_VARIABLE_IDS.includes(variableConfig.variableId)
-  // );
 }

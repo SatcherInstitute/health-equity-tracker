@@ -29,7 +29,6 @@ import {
 import { SINGLE_COLUMN_WIDTH } from "./ReportProvider";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
-import { shouldShowAgeAdjusted } from "../data/utils/datasetutils";
 
 export interface VariableDisparityReportProps {
   key: string;
@@ -94,10 +93,6 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
 
   const breakdownIsShown = (breakdownVar: BreakdownVar) =>
     currentBreakdown === breakdownVar;
-
-  const showAgeAdjusted =
-    variableConfig &&
-    shouldShowAgeAdjusted(variableConfig, currentBreakdown, props.fips);
 
   return (
     <Grid
@@ -235,21 +230,14 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           </Grid>
 
           {/* AGE ADJUSTED TABLE CARD */}
-          {showAgeAdjusted && (
-            <Grid
-              item
-              xs={12}
-              md={SINGLE_COLUMN_WIDTH}
-              id="ageAdjustedTableCard"
-            >
-              <LazyLoad offset={300} height={850} once>
-                <AgeAdjustedTableCard
-                  fips={props.fips}
-                  variableConfig={variableConfig}
-                />
-              </LazyLoad>
-            </Grid>
-          )}
+          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="ageAdjustedTableCard">
+            <LazyLoad offset={300} height={850} once>
+              <AgeAdjustedTableCard
+                fips={props.fips}
+                variableConfig={variableConfig}
+              />
+            </LazyLoad>
+          </Grid>
         </Grid>
       )}
     </Grid>
