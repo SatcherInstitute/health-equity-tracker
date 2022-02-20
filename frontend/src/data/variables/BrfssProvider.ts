@@ -126,11 +126,6 @@ class BrfssProvider extends VariableProvider {
 
     df = joinOnCols(df, acs, ["fips", breakdownColumnName], "left");
 
-    // // Add test Age Adjusted Ratio fields
-    // df = df.generateSeries({
-    //   diabetes_age_adjusted_ratio: (row) => "TEST 2x",
-    // })
-
     df = df.generateSeries({
       estimated_total_diabetes: (row) =>
         this.calculations.estimateTotal(row.diabetes_per_100k, row.population),
@@ -195,6 +190,36 @@ class BrfssProvider extends VariableProvider {
           row.voter_participation_per_100k,
           row.population
         ),
+      // set all age adj ratios to null to display "No Data" alert
+      copd_age_adjusted_ratio: (row) => (row["copd_age_adjusted_ratio"] = null),
+      diabetes_age_adjusted_ratio: (row) =>
+        (row["diabetes_age_adjusted_ratio"] = null),
+      depression_age_adjusted_ratio: (row) =>
+        (row["depression_age_adjusted_ratio"] = null),
+      illicit_opioid_use_age_adjusted_ratio: (row) =>
+        (row["illicit_opioid_use_age_adjusted_ratio"] = null),
+      non_medical_rx_opioid_use_age_adjusted_ratio: (row) =>
+        (row["non_medical_rx_opioid_use_age_adjusted_ratio"] = null),
+      non_medical_drug_use_age_adjusted_ratio: (row) =>
+        (row["non_medical_drug_use_age_adjusted_ratio"] = null),
+      excessive_drinking_age_adjusted_ratio: (row) =>
+        (row["excessive_drinking_age_adjusted_ratio"] = null),
+      frequent_mental_distress_age_adjusted_ratio: (row) =>
+        (row["frequent_mental_distress_age_adjusted_ratio"] = null),
+      suicide_age_adjusted_ratio: (row) =>
+        (row["suicide_age_adjusted_ratio"] = null),
+      preventable_hospitalizations_age_adjusted_ratio: (row) =>
+        (row["preventable_hospitalizations_age_adjusted_ratio"] = null),
+      avoided_care_age_adjusted_ratio: (row) =>
+        (row["avoided_care_age_adjusted_ratio"] = null),
+      chronic_kidney_disease_age_adjusted_ratio: (row) =>
+        (row["chronic_kidney_disease_age_adjusted_ratio"] = null),
+      cardiovascular_diseases_age_adjusted_ratio: (row) =>
+        (row["cardiovascular_diseases_age_adjusted_ratio"] = null),
+      asthma_age_adjusted_ratio: (row) =>
+        (row["asthma_age_adjusted_ratio"] = null),
+      voter_participation_age_adjusted_ratio: (row) =>
+        (row["voter_participation_age_adjusted_ratio"] = null),
     });
 
     df = df.renameSeries({

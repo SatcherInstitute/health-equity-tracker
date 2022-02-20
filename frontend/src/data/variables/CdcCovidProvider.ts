@@ -207,11 +207,11 @@ class CdcCovidProvider extends VariableProvider {
         //  Correct types for Age-Adjusted Ratios
         covid_hosp_age_adjusted_ratio: (row) =>
           row.covid_hosp_age_adjusted_ratio == null
-            ? null
+            ? "2x (test)"
             : row.covid_hosp_age_adjusted_ratio,
         covid_deaths_age_adjusted_ratio: (row) =>
           row.covid_deaths_age_adjusted_ratio == null
-            ? null
+            ? "3.2x (test)"
             : row.covid_deaths_age_adjusted_ratio,
         covid_cases_age_adjusted_ratio: (row) =>
           row.covid_cases_age_adjusted_ratio == null
