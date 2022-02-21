@@ -55,6 +55,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
 
   const metricIds = Object.keys(metricConfigs) as MetricId[];
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
+  const ratioId = metricIds[0];
 
   const cardTitle = (
     <>{`Age-Adjusted Ratio of ${
@@ -66,7 +67,6 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     <CardWrapper minHeight={PRELOAD_HEIGHT} queries={[query]} title={cardTitle}>
       {([queryResponse]) => {
         let dataWithoutUnknowns = queryResponse.data.filter((row: Row) => {
-          console.log(row);
           return (
             row[RACE] !== UNKNOWN &&
             row[RACE] !== UNKNOWN_RACE &&
@@ -74,52 +74,69 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
           );
         });
 
+        /* 
+        WORKS: If some ratio values are null and others have values, display a mix of values and icons
+        If all ratio values are null it displays a missing data alert (implying age-adjustment would be possible and helpful)
+        If all ratio values are undefined, we should display an alert explaining why age adjustment wouldn't be appropriate here
+        
+        */
+
         console.log(dataWithoutUnknowns);
+        console.log(
+          "all are null",
+          dataWithoutUnknowns.every((row) => row[ratioId] === null)
+        );
+        console.log(
+          "all are undefined",
+          dataWithoutUnknowns.every((row) => row[ratioId] === undefined)
+        );
 
         return (
           <>
-            {!queryResponse.dataIsMissing() && (
-              <>
-                <CardContent>
-                  <Alert severity="info" role="note">
-                    Age-adjustment is a technique to remove the effect of
-                    differences in the underlying age distribution of two
-                    populations (in our case, racial groups compared to White,
-                    Non-Hispanic individuals) when comparing rates of incidence.
-                    This is extremely important for conditions where age is a
-                    large risk factor, e.g. the risk of dying with Covid
-                    increases non-linearly with age. Age-adjustment allows us to
-                    compute rates that are normalized for age, painting a more
-                    accurate picture of health inequities.{" "}
-                    <a href="https://healthequitytracker.org">
-                      Learn how we calculated these age-adjusted ratios
-                    </a>
-                  </Alert>
-                </CardContent>
-                <Divider />
+            <CardContent>
+              {/* Always show info on what age-adj is */}
+              <Alert severity="info" role="note">
+                Age-adjustment is a technique to remove the effect of
+                differences in the underlying age distribution of two
+                populations (in our case, racial groups compared to White,
+                Non-Hispanic individuals) when comparing rates of incidence.
+                This is extremely important for conditions where age is a large
+                risk factor, e.g. the risk of dying with Covid increases
+                non-linearly with age. Age-adjustment allows us to compute rates
+                that are normalized for age, painting a more accurate picture of
+                health inequities.{" "}
+                <a href="https://healthequitytracker.org">
+                  Learn how we calculated these age-adjusted ratios
+                </a>
+              </Alert>
+            </CardContent>
+            <Divider />
 
-                {queryResponse.shouldShowMissingDataMessage(
-                  metricIds as MetricId[]
-                ) ? (
-                  <CardContent>
-                    <MissingDataAlert
-                      dataName={
-                        props.variableConfig.metrics.age_adjusted_ratio
-                          .fullCardTitleName + " "
-                      }
-                      breakdownString={BREAKDOWN_VAR_DISPLAY_NAMES[RACE]}
-                      fips={props.fips}
-                    />
-                  </CardContent>
-                ) : (
-                  <div className={styles.TableChart}>
-                    <AgeAdjustedTableChart
-                      data={dataWithoutUnknowns}
-                      metrics={Object.values(metricConfigs)}
-                    />
-                  </div>
-                )}
-              </>
+            {queryResponse.shouldShowMissingDataMessage(
+              metricIds as MetricId[]
+            ) ? (
+              // Show new alert if current report settings aren't appropriate for age-adjustment (eg conditions where age isn't a factor)
+              // ALL values are UNDEFINED
+
+              // Show missing data alert only for variables where age-adj would make sense but hasn't been done yet (all NULL)
+
+              <CardContent>
+                <MissingDataAlert
+                  dataName={
+                    props.variableConfig.metrics.age_adjusted_ratio
+                      .fullCardTitleName + " "
+                  }
+                  breakdownString={BREAKDOWN_VAR_DISPLAY_NAMES[RACE]}
+                  fips={props.fips}
+                />
+              </CardContent>
+            ) : (
+              <div className={styles.TableChart}>
+                <AgeAdjustedTableChart
+                  data={dataWithoutUnknowns}
+                  metrics={Object.values(metricConfigs)}
+                />
+              </div>
             )}
           </>
         );
