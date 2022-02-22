@@ -213,10 +213,10 @@ class CdcCovidProvider extends VariableProvider {
           row.covid_deaths_age_adjusted_ratio == null
             ? "3.2x (test)"
             : row.covid_deaths_age_adjusted_ratio,
-        covid_cases_age_adjusted_ratio: (row) =>
-          row.covid_cases_age_adjusted_ratio == null
-            ? null
-            : row.covid_cases_age_adjusted_ratio,
+        // covid_cases_age_adjusted_ratio: (row) =>
+        //   row.covid_cases_age_adjusted_ratio == null
+        //     ? null
+        //     : row.covid_cases_age_adjusted_ratio,
       })
       .resetIndex();
 

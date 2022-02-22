@@ -73,11 +73,9 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
             row[RACE] !== UNKNOWN_ETHNICITY
           );
         });
-        console.log(dataWithoutUnknowns);
         const noRatios = dataWithoutUnknowns.every(
           (row) => row[ratioId] === undefined
         );
-        console.log("all are undefined", noRatios);
         return (
           <>
             <CardContent>
@@ -122,12 +120,10 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
             ) &&
               noRatios && (
                 <CardContent>
-                  <MissingDataAlert
-                    dataName={props.variableConfig.variableDisplayName + " "}
-                    breakdownString={BREAKDOWN_VAR_DISPLAY_NAMES[RACE]}
-                    fips={props.fips}
-                    notApplicable={true}
-                  />
+                  <Alert severity="warning" role="note">
+                    We do not plan to calculate age-adjusted ratios for{" "}
+                    <b>{props.variableConfig.variableFullDisplayName}</b>.
+                  </Alert>
                 </CardContent>
               )}
 
