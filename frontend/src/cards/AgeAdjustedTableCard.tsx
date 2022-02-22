@@ -73,24 +73,11 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
             row[RACE] !== UNKNOWN_ETHNICITY
           );
         });
-
-        /* 
-        WORKS: If some ratio values are null and others have values, display a mix of values and icons
-        If all ratio values are null it displays a missing data alert (implying age-adjustment would be possible and helpful)
-        If all ratio values are undefined, we should display an alert explaining why age adjustment wouldn't be appropriate here
-        
-        */
-
         console.log(dataWithoutUnknowns);
-        console.log(
-          "all are null",
-          dataWithoutUnknowns.every((row) => row[ratioId] === null)
+        const noRatios = dataWithoutUnknowns.every(
+          (row) => row[ratioId] === undefined
         );
-        console.log(
-          "all are undefined",
-          dataWithoutUnknowns.every((row) => row[ratioId] === undefined)
-        );
-
+        console.log("all are undefined", noRatios);
         return (
           <>
             <CardContent>
@@ -110,16 +97,13 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                 </a>
               </Alert>
             </CardContent>
+
             <Divider />
 
+            {/*  Values are null; implying they could be age-adjusted but aren't  */}
             {queryResponse.shouldShowMissingDataMessage(
               metricIds as MetricId[]
-            ) ? (
-              // Show new alert if current report settings aren't appropriate for age-adjustment (eg conditions where age isn't a factor)
-              // ALL values are UNDEFINED
-
-              // Show missing data alert only for variables where age-adj would make sense but hasn't been done yet (all NULL)
-
+            ) && (
               <CardContent>
                 <MissingDataAlert
                   dataName={
@@ -130,7 +114,25 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                   fips={props.fips}
                 />
               </CardContent>
-            ) : (
+            )}
+
+            {/* Values are intentionally undefined; implying they can't/won't be age-adjusted */}
+            {!queryResponse.shouldShowMissingDataMessage(
+              metricIds as MetricId[]
+            ) &&
+              noRatios && (
+                <CardContent>
+                  <MissingDataAlert
+                    dataName={props.variableConfig.variableDisplayName + " "}
+                    breakdownString={BREAKDOWN_VAR_DISPLAY_NAMES[RACE]}
+                    fips={props.fips}
+                    notApplicable={true}
+                  />
+                </CardContent>
+              )}
+
+            {/* values are present or partially null, implying we have at least some age-adjustments */}
+            {!queryResponse.dataIsMissing() && !noRatios && (
               <div className={styles.TableChart}>
                 <AgeAdjustedTableChart
                   data={dataWithoutUnknowns}

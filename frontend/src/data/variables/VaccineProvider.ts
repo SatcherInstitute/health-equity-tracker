@@ -171,7 +171,7 @@ class VaccineProvider extends VariableProvider {
       df = df.generateSeries({
         vaccinated_per_100k: (row) =>
           this.calculations.per100k(row.vaccinated_first_dose, row.population),
-        vaccinated_age_adjusted_ratio: (row) => null,
+        // vaccinated_age_adjusted_ratio: (row) => null,
       });
     }
 
