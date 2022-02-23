@@ -17,9 +17,20 @@ import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
 import styles from "./Chart.module.scss";
+import sass from "../styles/variables.module.scss";
 import { RACE } from "../data/utils/Constants";
 
+const headerCellStyle = {
+  width: "200px",
+  backgroundColor: sass.footerColor,
+};
+
 const cellStyle = {
+  width: "200px",
+};
+
+const altCellStyle = {
+  backgroundColor: sass.greyGridColor,
   width: "200px",
 };
 
@@ -78,7 +89,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
     return (
       <TableRow {...group.getHeaderGroupProps()}>
         {group.headers.map((col, index) => (
-          <TableCell key={col.id} style={cellStyle}>
+          <TableCell key={col.id} style={headerCellStyle}>
             {col.render("Header")}
           </TableCell>
         ))}
@@ -93,7 +104,10 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
       <TableRow {...row.getRowProps()}>
         {row.cells.map((cell, index) =>
           cell.value == null ? (
-            <TableCell {...cell.getCellProps()} style={cellStyle}>
+            <TableCell
+              {...cell.getCellProps()}
+              style={row.index % 2 === 0 ? cellStyle : altCellStyle}
+            >
               <Tooltip title="No data available">
                 <WarningRoundedIcon />
               </Tooltip>
@@ -102,7 +116,10 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
               </span>
             </TableCell>
           ) : (
-            <TableCell {...cell.getCellProps()}>
+            <TableCell
+              {...cell.getCellProps()}
+              style={row.index % 2 === 0 ? cellStyle : altCellStyle}
+            >
               {cell.render("Cell")}
             </TableCell>
           )

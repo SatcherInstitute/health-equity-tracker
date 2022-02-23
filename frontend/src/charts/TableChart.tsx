@@ -42,7 +42,7 @@ const cellStyle = {
 };
 
 const altCellStyle = {
-  backgroundColor: sass.greyGridColor,
+  backgroundColor: sass.standardInfo,
   width: "200px",
 };
 
