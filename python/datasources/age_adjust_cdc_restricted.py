@@ -120,6 +120,12 @@ def get_expected_deaths_and_hospitalizations(race_and_age_df, population_df):
                 (population_df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
             ][std_col.POPULATION_COL].values[0])
 
+        if not this_pop_size:
+            raise ValueError('Population size for %s demographic is 0 or nil' % row[std_col.RACE_CATEGORY_ID_COL])
+
+        if not ref_pop_size:
+            raise ValueError('Population size for %s demographic is 0 or nil' % REFERENCE_POPULATION)
+
         if not row[std_col.COVID_DEATH_Y]:
             row['expected_deaths'] = None
         else:
