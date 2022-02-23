@@ -86,10 +86,11 @@ function MethodologyTab() {
                     incomplete and potentially skewed.
                   </li>
                   <li>
-                    When calculating national-level per100k COVID-19 rates, we
-                    do not include the population of states whose data are
-                    suppressed as part of the total population. See the 'What
-                    data are missing' section for further details.
+                    When calculating national-level per100k COVID-19 rates for
+                    cases, deaths, and hospitalizations, we only include the
+                    population of states that do not have a suppressed case
+                    count as part of the total population. See the 'What data
+                    are missing' section for further details.
                   </li>
                   <li>
                     To protect the privacy of affected individuals, COVID-19
@@ -241,16 +242,19 @@ function MethodologyTab() {
                 </ul>
 
                 <h4 className={styles.MethodologySubsubheaderText}>
-                  Diabetes & COPD
+                  America's Health Rankings
                 </h4>
                 <p>
-                  Diabetes & COPD data in the tracker is sourced from{" "}
+                  Multiple chronic disease, behavioral health, and social
+                  determinants of health in the tracker are sourced from{" "}
                   <a href={urlMap.amr}>America's Health Rankings</a>, who in
-                  turn source their diabetes & COPD data from the{" "}
+                  turn source the majority of their data from the{" "}
                   <a href={urlMap.cdcBrfss}>
                     Behavioral Risk Factor Surveillance System (BRFSS)
                   </a>
-                  , a survey run by the CDC.
+                  , a survey run by the CDC, along with supplemental data from{" "}
+                  <a href={urlMap.cdcWonder}>CDC WONDER</a> and the{" "}
+                  <a href={urlMap.censusVoting}>US Census</a>.
                 </p>
                 <ul>
                   <li>
@@ -264,7 +268,7 @@ function MethodologyTab() {
                   <li>
                     BRFSS data broken down by race and ethnicity is not
                     available at the county level, so the tracker does not
-                    display diabetes or COPD data at the county level either.
+                    display these conditions at the county level either.
                   </li>
                 </ul>
 

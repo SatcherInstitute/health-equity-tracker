@@ -35,6 +35,8 @@ const HOST = '0.0.0.0';
 
 const app = express();
 
+app.use(compression())
+
 // Add Authorization header for all requests that are proxied to the data server.
 // TODO: The token can be cached and only refreshed when needed
 app.use('/api', (req, res, next) => {
