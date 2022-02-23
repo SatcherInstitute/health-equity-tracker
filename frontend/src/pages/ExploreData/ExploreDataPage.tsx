@@ -258,7 +258,6 @@ function ExploreDataPage() {
           </Carousel>
           {showStickyLifeline && (
             <p className={styles.LifelineSticky}>
-              getMadLibPhraseText
               <a href={urlMap.lifeline}>suicidepreventionlifeline.org</a>
             </p>
           )}
