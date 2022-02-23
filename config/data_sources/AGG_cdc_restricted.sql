@@ -198,6 +198,7 @@ SELECT * FROM joined_with_acs
 ORDER BY county_fips, age
 ;
 
+-- For age adjustment
 CREATE OR REPLACE TABLE cdc_restricted_data.by_race_age_state AS
 WITH
   cdc_restricted_race_age_state AS (
@@ -217,30 +218,4 @@ WITH
   )
 SELECT * FROM cdc_restricted_race_age_state
 ORDER BY state_fips, race_category_id
-;
-
-CREATE OR REPLACE TABLE cdc_restricted_data.by_age_race_county AS
-WITH
-  cdc_restricted_age_race_county AS (
-      SELECT DISTINCT
-        a.county_fips,
-        c.area_name as county_name,
-        IF(a.state_postal = "Unknown", "", b.state_fips_code) as state_fips,
-        IF(a.state_postal = "Unknown", "Unknown", b.state_name) as state_name,
-        a.race_category_id,
-        a.cases, a.hosp_y, a.hosp_n, a.hosp_unknown, a.death_y, a.death_n, a.death_unknown,
-        a.race,
-        a.race_includes_hispanic,
-        a.race_and_ethnicity,
-        a.age
-      FROM `cdc_restricted_data.cdc_restricted_by_race_and_age_county` AS a
-      LEFT JOIN `bigquery-public-data.census_utility.fips_codes_states` AS b
-          ON a.state_postal = b.state_postal_abbreviation
-      LEFT JOIN `bigquery-public-data.census_utility.fips_codes_all` as c
-          ON a.county_fips = c.county_fips_code AND
-             c.summary_level_name = "state-county"
-      WHERE a.county_fips != ""
-  )
-SELECT * FROM cdc_restricted_age_race_county
-ORDER BY county_fips, age
 ;
