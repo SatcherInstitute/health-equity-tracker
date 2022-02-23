@@ -28,10 +28,21 @@ import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
 import styles from "./Chart.module.scss";
+import sass from "../styles/variables.module.scss";
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20;
 
+const headerCellStyle = {
+  width: "200px",
+  backgroundColor: sass.exploreBgColor,
+};
+
 const cellStyle = {
+  width: "200px",
+};
+
+const altCellStyle = {
+  backgroundColor: sass.greyGridColor,
   width: "200px",
 };
 
@@ -102,7 +113,7 @@ export function TableChart(props: TableChartProps) {
     return (
       <TableRow {...group.getHeaderGroupProps()}>
         {group.headers.map((col, index) => (
-          <TableCell key={col.id} style={cellStyle}>
+          <TableCell key={col.id} style={headerCellStyle}>
             {col.render("Header")}
           </TableCell>
         ))}
@@ -117,16 +128,23 @@ export function TableChart(props: TableChartProps) {
       <TableRow {...row.getRowProps()}>
         {row.cells.map((cell, index) =>
           cell.value == null ? (
-            <TableCell {...cell.getCellProps()} style={cellStyle}>
+            <TableCell
+              {...cell.getCellProps()}
+              style={row.index % 2 === 0 ? cellStyle : altCellStyle}
+            >
               <Tooltip title="No data available">
                 <WarningRoundedIcon />
               </Tooltip>
+              {console.log(row)}
               <span className={styles.ScreenreaderTitleHeader}>
                 No Data Available
               </span>
             </TableCell>
           ) : (
-            <TableCell {...cell.getCellProps()}>
+            <TableCell
+              {...cell.getCellProps()}
+              style={row.index % 2 === 0 ? cellStyle : altCellStyle}
+            >
               {cell.render("Cell")}
               <Units
                 column={index}
