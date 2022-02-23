@@ -110,7 +110,7 @@ def get_decade_age_bucket(age_range):
 def get_uhc_standard_age_bucket(age_range):
     if age_range == 'Total':
         return 'Total'
-    # buckets for COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking
+    # buckets for most UHC / AHR determinants
     elif age_range in {'18-19', '20-24', '20-20', '21-21', '22-24',
                        '25-29', '30-34', '35-44', '35-39', '40-44'}:
         return '18-44'
@@ -140,6 +140,22 @@ def get_uhc_decade_plus_5_age_bucket(age_range):
         return '75-84'
     elif age_range in {'85+'}:
         return '85+'
+
+
+def get_uhc_voter_age_bucket(age_range):
+    if age_range == 'Total':
+        return 'Total'
+    # buckets for Voter Participation
+    elif age_range in {'18-19', '20-20', '21-21', '22-24'}:
+        return '18-24'
+    elif age_range in {'25-29', '30-34'}:
+        return '25-34'
+    elif age_range in {'35-39', '40-44'}:
+        return '35-44'
+    elif age_range in {'45-49', '50-54'}:
+        return '45-54'
+    elif age_range in {'55-59', '60-61', '62-64'}:
+        return '55-64'
 
 
 def rename_age_bracket(bracket):
@@ -259,15 +275,18 @@ class ACSPopulationIngester():
 
         by_sex_standard_age_uhc = None
         by_sex_decade_plus_5_age_uhc = None
+        by_sex_voter_age_uhc = None
         if not self.county_level:
             by_sex_standard_age_uhc = self.get_by_sex_age(
                 frames[self.get_table_name_by_sex_age_race()], get_uhc_standard_age_bucket)
             by_sex_decade_plus_5_age_uhc = self.get_by_sex_age(
                 frames[self.get_table_name_by_sex_age_race()], get_uhc_decade_plus_5_age_bucket)
+            by_sex_voter_age_uhc = self.get_by_sex_age(
+                frames[self.get_table_name_by_sex_age_race()], get_uhc_voter_age_bucket)
 
         frames['by_age_%s' % self.get_geo_name()] = self.get_by_age(
             frames['by_sex_age_%s' % self.get_geo_name()],
-            by_sex_standard_age_uhc, by_sex_decade_plus_5_age_uhc)
+            by_sex_standard_age_uhc, by_sex_decade_plus_5_age_uhc, by_sex_voter_age_uhc)
 
         frames['by_sex_%s' % self.get_geo_name()] = self.get_by_sex(
             frames[self.get_table_name_by_sex_age_race()])
@@ -405,6 +424,10 @@ class ACSPopulationIngester():
             all_races, RACE_CATEGORY_ID_COL, POPULATION_COL,
             Race.MULTI_OR_OTHER_STANDARD.value,
             [Race.MULTI.value, Race.OTHER_STANDARD.value])
+        all_races = add_sum_of_rows(
+            all_races, RACE_CATEGORY_ID_COL, POPULATION_COL,
+            Race.API_NH.value,
+            [Race.ASIAN_NH.value, Race.NHPI_NH.value])
 
         all_races = generate_pct_share_col(
             all_races, POPULATION_COL, POPULATION_PCT_COL,
@@ -461,7 +484,11 @@ class ACSPopulationIngester():
 
         return by_sex_age
 
-    def get_by_age(self, by_sex_age, by_sex_standard_age_uhc=None, by_sex_decade_plus_5_age_uhc=None):
+    def get_by_age(self,
+                   by_sex_age,
+                   by_sex_standard_age_uhc=None,
+                   by_sex_decade_plus_5_age_uhc=None,
+                   by_sex_voter_age_uhc=None):
         by_age = by_sex_age.loc[by_sex_age[SEX_COL] == TOTAL_VALUE]
 
         cols = [
@@ -481,8 +508,14 @@ class ACSPopulationIngester():
             by_decade_plus_5_age_uhc = by_sex_decade_plus_5_age_uhc.loc[
                 by_sex_decade_plus_5_age_uhc[SEX_COL] == TOTAL_VALUE]
             by_decade_plus_5_age_uhc = by_decade_plus_5_age_uhc[cols[1:]]
+            by_voter_age_uhc = by_sex_voter_age_uhc.loc[
+                by_sex_voter_age_uhc[SEX_COL] == TOTAL_VALUE]
+            by_voter_age_uhc = by_voter_age_uhc[cols[1:]]
 
-            by_age = pd.concat([by_age, by_standard_age_uhc, by_decade_plus_5_age_uhc]
+            by_age = pd.concat([by_age,
+                                by_standard_age_uhc,
+                                by_decade_plus_5_age_uhc,
+                                by_voter_age_uhc]
                                ).drop_duplicates().reset_index(drop=True)
 
         by_age = generate_pct_share_col(

@@ -13,16 +13,17 @@ export type PhraseSelector = Record<string, string>;
 
 // Each phrase segment of the mad lib is either a string of text
 // or a map of IDs to string options that can fill in a blank
-
 export type PhraseSegment = string | PhraseSelector;
 
 export type MadLibId = "disparity" | "comparegeos" | "comparevars";
 
+// wording used for determinant categories in the selectable dropdown on /exploredata
 export type CategoryId =
   | "COVID-19"
   | "Chronic Disease"
   | "Behavioral Health"
-  | "Social & Political Determinants of Health";
+  | "Political Determinants of Health"
+  | "Social Determinants of Health";
 
 export interface MadLib {
   readonly id: MadLibId;
@@ -98,9 +99,13 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   substance: "Opioid and Other Substance Misuse",
   excessive_drinking: "Excessive Drinking",
   frequent_mental_distress: "Frequent Mental Distress",
+  preventable_hospitalizations: "Preventable Hospitalization",
+  avoided_care: "Care Avoidance Due to Cost",
+  chronic_kidney_disease: "Chronic Kidney Disease",
+  cardiovascular_diseases: "Cardiovascular Diseases",
+  asthma: "Asthma",
+  voter_participation: "Voter Participation",
 };
-
-/* Update categories / DropdownVarIds here; type defs at top of file */
 
 export interface Category {
   readonly title: CategoryId;
@@ -115,14 +120,30 @@ const CATEGORIES_LIST: Category[] = [
     options: ["covid", "vaccinations"],
   },
   {
-    title: "Chronic Disease",
+    title: "Political Determinants of Health",
     definition: "",
-    options: ["diabetes", "copd"],
+    options: ["voter_participation"],
   },
   {
-    title: "Social & Political Determinants of Health",
+    title: "Social Determinants of Health",
     definition: "",
-    options: ["health_insurance", "poverty"],
+    options: [
+      "health_insurance",
+      "poverty",
+      "preventable_hospitalizations",
+      "avoided_care",
+    ],
+  },
+  {
+    title: "Chronic Disease",
+    definition: "",
+    options: [
+      "diabetes",
+      "copd",
+      "asthma",
+      "cardiovascular_diseases",
+      "chronic_kidney_disease",
+    ],
   },
   {
     title: "Behavioral Health",

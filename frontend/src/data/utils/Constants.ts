@@ -66,7 +66,7 @@ export const NON_STANDARD_RACES = [
 // COMBINATION RACE GROUPS AND (UNUSED) ARRAY
 export const API = "Asian, Native Hawaiian, and Pacific Islander";
 export const API_NH =
-  "Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic";
+  "Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)";
 export const INDIGENOUS = "Indigenous"; // Combines AIAN and NHPI
 export const INDIGENOUS_NH = "Indigenous (Non-Hispanic)";
 export const MULTI_OR_OTHER_STANDARD = "Two or more races & Unrepresented race";
@@ -122,6 +122,14 @@ export const DECADE_PLUS_5_AGE_BUCKETS = [
 ] as const;
 
 export const BROAD_AGE_BUCKETS = ["18-44", "45-64", "65+"] as const;
+
+export const VOTER_AGE_BUCKETS = [
+  "18-24",
+  "25-34",
+  "35-44",
+  "45-64",
+  "65+",
+] as const;
 
 export const CDC_AGE_BUCKETS = [
   "5-11",

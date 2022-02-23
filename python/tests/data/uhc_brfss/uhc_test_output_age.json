@@ -10,6 +10,12 @@
     "non_medical_rx_opioid_use_per_100k": "6500",
     "non_medical_drug_use_per_100k": "13100",
     "excessive_drinking_per_100k": "14300",
+    "preventable_hospitalizations_per_100k": "4912",
+    "avoided_care_per_100k": "13100",
+    "chronic_kidney_disease_per_100k": "4000",
+    "cardiovascular_diseases_per_100k": "11000",
+    "asthma_per_100k": "9000",
+    "voter_participation_per_100k": "55600",
     "age": "All"
   },
   {
@@ -23,6 +29,12 @@
     "non_medical_rx_opioid_use_per_100k": null,
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": null,
+    "preventable_hospitalizations_per_100k": null,
+    "avoided_care_per_100k": null,
+    "chronic_kidney_disease_per_100k": null,
+    "cardiovascular_diseases_per_100k": null,
+    "asthma_per_100k": null,
+    "voter_participation_per_100k": null,
     "age": "15-24"
   },
   {
@@ -36,6 +48,12 @@
     "non_medical_rx_opioid_use_per_100k": null,
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": null,
+    "preventable_hospitalizations_per_100k": null,
+    "avoided_care_per_100k": null,
+    "chronic_kidney_disease_per_100k": null,
+    "cardiovascular_diseases_per_100k": null,
+    "asthma_per_100k": null,
+    "voter_participation_per_100k": "53700",
     "age": "25-34"
   },
   {
@@ -49,6 +67,12 @@
     "non_medical_rx_opioid_use_per_100k": null,
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": null,
+    "preventable_hospitalizations_per_100k": null,
+    "avoided_care_per_100k": null,
+    "chronic_kidney_disease_per_100k": null,
+    "cardiovascular_diseases_per_100k": null,
+    "asthma_per_100k": null,
+    "voter_participation_per_100k": "60000",
     "age": "35-44"
   },
   {
@@ -62,6 +86,12 @@
     "non_medical_rx_opioid_use_per_100k": null,
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": null,
+    "preventable_hospitalizations_per_100k": null,
+    "avoided_care_per_100k": null,
+    "chronic_kidney_disease_per_100k": null,
+    "cardiovascular_diseases_per_100k": null,
+    "asthma_per_100k": null,
+    "voter_participation_per_100k": null,
     "age": "45-54"
   },
   {
@@ -75,6 +105,12 @@
     "non_medical_rx_opioid_use_per_100k": null,
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": null,
+    "preventable_hospitalizations_per_100k": null,
+    "avoided_care_per_100k": null,
+    "chronic_kidney_disease_per_100k": null,
+    "cardiovascular_diseases_per_100k": null,
+    "asthma_per_100k": null,
+    "voter_participation_per_100k": null,
     "age": "55-64"
   },
   {
@@ -88,6 +124,12 @@
     "non_medical_rx_opioid_use_per_100k": null,
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": null,
+    "preventable_hospitalizations_per_100k": null,
+    "avoided_care_per_100k": null,
+    "chronic_kidney_disease_per_100k": null,
+    "cardiovascular_diseases_per_100k": null,
+    "asthma_per_100k": null,
+    "voter_participation_per_100k": null,
     "age": "65-74"
   },
   {
@@ -101,6 +143,12 @@
     "non_medical_rx_opioid_use_per_100k": null,
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": null,
+    "preventable_hospitalizations_per_100k": null,
+    "avoided_care_per_100k": null,
+    "chronic_kidney_disease_per_100k": null,
+    "cardiovascular_diseases_per_100k": null,
+    "asthma_per_100k": null,
+    "voter_participation_per_100k": null,
     "age": "75-84"
   },
   {
@@ -114,20 +162,32 @@
     "non_medical_rx_opioid_use_per_100k": null,
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": null,
+    "preventable_hospitalizations_per_100k": null,
+    "avoided_care_per_100k": null,
+    "chronic_kidney_disease_per_100k": null,
+    "cardiovascular_diseases_per_100k": null,
+    "asthma_per_100k": null,
+    "voter_participation_per_100k": null,
     "age": "85+"
   },
   {
     "state_name": "Alabama",
-    "copd_per_100k": "4000",
-    "diabetes_per_100k": "4200",
-    "frequent_mental_distress_per_100k": "19600",
-    "depression_per_100k": "24000",
+    "copd_per_100k": null,
+    "diabetes_per_100k": null,
+    "frequent_mental_distress_per_100k": null,
+    "depression_per_100k": null,
     "suicide_per_100k": null,
     "illicit_opioid_use_per_100k": null,
     "non_medical_rx_opioid_use_per_100k": null,
     "non_medical_drug_use_per_100k": null,
-    "excessive_drinking_per_100k": "21500",
-    "age": "18-44"
+    "excessive_drinking_per_100k": null,
+    "preventable_hospitalizations_per_100k": null,
+    "avoided_care_per_100k": null,
+    "chronic_kidney_disease_per_100k": null,
+    "cardiovascular_diseases_per_100k": null,
+    "asthma_per_100k": null,
+    "voter_participation_per_100k": "45400",
+    "age": "18-24"
   },
   {
     "state_name": "Alabama",
@@ -140,7 +200,32 @@
     "non_medical_rx_opioid_use_per_100k": null,
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": "12500",
+    "preventable_hospitalizations_per_100k": null,
+    "avoided_care_per_100k": "12500",
+    "chronic_kidney_disease_per_100k": "5500",
+    "cardiovascular_diseases_per_100k": "13300",
+    "asthma_per_100k": "9300",
+    "voter_participation_per_100k": "66200",
     "age": "45-64"
+  },
+  {
+    "state_name": "Alabama",
+    "copd_per_100k": "4000",
+    "diabetes_per_100k": "4200",
+    "frequent_mental_distress_per_100k": "19600",
+    "depression_per_100k": "24000",
+    "suicide_per_100k": null,
+    "illicit_opioid_use_per_100k": null,
+    "non_medical_rx_opioid_use_per_100k": null,
+    "non_medical_drug_use_per_100k": null,
+    "excessive_drinking_per_100k": "21500",
+    "preventable_hospitalizations_per_100k": null,
+    "avoided_care_per_100k": "18200",
+    "chronic_kidney_disease_per_100k": "1300",
+    "cardiovascular_diseases_per_100k": "2400",
+    "asthma_per_100k": "9200",
+    "voter_participation_per_100k": null,
+    "age": "18-44"
   },
   {
     "state_name": "Alabama",
@@ -153,6 +238,12 @@
     "non_medical_rx_opioid_use_per_100k": null,
     "non_medical_drug_use_per_100k": null,
     "excessive_drinking_per_100k": "3600",
+    "preventable_hospitalizations_per_100k": null,
+    "avoided_care_per_100k": "3900",
+    "chronic_kidney_disease_per_100k": "7000",
+    "cardiovascular_diseases_per_100k": "24200",
+    "asthma_per_100k": "8100",
+    "voter_participation_per_100k": "64800",
     "age": "65+"
   }
 ]

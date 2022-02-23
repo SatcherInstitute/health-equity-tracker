@@ -14,6 +14,7 @@ export const UNTESTABLE_URLS = [
   urlMap.shliLinkedIn,
   urlMap.shliTwitter,
   "https://www.who.int/healthsystems/topics/equity/en/",
+  "https://www.who.int/health-topics/social-determinants-of-health#tab=tab_1",
 ];
 
 // skip some URLs we know don't provide HTTPS

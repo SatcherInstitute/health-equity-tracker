@@ -52,11 +52,20 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
         "non_medical_rx_opioid_use_per_100k": float,
         "non_medical_drug_use_per_100k": float,
         "excessive_drinking_per_100k": float,
+        "preventable_hospitalizations_per_100k": float,
+        "avoided_care_per_100k": float,
+        "chronic_kidney_disease_per_100k": float,
+        "cardiovascular_diseases_per_100k": float,
+        "asthma_per_100k": float,
+        "voter_participation_per_100k": float
     }
 
     demographics = ['race_and_ethnicity', 'age', 'sex']
 
     for i in range(len(demographics)):
+
+        # TODO! confirm column names are the same
+        # assert set(mock_bq.call_args_list[i].args[0].columns) == set(expected_df.columns)
 
         # add column type for each demographic file
         expected_dtype[demographics[i]] = str

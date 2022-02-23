@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np  # type: ignore
 
 from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
@@ -9,6 +10,7 @@ from ingestion import gcs_to_bq_util
 UHC_RACE_GROUPS = [
     'American Indian/Alaska Native',
     'Asian',
+    'Asian/Pacific Islander',
     'Black',
     'Hawaiian/Pacific Islander',
     'Hispanic',
@@ -23,8 +25,8 @@ BROAD_AGE_GROUPS = [
     '18-44',
     '45-64',
     '65+']
-# Suicide
-PLUS_5_AGE_GROUPS = [
+
+SUICIDE_AGE_GROUPS = [
     '15-24',
     '25-34',
     '35-44',
@@ -33,11 +35,22 @@ PLUS_5_AGE_GROUPS = [
     '65-74',
     '75-84',
     '85+']
-UHC_AGE_GROUPS = [
+
+
+VOTER_AGE_GROUPS = [
+    '18-24 ',  # NOTE csv has typo extra space which we remove later
+    '25-34',
+    '35-44',
+    '45-64']
+
+# single list of all unique age group options
+UHC_AGE_GROUPS = list(dict.fromkeys([
     'All',
-    *PLUS_5_AGE_GROUPS,
+    *SUICIDE_AGE_GROUPS,
+    *VOTER_AGE_GROUPS,
     *BROAD_AGE_GROUPS
-]
+]))
+
 # No Age Breakdowns for: Non-medical Drug (including Illicit Opioid, Non-Medical Rx Opioid)
 
 UHC_SEX_GROUPS = ['Male', 'Female', 'All']
@@ -45,6 +58,7 @@ UHC_SEX_GROUPS = ['Male', 'Female', 'All']
 RACE_GROUPS_TO_STANDARD = {
     'American Indian/Alaska Native': Race.AIAN_NH.value,
     'Asian': Race.ASIAN_NH.value,
+    'Asian/Pacific Islander': Race.API_NH.value,
     'Black': Race.BLACK_NH.value,
     'Hispanic': Race.HISP.value,
     'Hawaiian/Pacific Islander': Race.NHPI_NH.value,
@@ -56,7 +70,7 @@ RACE_GROUPS_TO_STANDARD = {
 
 BASE_UHC_URL = "https://www.americashealthrankings.org/api/v1/downloads/251"
 
-PCT_AGE_DETERMINANTS = {
+UHC_DETERMINANTS = {
     "Chronic Obstructive Pulmonary Disease": std_col.COPD_PER_100K,
     "Diabetes": std_col.DIABETES_PER_100K,
     "Frequent Mental Distress": std_col.FREQUENT_MENTAL_DISTRESS_PER_100K,
@@ -66,26 +80,47 @@ PCT_AGE_DETERMINANTS = {
     # NOTE: both opioid conditions below are subsets of Non-medical Drug Use above
     "Illicit Opioid Use": std_col.ILLICIT_OPIOID_USE_PER_100K,
     "Non-medical Use of Prescription Opioids": std_col.NON_MEDICAL_RX_OPIOID_USE_PER_100K,
+    "Asthma": std_col.ASTHMA_PER_100K,
+    "Cardiovascular Diseases": std_col.CARDIOVASCULAR_PER_100K,
+    "Chronic Kidney Disease": std_col.CHRONIC_KIDNEY_PER_100K,
+    "Avoided Care Due to Cost": std_col.AVOIDED_CARE_PER_100K,
+    "Suicide": std_col.SUICIDE_PER_100K,
+    "Preventable Hospitalizations": std_col.PREVENTABLE_HOSP_PER_100K,
+    "Voter Participation": std_col.VOTER_PARTICIPATION_PER_100K,
+
+    # VOTER PARTICIPATION
+    # pres: state total ALL + by age (missing 65+) + by sex + by race
+    # midterm: state total ALL + by age (missing 65+)
+    # 65+ midterm: only 65+ age tracker
+    # average: not using, state totals from AHR match our state totals
+
+
+
 }
 
 # When parsing Measure Names from rows with a demographic breakdown
 # these aliases will be used instead of the determinant string above
 ALT_ROWS_ALL = {
-    "Non-medical Drug Use": "Non-medical Drug Use - Past Year"
+    "Non-medical Drug Use": "Non-medical Drug Use - Past Year",
+    "Voter Participation": "Voter Participation (Presidential)"
 }
 
 ALT_ROWS_WITH_DEMO = {
-    "Illicit Opioid Use": "Use of Illicit Opioids"
-
+    "Illicit Opioid Use": "Use of Illicit Opioids",
+    "Voter Participation": "Voter Participation (Presidential)"
 }
 
-# note: suicide uses distinct age buckets
-# and is the only one that reports as "per 100k"
-# directly from the source
-PER100K_AGE_DETERMINANTS = {
+PER100K_DETERMINANTS = {
+    "Suicide": std_col.SUICIDE_PER_100K,
+    "Preventable Hospitalizations": std_col.PREVENTABLE_HOSP_PER_100K
+}
 
+PLUS_5_AGE_DETERMINANTS = {
     "Suicide": std_col.SUICIDE_PER_100K,
 }
+
+AVERAGED_DETERMINANTS = ["Voter Participation"]
+
 
 BREAKDOWN_MAP = {
     "race_and_ethnicity": UHC_RACE_GROUPS,
@@ -117,15 +152,7 @@ class UHCData(DataSource):
             breakdown_df = self.generate_breakdown(breakdown, df)
             column_types = {c: 'STRING' for c in breakdown_df.columns}
 
-            for col in [std_col.COPD_PER_100K,
-                        std_col.DIABETES_PER_100K,
-                        std_col.FREQUENT_MENTAL_DISTRESS_PER_100K,
-                        std_col.DEPRESSION_PER_100K,
-                        std_col.SUICIDE_PER_100K,
-                        std_col.ILLICIT_OPIOID_USE_PER_100K,
-                        std_col.NON_MEDICAL_RX_OPIOID_USE_PER_100K,
-                        std_col.NON_MEDICAL_DRUG_USE_PER_100K,
-                        std_col.EXCESSIVE_DRINKING_PER_100K]:
+            for col in UHC_DETERMINANTS.values():
                 column_types[col] = 'FLOAT'
 
             if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
@@ -139,23 +166,15 @@ class UHCData(DataSource):
         states = df['State Name'].drop_duplicates().to_list()
 
         columns = [std_col.STATE_NAME_COL,
-                   std_col.COPD_PER_100K,
-                   std_col.DIABETES_PER_100K,
-                   std_col.FREQUENT_MENTAL_DISTRESS_PER_100K,
-                   std_col.DEPRESSION_PER_100K,
-                   std_col.SUICIDE_PER_100K,
-                   std_col.ILLICIT_OPIOID_USE_PER_100K,
-                   std_col.NON_MEDICAL_RX_OPIOID_USE_PER_100K,
-                   std_col.NON_MEDICAL_DRUG_USE_PER_100K,
-                   std_col.EXCESSIVE_DRINKING_PER_100K]
+                   *UHC_DETERMINANTS.values()]
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
             columns.append(std_col.RACE_CATEGORY_ID_COL)
         else:
             columns.append(breakdown)
 
         for state in states:
-
             for breakdown_value in BREAKDOWN_MAP[breakdown]:
+
                 output_row = {}
                 output_row[std_col.STATE_NAME_COL] = state
 
@@ -163,23 +182,11 @@ class UHCData(DataSource):
                     output_row[std_col.RACE_CATEGORY_ID_COL] = \
                         RACE_GROUPS_TO_STANDARD[breakdown_value]
                 else:
-                    output_row[breakdown] = breakdown_value
+                    output_row[breakdown] = breakdown_value.strip()
 
-                # use select determinants based on the iterated age bucket
-                if breakdown_value in BROAD_AGE_GROUPS:
-                    determinants = PCT_AGE_DETERMINANTS
-                elif breakdown_value in PLUS_5_AGE_GROUPS:
-                    determinants = \
-                        PER100K_AGE_DETERMINANTS
-                # for age="All" or any race/sex breakdown, use all determinants
-                else:
-                    determinants = {
-                        **PCT_AGE_DETERMINANTS, **PER100K_AGE_DETERMINANTS}
-
-                for determinant in determinants:
+                for determinant in UHC_DETERMINANTS:
 
                     if breakdown_value == 'All':
-
                         # find row that matches current nested iterations
                         matched_row = df.loc[
                             (df['State Name'] == state) &
@@ -187,16 +194,32 @@ class UHCData(DataSource):
                              ALT_ROWS_ALL.get(determinant, determinant))
                         ]
 
-                        # extract and output the value (converting % to /100k as needed)
-                        if determinant in PCT_AGE_DETERMINANTS:
-                            output_row[determinants[determinant]
-                                       ] = matched_row['Value'].values[0] * 1000
-                        elif determinant in PER100K_AGE_DETERMINANTS:
-                            output_row[determinants[determinant]
+                        # TOTAL voter_participation is avg of pres and midterm data
+                        if determinant in AVERAGED_DETERMINANTS:
+
+                            matched_row_midterm = df.loc[
+                                (df['State Name'] == state) &
+                                (df['Measure Name'] ==
+                                 "Voter Participation (Midterm)")
+                            ]
+
+                            pres_all_value = matched_row['Value'].values[0]
+                            mid_all_value = matched_row_midterm['Value'].values[0]
+                            average_value = np.nanmean(
+                                [pres_all_value, mid_all_value])
+
+                            output_row[std_col.VOTER_PARTICIPATION_PER_100K] = average_value * 1000
+
+                        # already per 100k
+                        elif determinant in PER100K_DETERMINANTS:
+                            output_row[UHC_DETERMINANTS[determinant]
                                        ] = matched_row['Value'].values[0]
+                        # converted from % to per 100k
+                        else:
+                            output_row[UHC_DETERMINANTS[determinant]
+                                       ] = matched_row['Value'].values[0] * 1000
 
                     else:
-
                         # For rows with demographic breakdown, the determinant
                         # and breakdown group are in a single field
                         # We build that string to perfectly match the field,
@@ -214,15 +237,52 @@ class UHCData(DataSource):
                             (df['State Name'] == state) &
                             (df['Measure Name'] == measure_name)]
 
-                        if len(matched_row) > 0:
+                        # BY AGE voter participation is avg of pres and midterm
+                        if determinant in AVERAGED_DETERMINANTS and breakdown == std_col.AGE_COL:
+
+                            # get midterm for voting ages other than 65+
+                            if breakdown_value in VOTER_AGE_GROUPS:
+                                measure_name = (
+                                    f"Voter Participation (Midterm) - Ages "
+                                    f"{breakdown_value}"
+                                )
+
+                            # or get midterm for 65+ (different format)
+                            elif breakdown_value == "65+":
+                                measure_name = "Voter Participation - Ages 65+ (Midterm)"
+
+                            # skip midterm calc for all other age groups
+                            else:
+                                continue
+
+                            pres_breakdown_value, mid_breakdown_value = np.nan, np.nan
+
+                            if len(matched_row) > 0:
+                                pres_breakdown_value = matched_row['Value'].values[0]
+
+                            matched_row_midterm = df.loc[
+                                (df['State Name'] == state) &
+                                (df['Measure Name'] == measure_name)]
+
+                            if len(matched_row_midterm) > 0:
+                                mid_breakdown_value = matched_row_midterm['Value'].values[0]
+
+                            average_value = np.nanmean(
+                                [pres_breakdown_value, mid_breakdown_value])
+
+                            output_row[std_col.VOTER_PARTICIPATION_PER_100K] = average_value * 1000
+
+                        # for other determinants besides VOTER
+                        elif len(matched_row) > 0:
                             pct = matched_row['Value'].values[0]
                             if pct:
-                                # if data is a %, convert to per100k
-                                if determinant in PCT_AGE_DETERMINANTS:
-                                    output_row[determinants[determinant]
-                                               ] = pct * 1000
-                                elif determinant in PER100K_AGE_DETERMINANTS:
-                                    output_row[determinants[determinant]] = pct
+                                if determinant in PER100K_DETERMINANTS:
+                                    output_row[UHC_DETERMINANTS[determinant]
+                                               ] = matched_row['Value'].values[0]
+                                # convert from % to per 100k
+                                else:
+                                    output_row[UHC_DETERMINANTS[determinant]
+                                               ] = matched_row['Value'].values[0] * 1000
 
                 output.append(output_row)
 

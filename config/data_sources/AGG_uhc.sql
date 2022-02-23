@@ -15,6 +15,12 @@ WITH
         a.non_medical_drug_use_per_100k,
         a.non_medical_rx_opioid_use_per_100k,
         a.excessive_drinking_per_100k,
+        a.preventable_hospitalizations_per_100k,
+        a.avoided_care_per_100k,
+        a.chronic_kidney_disease_per_100k,
+        a.cardiovascular_diseases_per_100k,
+        a.asthma_per_100k,
+        a.voter_participation_per_100k,
         a.race,
         a.race_includes_hispanic,
         a.race_and_ethnicity
@@ -42,6 +48,12 @@ WITH
         a.non_medical_drug_use_per_100k,
         a.non_medical_rx_opioid_use_per_100k,
         a.excessive_drinking_per_100k,
+        a.preventable_hospitalizations_per_100k,
+        a.avoided_care_per_100k,
+        a.chronic_kidney_disease_per_100k,
+        a.cardiovascular_diseases_per_100k,
+        a.asthma_per_100k,
+        a.voter_participation_per_100k,
         a.age,
     FROM `uhc_data.age` AS a
     LEFT JOIN `bigquery-public-data.census_utility.fips_codes_states` AS b
@@ -67,6 +79,12 @@ WITH
         a.non_medical_drug_use_per_100k,
         a.non_medical_rx_opioid_use_per_100k,
         a.excessive_drinking_per_100k,
+        a.preventable_hospitalizations_per_100k,
+        a.avoided_care_per_100k,
+        a.chronic_kidney_disease_per_100k,
+        a.cardiovascular_diseases_per_100k,
+        a.asthma_per_100k,
+        a.voter_participation_per_100k,
         a.sex,
     FROM `uhc_data.sex` AS a
     LEFT JOIN `bigquery-public-data.census_utility.fips_codes_states` AS b

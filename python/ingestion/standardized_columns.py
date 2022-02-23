@@ -64,6 +64,12 @@ DIABETES_PER_100K = "diabetes_per_100k"
 ANXIETY_PER_100K = "anxiety_per_100k"
 FREQUENT_MENTAL_DISTRESS_PER_100K = "frequent_mental_distress_per_100k"
 SUICIDE_PER_100K = "suicide_per_100k"
+PREVENTABLE_HOSP_PER_100K = "preventable_hospitalizations_per_100k"
+AVOIDED_CARE_PER_100K = "avoided_care_per_100k"
+CHRONIC_KIDNEY_PER_100K = "chronic_kidney_disease_per_100k"
+CARDIOVASCULAR_PER_100K = "cardiovascular_diseases_per_100k"
+ASTHMA_PER_100K = "asthma_per_100k"
+VOTER_PARTICIPATION_PER_100K = "voter_participation_per_100k"
 
 # Standardized for Vaccination columns
 VACCINATED_FIRST_DOSE = "vaccinated_first_dose"
@@ -135,7 +141,8 @@ class Race(Enum):
     # we add a * for the non-standard other so it doesn't accidentally get
     # joined with the standard other on the frontend.
     OTHER_NONSTANDARD = ("OTHER_NONSTANDARD", "Unrepresented race", True)
-    OTHER_NONSTANDARD_NH = ("OTHER_NONSTANDARD_NH", "Unrepresented race", False)
+    OTHER_NONSTANDARD_NH = ("OTHER_NONSTANDARD_NH",
+                            "Unrepresented race", False)
 
     # Categories that are combinations of other categories
     # Currently only used in state level vaccination data

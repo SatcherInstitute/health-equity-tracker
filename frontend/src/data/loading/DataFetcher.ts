@@ -90,6 +90,7 @@ export class ApiDataFetcher implements DataFetcher {
 
     // TODO remove these once we figure out how to make BQ export integers as
     // integers
+
     if (
       datasetId.startsWith("acs_population") ||
       datasetId.startsWith("acs_2010_population")
@@ -133,6 +134,30 @@ export class ApiDataFetcher implements DataFetcher {
             row["suicide_per_100k"] == null
               ? null
               : Number(row["suicide_per_100k"]),
+          preventable_hospitalizations_per_100k:
+            row["preventable_hospitalizations_per_100k"] == null
+              ? null
+              : Number(row["preventable_hospitalizations_per_100k"]),
+          avoided_care_per_100k:
+            row["avoided_care_per_100k"] == null
+              ? null
+              : Number(row["avoided_care_per_100k"]),
+          chronic_kidney_disease_per_100k:
+            row["chronic_kidney_disease_per_100k"] == null
+              ? null
+              : Number(row["chronic_kidney_disease_per_100k"]),
+          cardiovascular_diseases_per_100k:
+            row["cardiovascular_diseases_per_100k"] == null
+              ? null
+              : Number(row["cardiovascular_diseases_per_100k"]),
+          asthma_per_100k:
+            row["asthma_per_100k"] == null
+              ? null
+              : Number(row["asthma_per_100k"]),
+          voter_participation_per_100k:
+            row["voter_participation_per_100k"] == null
+              ? null
+              : Number(row["voter_participation_per_100k"]),
         };
       });
     } else if (datasetId.startsWith("cdc_restricted")) {
