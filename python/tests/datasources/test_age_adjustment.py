@@ -3,9 +3,9 @@ import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
 
-import datasources.age_adjust as age_adjust
+import datasources.age_adjust_cdc_restricted as age_adjust
 
-from datasources.age_adjust import AgeAdjustCDCRestricted
+from datasources.age_adjust_cdc_restricted import AgeAdjustCDCRestricted
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))

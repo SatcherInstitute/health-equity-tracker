@@ -1,6 +1,6 @@
 from datasources.acs_population import ACSPopulation
 from datasources.acs_2010_population import ACS2010Population
-from datasources.age_adjust import AgeAdjustCDCRestricted
+from datasources.age_adjust_cdc_restricted import AgeAdjustCDCRestricted
 from datasources.census_pop_estimates import CensusPopEstimates
 from datasources.cdc_covid_deaths import CDCCovidDeaths
 from datasources.cdc_restricted import CDCRestrictedData
