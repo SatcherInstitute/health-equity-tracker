@@ -209,6 +209,7 @@ function AgeAdjustedDataTypeLinksMessage(
             </a>
 
             {i < props.ageAdjustedDataTypes.length - 1 && ", "}
+            {i === props.ageAdjustedDataTypes.length - 1 && "."}
           </span>
         );
       })}
