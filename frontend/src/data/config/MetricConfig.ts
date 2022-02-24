@@ -144,6 +144,7 @@ export type MetricConfig = {
   unknownsVegaLabel?: string;
   type: MetricType;
   populationComparisonMetric?: MetricConfig;
+  ageAdjusted?: boolean;
 
   // This metric is one where the denominator only includes records where
   // demographics are known. For example, for "share of covid cases" in the US
@@ -372,6 +373,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           fullCardTitleName: "Age-Adjusted Ratio of COVID-19 Deaths",
           shortVegaLabel: "ratio for deaths",
           type: "ratio", // ×
+          ageAdjusted: true,
         },
       },
     },
@@ -422,6 +424,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           fullCardTitleName: "Age-Adjusted Ratio of COVID-19 Hospitalizations",
           shortVegaLabel: "ratio for hospitalizations",
           type: "ratio", // ×
+          ageAdjusted: true,
         },
       },
     },

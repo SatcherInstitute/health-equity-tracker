@@ -13,6 +13,8 @@ import {
   MetricId,
   VariableConfig,
   getAgeAdjustedRatioMetric,
+  DropdownVarId,
+  METRIC_CONFIG,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
@@ -28,6 +30,22 @@ import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import styles from "./Card.module.scss";
 import MissingDataAlert from "./ui/MissingDataAlert";
+import {
+  COVID_DEATHS_US_SETTING,
+  COVID_HOSP_US_SETTING,
+} from "../utils/urlutils";
+
+type DataTypeLink = {
+  dataType: string;
+  url: string;
+};
+
+export const ageAdjustedDataTypeMap: Record<string, DataTypeLink[]> = {
+  covid: [
+    { dataType: "COVID-19 Hospitalizations", url: COVID_HOSP_US_SETTING },
+    { dataType: "COVID-19 Deaths", url: COVID_DEATHS_US_SETTING },
+  ],
+};
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 800;
@@ -35,6 +53,8 @@ const PRELOAD_HEIGHT = 800;
 export interface AgeAdjustedTableCardProps {
   fips: Fips;
   variableConfig: VariableConfig;
+  dropdownVarId?: DropdownVarId;
+  setVariableConfigWithParam?: Function;
 }
 
 export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
@@ -121,8 +141,16 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               noRatios && (
                 <CardContent>
                   <Alert severity="warning" role="note">
-                    We do not plan to calculate age-adjusted ratios for{" "}
-                    <b>{props.variableConfig.variableFullDisplayName}</b>.
+                    Because outcomes for{" "}
+                    <b>{props.variableConfig.variableFullDisplayName}</b> are
+                    not heavily influenced by age, we do not provide
+                    age-adjusted numbers.{" "}
+                    <AgeAdjustedDataTypeLinksMessage
+                      setVariableConfigWithParam={
+                        props.setVariableConfigWithParam
+                      }
+                      links={ageAdjustedDataTypeMap[props.dropdownVarId!]}
+                    />
                   </Alert>
                 </CardContent>
               )}
@@ -140,5 +168,36 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
         );
       }}
     </CardWrapper>
+  );
+}
+
+interface AgeAdjustedDataTypeLinksMessageProps {
+  links: DataTypeLink[];
+  setVariableConfigWithParam?: any;
+}
+
+function AgeAdjustedDataTypeLinksMessage(
+  props: AgeAdjustedDataTypeLinksMessageProps
+) {
+  if (!props.links || props.links?.length === 0) return <></>;
+
+  return (
+    <>
+      Age-adjusted ratios are currently only available for the following data
+      types:{" "}
+      {props.links.map((link, i) => (
+        <>
+          <button
+            onClick={() =>
+              props.setVariableConfigWithParam(METRIC_CONFIG["covid"][2])
+            }
+          >
+            {" "}
+            <b>{link.dataType}</b>
+          </button>
+          {i < props.links.length - 1 && ", "}
+        </>
+      ))}
+    </>
   );
 }

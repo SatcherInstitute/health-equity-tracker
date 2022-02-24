@@ -235,6 +235,8 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               <AgeAdjustedTableCard
                 fips={props.fips}
                 variableConfig={variableConfig}
+                dropdownVarId={props.dropdownVarId}
+                setVariableConfigWithParam={setVariableConfigWithParam}
               />
             </LazyLoad>
           </Grid>

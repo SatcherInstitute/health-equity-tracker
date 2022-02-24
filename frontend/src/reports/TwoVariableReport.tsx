@@ -333,8 +333,12 @@ function TwoVariableReport(props: {
 
       <RowOfTwoOptionalMetrics
         id="ageAdjustedTableCard"
+        // specific data type
         variableConfig1={variableConfig1}
         variableConfig2={variableConfig2}
+        // parent variable
+        dropdownVarId1={props.dropdownVarId1}
+        dropdownVarId2={props.dropdownVarId2}
         fips1={props.fips1}
         fips2={props.fips2}
         updateFips1={props.updateFips1Callback}
@@ -342,9 +346,14 @@ function TwoVariableReport(props: {
         createCard={(
           variableConfig: VariableConfig,
           fips: Fips,
-          updateFips: (fips: Fips) => void
+          updateFips: (fips: Fips) => void,
+          dropdownVarId?: DropdownVarId
         ) => (
-          <AgeAdjustedTableCard fips={fips} variableConfig={variableConfig} />
+          <AgeAdjustedTableCard
+            fips={fips}
+            variableConfig={variableConfig}
+            dropdownVarId={dropdownVarId}
+          />
         )}
       />
     </Grid>
@@ -362,8 +371,11 @@ function RowOfTwoOptionalMetrics(props: {
   createCard: (
     variableConfig: VariableConfig,
     fips: Fips,
-    updateFips: (fips: Fips) => void
+    updateFips: (fips: Fips) => void,
+    dropdownVarId?: DropdownVarId
   ) => JSX.Element;
+  dropdownVarId1?: DropdownVarId;
+  dropdownVarId2?: DropdownVarId;
 }) {
   if (!props.variableConfig1 && !props.variableConfig2) {
     return <></>;
@@ -381,7 +393,8 @@ function RowOfTwoOptionalMetrics(props: {
               {props.createCard(
                 props.variableConfig1,
                 props.fips1,
-                props.updateFips1 || unusedFipsCallback
+                props.updateFips1 || unusedFipsCallback,
+                props.dropdownVarId1
               )}
             </>
           )}
@@ -394,7 +407,8 @@ function RowOfTwoOptionalMetrics(props: {
               {props.createCard(
                 props.variableConfig2,
                 props.fips2,
-                props.updateFips2 || unusedFipsCallback
+                props.updateFips2 || unusedFipsCallback,
+                props.dropdownVarId2
               )}
             </>
           )}
