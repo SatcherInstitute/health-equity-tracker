@@ -83,8 +83,10 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     } in ${props.fips.getFullDisplayName()}`}</>
   );
 
-  const ageAdjustedDataTypes: VariableConfig[] =
-    METRIC_CONFIG[props.dropdownVarId!];
+  // collect data types from the currently selected condition that offer age-adjusted ratios
+  const ageAdjustedDataTypes: VariableConfig[] = METRIC_CONFIG[
+    props.dropdownVarId!
+  ].filter((dataType) => dataType?.metrics["age_adjusted_ratio"]?.ageAdjusted);
 
   return (
     <CardWrapper minHeight={PRELOAD_HEIGHT} queries={[query]} title={cardTitle}>
