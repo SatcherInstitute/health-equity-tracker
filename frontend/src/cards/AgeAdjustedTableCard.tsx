@@ -83,6 +83,9 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     } in ${props.fips.getFullDisplayName()}`}</>
   );
 
+  const ageAdjustedDataTypes: VariableConfig[] =
+    METRIC_CONFIG[props.dropdownVarId!];
+
   return (
     <CardWrapper minHeight={PRELOAD_HEIGHT} queries={[query]} title={cardTitle}>
       {([queryResponse]) => {
@@ -149,7 +152,8 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                       setVariableConfigWithParam={
                         props.setVariableConfigWithParam
                       }
-                      links={ageAdjustedDataTypeMap[props.dropdownVarId!]}
+                      ageAdjustedDataTypes={ageAdjustedDataTypes}
+                      dropdownVarId={props.dropdownVarId}
                     />
                   </Alert>
                 </CardContent>
@@ -172,32 +176,40 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
 }
 
 interface AgeAdjustedDataTypeLinksMessageProps {
-  links: DataTypeLink[];
+  ageAdjustedDataTypes: VariableConfig[];
   setVariableConfigWithParam?: any;
+  dropdownVarId?: DropdownVarId;
 }
 
 function AgeAdjustedDataTypeLinksMessage(
   props: AgeAdjustedDataTypeLinksMessageProps
 ) {
-  if (!props.links || props.links?.length === 0) return <></>;
+  if (!props.ageAdjustedDataTypes) return <></>;
 
   return (
     <>
-      Age-adjusted ratios are currently only available for the following data
-      types:{" "}
-      {props.links.map((link, i) => (
-        <>
-          <button
-            onClick={() =>
-              props.setVariableConfigWithParam(METRIC_CONFIG["covid"][2])
-            }
-          >
-            {" "}
-            <b>{link.dataType}</b>
-          </button>
-          {i < props.links.length - 1 && ", "}
-        </>
-      ))}
+      Age-adjusted ratios are currently available for the following{" "}
+      {props.dropdownVarId} data types:{" "}
+      {props.ageAdjustedDataTypes.map((dataType, i) => {
+        return (
+          <span key={dataType.variableDisplayName}>
+            <a
+              href="#dataType"
+              onClick={(e) => {
+                e.preventDefault();
+                props.setVariableConfigWithParam(dataType);
+              }}
+              role="button"
+              className={styles.CompareAcrossLink}
+            >
+              {" "}
+              <b>{dataType.variableFullDisplayName}</b>
+            </a>
+
+            {i < props.ageAdjustedDataTypes.length - 1 && ", "}
+          </span>
+        );
+      })}
     </>
   );
 }
