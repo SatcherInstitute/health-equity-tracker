@@ -40,6 +40,7 @@ import Divider from "@material-ui/core/Divider";
 import {
   UHC_API_NH_DETERMINANTS,
   UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
+  UHC_DETERMINANTS,
   UHC_VOTER_AGE_DETERMINANTS,
 } from "../data/variables/BrfssProvider";
 import { urlMap } from "../utils/externalUrls";
@@ -68,21 +69,37 @@ export function TableCard(props: TableCardProps) {
 
   // choose demographic groups to exclude from the table
   let exclusionList = [ALL];
+
+  // across all variables
   if (props.breakdownVar === "race_and_ethnicity") {
     exclusionList.push(NON_HISPANIC);
+  }
 
-    // use either API or ASIAN + NHPI
+  // only for UHC variables
+  const ALL_UHC_DETERMINANTS = [
+    ...UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
+    ...UHC_VOTER_AGE_DETERMINANTS,
+    ...UHC_DETERMINANTS,
+  ];
+  if (
+    ALL_UHC_DETERMINANTS.includes(current100k) &&
+    props.breakdownVar === "race_and_ethnicity"
+  ) {
     UHC_API_NH_DETERMINANTS.includes(current100k)
       ? exclusionList.push(ASIAN_NH, NHPI_NH)
       : exclusionList.push(API_NH);
-  } else if (props.breakdownVar === "age") {
+  } else if (
+    ALL_UHC_DETERMINANTS.includes(current100k) &&
+    props.breakdownVar === "age"
+  ) {
     // get correct age buckets for this determinant
     let determinantBuckets: any[] = [];
     if (UHC_DECADE_PLUS_5_AGE_DETERMINANTS.includes(current100k))
       determinantBuckets.push(...DECADE_PLUS_5_AGE_BUCKETS);
     else if (UHC_VOTER_AGE_DETERMINANTS.includes(current100k))
       determinantBuckets.push(...VOTER_AGE_BUCKETS);
-    else determinantBuckets.push(...BROAD_AGE_BUCKETS);
+    else if (UHC_DETERMINANTS.includes(current100k))
+      determinantBuckets.push(...BROAD_AGE_BUCKETS);
 
     // remove all of the other age groups
     const irrelevantAgeBuckets = AGE_BUCKETS.filter(
