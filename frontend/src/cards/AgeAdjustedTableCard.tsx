@@ -111,7 +111,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                 populations (in our case, racial groups compared to White,
                 Non-Hispanic individuals) when comparing rates of incidence.
                 This is extremely important for conditions where age is a large
-                risk factor, e.g. the risk of dying with Covid increases
+                risk factor, e.g. the risk of dying with COVID-19 increases
                 non-linearly with age. Age-adjustment allows us to compute rates
                 that are normalized for age, painting a more accurate picture of
                 health inequities.{" "}
