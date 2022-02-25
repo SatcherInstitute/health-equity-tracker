@@ -1,6 +1,7 @@
 import { Grid } from "@material-ui/core";
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState, Fragment, useRef } from "react";
 import LazyLoad from "react-lazyload";
+import { useLocation } from "react-router-dom";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { MapCard } from "../cards/MapCard";
 import { PopulationCard } from "../cards/PopulationCard";
@@ -40,6 +41,12 @@ export interface VariableDisparityReportProps {
 }
 
 export function VariableDisparityReport(props: VariableDisparityReportProps) {
+  const ref100kMap = useRef<null | HTMLDivElement>(null);
+  const ref100kBarChart = useRef<null | HTMLDivElement>(null);
+  const refUnknownsMap = useRef<null | HTMLDivElement>(null);
+  const refPopulationShareMap = useRef<null | HTMLDivElement>(null);
+  const refDataTable = useRef<null | HTMLDivElement>(null);
+
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, RACE)
   );
@@ -93,6 +100,31 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
   const breakdownIsShown = (breakdownVar: string) =>
     currentBreakdown === breakdownVar;
 
+  // handle incoming link to MISSING DATA sections
+  const location: any = useLocation();
+
+  // const doScrollToData: boolean =
+  //   location?.hash === `#${WHAT_DATA_ARE_MISSING_ID}`;
+
+  if (location?.hash) {
+    console.log(location.hash);
+
+    ref100kMap.current &&
+      setTimeout(() => {
+        ref100kMap?.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }, 2000);
+
+    // eslint-disable-next-line no-restricted-globals
+    // history.pushState(
+    //   "",
+    //   document.title,
+    //   window.location.pathname + window.location.search
+    // );
+  }
+
   return (
     <Grid
       item
@@ -127,30 +159,26 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           )}
 
           {/* 100k MAP CARD */}
-          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="mapCard">
-            <MapCard
-              variableConfig={variableConfig}
-              fips={props.fips}
-              updateFipsCallback={(fips: Fips) => {
-                props.updateFipsCallback(fips);
-              }}
-              currentBreakdown={currentBreakdown}
-              jumpToDefinitions={props.jumpToDefinitions}
-              jumpToData={props.jumpToData}
-            />
+          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="100kMap">
+            <div ref={ref100kMap}>
+              <MapCard
+                variableConfig={variableConfig}
+                fips={props.fips}
+                updateFipsCallback={(fips: Fips) => {
+                  props.updateFipsCallback(fips);
+                }}
+                currentBreakdown={currentBreakdown}
+                jumpToDefinitions={props.jumpToDefinitions}
+                jumpToData={props.jumpToData}
+              />
+            </div>
           </Grid>
 
           {/* 100K BAR CHART CARD */}
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={SINGLE_COLUMN_WIDTH}
-            id="simpleBarChartCard"
-          >
+          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH} id="100kBarChart">
             <LazyLoad offset={300} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-                <Fragment key={breakdownVar}>
+                <div ref={ref100kBarChart} key={breakdownVar}>
                   {breakdownIsShown(breakdownVar) &&
                     variableConfig.metrics["per100k"] && (
                       <SimpleBarChartCard
@@ -159,30 +187,26 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                         fips={props.fips}
                       />
                     )}
-                </Fragment>
+                </div>
               ))}
             </LazyLoad>
           </Grid>
 
           {/* UNKNOWNS MAP CARD */}
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={SINGLE_COLUMN_WIDTH}
-            id="unknownsMapCard"
-          >
+          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH} id="UnknownsMap">
             <LazyLoad offset={300} height={750} once>
               {variableConfig.metrics["pct_share"] && (
-                <UnknownsMapCard
-                  overrideAndWithOr={currentBreakdown === RACE}
-                  variableConfig={variableConfig}
-                  fips={props.fips}
-                  updateFipsCallback={(fips: Fips) => {
-                    props.updateFipsCallback(fips);
-                  }}
-                  currentBreakdown={currentBreakdown}
-                />
+                <div ref={refUnknownsMap}>
+                  <UnknownsMapCard
+                    overrideAndWithOr={currentBreakdown === RACE}
+                    variableConfig={variableConfig}
+                    fips={props.fips}
+                    updateFipsCallback={(fips: Fips) => {
+                      props.updateFipsCallback(fips);
+                    }}
+                    currentBreakdown={currentBreakdown}
+                  />
+                </div>
               )}
             </LazyLoad>
           </Grid>
@@ -193,11 +217,11 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
             xs={12}
             sm={12}
             md={SINGLE_COLUMN_WIDTH}
-            id="disparityBarChartCard"
+            id="PopulationShareMap"
           >
             <LazyLoad offset={300} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-                <Fragment key={breakdownVar}>
+                <div ref={refPopulationShareMap} key={breakdownVar}>
                   {breakdownIsShown(breakdownVar) &&
                     variableConfig.metrics["pct_share"] && (
                       <DisparityBarChartCard
@@ -206,16 +230,16 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                         fips={props.fips}
                       />
                     )}
-                </Fragment>
+                </div>
               ))}
             </LazyLoad>
           </Grid>
 
           {/* DATA TABLE CARD */}
-          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="tableCard">
+          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="DataTable">
             <LazyLoad offset={300} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-                <Fragment key={breakdownVar}>
+                <div key={breakdownVar} ref={refDataTable}>
                   {breakdownIsShown(breakdownVar) && (
                     <TableCard
                       fips={props.fips}
@@ -223,7 +247,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                       breakdownVar={breakdownVar}
                     />
                   )}
-                </Fragment>
+                </div>
               ))}
             </LazyLoad>
           </Grid>
