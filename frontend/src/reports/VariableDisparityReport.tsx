@@ -109,9 +109,19 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
   if (location?.hash) {
     console.log(location.hash);
 
-    ref100kMap.current &&
+    location.hash === "#100kMap" &&
+      ref100kMap.current &&
       setTimeout(() => {
         ref100kMap?.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }, 2000);
+
+    location.hash === "#DataTable" &&
+      refDataTable.current &&
+      setTimeout(() => {
+        refDataTable?.current?.scrollIntoView({
           behavior: "smooth",
           block: "center",
         });
