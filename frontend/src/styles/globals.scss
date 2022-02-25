@@ -11,6 +11,17 @@
   z-index: -999;
 }
 
+.PrimaryButton {
+  background-color: $alt-green;
+  color: white !important;
+  border-radius: 40px !important;
+  font-size: $title !important;
+  font-weight: 500 !important;
+  font-family: "DM Sans", sans-serif !important;
+  padding: 16px 30px !important;
+  text-align: center;
+}
+
 .Unit {
   font-size: $smallest;
   font-weight: 200;
