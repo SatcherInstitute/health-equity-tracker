@@ -1,13 +1,6 @@
 @use "../../styles/globals.scss";
 @import "../../styles/variables.module";
 
-// For styles Grid-wide
-.Grid {
-  margin: auto;
-  max-width: 1440px;
-  font-family: "Inter", serif;
-}
-
 /** ------------- TYPES OF GRID ROWS ------------- **/
 
 // Generic grid row with no special styling

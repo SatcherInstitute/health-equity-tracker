@@ -11,6 +11,12 @@
   z-index: -999;
 }
 
+.Grid {
+  margin: auto;
+  max-width: 1440px;
+  font-family: "Inter", serif;
+}
+
 .PrimaryButton {
   background-color: $alt-green;
   color: white !important;
