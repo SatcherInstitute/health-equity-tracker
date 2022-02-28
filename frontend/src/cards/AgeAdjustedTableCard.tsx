@@ -24,6 +24,8 @@ import {
   UNKNOWN_RACE,
   UNKNOWN_ETHNICITY,
   ALL,
+  WHITE_NH,
+  MULTI_OR_OTHER_STANDARD_NH,
 } from "../data/utils/Constants";
 import { Row } from "../data/utils/DatasetTypes";
 import Alert from "@material-ui/lab/Alert";
@@ -76,7 +78,6 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const metricIds = Object.keys(metricConfigs) as MetricId[];
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
   const ratioId = metricIds[0];
-  console.log(ratioId);
 
   const cardTitle = (
     <>{`Age-Adjusted Ratio of ${
@@ -88,26 +89,25 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const ageAdjustedDataTypes: VariableConfig[] = METRIC_CONFIG[
     props.dropdownVarId!
   ].filter((dataType) => {
-    console.log(dataType);
     return dataType?.metrics["age_adjusted_ratio"]?.ageAdjusted;
   });
 
   return (
     <CardWrapper minHeight={PRELOAD_HEIGHT} queries={[query]} title={cardTitle}>
       {([queryResponse]) => {
-        console.log(queryResponse.data);
-        let dataWithoutUnknowns = queryResponse.data.filter((row: Row) => {
+        let knownData = queryResponse.data.filter((row: Row) => {
           return (
+            // remove unknowns
             row[RACE] !== UNKNOWN &&
             row[RACE] !== UNKNOWN_RACE &&
-            row[RACE] !== UNKNOWN_ETHNICITY
+            row[RACE] !== UNKNOWN_ETHNICITY &&
+            // remove Two or More & Unrepresented as this will never exist; and WHITE because it will always be 1
+            row[RACE] !== WHITE_NH &&
+            row[RACE] !== MULTI_OR_OTHER_STANDARD_NH
           );
         });
-        const noRatios = dataWithoutUnknowns.every(
-          (row) => row[ratioId] === undefined
-        );
+        const noRatios = knownData.every((row) => row[ratioId] === undefined);
 
-        console.log(dataWithoutUnknowns);
         return (
           <>
             <CardContent>
@@ -174,7 +174,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
             {!queryResponse.dataIsMissing() && !noRatios && (
               <div className={styles.TableChart}>
                 <AgeAdjustedTableChart
-                  data={dataWithoutUnknowns}
+                  data={knownData}
                   metrics={Object.values(metricConfigs)}
                 />
               </div>

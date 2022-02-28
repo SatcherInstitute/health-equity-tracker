@@ -258,6 +258,89 @@ describe("cdcCovidProvider", () => {
     );
   });
 
+  //
+  test("State and Age Breakdown", async () => {
+    const AL_FORTY_ROW = {
+      state_fips: AL.code,
+      state_name: AL.name,
+      cases: 10,
+      hosp_y: 1,
+      death_y: 5,
+      age: FORTY_TO_FORTY_NINE,
+      population: 2000,
+      population_pct: 100,
+    };
+
+    const AL_ALL_ROW = {
+      state_fips: AL.code,
+      state_name: AL.name,
+      cases: 10,
+      hosp_y: 1,
+      death_y: 5,
+      age: ALL,
+      population: 2000,
+      population_pct: 100,
+    };
+
+    const NC_FORTY_ROW = {
+      state_fips: NC.code,
+      state_name: NC.name,
+      cases: 10,
+      hosp_y: 1,
+      death_y: 5,
+      age: FORTY_TO_FORTY_NINE,
+      population: 2000,
+      population_pct: 20,
+    };
+
+    const NC_ALL_ROW = {
+      state_fips: NC.code,
+      state_name: NC.name,
+      cases: 200,
+      hosp_y: 500,
+      death_y: 1000,
+      age: ALL,
+      population: 10000,
+      population_pct: 100,
+    };
+
+    const rawCovidData = [NC_FORTY_ROW, NC_ALL_ROW, AL_FORTY_ROW, AL_ALL_ROW];
+
+    const NC_FORTY_FINAL_ROW = {
+      fips: NC.code,
+      fips_name: NC.name,
+      age: FORTY_TO_FORTY_NINE,
+      covid_cases: 10,
+      covid_cases_per_100k: 500,
+      covid_cases_share: 5,
+      covid_cases_share_of_known: 100,
+      covid_cases_reporting_population: 2000,
+      covid_cases_reporting_population_pct: 20,
+    };
+    const NC_ALL_FINAL_ROW = {
+      fips: NC.code,
+      fips_name: NC.name,
+      age: ALL,
+      covid_cases: 200,
+      covid_cases_per_100k: 2000,
+      covid_cases_share: 100,
+      covid_cases_share_of_known: 100,
+      covid_cases_reporting_population: 10000,
+      covid_cases_reporting_population_pct: 100,
+    };
+
+    await evaluateWithAndWithoutAll(
+      "cdc_restricted_data-by_age_state",
+      rawCovidData,
+      ["acs_population-by_age_state"],
+      [],
+      Breakdowns.forFips(new Fips(NC.code)),
+      "age",
+      [NC_FORTY_FINAL_ROW],
+      [NC_ALL_FINAL_ROW, NC_FORTY_FINAL_ROW]
+    );
+  });
+
   test("National and Sex Breakdown", async () => {
     const NC_FEMALE_ROW = {
       county_fips: NC.code,

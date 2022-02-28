@@ -189,8 +189,8 @@ function MethodologyTab() {
                     , and <b>Native Hawaiian and Pacific Islander</b>. These
                     alternate population comparisons metrics shown with a
                     different color on the disparities bar chart. We are unable
-                    to show a population comparison metric for “Some Other Race”
-                    because we are unsure of the definition in each state.
+                    to show a population comparison metric for “Unrepresented
+                    Race” because we are unsure of the definition in each state.
                   </li>
                   <li>
                     For the county level we use the ACS 2019 population

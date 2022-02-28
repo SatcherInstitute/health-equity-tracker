@@ -60,7 +60,6 @@ export class ApiDataFetcher implements DataFetcher {
     const basePath = this.shouldFetchAsStaticFile(fullDatasetName)
       ? "/tmp/"
       : this.getApiUrl() + "/dataset?name=";
-    console.log(basePath + fullDatasetName);
     return basePath + fullDatasetName;
   }
 
