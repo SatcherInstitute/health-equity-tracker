@@ -60,6 +60,7 @@ export class ApiDataFetcher implements DataFetcher {
     const basePath = this.shouldFetchAsStaticFile(fullDatasetName)
       ? "/tmp/"
       : this.getApiUrl() + "/dataset?name=";
+    console.log(basePath + fullDatasetName);
     return basePath + fullDatasetName;
   }
 
@@ -172,6 +173,7 @@ export class ApiDataFetcher implements DataFetcher {
           death_y: Number(row["death_y"]),
           death_n: Number(row["death_n"]),
           death_unknown: Number(row["death_unknown"]),
+          // death_ratio_age_adjusted: Number(row["death_ratio_age_adjusted"]),
           population:
             row["population"] == null ? null : Number(row["population"]),
         };

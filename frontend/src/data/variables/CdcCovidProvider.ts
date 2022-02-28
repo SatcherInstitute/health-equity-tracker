@@ -37,8 +37,8 @@ class CdcCovidProvider extends VariableProvider {
       "covid_cases_reporting_population_pct",
       "covid_deaths_reporting_population_pct",
       "covid_hosp_reporting_population_pct",
-      "covid_deaths_age_adjusted_ratio",
-      "covid_hosp_age_adjusted_ratio",
+      "death_ratio_age_adjusted",
+      "hosp_ratio_age_adjusted",
       "covid_cases_age_adjusted_ratio",
     ]);
     this.acsProvider = acsProvider;
@@ -205,18 +205,14 @@ class CdcCovidProvider extends VariableProvider {
         covid_hosp_per_100k: (row) =>
           this.calculations.per100k(row.covid_hosp, row.population),
         //  Correct types for Age-Adjusted Ratios
-        covid_hosp_age_adjusted_ratio: (row) =>
-          row.covid_hosp_age_adjusted_ratio == null
-            ? "2x (test)"
-            : row.covid_hosp_age_adjusted_ratio,
-        covid_deaths_age_adjusted_ratio: (row) =>
-          row.covid_deaths_age_adjusted_ratio == null
-            ? "3.2x (test)"
-            : row.covid_deaths_age_adjusted_ratio,
-        // covid_cases_age_adjusted_ratio: (row) =>
-        //   row.covid_cases_age_adjusted_ratio == null
-        //     ? null
-        //     : row.covid_cases_age_adjusted_ratio,
+        hosp_ratio_age_adjusted: (row) =>
+          row.hosp_ratio_age_adjusted == null
+            ? null
+            : row.hosp_ratio_age_adjusted,
+        death_ratio_age_adjusted: (row) =>
+          row.death_ratio_age_adjusted == null
+            ? null
+            : row.death_ratio_age_adjusted,
       })
       .resetIndex();
 

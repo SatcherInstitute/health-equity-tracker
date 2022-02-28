@@ -76,6 +76,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const metricIds = Object.keys(metricConfigs) as MetricId[];
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
   const ratioId = metricIds[0];
+  console.log(ratioId);
 
   const cardTitle = (
     <>{`Age-Adjusted Ratio of ${
@@ -86,11 +87,15 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   // collect data types from the currently selected condition that offer age-adjusted ratios
   const ageAdjustedDataTypes: VariableConfig[] = METRIC_CONFIG[
     props.dropdownVarId!
-  ].filter((dataType) => dataType?.metrics["age_adjusted_ratio"]?.ageAdjusted);
+  ].filter((dataType) => {
+    console.log(dataType);
+    return dataType?.metrics["age_adjusted_ratio"]?.ageAdjusted;
+  });
 
   return (
     <CardWrapper minHeight={PRELOAD_HEIGHT} queries={[query]} title={cardTitle}>
       {([queryResponse]) => {
+        console.log(queryResponse.data);
         let dataWithoutUnknowns = queryResponse.data.filter((row: Row) => {
           return (
             row[RACE] !== UNKNOWN &&
@@ -101,6 +106,8 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
         const noRatios = dataWithoutUnknowns.every(
           (row) => row[ratioId] === undefined
         );
+
+        console.log(dataWithoutUnknowns);
         return (
           <>
             <CardContent>

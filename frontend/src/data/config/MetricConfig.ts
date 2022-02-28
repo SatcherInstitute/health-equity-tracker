@@ -56,14 +56,14 @@ export type MetricId =
   | "covid_deaths_reporting_population_pct"
   | "covid_deaths_share"
   | "covid_deaths_share_of_known"
-  | "covid_deaths_age_adjusted_ratio"
+  | "death_ratio_age_adjusted"
   | "covid_hosp"
   | "covid_hosp_per_100k"
   | "covid_hosp_reporting_population"
   | "covid_hosp_reporting_population_pct"
   | "covid_hosp_share"
   | "covid_hosp_share_of_known"
-  | "covid_hosp_age_adjusted_ratio"
+  | "hosp_ratio_age_adjusted"
   | "diabetes_pct_share"
   | "diabetes_per_100k"
   | "diabetes_age_adjusted_ratio"
@@ -225,13 +225,15 @@ export function formatFieldValue(
     return "";
   }
   const isPctShare = metricType === "pct_share";
-  const formatOptions = isPctShare ? { minimumFractionDigits: 1 } : {};
+  const isRatio = metricType.includes("ratio");
+  let formatOptions = isPctShare ? { minimumFractionDigits: 1 } : {};
   const formattedValue =
     typeof value === "number"
       ? value.toLocaleString("en", formatOptions)
       : value;
-  const suffix = isPctShare && !omitPctSymbol ? "%" : "";
-  return `${formattedValue}${suffix}`;
+  const percentSuffix = isPctShare && !omitPctSymbol ? "%" : "";
+  const ratioSuffix = isRatio ? "×" : "";
+  return `${formattedValue}${percentSuffix}${ratioSuffix}`;
 }
 
 export function getPer100kAndPctShareMetrics(
@@ -369,7 +371,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           type: "per100k",
         },
         age_adjusted_ratio: {
-          metricId: "covid_deaths_age_adjusted_ratio",
+          metricId: "death_ratio_age_adjusted",
           fullCardTitleName: "Age-Adjusted Ratio of COVID-19 Deaths",
           shortVegaLabel: "ratio for deaths",
           type: "ratio", // ×
@@ -420,7 +422,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           type: "per100k",
         },
         age_adjusted_ratio: {
-          metricId: "covid_hosp_age_adjusted_ratio",
+          metricId: "hosp_ratio_age_adjusted",
           fullCardTitleName: "Age-Adjusted Ratio of COVID-19 Hospitalizations",
           shortVegaLabel: "ratio for hospitalizations",
           type: "ratio", // ×
