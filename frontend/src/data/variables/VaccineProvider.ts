@@ -18,7 +18,7 @@ class VaccineProvider extends VariableProvider {
       "vaccinated_share_of_known",
       "vaccinated_per_100k",
       "vaccine_population_pct",
-      "vaccinated_age_adjusted_ratio",
+      "vaccinated_ratio_age_adjusted",
     ]);
     this.acsProvider = acsProvider;
   }
@@ -171,7 +171,7 @@ class VaccineProvider extends VariableProvider {
       df = df.generateSeries({
         vaccinated_per_100k: (row) =>
           this.calculations.per100k(row.vaccinated_first_dose, row.population),
-        // vaccinated_age_adjusted_ratio: (row) => null,
+        // vaccinated_ratio_age_adjusted: (row) => null,
       });
     }
 

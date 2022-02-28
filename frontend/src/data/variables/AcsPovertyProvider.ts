@@ -16,7 +16,7 @@ class AcsPovertyProvider extends VariableProvider {
       "poverty_per_100k",
       "poverty_pct_share",
       "poverty_population_pct",
-      "poverty_age_adjusted_ratio",
+      "poverty_ratio_age_adjusted",
     ]);
   }
   // ALERT! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts AND  if you update dataset IDs
@@ -93,8 +93,8 @@ class AcsPovertyProvider extends VariableProvider {
     df = df.generateSeries({
       poverty_per_100k: (row) =>
         this.calculations.per100k(row[BELOW_POVERTY_COL], row["total_pop"]),
-      // poverty_age_adjusted_ratio: (row) =>
-      //   (row.poverty_age_adjusted_ratio = null),
+      // poverty_ratio_age_adjusted: (row) =>
+      //   (row.poverty_ratio_age_adjusted = null),
     });
 
     df = df.renameSeries({

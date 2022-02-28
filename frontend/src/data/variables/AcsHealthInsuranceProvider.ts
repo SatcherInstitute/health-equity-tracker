@@ -13,7 +13,7 @@ class AcsHealthInsuranceProvider extends VariableProvider {
       "health_insurance_per_100k",
       "health_insurance_pct_share",
       "health_insurance_population_pct",
-      "health_insurance_age_adjusted_ratio",
+      "health_insurance_ratio_age_adjusted",
     ]);
   }
 
@@ -115,8 +115,8 @@ class AcsHealthInsuranceProvider extends VariableProvider {
           row.without_health_insurance,
           row.total_health_insurance
         ),
-      // health_insurance_age_adjusted_ratio: (row) =>
-      //   (row.health_insurance_age_adjusted_ratio = null),
+      // health_insurance_ratio_age_adjusted: (row) =>
+      //   (row.health_insurance_ratio_age_adjusted = null),
     });
 
     df = df.renameSeries({

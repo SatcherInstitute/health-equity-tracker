@@ -157,13 +157,15 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                     <b>{props.variableConfig.variableFullDisplayName}</b> are
                     not heavily influenced by age, we do not provide
                     age-adjusted numbers.{" "}
-                    <AgeAdjustedDataTypeLinksMessage
-                      setVariableConfigWithParam={
-                        props.setVariableConfigWithParam
-                      }
-                      ageAdjustedDataTypes={ageAdjustedDataTypes}
-                      dropdownVarId={props.dropdownVarId}
-                    />
+                    {ageAdjustedDataTypes.length > 0 && (
+                      <AgeAdjustedDataTypeLinksMessage
+                        setVariableConfigWithParam={
+                          props.setVariableConfigWithParam
+                        }
+                        ageAdjustedDataTypes={ageAdjustedDataTypes}
+                        dropdownVarId={props.dropdownVarId}
+                      />
+                    )}
                   </Alert>
                 </CardContent>
               )}
