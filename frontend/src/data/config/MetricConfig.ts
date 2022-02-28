@@ -508,8 +508,8 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "suicide_ratio_age_adjusted",
-          fullCardTitleName: "Age-Adjusted Ratio of Suicide",
-          shortVegaLabel: "ratio",
+          fullCardTitleName: "",
+          shortVegaLabel: "",
           type: "ratio", // ×
         },
       },
@@ -543,9 +543,9 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "depression_ratio_age_adjusted",
-          fullCardTitleName: "Age-Adjusted Ratio of Depression Cases",
-          shortVegaLabel: "ratio",
-          type: "ratio", // ×
+          fullCardTitleName: "",
+          shortVegaLabel: "",
+          type: "ratio",
         },
       },
     },
@@ -578,9 +578,9 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "excessive_drinking_ratio_age_adjusted",
-          fullCardTitleName: "Age-Adjusted Ratio of Excessive Drinking",
-          shortVegaLabel: "ratio",
-          type: "ratio", // ×
+          fullCardTitleName: "",
+          shortVegaLabel: "",
+          type: "ratio",
         },
       },
     },
@@ -613,8 +613,8 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "non_medical_drug_use_ratio_age_adjusted",
-          fullCardTitleName: "Age-Adjusted Ratio of Non-medical Drug Use",
-          shortVegaLabel: "ratio",
+          fullCardTitleName: "",
+          shortVegaLabel: "",
           type: "ratio", // ×
         },
       },
@@ -648,10 +648,9 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "non_medical_rx_opioid_use_ratio_age_adjusted",
-          fullCardTitleName:
-            "Age-Adjusted Ratio of Non-medical Prescription Opioid Use",
-          shortVegaLabel: "ratio",
-          type: "ratio", // ×
+          fullCardTitleName: "",
+          shortVegaLabel: "",
+          type: "ratio",
         },
       },
     },
@@ -682,9 +681,9 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "illicit_opioid_use_ratio_age_adjusted",
-          fullCardTitleName: "Age-Adjusted Ratio of Illicit Opioid Use",
-          shortVegaLabel: "ratio",
-          type: "ratio", // ×
+          fullCardTitleName: "",
+          shortVegaLabel: "",
+          type: "ratio",
         },
       },
     },
@@ -718,10 +717,9 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "frequent_mental_distress_ratio_age_adjusted",
-          fullCardTitleName:
-            "Age-Adjusted Ratio of Frequent Mental Distress Cases",
-          shortVegaLabel: "ratio",
-          type: "ratio", // ×
+          fullCardTitleName: "",
+          shortVegaLabel: "",
+          type: "ratio",
         },
       },
     },
@@ -756,7 +754,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           metricId: "diabetes_ratio_age_adjusted",
           fullCardTitleName: "Age-Adjusted Ratio of Diabetes Cases",
           shortVegaLabel: "ratio for cases",
-          type: "ratio", // ×
+          type: "ratio",
         },
       },
     },
@@ -789,9 +787,9 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "copd_ratio_age_adjusted",
-          fullCardTitleName: "Age-Adjusted Ratio of COPD Cases",
-          shortVegaLabel: "ratio for cases",
-          type: "ratio", // ×
+          fullCardTitleName: "",
+          shortVegaLabel: "",
+          type: "ratio",
         },
       },
     },
@@ -829,9 +827,9 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "health_insurance_ratio_age_adjusted",
-          fullCardTitleName: "Age-Adjusted Ratio of Uninsurance",
-          shortVegaLabel: "ratio for cases",
-          type: "ratio", // ×
+          fullCardTitleName: "",
+          shortVegaLabel: "",
+          type: "ratio",
         },
       },
     },
@@ -864,9 +862,9 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "poverty_ratio_age_adjusted",
-          fullCardTitleName: "Age-Adjusted Ratio of Poverty",
-          shortVegaLabel: "ratio for cases",
-          type: "ratio", // ×
+          fullCardTitleName: "",
+          shortVegaLabel: "",
+          type: "ratio",
         },
       },
     },
@@ -898,10 +896,9 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "preventable_hospitalizations_ratio_age_adjusted",
-          fullCardTitleName:
-            "Age-Adjusted Ratio of Preventable Hospitalizations",
-          shortVegaLabel: "ratio for cases",
-          type: "ratio", // ×
+          fullCardTitleName: "",
+          shortVegaLabel: "",
+          type: "ratio",
         },
       },
     },
@@ -935,9 +932,9 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "avoided_care_ratio_age_adjusted",
-          fullCardTitleName: "Age-Adjusted Ratio of Care Avoidance",
-          shortVegaLabel: "ratio",
-          type: "ratio", // ×
+          fullCardTitleName: "",
+          shortVegaLabel: "",
+          type: "ratio",
         },
       },
     },
@@ -1041,10 +1038,9 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "chronic_kidney_disease_ratio_age_adjusted",
-          fullCardTitleName:
-            "Age-Adjusted Ratio of Chronic Kidney Disease Cases",
-          shortVegaLabel: "ratio for cases",
-          type: "ratio", // ×
+          fullCardTitleName: "",
+          shortVegaLabel: "",
+          type: "ratio",
         },
       },
     },
@@ -1077,9 +1073,9 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "voter_participation_ratio_age_adjusted",
-          fullCardTitleName: "Age-Adjusted Ratio of Voter Participation",
-          shortVegaLabel: "ratio",
-          type: "ratio", // ×
+          fullCardTitleName: "",
+          shortVegaLabel: "",
+          type: "ratio",
         },
       },
     },

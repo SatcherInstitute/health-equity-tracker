@@ -35,7 +35,9 @@ import MissingDataAlert from "./ui/MissingDataAlert";
 import {
   COVID_DEATHS_US_SETTING,
   COVID_HOSP_US_SETTING,
+  METHODOLOGY_TAB_LINK,
 } from "../utils/urlutils";
+import { Link } from "react-router-dom";
 
 type DataTypeLink = {
   dataType: string;
@@ -82,7 +84,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const cardTitle = (
     <>{`Age-Adjusted Ratio of ${
       props.variableConfig.variableFullDisplayName
-    } in ${props.fips.getFullDisplayName()}`}</>
+    } Compared to White (Non-Hispanic) in ${props.fips.getFullDisplayName()}`}</>
   );
 
   // collect data types from the currently selected condition that offer age-adjusted ratios
@@ -122,9 +124,10 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                 non-linearly with age. Age-adjustment allows us to compute rates
                 that are normalized for age, painting a more accurate picture of
                 health inequities.{" "}
-                <a href="https://healthequitytracker.org">
+                <Link to={METHODOLOGY_TAB_LINK}>
                   Learn how we calculated these age-adjusted ratios
-                </a>
+                </Link>
+                .
               </Alert>
             </CardContent>
 
