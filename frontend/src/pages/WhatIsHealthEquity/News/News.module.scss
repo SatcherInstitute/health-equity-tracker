@@ -168,7 +168,7 @@
   }
 
   blockquote > p {
-    font-weight: 200;
+    font-weight: 300;
     font-style: italic;
   }
 
@@ -285,7 +285,7 @@
 .NewsPreviewHeaderText h3 {
   font-size: $title !important;
   text-align: center;
-  font-weight: 200 !important;
+  font-weight: 300 !important;
   font-family: "Taviraj", serif !important;
   line-height: 120% !important;
   padding: 1rem !important;
@@ -321,7 +321,7 @@
   text-transform: capitalize;
   font-size: $smallestHeader !important;
   margin-bottom: 0px;
-  font-weight: 300;
+  font-weight: 400;
   font-family: "Taviraj", serif !important;
   line-height: 40px;
   color: $alt-green;
