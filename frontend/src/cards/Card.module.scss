@@ -28,7 +28,6 @@
   }
 
   .TotalPopulationKey {
-    font-weight: 400;
     font-size: $smallestHeader;
     line-height: $populationTitleHeight;
     padding-right: 7px;
@@ -41,8 +40,8 @@
   }
 
   .PopulationCardTitle {
+    @include inter500();
     padding-right: 20px;
-    font-weight: 500;
     font-size: $header;
     line-height: $populationTitleHeight;
   }
@@ -54,10 +53,9 @@
   }
 }
 .PopulationChartTitle {
+  @include inter700();
   text-align: left;
-  font-weight: bold !important;
   font-size: $small;
-  font-weight: 400;
   letter-spacing: 0.00938em;
 }
 

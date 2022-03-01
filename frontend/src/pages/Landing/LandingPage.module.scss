@@ -2,7 +2,7 @@
 @import "../../styles/variables.module";
 
 .LearnMoreAboutHealthEquity {
-  font-weight: 500 !important;
+  @include inter500();
   font-size: $smallestHeader !important;
   text-decoration: underline !important;
 }

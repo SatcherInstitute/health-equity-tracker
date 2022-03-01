@@ -68,14 +68,12 @@
 
     .DefinitionText {
       font-size: $small;
-      font-weight: 400;
       line-height: $lhLoose;
       margin-block: 0.5rem;
     }
 
     .DefinitionSourceSpan {
       color: $alt-dark;
-      font-weight: 400;
       font-size: $small;
     }
   }
@@ -129,26 +127,26 @@
     }
 
     .MainResourceTitleText {
+      @include inter500();
       font-size: $smallHeader;
-      font-weight: 500;
       margin: 15px 0 15px 0;
     }
 
     .MainResourceSubtitleText {
+      @include inter300();
       font-size: $title;
-      font-weight: 300;
       margin: 0px;
     }
 
     .ResourceTitleText {
+      @include inter500();
       font-size: $title;
-      font-weight: 500;
       margin: 15px 0 15px 0;
     }
 
     .ResourceSubtitleText {
+      @include inter300();
       font-size: $text;
-      font-weight: 300;
       margin: 0px;
     }
   }
@@ -199,13 +197,12 @@
       text-align: center;
       line-height: 130%;
       color: $alt-green;
-      font-size: $title;
+      font-size: $smallestHeader;
       margin: 15px 0 15px 0;
     }
 
     .NewsAndStoriesSubtitleText {
       font-size: $text;
-      font-weight: 400;
       margin: 0px;
 
       a {
@@ -312,7 +309,7 @@
   }
 
   .JoinTheEffortStepHeaderText {
-    @include tav500();
+    @include tav300();
     font-size: $bigHeader !important;
     padding: 10px 0 10px 0;
   }
@@ -335,7 +332,6 @@
 
   .ContactUsLink {
     color: $alt-green !important;
-    font-weight: 500 !important;
     font-size: $smallestHeader !important;
     text-decoration: underline !important;
   }

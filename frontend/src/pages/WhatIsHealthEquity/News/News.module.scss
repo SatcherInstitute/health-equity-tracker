@@ -54,7 +54,6 @@
 
     .SingleArticleDetailText {
       color: $alt-dark;
-      font-weight: 400;
       font-size: $text;
       text-align: start;
 
@@ -148,7 +147,6 @@
   }
 
   blockquote > p {
-    font-weight: 300;
     font-style: italic;
   }
 
@@ -214,7 +212,6 @@
   .ReprintNotice {
     font-style: italic;
     font-size: $small;
-    font-weight: 300;
   }
 }
 

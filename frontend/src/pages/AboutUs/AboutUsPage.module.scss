@@ -243,15 +243,14 @@
 
 // For the name heading
 .MemberName {
+  @include inter500();
   font-size: $text;
-  font-weight: 500;
   margin: 2px 0;
 }
 
 // For the role
 .MemberRole {
   font-size: $small;
-  font-weight: 400;
 }
 
 // For partner images at the bottom of the page
