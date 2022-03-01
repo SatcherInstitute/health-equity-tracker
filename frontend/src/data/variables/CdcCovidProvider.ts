@@ -135,6 +135,17 @@ class CdcCovidProvider extends VariableProvider {
 
     // TODO: Move this merge to the backend
     if (breakdowns.geography === "national") {
+      if (breakdownColumnName === "race_and_ethnicity") {
+        const ageAdjustDatasetID =
+          "cdc_restricted_data-by_race_national-with_age_adjust";
+        const ageAdjustDataset = await getDataManager().loadDataset(
+          ageAdjustDatasetID
+        );
+        let ageAdjustDf = ageAdjustDataset.toDataFrame();
+
+        df = joinOnCols(df, ageAdjustDf, [breakdownColumnName], "left");
+      }
+
       const onlyShareMetrics = metricQuery.metricIds.every((metric) =>
         metric.includes("share")
       );
