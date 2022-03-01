@@ -102,7 +102,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
             <CardContent>
               {/* Always show info on what age-adj is */}
               <Alert severity="info" role="note">
-                Age-adjustment is super important.{" "}
+                Age-adjustment is super important this is placeholder text.{" "}
                 <Link to={METHODOLOGY_TAB_LINK}>
                   Learn how we calculated these ratios
                 </Link>
