@@ -32,27 +32,14 @@ import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import styles from "./Card.module.scss";
 import MissingDataAlert from "./ui/MissingDataAlert";
-import {
-  COVID_DEATHS_US_SETTING,
-  COVID_HOSP_US_SETTING,
-  METHODOLOGY_TAB_LINK,
-} from "../utils/urlutils";
+import { METHODOLOGY_TAB_LINK } from "../utils/urlutils";
 import { Link } from "react-router-dom";
 
-type DataTypeLink = {
-  dataType: string;
-  url: string;
-};
-
-export const ageAdjustedDataTypeMap: Record<string, DataTypeLink[]> = {
-  covid: [
-    { dataType: "COVID-19 Hospitalizations", url: COVID_HOSP_US_SETTING },
-    { dataType: "COVID-19 Deaths", url: COVID_DEATHS_US_SETTING },
-  ],
-};
-
 /* minimize layout shift */
-const PRELOAD_HEIGHT = 800;
+const PRELOAD_HEIGHT = 600;
+
+// choose demographic groups to exclude from the table
+const exclusionList = [ALL, NON_HISPANIC, WHITE_NH, MULTI_OR_OTHER_STANDARD_NH];
 
 export interface AgeAdjustedTableCardProps {
   fips: Fips;
@@ -63,9 +50,6 @@ export interface AgeAdjustedTableCardProps {
 
 export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const metrics = getAgeAdjustedRatioMetric(props.variableConfig);
-
-  // choose demographic groups to exclude from the table
-  const exclusionList = [ALL, NON_HISPANIC];
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     RACE,
@@ -102,12 +86,10 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
             // remove unknowns
             row[RACE] !== UNKNOWN &&
             row[RACE] !== UNKNOWN_RACE &&
-            row[RACE] !== UNKNOWN_ETHNICITY &&
-            // remove Two or More & Unrepresented as this will never exist; and WHITE because it will always be 1
-            row[RACE] !== WHITE_NH &&
-            row[RACE] !== MULTI_OR_OTHER_STANDARD_NH
+            row[RACE] !== UNKNOWN_ETHNICITY
           );
         });
+
         const noRatios = knownData.every((row) => row[ratioId] === undefined);
 
         return (
