@@ -96,7 +96,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "Population percentage estimates by race/ethnicity, age, and sex to the " +
       "county level provided by the U.S Census Bureau. We use the single year " +
       "estimates from 2019.",
-    dataset_ids: ["censu_pop_estimates-race_and_ethnicity"],
+    dataset_ids: ["census_pop_estimates-race_and_ethnicity"],
     downloadable: true,
   },
   {

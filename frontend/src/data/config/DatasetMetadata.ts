@@ -192,6 +192,11 @@ const datasetMetadataList: DatasetMetadata[] = [
     name: "U.S. Geographic Data",
     update_time: "2020",
   },
+  {
+    id: "census_pop_estimates-race_and_ethnicity",
+    name: "Census County Population by Characteristics: 2010-2019",
+    update_time: "2019",
+  },
 ];
 
 export const DatasetMetadataMap: Record<string, DatasetMetadata> =

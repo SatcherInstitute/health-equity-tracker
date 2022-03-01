@@ -79,7 +79,12 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   });
 
   return (
-    <CardWrapper minHeight={PRELOAD_HEIGHT} queries={[query]} title={cardTitle}>
+    <CardWrapper
+      isAgeAdjustedTable={true}
+      minHeight={PRELOAD_HEIGHT}
+      queries={[query]}
+      title={cardTitle}
+    >
       {([queryResponse]) => {
         let knownData = queryResponse.data.filter((row: Row) => {
           return (
