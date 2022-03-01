@@ -143,7 +143,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                     not heavily influenced by age, we do not provide
                     age-adjusted numbers.{" "}
                     {ageAdjustedDataTypes.length > 0 && (
-                      <AgeAdjustedDataTypeLinksMessage
+                      <AltDataTypesMessage
                         setVariableConfigWithParam={
                           props.setVariableConfigWithParam
                         }
@@ -171,15 +171,13 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   );
 }
 
-interface AgeAdjustedDataTypeLinksMessageProps {
+interface AltDataTypesMessageProps {
   ageAdjustedDataTypes: VariableConfig[];
   setVariableConfigWithParam?: any;
   dropdownVarId?: DropdownVarId;
 }
 
-function AgeAdjustedDataTypeLinksMessage(
-  props: AgeAdjustedDataTypeLinksMessageProps
-) {
+function AltDataTypesMessage(props: AltDataTypesMessageProps) {
   if (!props.ageAdjustedDataTypes) return <></>;
 
   return (
