@@ -54,13 +54,13 @@ export const UHC_DETERMINANTS: MetricId[] = [
 export const UHC_DECADE_PLUS_5_AGE_DETERMINANTS: MetricId[] = [
   "suicide_pct_share",
   "suicide_per_100k",
-  // "suicide_ratio_age_adjusted",
+  "suicide_ratio_age_adjusted",
 ];
 
 export const UHC_VOTER_AGE_DETERMINANTS: MetricId[] = [
   "voter_participation_pct_share",
   "voter_participation_per_100k",
-  // "voter_participation_ratio_age_adjusted",
+  "voter_participation_ratio_age_adjusted",
 ];
 
 export const UHC_API_NH_DETERMINANTS: MetricId[] = [
