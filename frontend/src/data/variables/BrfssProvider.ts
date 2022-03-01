@@ -191,7 +191,7 @@ class BrfssProvider extends VariableProvider {
           row.population
         ),
       // set certain conditions age adj ratios to null to display "Missing Data"
-      // those not set will be undefined and will instead show "Age Adjustment Not Applicable" Alert
+      // those not set here will be undefined and will instead show "Age Adjustment Not Applicable" Alert
       copd_ratio_age_adjusted: (row) => (row["copd_ratio_age_adjusted"] = null),
       diabetes_ratio_age_adjusted: (row) =>
         (row["diabetes_ratio_age_adjusted"] = null),
