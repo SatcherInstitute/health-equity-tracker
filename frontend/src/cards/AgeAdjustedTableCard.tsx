@@ -200,6 +200,7 @@ function AltDataTypesMessage(props: AltDataTypesMessageProps) {
               <b>{dataType.variableFullDisplayName}</b>
             </a>
 
+            {/* proper punctuation */}
             {i < props.ageAdjustedDataTypes.length - 1 && ", "}
             {i === props.ageAdjustedDataTypes.length - 1 && "."}
           </span>
