@@ -57,7 +57,7 @@ class CensusPopEstimates(DataSource):
 
 def generate_state_pop_data(df):
     """Generates the state level race and age population data for the latest
-       year in the copunty population dataset.
+       year in the county population dataset.
        Returns a state level dataframe with age/race population numbers for the
        needed racial groups.
 
