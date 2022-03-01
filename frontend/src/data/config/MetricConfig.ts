@@ -383,6 +383,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       variableId: "hospitalizations",
       variableDisplayName: "Hospitalizations",
       variableFullDisplayName: "COVID-19 Hospitalizations",
+      variableDefinition: `The number of people hospitalized at any point while ill with COVID-19.`,
       metrics: {
         count: {
           metricId: "covid_hosp",
