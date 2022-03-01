@@ -149,7 +149,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             id="simpleBarChartCard"
           >
-            <LazyLoad offset={300} height={750} once>
+            <LazyLoad offset={600} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>
                   {breakdownIsShown(breakdownVar) &&
@@ -173,7 +173,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             id="unknownsMapCard"
           >
-            <LazyLoad offset={300} height={750} once>
+            <LazyLoad offset={800} height={750} once>
               {variableConfig.metrics["pct_share"] && (
                 <UnknownsMapCard
                   overrideAndWithOr={currentBreakdown === RACE}
@@ -196,7 +196,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             id="disparityBarChartCard"
           >
-            <LazyLoad offset={300} height={750} once>
+            <LazyLoad offset={800} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>
                   {breakdownIsShown(breakdownVar) &&
@@ -214,7 +214,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
 
           {/* DATA TABLE CARD */}
           <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="tableCard">
-            <LazyLoad offset={300} height={750} once>
+            <LazyLoad offset={800} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>
                   {breakdownIsShown(breakdownVar) && (
