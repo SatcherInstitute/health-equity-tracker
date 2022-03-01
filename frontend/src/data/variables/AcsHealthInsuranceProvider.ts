@@ -115,8 +115,6 @@ class AcsHealthInsuranceProvider extends VariableProvider {
           row.without_health_insurance,
           row.total_health_insurance
         ),
-      // health_insurance_ratio_age_adjusted: (row) =>
-      //   (row.health_insurance_ratio_age_adjusted = null),
     });
 
     df = df.renameSeries({

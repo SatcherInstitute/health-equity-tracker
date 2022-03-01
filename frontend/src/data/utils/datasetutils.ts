@@ -1,10 +1,5 @@
 import { IDataFrame } from "data-forge";
-import {
-  // AGE_ADJUSTED_VARIABLE_IDS,
-  MetricId,
-  VariableId,
-  VAXX,
-} from "../config/MetricConfig";
+import { MetricId, VariableId, VAXX } from "../config/MetricConfig";
 import { BreakdownVar } from "../query/Breakdowns";
 import { RACE } from "./Constants";
 import { Row } from "./DatasetTypes";

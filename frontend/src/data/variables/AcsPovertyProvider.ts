@@ -93,8 +93,6 @@ class AcsPovertyProvider extends VariableProvider {
     df = df.generateSeries({
       poverty_per_100k: (row) =>
         this.calculations.per100k(row[BELOW_POVERTY_COL], row["total_pop"]),
-      // poverty_ratio_age_adjusted: (row) =>
-      //   (row.poverty_ratio_age_adjusted = null),
     });
 
     df = df.renameSeries({

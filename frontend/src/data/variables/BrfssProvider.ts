@@ -54,13 +54,13 @@ export const UHC_DETERMINANTS: MetricId[] = [
 export const UHC_DECADE_PLUS_5_AGE_DETERMINANTS: MetricId[] = [
   "suicide_pct_share",
   "suicide_per_100k",
-  "suicide_ratio_age_adjusted",
+  // "suicide_ratio_age_adjusted",
 ];
 
 export const UHC_VOTER_AGE_DETERMINANTS: MetricId[] = [
   "voter_participation_pct_share",
   "voter_participation_per_100k",
-  "voter_participation_ratio_age_adjusted",
+  // "voter_participation_ratio_age_adjusted",
 ];
 
 export const UHC_API_NH_DETERMINANTS: MetricId[] = [
@@ -190,36 +190,17 @@ class BrfssProvider extends VariableProvider {
           row.voter_participation_per_100k,
           row.population
         ),
-      // set all age adj ratios to null to display "No Data" alert
+      // set certain conditions age adj ratios to null to display "Missing Data"
+      // those not set will be undefined and will instead show "Age Adjustment Not Applicable" Alert
       copd_ratio_age_adjusted: (row) => (row["copd_ratio_age_adjusted"] = null),
       diabetes_ratio_age_adjusted: (row) =>
         (row["diabetes_ratio_age_adjusted"] = null),
-      // depression_ratio_age_adjusted: (row) =>
-      //   (row["depression_ratio_age_adjusted"] = null),
-      // illicit_opioid_use_ratio_age_adjusted: (row) =>
-      //   (row["illicit_opioid_use_ratio_age_adjusted"] = null),
-      // non_medical_rx_opioid_use_ratio_age_adjusted: (row) =>
-      //   (row["non_medical_rx_opioid_use_ratio_age_adjusted"] = null),
-      // non_medical_drug_use_ratio_age_adjusted: (row) =>
-      //   (row["non_medical_drug_use_ratio_age_adjusted"] = null),
-      // excessive_drinking_ratio_age_adjusted: (row) =>
-      //   (row["excessive_drinking_ratio_age_adjusted"] = null),
-      // frequent_mental_distress_ratio_age_adjusted: (row) =>
-      //   (row["frequent_mental_distress_ratio_age_adjusted"] = null),
-      // suicide_ratio_age_adjusted: (row) =>
-      //   (row["suicide_ratio_age_adjusted"] = null),
-      // preventable_hospitalizations_ratio_age_adjusted: (row) =>
-      //   (row["preventable_hospitalizations_ratio_age_adjusted"] = null),
-      // avoided_care_ratio_age_adjusted: (row) =>
-      //   (row["avoided_care_ratio_age_adjusted"] = null),
       chronic_kidney_disease_ratio_age_adjusted: (row) =>
         (row["chronic_kidney_disease_ratio_age_adjusted"] = null),
       cardiovascular_diseases_ratio_age_adjusted: (row) =>
         (row["cardiovascular_diseases_ratio_age_adjusted"] = null),
       asthma_ratio_age_adjusted: (row) =>
         (row["asthma_ratio_age_adjusted"] = null),
-      // voter_participation_ratio_age_adjusted: (row) =>
-      //   (row["voter_participation_ratio_age_adjusted"] = null),
     });
 
     df = df.renameSeries({

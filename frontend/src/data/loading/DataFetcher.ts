@@ -102,7 +102,7 @@ export class ApiDataFetcher implements DataFetcher {
       result = result.map((row: any) => {
         return {
           ...row,
-          // coerce string values from BigQuery to Numbers or null
+          // coerce values from BigQuery to Numbers or null
           copd_per_100k:
             row["copd_per_100k"] == null ? null : Number(row["copd_per_100k"]),
           diabetes_per_100k:
@@ -172,7 +172,6 @@ export class ApiDataFetcher implements DataFetcher {
           death_y: Number(row["death_y"]),
           death_n: Number(row["death_n"]),
           death_unknown: Number(row["death_unknown"]),
-          // death_ratio_age_adjusted: Number(row["death_ratio_age_adjusted"]),
           population:
             row["population"] == null ? null : Number(row["population"]),
         };
