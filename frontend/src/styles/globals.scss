@@ -1,15 +1,22 @@
 @import "../styles/variables.module";
+@import url("https://fonts.googleapis.com/css2?family=Taviraj:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Taviraj:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&display=swap");
 
 // Font Family+Weight Options
+@mixin dmSans300 {
+  font-family: "DM Sans", sans-serif !important;
+  font-weight: 300 !important;
+}
 
 @mixin dmSans500 {
   font-family: "DM Sans", sans-serif !important;
   font-weight: 500 !important;
-}
-
-@mixin dmSans300 {
-  font-family: "DM Sans", sans-serif !important;
-  font-weight: 300 !important;
 }
 
 @mixin inter300 {
@@ -71,8 +78,8 @@
 }
 
 .Unit {
+  @include inter300();
   font-size: $smallest;
-  font-weight: 300;
   font-stretch: ultra-condensed, extra-condensed, condensed;
   margin-left: 0.075rem;
   letter-spacing: -0.04rem;
