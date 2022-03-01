@@ -68,8 +68,9 @@ export function Sources(props: {
     []
   );
 
-  // manually adds the pop. source used on the backend for age-adjustment.
+  // for Age Adj only, swap ACS source(s) for Census Pop Estimate
   if (props.isAgeAdjustedTable) {
+    datasetIds = datasetIds.filter((datasetId) => !datasetId.includes("acs"));
     datasetIds.push("census_pop_estimates-race_and_ethnicity");
   }
 
