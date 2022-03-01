@@ -102,15 +102,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
             <CardContent>
               {/* Always show info on what age-adj is */}
               <Alert severity="info" role="note">
-                Age-adjustment is a technique to remove the effect of
-                differences in the underlying age distribution of two
-                populations (in our case, racial groups compared to White,
-                Non-Hispanic individuals) when comparing rates of incidence.
-                This is extremely important for conditions where age is a large
-                risk factor, e.g. the risk of dying with COVID-19 increases
-                non-linearly with age. Age-adjustment allows us to compute rates
-                that are normalized for age, painting a more accurate picture of
-                health inequities.{" "}
+                Age-adjustment is super important.{" "}
                 <Link to={METHODOLOGY_TAB_LINK}>
                   Learn how we calculated these ratios
                 </Link>
