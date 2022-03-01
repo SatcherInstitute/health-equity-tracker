@@ -107,7 +107,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                 that are normalized for age, painting a more accurate picture of
                 health inequities.{" "}
                 <Link to={METHODOLOGY_TAB_LINK}>
-                  Learn how we calculated these age-adjusted ratios
+                  Learn how we calculated these ratios
                 </Link>
                 .
               </Alert>
