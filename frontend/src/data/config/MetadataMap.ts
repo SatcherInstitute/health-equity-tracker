@@ -85,6 +85,21 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
+    id: "census_pop_estimates",
+    data_source_name: "County Population by Characteristics: 2010-2019",
+    data_source_link:
+      "https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html",
+    geographic_level: "State/County",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "None",
+    description:
+      "Population percentage estimates by race/ethnicity, age, and sex to the " +
+      "county level provided by the U.S Census Bureau. We use the single year " +
+      "estimates from 2019.",
+    dataset_ids: ["censu_pop_estimates-race_and_ethnicity"],
+    downloadable: true,
+  },
+  {
     id: "cdc_vaccination_county",
     data_source_name: "CDC COVID-19 Vaccinations in the United States, County",
     data_source_link:
