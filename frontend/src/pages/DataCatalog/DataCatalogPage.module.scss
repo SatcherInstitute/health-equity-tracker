@@ -1,4 +1,4 @@
-@use "../../styles/globals.scss";
+@import "../../styles/globals.scss";
 @import "../../styles/variables.module";
 
 /** ------------------ METHODOLOGY -------------------- **/
@@ -14,24 +14,21 @@
 }
 
 .MethodologyQuestion {
+  @include tav300();
   font-size: $smallestHeader;
   text-align: left;
-  font-weight: 300;
-  font-family: "Taviraj", serif !important ;
   color: $alt-black;
 }
 
 .MethodologyAnswer {
+  @include inter400();
   font-size: $small;
   text-align: left;
-  font-weight: 400;
-  font-family: "Inter", sans-serif;
   color: $alt-black;
 }
 
 .MethodologySubsubheaderText {
-  font-weight: 500;
-  font-family: "Inter", sans-serif !important;
+  @include inter500();
   font-size: $text;
 }
 

@@ -1,4 +1,4 @@
-@use "../../styles/globals.scss";
+@import "../../styles/globals.scss";
 @import "../../styles/variables.module";
 
 /** ------------- HEADER ROW ------------- **/
@@ -29,20 +29,18 @@
     }
 
     .HeaderText {
+      @include tav300();
       font-size: $biggerHeader;
       text-align: left;
-      font-weight: 300;
-      font-family: "Taviraj", serif !important;
       line-height: 100%;
       color: $alt-green;
     }
 
     .HeaderSubtext {
+      @include inter400();
       font-size: $title;
       text-align: left;
-      font-weight: 400;
       line-height: $lhLoose;
-      font-family: "Inter", sans-serif !important;
     }
 
     .DefinitionsContainer {
@@ -60,11 +58,10 @@
     }
 
     .DefinitionHeader {
+      @include tav500();
       font-size: $title;
-      font-weight: 400;
       line-height: $lhLoose;
       color: $alt-green;
-      font-family: "Taviraj", sans-serif !important;
       margin: 0px !important;
       padding-top: 1rem;
     }
@@ -95,10 +92,9 @@
     padding: 20px 0 20px 0;
 
     .ResourcesHeaderText {
+      @include tav300();
       font-size: $biggerHeader;
       text-align: center;
-      font-weight: 300;
-      font-family: "Taviraj", serif !important;
       line-height: $lhLoose;
       color: $alt-green;
     }
@@ -163,19 +159,17 @@
     padding: 20px 0 20px 0;
 
     .NewsAndStoriesHeaderText {
+      @include tav300();
       font-size: $biggerHeader;
       text-align: center;
-      font-weight: 300;
-      font-family: "Taviraj", serif !important;
       line-height: $lhLoose;
       color: $alt-green;
     }
 
     .NewsAndStoriesSubheaderText {
+      @include inter300();
       font-size: $title;
       text-align: left;
-      font-weight: 300;
-      font-family: "Inter", sans-serif !important;
       color: $black !important;
     }
 
@@ -201,9 +195,8 @@
       text-decoration: none;
     }
     .NewsAndStoriesTitleText {
+      @include tav300();
       text-align: center;
-      font-weight: 300;
-      font-family: "Taviraj", serif !important;
       line-height: 130%;
       color: $alt-green;
       font-size: $title;
@@ -241,33 +234,29 @@
 }
 
 .FaqHeaderText {
+  @include tav300();
   font-size: $header !important;
   text-align: center;
-  font-weight: 300;
-  font-family: "Taviraj", serif !important;
   color: $alt-black;
   padding-bottom: 20px;
 }
 
 .FaqQuestion {
+  @include dmSans500();
   font-size: $title !important;
   text-align: left;
-  font-weight: 500;
-  font-family: "DM Sans", sans-serif;
   color: $alt-black;
 }
 
 .FaqAnswer {
+  @include inter400();
   font-size: $small;
   text-align: left;
-  font-weight: 400;
-  font-family: "Inter", sans-serif;
   color: $alt-black;
 }
 
 .FaqSubheaderText {
-  font-weight: 700;
-  font-family: "Inter", sans-serif !important;
+  @include inter700();
 }
 
 /** ------------- HOW TO JOIN THE EFFORT SECTION ------------- **/
@@ -280,17 +269,15 @@
     padding: 60px 0;
 
     .JoinTheEffortHeaderText {
+      @include tav300();
       font-size: $biggerHeader;
       text-align: center;
-      font-weight: 300;
-      font-family: "Taviraj", serif !important;
       color: $alt-green;
       margin-bottom: 1rem;
     }
 
     .JoinTheEffortSubheaderText {
-      font-family: "Inter", sans-serif;
-      font-weight: 400;
+      @include inter400();
       font-size: $title;
       line-height: $lhLoose;
       margin: 0px;
@@ -329,17 +316,15 @@
   }
 
   .JoinTheEffortStepHeaderText {
+    @include tav500();
     font-size: $bigHeader !important;
-    font-weight: 400 !important;
-    font-family: "Taviraj", sans-serif !important;
     padding: 10px 0 10px 0;
   }
 
   .JoinTheEffortStepText {
+    @include dmSans300();
     font-size: $title !important;
-    font-weight: 400 !important;
     line-height: $lhLoose;
-    font-family: "DM Sans", sans-serif !important;
     padding: 10px 0 10px 0;
   }
 
@@ -368,10 +353,9 @@
 }
 
 .ResourcesTabHeaderText {
+  @include tav300();
   font-size: $header !important;
   text-align: center;
-  font-weight: 300;
-  font-family: "Taviraj", serif !important;
   color: $alt-black;
   padding-bottom: 20px;
 }

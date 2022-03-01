@@ -1,4 +1,4 @@
-@use "../../styles/globals.scss";
+@import "../../styles/globals.scss";
 @import "../../styles/variables.module";
 
 /** ------------- TERMS OF USE AND PRIVACY POLICY  ------------- **/
@@ -16,31 +16,27 @@
 }
 
 .TosChunk {
+  @include inter400();
   text-align: left;
   padding-bottom: 20px;
   padding-left: 40px;
   padding-right: 40px;
-
   font-size: $small;
-  font-weight: 400;
-  font-family: "Inter", sans-serif;
   color: $alt-black;
 }
 
 .TosHeaderText {
+  @include tav300();
   font-size: $header !important;
   text-align: center;
-  font-weight: 300;
-  font-family: "Taviraj", serif !important;
   color: $alt-black;
   padding: 0 20px 20px 20px;
   margin: 0 20px 20px 20px;
 }
 
 .TosChunkHeader {
+  @include dmSans500();
   font-size: $title !important;
-  font-weight: 500;
-  font-family: "DM Sans", sans-serif;
   color: $alt-black;
   padding-top: 10px;
   padding-bottom: 15px;

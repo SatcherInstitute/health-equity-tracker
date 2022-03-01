@@ -1,9 +1,9 @@
 @import "../styles/variables.module";
+@import "../styles/globals.scss";
 
 .CardHeader {
+  @include inter700();
   text-align: left;
-  font-weight: bold !important;
-  font-family: "Inter", sans-serif !important;
 }
 
 .ChartCard {
@@ -63,17 +63,6 @@
 
 .PopulationAlert {
   margin: 10px;
-
-  .InfoLinkButton {
-    font-size: $small !important;
-    font-family: "Inter", serif !important;
-    font-weight: 400 !important;
-    letter-spacing: 0.01071em !important;
-    text-decoration: underline !important;
-    color: $alt-green !important;
-    padding: 0 5px !important;
-    margin-top: -2px !important; // To align with the <p> text better
-  }
 }
 
 .PopulationMetric {

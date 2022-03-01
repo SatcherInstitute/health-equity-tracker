@@ -1,4 +1,4 @@
-@use "../../styles/globals.scss";
+@import "../../styles/globals.scss";
 @import "../../styles/variables.module";
 
 /** ------------- TYPES OF GRID ROWS ------------- **/
@@ -27,48 +27,42 @@
   }
 
   .HeaderText {
+    @include tav300();
     font-size: $biggerHeader;
     text-align: left;
-    font-weight: 300;
-    font-family: "Taviraj", serif !important;
     color: $alt-green;
     padding-bottom: 20px;
   }
 
   .SubheaderL1Text {
-    font-family: "Taviraj", sans-serif;
-    font-weight: 300;
+    @include tav300();
     font-size: $header;
     padding: 10px 0 10px 0;
   }
 
   .SubheaderL2Text {
-    font-family: "Taviraj", sans-serif;
-    font-weight: 300;
+    @include tav300();
     font-size: $smallHeader;
     padding: 10px 0 10px 0;
     text-align: left !important;
   }
 
   .HeaderSubtext {
+    @include inter300();
     font-size: $title;
     text-align: left;
-    font-weight: 300;
-    font-family: "Inter", sans-serif !important;
   }
 
   .HeaderSubtextL2 {
+    @include inter300();
     font-size: $text;
     text-align: left;
-    font-weight: 300;
-    font-family: "Inter", sans-serif !important;
   }
 
   .HeaderSubtextL3 {
+    @include inter400();
     font-size: $small;
     text-align: left;
-    font-weight: 400;
-    font-family: "Inter", sans-serif !important;
   }
 }
 
@@ -77,19 +71,17 @@
   justify-content: center;
 
   .HeaderText {
+    @include tav300();
     font-size: $bigHeader;
     text-align: center;
-    font-weight: 300;
-    font-family: "Taviraj", serif !important;
     color: $alt-green;
     padding-bottom: 20px;
   }
 
   .HeaderSubtext {
+    @include inter300();
     font-size: $title;
     text-align: left;
-    font-weight: 300;
-    font-family: "Inter", serif !important;
   }
 }
 
@@ -118,61 +110,54 @@
   }
 
   .HeaderText {
+    @include tav300();
     font-size: $bigHeader;
     text-align: center;
-    font-weight: 300;
-    font-family: "Taviraj", serif !important;
     color: $alt-green;
     padding-bottom: 20px;
   }
 
   .SubheaderL1Text {
-    font-family: "Taviraj", sans-serif;
-    font-weight: 300;
+    @include tav300();
     font-size: $header;
     padding: 0 0 10px 0;
   }
 
   .SubheaderL2Text {
-    font-family: "Taviraj", sans-serif;
-    font-weight: 300;
+    @include tav300();
     font-size: $smallestHeader;
     padding: 30px 0 1rem 0;
     text-align: left;
   }
 
   .HeaderSubtext {
+    @include inter300();
     font-size: $title;
     text-align: left;
-    font-weight: 300;
-    font-family: "Inter", serif !important;
   }
 
   .HeaderSubtextL2 {
+    @include inter300();
     font-size: $text;
     text-align: left;
-    font-weight: 300;
-    font-family: "Inter", sans-serif !important;
   }
 
   .HeaderSubtextL3 {
+    @include inter400();
     font-size: $small;
     text-align: left;
-    font-weight: 400;
-    font-family: "Inter", sans-serif !important;
   }
 }
 
 /** ------------- HEADERS ------------- **/
 
-// Underlined Header
+// # data source / variables
 .UnderlinedHeaderL2 {
+  @include tav300();
   font-size: $smallHeader !important;
   border-bottom: 1.5px solid $alt-green;
   margin: 25px 0 25px 0;
-  font-family: "Taviraj", serif !important;
   text-align: left;
-  font-weight: 400;
 }
 
 /** ------------- THE PROJECT ------------- **/
@@ -225,9 +210,8 @@
 
 // For the  header text at the very top of the "Our Team" page
 .OurTeamHeaderText {
+  @include tav300();
   font-size: $biggerHeader !important;
-  font-weight: 300 !important;
-  font-family: "Taviraj", serif !important;
   line-height: $lhTight !important;
   color: $alt-green;
   padding: 72px 0 20px 0;
@@ -235,12 +219,11 @@
 
 // For headers denoting each subgroup on the team
 .TeamHeader {
+  @include tav300();
   font-size: $smallHeader !important;
   border-bottom: 2px solid $team-border-color;
   margin: 25px 0 25px 0;
-  font-family: "Taviraj", sans-serif !important;
   text-align: left;
-  font-weight: 400 !important;
 }
 
 // Profiles items for people in Our Team
@@ -279,16 +262,14 @@
 /** ------------- CONTACT US ------------- **/
 
 .ContactUsHeaderText {
+  @include tav300();
   font-size: $biggerHeader !important;
-  font-weight: 300 !important;
-  font-family: "Taviraj", sans-serif !important;
   line-height: $lhNormal !important;
   color: $alt-green;
 }
 
 .ContactUsSubheaderText {
-  font-weight: 300 !important;
-  font-family: "Taviraj", sans-serif !important;
+  @include tav300();
   color: $alt-green;
 }
 
