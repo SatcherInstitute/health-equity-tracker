@@ -155,12 +155,10 @@ def get_expected_hosps(race_and_age_df, population_df):
             raise ValueError('Population size for %s demographic is 0 or nil' % REFERENCE_POPULATION)
 
         if not row[std_col.COVID_HOSP_Y]:
-            row['expected_hosps'] = None
+            return None
         else:
             true_hosp_rate = float(row[std_col.COVID_HOSP_Y]) / this_pop_size
-            row['expected_hosps'] = round(true_hosp_rate * ref_pop_size, 2)
-
-        return round(true_hosp_rate * ref_pop_size, 2)
+            return round(true_hosp_rate * ref_pop_size, 2)
 
     df = race_and_age_df
     df['expected_hosps'] = df.apply(get_expected_hosp_rate, axis=1)
@@ -199,12 +197,10 @@ def get_expected_deaths(race_and_age_df, population_df):
             raise ValueError('Population size for %s demographic is 0 or nil' % REFERENCE_POPULATION)
 
         if not row[std_col.COVID_DEATH_Y]:
-            row['expected_deaths'] = None
+            return None
         else:
             true_death_rate = float(row[std_col.COVID_DEATH_Y]) / this_pop_size
-            row['expected_deaths'] = round(true_death_rate * ref_pop_size, 2)
-
-        return round(true_death_rate * ref_pop_size, 2)
+            return round(true_death_rate * ref_pop_size, 2)
 
     df = race_and_age_df
     df['expected_deaths'] = df.apply(get_expected_death_rate, axis=1)
@@ -228,7 +224,7 @@ def age_adjust_from_expected(df):
         if not ref_pop_expected_deaths:
             return None
 
-        return round(row['expected_deaths'] / float(ref_pop_expected_deaths), 2)
+        return round(row['expected_deaths'] / float(ref_pop_expected_deaths), 1)
 
     def get_age_adjusted_hosp_rate(row):
         ref_pop_expected_hosp = df.loc[
@@ -239,7 +235,7 @@ def age_adjust_from_expected(df):
         if not ref_pop_expected_hosp:
             return None
 
-        return round(row['expected_hosps'] / ref_pop_expected_hosp, 2)
+        return round(row['expected_hosps'] / ref_pop_expected_hosp, 1)
 
     groupby_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
     groupby_cols.extend(std_col.RACE_COLUMNS)
