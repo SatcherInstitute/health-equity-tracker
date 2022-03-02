@@ -20,9 +20,14 @@ function MissingDataAlert(props: MissingDataAlertProps) {
   const demographicPhrase = props.noDemographicInfo
     ? " demographic information for "
     : " ";
-  const breakdownPhrase = props.noDemographicInfo
-    ? " "
-    : ` broken down by ${props.breakdownString} `;
+  const breakdownPhrase = props.noDemographicInfo ? (
+    " "
+  ) : (
+    <>
+      {" "}
+      broken down by <b>{props.breakdownString}</b>{" "}
+    </>
+  );
 
   // supply name of lower level geo needed to create map
   const geoPhrase =
