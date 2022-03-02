@@ -1,0 +1,68 @@
+[
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "race_category_id": "AIAN_NH",
+    "race": "American Indian and Alaska Native",
+    "race_includes_hispanic": false,
+    "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
+    "death_ratio_age_adjusted": "1.79",
+    "hosp_ratio_age_adjusted": "2.46",
+    "ingestion_ts": "2022-03-01 16:36:18.469565 UTC"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "race_category_id": "ASIAN_NH",
+    "race": "Asian",
+    "race_includes_hispanic": false,
+    "race_and_ethnicity": "Asian (Non-Hispanic)",
+    "death_ratio_age_adjusted": "0.87",
+    "hosp_ratio_age_adjusted": "0.92",
+    "ingestion_ts": "2022-03-01 16:36:18.469565 UTC"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "race_category_id": "BLACK_NH",
+    "race": "Black or African American",
+    "race_includes_hispanic": false,
+    "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+    "death_ratio_age_adjusted": "1.66",
+    "hosp_ratio_age_adjusted": "1.97",
+    "ingestion_ts": "2022-03-01 16:36:18.469565 UTC"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "race_category_id": "NHPI_NH",
+    "race": "Native Hawaiian and Pacific Islander",
+    "race_includes_hispanic": false,
+    "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
+    "death_ratio_age_adjusted": "1.85",
+    "hosp_ratio_age_adjusted": "3.04",
+    "ingestion_ts": "2022-03-01 16:36:18.469565 UTC"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "race_category_id": "WHITE_NH",
+    "race": "White",
+    "race_includes_hispanic": false,
+    "race_and_ethnicity": "White (Non-Hispanic)",
+    "death_ratio_age_adjusted": "1.0",
+    "hosp_ratio_age_adjusted": "1.0",
+    "ingestion_ts": "2022-03-01 16:36:18.469565 UTC"
+  },
+  {
+    "state_fips": "00",
+    "state_name": "United States",
+    "race_category_id": "HISP",
+    "race": "Hispanic or Latino",
+    "race_includes_hispanic": true,
+    "race_and_ethnicity": "Hispanic or Latino",
+    "death_ratio_age_adjusted": "2.18",
+    "hosp_ratio_age_adjusted": "2.68",
+    "ingestion_ts": "2022-03-01 16:36:18.469565 UTC"
+  }
+]
