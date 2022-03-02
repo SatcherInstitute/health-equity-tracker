@@ -38,16 +38,40 @@ class AgeAdjustCDCRestricted(DataSource):
             pop_df = gcs_to_bq_util.load_dataframe_from_bigquery(
                     'census_pop_estimates', 'race_and_ethnicity', dtype={'state_fips': str})
 
-            if geo == 'national':
-                with_race_age_df = with_race_age_df.loc[~with_race_age_df[std_col.COVID_CASES].isna()]
-                states_to_include = set(with_race_age_df[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
+            # Only get the covid data from states we have population data for
+            states_with_pop = set(pop_df[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
+            with_race_age_df = with_race_age_df.loc[
+                with_race_age_df[std_col.STATE_FIPS_COL].isin(states_with_pop)
+            ].reset_index(drop=True)
 
-                pop_df = census_pop_estimates.generate_national_pop_data(pop_df, states_to_include)
+            pop_df_death, pop_df_hosp = pop_df, pop_df
+
+            if geo == 'national':
+                with_race_age_df_death = with_race_age_df.loc[~with_race_age_df[std_col.COVID_DEATH_Y].isna()]
+                states_to_include_death = set(with_race_age_df_death[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
+
+                pop_df_death = census_pop_estimates.generate_national_pop_data(pop_df, states_to_include_death)
+
+                with_race_age_df_hosp = with_race_age_df.loc[~with_race_age_df[std_col.COVID_HOSP_Y].isna()]
+                states_to_include_hosp = set(with_race_age_df_hosp[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
+
+                pop_df_hosp = census_pop_estimates.generate_national_pop_data(pop_df, states_to_include_hosp)
 
                 groupby_cols = list(std_col.RACE_COLUMNS) + [std_col.AGE_COL]
                 with_race_age_df = cdc_restricted_local.generate_national_dataset(with_race_age_df, groupby_cols)
 
-            age_adjusted_df = do_age_adjustment(with_race_age_df, pop_df)
+            # Clean with race age df
+            with_race_age_df = with_race_age_df.loc[
+                with_race_age_df[std_col.AGE_COL] != "UNKNOWN"
+            ].reset_index(drop=True)
+
+            with_race_age_df = with_race_age_df.loc[
+                with_race_age_df[std_col.RACE_CATEGORY_ID_COL].isin(AGE_ADJUST_RACES)
+            ].reset_index(drop=True)
+
+            df = get_expected_deaths(with_race_age_df, pop_df_death)
+            df = get_expected_hosps(df, pop_df_hosp)
+            age_adjusted_df = age_adjust_from_expected(df)
 
             only_race = 'by_race_%s' % geo
             table_name = '%s-with_age_adjust' % only_race
@@ -99,20 +123,67 @@ def merge_age_adjusted(df, age_adjusted_df):
     return pd.merge(df, age_adjusted_df, how='left', on=merge_cols)
 
 
-def get_expected_deaths_and_hospitalizations(race_and_age_df, population_df):
-    """Calculates the age adjusted expected deaths of each racial group.
+def get_expected_hosps(race_and_age_df, population_df):
+    """Calculates the age adjusted expected hospitalizations of each racial group.
        I made this function to break up the age adjustment into smaller, more easily testable pieces.
+
        Returns a dataframe meant to be used in memory.
 
-       race_and_age_df: a dataframe with covid deaths broken down by race and age
+       race_and_age_df: a dataframe with covid hospitalizations broken down by race and age
        population_df: a dataframe with population broken down by race and age"""
 
-    def get_expected_rate(row):
+    def get_expected_hosp_rate(row):
         this_pop_size = float(population_df.loc[
                 (population_df[std_col.RACE_CATEGORY_ID_COL] == row[std_col.RACE_CATEGORY_ID_COL]) &
                 (population_df[std_col.AGE_COL] == row[std_col.AGE_COL]) &
                 (population_df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
             ][std_col.POPULATION_COL].values[0])
+
+        true_hosp_rate = float(row[std_col.COVID_HOSP_Y]) / this_pop_size
+
+        ref_pop_size = float(population_df.loc[
+                (population_df[std_col.RACE_CATEGORY_ID_COL] == REFERENCE_POPULATION) &
+                (population_df[std_col.AGE_COL] == row[std_col.AGE_COL]) &
+                (population_df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
+            ][std_col.POPULATION_COL].values[0])
+
+        if not this_pop_size:
+            raise ValueError('Population size for %s demographic is 0 or nil' % row[std_col.RACE_CATEGORY_ID_COL])
+
+        if not ref_pop_size:
+            raise ValueError('Population size for %s demographic is 0 or nil' % REFERENCE_POPULATION)
+
+        if not row[std_col.COVID_HOSP_Y]:
+            row['expected_hosps'] = None
+        else:
+            true_hosp_rate = float(row[std_col.COVID_HOSP_Y]) / this_pop_size
+            row['expected_hosps'] = round(true_hosp_rate * ref_pop_size, 2)
+
+        return round(true_hosp_rate * ref_pop_size, 2)
+
+    df = race_and_age_df
+    df['expected_hosps'] = df.apply(get_expected_hosp_rate, axis=1)
+
+    return df
+
+
+def get_expected_deaths(race_and_age_df, population_df):
+    """Calculates the age adjusted expected deaths of each racial group.
+       I made this function to break up the age adjustment into smaller, more easily testable pieces.
+
+       Returns a dataframe meant to be used in memory.
+
+       race_and_age_df: a dataframe with covid deaths broken down by race and age
+       population_df: a dataframe with population broken down by race and age"""
+
+    def get_expected_death_rate(row):
+        this_pop_size = float(population_df.loc[
+                (population_df[std_col.RACE_CATEGORY_ID_COL] == row[std_col.RACE_CATEGORY_ID_COL]) &
+                (population_df[std_col.AGE_COL] == row[std_col.AGE_COL]) &
+                (population_df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
+            ][std_col.POPULATION_COL].values[0])
+
+        true_death_rate = float(row[std_col.COVID_DEATH_Y]) / this_pop_size
 
         ref_pop_size = float(population_df.loc[
                 (population_df[std_col.RACE_CATEGORY_ID_COL] == REFERENCE_POPULATION) &
@@ -132,24 +203,10 @@ def get_expected_deaths_and_hospitalizations(race_and_age_df, population_df):
             true_death_rate = float(row[std_col.COVID_DEATH_Y]) / this_pop_size
             row['expected_deaths'] = round(true_death_rate * ref_pop_size, 2)
 
-        if not row[std_col.COVID_HOSP_Y]:
-            row['expected_hosps'] = None
-        else:
-            true_hosp_rate = float(row[std_col.COVID_HOSP_Y]) / this_pop_size
-            row['expected_hosps'] = round(true_hosp_rate * ref_pop_size, 2)
-
-        return row
-
-    on_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.AGE_COL]
-    on_cols.extend(std_col.RACE_COLUMNS)
+        return round(true_death_rate * ref_pop_size, 2)
 
     df = race_and_age_df
-    states_with_pop = set(population_df[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
-    df = df.loc[df[std_col.AGE_COL] != "UNKNOWN"].reset_index(drop=True)
-    df = df.loc[df[std_col.RACE_CATEGORY_ID_COL].isin(AGE_ADJUST_RACES)].reset_index(drop=True)
-    df = df.loc[df[std_col.STATE_FIPS_COL].isin(states_with_pop)].reset_index(drop=True)
-
-    df = df.apply(get_expected_rate, axis=1)
+    df['expected_deaths'] = df.apply(get_expected_death_rate, axis=1)
 
     return df
 

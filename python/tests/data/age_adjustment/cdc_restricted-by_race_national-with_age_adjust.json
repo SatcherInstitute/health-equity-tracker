@@ -7,7 +7,7 @@
     "race_includes_hispanic": false,
     "race_and_ethnicity": "Black or African American (Non-Hispanic)",
     "death_ratio_age_adjusted": 0.59,
-    "hosp_ratio_age_adjusted": 0.71
+    "hosp_ratio_age_adjusted": 0.66
   },
   {
     "state_fips": "00",
@@ -17,7 +17,7 @@
     "race_includes_hispanic": true,
     "race_and_ethnicity": "Hispanic or Latino",
     "death_ratio_age_adjusted": 3.35,
-    "hosp_ratio_age_adjusted": 5
+    "hosp_ratio_age_adjusted": 4.38
   },
   {
     "state_fips": "00",

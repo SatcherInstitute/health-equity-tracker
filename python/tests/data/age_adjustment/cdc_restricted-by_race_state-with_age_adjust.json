@@ -22,8 +22,8 @@
     "race": "Hispanic or Latino",
     "race_includes_hispanic": true,
     "race_and_ethnicity": "Hispanic or Latino",
-    "hosp_ratio_age_adjusted": 3.35,
-    "death_ratio_age_adjusted": 3.35
+    "death_ratio_age_adjusted": 3.35,
+    "hosp_ratio_age_adjusted": 3.35
   },
   {
     "state_fips": "01",
@@ -39,42 +39,78 @@
     "hosp_ratio_age_adjusted": 1
   },
   {
-    "state_fips": "10",
-    "state_name": "Delaware",
+    "state_fips": "06",
+    "state_name": "California",
     "race_category_id": "BLACK_NH",
-    "death_y": null,
-    "cases": "300",
-    "hosp_y": "300",
+    "hosp_y": "3.0",
+    "cases": "100000.0",
     "race": "Black or African American",
     "race_includes_hispanic": false,
     "race_and_ethnicity": "Black or African American (Non-Hispanic)",
     "death_ratio_age_adjusted": null,
-    "hosp_ratio_age_adjusted": 3.0
+    "hosp_ratio_age_adjusted": 1.04
   },
   {
-    "state_fips": "10",
-    "state_name": "Delaware",
+    "state_fips": "06",
+    "state_name": "California",
     "race_category_id": "HISP",
-    "death_y": null,
-    "cases": "300",
-    "hosp_y": "300",
+    "hosp_y": "3.0",
+    "cases": "2000000.0",
     "race": "Hispanic or Latino",
     "race_includes_hispanic": true,
     "race_and_ethnicity": "Hispanic or Latino",
     "death_ratio_age_adjusted": null,
-    "hosp_ratio_age_adjusted": 35.56
+    "hosp_ratio_age_adjusted": 21.19
   },
   {
-    "state_fips": "10",
-    "state_name": "Delaware",
+    "state_fips": "06",
+    "state_name": "California",
     "race_category_id": "WHITE_NH",
-    "death_y": null,
-    "hosp_y": "300",
-    "cases": "300",
+    "hosp_y": "3.0",
+    "cases": "3000000.0",
     "race": "White",
     "race_includes_hispanic": false,
     "race_and_ethnicity": "White (Non-Hispanic)",
     "death_ratio_age_adjusted": null,
     "hosp_ratio_age_adjusted": 1
+  },
+  {
+    "state_fips": "10",
+    "state_name": "Delaware",
+    "race_category_id": "BLACK_NH",
+    "hosp_y": null,
+    "death_y": null,
+    "cases": "100000.0",
+    "race": "Black or African American",
+    "race_includes_hispanic": false,
+    "race_and_ethnicity": "Black or African American (Non-Hispanic)",
+    "death_ratio_age_adjusted": null,
+    "hosp_ratio_age_adjusted": null
+  },
+  {
+    "state_fips": "10",
+    "state_name": "Delaware",
+    "race_category_id": "HISP",
+    "hosp_y": null,
+    "death_y": null,
+    "cases": "2000000.0",
+    "race": "Hispanic or Latino",
+    "race_includes_hispanic": true,
+    "race_and_ethnicity": "Hispanic or Latino",
+    "death_ratio_age_adjusted": null,
+    "hosp_ratio_age_adjusted": null
+  },
+  {
+    "state_fips": "10",
+    "state_name": "Delaware",
+    "race_category_id": "WHITE_NH",
+    "hosp_y": null,
+    "death_y": null,
+    "cases": "3000000.0",
+    "race": "White",
+    "race_includes_hispanic": false,
+    "race_and_ethnicity": "White (Non-Hispanic)",
+    "death_ratio_age_adjusted": null,
+    "hosp_ratio_age_adjusted": null
   }
 ]
