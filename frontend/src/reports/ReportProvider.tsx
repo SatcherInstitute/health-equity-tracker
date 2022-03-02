@@ -25,7 +25,6 @@ import {
   VariableConfig,
 } from "../data/config/MetricConfig";
 import { Link } from "react-router-dom";
-import FeedbackBox from "../pages/ui/FeedbackBox";
 import ShareButtons from "./ui/ShareButtons";
 import { Helmet } from "react-helmet-async";
 import { urlMap } from "../utils/externalUrls";
@@ -313,8 +312,6 @@ function ReportProvider(props: ReportProviderProps) {
           </div>
         </aside>
       </div>
-
-      <FeedbackBox />
     </>
   );
 }
