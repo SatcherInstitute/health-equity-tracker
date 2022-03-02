@@ -48,7 +48,8 @@ class AgeAdjustCDCRestricted(DataSource):
 
             if geo == 'national':
                 with_race_age_df_death = with_race_age_df.loc[~with_race_age_df[std_col.COVID_DEATH_Y].isna()]
-                states_to_include_death = set(with_race_age_df_death[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
+                states_to_include_death = set(
+                    with_race_age_df_death[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
 
                 pop_df_death = census_pop_estimates.generate_national_pop_data(pop_df, states_to_include_death)
 
@@ -253,15 +254,3 @@ def age_adjust_from_expected(df):
     needed_cols.extend([std_col.COVID_DEATH_RATIO_AGE_ADJUSTED, std_col.COVID_HOSP_RATIO_AGE_ADJUSTED])
 
     return df[needed_cols]
-
-
-def do_age_adjustment(race_and_age_df, population_df):
-    """Runs the age adjustment end to end.
-       Returns a dataframe with the ahe adjusted death rate compared to the
-       standard population.
-
-       race_and_age_df: a dataframe with covid deaths broken down by race and age
-       population_df: a dataframe with population broken down by race and age"""
-
-    expected = get_expected_deaths_and_hospitalizations(race_and_age_df, population_df)
-    return age_adjust_from_expected(expected)
