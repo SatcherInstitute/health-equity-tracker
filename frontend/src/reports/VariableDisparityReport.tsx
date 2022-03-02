@@ -236,6 +236,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                 fips={props.fips}
                 variableConfig={variableConfig}
                 dropdownVarId={props.dropdownVarId}
+                breakdownVar={currentBreakdown}
                 setVariableConfigWithParam={setVariableConfigWithParam}
               />
             </LazyLoad>

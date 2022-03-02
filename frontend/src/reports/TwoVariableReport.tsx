@@ -352,6 +352,7 @@ function TwoVariableReport(props: {
           <AgeAdjustedTableCard
             fips={fips}
             variableConfig={variableConfig}
+            breakdownVar={currentBreakdown}
             dropdownVarId={dropdownVarId}
           />
         )}

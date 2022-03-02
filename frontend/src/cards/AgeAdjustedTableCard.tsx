@@ -5,6 +5,7 @@ import { MetricQuery } from "../data/query/MetricQuery";
 import { Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
+  BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { CardContent } from "@material-ui/core";
@@ -44,6 +45,7 @@ const exclusionList = [ALL, NON_HISPANIC, WHITE_NH, MULTI_OR_OTHER_STANDARD_NH];
 export interface AgeAdjustedTableCardProps {
   fips: Fips;
   variableConfig: VariableConfig;
+  breakdownVar: BreakdownVar;
   dropdownVarId?: DropdownVarId;
   setVariableConfigWithParam?: Function;
 }
@@ -95,6 +97,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
           );
         });
 
+        const isWrongBreakdownVar = props.breakdownVar === "sex";
         const noRatios = knownData.every((row) => row[ratioId] === undefined);
 
         return (
@@ -112,17 +115,20 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
 
             <Divider />
 
-            {/*  Values are null; implying they could be age-adjusted but aren't  */}
-            {queryResponse.shouldShowMissingDataMessage(
-              metricIds as MetricId[]
-            ) && (
+            {/*  Values are null OR demographic is SEX; implying values could be age-adjusted but aren't  */}
+            {(isWrongBreakdownVar ||
+              queryResponse.shouldShowMissingDataMessage(
+                metricIds as MetricId[]
+              )) && (
               <CardContent>
                 <MissingDataAlert
                   dataName={
                     props.variableConfig.metrics.age_adjusted_ratio
                       .fullCardTitleName + " "
                   }
-                  breakdownString={BREAKDOWN_VAR_DISPLAY_NAMES[RACE]}
+                  breakdownString={
+                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+                  }
                   fips={props.fips}
                 />
               </CardContent>
@@ -153,14 +159,16 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               )}
 
             {/* values are present or partially null, implying we have at least some age-adjustments */}
-            {!queryResponse.dataIsMissing() && !noRatios && (
-              <div className={styles.TableChart}>
-                <AgeAdjustedTableChart
-                  data={knownData}
-                  metrics={Object.values(metricConfigs)}
-                />
-              </div>
-            )}
+            {!queryResponse.dataIsMissing() &&
+              !noRatios &&
+              props.breakdownVar !== "sex" && (
+                <div className={styles.TableChart}>
+                  <AgeAdjustedTableChart
+                    data={knownData}
+                    metrics={Object.values(metricConfigs)}
+                  />
+                </div>
+              )}
           </>
         );
       }}
