@@ -6,6 +6,7 @@ import {
 } from "../../utils/urlutils";
 import { BreakdownVarDisplayName } from "../../data/query/Breakdowns";
 import { Fips } from "../../data/utils/Fips";
+import { DropdownVarId, VariableConfig } from "../../data/config/MetricConfig";
 
 interface MissingDataAlertProps {
   dataName: string;
@@ -13,6 +14,9 @@ interface MissingDataAlertProps {
   noDemographicInfo?: boolean;
   isMapCard?: boolean;
   fips: Fips;
+  ageAdjustedDataTypes?: VariableConfig[];
+  setVariableConfigWithParam?: Function;
+  dropdownVarId?: DropdownVarId;
 }
 
 function MissingDataAlert(props: MissingDataAlertProps) {
@@ -47,7 +51,7 @@ function MissingDataAlert(props: MissingDataAlertProps) {
       <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
         health equity
       </LinkWithStickyParams>
-      <span aria-hidden="true">.</span>
+      {". "}
     </Alert>
   );
 }

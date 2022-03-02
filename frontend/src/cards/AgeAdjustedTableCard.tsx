@@ -129,31 +129,26 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
+                  setVariableConfigWithParam={props.setVariableConfigWithParam}
+                  dropdownVarId={props.dropdownVarId}
                   fips={props.fips}
+                  ageAdjustedDataTypes={ageAdjustedDataTypes}
                 />
               </CardContent>
             )}
 
             {/* Values are intentionally undefined; implying they can't/won't be age-adjusted */}
-            {!queryResponse.shouldShowMissingDataMessage(
-              metricIds as MetricId[]
-            ) &&
+            {!isWrongBreakdownVar &&
+              !queryResponse.shouldShowMissingDataMessage(
+                metricIds as MetricId[]
+              ) &&
               noRatios && (
                 <CardContent>
                   <Alert severity="warning" role="note">
                     Because outcomes for{" "}
                     <b>{props.variableConfig.variableFullDisplayName}</b> are
-                    not heavily influenced by age, we do not provide
+                    not heavily dependent on a person's age, we do not provide
                     age-adjusted numbers.{" "}
-                    {ageAdjustedDataTypes.length > 0 && (
-                      <AltDataTypesMessage
-                        setVariableConfigWithParam={
-                          props.setVariableConfigWithParam
-                        }
-                        ageAdjustedDataTypes={ageAdjustedDataTypes}
-                        dropdownVarId={props.dropdownVarId}
-                      />
-                    )}
                   </Alert>
                 </CardContent>
               )}
@@ -173,44 +168,5 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
         );
       }}
     </CardWrapper>
-  );
-}
-
-interface AltDataTypesMessageProps {
-  ageAdjustedDataTypes: VariableConfig[];
-  setVariableConfigWithParam?: any;
-  dropdownVarId?: DropdownVarId;
-}
-
-function AltDataTypesMessage(props: AltDataTypesMessageProps) {
-  if (!props.ageAdjustedDataTypes) return <></>;
-
-  return (
-    <>
-      Age-adjusted ratios are currently available for the following{" "}
-      {props.dropdownVarId} data types:{" "}
-      {props.ageAdjustedDataTypes.map((dataType, i) => {
-        return (
-          <span key={dataType.variableDisplayName}>
-            <a
-              href="#dataType"
-              onClick={(e) => {
-                e.preventDefault();
-                props.setVariableConfigWithParam(dataType);
-              }}
-              role="button"
-              className={styles.CompareAcrossLink}
-            >
-              {" "}
-              <b>{dataType.variableFullDisplayName}</b>
-            </a>
-
-            {/* proper punctuation */}
-            {i < props.ageAdjustedDataTypes.length - 1 && ", "}
-            {i === props.ageAdjustedDataTypes.length - 1 && "."}
-          </span>
-        );
-      })}
-    </>
   );
 }
