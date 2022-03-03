@@ -24,7 +24,7 @@ import {
   METRIC_CONFIG,
   VariableConfig,
 } from "../data/config/MetricConfig";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import FeedbackBox from "../pages/ui/FeedbackBox";
 import ShareButtons from "./ui/ShareButtons";
 import { Helmet } from "react-helmet-async";
@@ -33,8 +33,17 @@ import { Box } from "@material-ui/core";
 import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
+import SingleCardAlert from "./ui/SingleCardAlert";
 
 export const SINGLE_COLUMN_WIDTH = 12;
+
+const cardIds = [
+  "#Map100k",
+  "#BarChart100k",
+  "#UnknownsMap",
+  "#PopulationShareMap",
+  "#DataTable",
+];
 
 interface ReportProviderProps {
   isSingleColumn: boolean;
@@ -46,6 +55,16 @@ interface ReportProviderProps {
 }
 
 function ReportProvider(props: ReportProviderProps) {
+  // const [singleCard, setSingleCard] = useState(null)
+  let singleCard: string | null = null;
+
+  const location: any = useLocation();
+
+  if (location && cardIds.includes(location.hash)) {
+    console.log(location.hash);
+    singleCard = location.hash;
+  }
+
   // only show determinants that have definitions
   const definedConditions = props.selectedConditions.filter(
     (condition) => condition?.variableDefinition
@@ -99,6 +118,7 @@ function ReportProvider(props: ReportProviderProps) {
         const dropdownOption = getPhraseValue(props.madLib, 1);
         return (
           <VariableDisparityReport
+            singleCard={singleCard}
             jumpToDefinitions={jumpToDefinitions}
             jumpToData={jumpToData}
             key={dropdownOption}
@@ -174,7 +194,11 @@ function ReportProvider(props: ReportProviderProps) {
       <div className={reportWrapper}>
         <ShareButtons madLib={props.madLib} />
         {props.showLifeLineAlert && <LifelineAlert />}
-        <DisclaimerAlert jumpToData={jumpToData} />
+        {singleCard ? (
+          <SingleCardAlert />
+        ) : (
+          <DisclaimerAlert jumpToData={jumpToData} />
+        )}
         {getReport()}
       </div>
       <div className={styles.MissingDataContainer}>

@@ -18,3 +18,13 @@
   margin-left: 0.075rem;
   letter-spacing: -0.04rem;
 }
+
+.PrimaryButton {
+  border-radius: 40px !important;
+  // height: 52px;
+  min-width: 220px;
+  font-size: $title !important;
+  font-weight: 500;
+  font-family: "DM Sans", sans-serif !important;
+  padding: 10px 30px;
+}
