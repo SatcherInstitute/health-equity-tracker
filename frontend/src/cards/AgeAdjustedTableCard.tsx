@@ -132,7 +132,6 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                   setVariableConfigWithParam={props.setVariableConfigWithParam}
                   dropdownVarId={props.dropdownVarId}
                   fips={props.fips}
-                  ageAdjustedDataTypes={ageAdjustedDataTypes}
                 />
               </CardContent>
             )}
@@ -148,7 +147,16 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                     Because outcomes for{" "}
                     <b>{props.variableConfig.variableFullDisplayName}</b> are
                     not heavily dependent on a person's age, we do not provide
-                    age-adjusted numbers.{" "}
+                    age-adjusted numbers. {/* Offer alternate data types */}
+                    {ageAdjustedDataTypes.length > 0 && (
+                      <AltDataTypesMessage
+                        setVariableConfigWithParam={
+                          props.setVariableConfigWithParam
+                        }
+                        ageAdjustedDataTypes={ageAdjustedDataTypes}
+                        dropdownVarId={props.dropdownVarId}
+                      />
+                    )}
                   </Alert>
                 </CardContent>
               )}
@@ -168,5 +176,41 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
         );
       }}
     </CardWrapper>
+  );
+}
+
+interface AltDataTypesMessageProps {
+  ageAdjustedDataTypes: VariableConfig[];
+  setVariableConfigWithParam?: any;
+  dropdownVarId?: DropdownVarId;
+}
+function AltDataTypesMessage(props: AltDataTypesMessageProps) {
+  if (!props.ageAdjustedDataTypes) return <></>;
+  return (
+    <>
+      Age-adjusted ratios are currently available for the following{" "}
+      {props.dropdownVarId} data types:{" "}
+      {props.ageAdjustedDataTypes.map((dataType, i) => {
+        return (
+          <span key={dataType.variableDisplayName}>
+            <a
+              href="#dataType"
+              onClick={(e) => {
+                e.preventDefault();
+                props.setVariableConfigWithParam(dataType);
+              }}
+              role="button"
+              className={styles.CompareAcrossLink}
+            >
+              {" "}
+              <b>{dataType.variableFullDisplayName}</b>
+            </a>
+
+            {i < props.ageAdjustedDataTypes.length - 1 && ", "}
+            {i === props.ageAdjustedDataTypes.length - 1 && "."}
+          </span>
+        );
+      })}
+    </>
   );
 }

@@ -6,7 +6,7 @@ import {
 } from "../../utils/urlutils";
 import { BreakdownVarDisplayName } from "../../data/query/Breakdowns";
 import { Fips } from "../../data/utils/Fips";
-import { DropdownVarId, VariableConfig } from "../../data/config/MetricConfig";
+import { DropdownVarId } from "../../data/config/MetricConfig";
 
 interface MissingDataAlertProps {
   dataName: string;
@@ -14,7 +14,6 @@ interface MissingDataAlertProps {
   noDemographicInfo?: boolean;
   isMapCard?: boolean;
   fips: Fips;
-  ageAdjustedDataTypes?: VariableConfig[];
   setVariableConfigWithParam?: Function;
   dropdownVarId?: DropdownVarId;
 }
