@@ -1,0 +1,73 @@
+#!/bin/bash
+
+set -eu
+set -o pipefail
+
+function main() {
+  local bucket_name
+  local data_file
+
+  while [[ "${#}" != 0 ]]; do
+      case "${1}" in
+        --help|-h)
+          shift 1
+          usage
+          exit 0
+          ;;
+
+        --data-file|-f)
+          data_file="${2}"
+          shift 2
+          ;;
+
+        "")
+          shift 1
+          ;;
+
+        *)
+          print::message "unknown argument \"${1}\""
+          exit 1
+
+      esac
+    done
+
+  bucket_name=$(gcloud config get-value project | cut -d - -f1)-dev-export
+
+  print::message "Setting bucket name to ${bucket_name}"
+  file::download "${bucket_name}" "${data_file}"
+
+  print::message "Success !!"
+}
+
+
+function usage() {
+  cat <<-USAGE
+download_data_file [OPTIONS]
+Downloads a data file from the export bucket and places it in the tmp directory for local dev use.
+OPTIONS
+  --help            -h  prints the command usage
+  --data-file       -d  name of the data file you want to download, without the .json
+USAGE
+}
+
+function print::message() {
+  local blue reset message
+  blue="\033[0;34m"
+  reset="\033[0;39m"
+  message="${1}"
+
+  echo -e "\n${blue}${message}${reset}" >&2
+}
+
+function file::download() {
+  local bucket_name file
+  bucket_name="${1}"
+  file="${2}"
+
+  print::message "Downloading file from s3"
+  gsutil -m cp "gs://${bucket_name}/${file}.json" "frontend/public/tmp/"
+}
+
+
+
+main "${@:-}"
