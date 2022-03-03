@@ -24,7 +24,6 @@ import {
   setParameter,
   setParameters,
 } from "../utils/urlutils";
-import { SINGLE_COLUMN_WIDTH } from "./ReportProvider";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
 import styles from "./Report.module.scss";
@@ -46,6 +45,8 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
   const refUnknownsMap = useRef<null | HTMLDivElement>(null);
   const refPopulationShareMap = useRef<null | HTMLDivElement>(null);
   const refDataTable = useRef<null | HTMLDivElement>(null);
+
+  const singleColumnWidth = props.singleCard ? 9 : 12;
 
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, RACE)
@@ -111,7 +112,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
     >
       {!props.singleCard && !props.hidePopulationCard && (
         // POPULATION CARD
-        <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="populationCard">
+        <Grid item xs={12} md={singleColumnWidth} id="populationCard">
           <PopulationCard jumpToData={props.jumpToData} fips={props.fips} />
         </Grid>
       )}
@@ -122,7 +123,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
         <Grid container spacing={1} justifyContent="center">
           {/* DEMOGRAPHIC / DATA TYPE TOGGLE(S) */}
           {!props.singleCard && (
-            <Grid item container xs={12} md={SINGLE_COLUMN_WIDTH}>
+            <Grid item container xs={12} md={singleColumnWidth}>
               <ReportToggleControls
                 dropdownVarId={props.dropdownVarId}
                 variableConfig={variableConfig}
@@ -135,7 +136,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
 
           {/* 100k MAP CARD */}
           {(!props.singleCard || props.singleCard === "#Map100k") && (
-            <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="Map100k">
+            <Grid item xs={12} md={singleColumnWidth} id="Map100k">
               <div ref={ref100kMap}>
                 <MapCard
                   variableConfig={variableConfig}
@@ -153,13 +154,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
 
           {/* 100K BAR CHART CARD */}
           {(!props.singleCard || props.singleCard === "#BarChart100k") && (
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={SINGLE_COLUMN_WIDTH}
-              id="BarChart100k"
-            >
+            <Grid item xs={12} sm={12} md={singleColumnWidth} id="BarChart100k">
               <LazyLoad offset={300} height={750} once>
                 {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                   <div ref={ref100kBarChart} key={breakdownVar}>
@@ -179,13 +174,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
 
           {/* UNKNOWNS MAP CARD */}
           {(!props.singleCard || props.singleCard === "#UnknownsMap") && (
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={SINGLE_COLUMN_WIDTH}
-              id="UnknownsMap"
-            >
+            <Grid item xs={12} sm={12} md={singleColumnWidth} id="UnknownsMap">
               <LazyLoad offset={300} height={750} once>
                 {variableConfig.metrics["pct_share"] && (
                   <div ref={refUnknownsMap}>
@@ -211,7 +200,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               item
               xs={12}
               sm={12}
-              md={SINGLE_COLUMN_WIDTH}
+              md={singleColumnWidth}
               id="PopulationShareMap"
             >
               <LazyLoad offset={300} height={750} once>
@@ -233,7 +222,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
 
           {/* DATA TABLE CARD */}
           {(!props.singleCard || props.singleCard === "#DataTable") && (
-            <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="DataTable">
+            <Grid item xs={12} md={singleColumnWidth} id="DataTable">
               <LazyLoad offset={300} height={750} once>
                 {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                   <div key={breakdownVar} ref={refDataTable}>
@@ -249,20 +238,20 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
               </LazyLoad>
             </Grid>
           )}
-
-          {props.singleCard && (
-            <Box my={5}>
-              <Button
-                variant="contained"
-                color="primary"
-                className={styles.PrimaryButton}
-                href={window.location.href.replace(window.location.hash, "")}
-              >
-                View the Full Report
-              </Button>
-            </Box>
-          )}
         </Grid>
+      )}
+
+      {props.singleCard && (
+        <Box my={5}>
+          <Button
+            variant="contained"
+            color="primary"
+            className={styles.PrimaryButton}
+            href={window.location.href.replace(window.location.hash, "")}
+          >
+            View the Full Report
+          </Button>
+        </Box>
       )}
     </Grid>
   );

@@ -35,8 +35,6 @@ import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
 import SingleCardAlert from "./ui/SingleCardAlert";
 
-export const SINGLE_COLUMN_WIDTH = 12;
-
 const cardIds = [
   "#Map100k",
   "#BarChart100k",
