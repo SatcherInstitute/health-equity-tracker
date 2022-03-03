@@ -118,7 +118,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
           <p>
             Consider the possible impact of{" "}
             <a
-              href="#missingDataInfo"
+              href={window.location.href}
               onClick={(e) => {
                 e.preventDefault();
                 props.jumpToData();

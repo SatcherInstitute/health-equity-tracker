@@ -173,7 +173,7 @@ function MapCardWithKey(props: MapCardProps) {
               </b>{" "}
               {/*} HYPERLINKED TO BOTTOM DEFINITION {condition} cases per 100k  */}
               <a
-                href="#definitionsList"
+                href={window.location.href}
                 onClick={(e) => {
                   e.preventDefault();
                   props.jumpToDefinitions();
@@ -439,8 +439,11 @@ function MultiMapLink(props: MultiMapLinkProps) {
   return (
     <>
       <a
-        href="#multiMap"
-        onClick={() => props.setSmallMultiplesDialogOpen(true)}
+        href={window.location.href}
+        onClick={(e) => {
+          e.preventDefault();
+          props.setSmallMultiplesDialogOpen(true);
+        }}
         role="button"
         className={styles.CompareAcrossLink}
         aria-label={

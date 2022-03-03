@@ -99,7 +99,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 component="li"
               >
                 <b>{breakdownValue}</b>
-                {props.metricConfig && dataForValue.length ? (
+                {props.metricConfig && dataForValue.length > 0 && (
                   <ChoroplethMap
                     key={breakdownValue}
                     signalListeners={{ click: (...args: any) => {} }}
@@ -119,14 +119,12 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                       breakdownValue === "All" ? "" : ` for ${breakdownValue}`
                     } in ${props.fips.getFullDisplayName()}`}
                   />
-                ) : (
-                  <></>
                 )}
 
                 {/* TERRITORIES (IF NATIONAL VIEW) */}
                 {props.metricConfig &&
-                props.fips.isUsa() &&
-                dataForValue.length ? (
+                  props.fips.isUsa() &&
+                  dataForValue.length > 0 &&
                   TERRITORY_CODES.map((code) => {
                     const fips = new Fips(code);
                     return (
@@ -149,10 +147,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                         />
                       </div>
                     );
-                  })
-                ) : (
-                  <></>
-                )}
+                  })}
               </Grid>
             );
           })}

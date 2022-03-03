@@ -28,7 +28,6 @@ import { SINGLE_COLUMN_WIDTH } from "./ReportProvider";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
 import styles from "./Report.module.scss";
-import { Alert } from "@material-ui/lab";
 
 export interface VariableDisparityReportProps {
   key: string;
@@ -257,7 +256,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
                 variant="contained"
                 color="primary"
                 className={styles.PrimaryButton}
-                href={"#"}
+                href={window.location.href.replace(window.location.hash, "")}
               >
                 View the Full Report
               </Button>

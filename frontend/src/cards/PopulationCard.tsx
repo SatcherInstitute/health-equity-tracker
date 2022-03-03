@@ -164,8 +164,11 @@ export function PopulationCard(props: PopulationCardProps) {
                       the definition of these categories often results in not
                       counting or miscounting people in underrepresented groups.
                       <a
-                        href="#missingDataInfo"
-                        onClick={() => props.jumpToData()}
+                        href={window.location.href}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          props.jumpToData();
+                        }}
                       >
                         Read about missing data
                       </a>

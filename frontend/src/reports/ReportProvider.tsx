@@ -201,142 +201,145 @@ function ReportProvider(props: ReportProviderProps) {
         )}
         {getReport()}
       </div>
-      <div className={styles.MissingDataContainer}>
-        <aside
-          id="missingDataInfo"
-          ref={fieldRef}
-          className={styles.MissingDataInfo}
-        >
-          <h3 className={styles.FootnoteLargeHeading}>
-            What Data Are Missing?
-          </h3>
-          <p>Unfortunately there are crucial data missing in our sources.</p>
-          <h4>Missing and Misidentified People</h4>
-          <p>
-            Currently, there are no required or standardized race and ethnicity
-            categories for data collection across state and local jurisdictions.
-            The most notable gaps exist for race and ethnic groups, physical and
-            mental health status, and sex categories. Many states do not record
-            data for <b>American Indian</b>, <b>Alaska Native</b>,{" "}
-            <b>Native Hawaiian and Pacific Islander</b> racial categories,
-            lumping these people into other groups. Individuals who identify as{" "}
-            <b>Hispanic/Latino</b> may not be recorded in their respective race
-            category. Neither disability nor mental health status is collected
-            with the COVID-19 case data. Additionally, sex is recorded only as
-            female, male, or other.
-          </p>
-
-          <h4>Missing and Suppressed COVID Data</h4>
-          <p>
-            For COVID-19 related reports, this tracker uses disaggregated,
-            individual{" "}
-            <a href={urlMap.cdcCovidDataInfo}>
-              case level data reported by states, territories, and other
-              jurisdictions to the CDC
-            </a>
-            . Many of these case records are insufficiently disaggregated,
-            report an unknown hospitalization and/or death status, otherwise
-            fail to provide a complete picture of COVID-19 and its overall
-            impact. Due to the nature of surveillance data, we expect this data
-            to become more complete over time and will use the Health Equity
-            Tracker to record that progress.
-          </p>
-          <p>
-            In accordance with our{" "}
-            <Link to={METHODOLOGY_TAB_LINK}>methodology</Link>, we suppress this
-            incomplete data and render some states grey for certain COVID-19
-            data types, as outlined below:
-          </p>
-          <ul>
-            <li>
-              Cases, hospitalizations and deaths: <b>Mississippi</b>,{" "}
-              <b>Texas</b>, <b>West Virginia</b>
-            </li>
-            <li>
-              Hospitalizations and deaths: <b>Hawaii</b>, <b>Nebraska</b>,{" "}
-              <b>South Dakota</b>
-            </li>
-            <li>
-              Hospitalizations: <b>Rhode Island</b>
-            </li>
-            <li>
-              Deaths: <b>Delaware</b>
-            </li>
-          </ul>
-          <p>
-            Note: The following states' case data for COVID-19 <i>are</i>{" "}
-            included, but should be interpreted with caution since the cases
-            reported may not be representative of the population at large.
-          </p>
-          <ul>
-            <li>
-              Cases (interpret with caution): <b>Connecticut</b>, <b>Florida</b>
-              , <b>Kentucky</b>, <b>Michigan</b>, <b>Nebraska</b>, and{" "}
-              <b>Ohio</b>.
-            </li>
-          </ul>
-
-          <h4>Missing Vaccination Data</h4>
-          <p>
-            There is no county level vaccine demographic dataset, so we show
-            county totals according to the CDC to provide context.
-          </p>
-
-          <h4>Missing Population Data</h4>
-          <p>
-            The census bureau does not release population data for the{" "}
-            <b>Northern Mariana Islands</b>, <b>Guam</b>, or the{" "}
-            <b>U.S. Virgin Islands</b> in their ACS five year estimates. The
-            last reliable population numbers we could find for these territories
-            is from the 2010 census, so we use those numbers when calculating
-            the per 100k COVID-19 rates nationally and for all territory level
-            rates.
-          </p>
-          <p>
-            Because state reported population categories do not always coincide
-            with the categories reported by the census, we rely on the Kaiser
-            Family Foundation population tabulations for state reported
-            population categories, which only include population numbers for{" "}
-            <b>Black,</b> <b>White</b>, <b>Asian</b>, and <b>Hispanic</b>.
-            Percent of vaccinated metrics for{" "}
-            <b>Native Hawaiian and Pacific Islander</b>, and{" "}
-            <b>American Indian and Alaska Native</b> are shown with a population
-            comparison metric from the American Community Survey 5-year
-            estimates, while <b>Unrepresented race</b> is shown without any
-            population comparison metric.
-          </p>
-
-          <Button
-            className={styles.SeeOurDataSourcesButton}
-            href={DATA_CATALOG_PAGE_LINK}
-            color="primary"
-            endIcon={<ArrowForward />}
+      {!singleCard && (
+        <div className={styles.MissingDataContainer}>
+          <aside
+            id="missingDataInfo"
+            ref={fieldRef}
+            className={styles.MissingDataInfo}
           >
-            See Our Data Sources
-          </Button>
-
-          {/* Display condition definition(s) based on the tracker madlib settings */}
-          <div ref={definitionsRef}>
-            {definedConditions.length > 0 && (
-              <Box mt={5}>
-                <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
-                <LazyLoad offset={300} height={181} once>
-                  <DefinitionsList variablesToDefine={metricConfigSubset} />
-                </LazyLoad>
-              </Box>
-            )}
-          </div>
-
-          <div className={styles.MissingDataContactUs}>
+            <h3 className={styles.FootnoteLargeHeading}>
+              What Data Are Missing?
+            </h3>
+            <p>Unfortunately there are crucial data missing in our sources.</p>
+            <h4>Missing and Misidentified People</h4>
             <p>
-              Do you have information that belongs on the Health Equity Tracker?{" "}
-              <LinkWithStickyParams to={`${CONTACT_TAB_LINK}`}>
-                We would love to hear from you!
-              </LinkWithStickyParams>
+              Currently, there are no required or standardized race and
+              ethnicity categories for data collection across state and local
+              jurisdictions. The most notable gaps exist for race and ethnic
+              groups, physical and mental health status, and sex categories.
+              Many states do not record data for <b>American Indian</b>,{" "}
+              <b>Alaska Native</b>, <b>Native Hawaiian and Pacific Islander</b>{" "}
+              racial categories, lumping these people into other groups.
+              Individuals who identify as <b>Hispanic/Latino</b> may not be
+              recorded in their respective race category. Neither disability nor
+              mental health status is collected with the COVID-19 case data.
+              Additionally, sex is recorded only as female, male, or other.
             </p>
-          </div>
-        </aside>
-      </div>
+
+            <h4>Missing and Suppressed COVID Data</h4>
+            <p>
+              For COVID-19 related reports, this tracker uses disaggregated,
+              individual{" "}
+              <a href={urlMap.cdcCovidDataInfo}>
+                case level data reported by states, territories, and other
+                jurisdictions to the CDC
+              </a>
+              . Many of these case records are insufficiently disaggregated,
+              report an unknown hospitalization and/or death status, otherwise
+              fail to provide a complete picture of COVID-19 and its overall
+              impact. Due to the nature of surveillance data, we expect this
+              data to become more complete over time and will use the Health
+              Equity Tracker to record that progress.
+            </p>
+            <p>
+              In accordance with our{" "}
+              <Link to={METHODOLOGY_TAB_LINK}>methodology</Link>, we suppress
+              this incomplete data and render some states grey for certain
+              COVID-19 data types, as outlined below:
+            </p>
+            <ul>
+              <li>
+                Cases, hospitalizations and deaths: <b>Mississippi</b>,{" "}
+                <b>Texas</b>, <b>West Virginia</b>
+              </li>
+              <li>
+                Hospitalizations and deaths: <b>Hawaii</b>, <b>Nebraska</b>,{" "}
+                <b>South Dakota</b>
+              </li>
+              <li>
+                Hospitalizations: <b>Rhode Island</b>
+              </li>
+              <li>
+                Deaths: <b>Delaware</b>
+              </li>
+            </ul>
+            <p>
+              Note: The following states' case data for COVID-19 <i>are</i>{" "}
+              included, but should be interpreted with caution since the cases
+              reported may not be representative of the population at large.
+            </p>
+            <ul>
+              <li>
+                Cases (interpret with caution): <b>Connecticut</b>,{" "}
+                <b>Florida</b>, <b>Kentucky</b>, <b>Michigan</b>,{" "}
+                <b>Nebraska</b>, and <b>Ohio</b>.
+              </li>
+            </ul>
+
+            <h4>Missing Vaccination Data</h4>
+            <p>
+              There is no county level vaccine demographic dataset, so we show
+              county totals according to the CDC to provide context.
+            </p>
+
+            <h4>Missing Population Data</h4>
+            <p>
+              The census bureau does not release population data for the{" "}
+              <b>Northern Mariana Islands</b>, <b>Guam</b>, or the{" "}
+              <b>U.S. Virgin Islands</b> in their ACS five year estimates. The
+              last reliable population numbers we could find for these
+              territories is from the 2010 census, so we use those numbers when
+              calculating the per 100k COVID-19 rates nationally and for all
+              territory level rates.
+            </p>
+            <p>
+              Because state reported population categories do not always
+              coincide with the categories reported by the census, we rely on
+              the Kaiser Family Foundation population tabulations for state
+              reported population categories, which only include population
+              numbers for <b>Black,</b> <b>White</b>, <b>Asian</b>, and{" "}
+              <b>Hispanic</b>. Percent of vaccinated metrics for{" "}
+              <b>Native Hawaiian and Pacific Islander</b>, and{" "}
+              <b>American Indian and Alaska Native</b> are shown with a
+              population comparison metric from the American Community Survey
+              5-year estimates, while <b>Unrepresented race</b> is shown without
+              any population comparison metric.
+            </p>
+
+            <Button
+              className={styles.SeeOurDataSourcesButton}
+              href={DATA_CATALOG_PAGE_LINK}
+              color="primary"
+              endIcon={<ArrowForward />}
+            >
+              See Our Data Sources
+            </Button>
+
+            {/* Display condition definition(s) based on the tracker madlib settings */}
+            <div ref={definitionsRef}>
+              {definedConditions.length > 0 && (
+                <Box mt={5}>
+                  <h3 className={styles.FootnoteLargeHeading}>Definitions:</h3>
+                  <LazyLoad offset={300} height={181} once>
+                    <DefinitionsList variablesToDefine={metricConfigSubset} />
+                  </LazyLoad>
+                </Box>
+              )}
+            </div>
+
+            <div className={styles.MissingDataContactUs}>
+              <p>
+                Do you have information that belongs on the Health Equity
+                Tracker?{" "}
+                <LinkWithStickyParams to={`${CONTACT_TAB_LINK}`}>
+                  We would love to hear from you!
+                </LinkWithStickyParams>
+              </p>
+            </div>
+          </aside>
+        </div>
+      )}
 
       <FeedbackBox />
     </>

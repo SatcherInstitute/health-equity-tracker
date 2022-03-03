@@ -22,7 +22,7 @@ function DisclaimerAlert(props: { jumpToData: () => void }) {
         gaps which, in turn, will help us create more effective health policies
         in the United States.{" "}
         <a
-          href="#missingDataInfo"
+          href={window.location.href}
           onClick={(e) => {
             e.preventDefault();
             props.jumpToData();
