@@ -1,5 +1,5 @@
 import { Grid } from "@material-ui/core";
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState, Fragment, useRef } from "react";
 import LazyLoad from "react-lazyload";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { MapCard } from "../cards/MapCard";
@@ -29,6 +29,12 @@ import { SINGLE_COLUMN_WIDTH } from "./ReportProvider";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
 
+function jumpToCard(ref: any): void {
+  if (ref.current) {
+    ref.current.scrollIntoView({ behavior: "smooth" });
+  }
+}
+
 export interface VariableDisparityReportProps {
   key: string;
   dropdownVarId: DropdownVarId;
@@ -37,9 +43,32 @@ export interface VariableDisparityReportProps {
   hidePopulationCard?: boolean;
   jumpToDefinitions: Function;
   jumpToData: Function;
+  scrollToRef?: any;
 }
 
 export function VariableDisparityReport(props: VariableDisparityReportProps) {
+  const mapCardRef = useRef<HTMLInputElement>(null);
+  const simpleBarChartCardRef = useRef<HTMLInputElement>(null);
+  const unknownsMapCardRef = useRef<HTMLInputElement>(null);
+  const disparityBarChartCardRef = useRef<HTMLInputElement>(null);
+  const tableCardRef = useRef<HTMLInputElement>(null);
+
+  // handle incoming #missingDataLink link request, only on page load
+  useEffect(() => {
+    if (props.scrollToRef) {
+      setTimeout(() => {
+        jumpToCard(mapCardRef);
+      }, 2000);
+      // remove hash from URL
+      // eslint-disable-next-line no-restricted-globals
+      history.pushState(
+        "",
+        document.title,
+        window.location.pathname + window.location.search
+      );
+    }
+  }, [props.scrollToRef]);
+
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, RACE)
   );
@@ -127,7 +156,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           )}
 
           {/* 100k MAP CARD */}
-          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="mapCard">
+          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} ref={mapCardRef}>
             <MapCard
               variableConfig={variableConfig}
               fips={props.fips}
@@ -146,7 +175,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
             xs={12}
             sm={12}
             md={SINGLE_COLUMN_WIDTH}
-            id="simpleBarChartCard"
+            ref={simpleBarChartCardRef}
           >
             <LazyLoad offset={600} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -170,7 +199,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
             xs={12}
             sm={12}
             md={SINGLE_COLUMN_WIDTH}
-            id="unknownsMapCard"
+            ref={unknownsMapCardRef}
           >
             <LazyLoad offset={800} height={750} once>
               {variableConfig.metrics["pct_share"] && (
@@ -193,7 +222,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
             xs={12}
             sm={12}
             md={SINGLE_COLUMN_WIDTH}
-            id="disparityBarChartCard"
+            ref={disparityBarChartCardRef}
           >
             <LazyLoad offset={800} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -212,7 +241,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
           </Grid>
 
           {/* DATA TABLE CARD */}
-          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="tableCard">
+          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} ref={tableCardRef}>
             <LazyLoad offset={800} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>

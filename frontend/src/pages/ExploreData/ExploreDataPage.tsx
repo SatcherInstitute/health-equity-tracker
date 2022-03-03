@@ -45,6 +45,8 @@ function ExploreDataPage() {
   const doScrollToData: boolean =
     location?.hash === `#${WHAT_DATA_ARE_MISSING_ID}`;
 
+  const scrollToRef = location?.hash || null;
+
   const [showStickyLifeline, setShowStickyLifeline] = useState(false);
 
   // Set up initial mad lib values based on defaults and query params
@@ -271,6 +273,7 @@ function ExploreDataPage() {
             showLifeLineAlert={showStickyLifeline}
             setMadLib={setMadLibWithParam}
             doScrollToData={doScrollToData}
+            scrollToRef={scrollToRef}
           />
         </div>
       </div>
