@@ -103,6 +103,8 @@ function MapCardWithKey(props: MapCardProps) {
   const hideDemographicUI =
     props.variableConfig.variableId === VAXX && props.fips.isCounty();
 
+  console.log("*");
+
   return (
     <CardWrapper
       queries={queries}
@@ -115,6 +117,8 @@ function MapCardWithKey(props: MapCardProps) {
         const mapQueryResponse = queryResponses[0];
         // contains data rows current level (if viewing US, this data will be US level)
         const overallQueryResponse = queryResponses[1];
+
+        if (queryResponses) console.log("**");
 
         const sortArgs =
           props.currentBreakdown === "age"

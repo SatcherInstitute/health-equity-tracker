@@ -38,6 +38,8 @@ export function WithLoadingOrErrorUI<R>(props: {
     );
   }
 
+  console.log(props.resources);
+
   return props.children(props.resources);
 }
 
