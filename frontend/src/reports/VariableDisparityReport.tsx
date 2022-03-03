@@ -110,10 +110,6 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
       spacing={1}
       justifyContent="center"
     >
-      {props.singleCard && (
-        <Alert severity="info">Viewing a Single Card.</Alert>
-      )}
-
       {!props.singleCard && !props.hidePopulationCard && (
         // POPULATION CARD
         <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="populationCard">
