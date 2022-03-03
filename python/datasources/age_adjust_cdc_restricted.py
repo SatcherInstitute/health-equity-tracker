@@ -6,6 +6,7 @@ import datasources.cdc_restricted_local as cdc_restricted_local
 
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
+from ingestion import dataset_utils
 
 REFERENCE_POPULATION = std_col.Race.WHITE_NH.value
 
@@ -224,7 +225,7 @@ def age_adjust_from_expected(df):
         if not ref_pop_expected_deaths:
             return None
 
-        return round(row['expected_deaths'] / float(ref_pop_expected_deaths), 1)
+        return dataset_utils.ratio_round_to_None(row['expected_deaths'], ref_pop_expected_deaths)
 
     def get_age_adjusted_hosp_rate(row):
         ref_pop_expected_hosp = df.loc[
@@ -235,7 +236,7 @@ def age_adjust_from_expected(df):
         if not ref_pop_expected_hosp:
             return None
 
-        return round(row['expected_hosps'] / ref_pop_expected_hosp, 1)
+        return dataset_utils.ratio_round_to_None(row['expected_hosps'], ref_pop_expected_hosp)
 
     groupby_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
     groupby_cols.extend(std_col.RACE_COLUMNS)
