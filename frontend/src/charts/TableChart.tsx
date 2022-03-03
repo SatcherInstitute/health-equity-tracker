@@ -132,11 +132,11 @@ export function TableChart(props: TableChartProps) {
               {...cell.getCellProps()}
               style={row.index % 2 === 0 ? cellStyle : altCellStyle}
             >
-              <Tooltip title="No data available">
+              <Tooltip title="Insufficient Data">
                 <WarningRoundedIcon />
               </Tooltip>
               <span className={styles.ScreenreaderTitleHeader}>
-                No Data Available
+                Insufficient Data
               </span>
             </TableCell>
           ) : (
@@ -160,7 +160,7 @@ export function TableChart(props: TableChartProps) {
   return (
     <>
       {props.data.length <= 0 || props.metrics.length <= 0 ? (
-        <h1>No Data provided</h1>
+        <h1>Insufficient Data</h1>
       ) : (
         <TableContainer component={Paper} style={{ maxHeight: "100%" }}>
           <Table stickyHeader {...getTableProps()}>
