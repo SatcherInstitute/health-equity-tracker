@@ -314,8 +314,8 @@ function MapCardWithKey(props: MapCardProps) {
               activeBreakdownFilter !== "All" && (
                 <CardContent>
                   <Alert severity="warning" role="note">
-                    No data available for filter: <b>{activeBreakdownFilter}</b>
-                    .{" "}
+                    Insufficient data available for filter:{" "}
+                    <b>{activeBreakdownFilter}</b>.{" "}
                     <MultiMapLink
                       setSmallMultiplesDialogOpen={setSmallMultiplesDialogOpen}
                       currentBreakdown={props.currentBreakdown}

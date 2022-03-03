@@ -89,7 +89,7 @@ export function Legend(props: LegendProps) {
         },
         {
           name: MISSING_PLACEHOLDER_VALUES,
-          values: [{ missing: "No data" }],
+          values: [{ missing: "Insufficient data" }],
         },
       ],
       layout: { padding: 20, bounds: "full", align: "each" },
