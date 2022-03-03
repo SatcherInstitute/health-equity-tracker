@@ -1,0 +1,9 @@
+@import "../../styles/variables.module.scss";
+
+.ReportAlert {
+  margin: 0 10px 10px 10px;
+  border: 1px solid $alt-green;
+  text-align: left;
+  font-size: $small;
+  // max-width: 700px;
+}
