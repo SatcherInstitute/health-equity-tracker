@@ -27,6 +27,7 @@ import {
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
 import styles from "./Report.module.scss";
+import SingleCardAlert from "./ui/SingleCardAlert";
 
 export interface VariableDisparityReportProps {
   key: string;
@@ -110,6 +111,10 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
       spacing={1}
       justifyContent="center"
     >
+      <Grid item xs={12} md={singleColumnWidth}>
+        {props.singleCard && <SingleCardAlert />}
+      </Grid>
+
       {!props.singleCard && !props.hidePopulationCard && (
         // POPULATION CARD
         <Grid item xs={12} md={singleColumnWidth} id="populationCard">

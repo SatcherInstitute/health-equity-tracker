@@ -25,7 +25,6 @@ import {
   VariableConfig,
 } from "../data/config/MetricConfig";
 import { Link, useLocation } from "react-router-dom";
-import FeedbackBox from "../pages/ui/FeedbackBox";
 import ShareButtons from "./ui/ShareButtons";
 import { Helmet } from "react-helmet-async";
 import { urlMap } from "../utils/externalUrls";
@@ -33,7 +32,6 @@ import { Box } from "@material-ui/core";
 import DefinitionsList from "./ui/DefinitionsList";
 import LifelineAlert from "./ui/LifelineAlert";
 import LazyLoad from "react-lazyload";
-import SingleCardAlert from "./ui/SingleCardAlert";
 
 const cardIds = [
   "#Map100k",
@@ -192,11 +190,7 @@ function ReportProvider(props: ReportProviderProps) {
       <div className={reportWrapper}>
         <ShareButtons madLib={props.madLib} />
         {props.showLifeLineAlert && <LifelineAlert />}
-        {singleCard ? (
-          <SingleCardAlert />
-        ) : (
-          <DisclaimerAlert jumpToData={jumpToData} />
-        )}
+        {!singleCard && <DisclaimerAlert jumpToData={jumpToData} />}
         {getReport()}
       </div>
       {!singleCard && (
@@ -338,8 +332,6 @@ function ReportProvider(props: ReportProviderProps) {
           </aside>
         </div>
       )}
-
-      <FeedbackBox />
     </>
   );
 }

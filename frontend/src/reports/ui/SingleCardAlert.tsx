@@ -13,8 +13,7 @@ export default function SingleCardAlert() {
       icon={<AssessmentIcon />}
       role="note"
     >
-      <AlertTitle>Viewing a Partial Report</AlertTitle>
-      You are currently viewing an abbreviated report, focused on a single card.
+      <AlertTitle>You are viewing a partial report</AlertTitle>
       To expand the report to include multiple maps, charts and data tables with
       a more complete picture of Health Equity, please{" "}
       <a href={window.location.href.replace(window.location.hash, "")}>

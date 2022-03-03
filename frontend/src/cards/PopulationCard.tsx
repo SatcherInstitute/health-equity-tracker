@@ -162,7 +162,7 @@ export function PopulationCard(props: PopulationCardProps) {
                       These racial categories are defined by the ACS and US
                       Census Bureau. While it is the standard for CDC reporting,
                       the definition of these categories often results in not
-                      counting or miscounting people in underrepresented groups.
+                      counting or miscounting people in underrepresented groups.{" "}
                       <a
                         href={window.location.href}
                         onClick={(e) => {
