@@ -329,10 +329,6 @@ function MapCardWithKey(props: MapCardProps) {
             {metricConfig && dataForActiveBreakdownFilter.length ? (
               <CardContent>
                 <ChoroplethMap
-                  useSmallSampleMessage={
-                    !mapQueryResponse.dataIsMissing() &&
-                    (props.variableConfig.surveyCollectedData || false)
-                  }
                   signalListeners={signalListeners}
                   metric={metricConfig}
                   legendTitle={metricConfig.shortVegaLabel}
@@ -371,11 +367,6 @@ function MapCardWithKey(props: MapCardProps) {
                       return (
                         <div className={styles.TerritoryCircle} key={code}>
                           <ChoroplethMap
-                            useSmallSampleMessage={
-                              !mapQueryResponse.dataIsMissing() &&
-                              (props.variableConfig.surveyCollectedData ||
-                                false)
-                            }
                             signalListeners={signalListeners}
                             metric={metricConfig}
                             legendTitle={metricConfig.fullCardTitleName}
