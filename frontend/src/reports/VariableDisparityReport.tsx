@@ -49,6 +49,12 @@ export interface VariableDisparityReportProps {
 }
 
 export function VariableDisparityReport(props: VariableDisparityReportProps) {
+  function highlightMatch(id: string) {
+    return props.scrollToRef === id
+      ? { className: styles.HighlightedCard }
+      : {};
+  }
+
   const mapRef = useRef<HTMLInputElement>(null);
   const barRef = useRef<HTMLInputElement>(null);
   const unknownsRef = useRef<HTMLInputElement>(null);
@@ -181,9 +187,10 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
             xs={12}
             md={SINGLE_COLUMN_WIDTH}
             ref={mapRef}
-            className={
-              props.scrollToRef === "#map" ? styles.HighlightedCard : undefined
-            }
+            {...highlightMatch("#map")}
+            // className={
+            //   props.scrollToRef === "#map" ? styles.HighlightedCard : undefined
+            // }
           >
             <MapCard
               variableConfig={variableConfig}
@@ -204,9 +211,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
             sm={12}
             md={SINGLE_COLUMN_WIDTH}
             ref={barRef}
-            className={
-              props.scrollToRef === "#bar" ? styles.HighlightedCard : undefined
-            }
+            {...highlightMatch("#bar")}
           >
             <LazyLoad offset={600} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -231,11 +236,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
             sm={12}
             md={SINGLE_COLUMN_WIDTH}
             ref={unknownsRef}
-            className={
-              props.scrollToRef === "#unknowns"
-                ? styles.HighlightedCard
-                : undefined
-            }
+            {...highlightMatch("#unknowns")}
           >
             <LazyLoad offset={800} height={750} once>
               {variableConfig.metrics["pct_share"] && (
@@ -259,11 +260,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
             sm={12}
             md={SINGLE_COLUMN_WIDTH}
             ref={disparityRef}
-            className={
-              props.scrollToRef === "#disparity"
-                ? styles.HighlightedCard
-                : undefined
-            }
+            {...highlightMatch("#disparity")}
           >
             <LazyLoad offset={800} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -287,11 +284,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
             xs={12}
             md={SINGLE_COLUMN_WIDTH}
             ref={tableRef}
-            className={
-              props.scrollToRef === "#table"
-                ? styles.HighlightedCard
-                : undefined
-            }
+            {...highlightMatch("#table")}
           >
             <LazyLoad offset={800} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
