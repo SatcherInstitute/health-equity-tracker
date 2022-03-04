@@ -49,10 +49,13 @@ export interface VariableDisparityReportProps {
 }
 
 export function VariableDisparityReport(props: VariableDisparityReportProps) {
+  const [highlightId, setHighlightId] = useState<string>(
+    props.scrollToRef || ""
+  );
+
   function highlightMatch(id: string) {
-    return props.scrollToRef === id
-      ? { className: styles.HighlightedCard }
-      : {};
+    console.log({ highlightId }, { id });
+    return highlightId === id ? { className: styles.HighlightedCard } : {};
   }
 
   const mapRef = useRef<HTMLInputElement>(null);
@@ -61,6 +64,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
   const disparityRef = useRef<HTMLInputElement>(null);
   const tableRef = useRef<HTMLInputElement>(null);
 
+  // const [targetRef, setTargetRef] = useState<any>()
   let targetRef = useRef<HTMLInputElement>(null);
 
   // handle incoming #hash link request
@@ -85,7 +89,10 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
 
     setTimeout(() => {
       jumpToCard(targetRef);
-    }, 1000);
+      setTimeout(() => {
+        setHighlightId("");
+      }, 5000);
+    }, 1500);
     // remove hash from URL
     // eslint-disable-next-line no-restricted-globals
     history.pushState(
