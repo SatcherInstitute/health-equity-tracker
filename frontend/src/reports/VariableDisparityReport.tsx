@@ -57,38 +57,36 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
 
   let targetRef = useRef<HTMLInputElement>(null);
 
-  // handle incoming #missingDataLink link request, only on page load
+  // handle incoming #hash link request
   useEffect(() => {
-    if (props.scrollToRef) {
-      switch (props.scrollToRef) {
-        case "#map":
-          targetRef = mapRef;
-          break;
-        case "#bar":
-          targetRef = barRef;
-          break;
-        case "#unknowns":
-          targetRef = unknownsRef;
-          break;
-        case "#disparity":
-          targetRef = disparityRef;
-          break;
-        case "#table":
-          targetRef = tableRef;
-          break;
-      }
-
-      setTimeout(() => {
-        jumpToCard(targetRef);
-      }, 1000);
-      // remove hash from URL
-      // eslint-disable-next-line no-restricted-globals
-      history.pushState(
-        "",
-        document.title,
-        window.location.pathname + window.location.search
-      );
+    switch (props.scrollToRef) {
+      case "#map":
+        targetRef = mapRef;
+        break;
+      case "#bar":
+        targetRef = barRef;
+        break;
+      case "#unknowns":
+        targetRef = unknownsRef;
+        break;
+      case "#disparity":
+        targetRef = disparityRef;
+        break;
+      case "#table":
+        targetRef = tableRef;
+        break;
     }
+
+    setTimeout(() => {
+      jumpToCard(targetRef);
+    }, 1000);
+    // remove hash from URL
+    // eslint-disable-next-line no-restricted-globals
+    history.pushState(
+      "",
+      document.title,
+      window.location.pathname + window.location.search
+    );
   }, [props.scrollToRef]);
 
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
