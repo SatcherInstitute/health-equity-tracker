@@ -42,7 +42,7 @@ interface ReportProviderProps {
   showLifeLineAlert: boolean;
   setMadLib: Function;
   doScrollToData?: boolean;
-  scrollToRef?: any | null;
+  scrollToRef?: string;
 }
 
 function ReportProvider(props: ReportProviderProps) {
@@ -76,24 +76,6 @@ function ReportProvider(props: ReportProviderProps) {
       fieldRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }
-
-  // // handle incoming #missingDataLink link request, only on page load
-  // useEffect(() => {
-  //   if (props.doScrollToData) {
-
-  //     setTimeout(() => {
-  //       jumpToData();
-
-  //     }, 2000)
-  //     // remove hash from URL
-  //     // eslint-disable-next-line no-restricted-globals
-  //     history.pushState(
-  //       "",
-  //       document.title,
-  //       window.location.pathname + window.location.search
-  //     );
-  //   }
-  // }, [props.doScrollToData, props.scrollToRef]);
 
   function getReport() {
     // Each report has a unique key based on its props so it will create a

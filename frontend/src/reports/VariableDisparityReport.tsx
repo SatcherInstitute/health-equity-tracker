@@ -45,7 +45,7 @@ export interface VariableDisparityReportProps {
   hidePopulationCard?: boolean;
   jumpToDefinitions: Function;
   jumpToData: Function;
-  scrollToRef?: any;
+  scrollToRef?: string;
 }
 
 export function VariableDisparityReport(props: VariableDisparityReportProps) {

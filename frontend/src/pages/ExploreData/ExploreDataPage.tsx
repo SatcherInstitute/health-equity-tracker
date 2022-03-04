@@ -45,7 +45,7 @@ function ExploreDataPage() {
   const doScrollToData: boolean =
     location?.hash === `#${WHAT_DATA_ARE_MISSING_ID}`;
 
-  const scrollToRef = location?.hash || null;
+  const scrollToRef = location?.hash;
 
   const [showStickyLifeline, setShowStickyLifeline] = useState(false);
 
