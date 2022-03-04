@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { VariableDisparityReport } from "./VariableDisparityReport";
 import TwoVariableReport from "./TwoVariableReport";
 import {
