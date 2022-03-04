@@ -49,13 +49,14 @@ export interface VariableDisparityReportProps {
 }
 
 export function VariableDisparityReport(props: VariableDisparityReportProps) {
-  const [highlightId, setHighlightId] = useState<string>(
-    props.scrollToRef || ""
-  );
+  // const [highlightId, setHighlightId] = useState<string>(
+  //   props.scrollToRef || ""
+  // );
 
   function highlightMatch(id: string) {
-    console.log({ highlightId }, { id });
-    return highlightId === id ? { className: styles.HighlightedCard } : {};
+    return props.scrollToRef === id
+      ? { className: styles.HighlightedCard }
+      : {};
   }
 
   const mapRef = useRef<HTMLInputElement>(null);
@@ -64,34 +65,31 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
   const disparityRef = useRef<HTMLInputElement>(null);
   const tableRef = useRef<HTMLInputElement>(null);
 
-  // const [targetRef, setTargetRef] = useState<any>()
-  let targetRef = useRef<HTMLInputElement>(null);
+  let target: any = null;
 
   // handle incoming #hash link request
   useEffect(() => {
     switch (props.scrollToRef) {
       case "#map":
-        targetRef = mapRef;
+        target = mapRef;
         break;
       case "#bar":
-        targetRef = barRef;
+        target = barRef;
         break;
       case "#unknowns":
-        targetRef = unknownsRef;
+        target = unknownsRef;
         break;
       case "#disparity":
-        targetRef = disparityRef;
+        target = disparityRef;
         break;
       case "#table":
-        targetRef = tableRef;
+        target = tableRef;
         break;
     }
 
     setTimeout(() => {
-      jumpToCard(targetRef);
-      setTimeout(() => {
-        setHighlightId("");
-      }, 5000);
+      jumpToCard(target);
+      target = null;
     }, 1500);
     // remove hash from URL
     // eslint-disable-next-line no-restricted-globals
@@ -195,9 +193,6 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             ref={mapRef}
             {...highlightMatch("#map")}
-            // className={
-            //   props.scrollToRef === "#map" ? styles.HighlightedCard : undefined
-            // }
           >
             <MapCard
               variableConfig={variableConfig}

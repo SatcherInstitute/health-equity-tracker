@@ -70,15 +70,23 @@
 }
 
 .HighlightedCard {
-  background-color: $alt-green;
-  // animation-name: fadeBackground;
-  // animation-duration: 10s;
-  // animation-iteration-count: 1;
-  // animation-timing-function: linear;
+  // background-color: $alt-green;
+  animation-name: fadeBackground;
+  animation-duration: 5s;
+  animation-iteration-count: 1;
+  animation-delay: 3s;
+  animation-timing-function: ease-in;
+  animation-fill-mode: both;
 }
 
-// @keyframes fadeBackground {
-//   from {background-color: rgba(11, 82, 64, 1);}
-//   75% {background-color: rgba(11, 82, 64, .25);}
-//   to {background-color: rgba(11, 82, 64, 0);}
-// }
+@keyframes fadeBackground {
+  from {
+    background-color: rgba(11, 82, 64, 1);
+  }
+  75% {
+    background-color: rgba(11, 82, 64, 0.25);
+  }
+  to {
+    background-color: rgba(11, 82, 64, 0);
+  }
+}
