@@ -104,7 +104,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     key={breakdownValue}
                     signalListeners={{ click: (...args: any) => {} }}
                     metric={props.metricConfig}
-                    useSmallSampleMessage={props.useSmallSampleMessage}
                     legendTitle={props.metricConfig.fullCardTitleName}
                     legendData={props.data}
                     data={dataForValue}
@@ -134,7 +133,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                         <ChoroplethMap
                           signalListeners={{ click: (...args: any) => {} }}
                           metric={props.metricConfig}
-                          useSmallSampleMessage={props.useSmallSampleMessage}
                           legendTitle={props.metricConfig.fullCardTitleName}
                           legendData={props.data}
                           data={dataForValue}
@@ -194,9 +192,9 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               <Box my={3}>
                 <Alert severity="warning">
                   <p className={styles.NoDataWarning}>
-                    No {props.metricConfig.shortVegaLabel} data reported at the{" "}
-                    {props.fips.getChildFipsTypeDisplayName()} level for the
-                    following groups:{" "}
+                    Insufficient {props.metricConfig.shortVegaLabel} data
+                    reported at the {props.fips.getChildFipsTypeDisplayName()}{" "}
+                    level for the following groups:{" "}
                     {props.breakdownValuesNoData.map((group, i) => (
                       <span key={group}>
                         <b>{group}</b>
