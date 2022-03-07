@@ -116,7 +116,6 @@ export interface DropDownMenuProps {
      * Dropdown with one level to select race and a second level listing all race options
 */
 function DropDownMenu(props: DropDownMenuProps) {
-  console.log(props);
   const firstMenu = usePopover();
   const secondMenu = usePopover();
 
@@ -129,7 +128,7 @@ function DropDownMenu(props: DropDownMenuProps) {
     <>
       <label
         className={styles.FilterBy}
-        htmlFor={`groupMenu-${props.idSuffix}`}
+        htmlFor={`groupMenu${props.idSuffix}`}
         aria-hidden={true}
       >
         Select demographic group:
@@ -138,14 +137,14 @@ function DropDownMenu(props: DropDownMenuProps) {
         variant="text"
         onClick={firstMenu.open}
         aria-haspopup="true"
-        id={`groupMenu-${props.idSuffix}`}
+        id={`groupMenu${props.idSuffix}`}
       >
         <u>{props.value}</u>
         <ArrowDropDown />
       </Button>
 
       <MenuPopover
-        aria-labelledby={`#groupMenu-${props.idSuffix}`}
+        aria-labelledby={`#groupMenu${props.idSuffix}`}
         popover={firstMenu}
         aria-expanded="true"
         items={
