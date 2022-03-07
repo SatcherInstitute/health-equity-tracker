@@ -106,6 +106,7 @@ export interface DropDownMenuProps {
     category: DemographicGroup | undefined,
     filterSelection: DemographicGroup
   ) => void;
+  idSuffix: string;
 }
 
 /*
@@ -127,7 +128,7 @@ function DropDownMenu(props: DropDownMenuProps) {
     <>
       <label
         className={styles.FilterBy}
-        htmlFor="groupDropdownLabel"
+        htmlFor={`groupMenu${props.idSuffix}`}
         aria-hidden={true}
       >
         Select demographic group:
@@ -136,14 +137,14 @@ function DropDownMenu(props: DropDownMenuProps) {
         variant="text"
         onClick={firstMenu.open}
         aria-haspopup="true"
-        id="groupDropdownLabel"
+        id={`groupMenu${props.idSuffix}`}
       >
         <u>{props.value}</u>
         <ArrowDropDown />
       </Button>
 
       <MenuPopover
-        aria-labelledby="#groupDropdownLabel"
+        aria-labelledby={`#groupMenu${props.idSuffix}`}
         popover={firstMenu}
         aria-expanded="true"
         items={
