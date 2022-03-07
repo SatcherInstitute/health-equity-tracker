@@ -315,7 +315,7 @@
   }
 
   .JoinTheEffortStepText {
-    @include dmSans300();
+    @include dmSans400();
     font-size: $title !important;
     line-height: $lhLoose;
     padding: 10px 0 10px 0;
