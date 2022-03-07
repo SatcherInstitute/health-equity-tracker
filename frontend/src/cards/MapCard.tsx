@@ -253,6 +253,10 @@ function MapCardWithKey(props: MapCardProps) {
                   >
                     <Grid item>
                       <DropDownMenu
+                        idSuffix={
+                          props.fips +
+                          props.variableConfig.variableFullDisplayName
+                        }
                         value={activeBreakdownFilter}
                         options={filterOptions}
                         onOptionUpdate={(
