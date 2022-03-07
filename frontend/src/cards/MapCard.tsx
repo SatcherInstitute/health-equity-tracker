@@ -253,6 +253,9 @@ function MapCardWithKey(props: MapCardProps) {
                   >
                     <Grid item>
                       <DropDownMenu
+                        idSuffix={`-${props.fips.getStateFipsCode()}-${
+                          props.variableConfig.variableId
+                        }`}
                         value={activeBreakdownFilter}
                         options={filterOptions}
                         onOptionUpdate={(
