@@ -321,8 +321,8 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "cases_ratio_age_adjusted",
-          fullCardTitleName: "Age-Adjusted Ratio of COVID-19 Cases",
-          shortVegaLabel: "ratio for cases",
+          fullCardTitleName: "",
+          shortVegaLabel: "",
           type: "ratio",
         },
       },
@@ -372,8 +372,8 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "death_ratio_age_adjusted",
-          fullCardTitleName: "Age-Adjusted Ratio of COVID-19 Deaths",
-          shortVegaLabel: "ratio for deaths",
+          fullCardTitleName: "How many times more likely to die from COVID-19",
+          shortVegaLabel: "",
           type: "ratio",
           ageAdjusted: true,
         },
@@ -424,8 +424,9 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "hosp_ratio_age_adjusted",
-          fullCardTitleName: "Age-Adjusted Ratio of COVID-19 Hospitalizations",
-          shortVegaLabel: "ratio for hospitalizations",
+          fullCardTitleName:
+            "How many times more likely to be hospitalized with COVID-19",
+          shortVegaLabel: "",
           type: "ratio",
           ageAdjusted: true,
         },
@@ -754,7 +755,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         age_adjusted_ratio: {
           metricId: "diabetes_ratio_age_adjusted",
           fullCardTitleName: "Age-Adjusted Ratio of Diabetes Cases",
-          shortVegaLabel: "ratio for cases",
+          shortVegaLabel: "more likely to have diabetes",
           type: "ratio",
         },
       },

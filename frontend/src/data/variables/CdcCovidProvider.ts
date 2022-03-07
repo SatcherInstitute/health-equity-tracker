@@ -206,8 +206,6 @@ class CdcCovidProvider extends VariableProvider {
         ),
     });
 
-    console.log(df);
-
     df = df
       .generateSeries({
         // Calculate per100k
