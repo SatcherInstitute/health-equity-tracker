@@ -41,7 +41,7 @@ function main() {
 
   util::print::info "Setting bucket name to ${bucket_name}"
   file::download "${bucket_name}" "${data_file}"
-  file::covert "${data_file}"
+  file::convert "${data_file}"
 
   util::print::success "Success !!"
 }
@@ -66,7 +66,7 @@ function file::download() {
   gsutil -m cp "gs://${bucket_name}/${file}.json" "/tmp/${file}.json"
 }
 
-function file::covert() {
+function file::convert() {
   local file
   file="${1}"
 
