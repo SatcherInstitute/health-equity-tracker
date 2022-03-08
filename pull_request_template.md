@@ -28,4 +28,4 @@ Click to demo updates </a>   <-- Update this link once you have PR#
 - New feature (non-breaking change which adds functionality)
 - Breaking change (fix or feature that would cause existing functionality to not work as expected)
 - Refactor (code improvement that doesn't affect UI)
-- Chore (developer productivity fix that doesn't effect the user)
+- Chore (developer productivity fix that doesn't affect the user)
