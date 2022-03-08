@@ -7,7 +7,6 @@ import {
 import { BreakdownVarDisplayName } from "../../data/query/Breakdowns";
 import { Fips } from "../../data/utils/Fips";
 import { DropdownVarId, VariableConfig } from "../../data/config/MetricConfig";
-import styles from "../Card.module.scss";
 
 interface MissingDataAlertProps {
   dataName: string;
