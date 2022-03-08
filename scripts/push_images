@@ -3,6 +3,12 @@
 set -eu
 set -o pipefail
 
+readonly PROGDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly TRACKERDIR="$(cd "${PROGDIR}/.." && pwd)"
+
+# shellcheck source=SCRIPTDIR/.util/print.sh
+source "${PROGDIR}/.util/print.sh"
+
 function main() {
   local build_frontend
   local project_id
@@ -25,7 +31,7 @@ function main() {
           ;;
 
         *)
-          print::message "unknown argument \"${1}\""
+          util::print::info "unknown argument \"${1}\""
           exit 1
 
       esac
@@ -37,7 +43,7 @@ function main() {
   images::push "${project_id}" "${build_frontend}"
   digest::write "${project_id}"
 
-  print::message "Success !!"
+  util::print::success "Success !!"
 }
 
 
@@ -51,29 +57,20 @@ OPTIONS
 USAGE
 }
 
-function print::message() {
-  local blue reset message
-  blue="\033[0;34m"
-  reset="\033[0;39m"
-  message="${1}"
-
-  echo -e "\n${blue}${message}${reset}" >&2
-}
-
 function images::build() {
   local project_id build_frontend
   project_id="${1}"
   build_frontend="${2}"
 
-  print::message "Building Images Locally"
-  docker build -t "gcr.io/${project_id}/ingestion-service" -f run_ingestion/Dockerfile .
-  docker build -t "gcr.io/${project_id}/gcs-to-bq-service" -f run_gcs_to_bq/Dockerfile .
-  docker build -t "gcr.io/${project_id}/data-server-service" -f data_server/Dockerfile .
-  docker build -t "gcr.io/${project_id}/exporter-service" -f exporter/Dockerfile .
-  docker build -t "gcr.io/${project_id}/aggregator-service" -f aggregator/Dockerfile .
+  util::print::info "Building Images Locally"
+  docker build -t "gcr.io/${project_id}/ingestion-service" -f "${TRACKERDIR}/run_ingestion/Dockerfile" .
+  docker build -t "gcr.io/${project_id}/gcs-to-bq-service" -f "${TRACKERDIR}/run_gcs_to_bq/Dockerfile" .
+  docker build -t "gcr.io/${project_id}/data-server-service" -f "${TRACKERDIR}/data_server/Dockerfile" .
+  docker build -t "gcr.io/${project_id}/exporter-service" -f "${TRACKERDIR}/exporter/Dockerfile" .
+  docker build -t "gcr.io/${project_id}/aggregator-service" -f "${TRACKERDIR}/aggregator/Dockerfile" .
 
   if [[ -n "${build_frontend}" ]]; then
-    docker build -t "gcr.io/${project_id}/frontend-service" -f frontend_server/Dockerfile . --build-arg="DEPLOY_CONTEXT=development"
+    docker build -t "gcr.io/${project_id}/frontend-service" -f "${TRACKERDIR}/frontend_server/Dockerfile" . --build-arg="DEPLOY_CONTEXT=development"
   fi
 }
 
@@ -82,7 +79,7 @@ function images::push() {
   project_id="${1}"
   build_frontend="${2}"
 
-  print::message "Pushing Images to gcr.io/${project_id}"
+  util::print::info "Pushing Images to gcr.io/${project_id}"
 
   docker push "gcr.io/${project_id}/ingestion-service"
   docker push "gcr.io/${project_id}/gcs-to-bq-service"
@@ -99,9 +96,9 @@ function digest::write() {
   local project_id digest_file
 
   project_id="${1}"
-  digest_file="config/digest.tfvars"
+  digest_file="${TRACKERDIR}/config/digest.tfvars"
 
-  print::message "Writing image digests to ${digest_file}"
+  util::print::info "Writing image digests to ${digest_file}"
 
   # Get the image digests
   ingestion_digest=$(gcloud container images describe "gcr.io/${project_id}/ingestion-service" --format="value(image_summary.digest)")

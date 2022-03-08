@@ -1,10 +1,9 @@
 @import "../../styles/variables.module";
-
+@import "../../styles/globals.scss";
 .FaqHeader {
+  @include tav300();
   font-size: $bigHeader !important;
   text-align: left;
-  font-weight: 400;
-  font-family: "Taviraj", serif !important;
   color: $alt-green;
   padding-bottom: 20px;
 }
@@ -19,28 +18,25 @@
 }
 
 .FaqQuestion {
+  @include tav300();
   font-size: $title !important;
   @media only screen and (min-width: $sm) {
     font-size: $smallHeader !important;
   }
   text-align: left;
-  font-weight: 300 !important;
-  font-family: "Taviraj", sans-serif !important;
   line-height: $lhSuperLoose !important;
   color: $alt-black;
 }
 
 .FaqAnswer {
+  @include inter400();
   font-size: $small;
   text-align: left;
-  font-weight: 400;
-  font-family: "Inter", sans-serif;
   color: $alt-black;
 }
 
 .FaqLink {
-  font-family: "Inter", sans-serif !important;
-  font-weight: 500 !important;
+  @include inter500();
   font-size: $smallestHeader !important;
   margin-top: 20px !important;
   color: $alt-green !important;
