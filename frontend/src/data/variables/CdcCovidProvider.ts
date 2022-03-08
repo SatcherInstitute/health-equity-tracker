@@ -49,7 +49,7 @@ class CdcCovidProvider extends VariableProvider {
     if (breakdowns.hasOnlyRace()) {
       return breakdowns.geography === "county"
         ? "cdc_restricted_data-by_race_county"
-        : "cdc_restricted_data-by_race_state";
+        : "cdc_restricted_data-by_race_state-with_age_adjust";
     }
     if (breakdowns.hasOnlyAge()) {
       return breakdowns.geography === "county"
