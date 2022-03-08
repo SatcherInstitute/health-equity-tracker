@@ -6,7 +6,8 @@ import {
 } from "../../utils/urlutils";
 import { BreakdownVarDisplayName } from "../../data/query/Breakdowns";
 import { Fips } from "../../data/utils/Fips";
-import { DropdownVarId } from "../../data/config/MetricConfig";
+import { DropdownVarId, VariableConfig } from "../../data/config/MetricConfig";
+import styles from "../Card.module.scss";
 
 interface MissingDataAlertProps {
   dataName: string;
@@ -16,6 +17,7 @@ interface MissingDataAlertProps {
   fips: Fips;
   setVariableConfigWithParam?: Function;
   dropdownVarId?: DropdownVarId;
+  ageAdjustedDataTypes?: VariableConfig[];
 }
 
 function MissingDataAlert(props: MissingDataAlertProps) {
@@ -51,8 +53,51 @@ function MissingDataAlert(props: MissingDataAlertProps) {
         health equity
       </LinkWithStickyParams>
       {". "}
+      {props.ageAdjustedDataTypes && props.ageAdjustedDataTypes.length > 0 && (
+        <AltDataTypesMessage
+          setVariableConfigWithParam={props.setVariableConfigWithParam}
+          ageAdjustedDataTypes={props.ageAdjustedDataTypes}
+          dropdownVarId={props.dropdownVarId}
+        />
+      )}
     </Alert>
   );
 }
 
 export default MissingDataAlert;
+
+interface AltDataTypesMessageProps {
+  ageAdjustedDataTypes: VariableConfig[];
+  setVariableConfigWithParam?: any;
+  dropdownVarId?: DropdownVarId;
+}
+function AltDataTypesMessage(props: AltDataTypesMessageProps) {
+  if (!props.ageAdjustedDataTypes) return <></>;
+  return (
+    <>
+      Age-adjusted ratios are currently available for the following{" "}
+      {props.dropdownVarId} data types:{" "}
+      {props.ageAdjustedDataTypes.map((dataType, i) => {
+        return (
+          <span key={dataType.variableDisplayName}>
+            <a
+              href="#dataType"
+              onClick={(e) => {
+                e.preventDefault();
+                props.setVariableConfigWithParam(dataType);
+              }}
+              role="button"
+              className={styles.CompareAcrossLink}
+            >
+              {" "}
+              <b>{dataType.variableFullDisplayName}</b>
+            </a>
+
+            {i < props.ageAdjustedDataTypes.length - 1 && ", "}
+            {i === props.ageAdjustedDataTypes.length - 1 && "."}
+          </span>
+        );
+      })}
+    </>
+  );
+}
