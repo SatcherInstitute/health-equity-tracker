@@ -105,11 +105,15 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
             <CardContent>
               {/* Always show info on what age-adj is */}
               <Alert severity="info" role="note">
-                Age-adjustment placeholder text.{" "}
-                <Link to={METHODOLOGY_TAB_LINK}>
-                  Learn how we calculated these ratios
-                </Link>
-                .
+                Age Adjustment is a statistical process applied to rates of
+                disease, death, or other health outcomes that occur more
+                frequently among different age groups. Adjusting for age allows
+                for fairer comparison between populations, where age is a large
+                risk factor. By computing rates that are normalized for age, we
+                can paint a more accurate picture of undue burden of disease and
+                death between populations. More details can be found on our
+                {/* The ratio in the table below indicates the increased likelihood of death from Covid-19 for the listed racial group. More details can be found on our Methodology Page. */}{" "}
+                <Link to={METHODOLOGY_TAB_LINK}>methodology page</Link>.
               </Alert>
             </CardContent>
 
@@ -144,10 +148,11 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               noRatios && (
                 <CardContent>
                   <Alert severity="warning" role="note">
-                    Because outcomes for{" "}
-                    <b>{props.variableConfig.variableFullDisplayName}</b> are
-                    not heavily dependent on a person's age, we do not provide
-                    age-adjusted numbers. {/* Offer alternate data types */}
+                    Adjusting for age is not needed when age is not a
+                    risk-factor or correlated to outcomes; as a result, we do
+                    not age adjust for{" "}
+                    <b>{props.variableConfig.variableFullDisplayName}</b>.
+                    {/* Offer alternate data types */}{" "}
                     {ageAdjustedDataTypes.length > 0 && (
                       <AltDataTypesMessage
                         setVariableConfigWithParam={
