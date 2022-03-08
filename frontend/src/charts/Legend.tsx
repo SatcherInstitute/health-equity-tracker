@@ -16,7 +16,7 @@ const DATASET_VALUES = "dataset_values";
 export const MISSING_PLACEHOLDER_VALUES = "missing_data";
 export const LEGEND_SYMBOL_TYPE = "square";
 export const LEGEND_TEXT_FONT = "inter";
-export const NO_DATA_MESSAGE = "No data";
+export const NO_DATA_MESSAGE = "Insufficient data";
 
 export const EQUAL_DOT_SIZE = 200;
 export const LEGEND_COLOR_COUNT = 7;
@@ -89,7 +89,7 @@ export function Legend(props: LegendProps) {
         },
         {
           name: MISSING_PLACEHOLDER_VALUES,
-          values: [{ missing: "No data" }],
+          values: [{ missing: "Insufficient data" }],
         },
       ],
       layout: { padding: 20, bounds: "full", align: "each" },

@@ -1,4 +1,5 @@
 @import "styles/variables.module";
+@import "styles/globals.scss";
 
 /** ------------------ Footer styles -------------------- **/
 
@@ -23,10 +24,9 @@
 }
 
 .FooterTitleSpan {
-  font-family: "DM Sans", sans-serif !important;
+  @include dmSans500();
   font-size: $title;
   color: $alt-green;
-  font-weight: 500;
   display: inline-block;
   width: max-content;
 }
@@ -40,8 +40,8 @@
 /** ------------------ Links - second -------------------- **/
 
 .CopyrightSpan {
+  @include inter300();
   color: $alt-dark;
-  font-weight: 200;
   font-size: $small;
   margin-bottom: 2rem;
   @media only screen and (min-width: $sm) {

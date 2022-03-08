@@ -1,12 +1,11 @@
-@use "../../styles/globals.scss";
+@import "../../styles/globals.scss";
 @import "../../styles/variables.module";
 
 .ShareLabel {
-  font-weight: 500;
+  @include inter500();
   color: $alt-green;
   font-size: $small;
   box-sizing: border-box;
-  font-family: "Inter", serif;
   letter-spacing: 0.02857em;
   padding-inline-end: 0.7rem;
   padding-block-end: 4px; // to align with the icons
