@@ -22,6 +22,7 @@ import {
   DATA_TYPE_2_PARAM,
   DEMOGRAPHIC_PARAM,
   getParameter,
+  HIGHLIGHT_SCROLL_DELAY,
   psSubscribe,
   setParameter,
   setParameters,
@@ -32,8 +33,10 @@ import ReportToggleControls from "./ui/ReportToggleControls";
 import styles from "./Report.module.scss";
 
 function jumpToCard(ref: any): void {
-  if (ref.current) {
+  if (ref?.current) {
     ref.current.scrollIntoView({ block: "center", behavior: "smooth" });
+    ref.current = null;
+    ref = null;
   }
 }
 
@@ -89,8 +92,7 @@ export function VariableDisparityReport(props: VariableDisparityReportProps) {
 
     setTimeout(() => {
       jumpToCard(target);
-      target = null;
-    }, 1500);
+    }, HIGHLIGHT_SCROLL_DELAY);
     // remove hash from URL
     // eslint-disable-next-line no-restricted-globals
     history.pushState(
