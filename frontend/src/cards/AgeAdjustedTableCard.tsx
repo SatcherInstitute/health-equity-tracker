@@ -117,14 +117,6 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               </Alert>
             </CardContent>
             <Divider />
-            {console.log(
-              isWrongBreakdownVar,
-              queryResponse.dataIsMissing(),
-              queryResponse.shouldShowMissingDataMessage(
-                metricIds as MetricId[]
-              ),
-              noRatios
-            )}
             {/* If TABLE can't display, show the missing data alert */}
             {(isWrongBreakdownVar ||
               queryResponse.dataIsMissing() ||
