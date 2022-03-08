@@ -219,10 +219,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             {showingVisualization && (
               <CardContent>
                 <ChoroplethMap
-                  useSmallSampleMessage={
-                    !mapQueryResponse.dataIsMissing() &&
-                    (props.variableConfig.surveyCollectedData || false)
-                  }
                   isUnknownsMap={true}
                   signalListeners={signalListeners}
                   metric={metricConfig}
@@ -246,11 +242,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                         <div key={code} className={styles.TerritoryCircle}>
                           <ChoroplethMap
                             isUnknownsMap={true}
-                            useSmallSampleMessage={
-                              !mapQueryResponse.dataIsMissing() &&
-                              (props.variableConfig.surveyCollectedData ||
-                                false)
-                            }
                             signalListeners={signalListeners}
                             metric={metricConfig}
                             legendTitle={metricConfig.fullCardTitleName}

@@ -1,7 +1,7 @@
 @import "../../../styles/variables.module.scss";
+@import "../../../styles/globals.scss";
 
 /** ------------- HEADER ROW ------------- **/
-
 .HeaderRow {
   border-bottom: $bottom-border-style;
 
@@ -33,9 +33,8 @@
     }
 
     .SingleArticleHeaderText {
+      @include tav300();
       text-align: left;
-      font-weight: 300;
-      font-family: "Taviraj", serif !important;
       color: $alt-green;
       padding-bottom: 1rem;
       font-size: $header;
@@ -47,16 +46,14 @@
     }
 
     .SingleArticleHeaderSubtext {
+      @include inter400();
       font-size: $text;
       text-align: left;
-      font-weight: 400;
       line-height: 100%;
-      font-family: "Inter", sans-serif !important;
     }
 
     .SingleArticleDetailText {
       color: $alt-dark;
-      font-weight: 400;
       font-size: $text;
       text-align: start;
 
@@ -80,9 +77,8 @@
 
 .AllArticlesHeaderText,
 .FeaturedArticlesHeaderText {
+  @include tav300();
   text-align: center;
-  font-weight: 300;
-  font-family: "Taviraj", serif !important;
   color: $alt-green;
 }
 
@@ -91,30 +87,16 @@
 }
 
 .AllArticlesHeaderSubtext {
+  @include inter300();
   font-size: $title;
   text-align: left;
-  font-weight: 300;
   line-height: 24px;
-  font-family: "Inter", sans-serif !important;
 }
 
 .AllPostsBigImg {
   width: 60%;
   height: auto;
   border-radius: 30px;
-}
-
-.AllArticlesTitleLink {
-  text-decoration: none;
-}
-.AllArticlesTitleText {
-  margin: 5px 40px 30px 40px;
-  font-size: $title;
-  text-align: center;
-  font-weight: 300;
-  font-family: "Taviraj", serif !important;
-  line-height: 90%;
-  color: $alt-green;
 }
 
 // for mobile filter section
@@ -125,12 +107,11 @@
 }
 
 .AllArticlesBreadCrumbs {
+  @include inter500();
   display: inline;
   text-decoration: none;
   padding: 6px 16px;
   font-size: $small;
-  font-family: "Inter", serif;
-  font-weight: 500;
   line-height: 1.75;
   letter-spacing: 0.02857em;
   text-transform: none;
@@ -158,17 +139,14 @@
 
   p,
   li {
+    @include inter400();
     font-size: $title;
     line-height: 150%;
     text-align: left;
-    font-weight: 400;
-    font-family: "Inter", sans-serif;
-
     color: $alt-black;
   }
 
   blockquote > p {
-    font-weight: 200;
     font-style: italic;
   }
 
@@ -197,19 +175,17 @@
   h4,
   h5,
   h6 {
-    font-weight: 300;
+    @include tav300();
     line-height: 110%;
-    font-family: "Taviraj", serif !important;
     color: $alt-green;
     text-align: left;
 
     // For Heading "Buttons"
     a {
+      @include dmSans500();
       background-color: $alt-green;
       color: white !important;
       border-radius: 40px !important;
-      font-weight: 500 !important;
-      font-family: "DM Sans", sans-serif !important;
       padding: 16px 30px !important;
       text-align: center;
       text-decoration: none;
@@ -236,7 +212,6 @@
   .ReprintNotice {
     font-style: italic;
     font-size: $small;
-    font-weight: 300;
   }
 }
 
@@ -265,12 +240,11 @@
 }
 
 .FullLink {
+  @include dmSans500();
   background-color: $alt-green;
   color: white !important;
   border-radius: 40px !important;
   font-size: $title !important;
-  font-weight: 500 !important;
-  font-family: "DM Sans", sans-serif !important;
   padding: 16px 30px !important;
   text-align: center;
 }
@@ -283,10 +257,9 @@
 
 .NewsPreviewHeaderText h2,
 .NewsPreviewHeaderText h3 {
+  @include tav300();
   font-size: $title !important;
   text-align: center;
-  font-weight: 200 !important;
-  font-family: "Taviraj", serif !important;
   line-height: 120% !important;
   padding: 1rem !important;
   margin: 0;
@@ -304,8 +277,8 @@
 }
 
 .PrevNextArrow {
+  @include tav500();
   font-size: $bigHeader;
-  font-family: "Taviraj", serif !important;
 }
 
 .FilterListBox {
@@ -318,11 +291,10 @@
 }
 
 .FilterListHeader {
+  @include tav300();
   text-transform: capitalize;
   font-size: $smallestHeader !important;
   margin-bottom: 0px;
-  font-weight: 300;
-  font-family: "Taviraj", serif !important;
   line-height: 40px;
   color: $alt-green;
 }

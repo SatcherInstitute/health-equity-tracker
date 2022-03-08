@@ -273,7 +273,7 @@ function TheProjectTab() {
                     justifyContent="space-around"
                     alignItems="flex-start"
                   >
-                    <Grid item xs={12} sm={12} md={5}>
+                    <Grid item xs={12} sm={12} md={8} lg={5}>
                       <Button
                         variant="contained"
                         color="primary"

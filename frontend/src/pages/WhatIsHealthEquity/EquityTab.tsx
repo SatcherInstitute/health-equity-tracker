@@ -42,6 +42,11 @@ interface WIHEWordpressCopy {
   section4_c_heading3_text: string;
 }
 
+/* 
+Some of the copy for this tab page is loaded from https://hetblog.dreamhosters.com/wp-json/wp/v2/pages/37
+The object below provides fallback if that fetch fails
+*/
+
 export const WIHEFallbackCopy: WIHEWordpressCopy = {
   section2_headingLevel2: "Health equity resources",
   section4_headingLevel2: "How do I join the movement?",

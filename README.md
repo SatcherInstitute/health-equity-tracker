@@ -302,7 +302,7 @@ gcloud auth configure-docker
 * Build and push docker images
 
 ```bash
-./push_images
+./scripts/push_images
 ```
 
 * Setup your cloud environment with `terraform`
@@ -327,7 +327,7 @@ popd
 * Build and push docker images
 
 ```bash
-./push_images
+./scripts/push_images
 ```
 
 * Setup your cloud environment with `terraform`

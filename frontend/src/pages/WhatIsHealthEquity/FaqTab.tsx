@@ -71,9 +71,9 @@ Specific information on update frequencies by source can be found on our <a href
   <li>comprehensive race and ethnicity breakdowns</li>
   <li>comprehensive sex and age breakdowns</li>
 </ul>
-<span class={styles.FaqSubheaderText}>
+<h4 class={styles.FaqSubheaderText}>
   Known limitations in the data
-</span>
+</h4>
 <ul>
   <li>
     To protect the privacy of affected individuals, COVID-19 data
