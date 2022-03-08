@@ -134,10 +134,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               noRatios) && (
               <CardContent>
                 <MissingDataAlert
-                  dataName={
-                    props.variableConfig.metrics.age_adjusted_ratio
-                      .fullCardTitleName + " "
-                  }
+                  dataName={`Age-Adjusted Ratio of ${props.variableConfig.variableFullDisplayName}`}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }

@@ -47,8 +47,8 @@ function MissingDataAlert(props: MissingDataAlertProps) {
       <b>{props.dataName}</b>
       {breakdownPhrase}
       {geoPhrase}
-      for {props.fips.getDisplayName()}. Learn more about how this lack of data
-      impacts{" "}
+      for <b>{props.fips.getDisplayName()}</b>. Learn more about how this lack
+      of data impacts{" "}
       <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
         health equity
       </LinkWithStickyParams>
@@ -57,7 +57,6 @@ function MissingDataAlert(props: MissingDataAlertProps) {
         <AltDataTypesMessage
           setVariableConfigWithParam={props.setVariableConfigWithParam}
           ageAdjustedDataTypes={props.ageAdjustedDataTypes}
-          dropdownVarId={props.dropdownVarId}
         />
       )}
     </Alert>
@@ -69,14 +68,13 @@ export default MissingDataAlert;
 interface AltDataTypesMessageProps {
   ageAdjustedDataTypes: VariableConfig[];
   setVariableConfigWithParam?: any;
-  dropdownVarId?: DropdownVarId;
 }
 function AltDataTypesMessage(props: AltDataTypesMessageProps) {
   if (!props.ageAdjustedDataTypes) return <></>;
   return (
     <>
-      Age-adjusted ratios are currently available for the following{" "}
-      {props.dropdownVarId} data types:{" "}
+      Age-adjusted ratios are currently available for these alternate data
+      types:{" "}
       {props.ageAdjustedDataTypes.map((dataType, i) => {
         return (
           <span key={dataType.variableDisplayName}>
@@ -87,10 +85,9 @@ function AltDataTypesMessage(props: AltDataTypesMessageProps) {
                 props.setVariableConfigWithParam(dataType);
               }}
               role="button"
-              className={styles.CompareAcrossLink}
             >
               {" "}
-              <b>{dataType.variableFullDisplayName}</b>
+              {dataType.variableFullDisplayName}
             </a>
 
             {i < props.ageAdjustedDataTypes.length - 1 && ", "}

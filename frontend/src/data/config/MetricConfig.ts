@@ -372,7 +372,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "death_ratio_age_adjusted",
-          fullCardTitleName: "How many times more likely to die from COVID-19",
+          fullCardTitleName: "Age-adjusted risk of COVID-19 death",
           shortVegaLabel: "",
           type: "ratio",
           ageAdjusted: true,
@@ -424,8 +424,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "hosp_ratio_age_adjusted",
-          fullCardTitleName:
-            "How many times more likely to be hospitalized with COVID-19",
+          fullCardTitleName: "Age-adjusted risk of COVID-19 hospitalization",
           shortVegaLabel: "",
           type: "ratio",
           ageAdjusted: true,
