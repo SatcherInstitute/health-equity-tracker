@@ -36,6 +36,7 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
 
   template {
     spec {
+      timeout_seconds = 600
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.gcs_to_bq_image_name, var.gcs_to_bq_image_digest)
         env {
@@ -55,7 +56,8 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
 
         resources {
           limits = {
-            memory = "4G"
+            memory = "8Gi"
+            cpu = 4
           }
         }
       }
@@ -88,7 +90,8 @@ resource "google_cloud_run_service" "data_server_service" {
 
         resources {
           limits = {
-            memory = "1G"
+            memory = "8Gi"
+            cpu = 4
           }
         }
       }
@@ -177,6 +180,14 @@ resource "google_cloud_run_service" "frontend_service" {
           name  = "DATA_SERVER_URL"
           value = google_cloud_run_service.data_server_service.status.0.url
         }
+
+        resources {
+          limits = {
+            memory = "8Gi"
+            cpu = 4
+          }
+        }
+
       }
       service_account_name = google_service_account.frontend_runner_identity.email
     }

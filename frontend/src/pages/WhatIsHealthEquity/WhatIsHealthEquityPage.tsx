@@ -1,53 +1,95 @@
 import React from "react";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import styles from "./WhatIsHealthEquityPage.module.scss";
 import EquityTab from "./EquityTab";
 import FaqTab from "./FaqTab";
-import { TAB_PARAM, useSearchParams } from "../../utils/urlutils";
-import ResourcesTab from './ResourcesTab';
+import {
+  NEWS_TAB_LINK,
+  FAQ_TAB_LINK,
+  RESOURCES_TAB_LINK,
+  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+  useUrlSearchParams,
+} from "../../utils/urlutils";
+import ResourcesTab from "./ResourcesTab";
+import { useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useEffect } from "react";
+import NewsTab from "./NewsTab";
+import { Link, Redirect, Route, Switch } from "react-router-dom";
 
-export const WIHE_HEALTH_EQUITY_TAB_INDEX = 0;
-export const WIHE_FAQ_TAB_INDEX = 1;
-export const WIHE_JOIN_THE_EFFORT_SECTION_ID = "join";
+export default function WhatIsHealthEquityPage() {
+  const theme = useTheme();
+  const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
+  const [tabLayout, setTabLayout] = React.useState({});
 
-export function WhatIsHealthEquityPage() {
-  const params = useSearchParams();
-
-  const [tabIndex, setTabIndex] = React.useState(
-    params[TAB_PARAM] ? Number(params[TAB_PARAM]) : 0
-  );
-
-  const handleChange = (event: React.ChangeEvent<{}>, newTabIndex: number) => {
-    setTabIndex(newTabIndex);
-  };
+  // when screen width changes, update tab spacing material UI attribute
+  useEffect(() => {
+    setTabLayout(pageIsWide ? { centered: true } : { variant: "fullWidth" });
+  }, [pageIsWide]);
 
   return (
-    <div className={styles.WhatIsHealthEquityPage}>
-      <Tabs
-        tabIndex={tabIndex}
-        value={tabIndex}
-        onChange={handleChange}
-        indicatorColor="primary"
-        textColor="primary"
-        centered
-      >
-        <Tab
-          className={styles.WhatIsHealthEquityTab}
-          label="What is Health Equity?"
+    <div>
+      {/*  intercept old FAQ via query params for backwards compatible links */}
+      {useUrlSearchParams().get("tab") === "1" && (
+        <Redirect
+          to={{
+            pathname: FAQ_TAB_LINK,
+          }}
         />
-        <Tab
-          className={styles.WhatIsHealthEquityTab}
-          label="Frequently Asked Questions"
-        />
-        <Tab
-            className={styles.WhatIsHealthEquityTab}
-            label="Health Equity Resources"
-        />
-      </Tabs>
-      {tabIndex === 0 && <EquityTab />}
-      {tabIndex === 1 && <FaqTab />}
-      {tabIndex === 2 && <ResourcesTab />}
+      )}
+      <Route path="/">
+        <Tabs
+          {...tabLayout}
+          indicatorColor="primary"
+          textColor="primary"
+          value={
+            window.location.pathname.includes(NEWS_TAB_LINK) &&
+            window.location.pathname !== NEWS_TAB_LINK
+              ? false
+              : window.location.pathname
+          }
+        >
+          <Tab
+            value={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+            label="What Is Health Equity?"
+            component={Link}
+            to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+          />
+          <Tab
+            value={FAQ_TAB_LINK}
+            label="FAQs"
+            component={Link}
+            to={FAQ_TAB_LINK}
+          />
+          <Tab
+            value={NEWS_TAB_LINK}
+            label="News"
+            component={Link}
+            to={NEWS_TAB_LINK}
+          />
+          <Tab
+            value={RESOURCES_TAB_LINK}
+            label="Resources"
+            component={Link}
+            to={RESOURCES_TAB_LINK}
+          />
+        </Tabs>
+      </Route>
+
+      <Switch>
+        <Route path={`${FAQ_TAB_LINK}/`}>
+          <FaqTab />
+        </Route>
+        <Route path={`${NEWS_TAB_LINK}/`}>
+          <NewsTab />
+        </Route>
+        <Route path={`${RESOURCES_TAB_LINK}/`}>
+          <ResourcesTab />
+        </Route>
+        <Route path={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/`}>
+          <EquityTab />
+        </Route>
+      </Switch>
     </div>
   );
 }

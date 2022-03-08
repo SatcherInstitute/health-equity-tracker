@@ -2,14 +2,20 @@ import React from "react";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import { Grid } from "@material-ui/core";
-import { DropdownVarId } from "../../utils/MadLibs";
-import { METRIC_CONFIG, VariableConfig } from "../../data/config/MetricConfig";
+import {
+  DropdownVarId,
+  METRIC_CONFIG,
+  VariableConfig,
+} from "../../data/config/MetricConfig";
 import styles from "../Report.module.scss";
 import {
   BreakdownVar,
   DEMOGRAPHIC_BREAKDOWNS,
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../../data/query/Breakdowns";
+
+export const DATA_TYPE_LABEL = "Data Type";
+export const DEMOGRAPHIC_LABEL = "Demographic";
 
 interface ReportToggleControlsProps {
   dropdownVarId: DropdownVarId;
@@ -39,7 +45,10 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
     <Grid container>
       {enableMetricToggle && (
         <Grid className={styles.ToggleBlock}>
-          <span className={styles.ToggleLabel}>Data Type</span>
+          <div className={styles.ToggleLabel}>
+            {props.dropdownVarId + " " + DATA_TYPE_LABEL}
+          </div>
+          {/* DATA TYPE TOGGLE */}
           <ToggleButtonGroup
             exclusive
             value={props.variableConfig.variableId}
@@ -55,7 +64,13 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
           >
             {METRIC_CONFIG[props.dropdownVarId].map(
               (variable: VariableConfig, key: number) => (
-                <ToggleButton value={variable.variableId} key={key}>
+                <ToggleButton
+                  value={variable.variableId}
+                  key={key}
+                  aria-label={
+                    variable.variableDisplayName + " " + DATA_TYPE_LABEL
+                  }
+                >
                   {variable.variableDisplayName}
                 </ToggleButton>
               )
@@ -63,26 +78,37 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
           </ToggleButtonGroup>
         </Grid>
       )}
-      <Grid item className={styles.ToggleBlock}>
-        <div className={styles.ToggleLabel}>Demographic</div>
-        <div id="onboarding-explore-trends">
-          <ToggleButtonGroup
-            exclusive
-            value={props.currentBreakdown}
-            onChange={(e, v) => {
-              if (v !== null) {
-                props.setCurrentBreakdown(v);
-              }
-            }}
-          >
-            {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-              <ToggleButton value={breakdownVar} key={breakdownVar}>
-                {BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar]}
-              </ToggleButton>
-            ))}
-          </ToggleButtonGroup>
-        </div>
-      </Grid>
+      {
+        <Grid item className={styles.ToggleBlock}>
+          <div className={styles.ToggleLabel}>{DEMOGRAPHIC_LABEL}</div>
+          <div id="onboarding-explore-trends">
+            {/* DEMOGRAPHIC TOGGLE */}
+            <ToggleButtonGroup
+              exclusive
+              value={props.currentBreakdown}
+              onChange={(e, v) => {
+                if (v !== null) {
+                  props.setCurrentBreakdown(v);
+                }
+              }}
+            >
+              {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+                <ToggleButton
+                  value={breakdownVar}
+                  key={breakdownVar}
+                  aria-label={
+                    BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar] +
+                    " " +
+                    DEMOGRAPHIC_LABEL
+                  }
+                >
+                  {BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar]}
+                </ToggleButton>
+              ))}
+            </ToggleButtonGroup>
+          </div>
+        </Grid>
+      }
     </Grid>
   );
 }

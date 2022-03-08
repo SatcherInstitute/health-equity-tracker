@@ -6,16 +6,15 @@ import Hidden from "@material-ui/core/Hidden";
 import Typography from "@material-ui/core/Typography";
 import {
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-  LinkWithStickyParams,
   EXPLORE_DATA_PAGE_LINK,
-  TAB_PARAM,
+  WIHE_JOIN_THE_EFFORT_SECTION_ID,
   ReactRouterLinkButton,
 } from "../../utils/urlutils";
 import FaqSection from "../ui/FaqSection";
-import {
-  WIHE_HEALTH_EQUITY_TAB_INDEX,
-  WIHE_JOIN_THE_EFFORT_SECTION_ID,
-} from "../WhatIsHealthEquity/WhatIsHealthEquityPage";
+import { Box } from "@material-ui/core";
+import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
+import { Helmet } from "react-helmet-async";
+import LazyLoad from "react-lazyload";
 
 function TakeALookAroundItem(props: {
   src: string;
@@ -24,19 +23,32 @@ function TakeALookAroundItem(props: {
 }) {
   return (
     <Grid item xs={12} sm={4} md={4} className={styles.TakeALookAroundItem}>
-      <Grid container direction="column" alignItems="center" justify="center">
+      <Grid
+        container
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+      >
         <Hidden xsDown>
           <Grid item>
-            <img
-              className={styles.TakeALookAroundImg}
-              src={props.src}
-              alt={props.alt}
-            />
+            <LazyLoad height={200} offset={300} once>
+              <img
+                height="500"
+                width="500"
+                className={styles.TakeALookAroundImg}
+                src={props.src}
+                alt={props.alt}
+              />
+            </LazyLoad>
           </Grid>
         </Hidden>
         <Grid item>
-          <Typography className={styles.TakeALookAroundText} variant="h3">
-            <p>{props.text}</p>
+          <Typography
+            className={styles.TakeALookAroundText}
+            variant="h3"
+            component="p"
+          >
+            {props.text}
           </Typography>
         </Grid>
       </Grid>
@@ -45,352 +57,413 @@ function TakeALookAroundItem(props: {
 }
 
 function LandingPage() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+
   return (
-    <>
-      <title>Home - Health Equity Tracker</title>
-      <h1 className={styles.ScreenreaderTitleHeader}>Home Page</h1>
-      <div className={styles.LandingPage}>
-        <Grid container className={styles.Grid}>
-          <Grid
-            container
-            className={styles.HeaderRow}
-            direction="row"
-            justify="center"
-            alignItems="center"
-          >
-            <Grid item className={styles.HeaderTextItem} xs={12} sm={12} md={6}>
-              <Typography
-                id="main"
-                tabIndex={-1}
-                className={styles.HeaderText}
-                variant="h2"
+    <main>
+      <Helmet>
+        <title>Home - Health Equity Tracker</title>
+        <link rel="preload" as="image" href="/img/stock/family-laughing.png" />
+      </Helmet>
+      <h2 className={styles.ScreenreaderTitleHeader}>Home Page</h2>
+      <Grid container className={styles.Grid}>
+        <Grid
+          container
+          className={styles.HeaderRow}
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Grid item className={styles.HeaderTextItem} xs={12} sm={12} md={6}>
+            <Typography
+              id="main"
+              className={styles.HeaderText}
+              variant="h2"
+              paragraph={true}
+              component="h3"
+            >
+              Advancing
+              <br aria-hidden="true" />
+              Health
+              <br aria-hidden="true" />
+              Equity
+            </Typography>
+            <Typography
+              className={styles.HeaderSubtext}
+              variant="body1"
+              paragraph={true}
+            >
+              We know that the data we collect can be imperfect and at times
+              even worsen health inequities many people face if not reported or
+              analyzed correctly.
+            </Typography>
+
+            <Typography
+              className={styles.HeaderSubtext}
+              variant="body1"
+              paragraph={true}
+            >
+              We work to change that narrative by identifying, understanding,
+              and responding to health inequities in our communities in a way
+              that will allow every person to live well and long from generation
+              to generation.
+            </Typography>
+
+            <Typography
+              className={styles.HeaderSubtext}
+              variant="body1"
+              paragraph={true}
+            >
+              Join us in powering transformational action!
+            </Typography>
+            <Box mt={5}>
+              <Button
+                variant="contained"
+                color="primary"
+                className={styles.PrimaryButton}
+                href={EXPLORE_DATA_PAGE_LINK}
               >
-                Advancing
-                <br />
-                Health
-                <br />
-                Equity
-              </Typography>
-              <Typography className={styles.HeaderSubtext} variant="body1">
-                <p>
-                  We know that the data we collect can be imperfect and at times
-                  even worsen health inequities many people face if not reported
-                  or analyzed correctly.
-                </p>
-                <p>
-                  We work to change that narrative by identifying,
-                  understanding, and responding to health inequities in our
-                  communities in a way that will allow every person to live well
-                  and long from generation to generation.
-                </p>
-                <p>Join us in powering transformational action!</p>
-                <br />
-              </Typography>
-              <LinkWithStickyParams
-                to={EXPLORE_DATA_PAGE_LINK}
-                class={styles.NoUnderline}
-              >
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={styles.PrimaryButton}
-                >
-                  Explore the Health Equity Tracker
-                </Button>
-              </LinkWithStickyParams>
-            </Grid>
-            <Grid item xs={12} sm={12} md={6} className={styles.HeaderImgItem}>
-              <img
-                src="img/shutterstock_1414416191 2 (1).png"
-                className={styles.HeaderImg}
-                alt="A man and woman laying with their two children"
+                Explore the Health Equity Tracker
+              </Button>
+            </Box>
+          </Grid>
+          <Grid item xs={12} sm={12} md={6} className={styles.HeaderImgItem}>
+            <img
+              height="601"
+              width="700"
+              src="/img/stock/family-laughing.png"
+              className={styles.HeaderImg}
+              alt=""
+            />
+          </Grid>
+        </Grid>
+
+        <Grid
+          container
+          className={styles.TakeALookAroundRow}
+          justifyContent="flex-start"
+          align-items="center"
+        >
+          <Grid item xs={12}>
+            <Typography
+              className={styles.TakeALookAroundHeaderText}
+              variant="h2"
+              component="h3"
+            >
+              Take a look around
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography
+              className={styles.TakeALookAroundHeaderSubtext}
+              variant="subtitle1"
+              component="p"
+            >
+              We’re working toward health equity, but can’t do it alone. Please
+              join our effort to move the needle forward.
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Grid
+              container
+              className={styles.TakeALookAroundItemRow}
+              direction="row"
+              justifyContent="space-around"
+            >
+              <TakeALookAroundItem
+                src={
+                  prefersReducedMotion
+                    ? "/img/animations/HET-fields-no-motion.gif"
+                    : "/img/animations/HET-fields.gif"
+                }
+                alt=""
+                text="(1) Learn about health equity"
+              />
+              <TakeALookAroundItem
+                src={
+                  prefersReducedMotion
+                    ? "/img/animations/HET-dots-no-motion.gif"
+                    : "/img/animations/HET-dots.gif"
+                }
+                alt=""
+                text="(2) Investigate the data"
+              />
+              <TakeALookAroundItem
+                src={
+                  prefersReducedMotion
+                    ? "/img/animations/HET-spiral-no-motion.gif"
+                    : "/img/animations/HET-spiral-sm.gif"
+                }
+                alt=""
+                text="(3) Share our site and join our movement"
               />
             </Grid>
           </Grid>
 
-          <Grid
-            container
-            className={styles.TakeALookAroundRow}
-            justify="flex-start"
-            align-items="center"
-          >
-            <Grid item xs={12}>
-              <Typography
-                className={styles.TakeALookAroundHeaderText}
-                variant="h2"
+          <Grid container direction="row" justifyContent="center">
+            <Grid item xs={12} sm={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                className={styles.PrimaryButton}
+                href={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
               >
-                Take a look around
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography
-                className={styles.TakeALookAroundHeaderSubtext}
-                variant="subtitle1"
-              >
-                We’re working toward health equity, but can’t do it alone.
-                Please join our effort to move the needle forward.
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Grid
-                container
-                className={styles.TakeALookAroundItemRow}
-                direction="row"
-                justify="space-around"
-              >
-                <TakeALookAroundItem
-                  src="img/HET_Fields_1_v2_1000px.gif"
-                  alt="Decorative dots"
-                  text="(1) Learn about health equity"
-                />
-                <TakeALookAroundItem
-                  src="img/HET_Dots_1_v3_1000px.gif"
-                  alt="Decorative thick lines"
-                  text="(2) Investigate the data"
-                />
-                <TakeALookAroundItem
-                  src="img/HET_Spiral_v4_1000px.gif"
-                  alt="Decorative circular pattern"
-                  text="(3) Share our site and join our movement"
-                />
-              </Grid>
-            </Grid>
-
-            <Grid container direction="row" justify="center">
-              <Grid item xs={12} sm={12} md={2}>
-                <LinkWithStickyParams
-                  to="/whatishealthequity"
-                  class={styles.NoUnderline}
-                >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={styles.PrimaryButton}
-                  >
-                    Learn more
-                  </Button>
-                </LinkWithStickyParams>
-              </Grid>
+                What is Health Equity?
+              </Button>
             </Grid>
           </Grid>
+        </Grid>
 
-          <Grid
-            container
-            className={styles.PrioritizeHealthEquityRow}
-            direction="row"
-            justify="center"
-            alignItems="center"
-          >
-            <Hidden smDown>
-              <Grid
-                item
-                xs={12}
-                sm={12}
-                md={5}
-                className={styles.PrioritizeHealthEquityImgItem}
-              >
-                <img
-                  src="img/118172286-e3fffb80-b3c7-11eb-9553-127462881af3.png"
-                  className={styles.PrioritizeHealthEquityImg}
-                  alt="Three women embracing a small baby in between them"
-                />
-              </Grid>
-            </Hidden>
+        <Grid
+          container
+          className={styles.PrioritizeHealthEquityRow}
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Hidden smDown>
             <Grid
               item
               xs={12}
               sm={12}
-              md={7}
-              className={styles.PrioritizeHealthEquityTextItem}
+              md={5}
+              className={styles.PrioritizeHealthEquityImgItem}
             >
+              <LazyLoad once height="811" offset={300}>
+                <img
+                  width="557"
+                  height="811"
+                  src="/img/stock/women-baby.png"
+                  className={styles.PrioritizeHealthEquityImg}
+                  alt=""
+                />
+              </LazyLoad>
+            </Grid>
+          </Hidden>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={7}
+            className={styles.PrioritizeHealthEquityTextItem}
+          >
+            <Box mb={4}>
               <Typography
                 className={styles.PrioritizeHealthEquityHeader}
                 variant="h2"
+                paragraph={true}
+                component="h3"
               >
                 It's time to prioritize health equity
               </Typography>
-              <br />
+            </Box>
+
+            <Typography
+              className={styles.PrioritizeHealthEquityHeaderSubtext}
+              variant="body1"
+              paragraph={true}
+            >
+              We’re living through a historic moment. COVID-19 has taken a toll
+              on everyone. But the pandemic is hitting the most marginalized,
+              vulnerable communities the hardest.
+            </Typography>
+
+            <Typography
+              className={styles.PrioritizeHealthEquityHeaderSubtext}
+              variant="body1"
+              paragraph={true}
+            >
+              <b>People need help, and they need it now.</b>
+            </Typography>
+
+            <Box mt={5}>
               <Typography
                 className={styles.PrioritizeHealthEquityHeaderSubtext}
                 variant="body1"
+                paragraph={true}
               >
-                <p>
-                  We’re living through a historic moment. COVID-19 has taken a
-                  toll on everyone. But the pandemic is hitting the most
-                  marginalized, vulnerable communities the hardest.
-                </p>
-                <p>
-                  <b>People need help, and they need it now.</b>
-                </p>
-                <br />
                 <ReactRouterLinkButton
                   url={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
                   className={styles.LearnMoreAboutHealthEquity}
                   displayName="Learn more about health equity"
                 />
               </Typography>
-            </Grid>
-          </Grid>
-
-          <Grid container className={styles.HowToRow}>
-            <Grid item xs={12}>
-              <Typography className={styles.HowToHeaderText} variant="h2">
-                How do I use the Data Tracker?
-              </Typography>
-            </Grid>
-
-            <Grid
-              container
-              direction="column"
-              justify="center"
-              alignItems="center"
-              xs={12}
-            >
-              <Grid
-                container
-                className={styles.HowToStepContainer}
-                direction="row"
-                justify="space-around"
-                alignItems="center"
-              >
-                <Grid item xs={12} sm={12} md={8}>
-                  <img
-                    className={styles.HowToStepImg}
-                    src="img/het-screen-1.png"
-                    alt="Screenshot of Data Tracker - selecting mad libs"
-                  />
-                </Grid>
-                <Grid item xs={12} sm={12} md={3}>
-                  <div>
-                    <h3 className={styles.HowToStepTextHeader}>
-                      Search by completing the sentence
-                    </h3>
-                    <p className={styles.HowToStepTextSubheader}>
-                      Select variables you’re interested in to complete the
-                      sentence and explore the data
-                    </p>
-                  </div>
-                </Grid>
-              </Grid>
-
-              <Grid
-                container
-                className={styles.HowToStepContainer}
-                direction="row"
-                justify="space-around"
-                alignItems="center"
-              >
-                <Grid item xs={12} sm={12} md={8}>
-                  <img
-                    className={styles.HowToStepImg}
-                    src="img/het-screen-2.png"
-                    alt="Screenshot of Data Tracker - using filters"
-                  />
-                </Grid>
-                <Grid item xs={12} sm={12} md={3}>
-                  <div>
-                    <h3 className={styles.HowToStepTextHeader}>
-                      Use filters to go deeper
-                    </h3>
-                    <p className={styles.HowToStepTextSubheader}>
-                      Where available, the tracker offers breakdowns by race and
-                      ethnicity, sex, and age. This is currently limited to the
-                      national and state level, with county-level data coming
-                      soon.
-                    </p>
-                  </div>
-                </Grid>
-              </Grid>
-
-              <Grid
-                container
-                className={styles.HowToStepContainer}
-                direction="row"
-                justify="space-around"
-                alignItems="center"
-              >
-                <Grid item xs={12} sm={12} md={8}>
-                  <img
-                    className={styles.HowToStepImg}
-                    src="img/het-screen-3.png"
-                    alt="Screenshot of Data Tracker - map of the US"
-                  />
-                </Grid>
-                <Grid item xs={12} sm={12} md={3}>
-                  <div>
-                    <h3 className={styles.HowToStepTextHeader}>
-                      Explore maps and graphs
-                    </h3>
-                    <p className={styles.HowToStepTextSubheader}>
-                      The interactive maps and graphs are a great way to
-                      investigate the data more closely. If a state or county is
-                      gray, that means there’s no data currently available.
-                    </p>
-                  </div>
-                </Grid>
-              </Grid>
-              <Grid item>
-                <br />
-                <br />
-                <LinkWithStickyParams
-                  to={EXPLORE_DATA_PAGE_LINK}
-                  class={styles.NoUnderline}
-                >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={styles.PrimaryButton}
-                  >
-                    Explore the Tracker
-                  </Button>
-                </LinkWithStickyParams>
-              </Grid>
-            </Grid>
-          </Grid>
-
-          <div className={styles.FaqRow}>
-            <FaqSection />
-          </div>
-
-          <Grid container className={styles.NewsletterSignUpRow}>
-            <Grid
-              container
-              item
-              xs={12}
-              sm={12}
-              md={12}
-              direction="column"
-              justify="center"
-              alignItems="center"
-              className={styles.EmailAddressBackgroundImgContainer}
-            >
-              <div className={styles.EmailAddressContentDiv}>
-                <Grid item>
-                  <Typography
-                    className={styles.NewsletterRowHeader}
-                    variant="h2"
-                  >
-                    Join Our
-                    <br />
-                    Movement
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Button
-                    variant="contained"
-                    color="default"
-                    className={styles.JoinOurMovementButton}
-                    href={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_HEALTH_EQUITY_TAB_INDEX}#${WIHE_JOIN_THE_EFFORT_SECTION_ID}`}
-                  >
-                    Click here
-                  </Button>
-                </Grid>
-              </div>
-            </Grid>
+            </Box>
           </Grid>
         </Grid>
-      </div>
-    </>
+
+        <Grid
+          container
+          className={styles.HowToRow}
+          component="article"
+          justifyContent="center"
+        >
+          <Grid item xs={12}>
+            <Typography
+              className={styles.HowToHeaderText}
+              variant="h2"
+              component="h3"
+            >
+              How do I use the Data Tracker?
+            </Typography>
+          </Grid>
+
+          <Grid
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            component="ul"
+          >
+            <Grid
+              container
+              className={styles.HowToStepContainer}
+              direction="row"
+              justifyContent="space-around"
+              alignItems="center"
+              component="li"
+            >
+              <Grid item xs={12} sm={12} md={3}>
+                <h4 className={styles.HowToStepTextHeader}>
+                  Search by completing the sentence
+                </h4>
+                <p className={styles.HowToStepTextSubheader}>
+                  Select variables you’re interested in to complete the sentence
+                  and explore the data
+                </p>
+              </Grid>
+              <Grid item xs={12} sm={12} md={8}>
+                <LazyLoad offset={300} once>
+                  <img
+                    className={styles.HowToStepImg}
+                    src="/img/screenshots/het-investigate-rates.png"
+                    alt="Search Example Screenshot: Investigate Rates of option Covid-19 in location United States"
+                  />
+                </LazyLoad>
+              </Grid>
+            </Grid>
+
+            <Grid
+              container
+              className={styles.HowToStepContainer}
+              direction="row"
+              justifyContent="space-around"
+              alignItems="center"
+              component="li"
+            >
+              <Grid item xs={12} sm={12} md={3}>
+                <div>
+                  <h4 className={styles.HowToStepTextHeader}>
+                    Use filters to go deeper
+                  </h4>
+                  <p className={styles.HowToStepTextSubheader}>
+                    Where available, the tracker offers breakdowns by race and
+                    ethnicity, sex, and age.
+                  </p>
+                </div>
+              </Grid>
+
+              <Grid item xs={12} sm={12} md={8}>
+                <LazyLoad offset={300} once>
+                  <img
+                    className={styles.HowToStepImg}
+                    src="/img/screenshots/het-compare-rates.png"
+                    alt="Search Example Screenshot: Compare Rates of option Covid-19 between two locations"
+                  />
+                </LazyLoad>
+              </Grid>
+            </Grid>
+
+            <Grid
+              container
+              className={styles.HowToStepContainer}
+              direction="row"
+              justifyContent="space-around"
+              alignItems="center"
+              component="li"
+            >
+              <Grid item xs={12} sm={12} md={3}>
+                <div>
+                  <h4 className={styles.HowToStepTextHeader}>
+                    Explore maps and graphs
+                  </h4>
+                  <p className={styles.HowToStepTextSubheader}>
+                    The interactive maps and graphs are a great way to
+                    investigate the data more closely, currently reporting
+                    COVID-19 cases by race at the state and county level.
+                  </p>
+                </div>
+              </Grid>
+
+              <Grid item xs={12} sm={12} md={8}>
+                <LazyLoad offset={300} once>
+                  <img
+                    className={styles.HowToStepImg}
+                    src="/img/screenshots/het-map.png"
+                    alt="Map Example Screenshot, Data Tracker map of option Covid-19 rates of all racial groups"
+                  />
+                </LazyLoad>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Box mt={7}>
+            <Button
+              variant="contained"
+              color="primary"
+              className={styles.PrimaryButton}
+              href={EXPLORE_DATA_PAGE_LINK}
+            >
+              Explore the Tracker
+            </Button>
+          </Box>
+        </Grid>
+
+        <div className={styles.FaqRow}>
+          <LazyLoad offset={300} height={700} once>
+            <FaqSection />
+          </LazyLoad>
+        </div>
+
+        <Grid
+          container
+          className={styles.NewsletterSignUpRow}
+          justifyContent="center"
+        >
+          <Grid
+            container
+            item
+            xs={12}
+            sm={12}
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            className={styles.EmailAddressBackgroundImgContainer}
+          >
+            <div className={styles.EmailAddressContentDiv}>
+              <Grid item>
+                <Typography className={styles.NewsletterRowHeader} variant="h2">
+                  <span>
+                    Join Our
+                    <br aria-hidden="true" />
+                    Movement
+                  </span>
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Button
+                  variant="contained"
+                  color="default"
+                  className={styles.JoinOurMovementButton}
+                  href={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}#${WIHE_JOIN_THE_EFFORT_SECTION_ID}`}
+                >
+                  Learn How To Help
+                </Button>
+              </Grid>
+            </div>
+          </Grid>{" "}
+        </Grid>
+      </Grid>
+    </main>
   );
 }
 

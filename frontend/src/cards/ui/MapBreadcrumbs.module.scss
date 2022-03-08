@@ -1,9 +1,11 @@
+@import "../../styles/globals.scss";
+
 .Crumb {
   padding: 3px;
 }
 
 .CurrentCrumb {
+  @include inter700();
   padding: 3px;
   color: black !important;
-  font-weight: bold !important;
 }

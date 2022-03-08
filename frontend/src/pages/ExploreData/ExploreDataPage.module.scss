@@ -1,67 +1,77 @@
+@use "../../styles/globals.scss";
+@import "../../styles/variables.module";
+
 .ExploreData {
-  background-color: #f1f4f8;
+  background-color: $explore-bg-color;
   height: 100%;
 }
 
-// For the title of the page read off by screenreaders in an h1
-.ScreenreaderTitleHeader {
-  left: -999px;
-  position: absolute;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  z-index: -999;
-}
-
 .CarouselContainer {
-  background: white;
-  padding-bottom: 20px;
-  padding-top: 20px;
-  font-size: 20pt;
-  line-height: 20pt;
+  background: $white;
   box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3),
     0px 1px 3px 1px rgba(60, 64, 67, 0.15);
   transition: padding-top 0.2s, padding-bottom 0.2s;
+  padding-block: 1rem;
 }
 
 .Carousel {
   margin: auto;
-  width: 90%;
+  width: 98%;
 }
 
+// when scrolled to top of page
 .CarouselItem {
-  padding: 40px;
-  padding-left: 50px;
-  padding-right: 50px;
-  margin: 20px auto;
-  line-height: 50pt;
-}
-
-.MadLibSelect {
-  margin: 5px;
-  margin-top: -7px;
-  font-size: 20pt;
+  line-height: $lhLoose;
+  font-size: $title;
+  @media (min-width: $sm) {
+    font-size: $smallestHeader;
+  }
+  @media (min-width: $lg) {
+    font-size: $smallerHeader;
+  }
+  padding: 0px 70px 0px 70px;
+  margin: 20px auto 0 auto;
 }
 
 .ReportContainer {
   width: 100%;
 }
 
-.Sticky {
-  .CarouselContainer {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1001;
-    padding-top: 0;
-    padding-bottom: 0;
+.LifelineSticky {
+  display: none;
+}
+
+// when sticky header appears after scrolling down page (not on small screens)
+@media (min-width: $md) {
+  .Sticky {
+    .CarouselContainer {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1001;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    .CarouselItem {
+      padding: 0px 55px 0px 55px;
+      margin-bottom: 10px;
+      transition: padding 0.2s;
+    }
+    .ReportContainer {
+      padding-top: 150px;
+    }
+    .LifelineSticky {
+      display: flex;
+      justify-content: center;
+      svg {
+        color: $alt-green;
+        font-size: $title;
+      }
+    }
   }
-  .CarouselItem {
-    padding: 10px;
-    transition: padding 0.2s;
-  }
-  .ReportContainer {
-    padding-top: 150px;
-  }
+}
+
+// override the joyride component to allow different color for "back" text and "next" background
+button[data-action="back"] {
+  color: $white !important;
 }

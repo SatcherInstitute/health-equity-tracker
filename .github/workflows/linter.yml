@@ -5,7 +5,7 @@ name: Lint Code Base
 
 on:
   pull_request:
-    branches: [master]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -30,8 +30,9 @@ jobs:
 
       # Lint using Super Linter. See https://github.com/github/super-linter.
       - name: Lint Code Base
-        uses: github/super-linter@v3
+        uses: github/super-linter@v4
         env:
+          DEFAULT_BRANCH: main
           VALIDATE_ALL_CODEBASE: false  # Only validate new or changed files
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_DOCKERFILE: true
@@ -44,7 +45,7 @@ jobs:
       # directories containing Python code are added.
       - name: Run mypy
         run: |
-          pip install mypy
+          pip install mypy==0.902
           pip install -r data_server/requirements.txt
           pip install -r run_ingestion/requirements.txt
           pip install -r run_gcs_to_bq/requirements.txt

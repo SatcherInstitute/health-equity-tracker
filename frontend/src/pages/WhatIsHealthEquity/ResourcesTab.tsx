@@ -2,8 +2,14 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import { Typography } from "@material-ui/core";
+import { Helmet } from "react-helmet-async";
 
-const RESOURCES = [
+export interface Resource {
+  name: string;
+  url: string;
+}
+
+export const RESOURCES: Resource[] = [
   {
     name: "Health Equity Guide",
     url: "https://healthequityguide.org/",
@@ -25,11 +31,11 @@ const RESOURCES = [
     url: "https://onlinepublichealth.gwu.edu/resources/equity-vs-equality/",
   },
   {
-    name: "Social determinants of health -WHO",
+    name: "Social determinants of health - WHO",
     url: "https://www.who.int/health-topics/social-determinants-of-health#tab=tab_1",
   },
   {
-    name: "Equity- WHO",
+    name: "Equity - WHO",
     url: "https://www.who.int/healthsystems/topics/equity/en/",
   },
   {
@@ -41,7 +47,7 @@ const RESOURCES = [
     url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3222512/",
   },
   {
-    name: "Health Equity CDC",
+    name: "Health Equity - CDC",
     url: "https://www.cdc.gov/chronicdisease/healthequity/index.htm",
   },
   {
@@ -55,6 +61,10 @@ const RESOURCES = [
   {
     name: "Health Equity and Prevention Primer",
     url: "https://www.preventioninstitute.org/tools/tools-general/health-equity-toolkit#:~:text=The%20Health%20Equity%20and%20Prevention%20Primer%20(HEPP)%20is%20a%20web,%2C%20and%20multi%2Dsector%20engagement.",
+  },
+  {
+    name: "AAMC: Advancing Health Equity: A Guide to Language, Narrative and Concepts",
+    url: "https://www.aamchealthjustice.org/narrative-guide",
   },
   {
     name: "APIAHF: Health Equity",
@@ -73,11 +83,11 @@ const RESOURCES = [
     url: "https://in.nau.edu/cair/ai-health-equity-and-disparities/",
   },
   {
-    name: "Indigenous Health Equity- UIHI",
+    name: "Indigenous Health Equity - UIHI",
     url: "https://www.uihi.org/resources/indigenous-health-equity/",
   },
   {
-    name: "Racialization as a Barrier to Achieving Health Equity for Native...",
+    name: "Racialization as a Barrier to Achieving Health Equity for Native Americans",
     url: "https://journalofethics.ama-assn.org/article/racialization-barrier-achieving-health-equity-native-americans/2020-10",
   },
   {
@@ -85,7 +95,11 @@ const RESOURCES = [
     url: "https://www.medicalnewstoday.com/articles/the-impact-of-historical-trauma-on-american-indian-health-equity",
   },
   {
-    name: "COVID-19 and Equity*- APHA",
+    name: "National COVID-19 Resiliency Network (NCRN)",
+    url: "https://ncrn.msm.edu",
+  },
+  {
+    name: "COVID-19 and Equity - APHA",
     url: "https://www.apha.org/topics-and-issues/communicable-disease/coronavirus/equity",
   },
   {
@@ -93,7 +107,7 @@ const RESOURCES = [
     url: "https://www.apha.org/events-and-meetings/apha-calendar/webinar-events/2020/covid-19-and-health-equity",
   },
   {
-    name: "Investing in Latino Leadership for Health Equity and Justice...",
+    name: "Investing in Latino Leadership for Health Equity and Justice",
     url: "https://www.gih.org/publication/investing-in-latino-leadership-for-health-equity-and-justice/",
   },
   {
@@ -101,12 +115,12 @@ const RESOURCES = [
     url: "https://nimhd.blogs.govdelivery.com/2018/10/11/tackling-health-disparities-among-latinos-in-the-united-states/",
   },
   {
-    name: "Hispanic/Lainto- Minority Health",
+    name: "Hispanic/Latino - Minority Health",
     url: "https://minorityhealth.hhs.gov/omh/browse.aspx?lvl=3&lvlid=64",
   },
   {
     name: "PDOH - JHU PRESS",
-    url: "https://www.press.jhu.edu/news/blog/political-determinants-health",
+    url: "https://www.press.jhu.edu/newsroom/political-determinants-health",
   },
   {
     name: "The Economic Case for Health Equity - ASTHO",
@@ -117,7 +131,7 @@ const RESOURCES = [
     url: "https://pubmed.ncbi.nlm.nih.gov/21563622/",
   },
   {
-    name: "Roots of Health Inequity free, web-based course",
+    name: "Roots of Health Inequity - Free, web-based course",
     url: "http://www.rootsofhealthinequity.org/",
   },
   {
@@ -125,11 +139,11 @@ const RESOURCES = [
     url: "https://www.youtube.com/watch?v=2k5XPbEB4H0",
   },
   {
-    name: "NACCHO Health Equity and Social Justice Resources and Trainings",
+    name: "NACCHO - Health Equity and Social Justice Resources and Trainings",
     url: "https://www.naccho.org/programs/public-health-infrastructure/health-equity",
   },
   {
-    name: "How to use data to inform community health assessment and planning: NACCHO's Mobiling for Action through Planning and Partnerships (MAPP) framework",
+    name: "How to use data to inform community health assessment and planning: NACCHO's Mobilizing for Action through Planning and Partnerships (MAPP) framework",
     url: "https://www.naccho.org/programs/public-health-infrastructure/performance-improvement/community-health-assessment/mapp",
   },
   {
@@ -193,7 +207,7 @@ const RESOURCES = [
     url: "https://www.tfah.org/initiatives/health-equity/",
   },
   {
-    name: "TFAH Health Equity Webinar Series",
+    name: "TFAH - Health Equity Webinar Series",
     url: "https://www.tfah.org/article/tfah-webinar-series-on-achieving-health-equity-through-collaborations-innovative-funding-and-leadership/",
   },
   {
@@ -213,53 +227,70 @@ const RESOURCES = [
     url: "https://www.ama-assn.org/delivering-care/health-equity/medical-justice-advocacy-fellowship",
   },
   {
-    name: "THE ECONOMIC BURDEN OF HEALTH INEQUALITIES IN THE UNITED STATES",
+    name: "The Economic Burden Of Health Inequalities In The United States",
+    url: "https://hsrc.himmelfarb.gwu.edu/cgi/viewcontent.cgi?article=1224&context=sphhs_policy_facpubs",
+  },
+  {
+    name: "National Survey on Drug Use and Health (NSDUH)",
+    url: "https://www.samhsa.gov/data/data-we-collect/nsduh-national-survey-drug-use-and-health",
+  },
+  {
+    name: "National Strategy for Suicide Prevention Implementation Assessment Report (NSSP)",
+    url: "https://store.samhsa.gov/product/National-Strategy-for-Suicide-Prevention-Implementation-Assessment-Report/sma17-5051",
+  },
+  {
+    name: "Agency for Healthcare Research and Quality (AHRQ)",
     url: "https://hsrc.himmelfarb.gwu.edu/cgi/viewcontent.cgi?article=1224&context=sphhs_policy_facpubs",
   },
   {
     name: "Satcher Health Leadership Institute",
     url: "https://satcherinstitute.org/",
   },
-]
+];
 
 function ResourcesTab() {
   return (
-      <>
+    <>
+      <Helmet>
         <title>
-          Health Equity Resources - What Is Health Equity? -
-          Health Equity Tracker
+          Health Equity Resources - What Is Health Equity? - Health Equity
+          Tracker
         </title>
-        <h1 className={styles.ScreenreaderTitleHeader}>
-          Health Equity Resources
-        </h1>
-        <Grid container className={styles.Grid}>
-          <Grid container className={styles.ResourcesSection}>
-            <Grid item xs={12} sm={12} md={3}>
-              <Typography
-                  id="main"
-                  tabIndex={-1}
-                  className={styles.ResourcesHeaderText}
-                  variant="h2"
-              >
-                Resources
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={12} md={9}>
-              <Grid container>
-                <Grid item>
-                  <ul className={styles.ResourcesList}>
-                    {RESOURCES.map((resource) => (
-                        <li className={styles.ResourcesListItem}>
-                          <a href={resource.url}>{resource.name}</a>
-                        </li>
-                    ))}
-                  </ul>
-                </Grid>
+      </Helmet>
+      <h2 className={styles.ScreenreaderTitleHeader}>
+        Health Equity Resources
+      </h2>
+      <Grid container className={styles.Grid}>
+        <Grid container className={styles.ResourcesTabSection}>
+          <Grid item xs={12} sm={12} md={3}>
+            <Typography
+              id="main"
+              tabIndex={-1}
+              className={styles.ResourcesTabHeaderText}
+              variant="h2"
+            >
+              Resources
+            </Typography>
+          </Grid>
+          <Grid item xs={12} sm={12} md={9}>
+            <Grid container>
+              <Grid item>
+                <ul className={styles.ResourcesTabList}>
+                  {RESOURCES.map((resource) => (
+                    <li
+                      className={styles.ResourcesTabListItem}
+                      key={resource.name}
+                    >
+                      <a href={resource.url}>{resource.name}</a>
+                    </li>
+                  ))}
+                </ul>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </>
+      </Grid>
+    </>
   );
 }
 

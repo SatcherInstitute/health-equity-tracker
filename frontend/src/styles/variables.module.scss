@@ -1,0 +1,166 @@
+// DEFINE GLOBAL COLORS/SIZES
+
+// color palette
+$grey-dark: #222;
+$white: #fff;
+$yellow: yellow;
+$red-orange: #ed573f;
+$blue: #07538f;
+$dark-blue: #255792;
+$dark-green: #083f31;
+$black: #000;
+
+$secondary-light: #89d5cc;
+$secondary-main: #228b7e;
+$secondary-dark: #167b6f;
+
+$alert-color: #d85c47;
+$infobar-color: #f8e8b0;
+$report-alert: #ff9800;
+$standard-info: #f8f9fa;
+$standard-warning: #fff8eb;
+$toggle-color: #e1e9e7;
+
+$bg-color: #e2e2e2;
+$footer-color: #edf3f0;
+$explore-bg-color: #f1f4f8;
+$listbox-color: #f1f3f4;
+$how-to-color: #bdc1c6;
+$team-border-color: #9aa0a6;
+$grey-grid-color: #f9f9f9;
+$border-color: #3e3e3e;
+$navlink-color: #202124;
+
+$bar-chart-dark: #0b5420;
+$bar-chart-light: #91c684;
+
+$join-effort-bg1: #a5cdc0;
+$join-effort-bg2: #edb2a6;
+$join-effort-bg3: #275141;
+
+$alt-green: #0b5240;
+$alt-black: #383838;
+$alt-dark: #5f6368;
+$alt-grey: #bdbdbd;
+
+// colors from VEGA map
+$map-lightest: #cbea9d;
+$map-lighter: #acdc8e;
+$map-light: #87cc7f;
+$map-mid: #63bb6e;
+$map-dark: #42a55b;
+$map-darker: #2a8d4a;
+$map-darkest: #14763d;
+
+// roughly spaced out 7 colors from VEGA unknowns map
+$unknown-map-least: #d3eece;
+$unknown-map-lesser: #b8e3be;
+$unknown-map-less: #92d4be;
+$unknown-map-mid: #60bccb;
+$unknown-map-more: #47a8cb;
+$unknown-map-even-more: #2384b9;
+$unknown-map-most: #0b61a2;
+
+// font settings
+$logo: 20px; // pixel perfect to match logo img
+$smallest: 0.75rem;
+$small: 0.875rem;
+$text: 1rem;
+$title: 1.125rem;
+$smallestHeader: 1.5rem;
+$smallerHeader: 1.625rem;
+$smallHeader: 1.75rem;
+$header: 2rem;
+$bigHeader: 3rem;
+$biggerHeader: 3.125rem;
+$biggestHeader: 5rem;
+
+$lhSuperLoose: 2.45;
+$lhLoose: 1.6;
+$lhNormal: 1;
+$lhTight: 0.95;
+
+// default settings
+$header-height: 600px;
+$footer-size: 10rem;
+$max-width: 800px;
+$preload-article-height: 750px;
+$explore-data-max-width: 1000px;
+
+// default material breakpoints
+$sm: 600px;
+$md: 960px;
+$lg: 1280px;
+$xl: 1920px;
+
+// styles
+$bottom-border-style: 1px solid $border-color;
+
+/*  */
+
+// EXPORT FOR USE OUTSIDE OF CSS/SCSS (like REACT / VEGA)
+:export {
+  greyDark: $grey-dark;
+  white: $white;
+  yellow: $yellow;
+  redOrange: $red-orange;
+  blue: $blue;
+  darkBlue: $dark-blue;
+  darkGreen: $dark-green;
+  black: $black;
+
+  secondaryLight: $secondary-light;
+  secondaryMain: $secondary-main;
+  secondaryDark: $secondary-dark;
+
+  alertColor: $alert-color;
+  infobarColor: $infobar-color;
+  reportAlert: $report-alert;
+  standardInfo: $standard-info;
+  standardWarning: $standard-warning;
+  toggleColor: $toggle-color;
+  bgColor: $bg-color;
+  footerColor: $footer-color;
+  exploreBgColor: $explore-bg-color;
+  listboxColor: $listbox-color;
+  unknownGrey: $how-to-color;
+  teamBorderColor: $team-border-color;
+  greyGridColor: $grey-grid-color;
+  borderColor: $border-color;
+  navlinkColor: $navlink-color;
+  barChartDark: $bar-chart-dark;
+  barChartLight: $bar-chart-light;
+
+  joinEffortBg1: $join-effort-bg1;
+  joinEffortBg2: $join-effort-bg2;
+  joinEffortBg3: $join-effort-bg3;
+
+  altGreen: $alt-green;
+  altBlack: $alt-black;
+  altDark: $alt-dark;
+  altGrey: $alt-grey;
+
+  mapLightest: $map-lightest;
+  mapLighter: $map-lighter;
+  mapLight: $map-light;
+  mapMid: $map-mid;
+  mapDark: $map-dark;
+  mapDarker: $map-darker;
+  mapDarkest: $map-darkest;
+
+  unknownMapLeast: $unknown-map-least;
+  unknownMapLesser: $unknown-map-lesser;
+  unknownMapLess: $unknown-map-less;
+  unknownMapMid: $unknown-map-mid;
+  unknownMapMore: $unknown-map-more;
+  unknownMapEven: $unknown-map-even-more;
+  unknownMapMost: $unknown-map-most;
+
+  footerSize: $footer-size;
+  maxWidth: $max-width;
+
+  sm: $sm;
+  md: $md;
+  lg: $lg;
+  xl: $xl;
+}

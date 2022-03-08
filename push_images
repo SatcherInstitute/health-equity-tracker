@@ -1,36 +1,123 @@
 #!/bin/bash
 
-# Get the current project id
-export PROJECT_ID=$(gcloud config get-value project)
+set -eu
+set -o pipefail
 
-# Build the images locally
-docker build -t gcr.io/$PROJECT_ID/ingestion-service -f run_ingestion/Dockerfile .
-docker build -t gcr.io/$PROJECT_ID/gcs-to-bq-service -f run_gcs_to_bq/Dockerfile .
-docker build -t gcr.io/$PROJECT_ID/data-server-service -f data_server/Dockerfile .
-docker build -t gcr.io/$PROJECT_ID/exporter-service -f exporter/Dockerfile .
-docker build -t gcr.io/$PROJECT_ID/aggregator-service -f aggregator/Dockerfile .
-docker build -t gcr.io/$PROJECT_ID/frontend-service -f frontend_server/Dockerfile . --build-arg="DEPLOY_CONTEXT=development"
+function main() {
+  local build_frontend
+  local project_id
 
-# Upload images to Google Container Registry
-docker push gcr.io/$PROJECT_ID/ingestion-service
-docker push gcr.io/$PROJECT_ID/gcs-to-bq-service
-docker push gcr.io/$PROJECT_ID/data-server-service
-docker push gcr.io/$PROJECT_ID/exporter-service
-docker push gcr.io/$PROJECT_ID/aggregator-service
-docker push gcr.io/$PROJECT_ID/frontend-service
+  while [[ "${#}" != 0 ]]; do
+      case "${1}" in
+        --help|-h)
+          shift 1
+          usage
+          exit 0
+          ;;
 
-# Get the image digests
-INGESTION_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/ingestion-service --format="value(image_summary.digest)")
-GCS_TO_BQ_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/gcs-to-bq-service --format="value(image_summary.digest)")
-DATA_SERVER_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/data-server-service --format="value(image_summary.digest)")
-EXPORTER_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/exporter-service --format="value(image_summary.digest)")
-AGGREGATOR_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/aggregator-service --format="value(image_summary.digest)")
-FRONTEND_DIGEST=$(gcloud container images describe gcr.io/$PROJECT_ID/frontend-service --format="value(image_summary.digest)")
+        --build-frontned|-b)
+          build_frontend="true"
+          shift 1
+          ;;
 
-# Write them to digest.tfvars. Note this overwrites digest.tfvars if it exists.
-echo "ingestion_image_digest=\"$INGESTION_DIGEST\"" > config/digest.tfvars
-echo "gcs_to_bq_image_digest=\"$GCS_TO_BQ_DIGEST\"" >> config/digest.tfvars
-echo "data_server_image_digest=\"$DATA_SERVER_DIGEST\"" >> config/digest.tfvars
-echo "exporter_image_digest=\"$EXPORTER_DIGEST\"" >> config/digest.tfvars
-echo "aggregator_image_digest=\"$AGGREGATOR_DIGEST\"" >> config/digest.tfvars
-echo "frontend_image_digest=\"$FRONTEND_DIGEST\"" >> config/digest.tfvars
+        "")
+          shift 1
+          ;;
+
+        *)
+          print::message "unknown argument \"${1}\""
+          exit 1
+
+      esac
+    done
+
+  project_id=$(gcloud config get-value project)
+
+  images::build "${project_id}" "${build_frontend}"
+  images::push "${project_id}" "${build_frontend}"
+  digest::write "${project_id}"
+
+  print::message "Success !!"
+}
+
+
+function usage() {
+  cat <<-USAGE
+push_images.sh [OPTIONS]
+Builds and pushes images to google container storage. For testing puroposes.
+OPTIONS
+  --help            -h  prints the command usage
+  --build_frontend  -b  builds the frontend image, slows down the script a bit and is prone to failure
+USAGE
+}
+
+function print::message() {
+  local blue reset message
+  blue="\033[0;34m"
+  reset="\033[0;39m"
+  message="${1}"
+
+  echo -e "\n${blue}${message}${reset}" >&2
+}
+
+function images::build() {
+  local project_id build_frontend
+  project_id="${1}"
+  build_frontend="${2}"
+
+  print::message "Building Images Locally"
+  docker build -t "gcr.io/${project_id}/ingestion-service" -f run_ingestion/Dockerfile .
+  docker build -t "gcr.io/${project_id}/gcs-to-bq-service" -f run_gcs_to_bq/Dockerfile .
+  docker build -t "gcr.io/${project_id}/data-server-service" -f data_server/Dockerfile .
+  docker build -t "gcr.io/${project_id}/exporter-service" -f exporter/Dockerfile .
+  docker build -t "gcr.io/${project_id}/aggregator-service" -f aggregator/Dockerfile .
+
+  if [[ -n "${build_frontend}" ]]; then
+    docker build -t "gcr.io/${project_id}/frontend-service" -f frontend_server/Dockerfile . --build-arg="DEPLOY_CONTEXT=development"
+  fi
+}
+
+function images::push() {
+  local project_id
+  project_id="${1}"
+  build_frontend="${2}"
+
+  print::message "Pushing Images to gcr.io/${project_id}"
+
+  docker push "gcr.io/${project_id}/ingestion-service"
+  docker push "gcr.io/${project_id}/gcs-to-bq-service"
+  docker push "gcr.io/${project_id}/data-server-service"
+  docker push "gcr.io/${project_id}/exporter-service"
+  docker push "gcr.io/${project_id}/aggregator-service"
+
+  if [[ -n "${build_frontend}" ]]; then
+    docker push "gcr.io/${project_id}/frontend-service"
+  fi
+}
+
+function digest::write() {
+  local project_id digest_file
+
+  project_id="${1}"
+  digest_file="config/digest.tfvars"
+
+  print::message "Writing image digests to ${digest_file}"
+
+  # Get the image digests
+  ingestion_digest=$(gcloud container images describe "gcr.io/${project_id}/ingestion-service" --format="value(image_summary.digest)")
+  gcs_to_bq_digest=$(gcloud container images describe "gcr.io/${project_id}/gcs-to-bq-service" --format="value(image_summary.digest)")
+  data_server_digest=$(gcloud container images describe "gcr.io/${project_id}/data-server-service" --format="value(image_summary.digest)")
+  exporter_digest=$(gcloud container images describe "gcr.io/${project_id}/exporter-service" --format="value(image_summary.digest)")
+  aggregator_digest=$(gcloud container images describe "gcr.io/${project_id}/aggregator-service" --format="value(image_summary.digest)")
+  frontend_digest=$(gcloud container images describe "gcr.io/${project_id}/frontend-service" --format="value(image_summary.digest)")
+
+  # Write them to digest.tfvars. Note this overwrites digest.tfvars if it exists.
+  echo "ingestion_image_digest=\"${ingestion_digest}\"" > "${digest_file}"
+  echo "gcs_to_bq_image_digest=\"${gcs_to_bq_digest}\"" >> "${digest_file}"
+  echo "data_server_image_digest=\"${data_server_digest}\"" >> "${digest_file}"
+  echo "exporter_image_digest=\"${exporter_digest}\"" >> "${digest_file}"
+  echo "aggregator_image_digest=\"${aggregator_digest}\"" >> "${digest_file}"
+  echo "frontend_image_digest=\"${frontend_digest}\"" >> "${digest_file}"
+}
+
+main "${@:-}"

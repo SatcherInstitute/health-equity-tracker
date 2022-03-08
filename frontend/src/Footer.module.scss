@@ -1,4 +1,5 @@
-@import "styles/variables";
+@import "styles/variables.module";
+@import "styles/globals.scss";
 
 /** ------------------ Footer styles -------------------- **/
 
@@ -6,10 +7,9 @@
   width: 100%;
   background: $footer-color;
   position: absolute;
-  bottom: 0;
-  max-height: $footer-size;
   margin: auto;
   padding: 50px 10px;
+  min-height: 170px;
 }
 
 .FooterGrid {
@@ -24,10 +24,11 @@
 }
 
 .FooterTitleSpan {
-  font-family: "DM Sans", sans-serif !important;
-  font-size: 20px;
+  @include dmSans500();
+  font-size: $title;
   color: $alt-green;
-  font-weight: 500;
+  display: inline-block;
+  width: max-content;
 }
 
 .FooterLogo {
@@ -36,32 +37,24 @@
   height: 30px;
 }
 
-.Logos {
-  margin: auto !important;
-  max-width: 288px;
-}
-
-.LogosLeft {
-  margin: auto !important;
-}
-
-.LogosRight {
-  padding-top: 15px;
-}
-
 /** ------------------ Links - second -------------------- **/
 
-.CopyrightSpanLargerWindow {
-  color: $alt-grey;
-  float: right;
-  // So it aligns with the button above it
-  padding-right: 8px;
-  // To get it closer to the grid above it
-  margin-top: -24px;
+.CopyrightSpan {
+  @include inter300();
+  color: $alt-dark;
+  font-size: $small;
+  margin-bottom: 2rem;
+  @media only screen and (min-width: $sm) {
+    // So it aligns with the button above it
+    padding-right: 8px;
+    // To get it closer to the grid above it
+    margin-top: -24px;
+  }
 }
 
 .LinksContainer {
   margin: auto !important;
+  padding-top: 30px;
 }
 
 .Links {
@@ -69,20 +62,16 @@
 }
 
 .FooterLink {
-  color: #202124 !important;
+  color: $navlink-color !important;
 
   &:link,
   &:visited {
-    color: #202124 !important;
+    color: $navlink-color !important;
     text-decoration: none !important;
   }
 }
 
 /** ------------------ Back to top - third -------------------- **/
-
-.CopyrightSpanSmallerWindow {
-  color: $alt-grey;
-}
 
 .ScrollToTopButton {
   border-radius: 30px;
@@ -90,6 +79,7 @@
   border: none;
 
   &:focus {
+    // use a grey "bubble" background on focus instead of default outline
     outline: none;
   }
 }

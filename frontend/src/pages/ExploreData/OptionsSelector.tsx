@@ -11,6 +11,9 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { usePopover } from "../../utils/usePopover";
+import { CATEGORIES_LIST } from "../../utils/MadLibs";
+import { Box, Grid } from "@material-ui/core";
+import { DropdownVarId } from "../../data/config/MetricConfig";
 
 function OptionsSelector(props: {
   value: string;
@@ -31,32 +34,43 @@ function OptionsSelector(props: {
     currentDisplayName = chosenOption ? chosenOption[1] : "";
   }
 
-  const [textBoxValue, setTextBoxValue] = useState("");
+  const [, setTextBoxValue] = useState("");
   const updateTextBox = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTextBoxValue(event.target.value);
   };
 
   const [autoCompleteOpen, setAutoCompleteOpen] = useState(false);
   const openAutoComplete = () => {
-    if (textBoxValue.length >= 1) {
-      setAutoCompleteOpen(true);
-    }
+    setAutoCompleteOpen(true);
   };
   const closeAutoComplete = () => {
     setAutoCompleteOpen(false);
   };
 
+  function getGroupName(option: Fips): string {
+    if (option.isUsa()) return "National";
+    if (option.isState()) return "States";
+    if (option.isTerritory()) return "Territories";
+    return `${option.getParentFips().getDisplayName()} ${
+      option.getParentFips().isTerritory() ? " County Equivalents" : " Counties"
+    }`;
+  }
+
   return (
     <>
       <Button
         variant="text"
+        aria-haspopup="true"
         className={styles.MadLibButton}
         onClick={popover.open}
       >
-        {currentDisplayName}
+        {currentDisplayName}{" "}
         {popover.isOpen ? <ArrowDropUp /> : <ArrowDropDown />}
       </Button>
+
       <Popover
+        className={styles.PopoverOverride}
+        aria-expanded="true"
         open={popover.isOpen}
         anchorEl={popover.anchor}
         onClose={popover.close}
@@ -72,9 +86,12 @@ function OptionsSelector(props: {
         {isFips && (
           <div className={styles.OptionsSelectorPopover}>
             <span className={styles.SearchForText}>Search for location</span>
+
             <Autocomplete
               disableClearable={true}
+              autoHighlight={true}
               options={props.options as Fips[]}
+              groupBy={(option) => getGroupName(option)}
               clearOnEscape={true}
               getOptionLabel={(fips) => fips.getFullDisplayName()}
               getOptionSelected={(fips) => fips.code === props.value}
@@ -103,24 +120,53 @@ function OptionsSelector(props: {
           </div>
         )}
         {!isFips && (
-          <List>
-            {(props.options as string[][]).map((item: string[]) => {
-              const [optionId, optionDisplayName] = item;
-              return (
-                <ListItem
-                  key={optionId}
-                  button
-                  selected={optionId === props.value}
-                  onClick={() => {
-                    popover.close();
-                    props.onOptionUpdate(optionId);
-                  }}
-                >
-                  <ListItemText primary={optionDisplayName} />
-                </ListItem>
-              );
-            })}
-          </List>
+          <Box my={3} mx={6}>
+            <Grid container>
+              {CATEGORIES_LIST.map((category) => {
+                return (
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    key={category.title}
+                    className={styles.CategoryList}
+                  >
+                    <h3
+                      className={styles.CategoryTitleText}
+                      aria-label={category.title + " options"}
+                    >
+                      {category.title}
+                    </h3>
+                    <List dense={true} role="menu">
+                      {(props.options as string[][]).map((item: string[]) => {
+                        const [optionId, optionDisplayName] = item;
+                        return (
+                          // place variables in their respective categories
+                          category.options.includes(
+                            optionId as DropdownVarId
+                          ) && (
+                            <ListItem
+                              role="menuitem"
+                              key={optionId}
+                              button
+                              selected={optionId === props.value}
+                              onClick={() => {
+                                popover.close();
+                                props.onOptionUpdate(optionId);
+                              }}
+                            >
+                              <ListItemText primary={optionDisplayName} />
+                            </ListItem>
+                          )
+                        );
+                      })}
+                    </List>
+                  </Grid>
+                );
+              })}
+            </Grid>
+          </Box>
         )}
       </Popover>
     </>

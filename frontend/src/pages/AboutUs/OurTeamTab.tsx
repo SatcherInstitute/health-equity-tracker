@@ -2,66 +2,74 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import styles from "./AboutUsPage.module.scss";
+import { Helmet } from "react-helmet-async";
+import LazyLoad from "react-lazyload";
+import { urlMap } from "../../utils/externalUrls";
 
 const LEADERSHIP_TEAM = [
   {
     name: "Daniel Dawes, JD",
-    role: "Co-Principal Investigator",
-    imageUrl: "img/Daniel-E 1.png",
+    role: "Principal Investigator",
+    imageUrl: "/img/team/Daniel-E 1.png",
   },
   {
     name: "Nelson Dunlap, JD",
     role: "Co-Principal Investigator",
-    imageUrl: "img/DunlapNelson.png",
+    imageUrl: "/img/team/DunlapNelson.png",
   },
   {
     name: "Ebony Respress, MPH",
     role: "Project Director",
-    imageUrl: "img/RespressEbony.png",
+    imageUrl: "/img/team/RespressEbony.png",
   },
   {
     name: "Allyson Belton, MPH",
     role: "Coalition/Engagement",
-    imageUrl: "img/BeltonAllyson.png",
+    imageUrl: "/img/team/Belton_Allyson.png",
   },
   {
     name: "Mahia Valle, MBA",
     role: "Communications",
-    imageUrl: "img/ValleMahia.png",
+    imageUrl: "/img/team/ValleMahia.png",
   },
   {
     name: "Shaneeta M. Johnson MD, MBA, FACS, FASMBS, ABOM",
     role: "Senior Advisor",
-    imageUrl: "img/dr-johnson.png",
+    imageUrl: "/img/team/ShaneetaJohnson.png",
   },
   {
     name: "JC Gonzalez, MBA, PMP",
     role: "Product Manager",
-    imageUrl: "img/GonzalezJC.png",
+    imageUrl: "/img/team/GonzalezJC.png",
   },
   {
     name: "Josh Zarrabi",
-    role: "Sr. Software Engineer",
-    imageUrl: "img/ZarrabiJosh.png",
+    role: "Senior Software Engineer",
+    imageUrl: "/img/team/ZarrabiJosh.png",
+  },
+  {
+    name: "Ben Hammond",
+    role: "Software Engineer",
+    imageUrl: "/img/team/HammondBen.jpg",
   },
   {
     name: "Maisha Standifer, PhD, MPH",
     role: "Health Policy Analyst",
-    imageUrl: "img/maisha-standifer.jpg",
+    imageUrl: "/img/team/maisha-standifer.jpg",
   },
   {
     name: "Jammie Hopkins, DrPH, MS",
     role: "Coalition/Engagement",
-    imageUrl: "img/jammie-hopkins.jpg",
+    imageUrl: "/img/team/jammie-hopkins.jpg",
   },
   {
     name: "Megan Douglas, JD",
     role: "Health Policy Analyst",
-    imageUrl: "img/DouglasMegan.png",
+    imageUrl: "/img/team/DouglasMegan.png",
   },
 ];
 
-const GOOGLE_FELLOWS = [
+export const GOOGLE_FELLOWS = [
   {
     name: "Chelsea Seabron",
     role: "Google.org Manager",
@@ -89,6 +97,8 @@ const GOOGLE_FELLOWS = [
   {
     name: "Ken Moore",
     role: "UX Designer",
+    link: "https://kenstatus.com",
+    text: "In memoriam,",
   },
   {
     name: "Chi Pham",
@@ -214,34 +224,34 @@ const HE_TASKFORCE = [
   "Melicia Whitt-Glover, PhD, FACSM",
 ];
 
-const PARTNERS = [
+export const PARTNERS = [
   {
-    imageUrl: "img/PartnerSatcher.png",
+    imageUrl: "/img/partners/PartnerSatcher.png",
     alt: "Morehouse School of Medicine Satcher Health Leadership Institute",
-    url: "https://satcherinstitute.org/",
+    url: urlMap.shli,
   },
   {
-    imageUrl: "img/PartnerGilead.png",
+    imageUrl: "/img/partners/PartnerGilead.png",
     alt: "Gilead Sciences, Inc.",
     url: "https://www.gilead.com/",
   },
   {
-    imageUrl: "img/PartnerCdc.png",
+    imageUrl: "/img/partners/PartnerCdc.png",
     alt: "United States Center for Disease Control and Prevention",
     url: "https://www.cdc.gov/",
   },
   {
-    imageUrl: "img/PartnerGoogle.png",
-    alt: "Google",
+    imageUrl: "/img/partners/PartnerGoogle.png",
+    alt: "Google.org",
     url: "https://google.org",
   },
   {
-    imageUrl: "img/PartnerAARP.png",
+    imageUrl: "/img/partners/PartnerAARP.png",
     alt: "American Association of Retired Persons",
-    url: "https://aarp.org",
+    url: "https://www.aarp.org",
   },
   {
-    imageUrl: "img/PartnerAECF.png",
+    imageUrl: "/img/partners/PartnerAECF.png",
     alt: "Annie E. Casey Foundation",
     url: "https://www.aecf.org/",
   },
@@ -250,27 +260,34 @@ const PARTNERS = [
 function OurTeamTab() {
   return (
     <>
-      <title>Our Team - About Us - Health Equity Tracker</title>
-      <h1 className={styles.ScreenreaderTitleHeader}>Our Team</h1>
+      <Helmet>
+        <title>Our Team - About Us - Health Equity Tracker</title>
+      </Helmet>
+      <h2 className={styles.ScreenreaderTitleHeader}>Our Team</h2>
       <Grid container className={styles.Grid}>
         <Grid container className={styles.GridRowHeaderText}>
-          <Grid item xs={12} sm={12} md={7}>
+          <Grid item xs={12} sm={8} md={6} lg={10} xl={8}>
             <Typography
               id="main"
-              tabIndex={-1}
               className={styles.OurTeamHeaderText}
+              align="left"
               variant="h2"
+              component="h3"
             >
               We're working towards a better tomorrow.
             </Typography>
-            <Typography className={styles.HeaderSubtext} variant="subtitle1">
+            <Typography
+              className={styles.HeaderSubtext}
+              variant="subtitle1"
+              component="p"
+            >
               We strongly support breaking down systemic barriers in order to
               achieve a more healthy, equitable, and inclusive society.
             </Typography>
           </Grid>
         </Grid>
 
-        <Grid container className={styles.GridRow}>
+        <Grid container className={styles.GridRow} component={"section"}>
           <Grid item xs={12}>
             <Typography variant="h3" align="left" className={styles.TeamHeader}>
               Leadership Team
@@ -279,26 +296,31 @@ function OurTeamTab() {
           <Grid item>
             <Grid
               container
-              justify="space-around"
+              justifyContent="space-around"
               className={styles.GridSubRow}
+              component="ul"
             >
               {LEADERSHIP_TEAM.map((leader) => {
                 return (
                   <Grid
+                    key={leader.name}
                     item
                     xs={12}
                     sm={6}
                     md={3}
                     className={styles.TextProfile}
+                    component="li"
                   >
-                    <img
-                      src={leader.imageUrl}
-                      alt={leader.name}
-                      className={styles.ProfileImg}
-                    />
-                    <br />
-                    <h4 className={styles.LeaderNameHeading}>{leader.name}</h4>
-                    <span className={styles.LeaderRoleSpan}>{leader.role}</span>
+                    <LazyLoad offset={300} height={181} once>
+                      <img
+                        src={leader.imageUrl}
+                        alt=""
+                        className={styles.ProfileImg}
+                      />
+                    </LazyLoad>
+
+                    <div className={styles.MemberName}>{leader.name}</div>
+                    <div className={styles.MemberRole}>{leader.role}</div>
                   </Grid>
                 );
               })}
@@ -306,24 +328,41 @@ function OurTeamTab() {
           </Grid>
         </Grid>
 
-        <Grid container className={styles.GridRow}>
+        <Grid container className={styles.GridRow} component={"section"}>
           <Grid item xs={12}>
             <Typography variant="h3" align="left" className={styles.TeamHeader}>
               Google.org Fellows
             </Typography>
           </Grid>
           <Grid item>
-            <Grid container className={styles.GridSubRow}>
+            <Grid
+              container
+              justifyContent="space-around"
+              className={styles.GridSubRow}
+              component="ul"
+            >
               {GOOGLE_FELLOWS.map((fellow) => {
                 return (
-                  <Grid item className={styles.TextProfile}>
-                    <span style={{ fontSize: "16px", fontWeight: 500 }}>
-                      {fellow.name}
-                    </span>
-                    <br />
-                    <span style={{ fontSize: "14px", fontWeight: 400 }}>
-                      {fellow.role}
-                    </span>
+                  <Grid
+                    item
+                    className={styles.TextProfile}
+                    key={fellow.name}
+                    component="li"
+                  >
+                    {fellow.link && (
+                      <a
+                        className={styles.MemberName}
+                        href={fellow.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {fellow.text}
+                      </a>
+                    )}
+
+                    <div className={styles.MemberName}>{fellow.name}</div>
+
+                    <div className={styles.MemberRole}>{fellow.role}</div>
                   </Grid>
                 );
               })}
@@ -331,7 +370,7 @@ function OurTeamTab() {
           </Grid>
         </Grid>
 
-        <Grid container className={styles.GridRow}>
+        <Grid container className={styles.GridRow} component={"section"}>
           <Grid item xs={12}>
             <Typography variant="h3" align="left" className={styles.TeamHeader}>
               Health Equity Task Force
@@ -339,36 +378,63 @@ function OurTeamTab() {
           </Grid>
 
           <Grid item xs={12}>
-            <Grid container className={styles.GridSubRow}>
-              {HE_TASKFORCE.map((name) => (
-                <Grid item className={styles.TextProfile}>
-                  <span style={{ fontSize: "16px", fontWeight: 500 }}>
-                    {name}
-                  </span>
+            <Grid
+              container
+              justifyContent="space-around"
+              className={styles.GridSubRow}
+              component="ul"
+            >
+              {HE_TASKFORCE.map((taskforceName) => (
+                <Grid
+                  item
+                  className={styles.TextProfile}
+                  key={taskforceName}
+                  component="li"
+                >
+                  <span className={styles.MemberName}>{taskforceName}</span>
                 </Grid>
               ))}
             </Grid>
           </Grid>
         </Grid>
 
-        <Grid container className={styles.GridRow}>
+        <Grid container className={styles.GridRow} component={"section"}>
           <Grid item xs={12}>
             <Typography variant="h3" align="left" className={styles.TeamHeader}>
               Partners
             </Typography>
           </Grid>
-
-          <Grid item xs={12}>
-            {PARTNERS.map((partner) => (
-              <a href={partner.url}>
-                <img
-                  src={partner.imageUrl}
-                  alt={partner.alt}
-                  className={styles.PartnerImg}
-                />
-              </a>
-            ))}
-          </Grid>
+          <LazyLoad offset={300} height={200} once>
+            <Grid
+              item
+              container
+              xs={12}
+              className={styles.GridSubRow}
+              component="ul"
+            >
+              {PARTNERS.map((partner) => (
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  xl={2}
+                  container
+                  justifyContent="space-around"
+                  key={partner.url}
+                  component="li"
+                >
+                  <a href={partner.url}>
+                    <img
+                      src={partner.imageUrl}
+                      alt={partner.alt}
+                      className={styles.PartnerImg}
+                    />
+                  </a>
+                </Grid>
+              ))}
+            </Grid>
+          </LazyLoad>
         </Grid>
       </Grid>
     </>

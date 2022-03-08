@@ -4,35 +4,57 @@ import { Row } from "../data/utils/DatasetTypes";
 import { useResponsiveWidth } from "../utils/useResponsiveWidth";
 import {
   BreakdownVar,
+  BreakdownVarDisplayName,
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
-import { MetricConfig } from "../data/config/MetricConfig";
+import { MetricConfig, MetricId } from "../data/config/MetricConfig";
 import {
   addLineBreakDelimitersToField,
   MULTILINE_LABEL,
   AXIS_LABEL_Y_DELTA,
   oneLineLabel,
   addMetricDisplayColumn,
+  PADDING_FOR_ACTIONS_MENU,
 } from "./utils";
+import sass from "../styles/variables.module.scss";
+import { useMediaQuery } from "@material-ui/core";
+
+// determine where (out of 100) to flip labels inside/outside the bar
+const LABEL_SWAP_CUTOFF_PERCENT = 66;
+
+// nested quotation mark format needed for Vega
+const SINGLE_LINE_100K = ",' per 100k'";
+const MULTI_LINE_100K = "+' per 100k'";
+const SINGLE_LINE_PERCENT = "+'%'";
 
 function getSpec(
-  data: Record<string, any>[],
+  altText: string,
+  data: Row[],
   width: number,
-  breakdownVar: string,
-  breakdownVarDisplayName: string,
-  measure: string,
+  breakdownVar: BreakdownVar,
+  breakdownVarDisplayName: BreakdownVarDisplayName,
+  measure: MetricId,
   measureDisplayName: string,
   // Column names to use for the display value of the metric. These columns
   // contains preformatted data as strings.
   barMetricDisplayColumnName: string,
   tooltipMetricDisplayColumnName: string,
-  showLegend: boolean
+  showLegend: boolean,
+  barLabelBreakpoint: number,
+  pageIsTiny: boolean,
+  usePercentSuffix: boolean
 ): any {
-  const BAR_HEIGHT = 40;
-  const BAR_PADDING = 0.1;
-  const MEASURE_COLOR = "#0B5240";
+  const MEASURE_COLOR = sass.altGreen;
+  const BAR_HEIGHT = 60;
+  const BAR_PADDING = 0.2;
   const DATASET = "DATASET";
-  const WIDTH_PADDING_FOR_SNOWMAN_MENU = 50;
+
+  // create proper datum suffix, either % or single/multi line 100k
+  const barLabelSuffix = usePercentSuffix
+    ? SINGLE_LINE_PERCENT
+    : pageIsTiny
+    ? SINGLE_LINE_100K
+    : MULTI_LINE_100K;
 
   const legends = showLegend
     ? [
@@ -45,10 +67,10 @@ function getSpec(
     : [];
   return {
     $schema: "https://vega.github.io/schema/vega/v5.json",
-    background: "white",
-    padding: 5,
+    description: altText,
+    background: sass.white,
     autosize: { resize: true, type: "fit-x" },
-    width: width - WIDTH_PADDING_FOR_SNOWMAN_MENU,
+    width: width - PADDING_FOR_ACTIONS_MENU,
     style: "cell",
     data: [
       {
@@ -65,9 +87,12 @@ function getSpec(
     ],
     marks: [
       {
+        // chart bars
         name: "measure_bars",
+        interactive: false,
         type: "rect",
         style: ["bar"],
+        description: data.length + " items",
         from: { data: DATASET },
         encode: {
           enter: {
@@ -79,7 +104,6 @@ function getSpec(
           },
           update: {
             fill: { value: MEASURE_COLOR },
-            ariaRoleDescription: { value: "bar" },
             x: { scale: "x", field: measure },
             x2: { scale: "x", value: 0 },
             y: { scale: "y", field: breakdownVar },
@@ -88,19 +112,59 @@ function getSpec(
         },
       },
       {
+        // ALT TEXT: invisible, verbose labels
+        name: "measure_a11y_text_labels",
+        type: "text",
+        from: { data: DATASET },
+        encode: {
+          update: {
+            y: { scale: "y", field: breakdownVar, band: 0.8 },
+            opacity: {
+              signal: "0",
+            },
+            fontSize: { value: 0 },
+            text: {
+              signal: `${oneLineLabel(
+                breakdownVar
+              )} + ': ' + datum.${tooltipMetricDisplayColumnName} + ' ${measureDisplayName}'`,
+            },
+          },
+        },
+      },
+      {
         name: "measure_text_labels",
         type: "text",
         style: ["text"],
         from: { data: DATASET },
+        aria: false, // this data accessible in alt_text_labels
         encode: {
+          enter: {
+            tooltip: {
+              signal: `${oneLineLabel(
+                breakdownVar
+              )} + ', ${measureDisplayName}: ' + datum.${tooltipMetricDisplayColumnName}`,
+            },
+          },
           update: {
-            align: { value: "left" },
+            align: {
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}, "right", "left")`,
+            },
             baseline: { value: "middle" },
-            dx: { value: 3 },
-            fill: { value: "black" },
+            dx: {
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5, 5)`,
+            },
+            dy: {
+              signal: pageIsTiny ? -20 : 0,
+            },
+            fill: {
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}, "white", "black")`,
+            },
             x: { scale: "x", field: measure },
             y: { scale: "y", field: breakdownVar, band: 0.8 },
-            text: { signal: `datum.${barMetricDisplayColumnName}` },
+            text: {
+              // on smallest screens send an array of strings to place on multiple lines
+              signal: `[datum.${tooltipMetricDisplayColumnName}${barLabelSuffix}]`,
+            },
           },
         },
       },
@@ -111,7 +175,7 @@ function getSpec(
         type: "linear",
         domain: { data: DATASET, field: measure },
         range: [0, { signal: "width" }],
-        nice: true,
+        nice: !pageIsTiny, //on desktop, extend x-axis to a "nice" value
         zero: true,
       },
       {
@@ -151,6 +215,7 @@ function getSpec(
         orient: "bottom",
         grid: false,
         title: measureDisplayName,
+        titleAnchor: pageIsTiny ? "end" : "null",
         labelFlush: true,
         labelOverlap: true,
         tickCount: { signal: "ceil(width/40)" },
@@ -185,21 +250,24 @@ export interface SimpleHorizontalBarChartProps {
   breakdownVar: BreakdownVar;
   showLegend: boolean;
   hideActions?: boolean;
+  filename?: string;
+  usePercentSuffix?: boolean;
 }
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   const [ref, width] = useResponsiveWidth(
-    100 /* default width during intialization */
+    100 /* default width during initialization */
   );
+
+  // calculate page size to determine if tiny mobile or not
+  const pageIsTiny = useMediaQuery("(max-width:400px)");
 
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
     props.data,
     props.breakdownVar
   );
-  const [
-    dataWithDisplayCol,
-    barMetricDisplayColumnName,
-  ] = addMetricDisplayColumn(props.metric, dataWithLineBreakDelimiter);
+  const [dataWithDisplayCol, barMetricDisplayColumnName] =
+    addMetricDisplayColumn(props.metric, dataWithLineBreakDelimiter);
   // Omit the % symbol for the tooltip because it's included in shortVegaLabel.
   const [data, tooltipMetricDisplayColumnName] = addMetricDisplayColumn(
     props.metric,
@@ -207,21 +275,43 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     /* omitPctSymbol= */ true
   );
 
+  const barLabelBreakpoint =
+    Math.max(...props.data.map((row) => row[props.metric.metricId])) *
+    (LABEL_SWAP_CUTOFF_PERCENT / 100);
+
   return (
     <div ref={ref}>
       <Vega
+        renderer="svg"
+        downloadFileName={`${props.filename} - Health Equity Tracker`}
         spec={getSpec(
-          data,
-          width,
-          props.breakdownVar,
-          BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar],
-          props.metric.metricId,
-          props.metric.shortVegaLabel,
-          barMetricDisplayColumnName,
-          tooltipMetricDisplayColumnName,
-          props.showLegend
+          /* altText  */ `Bar Chart showing ${props.filename}`,
+          /* data  */ data,
+          /* width  */ width,
+          /* breakdownVar  */ props.breakdownVar,
+          /* breakdownVarDisplayName  */ BREAKDOWN_VAR_DISPLAY_NAMES[
+            props.breakdownVar
+          ],
+          /* measure  */ props.metric.metricId,
+          /* measureDisplayName  */ props.metric.shortVegaLabel,
+          /* barMetricDisplayColumnName  */ barMetricDisplayColumnName,
+          /* tooltipMetricDisplayColumnName  */ tooltipMetricDisplayColumnName,
+          /* showLegend  */ props.showLegend,
+          /* barLabelBreakpoint  */ barLabelBreakpoint,
+          /* pageIsTiny  */ pageIsTiny,
+          /* usePercentSuffix  */ props.usePercentSuffix || false
         )}
-        actions={props.hideActions ? false : true}
+        // custom 3-dot options menu
+        actions={
+          props.hideActions
+            ? false
+            : {
+                export: { png: true, svg: true },
+                source: false,
+                compiled: false,
+                editor: false,
+              }
+        }
       />
     </div>
   );

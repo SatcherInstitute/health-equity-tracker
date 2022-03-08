@@ -10,6 +10,7 @@ interface PopulationCardProps {
   fips: Fips;
   breakdownVar: BreakdownVar;
   metrics: MetricConfig[];
+  jumpToData: Function;
 }
 export default {
   title: "Cards/PopulationCard",
@@ -18,7 +19,10 @@ export default {
 } as Meta;
 
 const Template: Story<PopulationCardProps> = (args) => (
-  <PopulationCard {...args} />
+  <PopulationCard
+    {...args}
+    jumpToData={() => console.log("Jump to Missing Data")}
+  />
 );
 
 export const Usa = Template.bind({});
@@ -39,4 +43,9 @@ DurhamCounty.args = {
 export const InvalidFips = Template.bind({});
 InvalidFips.args = {
   fips: new Fips("234234"),
+};
+
+export const VirginIslands = Template.bind({});
+VirginIslands.args = {
+  fips: new Fips("78"),
 };

@@ -2,13 +2,21 @@ export const USA_DISPLAY_NAME = "United States";
 // Fake FIPS code used to represent totals in USA for convenience
 export const USA_FIPS = "00";
 
+export const AMERICAN_SAMOA = "60";
+export const GUAM = "66";
+export const NORTHERN_MARIANA_ISLANDS = "69";
+export const PUERTO_RICO = "72";
+export const VIRGIN_ISLANDS = "78";
+
 export const TERRITORY_CODES = [
-  /*American Samoa-*/ "60",
-  /*Guam-*/ "66",
-  /*Northern Mariana Islands-*/ "69",
-  /*Puerto Rico-*/ "72",
-  /*Virgin Islands-*/ "78",
+  AMERICAN_SAMOA,
+  GUAM,
+  NORTHERN_MARIANA_ISLANDS,
+  PUERTO_RICO,
+  VIRGIN_ISLANDS,
 ];
+
+export const ACS_2010_FIPS = [GUAM, VIRGIN_ISLANDS, NORTHERN_MARIANA_ISLANDS];
 
 // Fips code for District of Columbia (county).
 export const DC_COUNTY_FIPS = "11001";
@@ -39,6 +47,10 @@ class Fips {
     return this.isStateOrTerritory() && TERRITORY_CODES.includes(this.code);
   }
 
+  needsACS2010() {
+    return this.isStateOrTerritory() && ACS_2010_FIPS.includes(this.code);
+  }
+
   isCounty() {
     return this.code.length === 5;
   }
@@ -60,8 +72,10 @@ class Fips {
   getChildFipsTypeDisplayName() {
     if (this.isUsa()) {
       return "state/territory";
-    } else if (this.isStateOrTerritory()) {
+    } else if (this.isState()) {
       return "county";
+    } else if (this.isTerritory()) {
+      return "county equivalent";
     } else {
       return "";
     }
@@ -70,23 +84,35 @@ class Fips {
   getPluralChildFipsTypeDisplayName() {
     if (this.isUsa()) {
       return "states/territories";
-    } else if (this.isStateOrTerritory()) {
+    } else if (this.isState()) {
       return "counties";
+    } else if (this.isTerritory()) {
+      return "county equivalents";
     } else {
       return "";
     }
   }
 
   getDisplayName() {
-    return this.isCounty()
-      ? `${COUNTY_FIPS_MAP[this.code]}`
-      : STATE_FIPS_MAP[this.code];
+    // USA or STATE
+    if (!this.isCounty()) return STATE_FIPS_MAP[this.code];
+    // COUNTY EQUIVALENTS (FROM TERRITORIES)
+    if (this.getParentFips().isTerritory())
+      return `${COUNTY_FIPS_MAP[this.code]}`;
+    // COUNTIES (with the word COUNTY added as needed)
+    const optionalCounty =
+      COUNTY_FIPS_MAP[this.code].includes("Borough") ||
+      COUNTY_FIPS_MAP[this.code].includes("Area") ||
+      COUNTY_FIPS_MAP[this.code].includes("District")
+        ? ""
+        : " County";
+    return `${COUNTY_FIPS_MAP[this.code]}${optionalCounty}`;
   }
 
   getFullDisplayName() {
-    return this.isCounty()
-      ? `${COUNTY_FIPS_MAP[this.code]}, ${this.getStateDisplayName()}`
-      : STATE_FIPS_MAP[this.code];
+    return `${this.getDisplayName()}${
+      this.isCounty() ? ", " + this.getStateDisplayName() : ""
+    }`;
   }
 
   getStateFipsCode() {
@@ -3313,6 +3339,11 @@ export const COUNTY_FIPS_MAP: Record<string, string> = {
   "56041": "Uinta",
   "56043": "Washakie",
   "56045": "Weston",
+  "66010": "Guam",
+  "69085": "Northern Islands",
+  "69100": "Rota",
+  "69110": "Saipan",
+  "69120": "Tinian",
   "72001": "Adjuntas",
   "72003": "Aguada",
   "72005": "Aguadilla",
@@ -3391,6 +3422,9 @@ export const COUNTY_FIPS_MAP: Record<string, string> = {
   "72149": "Villalba",
   "72151": "Yabucoa",
   "72153": "Yauco",
+  "78010": "St. Croix",
+  "78020": "St. John",
+  "78030": "St. Thomas",
 };
 
 export const FIPS_MAP = { ...STATE_FIPS_MAP, ...COUNTY_FIPS_MAP };

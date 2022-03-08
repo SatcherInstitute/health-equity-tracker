@@ -1,0 +1,35 @@
+state_name,race_category_id,vaccinated_pct_share,vaccinated_pct,vaccinated_first_dose,race,race_includes_hispanic,race_and_ethnicity,population_pct
+Alabama,UNKNOWN,0.13,,,Unknown race,TRUE,Unknown race,
+Alabama,ETHNICITY_UNKNOWN,0.4,,,Unknown ethnicity,,Unknown ethnicity,
+Alabama,WHITE,0.65,0.37,,White,TRUE,White,0.681
+Alabama,BLACK,0.25,0.37,,Black or African American,TRUE,Black or African American,0.266
+Alabama,HISP,0.06,0.34,,Hispanic or Latino,TRUE,Hispanic or Latino,0.044
+Alabama,ASIAN,0.02,0.68,,Asian,TRUE,Asian,0.014
+Alabama,AIAN,<0.01,,,American Indian and Alaska Native,TRUE,American Indian and Alaska Native,
+Alabama,NHPI,<0.01,,,Native Hawaiian and Pacific Islander,TRUE,Native Hawaiian and Pacific Islander,
+Alabama,OTHER_NONSTANDARD,0.07,,,Unrepresented race,TRUE,Unrepresented race,
+Alabama,TOTAL,,,2380869,Total,,Total,1.0
+Arizona,UNKNOWN,0.11,,,Unknown race,TRUE,Unknown race,
+Arizona,ETHNICITY_UNKNOWN,0.11,,,Unknown ethnicity,,Unknown ethnicity,
+Arizona,WHITE_NH,0.52,0.47,,White,FALSE,White (Non-Hispanic),0.542
+Arizona,BLACK_NH,0.03,0.34,,Black or African American,FALSE,Black or African American (Non-Hispanic),0.043
+Arizona,HISP,0.19,0.29,,Hispanic or Latino,TRUE,Hispanic or Latino,0.318
+Arizona,API_NH,0.04,0.61,,"Asian, Native Hawaiian, and Pacific Islander",FALSE,"Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)",0.033
+Arizona,AIAN_NH,0.03,,,American Indian and Alaska Native,FALSE,American Indian and Alaska Native (Non-Hispanic),
+Arizona,NHPI_NH,NR,,,Native Hawaiian and Pacific Islander,FALSE,Native Hawaiian and Pacific Islander (Non-Hispanic),
+Arizona,OTHER_NONSTANDARD_NH,0.19,,,Unrepresented race,FALSE,Unrepresented race (Non-Hispanic),
+Arizona,TOTAL,,,4085580,Total,,Total,1.0
+Indiana,UNKNOWN,0.05,,,Unknown race,TRUE,Unknown race,
+Indiana,ETHNICITY_UNKNOWN,0.07,,,Unknown ethnicity,,Unknown ethnicity,
+Indiana,WHITE,0.82,0.47,,White,TRUE,White,0.83
+Indiana,BLACK,0.07,0.37,,Black or African American,TRUE,Black or African American,0.094
+Indiana,HISP,0.06,0.41,,Hispanic or Latino,TRUE,Hispanic or Latino,0.072
+Indiana,ASIAN,0.03,0.67,,Asian,TRUE,Asian,0.025
+Indiana,AIAN,NR,,,American Indian and Alaska Native,TRUE,American Indian and Alaska Native,
+Indiana,NHPI,NR,,,Native Hawaiian and Pacific Islander,TRUE,Native Hawaiian and Pacific Islander,
+Indiana,OTHER_NONSTANDARD,0.07,,,Unrepresented race,TRUE,Unrepresented race,
+Indiana,TOTAL,,,3334275,Total,,Total,1.0
+Guam,TOTAL,,,112184,Total,,Total,1.0
+Puerto Rico,TOTAL,,,1000,Total,,Total,1.0
+Northern Mariana Islands,TOTAL,,,34034,Total,,Total,1.0
+

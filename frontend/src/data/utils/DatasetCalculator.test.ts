@@ -1,4 +1,5 @@
 import { DataFrame, IDataFrame } from "data-forge";
+import { RACE } from "./Constants";
 import { DatasetCalculator } from "./DatasetCalculator";
 
 describe("Dataset Calculator", () => {
@@ -9,7 +10,7 @@ describe("Dataset Calculator", () => {
   });
 
   test("Testing total", async () => {
-    expect(calc.estimateTotal(10, 20)).toEqual(2);
+    expect(calc.estimateTotal(10_000, 20)).toEqual(2);
   });
 
   test("Testing percent", () => {
@@ -58,13 +59,7 @@ describe("Dataset Calculator", () => {
       { race_and_ethnicity: "All", population: 1, fips: "00" },
     ];
     let df: IDataFrame = new DataFrame(data);
-    df = calc.calculatePctShare(
-      df,
-      "population",
-      "pct_share",
-      "race_and_ethnicity",
-      ["fips"]
-    );
+    df = calc.calculatePctShare(df, "population", "pct_share", RACE, ["fips"]);
     expect(df.toArray()).toEqual([
       {
         race_and_ethnicity: "a",
@@ -88,13 +83,7 @@ describe("Dataset Calculator", () => {
       { race_and_ethnicity: "All", population: 2, fips: "00" },
     ];
     let df: IDataFrame = new DataFrame(data);
-    df = calc.calculatePctShare(
-      df,
-      "population",
-      "pct_share",
-      "race_and_ethnicity",
-      ["fips"]
-    );
+    df = calc.calculatePctShare(df, "population", "pct_share", RACE, ["fips"]);
     expect(df.toArray()).toEqual([
       {
         race_and_ethnicity: "a",
@@ -124,12 +113,7 @@ describe("Dataset Calculator", () => {
       { race_and_ethnicity: "All", population: 2, fips: "00" },
     ];
     let df: IDataFrame = new DataFrame(data);
-    df = calc.calculatePctShareOfKnown(
-      df,
-      "population",
-      "share_unk",
-      "race_and_ethnicity"
-    );
+    df = calc.calculatePctShareOfKnown(df, "population", "share_unk", RACE);
     expect(df.toArray()).toEqual([
       {
         race_and_ethnicity: "a",

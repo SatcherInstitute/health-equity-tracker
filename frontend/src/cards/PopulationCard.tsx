@@ -5,8 +5,8 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { Fips } from "../data/utils/Fips";
-import { CardContent } from "@material-ui/core";
+import { Fips, ACS_2010_FIPS } from "../data/utils/Fips";
+import { Box, CardContent } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import styles from "./Card.module.scss";
 import AnimateHeight from "react-animate-height";
@@ -18,26 +18,46 @@ import {
   formatFieldValue,
   MetricId,
   POPULATION_VARIABLE_CONFIG,
+  POPULATION_VARIABLE_CONFIG_2010,
 } from "../data/config/MetricConfig";
-import { ALL } from "../data/utils/Constants";
+import { ALL, RACE } from "../data/utils/Constants";
 import {
   onlyIncludeDecadeAgeBrackets,
   onlyIncludeStandardRaces,
 } from "../data/query/BreakdownFilter";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import Hidden from "@material-ui/core/Hidden";
-import { TAB_PARAM, WHAT_IS_HEALTH_EQUITY_PAGE_LINK } from "../utils/urlutils";
-import { WIHE_FAQ_TAB_INDEX } from "../pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
 import Alert from "@material-ui/lab/Alert";
+
+export const POPULATION_BY_RACE = "Population by race and ethnicity";
+export const POPULATION_BY_AGE = "Population by age";
+/* minimize layout shift */
+const PRELOAD_HEIGHT = 139;
 
 export interface PopulationCardProps {
   fips: Fips;
+  jumpToData: Function;
 }
 
 export function PopulationCard(props: PopulationCardProps) {
   const [expanded, setExpanded] = useState(false);
 
-  const metricIds: MetricId[] = ["population", "population_pct"];
+  const metricIds: MetricId[] = ACS_2010_FIPS.includes(props.fips.code)
+    ? ["population_2010", "population_pct_2010"]
+    : ["population", "population_pct"];
+
+  const POPULATION = ACS_2010_FIPS.includes(props.fips.code)
+    ? "population_2010"
+    : "population";
+
+  const POPULATION_PCT = ACS_2010_FIPS.includes(props.fips.code)
+    ? "population_pct_2010"
+    : "population_pct";
+
+  const POP_CONFIG = ACS_2010_FIPS.includes(props.fips.code)
+    ? POPULATION_VARIABLE_CONFIG_2010
+    : POPULATION_VARIABLE_CONFIG;
+
   const raceQuery = new MetricQuery(
     metricIds,
     Breakdowns.forFips(props.fips).andRace(onlyIncludeStandardRaces())
@@ -48,13 +68,14 @@ export function PopulationCard(props: PopulationCardProps) {
   );
 
   return (
-    <CardWrapper queries={[raceQuery, ageQuery]}>
+    <CardWrapper minHeight={PRELOAD_HEIGHT} queries={[raceQuery, ageQuery]}>
       {([raceQueryResponse, ageQueryResponse]) => {
         const totalPopulation = raceQueryResponse.data.find(
           (r) => r.race_and_ethnicity === ALL
         );
+
         const totalPopulationSize = totalPopulation
-          ? totalPopulation["population"].toLocaleString("en")
+          ? totalPopulation[POPULATION].toLocaleString("en")
           : "Data Missing";
 
         const CollapseButton = (
@@ -77,11 +98,11 @@ export function PopulationCard(props: PopulationCardProps) {
             <Grid
               container
               className={styles.PopulationCard}
-              justify="space-between"
+              justifyContent="space-between"
               alignItems="center"
             >
               <Grid item>
-                <Grid container justify="flex-start" alignItems="center">
+                <Grid container justifyContent="flex-start" alignItems="center">
                   <Grid item>
                     <div className={styles.PopulationCardTitle}>
                       {props.fips.getFullDisplayName()}
@@ -111,9 +132,19 @@ export function PopulationCard(props: PopulationCardProps) {
               )}
             </Grid>
 
+            {props.fips.needsACS2010() && (
+              <CardContent>
+                <Alert severity="warning" role="note">
+                  Population data for U.S. Virgin Islands, Guam, and the
+                  Northern Mariana Islands is from 2010; interpret metrics with
+                  caution.
+                </Alert>
+              </CardContent>
+            )}
+
             {/* Because the Vega charts are using responsive width based on the window resizing,
-                we manually trigger a resize when the div size changes so vega chart will 
-                render with the right size. This means the vega chart won't appear until the 
+                we manually trigger a resize when the div size changes so vega chart will
+                render with the right size. This means the vega chart won't appear until the
                 AnimateHeight is finished expanding */}
             {!raceQueryResponse.dataIsMissing() && (
               <AnimateHeight
@@ -123,21 +154,26 @@ export function PopulationCard(props: PopulationCardProps) {
               >
                 <Grid container>
                   <Grid item xs={12}>
-                    <Alert severity="info" className={styles.PopulationAlert}>
+                    <Alert
+                      severity="info"
+                      role="note"
+                      className={styles.PopulationAlert}
+                    >
                       These racial categories are defined by the ACS and US
                       Census Bureau. While it is the standard for CDC reporting,
                       the definition of these categories often results in not
                       counting or miscounting people in underrepresented groups.{" "}
                       <a
-                        href={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}?${TAB_PARAM}=${WIHE_FAQ_TAB_INDEX}`}
+                        href="#missingDataInfo"
+                        onClick={() => props.jumpToData()}
                       >
-                        Learn more
+                        Read about missing data
                       </a>
                       .
                     </Alert>
-                    <Grid container>
+                    <Grid container justifyContent="space-between">
                       {raceQueryResponse
-                        .getValidRowsForField("race_and_ethnicity")
+                        .getValidRowsForField(RACE)
                         .filter((r) => r.race_and_ethnicity !== ALL)
                         .sort((a, b) => {
                           return b.race_and_ethnicity - a.race_and_ethnicity;
@@ -145,56 +181,65 @@ export function PopulationCard(props: PopulationCardProps) {
                         .map((row) => (
                           <Grid
                             item
+                            xs={6}
+                            sm={3}
+                            lg={1}
                             key={row.race_and_ethnicity}
                             className={styles.PopulationMetric}
                           >
-                            <span>{row.race_and_ethnicity}</span>
-                            <br />
-                            <span className={styles.PopulationMetricValue}>
+                            <div>{row.race_and_ethnicity}</div>
+
+                            <div className={styles.PopulationMetricValue}>
                               {formatFieldValue(
                                 "pct_share",
-                                row.population_pct
+                                row[POPULATION_PCT]
                               )}
-                            </span>
+                            </div>
                           </Grid>
                         ))}
                     </Grid>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <span className={styles.PopulationChartTitle}>
-                      Population by race
-                    </span>
-                    <SimpleHorizontalBarChart
-                      data={raceQueryResponse.data.filter(
-                        (r) => r.race_and_ethnicity !== ALL
-                      )}
-                      metric={POPULATION_VARIABLE_CONFIG.metrics.pct_share}
-                      breakdownVar="race_and_ethnicity"
-                      showLegend={false}
-                      hideActions={true}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <span className={styles.PopulationChartTitle}>
-                      Population by age
-                    </span>
-                    {ageQueryResponse.dataIsMissing() ? (
-                      <MissingDataAlert
-                        dataName={
-                          POPULATION_VARIABLE_CONFIG.variableDisplayName
-                        }
-                        breakdownString={BREAKDOWN_VAR_DISPLAY_NAMES["age"]}
-                        geoLevel={props.fips.getFipsTypeDisplayName()}
-                      />
-                    ) : (
+
+                  <Grid item xs={12} md={6}>
+                    <Box mt={3}>
+                      <span className={styles.PopulationChartTitle}>
+                        {POPULATION_BY_RACE}
+                      </span>
                       <SimpleHorizontalBarChart
-                        data={ageQueryResponse.data}
-                        metric={POPULATION_VARIABLE_CONFIG.metrics.pct_share}
-                        breakdownVar="age"
+                        data={raceQueryResponse.data.filter(
+                          (r) => r.race_and_ethnicity !== ALL
+                        )}
+                        metric={POP_CONFIG.metrics.pct_share}
+                        breakdownVar={RACE}
                         showLegend={false}
-                        hideActions={true}
+                        usePercentSuffix={true}
+                        filename={`${POPULATION_BY_RACE} in ${props.fips.getFullDisplayName()}`}
                       />
-                    )}
+                    </Box>
+                  </Grid>
+
+                  <Grid item xs={12} md={6}>
+                    <Box m={3}>
+                      <span className={styles.PopulationChartTitle}>
+                        Population by age
+                      </span>
+                      {ageQueryResponse.dataIsMissing() ? (
+                        <MissingDataAlert
+                          dataName={POP_CONFIG.variableDisplayName}
+                          breakdownString={BREAKDOWN_VAR_DISPLAY_NAMES["age"]}
+                          fips={props.fips}
+                        />
+                      ) : (
+                        <SimpleHorizontalBarChart
+                          data={ageQueryResponse.data}
+                          metric={POP_CONFIG.metrics.pct_share}
+                          breakdownVar="age"
+                          showLegend={false}
+                          usePercentSuffix={true}
+                          filename={`${POPULATION_BY_AGE} in ${props.fips.getFullDisplayName()}`}
+                        />
+                      )}
+                    </Box>
                   </Grid>
                 </Grid>
                 <Hidden smUp>{CollapseButton}</Hidden>

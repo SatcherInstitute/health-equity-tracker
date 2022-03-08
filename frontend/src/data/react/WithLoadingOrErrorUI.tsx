@@ -21,7 +21,7 @@ export function WithLoadingOrErrorUI<R>(props: {
     return props.loadingComponent ? (
       props.loadingComponent
     ) : (
-      <CircularProgress />
+      <CircularProgress aria-label="loading" />
     );
   }
 

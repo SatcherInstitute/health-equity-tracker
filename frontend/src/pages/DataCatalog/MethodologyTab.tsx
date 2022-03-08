@@ -3,68 +3,81 @@ import Grid from "@material-ui/core/Grid";
 import styles from "./DataCatalogPage.module.scss";
 import {
   LinkWithStickyParams,
-  TAB_PARAM,
-  ABOUT_US_PAGE_LINK,
+  CONTACT_TAB_LINK,
   EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK,
+  HET_URL,
+  DATA_TAB_LINK,
 } from "../../utils/urlutils";
-import { ABOUT_US_CONTACT_TAB_INDEX } from "../AboutUs/AboutUsPage";
+import { Helmet } from "react-helmet-async";
+import { getHtml } from "../../utils/urlutils";
+import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
+import { METRIC_CONFIG } from "../../data/config/MetricConfig";
+import { Link } from "react-router-dom";
+import { Card } from "@material-ui/core";
+import { urlMap } from "../../utils/externalUrls";
+import DefinitionsList from "../../reports/ui/DefinitionsList";
+import { currentYear } from "../../Footer";
+
+export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
 function MethodologyTab() {
   return (
     <>
-      <title>Methodology - Health Equity Tracker</title>
-      <h1 className={styles.ScreenreaderTitleHeader}>Methodology</h1>
+      <Helmet>
+        <title>Methodology - Health Equity Tracker</title>
+      </Helmet>
+      <h2 className={styles.ScreenreaderTitleHeader}>Methodology</h2>
       <Grid
         container
-        className={styles.Grid}
         direction="column"
-        justify="space-around"
+        justifyContent="space-around"
         alignItems="center"
       >
-        <Grid item xs={12} sm={12} md={9}>
+        <Grid item>
           <Grid container className={styles.MethodologySection}>
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2
-                id="main"
-                tabIndex={-1}
-                className={styles.MethodologyQuestion}
-              >
-                How did you acquire and standardize the data?
-              </h2>
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 id="main" className={styles.MethodologyQuestion}>
+                Recommended Citation (APA) for the Health Equity Tracker:
+              </h3>
+
               <div className={styles.MethodologyAnswer}>
-                <ul>
-                  <li>
-                    Our data is retrieved via a mix of APIs and manual downloads
-                  </li>
-                  <li>
-                    Once acquired, this data is converted to tables in Google
-                    BigQuery
-                  </li>
-                  <li>
-                    During this process, values are standardized and normalized
-                    to facilitate reporting, comparison and visualization
-                  </li>
-                  <li>
-                    Sources are refreshed when update notifications are received
-                  </li>
-                </ul>
+                <Card elevation={3}>
+                  <p className={styles.CitationAPA}>{CITATION_APA}</p>
+                </Card>
               </div>
             </Grid>
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2 className={styles.MethodologyQuestion}>
-                What are the limitations of the tracker?
-              </h2>
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>{selectFaqs[4].q}</h3>
               <div className={styles.MethodologyAnswer}>
-                <h3 className={styles.MethodologySubheaderText}>Data</h3>
+                {<>{getHtml(selectFaqs[4].a)}</>}
+              </div>
+            </Grid>
 
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>
+                What are the limitations of the tracker?
+              </h3>
+              <div className={styles.MethodologyAnswer}>
                 <h4 className={styles.MethodologySubsubheaderText}>COVID-19</h4>
                 <p>
                   For a description of some of the gaps in COVID-19 data, please
                   see the{" "}
-                  <a href={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}>
-                    "What Data Are Missing" section.
-                  </a>{" "}
-                  Here, we provide further details:
+                  <Link to={EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK}>
+                    What Data Are Missing
+                  </Link>{" "}
+                  section. Here, we provide further details:
                 </p>
                 <ul>
                   <li>
@@ -73,10 +86,11 @@ function MethodologyTab() {
                     incomplete and potentially skewed.
                   </li>
                   <li>
-                    When calculating national-level per100K COVID-19 rates, we
-                    do not include the population of states whose data are
-                    suppressed as part of the total population. See the 'What
-                    data are missing' section for further details.
+                    When calculating national-level per100k COVID-19 rates for
+                    cases, deaths, and hospitalizations, we only include the
+                    population of states that do not have a suppressed case
+                    count as part of the total population. See the 'What data
+                    are missing' section for further details.
                   </li>
                   <li>
                     To protect the privacy of affected individuals, COVID-19
@@ -91,14 +105,8 @@ function MethodologyTab() {
                     for a state are suppressed if the aggregate counts for that
                     state are &lt; 5% of the source being used for comparison.
                     These analyses are available for{" "}
-                    <a href="https://satcherinstitute.github.io/analysis/cdc_case_data">
-                      cases
-                    </a>{" "}
-                    and{" "}
-                    <a href="https://satcherinstitute.github.io/analysis/cdc_death_data">
-                      deaths
-                    </a>
-                    .
+                    <a href={urlMap.shliGitHubSuppressCovidCases}>cases</a> and{" "}
+                    <a href={urlMap.shliGitHubSuppressCovidDeaths}>deaths</a>.
                   </li>
                   <li>
                     The underlying data is reported at the case-level, so we
@@ -110,18 +118,143 @@ function MethodologyTab() {
                 </ul>
 
                 <h4 className={styles.MethodologySubsubheaderText}>
-                  Diabetes & COPD
+                  COVID-19 Vaccinations
                 </h4>
                 <p>
-                  Diabetes & COPD data in the tracker is sourced from{" "}
-                  <a href="https://www.americashealthrankings.org/explore/annual/measure/Overall_a/state/ALL">
-                    America's Health Rankings
-                  </a>
-                  , who in turn source their diabetes & COPD data from the{" "}
-                  <a href="https://www.cdc.gov/brfss/index.html">
+                  Because there is currently no national vaccine demographic
+                  dataset, we combine the best datasets we could find for each
+                  geographic level.
+                </p>
+                <ul>
+                  <li>
+                    For the national level numbers, we use the{" "}
+                    <a href={urlMap.cdcVaxTrends}>
+                      CDC vaccine demographic dataset,
+                    </a>{" "}
+                    which provides data on the race/ethnicity, sex, and age
+                    range of vaccine recipients, as well whether they have taken
+                    one or two shots.{" "}
+                  </li>
+
+                  <li>
+                    For the state level we use{" "}
+                    <a href={urlMap.kffCovid}>
+                      the Kaiser Family Foundation COVID-19 Indicators dataset,
+                    </a>{" "}
+                    which is a hand-curated dataset based on analysis from state
+                    health department websites. It is the only state level
+                    demographic vaccine dataset that publishes this data in a
+                    usable format. The dataset only provides data on the race
+                    and ethnicity of vaccine recipients, and for the majority of
+                    states counts individuals who have received at least one
+                    shot as vaccinated. It does not include any data for US
+                    territories.{" "}
+                  </li>
+                  <li>
+                    For the county level, we could not identify a dataset that
+                    provides vaccine demographics, so to show some context we
+                    use the{" "}
+                    <a href={urlMap.cdcVaxCounty}>
+                      COVID-19 Vaccinations in the United States, County dataset
+                    </a>{" "}
+                    which provides the total number of vaccinations per county.
+                  </li>
+                </ul>
+                <h4 className={styles.MethodologySubsubheaderText}>
+                  {" "}
+                  Vaccination Population Sources{" "}
+                </h4>
+                <ul>
+                  <li>
+                    For the national numbers we use the population numbers
+                    provided by the CDC, we chose to do this because they
+                    include population estimates from <b>Palau</b>,{" "}
+                    <b>Micronesia</b>, and the <b>U.S. Marshall Islands,</b>{" "}
+                    which are difficult to find estimations for. Furthermore the
+                    CDC has estimations for age ranges that the ACS numbers do
+                    not readily provide, as they use a per year population
+                    estimate from the ACS that we do not use anywhere else and
+                    have not added to our system.
+                  </li>
+                  <li>
+                    For the state level, to calculate the total number of
+                    vaccinations we use the ACS 2019 estimates of each state’s
+                    population. The population counts for each demographic group
+                    at the state level are provided by the Kaiser Family
+                    Foundation, who researched exactly what the definition of
+                    each demographic group in every state is. They provide
+                    population estimates for <b>Asian</b>, <b>Black</b>,{" "}
+                    <b>White</b>, and <b>Hispanic</b>, so we fill in the ACS
+                    2019 estimation for <b>American Indian and Alaska Native</b>
+                    , and <b>Native Hawaiian and Pacific Islander</b>. These
+                    alternate population comparisons metrics shown with a
+                    different color on the disparities bar chart. We are unable
+                    to show a population comparison metric for “Some Other Race”
+                    because we are unsure of the definition in each state.
+                  </li>
+                  <li>
+                    For the county level we use the ACS 2019 population
+                    estimations.
+                  </li>
+                </ul>
+                <h4 className={styles.MethodologySubsubheaderText}>
+                  {" "}
+                  Vaccination Data Limitations{" "}
+                </h4>
+                <ul>
+                  <li>
+                    <b>Texas</b> does not report demographic-specific dose
+                    number information to CDC, so data for Texas are not
+                    represented in the figures and calculations on the national
+                    vaccine demographic page.
+                  </li>
+                  <li>
+                    <b>Idaho</b> provides vaccine data only for vaccine
+                    recipients who are 18 years and older in line with state
+                    laws. COVID vaccination administration data is unavailable
+                    for the Vaccinations in the US, and Vaccinations by County
+                    pages for the population aged less than 18 years. This only
+                    affects the national numbers.
+                  </li>
+                  <li>
+                    Some states report race and ethnicity separately, in which
+                    case they report unknown percentages separately. In this
+                    case, we show the higher of the two metrics on the national
+                    map of unknown cases, and display both numbers on the state
+                    page.
+                  </li>
+                  <li>
+                    The Kaiser Family Foundation only collects population data
+                    for <b>Asian</b>, <b>Black</b>, <b>White</b>, and{" "}
+                    <b>Hispanic</b> demographics, limiting their per 100k
+                    metrics and what demographic breakdowns we are able to show
+                    at the state level.
+                  </li>
+                  <li>
+                    As there is no standardized definition for “vaccinated”, we
+                    display vaccination data as “at least one dose” which is
+                    used by most states. However, some states including{" "}
+                    <b>Arkansas</b>, <b>Illinois</b>, <b>Maine</b>,{" "}
+                    <b>New Jersey</b>, and <b>Tennessee</b> report “Total
+                    vaccine doses administered”, in which case those numbers are
+                    reported.
+                  </li>
+                </ul>
+
+                <h4 className={styles.MethodologySubsubheaderText}>
+                  America's Health Rankings
+                </h4>
+                <p>
+                  Multiple chronic disease, behavioral health, and social
+                  determinants of health in the tracker are sourced from{" "}
+                  <a href={urlMap.amr}>America's Health Rankings</a>, who in
+                  turn source the majority of their data from the{" "}
+                  <a href={urlMap.cdcBrfss}>
                     Behavioral Risk Factor Surveillance System (BRFSS)
                   </a>
-                  , a survey run by the CDC.
+                  , a survey run by the CDC, along with supplemental data from{" "}
+                  <a href={urlMap.cdcWonder}>CDC WONDER</a> and the{" "}
+                  <a href={urlMap.censusVoting}>US Census</a>.
                 </p>
                 <ul>
                   <li>
@@ -129,46 +262,35 @@ function MethodologyTab() {
                     respondents to provide a statistically meaningful estimate
                     of disease prevalence, especially for smaller and typically
                     marginalized racial groups. Please see the{" "}
-                    <a href="https://www.americashealthrankings.org/about/methodology/data-sources-and-measures">
-                      methodology page
-                    </a>{" "}
-                    of America's Health Rankings for details on data
-                    suppression.
+                    <a href={urlMap.amrMethodology}>methodology page</a> of
+                    America's Health Rankings for details on data suppression.
                   </li>
                   <li>
                     BRFSS data broken down by race and ethnicity is not
                     available at the county level, so the tracker does not
-                    display diabetes or COPD data at the county level either.
+                    display these conditions at the county level either.
                   </li>
                 </ul>
 
-                <h3 className={styles.MethodologySubheaderText}>
+                <h4 className={styles.MethodologySubsubheaderText}>
                   Visualizations
-                </h3>
-                <ul>
-                  <li>
-                    The national-level map projection and rendering software
-                    used in the tracker (
-                    <a href="https://vega.github.io/vega-lite/docs/projection.html">
-                      Vega, with the albersUsa projection
-                    </a>
-                    ) currently cannot display territories such as Puerto Rico
-                    on the national-level USA map. Searching directly for each
-                    territory displays a map for the territory itself.
-                  </li>
-                  <li>
-                    Please consider the impact of under-reporting and data gaps
-                    when exploring the visualizations. These issues may lead to
-                    incorrect conclusions, e.g. low rates in a given location
-                    may be due to under-reporting rather than absence of impact.
-                  </li>
-                </ul>
+                </h4>
+                <p>
+                  Please consider the impact of under-reporting and data gaps
+                  when exploring the visualizations. These issues may lead to
+                  incorrect conclusions, e.g. low rates in a given location may
+                  be due to under-reporting rather than absence of impact.
+                </p>
               </div>
             </Grid>
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2 className={styles.MethodologyQuestion}>
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>
                 What data is missing?
-              </h2>
+              </h3>
               <div className={styles.MethodologyAnswer}>
                 <p>
                   Our tracker will expand to include additional health
@@ -180,19 +302,20 @@ function MethodologyTab() {
                   Do you have information on health outcomes at the state and
                   local level that belong in the Health Equity Tracker?
                   <br />
-                  <LinkWithStickyParams
-                    class={styles.MethodologyContactUsLink}
-                    to={`${ABOUT_US_PAGE_LINK}?${TAB_PARAM}=${ABOUT_US_CONTACT_TAB_INDEX}`}
-                  >
+                  <LinkWithStickyParams to={`${CONTACT_TAB_LINK}`}>
                     We would love to hear from you!
                   </LinkWithStickyParams>
                 </p>
               </div>
             </Grid>
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2 className={styles.MethodologyQuestion}>
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>
                 What do the metrics on the tracker mean?
-              </h2>
+              </h3>
               <div className={styles.MethodologyAnswer}>
                 <p>
                   None of the metrics/data shown on the tracker are
@@ -207,9 +330,9 @@ function MethodologyTab() {
                 </p>
                 <ul>
                   <li>
-                    <b>Total COVID-19 cases per 100K people</b>: The total rate
+                    <b>Total COVID-19 cases per 100k people</b>: The total rate
                     of occurrence of COVID-19 cases expressed per 100,000 people
-                    (i.e. 10,000 per 100K implies a 10% occurrence rate). This
+                    (i.e. 10,000 per 100k implies a 10% occurrence rate). This
                     metric normalizes for population size, allowing for
                     comparisons across demographic groups. This metric is
                     rounded to the nearest integer in the tracker.
@@ -243,10 +366,33 @@ function MethodologyTab() {
                 </ul>
               </div>
             </Grid>
-            <Grid item xs={12} className={styles.MethodologyQuestionAndAnswer}>
-              <h2 className={styles.MethodologyQuestion}>
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>
+                What do the condition variables on the tracker mean?
+              </h3>
+              <div className={styles.MethodologyAnswer}>
+                <DefinitionsList
+                  variablesToDefine={Object.entries(METRIC_CONFIG)}
+                />
+                <p>
+                  Links to the original sources of data and their definitions
+                  can be found on our{" "}
+                  <Link to={DATA_TAB_LINK}>Data Downloads</Link> page.
+                </p>
+              </div>
+            </Grid>
+            <Grid
+              item
+              className={styles.MethodologyQuestionAndAnswer}
+              component="article"
+            >
+              <h3 className={styles.MethodologyQuestion}>
                 What do the race/ethnicity groups mean?
-              </h2>
+              </h3>
               <div className={styles.MethodologyAnswer}>
                 <p>
                   The combined race/ethnicity groups shown on the tracker can be
@@ -276,20 +422,31 @@ function MethodologyTab() {
                     <b>Hispanic/Latino</b>: Any race(s), Hispanic/Latino.
                   </li>
                   <li>
-                    <b>Some other race (Non-Hispanic)</b>: A single race (some
-                    other race), not Hispanic/Latino. The definition of "some
-                    other race" is dependent on what other race categories exist
-                    in the dataset.
-                  </li>
-                  <li>
-                    <b>Two or more races & Some other race (Non-Hispanic)</b>:
-                    People who are either multiple races or some other race, and
-                    not Hispanic/Latino.
-                  </li>
-                  <li>
                     <b>Black or African American</b>: A single race (African
                     American), including those who identify as African American
                     and Hispanic/Latino.
+                  </li>
+                  <li>
+                    <b>Unrepresented race (Non-Hispanic)</b>: A single race not
+                    tabulated by the CDC, not of Hispanic/Latino ethnicity.
+                    Individuals not identifying as one of the distinct races
+                    listed in the source data, or multiracial individuals, are
+                    grouped together as “Some other race”. This is a problem as
+                    it obscures racial identity for many individuals. In our
+                    effort to take transformative action towards achieving
+                    health equity the Satcher Health Leadership Institute has
+                    decided to rename this category to highlight it as a health
+                    equity issue.
+                  </li>
+                  <li>
+                    <b>Two or more races (Non-Hispanic)</b>: Multiple races, not
+                    Hispanic/Latino.
+                  </li>
+                  <li>
+                    <b>Two or more races & Unrepresented race (Non-Hispanic)</b>
+                    : People who are either multiple races or a single race not
+                    represented by the data source's categorization, and who are
+                    not Hispanic/Latino.
                   </li>
                 </ul>
               </div>

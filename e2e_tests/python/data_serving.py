@@ -36,12 +36,11 @@ def testDataServingThroughFrontend():
     frontend_url = os.environ.get('FRONTEND_URL').strip('"') + '/api/dataset?name=acs_population-by_sex_state.json'
     print('FRONTEND_URL={}'.format(frontend_url))
 
-    resp = requests.get(frontend_url)
-    frame = pandas.read_json(resp.content, orient='values')
+    frame = pandas.read_json(frontend_url, orient='values')
     assert len(frame.index) == 156
-    assert frame.columns.size == 5
+    assert frame.columns.size == 6
     assert frame.columns[0] == 'state_fips'
     assert frame.columns[1] == 'state_name'
     assert frame.columns[2] == 'sex'
     assert frame.columns[3] == 'population'
-    assert resp.ok
+    assert frame.columns[4] == 'population_pct'

@@ -1,0 +1,18 @@
+@import "../../styles/variables.module.scss";
+
+.NewsEmailSignup {
+  margin: 2rem;
+  // reduce CLS
+  min-height: 198px;
+  @media only screen and (min-width: $sm) {
+    min-height: 158px;
+  }
+  @media only screen and (min-width: $md) {
+    min-height: 138px;
+  }
+}
+
+.NewsEmailTextField,
+.NewsEmailAddressFormSubmit {
+  line-height: 2.7rem !important;
+}

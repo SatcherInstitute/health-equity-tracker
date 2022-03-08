@@ -3,39 +3,54 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import DatasetExplorer from "./dataset_explorer/DatasetExplorer";
 import MethodologyTab from "./MethodologyTab";
-import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from "../../utils/urlutils";
+import {
+  DATA_CATALOG_PAGE_LINK,
+  DATA_SOURCE_PRE_FILTERS,
+  useSearchParams,
+  METHODOLOGY_TAB_LINK,
+} from "../../utils/urlutils";
 import styles from "../AboutUs/AboutUsPage.module.scss";
+import { Link, Route, Switch } from "react-router-dom";
+import FeedbackBox from "../ui/FeedbackBox";
 
 function DataCatalogTab() {
-  const [tabIndex, setTabIndex] = React.useState(0);
-
-  const handleChange = (event: React.ChangeEvent<{}>, newTabIndex: number) => {
-    setTabIndex(newTabIndex);
-  };
-
   const params = useSearchParams();
   const datasets = params[DATA_SOURCE_PRE_FILTERS]
     ? params[DATA_SOURCE_PRE_FILTERS].split(",")
     : [];
   return (
     <div className={styles.AboutUsPage}>
-      <Tabs
-        value={tabIndex}
-        tabIndex={tabIndex}
-        onChange={handleChange}
-        indicatorColor="primary"
-        textColor="primary"
-        centered
-      >
-        <Tab label="Data Downloads" />
-        <Tab label="Methodology" />
-      </Tabs>
-      {tabIndex === 0 && (
-        <React.Fragment>
+      <Route path="/">
+        <Tabs
+          centered
+          indicatorColor="primary"
+          textColor="primary"
+          value={window.location.pathname}
+        >
+          <Tab
+            value={DATA_CATALOG_PAGE_LINK}
+            label="Data Downloads"
+            component={Link}
+            to={DATA_CATALOG_PAGE_LINK}
+          />
+          <Tab
+            value={`${METHODOLOGY_TAB_LINK}`}
+            label="Methodology"
+            component={Link}
+            to={`${METHODOLOGY_TAB_LINK}`}
+          />
+        </Tabs>
+      </Route>
+
+      <Switch>
+        <Route path={`${METHODOLOGY_TAB_LINK}/`}>
+          <MethodologyTab />
+        </Route>
+        <Route path={`${DATA_CATALOG_PAGE_LINK}/`}>
           <DatasetExplorer preFilterDataSourceIds={datasets} />
-        </React.Fragment>
-      )}
-      {tabIndex === 1 && <MethodologyTab />}
+        </Route>
+      </Switch>
+      <FeedbackBox />
     </div>
   );
 }

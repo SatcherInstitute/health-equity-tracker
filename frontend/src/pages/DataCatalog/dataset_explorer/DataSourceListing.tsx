@@ -22,8 +22,10 @@ import Alert from "@material-ui/lab/Alert";
 import ListItemText from "@material-ui/core/ListItemText";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import GetAppIcon from "@material-ui/icons/GetApp";
-import { IconButton } from "@material-ui/core";
+import OpenInNewIcon from "@material-ui/icons/OpenInNew";
+import { Grid, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+import { urlMap } from "../../../utils/externalUrls";
 
 type LoadStatus = "loading" | "unloaded" | "error" | "loaded";
 
@@ -44,7 +46,12 @@ function DownloadDatasetListItem(props: {
       case "unloaded":
         return <GetAppIcon />;
       case "loading":
-        return <CircularProgress className={styles.DownloadIcon} />;
+        return (
+          <CircularProgress
+            className={styles.DownloadIcon}
+            aria-label="loading"
+          />
+        );
       case "loaded":
         return <CheckCircleIcon />;
       case "error":
@@ -55,7 +62,7 @@ function DownloadDatasetListItem(props: {
   if (props.datasetMetadata === undefined) {
     getLogger().logError(
       new Error(
-        "Dataset metdata was missing for dataset with ID: " + props.datasetId
+        "Dataset metadata was missing for dataset with ID: " + props.datasetId
       ),
       "ERROR"
     );
@@ -74,7 +81,7 @@ function DownloadDatasetListItem(props: {
           <ListItemIcon>{getIcon()}</ListItemIcon>
           <ListItemText
             className={styles.DownloadListItemText}
-            primary={props.datasetMetadata.name}
+            primary={props.datasetMetadata.name + ".csv"}
             secondary={"Last updated: " + props.datasetMetadata.update_time}
           />
         </>
@@ -100,7 +107,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
       className={styles.DataSourceListing}
       data-testid={props.source_metadata.id}
     >
-      <Typography variant="h5" className={styles.DatasetTitle} align="left">
+      <Typography variant="h4" className={styles.DatasetTitle} align="left">
         <Link
           href={props.source_metadata.data_source_link}
           target="_blank"
@@ -129,41 +136,64 @@ export function DataSourceListing(props: DataSourceListingProps) {
             </td>
             <td>{props.source_metadata.update_frequency}</td>
           </tr>
-          {/* TODO - do we want to add all the dataset latest update times? */}
         </tbody>
       </table>
-      <div className={styles.Description}>
-        {props.source_metadata.description}
-      </div>
-      <div className={styles.Footer}>
-        <div className={styles.CardFooterRight}>
-          {props.source_metadata.downloadable && (
-            <Button color="primary" onClick={() => setDialogIsOpen(true)}>
-              Download
-            </Button>
-          )}
-          {/* CDC restricted data is not downloadable. */}
-          {props.source_metadata.id === "cdc_restricted" && (
-            <ReactRouterLinkButton
-              url="https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t"
-              className={styles.DownloadListItem}
-            >
-              Apply For Access
-            </ReactRouterLinkButton>
-          )}
-        </div>
+      <p className={styles.Description}>{props.source_metadata.description}</p>
+      <footer className={styles.Footer}>
+        {props.source_metadata.downloadable && (
+          <Button
+            color="primary"
+            onClick={() => setDialogIsOpen(true)}
+            className={styles.DownloadListItem}
+            aria-label={"Download " + props.source_metadata.data_source_name}
+          >
+            Download
+          </Button>
+        )}
+        {/* CDC restricted data is not downloadable. */}
+        {props.source_metadata.id === "cdc_restricted" && (
+          <ReactRouterLinkButton
+            url={urlMap.cdcCovidRestricted}
+            className={styles.DownloadListItem}
+            ariaLabel={
+              "Apply For Access to " + props.source_metadata.data_source_name
+            }
+          >
+            Apply For Access{"  "}
+            <OpenInNewIcon />
+          </ReactRouterLinkButton>
+        )}
+
+        {/* MODAL WITH DOWNLOADABLE FILES */}
         <Dialog onClose={() => setDialogIsOpen(false)} open={dialogIsOpen}>
-          <DialogTitle className={styles.DialogTitle}>
-            <IconButton
-              aria-label="close"
-              className={styles.CloseDialogButton}
-              onClick={() => setDialogIsOpen(false)}
+          <DialogTitle>
+            <Grid
+              container
+              justifyContent="space-between"
+              alignItems="center"
+              component="header"
             >
-              <CloseIcon />
-            </IconButton>
-            <div className={styles.DialogTitleText}>
-              Available Breakdowns for this Data Source
-            </div>
+              <Grid item xs={10} sm={11}>
+                <Typography
+                  variant="body1"
+                  className={styles.DatasetTitle}
+                  align="left"
+                  component="h3"
+                >
+                  Available breakdowns for{" "}
+                  {props.source_metadata.data_source_name}
+                </Typography>
+              </Grid>
+
+              <Grid item xs={2} sm={1}>
+                <IconButton
+                  aria-label="close dialogue"
+                  onClick={() => setDialogIsOpen(false)}
+                >
+                  <CloseIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
           </DialogTitle>
           <List>
             {props.source_metadata.dataset_ids.map((datasetId) => (
@@ -175,7 +205,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
             ))}
           </List>
         </Dialog>
-      </div>
+      </footer>
     </Card>
   );
 }

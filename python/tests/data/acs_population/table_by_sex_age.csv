@@ -1,0 +1,61 @@
+state_fips,state_name,sex,age,population
+01,Alabama,Female,0-9,291667
+01,Alabama,Female,10-19,311088
+01,Alabama,Female,20-29,329775
+01,Alabama,Female,30-39,310091
+01,Alabama,Female,40-49,312695
+01,Alabama,Female,50-59,340874
+01,Alabama,Female,60-69,308991
+01,Alabama,Female,70-79,195875
+01,Alabama,Female,80+,115839
+01,Alabama,Female,Total,2516895
+01,Alabama,Male,0-9,302584
+01,Alabama,Male,10-19,321854
+01,Alabama,Male,20-29,331027
+01,Alabama,Male,30-39,295675
+01,Alabama,Male,40-49,292807
+01,Alabama,Male,50-59,315439
+01,Alabama,Male,60-69,273839
+01,Alabama,Male,70-79,158865
+01,Alabama,Male,80+,67265
+01,Alabama,Male,Total,2359355
+01,Alabama,Total,0-9,594251
+01,Alabama,Total,10-19,632942
+01,Alabama,Total,20-29,660802
+01,Alabama,Total,30-39,605766
+01,Alabama,Total,40-49,605502
+01,Alabama,Total,50-59,656313
+01,Alabama,Total,60-69,582830
+01,Alabama,Total,70-79,354740
+01,Alabama,Total,80+,183104
+01,Alabama,Total,Total,4876250
+72,Puerto Rico,Female,0-9,156311
+72,Puerto Rico,Female,10-19,206109
+72,Puerto Rico,Female,20-29,226352
+72,Puerto Rico,Female,30-39,207604
+72,Puerto Rico,Female,40-49,221461
+72,Puerto Rico,Female,50-59,235584
+72,Puerto Rico,Female,60-69,223719
+72,Puerto Rico,Female,70-79,163248
+72,Puerto Rico,Female,80+,99741
+72,Puerto Rico,Female,Total,1740129
+72,Puerto Rico,Male,0-9,162519
+72,Puerto Rico,Male,10-19,214985
+72,Puerto Rico,Male,20-29,227457
+72,Puerto Rico,Male,30-39,187431
+72,Puerto Rico,Male,40-49,201259
+72,Puerto Rico,Male,50-59,204365
+72,Puerto Rico,Male,60-69,184970
+72,Puerto Rico,Male,70-79,129282
+72,Puerto Rico,Male,80+,66050
+72,Puerto Rico,Male,Total,1578318
+72,Puerto Rico,Total,0-9,318830
+72,Puerto Rico,Total,10-19,421094
+72,Puerto Rico,Total,20-29,453809
+72,Puerto Rico,Total,30-39,395035
+72,Puerto Rico,Total,40-49,422720
+72,Puerto Rico,Total,50-59,439949
+72,Puerto Rico,Total,60-69,408689
+72,Puerto Rico,Total,70-79,292530
+72,Puerto Rico,Total,80+,165791
+72,Puerto Rico,Total,Total,3318447

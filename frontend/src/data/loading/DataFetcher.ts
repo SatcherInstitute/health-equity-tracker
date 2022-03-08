@@ -3,7 +3,7 @@
 // establish the API types.
 
 import { MapOfDatasetMetadata, Row } from "../utils/DatasetTypes";
-import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
+import { DatasetMetadataMap } from "../config/DatasetMetadata";
 import { Environment } from "../../utils/Environment";
 import { DataFrame } from "data-forge";
 import { GEOGRAPHIES_DATASET_ID } from "../config/MetadataMap";
@@ -90,12 +90,77 @@ export class ApiDataFetcher implements DataFetcher {
 
     // TODO remove these once we figure out how to make BQ export integers as
     // integers
-    if (datasetId.startsWith("acs_population")) {
+
+    if (
+      datasetId.startsWith("acs_population") ||
+      datasetId.startsWith("acs_2010_population")
+    ) {
       result = result.map((row: any) => {
         return { ...row, population: Number(row["population"]) };
       });
-    }
-    if (datasetId.startsWith("cdc_restricted")) {
+    } else if (datasetId.startsWith("uhc_data")) {
+      result = result.map((row: any) => {
+        return {
+          ...row,
+          copd_per_100k:
+            row["copd_per_100k"] == null ? null : Number(row["copd_per_100k"]),
+          diabetes_per_100k:
+            row["copd_per_100k"] == null ? null : Number(row["copd_per_100k"]),
+          depression_per_100k:
+            row["depression_per_100k"] == null
+              ? null
+              : Number(row["depression_per_100k"]),
+          illicit_opioid_use_per_100k:
+            row["illicit_opioid_use_per_100k"] == null
+              ? null
+              : Number(row["illicit_opioid_use_per_100k"]),
+          non_medical_rx_opioid_use_per_100k:
+            row["non_medical_rx_opioid_use_per_100k"] == null
+              ? null
+              : Number(row["non_medical_rx_opioid_use_per_100k"]),
+          non_medical_drug_use_per_100k:
+            row["non_medical_drug_use_per_100k"] == null
+              ? null
+              : Number(row["non_medical_drug_use_per_100k"]),
+          excessive_drinking_per_100k:
+            row["excessive_drinking_per_100k"] == null
+              ? null
+              : Number(row["excessive_drinking_per_100k"]),
+          frequent_mental_distress_per_100k:
+            row["frequent_mental_distress_per_100k"] == null
+              ? null
+              : Number(row["frequent_mental_distress_per_100k"]),
+          suicide_per_100k:
+            row["suicide_per_100k"] == null
+              ? null
+              : Number(row["suicide_per_100k"]),
+          preventable_hospitalizations_per_100k:
+            row["preventable_hospitalizations_per_100k"] == null
+              ? null
+              : Number(row["preventable_hospitalizations_per_100k"]),
+          avoided_care_per_100k:
+            row["avoided_care_per_100k"] == null
+              ? null
+              : Number(row["avoided_care_per_100k"]),
+          chronic_kidney_disease_per_100k:
+            row["chronic_kidney_disease_per_100k"] == null
+              ? null
+              : Number(row["chronic_kidney_disease_per_100k"]),
+          cardiovascular_diseases_per_100k:
+            row["cardiovascular_diseases_per_100k"] == null
+              ? null
+              : Number(row["cardiovascular_diseases_per_100k"]),
+          asthma_per_100k:
+            row["asthma_per_100k"] == null
+              ? null
+              : Number(row["asthma_per_100k"]),
+          voter_participation_per_100k:
+            row["voter_participation_per_100k"] == null
+              ? null
+              : Number(row["voter_participation_per_100k"]),
+        };
+      });
+    } else if (datasetId.startsWith("cdc_restricted")) {
       result = result.map((row: any) => {
         return {
           ...row,
@@ -118,6 +183,25 @@ export class ApiDataFetcher implements DataFetcher {
           below_poverty_line: Number(row["below_poverty_line"]),
         };
       });
+    } else if (datasetId.startsWith("cdc_vaccination_national")) {
+      result = result.map((row: any) => {
+        return {
+          ...row,
+          vaccinated_first_dose: Number(row["vaccinated_first_dose"]),
+          vaccinated_per_100k:
+            row["vaccinated_per_100k"] == null
+              ? null
+              : Number(row["vaccinated_per_100k"]),
+        };
+      });
+    } else if (datasetId.startsWith("kff_vaccination")) {
+      result = result.map((row: any) => {
+        return {
+          ...row,
+          vaccinated_first_dose: Number(row["vaccinated_first_dose"]),
+          population: Number(row["population"]),
+        };
+      });
     }
 
     // TODO - the server should drop ingestion_ts before exporting the file. At
@@ -130,6 +214,6 @@ export class ApiDataFetcher implements DataFetcher {
 
   async getMetadata(): Promise<MapOfDatasetMetadata> {
     // TODO replace with real API call.
-    return FakeDatasetMetadataMap;
+    return DatasetMetadataMap;
   }
 }

@@ -1,16 +1,8 @@
-@import "../../styles/variables";
+@import "../../styles/variables.module";
 
 .ReportAlert {
-  margin: 10px;
-  border: 1px solid #ff9800;
+  margin: 0 10px 10px 10px;
+  border: 1px solid $report-alert;
   text-align: left;
-  line-height: 21px;
-  font-size: 14px;
-}
-
-.LinkButton {
-  text-decoration: underline !important;
-  color: $alt-green !important;
-  padding: 0 5px !important;
-  margin-top: -2px !important; // To align with the <p> text better
+  font-size: $small;
 }

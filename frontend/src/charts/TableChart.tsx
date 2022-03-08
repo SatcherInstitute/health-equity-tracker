@@ -13,7 +13,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableFooter from "@material-ui/core/TableFooter";
 import TablePagination from "@material-ui/core/TablePagination";
-import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Paper from "@material-ui/core/Paper";
 import {
   MetricConfig,
@@ -24,10 +23,28 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
   BreakdownVar,
 } from "../data/query/Breakdowns";
-import { Tooltip } from "@material-ui/core";
+import { Tooltip, useMediaQuery } from "@material-ui/core";
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
+import styles from "./Chart.module.scss";
+import sass from "../styles/variables.module.scss";
+
+export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20;
+
+const headerCellStyle = {
+  width: "200px",
+  backgroundColor: sass.exploreBgColor,
+};
+
+const cellStyle = {
+  width: "200px",
+};
+
+const altCellStyle = {
+  backgroundColor: sass.greyGridColor,
+  width: "200px",
+};
 
 export interface TableChartProps {
   data: Readonly<Record<string, any>>[];
@@ -36,11 +53,18 @@ export interface TableChartProps {
 }
 
 export function TableChart(props: TableChartProps) {
+  const wrap100kUnit = useMediaQuery("(max-width:500px)");
+
   const { data, metrics, breakdownVar } = props;
   let columns = metrics.map((metricConfig) => {
     return {
       Header: metricConfig.fullCardTitleName,
-      Cell: (a: any) => formatFieldValue(metricConfig.type, a.value),
+      Cell: (a: any) =>
+        formatFieldValue(
+          /* metricType: MetricType, */ metricConfig.type,
+          /*   value: any, */ a.value,
+          /*   omitPctSymbol: boolean = false */ true
+        ),
       accessor: metricConfig.metricId,
     };
   });
@@ -70,7 +94,15 @@ export function TableChart(props: TableChartProps) {
     {
       columns: memoCols,
       data: memoData,
-      initialState: { pageSize: 10 },
+      initialState: {
+        pageSize: MAX_NUM_ROWS_WITHOUT_PAGINATION,
+        sortBy: [
+          {
+            id: breakdownVar,
+            desc: false,
+          },
+        ],
+      },
     },
     useSortBy,
     usePagination
@@ -81,15 +113,8 @@ export function TableChart(props: TableChartProps) {
     return (
       <TableRow {...group.getHeaderGroupProps()}>
         {group.headers.map((col, index) => (
-          <TableCell
-            {...col.getHeaderProps(col.getSortByToggleProps())}
-            style={{ width: "200px" }}
-          >
+          <TableCell key={col.id} style={headerCellStyle}>
             {col.render("Header")}
-            <TableSortLabel
-              active={col.isSorted}
-              direction={col.isSortedDesc ? "desc" : "asc"}
-            />
           </TableCell>
         ))}
       </TableRow>
@@ -103,14 +128,28 @@ export function TableChart(props: TableChartProps) {
       <TableRow {...row.getRowProps()}>
         {row.cells.map((cell, index) =>
           cell.value == null ? (
-            <TableCell {...cell.getCellProps()} style={{ width: "200px" }}>
-              <Tooltip title="No data available">
+            <TableCell
+              {...cell.getCellProps()}
+              style={row.index % 2 === 0 ? cellStyle : altCellStyle}
+            >
+              <Tooltip title="Insufficient Data">
                 <WarningRoundedIcon />
               </Tooltip>
+              <span className={styles.ScreenreaderTitleHeader}>
+                Insufficient Data
+              </span>
             </TableCell>
           ) : (
-            <TableCell {...cell.getCellProps()}>
+            <TableCell
+              {...cell.getCellProps()}
+              style={row.index % 2 === 0 ? cellStyle : altCellStyle}
+            >
               {cell.render("Cell")}
+              <Units
+                column={index}
+                metric={props.metrics}
+                wrap100kUnit={wrap100kUnit}
+              />
             </TableCell>
           )
         )}
@@ -121,7 +160,7 @@ export function TableChart(props: TableChartProps) {
   return (
     <>
       {props.data.length <= 0 || props.metrics.length <= 0 ? (
-        <h1>No Data provided</h1>
+        <h1>Insufficient Data</h1>
       ) : (
         <TableContainer component={Paper} style={{ maxHeight: "100%" }}>
           <Table stickyHeader {...getTableProps()}>
@@ -136,20 +175,24 @@ export function TableChart(props: TableChartProps) {
               ))}
             </TableBody>
             {/* If the number of rows is less than the smallest page size, we can hide pagination */}
-            {props.data.length > 5 && (
+            {props.data.length > MAX_NUM_ROWS_WITHOUT_PAGINATION && (
               <TableFooter>
                 <TableRow>
                   <TablePagination
                     count={memoData.length}
                     rowsPerPage={pageSize}
                     page={pageIndex}
-                    onChangePage={(event, newPage) => {
+                    onPageChange={(event, newPage) => {
                       gotoPage(newPage);
                     }}
                     onChangeRowsPerPage={(event) => {
                       setPageSize(Number(event.target.value));
                     }}
-                    rowsPerPageOptions={[5, 10, 25, 50, 100]} // If changed, update pagination condition above
+                    rowsPerPageOptions={[
+                      MAX_NUM_ROWS_WITHOUT_PAGINATION,
+                      MAX_NUM_ROWS_WITHOUT_PAGINATION * 2,
+                      MAX_NUM_ROWS_WITHOUT_PAGINATION * 5,
+                    ]} // If changed, update pagination condition above
                   />
                 </TableRow>
               </TableFooter>
@@ -158,5 +201,26 @@ export function TableChart(props: TableChartProps) {
         </TableContainer>
       )}
     </>
+  );
+}
+
+interface UnitsProps {
+  column: number;
+  metric: MetricConfig[];
+  wrap100kUnit: boolean;
+}
+function Units(props: UnitsProps) {
+  if (!props.column) return null;
+
+  const unit =
+    props.column === 1
+      ? "per 100k"
+      : props.metric[props.column - 1].shortVegaLabel;
+
+  // inline vs block
+  return props.wrap100kUnit && props.column === 1 ? (
+    <p className={styles.Unit}>{unit}</p>
+  ) : (
+    <span className={styles.Unit}>{unit}</span>
   );
 }

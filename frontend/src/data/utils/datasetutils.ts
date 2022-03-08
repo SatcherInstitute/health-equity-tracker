@@ -1,4 +1,7 @@
 import { IDataFrame } from "data-forge";
+import { MetricId, VariableId, VAXX } from "../config/MetricConfig";
+import { BreakdownVar } from "../query/Breakdowns";
+import { RACE } from "./Constants";
 import { Row } from "./DatasetTypes";
 
 /**
@@ -103,7 +106,7 @@ export type JoinType = "inner" | "left" | "outer";
 export function joinOnCols(
   df1: IDataFrame,
   df2: IDataFrame,
-  cols: string[],
+  cols: BreakdownVar[],
   joinType: JoinType = "inner"
 ): IDataFrame {
   const keySelector = (row: any) => {
@@ -142,26 +145,39 @@ export function getLatestDate(df: IDataFrame): Date {
 
 export const getLowestN = (
   data: Row[],
-  fieldName: string,
+  fieldName: MetricId,
   listSize: number
 ): Row[] => {
   return data
     .filter((row: Row) => !isNaN(row[fieldName]) && row[fieldName] != null)
-    .sort((rowA: Row, rowB: Row) =>
-      rowA[fieldName] > rowB[fieldName] ? 1 : -1
-    )
+    .sort((rowA: Row, rowB: Row) => rowA[fieldName] - rowB[fieldName])
     .slice(0, listSize);
 };
 
 export const getHighestN = (
   data: Row[],
-  fieldName: string,
+  fieldName: MetricId,
   listSize: number
 ): Row[] => {
   return data
     .filter((row: Row) => !isNaN(row[fieldName]) && row[fieldName] != null)
-    .sort((rowA: Row, rowB: Row) =>
-      rowA[fieldName] <= rowB[fieldName] ? 1 : -1
-    )
+    .sort((rowA: Row, rowB: Row) => rowB[fieldName] - rowA[fieldName])
     .slice(0, listSize);
 };
+
+/*
+Analyzes state and determines if the 2nd population source should be used
+*/
+export interface ShouldShowAltPopCompareI {
+  fips: { isState: () => boolean };
+  breakdownVar: BreakdownVar;
+  variableConfig: { variableId: VariableId };
+}
+
+export function shouldShowAltPopCompare(fromProps: ShouldShowAltPopCompareI) {
+  return (
+    fromProps.fips.isState() &&
+    fromProps.breakdownVar === RACE &&
+    fromProps.variableConfig.variableId === VAXX
+  );
+}

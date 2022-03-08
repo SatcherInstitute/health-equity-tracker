@@ -1,5 +1,12 @@
+@import "../../styles/variables.module";
+
 .FilterBy {
-  line-height: 36px;
+  padding: 6px 8px;
   float: left;
-  font-size: 16px;
+  font-size: $text;
+}
+
+.GroupListMenuBox {
+  max-width: 95vw;
+  overflow-x: auto;
 }

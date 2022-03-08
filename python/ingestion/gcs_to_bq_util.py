@@ -1,5 +1,6 @@
 from datetime import datetime
 from datetime import timezone
+import requests
 import json
 import os
 
@@ -192,6 +193,62 @@ def load_csv_as_dataframe(gcs_bucket, filename, dtype=None, chunksize=None,
     # https://docs.python.org/3/library/os.html#os.remove for details.
     os.remove(local_path)
     return frame
+
+
+def load_json_as_dataframe(gcs_bucket, filename, dtype=None):
+    """Loads json data from the provided gcs_bucket and filename to a DataFrame.
+       Expects the data to be in csv format, with the first row as the column
+       names.
+
+       gcs_bucket: The name of the gcs bucket to read the data from
+       filename: The name of the file in the gcs bucket to read from
+       dtype: An optional dictionary of column names to column types, as
+              specified by the pandas API. Not all column types need to be
+              specified; column type is auto-detected. This is useful, for
+              example, to force integer-like ids to be treated as strings"""
+    client = storage.Client()
+    bucket = client.get_bucket(gcs_bucket)
+    blob = bucket.blob(filename)
+    local_path = local_file_path(filename)
+    blob.download_to_filename(local_path)
+    frame = pandas.read_json(local_path, dtype=dtype)
+
+    # Warning: os.remove() will remove the directory entry but will not release
+    # the file's storage until the file is no longer being used by |frame|.
+    # Double warning: This will cause an exception on Windows. See
+    # https://docs.python.org/3/library/os.html#os.remove for details.
+    os.remove(local_path)
+    return frame
+
+
+def load_csv_as_dataframe_from_web(url, dtype=None, params=None):
+    """Loads csv data from the provided url to a DataFrame.
+       Expects the data to be in csv format, with the first row as the column
+       names.
+
+       url: url to download the csv file from"""
+
+    url = requests.Request('GET', url, params=params).prepare().url
+    return pandas.read_csv(url, dtype=dtype)
+
+
+def load_json_as_df_from_web(url, dtype=None, params=None):
+    """Loads json data from the web underneath a given key into a dataframe
+
+    url: url to download the json from
+    key: key in the json in which all data underneath will be loaded into the dataframe"""
+    url = requests.Request('GET', url, params=params).prepare().url
+    return pandas.read_json(url, dtype=dtype)
+
+
+def load_json_as_df_from_web_based_on_key(url, key, dtype=None):
+    """Loads json data from the web underneath a given key into a dataframe
+
+    url: url to download the json from
+    key: key in the json in which all data underneath will be loaded into the dataframe"""
+    r = requests.get(url)
+    jsn = json.loads(r.text)
+    return pandas.DataFrame(jsn[key], dtype=dtype)
 
 
 def load_values_as_json(gcs_bucket, filename):

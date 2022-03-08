@@ -1,41 +1,71 @@
-.PaddedGrid {
-  padding: 20px;
-  text-align: left;
+@import "../styles/variables.module";
+@import "../styles/globals.scss";
+
+.OneColumnReportWrapper {
+  width: 100%;
+  max-width: $explore-data-max-width;
+  margin: 0 auto;
+}
+
+.TwoColumnReportWrapper {
+  width: 100%;
+  max-width: calc(2 * $explore-data-max-width);
+  margin: 0 auto;
 }
 
 .ToggleBlock {
   padding-left: 15px;
 
   .ToggleLabel {
+    @include inter300;
     display: block;
     text-transform: uppercase;
-    color: #80868b;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 16px;
+    color: $alt-black;
+    font-size: $small;
     text-align: left;
     padding-top: 10px;
     padding-bottom: 10px;
   }
 }
 
-.ReportToolbar {
-  text-align: right;
+.MissingDataContainer {
+  margin-top: 5rem;
+  width: 100%;
+  background-color: $white;
+  min-height: 900px;
+  display: flex;
+  justify-content: center;
 }
 
 .MissingDataInfo {
-  background-color: white;
+  margin: 2rem;
+  @media only screen and (min-width: $sm) {
+    margin: 4rem;
+  }
+  max-width: $explore-data-max-width;
   text-align: left;
-  padding: 10%;
 }
 
 .MissingDataContactUs {
-  background-color: #f8e8b0;
+  margin-top: 2rem;
+  background-color: $infobar-color;
   padding: 2px 10px 2px 10px;
   border-radius: 8px;
+
+  p {
+    text-align: center;
+    padding: 1rem 2rem;
+  }
 }
 
-.ReportWrapper {
-  width: 95%;
-  margin: 20px auto;
+.FootnoteLargeHeading {
+  font-size: $header;
+}
+
+.FootnoteLargeHeading:first-of-type {
+  margin-block-start: 0px;
+}
+
+.SeeOurDataSourcesButton {
+  margin-bottom: 2 rem;
 }

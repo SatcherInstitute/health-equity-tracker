@@ -1,0 +1,182 @@
+[
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "age": "Total",
+    "population": "159358"
+  },
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "age": "0-9",
+    "population": "28273"
+  },
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "age": "10-19",
+    "population": "29453"
+  },
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "age": "20-29",
+    "population": "23125"
+  },
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "age": "30-39",
+    "population": "21750"
+  },
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "age": "40-49",
+    "population": "22731"
+  },
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "age": "50-59",
+    "population": "16918"
+  },
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "age": "60-69",
+    "population": "10250"
+  },
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "age": "70-79",
+    "population": "5014"
+  },
+  {
+    "state_fips": "66",
+    "state_name": "Guam",
+    "age": "80+",
+    "population": "1844"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "age": "Total",
+    "population": "53883"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "age": "0-9",
+    "population": "9440"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "age": "10-19",
+    "population": "9171"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "age": "20-29",
+    "population": "5697"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "age": "30-39",
+    "population": "8955"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "age": "40-49",
+    "population": "10775"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "age": "50-59",
+    "population": "6735"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "age": "60-69",
+    "population": "2243"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "age": "70-79",
+    "population": "690"
+  },
+  {
+    "state_fips": "69",
+    "state_name": "Northern Mariana Islands",
+    "age": "80+",
+    "population": "177"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "age": "Total",
+    "population": "106405"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "age": "0-9",
+    "population": "14650"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "age": "10-19",
+    "population": "15047"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "age": "20-29",
+    "population": "11869"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "age": "30-39",
+    "population": "12813"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "age": "40-49",
+    "population": "15181"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "age": "50-59",
+    "population": "15086"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "age": "60-69",
+    "population": "13225"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "age": "70-79",
+    "population": "6043"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "age": "80+",
+    "population": "2491"
+  }
+]

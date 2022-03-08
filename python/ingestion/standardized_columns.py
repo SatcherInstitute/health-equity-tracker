@@ -26,13 +26,15 @@ AGE_COL = "age"
 SEX_COL = "sex"
 STATE_FIPS_COL = "state_fips"
 STATE_NAME_COL = "state_name"
-STATE_POSTAL_COL = "state_postal"  # State 2-letter postal abberviation.
+STATE_POSTAL_COL = "state_postal"  # State 2-letter postal abbreviation.
 COUNTY_FIPS_COL = "county_fips"
 COUNTY_NAME_COL = "county_name"
 POPULATION_COL = "population"
 INCOME_COL = "income"
+POPULATION_PCT_COL = "population_pct"
 
 TOTAL_VALUE = "Total"
+ALL_VALUE = "All"
 
 # Standardized column names for Covid cases, hospitalizations, and deaths.
 COVID_CASES = "cases"
@@ -51,6 +53,30 @@ WITHOUT_HEALTH_INSURANCE_COL = "without_health_insurance"
 ABOVE_POVERTY_COL = "above_poverty_line"
 BELOW_POVERTY_COL = "below_poverty_line"
 
+# Standardized names for UHC columns
+DEPRESSION_PER_100K = "depression_per_100k"
+ILLICIT_OPIOID_USE_PER_100K = "illicit_opioid_use_per_100k"
+NON_MEDICAL_RX_OPIOID_USE_PER_100K = "non_medical_rx_opioid_use_per_100k"
+NON_MEDICAL_DRUG_USE_PER_100K = "non_medical_drug_use_per_100k"
+EXCESSIVE_DRINKING_PER_100K = "excessive_drinking_per_100k"
+COPD_PER_100K = "copd_per_100k"
+DIABETES_PER_100K = "diabetes_per_100k"
+ANXIETY_PER_100K = "anxiety_per_100k"
+FREQUENT_MENTAL_DISTRESS_PER_100K = "frequent_mental_distress_per_100k"
+SUICIDE_PER_100K = "suicide_per_100k"
+PREVENTABLE_HOSP_PER_100K = "preventable_hospitalizations_per_100k"
+AVOIDED_CARE_PER_100K = "avoided_care_per_100k"
+CHRONIC_KIDNEY_PER_100K = "chronic_kidney_disease_per_100k"
+CARDIOVASCULAR_PER_100K = "cardiovascular_diseases_per_100k"
+ASTHMA_PER_100K = "asthma_per_100k"
+VOTER_PARTICIPATION_PER_100K = "voter_participation_per_100k"
+
+# Standardized for Vaccination columns
+VACCINATED_FIRST_DOSE = "vaccinated_first_dose"
+VACCINATED_PCT = "vaccinated_pct"
+VACCINATED_SHARE_OF_KNOWN = "vaccinated_share_of_known"
+VACCINATED_PER_100K = "vaccinated_per_100k"
+VACCINATED_PCT_SHARE = "vaccinated_pct_share"
 
 RaceTuple = namedtuple("RaceTuple", [
     "race_category_id",
@@ -73,7 +99,7 @@ class Race(Enum):
     NHPI = ("NHPI", "Native Hawaiian and Pacific Islander", True)
     MULTI = ("MULTI", "Two or more races", True)
     WHITE = ("WHITE", "White", True)
-    OTHER_STANDARD = ("OTHER_STANDARD", "Some other race", True)
+    OTHER_STANDARD = ("OTHER_STANDARD", "Unrepresented race", True)
 
     # These categories are another format of standard categories used in ACS
     # data, where categories are mutually exclusive and exclude Hispanic/Latino.
@@ -88,7 +114,7 @@ class Race(Enum):
     MULTI_NH = ("MULTI_NH", "Two or more races", False)
     WHITE_NH = ("WHITE_NH", "White", False)
     HISP = ("HISP", "Hispanic or Latino", True)
-    OTHER_STANDARD_NH = ("OTHER_STANDARD_NH", "Some other race", False)
+    OTHER_STANDARD_NH = ("OTHER_STANDARD_NH", "Unrepresented race", False)
 
     # Below are special values that have slightly different characteristics.
 
@@ -114,23 +140,25 @@ class Race(Enum):
     # identifier in some places. Until we migrate to using race_category_id,
     # we add a * for the non-standard other so it doesn't accidentally get
     # joined with the standard other on the frontend.
-    OTHER_NONSTANDARD = ("OTHER_NONSTANDARD", "Some other race*", True)
-    OTHER_NONSTANDARD_NH = ("OTHER_NONSTANDARD_NH", "Some other race*", False)
+    OTHER_NONSTANDARD = ("OTHER_NONSTANDARD", "Unrepresented race", True)
+    OTHER_NONSTANDARD_NH = ("OTHER_NONSTANDARD_NH",
+                            "Unrepresented race", False)
 
     # Categories that are combinations of other categories
-    API = ("API", "Asian and Pacific Islander", True)
-    API_NH = ("API_NH", "Asian and Pacific Islander", False)
+    # Currently only used in state level vaccination data
+    API = ("API", "Asian, Native Hawaiian, and Pacific Islander", True)
+    API_NH = ("API_NH", "Asian, Native Hawaiian, and Pacific Islander", False)
     # Combines AIAN and NHPI
     INDIGENOUS = ("INDIGENOUS", "Indigenous", True)
     # Combines AIAN_NH and NHPI_NH
     INDIGENOUS_NH = ("INDIGENOUS_NH", "Indigenous", False)
     MULTI_OR_OTHER_STANDARD = (
         "MULTI_OR_OTHER_STANDARD",
-        "Two or more races & Some other race",
+        "Two or more races & Unrepresented race",
         True)
     MULTI_OR_OTHER_STANDARD_NH = (
         "MULTI_OR_OTHER_STANDARD_NH",
-        "Two or more races & Some other race",
+        "Two or more races & Unrepresented race",
         False)
 
     # When the race is unknown. Different from ETHNICITY_UNKNOWN, which
@@ -141,6 +169,7 @@ class Race(Enum):
     # The total across races. This must always be included when the other race
     # values do not sum to 100%
     TOTAL = ("TOTAL", TOTAL_VALUE, None)
+    ALL = ("ALL", ALL_VALUE, None)
 
     # We set the enum value to the first arg, which is the race category id, or
     # a unique code that can be used to reference that race. Race category ids

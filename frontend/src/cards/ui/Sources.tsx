@@ -8,6 +8,17 @@ import {
 import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
 import { MetricQueryResponse } from "../../data/query/MetricQuery";
 
+function insertPunctuation(idx: number, numSources: number) {
+  let punctuation = "";
+  // ADD COMMAS (INCL OXFORDS) FOR THREE OR MORE SOURCES
+  if (numSources > 2 && idx < numSources - 1) punctuation += ", ";
+  // ADD " AND " BETWEEN LAST TWO SOURCES
+  if (numSources > 1 && idx === numSources - 2) punctuation += " and ";
+  // ADD FINAL PERIOD
+  if (idx === numSources - 1) punctuation += ".";
+  return punctuation;
+}
+
 type DataSourceInfo = {
   name: string;
   updateTimes: Set<string>;
@@ -63,8 +74,7 @@ export function Sources(props: {
   return (
     <>
       {Object.keys(dataSourceMap).length > 0 && <>Sources: </>}
-      {/* TODO- add commas and "and" between the data sources */}
-      {Object.keys(dataSourceMap).map((dataSourceId) => (
+      {Object.keys(dataSourceMap).map((dataSourceId, idx) => (
         <Fragment key={dataSourceId}>
           <LinkWithStickyParams
             target="_blank"
@@ -77,9 +87,10 @@ export function Sources(props: {
           ) : (
             <>
               (updated{" "}
-              {Array.from(dataSourceMap[dataSourceId].updateTimes).join(", ")}){" "}
+              {Array.from(dataSourceMap[dataSourceId].updateTimes).join(", ")})
             </>
           )}
+          {insertPunctuation(idx, Object.keys(dataSourceMap).length)}
         </Fragment>
       ))}
     </>

@@ -7,6 +7,7 @@ import {
 } from "../SimpleBarChartCard";
 import { Fips, USA_FIPS } from "../../data/utils/Fips";
 import { StoryWrapper } from "../../storybook/StoryWrapper";
+import { RACE } from "../../data/utils/Constants";
 
 export default {
   title: "Cards/SimpleBarChartCard",
@@ -31,7 +32,7 @@ CovidByRace.args = {
   key: "testkey",
   fips: new Fips(USA_FIPS),
   variableConfig: METRIC_CONFIG["covid"][0],
-  breakdownVar: "race_and_ethnicity",
+  breakdownVar: RACE,
 };
 
 export const CopdByRace = Template.bind({});
@@ -39,5 +40,5 @@ CopdByRace.args = {
   key: "testkey",
   fips: new Fips(USA_FIPS),
   variableConfig: METRIC_CONFIG["copd"][0],
-  breakdownVar: "race_and_ethnicity",
+  breakdownVar: RACE,
 };

@@ -1,0 +1,63 @@
+county_fips,county_name,state_postal,sex,cases,hosp_y,hosp_n,hosp_unknown,death_y,death_n,death_unknown
+,Unknown,Unknown,Female,2,1,0,1,1,0,1
+,Unknown,Unknown,Total,2,1,0,1,1,0,1
+06035,LASSEN,CA,Male,3,1,1,1,1,1,1
+06035,LASSEN,CA,Total,4,1,2,1,1,1,2
+06035,LASSEN,CA,Unknown,1,0,1,0,0,0,1
+06071,SAN BERNARDINO,CA,Female,5,2,3,0,1,2,2
+06071,SAN BERNARDINO,CA,Male,3,1,0,2,0,2,1
+06071,SAN BERNARDINO,CA,Total,14,4,4,6,4,4,6
+06071,SAN BERNARDINO,CA,Unknown,6,1,1,4,3,0,3
+10003,NEW CASTLE,DE,Total,1,1,0,0,,,
+10003,NEW CASTLE,DE,Unknown,1,1,0,0,,,
+15003,HONOLULU,HI,Male,1,,,,,,
+15003,HONOLULU,HI,Total,1,,,,,,
+22097,ST. LANDRY,LA,Male,1,1,0,0,0,0,1
+22097,ST. LANDRY,LA,Total,1,1,0,0,0,0,1
+29077,GREENE,MO,Male,1,0,1,0,0,0,1
+29077,GREENE,MO,Total,1,0,1,0,0,0,1
+31001,ADAMS,NE,Female,1,,,,,,
+31001,ADAMS,NE,Total,1,,,,,,
+35001,BERNALILLO,NM,Total,1,0,1,0,0,1,0
+35001,BERNALILLO,NM,Unknown,1,0,1,0,0,1,0
+38015,BURLEIGH,ND,Total,1,0,0,1,1,0,0
+38015,BURLEIGH,ND,Unknown,1,0,0,1,1,0,0
+44007,PROVIDENCE,RI,Total,1,,,,1,0,0
+44007,PROVIDENCE,RI,Unknown,1,,,,1,0,0
+46005,BEADLE,SD,Male,1,,,,,,
+46005,BEADLE,SD,Total,1,,,,,,
+47037,DAVIDSON,MD,Female,1,0,0,1,1,0,0
+47037,DAVIDSON,MD,Total,1,0,0,1,1,0,0
+56005,CAMPBELL,WY,Male,1,0,1,0,0,1,0
+56005,CAMPBELL,WY,Total,1,0,1,0,0,1,0
+,Unknown,Unknown,Male,,,,,,,
+,Unknown,Unknown,Other,,,,,,,
+06035,LASSEN,CA,Female,,,,,,,
+06035,LASSEN,CA,Other,,,,,,,
+06071,SAN BERNARDINO,CA,Other,,,,,,,
+10003,NEW CASTLE,DE,Female,,,,,,,
+10003,NEW CASTLE,DE,Male,,,,,,,
+10003,NEW CASTLE,DE,Other,,,,,,,
+15003,HONOLULU,HI,Female,,,,,,,
+15003,HONOLULU,HI,Other,,,,,,,
+22097,ST. LANDRY,LA,Female,,,,,,,
+22097,ST. LANDRY,LA,Other,,,,,,,
+29077,GREENE,MO,Female,,,,,,,
+29077,GREENE,MO,Other,,,,,,,
+31001,ADAMS,NE,Male,,,,,,,
+31001,ADAMS,NE,Other,,,,,,,
+35001,BERNALILLO,NM,Female,,,,,,,
+35001,BERNALILLO,NM,Male,,,,,,,
+35001,BERNALILLO,NM,Other,,,,,,,
+38015,BURLEIGH,ND,Female,,,,,,,
+38015,BURLEIGH,ND,Male,,,,,,,
+38015,BURLEIGH,ND,Other,,,,,,,
+44007,PROVIDENCE,RI,Female,,,,,,,
+44007,PROVIDENCE,RI,Male,,,,,,,
+44007,PROVIDENCE,RI,Other,,,,,,,
+46005,BEADLE,SD,Female,,,,,,,
+46005,BEADLE,SD,Other,,,,,,,
+47037,DAVIDSON,MD,Male,,,,,,,
+47037,DAVIDSON,MD,Other,,,,,,,
+56005,CAMPBELL,WY,Female,,,,,,,
+56005,CAMPBELL,WY,Other,,,,,,,

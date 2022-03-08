@@ -4,7 +4,7 @@ import { DatasetMetadata, Row } from "../utils/DatasetTypes";
 import { act } from "react-dom/test-utils";
 import { MetricQuery } from "../query/MetricQuery";
 import { Breakdowns } from "../query/Breakdowns";
-import { FakeDatasetMetadataMap } from "../config/FakeDatasetMetadata";
+import { DatasetMetadataMap } from "../config/DatasetMetadata";
 import { WithMetrics } from "./WithLoadingOrErrorUI";
 import {
   autoInitGlobals,
@@ -17,7 +17,7 @@ import { excludeAll } from "../query/BreakdownFilter";
 const STATE_NAMES_ID = "state_names";
 const ANOTHER_FAKE_DATASET_ID = "fake_dataset_2";
 const fakeMetadata = {
-  ...FakeDatasetMetadataMap,
+  ...DatasetMetadataMap,
   [STATE_NAMES_ID]: {} as DatasetMetadata,
   [ANOTHER_FAKE_DATASET_ID]: {} as DatasetMetadata,
 };
@@ -60,7 +60,7 @@ describe("WithLoadingOrErrorUI", () => {
 
   test("WithMetrics: Loads metrics", async () => {
     const query = new MetricQuery(
-      "copd_pct",
+      "copd_per_100k",
       Breakdowns.byState().andRace(excludeAll())
     );
 
@@ -69,35 +69,43 @@ describe("WithLoadingOrErrorUI", () => {
       <WithMetricsWrapperApp
         query={query}
         displayRow={(row: Row) =>
-          `${row.race_and_ethnicity}: ${row.copd_pct}. `
+          `${row.race_and_ethnicity}: ${row.copd_per_100k}. `
         }
       />
     );
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
       dataFetcher.setFakeDatasetLoaded("acs_population-by_race_state_std", []);
-      dataFetcher.setFakeDatasetLoaded("uhc_race_and_ethnicity", [
+      dataFetcher.setFakeDatasetLoaded("uhc_data-race_and_ethnicity", [
         {
           state_name: "Alabama",
           race_and_ethnicity: "AmIn",
-          copd_pct: 20,
+          copd_per_100k: 20000,
         },
-        { state_name: "Alabama", race_and_ethnicity: "Asian", copd_pct: 1 },
-        { state_name: "Alabama", race_and_ethnicity: "All", copd_pct: 1 },
+        {
+          state_name: "Alabama",
+          race_and_ethnicity: "Asian",
+          copd_per_100k: 1000,
+        },
+        {
+          state_name: "Alabama",
+          race_and_ethnicity: "All",
+          copd_per_100k: 1000,
+        },
       ]);
     });
 
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
-      "Loaded 2 rows. AmIn: 20. Asian: 1."
+      "Loaded 2 rows. AmIn: 20000. Asian: 1000."
     );
     expect(dataFetcher.getNumLoadDatasetCalls()).toBe(2);
   });
 
-  // TODO - one succesful dataset, one bad dataset
+  // TODO - one successful dataset, one bad dataset
 
   test("WithMetrics: Loaded metrics have no rows", async () => {
     const query = new MetricQuery(
-      "diabetes_pct",
+      "diabetes_per_100k",
       Breakdowns.national().andRace()
     );
 
@@ -106,7 +114,7 @@ describe("WithLoadingOrErrorUI", () => {
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
       dataFetcher.setFakeDatasetLoaded("acs_population-by_race_state_std", []);
-      dataFetcher.setFakeDatasetLoaded("uhc_race_and_ethnicity", []);
+      dataFetcher.setFakeDatasetLoaded("uhc_data-race_and_ethnicity", []);
     });
 
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
@@ -117,7 +125,7 @@ describe("WithLoadingOrErrorUI", () => {
 
   test("WithMetrics: Unsupported breakdown", async () => {
     const query = new MetricQuery(
-      "diabetes_pct",
+      "diabetes_per_100k",
       Breakdowns.byCounty().andAge()
     );
 
@@ -126,7 +134,7 @@ describe("WithLoadingOrErrorUI", () => {
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
       dataFetcher.setFakeDatasetLoaded("acs_population-by_age_county", []);
-      dataFetcher.setFakeDatasetLoaded("uhc_race_and_ethnicity", []);
+      dataFetcher.setFakeDatasetLoaded("uhc_data-race_and_ethnicity", []);
     });
 
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(

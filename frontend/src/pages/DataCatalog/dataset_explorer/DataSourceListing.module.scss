@@ -1,36 +1,28 @@
-@import "../../../styles/variables";
-
-.FlexRow {
-  display: flex;
-  flex-direction: row;
-  padding: 3px;
-}
-
-.FlexCol {
-  display: flex;
-  flex-direction: column;
-  padding: 3px;
-}
+@import "../../../styles/variables.module";
+@import "../../../styles/globals.scss";
 
 .Description {
   text-align: left;
-  line-height: 20px;
 }
 
 .DataSourceListing {
   padding: 20px;
   padding-bottom: 10px;
+  width: 100%;
 }
 
 .DatasetTitle {
-  font-size: 20px;
-  font-family: "Taviraj", serif !important;
+  font-size: $title;
+  @include tav300();
 }
 
 .Footer {
   height: 29px;
   margin-bottom: 0px;
   margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
 
   Button {
     min-width: 10px;
@@ -56,25 +48,7 @@
   padding-left: 24px !important;
 }
 
-.DownloadListItemText {
-  line-height: 24px;
-}
-
 .DownloadIcon {
   height: 24px !important;
   width: 24px !important;
-}
-
-.DialogTitle {
-  min-width: 485px !important;
-  padding: 10px 24px 0px 24px !important;
-}
-
-.DialogTitleText {
-  // Same height as close button
-  line-height: 48px !important;
-}
-
-.CloseDialogButton {
-  float: right;
 }

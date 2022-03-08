@@ -4,7 +4,13 @@ import { MetricId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { joinOnCols } from "../utils/datasetutils";
-import { DC_COUNTY_FIPS, USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
+import {
+  DC_COUNTY_FIPS,
+  USA_DISPLAY_NAME,
+  USA_FIPS,
+  ACS_2010_FIPS,
+} from "../utils/Fips";
+import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 
@@ -35,7 +41,7 @@ class CdcCovidProvider extends VariableProvider {
     this.acsProvider = acsProvider;
   }
 
-  // ALERT! KEEP IN SYNC! Make sure you update DataSourceMetadata if you update dataset IDs
+  // ALERT! KEEP IN SYNC! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts if you update dataset IDs
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.hasOnlyRace()) {
       return breakdowns.geography === "county"
@@ -91,6 +97,7 @@ class CdcCovidProvider extends VariableProvider {
       covid_hosp: (value) => (isNaN(value) ? null : value),
     });
 
+    // TODO: Move this calculation to the backend
     df =
       breakdowns.geography === "national"
         ? df
@@ -105,6 +112,53 @@ class CdcCovidProvider extends VariableProvider {
             })
             .resetIndex()
         : df;
+
+    // TODO: Allow for population sources to have multiple sources
+    // so we don't have to do this weirdness
+    const stateFips = df.getSeries("fips").toArray()[0];
+    if (
+      breakdowns.geography === "state" &&
+      // hacky but there should only be one fips code if
+      // its for a state
+      ACS_2010_FIPS.includes(stateFips)
+    ) {
+      const acs2010BreakdownId =
+        "acs_2010_population-by_" + breakdownColumnName + "_territory";
+      consumedDatasetIds = consumedDatasetIds.concat(acs2010BreakdownId);
+    } else {
+      const acsDatasetId = GetAcsDatasetId(breakdowns);
+      consumedDatasetIds = consumedDatasetIds.concat(acsDatasetId);
+    }
+
+    // TODO: Move this merge to the backend
+    if (breakdowns.geography === "national") {
+      const onlyShareMetrics = metricQuery.metricIds.every((metric) =>
+        metric.includes("share")
+      );
+
+      const acsBreakdowns = breakdowns.copy();
+      acsBreakdowns.time = false;
+
+      const acsQueryResponse = await this.acsProvider.getData(
+        new MetricQuery(["population_pct"], acsBreakdowns)
+      );
+
+      // We return an empty response if the only requested metric ids are "share"
+      // metrics. These are the only metrics which don't require population data.
+      if (acsQueryResponse.dataIsMissing() && !onlyShareMetrics) {
+        return acsQueryResponse;
+      }
+      const acsPopulation = new DataFrame(acsQueryResponse.data);
+      // TODO this is a weird hack - prefer left join but for some reason it's
+      // causing issues. We should really do this on the BE instead.
+      df = joinOnCols(df, acsPopulation, ["fips", breakdownColumnName], "left");
+
+      // We get the population data for the territories from 2010, but merge
+      // it in on the backend. This way we can properly site our source.
+      const acs2010BreakdownId =
+        "acs_2010_population-by_" + breakdownColumnName + "_territory";
+      consumedDatasetIds = consumedDatasetIds.concat(acs2010BreakdownId);
+    }
 
     // If a given geo x breakdown has all unknown hospitalizations or deaths,
     // we treat it as if it has "no data," i.e. we clear the hosp/death fields.
@@ -195,40 +249,6 @@ class CdcCovidProvider extends VariableProvider {
       }
     });
 
-    const acsBreakdowns = breakdowns.copy();
-    acsBreakdowns.time = false;
-
-    // Get ACS population_pct data. Population data is expected to already be
-    // joined in at this point for this data.
-    const acsQueryResponse = await this.acsProvider.getData(
-      new MetricQuery(["population_pct"], acsBreakdowns)
-    );
-    consumedDatasetIds = consumedDatasetIds.concat(
-      acsQueryResponse.consumedDatasetIds
-    );
-    // We return an empty response if the only requested metric ids are "share"
-    // metrics. These are the only metrics which don't require population data.
-    const onlyShareMetrics = metricQuery.metricIds.every((metric) =>
-      metric.includes("share")
-    );
-    if (acsQueryResponse.dataIsMissing() && !onlyShareMetrics) {
-      return acsQueryResponse;
-    }
-    const acsPopulation = new DataFrame(acsQueryResponse.data);
-
-    // TODO this is a weird hack - prefer left join but for some reason it's
-    // causing issues. We should really do this on the BE instead.
-    const supportedGeos = acsPopulation
-      .distinct((row) => row.fips)
-      .getSeries("fips")
-      .toArray();
-
-    const unknowns = df
-      .where((row) => row.breakdownColumnName === "Unknown")
-      .where((row) => supportedGeos.includes(row.fips));
-
-    df = joinOnCols(df, acsPopulation, ["fips", breakdownColumnName], "left");
-
     const populationPctMetric: MetricId[] = [
       "covid_cases_reporting_population_pct",
       "covid_deaths_reporting_population_pct",
@@ -245,8 +265,6 @@ class CdcCovidProvider extends VariableProvider {
     });
 
     // Must reset index or calculation is wrong. TODO how to make this less brittle?
-    df = df.concat(unknowns).resetIndex();
-
     df = df.dropSeries(["population", "population_pct"]).resetIndex();
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);

@@ -15,6 +15,8 @@ import { Sources } from "./ui/Sources";
 import { MapOfDatasetMetadata } from "../data/utils/DatasetTypes";
 
 function CardWrapper(props: {
+  // prevent layout shift as component loads
+  minHeight?: number;
   title?: JSX.Element;
   // To have an info icon that opens additional info, pass a Popover such as <RaceInfoPopoverContent />
   infoPopover?: JSX.Element;
@@ -34,7 +36,7 @@ function CardWrapper(props: {
   const optionalTitle = props.title ? (
     <>
       <CardContent>
-        <Typography className={styles.CardHeader}>
+        <Typography component="h3" className={styles.CardHeader}>
           {props.title}
           {props.infoPopover && (
             <Button onClick={popover.open} className={styles.InfoIconButton}>
@@ -63,10 +65,14 @@ function CardWrapper(props: {
   ) : null;
 
   const loadingComponent = (
-    <Card raised={true} className={styles.ChartCard}>
+    <Card
+      raised={true}
+      className={styles.ChartCard}
+      style={{ minHeight: props.minHeight }}
+    >
       {optionalTitle}
       <CardContent>
-        <CircularProgress />
+        <CircularProgress aria-label="loading" />
       </CardContent>
     </Card>
   );
@@ -79,11 +85,15 @@ function CardWrapper(props: {
     >
       {(metadata, queryResponses, geoData) => {
         return (
-          <Card raised={true} className={styles.ChartCard}>
-            {optionalTitle}
+          <Card
+            raised={true}
+            className={styles.ChartCard}
+            component={"article"}
+          >
+            <header>{optionalTitle}</header>
             {props.children(queryResponses, metadata, geoData)}
             {!props.hideFooter && props.queries && (
-              <CardContent className={styles.CardFooter}>
+              <CardContent className={styles.CardFooter} component={"footer"}>
                 <Sources queryResponses={queryResponses} metadata={metadata} />
               </CardContent>
             )}

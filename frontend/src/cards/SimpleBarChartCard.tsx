@@ -1,6 +1,5 @@
 import React from "react";
 import { SimpleHorizontalBarChart } from "../charts/SimpleHorizontalBarChart";
-import styles from "./Card.module.scss";
 import { CardContent } from "@material-ui/core";
 import { Fips } from "../data/utils/Fips";
 import {
@@ -14,6 +13,9 @@ import CardWrapper from "./CardWrapper";
 import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
+
+/* minimize layout shift */
+const PRELOAD_HEIGHT = 668;
 
 export interface SimpleBarChartCardProps {
   key?: string;
@@ -43,49 +45,44 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
 
   const query = new MetricQuery([metricConfig.metricId], breakdowns);
 
+  function getTitleText() {
+    return `${metricConfig.fullCardTitleName} By ${
+      BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+    } In ${props.fips.getFullDisplayName()}`;
+  }
   function CardTitle() {
-    return (
-      <>
-        {metricConfig.fullCardTitleName} By{" "}
-        <b>{BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]}</b> In{" "}
-        {props.fips.getFullDisplayName()}
-      </>
-    );
+    return <>{getTitleText()}</>;
   }
 
   return (
-    <CardWrapper queries={[query]} title={<CardTitle />}>
+    <CardWrapper
+      queries={[query]}
+      title={<CardTitle />}
+      minHeight={PRELOAD_HEIGHT}
+    >
       {([queryResponse]) => {
         return (
-          <>
+          <CardContent>
             {queryResponse.shouldShowMissingDataMessage([
               metricConfig.metricId,
-            ]) && (
-              <CardContent className={styles.Breadcrumbs}>
-                <MissingDataAlert
-                  dataName={metricConfig.fullCardTitleName}
-                  breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-                  }
-                  geoLevel={props.fips.getFipsTypeDisplayName()}
-                />
-              </CardContent>
+            ]) ? (
+              <MissingDataAlert
+                dataName={metricConfig.fullCardTitleName}
+                breakdownString={
+                  BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+                }
+                fips={props.fips}
+              />
+            ) : (
+              <SimpleHorizontalBarChart
+                data={queryResponse.getValidRowsForField(metricConfig.metricId)}
+                breakdownVar={props.breakdownVar}
+                metric={metricConfig}
+                showLegend={false}
+                filename={getTitleText()}
+              />
             )}
-            {!queryResponse.shouldShowMissingDataMessage([
-              metricConfig.metricId,
-            ]) && (
-              <CardContent className={styles.Breadcrumbs}>
-                <SimpleHorizontalBarChart
-                  data={queryResponse.getValidRowsForField(
-                    metricConfig.metricId
-                  )}
-                  breakdownVar={props.breakdownVar}
-                  metric={metricConfig}
-                  showLegend={false}
-                />
-              </CardContent>
-            )}
-          </>
+          </CardContent>
         );
       }}
     </CardWrapper>

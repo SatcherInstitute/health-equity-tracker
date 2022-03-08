@@ -2,7 +2,7 @@ name: Deploy to Test
 
 on:
   push:
-      branches: [master]
+      branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -168,7 +168,7 @@ jobs:
           -backend-config="credentials=creds.json"
       - name: Terraform Apply
         id: terraform
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         working-directory: ./config
         run: |
           terraform apply -auto-approve -var-file=test/test.tfvars \
@@ -195,7 +195,7 @@ jobs:
           echo "::set-output name=frontend_url::$frontend_url"
       - name: Airflow Environment Variables
         id: airflow-environment-variables
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         continue-on-error: true
         run: |
           gcloud composer environments update data-ingestion-environment \
@@ -207,7 +207,7 @@ jobs:
           --update-env-variables=AIRFLOW_VAR_GCS_MANUAL_UPLOADS_BUCKET=msm-test-manual-data-bucket \
           --location=us-central1
       - name: Upload Airflow DAGs and utility file
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         working-directory: ./airflow
         run: |
           ./upload-dags.sh

@@ -9,6 +9,7 @@ import {
   DisparityBarChartProps,
 } from "../DisparityBarChart";
 import { StoryWrapper } from "../../storybook/StoryWrapper";
+import { RACE } from "../../data/utils/Constants";
 
 export default {
   title: "Charts/DisparityBarChart",
@@ -36,6 +37,6 @@ Example1.args = {
   ],
   lightMetric: METRIC_CONFIG["covid"][0].metrics["pct_share"],
   darkMetric: POPULATION_VARIABLE_CONFIG.metrics.pct_share,
-  breakdownVar: "race_and_ethnicity",
+  breakdownVar: RACE,
   metricDisplayName: "Metric Display name",
 };
