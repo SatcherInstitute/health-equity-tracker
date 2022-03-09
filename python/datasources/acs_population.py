@@ -1,13 +1,8 @@
 import pandas as pd
 
-from ingestion.standardized_columns import (HISPANIC_COL, RACE_COL,
-                                            STATE_FIPS_COL, COUNTY_FIPS_COL,
-                                            STATE_NAME_COL, COUNTY_NAME_COL,
-                                            POPULATION_COL, AGE_COL, SEX_COL,
-                                            Race, RACE_CATEGORY_ID_COL,
-                                            RACE_INCLUDES_HISPANIC_COL,
-                                            TOTAL_VALUE, POPULATION_PCT_COL,
-                                            add_race_columns_from_category_id)
+import ingestion.standardized_columns as std_col
+
+from ingestion.standardized_columns import Race
 from ingestion import url_file_to_gcs, gcs_to_bq_util, census
 from datasources.data_source import DataSource
 from ingestion.census import (get_census_params, parse_acs_metadata,
@@ -208,13 +203,13 @@ class ACSPopulationIngester():
 
         # The base columns that are always used to group by.
         self.base_group_by_cols = (
-            [STATE_FIPS_COL, COUNTY_FIPS_COL, COUNTY_NAME_COL] if county_level
-            else [STATE_FIPS_COL, STATE_NAME_COL])
+            [std_col.STATE_FIPS_COL, std_col.COUNTY_FIPS_COL, std_col.COUNTY_NAME_COL] if county_level
+            else [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL])
 
         # The base columns that are always used to sort by
         self.base_sort_by_cols = (
-            [STATE_FIPS_COL, COUNTY_FIPS_COL] if county_level
-            else [STATE_FIPS_COL])
+            [std_col.STATE_FIPS_COL, std_col.COUNTY_FIPS_COL] if county_level
+            else [std_col.STATE_FIPS_COL])
 
     def upload_to_gcs(self, gcs_bucket):
         """Uploads population data from census to GCS bucket."""
@@ -252,9 +247,9 @@ class ACSPopulationIngester():
         race_and_hispanic_frame = standardize_frame(
             race_and_hispanic_frame,
             get_vars_for_group(HISPANIC_BY_RACE_CONCEPT, var_map, 2),
-            [HISPANIC_COL, RACE_COL],
+            [std_col.HISPANIC_COL, std_col.RACE_COL],
             self.county_level,
-            POPULATION_COL)
+            std_col.POPULATION_COL)
 
         sex_by_age_frames = {}
         for concept in SEX_BY_AGE_CONCEPTS_TO_RACE:
@@ -294,12 +289,12 @@ class ACSPopulationIngester():
         for table_name, df in frames.items():
             # All breakdown columns are strings
             column_types = {c: 'STRING' for c in df.columns}
-            column_types[POPULATION_COL] = 'INT64'
-            if RACE_INCLUDES_HISPANIC_COL in df.columns:
-                column_types[RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+            column_types[std_col.POPULATION_COL] = 'INT64'
+            if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
+                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
-            if POPULATION_PCT_COL in df.columns:
-                column_types[POPULATION_PCT_COL] = 'FLOAT'
+            if std_col.POPULATION_PCT_COL in df.columns:
+                column_types[std_col.POPULATION_PCT_COL] = 'FLOAT'
 
             gcs_to_bq_util.add_dataframe_to_bq(
                 df, dataset, table_name, column_types=column_types)
@@ -311,10 +306,10 @@ class ACSPopulationIngester():
         return 'county' if self.county_level else 'state'
 
     def get_fips_col(self):
-        return COUNTY_FIPS_COL if self.county_level else STATE_FIPS_COL
+        return std_col.COUNTY_FIPS_COL if self.county_level else std_col.STATE_FIPS_COL
 
     def get_geo_name_col(self):
-        return COUNTY_NAME_COL if self.county_level else STATE_NAME_COL
+        return std_col.COUNTY_NAME_COL if self.county_level else std_col.STATE_NAME_COL
 
     def get_table_name_by_race(self):
         return "by_race" + self.get_table_geo_suffix() + "_std"
@@ -336,7 +331,7 @@ class ACSPopulationIngester():
 
     def sort_race_frame(self, df):
         sort_cols = self.base_sort_by_cols.copy()
-        sort_cols.append(RACE_CATEGORY_ID_COL)
+        sort_cols.append(std_col.RACE_CATEGORY_ID_COL)
         return df.sort_values(sort_cols).reset_index(drop=True)
 
     def sort_sex_age_race_frame(self, df):
@@ -344,7 +339,7 @@ class ACSPopulationIngester():
         # Note: This sorts alphabetically, which isn't ideal for the age column.
         # However, it doesn't matter how these are sorted in the backend, this
         # is just for convenience when looking at the data in BigQuery.
-        sort_cols.extend([RACE_CATEGORY_ID_COL, SEX_COL, AGE_COL])
+        sort_cols.extend([std_col.RACE_CATEGORY_ID_COL, std_col.SEX_COL, std_col.AGE_COL])
         return df.sort_values(sort_cols).reset_index(drop=True)
 
     def standardize_race_exclude_hispanic(self, df):
@@ -353,18 +348,18 @@ class ACSPopulationIngester():
            categories equals the total population."""
 
         def get_race_category_id_exclude_hispanic(row):
-            if (row[HISPANIC_COL] == 'Hispanic or Latino'):
+            if (row[std_col.HISPANIC_COL] == 'Hispanic or Latino'):
                 return Race.HISP.value
             else:
-                return RACE_STRING_TO_CATEGORY_ID_EXCLUDE_HISP[row[RACE_COL]]
+                return RACE_STRING_TO_CATEGORY_ID_EXCLUDE_HISP[row[std_col.RACE_COL]]
 
         standardized_race = df.copy()
-        standardized_race[RACE_CATEGORY_ID_COL] = standardized_race.apply(
+        standardized_race[std_col.RACE_CATEGORY_ID_COL] = standardized_race.apply(
             get_race_category_id_exclude_hispanic, axis=1)
-        standardized_race.drop(HISPANIC_COL, axis=1, inplace=True)
+        standardized_race.drop(std_col.HISPANIC_COL, axis=1, inplace=True)
 
         group_by_cols = self.base_group_by_cols.copy()
-        group_by_cols.append(RACE_CATEGORY_ID_COL)
+        group_by_cols.append(std_col.RACE_CATEGORY_ID_COL)
         standardized_race = standardized_race.groupby(
             group_by_cols).sum().reset_index()
         return standardized_race
@@ -375,21 +370,21 @@ class ACSPopulationIngester():
            larger number than the actual total."""
         by_hispanic = df.copy()
         group_by_cols = self.base_group_by_cols.copy()
-        group_by_cols.append(HISPANIC_COL)
+        group_by_cols.append(std_col.HISPANIC_COL)
         by_hispanic = by_hispanic.groupby(group_by_cols).sum().reset_index()
-        by_hispanic[RACE_CATEGORY_ID_COL] = by_hispanic.apply(
+        by_hispanic[std_col.RACE_CATEGORY_ID_COL] = by_hispanic.apply(
             lambda r: (Race.HISP.value
-                       if r[HISPANIC_COL] == 'Hispanic or Latino'
+                       if r[std_col.HISPANIC_COL] == 'Hispanic or Latino'
                        else Race.NH.value),
             axis=1)
-        by_hispanic.drop(HISPANIC_COL, axis=1, inplace=True)
+        by_hispanic.drop(std_col.HISPANIC_COL, axis=1, inplace=True)
 
         by_race = df.copy()
         group_by_cols = self.base_group_by_cols.copy()
-        group_by_cols.append(RACE_COL)
+        group_by_cols.append(std_col.RACE_COL)
         by_race = by_race.groupby(group_by_cols).sum().reset_index()
-        by_race[RACE_CATEGORY_ID_COL] = by_race.apply(
-            lambda r: RACE_STRING_TO_CATEGORY_ID_INCLUDE_HISP[r[RACE_COL]],
+        by_race[std_col.RACE_CATEGORY_ID_COL] = by_race.apply(
+            lambda r: RACE_STRING_TO_CATEGORY_ID_INCLUDE_HISP[r[std_col.RACE_COL]],
             axis=1)
 
         return pd.concat([by_hispanic, by_race])
@@ -405,35 +400,35 @@ class ACSPopulationIngester():
         # both variants of standardized race include a "Hispanic or Latino"
         # group, so remove from one before concatenating.
         standardized_race = standardized_race[
-            standardized_race[RACE_CATEGORY_ID_COL] != Race.HISP.value]
+            standardized_race[std_col.RACE_CATEGORY_ID_COL] != Race.HISP.value]
         all_races = pd.concat([all_races, standardized_race])
 
         # Drop extra columns before adding derived rows so they don't interfere
         # with grouping.
-        all_races.drop(RACE_COL, axis=1, inplace=True)
+        all_races.drop(std_col.RACE_COL, axis=1, inplace=True)
 
         # Add derived rows.
         all_races = add_sum_of_rows(
-            all_races, RACE_CATEGORY_ID_COL, POPULATION_COL, Race.TOTAL.value,
+            all_races, std_col.RACE_CATEGORY_ID_COL, std_col.POPULATION_COL, Race.TOTAL.value,
             list(RACE_STRING_TO_CATEGORY_ID_INCLUDE_HISP.values()))
         all_races = add_sum_of_rows(
-            all_races, RACE_CATEGORY_ID_COL, POPULATION_COL,
+            all_races, std_col.RACE_CATEGORY_ID_COL, std_col.POPULATION_COL,
             Race.MULTI_OR_OTHER_STANDARD_NH.value,
             [Race.MULTI_NH.value, Race.OTHER_STANDARD_NH.value])
         all_races = add_sum_of_rows(
-            all_races, RACE_CATEGORY_ID_COL, POPULATION_COL,
+            all_races, std_col.RACE_CATEGORY_ID_COL, std_col.POPULATION_COL,
             Race.MULTI_OR_OTHER_STANDARD.value,
             [Race.MULTI.value, Race.OTHER_STANDARD.value])
         all_races = add_sum_of_rows(
-            all_races, RACE_CATEGORY_ID_COL, POPULATION_COL,
+            all_races, std_col.RACE_CATEGORY_ID_COL, std_col.POPULATION_COL,
             Race.API_NH.value,
             [Race.ASIAN_NH.value, Race.NHPI_NH.value])
 
         all_races = generate_pct_share_col(
-            all_races, POPULATION_COL, POPULATION_PCT_COL,
-            RACE_CATEGORY_ID_COL, Race.TOTAL.value)
+            all_races, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL,
+            std_col.RACE_CATEGORY_ID_COL, Race.TOTAL.value)
 
-        add_race_columns_from_category_id(all_races)
+        std_col.add_race_columns_from_category_id(all_races)
         return self.sort_race_frame(all_races)
 
     def get_sex_by_age_and_race(self, var_map, sex_by_age_frames):
@@ -448,39 +443,39 @@ class ACSPopulationIngester():
             frame = sex_by_age_frames[concept]
             group_vars = get_vars_for_group(concept, var_map, 2)
             sex_by_age = standardize_frame(frame, group_vars,
-                                           [SEX_COL, AGE_COL],
-                                           self.county_level, POPULATION_COL)
+                                           [std_col.SEX_COL, std_col.AGE_COL],
+                                           self.county_level, std_col.POPULATION_COL)
 
-            sex_by_age[RACE_CATEGORY_ID_COL] = race
+            sex_by_age[std_col.RACE_CATEGORY_ID_COL] = race
             frames.append(sex_by_age)
         result = pd.concat(frames)
-        result[AGE_COL] = result[AGE_COL].apply(rename_age_bracket)
+        result[std_col.AGE_COL] = result[std_col.AGE_COL].apply(rename_age_bracket)
 
-        result = add_sum_of_rows(result, AGE_COL, POPULATION_COL, TOTAL_VALUE)
-        result = add_sum_of_rows(result, SEX_COL, POPULATION_COL, TOTAL_VALUE)
+        result = add_sum_of_rows(result, std_col.AGE_COL, std_col.POPULATION_COL, std_col.TOTAL_VALUE)
+        result = add_sum_of_rows(result, std_col.SEX_COL, std_col.POPULATION_COL, std_col.TOTAL_VALUE)
 
-        add_race_columns_from_category_id(result)
+        std_col.add_race_columns_from_category_id(result)
         return self.sort_sex_age_race_frame(result)
 
     def get_by_sex_age(self, by_sex_age_race_frame, age_aggregator_func):
-        by_sex_age = by_sex_age_race_frame.loc[by_sex_age_race_frame[RACE_CATEGORY_ID_COL]
+        by_sex_age = by_sex_age_race_frame.loc[by_sex_age_race_frame[std_col.RACE_CATEGORY_ID_COL]
                                                == Race.TOTAL.value]
 
         cols = [
-            STATE_FIPS_COL,
+            std_col.STATE_FIPS_COL,
             self.get_fips_col(),
             self.get_geo_name_col(),
-            SEX_COL,
-            AGE_COL,
-            POPULATION_COL,
+            std_col.SEX_COL,
+            std_col.AGE_COL,
+            std_col.POPULATION_COL,
         ]
 
         by_sex_age = by_sex_age[cols] if self.county_level else by_sex_age[cols[1:]]
-        by_sex_age[AGE_COL] = by_sex_age[AGE_COL].apply(age_aggregator_func)
+        by_sex_age[std_col.AGE_COL] = by_sex_age[std_col.AGE_COL].apply(age_aggregator_func)
 
         groupby_cols = cols[:-1] if self.county_level else cols[1: -1]
         by_sex_age = by_sex_age.groupby(
-            groupby_cols)[POPULATION_COL].sum().reset_index()
+            groupby_cols)[std_col.POPULATION_COL].sum().reset_index()
 
         return by_sex_age
 
@@ -489,27 +484,27 @@ class ACSPopulationIngester():
                    by_sex_standard_age_uhc=None,
                    by_sex_decade_plus_5_age_uhc=None,
                    by_sex_voter_age_uhc=None):
-        by_age = by_sex_age.loc[by_sex_age[SEX_COL] == TOTAL_VALUE]
+        by_age = by_sex_age.loc[by_sex_age[std_col.SEX_COL] == std_col.TOTAL_VALUE]
 
         cols = [
-            STATE_FIPS_COL,
+            std_col.STATE_FIPS_COL,
             self.get_fips_col(),
             self.get_geo_name_col(),
-            AGE_COL,
-            POPULATION_COL,
+            std_col.AGE_COL,
+            std_col.POPULATION_COL,
         ]
 
         by_age = by_age[cols] if self.county_level else by_age[cols[1:]]
 
         if not self.county_level:
             by_standard_age_uhc = by_sex_standard_age_uhc.loc[
-                by_sex_standard_age_uhc[SEX_COL] == TOTAL_VALUE]
+                by_sex_standard_age_uhc[std_col.SEX_COL] == std_col.TOTAL_VALUE]
             by_standard_age_uhc = by_standard_age_uhc[cols[1:]]
             by_decade_plus_5_age_uhc = by_sex_decade_plus_5_age_uhc.loc[
-                by_sex_decade_plus_5_age_uhc[SEX_COL] == TOTAL_VALUE]
+                by_sex_decade_plus_5_age_uhc[std_col.SEX_COL] == std_col.TOTAL_VALUE]
             by_decade_plus_5_age_uhc = by_decade_plus_5_age_uhc[cols[1:]]
             by_voter_age_uhc = by_sex_voter_age_uhc.loc[
-                by_sex_voter_age_uhc[SEX_COL] == TOTAL_VALUE]
+                by_sex_voter_age_uhc[std_col.SEX_COL] == std_col.TOTAL_VALUE]
             by_voter_age_uhc = by_voter_age_uhc[cols[1:]]
 
             by_age = pd.concat([by_age,
@@ -519,28 +514,28 @@ class ACSPopulationIngester():
                                ).drop_duplicates().reset_index(drop=True)
 
         by_age = generate_pct_share_col(
-            by_age, POPULATION_COL, POPULATION_PCT_COL, AGE_COL, TOTAL_VALUE)
+            by_age, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL, std_col.AGE_COL, std_col.TOTAL_VALUE)
 
         by_age = by_age.sort_values(by=cols[1:-1]).reset_index(drop=True)
         return by_age
 
     def get_by_sex(self, by_sex_age_race_frame):
         by_sex = by_sex_age_race_frame.loc[
-            (by_sex_age_race_frame[RACE_CATEGORY_ID_COL] == Race.TOTAL.value) &
-            (by_sex_age_race_frame[AGE_COL] == TOTAL_VALUE)]
+            (by_sex_age_race_frame[std_col.RACE_CATEGORY_ID_COL] == Race.TOTAL.value) &
+            (by_sex_age_race_frame[std_col.AGE_COL] == std_col.TOTAL_VALUE)]
 
         cols = [
-            STATE_FIPS_COL,
+            std_col.STATE_FIPS_COL,
             self.get_fips_col(),
             self.get_geo_name_col(),
-            SEX_COL,
-            POPULATION_COL,
+            std_col.SEX_COL,
+            std_col.POPULATION_COL,
         ]
 
         by_sex = by_sex[cols] if self.county_level else by_sex[cols[1:]]
 
         by_sex = generate_pct_share_col(
-            by_sex, POPULATION_COL, POPULATION_PCT_COL, SEX_COL, TOTAL_VALUE)
+            by_sex, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL, std_col.SEX_COL, std_col.TOTAL_VALUE)
 
         by_sex = by_sex.sort_values(by=cols[1:-1]).reset_index(drop=True)
         return by_sex
@@ -574,3 +569,7 @@ class ACSPopulation(DataSource):
             ACSPopulationIngester(False, BASE_ACS_URL),
             ACSPopulationIngester(True, BASE_ACS_URL)
         ]
+
+
+# def generate_national_dataset(state_df, states_to_include, demographic_breakdown_category):
+#     df = state_df.loc[state_df[std_col.STATE_FIPS_COL].isin(states_to_include)]
