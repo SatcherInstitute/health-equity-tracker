@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { VariableDisparityReport } from "./VariableDisparityReport";
+import { OneVariableReport } from "./OneVariableReport";
 import TwoVariableReport from "./TwoVariableReport";
 import {
   MadLib,
@@ -97,7 +97,7 @@ function ReportProvider(props: ReportProviderProps) {
       case "disparity":
         const dropdownOption = getPhraseValue(props.madLib, 1);
         return (
-          <VariableDisparityReport
+          <OneVariableReport
             jumpToDefinitions={jumpToDefinitions}
             jumpToData={jumpToData}
             key={dropdownOption}
