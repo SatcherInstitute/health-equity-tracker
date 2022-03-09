@@ -141,6 +141,9 @@ def get_expected_hosps(race_and_age_df, population_df):
                 (population_df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
             ][std_col.POPULATION_COL].values[0])
 
+        if not this_pop_size:
+            raise ValueError('Population size for %s demographic is 0 or nil' % row[std_col.RACE_CATEGORY_ID_COL])
+
         true_hosp_rate = float(row[std_col.COVID_HOSP_Y]) / this_pop_size
 
         ref_pop_size = float(population_df.loc[
@@ -148,9 +151,6 @@ def get_expected_hosps(race_and_age_df, population_df):
                 (population_df[std_col.AGE_COL] == row[std_col.AGE_COL]) &
                 (population_df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
             ][std_col.POPULATION_COL].values[0])
-
-        if not this_pop_size:
-            raise ValueError('Population size for %s demographic is 0 or nil' % row[std_col.RACE_CATEGORY_ID_COL])
 
         if not ref_pop_size:
             raise ValueError('Population size for %s demographic is 0 or nil' % REFERENCE_POPULATION)
@@ -183,6 +183,9 @@ def get_expected_deaths(race_and_age_df, population_df):
                 (population_df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
             ][std_col.POPULATION_COL].values[0])
 
+        if not this_pop_size:
+            raise ValueError('Population size for %s demographic is 0 or nil' % row[std_col.RACE_CATEGORY_ID_COL])
+
         true_death_rate = float(row[std_col.COVID_DEATH_Y]) / this_pop_size
 
         ref_pop_size = float(population_df.loc[
@@ -190,9 +193,6 @@ def get_expected_deaths(race_and_age_df, population_df):
                 (population_df[std_col.AGE_COL] == row[std_col.AGE_COL]) &
                 (population_df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
             ][std_col.POPULATION_COL].values[0])
-
-        if not this_pop_size:
-            raise ValueError('Population size for %s demographic is 0 or nil' % row[std_col.RACE_CATEGORY_ID_COL])
 
         if not ref_pop_size:
             raise ValueError('Population size for %s demographic is 0 or nil' % REFERENCE_POPULATION)
