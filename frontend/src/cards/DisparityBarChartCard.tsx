@@ -147,7 +147,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                     metricConfig.knownBreakdownComparisonMetric || metricConfig
                   }
                   breakdownVar={props.breakdownVar}
-                  metricDisplayName={metricConfig.shortVegaLabel}
+                  metricDisplayName={metricConfig.shortLabel}
                   filename={getTitleText()}
                   showAltPopCompare={shouldShowAltPopCompare(props)}
                 />

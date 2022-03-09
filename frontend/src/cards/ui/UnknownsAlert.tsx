@@ -73,11 +73,11 @@ function UnknownsAlert(props: UnknownsAlertProps) {
   const diffRaceEthnicityText = raceEthnicityDiff
     ? `This state reports race and ethnicity separately.
     ${unknowns[0][props.metricConfig.metricId]}${
-        props.metricConfig.shortVegaLabel
+        props.metricConfig.shortLabel
       } reported an
     ${unknowns[0][props.breakdownVar].toLowerCase()} and
     ${unknowns[1][props.metricConfig.metricId]}${
-        props.metricConfig.knownBreakdownComparisonMetric!.shortVegaLabel
+        props.metricConfig.knownBreakdownComparisonMetric!.shortLabel
       } reported an
     ${unknowns[1][props.breakdownVar].toLowerCase()}.`
     : "";
@@ -106,7 +106,7 @@ function UnknownsAlert(props: UnknownsAlertProps) {
       <CardContent className={styles.SmallMarginContent}>
         <Alert severity="warning" role="note">
           {percentageUnknown}
-          {props.metricConfig.knownBreakdownComparisonMetric!.shortVegaLabel}
+          {props.metricConfig.knownBreakdownComparisonMetric!.shortLabel}
           {" in "}
           {props.fips.getDisplayName()}
           {" reported "}
