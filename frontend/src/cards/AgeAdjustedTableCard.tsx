@@ -109,19 +109,18 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                 for fairer comparison between populations, where age is a large
                 risk factor. By computing rates that are normalized for age, we
                 can paint a more accurate picture of undue burden of disease and
-                death between populations. More details can be found on our
-                {/* The ratio in the table below indicates the increased likelihood of death from Covid-19 for the listed racial group. More details can be found on our Methodology Page. */}{" "}
+                death between populations. More details can be found on our{" "}
                 <Link to={METHODOLOGY_TAB_LINK}>methodology page</Link>.
               </Alert>
             </CardContent>
             <Divider />
-            {/* If TABLE can't display, show the missing data alert */}
-            {(isWrongBreakdownVar ||
+            {/* If TABLE can't display for any of these various reasons, show the missing data alert */}
+            {(noRatios ||
+              isWrongBreakdownVar ||
               queryResponse.dataIsMissing() ||
               queryResponse.shouldShowMissingDataMessage(
                 metricIds as MetricId[]
-              ) ||
-              noRatios) && (
+              )) && (
               <CardContent>
                 <MissingDataAlert
                   dataName={metrics[0].fullCardTitleName}
