@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import {
-  VariableDisparityReport,
-  VariableDisparityReportProps,
-} from "../VariableDisparityReport";
+  OneVariableReport,
+  OneVariableReportProps,
+} from "../OneVariableReport";
 import { StoryWrapper } from "../../storybook/StoryWrapper";
 import { Fips, USA_FIPS } from "../../data/utils/Fips";
 
 export default {
-  title: "Report/VariableDisparityReport",
+  title: "Report/OneVariableReport",
   decorators: [StoryWrapper],
-  component: VariableDisparityReport,
+  component: OneVariableReport,
 } as Meta;
 
-const VariableDisparityReportStateful = (args: any) => {
+const OneVariableReportStateful = (args: any) => {
   const [fips, setFips] = useState<Fips>(new Fips(USA_FIPS));
   return (
-    <VariableDisparityReport
+    <OneVariableReport
       {...args}
       fips={fips}
       updateFipsCallback={(fips: Fips) => {
@@ -26,8 +26,8 @@ const VariableDisparityReportStateful = (args: any) => {
   );
 };
 
-const Template: Story<VariableDisparityReportProps> = (args) => (
-  <VariableDisparityReportStateful {...args} />
+const Template: Story<OneVariableReportProps> = (args) => (
+  <OneVariableReportStateful {...args} />
 );
 
 export const UnitedStatesCovidCases = Template.bind({});

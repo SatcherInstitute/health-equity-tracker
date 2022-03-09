@@ -166,7 +166,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const tooltipLabel =
       props.isUnknownsMap && props.metric.unknownsVegaLabel
         ? props.metric.unknownsVegaLabel
-        : props.metric.shortVegaLabel;
+        : props.metric.shortLabel;
     const tooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum} }`;
     const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": "${NO_DATA_MESSAGE}" }`;
 
