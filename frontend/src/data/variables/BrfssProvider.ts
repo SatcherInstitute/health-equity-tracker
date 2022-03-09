@@ -190,17 +190,6 @@ class BrfssProvider extends VariableProvider {
           row.voter_participation_per_100k,
           row.population
         ),
-      // set certain conditions age adj ratios to null to display "Missing Data"
-      // those not set here will be undefined and will instead show "Age Adjustment Not Applicable" Alert
-      copd_ratio_age_adjusted: (row) => (row["copd_ratio_age_adjusted"] = null),
-      diabetes_ratio_age_adjusted: (row) =>
-        (row["diabetes_ratio_age_adjusted"] = null),
-      chronic_kidney_disease_ratio_age_adjusted: (row) =>
-        (row["chronic_kidney_disease_ratio_age_adjusted"] = null),
-      cardiovascular_diseases_ratio_age_adjusted: (row) =>
-        (row["cardiovascular_diseases_ratio_age_adjusted"] = null),
-      asthma_ratio_age_adjusted: (row) =>
-        (row["asthma_ratio_age_adjusted"] = null),
     });
 
     df = df.renameSeries({

@@ -448,8 +448,8 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "vaccinated_ratio_age_adjusted",
-          fullCardTitleName: "Age-Adjusted Ratio of Vaccinations",
-          shortVegaLabel: "ratio",
+          fullCardTitleName: "",
+          shortVegaLabel: "",
           type: "ratio",
         },
         pct_share: {
@@ -753,8 +753,8 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "diabetes_ratio_age_adjusted",
-          fullCardTitleName: "Age-Adjusted Ratio of Diabetes Cases",
-          shortVegaLabel: "more likely to have diabetes",
+          fullCardTitleName: "",
+          shortVegaLabel: "",
           type: "ratio",
         },
       },
@@ -968,8 +968,8 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "asthma_ratio_age_adjusted",
-          fullCardTitleName: "Age-Adjusted Ratio of Asthma Cases",
-          shortVegaLabel: "ratio for cases",
+          fullCardTitleName: "",
+          shortVegaLabel: "",
           type: "ratio",
         },
       },
@@ -1003,9 +1003,8 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: "cardiovascular_diseases_ratio_age_adjusted",
-          fullCardTitleName:
-            "Age-Adjusted Ratio of Cases of Cardiovascular Diseases",
-          shortVegaLabel: "ratio for cases",
+          fullCardTitleName: "",
+          shortVegaLabel: "",
           type: "ratio",
         },
       },
