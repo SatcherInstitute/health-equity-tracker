@@ -148,8 +148,8 @@ def load_values_as_dataframe(gcs_bucket, filename):
     return load_values_blob_as_dataframe(blob)
 
 
-def values_json_to_dataframe(json_string):
-    frame = pandas.read_json(json_string, orient='values')
+def values_json_to_dataframe(json_string, dtype=None):
+    frame = pandas.read_json(json_string, orient='values', dtype=dtype)
     frame.rename(columns=frame.iloc[0], inplace=True)
     frame.drop([0], inplace=True)
     return frame
@@ -221,7 +221,7 @@ def load_json_as_dataframe(gcs_bucket, filename, dtype=None):
     return frame
 
 
-def load_csv_as_dataframe_from_web(url, dtype=None, params=None):
+def load_csv_as_dataframe_from_web(url, dtype=None, params=None, encoding=None):
     """Loads csv data from the provided url to a DataFrame.
        Expects the data to be in csv format, with the first row as the column
        names.
@@ -229,7 +229,7 @@ def load_csv_as_dataframe_from_web(url, dtype=None, params=None):
        url: url to download the csv file from"""
 
     url = requests.Request('GET', url, params=params).prepare().url
-    return pandas.read_csv(url, dtype=dtype)
+    return pandas.read_csv(url, dtype=dtype, encoding=encoding)
 
 
 def load_json_as_df_from_web(url, dtype=None, params=None):
@@ -249,6 +249,18 @@ def load_json_as_df_from_web_based_on_key(url, key, dtype=None):
     r = requests.get(url)
     jsn = json.loads(r.text)
     return pandas.DataFrame(jsn[key], dtype=dtype)
+
+
+def load_dataframe_from_bigquery(dataset, table_name, project=None, dtype=None):
+    """Loads data from a big query table into a dataframe.
+
+       dataset: The BigQuery dataset to write to.
+       table_name: The BigQuery table to write to."""
+    client = bigquery.Client(project)
+    table_id = client.dataset(dataset).table(table_name)
+    table = client.get_table(table_id)
+
+    return client.list_rows(table).to_dataframe(dtypes=dtype)
 
 
 def load_values_as_json(gcs_bucket, filename):

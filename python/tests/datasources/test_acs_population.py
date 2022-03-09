@@ -30,24 +30,30 @@ def get_acs_metadata_as_json():
 
 def get_hispanic_or_latino_values_by_race_state_as_df():
     return gcs_to_bq_util.values_json_to_dataframe(
-        os.path.join(TEST_DIR, 'HISPANIC_OR_LATINO_ORIGIN_BY_RACE_state.json')).reset_index(drop=True)
+        os.path.join(
+            TEST_DIR,
+            'HISPANIC_OR_LATINO_ORIGIN_BY_RACE_state.json'
+        ), dtype={'state_fips': str}).reset_index(drop=True)
 
 
 def get_hispanic_or_latino_values_by_race_county_as_df():
     return gcs_to_bq_util.values_json_to_dataframe(
-        os.path.join(TEST_DIR, 'HISPANIC_OR_LATINO_ORIGIN_BY_RACE_county.json')).reset_index(drop=True)
+        os.path.join(
+            TEST_DIR,
+            'HISPANIC_OR_LATINO_ORIGIN_BY_RACE_county.json'
+            ), dtype={'state_fips': str}).reset_index(drop=True)
 
 
 def get_sex_by_age_value_as_df(concept):
     filename = '%s_state.json' % concept.replace(' ', '_')
     return gcs_to_bq_util.values_json_to_dataframe(
-        os.path.join(TEST_DIR, filename)).reset_index(drop=True)
+        os.path.join(TEST_DIR, filename), dtype={'state_fips': str}).reset_index(drop=True)
 
 
 def get_sex_by_age_county_value_as_df(concept):
     filename = '%s_county.json' % concept.replace(' ', '_')
     return gcs_to_bq_util.values_json_to_dataframe(
-        os.path.join(TEST_DIR, filename)).reset_index(drop=True)
+        os.path.join(TEST_DIR, filename), dtype={'county_fips': str}).reset_index(drop=True)
 
 
 @mock.patch('ingestion.census.fetch_acs_metadata',
@@ -63,6 +69,7 @@ def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_js
     assert mock_bq.call_count == 5
 
     expected_df = pd.read_csv(GOLDEN_DATA_RACE, dtype={
+        'county_fips': str,
         'state_fips': str,
     })
 

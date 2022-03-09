@@ -2,7 +2,6 @@ from enum import Enum, unique
 from collections import namedtuple
 import pandas
 
-
 # The name of the column for a unique string id for the race category. Should be
 # semi-human readable. See Race enum below for values.
 RACE_CATEGORY_ID_COL = "race_category_id"
@@ -45,6 +44,9 @@ COVID_DEATH_Y = "death_y"
 COVID_DEATH_N = "death_n"
 COVID_DEATH_UNKNOWN = "death_unknown"
 
+COVID_DEATH_RATIO_AGE_ADJUSTED = "death_ratio_age_adjusted"
+COVID_HOSP_RATIO_AGE_ADJUSTED = "hosp_ratio_age_adjusted"
+
 # Standard Health Insurance Population Cols
 TOTAL_HEALTH_INSURANCE_COL = "total_health_insurance"
 WITH_HEALTH_INSURANCE_COL = "with_health_insurance"
@@ -78,12 +80,15 @@ VACCINATED_SHARE_OF_KNOWN = "vaccinated_share_of_known"
 VACCINATED_PER_100K = "vaccinated_per_100k"
 VACCINATED_PCT_SHARE = "vaccinated_pct_share"
 
+
 RaceTuple = namedtuple("RaceTuple", [
     "race_category_id",
     "race",
     "race_includes_hispanic",
     "race_and_ethnicity"
 ])
+
+RACE_COLUMNS = RaceTuple._fields
 
 
 @unique

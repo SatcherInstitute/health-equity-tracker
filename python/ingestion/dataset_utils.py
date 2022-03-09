@@ -57,6 +57,18 @@ def percent_avoid_rounding_to_zero(numerator, denominator, default_decimals=1, m
     return pct
 
 
+def ratio_round_to_None(numerator, denominator):
+    """Calculates a ratio to one decimal point and rounds any number less than .1 to None
+       so it is shown as the warning triangle sign on the frontend."""
+
+    ratio = float(numerator) / float(denominator)
+
+    if ratio < .1:
+        return None
+
+    return round(ratio, 1)
+
+
 def add_sum_of_rows(df, breakdown_col, value_col, new_row_breakdown_val,
                     breakdown_vals_to_sum=None):
     """Returns a new DataFrame by appending rows by summing the values of other

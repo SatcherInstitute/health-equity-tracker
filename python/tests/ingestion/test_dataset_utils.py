@@ -70,6 +70,16 @@ _expected_race_data_with_totals = [
 ]
 
 
+def testRatioRoundToNone():
+    assert dataset_utils.ratio_round_to_None(1, 3) == 0.3
+    assert dataset_utils.ratio_round_to_None(1, 11) is None
+
+
+def testPercentAvoidRoundingToZero():
+    assert dataset_utils.percent_avoid_rounding_to_zero(1, 3) == 33.3
+    assert dataset_utils.percent_avoid_rounding_to_zero(1, 5000) == .02
+
+
 def testAddSumOfRows():
     df = gcs_to_bq_util.values_json_to_dataframe(
         json.dumps(_fake_race_data_without_totals)).reset_index(drop=True)
