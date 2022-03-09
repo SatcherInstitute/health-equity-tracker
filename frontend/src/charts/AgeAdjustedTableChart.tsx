@@ -44,7 +44,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
 
   let columns = metrics.map((metricConfig) => {
     return {
-      Header: metricConfig.fullCardTitleName,
+      Header: metricConfig.shortVegaLabel,
       Cell: (a: any) =>
         formatFieldValue(
           /* metricType: MetricType, */ metricConfig.type,

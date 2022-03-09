@@ -67,11 +67,9 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
   const ratioId = metricIds[0];
 
-  const cardTitle = (
-    <>{`Age-Adjusted Ratio of ${
-      props.variableConfig.variableFullDisplayName
-    } Compared to White (Non-Hispanic) in ${props.fips.getFullDisplayName()}`}</>
-  );
+  const cardTitle = `${
+    metrics[0].fullCardTitleName
+  } in ${props.fips.getFullDisplayName()}`;
 
   // collect data types from the currently selected condition that offer age-adjusted ratios
   const ageAdjustedDataTypes: VariableConfig[] = METRIC_CONFIG[
@@ -85,7 +83,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
       isAgeAdjustedTable={true}
       minHeight={PRELOAD_HEIGHT}
       queries={[query]}
-      title={cardTitle}
+      title={<>{cardTitle}</>}
     >
       {([queryResponse]) => {
         let knownData = queryResponse.data.filter((row: Row) => {
@@ -126,7 +124,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               noRatios) && (
               <CardContent>
                 <MissingDataAlert
-                  dataName={`Age-Adjusted Ratio of ${props.variableConfig.variableFullDisplayName}`}
+                  dataName={metrics[0].fullCardTitleName}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
@@ -137,74 +135,10 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                   }
                   fips={props.fips}
                 />
-                {/* {ageAdjustedDataTypes.length > 0 && (
-                    <AltDataTypesMessage
-                      setVariableConfigWithParam={
-                        props.setVariableConfigWithParam
-                      }
-                      ageAdjustedDataTypes={ageAdjustedDataTypes}
-                      dropdownVarId={props.dropdownVarId}
-                    />
-                  )} */}
               </CardContent>
             )}
-            {/*  Values are null OR demographic is SEX; implying values could be age-adjusted but aren't  */}
-            {/* {(isWrongBreakdownVar ||
-              queryResponse.shouldShowMissingDataMessage(
-                metricIds as MetricId[]
-              )) && (
-                <CardContent>
-                  <MissingDataAlert
-                    dataName={
-                      props.variableConfig.metrics.age_adjusted_ratio
-                        .fullCardTitleName + " "
-                    }
-                    breakdownString={
-                      BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-                    }
-                    setVariableConfigWithParam={props.setVariableConfigWithParam}
-                    dropdownVarId={props.dropdownVarId}
-                    fips={props.fips}
-                  />
-                  {ageAdjustedDataTypes.length > 0 && (
-                    <AltDataTypesMessage
-                      setVariableConfigWithParam={
-                        props.setVariableConfigWithParam
-                      }
-                      ageAdjustedDataTypes={ageAdjustedDataTypes}
-                      dropdownVarId={props.dropdownVarId}
-                    />
-                  )}
-                </CardContent>
-              )} */}
-            {/* Values are intentionally undefined; implying they can't/won't be age-adjusted */}
-            {/* {!isWrongBreakdownVar &&
-              !queryResponse.shouldShowMissingDataMessage(
-                metricIds as MetricId[]
-              ) &&
-              noRatios && (
-                <CardContent>
-                  <Alert severity="warning" role="note">
-                    Adjusting for age is not needed when age is not a
-                    risk-factor or correlated to outcomes; as a result, we do
-                    not age adjust for{" "}
-                    <b>{props.variableConfig.variableFullDisplayName}</b>.
-                    {/* Offer alternate data types */}{" "}
-            {/* {ageAdjustedDataTypes.length > 0 && (
-              <AltDataTypesMessage
-                setVariableConfigWithParam={
-                  props.setVariableConfigWithParam
-                }
-                ageAdjustedDataTypes={ageAdjustedDataTypes}
-                dropdownVarId={props.dropdownVarId}
-              />
-            )}
-          </Alert>
-                </CardContent>
-  )
-} * /}
 
-{/* values are present or partially null, implying we have at least some age-adjustments */}
+            {/* values are present or partially null, implying we have at least some age-adjustments */}
             {!queryResponse.dataIsMissing() &&
               !noRatios &&
               props.breakdownVar !== "sex" && (
