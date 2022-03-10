@@ -139,9 +139,10 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                   }
                   setVariableConfigWithParam={props.setVariableConfigWithParam}
                   dropdownVarId={props.dropdownVarId}
-                  ageAdjustedDataTypes={
-                    !isWrongBreakdownVar ? ageAdjustedDataTypes : undefined
-                  }
+                  ageAdjustedDataTypes={ageAdjustedDataTypes}
+                  // ageAdjustedDataTypes={
+                  //   !isWrongBreakdownVar ? ageAdjustedDataTypes : undefined
+                  // }
                   fips={props.fips}
                 />
               </CardContent>

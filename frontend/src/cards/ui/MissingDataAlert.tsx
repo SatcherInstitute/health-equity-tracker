@@ -74,8 +74,8 @@ function AltDataTypesMessage(props: AltDataTypesMessageProps) {
   if (!props.ageAdjustedDataTypes) return <></>;
   return (
     <>
-      Age-adjusted ratios are available (at the national and state levels) for
-      these alternate data types:{" "}
+      Age-adjusted ratios by race and ethnicity at the national and state levels
+      are available for these alternate data types:{" "}
       {props.ageAdjustedDataTypes.map((dataType, i) => {
         return (
           <span key={dataType.variableDisplayName}>
