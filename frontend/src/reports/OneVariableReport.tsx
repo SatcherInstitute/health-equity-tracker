@@ -29,7 +29,7 @@ import { SINGLE_COLUMN_WIDTH } from "./ReportProvider";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
 
-export interface VariableDisparityReportProps {
+export interface OneVariableReportProps {
   key: string;
   dropdownVarId: DropdownVarId;
   fips: Fips;
@@ -39,7 +39,7 @@ export interface VariableDisparityReportProps {
   jumpToData: Function;
 }
 
-export function VariableDisparityReport(props: VariableDisparityReportProps) {
+export function OneVariableReport(props: OneVariableReportProps) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, RACE)
   );

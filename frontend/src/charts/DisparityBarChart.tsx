@@ -454,7 +454,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     props.breakdownVar
   );
 
-  // Omit the % symbol because it's included in shortVegaLabel.
+  // Omit the % symbol because it's included in shortLabel.
   const [dataWithLightMetric, lightMetricDisplayColumnName] =
     addMetricDisplayColumn(
       props.lightMetric,
@@ -471,7 +471,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   const altLightMetric: MetricConfig = {
     fullCardTitleName: "Population Share (ACS)",
     metricId: "acs_vaccine_population_pct",
-    shortVegaLabel: "% of population (ACS)",
+    shortLabel: "% of population (ACS)",
     type: "pct_share",
   };
 
@@ -508,9 +508,9 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
             props.breakdownVar
           ],
           /* lightMeasure */ props.lightMetric.metricId,
-          /* lightMeasureDisplayName */ props.lightMetric.shortVegaLabel,
+          /* lightMeasureDisplayName */ props.lightMetric.shortLabel,
           /* darkMeasure */ props.darkMetric.metricId,
-          /* darkMeasureDisplayName, */ props.darkMetric.shortVegaLabel,
+          /* darkMeasureDisplayName, */ props.darkMetric.shortLabel,
           /* metricDisplayName */ props.metricDisplayName,
           /* lightMetricDisplayColumnName, */ lightMetricDisplayColumnName,
           /* darkMetricDisplayColumnName, */ darkMetricDisplayColumnName,
@@ -521,7 +521,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
             ? altLightMetric.metricId
             : undefined,
           /* altLightMeasureDisplayName?, */ hasAltPop
-            ? altLightMetric.shortVegaLabel
+            ? altLightMetric.shortLabel
             : "",
           /* altLightMetricDisplayColumnName?: string, */ hasAltPop
             ? altLightMetricDisplayColumnName
