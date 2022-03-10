@@ -1,6 +1,7 @@
 import pandas as pd
 
 import ingestion.standardized_columns as std_col
+import ingestion.constants as constants
 
 from ingestion.standardized_columns import Race
 from ingestion import url_file_to_gcs, gcs_to_bq_util, census
@@ -571,5 +572,27 @@ class ACSPopulation(DataSource):
         ]
 
 
-# def generate_national_dataset(state_df, states_to_include, demographic_breakdown_category):
-#     df = state_df.loc[state_df[std_col.STATE_FIPS_COL].isin(states_to_include)]
+def generate_national_dataset(state_df, states_to_include, demographic_breakdown_category):
+    df = state_df.loc[state_df[std_col.STATE_FIPS_COL].isin(states_to_include)]
+
+    groupby_map = {
+        'race': list(std_col.RACE_COLUMNS),
+        'age': [std_col.AGE_COL],
+        'sex': [std_col.SEX_COL],
+    }
+
+    groupby_cols = groupby_map[demographic_breakdown_category]
+    df = df.groupby(groupby_cols).sum().reset_index()
+
+    df[std_col.STATE_FIPS_COL] = constants.US_FIPS
+    df[std_col.STATE_NAME_COL] = constants.US_NAME
+
+    needed_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.POPULATION_COL]
+    needed_cols.extend(groupby_cols)
+
+    df = generate_pct_share_col(
+        df, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL,
+        std_col.RACE_CATEGORY_ID_COL, Race.TOTAL.value)
+
+    df[std_col.STATE_FIPS_COL] = df[std_col.STATE_FIPS_COL].astype(str)
+    return df[needed_cols].sort_values([std_col.AGE_COL, std_col.RACE_CATEGORY_ID_COL]).reset_index(drop=True)
