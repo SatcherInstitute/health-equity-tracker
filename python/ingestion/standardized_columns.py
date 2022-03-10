@@ -149,13 +149,20 @@ class Race(Enum):
     OTHER_NONSTANDARD_NH = ("OTHER_NONSTANDARD_NH",
                             "Unrepresented race", False)
 
+    # CAWP Unique Race/Eth Categories
+    ASIAN_PAC_NH = ("ASIAN_PAC_NH", "Asian and Pacific Islander", False)
+    MENA_NH = ("MENA_NH", "Middle Eastern and North African", False)
+    AIANNH_NH = (
+        "AIANNH_NH", "Native American, Alaska Native, and Native Hawaiian", False)
+
     # Categories that are combinations of other categories
-    # Currently only used in state level vaccination data
-    API = ("API", "Asian, Native Hawaiian, and Pacific Islander", True)
-    API_NH = ("API_NH", "Asian, Native Hawaiian, and Pacific Islander", False)
+
     # Combines AIAN and NHPI
-    INDIGENOUS = ("INDIGENOUS", "Indigenous", True)
+    API = ("API", "Asian, Native Hawaiian, and Pacific Islander", True)
     # Combines AIAN_NH and NHPI_NH
+    API_NH = ("API_NH", "Asian, Native Hawaiian, and Pacific Islander", False)
+
+    INDIGENOUS = ("INDIGENOUS", "Indigenous", True)
     INDIGENOUS_NH = ("INDIGENOUS_NH", "Indigenous", False)
     MULTI_OR_OTHER_STANDARD = (
         "MULTI_OR_OTHER_STANDARD",
