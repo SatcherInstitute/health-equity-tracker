@@ -16,7 +16,6 @@ interface MissingDataAlertProps {
   noDemographicInfo?: boolean;
   isMapCard?: boolean;
   fips: Fips;
-  setVariableConfigWithParam?: Function;
   dropdownVarId?: DropdownVarId;
   ageAdjustedDataTypes?: VariableConfig[];
 }
@@ -56,7 +55,6 @@ function MissingDataAlert(props: MissingDataAlertProps) {
       {". "}
       {props.ageAdjustedDataTypes && props.ageAdjustedDataTypes.length > 0 && (
         <AltDataTypesMessage
-          setVariableConfigWithParam={props.setVariableConfigWithParam}
           ageAdjustedDataTypes={props.ageAdjustedDataTypes}
         />
       )}
