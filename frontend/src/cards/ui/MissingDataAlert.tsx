@@ -1,12 +1,14 @@
 import React from "react";
 import { Alert } from "@material-ui/lab";
 import {
+  AGE_ADJ,
   LinkWithStickyParams,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "../../utils/urlutils";
 import { BreakdownVarDisplayName } from "../../data/query/Breakdowns";
 import { Fips } from "../../data/utils/Fips";
 import { DropdownVarId, VariableConfig } from "../../data/config/MetricConfig";
+import { dataTypeLinkMap } from "../AgeAdjustedTableCard";
 
 interface MissingDataAlertProps {
   dataName: string;
@@ -72,23 +74,14 @@ function AltDataTypesMessage(props: AltDataTypesMessageProps) {
   if (!props.ageAdjustedDataTypes) return <></>;
   return (
     <>
-      Age-adjusted ratios are currently available for these alternate data
-      types:{" "}
+      Age-adjusted ratios are available (at the national and state levels) for
+      these alternate data types:{" "}
       {props.ageAdjustedDataTypes.map((dataType, i) => {
         return (
           <span key={dataType.variableDisplayName}>
-            <a
-              href="#dataType"
-              onClick={(e) => {
-                e.preventDefault();
-                props.setVariableConfigWithParam(dataType);
-              }}
-              role="button"
-            >
-              {" "}
+            <a href={dataTypeLinkMap[dataType.variableId] + "#" + AGE_ADJ}>
               {dataType.variableFullDisplayName}
             </a>
-
             {i < props.ageAdjustedDataTypes.length - 1 && ", "}
             {i === props.ageAdjustedDataTypes.length - 1 && "."}
           </span>

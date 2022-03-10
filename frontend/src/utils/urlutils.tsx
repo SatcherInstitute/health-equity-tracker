@@ -27,6 +27,10 @@ export const OURTEAM_TAB_LINK = "/ourteam";
 export const NEWS_TAB_LINK = "/news";
 
 // TRACKER SETTINGS
+export const COVID_DEATHS_US_SETTING =
+  "?mls=1.covid-3.00&dt1=deaths&demo=race_and_ethnicity";
+export const COVID_HOSP_US_SETTING =
+  "?mls=1.covid-3.00&dt1=hospitalizations&demo=race_and_ethnicity";
 export const COVID_HOSP_NY_COUNTY_SETTING =
   "?dt1=hospitalizations&mls=1.covid-3.36061";
 export const COVID_VAX_US_SETTING = "?mls=1.vaccinations-3.00";
@@ -42,6 +46,7 @@ export const WHAT_DATA_ARE_MISSING_ID = "missingDataInfo";
 export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
   EXPLORE_DATA_PAGE_LINK + "#" + WHAT_DATA_ARE_MISSING_ID;
 export const WIHE_JOIN_THE_EFFORT_SECTION_ID = "join";
+export const AGE_ADJ = "AgeAdjusted";
 
 // Value is a comma-separated list of dataset ids. Dataset ids cannot have
 // commas in them.

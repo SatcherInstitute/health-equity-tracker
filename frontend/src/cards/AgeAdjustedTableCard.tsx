@@ -33,8 +33,18 @@ import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import styles from "./Card.module.scss";
 import MissingDataAlert from "./ui/MissingDataAlert";
-import { METHODOLOGY_TAB_LINK } from "../utils/urlutils";
+import {
+  COVID_DEATHS_US_SETTING,
+  COVID_HOSP_US_SETTING,
+  METHODOLOGY_TAB_LINK,
+} from "../utils/urlutils";
 import { Link } from "react-router-dom";
+
+// when alternate data types are available, provide a link to the national level, by race report for that data type
+export const dataTypeLinkMap: Record<string, string> = {
+  deaths: COVID_DEATHS_US_SETTING,
+  hospitalizations: COVID_HOSP_US_SETTING,
+};
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 600;
