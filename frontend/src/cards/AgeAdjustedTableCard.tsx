@@ -85,6 +85,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const ageAdjustedDataTypes: VariableConfig[] = METRIC_CONFIG[
     props.dropdownVarId!
   ].filter((dataType) => {
+    // TODO: once every data type has a unique variableId across all topics, we can simply check if that id is in the dataTypeLinkMap
     return dataType?.metrics["age_adjusted_ratio"]?.ageAdjusted;
   });
 
