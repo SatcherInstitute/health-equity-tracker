@@ -48,7 +48,6 @@ p.CitationAPA:first-of-type {
 }
 
 .ExampleTable,
-.ExampleTable tr,
 .ExampleTable td {
   border: 1px solid $bg-color;
   border-collapse: collapse;
@@ -65,8 +64,14 @@ p.CitationAPA:first-of-type {
 }
 
 .Highlighted {
-  background-color: $join-effort-bg1;
+  background-color: $standard-warning;
   font-weight: bold;
+  outline: 3px solid $alert-color;
+}
+
+.Calculation {
+  font-style: italic;
+  font-size: $smallest;
 }
 
 pre,

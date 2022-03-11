@@ -212,7 +212,7 @@ function AgeAdjustmentTab() {
               <p>
                 As noted above, the formula for each row is:{" "}
                 <code>
-                  (Deaths / Population) * Corresponding population for Race A
+                  (Deaths / Population) * Corresponding Population for Race A
                 </code>
               </p>
 
@@ -230,7 +230,12 @@ function AgeAdjustmentTab() {
                   <td>0-29</td>
                   <td>50</td>
                   <td>600,000</td>
-                  <td>50</td>
+                  <td>
+                    <div className={styles.Calculation}>
+                      50 / 600,000 * 600,000
+                    </div>
+                    <b> = 50</b>
+                  </td>
                 </tr>
 
                 <tr>
@@ -238,7 +243,12 @@ function AgeAdjustmentTab() {
                   <td>30-59</td>
                   <td>500</td>
                   <td>800,000</td>
-                  <td>500</td>
+                  <td>
+                    <div className={styles.Calculation}>
+                      500 / 800,000 * 800,000
+                    </div>
+                    <b> = 500</b>
+                  </td>
                 </tr>
 
                 <tr>
@@ -246,7 +256,12 @@ function AgeAdjustmentTab() {
                   <td>60+</td>
                   <td>5,000</td>
                   <td>200,000</td>
-                  <td>5,000</td>
+                  <td>
+                    <div className={styles.Calculation}>
+                      5,000 / 200,000 * 200,000
+                    </div>
+                    <b> = 5,000</b>
+                  </td>
                 </tr>
 
                 <tr>
@@ -254,7 +269,12 @@ function AgeAdjustmentTab() {
                   <td>0-29</td>
                   <td>20</td>
                   <td>200,000</td>
-                  <td>60</td>
+                  <td>
+                    <div className={styles.Calculation}>
+                      20 / 200,000 * 600,000
+                    </div>
+                    <b> = 60</b>
+                  </td>
                 </tr>
 
                 <tr>
@@ -262,7 +282,12 @@ function AgeAdjustmentTab() {
                   <td>30-59</td>
                   <td>200</td>
                   <td>300,000</td>
-                  <td>533.33</td>
+                  <td>
+                    <div className={styles.Calculation}>
+                      200 / 300,000 * 800,000
+                    </div>
+                    <b> = 533.33</b>
+                  </td>
                 </tr>
 
                 <tr>
@@ -270,7 +295,12 @@ function AgeAdjustmentTab() {
                   <td>60+</td>
                   <td>800</td>
                   <td>60,000</td>
-                  <td>2666.67</td>
+                  <td>
+                    <div className={styles.Calculation}>
+                      800 / 60,000 * 200,000
+                    </div>
+                    <b> = 2666.67</b>
+                  </td>
                 </tr>
               </table>
 
