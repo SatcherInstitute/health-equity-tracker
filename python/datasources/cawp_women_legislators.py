@@ -32,6 +32,9 @@ RACE_GROUPS_TO_STANDARD = {
 # TABLE FOR STATE-LEVEL CONGRESSES
 # table includes States/Territories as rows; rank, w senate, total senate, w house, total house, w house+senate / total house+senate, %overall
 BASE_CAWP_URL = "https://cawp.rutgers.edu/tablefield/export/paragraph/1028/field_table/und/0"
+# table includes full breakdown of women by race, but doesn't include TOTAL legislature numbers
+#  id,year,first_name,middle_name,last_name,party,level,position,state,district,race_ethnicity
+# https://cawpdata.rutgers.edu/women-elected-officials/race-ethnicity/export-roles/csv?current=1&yearend_filter=All&level%5B0%5D=Federal%20Congress&level%5B1%5D=State%20Legislative&level%5B2%5D=Territorial/DC%20Legislative&items_per_page=50&page&_format=csv
 
 
 class CAWPData(DataSource):
@@ -49,35 +52,7 @@ class CAWPData(DataSource):
             'upload_to_gcs should not be called for CAWPData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_CAWP_URL)
-
-        #  breakdown_df = self.generate_breakdown("race_and_ethnicity", df)
-        #   column_types = {c: 'STRING' for c in breakdown_df.columns}
-
-        #    for col in CAWP_DETERMINANTS.values():
-        #         column_types[col] = 'FLOAT'
-
-        #     if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
-        #         column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-
-        #     gcs_to_bq_util.add_dataframe_to_bq(
-        #         breakdown_df, dataset, breakdown, column_types=column_types)
+        print("writing to bq")
 
     def generate_breakdown(self, breakdown, df):
-        output = []
-        states = df['State Name'].drop_duplicates().to_list()
-
-        columns = [std_col.STATE_NAME_COL,
-                   *CAWP_DETERMINANTS.values()]
-        if breakdown == std_col.RACE_OR_HISPANIC_COL:
-            columns.append(std_col.RACE_CATEGORY_ID_COL)
-        else:
-            columns.append(breakdown)
-
-        for state in states:
-
-            output.append(output_row)
-
-        output_df = pd.DataFrame(output, columns=columns)
-
-        return output_df
+        print("generating breakdown")
