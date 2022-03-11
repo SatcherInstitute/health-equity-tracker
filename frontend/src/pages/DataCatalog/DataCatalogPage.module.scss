@@ -47,6 +47,21 @@ p.CitationAPA:first-of-type {
   text-indent: -2rem;
 }
 
+/* AGE ADJUSTMENT */
+
+.AgeAdjustmentSection {
+  padding: 5px 20px 50px 20px;
+  margin: auto;
+  max-width: $max-width;
+}
+
+.AgeAdjustmentHeader {
+  @include tav300();
+  font-size: $smallHeader;
+  text-align: center;
+  color: $alt-black;
+}
+
 .ExampleTable,
 .ExampleTable td {
   border: 1px solid $bg-color;

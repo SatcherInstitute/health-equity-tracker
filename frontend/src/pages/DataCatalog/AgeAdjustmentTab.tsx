@@ -24,15 +24,15 @@ function AgeAdjustmentTab() {
         justifyContent="space-around"
         alignItems="center"
       >
-        <Grid container className={styles.MethodologySection}>
+        <Grid container className={styles.AgeAdjustmentSection}>
           {/* Age-adjusted Info */}
           <Grid
             item
             className={styles.MethodologyQuestionAndAnswer}
             component="article"
           >
-            <h3 className={styles.MethodologyQuestion}>
-              Calculating Age-adjusted Ratios
+            <h3 className={styles.AgeAdjustmentHeader}>
+              Calculating Age-Adjusted Ratios
             </h3>
 
             <div className={styles.MethodologyAnswer}>
@@ -176,10 +176,12 @@ function AgeAdjustmentTab() {
 
               <h4 className={styles.MethodologySubsubheaderText}>Edge cases</h4>
 
-              <p>
-                If a ratio ends up being less than<code>0.1</code>, we mark it
-                on the tracker as <code>Insufficient Data</code>.
-              </p>
+              <ul>
+                <li>
+                  If a ratio ends up being less than <b>0.1</b>, we report it on
+                  the tracker as <b>Insufficient Data</b>.
+                </li>
+              </ul>
 
               <h3 className={styles.MethodologyQuestion}>
                 Age-adjustment Example
