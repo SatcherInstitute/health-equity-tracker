@@ -574,9 +574,10 @@ class ACSPopulation(DataSource):
 
 def generate_national_dataset(state_df, states_to_include, demographic_breakdown_category):
     df = state_df.loc[state_df[std_col.STATE_FIPS_COL].isin(states_to_include)]
+    df = df.drop(columns=std_col.POPULATION_PCT_COL)
 
     groupby_map = {
-        'race': list(std_col.RACE_COLUMNS),
+        'race': [std_col.RACE_CATEGORY_ID_COL],
         'age': [std_col.AGE_COL],
         'sex': [std_col.SEX_COL],
     }
@@ -587,12 +588,18 @@ def generate_national_dataset(state_df, states_to_include, demographic_breakdown
     df[std_col.STATE_FIPS_COL] = constants.US_FIPS
     df[std_col.STATE_NAME_COL] = constants.US_NAME
 
-    needed_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.POPULATION_COL]
-    needed_cols.extend(groupby_cols)
+    needed_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
+    if demographic_breakdown_category == 'race':
+        needed_cols.extend(std_col.RACE_COLUMNS)
+    else:
+        needed_cols.extend(groupby_cols)
 
     df = generate_pct_share_col(
         df, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL,
         std_col.RACE_CATEGORY_ID_COL, Race.TOTAL.value)
 
+    if demographic_breakdown_category == 'race':
+        std_col.add_race_columns_from_category_id(df)
+
     df[std_col.STATE_FIPS_COL] = df[std_col.STATE_FIPS_COL].astype(str)
-    return df[needed_cols].sort_values([std_col.AGE_COL, std_col.RACE_CATEGORY_ID_COL]).reset_index(drop=True)
+    return df[needed_cols].sort_values([std_col.RACE_CATEGORY_ID_COL]).reset_index(drop=True)

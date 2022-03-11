@@ -6,12 +6,14 @@ import pandas as pd
 from unittest import mock
 from pandas._testing import assert_frame_equal
 
-from datasources.acs_population import ACSPopulationIngester, SEX_BY_AGE_CONCEPTS_TO_RACE
+from datasources.acs_population import ACSPopulationIngester, SEX_BY_AGE_CONCEPTS_TO_RACE, generate_national_dataset
 from ingestion import gcs_to_bq_util
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "acs_population")
+
+GOLDEN_DATA_NATIONAL_RACE = os.path.join(TEST_DIR, 'national', 'national_by_race.csv')
 
 GOLDEN_DATA_RACE = os.path.join(TEST_DIR, 'table_by_race_state_std.csv')
 GOLDEN_DATA_SEX_AGE_RACE = os.path.join(
@@ -54,6 +56,15 @@ def get_sex_by_age_county_value_as_df(concept):
     filename = '%s_county.json' % concept.replace(' ', '_')
     return gcs_to_bq_util.values_json_to_dataframe(
         os.path.join(TEST_DIR, filename), dtype={'county_fips': str}).reset_index(drop=True)
+
+
+def testGenerateNationalDatasetRace():
+    state_df = pd.read_csv(os.path.join(TEST_DIR, 'national', 'state_by_race.csv'), dtype={'state_fips': str})
+    expected_df = pd.read_csv(GOLDEN_DATA_NATIONAL_RACE, dtype={'state_fips': str})
+    states_to_include = {'01', '06'}
+
+    national_df = generate_national_dataset(state_df, states_to_include, 'race')
+    assert_frame_equal(national_df, expected_df, check_like=True)
 
 
 @mock.patch('ingestion.census.fetch_acs_metadata',
