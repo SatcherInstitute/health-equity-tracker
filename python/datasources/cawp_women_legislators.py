@@ -45,7 +45,7 @@ class CAWPData(DataSource):
 
     @staticmethod
     def get_table_name():
-        return 'CAWP_data'
+        return 'cawp_data'
 
     def upload_to_gcs(self, _, **attrs):
         raise NotImplementedError(
