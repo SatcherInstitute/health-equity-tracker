@@ -34,9 +34,9 @@ import Divider from "@material-ui/core/Divider";
 import styles from "./Card.module.scss";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import {
+  AGE_ADJUSTMENT_TAB_LINK,
   COVID_DEATHS_US_SETTING,
   COVID_HOSP_US_SETTING,
-  METHODOLOGY_TAB_LINK,
 } from "../utils/urlutils";
 import { Link } from "react-router-dom";
 
@@ -120,8 +120,11 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                 for fairer comparison between populations, where age is a large
                 risk factor. By computing rates that are normalized for age, we
                 can paint a more accurate picture of undue burden of disease and
-                death between populations. More details can be found on our{" "}
-                <Link to={METHODOLOGY_TAB_LINK}>methodology page</Link>.
+                death between populations. More details can be found in our{" "}
+                <Link to={AGE_ADJUSTMENT_TAB_LINK}>
+                  age-adjustment methodology
+                </Link>
+                .
               </Alert>
             </CardContent>
             <Divider />
