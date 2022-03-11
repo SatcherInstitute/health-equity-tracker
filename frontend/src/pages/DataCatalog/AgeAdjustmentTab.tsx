@@ -386,7 +386,7 @@ function AgeAdjustmentTab() {
               </table>
 
               <h4 className={styles.MethodologySubsubheaderText}>
-                Finally, we will calculate the age adjusted death ratio:
+                Finally, we calculate the age-adjusted death ratio:
               </h4>
 
               <table className={styles.ExampleTable}>
