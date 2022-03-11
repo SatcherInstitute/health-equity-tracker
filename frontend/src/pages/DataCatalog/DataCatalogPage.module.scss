@@ -64,6 +64,11 @@ p.CitationAPA:first-of-type {
   background-color: $explore-bg-color;
 }
 
+.Highlighted {
+  background-color: $join-effort-bg1;
+  font-weight: bold;
+}
+
 pre,
 code {
   border: 1px solid $bg-color;

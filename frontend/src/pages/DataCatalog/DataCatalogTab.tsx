@@ -8,10 +8,12 @@ import {
   DATA_SOURCE_PRE_FILTERS,
   useSearchParams,
   METHODOLOGY_TAB_LINK,
+  AGE_ADJUSTMENT_TAB_LINK,
 } from "../../utils/urlutils";
 import styles from "../AboutUs/AboutUsPage.module.scss";
 import { Link, Route, Switch } from "react-router-dom";
 import FeedbackBox from "../ui/FeedbackBox";
+import AgeAdjustmentTab from "./AgeAdjustmentTab";
 
 function DataCatalogTab() {
   const params = useSearchParams();
@@ -34,10 +36,16 @@ function DataCatalogTab() {
             to={DATA_CATALOG_PAGE_LINK}
           />
           <Tab
-            value={`${METHODOLOGY_TAB_LINK}`}
+            value={METHODOLOGY_TAB_LINK}
             label="Methodology"
             component={Link}
-            to={`${METHODOLOGY_TAB_LINK}`}
+            to={METHODOLOGY_TAB_LINK}
+          />
+          <Tab
+            value={AGE_ADJUSTMENT_TAB_LINK}
+            label="Age-adjustment"
+            component={Link}
+            to={AGE_ADJUSTMENT_TAB_LINK}
           />
         </Tabs>
       </Route>
@@ -48,6 +56,9 @@ function DataCatalogTab() {
         </Route>
         <Route path={`${DATA_CATALOG_PAGE_LINK}/`}>
           <DatasetExplorer preFilterDataSourceIds={datasets} />
+        </Route>
+        <Route path={`${AGE_ADJUSTMENT_TAB_LINK}/`}>
+          <AgeAdjustmentTab />
         </Route>
       </Switch>
       <FeedbackBox />
