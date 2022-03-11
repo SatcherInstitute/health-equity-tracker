@@ -14,6 +14,8 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "acs_population")
 
 GOLDEN_DATA_NATIONAL_RACE = os.path.join(TEST_DIR, 'national', 'national_by_race.csv')
+GOLDEN_DATA_NATIONAL_SEX = os.path.join(TEST_DIR, 'national', 'national_by_sex.csv')
+GOLDEN_DATA_NATIONAL_AGE = os.path.join(TEST_DIR, 'national', 'national_by_age.csv')
 
 GOLDEN_DATA_RACE = os.path.join(TEST_DIR, 'table_by_race_state_std.csv')
 GOLDEN_DATA_SEX_AGE_RACE = os.path.join(
@@ -64,6 +66,24 @@ def testGenerateNationalDatasetRace():
     states_to_include = {'01', '06'}
 
     national_df = generate_national_dataset(state_df, states_to_include, 'race')
+    assert_frame_equal(national_df, expected_df, check_like=True)
+
+
+def testGenerateNationalDatasetSex():
+    state_df = pd.read_csv(os.path.join(TEST_DIR, 'national', 'state_by_sex.csv'), dtype={'state_fips': str})
+    expected_df = pd.read_csv(GOLDEN_DATA_NATIONAL_SEX, dtype={'state_fips': str})
+    states_to_include = {'01', '06'}
+
+    national_df = generate_national_dataset(state_df, states_to_include, 'sex')
+    assert_frame_equal(national_df, expected_df, check_like=True)
+
+
+def testGenerateNationalDatasetAge():
+    state_df = pd.read_csv(os.path.join(TEST_DIR, 'national', 'state_by_age.csv'), dtype={'state_fips': str})
+    expected_df = pd.read_csv(GOLDEN_DATA_NATIONAL_AGE, dtype={'state_fips': str})
+    states_to_include = {'01', '06'}
+
+    national_df = generate_national_dataset(state_df, states_to_include, 'age')
     assert_frame_equal(national_df, expected_df, check_like=True)
 
 
