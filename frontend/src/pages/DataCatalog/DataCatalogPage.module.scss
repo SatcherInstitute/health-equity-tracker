@@ -54,7 +54,7 @@ p.CitationAPA:first-of-type {
   padding: 5px;
 }
 
-.ExampleTable tr:nth-child(1) {
+.ExampleTable thead {
   background-color: $join-effort-bg1;
   font-weight: bold;
 }
