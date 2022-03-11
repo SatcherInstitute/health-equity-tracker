@@ -23,7 +23,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "dataset is not available for download; please click the link below to apply for access.",
     dataset_ids: [
       "cdc_restricted_data-by_race_county",
-      "cdc_restricted_data-by_race_state",
+      "cdc_restricted_data-by_race_state-with_age_adjust",
       "cdc_restricted_data-by_age_county",
       "cdc_restricted_data-by_age_state",
       "cdc_restricted_data-by_sex_county",
