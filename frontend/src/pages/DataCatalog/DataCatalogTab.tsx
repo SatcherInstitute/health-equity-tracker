@@ -43,7 +43,7 @@ function DataCatalogTab() {
           />
           <Tab
             value={AGE_ADJUSTMENT_TAB_LINK}
-            label="Age-adjustment"
+            label="Age-Adjustment"
             component={Link}
             to={AGE_ADJUSTMENT_TAB_LINK}
           />
