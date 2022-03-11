@@ -2,6 +2,14 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./DataCatalogPage.module.scss";
 import { Helmet } from "react-helmet-async";
+import {
+  AGE_ADJ,
+  COVID_DEATHS_US_SETTING,
+  COVID_HOSP_US_SETTING,
+  EXPLORE_DATA_PAGE_LINK,
+} from "../../utils/urlutils";
+import { Link } from "react-router-dom";
+import { Button } from "@material-ui/core";
 
 function AgeAdjustmentTab() {
   return (
@@ -32,13 +40,34 @@ function AgeAdjustmentTab() {
                 We have decided to present age-adjusted ratios when possible in
                 order to show a more accurate and equitable view of the impact
                 on non-white communities in the United States. Currently, we are
-                able to calculate these age-adjusted ratios for COVID deaths and
-                hospitalizations, and we present the findings in a distinct,
-                age-adjusted table. All of the other data shown on the tracker,
-                including visualizations across all topics, are not
-                age-adjusted. Showing non-adjusted data can mask disparities,
-                and we are working to expand our analysis to provide a more
-                equitable view of the impact to racial and ethnic minorities.
+                able to calculate these age-adjusted ratios for{" "}
+                <Link
+                  to={
+                    EXPLORE_DATA_PAGE_LINK +
+                    COVID_DEATHS_US_SETTING +
+                    "#" +
+                    AGE_ADJ
+                  }
+                >
+                  COVID-19 deaths
+                </Link>
+                {" and "}
+                <Link
+                  to={
+                    EXPLORE_DATA_PAGE_LINK +
+                    COVID_HOSP_US_SETTING +
+                    "#" +
+                    AGE_ADJ
+                  }
+                >
+                  hospitalizations
+                </Link>
+                , and we present the findings in a distinct, age-adjusted table.
+                All of the other data shown on the tracker, including
+                visualizations across all topics, are not age-adjusted. Showing
+                non-adjusted data can mask disparities, and we are working to
+                expand our analysis to provide a more equitable view of the
+                impact to racial and ethnic minorities.
               </p>
 
               <h4 className={styles.MethodologySubsubheaderText}>
@@ -389,6 +418,19 @@ function AgeAdjustmentTab() {
               </table>
             </div>
           </Grid>
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={8} lg={5}>
+          <Button
+            variant="contained"
+            color="primary"
+            className={styles.PrimaryButton}
+            href={
+              EXPLORE_DATA_PAGE_LINK + COVID_DEATHS_US_SETTING + "#" + AGE_ADJ
+            }
+          >
+            Explore the age-adjusted data
+          </Button>
         </Grid>
       </Grid>
     </>
