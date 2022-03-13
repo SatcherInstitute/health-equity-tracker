@@ -6,20 +6,21 @@ import ingestion.standardized_columns as std_col
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 
-CAWP_RACE_GROUPS = [
-    'Asian American/Pacific Islander',
-    'Black',
-    'Latina',
-    'Middle Eastern/North African',
-    'Multiracial Alone',
-    'Native American/Alaska Native/Native Hawaiian'
-    'White',
-    'All',  # we CANNOT sum the above races for a total, as some have identified with multiple races and are counted multiple times
-]
 
-RACE_GROUPS_TO_STANDARD = {
+# CAWP_RACE_GROUPS = [
+#     'Asian American/Pacific Islander',
+#     'Black',
+#     'Latina',
+#     'Middle Eastern/North African',
+#     'Multiracial Alone',
+#     'Native American/Alaska Native/Native Hawaiian'
+#     'White',
+#     'All',  # we CANNOT sum the above races for a total, as some have identified with multiple races and are counted multiple times
+# ]
+
+CAWP_RACE_GROUPS_TO_STANDARD = {
     'Asian American/Pacific Islander': Race.ASIAN_PAC_NH.value,
-    'Latina': Race.HISP.value,
+    'Latina': Race.HISP_F.value,
     'Middle Eastern/North African': Race.MENA_NH.value,
     # TODO differentiate between those who spec. choose "Multiracial" vs those who identify as multiple specific races
     'Multiracial Alone': Race.MULTI_NH.value,
@@ -29,10 +30,13 @@ RACE_GROUPS_TO_STANDARD = {
     'All': Race.ALL.value,
 }
 
-# TABLE FOR STATE-LEVEL CONGRESSES
+# 2 TABLES FOR STATE-LEVEL CONGRESSES
+
 # table includes States/Territories as rows; rank, w senate, total senate, w house, total house, w house+senate / total house+senate, %overall
-CAWP_TOTALS_URL = "QQQhttps://cawp.rutgers.edu/tablefield/export/paragraph/1028/field_table/und/0"
-# table includes full breakdown of women by race, but doesn't include TOTAL legislature numbers
+CAWP_TOTALS_URL = "https://cawp.rutgers.edu/tablefield/export/paragraph/1028/field_table/und/0"
+# table includes full breakdown of women by race, but doesn't include
+
+# TOTAL legislature numbers
 #  id,year,first_name,middle_name,last_name,party,level,position,state,district,race_ethnicity
 CAWP_LINE_ITEMS_URL = "https://cawpdata.rutgers.edu/women-elected-officials/race-ethnicity/export-roles/csv?current=1&yearend_filter=All&level%5B0%5D=Federal%20Congress&level%5B1%5D=State%20Legislative&level%5B2%5D=Territorial/DC%20Legislative&items_per_page=50&page&_format=csv"
 
@@ -52,23 +56,18 @@ class CAWPData(DataSource):
             'upload_to_gcs should not be called for CAWPData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        print("writing to bq")
 
         # load in table with % of women legislators for /state
         df_totals = gcs_to_bq_util.load_csv_as_dataframe_from_web(
             CAWP_TOTALS_URL)
 
-        # FIX THIS
-        # read second file that contains LINE ITEM with women leg by race / level / state
+        # read second table that contains LINE ITEM with women leg by race / level / state
         df_line_items = gcs_to_bq_util.load_csv_as_dataframe_from_web(
             CAWP_LINE_ITEMS_URL)
 
-        print(df_totals)
-        print(df_line_items)
-
         # make table by race
         breakdown_df = self.generate_breakdown(
-            std_col.RACE_OR_HISPANIC_COL, df)
+            std_col.RACE_OR_HISPANIC_COL, df_totals, df_line_items)
 
         # set column types
         column_types = {c: 'STRING' for c in breakdown_df.columns}
@@ -78,17 +77,40 @@ class CAWPData(DataSource):
         gcs_to_bq_util.add_dataframe_to_bq(
             breakdown_df, dataset, std_col.RACE_OR_HISPANIC_COL, column_types=column_types)
 
-    def generate_breakdown(self, breakdown, df):
-        print("generating breakdown")
+    def generate_breakdown(self, breakdown, df_totals, df_line_items):
 
-        # print("**")
-        # print(df.to_string())
-        # print("**")
+        # for LINE ITEM CSV
+        # split 'state' into a map of 'statename' : 'state 2 letter code'
+
+        state_code_map = {}
+        for state in df_line_items['state']:
+            state_terms = state.split(" - ")
+            state_code_map[state_terms[1]] = state_terms[0]
+
+        # for TOTALS CSV
+        # STRIP <i> and * from 'State' and get full name (from 2 letter code) to use in output column
 
         output = []
-        states = df['State'].drop_duplicates().to_list()
+        total_state_codes = df_totals['State'].drop_duplicates().to_list()
 
-        # print("states")
-        # print(states)
+        columns = [std_col.STATE_NAME_COL, "pct_women_state_leg"]
+        columns.append(std_col.RACE_CATEGORY_ID_COL)
 
-        return df
+        # cleanup state codes
+        total_state_codes = [state.replace("<i>", "").replace(
+            "</i>", "").replace("*", "") for state in total_state_codes]
+
+        for state_code in total_state_codes:
+
+            for race in CAWP_RACE_GROUPS_TO_STANDARD.keys():
+
+                output_row = {}
+                output_row[std_col.STATE_NAME_COL] = state_code_map[state_code]
+                output_row[std_col.RACE_CATEGORY_ID_COL] = CAWP_RACE_GROUPS_TO_STANDARD[race]
+                output.append(output_row)
+
+        output_df = pd.DataFrame(output, columns=columns)
+
+        std_col.add_race_columns_from_category_id(output_df)
+
+        return output_df

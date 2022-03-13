@@ -1,46 +1,30 @@
 [
     {
-        "state_name": "Alabama",
+        "state_name": "Alaska",
         "race_category_id": "ASIAN_PAC_NH",
         "pct_women_state_leg": null,
-        "race": "Asian American or Pacific Islander",
+        "race": "Asian American & Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian American or Pacific Islander (Non-Hispanic)"
+        "race_and_ethnicity": "Asian American & Pacific Islander (Non-Hispanic)"
     },
     {
-        "state_name": "Alabama",
-        "race_category_id": "HISP",
+        "state_name": "Alaska",
+        "race_category_id": "HISP_F",
         "pct_women_state_leg": null,
         "race": "Latina",
         "race_includes_hispanic": true,
         "race_and_ethnicity": "Latina"
     },
     {
-        "state_name": "Alabama",
+        "state_name": "Alaska",
         "race_category_id": "MENA_NH",
         "pct_women_state_leg": null,
-        "race": "Middle Eastern or North African",
+        "race": "Middle Eastern & North African",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Middle Eastern or North African (Non-Hispanic)"
+        "race_and_ethnicity": "Middle Eastern & North African (Non-Hispanic)"
     },
     {
-        "state_name": "Alabama",
-        "race_category_id": "BLACK_NH",
-        "pct_women_state_leg": null,
-        "race": "Black or African American",
-        "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)"
-    },
-    {
-        "state_name": "Alabama",
-        "race_category_id": "AIANNH_NH",
-        "pct_women_state_leg": null,
-        "race": "Native American, Native Hawaiian or Native Alaskan",
-        "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native American, Native Hawaiian or Native Alaskan (Non-Hispanic)"
-    },
-    {
-        "state_name": "Alabama",
+        "state_name": "Alaska",
         "race_category_id": "MULTI_NH",
         "pct_women_state_leg": null,
         "race": "Two or more races",
@@ -48,7 +32,23 @@
         "race_and_ethnicity": "Two or more races (Non-Hispanic)"
     },
     {
-        "state_name": "Alabama",
+        "state_name": "Alaska",
+        "race_category_id": "AIANNH_NH",
+        "pct_women_state_leg": null,
+        "race": "Native American, Alaska Native, & Native Hawaiian",
+        "race_includes_hispanic": false,
+        "race_and_ethnicity": "Native American, Alaska Native, & Native Hawaiian (Non-Hispanic)"
+    },
+    {
+        "state_name": "Alaska",
+        "race_category_id": "BLACK_NH",
+        "pct_women_state_leg": null,
+        "race": "Black or African American",
+        "race_includes_hispanic": false,
+        "race_and_ethnicity": "Black or African American (Non-Hispanic)"
+    },
+    {
+        "state_name": "Alaska",
         "race_category_id": "WHITE_NH",
         "pct_women_state_leg": null,
         "race": "White",
@@ -56,7 +56,7 @@
         "race_and_ethnicity": "White (Non-Hispanic)"
     },
     {
-        "state_name": "Alabama",
+        "state_name": "Alaska",
         "race_category_id": "ALL",
         "pct_women_state_leg": null,
         "race": "All",
@@ -64,47 +64,31 @@
         "race_and_ethnicity": "All"
     },
     {
-        "state_name": "California",
+        "state_name": "Nebraska",
         "race_category_id": "ASIAN_PAC_NH",
         "pct_women_state_leg": null,
-        "race": "Asian American or Pacific Islander",
+        "race": "Asian American & Pacific Islander",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Asian American or Pacific Islander (Non-Hispanic)"
+        "race_and_ethnicity": "Asian American & Pacific Islander (Non-Hispanic)"
     },
     {
-        "state_name": "California",
-        "race_category_id": "HISP",
+        "state_name": "Nebraska",
+        "race_category_id": "HISP_F",
         "pct_women_state_leg": null,
         "race": "Latina",
         "race_includes_hispanic": true,
         "race_and_ethnicity": "Latina"
     },
     {
-        "state_name": "California",
+        "state_name": "Nebraska",
         "race_category_id": "MENA_NH",
         "pct_women_state_leg": null,
-        "race": "Middle Eastern or North African",
+        "race": "Middle Eastern & North African",
         "race_includes_hispanic": false,
-        "race_and_ethnicity": "Middle Eastern or North African (Non-Hispanic)"
+        "race_and_ethnicity": "Middle Eastern & North African (Non-Hispanic)"
     },
     {
-        "state_name": "California",
-        "race_category_id": "BLACK_NH",
-        "pct_women_state_leg": null,
-        "race": "Black or African American",
-        "race_includes_hispanic": false,
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)"
-    },
-    {
-        "state_name": "California",
-        "race_category_id": "AIANNH_NH",
-        "pct_women_state_leg": null,
-        "race": "Native American, Native Hawaiian or Native Alaskan",
-        "race_includes_hispanic": false,
-        "race_and_ethnicity": "Native American, Native Hawaiian or Native Alaskan (Non-Hispanic)"
-    },
-    {
-        "state_name": "California",
+        "state_name": "Nebraska",
         "race_category_id": "MULTI_NH",
         "pct_women_state_leg": null,
         "race": "Two or more races",
@@ -112,7 +96,23 @@
         "race_and_ethnicity": "Two or more races (Non-Hispanic)"
     },
     {
-        "state_name": "California",
+        "state_name": "Nebraska",
+        "race_category_id": "AIANNH_NH",
+        "pct_women_state_leg": null,
+        "race": "Native American, Alaska Native, & Native Hawaiian",
+        "race_includes_hispanic": false,
+        "race_and_ethnicity": "Native American, Alaska Native, & Native Hawaiian (Non-Hispanic)"
+    },
+    {
+        "state_name": "Nebraska",
+        "race_category_id": "BLACK_NH",
+        "pct_women_state_leg": null,
+        "race": "Black or African American",
+        "race_includes_hispanic": false,
+        "race_and_ethnicity": "Black or African American (Non-Hispanic)"
+    },
+    {
+        "state_name": "Nebraska",
         "race_category_id": "WHITE_NH",
         "pct_women_state_leg": null,
         "race": "White",
@@ -120,7 +120,71 @@
         "race_and_ethnicity": "White (Non-Hispanic)"
     },
     {
-        "state_name": "California",
+        "state_name": "Nebraska",
+        "race_category_id": "ALL",
+        "pct_women_state_leg": null,
+        "race": "All",
+        "race_includes_hispanic": null,
+        "race_and_ethnicity": "All"
+    },
+    {
+        "state_name": "Puerto Rico",
+        "race_category_id": "ASIAN_PAC_NH",
+        "pct_women_state_leg": null,
+        "race": "Asian American & Pacific Islander",
+        "race_includes_hispanic": false,
+        "race_and_ethnicity": "Asian American & Pacific Islander (Non-Hispanic)"
+    },
+    {
+        "state_name": "Puerto Rico",
+        "race_category_id": "HISP_F",
+        "pct_women_state_leg": null,
+        "race": "Latina",
+        "race_includes_hispanic": true,
+        "race_and_ethnicity": "Latina"
+    },
+    {
+        "state_name": "Puerto Rico",
+        "race_category_id": "MENA_NH",
+        "pct_women_state_leg": null,
+        "race": "Middle Eastern & North African",
+        "race_includes_hispanic": false,
+        "race_and_ethnicity": "Middle Eastern & North African (Non-Hispanic)"
+    },
+    {
+        "state_name": "Puerto Rico",
+        "race_category_id": "MULTI_NH",
+        "pct_women_state_leg": null,
+        "race": "Two or more races",
+        "race_includes_hispanic": false,
+        "race_and_ethnicity": "Two or more races (Non-Hispanic)"
+    },
+    {
+        "state_name": "Puerto Rico",
+        "race_category_id": "AIANNH_NH",
+        "pct_women_state_leg": null,
+        "race": "Native American, Alaska Native, & Native Hawaiian",
+        "race_includes_hispanic": false,
+        "race_and_ethnicity": "Native American, Alaska Native, & Native Hawaiian (Non-Hispanic)"
+    },
+    {
+        "state_name": "Puerto Rico",
+        "race_category_id": "BLACK_NH",
+        "pct_women_state_leg": null,
+        "race": "Black or African American",
+        "race_includes_hispanic": false,
+        "race_and_ethnicity": "Black or African American (Non-Hispanic)"
+    },
+    {
+        "state_name": "Puerto Rico",
+        "race_category_id": "WHITE_NH",
+        "pct_women_state_leg": null,
+        "race": "White",
+        "race_includes_hispanic": false,
+        "race_and_ethnicity": "White (Non-Hispanic)"
+    },
+    {
+        "state_name": "Puerto Rico",
         "race_category_id": "ALL",
         "pct_women_state_leg": null,
         "race": "All",

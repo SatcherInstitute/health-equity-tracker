@@ -28,16 +28,18 @@ class StateNames(DataSource):
         """Writes state names to BigQuery from the provided GCS bucket
 
         dataset: The BigQuery dataset to write to
-        table_name: The name of the biquery table to write to
+        table_name: The name of the bigquery table to write to
         gcs_bucket: The name of the gcs bucket to read the data from
         filename: The name of the file in the gcs bucket to read from"""
         try:
-            frame = gcs_to_bq_util.load_values_as_dataframe(gcs_bucket, filename)
+            frame = gcs_to_bq_util.load_values_as_dataframe(
+                gcs_bucket, filename)
             frame = frame.rename(columns={
                 'state': 'state_fips_code',
                 'NAME': 'state_name'
             })
-            column_types = {'state_fips_code': 'STRING', 'state_name': 'STRING'}
+            column_types = {'state_fips_code': 'STRING',
+                            'state_name': 'STRING'}
             gcs_to_bq_util.add_dataframe_to_bq(
                 frame, dataset, self.get_table_name(), column_types=column_types)
         except json.JSONDecodeError as err:
