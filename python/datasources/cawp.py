@@ -31,10 +31,10 @@ RACE_GROUPS_TO_STANDARD = {
 
 # TABLE FOR STATE-LEVEL CONGRESSES
 # table includes States/Territories as rows; rank, w senate, total senate, w house, total house, w house+senate / total house+senate, %overall
-BASE_CAWP_URL = "https://cawp.rutgers.edu/tablefield/export/paragraph/1028/field_table/und/0"
+CAWP_TOTALS_URL = "QQQhttps://cawp.rutgers.edu/tablefield/export/paragraph/1028/field_table/und/0"
 # table includes full breakdown of women by race, but doesn't include TOTAL legislature numbers
 #  id,year,first_name,middle_name,last_name,party,level,position,state,district,race_ethnicity
-# https://cawpdata.rutgers.edu/women-elected-officials/race-ethnicity/export-roles/csv?current=1&yearend_filter=All&level%5B0%5D=Federal%20Congress&level%5B1%5D=State%20Legislative&level%5B2%5D=Territorial/DC%20Legislative&items_per_page=50&page&_format=csv
+CAWP_LINE_ITEMS_URL = "https://cawpdata.rutgers.edu/women-elected-officials/race-ethnicity/export-roles/csv?current=1&yearend_filter=All&level%5B0%5D=Federal%20Congress&level%5B1%5D=State%20Legislative&level%5B2%5D=Territorial/DC%20Legislative&items_per_page=50&page&_format=csv"
 
 
 class CAWPData(DataSource):
@@ -54,5 +54,41 @@ class CAWPData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         print("writing to bq")
 
+        # load in table with % of women legislators for /state
+        df_totals = gcs_to_bq_util.load_csv_as_dataframe_from_web(
+            CAWP_TOTALS_URL)
+
+        # FIX THIS
+        # read second file that contains LINE ITEM with women leg by race / level / state
+        df_line_items = gcs_to_bq_util.load_csv_as_dataframe_from_web(
+            CAWP_LINE_ITEMS_URL)
+
+        print(df_totals)
+        print(df_line_items)
+
+        # make table by race
+        breakdown_df = self.generate_breakdown(
+            std_col.RACE_OR_HISPANIC_COL, df)
+
+        # set column types
+        column_types = {c: 'STRING' for c in breakdown_df.columns}
+        column_types["pct_women_state_leg"] = 'FLOAT'
+        column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+
+        gcs_to_bq_util.add_dataframe_to_bq(
+            breakdown_df, dataset, std_col.RACE_OR_HISPANIC_COL, column_types=column_types)
+
     def generate_breakdown(self, breakdown, df):
         print("generating breakdown")
+
+        # print("**")
+        # print(df.to_string())
+        # print("**")
+
+        output = []
+        states = df['State'].drop_duplicates().to_list()
+
+        # print("states")
+        # print(states)
+
+        return df

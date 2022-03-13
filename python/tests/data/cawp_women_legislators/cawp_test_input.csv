@@ -1,88 +1,57 @@
-id,year,first_name,middle_name,last_name,party,level,position,state,district,race_ethnicity
-501175k,2022,Louise,,Alexander,Democrat,"State Legislative","State Representative","Alabama - AL",56,Black
-789754k,2022,Cynthia,,Almond,Republican,"State Legislative","State Representative","Alabama - AL",063,White
-192657k,2022,Barbara,B.,Boyd,Democrat,"State Legislative","State Representative","Alabama - AL",32,Black
-253762k,2022,Twinkle,A.,Cavanaugh,Republican,"Statewide Executive","Public Service Commissioner","Alabama - AL",,White
-460835k,2022,Adline,C.,Clarke,Democrat,"State Legislative","State Representative","Alabama - AL",97,Black
-212068k,2022,Merika,,Coleman-Evans,Democrat,"State Legislative","State Representative","Alabama - AL",57,Black
-212065k,2022,Linda,,Coleman-Madison,Democrat,"State Legislative","State Senator","Alabama - AL",20,Black
-290688k,2022,Terri,,Collins,Republican,"State Legislative","State Representative","Alabama - AL",8,White
-488836k,2022,Barbara,A.,Drummond,Democrat,"State Legislative","State Representative","Alabama - AL",103,Black
-192681k,2022,Priscilla,,Dunn,Democrat,"State Legislative","State Senator","Alabama - AL",19,Black
-192623k,2022,Vivian,Davis,Figures,Democrat,"State Legislative","State Senator","Alabama - AL",33,Black
-289297k,2022,Juandalynn,D.,Givan,Democrat,"State Legislative","State Representative","Alabama - AL",60,Black
-192644k,2022,Laura,,Hall,Democrat,"State Legislative","State Representative","Alabama - AL",19,Black
-620724k,2022,Rolanda,,Hollis,Democrat,"State Legislative","State Representative","Alabama - AL",58,Black
-240306k,2022,Kay,E.,Ivey,Republican,"Statewide Executive",Governor,"Alabama - AL",,White
-791614k,2022,Patrice,,McClammy,Democrat,"State Legislative","State Representative","Alabama - AL",076,Black
-488926k,2022,Charlotte,,Meadows,Republican,"State Legislative","State Representative","Alabama - AL",074,White
-213976k,2022,Mary,,Moore,Democrat,"State Legislative","State Representative","Alabama - AL",59,Black
-655288k,2022,Tashina,,Morris,Democrat,"State Legislative","State Representative","Alabama - AL",77,Black
-667600k,2022,Malika,,Sanders-Fortier,Democrat,"State Legislative","State Senator","Alabama - AL",23,Black
-283908k,2022,Terri,A.,Sewell,Democrat,Congress,"U.S. Representative","Alabama - AL",7,Black
-650562k,2022,Ginny,,Shaver,Republican,"State Legislative","State Representative","Alabama - AL",39,White
-237381k,2022,Pebblin,W.,Warren,Democrat,"State Legislative","State Representative","Alabama - AL",82,Black
-290731k,2022,April,C.,Weaver,Republican,"State Legislative","State Senator","Alabama - AL",014,White
-486017k,2022,Margie,,Wilcox,Republican,"State Legislative","State Representative","Alabama - AL",104,White
-655277k,2022,Debbie,H.,Wood,Republican,"State Legislative","State Representative","Alabama - AL",38,White
-577746k,2022,Cecilia,M.,Aguiar-Curry,Democrat,"State Legislative","State Representative","California - CA",4,Latina
-291013k,2022,Toni,G.,Atkins,Democrat,"State Legislative","State Senator","California - CA",39,White
-226476k,2022,Karen,R.,Bass,Democrat,Congress,"U.S. Representative","California - CA",37,Black
-193101k,2022,Pat,,Bates,Republican,"State Legislative","State Senator","California - CA",36,White
-660427k,2022,Rebecca,,Bauer-Kahan,Democrat,"State Legislative","State Representative","California - CA",16,White
-660541k,2022,Tasha,,"Boerner Horvath",Democrat,"State Legislative","State Representative","California - CA",76,White
-786168k,2022,Mia,,Bonta,Democrat,"State Legislative","State Representative","California - CA",018,"Black, Latina"
-248455k,2022,Julia,,Brownley,Democrat,Congress,"U.S. Representative","California - CA",26,White
-248446k,2022,Anna,Marie,Caballero,Democrat,"State Legislative","State Senator","California - CA",12,Latina
-727473k,2022,Lisa,,Calderon,Democrat,"State Legislative","State Representative","California - CA",057,Latina
-615691k,2022,Wendy,,Carrillo,Democrat,"State Legislative","State Representative","California - CA",51,Latina
-455235k,2022,Sabrina,,Cervantes,Democrat,"State Legislative","State Representative","California - CA",60,Latina
-209456k,2022,Judy,,Chu,Democrat,Congress,"U.S. Representative","California - CA",27,"Asian American/Pacific Islander"
-722712k,2022,Megan,,Dahle,Republican,"State Legislative","State Representative","California - CA",001,White
-727357k,2022,Laurie,,Davies,Republican,"State Legislative","State Representative","California - CA",073,White
-536062k,2022,Nanette,,"Diaz Barragan",Democrat,Congress,"U.S. Representative","California - CA",44,Latina
-660378k,2022,Maria,E.,Durazo,Democrat,"State Legislative","State Senator","California - CA",24,Latina
-390043k,2022,Susan,Talamantes,Eggman,Democrat,"State Legislative","State Senator","California - CA",005,Latina
-158731k,2022,Anna,G.,Eshoo,Democrat,Congress,"U.S. Representative","California - CA",18,White
-165201k,2022,Dianne,,Feinstein,Democrat,Congress,"U.S. Senator","California - CA",S01,White
-577886k,2022,Laura,,Friedman,Democrat,"State Legislative","State Representative","California - CA",43,White
-337126k,2022,Cristina,,Garcia,Democrat,"State Legislative","State Representative","California - CA",58,Latina
-709291k,2022,Lena,A.,Gonzalez,Democrat,"State Legislative","State Senator","California - CA",33,Latina
-290948k,2022,Shannon,L.,Grove,Republican,"State Legislative","State Senator","California - CA",16,White
-660326k,2022,Melissa,,Hurtado,Democrat,"State Legislative","State Senator","California - CA",14,Latina
-494153k,2022,Jacqui,V.,Irwin,Democrat,"State Legislative","State Representative","California - CA",44,White
-644085k,2022,Sara,,Jacobs,Democrat,Congress,"U.S. Representative","California - CA",53,White
-312779k,2022,Sydney,K.,Kamlager-Dove,Democrat,"State Legislative","State Senator","California - CA",030,Black
-494206k,2022,Young,O.,Kim,Republican,Congress,"U.S. Representative","California - CA",39,"Asian American/Pacific Islander"
-628144k,2022,Eleni,,Kounalakis,Democrat,"Statewide Executive","Lt. Governor","California - CA",,White
-158726k,2022,Barbara,J.,Lee,Democrat,Congress,"U.S. Representative","California - CA",13,Black
-493945k,2022,Connie,M.,Leyva,Democrat,"State Legislative","State Senator","California - CA",20,Latina
-577850k,2022,Monique,,Limon,Democrat,"State Legislative","State Senator","California - CA",019,Latina
-158733k,2022,Zoe,,Lofgren,Democrat,Congress,"U.S. Representative","California - CA",19,White
-248436k,2022,Fiona,,Ma,Democrat,"Statewide Executive",Treasurer,"California - CA",,"Asian American/Pacific Islander"
-232639k,2022,Doris,O.,Matsui,Democrat,Congress,"U.S. Representative","California - CA",6,"Asian American/Pacific Islander"
-390303k,2022,Melissa,A.,Melendez,Republican,"State Legislative","State Senator","California - CA",028,White
-158751k,2022,Grace,F.,Napolitano,Democrat,Congress,"U.S. Representative","California - CA",32,Latina
-493964k,2022,Janet,,Nguyen,Republican,"State Legislative","State Representative","California - CA",072,"Asian American/Pacific Islander"
-539403k,2022,Rosilicie,,"Ochoa Bogh",Republican,"State Legislative","State Senator","California - CA",023,Latina
-158725k,2022,Nancy,,Pelosi,Democrat,Congress,"U.S. Representative","California - CA",12,White
-660538k,2022,Cottie,,Petrie-Norris,Democrat,"State Legislative","State Representative","California - CA",74,White
-621002k,2022,Katherine,,Porter,Democrat,Congress,"U.S. Representative","California - CA",45,White
-408041k,2022,Sharon,,Quirk-Silva,Democrat,"State Legislative","State Representative","California - CA",65,Latina
-474456k,2022,Eloise,Gomez,Reyes,Democrat,"State Legislative","State Representative","California - CA",47,Latina
-660459k,2022,Luz,Maria,Rivas,Democrat,"State Legislative","State Representative","California - CA",39,Latina
-158750k,2022,Lucille,,Roybal-Allard,Democrat,Congress,"U.S. Representative","California - CA",40,Latina
-577902k,2022,Blanca,E.,Rubio,Democrat,"State Legislative","State Representative","California - CA",48,Latina
-660377k,2022,Susan,,Rubio,Democrat,"State Legislative","State Senator","California - CA",22,Latina
-211684k,2022,Linda,T.,Sanchez,Democrat,Congress,"U.S. Representative","California - CA",38,Latina
-267715k,2022,Nancy,,Skinner,Democrat,"State Legislative","State Senator","California - CA",9,White
-192997k,2022,Jackie,,Speier,Democrat,Congress,"U.S. Representative","California - CA",14,White
-694474k,2022,Michelle,,Steel,Republican,Congress,"U.S. Representative","California - CA",48,"Asian American/Pacific Islander"
-267783k,2022,Norma,J.,Torres,Democrat,Congress,"U.S. Representative","California - CA",35,Latina
-703182k,2022,Suzette,,Valladares,Republican,"State Legislative","State Representative","California - CA",038,Latina
-390360k,2022,Marie,,Waldron,Republican,"State Legislative","State Representative","California - CA",75,White
-158752k,2022,Maxine,,Waters,Democrat,Congress,"U.S. Representative","California - CA",43,Black
-773952k,2022,Akilah,,Weber,Democrat,"State Legislative","State Representative","California - CA",079,Black
-390366k,2022,Shirley,N.,Weber,Democrat,"Statewide Executive","Secretary of State","California - CA",,Black
-278108k,2022,Buffy,,Wicks,Democrat,"State Legislative","State Representative","California - CA",15,White
-488207k,2022,Betty,T.,Yee,Democrat,"Statewide Executive",Comptroller,"California - CA",,"Asian American/Pacific Islander"
+0,State,"State Rank",Senate,"Total Women/Total Senate",House,"Total Women/Total House","Total Women/Total Legislators","%Women Overall"
+1,AL,46,"4D, 1R"," 5/35","12D, 6R",18/105,23/140,16.4
+2,AK,30,"1D, 4R"," 5/20","7D, 6R",13/40,18/60,30
+3,AZ,7,"10D, 6R",16/30,"13D, 10R",23/60,39/90,43.3
+4,AR,41,"3D, 4R"," 7/35","10D, 14R",24/100,31/135,23
+5,<i>AS</i>,<i>N/A</i>,<i>1Ind**</i>,<i>1/18</i>,<i>1I</i>,<i>1/21</i>,<i>2/39</i>,<i>5.1</i>
+6,CA,26,"11D, 4R"," 15/40","17D, 5R",22/80,37/120,30.8
+7,CO,2,"11D, 1R"," 12/35","27D, 6R",33/65,45/100,45.0
+8,CT,20,"8D, 1R"," 9/36","34D, 20R",54/151,63/187,33.7
+9,<i>DC</i>,<i>N/A</i>,"<i>5R, 2Ind</i>",<i>7/13</i>,<i>n/a</i>,<i>-unicameral-</i>,<i>7/13</i>,<i>53.8</i>
+10,DE,27,"7D, 0R"," 7/21","11D, 1R",Dec-41,19/62,30.6
+11,FL,15,"8D, 7R"," 15/40","23D, 17R",40/120,55/160,34.4
+12,GA,19,"15D, 2R",17/56,"46D, 17R",63/180,80/236,33.9
+13,<i>GU</i>,<i>N/A</i>,"<i>5D, 4R</i>",<i>9/15</i>,<i>n/a</i>,<i>-unicameral-</i>,<i>9/15</i>,<i>60.0</i>
+14,HI*,17,"10D, 0R"," 10/25","14D, 2R",16/51,26/76,34.2
+15,ID,23,"4D, 7R"," 11/35","5D, 17R",22/70,33/105,31.4
+16,IL,11,"21D, 4R",25/59,"39D, 8R",47/118,72/177,40.7
+17,IN,40,"2D, 6R"," 8/50","15D, 12R",27/100,35/150,23.3
+18,IA,32,"7D, 5R"," 12/50","21D, 10R",31/100,43/150,28.7
+19,KS,29,"6D, 10R",16/40,"18D, 16R",34/125,50/165,30.3
+20,KY,34,"3D, 3R"," 6/38","17D, 14R",31/100,37/138,26.8
+21,LA,44,"3D, 3R"," 6/39","9D, 13R",22/105,28/144,19.4
+22,ME,6,"9D, 4R",13/35,"47D, 20R, 1I",68/151,81/186,43.5
+23,MD,5,"13D, 2R",15/47,"58D, 9R",67/141,82/188,43.6
+24,MA,28,"13D, 0R"," 13/40","42D, 5R, 1I",48/160,61/200,30.5
+25,MI,14,"8D, 3R"," 11/38","27D, 14R",41/110,52/148,35.1
+26,MN,12,"14D, 7R",21/67,"38D, 13R",51/134,72/201,35.8
+27,MS,49,"3D, 7R"," 10/52","10D, 7R",17/122,27/174,15.5
+28,MO*,38,"5D, 6R"," 11/34","26D, 14R",40/163,51/197,25.9
+29,<i>MP</i>,<i>N/A</i>,"<i>1D, 1Ind</i>",<i>2/9</i>,"<i>0D, 5R</i>",<i>5/20</i>,<i>7/29</i>,<i>24.1</i>
+30,MT,22,"11D, 1R"," 12/50","17D, 20R",37/100,49/150,32.7
+31,NE*,35,13Ind," 13/49",n/a,-unicameral-,13/49,26.5
+32,NV,1,"7D, 2R"," 9/21","20D, 8R",28/42,37/63,58.7
+33,NH,13,"5D, 5R"," 10/24","93D, 47R",140/400,150/424,35.4
+34,NJ*,17,"7D, 3R"," 10/40","20D, 11R",31/80,41/120,34.2
+35,NM,8,"10D, 2R"," 12/42","28D, 8R",36/70,48/112,42.9
+36,NY,15,"14D, 5R",19/63,"51D, 3R",54/150,73/213,34.3
+37,NC*,38,"10D, 6R",16/50,"20D, 8R",28/120,44/170,25.9
+38,ND,42,"4D, 7R"," 11/47","8D, 13R",21/94,32/141,22.7
+39,OH*,24,"4D, 4R"," 8/33","18D, 15R",33/99,41/132,31.1
+40,OK,43,"5D, 4R"," 9/48","9D, 13R",22/101,31/149,20.8
+41,OR,3,"8D, 1R"," 9/30","20D, 11R",31/60,40/90,44.4
+42,PA,31,"8D, 6R"," 14/50","32D, 28R",60/203,74/253,29.2
+43,<i>PR</i>,<i>N/A</i>,<i>14Ind</i>,<i>14/27</i>,<i>n/a</i>,<i>10Ind</i>,<i>24/78</i>,<i>30.8</i>
+44,RI,4,"16D, 2R",18/38,"29D, 3R",32/75,50/113,44.2
+45,SC,46,"2D, 3R"," 5/46","13D, 11R",24/124,29/170,17.1
+46,SD,33,"1D, 8R"," 9/35","4D, 17R",21/70,30/105,28.6
+47,TN,48,"4D, 3R"," 7/33","4D, 10R",14/99,21/132,15.9
+48,TX*,35,"4D, 6R"," 10/31","31D, 7R",38/150,48/181,26.5
+49,UT,37,"4D, 1R"," 5/29","12D, 10R",22/75,27/104,26.0
+50,<i>VI</i>,<i>N/A</i>,"<i>3D, 2Ind</i>",<i>5/15</i>,<i>n/a</i>,<i>-unicameral-</i>,<i>5/15</i>,<i>33.3</i>
+51,VT,10,10D," 10/30","47D, 13R, 5Ind",65/150,75/180,41.7
+52,VA,21,"7D, 4R"," 11/40","25D, 11R",36/100,47/140,33.6
+53,WA,9,"14D, 5R",19/49,"34D, 9R",43/98,62/147,42.2
+54,WV,50,"1D, 3R"," 4/34","4D, 10R",14/100,18/134,13.4
+55,WI*,24,"6D, 4R"," 10/33","21D, 10R",31/99,41/132,31.1
+56,WY,45,5R," 5/30","4D, 7R"," 11/60",16/90    ,17.8
