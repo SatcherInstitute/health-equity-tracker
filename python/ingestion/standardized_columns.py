@@ -80,6 +80,9 @@ VACCINATED_SHARE_OF_KNOWN = "vaccinated_share_of_known"
 VACCINATED_PER_100K = "vaccinated_per_100k"
 VACCINATED_PCT_SHARE = "vaccinated_pct_share"
 
+# Standardized for CAWP Women in Legislature
+WOMEN_STATE_LEG_PCT = "women_state_leg_pct"
+
 
 RaceTuple = namedtuple("RaceTuple", [
     "race_category_id",

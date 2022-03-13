@@ -6,18 +6,6 @@ import ingestion.standardized_columns as std_col
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 
-
-# CAWP_RACE_GROUPS = [
-#     'Asian American/Pacific Islander',
-#     'Black',
-#     'Latina',
-#     'Middle Eastern/North African',
-#     'Multiracial Alone',
-#     'Native American/Alaska Native/Native Hawaiian'
-#     'White',
-#     'All',  # we CANNOT sum the above races for a total, as some have identified with multiple races and are counted multiple times
-# ]
-
 CAWP_RACE_GROUPS_TO_STANDARD = {
     'Asian American/Pacific Islander': Race.ASIAN_PAC_NH.value,
     'Latina': Race.HISP_F.value,
@@ -71,7 +59,7 @@ class CAWPData(DataSource):
 
         # set column types
         column_types = {c: 'STRING' for c in breakdown_df.columns}
-        column_types["pct_women_state_leg"] = 'FLOAT'
+        column_types[std_col.WOMEN_STATE_LEG_PCT] = 'FLOAT'
         column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
         gcs_to_bq_util.add_dataframe_to_bq(
@@ -81,24 +69,21 @@ class CAWPData(DataSource):
 
         # for LINE ITEM CSV
         # split 'state' into a map of 'statename' : 'state 2 letter code'
-
         state_code_map = {}
         for state in df_line_items['state']:
             state_terms = state.split(" - ")
             state_code_map[state_terms[1]] = state_terms[0]
 
-        # for TOTALS CSV
-        # STRIP <i> and * from 'State' and get full name (from 2 letter code) to use in output column
-
-        output = []
+        # for TOTALS CSV cleanup state codes
         total_state_codes = df_totals['State'].drop_duplicates().to_list()
-
-        columns = [std_col.STATE_NAME_COL, "pct_women_state_leg"]
-        columns.append(std_col.RACE_CATEGORY_ID_COL)
-
-        # cleanup state codes
         total_state_codes = [state.replace("<i>", "").replace(
             "</i>", "").replace("*", "") for state in total_state_codes]
+
+        output = []
+
+        # set column names
+        columns = [std_col.STATE_NAME_COL, std_col.WOMEN_STATE_LEG_PCT]
+        columns.append(std_col.RACE_CATEGORY_ID_COL)
 
         for state_code in total_state_codes:
 
@@ -107,6 +92,10 @@ class CAWPData(DataSource):
                 output_row = {}
                 output_row[std_col.STATE_NAME_COL] = state_code_map[state_code]
                 output_row[std_col.RACE_CATEGORY_ID_COL] = CAWP_RACE_GROUPS_TO_STANDARD[race]
+
+                # grab TOTAL pct from TOTAL csv file
+                # out
+
                 output.append(output_row)
 
         output_df = pd.DataFrame(output, columns=columns)
