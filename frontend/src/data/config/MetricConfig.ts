@@ -5,7 +5,7 @@ export type DropdownVarId =
   | "copd"
   | "health_insurance"
   | "poverty"
-  | "vaccinations"
+  | "covid_vaccinations"
   | "depression"
   | "suicide"
   | "substance"
@@ -28,14 +28,10 @@ export type VariableId =
   | "covid_hospitalizations"
   | "non_medical_drug_use"
   | "non_medical_rx_opioid_use"
-  | "illicit_opioid_use"
-  | "health_coverage"
-  | "poverty"
-  | "covid_vaccinations"
-  | "suicides";
+  | "illicit_opioid_use";
 
 // consts for simpler code
-export const VAXX: VariableId = "vaccinations";
+export const VAXX: VariableId = "covid_vaccinations";
 
 export type MetricId =
   | "acs_vaccine_population_pct"
@@ -420,7 +416,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
 
   suicide: [
     {
-      variableId: "suicides",
+      variableId: "suicide",
       variableDisplayName: "Cases",
       variableFullDisplayName: "Suicides",
       variableDefinition: `Deaths due to intentional self-harm.`,
@@ -681,7 +677,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
 
   health_insurance: [
     {
-      variableId: "health_coverage",
+      variableId: "health_insurance",
       variableDisplayName: "Uninsured Individuals",
       variableFullDisplayName: "Uninsured Individuals",
       variableDefinition: `Health insurance coverage in the ACS and other Census Bureau surveys define coverage to
