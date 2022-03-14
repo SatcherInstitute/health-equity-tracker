@@ -5,7 +5,7 @@ export type DropdownVarId =
   | "copd"
   | "health_insurance"
   | "poverty"
-  | "covid_vaccinations"
+  | "vaccinations"
   | "depression"
   | "suicide"
   | "substance"
@@ -28,10 +28,12 @@ export type VariableId =
   | "covid_hospitalizations"
   | "non_medical_drug_use"
   | "non_medical_rx_opioid_use"
-  | "illicit_opioid_use";
+  | "illicit_opioid_use"
+  | "covid_vaccinations";
 
 // consts for simpler code
-export const VAXX: VariableId = "covid_vaccinations";
+export const VAXX: DropdownVarId = "vaccinations";
+export const COVID_VAXX: VariableId = "covid_vaccinations";
 
 export type MetricId =
   | "acs_vaccine_population_pct"
@@ -374,7 +376,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
 
   vaccinations: [
     {
-      variableId: "covid_vaccinations",
+      variableId: "vaccinations",
       variableDisplayName: "Vaccinations",
       variableFullDisplayName: "COVID-19 Vaccinations",
       variableDefinition: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,

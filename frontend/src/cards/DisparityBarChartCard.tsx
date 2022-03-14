@@ -131,7 +131,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
                   noDemographicInfo={
-                    props.variableConfig.variableId === VAXX &&
+                    props.variableConfig.variableId === COVID_VAXX &&
                     props.fips.isCounty()
                   }
                   fips={props.fips}
