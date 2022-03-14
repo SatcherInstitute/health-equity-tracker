@@ -6,7 +6,7 @@ import { ChoroplethMap } from "../charts/ChoroplethMap";
 import {
   VariableConfig,
   formatFieldValue,
-  VAXX,
+  COVID_VAXX,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
