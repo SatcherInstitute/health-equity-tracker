@@ -16,7 +16,13 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
     'Native American/Alaska Native/Native Hawaiian': Race.AIANNH_NH.value,
     'Black': Race.BLACK_NH.value,
     'White': Race.WHITE_NH.value,
+    'Unavailable': Race.UNKNOWN.value,
     'All': Race.ALL.value,
+}
+
+CAWP_DATA_TYPES = {
+    "state": ["Territorial/D.C.", "State Legislative"],
+    "us":  ["Congress"],
 }
 
 
@@ -98,31 +104,40 @@ class CAWPData(DataSource):
                 # set STATE
                 state_code = clean(state_key)
                 state = state_code_map[state_code]
-                # print("state:", state)
                 output_row[std_col.STATE_NAME_COL] = state
 
                 # set RACE
-                # print("race", CAWP_RACE_GROUPS_TO_STANDARD[race])
                 output_row[std_col.RACE_CATEGORY_ID_COL] = CAWP_RACE_GROUPS_TO_STANDARD[race]
 
                 # we need TOTAL LEGISLATORS for every state by race calc
                 matched_row = df_totals.loc[
                     (df_totals['State'] == state_key)]
-                total_women_by_total_legislators = matched_row["Total Women/Total Legislators"]
-                total_legislators = total_women_by_total_legislators.split(
-                    "/")[1]
+                total_women_by_total_legislators = clean(
+                    matched_row["Total Women/Total Legislators"].values[0])
+                total_legislators = int(total_women_by_total_legislators.split(
+                    "/")[1])
 
                 # set TOTAL pct from TOTAL csv file
                 if race == "All":
-                    pct = clean(
-                        matched_row['%Women Overall'].values[0])
+                    pct_string = str(clean(
+                        matched_row['%Women Overall'].values[0]))
 
                 # calculate and set BY RACE pct from LINE ITEM csv file
                 else:
+                    rows_matching_race_state = df_line_items[
+                        (df_line_items['state'] == f"{state} - {state_code}") &
+                        (df_line_items['race_ethnicity'] == race) &
+                        (df_line_items['level'].isin(CAWP_DATA_TYPES['state']))
+                    ]
 
-                    print(" set by race pct here")
+                    pct = len(rows_matching_race_state) / \
+                        total_legislators * 100
 
-                output_row[std_col.WOMEN_STATE_LEG_PCT] = pct
+                    pct_rounded = float(str(round(pct, 2)))
+
+                    pct_string = f'{pct_rounded:g}'
+
+                output_row[std_col.WOMEN_STATE_LEG_PCT] = pct_string
 
                 output.append(output_row)
 
