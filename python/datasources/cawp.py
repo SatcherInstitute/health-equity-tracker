@@ -1,4 +1,3 @@
-from numpy import NaN
 import pandas as pd
 
 from ingestion.standardized_columns import Race
