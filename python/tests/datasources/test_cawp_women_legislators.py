@@ -6,11 +6,26 @@ from pandas._testing import assert_frame_equal
 
 from datasources.cawp import CAWPData, CAWP_TOTALS_URL, CAWP_LINE_ITEMS_URL
 
+
 # Map production URLs to mock CSVs
 mock_file_map = {
     # for state leg TOTALS by state
     CAWP_TOTALS_URL: {
         "filename": 'cawp_test_input_totals.csv',
+        "data_types": {
+            "State": str,
+            "State Rank": object,
+            "Senate": str,
+            "Total Women/Total Senate": str,
+            "House": str,
+            "Total Women/Total House": str,
+            "Total Women/Total Legislators": str,
+            "%Women Overall": str
+        }
+    },
+    # for line level CSV
+    CAWP_LINE_ITEMS_URL: {
+        "filename": 'cawp_test_input_line_items.csv',
         "data_types": {
             "id": str,
             "year": str,
@@ -24,14 +39,7 @@ mock_file_map = {
             "district": str,
             "race_ethnicity": str
         }
-    },
-    # for line level CSV
-    CAWP_LINE_ITEMS_URL: {
-        "filename": 'cawp_test_input_line_items.csv',
-        "data_types": {"level": str,
-                       "state": str,
-                       "race_ethnicity": str,
-                       }
+
     }
 }
 
@@ -74,7 +82,7 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     expected_dtype = {
         'state_name': str,
-        "pct_women_state_leg": float,
+        "women_state_leg_pct": str,
         'race_and_ethnicity': str,
         'race': str,
         'race_includes_hispanic': object,
@@ -86,10 +94,10 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
         GOLDEN_DATA['race_and_ethnicity'], dtype=expected_dtype)
 
     print("mock call results")
-    print(mock_bq.call_args_list[0].args[0].to_string())
+    print(mock_bq.call_args_list[0].args[0])
 
     print("expected output file")
-    print(expected_df.to_string())
+    print(expected_df)
 
     # output created in mocked load_csv_as_dataframe_from_web() should be the same as the expected df
     assert_frame_equal(

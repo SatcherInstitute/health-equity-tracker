@@ -1,3 +1,4 @@
+from numpy import NaN
 import pandas as pd
 
 from ingestion.standardized_columns import Race
@@ -17,6 +18,11 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
     'White': Race.WHITE_NH.value,
     'All': Race.ALL.value,
 }
+
+
+def clean(datum):
+    return datum.replace("<i>", "").replace("</i>", "").replace("*", "")
+
 
 # 2 TABLES FOR STATE-LEVEL CONGRESSES
 
@@ -59,7 +65,7 @@ class CAWPData(DataSource):
 
         # set column types
         column_types = {c: 'STRING' for c in breakdown_df.columns}
-        column_types[std_col.WOMEN_STATE_LEG_PCT] = 'FLOAT'
+        column_types[std_col.WOMEN_STATE_LEG_PCT] = 'STRING'
         column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
         gcs_to_bq_util.add_dataframe_to_bq(
@@ -75,9 +81,7 @@ class CAWPData(DataSource):
             state_code_map[state_terms[1]] = state_terms[0]
 
         # for TOTALS CSV cleanup state codes
-        total_state_codes = df_totals['State'].drop_duplicates().to_list()
-        total_state_codes = [state.replace("<i>", "").replace(
-            "</i>", "").replace("*", "") for state in total_state_codes]
+        total_state_keys = df_totals['State'].drop_duplicates().to_list()
 
         output = []
 
@@ -85,16 +89,40 @@ class CAWPData(DataSource):
         columns = [std_col.STATE_NAME_COL, std_col.WOMEN_STATE_LEG_PCT]
         columns.append(std_col.RACE_CATEGORY_ID_COL)
 
-        for state_code in total_state_codes:
+        for state_key in total_state_keys:
 
             for race in CAWP_RACE_GROUPS_TO_STANDARD.keys():
 
                 output_row = {}
-                output_row[std_col.STATE_NAME_COL] = state_code_map[state_code]
+
+                # set STATE
+                state_code = clean(state_key)
+                state = state_code_map[state_code]
+                # print("state:", state)
+                output_row[std_col.STATE_NAME_COL] = state
+
+                # set RACE
+                # print("race", CAWP_RACE_GROUPS_TO_STANDARD[race])
                 output_row[std_col.RACE_CATEGORY_ID_COL] = CAWP_RACE_GROUPS_TO_STANDARD[race]
 
-                # grab TOTAL pct from TOTAL csv file
-                # out
+                # we need TOTAL LEGISLATORS for every state by race calc
+                matched_row = df_totals.loc[
+                    (df_totals['State'] == state_key)]
+                total_women_by_total_legislators = matched_row["Total Women/Total Legislators"]
+                total_legislators = total_women_by_total_legislators.split(
+                    "/")[1]
+
+                # set TOTAL pct from TOTAL csv file
+                if race == "All":
+                    pct = clean(
+                        matched_row['%Women Overall'].values[0])
+
+                # calculate and set BY RACE pct from LINE ITEM csv file
+                else:
+
+                    print(" set by race pct here")
+
+                output_row[std_col.WOMEN_STATE_LEG_PCT] = pct
 
                 output.append(output_row)
 
