@@ -287,6 +287,13 @@ class ACSPopulationIngester():
         frames['by_sex_%s' % self.get_geo_name()] = self.get_by_sex(
             frames[self.get_table_name_by_sex_age_race()])
 
+        # Generate national level datasets based on the state datasets
+        if not self.county_level:
+            for demo in ['age', 'race', 'sex']:
+                state_table_name = 'by_race_state_std' if demo == 'race' else 'by_%s_state' % demo
+                frames['by_%s_national' % demo] = generate_national_dataset_with_all_states(
+                        frames[state_table_name], demo)
+
         for table_name, df in frames.items():
             # All breakdown columns are strings
             column_types = {c: 'STRING' for c in df.columns}
@@ -570,6 +577,11 @@ class ACSPopulation(DataSource):
             ACSPopulationIngester(False, BASE_ACS_URL),
             ACSPopulationIngester(True, BASE_ACS_URL)
         ]
+
+
+def generate_national_dataset_with_all_states(state_df, demographic_breakdown_category):
+    all_state_fips = set(state_df[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
+    return generate_national_dataset(state_df, all_state_fips, demographic_breakdown_category)
 
 
 def generate_national_dataset(state_df, states_to_include, demographic_breakdown_category):
