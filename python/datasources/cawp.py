@@ -32,12 +32,13 @@ def clean(datum: str):
 
 # 2 TABLES FOR STATE-LEVEL CONGRESSES
 
-# table includes States/Territories as rows; rank, w senate, total senate, w house, total house, w house+senate / total house+senate, %overall
+# LINE ITEM numbers
+# table includes breakdown of women by race by state by level,
+# but doesn't include total legislature numbers
 CAWP_TOTALS_URL = "https://cawp.rutgers.edu/tablefield/export/paragraph/1028/field_table/und/0"
-# table includes full breakdown of women by race, but doesn't include
 
-# TOTAL legislature numbers
-#  id,year,first_name,middle_name,last_name,party,level,position,state,district,race_ethnicity
+
+# TOTAL state_legislature numbers
 CAWP_LINE_ITEMS_URL = "https://cawpdata.rutgers.edu/women-elected-officials/race-ethnicity/export-roles/csv?current=1&yearend_filter=All&level%5B0%5D=Federal%20Congress&level%5B1%5D=State%20Legislative&level%5B2%5D=Territorial/DC%20Legislative&items_per_page=50&page&_format=csv"
 
 
@@ -80,7 +81,7 @@ class CAWPData(DataSource):
     def generate_breakdown(self, breakdown, df_totals, df_line_items):
 
         # for LINE ITEM CSV
-        # split 'state' into a map of 'statename' : 'state 2 letter code'
+        # split 'state' into a map of 'state 2 letter code' : 'statename'
         state_code_map = {}
         for state in df_line_items['state']:
             state_terms = state.split(" - ")
