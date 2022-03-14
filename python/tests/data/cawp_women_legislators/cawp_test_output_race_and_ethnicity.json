@@ -26,7 +26,7 @@
     {
         "state_name": "Alaska",
         "race_category_id": "MULTI_NH",
-        "women_state_leg_pct": "??",
+        "women_state_leg_pct": "0",
         "race": "Two or more races",
         "race_includes_hispanic": false,
         "race_and_ethnicity": "Two or more races (Non-Hispanic)"
@@ -59,9 +59,9 @@
         "state_name": "Alaska",
         "race_category_id": "UNKNOWN",
         "women_state_leg_pct": "0",
-        "race": "Unknown",
+        "race": "Unknown race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Unknown"
+        "race_and_ethnicity": "Unknown race"
     },
     {
         "state_name": "Alaska",
@@ -74,7 +74,7 @@
     {
         "state_name": "Nebraska",
         "race_category_id": "ASIAN_PAC_NH",
-        "women_state_leg_pct": "0",
+        "women_state_leg_pct": "2.04",
         "race": "Asian American & Pacific Islander",
         "race_includes_hispanic": false,
         "race_and_ethnicity": "Asian American & Pacific Islander (Non-Hispanic)"
@@ -98,7 +98,7 @@
     {
         "state_name": "Nebraska",
         "race_category_id": "MULTI_NH",
-        "women_state_leg_pct": "??",
+        "women_state_leg_pct": "2.04",
         "race": "Two or more races",
         "race_includes_hispanic": false,
         "race_and_ethnicity": "Two or more races (Non-Hispanic)"
@@ -122,7 +122,7 @@
     {
         "state_name": "Nebraska",
         "race_category_id": "WHITE_NH",
-        "women_state_leg_pct": "24.49",
+        "women_state_leg_pct": "26.53",
         "race": "White",
         "race_includes_hispanic": false,
         "race_and_ethnicity": "White (Non-Hispanic)"
@@ -131,9 +131,9 @@
         "state_name": "Nebraska",
         "race_category_id": "UNKNOWN",
         "women_state_leg_pct": "0",
-        "race": "Unknown",
+        "race": "Unknown race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Unknown"
+        "race_and_ethnicity": "Unknown race"
     },
     {
         "state_name": "Nebraska",
@@ -170,7 +170,7 @@
     {
         "state_name": "Puerto Rico",
         "race_category_id": "MULTI_NH",
-        "women_state_leg_pct": "??",
+        "women_state_leg_pct": "0",
         "race": "Two or more races",
         "race_includes_hispanic": false,
         "race_and_ethnicity": "Two or more races (Non-Hispanic)"
@@ -203,9 +203,9 @@
         "state_name": "Puerto Rico",
         "race_category_id": "UNKNOWN",
         "women_state_leg_pct": "26.92",
-        "race": "Unknown",
+        "race": "Unknown race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Unknown"
+        "race_and_ethnicity": "Unknown race"
     },
     {
         "state_name": "Puerto Rico",

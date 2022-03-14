@@ -109,7 +109,7 @@ class CAWPData(DataSource):
                 # set RACE
                 output_row[std_col.RACE_CATEGORY_ID_COL] = CAWP_RACE_GROUPS_TO_STANDARD[race]
 
-                # we need TOTAL LEGISLATORS for every state by race calc
+                # row containing TOTAL LEGISLATORS for every state by race calc
                 matched_row = df_totals.loc[
                     (df_totals['State'] == state_key)]
                 total_women_by_total_legislators = clean(
@@ -124,17 +124,26 @@ class CAWPData(DataSource):
 
                 # calculate and set BY RACE pct from LINE ITEM csv file
                 else:
-                    rows_matching_race_state = df_line_items[
+                    num_matches = len(df_line_items[
                         (df_line_items['state'] == f"{state} - {state_code}") &
-                        (df_line_items['race_ethnicity'] == race) &
+                        # any of her races match current race iteration
+                        (df_line_items['race_ethnicity'].str.contains(race)) &
                         (df_line_items['level'].isin(CAWP_DATA_TYPES['state']))
-                    ]
+                    ])
 
-                    pct = len(rows_matching_race_state) / \
-                        total_legislators * 100
+                    # sum women w/ specific multiple races (eg ["White","Black"]) with ["Multiracial Alone"]
+                    if race == "Multiracial Alone":
 
+                        num_matches += len(df_line_items[
+                            (df_line_items['state'] == f"{state} - {state_code}") &
+                            # row where race contains delimiter implying multiple races
+                            (df_line_items['race_ethnicity'].str.contains(", ")) &
+                            (df_line_items['level'].isin(
+                                CAWP_DATA_TYPES['state']))
+                        ])
+
+                    pct = num_matches / total_legislators * 100
                     pct_rounded = float(str(round(pct, 2)))
-
                     pct_string = f'{pct_rounded:g}'
 
                 output_row[std_col.WOMEN_STATE_LEG_PCT] = pct_string
