@@ -4,7 +4,16 @@ import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
 
-from datasources.cawp import CAWPData, CAWP_TOTALS_URL, CAWP_LINE_ITEMS_URL
+from datasources.cawp import CAWPData, CAWP_TOTALS_URL, CAWP_LINE_ITEMS_URL, clean
+
+
+# test my utility function
+def test_clean():
+    assert clean(
+        "<i>Test Remove Italics Markup</i>") == "Test Remove Italics Markup"
+    assert clean("Remove Asterisk*") == "Remove Asterisk"
+    assert clean("Double Star**") == "Double Star"
+    assert clean("<i>Wow</i>**") == "Wow"
 
 
 # Map production URLs to mock CSVs
@@ -93,12 +102,13 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     expected_df = pd.read_json(
         GOLDEN_DATA['race_and_ethnicity'], dtype=expected_dtype)
 
-    print("mock call results")
-    print(mock_bq.call_args_list[0].args[0])
+    # print("mock call results")
+    # print(mock_bq.call_args_list[0].args[0])
 
-    print("expected output file")
-    print(expected_df)
+    # print("expected output file")
+    # print(expected_df)
 
     # output created in mocked load_csv_as_dataframe_from_web() should be the same as the expected df
+    assert set(mock_bq.call_args_list[0].args[0]) == set(expected_df.columns)
     assert_frame_equal(
         mock_bq.call_args_list[0].args[0], expected_df, check_like=True)

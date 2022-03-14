@@ -26,7 +26,8 @@ CAWP_DATA_TYPES = {
 }
 
 
-def clean(datum):
+def clean(datum: str):
+    """Returns the string with any asterisks and/r italics markup removed """
     return datum.replace("<i>", "").replace("</i>", "").replace("*", "")
 
 
