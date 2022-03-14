@@ -253,6 +253,9 @@ function MapCardWithKey(props: MapCardProps) {
                   >
                     <Grid item>
                       <DropDownMenu
+                        idSuffix={`-${props.fips.getStateFipsCode()}-${
+                          props.variableConfig.variableId
+                        }`}
                         value={activeBreakdownFilter}
                         options={filterOptions}
                         onOptionUpdate={(
@@ -314,8 +317,8 @@ function MapCardWithKey(props: MapCardProps) {
               activeBreakdownFilter !== "All" && (
                 <CardContent>
                   <Alert severity="warning" role="note">
-                    No data available for filter: <b>{activeBreakdownFilter}</b>
-                    .{" "}
+                    Insufficient data available for filter:{" "}
+                    <b>{activeBreakdownFilter}</b>.{" "}
                     <MultiMapLink
                       setSmallMultiplesDialogOpen={setSmallMultiplesDialogOpen}
                       currentBreakdown={props.currentBreakdown}
@@ -329,13 +332,9 @@ function MapCardWithKey(props: MapCardProps) {
             {metricConfig && dataForActiveBreakdownFilter.length ? (
               <CardContent>
                 <ChoroplethMap
-                  useSmallSampleMessage={
-                    !mapQueryResponse.dataIsMissing() &&
-                    (props.variableConfig.surveyCollectedData || false)
-                  }
                   signalListeners={signalListeners}
                   metric={metricConfig}
-                  legendTitle={metricConfig.shortVegaLabel}
+                  legendTitle={metricConfig.shortLabel}
                   data={
                     listExpanded
                       ? highestRatesList.concat(lowestRatesList)
@@ -371,11 +370,6 @@ function MapCardWithKey(props: MapCardProps) {
                       return (
                         <div className={styles.TerritoryCircle} key={code}>
                           <ChoroplethMap
-                            useSmallSampleMessage={
-                              !mapQueryResponse.dataIsMissing() &&
-                              (props.variableConfig.surveyCollectedData ||
-                                false)
-                            }
                             signalListeners={signalListeners}
                             metric={metricConfig}
                             legendTitle={metricConfig.fullCardTitleName}

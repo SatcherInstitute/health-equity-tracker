@@ -40,7 +40,7 @@ function jumpToCard(ref: any): void {
   }
 }
 
-export interface VariableDisparityReportProps {
+export interface OneVariableReportProps {
   key: string;
   dropdownVarId: DropdownVarId;
   fips: Fips;
@@ -51,11 +51,7 @@ export interface VariableDisparityReportProps {
   scrollToRef?: string;
 }
 
-export function VariableDisparityReport(props: VariableDisparityReportProps) {
-  // const [highlightId, setHighlightId] = useState<string>(
-  //   props.scrollToRef || ""
-  // );
-
+export function OneVariableReport(props: OneVariableReportProps) {
   function highlightMatch(id: string) {
     return props.scrollToRef === id
       ? { className: styles.HighlightedCard }

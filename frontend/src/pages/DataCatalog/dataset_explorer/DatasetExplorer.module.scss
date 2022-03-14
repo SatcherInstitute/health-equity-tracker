@@ -1,4 +1,4 @@
-@use "../../../styles/globals.scss";
+@import "../../../styles/globals.scss";
 @import "../../../styles/variables.module";
 
 .DatasetExplorer {
@@ -35,18 +35,16 @@
 }
 
 .DataDownloadsHeaderText {
+  @include tav300();
   font-size: $smallHeader !important;
-  font-weight: 400;
-  font-family: "Taviraj", sans-serif !important;
   text-align: center;
   color: $alt-black;
   padding: 5px 0 5px 0;
 }
 
 .DataDownloadsHeaderSubtext {
+  @include inter400();
   font-size: $small;
-  font-weight: 400;
-  font-family: "Inter", sans-serif !important;
   color: $alt-black;
 
   .DataDownloadsExploreLink {

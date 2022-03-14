@@ -70,8 +70,6 @@ export interface ChoroplethMapProps {
   scaleColorScheme?: string;
   // If true, the geography will be rendered as a circle. Used to display territories at national level.
   overrideShapeWithCircle?: boolean;
-  // Instead of missing data saying "no data" use a "sample size too small" message. Used for surveyed data.
-  useSmallSampleMessage: boolean;
   // Do not show a tooltip when there is no data.
   hideMissingDataTooltip?: boolean;
   // Callbacks set up so map interactions can update the React UI
@@ -151,9 +149,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     }
 
     /* SET UP TOOLTIP */
-    const noDataText = props.useSmallSampleMessage
-      ? "Sample size too small"
-      : NO_DATA_MESSAGE;
 
     /* PROPERLY LABEL THE HOVERED GEO REGION IF TERRITORY */
     const countyOrEquivalent =
@@ -171,9 +166,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const tooltipLabel =
       props.isUnknownsMap && props.metric.unknownsVegaLabel
         ? props.metric.unknownsVegaLabel
-        : props.metric.shortVegaLabel;
+        : props.metric.shortLabel;
     const tooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": ${tooltipDatum} }`;
-    const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": "${noDataText}" }`;
+    const missingDataTooltipValue = `{"${geographyName}": datum.properties.name, "${tooltipLabel}": "${NO_DATA_MESSAGE}" }`;
 
     /* SET UP LEGEND */
     let legendList = [];
@@ -484,7 +479,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props.fieldRange,
     props.scaleType,
     props.scaleColorScheme,
-    props.useSmallSampleMessage,
     props.hideMissingDataTooltip,
     props.overrideShapeWithCircle,
     props.geoData,

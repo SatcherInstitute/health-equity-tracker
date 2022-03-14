@@ -22,7 +22,6 @@
 // when scrolled to top of page
 .CarouselItem {
   line-height: $lhLoose;
-  font-weight: normal;
   font-size: $title;
   @media (min-width: $sm) {
     font-size: $smallestHeader;

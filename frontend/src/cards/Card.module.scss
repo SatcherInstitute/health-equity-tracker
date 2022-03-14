@@ -1,8 +1,9 @@
 @import "../styles/variables.module";
+@import "../styles/globals.scss";
 
 .CardHeader {
+  @include inter700();
   text-align: left;
-  font-weight: bold !important;
 }
 
 .ChartCard {
@@ -27,7 +28,6 @@
   }
 
   .TotalPopulationKey {
-    font-weight: 400;
     font-size: $smallestHeader;
     line-height: $populationTitleHeight;
     padding-right: 7px;
@@ -40,8 +40,8 @@
   }
 
   .PopulationCardTitle {
+    @include inter500();
     padding-right: 20px;
-    font-weight: 500;
     font-size: $header;
     line-height: $populationTitleHeight;
   }
@@ -53,27 +53,14 @@
   }
 }
 .PopulationChartTitle {
+  @include inter700();
   text-align: left;
-  font-weight: bold !important;
   font-size: $small;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-weight: 400;
   letter-spacing: 0.00938em;
 }
 
 .PopulationAlert {
   margin: 10px;
-
-  .InfoLinkButton {
-    font-size: $small !important;
-    font-family: "Inter", serif !important;
-    font-weight: 400 !important;
-    letter-spacing: 0.01071em !important;
-    text-decoration: underline !important;
-    color: $alt-green !important;
-    padding: 0 5px !important;
-    margin-top: -2px !important; // To align with the <p> text better
-  }
 }
 
 .PopulationMetric {
