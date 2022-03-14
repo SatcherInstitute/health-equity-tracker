@@ -39,7 +39,11 @@ CAWP_TOTALS_URL = "https://cawp.rutgers.edu/tablefield/export/paragraph/1028/fie
 
 
 # TOTAL state_legislature numbers
-CAWP_LINE_ITEMS_URL = "https://cawpdata.rutgers.edu/women-elected-officials/race-ethnicity/export-roles/csv?current=1&yearend_filter=All&level%5B0%5D=Federal%20Congress&level%5B1%5D=State%20Legislative&level%5B2%5D=Territorial/DC%20Legislative&items_per_page=50&page&_format=csv"
+CAWP_LINE_ITEMS_URL = ("https://cawpdata.rutgers.edu/women-elected-officials/"
+                       "race-ethnicity/export-roles/csv?current=1&yearend_filter=All"
+                       "&level%5B0%5D=Federal%20Congress&level%5B1%5D=State%20Legislative"
+                       "&level%5B2%5D=Territorial/DC%20Legislative&items_per_page=50"
+                       "&page&_format=csv")
 
 
 class CAWPData(DataSource):
