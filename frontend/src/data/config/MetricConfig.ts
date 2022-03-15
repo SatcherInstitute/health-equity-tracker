@@ -16,7 +16,8 @@ export type DropdownVarId =
   | "chronic_kidney_disease"
   | "cardiovascular_diseases"
   | "asthma"
-  | "voter_participation";
+  | "voter_participation"
+  | "women_legislators";
 
 // IDs for the sub-data types (if any) for theDropDownId
 export type VariableId =
@@ -32,7 +33,9 @@ export type VariableId =
   | "health_coverage"
   | "poverty"
   | "vaccinations"
-  | "suicides";
+  | "suicides"
+  | "women_us_congress"
+  | "women_state_legislatures";
 
 // consts for simpler code
 export const VAXX: VariableId = "vaccinations";
@@ -40,6 +43,7 @@ export const VAXX: VariableId = "vaccinations";
 export type MetricId =
   | "acs_vaccine_population_pct"
   | "brfss_population_pct"
+  | "cawp_population_pct"
   | "copd_pct_share"
   | "copd_per_100k"
   | "covid_cases"
@@ -103,7 +107,9 @@ export type MetricId =
   | "asthma_pct_share"
   | "asthma_per_100k"
   | "voter_participation_pct_share"
-  | "voter_participation_per_100k";
+  | "voter_participation_per_100k"
+  | "women_state_leg_pct"
+  | "women_state_leg_pct_share";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -907,6 +913,35 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "brfss_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+        },
+      },
+    },
+  ],
+  women_legislators: [
+    {
+      variableId: "women_state_legislatures",
+      variableDisplayName: "Women in State Legislatures",
+      variableFullDisplayName: "Women in State Legislatures",
+      surveyCollectedData: true,
+      variableDefinition: `Official definition.`,
+      metrics: {
+        per100k: {
+          metricId: "women_state_leg_pct",
+          fullCardTitleName: "Women in State Legislature Per 100k People",
+          shortLabel: "% of legislators",
+          type: "percentile",
+        },
+        pct_share: {
+          metricId: "women_state_leg_pct_share",
+          fullCardTitleName: "Share Of All Women State Legislators",
+          shortLabel: "% of women legislators",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "cawp_population_pct",
             fullCardTitleName: populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",

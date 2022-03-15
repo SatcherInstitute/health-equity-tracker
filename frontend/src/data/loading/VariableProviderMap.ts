@@ -3,6 +3,7 @@ import Acs2010PopulationProvider from "../variables/Acs2010PopulationProvider";
 import VariableProvider from "../variables/VariableProvider";
 import CdcCovidProvider from "../variables/CdcCovidProvider";
 import BrfssProvider from "../variables/BrfssProvider";
+import CawpProvider from "../variables/CawpProvider";
 import { MetricId } from "../config/MetricConfig";
 import AcsHealthInsuranceProvider from "../variables/AcsHealthInsuranceProvider";
 import AcsPovertyProvider from "../variables/AcsPovertyProvider";
@@ -16,6 +17,7 @@ export type ProviderId =
   | "vaccine_provider"
   | "covid_provider"
   | "brfss_provider"
+  | "cawp_provider"
   | "acs_2010_pop_provider";
 
 export default class VariableProviderMap {
@@ -31,6 +33,7 @@ export default class VariableProviderMap {
       acs2010Provider,
       new CdcCovidProvider(acsProvider),
       new BrfssProvider(acsProvider),
+      new CawpProvider(acsProvider),
       new AcsHealthInsuranceProvider(),
       new AcsPovertyProvider(),
       new VaccineProvider(acsProvider),
@@ -41,9 +44,8 @@ export default class VariableProviderMap {
   }
 
   private getProvidersById(): Record<ProviderId, VariableProvider> {
-    const providersById: Partial<
-      Record<ProviderId, VariableProvider>
-    > = Object.fromEntries(this.providers.map((p) => [p.providerId, p]));
+    const providersById: Partial<Record<ProviderId, VariableProvider>> =
+      Object.fromEntries(this.providers.map((p) => [p.providerId, p]));
     return providersById as Record<ProviderId, VariableProvider>;
   }
 
