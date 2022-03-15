@@ -580,7 +580,7 @@ class ACSPopulation(DataSource):
 
 
 def generate_national_dataset_with_all_states(state_df, demographic_breakdown_category):
-    all_state_fips = set(state_df[std_col.STATE_FIPS_COL].drop_duplicates().to_list())
+    all_state_fips = set(state_df[std_col.STATE_FIPS_COL].to_list())
     return generate_national_dataset(state_df, all_state_fips, demographic_breakdown_category)
 
 
