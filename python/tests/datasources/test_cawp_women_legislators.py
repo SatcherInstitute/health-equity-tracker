@@ -14,7 +14,7 @@ def test_clean():
         "<i>Test Remove Italics Markup</i>") == "Test Remove Italics Markup"
     assert clean("Remove Asterisk*") == "Remove Asterisk"
     assert clean("Double Star**") == "Double Star"
-    assert clean("<i>Wow</i>**") == "Wow"
+    assert clean("<i>All the Above</i>**") == "All the Above"
 
 
 def test_swap_territory_abbr():
