@@ -124,8 +124,6 @@ class CAWPData(DataSource):
         for race in CAWP_RACE_GROUPS_TO_STANDARD.keys():
             us_tally[race] = 0
 
-        # print(state_code_map)
-
         for state_key in total_state_keys:
 
             # remove any formatting and use our territory abbreviations
@@ -200,8 +198,6 @@ class CAWPData(DataSource):
             # set %
             pct = get_pretty_pct(us_tally[race] / us_tally['total'])
             us_output_row[std_col.WOMEN_STATE_LEG_PCT] = pct
-
-            # print(us_output_row)
 
             output.append(us_output_row)
 

@@ -87,8 +87,6 @@ def get_test_data_as_df(*args):
                      dtype=test_input_dtype
                      )
 
-    # print(df.to_string())
-
     return df
 
 
@@ -128,10 +126,10 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     #     "cawp-run-results.json", orient="records")
 
     # print("mock call results")
-    print(mock_bq.call_args_list[0].args[0].to_string())
+    # print(mock_bq.call_args_list[0].args[0].to_string())
 
     # print("expected output file")
-    print(expected_df.to_string())
+    # print(expected_df.to_string())
 
     # output created in mocked load_csv_as_dataframe_from_web() should be the same as the expected df
     assert set(mock_bq.call_args_list[0].args[0]) == set(expected_df.columns)
