@@ -10,7 +10,6 @@ from datasources.cdc_vaccination_county import CDCVaccinationCounty
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "cdc_vaccination_county")
 
-
 GOLDEN_DATA = os.path.join(TEST_DIR, 'cdc_vaccination_county-race_and_ethnicity.csv')
 
 
