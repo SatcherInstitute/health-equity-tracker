@@ -1,0 +1,5 @@
+state_fips,state_name,age,population,population_pct
+00,United States,0-29,500,25.0
+00,United States,30-59,600,30.0
+00,United States,60+,900,45.0
+00,United States,Total,2000,100.0
