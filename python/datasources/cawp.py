@@ -30,11 +30,20 @@ def clean(datum: str):
     return datum.replace("<i>", "").replace("</i>", "").replace("*", "")
 
 
-# 2 TABLES FOR STATE-LEVEL CONGRESSES
+def get_pretty_pct(proportion: float):
+    """ Takes a proportion float (between 0 and 1) and converts to a string 
+    representing the pct equivalent, with a maximum of 2 significant digits 
+    and no trailing zeros """
+    pct = proportion * 100
+    pct_rounded = float(str(round(pct, 2)))
+    return f'{pct_rounded:g}'
 
+
+# 2 TABLES FOR STATE-LEVEL CONGRESSES
 # LINE ITEM numbers
 # table includes breakdown of women by race by state by level,
 # but doesn't include total legislature numbers
+# https://cawp.rutgers.edu/facts/levels-office/state-legislature/women-state-legislatures-2022
 CAWP_TOTALS_URL = "https://cawp.rutgers.edu/tablefield/export/paragraph/1028/field_table/und/0"
 
 
@@ -100,31 +109,40 @@ class CAWPData(DataSource):
         columns = [std_col.STATE_NAME_COL, std_col.WOMEN_STATE_LEG_PCT]
         columns.append(std_col.RACE_CATEGORY_ID_COL)
 
+        # tally all states/territories to get national state legislature totals and totals by race
+        us_tally = {"total": 0}
+        for race in CAWP_RACE_GROUPS_TO_STANDARD.keys():
+            us_tally[race] = 0
+
         for state_key in total_state_keys:
+
+            # set STATE
+            state_code = clean(state_key)
+            state = state_code_map[state_code]
+
+            # find row containing TOTAL LEGISLATORS for every state
+            matched_row = df_totals.loc[
+                (df_totals['State'] == state_key)]
+            total_women_by_total_legislators = clean(
+                matched_row["Total Women/Total Legislators"].values[0])
+            total_women_legislators = int(total_women_by_total_legislators.split(
+                "/")[0])
+            total_legislators = int(total_women_by_total_legislators.split(
+                "/")[1])
+
+            # tally national total of all state leg (denominator)
+            us_tally["All"] += total_women_legislators
+            us_tally["total"] += total_legislators
 
             for race in CAWP_RACE_GROUPS_TO_STANDARD.keys():
 
                 output_row = {}
-
-                # set STATE
-                state_code = clean(state_key)
-                state = state_code_map[state_code]
                 output_row[std_col.STATE_NAME_COL] = state
-
-                # set RACE
                 output_row[std_col.RACE_CATEGORY_ID_COL] = CAWP_RACE_GROUPS_TO_STANDARD[race]
-
-                # row containing TOTAL LEGISLATORS for every state by race calc
-                matched_row = df_totals.loc[
-                    (df_totals['State'] == state_key)]
-                total_women_by_total_legislators = clean(
-                    matched_row["Total Women/Total Legislators"].values[0])
-                total_legislators = int(total_women_by_total_legislators.split(
-                    "/")[1])
 
                 # set TOTAL pct from TOTAL csv file
                 if race == "All":
-                    pct_string = str(clean(
+                    pct = str(clean(
                         matched_row['%Women Overall'].values[0]))
 
                 # calculate and set BY RACE pct from LINE ITEM csv file
@@ -147,13 +165,32 @@ class CAWPData(DataSource):
                                 CAWP_DATA_TYPES['state']))
                         ])
 
-                    pct = num_matches / total_legislators * 100
-                    pct_rounded = float(str(round(pct, 2)))
-                    pct_string = f'{pct_rounded:g}'
+                    # tally national level of each race's number of women state leg (numerator)
+                    us_tally[race] += num_matches
 
-                output_row[std_col.WOMEN_STATE_LEG_PCT] = pct_string
+                    # calculate % of {race} women for this state
+                    pct = get_pretty_pct(num_matches / total_legislators)
+
+                output_row[std_col.WOMEN_STATE_LEG_PCT] = pct
 
                 output.append(output_row)
+
+        # calc national totals (for state leg)
+        for race in CAWP_RACE_GROUPS_TO_STANDARD.keys():
+
+            us_output_row = {}
+            us_output_row[std_col.STATE_NAME_COL] = "United States"
+
+            # set RACE
+            us_output_row[std_col.RACE_CATEGORY_ID_COL] = CAWP_RACE_GROUPS_TO_STANDARD[race]
+
+            # set %
+            pct = get_pretty_pct(us_tally[race] / us_tally['total'])
+            us_output_row[std_col.WOMEN_STATE_LEG_PCT] = pct
+
+            print(us_output_row)
+
+            output.append(us_output_row)
 
         output_df = pd.DataFrame(output, columns=columns)
 
