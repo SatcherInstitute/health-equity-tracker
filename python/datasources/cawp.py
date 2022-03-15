@@ -26,6 +26,16 @@ CAWP_DATA_TYPES = {
 }
 
 
+def swap_territory_abbr(abbr: str):
+    """Replaces mismatched territory codes """
+    abbr_swaps = {"AS": "AM", "MP": "MI"}
+
+    if abbr in abbr_swaps:
+        abbr = abbr_swaps.get(abbr)
+
+    return abbr
+
+
 def clean(datum: str):
     """Returns the string with any asterisks and/r italics markup removed """
     return datum.replace("<i>", "").replace("</i>", "").replace("*", "")
@@ -81,8 +91,7 @@ class CAWPData(DataSource):
             CAWP_LINE_ITEMS_URL)
 
         # make table by race
-        breakdown_df = self.generate_breakdown(
-            std_col.RACE_OR_HISPANIC_COL, df_totals, df_line_items)
+        breakdown_df = self.generate_breakdown(df_totals, df_line_items)
 
         # set column types
         column_types = {c: 'STRING' for c in breakdown_df.columns}
@@ -92,12 +101,12 @@ class CAWPData(DataSource):
         gcs_to_bq_util.add_dataframe_to_bq(
             breakdown_df, dataset, std_col.RACE_OR_HISPANIC_COL, column_types=column_types)
 
-    def generate_breakdown(self, breakdown, df_totals, df_line_items):
+    def generate_breakdown(self, df_totals, df_line_items):
 
         # for LINE ITEM CSV
         # split 'state' into a map of 'state 2 letter code' : 'statename'
         state_code_map = {}
-        for state in df_line_items['state']:
+        for state in df_line_items['state'].dropna():
             state_terms = state.split(" - ")
             state_code_map[state_terms[1]] = state_terms[0]
 
@@ -115,11 +124,14 @@ class CAWPData(DataSource):
         for race in CAWP_RACE_GROUPS_TO_STANDARD.keys():
             us_tally[race] = 0
 
+        # print(state_code_map)
+
         for state_key in total_state_keys:
 
-            # set STATE
-            state_code = clean(state_key)
-            state = state_code_map[state_code]
+            # remove any formatting and use our territory abbreviations
+            state_abbr = swap_territory_abbr(clean(state_key))
+
+            state = state_code_map[state_abbr]
 
             # find row containing TOTAL LEGISLATORS for every state
             matched_row = df_totals.loc[
@@ -149,7 +161,7 @@ class CAWPData(DataSource):
                 # calculate and set BY RACE pct from LINE ITEM csv file
                 else:
                     num_matches = len(df_line_items[
-                        (df_line_items['state'] == f"{state} - {state_code}") &
+                        (df_line_items['state'] == f"{state} - {state_abbr}") &
                         # any of her races match current race iteration
                         (df_line_items['race_ethnicity'].str.contains(race)) &
                         (df_line_items['level'].isin(CAWP_DATA_TYPES['state']))
@@ -159,7 +171,7 @@ class CAWPData(DataSource):
                     if race == "Multiracial Alone":
 
                         num_matches += len(df_line_items[
-                            (df_line_items['state'] == f"{state} - {state_code}") &
+                            (df_line_items['state'] == f"{state} - {state_abbr}") &
                             # row where race contains delimiter implying multiple races
                             (df_line_items['race_ethnicity'].str.contains(", ")) &
                             (df_line_items['level'].isin(
@@ -189,7 +201,7 @@ class CAWPData(DataSource):
             pct = get_pretty_pct(us_tally[race] / us_tally['total'])
             us_output_row[std_col.WOMEN_STATE_LEG_PCT] = pct
 
-            print(us_output_row)
+            # print(us_output_row)
 
             output.append(us_output_row)
 
