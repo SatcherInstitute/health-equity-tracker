@@ -1,4 +1,3 @@
-import os
 import pandas as pd
 
 from ingestion.standardized_columns import Race
