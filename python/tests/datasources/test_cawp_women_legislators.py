@@ -4,7 +4,7 @@ import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
 
-from datasources.cawp import CAWPData, CAWP_TOTALS_URL, CAWP_LINE_ITEMS_URL, clean, get_pretty_pct, swap_territory_abbr
+from datasources.cawp import CAWPData, CAWP_TOTALS_URL, CAWP_LINE_ITEMS_PATH, clean, get_pretty_pct, swap_territory_abbr
 
 
 # test my utility functions
@@ -31,10 +31,10 @@ def test_get_pretty_pct():
 
 # Map production URLs to mock CSVs
 mock_file_map = {
-    # state leg TOTALS by state (FULL FILE)
+    # state leg TOTALS by state (FULL FILE) mocking WEB CALL
     CAWP_TOTALS_URL: {
         "filename": 'cawp_totals.csv',  # FULL CSV FILE
-        # "filename": 'cawp_test_input_totals.csv', # LIMITED SAMPLE CSV FILE
+        # "filename": 'cawp_test_input_totals.csv',  # LIMITED SAMPLE CSV FILE
         "data_types": {
             "State": str,
             "State Rank": object,
@@ -46,10 +46,10 @@ mock_file_map = {
             "%Women Overall": str
         }
     },
-    # for line level CSV
-    CAWP_LINE_ITEMS_URL: {
+    # for LINE LEVEL mocking /data FOLDER
+    CAWP_LINE_ITEMS_PATH: {
         "filename": 'cawp_line_items.csv',  # FULL CSV FILE
-        # "filename": 'cawp_test_input_line_items.csv', # LIMITED SAMPLE CSV FILE
+        # "filename": 'cawp_test_input_line_items.csv',  # LIMITED SAMPLE CSV FILE
         "data_types": {
             "id": str,
             "year": str,
@@ -63,8 +63,8 @@ mock_file_map = {
             "district": str,
             "race_ethnicity": str
         }
+    },
 
-    }
 }
 
 # Current working directory.
@@ -77,24 +77,20 @@ GOLDEN_DATA = {
 
 
 def get_test_data_as_df(*args):
-
     # read in correct CSV (mocking the network call to the CAWP api)
     test_input_csv = mock_file_map[args[0]]["filename"]
     test_input_dtype = mock_file_map[args[0]]["data_types"]
-    # return pd.read_csv(os.path.join(TEST_DIR, test_input_csv),
-    #                    dtype=test_input_dtype
-    df = pd.read_csv(os.path.join(THIS_DIR, "../../../data/cawp/", test_input_csv),
-                     dtype=test_input_dtype
-                     )
-
-    return df
+    return pd.read_csv(os.path.join(TEST_DIR, test_input_csv),
+                       dtype=test_input_dtype)
 
 
+@ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe_from_path',
+             side_effect=get_test_data_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe_from_web',
              side_effect=get_test_data_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
              return_value=None)
-def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
+def testWriteToBq(mock_bq: mock.MagicMock, mock_web_csv: mock.MagicMock, mock_path_csv: mock.MagicMock):
 
     cawp_data = CAWPData()
 
@@ -105,8 +101,9 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-    assert mock_csv.call_count == 2
     mock_bq.assert_called_once
+    mock_web_csv.assert_called_once
+    mock_path_csv.assert_called_once
 
     expected_dtype = {
         'state_name': str,

@@ -55,15 +55,16 @@ def get_pretty_pct(proportion: float):
 # table includes breakdown of women by race by state by level,
 # but doesn't include total legislature numbers
 # https://cawp.rutgers.edu/facts/levels-office/state-legislature/women-state-legislatures-2022
-CAWP_TOTALS_URL = "https://cawp.rutgers.edu/tablefield/export/paragraph/1028/field_table/und/0"
-
+CAWP_LINE_ITEMS_PATH = "../../data/cawp/cawp_line_items.csv"
+# this URL could be used for an API endpoint but needs authentication
+# CAWP_LINE_ITEMS_URL = ("https://cawpdata.rutgers.edu/women-elected-officials/"
+#    "race-ethnicity/export-roles/csv?current=1&yearend_filter=All"
+#    "&level%5B0%5D=Federal%20Congress&level%5B1%5D=State%20Legislative"
+#    "&level%5B2%5D=Territorial/DC%20Legislative&items_per_page=50"
+#    "&page&_format=csv")
 
 # TOTAL state_legislature numbers
-CAWP_LINE_ITEMS_URL = ("https://cawpdata.rutgers.edu/women-elected-officials/"
-                       "race-ethnicity/export-roles/csv?current=1&yearend_filter=All"
-                       "&level%5B0%5D=Federal%20Congress&level%5B1%5D=State%20Legislative"
-                       "&level%5B2%5D=Territorial/DC%20Legislative&items_per_page=50"
-                       "&page&_format=csv")
+CAWP_TOTALS_URL = "https://cawp.rutgers.edu/tablefield/export/paragraph/1028/field_table/und/0"
 
 
 class CAWPData(DataSource):
@@ -82,13 +83,19 @@ class CAWPData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
+        # read needed files directly from /data rather than external URLs
+        # df_totals = gcs_to_bq_util.load_csv_as_dataframe_from_path(
+        #     "../../data/cawp/cawp_totals.csv")
+        df_line_items = gcs_to_bq_util.load_csv_as_dataframe_from_path(
+            "../../data/cawp/cawp_line_items.csv")
+
         # load in table with % of women legislators for /state
         df_totals = gcs_to_bq_util.load_csv_as_dataframe_from_web(
             CAWP_TOTALS_URL)
 
         # read second table that contains LINE ITEM with women leg by race / level / state
-        df_line_items = gcs_to_bq_util.load_csv_as_dataframe_from_web(
-            CAWP_LINE_ITEMS_URL)
+        # df_line_items = gcs_to_bq_util.load_csv_as_dataframe_from_web(
+        #     CAWP_LINE_ITEMS_URL)
 
         # make table by race
         breakdown_df = self.generate_breakdown(df_totals, df_line_items)
