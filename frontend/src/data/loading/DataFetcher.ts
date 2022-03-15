@@ -98,6 +98,16 @@ export class ApiDataFetcher implements DataFetcher {
       result = result.map((row: any) => {
         return { ...row, population: Number(row["population"]) };
       });
+    } else if (datasetId.startsWith("cawp_data")) {
+      result = result.map((row: any) => {
+        return {
+          ...row,
+          women_state_leg_pct:
+            row["women_state_leg_pct"] == null
+              ? null
+              : Number(row["women_state_leg_pct"]),
+        };
+      });
     } else if (datasetId.startsWith("uhc_data")) {
       result = result.map((row: any) => {
         return {
