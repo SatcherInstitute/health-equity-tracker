@@ -78,12 +78,11 @@ def get_test_data_as_df(*args):
                        )
 
 
-# @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe_from_web',
-#              side_effect=get_test_data_as_df)
+@ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe_from_web',
+             side_effect=get_test_data_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
              return_value=None)
-# def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
-def testWriteToBq(mock_bq: mock.MagicMock):
+def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     cawp_data = CAWPData()
 

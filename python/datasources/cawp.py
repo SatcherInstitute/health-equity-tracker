@@ -73,16 +73,12 @@ class CAWPData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
         # load in table with % of women legislators for /state
-        # df_totals = gcs_to_bq_util.load_csv_as_dataframe_from_web(
-        #     CAWP_TOTALS_URL)
-        df_totals = pd.read_csv(os.path.join(os.path.dirname(
-            __file__), "cawp_tmp_data/cawp_totals.csv"))
+        df_totals = gcs_to_bq_util.load_csv_as_dataframe_from_web(
+            CAWP_TOTALS_URL)
 
         # read second table that contains LINE ITEM with women leg by race / level / state
-        # df_line_items = gcs_to_bq_util.load_csv_as_dataframe_from_web(
-        #     CAWP_LINE_ITEMS_URL)
-        # os.chdir("../../data/cawp")
-        df_line_items = None  # pd.read_csv("cawp_line_items.csv")
+        df_line_items = gcs_to_bq_util.load_csv_as_dataframe_from_web(
+            CAWP_LINE_ITEMS_URL)
 
         # make table by race
         breakdown_df = self.generate_breakdown(
