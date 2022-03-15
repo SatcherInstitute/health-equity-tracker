@@ -86,7 +86,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
         break;
     }
 
-    setTimeout(() => {
+    window.setTimeout(() => {
       jumpToCard(target);
     }, HIGHLIGHT_SCROLL_DELAY);
     // remove hash from URL

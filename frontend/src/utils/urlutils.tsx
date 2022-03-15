@@ -8,8 +8,8 @@ import { MadLibId, PhraseSelections } from "./MadLibs";
 export const STICKY_VERSION_PARAM = "sv";
 
 export const HIGHLIGHT_SCROLL_DELAY = 2_000;
-export const HIGHLIGHT_CANCEL_DELAY = 7_000;
-// highlight fade time is 5s, set in src/reports/Report.module.scss
+export const HIGHLIGHT_CANCEL_DELAY = 18_000;
+// highlight delay and fade time are set in src/reports/Report.module.scss
 
 // PAGE URLS
 export const HET_URL = "https://healthequitytracker.org";
