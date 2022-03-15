@@ -18,7 +18,7 @@ def test_clean():
 
 
 def test_get_pretty_pct():
-    assert get_pretty_pct(1/3) == "33.33"
+    assert get_pretty_pct(1 / 3) == "33.33"
     assert get_pretty_pct(1) == "100"
     assert get_pretty_pct(0.12345678) == "12.35"
 

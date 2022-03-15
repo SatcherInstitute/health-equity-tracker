@@ -21,7 +21,7 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
 
 CAWP_DATA_TYPES = {
     "state": ["Territorial/D.C.", "State Legislative"],
-    "us":  ["Congress"],
+    "us": ["Congress"],
 }
 
 
@@ -31,8 +31,8 @@ def clean(datum: str):
 
 
 def get_pretty_pct(proportion: float):
-    """ Takes a proportion float (between 0 and 1) and converts to a string 
-    representing the pct equivalent, with a maximum of 2 significant digits 
+    """ Takes a proportion float (between 0 and 1) and converts to a string
+    representing the pct equivalent, with a maximum of 2 significant digits
     and no trailing zeros """
     pct = proportion * 100
     pct_rounded = float(str(round(pct, 2)))
