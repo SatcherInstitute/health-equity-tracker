@@ -10,7 +10,8 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
     'Asian American/Pacific Islander': Race.ASIAN_PAC_NH.value,
     'Latina': Race.HISP_F.value,
     'Middle Eastern/North African': Race.MENA_NH.value,
-    # TODO differentiate between those who spec. choose "Multiracial" vs those who identify as multiple specific races
+    # currently reporting MULTI as the sum of "Multiracial Alone" +
+    # women who chose multiple specific races
     'Multiracial Alone': Race.MULTI_NH.value,
     'Native American/Alaska Native/Native Hawaiian': Race.AIANNH_NH.value,
     'Black': Race.BLACK_NH.value,
@@ -26,7 +27,7 @@ CAWP_DATA_TYPES = {
 
 
 def swap_territory_abbr(abbr: str):
-    """Replaces mismatched territory codes """
+    """Replaces mismatched territory codes between TOTAL and LINE LEVEL files """
     abbr_swaps = {"AS": "AM", "MP": "MI"}
 
     if abbr in abbr_swaps:
@@ -53,7 +54,6 @@ def get_pretty_pct(proportion: float):
 # LINE ITEM numbers
 # table includes breakdown of women by race by state by level,
 # but doesn't include total legislature numbers
-# https://cawp.rutgers.edu/facts/levels-office/state-legislature/women-state-legislatures-2022
 CAWP_LINE_ITEMS_PATH = "../../data/cawp/cawp_line_items.csv"
 # this URL could be used for an API endpoint but needs authentication
 # CAWP_LINE_ITEMS_URL = ("https://cawpdata.rutgers.edu/women-elected-officials/"
@@ -63,6 +63,7 @@ CAWP_LINE_ITEMS_PATH = "../../data/cawp/cawp_line_items.csv"
 #    "&page&_format=csv")
 
 # TOTAL state_legislature numbers
+# WEBSITE FOR TOTALS https://cawp.rutgers.edu/facts/levels-office/state-legislature/women-state-legislatures-2022#table
 CAWP_TOTALS_URL = "https://cawp.rutgers.edu/tablefield/export/paragraph/1028/field_table/und/0"
 
 
@@ -125,14 +126,14 @@ class CAWPData(DataSource):
         columns = [std_col.STATE_NAME_COL, std_col.WOMEN_STATE_LEG_PCT]
         columns.append(std_col.RACE_CATEGORY_ID_COL)
 
-        # tally all states/territories to get national state legislature totals and totals by race
+        # tally all states/territories to get national state legislature totals (all genders) and total women by race
         us_tally = {"total": 0}
         for race in CAWP_RACE_GROUPS_TO_STANDARD.keys():
             us_tally[race] = 0
 
         for state_key in total_state_keys:
 
-            # remove any formatting and use our territory abbreviations
+            # remove any formatting and coordinate territory abbreviations
             state_abbr = swap_territory_abbr(clean(state_key))
 
             state = state_code_map[state_abbr]
@@ -147,7 +148,8 @@ class CAWPData(DataSource):
             total_legislators = int(total_women_by_total_legislators.split(
                 "/")[1])
 
-            # tally national total of all state leg (denominator)
+            # tally national total of women legislators of all races and
+            # total of all state leg of any gender (denominator)
             us_tally["All"] += total_women_legislators
             us_tally["total"] += total_legislators
 
@@ -157,12 +159,12 @@ class CAWPData(DataSource):
                 output_row[std_col.STATE_NAME_COL] = state
                 output_row[std_col.RACE_CATEGORY_ID_COL] = CAWP_RACE_GROUPS_TO_STANDARD[race]
 
-                # set TOTAL pct from TOTAL csv file
+                # get TOTAL pct from TOTAL csv file
                 if race == "All":
                     pct = str(clean(
                         matched_row['%Women Overall'].values[0]))
 
-                # calculate and set BY RACE pct from LINE ITEM csv file
+                # calc BY RACE pct from LINE ITEM csv file
                 else:
                     num_matches = len(df_line_items[
                         (df_line_items['state'] == f"{state} - {state_abbr}") &
@@ -171,28 +173,31 @@ class CAWPData(DataSource):
                         (df_line_items['level'].isin(CAWP_DATA_TYPES['state']))
                     ])
 
-                    # sum women w/ specific multiple races (eg ["White","Black"]) with ["Multiracial Alone"]
+                    # sum "Multiracial Alone" women w/ women who identify with
+                    #  multiple specific races
+                    # (eg ["White","Black"]) with ["Multiracial Alone"]
                     if race == "Multiracial Alone":
-
                         num_matches += len(df_line_items[
                             (df_line_items['state'] == f"{state} - {state_abbr}") &
-                            # row where race contains delimiter implying multiple races
+                            # comma delimiter signifies multiple races
                             (df_line_items['race_ethnicity'].str.contains(", ")) &
                             (df_line_items['level'].isin(
                                 CAWP_DATA_TYPES['state']))
                         ])
 
-                    # tally national level of each race's number of women state leg (numerator)
+                    # tally national level of each race's # women state leg (numerator)
                     us_tally[race] += num_matches
 
                     # calculate % of {race} women for this state
                     pct = get_pretty_pct(num_matches / total_legislators)
 
+                # set pct for this state
                 output_row[std_col.WOMEN_STATE_LEG_PCT] = pct
 
+                # add state row to output
                 output.append(output_row)
 
-        # calc national totals (for state leg)
+        # calc national totals by race (for all state legislatures combined)
         for race in CAWP_RACE_GROUPS_TO_STANDARD.keys():
 
             us_output_row = {}
@@ -205,6 +210,7 @@ class CAWPData(DataSource):
             pct = get_pretty_pct(us_tally[race] / us_tally['total'])
             us_output_row[std_col.WOMEN_STATE_LEG_PCT] = pct
 
+            # treat US like a state
             output.append(us_output_row)
 
         output_df = pd.DataFrame(output, columns=columns)

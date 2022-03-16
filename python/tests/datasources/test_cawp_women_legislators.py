@@ -33,8 +33,8 @@ def test_get_pretty_pct():
 mock_file_map = {
     # state leg TOTALS by state (FULL FILE) mocking WEB CALL
     CAWP_TOTALS_URL: {
-        "filename": 'cawp_totals.csv',  # FULL CSV FILE
-        # "filename": 'cawp_test_input_totals.csv',  # LIMITED SAMPLE CSV FILE
+        "filename": 'cawp_test_input_totals.csv',  # FULL CSV FILE
+        # "filename": 'cawp_test_input_totals-SUBSET.csv',  # LIMITED SAMPLE CSV FILE
         "data_types": {
             "State": str,
             "State Rank": object,
@@ -48,8 +48,8 @@ mock_file_map = {
     },
     # for LINE LEVEL mocking /data FOLDER
     CAWP_LINE_ITEMS_PATH: {
-        "filename": 'cawp_line_items.csv',  # FULL CSV FILE
-        # "filename": 'cawp_test_input_line_items.csv',  # LIMITED SAMPLE CSV FILE
+        "filename": 'cawp_test_input_line_items.csv',  # FULL CSV FILE
+        # "filename": 'cawp_test_input_line_items-SUBSET.csv',  # LIMITED SAMPLE CSV FILE
         "data_types": {
             "id": str,
             "year": str,
@@ -119,8 +119,8 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_web_csv: mock.MagicMock, mock_pa
         GOLDEN_DATA['race_and_ethnicity'], dtype=expected_dtype)
 
     # save results to file
-    # mock_bq.call_args_list[0].args[0].to_json(
-    #     "cawp-run-results.json", orient="records")
+    mock_bq.call_args_list[0].args[0].to_json(
+        "cawp-run-results.json", orient="records")
 
     # print("mock call results")
     # print(mock_bq.call_args_list[0].args[0].to_string())
