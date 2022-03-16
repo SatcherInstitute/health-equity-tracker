@@ -7,11 +7,7 @@ import {
 import { DatasetMetadataMap } from "../config/DatasetMetadata";
 import { onlyIncludeStandardRaces } from "../query/BreakdownFilter";
 import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
-import {
-  createMissingDataResponse,
-  MetricQuery,
-  MetricQueryResponse,
-} from "../query/MetricQuery";
+import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import {
   AGE,
   ALL,
@@ -125,19 +121,6 @@ describe("AcsPopulationProvider", () => {
     resetCacheDebug();
     dataFetcher.resetState();
     dataFetcher.setFakeMetadataLoaded(DatasetMetadataMap);
-  });
-
-  test("Invalid Breakdown", async () => {
-    const acsProvider = new AcsPopulationProvider();
-
-    const response = await acsProvider.getData(
-      new MetricQuery(["population", "population_pct"], Breakdowns.national())
-    );
-    expect(response).toEqual(
-      createMissingDataResponse(
-        "Breakdowns not supported for provider acs_pop_provider: geography:national"
-      )
-    );
   });
 
   test("Get all counties in state with Race Breakdown", async () => {
@@ -331,18 +314,16 @@ describe("AcsPopulationProvider", () => {
 
   test("National and Race Breakdown", async () => {
     const rawData = [
-      stateRow(NC, RACE, ASIAN_NH, 5, 40),
-      stateRow(NC, RACE, WHITE_NH, 15, 60),
-      stateRow(NC, RACE, ALL, 20, 100),
-      stateRow(AL, RACE, ASIAN_NH, 5, 100),
-      stateRow(AL, RACE, ALL, 5, 100),
+      stateRow(USA, RACE, ASIAN_NH, 5, 40),
+      stateRow(USA, RACE, WHITE_NH, 15, 60),
+      stateRow(USA, RACE, ALL, 20, 100),
     ];
 
     const NATIONAL_ASIAN_FINAL = finalPopulationCountAndPctRow(
       USA,
       RACE,
       ASIAN_NH,
-      10,
+      5,
       40
     );
     const NATIONAL_WHITE_FINAL = finalPopulationCountAndPctRow(
@@ -356,12 +337,12 @@ describe("AcsPopulationProvider", () => {
       USA,
       RACE,
       ALL,
-      25,
+      20,
       100
     );
 
     await evaluatePopulationCountAndPctWithAndWithoutTotal(
-      "acs_population-by_race_state_std",
+      "acs_population-by_race_national",
       rawData,
       Breakdowns.national(),
       RACE,
@@ -500,31 +481,29 @@ describe("AcsPopulationProvider", () => {
 
   test("National and Age Breakdown", async () => {
     const rawData = [
-      stateRow(AL, AGE, "0-9", 15, 100),
-      stateRow(AL, AGE, TOTAL, 15, 100),
-      stateRow(NC, AGE, "0-9", 15, 60),
-      stateRow(NC, AGE, "10-19", 10, 40),
-      stateRow(NC, AGE, TOTAL, 25, 100),
+      stateRow(USA, AGE, "0-9", 15, 60),
+      stateRow(USA, AGE, "10-19", 10, 40),
+      stateRow(USA, AGE, TOTAL, 25, 100),
     ];
 
     const AGE_0_9_FINAL = finalPopulationCountAndPctRow(
       USA,
       AGE,
       "0-9",
-      30,
-      75
+      15,
+      60
     );
     const AGE_10_19_FINAL = finalPopulationCountAndPctRow(
       USA,
       AGE,
       "10-19",
       10,
-      25
+      40
     );
-    const AGE_ALL_FINAL = finalPopulationCountAndPctRow(USA, AGE, ALL, 40, 100);
+    const AGE_ALL_FINAL = finalPopulationCountAndPctRow(USA, AGE, ALL, 25, 100);
 
     await evaluatePopulationCountAndPctWithAndWithoutTotal(
-      "acs_population-by_age_state",
+      "acs_population-by_age_national",
       rawData,
       Breakdowns.national(),
       AGE,
@@ -564,25 +543,23 @@ describe("AcsPopulationProvider", () => {
 
   test("National and Gender Breakdown", async () => {
     const rawData = [
-      stateRow(AL, SEX, MALE, 15, 100),
-      stateRow(AL, SEX, TOTAL, 15, 100),
-      stateRow(NC, SEX, MALE, 15, 60),
-      stateRow(NC, SEX, FEMALE, 10, 40),
-      stateRow(NC, SEX, TOTAL, 25, 100),
+      stateRow(USA, SEX, MALE, 15, 60),
+      stateRow(USA, SEX, FEMALE, 10, 40),
+      stateRow(USA, SEX, TOTAL, 25, 100),
     ];
 
-    const MALE_FINAL = finalPopulationCountAndPctRow(USA, SEX, MALE, 30, 75);
+    const MALE_FINAL = finalPopulationCountAndPctRow(USA, SEX, MALE, 15, 60);
     const FEMALE_FINAL = finalPopulationCountAndPctRow(
       USA,
       SEX,
       FEMALE,
       10,
-      25
+      40
     );
-    const ALL_FINAL = finalPopulationCountAndPctRow(USA, SEX, ALL, 40, 100);
+    const ALL_FINAL = finalPopulationCountAndPctRow(USA, SEX, ALL, 25, 100);
 
     await evaluatePopulationCountAndPctWithAndWithoutTotal(
-      "acs_population-by_sex_state",
+      "acs_population-by_sex_national",
       rawData,
       Breakdowns.national(),
       SEX,
@@ -593,19 +570,17 @@ describe("AcsPopulationProvider", () => {
 
   test("Filters metrics to only those requested", async () => {
     const rawData = [
-      stateRow(AL, SEX, MALE, 15, 100),
-      stateRow(AL, SEX, TOTAL, 15, 100),
-      stateRow(NC, SEX, MALE, 15, 60),
-      stateRow(NC, SEX, FEMALE, 10, 40),
-      stateRow(NC, SEX, TOTAL, 25, 100),
+      stateRow(USA, SEX, MALE, 15, 60),
+      stateRow(USA, SEX, FEMALE, 10, 40),
+      stateRow(USA, SEX, TOTAL, 25, 100),
     ];
 
-    const MALE_FINAL = finalPopulationCountRow(USA, SEX, MALE, 30);
+    const MALE_FINAL = finalPopulationCountRow(USA, SEX, MALE, 15);
     const FEMALE_FINAL = finalPopulationCountRow(USA, SEX, FEMALE, 10);
-    const ALL_FINAL = finalPopulationCountRow(USA, SEX, ALL, 40);
+    const ALL_FINAL = finalPopulationCountRow(USA, SEX, ALL, 25);
 
     await evaluatePopulationCountOnlyWithAndWithoutTotal(
-      "acs_population-by_sex_state",
+      "acs_population-by_sex_national",
       rawData,
       Breakdowns.national(),
       SEX,

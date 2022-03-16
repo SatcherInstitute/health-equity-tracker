@@ -24,21 +24,22 @@ export type VariableId =
   | DropdownVarId
   | "population"
   | "population_2010"
-  | "cases"
-  | "deaths"
-  | "hospitalizations"
+  | "covid_cases"
+  | "covid_deaths"
+  | "covid_hospitalizations"
   | "non_medical_drug_use"
   | "non_medical_rx_opioid_use"
   | "illicit_opioid_use"
   | "health_coverage"
   | "poverty"
-  | "vaccinations"
   | "suicides"
   | "women_us_congress"
-  | "women_state_legislatures";
+  | "women_state_legislatures"
+  | "covid_vaccinations";
 
 // consts for simpler code
-export const VAXX: VariableId = "vaccinations";
+export const VAXX: DropdownVarId = "vaccinations";
+export const COVID_VAXX: VariableId = "covid_vaccinations";
 
 export type MetricId =
   | "acs_vaccine_population_pct"
@@ -246,7 +247,7 @@ export function getPer100kAndPctShareMetrics(
 export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
   covid: [
     {
-      variableId: "cases",
+      variableId: "covid_cases",
       variableDisplayName: "Cases",
       variableFullDisplayName: "COVID-19 Cases",
       variableDefinition: `A COVID-19 case is an individual who has been determined to have COVID-19 using a set of criteria known as a case definition. Cases can be classified as suspect, probable, or confirmed. CDC counts include probable and confirmed cases and deaths. Suspect cases and deaths are excluded.`,
@@ -291,7 +292,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       },
     },
     {
-      variableId: "deaths",
+      variableId: "covid_deaths",
       variableDisplayName: "Deaths",
       variableFullDisplayName: "COVID-19 Deaths",
       variableDefinition: `The number of people who died due to COVID-19.`,
@@ -336,7 +337,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       },
     },
     {
-      variableId: "hospitalizations",
+      variableId: "covid_hospitalizations",
       variableDisplayName: "Hospitalizations",
       variableFullDisplayName: "COVID-19 Hospitalizations",
       variableDefinition: `The number of people hospitalized at any point while ill with COVID-19.`,
@@ -426,7 +427,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
 
   suicide: [
     {
-      variableId: "suicides",
+      variableId: "suicide",
       variableDisplayName: "Cases",
       variableFullDisplayName: "Suicides",
       variableDefinition: `Deaths due to intentional self-harm.`,
@@ -455,7 +456,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
   ],
   depression: [
     {
-      variableId: "cases",
+      variableId: "depression",
       variableDisplayName: "Cases",
       variableFullDisplayName: "Depression Cases",
       variableDefinition: `Adults who reported being told by a health professional that they have a depressive disorder including depression, major depression, minor depression or dysthymia.`,
@@ -484,7 +485,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
   ],
   excessive_drinking: [
     {
-      variableId: "cases",
+      variableId: "excessive_drinking",
       variableDisplayName: "Cases",
       variableFullDisplayName: "Excessive Drinking Cases",
       variableDefinition: `Adults who reported binge drinking (four or more [females] or five or more [males] drinks on one occasion in the past 30 days) or heavy drinking (eight or more [females] or 15 or more [males] drinks per week).`,
@@ -513,6 +514,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
   ],
   substance: [
     {
+      // parent data type
       variableId: "non_medical_drug_use",
       variableDisplayName: "Non-medical Drugs",
       variableFullDisplayName: "Non-medical Drug Use",
@@ -599,7 +601,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
 
   frequent_mental_distress: [
     {
-      variableId: "cases",
+      variableId: "frequent_mental_distress",
       variableDisplayName: "Cases",
       variableFullDisplayName: "Frequent Mental Distress Cases",
       variableDefinition: `Adults who reported their mental health was not good 14 or more days in the past 30 days.`,
@@ -628,7 +630,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
   ],
   diabetes: [
     {
-      variableId: "cases",
+      variableId: "diabetes",
       variableDisplayName: "Cases",
       variableFullDisplayName: "Diabetes",
       variableDefinition: `Adults who reported being told by a health professional that they have diabetes (excluding prediabetes and gestational diabetes).`,
@@ -657,7 +659,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
   ],
   copd: [
     {
-      variableId: "cases",
+      variableId: "copd",
       variableDisplayName: "Cases",
       variableFullDisplayName: "COPD",
       variableDefinition: `Adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.`,
@@ -687,7 +689,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
 
   health_insurance: [
     {
-      variableId: "health_coverage",
+      variableId: "health_insurance",
       variableDisplayName: "Uninsured Individuals",
       variableFullDisplayName: "Uninsured Individuals",
       variableDefinition: `Health insurance coverage in the ACS and other Census Bureau surveys define coverage to

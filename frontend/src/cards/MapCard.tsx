@@ -6,7 +6,7 @@ import { ChoroplethMap } from "../charts/ChoroplethMap";
 import {
   VariableConfig,
   formatFieldValue,
-  VAXX,
+  COVID_VAXX,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
@@ -101,7 +101,7 @@ function MapCardWithKey(props: MapCardProps) {
 
   // hide demographic selectors / dropdowns / links to multimap if displaying VACCINATION at COUNTY level, as we don't have that data
   const hideDemographicUI =
-    props.variableConfig.variableId === VAXX && props.fips.isCounty();
+    props.variableConfig.variableId === COVID_VAXX && props.fips.isCounty();
 
   return (
     <CardWrapper
