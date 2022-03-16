@@ -15,7 +15,7 @@ import {
   MetricId,
   VariableConfig,
   getPer100kAndPctShareMetrics,
-  VAXX,
+  COVID_VAXX,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
@@ -186,7 +186,7 @@ export function TableCard(props: TableCardProps) {
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
                   noDemographicInfo={
-                    props.variableConfig.variableId === VAXX &&
+                    props.variableConfig.variableId === COVID_VAXX &&
                     props.fips.isCounty()
                   }
                   fips={props.fips}
