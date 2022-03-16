@@ -13,8 +13,8 @@ const datasetMetadataList: DatasetMetadata[] = [
     update_time: "2019",
   },
   {
-    id: "acs_population-by_age_state",
-    name: "Population by Age and State",
+    id: "acs_population-by_race_national",
+    name: "Population by Race Nationally",
     update_time: "2019",
   },
   {
@@ -23,13 +23,28 @@ const datasetMetadataList: DatasetMetadata[] = [
     update_time: "2019",
   },
   {
-    id: "acs_population-by_sex_state",
-    name: "Population by Sex and State",
+    id: "acs_population-by_age_state",
+    name: "Population by Age and State",
+    update_time: "2019",
+  },
+  {
+    id: "acs_population-by_age_national",
+    name: "Population by Age Nationally",
     update_time: "2019",
   },
   {
     id: "acs_population-by_sex_county",
     name: "Population by Sex and County",
+    update_time: "2019",
+  },
+  {
+    id: "acs_population-by_sex_state",
+    name: "Population by Sex and State",
+    update_time: "2019",
+  },
+  {
+    id: "acs_population-by_sex_national",
+    name: "Population by Sex Nationally",
     update_time: "2019",
   },
   {
