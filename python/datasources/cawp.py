@@ -276,7 +276,7 @@ class CAWPData(DataSource):
 
         output_df = pd.DataFrame(output, columns=columns)
 
-        print("\n", output_df.to_string())
+        # print("\n", output_df.to_string())
 
         std_col.add_race_columns_from_category_id(output_df)
 
