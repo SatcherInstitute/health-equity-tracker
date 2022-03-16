@@ -98,12 +98,20 @@ class CAWPData(DataSource):
             CAWP_TOTALS_URL)
 
         # load in ACS population by race
-        df_acs_pop = gcs_to_bq_util.load_dataframe_from_bigquery(
+        df_acs_pop_state = gcs_to_bq_util.load_dataframe_from_bigquery(
             'acs_population', 'by_race_state_std', dtype={'state_fips': str})
+
+        # load in ACS states and puerto rico populations by race
+        df_acs_pop_state = gcs_to_bq_util.load_dataframe_from_bigquery(
+            'acs_population', 'by_race_state_std')
+
+        # load in ACS states and puerto rico populations by race
+        # df_acs_pop_national = gcs_to_bq_util.load_dataframe_from_bigquery(
+        #     'acs_population', 'by_race_national')
 
         # make table by race
         breakdown_df = self.generate_breakdown(
-            df_totals, df_line_items, df_acs_pop)
+            df_totals, df_line_items, df_acs_pop_state)
 
         # set column types
         column_types = {c: 'STRING' for c in breakdown_df.columns}
@@ -114,17 +122,18 @@ class CAWPData(DataSource):
         gcs_to_bq_util.add_dataframe_to_bq(
             breakdown_df, dataset, std_col.RACE_OR_HISPANIC_COL, column_types=column_types)
 
-    def generate_breakdown(self, df_totals, df_line_items, df_acs_pop):
+    def generate_breakdown(self, df_totals, df_line_items, df_acs_pop_state):
 
         # list of states/territories we have population breakdowns for from ACS
-        states_with_acs_pop = set(df_acs_pop[std_col.STATE_NAME_COL].to_list())
+        states_with_acs_pop = set(
+            df_acs_pop_state[std_col.STATE_NAME_COL].to_list())
 
         race_codes_with_acs_pop = set(
-            df_acs_pop[std_col.RACE_CATEGORY_ID_COL].to_list())
+            df_acs_pop_state[std_col.RACE_CATEGORY_ID_COL].to_list())
 
         # print(race_codes_with_acs_pop)
 
-        # print(df_acs_pop.to_string())
+        # print(df_acs_pop_state.to_string())
 
         # for LINE ITEM CSV
         # split 'state' into a map of 'state 2 letter code' : 'statename'
@@ -147,6 +156,7 @@ class CAWPData(DataSource):
         for race in CAWP_RACE_GROUPS_TO_STANDARD.keys():
             us_tally[race] = 0
 
+        # STATES / TERRITORIES
         for state_key in total_state_keys:
 
             # remove any formatting and coordinate territory abbreviations
@@ -173,9 +183,9 @@ class CAWPData(DataSource):
             state_total_pop = None
 
             if state in states_with_acs_pop:
-                state_total_pop_row = df_acs_pop[
-                    (df_acs_pop['state_name'] == state) &
-                    (df_acs_pop['race'] == std_col.TOTAL_VALUE)
+                state_total_pop_row = df_acs_pop_state[
+                    (df_acs_pop_state['state_name'] == state) &
+                    (df_acs_pop_state['race'] == std_col.TOTAL_VALUE)
                 ]["population"]
 
                 state_total_pop = state_total_pop_row.values[0]
@@ -187,9 +197,9 @@ class CAWPData(DataSource):
 
                 # only calculate if ACS has this STATE and this RACE_ID
                 if state in states_with_acs_pop and CAWP_RACE_GROUPS_TO_STANDARD[race] in race_codes_with_acs_pop:
-                    state_race_pop_row = df_acs_pop[
-                        (df_acs_pop['state_name'] == state) &
-                        (df_acs_pop[std_col.RACE_CATEGORY_ID_COL]
+                    state_race_pop_row = df_acs_pop_state[
+                        (df_acs_pop_state['state_name'] == state) &
+                        (df_acs_pop_state[std_col.RACE_CATEGORY_ID_COL]
                          == CAWP_RACE_GROUPS_TO_STANDARD[race])
                     ]["population"]
 
@@ -255,8 +265,10 @@ class CAWPData(DataSource):
                 # add state row to output
                 output.append(output_row)
 
-        # calc national totals by race (for all state legislatures combined)
+        # UNITED STATES (for all state legislatures combined)
         for race in CAWP_RACE_GROUPS_TO_STANDARD.keys():
+
+            # print(df_acs_pop_national.to_string())
 
             us_output_row = {}
             us_output_row[std_col.STATE_NAME_COL] = "United States"
