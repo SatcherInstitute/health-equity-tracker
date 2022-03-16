@@ -8,11 +8,11 @@ from ingestion import gcs_to_bq_util
 
 CAWP_RACE_GROUPS_TO_STANDARD = {
     'Asian American/Pacific Islander': Race.ASIAN_PAC_NH.value,
-    'Latina': Race.HISP_F.value,
+    'Latina': Race.HISP.value,
     'Middle Eastern/North African': Race.MENA_NH.value,
     # currently reporting MULTI as the sum of "Multiracial Alone" +
     # women who chose multiple specific races
-    'Multiracial Alone': Race.MULTI_NH.value,
+    'Multiracial Alone': Race.MULTI.value,
     'Native American/Alaska Native/Native Hawaiian': Race.AIANNH_NH.value,
     'Black': Race.BLACK_NH.value,
     'White': Race.WHITE_NH.value,
@@ -98,24 +98,33 @@ class CAWPData(DataSource):
             CAWP_TOTALS_URL)
 
         # load in ACS population by race
-        df_pop = gcs_to_bq_util.load_dataframe_from_bigquery(
+        df_acs_pop = gcs_to_bq_util.load_dataframe_from_bigquery(
             'acs_population', 'by_race_state_std', dtype={'state_fips': str})
 
         # make table by race
         breakdown_df = self.generate_breakdown(
-            df_totals, df_line_items, df_pop)
+            df_totals, df_line_items, df_acs_pop)
 
         # set column types
         column_types = {c: 'STRING' for c in breakdown_df.columns}
         column_types[std_col.WOMEN_STATE_LEG_PCT] = 'STRING'
         column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+        column_types[std_col.POPULATION_PCT_COL] = 'STRING'
 
         gcs_to_bq_util.add_dataframe_to_bq(
             breakdown_df, dataset, std_col.RACE_OR_HISPANIC_COL, column_types=column_types)
 
-    def generate_breakdown(self, df_totals, df_line_items, df_pop):
+    def generate_breakdown(self, df_totals, df_line_items, df_acs_pop):
 
-        print(df_pop.to_string())
+        # list of states/territories we have population breakdowns for from ACS
+        states_with_acs_pop = set(df_acs_pop[std_col.STATE_NAME_COL].to_list())
+
+        race_codes_with_acs_pop = set(
+            df_acs_pop[std_col.RACE_CATEGORY_ID_COL].to_list())
+
+        # print(race_codes_with_acs_pop)
+
+        # print(df_acs_pop.to_string())
 
         # for LINE ITEM CSV
         # split 'state' into a map of 'state 2 letter code' : 'statename'
@@ -130,8 +139,8 @@ class CAWPData(DataSource):
         output = []
 
         # set column names
-        columns = [std_col.STATE_NAME_COL, std_col.WOMEN_STATE_LEG_PCT]
-        columns.append(std_col.RACE_CATEGORY_ID_COL)
+        columns = [std_col.STATE_NAME_COL, std_col.WOMEN_STATE_LEG_PCT,
+                   std_col.RACE_CATEGORY_ID_COL, std_col.POPULATION_PCT_COL]
 
         # tally all states/territories to get national state legislature totals (all genders) and total women by race
         us_tally = {"total": 0}
@@ -161,14 +170,32 @@ class CAWPData(DataSource):
             us_tally["total"] += total_legislators
 
             # this states total population (all genders, all races)
-            state_total_pop_row = df_pop[
-                (df_pop['state_name'] == state) &
-                (df_pop['race'] == std_col.TOTAL_VALUE)
-            ]
-            # print("\n", state_total_pop_row)
-            # print("\n", state_total_pop_row["population"].values)
+            state_total_pop = None
+
+            if state in states_with_acs_pop:
+                state_total_pop_row = df_acs_pop[
+                    (df_acs_pop['state_name'] == state) &
+                    (df_acs_pop['race'] == std_col.TOTAL_VALUE)
+                ]["population"]
+
+                state_total_pop = state_total_pop_row.values[0]
 
             for race in CAWP_RACE_GROUPS_TO_STANDARD.keys():
+
+                # this states per race population (all genders)
+                state_race_pop = None
+
+                # only calculate if ACS has this STATE and this RACE_ID
+                if state in states_with_acs_pop and CAWP_RACE_GROUPS_TO_STANDARD[race] in race_codes_with_acs_pop:
+                    state_race_pop_row = df_acs_pop[
+                        (df_acs_pop['state_name'] == state) &
+                        (df_acs_pop[std_col.RACE_CATEGORY_ID_COL]
+                         == CAWP_RACE_GROUPS_TO_STANDARD[race])
+                    ]["population"]
+
+                    # print(state, race, CAWP_RACE_GROUPS_TO_STANDARD[race])
+                    # print(state_race_pop_row.values[0])
+                    state_race_pop = state_race_pop_row.values[0]
 
                 output_row = {}
                 output_row[std_col.STATE_NAME_COL] = state
@@ -178,6 +205,9 @@ class CAWPData(DataSource):
                     # get TOTAL pct from TOTAL csv file
                     pct_women_leg = str(clean(
                         matched_row['%Women Overall'].values[0]))
+
+                    # pct of all races / population should be 100
+                    pct_population_share = "100"
 
                 else:
                     # calc BY RACE pct_women_leg from LINE ITEM csv file
@@ -208,11 +238,19 @@ class CAWPData(DataSource):
                         num_matches / total_legislators)
 
                     # calculate this race's % of population in this state
+                    if state_race_pop is not None:
+                        pct_population_share = get_pretty_pct(
+                            state_race_pop / state_total_pop)
+                        # print(state, race, state_race_pop, "/",
+                        #   state_total_pop, "=", pct_population_share)
+                    else:
+                        pct_population_share = None
 
-                    # pct_race_in_state_pop =
-
-                # set pct_women_leg for this state
+                # set pct_women_leg for this state/race
                 output_row[std_col.WOMEN_STATE_LEG_PCT] = pct_women_leg
+
+                # set pop pct for this state/race
+                output_row[std_col.POPULATION_PCT_COL] = pct_population_share
 
                 # add state row to output
                 output.append(output_row)
@@ -226,14 +264,19 @@ class CAWPData(DataSource):
             # set RACE
             us_output_row[std_col.RACE_CATEGORY_ID_COL] = CAWP_RACE_GROUPS_TO_STANDARD[race]
 
-            # set %
+            # set % women leg by race for US
             pct_women_leg = get_pretty_pct(us_tally[race] / us_tally['total'])
             us_output_row[std_col.WOMEN_STATE_LEG_PCT] = pct_women_leg
 
-            # treat US like a state
+            # set pop pct for race
+            us_output_row[std_col.POPULATION_PCT_COL] = None
+
+            # add each race's US rows like a state row
             output.append(us_output_row)
 
         output_df = pd.DataFrame(output, columns=columns)
+
+        print("\n", output_df.to_string())
 
         std_col.add_race_columns_from_category_id(output_df)
 
