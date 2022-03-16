@@ -505,6 +505,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
   ],
   substance: [
     {
+      // parent data type
       variableId: "non_medical_drug_use",
       variableDisplayName: "Non-medical Drugs",
       variableFullDisplayName: "Non-medical Drug Use",
