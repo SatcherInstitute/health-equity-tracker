@@ -3,20 +3,17 @@ import { MetricId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { USA_FIPS } from "../utils/Fips";
-import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 
 export const CAWP_DETERMINANTS: MetricId[] = [
+  "cawp_population_pct",
   "women_state_leg_pct",
   "women_state_leg_pct_share",
 ];
 
 class CawpProvider extends VariableProvider {
-  private acsProvider: AcsPopulationProvider;
-
-  constructor(acsProvider: AcsPopulationProvider) {
+  constructor() {
     super("cawp_provider", ["cawp_population_pct", ...CAWP_DETERMINANTS]);
-    this.acsProvider = acsProvider;
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
@@ -42,6 +39,10 @@ class CawpProvider extends VariableProvider {
     }
 
     let consumedDatasetIds = [datasetId];
+
+    df = df.renameSeries({
+      population_pct: "cawp_population_pct",
+    });
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
 

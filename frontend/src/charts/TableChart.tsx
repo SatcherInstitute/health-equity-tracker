@@ -212,8 +212,6 @@ interface UnitsProps {
 function Units(props: UnitsProps) {
   if (!props.column) return null;
 
-  console.log(props.metric[props.column].type);
-
   const unit =
     props.metric[props.column - 1].type === "per100k" ? "per 100k" : "";
 

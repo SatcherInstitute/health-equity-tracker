@@ -106,6 +106,10 @@ export class ApiDataFetcher implements DataFetcher {
             row["women_state_leg_pct"] == null
               ? null
               : Number(row["women_state_leg_pct"]),
+          population_pct:
+            row["population_pct"] == null
+              ? null
+              : Number(row["population_pct"]),
         };
       });
     } else if (datasetId.startsWith("uhc_data")) {
