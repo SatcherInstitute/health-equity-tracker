@@ -239,9 +239,9 @@ class UHCData(DataSource):
 
                         # BY AGE voter participation is avg of pres and midterm
                         if determinant in AVERAGED_DETERMINANTS and breakdown == std_col.AGE_COL:
-
-
-                            output_row[std_col.VOTER_PARTICIPATION_PER_100K] = average_value * 1000
+                            average_value = get_average_determinate_value(matched_row, breakdown_value, df, state)
+                            if average_value:
+                                output_row[std_col.VOTER_PARTICIPATION_PER_100K] = average_value
 
                         # for other determinants besides VOTER
                         elif len(matched_row) > 0:
