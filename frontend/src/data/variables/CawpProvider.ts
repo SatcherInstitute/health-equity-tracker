@@ -6,7 +6,10 @@ import { USA_FIPS } from "../utils/Fips";
 import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 
-export const CAWP_DETERMINANTS: MetricId[] = ["women_state_leg_pct"];
+export const CAWP_DETERMINANTS: MetricId[] = [
+  "women_state_leg_pct",
+  "women_state_leg_pct_share",
+];
 
 class CawpProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;

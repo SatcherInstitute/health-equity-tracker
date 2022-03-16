@@ -38,7 +38,6 @@ export default class VariableProviderMap {
       new AcsPovertyProvider(),
       new VaccineProvider(acsProvider),
     ];
-
     this.providersById = this.getProvidersById();
     this.metricsToProviderIds = this.getMetricsToProviderIdsMap();
   }
