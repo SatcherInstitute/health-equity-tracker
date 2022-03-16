@@ -240,35 +240,6 @@ class UHCData(DataSource):
                         # BY AGE voter participation is avg of pres and midterm
                         if determinant in AVERAGED_DETERMINANTS and breakdown == std_col.AGE_COL:
 
-                            # get midterm for voting ages other than 65+
-                            if breakdown_value in VOTER_AGE_GROUPS:
-                                measure_name = (
-                                    f"Voter Participation (Midterm) - Ages "
-                                    f"{breakdown_value}"
-                                )
-
-                            # or get midterm for 65+ (different format)
-                            elif breakdown_value == "65+":
-                                measure_name = "Voter Participation - Ages 65+ (Midterm)"
-
-                            # skip midterm calc for all other age groups
-                            else:
-                                continue
-
-                            pres_breakdown_value, mid_breakdown_value = np.nan, np.nan
-
-                            if len(matched_row) > 0:
-                                pres_breakdown_value = matched_row['Value'].values[0]
-
-                            matched_row_midterm = df.loc[
-                                (df['State Name'] == state) &
-                                (df['Measure Name'] == measure_name)]
-
-                            if len(matched_row_midterm) > 0:
-                                mid_breakdown_value = matched_row_midterm['Value'].values[0]
-
-                            average_value = np.nanmean(
-                                [pres_breakdown_value, mid_breakdown_value])
 
                             output_row[std_col.VOTER_PARTICIPATION_PER_100K] = average_value * 1000
 
@@ -292,3 +263,38 @@ class UHCData(DataSource):
             std_col.add_race_columns_from_category_id(output_df)
 
         return output_df
+
+
+def get_average_determinate_value(matched_row, breakdown_value, df, state):
+    # get midterm for voting ages other than 65+
+    if breakdown_value in VOTER_AGE_GROUPS:
+        measure_name = (
+            f"Voter Participation (Midterm) - Ages "
+            f"{breakdown_value}"
+        )
+
+    # or get midterm for 65+ (different format)
+    elif breakdown_value == "65+":
+        measure_name = "Voter Participation - Ages 65+ (Midterm)"
+
+    # skip midterm calc for all other age groups
+    else:
+        return
+
+    pres_breakdown_value, mid_breakdown_value = np.nan, np.nan
+
+    if len(matched_row) > 0:
+        pres_breakdown_value = matched_row['Value'].values[0]
+
+    matched_row_midterm = df.loc[
+        (df['State Name'] == state) &
+        (df['Measure Name'] == measure_name)]
+
+    if len(matched_row_midterm) > 0:
+        mid_breakdown_value = matched_row_midterm['Value'].values[0]
+
+    average_value = np.nanmean(
+        [pres_breakdown_value, mid_breakdown_value])
+
+    return average_value * 1000
+
