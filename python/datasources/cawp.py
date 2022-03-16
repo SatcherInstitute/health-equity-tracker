@@ -83,6 +83,10 @@ class CAWPData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
+        # read LINE ITEM with women leg by race / level / state
+        # df_line_items = gcs_to_bq_util.load_csv_as_dataframe_from_web(
+        #     CAWP_LINE_ITEMS_URL)
+
         # read needed files directly from /data rather than external URLs
         # df_totals = gcs_to_bq_util.load_csv_as_dataframe_from_path(
         #     "../../data/cawp/cawp_totals.csv")
@@ -93,12 +97,13 @@ class CAWPData(DataSource):
         df_totals = gcs_to_bq_util.load_csv_as_dataframe_from_web(
             CAWP_TOTALS_URL)
 
-        # read second table that contains LINE ITEM with women leg by race / level / state
-        # df_line_items = gcs_to_bq_util.load_csv_as_dataframe_from_web(
-        #     CAWP_LINE_ITEMS_URL)
+        # load in ACS population by race
+        df_pop = gcs_to_bq_util.load_dataframe_from_bigquery(
+            'acs_population', 'by_race_state_std', dtype={'state_fips': str})
 
         # make table by race
-        breakdown_df = self.generate_breakdown(df_totals, df_line_items)
+        breakdown_df = self.generate_breakdown(
+            df_totals, df_line_items, df_pop)
 
         # set column types
         column_types = {c: 'STRING' for c in breakdown_df.columns}
@@ -108,7 +113,9 @@ class CAWPData(DataSource):
         gcs_to_bq_util.add_dataframe_to_bq(
             breakdown_df, dataset, std_col.RACE_OR_HISPANIC_COL, column_types=column_types)
 
-    def generate_breakdown(self, df_totals, df_line_items):
+    def generate_breakdown(self, df_totals, df_line_items, df_pop):
+
+        print(df_pop.to_string())
 
         # for LINE ITEM CSV
         # split 'state' into a map of 'state 2 letter code' : 'statename'
@@ -153,19 +160,27 @@ class CAWPData(DataSource):
             us_tally["All"] += total_women_legislators
             us_tally["total"] += total_legislators
 
+            # this states total population (all genders, all races)
+            state_total_pop_row = df_pop[
+                (df_pop['state_name'] == state) &
+                (df_pop['race'] == std_col.TOTAL_VALUE)
+            ]
+            # print("\n", state_total_pop_row)
+            # print("\n", state_total_pop_row["population"].values)
+
             for race in CAWP_RACE_GROUPS_TO_STANDARD.keys():
 
                 output_row = {}
                 output_row[std_col.STATE_NAME_COL] = state
                 output_row[std_col.RACE_CATEGORY_ID_COL] = CAWP_RACE_GROUPS_TO_STANDARD[race]
 
-                # get TOTAL pct from TOTAL csv file
                 if race == "All":
-                    pct = str(clean(
+                    # get TOTAL pct from TOTAL csv file
+                    pct_women_leg = str(clean(
                         matched_row['%Women Overall'].values[0]))
 
-                # calc BY RACE pct from LINE ITEM csv file
                 else:
+                    # calc BY RACE pct_women_leg from LINE ITEM csv file
                     num_matches = len(df_line_items[
                         (df_line_items['state'] == f"{state} - {state_abbr}") &
                         # any of her races match current race iteration
@@ -189,10 +204,15 @@ class CAWPData(DataSource):
                     us_tally[race] += num_matches
 
                     # calculate % of {race} women for this state
-                    pct = get_pretty_pct(num_matches / total_legislators)
+                    pct_women_leg = get_pretty_pct(
+                        num_matches / total_legislators)
 
-                # set pct for this state
-                output_row[std_col.WOMEN_STATE_LEG_PCT] = pct
+                    # calculate this race's % of population in this state
+
+                    # pct_race_in_state_pop =
+
+                # set pct_women_leg for this state
+                output_row[std_col.WOMEN_STATE_LEG_PCT] = pct_women_leg
 
                 # add state row to output
                 output.append(output_row)
@@ -207,8 +227,8 @@ class CAWPData(DataSource):
             us_output_row[std_col.RACE_CATEGORY_ID_COL] = CAWP_RACE_GROUPS_TO_STANDARD[race]
 
             # set %
-            pct = get_pretty_pct(us_tally[race] / us_tally['total'])
-            us_output_row[std_col.WOMEN_STATE_LEG_PCT] = pct
+            pct_women_leg = get_pretty_pct(us_tally[race] / us_tally['total'])
+            us_output_row[std_col.WOMEN_STATE_LEG_PCT] = pct_women_leg
 
             # treat US like a state
             output.append(us_output_row)
