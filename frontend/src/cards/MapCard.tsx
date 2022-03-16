@@ -180,7 +180,7 @@ function MapCardWithKey(props: MapCardProps) {
                 }}
                 className={styles.ConditionDefinitionLink}
               >
-                {metricConfig?.fullCardTitleName}
+                {props.variableConfig.variableDisplayName}
               </a>
               {/*} for  */}
               {activeBreakdownFilter !== "All" && " for"}

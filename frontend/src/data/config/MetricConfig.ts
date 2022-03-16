@@ -924,16 +924,16 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
   women_legislators: [
     {
       variableId: "women_state_legislatures",
-      variableDisplayName: "Women in State Legislatures",
-      variableFullDisplayName: "Women in State Legislatures",
+      variableDisplayName: "women in state legislature",
+      variableFullDisplayName: "Women in state legislature",
       surveyCollectedData: true,
       variableDefinition: `Official definition.`,
       metrics: {
         per100k: {
           metricId: "women_state_leg_pct",
-          fullCardTitleName: "Women in State Legislature Per 100k People",
-          shortLabel: "% of legislators",
-          type: "percentile",
+          fullCardTitleName: "Percent of Women in State Legislature",
+          shortLabel: "% of women in state legislature",
+          type: "pct_share",
         },
         pct_share: {
           metricId: "women_state_leg_pct_share",

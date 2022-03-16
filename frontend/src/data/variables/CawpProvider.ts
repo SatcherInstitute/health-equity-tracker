@@ -37,6 +37,7 @@ class CawpProvider extends VariableProvider {
     } else if (breakdowns.geography === "state") {
       df = df.where((row) => row.fips !== USA_FIPS);
     }
+
     let consumedDatasetIds = [datasetId];
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
