@@ -1,0 +1,61 @@
+id,year,first_name,middle_name,last_name,party,level,position,state,district,race_ethnicity
+299859k,2022,Mia,,Costello,Republican,"State Legislative","State Senator","Alaska - AK",000K,White
+423656k,2022,Harriet,A.,Drummond,Democrat,"State Legislative","State Representative","Alaska - AK",18,White
+667443k,2022,Elvi,,Gray-Jackson,Democrat,"State Legislative","State Senator","Alaska - AK",000I,Black
+667461k,2022,Sara,,Hannan,Democrat,"State Legislative","State Representative","Alaska - AK",33,White
+418609k,2022,Shelley,,Hughes,Republican,"State Legislative","State Senator","Alaska - AK",000F,White
+499617k,2022,DeLena,M.,Johnson,Republican,"State Legislative","State Representative","Alaska - AK",11,White
+668936k,2022,Kelly,R.,Merrick,Republican,"State Legislative","State Representative","Alaska - AK",14,White
+192554k,2022,Lisa,,Murkowski,Republican,Congress,"U.S. Senator","Alaska - AK",,White
+667449k,2022,Sara,,Rasmussen,Republican,"State Legislative","State Representative","Alaska - AK",22,White
+423874k,2022,Lora,H.,Reinbold,Republican,"State Legislative","State Senator","Alaska - AK",000G,White
+664626k,2022,Liz,,Snyder,Democrat,"State Legislative","State Representative","Alaska - AK",027,White
+573863k,2022,Ivy,A.,Spohnholz,Democrat,"State Legislative","State Representative","Alaska - AK",16,White
+669086k,2022,Andi,,Story,Democrat,"State Legislative","State Representative","Alaska - AK",34,White
+494900k,2022,Louise,B.,Stutes,Republican,"State Legislative","State Representative","Alaska - AK",32,White
+423659k,2022,Geran,,Tarr,Democrat,"State Legislative","State Representative","Alaska - AK",19,White
+352645k,2022,Cathy,L.,Tilton,Republican,"State Legislative","State Representative","Alaska - AK",12,White
+664634k,2022,Sarah,L.,Vance,Republican,"State Legislative","State Representative","Alaska - AK",31,White
+556627k,2022,Natasha,A.,"Von Imhof",Republican,"State Legislative","State Senator","Alaska - AK",000L,White
+277640k,2022,Tiffany,,Zulkosky,Democrat,"State Legislative","State Representative","Alaska - AK",38,"Native American/Alaska Native/Native Hawaiian"
+570597k,2022,Joni,,Albrecht,Nonpartisan,"State Legislative","State Senator","Nebraska - NE",17,White
+485684k,2022,Carol,,Blood,Nonpartisan,"State Legislative","State Senator","Nebraska - NE",3,White
+654582k,2022,Machaela,,Cavanaugh,Nonpartisan,"State Legislative","State Senator","Nebraska - NE",6,White
+731967k,2022,Jen,,Day,Nonpartisan,"State Legislative","State Senator","Nebraska - NE",049,White
+654585k,2022,Wendy,,DeBoer,Nonpartisan,"State Legislative","State Senator","Nebraska - NE",10,White
+228296k,2022,Deb,,Fischer,Republican,Congress,"U.S. Senator","Nebraska - NE",S01,White
+568791k,2022,Suzanne,,Geist,Nonpartisan,"State Legislative","State Senator","Nebraska - NE",25,White
+647310k,2022,Megan,,Hunt,Nonpartisan,"State Legislative","State Senator","Nebraska - NE",8,White
+567037k,2022,Lou,Ann,Linehan,Nonpartisan,"State Legislative","State Senator","Nebraska - NE",39,White
+487896k,2022,Patty,,"Pansing Brooks",Nonpartisan,"State Legislative","State Senator","Nebraska - NE",28,White
+734194k,2022,Rita,,Sanders,Nonpartisan,"State Legislative","State Senator","Nebraska - NE",045,"White, Asian American/Pacific Islander"
+693186k,2022,Julie,,Slama,Nonpartisan,"State Legislative","State Senator","Nebraska - NE",1,White
+564691k,2022,Lynne,M.,Walz,Nonpartisan,"State Legislative","State Senator","Nebraska - NE",15,White
+353694k,2022,Anna,,Wishart,Nonpartisan,"State Legislative","State Senator","Nebraska - NE",27,White
+759018k,2022,Lisie,Janet,"Burgos Muniz","Third party",Territorial/D.C.,"Territorial/D.C. Representative","Puerto Rico - PR",000,Unavailable
+759018k,2022,Lisie,Janet,"Burgos Muniz",OTHER,Territorial/D.C.,"Territorial/D.C. Representative","Puerto Rico - PR",000,Unavailable
+248384k,2022,Maria,,"De Lourdes Santiago","Third party",Territorial/D.C.,"Territorial/D.C. Senator","Puerto Rico - PR",000,Unavailable
+597121k,2022,Wanda,,"Del Valle Correa","Partido Nuevo Progresista",Territorial/D.C.,"Territorial/D.C. Representative","Puerto Rico - PR",038,Unavailable
+746101k,2022,Ada,,"Garcia Montes","Partido Popular Democratico",Territorial/D.C.,"Territorial/D.C. Senator","Puerto Rico - PR",004,Unavailable
+221612k,2022,Jenniffer,,Gonzalez,Republican,Congress,"U.S. Delegate","Puerto Rico - PR",1,Latina
+746126k,2022,Marially,,Gonzalez,"Partido Popular Democratico",Territorial/D.C.,"Territorial/D.C. Senator","Puerto Rico - PR",005,Unavailable
+746102k,2022,Migdalia,,Gonzalez,"Partido Popular Democratico",Territorial/D.C.,"Territorial/D.C. Senator","Puerto Rico - PR",004,Unavailable
+746139k,2022,Gretchen,,Hau,"Partido Popular Democratico",Territorial/D.C.,"Territorial/D.C. Senator","Puerto Rico - PR",006,Unavailable
+597026k,2022,Sol,Yamiz,"Higgins Cuadrado","Partido Popular Democratico",Territorial/D.C.,"Territorial/D.C. Representative","Puerto Rico - PR",035,Unavailable
+746159k,2022,Marissa,,Jimenez,"Partido Nuevo Progresista",Territorial/D.C.,"Territorial/D.C. Senator","Puerto Rico - PR",008,Unavailable
+597046k,2022,Yashira,Marie,"Lebron Rodriguez","Partido Nuevo Progresista",Territorial/D.C.,"Territorial/D.C. Representative","Puerto Rico - PR",8,Latina
+198465k,2022,Lydia,,"Mendez Silva","Partido Popular Democratico",Territorial/D.C.,"Territorial/D.C. Representative","Puerto Rico - PR",21,Latina
+746062k,2022,Nitza,,Moran,"Partido Nuevo Progresista",Territorial/D.C.,"Territorial/D.C. Senator","Puerto Rico - PR",001,Unavailable
+577511k,2022,Mariana,,"Nogales Molinelli","Third party",Territorial/D.C.,"Territorial/D.C. Representative","Puerto Rico - PR",000,Unavailable
+221621k,2022,Migdalia,,"Padilla Alvelo","Partido Nuevo Progresista",Territorial/D.C.,"Territorial/D.C. Senator","Puerto Rico - PR",2,Latina
+248319k,2022,"Maria de Lourdes",,"Ramos Rivera","Partido Nuevo Progresista",Territorial/D.C.,"Territorial/D.C. Representative","Puerto Rico - PR",,Latina
+746041k,2022,Keren,L.,"Riquelme Cabrera","Third party",Territorial/D.C.,"Territorial/D.C. Senator","Puerto Rico - PR",,Unavailable
+758877k,2022,Ana,Irma,"Rivera Lassen","Third party",Territorial/D.C.,"Territorial/D.C. Senator","Puerto Rico - PR",000,Black
+746306k,2022,Jocelyne,M.,"Rodriguez Negron","Partido Popular Democratico",Territorial/D.C.,"Territorial/D.C. Representative","Puerto Rico - PR",019,Unavailable
+758875k,2022,Joanne,,"Rodriguez Veve","Third party",Territorial/D.C.,"Territorial/D.C. Senator","Puerto Rico - PR",000,Unavailable
+596638k,2022,Elizabeth,,"Rosa Velez","Partido Popular Democratico",Territorial/D.C.,"Territorial/D.C. Senator","Puerto Rico - PR",003,Unavailable
+746330k,2022,Estrella,Martinez,Soto,"Partido Popular Democratico",Territorial/D.C.,"Territorial/D.C. Representative","Puerto Rico - PR",027,Unavailable
+759104k,2022,Deborah,,"Soto Arroyo","Partido Popular Democratico",Territorial/D.C.,"Territorial/D.C. Representative","Puerto Rico - PR",010,Unavailable
+746148k,2022,Wanda,M.,"Soto Tolentino",PNP,Territorial/D.C.,"Territorial/D.C. Senator","Puerto Rico - PR",007,Unavailable
+746148k,2022,Wanda,M.,"Soto Tolentino","Partido Nuevo Progresista",Territorial/D.C.,"Territorial/D.C. Senator","Puerto Rico - PR",7,Unavailable
+746150k,2022,Rosamar,,"Trujillo Plumey","Partido Popular Democratico",Territorial/D.C.,"Territorial/D.C. Senator","Puerto Rico - PR",007,Unavailable
