@@ -63,7 +63,7 @@ export function TableChart(props: TableChartProps) {
         formatFieldValue(
           /* metricType: MetricType, */ metricConfig.type,
           /*   value: any, */ a.value,
-          /*   omitPctSymbol: boolean = false */ true
+          /*   omitPctSymbol: boolean = false */ metricConfig.type === "per100k"
         ),
       accessor: metricConfig.metricId,
     };
@@ -212,8 +212,10 @@ interface UnitsProps {
 function Units(props: UnitsProps) {
   if (!props.column) return null;
 
+  console.log(props.metric[props.column].type);
+
   const unit =
-    props.column === 1 ? "per 100k" : props.metric[props.column - 1].shortLabel;
+    props.metric[props.column - 1].type === "per100k" ? "per 100k" : "";
 
   // inline vs block
   return props.wrap100kUnit && props.column === 1 ? (
