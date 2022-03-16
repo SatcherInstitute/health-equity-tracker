@@ -80,6 +80,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                 metric={metricConfig}
                 showLegend={false}
                 filename={getTitleText()}
+                usePercentSuffix={metricConfig.type === "pct_share"}
               />
             )}
           </CardContent>
