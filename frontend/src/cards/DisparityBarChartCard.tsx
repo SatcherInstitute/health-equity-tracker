@@ -9,7 +9,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { VariableConfig, VAXX } from "../data/config/MetricConfig";
+import { VariableConfig, COVID_VAXX } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { exclude } from "../data/query/BreakdownFilter";
@@ -131,7 +131,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
                   noDemographicInfo={
-                    props.variableConfig.variableId === VAXX &&
+                    props.variableConfig.variableId === COVID_VAXX &&
                     props.fips.isCounty()
                   }
                   fips={props.fips}
