@@ -105,7 +105,7 @@ class CAWPData(DataSource):
         df_acs_pop_state = gcs_to_bq_util.load_dataframe_from_bigquery(
             'acs_population', 'by_race_state_std')
 
-        # load in ACS states and puerto rico populations by race
+        # load in ACS national populations by race
         # df_acs_pop_national = gcs_to_bq_util.load_dataframe_from_bigquery(
         #     'acs_population', 'by_race_national')
 
@@ -243,7 +243,7 @@ class CAWPData(DataSource):
                     # tally national level of each race's # women state leg (numerator)
                     us_tally[race] += num_matches
 
-                    # calculate % of {race} women for this state
+                    # calculate % of {race} women leg. for this state
                     pct_women_leg = get_pretty_pct(
                         num_matches / total_legislators)
 

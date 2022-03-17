@@ -22,7 +22,8 @@ GOLDEN_DATA_SEX = os.path.join(TEST_DIR, 'table_by_sex.csv')
 
 GOLDEN_DATA_SEX_NATIONAL = os.path.join(TEST_DIR, 'table_by_sex_national.csv')
 GOLDEN_DATA_AGE_NATIONAL = os.path.join(TEST_DIR, 'table_by_age_national.csv')
-GOLDEN_DATA_RACE_NATIONAL = os.path.join(TEST_DIR, 'table_by_race_national.csv')
+GOLDEN_DATA_RACE_NATIONAL = os.path.join(
+    TEST_DIR, 'table_by_race_national.csv')
 
 GOLDEN_DATA_AGE_COUNTY = os.path.join(TEST_DIR, 'table_by_age_county.csv')
 
@@ -44,8 +45,8 @@ def get_hispanic_or_latino_values_by_race_county_as_df():
     return gcs_to_bq_util.values_json_to_dataframe(
         os.path.join(
             TEST_DIR,
-            'HISPANIC_OR_LATINO_ORIGIN_BY_RACE_county.json'
-            ), dtype={'state_fips': str}).reset_index(drop=True)
+            'HISPANIC_OR_LATINO_ORIGIN_BY_RACE_county.json'),
+        dtype={'state_fips': str}).reset_index(drop=True)
 
 
 def get_sex_by_age_value_as_df(concept):
@@ -62,17 +63,22 @@ def get_sex_by_age_county_value_as_df(concept):
 
 # We export this function for use in other packages so it needs its own tests
 def testGenerateNationalDatasetRace():
-    state_df = pd.read_csv(os.path.join(TEST_DIR, 'national', 'state_by_race.csv'), dtype={'state_fips': str})
-    expected_df = pd.read_csv(os.path.join(TEST_DIR, 'national', 'national_by_race.csv'), dtype={'state_fips': str})
+    state_df = pd.read_csv(os.path.join(
+        TEST_DIR, 'national', 'state_by_race.csv'), dtype={'state_fips': str})
+    expected_df = pd.read_csv(os.path.join(
+        TEST_DIR, 'national', 'national_by_race.csv'), dtype={'state_fips': str})
     states_to_include = {'01', '06'}
 
-    national_df = generate_national_dataset(state_df, states_to_include, 'race')
+    national_df = generate_national_dataset(
+        state_df, states_to_include, 'race')
     assert_frame_equal(national_df, expected_df, check_like=True)
 
 
 def testGenerateNationalDatasetSex():
-    state_df = pd.read_csv(os.path.join(TEST_DIR, 'national', 'state_by_sex.csv'), dtype={'state_fips': str})
-    expected_df = pd.read_csv(os.path.join(TEST_DIR, 'national', 'national_by_sex.csv'), dtype={'state_fips': str})
+    state_df = pd.read_csv(os.path.join(
+        TEST_DIR, 'national', 'state_by_sex.csv'), dtype={'state_fips': str})
+    expected_df = pd.read_csv(os.path.join(
+        TEST_DIR, 'national', 'national_by_sex.csv'), dtype={'state_fips': str})
     states_to_include = {'01', '06'}
 
     national_df = generate_national_dataset(state_df, states_to_include, 'sex')
@@ -80,8 +86,10 @@ def testGenerateNationalDatasetSex():
 
 
 def testGenerateNationalDatasetAge():
-    state_df = pd.read_csv(os.path.join(TEST_DIR, 'national', 'state_by_age.csv'), dtype={'state_fips': str})
-    expected_df = pd.read_csv(os.path.join(TEST_DIR, 'national', 'national_by_age.csv'), dtype={'state_fips': str})
+    state_df = pd.read_csv(os.path.join(
+        TEST_DIR, 'national', 'state_by_age.csv'), dtype={'state_fips': str})
+    expected_df = pd.read_csv(os.path.join(
+        TEST_DIR, 'national', 'national_by_age.csv'), dtype={'state_fips': str})
     states_to_include = {'01', '06'}
 
     national_df = generate_national_dataset(state_df, states_to_include, 'age')
