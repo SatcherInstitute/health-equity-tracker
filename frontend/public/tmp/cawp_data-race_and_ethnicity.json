@@ -4548,7 +4548,7 @@
         "state_name": "United States",
         "women_state_leg_pct": "2.07",
         "race_category_id": "HISP",
-        "population_pct": null,
+        "population_pct": "18.83",
         "race": "Hispanic or Latino",
         "race_includes_hispanic": true,
         "race_and_ethnicity": "Hispanic or Latino"
@@ -4566,7 +4566,7 @@
         "state_name": "United States",
         "women_state_leg_pct": "0.66",
         "race_category_id": "MULTI",
-        "population_pct": null,
+        "population_pct": "3.34",
         "race": "Two or more races",
         "race_includes_hispanic": true,
         "race_and_ethnicity": "Two or more races"
@@ -4584,7 +4584,7 @@
         "state_name": "United States",
         "women_state_leg_pct": "5.11",
         "race_category_id": "BLACK_NH",
-        "population_pct": null,
+        "population_pct": "12.19",
         "race": "Black or African American",
         "race_includes_hispanic": false,
         "race_and_ethnicity": "Black or African American (Non-Hispanic)"
@@ -4593,7 +4593,7 @@
         "state_name": "United States",
         "women_state_leg_pct": "22.83",
         "race_category_id": "WHITE_NH",
-        "population_pct": null,
+        "population_pct": "60.1",
         "race": "White",
         "race_includes_hispanic": false,
         "race_and_ethnicity": "White (Non-Hispanic)"
@@ -4611,7 +4611,7 @@
         "state_name": "United States",
         "women_state_leg_pct": "31.05",
         "race_category_id": "ALL",
-        "population_pct": null,
+        "population_pct": "100",
         "race": "All",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "All"
