@@ -948,6 +948,12 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
+          knownBreakdownComparisonMetric: {
+            metricId: "women_state_leg_pct_share",
+            fullCardTitleName: "Share Of Total CAWP",
+            shortLabel: "% of CAWP",
+            type: "pct_share",
+          },
         },
       },
     },

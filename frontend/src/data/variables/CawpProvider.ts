@@ -44,6 +44,12 @@ class CawpProvider extends VariableProvider {
       population_pct: "cawp_population_pct",
     });
 
+    df = df
+      .generateSeries({
+        women_state_leg_pct_share: (row) => row["women_state_leg_pct"],
+      })
+      .resetIndex();
+
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
 
     df = this.removeUnrequestedColumns(df, metricQuery);

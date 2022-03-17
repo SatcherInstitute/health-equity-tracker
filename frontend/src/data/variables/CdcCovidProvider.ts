@@ -71,8 +71,8 @@ class CdcCovidProvider extends VariableProvider {
     let consumedDatasetIds = [datasetId];
     let df = covidDataset.toDataFrame();
 
-    const breakdownColumnName = breakdowns.getSoleDemographicBreakdown()
-      .columnName;
+    const breakdownColumnName =
+      breakdowns.getSoleDemographicBreakdown().columnName;
 
     df = this.renameTotalToAll(df, breakdownColumnName);
 
@@ -233,6 +233,8 @@ class CdcCovidProvider extends VariableProvider {
         breakdownColumnName
       );
     });
+
+    console.log(df);
 
     const populationMetric: MetricId[] = [
       "covid_cases_reporting_population",

@@ -125,6 +125,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   : unknownEthnicities[index];
               });
 
+        console.log("unknowns\n", unknowns);
+
         const dataIsMissing = mapQueryResponse.dataIsMissing();
         const unknownsArrayEmpty = unknowns.length === 0;
 
