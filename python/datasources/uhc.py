@@ -196,7 +196,6 @@ class UHCData(DataSource):
 
                         # TOTAL voter_participation is avg of pres and midterm data
                         if determinant in AVERAGED_DETERMINANTS:
-
                             matched_row_midterm = df.loc[
                                 (df['State Name'] == state) &
                                 (df['Measure Name'] ==
@@ -298,3 +297,11 @@ def get_average_determinate_value(matched_row, breakdown_value, df, state):
 
     return average_value * 1000
 
+
+def estimate_total(sample_per_100k, total_population):
+    """Returns an estimate of the total number of people with a given condition.
+
+       sample_per_100k: a percentage of people in a demographic with a given condition, represented as a per 100k
+       total_population: the total number of people in that demographic"""
+
+    return round((sample_per_100k / 100000) * total_population)
