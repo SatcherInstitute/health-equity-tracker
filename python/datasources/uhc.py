@@ -196,18 +196,8 @@ class UHCData(DataSource):
 
                         # TOTAL voter_participation is avg of pres and midterm data
                         if determinant in AVERAGED_DETERMINANTS:
-                            matched_row_midterm = df.loc[
-                                (df['State Name'] == state) &
-                                (df['Measure Name'] ==
-                                 "Voter Participation (Midterm)")
-                            ]
-
-                            pres_all_value = matched_row['Value'].values[0]
-                            mid_all_value = matched_row_midterm['Value'].values[0]
-                            average_value = np.nanmean(
-                                [pres_all_value, mid_all_value])
-
-                            output_row[std_col.VOTER_PARTICIPATION_PER_100K] = average_value * 1000
+                            output_row[std_col.VOTER_PARTICIPATION_PER_100K] = get_average_determinate_value(
+                                    matched_row, 'Voter Participation (Midterm)', df, state)
 
                         # already per 100k
                         elif determinant in PER100K_DETERMINANTS:
@@ -238,9 +228,22 @@ class UHCData(DataSource):
 
                         # BY AGE voter participation is avg of pres and midterm
                         if determinant in AVERAGED_DETERMINANTS and breakdown == std_col.AGE_COL:
-                            average_value = get_average_determinate_value(matched_row, breakdown_value, df, state)
-                            if average_value:
-                                output_row[std_col.VOTER_PARTICIPATION_PER_100K] = average_value
+                            if breakdown_value in VOTER_AGE_GROUPS:
+                                measure_name = (
+                                    f"Voter Participation (Midterm) - Ages "
+                                    f"{breakdown_value}"
+                                )
+
+                            # or get midterm for 65+ (different format)
+                            elif breakdown_value == "65+":
+                                measure_name = "Voter Participation - Ages 65+ (Midterm)"
+
+                            # skip midterm calc for all other age groups
+                            else:
+                                continue
+
+                            output_row[std_col.VOTER_PARTICIPATION_PER_100K] = get_average_determinate_value(
+                                matched_row, measure_name, df, state)
 
                         # for other determinants besides VOTER
                         elif len(matched_row) > 0:
@@ -264,21 +267,13 @@ class UHCData(DataSource):
         return output_df
 
 
-def get_average_determinate_value(matched_row, breakdown_value, df, state):
-    # get midterm for voting ages other than 65+
-    if breakdown_value in VOTER_AGE_GROUPS:
-        measure_name = (
-            f"Voter Participation (Midterm) - Ages "
-            f"{breakdown_value}"
-        )
+def get_average_determinate_value(matched_row, measure_name, df, state):
+    """Gets the average value of two determinents, ignores null values.
 
-    # or get midterm for 65+ (different format)
-    elif breakdown_value == "65+":
-        measure_name = "Voter Participation - Ages 65+ (Midterm)"
-
-    # skip midterm calc for all other age groups
-    else:
-        return
+       matched_row: row in the dataset that matches the measure and demographic we are looking for
+       measure_name: measure name that we want to average with
+       df: the dataframe containing all informaiton
+       state: string state name"""
 
     pres_breakdown_value, mid_breakdown_value = np.nan, np.nan
 
