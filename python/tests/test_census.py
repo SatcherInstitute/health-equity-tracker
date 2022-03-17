@@ -1,6 +1,5 @@
 import unittest
 import json
-from pandas import DataFrame
 from pandas.testing import assert_frame_equal
 from ingestion import census, gcs_to_bq_util
 
@@ -129,7 +128,7 @@ class GcsToBqTest(unittest.TestCase):
             "B02001_008E": ["Two or more races"]
         }, group_vars)
 
-    def testStandarizeFrameOneDim(self):
+    def testStandardizeFrameOneDim(self):
         """Tests standardizing an ACS DataFrame"""
         metadata = census.parse_acs_metadata(
             self._fake_metadata, ["B02001", "B01001"])
@@ -143,7 +142,7 @@ class GcsToBqTest(unittest.TestCase):
             json.dumps(self._expected_race_data)).reset_index(drop=True)
         assert_frame_equal(expected_df, df)
 
-    def testStandarizeFrameTwoDims(self):
+    def testStandardizeFrameTwoDims(self):
         """Tests standardizing an ACS DataFrame"""
         metadata = census.parse_acs_metadata(
             self._fake_metadata, ["B02001", "B01001"])
