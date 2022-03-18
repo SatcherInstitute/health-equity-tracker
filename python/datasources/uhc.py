@@ -3,7 +3,6 @@ import numpy as np  # type: ignore
 
 from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
-import ingestion.constants as constants
 
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
@@ -22,7 +21,10 @@ UHC_RACE_GROUPS = [
 ]
 
 # COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking
-BROAD_AGE_GROUPS = ['18-44', '45-64', '65+']
+BROAD_AGE_GROUPS = [
+    '18-44',
+    '45-64',
+    '65+']
 
 SUICIDE_AGE_GROUPS = [
     '15-24',
@@ -144,26 +146,20 @@ class UHCData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_UHC_URL)
 
-        for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
+        for breakdown in [std_col.RACE_OR_HISPANIC_COL,
+                          std_col.AGE_COL,
+                          std_col.SEX_COL]:
             breakdown_df = self.generate_breakdown(breakdown, df)
+            column_types = {c: 'STRING' for c in breakdown_df.columns}
 
-            for geo in ['state', 'national']:
+            for col in UHC_DETERMINANTS.values():
+                column_types[col] = 'FLOAT'
 
-                if geo == 'national':
-                    df = breakdown_df.loc[breakdown_df[std_col.STATE_FIPS_COL] == constants.US_FIPS]
-                else:
-                    df = breakdown_df.loc[breakdown_df[std_col.STATE_FIPS_COL] != constants.US_FIPS]
+            if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
+                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
-                column_types = {c: 'STRING' for c in breakdown_df.columns}
-
-                for col in UHC_DETERMINANTS.values():
-                    column_types[col] = 'FLOAT'
-
-                if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
-                    column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-
-                gcs_to_bq_util.add_dataframe_to_bq(
-                    breakdown_df, dataset, breakdown, column_types=column_types)
+            gcs_to_bq_util.add_dataframe_to_bq(
+                breakdown_df, dataset, breakdown, column_types=column_types)
 
     def generate_breakdown(self, breakdown, df):
         output = []
@@ -200,8 +196,19 @@ class UHCData(DataSource):
 
                         # TOTAL voter_participation is avg of pres and midterm data
                         if determinant in AVERAGED_DETERMINANTS:
-                            output_row[std_col.VOTER_PARTICIPATION_PER_100K] = get_average_determinate_value(
-                                    matched_row, 'Voter Participation (Midterm)', df, state)
+
+                            matched_row_midterm = df.loc[
+                                (df['State Name'] == state) &
+                                (df['Measure Name'] ==
+                                 "Voter Participation (Midterm)")
+                            ]
+
+                            pres_all_value = matched_row['Value'].values[0]
+                            mid_all_value = matched_row_midterm['Value'].values[0]
+                            average_value = np.nanmean(
+                                [pres_all_value, mid_all_value])
+
+                            output_row[std_col.VOTER_PARTICIPATION_PER_100K] = average_value * 1000
 
                         # already per 100k
                         elif determinant in PER100K_DETERMINANTS:
@@ -232,6 +239,8 @@ class UHCData(DataSource):
 
                         # BY AGE voter participation is avg of pres and midterm
                         if determinant in AVERAGED_DETERMINANTS and breakdown == std_col.AGE_COL:
+
+                            # get midterm for voting ages other than 65+
                             if breakdown_value in VOTER_AGE_GROUPS:
                                 measure_name = (
                                     f"Voter Participation (Midterm) - Ages "
@@ -246,8 +255,22 @@ class UHCData(DataSource):
                             else:
                                 continue
 
-                            output_row[std_col.VOTER_PARTICIPATION_PER_100K] = get_average_determinate_value(
-                                matched_row, measure_name, df, state)
+                            pres_breakdown_value, mid_breakdown_value = np.nan, np.nan
+
+                            if len(matched_row) > 0:
+                                pres_breakdown_value = matched_row['Value'].values[0]
+
+                            matched_row_midterm = df.loc[
+                                (df['State Name'] == state) &
+                                (df['Measure Name'] == measure_name)]
+
+                            if len(matched_row_midterm) > 0:
+                                mid_breakdown_value = matched_row_midterm['Value'].values[0]
+
+                            average_value = np.nanmean(
+                                [pres_breakdown_value, mid_breakdown_value])
+
+                            output_row[std_col.VOTER_PARTICIPATION_PER_100K] = average_value * 1000
 
                         # for other determinants besides VOTER
                         elif len(matched_row) > 0:
@@ -269,49 +292,3 @@ class UHCData(DataSource):
             std_col.add_race_columns_from_category_id(output_df)
 
         return output_df
-
-
-def get_average_determinate_value(matched_row, measure_name, df, state):
-    """Gets the average value of two determinents, ignores null values.
-
-       matched_row: row in the dataset that matches the measure and demographic we are looking for
-       measure_name: measure name that we want to average with
-       df: the dataframe containing all informaiton
-       state: string state name"""
-
-    pres_breakdown_value, mid_breakdown_value = np.nan, np.nan
-
-    if len(matched_row) > 0:
-        pres_breakdown_value = matched_row['Value'].values[0]
-
-    matched_row_midterm = df.loc[
-        (df['State Name'] == state) &
-        (df['Measure Name'] == measure_name)]
-
-    if len(matched_row_midterm) > 0:
-        mid_breakdown_value = matched_row_midterm['Value'].values[0]
-
-    average_value = np.nanmean(
-        [pres_breakdown_value, mid_breakdown_value])
-
-    return average_value * 1000
-
-
-def estimate_total(row, sample_per_100k, total_population):
-    """Returns an estimate of the total number of people with a given condition.
-
-       sample_per_100k: a percentage of people in a demographic with a given condition, represented as a per 100k
-       total_population: the total number of people in that demographic"""
-
-    return round((sample_per_100k / 100000) * total_population)
-
-
-def merge_fips_codes(df):
-    all_fips_codes = gcs_to_bq_util.load_dataframe_from_bigquery(
-            'census_utility', 'fips_codes_states', project='bigquery-public-data', dtype=str)
-
-    all_fips_codes = all_fips_codes[['state_fips_codes', 'state_name']]
-    df = pd.merge(df, all_fips_codes, how='left', on=std_col.STATE_NAME_COL).reset_index(drop=True)
-    df = df.rename(columns={'state_fips_codes': std_col.STATE_FIPS_COL}).reset_index(drop=True)
-
-    return df
