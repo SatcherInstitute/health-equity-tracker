@@ -1,9 +1,9 @@
 from datetime import datetime
 from datetime import timezone
+import pathlib
 import requests
 import json
 import os
-from pathlib import Path
 import pandas as pd
 from google.cloud import bigquery, storage
 
@@ -240,8 +240,7 @@ def load_csv_as_df_from_data_dir(directory, filename, dtype=None):
     directory: directory within data to load from
     filename: file to load the csv file from"""
 
-    home = str(Path.home())
-    file_path = os.path.join(home, "data", directory, filename)
+    file_path = os.path.join("data", directory, filename)
 
     return pd.read_csv(file_path, dtype=dtype)
 
@@ -254,8 +253,15 @@ def load_json_as_df_from_data_dir(directory, filename, dtype=None):
     directory: directory within data to load from
     filename: file to load the json file from"""
 
-    home = str(Path.home())
-    file_path = os.path.join(home, "data", directory, filename)
+    #  go up a level
+    path_parent = os.path.dirname(os.getcwd())
+    os.chdir(path_parent)
+
+    # go into /data
+    os.chdir("data")
+
+    # combine sub-dir and filename
+    file_path = os.path.join(directory, filename)
 
     return pd.read_json(file_path, dtype=dtype)
 
