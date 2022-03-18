@@ -1,6 +1,7 @@
 import unittest
 import json
 from pandas.testing import assert_frame_equal
+# pylint: disable=no-name-in-module
 from ingestion import census, gcs_to_bq_util
 
 
