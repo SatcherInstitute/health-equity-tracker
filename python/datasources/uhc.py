@@ -3,6 +3,7 @@ import numpy as np  # type: ignore
 
 from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
+import ingestion.constants as constants
 
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
@@ -21,10 +22,7 @@ UHC_RACE_GROUPS = [
 ]
 
 # COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking
-BROAD_AGE_GROUPS = [
-    '18-44',
-    '45-64',
-    '65+']
+BROAD_AGE_GROUPS = ['18-44', '45-64', '65+']
 
 SUICIDE_AGE_GROUPS = [
     '15-24',
@@ -146,20 +144,26 @@ class UHCData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_UHC_URL)
 
-        for breakdown in [std_col.RACE_OR_HISPANIC_COL,
-                          std_col.AGE_COL,
-                          std_col.SEX_COL]:
+        for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
             breakdown_df = self.generate_breakdown(breakdown, df)
-            column_types = {c: 'STRING' for c in breakdown_df.columns}
 
-            for col in UHC_DETERMINANTS.values():
-                column_types[col] = 'FLOAT'
+            for geo in ['state', 'national']:
 
-            if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
-                column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+                if geo == 'national':
+                    df = breakdown_df.loc[breakdown_df[std_col.STATE_FIPS_COL] == constants.US_FIPS]
+                else:
+                    df = breakdown_df.loc[breakdown_df[std_col.STATE_FIPS_COL] != constants.US_FIPS]
 
-            gcs_to_bq_util.add_dataframe_to_bq(
-                breakdown_df, dataset, breakdown, column_types=column_types)
+                column_types = {c: 'STRING' for c in breakdown_df.columns}
+
+                for col in UHC_DETERMINANTS.values():
+                    column_types[col] = 'FLOAT'
+
+                if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
+                    column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+
+                gcs_to_bq_util.add_dataframe_to_bq(
+                    breakdown_df, dataset, breakdown, column_types=column_types)
 
     def generate_breakdown(self, breakdown, df):
         output = []
@@ -293,10 +297,21 @@ def get_average_determinate_value(matched_row, measure_name, df, state):
     return average_value * 1000
 
 
-def estimate_total(sample_per_100k, total_population):
+def estimate_total(row, sample_per_100k, total_population):
     """Returns an estimate of the total number of people with a given condition.
 
        sample_per_100k: a percentage of people in a demographic with a given condition, represented as a per 100k
        total_population: the total number of people in that demographic"""
 
     return round((sample_per_100k / 100000) * total_population)
+
+
+def merge_fips_codes(df):
+    all_fips_codes = gcs_to_bq_util.load_dataframe_from_bigquery(
+            'census_utility', 'fips_codes_states', project='bigquery-public-data', dtype=str)
+
+    all_fips_codes = all_fips_codes[['state_fips_codes', 'state_name']]
+    df = pd.merge(df, all_fips_codes, how='left', on=std_col.STATE_NAME_COL).reset_index(drop=True)
+    df = df.rename(columns={'state_fips_codes': std_col.STATE_FIPS_COL}).reset_index(drop=True)
+
+    return df

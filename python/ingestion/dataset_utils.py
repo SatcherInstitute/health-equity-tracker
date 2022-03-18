@@ -1,4 +1,6 @@
 import pandas as pd
+from ingestion import gcs_to_bq_util
+import ingestion.standardized_columns as std_col
 
 
 def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, total_val):
@@ -14,7 +16,7 @@ def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, tota
 
     def calc_pct_share(record, total_value):
         record[pct_share_col] = percent_avoid_rounding_to_zero(
-            record[raw_count_col], total)
+            record[raw_count_col], total_value)
         return record
 
     groupby_cols = list(df.columns)
@@ -103,3 +105,18 @@ def add_sum_of_rows(df, breakdown_col, value_col, new_row_breakdown_val,
     result = pd.concat([df, sums])
     result = result.reset_index(drop=True)
     return result
+
+
+def merge_fips_codes(df):
+    """Merges in the `state_fips` column into a dataframe, based on the `census_utility` big query public dataset.
+
+       df: dataframe to merge fips codes into, with a `state_name` column"""
+
+    all_fips_codes_df = gcs_to_bq_util.load_dataframe_from_bigquery(
+            'census_utility', 'fips_codes_states', project='bigquery-public-data', dtype=str)
+
+    all_fips_codes_df = all_fips_codes_df[['state_fips_code', 'state_name']]
+    df = pd.merge(df, all_fips_codes_df, how='left', on=std_col.STATE_NAME_COL).reset_index(drop=True)
+    df = df.rename(columns={'state_fips_code': std_col.STATE_FIPS_COL}).reset_index(drop=True)
+
+    return df
