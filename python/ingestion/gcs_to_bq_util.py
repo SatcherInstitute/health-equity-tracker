@@ -273,7 +273,7 @@ def load_csv_as_dataframe_from_path(path, dtype=None, params=None, encoding=None
 
        path: file path to load the csv file from"""
 
-    return pandas.read_csv(path, dtype=dtype, encoding=encoding)
+    return pd.read_csv(path, dtype=dtype, encoding=encoding)
 
 
 def load_json_as_df_from_web(url, dtype=None, params=None):
