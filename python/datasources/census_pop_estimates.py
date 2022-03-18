@@ -41,8 +41,8 @@ class CensusPopEstimates(DataSource):
             'upload_to_gcs should not be called for CensusPopEstimates')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        df = gcs_to_bq_util.load_csv_as_dataframe_from_web(
-                BASE_POPULATION_URL, dtype={'STATE': str, 'COUNTY': str}, encoding="ISO-8859-1")
+        df = gcs_to_bq_util.load_csv_as_df_from_web(
+            BASE_POPULATION_URL, dtype={'STATE': str, 'COUNTY': str}, encoding="ISO-8859-1")
 
         state_df = generate_state_pop_data(df)
 
@@ -51,7 +51,7 @@ class CensusPopEstimates(DataSource):
         if std_col.RACE_INCLUDES_HISPANIC_COL in df.columns:
             column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
-        gcs_to_bq_util.add_dataframe_to_bq(
+        gcs_to_bq_util.add_df_to_bq(
             state_df, dataset, "race_and_ethnicity", column_types=column_types)
 
 
@@ -84,20 +84,23 @@ def generate_state_pop_data(df):
         age_df[std_col.AGE_COL] = std_age
 
         for state_fips in age_df['STATE'].drop_duplicates().to_list():
-            state_name = age_df.loc[age_df['STATE'] == state_fips]['STNAME'].drop_duplicates().to_list()[0]
+            state_name = age_df.loc[age_df['STATE'] == state_fips]['STNAME'].drop_duplicates().to_list()[
+                0]
 
             for race in RACES_MAP.values():
                 pop_row = {}
                 pop_row[std_col.STATE_FIPS_COL] = state_fips
                 pop_row[std_col.STATE_NAME_COL] = state_name
                 pop_row[std_col.AGE_COL] = std_age
-                pop_row[std_col.POPULATION_COL] = age_df.loc[age_df['STATE'] == state_fips][race].values[0]
+                pop_row[std_col.POPULATION_COL] = age_df.loc[age_df['STATE']
+                                                             == state_fips][race].values[0]
                 pop_row[std_col.RACE_CATEGORY_ID_COL] = race
 
                 new_df.append(pop_row)
 
     new_df = pd.DataFrame(new_df)
-    new_df = new_df.sort_values([std_col.STATE_NAME_COL, std_col.AGE_COL]).reset_index(drop=True)
+    new_df = new_df.sort_values(
+        [std_col.STATE_NAME_COL, std_col.AGE_COL]).reset_index(drop=True)
     std_col.add_race_columns_from_category_id(new_df)
 
     return new_df
@@ -121,7 +124,8 @@ def generate_national_pop_data(state_df, states_to_include):
     df[std_col.STATE_FIPS_COL] = constants.US_FIPS
     df[std_col.STATE_NAME_COL] = constants.US_NAME
 
-    needed_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.POPULATION_COL]
+    needed_cols = [std_col.STATE_FIPS_COL,
+                   std_col.STATE_NAME_COL, std_col.POPULATION_COL]
     needed_cols.extend(groupby_cols)
     df[std_col.STATE_FIPS_COL] = df[std_col.STATE_FIPS_COL].astype(str)
     return df[needed_cols].sort_values([std_col.AGE_COL, std_col.RACE_CATEGORY_ID_COL]).reset_index(drop=True)

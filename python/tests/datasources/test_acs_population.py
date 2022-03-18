@@ -34,7 +34,7 @@ def get_acs_metadata_as_json():
 
 
 def get_hispanic_or_latino_values_by_race_state_as_df():
-    return gcs_to_bq_util.values_json_to_dataframe(
+    return gcs_to_bq_util.values_json_to_df(
         os.path.join(
             TEST_DIR,
             'HISPANIC_OR_LATINO_ORIGIN_BY_RACE_state.json'
@@ -42,7 +42,7 @@ def get_hispanic_or_latino_values_by_race_state_as_df():
 
 
 def get_hispanic_or_latino_values_by_race_county_as_df():
-    return gcs_to_bq_util.values_json_to_dataframe(
+    return gcs_to_bq_util.values_json_to_df(
         os.path.join(
             TEST_DIR,
             'HISPANIC_OR_LATINO_ORIGIN_BY_RACE_county.json'),
@@ -51,13 +51,13 @@ def get_hispanic_or_latino_values_by_race_county_as_df():
 
 def get_sex_by_age_value_as_df(concept):
     filename = '%s_state.json' % concept.replace(' ', '_')
-    return gcs_to_bq_util.values_json_to_dataframe(
+    return gcs_to_bq_util.values_json_to_df(
         os.path.join(TEST_DIR, filename), dtype={'state_fips': str}).reset_index(drop=True)
 
 
 def get_sex_by_age_county_value_as_df(concept):
     filename = '%s_county.json' % concept.replace(' ', '_')
-    return gcs_to_bq_util.values_json_to_dataframe(
+    return gcs_to_bq_util.values_json_to_df(
         os.path.join(TEST_DIR, filename), dtype={'county_fips': str}).reset_index(drop=True)
 
 
@@ -98,9 +98,9 @@ def testGenerateNationalDatasetAge():
 
 @mock.patch('ingestion.census.fetch_acs_metadata',
             return_value=get_acs_metadata_as_json())
-@mock.patch('ingestion.gcs_to_bq_util.load_values_as_dataframe',
+@mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
             return_value=get_hispanic_or_latino_values_by_race_state_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_json: mock.MagicMock):
     acsPopulationIngester = ACSPopulationIngester(False, "https://SOME-URL")
@@ -119,8 +119,8 @@ def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_js
 
 @mock.patch('ingestion.census.fetch_acs_metadata',
             return_value=get_acs_metadata_as_json())
-@mock.patch('ingestion.gcs_to_bq_util.load_values_as_dataframe')
-@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
+@mock.patch('ingestion.gcs_to_bq_util.load_values_as_df')
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBqSexAgeRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_json: mock.MagicMock):
     side_effects = [get_hispanic_or_latino_values_by_race_state_as_df()]
@@ -142,8 +142,8 @@ def testWriteToBqSexAgeRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, m
 
 @mock.patch('ingestion.census.fetch_acs_metadata',
             return_value=get_acs_metadata_as_json())
-@mock.patch('ingestion.gcs_to_bq_util.load_values_as_dataframe')
-@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
+@mock.patch('ingestion.gcs_to_bq_util.load_values_as_df')
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBqSexAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_json: mock.MagicMock):
     side_effects = [get_hispanic_or_latino_values_by_race_state_as_df()]
@@ -165,8 +165,8 @@ def testWriteToBqSexAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_
 
 @mock.patch('ingestion.census.fetch_acs_metadata',
             return_value=get_acs_metadata_as_json())
-@mock.patch('ingestion.gcs_to_bq_util.load_values_as_dataframe')
-@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
+@mock.patch('ingestion.gcs_to_bq_util.load_values_as_df')
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBqAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_json: mock.MagicMock):
     side_effects = [get_hispanic_or_latino_values_by_race_state_as_df()]
@@ -189,8 +189,8 @@ def testWriteToBqAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_jso
 
 @mock.patch('ingestion.census.fetch_acs_metadata',
             return_value=get_acs_metadata_as_json())
-@mock.patch('ingestion.gcs_to_bq_util.load_values_as_dataframe')
-@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
+@mock.patch('ingestion.gcs_to_bq_util.load_values_as_df')
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBqSex(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_json: mock.MagicMock):
     side_effects = [get_hispanic_or_latino_values_by_race_state_as_df()]
@@ -212,8 +212,8 @@ def testWriteToBqSex(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_jso
 
 @mock.patch('ingestion.census.fetch_acs_metadata',
             return_value=get_acs_metadata_as_json())
-@mock.patch('ingestion.gcs_to_bq_util.load_values_as_dataframe')
-@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
+@mock.patch('ingestion.gcs_to_bq_util.load_values_as_df')
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBqAgeNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_json: mock.MagicMock):
     side_effects = [get_hispanic_or_latino_values_by_race_state_as_df()]
@@ -235,8 +235,8 @@ def testWriteToBqAgeNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, 
 
 @mock.patch('ingestion.census.fetch_acs_metadata',
             return_value=get_acs_metadata_as_json())
-@mock.patch('ingestion.gcs_to_bq_util.load_values_as_dataframe')
-@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
+@mock.patch('ingestion.gcs_to_bq_util.load_values_as_df')
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBqRaceNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_json: mock.MagicMock):
     side_effects = [get_hispanic_or_latino_values_by_race_state_as_df()]
@@ -258,8 +258,8 @@ def testWriteToBqRaceNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock,
 
 @mock.patch('ingestion.census.fetch_acs_metadata',
             return_value=get_acs_metadata_as_json())
-@mock.patch('ingestion.gcs_to_bq_util.load_values_as_dataframe')
-@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
+@mock.patch('ingestion.gcs_to_bq_util.load_values_as_df')
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBqSexNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_json: mock.MagicMock):
     side_effects = [get_hispanic_or_latino_values_by_race_state_as_df()]
@@ -282,8 +282,8 @@ def testWriteToBqSexNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, 
 # Do one County level test to make sure our logic there is correct
 @mock.patch('ingestion.census.fetch_acs_metadata',
             return_value=get_acs_metadata_as_json())
-@mock.patch('ingestion.gcs_to_bq_util.load_values_as_dataframe')
-@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
+@mock.patch('ingestion.gcs_to_bq_util.load_values_as_df')
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBqAgeCounty(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_json: mock.MagicMock):
     side_effects = [get_hispanic_or_latino_values_by_race_county_as_df()]

@@ -32,7 +32,8 @@ class CountyNames(DataSource):
         gcs_bucket: The name of the gcs bucket to read the data from
         filename: The name of the file in the gcs bucket to read from"""
         try:
-            frame = gcs_to_bq_util.load_values_as_dataframe(gcs_bucket, filename)
+            frame = gcs_to_bq_util.load_values_as_df(
+                gcs_bucket, filename)
             frame = frame.rename(columns={
                 'NAME': 'county_name',
                 'state': 'state_fips_code',
@@ -43,8 +44,8 @@ class CountyNames(DataSource):
                 'state_fips_code': 'STRING',
                 'county_fips_code': 'STRING'
             }
-            gcs_to_bq_util.add_dataframe_to_bq(frame, dataset, self.get_table_name(),
-                                               column_types=column_types)
+            gcs_to_bq_util.add_df_to_bq(frame, dataset, self.get_table_name(),
+                                        column_types=column_types)
         except json.JSONDecodeError as err:
             logging.error(
                 'Unable to write to BigQuery due to improperly formatted data: %s', err)

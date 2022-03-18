@@ -32,7 +32,7 @@ class StateNames(DataSource):
         gcs_bucket: The name of the gcs bucket to read the data from
         filename: The name of the file in the gcs bucket to read from"""
         try:
-            frame = gcs_to_bq_util.load_values_as_dataframe(
+            frame = gcs_to_bq_util.load_values_as_df(
                 gcs_bucket, filename)
             frame = frame.rename(columns={
                 'state': 'state_fips_code',
@@ -40,7 +40,7 @@ class StateNames(DataSource):
             })
             column_types = {'state_fips_code': 'STRING',
                             'state_name': 'STRING'}
-            gcs_to_bq_util.add_dataframe_to_bq(
+            gcs_to_bq_util.add_df_to_bq(
                 frame, dataset, self.get_table_name(), column_types=column_types)
         except json.JSONDecodeError as err:
             logging.error(
