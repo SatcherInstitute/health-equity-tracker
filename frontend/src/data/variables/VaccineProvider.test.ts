@@ -129,7 +129,8 @@ function nationalRow(
   vaccinated_first_dose: number,
   vaccinated_share_of_known: number,
   vaccinated_per_100k: number,
-  population: number
+  population: number,
+  population_pct: number
 ) {
   return [
     {
@@ -145,6 +146,7 @@ function nationalRow(
       state_name: USA.name,
       population: population,
       race_and_ethnicity: breakdownValue,
+      population_pct: population_pct,
     },
   ];
 }
@@ -221,6 +223,7 @@ describe("VaccineProvider", () => {
       1000,
       100,
       10000,
+      50,
       50
     );
 
@@ -230,12 +233,12 @@ describe("VaccineProvider", () => {
       1000,
       100,
       50000,
+      100,
       100
     );
 
     const rawData = [USA_ASIAN_ROW, USA_ALL_ROW];
 
-    // Create final rows with diabetes_count & diabetes_per_100k
     const USA_ASIAN_FINAL = finalRow(
       /*fips*/ USA,
       /*breakdownName*/ RACE,
@@ -259,7 +262,7 @@ describe("VaccineProvider", () => {
     await evaluateWithAndWithoutAll(
       "cdc_vaccination_national-race_and_ethnicity",
       rawData,
-      "acs_population-by_race_state_std",
+      "acs_population-by_race_national",
       [USA_ACS_ASIAN_ROW, USA_ACS_ALL_ROW],
       Breakdowns.national(),
       RACE,

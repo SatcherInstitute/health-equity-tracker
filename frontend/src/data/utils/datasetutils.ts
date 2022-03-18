@@ -1,5 +1,5 @@
 import { IDataFrame } from "data-forge";
-import { MetricId, VariableId, VAXX } from "../config/MetricConfig";
+import { MetricId, VariableId, COVID_VAXX } from "../config/MetricConfig";
 import { BreakdownVar } from "../query/Breakdowns";
 import { RACE } from "./Constants";
 import { Row } from "./DatasetTypes";
@@ -178,6 +178,6 @@ export function shouldShowAltPopCompare(fromProps: ShouldShowAltPopCompareI) {
   return (
     fromProps.fips.isState() &&
     fromProps.breakdownVar === RACE &&
-    fromProps.variableConfig.variableId === VAXX
+    fromProps.variableConfig.variableId === COVID_VAXX
   );
 }
