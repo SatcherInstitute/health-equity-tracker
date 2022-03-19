@@ -84,13 +84,11 @@ def get_test_data_as_df(*args):
                        dtype=test_input_dtype)
 
 
-@ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe_from_path',
+@ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
              side_effect=get_test_data_as_df)
-@ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe_from_web',
-             side_effect=get_test_data_as_df)
-@ mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
+@ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
-def testWriteToBq(mock_bq: mock.MagicMock, mock_web_csv: mock.MagicMock, mock_path_csv: mock.MagicMock):
+def testWriteToBq(mock_bq: mock.MagicMock, mock_web_csv: mock.MagicMock):
 
     cawp_data = CAWPData()
 
@@ -103,7 +101,6 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_web_csv: mock.MagicMock, mock_pa
 
     mock_bq.assert_called_once
     mock_web_csv.assert_called_once
-    mock_path_csv.assert_called_once
 
     expected_dtype = {
         'state_name': str,
@@ -129,7 +126,7 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_web_csv: mock.MagicMock, mock_pa
     print("expected output file")
     print(expected_df.to_string())
 
-    # output created in mocked load_csv_as_dataframe_from_web() should be the same as the expected df
+    # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
     assert set(mock_bq.call_args_list[0].args[0]) == set(expected_df.columns)
     assert_frame_equal(
         mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
