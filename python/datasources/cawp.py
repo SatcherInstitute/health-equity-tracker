@@ -84,29 +84,29 @@ class CAWPData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
         # read LINE ITEM with women leg by race / level / state
-        # df_line_items = gcs_to_bq_util.load_csv_as_dataframe_from_web(
+        # df_line_items = gcs_to_bq_util.load_csv_as_df_from_web(
         #     CAWP_LINE_ITEMS_URL)
 
         # read needed files directly from /data rather than external URLs
-        # df_totals = gcs_to_bq_util.load_csv_as_dataframe_from_path(
+        # df_totals = gcs_to_bq_util.load_csv_as_df_from_path(
         #     "../../data/cawp/cawp_totals.csv")
-        df_line_items = gcs_to_bq_util.load_csv_as_dataframe_from_path(
-            "../../data/cawp/cawp_line_items.csv")
+        df_line_items = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+            'cawp', 'cawp-by_race_and_ethnicity.csv')
 
         # load in table with % of women legislators for /state
-        df_totals = gcs_to_bq_util.load_csv_as_dataframe_from_web(
+        df_totals = gcs_to_bq_util.load_csv_as_df_from_web(
             CAWP_TOTALS_URL)
 
         # load in ACS population by race
-        df_acs_pop_state = gcs_to_bq_util.load_dataframe_from_bigquery(
+        df_acs_pop_state = gcs_to_bq_util.load_df_from_bigquery(
             'acs_population', 'by_race_state_std', dtype={'state_fips': str})
 
         # load in ACS states and puerto rico populations by race
-        df_acs_pop_state = gcs_to_bq_util.load_dataframe_from_bigquery(
+        df_acs_pop_state = gcs_to_bq_util.load_df_from_bigquery(
             'acs_population', 'by_race_state_std')
 
         # load in ACS national populations by race
-        df_acs_pop_national = gcs_to_bq_util.load_dataframe_from_bigquery(
+        df_acs_pop_national = gcs_to_bq_util.load_df_from_bigquery(
             'acs_population', 'by_race_national')
 
         # make table by race
@@ -119,7 +119,7 @@ class CAWPData(DataSource):
         column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
         column_types[std_col.POPULATION_PCT_COL] = 'STRING'
 
-        gcs_to_bq_util.add_dataframe_to_bq(
+        gcs_to_bq_util.add_df_to_bq(
             breakdown_df, dataset, std_col.RACE_OR_HISPANIC_COL, column_types=column_types)
 
     def generate_breakdown(self, df_totals, df_line_items, df_acs_pop_state, df_acs_pop_national):

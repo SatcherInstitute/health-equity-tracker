@@ -253,27 +253,25 @@ def load_json_as_df_from_data_dir(directory, filename, dtype=None):
     directory: directory within data to load from
     filename: file to load the json file from"""
 
+    print("1", os.listdir())
+
     #  go up a level
     path_parent = os.path.dirname(os.getcwd())
     os.chdir(path_parent)
 
+    print("2", os.listdir())
+
     # go into /data
     os.chdir("data")
+
+    print("3", os.listdir())
 
     # combine sub-dir and filename
     file_path = os.path.join(directory, filename)
 
+    print("file-path", file_path)
+
     return pd.read_json(file_path, dtype=dtype)
-
-
-def load_csv_as_dataframe_from_path(path, dtype=None, params=None, encoding=None):
-    """Loads csv data from the provided file path to a DataFrame.
-       Expects the data to be in csv format, with the first row as the column
-       names.
-
-       path: file path to load the csv file from"""
-
-    return pd.read_csv(path, dtype=dtype, encoding=encoding)
 
 
 def load_json_as_df_from_web(url, dtype=None, params=None):
