@@ -221,17 +221,6 @@ def load_json_as_df(gcs_bucket, filename, dtype=None):
     return frame
 
 
-def load_csv_as_df_from_web(url, dtype=None, params=None, encoding=None):
-    """Loads csv data from the provided url to a DataFrame.
-       Expects the data to be in csv format, with the first row as the column
-       names.
-
-       url: url to download the csv file from"""
-
-    url = requests.Request('GET', url, params=params).prepare().url
-    return pd.read_csv(url, dtype=dtype, encoding=encoding)
-
-
 def load_csv_as_df_from_data_dir(directory, filename, dtype=None):
     """Loads csv data from /data/{directory}/{filename} into a DataFrame.
        Expects the data to be in csv format, with the first row as the column
@@ -272,6 +261,17 @@ def load_json_as_df_from_data_dir(directory, filename, dtype=None):
     print("file-path", file_path)
 
     return pd.read_json(file_path, dtype=dtype)
+
+
+def load_csv_as_df_from_web(url, dtype=None, params=None, encoding=None):
+    """Loads csv data from the provided url to a DataFrame.
+       Expects the data to be in csv format, with the first row as the column
+       names.
+
+       url: url to download the csv file from"""
+
+    url = requests.Request('GET', url, params=params).prepare().url
+    return pd.read_csv(url, dtype=dtype, encoding=encoding)
 
 
 def load_json_as_df_from_web(url, dtype=None, params=None):

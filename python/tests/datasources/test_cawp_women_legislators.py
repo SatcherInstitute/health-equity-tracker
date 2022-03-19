@@ -4,7 +4,7 @@ import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
 
-from datasources.cawp import CAWPData, CAWP_TOTALS_URL, CAWP_LINE_ITEMS_PATH, clean, get_pretty_pct, swap_territory_abbr
+from datasources.cawp import CAWPData, CAWP_TOTALS_URL, CAWP_LINE_ITEMS_FILE, clean, get_pretty_pct, swap_territory_abbr
 
 
 # test my utility functions
@@ -47,7 +47,7 @@ mock_file_map = {
         }
     },
     # for LINE LEVEL mocking /data FOLDER
-    CAWP_LINE_ITEMS_PATH: {
+    CAWP_LINE_ITEMS_FILE: {
         "filename": 'cawp_test_input_line_items.csv',  # FULL CSV FILE
         # "filename": 'cawp_test_input_line_items-SUBSET.csv',  # LIMITED SAMPLE CSV FILE
         "data_types": {
@@ -78,17 +78,23 @@ GOLDEN_DATA = {
 
 def get_test_data_as_df(*args):
     # read in correct CSV (mocking the network call to the CAWP api)
-    test_input_csv = mock_file_map[args[0]]["filename"]
-    test_input_dtype = mock_file_map[args[0]]["data_types"]
+    filename_arg_index = 0
+    if len(args) > 1:
+        filename_arg_index = 1
+
+    test_input_csv = mock_file_map[args[filename_arg_index]]["filename"]
+    test_input_dtype = mock_file_map[args[filename_arg_index]]["data_types"]
     return pd.read_csv(os.path.join(TEST_DIR, test_input_csv),
                        dtype=test_input_dtype)
 
 
+@ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+             side_effect=get_test_data_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
              side_effect=get_test_data_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
-def testWriteToBq(mock_bq: mock.MagicMock, mock_web_csv: mock.MagicMock):
+def testWriteToBq(mock_bq: mock.MagicMock, mock_web_csv: mock.MagicMock, mock_data_dir_csv: mock.MagicMock):
 
     cawp_data = CAWPData()
 

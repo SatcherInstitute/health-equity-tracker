@@ -54,7 +54,7 @@ def get_pretty_pct(proportion: float):
 # LINE ITEM numbers
 # table includes breakdown of women by race by state by level,
 # but doesn't include total legislature numbers
-CAWP_LINE_ITEMS_PATH = "../../data/cawp/cawp_line_items.csv"
+CAWP_LINE_ITEMS_FILE = "cawp-by_race_and_ethnicity.csv"
 # this URL could be used for an API endpoint but needs authentication
 # CAWP_LINE_ITEMS_URL = ("https://cawpdata.rutgers.edu/women-elected-officials/"
 #    "race-ethnicity/export-roles/csv?current=1&yearend_filter=All"
@@ -88,8 +88,6 @@ class CAWPData(DataSource):
         #     CAWP_LINE_ITEMS_URL)
 
         # read needed files directly from /data rather than external URLs
-        # df_totals = gcs_to_bq_util.load_csv_as_df_from_path(
-        #     "../../data/cawp/cawp_totals.csv")
         df_line_items = gcs_to_bq_util.load_csv_as_df_from_data_dir(
             'cawp', 'cawp-by_race_and_ethnicity.csv')
 
@@ -97,17 +95,19 @@ class CAWPData(DataSource):
         df_totals = gcs_to_bq_util.load_csv_as_df_from_web(
             CAWP_TOTALS_URL)
 
-        # load in ACS population by race
-        df_acs_pop_state = gcs_to_bq_util.load_df_from_bigquery(
-            'acs_population', 'by_race_state_std', dtype={'state_fips': str})
-
-        # load in ACS states and puerto rico populations by race
-        df_acs_pop_state = gcs_to_bq_util.load_df_from_bigquery(
-            'acs_population', 'by_race_state_std')
-
         # load in ACS national populations by race
         df_acs_pop_national = gcs_to_bq_util.load_df_from_bigquery(
             'acs_population', 'by_race_national')
+
+        # load in ACS states and puerto rico populations by race
+        df_acs_pop_state = gcs_to_bq_util.load_df_from_bigquery(
+            'acs_population', 'by_race_state_std', dtype={'state_fips': str})
+
+        # load in ACS 2010 territories' populations by race
+        df_acs_2010_pop_territory = gcs_to_bq_util.load_df_from_bigquery(
+            'acs_2010_population', 'by_race_and_ethnicity_territory', dtype={'state_fips': str})
+
+        print(df_acs_2010_pop_territory.to_string())
 
         # make table by race
         breakdown_df = self.generate_breakdown(
