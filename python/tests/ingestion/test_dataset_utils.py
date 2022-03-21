@@ -74,6 +74,7 @@ _expected_race_data_with_totals = [
 
 _data_without_fips_codes = [
     ['state_name', 'other_col'],
+    ['United States', 'something_cool'],
     ['California', 'something'],
     ['Georgia', 'something_else'],
 ]
@@ -88,6 +89,7 @@ _fips_codes_from_bq = [
 
 _expected_merged_fips = [
     ['state_name', 'other_col', 'state_fips'],
+    ['United States', 'something_cool', '00'],
     ['California', 'something', '06'],
     ['Georgia', 'something_else', '13'],
 ]

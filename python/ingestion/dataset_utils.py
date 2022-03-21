@@ -1,6 +1,7 @@
 import pandas as pd
 from ingestion import gcs_to_bq_util
 import ingestion.standardized_columns as std_col
+import ingestion.constants as constants
 
 
 def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, total_val):
@@ -115,7 +116,10 @@ def merge_fips_codes(df):
     all_fips_codes_df = gcs_to_bq_util.load_public_dataset_from_bigquery_as_df(
             'census_utility', 'fips_codes_states', dtype={'state_fips_code': str})
 
+    united_states_fips = pd.DataFrame([{'state_fips_code': constants.US_FIPS, 'state_name': constants.US_NAME}])
     all_fips_codes_df = all_fips_codes_df[['state_fips_code', 'state_name']]
+    all_fips_codes_df = pd.concat([all_fips_codes_df, united_states_fips])
+
     df = pd.merge(df, all_fips_codes_df, how='left', on=std_col.STATE_NAME_COL).reset_index(drop=True)
     df = df.rename(columns={'state_fips_code': std_col.STATE_FIPS_COL}).reset_index(drop=True)
 
