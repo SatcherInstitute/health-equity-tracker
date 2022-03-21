@@ -116,6 +116,8 @@ def merge_fips_codes(df):
             'census_utility', 'fips_codes_states', dtype={'state_fips_code': str})
 
     all_fips_codes_df = all_fips_codes_df[['state_fips_code', 'state_name']]
+    print(all_fips_codes_df.to_string())
+    print(df.to_string())
     df = pd.merge(df, all_fips_codes_df, how='left', on=std_col.STATE_NAME_COL).reset_index(drop=True)
     df = df.rename(columns={'state_fips_code': std_col.STATE_FIPS_COL}).reset_index(drop=True)
 

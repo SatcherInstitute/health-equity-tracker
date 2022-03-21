@@ -6,7 +6,7 @@ import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
 
 from datasources.data_source import DataSource
-from ingestion import gcs_to_bq_util
+from ingestion import gcs_to_bq_util, dataset_utils
 
 UHC_RACE_GROUPS = [
     'American Indian/Alaska Native',
@@ -148,7 +148,7 @@ class UHCData(DataSource):
             breakdown_df = self.generate_breakdown(breakdown, df)
 
             for geo in ['state', 'national']:
-
+                df = dataset_utils.merge_fips_codes(df)
                 if geo == 'national':
                     df = breakdown_df.loc[breakdown_df[std_col.STATE_FIPS_COL] == constants.US_FIPS]
                 else:
@@ -304,14 +304,3 @@ def estimate_total(row, sample_per_100k, total_population):
        total_population: the total number of people in that demographic"""
 
     return round((sample_per_100k / 100000) * total_population)
-
-
-def merge_fips_codes(df):
-    all_fips_codes = gcs_to_bq_util.load_dataframe_from_bigquery(
-            'census_utility', 'fips_codes_states', project='bigquery-public-data', dtype=str)
-
-    all_fips_codes = all_fips_codes[['state_fips_codes', 'state_name']]
-    df = pd.merge(df, all_fips_codes, how='left', on=std_col.STATE_NAME_COL).reset_index(drop=True)
-    df = df.rename(columns={'state_fips_codes': std_col.STATE_FIPS_COL}).reset_index(drop=True)
-
-    return df
