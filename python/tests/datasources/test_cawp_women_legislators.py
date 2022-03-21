@@ -4,7 +4,12 @@ import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
 
-from datasources.cawp import CAWPData, CAWP_TOTALS_URL, CAWP_LINE_ITEMS_FILE, clean, get_pretty_pct, swap_territory_abbr
+from datasources.cawp import (CAWPData,
+                              CAWP_TOTALS_URL,
+                              CAWP_LINE_ITEMS_FILE,
+                              clean, get_pretty_pct,
+                              swap_territory_abbr,
+                              swap_territory_name)
 
 
 # test my utility functions
@@ -21,6 +26,11 @@ def test_swap_territory_abbr():
     assert swap_territory_abbr("MP") == "MI"
     assert swap_territory_abbr("AS") == "AM"
     assert swap_territory_abbr("ME") == "ME"
+
+
+def test_swap_territory_name():
+    assert swap_territory_name("Virgin Islands") == "U.S. Virgin Islands"
+    assert swap_territory_name("Maine") == "Maine"
 
 
 def test_get_pretty_pct():
@@ -126,11 +136,11 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_web_csv: mock.MagicMock, mock_da
     mock_bq.call_args_list[0].args[0].to_json(
         "cawp-run-results.json", orient="records")
 
-    print("mock call results")
-    print(mock_bq.call_args_list[0].args[0].to_string())
+    # print("mock call results")
+    # print(mock_bq.call_args_list[0].args[0].to_string())
 
-    print("expected output file")
-    print(expected_df.to_string())
+    # print("expected output file")
+    # print(expected_df.to_string())
 
     # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
     assert set(mock_bq.call_args_list[0].args[0]) == set(expected_df.columns)
