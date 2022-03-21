@@ -61,14 +61,18 @@ def get_pretty_pct(proportion: float):
     return f'{pct_rounded:g}'
 
 
-def get_fips_from_name(place_name: str):
-    """ Function to get a FIPS code for a state or territory name """
+def count_matching_rows(df, state_phrase: str, gov_level: str, string_to_match: str):
+    """ Accepts a dataframe, a level of government, a state phrase, and a string to match
+    and counts the number of rows where where that string occurs in the race_ethnicity column  """
+    return len(df[
+        (df['state'] == state_phrase) &
+        (df['race_ethnicity'].str.contains(string_to_match)) &
+        (df['level'].isin(
+            CAWP_DATA_TYPES[gov_level]))
+    ])
 
-    return "01"
 
 # 2 TABLES FOR STATE-LEVEL CONGRESSES
-
-
 # LINE ITEM numbers
 # table includes breakdown of women by race by state by level,
 # but doesn't include total legislature numbers
@@ -274,25 +278,37 @@ class CAWPData(DataSource):
                     pct_population_share = "100"
 
                 else:
+
+                    state_phrase = f"{cawp_state_name} - {clean_state_abbr}"
+                    gov_level = "state"
+
+                    num_matches = count_matching_rows(
+                        df_line_items, state_phrase, gov_level, cawp_race_name)
+
+                    if cawp_race_name == "Multiracial Alone":
+                        # comma delimiter signifies multiple races
+                        num_matches += count_matching_rows(
+                            df_line_items, state_phrase, gov_level, ", ")
+
                     # calc BY RACE pct_women_leg from LINE ITEM csv file
-                    num_matches = len(df_line_items[
-                        (df_line_items['state'] == f"{cawp_state_name} - {clean_state_abbr}") &
-                        # any of her races match current race iteration
-                        (df_line_items['race_ethnicity'].str.contains(cawp_race_name)) &
-                        (df_line_items['level'].isin(CAWP_DATA_TYPES['state']))
-                    ])
+                    # num_matches = len(df_line_items[
+                    #     (df_line_items['state'] == f"{cawp_state_name} - {clean_state_abbr}") &
+                    #     # any of her races match current race iteration
+                    #     (df_line_items['race_ethnicity'].str.contains(cawp_race_name)) &
+                    #     (df_line_items['level'].isin(CAWP_DATA_TYPES['state']))
+                    # ])
 
                     # sum "Multiracial Alone" women w/ women who identify with
                     #  multiple specific races
                     # (eg ["White","Black"]) with ["Multiracial Alone"]
-                    if cawp_race_name == "Multiracial Alone":
-                        num_matches += len(df_line_items[
-                            (df_line_items['state'] == f"{cawp_state_name} - {clean_state_abbr}") &
-                            # comma delimiter signifies multiple races
-                            (df_line_items['race_ethnicity'].str.contains(", ")) &
-                            (df_line_items['level'].isin(
-                                CAWP_DATA_TYPES['state']))
-                        ])
+                    # if cawp_race_name == "Multiracial Alone":
+                    #     num_matches += len(df_line_items[
+                    #         (df_line_items['state'] == f"{cawp_state_name} - {clean_state_abbr}") &
+                    #         # comma delimiter signifies multiple races
+                    #         (df_line_items['race_ethnicity'].str.contains(", ")) &
+                    #         (df_line_items['level'].isin(
+                    #             CAWP_DATA_TYPES['state']))
+                    #     ])
 
                     # tally national level of each race's # women state leg (numerator)
                     us_tally[race_code] += num_matches
