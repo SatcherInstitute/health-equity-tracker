@@ -306,7 +306,7 @@ def load_public_dataset_from_bigquery_as_df(dataset, table_name, dtype=None):
     return client.list_rows(table_id).to_dataframe(dtypes=dtype)
 
 
-def load_dataframe_from_bigquery(dataset, table_name, dtype=None):
+def load_df_from_bigquery(dataset, table_name, dtype=None):
     """Loads data from a big query table into a dataframe.
 
        dataset: The BigQuery dataset to write to.

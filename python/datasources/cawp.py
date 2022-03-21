@@ -5,6 +5,7 @@ import ingestion.standardized_columns as std_col
 
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
+from ingestion.dataset_utils import merge_fips_codes
 
 CAWP_RACE_GROUPS_TO_STANDARD = {
     'Asian American/Pacific Islander': Race.ASIAN_PAC_NH.value,
@@ -173,7 +174,6 @@ class CAWPData(DataSource):
 
         # set output column names
         columns = [std_col.STATE_NAME_COL,
-                   std_col.STATE_FIPS_COL,
                    std_col.WOMEN_STATE_LEG_PCT,
                    std_col.RACE_CATEGORY_ID_COL,
                    std_col.POPULATION_PCT_COL]
@@ -263,7 +263,6 @@ class CAWPData(DataSource):
 
                 output_row = {}
                 output_row[std_col.STATE_NAME_COL] = state_name
-                output_row[std_col.STATE_FIPS_COL] = "99"
                 output_row[std_col.RACE_CATEGORY_ID_COL] = race_code
 
                 if cawp_race_name == std_col.ALL_VALUE:
@@ -365,6 +364,8 @@ class CAWPData(DataSource):
             output.append(us_output_row)
 
         output_df = pd.DataFrame(output, columns=columns)
+
+        output_df = merge_fips_codes(output_df)
 
         std_col.add_race_columns_from_category_id(output_df)
 
