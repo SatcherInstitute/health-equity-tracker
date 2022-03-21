@@ -1,3 +1,5 @@
+from unittest import mock
+
 import json
 import pytest
 
@@ -68,6 +70,32 @@ _expected_race_data_with_totals = [
     ['02', 'Alaska', 'TOTAL', '116'],
     ['04', 'Arizona', 'TOTAL', '95'],
 ]
+
+
+_data_without_fips_codes = [
+    ['state_name', 'other_col'],
+    ['California', 'something'],
+    ['Georgia', 'something_else'],
+]
+
+
+_fips_codes_from_bq = [
+    ['state_fips_code', 'state_postal_abbreviation', 'state_name', 'state_gnisid'],
+    ['06', 'CA', 'California', '01779778'],
+    ['13', 'GA', 'Georgia', '01705317'],
+]
+
+
+_expected_merged_fips = [
+    ['state_name', 'other_col', 'state_fips'],
+    ['California', 'something', '06'],
+    ['Georgia', 'something_else', '13'],
+]
+
+
+def _get_fips_codes_as_df():
+    return gcs_to_bq_util.values_json_to_dataframe(
+        json.dumps(_fips_codes_from_bq), dtype=str).reset_index(drop=True)
 
 
 def testRatioRoundToNone():
@@ -144,3 +172,17 @@ def testGeneratePctShareColExtraTotalError():
     expected_error = r"There are multiple TOTAL values for this chunk of data, there should only be one"
     with pytest.raises(ValueError, match=expected_error):
         df = dataset_utils.generate_pct_share_col(df, 'population', 'pct_share', 'race', 'TOTAL')
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            return_value=_get_fips_codes_as_df())
+def testMergeFipsCodes(mock_bq: mock.MagicMock):
+    df = gcs_to_bq_util.values_json_to_dataframe(
+        json.dumps(_data_without_fips_codes), dtype=str).reset_index(drop=True)
+    expected_df = gcs_to_bq_util.values_json_to_dataframe(
+        json.dumps(_expected_merged_fips), dtype=str).reset_index(drop=True)
+
+    df = dataset_utils.merge_fips_codes(df)
+
+    assert mock_bq.call_count == 1
+    assert_frame_equal(df, expected_df, check_like=True)
