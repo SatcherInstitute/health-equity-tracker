@@ -113,7 +113,7 @@ describe("WithLoadingOrErrorUI", () => {
     const { findByTestId } = render(<WithMetricsWrapperApp query={query} />);
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
-      dataFetcher.setFakeDatasetLoaded("acs_population-by_race_state_std", []);
+      dataFetcher.setFakeDatasetLoaded("acs_population-by_race_national", []);
       dataFetcher.setFakeDatasetLoaded("uhc_data-race_and_ethnicity", []);
     });
 

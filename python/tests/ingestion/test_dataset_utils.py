@@ -174,7 +174,7 @@ def testGeneratePctShareColExtraTotalError():
         df = dataset_utils.generate_pct_share_col(df, 'population', 'pct_share', 'race', 'TOTAL')
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_dataframe_from_bigquery',
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
             return_value=_get_fips_codes_as_df())
 def testMergeFipsCodes(mock_bq: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_dataframe(

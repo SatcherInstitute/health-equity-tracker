@@ -112,8 +112,8 @@ def merge_fips_codes(df):
 
        df: dataframe to merge fips codes into, with a `state_name` column"""
 
-    all_fips_codes_df = gcs_to_bq_util.load_dataframe_from_bigquery(
-            'census_utility', 'fips_codes_states', project='bigquery-public-data', dtype=str)
+    all_fips_codes_df = gcs_to_bq_util.load_public_dataset_from_bigquery_as_df(
+            'census_utility', 'fips_codes_states', dtype={'state_fips_code': str})
 
     all_fips_codes_df = all_fips_codes_df[['state_fips_code', 'state_name']]
     df = pd.merge(df, all_fips_codes_df, how='left', on=std_col.STATE_NAME_COL).reset_index(drop=True)

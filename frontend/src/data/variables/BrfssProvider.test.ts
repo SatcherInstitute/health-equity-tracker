@@ -607,7 +607,7 @@ describe("BrfssProvider", () => {
     await evaluateWithAndWithoutAll(
       "uhc_data-race_and_ethnicity",
       rawData,
-      "acs_population-by_race_state_std",
+      "acs_population-by_race_national",
       rawAcsData,
       Breakdowns.national(),
       RACE,
