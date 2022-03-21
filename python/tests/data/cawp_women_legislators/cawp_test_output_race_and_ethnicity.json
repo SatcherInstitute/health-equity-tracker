@@ -5044,7 +5044,7 @@
         "women_state_leg_pct": "1.12",
         "race_category_id": "ASIAN_PAC_NH",
         "population_pct": null,
-        "state_fips": null,
+        "state_fips": "00",
         "race": "Asian American & Pacific Islander",
         "race_includes_hispanic": false,
         "race_and_ethnicity": "Asian American & Pacific Islander (Non-Hispanic)"
@@ -5054,7 +5054,7 @@
         "women_state_leg_pct": "2.07",
         "race_category_id": "HISP",
         "population_pct": "18.83",
-        "state_fips": null,
+        "state_fips": "00",
         "race": "Hispanic or Latino",
         "race_includes_hispanic": true,
         "race_and_ethnicity": "Hispanic or Latino"
@@ -5064,7 +5064,7 @@
         "women_state_leg_pct": "0.15",
         "race_category_id": "MENA_NH",
         "population_pct": null,
-        "state_fips": null,
+        "state_fips": "00",
         "race": "Middle Eastern & North African",
         "race_includes_hispanic": false,
         "race_and_ethnicity": "Middle Eastern & North African (Non-Hispanic)"
@@ -5074,7 +5074,7 @@
         "women_state_leg_pct": "0.66",
         "race_category_id": "MULTI",
         "population_pct": "3.34",
-        "state_fips": null,
+        "state_fips": "00",
         "race": "Two or more races",
         "race_includes_hispanic": true,
         "race_and_ethnicity": "Two or more races"
@@ -5084,7 +5084,7 @@
         "women_state_leg_pct": "0.42",
         "race_category_id": "AIANNH_NH",
         "population_pct": null,
-        "state_fips": null,
+        "state_fips": "00",
         "race": "Native American, Alaska Native, & Native Hawaiian",
         "race_includes_hispanic": false,
         "race_and_ethnicity": "Native American, Alaska Native, & Native Hawaiian (Non-Hispanic)"
@@ -5094,7 +5094,7 @@
         "women_state_leg_pct": "5.11",
         "race_category_id": "BLACK_NH",
         "population_pct": "12.19",
-        "state_fips": null,
+        "state_fips": "00",
         "race": "Black or African American",
         "race_includes_hispanic": false,
         "race_and_ethnicity": "Black or African American (Non-Hispanic)"
@@ -5104,7 +5104,7 @@
         "women_state_leg_pct": "22.83",
         "race_category_id": "WHITE_NH",
         "population_pct": "60.1",
-        "state_fips": null,
+        "state_fips": "00",
         "race": "White",
         "race_includes_hispanic": false,
         "race_and_ethnicity": "White (Non-Hispanic)"
@@ -5114,7 +5114,7 @@
         "women_state_leg_pct": "0.61",
         "race_category_id": "UNKNOWN",
         "population_pct": null,
-        "state_fips": null,
+        "state_fips": "00",
         "race": "Unknown race",
         "race_includes_hispanic": true,
         "race_and_ethnicity": "Unknown race"
@@ -5124,7 +5124,7 @@
         "women_state_leg_pct": "31.05",
         "race_category_id": "ALL",
         "population_pct": "100",
-        "state_fips": null,
+        "state_fips": "00",
         "race": "All",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "All"
