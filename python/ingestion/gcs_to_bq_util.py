@@ -162,7 +162,7 @@ def load_values_blob_as_df(blob):
 
        blob: google.cloud.storage.blob.Blob object"""
     json_string = blob.download_as_string()
-    return values_json_to_df(json_string)
+    return values_json_to_dataframe(json_string)
 
 
 def load_csv_as_df(gcs_bucket, filename, dtype=None, chunksize=None,
