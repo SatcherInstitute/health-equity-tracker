@@ -121,7 +121,7 @@ class CAWPData(DataSource):
         df_acs_2010_pop_territory = gcs_to_bq_util.load_df_from_bigquery(
             'acs_2010_population', 'by_race_and_ethnicity_territory', dtype={'state_fips': str})
 
-        print(df_acs_2010_pop_territory.to_string())
+        # print(df_acs_2010_pop_territory.to_string())
 
         # make table by race
         breakdown_df = self.generate_breakdown(
@@ -152,10 +152,10 @@ class CAWPData(DataSource):
         race_codes_with_acs_pop = set(
             df_acs_pop_state[std_col.RACE_CATEGORY_ID_COL].to_list())
 
-        print("state_names_with_acs_pop", state_names_with_acs_pop)
-        print("territory_names_with_acs_2010_pop",
-              territory_names_with_acs_2010_pop)
-        print("race_codes_with_acs_pop", race_codes_with_acs_pop)
+        # print("state_names_with_acs_pop", state_names_with_acs_pop)
+        # print("territory_names_with_acs_2010_pop",
+        #   territory_names_with_acs_2010_pop)
+        # print("race_codes_with_acs_pop", race_codes_with_acs_pop)
 
         # for LINE ITEM CSV
         # split 'state' into a map of 'state 2 letter code' : 'statename'
@@ -308,9 +308,9 @@ class CAWPData(DataSource):
                     else:
                         pct_population_share = None
 
-                print(state_name, cawp_race_name)
-                print("% pop", pct_population_share)
-                print("% leg", pct_women_leg)
+                # print(state_name, cawp_race_name)
+                # print("% pop", pct_population_share)
+                # print("% leg", pct_women_leg)
 
                 # set pct_women_leg for this state/race
                 output_row[std_col.WOMEN_STATE_LEG_PCT] = pct_women_leg

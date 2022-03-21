@@ -120,6 +120,7 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_web_csv: mock.MagicMock, mock_da
 
     expected_dtype = {
         'state_name': str,
+        'state_fips': str,
         "women_state_leg_pct": str,
         "population_pct": object,
         'race_and_ethnicity': str,
@@ -133,8 +134,8 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_web_csv: mock.MagicMock, mock_da
         GOLDEN_DATA['race_and_ethnicity'], dtype=expected_dtype)
 
     # save results to file
-    # mock_bq.call_args_list[0].args[0].to_json(
-    #     "cawp-run-results.json", orient="records")
+    mock_bq.call_args_list[0].args[0].to_json(
+        "cawp-run-results.json", orient="records")
 
     print("mock call results")
     print(mock_bq.call_args_list[0].args[0].to_string())
