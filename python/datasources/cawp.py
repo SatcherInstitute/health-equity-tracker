@@ -116,11 +116,11 @@ class CAWPData(DataSource):
         df_acs_pop_state = gcs_to_bq_util.load_df_from_bigquery(
             'acs_population', 'by_race_state_std', dtype={'state_fips': str})
 
-        # print(df_acs_pop_state.to_string())
-
         # load in ACS 2010 territories' populations by race
         df_acs_2010_pop_territory = gcs_to_bq_util.load_df_from_bigquery(
             'acs_2010_population', 'by_race_and_ethnicity_territory', dtype={'state_fips': str})
+
+        print(df_acs_2010_pop_territory.to_string())
 
         # make table by race
         breakdown_df = self.generate_breakdown(
@@ -188,7 +188,8 @@ class CAWPData(DataSource):
         for cawp_state_abbr in cawp_state_abbrs:
 
             clean_state_abbr = swap_territory_abbr(clean(cawp_state_abbr))
-            state_name = swap_territory_name(state_abbr_map[clean_state_abbr])
+            cawp_state_name = state_abbr_map[clean_state_abbr]
+            state_name = swap_territory_name(cawp_state_name)
 
             # find row containing TOTAL LEGISLATORS for every state
             matched_row = df_totals.loc[
@@ -207,7 +208,7 @@ class CAWPData(DataSource):
             us_tally['ALL'] += total_women_legislators
             us_tally["total_all_genders"] += total_legislators
 
-            # this states total population (all genders, all races)
+            # this state's total population (all genders, all races)
             state_total_pop = None
 
             # get TOTAL population if STATE/PR/DC
@@ -217,8 +218,6 @@ class CAWPData(DataSource):
                     (df_acs_pop_state[std_col.RACE_COL] == std_col.TOTAL_VALUE)
                 ][std_col.POPULATION_COL]
 
-                state_total_pop = state_total_pop_row.values[0]
-
             # get TOTAL population if VI/GA/MP
             elif state_name in territory_names_with_acs_2010_pop:
                 state_total_pop_row = df_acs_2010_pop_territory[
@@ -227,21 +226,15 @@ class CAWPData(DataSource):
                      == std_col.TOTAL_VALUE)
                 ][std_col.POPULATION_COL]
 
-                print(state_name)
-                # print(state_total_pop_row.to_string(),
-                #       state_total_pop_row.values, state_total_pop_row.values[0])
-
-                if len(state_total_pop_row.values) > 0:
-                    state_total_pop = state_total_pop_row.values[0]
+            # if a row in acs or acs2010 matched current state/terr, extract the population
+            if len(state_total_pop_row.values) > 0:
+                state_total_pop = state_total_pop_row.values[0]
 
             for cawp_race_name in CAWP_RACE_GROUPS_TO_STANDARD.keys():
 
                 race_code = CAWP_RACE_GROUPS_TO_STANDARD[cawp_race_name]
 
-                print(cawp_state_abbr, clean_state_abbr, state_name,
-                      cawp_race_name, race_code)
-
-                # this states per race population (all genders)
+                # this state's per race population (all genders)
                 state_race_pop = None
 
                 # only calculate if ACS has this STATE and this RACE_ID
@@ -253,10 +246,11 @@ class CAWPData(DataSource):
                          == race_code)
                     ][std_col.POPULATION_COL]
 
-                    state_race_pop = state_race_pop_row.values[0]
+                    if len(state_race_pop_row.values) > 0:
+                        state_race_pop = state_race_pop_row.values[0]
 
                 # only calculate if ACS2010 has this TERRITORY and this RACE_ID
-                if (state_name in territory_names_with_acs_2010_pop and
+                elif (state_name in territory_names_with_acs_2010_pop and
                         race_code in race_codes_with_acs_pop):
                     territory_race_pop_row = df_acs_2010_pop_territory[
                         (df_acs_2010_pop_territory[std_col.STATE_NAME_COL] == state_name) &
@@ -283,7 +277,7 @@ class CAWPData(DataSource):
                 else:
                     # calc BY RACE pct_women_leg from LINE ITEM csv file
                     num_matches = len(df_line_items[
-                        (df_line_items['state'] == f"{state_name} - {clean_state_abbr}") &
+                        (df_line_items['state'] == f"{cawp_state_name} - {clean_state_abbr}") &
                         # any of her races match current race iteration
                         (df_line_items['race_ethnicity'].str.contains(cawp_race_name)) &
                         (df_line_items['level'].isin(CAWP_DATA_TYPES['state']))
@@ -294,7 +288,7 @@ class CAWPData(DataSource):
                     # (eg ["White","Black"]) with ["Multiracial Alone"]
                     if cawp_race_name == "Multiracial Alone":
                         num_matches += len(df_line_items[
-                            (df_line_items['state'] == f"{state_name} - {clean_state_abbr}") &
+                            (df_line_items['state'] == f"{cawp_state_name} - {clean_state_abbr}") &
                             # comma delimiter signifies multiple races
                             (df_line_items['race_ethnicity'].str.contains(", ")) &
                             (df_line_items['level'].isin(
@@ -315,6 +309,7 @@ class CAWPData(DataSource):
                     else:
                         pct_population_share = None
 
+                print(state_name, cawp_race_name)
                 print("% pop", pct_population_share)
                 print("% leg", pct_women_leg)
 
