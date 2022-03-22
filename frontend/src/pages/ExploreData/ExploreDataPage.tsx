@@ -170,7 +170,7 @@ function ExploreDataPage() {
         : madLib.activeSelections[3];
 
     // default non-duplicate settings for compare modes
-    const var2 = var1 === "covid" ? "vaccinations" : "covid";
+    const var2 = var1 === "covid" ? "covid_vaccinations" : "covid";
     const geo2 = geo1 === "00" ? "13" : "00"; // default to US or Georgia
 
     // Construct UPDATED madlib based on the future carousel Madlib shape
@@ -205,7 +205,7 @@ function ExploreDataPage() {
     // hide/display the sticky suicide lifeline link based on selected condition
     setShowStickyLifeline(
       getSelectedConditions(madLib).some(
-        (condition: VariableConfig) => condition?.variableId === "suicides"
+        (condition: VariableConfig) => condition?.variableId === "suicide"
       )
     );
 

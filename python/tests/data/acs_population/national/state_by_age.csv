@@ -1,0 +1,14 @@
+state_fips,state_name,age,population,population_pct
+01,Alabama,0-29,200,20.0
+01,Alabama,30-59,300,30.0
+01,Alabama,60+,500,50.0
+01,Alabama,Total,1000,100.0
+06,California,0-29,300,30.0
+06,California,30-59,300,30.0
+06,California,60+,400,40.0
+06,California,Total,1000,100.0
+72,Puerto Rico,0-9,318830,9.6
+72,Puerto Rico,10-19,421094,12.7
+72,Puerto Rico,15-24,454150,13.7
+72,Puerto Rico,18-24,324142,9.8
+72,Puerto Rico,Total,3318447,100.0
