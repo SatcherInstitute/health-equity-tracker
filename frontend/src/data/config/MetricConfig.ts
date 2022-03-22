@@ -933,7 +933,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "women_state_leg_pct",
-          fullCardTitleName: "Percent of Women in State Legislature",
+          fullCardTitleName: "Share of All State Legislators",
           shortLabel: "% of women in state legislature",
           type: "pct_share",
         },
@@ -950,8 +950,8 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           },
           knownBreakdownComparisonMetric: {
             metricId: "women_state_leg_pct_share",
-            fullCardTitleName: "Share Of Total CAWP",
-            shortLabel: "% of CAWP",
+            fullCardTitleName: "Share Of Women State Legislators",
+            shortLabel: "% of women legislators",
             type: "pct_share",
           },
         },

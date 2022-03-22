@@ -13,7 +13,7 @@ export const CAWP_DETERMINANTS: MetricId[] = [
 
 class CawpProvider extends VariableProvider {
   constructor() {
-    super("cawp_provider", ["cawp_population_pct", ...CAWP_DETERMINANTS]);
+    super("cawp_provider", [...CAWP_DETERMINANTS]);
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
@@ -43,12 +43,6 @@ class CawpProvider extends VariableProvider {
     df = df.renameSeries({
       population_pct: "cawp_population_pct",
     });
-
-    df = df
-      .generateSeries({
-        women_state_leg_pct_share: (row) => row["women_state_leg_pct"],
-      })
-      .resetIndex();
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
 
