@@ -260,8 +260,8 @@ describe("cdcCovidProvider", () => {
 
   test("National and Sex Breakdown", async () => {
     const NC_FEMALE_ROW = {
-      county_fips: NC.code,
-      county_name: NC.name,
+      state_fips: NC.code,
+      state_name: NC.name,
       cases: 240,
       hosp_y: 34,
       death_y: 80,
@@ -270,17 +270,17 @@ describe("cdcCovidProvider", () => {
       population_pct: 50,
     };
 
-    const NC_ACS_FEMALE_ROW = {
-      county_fips: NC.code,
-      county_name: NC.name,
+    const USA_ACS_FEMALE_ROW = {
+      state_fips: USA.code,
+      state_name: USA.name,
       sex: FEMALE,
       population: 50000,
       population_pct: 50,
     };
 
     const NC_ALL_ROW = {
-      county_fips: NC.code,
-      county_name: NC.name,
+      state_fips: NC.code,
+      state_name: NC.name,
       cases: 200,
       hosp_y: 1000,
       death_y: 500,
@@ -289,59 +289,36 @@ describe("cdcCovidProvider", () => {
       population_pct: 100,
     };
 
-    const NC_ACS_ALL_ROW = {
-      county_fips: NC.code,
-      county_name: NC.name,
+    const USA_ACS_ALL_ROW = {
+      state_fips: USA.code,
+      state_name: USA.name,
       sex: ALL,
       population: 100000,
       population_pct: 100,
     };
 
     const AL_ALL_ROW = {
-      county_fips: AL.code,
-      county_name: AL.name,
+      state_fips: AL.code,
+      state_name: AL.name,
       cases: 100,
       hosp_y: 1000,
       death_y: 200,
       sex: ALL,
       population: 80000,
-      population_pct: 100,
-    };
-
-    const AL_ACS_ALL_ROW = {
-      county_fips: AL.code,
-      county_name: AL.name,
-      sex: ALL,
-      population: 80000,
-      population_pct: 100,
     };
 
     const AL_FEMALE_ROW = {
-      county_fips: AL.code,
-      county_name: AL.name,
+      state_fips: AL.code,
+      state_name: AL.name,
       cases: 730,
       hosp_y: 45,
       death_y: 250,
       sex: FEMALE,
       population: 60000,
-      population_pct: 75,
-    };
-
-    const AL_ACS_FEMALE_ROW = {
-      county_fips: AL.code,
-      county_name: AL.name,
-      sex: FEMALE,
-      population: 60000,
-      population_pct: 75,
     };
 
     const rawCovidData = [NC_FEMALE_ROW, NC_ALL_ROW, AL_FEMALE_ROW, AL_ALL_ROW];
-    const rawAcsData = [
-      NC_ACS_FEMALE_ROW,
-      NC_ACS_ALL_ROW,
-      AL_ACS_FEMALE_ROW,
-      AL_ACS_ALL_ROW,
-    ];
+    const rawAcsData = [USA_ACS_FEMALE_ROW, USA_ACS_ALL_ROW];
 
     const FINAL_FEMALE_ROW = {
       fips: USA.code,
@@ -352,7 +329,7 @@ describe("cdcCovidProvider", () => {
       covid_cases_share: 323.3,
       covid_cases_share_of_known: 100,
       covid_cases_reporting_population: 110000,
-      covid_cases_reporting_population_pct: 61.1,
+      covid_cases_reporting_population_pct: 50,
     };
     const FINAL_ALL_ROW = {
       fips: USA.code,
@@ -369,7 +346,10 @@ describe("cdcCovidProvider", () => {
     await evaluateWithAndWithoutAll(
       "cdc_restricted_data-by_sex_state",
       rawCovidData,
-      ["acs_population-by_sex_state", "acs_2010_population-by_sex_territory"],
+      [
+        "acs_population-by_sex_national",
+        "acs_2010_population-by_sex_territory",
+      ],
       rawAcsData,
       Breakdowns.national(),
       "sex",
@@ -459,10 +439,18 @@ describe("cdcCovidProvider", () => {
       population_pct: 50,
     };
 
-    const NC_ACS_FEMALE_ROW = {
-      state_fips: NC.code,
-      state_name: NC.name,
+    const USA_ACS_FEMALE_ROW = {
+      state_fips: USA.code,
+      state_name: USA.name,
       sex: FEMALE,
+      population: 50000,
+      population_pct: 50,
+    };
+
+    const USA_ACS_MALE_ROW = {
+      state_fips: USA.code,
+      state_name: USA.name,
+      sex: MALE,
       population: 50000,
       population_pct: 50,
     };
@@ -478,9 +466,9 @@ describe("cdcCovidProvider", () => {
       population_pct: 100,
     };
 
-    const NC_ACS_ALL_ROW = {
-      state_fips: NC.code,
-      state_name: NC.name,
+    const USA_ACS_ALL_ROW = {
+      state_fips: USA.code,
+      state_name: USA.name,
       sex: ALL,
       population: 100000,
       population_pct: 100,
@@ -495,22 +483,6 @@ describe("cdcCovidProvider", () => {
       sex: MALE,
       population: 60000,
       population_pct: 75,
-    };
-
-    const AL_ACS_MALE_ROW = {
-      state_fips: AL.code,
-      state_name: AL.name,
-      sex: MALE,
-      population: 60000,
-      population_pct: 75,
-    };
-
-    const AL_ACS_ALL_ROW = {
-      state_fips: AL.code,
-      state_name: AL.name,
-      sex: ALL,
-      population: 80000,
-      population_pct: 100,
     };
 
     const AL_ALL_ROW = {
@@ -532,12 +504,7 @@ describe("cdcCovidProvider", () => {
       AL_ALL_ROW,
     ];
 
-    const rawAcsData = [
-      NC_ACS_FEMALE_ROW,
-      NC_ACS_ALL_ROW,
-      AL_ACS_ALL_ROW,
-      AL_ACS_MALE_ROW,
-    ];
+    const rawAcsData = [USA_ACS_FEMALE_ROW, USA_ACS_MALE_ROW, USA_ACS_ALL_ROW];
 
     const FINAL_MALE_ROW = {
       fips: USA.code,
@@ -548,7 +515,7 @@ describe("cdcCovidProvider", () => {
       covid_cases_share: 182.5,
       covid_cases_share_of_known: 75.3,
       covid_cases_reporting_population: 60000,
-      covid_cases_reporting_population_pct: 33.3,
+      covid_cases_reporting_population_pct: 50,
     };
     const FINAL_FEMALE_ROW = {
       fips: USA.code,
@@ -559,7 +526,7 @@ describe("cdcCovidProvider", () => {
       covid_cases_share: 60,
       covid_cases_share_of_known: 24.7,
       covid_cases_reporting_population: 50000,
-      covid_cases_reporting_population_pct: 27.8,
+      covid_cases_reporting_population_pct: 50,
     };
     const FINAL_ALL_ROW = {
       fips: USA.code,
@@ -587,7 +554,10 @@ describe("cdcCovidProvider", () => {
     await evaluateWithAndWithoutAll(
       "cdc_restricted_data-by_sex_state",
       rawCovidData,
-      ["acs_population-by_sex_state", "acs_2010_population-by_sex_territory"],
+      [
+        "acs_population-by_sex_national",
+        "acs_2010_population-by_sex_territory",
+      ],
       rawAcsData,
       Breakdowns.national(),
       "sex",

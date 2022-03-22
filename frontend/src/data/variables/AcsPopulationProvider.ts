@@ -2,24 +2,11 @@ import { IDataFrame } from "data-forge";
 import { getDataManager } from "../../utils/globals";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { USA_DISPLAY_NAME, USA_FIPS } from "../utils/Fips";
 import VariableProvider from "./VariableProvider";
-
-function createNationalTotal(dataFrame: IDataFrame, breakdown: string) {
-  return dataFrame
-    .pivot(breakdown, {
-      fips: (series) => USA_FIPS,
-      fips_name: (series) => USA_DISPLAY_NAME,
-      population: (series) => series.sum(),
-    })
-    .resetIndex();
-}
 
 export function GetAcsDatasetId(breakdowns: Breakdowns): string {
   if (breakdowns.hasOnlySex()) {
-    return breakdowns.geography === "county"
-      ? "acs_population-by_sex_county"
-      : "acs_population-by_sex_state";
+    return "acs_population-by_sex_" + breakdowns.geography;
   }
   // Note: this assumes all age buckets are included in the same dataset. If
   // we use multiple datasets for different age buckets we will need to check
@@ -27,14 +14,12 @@ export function GetAcsDatasetId(breakdowns: Breakdowns): string {
   // on which filters are applied (or select a default one). It is preferable
   // to have the dataset include all breakdowns.
   if (breakdowns.hasOnlyAge()) {
-    return breakdowns.geography === "county"
-      ? "acs_population-by_age_county"
-      : "acs_population-by_age_state";
+    return "acs_population-by_age_" + breakdowns.geography;
   }
   if (breakdowns.hasOnlyRace()) {
-    return breakdowns.geography === "county"
-      ? "acs_population-by_race_county_std"
-      : "acs_population-by_race_state_std";
+    return breakdowns.geography === "national"
+      ? "acs_population-by_race_national"
+      : "acs_population-by_race_" + breakdowns.geography + "_std";
   }
   throw new Error("Not implemented");
 }
@@ -62,19 +47,9 @@ class AcsPopulationProvider extends VariableProvider {
 
     df = this.renameTotalToAll(df, breakdownColumnName);
 
-    //TODO: Get rid of this once the aggregation is moved to the backend
-    if (breakdowns.geography === "national") {
-      df = this.calculations.calculatePctShare(
-        df,
-        "population",
-        "population_pct",
-        breakdownColumnName,
-        ["fips"]
-      );
-    }
-
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
+
     return new MetricQueryResponse(df.toArray(), [
       this.getDatasetId(breakdowns),
     ]);
@@ -93,13 +68,7 @@ class AcsPopulationProvider extends VariableProvider {
     acsDataFrame = this.filterByGeo(acsDataFrame, breakdowns);
     acsDataFrame = this.renameGeoColumns(acsDataFrame, breakdowns);
 
-    //TODO: Move this to the backend
-    return breakdowns.geography === "national"
-      ? createNationalTotal(
-          acsDataFrame,
-          breakdowns.getSoleDemographicBreakdown().columnName
-        )
-      : acsDataFrame;
+    return acsDataFrame;
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {

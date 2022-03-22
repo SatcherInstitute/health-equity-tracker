@@ -4,7 +4,7 @@ import requests
 import json
 import os
 
-import pandas
+import pandas as pd
 from google.cloud import bigquery, storage
 
 
@@ -149,7 +149,7 @@ def load_values_as_dataframe(gcs_bucket, filename):
 
 
 def values_json_to_dataframe(json_string, dtype=None):
-    frame = pandas.read_json(json_string, orient='values', dtype=dtype)
+    frame = pd.read_json(json_string, orient='values', dtype=dtype)
     frame.rename(columns=frame.iloc[0], inplace=True)
     frame.drop([0], inplace=True)
     return frame
@@ -184,8 +184,8 @@ def load_csv_as_dataframe(gcs_bucket, filename, dtype=None, chunksize=None,
     blob = bucket.blob(filename)
     local_path = local_file_path(filename)
     blob.download_to_filename(local_path)
-    frame = pandas.read_csv(local_path, dtype=dtype, chunksize=chunksize,
-                            parse_dates=parse_dates, thousands=thousands)
+    frame = pd.read_csv(local_path, dtype=dtype, chunksize=chunksize,
+                        parse_dates=parse_dates, thousands=thousands)
 
     # Warning: os.remove() will remove the directory entry but will not release
     # the file's storage until the file is no longer being used by |frame|.
@@ -211,7 +211,7 @@ def load_json_as_dataframe(gcs_bucket, filename, dtype=None):
     blob = bucket.blob(filename)
     local_path = local_file_path(filename)
     blob.download_to_filename(local_path)
-    frame = pandas.read_json(local_path, dtype=dtype)
+    frame = pd.read_json(local_path, dtype=dtype)
 
     # Warning: os.remove() will remove the directory entry but will not release
     # the file's storage until the file is no longer being used by |frame|.
@@ -229,7 +229,7 @@ def load_csv_as_dataframe_from_web(url, dtype=None, params=None, encoding=None):
        url: url to download the csv file from"""
 
     url = requests.Request('GET', url, params=params).prepare().url
-    return pandas.read_csv(url, dtype=dtype, encoding=encoding)
+    return pd.read_csv(url, dtype=dtype, encoding=encoding)
 
 
 def load_json_as_df_from_web(url, dtype=None, params=None):
@@ -238,7 +238,7 @@ def load_json_as_df_from_web(url, dtype=None, params=None):
     url: url to download the json from
     key: key in the json in which all data underneath will be loaded into the dataframe"""
     url = requests.Request('GET', url, params=params).prepare().url
-    return pandas.read_json(url, dtype=dtype)
+    return pd.read_json(url, dtype=dtype)
 
 
 def load_json_as_df_from_web_based_on_key(url, key, dtype=None):
@@ -248,15 +248,28 @@ def load_json_as_df_from_web_based_on_key(url, key, dtype=None):
     key: key in the json in which all data underneath will be loaded into the dataframe"""
     r = requests.get(url)
     jsn = json.loads(r.text)
-    return pandas.DataFrame(jsn[key], dtype=dtype)
+    return pd.DataFrame(jsn[key], dtype=dtype)
 
 
-def load_dataframe_from_bigquery(dataset, table_name, project=None, dtype=None):
+def load_public_dataset_from_bigquery_as_df(dataset, table_name, dtype=None):
+    """Loads data from a public big query table into a dataframe.
+       Need this as a separate function because of the need for a
+       different way to generate the table_id.
+
+       dataset: The BigQuery dataset to write to.
+       table_name: The BigQuery table to write to."""
+    client = bigquery.Client()
+    table_id = 'bigquery-public-data.%s.%s' % (dataset, table_name)
+
+    return client.list_rows(table_id).to_dataframe(dtypes=dtype)
+
+
+def load_dataframe_from_bigquery(dataset, table_name, dtype=None):
     """Loads data from a big query table into a dataframe.
 
        dataset: The BigQuery dataset to write to.
        table_name: The BigQuery table to write to."""
-    client = bigquery.Client(project)
+    client = bigquery.Client()
     table_id = client.dataset(dataset).table(table_name)
     table = client.get_table(table_id)
 
