@@ -62,20 +62,31 @@ def count_matching_rows(df, state_phrase: str, gov_level: str, string_to_match: 
     ])
 
 
-def get_pop_by_race_in_state(df, race_name: str, state_name: str):
-    """ Accepts a dataframe with populations,
+def set_pop_metrics_by_race_in_state(output_row, df_pop, race_code: str, state_name: str):
+    """ Accepts a output row object, a dataframe with populations,
     race name and state name, and returns that population
 
-    df: pandas dataframe with population by state/territory and race/ethnicity
-    race_name: string of the race/ethnicity value to match to ACS `race_and_ethnicity` column
+    output_row: object that  will receive a "population" metric and a "population_pct" metric
+    df_pop: pandas dataframe with population by state/territory and race/ethnicity
+    race_name: string of the race/ethnicity code (eg API_NH) to match to ACS `race_category_id` column
     state_name: string of the state/territory to match to ACS `state_name` column
     """
 
-    population_row = df[(df[std_col.STATE_NAME_COL] == state_name) &
-                        (df[std_col.RACE_COL] == race_name)
-                        ][std_col.POPULATION_COL]
+    if race_code == "ALL":
+        race_code = "TOTAL"
 
-    return population_row.values[0] if len(population_row.values) > 0 else None
+    matched_row = df_pop[(df_pop[std_col.STATE_NAME_COL] == state_name) &
+                         (df_pop[std_col.RACE_CATEGORY_ID_COL] == race_code)]
+
+    pop = matched_row[std_col.POPULATION_COL].values[0] if len(
+        matched_row[std_col.POPULATION_COL].values) > 0 else None
+    pop_pct = matched_row[std_col.POPULATION_PCT_COL].values[0] if len(
+        matched_row[std_col.POPULATION_PCT_COL].values) > 0 else None
+
+    output_row[std_col.POPULATION_COL] = pop
+    output_row[std_col.POPULATION_PCT_COL] = pop_pct
+
+    return output_row
 
 
 # 2 TABLES FOR STATE-LEVEL CONGRESSES
@@ -123,9 +134,13 @@ class CAWPData(DataSource):
         df_acs_pop_national = gcs_to_bq_util.load_df_from_bigquery(
             'acs_population', 'by_race_national')
 
+        # print(df_acs_pop_national.to_string())
+
         # load in ACS states and puerto rico populations by race
         df_acs_pop_state = gcs_to_bq_util.load_df_from_bigquery(
             'acs_population', 'by_race_state_std', dtype={'state_fips': str})
+
+        # print(df_acs_pop_state.to_string())
 
         # load in ACS 2010 territories' populations by race
         df_acs_2010_pop_territory = gcs_to_bq_util.load_df_from_bigquery(
@@ -142,6 +157,7 @@ class CAWPData(DataSource):
         column_types[std_col.WOMEN_STATE_LEG_PCT] = 'STRING'
         column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
         column_types[std_col.POPULATION_COL] = 'INT'
+        column_types[std_col.POPULATION_PCT_COL] = 'FLOAT'
 
         gcs_to_bq_util.add_df_to_bq(
             breakdown_df, dataset, std_col.RACE_OR_HISPANIC_COL, column_types=column_types)
@@ -156,11 +172,8 @@ class CAWPData(DataSource):
         territory_names_with_acs_2010_pop = set(
             df_acs_2010_pop_territory[std_col.STATE_NAME_COL].to_list())
 
-        race_codes_with_acs_pop = set(
-            df_acs_pop_state[std_col.RACE_CATEGORY_ID_COL].to_list())
-
-        race_codes_with_acs_pop = set(
-            df_acs_pop_state[std_col.RACE_CATEGORY_ID_COL].to_list())
+        # race_codes_with_acs_pop = set(
+        #     df_acs_pop_state[std_col.RACE_CATEGORY_ID_COL].to_list())
 
         # print("state_names_with_acs_pop", state_names_with_acs_pop)
         # print("territory_names_with_acs_2010_pop",
@@ -186,6 +199,7 @@ class CAWPData(DataSource):
         columns = [std_col.STATE_NAME_COL,
                    std_col.WOMEN_STATE_LEG_PCT,
                    std_col.POPULATION_COL,
+                   std_col.POPULATION_PCT_COL,
                    std_col.RACE_CATEGORY_ID_COL]
 
         # initialize tally for national state legislature totals (all genders)
@@ -200,6 +214,8 @@ class CAWPData(DataSource):
             clean_state_abbr = swap_territory_abbr(clean(cawp_state_abbr))
             cawp_state_name = state_abbr_map[clean_state_abbr]
             state_name = swap_territory_name(cawp_state_name)
+
+            # print("STATE", state_name)
 
             # find row containing TOTAL LEGISLATORS for every state
             matched_row = df_totals.loc[
@@ -220,10 +236,10 @@ class CAWPData(DataSource):
 
             # set TOTAL population for this state/territory
             # if state_name in state_names_with_acs_pop:
-            #     state_total_pop = get_pop_by_race_in_state(
+            #     state_total_pop = set_pop_by_race_in_state(
             #         df_acs_pop_state, std_col.TOTAL_VALUE, state_name)
             # elif state_name in territory_names_with_acs_2010_pop:
-            #     state_total_pop = get_pop_by_race_in_state(
+            #     state_total_pop = set_pop_by_race_in_state(
             #         df_acs_2010_pop_territory, std_col.TOTAL_VALUE, state_name)
             # else:
             #     state_total_pop = None
@@ -232,19 +248,22 @@ class CAWPData(DataSource):
 
                 race_code = CAWP_RACE_GROUPS_TO_STANDARD[cawp_race_name]
 
-                # set {cawp_race_name} population for this state/territory
-                if state_name in state_names_with_acs_pop:
-                    state_race_pop = get_pop_by_race_in_state(
-                        df_acs_pop_state, cawp_race_name, state_name)
-                elif state_name in territory_names_with_acs_2010_pop:
-                    state_race_pop = get_pop_by_race_in_state(
-                        df_acs_2010_pop_territory, cawp_race_name, state_name)
-                else:
-                    state_race_pop = None
+                # print("RACE:", race_code)
 
                 output_row = {}
                 output_row[std_col.STATE_NAME_COL] = state_name
                 output_row[std_col.RACE_CATEGORY_ID_COL] = race_code
+
+                # set {cawp_race_name} population for this state/territory
+                if state_name in state_names_with_acs_pop:
+                    output_row = set_pop_metrics_by_race_in_state(
+                        output_row, df_acs_pop_state, race_code, state_name)
+                elif state_name in territory_names_with_acs_2010_pop:
+                    output_row = set_pop_metrics_by_race_in_state(
+                        output_row, df_acs_2010_pop_territory, race_code, state_name)
+                else:
+                    output_row = {std_col.POPULATION_COL: None,
+                                  std_col.POPULATION_PCT_COL: None}
 
                 if cawp_race_name == std_col.ALL_VALUE:
                     # get TOTAL pct from TOTAL csv file
@@ -276,9 +295,6 @@ class CAWPData(DataSource):
                 # set pct_women_leg for this state/race
                 output_row[std_col.WOMEN_STATE_LEG_PCT] = pct_women_leg
 
-                # set raw population for this state/race
-                output_row[std_col.POPULATION_COL] = state_race_pop
-
                 # add state row to output
                 output.append(output_row)
 
@@ -292,23 +308,18 @@ class CAWPData(DataSource):
 
             race_code = CAWP_RACE_GROUPS_TO_STANDARD[cawp_race_name]
 
-            # set population totals nationally by race
-            national_race_pop = get_pop_by_race_in_state(
-                df_acs_pop_national, cawp_race_name, "United States")
-
             us_output_row = {}
+            us_output_row[std_col.RACE_CATEGORY_ID_COL] = race_code
             us_output_row[std_col.STATE_NAME_COL] = "United States"
 
-            # set RACE
-            us_output_row[std_col.RACE_CATEGORY_ID_COL] = race_code
+            # set population totals nationally by race
+            us_output_row = set_pop_metrics_by_race_in_state(
+                us_output_row, df_acs_pop_national, race_code, "United States")
 
             # set % women leg by cawp_race_name for US
             pct_women_leg = get_pretty_pct(
                 us_tally[race_code] / us_tally['total_all_genders'])
             us_output_row[std_col.WOMEN_STATE_LEG_PCT] = pct_women_leg
-
-            # set raw population for this USA/race
-            us_output_row[std_col.POPULATION_COL] = national_race_pop
 
             # add each race's US rows like a state row
             output.append(us_output_row)
@@ -317,15 +328,6 @@ class CAWPData(DataSource):
 
         output_df = merge_fips_codes(output_df)
 
-        std_col.add_race_columns_from_category_id(output_df)
-
-        print(output_df.to_string())
-        # add population_pct_share
-        output_df = generate_pct_share_col(
-            output_df,
-            std_col.POPULATION_COL,
-            std_col.POPULATION_PCT_COL,
-            std_col.RACE_COL,
-            "All")
+        # std_col.add_race_columns_from_category_id(output_df)
 
         return output_df
