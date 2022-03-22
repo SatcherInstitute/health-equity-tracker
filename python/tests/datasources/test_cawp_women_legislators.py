@@ -122,7 +122,8 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_web_csv: mock.MagicMock, mock_da
         'state_name': str,
         'state_fips': str,
         "women_state_leg_pct": str,
-        "population_pct": object,
+        "women_state_leg_pct_share": str,
+        "population_pct": float,
         'race_and_ethnicity': str,
         'race': str,
         'race_includes_hispanic': object,
@@ -137,8 +138,8 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_web_csv: mock.MagicMock, mock_da
     mock_bq.call_args_list[0].args[0].to_json(
         "cawp-run-results.json", orient="records")
 
-    print("mock call results")
-    print(mock_bq.call_args_list[0].args[0].to_string())
+    # print("mock call results")
+    # print(mock_bq.call_args_list[0].args[0].to_string())
 
     # print("expected output file")
     # print(expected_df.to_string())
