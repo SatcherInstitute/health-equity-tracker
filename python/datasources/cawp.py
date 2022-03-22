@@ -23,7 +23,7 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
 
 CAWP_DATA_TYPES = {
     "state": ["Territorial/D.C.", "State Legislative"],
-    "us": ["Congress"],
+    "federal": ["U.S. Delegate", "Congress"],
 }
 
 
@@ -186,6 +186,7 @@ class CAWPData(DataSource):
         cawp_place_abbrs = df_totals['State'].drop_duplicates(
         ).to_list()
 
+        # iterate over US like another state
         cawp_place_abbrs.append("US")
 
         output = []
@@ -267,7 +268,7 @@ class CAWPData(DataSource):
 
                 else:
                     cawp_place_phrase = f"{place_name} - {swap_territory_abbr(clean(cawp_place_abbr))}"
-                    gov_level = "state"
+                    gov_level = "state"  # need to iterate and run with "federal" as well to make 2nd data type
 
                     # count the number of women leg. who selected current race
                     num_matches = count_matching_rows(
