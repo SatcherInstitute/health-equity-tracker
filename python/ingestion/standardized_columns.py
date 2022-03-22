@@ -81,7 +81,10 @@ VACCINATED_PER_100K = "vaccinated_per_100k"
 VACCINATED_PCT_SHARE = "vaccinated_pct_share"
 
 # Standardized for CAWP Women in Legislature
+# (eg % state legislature who are black women)
 WOMEN_STATE_LEG_PCT = "women_state_leg_pct"
+# (eg % of women legislators who are black)
+WOMEN_STATE_LEG_PCT_SHARE = "women_state_leg_pct_share"
 
 
 RaceTuple = namedtuple("RaceTuple", [

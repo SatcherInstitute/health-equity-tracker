@@ -155,6 +155,7 @@ class CAWPData(DataSource):
         # set column types
         column_types = {c: 'STRING' for c in breakdown_df.columns}
         column_types[std_col.WOMEN_STATE_LEG_PCT] = 'STRING'
+        column_types[std_col.WOMEN_STATE_LEG_PCT_SHARE] = 'STRING'
         column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
         column_types[std_col.POPULATION_COL] = 'INT'
         column_types[std_col.POPULATION_PCT_COL] = 'FLOAT'
@@ -192,6 +193,7 @@ class CAWPData(DataSource):
         # set output column names
         columns = [std_col.STATE_NAME_COL,
                    std_col.WOMEN_STATE_LEG_PCT,
+                   std_col.WOMEN_STATE_LEG_PCT_SHARE,
                    std_col.POPULATION_COL,
                    std_col.POPULATION_PCT_COL,
                    std_col.RACE_CATEGORY_ID_COL]
@@ -206,6 +208,7 @@ class CAWPData(DataSource):
         for cawp_place_abbr in cawp_place_abbrs:
 
             # print("PLACE", cawp_place_abbr)
+            # total_women_legislators = 0
 
             if cawp_place_abbr == "US":
                 place_name = "United States"
@@ -260,11 +263,13 @@ class CAWPData(DataSource):
                     pct_women_leg = clean(
                         matched_row['%Women Overall'].values[0])
 
+                    pct_share_women_leg = "100"
+
                 else:
                     cawp_place_phrase = f"{place_name} - {swap_territory_abbr(clean(cawp_place_abbr))}"
                     gov_level = "state"
 
-                    # count the number of leg. who selected current race
+                    # count the number of women leg. who selected current race
                     num_matches = count_matching_rows(
                         df_line_items, cawp_place_phrase, gov_level, cawp_race_name)
 
@@ -278,16 +283,23 @@ class CAWPData(DataSource):
                     # tally national level of each race's # (numerator)
                     us_tally[race_code] += num_matches
 
-                    # calculate % of {race} women leg. for this place
+                    # calculate {race} women leg. / all legislators
                     if place_name == "United States":
                         pct_women_leg = get_pretty_pct(
                             us_tally[race_code] / us_tally['total_all_genders'])
+                        pct_share_women_leg = get_pretty_pct(
+                            us_tally[race_code] / us_tally["ALL"])
                     else:
                         pct_women_leg = get_pretty_pct(
                             num_matches / total_legislators)
+                        pct_share_women_leg = get_pretty_pct(
+                            num_matches / total_women_legislators)
 
-                # set pct_women_leg for this place/race
+                # set incidence rate
                 output_row[std_col.WOMEN_STATE_LEG_PCT] = pct_women_leg
+
+                # set incidence share
+                output_row[std_col.WOMEN_STATE_LEG_PCT_SHARE] = pct_share_women_leg
 
                 # add state row to output
                 output.append(output_row)
