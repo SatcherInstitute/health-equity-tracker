@@ -21,7 +21,9 @@ def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, tota
         return record
 
     groupby_cols = list(df.columns)
-    groupby_cols.remove(breakdown_col)
+    print(groupby_cols)
+    if breakdown_col is not None:
+        groupby_cols.remove(breakdown_col)
     groupby_cols.remove(raw_count_col)
 
     with_pct_share = []
