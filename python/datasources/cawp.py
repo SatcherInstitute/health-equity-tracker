@@ -172,14 +172,6 @@ class CAWPData(DataSource):
         territory_names_with_acs_2010_pop = set(
             df_acs_2010_pop_territory[std_col.STATE_NAME_COL].to_list())
 
-        # race_codes_with_acs_pop = set(
-        #     df_acs_pop_state[std_col.RACE_CATEGORY_ID_COL].to_list())
-
-        # print("place_names_with_acs_pop", place_names_with_acs_pop)
-        # print("territory_names_with_acs_2010_pop",
-        #   territory_names_with_acs_2010_pop)
-        # print("race_codes_with_acs_pop", race_codes_with_acs_pop)
-
         # for LINE ITEM CSV
         # split 'state' into a map of 'state 2 letter code' : 'statename'
         # NOTE: these values may contain formatting and must be cleaned before
@@ -224,7 +216,7 @@ class CAWPData(DataSource):
 
                 # print(place_name)
 
-                # find row containing TOTAL LEGISLATORS for every state
+                # find row containing TOTAL LEGISLATORS for each state/territory
                 matched_row = df_totals.loc[
                     (df_totals['State'] == cawp_place_abbr)]
 
@@ -236,21 +228,20 @@ class CAWPData(DataSource):
                 total_legislators = int(total_women_by_total_legislators.split(
                     "/")[1])
 
-                # tally national total of women legislators of all races and
+                # keep a tally of national total of women legislators of all races and
                 # total of all state leg of any gender (denominator)
                 us_tally["ALL"] += total_women_legislators
                 us_tally["total_all_genders"] += total_legislators
 
             for cawp_race_name in CAWP_RACE_GROUPS_TO_STANDARD.keys():
 
+                # Setup row
                 race_code = CAWP_RACE_GROUPS_TO_STANDARD[cawp_race_name]
-
-                # print("\tRACE:", race_code)
-
                 output_row = {}
+                output_row[std_col.STATE_NAME_COL] = place_name
+                output_row[std_col.RACE_CATEGORY_ID_COL] = race_code
 
-                # set {cawp_race_name} population for this state/territory
-                #     # set population totals nationally by race
+                # set pop and pop_share
                 if place_name == "United States":
                     output_row = set_pop_metrics_by_race_in_state(
                         output_row, df_acs_pop_national, race_code, place_name)
@@ -261,11 +252,11 @@ class CAWPData(DataSource):
                     output_row = set_pop_metrics_by_race_in_state(
                         output_row, df_acs_2010_pop_territory, race_code, place_name)
                 else:
-                    output_row = {std_col.POPULATION_COL: None,
-                                  std_col.POPULATION_PCT_COL: None}
+                    output_row[std_col.POPULATION_COL] = None
+                    output_row[std_col.POPULATION_PCT_COL] = None
 
+                # calculate and set incidence rate
                 if cawp_race_name == std_col.ALL_VALUE:
-                    # get TOTAL pct from TOTAL csv file
                     pct_women_leg = clean(
                         matched_row['%Women Overall'].values[0])
 
@@ -277,8 +268,8 @@ class CAWPData(DataSource):
                     num_matches = count_matching_rows(
                         df_line_items, cawp_place_phrase, gov_level, cawp_race_name)
 
-                    # for MULTI sum "Multiracial Alone" women
-                    #  w/ women who identify with multiple specific races
+                    # for MULTI, sum "Multiracial Alone" women +
+                    #  women who identify with multiple, specific races
                     if cawp_race_name == "Multiracial Alone":
                         # comma delimiter signifies multiple races
                         num_matches += count_matching_rows(
@@ -295,44 +286,16 @@ class CAWPData(DataSource):
                         pct_women_leg = get_pretty_pct(
                             num_matches / total_legislators)
 
-                # set % women leg by cawp_race_name for US
-
-                # set place and race
-                output_row[std_col.STATE_NAME_COL] = place_name
-                output_row[std_col.RACE_CATEGORY_ID_COL] = race_code
-
-                # set pct_women_leg for this state/race
+                # set pct_women_leg for this place/race
                 output_row[std_col.WOMEN_STATE_LEG_PCT] = pct_women_leg
 
                 # add state row to output
                 output.append(output_row)
 
-        # UNITED STATES (for all state legislatures combined)
-
-        # matched_row = df_acs_pop_national[(
-        #     df_acs_pop_national[std_col.RACE_CATEGORY_ID_COL] == "TOTAL")]
-        # national_total_pop = matched_row[std_col.POPULATION_COL].values[0]
-
-        # for cawp_race_name in CAWP_RACE_GROUPS_TO_STANDARD.keys():
-
-        #     race_code = CAWP_RACE_GROUPS_TO_STANDARD[cawp_race_name]
-
-        #     us_output_row = {}
-        #     us_output_row[std_col.RACE_CATEGORY_ID_COL] = race_code
-        #     us_output_row[std_col.STATE_NAME_COL] = "United States"
-
-        # #     # set % women leg by cawp_race_name for US
-        #     pct_women_leg = get_pretty_pct(
-        #         us_tally[race_code] / us_tally['total_all_genders'])
-        #     us_output_row[std_col.WOMEN_STATE_LEG_PCT] = pct_women_leg
-
-        #     # add each race's US rows like a state row
-        #     output.append(us_output_row)
-
         output_df = pd.DataFrame(output, columns=columns)
 
         output_df = merge_fips_codes(output_df)
 
-        # std_col.add_race_columns_from_category_id(output_df)
+        std_col.add_race_columns_from_category_id(output_df)
 
         return output_df
