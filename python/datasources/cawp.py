@@ -134,7 +134,7 @@ class CAWPData(DataSource):
         df_acs_pop_national = gcs_to_bq_util.load_df_from_bigquery(
             'acs_population', 'by_race_national')
 
-        print(df_acs_pop_national.to_string())
+        # print(df_acs_pop_national.to_string())
 
         # load in ACS states and puerto rico populations by race
         df_acs_pop_state = gcs_to_bq_util.load_df_from_bigquery(
@@ -213,18 +213,16 @@ class CAWPData(DataSource):
         # ITERATE STATES / TERRITORIES / US
         for cawp_place_abbr in cawp_place_abbrs:
 
-            print("PLACE", cawp_place_abbr)
+            # print("PLACE", cawp_place_abbr)
 
             if cawp_place_abbr == "US":
-                print("do USA stuff")
                 place_name = "United States"
-
             else:
                 clean_place_abbr = swap_territory_abbr(clean(cawp_place_abbr))
                 cawp_place_name = place_abbr_map[clean_place_abbr]
                 place_name = swap_territory_name(cawp_place_name)
 
-                print(place_name)
+                # print(place_name)
 
                 # find row containing TOTAL LEGISLATORS for every state
                 matched_row = df_totals.loc[
@@ -247,7 +245,7 @@ class CAWPData(DataSource):
 
                 race_code = CAWP_RACE_GROUPS_TO_STANDARD[cawp_race_name]
 
-                print("\tRACE:", race_code)
+                # print("\tRACE:", race_code)
 
                 output_row = {}
 
@@ -273,7 +271,6 @@ class CAWPData(DataSource):
 
                 else:
                     cawp_place_phrase = f"{place_name} - {swap_territory_abbr(clean(cawp_place_abbr))}"
-                    print(cawp_place_phrase)
                     gov_level = "state"
 
                     # count the number of leg. who selected current race
@@ -290,19 +287,23 @@ class CAWPData(DataSource):
                     # tally national level of each race's # (numerator)
                     us_tally[race_code] += num_matches
 
-                    # calculate % of {race} women leg. for this state
-                    pct_women_leg = get_pretty_pct(
-                        num_matches / total_legislators)
+                    # calculate % of {race} women leg. for this place
+                    if place_name == "United States":
+                        pct_women_leg = get_pretty_pct(
+                            us_tally[race_code] / us_tally['total_all_genders'])
+                    else:
+                        pct_women_leg = get_pretty_pct(
+                            num_matches / total_legislators)
+
+                # set % women leg by cawp_race_name for US
 
                 # set place and race
-                print(output_row)
                 output_row[std_col.STATE_NAME_COL] = place_name
                 output_row[std_col.RACE_CATEGORY_ID_COL] = race_code
 
                 # set pct_women_leg for this state/race
                 output_row[std_col.WOMEN_STATE_LEG_PCT] = pct_women_leg
 
-                print("after\n", output_row)
                 # add state row to output
                 output.append(output_row)
 
@@ -320,7 +321,7 @@ class CAWPData(DataSource):
         #     us_output_row[std_col.RACE_CATEGORY_ID_COL] = race_code
         #     us_output_row[std_col.STATE_NAME_COL] = "United States"
 
-        #     # set % women leg by cawp_race_name for US
+        # #     # set % women leg by cawp_race_name for US
         #     pct_women_leg = get_pretty_pct(
         #         us_tally[race_code] / us_tally['total_all_genders'])
         #     us_output_row[std_col.WOMEN_STATE_LEG_PCT] = pct_women_leg
