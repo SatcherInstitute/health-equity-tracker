@@ -143,16 +143,18 @@ class UHCData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_UHC_URL)
+        df = df.rename(columns={'State Name': std_col.STATE_NAME_COL})
+        df = dataset_utils.merge_fips_codes(df)
 
         for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
             breakdown_df = self.generate_breakdown(breakdown, df)
 
             for geo in ['state', 'national']:
-                df = dataset_utils.merge_fips_codes(df)
                 if geo == 'national':
-                    df = breakdown_df.loc[breakdown_df[std_col.STATE_FIPS_COL] == constants.US_FIPS]
+                    print(breakdown_df[std_col.STATE_FIPS_COL])
+                    breakdown_df = breakdown_df.loc[breakdown_df[std_col.STATE_FIPS_COL] == constants.US_FIPS]
                 else:
-                    df = breakdown_df.loc[breakdown_df[std_col.STATE_FIPS_COL] != constants.US_FIPS]
+                    breakdown_df = breakdown_df.loc[breakdown_df[std_col.STATE_FIPS_COL] != constants.US_FIPS]
 
                 column_types = {c: 'STRING' for c in breakdown_df.columns}
 
@@ -167,7 +169,7 @@ class UHCData(DataSource):
 
     def generate_breakdown(self, breakdown, df):
         output = []
-        states = df['State Name'].drop_duplicates().to_list()
+        states = df[std_col.STATE_NAME_COL].drop_duplicates().to_list()
 
         columns = [std_col.STATE_NAME_COL,
                    *UHC_DETERMINANTS.values()]
@@ -193,7 +195,7 @@ class UHCData(DataSource):
                     if breakdown_value == 'All':
                         # find row that matches current nested iterations
                         matched_row = df.loc[
-                            (df['State Name'] == state) &
+                            (df[std_col.STATE_NAME_COL] == state) &
                             (df['Measure Name'] ==
                              ALT_ROWS_ALL.get(determinant, determinant))
                         ]
@@ -227,7 +229,7 @@ class UHCData(DataSource):
                         )
 
                         matched_row = df.loc[
-                            (df['State Name'] == state) &
+                            (df[std_col.STATE_NAME_COL] == state) &
                             (df['Measure Name'] == measure_name)]
 
                         # BY AGE voter participation is avg of pres and midterm
@@ -285,7 +287,7 @@ def get_average_determinate_value(matched_row, measure_name, df, state):
         pres_breakdown_value = matched_row['Value'].values[0]
 
     matched_row_midterm = df.loc[
-        (df['State Name'] == state) &
+        (df[std_col.STATE_NAME_COL] == state) &
         (df['Measure Name'] == measure_name)]
 
     if len(matched_row_midterm) > 0:
