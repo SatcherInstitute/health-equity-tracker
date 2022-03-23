@@ -2,6 +2,7 @@ import Button from "@material-ui/core/Button";
 import axios from "axios";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { VariableId } from "../data/config/MetricConfig";
 import { getLogger } from "./globals";
 import { MadLibId, PhraseSelections } from "./MadLibs";
 
@@ -70,6 +71,16 @@ export const SHOW_ONBOARDING_PARAM = "onboard";
 export const DEMOGRAPHIC_PARAM = "demo";
 export const DATA_TYPE_1_PARAM = "dt1";
 export const DATA_TYPE_2_PARAM = "dt2";
+
+// Ensures backwards compatibility for external links to old VariableIds
+export function swapOldParams(oldParam: string) {
+  const swaps: Record<string, VariableId> = {
+    deaths: "covid_deaths",
+    cases: "covid_cases",
+    hospitalizations: "covid_hospitalizations",
+  };
+  return swaps[oldParam] || oldParam;
+}
 
 // WORDPRESS CONFIG
 export const NEWS_URL = "https://hetblog.dreamhosters.com/";

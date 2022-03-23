@@ -16,6 +16,7 @@ import {
   getAgeAdjustedRatioMetric,
   DropdownVarId,
   METRIC_CONFIG,
+  AgeAdjustedVariableId,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
@@ -41,9 +42,10 @@ import {
 import { Link } from "react-router-dom";
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
-export const dataTypeLinkMap: Record<string, string> = {
-  deaths: COVID_DEATHS_US_SETTING,
-  hospitalizations: COVID_HOSP_US_SETTING,
+
+export const dataTypeLinkMap: Record<AgeAdjustedVariableId, string> = {
+  covid_deaths: COVID_DEATHS_US_SETTING,
+  covid_hospitalizations: COVID_HOSP_US_SETTING,
 };
 
 /* minimize layout shift */

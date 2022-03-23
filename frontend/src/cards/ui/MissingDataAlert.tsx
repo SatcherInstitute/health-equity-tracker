@@ -2,12 +2,17 @@ import React from "react";
 import { Alert } from "@material-ui/lab";
 import {
   AGE_ADJ,
+  EXPLORE_DATA_PAGE_LINK,
   LinkWithStickyParams,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "../../utils/urlutils";
 import { BreakdownVarDisplayName } from "../../data/query/Breakdowns";
 import { Fips } from "../../data/utils/Fips";
-import { DropdownVarId, VariableConfig } from "../../data/config/MetricConfig";
+import {
+  AgeAdjustedVariableId,
+  DropdownVarId,
+  VariableConfig,
+} from "../../data/config/MetricConfig";
 import { dataTypeLinkMap } from "../AgeAdjustedTableCard";
 
 interface MissingDataAlertProps {
@@ -77,7 +82,11 @@ function AltDataTypesMessage(props: AltDataTypesMessageProps) {
       {props.ageAdjustedDataTypes.map((dataType, i) => {
         return (
           <span key={dataType.variableDisplayName}>
-            <a href={dataTypeLinkMap[dataType.variableId] + "#" + AGE_ADJ}>
+            <a
+              href={`${EXPLORE_DATA_PAGE_LINK}${
+                dataTypeLinkMap[dataType.variableId as AgeAdjustedVariableId]
+              }#${AGE_ADJ}`}
+            >
               {dataType.variableFullDisplayName}
             </a>
             {i < props.ageAdjustedDataTypes.length - 1 && ", "}

@@ -1,4 +1,5 @@
 //  IDs for the selectable conditions in the madlib
+
 export type DropdownVarId =
   | "covid"
   | "diabetes"
@@ -18,14 +19,15 @@ export type DropdownVarId =
   | "asthma"
   | "voter_participation";
 
+export type AgeAdjustedVariableId = "covid_deaths" | "covid_hospitalizations";
+
 // IDs for the sub-data types (if any) for theDropDownId
 export type VariableId =
   | DropdownVarId
+  | AgeAdjustedVariableId
   | "population"
   | "population_2010"
   | "covid_cases"
-  | "covid_deaths"
-  | "covid_hospitalizations"
   | "non_medical_drug_use"
   | "non_medical_rx_opioid_use"
   | "illicit_opioid_use"
@@ -1102,7 +1104,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
   ],
 };
 
-export const AGE_ADJUSTED_VARIABLE_IDS: VariableId[] = [
-  "hospitalizations",
-  "deaths",
-];
+// export const AGE_ADJUSTED_VARIABLE_IDS: VariableId[] = [
+//   "hospitalizations",
+//   "deaths",
+// ];

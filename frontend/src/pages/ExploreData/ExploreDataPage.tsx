@@ -49,6 +49,9 @@ function ExploreDataPage() {
 
   // Set up initial mad lib values based on defaults and query params
   const params = useSearchParams();
+
+  // swap out old variable ids for backwards compatibility of outside links
+
   const foundIndex = MADLIB_LIST.findIndex(
     (madlib) => madlib.id === params[MADLIB_PHRASE_PARAM]
   );

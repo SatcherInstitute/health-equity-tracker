@@ -25,6 +25,7 @@ import {
   getParameter,
   psSubscribe,
   setParameter,
+  swapOldParams,
 } from "../utils/urlutils";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
@@ -78,6 +79,7 @@ function TwoVariableReport(props: {
         DATA_TYPE_1_PARAM,
         undefined,
         (val: VariableId) => {
+          val = swapOldParams(val);
           return METRIC_CONFIG[props.dropdownVarId1].find(
             (cfg) => cfg.variableId === val
           );
@@ -87,6 +89,7 @@ function TwoVariableReport(props: {
         DATA_TYPE_2_PARAM,
         undefined,
         (val: VariableId) => {
+          val = swapOldParams(val);
           return METRIC_CONFIG[props.dropdownVarId2].find(
             (cfg) => cfg.variableId === val
           );
