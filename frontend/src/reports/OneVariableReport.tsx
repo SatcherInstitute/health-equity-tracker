@@ -65,6 +65,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
   const unknownsRef = useRef<HTMLInputElement>(null);
   const disparityRef = useRef<HTMLInputElement>(null);
   const tableRef = useRef<HTMLInputElement>(null);
+  const ageAdjRef = useRef<HTMLInputElement>(null);
 
   let target: any = null;
 
@@ -85,6 +86,9 @@ export function OneVariableReport(props: OneVariableReportProps) {
         break;
       case "#table":
         target = tableRef;
+        break;
+      case "#age-adjusted":
+        target = ageAdjRef;
         break;
     }
 
@@ -305,7 +309,13 @@ export function OneVariableReport(props: OneVariableReportProps) {
           </Grid>
 
           {/* AGE ADJUSTED TABLE CARD */}
-          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="AgeAdjusted">
+          <Grid
+            item
+            xs={12}
+            md={SINGLE_COLUMN_WIDTH}
+            ref={ageAdjRef}
+            {...highlightMatch("#age-adjusted")}
+          >
             <LazyLoad offset={800} height={800} once>
               <AgeAdjustedTableCard
                 fips={props.fips}

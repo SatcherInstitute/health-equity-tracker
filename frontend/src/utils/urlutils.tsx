@@ -52,7 +52,7 @@ export const WHAT_DATA_ARE_MISSING_ID = "missingDataInfo";
 export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
   EXPLORE_DATA_PAGE_LINK + "#" + WHAT_DATA_ARE_MISSING_ID;
 export const WIHE_JOIN_THE_EFFORT_SECTION_ID = "join";
-export const AGE_ADJ = "AgeAdjusted";
+export const AGE_ADJ = "age-adjusted";
 
 // Value is a comma-separated list of dataset ids. Dataset ids cannot have
 // commas in them.
