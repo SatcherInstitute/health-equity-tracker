@@ -5,9 +5,8 @@ import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { MapCard } from "../cards/MapCard";
 import { PopulationCard } from "../cards/PopulationCard";
 import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
-import { AgeAdjustedTableCard } from "../cards/AgeAdjustedTableCard";
-import { UnknownsMapCard } from "../cards/UnknownsMapCard";
 import { TableCard } from "../cards/TableCard";
+import { UnknownsMapCard } from "../cards/UnknownsMapCard";
 import {
   DropdownVarId,
   METRIC_CONFIG,
@@ -93,7 +92,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
     };
   }, [props.dropdownVarId]);
 
-  const breakdownIsShown = (breakdownVar: BreakdownVar) =>
+  const breakdownIsShown = (breakdownVar: string) =>
     currentBreakdown === breakdownVar;
 
   return (
@@ -228,19 +227,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   )}
                 </Fragment>
               ))}
-            </LazyLoad>
-          </Grid>
-
-          {/* AGE ADJUSTED TABLE CARD */}
-          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="AgeAdjusted">
-            <LazyLoad offset={800} height={800} once>
-              <AgeAdjustedTableCard
-                fips={props.fips}
-                variableConfig={variableConfig}
-                dropdownVarId={props.dropdownVarId}
-                breakdownVar={currentBreakdown}
-                setVariableConfigWithParam={setVariableConfigWithParam}
-              />
             </LazyLoad>
           </Grid>
         </Grid>

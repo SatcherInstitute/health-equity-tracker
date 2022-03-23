@@ -1,7 +1,6 @@
 import { Grid } from "@material-ui/core";
 import React, { useEffect, useState, Fragment } from "react";
 import LazyLoad from "react-lazyload";
-import { AgeAdjustedTableCard } from "../cards/AgeAdjustedTableCard";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { MapCard } from "../cards/MapCard";
 import { PopulationCard } from "../cards/PopulationCard";
@@ -331,35 +330,6 @@ function TwoVariableReport(props: {
           />
         )
       )}
-
-      {/* SIDE-BY-SIDE AGE-ADJUSTED TABLE CARDS */}
-
-      <RowOfTwoOptionalMetrics
-        id="ageAdjustedTableCard"
-        // specific data type
-        variableConfig1={variableConfig1}
-        variableConfig2={variableConfig2}
-        // parent variable
-        dropdownVarId1={props.dropdownVarId1}
-        dropdownVarId2={props.dropdownVarId2}
-        fips1={props.fips1}
-        fips2={props.fips2}
-        updateFips1={props.updateFips1Callback}
-        updateFips2={props.updateFips2Callback}
-        createCard={(
-          variableConfig: VariableConfig,
-          fips: Fips,
-          updateFips: (fips: Fips) => void,
-          dropdownVarId?: DropdownVarId
-        ) => (
-          <AgeAdjustedTableCard
-            fips={fips}
-            variableConfig={variableConfig}
-            breakdownVar={currentBreakdown}
-            dropdownVarId={dropdownVarId}
-          />
-        )}
-      />
     </Grid>
   );
 }
@@ -375,11 +345,8 @@ function RowOfTwoOptionalMetrics(props: {
   createCard: (
     variableConfig: VariableConfig,
     fips: Fips,
-    updateFips: (fips: Fips) => void,
-    dropdownVarId?: DropdownVarId
+    updateFips: (fips: Fips) => void
   ) => JSX.Element;
-  dropdownVarId1?: DropdownVarId;
-  dropdownVarId2?: DropdownVarId;
 }) {
   if (!props.variableConfig1 && !props.variableConfig2) {
     return <></>;
@@ -397,22 +364,20 @@ function RowOfTwoOptionalMetrics(props: {
               {props.createCard(
                 props.variableConfig1,
                 props.fips1,
-                props.updateFips1 || unusedFipsCallback,
-                props.dropdownVarId1
+                props.updateFips1 || unusedFipsCallback
               )}
             </>
           )}
         </LazyLoad>
       </Grid>
       <Grid item xs={12} sm={6}>
-        <LazyLoad offset={800} height={600} once>
+        <LazyLoad offset={300} height={750} once>
           {props.variableConfig2 && (
             <>
               {props.createCard(
                 props.variableConfig2,
                 props.fips2,
-                props.updateFips2 || unusedFipsCallback,
-                props.dropdownVarId2
+                props.updateFips2 || unusedFipsCallback
               )}
             </>
           )}
