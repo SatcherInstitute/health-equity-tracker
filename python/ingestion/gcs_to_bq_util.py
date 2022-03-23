@@ -1,6 +1,5 @@
 from datetime import datetime
 from datetime import timezone
-import pathlib
 import requests
 import json
 import os
