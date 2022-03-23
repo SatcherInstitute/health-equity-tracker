@@ -147,7 +147,7 @@ def load_values_as_df(gcs_bucket, filename):
     return load_values_blob_as_df(blob)
 
 
-def values_json_to_df(json_string, dtype=None):
+def values_json_to_dataframe(json_string, dtype=None):
     frame = pd.read_json(json_string, orient='values', dtype=dtype)
     frame.rename(columns=frame.iloc[0], inplace=True)
     frame.drop([0], inplace=True)
@@ -161,7 +161,7 @@ def load_values_blob_as_df(blob):
 
        blob: google.cloud.storage.blob.Blob object"""
     json_string = blob.download_as_string()
-    return values_json_to_df(json_string)
+    return values_json_to_dataframe(json_string)
 
 
 def load_csv_as_df(gcs_bucket, filename, dtype=None, chunksize=None,
@@ -284,12 +284,25 @@ def load_json_as_df_from_web_based_on_key(url, key, dtype=None):
     return pd.DataFrame(jsn[key], dtype=dtype)
 
 
-def load_df_from_bigquery(dataset, table_name, project=None, dtype=None):
+def load_public_dataset_from_bigquery_as_df(dataset, table_name, dtype=None):
+    """Loads data from a public big query table into a dataframe.
+       Need this as a separate function because of the need for a
+       different way to generate the table_id.
+
+       dataset: The BigQuery dataset to write to.
+       table_name: The BigQuery table to write to."""
+    client = bigquery.Client()
+    table_id = 'bigquery-public-data.%s.%s' % (dataset, table_name)
+
+    return client.list_rows(table_id).to_dataframe(dtypes=dtype)
+
+
+def load_dataframe_from_bigquery(dataset, table_name, dtype=None):
     """Loads data from a big query table into a dataframe.
 
        dataset: The BigQuery dataset to write to.
        table_name: The BigQuery table to write to."""
-    client = bigquery.Client(project)
+    client = bigquery.Client()
     table_id = client.dataset(dataset).table(table_name)
     table = client.get_table(table_id)
 
