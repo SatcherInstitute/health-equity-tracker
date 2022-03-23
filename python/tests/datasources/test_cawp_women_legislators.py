@@ -7,6 +7,8 @@ from pandas._testing import assert_frame_equal
 from datasources.cawp import (CAWPData,
                               CAWP_TOTALS_URL,
                               CAWP_LINE_ITEMS_FILE,
+                              PROPUB_US_HOUSE_FILE,
+                              PROPUB_US_SENATE_FILE,
                               clean, get_pretty_pct,
                               swap_territory_abbr,
                               swap_territory_name)
@@ -34,9 +36,10 @@ def test_swap_territory_name():
 
 
 def test_get_pretty_pct():
-    assert get_pretty_pct(1 / 3) == "33.33"
-    assert get_pretty_pct(1) == "100"
-    assert get_pretty_pct(0.12345678) == "12.35"
+    assert get_pretty_pct(1, 3) == "33.33"
+    assert get_pretty_pct(100, 1) == "100"
+    assert get_pretty_pct(1.2345678, 10) == "12.35"
+    assert get_pretty_pct(100, 0) is None
 
 
 # Map production URLs to mock CSVs
@@ -74,6 +77,14 @@ mock_file_map = {
             "race_ethnicity": str
         }
     },
+    # for US SENATE mocking /data FOLDER
+    PROPUB_US_SENATE_FILE: {
+        "filename": 'test_input_propublica-us-senate.json',  # FULL FILE
+    },
+    # for US HOUSE mocking /data FOLDER
+    PROPUB_US_HOUSE_FILE: {
+        "filename": 'test_input_propublica-us-house.json',  # FULL FILE
+    },
 
 }
 
@@ -86,8 +97,8 @@ GOLDEN_DATA = {
 }
 
 
-def get_test_data_as_df(*args):
-    # read in correct CSV (mocking the network call to the CAWP api)
+def get_test_csv_as_df(*args):
+    # read in correct CSV (mocking the network call to the CAWP api or /data)
     filename_arg_index = 0
     if len(args) > 1:
         filename_arg_index = 1
@@ -98,13 +109,28 @@ def get_test_data_as_df(*args):
                        dtype=test_input_dtype)
 
 
+def get_test_json_as_df(*args):
+    # read in correct json (mocking the call to /data or API)
+    filename_arg_index = 0
+    if len(args) > 1:
+        filename_arg_index = 1
+
+    test_input_json = mock_file_map[args[filename_arg_index]]["filename"]
+    return pd.read_json(os.path.join(TEST_DIR, test_input_json))
+
+
+@ mock.patch('ingestion.gcs_to_bq_util.load_json_as_df_from_data_dir',
+             side_effect=get_test_json_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
-             side_effect=get_test_data_as_df)
+             side_effect=get_test_csv_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-             side_effect=get_test_data_as_df)
+             side_effect=get_test_csv_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
-def testWriteToBq(mock_bq: mock.MagicMock, mock_web_csv: mock.MagicMock, mock_data_dir_csv: mock.MagicMock):
+def testWriteToBq(mock_bq: mock.MagicMock,
+                  mock_web_csv: mock.MagicMock,
+                  mock_data_dir_csv: mock.MagicMock,
+                  mock_data_json_csv: mock.MagicMock):
 
     cawp_data = CAWPData()
 

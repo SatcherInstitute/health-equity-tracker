@@ -85,7 +85,9 @@ VACCINATED_PCT_SHARE = "vaccinated_pct_share"
 WOMEN_STATE_LEG_PCT = "women_state_leg_pct"
 # (eg % of women legislators who are black)
 WOMEN_STATE_LEG_PCT_SHARE = "women_state_leg_pct_share"
-
+WOMEN_US_CONGRESS_PCT = "women_us_congress_pct"
+# (eg % of women legislators who are black)
+WOMEN_US_CONGRESS_PCT_SHARE = "women_us_congress_pct_share"
 
 RaceTuple = namedtuple("RaceTuple", [
     "race_category_id",
