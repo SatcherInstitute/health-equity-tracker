@@ -5,7 +5,7 @@ import ingestion.standardized_columns as std_col
 
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
-from ingestion.dataset_utils import merge_fips_codes, generate_pct_share_col
+from ingestion.dataset_utils import merge_fips_codes
 
 CAWP_RACE_GROUPS_TO_STANDARD = {
     'Asian American/Pacific Islander': Race.ASIAN_PAC_NH.value,
