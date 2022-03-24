@@ -8,7 +8,7 @@ from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 from ingestion import dataset_utils
 
-REFERENCE_POPULATION = std_col.Race.WHITE_NH.value
+REFERENCE_POPULATION = std_col.Race.TOTAL.value
 
 AGE_ADJUST_RACES = {std_col.Race.WHITE_NH.value, std_col.Race.BLACK_NH.value, std_col.Race.HISP.value,
                     std_col.Race.AIAN_NH.value, std_col.Race.NHPI_NH.value, std_col.Race.ASIAN_NH.value}

@@ -11,7 +11,8 @@ BASE_POPULATION_URL = ('https://www2.census.gov/programs-surveys/popest/'
                        'datasets/2010-2019/counties/asrh/cc-est2019-alldata.csv')
 
 RACES_MAP = {'NHWA': Race.WHITE_NH.value, 'NHBA': Race.BLACK_NH.value, 'NHIA': Race.AIAN_NH.value,
-             'NHAA': Race.ASIAN_NH.value, 'NHNA': Race.NHPI_NH.value, 'H': Race.HISP.value}
+             'NHAA': Race.ASIAN_NH.value, 'NHNA': Race.NHPI_NH.value, 'H': Race.HISP.value,
+             'TOTAL': Race.TOTAL.value}
 
 
 AGES_MAP = {
@@ -23,6 +24,9 @@ YEAR_2019 = 12
 
 
 def total_race(row, race):
+    if race == 'TOTAL':
+        return row['TOT_POP']
+
     return row['%s_MALE' % race] + row['%s_FEMALE' % race]
 
 
@@ -112,16 +116,18 @@ def generate_national_pop_data(state_df, states_to_include):
 
     df = state_df.loc[state_df[std_col.STATE_FIPS_COL].isin(states_to_include)]
 
-    groupby_cols = list(std_col.RACE_COLUMNS)
-    groupby_cols.append(std_col.AGE_COL)
-
     df[std_col.POPULATION_COL] = df[std_col.POPULATION_COL].astype(int)
+
+    groupby_cols = [std_col.RACE_CATEGORY_ID_COL, std_col.AGE_COL]
     df = df.groupby(groupby_cols).sum().reset_index()
 
     df[std_col.STATE_FIPS_COL] = constants.US_FIPS
     df[std_col.STATE_NAME_COL] = constants.US_NAME
 
-    needed_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.POPULATION_COL]
-    needed_cols.extend(groupby_cols)
+    needed_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.POPULATION_COL, std_col.AGE_COL]
+    needed_cols.extend(std_col.RACE_COLUMNS)
+
+    std_col.add_race_columns_from_category_id(df)
+
     df[std_col.STATE_FIPS_COL] = df[std_col.STATE_FIPS_COL].astype(str)
     return df[needed_cols].sort_values([std_col.AGE_COL, std_col.RACE_CATEGORY_ID_COL]).reset_index(drop=True)
