@@ -110,7 +110,9 @@ export type MetricId =
   | "voter_participation_pct_share"
   | "voter_participation_per_100k"
   | "women_state_leg_pct"
-  | "women_state_leg_pct_share";
+  | "women_state_leg_pct_share"
+  | "women_us_congress_pct"
+  | "women_us_congress_pct_share";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -933,14 +935,14 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "women_state_leg_pct",
-          fullCardTitleName: "Share of All State Legislators",
-          shortLabel: "% of women in state legislature",
+          fullCardTitleName: "Share of All Members of State Congresses",
+          shortLabel: "% of congresswomen",
           type: "pct_share",
         },
         pct_share: {
           metricId: "women_state_leg_pct_share",
-          fullCardTitleName: "Share Of All Women State Legislators",
-          shortLabel: "% of women legislators",
+          fullCardTitleName: "Share Of All State Congresswomen",
+          shortLabel: "% of congresswomen",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "cawp_population_pct",
@@ -950,8 +952,41 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           },
           knownBreakdownComparisonMetric: {
             metricId: "women_state_leg_pct_share",
-            fullCardTitleName: "Share Of Women State Legislators",
-            shortLabel: "% of women legislators",
+            fullCardTitleName: "Share Of State Congresswomen",
+            shortLabel: "% of congresswomen",
+            type: "pct_share",
+          },
+        },
+      },
+    },
+    {
+      variableId: "women_us_congress",
+      variableDisplayName: "women in US congress",
+      variableFullDisplayName: "Women in US Congress",
+      surveyCollectedData: true,
+      variableDefinition: `Official definition.`,
+      metrics: {
+        per100k: {
+          metricId: "women_us_congress_pct",
+          fullCardTitleName: "Share of All US Congress Members",
+          shortLabel: "% of women in US congress",
+          type: "pct_share",
+        },
+        pct_share: {
+          metricId: "women_us_congress_pct_share",
+          fullCardTitleName: "Share Of All US Congresswomen",
+          shortLabel: "% of congresswomen",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "cawp_population_pct",
+            fullCardTitleName: populationPctTitle,
+            shortLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+          knownBreakdownComparisonMetric: {
+            metricId: "women_us_congress_pct_share",
+            fullCardTitleName: "Share Of US Congresswomen",
+            shortLabel: "% of congresswomen",
             type: "pct_share",
           },
         },

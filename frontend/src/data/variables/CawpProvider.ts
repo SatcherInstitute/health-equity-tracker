@@ -9,6 +9,8 @@ export const CAWP_DETERMINANTS: MetricId[] = [
   "cawp_population_pct",
   "women_state_leg_pct",
   "women_state_leg_pct_share",
+  "women_us_congress_pct",
+  "women_us_congress_pct_share",
 ];
 
 class CawpProvider extends VariableProvider {
