@@ -16,7 +16,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v2
       - name: Set Up gcloud
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@v0
         with:
           export_default_credentials: true
           service_account_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
@@ -37,7 +37,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v2
       - name: Set Up gcloud
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@v0
         with:
           export_default_credentials: true
           service_account_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
@@ -58,7 +58,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v2
       - name: Set Up gcloud
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@v0
         with:
           export_default_credentials: true
           service_account_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
@@ -79,7 +79,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v2
       - name: Set Up gcloud
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@v0
         with:
           export_default_credentials: true
           service_account_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
@@ -100,7 +100,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v2
       - name: Set Up gcloud
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@v0
         with:
           export_default_credentials: true
           service_account_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
@@ -121,7 +121,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v2
       - name: Set Up gcloud
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@v0
         with:
           export_default_credentials: true
           service_account_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
@@ -145,7 +145,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v2
       - name: Set Up gcloud
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@v0
         with:
           export_default_credentials: true
           service_account_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
