@@ -166,8 +166,8 @@ def testWriteToBq(mock_bq: mock.MagicMock,
     mock_bq.call_args_list[0].args[0].to_json(
         "cawp-run-results.json", orient="records")
 
-    print("mock call results")
-    print(mock_bq.call_args_list[0].args[0].to_string())
+    # print("mock call results")
+    # print(mock_bq.call_args_list[0].args[0].to_string())
 
     # print("expected output file")
     # print(expected_df.to_string())

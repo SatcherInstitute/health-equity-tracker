@@ -80,7 +80,7 @@ def count_matching_rows(df, state_phrase: str, gov_level: str, string_to_match: 
                 CAWP_DATA_TYPES[gov_level]))
         ]
 
-    print(state_phrase, gov_level, string_to_match, len(df.index))
+    # print(state_phrase, gov_level, string_to_match, len(df.index))
     # print(df)
 
     return len(df.index)
@@ -267,42 +267,34 @@ class CAWPData(DataSource):
         # initialize for and women by race (incl UNKNOWN and ALL = all women)
         for race_code in CAWP_RACE_GROUPS_TO_STANDARD.values():
             us_women_by_race_state_legs_tally[race_code] = 0
-            # us_women_by_race_us_congress_tally[race_code] = 0
 
         # ITERATE STATES / TERRITORIES / US
         for cawp_place_abbr in cawp_place_abbrs:
 
-            clean_place_abbr = swap_territory_abbr(clean(cawp_place_abbr))
+            place_abbr = swap_territory_abbr(clean(cawp_place_abbr))
 
-            total_federal_legislators = get_congress_size(
-                df_us_house, df_us_senate, clean_place_abbr)
-
-            if cawp_place_abbr == "US":
-                cawp_place_name = place_name = "United States"
-                # total of all state leg of any gender (denominator)
-                # us_women_by_race_us_congress_tally["total_all_genders"] = total_federal_legislators
-            else:
-                cawp_place_name = place_abbr_map[clean_place_abbr]
-                place_name = swap_territory_name(cawp_place_name)
+            cawp_place_name = "United States" if place_abbr == "US" else place_abbr_map[
+                place_abbr]
+            place_name = swap_territory_name(cawp_place_name)
 
             cawp_place_phrase = f"{cawp_place_name} - {swap_territory_abbr(clean(cawp_place_abbr))}"
             total_women_federal_legislators = count_matching_rows(
                 df_line_items, cawp_place_phrase, "federal", std_col.ALL_VALUE)
 
-            # print(clean_place_abbr, place_name, total_federal_legislators)
-            # print(total_women_federal_legislators)
+            total_federal_legislators = get_congress_size(
+                df_us_house, df_us_senate, place_abbr)
 
-            if cawp_place_abbr != "US":
+            if place_abbr != "US":
                 # find row containing TOTAL STATE LEGISLATORS for each state/territory
                 matched_row = df_state_leg_totals.loc[
                     (df_state_leg_totals['State'] == cawp_place_abbr)]
 
-                total_women_by_total_legislators = clean(
+                total_ratio = clean(
                     matched_row["Total Women/Total Legislators"].values[0])
 
-                total_women_state_legislators = int(total_women_by_total_legislators.split(
+                total_women_state_legislators = int(total_ratio.split(
                     "/")[0])
-                total_state_legislators = int(total_women_by_total_legislators.split(
+                total_state_legislators = int(total_ratio.split(
                     "/")[1])
 
                 # keep a tally of national total of women state legislators of all races and
@@ -319,8 +311,7 @@ class CAWPData(DataSource):
                 output_row[std_col.STATE_NAME_COL] = place_name
                 output_row[std_col.RACE_CATEGORY_ID_COL] = race_code
 
-                # set pop and pop_share
-                # national
+                # national pop and pop_share
                 if place_name == "United States":
                     output_row = set_pop_metrics_by_race_in_state(
                         output_row, df_acs_pop_national, race_code, place_name)
@@ -340,7 +331,6 @@ class CAWPData(DataSource):
                 # calculate and set incidence rates
 
                 # count  number of all us congresswomen (of all races) for this place
-                # cawp_place_phrase = f"{place_name} - {swap_territory_abbr(clean(cawp_place_abbr))}"
                 num_matches_us_congress = count_matching_rows(
                     df_line_items, cawp_place_phrase, "federal", cawp_race_name)
 
@@ -348,17 +338,9 @@ class CAWPData(DataSource):
                     pct_women_state_leg = clean(
                         matched_row['%Women Overall'].values[0])
 
+                    # pct_share of ALL will always be 100%
                     pct_share_women_state_leg = "100"
-
                     pct_share_women_us_congress = "100"
-
-                    pct_women_us_congress = get_pretty_pct(
-                        num_matches_us_congress, total_federal_legislators)
-
-                    pct_share_women_state_leg = get_pretty_pct(
-                        us_women_by_race_state_legs_tally[race_code], us_women_by_race_state_legs_tally["ALL"])
-                    pct_share_women_us_congress = get_pretty_pct(
-                        num_matches_us_congress, total_women_federal_legislators)
 
                 else:
 
@@ -384,24 +366,23 @@ class CAWPData(DataSource):
                             us_women_by_race_state_legs_tally[race_code], us_women_by_race_state_legs_tally[
                                 'total_all_genders'])
 
-                        pct_women_us_congress = get_pretty_pct(
-                            num_matches_us_congress, total_federal_legislators)
-
                         pct_share_women_state_leg = get_pretty_pct(
                             us_women_by_race_state_legs_tally[race_code], us_women_by_race_state_legs_tally["ALL"])
-                        pct_share_women_us_congress = get_pretty_pct(
-                            num_matches_us_congress, total_women_federal_legislators)
 
                     else:
                         pct_women_state_leg = get_pretty_pct(
                             num_matches_state_legs, total_state_legislators)
-                        pct_women_us_congress = get_pretty_pct(
-                            num_matches_us_congress, total_federal_legislators)
 
                         pct_share_women_state_leg = get_pretty_pct(
                             num_matches_state_legs, total_women_state_legislators)
-                        pct_share_women_us_congress = get_pretty_pct(
-                            num_matches_us_congress, total_women_federal_legislators)
+
+                # calculate incidence rates
+                pct_women_us_congress = get_pretty_pct(
+                    num_matches_us_congress, total_federal_legislators)
+
+                # calculate incidence shares
+                pct_share_women_us_congress = get_pretty_pct(
+                    num_matches_us_congress, total_women_federal_legislators)
 
                 # set incidence rates
                 output_row[std_col.WOMEN_STATE_LEG_PCT] = pct_women_state_leg
@@ -411,7 +392,7 @@ class CAWPData(DataSource):
                 output_row[std_col.WOMEN_STATE_LEG_PCT_SHARE] = pct_share_women_state_leg
                 output_row[std_col.WOMEN_US_CONGRESS_PCT_SHARE] = pct_share_women_us_congress
 
-                # add state row to output
+                # add row for this place/race to output
                 output.append(output_row)
 
         output_df = pd.DataFrame(output, columns=columns)
