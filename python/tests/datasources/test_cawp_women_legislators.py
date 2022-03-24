@@ -37,9 +37,9 @@ def test_swap_territory_name():
 
 def test_get_pretty_pct():
     assert get_pretty_pct(1, 3) == "33.33"
-    assert get_pretty_pct(100, 1) == "100"
+    assert get_pretty_pct(3, 3) == "100"
     assert get_pretty_pct(1.2345678, 10) == "12.35"
-    assert get_pretty_pct(100, 0) is None
+    assert get_pretty_pct(3, 0) == "0"
 
 
 # Map production URLs to mock CSVs
@@ -149,6 +149,8 @@ def testWriteToBq(mock_bq: mock.MagicMock,
         'state_fips': str,
         "women_state_leg_pct": str,
         "women_state_leg_pct_share": str,
+        "women_us_congress_pct": str,
+        "women_us_congress_pct_share": str,
         "population_pct": float,
         'race_and_ethnicity': str,
         'race': str,
@@ -164,8 +166,8 @@ def testWriteToBq(mock_bq: mock.MagicMock,
     mock_bq.call_args_list[0].args[0].to_json(
         "cawp-run-results.json", orient="records")
 
-    # print("mock call results")
-    # print(mock_bq.call_args_list[0].args[0].to_string())
+    print("mock call results")
+    print(mock_bq.call_args_list[0].args[0].to_string())
 
     # print("expected output file")
     # print(expected_df.to_string())
