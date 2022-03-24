@@ -928,21 +928,21 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
   women_legislators: [
     {
       variableId: "women_state_legislatures",
-      variableDisplayName: "women in state legislature",
-      variableFullDisplayName: "Women in state legislature",
+      variableDisplayName: "Women State Legislators",
+      variableFullDisplayName: "Women State Legislators",
       surveyCollectedData: true,
       variableDefinition: `Official definition.`,
       metrics: {
         per100k: {
           metricId: "women_state_leg_pct",
-          fullCardTitleName: "Share of All Members of State Congresses",
-          shortLabel: "% of congresswomen",
+          fullCardTitleName: "Share of State Legislators (All Genders)",
+          shortLabel: "% of state legislators that are women",
           type: "pct_share",
         },
         pct_share: {
           metricId: "women_state_leg_pct_share",
-          fullCardTitleName: "Share Of All State Congresswomen",
-          shortLabel: "% of congresswomen",
+          fullCardTitleName: "Share Of Only Women State Legislators",
+          shortLabel: "% of women legislators",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "cawp_population_pct",
@@ -952,8 +952,8 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           },
           knownBreakdownComparisonMetric: {
             metricId: "women_state_leg_pct_share",
-            fullCardTitleName: "Share Of State Congresswomen",
-            shortLabel: "% of congresswomen",
+            fullCardTitleName: "Share Of Only Women State Legislators",
+            shortLabel: "% of women legislators",
             type: "pct_share",
           },
         },
@@ -961,21 +961,21 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     },
     {
       variableId: "women_us_congress",
-      variableDisplayName: "women in US congress",
+      variableDisplayName: "Women in US Congress",
       variableFullDisplayName: "Women in US Congress",
       surveyCollectedData: true,
       variableDefinition: `Official definition.`,
       metrics: {
         per100k: {
           metricId: "women_us_congress_pct",
-          fullCardTitleName: "Share of All US Congress Members",
+          fullCardTitleName: "Share of US Congress Members (All Genders)",
           shortLabel: "% of women in US congress",
           type: "pct_share",
         },
         pct_share: {
           metricId: "women_us_congress_pct_share",
-          fullCardTitleName: "Share Of All US Congresswomen",
-          shortLabel: "% of congresswomen",
+          fullCardTitleName: "Share Of Women US Congress Members",
+          shortLabel: "% of women congress members",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "cawp_population_pct",
@@ -985,8 +985,8 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           },
           knownBreakdownComparisonMetric: {
             metricId: "women_us_congress_pct_share",
-            fullCardTitleName: "Share Of US Congresswomen",
-            shortLabel: "% of congresswomen",
+            fullCardTitleName: "Share Of Women US Congress Members",
+            shortLabel: "% of women congress members",
             type: "pct_share",
           },
         },
