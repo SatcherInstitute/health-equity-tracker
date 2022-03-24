@@ -27,6 +27,27 @@ CAWP_DATA_TYPES = {
 }
 
 
+def get_women_only_race(race_code: str):
+    """ Accepts a standard race code and
+    returns a race name string specific to only women of that race/ethnicity """
+
+    women_race_overrides = {
+        Race.HISP.value: 'Hispanic Women and Latinas',
+        Race.MULTI.value: 'Women of two or more races',
+        Race.UNKNOWN.value: 'Women of unknown race',
+    }
+
+    if race_code in women_race_overrides.keys():
+        women_race_name = women_race_overrides[race_code]
+    else:
+        race_tuple = Race[race_code].as_tuple()
+        women_race_name = f'{race_tuple.race} Women'
+        if race_tuple.race_includes_hispanic is False:
+            women_race_name += " (Non-Hispanic)"
+
+    return women_race_name
+
+
 def swap_territory_abbr(abbr: str):
     """Replaces mismatched territory abbreviations between TOTAL and LINE LEVEL files """
     return {"AS": "AM", "MP": "MI"}.get(abbr, abbr)
@@ -217,6 +238,7 @@ class CAWPData(DataSource):
         column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
         column_types[std_col.POPULATION_COL] = 'INT'
         column_types[std_col.POPULATION_PCT_COL] = 'FLOAT'
+        column_types[std_col.RACE_WOMEN_COL] = "STRING"
 
         gcs_to_bq_util.add_df_to_bq(
             breakdown_df, dataset, std_col.RACE_OR_HISPANIC_COL, column_types=column_types)
@@ -255,7 +277,9 @@ class CAWPData(DataSource):
                    std_col.WOMEN_US_CONGRESS_PCT_SHARE,
                    std_col.POPULATION_COL,
                    std_col.POPULATION_PCT_COL,
-                   std_col.RACE_CATEGORY_ID_COL]
+                   std_col.RACE_CATEGORY_ID_COL,
+                   std_col.RACE_WOMEN_COL
+                   ]
 
         output = []
 
@@ -270,6 +294,7 @@ class CAWPData(DataSource):
 
         # ITERATE STATES / TERRITORIES / US
         for cawp_place_abbr in cawp_place_abbrs:
+            print(cawp_place_abbr)
 
             place_abbr = swap_territory_abbr(clean(cawp_place_abbr))
 
@@ -303,6 +328,7 @@ class CAWPData(DataSource):
                 us_women_by_race_state_legs_tally["total_all_genders"] += total_state_legislators
 
             for cawp_race_name in CAWP_RACE_GROUPS_TO_STANDARD.keys():
+                print("\t", cawp_race_name)
 
                 # Setup row
                 race_code = CAWP_RACE_GROUPS_TO_STANDARD[cawp_race_name]
@@ -391,6 +417,10 @@ class CAWPData(DataSource):
                 # set incidence shares
                 output_row[std_col.WOMEN_STATE_LEG_PCT_SHARE] = pct_share_women_state_leg
                 output_row[std_col.WOMEN_US_CONGRESS_PCT_SHARE] = pct_share_women_us_congress
+
+                # set "women only" version of race codes
+                output_row[std_col.RACE_WOMEN_COL] = get_women_only_race(
+                    race_code)
 
                 # add row for this place/race to output
                 output.append(output_row)

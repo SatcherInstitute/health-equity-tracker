@@ -6,6 +6,9 @@ import pandas
 # semi-human readable. See Race enum below for values.
 RACE_CATEGORY_ID_COL = "race_category_id"
 
+# For intersectional displays like CAWP data where we know all values will refer only to women
+RACE_WOMEN_COL = "race_women"
+
 # The name of the column that displays the fully-qualified race name, including
 # whether Hispanic/Latino are included.
 RACE_OR_HISPANIC_COL = "race_and_ethnicity"
