@@ -294,7 +294,7 @@ class CAWPData(DataSource):
 
         # ITERATE STATES / TERRITORIES / US
         for cawp_place_abbr in cawp_place_abbrs:
-            print(cawp_place_abbr)
+            # print(cawp_place_abbr)
 
             place_abbr = swap_territory_abbr(clean(cawp_place_abbr))
 
@@ -328,7 +328,7 @@ class CAWPData(DataSource):
                 us_women_by_race_state_legs_tally["total_all_genders"] += total_state_legislators
 
             for cawp_race_name in CAWP_RACE_GROUPS_TO_STANDARD.keys():
-                print("\t", cawp_race_name)
+                # print("\t", cawp_race_name)
 
                 # Setup row
                 race_code = CAWP_RACE_GROUPS_TO_STANDARD[cawp_race_name]
@@ -430,5 +430,7 @@ class CAWPData(DataSource):
         output_df = merge_fips_codes(output_df)
 
         std_col.add_race_columns_from_category_id(output_df)
+
+        output_df[std_col.RACE_COL] = output_df[std_col.RACE_WOMEN_COL]
 
         return output_df
