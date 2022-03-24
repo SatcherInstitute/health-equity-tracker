@@ -2,36 +2,48 @@ state_fips,state_name,age,population,race_category_id,race,race_includes_hispani
 01,Alabama,0-29,600000,WHITE_NH,White,False,White (Non-Hispanic)
 01,Alabama,0-29,200000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
 01,Alabama,0-29,10000,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,0-29,810000,TOTAL,Total,,Total
 01,Alabama,30-59,800000,WHITE_NH,White,False,White (Non-Hispanic)
 01,Alabama,30-59,300000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
 01,Alabama,30-59,60000,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,30-59,1160000,TOTAL,Total,,Total
 01,Alabama,60+,200000,WHITE_NH,White,False,White (Non-Hispanic)
 01,Alabama,60+,60000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
 01,Alabama,60+,6000,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,60+,266000,TOTAL,Total,,Total
 01,Alabama,All,1600000,WHITE_NH,White,False,White (Non-Hispanic)
 01,Alabama,All,560000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
 01,Alabama,All,76000,HISP,Hispanic or Latino,True,Hispanic or Latino
+01,Alabama,All,2236000,TOTAL,Total,,Total
 06,California,0-29,10000,WHITE_NH,White,False,White (Non-Hispanic)
 06,California,0-29,22000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
 06,California,0-29,130000,HISP,Hispanic or Latino,True,Hispanic or Latino
+06,California,0-29,162000,TOTAL,Total,,Total
 06,California,30-59,8400000,WHITE_NH,White,False,White (Non-Hispanic)
 06,California,30-59,3500000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
 06,California,30-59,660000,HISP,Hispanic or Latino,True,Hispanic or Latino
+06,California,30-59,12560000,TOTAL,Total,,Total
 06,California,60+,2600000,WHITE_NH,White,False,White (Non-Hispanic)
 06,California,60+,670000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
 06,California,60+,66000,HISP,Hispanic or Latino,True,Hispanic or Latino
+06,California,60+,3336000,TOTAL,Total,,Total
 06,California,All,11010000,WHITE_NH,White,False,White (Non-Hispanic)
 06,California,All,5460000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
 06,California,All,7446000,HISP,Hispanic or Latino,True,Hispanic or Latino
+06,California,All,23916000,TOTAL,Total,,Total
 10,Delaware,0-29,10000,WHITE_NH,White,False,White (Non-Hispanic)
 10,Delaware,0-29,22000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
 10,Delaware,0-29,130000,HISP,Hispanic or Latino,True,Hispanic or Latino
+10,Delaware,0-29,162000,TOTAL,Total,,Total
 10,Delaware,30-59,8400000,WHITE_NH,White,False,White (Non-Hispanic)
 10,Delaware,30-59,3500000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
 10,Delaware,30-59,660000,HISP,Hispanic or Latino,True,Hispanic or Latino
+10,Delaware,30-59,12560000,TOTAL,Total,,Total
 10,Delaware,60+,2600000,WHITE_NH,White,False,White (Non-Hispanic)
 10,Delaware,60+,670000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
 10,Delaware,60+,66000,HISP,Hispanic or Latino,True,Hispanic or Latino
+10,Delaware,60+,3336000,TOTAL,Total,,Total
 10,Delaware,All,165500000,WHITE_NH,White,False,White (Non-Hispanic)
 10,Delaware,All,5460000,BLACK_NH,Black or African American,False,Black or African American (Non-Hispanic)
 10,Delaware,All,7446000,HISP,Hispanic or Latino,True,Hispanic or Latino
+10,Delaware,All,178406000,TOTAL,Total,,Total
