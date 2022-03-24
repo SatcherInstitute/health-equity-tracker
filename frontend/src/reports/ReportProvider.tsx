@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { OneVariableReport } from "./OneVariableReport";
 import TwoVariableReport from "./TwoVariableReport";
 import {
@@ -42,6 +42,7 @@ interface ReportProviderProps {
   showLifeLineAlert: boolean;
   setMadLib: Function;
   doScrollToData?: boolean;
+  scrollToRef?: string;
 }
 
 function ReportProvider(props: ReportProviderProps) {
@@ -76,20 +77,6 @@ function ReportProvider(props: ReportProviderProps) {
     }
   }
 
-  // handle incoming #missingDataLink link request, only on page load
-  useEffect(() => {
-    if (props.doScrollToData) {
-      jumpToData();
-      // remove hash from URL
-      // eslint-disable-next-line no-restricted-globals
-      history.pushState(
-        "",
-        document.title,
-        window.location.pathname + window.location.search
-      );
-    }
-  }, [props.doScrollToData]);
-
   function getReport() {
     // Each report has a unique key based on its props so it will create a
     // new instance and reset its state when the provided props change.
@@ -108,6 +95,7 @@ function ReportProvider(props: ReportProviderProps) {
                 getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
               )
             }
+            scrollToRef={props.scrollToRef}
           />
         );
       case "comparegeos":
