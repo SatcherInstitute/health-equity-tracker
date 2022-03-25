@@ -9,6 +9,7 @@ from ingestion import gcs_to_bq_util
 from ingestion import dataset_utils
 
 REFERENCE_POPULATION = std_col.Race.TOTAL.value
+BASE_POPULATION = std_col.Race.WHITE_NH.value
 
 AGE_ADJUST_RACES = {std_col.Race.WHITE_NH.value, std_col.Race.BLACK_NH.value, std_col.Race.HISP.value,
                     std_col.Race.AIAN_NH.value, std_col.Race.NHPI_NH.value, std_col.Race.ASIAN_NH.value}
@@ -218,9 +219,9 @@ def age_adjust_from_expected(df):
 
     def get_age_adjusted_death_rate(row):
         ref_pop_expected_deaths = df.loc[
-                (df[std_col.RACE_CATEGORY_ID_COL] == REFERENCE_POPULATION) &
+                (df[std_col.RACE_CATEGORY_ID_COL] == BASE_POPULATION) &
                 (df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
-            ][std_col.COVID_DEATH_Y].values[0]
+            ]['expected_deaths'].values[0]
 
         if not ref_pop_expected_deaths:
             return None
@@ -229,9 +230,9 @@ def age_adjust_from_expected(df):
 
     def get_age_adjusted_hosp_rate(row):
         ref_pop_expected_hosp = df.loc[
-                (df[std_col.RACE_CATEGORY_ID_COL] == REFERENCE_POPULATION) &
+                (df[std_col.RACE_CATEGORY_ID_COL] == BASE_POPULATION) &
                 (df[std_col.STATE_FIPS_COL] == row[std_col.STATE_FIPS_COL])
-            ][std_col.COVID_HOSP_Y].values[0]
+            ]['expected_hosps'].values[0]
 
         if not ref_pop_expected_hosp:
             return None
