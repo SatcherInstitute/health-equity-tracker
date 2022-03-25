@@ -121,7 +121,7 @@
     },
     {
         "state_name": "Alabama",
-        "women_state_leg_pct": "16.4",
+        "women_state_leg_pct": "16.43",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "11.11",
         "women_us_congress_pct_share": "100",
@@ -391,7 +391,7 @@
     },
     {
         "state_name": "Arizona",
-        "women_state_leg_pct": "43.3",
+        "women_state_leg_pct": "43.33",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "27.27",
         "women_us_congress_pct_share": "100",
@@ -526,7 +526,7 @@
     },
     {
         "state_name": "Arkansas",
-        "women_state_leg_pct": "23",
+        "women_state_leg_pct": "22.96",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "0",
         "women_us_congress_pct_share": "0",
@@ -661,7 +661,7 @@
     },
     {
         "state_name": "American Samoa",
-        "women_state_leg_pct": "5.1",
+        "women_state_leg_pct": "5.13",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "0",
         "women_us_congress_pct_share": "100",
@@ -796,7 +796,7 @@
     },
     {
         "state_name": "California",
-        "women_state_leg_pct": "30.8",
+        "women_state_leg_pct": "30.83",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "37.04",
         "women_us_congress_pct_share": "100",
@@ -931,7 +931,7 @@
     },
     {
         "state_name": "Colorado",
-        "women_state_leg_pct": "45.0",
+        "women_state_leg_pct": "45",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "22.22",
         "women_us_congress_pct_share": "100",
@@ -1066,7 +1066,7 @@
     },
     {
         "state_name": "Connecticut",
-        "women_state_leg_pct": "33.7",
+        "women_state_leg_pct": "33.69",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "28.57",
         "women_us_congress_pct_share": "100",
@@ -1201,7 +1201,7 @@
     },
     {
         "state_name": "District of Columbia",
-        "women_state_leg_pct": "53.8",
+        "women_state_leg_pct": "61.54",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "100",
         "women_us_congress_pct_share": "100",
@@ -1336,7 +1336,7 @@
     },
     {
         "state_name": "Delaware",
-        "women_state_leg_pct": "30.6",
+        "women_state_leg_pct": "30.65",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "33.33",
         "women_us_congress_pct_share": "100",
@@ -1471,7 +1471,7 @@
     },
     {
         "state_name": "Florida",
-        "women_state_leg_pct": "34.4",
+        "women_state_leg_pct": "34.38",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "30",
         "women_us_congress_pct_share": "100",
@@ -1741,7 +1741,7 @@
     },
     {
         "state_name": "Guam",
-        "women_state_leg_pct": "60.0",
+        "women_state_leg_pct": "66.67",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "0",
         "women_us_congress_pct_share": "0",
@@ -1876,7 +1876,7 @@
     },
     {
         "state_name": "Hawaii",
-        "women_state_leg_pct": "34.2",
+        "women_state_leg_pct": "34.21",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "25",
         "women_us_congress_pct_share": "100",
@@ -2011,7 +2011,7 @@
     },
     {
         "state_name": "Idaho",
-        "women_state_leg_pct": "31.4",
+        "women_state_leg_pct": "31.43",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "0",
         "women_us_congress_pct_share": "0",
@@ -2146,7 +2146,7 @@
     },
     {
         "state_name": "Illinois",
-        "women_state_leg_pct": "40.7",
+        "women_state_leg_pct": "40.68",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "35",
         "women_us_congress_pct_share": "100",
@@ -2281,7 +2281,7 @@
     },
     {
         "state_name": "Indiana",
-        "women_state_leg_pct": "23.3",
+        "women_state_leg_pct": "23.33",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "18.18",
         "women_us_congress_pct_share": "100",
@@ -2416,7 +2416,7 @@
     },
     {
         "state_name": "Iowa",
-        "women_state_leg_pct": "28.7",
+        "women_state_leg_pct": "28.67",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "66.67",
         "women_us_congress_pct_share": "100",
@@ -2686,7 +2686,7 @@
     },
     {
         "state_name": "Kentucky",
-        "women_state_leg_pct": "26.8",
+        "women_state_leg_pct": "26.81",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "0",
         "women_us_congress_pct_share": "0",
@@ -2821,7 +2821,7 @@
     },
     {
         "state_name": "Louisiana",
-        "women_state_leg_pct": "19.4",
+        "women_state_leg_pct": "19.44",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "12.5",
         "women_us_congress_pct_share": "100",
@@ -2956,7 +2956,7 @@
     },
     {
         "state_name": "Maine",
-        "women_state_leg_pct": "43.5",
+        "women_state_leg_pct": "43.55",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "50",
         "women_us_congress_pct_share": "100",
@@ -3091,7 +3091,7 @@
     },
     {
         "state_name": "Maryland",
-        "women_state_leg_pct": "43.6",
+        "women_state_leg_pct": "43.62",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "0",
         "women_us_congress_pct_share": "0",
@@ -3361,7 +3361,7 @@
     },
     {
         "state_name": "Michigan",
-        "women_state_leg_pct": "35.1",
+        "women_state_leg_pct": "35.14",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "43.75",
         "women_us_congress_pct_share": "100",
@@ -3496,7 +3496,7 @@
     },
     {
         "state_name": "Minnesota",
-        "women_state_leg_pct": "35.8",
+        "women_state_leg_pct": "35.82",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "66.67",
         "women_us_congress_pct_share": "100",
@@ -3631,7 +3631,7 @@
     },
     {
         "state_name": "Mississippi",
-        "women_state_leg_pct": "15.5",
+        "women_state_leg_pct": "15.52",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "16.67",
         "women_us_congress_pct_share": "100",
@@ -3766,7 +3766,7 @@
     },
     {
         "state_name": "Missouri",
-        "women_state_leg_pct": "25.9",
+        "women_state_leg_pct": "25.89",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "30",
         "women_us_congress_pct_share": "100",
@@ -3901,7 +3901,7 @@
     },
     {
         "state_name": "Michigan",
-        "women_state_leg_pct": "24.1",
+        "women_state_leg_pct": "179.31",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "43.75",
         "women_us_congress_pct_share": "100",
@@ -4036,7 +4036,7 @@
     },
     {
         "state_name": "Montana",
-        "women_state_leg_pct": "32.7",
+        "women_state_leg_pct": "32.67",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "0",
         "women_us_congress_pct_share": "0",
@@ -4171,7 +4171,7 @@
     },
     {
         "state_name": "Nebraska",
-        "women_state_leg_pct": "26.5",
+        "women_state_leg_pct": "26.53",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "20",
         "women_us_congress_pct_share": "100",
@@ -4306,7 +4306,7 @@
     },
     {
         "state_name": "Nevada",
-        "women_state_leg_pct": "58.7",
+        "women_state_leg_pct": "58.73",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "66.67",
         "women_us_congress_pct_share": "100",
@@ -4441,7 +4441,7 @@
     },
     {
         "state_name": "New Hampshire",
-        "women_state_leg_pct": "35.4",
+        "women_state_leg_pct": "35.38",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "75",
         "women_us_congress_pct_share": "100",
@@ -4576,7 +4576,7 @@
     },
     {
         "state_name": "New Jersey",
-        "women_state_leg_pct": "34.2",
+        "women_state_leg_pct": "34.17",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "14.29",
         "women_us_congress_pct_share": "100",
@@ -4711,7 +4711,7 @@
     },
     {
         "state_name": "New Mexico",
-        "women_state_leg_pct": "42.9",
+        "women_state_leg_pct": "42.86",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "60",
         "women_us_congress_pct_share": "100",
@@ -4846,7 +4846,7 @@
     },
     {
         "state_name": "New York",
-        "women_state_leg_pct": "34.3",
+        "women_state_leg_pct": "34.27",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "34.48",
         "women_us_congress_pct_share": "100",
@@ -4981,7 +4981,7 @@
     },
     {
         "state_name": "North Carolina",
-        "women_state_leg_pct": "25.9",
+        "women_state_leg_pct": "25.88",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "26.67",
         "women_us_congress_pct_share": "100",
@@ -5251,7 +5251,7 @@
     },
     {
         "state_name": "Ohio",
-        "women_state_leg_pct": "31.1",
+        "women_state_leg_pct": "31.06",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "16.67",
         "women_us_congress_pct_share": "100",
@@ -5386,7 +5386,7 @@
     },
     {
         "state_name": "Oklahoma",
-        "women_state_leg_pct": "20.8",
+        "women_state_leg_pct": "20.81",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "14.29",
         "women_us_congress_pct_share": "100",
@@ -5521,7 +5521,7 @@
     },
     {
         "state_name": "Oregon",
-        "women_state_leg_pct": "44.4",
+        "women_state_leg_pct": "44.44",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "14.29",
         "women_us_congress_pct_share": "100",
@@ -5656,7 +5656,7 @@
     },
     {
         "state_name": "Pennsylvania",
-        "women_state_leg_pct": "29.2",
+        "women_state_leg_pct": "29.25",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "20",
         "women_us_congress_pct_share": "100",
@@ -5791,7 +5791,7 @@
     },
     {
         "state_name": "Puerto Rico",
-        "women_state_leg_pct": "30.8",
+        "women_state_leg_pct": "33.33",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "100",
         "women_us_congress_pct_share": "100",
@@ -5926,7 +5926,7 @@
     },
     {
         "state_name": "Rhode Island",
-        "women_state_leg_pct": "44.2",
+        "women_state_leg_pct": "44.25",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "0",
         "women_us_congress_pct_share": "0",
@@ -6061,7 +6061,7 @@
     },
     {
         "state_name": "South Carolina",
-        "women_state_leg_pct": "17.1",
+        "women_state_leg_pct": "17.06",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "11.11",
         "women_us_congress_pct_share": "100",
@@ -6196,7 +6196,7 @@
     },
     {
         "state_name": "South Dakota",
-        "women_state_leg_pct": "28.6",
+        "women_state_leg_pct": "28.57",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "0",
         "women_us_congress_pct_share": "0",
@@ -6331,7 +6331,7 @@
     },
     {
         "state_name": "Tennessee",
-        "women_state_leg_pct": "15.9",
+        "women_state_leg_pct": "15.91",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "18.18",
         "women_us_congress_pct_share": "100",
@@ -6466,7 +6466,7 @@
     },
     {
         "state_name": "Texas",
-        "women_state_leg_pct": "26.5",
+        "women_state_leg_pct": "26.52",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "18.42",
         "women_us_congress_pct_share": "100",
@@ -6601,7 +6601,7 @@
     },
     {
         "state_name": "Utah",
-        "women_state_leg_pct": "26.0",
+        "women_state_leg_pct": "25.96",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "0",
         "women_us_congress_pct_share": "0",
@@ -6736,7 +6736,7 @@
     },
     {
         "state_name": "U.S. Virgin Islands",
-        "women_state_leg_pct": "33.3",
+        "women_state_leg_pct": "33.33",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "100",
         "women_us_congress_pct_share": "100",
@@ -6871,7 +6871,7 @@
     },
     {
         "state_name": "Vermont",
-        "women_state_leg_pct": "41.7",
+        "women_state_leg_pct": "41.67",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "0",
         "women_us_congress_pct_share": "0",
@@ -7006,7 +7006,7 @@
     },
     {
         "state_name": "Virginia",
-        "women_state_leg_pct": "33.6",
+        "women_state_leg_pct": "33.57",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "23.08",
         "women_us_congress_pct_share": "100",
@@ -7141,7 +7141,7 @@
     },
     {
         "state_name": "Washington",
-        "women_state_leg_pct": "42.2",
+        "women_state_leg_pct": "42.18",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "66.67",
         "women_us_congress_pct_share": "100",
@@ -7276,7 +7276,7 @@
     },
     {
         "state_name": "West Virginia",
-        "women_state_leg_pct": "13.4",
+        "women_state_leg_pct": "13.43",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "40",
         "women_us_congress_pct_share": "100",
@@ -7411,7 +7411,7 @@
     },
     {
         "state_name": "Wisconsin",
-        "women_state_leg_pct": "31.1",
+        "women_state_leg_pct": "31.06",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "20",
         "women_us_congress_pct_share": "100",
@@ -7546,7 +7546,7 @@
     },
     {
         "state_name": "Wyoming",
-        "women_state_leg_pct": "17.8",
+        "women_state_leg_pct": "17.78",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "66.67",
         "women_us_congress_pct_share": "100",
@@ -7561,8 +7561,8 @@
     },
     {
         "state_name": "United States",
-        "women_state_leg_pct": "2.25",
-        "women_state_leg_pct_share": "7.23",
+        "women_state_leg_pct": "1.12",
+        "women_state_leg_pct_share": "1.79",
         "women_us_congress_pct": "2.04",
         "women_us_congress_pct_share": "7.38",
         "population": null,
@@ -7576,8 +7576,8 @@
     },
     {
         "state_name": "United States",
-        "women_state_leg_pct": "4.13",
-        "women_state_leg_pct_share": "13.31",
+        "women_state_leg_pct": "2.06",
+        "women_state_leg_pct_share": "3.28",
         "women_us_congress_pct": "2.78",
         "women_us_congress_pct_share": "10.07",
         "population": 61755289.0,
@@ -7591,8 +7591,8 @@
     },
     {
         "state_name": "United States",
-        "women_state_leg_pct": "0.29",
-        "women_state_leg_pct_share": "0.94",
+        "women_state_leg_pct": "0.15",
+        "women_state_leg_pct_share": "0.23",
         "women_us_congress_pct": "0.19",
         "women_us_congress_pct_share": "0.67",
         "population": null,
@@ -7606,8 +7606,8 @@
     },
     {
         "state_name": "United States",
-        "women_state_leg_pct": "1.29",
-        "women_state_leg_pct_share": "4.17",
+        "women_state_leg_pct": "0.63",
+        "women_state_leg_pct_share": "1.01",
         "women_us_congress_pct": "0.37",
         "women_us_congress_pct_share": "1.34",
         "population": 10939551.0,
@@ -7621,8 +7621,8 @@
     },
     {
         "state_name": "United States",
-        "women_state_leg_pct": "0.85",
-        "women_state_leg_pct_share": "2.72",
+        "women_state_leg_pct": "0.42",
+        "women_state_leg_pct_share": "0.67",
         "women_us_congress_pct": "0.19",
         "women_us_congress_pct_share": "0.67",
         "population": null,
@@ -7636,8 +7636,8 @@
     },
     {
         "state_name": "United States",
-        "women_state_leg_pct": "10.05",
-        "women_state_leg_pct_share": "32.37",
+        "women_state_leg_pct": "4.94",
+        "women_state_leg_pct_share": "7.87",
         "women_us_congress_pct": "5.19",
         "women_us_congress_pct_share": "18.79",
         "population": 39980733.0,
@@ -7651,8 +7651,8 @@
     },
     {
         "state_name": "United States",
-        "women_state_leg_pct": "45.18",
-        "women_state_leg_pct_share": "145.51",
+        "women_state_leg_pct": "22.35",
+        "women_state_leg_pct_share": "35.61",
         "women_us_congress_pct": "17.59",
         "women_us_congress_pct_share": "63.76",
         "population": 197132096.0,
@@ -7666,8 +7666,8 @@
     },
     {
         "state_name": "United States",
-        "women_state_leg_pct": "1.27",
-        "women_state_leg_pct_share": "4.08",
+        "women_state_leg_pct": "0.66",
+        "women_state_leg_pct_share": "1.05",
         "women_us_congress_pct": "0",
         "women_us_congress_pct_share": "0",
         "population": null,
@@ -7681,7 +7681,7 @@
     },
     {
         "state_name": "United States",
-        "women_state_leg_pct": "17.8",
+        "women_state_leg_pct": "31.1",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "27.59",
         "women_us_congress_pct_share": "100",
