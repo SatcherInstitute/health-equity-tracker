@@ -421,6 +421,7 @@ class CAWPData(DataSource):
 
         std_col.add_race_columns_from_category_id(output_df)
 
-        output_df[std_col.RACE_OR_HISPANIC_COL] = output_df[std_col.RACE_WOMEN_COL]
+        # uncomment to override with women-only race names
+        # output_df[std_col.RACE_OR_HISPANIC_COL] = output_df[std_col.RACE_WOMEN_COL]
 
         return output_df
