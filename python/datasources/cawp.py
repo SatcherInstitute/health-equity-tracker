@@ -102,7 +102,7 @@ def count_matching_rows(df, state_phrase: str, gov_level: str, string_to_match: 
         ]
 
     # print(state_phrase, gov_level, string_to_match, len(df.index))
-    # print(df)
+    # print(df.to_string())
 
     return len(df.index)
 
@@ -124,6 +124,9 @@ def get_congress_size(df_house, df_senate, place_abbr: str):
 
     house_members = df_house["results"][0]["members"]
     active_house_members = list(filter(is_active_from_place, house_members))
+
+    # print(place_abbr, "sen", len(active_senators),
+    #   "house", len(active_house_members))
 
     return len(active_senators) + len(active_house_members)
 
@@ -294,7 +297,7 @@ class CAWPData(DataSource):
 
         # ITERATE STATES / TERRITORIES / US
         for cawp_place_abbr in cawp_place_abbrs:
-            # print(cawp_place_abbr)
+            print(cawp_place_abbr)
 
             place_abbr = swap_territory_abbr(clean(cawp_place_abbr))
 
@@ -324,11 +327,15 @@ class CAWPData(DataSource):
 
                 # keep a tally of national total of women state legislators of all races and
                 # total of all state leg of any gender (denominator)
+
                 us_women_by_race_state_legs_tally["ALL"] += total_women_state_legislators
                 us_women_by_race_state_legs_tally["total_all_genders"] += total_state_legislators
+            else:
+                print("***********\n***********\n*******")
 
             for cawp_race_name in CAWP_RACE_GROUPS_TO_STANDARD.keys():
-                # print("\t", cawp_race_name)
+                print("\t", cawp_race_name)
+                print("\n", us_women_by_race_state_legs_tally)
 
                 # Setup row
                 race_code = CAWP_RACE_GROUPS_TO_STANDARD[cawp_race_name]
@@ -384,18 +391,31 @@ class CAWPData(DataSource):
                             df_line_items, cawp_place_phrase, "federal", ", ")
 
                     # tally national level of each race's # (numerator)
-                    us_women_by_race_state_legs_tally[race_code] += num_matches_state_legs
+
+                    # print("$$$")
+                    # print(
+                    #     us_women_by_race_state_legs_tally[race_code], "+", num_matches_state_legs)
+
+                    # print("=", us_women_by_race_state_legs_tally[race_code])
 
                     # calculate incidence rates and shares for {race} women leg. / all legislators
+
                     if place_name == "United States":
+
+                        print(us_women_by_race_state_legs_tally[race_code], ":", us_women_by_race_state_legs_tally[
+                            'total_all_genders'], "=")
+
                         pct_women_state_leg = get_pretty_pct(
                             us_women_by_race_state_legs_tally[race_code], us_women_by_race_state_legs_tally[
                                 'total_all_genders'])
+                        print(pct_women_state_leg, "%")
 
                         pct_share_women_state_leg = get_pretty_pct(
                             us_women_by_race_state_legs_tally[race_code], us_women_by_race_state_legs_tally["ALL"])
 
                     else:
+                        us_women_by_race_state_legs_tally[race_code] += num_matches_state_legs
+
                         pct_women_state_leg = get_pretty_pct(
                             num_matches_state_legs, total_state_legislators)
 

@@ -170,8 +170,8 @@ def testWriteToBq(mock_bq: mock.MagicMock,
     print("mock call results")
     print(mock_bq.call_args_list[0].args[0].to_string())
 
-    print("expected output file")
-    print(expected_df.to_string())
+    # print("expected output file")
+    # print(expected_df.to_string())
 
     # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
     assert set(mock_bq.call_args_list[0].args[0]) == set(expected_df.columns)
