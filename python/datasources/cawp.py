@@ -349,48 +349,48 @@ class CAWPData(DataSource):
                 num_matches_us_congress = count_matching_rows(
                     df_line_items, cawp_place_phrase, "federal", cawp_race_name)
 
+                # count the number of women leg. who selected current race
+                num_matches_state_legs = count_matching_rows(
+                    df_line_items, cawp_place_phrase, "state", cawp_race_name)
+
+                # for MULTI, sum "Multiracial Alone" women +
+                #  women who identify with multiple, specific races
+                if cawp_race_name == "Multiracial Alone":
+                    # comma delimiter signifies multiple races
+                    num_matches_state_legs += count_matching_rows(
+                        df_line_items, cawp_place_phrase, "state", ", ")
+                    num_matches_us_congress += count_matching_rows(
+                        df_line_items, cawp_place_phrase, "federal", ", ")
+
+                # calculate incidence rates and shares for {race} women leg. / all legislators
+
+                if place_name == "United States":
+                    print("US", place_name)
+
+                    pct_women_state_leg = get_pretty_pct(
+                        num_matches_state_legs, us_women_by_race_state_legs_tally["total_all_genders"])
+
+                    pct_share_women_state_leg = get_pretty_pct(
+                        num_matches_state_legs, us_women_by_race_state_legs_tally["ALL"])
+
+                else:
+                    # print("NOT US", place_name)
+                    us_women_by_race_state_legs_tally[race_code] += num_matches_state_legs
+
+                    pct_women_state_leg = get_pretty_pct(
+                        num_matches_state_legs, total_state_legislators)
+
+                    pct_share_women_state_leg = get_pretty_pct(
+                        num_matches_state_legs, total_women_state_legislators)
+
                 if cawp_race_name == std_col.ALL_VALUE:
-                    pct_women_state_leg = clean(
-                        matched_row['%Women Overall'].values[0])
+                    # print(matched_row)
+                    # pct_women_state_leg = clean(
+                    #     matched_row['%Women Overall'].values[0])
 
                     # pct_share of ALL will always be 100%
                     pct_share_women_state_leg = "100"
                     pct_share_women_us_congress = "100"
-
-                else:
-
-                    # count the number of women leg. who selected current race
-                    num_matches_state_legs = count_matching_rows(
-                        df_line_items, cawp_place_phrase, "state", cawp_race_name)
-
-                    # for MULTI, sum "Multiracial Alone" women +
-                    #  women who identify with multiple, specific races
-                    if cawp_race_name == "Multiracial Alone":
-                        # comma delimiter signifies multiple races
-                        num_matches_state_legs += count_matching_rows(
-                            df_line_items, cawp_place_phrase, "state", ", ")
-                        num_matches_us_congress += count_matching_rows(
-                            df_line_items, cawp_place_phrase, "federal", ", ")
-
-                    # calculate incidence rates and shares for {race} women leg. / all legislators
-
-                    if place_name == "United States":
-
-                        pct_women_state_leg = get_pretty_pct(
-                            us_women_by_race_state_legs_tally[race_code], us_women_by_race_state_legs_tally[
-                                'total_all_genders'])
-
-                        pct_share_women_state_leg = get_pretty_pct(
-                            us_women_by_race_state_legs_tally[race_code], us_women_by_race_state_legs_tally["ALL"])
-
-                    else:
-                        us_women_by_race_state_legs_tally[race_code] += num_matches_state_legs
-
-                        pct_women_state_leg = get_pretty_pct(
-                            num_matches_state_legs, total_state_legislators)
-
-                        pct_share_women_state_leg = get_pretty_pct(
-                            num_matches_state_legs, total_women_state_legislators)
 
                 # calculate incidence rates
                 pct_women_us_congress = get_pretty_pct(
