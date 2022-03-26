@@ -38,7 +38,7 @@ def test_swap_territory_name():
 def test_get_pretty_pct():
     assert get_pretty_pct(1, 3) == "33.33"
     assert get_pretty_pct(3, 3) == "100"
-    assert get_pretty_pct(1.2345678, 10) == "12.35"
+    assert get_pretty_pct(12345, 100_000) == "12.35"
     assert get_pretty_pct(3, 0) == "0"
 
 

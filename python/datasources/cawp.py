@@ -89,14 +89,18 @@ def remove_markup(datum: str):
 
 
 def get_pretty_pct(numerator: int, denominator: int):
-    """ Takes a proportion float (between 0 and 1) and converts to a string
+    """ Take a numerator and denominator and converts to a string
     representing the pct equivalent, with a maximum of 2 significant digits
     and no trailing zeros. Prevents division by zero and returns `None` """
+
+    numerator = int(numerator)
+    denominator = int(denominator)
 
     if denominator == 0:
         return "0"
 
     pct = numerator / denominator * 100
+
     pct_rounded = float(str(round(pct, 2)))
     return f'{pct_rounded:g}'
 
@@ -264,18 +268,43 @@ class CAWPData(DataSource):
         df_line_items = replace_state_abbr_with_names(df_line_items)
 
         # Standardize CAWP TOTALS table
+
+        # drop extra cols
         df_state_leg_totals = df_state_leg_totals[['State',
                                                    'Total Women/Total Legislators',
                                                    '%Women Overall']]
+
+        # drop missing data rows
         df_state_leg_totals = df_state_leg_totals.dropna()
 
+        # remove weird formatting
         df_state_leg_totals = df_state_leg_totals.applymap(remove_markup)
 
+        # standard col name
         df_state_leg_totals = df_state_leg_totals.rename(
             columns={"State": "state_postal_abbreviation"})
 
+        # swap place CODES for place NAMES
         df_state_leg_totals = replace_state_abbr_with_names(
             df_state_leg_totals)
+
+        # expand the ratio column into 2 real columns
+        df_state_leg_totals[['total_women_state_legislators', 'total_all_state_legislators']
+                            ] = df_state_leg_totals['Total Women/Total Legislators'].str.split("/", expand=True)
+
+        # drop unneeded cols
+        df_state_leg_totals = df_state_leg_totals[[
+            'state_name', 'total_women_state_legislators', 'total_all_state_legislators']]
+
+        # make a row for US and set value to the sum of all states/territories
+        national_sum_state_legislators_count = pd.DataFrame(
+            [{std_col.STATE_NAME_COL: "United States",
+              "total_women_state_legislators": df_state_leg_totals["total_women_state_legislators"].astype(int).sum(),
+              "total_all_state_legislators": df_state_leg_totals["total_all_state_legislators"].astype(int).sum()}])
+
+        # add US row to other PLACE rows
+        df_state_leg_totals = pd.concat(
+            [df_state_leg_totals, national_sum_state_legislators_count], ignore_index=True)
 
         # Standardize PROPUBLICA US CONGRESS TOTALS
 
@@ -300,11 +329,11 @@ class CAWPData(DataSource):
         df_us_congress_totals.columns = [std_col.STATE_NAME_COL, "total_count"]
 
         # add a row for US and set value to the sum of all states/territories
-        united_states_count = pd.DataFrame(
+        us_congress_count = pd.DataFrame(
             [{std_col.STATE_NAME_COL: "United States", "total_count": df_us_congress_totals["total_count"].sum()}])
 
         df_us_congress_totals = pd.concat(
-            [df_us_congress_totals, united_states_count], ignore_index=True)
+            [df_us_congress_totals, us_congress_count], ignore_index=True)
 
         all_places = set(
             df_us_congress_totals[std_col.STATE_NAME_COL].to_list())
@@ -323,29 +352,21 @@ class CAWPData(DataSource):
 
         output = []
 
-        print(all_places)
-
         # ITERATE STATES / TERRITORIES / US
         for current_place in all_places:
             # print("current_place", current_place)
 
-            total_women_federal_legislators = count_matching_rows(
+            us_congress_women_current_place_all_races = count_matching_rows(
                 df_line_items, current_place, "federal", std_col.ALL_VALUE)
 
-            total_us_congress_people_current_place = df_us_congress_totals.loc[
+            us_congress_members_current_place_all_races = df_us_congress_totals.loc[
                 df_us_congress_totals[std_col.STATE_NAME_COL] == current_place]["total_count"].values[0]
 
-            if current_place != "United States":
-                # find row containing TOTAL STATE LEGISLATORS for each state/territory
-                matched_row = df_state_leg_totals.loc[
-                    (df_state_leg_totals[std_col.STATE_NAME_COL] == current_place)]
+            state_leg_women_current_place_all_races = count_matching_rows(
+                df_line_items, current_place, "state", std_col.ALL_VALUE)
 
-                total_ratio = matched_row["Total Women/Total Legislators"].values[0]
-
-                total_women_state_legislators = int(total_ratio.split(
-                    "/")[0])
-                total_state_legislators = int(total_ratio.split(
-                    "/")[1])
+            state_leg_members_current_place_all_races = df_state_leg_totals.loc[
+                df_state_leg_totals[std_col.STATE_NAME_COL] == current_place]["total_all_state_legislators"].values[0]
 
             for cawp_race_name in CAWP_RACE_GROUPS_TO_STANDARD.keys():
                 # print("\tcawp_race_name", cawp_race_name)
@@ -377,60 +398,35 @@ class CAWPData(DataSource):
                 # calculate and set incidence rates
 
                 # count  number of all us congresswomen (of all races) for this place
-                num_matches_us_congress = count_matching_rows(
+                us_congress_women_current_place_current_race = count_matching_rows(
                     df_line_items, current_place, "federal", cawp_race_name)
 
                 # count the number of women leg. who selected current race
-                num_matches_state_legs = count_matching_rows(
+                state_leg_women_current_place_current_race = count_matching_rows(
                     df_line_items, current_place, "state", cawp_race_name)
 
                 # for MULTI, sum "Multiracial Alone" women +
                 #  women who identify with multiple, specific races
                 if cawp_race_name == "Multiracial Alone":
                     # comma delimiter signifies multiple races
-                    num_matches_state_legs += count_matching_rows(
+                    state_leg_women_current_place_current_race += count_matching_rows(
                         df_line_items, current_place, "state", ", ")
-                    num_matches_us_congress += count_matching_rows(
+                    us_congress_women_current_place_current_race += count_matching_rows(
                         df_line_items, current_place, "federal", ", ")
 
-                # calculate incidence rates and shares for {race} women leg. / all legislators
-
-                if current_place == "United States":
-
-                    pct_women_state_leg = get_pretty_pct(
-                        num_matches_state_legs, total_state_legislators)
-
-                    pct_share_women_state_leg = get_pretty_pct(
-                        num_matches_state_legs, total_women_state_legislators)
-
-                else:
-                    pct_women_state_leg = get_pretty_pct(
-                        num_matches_state_legs, total_state_legislators)
-
-                    pct_share_women_state_leg = get_pretty_pct(
-                        num_matches_state_legs, total_women_state_legislators)
-
-                if cawp_race_name == std_col.ALL_VALUE:
-
-                    # pct_share of ALL will always be 100%
-                    pct_share_women_state_leg = "100"
-                    pct_share_women_us_congress = "100"
-
                 # calculate incidence rates
-                pct_women_us_congress = get_pretty_pct(
-                    num_matches_us_congress, total_us_congress_people_current_place)
+                output_row[std_col.WOMEN_US_CONGRESS_PCT] = get_pretty_pct(
+                    us_congress_women_current_place_current_race, us_congress_members_current_place_all_races)
+
+                output_row[std_col.WOMEN_STATE_LEG_PCT] = get_pretty_pct(
+                    state_leg_women_current_place_current_race, state_leg_members_current_place_all_races)
 
                 # calculate incidence shares
-                pct_share_women_us_congress = get_pretty_pct(
-                    num_matches_us_congress, total_women_federal_legislators)
+                output_row[std_col.WOMEN_US_CONGRESS_PCT_SHARE] = get_pretty_pct(
+                    us_congress_women_current_place_current_race, us_congress_women_current_place_all_races)
 
-                # set incidence rates
-                output_row[std_col.WOMEN_STATE_LEG_PCT] = pct_women_state_leg
-                output_row[std_col.WOMEN_US_CONGRESS_PCT] = pct_women_us_congress
-
-                # set incidence shares
-                output_row[std_col.WOMEN_STATE_LEG_PCT_SHARE] = pct_share_women_state_leg
-                output_row[std_col.WOMEN_US_CONGRESS_PCT_SHARE] = pct_share_women_us_congress
+                output_row[std_col.WOMEN_STATE_LEG_PCT_SHARE] = get_pretty_pct(
+                    state_leg_women_current_place_current_race, state_leg_women_current_place_all_races)
 
                 # set "women only" version of race codes
                 output_row[std_col.RACE_WOMEN_COL] = get_women_only_race_groups(
