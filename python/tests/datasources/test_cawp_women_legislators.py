@@ -9,25 +9,25 @@ from datasources.cawp import (CAWPData,
                               CAWP_LINE_ITEMS_FILE,
                               PROPUB_US_HOUSE_FILE,
                               PROPUB_US_SENATE_FILE,
-                              clean, get_pretty_pct,
-                              swap_territory_abbr,
+                              #   clean,
+                              get_pretty_pct,
                               swap_territory_name)
 
 
 # test my utility functions
 
-def test_clean():
-    assert clean(
-        "<i>Test Remove Italics Markup</i>") == "Test Remove Italics Markup"
-    assert clean("Remove Asterisk*") == "Remove Asterisk"
-    assert clean("Double Star**") == "Double Star"
-    assert clean("<i>All the Above</i>**") == "All the Above"
+# def test_clean():
+#     assert clean(
+#         "<i>Test Remove Italics Markup</i>") == "Test Remove Italics Markup"
+#     assert clean("Remove Asterisk*") == "Remove Asterisk"
+#     assert clean("Double Star**") == "Double Star"
+#     assert clean("<i>All the Above</i>**") == "All the Above"
 
 
-def test_swap_territory_abbr():
-    assert swap_territory_abbr("MP") == "MI"
-    assert swap_territory_abbr("AS") == "AM"
-    assert swap_territory_abbr("ME") == "ME"
+# def test_swap_territory_abbr():
+#     assert swap_territory_abbr("MP") == "MI"
+#     assert swap_territory_abbr("AS") == "AM"
+#     assert swap_territory_abbr("ME") == "ME"
 
 
 def test_swap_territory_name():
@@ -116,6 +116,7 @@ def get_test_json_as_df(*args):
         filename_arg_index = 1
 
     test_input_json = mock_file_map[args[filename_arg_index]]["filename"]
+
     return pd.read_json(os.path.join(TEST_DIR, test_input_json))
 
 

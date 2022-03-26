@@ -129,3 +129,40 @@ def merge_fips_codes(df):
         columns={'state_fips_code': std_col.STATE_FIPS_COL}).reset_index(drop=True)
 
     return df
+
+
+def replace_state_abbr_with_names(df):
+    """Replaces all two-letter place codes with the place name.  based on the `census_utility` big query public dataset.
+
+       df: dataframe to swap two-letter abbreviations for names, with a `state_abbr` column"""
+
+    # get table from BQ
+    all_state_codes_df = gcs_to_bq_util.load_public_dataset_from_bigquery_as_df(
+        'census_utility', 'fips_codes_states', dtype={std_col.STATE_NAME_COL: str, 'state_postal_abbreviation': str})
+
+    # only keep BQ columns for 'state_name' and 'state_postal_abbreviation'
+    all_state_codes_df = all_state_codes_df[[
+        std_col.STATE_NAME_COL, 'state_postal_abbreviation']]
+
+    # print("!!!")
+    # print(all_state_codes_df)
+
+    # add USA to the list of states
+    united_states_code = pd.DataFrame(
+        [{'state_postal_abbreviation': constants.US_ABBR, std_col.STATE_NAME_COL: constants.US_NAME}])
+    all_state_codes_df = pd.concat([all_state_codes_df, united_states_code])
+
+    # combine tables, effectively adding the state names to the original df
+    df = pd.merge(df, all_state_codes_df, how='left',
+                  on='state_postal_abbreviation').reset_index(drop=True)
+
+    # print("after merge")
+    # print(df.to_string())
+
+    # remove the abbr column altogether
+    df = df.drop(columns=['state_postal_abbreviation'])
+
+    # print("finally")
+    # print(df.to_string())
+
+    return df

@@ -54,6 +54,7 @@ STATE_NAMES = [
 
 US_FIPS = '00'
 US_NAME = 'United States'
+US_ABBR = "US"
 
 
 class Sex:
