@@ -29,7 +29,7 @@ CAWP_DATA_TYPES = {
 }
 
 
-def get_women_only_race_groups(race_code: str):
+def get_women_only_race_group(race_code: str):
     """ Accepts a standard race code and
     returns a race name string specific to only women of that race/ethnicity """
 
@@ -429,7 +429,7 @@ class CAWPData(DataSource):
                     state_leg_women_current_place_current_race, state_leg_women_current_place_all_races)
 
                 # set "women only" version of race codes
-                output_row[std_col.RACE_WOMEN_COL] = get_women_only_race_groups(
+                output_row[std_col.RACE_WOMEN_COL] = get_women_only_race_group(
                     race_code)
 
                 # add row for this place/race to output

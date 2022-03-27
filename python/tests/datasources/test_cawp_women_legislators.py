@@ -10,7 +10,7 @@ from datasources.cawp import (CAWPData,
                               PROPUB_US_HOUSE_FILE,
                               PROPUB_US_SENATE_FILE,
                               #   clean,
-                              get_women_only_race_groups,
+                              get_women_only_race_group,
                               get_pretty_pct,
                               swap_territory_name)
 
@@ -45,14 +45,14 @@ def test_get_pretty_pct():
     assert get_pretty_pct(3, 0) == "0"
 
 
-def test_get_women_only_race_groups():
-    assert get_women_only_race_groups(
+def test_get_women_only_race_group():
+    assert get_women_only_race_group(
         Race.HISP.value) == 'Hispanic Women and Latinas'
 
-    assert get_women_only_race_groups(
+    assert get_women_only_race_group(
         Race.ASIAN_NH.value) == 'Asian Women (Non-Hispanic)'
 
-    assert get_women_only_race_groups(Race.ASIAN.value) == 'Asian Women'
+    assert get_women_only_race_group(Race.ASIAN.value) == 'Asian Women'
 
 
 # Map production URLs to mock CSVs
