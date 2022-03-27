@@ -4,10 +4,8 @@ from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
 
 from datasources.data_source import DataSource
-from ingestion import gcs_to_bq_util
-from ingestion.dataset_utils import merge_fips_codes
-
-from ingestion.dataset_utils import replace_state_abbr_with_names
+from ingestion import gcs_to_bq_util, constants
+from ingestion.dataset_utils import merge_fips_codes, replace_state_abbr_with_names
 
 CAWP_RACE_GROUPS_TO_STANDARD = {
     'Asian American/Pacific Islander': Race.ASIAN_PAC_NH.value,
@@ -101,7 +99,7 @@ def count_matching_rows(df, place_name: str, gov_level: str, race_to_match: str)
     df = df[(df['level'].isin(CAWP_DATA_TYPES[gov_level]))]
 
     # to get national values, don't restrict by state
-    if place_name != "United States":
+    if place_name != constants.US_NAME:
         df = df[(
             df[std_col.STATE_NAME_COL] == place_name)]
 
@@ -261,17 +259,17 @@ class CAWPData(DataSource):
             df_state_leg_totals)
 
         # expand the ratio column into 2 real columns
-        df_state_leg_totals[['total_women_state_legislators', 'total_all_state_legislators']
+        df_state_leg_totals[['total_count_women', 'total_count']
                             ] = df_state_leg_totals['Total Women/Total Legislators'].str.split("/", expand=True)
 
         df_state_leg_totals = df_state_leg_totals[[
-            'state_name', 'total_women_state_legislators', 'total_all_state_legislators']]
+            'state_name', 'total_count_women', 'total_count']]
 
         # make a row for US and set value to the sum of all states/territories
         national_sum_state_legislators_count = pd.DataFrame(
-            [{std_col.STATE_NAME_COL: "United States",
-              "total_women_state_legislators": df_state_leg_totals["total_women_state_legislators"].astype(int).sum(),
-              "total_all_state_legislators": df_state_leg_totals["total_all_state_legislators"].astype(int).sum()}])
+            [{std_col.STATE_NAME_COL: constants.US_NAME,
+              "total_count_women": df_state_leg_totals["total_count_women"].astype(int).sum(),
+              "total_count": df_state_leg_totals["total_count"].astype(int).sum()}])
 
         # sort alpha by state name
         df_state_leg_totals = df_state_leg_totals.sort_values(
@@ -303,7 +301,7 @@ class CAWPData(DataSource):
 
         # add a row for US and set value to the sum of all states/territories
         us_congress_count = pd.DataFrame(
-            [{std_col.STATE_NAME_COL: "United States", "total_count": df_us_congress_totals["total_count"].sum()}])
+            [{std_col.STATE_NAME_COL: constants.US_NAME, "total_count": df_us_congress_totals["total_count"].sum()}])
 
         df_us_congress_totals = pd.concat(
             [df_us_congress_totals, us_congress_count], ignore_index=True)
@@ -325,7 +323,7 @@ class CAWPData(DataSource):
                 df_line_items, current_place, "state", std_col.ALL_VALUE)
 
             state_leg_members_current_place_all_races = df_state_leg_totals.loc[
-                df_state_leg_totals[std_col.STATE_NAME_COL] == current_place]["total_all_state_legislators"].values[0]
+                df_state_leg_totals[std_col.STATE_NAME_COL] == current_place]["total_count"].values[0]
 
             for cawp_race_name in CAWP_RACE_GROUPS_TO_STANDARD.keys():
                 # print("\tcawp_race_name", cawp_race_name)
@@ -355,7 +353,7 @@ class CAWPData(DataSource):
                     race_code)
 
                 # get and set population and pop_share
-                if current_place == "United States":
+                if current_place == constants.US_NAME:
                     output_row = set_pop_metrics_by_race_in_state(
                         output_row, df_acs_pop_national, race_code, current_place)
                 # states, DC, PR
