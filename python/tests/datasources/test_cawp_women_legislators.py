@@ -53,9 +53,9 @@ def test_get_pretty_pct():
 
 def test_count_matching_rows():
     df_test = pd.DataFrame(
-        {std_col.STATE_NAME_COL: ["Florida", "Florida", "Puerto Rico", "Puerto Rico", "Maine"],
-         'race_ethnicity': ["Black", "Black", "Black", "Black", "White"],
-         'level': ["Congress", "State Legislative", "Territorial/D.C.", "U.S. Delegate", "Congress"]})
+        {std_col.STATE_NAME_COL: ["Florida", "Florida", "Puerto Rico", "Puerto Rico", "Maine", "Maine"],
+         'race_ethnicity': ["Black, White", "Black", "Black", "Black", "White", "Multiracial Alone"],
+         'level': ["Congress", "State Legislative", "Territorial/D.C.", "U.S. Delegate", "Congress", "Congress"]})
 
     assert count_matching_rows(
         df_test, "United States", "federal", "Black") == 2
@@ -65,6 +65,10 @@ def test_count_matching_rows():
         df_test, "Florida", "federal", "All") == 1
     assert count_matching_rows(
         df_test, "United States", "state", "All") == 2
+    # include "Multiracial Alone"
+    # and multiple specific races "White, Black"
+    assert count_matching_rows(
+        df_test, "United States", "federal", "Multiracial Alone") == 2
 
 
 def test_set_pop_metrics_by_race_in_state():
