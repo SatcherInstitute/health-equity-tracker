@@ -8,14 +8,19 @@ from ingestion import gcs_to_bq_util, constants
 from ingestion.dataset_utils import merge_fips_codes, replace_state_abbr_with_names
 
 # CAWP COLUMNS
-RACE = "race_ethnicity"
+RACE_COL = "race_ethnicity"
 POSTAL_COL = "state_postal_abbreviation"
 COUNT_ALL = "total_count"
 COUNT_W = "total_count_women"
 
 RATIO_COL = "Total Women/Total Legislators"
 PCT_W_COL = "%Women Overall"
-STATE_COL = "State"
+STATE_COL_TOTAL = "State"
+STATE_COL_LINE = "state"
+LEVEL_COL = "level"
+
+# PROPUB COLUMNS
+IN_OFFICE_COL = "in_office"
 
 # CAWP CONSTS
 FED = "federal"
@@ -37,7 +42,7 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
 }
 
 CAWP_DATA_TYPES = {
-    STATE: ["Territorial/D.C.", "State Legislative"],
+    STATE_COL_LINE: ["Territorial/D.C.", "State Legislative"],
     FED: ["U.S. Delegate", "Congress"],
 }
 
@@ -65,7 +70,7 @@ def get_women_only_race_group(race_code: str):
 
 def get_standard_code_from_cawp_phrase(cawp_place_phrase: str):
     """ Accepts a CAWP place phrase found in the LINE ITEM table
-    `{STATE NAME} - {CODE}` with the standard 2 letter code
+    `{STATE_COL_LINE NAME} - {CODE}` with the standard 2 letter code
      """
 
     # swap out non-standard 2 letter codes
@@ -111,7 +116,7 @@ def count_matching_rows(df, place_name: str, gov_level: str, race_to_match: str)
      race_ethnicity column. It then counts the number of
     rows where those conditions are all met  """
 
-    df = df[(df['level'].isin(CAWP_DATA_TYPES[gov_level]))]
+    df = df[(df[LEVEL_COL].isin(CAWP_DATA_TYPES[gov_level]))]
 
     # to get national values, don't restrict by state
     if place_name != constants.US_NAME:
@@ -123,14 +128,14 @@ def count_matching_rows(df, place_name: str, gov_level: str, race_to_match: str)
         race_to_match = ""
 
     # find race matches
-    df_race_matches = df[(df[RACE].str.contains(race_to_match))]
+    df_race_matches = df[(df[RACE_COL].str.contains(race_to_match))]
 
     if race_to_match != "Multiracial Alone":
         return len(df_race_matches.index)
 
     # sum the normal count for "Multiracial Alone" with ", "
     # which are present for women who have chosen more than one specific race
-    df_race_list_matches = df[(df[RACE].str.contains(", "))]
+    df_race_list_matches = df[(df[RACE_COL].str.contains(", "))]
 
     return len(df_race_matches.index) + len(df_race_list_matches.index)
 
@@ -161,7 +166,7 @@ def set_pop_metrics_by_race_in_state(output_row, df_pop, race_code: str, place_n
     return output_row
 
 
-# Table for Line-Items incl US- and STATE-LEVEL LEG by race by state
+# Table for Line-Items incl US- and STATE_COL_LINE-LEVEL LEG by race by state
 # LINE ITEM numbers
 # table includes breakdown of women by race by state by level,
 # but doesn't include total legislature numbers
@@ -173,7 +178,7 @@ CAWP_LINE_ITEMS_FILE = "cawp-by_race_and_ethnicity.csv"
 #    "&level%5B2%5D=Territorial/DC%20Legislative&items_per_page=50"
 #    "&page&_format=csv")
 
-# Table for STATE LEG. TOTALS
+# Table for STATE_COL_LINE LEG. TOTALS
 # WEBSITE FOR TOTALS https://cawp.rutgers.edu/facts/levels-office/state-legislature/women-state-legislatures-2022#table
 CAWP_TOTALS_URL = "https://cawp.rutgers.edu/tablefield/export/paragraph/1028/field_table/und/0"
 
@@ -254,22 +259,22 @@ class CAWPData(DataSource):
             df_acs_2010_pop_territory[std_col.STATE_NAME_COL].to_list())
 
         # Standardize CAWP LINE ITEM table
-        df_line_items = df_line_items[['level', STATE, RACE]]
+        df_line_items = df_line_items[[LEVEL_COL, STATE_COL_LINE, RACE_COL]]
         df_line_items = df_line_items.dropna()
-        df_line_items[STATE] = df_line_items[STATE].apply(
+        df_line_items[STATE_COL_LINE] = df_line_items[STATE_COL_LINE].apply(
             get_standard_code_from_cawp_phrase)
         df_line_items = df_line_items.rename(
-            columns={STATE: POSTAL_COL})
+            columns={STATE_COL_LINE: POSTAL_COL})
         df_line_items = replace_state_abbr_with_names(df_line_items)
 
         # Standardize CAWP STATE LEG TOTALS table
-        df_state_leg_totals = df_state_leg_totals[[STATE_COL,
+        df_state_leg_totals = df_state_leg_totals[[STATE_COL_TOTAL,
                                                    RATIO_COL,
                                                   PCT_W_COL]]
         df_state_leg_totals = df_state_leg_totals.dropna()
         df_state_leg_totals = df_state_leg_totals.applymap(remove_markup)
         df_state_leg_totals = df_state_leg_totals.rename(
-            columns={STATE_COL: POSTAL_COL})
+            columns={STATE_COL_TOTAL: POSTAL_COL})
         df_state_leg_totals = replace_state_abbr_with_names(
             df_state_leg_totals)
 
@@ -296,13 +301,13 @@ class CAWPData(DataSource):
 
         # Standardize PROPUBLICA US CONGRESS TOTALS
 
-        df_us_house = df_us_house[df_us_house['in_office']]
-        df_us_senate = df_us_senate[df_us_senate['in_office']]
+        df_us_house = df_us_house[df_us_house[IN_OFFICE_COL]]
+        df_us_senate = df_us_senate[df_us_senate[IN_OFFICE_COL]]
         df_us_house = df_us_house[[STATE]]
         df_us_senate = df_us_senate[[STATE]]
         df_us_congress = pd.concat([df_us_senate, df_us_house])
         df_us_congress = df_us_congress.rename(
-            columns={STATE: POSTAL_COL})
+            columns={STATE_COL_LINE: POSTAL_COL})
         df_us_congress = replace_state_abbr_with_names(df_us_congress)
 
         # pivot so columns are | places | counts for each place
@@ -335,7 +340,7 @@ class CAWPData(DataSource):
                 df_us_congress_totals[std_col.STATE_NAME_COL] == current_place][COUNT_ALL].values[0]
 
             state_leg_women_current_place_all_races = count_matching_rows(
-                df_line_items, current_place, STATE, std_col.ALL_VALUE)
+                df_line_items, current_place, STATE_COL_LINE, std_col.ALL_VALUE)
 
             state_leg_members_current_place_all_races = df_state_leg_totals.loc[
                 df_state_leg_totals[std_col.STATE_NAME_COL] == current_place][COUNT_ALL].values[0]
