@@ -218,6 +218,8 @@ def testWriteToBq(mock_bq: mock.MagicMock,
 
     mock_bq.assert_called_once
     mock_web_csv.assert_called_once
+    mock_data_dir_csv.assert_called_once
+    mock_data_json_csv.assert_called_once
 
     expected_dtype = {
         'state_name': str,
@@ -250,5 +252,5 @@ def testWriteToBq(mock_bq: mock.MagicMock,
 
     # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
     assert set(mock_bq.call_args_list[0].args[0]) == set(expected_df.columns)
-    # assert_frame_equal(
-    #     mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
+    assert_frame_equal(
+        mock_bq.call_args_list[0].args[0], expected_df, check_like=True)

@@ -306,6 +306,10 @@ class CAWPData(DataSource):
               "total_women_state_legislators": df_state_leg_totals["total_women_state_legislators"].astype(int).sum(),
               "total_all_state_legislators": df_state_leg_totals["total_all_state_legislators"].astype(int).sum()}])
 
+        # sort alpha by state name
+        df_state_leg_totals = df_state_leg_totals.sort_values(
+            by=[std_col.STATE_NAME_COL])
+
         # add US row to other PLACE rows
         df_state_leg_totals = pd.concat(
             [df_state_leg_totals, national_sum_state_legislators_count], ignore_index=True)
@@ -332,6 +336,10 @@ class CAWPData(DataSource):
         ).reset_index()
         df_us_congress_totals.columns = [std_col.STATE_NAME_COL, "total_count"]
 
+        # sort alpha by state
+        df_us_congress_totals = df_us_congress_totals.sort_values(
+            by=[std_col.STATE_NAME_COL])
+
         # add a row for US and set value to the sum of all states/territories
         us_congress_count = pd.DataFrame(
             [{std_col.STATE_NAME_COL: "United States", "total_count": df_us_congress_totals["total_count"].sum()}])
@@ -339,20 +347,9 @@ class CAWPData(DataSource):
         df_us_congress_totals = pd.concat(
             [df_us_congress_totals, us_congress_count], ignore_index=True)
 
-        all_places = set(
-            df_us_congress_totals[std_col.STATE_NAME_COL].to_list())
-
-        # set output column names
-        columns = [std_col.STATE_NAME_COL,
-                   std_col.WOMEN_STATE_LEG_PCT,
-                   std_col.WOMEN_STATE_LEG_PCT_SHARE,
-                   std_col.WOMEN_US_CONGRESS_PCT,
-                   std_col.WOMEN_US_CONGRESS_PCT_SHARE,
-                   std_col.POPULATION_COL,
-                   std_col.POPULATION_PCT_COL,
-                   std_col.RACE_CATEGORY_ID_COL,
-                   std_col.RACE_WOMEN_COL
-                   ]
+        # create list of all place to iterate later
+        all_places = df_us_congress_totals[std_col.STATE_NAME_COL].to_list(
+        )
 
         output = []
 
@@ -438,6 +435,18 @@ class CAWPData(DataSource):
 
                 # add row for this place/race to output
                 output.append(output_row)
+
+        # column names for output df
+        columns = [std_col.STATE_NAME_COL,
+                   std_col.WOMEN_STATE_LEG_PCT,
+                   std_col.WOMEN_STATE_LEG_PCT_SHARE,
+                   std_col.WOMEN_US_CONGRESS_PCT,
+                   std_col.WOMEN_US_CONGRESS_PCT_SHARE,
+                   std_col.POPULATION_COL,
+                   std_col.POPULATION_PCT_COL,
+                   std_col.RACE_CATEGORY_ID_COL,
+                   std_col.RACE_WOMEN_COL
+                   ]
 
         output_df = pd.DataFrame(output, columns=columns)
 
