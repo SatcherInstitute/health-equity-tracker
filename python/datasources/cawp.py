@@ -132,8 +132,10 @@ def count_matching_rows(df, place_name: str, gov_level: str, string_to_match: st
 
 
 def set_pop_metrics_by_race_in_state(output_row, df_pop, race_code: str, place_name: str):
-    """ Accepts a output row object, a dataframe with populations,
-    race name and state name, and returns that population
+    """ Accepts an output row object, a dataframe with populations,
+    a race name and a place name, appends the population and
+    population share for that place's race to the row,
+    and returns the updated row
 
     output_row: object that  will receive a "population" metric and a "population_pct" metric
     df_pop: pandas dataframe with population by state/territory and race/ethnicity
@@ -147,13 +149,10 @@ def set_pop_metrics_by_race_in_state(output_row, df_pop, race_code: str, place_n
     matched_row = df_pop[(df_pop[std_col.STATE_NAME_COL] == place_name) &
                          (df_pop[std_col.RACE_CATEGORY_ID_COL] == race_code)]
 
-    pop = matched_row[std_col.POPULATION_COL].values[0] if len(
+    output_row[std_col.POPULATION_COL] = matched_row[std_col.POPULATION_COL].values[0] if len(
         matched_row[std_col.POPULATION_COL].values) > 0 else None
-    pop_pct = matched_row[std_col.POPULATION_PCT_COL].values[0] if len(
+    output_row[std_col.POPULATION_PCT_COL] = matched_row[std_col.POPULATION_PCT_COL].values[0] if len(
         matched_row[std_col.POPULATION_PCT_COL].values) > 0 else None
-
-    output_row[std_col.POPULATION_COL] = pop
-    output_row[std_col.POPULATION_PCT_COL] = pop_pct
 
     return output_row
 

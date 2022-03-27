@@ -13,6 +13,7 @@ from datasources.cawp import (CAWPData,
                               get_standard_code_from_cawp_phrase,
                               get_pretty_pct,
                               count_matching_rows,
+                              set_pop_metrics_by_race_in_state,
                               remove_markup)
 
 from ingestion.standardized_columns import Race
@@ -68,8 +69,6 @@ df_test = pd.DataFrame(
      'race_ethnicity': ["Black", "Black", "Black", "Black", "White"],
      'level': ["Congress", "State Legislative", "Territorial/D.C.", "U.S. Delegate", "Congress"]})
 
-print("\n", df_test)
-
 
 def test_count_matching_rows():
     assert count_matching_rows(
@@ -80,6 +79,64 @@ def test_count_matching_rows():
         df_test, "Florida", "federal", "All") == 1
     assert count_matching_rows(
         df_test, "United States", "state", "All") == 2
+
+
+test_row = {"test key": "test value"}
+
+df_pop_test = pd.DataFrame(
+    {
+        std_col.STATE_NAME_COL: ["Florida", "Florida", "Florida", "Maine", "Maine", "Maine"],
+        std_col.RACE_CATEGORY_ID_COL: [Race.BLACK_NH.value,
+                                       Race.WHITE_NH,
+                                       "TOTAL",
+                                       Race.BLACK_NH.value,
+                                       Race.WHITE_NH,
+                                       "TOTAL"],
+        std_col.POPULATION_COL: [200, 300, 500, 10, 30, 40],
+        std_col.POPULATION_PCT_COL: [40, 60, 100, 25, 75, 100]
+    })
+
+print(test_row)
+print(df_pop_test)
+
+
+def test_set_pop_metrics_by_race_in_state():
+
+    # test a valid place/race
+    assert set_pop_metrics_by_race_in_state(
+        test_row,
+        df_pop_test,
+        Race.BLACK_NH.value,
+        "Florida") == {'test key': 'test value',
+                       'population': 200,
+                       'population_pct': 40.0}
+
+    # test valid place / invalid race
+    assert set_pop_metrics_by_race_in_state(
+        test_row,
+        df_pop_test,
+        Race.ASIAN_NH.value,
+        "Florida") == {'test key': 'test value',
+                       'population': None,
+                       'population_pct': None}
+
+    # test invalid place / valid race
+    assert set_pop_metrics_by_race_in_state(
+        test_row,
+        df_pop_test,
+        Race.WHITE_NH.value,
+        "Virginia") == {'test key': 'test value',
+                        'population': None,
+                        'population_pct': None}
+
+    # test valid place total
+    assert set_pop_metrics_by_race_in_state(
+        test_row,
+        df_pop_test,
+        "ALL",
+        "Florida") == {'test key': 'test value',
+                       'population': 500,
+                       'population_pct': 100.0}
 
 
 # Map production URLs to mock CSVs
