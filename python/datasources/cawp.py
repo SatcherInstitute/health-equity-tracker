@@ -69,10 +69,10 @@ def get_standard_code_from_cawp_phrase(cawp_place_phrase: str):
     return place_code
 
 
-def get_nonstandard_territory_abbr(abbr: str):
-    """Replaces standard territory abbreviations found in
-    CAWP TOTAL with alternate versions found in CAWP LINE LEVEL files """
-    return {"AS": "AM", "MP": "MI"}.get(abbr, abbr)
+# def get_nonstandard_territory_abbr(abbr: str):
+#     """Replaces standard territory abbreviations found in
+#     CAWP TOTAL with alternate versions found in CAWP LINE LEVEL files """
+#     return {"AS": "AM", "MP": "MI"}.get(abbr, abbr)
 
 
 # def swap_territory_name(territory_name: str):
@@ -103,19 +103,26 @@ def get_pretty_pct(numerator: int, denominator: int):
     return f'{pct_rounded:g}'
 
 
-def count_matching_rows(df, place_name: str, gov_level: str, string_to_match: str):
-    """ Accepts a dataframe, a level of government, a place name, and an optional
-    string to match within the race_ethnicity column. It then counts the number of
+def count_matching_rows(df, place_name: str, gov_level: str, race_to_match: str):
+    """ Accepts a dataframe, a level of government, a place name,
+    and a race name (CAWP terminology) string to match within the
+     race_ethnicity column. It then counts the number of
     rows where those conditions are all met  """
 
+    # TODO handle ", " == multi race IN this fn rather than an external conditional;
+    # could run second len(df) with matching "multiracial alone" AND ", "
+    # and sum before returning
+    # TODO for USA just return early, then if STATE just further reduce
+    # the size of the df restricted by matching place and then return
+
     # to get ALL women, don't restrict by race
-    if string_to_match == std_col.ALL_VALUE:
-        string_to_match = ""
+    if race_to_match == std_col.ALL_VALUE:
+        race_to_match = ""
 
     # to get national values, don't restrict by state
     if place_name == "United States":
         df = df[
-            (df['race_ethnicity'].str.contains(string_to_match)) &
+            (df['race_ethnicity'].str.contains(race_to_match)) &
             (df['level'].isin(
                 CAWP_DATA_TYPES[gov_level]))
         ]
@@ -123,7 +130,7 @@ def count_matching_rows(df, place_name: str, gov_level: str, string_to_match: st
     else:
         df = df[
             (df[std_col.STATE_NAME_COL] == place_name) &
-            (df['race_ethnicity'].str.contains(string_to_match)) &
+            (df['race_ethnicity'].str.contains(race_to_match)) &
             (df['level'].isin(
                 CAWP_DATA_TYPES[gov_level]))
         ]

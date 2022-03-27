@@ -20,41 +20,13 @@ from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
 
 
-# test my utility functions
-
-def test_remove_markup():
-    assert remove_markup(
-        "<i>Test Remove Italics Markup</i>") == "Test Remove Italics Markup"
-    assert remove_markup("Remove Asterisk*") == "Remove Asterisk"
-    assert remove_markup("Double Star**") == "Double Star"
-    assert remove_markup("<i>All the Above</i>**") == "All the Above"
-
-
-# def test_swap_territory_abbr():
-#     assert swap_territory_abbr("MP") == "MI"
-#     assert swap_territory_abbr("AS") == "AM"
-#     assert swap_territory_abbr("ME") == "ME"
-
-
-# def test_swap_territory_name():
-#     assert swap_territory_name("Virgin Islands") == "U.S. Virgin Islands"
-#     assert swap_territory_name("Maine") == "Maine"
-
-
-def test_get_pretty_pct():
-    assert get_pretty_pct(1, 3) == "33.33"
-    assert get_pretty_pct(3, 3) == "100"
-    assert get_pretty_pct(12345, 100_000) == "12.35"
-    assert get_pretty_pct(3, 0) == "0"
-
+# test utility functions
 
 def test_get_women_only_race_group():
     assert get_women_only_race_group(
         Race.HISP.value) == 'Hispanic Women and Latinas'
-
     assert get_women_only_race_group(
         Race.ASIAN_NH.value) == 'Asian Women (Non-Hispanic)'
-
     assert get_women_only_race_group(Race.ASIAN.value) == 'Asian Women'
 
 
@@ -64,13 +36,27 @@ def test_get_standard_code_from_cawp_phrase():
     assert get_standard_code_from_cawp_phrase("Anything At All - XX") == "XX"
 
 
-df_test = pd.DataFrame(
-    {std_col.STATE_NAME_COL: ["Florida", "Florida", "Puerto Rico", "Puerto Rico", "Maine"],
-     'race_ethnicity': ["Black", "Black", "Black", "Black", "White"],
-     'level': ["Congress", "State Legislative", "Territorial/D.C.", "U.S. Delegate", "Congress"]})
+def test_remove_markup():
+    assert remove_markup(
+        "<i>Test Remove Italics Markup</i>") == "Test Remove Italics Markup"
+    assert remove_markup("Remove Asterisk*") == "Remove Asterisk"
+    assert remove_markup("Double Star**") == "Double Star"
+    assert remove_markup("<i>All the Above</i>**") == "All the Above"
+
+
+def test_get_pretty_pct():
+    assert get_pretty_pct(1, 3) == "33.33"
+    assert get_pretty_pct(3, 3) == "100"
+    assert get_pretty_pct(12345, 100_000) == "12.35"
+    assert get_pretty_pct(3, 0) == "0"
 
 
 def test_count_matching_rows():
+    df_test = pd.DataFrame(
+        {std_col.STATE_NAME_COL: ["Florida", "Florida", "Puerto Rico", "Puerto Rico", "Maine"],
+         'race_ethnicity': ["Black", "Black", "Black", "Black", "White"],
+         'level': ["Congress", "State Legislative", "Territorial/D.C.", "U.S. Delegate", "Congress"]})
+
     assert count_matching_rows(
         df_test, "United States", "federal", "Black") == 2
     assert count_matching_rows(
@@ -81,26 +67,20 @@ def test_count_matching_rows():
         df_test, "United States", "state", "All") == 2
 
 
-test_row = {"test key": "test value"}
-
-df_pop_test = pd.DataFrame(
-    {
-        std_col.STATE_NAME_COL: ["Florida", "Florida", "Florida", "Maine", "Maine", "Maine"],
-        std_col.RACE_CATEGORY_ID_COL: [Race.BLACK_NH.value,
-                                       Race.WHITE_NH,
-                                       "TOTAL",
-                                       Race.BLACK_NH.value,
-                                       Race.WHITE_NH,
-                                       "TOTAL"],
-        std_col.POPULATION_COL: [200, 300, 500, 10, 30, 40],
-        std_col.POPULATION_PCT_COL: [40, 60, 100, 25, 75, 100]
-    })
-
-print(test_row)
-print(df_pop_test)
-
-
 def test_set_pop_metrics_by_race_in_state():
+    test_row = {"test key": "test value"}
+    df_pop_test = pd.DataFrame(
+        {
+            std_col.STATE_NAME_COL: ["Florida", "Florida", "Florida", "Maine", "Maine", "Maine"],
+            std_col.RACE_CATEGORY_ID_COL: [Race.BLACK_NH.value,
+                                           Race.WHITE_NH,
+                                           "TOTAL",
+                                           Race.BLACK_NH.value,
+                                           Race.WHITE_NH,
+                                           "TOTAL"],
+            std_col.POPULATION_COL: [200, 300, 500, 10, 30, 40],
+            std_col.POPULATION_PCT_COL: [40, 60, 100, 25, 75, 100]
+        })
 
     # test a valid place/race
     assert set_pop_metrics_by_race_in_state(
@@ -110,7 +90,6 @@ def test_set_pop_metrics_by_race_in_state():
         "Florida") == {'test key': 'test value',
                        'population': 200,
                        'population_pct': 40.0}
-
     # test valid place / invalid race
     assert set_pop_metrics_by_race_in_state(
         test_row,
@@ -119,7 +98,6 @@ def test_set_pop_metrics_by_race_in_state():
         "Florida") == {'test key': 'test value',
                        'population': None,
                        'population_pct': None}
-
     # test invalid place / valid race
     assert set_pop_metrics_by_race_in_state(
         test_row,
@@ -128,7 +106,6 @@ def test_set_pop_metrics_by_race_in_state():
         "Virginia") == {'test key': 'test value',
                         'population': None,
                         'population_pct': None}
-
     # test valid place total
     assert set_pop_metrics_by_race_in_state(
         test_row,
