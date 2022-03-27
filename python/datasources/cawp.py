@@ -75,16 +75,14 @@ def get_nonstandard_territory_abbr(abbr: str):
     return {"AS": "AM", "MP": "MI"}.get(abbr, abbr)
 
 
-def swap_territory_name(territory_name: str):
-    """Replaces mismatched territory names between ACS and CAWP files """
-    return {"Virgin Islands": "U.S. Virgin Islands"}.get(territory_name, territory_name)
+# def swap_territory_name(territory_name: str):
+#     """Replaces mismatched territory names between ACS and CAWP files """
+#     return {"Virgin Islands": "U.S. Virgin Islands"}.get(territory_name, territory_name)
 
 
 def remove_markup(datum: str):
     """Returns the string with any asterisks and/r italics markup removed """
-
     datum = str(datum)
-
     return datum.replace("<i>", "").replace("</i>", "").replace("*", "")
 
 

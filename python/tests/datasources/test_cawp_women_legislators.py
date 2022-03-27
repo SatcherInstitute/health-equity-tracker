@@ -11,7 +11,9 @@ from datasources.cawp import (CAWPData,
                               PROPUB_US_SENATE_FILE,
                               #   clean,
                               get_women_only_race_group,
+                              get_standard_code_from_cawp_phrase,
                               get_pretty_pct,
+                              remove_markup,
                               swap_territory_name)
 
 from ingestion.standardized_columns import Race
@@ -19,12 +21,12 @@ from ingestion.standardized_columns import Race
 
 # test my utility functions
 
-# def test_clean():
-#     assert clean(
-#         "<i>Test Remove Italics Markup</i>") == "Test Remove Italics Markup"
-#     assert clean("Remove Asterisk*") == "Remove Asterisk"
-#     assert clean("Double Star**") == "Double Star"
-#     assert clean("<i>All the Above</i>**") == "All the Above"
+def test_remove_markup():
+    assert remove_markup(
+        "<i>Test Remove Italics Markup</i>") == "Test Remove Italics Markup"
+    assert remove_markup("Remove Asterisk*") == "Remove Asterisk"
+    assert remove_markup("Double Star**") == "Double Star"
+    assert remove_markup("<i>All the Above</i>**") == "All the Above"
 
 
 # def test_swap_territory_abbr():
@@ -33,9 +35,9 @@ from ingestion.standardized_columns import Race
 #     assert swap_territory_abbr("ME") == "ME"
 
 
-def test_swap_territory_name():
-    assert swap_territory_name("Virgin Islands") == "U.S. Virgin Islands"
-    assert swap_territory_name("Maine") == "Maine"
+# def test_swap_territory_name():
+#     assert swap_territory_name("Virgin Islands") == "U.S. Virgin Islands"
+#     assert swap_territory_name("Maine") == "Maine"
 
 
 def test_get_pretty_pct():
@@ -53,6 +55,12 @@ def test_get_women_only_race_group():
         Race.ASIAN_NH.value) == 'Asian Women (Non-Hispanic)'
 
     assert get_women_only_race_group(Race.ASIAN.value) == 'Asian Women'
+
+
+def test_get_standard_code_from_cawp_phrase():
+    assert get_standard_code_from_cawp_phrase("American Samoa - AS") == "AS"
+    assert get_standard_code_from_cawp_phrase("American Samoa - AM") == "AS"
+    assert get_standard_code_from_cawp_phrase("Anything At All - XX") == "XX"
 
 
 # Map production URLs to mock CSVs
