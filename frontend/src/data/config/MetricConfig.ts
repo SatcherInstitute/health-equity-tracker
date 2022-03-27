@@ -927,39 +927,6 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
   ],
   women_legislators: [
     {
-      variableId: "women_state_legislatures",
-      variableDisplayName: "Women State Legislators",
-      variableFullDisplayName: "Women State Legislators",
-      surveyCollectedData: true,
-      variableDefinition: `Official definition.`,
-      metrics: {
-        per100k: {
-          metricId: "women_state_leg_pct",
-          fullCardTitleName: "Share of State Legislators (All Genders)",
-          shortLabel: "% of state legislators that are women",
-          type: "pct_share",
-        },
-        pct_share: {
-          metricId: "women_state_leg_pct_share",
-          fullCardTitleName: "Share Of Only Women State Legislators",
-          shortLabel: "% of women legislators",
-          type: "pct_share",
-          populationComparisonMetric: {
-            metricId: "cawp_population_pct",
-            fullCardTitleName: populationPctTitle,
-            shortLabel: populationPctShortLabel,
-            type: "pct_share",
-          },
-          knownBreakdownComparisonMetric: {
-            metricId: "women_state_leg_pct_share",
-            fullCardTitleName: "Share Of Only Women State Legislators",
-            shortLabel: "% of women legislators",
-            type: "pct_share",
-          },
-        },
-      },
-    },
-    {
       variableId: "women_us_congress",
       variableDisplayName: "Women in US Congress",
       variableFullDisplayName: "Women in US Congress",
@@ -968,25 +935,64 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "women_us_congress_pct",
-          fullCardTitleName: "Share of US Congress Members (All Genders)",
+          fullCardTitleName:
+            "Percent of US Congress Members Who Are Women Identifying As Each Race/Ethnicity",
           shortLabel: "% of women in US congress",
           type: "pct_share",
         },
         pct_share: {
           metricId: "women_us_congress_pct_share",
-          fullCardTitleName: "Share Of Women US Congress Members",
+          fullCardTitleName:
+            "Percent of Women US Congress Members Who Identify with Each Race/Ethnicity Group",
           shortLabel: "% of women congress members",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "cawp_population_pct",
-            fullCardTitleName: populationPctTitle,
+            fullCardTitleName: "Total Population Share of Each Race/Ethnicity",
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
           knownBreakdownComparisonMetric: {
             metricId: "women_us_congress_pct_share",
-            fullCardTitleName: "Share Of Women US Congress Members",
+            fullCardTitleName:
+              "Percent of Women US Congress Members Who Identify with Each Race/Ethnicity Group",
             shortLabel: "% of women congress members",
+            type: "pct_share",
+          },
+        },
+      },
+    },
+    {
+      variableId: "women_state_legislatures",
+      variableDisplayName: "Women in State Legislatures",
+      variableFullDisplayName: "Women in State Legislatures",
+      surveyCollectedData: true,
+      variableDefinition: `Official definition.`,
+      metrics: {
+        per100k: {
+          metricId: "women_state_leg_pct",
+          fullCardTitleName:
+            "Percent of State Legislators Who Are Women Identifying As Each Race/Ethnicity",
+          shortLabel: "% of state legislators",
+          type: "pct_share",
+        },
+        pct_share: {
+          metricId: "women_state_leg_pct_share",
+          fullCardTitleName:
+            "Percent of Women State Legislators Who Identify with Each Race/Ethnicity Group",
+          shortLabel: "% of women legislators",
+          type: "pct_share",
+          populationComparisonMetric: {
+            metricId: "cawp_population_pct",
+            fullCardTitleName: "Total Population Share of Each Race/Ethnicity",
+            shortLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+          knownBreakdownComparisonMetric: {
+            metricId: "women_state_leg_pct_share",
+            fullCardTitleName:
+              "Percent of Women State Legislators Who Identify with Each Race/Ethnicity Group",
+            shortLabel: "% of women legislators",
             type: "pct_share",
           },
         },

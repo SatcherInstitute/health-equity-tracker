@@ -16,6 +16,7 @@ import {
   VariableConfig,
   getPer100kAndPctShareMetrics,
   COVID_VAXX,
+  VariableId,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
@@ -47,6 +48,18 @@ import { urlMap } from "../utils/externalUrls";
 import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
 import styles from "./Card.module.scss";
 
+const showAllGroupIds: VariableId[] = [
+  "women_state_legislatures",
+  "women_us_congress",
+];
+
+// only for UHC variables
+const ALL_UHC_DETERMINANTS = [
+  ...UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
+  ...UHC_VOTER_AGE_DETERMINANTS,
+  ...UHC_DETERMINANTS,
+];
+
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 698;
 
@@ -68,19 +81,17 @@ export function TableCard(props: TableCardProps) {
   const current100k = props.variableConfig.metrics.per100k.metricId;
 
   // choose demographic groups to exclude from the table
-  let exclusionList = [ALL];
+  let exclusionList = [];
+
+  if (!showAllGroupIds.includes(props.variableConfig.variableId)) {
+    exclusionList.push(ALL);
+  }
 
   // across all variables
   if (props.breakdownVar === "race_and_ethnicity") {
     exclusionList.push(NON_HISPANIC);
   }
 
-  // only for UHC variables
-  const ALL_UHC_DETERMINANTS = [
-    ...UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
-    ...UHC_VOTER_AGE_DETERMINANTS,
-    ...UHC_DETERMINANTS,
-  ];
   if (
     ALL_UHC_DETERMINANTS.includes(current100k) &&
     props.breakdownVar === "race_and_ethnicity"

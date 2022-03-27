@@ -6,6 +6,7 @@ import {
   DropdownVarId,
   METRIC_CONFIG,
   VariableConfig,
+  VariableId,
 } from "../../data/config/MetricConfig";
 import styles from "../Report.module.scss";
 import {
@@ -16,6 +17,11 @@ import {
 
 export const DATA_TYPE_LABEL = "Data Type";
 export const DEMOGRAPHIC_LABEL = "Demographic";
+
+export const hideDemographicToggleList: VariableId[] = [
+  "women_state_legislatures",
+  "women_us_congress",
+];
 
 interface ReportToggleControlsProps {
   dropdownVarId: DropdownVarId;
@@ -40,6 +46,10 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
   const enableMetricToggle =
     !!METRIC_CONFIG[props.dropdownVarId] &&
     METRIC_CONFIG[props.dropdownVarId].length > 1;
+
+  const hideDemographicToggle = hideDemographicToggleList.includes(
+    props.variableConfig.variableId
+  );
 
   return (
     <Grid container>
@@ -78,7 +88,7 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
           </ToggleButtonGroup>
         </Grid>
       )}
-      {
+      {!hideDemographicToggle && (
         <Grid item className={styles.ToggleBlock}>
           <div className={styles.ToggleLabel}>{DEMOGRAPHIC_LABEL}</div>
           <div id="onboarding-explore-trends">
@@ -108,7 +118,7 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
             </ToggleButtonGroup>
           </div>
         </Grid>
-      }
+      )}
     </Grid>
   );
 }
