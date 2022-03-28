@@ -160,11 +160,11 @@ class Race(Enum):
     OTHER_NONSTANDARD_NH = ("OTHER_NONSTANDARD_NH",
                             "Unrepresented race", False)
 
-    # CAWP Unique Race/Eth Categories
-    ASIAN_PAC_NH = ("ASIAN_PAC_NH", "Asian American & Pacific Islander", False)
-    MENA_NH = ("MENA_NH", "Middle Eastern & North African", False)
-    AIANNH_NH = (
-        "AIANNH_NH", "Native American, Alaska Native, & Native Hawaiian", False)
+    # CAWP Non-standard, non-exclusive Race/Eth Categories
+    ASIAN_PAC = ("ASIAN_PAC", "Asian American & Pacific Islander", True)
+    MENA = ("MENA", "Middle Eastern & North African", True)
+    AIANNH = (
+        "AIANNH", "Native American, Alaska Native, & Native Hawaiian", True)
     HISP_F = ("HISP_F", "Latina", True)
 
     # Categories that are combinations of other categories
