@@ -23,7 +23,7 @@ class CountyAdjacency(DataSource):
         table_name: The name of the biquery table to write to
         gcs_bucket: The name of the gcs bucket to read the data from
         filename: The name of the file in the gcs bucket to read from"""
-        frame = gcs_to_bq_util.load_csv_as_dataframe(gcs_bucket, filename, dtype={
+        frame = gcs_to_bq_util.load_csv_as_df(gcs_bucket, filename, dtype={
             'fipscounty': 'string',
             'fipsneighbor': 'string'
         })
@@ -39,6 +39,6 @@ class CountyAdjacency(DataSource):
             'neighbor_geoids': 'STRING'
         }
         col_modes = {'neighbor_geoids': 'REPEATED'}
-        gcs_to_bq_util.add_dataframe_to_bq(
+        gcs_to_bq_util.add_df_to_bq(
             frame, dataset, self.get_table_name(), column_types=column_types,
             col_modes=col_modes)

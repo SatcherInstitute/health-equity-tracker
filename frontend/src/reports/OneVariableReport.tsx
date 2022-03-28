@@ -12,7 +12,7 @@ import {
   DropdownVarId,
   METRIC_CONFIG,
   VariableConfig,
-  VAXX,
+  COVID_VAXX,
 } from "../data/config/MetricConfig";
 import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
 import { RACE } from "../data/utils/Constants";
@@ -26,6 +26,7 @@ import {
   psSubscribe,
   setParameter,
   setParameters,
+  swapOldParams,
 } from "../utils/urlutils";
 import { SINGLE_COLUMN_WIDTH } from "./ReportProvider";
 import NoDataAlert from "./ui/NoDataAlert";
@@ -127,6 +128,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
         DATA_TYPE_1_PARAM,
         undefined,
         (val: string) => {
+          val = swapOldParams(val);
           return METRIC_CONFIG[props.dropdownVarId].find(
             (cfg) => cfg.variableId === val
           );
@@ -172,7 +174,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
       {variableConfig && (
         <Grid container spacing={1} justifyContent="center">
           {/* DEMOGRAPHIC / DATA TYPE TOGGLE(S) */}
-          {!(props.dropdownVarId === VAXX && props.fips.isCounty()) && (
+          {!(props.dropdownVarId === COVID_VAXX && props.fips.isCounty()) && (
             <Grid item container xs={12} md={SINGLE_COLUMN_WIDTH}>
               <ReportToggleControls
                 dropdownVarId={props.dropdownVarId}

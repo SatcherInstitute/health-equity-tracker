@@ -11,7 +11,8 @@ from datasources.kff_vaccination import get_data_url
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "kff_vaccination")
 
-GOLDEN_DATA = os.path.join(TEST_DIR, 'kff_vaccination_by_race_and_ethnicity.csv')
+GOLDEN_DATA = os.path.join(
+    TEST_DIR, 'kff_vaccination_by_race_and_ethnicity.csv')
 
 
 def get_github_file_list_as_df():
@@ -47,10 +48,10 @@ def testGetDataUrlPctShare(mock_json: mock.MagicMock):
     assert get_data_url('pct_share') == "some-other-up-to-date-url"
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe_from_web',
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
             return_value=get_state_totals_test_data_as_df())
 @mock.patch('ingestion.github_util.decode_json_from_url_into_df')
-@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBq(
         mock_bq: mock.MagicMock,
@@ -78,4 +79,5 @@ def testWriteToBq(
         'population_pct': str,
     })
 
-    assert_frame_equal(mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
+    assert_frame_equal(
+        mock_bq.call_args_list[0].args[0], expected_df, check_like=True)

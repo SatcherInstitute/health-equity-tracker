@@ -97,7 +97,7 @@ class AcsHouseholdIncomeIngestor:
 
             column_types[POPULATION_COL] = "INT64"
 
-            gcs_to_bq_util.add_dataframe_to_bq(
+            gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name, column_types=column_types
             )
 
