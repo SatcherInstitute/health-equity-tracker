@@ -88,8 +88,7 @@ def generate_state_pop_data(df):
         age_df[std_col.AGE_COL] = std_age
 
         for state_fips in age_df['STATE'].drop_duplicates().to_list():
-            state_name = age_df.loc[age_df['STATE'] == state_fips]['STNAME'].drop_duplicates().to_list()[
-                0]
+            state_name = age_df.loc[age_df['STATE'] == state_fips]['STNAME'].drop_duplicates().to_list()[0]
 
             for race in RACES_MAP.values():
                 pop_row = {}
