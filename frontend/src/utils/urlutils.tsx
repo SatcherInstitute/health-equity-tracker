@@ -33,7 +33,7 @@ export const NEWS_TAB_LINK = "/news";
 // TRACKER SETTINGS
 export const COVID_HOSP_NY_COUNTY_SETTING =
   "?dt1=hospitalizations&mls=1.covid-3.36061";
-export const COVID_VAX_US_SETTING = "?mls=1.vaccinations-3.00";
+export const COVID_VAX_US_SETTING = "?mls=1.covid_vaccinations-3.00";
 export const COPD_US_SETTING = "?mls=1.copd-3.00";
 export const DIABETES_US_SETTING = "?mls=1.diabetes-3.00";
 export const UNINSURANCE_US_SETTING = "?mls=1.health_insurance-3.00";
