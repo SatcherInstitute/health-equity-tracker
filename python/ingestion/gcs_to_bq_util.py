@@ -7,6 +7,9 @@ import pandas as pd
 from google.cloud import bigquery, storage
 
 
+DATA_DIR = os.path.join(os.sep, 'app', 'data')
+
+
 def __convert_frame_to_json(frame):
     """Returns the serialized version of the given dataframe in json."""
     # Repeated fields are not supported with bigquery.Client.load_table_from_dataframe()
@@ -220,6 +223,17 @@ def load_json_as_df(gcs_bucket, filename, dtype=None):
     return frame
 
 
+def load_csv_as_df_from_web(url, dtype=None, params=None, encoding=None):
+    """Loads csv data from the provided url to a DataFrame.
+       Expects the data to be in csv format, with the first row as the column
+       names.
+
+       url: url to download the csv file from"""
+
+    url = requests.Request('GET', url, params=params).prepare().url
+    return pd.read_csv(url, dtype=dtype, encoding=encoding)
+
+
 def load_csv_as_df_from_data_dir(directory, filename, dtype=None):
     """Loads csv data from /data/{directory}/{filename} into a DataFrame.
        Expects the data to be in csv format, with the first row as the column
@@ -227,9 +241,7 @@ def load_csv_as_df_from_data_dir(directory, filename, dtype=None):
 
     directory: directory within data to load from
     filename: file to load the csv file from"""
-
-    file_path = os.path.join("data", directory, filename)
-
+    file_path = os.path.join(DATA_DIR, directory, filename)
     return pd.read_csv(file_path, dtype=dtype)
 
 
@@ -240,37 +252,8 @@ def load_json_as_df_from_data_dir(directory, filename, dtype=None):
 
     directory: directory within data to load from
     filename: file to load the json file from"""
-
-    print("1", os.listdir())
-
-    #  go up a level
-    path_parent = os.path.dirname(os.getcwd())
-    os.chdir(path_parent)
-
-    print("2", os.listdir())
-
-    # go into /data
-    os.chdir("data")
-
-    print("3", os.listdir())
-
-    # combine sub-dir and filename
-    file_path = os.path.join(directory, filename)
-
-    print("file-path", file_path)
-
+    file_path = os.path.join(DATA_DIR, directory, filename)
     return pd.read_json(file_path, dtype=dtype)
-
-
-def load_csv_as_df_from_web(url, dtype=None, params=None, encoding=None):
-    """Loads csv data from the provided url to a DataFrame.
-       Expects the data to be in csv format, with the first row as the column
-       names.
-
-       url: url to download the csv file from"""
-
-    url = requests.Request('GET', url, params=params).prepare().url
-    return pd.read_csv(url, dtype=dtype, encoding=encoding)
 
 
 def load_json_as_df_from_web(url, dtype=None, params=None):
