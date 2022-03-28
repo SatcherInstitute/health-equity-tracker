@@ -69,16 +69,17 @@ function AgeAdjustmentTab() {
                 expand our analysis to provide a more equitable view of the
                 impact to racial and ethnic minorities.
               </p>
-
+              We use an internal standardization method, meaning the population
+              we standardize to changes for each state. Thus, our age adjusted
+              ratios can only be used to compare racial groups within each
+              state, and <b>not</b> to compare racial groups between states.
               <h4 className={styles.MethodologySubsubheaderText}>
                 Data Sourcing
               </h4>
-
               <p>
                 In order to do an age adjustment, we needed the following pieces
                 of information:
               </p>
-
               <ol>
                 <li>
                   <b>
@@ -113,14 +114,11 @@ function AgeAdjustmentTab() {
                   </p>
                 </li>
               </ol>
-
               <h4 className={styles.MethodologySubsubheaderText}>Algorithm</h4>
-
               <p>
                 In order to generate the age adjusted deaths and hospitalization
                 ratios, we do the following
               </p>
-
               <ol>
                 <li>
                   <p>
@@ -142,12 +140,15 @@ function AgeAdjustmentTab() {
                     </b>
                   </p>
                   <p>
-                    To do this we multiply the true death rate by the population
-                    of <b>White (Non-Hispanic)</b> for that age group.
+                    To do this we multiply the true death rate by the states's
+                    total population for that age group. The expected deaths are
+                    the number of people of the racial group who would have been
+                    expected to die if the racial group had the same age
+                    breakdown as the population as a whole.
                   </p>
                   <pre>
-                    expected_deaths = true_death_rate * (White (Non-Hispanic)
-                    Population for age group)
+                    expected_deaths = true_death_rate * (Total Population for
+                    age group)
                   </pre>
                 </li>
 
@@ -168,25 +169,21 @@ function AgeAdjustmentTab() {
                     <b>Calculate the age-adjusted death ratios:</b>
                   </p>
                   <p>
-                    Divide the total expected deaths of each race by the total
-                    white deaths.
+                    Divide the total expected deaths of each race by the
+                    expected White (Non-Hispanic) deaths.
                   </p>
                 </li>
               </ol>
-
               <h4 className={styles.MethodologySubsubheaderText}>Edge cases</h4>
-
               <ul>
                 <li>
                   If a ratio ends up being less than <b>0.1</b>, we report it on
                   the tracker as <b>Insufficient Data</b>.
                 </li>
               </ul>
-
               <h3 className={styles.MethodologyQuestion}>
                 Age-adjustment Example
               </h3>
-
               <p>
                 Here is an example of a single state with two races,{" "}
                 <b>Race A</b> and <b>Race B</b>, with three age breakdowns:{" "}
@@ -195,7 +192,6 @@ function AgeAdjustmentTab() {
                 <b>White, Non-Hispanic</b>), and <b>Race B</b> is any other
                 racial group.
               </p>
-
               <table className={styles.ExampleTable}>
                 <thead>
                   <tr>
@@ -248,20 +244,39 @@ function AgeAdjustmentTab() {
                     <td>800</td>
                     <td>60,000</td>
                   </tr>
+
+                  <tr>
+                    <td>Total</td>
+                    <td>0-29</td>
+                    <td>70</td>
+                    <td>800,000</td>
+                  </tr>
+
+                  <tr>
+                    <td>Total</td>
+                    <td>30-59</td>
+                    <td>700</td>
+                    <td>1,200,000</td>
+                  </tr>
+
+                  <tr>
+                    <td>Total</td>
+                    <td>60+</td>
+                    <td>5,800</td>
+                    <td>260,000</td>
+                  </tr>
                 </tbody>
               </table>
-
               <h4 className={styles.MethodologySubsubheaderText}>
                 First, we calculate the expected deaths for each age/race group:
               </h4>
-
               <p>
                 As noted above, the formula for each row is:{" "}
                 <code>
-                  (Deaths / Population) * Corresponding Population for Race A
+                  (Deaths / Population) * Total Population for Corresponding Age
+                  Group
                 </code>
               </p>
-
               <table className={styles.ExampleTable}>
                 <thead>
                   <tr>
@@ -281,9 +296,9 @@ function AgeAdjustmentTab() {
                     <td>600,000</td>
                     <td>
                       <div className={styles.Calculation}>
-                        50 / 600,000 * 600,000
+                        (50 / 600,000) * 800,000
                       </div>
-                      <b> = 50</b>
+                      <b> = 66.67</b>
                     </td>
                   </tr>
 
@@ -294,9 +309,9 @@ function AgeAdjustmentTab() {
                     <td>800,000</td>
                     <td>
                       <div className={styles.Calculation}>
-                        500 / 800,000 * 800,000
+                        (500 / 800,000) * 1,200,000
                       </div>
-                      <b> = 500</b>
+                      <b> = 687.5</b>
                     </td>
                   </tr>
 
@@ -307,9 +322,9 @@ function AgeAdjustmentTab() {
                     <td>200,000</td>
                     <td>
                       <div className={styles.Calculation}>
-                        5,000 / 200,000 * 200,000
+                        (5,000 / 200,000) * 260,000
                       </div>
-                      <b> = 5,000</b>
+                      <b> = 6,500</b>
                     </td>
                   </tr>
 
@@ -320,9 +335,9 @@ function AgeAdjustmentTab() {
                     <td>200,000</td>
                     <td>
                       <div className={styles.Calculation}>
-                        20 / 200,000 * 600,000
+                        (20 / 200,000) * 800,000
                       </div>
-                      <b> = 60</b>
+                      <b> = 80</b>
                     </td>
                   </tr>
 
@@ -333,9 +348,9 @@ function AgeAdjustmentTab() {
                     <td>300,000</td>
                     <td>
                       <div className={styles.Calculation}>
-                        200 / 300,000 * 800,000
+                        (200 / 300,000) * 1,200,000
                       </div>
-                      <b> = 533.33</b>
+                      <b> = 733.33</b>
                     </td>
                   </tr>
 
@@ -346,19 +361,17 @@ function AgeAdjustmentTab() {
                     <td>60,000</td>
                     <td>
                       <div className={styles.Calculation}>
-                        800 / 60,000 * 200,000
+                        (800 / 60,000) * 260,000
                       </div>
-                      <b> = 2666.67</b>
+                      <b> = 3466.67</b>
                     </td>
                   </tr>
                 </tbody>
               </table>
-
               <h4 className={styles.MethodologySubsubheaderText}>
                 Second, we sum together the expected deaths for each race to
                 calculate the total expected deaths:
               </h4>
-
               <table className={styles.ExampleTable}>
                 <thead>
                   <tr>
@@ -371,26 +384,26 @@ function AgeAdjustmentTab() {
                   <tr>
                     <td>Race A</td>
                     <td>
-                      <div className={styles.Calculation}>5,000 + 500 + 50</div>
-                      <b>= 5,550</b>
+                      <div className={styles.Calculation}>
+                        6,500 + 687.5 + 66.67
+                      </div>
+                      <b>= 7,254.17</b>
                     </td>
                   </tr>
                   <tr>
                     <td>Race B</td>
                     <td>
                       <div className={styles.Calculation}>
-                        60 + 533.33 + 2666.67
+                        80 + 733.33 + 3466.67
                       </div>
-                      <b>= 3260</b>
+                      <b>= 4,280</b>
                     </td>
                   </tr>
                 </tbody>
               </table>
-
               <h4 className={styles.MethodologySubsubheaderText}>
                 Finally, we calculate the age-adjusted death ratio:
               </h4>
-
               <table className={styles.ExampleTable}>
                 <thead>
                   <tr>
@@ -402,17 +415,19 @@ function AgeAdjustmentTab() {
                 <tbody>
                   <tr>
                     <td>Race A</td>
-                    <td>5,550</td>
+                    <td>7,254.17</td>
                     <td>
-                      <div className={styles.Calculation}>5,550 / 5,550</div>
+                      <div className={styles.Calculation}>
+                        7,254.17 / 7,254.17
+                      </div>
                       <b>= 1.0×</b>
                     </td>
                   </tr>
                   <tr>
                     <td>Race B</td>
-                    <td>3260</td>
+                    <td>4,280</td>
                     <td>
-                      <div className={styles.Calculation}>3,260 / 5,550</div>
+                      <div className={styles.Calculation}>4,280 / 7,254.17</div>
                       <b>= 0.6×</b>
                     </td>
                   </tr>
