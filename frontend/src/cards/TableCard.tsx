@@ -232,7 +232,6 @@ export function TableCard(props: TableCardProps) {
 
             {!queryResponse.dataIsMissing() && (
               <div className={styles.TableChart}>
-                {console.log(dataWithoutUnknowns)}
                 <TableChart
                   data={dataWithoutUnknowns}
                   breakdownVar={props.breakdownVar}

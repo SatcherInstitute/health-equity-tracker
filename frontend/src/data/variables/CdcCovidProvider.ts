@@ -222,19 +222,17 @@ class CdcCovidProvider extends VariableProvider {
       ].includes(metricId)
     );
     shareOfUnknownMetrics.forEach((shareOfUnknownColumnName) => {
-      const rawCountColunn = shareOfUnknownColumnName.slice(
+      const rawCountColumn = shareOfUnknownColumnName.slice(
         0,
         -"_share_of_known".length
       );
       df = this.calculations.calculatePctShareOfKnown(
         df,
-        rawCountColunn,
+        rawCountColumn,
         shareOfUnknownColumnName,
         breakdownColumnName
       );
     });
-
-    console.log(df);
 
     const populationMetric: MetricId[] = [
       "covid_cases_reporting_population",
