@@ -28,15 +28,15 @@ STATE = "state"
 
 
 CAWP_RACE_GROUPS_TO_STANDARD = {
-    'Asian American/Pacific Islander': Race.ASIAN_PAC_NH.value,
+    'Asian American/Pacific Islander': Race.ASIAN_PAC.value,
     'Latina': Race.HISP.value,
-    'Middle Eastern/North African': Race.MENA_NH.value,
+    'Middle Eastern/North African': Race.MENA.value,
     # currently reporting MULTI as the sum of "Multiracial Alone" +
     # women who chose multiple specific races
     'Multiracial Alone': Race.MULTI.value,
-    'Native American/Alaska Native/Native Hawaiian': Race.AIANNH_NH.value,
-    'Black': Race.BLACK_NH.value,
-    'White': Race.WHITE_NH.value,
+    'Native American/Alaska Native/Native Hawaiian': Race.AIANNH.value,
+    'Black': Race.BLACK.value,
+    'White': Race.WHITE.value,
     'Unavailable': Race.UNKNOWN.value,
     'All': Race.ALL.value,
 }
