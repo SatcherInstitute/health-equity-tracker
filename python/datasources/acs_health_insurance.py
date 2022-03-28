@@ -74,7 +74,8 @@ class AcsHealhInsuranceRaceIngestor:
             metadata, HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES.keys()
         )
         self.metadata = parseMetadata(
-            metadata, [MetadataKey.AGE, MetadataKey.RACE], self.metadataInitializer
+            metadata, [MetadataKey.AGE,
+                       MetadataKey.RACE], self.metadataInitializer
         )
         for k, v in self.metadata.items():
             if MetadataKey.POPULATION not in v:
@@ -166,7 +167,7 @@ class AcsHealhInsuranceRaceIngestor:
             column_types[WITHOUT_HEALTH_INSURANCE_COL] = "INT64"
             column_types[TOTAL_HEALTH_INSURANCE_COL] = "INT64"
 
-            gcs_to_bq_util.add_dataframe_to_bq(
+            gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name, column_types=column_types
             )
 
@@ -280,7 +281,8 @@ class AcsHealhInsuranceRaceIngestor:
 
             if county_fip is None:
                 state_race_data.append(
-                    [state_fip, self.state_fips[state_fip], age, race, whi, wohi, total]
+                    [state_fip, self.state_fips[state_fip],
+                        age, race, whi, wohi, total]
                 )
             else:
                 county_race_data.append(
@@ -341,7 +343,8 @@ class AcsHealhInsuranceSexIngestor:
     def __init__(self, base_url):
         self.base_url = base_url
         metadata = fetch_acs_metadata(self.base_url)["variables"]
-        metadata = trimMetadata(metadata, [HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX])
+        metadata = trimMetadata(
+            metadata, [HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX])
         self.metadata = parseMetadata(
             metadata, [MetadataKey.AGE, MetadataKey.SEX], lambda key: dict()
         )
@@ -394,7 +397,8 @@ class AcsHealhInsuranceSexIngestor:
     def upload_to_gcs(self, bucket):
         file_diff = False
         for is_county in [True, False]:
-            params = get_params(HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, is_county)
+            params = get_params(
+                HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX, is_county)
 
             file_diff = (
                 url_file_to_gcs.url_file_to_gcs(
@@ -420,7 +424,7 @@ class AcsHealhInsuranceSexIngestor:
             column_types[WITHOUT_HEALTH_INSURANCE_COL] = "INT64"
             column_types[TOTAL_HEALTH_INSURANCE_COL] = "INT64"
 
-            gcs_to_bq_util.add_dataframe_to_bq(
+            gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name, column_types=column_types
             )
 
@@ -534,7 +538,8 @@ class AcsHealhInsuranceSexIngestor:
             if county_fip is None:
 
                 state_sex_data.append(
-                    [state_fip, self.state_fips[state_fip], age, sex, whi, wohi, total]
+                    [state_fip, self.state_fips[state_fip],
+                        age, sex, whi, wohi, total]
                 )
 
             else:

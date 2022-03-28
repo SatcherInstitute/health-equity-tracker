@@ -96,7 +96,7 @@ _expected_merged_fips = [
 
 
 def _get_fips_codes_as_df():
-    return gcs_to_bq_util.values_json_to_dataframe(
+    return gcs_to_bq_util.values_json_to_df(
         json.dumps(_fips_codes_from_bq), dtype=str).reset_index(drop=True)
 
 
@@ -111,14 +111,14 @@ def testPercentAvoidRoundingToZero():
 
 
 def testAddSumOfRows():
-    df = gcs_to_bq_util.values_json_to_dataframe(
+    df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_fake_race_data_without_totals)).reset_index(drop=True)
 
     df['population'] = df['population'].astype(int)
 
     df = dataset_utils.add_sum_of_rows(df, 'race', 'population', 'TOTAL')
 
-    expected_df = gcs_to_bq_util.values_json_to_dataframe(
+    expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_race_data_with_totals)).reset_index(drop=True)
 
     expected_df['population'] = expected_df['population'].astype(int)
@@ -127,24 +127,25 @@ def testAddSumOfRows():
 
 
 def testGeneratePctShareCol():
-    df = gcs_to_bq_util.values_json_to_dataframe(
+    df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_fake_race_data)).reset_index(drop=True)
 
     df['population'] = df['population'].astype(int)
 
-    expected_df = gcs_to_bq_util.values_json_to_dataframe(
+    expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_pct_share_data)).reset_index(drop=True)
 
     expected_df['population'] = expected_df['population'].astype(int)
     expected_df['pct_share'] = expected_df['pct_share'].astype(float)
 
-    df = dataset_utils.generate_pct_share_col(df, 'population', 'pct_share', 'race', 'TOTAL')
+    df = dataset_utils.generate_pct_share_col(
+        df, 'population', 'pct_share', 'race', 'TOTAL')
 
     assert_frame_equal(expected_df, df)
 
 
 def testGeneratePctShareColNoTotalError():
-    df = gcs_to_bq_util.values_json_to_dataframe(
+    df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_fake_race_data)).reset_index(drop=True)
 
     df = df.loc[df['race'] != 'TOTAL']
@@ -153,11 +154,12 @@ def testGeneratePctShareColNoTotalError():
 
     expected_error = r"There is no TOTAL value for this chunk of data"
     with pytest.raises(ValueError, match=expected_error):
-        df = dataset_utils.generate_pct_share_col(df, 'population', 'pct_share', 'race', 'TOTAL')
+        df = dataset_utils.generate_pct_share_col(
+            df, 'population', 'pct_share', 'race', 'TOTAL')
 
 
 def testGeneratePctShareColExtraTotalError():
-    df = gcs_to_bq_util.values_json_to_dataframe(
+    df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_fake_race_data)).reset_index(drop=True)
 
     extra_row = pd.DataFrame([{
@@ -173,15 +175,16 @@ def testGeneratePctShareColExtraTotalError():
 
     expected_error = r"There are multiple TOTAL values for this chunk of data, there should only be one"
     with pytest.raises(ValueError, match=expected_error):
-        df = dataset_utils.generate_pct_share_col(df, 'population', 'pct_share', 'race', 'TOTAL')
+        df = dataset_utils.generate_pct_share_col(
+            df, 'population', 'pct_share', 'race', 'TOTAL')
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
             return_value=_get_fips_codes_as_df())
 def testMergeFipsCodes(mock_bq: mock.MagicMock):
-    df = gcs_to_bq_util.values_json_to_dataframe(
+    df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_without_fips_codes), dtype=str).reset_index(drop=True)
-    expected_df = gcs_to_bq_util.values_json_to_dataframe(
+    expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_merged_fips), dtype=str).reset_index(drop=True)
 
     df = dataset_utils.merge_fips_codes(df)

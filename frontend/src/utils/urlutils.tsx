@@ -2,6 +2,7 @@ import Button from "@material-ui/core/Button";
 import axios from "axios";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { VariableId } from "../data/config/MetricConfig";
 import { getLogger } from "./globals";
 import { MadLibId, PhraseSelections } from "./MadLibs";
 
@@ -31,8 +32,12 @@ export const OURTEAM_TAB_LINK = "/ourteam";
 export const NEWS_TAB_LINK = "/news";
 
 // TRACKER SETTINGS
+export const COVID_DEATHS_US_SETTING =
+  "?mls=1.covid-3.00&dt1=covid_deaths&demo=race_and_ethnicity";
+export const COVID_HOSP_US_SETTING =
+  "?mls=1.covid-3.00&dt1=covid_hospitalizations&demo=race_and_ethnicity";
 export const COVID_HOSP_NY_COUNTY_SETTING =
-  "?dt1=hospitalizations&mls=1.covid-3.36061";
+  "?dt1=covid_hospitalizations&mls=1.covid-3.36061";
 export const COVID_VAX_US_SETTING = "?mls=1.covid_vaccinations-3.00";
 export const COPD_US_SETTING = "?mls=1.copd-3.00";
 export const DIABETES_US_SETTING = "?mls=1.diabetes-3.00";
@@ -68,6 +73,17 @@ export const SHOW_ONBOARDING_PARAM = "onboard";
 export const DEMOGRAPHIC_PARAM = "demo";
 export const DATA_TYPE_1_PARAM = "dt1";
 export const DATA_TYPE_2_PARAM = "dt2";
+
+// Ensures backwards compatibility for external links to old VariableIds
+export function swapOldParams(oldParam: string) {
+  const swaps: Record<string, VariableId> = {
+    deaths: "covid_deaths",
+    cases: "covid_cases",
+    hospitalizations: "covid_hospitalizations",
+    vaccinations: "covid_vaccinations",
+  };
+  return swaps[oldParam] || oldParam;
+}
 
 // WORDPRESS CONFIG
 export const NEWS_URL = "https://hetblog.dreamhosters.com/";

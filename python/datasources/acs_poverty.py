@@ -82,9 +82,11 @@ def determine_new_age_bucket(ageStr):
         elif bucket["min"] > age["max"] or bucket["max"] < age["min"]:
             pass
         elif bucket["min"] <= age["min"] and age["max"] >= bucket["min"]:
-            raise Exception(f"Invalid Grouping [1] for age {age} for bucket {bucket}")
+            raise Exception(
+                f"Invalid Grouping [1] for age {age} for bucket {bucket}")
         elif bucket["max"] >= age["max"] and age["min"] <= bucket["min"]:
-            raise Exception(f"Invalid Grouping [2] for age {age} for bucket {bucket}")
+            raise Exception(
+                f"Invalid Grouping [2] for age {age} for bucket {bucket}")
 
     return ageStr
 
@@ -100,7 +102,8 @@ def get_race_from_key(key):
 # Standardized way of getting filename by group
 def get_filename(grp_code, is_county):
     geo = "COUNTY" if is_county else "STATE"
-    grp_name = POVERTY_BY_RACE_SEX_AGE_GROUPS[grp_code].replace(" ", "_").upper()
+    grp_name = POVERTY_BY_RACE_SEX_AGE_GROUPS[grp_code].replace(
+        " ", "_").upper()
     return f"ACS_POVERTY_BY_AGE_RACE_{geo}_{grp_name}"
 
     # Helper method from grabbing a tuple in data.  If the
@@ -125,7 +128,8 @@ class AcsPovertyIngestor:
     def __init__(self, base_url):
         self.base_url = base_url
         metadata = fetch_acs_metadata(self.base_url)["variables"]
-        metadata = trimMetadata(metadata, POVERTY_BY_RACE_SEX_AGE_GROUPS.keys())
+        metadata = trimMetadata(
+            metadata, POVERTY_BY_RACE_SEX_AGE_GROUPS.keys())
         self.metadata = parseMetadata(
             metadata,
             [MetadataKey.AGE, MetadataKey.SEX, MetadataKey.RACE],
@@ -156,7 +160,7 @@ class AcsPovertyIngestor:
             column_types[BELOW_POVERTY_COL] = "INT64"
             column_types[ABOVE_POVERTY_COL] = "INT64"
 
-            gcs_to_bq_util.add_dataframe_to_bq(
+            gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name, column_types=column_types
             )
 

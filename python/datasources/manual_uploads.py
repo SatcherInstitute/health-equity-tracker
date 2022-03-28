@@ -21,7 +21,7 @@ class ManualUploads(DataSource):
         bucket_files = gcs_to_bq_util.list_bucket_files(gcs_bucket)
         for file_name in bucket_files:
             table_name = file_name.split('.')[0]
-            chunked_frame = gcs_to_bq_util.load_csv_as_dataframe(
+            chunked_frame = gcs_to_bq_util.load_csv_as_df(
                 gcs_bucket, file_name, chunksize=1000)
 
             # For the very first chunk, we set the mode to overwrite to clear
@@ -29,7 +29,7 @@ class ManualUploads(DataSource):
             overwrite = True
             for chunk in chunked_frame:
                 super().clean_frame_column_names(chunk)
-                gcs_to_bq_util.add_dataframe_to_bq_as_str_values(
+                gcs_to_bq_util.add_df_to_bq_as_str_values(
                     chunk, dataset, table_name, project=manual_uploads_project,
                     overwrite=overwrite)
                 overwrite = False

@@ -100,7 +100,7 @@ class CDCVaccinationNational(DataSource):
             if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
                 column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
-            gcs_to_bq_util.add_dataframe_to_bq(
+            gcs_to_bq_util.add_df_to_bq(
                 breakdown_df, dataset, breakdown, column_types=column_types)
 
     def generate_breakdown(self, breakdown, df):
@@ -133,8 +133,10 @@ class CDCVaccinationNational(DataSource):
                 output_row[breakdown] = standard_group
 
             row = df.loc[df['demographic_category'] == cdc_group]
-            output_row[std_col.VACCINATED_FIRST_DOSE] = int(row['administered_dose1'].values[0])
-            output_row[std_col.VACCINATED_PER_100K] = calc_per_100k(row['administered_dose1_pct'].values[0])
+            output_row[std_col.VACCINATED_FIRST_DOSE] = int(
+                row['administered_dose1'].values[0])
+            output_row[std_col.VACCINATED_PER_100K] = calc_per_100k(
+                row['administered_dose1_pct'].values[0])
 
             # We want the Total number of unknowns, not the unknowns of what is known
             if standard_group == "Unknown" or standard_group == Race.UNKNOWN.value:
