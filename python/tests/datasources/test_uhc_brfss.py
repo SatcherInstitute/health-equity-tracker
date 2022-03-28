@@ -24,9 +24,9 @@ def get_test_data_as_df():
                               })
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe_from_web',
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
             return_value=get_test_data_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
@@ -80,6 +80,6 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
         expected_df = pd.read_json(
             GOLDEN_DATA[demographics[i]], dtype=expected_dtype)
 
-        # output created in mocked load_csv_as_dataframe_from_web() should be the same as the expected df
+        # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
         assert_frame_equal(
             mock_bq.call_args_list[i].args[0], expected_df, check_like=True)

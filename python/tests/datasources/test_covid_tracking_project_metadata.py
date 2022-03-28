@@ -42,14 +42,14 @@ def generate_test_data() -> pd.DataFrame:
 
 def get_expected_data() -> pd.DataFrame:
     expected_cols = [
-         col_std.STATE_POSTAL_COL,
-         'variable_type',
-         'reports_api',
-         col_std.RACE_INCLUDES_HISPANIC_COL,
-         'race_mutually_exclusive',
-         'reports_ind',
-         'reports_race',
-         'reports_ethnicity']
+        col_std.STATE_POSTAL_COL,
+        'variable_type',
+        'reports_api',
+        col_std.RACE_INCLUDES_HISPANIC_COL,
+        'race_mutually_exclusive',
+        'reports_ind',
+        'reports_race',
+        'reports_ethnicity']
     expected_data = [
         ['AL', 'cases',  1, 1, 0, 0, 1, 1],
         ['AL', 'deaths', 1, 1, 0, 0, 1, 1],
@@ -61,9 +61,9 @@ def get_expected_data() -> pd.DataFrame:
     return pd.DataFrame(expected_data, columns=expected_cols)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe',
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df',
             return_value=generate_test_data())
-@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq')
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq')
 def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     ctp = CtpMetadata()
     kwargs = {'filename': 'test_file.csv', 'table_name': 'output_table'}
@@ -72,8 +72,10 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     expected = get_expected_data()
     # Check that the contents of the dataframes are the same, ignoring column order.
     assert_frame_equal(
-        result.set_index([col_std.STATE_POSTAL_COL, 'variable_type'], drop=False),
-        expected.set_index([col_std.STATE_POSTAL_COL, 'variable_type'], drop=False),
+        result.set_index(
+            [col_std.STATE_POSTAL_COL, 'variable_type'], drop=False),
+        expected.set_index(
+            [col_std.STATE_POSTAL_COL, 'variable_type'], drop=False),
         check_like=True)
 
 
