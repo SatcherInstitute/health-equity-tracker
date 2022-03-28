@@ -38,7 +38,7 @@ class CDCRestrictedData(DataSource):
                     std_col.COVID_DEATH_UNKNOWN]
         for f in files:
             # Explicitly specify county_fips is a string.
-            df = gcs_to_bq_util.load_csv_as_dataframe(
+            df = gcs_to_bq_util.load_csv_as_df(
                 gcs_bucket, f, dtype={'county_fips': str})
 
             # All columns are str, except outcome columns.
@@ -53,5 +53,5 @@ class CDCRestrictedData(DataSource):
             self.clean_frame_column_names(df)
 
             table_name = f.replace('.csv', '')  # Table name is file name
-            gcs_to_bq_util.add_dataframe_to_bq(
+            gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name, column_types=column_types)

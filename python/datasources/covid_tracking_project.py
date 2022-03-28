@@ -43,14 +43,15 @@ class CovidTrackingProject(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         filename = self.get_attr(attrs, "filename")
 
-        df = gcs_to_bq_util.load_csv_as_dataframe(
+        df = gcs_to_bq_util.load_csv_as_df(
             gcs_bucket, filename, parse_dates=["Date"], thousands=",")
         df = self.standardize(df)
 
         # Get the metadata table
         metadata = self._download_metadata(dataset)
         if len(metadata.index) == 0:
-            raise RuntimeError("BigQuery call to {} returned 0 rows".format(dataset))
+            raise RuntimeError(
+                "BigQuery call to {} returned 0 rows".format(dataset))
         merged = CovidTrackingProject.merge_with_metadata(df, metadata)
 
         # Split into separate tables by variable type
@@ -60,7 +61,7 @@ class CovidTrackingProject(DataSource):
             result.rename(columns={"value": variable_type}, inplace=True)
             result.drop("variable_type", axis="columns", inplace=True)
             # Write to BQ
-            gcs_to_bq_util.add_dataframe_to_bq(
+            gcs_to_bq_util.add_df_to_bq(
                 result, dataset, self.get_table_name() + "_" + variable_type)
 
     def standardize(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -73,14 +74,16 @@ class CovidTrackingProject(DataSource):
         A pandas.DataFrame containing the standardized and formatted data."""
         self.clean_frame_column_names(df)
         df.drop(
-            columns=["cases_latinx", "deaths_latinx", "hosp_latinx", "tests_latinx"],
+            columns=["cases_latinx", "deaths_latinx",
+                     "hosp_latinx", "tests_latinx"],
             inplace=True)
         df = df.melt(id_vars=["date", "state"])
         df[["variable_type", col_std.RACE_COL]] = df.variable.str.split(
             "_", 1, expand=True)
         df.drop("variable", axis=1, inplace=True)
         df.rename(columns={"state": col_std.STATE_POSTAL_COL}, inplace=True)
-        df.replace({col_std.RACE_COL: self.get_standard_columns()}, inplace=True)
+        df.replace(
+            {col_std.RACE_COL: self.get_standard_columns()}, inplace=True)
         df["date"] = df["date"].map(lambda ts: ts.strftime("%Y-%m-%d"))
         return df
 
