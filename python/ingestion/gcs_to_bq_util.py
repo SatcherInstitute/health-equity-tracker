@@ -150,7 +150,7 @@ def load_values_as_df(gcs_bucket, filename):
     return load_values_blob_as_df(blob)
 
 
-def values_json_to_dataframe(json_string, dtype=None):
+def values_json_to_df(json_string, dtype=None):
     frame = pd.read_json(json_string, orient='values', dtype=dtype)
     frame.rename(columns=frame.iloc[0], inplace=True)
     frame.drop([0], inplace=True)
@@ -164,7 +164,7 @@ def load_values_blob_as_df(blob):
 
        blob: google.cloud.storage.blob.Blob object"""
     json_string = blob.download_as_string()
-    return values_json_to_dataframe(json_string)
+    return values_json_to_df(json_string)
 
 
 def load_csv_as_df(gcs_bucket, filename, dtype=None, chunksize=None,
@@ -288,7 +288,7 @@ def load_public_dataset_from_bigquery_as_df(dataset, table_name, dtype=None):
     return client.list_rows(table_id).to_dataframe(dtypes=dtype)
 
 
-def load_dataframe_from_bigquery(dataset, table_name, dtype=None):
+def load_df_from_bigquery(dataset, table_name, dtype=None):
     """Loads data from a big query table into a dataframe.
 
        dataset: The BigQuery dataset to write to.
