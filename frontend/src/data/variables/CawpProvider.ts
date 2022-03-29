@@ -32,6 +32,7 @@ class CawpProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
+
     const datasetId = this.getDatasetId(breakdowns);
 
     const cawp = await getDataManager().loadDataset(datasetId);
@@ -49,10 +50,9 @@ class CawpProvider extends VariableProvider {
     const acsDatasetId = GetAcsDatasetId(breakdowns);
     consumedDatasetIds = consumedDatasetIds.concat(acsDatasetId);
 
-    // We merge this in on the backend
     consumedDatasetIds = consumedDatasetIds.concat(
-      "acs_2010_population-by_race_and_ethnicity_territory",
-      "propublica_congress" // this is only used in US Congress datatype; not sure how to restrict based on active datatype
+      "acs_2010_population-by_race_and_ethnicity_territory", // We merge this in on the backend
+      "propublica_congress" // we merge on backend only for US Congress datatype; not sure how to restrict based on active datatype
     );
 
     if (breakdowns.geography === "national") {
