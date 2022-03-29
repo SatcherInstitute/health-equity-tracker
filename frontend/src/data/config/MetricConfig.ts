@@ -6,7 +6,7 @@ export type DropdownVarId =
   | "copd"
   | "health_insurance"
   | "poverty"
-  | "vaccinations"
+  | "covid_vaccinations"
   | "depression"
   | "suicide"
   | "substance"
@@ -30,12 +30,10 @@ export type VariableId =
   | "covid_cases"
   | "non_medical_drug_use"
   | "non_medical_rx_opioid_use"
-  | "illicit_opioid_use"
-  | "covid_vaccinations";
+  | "illicit_opioid_use";
 
 // consts for simpler code
-export const VAXX: DropdownVarId = "vaccinations";
-export const COVID_VAXX: VariableId = "covid_vaccinations";
+export const COVID_VAXX: DropdownVarId = "covid_vaccinations";
 
 export type MetricId =
   | "acs_vaccine_population_pct"
@@ -274,7 +272,7 @@ export function getAgeAdjustedRatioMetric(
 // Note: metrics must be declared in a consistent order because the UI relies
 // on this to build toggles.
 // TODO: make the UI consistent regardless of metric config order.
-export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
+export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   covid: [
     {
       variableId: "covid_cases",
@@ -436,9 +434,9 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
     },
   ],
 
-  vaccinations: [
+  covid_vaccinations: [
     {
-      variableId: "vaccinations",
+      variableId: "covid_vaccinations",
       variableDisplayName: "Vaccinations",
       variableFullDisplayName: "COVID-19 Vaccinations",
       variableDefinition: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
@@ -471,7 +469,7 @@ export const METRIC_CONFIG: Record<string, VariableConfig[]> = {
           knownBreakdownComparisonMetric: {
             metricId: "vaccinated_share_of_known",
             fullCardTitleName: "Share Of Total COVID-19 Vaccinations",
-            shortLabel: "% of COVID-19 vaccinations",
+            shortLabel: "% of vaccinations",
             type: "pct_share",
           },
           secondaryPopulationComparisonMetric: {

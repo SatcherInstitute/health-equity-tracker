@@ -76,10 +76,12 @@ If a condition contains multiple data types, they are
 treated as individual items  */
 export function getSelectedConditions(madLib: MadLib) {
   const condition1array: VariableConfig[] =
-    METRIC_CONFIG[getPhraseValue(madLib, 1)];
+    METRIC_CONFIG[getPhraseValue(madLib, 1) as DropdownVarId];
   // get 2nd condition if in compare var mode
   const condition2array: VariableConfig[] =
-    madLib.id === "comparevars" ? METRIC_CONFIG[getPhraseValue(madLib, 3)] : [];
+    madLib.id === "comparevars"
+      ? METRIC_CONFIG[getPhraseValue(madLib, 3) as DropdownVarId]
+      : [];
 
   // make a list of conditions and sub-conditions, including #2 if it's unique
   return condition2array.length && condition2array !== condition1array
@@ -93,7 +95,7 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   copd: "COPD",
   health_insurance: "Uninsured Individuals",
   poverty: "Poverty",
-  vaccinations: "COVID-19 Vaccinations",
+  covid_vaccinations: "COVID-19 Vaccinations",
   depression: "Depression",
   suicide: "Suicide",
   substance: "Opioid and Other Substance Misuse",
@@ -117,7 +119,7 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: "COVID-19",
     definition: "",
-    options: ["covid", "vaccinations"],
+    options: ["covid", "covid_vaccinations"],
   },
   {
     title: "Political Determinants of Health",
