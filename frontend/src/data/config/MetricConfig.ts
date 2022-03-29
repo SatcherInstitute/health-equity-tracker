@@ -930,7 +930,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Women in US Congress",
       variableFullDisplayName: "Women in US Congress",
       surveyCollectedData: true,
-      variableDefinition: `Official definition.`,
+      variableDefinition: `Women serving in Congress of the United States, including members of the Senate and members of the House of Representatives (including territorial delegates). Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.`,
       metrics: {
         per100k: {
           metricId: "women_us_congress_pct",
@@ -963,7 +963,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Women in State Legislatures",
       variableFullDisplayName: "Women in State Legislatures",
       surveyCollectedData: true,
-      variableDefinition: `Official definition.`,
+      variableDefinition: `Women serving in their state or territory’s legislatures, including Senate and House of Representatives or Unicameral bodies as applicable. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.
+      `,
       metrics: {
         per100k: {
           metricId: "women_state_leg_pct",
