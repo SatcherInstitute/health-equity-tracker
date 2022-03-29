@@ -11,7 +11,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_name: "CDC Case Surveillance Restricted Access Detailed Data",
     data_source_link:
       "https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t",
-    geographic_level: "State",
+    geographic_level: "State, County",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Biweekly",
     description:
@@ -29,6 +29,19 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "cdc_restricted_data-by_sex_county",
       "cdc_restricted_data-by_sex_state",
     ],
+    downloadable: false,
+  },
+  {
+    id: "propublica_congress",
+    data_source_name: "ProPublica Congress API",
+    data_source_link:
+      "https://www.propublica.org/datastore/api/propublica-congress-api",
+    geographic_level: "National, State",
+    demographic_granularity: "N/A",
+    update_frequency: "At Least Daily",
+    description:
+      "Total members of the United States Congress (Senate and House of Representatives including delegates) both nationally and by state/territory.",
+    dataset_ids: ["propublica_congress"],
     downloadable: false,
   },
   {
@@ -70,7 +83,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "American Community Survey 5-year estimates from 2010, U.S. Territories",
     data_source_link:
       "https://www.census.gov/data/datasets/2010/dec/virgin-islands.html",
-    geographic_level: "State",
+    geographic_level: "State, County",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "None",
     description:
@@ -147,7 +160,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_name: "America's Health Rankings",
     data_source_link:
       "https://www.americashealthrankings.org/explore/annual/measure/Overall_a/state/ALL",
-    geographic_level: "State",
+    geographic_level: "National, State",
     demographic_granularity: "Race/ethnicity, age, sex",
     update_frequency: "Annual",
     description:
@@ -163,11 +176,11 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     id: "cawp",
     data_source_name: "Center for American Women in Politics (CAWP)",
     data_source_link: "https://cawpdata.rutgers.edu/",
-    geographic_level: "State",
+    geographic_level: "National, State",
     demographic_granularity: "Race/ethnicity",
     update_frequency: "Annual",
     description:
-      "Representation of women, by Race/Ethnicity, in the US Congress and state legislatures at the state level.",
+      "Representation of women, by race/ethnicity, in the US Congress and state legislatures.",
     dataset_ids: ["cawp_data-race_and_ethnicity"],
     downloadable: true,
   },

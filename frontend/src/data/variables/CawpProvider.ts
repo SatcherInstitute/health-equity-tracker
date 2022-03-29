@@ -3,6 +3,9 @@ import { MetricId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { USA_FIPS } from "../utils/Fips";
+import AcsPopulationProvider, {
+  GetAcsDatasetId,
+} from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 
 export const CAWP_DETERMINANTS: MetricId[] = [
@@ -14,8 +17,11 @@ export const CAWP_DETERMINANTS: MetricId[] = [
 ];
 
 class CawpProvider extends VariableProvider {
-  constructor() {
-    super("cawp_provider", [...CAWP_DETERMINANTS]);
+  private acsProvider: AcsPopulationProvider;
+
+  constructor(acsProvider: AcsPopulationProvider) {
+    super("cawp_provider", ["cawp_population_pct", ...CAWP_DETERMINANTS]);
+    this.acsProvider = acsProvider;
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
@@ -27,6 +33,7 @@ class CawpProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
     const datasetId = this.getDatasetId(breakdowns);
+
     const cawp = await getDataManager().loadDataset(datasetId);
     let df = cawp.toDataFrame();
 
@@ -34,13 +41,25 @@ class CawpProvider extends VariableProvider {
 
     df = this.renameGeoColumns(df, breakdowns);
 
+    let consumedDatasetIds = [datasetId];
+
+    let acsBreakdowns = breakdowns.copy();
+    acsBreakdowns.time = false;
+
+    const acsDatasetId = GetAcsDatasetId(breakdowns);
+    consumedDatasetIds = consumedDatasetIds.concat(acsDatasetId);
+
+    // We merge this in on the backend
+    consumedDatasetIds = consumedDatasetIds.concat(
+      "acs_2010_population-by_race_and_ethnicity_territory",
+      "propublica_congress" // this is only used in US Congress datatype; not sure how to restrict based on active datatype
+    );
+
     if (breakdowns.geography === "national") {
       df = df.where((row) => row.fips === USA_FIPS);
     } else if (breakdowns.geography === "state") {
       df = df.where((row) => row.fips !== USA_FIPS);
     }
-
-    let consumedDatasetIds = [datasetId];
 
     df = df.renameSeries({
       population_pct: "cawp_population_pct",
