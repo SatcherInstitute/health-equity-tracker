@@ -10,8 +10,8 @@
     "race_includes_hispanic": false,
     "race_and_ethnicity": "Black or African American (Non-Hispanic)",
     "age": "0-29",
-    "expected_deaths": 60.0,
-    "expected_hosps": 60.0
+    "expected_deaths": 81.0,
+    "expected_hosps": 81.0
   },
   {
     "state_fips": "01",
@@ -24,8 +24,8 @@
     "race_includes_hispanic": false,
     "race_and_ethnicity": "Black or African American (Non-Hispanic)",
     "age": "30-59",
-    "expected_deaths": 533.33,
-    "expected_hosps": 533.33
+    "expected_deaths": 773.33,
+    "expected_hosps": 773.33
   },
   {
     "state_fips": "01",
@@ -38,8 +38,8 @@
     "race_includes_hispanic": false,
     "race_and_ethnicity": "Black or African American (Non-Hispanic)",
     "age": "60+",
-    "expected_deaths": 2666.67,
-    "expected_hosps": 2666.67
+    "expected_deaths": 3546.67,
+    "expected_hosps": 3546.67
   },
   {
     "state_fips": "01",
@@ -52,8 +52,8 @@
     "race_includes_hispanic": true,
     "race_and_ethnicity": "Hispanic or Latino",
     "age": "0-29",
-    "expected_deaths": 600,
-    "expected_hosps": 600
+    "expected_deaths": 810,
+    "expected_hosps": 810
   },
   {
     "state_fips": "01",
@@ -66,8 +66,8 @@
     "race_includes_hispanic": true,
     "race_and_ethnicity": "Hispanic or Latino",
     "age": "30-59",
-    "expected_deaths": 1333.33,
-    "expected_hosps": 1333.33
+    "expected_deaths": 1933.33,
+    "expected_hosps": 1933.33
   },
   {
     "state_fips": "01",
@@ -80,8 +80,8 @@
     "race_includes_hispanic": true,
     "race_and_ethnicity": "Hispanic or Latino",
     "age": "60+",
-    "expected_deaths": 16666.67,
-    "expected_hosps": 16666.67
+    "expected_deaths": 22166.67,
+    "expected_hosps": 22166.67
   },
   {
     "state_fips": "01",
@@ -94,8 +94,8 @@
     "race_includes_hispanic": false,
     "race_and_ethnicity": "White (Non-Hispanic)",
     "age": "0-29",
-    "expected_deaths": 50,
-    "expected_hosps": 50
+    "expected_deaths": 67.5,
+    "expected_hosps": 67.5
   },
   {
     "state_fips": "01",
@@ -108,8 +108,8 @@
     "race_includes_hispanic": false,
     "race_and_ethnicity": "White (Non-Hispanic)",
     "age": "30-59",
-    "expected_deaths": 500,
-    "expected_hosps": 500
+    "expected_deaths": 725,
+    "expected_hosps": 725
   },
   {
     "state_fips": "01",
@@ -122,7 +122,7 @@
     "race_includes_hispanic": false,
     "race_and_ethnicity": "White (Non-Hispanic)",
     "age": "60+",
-    "expected_deaths": 5000,
-    "expected_hosps": 5000
+    "expected_deaths": 6650,
+    "expected_hosps": 6650
   }
 ]

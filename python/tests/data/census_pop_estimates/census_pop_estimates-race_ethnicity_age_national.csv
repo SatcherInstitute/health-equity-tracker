@@ -4,58 +4,68 @@ state_fips,state_name,age,population,race_category_id,race,race_includes_hispani
 00,United States,0-9,2842,BLACK_NH,Black or African American,FALSE,Black or African American (Non-Hispanic)
 00,United States,0-9,654,HISP,Hispanic or Latino,TRUE,Hispanic or Latino
 00,United States,0-9,12,NHPI_NH,Native Hawaiian and Pacific Islander,FALSE,Native Hawaiian and Pacific Islander (Non-Hispanic)
+00,United States,0-9,14263,TOTAL,Total,,Total
 00,United States,0-9,9868,WHITE_NH,White,FALSE,White (Non-Hispanic)
 00,United States,10-19,44,AIAN_NH,American Indian and Alaska Native,FALSE,American Indian and Alaska Native (Non-Hispanic)
 00,United States,10-19,154,ASIAN_NH,Asian,FALSE,Asian (Non-Hispanic)
 00,United States,10-19,3347,BLACK_NH,Black or African American,FALSE,Black or African American (Non-Hispanic)
 00,United States,10-19,661,HISP,Hispanic or Latino,TRUE,Hispanic or Latino
 00,United States,10-19,18,NHPI_NH,Native Hawaiian and Pacific Islander,FALSE,Native Hawaiian and Pacific Islander (Non-Hispanic)
+00,United States,10-19,15770,TOTAL,Total,,Total
 00,United States,10-19,11079,WHITE_NH,White,FALSE,White (Non-Hispanic)
 00,United States,20-29,71,AIAN_NH,American Indian and Alaska Native,FALSE,American Indian and Alaska Native (Non-Hispanic)
 00,United States,20-29,175,ASIAN_NH,Asian,FALSE,Asian (Non-Hispanic)
 00,United States,20-29,3218,BLACK_NH,Black or African American,FALSE,Black or African American (Non-Hispanic)
 00,United States,20-29,521,HISP,Hispanic or Latino,TRUE,Hispanic or Latino
 00,United States,20-29,4,NHPI_NH,Native Hawaiian and Pacific Islander,FALSE,Native Hawaiian and Pacific Islander (Non-Hispanic)
+00,United States,20-29,14622,TOTAL,Total,,Total
 00,United States,20-29,10348,WHITE_NH,White,FALSE,White (Non-Hispanic)
 00,United States,30-39,65,AIAN_NH,American Indian and Alaska Native,FALSE,American Indian and Alaska Native (Non-Hispanic)
 00,United States,30-39,259,ASIAN_NH,Asian,FALSE,Asian (Non-Hispanic)
 00,United States,30-39,3191,BLACK_NH,Black or African American,FALSE,Black or African American (Non-Hispanic)
 00,United States,30-39,609,HISP,Hispanic or Latino,TRUE,Hispanic or Latino
 00,United States,30-39,12,NHPI_NH,Native Hawaiian and Pacific Islander,FALSE,Native Hawaiian and Pacific Islander (Non-Hispanic)
+00,United States,30-39,15327,TOTAL,Total,,Total
 00,United States,30-39,11003,WHITE_NH,White,FALSE,White (Non-Hispanic)
 00,United States,40-49,69,AIAN_NH,American Indian and Alaska Native,FALSE,American Indian and Alaska Native (Non-Hispanic)
 00,United States,40-49,264,ASIAN_NH,Asian,FALSE,Asian (Non-Hispanic)
 00,United States,40-49,3144,BLACK_NH,Black or African American,FALSE,Black or African American (Non-Hispanic)
 00,United States,40-49,508,HISP,Hispanic or Latino,TRUE,Hispanic or Latino
 00,United States,40-49,17,NHPI_NH,Native Hawaiian and Pacific Islander,FALSE,Native Hawaiian and Pacific Islander (Non-Hispanic)
+00,United States,40-49,15717,TOTAL,Total,,Total
 00,United States,40-49,11561,WHITE_NH,White,FALSE,White (Non-Hispanic)
 00,United States,50-59,102,AIAN_NH,American Indian and Alaska Native,FALSE,American Indian and Alaska Native (Non-Hispanic)
 00,United States,50-59,159,ASIAN_NH,Asian,FALSE,Asian (Non-Hispanic)
 00,United States,50-59,2704,BLACK_NH,Black or African American,FALSE,Black or African American (Non-Hispanic)
 00,United States,50-59,327,HISP,Hispanic or Latino,TRUE,Hispanic or Latino
 00,United States,50-59,12,NHPI_NH,Native Hawaiian and Pacific Islander,FALSE,Native Hawaiian and Pacific Islander (Non-Hispanic)
+00,United States,50-59,16322,TOTAL,Total,,Total
 00,United States,50-59,12912,WHITE_NH,White,FALSE,White (Non-Hispanic)
 00,United States,60-69,79,AIAN_NH,American Indian and Alaska Native,FALSE,American Indian and Alaska Native (Non-Hispanic)
 00,United States,60-69,130,ASIAN_NH,Asian,FALSE,Asian (Non-Hispanic)
 00,United States,60-69,2267,BLACK_NH,Black or African American,FALSE,Black or African American (Non-Hispanic)
 00,United States,60-69,163,HISP,Hispanic or Latino,TRUE,Hispanic or Latino
 00,United States,60-69,4,NHPI_NH,Native Hawaiian and Pacific Islander,FALSE,Native Hawaiian and Pacific Islander (Non-Hispanic)
+00,United States,60-69,13183,TOTAL,Total,,Total
 00,United States,60-69,10436,WHITE_NH,White,FALSE,White (Non-Hispanic)
 00,United States,70-79,76,AIAN_NH,American Indian and Alaska Native,FALSE,American Indian and Alaska Native (Non-Hispanic)
 00,United States,70-79,59,ASIAN_NH,Asian,FALSE,Asian (Non-Hispanic)
 00,United States,70-79,1016,BLACK_NH,Black or African American,FALSE,Black or African American (Non-Hispanic)
 00,United States,70-79,108,HISP,Hispanic or Latino,TRUE,Hispanic or Latino
 00,United States,70-79,0,NHPI_NH,Native Hawaiian and Pacific Islander,FALSE,Native Hawaiian and Pacific Islander (Non-Hispanic)
+00,United States,70-79,8833,TOTAL,Total,,Total
 00,United States,70-79,7512,WHITE_NH,White,FALSE,White (Non-Hispanic)
 00,United States,80+,25,AIAN_NH,American Indian and Alaska Native,FALSE,American Indian and Alaska Native (Non-Hispanic)
 00,United States,80+,37,ASIAN_NH,Asian,FALSE,Asian (Non-Hispanic)
 00,United States,80+,512,BLACK_NH,Black or African American,FALSE,Black or African American (Non-Hispanic)
 00,United States,80+,76,HISP,Hispanic or Latino,TRUE,Hispanic or Latino
 00,United States,80+,2,NHPI_NH,Native Hawaiian and Pacific Islander,FALSE,Native Hawaiian and Pacific Islander (Non-Hispanic)
+00,United States,80+,4628,TOTAL,Total,,Total
 00,United States,80+,3947,WHITE_NH,White,FALSE,White (Non-Hispanic)
 00,United States,All,593,AIAN_NH,American Indian and Alaska Native,FALSE,American Indian and Alaska Native (Non-Hispanic)
 00,United States,All,1405,ASIAN_NH,Asian,FALSE,Asian (Non-Hispanic)
 00,United States,All,22241,BLACK_NH,Black or African American,FALSE,Black or African American (Non-Hispanic)
 00,United States,All,3627,HISP,Hispanic or Latino,TRUE,Hispanic or Latino
 00,United States,All,81,NHPI_NH,Native Hawaiian and Pacific Islander,FALSE,Native Hawaiian and Pacific Islander (Non-Hispanic)
+00,United States,All,118665,TOTAL,Total,,Total
 00,United States,All,88666,WHITE_NH,White,FALSE,White (Non-Hispanic)
