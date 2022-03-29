@@ -144,14 +144,14 @@ class UHCData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         df = gcs_to_bq_util.load_csv_as_df_from_web(BASE_UHC_URL)
         df = df.rename(columns={'State Name': std_col.STATE_NAME_COL})
-        df = dataset_utils.merge_fips_codes(df)
 
         for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
             breakdown_df = self.generate_breakdown(breakdown, df)
+            breakdown_df = dataset_utils.merge_fips_codes(breakdown_df)
 
-            for geo in ['state', 'national']:
+            # for geo in ['state', 'national']:
+            for geo in ['state']:
                 if geo == 'national':
-                    print(breakdown_df[std_col.STATE_FIPS_COL])
                     breakdown_df = breakdown_df.loc[breakdown_df[std_col.STATE_FIPS_COL] == constants.US_FIPS]
                 else:
                     breakdown_df = breakdown_df.loc[breakdown_df[std_col.STATE_FIPS_COL] != constants.US_FIPS]
@@ -183,8 +183,6 @@ class UHCData(DataSource):
 
                 output_row = {}
                 output_row[std_col.STATE_NAME_COL] = state
-                output_row[std_col.STATE_FIPS_COL] = df.loc[
-                        df[std_col.STATE_NAME_COL] == state][std_col.STATE_FIPS_COL].to_list()[0]
 
                 if breakdown == std_col.RACE_OR_HISPANIC_COL:
                     output_row[std_col.RACE_CATEGORY_ID_COL] = \

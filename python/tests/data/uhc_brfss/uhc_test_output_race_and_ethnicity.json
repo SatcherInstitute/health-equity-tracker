@@ -1,6 +1,7 @@
 [
     {
         "state_name": "Alabama",
+        "state_fips": "01",
         "race_category_id": "AIAN_NH",
         "copd_per_100k": null,
         "diabetes_per_100k": null,
@@ -23,6 +24,7 @@
     },
     {
         "state_name": "Alabama",
+        "state_fips": "01",
         "race_category_id": "ASIAN_NH",
         "copd_per_100k": null,
         "diabetes_per_100k": null,
@@ -45,6 +47,7 @@
     },
     {
         "state_name": "Alabama",
+        "state_fips": "01",
         "race_category_id": "API_NH",
         "copd_per_100k": null,
         "diabetes_per_100k": null,
@@ -67,6 +70,7 @@
     },
     {
         "state_name": "Alabama",
+        "state_fips": "01",
         "race_category_id": "BLACK_NH",
         "copd_per_100k": "8400",
         "diabetes_per_100k": "18100",
@@ -89,6 +93,7 @@
     },
     {
         "state_name": "Alabama",
+        "state_fips": "01",
         "race_category_id": "NHPI_NH",
         "copd_per_100k": null,
         "diabetes_per_100k": null,
@@ -111,6 +116,7 @@
     },
     {
         "state_name": "Alabama",
+        "state_fips": "01",
         "race_category_id": "HISP",
         "copd_per_100k": null,
         "diabetes_per_100k": null,
@@ -133,6 +139,7 @@
     },
     {
         "state_name": "Alabama",
+        "state_fips": "01",
         "race_category_id": "MULTI_NH",
         "copd_per_100k": null,
         "diabetes_per_100k": null,
@@ -155,6 +162,7 @@
     },
     {
         "state_name": "Alabama",
+        "state_fips": "01",
         "race_category_id": "OTHER_STANDARD_NH",
         "copd_per_100k": null,
         "diabetes_per_100k": null,
@@ -177,6 +185,7 @@
     },
     {
         "state_name": "Alabama",
+        "state_fips": "01",
         "race_category_id": "WHITE_NH",
         "copd_per_100k": "10700",
         "diabetes_per_100k": "14100",
@@ -199,6 +208,7 @@
     },
     {
         "state_name": "Alabama",
+        "state_fips": "01",
         "race_category_id": "ALL",
         "copd_per_100k": "9900",
         "diabetes_per_100k": "14800",

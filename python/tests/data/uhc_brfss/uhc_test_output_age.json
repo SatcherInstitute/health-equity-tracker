@@ -1,6 +1,7 @@
 [
   {
     "state_name": "Alabama",
+    "state_fips": "01",
     "copd_per_100k": "9900",
     "diabetes_per_100k": "14800",
     "frequent_mental_distress_per_100k": "15800",
@@ -20,6 +21,7 @@
   },
   {
     "state_name": "Alabama",
+    "state_fips": "01",
     "copd_per_100k": null,
     "diabetes_per_100k": null,
     "frequent_mental_distress_per_100k": null,
@@ -39,6 +41,7 @@
   },
   {
     "state_name": "Alabama",
+    "state_fips": "01",
     "copd_per_100k": null,
     "diabetes_per_100k": null,
     "frequent_mental_distress_per_100k": null,
@@ -58,6 +61,7 @@
   },
   {
     "state_name": "Alabama",
+    "state_fips": "01",
     "copd_per_100k": null,
     "diabetes_per_100k": null,
     "frequent_mental_distress_per_100k": null,
@@ -77,6 +81,7 @@
   },
   {
     "state_name": "Alabama",
+    "state_fips": "01",
     "copd_per_100k": null,
     "diabetes_per_100k": null,
     "frequent_mental_distress_per_100k": null,
@@ -96,6 +101,7 @@
   },
   {
     "state_name": "Alabama",
+    "state_fips": "01",
     "copd_per_100k": null,
     "diabetes_per_100k": null,
     "frequent_mental_distress_per_100k": null,
@@ -115,6 +121,7 @@
   },
   {
     "state_name": "Alabama",
+    "state_fips": "01",
     "copd_per_100k": null,
     "diabetes_per_100k": null,
     "frequent_mental_distress_per_100k": null,
@@ -134,6 +141,7 @@
   },
   {
     "state_name": "Alabama",
+    "state_fips": "01",
     "copd_per_100k": null,
     "diabetes_per_100k": null,
     "frequent_mental_distress_per_100k": null,
@@ -153,6 +161,7 @@
   },
   {
     "state_name": "Alabama",
+    "state_fips": "01",
     "copd_per_100k": null,
     "diabetes_per_100k": null,
     "frequent_mental_distress_per_100k": null,
@@ -172,6 +181,7 @@
   },
   {
     "state_name": "Alabama",
+    "state_fips": "01",
     "copd_per_100k": null,
     "diabetes_per_100k": null,
     "frequent_mental_distress_per_100k": null,
@@ -191,6 +201,7 @@
   },
   {
     "state_name": "Alabama",
+    "state_fips": "01",
     "copd_per_100k": "12600",
     "diabetes_per_100k": "20200",
     "frequent_mental_distress_per_100k": "15100",
@@ -210,6 +221,7 @@
   },
   {
     "state_name": "Alabama",
+    "state_fips": "01",
     "copd_per_100k": "4000",
     "diabetes_per_100k": "4200",
     "frequent_mental_distress_per_100k": "19600",
@@ -229,6 +241,7 @@
   },
   {
     "state_name": "Alabama",
+    "state_fips": "01",
     "copd_per_100k": "17100",
     "diabetes_per_100k": "27600",
     "frequent_mental_distress_per_100k": "9600",
