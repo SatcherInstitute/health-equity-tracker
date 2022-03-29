@@ -934,15 +934,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       metrics: {
         per100k: {
           metricId: "women_us_congress_pct",
-          fullCardTitleName:
-            "Percent of US Congress Members Who Are Women Identifying As Each Race/Ethnicity",
+          fullCardTitleName: "Percent of US Congress Members Who Are Women",
           shortLabel: "% of women in US congress",
           type: "pct_share",
         },
         pct_share: {
           metricId: "women_us_congress_pct_share",
-          fullCardTitleName:
-            "Percent of Women US Congress Members Who Identify with Each Race/Ethnicity Group",
+          fullCardTitleName: "Percent of Women US Congress Members",
           shortLabel: "% of women congress members",
           type: "pct_share",
           populationComparisonMetric: {
@@ -953,8 +951,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           },
           knownBreakdownComparisonMetric: {
             metricId: "women_us_congress_pct_share",
-            fullCardTitleName:
-              "Percent of Women US Congress Members Who Identify with Each Race/Ethnicity Group",
+            fullCardTitleName: "Percent of Women US Congress Members",
             shortLabel: "% of women congress members",
             type: "pct_share",
           },
