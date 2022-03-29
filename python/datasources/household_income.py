@@ -70,12 +70,12 @@ class HouseholdIncome(DataSource):
 
         frames = []
         for blob in saipe_blobs:
-            frame = gcs_to_bq_util.load_values_blob_as_dataframe(blob)
+            frame = gcs_to_bq_util.load_values_blob_as_df(blob)
             frames.append(frame)
 
         concat = pandas.concat(frames, ignore_index=True)
         # The SAIPE API includes the query predicate columns, which are duplicates of their
         # ALL_CAPS counterparts. Toss 'em.
         concat.drop(columns=['state', 'county', 'time'], inplace=True)
-        gcs_to_bq_util.add_dataframe_to_bq(
+        gcs_to_bq_util.add_df_to_bq(
             concat, dataset, self.get_table_name())

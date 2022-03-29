@@ -11,6 +11,7 @@ ENV APP_HOME /app
 WORKDIR $APP_HOME
 COPY ./run_gcs_to_bq ./run_gcs_to_bq
 COPY ./python ./python
+COPY ./data ./data
 
 # Install production dependencies.
 RUN python -m pip install --upgrade pip

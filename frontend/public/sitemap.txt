@@ -4,7 +4,7 @@ https://healthequitytracker.org/faqs
 https://healthequitytracker.org/resources
 https://healthequitytracker.org/exploredata
 https://healthequitytracker.org/exploredata?mls=1.covid-3.00-5.13&amp;mlp=comparegeos
-https://healthequitytracker.org/exploredata?mls=1.covid-3.vaccinations-5.00&amp;mlp=comparevars
+https://healthequitytracker.org/exploredata?mls=1.covid-3.covid_vaccinations-5.00&amp;mlp=comparevars
 https://healthequitytracker.org/exploredata?mls=1.covid-3.06037-5.36061&amp;mlp=comparegeos
 https://healthequitytracker.org/exploredata?mls=1.depression-3.06075&amp;mlp=disparity
 https://healthequitytracker.org/exploredata?mls=1.excessive_drinking-3.26&amp;mlp=disparity

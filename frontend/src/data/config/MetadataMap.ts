@@ -17,8 +17,8 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "The numbers of confirmed COVID-19 deaths, cases, and hospitalizations at the state and county levels. " +
       "The data source is Centers for Disease Control and Prevention, COVID-19 Response. COVID-19 Case " +
-      "Surveillance Data Access, Summary, and Limitations (02/18/2022). The last case data included is 2 " +
-      "weeks before 02/18/2022. The CDC does not take responsibility for the scientific validity " +
+      "Surveillance Data Access, Summary, and Limitations (02/28/2022). The last case data included is 2 " +
+      "weeks before 02/28/2022. The CDC does not take responsibility for the scientific validity " +
       "or accuracy of methodology, results, statistical analyses, or conclusions presented. This " +
       "dataset is not available for download; please click the link below to apply for access.",
     dataset_ids: [
@@ -44,10 +44,13 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     dataset_ids: [
       "acs_population-by_race_county_std",
       "acs_population-by_race_state_std",
-      "acs_population-by_age_state",
+      "acs_population-by_race_national",
       "acs_population-by_age_county",
-      "acs_population-by_sex_state",
+      "acs_population-by_age_state",
+      "acs_population-by_age_national",
       "acs_population-by_sex_county",
+      "acs_population-by_sex_state",
+      "acs_population-by_sex_national",
       "acs_health_insurance-health_insurance_by_sex_age_county",
       "acs_health_insurance-health_insurance_by_sex_age_state",
       "acs_health_insurance-health_insurance_by_race_age_state",

@@ -213,9 +213,7 @@ function Units(props: UnitsProps) {
   if (!props.column) return null;
 
   const unit =
-    props.column === 1
-      ? "per 100k"
-      : props.metric[props.column - 1].shortVegaLabel;
+    props.column === 1 ? "per 100k" : props.metric[props.column - 1].shortLabel;
 
   // inline vs block
   return props.wrap100kUnit && props.column === 1 ? (

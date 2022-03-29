@@ -15,7 +15,7 @@ import {
   MetricId,
   VariableConfig,
   getPer100kAndPctShareMetrics,
-  VAXX,
+  COVID_VAXX,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
@@ -59,7 +59,7 @@ export interface TableCardProps {
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column
 export const NEVER_SHOW_PROPERTIES = [
-  METRIC_CONFIG.vaccinations[0]?.metrics?.pct_share
+  METRIC_CONFIG.covid_vaccinations[0]?.metrics?.pct_share
     ?.secondaryPopulationComparisonMetric,
 ];
 
@@ -186,7 +186,7 @@ export function TableCard(props: TableCardProps) {
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
                   noDemographicInfo={
-                    props.variableConfig.variableId === VAXX &&
+                    props.variableConfig.variableId === COVID_VAXX &&
                     props.fips.isCounty()
                   }
                   fips={props.fips}

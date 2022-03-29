@@ -18,6 +18,7 @@ import {
 } from "../../utils/MadLibs";
 import {
   getParameter,
+  HIGHLIGHT_CANCEL_DELAY,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
   parseMls,
@@ -44,6 +45,10 @@ function ExploreDataPage() {
   const location: any = useLocation();
   const doScrollToData: boolean =
     location?.hash === `#${WHAT_DATA_ARE_MISSING_ID}`;
+
+  const [scrollToRef, setScrollToRef] = useState<string | undefined>(
+    location?.hash
+  );
 
   const [showStickyLifeline, setShowStickyLifeline] = useState(false);
 
@@ -165,7 +170,7 @@ function ExploreDataPage() {
         : madLib.activeSelections[3];
 
     // default non-duplicate settings for compare modes
-    const var2 = var1 === "covid" ? "vaccinations" : "covid";
+    const var2 = var1 === "covid" ? "covid_vaccinations" : "covid";
     const geo2 = geo1 === "00" ? "13" : "00"; // default to US or Georgia
 
     // Construct UPDATED madlib based on the future carousel Madlib shape
@@ -200,9 +205,14 @@ function ExploreDataPage() {
     // hide/display the sticky suicide lifeline link based on selected condition
     setShowStickyLifeline(
       getSelectedConditions(madLib).some(
-        (condition: VariableConfig) => condition?.variableId === "suicides"
+        (condition: VariableConfig) => condition?.variableId === "suicide"
       )
     );
+
+    // after delay, un-highlight any single card that was linked
+    scrollToRef &&
+      window.setTimeout(() => setScrollToRef(""), HIGHLIGHT_CANCEL_DELAY);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [madLib]);
 
   return (
@@ -271,6 +281,7 @@ function ExploreDataPage() {
             showLifeLineAlert={showStickyLifeline}
             setMadLib={setMadLibWithParam}
             doScrollToData={doScrollToData}
+            scrollToRef={scrollToRef}
           />
         </div>
       </div>

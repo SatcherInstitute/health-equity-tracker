@@ -144,7 +144,7 @@ class UHCData(DataSource):
             'upload_to_gcs should not be called for UHCData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        df = gcs_to_bq_util.load_csv_as_dataframe_from_web(BASE_UHC_URL)
+        df = gcs_to_bq_util.load_csv_as_df_from_web(BASE_UHC_URL)
 
         for breakdown in [std_col.RACE_OR_HISPANIC_COL,
                           std_col.AGE_COL,
@@ -158,7 +158,7 @@ class UHCData(DataSource):
             if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
                 column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
-            gcs_to_bq_util.add_dataframe_to_bq(
+            gcs_to_bq_util.add_df_to_bq(
                 breakdown_df, dataset, breakdown, column_types=column_types)
 
     def generate_breakdown(self, breakdown, df):

@@ -35,7 +35,7 @@ CovidPer100kMap.args = {
 
 export const VaccinesPer100kMap = Template.bind({});
 VaccinesPer100kMap.args = {
-  variableConfig: METRIC_CONFIG["vaccinations"][0],
+  variableConfig: METRIC_CONFIG["covid_vaccinations"][0],
   currentBreakdown: RACE,
 };
 
