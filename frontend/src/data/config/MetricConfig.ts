@@ -1101,8 +1101,3 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
     },
   ],
 };
-
-// export const AGE_ADJUSTED_VARIABLE_IDS: VariableId[] = [
-//   "hospitalizations",
-//   "deaths",
-// ];
