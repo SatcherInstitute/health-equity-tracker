@@ -37,6 +37,6 @@ CovidPercentShareMap.args = {
 
 export const VaccinePercentShareMap = Template.bind({});
 VaccinePercentShareMap.args = {
-  variableConfig: METRIC_CONFIG["vaccinations"][0],
+  variableConfig: METRIC_CONFIG["covid_vaccinations"][0],
   currentBreakdown: RACE,
 };

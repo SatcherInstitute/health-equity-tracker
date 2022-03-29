@@ -20,7 +20,7 @@ import { usePrefersReducedMotion } from "../../utils/usePrefersReducedMotion";
 import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
 import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
-import { METRIC_CONFIG } from "../../data/config/MetricConfig";
+import { DropdownVarId, METRIC_CONFIG } from "../../data/config/MetricConfig";
 import FeedbackBox from "../ui/FeedbackBox";
 import { DEMOGRAPHIC_BREAKDOWNS } from "../../data/query/Breakdowns";
 
@@ -73,7 +73,8 @@ function TheProjectTab() {
   // tally number of conditions (including sub-conditions like COVID) x # demographic options
   const numVariables =
     Object.keys(METRIC_CONFIG).reduce(
-      (tally, conditionKey) => (tally += METRIC_CONFIG[conditionKey].length),
+      (tally, conditionKey) =>
+        (tally += METRIC_CONFIG[conditionKey as DropdownVarId].length),
       0
     ) * DEMOGRAPHIC_BREAKDOWNS.length;
 

@@ -43,9 +43,9 @@ EXPECTED_DTYPE = {
 }
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe_from_web',
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
             return_value=get_test_data_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     uhc_data = UHCData()
@@ -66,18 +66,16 @@ def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     expected_dtype['race_includes_hispanic'] = object
     expected_dtype['race_category_id'] = str
 
-    # read in the test output file as a dataframe with expected columns/types
     expected_df = pd.read_json(
         GOLDEN_DATA_RACE, dtype=expected_dtype)
 
-    # output created in mocked load_csv_as_dataframe_from_web() should be the same as the expected df
     assert_frame_equal(
         mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe_from_web',
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
             return_value=get_test_data_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBqAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     uhc_data = UHCData()
@@ -92,21 +90,18 @@ def testWriteToBqAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     assert mock_bq.call_count == 3
 
-    # add column type for each demographic file
     expected_dtype['age'] = str
 
-    # read in the test output file as a dataframe with expected columns/types
     expected_df = pd.read_json(
         GOLDEN_DATA_AGE, dtype=expected_dtype)
 
-    # output created in mocked load_csv_as_dataframe_from_web() should be the same as the expected df
     assert_frame_equal(
         mock_bq.call_args_list[1].args[0], expected_df, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe_from_web',
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
             return_value=get_test_data_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBqSex(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     uhc_data = UHCData()
@@ -121,13 +116,10 @@ def testWriteToBqSex(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     assert mock_bq.call_count == 3
 
-    # add column type for each demographic file
     expected_dtype['sex'] = str
 
-    # read in the test output file as a dataframe with expected columns/types
     expected_df = pd.read_json(
         GOLDEN_DATA_SEX, dtype=expected_dtype)
 
-    # output created in mocked load_csv_as_dataframe_from_web() should be the same as the expected df
     assert_frame_equal(
         mock_bq.call_args_list[2].args[0], expected_df, check_like=True)

@@ -12,8 +12,10 @@ import ingestion.standardized_columns as std_col
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "census_pop_estimates")
 
-STATE_POP_DATA = os.path.join(TEST_DIR, 'census_pop_estimates-race_ethnicity_age_state.csv')
-NATIONAL_POP_DATA = os.path.join(TEST_DIR, 'census_pop_estimates-race_ethnicity_age_national.csv')
+STATE_POP_DATA = os.path.join(
+    TEST_DIR, 'census_pop_estimates-race_ethnicity_age_state.csv')
+NATIONAL_POP_DATA = os.path.join(
+    TEST_DIR, 'census_pop_estimates-race_ethnicity_age_national.csv')
 
 
 def get_pop_estimates_as_df():
@@ -23,9 +25,9 @@ def get_pop_estimates_as_df():
     })
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_dataframe_from_web',
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
             return_value=get_pop_estimates_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.add_dataframe_to_bq',
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
 def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     censusPopEstimates = CensusPopEstimates()
@@ -41,7 +43,8 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
         'state_fips': str,
     })
 
-    assert_frame_equal(mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
+    assert_frame_equal(
+        mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
 
 
 def testGenerateNationalPopData():
@@ -53,7 +56,8 @@ def testGenerateNationalPopData():
         'state_fips': str,
     })
 
-    states_to_include = state_df[std_col.STATE_FIPS_COL].drop_duplicates().to_list()
+    states_to_include = state_df[std_col.STATE_FIPS_COL].drop_duplicates(
+    ).to_list()
     df = generate_national_pop_data(state_df, states_to_include)
 
     assert_frame_equal(df, national_df, check_like=True)
