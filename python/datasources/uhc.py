@@ -183,6 +183,8 @@ class UHCData(DataSource):
 
                 output_row = {}
                 output_row[std_col.STATE_NAME_COL] = state
+                output_row[std_col.STATE_FIPS_COL] = df.loc[
+                        df[std_col.STATE_NAME_COL] == state][std_col.STATE_FIPS_COL].to_list()[0]
 
                 if breakdown == std_col.RACE_OR_HISPANIC_COL:
                     output_row[std_col.RACE_CATEGORY_ID_COL] = \
