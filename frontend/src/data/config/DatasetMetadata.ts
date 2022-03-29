@@ -203,6 +203,11 @@ const datasetMetadataList: DatasetMetadata[] = [
     update_time: "2021",
   },
   {
+    id: "cawp_data-race_and_ethnicity",
+    name: "Representation of women in the US Congress and state legislatures, by Race/Ethnicity and State",
+    update_time: "2021",
+  },
+  {
     id: GEOGRAPHIES_DATASET_ID,
     name: "U.S. Geographic Data",
     update_time: "2020",

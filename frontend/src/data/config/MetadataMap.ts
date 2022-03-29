@@ -160,6 +160,18 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
+    id: "cawp",
+    data_source_name: "Center for American Women in Politics (CAWP)",
+    data_source_link: "https://cawpdata.rutgers.edu/",
+    geographic_level: "State",
+    demographic_granularity: "Race/ethnicity",
+    update_frequency: "Annual",
+    description:
+      "Representation of women, by Race/Ethnicity, in the US Congress and state legislatures at the state level.",
+    dataset_ids: ["cawp_data-race_and_ethnicity"],
+    downloadable: true,
+  },
+  {
     id: "covid_tracking_project",
     data_source_name: "Covid Tracking Project’s Racial Data Tracker",
     data_source_link: "https://covidtracking.com/race",
