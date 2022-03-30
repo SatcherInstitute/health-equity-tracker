@@ -92,7 +92,7 @@ function AgeAdjustmentTab() {
                     <a href="https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t">
                       CDC Case Surveillance Restricted Access Detailed Data
                     </a>{" "}
-                    for this. It can break down by race and age to ten year
+                    for this. It can break down by race and age to ten-year
                     buckets. The age buckets are: <b>0-9</b>, <b>10-19</b>,{" "}
                     <b>20-29</b>, <b>30-39</b>, <b>40-49</b>, <b>50-59</b>,{" "}
                     <b>60-69</b>, <b>70-79</b>, <b>80+</b>
@@ -246,37 +246,48 @@ function AgeAdjustmentTab() {
                   </tr>
 
                   <tr>
-                    <td>Total</td>
+                    <td>Total (A & B)</td>
                     <td>0-29</td>
                     <td>70</td>
-                    <td>800,000</td>
+                    <td>
+                      <div className={styles.Calculation}>
+                        600,000 + 200,000
+                      </div>
+                      <b>= 800,000</b>
+                    </td>
                   </tr>
 
                   <tr>
-                    <td>Total</td>
+                    <td>Total (A & B)</td>
                     <td>30-59</td>
                     <td>700</td>
-                    <td>1,200,000</td>
+                    <td>
+                      <div className={styles.Calculation}>
+                        800,000 + 300,000
+                      </div>
+                      <b>= 1,200,000</b>
+                    </td>
                   </tr>
 
                   <tr>
-                    <td>Total</td>
+                    <td>Total (A & B)</td>
                     <td>60+</td>
                     <td>5,800</td>
-                    <td>260,000</td>
+                    <td>
+                      <div className={styles.Calculation}>200,000 + 60,000</div>
+                      <b>= 260,000</b>
+                    </td>
                   </tr>
                 </tbody>
               </table>
               <h4 className={styles.MethodologySubsubheaderText}>
                 First, we calculate the expected deaths for each age/race group:
               </h4>
-              <p>
-                As noted above, the formula for each row is:{" "}
-                <code>
-                  (Deaths / Population) * Total Population for Corresponding Age
-                  Group
-                </code>
-              </p>
+              <p>As noted above, the formula for each row is:</p>
+              <pre>
+                (Deaths / Population) * Total Population for Corresponding Age
+                Group
+              </pre>
               <table className={styles.ExampleTable}>
                 <thead>
                   <tr>
@@ -385,7 +396,7 @@ function AgeAdjustmentTab() {
                     <td>Race A</td>
                     <td>
                       <div className={styles.Calculation}>
-                        6,500 + 687.5 + 66.67
+                        66.67 + 687.5 + 6,500
                       </div>
                       <b>= 7,254.17</b>
                     </td>
