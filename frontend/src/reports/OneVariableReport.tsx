@@ -19,6 +19,7 @@ import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
 import { RACE } from "../data/utils/Constants";
 import { Fips } from "../data/utils/Fips";
 import {
+  CardId,
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
   DEMOGRAPHIC_PARAM,
@@ -50,11 +51,11 @@ export interface OneVariableReportProps {
   hidePopulationCard?: boolean;
   jumpToDefinitions: Function;
   jumpToData: Function;
-  scrollToRef?: string;
+  scrollToRef?: CardId;
 }
 
 export function OneVariableReport(props: OneVariableReportProps) {
-  function highlightMatch(id: string) {
+  function highlightMatch(id: CardId) {
     return props.scrollToRef === id
       ? { className: styles.HighlightedCard }
       : {};

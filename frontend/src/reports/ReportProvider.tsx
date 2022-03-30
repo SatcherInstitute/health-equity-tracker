@@ -14,6 +14,7 @@ import {
   DATA_CATALOG_PAGE_LINK,
   CONTACT_TAB_LINK,
   METHODOLOGY_TAB_LINK,
+  CardId,
 } from "../utils/urlutils";
 import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
@@ -42,7 +43,7 @@ interface ReportProviderProps {
   showLifeLineAlert: boolean;
   setMadLib: Function;
   doScrollToData?: boolean;
-  scrollToRef?: string;
+  scrollToRef?: CardId;
 }
 
 function ReportProvider(props: ReportProviderProps) {

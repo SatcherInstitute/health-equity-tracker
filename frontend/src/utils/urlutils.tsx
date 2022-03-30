@@ -12,6 +12,14 @@ export const HIGHLIGHT_SCROLL_DELAY = 2_000;
 export const HIGHLIGHT_CANCEL_DELAY = 18_000;
 // highlight delay and fade time are set in src/reports/Report.module.scss
 
+export type CardId =
+  | "#map"
+  | "#bar"
+  | "#unknowns"
+  | "#disparity"
+  | "#table"
+  | "#age-adjusted";
+
 // PAGE URLS
 export const HET_URL = "https://healthequitytracker.org";
 

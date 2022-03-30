@@ -17,6 +17,7 @@ import {
   PhraseSelections,
 } from "../../utils/MadLibs";
 import {
+  CardId,
   getParameter,
   HIGHLIGHT_CANCEL_DELAY,
   MADLIB_PHRASE_PARAM,
@@ -283,7 +284,7 @@ function ExploreDataPage() {
             showLifeLineAlert={showStickyLifeline}
             setMadLib={setMadLibWithParam}
             doScrollToData={doScrollToData}
-            scrollToRef={scrollToRef}
+            scrollToRef={scrollToRef as CardId}
           />
         </div>
       </div>
