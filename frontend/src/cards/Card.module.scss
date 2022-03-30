@@ -9,16 +9,24 @@
 .CardLink {
   @include inter700();
   text-align: right;
-  a {
-    text-decoration: none !important;
-  }
+}
+
+.CardLinkButton {
+  background-color: $white !important;
+  border: none;
+  @include inter400();
+  color: $alt-green;
 }
 
 .CardLinkText {
   margin-inline: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 7px;
   align-items: top;
 }
+
+// .SnackBar {
+//   padding-top: 200px;
+// }
 
 .ChartCard {
   margin: 10px;
