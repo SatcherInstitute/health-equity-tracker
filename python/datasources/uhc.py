@@ -156,6 +156,9 @@ class UHCData(DataSource):
                 else:
                     breakdown_df = breakdown_df.loc[breakdown_df[std_col.STATE_FIPS_COL] != constants.US_FIPS]
 
+                breakdown_name = 'race' if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
+                breakdown_df = dataset_utils.merge_pop_numbers(breakdown_df, breakdown_name, geo)
+
                 column_types = {c: 'STRING' for c in breakdown_df.columns}
 
                 for col in UHC_DETERMINANTS.values():

@@ -17,7 +17,9 @@
         "cardiovascular_diseases_per_100k": "12200",
         "asthma_per_100k": "6900",
         "voter_participation_per_100k": "59200",
-        "sex": "Male"
+        "sex": "Male",
+        "population": "2359355",
+        "population_pct": "48.4"
     },
     {
         "state_name": "Alabama",
@@ -37,7 +39,9 @@
         "cardiovascular_diseases_per_100k": "9900",
         "asthma_per_100k": "10900",
         "voter_participation_per_100k": "61600",
-        "sex": "Female"
+        "sex": "Female",
+        "population": "2516895",
+        "population_pct": "51.6"
     },
     {
         "state_name": "Alabama",

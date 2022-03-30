@@ -140,11 +140,13 @@ def merge_pop_numbers(df, demo, loc):
     }
 
     if demo not in on_col_map:
-        raise ValueError('%s not a demographic option, must be one of: %s' % (demo, on_col_map.keys()))
+        raise ValueError('%s not a demographic option, must be one of: %s' % (demo, list(on_col_map.keys())))
 
     pop_table_name = 'by_%s_%s' % (demo, loc)
     if demo == 'race' and loc == 'state':
         pop_table_name += '_std'
+
+    print(demo)
 
     pop_df = gcs_to_bq_util.load_df_from_bigquery('acs_population', pop_table_name, dtype={'state_fips': str})
     pop_df = pop_df[[std_col.STATE_FIPS_COL, on_col_map[demo], std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
