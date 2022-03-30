@@ -13,6 +13,7 @@ export const HIGHLIGHT_CANCEL_DELAY = 18_000;
 // highlight delay and fade time are set in src/reports/Report.module.scss
 
 export type CardId =
+  | "#population"
   | "#map"
   | "#bar"
   | "#unknowns"

@@ -4,21 +4,25 @@ import { Grid } from "@material-ui/core";
 import styles from "../Card.module.scss";
 import { CardId } from "../../utils/urlutils";
 
-function handleClick(id: CardId) {
-  const currentUrl = window.location.href;
-  navigator.clipboard.writeText(currentUrl).then(
-    () => {
-      /* clipboard successfully set */
-      console.log(id, currentUrl);
-    },
-    () => {
-      /* clipboard write failed */
-      console.log("BOO", currentUrl);
-    }
-  );
+interface CardLinkProps {
+  cardId: CardId;
 }
 
-export function CardLink() {
+export function CardLink(props: CardLinkProps) {
+  function handleClick() {
+    const linkWithCardHash = window.location.href + props.cardId;
+    navigator.clipboard.writeText(linkWithCardHash).then(
+      () => {
+        /* clipboard successfully set */
+        console.log(linkWithCardHash);
+      },
+      () => {
+        /* clipboard write failed */
+        console.log("BOO", linkWithCardHash);
+      }
+    );
+  }
+
   return (
     <>
       <a
@@ -26,7 +30,7 @@ export function CardLink() {
         className={styles.CardLinkButton}
         onClick={(e) => {
           e.preventDefault();
-          handleClick("#table");
+          handleClick();
         }}
       >
         <Grid container alignItems="center">

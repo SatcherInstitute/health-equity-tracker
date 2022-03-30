@@ -14,6 +14,7 @@ import { WithMetadataAndMetrics } from "../data/react/WithLoadingOrErrorUI";
 import { Sources } from "./ui/Sources";
 import { MapOfDatasetMetadata } from "../data/utils/DatasetTypes";
 import { CardLink } from "./ui/CardLink";
+import { CardId } from "../utils/urlutils";
 
 function CardWrapper(props: {
   // prevent layout shift as component loads
@@ -31,6 +32,7 @@ function CardWrapper(props: {
     geoData?: Record<string, any>
   ) => JSX.Element;
   isAgeAdjustedTable?: boolean;
+  cardId: CardId;
 }) {
   const popover = usePopover();
   const queries = props.queries ? props.queries : [];
@@ -63,7 +65,7 @@ function CardWrapper(props: {
             <div className={styles.CardInfoPopover}>{props.infoPopover}</div>
           </Popover>
           <div className={styles.CardLink}>
-            <CardLink />
+            <CardLink cardId={props.cardId} />
           </div>
         </Grid>
       </CardContent>

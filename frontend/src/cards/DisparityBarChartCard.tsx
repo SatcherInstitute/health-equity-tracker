@@ -84,6 +84,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
       queries={[query]}
       title={<CardTitle />}
       minHeight={PRELOAD_HEIGHT}
+      cardId="#disparity"
     >
       {([queryResponse]) => {
         const dataWithoutUnknowns = queryResponse
