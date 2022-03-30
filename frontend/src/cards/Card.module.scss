@@ -9,12 +9,14 @@
 .CardLink {
   @include inter700();
   text-align: right;
+  a {
+    text-decoration: none !important;
+  }
 }
 
 .CardLinkText {
-  margin-inline: 10px;
+  margin-inline: 5px;
   margin-bottom: 5px;
-
   align-items: top;
 }
 
