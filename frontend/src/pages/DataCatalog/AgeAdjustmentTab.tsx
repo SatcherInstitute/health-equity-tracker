@@ -83,8 +83,8 @@ function AgeAdjustmentTab() {
               <ol>
                 <li>
                   <b>
-                    COVID deaths and hospitalizations broken down by age and
-                    race:
+                    COVID-19 deaths and COVID-19 hospitalizations broken down by
+                    age and race:
                   </b>
 
                   <p>
