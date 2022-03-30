@@ -16,6 +16,7 @@ class AcsPovertyProvider extends VariableProvider {
       "poverty_per_100k",
       "poverty_pct_share",
       "poverty_population_pct",
+      "poverty_ratio_age_adjusted",
     ]);
   }
   // ALERT! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts AND  if you update dataset IDs

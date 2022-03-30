@@ -6,8 +6,9 @@ import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { MapCard } from "../cards/MapCard";
 import { PopulationCard } from "../cards/PopulationCard";
 import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
-import { TableCard } from "../cards/TableCard";
+import { AgeAdjustedTableCard } from "../cards/AgeAdjustedTableCard";
 import { UnknownsMapCard } from "../cards/UnknownsMapCard";
+import { TableCard } from "../cards/TableCard";
 import {
   DropdownVarId,
   METRIC_CONFIG,
@@ -64,6 +65,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
   const unknownsRef = useRef<HTMLInputElement>(null);
   const disparityRef = useRef<HTMLInputElement>(null);
   const tableRef = useRef<HTMLInputElement>(null);
+  const ageAdjRef = useRef<HTMLInputElement>(null);
 
   let target: any = null;
 
@@ -84,6 +86,9 @@ export function OneVariableReport(props: OneVariableReportProps) {
         break;
       case "#table":
         target = tableRef;
+        break;
+      case "#age-adjusted":
+        target = ageAdjRef;
         break;
     }
 
@@ -150,7 +155,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
     };
   }, [props.dropdownVarId]);
 
-  const breakdownIsShown = (breakdownVar: string) =>
+  const breakdownIsShown = (breakdownVar: BreakdownVar) =>
     currentBreakdown === breakdownVar;
 
   return (
@@ -300,6 +305,25 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   )}
                 </Fragment>
               ))}
+            </LazyLoad>
+          </Grid>
+
+          {/* AGE ADJUSTED TABLE CARD */}
+          <Grid
+            item
+            xs={12}
+            md={SINGLE_COLUMN_WIDTH}
+            ref={ageAdjRef}
+            {...highlightMatch("#age-adjusted")}
+          >
+            <LazyLoad offset={800} height={800} once>
+              <AgeAdjustedTableCard
+                fips={props.fips}
+                variableConfig={variableConfig}
+                dropdownVarId={props.dropdownVarId}
+                breakdownVar={currentBreakdown}
+                setVariableConfigWithParam={setVariableConfigWithParam}
+              />
             </LazyLoad>
           </Grid>
         </Grid>

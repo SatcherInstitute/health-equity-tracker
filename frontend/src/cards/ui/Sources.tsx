@@ -31,6 +31,7 @@ function getDataSourceMapFromDatasetIds(
   let dataSourceMap: Record<string, DataSourceInfo> = {};
   datasetIds.forEach((datasetId) => {
     const dataSourceId = metadata[datasetId]?.source_id || undefined;
+
     if (dataSourceId === undefined) {
       return;
     }
@@ -54,17 +55,24 @@ function getDataSourceMapFromDatasetIds(
 export function Sources(props: {
   queryResponses: MetricQueryResponse[];
   metadata: MapOfDatasetMetadata;
+  isAgeAdjustedTable?: boolean;
 }) {
   // If all data is missing, no need to show sources.
   if (props.queryResponses.every((resp) => resp.dataIsMissing())) {
     return <></>;
   }
 
-  const datasetIds = props.queryResponses.reduce(
+  let datasetIds = props.queryResponses.reduce(
     (accumulator: string[], response) =>
       accumulator.concat(response.consumedDatasetIds),
     []
   );
+
+  // for Age Adj only, swap ACS source(s) for Census Pop Estimate
+  if (props.isAgeAdjustedTable) {
+    datasetIds = datasetIds.filter((datasetId) => !datasetId.includes("acs"));
+    datasetIds.push("census_pop_estimates-race_and_ethnicity");
+  }
 
   const dataSourceMap = getDataSourceMapFromDatasetIds(
     datasetIds,

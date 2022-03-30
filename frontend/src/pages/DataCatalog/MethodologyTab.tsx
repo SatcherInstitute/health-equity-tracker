@@ -189,8 +189,8 @@ function MethodologyTab() {
                     , and <b>Native Hawaiian and Pacific Islander</b>. These
                     alternate population comparisons metrics shown with a
                     different color on the disparities bar chart. We are unable
-                    to show a population comparison metric for “Some Other Race”
-                    because we are unsure of the definition in each state.
+                    to show a population comparison metric for “Unrepresented
+                    Race” because we are unsure of the definition in each state.
                   </li>
                   <li>
                     For the county level we use the ACS 2019 population
@@ -302,12 +302,13 @@ function MethodologyTab() {
                   Do you have information on health outcomes at the state and
                   local level that belong in the Health Equity Tracker?
                   <br />
-                  <LinkWithStickyParams to={`${CONTACT_TAB_LINK}`}>
+                  <LinkWithStickyParams to={CONTACT_TAB_LINK}>
                     We would love to hear from you!
                   </LinkWithStickyParams>
                 </p>
               </div>
             </Grid>
+
             <Grid
               item
               className={styles.MethodologyQuestionAndAnswer}
@@ -317,11 +318,6 @@ function MethodologyTab() {
                 What do the metrics on the tracker mean?
               </h3>
               <div className={styles.MethodologyAnswer}>
-                <p>
-                  None of the metrics/data shown on the tracker are
-                  age-adjusted. Showing non-adjusted data can mask disparities
-                  and are we working to use age-adjusted data instead.
-                </p>
                 <p>
                   In the definitions below, we use COVID-19 Cases as the
                   variable, and Race and Ethnicity as the demographic breakdown
