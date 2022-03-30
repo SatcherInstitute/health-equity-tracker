@@ -117,7 +117,7 @@ Specific information on update frequencies by source can be found on our <a href
       facilitate reporting, comparison and visualization
     </li>
     <li>
-    Where possible, we calculate and present age-adjusted ratios in an effort to reveal disproportionate impact to certain race/ethnicity groups, as compared to the white (non-Hispanic) population. To learn more, please view our <a href=${AGE_ADJUSTMENT_TAB_LINK}>age-adjustment methodology</a>
+    All of our map and graph visualizations present crude (non-age-adjusted) percentages and per 100k rates. When possible, we additionally calculate and present age-adjusted ratios in a separate table in an effort to reveal disproportionate impact to certain race/ethnicity groups, as compared to the white (non-Hispanic) population. To learn more, please view our <a href=${AGE_ADJUSTMENT_TAB_LINK}>age-adjustment methodology</a>
   </li>
     <li>
       Sources are refreshed when update notifications are received
