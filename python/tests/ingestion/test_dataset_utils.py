@@ -71,7 +71,6 @@ _expected_race_data_with_totals = [
     ['04', 'Arizona', 'TOTAL', '95'],
 ]
 
-
 _data_without_fips_codes = [
     ['state_name', 'other_col'],
     ['United States', 'something_cool'],
@@ -79,13 +78,11 @@ _data_without_fips_codes = [
     ['Georgia', 'something_else'],
 ]
 
-
 _fips_codes_from_bq = [
     ['state_fips_code', 'state_postal_abbreviation', 'state_name', 'state_gnisid'],
     ['06', 'CA', 'California', '01779778'],
     ['13', 'GA', 'Georgia', '01705317'],
 ]
-
 
 _expected_merged_fips = [
     ['state_name', 'other_col', 'state_fips'],
@@ -94,10 +91,37 @@ _expected_merged_fips = [
     ['Georgia', 'something_else', '13'],
 ]
 
+_data_without_pop_numbers = [
+    ['state_fips', 'race_category_id', 'other_col'],
+    ['01', 'BLACK_NH', 'something_cool'],
+    ['01', 'WHITE_NH', 'something_else_cool'],
+    ['02', 'BLACK_NH', 'something_cooler'],
+]
+
+_pop_data = [
+    ['state_fips', 'race_category_id', 'population', 'population_pct'],
+    ['01', 'BLACK_NH', '100', '25'],
+    ['01', 'WHITE_NH', '300', '75'],
+    ['02', 'BLACK_NH', '100', '50'],
+    ['100', 'BLACK_NH', '100', '50'],
+]
+
+_expected_merged_with_pop_numnbers = [
+    ['state_fips', 'race_category_id', 'population', 'population_pct', 'other_col'],
+    ['01', 'BLACK_NH', '100', '25', 'something_cool'],
+    ['01', 'WHITE_NH', '300', '75', 'something_else_cool'],
+    ['02', 'BLACK_NH', '100', '50', 'something_cooler'],
+]
+
 
 def _get_fips_codes_as_df():
     return gcs_to_bq_util.values_json_to_df(
         json.dumps(_fips_codes_from_bq), dtype=str).reset_index(drop=True)
+
+
+def _get_pop_data_as_df():
+    return gcs_to_bq_util.values_json_to_df(
+        json.dumps(_pop_data), dtype=str).reset_index(drop=True)
 
 
 def testRatioRoundToNone():
@@ -189,6 +213,21 @@ def testMergeFipsCodes(mock_bq: mock.MagicMock):
         json.dumps(_expected_merged_fips), dtype=str).reset_index(drop=True)
 
     df = dataset_utils.merge_fips_codes(df)
+
+    assert mock_bq.call_count == 1
+    assert_frame_equal(df, expected_df, check_like=True)
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+            return_value=_get_pop_data_as_df())
+def testMergePopNumbers(mock_bq: mock.MagicMock):
+    df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_data_without_pop_numbers), dtype=str).reset_index(drop=True)
+
+    expected_df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_expected_merged_with_pop_numnbers), dtype=str).reset_index(drop=True)
+
+    df = dataset_utils.merge_pop_numbers(df, 'race', 'state')
 
     assert mock_bq.call_count == 1
     assert_frame_equal(df, expected_df, check_like=True)

@@ -1,40 +1,28 @@
 import React, { useMemo } from "react";
-import {
-  Column,
-  HeaderGroup,
-  Row,
-  usePagination,
-  useSortBy,
-  useTable,
-} from "react-table";
+import { Column, HeaderGroup, Row, useSortBy, useTable } from "react-table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableFooter from "@material-ui/core/TableFooter";
-import TablePagination from "@material-ui/core/TablePagination";
 import Paper from "@material-ui/core/Paper";
 import {
   MetricConfig,
   MetricId,
   formatFieldValue,
 } from "../data/config/MetricConfig";
-import {
-  BREAKDOWN_VAR_DISPLAY_NAMES,
-  BreakdownVar,
-} from "../data/query/Breakdowns";
-import { Tooltip, useMediaQuery } from "@material-ui/core";
+import { BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/query/Breakdowns";
+import { Tooltip } from "@material-ui/core";
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
 import styles from "./Chart.module.scss";
 import sass from "../styles/variables.module.scss";
-
-export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20;
+import { RACE } from "../data/utils/Constants";
 
 const headerCellStyle = {
   width: "200px",
-  backgroundColor: sass.exploreBgColor,
+  backgroundColor: sass.footerColor,
 };
 
 const cellStyle = {
@@ -42,23 +30,21 @@ const cellStyle = {
 };
 
 const altCellStyle = {
-  backgroundColor: sass.standardInfo,
+  backgroundColor: sass.greyGridColor,
   width: "200px",
 };
 
-export interface TableChartProps {
+export interface AgeAdjustedTableChartProps {
   data: Readonly<Record<string, any>>[];
-  breakdownVar: BreakdownVar;
   metrics: MetricConfig[];
 }
 
-export function TableChart(props: TableChartProps) {
-  const wrap100kUnit = useMediaQuery("(max-width:500px)");
+export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
+  const { data, metrics } = props;
 
-  const { data, metrics, breakdownVar } = props;
   let columns = metrics.map((metricConfig) => {
     return {
-      Header: metricConfig.fullCardTitleName,
+      Header: metricConfig.shortLabel,
       Cell: (a: any) =>
         formatFieldValue(
           /* metricType: MetricType, */ metricConfig.type,
@@ -70,9 +56,9 @@ export function TableChart(props: TableChartProps) {
   });
   columns = [
     {
-      Header: BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar],
+      Header: BREAKDOWN_VAR_DISPLAY_NAMES[RACE],
       Cell: (cell: any) => cell.value,
-      accessor: breakdownVar as MetricId,
+      accessor: RACE as MetricId,
     },
   ].concat(columns);
 
@@ -81,32 +67,22 @@ export function TableChart(props: TableChartProps) {
   const memoCols = useMemo<Column<any>[]>(() => columns, [metrics]);
   const memoData = useMemo(() => data, [data]);
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page,
-    prepareRow,
-    gotoPage,
-    setPageSize,
-    state: { pageIndex, pageSize },
-  } = useTable(
-    {
-      columns: memoCols,
-      data: memoData,
-      initialState: {
-        pageSize: MAX_NUM_ROWS_WITHOUT_PAGINATION,
-        sortBy: [
-          {
-            id: breakdownVar,
-            desc: false,
-          },
-        ],
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable(
+      {
+        columns: memoCols,
+        data: memoData,
+        initialState: {
+          sortBy: [
+            {
+              id: RACE,
+              desc: false,
+            },
+          ],
+        },
       },
-    },
-    useSortBy,
-    usePagination
-  );
+      useSortBy
+    );
 
   /** Component for the table's header row **/
   function TableHeaderRow({ group }: { group: HeaderGroup<any> }) {
@@ -132,11 +108,11 @@ export function TableChart(props: TableChartProps) {
               {...cell.getCellProps()}
               style={row.index % 2 === 0 ? cellStyle : altCellStyle}
             >
-              <Tooltip title="Insufficient Data">
+              <Tooltip title="No data available">
                 <WarningRoundedIcon />
               </Tooltip>
               <span className={styles.ScreenreaderTitleHeader}>
-                Insufficient Data
+                No Data Available
               </span>
             </TableCell>
           ) : (
@@ -145,11 +121,6 @@ export function TableChart(props: TableChartProps) {
               style={row.index % 2 === 0 ? cellStyle : altCellStyle}
             >
               {cell.render("Cell")}
-              <Units
-                column={index}
-                metric={props.metrics}
-                wrap100kUnit={wrap100kUnit}
-              />
             </TableCell>
           )
         )}
@@ -160,7 +131,7 @@ export function TableChart(props: TableChartProps) {
   return (
     <>
       {props.data.length <= 0 || props.metrics.length <= 0 ? (
-        <h1>Insufficient Data</h1>
+        <h1>No Data provided</h1>
       ) : (
         <TableContainer component={Paper} style={{ maxHeight: "100%" }}>
           <Table stickyHeader {...getTableProps()}>
@@ -170,55 +141,16 @@ export function TableChart(props: TableChartProps) {
               ))}
             </TableHead>
             <TableBody {...getTableBodyProps()}>
-              {page.map((row: Row<any>, index) => (
+              {rows.map((row: Row<any>, index) => (
                 <TableDataRow row={row} key={index} />
               ))}
             </TableBody>
-            {/* If the number of rows is less than the smallest page size, we can hide pagination */}
-            {props.data.length > MAX_NUM_ROWS_WITHOUT_PAGINATION && (
-              <TableFooter>
-                <TableRow>
-                  <TablePagination
-                    count={memoData.length}
-                    rowsPerPage={pageSize}
-                    page={pageIndex}
-                    onPageChange={(event, newPage) => {
-                      gotoPage(newPage);
-                    }}
-                    onChangeRowsPerPage={(event) => {
-                      setPageSize(Number(event.target.value));
-                    }}
-                    rowsPerPageOptions={[
-                      MAX_NUM_ROWS_WITHOUT_PAGINATION,
-                      MAX_NUM_ROWS_WITHOUT_PAGINATION * 2,
-                      MAX_NUM_ROWS_WITHOUT_PAGINATION * 5,
-                    ]} // If changed, update pagination condition above
-                  />
-                </TableRow>
-              </TableFooter>
-            )}
+            <TableFooter>
+              <TableRow />
+            </TableFooter>
           </Table>
         </TableContainer>
       )}
     </>
-  );
-}
-
-interface UnitsProps {
-  column: number;
-  metric: MetricConfig[];
-  wrap100kUnit: boolean;
-}
-function Units(props: UnitsProps) {
-  if (!props.column) return null;
-
-  const unit =
-    props.column === 1 ? "per 100k" : props.metric[props.column - 1].shortLabel;
-
-  // inline vs block
-  return props.wrap100kUnit && props.column === 1 ? (
-    <p className={styles.Unit}>{unit}</p>
-  ) : (
-    <span className={styles.Unit}>{unit}</span>
   );
 }

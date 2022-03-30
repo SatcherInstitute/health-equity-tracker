@@ -9,12 +9,13 @@ import axios from "axios";
 export const WAIT_FOR_URL_STATUSES = 5 * 60 * 1000;
 export const SUCCESS_CODE = 200;
 
-// skip some URLs (like linkedin) that block traffic / error out
+// URL SAFELIST skip some URLs (like linkedin) that block traffic / error out
 export const UNTESTABLE_URLS = [
   urlMap.shliLinkedIn,
   urlMap.shliTwitter,
   "https://www.who.int/healthsystems/topics/equity/en/",
   "https://www.who.int/health-topics/social-determinants-of-health#tab=tab_1",
+  "https://www.uclahealth.org/covid19-exposes-how-native-hawaiians-and-pacific-islanders-face-stark-health-care-disparities",
 ];
 
 // skip some URLs we know don't provide HTTPS

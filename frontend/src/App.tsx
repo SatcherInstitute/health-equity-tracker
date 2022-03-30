@@ -37,6 +37,7 @@ import {
   RESOURCES_TAB_LINK,
   TERMS_OF_USE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+  AGE_ADJUSTMENT_TAB_LINK,
 } from "./utils/urlutils";
 import AppBarLogo from "./assets/AppbarLogo.png";
 import { HelmetProvider } from "react-helmet-async";
@@ -214,6 +215,10 @@ function App() {
                       </Route>
 
                       <Route path={METHODOLOGY_TAB_LINK}>
+                        <DataCatalogTab />
+                      </Route>
+
+                      <Route path={AGE_ADJUSTMENT_TAB_LINK}>
                         <DataCatalogTab />
                       </Route>
 
