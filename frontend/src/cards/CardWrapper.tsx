@@ -2,7 +2,7 @@ import React from "react";
 import Card from "@material-ui/core/Card";
 import styles from "./Card.module.scss";
 import Button from "@material-ui/core/Button";
-import { CardContent } from "@material-ui/core";
+import { CardContent, Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -13,6 +13,7 @@ import { MetricQuery, MetricQueryResponse } from "../data/query/MetricQuery";
 import { WithMetadataAndMetrics } from "../data/react/WithLoadingOrErrorUI";
 import { Sources } from "./ui/Sources";
 import { MapOfDatasetMetadata } from "../data/utils/DatasetTypes";
+import { CardLink } from "./ui/CardLink";
 
 function CardWrapper(props: {
   // prevent layout shift as component loads
@@ -37,29 +38,34 @@ function CardWrapper(props: {
   const optionalTitle = props.title ? (
     <>
       <CardContent>
-        <Typography component="h3" className={styles.CardHeader}>
-          {props.title}
-          {props.infoPopover && (
-            <Button onClick={popover.open} className={styles.InfoIconButton}>
-              <InfoIcon color="primary" />
-            </Button>
-          )}
-        </Typography>
-        <Popover
-          open={popover.isOpen}
-          anchorEl={popover.anchor}
-          onClose={popover.close}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "center",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "center",
-          }}
-        >
-          <div className={styles.CardInfoPopover}>{props.infoPopover}</div>
-        </Popover>
+        <Grid container justifyContent="space-between">
+          <Typography component="h3" className={styles.CardHeader}>
+            {props.title}
+            {props.infoPopover && (
+              <Button onClick={popover.open} className={styles.InfoIconButton}>
+                <InfoIcon color="primary" />
+              </Button>
+            )}
+          </Typography>
+          <Popover
+            open={popover.isOpen}
+            anchorEl={popover.anchor}
+            onClose={popover.close}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "center",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "center",
+            }}
+          >
+            <div className={styles.CardInfoPopover}>{props.infoPopover}</div>
+          </Popover>
+          <div className={styles.CardLink}>
+            <CardLink />
+          </div>
+        </Grid>
       </CardContent>
       <Divider />
     </>

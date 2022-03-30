@@ -1,9 +1,21 @@
-@import "../styles/variables.module";
+@import "../styles/variables.module.scss";
 @import "../styles/globals.scss";
 
 .CardHeader {
   @include inter700();
   text-align: left;
+}
+
+.CardLink {
+  @include inter700();
+  text-align: right;
+}
+
+.CardLinkText {
+  margin-inline: 10px;
+  margin-bottom: 5px;
+
+  align-items: top;
 }
 
 .ChartCard {
