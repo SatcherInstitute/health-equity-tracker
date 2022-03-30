@@ -193,6 +193,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             ref={mapRef}
             {...highlightMatch("#map")}
+            id="mapCard"
           >
             <MapCard
               variableConfig={variableConfig}
@@ -214,6 +215,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             ref={barRef}
             {...highlightMatch("#bar")}
+            id="simpleBarChartCard"
           >
             <LazyLoad offset={600} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -239,6 +241,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             ref={unknownsRef}
             {...highlightMatch("#unknowns")}
+            id="unknownsMapCard"
           >
             <LazyLoad offset={800} height={750} once>
               {variableConfig.metrics["pct_share"] && (
@@ -263,6 +266,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             ref={disparityRef}
             {...highlightMatch("#disparity")}
+            id="disparityBarChartCard"
           >
             <LazyLoad offset={800} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -287,6 +291,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             md={SINGLE_COLUMN_WIDTH}
             ref={tableRef}
             {...highlightMatch("#table")}
+            id="tableCard"
           >
             <LazyLoad offset={800} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (

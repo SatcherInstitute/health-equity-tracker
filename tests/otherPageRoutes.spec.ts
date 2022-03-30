@@ -39,15 +39,6 @@ test('Resources Tab Loads', async ({ page }) => {
 });
 
 
-
-
-
-test('Tracker Page Loads', async ({ page }) => {
-    await page.goto(`${HET}/${EXPLOREDATA}`);
-    const madLib = page.locator('#onboarding-start-your-search');
-    await expect(madLib).toContainText(['Investigate']);
-});
-
 test('Data Catalog Page Loads', async ({ page }) => {
     await page.goto(`${HET}/${DATA}`);
     const mainHeading = page.locator('#main');
