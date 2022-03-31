@@ -4,7 +4,7 @@ import React from "react";
 
 const DELAY_BEFORE_CLOSE = 8_000;
 
-function TransitionLeft(props: any) {
+function SlideIn(props: any) {
   return <Slide {...props} direction="right" />;
 }
 
@@ -28,7 +28,7 @@ export function UserMessage(props: UserMessageProps) {
       open={props.open}
       autoHideDuration={DELAY_BEFORE_CLOSE}
       onClose={props.handleClose}
-      TransitionComponent={TransitionLeft}
+      TransitionComponent={SlideIn}
     >
       <Alert severity={props.severity ?? "info"} onClose={props.handleClose}>
         {props.message}
