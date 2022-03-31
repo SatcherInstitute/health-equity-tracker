@@ -27,7 +27,7 @@ import UnknownsAlert from "./ui/UnknownsAlert";
 import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
 
 /* minimize layout shift */
-const PRELOAD_HEIGHT = 719;
+// const PRELOAD_HEIGHT = 719;
 
 export interface DisparityBarChartCardProps {
   key?: string;

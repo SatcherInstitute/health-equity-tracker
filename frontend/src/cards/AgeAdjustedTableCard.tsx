@@ -49,7 +49,7 @@ export const dataTypeLinkMap: Record<AgeAdjustedVariableId, string> = {
 };
 
 /* minimize layout shift */
-const PRELOAD_HEIGHT = 600;
+// const PRELOAD_HEIGHT = 600;
 
 // choose demographic groups to exclude from the table
 const exclusionList = [ALL, NON_HISPANIC, WHITE_NH, MULTI_OR_OTHER_STANDARD_NH];

@@ -15,7 +15,7 @@ import { NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 
 /* minimize layout shift */
-const PRELOAD_HEIGHT = 668;
+// const PRELOAD_HEIGHT = 668;
 
 export interface SimpleBarChartCardProps {
   key?: string;

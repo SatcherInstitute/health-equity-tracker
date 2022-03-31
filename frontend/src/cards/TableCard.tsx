@@ -48,7 +48,7 @@ import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
 import styles from "./Card.module.scss";
 
 /* minimize layout shift */
-const PRELOAD_HEIGHT = 698;
+// const PRELOAD_HEIGHT = 698;
 
 export interface TableCardProps {
   fips: Fips;

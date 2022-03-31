@@ -26,7 +26,7 @@ import Alert from "@material-ui/lab/Alert";
 import UnknownsAlert from "./ui/UnknownsAlert";
 
 /* minimize layout shift */
-const PRELOAD_HEIGHT = 748;
+// const PRELOAD_HEIGHT = 748;
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns

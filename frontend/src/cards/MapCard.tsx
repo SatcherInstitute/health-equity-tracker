@@ -41,7 +41,7 @@ import { MultiMapDialog } from "./ui/MultiMapDialog";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
 /* minimize layout shift */
-const PRELOAD_HEIGHT = 250;
+// const PRELOAD_HEIGHT = 250;
 
 export interface MapCardProps {
   key?: string;
