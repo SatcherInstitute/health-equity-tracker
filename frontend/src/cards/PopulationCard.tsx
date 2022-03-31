@@ -68,7 +68,11 @@ export function PopulationCard(props: PopulationCardProps) {
   );
 
   return (
-    <CardWrapper minHeight={PRELOAD_HEIGHT} queries={[raceQuery, ageQuery]}>
+    <CardWrapper
+      minHeight={PRELOAD_HEIGHT}
+      queries={[raceQuery, ageQuery]}
+      cardId="#population"
+    >
       {([raceQueryResponse, ageQueryResponse]) => {
         const totalPopulation = raceQueryResponse.data.find(
           (r) => r.race_and_ethnicity === ALL
