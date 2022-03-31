@@ -13,7 +13,9 @@ export function CardLink(props: CardLinkProps) {
   const [open, setOpen] = React.useState(false);
 
   const linkWithCardHash = window.location.href + props.cardId;
-  const message = `${linkWithCardHash} copied to clipboard`;
+  const message = `Direct link to ${props.cardId
+    .substring(1)
+    .toLocaleUpperCase()} CARD copied to clipboard`;
 
   function handleClick() {
     navigator.clipboard.writeText(linkWithCardHash).then(
