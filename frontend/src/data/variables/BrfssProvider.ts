@@ -98,6 +98,7 @@ class BrfssProvider extends VariableProvider {
 
     df = this.filterByGeo(df, breakdowns);
 
+    df = this.renameTotalToAll(df, breakdownColumnName);
     df = this.renameGeoColumns(df, breakdowns);
 
     let acsBreakdowns = breakdowns.copy();
