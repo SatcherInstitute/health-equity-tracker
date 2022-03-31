@@ -2,7 +2,8 @@
 @import "../styles/globals.scss";
 
 .CardHeaderBox {
-  padding-top: 0.5rem !important; // specific to align card title with links
+  padding-top: 0.5rem !important; // align title w/ links
+  padding-top: 0px !important;
   padding-bottom: 0px !important;
 }
 
@@ -17,14 +18,21 @@
   border: none;
   @include inter400();
   color: $alt-green;
+  padding: 0px !important;
 }
 
 .CardLinkText {
-  margin-inline: 5px;
-  margin-bottom: 7px;
+  margin-inline: 0px;
   align-items: top;
   font-size: $smallest;
+  line-height: $lhNormal;
   text-align: right;
+}
+
+.CardLinkIcon svg {
+  height: $title;
+  line-height: $lhSuperLoose;
+  margin-top: 7px;
 }
 
 .ChartCard {
@@ -41,7 +49,7 @@
 }
 
 .PopulationCard {
-  $populationTitleHeight: 57px; // specific height to vertically align all population card header text
+  $populationTitleHeight: 57px; // align pop. card header text
 
   h1,
   span {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import LinkIcon from "@material-ui/icons/Link";
 import { Button, Grid } from "@material-ui/core";
 import styles from "../Card.module.scss";
@@ -10,7 +10,7 @@ interface CardLinkProps {
 }
 
 export function CardLink(props: CardLinkProps) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const linkWithCardHash = window.location.href + props.cardId;
   const message = `Direct link to ${props.cardId
@@ -19,23 +19,18 @@ export function CardLink(props: CardLinkProps) {
 
   function handleClick() {
     navigator.clipboard.writeText(linkWithCardHash).then(
-      () => {
-        setOpen(true);
-      },
-      () => {
-        /* if clipboard write failed */
-        console.error("Error copying to clipboard", linkWithCardHash);
-      }
+      () => setOpen(true),
+      () => console.error("Error copying to clipboard", linkWithCardHash)
     );
-  }
-
-  function handleClose() {
-    setOpen(false);
   }
 
   return (
     <>
-      <Button color="primary" onClick={handleClick}>
+      <Button
+        className={styles.CardLinkButton}
+        color="primary"
+        onClick={handleClick}
+      >
         <Grid container alignItems="center">
           <Grid item className={styles.CardLinkIcon} component="span">
             <LinkIcon />
@@ -49,7 +44,7 @@ export function CardLink(props: CardLinkProps) {
       <UserMessage
         message={message}
         open={open}
-        handleClose={handleClose}
+        handleClose={() => setOpen(false)}
         severity="success"
       />
     </>

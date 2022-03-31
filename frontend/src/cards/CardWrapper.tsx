@@ -64,9 +64,7 @@ function CardWrapper(props: {
           >
             <div className={styles.CardInfoPopover}>{props.infoPopover}</div>
           </Popover>
-          <div className={styles.CardLink}>
-            <CardLink cardId={props.cardId} />
-          </div>
+          <CardLink cardId={props.cardId} />
         </Grid>
       </CardContent>
       <Divider />
