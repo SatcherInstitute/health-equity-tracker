@@ -71,6 +71,11 @@
 }
 
 .HighlightedCard {
+  scroll-margin-top: 1rem; // no fixed header on mobile
+  @media only screen and (min-width: $sm) {
+    scroll-margin-top: 4rem; // fixed header on desktop view
+  }
+
   animation-name: fadeBackground;
   animation-duration: 10s;
   animation-delay: 5s;
