@@ -41,7 +41,7 @@ export function CardLink(props: CardLinkProps) {
             <LinkIcon />
           </Grid>
           <Grid item className={styles.CardLinkText} component="span">
-            Link
+            Copy Link
           </Grid>
         </Grid>
       </Button>

@@ -12,11 +12,6 @@
   line-height: $lhSuperLoose;
 }
 
-.CardLink {
-  @include inter700();
-  text-align: right;
-}
-
 .CardLinkButton {
   background-color: $white !important;
   border: none;
@@ -28,6 +23,8 @@
   margin-inline: 5px;
   margin-bottom: 7px;
   align-items: top;
+  font-size: $smallest;
+  text-align: right;
 }
 
 .ChartCard {
