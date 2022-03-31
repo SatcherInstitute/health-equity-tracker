@@ -58,7 +58,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     <CardWrapper
       queries={[query]}
       title={<CardTitle />}
-      minHeight={PRELOAD_HEIGHT}
+      // minHeight={PRELOAD_HEIGHT}
       cardId="#bar"
     >
       {([queryResponse]) => {

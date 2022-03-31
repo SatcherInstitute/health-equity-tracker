@@ -142,7 +142,7 @@ export function TableCard(props: TableCardProps) {
 
   return (
     <CardWrapper
-      minHeight={PRELOAD_HEIGHT}
+      // minHeight={PRELOAD_HEIGHT}
       queries={[query]}
       cardId="#table"
       title={

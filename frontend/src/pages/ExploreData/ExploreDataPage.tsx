@@ -215,7 +215,9 @@ function ExploreDataPage() {
 
     // after delay, un-highlight any single card that was linked
     targetScrollRef &&
-      window.setTimeout(() => setTargetScrollRef(""), HIGHLIGHT_CANCEL_DELAY);
+      window.setTimeout(() => {
+        setTargetScrollRef("");
+      }, HIGHLIGHT_CANCEL_DELAY);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [madLib]);
 

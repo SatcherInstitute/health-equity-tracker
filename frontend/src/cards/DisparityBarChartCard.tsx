@@ -83,7 +83,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     <CardWrapper
       queries={[query]}
       title={<CardTitle />}
-      minHeight={PRELOAD_HEIGHT}
+      // minHeight={PRELOAD_HEIGHT}
       cardId="#disparity"
     >
       {([queryResponse]) => {

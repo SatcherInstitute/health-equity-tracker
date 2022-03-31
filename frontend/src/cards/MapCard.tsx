@@ -108,7 +108,7 @@ function MapCardWithKey(props: MapCardProps) {
       queries={queries}
       title={<>{metricConfig.fullCardTitleName}</>}
       loadGeographies={true}
-      minHeight={PRELOAD_HEIGHT}
+      // // minHeight={PRELOAD_HEIGHT}
       cardId="#map"
     >
       {(queryResponses, metadata, geoData) => {

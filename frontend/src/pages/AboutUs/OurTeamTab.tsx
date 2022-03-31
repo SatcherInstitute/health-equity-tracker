@@ -311,7 +311,7 @@ function OurTeamTab() {
                     className={styles.TextProfile}
                     component="li"
                   >
-                    <LazyLoad offset={300} height={181} once>
+                    <LazyLoad offset={300} once>
                       <img
                         src={leader.imageUrl}
                         alt=""
@@ -404,7 +404,7 @@ function OurTeamTab() {
               Partners
             </Typography>
           </Grid>
-          <LazyLoad offset={300} height={200} once>
+          <LazyLoad offset={300} once>
             <Grid
               item
               container

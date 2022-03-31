@@ -36,7 +36,7 @@ import styles from "./Report.module.scss";
 
 export function jumpToCard(ref: any): void {
   if (ref?.current) {
-    ref.current.scrollIntoView({ block: "center", behavior: "smooth" });
+    ref.current.scrollIntoView({ block: "start", behavior: "smooth" });
     ref.current = null;
     ref = null;
   }
@@ -219,7 +219,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             ref={barRef}
             {...highlightMatch("#bar", props.targetScrollRef)}
           >
-            <LazyLoad offset={600} height={750} once>
+            <LazyLoad offset={600} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>
                   {breakdownIsShown(breakdownVar) &&
@@ -244,7 +244,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             ref={unknownsRef}
             {...highlightMatch("#unknowns", props.targetScrollRef)}
           >
-            <LazyLoad offset={800} height={750} once>
+            <LazyLoad offset={800} once>
               {variableConfig.metrics["pct_share"] && (
                 <UnknownsMapCard
                   overrideAndWithOr={currentBreakdown === RACE}
@@ -268,7 +268,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             ref={disparityRef}
             {...highlightMatch("#disparity", props.targetScrollRef)}
           >
-            <LazyLoad offset={800} height={750} once>
+            <LazyLoad offset={800} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>
                   {breakdownIsShown(breakdownVar) &&
@@ -292,7 +292,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             ref={tableRef}
             {...highlightMatch("#table", props.targetScrollRef)}
           >
-            <LazyLoad offset={800} height={750} once>
+            <LazyLoad offset={800} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>
                   {breakdownIsShown(breakdownVar) && (
@@ -315,7 +315,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             ref={ageAdjRef}
             {...highlightMatch("#age-adjusted", props.targetScrollRef)}
           >
-            <LazyLoad offset={800} height={800} once>
+            <LazyLoad offset={800} once>
               <AgeAdjustedTableCard
                 fips={props.fips}
                 variableConfig={variableConfig}

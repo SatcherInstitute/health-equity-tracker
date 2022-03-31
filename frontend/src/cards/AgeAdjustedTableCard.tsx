@@ -94,7 +94,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   return (
     <CardWrapper
       isAgeAdjustedTable={true}
-      minHeight={PRELOAD_HEIGHT}
+      // minHeight={PRELOAD_HEIGHT}
       queries={[query]}
       title={<>{cardTitle}</>}
       cardId="#age-adjusted"

@@ -69,7 +69,7 @@ export function PopulationCard(props: PopulationCardProps) {
 
   return (
     <CardWrapper
-      minHeight={PRELOAD_HEIGHT}
+      // minHeight={PRELOAD_HEIGHT}
       queries={[raceQuery, ageQuery]}
       cardId="#population"
     >
