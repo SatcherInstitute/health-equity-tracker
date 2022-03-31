@@ -39,7 +39,7 @@ function CardWrapper(props: {
 
   const optionalTitle = props.title ? (
     <>
-      <CardContent>
+      <CardContent component="header" className={styles.CardHeaderBox}>
         <Grid container justifyContent="space-between">
           <Typography component="h3" className={styles.CardHeader}>
             {props.title}
@@ -99,7 +99,7 @@ function CardWrapper(props: {
             className={styles.ChartCard}
             component={"article"}
           >
-            <header>{optionalTitle}</header>
+            {optionalTitle}
             {props.children(queryResponses, metadata, geoData)}
             {!props.hideFooter && props.queries && (
               <CardContent className={styles.CardFooter} component={"footer"}>
