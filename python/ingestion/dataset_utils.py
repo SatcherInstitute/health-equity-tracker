@@ -129,7 +129,7 @@ def merge_fips_codes(df):
 def merge_pop_numbers(df, demo, loc):
     """Merges the corresponding `population` and `population_pct` column into the given df
 
-      df: a pandas with demogrpahic and a `state_fips` column
+      df: a pandas df with demographic (race, sex, or age) and a `state_fips` column
       demo: the demographic in the df, either `age`, `race`, or `sex`
       loc: the location level for the df, either `state` or `national`"""
 
