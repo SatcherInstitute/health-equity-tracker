@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Grid } from "@material-ui/core";
 import React, { useEffect, useState, Fragment, useRef } from "react";
 import LazyLoad from "react-lazyload";
@@ -35,12 +34,16 @@ import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
 import styles from "./Report.module.scss";
 
-function jumpToCard(ref: any): void {
+export function jumpToCard(ref: any): void {
   if (ref?.current) {
     ref.current.scrollIntoView({ block: "center", behavior: "smooth" });
     ref.current = null;
     ref = null;
   }
+}
+
+export function highlightMatch(matchId: CardId, propsId?: CardId | undefined) {
+  return propsId === matchId ? { className: styles.HighlightedCard } : {};
 }
 
 export interface OneVariableReportProps {
@@ -51,16 +54,10 @@ export interface OneVariableReportProps {
   hidePopulationCard?: boolean;
   jumpToDefinitions: Function;
   jumpToData: Function;
-  scrollToRef?: CardId;
+  targetScrollRef?: CardId;
 }
 
 export function OneVariableReport(props: OneVariableReportProps) {
-  function highlightMatch(id: CardId) {
-    return props.scrollToRef === id
-      ? { className: styles.HighlightedCard }
-      : {};
-  }
-
   const mapRef = useRef<HTMLInputElement>(null);
   const barRef = useRef<HTMLInputElement>(null);
   const unknownsRef = useRef<HTMLInputElement>(null);
@@ -72,8 +69,9 @@ export function OneVariableReport(props: OneVariableReportProps) {
 
   // handle incoming #hash link request
   useEffect(() => {
-    switch (props.scrollToRef) {
+    switch (props.targetScrollRef) {
       case "#map":
+        /* eslint-disable react-hooks/exhaustive-deps */
         target = mapRef;
         break;
       case "#bar":
@@ -103,7 +101,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
       document.title,
       window.location.pathname + window.location.search
     );
-  }, [props.scrollToRef]);
+  }, [props.targetScrollRef]);
 
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, RACE)
@@ -170,7 +168,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
     >
       {!props.hidePopulationCard && (
         // POPULATION CARD
-        <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="populationCard">
+        <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="population">
           <PopulationCard jumpToData={props.jumpToData} fips={props.fips} />
         </Grid>
       )}
@@ -198,7 +196,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             xs={12}
             md={SINGLE_COLUMN_WIDTH}
             ref={mapRef}
-            {...highlightMatch("#map")}
+            {...highlightMatch("#map", props.targetScrollRef)}
           >
             <MapCard
               variableConfig={variableConfig}
@@ -219,7 +217,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             sm={12}
             md={SINGLE_COLUMN_WIDTH}
             ref={barRef}
-            {...highlightMatch("#bar")}
+            {...highlightMatch("#bar", props.targetScrollRef)}
           >
             <LazyLoad offset={600} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -244,7 +242,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             sm={12}
             md={SINGLE_COLUMN_WIDTH}
             ref={unknownsRef}
-            {...highlightMatch("#unknowns")}
+            {...highlightMatch("#unknowns", props.targetScrollRef)}
           >
             <LazyLoad offset={800} height={750} once>
               {variableConfig.metrics["pct_share"] && (
@@ -268,7 +266,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             sm={12}
             md={SINGLE_COLUMN_WIDTH}
             ref={disparityRef}
-            {...highlightMatch("#disparity")}
+            {...highlightMatch("#disparity", props.targetScrollRef)}
           >
             <LazyLoad offset={800} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -292,7 +290,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             xs={12}
             md={SINGLE_COLUMN_WIDTH}
             ref={tableRef}
-            {...highlightMatch("#table")}
+            {...highlightMatch("#table", props.targetScrollRef)}
           >
             <LazyLoad offset={800} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -315,7 +313,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             xs={12}
             md={SINGLE_COLUMN_WIDTH}
             ref={ageAdjRef}
-            {...highlightMatch("#age-adjusted")}
+            {...highlightMatch("#age-adjusted", props.targetScrollRef)}
           >
             <LazyLoad offset={800} height={800} once>
               <AgeAdjustedTableCard
