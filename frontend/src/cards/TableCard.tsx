@@ -144,7 +144,6 @@ export function TableCard(props: TableCardProps) {
     <CardWrapper
       minHeight={PRELOAD_HEIGHT}
       queries={[query]}
-      cardId="#table"
       title={
         <>{`${props.variableConfig.variableFullDisplayName} By ${
           BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
