@@ -1,5 +1,5 @@
 import { Grid } from "@material-ui/core";
-import React, { useEffect, useState, Fragment, useRef } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import LazyLoad from "react-lazyload";
 import { AgeAdjustedTableCard } from "../cards/AgeAdjustedTableCard";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
@@ -19,17 +19,14 @@ import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
 import { RACE } from "../data/utils/Constants";
 import { Fips } from "../data/utils/Fips";
 import {
-  CardId,
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
   DEMOGRAPHIC_PARAM,
   getParameter,
-  HIGHLIGHT_SCROLL_DELAY,
   psSubscribe,
   setParameter,
   swapOldParams,
 } from "../utils/urlutils";
-import { highlightMatch, jumpToCard } from "./OneVariableReport";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
 
@@ -45,53 +42,7 @@ function TwoVariableReport(props: {
   updateFips2Callback: (fips: Fips) => void;
   jumpToDefinitions: Function;
   jumpToData: Function;
-  targetScrollRef?: CardId;
 }) {
-  const mapCompareRef = useRef<HTMLInputElement>(null);
-  const barCompareRef = useRef<HTMLInputElement>(null);
-  const unknownsCompareRef = useRef<HTMLInputElement>(null);
-  const disparityCompareRef = useRef<HTMLInputElement>(null);
-  const tableCompareRef = useRef<HTMLInputElement>(null);
-  const ageAdjCompareRef = useRef<HTMLInputElement>(null);
-
-  let target: any = null;
-
-  // handle incoming #hash link request
-  useEffect(() => {
-    switch (props.targetScrollRef) {
-      case "#map":
-        /* eslint-disable react-hooks/exhaustive-deps */
-        target = mapCompareRef;
-        break;
-      case "#bar":
-        target = barCompareRef;
-        break;
-      case "#unknowns":
-        target = unknownsCompareRef;
-        break;
-      case "#disparity":
-        target = disparityCompareRef;
-        break;
-      case "#table":
-        target = tableCompareRef;
-        break;
-      case "#age-adjusted":
-        target = ageAdjCompareRef;
-        break;
-    }
-
-    window.setTimeout(() => {
-      jumpToCard(target);
-    }, HIGHLIGHT_SCROLL_DELAY);
-    // remove hash from URL
-    // eslint-disable-next-line no-restricted-globals
-    history.pushState(
-      "",
-      document.title,
-      window.location.pathname + window.location.search
-    );
-  }, [props.targetScrollRef]);
-
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, RACE)
   );
@@ -258,8 +209,7 @@ function TwoVariableReport(props: {
 
       {/* SIDE-BY-SIDE 100K MAP CARDS */}
       <RowOfTwoOptionalMetrics
-        innerRef={mapCompareRef}
-        highlightClass={highlightMatch("#map", props.targetScrollRef)}
+        id="mapCard"
         variableConfig1={variableConfig1}
         variableConfig2={variableConfig2}
         fips1={props.fips1}
@@ -289,8 +239,7 @@ function TwoVariableReport(props: {
         !breakdownIsShown(breakdownVar) ? null : (
           <Fragment key={breakdownVar}>
             <RowOfTwoOptionalMetrics
-              innerRef={barCompareRef}
-              highlightClass={highlightMatch("#bar", props.targetScrollRef)}
+              id="simpleBarChartCard"
               variableConfig1={variableConfig1}
               variableConfig2={variableConfig2}
               fips1={props.fips1}
@@ -313,8 +262,7 @@ function TwoVariableReport(props: {
 
       {/* SIDE-BY-SIDE UNKNOWNS MAP CARDS */}
       <RowOfTwoOptionalMetrics
-        innerRef={unknownsCompareRef}
-        highlightClass={highlightMatch("#unknowns", props.targetScrollRef)}
+        id="unknownsMapCard"
         variableConfig1={variableConfig1}
         variableConfig2={variableConfig2}
         fips1={props.fips1}
@@ -344,11 +292,7 @@ function TwoVariableReport(props: {
         !breakdownIsShown(breakdownVar) ? null : (
           <Fragment key={breakdownVar}>
             <RowOfTwoOptionalMetrics
-              innerRef={disparityCompareRef}
-              highlightClass={highlightMatch(
-                "#disparity",
-                props.targetScrollRef
-              )}
+              id="disparityBarChartCard"
               variableConfig1={variableConfig1}
               variableConfig2={variableConfig2}
               fips1={props.fips1}
@@ -373,8 +317,7 @@ function TwoVariableReport(props: {
       {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) =>
         !breakdownIsShown(breakdownVar) ? null : (
           <RowOfTwoOptionalMetrics
-            innerRef={tableCompareRef}
-            highlightClass={highlightMatch("#table", props.targetScrollRef)}
+            id="tableCard"
             key={breakdownVar}
             variableConfig1={variableConfig1}
             variableConfig2={variableConfig2}
@@ -400,8 +343,7 @@ function TwoVariableReport(props: {
       {/* SIDE-BY-SIDE AGE-ADJUSTED TABLE CARDS */}
 
       <RowOfTwoOptionalMetrics
-        innerRef={ageAdjCompareRef}
-        highlightClass={highlightMatch("#age-adjusted", props.targetScrollRef)}
+        id="ageAdjustedTableCard"
         // specific data type
         variableConfig1={variableConfig1}
         variableConfig2={variableConfig2}
@@ -431,8 +373,7 @@ function TwoVariableReport(props: {
 }
 
 function RowOfTwoOptionalMetrics(props: {
-  innerRef: any;
-  // id: string;
+  id: string;
   variableConfig1: VariableConfig | undefined;
   variableConfig2: VariableConfig | undefined;
   fips1: Fips;
@@ -447,7 +388,6 @@ function RowOfTwoOptionalMetrics(props: {
   ) => JSX.Element;
   dropdownVarId1?: DropdownVarId;
   dropdownVarId2?: DropdownVarId;
-  highlightClass: any;
 }) {
   if (!props.variableConfig1 && !props.variableConfig2) {
     return <></>;
@@ -457,8 +397,8 @@ function RowOfTwoOptionalMetrics(props: {
   const unusedFipsCallback = () => {};
 
   return (
-    <Grid container {...props.highlightClass}>
-      <Grid ref={props.innerRef} item xs={12} sm={6}>
+    <>
+      <Grid item xs={12} sm={6} id={props.id}>
         <LazyLoad offset={800} height={750} once>
           {props.variableConfig1 && (
             <>
@@ -486,7 +426,7 @@ function RowOfTwoOptionalMetrics(props: {
           )}
         </LazyLoad>
       </Grid>
-    </Grid>
+    </>
   );
 }
 

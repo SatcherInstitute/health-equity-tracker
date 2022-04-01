@@ -14,7 +14,6 @@ import {
   DATA_CATALOG_PAGE_LINK,
   CONTACT_TAB_LINK,
   METHODOLOGY_TAB_LINK,
-  CardId,
 } from "../utils/urlutils";
 import Button from "@material-ui/core/Button";
 import ArrowForward from "@material-ui/icons/ArrowForward";
@@ -43,7 +42,7 @@ interface ReportProviderProps {
   showLifeLineAlert: boolean;
   setMadLib: Function;
   doScrollToData?: boolean;
-  targetScrollRef: CardId;
+  scrollToRef?: string;
 }
 
 function ReportProvider(props: ReportProviderProps) {
@@ -96,7 +95,7 @@ function ReportProvider(props: ReportProviderProps) {
                 getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
               )
             }
-            targetScrollRef={props.targetScrollRef}
+            scrollToRef={props.scrollToRef}
           />
         );
       case "comparegeos":
@@ -122,7 +121,6 @@ function ReportProvider(props: ReportProviderProps) {
                 getMadLibWithUpdatedValue(props.madLib, 5, fips.code)
               )
             }
-            targetScrollRef={props.targetScrollRef}
           />
         );
       case "comparevars":
@@ -146,7 +144,6 @@ function ReportProvider(props: ReportProviderProps) {
             fips2={new Fips(fipsCode)}
             updateFips1Callback={updateFips}
             updateFips2Callback={updateFips}
-            targetScrollRef={props.targetScrollRef}
           />
         );
       default:
