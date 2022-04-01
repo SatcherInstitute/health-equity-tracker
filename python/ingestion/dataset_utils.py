@@ -166,3 +166,30 @@ def replace_state_abbr_with_names(df):
     # print(df.to_string())
 
     return df
+
+
+def merge_pop_numbers(df, demo, loc):
+    """Merges the corresponding `population` and `population_pct` column into the given df
+
+      df: a pandas df with demographic (race, sex, or age) and a `state_fips` column
+      demo: the demographic in the df, either `age`, `race`, or `sex`
+      loc: the location level for the df, either `state` or `national`"""
+
+    on_col_map = {
+        'age': std_col.AGE_COL,
+        'race': std_col.RACE_CATEGORY_ID_COL,
+        'sex': std_col.SEX_COL,
+    }
+
+    if demo not in on_col_map:
+        raise ValueError('%s not a demographic option, must be one of: %s' % (demo, on_col_map.keys()))
+
+    pop_table_name = 'by_%s_%s' % (demo, loc)
+    if demo == 'race' and loc == 'state':
+        pop_table_name += '_std'
+
+    pop_df = gcs_to_bq_util.load_df_from_bigquery('acs_population', pop_table_name, dtype={'state_fips': str})
+    pop_df = pop_df[[std_col.STATE_FIPS_COL, on_col_map[demo], std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
+
+    df = pd.merge(df, pop_df, how='left', on=[std_col.STATE_FIPS_COL, on_col_map[demo]])
+    return df.reset_index(drop=True)
