@@ -97,6 +97,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
       minHeight={PRELOAD_HEIGHT}
       queries={[query]}
       title={<>{cardTitle}</>}
+      cardId="#age-adjusted"
     >
       {([queryResponse]) => {
         let knownData = queryResponse.data.filter((row: Row) => {
