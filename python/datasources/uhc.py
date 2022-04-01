@@ -1,4 +1,4 @@
-import pandas as pd
+import pandas as pd  # type: ignore
 import numpy as np  # type: ignore
 
 from ingestion.standardized_columns import Race
@@ -43,7 +43,7 @@ VOTER_AGE_GROUPS = [
 
 # single list of all unique age group options
 UHC_AGE_GROUPS = list(dict.fromkeys([
-    'All',
+    'Total',
     *SUICIDE_AGE_GROUPS,
     *VOTER_AGE_GROUPS,
     *BROAD_AGE_GROUPS
@@ -51,7 +51,7 @@ UHC_AGE_GROUPS = list(dict.fromkeys([
 
 # No Age Breakdowns for: Non-medical Drug (including Illicit Opioid, Non-Medical Rx Opioid)
 
-UHC_SEX_GROUPS = ['Male', 'Female', 'All']
+UHC_SEX_GROUPS = ['Male', 'Female', 'Total']
 
 RACE_GROUPS_TO_STANDARD = {
     'American Indian/Alaska Native': Race.AIAN_NH.value,
@@ -63,7 +63,7 @@ RACE_GROUPS_TO_STANDARD = {
     'Other Race': Race.OTHER_STANDARD_NH.value,
     'White': Race.WHITE_NH.value,
     'Multiracial': Race.MULTI_NH.value,
-    'All': Race.ALL.value,
+    'All': Race.TOTAL.value,
 }
 
 BASE_UHC_URL = "https://www.americashealthrankings.org/api/v1/downloads/251"
@@ -195,7 +195,7 @@ class UHCData(DataSource):
 
                 for determinant in UHC_DETERMINANTS:
 
-                    if breakdown_value == 'All':
+                    if breakdown_value in {'All', 'Total'}:
                         # find row that matches current nested iterations
                         matched_row = df.loc[
                             (df[std_col.STATE_NAME_COL] == state) &
