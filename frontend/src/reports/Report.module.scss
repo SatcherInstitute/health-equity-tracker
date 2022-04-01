@@ -69,22 +69,3 @@
 .SeeOurDataSourcesButton {
   margin-bottom: 2 rem;
 }
-
-.HighlightedCard {
-  animation-name: fadeBackground;
-  animation-duration: 10s;
-  animation-delay: 5s;
-  // HIGHLIGHT_SCROLL_DELAY and HIGHLIGHT_CANCEL_DELAY are set in urlutils.tsx
-  animation-iteration-count: 1;
-  animation-timing-function: ease-in;
-  animation-fill-mode: both;
-}
-
-@keyframes fadeBackground {
-  from {
-    background-color: rgba(11, 82, 64, 1);
-  }
-  to {
-    background-color: rgba(11, 82, 64, 0);
-  }
-}
