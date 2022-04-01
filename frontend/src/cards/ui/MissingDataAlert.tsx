@@ -85,7 +85,7 @@ function AltDataTypesMessage(props: AltDataTypesMessageProps) {
             <a
               href={`${EXPLORE_DATA_PAGE_LINK}${
                 dataTypeLinkMap[dataType.variableId as AgeAdjustedVariableId]
-              }#${AGE_ADJ}`}
+              }`}
             >
               {dataType.variableFullDisplayName}
             </a>
