@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Grid } from "@material-ui/core";
-import React, { useEffect, useState, Fragment, useRef } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import LazyLoad from "react-lazyload";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { MapCard } from "../cards/MapCard";
@@ -23,7 +23,6 @@ import {
   DATA_TYPE_2_PARAM,
   DEMOGRAPHIC_PARAM,
   getParameter,
-  HIGHLIGHT_SCROLL_DELAY,
   psSubscribe,
   setParameter,
   setParameters,
@@ -32,15 +31,7 @@ import {
 import { SINGLE_COLUMN_WIDTH } from "./ReportProvider";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
-import styles from "./Report.module.scss";
 
-function jumpToCard(ref: any): void {
-  if (ref?.current) {
-    ref.current.scrollIntoView({ block: "center", behavior: "smooth" });
-    ref.current = null;
-    ref = null;
-  }
-}
 
 export interface OneVariableReportProps {
   key: string;
@@ -50,59 +41,10 @@ export interface OneVariableReportProps {
   hidePopulationCard?: boolean;
   jumpToDefinitions: Function;
   jumpToData: Function;
-  scrollToRef?: string;
 }
 
 export function OneVariableReport(props: OneVariableReportProps) {
-  function highlightMatch(id: string) {
-    return props.scrollToRef === id
-      ? { className: styles.HighlightedCard }
-      : {};
-  }
 
-  const mapRef = useRef<HTMLInputElement>(null);
-  const barRef = useRef<HTMLInputElement>(null);
-  const unknownsRef = useRef<HTMLInputElement>(null);
-  const disparityRef = useRef<HTMLInputElement>(null);
-  const tableRef = useRef<HTMLInputElement>(null);
-  const ageAdjRef = useRef<HTMLInputElement>(null);
-
-  let target: any = null;
-
-  // handle incoming #hash link request
-  useEffect(() => {
-    switch (props.scrollToRef) {
-      case "#map":
-        target = mapRef;
-        break;
-      case "#bar":
-        target = barRef;
-        break;
-      case "#unknowns":
-        target = unknownsRef;
-        break;
-      case "#disparity":
-        target = disparityRef;
-        break;
-      case "#table":
-        target = tableRef;
-        break;
-      case "#age-adjusted":
-        target = ageAdjRef;
-        break;
-    }
-
-    window.setTimeout(() => {
-      jumpToCard(target);
-    }, HIGHLIGHT_SCROLL_DELAY);
-    // remove hash from URL
-    // eslint-disable-next-line no-restricted-globals
-    history.pushState(
-      "",
-      document.title,
-      window.location.pathname + window.location.search
-    );
-  }, [props.scrollToRef]);
 
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, RACE)
@@ -196,8 +138,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
             item
             xs={12}
             md={SINGLE_COLUMN_WIDTH}
-            ref={mapRef}
-            {...highlightMatch("#map")}
           >
             <MapCard
               variableConfig={variableConfig}
@@ -217,8 +157,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
             xs={12}
             sm={12}
             md={SINGLE_COLUMN_WIDTH}
-            ref={barRef}
-            {...highlightMatch("#bar")}
           >
             <LazyLoad offset={600} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -242,8 +180,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
             xs={12}
             sm={12}
             md={SINGLE_COLUMN_WIDTH}
-            ref={unknownsRef}
-            {...highlightMatch("#unknowns")}
           >
             <LazyLoad offset={800} height={750} once>
               {variableConfig.metrics["pct_share"] && (
@@ -266,8 +202,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
             xs={12}
             sm={12}
             md={SINGLE_COLUMN_WIDTH}
-            ref={disparityRef}
-            {...highlightMatch("#disparity")}
           >
             <LazyLoad offset={800} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -290,8 +224,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
             item
             xs={12}
             md={SINGLE_COLUMN_WIDTH}
-            ref={tableRef}
-            {...highlightMatch("#table")}
           >
             <LazyLoad offset={800} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -313,8 +245,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
             item
             xs={12}
             md={SINGLE_COLUMN_WIDTH}
-            ref={ageAdjRef}
-            {...highlightMatch("#age-adjusted")}
           >
             <LazyLoad offset={800} height={800} once>
               <AgeAdjustedTableCard

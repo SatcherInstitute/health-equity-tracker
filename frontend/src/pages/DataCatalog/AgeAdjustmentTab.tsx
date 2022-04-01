@@ -3,7 +3,6 @@ import Grid from "@material-ui/core/Grid";
 import styles from "./DataCatalogPage.module.scss";
 import { Helmet } from "react-helmet-async";
 import {
-  AGE_ADJ,
   COVID_DEATHS_US_SETTING,
   COVID_HOSP_US_SETTING,
   EXPLORE_DATA_PAGE_LINK,
@@ -44,9 +43,7 @@ function AgeAdjustmentTab() {
                 <Link
                   to={
                     EXPLORE_DATA_PAGE_LINK +
-                    COVID_DEATHS_US_SETTING +
-                    "#" +
-                    AGE_ADJ
+                    COVID_DEATHS_US_SETTING
                   }
                 >
                   COVID-19 deaths
@@ -55,9 +52,7 @@ function AgeAdjustmentTab() {
                 <Link
                   to={
                     EXPLORE_DATA_PAGE_LINK +
-                    COVID_HOSP_US_SETTING +
-                    "#" +
-                    AGE_ADJ
+                    COVID_HOSP_US_SETTING
                   }
                 >
                   hospitalizations
@@ -454,10 +449,10 @@ function AgeAdjustmentTab() {
             color="primary"
             className={styles.PrimaryButton}
             href={
-              EXPLORE_DATA_PAGE_LINK + COVID_DEATHS_US_SETTING + "#" + AGE_ADJ
+              EXPLORE_DATA_PAGE_LINK + COVID_DEATHS_US_SETTING
             }
           >
-            Explore the age-adjusted data
+            Explore the data
           </Button>
         </Grid>
       </Grid>

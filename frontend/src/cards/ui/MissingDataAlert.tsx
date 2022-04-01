@@ -1,7 +1,6 @@
 import React from "react";
 import { Alert } from "@material-ui/lab";
 import {
-  AGE_ADJ,
   EXPLORE_DATA_PAGE_LINK,
   LinkWithStickyParams,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
@@ -83,9 +82,8 @@ function AltDataTypesMessage(props: AltDataTypesMessageProps) {
         return (
           <span key={dataType.variableDisplayName}>
             <a
-              href={`${EXPLORE_DATA_PAGE_LINK}${
-                dataTypeLinkMap[dataType.variableId as AgeAdjustedVariableId]
-              }#${AGE_ADJ}`}
+              href={`${EXPLORE_DATA_PAGE_LINK}${dataTypeLinkMap[dataType.variableId as AgeAdjustedVariableId]
+                }`}
             >
               {dataType.variableFullDisplayName}
             </a>

@@ -42,7 +42,6 @@ interface ReportProviderProps {
   showLifeLineAlert: boolean;
   setMadLib: Function;
   doScrollToData?: boolean;
-  scrollToRef?: string;
 }
 
 function ReportProvider(props: ReportProviderProps) {
@@ -95,7 +94,6 @@ function ReportProvider(props: ReportProviderProps) {
                 getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
               )
             }
-            scrollToRef={props.scrollToRef}
           />
         );
       case "comparegeos":
