@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Grid } from "@material-ui/core";
-import React, { useEffect, useState, Fragment, useRef } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import LazyLoad from "react-lazyload";
 import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
 import { MapCard } from "../cards/MapCard";
@@ -18,12 +19,10 @@ import { BreakdownVar, DEMOGRAPHIC_BREAKDOWNS } from "../data/query/Breakdowns";
 import { RACE } from "../data/utils/Constants";
 import { Fips } from "../data/utils/Fips";
 import {
-  CardId,
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
   DEMOGRAPHIC_PARAM,
   getParameter,
-  HIGHLIGHT_SCROLL_DELAY,
   psSubscribe,
   setParameter,
   setParameters,
@@ -32,19 +31,6 @@ import {
 import { SINGLE_COLUMN_WIDTH } from "./ReportProvider";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
-import styles from "./Report.module.scss";
-
-export function jumpToCard(ref: any): void {
-  if (ref?.current) {
-    ref.current.scrollIntoView({ block: "center", behavior: "smooth" });
-    ref.current = null;
-    ref = null;
-  }
-}
-
-export function highlightMatch(matchId: CardId, propsId?: CardId | undefined) {
-  return propsId === matchId ? { className: styles.HighlightedCard } : {};
-}
 
 export interface OneVariableReportProps {
   key: string;
@@ -54,55 +40,9 @@ export interface OneVariableReportProps {
   hidePopulationCard?: boolean;
   jumpToDefinitions: Function;
   jumpToData: Function;
-  targetScrollRef?: CardId;
 }
 
 export function OneVariableReport(props: OneVariableReportProps) {
-  const mapRef = useRef<HTMLInputElement>(null);
-  const barRef = useRef<HTMLInputElement>(null);
-  const unknownsRef = useRef<HTMLInputElement>(null);
-  const disparityRef = useRef<HTMLInputElement>(null);
-  const tableRef = useRef<HTMLInputElement>(null);
-  const ageAdjRef = useRef<HTMLInputElement>(null);
-
-  let target: any = null;
-
-  // handle incoming #hash link request
-  useEffect(() => {
-    switch (props.targetScrollRef) {
-      case "#map":
-        /* eslint-disable react-hooks/exhaustive-deps */
-        target = mapRef;
-        break;
-      case "#bar":
-        target = barRef;
-        break;
-      case "#unknowns":
-        target = unknownsRef;
-        break;
-      case "#disparity":
-        target = disparityRef;
-        break;
-      case "#table":
-        target = tableRef;
-        break;
-      case "#age-adjusted":
-        target = ageAdjRef;
-        break;
-    }
-
-    window.setTimeout(() => {
-      jumpToCard(target);
-    }, HIGHLIGHT_SCROLL_DELAY);
-    // remove hash from URL
-    // eslint-disable-next-line no-restricted-globals
-    history.pushState(
-      "",
-      document.title,
-      window.location.pathname + window.location.search
-    );
-  }, [props.targetScrollRef]);
-
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, RACE)
   );
@@ -168,7 +108,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
     >
       {!props.hidePopulationCard && (
         // POPULATION CARD
-        <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="population">
+        <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="populationCard">
           <PopulationCard jumpToData={props.jumpToData} fips={props.fips} />
         </Grid>
       )}
@@ -191,13 +131,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
           )}
 
           {/* 100k MAP CARD */}
-          <Grid
-            item
-            xs={12}
-            md={SINGLE_COLUMN_WIDTH}
-            ref={mapRef}
-            {...highlightMatch("#map", props.targetScrollRef)}
-          >
+          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH}>
             <MapCard
               variableConfig={variableConfig}
               fips={props.fips}
@@ -211,14 +145,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
           </Grid>
 
           {/* 100K BAR CHART CARD */}
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={SINGLE_COLUMN_WIDTH}
-            ref={barRef}
-            {...highlightMatch("#bar", props.targetScrollRef)}
-          >
+          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH}>
             <LazyLoad offset={600} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>
@@ -236,14 +163,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
           </Grid>
 
           {/* UNKNOWNS MAP CARD */}
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={SINGLE_COLUMN_WIDTH}
-            ref={unknownsRef}
-            {...highlightMatch("#unknowns", props.targetScrollRef)}
-          >
+          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH}>
             <LazyLoad offset={800} height={750} once>
               {variableConfig.metrics["pct_share"] && (
                 <UnknownsMapCard
@@ -260,14 +180,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
           </Grid>
 
           {/* DISPARITY BAR CHART COMPARE VS POPULATION */}
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={SINGLE_COLUMN_WIDTH}
-            ref={disparityRef}
-            {...highlightMatch("#disparity", props.targetScrollRef)}
-          >
+          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH}>
             <LazyLoad offset={800} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>
@@ -285,13 +198,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
           </Grid>
 
           {/* DATA TABLE CARD */}
-          <Grid
-            item
-            xs={12}
-            md={SINGLE_COLUMN_WIDTH}
-            ref={tableRef}
-            {...highlightMatch("#table", props.targetScrollRef)}
-          >
+          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH}>
             <LazyLoad offset={800} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>
@@ -308,13 +215,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
           </Grid>
 
           {/* AGE ADJUSTED TABLE CARD */}
-          <Grid
-            item
-            xs={12}
-            md={SINGLE_COLUMN_WIDTH}
-            ref={ageAdjRef}
-            {...highlightMatch("#age-adjusted", props.targetScrollRef)}
-          >
+          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH}>
             <LazyLoad offset={800} height={800} once>
               <AgeAdjustedTableCard
                 fips={props.fips}

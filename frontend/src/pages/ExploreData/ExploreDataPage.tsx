@@ -17,9 +17,7 @@ import {
   PhraseSelections,
 } from "../../utils/MadLibs";
 import {
-  CardId,
   getParameter,
-  HIGHLIGHT_CANCEL_DELAY,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
   parseMls,
@@ -47,17 +45,12 @@ function ExploreDataPage() {
   const doScrollToData: boolean =
     location?.hash === `#${WHAT_DATA_ARE_MISSING_ID}`;
 
-  const [targetScrollRef, setTargetScrollRef] = useState<string | undefined>(
-    location?.hash
-  );
-
   const [showStickyLifeline, setShowStickyLifeline] = useState(false);
 
   // Set up initial mad lib values based on defaults and query params
   const params = useSearchParams();
 
   // swap out old variable ids for backwards compatibility of outside links
-
   const foundIndex = MADLIB_LIST.findIndex(
     (madlib) => madlib.id === params[MADLIB_PHRASE_PARAM]
   );
@@ -213,9 +206,6 @@ function ExploreDataPage() {
       )
     );
 
-    // after delay, un-highlight any single card that was linked
-    targetScrollRef &&
-      window.setTimeout(() => setTargetScrollRef(""), HIGHLIGHT_CANCEL_DELAY);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [madLib]);
 
@@ -284,7 +274,6 @@ function ExploreDataPage() {
             showLifeLineAlert={showStickyLifeline}
             setMadLib={setMadLibWithParam}
             doScrollToData={doScrollToData}
-            targetScrollRef={targetScrollRef as CardId}
           />
         </div>
       </div>

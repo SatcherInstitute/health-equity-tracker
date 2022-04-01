@@ -8,19 +8,6 @@ import { MadLibId, PhraseSelections } from "./MadLibs";
 
 export const STICKY_VERSION_PARAM = "sv";
 
-export const HIGHLIGHT_SCROLL_DELAY = 2_000;
-export const HIGHLIGHT_CANCEL_DELAY = 18_000;
-// highlight delay and fade time are set in src/reports/Report.module.scss
-
-export type CardId =
-  | "#population"
-  | "#map"
-  | "#bar"
-  | "#unknowns"
-  | "#disparity"
-  | "#table"
-  | "#age-adjusted";
-
 // PAGE URLS
 export const HET_URL = "https://healthequitytracker.org";
 
@@ -61,7 +48,6 @@ export const WHAT_DATA_ARE_MISSING_ID = "missingDataInfo";
 export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
   EXPLORE_DATA_PAGE_LINK + "#" + WHAT_DATA_ARE_MISSING_ID;
 export const WIHE_JOIN_THE_EFFORT_SECTION_ID = "join";
-export const AGE_ADJ = "age-adjusted";
 
 // Value is a comma-separated list of dataset ids. Dataset ids cannot have
 // commas in them.

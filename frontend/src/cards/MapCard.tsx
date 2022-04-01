@@ -109,7 +109,6 @@ function MapCardWithKey(props: MapCardProps) {
       title={<>{metricConfig.fullCardTitleName}</>}
       loadGeographies={true}
       minHeight={PRELOAD_HEIGHT}
-      cardId="#map"
     >
       {(queryResponses, metadata, geoData) => {
         // contains data rows for sub-geos (if viewing US, this data will be STATE level)
