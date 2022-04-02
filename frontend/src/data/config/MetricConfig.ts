@@ -1,4 +1,5 @@
 //  IDs for the selectable conditions in the madlib
+
 export type DropdownVarId =
   | "covid"
   | "diabetes"
@@ -18,14 +19,15 @@ export type DropdownVarId =
   | "asthma"
   | "voter_participation";
 
+export type AgeAdjustedVariableId = "covid_deaths" | "covid_hospitalizations";
+
 // IDs for the sub-data types (if any) for theDropDownId
 export type VariableId =
   | DropdownVarId
+  | AgeAdjustedVariableId
   | "population"
   | "population_2010"
   | "covid_cases"
-  | "covid_deaths"
-  | "covid_hospitalizations"
   | "non_medical_drug_use"
   | "non_medical_rx_opioid_use"
   | "illicit_opioid_use";
@@ -38,30 +40,36 @@ export type MetricId =
   | "brfss_population_pct"
   | "copd_pct_share"
   | "copd_per_100k"
+  | "copd_ratio_age_adjusted"
   | "covid_cases"
   | "covid_cases_per_100k"
   | "covid_cases_reporting_population"
   | "covid_cases_reporting_population_pct"
   | "covid_cases_share"
   | "covid_cases_share_of_known"
+  | "cases_ratio_age_adjusted"
   | "covid_deaths"
   | "covid_deaths_per_100k"
   | "covid_deaths_reporting_population"
   | "covid_deaths_reporting_population_pct"
   | "covid_deaths_share"
   | "covid_deaths_share_of_known"
+  | "death_ratio_age_adjusted"
   | "covid_hosp"
   | "covid_hosp_per_100k"
   | "covid_hosp_reporting_population"
   | "covid_hosp_reporting_population_pct"
   | "covid_hosp_share"
   | "covid_hosp_share_of_known"
+  | "hosp_ratio_age_adjusted"
   | "diabetes_pct_share"
   | "diabetes_per_100k"
+  | "diabetes_ratio_age_adjusted"
   | "health_insurance_count"
   | "health_insurance_pct_share"
   | "health_insurance_per_100k"
   | "health_insurance_population_pct"
+  | "health_insurance_ratio_age_adjusted"
   | "population"
   | "population_pct"
   | "population_2010"
@@ -70,36 +78,51 @@ export type MetricId =
   | "poverty_pct_share"
   | "poverty_per_100k"
   | "poverty_population_pct"
+  | "poverty_ratio_age_adjusted"
   | "vaccinated_pct_share"
   | "vaccinated_share_of_known"
   | "vaccinated_per_100k"
   | "vaccine_population_pct"
+  | "vaccinated_ratio_age_adjusted"
   | "frequent_mental_distress_pct_share"
   | "frequent_mental_distress_per_100k"
+  | "frequent_mental_distress_ratio_age_adjusted"
   | "depression_pct_share"
   | "depression_per_100k"
+  | "depression_ratio_age_adjusted"
   | "suicide_pct_share"
   | "suicide_per_100k"
+  | "suicide_ratio_age_adjusted"
   | "excessive_drinking_pct_share"
   | "excessive_drinking_per_100k"
+  | "excessive_drinking_ratio_age_adjusted"
   | "illicit_opioid_use_pct_share"
   | "illicit_opioid_use_per_100k"
+  | "illicit_opioid_use_ratio_age_adjusted"
   | "non_medical_drug_use_pct_share"
   | "non_medical_drug_use_per_100k"
+  | "non_medical_drug_use_ratio_age_adjusted"
   | "non_medical_rx_opioid_use_pct_share"
   | "non_medical_rx_opioid_use_per_100k"
+  | "non_medical_rx_opioid_use_ratio_age_adjusted"
   | "preventable_hospitalizations_pct_share"
   | "preventable_hospitalizations_per_100k"
+  | "preventable_hospitalizations_ratio_age_adjusted"
   | "avoided_care_pct_share"
   | "avoided_care_per_100k"
+  | "avoided_care_ratio_age_adjusted"
   | "chronic_kidney_disease_pct_share"
   | "chronic_kidney_disease_per_100k"
+  | "chronic_kidney_disease_ratio_age_adjusted"
   | "cardiovascular_diseases_pct_share"
   | "cardiovascular_diseases_per_100k"
+  | "cardiovascular_diseases_ratio_age_adjusted"
   | "asthma_pct_share"
   | "asthma_per_100k"
+  | "asthma_ratio_age_adjusted"
   | "voter_participation_pct_share"
-  | "voter_participation_per_100k";
+  | "voter_participation_per_100k"
+  | "voter_participation_ratio_age_adjusted";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -109,7 +132,8 @@ export type MetricType =
   | "pct_share_to_pop_ratio"
   | "per100k"
   | "percentile"
-  | "index";
+  | "index"
+  | "ratio";
 
 export type MetricConfig = {
   metricId: MetricId;
@@ -118,6 +142,7 @@ export type MetricConfig = {
   unknownsVegaLabel?: string;
   type: MetricType;
   populationComparisonMetric?: MetricConfig;
+  ageAdjusted?: boolean;
 
   // This metric is one where the denominator only includes records where
   // demographics are known. For example, for "share of covid cases" in the US
@@ -198,13 +223,15 @@ export function formatFieldValue(
     return "";
   }
   const isPctShare = metricType === "pct_share";
-  const formatOptions = isPctShare ? { minimumFractionDigits: 1 } : {};
+  const isRatio = metricType.includes("ratio");
+  let formatOptions = isPctShare ? { minimumFractionDigits: 1 } : {};
   const formattedValue =
     typeof value === "number"
       ? value.toLocaleString("en", formatOptions)
       : value;
-  const suffix = isPctShare && !omitPctSymbol ? "%" : "";
-  return `${formattedValue}${suffix}`;
+  const percentSuffix = isPctShare && !omitPctSymbol ? "%" : "";
+  const ratioSuffix = isRatio ? "×" : "";
+  return `${formattedValue}${percentSuffix}${ratioSuffix}`;
 }
 
 export function getPer100kAndPctShareMetrics(
@@ -222,6 +249,18 @@ export function getPer100kAndPctShareMetrics(
           variableConfig.metrics["pct_share"].populationComparisonMetric
         );
       }
+    }
+  }
+  return tableFields;
+}
+
+export function getAgeAdjustedRatioMetric(
+  variableConfig: VariableConfig
+): MetricConfig[] {
+  let tableFields: MetricConfig[] = [];
+  if (variableConfig) {
+    if (variableConfig.metrics["age_adjusted_ratio"]) {
+      tableFields.push(variableConfig.metrics["age_adjusted_ratio"]);
     }
   }
   return tableFields;
@@ -278,6 +317,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "cases per 100k",
           type: "per100k",
         },
+        age_adjusted_ratio: {
+          metricId: "cases_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Risk of COVID-19 Compared to White (Non-Hispanic)",
+          shortLabel: "Risk of COVID-19",
+          type: "ratio",
+        },
       },
     },
     {
@@ -322,6 +368,14 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           fullCardTitleName: "COVID-19 Deaths Per 100k People",
           shortLabel: "deaths per 100k",
           type: "per100k",
+        },
+        age_adjusted_ratio: {
+          metricId: "death_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Risk of COVID-19 Death Compared to White (Non-Hispanic)",
+          shortLabel: "Risk of COVID-19 Death", // table header-row label
+          type: "ratio",
+          ageAdjusted: true,
         },
       },
     },
@@ -368,6 +422,14 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "hospitalizations per 100k",
           type: "per100k",
         },
+        age_adjusted_ratio: {
+          metricId: "hosp_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Risk of COVID-19 Hospitalization Compared to White (Non-Hispanic)",
+          shortLabel: "Risk of COVID-19 Hospitalization", // Table header-row label
+          type: "ratio",
+          ageAdjusted: true,
+        },
       },
     },
   ],
@@ -384,6 +446,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           fullCardTitleName: "COVID-19 Vaccinations Per 100k People",
           shortLabel: "COVID-19 vaccinations per 100k",
           type: "per100k",
+        },
+        age_adjusted_ratio: {
+          metricId: "vaccinated_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Ratio of COVID-19 Vaccination Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
         },
         pct_share: {
           metricId: "vaccinated_pct_share",
@@ -440,6 +509,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "suicides per 100k",
           type: "per100k",
         },
+        age_adjusted_ratio: {
+          metricId: "suicide_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Risk of Suicide Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
+        },
       },
     },
   ],
@@ -469,6 +545,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "cases of depression per 100k",
           type: "per100k",
         },
+        age_adjusted_ratio: {
+          metricId: "depression_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Risk of Depression Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
+        },
       },
     },
   ],
@@ -497,6 +580,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           fullCardTitleName: "Cases of Excessive Drinking Per 100k People",
           shortLabel: "cases of excessive drinking per 100k",
           type: "per100k",
+        },
+        age_adjusted_ratio: {
+          metricId: "excessive_drinking_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Risk of Excessive Drinking Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
         },
       },
     },
@@ -528,6 +618,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "cases of non-medical drug use per 100k",
           type: "per100k",
         },
+        age_adjusted_ratio: {
+          metricId: "non_medical_drug_use_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Risk of Non-medical Drug Use Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
+        },
       },
     },
     {
@@ -557,6 +654,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "cases of non-medical rx opioid use per 100k",
           type: "per100k",
         },
+        age_adjusted_ratio: {
+          metricId: "non_medical_rx_opioid_use_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Risk of Non-medical Prescription Opioid Use Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
+        },
       },
     },
     {
@@ -583,6 +687,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           fullCardTitleName: "Cases of Illicit Opioid Use Per 100k People",
           shortLabel: "cases of illicit opioid use per 100k",
           type: "per100k",
+        },
+        age_adjusted_ratio: {
+          metricId: "illicit_opioid_use_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Risk of Illicit Opioid Use Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
         },
       },
     },
@@ -614,6 +725,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "frequent mental distress cases per 100k",
           type: "per100k",
         },
+        age_adjusted_ratio: {
+          metricId: "frequent_mental_distress_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Risk of Frequent Mental Distress Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
+        },
       },
     },
   ],
@@ -643,6 +761,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           shortLabel: "diabetes cases per 100k",
           type: "per100k",
         },
+        age_adjusted_ratio: {
+          metricId: "diabetes_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Risk of Diabetes Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
+        },
       },
     },
   ],
@@ -671,6 +796,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           fullCardTitleName: "COPD Cases Per 100k People",
           shortLabel: "COPD cases per 100k",
           type: "per100k",
+        },
+        age_adjusted_ratio: {
+          metricId: "copd_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Risk of COPD Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
         },
       },
     },
@@ -706,6 +838,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             type: "pct_share",
           },
         },
+        age_adjusted_ratio: {
+          metricId: "health_insurance_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Risk of Being Uninsured Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
+        },
       },
     },
   ],
@@ -735,6 +874,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             type: "pct_share",
           },
         },
+        age_adjusted_ratio: {
+          metricId: "poverty_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Risk of Poverty Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
+        },
       },
     },
   ],
@@ -762,6 +908,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
+        },
+        age_adjusted_ratio: {
+          metricId: "preventable_hospitalizations_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Risk of Preventable Hospitalization Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
         },
       },
     },
@@ -793,6 +946,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             type: "pct_share",
           },
         },
+        age_adjusted_ratio: {
+          metricId: "avoided_care_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Risk of Care Avoidance Due to Cost Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
+        },
       },
     },
   ],
@@ -821,6 +981,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
+        },
+        age_adjusted_ratio: {
+          metricId: "asthma_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Risk of Asthma Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
         },
       },
     },
@@ -851,6 +1018,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             type: "pct_share",
           },
         },
+        age_adjusted_ratio: {
+          metricId: "cardiovascular_diseases_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Risk of Cardiovascular Diseases Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
+        },
       },
     },
   ],
@@ -880,6 +1054,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             type: "pct_share",
           },
         },
+        age_adjusted_ratio: {
+          metricId: "chronic_kidney_disease_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Risk of Chronic Kidney Disease Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
+        },
       },
     },
   ],
@@ -908,6 +1089,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
+        },
+        age_adjusted_ratio: {
+          metricId: "voter_participation_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Voter Participation Ratio Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
         },
       },
     },

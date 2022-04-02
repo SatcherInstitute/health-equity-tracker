@@ -29,6 +29,7 @@ function CardWrapper(props: {
     metadata: MapOfDatasetMetadata,
     geoData?: Record<string, any>
   ) => JSX.Element;
+  isAgeAdjustedTable?: boolean;
 }) {
   const popover = usePopover();
   const queries = props.queries ? props.queries : [];
@@ -94,7 +95,11 @@ function CardWrapper(props: {
             {props.children(queryResponses, metadata, geoData)}
             {!props.hideFooter && props.queries && (
               <CardContent className={styles.CardFooter} component={"footer"}>
-                <Sources queryResponses={queryResponses} metadata={metadata} />
+                <Sources
+                  isAgeAdjustedTable={props.isAgeAdjustedTable}
+                  queryResponses={queryResponses}
+                  metadata={metadata}
+                />
               </CardContent>
             )}
           </Card>
