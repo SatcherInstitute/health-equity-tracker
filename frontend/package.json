@@ -101,6 +101,7 @@
     ]
   },
   "devDependencies": {
+    "@playwright/test": "^1.20.2",
     "@storybook/addon-actions": "^6.2.8",
     "@storybook/addon-essentials": "^6.2.8",
     "@storybook/addon-links": "^6.2.8",
