@@ -13,6 +13,8 @@ const OURTEAM = `ourteam`
 const CONTACT = `contact`
 const TERMS = `termsofuse`
 
+console.log("****", process.env.REACT_APP_DEPLOY_CONTEXT);
+
 test('WIHE Page Loads', async ({ page }) => {
     await page.goto(`${HET}/${WIHE}`);
     const mainHeading = page.locator('#main');
