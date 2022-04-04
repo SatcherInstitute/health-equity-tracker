@@ -1,5 +1,95 @@
 [
   {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "55,519",
+    "race_category_id": "TOTAL"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "55519",
+    "race_category_id": "TOTAL"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "51403",
+    "race_category_id": "NHPI"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "51403",
+    "race_category_id": "NHPI_NH"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "1994",
+    "race_category_id": "ASIAN"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "1994",
+    "race_category_id": "ASIAN_NH"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "13",
+    "race_category_id": "BLACK"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "13",
+    "race_category_id": "BLACK_NH"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "73",
+    "race_category_id": "HISP"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "493",
+    "race_category_id": "WHITE"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "493",
+    "race_category_id": "WHITE_NH"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "64",
+    "race_category_id": "OTHER_STANDARD"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "64",
+    "race_category_id": "OTHER_STANDARD_NH"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "1479",
+    "race_category_id": "MULTI"
+  },
+  {
+    "state_fips": "60",
+    "state_name": "American Samoa",
+    "population": "1479",
+    "race_category_id": "MULTI_NH"
+  },
+  {
     "state_fips": "78",
     "state_name": "U.S. Virgin Islands",
     "population": "106405",
@@ -32,8 +122,20 @@
   {
     "state_fips": "78",
     "state_name": "U.S. Virgin Islands",
+    "population": "2203",
+    "race_category_id": "MULTI_NH"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
     "population": "6648",
     "race_category_id": "OTHER_STANDARD"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "population": "6648",
+    "race_category_id": "OTHER_STANDARD_NH"
   },
   {
     "state_fips": "78",

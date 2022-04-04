@@ -182,14 +182,35 @@ def merge_pop_numbers(df, demo, loc):
     }
 
     if demo not in on_col_map:
-        raise ValueError('%s not a demographic option, must be one of: %s' % (demo, on_col_map.keys()))
+        raise ValueError('%s not a demographic option, must be one of: %s' % (
+            demo, on_col_map.keys()))
 
     pop_table_name = 'by_%s_%s' % (demo, loc)
+
+    # states, DC, PR
     if demo == 'race' and loc == 'state':
         pop_table_name += '_std'
 
-    pop_df = gcs_to_bq_util.load_df_from_bigquery('acs_population', pop_table_name, dtype={'state_fips': str})
-    pop_df = pop_df[[std_col.STATE_FIPS_COL, on_col_map[demo], std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
+    pop_df = gcs_to_bq_util.load_df_from_bigquery(
+        'acs_population', pop_table_name, dtype={'state_fips': str})
+    pop_df = pop_df[[std_col.STATE_FIPS_COL, on_col_map[demo],
+                     std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
 
-    df = pd.merge(df, pop_df, how='left', on=[std_col.STATE_FIPS_COL, on_col_map[demo]])
+    df = pd.merge(df, pop_df, how='left', on=[
+                  std_col.STATE_FIPS_COL, on_col_map[demo]])
+
+    # other territories from ACS 2010 (VI, GU, AS, MP)
+    if loc == 'state':
+        verbose_demo = "race_and_ethnicity" if demo == 'race' else demo
+        pop_2010_filename = 'by_%s_territory' % (
+            verbose_demo)
+
+        pop_2010_df = gcs_to_bq_util.load_json_as_df_from_data_dir(
+            'acs_2010', pop_2010_filename)
+        pop_2010_df = pop_2010_df[[std_col.STATE_FIPS_COL, on_col_map[demo],
+                                   std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
+
+        df = pd.merge(df, pop_2010_df, how='left', on=[
+                      std_col.STATE_FIPS_COL, on_col_map[demo]])
+
     return df.reset_index(drop=True)
