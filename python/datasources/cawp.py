@@ -5,7 +5,8 @@ import ingestion.standardized_columns as std_col
 
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, constants
-from ingestion.dataset_utils import merge_fips_codes, replace_state_abbr_with_names
+from ingestion.dataset_utils import merge_fips_codes, merge_pop_numbers, replace_state_abbr_with_names
+
 
 # CAWP COLUMNS
 RACE_COL = "race_ethnicity"
@@ -38,7 +39,7 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
     'Black': Race.BLACK.value,
     'White': Race.WHITE.value,
     'Unavailable': Race.UNKNOWN.value,
-    'All': Race.ALL.value,
+    'All': Race.TOTAL.value
 }
 
 CAWP_DATA_TYPES = {
@@ -140,30 +141,30 @@ def count_matching_rows(df, place_name: str, gov_level: str, race_to_match: str)
     return len(df_race_matches.index) + len(df_race_list_matches.index)
 
 
-def set_pop_metrics_by_race_in_state(output_row, df_pop, race_code: str, place_name: str):
-    """ Accepts an output row object, a dataframe with populations,
-    a race name and a place name, appends the population and
-    population share for that place's race to the row,
-    and returns the updated row
+# def set_pop_metrics_by_race_in_state(output_row, df_pop, race_code: str, place_name: str):
+#     """ Accepts an output row object, a dataframe with populations,
+#     a race name and a place name, appends the population and
+#     population share for that place's race to the row,
+#     and returns the updated row
 
-    output_row: object that  will receive a "population" metric and a "population_pct" metric
-    df_pop: pandas dataframe with population by state/territory and race/ethnicity
-    race_name: string of the race/ethnicity code (eg API_NH) to match to ACS `race_category_id` column
-    place_name: string of the state/territory/USA to match to ACS's `state_name` columns
-    """
+#     output_row: object that  will receive a "population" metric and a "population_pct" metric
+#     df_pop: pandas dataframe with population by state/territory and race/ethnicity
+#     race_name: string of the race/ethnicity code (eg API_NH) to match to ACS `race_category_id` column
+#     place_name: string of the state/territory/USA to match to ACS's `state_name` columns
+#     """
 
-    if race_code == Race.ALL.value:
-        race_code = Race.TOTAL.value
+#     if race_code == Race.ALL.value:
+#         race_code = Race.TOTAL.value
 
-    matched_row = df_pop[(df_pop[std_col.STATE_NAME_COL] == place_name) &
-                         (df_pop[std_col.RACE_CATEGORY_ID_COL] == race_code)]
+#     matched_row = df_pop[(df_pop[std_col.STATE_NAME_COL] == place_name) &
+#                          (df_pop[std_col.RACE_CATEGORY_ID_COL] == race_code)]
 
-    output_row[std_col.POPULATION_COL] = matched_row[std_col.POPULATION_COL].values[0] if len(
-        matched_row[std_col.POPULATION_COL].values) > 0 else None
-    output_row[std_col.POPULATION_PCT_COL] = matched_row[std_col.POPULATION_PCT_COL].values[0] if len(
-        matched_row[std_col.POPULATION_PCT_COL].values) > 0 else None
+#     output_row[std_col.POPULATION_COL] = matched_row[std_col.POPULATION_COL].values[0] if len(
+#         matched_row[std_col.POPULATION_COL].values) > 0 else None
+#     output_row[std_col.POPULATION_PCT_COL] = matched_row[std_col.POPULATION_PCT_COL].values[0] if len(
+#         matched_row[std_col.POPULATION_PCT_COL].values) > 0 else None
 
-    return output_row
+#     return output_row
 
 
 # Table for Line-Items incl US- and STATE_COL_LINE-LEVEL LEG by race by state
@@ -218,22 +219,26 @@ class CAWPData(DataSource):
         df_us_senate = gcs_to_bq_util.load_json_as_df_from_data_dir(
             'cawp', PROPUB_US_SENATE_FILE)
 
-        # load in ACS national populations by race
-        df_acs_pop_national = gcs_to_bq_util.load_df_from_bigquery(
-            'acs_population', 'by_race_national')
+        # # load in ACS national populations by race
+        # df_acs_pop_national = gcs_to_bq_util.load_df_from_bigquery(
+        #     'acs_population', 'by_race_national')
 
-        # load in ACS states and puerto rico populations by race
-        df_acs_pop_state = gcs_to_bq_util.load_df_from_bigquery(
-            'acs_population', 'by_race_state_std', dtype={std_col.STATE_FIPS_COL: str})
+        # # load in ACS states and puerto rico populations by race
+        # df_acs_pop_state = gcs_to_bq_util.load_df_from_bigquery(
+        #     'acs_population', 'by_race_state_std', dtype={std_col.STATE_FIPS_COL: str})
 
-        # load in ACS 2010 territories' populations by race
-        df_acs_2010_pop_territory = gcs_to_bq_util.load_df_from_bigquery(
-            'acs_2010_population', 'by_race_and_ethnicity_territory', dtype={std_col.STATE_FIPS_COL: str})
+        # # load in ACS 2010 territories' populations by race
+        # df_acs_2010_pop_territory = gcs_to_bq_util.load_df_from_bigquery(
+        #     'acs_2010_population', 'by_race_and_ethnicity_territory', dtype={std_col.STATE_FIPS_COL: str})
+
+        # # make table by race
+        # breakdown_df = self.generate_breakdown(df_us_house, df_us_senate,
+        #                                        df_state_leg_totals, df_line_items, df_acs_pop_state,
+        #                                        df_acs_pop_national, df_acs_2010_pop_territory)
 
         # make table by race
         breakdown_df = self.generate_breakdown(df_us_house, df_us_senate,
-                                               df_state_leg_totals, df_line_items, df_acs_pop_state,
-                                               df_acs_pop_national, df_acs_2010_pop_territory)
+                                               df_state_leg_totals, df_line_items)
 
         # set column types
         column_types = {c: 'STRING' for c in breakdown_df.columns}
@@ -242,21 +247,23 @@ class CAWPData(DataSource):
         column_types[std_col.WOMEN_US_CONGRESS_PCT] = 'STRING'
         column_types[std_col.WOMEN_US_CONGRESS_PCT_SHARE] = 'STRING'
         column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-        column_types[std_col.POPULATION_COL] = 'INT'
-        column_types[std_col.POPULATION_PCT_COL] = 'FLOAT'
+        # column_types[std_col.POPULATION_COL] = 'INT'
+        # column_types[std_col.POPULATION_PCT_COL] = 'FLOAT'
         column_types[std_col.RACE_WOMEN_COL] = "STRING"
 
         gcs_to_bq_util.add_df_to_bq(
             breakdown_df, dataset, std_col.RACE_OR_HISPANIC_COL, column_types=column_types)
 
-    def generate_breakdown(self, df_us_house, df_us_senate, df_state_leg_totals, df_line_items, df_acs_pop_state,
-                           df_acs_pop_national, df_acs_2010_pop_territory):
+    # def generate_breakdown(self, df_us_house, df_us_senate, df_state_leg_totals, df_line_items, df_acs_pop_state,
+    #                        df_acs_pop_national, df_acs_2010_pop_territory):
 
-        # list of states/territories FIPS we have population breakdowns for from ACS
-        acs_places = set(
-            df_acs_pop_state[std_col.STATE_NAME_COL].to_list())
-        acs_2010_places = set(
-            df_acs_2010_pop_territory[std_col.STATE_NAME_COL].to_list())
+    def generate_breakdown(self, df_us_house, df_us_senate, df_state_leg_totals, df_line_items):
+
+        # # list of states/territories FIPS we have population breakdowns for from ACS
+        # acs_places = set(
+        #     df_acs_pop_state[std_col.STATE_NAME_COL].to_list())
+        # acs_2010_places = set(
+        #     df_acs_2010_pop_territory[std_col.STATE_NAME_COL].to_list())
 
         # Standardize CAWP LINE ITEM table
         df_line_items = df_line_items[[LEVEL_COL, STATE_COL_LINE, RACE_COL]]
@@ -372,22 +379,22 @@ class CAWPData(DataSource):
                 output_row[std_col.RACE_WOMEN_COL] = get_women_only_race_group(
                     race_code)
 
-                # get and set population and pop_share
-                if current_place == constants.US_NAME:
-                    output_row = set_pop_metrics_by_race_in_state(
-                        output_row, df_acs_pop_national, race_code, current_place)
-                # states, DC, PR
-                elif current_place in acs_places:
-                    output_row = set_pop_metrics_by_race_in_state(
-                        output_row, df_acs_pop_state, race_code, current_place)
-                # other territories
-                elif current_place in acs_2010_places:
-                    output_row = set_pop_metrics_by_race_in_state(
-                        output_row, df_acs_2010_pop_territory, race_code, current_place)
-                # mismatched races
-                else:
-                    output_row[std_col.POPULATION_COL] = None
-                    output_row[std_col.POPULATION_PCT_COL] = None
+                # # get and set population and pop_share
+                # if current_place == constants.US_NAME:
+                #     output_row = set_pop_metrics_by_race_in_state(
+                #         output_row, df_acs_pop_national, race_code, current_place)
+                # # states, DC, PR
+                # elif current_place in acs_places:
+                #     output_row = set_pop_metrics_by_race_in_state(
+                #         output_row, df_acs_pop_state, race_code, current_place)
+                # # other territories
+                # elif current_place in acs_2010_places:
+                #     output_row = set_pop_metrics_by_race_in_state(
+                #         output_row, df_acs_2010_pop_territory, race_code, current_place)
+                # # mismatched races
+                # else:
+                #     output_row[std_col.POPULATION_COL] = None
+                #     output_row[std_col.POPULATION_PCT_COL] = None
 
                 output_row[std_col.RACE_CATEGORY_ID_COL] = race_code
                 output_row[std_col.STATE_NAME_COL] = current_place
@@ -401,8 +408,8 @@ class CAWPData(DataSource):
                    std_col.WOMEN_STATE_LEG_PCT_SHARE,
                    std_col.WOMEN_US_CONGRESS_PCT,
                    std_col.WOMEN_US_CONGRESS_PCT_SHARE,
-                   std_col.POPULATION_COL,
-                   std_col.POPULATION_PCT_COL,
+                   #    std_col.POPULATION_COL,
+                   #    std_col.POPULATION_PCT_COL,
                    std_col.RACE_CATEGORY_ID_COL,
                    std_col.RACE_WOMEN_COL
                    ]
@@ -410,6 +417,9 @@ class CAWPData(DataSource):
         output_df = pd.DataFrame(output, columns=columns)
 
         output_df = merge_fips_codes(output_df)
+
+        output_df = merge_pop_numbers(output_df, std_col.RACE_COL, "state")
+        output_df = merge_pop_numbers(output_df, std_col.RACE_COL, "national")
 
         std_col.add_race_columns_from_category_id(output_df)
 
