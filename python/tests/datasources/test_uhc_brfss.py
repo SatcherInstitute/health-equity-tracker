@@ -95,64 +95,77 @@ def testWriteToBqRace(
     expected_df = pd.read_json(
         GOLDEN_DATA_RACE, dtype=expected_dtype)
 
-    print(expected_df.columns)
-    print(mock_bq.columns)
-
     assert_frame_equal(
         mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
 
 
-# @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-#             return_value=get_state_fips_codes_as_df())
-# @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-#             return_value=get_test_data_as_df())
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-#             return_value=None)
-# def testWriteToBqAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_fips: mock.MagicMock):
-#     uhc_data = UHCData()
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            return_value=get_state_fips_codes_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
+            return_value=get_test_data_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+            return_value=None)
+def testWriteToBqAge(
+        mock_bq: mock.MagicMock,
+        mock_csv: mock.MagicMock,
+        mock_fips: mock.MagicMock,
+        mock_pop: mock.MagicMock):
 
-#     expected_dtype = EXPECTED_DTYPE.copy()
-#     # pretend arguments required by bigQuery
-#     kwargs = {'filename': 'test_file.csv',
-#               'metadata_table_id': 'test_metadata',
-#               'table_name': 'output_table'}
+    mock_pop.side_effect = [get_race_pop_data_as_df(), get_age_pop_data_as_df(), get_sex_pop_data_as_df()]
 
-#     uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    uhc_data = UHCData()
 
-#     assert mock_bq.call_count == 3
+    expected_dtype = EXPECTED_DTYPE.copy()
+    # pretend arguments required by bigQuery
+    kwargs = {'filename': 'test_file.csv',
+              'metadata_table_id': 'test_metadata',
+              'table_name': 'output_table'}
 
-#     expected_dtype['age'] = str
+    uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-#     expected_df = pd.read_json(
-#         GOLDEN_DATA_AGE, dtype=expected_dtype)
+    assert mock_bq.call_count == 3
 
-#     assert_frame_equal(
-#         mock_bq.call_args_list[1].args[0], expected_df, check_like=True)
+    expected_dtype['age'] = str
+
+    expected_df = pd.read_json(
+        GOLDEN_DATA_AGE, dtype=expected_dtype)
+
+    assert_frame_equal(
+        mock_bq.call_args_list[1].args[0], expected_df, check_like=True)
 
 
-# @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-#             return_value=get_state_fips_codes_as_df())
-# @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-#             return_value=get_test_data_as_df())
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-#             return_value=None)
-# def testWriteToBqSex(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_fips: mock.MagicMock):
-#     uhc_data = UHCData()
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            return_value=get_state_fips_codes_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
+            return_value=get_test_data_as_df())
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+            return_value=None)
+def testWriteToBqSex(
+        mock_bq: mock.MagicMock,
+        mock_csv: mock.MagicMock,
+        mock_fips: mock.MagicMock,
+        mock_pop: mock.MagicMock):
 
-#     expected_dtype = EXPECTED_DTYPE.copy()
-#     # pretend arguments required by bigQuery
-#     kwargs = {'filename': 'test_file.csv',
-#               'metadata_table_id': 'test_metadata',
-#               'table_name': 'output_table'}
+    mock_pop.side_effect = [get_race_pop_data_as_df(), get_age_pop_data_as_df(), get_sex_pop_data_as_df()]
 
-#     uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    uhc_data = UHCData()
 
-#     assert mock_bq.call_count == 3
+    expected_dtype = EXPECTED_DTYPE.copy()
+    # pretend arguments required by bigQuery
+    kwargs = {'filename': 'test_file.csv',
+              'metadata_table_id': 'test_metadata',
+              'table_name': 'output_table'}
 
-#     expected_dtype['sex'] = str
+    uhc_data.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-#     expected_df = pd.read_json(
-#         GOLDEN_DATA_SEX, dtype=expected_dtype)
+    assert mock_bq.call_count == 3
 
-#     assert_frame_equal(
-#         mock_bq.call_args_list[2].args[0], expected_df, check_like=True)
+    expected_dtype['sex'] = str
+
+    expected_df = pd.read_json(
+        GOLDEN_DATA_SEX, dtype=expected_dtype)
+
+    assert_frame_equal(
+        mock_bq.call_args_list[2].args[0], expected_df, check_like=True)
