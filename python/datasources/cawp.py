@@ -219,6 +219,8 @@ class CAWPData(DataSource):
         df_us_senate = gcs_to_bq_util.load_json_as_df_from_data_dir(
             'cawp', PROPUB_US_SENATE_FILE)
 
+        # df_us_congress_totals =
+
         # # load in ACS national populations by race
         # df_acs_pop_national = gcs_to_bq_util.load_df_from_bigquery(
         #     'acs_population', 'by_race_national')
@@ -292,19 +294,19 @@ class CAWPData(DataSource):
         df_state_leg_totals = df_state_leg_totals[[
             std_col.STATE_NAME_COL, COUNT_W, COUNT_ALL]]
 
-        # make a row for US and set value to the sum of all states/territories
-        national_sum_state_legislators_count = pd.DataFrame(
-            [{std_col.STATE_NAME_COL: constants.US_NAME,
-              COUNT_W: df_state_leg_totals[COUNT_W].astype(int).sum(),
-              COUNT_ALL: df_state_leg_totals[COUNT_ALL].astype(int).sum()}])
+        # # make a row for US and set value to the sum of all states/territories
+        # national_sum_state_legislators_count = pd.DataFrame(
+        #     [{std_col.STATE_NAME_COL: constants.US_NAME,
+        #       COUNT_W: df_state_leg_totals[COUNT_W].astype(int).sum(),
+        #       COUNT_ALL: df_state_leg_totals[COUNT_ALL].astype(int).sum()}])
 
         # sort alpha by state name
         df_state_leg_totals = df_state_leg_totals.sort_values(
             by=[std_col.STATE_NAME_COL])
 
-        # add US row to other PLACE rows
-        df_state_leg_totals = pd.concat(
-            [df_state_leg_totals, national_sum_state_legislators_count], ignore_index=True)
+        # # add US row to other PLACE rows
+        # df_state_leg_totals = pd.concat(
+        #     [df_state_leg_totals, national_sum_state_legislators_count], ignore_index=True)
 
         # Standardize PROPUBLICA US CONGRESS TOTALS
 
@@ -327,13 +329,13 @@ class CAWPData(DataSource):
             by=[std_col.STATE_NAME_COL])
 
         # add a row for US and set value to the sum of all states/territories
-        us_congress_count = pd.DataFrame(
-            [{std_col.STATE_NAME_COL: constants.US_NAME, COUNT_ALL: df_us_congress_totals[COUNT_ALL].sum()}])
+        # us_congress_count = pd.DataFrame(
+        #     [{std_col.STATE_NAME_COL: constants.US_NAME, COUNT_ALL: df_us_congress_totals[COUNT_ALL].sum()}])
 
-        df_us_congress_totals = pd.concat(
-            [df_us_congress_totals, us_congress_count], ignore_index=True)
+        # df_us_congress_totals = pd.concat(
+        #     [df_us_congress_totals, us_congress_count], ignore_index=True)
 
-        # ITERATE STATES / TERRITORIES / US
+        # ITERATE STATES / TERRITORIES
         all_places = df_us_congress_totals[std_col.STATE_NAME_COL].to_list(
         )
         output = []
@@ -419,7 +421,7 @@ class CAWPData(DataSource):
         output_df = merge_fips_codes(output_df)
 
         output_df = merge_pop_numbers(output_df, std_col.RACE_COL, "state")
-        output_df = merge_pop_numbers(output_df, std_col.RACE_COL, "national")
+        # output_df = merge_pop_numbers(output_df, std_col.RACE_COL, "national")
 
         std_col.add_race_columns_from_category_id(output_df)
 

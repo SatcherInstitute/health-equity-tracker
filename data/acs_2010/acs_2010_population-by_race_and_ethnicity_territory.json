@@ -14,8 +14,32 @@
   {
     "state_fips": "78",
     "state_name": "U.S. Virgin Islands",
+    "population": "80908",
+    "race_category_id": "BLACK"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
     "population": "70379",
     "race_category_id": "BLACK_NH"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "population": "2203",
+    "race_category_id": "MULTI"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "population": "6648",
+    "race_category_id": "OTHER_STANDARD"
+  },
+  {
+    "state_fips": "78",
+    "state_name": "U.S. Virgin Islands",
+    "population": "16646",
+    "race_category_id": "WHITE"
   },
   {
     "state_fips": "78",
