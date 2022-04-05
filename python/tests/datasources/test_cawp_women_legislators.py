@@ -114,8 +114,8 @@ mock_file_map = {
     },
     # for ACS 2010 territories by race mocking /data FOLDER
     "by_race_and_ethnicity_territory": {
-        "filename": 'by_race_and_ethnicity_territory.json',  # FULL FILE
-        "data_types": {std_col.STATE_FIPS_COL: str, std_col.POPULATION_COL: int, std_col.POPULATION_PCT_COL: float}
+        "filename": 'acs_test_input-by_race_and_ethnicity_territory.json',  # FULL FILE
+        "data_types": {std_col.STATE_FIPS_COL: str, std_col.POPULATION_COL: object, std_col.POPULATION_PCT_COL: float}
     },
 
 }

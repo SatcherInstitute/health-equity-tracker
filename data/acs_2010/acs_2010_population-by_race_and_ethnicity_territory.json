@@ -2,12 +2,6 @@
   {
     "state_fips": "60",
     "state_name": "American Samoa",
-    "population": "55,519",
-    "race_category_id": "TOTAL"
-  },
-  {
-    "state_fips": "60",
-    "state_name": "American Samoa",
     "population": "55519",
     "race_category_id": "TOTAL"
   },
