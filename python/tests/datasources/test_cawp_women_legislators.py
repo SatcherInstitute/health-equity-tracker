@@ -11,17 +11,17 @@ from datasources.cawp import (CAWPData,
                               PROPUB_US_SENATE_FILE,
                               get_women_only_race_group,
                               get_standard_code_from_cawp_phrase,
-                              #   get_pretty_pct,
+                              get_pct,
                               count_matching_rows,
-                              #   set_pop_metrics_by_race_in_state,
-                              remove_markup)
+                              remove_markup,
+                              NATIONAL,
+                              STATE)
 
 from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
 
 
 # test utility functions
-
 def test_get_women_only_race_group():
     assert get_women_only_race_group(
         Race.HISP.value) == 'Hispanic Women and Latinas'
@@ -44,11 +44,10 @@ def test_remove_markup():
     assert remove_markup("<i>All the Above</i>**") == "All the Above"
 
 
-# def test_get_pretty_pct():
-#     assert get_pretty_pct(1, 3) == 33.33
-#     assert get_pretty_pct(3, 3) == 100
-#     assert get_pretty_pct(12345, 100_000) == 12.35
-#     assert get_pretty_pct(3, 0) == 0
+def test_get_pct():
+    assert get_pct(1, 3) == 33.3
+    assert get_pct(3, 3) == 100.0
+    assert get_pct(3, 0) == 0.0
 
 
 def test_count_matching_rows():
@@ -58,66 +57,16 @@ def test_count_matching_rows():
          'level': ["Congress", "State Legislative", "Territorial/D.C.", "U.S. Delegate", "Congress", "Congress"]})
 
     assert count_matching_rows(
-        df_test, "United States", "federal", "Black") == 2
+        df_test, "United States", NATIONAL, "Black") == 2
     assert count_matching_rows(
-        df_test, "Florida", "federal", "Black") == 1
+        df_test, "Florida", NATIONAL, "Black") == 1
     assert count_matching_rows(
-        df_test, "Florida", "federal", "All") == 1
+        df_test, "Florida", NATIONAL, "All") == 1
     assert count_matching_rows(
-        df_test, "United States", "state", "All") == 2
-    # include "Multiracial Alone"
-    # and multiple specific races "White, Black"
+        df_test, "United States", STATE, "All") == 2
+    # include "Multiracial Alone" +  multiple races e.g. "White, Black"
     assert count_matching_rows(
-        df_test, "United States", "federal", "Multiracial Alone") == 2
-
-
-# def test_set_pop_metrics_by_race_in_state():
-#     test_row = {"test key": "test value"}
-#     df_pop_test = pd.DataFrame(
-#         {
-#             std_col.STATE_NAME_COL: ["Florida", "Florida", "Florida", "Maine", "Maine", "Maine"],
-#             std_col.RACE_CATEGORY_ID_COL: [Race.BLACK_NH.value,
-#                                            Race.WHITE_NH,
-#                                            "TOTAL",
-#                                            Race.BLACK_NH.value,
-#                                            Race.WHITE_NH,
-#                                            "TOTAL"],
-#             std_col.POPULATION_COL: [200, 300, 500, 10, 30, 40],
-#             std_col.POPULATION_PCT_COL: [40, 60, 100, 25, 75, 100]
-#         })
-
-    # # test a valid place/race
-    # assert set_pop_metrics_by_race_in_state(
-    #     test_row,
-    #     df_pop_test,
-    #     Race.BLACK_NH.value,
-    #     "Florida") == {'test key': 'test value',
-    #                    'population': 200,
-    #                    'population_pct': 40.0}
-    # # test valid place / invalid race
-    # assert set_pop_metrics_by_race_in_state(
-    #     test_row,
-    #     df_pop_test,
-    #     Race.ASIAN_NH.value,
-    #     "Florida") == {'test key': 'test value',
-    #                    'population': None,
-    #                    'population_pct': None}
-    # # test invalid place / valid race
-    # assert set_pop_metrics_by_race_in_state(
-    #     test_row,
-    #     df_pop_test,
-    #     Race.WHITE_NH.value,
-    #     "Virginia") == {'test key': 'test value',
-    #                     'population': None,
-    #                     'population_pct': None}
-    # # test valid place total
-    # assert set_pop_metrics_by_race_in_state(
-    #     test_row,
-    #     df_pop_test,
-    #     "ALL",
-    #     "Florida") == {'test key': 'test value',
-    #                    'population': 500,
-    #                    'population_pct': 100.0}
+        df_test, "United States", NATIONAL, "Multiracial Alone") == 2
 
 
 # Map production URLs to mock CSVs
@@ -125,7 +74,6 @@ mock_file_map = {
     # state leg TOTALS by state (FULL FILE) mocking WEB CALL
     CAWP_TOTALS_URL: {
         "filename": 'cawp_test_input_totals.csv',  # FULL CSV FILE
-        # "filename": 'cawp_test_input_totals-SUBSET.csv',  # LIMITED SAMPLE CSV FILE
         "data_types": {
             "State": str,
             "State Rank": object,
@@ -140,7 +88,6 @@ mock_file_map = {
     # for LINE LEVEL mocking /data FOLDER
     CAWP_LINE_ITEMS_FILE: {
         "filename": 'cawp_test_input_line_items.csv',  # FULL CSV FILE
-        # "filename": 'cawp_test_input_line_items-SUBSET.csv',  # LIMITED SAMPLE CSV FILE
         "data_types": {
             "id": str,
             "year": str,
@@ -269,17 +216,17 @@ def testWriteToBq(mock_bq: mock.MagicMock,
     mock_df_national.to_json(
         "cawp-run-results-national.json", orient="records")
 
-    print("mock state results")
-    print(mock_df_state.to_string())
+    # print("mock state results")
+    # print(mock_df_state.to_string())
 
-    print("expected state output file")
-    print(expected_df_state.to_string())
+    # print("expected state output file")
+    # print(expected_df_state.to_string())
 
-    print("mock national call results")
-    print(mock_df_national.to_string())
+    # print("mock national call results")
+    # print(mock_df_national.to_string())
 
-    print("expected national output file")
-    print(expected_df_national.to_string())
+    # print("expected national output file")
+    # print(expected_df_national.to_string())
 
     # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
     assert set(mock_df_state) == set(

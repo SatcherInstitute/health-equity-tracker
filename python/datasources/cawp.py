@@ -26,7 +26,7 @@ LEVEL_COL = "level"
 IN_OFFICE_COL = "in_office"
 
 # CAWP CONSTS
-FED = "federal"
+NATIONAL = "national"
 STATE = "state"
 
 
@@ -34,8 +34,7 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
     'Asian American/Pacific Islander': Race.ASIAN_PAC.value,
     'Latina': Race.HISP.value,
     'Middle Eastern/North African': Race.MENA.value,
-    # currently reporting MULTI as the sum of "Multiracial Alone" +
-    # women who chose multiple specific races
+    # MULTI = "Multiracial Alone" + women w multiple specific races
     'Multiracial Alone': Race.MULTI.value,
     'Native American/Alaska Native/Native Hawaiian': Race.AIANNH.value,
     'Black': Race.BLACK.value,
@@ -46,14 +45,21 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
 
 CAWP_DATA_TYPES = {
     STATE_COL_LINE: ["Territorial/D.C.", "State Legislative"],
-    FED: ["U.S. Delegate", "Congress"],
+    NATIONAL: ["U.S. Delegate", "Congress"],
 }
 
 
 def get_pct(numerator: int, denominator: int):
+    """ Prevents division by zero errors from using util pct function
+    numerator: top number as int
+    denominator: bottom number as int
+
+    returns: float representing the % value of that rounded fraction
+
+    Note: Division by zero just returns 0.0 instead of error
+    """
     if denominator == 0:
         return 0.0
-
     return percent_avoid_rounding_to_zero(numerator, denominator)
 
 
@@ -126,43 +132,12 @@ def count_matching_rows(df, place_name: str, gov_level: str, race_to_match: str)
     if race_to_match != "Multiracial Alone":
         return len(df_race_matches.index)
 
-    # sum the normal count for "Multiracial Alone" with ", "
-    # which are present for women who have chosen more than one specific race
+    # sum "Multiracial Alone" + ", " for women who a race list
     df_race_list_matches = df[(df[RACE_COL].str.contains(", "))]
 
     return len(df_race_matches.index) + len(df_race_list_matches.index)
 
 
-# def set_pop_metrics_by_race_in_state(output_row, df_pop, race_code: str, place_name: str):
-#     """ Accepts an output row object, a dataframe with populations,
-#     a race name and a place name, appends the population and
-#     population share for that place's race to the row,
-#     and returns the updated row
-
-#     output_row: object that  will receive a "population" metric and a "population_pct" metric
-#     df_pop: pandas dataframe with population by state/territory and race/ethnicity
-#     race_name: string of the race/ethnicity code (eg API_NH) to match to ACS `race_category_id` column
-#     place_name: string of the state/territory/USA to match to ACS's `state_name` columns
-#     """
-
-#     if race_code == Race.ALL.value:
-#         race_code = Race.TOTAL.value
-
-#     matched_row = df_pop[(df_pop[std_col.STATE_NAME_COL] == place_name) &
-#                          (df_pop[std_col.RACE_CATEGORY_ID_COL] == race_code)]
-
-#     output_row[std_col.POPULATION_COL] = matched_row[std_col.POPULATION_COL].values[0] if len(
-#         matched_row[std_col.POPULATION_COL].values) > 0 else None
-#     output_row[std_col.POPULATION_PCT_COL] = matched_row[std_col.POPULATION_PCT_COL].values[0] if len(
-#         matched_row[std_col.POPULATION_PCT_COL].values) > 0 else None
-
-#     return output_row
-
-
-# Table for Line-Items incl US- and STATE_COL_LINE-LEVEL LEG by race by state
-# LINE ITEM numbers
-# table includes breakdown of women by race by state by level,
-# but doesn't include total legislature numbers
 CAWP_LINE_ITEMS_FILE = "cawp-by_race_and_ethnicity.csv"
 # this URL could be used for an API endpoint but needs authentication
 # CAWP_LINE_ITEMS_URL = ("https://cawpdata.rutgers.edu/women-elected-officials/"
@@ -199,19 +174,38 @@ class CAWPData(DataSource):
         # load in line-item table from CAWP with all women all levels by race/state
         df_line_items = gcs_to_bq_util.load_csv_as_df_from_data_dir(
             'cawp', CAWP_LINE_ITEMS_FILE)
+        df_line_items = df_line_items[[LEVEL_COL, STATE_COL_LINE, RACE_COL]]
+        df_line_items = df_line_items.dropna()
+        df_line_items[STATE_COL_LINE] = df_line_items[STATE_COL_LINE].apply(
+            get_standard_code_from_cawp_phrase)
+        df_line_items = df_line_items.rename(
+            columns={STATE_COL_LINE: POSTAL_COL})
+        df_line_items = replace_state_abbr_with_names(df_line_items)
 
-        # load in table with # and % of women legislators for state leg. by race/state
+        # load in table STATE LEGISLATURES total members by race/state
         df_state_leg_totals = gcs_to_bq_util.load_csv_as_df_from_web(
             CAWP_TOTALS_URL)
+        df_state_leg_totals = df_state_leg_totals[[STATE_COL_TOTAL,
+                                                   RATIO_COL,
+                                                  PCT_W_COL]]
+        df_state_leg_totals = df_state_leg_totals.dropna()
+        df_state_leg_totals = df_state_leg_totals.applymap(remove_markup)
+        df_state_leg_totals = df_state_leg_totals.rename(
+            columns={STATE_COL_TOTAL: POSTAL_COL})
+        df_state_leg_totals = replace_state_abbr_with_names(
+            df_state_leg_totals)
+        df_state_leg_totals[[COUNT_W, COUNT_ALL]
+                            ] = df_state_leg_totals[RATIO_COL].str.split("/", expand=True)
+        df_state_leg_totals = df_state_leg_totals[[
+            std_col.STATE_NAME_COL, COUNT_W, COUNT_ALL]]
+        df_state_leg_totals = df_state_leg_totals.sort_values(
+            by=[std_col.STATE_NAME_COL])
 
-        # load in PROPUBLICA US CONGRESS tables with members by state
+        # load in and combine PROPUBLICA US CONGRESS tables with members by state
         df_us_house = gcs_to_bq_util.load_json_as_df_from_data_dir(
             'cawp', PROPUB_US_HOUSE_FILE)
-
         df_us_senate = gcs_to_bq_util.load_json_as_df_from_data_dir(
             'cawp', PROPUB_US_SENATE_FILE)
-
-        # Standardize and combine
         df_us_house = df_us_house[df_us_house[IN_OFFICE_COL]]
         df_us_senate = df_us_senate[df_us_senate[IN_OFFICE_COL]]
         df_us_house = df_us_house[[STATE]]
@@ -220,44 +214,13 @@ class CAWPData(DataSource):
         df_us_congress = df_us_congress.rename(
             columns={STATE_COL_LINE: POSTAL_COL})
         df_us_congress = replace_state_abbr_with_names(df_us_congress)
-
-        # pivot so columns are: | unique places | total members per place |
         df_us_congress_totals = df_us_congress[std_col.STATE_NAME_COL].value_counts(
         ).reset_index()
         df_us_congress_totals.columns = [std_col.STATE_NAME_COL, COUNT_ALL]
-
-        # sort alpha by state
         df_us_congress_totals = df_us_congress_totals.sort_values(
             by=[std_col.STATE_NAME_COL])
 
-        # df_us_congress_totals =
-
-        # # load in ACS national populations by race
-        # df_acs_pop_national = gcs_to_bq_util.load_df_from_bigquery(
-        #     'acs_population', 'by_race_national')
-
-        # # load in ACS states and puerto rico populations by race
-        # df_acs_pop_state = gcs_to_bq_util.load_df_from_bigquery(
-        #     'acs_population', 'by_race_state_std', dtype={std_col.STATE_FIPS_COL: str})
-
-        # # load in ACS 2010 territories' populations by race
-        # df_acs_2010_pop_territory = gcs_to_bq_util.load_df_from_bigquery(
-        #     'acs_2010_population', 'by_race_and_ethnicity_territory', dtype={std_col.STATE_FIPS_COL: str})
-
-        # # make table by race
-        # breakdown_df = self.generate_breakdown(df_us_house, df_us_senate,
-        #                                        df_state_leg_totals, df_line_items, df_acs_pop_state,
-        #                                        df_acs_pop_national, df_acs_2010_pop_territory)
-
-        # make table by race
-        breakdown_df_state = self.generate_breakdown(df_us_congress_totals,
-                                                     df_state_leg_totals, df_line_items, "state")
-        breakdown_df_national = self.generate_breakdown(df_us_congress_totals,
-                                                        df_state_leg_totals, df_line_items, "national")
-
         # set column types for BigQuery
-        # print("####")
-        # print(breakdown_df_state.columns)
         column_types = {}
         column_types[std_col.STATE_NAME_COL] = 'STRING'
         column_types[std_col.WOMEN_STATE_LEG_PCT] = 'DECIMAL'
@@ -273,66 +236,31 @@ class CAWPData(DataSource):
         column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
         column_types[std_col.RACE_OR_HISPANIC_COL] = "STRING"
 
-        gcs_to_bq_util.add_df_to_bq(
-            breakdown_df_state, dataset, std_col.RACE_OR_HISPANIC_COL, column_types=column_types)
-        gcs_to_bq_util.add_df_to_bq(
-            breakdown_df_national, dataset, std_col.RACE_OR_HISPANIC_COL, column_types=column_types)
-
-    # def generate_breakdown(self, df_us_house, df_us_senate, df_state_leg_totals, df_line_items, df_acs_pop_state,
-    #                        df_acs_pop_national, df_acs_2010_pop_territory):
+        # make two tables
+        for geo_level in ['state', 'national']:
+            breakdown = self.generate_breakdown(df_us_congress_totals,
+                                                df_state_leg_totals,
+                                                df_line_items, geo_level)
+            gcs_to_bq_util.add_df_to_bq(
+                breakdown,
+                dataset,
+                std_col.RACE_OR_HISPANIC_COL,
+                column_types=column_types)
 
     def generate_breakdown(self, df_us_congress_totals, df_state_leg_totals, df_line_items, level: str):
 
-        print(level)
-        # # list of states/territories FIPS we have population breakdowns for from ACS
-        # acs_places = set(
-        #     df_acs_pop_state[std_col.STATE_NAME_COL].to_list())
-        # acs_2010_places = set(
-        #     df_acs_2010_pop_territory[std_col.STATE_NAME_COL].to_list())
-
-        # Standardize CAWP LINE ITEM table
-        df_line_items = df_line_items[[LEVEL_COL, STATE_COL_LINE, RACE_COL]]
-        df_line_items = df_line_items.dropna()
-        df_line_items[STATE_COL_LINE] = df_line_items[STATE_COL_LINE].apply(
-            get_standard_code_from_cawp_phrase)
-        df_line_items = df_line_items.rename(
-            columns={STATE_COL_LINE: POSTAL_COL})
-        df_line_items = replace_state_abbr_with_names(df_line_items)
-
-        # Standardize CAWP STATE LEG TOTALS table
-        df_state_leg_totals = df_state_leg_totals[[STATE_COL_TOTAL,
-                                                   RATIO_COL,
-                                                  PCT_W_COL]]
-        df_state_leg_totals = df_state_leg_totals.dropna()
-        df_state_leg_totals = df_state_leg_totals.applymap(remove_markup)
-        df_state_leg_totals = df_state_leg_totals.rename(
-            columns={STATE_COL_TOTAL: POSTAL_COL})
-        df_state_leg_totals = replace_state_abbr_with_names(
-            df_state_leg_totals)
-
-        # expand the ratio column into 2 real columns
-        df_state_leg_totals[[COUNT_W, COUNT_ALL]
-                            ] = df_state_leg_totals[RATIO_COL].str.split("/", expand=True)
-
-        df_state_leg_totals = df_state_leg_totals[[
-            std_col.STATE_NAME_COL, COUNT_W, COUNT_ALL]]
-
-        # sort alpha by state name
-        df_state_leg_totals = df_state_leg_totals.sort_values(
-            by=[std_col.STATE_NAME_COL])
-
-        if level == "national":
+        if level == NATIONAL:
             all_places = [constants.US_NAME]
 
             # make a row for US and set value to the sum of all states/territories
-            national_sum_state_legislators_count = pd.DataFrame(
+            national_sum_state_leg_count = pd.DataFrame(
                 [{std_col.STATE_NAME_COL: constants.US_NAME,
                   COUNT_W: df_state_leg_totals[COUNT_W].astype(int).sum(),
                   COUNT_ALL: df_state_leg_totals[COUNT_ALL].astype(int).sum()}])
 
             # add US row to other PLACE rows
             df_state_leg_totals = pd.concat(
-                [df_state_leg_totals, national_sum_state_legislators_count], ignore_index=True)
+                [df_state_leg_totals, national_sum_state_leg_count], ignore_index=True)
 
             # add a row for US and set value to the sum of all states/territories
             us_congress_count = pd.DataFrame(
@@ -341,16 +269,16 @@ class CAWPData(DataSource):
             df_us_congress_totals = pd.concat(
                 [df_us_congress_totals, us_congress_count], ignore_index=True)
 
-        elif level == "state":
+        elif level == STATE:
             all_places = df_us_congress_totals[std_col.STATE_NAME_COL].to_list(
             )
 
         output = []
         for current_place in all_places:
-            print("\tcurrent_place", current_place)
+            # print("\tcurrent_place", current_place)
 
             us_congress_women_current_place_all_races = count_matching_rows(
-                df_line_items, current_place, FED, std_col.ALL_VALUE)
+                df_line_items, current_place, NATIONAL, std_col.ALL_VALUE)
 
             us_congress_members_current_place_all_races = df_us_congress_totals.loc[
                 df_us_congress_totals[std_col.STATE_NAME_COL] == current_place][COUNT_ALL].values[0]
@@ -362,18 +290,17 @@ class CAWPData(DataSource):
                 df_state_leg_totals[std_col.STATE_NAME_COL] == current_place][COUNT_ALL].values[0]
 
             for cawp_race_name in CAWP_RACE_GROUPS_TO_STANDARD.keys():
-                print("\t\tcawp_race_name", cawp_race_name)
+                # print("\t\tcawp_race_name", cawp_race_name)
                 output_row = {}
                 race_code = CAWP_RACE_GROUPS_TO_STANDARD[cawp_race_name]
 
                 # calculate raw counts
                 us_congress_women_current_place_current_race = count_matching_rows(
-                    df_line_items, current_place, FED, cawp_race_name)
+                    df_line_items, current_place, NATIONAL, cawp_race_name)
                 state_leg_women_current_place_current_race = count_matching_rows(
                     df_line_items, current_place, STATE, cawp_race_name)
 
                 # calculate incidence rates
-
                 output_row[std_col.WOMEN_US_CONGRESS_PCT] = get_pct(
                     us_congress_women_current_place_current_race,
                     us_congress_members_current_place_all_races)
@@ -395,23 +322,6 @@ class CAWPData(DataSource):
                 output_row[std_col.RACE_WOMEN_COL] = get_women_only_race_group(
                     race_code)
 
-                # # get and set population and pop_share
-                # if current_place == constants.US_NAME:
-                #     output_row = set_pop_metrics_by_race_in_state(
-                #         output_row, df_acs_pop_national, race_code, current_place)
-                # # states, DC, PR
-                # elif current_place in acs_places:
-                #     output_row = set_pop_metrics_by_race_in_state(
-                #         output_row, df_acs_pop_state, race_code, current_place)
-                # # other territories
-                # elif current_place in acs_2010_places:
-                #     output_row = set_pop_metrics_by_race_in_state(
-                #         output_row, df_acs_2010_pop_territory, race_code, current_place)
-                # # mismatched races
-                # else:
-                #     output_row[std_col.POPULATION_COL] = None
-                #     output_row[std_col.POPULATION_PCT_COL] = None
-
                 output_row[std_col.RACE_CATEGORY_ID_COL] = race_code
                 output_row[std_col.STATE_NAME_COL] = current_place
 
@@ -424,30 +334,14 @@ class CAWPData(DataSource):
                    std_col.WOMEN_STATE_LEG_PCT_SHARE,
                    std_col.WOMEN_US_CONGRESS_PCT,
                    std_col.WOMEN_US_CONGRESS_PCT_SHARE,
-                   #   std_col.POPULATION_COL,
-                   #   std_col.POPULATION_PCT_COL,
                    std_col.RACE_CATEGORY_ID_COL,
                    std_col.RACE_WOMEN_COL
                    ]
 
         output_df = pd.DataFrame(output, columns=columns)
-
         output_df = merge_fips_codes(output_df)
-
-        # print("before")
-        # print(output_df.to_string())
         output_df = merge_pop_numbers(output_df, std_col.RACE_COL, level)
-
-        print("##")
-        print(output_df)
-
-        # output_df = merge_pop_numbers(output_df, std_col.RACE_COL, "national")
-        # print("after")
-        # print(output_df.to_string())
-
+        output_df = output_df.drop(columns=[std_col.POPULATION_COL])
         std_col.add_race_columns_from_category_id(output_df)
-
-        # uncomment to override with women-only race names
-        # output_df[std_col.RACE_OR_HISPANIC_COL] = output_df[std_col.RACE_WOMEN_COL]
 
         return output_df
