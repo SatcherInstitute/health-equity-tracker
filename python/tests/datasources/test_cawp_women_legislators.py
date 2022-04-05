@@ -158,14 +158,17 @@ mock_file_map = {
     # for US SENATE mocking /data FOLDER
     PROPUB_US_SENATE_FILE: {
         "filename": 'test_input_propublica-us-senate.json',  # FULL FILE
+        "data_types": {}
     },
     # for US HOUSE mocking /data FOLDER
     PROPUB_US_HOUSE_FILE: {
         "filename": 'test_input_propublica-us-house.json',  # FULL FILE
+        "data_types": {}
     },
     # for ACS 2010 territories by race mocking /data FOLDER
     "by_race_and_ethnicity_territory": {
         "filename": 'by_race_and_ethnicity_territory.json',  # FULL FILE
+        "data_types": {'state_fips': str}
     },
 
 }
@@ -180,6 +183,9 @@ GOLDEN_DATA = {
 
 
 def get_test_csv_as_df(*args):
+
+    print("args")
+    print(args)
     # read in correct CSV (mocking the network call to the CAWP api or /data)
     filename_arg_index = 0
     if len(args) > 1:
@@ -198,8 +204,9 @@ def get_test_json_as_df(*args):
         filename_arg_index = 1
 
     test_input_json = mock_file_map[args[filename_arg_index]]["filename"]
+    test_input_dtype = mock_file_map[args[filename_arg_index]]["data_types"]
 
-    return pd.read_json(os.path.join(TEST_DIR, test_input_json))
+    return pd.read_json(os.path.join(TEST_DIR, test_input_json), dtype=test_input_dtype)
 
 
 @ mock.patch('ingestion.gcs_to_bq_util.load_json_as_df_from_data_dir',
@@ -236,7 +243,8 @@ def testWriteToBq(mock_bq: mock.MagicMock,
         "women_state_leg_pct_share": str,
         "women_us_congress_pct": str,
         "women_us_congress_pct_share": str,
-        "population_pct": float,
+        # "population": int,
+        # "population_pct": float,
         'race_and_ethnicity': str,
         'race': str,
         'race_includes_hispanic': object,
@@ -252,11 +260,13 @@ def testWriteToBq(mock_bq: mock.MagicMock,
     mock_bq.call_args_list[0].args[0].to_json(
         "cawp-run-results.json", orient="records")
 
-    # print("mock call results")
-    # print(mock_bq.call_args_list[0].args[0].to_string())
+    print("mock call results")
+    print(mock_bq.call_args_list[0].args[0].dtypes)
+    print(mock_bq.call_args_list[0].args[0].to_string())
 
-    # print("expected output file")
-    # print(expected_df.to_string())
+    print("expected output file")
+    print(expected_df.dtypes)
+    print(expected_df.to_string())
 
     # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
     assert set(mock_bq.call_args_list[0].args[0]) == set(expected_df.columns)

@@ -420,8 +420,12 @@ class CAWPData(DataSource):
 
         output_df = merge_fips_codes(output_df)
 
+        # print("before")
+        # print(output_df.to_string())
         output_df = merge_pop_numbers(output_df, std_col.RACE_COL, "state")
         # output_df = merge_pop_numbers(output_df, std_col.RACE_COL, "national")
+        # print("after")
+        # print(output_df.to_string())
 
         std_col.add_race_columns_from_category_id(output_df)
 
