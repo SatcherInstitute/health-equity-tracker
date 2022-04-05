@@ -178,14 +178,13 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "cawp_women_legislators")
 
 GOLDEN_DATA = {
-    'race_and_ethnicity': os.path.join(TEST_DIR, 'cawp_test_output_race_and_ethnicity.json'),
+    'race_and_ethnicity_state': os.path.join(TEST_DIR, 'cawp_test_output_race_and_ethnicity_state.json'),
+    'race_and_ethnicity_national': os.path.join(TEST_DIR, 'cawp_test_output_race_and_ethnicity_national.json'),
 }
 
 
 def get_test_csv_as_df(*args):
 
-    print("args")
-    print(args)
     # read in correct CSV (mocking the network call to the CAWP api or /data)
     filename_arg_index = 0
     if len(args) > 1:
@@ -253,22 +252,42 @@ def testWriteToBq(mock_bq: mock.MagicMock,
     }
 
     # read test OUTPUT file
-    expected_df = pd.read_json(
-        GOLDEN_DATA['race_and_ethnicity'], dtype=expected_dtype)
+    expected_df_state = pd.read_json(
+        GOLDEN_DATA['race_and_ethnicity_state'], dtype=expected_dtype)
 
-    # save results to file
-    mock_bq.call_args_list[0].args[0].to_json(
-        "cawp-run-results.json", orient="records")
+    expected_df_national = pd.read_json(
+        GOLDEN_DATA['race_and_ethnicity_national'], dtype=expected_dtype)
 
-    print("mock call results")
-    print(mock_bq.call_args_list[0].args[0].dtypes)
-    print(mock_bq.call_args_list[0].args[0].to_string())
+    mock_df_state = mock_bq.call_args_list[0].args[0]
+    mock_df_national = mock_bq.call_args_list[1].args[0]
 
-    print("expected output file")
-    print(expected_df.dtypes)
-    print(expected_df.to_string())
+    # save STATE results to file
+    mock_df_state.to_json(
+        "cawp-run-results-state.json", orient="records")
+
+    # save NATIONAL results to file
+    mock_df_national.to_json(
+        "cawp-run-results-national.json", orient="records")
+
+    print("mock state results")
+    print(mock_df_state.to_string())
+
+    print("expected state output file")
+    print(expected_df_state.to_string())
+
+    print("mock national call results")
+    print(mock_df_national.to_string())
+
+    print("expected national output file")
+    print(expected_df_national.to_string())
 
     # output created in mocked load_csv_as_df_from_web() should be the same as the expected df
-    assert set(mock_bq.call_args_list[0].args[0]) == set(expected_df.columns)
+    assert set(mock_df_state) == set(
+        expected_df_state.columns)
     assert_frame_equal(
-        mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
+        mock_df_state, expected_df_state, check_like=True)
+
+    assert set(mock_df_national) == set(
+        expected_df_national.columns)
+    assert_frame_equal(
+        mock_df_national, expected_df_national, check_like=True)
