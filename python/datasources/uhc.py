@@ -159,6 +159,21 @@ class UHCData(DataSource):
                 breakdown_name = 'race' if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
                 breakdown_df = dataset_utils.merge_pop_numbers(breakdown_df, breakdown_name, geo)
 
+                for determinant in UHC_DETERMINANTS.values():
+                    breakdown_df[determinant.replace('per_100k', 'estimated_total')] \
+                        = breakdown_df.apply(estimate_total, axis=1, args=(determinant, ))
+
+                for determinant in UHC_DETERMINANTS.values():
+                    raw_count_col = determinant.replace('per_100k', 'estimated_total')
+                    pct_share_col = determinant.replace('per_100k', 'pct_share')
+
+                    total_val = Race.TOTAL.value if breakdown == std_col.RACE_CATEGORY_ID_COL else std_col.TOTAL_VALUE
+                    breakdown_df = dataset_utils.generate_pct_share_col(
+                            breakdown_df, raw_count_col, pct_share_col, breakdown, total_val)
+
+                for determinant in UHC_DETERMINANTS.values():
+                    breakdown_df = breakdown_df.drop(columns=determinant.replace('per_100k', 'estimated_total'))
+
                 column_types = {c: 'STRING' for c in breakdown_df.columns}
 
                 for col in UHC_DETERMINANTS.values():
@@ -302,10 +317,16 @@ def get_average_determinate_value(matched_row, measure_name, df, state):
     return average_value * 1000
 
 
-def estimate_total(row, sample_per_100k, total_population):
+def estimate_total(row, condition_name_per_100k):
     """Returns an estimate of the total number of people with a given condition.
 
        sample_per_100k: a percentage of people in a demographic with a given condition, represented as a per 100k
        total_population: the total number of people in that demographic"""
 
-    return round((sample_per_100k / 100000) * total_population)
+    if pd.isna(row[condition_name_per_100k]) or \
+        pd.isna(row[std_col.POPULATION_COL]) or \
+            int(row[std_col.POPULATION_COL]) == 0:
+
+        return None
+
+    return round((float(row[condition_name_per_100k]) / 100000) * float(row[std_col.POPULATION_COL]))
