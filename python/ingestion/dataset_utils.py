@@ -182,7 +182,7 @@ def merge_pop_numbers(df, demo, loc):
     }
 
     pop_dtype = {std_col.STATE_FIPS_COL: str,
-                 std_col.POPULATION_COL: int,
+                 std_col.POPULATION_COL: object,
                  std_col.POPULATION_PCT_COL: float}
 
     if demo not in on_col_map:
@@ -199,6 +199,9 @@ def merge_pop_numbers(df, demo, loc):
         'acs_population', pop_table_name, pop_dtype)
     pop_df = pop_df[[std_col.STATE_FIPS_COL, on_col_map[demo],
                      std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
+
+    print("$$")
+    print(pop_df)
 
     # other territories from ACS 2010 (VI, GU, AS, MP)
     if loc == 'state':
@@ -226,5 +229,8 @@ def merge_pop_numbers(df, demo, loc):
 
     df = pd.merge(df, pop_df, how='left', on=[
                   std_col.STATE_FIPS_COL, on_col_map[demo]])
+
+    print("@@")
+    print(df)
 
     return df.reset_index(drop=True)

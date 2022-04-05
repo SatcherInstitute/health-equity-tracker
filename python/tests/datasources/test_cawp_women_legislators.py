@@ -45,10 +45,10 @@ def test_remove_markup():
 
 
 def test_get_pretty_pct():
-    assert get_pretty_pct(1, 3) == "33.33"
-    assert get_pretty_pct(3, 3) == "100"
-    assert get_pretty_pct(12345, 100_000) == "12.35"
-    assert get_pretty_pct(3, 0) == "0"
+    assert get_pretty_pct(1, 3) == 33.33
+    assert get_pretty_pct(3, 3) == 100
+    assert get_pretty_pct(12345, 100_000) == 12.35
+    assert get_pretty_pct(3, 0) == 0
 
 
 def test_count_matching_rows():
@@ -168,7 +168,7 @@ mock_file_map = {
     # for ACS 2010 territories by race mocking /data FOLDER
     "by_race_and_ethnicity_territory": {
         "filename": 'by_race_and_ethnicity_territory.json',  # FULL FILE
-        "data_types": {'state_fips': str}
+        "data_types": {std_col.STATE_FIPS_COL: str, std_col.POPULATION_COL: int, std_col.POPULATION_PCT_COL: float}
     },
 
 }
@@ -238,12 +238,12 @@ def testWriteToBq(mock_bq: mock.MagicMock,
     expected_dtype = {
         'state_name': str,
         'state_fips': str,
-        "women_state_leg_pct": str,
-        "women_state_leg_pct_share": str,
-        "women_us_congress_pct": str,
-        "women_us_congress_pct_share": str,
-        # "population": int,
-        # "population_pct": float,
+        "women_state_leg_pct": float,
+        "women_state_leg_pct_share": float,
+        "women_us_congress_pct": float,
+        "women_us_congress_pct_share": float,
+        "population": object,
+        "population_pct": float,
         'race_and_ethnicity': str,
         'race': str,
         'race_includes_hispanic': object,

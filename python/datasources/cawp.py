@@ -95,20 +95,19 @@ def remove_markup(datum: str):
 
 
 def get_pretty_pct(numerator: int, denominator: int):
-    """ Take a numerator and denominator and converts to a string
-    representing the pct equivalent, with a maximum of 2 significant digits
-    and no trailing zeros. Prevents division by zero and returns `None` """
+    """ Take a numerator and denominator and returns pct equivalent, with a maximum of 2 significant digits
+    and no trailing zeros. Prevents division by zero and returns 0 """
 
     numerator = int(numerator)
     denominator = int(denominator)
 
     if denominator == 0:
-        return "0"
+        return 0
 
     pct = numerator / denominator * 100
 
     pct_rounded = float(str(round(pct, 2)))
-    return f'{pct_rounded:g}'
+    return pct_rounded
 
 
 def count_matching_rows(df, place_name: str, gov_level: str, race_to_match: str):
@@ -263,16 +262,23 @@ class CAWPData(DataSource):
         breakdown_df_national = self.generate_breakdown(df_us_congress_totals,
                                                         df_state_leg_totals, df_line_items, "national")
 
-        # set column types
-        column_types = {c: 'STRING' for c in breakdown_df_state.columns}
-        column_types[std_col.WOMEN_STATE_LEG_PCT] = 'STRING'
-        column_types[std_col.WOMEN_STATE_LEG_PCT_SHARE] = 'STRING'
-        column_types[std_col.WOMEN_US_CONGRESS_PCT] = 'STRING'
-        column_types[std_col.WOMEN_US_CONGRESS_PCT_SHARE] = 'STRING'
-        column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
-        # column_types[std_col.POPULATION_COL] = 'INT'
-        # column_types[std_col.POPULATION_PCT_COL] = 'FLOAT'
+        # set column types for BigQuery
+        # print("####")
+        # print(breakdown_df_state.columns)
+        column_types = {}
+        column_types[std_col.STATE_NAME_COL] = 'STRING'
+        column_types[std_col.WOMEN_STATE_LEG_PCT] = 'DECIMAL'
+        column_types[std_col.WOMEN_STATE_LEG_PCT_SHARE] = 'DECIMAL'
+        column_types[std_col.WOMEN_US_CONGRESS_PCT] = 'DECIMAL'
+        column_types[std_col.WOMEN_US_CONGRESS_PCT_SHARE] = 'DECIMAL'
+        column_types[std_col.RACE_CATEGORY_ID_COL] = 'STRING'
         column_types[std_col.RACE_WOMEN_COL] = "STRING"
+        column_types[std_col.STATE_FIPS_COL] = 'STRING'
+        column_types[std_col.POPULATION_COL] = 'INT'
+        column_types[std_col.POPULATION_PCT_COL] = 'DECIMAL'
+        column_types[std_col.RACE_COL] = "STRING"
+        column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
+        column_types[std_col.RACE_OR_HISPANIC_COL] = "STRING"
 
         gcs_to_bq_util.add_df_to_bq(
             breakdown_df_state, dataset, std_col.RACE_OR_HISPANIC_COL, column_types=column_types)
@@ -418,8 +424,8 @@ class CAWPData(DataSource):
                    std_col.WOMEN_STATE_LEG_PCT_SHARE,
                    std_col.WOMEN_US_CONGRESS_PCT,
                    std_col.WOMEN_US_CONGRESS_PCT_SHARE,
-                   #    std_col.POPULATION_COL,
-                   #    std_col.POPULATION_PCT_COL,
+                   #   std_col.POPULATION_COL,
+                   #   std_col.POPULATION_PCT_COL,
                    std_col.RACE_CATEGORY_ID_COL,
                    std_col.RACE_WOMEN_COL
                    ]
@@ -431,6 +437,10 @@ class CAWPData(DataSource):
         # print("before")
         # print(output_df.to_string())
         output_df = merge_pop_numbers(output_df, std_col.RACE_COL, level)
+
+        print("##")
+        print(output_df)
+
         # output_df = merge_pop_numbers(output_df, std_col.RACE_COL, "national")
         # print("after")
         # print(output_df.to_string())
