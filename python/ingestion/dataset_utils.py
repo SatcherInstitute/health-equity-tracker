@@ -200,37 +200,21 @@ def merge_pop_numbers(df, demo, loc):
     pop_df = pop_df[[std_col.STATE_FIPS_COL, on_col_map[demo],
                      std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
 
-    print("$$")
-    print(pop_df)
-
     # other territories from ACS 2010 (VI, GU, AS, MP)
     if loc == 'state':
         verbose_demo = "race_and_ethnicity" if demo == 'race' else demo
-        # print(verbose_demo)
         pop_2010_filename = 'by_%s_territory' % (
             verbose_demo)
-        # print(pop_2010_filename)
 
         pop_2010_df = gcs_to_bq_util.load_json_as_df_from_data_dir(
             'acs_2010', pop_2010_filename, pop_dtype)
-        # print(pop_2010_df.to_string())
         pop_2010_df = pop_2010_df[[std_col.STATE_FIPS_COL, on_col_map[demo],
                                    std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
 
-        # print("pop 2010")
-        # print(pop_2010_df.to_string())
-        # print("pop df before")
-        # print(pop_df.to_string())
-
         pop_df = pd.concat([pop_df, pop_2010_df])
         pop_df = pop_df.sort_values(std_col.STATE_FIPS_COL)
-        # print("pop df")
-        # print(pop_df.to_string())
 
     df = pd.merge(df, pop_df, how='left', on=[
                   std_col.STATE_FIPS_COL, on_col_map[demo]])
-
-    print("@@")
-    print(df)
 
     return df.reset_index(drop=True)

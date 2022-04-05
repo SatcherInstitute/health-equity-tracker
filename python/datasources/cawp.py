@@ -5,8 +5,10 @@ import ingestion.standardized_columns as std_col
 
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, constants
-from ingestion.dataset_utils import merge_fips_codes, merge_pop_numbers, replace_state_abbr_with_names
-
+from ingestion.dataset_utils import (percent_avoid_rounding_to_zero,
+                                     merge_fips_codes,
+                                     merge_pop_numbers,
+                                     replace_state_abbr_with_names)
 
 # CAWP COLUMNS
 RACE_COL = "race_ethnicity"
@@ -46,6 +48,13 @@ CAWP_DATA_TYPES = {
     STATE_COL_LINE: ["Territorial/D.C.", "State Legislative"],
     FED: ["U.S. Delegate", "Congress"],
 }
+
+
+def get_pct(numerator: int, denominator: int):
+    if denominator == 0:
+        return 0.0
+
+    return percent_avoid_rounding_to_zero(numerator, denominator)
 
 
 def get_women_only_race_group(race_code: str):
@@ -92,22 +101,6 @@ def remove_markup(datum: str):
     """Returns the string with any asterisks and/r italics markup removed """
     datum = str(datum)
     return datum.replace("<i>", "").replace("</i>", "").replace("*", "")
-
-
-def get_pretty_pct(numerator: int, denominator: int):
-    """ Take a numerator and denominator and returns pct equivalent, with a maximum of 2 significant digits
-    and no trailing zeros. Prevents division by zero and returns 0 """
-
-    numerator = int(numerator)
-    denominator = int(denominator)
-
-    if denominator == 0:
-        return 0
-
-    pct = numerator / denominator * 100
-
-    pct_rounded = float(str(round(pct, 2)))
-    return pct_rounded
 
 
 def count_matching_rows(df, place_name: str, gov_level: str, race_to_match: str):
@@ -380,16 +373,23 @@ class CAWPData(DataSource):
                     df_line_items, current_place, STATE, cawp_race_name)
 
                 # calculate incidence rates
-                output_row[std_col.WOMEN_US_CONGRESS_PCT] = get_pretty_pct(
-                    us_congress_women_current_place_current_race, us_congress_members_current_place_all_races)
-                output_row[std_col.WOMEN_STATE_LEG_PCT] = get_pretty_pct(
-                    state_leg_women_current_place_current_race, state_leg_members_current_place_all_races)
+
+                output_row[std_col.WOMEN_US_CONGRESS_PCT] = get_pct(
+                    us_congress_women_current_place_current_race,
+                    us_congress_members_current_place_all_races)
+
+                output_row[std_col.WOMEN_STATE_LEG_PCT] = get_pct(
+                    state_leg_women_current_place_current_race,
+                    state_leg_members_current_place_all_races)
 
                 # calculate incidence shares
-                output_row[std_col.WOMEN_US_CONGRESS_PCT_SHARE] = get_pretty_pct(
-                    us_congress_women_current_place_current_race, us_congress_women_current_place_all_races)
-                output_row[std_col.WOMEN_STATE_LEG_PCT_SHARE] = get_pretty_pct(
-                    state_leg_women_current_place_current_race, state_leg_women_current_place_all_races)
+                output_row[std_col.WOMEN_US_CONGRESS_PCT_SHARE] = get_pct(
+                    us_congress_women_current_place_current_race,
+                    us_congress_women_current_place_all_races)
+
+                output_row[std_col.WOMEN_STATE_LEG_PCT_SHARE] = get_pct(
+                    state_leg_women_current_place_current_race,
+                    state_leg_women_current_place_all_races)
 
                 # set "women only" version of race codes
                 output_row[std_col.RACE_WOMEN_COL] = get_women_only_race_group(

@@ -11,7 +11,7 @@ from datasources.cawp import (CAWPData,
                               PROPUB_US_SENATE_FILE,
                               get_women_only_race_group,
                               get_standard_code_from_cawp_phrase,
-                              get_pretty_pct,
+                              #   get_pretty_pct,
                               count_matching_rows,
                               #   set_pop_metrics_by_race_in_state,
                               remove_markup)
@@ -44,11 +44,11 @@ def test_remove_markup():
     assert remove_markup("<i>All the Above</i>**") == "All the Above"
 
 
-def test_get_pretty_pct():
-    assert get_pretty_pct(1, 3) == 33.33
-    assert get_pretty_pct(3, 3) == 100
-    assert get_pretty_pct(12345, 100_000) == 12.35
-    assert get_pretty_pct(3, 0) == 0
+# def test_get_pretty_pct():
+#     assert get_pretty_pct(1, 3) == 33.33
+#     assert get_pretty_pct(3, 3) == 100
+#     assert get_pretty_pct(12345, 100_000) == 12.35
+#     assert get_pretty_pct(3, 0) == 0
 
 
 def test_count_matching_rows():
