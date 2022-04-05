@@ -212,12 +212,31 @@ class CAWPData(DataSource):
         df_state_leg_totals = gcs_to_bq_util.load_csv_as_df_from_web(
             CAWP_TOTALS_URL)
 
-        # load in and standardize tables with US Congress members by state
+        # load in PROPUBLICA US CONGRESS tables with members by state
         df_us_house = gcs_to_bq_util.load_json_as_df_from_data_dir(
             'cawp', PROPUB_US_HOUSE_FILE)
 
         df_us_senate = gcs_to_bq_util.load_json_as_df_from_data_dir(
             'cawp', PROPUB_US_SENATE_FILE)
+
+        # Standardize and combine
+        df_us_house = df_us_house[df_us_house[IN_OFFICE_COL]]
+        df_us_senate = df_us_senate[df_us_senate[IN_OFFICE_COL]]
+        df_us_house = df_us_house[[STATE]]
+        df_us_senate = df_us_senate[[STATE]]
+        df_us_congress = pd.concat([df_us_senate, df_us_house])
+        df_us_congress = df_us_congress.rename(
+            columns={STATE_COL_LINE: POSTAL_COL})
+        df_us_congress = replace_state_abbr_with_names(df_us_congress)
+
+        # pivot so columns are: | unique places | total members per place |
+        df_us_congress_totals = df_us_congress[std_col.STATE_NAME_COL].value_counts(
+        ).reset_index()
+        df_us_congress_totals.columns = [std_col.STATE_NAME_COL, COUNT_ALL]
+
+        # sort alpha by state
+        df_us_congress_totals = df_us_congress_totals.sort_values(
+            by=[std_col.STATE_NAME_COL])
 
         # df_us_congress_totals =
 
@@ -239,7 +258,7 @@ class CAWPData(DataSource):
         #                                        df_acs_pop_national, df_acs_2010_pop_territory)
 
         # make table by race
-        breakdown_df = self.generate_breakdown(df_us_house, df_us_senate,
+        breakdown_df = self.generate_breakdown(df_us_congress_totals,
                                                df_state_leg_totals, df_line_items)
 
         # set column types
@@ -259,7 +278,7 @@ class CAWPData(DataSource):
     # def generate_breakdown(self, df_us_house, df_us_senate, df_state_leg_totals, df_line_items, df_acs_pop_state,
     #                        df_acs_pop_national, df_acs_2010_pop_territory):
 
-    def generate_breakdown(self, df_us_house, df_us_senate, df_state_leg_totals, df_line_items):
+    def generate_breakdown(self, df_us_congress_totals, df_state_leg_totals, df_line_items):
 
         # # list of states/territories FIPS we have population breakdowns for from ACS
         # acs_places = set(
@@ -307,26 +326,6 @@ class CAWPData(DataSource):
         # # add US row to other PLACE rows
         # df_state_leg_totals = pd.concat(
         #     [df_state_leg_totals, national_sum_state_legislators_count], ignore_index=True)
-
-        # Standardize PROPUBLICA US CONGRESS TOTALS
-
-        df_us_house = df_us_house[df_us_house[IN_OFFICE_COL]]
-        df_us_senate = df_us_senate[df_us_senate[IN_OFFICE_COL]]
-        df_us_house = df_us_house[[STATE]]
-        df_us_senate = df_us_senate[[STATE]]
-        df_us_congress = pd.concat([df_us_senate, df_us_house])
-        df_us_congress = df_us_congress.rename(
-            columns={STATE_COL_LINE: POSTAL_COL})
-        df_us_congress = replace_state_abbr_with_names(df_us_congress)
-
-        # pivot so columns are | places | counts for each place
-        df_us_congress_totals = df_us_congress[std_col.STATE_NAME_COL].value_counts(
-        ).reset_index()
-        df_us_congress_totals.columns = [std_col.STATE_NAME_COL, COUNT_ALL]
-
-        # sort alpha by state
-        df_us_congress_totals = df_us_congress_totals.sort_values(
-            by=[std_col.STATE_NAME_COL])
 
         # add a row for US and set value to the sum of all states/territories
         # us_congress_count = pd.DataFrame(
