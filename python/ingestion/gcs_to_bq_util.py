@@ -126,6 +126,15 @@ def get_schema(frame, column_types, col_modes):
         col_modes = {}
 
     input_cols = column_types.keys()
+
+    print("~~~~~~")
+    print("~~~~~~")
+    print("~~~~~~")
+    print("~~~~~~")
+    print("input cols", input_cols)
+    print("frame columns", frame.columns)
+    print("~~~~~~")
+
     if (len(input_cols) != len(frame.columns)
             or set(input_cols) != set(frame.columns)):
         raise Exception('Column types did not match frame columns')
