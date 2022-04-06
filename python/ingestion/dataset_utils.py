@@ -216,6 +216,9 @@ def merge_pop_numbers(df, demo, loc):
         pop_2010_df = gcs_to_bq_util.load_df_from_bigquery(
             'acs_population', pop_2010_table_name, pop_dtype)
 
+        print("MMMMMMMM")
+        print(pop_2010_df.to_string())
+
         pop_2010_df = pop_2010_df[[std_col.STATE_FIPS_COL, on_col_map[demo],
                                    std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
 
