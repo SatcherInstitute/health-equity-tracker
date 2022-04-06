@@ -145,16 +145,17 @@ class UHCData(DataSource):
         df = gcs_to_bq_util.load_csv_as_df_from_web(BASE_UHC_URL)
         df = df.rename(columns={'State Name': std_col.STATE_NAME_COL})
 
-        for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
-            breakdown_df = self.generate_breakdown(breakdown, df)
-            breakdown_df = dataset_utils.merge_fips_codes(breakdown_df)
+        for geo in ['state', 'national']:
+            loc_df = df.copy()
+            if geo == 'national':
+                loc_df = loc_df.loc[loc_df[std_col.STATE_NAME_COL] == constants.US_NAME]
+            else:
+                loc_df = loc_df.loc[loc_df[std_col.STATE_NAME_COL] != constants.US_NAME]
 
-            # for geo in ['state', 'national']:
-            for geo in ['state']:
-                if geo == 'national':
-                    breakdown_df = breakdown_df.loc[breakdown_df[std_col.STATE_FIPS_COL] == constants.US_FIPS]
-                else:
-                    breakdown_df = breakdown_df.loc[breakdown_df[std_col.STATE_FIPS_COL] != constants.US_FIPS]
+            for breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
+                breakdown_df = loc_df.copy()
+                breakdown_df = self.generate_breakdown(breakdown, breakdown_df)
+                breakdown_df = dataset_utils.merge_fips_codes(breakdown_df)
 
                 breakdown_name = 'race' if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
                 breakdown_df = dataset_utils.merge_pop_numbers(breakdown_df, breakdown_name, geo)
