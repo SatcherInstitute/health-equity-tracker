@@ -214,7 +214,7 @@ def merge_pop_numbers(df, demo, loc):
         # pop_2010_df = gcs_to_bq_util.load_json_as_df_from_data_dir(
         #     'acs_2010', pop_2010_table_name, pop_dtype)
         pop_2010_df = gcs_to_bq_util.load_df_from_bigquery(
-            'acs_population', pop_2010_table_name, pop_dtype)
+            'acs_2010_population', pop_2010_table_name, pop_dtype)
 
         print("MMMMMMMM")
         print(pop_2010_df.to_string())
