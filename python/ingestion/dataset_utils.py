@@ -203,8 +203,13 @@ def merge_pop_numbers(df, demo, loc):
     # other territories from ACS 2010 (VI, GU, AS, MP)
     if loc == 'state':
         verbose_demo = "race_and_ethnicity" if demo == 'race' else demo
-        pop_2010_filename = 'by_%s_territory' % (
+        pop_2010_filename = 'acs_2010_population-by_%s_territory.json' % (
             verbose_demo)
+
+        print("@@@@@@@")
+        print("@@@@@@@")
+        print("@@@@@@@")
+        print(pop_2010_filename)
 
         pop_2010_df = gcs_to_bq_util.load_json_as_df_from_data_dir(
             'acs_2010', pop_2010_filename, pop_dtype)

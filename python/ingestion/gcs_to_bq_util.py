@@ -253,6 +253,13 @@ def load_json_as_df_from_data_dir(directory, filename, dtype=None):
     directory: directory within data to load from
     filename: file to load the json file from"""
     file_path = os.path.join(DATA_DIR, directory, filename)
+
+    print("##########")
+    print("##########")
+    print("##########")
+    print(directory, filename, dtype)
+    print(file_path)
+
     return pd.read_json(file_path, dtype=dtype)
 
 
