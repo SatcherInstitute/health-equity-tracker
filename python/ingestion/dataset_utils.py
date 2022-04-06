@@ -203,16 +203,19 @@ def merge_pop_numbers(df, demo, loc):
     # other territories from ACS 2010 (VI, GU, AS, MP)
     if loc == 'state':
         verbose_demo = "race_and_ethnicity" if demo == 'race' else demo
-        pop_2010_filename = 'acs_2010_population-by_%s_territory.json' % (
+        pop_2010_table_name = 'by_%s_territory' % (
             verbose_demo)
 
         print("@@@@@@@")
         print("@@@@@@@")
         print("@@@@@@@")
-        print(pop_2010_filename)
+        print(pop_2010_table_name)
 
-        pop_2010_df = gcs_to_bq_util.load_json_as_df_from_data_dir(
-            'acs_2010', pop_2010_filename, pop_dtype)
+        # pop_2010_df = gcs_to_bq_util.load_json_as_df_from_data_dir(
+        #     'acs_2010', pop_2010_table_name, pop_dtype)
+        pop_2010_df = gcs_to_bq_util.load_df_from_bigquery(
+            'acs_population', pop_2010_table_name, pop_dtype)
+
         pop_2010_df = pop_2010_df[[std_col.STATE_FIPS_COL, on_col_map[demo],
                                    std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
 

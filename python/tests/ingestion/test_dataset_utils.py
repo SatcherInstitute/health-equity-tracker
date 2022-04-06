@@ -133,7 +133,13 @@ def _get_fips_codes_as_df():
         json.dumps(_fips_codes_from_bq), dtype=str).reset_index(drop=True)
 
 
-def _get_pop_data_as_df():
+def _get_pop_data_as_df(*args):
+
+    # intercept mock call for territories and reroute
+    if args[1] == "by_race_and_ethnicity_territory":
+        return _get_pop_2010_data_as_df()
+
+    # regular mock call
     return gcs_to_bq_util.values_json_to_df(
         json.dumps(_pop_data), dtype=str).reset_index(drop=True)
 
@@ -236,11 +242,9 @@ def testMergeFipsCodes(mock_bq: mock.MagicMock):
     assert_frame_equal(df, expected_df, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_json_as_df_from_data_dir',
-            return_value=_get_pop_2010_data_as_df())
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
-            return_value=_get_pop_data_as_df())
-def testMergePopNumbers(mock_bq: mock.MagicMock, mock_data: mock.MagicMock):
+            side_effect=_get_pop_data_as_df)
+def testMergePopNumbers(mock_bq: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_without_pop_numbers), dtype=str).reset_index(drop=True)
 
@@ -249,6 +253,11 @@ def testMergePopNumbers(mock_bq: mock.MagicMock, mock_data: mock.MagicMock):
 
     df = dataset_utils.merge_pop_numbers(df, 'race', 'state')
 
-    assert mock_bq.call_count == 1
-    assert mock_data.call_count == 1
+    assert mock_bq.call_count == 2
+
+    print("mock")
+    print(df.to_string())
+    print("exp")
+    print(expected_df.to_string())
+
     assert_frame_equal(df, expected_df, check_like=True)

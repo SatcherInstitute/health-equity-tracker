@@ -112,11 +112,19 @@ mock_file_map = {
         "filename": 'test_input_propublica-us-house.json',  # FULL FILE
         "data_types": {}
     },
-    # for ACS 2010 territories by race mocking /data FOLDER
-    "acs_2010_population-by_race_and_ethnicity_territory.json": {
-        "filename": 'acs_test_input-by_race_and_ethnicity_territory.json',  # FULL FILE
-        "data_types": {std_col.STATE_FIPS_COL: str, std_col.POPULATION_COL: object, std_col.POPULATION_PCT_COL: float}
-    },
+    # # for ACS mock
+    # "by_race_and_ethnicity_territory": {
+    #     "filename": 'acs_test_input-by_race_and_ethnicity_territory.json',  # FULL FILE
+    #     "data_types": {std_col.STATE_FIPS_COL: str, std_col.POPULATION_COL: object, std_col.POPULATION_PCT_COL: float}
+    # },
+    # "by_race_and_ethnicity_territory": {
+    #     "filename": 'acs_test_input-by_race_and_ethnicity_territory.json',  # FULL FILE
+    #     "data_types": {std_col.STATE_FIPS_COL: str, std_col.POPULATION_COL: object, std_col.POPULATION_PCT_COL: float}
+    # },
+    # "by_race_and_ethnicity_territory": {
+    #     "filename": 'acs_test_input-by_race_and_ethnicity_territory.json',  # FULL FILE
+    #     "data_types": {std_col.STATE_FIPS_COL: str, std_col.POPULATION_COL: object, std_col.POPULATION_PCT_COL: float}
+    # },
 
 }
 
@@ -130,7 +138,7 @@ GOLDEN_DATA = {
 }
 
 
-def get_test_csv_as_df(*args):
+def _get_test_csv_as_df(*args):
 
     # read in correct CSV (mocking the network call to the CAWP api or /data)
     filename_arg_index = 0
@@ -143,7 +151,7 @@ def get_test_csv_as_df(*args):
                        dtype=test_input_dtype)
 
 
-def get_test_json_as_df(*args):
+def _get_test_json_as_df(*args):
     # read in correct json (mocking the call to /data or API)
     filename_arg_index = 0
     if len(args) > 1:
@@ -155,18 +163,32 @@ def get_test_json_as_df(*args):
     return pd.read_json(os.path.join(TEST_DIR, test_input_json), dtype=test_input_dtype)
 
 
+def _get_test_pop_data_as_df(*args):
+
+    print("!!!!!!")
+    print("!!!!!!")
+    print("!!!!!!")
+
+    [mock_pop_dir, mock_pop_filename, mock_pop_dtype] = args
+
+    return pd.read_json(os.path.join(TEST_DIR, mock_pop_dir, f'{mock_pop_filename}.json'), dtype=mock_pop_dtype)
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+            side_effect=_get_test_pop_data_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_json_as_df_from_data_dir',
-             side_effect=get_test_json_as_df)
+             side_effect=_get_test_json_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
-             side_effect=get_test_csv_as_df)
+             side_effect=_get_test_csv_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-             side_effect=get_test_csv_as_df)
+             side_effect=_get_test_csv_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
              return_value=None)
 def testWriteToBq(mock_bq: mock.MagicMock,
                   mock_web_csv: mock.MagicMock,
                   mock_data_dir_csv: mock.MagicMock,
-                  mock_data_json_csv: mock.MagicMock):
+                  mock_data_dir_json: mock.MagicMock,
+                  mock_pop_data: mock.MagicMock):
 
     cawp_data = CAWPData()
 
@@ -180,7 +202,8 @@ def testWriteToBq(mock_bq: mock.MagicMock,
     mock_bq.assert_called_once
     mock_web_csv.assert_called_once
     mock_data_dir_csv.assert_called_once
-    mock_data_json_csv.assert_called_once
+    mock_data_dir_json.assert_called_once
+    mock_pop_data.assert_called_once
 
     expected_dtype = {
         'state_name': str,
