@@ -183,8 +183,10 @@ class UHCData(DataSource):
                 if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
                     column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
+                table_name = '%s_%s' % (breakdown, geo)
+
                 gcs_to_bq_util.add_df_to_bq(
-                    breakdown_df, dataset, breakdown, column_types=column_types)
+                    breakdown_df, dataset, table_name, column_types=column_types)
 
     def generate_breakdown(self, breakdown, df):
         output = []
