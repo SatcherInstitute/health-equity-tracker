@@ -1161,34 +1161,34 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
     },
     {
       variableId: "women_state_legislatures",
-      variableDisplayName: "Women in State Legislatures",
-      variableFullDisplayName: "Women in State Legislatures",
+      variableDisplayName: "Women in State Legislatures", // DATA TOGGLE
+      variableFullDisplayName: "Women in State Legislatures", // TABLE TITLE,
       surveyCollectedData: true,
       variableDefinition: `Women serving in their state or territory’s legislatures, including Senate and House of Representatives or Unicameral bodies as applicable. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.
       `,
       metrics: {
         per100k: {
           metricId: "women_state_leg_pct",
-          fullCardTitleName: "Percentage of State Legislators That Are Women",
-          shortLabel: "% of state legislators",
+          fullCardTitleName: "Percentage of State Legislators That Are Women", // SIMPLE BAR TITLE, MAP INFO ALERT, TABLE COL HEADER
+          shortLabel: "% of state legislators", // SIMPLE BAR LEGEND
           type: "pct_share",
         },
         pct_share: {
           metricId: "women_state_leg_pct_share",
-          fullCardTitleName: "Percent Share of Women State Legislators",
-          shortLabel: "% share of women legislators",
+          fullCardTitleName: "Percent Share of Women State Legislators", // UNKNOWNS MAP TITLE, DISPARITY BAR TITLE
+          shortLabel: "% share of women legislators", // DISPARITY BAR LEGEND
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "cawp_population_pct",
-            fullCardTitleName: "Total Population Share (All Genders)",
-            shortLabel: `${populationPctShortLabel} (all genders)`,
+            fullCardTitleName: "Total Population Share (All Genders)", // TABLE COLUMN HEADER
+            shortLabel: `${populationPctShortLabel} (all genders)`, // DISPARITY BAR LEGEND/AXIS
             type: "pct_share",
           },
           knownBreakdownComparisonMetric: {
             metricId: "women_state_leg_pct_share",
             fullCardTitleName:
-              "Percent Share of Women State Legislators Who Identify with Each Race/Ethnicity Group",
-            shortLabel: "% share of women legislators",
+              "Percent Share of Women State Legislators Who Identify with Each Race/Ethnicity Group", // TABLE COL HEADER
+            shortLabel: "% of women state legislators", // UNKNOWNS MAP ALERT, DISPARITY BAR LABELS/AXIS
             type: "pct_share",
           },
         },
