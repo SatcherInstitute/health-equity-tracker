@@ -47,6 +47,10 @@ class CawpProvider extends VariableProvider {
 
     df = this.filterByGeo(df, breakdowns);
 
+    const breakdownColumnName =
+      breakdowns.getSoleDemographicBreakdown().columnName;
+    df = this.renameTotalToAll(df, breakdownColumnName);
+
     df = this.renameGeoColumns(df, breakdowns);
 
     let consumedDatasetIds = [datasetId];
