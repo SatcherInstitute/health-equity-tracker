@@ -23,7 +23,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "dataset is not available for download; please click the link below to apply for access.",
     dataset_ids: [
       "cdc_restricted_data-by_race_county",
-      "cdc_restricted_data-by_race_state",
+      "cdc_restricted_data-by_race_state-with_age_adjust",
       "cdc_restricted_data-by_age_county",
       "cdc_restricted_data-by_age_state",
       "cdc_restricted_data-by_sex_county",
@@ -98,6 +98,21 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "acs_2010_population-by_sex_territory",
       "acs_2010_population-by_age_territory",
     ],
+    downloadable: true,
+  },
+  {
+    id: "census_pop_estimates",
+    data_source_name: "County Population by Characteristics: 2010-2019",
+    data_source_link:
+      "https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html",
+    geographic_level: "State/County",
+    demographic_granularity: "Race/ethnicity, age, sex",
+    update_frequency: "None",
+    description:
+      "Population percentage estimates by race/ethnicity, age, and sex to the " +
+      "county level provided by the U.S Census Bureau. We use the single year " +
+      "estimates from 2019.",
+    dataset_ids: ["census_pop_estimates-race_and_ethnicity"],
     downloadable: true,
   },
   {

@@ -116,6 +116,7 @@ export class ApiDataFetcher implements DataFetcher {
       result = result.map((row: any) => {
         return {
           ...row,
+          // coerce values from BigQuery to Numbers or null
           copd_per_100k:
             row["copd_per_100k"] == null ? null : Number(row["copd_per_100k"]),
           diabetes_per_100k:

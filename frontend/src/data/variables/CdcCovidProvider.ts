@@ -37,6 +37,9 @@ class CdcCovidProvider extends VariableProvider {
       "covid_cases_reporting_population_pct",
       "covid_deaths_reporting_population_pct",
       "covid_hosp_reporting_population_pct",
+      "death_ratio_age_adjusted",
+      "hosp_ratio_age_adjusted",
+      "cases_ratio_age_adjusted",
     ]);
     this.acsProvider = acsProvider;
   }
@@ -46,7 +49,7 @@ class CdcCovidProvider extends VariableProvider {
     if (breakdowns.hasOnlyRace()) {
       return breakdowns.geography === "county"
         ? "cdc_restricted_data-by_race_county"
-        : "cdc_restricted_data-by_race_state";
+        : "cdc_restricted_data-by_race_state-with_age_adjust";
     }
     if (breakdowns.hasOnlyAge()) {
       return breakdowns.geography === "county"
@@ -132,6 +135,17 @@ class CdcCovidProvider extends VariableProvider {
 
     // TODO: Move this merge to the backend
     if (breakdowns.geography === "national") {
+      if (breakdownColumnName === "race_and_ethnicity") {
+        const ageAdjustDatasetID =
+          "cdc_restricted_data-by_race_national-with_age_adjust";
+        const ageAdjustDataset = await getDataManager().loadDataset(
+          ageAdjustDatasetID
+        );
+        let ageAdjustDf = ageAdjustDataset.toDataFrame();
+
+        df = joinOnCols(df, ageAdjustDf, [breakdownColumnName], "left");
+      }
+
       const onlyShareMetrics = metricQuery.metricIds.every((metric) =>
         metric.includes("share")
       );
@@ -194,12 +208,22 @@ class CdcCovidProvider extends VariableProvider {
 
     df = df
       .generateSeries({
+        // Calculate per100k
         covid_cases_per_100k: (row) =>
           this.calculations.per100k(row.covid_cases, row.population),
         covid_deaths_per_100k: (row) =>
           this.calculations.per100k(row.covid_deaths, row.population),
         covid_hosp_per_100k: (row) =>
           this.calculations.per100k(row.covid_hosp, row.population),
+        //  Correct types for Age-Adjusted Ratios
+        hosp_ratio_age_adjusted: (row) =>
+          row.hosp_ratio_age_adjusted == null
+            ? null
+            : row.hosp_ratio_age_adjusted,
+        death_ratio_age_adjusted: (row) =>
+          row.death_ratio_age_adjusted == null
+            ? null
+            : row.death_ratio_age_adjusted,
       })
       .resetIndex();
 

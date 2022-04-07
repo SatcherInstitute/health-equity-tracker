@@ -8,10 +8,6 @@ import { MadLibId, PhraseSelections } from "./MadLibs";
 
 export const STICKY_VERSION_PARAM = "sv";
 
-export const HIGHLIGHT_SCROLL_DELAY = 2_000;
-export const HIGHLIGHT_CANCEL_DELAY = 18_000;
-// highlight delay and fade time are set in src/reports/Report.module.scss
-
 // PAGE URLS
 export const HET_URL = "https://healthequitytracker.org";
 
@@ -25,6 +21,7 @@ export const TERMS_OF_USE_PAGE_LINK = "/termsofuse";
 export const FAQ_TAB_LINK = "/faqs";
 export const RESOURCES_TAB_LINK = "/resources";
 export const METHODOLOGY_TAB_LINK = "/methodology";
+export const AGE_ADJUSTMENT_TAB_LINK = "/ageadjustment";
 export const DATA_TAB_LINK = "/datacatalog";
 export const CONTACT_TAB_LINK = "/contact";
 export const ABOUT_TAB_LINK = "/about";

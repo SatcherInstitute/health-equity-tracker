@@ -138,7 +138,7 @@ const datasetMetadataList: DatasetMetadata[] = [
     update_time: "February 2022",
   },
   {
-    id: "cdc_restricted_data-by_race_state",
+    id: "cdc_restricted_data-by_race_state-with_age_adjust",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and State",
     update_time: "February 2022",
   },
@@ -216,6 +216,11 @@ const datasetMetadataList: DatasetMetadata[] = [
     id: GEOGRAPHIES_DATASET_ID,
     name: "U.S. Geographic Data",
     update_time: "2020",
+  },
+  {
+    id: "census_pop_estimates-race_and_ethnicity",
+    name: "Census County Population by Characteristics: 2010-2019",
+    update_time: "2019",
   },
 ];
 

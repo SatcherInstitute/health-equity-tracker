@@ -2,7 +2,11 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./WhatIsHealthEquityPage.module.scss";
 import { Typography } from "@material-ui/core";
-import { CONTACT_TAB_LINK, DATA_CATALOG_PAGE_LINK } from "../../utils/urlutils";
+import {
+  AGE_ADJUSTMENT_TAB_LINK,
+  CONTACT_TAB_LINK,
+  DATA_CATALOG_PAGE_LINK,
+} from "../../utils/urlutils";
 import { Helmet } from "react-helmet-async";
 import { CITATION_APA } from "../DataCatalog/MethodologyTab";
 import { getHtml } from "../../utils/urlutils";
@@ -112,6 +116,9 @@ Specific information on update frequencies by source can be found on our <a href
       During this process, values are standardized and normalized to
       facilitate reporting, comparison and visualization
     </li>
+    <li>
+    All of our map and graph visualizations present crude (non-age-adjusted) percentages and per 100k rates. When possible, we additionally calculate and present age-adjusted ratios in a separate table in an effort to reveal disproportionate impact to certain race/ethnicity groups, as compared to the white (non-Hispanic) population. To learn more, please view our <a href=${AGE_ADJUSTMENT_TAB_LINK}>age-adjustment methodology</a>
+  </li>
     <li>
       Sources are refreshed when update notifications are received
     </li>

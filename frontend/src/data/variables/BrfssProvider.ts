@@ -14,40 +14,55 @@ export const UHC_DETERMINANTS: MetricId[] = [
   "brfss_population_pct",
   "copd_pct_share",
   "copd_per_100k",
+  "copd_ratio_age_adjusted",
   "diabetes_pct_share",
   "diabetes_per_100k",
+  "diabetes_ratio_age_adjusted",
   "depression_pct_share",
   "depression_per_100k",
+  "depression_ratio_age_adjusted",
   "illicit_opioid_use_pct_share",
   "illicit_opioid_use_per_100k",
+  "illicit_opioid_use_ratio_age_adjusted",
   "non_medical_rx_opioid_use_pct_share",
   "non_medical_rx_opioid_use_per_100k",
+  "non_medical_rx_opioid_use_ratio_age_adjusted",
+  "non_medical_drug_use_ratio_age_adjusted",
   "non_medical_drug_use_pct_share",
   "non_medical_drug_use_per_100k",
   "excessive_drinking_pct_share",
   "excessive_drinking_per_100k",
+  "excessive_drinking_ratio_age_adjusted",
   "frequent_mental_distress_pct_share",
   "frequent_mental_distress_per_100k",
+  "frequent_mental_distress_ratio_age_adjusted",
   "preventable_hospitalizations_pct_share",
   "preventable_hospitalizations_per_100k",
+  "preventable_hospitalizations_ratio_age_adjusted",
   "avoided_care_pct_share",
   "avoided_care_per_100k",
+  "avoided_care_ratio_age_adjusted",
   "chronic_kidney_disease_pct_share",
   "chronic_kidney_disease_per_100k",
+  "chronic_kidney_disease_ratio_age_adjusted",
   "cardiovascular_diseases_pct_share",
   "cardiovascular_diseases_per_100k",
+  "cardiovascular_diseases_ratio_age_adjusted",
   "asthma_pct_share",
   "asthma_per_100k",
+  "asthma_ratio_age_adjusted",
 ];
 
 export const UHC_DECADE_PLUS_5_AGE_DETERMINANTS: MetricId[] = [
   "suicide_pct_share",
   "suicide_per_100k",
+  "suicide_ratio_age_adjusted",
 ];
 
 export const UHC_VOTER_AGE_DETERMINANTS: MetricId[] = [
   "voter_participation_pct_share",
   "voter_participation_per_100k",
+  "voter_participation_ratio_age_adjusted",
 ];
 
 export const UHC_API_NH_DETERMINANTS: MetricId[] = [
@@ -85,6 +100,7 @@ class BrfssProvider extends VariableProvider {
 
     df = this.filterByGeo(df, breakdowns);
 
+    df = this.renameTotalToAll(df, breakdownColumnName);
     df = this.renameGeoColumns(df, breakdowns);
 
     let acsBreakdowns = breakdowns.copy();
