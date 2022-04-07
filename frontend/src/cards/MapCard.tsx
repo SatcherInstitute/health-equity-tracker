@@ -103,10 +103,20 @@ function MapCardWithKey(props: MapCardProps) {
   const hideDemographicUI =
     props.variableConfig.variableId === COVID_VAXX && props.fips.isCounty();
 
+  const selectedRaceSuffix =
+    activeBreakdownFilter === "All"
+      ? ""
+      : ` Identifying as ${activeBreakdownFilter}`;
+
   return (
     <CardWrapper
       queries={queries}
-      title={<>{metricConfig.fullCardTitleName}</>}
+      title={
+        <>
+          {metricConfig.fullCardTitleName}
+          {selectedRaceSuffix}
+        </>
+      }
       loadGeographies={true}
       minHeight={PRELOAD_HEIGHT}
     >

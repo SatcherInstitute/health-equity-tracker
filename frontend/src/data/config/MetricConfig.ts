@@ -1136,7 +1136,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           populationComparisonMetric: {
             metricId: "cawp_population_pct",
             fullCardTitleName: "Total Population Share of Each Race/Ethnicity",
-            shortLabel: "% population (all genders)",
+            shortLabel: `${populationPctShortLabel} (all genders)`,
             type: "pct_share",
           },
           knownBreakdownComparisonMetric: {
@@ -1177,14 +1177,14 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           populationComparisonMetric: {
             metricId: "cawp_population_pct",
             fullCardTitleName: "Total Population Share of Each Race/Ethnicity",
-            shortLabel: "% population (all genders)",
+            shortLabel: `${populationPctShortLabel} (all genders)`,
             type: "pct_share",
           },
           knownBreakdownComparisonMetric: {
             metricId: "women_state_leg_pct_share",
             fullCardTitleName:
               "Percent Share of Women State Legislators Who Identify with Each Race/Ethnicity Group",
-            shortLabel: "% of women legislators",
+            shortLabel: "% share of women legislators",
             type: "pct_share",
           },
         },
