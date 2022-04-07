@@ -30,7 +30,7 @@ export default class VariableProviderMap {
       acsProvider,
       acs2010Provider,
       new CdcCovidProvider(acsProvider),
-      new BrfssProvider(acsProvider),
+      new BrfssProvider(),
       new AcsHealthInsuranceProvider(),
       new AcsPovertyProvider(),
       new VaccineProvider(acsProvider),
@@ -41,9 +41,8 @@ export default class VariableProviderMap {
   }
 
   private getProvidersById(): Record<ProviderId, VariableProvider> {
-    const providersById: Partial<
-      Record<ProviderId, VariableProvider>
-    > = Object.fromEntries(this.providers.map((p) => [p.providerId, p]));
+    const providersById: Partial<Record<ProviderId, VariableProvider>> =
+      Object.fromEntries(this.providers.map((p) => [p.providerId, p]));
     return providersById as Record<ProviderId, VariableProvider>;
   }
 
