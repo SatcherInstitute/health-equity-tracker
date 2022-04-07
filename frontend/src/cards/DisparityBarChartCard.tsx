@@ -71,9 +71,9 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   const query = new MetricQuery(metricIds, breakdowns);
 
   function getTitleText() {
-    return `${metricConfig.fullCardTitleName} vs. Population By ${
-      BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-    } In ${props.fips.getFullDisplayName()}`;
+    return `Population vs. ${
+      metricConfig.fullCardTitleName
+    } in ${props.fips.getFullDisplayName()}`;
   }
   function CardTitle() {
     return <>{getTitleText()}</>;

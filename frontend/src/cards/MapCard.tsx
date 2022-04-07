@@ -339,7 +339,7 @@ function MapCardWithKey(props: MapCardProps) {
                   </Alert>
                 </CardContent>
               )}
-            {metricConfig && dataForActiveBreakdownFilter.length ? (
+            {metricConfig && dataForActiveBreakdownFilter.length > 0 && (
               <CardContent>
                 <ChoroplethMap
                   signalListeners={signalListeners}
@@ -418,8 +418,6 @@ function MapCardWithKey(props: MapCardProps) {
                     />
                   )}
               </CardContent>
-            ) : (
-              <></>
             )}
           </>
         );

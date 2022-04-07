@@ -78,6 +78,9 @@ abstract class VariableProvider {
   removeUnrequestedColumns(df: IDataFrame, metricQuery: MetricQuery) {
     let dataFrame = df;
     let requestedColumns = ["fips", "fips_name"].concat(metricQuery.metricIds);
+
+    // console.log({ requestedColumns });
+
     // Add column names of enabled breakdowns
     requestedColumns = requestedColumns.concat(
       Object.entries(metricQuery.breakdowns.demographicBreakdowns)

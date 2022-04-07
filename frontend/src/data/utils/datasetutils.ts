@@ -181,3 +181,18 @@ export function shouldShowAltPopCompare(fromProps: ShouldShowAltPopCompareI) {
     fromProps.variableConfig.variableId === COVID_VAXX
   );
 }
+
+/* 
+Takes a dataset, and overwrites all values of a given property with the values of the alternate property
+*/
+export function replaceWithWomenRaceLabels(data: Row[]) {
+  return data.map((row) => {
+    const { race_women, race_and_ethnicity, ...rest } = row;
+    return { race_and_ethnicity: race_women, ...rest };
+  });
+}
+
+export const TOPICS_WITH_WOMEN_RACE_LABELS: VariableId[] = [
+  "women_us_congress",
+  "women_state_legislatures",
+];

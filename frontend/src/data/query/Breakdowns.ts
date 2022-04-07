@@ -13,7 +13,8 @@ export type BreakdownVar =
   | "age"
   | "sex"
   | "date"
-  | "fips";
+  | "fips"
+  | "race_women";
 
 export const DEMOGRAPHIC_BREAKDOWNS = [
   "race_and_ethnicity",
@@ -30,6 +31,7 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
   sex: "Sex",
   date: "Date",
   fips: "FIPS Code",
+  race_women: "Race and Ethnicity (Women)",
 } as const;
 
 // union type of values (capitalized display names), eg "Race and Ethnicity" | "Age" | "Sex"
@@ -45,6 +47,7 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE: Record<
   sex: "sex",
   date: "date",
   fips: "FIPs codes",
+  race_women: "race and ethnicity (women)",
 };
 
 interface DemographicBreakdown {
@@ -202,6 +205,8 @@ export class Breakdowns {
         this.time = true;
         return this;
       case "fips":
+        throw new Error("Fips breakdown cannot be added");
+      case "race_women":
         throw new Error("Fips breakdown cannot be added");
     }
   }

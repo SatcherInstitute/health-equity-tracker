@@ -31,6 +31,7 @@ import {
 import { SINGLE_COLUMN_WIDTH } from "./ReportProvider";
 import NoDataAlert from "./ui/NoDataAlert";
 import ReportToggleControls from "./ui/ReportToggleControls";
+import { TOPICS_WITH_WOMEN_RACE_LABELS } from "../data/utils/datasetutils";
 
 export interface OneVariableReportProps {
   key: string;
@@ -155,6 +156,9 @@ export function OneVariableReport(props: OneVariableReportProps) {
                         variableConfig={variableConfig}
                         breakdownVar={breakdownVar}
                         fips={props.fips}
+                        useWomenRaceLabels={TOPICS_WITH_WOMEN_RACE_LABELS.includes(
+                          variableConfig?.variableId
+                        )}
                       />
                     )}
                 </Fragment>

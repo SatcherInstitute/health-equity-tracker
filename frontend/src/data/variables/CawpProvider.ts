@@ -16,6 +16,7 @@ export const CAWP_DETERMINANTS: MetricId[] = [
   "women_us_congress_pct",
   "women_us_congress_pct_share",
   "women_us_congress_ratio_age_adjusted",
+  "race_women",
 ];
 
 class CawpProvider extends VariableProvider {
@@ -47,6 +48,7 @@ class CawpProvider extends VariableProvider {
 
     df = this.filterByGeo(df, breakdowns);
 
+    // TODO remove this once backend converts "Total" to  "All"
     const breakdownColumnName =
       breakdowns.getSoleDemographicBreakdown().columnName;
     df = this.renameTotalToAll(df, breakdownColumnName);
@@ -59,9 +61,9 @@ class CawpProvider extends VariableProvider {
     acsBreakdowns.time = false;
 
     const acsDatasetId = GetAcsDatasetId(breakdowns);
-    consumedDatasetIds = consumedDatasetIds.concat(acsDatasetId);
+    consumedDatasetIds.push(acsDatasetId);
 
-    consumedDatasetIds = consumedDatasetIds.concat(
+    consumedDatasetIds.push(
       "acs_2010_population-by_race_and_ethnicity_territory", // We merge this in on the backend
       "propublica_congress" // we merge on backend only for US Congress datatype; not sure how to restrict based on active datatype
     );
@@ -77,6 +79,9 @@ class CawpProvider extends VariableProvider {
     });
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
+
+    // for this health topic we want to keep the alternate race labels available in the data
+    metricQuery.metricIds.push("race_women");
 
     df = this.removeUnrequestedColumns(df, metricQuery);
 

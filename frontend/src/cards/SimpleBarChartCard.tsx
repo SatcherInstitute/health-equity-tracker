@@ -13,6 +13,7 @@ import CardWrapper from "./CardWrapper";
 import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
+import { replaceWithWomenRaceLabels } from "../data/utils/datasetutils";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -22,6 +23,7 @@ export interface SimpleBarChartCardProps {
   breakdownVar: BreakdownVar;
   variableConfig: VariableConfig;
   fips: Fips;
+  useWomenRaceLabels?: boolean;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
@@ -61,7 +63,10 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       minHeight={PRELOAD_HEIGHT}
     >
       {([queryResponse]) => {
-        console.log(queryResponse);
+        let data = queryResponse.getValidRowsForField(metricConfig.metricId);
+
+        if (props.useWomenRaceLabels) data = replaceWithWomenRaceLabels(data);
+
         return (
           <CardContent>
             {queryResponse.shouldShowMissingDataMessage([
@@ -76,7 +81,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
               />
             ) : (
               <SimpleHorizontalBarChart
-                data={queryResponse.getValidRowsForField(metricConfig.metricId)}
+                data={data}
                 breakdownVar={props.breakdownVar}
                 metric={metricConfig}
                 showLegend={false}

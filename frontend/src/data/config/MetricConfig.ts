@@ -1,4 +1,8 @@
 //  IDs for the selectable conditions in the madlib
+// NOTE: these strings are displayed to the user if the data type toggle is enabled.
+// Underscores become spaces, and all letters are capitalized
+// TODO: integrate strings from Category / Madlib into the Metric Config
+// so ALL related topic data is contained in a single object
 
 export type DropdownVarId =
   | "covid"
@@ -18,7 +22,7 @@ export type DropdownVarId =
   | "cardiovascular_diseases"
   | "asthma"
   | "voter_participation"
-  | "women_legislators";
+  | "women_in_legislative_office";
 
 export type AgeAdjustedVariableId = "covid_deaths" | "covid_hospitalizations";
 
@@ -43,6 +47,7 @@ export type VariableId =
 export const COVID_VAXX: DropdownVarId = "covid_vaccinations";
 
 export type MetricId =
+  | "race_women"
   | "acs_vaccine_population_pct"
   | "brfss_population_pct"
   | "cawp_population_pct"
@@ -280,7 +285,6 @@ export function getAgeAdjustedRatioMetric(
   return tableFields;
 }
 
-// TODO - strongly type key
 // TODO - count and pct_share metric types should require populationComparisonMetric
 
 // Note: metrics must be declared in a consistent order because the UI relies
@@ -1114,7 +1118,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       },
     },
   ],
-  women_legislators: [
+  women_in_legislative_office: [
     {
       variableId: "women_us_congress",
       variableDisplayName: "Women in US Congress",
