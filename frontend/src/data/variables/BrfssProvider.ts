@@ -2,7 +2,7 @@ import { getDataManager } from "../../utils/globals";
 import { MetricId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import AcsPopulationProvider from "./AcsPopulationProvider";
+import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 
 export const UHC_DETERMINANTS: MetricId[] = [
@@ -66,16 +66,13 @@ export const UHC_API_NH_DETERMINANTS: MetricId[] = [
 ];
 
 class BrfssProvider extends VariableProvider {
-  private acsProvider: AcsPopulationProvider;
-
-  constructor(acsProvider: AcsPopulationProvider) {
+  constructor() {
     super("brfss_provider", [
       "brfss_population_pct",
       ...UHC_DETERMINANTS,
       ...UHC_VOTER_AGE_DETERMINANTS,
       ...UHC_DECADE_PLUS_5_AGE_DETERMINANTS,
     ]);
-    this.acsProvider = acsProvider;
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
@@ -98,12 +95,11 @@ class BrfssProvider extends VariableProvider {
     const breakdownColumnName =
       breakdowns.getSoleDemographicBreakdown().columnName;
 
-    df = this.filterByGeo(df, breakdowns);
+    const consumedDatasetIds = [datasetId, GetAcsDatasetId(breakdowns)];
 
+    df = this.filterByGeo(df, breakdowns);
     df = this.renameTotalToAll(df, breakdownColumnName);
     df = this.renameGeoColumns(df, breakdowns);
-
-    let consumedDatasetIds = [datasetId];
 
     df = df.renameSeries({
       population_pct: "brfss_population_pct",
