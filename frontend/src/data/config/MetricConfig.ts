@@ -1135,7 +1135,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "cawp_population_pct",
-            fullCardTitleName: "Total Population Share of Each Race/Ethnicity",
+            fullCardTitleName: "Total Population Share (All Genders)",
             shortLabel: `${populationPctShortLabel} (all genders)`,
             type: "pct_share",
           },
@@ -1176,7 +1176,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "cawp_population_pct",
-            fullCardTitleName: "Total Population Share of Each Race/Ethnicity",
+            fullCardTitleName: "Total Population Share (All Genders)",
             shortLabel: `${populationPctShortLabel} (all genders)`,
             type: "pct_share",
           },
