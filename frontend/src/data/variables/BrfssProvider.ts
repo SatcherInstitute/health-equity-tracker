@@ -101,10 +101,6 @@ class BrfssProvider extends VariableProvider {
     df = this.renameTotalToAll(df, breakdownColumnName);
     df = this.renameGeoColumns(df, breakdowns);
 
-    df = df.renameSeries({
-      population_pct: "brfss_population_pct",
-    });
-
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
 
