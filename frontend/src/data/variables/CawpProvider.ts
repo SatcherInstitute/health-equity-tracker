@@ -27,7 +27,12 @@ class CawpProvider extends VariableProvider {
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
-    return "cawp_data-" + breakdowns.getSoleDemographicBreakdown().columnName;
+    return (
+      "cawp_data-" +
+      breakdowns.getSoleDemographicBreakdown().columnName +
+      "_" +
+      breakdowns.geography
+    );
   }
 
   async getDataInternal(

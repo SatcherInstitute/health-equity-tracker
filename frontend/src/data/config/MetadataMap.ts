@@ -196,7 +196,10 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     update_frequency: "Daily",
     description:
       "Representation of women, by race/ethnicity, in the US Congress and state legislatures.",
-    dataset_ids: ["cawp_data-race_and_ethnicity"],
+    dataset_ids: [
+      "cawp_data-race_and_ethnicity_national",
+      "cawp_data-race_and_ethnicity_state",
+    ],
     downloadable: true,
   },
   {
@@ -205,7 +208,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_link: "https://covidtracking.com/race",
     geographic_level: "State",
     demographic_granularity: "Race/ethnicity",
-    update_frequency: "Final update was March 7 2021",
+    update_frequency: "Final update was March 7 2021",
     description:
       "The numbers of confirmed COVID-19 deaths, cases, hospitalizations, and tests at the state level. " +
       "Please note that Covid Tracking Project data is not used for any visualizations on the tracker, " +

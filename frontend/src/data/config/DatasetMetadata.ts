@@ -203,8 +203,13 @@ const datasetMetadataList: DatasetMetadata[] = [
     update_time: "2021",
   },
   {
-    id: "cawp_data-race_and_ethnicity",
-    name: "Representation of women in the US Congress and state legislatures, by Race/Ethnicity and State",
+    id: "cawp_data-race_and_ethnicity_national",
+    name: "National representation of women by Race/Ethnicity in the US Congress and across state and territory legislatures",
+    update_time: "2022",
+  },
+  {
+    id: "cawp_data-race_and_ethnicity_state",
+    name: "Representation of women by Race/Ethnicity from each state and territory to the US Congress and their respective state legislature",
     update_time: "2022",
   },
   {

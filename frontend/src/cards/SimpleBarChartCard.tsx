@@ -61,6 +61,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       minHeight={PRELOAD_HEIGHT}
     >
       {([queryResponse]) => {
+        console.log(queryResponse);
         return (
           <CardContent>
             {queryResponse.shouldShowMissingDataMessage([
