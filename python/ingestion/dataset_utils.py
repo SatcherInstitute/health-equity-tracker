@@ -144,9 +144,6 @@ def replace_state_abbr_with_names(df):
     all_state_codes_df = all_state_codes_df[[
         std_col.STATE_NAME_COL, 'state_postal_abbreviation']]
 
-    # print("!!!")
-    # print(all_state_codes_df)
-
     # add USA to the list of states
     united_states_code = pd.DataFrame(
         [{'state_postal_abbreviation': constants.US_ABBR, std_col.STATE_NAME_COL: constants.US_NAME}])
@@ -156,14 +153,8 @@ def replace_state_abbr_with_names(df):
     df = pd.merge(df, all_state_codes_df, how='left',
                   on='state_postal_abbreviation').reset_index(drop=True)
 
-    # print("after merge")
-    # print(df.to_string())
-
     # remove the abbr column altogether
     df = df.drop(columns=['state_postal_abbreviation'])
-
-    # print("finally")
-    # print(df.to_string())
 
     return df
 
@@ -206,18 +197,8 @@ def merge_pop_numbers(df, demo, loc):
         pop_2010_table_name = 'by_%s_territory' % (
             verbose_demo)
 
-        print("@@@@@@@")
-        print("@@@@@@@")
-        print("@@@@@@@")
-        print(pop_2010_table_name)
-
-        # pop_2010_df = gcs_to_bq_util.load_json_as_df_from_data_dir(
-        #     'acs_2010', pop_2010_table_name, pop_dtype)
         pop_2010_df = gcs_to_bq_util.load_df_from_bigquery(
             'acs_2010_population', pop_2010_table_name, pop_dtype)
-
-        print("MMMMMMMM")
-        print(pop_2010_df.to_string())
 
         pop_2010_df = pop_2010_df[[std_col.STATE_FIPS_COL, on_col_map[demo],
                                    std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]

@@ -127,14 +127,6 @@ def get_schema(frame, column_types, col_modes):
 
     input_cols = column_types.keys()
 
-    print("~~~~~~")
-    print("~~~~~~")
-    print("~~~~~~")
-    print("~~~~~~")
-    print("input cols", input_cols)
-    print("frame columns", frame.columns)
-    print("~~~~~~")
-
     if (len(input_cols) != len(frame.columns)
             or set(input_cols) != set(frame.columns)):
         raise Exception('Column types did not match frame columns')
@@ -262,12 +254,6 @@ def load_json_as_df_from_data_dir(directory, filename, dtype=None):
     directory: directory within data to load from
     filename: file to load the json file from"""
     file_path = os.path.join(DATA_DIR, directory, filename)
-
-    print("##########")
-    print("##########")
-    print("##########")
-    print(directory, filename, dtype)
-    print(file_path)
 
     return pd.read_json(file_path, dtype=dtype)
 

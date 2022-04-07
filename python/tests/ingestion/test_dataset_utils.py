@@ -255,9 +255,4 @@ def testMergePopNumbers(mock_bq: mock.MagicMock):
 
     assert mock_bq.call_count == 2
 
-    print("mock")
-    print(df.to_string())
-    print("exp")
-    print(expected_df.to_string())
-
     assert_frame_equal(df, expected_df, check_like=True)

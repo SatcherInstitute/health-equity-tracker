@@ -230,7 +230,6 @@ class CAWPData(DataSource):
         column_types[std_col.RACE_CATEGORY_ID_COL] = 'STRING'
         column_types[std_col.RACE_WOMEN_COL] = "STRING"
         column_types[std_col.STATE_FIPS_COL] = 'STRING'
-        column_types[std_col.POPULATION_COL] = 'INT'
         column_types[std_col.POPULATION_PCT_COL] = 'DECIMAL'
         column_types[std_col.RACE_COL] = "STRING"
         column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
@@ -238,14 +237,13 @@ class CAWPData(DataSource):
 
         # make two tables
         for geo_level in ['state', 'national']:
-            breakdown = self.generate_breakdown(df_us_congress_totals,
-                                                df_state_leg_totals,
-                                                df_line_items, geo_level)
+            table_name = f'race_and_ethnicity_{geo_level}'
+            breakdown_df = self.generate_breakdown(df_us_congress_totals,
+                                                   df_state_leg_totals,
+                                                   df_line_items, geo_level)
+
             gcs_to_bq_util.add_df_to_bq(
-                breakdown,
-                dataset,
-                std_col.RACE_OR_HISPANIC_COL,
-                column_types=column_types)
+                breakdown_df, dataset, table_name, column_types=column_types)
 
     def generate_breakdown(self, df_us_congress_totals, df_state_leg_totals, df_line_items, level: str):
 
@@ -275,7 +273,6 @@ class CAWPData(DataSource):
 
         output = []
         for current_place in all_places:
-            # print("\tcurrent_place", current_place)
 
             us_congress_women_current_place_all_races = count_matching_rows(
                 df_line_items, current_place, NATIONAL, std_col.ALL_VALUE)
@@ -290,7 +287,6 @@ class CAWPData(DataSource):
                 df_state_leg_totals[std_col.STATE_NAME_COL] == current_place][COUNT_ALL].values[0]
 
             for cawp_race_name in CAWP_RACE_GROUPS_TO_STANDARD.keys():
-                # print("\t\tcawp_race_name", cawp_race_name)
                 output_row = {}
                 race_code = CAWP_RACE_GROUPS_TO_STANDARD[cawp_race_name]
 

@@ -164,13 +164,7 @@ def _get_test_json_as_df(*args):
 
 
 def _get_test_pop_data_as_df(*args):
-
-    print("!!!!!!")
-    print("!!!!!!")
-    print("!!!!!!")
-
     [mock_pop_dir, mock_pop_filename, mock_pop_dtype] = args
-
     return pd.read_json(os.path.join(TEST_DIR, mock_pop_dir, f'{mock_pop_filename}.json'), dtype=mock_pop_dtype)
 
 
