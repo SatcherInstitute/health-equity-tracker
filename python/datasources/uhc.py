@@ -69,22 +69,22 @@ RACE_GROUPS_TO_STANDARD = {
 BASE_UHC_URL = "https://www.americashealthrankings.org/api/v1/downloads/251"
 
 UHC_DETERMINANTS = {
-    "Chronic Obstructive Pulmonary Disease": std_col.COPD_PER_100K,
-    "Diabetes": std_col.DIABETES_PER_100K,
-    "Frequent Mental Distress": std_col.FREQUENT_MENTAL_DISTRESS_PER_100K,
-    "Depression": std_col.DEPRESSION_PER_100K,
-    "Excessive Drinking": std_col.EXCESSIVE_DRINKING_PER_100K,
-    "Non-medical Drug Use": std_col.NON_MEDICAL_DRUG_USE_PER_100K,
+    "Chronic Obstructive Pulmonary Disease": std_col.COPD_PREFIX,
+    "Diabetes": std_col.DIABETES_PREFIX,
+    "Frequent Mental Distress": std_col.FREQUENT_MENTAL_DISTRESS_PREFIX,
+    "Depression": std_col.DEPRESSION_PREFIX,
+    "Excessive Drinking": std_col.EXCESSIVE_DRINKING_PREFIX,
+    "Non-medical Drug Use": std_col.NON_MEDICAL_DRUG_USE_PREFIX,
     # NOTE: both opioid conditions below are subsets of Non-medical Drug Use above
-    "Illicit Opioid Use": std_col.ILLICIT_OPIOID_USE_PER_100K,
-    "Non-medical Use of Prescription Opioids": std_col.NON_MEDICAL_RX_OPIOID_USE_PER_100K,
-    "Asthma": std_col.ASTHMA_PER_100K,
-    "Cardiovascular Diseases": std_col.CARDIOVASCULAR_PER_100K,
-    "Chronic Kidney Disease": std_col.CHRONIC_KIDNEY_PER_100K,
-    "Avoided Care Due to Cost": std_col.AVOIDED_CARE_PER_100K,
-    "Suicide": std_col.SUICIDE_PER_100K,
-    "Preventable Hospitalizations": std_col.PREVENTABLE_HOSP_PER_100K,
-    "Voter Participation": std_col.VOTER_PARTICIPATION_PER_100K,
+    "Illicit Opioid Use": std_col.ILLICIT_OPIOID_USE_PREFIX,
+    "Non-medical Use of Prescription Opioids": std_col.NON_MEDICAL_RX_OPIOID_USE_PREFIX,
+    "Asthma": std_col.ASTHMA_PREFIX,
+    "Cardiovascular Diseases": std_col.CARDIOVASCULAR_PREFIX,
+    "Chronic Kidney Disease": std_col.CHRONIC_KIDNEY_PREFIX,
+    "Avoided Care Due to Cost": std_col.AVOIDED_CARE_PREFIX,
+    "Suicide": std_col.SUICIDE_PREFIX,
+    "Preventable Hospitalizations": std_col.PREVENTABLE_HOSP_PREFIX,
+    "Voter Participation": std_col.VOTER_PARTICIPATION_PREFIX,
 
     # VOTER PARTICIPATION
     # pres: state total ALL + by age (missing 65+) + by sex + by race
@@ -106,12 +106,12 @@ ALT_ROWS_WITH_DEMO = {
 }
 
 PER100K_DETERMINANTS = {
-    "Suicide": std_col.SUICIDE_PER_100K,
-    "Preventable Hospitalizations": std_col.PREVENTABLE_HOSP_PER_100K
+    "Suicide": std_col.SUICIDE_PREFIX,
+    "Preventable Hospitalizations": std_col.PREVENTABLE_HOSP_PREFIX
 }
 
 PLUS_5_AGE_DETERMINANTS = {
-    "Suicide": std_col.SUICIDE_PER_100K,
+    "Suicide": std_col.SUICIDE_PREFIX,
 }
 
 AVERAGED_DETERMINANTS = ["Voter Participation"]
@@ -157,7 +157,8 @@ class UHCData(DataSource):
                 column_types = {c: 'STRING' for c in breakdown_df.columns}
 
                 for col in UHC_DETERMINANTS.values():
-                    column_types[col] = 'FLOAT'
+                    column_types[std_col.generate_column_name(col, std_col.PER_100K_SUFFIX)] = 'FLOAT'
+                    column_types[std_col.generate_column_name(col, std_col.PCT_SHARE_SUFFIX)] = 'FLOAT'
 
                 if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
                     column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
@@ -178,13 +179,6 @@ def parse_raw_data(df, breakdown):
     output = []
     states = df[std_col.STATE_NAME_COL].drop_duplicates().to_list()
 
-    columns = [std_col.STATE_NAME_COL,
-               *UHC_DETERMINANTS.values()]
-    if breakdown == std_col.RACE_OR_HISPANIC_COL:
-        columns.append(std_col.RACE_CATEGORY_ID_COL)
-    else:
-        columns.append(breakdown)
-
     for state in states:
         for breakdown_value in BREAKDOWN_MAP[breakdown]:
 
@@ -197,7 +191,8 @@ def parse_raw_data(df, breakdown):
             else:
                 output_row[breakdown] = breakdown_value.strip()
 
-            for determinant in UHC_DETERMINANTS:
+            for determinant, prefix in UHC_DETERMINANTS.items():
+                per_100k_col_name = std_col.generate_column_name(prefix, std_col.PER_100K_SUFFIX)
 
                 if breakdown_value in {'All', 'Total'}:
                     # find row that matches current nested iterations
@@ -209,17 +204,15 @@ def parse_raw_data(df, breakdown):
 
                     # TOTAL voter_participation is avg of pres and midterm data
                     if determinant in AVERAGED_DETERMINANTS:
-                        output_row[std_col.VOTER_PARTICIPATION_PER_100K] = get_average_determinate_value(
+                        output_row[per_100k_col_name] = get_average_determinate_value(
                                 matched_row, 'Voter Participation (Midterm)', df, state)
 
                     # already per 100k
                     elif determinant in PER100K_DETERMINANTS:
-                        output_row[UHC_DETERMINANTS[determinant]
-                                   ] = matched_row['Value'].values[0]
+                        output_row[per_100k_col_name] = matched_row['Value'].values[0]
                     # converted from % to per 100k
                     else:
-                        output_row[UHC_DETERMINANTS[determinant]
-                                   ] = matched_row['Value'].values[0] * 1000
+                        output_row[per_100k_col_name] = matched_row['Value'].values[0] * 1000
 
                 else:
                     # For rows with demographic breakdown, the determinant
@@ -255,7 +248,7 @@ def parse_raw_data(df, breakdown):
                         else:
                             continue
 
-                        output_row[std_col.VOTER_PARTICIPATION_PER_100K] = get_average_determinate_value(
+                        output_row[per_100k_col_name] = get_average_determinate_value(
                             matched_row, measure_name, df, state)
 
                     # for other determinants besides VOTER
@@ -263,16 +256,15 @@ def parse_raw_data(df, breakdown):
                         pct = matched_row['Value'].values[0]
                         if pct:
                             if determinant in PER100K_DETERMINANTS:
-                                output_row[UHC_DETERMINANTS[determinant]
-                                           ] = matched_row['Value'].values[0]
+                                output_row[per_100k_col_name] = matched_row['Value'].values[0]
+
                             # convert from % to per 100k
                             else:
-                                output_row[UHC_DETERMINANTS[determinant]
-                                           ] = matched_row['Value'].values[0] * 1000
+                                output_row[per_100k_col_name] = matched_row['Value'].values[0] * 1000
 
             output.append(output_row)
 
-    output_df = pd.DataFrame(output, columns=columns)
+    output_df = pd.DataFrame(output)
 
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
         std_col.add_race_columns_from_category_id(output_df)
@@ -295,19 +287,21 @@ def post_process(breakdown_df, breakdown, geo):
     breakdown_df = breakdown_df.rename(columns={std_col.POPULATION_PCT_COL: std_col.BRFSS_POPULATION_PCT})
 
     for determinant in UHC_DETERMINANTS.values():
-        breakdown_df[determinant.replace('per_100k', 'estimated_total')] \
-            = breakdown_df.apply(estimate_total, axis=1, args=(determinant, ))
+        per_100k_col = std_col.generate_column_name(determinant, std_col.PER_100K_SUFFIX)
+        breakdown_df[std_col.generate_column_name(determinant, 'estimated_total')] \
+            = breakdown_df.apply(estimate_total, axis=1, args=(per_100k_col, ))
 
     for determinant in UHC_DETERMINANTS.values():
-        raw_count_col = determinant.replace('per_100k', 'estimated_total')
-        pct_share_col = determinant.replace('per_100k', 'pct_share')
+        raw_count_col = std_col.generate_column_name(determinant, 'estimated_total')
+        pct_share_col = std_col.generate_column_name(determinant, std_col.PCT_SHARE_SUFFIX)
 
         total_val = Race.TOTAL.value if breakdown == std_col.RACE_CATEGORY_ID_COL else std_col.TOTAL_VALUE
         breakdown_df = dataset_utils.generate_pct_share_col(
                 breakdown_df, raw_count_col, pct_share_col, breakdown, total_val)
 
     for determinant in UHC_DETERMINANTS.values():
-        breakdown_df = breakdown_df.drop(columns=determinant.replace('per_100k', 'estimated_total'))
+        print(breakdown_df.to_string())
+        breakdown_df = breakdown_df.drop(columns=std_col.generate_column_name(determinant, 'estimated_total'))
 
     breakdown_df = breakdown_df.drop(columns=std_col.POPULATION_COL)
     return breakdown_df
