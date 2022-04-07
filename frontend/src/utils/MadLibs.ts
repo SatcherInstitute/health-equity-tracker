@@ -107,7 +107,7 @@ const DROPDOWN_VAR: Record<DropdownVarId, string> = {
   cardiovascular_diseases: "Cardiovascular Diseases",
   asthma: "Asthma",
   voter_participation: "Voter Participation",
-  women_legislators: "Women in Government",
+  women_legislators: "Women in Legislative Office",
 };
 
 export interface Category {
