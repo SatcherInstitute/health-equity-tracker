@@ -159,6 +159,7 @@ class UHCData(DataSource):
 
                 breakdown_name = 'race' if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
                 breakdown_df = dataset_utils.merge_pop_numbers(breakdown_df, breakdown_name, geo)
+                breakdown_df = breakdown_df.rename(columns={std_col.POPULATION_PCT_COL: std_col.BRFSS_POPULATION_PCT})
 
                 for determinant in UHC_DETERMINANTS.values():
                     breakdown_df[determinant.replace('per_100k', 'estimated_total')] \
@@ -174,6 +175,8 @@ class UHCData(DataSource):
 
                 for determinant in UHC_DETERMINANTS.values():
                     breakdown_df = breakdown_df.drop(columns=determinant.replace('per_100k', 'estimated_total'))
+
+                breakdown_df = breakdown_df.drop(columns=std_col.POPULATION_COL)
 
                 column_types = {c: 'STRING' for c in breakdown_df.columns}
 

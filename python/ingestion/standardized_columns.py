@@ -72,6 +72,7 @@ CHRONIC_KIDNEY_PER_100K = "chronic_kidney_disease_per_100k"
 CARDIOVASCULAR_PER_100K = "cardiovascular_diseases_per_100k"
 ASTHMA_PER_100K = "asthma_per_100k"
 VOTER_PARTICIPATION_PER_100K = "voter_participation_per_100k"
+BRFSS_POPULATION_PCT = "brfss_population_pct"
 
 # Standardized for Vaccination columns
 VACCINATED_FIRST_DOSE = "vaccinated_first_dose"
