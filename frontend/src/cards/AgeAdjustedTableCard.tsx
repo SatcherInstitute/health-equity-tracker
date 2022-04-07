@@ -80,7 +80,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const ratioId = metricIds[0];
 
   const cardTitle = `${
-    metrics[0].fullCardTitleName
+    metrics[0]?.fullCardTitleName
   } in ${props.fips.getFullDisplayName()}`;
 
   // collect data types from the currently selected condition that offer age-adjusted ratios

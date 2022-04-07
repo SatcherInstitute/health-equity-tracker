@@ -133,8 +133,10 @@ export type MetricId =
   | "voter_participation_ratio_age_adjusted"
   | "women_state_leg_pct"
   | "women_state_leg_pct_share"
+  | "women_state_leg_ratio_age_adjusted"
   | "women_us_congress_pct"
-  | "women_us_congress_pct_share";
+  | "women_us_congress_pct_share"
+  | "women_us_congress_ratio_age_adjusted";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -1144,6 +1146,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             type: "pct_share",
           },
         },
+        age_adjusted_ratio: {
+          metricId: "women_us_congress_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Representation Ratio of Women in U.S. Congress Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
+        },
       },
     },
     {
@@ -1180,6 +1189,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             shortLabel: "% of women legislators",
             type: "pct_share",
           },
+        },
+        age_adjusted_ratio: {
+          metricId: "women_state_leg_ratio_age_adjusted",
+          fullCardTitleName:
+            "Age-Adjusted Representation Ratio of Women in State Legislatures Compared to White (Non-Hispanic)",
+          shortLabel: "",
+          type: "ratio",
         },
       },
     },
