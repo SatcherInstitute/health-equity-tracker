@@ -268,8 +268,6 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery("(max-width:400px)");
 
-  console.log(props);
-
   // swap race labels if applicable
   const dataLabelled = METRICS_TO_LABEL_SWAP.includes(props.metric.metricId)
     ? props.data.map((row: Row) => {
