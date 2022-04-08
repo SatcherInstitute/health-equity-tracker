@@ -27,8 +27,9 @@ export async function ensureCorrectDatasetsDownloaded(
     new MetricQuery([], baseBreakdown.addBreakdown(breakdownVar))
   );
 
-  const consumedDatasetIds = [brfssDatasetId, acsDatasetId];
+  expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
 
+  const consumedDatasetIds = [brfssDatasetId, acsDatasetId];
   expect(responseIncludingAll).toEqual(
     new MetricQueryResponse([], consumedDatasetIds)
   );
