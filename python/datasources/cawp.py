@@ -218,7 +218,11 @@ class CAWPData(DataSource):
         ).reset_index()
         df_us_congress_totals.columns = [std_col.STATE_NAME_COL, COUNT_ALL]
         df_us_congress_totals = df_us_congress_totals.sort_values(
-            by=[std_col.STATE_NAME_COL])
+            by=[std_col.STATE_NAME_COL]).reset_index()
+
+        print(df_us_congress_totals.to_string())
+
+        print(df_us_congress_totals[COUNT_ALL].sum())
 
         # set column types for BigQuery
         column_types = {}
@@ -285,6 +289,16 @@ class CAWPData(DataSource):
 
             state_leg_members_current_place_all_races = df_state_leg_totals.loc[
                 df_state_leg_totals[std_col.STATE_NAME_COL] == current_place][COUNT_ALL].values[0]
+
+            # print(current_place)
+            # print("\tus_congress_women_current_place_all_races",
+            #       us_congress_women_current_place_all_races)
+            # print("\tus_congress_members_current_place_all_races",
+            #       us_congress_members_current_place_all_races)
+            # print("\tstate_leg_women_current_place_all_races",
+            #       state_leg_women_current_place_all_races)
+            # print("\tstate_leg_members_current_place_all_races",
+            #       state_leg_members_current_place_all_races)
 
             for cawp_race_name in CAWP_RACE_GROUPS_TO_STANDARD.keys():
                 output_row = {}

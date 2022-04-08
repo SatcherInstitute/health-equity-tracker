@@ -811,6 +811,7 @@ id,year,first_name,middle_name,last_name,party,level,position,state,district,rac
 736474k,2022,Codi,,Galloway,Republican,"State Legislative","State Representative","Idaho - ID",015,White
 533831k,2022,Nicole,,Galloway,Democrat,"Statewide Executive",Auditor,"Missouri - MO",,White
 627188k,2022,Tavia,,Galonski,Democrat,"State Legislative","State Representative","Ohio - OH",35,Black
+726114k,2022,Erin,,Gamez,Democrat,"State Legislative","State Representative","Texas - TX",038,"White, Latina"
 402912k,2022,Elaine,Freeman,Gannon,Republican,"State Legislative","State Senator","Missouri - MO",003,White
 337126k,2022,Cristina,,Garcia,Democrat,"State Legislative","State Representative","California - CA",58,Latina
 242995k,2022,Ileana,,Garcia,Republican,"State Legislative","State Senator","Florida - FL",037,Latina
@@ -983,7 +984,6 @@ id,year,first_name,middle_name,last_name,party,level,position,state,district,rac
 205899k,2022,Gayle,B.,Harrell,Republican,"State Legislative","State Senator","Florida - FL",25,White
 193760k,2022,Sally,Roettger,Harrell,Democrat,"State Legislative","State Senator","Georgia - GA",40,White
 293491k,2022,Kathy,Gray,Harrington,Republican,"State Legislative","State Senator","North Carolina - NC",43,White
-295322k,2022,Sheila,C.,Harrington,Republican,"State Legislative","State Representative","Massachusetts - MA",60,White
 296167k,2022,Linda,,Harriott-Gathright,Democrat,"State Legislative","State Representative","New Hampshire - NH",81,Black
 689868k,2022,Dallas,,Harris,Democrat,"State Legislative","State Senator","Nevada - NV",11,Black
 314474k,2022,Kamala,,Harris,Democrat,"Federal Executive","Vice President",,,"Black, Asian American/Pacific Islander"
@@ -1050,6 +1050,7 @@ id,year,first_name,middle_name,last_name,party,level,position,state,district,rac
 229353k,2022,Jaime,L.,"Herrera Beutler",Republican,Congress,"U.S. Representative","Washington - WA",3,Latina
 752394k,2022,Dianne,,Herrin,Democrat,"State Legislative","State Representative","Pennsylvania - PA",156,White
 275445k,2022,Charniele,L.,Herring,Democrat,"State Legislative","State Representative","Virginia - VA",46,Black
+796822k,2022,Keturah,,Herron,Democrat,"State Legislative","State Representative","Kentucky - KY",042,Black
 297791k,2022,Dianne,H.,Hesselbein,Democrat,"State Legislative","State Representative","Wisconsin - WI",79,White
 643718k,2022,Katie,Fry,Hester,Democrat,"State Legislative","State Senator","Maryland - MD",9,White
 389258k,2022,Shelly,,Hettleman,Democrat,"State Legislative","State Senator","Maryland - MD",11,White
@@ -1260,6 +1261,7 @@ id,year,first_name,middle_name,last_name,party,level,position,state,district,rac
 658729k,2022,Emma,,Kerr-Carpenter,Democrat,"State Legislative","State Representative","Montana - MT",49,White
 484887k,2022,Kayla,A.,Kessinger,Republican,"State Legislative","State Representative","West Virginia - WV",32,White
 195144k,2022,Kay,S.,Khan,Democrat,"State Legislative","State Representative","Massachusetts - MA",70,White
+800095k,2022,Maryam,,Khan,Democrat,"State Legislative","State Representative","Connecticut - CT",005,"Asian American/Pacific Islander"
 271958k,2022,Michelle,N.,Kidani,Democrat,"State Legislative","State Senator","Hawaii - HI",18,"White, Latina, Asian American/Pacific Islander"
 299613k,2022,Debra,,Kiel,Republican,"State Legislative","State Representative","Minnesota - MN",001B,White
 218920k,2022,Mary,,Kiffmeyer,Republican,"State Legislative","State Senator","Minnesota - MN",30,White
@@ -1332,7 +1334,7 @@ id,year,first_name,middle_name,last_name,party,level,position,state,district,rac
 734430k,2022,Shelby,E.,Labs,Republican,"State Legislative","State Representative","Pennsylvania - PA",143,White
 737578k,2022,Trish,,Ladner,Republican,"State Legislative","State Representative","South Dakota - SD",030,White
 645512k,2022,Ashley,Tackett,Laferty,Democrat,"State Legislative","State Representative","Kentucky - KY",95,White
-578863k,2022,London,P.,Lamar,Democrat,"State Legislative","State Representative","Tennessee - TN",91,Black
+578863k,2022,London,P.,Lamar,Democrat,"State Legislative","State Senator","Tennessee - TN",033,Black
 241276k,2022,Pamela,R.,Lampitt,Democrat,"State Legislative","State Representative","New Jersey - NJ",6,White
 669324k,2022,Kathleen,R.,LaNatra,Democrat,"State Legislative","State Representative","Massachusetts - MA",123,White
 788131k,2022,Cheryl,S.,Landis,Democrat,"State Legislative","State Representative","Maryland - MD",023B,Black
@@ -1786,6 +1788,7 @@ id,year,first_name,middle_name,last_name,party,level,position,state,district,rac
 269943k,2022,Tina,L.,Orwall,Democrat,"State Legislative","State Representative","Washington - WA",33,White
 271944k,2022,Leslie,K.,Osborn,Republican,"Statewide Executive","Labor Commissioner","Oklahoma - OK",,White
 668315k,2022,Joanne,,Osborne,Republican,"State Legislative","State Representative","Arizona - AZ",13,White
+776914k,2022,Rosalind,,Osgood,Democrat,"State Legislative","State Senator","Florida - FL",033,Black
 737031k,2022,Laurie,,Osher,Democrat,"State Legislative","State Representative","Maine - ME",123,White
 679590k,2022,Anne,,Osmundson,Republican,"State Legislative","State Representative","Iowa - IA",56,White
 295693k,2022,Cathy,A.,Osten,Democrat,"State Legislative","State Senator","Connecticut - CT",19,White
@@ -1804,6 +1807,7 @@ id,year,first_name,middle_name,last_name,party,level,position,state,district,rac
 625330k,2022,Elizabeth,,"Pannill Fletcher",Democrat,Congress,"U.S. Representative","Texas - TX",7,White
 487896k,2022,Patty,,"Pansing Brooks",Nonpartisan,"State Legislative","State Senator","Nebraska - NE",28,White
 197239k,2022,Laura,C.,Pantelakos,Democrat,"State Legislative","State Representative","New Hampshire - NH",131,White
+680814k,2022,Diane,,Pappas,Democrat,"State Legislative","State Senator","Illinois - IL",023,White
 195820k,2022,Sandra,L.,Pappas,Democrat,"State Legislative","State Senator","Minnesota - MN",65,White
 726397k,2022,Erin,,Pare,Republican,"State Legislative","State Representative","North Carolina - NC",037,White
 291248k,2022,Elena,C.,Parent,Democrat,"State Legislative","State Senator","Georgia - GA",42,White
@@ -2190,7 +2194,6 @@ id,year,first_name,middle_name,last_name,party,level,position,state,district,rac
 193751k,2022,Lynn,R.,Smith,Republican,"State Legislative","State Representative","Georgia - GA",70,White
 197019k,2022,Marjorie,K.,Smith,Democrat,"State Legislative","State Representative","New Hampshire - NH",141,White
 729868k,2022,Monique,,Smith,Democrat,"State Legislative","State Representative","Ohio - OH",016,White
-285125k,2022,Robin,,Smith,Republican,"State Legislative","State Representative","Tennessee - TN",26,White
 653638k,2022,Stephanie,,Smith,Democrat,"State Legislative","State Representative","Maryland - MD",45,Black
 237442k,2022,Suzanne,J.,Smith,Democrat,"State Legislative","State Representative","New Hampshire - NH",40,White
 332335k,2022,Tina,,Smith,Democrat,Congress,"U.S. Senator","Minnesota - MN",S02,White
