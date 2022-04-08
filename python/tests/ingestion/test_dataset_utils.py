@@ -127,6 +127,28 @@ _expected_merged_with_pop_numbers = [
 
 ]
 
+_data_without_pop_numbers = [
+    ['state_fips', 'race_category_id', 'other_col'],
+    ['01', 'BLACK_NH', 'something_cool'],
+    ['01', 'WHITE_NH', 'something_else_cool'],
+    ['02', 'BLACK_NH', 'something_cooler'],
+]
+
+_pop_data = [
+    ['state_fips', 'race_category_id', 'population', 'population_pct'],
+    ['01', 'BLACK_NH', '100', '25'],
+    ['01', 'WHITE_NH', '300', '75'],
+    ['02', 'BLACK_NH', '100', '50'],
+    ['100', 'BLACK_NH', '100', '50'],
+]
+
+_expected_merged_with_pop_numnbers = [
+    ['state_fips', 'race_category_id', 'population', 'population_pct', 'other_col'],
+    ['01', 'BLACK_NH', '100', '25', 'something_cool'],
+    ['01', 'WHITE_NH', '300', '75', 'something_else_cool'],
+    ['02', 'BLACK_NH', '100', '50', 'something_cooler'],
+]
+
 
 def _get_fips_codes_as_df():
     return gcs_to_bq_util.values_json_to_df(

@@ -26,14 +26,16 @@ export const UHC_DETERMINANTS: MetricId[] = [
   "illicit_opioid_use_ratio_age_adjusted",
   "non_medical_rx_opioid_use_pct_share",
   "non_medical_rx_opioid_use_per_100k",
+  "non_medical_rx_opioid_use_ratio_age_adjusted",
   "non_medical_drug_use_ratio_age_adjusted",
   "non_medical_drug_use_pct_share",
   "non_medical_drug_use_per_100k",
-  "non_medical_rx_opioid_use_ratio_age_adjusted",
   "excessive_drinking_pct_share",
   "excessive_drinking_per_100k",
+  "excessive_drinking_ratio_age_adjusted",
   "frequent_mental_distress_pct_share",
   "frequent_mental_distress_per_100k",
+  "frequent_mental_distress_ratio_age_adjusted",
   "preventable_hospitalizations_pct_share",
   "preventable_hospitalizations_per_100k",
   "preventable_hospitalizations_ratio_age_adjusted",
@@ -98,6 +100,7 @@ class BrfssProvider extends VariableProvider {
 
     df = this.filterByGeo(df, breakdowns);
 
+    df = this.renameTotalToAll(df, breakdownColumnName);
     df = this.renameGeoColumns(df, breakdowns);
 
     let acsBreakdowns = breakdowns.copy();
