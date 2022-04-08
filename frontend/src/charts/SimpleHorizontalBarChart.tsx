@@ -18,7 +18,12 @@ import {
 } from "./utils";
 import sass from "../styles/variables.module.scss";
 import { useMediaQuery } from "@material-ui/core";
-import { getWomenRaceLabel } from "../data/variables/CawpProvider";
+import {
+  CAWP_DETERMINANTS,
+  getWomenRaceLabel,
+} from "../data/variables/CawpProvider";
+
+const METRICS_TO_LABEL_SWAP = [...CAWP_DETERMINANTS];
 
 // determine where (out of 100) to flip labels inside/outside the bar
 const LABEL_SWAP_CUTOFF_PERCENT = 66;
@@ -263,13 +268,16 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery("(max-width:400px)");
 
+  console.log(props);
+
   // swap race labels if applicable
-  const dataLabelled = props.data.map((row: Row) => {
-    const altRow = { ...row };
-    altRow.race_and_ethnicity = getWomenRaceLabel(row.race_and_ethnicity);
-    console.log(altRow);
-    return altRow;
-  });
+  const dataLabelled = METRICS_TO_LABEL_SWAP.includes(props.metric.metricId)
+    ? props.data.map((row: Row) => {
+        const altRow = { ...row };
+        altRow.race_and_ethnicity = getWomenRaceLabel(row.race_and_ethnicity);
+        return altRow;
+      })
+    : props.data;
 
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
     dataLabelled,
