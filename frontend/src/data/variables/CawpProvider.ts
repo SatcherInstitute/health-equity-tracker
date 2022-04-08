@@ -7,6 +7,7 @@ import AcsPopulationProvider, {
   GetAcsDatasetId,
 } from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
+import { UNKNOWN_RACE, HISPANIC, MULTI } from "../utils/Constants";
 
 export const CAWP_DETERMINANTS: MetricId[] = [
   "cawp_population_pct",
@@ -17,6 +18,18 @@ export const CAWP_DETERMINANTS: MetricId[] = [
   "women_us_congress_pct_share",
   "women_us_congress_ratio_age_adjusted",
 ];
+
+export function getWomenRaceLabel(raceLabel: string) {
+  switch (raceLabel) {
+    case MULTI:
+      return "Women of Two or More Races";
+    case UNKNOWN_RACE:
+      return `Women of Unknown Race`;
+    case HISPANIC:
+      return "Latinas and Hispanic Women";
+  }
+  return `${raceLabel} Women`;
+}
 
 class CawpProvider extends VariableProvider {
   private acsProvider: AcsPopulationProvider;

@@ -18,6 +18,7 @@ import {
 } from "./utils";
 import sass from "../styles/variables.module.scss";
 import { useMediaQuery } from "@material-ui/core";
+import { getWomenRaceLabel } from "../data/variables/CawpProvider";
 
 // determine where (out of 100) to flip labels inside/outside the bar
 const LABEL_SWAP_CUTOFF_PERCENT = 66;
@@ -262,8 +263,16 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery("(max-width:400px)");
 
+  // swap race labels if applicable
+  const dataLabelled = props.data.map((row: Row) => {
+    const altRow = { ...row };
+    altRow.race_and_ethnicity = getWomenRaceLabel(row.race_and_ethnicity);
+    console.log(altRow);
+    return altRow;
+  });
+
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
-    props.data,
+    dataLabelled,
     props.breakdownVar
   );
   const [dataWithDisplayCol, barMetricDisplayColumnName] =
