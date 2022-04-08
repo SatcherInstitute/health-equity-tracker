@@ -18,8 +18,8 @@ import time
 
 import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
-import numpy as np
-import pandas as pd
+import numpy as np  # type: ignore
+import pandas as pd  # type: ignore
 pd.options.mode.chained_assignment = None  # default='warn'
 
 
@@ -112,7 +112,7 @@ DEMOGRAPHIC_COL_MAPPING = {
 # very incomplete data. Note that states that have all data suppressed will
 # have case, hospitalization, and death data suppressed.
 # See https://github.com/SatcherInstitute/health-equity-tracker/issues/617.
-ALL_DATA_SUPPRESSION_STATES = ("MS", "TX", "WV")
+ALL_DATA_SUPPRESSION_STATES = ("MP", "MS", "WV")
 HOSP_DATA_SUPPRESSION_STATES = ("HI", "NE", "RI", "SD")
 DEATH_DATA_SUPPRESSION_STATES = ("HI", "NE", "SD", "DE")
 
@@ -350,7 +350,7 @@ def process_data(dir, files):
         print("Took", round(end - start, 2), "seconds to process file", f)
 
     # Post-processing of the data.
-    for key in all_dfs:
+    for key in all_dfs.copy():
         geo, demographic = key
 
         # Some brief sanity checks to make sure the data is OK.
