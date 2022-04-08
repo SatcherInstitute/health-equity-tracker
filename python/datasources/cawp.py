@@ -20,7 +20,7 @@ RATIO_COL = "Total Women/Total Legislators"
 PCT_W_COL = "%Women Overall"
 STATE_COL_TOTAL = "State"
 STATE_COL_LINE = "state"
-LEVEL_COL = "level"
+POSITION_COL = "position"
 
 # PROPUB COLUMNS
 IN_OFFICE_COL = "in_office"
@@ -44,8 +44,14 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
 }
 
 CAWP_DATA_TYPES = {
-    STATE_COL_LINE: ["Territorial/D.C.", "State Legislative"],
-    NATIONAL: ["U.S. Delegate", "Congress"],
+    # TODO : this is causing a miscount for territories,
+    # because territorial governors share the "Territorial/D.C." 'level' column of gov
+    # instead need to match the ['position'] column for
+    # for ["Territorial/D.C. Senator", "Territorial/D.C. Representative", "State Legislative"]
+    # STATE: ["Territorial/D.C.", "State Legislative"],
+    STATE: ["Territorial/D.C. Senator", "Territorial/D.C. Representative", "State Representative", "State Senator"],
+    # NATIONAL: ["U.S. Delegate", "Congress"],
+    NATIONAL: ["U.S. Representative", "U.S. Senator", "U.S. Delegate"]
 }
 
 
@@ -115,7 +121,7 @@ def count_matching_rows(df, place_name: str, gov_level: str, race_to_match: str)
      race_ethnicity column. It then counts the number of
     rows where those conditions are all met  """
 
-    df = df[(df[LEVEL_COL].isin(CAWP_DATA_TYPES[gov_level]))]
+    df = df[(df[POSITION_COL].isin(CAWP_DATA_TYPES[gov_level]))]
 
     # to get national values, don't restrict by state
     if place_name != constants.US_NAME:
@@ -174,7 +180,7 @@ class CAWPData(DataSource):
         # load in line-item table from CAWP with all women all levels by race/state
         df_line_items = gcs_to_bq_util.load_csv_as_df_from_data_dir(
             'cawp', CAWP_LINE_ITEMS_FILE)
-        df_line_items = df_line_items[[LEVEL_COL, STATE_COL_LINE, RACE_COL]]
+        df_line_items = df_line_items[[POSITION_COL, STATE_COL_LINE, RACE_COL]]
         df_line_items = df_line_items.dropna()
         df_line_items[STATE_COL_LINE] = df_line_items[STATE_COL_LINE].apply(
             get_standard_code_from_cawp_phrase)

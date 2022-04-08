@@ -1513,8 +1513,8 @@
     },
     {
         "state_name": "Guam",
-        "women_state_leg_pct": 46.7,
-        "women_state_leg_pct_share": 70.0,
+        "women_state_leg_pct": 40.0,
+        "women_state_leg_pct_share": 66.7,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
         "race_category_id": "ASIAN_PAC",
@@ -1612,7 +1612,7 @@
     {
         "state_name": "Guam",
         "women_state_leg_pct": 20.0,
-        "women_state_leg_pct_share": 30.0,
+        "women_state_leg_pct_share": 33.3,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
         "race_category_id": "UNKNOWN",
@@ -1625,7 +1625,7 @@
     },
     {
         "state_name": "Guam",
-        "women_state_leg_pct": 66.7,
+        "women_state_leg_pct": 60.0,
         "women_state_leg_pct_share": 100.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,

@@ -15,7 +15,8 @@ from datasources.cawp import (CAWPData,
                               count_matching_rows,
                               remove_markup,
                               NATIONAL,
-                              STATE)
+                              STATE,
+                              POSITION_COL, RACE_COL)
 
 from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
@@ -53,8 +54,9 @@ def test_get_pct():
 def test_count_matching_rows():
     df_test = pd.DataFrame(
         {std_col.STATE_NAME_COL: ["Florida", "Florida", "Puerto Rico", "Puerto Rico", "Maine", "Maine"],
-         'race_ethnicity': ["Black, White", "Black", "Black", "Black", "White", "Multiracial Alone"],
-         'level': ["Congress", "State Legislative", "Territorial/D.C.", "U.S. Delegate", "Congress", "Congress"]})
+         RACE_COL: ["Black, White", "Black", "Black", "Black", "White", "Multiracial Alone"],
+         POSITION_COL: ["U.S. Senator", "State Senator", "Territorial/D.C. Representative",
+         "U.S. Delegate", "U.S. Representative", "U.S. Representative"]})
 
     assert count_matching_rows(
         df_test, "United States", NATIONAL, "Black") == 2
