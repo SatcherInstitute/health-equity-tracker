@@ -88,6 +88,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     90 /* default width during initialization */
   );
 
+  // props.hideLegend && props.hideLegend && console.log(props);
+
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery("(max-width:400px)");
 

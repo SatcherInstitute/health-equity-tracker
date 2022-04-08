@@ -12,7 +12,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Florida",
@@ -27,7 +27,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Illinois",
@@ -42,7 +42,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Michigan",
@@ -57,7 +57,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Minnesota",
@@ -72,7 +72,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New York",
@@ -87,7 +87,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Texas",
@@ -102,7 +102,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Washington",
@@ -117,7 +117,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New York",
@@ -132,7 +132,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "California",
@@ -147,7 +147,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Minnesota",
@@ -162,7 +162,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "California",
@@ -177,7 +177,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Arkansas",
@@ -192,11 +192,11 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Guam",
-        "women_state_leg_pct": "66.7",
+        "women_state_leg_pct": "60",
         "women_state_leg_pct_share": "100",
         "women_us_congress_pct": "0",
         "women_us_congress_pct_share": "0",
@@ -207,7 +207,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Idaho",
@@ -222,7 +222,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Kentucky",
@@ -237,7 +237,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Maryland",
@@ -252,7 +252,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Montana",
@@ -267,7 +267,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "North Dakota",
@@ -282,7 +282,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Northern Mariana Islands",
@@ -297,7 +297,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Rhode Island",
@@ -312,7 +312,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "South Dakota",
@@ -327,7 +327,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Utah",
@@ -342,7 +342,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Vermont",
@@ -357,7 +357,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Alabama",
@@ -372,7 +372,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "American Samoa",
@@ -387,7 +387,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Arkansas",
@@ -402,7 +402,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Delaware",
@@ -417,7 +417,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "District of Columbia",
@@ -432,7 +432,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Guam",
@@ -447,7 +447,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Hawaii",
@@ -462,7 +462,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Idaho",
@@ -477,7 +477,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Kansas",
@@ -492,7 +492,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Kentucky",
@@ -507,7 +507,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Maryland",
@@ -522,7 +522,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Montana",
@@ -537,7 +537,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "North Dakota",
@@ -552,7 +552,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Northern Mariana Islands",
@@ -567,7 +567,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Puerto Rico",
@@ -582,7 +582,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Rhode Island",
@@ -597,7 +597,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "South Dakota",
@@ -612,7 +612,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "U.S. Virgin Islands",
@@ -627,7 +627,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Utah",
@@ -642,7 +642,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Vermont",
@@ -657,7 +657,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Alabama",
@@ -672,7 +672,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Alaska",
@@ -687,7 +687,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "American Samoa",
@@ -702,7 +702,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Arizona",
@@ -717,7 +717,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Arkansas",
@@ -732,7 +732,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "California",
@@ -747,7 +747,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Colorado",
@@ -762,7 +762,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Connecticut",
@@ -777,7 +777,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Delaware",
@@ -792,7 +792,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "District of Columbia",
@@ -807,7 +807,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Florida",
@@ -822,7 +822,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Georgia",
@@ -837,12 +837,12 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Guam",
         "women_state_leg_pct": "20",
-        "women_state_leg_pct_share": "30",
+        "women_state_leg_pct_share": "33.3",
         "women_us_congress_pct": "0",
         "women_us_congress_pct_share": "0",
         "race_category_id": "UNKNOWN",
@@ -852,7 +852,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Hawaii",
@@ -867,7 +867,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Idaho",
@@ -882,7 +882,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Illinois",
@@ -897,7 +897,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Indiana",
@@ -912,7 +912,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Iowa",
@@ -927,7 +927,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Kansas",
@@ -942,7 +942,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Kentucky",
@@ -957,7 +957,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Louisiana",
@@ -972,7 +972,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Maine",
@@ -987,7 +987,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Maryland",
@@ -1002,7 +1002,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Massachusetts",
@@ -1017,7 +1017,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Michigan",
@@ -1032,7 +1032,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Minnesota",
@@ -1047,7 +1047,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Mississippi",
@@ -1062,7 +1062,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Missouri",
@@ -1077,7 +1077,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Montana",
@@ -1092,7 +1092,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Nebraska",
@@ -1107,7 +1107,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Nevada",
@@ -1122,7 +1122,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Hampshire",
@@ -1137,7 +1137,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Jersey",
@@ -1152,7 +1152,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Mexico",
@@ -1167,7 +1167,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New York",
@@ -1182,7 +1182,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "North Carolina",
@@ -1197,7 +1197,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "North Dakota",
@@ -1212,7 +1212,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Northern Mariana Islands",
@@ -1227,7 +1227,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Ohio",
@@ -1242,7 +1242,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Oklahoma",
@@ -1257,7 +1257,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Oregon",
@@ -1272,7 +1272,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Pennsylvania",
@@ -1287,7 +1287,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Puerto Rico",
@@ -1302,7 +1302,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Rhode Island",
@@ -1317,7 +1317,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "South Carolina",
@@ -1332,7 +1332,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "South Dakota",
@@ -1347,7 +1347,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Tennessee",
@@ -1362,7 +1362,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Texas",
@@ -1377,7 +1377,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "U.S. Virgin Islands",
@@ -1392,7 +1392,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Utah",
@@ -1407,7 +1407,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Vermont",
@@ -1422,7 +1422,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Virginia",
@@ -1437,7 +1437,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Washington",
@@ -1452,7 +1452,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "West Virginia",
@@ -1467,7 +1467,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Wisconsin",
@@ -1482,7 +1482,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Wyoming",
@@ -1497,7 +1497,7 @@
         "race": "Unknown race",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Unknown race",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Alabama",
@@ -1512,7 +1512,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Alaska",
@@ -1527,7 +1527,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "American Samoa",
@@ -1542,7 +1542,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Arizona",
@@ -1557,7 +1557,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Arkansas",
@@ -1572,7 +1572,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "California",
@@ -1587,7 +1587,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Colorado",
@@ -1602,7 +1602,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Connecticut",
@@ -1617,7 +1617,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Delaware",
@@ -1632,7 +1632,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "District of Columbia",
@@ -1647,7 +1647,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Florida",
@@ -1662,7 +1662,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Georgia",
@@ -1677,7 +1677,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Guam",
@@ -1692,7 +1692,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Hawaii",
@@ -1707,7 +1707,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Idaho",
@@ -1722,7 +1722,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Illinois",
@@ -1737,7 +1737,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Indiana",
@@ -1752,7 +1752,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Iowa",
@@ -1767,7 +1767,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Kansas",
@@ -1782,7 +1782,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Kentucky",
@@ -1797,7 +1797,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Louisiana",
@@ -1812,7 +1812,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Maine",
@@ -1827,7 +1827,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Maryland",
@@ -1842,7 +1842,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Massachusetts",
@@ -1857,7 +1857,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Michigan",
@@ -1872,7 +1872,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Minnesota",
@@ -1887,7 +1887,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Mississippi",
@@ -1902,7 +1902,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Missouri",
@@ -1917,7 +1917,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Montana",
@@ -1932,7 +1932,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Nebraska",
@@ -1947,7 +1947,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Nevada",
@@ -1962,7 +1962,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Hampshire",
@@ -1977,7 +1977,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Jersey",
@@ -1992,7 +1992,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Mexico",
@@ -2007,7 +2007,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "North Carolina",
@@ -2022,7 +2022,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "North Dakota",
@@ -2037,7 +2037,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Northern Mariana Islands",
@@ -2052,7 +2052,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Ohio",
@@ -2067,7 +2067,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Oklahoma",
@@ -2082,7 +2082,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Oregon",
@@ -2097,7 +2097,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Pennsylvania",
@@ -2112,7 +2112,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Puerto Rico",
@@ -2127,7 +2127,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Rhode Island",
@@ -2142,7 +2142,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "South Carolina",
@@ -2157,7 +2157,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "South Dakota",
@@ -2172,7 +2172,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Tennessee",
@@ -2187,7 +2187,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Texas",
@@ -2202,7 +2202,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "U.S. Virgin Islands",
@@ -2217,7 +2217,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Utah",
@@ -2232,7 +2232,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Vermont",
@@ -2247,7 +2247,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Virginia",
@@ -2262,7 +2262,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "West Virginia",
@@ -2277,7 +2277,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Wisconsin",
@@ -2292,7 +2292,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Wyoming",
@@ -2307,7 +2307,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Alabama",
@@ -2322,7 +2322,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Alaska",
@@ -2337,7 +2337,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "American Samoa",
@@ -2352,7 +2352,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Arizona",
@@ -2367,7 +2367,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Arkansas",
@@ -2382,7 +2382,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Colorado",
@@ -2397,7 +2397,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Connecticut",
@@ -2412,7 +2412,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Delaware",
@@ -2427,7 +2427,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "District of Columbia",
@@ -2442,7 +2442,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Georgia",
@@ -2457,7 +2457,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Guam",
@@ -2472,7 +2472,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Hawaii",
@@ -2487,7 +2487,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Idaho",
@@ -2502,7 +2502,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Illinois",
@@ -2517,7 +2517,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Indiana",
@@ -2532,7 +2532,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Iowa",
@@ -2547,7 +2547,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Kansas",
@@ -2562,7 +2562,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Kentucky",
@@ -2577,7 +2577,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Louisiana",
@@ -2592,7 +2592,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Maine",
@@ -2607,7 +2607,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Maryland",
@@ -2622,7 +2622,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Massachusetts",
@@ -2637,7 +2637,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Michigan",
@@ -2652,7 +2652,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Minnesota",
@@ -2667,7 +2667,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Mississippi",
@@ -2682,7 +2682,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Missouri",
@@ -2697,7 +2697,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Montana",
@@ -2712,7 +2712,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Nebraska",
@@ -2727,7 +2727,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Hampshire",
@@ -2742,7 +2742,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Jersey",
@@ -2757,7 +2757,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "North Carolina",
@@ -2772,7 +2772,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "North Dakota",
@@ -2787,7 +2787,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Northern Mariana Islands",
@@ -2802,7 +2802,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Ohio",
@@ -2817,7 +2817,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Oklahoma",
@@ -2832,7 +2832,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Oregon",
@@ -2847,7 +2847,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Pennsylvania",
@@ -2862,7 +2862,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Rhode Island",
@@ -2877,7 +2877,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "South Carolina",
@@ -2892,7 +2892,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "South Dakota",
@@ -2907,7 +2907,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Tennessee",
@@ -2922,7 +2922,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "U.S. Virgin Islands",
@@ -2937,7 +2937,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Utah",
@@ -2952,7 +2952,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Vermont",
@@ -2967,7 +2967,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Virginia",
@@ -2982,7 +2982,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "West Virginia",
@@ -2997,7 +2997,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Wisconsin",
@@ -3012,7 +3012,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Wyoming",
@@ -3027,7 +3027,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Alaska",
@@ -3042,7 +3042,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "American Samoa",
@@ -3057,7 +3057,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Arizona",
@@ -3072,7 +3072,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Arkansas",
@@ -3087,7 +3087,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Colorado",
@@ -3102,7 +3102,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Guam",
@@ -3117,7 +3117,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Hawaii",
@@ -3132,7 +3132,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Idaho",
@@ -3147,7 +3147,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Indiana",
@@ -3162,7 +3162,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Iowa",
@@ -3177,7 +3177,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Kansas",
@@ -3192,7 +3192,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Kentucky",
@@ -3207,7 +3207,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Louisiana",
@@ -3222,7 +3222,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Maine",
@@ -3237,7 +3237,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Maryland",
@@ -3252,7 +3252,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Mississippi",
@@ -3267,7 +3267,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Montana",
@@ -3282,7 +3282,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Nebraska",
@@ -3297,7 +3297,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Nevada",
@@ -3312,7 +3312,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Hampshire",
@@ -3327,7 +3327,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Mexico",
@@ -3342,7 +3342,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "North Dakota",
@@ -3357,7 +3357,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Northern Mariana Islands",
@@ -3372,7 +3372,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Oklahoma",
@@ -3387,7 +3387,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Oregon",
@@ -3402,7 +3402,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Pennsylvania",
@@ -3417,7 +3417,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Puerto Rico",
@@ -3432,7 +3432,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Rhode Island",
@@ -3447,7 +3447,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "South Carolina",
@@ -3462,7 +3462,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "South Dakota",
@@ -3477,7 +3477,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Tennessee",
@@ -3492,7 +3492,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Utah",
@@ -3507,7 +3507,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Vermont",
@@ -3522,7 +3522,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Virginia",
@@ -3537,7 +3537,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "West Virginia",
@@ -3552,7 +3552,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Wyoming",
@@ -3567,7 +3567,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Alabama",
@@ -3582,7 +3582,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Alaska",
@@ -3597,7 +3597,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "American Samoa",
@@ -3612,7 +3612,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Arizona",
@@ -3627,7 +3627,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Arkansas",
@@ -3642,7 +3642,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "California",
@@ -3657,7 +3657,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Colorado",
@@ -3672,7 +3672,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Connecticut",
@@ -3687,7 +3687,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Delaware",
@@ -3702,7 +3702,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "District of Columbia",
@@ -3717,7 +3717,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Florida",
@@ -3732,7 +3732,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Georgia",
@@ -3747,7 +3747,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Guam",
@@ -3762,7 +3762,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Hawaii",
@@ -3777,7 +3777,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Idaho",
@@ -3792,7 +3792,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Illinois",
@@ -3807,7 +3807,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Indiana",
@@ -3822,7 +3822,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Iowa",
@@ -3837,7 +3837,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Kansas",
@@ -3852,7 +3852,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Kentucky",
@@ -3867,7 +3867,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Louisiana",
@@ -3882,7 +3882,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Maine",
@@ -3897,7 +3897,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Maryland",
@@ -3912,7 +3912,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Massachusetts",
@@ -3927,7 +3927,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Minnesota",
@@ -3942,7 +3942,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Mississippi",
@@ -3957,7 +3957,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Missouri",
@@ -3972,7 +3972,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Montana",
@@ -3987,7 +3987,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Nebraska",
@@ -4002,7 +4002,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Nevada",
@@ -4017,7 +4017,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Hampshire",
@@ -4032,7 +4032,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Jersey",
@@ -4047,7 +4047,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Mexico",
@@ -4062,7 +4062,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New York",
@@ -4077,7 +4077,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "North Carolina",
@@ -4092,7 +4092,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "North Dakota",
@@ -4107,7 +4107,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Northern Mariana Islands",
@@ -4122,7 +4122,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Ohio",
@@ -4137,7 +4137,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Oklahoma",
@@ -4152,7 +4152,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Oregon",
@@ -4167,7 +4167,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Pennsylvania",
@@ -4182,7 +4182,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Puerto Rico",
@@ -4197,7 +4197,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Rhode Island",
@@ -4212,7 +4212,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "South Carolina",
@@ -4227,7 +4227,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "South Dakota",
@@ -4242,7 +4242,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Tennessee",
@@ -4257,7 +4257,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Texas",
@@ -4272,7 +4272,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "U.S. Virgin Islands",
@@ -4287,7 +4287,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Utah",
@@ -4302,7 +4302,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Vermont",
@@ -4317,7 +4317,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Virginia",
@@ -4332,7 +4332,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Washington",
@@ -4347,7 +4347,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "West Virginia",
@@ -4362,7 +4362,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Wisconsin",
@@ -4377,7 +4377,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Wyoming",
@@ -4392,7 +4392,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Alabama",
@@ -4407,7 +4407,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Alaska",
@@ -4422,7 +4422,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Arizona",
@@ -4437,7 +4437,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Arkansas",
@@ -4452,7 +4452,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Colorado",
@@ -4467,7 +4467,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Connecticut",
@@ -4482,7 +4482,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Delaware",
@@ -4497,7 +4497,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "District of Columbia",
@@ -4512,7 +4512,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Georgia",
@@ -4527,12 +4527,12 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Guam",
-        "women_state_leg_pct": "46.7",
-        "women_state_leg_pct_share": "70",
+        "women_state_leg_pct": "40",
+        "women_state_leg_pct_share": "66.7",
         "women_us_congress_pct": "0",
         "women_us_congress_pct_share": "0",
         "race_category_id": "ASIAN_PAC",
@@ -4542,7 +4542,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Idaho",
@@ -4557,7 +4557,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Indiana",
@@ -4572,7 +4572,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Iowa",
@@ -4587,7 +4587,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Kansas",
@@ -4602,7 +4602,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Kentucky",
@@ -4617,7 +4617,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Louisiana",
@@ -4632,7 +4632,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Maine",
@@ -4647,7 +4647,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Maryland",
@@ -4662,7 +4662,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Massachusetts",
@@ -4677,7 +4677,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Michigan",
@@ -4692,7 +4692,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Minnesota",
@@ -4707,7 +4707,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Mississippi",
@@ -4722,7 +4722,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Missouri",
@@ -4737,7 +4737,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Montana",
@@ -4752,7 +4752,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Nebraska",
@@ -4767,7 +4767,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Nevada",
@@ -4782,7 +4782,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Hampshire",
@@ -4797,7 +4797,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Jersey",
@@ -4812,7 +4812,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Mexico",
@@ -4827,7 +4827,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "North Carolina",
@@ -4842,7 +4842,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "North Dakota",
@@ -4857,7 +4857,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Northern Mariana Islands",
@@ -4872,7 +4872,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Ohio",
@@ -4887,7 +4887,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Oklahoma",
@@ -4902,7 +4902,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Oregon",
@@ -4917,7 +4917,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Pennsylvania",
@@ -4932,7 +4932,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Puerto Rico",
@@ -4947,7 +4947,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Rhode Island",
@@ -4962,7 +4962,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "South Carolina",
@@ -4977,7 +4977,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "South Dakota",
@@ -4992,7 +4992,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Tennessee",
@@ -5007,7 +5007,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Texas",
@@ -5022,7 +5022,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "U.S. Virgin Islands",
@@ -5037,7 +5037,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Utah",
@@ -5052,7 +5052,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Vermont",
@@ -5067,7 +5067,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Virginia",
@@ -5082,7 +5082,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "West Virginia",
@@ -5097,7 +5097,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Wisconsin",
@@ -5112,7 +5112,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Wyoming",
@@ -5127,7 +5127,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Alabama",
@@ -5142,7 +5142,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Alaska",
@@ -5157,7 +5157,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "American Samoa",
@@ -5172,7 +5172,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Arizona",
@@ -5187,7 +5187,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Arkansas",
@@ -5202,7 +5202,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "California",
@@ -5217,7 +5217,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Colorado",
@@ -5232,7 +5232,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Connecticut",
@@ -5247,7 +5247,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Delaware",
@@ -5262,7 +5262,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "District of Columbia",
@@ -5277,7 +5277,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Florida",
@@ -5292,7 +5292,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Georgia",
@@ -5307,7 +5307,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Guam",
@@ -5322,7 +5322,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Hawaii",
@@ -5337,7 +5337,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Idaho",
@@ -5352,7 +5352,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Illinois",
@@ -5367,7 +5367,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Indiana",
@@ -5382,7 +5382,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Iowa",
@@ -5397,7 +5397,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Kentucky",
@@ -5412,7 +5412,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Louisiana",
@@ -5427,7 +5427,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Maine",
@@ -5442,7 +5442,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Maryland",
@@ -5457,7 +5457,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Massachusetts",
@@ -5472,7 +5472,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Michigan",
@@ -5487,7 +5487,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Minnesota",
@@ -5502,7 +5502,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Mississippi",
@@ -5517,7 +5517,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Missouri",
@@ -5532,7 +5532,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Montana",
@@ -5547,7 +5547,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Nebraska",
@@ -5562,7 +5562,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Nevada",
@@ -5577,7 +5577,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Hampshire",
@@ -5592,7 +5592,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Jersey",
@@ -5607,7 +5607,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Mexico",
@@ -5622,7 +5622,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New York",
@@ -5637,7 +5637,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "North Carolina",
@@ -5652,7 +5652,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "North Dakota",
@@ -5667,7 +5667,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Northern Mariana Islands",
@@ -5682,7 +5682,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Ohio",
@@ -5697,7 +5697,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Oklahoma",
@@ -5712,7 +5712,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Oregon",
@@ -5727,7 +5727,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Pennsylvania",
@@ -5742,7 +5742,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Puerto Rico",
@@ -5757,7 +5757,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Rhode Island",
@@ -5772,7 +5772,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "South Carolina",
@@ -5787,7 +5787,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "South Dakota",
@@ -5802,7 +5802,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Tennessee",
@@ -5817,7 +5817,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Texas",
@@ -5832,7 +5832,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "U.S. Virgin Islands",
@@ -5847,7 +5847,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Utah",
@@ -5862,7 +5862,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Vermont",
@@ -5877,7 +5877,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Virginia",
@@ -5892,7 +5892,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Washington",
@@ -5907,7 +5907,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "West Virginia",
@@ -5922,7 +5922,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Wisconsin",
@@ -5937,7 +5937,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Wyoming",
@@ -5952,7 +5952,7 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Massachusetts",
@@ -5967,7 +5967,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Nevada",
@@ -5982,7 +5982,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "North Carolina",
@@ -5997,7 +5997,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Missouri",
@@ -6012,7 +6012,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Mexico",
@@ -6027,7 +6027,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Ohio",
@@ -6042,7 +6042,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Texas",
@@ -6057,7 +6057,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Illinois",
@@ -6072,7 +6072,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Texas",
@@ -6087,7 +6087,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Connecticut",
@@ -6102,7 +6102,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Georgia",
@@ -6117,7 +6117,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Jersey",
@@ -6132,7 +6132,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Wisconsin",
@@ -6147,7 +6147,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Connecticut",
@@ -6162,7 +6162,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Georgia",
@@ -6177,7 +6177,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Jersey",
@@ -6192,7 +6192,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Wisconsin",
@@ -6207,7 +6207,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Florida",
@@ -6222,7 +6222,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Florida",
@@ -6237,7 +6237,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Ohio",
@@ -6252,7 +6252,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Mexico",
@@ -6267,7 +6267,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Florida",
@@ -6282,7 +6282,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Missouri",
@@ -6297,7 +6297,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Michigan",
@@ -6312,7 +6312,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Michigan",
@@ -6327,7 +6327,7 @@
         "race": "Middle Eastern \u0026 North African",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Middle Eastern \u0026 North African",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Illinois",
@@ -6342,7 +6342,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "California",
@@ -6357,7 +6357,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Nevada",
@@ -6372,7 +6372,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Massachusetts",
@@ -6387,7 +6387,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "North Carolina",
@@ -6402,7 +6402,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Washington",
@@ -6417,7 +6417,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Washington",
@@ -6432,7 +6432,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Washington",
@@ -6447,7 +6447,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Washington",
@@ -6462,7 +6462,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New York",
@@ -6477,7 +6477,7 @@
         "race": "Two or more races",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New York",
@@ -6492,7 +6492,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New York",
@@ -6507,7 +6507,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Alabama",
@@ -6522,7 +6522,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Alaska",
@@ -6537,7 +6537,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "American Samoa",
@@ -6552,7 +6552,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Arizona",
@@ -6567,7 +6567,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "California",
@@ -6582,7 +6582,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Colorado",
@@ -6597,7 +6597,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Connecticut",
@@ -6612,7 +6612,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Delaware",
@@ -6627,7 +6627,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "District of Columbia",
@@ -6642,7 +6642,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Florida",
@@ -6657,7 +6657,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Georgia",
@@ -6672,7 +6672,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Hawaii",
@@ -6687,7 +6687,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Illinois",
@@ -6702,7 +6702,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Indiana",
@@ -6717,7 +6717,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Iowa",
@@ -6732,7 +6732,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Kansas",
@@ -6747,7 +6747,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Louisiana",
@@ -6762,7 +6762,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Maine",
@@ -6777,7 +6777,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Massachusetts",
@@ -6792,7 +6792,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Michigan",
@@ -6807,7 +6807,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Minnesota",
@@ -6822,7 +6822,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Mississippi",
@@ -6837,7 +6837,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Missouri",
@@ -6852,7 +6852,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Nebraska",
@@ -6867,7 +6867,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Nevada",
@@ -6882,7 +6882,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Hampshire",
@@ -6897,7 +6897,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Jersey",
@@ -6912,7 +6912,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Mexico",
@@ -6927,7 +6927,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New York",
@@ -6942,7 +6942,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "North Carolina",
@@ -6957,7 +6957,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Ohio",
@@ -6972,7 +6972,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Oklahoma",
@@ -6987,7 +6987,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Oregon",
@@ -7002,7 +7002,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Pennsylvania",
@@ -7017,7 +7017,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Puerto Rico",
@@ -7032,7 +7032,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "South Carolina",
@@ -7047,7 +7047,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Tennessee",
@@ -7062,7 +7062,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Texas",
@@ -7077,7 +7077,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "U.S. Virgin Islands",
@@ -7092,7 +7092,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Virginia",
@@ -7107,7 +7107,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Washington",
@@ -7122,7 +7122,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "West Virginia",
@@ -7137,7 +7137,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Wisconsin",
@@ -7152,7 +7152,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Wyoming",
@@ -7167,7 +7167,7 @@
         "race": "Total",
         "race_includes_hispanic": null,
         "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Alaska",
@@ -7182,7 +7182,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Arizona",
@@ -7197,7 +7197,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Colorado",
@@ -7212,7 +7212,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Indiana",
@@ -7227,7 +7227,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Iowa",
@@ -7242,7 +7242,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Louisiana",
@@ -7257,7 +7257,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Maine",
@@ -7272,7 +7272,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Mississippi",
@@ -7287,7 +7287,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Nebraska",
@@ -7302,7 +7302,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "New Hampshire",
@@ -7317,7 +7317,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Oklahoma",
@@ -7332,7 +7332,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Oregon",
@@ -7347,7 +7347,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Pennsylvania",
@@ -7362,7 +7362,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "South Carolina",
@@ -7377,7 +7377,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Tennessee",
@@ -7392,7 +7392,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Virginia",
@@ -7407,7 +7407,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "West Virginia",
@@ -7422,7 +7422,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Wyoming",
@@ -7437,7 +7437,7 @@
         "race": "White",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Puerto Rico",
@@ -7452,7 +7452,7 @@
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Alabama",
@@ -7467,7 +7467,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Delaware",
@@ -7482,7 +7482,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "District of Columbia",
@@ -7497,7 +7497,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "U.S. Virgin Islands",
@@ -7512,7 +7512,7 @@
         "race": "Black or African American",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "American Samoa",
@@ -7527,7 +7527,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Hawaii",
@@ -7542,7 +7542,7 @@
         "race": "Asian American \u0026 Pacific Islander",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Asian American \u0026 Pacific Islander",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     },
     {
         "state_name": "Kansas",
@@ -7557,6 +7557,6 @@
         "race": "Native American, Alaska Native, \u0026 Native Hawaiian",
         "race_includes_hispanic": "true",
         "race_and_ethnicity": "Native American, Alaska Native, \u0026 Native Hawaiian",
-        "ingestion_ts": "2022-04-08T03:23:55.833Z"
+        "ingestion_ts": "2022-04-08T04:41:51.895Z"
     }
 ]

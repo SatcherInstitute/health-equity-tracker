@@ -47,7 +47,6 @@ export type VariableId =
 export const COVID_VAXX: DropdownVarId = "covid_vaccinations";
 
 export type MetricId =
-  | "race_women"
   | "acs_vaccine_population_pct"
   | "brfss_population_pct"
   | "cawp_population_pct"

@@ -16,7 +16,6 @@ export const CAWP_DETERMINANTS: MetricId[] = [
   "women_us_congress_pct",
   "women_us_congress_pct_share",
   "women_us_congress_ratio_age_adjusted",
-  "race_women",
 ];
 
 class CawpProvider extends VariableProvider {
@@ -79,9 +78,6 @@ class CawpProvider extends VariableProvider {
     });
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
-
-    // for this health topic we want to keep the alternate race labels available in the data
-    metricQuery.metricIds.push("race_women");
 
     df = this.removeUnrequestedColumns(df, metricQuery);
 

@@ -87,6 +87,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             const dataForValue = props.data.filter(
               (row: Row) => row[props.breakdown] === breakdownValue
             );
+
             return (
               <Grid
                 xs={12}
@@ -99,7 +100,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 component="li"
               >
                 <b>{breakdownValue}</b>
-                {props.metricConfig && dataForValue.length ? (
+                {props.metricConfig && dataForValue.length > 0 && (
                   <ChoroplethMap
                     key={breakdownValue}
                     signalListeners={{ click: (...args: any) => {} }}
@@ -118,8 +119,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                       breakdownValue === "All" ? "" : ` for ${breakdownValue}`
                     } in ${props.fips.getFullDisplayName()}`}
                   />
-                ) : (
-                  <></>
                 )}
 
                 {/* TERRITORIES (IF NATIONAL VIEW) */}

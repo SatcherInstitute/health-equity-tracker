@@ -13,7 +13,6 @@ import CardWrapper from "./CardWrapper";
 import { exclude } from "../data/query/BreakdownFilter";
 import { NON_HISPANIC } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
-import { replaceWithWomenRaceLabels } from "../data/utils/datasetutils";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668;
@@ -64,8 +63,6 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     >
       {([queryResponse]) => {
         let data = queryResponse.getValidRowsForField(metricConfig.metricId);
-
-        if (props.useWomenRaceLabels) data = replaceWithWomenRaceLabels(data);
 
         return (
           <CardContent>
