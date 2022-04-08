@@ -28,6 +28,8 @@ RI,NHPI_NH,1,,,,1,0,0,Native Hawaiian and Pacific Islander,False,Native Hawaiian
 RI,TOTAL,1,,,,1,0,0,Total,,Total
 SD,TOTAL,1,,,,,,,Total,,Total
 SD,WHITE_NH,1,,,,,,,White,False,White (Non-Hispanic)
+TX,AIAN_NH,1,1,0,0,1,0,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+TX,TOTAL,1,1,0,0,1,0,0,Total,,Total
 Unknown,BLACK_NH,2,1,0,1,1,0,1,Black or African American,False,Black or African American (Non-Hispanic)
 Unknown,TOTAL,2,1,0,1,1,0,1,Total,,Total
 WY,AIAN_NH,1,0,1,0,0,1,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
@@ -93,6 +95,12 @@ SD,BLACK_NH,,,,,,,,Black or African American,False,Black or African American (No
 SD,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino
 SD,MULTI_OR_OTHER_STANDARD_NH,,,,,,,,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
 SD,NHPI_NH,,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+TX,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
+TX,BLACK_NH,,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
+TX,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino
+TX,MULTI_OR_OTHER_STANDARD_NH,,,,,,,,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
+TX,NHPI_NH,,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+TX,WHITE_NH,,,,,,,,White,False,White (Non-Hispanic)
 Unknown,AIAN_NH,,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
 Unknown,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
 Unknown,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino

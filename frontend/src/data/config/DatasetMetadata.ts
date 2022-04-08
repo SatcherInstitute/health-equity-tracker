@@ -135,57 +135,57 @@ const datasetMetadataList: DatasetMetadata[] = [
   {
     id: "cdc_restricted_data-by_race_county",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and County",
-    update_time: "February 2022",
+    update_time: "April 2022",
   },
   {
     id: "cdc_restricted_data-by_race_state-with_age_adjust",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Race and State",
-    update_time: "February 2022",
+    update_time: "April 2022",
   },
   {
     id: "cdc_restricted_data-by_age_county",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Age and County",
-    update_time: "February 2022",
+    update_time: "April 2022",
   },
   {
     id: "cdc_restricted_data-by_age_state",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Age and State",
-    update_time: "February 2022",
+    update_time: "April 2022",
   },
   {
     id: "cdc_restricted_data-by_sex_county",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Sex and County",
-    update_time: "February 2022",
+    update_time: "April 2022",
   },
   {
     id: "cdc_restricted_data-by_sex_state",
     name: "COVID-19 Deaths, Cases, and Hospitalizations by Sex and State",
-    update_time: "February 2022",
+    update_time: "April 2022",
   },
   {
     id: "cdc_vaccination_county-race_and_ethnicity",
     name: "COVID-19 Vaccinations by County",
-    update_time: "March 2022",
+    update_time: "April 2022",
   },
   {
     id: "cdc_vaccination_national-age",
     name: "COVID-19 Vaccination Demographics by Age",
-    update_time: "March 2022",
+    update_time: "April 2022",
   },
   {
     id: "cdc_vaccination_national-sex",
     name: "COVID-19 Vaccination Demographics by Sex",
-    update_time: "March 2022",
+    update_time: "April 2022",
   },
   {
     id: "cdc_vaccination_national-race_and_ethnicity",
     name: "COVID-19 Vaccination Demographics by Race",
-    update_time: "March 2022",
+    update_time: "April 2022",
   },
   {
     id: "kff_vaccination-race_and_ethnicity",
     name: "COVID-19 Indicators",
-    update_time: "March 2022",
+    update_time: "April 2022",
   },
   {
     id: "uhc_data-age",
