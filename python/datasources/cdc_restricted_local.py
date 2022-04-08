@@ -350,7 +350,7 @@ def process_data(dir, files):
         print("Took", round(end - start, 2), "seconds to process file", f)
 
     # Post-processing of the data.
-    for key in all_dfs:
+    for key in all_dfs.copy():
         geo, demographic = key
 
         # Some brief sanity checks to make sure the data is OK.
