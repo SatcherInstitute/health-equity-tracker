@@ -883,8 +883,8 @@
     },
     {
         "state_name": "Connecticut",
-        "women_state_leg_pct": 0.5,
-        "women_state_leg_pct_share": 1.6,
+        "women_state_leg_pct": 1.1,
+        "women_state_leg_pct_share": 3.1,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
         "race_category_id": "ASIAN_PAC",
@@ -898,7 +898,7 @@
     {
         "state_name": "Connecticut",
         "women_state_leg_pct": 1.1,
-        "women_state_leg_pct_share": 3.2,
+        "women_state_leg_pct_share": 3.1,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
         "race_category_id": "HISP",
@@ -954,7 +954,7 @@
     {
         "state_name": "Connecticut",
         "women_state_leg_pct": 3.7,
-        "women_state_leg_pct_share": 11.1,
+        "women_state_leg_pct_share": 10.9,
         "women_us_congress_pct": 14.3,
         "women_us_congress_pct_share": 50.0,
         "race_category_id": "BLACK",
@@ -968,7 +968,7 @@
     {
         "state_name": "Connecticut",
         "women_state_leg_pct": 28.3,
-        "women_state_leg_pct_share": 84.1,
+        "women_state_leg_pct_share": 82.8,
         "women_us_congress_pct": 14.3,
         "women_us_congress_pct_share": 50.0,
         "race_category_id": "WHITE",
@@ -995,7 +995,7 @@
     },
     {
         "state_name": "Connecticut",
-        "women_state_leg_pct": 33.7,
+        "women_state_leg_pct": 34.2,
         "women_state_leg_pct_share": 100.0,
         "women_us_congress_pct": 28.6,
         "women_us_congress_pct_share": 100.0,
@@ -1276,7 +1276,7 @@
     {
         "state_name": "Florida",
         "women_state_leg_pct": 5.0,
-        "women_state_leg_pct_share": 14.5,
+        "women_state_leg_pct_share": 14.3,
         "women_us_congress_pct": 3.3,
         "women_us_congress_pct_share": 11.1,
         "race_category_id": "HISP",
@@ -1331,8 +1331,8 @@
     },
     {
         "state_name": "Florida",
-        "women_state_leg_pct": 8.8,
-        "women_state_leg_pct_share": 25.5,
+        "women_state_leg_pct": 9.4,
+        "women_state_leg_pct_share": 26.8,
         "women_us_congress_pct": 10.0,
         "women_us_congress_pct_share": 33.3,
         "race_category_id": "BLACK",
@@ -1346,7 +1346,7 @@
     {
         "state_name": "Florida",
         "women_state_leg_pct": 20.0,
-        "women_state_leg_pct_share": 58.2,
+        "women_state_leg_pct_share": 57.1,
         "women_us_congress_pct": 13.3,
         "women_us_congress_pct_share": 44.4,
         "race_category_id": "WHITE",
@@ -1373,7 +1373,7 @@
     },
     {
         "state_name": "Florida",
-        "women_state_leg_pct": 34.4,
+        "women_state_leg_pct": 35.0,
         "women_state_leg_pct_share": 100.0,
         "women_us_congress_pct": 30.0,
         "women_us_congress_pct_share": 100.0,
@@ -1892,7 +1892,7 @@
     {
         "state_name": "Illinois",
         "women_state_leg_pct": 2.3,
-        "women_state_leg_pct_share": 5.6,
+        "women_state_leg_pct_share": 5.5,
         "women_us_congress_pct": 5.0,
         "women_us_congress_pct_share": 14.3,
         "race_category_id": "ASIAN_PAC",
@@ -1906,7 +1906,7 @@
     {
         "state_name": "Illinois",
         "women_state_leg_pct": 5.6,
-        "women_state_leg_pct_share": 13.9,
+        "women_state_leg_pct_share": 13.7,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
         "race_category_id": "HISP",
@@ -1934,7 +1934,7 @@
     {
         "state_name": "Illinois",
         "women_state_leg_pct": 1.1,
-        "women_state_leg_pct_share": 2.8,
+        "women_state_leg_pct_share": 2.7,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
         "race_category_id": "MULTI",
@@ -1962,7 +1962,7 @@
     {
         "state_name": "Illinois",
         "women_state_leg_pct": 7.9,
-        "women_state_leg_pct_share": 19.4,
+        "women_state_leg_pct_share": 19.2,
         "women_us_congress_pct": 10.0,
         "women_us_congress_pct_share": 28.6,
         "race_category_id": "BLACK",
@@ -1975,8 +1975,8 @@
     },
     {
         "state_name": "Illinois",
-        "women_state_leg_pct": 24.3,
-        "women_state_leg_pct_share": 59.7,
+        "women_state_leg_pct": 24.9,
+        "women_state_leg_pct_share": 60.3,
         "women_us_congress_pct": 20.0,
         "women_us_congress_pct_share": 57.1,
         "race_category_id": "WHITE",
@@ -2003,7 +2003,7 @@
     },
     {
         "state_name": "Illinois",
-        "women_state_leg_pct": 40.7,
+        "women_state_leg_pct": 41.2,
         "women_state_leg_pct_share": 100.0,
         "women_us_congress_pct": 35.0,
         "women_us_congress_pct_share": 100.0,
@@ -2396,7 +2396,7 @@
     {
         "state_name": "Kentucky",
         "women_state_leg_pct": 0.7,
-        "women_state_leg_pct_share": 2.7,
+        "women_state_leg_pct_share": 2.6,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
         "race_category_id": "ASIAN_PAC",
@@ -2465,8 +2465,8 @@
     },
     {
         "state_name": "Kentucky",
-        "women_state_leg_pct": 1.4,
-        "women_state_leg_pct_share": 5.4,
+        "women_state_leg_pct": 2.2,
+        "women_state_leg_pct_share": 7.9,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
         "race_category_id": "BLACK",
@@ -2480,7 +2480,7 @@
     {
         "state_name": "Kentucky",
         "women_state_leg_pct": 24.6,
-        "women_state_leg_pct_share": 91.9,
+        "women_state_leg_pct_share": 89.5,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
         "race_category_id": "WHITE",
@@ -2507,7 +2507,7 @@
     },
     {
         "state_name": "Kentucky",
-        "women_state_leg_pct": 26.8,
+        "women_state_leg_pct": 27.5,
         "women_state_leg_pct_share": 100.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
@@ -2900,7 +2900,7 @@
     {
         "state_name": "Massachusetts",
         "women_state_leg_pct": 2.0,
-        "women_state_leg_pct_share": 6.6,
+        "women_state_leg_pct_share": 6.7,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
         "race_category_id": "ASIAN_PAC",
@@ -2914,7 +2914,7 @@
     {
         "state_name": "Massachusetts",
         "women_state_leg_pct": 0.5,
-        "women_state_leg_pct_share": 1.6,
+        "women_state_leg_pct_share": 1.7,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
         "race_category_id": "HISP",
@@ -2928,7 +2928,7 @@
     {
         "state_name": "Massachusetts",
         "women_state_leg_pct": 0.5,
-        "women_state_leg_pct_share": 1.6,
+        "women_state_leg_pct_share": 1.7,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
         "race_category_id": "MENA",
@@ -2942,7 +2942,7 @@
     {
         "state_name": "Massachusetts",
         "women_state_leg_pct": 1.5,
-        "women_state_leg_pct_share": 4.9,
+        "women_state_leg_pct_share": 5.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
         "race_category_id": "MULTI",
@@ -2970,7 +2970,7 @@
     {
         "state_name": "Massachusetts",
         "women_state_leg_pct": 2.5,
-        "women_state_leg_pct_share": 8.2,
+        "women_state_leg_pct_share": 8.3,
         "women_us_congress_pct": 9.1,
         "women_us_congress_pct_share": 25.0,
         "race_category_id": "BLACK",
@@ -2983,8 +2983,8 @@
     },
     {
         "state_name": "Massachusetts",
-        "women_state_leg_pct": 25.5,
-        "women_state_leg_pct_share": 83.6,
+        "women_state_leg_pct": 25.0,
+        "women_state_leg_pct_share": 83.3,
         "women_us_congress_pct": 27.3,
         "women_us_congress_pct_share": 75.0,
         "race_category_id": "WHITE",
@@ -3011,7 +3011,7 @@
     },
     {
         "state_name": "Massachusetts",
-        "women_state_leg_pct": 30.5,
+        "women_state_leg_pct": 30.0,
         "women_state_leg_pct_share": 100.0,
         "women_us_congress_pct": 36.4,
         "women_us_congress_pct_share": 100.0,
@@ -5868,7 +5868,7 @@
     {
         "state_name": "Tennessee",
         "women_state_leg_pct": 3.8,
-        "women_state_leg_pct_share": 23.8,
+        "women_state_leg_pct_share": 25.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
         "race_category_id": "BLACK",
@@ -5881,8 +5881,8 @@
     },
     {
         "state_name": "Tennessee",
-        "women_state_leg_pct": 12.1,
-        "women_state_leg_pct_share": 76.2,
+        "women_state_leg_pct": 11.4,
+        "women_state_leg_pct_share": 75.0,
         "women_us_congress_pct": 18.2,
         "women_us_congress_pct_share": 100.0,
         "race_category_id": "WHITE",
@@ -5909,7 +5909,7 @@
     },
     {
         "state_name": "Tennessee",
-        "women_state_leg_pct": 15.9,
+        "women_state_leg_pct": 15.2,
         "women_state_leg_pct_share": 100.0,
         "women_us_congress_pct": 18.2,
         "women_us_congress_pct_share": 100.0,
@@ -5924,7 +5924,7 @@
     {
         "state_name": "Texas",
         "women_state_leg_pct": 0.6,
-        "women_state_leg_pct_share": 2.1,
+        "women_state_leg_pct_share": 2.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
         "race_category_id": "ASIAN_PAC",
@@ -5937,8 +5937,8 @@
     },
     {
         "state_name": "Texas",
-        "women_state_leg_pct": 9.4,
-        "women_state_leg_pct_share": 35.4,
+        "women_state_leg_pct": 9.9,
+        "women_state_leg_pct_share": 36.7,
         "women_us_congress_pct": 5.3,
         "women_us_congress_pct_share": 28.6,
         "race_category_id": "HISP",
@@ -5965,8 +5965,8 @@
     },
     {
         "state_name": "Texas",
-        "women_state_leg_pct": 0.6,
-        "women_state_leg_pct_share": 2.1,
+        "women_state_leg_pct": 1.1,
+        "women_state_leg_pct_share": 4.1,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
         "race_category_id": "MULTI",
@@ -5994,7 +5994,7 @@
     {
         "state_name": "Texas",
         "women_state_leg_pct": 5.5,
-        "women_state_leg_pct_share": 20.8,
+        "women_state_leg_pct_share": 20.4,
         "women_us_congress_pct": 5.3,
         "women_us_congress_pct_share": 28.6,
         "race_category_id": "BLACK",
@@ -6007,8 +6007,8 @@
     },
     {
         "state_name": "Texas",
-        "women_state_leg_pct": 11.6,
-        "women_state_leg_pct_share": 43.8,
+        "women_state_leg_pct": 12.2,
+        "women_state_leg_pct_share": 44.9,
         "women_us_congress_pct": 7.9,
         "women_us_congress_pct_share": 42.9,
         "race_category_id": "WHITE",
@@ -6035,7 +6035,7 @@
     },
     {
         "state_name": "Texas",
-        "women_state_leg_pct": 26.5,
+        "women_state_leg_pct": 27.1,
         "women_state_leg_pct_share": 100.0,
         "women_us_congress_pct": 18.4,
         "women_us_congress_pct_share": 100.0,

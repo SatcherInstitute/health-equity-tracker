@@ -220,10 +220,6 @@ class CAWPData(DataSource):
         df_us_congress_totals = df_us_congress_totals.sort_values(
             by=[std_col.STATE_NAME_COL]).reset_index()
 
-        print(df_us_congress_totals.to_string())
-
-        print(df_us_congress_totals[COUNT_ALL].sum())
-
         # set column types for BigQuery
         column_types = {}
         column_types[std_col.STATE_NAME_COL] = 'STRING'

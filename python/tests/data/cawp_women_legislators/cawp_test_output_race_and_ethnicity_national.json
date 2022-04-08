@@ -16,7 +16,7 @@
     {
         "state_name": "United States",
         "women_state_leg_pct": 2.1,
-        "women_state_leg_pct_share": 6.6,
+        "women_state_leg_pct_share": 6.7,
         "women_us_congress_pct": 2.8,
         "women_us_congress_pct_share": 10.1,
         "race_category_id": "HISP",
@@ -44,7 +44,7 @@
     {
         "state_name": "United States",
         "women_state_leg_pct": 0.6,
-        "women_state_leg_pct_share": 2.0,
+        "women_state_leg_pct_share": 2.1,
         "women_us_congress_pct": 0.4,
         "women_us_congress_pct_share": 1.3,
         "race_category_id": "MULTI",
@@ -71,7 +71,7 @@
     },
     {
         "state_name": "United States",
-        "women_state_leg_pct": 4.9,
+        "women_state_leg_pct": 5.0,
         "women_state_leg_pct_share": 15.9,
         "women_us_congress_pct": 5.2,
         "women_us_congress_pct_share": 18.8,
