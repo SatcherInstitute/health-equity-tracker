@@ -300,7 +300,6 @@ def post_process(breakdown_df, breakdown, geo):
                 breakdown_df, raw_count_col, pct_share_col, breakdown, total_val)
 
     for determinant in UHC_DETERMINANTS.values():
-        print(breakdown_df.to_string())
         breakdown_df = breakdown_df.drop(columns=std_col.generate_column_name(determinant, 'estimated_total'))
 
     breakdown_df = breakdown_df.drop(columns=std_col.POPULATION_COL)
