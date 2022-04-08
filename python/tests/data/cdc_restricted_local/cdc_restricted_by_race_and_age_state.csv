@@ -36,6 +36,8 @@ RI,NHPI_NH,40-49,1,,,,1,0,0,Native Hawaiian and Pacific Islander,False,Native Ha
 RI,TOTAL,,1,,,,1,0,0,Total,,Total
 SD,TOTAL,,1,,,,,,,Total,,Total
 SD,WHITE_NH,50-59,1,,,,,,,White,False,White (Non-Hispanic)
+TX,AIAN_NH,0-9,1,1,0,0,1,0,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+TX,TOTAL,,1,1,0,0,1,0,0,Total,,Total
 Unknown,BLACK_NH,30-39,1,0,0,1,0,0,1,Black or African American,False,Black or African American (Non-Hispanic)
 Unknown,BLACK_NH,40-49,1,1,0,0,1,0,0,Black or African American,False,Black or African American (Non-Hispanic)
 Unknown,TOTAL,,2,1,0,1,1,0,1,Total,,Total

@@ -28,6 +28,8 @@ county_fips,county_name,state_postal,sex,cases,hosp_y,hosp_n,hosp_unknown,death_
 46005,BEADLE,SD,Total,1,,,,,,
 47037,DAVIDSON,MD,Female,1,0,0,1,1,0,0
 47037,DAVIDSON,MD,Total,1,0,0,1,1,0,0
+48167,GALVESTON,TX,Male,1,1,0,0,1,0,0
+48167,GALVESTON,TX,Total,1,1,0,0,1,0,0
 56005,CAMPBELL,WY,Male,1,0,1,0,0,1,0
 56005,CAMPBELL,WY,Total,1,0,1,0,0,1,0
 ,Unknown,Unknown,Male,,,,,,,
@@ -59,5 +61,7 @@ county_fips,county_name,state_postal,sex,cases,hosp_y,hosp_n,hosp_unknown,death_
 46005,BEADLE,SD,Other,,,,,,,
 47037,DAVIDSON,MD,Male,,,,,,,
 47037,DAVIDSON,MD,Other,,,,,,,
+48167,GALVESTON,TX,Female,,,,,,,
+48167,GALVESTON,TX,Other,,,,,,,
 56005,CAMPBELL,WY,Female,,,,,,,
 56005,CAMPBELL,WY,Other,,,,,,,
