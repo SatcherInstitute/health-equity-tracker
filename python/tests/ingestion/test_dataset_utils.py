@@ -142,7 +142,7 @@ _pop_data = [
     ['100', 'BLACK_NH', '100', '50'],
 ]
 
-_expected_merged_with_pop_numnbers = [
+_expected_merged_with_pop_numbers = [
     ['state_fips', 'race_category_id', 'population', 'population_pct', 'other_col'],
     ['01', 'BLACK_NH', '100', '25', 'something_cool'],
     ['01', 'WHITE_NH', '300', '75', 'something_else_cool'],
