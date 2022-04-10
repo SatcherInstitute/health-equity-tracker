@@ -23,6 +23,8 @@ RI,Total,1,,,,1,0,0
 RI,Unknown,1,,,,1,0,0
 SD,Male,1,,,,,,
 SD,Total,1,,,,,,
+TX,Male,1,1,0,0,1,0,0
+TX,Total,1,1,0,0,1,0,0
 Unknown,Female,2,1,0,1,1,0,1
 Unknown,Total,2,1,0,1,1,0,1
 WY,Male,1,0,1,0,0,1,0
@@ -52,6 +54,8 @@ RI,Male,,,,,,,
 RI,Other,,,,,,,
 SD,Female,,,,,,,
 SD,Other,,,,,,,
+TX,Female,,,,,,,
+TX,Other,,,,,,,
 Unknown,Male,,,,,,,
 Unknown,Other,,,,,,,
 WY,Female,,,,,,,

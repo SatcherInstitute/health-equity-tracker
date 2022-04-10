@@ -16,6 +16,7 @@ export const UNTESTABLE_URLS = [
   "https://www.who.int/healthsystems/topics/equity/en/",
   "https://www.who.int/health-topics/social-determinants-of-health#tab=tab_1",
   "https://www.uclahealth.org/covid19-exposes-how-native-hawaiians-and-pacific-islanders-face-stark-health-care-disparities",
+  "https://www.press.jhu.edu/newsroom/political-determinants-health",
 ];
 
 // skip some URLs we know don't provide HTTPS
