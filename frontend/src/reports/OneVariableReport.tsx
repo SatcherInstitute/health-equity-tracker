@@ -131,7 +131,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
           )}
 
           {/* 100k MAP CARD */}
-          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH}>
+          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="map">
             <MapCard
               variableConfig={variableConfig}
               fips={props.fips}
@@ -145,7 +145,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
           </Grid>
 
           {/* 100K BAR CHART CARD */}
-          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH}>
+          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH} id="bar">
             <LazyLoad offset={600} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>
@@ -163,7 +163,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
           </Grid>
 
           {/* UNKNOWNS MAP CARD */}
-          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH}>
+          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH} id="unknowns">
             <LazyLoad offset={800} height={750} once>
               {variableConfig.metrics["pct_share"] && (
                 <UnknownsMapCard
@@ -180,7 +180,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
           </Grid>
 
           {/* DISPARITY BAR CHART COMPARE VS POPULATION */}
-          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH}>
+          <Grid item xs={12} sm={12} md={SINGLE_COLUMN_WIDTH} id="disparity">
             <LazyLoad offset={800} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>
@@ -198,7 +198,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
           </Grid>
 
           {/* DATA TABLE CARD */}
-          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH}>
+          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="table">
             <LazyLoad offset={800} height={750} once>
               {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                 <Fragment key={breakdownVar}>
@@ -215,7 +215,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
           </Grid>
 
           {/* AGE ADJUSTED TABLE CARD */}
-          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH}>
+          <Grid item xs={12} md={SINGLE_COLUMN_WIDTH} id="age-adjusted">
             <LazyLoad offset={800} height={800} once>
               <AgeAdjustedTableCard
                 fips={props.fips}
