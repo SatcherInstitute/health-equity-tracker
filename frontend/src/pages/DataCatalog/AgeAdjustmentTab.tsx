@@ -30,7 +30,7 @@ function AgeAdjustmentTab() {
             className={styles.MethodologyQuestionAndAnswer}
             component="article"
           >
-            <h3 className={styles.AgeAdjustmentHeader}>
+            <h3 className={styles.AgeAdjustmentHeader} id="main">
               Calculating Age-Adjusted Ratios
             </h3>
 

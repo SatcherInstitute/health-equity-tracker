@@ -24,7 +24,6 @@ export const METHODOLOGY_TAB_LINK = "/methodology";
 export const AGE_ADJUSTMENT_TAB_LINK = "/ageadjustment";
 export const DATA_TAB_LINK = "/datacatalog";
 export const CONTACT_TAB_LINK = "/contact";
-export const ABOUT_TAB_LINK = "/about";
 export const OURTEAM_TAB_LINK = "/ourteam";
 export const NEWS_TAB_LINK = "/news";
 

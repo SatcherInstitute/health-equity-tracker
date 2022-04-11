@@ -1,13 +1,12 @@
 import { test, expect } from '@playwright/test';
+import { EXPLORE_DATA_PAGE_LINK } from './otherPageRoutes.spec';
 
-const HET = `http://localhost:3000`
-const EXPLOREDATA = `exploredata`
 const COVID_DEN_VS_CO = "?mls=1.covid-3.08031-5.08&mlp=comparegeos"
 
 test('User Flow from Default Tracker Page to Compare Covid Deaths by race between Denver County and State of Colorado', async ({ page }) => {
 
     // Landing Page Loads
-    await page.goto(`${HET}/${EXPLOREDATA}`);
+    await page.goto(EXPLORE_DATA_PAGE_LINK);
 
     // change carousel to "Compare Geo mode"
     const advanceMadlibCarouselArrowButton =  await page.locator('id=onboarding-madlib-arrow')
@@ -35,7 +34,7 @@ test('User Flow from Default Tracker Page to Compare Covid Deaths by race betwee
     await page.keyboard.press('Enter');
 
     // Confirm correct URL
-    await expect(page).toHaveURL(`${HET}/${EXPLOREDATA}${COVID_DEN_VS_CO}`);
+    await expect(page).toHaveURL(EXPLORE_DATA_PAGE_LINK+COVID_DEN_VS_CO);
 
     // Confirm no failed Vega visualizations
     let mainChunk = await page.locator('main')
