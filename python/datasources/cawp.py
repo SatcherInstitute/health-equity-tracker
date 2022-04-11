@@ -208,10 +208,11 @@ class CAWPData(DataSource):
             by=[std_col.STATE_NAME_COL])
 
         # load in and combine PROPUBLICA US CONGRESS tables with members by state
-        df_us_house = gcs_to_bq_util.load_json_as_df_from_data_dir(
-            'cawp', PROPUB_US_HOUSE_FILE)
-        df_us_senate = gcs_to_bq_util.load_json_as_df_from_data_dir(
-            'cawp', PROPUB_US_SENATE_FILE)
+        df_us_house = gcs_to_bq_util.load_json_as_df_from_data_dir_based_on_key(
+            'cawp', PROPUB_US_HOUSE_FILE, "members")
+        print(df_us_house)
+        df_us_senate = gcs_to_bq_util.load_json_as_df_from_data_dir_based_on_key(
+            'cawp', PROPUB_US_SENATE_FILE, "members")
         df_us_house = df_us_house[df_us_house[IN_OFFICE_COL]]
         df_us_senate = df_us_senate[df_us_senate[IN_OFFICE_COL]]
         df_us_house = df_us_house[[STATE]]

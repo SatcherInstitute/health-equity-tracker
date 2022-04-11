@@ -258,6 +258,28 @@ def load_json_as_df_from_data_dir(directory, filename, dtype=None):
     return pd.read_json(file_path, dtype=dtype)
 
 
+def load_json_as_df_from_data_dir_based_on_key(directory, filename, key, dtype=None):
+    """Loads json data from /data/{directory}/{filename} into a DataFrame.
+       Expects the data to be in json format, stored under the given key
+
+    directory: directory within data to load from
+    filename: file to load the json file from
+    key: key in the json in which all data underneath will be loaded into the dataframe"""
+    file_path = os.path.join(DATA_DIR, directory, filename)
+
+    data = json.loads(file_path)
+
+    print("@@@")
+    print(data)
+
+    df = pd.json_normalize(data['members'], dtype=dtype)
+
+    print("###")
+    print(df.to_string())
+
+    return df
+
+
 def load_json_as_df_from_web(url, dtype=None, params=None):
     """Loads json data from the web underneath a given key into a dataframe
 

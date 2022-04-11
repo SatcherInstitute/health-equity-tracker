@@ -1,3 +1,4 @@
+import json
 from unittest import mock
 import os
 
@@ -151,11 +152,42 @@ def _get_test_json_as_df(*args):
     return pd.read_json(os.path.join(TEST_DIR, test_input_json), dtype=test_input_dtype)
 
 
+def _get_test_json_as_df_based_on_key(*args):
+
+    [mock_data_folder, mock_data_filename, mock_data_key] = args
+
+    filepath = os.path.join(TEST_DIR, mock_data_folder, mock_data_filename)
+
+    print("\n***")
+    print(TEST_DIR)
+    print(mock_data_folder, mock_data_filename, mock_data_key)
+    print(filepath)
+
+    f = open(filepath)
+
+    data = json.loads(f)
+
+    print("@@@")
+    print(data)
+
+    # df = pd.json_normalize(data['members'], dtype=test_input_dtype)
+
+    # print("###")
+    # print(df.to_string())
+
+    return []
+    # return df
+
+    # return pd.read_json(os.path.join(TEST_DIR, test_input_json), dtype=test_input_dtype)
+
+
 def _get_test_pop_data_as_df(*args):
     [mock_pop_dir, mock_pop_filename, mock_pop_dtype] = args
     return pd.read_json(os.path.join(TEST_DIR, mock_pop_dir, f'{mock_pop_filename}.json'), dtype=mock_pop_dtype)
 
 
+@ mock.patch('ingestion.gcs_to_bq_util.load_json_as_df_from_data_dir_based_on_key',
+             side_effect=_get_test_json_as_df_based_on_key)
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
             side_effect=_get_test_pop_data_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_json_as_df_from_data_dir',
@@ -170,7 +202,8 @@ def testWriteToBq(mock_bq: mock.MagicMock,
                   mock_web_csv: mock.MagicMock,
                   mock_data_dir_csv: mock.MagicMock,
                   mock_data_dir_json: mock.MagicMock,
-                  mock_pop_data: mock.MagicMock):
+                  mock_pop_data: mock.MagicMock,
+                  mock_data_dir_based_on_key_data: mock.MagicMock):
 
     cawp_data = CAWPData()
 
@@ -186,6 +219,7 @@ def testWriteToBq(mock_bq: mock.MagicMock,
     mock_data_dir_csv.assert_called_once
     mock_data_dir_json.assert_called_once
     mock_pop_data.assert_called_once
+    mock_data_dir_based_on_key_data.assert_called_once
 
     expected_dtype = {
         'state_name': str,
