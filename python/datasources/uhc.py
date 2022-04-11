@@ -338,8 +338,7 @@ def get_average_determinate_value(matched_row, measure_name, df, state):
 def estimate_total(row, condition_name_per_100k):
     """Returns an estimate of the total number of people with a given condition.
 
-       sample_per_100k: per_100k number of people in a demographic with a given condition, represented as a per 100k
-       total_population: the total number of people in that demographic"""
+       condition_name_per_100k: column name of the condition_per_100k to estimate the total of"""
 
     if pd.isna(row[condition_name_per_100k]) or \
         pd.isna(row[std_col.POPULATION_COL]) or \
