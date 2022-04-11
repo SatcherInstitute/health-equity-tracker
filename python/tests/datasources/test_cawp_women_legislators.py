@@ -154,31 +154,25 @@ def _get_test_json_as_df(*args):
 
 def _get_test_json_as_df_based_on_key(*args):
 
-    [mock_data_folder, mock_data_filename, mock_data_key] = args
+    [_mock_data_folder, mock_data_filename, _mock_data_key] = args
 
-    filepath = os.path.join(TEST_DIR, mock_data_folder, mock_data_filename)
+    test_json_filename = os.path.join(
+        TEST_DIR, f'test_input_{mock_data_filename}')
 
-    print("\n***")
-    print(TEST_DIR)
-    print(mock_data_folder, mock_data_filename, mock_data_key)
-    print(filepath)
+    # print("^^^")
+    # print(test_json_filename)
+    # print("^^^")
 
-    f = open(filepath)
+    with open(test_json_filename) as data_file:
+        data = json.load(data_file)
 
-    data = json.loads(f)
+    df = pd.json_normalize(data, ['results', 'members'])
 
-    print("@@@")
-    print(data)
+    print(df.to_string())
 
-    # df = pd.json_normalize(data['members'], dtype=test_input_dtype)
+    # print("****")
 
-    # print("###")
-    # print(df.to_string())
-
-    return []
-    # return df
-
-    # return pd.read_json(os.path.join(TEST_DIR, test_input_json), dtype=test_input_dtype)
+    return df
 
 
 def _get_test_pop_data_as_df(*args):
@@ -188,8 +182,8 @@ def _get_test_pop_data_as_df(*args):
 
 @ mock.patch('ingestion.gcs_to_bq_util.load_json_as_df_from_data_dir_based_on_key',
              side_effect=_get_test_json_as_df_based_on_key)
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
-            side_effect=_get_test_pop_data_as_df)
+@ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+             side_effect=_get_test_pop_data_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_json_as_df_from_data_dir',
              side_effect=_get_test_json_as_df)
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
