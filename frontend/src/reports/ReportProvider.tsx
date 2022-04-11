@@ -210,8 +210,9 @@ function ReportProvider(props: ReportProviderProps) {
           </p>
           <ul>
             <li>
-              Cases, hospitalizations and deaths: <b>Mississippi</b>,{" "}
-              <b>Texas</b>, <b>West Virginia</b>
+              Cases, hospitalizations and deaths:{" "}
+              <b>Northern Mariana Islands</b>, <b>Mississippi</b>,{" "}
+              <b>West Virginia</b>
             </li>
             <li>
               Hospitalizations and deaths: <b>Hawaii</b>, <b>Nebraska</b>,{" "}

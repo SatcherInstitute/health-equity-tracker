@@ -208,6 +208,7 @@ def testGeneratePctShareColExtraTotalError():
 def testMergeFipsCodes(mock_bq: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_without_fips_codes), dtype=str).reset_index(drop=True)
+
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_merged_fips), dtype=str).reset_index(drop=True)
 

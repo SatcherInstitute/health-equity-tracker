@@ -17,8 +17,8 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       "The numbers of confirmed COVID-19 deaths, cases, and hospitalizations at the state and county levels. " +
       "The data source is Centers for Disease Control and Prevention, COVID-19 Response. COVID-19 Case " +
-      "Surveillance Data Access, Summary, and Limitations (02/28/2022). The last case data included is 2 " +
-      "weeks before 02/28/2022. The CDC does not take responsibility for the scientific validity " +
+      "Surveillance Data Access, Summary, and Limitations (04/04/2022). The last case data included is 2 " +
+      "weeks before 04/04/2022. The CDC does not take responsibility for the scientific validity " +
       "or accuracy of methodology, results, statistical analyses, or conclusions presented. This " +
       "dataset is not available for download; please click the link below to apply for access.",
     dataset_ids: [
