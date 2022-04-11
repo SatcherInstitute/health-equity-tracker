@@ -80,7 +80,7 @@ EXPECTED_DTYPE = {
     "cardiovascular_diseases_per_100k": float,
     "asthma_per_100k": float,
     "voter_participation_per_100k": float,
-    'brfss_population_pct': str
+    'brfss_population_pct': float,
 }
 
 
@@ -228,7 +228,7 @@ def testWriteToBqSexState(
 
 # For the national level we only need to make sure that we are making the
 # correct call to bigquery to get population data, so that is all we need to
-# test. There is no need to maintrain GOLDEN files for this, as there is no
+# test. There is no need to maintain GOLDEN files for this, as there is no
 # special parsing logic for national data.
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
 @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',

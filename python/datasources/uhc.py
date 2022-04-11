@@ -160,6 +160,8 @@ class UHCData(DataSource):
                     column_types[std_col.generate_column_name(col, std_col.PER_100K_SUFFIX)] = 'FLOAT'
                     column_types[std_col.generate_column_name(col, std_col.PCT_SHARE_SUFFIX)] = 'FLOAT'
 
+                column_types[std_col.BRFSS_POPULATION_PCT] = 'FLOAT'
+
                 if std_col.RACE_INCLUDES_HISPANIC_COL in breakdown_df.columns:
                     column_types[std_col.RACE_INCLUDES_HISPANIC_COL] = 'BOOL'
 
@@ -170,7 +172,7 @@ class UHCData(DataSource):
 
 
 def parse_raw_data(df, breakdown):
-    """Parses the raw UHC data into a datatframe with the column names and datatypes
+    """Parses the raw UHC data into a dataframe with the column names and datatypes
        the frontend can eventually use based on the given breakdown.
 
        df: Dataframe with raw data directly pulled from the UHC csv
@@ -285,6 +287,7 @@ def post_process(breakdown_df, breakdown, geo):
     breakdown_name = 'race' if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
     breakdown_df = dataset_utils.merge_pop_numbers(breakdown_df, breakdown_name, geo)
     breakdown_df = breakdown_df.rename(columns={std_col.POPULATION_PCT_COL: std_col.BRFSS_POPULATION_PCT})
+    breakdown_df[std_col.BRFSS_POPULATION_PCT] = breakdown_df[std_col.BRFSS_POPULATION_PCT].astype(float)
 
     for determinant in UHC_DETERMINANTS.values():
         per_100k_col = std_col.generate_column_name(determinant, std_col.PER_100K_SUFFIX)
@@ -335,7 +338,7 @@ def get_average_determinate_value(matched_row, measure_name, df, state):
 def estimate_total(row, condition_name_per_100k):
     """Returns an estimate of the total number of people with a given condition.
 
-       sample_per_100k: a percentage of people in a demographic with a given condition, represented as a per 100k
+       sample_per_100k: per_100k number of people in a demographic with a given condition, represented as a per 100k
        total_population: the total number of people in that demographic"""
 
     if pd.isna(row[condition_name_per_100k]) or \
