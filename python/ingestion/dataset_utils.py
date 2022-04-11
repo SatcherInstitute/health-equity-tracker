@@ -1,4 +1,4 @@
-import pandas as pd
+import pandas as pd  # type: ignore
 from ingestion import gcs_to_bq_util
 import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
@@ -20,9 +20,9 @@ def generate_pct_share_col(df, raw_count_col, pct_share_col, breakdown_col, tota
             record[raw_count_col], total_value)
         return record
 
-    groupby_cols = list(df.columns)
-    groupby_cols.remove(breakdown_col)
-    groupby_cols.remove(raw_count_col)
+    groupby_cols = [std_col.STATE_FIPS_COL]
+    if std_col.COUNTY_FIPS_COL in df.columns:
+        groupby_cols.append(std_col.COUNTY_FIPS_COL)
 
     with_pct_share = []
     grouped = df.groupby(groupby_cols)
@@ -140,7 +140,7 @@ def merge_pop_numbers(df, demo, loc):
     }
 
     if demo not in on_col_map:
-        raise ValueError('%s not a demographic option, must be one of: %s' % (demo, on_col_map.keys()))
+        raise ValueError('%s not a demographic option, must be one of: %s' % (demo, list(on_col_map.keys())))
 
     pop_table_name = 'by_%s_%s' % (demo, loc)
     if demo == 'race' and loc == 'state':
