@@ -73,18 +73,6 @@ export class DatasetCalculator {
     return pct;
   }
 
-  /** Finds expected value of an ailment based on a population sample. */
-  estimateTotal(
-    sample_per100k: number,
-    total_population: number
-  ): number | null {
-    return sample_per100k == null ||
-      total_population == null ||
-      total_population === 0
-      ? null
-      : Math.round((sample_per100k / 100_000) * total_population);
-  }
-
   /**
    * Calculates a percent share column. In order for this to work, a "Total"
    * value must be present for each group being applied to.

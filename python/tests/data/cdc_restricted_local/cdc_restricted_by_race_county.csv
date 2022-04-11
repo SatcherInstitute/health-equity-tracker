@@ -35,6 +35,8 @@ county_fips,county_name,state_postal,race_category_id,cases,hosp_y,hosp_n,hosp_u
 46005,BEADLE,SD,WHITE_NH,1,,,,,,,White,False,White (Non-Hispanic)
 47037,DAVIDSON,MD,ASIAN_NH,1,0,0,1,1,0,0,Asian,False,Asian (Non-Hispanic)
 47037,DAVIDSON,MD,TOTAL,1,0,0,1,1,0,0,Total,,Total
+48167,GALVESTON,TX,AIAN_NH,1,1,0,0,1,0,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
+48167,GALVESTON,TX,TOTAL,1,1,0,0,1,0,0,Total,,Total
 56005,CAMPBELL,WY,AIAN_NH,1,0,1,0,0,1,0,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
 56005,CAMPBELL,WY,TOTAL,1,0,1,0,0,1,0,Total,,Total
 ,Unknown,Unknown,AIAN_NH,,,,,,,,American Indian and Alaska Native,False,American Indian and Alaska Native (Non-Hispanic)
@@ -108,6 +110,12 @@ county_fips,county_name,state_postal,race_category_id,cases,hosp_y,hosp_n,hosp_u
 47037,DAVIDSON,MD,MULTI_OR_OTHER_STANDARD_NH,,,,,,,,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
 47037,DAVIDSON,MD,NHPI_NH,,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
 47037,DAVIDSON,MD,WHITE_NH,,,,,,,,White,False,White (Non-Hispanic)
+48167,GALVESTON,TX,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
+48167,GALVESTON,TX,BLACK_NH,,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
+48167,GALVESTON,TX,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino
+48167,GALVESTON,TX,MULTI_OR_OTHER_STANDARD_NH,,,,,,,,Two or more races & Unrepresented race,False,Two or more races & Unrepresented race (Non-Hispanic)
+48167,GALVESTON,TX,NHPI_NH,,,,,,,,Native Hawaiian and Pacific Islander,False,Native Hawaiian and Pacific Islander (Non-Hispanic)
+48167,GALVESTON,TX,WHITE_NH,,,,,,,,White,False,White (Non-Hispanic)
 56005,CAMPBELL,WY,ASIAN_NH,,,,,,,,Asian,False,Asian (Non-Hispanic)
 56005,CAMPBELL,WY,BLACK_NH,,,,,,,,Black or African American,False,Black or African American (Non-Hispanic)
 56005,CAMPBELL,WY,HISP,,,,,,,,Hispanic or Latino,True,Hispanic or Latino

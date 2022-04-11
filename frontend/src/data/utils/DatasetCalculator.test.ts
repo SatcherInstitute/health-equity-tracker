@@ -9,10 +9,6 @@ describe("Dataset Calculator", () => {
     expect(calc.per100k(100, 1000)).toEqual(10000);
   });
 
-  test("Testing total", async () => {
-    expect(calc.estimateTotal(10_000, 20)).toEqual(2);
-  });
-
   test("Testing percent", () => {
     expect(calc.percent(10, 20)).toEqual(50);
 

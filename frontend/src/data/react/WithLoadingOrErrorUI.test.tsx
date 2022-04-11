@@ -76,7 +76,7 @@ describe("WithLoadingOrErrorUI", () => {
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
       dataFetcher.setFakeDatasetLoaded("acs_population-by_race_state_std", []);
-      dataFetcher.setFakeDatasetLoaded("uhc_data-race_and_ethnicity", [
+      dataFetcher.setFakeDatasetLoaded("uhc_data-race_and_ethnicity_state", [
         {
           state_name: "Alabama",
           race_and_ethnicity: "AmIn",
@@ -98,7 +98,7 @@ describe("WithLoadingOrErrorUI", () => {
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
       "Loaded 2 rows. AmIn: 20000. Asian: 1000."
     );
-    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(2);
+    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
   });
 
   // TODO - one successful dataset, one bad dataset
@@ -114,13 +114,16 @@ describe("WithLoadingOrErrorUI", () => {
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
       dataFetcher.setFakeDatasetLoaded("acs_population-by_race_national", []);
-      dataFetcher.setFakeDatasetLoaded("uhc_data-race_and_ethnicity", []);
+      dataFetcher.setFakeDatasetLoaded(
+        "uhc_data-race_and_ethnicity_national",
+        []
+      );
     });
 
     expect(await findByTestId("MetricQueryResponseReturned")).toHaveTextContent(
       "Error: No rows returned"
     );
-    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(2);
+    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1);
   });
 
   test("WithMetrics: Unsupported breakdown", async () => {
