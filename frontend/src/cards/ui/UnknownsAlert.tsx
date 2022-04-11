@@ -30,6 +30,7 @@ interface UnknownsAlertProps {
   noDemographicInfoMap?: Boolean;
   showingVisualization?: Boolean;
   fips: Fips;
+  jumpToData?: Function;
 }
 
 function UnknownsAlert(props: UnknownsAlertProps) {
@@ -89,6 +90,8 @@ function UnknownsAlert(props: UnknownsAlertProps) {
     /* for UNKNOWNS MAP */ (percentageUnknown !== 100 &&
       percentageUnknown !== 0 &&
       props.showingVisualization);
+  /* for AGE-ADJUSTMENT TABLE */
+  const showDataGapsRisk = props.displayType === "table";
 
   // In the case we have unknowns for race and ethnicity reported separately,
   // show the higher one on the map
@@ -114,8 +117,23 @@ function UnknownsAlert(props: UnknownsAlertProps) {
           {props.overrideAndWithOr
             ? RACE_OR_ETHNICITY
             : breakdownVarDisplayName}
-          . {showCardHelperText ? cardHelperText : <></>}{" "}
-          {props.raceEthDiffMap ? raceEthDiffMapText : <></>}
+          . {showCardHelperText && cardHelperText}
+          {props.raceEthDiffMap && raceEthDiffMapText}
+          {showDataGapsRisk && (
+            <>
+              Consider the possible impact of{" "}
+              <a
+                href="#missingDataInfo"
+                onClick={(e) => {
+                  e.preventDefault();
+                  props.jumpToData && props.jumpToData();
+                }}
+              >
+                data reporting gaps
+              </a>{" "}
+              when interpreting age-adjusted risk.
+            </>
+          )}
         </Alert>
       </CardContent>
       <Divider />

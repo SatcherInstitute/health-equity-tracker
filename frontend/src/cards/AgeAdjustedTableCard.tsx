@@ -40,6 +40,7 @@ import {
   COVID_HOSP_US_SETTING,
 } from "../utils/urlutils";
 import { Link } from "react-router-dom";
+import UnknownsAlert from "./ui/UnknownsAlert";
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
 
@@ -60,10 +61,12 @@ export interface AgeAdjustedTableCardProps {
   breakdownVar: BreakdownVar;
   dropdownVarId?: DropdownVarId;
   setVariableConfigWithParam?: Function;
+  jumpToData?: Function;
 }
 
 export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const metrics = getAgeAdjustedRatioMetric(props.variableConfig);
+  const metricConfigPctShare = props.variableConfig.metrics["pct_share"];
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     RACE,
@@ -78,6 +81,10 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const metricIds = Object.keys(metricConfigs) as MetricId[];
   const query = new MetricQuery(metricIds as MetricId[], breakdowns);
   const ratioId = metricIds[0];
+
+  const metricIdsForRatiosOnly = Object.values(metricConfigs).filter((config) =>
+    config.metricId.includes("ratio")
+  );
 
   const cardTitle = `${
     metrics[0].fullCardTitleName
@@ -130,6 +137,18 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               </Alert>
             </CardContent>
             <Divider />
+
+            <UnknownsAlert
+              metricConfig={metricConfigPctShare}
+              queryResponse={queryResponse}
+              breakdownVar={props.breakdownVar}
+              displayType="table"
+              known={true}
+              overrideAndWithOr={props.breakdownVar === RACE}
+              fips={props.fips}
+              jumpToData={props.jumpToData}
+            />
+
             {/* If TABLE can't display for any of these various reasons, show the missing data alert */}
             {(noRatios ||
               isWrongBreakdownVar ||
@@ -157,7 +176,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                 <div className={styles.TableChart}>
                   <AgeAdjustedTableChart
                     data={knownData}
-                    metrics={Object.values(metricConfigs)}
+                    metrics={metricIdsForRatiosOnly}
                   />
                 </div>
               )}
