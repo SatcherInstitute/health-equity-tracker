@@ -79,6 +79,14 @@ _data_without_fips_codes = [
     ['U.S. Virgin Islands', 'something_else_entirely'],
 ]
 
+_data_without_state_names = [
+    ['state_postal_abbreviation', 'some_other_col'],
+    ['US', 'something_american'],
+    ['CA', 'something_cool'],
+    ['GA', 'something_else'],
+    ['VI', 'something_else_entirely'],
+]
+
 _fips_codes_from_bq = [
     ['state_fips_code', 'state_postal_abbreviation', 'state_name', 'state_gnisid'],
     ['06', 'CA', 'California', '01779778'],
@@ -149,8 +157,16 @@ _expected_merged_with_pop_numbers = [
     ['02', 'BLACK_NH', '100', '50', 'something_cooler'],
 ]
 
+_expected_swapped_abbr_for_names = [
+    ['state_name', 'some_other_col'],
+    ['United States', 'something_american'],
+    ['California', 'something_cool'],
+    ['Georgia', 'something_else'],
+    ['U.S. Virgin Islands', 'something_else_entirely'],
+]
 
-def _get_fips_codes_as_df():
+
+def _get_fips_codes_as_df(*args, **kwargs):
     return gcs_to_bq_util.values_json_to_df(
         json.dumps(_fips_codes_from_bq), dtype=str).reset_index(drop=True)
 
@@ -277,5 +293,22 @@ def testMergePopNumbers(mock_bq: mock.MagicMock):
     df = dataset_utils.merge_pop_numbers(df, 'race', 'state')
 
     assert mock_bq.call_count == 2
+
+    assert_frame_equal(df, expected_df, check_like=True)
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+            side_effect=_get_fips_codes_as_df)
+def test_replace_state_abbr_with_names(mock_bq: mock.MagicMock):
+
+    df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_data_without_state_names), dtype=str).reset_index(drop=True)
+
+    expected_df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_expected_swapped_abbr_for_names), dtype=str).reset_index(drop=True)
+
+    df = dataset_utils.replace_state_abbr_with_names(df)
+
+    assert mock_bq.call_count == 1
 
     assert_frame_equal(df, expected_df, check_like=True)
