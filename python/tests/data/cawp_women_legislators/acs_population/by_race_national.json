@@ -7,8 +7,7 @@
         "race_category_id": "TOTAL",
         "race": "Total",
         "race_includes_hispanic": null,
-        "race_and_ethnicity": "Total",
-        "ingestion_ts": "2022-03-17T00:29:13.029Z"
+        "race_and_ethnicity": "Total"
     },
     {
         "state_fips": "00",
@@ -18,8 +17,7 @@
         "race_category_id": "AIAN_NH",
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)",
-        "ingestion_ts": "2022-03-17T00:29:13.029Z"
+        "race_and_ethnicity": "American Indian and Alaska Native (Non-Hispanic)"
     },
     {
         "state_fips": "00",
@@ -29,8 +27,7 @@
         "race_category_id": "API_NH",
         "race": "Asian, Native Hawaiian, and Pacific Islander",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)",
-        "ingestion_ts": "2022-03-17T00:29:13.029Z"
+        "race_and_ethnicity": "Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)"
     },
     {
         "state_fips": "00",
@@ -40,8 +37,7 @@
         "race_category_id": "ASIAN_NH",
         "race": "Asian",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Asian (Non-Hispanic)",
-        "ingestion_ts": "2022-03-17T00:29:13.029Z"
+        "race_and_ethnicity": "Asian (Non-Hispanic)"
     },
     {
         "state_fips": "00",
@@ -51,8 +47,7 @@
         "race_category_id": "BLACK_NH",
         "race": "Black or African American",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Black or African American (Non-Hispanic)",
-        "ingestion_ts": "2022-03-17T00:29:13.029Z"
+        "race_and_ethnicity": "Black or African American (Non-Hispanic)"
     },
     {
         "state_fips": "00",
@@ -62,8 +57,7 @@
         "race_category_id": "MULTI_NH",
         "race": "Two or more races",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Two or more races (Non-Hispanic)",
-        "ingestion_ts": "2022-03-17T00:29:13.029Z"
+        "race_and_ethnicity": "Two or more races (Non-Hispanic)"
     },
     {
         "state_fips": "00",
@@ -73,8 +67,7 @@
         "race_category_id": "MULTI_OR_OTHER_STANDARD_NH",
         "race": "Two or more races \u0026 Unrepresented race",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Two or more races \u0026 Unrepresented race (Non-Hispanic)",
-        "ingestion_ts": "2022-03-17T00:29:13.029Z"
+        "race_and_ethnicity": "Two or more races \u0026 Unrepresented race (Non-Hispanic)"
     },
     {
         "state_fips": "00",
@@ -84,8 +77,7 @@
         "race_category_id": "NH",
         "race": "Not Hispanic or Latino",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Not Hispanic or Latino",
-        "ingestion_ts": "2022-03-17T00:29:13.029Z"
+        "race_and_ethnicity": "Not Hispanic or Latino"
     },
     {
         "state_fips": "00",
@@ -95,8 +87,7 @@
         "race_category_id": "NHPI_NH",
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)",
-        "ingestion_ts": "2022-03-17T00:29:13.029Z"
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander (Non-Hispanic)"
     },
     {
         "state_fips": "00",
@@ -106,8 +97,7 @@
         "race_category_id": "OTHER_STANDARD_NH",
         "race": "Unrepresented race",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "Unrepresented race (Non-Hispanic)",
-        "ingestion_ts": "2022-03-17T00:29:13.029Z"
+        "race_and_ethnicity": "Unrepresented race (Non-Hispanic)"
     },
     {
         "state_fips": "00",
@@ -117,8 +107,7 @@
         "race_category_id": "WHITE_NH",
         "race": "White",
         "race_includes_hispanic": "false",
-        "race_and_ethnicity": "White (Non-Hispanic)",
-        "ingestion_ts": "2022-03-17T00:29:13.029Z"
+        "race_and_ethnicity": "White (Non-Hispanic)"
     },
     {
         "state_fips": "00",
@@ -128,8 +117,7 @@
         "race_category_id": "AIAN",
         "race": "American Indian and Alaska Native",
         "race_includes_hispanic": "true",
-        "race_and_ethnicity": "American Indian and Alaska Native",
-        "ingestion_ts": "2022-03-17T00:29:13.029Z"
+        "race_and_ethnicity": "American Indian and Alaska Native"
     },
     {
         "state_fips": "00",
@@ -139,8 +127,7 @@
         "race_category_id": "ASIAN",
         "race": "Asian",
         "race_includes_hispanic": "true",
-        "race_and_ethnicity": "Asian",
-        "ingestion_ts": "2022-03-17T00:29:13.029Z"
+        "race_and_ethnicity": "Asian"
     },
     {
         "state_fips": "00",
@@ -150,8 +137,7 @@
         "race_category_id": "BLACK",
         "race": "Black or African American",
         "race_includes_hispanic": "true",
-        "race_and_ethnicity": "Black or African American",
-        "ingestion_ts": "2022-03-17T00:29:13.029Z"
+        "race_and_ethnicity": "Black or African American"
     },
     {
         "state_fips": "00",
@@ -161,8 +147,7 @@
         "race_category_id": "HISP",
         "race": "Hispanic or Latino",
         "race_includes_hispanic": "true",
-        "race_and_ethnicity": "Hispanic or Latino",
-        "ingestion_ts": "2022-03-17T00:29:13.029Z"
+        "race_and_ethnicity": "Hispanic or Latino"
     },
     {
         "state_fips": "00",
@@ -172,8 +157,7 @@
         "race_category_id": "MULTI",
         "race": "Two or more races",
         "race_includes_hispanic": "true",
-        "race_and_ethnicity": "Two or more races",
-        "ingestion_ts": "2022-03-17T00:29:13.029Z"
+        "race_and_ethnicity": "Two or more races"
     },
     {
         "state_fips": "00",
@@ -183,8 +167,7 @@
         "race_category_id": "MULTI_OR_OTHER_STANDARD",
         "race": "Two or more races \u0026 Unrepresented race",
         "race_includes_hispanic": "true",
-        "race_and_ethnicity": "Two or more races \u0026 Unrepresented race",
-        "ingestion_ts": "2022-03-17T00:29:13.029Z"
+        "race_and_ethnicity": "Two or more races \u0026 Unrepresented race"
     },
     {
         "state_fips": "00",
@@ -194,8 +177,7 @@
         "race_category_id": "NHPI",
         "race": "Native Hawaiian and Pacific Islander",
         "race_includes_hispanic": "true",
-        "race_and_ethnicity": "Native Hawaiian and Pacific Islander",
-        "ingestion_ts": "2022-03-17T00:29:13.029Z"
+        "race_and_ethnicity": "Native Hawaiian and Pacific Islander"
     },
     {
         "state_fips": "00",
@@ -205,8 +187,7 @@
         "race_category_id": "OTHER_STANDARD",
         "race": "Unrepresented race",
         "race_includes_hispanic": "true",
-        "race_and_ethnicity": "Unrepresented race",
-        "ingestion_ts": "2022-03-17T00:29:13.029Z"
+        "race_and_ethnicity": "Unrepresented race"
     },
     {
         "state_fips": "00",
@@ -216,7 +197,6 @@
         "race_category_id": "WHITE",
         "race": "White",
         "race_includes_hispanic": "true",
-        "race_and_ethnicity": "White",
-        "ingestion_ts": "2022-03-17T00:29:13.029Z"
+        "race_and_ethnicity": "White"
     }
 ]

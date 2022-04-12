@@ -282,14 +282,22 @@ class CAWPData(DataSource):
             us_congress_women_current_place_all_races = count_matching_rows(
                 df_line_items, current_place, NATIONAL, std_col.ALL_VALUE)
 
-            us_congress_members_current_place_all_races = df_us_congress_totals.loc[
-                df_us_congress_totals[std_col.STATE_NAME_COL] == current_place][COUNT_ALL].values[0]
+            us_congress_match_row = df_us_congress_totals.loc[
+                df_us_congress_totals[std_col.STATE_NAME_COL] == current_place]
+
+            us_congress_members_current_place_all_races = (
+                0 if us_congress_match_row.empty
+                else us_congress_match_row[COUNT_ALL].values[0])
 
             state_leg_women_current_place_all_races = count_matching_rows(
                 df_line_items, current_place, STATE_COL_LINE, std_col.ALL_VALUE)
 
-            state_leg_members_current_place_all_races = df_state_leg_totals.loc[
-                df_state_leg_totals[std_col.STATE_NAME_COL] == current_place][COUNT_ALL].values[0]
+            state_leg_match_row = df_state_leg_totals.loc[
+                df_state_leg_totals[std_col.STATE_NAME_COL] == current_place]
+
+            state_leg_members_current_place_all_races = (
+                0 if state_leg_match_row.empty
+                else state_leg_match_row[COUNT_ALL].values[0])
 
             # print(current_place)
             # print("\tus_congress_women_current_place_all_races",
