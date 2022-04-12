@@ -363,12 +363,12 @@ class CAWPData(DataSource):
         output_df = output_df.drop(columns=[std_col.POPULATION_COL])
         std_col.add_race_columns_from_category_id(output_df)
 
-        print("before")
+        # print("before")
         print(output_df.to_string())
-        output_df[std_col.STATE_NAME_COL] = output_df[std_col.STATE_NAME_COL].apply(
-            get_alt_place_name)
+        # output_df[std_col.STATE_NAME_COL] = output_df[std_col.STATE_NAME_COL].apply(
+        #     get_alt_place_name)
 
-        print("after")
-        print(output_df.to_string())
+        # print("after")
+        # print(output_df.to_string())
 
         return output_df
