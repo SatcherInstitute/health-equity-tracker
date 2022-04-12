@@ -22,7 +22,6 @@ export interface SimpleBarChartCardProps {
   breakdownVar: BreakdownVar;
   variableConfig: VariableConfig;
   fips: Fips;
-  useWomenRaceLabels?: boolean;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when

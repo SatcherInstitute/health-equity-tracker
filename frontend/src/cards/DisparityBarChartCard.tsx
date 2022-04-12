@@ -25,6 +25,7 @@ import {
 import { Row } from "../data/utils/DatasetTypes";
 import UnknownsAlert from "./ui/UnknownsAlert";
 import { shouldShowAltPopCompare } from "../data/utils/datasetutils";
+import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 719;
@@ -98,7 +99,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
         // include a note about percents adding to over 100%
         // if race options include hispanic twice (eg "White" and "Hispanic" can both include Hispanic people)
         // also require at least some data to be available to avoid showing info on suppressed/undefined states
-        const shouldShowDoesntAddUpMessage =
+        const showDoesntAddUpInfo =
           props.breakdownVar === RACE &&
           queryResponse.data.every(
             (row) =>
@@ -106,6 +107,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               row[props.breakdownVar] === HISPANIC
           ) &&
           queryResponse.data.some((row) => row[metricConfig.metricId]);
+
+        const isCawp = CAWP_DETERMINANTS.includes(metricConfig.metricId);
 
         const dataAvailable = !queryResponse.shouldShowMissingDataMessage([
           metricConfig.metricId,
@@ -153,7 +156,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 />
               </CardContent>
             )}
-            {shouldShowDoesntAddUpMessage && (
+            {showDoesntAddUpInfo && !isCawp && (
               <Alert severity="info" role="note">
                 Population percentages on this graph add up to over 100% because
                 the racial categories reported for{" "}
@@ -161,6 +164,17 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 {props.fips.getFullDisplayName()} include Hispanic individuals
                 in each racial category. As a result, Hispanic individuals are
                 counted twice.
+              </Alert>
+            )}
+            {isCawp && (
+              <Alert severity="info" role="note">
+                Percentages reported for{" "}
+                {props.variableConfig.variableDisplayName} cannot be summed, as
+                these racial categories are not mutually exclusive. Individuals
+                who identify with multiple specific races (e.g. both "White" and
+                "Black") are represented multiple times in the visualization:
+                across each corresponding category, and in the "Two or More /
+                Unrepresented Race" category.
               </Alert>
             )}
           </>

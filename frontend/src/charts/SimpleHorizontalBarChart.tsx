@@ -23,8 +23,6 @@ import {
   getWomenRaceLabel,
 } from "../data/variables/CawpProvider";
 
-const METRICS_TO_LABEL_SWAP = [...CAWP_DETERMINANTS];
-
 // determine where (out of 100) to flip labels inside/outside the bar
 const LABEL_SWAP_CUTOFF_PERCENT = 66;
 
@@ -269,7 +267,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   const pageIsTiny = useMediaQuery("(max-width:400px)");
 
   // swap race labels if applicable
-  const dataLabelled = METRICS_TO_LABEL_SWAP.includes(props.metric.metricId)
+  const dataLabelled = CAWP_DETERMINANTS.includes(props.metric.metricId)
     ? props.data.map((row: Row) => {
         const altRow = { ...row };
         altRow.race_and_ethnicity = getWomenRaceLabel(row.race_and_ethnicity);

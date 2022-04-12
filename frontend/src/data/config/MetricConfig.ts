@@ -4,6 +4,8 @@
 // TODO: integrate strings from Category / Madlib into the Metric Config
 // so ALL related topic data is contained in a single object
 
+import { CAWP_DETERMINANTS } from "../variables/CawpProvider";
+
 export type DropdownVarId =
   | "covid"
   | "diabetes"
