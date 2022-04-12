@@ -80,11 +80,11 @@ class CawpProvider extends VariableProvider {
       "propublica_congress" // we merge on backend only for US Congress datatype; not sure how to restrict based on active datatype
     );
 
-    if (breakdowns.geography === "national") {
-      df = df.where((row) => row.fips === USA_FIPS);
-    } else if (breakdowns.geography === "state") {
-      df = df.where((row) => row.fips !== USA_FIPS);
-    }
+    // if (breakdowns.geography === "national") {
+    //   df = df.where((row) => row.fips === USA_FIPS);
+    // } else if (breakdowns.geography === "state") {
+    //   df = df.where((row) => row.fips !== USA_FIPS);
+    // }
 
     df = df.renameSeries({
       population_pct: "cawp_population_pct",
