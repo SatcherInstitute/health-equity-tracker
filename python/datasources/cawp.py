@@ -333,6 +333,7 @@ class CAWPData(DataSource):
                 output_row[std_col.RACE_WOMEN_COL] = get_women_only_race_group(
                     race_code)
 
+                # set this rows PLACE and RACE
                 output_row[std_col.RACE_CATEGORY_ID_COL] = race_code
                 output_row[std_col.STATE_NAME_COL] = current_place
 

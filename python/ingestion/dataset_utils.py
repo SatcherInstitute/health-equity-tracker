@@ -116,9 +116,6 @@ def merge_fips_codes(df):
     all_fips_codes_df = gcs_to_bq_util.load_public_dataset_from_bigquery_as_df(
         'census_utility', 'fips_codes_states', dtype={'state_fips_code': str})
 
-    print("^&*&^&*")
-    print(all_fips_codes_df.to_string())
-
     united_states_fips = pd.DataFrame(
         [{'state_fips_code': constants.US_FIPS, 'state_name': constants.US_NAME}])
     all_fips_codes_df = all_fips_codes_df[['state_fips_code', 'state_name']]
@@ -201,11 +198,13 @@ def merge_pop_numbers(df, demo, loc):
         pop_2010_df = gcs_to_bq_util.load_df_from_bigquery(
             'acs_2010_population', pop_2010_table_name, pop_dtype)
 
-        pop_2010_df = pop_2010_df[[std_col.STATE_FIPS_COL, on_col_map[demo],
-                                   std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
+        if len(pop_2010_df.index) > 0:
 
-        pop_df = pd.concat([pop_df, pop_2010_df])
-        pop_df = pop_df.sort_values(std_col.STATE_FIPS_COL)
+            pop_2010_df = pop_2010_df[[std_col.STATE_FIPS_COL, on_col_map[demo],
+                                       std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
+
+            pop_df = pd.concat([pop_df, pop_2010_df])
+            pop_df = pop_df.sort_values(std_col.STATE_FIPS_COL)
 
     df = pd.merge(df, pop_df, how='left', on=[
                   std_col.STATE_FIPS_COL, on_col_map[demo]])
