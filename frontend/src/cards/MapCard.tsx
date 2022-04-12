@@ -123,6 +123,7 @@ function MapCardWithKey(props: MapCardProps) {
       {(queryResponses, metadata, geoData) => {
         // contains data rows for sub-geos (if viewing US, this data will be STATE level)
         const mapQueryResponse = queryResponses[0];
+        console.log(mapQueryResponse);
         // contains data rows current level (if viewing US, this data will be US level)
         const overallQueryResponse = queryResponses[1];
 
