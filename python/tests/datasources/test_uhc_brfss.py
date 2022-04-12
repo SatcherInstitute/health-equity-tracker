@@ -12,7 +12,8 @@ import ingestion.standardized_columns as std_col  # type: ignore
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "uhc_brfss")
 
-GOLDEN_DATA_RACE = os.path.join(TEST_DIR, 'uhc_test_output_race_and_ethnicity.json')
+GOLDEN_DATA_RACE = os.path.join(
+    TEST_DIR, 'uhc_test_output_race_and_ethnicity.json')
 GOLDEN_DATA_AGE = os.path.join(TEST_DIR, 'uhc_test_output_age.json')
 GOLDEN_DATA_SEX = os.path.join(TEST_DIR, 'uhc_test_output_sex.json')
 
