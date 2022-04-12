@@ -46,15 +46,15 @@ def get_sex_pop_data_as_df_state():
 
 
 def get_race_pop_data_as_df_territory():
-    return pd.DataFrame()
+    return pd.read_csv(os.path.join(TEST_DIR, 'population_2010_race.csv'), dtype=str)
 
 
 def get_age_pop_data_as_df_territory():
-    return pd.DataFrame()
+    return pd.read_csv(os.path.join(TEST_DIR, 'population_2010_age.csv'), dtype=str)
 
 
 def get_sex_pop_data_as_df_territory():
-    return pd.DataFrame()
+    return pd.read_csv(os.path.join(TEST_DIR, 'population_2010_sex.csv'), dtype=str)
 
 
 def get_race_pop_data_as_df_national():
