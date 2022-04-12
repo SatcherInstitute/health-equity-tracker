@@ -168,7 +168,10 @@ def _get_test_json_as_df_based_on_key(*args):
 
 def _get_test_pop_data_as_df(*args):
     [mock_pop_dir, mock_pop_filename, mock_pop_dtype] = args
-    return pd.read_json(os.path.join(TEST_DIR, mock_pop_dir, f'{mock_pop_filename}.json'), dtype=mock_pop_dtype)
+    mock_pop_df = pd.read_json(os.path.join(
+        TEST_DIR, mock_pop_dir, f'{mock_pop_filename}.json'), dtype=mock_pop_dtype)
+    print(mock_pop_df)
+    return mock_pop_df
 
 
 def _get_test_state_names(*args, **kwargs):
