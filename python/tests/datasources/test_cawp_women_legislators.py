@@ -171,6 +171,17 @@ def _get_test_pop_data_as_df(*args):
     return pd.read_json(os.path.join(TEST_DIR, mock_pop_dir, f'{mock_pop_filename}.json'), dtype=mock_pop_dtype)
 
 
+def _get_test_state_names(*args, **kwargs):
+    return pd.DataFrame(
+        {
+            std_col.STATE_NAME_COL: ["American Samoa", "Alaska", "Nebraska"],
+            'state_postal_abbreviation': ["AS", "AK", "NE"],
+            'state_fips_code': ["60", "02", "31"]
+        })
+
+
+@ mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+             side_effect=_get_test_state_names)
 @ mock.patch('ingestion.gcs_to_bq_util.load_json_as_df_from_data_dir_based_on_key',
              side_effect=_get_test_json_as_df_based_on_key)
 @ mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
@@ -188,7 +199,8 @@ def testWriteToBq(mock_bq: mock.MagicMock,
                   mock_data_dir_csv: mock.MagicMock,
                   mock_data_dir_json: mock.MagicMock,
                   mock_pop_data: mock.MagicMock,
-                  mock_data_dir_based_on_key_data: mock.MagicMock):
+                  mock_data_dir_based_on_key_data: mock.MagicMock,
+                  mock_bq_state_names: mock.MagicMock):
 
     cawp_data = CAWPData()
 
@@ -205,6 +217,7 @@ def testWriteToBq(mock_bq: mock.MagicMock,
     mock_data_dir_json.assert_called_once
     mock_pop_data.assert_called_once
     mock_data_dir_based_on_key_data.assert_called_once
+    mock_bq_state_names.assert_called_once
 
     expected_dtype = {
         'state_name': str,
