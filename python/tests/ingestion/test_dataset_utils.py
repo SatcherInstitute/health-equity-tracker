@@ -106,7 +106,7 @@ _pop_data = [
     ['100', 'BLACK_NH', '100', '50'],
 ]
 
-_expected_merged_with_pop_numnbers = [
+_expected_merged_with_pop_numbers = [
     ['state_fips', 'race_category_id', 'population', 'population_pct', 'other_col'],
     ['01', 'BLACK_NH', '100', '25', 'something_cool'],
     ['01', 'WHITE_NH', '300', '75', 'something_else_cool'],
@@ -225,7 +225,7 @@ def testMergePopNumbers(mock_bq: mock.MagicMock):
         json.dumps(_data_without_pop_numbers), dtype=str).reset_index(drop=True)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_merged_with_pop_numnbers), dtype=str).reset_index(drop=True)
+        json.dumps(_expected_merged_with_pop_numbers), dtype=str).reset_index(drop=True)
 
     df = dataset_utils.merge_pop_numbers(df, 'race', 'state')
 
