@@ -158,7 +158,7 @@ def _get_fips_codes_as_df():
 def _get_pop_data_as_df(*args):
 
     # intercept mock call for territories and reroute
-    if args[1] == "by_race_and_ethnicity_territory":
+    if args[1].endswith("_territory"):
         return _get_pop_2010_data_as_df()
 
     # regular mock call
