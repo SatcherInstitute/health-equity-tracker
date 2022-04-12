@@ -1,0 +1,10 @@
+state_fips,state_name,sex,population,population_pct
+06,California,Female,60,60.0
+06,California,Male,40,40.0
+06,California,Total,100,100.0
+10,Delaware,Female,2516895,51.6
+10,Delaware,Male,2359355,48.4
+10,Delaware,Total,4876250,100.0
+15,Hawaii,Female,2516895,51.6
+15,Hawaii,Male,2359355,48.4
+15,Hawaii,Total,4876250,100.0
