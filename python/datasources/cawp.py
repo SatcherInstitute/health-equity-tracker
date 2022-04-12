@@ -103,16 +103,6 @@ def get_standard_code_from_cawp_phrase(cawp_place_phrase: str):
     return place_code
 
 
-def get_alt_place_name(cawp_place_name: str):
-    """ Accepts a CAWP place name and returns the standardized
-    name used by the rest of our code """
-    place_name = {"U.S. Virgin Islands":
-                  "United States Virgin Islands"}.get(
-        cawp_place_name, cawp_place_name)
-
-    return place_name
-
-
 def remove_markup(datum: str):
     """Returns the string with any asterisks and/r italics markup removed """
     datum = str(datum)
@@ -142,8 +132,10 @@ def count_matching_rows(df, place_name: str, gov_level: str, race_to_match: str)
     if race_to_match != "Multiracial Alone":
         return len(df_race_matches.index)
 
-    # sum "Multiracial Alone" + ", " (women who have a race list)
-    # with "Other" to form "Women of two or more races or an unrepresented race"
+    # combine 3 CAWP categorizations to form MULTI_OR_OTHER_STANDARD
+    # - "Multiracial Alone"
+    # - ", " (women who have a list of specific races)
+    # - "Other"
     df_race_list_matches = df[(df[RACE_COL].str.contains(", "))]
     df_race_other_matches = df[(df[RACE_COL].str.contains("Other"))]
 
@@ -362,13 +354,5 @@ class CAWPData(DataSource):
         output_df = merge_pop_numbers(output_df, std_col.RACE_COL, level)
         output_df = output_df.drop(columns=[std_col.POPULATION_COL])
         std_col.add_race_columns_from_category_id(output_df)
-
-        # print("before")
-        print(output_df.to_string())
-        # output_df[std_col.STATE_NAME_COL] = output_df[std_col.STATE_NAME_COL].apply(
-        #     get_alt_place_name)
-
-        # print("after")
-        # print(output_df.to_string())
 
         return output_df
