@@ -2,7 +2,6 @@ import { getDataManager } from "../../utils/globals";
 import { MetricId } from "../config/MetricConfig";
 import { Breakdowns } from "../query/Breakdowns";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { USA_FIPS } from "../utils/Fips";
 import AcsPopulationProvider, {
   GetAcsDatasetId,
 } from "./AcsPopulationProvider";
@@ -79,12 +78,6 @@ class CawpProvider extends VariableProvider {
       "acs_2010_population-by_race_and_ethnicity_territory", // We merge this in on the backend
       "propublica_congress" // we merge on backend only for US Congress datatype; not sure how to restrict based on active datatype
     );
-
-    // if (breakdowns.geography === "national") {
-    //   df = df.where((row) => row.fips === USA_FIPS);
-    // } else if (breakdowns.geography === "state") {
-    //   df = df.where((row) => row.fips !== USA_FIPS);
-    // }
 
     df = df.renameSeries({
       population_pct: "cawp_population_pct",

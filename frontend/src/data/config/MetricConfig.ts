@@ -4,8 +4,6 @@
 // TODO: integrate strings from Category / Madlib into the Metric Config
 // so ALL related topic data is contained in a single object
 
-import { CAWP_DETERMINANTS } from "../variables/CawpProvider";
-
 export type DropdownVarId =
   | "covid"
   | "diabetes"
@@ -1125,7 +1123,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Women in US Congress",
       variableFullDisplayName: "Women in US Congress",
       surveyCollectedData: true,
-      variableDefinition: `Women serving in Congress of the United States, including members of the Senate and members of the House of Representatives (including territorial delegates). Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.`,
+      variableDefinition: `Individuals identifying as women who are currently serving in the Congress of the United States, including members of the U.S. Senate and members of the U.S. House of Representatives (including territorial delegates and resident commissioner). Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.`,
       metrics: {
         per100k: {
           metricId: "women_us_congress_pct",
@@ -1165,7 +1163,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: "Women in State Legislatures", // DATA TOGGLE
       variableFullDisplayName: "Women in State Legislatures", // TABLE TITLE,
       surveyCollectedData: true,
-      variableDefinition: `Women serving in their state or territory’s legislatures, including Senate and House of Representatives or Unicameral bodies as applicable. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.
+      variableDefinition: `Individuals identifying as women currently serving in their state or territory’s legislature, including Senate and House of Representatives or Unicameral bodies as applicable. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.
       `,
       metrics: {
         per100k: {
