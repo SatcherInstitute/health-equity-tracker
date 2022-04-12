@@ -199,10 +199,8 @@ def merge_pop_numbers(df, demo, loc):
             'acs_2010_population', pop_2010_table_name, pop_dtype)
 
         if len(pop_2010_df.index) > 0:
-
             pop_2010_df = pop_2010_df[[std_col.STATE_FIPS_COL, on_col_map[demo],
                                        std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]]
-
             pop_df = pd.concat([pop_df, pop_2010_df])
             pop_df = pop_df.sort_values(std_col.STATE_FIPS_COL)
 
