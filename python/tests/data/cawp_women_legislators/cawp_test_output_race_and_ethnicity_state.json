@@ -47,13 +47,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "01",
-        "population_pct": 1.9,
-        "race": "Two or more races",
+        "population_pct": 3.3,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Alabama",
@@ -173,13 +173,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "02",
-        "population_pct": 8.2,
-        "race": "Two or more races",
+        "population_pct": 9.8,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Alaska",
@@ -299,13 +299,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "60",
-        "population_pct": 2.7,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "American Samoa",
@@ -425,13 +425,13 @@
         "women_state_leg_pct_share": 7.7,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "04",
-        "population_pct": 3.7,
-        "race": "Two or more races",
+        "population_pct": 10.3,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Arizona",
@@ -551,13 +551,13 @@
         "women_state_leg_pct_share": 3.2,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "05",
-        "population_pct": 2.7,
-        "race": "Two or more races",
+        "population_pct": 5.5,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Arkansas",
@@ -677,13 +677,13 @@
         "women_state_leg_pct_share": 2.7,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "06",
-        "population_pct": 4.9,
-        "race": "Two or more races",
+        "population_pct": 18.8,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "California",
@@ -803,13 +803,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "08",
-        "population_pct": 3.7,
-        "race": "Two or more races",
+        "population_pct": 7.5,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Colorado",
@@ -929,13 +929,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "09",
-        "population_pct": 3.3,
-        "race": "Two or more races",
+        "population_pct": 8.5,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Connecticut",
@@ -1055,13 +1055,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "10",
-        "population_pct": 2.8,
-        "race": "Two or more races",
+        "population_pct": 4.7,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Delaware",
@@ -1181,13 +1181,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "11",
-        "population_pct": 3.1,
-        "race": "Two or more races",
+        "population_pct": 8.1,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "District of Columbia",
@@ -1307,13 +1307,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "12",
-        "population_pct": 2.7,
-        "race": "Two or more races",
+        "population_pct": 5.7,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Florida",
@@ -1433,13 +1433,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "13",
-        "population_pct": 2.6,
-        "race": "Two or more races",
+        "population_pct": 5.4,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Georgia",
@@ -1559,13 +1559,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "66",
-        "population_pct": null,
-        "race": "Two or more races",
+        "population_pct": 9.4,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Guam",
@@ -1685,13 +1685,13 @@
         "women_state_leg_pct_share": 11.5,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "15",
-        "population_pct": 23.9,
-        "race": "Two or more races",
+        "population_pct": 25.1,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Hawaii",
@@ -1811,13 +1811,13 @@
         "women_state_leg_pct_share": 3.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "16",
-        "population_pct": 2.9,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Idaho",
@@ -1937,13 +1937,13 @@
         "women_state_leg_pct_share": 2.7,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "17",
-        "population_pct": 2.6,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Illinois",
@@ -2063,13 +2063,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "18",
-        "population_pct": 2.5,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Indiana",
@@ -2189,13 +2189,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "19",
-        "population_pct": 2.1,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Iowa",
@@ -2315,13 +2315,13 @@
         "women_state_leg_pct_share": 4.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "20",
-        "population_pct": 3.5,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Kansas",
@@ -2441,13 +2441,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "21",
-        "population_pct": 2.3,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Kentucky",
@@ -2567,13 +2567,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "22",
-        "population_pct": 2.0,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Louisiana",
@@ -2693,13 +2693,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "23",
-        "population_pct": 2.2,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Maine",
@@ -2819,13 +2819,13 @@
         "women_state_leg_pct_share": 2.4,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "24",
-        "population_pct": 3.4,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Maryland",
@@ -2945,13 +2945,13 @@
         "women_state_leg_pct_share": 5.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "25",
-        "population_pct": 3.3,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Massachusetts",
@@ -3071,13 +3071,13 @@
         "women_state_leg_pct_share": 3.8,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "26",
-        "population_pct": 2.9,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Michigan",
@@ -3197,13 +3197,13 @@
         "women_state_leg_pct_share": 5.6,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "27",
-        "population_pct": 3.0,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Minnesota",
@@ -3323,13 +3323,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "28",
-        "population_pct": 1.4,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Mississippi",
@@ -3449,13 +3449,13 @@
         "women_state_leg_pct_share": 3.9,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "29",
-        "population_pct": 2.6,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Missouri",
@@ -3575,13 +3575,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "30",
-        "population_pct": 3.1,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Montana",
@@ -3701,13 +3701,13 @@
         "women_state_leg_pct_share": 7.7,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "31",
-        "population_pct": 2.6,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Nebraska",
@@ -3827,13 +3827,13 @@
         "women_state_leg_pct_share": 10.8,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "32",
-        "population_pct": 4.9,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Nevada",
@@ -3953,13 +3953,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "33",
-        "population_pct": 2.1,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "New Hampshire",
@@ -4079,13 +4079,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "34",
-        "population_pct": 2.7,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "New Jersey",
@@ -4201,17 +4201,17 @@
     },
     {
         "state_name": "New Mexico",
-        "women_state_leg_pct": 0.9,
-        "women_state_leg_pct_share": 2.1,
+        "women_state_leg_pct": 1.8,
+        "women_state_leg_pct_share": 4.2,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "35",
-        "population_pct": 3.3,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "New Mexico",
@@ -4331,13 +4331,13 @@
         "women_state_leg_pct_share": 2.7,
         "women_us_congress_pct": 3.4,
         "women_us_congress_pct_share": 10.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "36",
-        "population_pct": 3.1,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "New York",
@@ -4457,13 +4457,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "37",
-        "population_pct": 2.7,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "North Carolina",
@@ -4583,13 +4583,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "38",
-        "population_pct": 2.6,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "North Dakota",
@@ -4709,13 +4709,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "69",
-        "population_pct": null,
-        "race": "Two or more races",
+        "population_pct": 12.7,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Northern Mariana Islands",
@@ -4835,13 +4835,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "39",
-        "population_pct": 2.9,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Ohio",
@@ -4961,13 +4961,13 @@
         "women_state_leg_pct_share": 16.1,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "40",
-        "population_pct": 7.7,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Oklahoma",
@@ -5087,13 +5087,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "41",
-        "population_pct": 4.8,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Oregon",
@@ -5213,13 +5213,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "42",
-        "population_pct": 2.5,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Pennsylvania",
@@ -5339,13 +5339,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "72",
-        "population_pct": 5.3,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Puerto Rico",
@@ -5465,13 +5465,13 @@
         "women_state_leg_pct_share": 6.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "44",
-        "population_pct": 3.3,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Rhode Island",
@@ -5591,13 +5591,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "45",
-        "population_pct": 2.3,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "South Carolina",
@@ -5717,13 +5717,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "46",
-        "population_pct": 2.6,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "South Dakota",
@@ -5843,13 +5843,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "47",
-        "population_pct": 2.2,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Tennessee",
@@ -5969,13 +5969,13 @@
         "women_state_leg_pct_share": 4.1,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "48",
-        "population_pct": 2.7,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Texas",
@@ -6095,13 +6095,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "78",
-        "population_pct": 2.1,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "U.S. Virgin Islands",
@@ -6221,13 +6221,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "49",
-        "population_pct": 3.0,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Utah",
@@ -6347,13 +6347,13 @@
         "women_state_leg_pct_share": 2.7,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "50",
-        "population_pct": 2.0,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Vermont",
@@ -6473,13 +6473,13 @@
         "women_state_leg_pct_share": 2.1,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "51",
-        "population_pct": 3.8,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Virginia",
@@ -6599,13 +6599,13 @@
         "women_state_leg_pct_share": 3.2,
         "women_us_congress_pct": 8.3,
         "women_us_congress_pct_share": 12.5,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "53",
-        "population_pct": 5.9,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Washington",
@@ -6725,13 +6725,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "54",
-        "population_pct": 1.8,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "West Virginia",
@@ -6851,13 +6851,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "55",
-        "population_pct": 2.4,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Wisconsin",
@@ -6977,13 +6977,13 @@
         "women_state_leg_pct_share": 0.0,
         "women_us_congress_pct": 0.0,
         "women_us_congress_pct_share": 0.0,
-        "race_category_id": "MULTI",
-        "race_women": "Women of two or more races",
+        "race_category_id": "MULTI_OR_OTHER_STANDARD",
+        "race_women": "Two or more races & Unrepresented race Women",
         "state_fips": "56",
-        "population_pct": 2.7,
-        "race": "Two or more races",
+        "population_pct": null,
+        "race": "Two or more races & Unrepresented race",
         "race_includes_hispanic": true,
-        "race_and_ethnicity": "Two or more races"
+        "race_and_ethnicity": "Two or more races & Unrepresented race"
     },
     {
         "state_name": "Wyoming",

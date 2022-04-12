@@ -154,24 +154,15 @@ def _get_test_json_as_df(*args):
 
 def _get_test_json_as_df_based_on_key(*args):
 
-    [_mock_data_folder, mock_data_filename, _mock_data_key] = args
+    [_mock_data_folder, mock_data_filename, mock_data_keys] = args
 
     test_json_filename = os.path.join(
         TEST_DIR, f'test_input_{mock_data_filename}')
 
-    # print("^^^")
-    # print(test_json_filename)
-    # print("^^^")
-
     with open(test_json_filename) as data_file:
         data = json.load(data_file)
 
-    df = pd.json_normalize(data, ['results', 'members'])
-
-    print(df.to_string())
-
-    # print("****")
-
+    df = pd.json_normalize(data, mock_data_keys)
     return df
 
 

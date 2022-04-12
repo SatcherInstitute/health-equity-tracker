@@ -35,7 +35,7 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
     'Latina': Race.HISP.value,
     'Middle Eastern/North African': Race.MENA.value,
     # MULTI = "Multiracial Alone" + women w multiple specific races
-    'Multiracial Alone': Race.MULTI.value,
+    'Multiracial Alone': Race.MULTI_OR_OTHER_STANDARD.value,
     'Native American/Alaska Native/Native Hawaiian': Race.AIANNH.value,
     'Black': Race.BLACK.value,
     'White': Race.WHITE.value,
@@ -44,13 +44,7 @@ CAWP_RACE_GROUPS_TO_STANDARD = {
 }
 
 CAWP_DATA_TYPES = {
-    # TODO : this is causing a miscount for territories,
-    # because territorial governors share the "Territorial/D.C." 'level' column of gov
-    # instead need to match the ['position'] column for
-    # for ["Territorial/D.C. Senator", "Territorial/D.C. Representative", "State Legislative"]
-    # STATE: ["Territorial/D.C.", "State Legislative"],
     STATE: ["Territorial/D.C. Senator", "Territorial/D.C. Representative", "State Representative", "State Senator"],
-    # NATIONAL: ["U.S. Delegate", "Congress"],
     NATIONAL: ["U.S. Representative", "U.S. Senator", "U.S. Delegate"]
 }
 
@@ -75,7 +69,7 @@ def get_women_only_race_group(race_code: str):
 
     women_race_overrides = {
         Race.HISP.value: 'Hispanic Women and Latinas',
-        Race.MULTI.value: 'Women of two or more races',
+        Race.MULTI.value: 'Women of two or more races or an unrepresented race',
         Race.UNKNOWN.value: 'Women of unknown race',
     }
 
@@ -138,10 +132,12 @@ def count_matching_rows(df, place_name: str, gov_level: str, race_to_match: str)
     if race_to_match != "Multiracial Alone":
         return len(df_race_matches.index)
 
-    # sum "Multiracial Alone" + ", " for women who a race list
+    # sum "Multiracial Alone" + ", " (women who have a race list)
+    # with "Other" to form "Women of two or more races or an unrepresented race"
     df_race_list_matches = df[(df[RACE_COL].str.contains(", "))]
+    df_race_other_matches = df[(df[RACE_COL].str.contains("Other"))]
 
-    return len(df_race_matches.index) + len(df_race_list_matches.index)
+    return len(df_race_matches.index) + len(df_race_list_matches.index) + len(df_race_other_matches.index)
 
 
 CAWP_LINE_ITEMS_FILE = "cawp-by_race_and_ethnicity.csv"
@@ -209,11 +205,11 @@ class CAWPData(DataSource):
 
         # load in and combine PROPUBLICA US CONGRESS tables with members by state
         df_us_house = gcs_to_bq_util.load_json_as_df_from_data_dir_based_on_key(
-            'cawp', PROPUB_US_HOUSE_FILE, "members")
-        print(df_us_house)
+            'cawp', PROPUB_US_HOUSE_FILE, ["results", "members"])
         df_us_senate = gcs_to_bq_util.load_json_as_df_from_data_dir_based_on_key(
-            'cawp', PROPUB_US_SENATE_FILE, "members")
+            'cawp', PROPUB_US_SENATE_FILE, ["results", "members"])
         df_us_house = df_us_house[df_us_house[IN_OFFICE_COL]]
+
         df_us_senate = df_us_senate[df_us_senate[IN_OFFICE_COL]]
         df_us_house = df_us_house[[STATE]]
         df_us_senate = df_us_senate[[STATE]]
