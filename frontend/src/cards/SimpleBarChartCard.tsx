@@ -38,6 +38,9 @@ export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
 function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const metricConfig = props.variableConfig.metrics["per100k"];
 
+  const isPct =
+    metricConfig.type === "pct_share" || metricConfig.type === "pct";
+
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     exclude(NON_HISPANIC)
@@ -82,7 +85,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                 metric={metricConfig}
                 showLegend={false}
                 filename={getTitleText()}
-                usePercentSuffix={metricConfig.type === "pct_share"}
+                usePercentSuffix={isPct}
               />
             )}
           </CardContent>

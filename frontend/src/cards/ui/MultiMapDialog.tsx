@@ -8,7 +8,10 @@ import { ChoroplethMap } from "../../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../../data/utils/Fips";
 import { Legend } from "../../charts/Legend";
 import { MapOfDatasetMetadata } from "../../data/utils/DatasetTypes";
-import { MetricConfig, MetricType } from "../../data/config/MetricConfig";
+import {
+  MetricConfig,
+  SYMBOL_TYPE_LOOKUP,
+} from "../../data/config/MetricConfig";
 import { Row, FieldRange } from "../../data/utils/DatasetTypes";
 import { Sources } from "./Sources";
 import styles from "./MultiMapDialog.module.scss";
@@ -23,16 +26,6 @@ import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
 } from "../../data/variables/CawpProvider";
-
-export const symbolTypeLookup: Record<MetricType, string> = {
-  per100k: "per 100k",
-  pct_share: "%",
-  count: "people",
-  index: "",
-  pct_share_to_pop_ratio: "",
-  ratio: "×",
-  percentile: "%",
-};
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -188,7 +181,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             <Box mt={pageIsWide ? 10 : 0}>
               <Grid container item>
                 <Grid container justifyContent="center">
-                  <b>Legend ({symbolTypeLookup[props.metricConfig.type]})</b>
+                  <b>Legend ({SYMBOL_TYPE_LOOKUP[props.metricConfig.type]})</b>
                 </Grid>
                 <Grid container justifyContent="center">
                   <Legend
