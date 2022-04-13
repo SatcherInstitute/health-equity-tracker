@@ -1144,7 +1144,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         pct_share: {
           metricId: "women_us_congress_pct_share",
           fullCardTitleName: "Percent Share of Women US Congress Members",
-          shortLabel: "% share of women members",
+          shortLabel: "% of women members",
           type: "pct_share",
           populationComparisonMetric: {
             metricId: "cawp_population_pct",
@@ -1155,7 +1155,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           knownBreakdownComparisonMetric: {
             metricId: "women_us_congress_pct_share",
             fullCardTitleName: "Percent Share of Women US Congress Members",
-            shortLabel: "% share of women members",
+            shortLabel: "% of women members",
             type: "pct_share",
           },
         },
@@ -1196,7 +1196,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           knownBreakdownComparisonMetric: {
             metricId: "women_state_leg_pct_share",
             fullCardTitleName: "Percent Share of Women State Legislators", // TABLE COL HEADER
-            shortLabel: "% share of women legislators", // UNKNOWNS MAP ALERT, DISPARITY BAR LABELS/AXIS
+            shortLabel: "% of women legislators", // UNKNOWNS MAP ALERT, DISPARITY BAR LABELS/AXIS
             type: "pct_share",
           },
         },
